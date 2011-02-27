@@ -54,7 +54,7 @@ public:
 	content() const = 0;
 
 	virtual renderer::resource_flags_field const
-	flags() const = 0;
+	resource_flags() const = 0;
 
 	virtual renderer::texture::capabilities_field const
 	capabilities() const = 0;

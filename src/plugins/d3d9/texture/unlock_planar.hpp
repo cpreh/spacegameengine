@@ -18,37 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_FUNCTIONS_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_FUNCTIONS_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_UNLOCK_PLANAR_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_UNLOCK_PLANAR_HPP_INCLUDED
 
-#include "d3dinclude.hpp"
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/texture_filter.hpp>
-#include <sge/renderer/volume_texture.hpp>
+#include "../d3d_texture_ptr.hpp"
+#include <sge/renderer/stage_type.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace texture
+{
 
-/*
-IDirect3DVolumeTexture9* create_volume_texture(
-	d3d_device_ptr,
-	const volume_texture::box_type& box,
-	const filter_args& filter,
-	resource_flag_t flags,
-	bool system_mem);
+void
+unlock_planar(
+	d3d9::d3d_texture_ptr,
+	sge::renderer::stage_type
+);
 
-sge::volume_texture::pointer
-lock_volume_texture(
-	d3d_volume_texture_ptr,
-	const lock_box* box,
-	lock_flag_t lflags,
-	resource_flag_t rflags);
-
-void unlock_volume_texture(
-	d3d_volume_texture_ptr);
-*/
+}
 }
 }
 

@@ -18,37 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_FUNCTIONS_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_FUNCTIONS_HPP_INCLUDED
+#ifndef SGE_D3D9_D3D_BASE_TEXTURE_PTR_HPP_INCLUDED
+#define SGE_D3D9_D3D_BASE_TEXTURE_PTR_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/texture_filter.hpp>
-#include <sge/renderer/volume_texture.hpp>
+#include <fcppt/shared_ptr.hpp>
+#include <fcppt/com_deleter.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
 
-/*
-IDirect3DVolumeTexture9* create_volume_texture(
-	d3d_device_ptr,
-	const volume_texture::box_type& box,
-	const filter_args& filter,
-	resource_flag_t flags,
-	bool system_mem);
+typedef fcppt::shared_ptr<
+	IDirect3DBaseTexture9,
+	fcppt::com_deleter
+> d3d_base_texture_ptr;
 
-sge::volume_texture::pointer
-lock_volume_texture(
-	d3d_volume_texture_ptr,
-	const lock_box* box,
-	lock_flag_t lflags,
-	resource_flag_t rflags);
-
-void unlock_volume_texture(
-	d3d_volume_texture_ptr);
-*/
 }
 }
 

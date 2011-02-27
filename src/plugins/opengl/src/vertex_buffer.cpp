@@ -162,7 +162,7 @@ sge::opengl::vertex_buffer::size() const
 }
 
 sge::renderer::resource_flags_field const
-sge::opengl::vertex_buffer::flags() const
+sge::opengl::vertex_buffer::resource_flags() const
 {
 	return buffer_.flags();
 }

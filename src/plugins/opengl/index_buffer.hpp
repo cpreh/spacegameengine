@@ -79,7 +79,7 @@ private:
 	size() const;
 
 	renderer::resource_flags_field const
-	flags() const;
+	resource_flags() const;
 
 	renderer::index::dynamic::format::type
 	format() const;

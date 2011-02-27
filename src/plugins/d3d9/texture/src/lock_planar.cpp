@@ -18,38 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_FUNCTIONS_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_FUNCTIONS_HPP_INCLUDED
+#include "../lock_planar.hpp"
+#include "../../convert/rect.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 
-#include "d3dinclude.hpp"
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/texture_filter.hpp>
-#include <sge/renderer/volume_texture.hpp>
-
-namespace sge
+D3DLOCKED_RECT const
+sge::d3d9::texture::lock_planar(
+	d3d9::d3d_texture_ptr const _texture,
+	sge::renderer::stage_type const _stage,
+	d3d9::texture::optional_lock_rect const &_rect,
+	d3d9::lock_flags const _flags
+)
 {
-namespace d3d9
-{
+	D3DLOCKED_RECT ret;
 
-/*
-IDirect3DVolumeTexture9* create_volume_texture(
-	d3d_device_ptr,
-	const volume_texture::box_type& box,
-	const filter_args& filter,
-	resource_flag_t flags,
-	bool system_mem);
+	RECT in_rect = {};
 
-sge::volume_texture::pointer
-lock_volume_texture(
-	d3d_volume_texture_ptr,
-	const lock_box* box,
-	lock_flag_t lflags,
-	resource_flag_t rflags);
+	if(
+		_rect
+	)
+		in_rect =
+			d3d9::convert::rect(
+				_*rect
+			);
 
-void unlock_volume_texture(
-	d3d_volume_texture_ptr);
-*/
+	if(
+		_texture->LockRect(
+			_stage.get(),
+			&ret,
+			_rect
+			?
+				&in_rect
+			:
+				NULL,
+			_flags.get()
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("LockRect() failed!")
+		);
+
+	return ret;
 }
-}
-
-#endif

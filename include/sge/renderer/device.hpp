@@ -98,19 +98,19 @@ public:
 
 	virtual void
 	render(
-		const_index_buffer_ptr,
-		first_vertex,
-		vertex_count,
-		indexed_primitive_type::type ptype,
-		primitive_count,
-		first_index
+		renderer::const_index_buffer_ptr,
+		renderer::first_vertex,
+		renderer::vertex_count,
+		renderer::indexed_primitive_type::type ptype,
+		renderer::primitive_count,
+		renderer::first_index
 	) = 0;
 
 	virtual void
 	render(
-		first_vertex,
-		vertex_count,
-		nonindexed_primitive_type::type ptype
+		renderer::first_vertex,
+		renderer::vertex_count,
+		renderer::nonindexed_primitive_type::type ptype
 	) = 0;
 
 	virtual void
@@ -148,25 +148,25 @@ public:
 
 	virtual void
 	enable_light(
-		light_index,
+		renderer::light_index,
 		bool enable
 	) = 0;
 
 	virtual void
 	light(
-		light_index,
+		renderer::light_index,
 		renderer::light const &
 	) = 0;
 
 	virtual void
 	enable_clip_plane(
-		clip_plane_index,
+		renderer::clip_plane_index,
 		bool enable
 	) = 0;
 
 	virtual void
 	clip_plane(
-		clip_plane_index,
+		renderer::clip_plane_index,
 		renderer::clip_plane const &
 	) = 0;
 
@@ -177,28 +177,28 @@ public:
 
 	virtual void
 	sampler_stage_op(
-		stage_type,
+		renderer::stage_type,
 		renderer::sampler_stage_op::type,
 		renderer::sampler_stage_op_value::type
 	) = 0;
 
 	virtual void
 	sampler_stage_arg(
-		stage_type,
+		renderer::stage_type,
 		renderer::sampler_stage_arg::type,
 		renderer::sampler_stage_arg_value::type
 	) = 0;
 
 	virtual void
 	texture(
-		texture::const_base_ptr,
-		stage_type
+		renderer::texture::const_base_ptr,
+		renderer::stage_type
 	) = 0;
 
 	virtual void
 	transform(
-		matrix_mode::type,
-		matrix4 const &
+		renderer::matrix_mode::type,
+		renderer::matrix4 const &
 	) = 0;
 
 	virtual void
@@ -206,17 +206,17 @@ public:
 		renderer::target_ptr
 	) = 0;
 
-	virtual glsl::program_ptr const
+	virtual renderer::glsl::program_ptr const
 	create_glsl_program() = 0;
 
-	virtual glsl::vertex_shader_ptr const
+	virtual renderer::glsl::vertex_shader_ptr const
 	create_glsl_vertex_shader(
-		glsl::string const &
+		renderer::glsl::string const &
 	) = 0;
 
-	virtual glsl::pixel_shader_ptr const
+	virtual renderer::glsl::pixel_shader_ptr const
 	create_glsl_pixel_shader(
-		glsl::string const &
+		renderer::glsl::string const &
 	) = 0;
 
 	virtual void
@@ -267,11 +267,11 @@ public:
 		renderer::resource_flags_field const &
 	) = 0;
 
-	virtual index_buffer_ptr const
+	virtual renderer::index_buffer_ptr const
 	create_index_buffer(
-		index::dynamic::format::type,
-		size_type size,
-		resource_flags_field const &
+		renderer::index::dynamic::format::type,
+		renderer::size_type size,
+		renderer::resource_flags_field const &
 	) = 0;
 
 	virtual renderer::onscreen_target_ptr const

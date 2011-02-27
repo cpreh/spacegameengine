@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "base.hpp"
 #include "../d3d_device_ptr.hpp"
 #include "../d3dinclude.hpp"
+#include "../usage.hpp"
 #include "../resource.hpp"
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -46,7 +47,7 @@ class basic
 	public d3d9::texture::base,
 	public d3d9::resource
 {
-	FCPPT_NONCYOPABLE(
+	FCPPT_NONCOPYABLE(
 		basic
 	);
 public:
@@ -65,8 +66,14 @@ protected:
 	d3d9::d3d_device_ptr const
 	device() const;
 
+	D3DPOOL
+	pool() const;
+
+	d3d9::usage const
+	usage() const;
+
 	sge::renderer::resource_flags_field const 
-	flags() const;
+	resource_flags() const;
 
 	sge::renderer::texture::capabilities_field const
 	capabilities() const;

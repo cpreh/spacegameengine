@@ -197,7 +197,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 			this->dim().content(),
 			_lock_area.content(),
 			this->stride(),
-			this->flags()
+			this->resource_flags()
 		)
 	);
 
@@ -473,7 +473,7 @@ template<
 	typename Types
 >
 sge::renderer::resource_flags_field const
-sge::opengl::texture::basic<Types>::flags() const
+sge::opengl::texture::basic<Types>::resource_flags() const
 {
 	return resource_flags_;
 }

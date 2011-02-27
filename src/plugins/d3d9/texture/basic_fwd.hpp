@@ -25,12 +25,15 @@ namespace sge
 {
 namespace d3d9
 {
+namespace texture
+{
 
 template<
 	typename Types
 >
 class basic;
 
+}
 }
 }
 

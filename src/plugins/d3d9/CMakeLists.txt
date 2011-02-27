@@ -4,6 +4,7 @@ SET(
 	src/plugins/d3d9/convert/indexed_primitive.hpp
 	src/plugins/d3d9/convert/lock_mode.hpp
 	src/plugins/d3d9/convert/nonindexed_primitive.hpp
+	src/plugins/d3d9/convert/rect.hpp
 	src/plugins/d3d9/convert/resource_flags.hpp
 	src/plugins/d3d9/convert/resource_flags_to_pool.hpp
 	src/plugins/d3d9/convert/sampler_stage_arg.hpp
@@ -14,6 +15,7 @@ SET(
 	src/plugins/d3d9/convert/src/indexed_primitive.cpp
 	src/plugins/d3d9/convert/src/lock_mode.cpp
 	src/plugins/d3d9/convert/src/nonindexed_primitive.cpp
+	src/plugins/d3d9/convert/src/rect.cpp
 	src/plugins/d3d9/convert/src/resource_flags.cpp
 	src/plugins/d3d9/convert/src/resource_flags_to_pool.cpp
 	src/plugins/d3d9/convert/src/sampler_stage_arg.cpp
@@ -26,6 +28,7 @@ SET(
 	src/plugins/d3d9/convert/vertex_type.hpp
 	src/plugins/d3d9/create_caps.hpp
 	src/plugins/d3d9/create_device.hpp
+	src/plugins/d3d9/d3d_base_texture_ptr.hpp
 	src/plugins/d3d9/d3d_cube_texture_ptr.hpp
 	src/plugins/d3d9/d3d_device_ptr.hpp
 	src/plugins/d3d9/d3d_index_buffer_ptr.hpp
@@ -38,6 +41,7 @@ SET(
 	src/plugins/d3d9/d3dinclude.hpp
 	src/plugins/d3d9/device.hpp
 	src/plugins/d3d9/index_buffer.hpp
+	src/plugins/d3d9/lock_flags.hpp
 	src/plugins/d3d9/parameters/convert/bit_depth.hpp
 	src/plugins/d3d9/parameters/convert/depth_stencil_buffer.hpp
 	src/plugins/d3d9/parameters/convert/multi_sample.hpp
@@ -68,6 +72,7 @@ SET(
 	src/plugins/d3d9/src/target.cpp
 	src/plugins/d3d9/src/texture_functions.cpp
 	src/plugins/d3d9/src/transform.cpp
+	src/plugins/d3d9/src/update.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
 	src/plugins/d3d9/system.hpp
@@ -82,19 +87,31 @@ SET(
 	src/plugins/d3d9/texture/cube.hpp
 	src/plugins/d3d9/texture/cube_basic.hpp
 	src/plugins/d3d9/texture/cube_types.hpp
+	src/plugins/d3d9/texture/lock_planar.hpp
+	src/plugins/d3d9/texture/optional_lock_rect.hpp
+	src/plugins/d3d9/texture/optional_locked_rect.hpp
 	src/plugins/d3d9/texture/planar.hpp
+	src/plugins/d3d9/texture/planar_basic.hpp
+	src/plugins/d3d9/texture/planar_types.hpp
 	src/plugins/d3d9/texture/pool.hpp
 	src/plugins/d3d9/texture/src/base.cpp
 	src/plugins/d3d9/texture/src/create_planar.cpp
 	src/plugins/d3d9/texture/src/cube.cpp
+	src/plugins/d3d9/texture/src/lock_planar.cpp
 	src/plugins/d3d9/texture/src/planar.cpp
 	src/plugins/d3d9/texture/src/pool.cpp
+	src/plugins/d3d9/texture/src/unlock_planar.cpp
 	src/plugins/d3d9/texture/src/usage.cpp
 	src/plugins/d3d9/texture/src/volume.cpp
+	src/plugins/d3d9/texture/unlock_planar.hpp
+	src/plugins/d3d9/texture/update.hpp
 	src/plugins/d3d9/texture/usage.hpp
 	src/plugins/d3d9/texture/volume.hpp
+	src/plugins/d3d9/texture/volume_basic.hpp
+	src/plugins/d3d9/texture/volume_types.hpp
 	src/plugins/d3d9/texture_functions.hpp
 	src/plugins/d3d9/transform.hpp
+	src/plugins/d3d9/usage.hpp
 	src/plugins/d3d9/vertex_buffer.hpp
 	src/plugins/d3d9/vertex_declaration.hpp
 )

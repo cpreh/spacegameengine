@@ -61,16 +61,18 @@ sge::d3d9::device::device(
 		d3d9::create_device(
 			_system,
 			_param,
-			_adapeter,
+			_adapter,
 			_window
 		)
 	),
 	window_(_window),
 	caps_(
-		systemfuncs::create_caps(
-			_caps
+		d3d9::create_caps(
+			_system,
+			_adapter
 		)
-	)
+	),
+	resources_()
 {
 }
 

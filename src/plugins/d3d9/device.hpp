@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICE_HPP_INCLUDED
 
 #include "d3d_ptr.hpp"
+#include "d3d_device_ptr.hpp"
 #include "resource_list.hpp"
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device.hpp>
@@ -46,7 +47,7 @@ public:
 		d3d9::d3d_ptr,
 		renderer::adapter,
 		renderer::parameters const &,
-		window::instance_ptr
+		sge::window::instance_ptr
 	);
 
 	~device();
@@ -59,19 +60,19 @@ public:
 
 	void
 	render(
-		const_index_buffer_ptr,
-		first_vertex,
-		vertex_count,
-		indexed_primitive_type::type ptype,
-		primitive_count,
-		first_index
+		renderer::const_index_buffer_ptr,
+		renderer::first_vertex,
+		renderer::vertex_count,
+		renderer::indexed_primitive_type::type ptype,
+		renderer::primitive_count,
+		renderer::first_index
 	);
 
 	void
 	render(
-		first_vertex,
-		vertex_count,
-		nonindexed_primitive_type::type ptype
+		renderer::first_vertex,
+		renderer::vertex_count,
+		renderer::nonindexed_primitive_type::type ptype
 	);
 
 	void
@@ -147,7 +148,7 @@ public:
 
 	void
 	texture(
-		texture::const_base_ptr,
+		renderer::texture::const_base_ptr,
 		renderer::stage_type
 	);
 
@@ -223,11 +224,11 @@ public:
 		renderer::resource_flags_field const &
 	);
 
-	index_buffer_ptr const
+	renderer::index_buffer_ptr const
 	create_index_buffer(
-		index::dynamic::format::type,
-		size_type size,
-		resource_flags_field const &
+		renderer::index::dynamic::format::type,
+		renderer::size_type size,
+		renderer::resource_flags_field const &
 	);
 
 	renderer::onscreen_target_ptr const
@@ -270,6 +271,8 @@ private:
 	);
 
 	d3d9::d3d_device_ptr const device_;
+
+	sge::window::instance_ptr const window_;
 
 	renderer::caps const caps_;
 

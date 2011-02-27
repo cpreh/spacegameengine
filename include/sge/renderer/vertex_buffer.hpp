@@ -74,7 +74,7 @@ public:
 	size() const = 0;
 
 	virtual resource_flags_field const
-	flags() const = 0;
+	resource_flags() const = 0;
 
 	virtual vf::dynamic::part const
 	format_part() const = 0;

@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_D3D9_INDEX_BUFFER_HPP_INCLUDED
 
+#include "d3d_device_ptr.hpp"
 #include "resource.hpp"
-#include "d3dinclude.hpp"
 #include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
 
 namespace sge
 {
@@ -36,46 +38,67 @@ class index_buffer
 	public sge::renderer::index_buffer,
 	public resource
 {
+	FCPPT_NONCOPYABLE(
+		index_buffer
+	);
 public:
 	index_buffer(
-		d3d_device_ptr,
-		renderer::index::format::type,
+		d3d9::d3d_device_ptr,
+		renderer::index::dynamic::format::type,
 		size_type size,
-		resource_flag_type flags);
+		renderer::resource_flags_field const &
+	);
 
-	size_type size() const;
+	~index_buffer();
 
 	view_type const
 	lock(
-		lock_flag_t flags,
-		size_type first,
-		size_type count);
+		renderer::lock_mode::type,
+		size_type offset,
+		size_type range
+	);
 
 	const_view_type const
 	lock(
-		size_type first,
-		size_type count) const;
+		size_type offse,
+		size_type range
+	) const;
 
-	void unlock() const;
+	void
+	unlock() const;
 
-	resource_flag_type flags() const;
+	size_type
+	size() const;
+
+	renderer::resource_flags_field const
+	resource_flags() const;
+
+	renderer::index::dynamic::format::type
+	format() const;
 private:
-	void init();
+	void
+	init();
 
-	void on_loss();
-	void on_reset();
+	void
+	on_loss();
 
+	void
+	on_reset();
+
+#if 0
 	view_type const
 	lock(
 		DWORD flags,
 		size_type first,
-		size_type count) const;
+		size_type count
+	) const;
 
 	d3d_device_ptr const device_;
 	d3d_index_buffer_ptr buffer;
 	resource_flag_type const flags_;
 	size_type const sz;
 	mutable renderer::raw_pointer lock_dest;
+#endif
 };
 
 }

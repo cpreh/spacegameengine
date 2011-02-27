@@ -21,56 +21,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
 
-#include "basic_texture.hpp"
-#include "d3dinclude.hpp"
-#include <sge/renderer/volume_texture.hpp>
+#include "basic.hpp"
+#include "volume_basic.hpp"
+#include "../d3d_device_ptr.hpp"
+#include "../d3d_volume_texture_ptr.hpp"
+#include <sge/renderer/texture/volume.hpp>
+#include <sge/renderer/texture/volume_parameters.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
-
-namespace detail
+namespace texture
 {
 
-typedef basic_texture<sge::volume_texture> volume_texture_base_type;
-
-}
-
-class renderer;
-
-class volume_texture : public detail::volume_texture_base_type {
+class volume
+:
+	public texture::volume_basic
+{
+	FCPPT_NONCOPYABLE(
+		volume
+	);
 public:
-	volume_texture(
-		renderer& r,
-		d3d_device_ptr device,
-		const_pointer src,
-		const box_type& box,
-		const filter_args& filter,
-		resource_flag_t flags);
+	volume(
+		d3d9::d3d_device_ptr,
+		renderer::texture::volume_parameters const &
+	);
 
-	const box_type box() const;
-	void set_data(const_pointer src);
-	void set_data(const_pointer src, const lock_box& b);
+	~volume();
 
-	void lock(lock_flag_t lflags);
-	void lock(const lock_box&, lock_flag_t lflags);
-	void unlock();
+	dim_type const
+	dim() const;
 
-	pointer data();
-	const_pointer data() const;
+	view_type const
+	lock(
+		lock_area const &,
+		renderer::lock_mode::type
+	);
+
+	const_view_type const
+	lock(
+		lock_area const &
+	) const;
+
+	void
+	unlock() const;
 private:
-	void lock(const lock_box* b, lock_flag_t lflags);
-	void do_loss();
-	IDirect3DBaseTexture9* do_reset();
+	IDirect3DBaseTexture9 *
+	do_reset();
 
-	d3d_device_ptr          device;
-	d3d_volume_texture_ptr  tex;
-	d3d_volume_texture_ptr  temp_tex;
-	pointer                 lock_dest;
-	box_type                box_;
+	d3d9::d3d_volume_texture_ptr
+		texture_,
+		temp_texture_;
 };
 
+}
 }
 }
 

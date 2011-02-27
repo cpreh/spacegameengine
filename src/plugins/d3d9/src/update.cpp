@@ -18,38 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_FUNCTIONS_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_FUNCTIONS_HPP_INCLUDED
+#include "../update.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "d3dinclude.hpp"
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/texture_filter.hpp>
-#include <sge/renderer/volume_texture.hpp>
-
-namespace sge
+void
+sge::d3d9::texture::update(
+	d3d9::d3d_device_ptr const _device,
+	d3d9::d3d_base_texture_ptr const _source,
+	d3d9::d3d_base_texture_ptr const _dest
+)
 {
-namespace d3d9
-{
-
-/*
-IDirect3DVolumeTexture9* create_volume_texture(
-	d3d_device_ptr,
-	const volume_texture::box_type& box,
-	const filter_args& filter,
-	resource_flag_t flags,
-	bool system_mem);
-
-sge::volume_texture::pointer
-lock_volume_texture(
-	d3d_volume_texture_ptr,
-	const lock_box* box,
-	lock_flag_t lflags,
-	resource_flag_t rflags);
-
-void unlock_volume_texture(
-	d3d_volume_texture_ptr);
-*/
+	if(
+		_device->UpdateTexture(
+			_source.get(),
+			_dest.get()
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("UpdateTexture() failed!")
+		);
 }
-}
-
-#endif

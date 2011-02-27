@@ -156,7 +156,7 @@ sge::opengl::index_buffer::size() const
 }
 
 sge::renderer::resource_flags_field const
-sge::opengl::index_buffer::flags() const
+sge::opengl::index_buffer::resource_flags() const
 {
 	return buffer_.flags();
 }

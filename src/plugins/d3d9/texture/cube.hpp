@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_CUBE_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_CUBE_HPP_INCLUDED
 
+#include "basic.hpp"
 #include "cube_basic.hpp"
 #include "../d3d_cube_texture_ptr.hpp"
 #include "../d3d_device_ptr.hpp"
 #include "../d3dinclude.hpp"
-#include <sge/renderer/texture/cube_parameters_fwd.hpp>
+#include <sge/renderer/texture/cube.hpp>
+#include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_rect.hpp>

@@ -79,13 +79,13 @@ public:
 
 	virtual view_type const
 	lock(
-		box_type const &,
+		lock_area const &,
 		lock_mode::type
 	) = 0;
 
 	virtual const_view_type const
 	lock(
-		lock_box const &
+		lock_area const &
 	) const = 0;
 
 	virtual void
