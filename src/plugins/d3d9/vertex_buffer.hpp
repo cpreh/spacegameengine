@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "d3d_device_ptr.hpp"
 #include "d3d_vertex_buffer_ptr.hpp"
 #include "d3dinclude.hpp"
+#include "lock_flags.hpp"
 #include "resource.hpp"
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
@@ -78,7 +79,7 @@ public:
 	size() const;
 
 	renderer::resource_flags_field const
-	flags() const;
+	resource_flags() const;
 
 	renderer::vf::dynamic::part const
 	format_part() const;
@@ -100,9 +101,9 @@ private:
 	>
 	View const	
 	do_lock(
-		DWORD flags,
 		size_type offset,
-		size_type range
+		size_type range,
+		d3d9::lock_flags
 	) const;
 
 	size_type

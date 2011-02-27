@@ -32,7 +32,7 @@ sge::d3d9::systemfuncs::get_caps(
 	D3DCAPS9 caps;
 
 	if(
-		_sys->GetDeviceCaps(
+		_system->GetDeviceCaps(
 			_adapter.get(),
 			D3DDEVTYPE_HAL,
 			&caps
