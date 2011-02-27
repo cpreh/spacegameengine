@@ -20,50 +20,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../create_device.hpp"
 #include "../d3dinclude.hpp"
-#include "../parameters/create.hpp"
 #include "../parameters/tnl_caps.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/window/instance.hpp>
-#include <awl/backends/windows/window/instance.hpp>
-#include <awl/backends/windows/window/instance_ptr.hpp>
-#include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
 
 sge::d3d9::d3d_device_ptr const
 sge::d3d9::create_device(
 	d3d9::d3d_ptr const _system,
-	renderer::parameters const &_parameters,
 	renderer::adapter const _adapter,
-	sge::window::instance_ptr const _window
+	D3DPRESENT_PARAMETERS &_parameters
 )
 {
-	awl::backends::windows::window::instance_ptr const windows_window(
-		fcppt::dynamic_pointer_cast<
-			awl::backends::windows::window::instance
-		>(
-			_window->awl_instance()
-		)
-	);
-
-	D3DPRESENT_PARAMETERS present_parameters(
-		d3d9::parameters::create(
-			_parameters,
-			windows_window
-		)
-	);
-
 	IDirect3DDevice9 *ret;
 
 	if(
 		_system->CreateDevice(
 			_adapter.get(),
 			D3DDEVTYPE_HAL,
-			windows_window->hwnd(),
+			_parameters.hDeviceWindow,
 			d3d9::parameters::tnl_caps(
 				_system,
 				_adapter
 			),
-			&present_parameters,
+			&_parameters,
 			&ret
 		)
 		!= D3D_OK

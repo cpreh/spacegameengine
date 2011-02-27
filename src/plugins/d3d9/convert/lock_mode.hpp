@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
 #define SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
 
-#include "../d3dinclude.hpp"
+#include "../lock_flags.hpp"
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 
@@ -32,7 +32,7 @@ namespace d3d9
 namespace convert
 {
 
-DWORD
+d3d9::lock_flags const
 lock_mode(
 	renderer::lock_mode::type,
 	renderer::resource_flags_field const &

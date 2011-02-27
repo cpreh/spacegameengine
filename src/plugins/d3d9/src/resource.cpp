@@ -19,21 +19,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../resource.hpp"
+#include "../d3dinclude.hpp"
 
-sge::d3d9::resource::resource()
-{
-}
-
-void
-sge::d3d9::resource::on_loss()
-{
-}
-
-void
-sge::d3d9::resource::on_reset()
+sge::d3d9::resource::resource(
+	D3DPOOL const _pool
+)
+:
+	pool_(_pool)
 {
 }
 
 sge::d3d9::resource::~resource()
 {
+}
+
+void
+sge::d3d9::resource::loss()
+{
+	if(
+		this->needs_reset()
+	)
+		this->on_loss();
+}
+
+void
+sge::d3d9::resource::reset()
+{
+	if(
+		this->needs_reset()
+	)
+		this->on_reset();
+}
+
+D3DPOOL
+sge::d3d9::resource::pool() const
+{
+	return pool_;
+}
+
+bool
+sge::d3d9::resource::needs_reset() const
+{
+	return
+		this->pool()
+		!= D3DPOOL_MANAGED;
 }

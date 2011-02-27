@@ -22,16 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_PLANAR_HPP_INCLUDED
 
 #include "basic.hpp"
+#include "optional_locked_rect.hpp"
 #include "planar_basic.hpp"
 #include "../d3d_device_ptr.hpp"
 #include "../d3d_texture_ptr.hpp"
 #include "../d3dinclude.hpp"
-#include <sge/renderer/texture/planar_parameters_fwd.hpp>
+#include "../lock_flags.hpp"
+#include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 namespace sge
 {
@@ -83,13 +87,28 @@ private:
 	IDirect3DBaseTexture9 *
 	do_reset();
 
-	d3d_texture_ptr
+	void
+	do_loss();
+
+	template<
+		typename View,
+		typename MakeView
+	>
+	View const
+	do_lock(
+		MakeView const &,
+		renderer::lock_rect const &,	
+		d3d9::lock_flags
+	);
+
+	d3d9::d3d_texture_ptr
 		texture_,
 		temp_texture_;
 
-	sge::renderer::raw_pointer lock_dest_;
+	texture::optional_locked_rect lock_dest_;
 };
 
+}
 }
 }
 

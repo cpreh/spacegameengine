@@ -36,12 +36,14 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 	sge::renderer::vf::dynamic::format const &_format
 )
 :
-	format_(_format)
+	format_(_format),
 	declaration_()
 {
-	container::raw_vector<
+	typedef fcppt::container::raw_vector<
 		D3DVERTEXELEMENT9
-	> vertex_elements;
+	> element_vector;
+	
+	element_vector vertex_elements;
 
 	WORD stream(
 		0
@@ -52,13 +54,13 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 		unsigned
 	> usage_count_map;
 
-	usage_count_map usage_counts;
-
 	BOOST_FOREACH(
 		renderer::vf::dynamic::part_list::const_reference part,
 		_format.parts()
 	)
 	{
+		usage_count_map usage_counts;
+
 		BOOST_FOREACH(
 			renderer::vf::dynamic::ordered_element_list::const_reference element,
 			part.elements()
@@ -83,10 +85,18 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 				), // Type
 				D3DDECLMETHOD_DEFAULT,
 				usage,
-				usage_count_map[
-					usage
-				]++
+				static_cast<
+					BYTE
+				>(
+					usage_counts[
+						usage
+					]++
+				)
 			};
+
+			vertex_elements.push_back(
+				new_elem
+			);
 		}
 
 		++stream;
@@ -101,16 +111,17 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 	IDirect3DVertexDeclaration9 *decl;
 
 	if(
-		device_->CreateVertexDeclaration(
+		_device->CreateVertexDeclaration(
 			vertex_elements.data(),
 			&decl
-		) != D3D_OK
+		)
+		!= D3D_OK
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("CreateVertexDeclaration() failed!")
 		);
 
-	vertex_declaration_.reset(
+	declaration_.reset(
 		decl
 	);
 
@@ -124,14 +135,19 @@ sge::d3d9::vertex_declaration::get() const
 	return declaration_;
 }
 
-sge::renderer::vf::dynamic_format const &
+sge::renderer::vf::dynamic::format const &
 sge::d3d9::vertex_declaration::format() const
 {
 	return format_;
 }
 
 sge::renderer::size_type
-sge::d3d9::vertex_declaration::stride() const
+sge::d3d9::vertex_declaration::stride(
+	renderer::vf::dynamic::part_index const _part
+) const
 {
-	return this->format().stride();
+	return
+		this->format().parts().at(
+			_part.get()
+		).stride();
 }

@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../d3d_device_ptr.hpp"
 #include "../d3d_texture_ptr.hpp"
+#include "../d3dinclude.hpp"
+#include "../usage.hpp"
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 
 namespace sge
@@ -35,7 +37,9 @@ namespace texture
 d3d9::d3d_texture_ptr const
 create_planar(
 	d3d_device_ptr,
-	renderer::texture::planar_parameters const &
+	renderer::texture::planar_parameters const &,
+	D3DPOOL,
+	d3d9::usage
 );
 
 }

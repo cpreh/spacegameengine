@@ -51,6 +51,8 @@ protected:
 public:
 	typedef lock_rect rect_type;
 
+	typedef lock_rect lock_area;
+
 	SGE_SYMBOL image2d::view::object const
 	lock(
 		texture::cube_side::type side,
@@ -65,14 +67,14 @@ public:
 	virtual image2d::view::object const
 	lock(
 		texture::cube_side::type,
-		lock_rect const &,
+		lock_area const &,
 		lock_mode::type
 	) = 0;
 
 	virtual image2d::view::const_object const
 	lock(
 		texture::cube_side::type,
-		lock_rect const &
+		lock_area const &
 	) const = 0;
 
 	virtual void

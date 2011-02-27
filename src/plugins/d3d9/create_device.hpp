@@ -23,9 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "d3d_device_ptr.hpp"
 #include "d3d_ptr.hpp"
+#include "d3dinclude.hpp"
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
-#include <sge/window/instance_ptr.hpp>
 
 namespace sge
 {
@@ -35,9 +34,8 @@ namespace d3d9
 d3d9::d3d_device_ptr const
 create_device(
 	d3d9::d3d_ptr,
-	renderer::parameters const &,
 	renderer::adapter,
-	sge::window::instance_ptr
+	D3DPRESENT_PARAMETERS &
 );
 
 }

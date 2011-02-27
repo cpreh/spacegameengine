@@ -146,7 +146,7 @@ public:
 	~basic();
 
 	renderer::resource_flags_field const
-	flags() const;
+	resource_flags() const;
 private:
 	virtual void
 	set_area(

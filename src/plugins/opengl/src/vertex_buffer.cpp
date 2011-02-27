@@ -88,6 +88,8 @@ sge::opengl::vertex_buffer::lock(
 	size_type const _range
 )
 {
+	// FIXME: if vertices are read, we have to convert
+	// the colors as well!
 	buffer_.lock(
 		opengl::convert_lock_method(
 			_flags
@@ -162,7 +164,7 @@ sge::opengl::vertex_buffer::size() const
 }
 
 sge::renderer::resource_flags_field const
-sge::opengl::vertex_buffer::flags() const
+sge::opengl::vertex_buffer::resource_flags() const
 {
 	return buffer_.flags();
 }

@@ -90,7 +90,7 @@ template<
 	typename Types
 >
 sge::renderer::resource_flags_field const
-sge::d3d9::texture::basic<Types>::flags() const
+sge::d3d9::texture::basic<Types>::resource_flags() const
 {
 	return this->parameters().resource_flags();
 }

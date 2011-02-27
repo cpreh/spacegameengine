@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/stencil_buffer.hpp"
 #include <sge/renderer/parameters.hpp>
 #include <sge/window/to_awl_parameters.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <awl/system/object.hpp>
 #include <awl/window/parameters.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::opengl::system::system()
 {

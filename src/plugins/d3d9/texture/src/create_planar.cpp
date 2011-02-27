@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../create_texture.hpp"
-#include "../pool.hpp"
-#include "../usage.hpp"
+#include "../create_planar.hpp"
 #include "../../convert/color_format.hpp"
 #include <sge/renderer/texture/filter/need_mipmap.hpp>
-#include <sge/renderere/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::d3d9::d3d_texture_ptr const
-sge::d3d9::texture::create_texture(
+sge::d3d9::texture::create_planar(
 	d3d_device_ptr const _device,
-	renderer::texture::planar_parameters const &_params
+	renderer::texture::planar_parameters const &_params,
+	D3DPOOL const _pool,
+	d3d9::usage const _usage
 )
 {
 	IDirect3DTexture9 *ret = 0;
@@ -40,8 +40,8 @@ sge::d3d9::texture::create_texture(
 			static_cast<
 				UINT
 			>(
-				_params.dim().w(),
-			)
+				_params.dim().w()
+			),
 			static_cast<
 				UINT
 			>(
@@ -54,17 +54,11 @@ sge::d3d9::texture::create_texture(
 				0
 			:
 				1,
-			texture::usage(
-				_params.resource_flags(),
-				_params.capabilities()
-			),
+			_usage.get(),
 			d3d9::convert::color_format(
 				_params.color_format()
 			),
-			texture::pool(
-				_params.resource_flags(),
-				_params.capabilities()
-			),
+			_pool,
 			&ret,
 			0
 		)

@@ -83,7 +83,7 @@ private:
 	size() const;
 
 	renderer::resource_flags_field const
-	flags() const;
+	resource_flags() const;
 
 	renderer::vf::dynamic::part const
 	format_part() const;

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../d3dinclude.hpp"
 #include <sge/renderer/parameters_fwd.hpp>
-#include <awl/backends/windows/window/instance_ptr.hpp>
+#include <sge/window/instance_ptr.hpp>
 
 namespace sge
 {
@@ -35,7 +35,7 @@ namespace parameters
 D3DPRESENT_PARAMETERS const
 create(
 	renderer::parameters const &,
-	awl::backends::windows::window::instance_ptr
+	sge::window::instance_ptr
 );
 
 }

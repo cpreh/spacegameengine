@@ -18,24 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../material.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_TEXTURE_LOCK_PLANAR_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_LOCK_PLANAR_HPP_INCLUDED
 
-void
-sge::d3d9::material(
-	sge::renderer::material const &m)
+#include "optional_lock_rect.hpp"
+#include "../d3d_texture_ptr.hpp"
+#include "../d3dinclude.hpp"
+#include "../lock_flags.hpp"
+#include <sge/renderer/stage_type.hpp>
+
+namespace sge
 {
-	D3DMATERIAL9 const d3d_mat(
-		convert_material(
-			m
-		)
-	);
+namespace d3d9
+{
+namespace texture
+{
 
-	if(
-		device->SetMaterial(
-			&d3d_mat
-		) != D3D_OK
-	)
-		throw exception(FCPPT_TEXT("set_material() failed!"));
+D3DLOCKED_RECT const
+lock_planar(
+	d3d9::d3d_texture_ptr,
+	sge::renderer::stage_type,
+	d3d9::texture::optional_lock_rect const &,
+	d3d9::lock_flags
+);
+
 }
+}
+}
+
+#endif

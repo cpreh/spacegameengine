@@ -21,15 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_D3D9_VERTEX_BUFFER_HPP_INCLUDED
 
-#include "resource.hpp"
 #include "d3d_device_ptr.hpp"
+#include "d3d_vertex_buffer_ptr.hpp"
 #include "d3dinclude.hpp"
+#include "lock_flags.hpp"
+#include "resource.hpp"
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -76,12 +79,12 @@ public:
 	size() const;
 
 	renderer::resource_flags_field const
-	flags() const;
+	resource_flags() const;
 
 	renderer::vf::dynamic::part const
 	format_part() const;
 
-	vf::dynamic::part_index const
+	renderer::vf::dynamic::part_index const
 	format_part_index() const;
 private:
 	void
@@ -93,17 +96,20 @@ private:
 	void
 	on_reset();
 
-	void
+	template<
+		typename View
+	>
+	View const	
 	do_lock(
-		DWORD flags,
 		size_type offset,
-		size_type range
+		size_type range,
+		d3d9::lock_flags
 	) const;
 
 	size_type
 	stride() const;
 
-	d3d_device_ptr const device_;
+	d3d9::d3d_device_ptr const device_;
 
 	renderer::vf::dynamic::part const format_part_;
 
@@ -111,9 +117,9 @@ private:
 
 	size_type const size_;
 
-	resource_flag_type const resource_flags_;
+	renderer::resource_flags_field const resource_flags_;
 
-	d3d_vertex_buffer_ptr buffer_;
+	d3d9::d3d_vertex_buffer_ptr buffer_;
 
 	mutable renderer::raw_pointer lock_dest_;
 };

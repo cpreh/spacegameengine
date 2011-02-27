@@ -121,7 +121,7 @@ sge::opengl::texture::planar::surface(
 			this->type(),
 			this->id(),
 			_stage,
-			this->flags(),
+			this->resource_flags(),
 			this->format(),
 			this->format_type(),
 			this->capabilities()

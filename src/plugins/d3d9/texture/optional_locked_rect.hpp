@@ -18,23 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TRANSFORM_HPP_INCLUDED
-#define SGE_D3D9_TRANSFORM_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_OPTIONAL_LOCKED_RECT_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_OPTIONAL_LOCKED_RECT_HPP_INCLUDED
 
-#include "d3dinclude.hpp"
-#include <sge/renderer/any_matrix.hpp>
+#include "../d3dinclude.hpp"
+#include <fcppt/optional_fwd.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace texture
+{
 
-void
-set_transform(
-	d3d_device_ptr device,
-	D3DTRANSFORMSTATETYPE,
-	renderer::any_matrix const &);
+typedef fcppt::optional<
+	D3DLOCKED_RECT
+> optional_locked_rect;
 
+}
 }
 }
 

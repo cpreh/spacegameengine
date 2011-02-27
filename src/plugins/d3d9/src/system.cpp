@@ -19,12 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
+#include "../d3dinclude.hpp"
 #include "../device.hpp"
 #include <sge/renderer/exception.hpp>
+#include <sge/window/to_awl_parameters.hpp>
+#include <awl/system/object.hpp>
+#include <awl/window/parameters.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
-sge::d3d9::renderer_system::renderer_system()
+sge::d3d9::system::system()
 :
 	sys_(
 		::Direct3DCreate9(
@@ -40,6 +44,10 @@ sge::d3d9::renderer_system::renderer_system()
 		);
 }
 
+sge::d3d9::system::~system()
+{
+}
+
 sge::renderer::device_ptr const
 sge::d3d9::system::create_renderer(
 	renderer::parameters const &_param,
@@ -52,23 +60,23 @@ sge::d3d9::system::create_renderer(
 			d3d9::device
 		>(
 			sys_,
-			_param,
 			_adapter,
+			_param,
 			_window
 		);
 }
 
-sge::window::instance_ptr const
+awl::window::instance_ptr const
 sge::d3d9::system::create_window(
 	awl::system::object_ptr const _awl_system,
 	sge::window::simple_parameters const &_window_params,
-	sge::renderer::parameters const &_render_params
+	sge::renderer::parameters const &
 )
 {
-#if 0
-	return sge::windows::create_window(
-		wparam,
-		rparam
-	);
-#endif
+	return
+		_awl_system->create(
+			sge::window::to_awl_parameters(
+				_window_params
+			)
+		);
 }

@@ -45,11 +45,11 @@ class SGE_CLASS_SYMBOL index_buffer
 protected:
 	SGE_SYMBOL index_buffer();
 public:
-	typedef renderer::size_type           size_type;
+	typedef renderer::size_type size_type;
 
-	typedef index::dynamic::view          view_type;
+	typedef index::dynamic::view view_type;
 
-	typedef index::dynamic::const_view    const_view_type;
+	typedef index::dynamic::const_view const_view_type;
 
 	SGE_SYMBOL static size_type const npos;
 
@@ -73,7 +73,7 @@ public:
 	size() const = 0;
 
 	virtual resource_flags_field const
-	flags() const = 0;
+	resource_flags() const = 0;
 
 	virtual index::dynamic::format::type
 	format() const = 0;

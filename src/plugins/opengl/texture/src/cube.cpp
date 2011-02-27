@@ -167,9 +167,9 @@ sge::opengl::texture::cube::border_size() const
 }
 
 sge::renderer::resource_flags_field const
-sge::opengl::texture::cube::flags() const
+sge::opengl::texture::cube::resource_flags() const
 {
-	return textures_[0].flags();
+	return textures_[0].resource_flags();
 }
 
 sge::renderer::texture::capabilities_field const

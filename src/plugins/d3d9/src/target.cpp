@@ -19,13 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../target.hpp"
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/optional_impl.hpp>
 
 sge::d3d9::target::target(
 	d3d_device_ptr const _device
 )
 :
 	sge::renderer::target(),
-	d3d9::resource(),
+	d3d9::resource(
+		D3DPOOL_DEFAULT
+	),
 	device_(_device)
 {
 }
@@ -49,7 +53,7 @@ sge::d3d9::target::depth_stencil_surface(
 {
 }
 
-sge;:renderer::optional_dim2 const
+sge::renderer::optional_dim2 const
 sge::d3d9::target::dim() const
 {
 }
@@ -90,7 +94,7 @@ sge::d3d9::target::on_loss()
 }
 
 void
-sge::d3d9::render_target::on_reset()
+sge::d3d9::target::on_reset()
 {
 #if 0
 	init();
