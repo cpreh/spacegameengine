@@ -18,28 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
+#include "../set_material.hpp"
+#include "../../convert/material.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "../lock_flags.hpp"
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
-
-namespace sge
+void
+sge::d3d9::devicefuncs::set_material(
+	sge::d3d9::d3d_device_ptr const _device,
+	sge::renderer::material const &_material
+)
 {
-namespace d3d9
-{
-namespace convert
-{
+	D3DMATERIAL9 const d3d_mat(
+		convert::material(
+			_material
+		)
+	);
 
-d3d9::lock_flags const
-lock_mode(
-	renderer::lock_mode::type,
-	renderer::resource_flags_field const &
-);
-
+	if(
+		_device->SetMaterial(
+			&d3d_mat
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("set_material() failed!")
+		);
 }
-}
-}
-
-#endif

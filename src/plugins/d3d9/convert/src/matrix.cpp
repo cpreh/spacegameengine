@@ -18,28 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
+#include "../matrix.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/matrix4.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <cstring>
 
-#include "../lock_flags.hpp"
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
-
-namespace sge
+D3DMATRIX const
+sge::d3d9::convert::matrix(
+	sge::renderer::matrix4 const _matrix
+)
 {
-namespace d3d9
-{
-namespace convert
-{
+	D3DMATRIX ret;
 
-d3d9::lock_flags const
-lock_mode(
-	renderer::lock_mode::type,
-	renderer::resource_flags_field const &
-);
+	std::memcpy(
+		ret.m[0],
+		_matrix.data(),
+		sizeof(renderer::matrix4::value_type)
+		* _matrix.size()
+	);
 
+	return ret;
 }
-}
-}
-
-#endif

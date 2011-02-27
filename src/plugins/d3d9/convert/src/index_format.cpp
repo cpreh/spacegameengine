@@ -18,24 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../material.hpp"
-#include <sge/exception.hpp>
+#include "../index_format.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-void
-sge::d3d9::material(
-	sge::renderer::material const &m)
+D3DFORMAT
+sge::d3d9::convert::index_format(
+	sge::renderer::index::dynamic::format::type const _format
+)
 {
-	D3DMATERIAL9 const d3d_mat(
-		convert_material(
-			m
-		)
-	);
-
-	if(
-		device->SetMaterial(
-			&d3d_mat
-		) != D3D_OK
+	switch(
+		_format
 	)
-		throw exception(FCPPT_TEXT("set_material() failed!"));
+	{
+	case sge::renderer::index::dynamic::format::i16:
+		return D3DFMT_INDEX16;
+	case sge::renderer::index::dynamic::format::i32:
+		return D3DFMT_INDEX32;
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid index::dynamic::format!")
+	);
 }

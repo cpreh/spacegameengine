@@ -18,28 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../lock_mode.hpp"
+#include "../to_color_value.hpp"
 #include "../../d3dinclude.hpp"
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/rgba32f.hpp>
+#include <sge/image/color/rgba32f_format.hpp>
+#include <mizuiro/color/channel/alpha.hpp>
+#include <mizuiro/color/channel/blue.hpp>
+#include <mizuiro/color/channel/green.hpp>
+#include <mizuiro/color/channel/red.hpp>
 
-sge::d3d9::lock_flags const
-sge::d3d9::convert::lock_mode(
-	renderer::lock_mode::type const _mode,
-	renderer::resource_flags_field const &_flags
+D3DCOLORVALUE const
+sge::d3d9::convert::to_color_value(
+	sge::image::color::any::object const &_color
 )
 {
-	return
-		sge::d3d9::lock_flags(
-			(
-				_mode == renderer::lock_mode::writeonly
-			)
-			&&
-			(
-				_flags & renderer::resource_flags::dynamic
-			)
-			?
-				D3DLOCK_DISCARD
-			:
-				0
-		);
+	sge::image::color::rgba32f const conv(
+		sge::image::color::any::convert<
+			sge::image::color::rgba32f_format
+		>(
+			_color
+		)
+	);
+
+	D3DCOLORVALUE const ret =
+	{
+		conv.get<
+			mizuiro::color::channel::red
+		>(),
+		conv.get<
+			mizuiro::color::channel::green
+		>(),
+		conv.get<
+			mizuiro::color::channel::blue
+		>(),
+		conv.get<
+			mizuiro::color::channel::alpha
+		>()
+	};
+
+	return ret;
 }

@@ -18,28 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
+#include "../material.hpp"
+#include "../to_color_value.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/material.hpp>
 
-#include "../lock_flags.hpp"
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
-
-namespace sge
+D3DMATERIAL9 const
+sge::d3d9::convert::material(
+	sge::renderer::material const &_material
+)
 {
-namespace d3d9
-{
-namespace convert
-{
+	D3DMATERIAL9 const ret =
+	{
+		d3d9::convert::to_color_value(
+			_material.diffuse()
+		),
+		d3d9::convert::to_color_value(
+			_material.ambient()
+		),
+		d3d9::convert::to_color_value(
+			_material.specular()
+		),
+		d3d9::convert::to_color_value(
+			_material.emissive()
+		),
+		_material.power()
+	};
 
-d3d9::lock_flags const
-lock_mode(
-	renderer::lock_mode::type,
-	renderer::resource_flags_field const &
-);
-
+	return ret;
 }
-}
-}
-
-#endif

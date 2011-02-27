@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "d3d_ptr.hpp"
 #include "d3d_device_ptr.hpp"
+#include "d3dinclude.hpp"
 #include "resource_list.hpp"
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device.hpp>
@@ -83,6 +84,11 @@ public:
 	void
 	deactivate_vertex_buffer(
 		renderer::const_vertex_buffer_ptr
+	);
+
+	void
+	vertex_declaration(
+		renderer::const_vertex_declaration_ptr
 	);
 
 	void
@@ -260,6 +266,9 @@ private:
 	);
 
 	void
+	reset();
+
+	void
 	reinit_resources();
 
 	void
@@ -269,6 +278,8 @@ private:
 	set_index_buffer(
 		renderer::const_index_buffer_ptr
 	);
+
+	D3DPRESENT_PARAMETERS present_parameters_;
 
 	d3d9::d3d_device_ptr const device_;
 

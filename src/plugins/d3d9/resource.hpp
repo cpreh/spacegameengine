@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_RESOURCE_HPP_INCLUDED
 #define SGE_D3D9_RESOURCE_HPP_INCLUDED
 
+#include "d3dinclude.hpp"
 #include <fcppt/noncopyable.hpp>
 #include <boost/intrusive/list_hook.hpp>
 
@@ -41,15 +42,31 @@ class resource
 		resource
 	);
 public:
-	resource();
-
-	virtual void
-	on_loss();
-
-	virtual void
-	on_reset();
+	explicit resource(
+		D3DPOOL
+	);
 
 	virtual ~resource();
+
+	void
+	loss();
+
+	void
+	reset();
+
+	D3DPOOL
+	pool() const;
+private:
+	bool
+	needs_reset() const ;
+
+	virtual void
+	on_loss() = 0;
+
+	virtual void
+	on_reset() = 0;
+
+	D3DPOOL const pool_;
 };
 
 }

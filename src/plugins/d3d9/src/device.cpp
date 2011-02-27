@@ -26,10 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //#include "../material.hpp"
 #include "../target.hpp"
 #include "../vertex_buffer.hpp"
+#include "../parameters/create.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/planar.hpp"
 #include "../texture/volume.hpp"
 #include <sge/renderer/exception.hpp>
+#include <sge/time/millisecond.hpp>
+#include <sge/time/sleep.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt//make_shared_ptr.hpp>
 #include <algorithm>
@@ -53,16 +56,21 @@ void set_render_target(sge::d3d9::d3d_device_ptr device, sge::d3d9::d3d_surface_
 sge::d3d9::device::device(
 	d3d9::d3d_ptr const _system,
 	renderer::adapter const _adapter,
-	renderer::parameters const &_param,
+	renderer::parameters const &_parameters,
 	window::instance_ptr const _window
 )
 :
+	present_parameters_(
+		d3d9::parameters::create(
+			_parameters,
+			_window
+		)
+	),
 	device_(
 		d3d9::create_device(
 			_system,
-			_param,
 			_adapter,
-			_window
+			present_parameters_
 		)
 	),
 	window_(_window),
@@ -107,17 +115,21 @@ sge::d3d9::device::begin_rendering()
 			FCPPT_TEXT("BeginScene() failed!")
 		);
 }
+#endif
 
 void
 sge::d3d9::device::end_rendering()
 {
 	if(
-		device_->EndScene() != D3D_OK
+		device_->EndScene()
+		!= D3D_OK
 	)
-		throw exception(FCPPT_TEXT("EndScene() failed!"));
+		throw sge::renderer::exception(
+			FCPPT_TEXT("EndScene() failed!")
+		);
 
 	switch(
-		device->Present(
+		device_->Present(
 			0,
 			0,
 			0,
@@ -128,15 +140,16 @@ sge::d3d9::device::end_rendering()
 	case D3D_OK:
 		break;
 	case D3DERR_DEVICELOST:
-		reset();
+		this->reset();
 		break;
 	default:
-		throw exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("Present() failed!")
 		);
 	}
 }
 
+#if 0
 void
 sge::d3d9::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
@@ -512,7 +525,7 @@ sge::d3d9::device::reinit_resources()
 		resources_.begin(),
 		resources_.end(),
 		std::tr1::bind(
-			&resource::on_reset,
+			&resource::reset,
 			std::tr1::placeholders::_1
 		)
 	);
@@ -525,7 +538,7 @@ sge::d3d9::renderer::release_resources()
 		resources_.begin(),
 		resources_.end(),
 		std::tr1::bind(
-			&resource::on_loss,
+			&resource::loss,
 			std::tr1::placeholders::_1
 		)
 	);
@@ -642,11 +655,17 @@ void sge::d3d9::renderer::set_render_target(const texture_ptr target)
 	::set_render_target(device, d3d_target.surface);
 }
 
-void sge::d3d9::device::reset()
-{
-	release_resources();
+#endif
 
-	while(device->TestCooperativeLevel() == D3DERR_DEVICELOST)
+void
+sge::d3d9::device::reset()
+{
+	this->release_resources();
+
+	while(
+		device_->TestCooperativeLevel()
+		== D3DERR_DEVICELOST
+	)
 		sge::time::sleep(
 			sge::time::millisecond(
 				1
@@ -654,24 +673,34 @@ void sge::d3d9::device::reset()
 		);
 
 	switch(
-		device->reset(
-			&present_parameters
+		device_->Reset(
+			&present_parameters_
 		)
 	)
 	{
 	case D3D_OK:
-		init();
+		this->reinit_resources();
 		break;
 	case D3DERR_DEVICELOST:
-		throw exception(FCPPT_TEXT("d3d device still lost!"));
+		throw sge::renderer::exception(
+			FCPPT_TEXT("d3d device still lost!")
+		);
 	case D3DERR_DRIVERINTERNALERROR:
-		throw exception(FCPPT_TEXT("d3d driver internal error!"));
+		throw sge::renderer::exception(
+			FCPPT_TEXT("d3d driver internal error!")
+		);
 	case D3DERR_INVALIDCALL:
-		throw exception(FCPPT_TEXT("d3d invalid call to reset!"));
+		throw sge::renderer::exception(
+			FCPPT_TEXT("d3d invalid call to reset!")
+		);
 	default:
-		throw exception(FCPPT_TEXT("d3d reset failed!"));
+		throw sge::renderer::exception(
+			FCPPT_TEXT("d3d reset failed!")
+		);
 	}
 }
+
+#if 0
 
 /*void sge::d3d9::renderer::set_filter_state(const stage_type stage, const filter_arg type, const filter_arg_value value)
 {

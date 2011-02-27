@@ -29,14 +29,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/window/instance.hpp>
 #include <awl/backends/windows/window/instance.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/dynamic_pointer_cast.hpp>
 
 D3DPRESENT_PARAMETERS const
 sge::d3d9::parameters::create(
 	renderer::parameters const &_param,
-	awl::backends::windows::window::instance_ptr const _window
+	sge::window::instance_ptr const _window
 )
 {
 	sge::renderer::screen_size const back_buffer_size(
@@ -67,7 +69,11 @@ sge::d3d9::parameters::create(
 		),
 		0u, // MultiSampleQuality TODO?
 		D3DSWAPEFFECT_DISCARD, // SwapEffect
-		_window->hwnd(), // hDeviceWindow 
+		fcppt::dynamic_pointer_cast<
+			awl::backends::windows::window::instance
+		>(
+			_window->awl_instance()
+		)->hwnd(), // hDeviceWindow 
 		is_windowed, // Windowed
 		_param.depth_stencil_buffer() != sge::renderer::depth_stencil_buffer::off, // EnableAutoDepthStencil
 		parameters::convert::depth_stencil_buffer(

@@ -1,8 +1,12 @@
 SET(
 	SGE_D3D9_FILES
 	src/plugins/d3d9/convert/color_format.hpp
+	src/plugins/d3d9/convert/index_format.hpp
 	src/plugins/d3d9/convert/indexed_primitive.hpp
 	src/plugins/d3d9/convert/lock_mode.hpp
+	src/plugins/d3d9/convert/material.hpp
+	src/plugins/d3d9/convert/matrix.hpp
+	src/plugins/d3d9/convert/matrix_mode.hpp
 	src/plugins/d3d9/convert/nonindexed_primitive.hpp
 	src/plugins/d3d9/convert/rect.hpp
 	src/plugins/d3d9/convert/resource_flags.hpp
@@ -12,8 +16,12 @@ SET(
 	src/plugins/d3d9/convert/sampler_stage_op.hpp
 	src/plugins/d3d9/convert/sampler_stage_op_value.hpp
 	src/plugins/d3d9/convert/src/color_format.cpp
+	src/plugins/d3d9/convert/src/index_format.cpp
 	src/plugins/d3d9/convert/src/indexed_primitive.cpp
 	src/plugins/d3d9/convert/src/lock_mode.cpp
+	src/plugins/d3d9/convert/src/material.cpp
+	src/plugins/d3d9/convert/src/matrix.cpp
+	src/plugins/d3d9/convert/src/matrix_mode.cpp
 	src/plugins/d3d9/convert/src/nonindexed_primitive.cpp
 	src/plugins/d3d9/convert/src/rect.cpp
 	src/plugins/d3d9/convert/src/resource_flags.cpp
@@ -22,8 +30,10 @@ SET(
 	src/plugins/d3d9/convert/src/sampler_stage_arg_value.cpp
 	src/plugins/d3d9/convert/src/sampler_stage_op.cpp
 	src/plugins/d3d9/convert/src/sampler_stage_op_value.cpp
+	src/plugins/d3d9/convert/src/to_color_value.cpp
 	src/plugins/d3d9/convert/src/vertex_role.cpp
 	src/plugins/d3d9/convert/src/vertex_type.cpp
+	src/plugins/d3d9/convert/to_color_value.hpp
 	src/plugins/d3d9/convert/vertex_role.hpp
 	src/plugins/d3d9/convert/vertex_type.hpp
 	src/plugins/d3d9/create_caps.hpp
@@ -40,6 +50,10 @@ SET(
 	src/plugins/d3d9/d3d_volume_texture_ptr.hpp
 	src/plugins/d3d9/d3dinclude.hpp
 	src/plugins/d3d9/device.hpp
+	src/plugins/d3d9/devicefuncs/set_material.hpp
+	src/plugins/d3d9/devicefuncs/set_transform.hpp
+	src/plugins/d3d9/devicefuncs/src/set_material.cpp
+	src/plugins/d3d9/devicefuncs/src/set_transform.cpp
 	src/plugins/d3d9/index_buffer.hpp
 	src/plugins/d3d9/lock_flags.hpp
 	src/plugins/d3d9/parameters/convert/bit_depth.hpp
@@ -66,13 +80,9 @@ SET(
 	src/plugins/d3d9/src/device.cpp
 	src/plugins/d3d9/src/exports.cpp
 	src/plugins/d3d9/src/index_buffer.cpp
-	src/plugins/d3d9/src/material.cpp
 	src/plugins/d3d9/src/resource.cpp
 	src/plugins/d3d9/src/system.cpp
 	src/plugins/d3d9/src/target.cpp
-	src/plugins/d3d9/src/texture_functions.cpp
-	src/plugins/d3d9/src/transform.cpp
-	src/plugins/d3d9/src/update.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
 	src/plugins/d3d9/system.hpp
@@ -101,6 +111,7 @@ SET(
 	src/plugins/d3d9/texture/src/planar.cpp
 	src/plugins/d3d9/texture/src/pool.cpp
 	src/plugins/d3d9/texture/src/unlock_planar.cpp
+	src/plugins/d3d9/texture/src/update.cpp
 	src/plugins/d3d9/texture/src/usage.cpp
 	src/plugins/d3d9/texture/src/volume.cpp
 	src/plugins/d3d9/texture/unlock_planar.hpp
@@ -109,8 +120,6 @@ SET(
 	src/plugins/d3d9/texture/volume.hpp
 	src/plugins/d3d9/texture/volume_basic.hpp
 	src/plugins/d3d9/texture/volume_types.hpp
-	src/plugins/d3d9/texture_functions.hpp
-	src/plugins/d3d9/transform.hpp
 	src/plugins/d3d9/usage.hpp
 	src/plugins/d3d9/vertex_buffer.hpp
 	src/plugins/d3d9/vertex_declaration.hpp

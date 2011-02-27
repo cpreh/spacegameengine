@@ -52,21 +52,16 @@ sge::d3d9::vertex_buffer::lock(
 	size_type const _count
 )
 {
-	this->do_lock(
-		convert::lock_mode(
-			_lock_mode,
-			this->flags()
-		),
-		_first,
-		_count
-	);
-
 	return
-		view_type(
-			lock_dest_,
-			_count,
-			this->format_part(),
-			this->format_part_index()
+		this->do_lock<
+			view_type
+		>(
+			convert::lock_mode(
+				_lock_mode,
+				this->flags()
+			),
+			_first,
+			_count
 		);
 }
 
@@ -76,18 +71,13 @@ sge::d3d9::vertex_buffer::lock(
 	size_type const _count
 ) const
 {
-	this->do_lock(
-		D3DLOCK_READONLY,
-		_first,
-		_count
-	);
-
 	return
-		const_view_type(
-			lock_dest_,
-			_count,
-			this->format_part(),
-			this->format_part_index()
+		this->do_lock<
+			const_view_type
+		>(
+			D3DLOCK_READONLY,
+			_first,
+			_count
 		);
 }
 
@@ -188,9 +178,12 @@ sge::d3d9::vertex_buffer::on_reset()
 	this->init();
 }
 
+template<
+	typename View
+>
 void
 sge::d3d9::vertex_buffer::do_lock(
-	DWORD const _lock_flags,
+	d3d9::lock_flags const _lock_flags,
 	size_type const _first,
 	size_type const _count
 ) const
@@ -219,7 +212,7 @@ sge::d3d9::vertex_buffer::do_lock(
 				* this->stride()
 			),
 			&data,
-			_lock_flags
+			_lock_flags.get()
 		)
 		!= D3D_OK
 	)
@@ -239,6 +232,13 @@ sge::d3d9::vertex_buffer::do_lock(
 		for(iterator it = begin(); it != end(); ++it)
 			it->diffuse() = argb_to_rgba(it->diffuse());
 #endif*/
+	return
+		View(
+			lock_dest_,
+			_count,
+			this->format_part(),
+			this->format_part_index()
+		);
 }
 
 sge::d3d9::vertex_buffer::size_type

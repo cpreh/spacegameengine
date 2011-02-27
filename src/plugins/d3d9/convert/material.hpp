@@ -18,23 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TRANSFORM_HPP_INCLUDED
-#define SGE_D3D9_TRANSFORM_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_MATERIAL_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_MATERIAL_HPP_INCLUDED
 
-#include "d3dinclude.hpp"
-#include <sge/renderer/any_matrix.hpp>
+#include "../d3dinclude.hpp"
+#include <sge/renderer/material_fwd.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace convert
+{
 
-void
-set_transform(
-	d3d_device_ptr device,
-	D3DTRANSFORMSTATETYPE,
-	renderer::any_matrix const &);
+D3DMATERIAL9 const
+material(
+	sge::renderer::material const &
+);
 
+}
 }
 }
 

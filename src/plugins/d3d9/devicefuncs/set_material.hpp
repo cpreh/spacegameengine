@@ -18,24 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
+#ifndef SGE_D3D9_DEVICEFUNCS_SET_MATERIAL_HPP_INCLUDED
+#define SGE_D3D9_DEVICEFUNCS_SET_MATERIAL_HPP_INCLUDED
 
-#include "../lock_flags.hpp"
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
+#include "../d3d_device_ptr.hpp"
+#include <sge/renderer/material_fwd.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
-namespace convert
+namespace devicefuncs
 {
 
-d3d9::lock_flags const
-lock_mode(
-	renderer::lock_mode::type,
-	renderer::resource_flags_field const &
+void
+set_material(
+	sge::d3d9::d3d_device_ptr,
+	sge::renderer::material const &
 );
 
 }

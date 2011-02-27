@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_TO_COLOR_VALUE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_TO_COLOR_VALUE_HPP_INCLUDED
 
-#include "../lock_flags.hpp"
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
+#include "../d3dinclude.hpp"
+#include <sge/image/color/any/object.hpp>
 
 namespace sge
 {
@@ -32,10 +31,9 @@ namespace d3d9
 namespace convert
 {
 
-d3d9::lock_flags const
-lock_mode(
-	renderer::lock_mode::type,
-	renderer::resource_flags_field const &
+D3DCOLORVALUE const
+to_color_value(
+	sge::image::color::any::object const &
 );
 
 }

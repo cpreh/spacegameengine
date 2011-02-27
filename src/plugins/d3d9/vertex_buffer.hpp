@@ -95,7 +95,10 @@ private:
 	void
 	on_reset();
 
-	void
+	template<
+		typename View
+	>
+	View const	
 	do_lock(
 		DWORD flags,
 		size_type offset,

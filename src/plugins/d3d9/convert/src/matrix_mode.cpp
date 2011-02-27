@@ -18,28 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
+#include "../matrix_mode.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <sge/renderer/matrix_mode.hpp>
+#include <fcppt/text.hpp>
 
-#include "../lock_flags.hpp"
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
-
-namespace sge
+D3DTRANSFORMSTATETYPE
+sge::d3d9::convert::matrix_mode(
+	sge::renderer::matrix_mode::type const _mode
+)
 {
-namespace d3d9
-{
-namespace convert
-{
+	switch(
+		_mode
+	)
+	{
+	case sge::renderer::matrix_mode::world:
+		return D3DTS_VIEW;
+	case sge::renderer::matrix_mode::projection:
+		return D3DTS_PROJECTION;
+	case sge::renderer::matrix_mode::texture:
+		return D3DTS_TEXTURE0; // TODO!
+	}
 
-d3d9::lock_flags const
-lock_mode(
-	renderer::lock_mode::type,
-	renderer::resource_flags_field const &
-);
-
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid matrix_mode!")
+	);
 }
-}
-}
-
-#endif
