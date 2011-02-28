@@ -18,46 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
-#define SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
+#ifndef SGE_OPENGL_X11_SWAP_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_X11_SWAP_CONTEXT_HPP_INCLUDED
 
-#include <sge/time/timer.hpp>
-#include <sge/time/unit.hpp>
-#include <sge/time/symbol.hpp>
+#include "../context/base.hpp"
+#include "../context/id.hpp"
+#include "../glx/proc_context_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
 
 namespace sge
 {
-namespace time
+namespace opengl
+{
+namespace x11
 {
 
-class frames_counter
+class swap_context
+:
+	public opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
-		frames_counter
+		swap_context
 	);
 public:
-	SGE_TIME_SYMBOL frames_counter();
+	explicit swap_context(
+		opengl::glx::proc_context const &
+	);
 
-	SGE_TIME_SYMBOL ~frames_counter();
+	~swap_context();
 
-	SGE_TIME_SYMBOL void
-	update();
+	bool
+	swap_interval_supported() const;
 
-	SGE_TIME_SYMBOL fcppt::string const
-	frames_str() const;
+	typedef int (*glx_swap_interval)(int);
 
-	SGE_TIME_SYMBOL time::unit
-	frames() const;
+	glx_swap_interval
+	swap_interval() const;
+
+	typedef opengl::glx::proc_context needs_before;
+
+	static opengl::context::id const static_id;
 private:
-	sge::time::timer timer_;
-
-	time::unit
-		current_frames_,
-		display_frames_;
+	glx_swap_interval swap_interval_;
 };
 
+}
 }
 }
 

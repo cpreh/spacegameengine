@@ -18,47 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
-#define SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
+#include "../proc_context.hpp"
+#include "../../context/make_id.hpp"
+#include <GL/glx.h>
 
-#include <sge/time/timer.hpp>
-#include <sge/time/unit.hpp>
-#include <sge/time/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
-
-namespace sge
+sge::opengl::glx::proc_context::proc_context()
+:
+	get_proc_address_supported_(
+		::glXGetProcAddress
+		!= 0
+	)
 {
-namespace time
-{
-
-class frames_counter
-{
-	FCPPT_NONCOPYABLE(
-		frames_counter
-	);
-public:
-	SGE_TIME_SYMBOL frames_counter();
-
-	SGE_TIME_SYMBOL ~frames_counter();
-
-	SGE_TIME_SYMBOL void
-	update();
-
-	SGE_TIME_SYMBOL fcppt::string const
-	frames_str() const;
-
-	SGE_TIME_SYMBOL time::unit
-	frames() const;
-private:
-	sge::time::timer timer_;
-
-	time::unit
-		current_frames_,
-		display_frames_;
-};
-
-}
 }
 
-#endif
+sge::opengl::glx::proc_context::~proc_context()
+{
+}
+
+bool
+sge::opengl::glx::proc_context::get_proc_address_supported() const
+{
+	return get_proc_address_supported_;
+}
+
+sge::opengl::context::id const
+sge::opengl::glx::proc_context::static_id(
+	sge::opengl::context::make_id()
+);

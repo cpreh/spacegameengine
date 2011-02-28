@@ -18,46 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
-#define SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_PROC_ADDRESS_HPP_INCLUDED
+#define SGE_OPENGL_GLX_PROC_ADDRESS_HPP_INCLUDED
 
-#include <sge/time/timer.hpp>
-#include <sge/time/unit.hpp>
-#include <sge/time/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
+#include "proc_context_fwd.hpp"
+#include "raw_function.hpp"
+#include <string>
 
 namespace sge
 {
-namespace time
+namespace opengl
+{
+namespace glx
 {
 
-class frames_counter
-{
-	FCPPT_NONCOPYABLE(
-		frames_counter
-	);
-public:
-	SGE_TIME_SYMBOL frames_counter();
+glx::raw_function
+proc_address(
+	opengl::glx::proc_context const &,
+	std::string const &
+);
 
-	SGE_TIME_SYMBOL ~frames_counter();
-
-	SGE_TIME_SYMBOL void
-	update();
-
-	SGE_TIME_SYMBOL fcppt::string const
-	frames_str() const;
-
-	SGE_TIME_SYMBOL time::unit
-	frames() const;
-private:
-	sge::time::timer timer_;
-
-	time::unit
-		current_frames_,
-		display_frames_;
-};
-
+}
 }
 }
 

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include "resolution/instance_fwd.hpp"
 #include "../device_state.hpp"
+#include "../context/object_fwd.hpp"
 #include "../glx/current.hpp"
 #include "../glx/context_ptr.hpp"
 #include <sge/renderer/adapter.hpp>
@@ -50,6 +51,7 @@ class state
 	);
 public:
 	state(
+		opengl::context::object &,
 		renderer::parameters const &,
 		renderer::adapter,
 		awl::backends::x11::window::instance_ptr

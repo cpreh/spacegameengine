@@ -18,47 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
-#define SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
+#include "../swap_context.hpp"
+#include "../../context/make_id.hpp"
+#include "../../glx/proc_address.hpp"
 
-#include <sge/time/timer.hpp>
-#include <sge/time/unit.hpp>
-#include <sge/time/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
-
-namespace sge
+sge::opengl::x11::swap_context::swap_context(
+	opengl::glx::proc_context const &_context
+)
+:
+	swap_interval_(
+		reinterpret_cast<
+			glx_swap_interval
+		>(
+			glx::proc_address(
+				_context,
+				"glXSwapIntervalSGI"
+			)
+		)
+	)
 {
-namespace time
-{
-
-class frames_counter
-{
-	FCPPT_NONCOPYABLE(
-		frames_counter
-	);
-public:
-	SGE_TIME_SYMBOL frames_counter();
-
-	SGE_TIME_SYMBOL ~frames_counter();
-
-	SGE_TIME_SYMBOL void
-	update();
-
-	SGE_TIME_SYMBOL fcppt::string const
-	frames_str() const;
-
-	SGE_TIME_SYMBOL time::unit
-	frames() const;
-private:
-	sge::time::timer timer_;
-
-	time::unit
-		current_frames_,
-		display_frames_;
-};
-
-}
 }
 
-#endif
+sge::opengl::x11::swap_context::~swap_context()
+{
+}
+
+bool
+sge::opengl::x11::swap_context::swap_interval_supported() const
+{
+	return
+		swap_interval_ != 0;
+}
+
+sge::opengl::x11::swap_context::glx_swap_interval
+sge::opengl::x11::swap_context::swap_interval() const
+{
+	return swap_interval_;
+}
+
+sge::opengl::context::id const
+sge::opengl::x11::swap_context::static_id(
+	sge::opengl::context::make_id()
+);
