@@ -57,7 +57,7 @@ sge::opengl::x11::vsync(
 
 	if(
 		context.swap_interval()(
-			2
+			1
 		)
 		!= 0
 	)

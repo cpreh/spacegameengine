@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/drawer_3d.hpp>
 #include <sge/font/text/flags_none.hpp>
+#include <sge/font/text/from_fcppt_string.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/string.hpp>
@@ -107,6 +108,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/viewport/fill_on_resize.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
+#include <sge/time/frames_counter.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/window/dim.hpp>
@@ -588,6 +590,8 @@ try
 			)
 	);
 
+	sge::time::frames_counter frames_counter;
+
 	while(
 		running
 	)
@@ -601,6 +605,8 @@ try
 				frame_timer.reset()
 			)
 		);
+
+		frames_counter.update();
 
 		sge::renderer::scoped_block const block(
 			sys.renderer()
@@ -636,6 +642,29 @@ try
 				)
 			),
 			sge::font::text::align_h::left,
+			sge::font::text::align_v::top,
+			sge::font::text::flags::none
+		);
+
+
+		sge::font::text::draw(
+			font_metrics,
+			font_drawer,
+			sge::font::text::from_fcppt_string(
+				frames_counter.frames_str()
+			)
+			+ SGE_FONT_TEXT_LIT(" fps"),
+			sge::font::rect(
+				sge::font::rect::vector::null(),
+				fcppt::math::dim::structure_cast<
+					sge::font::rect::dim
+				>(
+					sge::renderer::active_target(
+						sys.renderer()
+					)->viewport().get().size()
+				)
+			),
+			sge::font::text::align_h::right,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none
 		);

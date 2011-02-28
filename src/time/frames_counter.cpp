@@ -24,19 +24,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::time::frames_counter::frames_counter()
 :
-	t(sge::time::second(1)),
-	current_frames(0),
-	display_frames(0)
-{}
+	timer_(
+		sge::time::second(
+			1
+		)
+	),
+	current_frames_(0),
+	display_frames_(0)
+{
+}
+
+sge::time::frames_counter::~frames_counter()
+{
+}
 
 void
 sge::time::frames_counter::update()
 {
-	++current_frames;
-	if(t.update() > 0)
+	++current_frames_;
+
+	if(
+		timer_.update_b()
+	)
 	{
-		display_frames = current_frames;
-		current_frames = 0;
+		display_frames_ = current_frames_;
+
+		current_frames_ = 0;
 	}
 }
 
@@ -47,12 +60,12 @@ sge::time::frames_counter::frames_str() const
 		fcppt::lexical_cast<
 			fcppt::string
 		>(
-			frames()
+			this->frames()
 		);
 }
 
 sge::time::unit
 sge::time::frames_counter::frames() const
 {
-	return display_frames;
+	return display_frames_;
 }

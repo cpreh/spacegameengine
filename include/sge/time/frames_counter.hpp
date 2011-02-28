@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/timer.hpp>
 #include <sge/time/unit.hpp>
 #include <sge/time/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 
 namespace sge
@@ -33,8 +34,13 @@ namespace time
 
 class frames_counter
 {
+	FCPPT_NONCOPYABLE(
+		frames_counter
+	);
 public:
 	SGE_TIME_SYMBOL frames_counter();
+
+	SGE_TIME_SYMBOL ~frames_counter();
 
 	SGE_TIME_SYMBOL void
 	update();
@@ -45,11 +51,11 @@ public:
 	SGE_TIME_SYMBOL time::unit
 	frames() const;
 private:
-	timer t;
+	sge::time::timer timer_;
 
 	time::unit
-		current_frames,
-		display_frames;
+		current_frames_,
+		display_frames_;
 };
 
 }
