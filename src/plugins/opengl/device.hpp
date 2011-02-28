@@ -278,6 +278,8 @@ private:
 
 	renderer::state::list current_states_;
 
+	mutable context::object context_;
+
 	opengl::device_state_ptr state_;
 
 	opengl::onscreen_target_ptr const onscreen_target_;
@@ -295,8 +297,6 @@ private:
 	> caps_;
 
 	stack_type state_levels_;
-
-	mutable context::object context_;
 };
 
 }

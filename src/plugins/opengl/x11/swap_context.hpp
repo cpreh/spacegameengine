@@ -18,53 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
-#define SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_X11_SWAP_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_X11_SWAP_CONTEXT_HPP_INCLUDED
 
-#include "../wgl/context.hpp"
-#include "../wgl/current.hpp"
-#include "../device_state.hpp"
-#include "../context/object_fwd.hpp"
-#include <sge/renderer/adapter.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
-#include <awl/backends/windows/gdi_device.hpp>
-#include <awl/backends/windows/window/instance_ptr.hpp>
+#include "../context/base.hpp"
+#include "../context/id.hpp"
+#include "../glx/proc_context_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-namespace windows
+namespace x11
 {
 
-class state
+class swap_context
 :
-	public sge::opengl::device_state
+	public opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
-		state
+		swap_context
 	);
 public:
-	state(
-		opengl::context::object &,
-		renderer::parameters const &,
-		renderer::adapter,
-		awl::backends::windows::window::instance_ptr
+	explicit swap_context(
+		opengl::glx::proc_context const &
 	);
 
-	~state();
+	~swap_context();
 
-	void
-	swap_buffers();
+	bool
+	swap_interval_supported() const;
+
+	typedef int (*glx_swap_interval)(int);
+
+	glx_swap_interval
+	swap_interval() const;
+
+	typedef opengl::glx::proc_context needs_before;
+
+	static opengl::context::id const static_id;
 private:
-	awl::backends::windows::window::instance_ptr const window_;
-
-	awl::backends::windows::gdi_device const hdc_;
-
-	wgl::context const context_;
-
-	wgl::current const current_;
+	glx_swap_interval swap_interval_;
 };
 
 }

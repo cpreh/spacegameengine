@@ -630,8 +630,14 @@ SET(
 	src/plugins/opengl/glx/context_fwd.hpp
 	src/plugins/opengl/glx/context_ptr.hpp
 	src/plugins/opengl/glx/current.hpp
+	src/plugins/opengl/glx/proc_address.hpp
+	src/plugins/opengl/glx/proc_context.hpp
+	src/plugins/opengl/glx/proc_context_fwd.hpp
+	src/plugins/opengl/glx/raw_function.hpp
 	src/plugins/opengl/glx/src/context.cpp
 	src/plugins/opengl/glx/src/current.cpp
+	src/plugins/opengl/glx/src/proc_address.cpp
+	src/plugins/opengl/glx/src/proc_context.cpp
 	src/plugins/opengl/x11/resolution/create.hpp
 	src/plugins/opengl/x11/resolution/instance.hpp
 	src/plugins/opengl/x11/resolution/instance_fwd.hpp
@@ -643,7 +649,11 @@ SET(
 	src/plugins/opengl/x11/resolution/xf86_vmode.hpp
 	src/plugins/opengl/x11/resolution/xrandr_mode.hpp
 	src/plugins/opengl/x11/src/state.cpp
+	src/plugins/opengl/x11/src/swap_context.cpp
+	src/plugins/opengl/x11/src/vsync.cpp
 	src/plugins/opengl/x11/state.hpp
+	src/plugins/opengl/x11/swap_context.hpp
+	src/plugins/opengl/x11/vsync.hpp
 )
 
 SET(

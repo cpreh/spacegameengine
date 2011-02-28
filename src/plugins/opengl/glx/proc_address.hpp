@@ -18,28 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_DEVICE_STATE_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_DEVICE_STATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_PROC_ADDRESS_HPP_INCLUDED
+#define SGE_OPENGL_GLX_PROC_ADDRESS_HPP_INCLUDED
 
-#include "device_state_ptr.hpp"
-#include "context/object_fwd.hpp"
-#include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/adapter.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include "proc_context_fwd.hpp"
+#include "raw_function.hpp"
+#include <string>
 
 namespace sge
 {
 namespace opengl
 {
+namespace glx
+{
 
-opengl::device_state_ptr
-create_device_state(
-	opengl::context::object &,
-	renderer::parameters const &,
-	renderer::adapter,
-	window::instance_ptr
+glx::raw_function
+proc_address(
+	opengl::glx::proc_context const &,
+	std::string const &
 );
 
+}
 }
 }
 

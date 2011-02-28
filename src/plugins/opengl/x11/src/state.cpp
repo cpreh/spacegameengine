@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <GL/glx.h>
 #include "../state.hpp"
+#include "../vsync.hpp"
 #include "../resolution/create.hpp"
 #include "../resolution/instance.hpp"
 #include "../../glx/context.hpp"
@@ -31,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 
 sge::opengl::x11::state::state(
+	opengl::context::object &_context,
 	renderer::parameters const &_param,
 	renderer::adapter const _adapter,
 	awl::backends::x11::window::instance_ptr const _window
@@ -71,6 +73,13 @@ sge::opengl::x11::state::state(
 		)
 	)
 {
+	if(
+		_param.vsync()
+		== sge::renderer::vsync::on
+	)
+		x11::vsync(
+			_context
+		);
 }
 
 sge::opengl::x11::state::~state()

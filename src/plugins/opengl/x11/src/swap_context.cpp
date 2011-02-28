@@ -18,29 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_DEVICE_STATE_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_DEVICE_STATE_HPP_INCLUDED
+#include "../swap_context.hpp"
+#include "../../context/make_id.hpp"
+#include "../../glx/proc_address.hpp"
 
-#include "device_state_ptr.hpp"
-#include "context/object_fwd.hpp"
-#include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/adapter.hpp>
-#include <sge/window/instance_ptr.hpp>
-
-namespace sge
+sge::opengl::x11::swap_context::swap_context(
+	opengl::glx::proc_context const &_context
+)
+:
+	swap_interval_(
+		reinterpret_cast<
+			glx_swap_interval
+		>(
+			glx::proc_address(
+				_context,
+				"glXSwapIntervalSGI"
+			)
+		)
+	)
 {
-namespace opengl
-{
+}
 
-opengl::device_state_ptr
-create_device_state(
-	opengl::context::object &,
-	renderer::parameters const &,
-	renderer::adapter,
-	window::instance_ptr
+sge::opengl::x11::swap_context::~swap_context()
+{
+}
+
+bool
+sge::opengl::x11::swap_context::swap_interval_supported() const
+{
+	return
+		swap_interval_ != 0;
+}
+
+sge::opengl::x11::swap_context::glx_swap_interval
+sge::opengl::x11::swap_context::swap_interval() const
+{
+	return swap_interval_;
+}
+
+sge::opengl::context::id const
+sge::opengl::x11::swap_context::static_id(
+	sge::opengl::context::make_id()
 );
-
-}
-}
-
-#endif

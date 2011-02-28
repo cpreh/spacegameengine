@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::windows::state::state(
+	opengl::context::object &,
 	renderer::parameters const &_param,
 	renderer::adapter const _adapter,
 	awl::backends::windows::window::instance_ptr const _window

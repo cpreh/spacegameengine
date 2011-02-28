@@ -18,54 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
-#define SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_X11_VSYNC_HPP_INCLUDED
+#define SGE_OPENGL_X11_VSYNC_HPP_INCLUDED
 
-#include "../wgl/context.hpp"
-#include "../wgl/current.hpp"
-#include "../device_state.hpp"
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/adapter.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
-#include <awl/backends/windows/gdi_device.hpp>
-#include <awl/backends/windows/window/instance_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-namespace windows
+namespace x11
 {
 
-class state
-:
-	public sge::opengl::device_state
-{
-	FCPPT_NONCOPYABLE(
-		state
-	);
-public:
-	state(
-		opengl::context::object &,
-		renderer::parameters const &,
-		renderer::adapter,
-		awl::backends::windows::window::instance_ptr
-	);
-
-	~state();
-
-	void
-	swap_buffers();
-private:
-	awl::backends::windows::window::instance_ptr const window_;
-
-	awl::backends::windows::gdi_device const hdc_;
-
-	wgl::context const context_;
-
-	wgl::current const current_;
-};
+void
+vsync(
+	opengl::context::object &
+);
 
 }
 }

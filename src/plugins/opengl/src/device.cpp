@@ -95,8 +95,10 @@ sge::opengl::device::device(
 	current_states_(
 		opengl::initial_states()
 	),
+	context_(),
 	state_(
 		opengl::create_device_state(
+			context_,
 			_parameters,
 			_adapter,
 			_window
@@ -114,8 +116,7 @@ sge::opengl::device::device(
 		onscreen_target_
 	),
 	caps_(),
-	state_levels_(),
-	context_()
+	state_levels_()
 {
 	glew::initialize();
 
