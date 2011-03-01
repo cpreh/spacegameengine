@@ -18,34 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../create_planar.hpp"
+#include "../create_cube.hpp"
 #include "../mipmap_levels.hpp"
 #include "../../convert/color_format.hpp"
-#include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::d3d9::texture::d3d_texture_unique_ptr
-sge::d3d9::texture::create_planar(
+sge::d3d9::texture::d3d_cube_texture_unique_ptr
+sge::d3d9::texture::create_cube(
 	IDirect3DDevice9 * const _device,
-	renderer::texture::planar_parameters const &_params,
+	renderer::texture::cube_parameters const &_params,
 	D3DPOOL const _pool,
 	d3d9::usage const _usage
 )
 {
-	IDirect3DTexture9 *ret = 0;
+	IDirect3DCubeTexture9 *ret = 0;
 
 	if(
-		_device->CreateTexture(
+		_device->CreateCubeTexture(
 			static_cast<
 				UINT
 			>(
-				_params.dim().w()
-			),
-			static_cast<
-				UINT
-			>(
-				_params.dim().h()
+				_params.dim()
 			),
 			texture::mipmap_levels(
 				_params.filter().min()
@@ -65,7 +60,7 @@ sge::d3d9::texture::create_planar(
 		);
 
 	return
-		texture::d3d_texture_unique_ptr(
+		texture::d3d_cube_texture_unique_ptr(
 			ret
 		);
 }

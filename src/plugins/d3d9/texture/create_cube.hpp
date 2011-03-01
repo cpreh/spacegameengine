@@ -18,30 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../matrix_mode.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/matrix_mode.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_TEXTURE_CREATE_CUBE_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_CREATE_CUBE_HPP_INCLUDED
 
-D3DTRANSFORMSTATETYPE
-sge::d3d9::convert::matrix_mode(
-	sge::renderer::matrix_mode::type const _mode
-)
+#include "d3d_cube_texture_unique_ptr.hpp"
+#include "../d3dinclude.hpp"
+#include "../usage.hpp"
+#include <sge/renderer/texture/cube_parameters_fwd.hpp>
+
+namespace sge
 {
-	switch(
-		_mode
-	)
-	{
-	case sge::renderer::matrix_mode::world:
-		return D3DTS_VIEW;
-	case sge::renderer::matrix_mode::projection:
-		return D3DTS_PROJECTION;
-	case sge::renderer::matrix_mode::texture:
-		return D3DTS_TEXTURE0;
-	}
+namespace d3d9
+{
+namespace texture
+{
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid matrix_mode!")
-	);
+texture::d3d_cube_texture_unique_ptr
+create_cube(
+	IDirect3DDevice9 *,
+	renderer::texture::cube_parameters const &,
+	D3DPOOL,
+	d3d9::usage
+);
+
 }
+}
+}
+
+#endif

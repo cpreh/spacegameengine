@@ -18,30 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../matrix_mode.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/matrix_mode.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_TEXTURE_D3D_CUBE_TEXTURE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_D3D_CUBE_TEXTURE_UNIQUE_PTR_HPP_INCLUDED
 
-D3DTRANSFORMSTATETYPE
-sge::d3d9::convert::matrix_mode(
-	sge::renderer::matrix_mode::type const _mode
-)
+#include "../d3dinclude.hpp"
+#include <fcppt/com_deleter.hpp>
+#include <fcppt/unique_ptr.hpp>
+
+namespace sge
 {
-	switch(
-		_mode
-	)
-	{
-	case sge::renderer::matrix_mode::world:
-		return D3DTS_VIEW;
-	case sge::renderer::matrix_mode::projection:
-		return D3DTS_PROJECTION;
-	case sge::renderer::matrix_mode::texture:
-		return D3DTS_TEXTURE0;
-	}
+namespace d3d9
+{
+namespace texture
+{
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid matrix_mode!")
-	);
+typedef fcppt::unique_ptr<
+	IDirect3DCubeTexture9,
+	fcppt::com_deleter
+> d3d_cube_texture_unique_ptr;
+
 }
+}
+}
+
+#endif

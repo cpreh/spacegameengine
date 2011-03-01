@@ -18,30 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../matrix_mode.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/matrix_mode.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_TEXTURE_LOCK_CUBE_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_LOCK_CUBE_HPP_INCLUDED
 
-D3DTRANSFORMSTATETYPE
-sge::d3d9::convert::matrix_mode(
-	sge::renderer::matrix_mode::type const _mode
-)
+#include "optional_lock_rect.hpp"
+#include "../d3dinclude.hpp"
+#include "../lock_flags.hpp"
+#include <sge/renderer/texture/cube_side.hpp>
+#include <sge/renderer/stage_type.hpp>
+
+namespace sge
 {
-	switch(
-		_mode
-	)
-	{
-	case sge::renderer::matrix_mode::world:
-		return D3DTS_VIEW;
-	case sge::renderer::matrix_mode::projection:
-		return D3DTS_PROJECTION;
-	case sge::renderer::matrix_mode::texture:
-		return D3DTS_TEXTURE0;
-	}
+namespace d3d9
+{
+namespace texture
+{
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid matrix_mode!")
-	);
+D3DLOCKED_RECT const
+lock_cube(
+	IDirect3DCubeTexture9 *,
+	sge::renderer::texture::cube_side::type,
+	sge::renderer::stage_type,
+	d3d9::texture::optional_lock_rect const &,
+	d3d9::lock_flags
+);
+
 }
+}
+}
+
+#endif

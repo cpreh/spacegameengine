@@ -18,54 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../create_planar.hpp"
-#include "../mipmap_levels.hpp"
-#include "../../convert/color_format.hpp"
-#include <sge/renderer/texture/planar_parameters.hpp>
+#include "../cube_side.hpp"
+#include "../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::d3d9::texture::d3d_texture_unique_ptr
-sge::d3d9::texture::create_planar(
-	IDirect3DDevice9 * const _device,
-	renderer::texture::planar_parameters const &_params,
-	D3DPOOL const _pool,
-	d3d9::usage const _usage
+D3DCUBEMAP_FACES
+sge::d3d9::convert::cube_side(
+	sge::renderer::texture::cube_side::type const _side
 )
 {
-	IDirect3DTexture9 *ret = 0;
-
-	if(
-		_device->CreateTexture(
-			static_cast<
-				UINT
-			>(
-				_params.dim().w()
-			),
-			static_cast<
-				UINT
-			>(
-				_params.dim().h()
-			),
-			texture::mipmap_levels(
-				_params.filter().min()
-			),
-			_usage.get(),
-			d3d9::convert::color_format(
-				_params.color_format()
-			),
-			_pool,
-			&ret,
-			0
-		)
-		!= D3D_OK
+	switch(
+		_side
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("CreateTexture() failed!")
-		);
+	{
+	case sge::renderer::texture::cube_side::front:
+		return D3DCUBEMAP_FACE_NEGATIVE_Z;
+	case sge::renderer::texture::cube_side::back:
+		return D3DCUBEMAP_FACE_POSITIVE_Z;
+	case sge::renderer::texture::cube_side::left:
+		return D3DCUBEMAP_FACE_NEGATIVE_X;
+	case sge::renderer::texture::cube_side::right:
+		return D3DCUBEMAP_FACE_POSITIVE_X;
+	case sge::renderer::texture::cube_side::top:
+		return D3DCUBEMAP_FACE_POSITIVE_Y;
+	case sge::renderer::texture::cube_side::bottom:
+		return D3DCUBEMAP_FACE_NEGATIVE_Y;
+	case sge::renderer::texture::cube_side::size:
+		break;
+	}
 
-	return
-		texture::d3d_texture_unique_ptr(
-			ret
-		);
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid cube_side!")
+	);
 }
