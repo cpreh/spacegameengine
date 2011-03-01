@@ -18,23 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_D3D_VOLUME_TEXTURE_PTR_HPP_INCLUDED
-#define SGE_D3D9_D3D_VOLUME_TEXTURE_PTR_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_D3D_TEXTURE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_D3D_TEXTURE_UNIQUE_PTR_HPP_INCLUDED
 
-#include "d3dinclude.hpp"
-#include <fcppt/shared_ptr.hpp>
+#include "../d3dinclude.hpp"
 #include <fcppt/com_deleter.hpp>
+#include <fcppt/unique_ptr.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace texture
+{
 
-typedef fcppt::shared_ptr<
-	IDirect3DVolumeTexture9,
+typedef fcppt::unique_ptr<
+	IDirect3DTexture9,
 	fcppt::com_deleter
-> d3d_volume_texture_ptr;
+> d3d_texture_unique_ptr;
 
+}
 }
 }
 

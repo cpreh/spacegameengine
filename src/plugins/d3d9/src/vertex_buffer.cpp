@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::d3d9::vertex_buffer::vertex_buffer(
-	d3d9::d3d_device_ptr const _device,
+	IDirect3DDevice9 *const _device,
 	renderer::vf::dynamic::part const &_format_part,
 	renderer::vf::dynamic::part_index const _format_part_index,
 	size_type const _size,
@@ -157,7 +157,7 @@ sge::d3d9::vertex_buffer::init()
 			),
 			convert::resource_flags(
 				this->resource_flags()
-			),
+			).get(),
 			0, // no FVF
 			this->pool(),
 			&ret,

@@ -30,7 +30,7 @@ namespace
 
 void
 do_set(
-	sge::d3d9::d3d_device_ptr,
+	IDirect3DDevice9 *,
 	D3DTRANSFORMSTATETYPE,
 	D3DMATRIX const &
 );
@@ -39,7 +39,7 @@ do_set(
 
 void
 sge::d3d9::devicefuncs::set_transform(
-	d3d_device_ptr const _device,
+	IDirect3DDevice9 *const _device,
 	sge::renderer::matrix_mode::type const _mode,
 	sge::renderer::matrix4 const &_matrix
 )
@@ -89,7 +89,7 @@ namespace
 
 void
 do_set(
-	sge::d3d9::d3d_device_ptr const _device,
+	IDirect3DDevice9 *const _device,
 	D3DTRANSFORMSTATETYPE const _mode,
 	D3DMATRIX const &_matrix
 )

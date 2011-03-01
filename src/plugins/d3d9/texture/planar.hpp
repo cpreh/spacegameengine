@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic.hpp"
 #include "optional_locked_rect.hpp"
 #include "planar_basic.hpp"
-#include "../d3d_device_ptr.hpp"
-#include "../d3d_texture_ptr.hpp"
 #include "../d3dinclude.hpp"
 #include "../lock_flags.hpp"
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -34,8 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/stage_type.hpp>
+#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -53,7 +53,7 @@ class planar
 	);
 public:
 	planar(
-		d3d9::d3d_device_ptr,
+		IDirect3DDevice9 *,
 		renderer::texture::planar_parameters const &
 	);
 
@@ -101,9 +101,14 @@ private:
 		d3d9::lock_flags
 	) const;
 
-	d3d9::d3d_texture_ptr
-		texture_,
-		temp_texture_;
+	typedef fcppt::scoped_ptr<
+		IDirect3DTexture9,
+		fcppt::com_deleter
+	> d3d_texture_scoped_ptr;
+
+	d3d_texture_scoped_ptr texture_;
+	
+	mutable d3d_texture_scoped_ptr temp_texture_;
 
 	mutable texture::optional_locked_rect lock_dest_;
 };

@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_CREATE_DEVICE_HPP_INCLUDED
 #define SGE_D3D9_CREATE_DEVICE_HPP_INCLUDED
 
-#include "d3d_device_ptr.hpp"
-#include "d3d_ptr.hpp"
+#include "d3d_device_unique_ptr.hpp"
 #include "d3dinclude.hpp"
 #include <sge/renderer/adapter.hpp>
 
@@ -31,9 +30,9 @@ namespace sge
 namespace d3d9
 {
 
-d3d9::d3d_device_ptr const
+d3d9::d3d_device_unique_ptr
 create_device(
-	d3d9::d3d_ptr,
+	IDirect3D9 *,
 	renderer::adapter,
 	D3DPRESENT_PARAMETERS &
 );

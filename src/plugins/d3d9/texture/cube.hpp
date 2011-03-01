@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic.hpp"
 #include "cube_basic.hpp"
 #include "optional_locked_rect.hpp"
-#include "../d3d_cube_texture_ptr.hpp"
-#include "../d3d_device_ptr.hpp"
 #include "../d3dinclude.hpp"
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
@@ -34,8 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -53,7 +53,7 @@ class cube
 	);
 public:
 	cube(
-		d3d9::d3d_device_ptr,
+		IDirect3DDevice9 *,
 		renderer::texture::cube_parameters const &
 	);
 
@@ -84,7 +84,12 @@ private:
 	void
 	init();
 
-	d3d9::d3d_cube_texture_ptr
+	typedef fcppt::scoped_ptr<
+		IDirect3DCubeTexture9,
+		fcppt::com_deleter
+	> d3d_scoped_cube_texture_ptr;
+
+	d3d_scoped_cube_texture_ptr
 		texture_,
 		temp_texture_;
 

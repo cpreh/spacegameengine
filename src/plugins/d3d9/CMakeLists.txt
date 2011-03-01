@@ -38,16 +38,7 @@ SET(
 	src/plugins/d3d9/convert/vertex_type.hpp
 	src/plugins/d3d9/create_caps.hpp
 	src/plugins/d3d9/create_device.hpp
-	src/plugins/d3d9/d3d_base_texture_ptr.hpp
-	src/plugins/d3d9/d3d_cube_texture_ptr.hpp
-	src/plugins/d3d9/d3d_device_ptr.hpp
-	src/plugins/d3d9/d3d_index_buffer_ptr.hpp
-	src/plugins/d3d9/d3d_ptr.hpp
-	src/plugins/d3d9/d3d_surface_ptr.hpp
-	src/plugins/d3d9/d3d_texture_ptr.hpp
-	src/plugins/d3d9/d3d_vertex_buffer_ptr.hpp
-	src/plugins/d3d9/d3d_vertex_declaration_ptr.hpp
-	src/plugins/d3d9/d3d_volume_texture_ptr.hpp
+	src/plugins/d3d9/d3d_device_unique_ptr.hpp
 	src/plugins/d3d9/d3dinclude.hpp
 	src/plugins/d3d9/device.hpp
 	src/plugins/d3d9/devicefuncs/set_material.hpp
@@ -97,6 +88,7 @@ SET(
 	src/plugins/d3d9/texture/cube.hpp
 	src/plugins/d3d9/texture/cube_basic.hpp
 	src/plugins/d3d9/texture/cube_types.hpp
+	src/plugins/d3d9/texture/d3d_texture_unique_ptr.hpp
 	src/plugins/d3d9/texture/lock_planar.hpp
 	src/plugins/d3d9/texture/optional_lock_rect.hpp
 	src/plugins/d3d9/texture/optional_locked_rect.hpp

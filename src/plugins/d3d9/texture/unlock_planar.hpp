@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_UNLOCK_PLANAR_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_UNLOCK_PLANAR_HPP_INCLUDED
 
-#include "../d3d_texture_ptr.hpp"
+#include "../d3dinclude.hpp"
 #include <sge/renderer/stage_type.hpp>
 
 namespace sge
@@ -33,7 +33,7 @@ namespace texture
 
 void
 unlock_planar(
-	d3d9::d3d_texture_ptr,
+	IDirect3DTexture9 *,
 	sge::renderer::stage_type
 );
 

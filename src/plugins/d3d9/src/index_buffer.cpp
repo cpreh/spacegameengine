@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::d3d9::index_buffer::index_buffer(
-	d3d9::d3d_device_ptr const _device,
+	IDirect3DDevice9 *const _device,
 	renderer::index::dynamic::format::type const _format,
 	size_type const _size,
 	renderer::resource_flags_field const &_resource_flags
@@ -154,7 +154,7 @@ sge::d3d9::index_buffer::init()
 			),
 			convert::resource_flags(
 				this->resource_flags()
-			),
+			).get(),
 			convert::index_format(
 				this->format()
 			),

@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_DEVICE_HPP_INCLUDED
 #define SGE_D3D9_DEVICE_HPP_INCLUDED
 
-#include "d3d_ptr.hpp"
-#include "d3d_device_ptr.hpp"
 #include "d3dinclude.hpp"
 #include "resource_list.hpp"
 #include <sge/renderer/adapter.hpp>
@@ -30,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/window/instance_ptr.hpp>
+#include <fcppt/com_deleter.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -45,7 +45,7 @@ class device
 	);
 public:
 	device(
-		d3d9::d3d_ptr,
+		IDirect3D9 *,
 		renderer::adapter,
 		renderer::parameters const &,
 		sge::window::instance_ptr
@@ -281,7 +281,12 @@ private:
 
 	D3DPRESENT_PARAMETERS present_parameters_;
 
-	d3d9::d3d_device_ptr const device_;
+	typedef fcppt::scoped_ptr<
+		IDirect3DDevice9,
+		fcppt::com_deleter
+	> d3d_device_scoped_ptr;
+
+	d3d_device_scoped_ptr const device_;
 
 	sge::window::instance_ptr const window_;
 

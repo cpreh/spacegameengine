@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../d3dinclude.hpp"
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
-DWORD
+sge::d3d9::usage const
 sge::d3d9::convert::resource_flags(
 	renderer::resource_flags_field const &_flags
 )
@@ -41,5 +41,8 @@ sge::d3d9::convert::resource_flags(
 	)
 		ret |= D3DUSAGE_WRITEONLY;
 
-	return ret;
+	return
+		d3d9::usage(
+			ret
+		);
 }

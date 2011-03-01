@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_PARAMETERS_TNL_CAPS_HPP_INCLUDED
 
 #include "../d3dinclude.hpp"
-#include "../d3d_ptr.hpp"
 #include <sge/renderer/adapter.hpp>
 
 namespace sge
@@ -34,7 +33,7 @@ namespace parameters
 
 DWORD
 tnl_caps(
-	d3d9::d3d_ptr,
+	IDirect3D9 *,
 	renderer::adapter
 );
 

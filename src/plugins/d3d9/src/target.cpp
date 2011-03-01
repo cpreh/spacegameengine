@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 
 sge::d3d9::target::target(
-	d3d_device_ptr const _device
+	IDirect3DDevice9 *const _device
 )
 :
 	sge::renderer::target(),

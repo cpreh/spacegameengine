@@ -54,7 +54,7 @@ void set_render_target(sge::d3d9::d3d_device_ptr device, sge::d3d9::d3d_surface_
 #endif
 
 sge::d3d9::device::device(
-	d3d9::d3d_ptr const _system,
+	IDirect3D9 *const _system,
 	renderer::adapter const _adapter,
 	renderer::parameters const &_parameters,
 	window::instance_ptr const _window

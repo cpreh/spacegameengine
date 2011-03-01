@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_USAGE_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_USAGE_HPP_INCLUDED
 
-#include "../d3dinclude.hpp"
+#include "../usage.hpp"
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 
@@ -32,9 +32,9 @@ namespace d3d9
 namespace texture
 {
 
-D3DUSAGE
+d3d9::usage const
 usage(
-	renderer::resource_flags const &,
+	renderer::resource_flags_field const &,
 	renderer::texture::capabilities_field const &
 );
 

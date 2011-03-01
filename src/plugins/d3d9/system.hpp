@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_SYSTEM_HPP_INCLUDED
 #define SGE_D3D9_SYSTEM_HPP_INCLUDED
 
-#include "d3d_ptr.hpp"
+#include "d3dinclude.hpp"
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
@@ -30,7 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/simple_parameters_fwd.hpp>
 #include <awl/system/object_ptr.hpp>
 #include <awl/window/instance_ptr.hpp>
+#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -63,7 +65,12 @@ public:
 		sge::renderer::parameters const &
 	);
 private:
-	d3d9::d3d_ptr const sys_;
+	typedef fcppt::scoped_ptr<
+		IDirect3D9,
+		fcppt::com_deleter
+	> d3d_scoped_ptr;
+
+	d3d_scoped_ptr const system_;
 };
 
 }

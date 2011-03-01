@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_D3D9_INDEX_BUFFER_HPP_INCLUDED
 
-#include "d3d_device_ptr.hpp"
-#include "d3d_index_buffer_ptr.hpp"
 #include "d3dinclude.hpp"
 #include "lock_flags.hpp"
 #include "resource.hpp"
@@ -32,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <fcppt/container/bitfield/basic_decl.hpp>
+#include <fcppt/com_deleter.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -48,7 +48,7 @@ class index_buffer
 	);
 public:
 	index_buffer(
-		d3d9::d3d_device_ptr,
+		IDirect3DDevice9 *,
 		renderer::index::dynamic::format::type,
 		size_type size,
 		renderer::resource_flags_field const &
@@ -100,9 +100,14 @@ private:
 		d3d9::lock_flags
 	) const;
 
-	d3d9::d3d_device_ptr const device_;
+	IDirect3DDevice9 *const device_;
 
-	d3d9::d3d_index_buffer_ptr buffer_;
+	typedef fcppt::scoped_ptr<
+		IDirect3DIndexBuffer9,
+		fcppt::com_deleter
+	> d3d_scoped_index_buffer_ptr;
+		
+	d3d_scoped_index_buffer_ptr buffer_;
 
 	renderer::resource_flags_field const resource_flags_;
 

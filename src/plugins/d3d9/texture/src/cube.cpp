@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../cube.hpp"
 
 sge::d3d9::texture::cube::cube(
-	d3d9::d3d_device_ptr const _device,
+	IDirect3DDevice9 *const _device,
 	renderer::texture::cube_parameters const &_params
 )
 :

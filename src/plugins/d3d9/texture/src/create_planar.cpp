@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::d3d9::d3d_texture_ptr const
+sge::d3d9::texture::d3d_texture_unique_ptr
 sge::d3d9::texture::create_planar(
-	d3d_device_ptr const _device,
+	IDirect3DDevice9 * const _device,
 	renderer::texture::planar_parameters const &_params,
 	D3DPOOL const _pool,
 	d3d9::usage const _usage
@@ -69,7 +69,7 @@ sge::d3d9::texture::create_planar(
 		);
 
 	return
-		d3d9::d3d_texture_ptr(
+		texture::d3d_texture_unique_ptr(
 			ret
 		);
 }

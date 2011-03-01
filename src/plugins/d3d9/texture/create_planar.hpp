@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_CREATE_PLANAR_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_CREATE_PLANAR_HPP_INCLUDED
 
-#include "../d3d_device_ptr.hpp"
-#include "../d3d_texture_ptr.hpp"
+#include "d3d_texture_unique_ptr.hpp"
 #include "../d3dinclude.hpp"
 #include "../usage.hpp"
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
@@ -34,9 +33,9 @@ namespace d3d9
 namespace texture
 {
 
-d3d9::d3d_texture_ptr const
+texture::d3d_texture_unique_ptr
 create_planar(
-	d3d_device_ptr,
+	IDirect3DDevice9 *,
 	renderer::texture::planar_parameters const &,
 	D3DPOOL,
 	d3d9::usage

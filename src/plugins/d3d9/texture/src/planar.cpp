@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../planar.hpp"
 #include "../basic_impl.hpp"
 #include "../create_planar.hpp"
+#include "../lock_planar.hpp"
 #include "../optional_lock_rect.hpp"
 #include "../unlock_planar.hpp"
 #include "../update.hpp"
@@ -36,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 
 sge::d3d9::texture::planar::planar(
-	d3d9::d3d_device_ptr const _device,
+	IDirect3DDevice9 *const _device,
 	renderer::texture::planar_parameters const &_params
 )
 :
@@ -110,21 +111,21 @@ sge::d3d9::texture::planar::unlock() const
 		!this->needs_reset()
 	)
 		texture::unlock_planar(
-			texture_,
+			texture_.get(),
 			renderer::stage_type(0u)
 		);
 	else
 	{
 
 		texture::unlock_planar(
-			temp_texture_,
+			temp_texture_.get(),
 			renderer::stage_type(0u)
 		);
 
 		texture::update(
 			this->device(),
-			temp_texture_,
-			texture_
+			temp_texture_.get(),
+			texture_.get()
 		);
 	}
 
@@ -146,29 +147,32 @@ sge::d3d9::texture::planar::stages() const
 IDirect3DBaseTexture9 *
 sge::d3d9::texture::planar::do_reset()
 {
-	texture_ =
+	texture_.take(
 		texture::create_planar(
 			this->device(),
 			this->parameters(),
 			this->pool(),
 			this->usage()
-		);
+		)
+	);
 
 	return texture_.get();
 }
 
+#if 0
 void
 sge::d3d9::texture::do_loss()
 {
 	texture_.reset();
 }
+#endif
 
 template<
 	typename View,
 	typename MakeView
 >
 View const
-sge::d3d9::texture::do_lock(
+sge::d3d9::texture::planar::do_lock(
 	MakeView const &_make_view,
 	renderer::lock_rect const &_rect,
 	d3d9::lock_flags const _flags
@@ -190,7 +194,7 @@ sge::d3d9::texture::do_lock(
 	)
 		lock_dest_ =
 			texture::lock_planar(
-				texture_,
+				texture_.get(),
 				renderer::stage_type(
 					0u
 				),
@@ -199,7 +203,7 @@ sge::d3d9::texture::do_lock(
 			);
 	else
 	{
-		temp_texture_ = 
+		temp_texture_.take(
 			texture::create_planar(
 				this->device(),
 				this->parameters(),
@@ -207,11 +211,12 @@ sge::d3d9::texture::do_lock(
 				d3d9::usage(
 					0u
 				)
-			);
+			)
+		);
 
 		lock_dest_ =
 			texture::lock_planar(
-				temp_texture_,
+				temp_texture_.get(),
 				renderer::stage_type(
 					0u
 				),
@@ -226,10 +231,10 @@ sge::d3d9::texture::do_lock(
 				static_cast<
 					sge::renderer::raw_pointer
 				>(
-					lock_dest_.pBits
+					lock_dest_->pBits
 				),
 				_rect.size(),
-				this->parameters()->color_format(),
+				this->parameters().color_format(),
 				sge::image2d::view::optional_pitch(
 					// TODO!
 				)

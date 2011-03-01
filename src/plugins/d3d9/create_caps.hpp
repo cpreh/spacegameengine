@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_CREATE_CAPS_HPP_INCLUDED
 #define SGE_D3D9_CREATE_CAPS_HPP_INCLUDED
 
-#include "d3d_ptr.hpp"
+#include "d3dinclude.hpp"
 #include <sge/renderer/caps_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
 
@@ -32,7 +32,7 @@ namespace d3d9
 
 renderer::caps const
 create_caps(
-	d3d9::d3d_ptr,
+	IDirect3D9 *,
 	renderer::adapter
 );
 

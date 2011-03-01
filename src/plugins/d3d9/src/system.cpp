@@ -30,14 +30,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::system::system()
 :
-	sys_(
+	system_(
 		::Direct3DCreate9(
 			D3D_SDK_VERSION
 		)
 	)
 {
 	if(
-		!sys_
+		!system_
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("Initialization of d3d failed!")
@@ -59,7 +59,7 @@ sge::d3d9::system::create_renderer(
 		fcppt::make_shared_ptr<
 			d3d9::device
 		>(
-			sys_,
+			system_.get(),
 			_adapter,
 			_param,
 			_window

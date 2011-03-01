@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic.hpp"
 #include "volume_basic.hpp"
-#include "../d3d_device_ptr.hpp"
-#include "../d3d_volume_texture_ptr.hpp"
+#include "../d3dinclude.hpp"
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -46,7 +47,7 @@ class volume
 	);
 public:
 	volume(
-		d3d9::d3d_device_ptr,
+		IDirect3DDevice9 *,
 		renderer::texture::volume_parameters const &
 	);
 
@@ -72,7 +73,12 @@ private:
 	IDirect3DBaseTexture9 *
 	do_reset();
 
-	d3d9::d3d_volume_texture_ptr
+	typedef fcppt::scoped_ptr<
+		IDirect3DVolumeTexture9,
+		fcppt::com_deleter
+	> d3d_scoped_volume_texture_ptr;
+
+	d3d_scoped_volume_texture_ptr
 		texture_,
 		temp_texture_;
 };

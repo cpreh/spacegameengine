@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_UPDATE_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_UPDATE_HPP_INCLUDED
 
-#include "../d3d_device_ptr.hpp"
-#include "../d3d_base_texture_ptr.hpp"
+#include "../d3dinclude.hpp"
 
 namespace sge
 {
@@ -33,9 +32,9 @@ namespace texture
 
 void
 update(
-	d3d9::d3d_device_ptr,
-	d3d9::d3d_base_texture_ptr source,
-	d3d9::d3d_base_texture_ptr dest
+	IDirect3DDevice9 *,
+	IDirect3DBaseTexture9 *source,
+	IDirect3DBaseTexture9 *dest
 );
 
 }

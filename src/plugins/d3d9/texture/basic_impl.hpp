@@ -29,7 +29,7 @@ template<
 	typename Types
 >
 sge::d3d9::texture::basic<Types>::basic(
-	d3d9::d3d_device_ptr const _device,
+	IDirect3DDevice9 *const _device,
 	parameters_type const &_parameters
 )
 :
@@ -65,7 +65,7 @@ sge::d3d9::texture::basic<Types>::parameters() const
 template<
 	typename Types
 >
-sge::d3d9::d3d_device_ptr const
+IDirect3DDevice9 *
 sge::d3d9::texture::basic<Types>::device() const
 {
 	return device_;
@@ -77,7 +77,7 @@ template<
 void
 sge::d3d9::texture::basic<Types>::on_reset()
 {
-	texture::base(
+	this->reset_base(
 		this->do_reset()
 	);
 }
@@ -88,9 +88,9 @@ template<
 void
 sge::d3d9::texture::basic<Types>::on_loss()
 {
+#if 0
 	this->do_loss();
-
-	this->reset_base();
+#endif
 }
 
 template<

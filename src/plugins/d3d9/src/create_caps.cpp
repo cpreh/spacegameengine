@@ -65,7 +65,7 @@ add_display_modes(
 
 sge::renderer::caps const
 sge::d3d9::create_caps(
-	d3d9::d3d_ptr const _system,
+	IDirect3D9 *const _system,
 	renderer::adapter const _adapter
 )
 {

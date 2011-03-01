@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
 #define SGE_D3D9_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
 
-#include "../d3dinclude.hpp"
+#include "../usage.hpp"
 #include <sge/renderer/resource_flags_field.hpp>
 
 namespace sge
@@ -31,7 +31,7 @@ namespace d3d9
 namespace convert
 {
 
-DWORD
+d3d9::usage const
 resource_flags(
 	renderer::resource_flags_field const &
 );

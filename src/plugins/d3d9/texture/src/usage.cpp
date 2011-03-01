@@ -24,22 +24,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
-D3DUSAGE
+sge::d3d9::usage const
 sge::d3d9::texture::usage(
-	renderer::resource_flags const &_flags,
+	renderer::resource_flags_field const &_flags,
 	renderer::texture::capabilities_field const &_caps
 )
 {
-	D3DUSAGE temp(
+	DWORD temp(
 		d3d9::convert::resource_flags(
 			_flags
-		)
+		).get()
 	);
 
 	if(
-		_caps & sge::renderer::texture::capabilities::target
+		_caps & sge::renderer::texture::capabilities::render_target
 	)
 		temp |= D3DUSAGE_RENDERTARGET;
 	
-	return temp;
+	return
+		d3d9::usage(
+			temp
+		);
 }

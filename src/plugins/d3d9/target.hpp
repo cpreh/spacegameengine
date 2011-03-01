@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TARGET_HPP_INCLUDED
 #define SGE_D3D9_TARGET_HPP_INCLUDED
 
-#include "d3d_device_ptr.hpp"
+#include "d3dinclude.hpp"
 #include "resource.hpp"
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
@@ -45,7 +45,7 @@ class target
 	);
 public:
 	explicit target(
-		d3d9::d3d_device_ptr
+		IDirect3DDevice9 *
 	);
 
 	~target();
@@ -70,7 +70,7 @@ private:
 	void
 	on_reset();
 
-	d3d9::d3d_device_ptr const device_;
+	IDirect3DDevice9 *const device_;
 };
 
 }

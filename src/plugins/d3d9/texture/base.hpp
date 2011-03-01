@@ -47,7 +47,9 @@ public:
 	get() const;
 	
 	void
-	reset_base();
+	reset_base(
+		IDirect3DBaseTexture9 *
+	);
 private:
 	IDirect3DBaseTexture9 *base_;
 };

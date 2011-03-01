@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_VERTEX_DECLARATION_HPP_INCLUDED
 #define SGE_D3D9_VERTEX_DECLARATION_HPP_INCLUDED
 
-#include "d3d_device_ptr.hpp"
-#include "d3d_vertex_declaration_ptr.hpp"
 #include "d3dinclude.hpp"
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
+#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -44,13 +44,13 @@ class vertex_declaration
 	);
 public:
 	vertex_declaration(
-		d3d9::d3d_device_ptr,
+		IDirect3DDevice9 *,
 		sge::renderer::vf::dynamic::format const &
 	);
 
 	~vertex_declaration();
 
-	d3d9::d3d_vertex_declaration_ptr const
+	IDirect3DVertexDeclaration9 *
 	get() const;
 
 	sge::renderer::vf::dynamic::format const &
@@ -63,7 +63,12 @@ public:
 private:
 	sge::renderer::vf::dynamic::format const format_;
 
-	d3d9::d3d_vertex_declaration_ptr declaration_;
+	typedef fcppt::scoped_ptr<
+		IDirect3DVertexDeclaration9,
+		fcppt::com_deleter
+	> d3d_scoped_vertex_declaration_ptr;
+
+	d3d_scoped_vertex_declaration_ptr declaration_;
 };
 
 }

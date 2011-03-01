@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic_fwd.hpp"
 #include "base.hpp"
-#include "../d3d_device_ptr.hpp"
 #include "../d3dinclude.hpp"
 #include "../usage.hpp"
 #include "../resource.hpp"
@@ -54,7 +53,7 @@ public:
 	typedef typename Types::parameters parameters_type;
 
 	basic(
-		d3d9::d3d_device_ptr,
+		IDirect3DDevice9 *,
 		parameters_type const &
 	);
 
@@ -63,7 +62,7 @@ public:
 	parameters_type const &
 	parameters() const;
 protected:
-	d3d9::d3d_device_ptr const
+	IDirect3DDevice9 *
 	device() const;
 
 	D3DPOOL
@@ -90,7 +89,7 @@ private:
 	virtual void
 	do_loss() = 0;
 
-	d3d9::d3d_device_ptr const device_;
+	IDirect3DDevice9 *const device_;
 
 	parameters_type const parameters_;
 };
