@@ -99,13 +99,13 @@ private:
 		MakeView const &,
 		renderer::lock_rect const &,	
 		d3d9::lock_flags
-	);
+	) const;
 
 	d3d9::d3d_texture_ptr
 		texture_,
 		temp_texture_;
 
-	texture::optional_locked_rect lock_dest_;
+	mutable texture::optional_locked_rect lock_dest_;
 };
 
 }

@@ -22,27 +22,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 
 #include "basic.hpp"
+#include "pool.hpp"
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
 template<
 	typename Types
 >
-sge::d3d9::texture::basic<Type>::basic(
+sge::d3d9::texture::basic<Types>::basic(
 	d3d9::d3d_device_ptr const _device,
-	parameters_type const &_params
+	parameters_type const &_parameters
 )
 :
 	Types::base(),
 	d3d9::texture::base(0),
-	d3d9::resource(),
+	d3d9::resource(
+		texture::pool(
+			_parameters.resource_flags(),
+			_parameters.capabilities()
+		)
+	),
 	device_(_device),
-	params_(_params)
+	parameters_(_parameters)
 {
 }
 
 template<
 	typename Types
 >
-sge::d3d9::texture::basic<Type>::~basic()
+sge::d3d9::texture::basic<Types>::~basic()
 {
 }
 
@@ -52,7 +59,7 @@ template<
 typename sge::d3d9::texture::basic<Types>::parameters_type const &
 sge::d3d9::texture::basic<Types>::parameters() const
 {
-	return params_;
+	return parameters_;
 }
 
 template<

@@ -56,10 +56,10 @@ public:
 
 	D3DPOOL
 	pool() const;
-private:
+
 	bool
 	needs_reset() const ;
-
+private:
 	virtual void
 	on_loss() = 0;
 

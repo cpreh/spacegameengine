@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 D3DPOOL
 sge::d3d9::texture::pool(
-	renderer::resource_flags const &_flags,
+	renderer::resource_flags_field const &_flags,
 	renderer::texture::capabilities_field const &_caps
 )
 {

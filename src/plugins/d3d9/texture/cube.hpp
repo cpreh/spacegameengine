@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic.hpp"
 #include "cube_basic.hpp"
+#include "optional_locked_rect.hpp"
 #include "../d3d_cube_texture_ptr.hpp"
 #include "../d3d_device_ptr.hpp"
 #include "../d3dinclude.hpp"
@@ -34,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 namespace sge
 {
@@ -82,9 +84,11 @@ private:
 	void
 	init();
 
-	d3d9::d3d_cube_texture_ptr texture_;
+	d3d9::d3d_cube_texture_ptr
+		texture_,
+		temp_texture_;
 
-	sge::renderer::raw_pointer lock_dest_;
+	texture::optional_locked_rect lock_dest_;
 };
 
 }

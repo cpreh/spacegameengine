@@ -36,7 +36,7 @@ sge::d3d9::texture::cube::~cube()
 {
 }
 
-image2d::view::object const
+sge::image2d::view::object const
 sge::d3d9::texture::cube::lock(
 	renderer::texture::cube_side::type,
 	renderer::lock_rect const &,
@@ -45,7 +45,7 @@ sge::d3d9::texture::cube::lock(
 {
 }
 
-image2d::view::const_object const
+sge::image2d::view::const_object const
 sge::d3d9::texture::cube::lock(
 	renderer::texture::cube_side::type,
 	renderer::lock_rect const &

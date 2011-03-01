@@ -34,7 +34,7 @@ namespace texture
 
 D3DPOOL
 pool(
-	renderer::resource_flags const &,
+	renderer::resource_flags_field const &,
 	renderer::texture::capabilities_field const &
 );
 

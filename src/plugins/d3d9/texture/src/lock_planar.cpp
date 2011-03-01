@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../convert/rect.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
@@ -33,7 +34,7 @@ sge::d3d9::texture::lock_planar(
 	d3d9::lock_flags const _flags
 )
 {
-	D3DLOCKED_RECT ret;
+	D3DLOCKED_RECT ret = {};
 
 	RECT in_rect = {};
 
@@ -42,7 +43,7 @@ sge::d3d9::texture::lock_planar(
 	)
 		in_rect =
 			d3d9::convert::rect(
-				_*rect
+				*_rect
 			);
 
 	if(

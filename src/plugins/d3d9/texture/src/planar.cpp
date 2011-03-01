@@ -26,12 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../update.hpp"
 #include "../../convert/lock_mode.hpp"
 #include "../../d3dinclude.hpp"
+#include "../../lock_flags.hpp"
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/box/comparison.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 
@@ -43,7 +43,7 @@ sge::d3d9::texture::planar::planar(
 	texture::planar_basic(
 		_device,
 		_params
-	)
+	),
 	texture_(
 		texture::create_planar(
 			_device,
@@ -81,7 +81,7 @@ sge::d3d9::texture::planar::lock(
 			_rect,
 			d3d9::convert::lock_mode(
 				_mode,
-				this->flags()
+				this->resource_flags()
 			)
 		);
 }
@@ -97,7 +97,9 @@ sge::d3d9::texture::planar::lock(
 		>(
 			&sge::image2d::view::make_const,
 			_rect,
-			D3DLOCK_READONLY
+			d3d9::lock_flags(
+				D3DLOCK_READONLY
+			)
 		);
 }
 
@@ -105,17 +107,18 @@ void
 sge::d3d9::texture::planar::unlock() const
 {
 	if(
-		this->pool()
-		== D3DPOOL_MANAGED
+		!this->needs_reset()
 	)
 		texture::unlock_planar(
-			texture_
+			texture_,
+			renderer::stage_type(0u)
 		);
 	else
 	{
 
 		texture::unlock_planar(
-			temp_texture_
+			temp_texture_,
+			renderer::stage_type(0u)
 		);
 
 		texture::update(
@@ -143,15 +146,13 @@ sge::d3d9::texture::planar::stages() const
 IDirect3DBaseTexture9 *
 sge::d3d9::texture::planar::do_reset()
 {
-	if(
-		this->pool()
-		!= D3DPOOL_MANAGED
-	)
-		texture_ =
-			texture::create_planar(
-				this->device(),
-				this->parameters()
-			);
+	texture_ =
+		texture::create_planar(
+			this->device(),
+			this->parameters(),
+			this->pool(),
+			this->usage()
+		);
 
 	return texture_.get();
 }
@@ -171,7 +172,7 @@ sge::d3d9::texture::do_lock(
 	MakeView const &_make_view,
 	renderer::lock_rect const &_rect,
 	d3d9::lock_flags const _flags
-)
+) const
 {
 	texture::optional_lock_rect const dest_rect(
 		_rect
@@ -185,8 +186,7 @@ sge::d3d9::texture::do_lock(
 	);
 
 	if(
-		this->pool()
-		== D3DPOOL_MANAGED
+		!this->needs_reset()
 	)
 		lock_dest_ =
 			texture::lock_planar(
