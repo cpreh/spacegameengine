@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_BITMAP_METRICS_HPP_INCLUDED
 #define SGE_FONT_BITMAP_METRICS_HPP_INCLUDED
 
-#include <sge/font/bitmap/char_metric_ptr.hpp>
+#include "char_map.hpp"
+#include <sge/font/char_metric_ptr.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <map>
+#include <vector>
 
 namespace sge
 {
@@ -60,16 +61,15 @@ public:
 	font::unit
 	line_height() const;
 private:
-	sge::image2d::file_ptr image_;
+	typedef std::vector<
+		sge::image2d::file_ptr
+	> image_vector;
+
+	image_vector images_;
 
 	font::unit line_height_;
 
-	typedef std::map<
-		font::char_type,
-		char_metric_ptr
-	> char_map;
-
-	char_map char_map_;
+	font::bitmap::char_map char_map_;
 };
 
 }

@@ -113,7 +113,7 @@ try
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")
 			/ FCPPT_TEXT("bitmap")
-			/ FCPPT_TEXT("font.png"),
+			/ FCPPT_TEXT("font.json"),
 			sys.image_loader()
 		)
 	);

@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_BITMAP_CHAR_METRIC_HPP_INCLUDED
-#define SGE_FONT_BITMAP_CHAR_METRIC_HPP_INCLUDED
+#ifndef SGE_FONT_BITMAP_LOAD_ONE_FILE_HPP_INCLUDED
+#define SGE_FONT_BITMAP_LOAD_ONE_FILE_HPP_INCLUDED
 
-#include <sge/font/bitmap/char_metric_fwd.hpp>
-#include <sge/font/char_metric.hpp>
-#include <fcppt/math/vector/basic_decl.hpp>
-#include <fcppt/variant/object_decl.hpp>
+#include "char_map.hpp"
+#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 namespace sge
 {
@@ -33,37 +34,13 @@ namespace font
 namespace bitmap
 {
 
-class char_metric
-:
-	public sge::font::char_metric
-{
-	FCPPT_NONCOPYABLE(
-		char_metric
-	);
-public:
-	char_metric(
-		font::const_image_view const &,
-		font::pos const &offset,
-		font::unit x_advance
-	);
-
-	~char_metric();
-
-	font::const_image_view const
-	pixmap() const;
-
-	font::pos const
-	offset() const;
-
-	font::unit
-	x_advance() const;
-private:
-	font::const_image_view const pixmap_;
-
-	font::pos const offset_;
-
-	font::unit const x_advance_;
-};
+sge::image2d::file_ptr const
+load_one_file(
+	fcppt::filesystem::path const &stem,
+	sge::parse::json::object const &,
+	sge::image2d::multi_loader &,
+	bitmap::char_map &
+);
 
 }
 }

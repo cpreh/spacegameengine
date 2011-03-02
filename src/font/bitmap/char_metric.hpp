@@ -18,8 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_BITMAP_CHAR_METRIC_FWD_HPP_INCLUDED
-#define SGE_FONT_BITMAP_CHAR_METRIC_FWD_HPP_INCLUDED
+#ifndef SGE_FONT_BITMAP_CHAR_METRIC_HPP_INCLUDED
+#define SGE_FONT_BITMAP_CHAR_METRIC_HPP_INCLUDED
+
+#include <sge/font/char_metric.hpp>
+#include <sge/font/const_image_view.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/unit.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/variant/object_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -28,7 +36,37 @@ namespace font
 namespace bitmap
 {
 
-class char_metric;
+class char_metric
+:
+	public sge::font::char_metric
+{
+	FCPPT_NONCOPYABLE(
+		char_metric
+	);
+public:
+	char_metric(
+		font::const_image_view const &,
+		font::pos const &offset,
+		font::unit x_advance
+	);
+
+	~char_metric();
+
+	font::const_image_view const
+	pixmap() const;
+
+	font::pos const
+	offset() const;
+
+	font::unit
+	x_advance() const;
+private:
+	font::const_image_view const pixmap_;
+
+	font::pos const offset_;
+
+	font::unit const x_advance_;
+};
 
 }
 }

@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_BITMAP_CHAR_METRIC_PTR_HPP_INCLUDED
-#define SGE_FONT_BITMAP_CHAR_METRIC_PTR_HPP_INCLUDED
+#ifndef SGE_FONT_BITMAP_CHAR_MAP_HPP_INCLUDED
+#define SGE_FONT_BITMAP_CHAR_MAP_HPP_INCLUDED
 
-#include <sge/font/bitmap/char_metric_fwd.hpp>
-#include <fcppt/shared_ptr.hpp>
+#include <sge/font/char_type.hpp>
+#include <sge/font/char_metric_ptr.hpp>
+#include <map>
 
 namespace sge
 {
@@ -31,9 +32,10 @@ namespace font
 namespace bitmap
 {
 
-typedef fcppt::shared_ptr<
-	bitmap::char_metric
-> char_metric_ptr;
+typedef std::map<
+	font::char_type,
+	font::char_metric_ptr
+> char_map;
 
 }
 }
