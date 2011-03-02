@@ -49,7 +49,7 @@ public:
 		duration const &interval,
 		activation_state::type active_
 			= activation_state::active,
-		callback const & = default_callback(),
+		time::callback const & = default_callback(),
 		expiration_state::type expire_
 			= expiration_state::not_expired
 	);
@@ -91,8 +91,16 @@ public:
 
 	SGE_TIME_SYMBOL void
 	expire();
+
+	SGE_TIME_SYMBOL
+	time::callback const &
+	callback() const;
+
+	SGE_TIME_SYMBOL
+	interval_type
+	time_left() const;
 private:
-	callback const callback_;
+	time::callback const callback_;
 
 	interval_type
 		interval_,

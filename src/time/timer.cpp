@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::time::timer::timer(
 	duration const &_res,
 	activation_state::type const _active,
-	callback const &_callback,
+	time::callback const &_callback,
 	expiration_state::type const _expired
 )
 :
@@ -139,4 +139,17 @@ void
 sge::time::timer::expire()
 {
 	expired_ = expiration_state::expired;
+}
+
+sge::time::callback const &
+sge::time::timer::callback() const
+{
+	return callback_;
+}
+
+sge::time::timer::interval_type
+sge::time::timer::time_left() const
+{
+	return
+		interval_ - (callback_() - last_time_);
 }
