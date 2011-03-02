@@ -40,7 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/window/instance.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/text.hpp>
@@ -131,8 +132,14 @@ try
 			metrics,
 			drawer,
 			SGE_FONT_TEXT_LIT("hello world 1234567890hello world 123456789hello world 123456789hello world 123456789000"),
-			fcppt::math::box::structure_cast<sge::font::rect>(
-				sys.renderer()->onscreen_target()->viewport().get()),
+			sge::font::rect(
+				sge::font::rect::vector::null(),
+				fcppt::math::dim::structure_cast<
+					sge::font::rect::dim
+				>(
+					sys.renderer()->onscreen_target()->viewport().get().size()
+				)
+			),
 			sge::font::text::align_h::center,
 			sge::font::text::align_v::center,
 			sge::font::text::flags::none

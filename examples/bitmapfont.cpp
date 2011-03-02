@@ -46,8 +46,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/exception.hpp>
@@ -155,8 +156,14 @@ try
 			font_metrics,
 			font_drawer,
 			SGE_FONT_TEXT_LIT("test abcd"),
-			fcppt::math::box::structure_cast<sge::font::rect>(
-				sys.renderer()->onscreen_target()->viewport().get()),
+			sge::font::rect(
+				sge::font::rect::vector::null(),
+				fcppt::math::dim::structure_cast<
+					sge::font::rect::dim
+				>(
+					sys.renderer()->onscreen_target()->viewport().get().size()
+				)
+			),
 			sge::font::text::align_h::center,
 			sge::font::text::align_v::center,
 			sge::font::text::flags::none
