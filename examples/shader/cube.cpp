@@ -17,6 +17,28 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+/**
+	Example description:
+
+	This example displays a diffuse shaded cube with an rgb texture
+	whose surface normals are perturbed by a normal map.
+
+	This example shows the usage of:
+
+	- sge::shader::object in general
+	- multitexturing with shader::object
+	- uniform and constant variables with shader::object
+	- adapting the camera to the current viewport
+	- a vertex format and how to fill it (see fill_vb_with_cube) in general
+	- unspecified and builtin attributes (pos, texcoord)
+	- sge::camera::object
+	- viewport::fill_on_resize
+	- planar texture creation
+	- image loading
+	- timers
+	- font::text::draw
+ */
+
 #include <sge/camera/activation_state.hpp>
 #include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/object.hpp>
@@ -145,16 +167,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+// A few words here about vertex formats in general:
+//
+// What's this all about? Well, the ultimate goal is to copy vertices
+// to the GPU. To do that, the graphics APIs give you access to the
+// graphics card's memory and return it as, say, a void pointer. You
+// have to do two things: 
+// 1) You have to fill this buffer with the vertices. Of course, a
+//    vertex has an arbitrary amount of data attached to it: 
+//    position, normal, texture coordinate and so on.
+// 2) You have to tell the graphics API how many vertices there are
+//    and what attributes they consist of.
+// Using template magic and modern C++, this task is made pretty
+// simple in sge. There are two parts: The definition of the format
+// and the buffer filling stuff. First up: The definition...
 namespace vf
 {
+// vf::pos is a "builtin" vertex attribute. This means, for example,
+// that you don't have to specify it in a glsl shader (it's always
+// accessible via gl_Vertex). Those attributes are, however,
+// deprecated in newer OpenGL and DirectX versions. unspecified is the
+// successor (see below)
 typedef 
 sge::renderer::vf::pos
 <
+	// type and dimension of the position attribute values from 1 to 4 are possible
 	sge::renderer::scalar,
 	3
 > 
 position;
 
+// Again, a builtin attribute. This time, for (2D) texture
+// coordinates. 2 to 4 dimensions are possible.
 typedef 
 sge::renderer::vf::texpos
 <
@@ -163,6 +207,9 @@ sge::renderer::vf::texpos
 > 
 texcoord;
 
+// An unspecified attribute has to have a "tag" which is...
+// a) ...bound to a name in the shader (you can access it via "vertex_normal")
+// b) ...an identifier for the vertex::set method
 namespace tags
 {
 SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(vertex_normal)
@@ -176,10 +223,14 @@ sge::renderer::vf::unspecified
 		sge::renderer::scalar,
 		3
 	>,
+	// This binds the tag to the attribute
 	tags::vertex_normal
 > 
 vertex_normal;
 
+// Since we're doing a coordinate transformation in the shader, we
+// need two vectors to define a 3D basis. So here's the surface
+// tangent.
 namespace tags
 {
 SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(vertex_tangent)
@@ -197,9 +248,19 @@ sge::renderer::vf::unspecified
 > 
 vertex_tangent;
 
+// A vertex format can consist of multiple parts. You could, for
+// example, store the texture coordinates in a vertex buffer and the
+// positions in another. In this setting, you could update the
+// positions while keeping the texture coordinates the same - a
+// performance improvement.
+//
+// In this example, we define only one part which contains all 4
+// attributes.
 typedef 
 sge::renderer::vf::part
 <
+	// Note that here, there's no distinction between unspecified and
+	// builtin.
 	boost::mpl::vector4
 	<
 		position,
@@ -210,6 +271,9 @@ sge::renderer::vf::part
 > 
 format_part;
 
+// The "sum of its parts". Here, we have only one part. You have to
+// watch out later on. Sometimes you need the whole vertex format,
+// sometimes only a part.
 typedef 
 sge::renderer::vf::format
 <
@@ -217,6 +281,9 @@ sge::renderer::vf::format
 > 
 format;
 
+// The graphics API gives us a raw buffer, but we want to write to it
+// in a natural kind of way, so we take a "view" on this buffer. See
+// fill_vb_with_cube.
 typedef
 sge::renderer::vf::view<format_part>
 format_part_view;
@@ -227,19 +294,35 @@ fill_vb_with_cube(
 	sge::shader::object &shader,
 	sge::renderer::vertex_buffer_ptr const vb)
 {
+	// Since we're using unspecified attributes (which are, in a way,
+	// "bound" to the shader), we have to activate it here.
 	sge::shader::scoped scoped_shader(
 		shader);
 
+	// Then we lock the vertex buffer for writing. When this lock is
+	// released, the data is sent the GPU.
 	sge::renderer::scoped_vertex_lock const vblock(
 		vb,
 		sge::renderer::lock_mode::writeonly);
 
+	// Create a view on the data.
 	vf::format_part_view const vertices(
 		vblock.value());
 
+	// We now basically have a vector<vertex>, though which we can
+	// iterate and set values. And that's what we're gonna do
 	vf::format_part_view::iterator vb_it(
 		vertices.begin());
 
+	// This "vertex" class has a "set" function which can set arbitrary
+	// vertex attributes. Which attribute it sets is determined by a
+	// template parameter. You can pass all of the attributes defined
+	// above. 
+	// _But_ there's a distinction between the _attribute type_ and the
+	// _value type_ of the attribute. The position attribute, for
+	// example, has type "sge::renderer::vf::pos<...>" which could be
+	// anything. It's certainly _not_ a vector3, though. That's what the
+	// ::packed_type is for.
 	typedef 
 	vf::position::packed_type 
 	position_vector;
@@ -256,6 +339,7 @@ fill_vb_with_cube(
 	vf::texcoord::packed_type 
 	texcoord_vector;
 
+	// Now we fill the vertex buffer which is pretty boring and tedious.
 	// bottom 1
 	(*vb_it).set<vf::position>(
 		position_vector(
@@ -702,6 +786,9 @@ fill_vb_with_cube(
 			0,0));
 }
 
+// Hours of scrolling later, this function is just a helper function
+// setting one single attribute. Note that we have to activate the
+// shader, else we get an exception.
 void
 toggle_bumpmapping(
 	sge::shader::object &shader,
@@ -719,6 +806,7 @@ toggle_bumpmapping(
 int main()
 try
 {
+	// Turn on debug logging, just in case. :)
 	fcppt::log::activate_levels(
 		sge::log::global(),
 		fcppt::log::level::debug);
@@ -727,14 +815,28 @@ try
 		sge::systems::list()
 			(sge::systems::window(
 				sge::window::simple_parameters(
+					// Window title
 					FCPPT_TEXT("sge test for sge::shader::object"),
+					// The window's "size hint". The window that is created
+					// might not be 1024x768. It's up to the window manager to
+					// decide how big the window will be. On windows, the window
+					// will probably be 1024x768, but on Linux you have tiling
+					// window managers which override this dimension. That's why
+					// below, we equip ourselves for a viewport window size and
+					// viewport that might change.
 					sge::window::dim(1024,768))))
 			(sge::systems::renderer(
 				sge::renderer::parameters(
+					// We want 32 bit depth (for no apparent reason, reall)
 					sge::renderer::visual_depth::depth32,
+					// and we want to do depth buffering
 					sge::renderer::depth_stencil_buffer::d24,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
+				// This instructs sge to set the _viewport size_ to whatever
+				// the _window size_ will be. If you don't know what the
+				// difference between the viewport and the window is, read up
+				// on it! It's important.
 				sge::systems::viewport::fill_on_resize()))
 			(sge::systems::parameterless::font)
 			(sge::systems::image_loader(
@@ -744,9 +846,14 @@ try
 			(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
+				// This is important for any application: Do you want to show
+				// the system cursor? And do you want to confine it to the
+				// window? In an ego shooter, both make sense. If you don't
+				// confine it, you cannot turn around 360 degrees.
 				sge::systems::cursor_option_field(
 					sge::systems::cursor_option::hide) | sge::systems::cursor_option::confine)));
 
+	// Load two images and create two textures from them.
 	sge::renderer::texture::planar_ptr const 
 		normal_texture =
 			sge::renderer::texture::create_planar_from_view(
@@ -756,12 +863,14 @@ try
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
+				// Here, you could specify "readable", for example
 				sge::renderer::resource_flags::none),
 		color_texture = 
 			sge::renderer::texture::create_planar_from_view(
 				sys.renderer(),
 				sys.image_loader().load(
 					sge::config::media_path()/FCPPT_TEXT("color_map.png"))->view(),
+				// Other filter settings are possible: point, trilinear, anisotropic.
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
@@ -770,26 +879,39 @@ try
 	bool running = 
 		true;
 
+	// When escape is pressed, the main loop should end, so we need to
+	// set running to false.
 	fcppt::signal::scoped_connection const cb(
 		sys.keyboard_collector()->key_callback(
+			// keyboard::action is just a wrapper for: Test if the key code
+			// is escape and then execute the action given.
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
+				// And running_to_false is just a wrapper for "running = false".
 				sge::systems::running_to_false(
 					running))));
 
+	// The camera is a good debugging tool. It gives easy access to the
+	// mvp matrix every shader needs. You can move around with 'w', 'a',
+	// 's' and 'd' and you can look around using the mouse.
 	sge::camera::object camera(
 		sge::camera::parameters(
+			// We can set the projection object to "empty" for now since we don't have a viewport yet.
 			sge::camera::projection::object(),
-			// movementspeed
+			// Movement speed.
 			static_cast<sge::renderer::scalar>(4.),
-			// mousespeed
+			// Mouse speed
 			static_cast<sge::renderer::scalar>(200.),
-			// position
+			// Position and orientation of the camera give in form of a
+			// "gizmo" which is nothing more than a position vector and
+			// three orientation vectors. Identity gizmo means: position =
+			// (0,0,0), left, right up as the standard basis for R^3
 			sge::camera::identity_gizmo(),
 			*sys.keyboard_collector(),
 			*sys.mouse_collector(),
 			sge::camera::activation_state::active));
 
+	// Adapt the camera to the viewport
 	fcppt::signal::scoped_connection const viewport_connection(
 		sys.manage_viewport_callback(
 			std::tr1::bind(
@@ -797,21 +919,27 @@ try
 				std::tr1::placeholders::_1,
 				std::tr1::ref(
 					camera),
-				// fov
+				// Field of view
 				static_cast<sge::renderer::scalar>(
 					fcppt::math::deg_to_rad(
 						90.)),
-				// near
+				// Near plane
 				static_cast<sge::renderer::scalar>(
 					0.1),
-				// far
+				// Far plane
 				static_cast<sge::renderer::scalar>(
 					1000.))));
 
+	// Ah, the shader object 
 	sge::shader::object shader(
 		sys.renderer(),
 		sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("cube_vertex.glsl"),
 		sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("cube_fragment.glsl"),
+		// This turns the vertex format we defined above into a glsl
+		// variable declaration which replaces the '$$$HEADER$$$' magic
+		// string in the glsl files (not completely though, HEADER also
+		// contains the uniform variables and constants as well as the
+		// sampler declarations)
 		sge::shader::vf_to_string<vf::format>(),
 		fcppt::assign::make_container<sge::shader::variable_sequence>
 			(sge::shader::variable(
@@ -823,6 +951,8 @@ try
 				sge::shader::variable_type::const_,
 				static_cast<sge::renderer::scalar>(
 					4)))
+			// There's no "bool" support for shader variables, so we use an
+			// integer here
 			(sge::shader::variable(
 				"enabled",
 				sge::shader::variable_type::uniform,
@@ -831,6 +961,8 @@ try
 				"light_position",
 				sge::shader::variable_type::uniform,
 				sge::renderer::vector3::null())),
+		// Two textures. They'll be assigned to a uniform variable index
+		// automatically.
 		fcppt::assign::make_container<sge::shader::sampler_sequence>
 			(sge::shader::sampler(
 				"normal_texture",
@@ -853,6 +985,8 @@ try
 					std::tr1::ref(
 						enabled)))));
 
+	// To use a vertex format, we have to create a _declaration_ and
+	// some _buffers_.
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer()->create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>()));
@@ -870,6 +1004,7 @@ try
 		shader,
 		vb);
 
+	// Some render states
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
