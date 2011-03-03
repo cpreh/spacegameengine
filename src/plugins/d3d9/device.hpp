@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance_ptr.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
@@ -260,9 +261,13 @@ private:
 	template<
 		typename Ptr
 	>
-	Ptr const
-	add_resource(
+	fcppt::shared_ptr<
 		Ptr
+	> const
+	add_resource(
+		fcppt::shared_ptr<
+			Ptr
+		>
 	);
 
 	void

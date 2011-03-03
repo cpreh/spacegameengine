@@ -26,13 +26,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //#include "../material.hpp"
 #include "../target.hpp"
 #include "../vertex_buffer.hpp"
+#include "../vertex_declaration.hpp"
+#include "../convert/indexed_primitive.hpp"
+#include "../convert/nonindexed_primitive.hpp"
+#include "../devicefuncs/set_material.hpp"
+#include "../devicefuncs/set_transform.hpp"
 #include "../parameters/create.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/planar.hpp"
 #include "../texture/volume.hpp"
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/nonindexed_primitive_count.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/sleep.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt//make_shared_ptr.hpp>
 #include <algorithm>
@@ -88,10 +96,10 @@ sge::d3d9::device::~device()
 {
 }
 
-#if 0
 void
 sge::d3d9::device::begin_rendering()
 {
+#if 0
 	if(
 		device_->Clear(
 			0,
@@ -114,8 +122,8 @@ sge::d3d9::device::begin_rendering()
 		throw sge::renderer::exception(
 			FCPPT_TEXT("BeginScene() failed!")
 		);
-}
 #endif
+}
 
 void
 sge::d3d9::device::end_rendering()
@@ -149,82 +157,119 @@ sge::d3d9::device::end_rendering()
 	}
 }
 
-#if 0
 void
 sge::d3d9::device::render(
-	renderer::const_vertex_buffer_ptr const vb,
-	renderer::const_index_buffer_ptr const ib,
-	renderer::size_type const first_vertex,
-	renderer::size_type const num_vertices,
-	renderer::indexed_primitive_type::type const ptype,
-	renderer::size_type const primitive_count,
-	renderer::size_type const first_index)
+	renderer::const_index_buffer_ptr const _index_buffer,
+	renderer::first_vertex const _first_vertex,
+	renderer::vertex_count const _num_vertices,
+	renderer::indexed_primitive_type::type const _primitive_type,
+	renderer::primitive_count const _primitive_count,
+	renderer::first_index const _first_index
+)
 {
-	D3DPRIMITIVETYPE const prim_type(
-		convert_indexed_primitive(
-			ptype
-		)
+	this->set_index_buffer(
+		_index_buffer
 	);
 
-	if(vb != nvb)
-		set_vertex_buffer(nvb);
-
-	if(ib != nib)
-		set_index_buffer(nib);
-
 	if(
-		device->DrawIndexedPrimitive(
-			prim_type,
+		device_->DrawIndexedPrimitive(
+			convert::indexed_primitive(
+				_primitive_type
+			),
 			0,
-			static_cast<UINT>(first_vertex),
-			static_cast<UINT>(num_vertices),
-			static_cast<UINT>(first_index),
-			static_cast<UINT>(primitive_count)
-		) != D3D_OK
+			static_cast<
+				UINT
+			>(
+				_first_vertex.get()
+			),
+			static_cast<
+				UINT
+			>(
+				_num_vertices.get()
+			),
+			static_cast<
+				UINT
+			>(
+				_first_index.get()
+			),
+			static_cast<
+				UINT
+			>(
+				_primitive_count.get()
+			)
+		)
+		!= D3D_OK
 	)
-		throw exception(FCPPT_TEXT("DrawIndexedPrimitive() failed!"));
+		throw sge::renderer::exception(
+			FCPPT_TEXT("DrawIndexedPrimitive() failed!")
+		);
 }
 
 void
 sge::d3d9::device::render(
-	renderer::const_vertex_buffer_ptr const vb,
-	renderer::size_type const first_vertex,
-	renderer::size_type const num_vertices,
-	renderer::nonindexed_primitive_type::type const ptype)
+	renderer::first_vertex const _first_vertex,
+	renderer::vertex_count const _num_vertices,
+	renderer::nonindexed_primitive_type::type const _primitive_type
+)
 {
-	D3DPRIMITIVETYPE const prim_type(
-		convertex_nonindexed_primitive(
-			ptype
-		)
-	);
-
-	if(vb != nvb)
-		set_vertex_buffer(nvb);
-
 	if(
-		device->DrawPrimitive(
-			prim_type,
-			static_cast<UINT>(first_vertex),
-			static_cast<UINT>(
-				primitive_count(
-					num_vertices,
-					ptype
+		device_->DrawPrimitive(
+			convert::nonindexed_primitive(
+				_primitive_type
+			),
+			static_cast<
+				UINT
+			>(
+				_first_vertex.get()
+			),
+			static_cast<
+				UINT
+			>(
+				sge::renderer::nonindexed_primitive_count(
+					_num_vertices,
+					_primitive_type
 				)
 			)
-		) != D3D_OK
+		)
+		!= D3D_OK
 	)
-		throw exception(FCPPT_TEXT("DrawPrimitive() failed!"));
+		throw sge::renderer::exception(
+			FCPPT_TEXT("DrawPrimitive() failed!")
+		);
+}
+
+void
+sge::d3d9::device::activate_vertex_buffer(
+	renderer::const_vertex_buffer_ptr
+)
+{
+}
+
+void
+sge::d3d9::device::deactivate_vertex_buffer(
+	renderer::const_vertex_buffer_ptr
+)
+{
+}
+
+void
+sge::d3d9::device::vertex_declaration(
+	renderer::const_vertex_declaration_ptr
+)
+{
 }
 
 void
 sge::d3d9::device::state(
-	renderer::state::list const &states)
+	renderer::state::list const &_states
+)
 {
 }
 
 void
 sge::d3d9::device::push_state(
-	renderer::state::list const &states)
+	renderer::state::list const &_states
+)
 {
 }
 
@@ -235,34 +280,62 @@ sge::d3d9::device::pop_state()
 
 void
 sge::d3d9::device::material(
-	renderer::material const &mat)
+	renderer::material const &_material
+)
 {
-	set_material(
-		device,
-		mat
+	d3d9::devicefuncs::set_material(
+		device_.get(),
+		_material
 	);
 }
 
 void
 sge::d3d9::device::enable_light(
-	renderer::light_index const index,
-	bool const enable)
+	renderer::light_index const _index,
+	bool const _enable
+)
 {
 }
 
 void
 sge::d3d9::device::light(
-	renderer::light_index const index,
-	renderer::light const &light_)
+	renderer::light_index const _index,
+	renderer::light const &_light
+)
 {
 }
 
 void
-sge::d3d9::device::texture_stage_op(
-	renderer::stage_type const stage,
-	renderer::texture_stage_op::type const type,
-	renderer::texture_stage_op_value::type const arg)
+sge::d3d9::device::enable_clip_plane(
+	renderer::clip_plane_index const _index,
+	bool const _enable
+)
 {
+}
+
+void
+sge::d3d9::device::clip_plane(
+	renderer::clip_plane_index const _index,
+	renderer::clip_plane const &_plane
+)
+{
+}
+
+void
+sge::d3d9::device::scissor_area(
+	renderer::scissor_area const &_area
+)
+{
+}
+
+void
+sge::d3d9::device::sampler_stage_op(
+	renderer::stage_type const _stage,
+	renderer::sampler_stage_op::type const _type,
+	renderer::sampler_stage_op_value::type const _arg
+)
+{
+#if 0
 	set_texture_stage_state(
 		device,
 		stage,
@@ -273,14 +346,17 @@ sge::d3d9::device::texture_stage_op(
 			value
 		)
 	);
+#endif
 }
 
 void
-sge::d3d9::device::texture_stage_arg(
-	renderer::stage_type const stage,
-	renderer::texture_stage_arg::type const type,
-	renderer::texture_stage_arg_value::type const arg)
+sge::d3d9::device::sampler_stage_arg(
+	renderer::stage_type const _stage,
+	renderer::sampler_stage_arg::type const _type,
+	renderer::sampler_stage_arg_value::type const _arg
+)
 {
+#if 0
 	set_texture_stage_state(
 		device,
 		stage,
@@ -291,201 +367,235 @@ sge::d3d9::device::texture_stage_arg(
 			arg
 		)
 	);
+#endif
 }
 
 void
 sge::d3d9::device::texture(
-	renderer::const_texture_base_ptr const tex,
-	renderer::stage_type const stage)
+	renderer::texture::const_base_ptr const _texture,
+	renderer::stage_type const _stage
+)
 {
-	set_texture(
-		device,
-		stage,
-		tex
-		?
-			dynamic_cast<
-				texture_base const &
-			>(*tex).base()
-		:
-			0
-	);
+	if(
+		device_->SetTexture(
+			static_cast<
+				DWORD
+			>(
+				_stage.get()
+			),
+			_texture
+			?
+				dynamic_cast<
+					d3d9::texture::base const &
+				>(
+					*_texture
+				).get()
+			:
+				0
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("SetTexture() failed!")
+		);
 }
 
 void
 sge::d3d9::device::transform(
-	renderer::any_matrix const &mat)
+	renderer::matrix_mode::type const _mode,
+	renderer::matrix4 const &_matrix
+)
 {
-	set_transform(
-		device_,
-		D3DTS_WORLD,
-		math
-	);
-}
-
-void
-sge::d3d9::device::projection(
-	renderer::any_matrix const &mat)
-{
-	set_transform(
-		device_,
-		D3DTS_PROJECTION,
-		math
-	);
-}
-
-void
-sge::d3d9::device::texture_transform(
-	renderer::any_matrix const &mat)
-{
-	set_transform(
-		device_,
-		D3DTS_TEXTURE,
-		math
+	d3d9::devicefuncs::set_transform(
+		device_.get(),
+		_mode,
+		_matrix
 	);
 }
 
 void
 sge::d3d9::device::target(
-	renderer::texture_ptr const tex)
-{
-}
-
-void
-sge::d3d9::device::viewport(
-	renderer::viewport const &vp)
-{
-}
-
-void
-sge::d3d9::device::viewport_mode(
-	renderer::viewport_mode::type const vm)
+	renderer::target_ptr const _target
+)
 {
 }
 
 sge::renderer::glsl::program_ptr const
-sge::d3d9::device::create_glsl_program(
-	renderer::glsl::optional_string const &,
-	renderer::glsl::optional_string const &)
+sge::d3d9::device::create_glsl_program()
 {
-	throw exception(
+	throw sge::renderer::exception(
 		FCPPT_TEXT("glsl not supported for d3d9!")
 	);
 }
 
-sge::renderer::glsl::program_ptr const
-sge::d3d9::device::create_glsl_program(
-	renderer::glsl::optional_istream const &,
-	renderer::glsl::optional_istream const &)
+sge::renderer::glsl::vertex_shader_ptr const
+sge::d3d9::device::create_glsl_vertex_shader(
+	renderer::glsl::string const &
+)
 {
-	return create_glsl_program(
-		renderer::glsl::optional_string(),
-		renderer::glsl::optional_string()
+	throw sge::renderer::exception(
+		FCPPT_TEXT("glsl not supported for d3d9!")
+	);
+}
+
+sge::renderer::glsl::pixel_shader_ptr const
+sge::d3d9::device::create_glsl_pixel_shader(
+	renderer::glsl::string const &
+)
+{
+	throw sge::renderer::exception(
+		FCPPT_TEXT("glsl not supported for d3d9!")
 	);
 }
 
 void
 sge::d3d9::device::glsl_program(
-	renderer::glsl::program_ptr)
+	renderer::glsl::const_program_ptr
+)
 {
-	// TODO: throw here, too!
-}
-
-sge::renderer::const_target_ptr const
-sge::d3d9::device::target() const
-{
-	return target_;
-}
-
-sge::renderer::texture_ptr const
-sge::d3d9::device::create_texture(
-	renderer::dim2 const &dim,
-	image::color::format::type const format,
-	renderer::filter::texture const &filter,
-	renderer::resource_flag_t const flags)
-{
-	return add_resource(
-		make_shared_ptr<
-			texture
-		>(
-			device,
-			data,
-			dim,
-			filter,
-			flags
-		)
+	throw sge::renderer::exception(
+		FCPPT_TEXT("glsl not supported for d3d9!")
 	);
 }
 
-	/*const volume_texture_ptr create_volume_texture(
-		volume_texture::image_view_array const &,
-		filter::texture const &filter,
-		resource_flag_t flags);*/
+sge::renderer::target_ptr const
+sge::d3d9::device::create_target()
+{
+}
 
-sge::renderer::cube_texture_ptr const
+sge::renderer::texture::planar_ptr const
+sge::d3d9::device::create_planar_texture(
+	renderer::texture::planar_parameters const &_param
+)
+{
+	return
+		this->add_resource<
+			d3d9::texture::planar
+		>(
+			fcppt::make_shared_ptr<
+				d3d9::texture::planar
+			>(
+				device_.get(),
+				_param
+			)
+		);
+}
+
+sge::renderer::texture::depth_stencil_ptr const
+sge::d3d9::device::create_depth_stencil_texture(
+	renderer::dim2 const &_dim,
+	renderer::depth_stencil_format::type const _format
+)
+{
+}
+
+sge::renderer::depth_stencil_surface_ptr const
+sge::d3d9::device::create_depth_stencil_surface(
+	renderer::dim2 const &_dim,
+	renderer::depth_stencil_format::type const _format
+)
+{
+}
+
+sge::renderer::texture::volume_ptr const
+sge::d3d9::device::create_volume_texture(
+	renderer::texture::volume_parameters const &_param
+)
+{
+}
+
+sge::renderer::texture::cube_ptr const
 sge::d3d9::device::create_cube_texture(
-	renderer::size_type const border_size,
-	image::color::format::type const format,
-	renderer::filter::texture const &filter,
-	renderer::resource_flag_t const flags)
+	renderer::texture::cube_parameters const &_param
+)
 {
-	return add_resource(
-		make_shared_ptr<
-			cube_texture
-		>(
-			device,
-			src,
-			size,
-			filter,
-			flags
-		)
-	);
+}
+
+sge::renderer::vertex_declaration_ptr const
+sge::d3d9::device::create_vertex_declaration(
+	renderer::vf::dynamic::format const &_format
+)
+{
 }
 
 sge::renderer::vertex_buffer_ptr const
 sge::d3d9::device::create_vertex_buffer(
-	renderer::vf::dynamic_format const &format,
-	renderer::size_type const size,
-	renderer::resource_flag_t const flags)
+	renderer::vertex_declaration_ptr const _declaration,
+	renderer::vf::dynamic::part_index const _part,
+	renderer::size_type const _size,
+	renderer::resource_flags_field const &_resource_flags
+)
 {
-	return add_resource(
-		make_shared_ptr<
-			vertex_buffer
+	return
+		this->add_resource<
+			d3d9::vertex_buffer
 		>(
-			device,
-			format,
-			size,
-			flags
-		)
-	);
+			fcppt::make_shared_ptr<
+				d3d9::vertex_buffer
+			>(
+				device_.get(),
+				dynamic_cast<
+					d3d9::vertex_declaration const &
+				>(
+					*_declaration
+				).format().parts().at(
+					_part.get()
+				),
+				_part,
+				_size,
+				_resource_flags
+			)
+		);
 }
 
 sge::renderer::index_buffer_ptr const
 sge::d3d9::device::create_index_buffer(
-	renderer::index::format::type const type,
-	renderer::size_type const size,
-	renderer::resource_flag_t const flags)
+	renderer::index::dynamic::format::type const _format,
+	renderer::size_type const _size,
+	renderer::resource_flags_field const &_resource_flags
+)
 {
-	return add_resource(
-		make_shared_ptr<
-			index_buffer
+	return
+		this->add_resource<
+			d3d9::index_buffer
 		>(
-			device,
-			size,
-			flags,
-		)
-	);
+			fcppt::make_shared_ptr<
+				d3d9::index_buffer
+			>(
+				device_.get(),
+				_format,
+				_size,
+				_resource_flags
+			)
+		);
+}
+
+sge::renderer::onscreen_target_ptr const
+sge::d3d9::device::onscreen_target() const
+{
+}
+
+sge::renderer::scissor_area const
+sge::d3d9::device::scissor_area() const
+{
+}
+
+sge::renderer::target_ptr const
+sge::d3d9::device::target() const
+{
+}
+
+sge::renderer::matrix4 const
+sge::d3d9::device::transform(
+	renderer::matrix_mode::type const _mode
+)
+{
 }
 
 sge::renderer::caps const
 sge::d3d9::device::caps() const
 {
 	return caps_;
-}
-
-sge::renderer::screen_size const
-sge::d3d9::device::screen_size() const
-{
-	return param.mode().size();
 }
 
 sge::window::instance_ptr const
@@ -497,12 +607,16 @@ sge::d3d9::device::window() const
 template<
 	typename Ptr
 >
-Ptr const
+fcppt::shared_ptr<
+	Ptr
+> const
 sge::d3d9::device::add_resource(
-	Ptr const _ptr
+	fcppt::shared_ptr<
+		Ptr
+	> const _ptr
 )
 {
-	resources.push_back(
+	resources_.push_back(
 		*_ptr
 	);
 
@@ -532,7 +646,7 @@ sge::d3d9::device::reinit_resources()
 }
 
 void
-sge::d3d9::renderer::release_resources()
+sge::d3d9::device::release_resources()
 {
 	std::for_each(
 		resources_.begin(),
@@ -550,112 +664,29 @@ sge::d3d9::renderer::release_resources()
 #endif
 }
 
-/*
-const sge::volume_texture_ptr
-sge::d3d9::renderer::create_volume_texture(
-	const volume_texture::const_pointer data,
-	const volume_texture::box_type& box,
-	const filter_args& filter,
-	const resource_flag_t flags)
-{
-	return volume_texture_ptr(
-		new volume_texture(
-			*this,
-			device,
-			data,
-			box,
-			filter,
-			flags));
-}
-*/
-
-const sge::render_target_ptr sge::d3d9::renderer::create_render_target(
-	const render_target::dim_type& dim)
-{
-	return render_target_ptr(
-		new render_target(
-			*this,
-			device,
-			dim));
-}
-
-void
-sge::d3d9::device::set_vertex_buffer(
-	renderer::const_vertex_buffer_ptr const buffer)
-{
-	if(!buffer)
-		return; //FIXME
-
-	vertex_buffer const &d3d_buffer(
-		dynamic_cast<
-			vertex_buffer const &
-		>(*buffer)
-	);
-
-	d3d_vertex_declaration_ptr const decl(
-		d3d_buffer.d3d_format.vertex_declaration()
-	);
-
-	if(decl != vertex_declaration)
-	{
-		if(
-			device->SetVertexDeclaration(
-				decl.get()
-			) != D3D_OK
-		)
-			throw exception(FCPPT_TEXT("set_vertex_declaration() failed"));
-
-		vertex_declaration = decl;
-	}
-
-	if(
-		device->SetStreamSource(
-			0,
-			d3d_buffer.buffer.get(),
-			0,
-			static_cast<UINT>(
-				->stride()
-			)
-		) != D3D_OK
-	)
-		throw exception(FCPPT_TEXT("set_vertex_buffer() failed"));
-}
-
 void
 sge::d3d9::device::set_index_buffer(
-	renderer::const_index_buffer_ptr const buffer)
+	sge::renderer::const_index_buffer_ptr const _buffer
+)
 {
-	if(!buffer)
-		return; //FIXME
-
-	index_buffer const &d3d_buffer(
+	d3d9::index_buffer const &d3d_buffer(
 		dynamic_cast<
-			index_buffer const &
-		>(*buffer)
+			d3d9::index_buffer const &
+		>(
+			*_buffer
+		)
 	);
 
 	if(
-		device->SetIndices(
-			d3d_buffer.buffer.get()
-		) != D3D_OK
+		device_->SetIndices(
+			d3d_buffer.get()
+		)
+		!= D3D_OK
 	)
-		throw exception(FCPPT_TEXT("set_index_buffer() failed"));
+		throw sge::renderer::exception(
+			FCPPT_TEXT("set_index_buffer() failed")
+		);
 }
-
-void sge::d3d9::renderer::set_render_target(const texture_ptr target)
-{
-	if(!target)
-	{
-		::set_render_target(device, default_render_target);
-		return;
-	}
-
-	render_target& d3d_target = dynamic_cast<render_target&>(*target);
-
-	::set_render_target(device, d3d_target.surface);
-}
-
-#endif
 
 void
 sge::d3d9::device::reset()

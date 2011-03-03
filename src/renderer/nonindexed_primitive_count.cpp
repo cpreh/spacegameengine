@@ -24,43 +24,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::size_type
 sge::renderer::nonindexed_primitive_count(
-	size_type const vertex_count,
-	nonindexed_primitive_type::type const prim
+	renderer::vertex_count const _vertex_count,
+	renderer::nonindexed_primitive_type::type const _primitive_type
 )
 {
-	switch(prim)
+	switch(
+		_primitive_type
+	)
 	{
 	case nonindexed_primitive_type::point:
-		return vertex_count;
+		return _vertex_count.get();
 	case nonindexed_primitive_type::line:
-		if(vertex_count <= 1)
-			throw exception(
+		if(
+			_vertex_count.get() <= 1
+		)
+			throw sge::renderer::exception(
 				FCPPT_TEXT("nonindexed_primitive_count(): line needs at least two vertices!")
 			);
-		return vertex_count / 2;
+
+		return _vertex_count.get() / 2;
 	
 	case nonindexed_primitive_type::line_strip:
-		if(vertex_count <= 1)
-			throw exception(
+		if(
+			_vertex_count.get() <= 1
+		)
+			throw sge::renderer::exception(
 				FCPPT_TEXT("nonindexed_primitive_count(): line_strip needs at least two vertices!")
 			);
-		return vertex_count - 1;
+
+		return _vertex_count.get() - 1;
 	case nonindexed_primitive_type::triangle_strip:
 	case nonindexed_primitive_type::triangle_fan:
-		if(vertex_count <= 2)
-			throw exception(
+		if(
+			_vertex_count.get() <= 2
+		)
+			throw sge::renderer::exception(
 				FCPPT_TEXT("nonindexed_primitive_count(): triangle_fan and triangle_strip need at least three vertices!")
 			);
-		return vertex_count - 2;
+
+		return _vertex_count.get() - 2;
 	case nonindexed_primitive_type::triangle:
-		if(vertex_count % 3)
-			throw exception(
+		if(
+			_vertex_count.get() % 3
+		)
+			throw sge::renderer::exception(
 				FCPPT_TEXT("nonindexed_primitive_count(): triangle needs a multiple of three vertices!")
 			);
-		return vertex_count / 3;
+
+		return _vertex_count.get() / 3;
 	}
 
-	throw renderer::exception(
+	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid nonindexed_primitive_type!")
 	);
 }

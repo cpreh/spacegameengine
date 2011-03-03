@@ -80,6 +80,9 @@ public:
 
 	renderer::index::dynamic::format::type
 	format() const;
+
+	IDirect3DIndexBuffer9 *
+	get() const;
 private:
 	void
 	init();

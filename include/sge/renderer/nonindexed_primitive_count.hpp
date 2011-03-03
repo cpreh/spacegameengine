@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_NONINDEXED_PRIMITIVE_COUNT_HPP_INCLUDED
 #define SGE_RENDERER_NONINDEXED_PRIMITIVE_COUNT_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -32,7 +32,7 @@ namespace renderer
 
 SGE_SYMBOL size_type
 nonindexed_primitive_count(
-	size_type vertex_count,
+	renderer::vertex_count,
 	nonindexed_primitive_type::type
 );
 }

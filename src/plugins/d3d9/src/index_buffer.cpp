@@ -138,6 +138,12 @@ sge::d3d9::index_buffer::format() const
 	return format_;
 }
 
+IDirect3DIndexBuffer9 *
+sge::d3d9::index_buffer::get() const
+{
+	return buffer_.get();
+}
+
 void
 sge::d3d9::index_buffer::init()
 {
