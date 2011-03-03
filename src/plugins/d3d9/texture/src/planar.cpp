@@ -44,17 +44,7 @@ sge::d3d9::texture::planar::planar(
 	texture::planar_basic(
 		_device,
 		_params
-	),
-	texture_(
-		texture::create_planar(
-			_device,
-			_params,
-			this->pool(),
-			this->usage()
-		)
-	),
-	temp_texture_(),
-	lock_dest_()
+	)
 {
 }
 
@@ -75,15 +65,10 @@ sge::d3d9::texture::planar::lock(
 )
 {
 	return
-		this->do_lock<
-			planar::view_type
-		>(
-			&sge::image2d::view::make,
+		this->lock_impl(
+			this->lock_function()
 			_rect,
-			d3d9::convert::lock_mode(
-				_mode,
-				this->resource_flags()
-			)
+			_mode
 		);
 }
 
@@ -92,6 +77,12 @@ sge::d3d9::texture::planar::lock(
 	renderer::lock_rect const &_rect
 ) const
 {
+	return
+		this->lock_impl(
+			this->lock_function()
+			_rect
+		);
+#if 0
 	return
 		this->do_lock<
 			planar::const_view_type
@@ -102,11 +93,20 @@ sge::d3d9::texture::planar::lock(
 				D3DLOCK_READONLY
 			)
 		);
+#endif
 }
 
 void
 sge::d3d9::texture::planar::unlock() const
 {
+	this->unlock_impl(
+		std::tr1::bind(
+			texture::unlock_planar,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
+		)
+	);
+#if 0
 	if(
 		!this->needs_reset()
 	)
@@ -130,6 +130,7 @@ sge::d3d9::texture::planar::unlock() const
 	}
 
 	lock_dest_.reset();
+#endif
 }
 
 sge::renderer::color_surface_ptr const

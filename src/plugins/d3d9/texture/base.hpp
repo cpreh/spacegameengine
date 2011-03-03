@@ -37,21 +37,12 @@ class base
 		base
 	);
 protected:
-	explicit base(
-		IDirect3DBaseTexture9 *
-	);
+	base();
 
 	virtual ~base();
 public:
-	IDirect3DBaseTexture9 *
-	get() const;
-	
-	void
-	reset_base(
-		IDirect3DBaseTexture9 *
-	);
-private:
-	IDirect3DBaseTexture9 *base_;
+	virtual IDirect3DBaseTexture9 *
+	get() const = 0;
 };
 
 }

@@ -21,9 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device.hpp"
 #include "../create_caps.hpp"
 #include "../create_device.hpp"
-//#include "../volume_texture.hpp"
 #include "../index_buffer.hpp"
-//#include "../material.hpp"
 #include "../target.hpp"
 #include "../vertex_buffer.hpp"
 #include "../vertex_declaration.hpp"
@@ -44,22 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt//make_shared_ptr.hpp>
 #include <algorithm>
-
-#if 0
-namespace
-{
-
-void set_render_state(sge::d3d9::d3d_device_ptr device, D3DRENDERSTATETYPE state, sge::renderer::bool_type value);
-void set_render_state(sge::d3d9::d3d_device_ptr Device, D3DRENDERSTATETYPE state, sge::renderer::int_type value);
-void set_render_state(sge::d3d9::d3d_device_ptr device, D3DRENDERSTATETYPE state, sge::renderer::float_type value);
-void set_sampler_state(sge::d3d9::d3d_device_ptr device, sge::stage_type stage, D3DSAMPLERSTATETYPE state, sge::renderer::int_type value);
-void set_texture(sge::d3d9::d3d_device_ptr device, sge::stage_type stage, IDirect3DBaseTexture9* tex);
-void set_texture_stage_state(sge::d3d9::d3d_device_ptr device, sge::stage_type stage, D3DTEXTURESTAGESTATETYPE state, sge::renderer::int_type value);
-void set_transform(sge::d3d9::d3d_device_ptr device, D3DTRANSFORMSTATETYPE, const sge::fcppt::math::space_matrix&);
-void set_render_target(sge::d3d9::d3d_device_ptr device, sge::d3d9::d3d_surface_ptr target);
-
-}
-#endif
 
 sge::d3d9::device::device(
 	IDirect3D9 *const _system,
@@ -240,23 +222,37 @@ sge::d3d9::device::render(
 
 void
 sge::d3d9::device::activate_vertex_buffer(
-	renderer::const_vertex_buffer_ptr
+	renderer::const_vertex_buffer_ptr const _buffer
 )
 {
+		
 }
 
 void
 sge::d3d9::device::deactivate_vertex_buffer(
-	renderer::const_vertex_buffer_ptr
+	renderer::const_vertex_buffer_ptr const _buffer
 )
 {
 }
 
 void
 sge::d3d9::device::vertex_declaration(
-	renderer::const_vertex_declaration_ptr
+	renderer::const_vertex_declaration_ptr const _declaration
 )
 {
+	if(
+		device_->SetVertexDeclaration(
+			dynamic_cast<
+				d3d9::vertex_declaration const &
+			>(
+				*_declaration
+			).get()
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("SetVertexDeclaration() failed!")
+		);
 }
 
 void
@@ -502,6 +498,17 @@ sge::d3d9::device::create_volume_texture(
 	renderer::texture::volume_parameters const &_param
 )
 {
+	return
+		this->add_resource<
+			d3d9::texture::volume
+		>(
+			fcppt::make_shared_ptr<
+				d3d9::texture::volume
+			>(
+				device_.get(),
+				_param
+			)
+		);
 }
 
 sge::renderer::texture::cube_ptr const
@@ -509,6 +516,17 @@ sge::d3d9::device::create_cube_texture(
 	renderer::texture::cube_parameters const &_param
 )
 {
+	return
+		this->add_resource<
+			d3d9::texture::cube
+		>(
+			fcppt::make_shared_ptr<
+				d3d9::texture::cube
+			>(
+				device_.get(),
+				_param
+			)
+		);
 }
 
 sge::renderer::vertex_declaration_ptr const
@@ -516,6 +534,13 @@ sge::d3d9::device::create_vertex_declaration(
 	renderer::vf::dynamic::format const &_format
 )
 {
+	return
+		fcppt::make_shared_ptr<
+			d3d9::vertex_declaration
+		>(
+			device_.get(),
+			_format
+		);
 }
 
 sge::renderer::vertex_buffer_ptr const
@@ -891,14 +916,6 @@ void set_sampler_state(const sge::d3d9::d3d_device_ptr device, const sge::stage_
 {
 	if(device->SetSamplerState(static_cast<DWORD>(stage),state,value) != D3D_OK)
 		throw sge::exception(FCPPT_TEXT("SetSamplerState() failed!"));
-}
-
-void set_texture(const sge::d3d9::d3d_device_ptr device, const sge::stage_type stage, IDirect3DBaseTexture9* const tex)
-{
-	if(device->SetTexture(static_cast<DWORD>(stage),tex) != D3D_OK)
-		throw sge::exception(FCPPT_TEXT("SetTexture() failed!"));
-
-	//set_sampler_state(device,stage,d3d_type,d3d_value);
 }
 
 void set_render_target(const sge::d3d9::d3d_device_ptr device, const sge::d3d9::d3d_surface_ptr target)

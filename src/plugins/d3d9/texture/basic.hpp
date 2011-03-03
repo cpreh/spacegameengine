@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../resource.hpp"
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -50,6 +52,8 @@ class basic
 		basic
 	);
 public:
+	typedef typename Types::base base;
+
 	typedef typename Types::parameters parameters_type;
 
 	basic(
@@ -58,10 +62,10 @@ public:
 	);
 
 	~basic();
-
+protected:
 	parameters_type const &
 	parameters() const;
-protected:
+
 	IDirect3DDevice9 *
 	device() const;
 
@@ -77,21 +81,67 @@ protected:
 	sge::renderer::texture::capabilities_field const
 	capabilities() const;
 
+	typedef typename base::view_type view_type;
+
+	typedef typename base::const_view_type view_type;
+
+	typedef typename Types::lock_function lock_function;
+
+	typedef typename Types::unlock_function unlock_function;
+
+	view_type const
+	lock_impl(
+		lock_function const &,
+		lock_area const &,
+		renderer::lock_mode::type
+	);
+
+	const_view_type const
+	lock_impl(
+		lock_function const &,
+		lock_area const &
+	);
+
+	void
+	unlock_impl(
+		unlock_function const &
+	) const;
+private:
+	template<
+		typename View,
+		typename MakeView
+	>
+	View const
+	do_lock(
+		MakeView const &,
+		lock_area const &
+		d3d9::lock_flags
+	) const;
+
 	void
 	on_reset();
 
 	void
 	on_loss();
-private:
-	virtual IDirect3DBaseTexture9 *
-	do_reset() = 0;
 
-	virtual void
-	do_loss() = 0;
+	typedef typename Types::d3d_type d3d_type;
+
+	typedef typename Types::locked_type locked_type;
 
 	IDirect3DDevice9 *const device_;
 
 	parameters_type const parameters_;
+
+	typedef fcppt::scoped_ptr<
+		d3d_type,
+		fcppt::com_deleter
+	> d3d_scoped_ptr;
+
+	d3d_scoped_ptr main_texture_;
+	
+	mutable d3d_scoped_ptr temp_texture_;
+
+	mutable locked_type lock_dest_;
 };
 
 }

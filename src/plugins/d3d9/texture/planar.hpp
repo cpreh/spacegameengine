@@ -84,12 +84,6 @@ public:
 	sge::renderer::stage_type
 	stages() const;
 private:
-	IDirect3DBaseTexture9 *
-	do_reset();
-
-	void
-	do_loss();
-
 	template<
 		typename View,
 		typename MakeView
@@ -100,17 +94,6 @@ private:
 		renderer::lock_rect const &,	
 		d3d9::lock_flags
 	) const;
-
-	typedef fcppt::scoped_ptr<
-		IDirect3DTexture9,
-		fcppt::com_deleter
-	> d3d_texture_scoped_ptr;
-
-	d3d_texture_scoped_ptr texture_;
-	
-	mutable d3d_texture_scoped_ptr temp_texture_;
-
-	mutable texture::optional_locked_rect lock_dest_;
 };
 
 }

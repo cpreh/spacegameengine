@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
 
+#include "optional_locked_rect.hpp"
+#include "../d3dinclude.hpp"
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 
@@ -36,6 +38,10 @@ struct planar_types
 	typedef sge::renderer::texture::planar base;
 
 	typedef sge::renderer::texture::planar_parameters parameters;
+
+	typedef IDirect3DTexture9 d3d_type;
+
+	typedef texture::optional_locked_rect locked_type;
 };
 
 }

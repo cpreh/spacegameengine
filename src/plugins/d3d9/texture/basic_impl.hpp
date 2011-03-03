@@ -42,7 +42,15 @@ sge::d3d9::texture::basic<Types>::basic(
 		)
 	),
 	device_(_device),
-	parameters_(_parameters)
+	parameters_(_parameters),
+	main_texture_(
+		Types::create()(
+			_device,
+			_parameters
+		)
+	),
+	temp_texture_(),
+	lock_dest_()
 {
 }
 
@@ -74,12 +82,174 @@ sge::d3d9::texture::basic<Types>::device() const
 template<
 	typename Types
 >
+sge::renderer::resource_flags_field const
+sge::d3d9::texture::basic<Types>::resource_flags() const
+{
+	return this->parameters().resource_flags();
+}
+
+template<
+	typename Types
+>
+typename sge::d3d9::texture::basic<Types>::view_type const
+sge::d3d9::texture::basic<Types>::lock_impl(
+	lock_function const &_lock,
+	lock_area const &_area,
+	renderer::lock_mode::type const _mode
+)
+{
+	return
+		this->do_lock<
+			view_type
+		>(
+			make_view,
+			_area,
+			d3d9::convert::lock_mode(
+				_mode,
+				this->resource_flags()
+			)
+		);
+}
+
+template<
+	typename Types
+>
+typename sge::d3d9::texture::basic<Types>::const_view_type const
+sge::d3d9::texture::basic<Types>::lock_impl(
+	lock_function const &_lock,
+	lock_area const &_area
+)
+{
+	return
+		this->do_lock<
+			planar::const_view_type
+		>(
+			make_const_view,
+			_area,
+			d3d9::lock_flags(
+				D3DLOCK_READONLY
+			)
+		);
+}
+
+template<
+	typename Types
+>
+void
+sge::d3d9::texture::basic<Types>::unlock_impl(
+	unlock_function const &_unlock
+) const
+{
+	if(
+		this->needs_reset()
+	)
+	{
+		_unlock(
+			temp_texture_.get(),
+			renderer::stage_type(0u)
+		);
+
+		texture::update(
+			this->device(),
+			temp_texture_.get(),
+			main_texture_.get()
+		);
+	}
+		_unlock(
+			main_texture_.get(),
+			renderer::stage_type(0u)
+		);
+	
+	lock_dest_.reset();
+}
+
+template<
+	typename Types
+>
+template<
+	typename View,
+	typename MakeView
+>
+View const
+sge::d3d9::texture::basic<Types>::do_lock(
+	MakeView const &_make_view,
+	lock_area const &_area,
+	d3d9::lock_flags const _flags
+) const
+{
+	texture::optional_lock_rect const dest_rect(
+		_rect
+		== this->rect()
+		?
+			texture::optional_lock_rect()
+		:
+			texture::optional_lock_rect(
+				_rect
+			)
+	);
+
+	if(
+		this->needs_reset()
+	)
+	{
+		temp_texture_.take(
+			texture::create_planar(
+				this->device(),
+				this->parameters(),
+				D3DPOOL_SYSTEMMEM,
+				d3d9::usage(
+					0u
+				)
+			)
+		);
+
+		lock_dest_ =
+			texture::lock_planar(
+				temp_texture_.get(),
+				renderer::stage_type(
+					0u
+				),
+				dest_rect,
+				_flags
+			);
+	}	
+	else
+		lock_dest_ =
+			texture::lock_planar(
+				texture_.get(),
+				renderer::stage_type(
+					0u
+				),
+				dest_rect,
+				_flags
+			);
+	
+
+	return
+		View(
+			_make_view(
+				static_cast<
+					sge::renderer::raw_pointer
+				>(
+					lock_dest_->pBits
+				),
+				_rect.size(),
+				this->parameters().color_format(),
+				sge::image2d::view::optional_pitch(
+					// TODO!
+				)
+			)
+		);
+
+}
+
+template<
+	typename Types
+>
 void
 sge::d3d9::texture::basic<Types>::on_reset()
 {
-	this->reset_base(
-		this->do_reset()
-	);
+	main_texture_.reset();
 }
 
 template<
@@ -88,18 +258,8 @@ template<
 void
 sge::d3d9::texture::basic<Types>::on_loss()
 {
-#if 0
-	this->do_loss();
-#endif
+	this->init();
 }
 
-template<
-	typename Types
->
-sge::renderer::resource_flags_field const
-sge::d3d9::texture::basic<Types>::resource_flags() const
-{
-	return this->parameters().resource_flags();
-}
 
 #endif
