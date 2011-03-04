@@ -22,8 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_VOLUME_TYPES_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_VOLUME_TYPES_HPP_INCLUDED
 
+#include "optional_lock_box.hpp"
+#include "optional_locked_box.hpp"
+#include "../d3dinclude.hpp"
+#include "../lock_flags.hpp"
 #include <sge/renderer/texture/volume_fwd.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
+#include <sge/renderer/stage_type.hpp>
+#include <fcppt/function/object_fwd.hpp>
 
 namespace sge
 {
@@ -37,6 +43,38 @@ struct volume_types
 	typedef sge::renderer::texture::volume base;
 
 	typedef sge::renderer::texture::volume_parameters parameters;
+
+	typedef IDirect3DVolumeTexture9 d3d_type;
+
+	typedef texture::optional_lock_box lock_dest;
+
+	typedef texture::optional_locked_box locked_dest;
+
+	typedef fcppt::function::object<
+		D3DLOCKED_RECT(
+			d3d_type *,
+			sge::renderer::stage_type,
+			lock_dest const &,
+			d3d9::lock_flags
+		)
+	> lock_function;
+
+	typedef fcppt::function::object<
+		void (
+			d3d_type *,
+			sge::renderer::stage_type
+		)
+	> unlock_function;
+
+	typedef fcppt::function::object<
+		d3d_type *(
+			IDirect3DDevice9 *,
+			parameters const &
+		)
+	> create_function;
+
+	static create_function const
+	create();
 };
 
 }

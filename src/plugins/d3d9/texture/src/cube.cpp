@@ -19,6 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../cube.hpp"
+#include "../lock_cube.hpp"
+#include "../unlock_cube.hpp"
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/optional_impl.hpp>
 
 sge::d3d9::texture::cube::cube(
 	IDirect3DDevice9 *const _device,
@@ -28,7 +32,8 @@ sge::d3d9::texture::cube::cube(
 	texture::cube_basic(
 		_device,
 		_params
-	)
+	),
+	locked_side_()
 {
 }
 
@@ -38,33 +43,73 @@ sge::d3d9::texture::cube::~cube()
 
 sge::image2d::view::object const
 sge::d3d9::texture::cube::lock(
-	renderer::texture::cube_side::type,
-	renderer::lock_rect const &,
-	renderer::lock_mode::type
+	renderer::texture::cube_side::type const _side,
+	renderer::lock_rect const &_rect,
+	renderer::lock_mode::type const _mode
 )
 {
+	locked_side_ = _side;
+
+	return
+		this->lock_impl(
+			this->lock_function(
+				_side
+			),
+			_rect,
+			_mode
+		);
 }
 
 sge::image2d::view::const_object const
 sge::d3d9::texture::cube::lock(
-	renderer::texture::cube_side::type,
-	renderer::lock_rect const &
+	renderer::texture::cube_side::type const _side,
+	renderer::lock_rect const &_rect
 ) const
 {
+	locked_side_ = _side;
+
+	return
+		this->lock_impl(
+			this->lock_function(
+				_side
+			),
+			_rect
+		);
 }
 
 void
 sge::d3d9::texture::cube::unlock() const
 {
+	this->unlock_impl(
+		std::tr1::bind(
+			texture::unlock_cube,
+			*locked_side_,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
+		)
+	);
+
+	locked_side_.reset();
 }
 
 sge::d3d9::texture::cube::size_type
 sge::d3d9::texture::cube::border_size() const
 {
+	return this->parameters()->dim();
 }
 
-IDirect3DBaseTexture9 *
-sge::d3d9::texture::cube::do_reset()
+sge::d3d9::texture::cube_basic::lock_function const
+sge::d3d9::texture::cube::lock_function(
+	renderer::texture::cube_side::type const _side
+) const
 {
-	return 0;
+	return
+		std::tr1::bind(
+			texture::lock_cube,
+			_side,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2,
+			std::tr1::placeholders::_3,
+			std::tr1::placeholders::_4
+		);
 }

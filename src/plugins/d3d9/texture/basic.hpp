@@ -62,28 +62,21 @@ public:
 	);
 
 	~basic();
-protected:
-	parameters_type const &
-	parameters() const;
-
-	IDirect3DDevice9 *
-	device() const;
-
-	D3DPOOL
-	pool() const;
-
-	d3d9::usage const
-	usage() const;
 
 	sge::renderer::resource_flags_field const 
 	resource_flags() const;
 
 	sge::renderer::texture::capabilities_field const
 	capabilities() const;
+protected:
+	parameters_type const &
+	parameters() const;
 
 	typedef typename base::view_type view_type;
 
 	typedef typename base::const_view_type view_type;
+
+	typedef typename base::lock_area lock_area;
 
 	typedef typename Types::lock_function lock_function;
 
@@ -114,9 +107,21 @@ private:
 	View const
 	do_lock(
 		MakeView const &,
+		lock_function const &,
 		lock_area const &
 		d3d9::lock_flags
 	) const;
+
+	typedef typename Types::d3d_type d3d_type;
+
+	d3d_type *
+	create(
+		D3DPOOL,
+		d3d::usage
+	) const;
+
+	void
+	init();
 
 	void
 	on_reset();
@@ -124,13 +129,13 @@ private:
 	void
 	on_loss();
 
-	typedef typename Types::d3d_type d3d_type;
-
 	typedef typename Types::locked_type locked_type;
 
 	IDirect3DDevice9 *const device_;
 
 	parameters_type const parameters_;
+
+	d3d9::usage const usage_;
 
 	typedef fcppt::scoped_ptr<
 		d3d_type,

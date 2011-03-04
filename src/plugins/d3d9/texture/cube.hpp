@@ -23,19 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic.hpp"
 #include "cube_basic.hpp"
-#include "optional_locked_rect.hpp"
 #include "../d3dinclude.hpp"
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/object.hpp>
-#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
-#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -59,14 +54,14 @@ public:
 
 	~cube();
 public:
-	image2d::view::object const
+	view_type const
 	lock(
 		renderer::texture::cube_side::type,
 		renderer::lock_rect const &,
 		renderer::lock_mode::type
 	);
 
-	image2d::view::const_object const
+	const_view_type const
 	lock(
 		renderer::texture::cube_side::type,
 		renderer::lock_rect const &
@@ -78,22 +73,16 @@ public:
 	size_type
 	border_size() const;
 private:
-	IDirect3DBaseTexture9 *
-	do_reset();
+	cube_basic::lock_function const
+	lock_function(
+		renderer::texture::cube_side::type
+	) const;
 
-	void
-	init();
+	typedef fcppt::optional<
+		renderer::texture::cube_side::type
+	> optional_cube_side;
 
-	typedef fcppt::scoped_ptr<
-		IDirect3DCubeTexture9,
-		fcppt::com_deleter
-	> d3d_scoped_cube_texture_ptr;
-
-	d3d_scoped_cube_texture_ptr
-		texture_,
-		temp_texture_;
-
-	texture::optional_locked_rect lock_dest_;
+	optional_cube_side locked_side_;
 };
 
 }

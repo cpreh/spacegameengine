@@ -23,7 +23,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic.hpp"
 #include "pool.hpp"
+#include "update.hpp"
+#include "usage.hpp"
+#include "../d3dinclude.hpp"
+#include "../convert/lock_mode.hpp"
+#include <sge/image/view/make.hpp>
+#include <sge/image/view/make_const.hpp>
+#include <sge/image/traits/pitch.hpp>
+#include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/stage_type.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/function/object_impl.hpp>
+#include <fcppt/optional_impl.hpp>
 
 template<
 	typename Types
@@ -34,7 +45,7 @@ sge::d3d9::texture::basic<Types>::basic(
 )
 :
 	Types::base(),
-	d3d9::texture::base(0),
+	d3d9::texture::base(),
 	d3d9::resource(
 		texture::pool(
 			_parameters.resource_flags(),
@@ -43,15 +54,17 @@ sge::d3d9::texture::basic<Types>::basic(
 	),
 	device_(_device),
 	parameters_(_parameters),
-	main_texture_(
-		Types::create()(
-			_device,
-			_parameters
+	usage_(
+		texture::usage(
+			_parameters.resource_flags(),
+			_parameters.capabilities()
 		)
 	),
+	main_texture_(),
 	temp_texture_(),
 	lock_dest_()
 {
+	this->init();
 }
 
 template<
@@ -64,28 +77,28 @@ sge::d3d9::texture::basic<Types>::~basic()
 template<
 	typename Types
 >
-typename sge::d3d9::texture::basic<Types>::parameters_type const &
-sge::d3d9::texture::basic<Types>::parameters() const
-{
-	return parameters_;
-}
-
-template<
-	typename Types
->
-IDirect3DDevice9 *
-sge::d3d9::texture::basic<Types>::device() const
-{
-	return device_;
-}
-
-template<
-	typename Types
->
 sge::renderer::resource_flags_field const
 sge::d3d9::texture::basic<Types>::resource_flags() const
 {
 	return this->parameters().resource_flags();
+}
+
+template<
+	typename Types
+>
+sge::renderer::texture::capabilities_field const
+sge::d3d9::texture::basic<Types>::capabilities() const
+{
+	return this->parameters().capabilities();
+}
+
+template<
+	typename Types
+>
+typename sge::d3d9::texture::basic<Types>::parameters_type const &
+sge::d3d9::texture::basic<Types>::parameters() const
+{
+	return parameters_;
 }
 
 template<
@@ -102,7 +115,10 @@ sge::d3d9::texture::basic<Types>::lock_impl(
 		this->do_lock<
 			view_type
 		>(
-			make_view,
+			sge::image::view::make<
+				view_type
+			>,
+			_lock,
 			_area,
 			d3d9::convert::lock_mode(
 				_mode,
@@ -124,7 +140,10 @@ sge::d3d9::texture::basic<Types>::lock_impl(
 		this->do_lock<
 			planar::const_view_type
 		>(
-			make_const_view,
+			sge::image::view::make_const<
+				const_view_type
+			>,
+			_lock,
 			_area,
 			d3d9::lock_flags(
 				D3DLOCK_READONLY
@@ -146,7 +165,9 @@ sge::d3d9::texture::basic<Types>::unlock_impl(
 	{
 		_unlock(
 			temp_texture_.get(),
-			renderer::stage_type(0u)
+			renderer::stage_type(
+				0u
+			)
 		);
 
 		texture::update(
@@ -157,7 +178,9 @@ sge::d3d9::texture::basic<Types>::unlock_impl(
 	}
 		_unlock(
 			main_texture_.get(),
-			renderer::stage_type(0u)
+			renderer::stage_type(
+				0u
+			)
 		);
 	
 	lock_dest_.reset();
@@ -173,18 +196,21 @@ template<
 View const
 sge::d3d9::texture::basic<Types>::do_lock(
 	MakeView const &_make_view,
+	lock_function const &_lock,
 	lock_area const &_area,
 	d3d9::lock_flags const _flags
 ) const
 {
-	texture::optional_lock_rect const dest_rect(
-		_rect
-		== this->rect()
+	typedef typename Types::lock_dest lock_dest;
+
+	lock_dest const dest_rect(
+		_area
+		== this->area()
 		?
-			texture::optional_lock_rect()
+			lock_dest()
 		:
-			texture::optional_lock_rect(
-				_rect
+			lock_dest(
+				_area
 			)
 	);
 
@@ -193,9 +219,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 	)
 	{
 		temp_texture_.take(
-			texture::create_planar(
-				this->device(),
-				this->parameters(),
+			this->create()(
 				D3DPOOL_SYSTEMMEM,
 				d3d9::usage(
 					0u
@@ -204,7 +228,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 		);
 
 		lock_dest_ =
-			texture::lock_planar(
+			_lock(
 				temp_texture_.get(),
 				renderer::stage_type(
 					0u
@@ -215,7 +239,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 	}	
 	else
 		lock_dest_ =
-			texture::lock_planar(
+			_lock(
 				texture_.get(),
 				renderer::stage_type(
 					0u
@@ -233,15 +257,47 @@ sge::d3d9::texture::basic<Types>::do_lock(
 				>(
 					lock_dest_->pBits
 				),
-				_rect.size(),
+				_area.size(),
 				this->parameters().color_format(),
-				sge::image2d::view::optional_pitch(
-					// TODO!
-				)
+				fcppt::optional<
+					typename sge::image::traits::pitch<
+						typename base::image_tag
+					>()
+				>() // TODO!
 			)
 		);
-
 }
+
+template<
+	typename Types
+>
+typename sge::d3d9::texture::basic<Types>::d3d_type *
+sge::d3d9::texture::basic<Types>::create(
+	D3DPOOL const _pool,
+	d3d::usage const _usage
+) const
+{
+	return
+		Types::create()(
+			device_,
+			this->parameters(),
+			_pool,
+			_usage
+		);
+}
+
+template<
+	typename Types
+>
+void
+sge::d3d9::texture::basic<Types>::init()
+{
+	main_texture_.reset(	
+		this->create(
+			this->pool(),
+			this->usage()
+		)
+	);
 
 template<
 	typename Types
@@ -260,6 +316,5 @@ sge::d3d9::texture::basic<Types>::on_loss()
 {
 	this->init();
 }
-
 
 #endif

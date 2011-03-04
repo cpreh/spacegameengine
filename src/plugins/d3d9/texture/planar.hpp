@@ -22,20 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_PLANAR_HPP_INCLUDED
 
 #include "basic.hpp"
-#include "optional_locked_rect.hpp"
 #include "planar_basic.hpp"
-#include "../d3dinclude.hpp"
-#include "../lock_flags.hpp"
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/stage_type.hpp>
-#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
-#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -84,16 +78,8 @@ public:
 	sge::renderer::stage_type
 	stages() const;
 private:
-	template<
-		typename View,
-		typename MakeView
-	>
-	View const
-	do_lock(
-		MakeView const &,
-		renderer::lock_rect const &,	
-		d3d9::lock_flags
-	) const;
+	planar_basic::lock_function const
+	lock_function() const;
 };
 
 }

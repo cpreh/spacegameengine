@@ -20,21 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../planar.hpp"
 #include "../basic_impl.hpp"
-#include "../create_planar.hpp"
 #include "../lock_planar.hpp"
-#include "../optional_lock_rect.hpp"
 #include "../unlock_planar.hpp"
-#include "../update.hpp"
-#include "../../convert/lock_mode.hpp"
-#include "../../d3dinclude.hpp"
-#include "../../lock_flags.hpp"
-#include <sge/image2d/view/make.hpp>
-#include <sge/image2d/view/make_const.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/raw_pointer.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/optional_impl.hpp>
 
 sge::d3d9::texture::planar::planar(
 	IDirect3DDevice9 *const _device,
@@ -66,7 +55,7 @@ sge::d3d9::texture::planar::lock(
 {
 	return
 		this->lock_impl(
-			this->lock_function()
+			this->lock_function(),
 			_rect,
 			_mode
 		);
@@ -79,21 +68,9 @@ sge::d3d9::texture::planar::lock(
 {
 	return
 		this->lock_impl(
-			this->lock_function()
+			this->lock_function(),
 			_rect
 		);
-#if 0
-	return
-		this->do_lock<
-			planar::const_view_type
-		>(
-			&sge::image2d::view::make_const,
-			_rect,
-			d3d9::lock_flags(
-				D3DLOCK_READONLY
-			)
-		);
-#endif
 }
 
 void
@@ -106,31 +83,6 @@ sge::d3d9::texture::planar::unlock() const
 			std::tr1::placeholders::_2
 		)
 	);
-#if 0
-	if(
-		!this->needs_reset()
-	)
-		texture::unlock_planar(
-			texture_.get(),
-			renderer::stage_type(0u)
-		);
-	else
-	{
-
-		texture::unlock_planar(
-			temp_texture_.get(),
-			renderer::stage_type(0u)
-		);
-
-		texture::update(
-			this->device(),
-			temp_texture_.get(),
-			texture_.get()
-		);
-	}
-
-	lock_dest_.reset();
-#endif
 }
 
 sge::renderer::color_surface_ptr const
@@ -145,100 +97,15 @@ sge::d3d9::texture::planar::stages() const
 {
 }
 
-IDirect3DBaseTexture9 *
-sge::d3d9::texture::planar::do_reset()
+sge::d3d9::texture::planar_basic::lock_function const
+sge::d3d9::texture::planar::lock_function() const
 {
-	texture_.take(
-		texture::create_planar(
-			this->device(),
-			this->parameters(),
-			this->pool(),
-			this->usage()
-		)
-	);
-
-	return texture_.get();
-}
-
-#if 0
-void
-sge::d3d9::texture::do_loss()
-{
-	texture_.reset();
-}
-#endif
-
-template<
-	typename View,
-	typename MakeView
->
-View const
-sge::d3d9::texture::planar::do_lock(
-	MakeView const &_make_view,
-	renderer::lock_rect const &_rect,
-	d3d9::lock_flags const _flags
-) const
-{
-	texture::optional_lock_rect const dest_rect(
-		_rect
-		== this->rect()
-		?
-			texture::optional_lock_rect()
-		:
-			texture::optional_lock_rect(
-				_rect
-			)
-	);
-
-	if(
-		!this->needs_reset()
-	)
-		lock_dest_ =
-			texture::lock_planar(
-				texture_.get(),
-				renderer::stage_type(
-					0u
-				),
-				dest_rect,
-				_flags
-			);
-	else
-	{
-		temp_texture_.take(
-			texture::create_planar(
-				this->device(),
-				this->parameters(),
-				D3DPOOL_SYSTEMMEM,
-				d3d9::usage(
-					0u
-				)
-			)
-		);
-
-		lock_dest_ =
-			texture::lock_planar(
-				temp_texture_.get(),
-				renderer::stage_type(
-					0u
-				),
-				dest_rect,
-				_flags
-			);
-	}	
-
 	return
-		View(
-			_make_view(
-				static_cast<
-					sge::renderer::raw_pointer
-				>(
-					lock_dest_->pBits
-				),
-				_rect.size(),
-				this->parameters().color_format(),
-				sge::image2d::view::optional_pitch(
-					// TODO!
-				)
-			)
+		std::tr1::bind(
+			texture::lock_planar,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2,
+			std::tr1::placeholders::_3,
+			std::tr1::placeholders::_4
 		);
 }
