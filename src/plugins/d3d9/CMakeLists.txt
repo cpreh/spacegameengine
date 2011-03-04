@@ -90,6 +90,7 @@ SET(
 	src/plugins/d3d9/texture/basic_impl.hpp
 	src/plugins/d3d9/texture/create_cube.hpp
 	src/plugins/d3d9/texture/create_planar.hpp
+	src/plugins/d3d9/texture/create_volume.hpp
 	src/plugins/d3d9/texture/cube.hpp
 	src/plugins/d3d9/texture/cube_basic.hpp
 	src/plugins/d3d9/texture/cube_types.hpp
@@ -111,12 +112,15 @@ SET(
 	src/plugins/d3d9/texture/src/base.cpp
 	src/plugins/d3d9/texture/src/create_cube.cpp
 	src/plugins/d3d9/texture/src/create_planar.cpp
+	src/plugins/d3d9/texture/src/create_volume.cpp
 	src/plugins/d3d9/texture/src/cube.cpp
+	src/plugins/d3d9/texture/src/cube_types.cpp
 	src/plugins/d3d9/texture/src/lock_cube.cpp
 	src/plugins/d3d9/texture/src/lock_planar.cpp
 	src/plugins/d3d9/texture/src/lock_volume.cpp
 	src/plugins/d3d9/texture/src/mipmap_levels.cpp
 	src/plugins/d3d9/texture/src/planar.cpp
+	src/plugins/d3d9/texture/src/planar_types.cpp
 	src/plugins/d3d9/texture/src/pool.cpp
 	src/plugins/d3d9/texture/src/unlock_cube.cpp
 	src/plugins/d3d9/texture/src/unlock_planar.cpp
@@ -124,6 +128,7 @@ SET(
 	src/plugins/d3d9/texture/src/update.cpp
 	src/plugins/d3d9/texture/src/usage.cpp
 	src/plugins/d3d9/texture/src/volume.cpp
+	src/plugins/d3d9/texture/src/volume_types.cpp
 	src/plugins/d3d9/texture/unlock_cube.hpp
 	src/plugins/d3d9/texture/unlock_planar.hpp
 	src/plugins/d3d9/texture/unlock_volume.hpp
