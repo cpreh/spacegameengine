@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <sge/image2d/tag.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -47,31 +48,40 @@ class SGE_CLASS_SYMBOL cube
 		cube
 	);
 protected:
-	SGE_SYMBOL cube();
+	SGE_SYMBOL
+	cube();
 public:
 	typedef lock_rect rect_type;
 
 	typedef lock_rect lock_area;
 
-	SGE_SYMBOL image2d::view::object const
+	typedef sge::image2d::tag image_tag;
+
+	typedef image2d::view::object view_type;
+
+	typedef image2d::view::const_object const_view_type;
+
+	SGE_SYMBOL
+	view_type const
 	lock(
 		texture::cube_side::type side,
 		lock_mode::type
 	);
 
-	SGE_SYMBOL image2d::view::const_object const
+	SGE_SYMBOL
+	const_view_type const
 	lock(
 		texture::cube_side::type side
 	) const;
 
-	virtual image2d::view::object const
+	virtual view_type const
 	lock(
 		texture::cube_side::type,
 		lock_area const &,
 		lock_mode::type
 	) = 0;
 
-	virtual image2d::view::const_object const
+	virtual const_view_type const
 	lock(
 		texture::cube_side::type,
 		lock_area const &

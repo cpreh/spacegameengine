@@ -18,36 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/make_const_impl.hpp"
-#include "../../image/view/instantiate_make_const.hpp"
-#include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/image/raw_pointer.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
 
-sge::image2d::view::const_object const
-sge::image2d::view::make_const(
-	image::const_raw_pointer const _data,
-	image2d::dim const &_dim,
-	image::color::format::type const _format,
-	image2d::view::optional_pitch const &_pitch
+#include <sge/image/view/to_const.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/view.hpp>
+#include <fcppt/export_symbol.hpp>
+
+#define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST(\
+	Tag\
+)\
+template \
+FCPPT_EXPORT_SYMBOL \
+sge::image::traits::const_view<\
+	Tag\
+>::type const \
+sge::image::view::to_const< \
+	Tag \
+>( \
+	sge::image::traits::view<\
+		Tag\
+	>::type const &\
 )
-{
-	return
-		sge::image::view::make_const<
-			sge::image2d::tag
-		>(
-			const_cast<
-				image::raw_pointer
-			>(
-				_data
-			),
-			_dim,
-			_format,
-			_pitch
-		);
-}
 
-SGE_IMAGE_VIEW_INSTANTIATE_MAKE_CONST(
-	sge::image2d::tag
-);
+#endif

@@ -18,36 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/make_const_impl.hpp"
-#include "../../image/view/instantiate_make_const.hpp"
-#include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/image/raw_pointer.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_D3D9_TEXTURE_OPTIONAL_LOCKED_BOX_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_OPTIONAL_LOCKED_BOX_HPP_INCLUDED
 
-sge::image2d::view::const_object const
-sge::image2d::view::make_const(
-	image::const_raw_pointer const _data,
-	image2d::dim const &_dim,
-	image::color::format::type const _format,
-	image2d::view::optional_pitch const &_pitch
-)
+#include "../d3dinclude.hpp"
+#include <fcppt/optional_fwd.hpp>
+
+namespace sge
 {
-	return
-		sge::image::view::make_const<
-			sge::image2d::tag
-		>(
-			const_cast<
-				image::raw_pointer
-			>(
-				_data
-			),
-			_dim,
-			_format,
-			_pitch
-		);
+namespace d3d9
+{
+namespace texture
+{
+
+typedef fcppt::optional<
+	D3DLOCKED_BOX
+> optional_locked_box;
+
+}
+}
 }
 
-SGE_IMAGE_VIEW_INSTANTIATE_MAKE_CONST(
-	sge::image2d::tag
-);
+#endif

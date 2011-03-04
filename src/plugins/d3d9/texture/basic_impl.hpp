@@ -62,7 +62,7 @@ sge::d3d9::texture::basic<Types>::basic(
 	),
 	main_texture_(),
 	temp_texture_(),
-	lock_dest_()
+	locked_dest_()
 {
 	this->init();
 }
@@ -90,6 +90,15 @@ sge::renderer::texture::capabilities_field const
 sge::d3d9::texture::basic<Types>::capabilities() const
 {
 	return this->parameters().capabilities();
+}
+
+template<
+	typename Types
+>
+typename sge::d3d9::texture::basic<Types>::d3d_type *
+sge::d3d9::texture::basic<Types>::get() const
+{
+	return main_texture_.get();
 }
 
 template<
@@ -183,7 +192,7 @@ sge::d3d9::texture::basic<Types>::unlock_impl(
 			)
 		);
 	
-	lock_dest_.reset();
+	locked_dest_.reset();
 }
 
 template<
@@ -227,7 +236,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 			)
 		);
 
-		lock_dest_ =
+		locked_dest_ =
 			_lock(
 				temp_texture_.get(),
 				renderer::stage_type(
@@ -238,7 +247,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 			);
 	}	
 	else
-		lock_dest_ =
+		locked_dest_ =
 			_lock(
 				texture_.get(),
 				renderer::stage_type(
@@ -255,7 +264,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 				static_cast<
 					sge::renderer::raw_pointer
 				>(
-					lock_dest_->pBits
+					locked_dest_->pBits
 				),
 				_area.size(),
 				this->parameters().color_format(),

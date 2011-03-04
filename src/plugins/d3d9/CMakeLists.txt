@@ -98,6 +98,7 @@ SET(
 	src/plugins/d3d9/texture/mipmap_levels.hpp
 	src/plugins/d3d9/texture/optional_lock_box.hpp
 	src/plugins/d3d9/texture/optional_lock_rect.hpp
+	src/plugins/d3d9/texture/optional_locked_box.hpp
 	src/plugins/d3d9/texture/optional_locked_rect.hpp
 	src/plugins/d3d9/texture/planar.hpp
 	src/plugins/d3d9/texture/planar_basic.hpp
@@ -116,6 +117,7 @@ SET(
 	src/plugins/d3d9/texture/src/update.cpp
 	src/plugins/d3d9/texture/src/usage.cpp
 	src/plugins/d3d9/texture/src/volume.cpp
+	src/plugins/d3d9/texture/unlock_cube.hpp
 	src/plugins/d3d9/texture/unlock_planar.hpp
 	src/plugins/d3d9/texture/update.hpp
 	src/plugins/d3d9/texture/usage.hpp

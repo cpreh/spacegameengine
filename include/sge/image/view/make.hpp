@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/traits/view.hpp>
+#include <sge/image/traits/dim.hpp>
+#include <sge/image/traits/optional_pitch.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -33,17 +36,21 @@ namespace view
 {
 
 template<
-	typename Result,
-	typename Dim,
-	typename OptionalPitch
+	typename Tag
 >
 SGE_SYMBOL
-Result const
+typename image::traits::view<
+	Tag
+>::type const
 make(
 	image::raw_pointer,
-	Dim const &,
+	typename image::traits::dim<
+		Tag
+	>::type const &,
 	image::color::format::type,
-	OptionalPitch const &
+	typename image::traits::optional_pitch<
+		Tag
+	>::type const &
 );
 
 }

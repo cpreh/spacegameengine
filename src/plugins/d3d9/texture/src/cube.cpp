@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../cube.hpp"
+#include "../basic_impl.hpp"
+#include "../cube_types.hpp"
 #include "../lock_cube.hpp"
 #include "../unlock_cube.hpp"
 #include <fcppt/tr1/functional.hpp>
@@ -113,3 +115,8 @@ sge::d3d9::texture::cube::lock_function(
 			std::tr1::placeholders::_4
 		);
 }
+
+template class
+sge::d3d9::texture::basic<
+	sge::d3d9::texture::cube_types
+>;

@@ -27,7 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/traits/view_elements.hpp>
-#include <sge/image/traits/tag_from_view.hpp>
+#include <sge/image/traits/view.hpp>
+#include <sge/image/traits/dim.hpp>
+#include <sge/image/traits/optional_pitch.hpp>
 #include <fcppt/mpl/invoke_on.hpp>
 #include <mizuiro/image/is_raw_view.hpp>
 #include <boost/mpl/filter_view.hpp>
@@ -36,16 +38,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/quote.hpp>
 
 template<
-	typename Result,
-	typename Dim,
-	typename OptionalPitch
+	typename Tag
 >
-Result const
+typename sge::image::traits::view<
+	Tag
+>::type const
 sge::image::view::make(
 	image::raw_pointer const _data,
-	Dim const &_dim,
+	typename image::traits::dim<
+		Tag
+	>::type const &_dim,
 	image::color::format::type const _format,
-	OptionalPitch const &_pitch
+	typename image::traits::optional_pitch<
+		Tag
+	>::type const &_pitch
 )
 {
 	// TODO: gcc-4.5: Check if this is a gcc bug
@@ -54,9 +60,7 @@ sge::image::view::make(
 		fcppt::mpl::invoke_on<
 			boost::mpl::filter_view<
 				typename sge::image::traits::view_elements<
-					typename sge::image::traits::tag_from_view<
-						Result
-					>::type
+					Tag
 				>::type,
 				boost::mpl::bind<
 					boost::mpl::quote1<
@@ -72,9 +76,15 @@ sge::image::view::make(
 				_format
 			),
 			sge::image::view::make_visitor<
-				Result,
-				Dim,
-				OptionalPitch
+				typename sge::image::traits::view<
+					Tag
+				>::type,
+				typename sge::image::traits::dim<
+					Tag
+				>::type,
+				typename sge::image::traits::optional_pitch<
+					Tag
+				>::type
 			>(
 				_data,
 				_dim,

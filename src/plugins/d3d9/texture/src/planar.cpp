@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../planar.hpp"
 #include "../basic_impl.hpp"
 #include "../lock_planar.hpp"
+#include "../planar_types.hpp"
 #include "../unlock_planar.hpp"
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -109,3 +110,8 @@ sge::d3d9::texture::planar::lock_function() const
 			std::tr1::placeholders::_4
 		);
 }
+
+template class
+sge::d3d9::texture::basic<
+	sge::d3d9::texture::planar_types
+>;
