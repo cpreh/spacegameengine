@@ -191,10 +191,16 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 		)
 			continue;
 
-		return
+		file_ptr const ret(
 			ref->load(
 				_file
-			);
+			)
+		);
+
+		if(
+			ret
+		)
+			return ret;
 	}
 
 	throw sge::loaders_exhausted(
