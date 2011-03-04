@@ -26,9 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/warning.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
 
 sge::libpng::context_base::context_base(
-	fcppt::filesystem::path const &_path
+	sge::image::optional_path const &_path
 )
 :
 	path_(
@@ -48,13 +49,20 @@ void sge::libpng::context_base::handle_warning(
 void sge::libpng::context_base::handle_warning_impl(
 	png_const_charp const message)
 {
+	fcppt::string const prelude = 
+		path_
+		?
+			FCPPT_TEXT("file: ")+
+			fcppt::filesystem::path_to_string(
+				*path_)
+		:
+			FCPPT_TEXT("stream");
+			
 	FCPPT_LOG_WARNING(
 		log::global(),
 		fcppt::log::_
-			<< FCPPT_TEXT("libpng: file: ")
-			<< fcppt::filesystem::path_to_string(
-				path_
-			)
+			<< FCPPT_TEXT("libpng: ")
+			<< prelude
 			<< FCPPT_TEXT(": ")
 			<< fcppt::from_std_string(message)
 	);
@@ -71,13 +79,14 @@ void sge::libpng::context_base::handle_error(
 void sge::libpng::context_base::handle_error_impl(
 	png_const_charp const message)
 {
-	throw
-		image::file_exception(
-			path_,
-			fcppt::from_std_string(
-				message
-			)
-		);
+	if(path_)
+		throw
+			image::file_exception(
+				path_,
+				fcppt::from_std_string(
+					message
+				)
+			);
 }
 
 sge::libpng::context_base::~context_base() {}

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::image::unsupported_format::unsupported_format(
-	fcppt::filesystem::path const &_path,
+	optional_path const &_path,
 	fcppt::string const &_string
 )
 :

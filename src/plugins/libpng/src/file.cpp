@@ -33,9 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 
 sge::libpng::file::file(
-	fcppt::filesystem::path const &_path)
+	std::istream &_stream,
+	sge::image::optional_path const &_path)
 {
 	load_context context(
+		_stream,
 		_path);
 	dim_ = context.dim();
 

@@ -20,19 +20,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/file_exception.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
 sge::image::file_exception::file_exception(
-	fcppt::filesystem::path const &_path,
+	optional_path const &_path,
 	fcppt::string const &_message
 )
 :
 	image::exception(
-		FCPPT_TEXT("\"")
-		+ fcppt::filesystem::path_to_string(
-			_path
-		)
-		+ FCPPT_TEXT("\": ")
-		+ _message
+		_path
+		?
+			FCPPT_TEXT("\"")
+			+ fcppt::filesystem::path_to_string(
+				*_path
+			)
+			+ FCPPT_TEXT("\": ")
+			+ _message
+		:
+			FCPPT_TEXT("stream: ")
+			+_message
 	)
 {}

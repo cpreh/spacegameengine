@@ -25,13 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "read_ptr.hpp"
 #include "byte_vector.hpp"
 #include <sge/image/color/format.hpp>
+#include <sge/image/optional_path.hpp>
 #include <sge/image2d/dim.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <png.h>
+#include <istream>
 #include <cstddef>
 
 namespace sge
@@ -47,8 +50,8 @@ class load_context
 	);
 public:
 	explicit load_context(
-		fcppt::filesystem::path const &
-	);
+		std::istream &,
+		sge::image::optional_path const &);
 
 	image2d::dim const &dim() const;
 	byte_vector &bytes();
@@ -57,7 +60,7 @@ public:
 private:
 	static std::size_t const header_bytes_;
 
-	fcppt::io::cifstream file_;
+	std::istream &stream_;
 	fcppt::scoped_ptr<read_ptr> read_ptr_;
 	image2d::dim dim_;
 	byte_vector bytes_;

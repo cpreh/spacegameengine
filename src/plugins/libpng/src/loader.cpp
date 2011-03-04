@@ -21,11 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../loader.hpp"
 #include "../file.hpp"
 #include <sge/extension_set.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <boost/iostreams/device/array.hpp>
+#include <boost/iostreams/stream.hpp>
 
 namespace
 {
@@ -58,10 +62,14 @@ sge::libpng::loader::load(
 	fcppt::filesystem::path const &_path
 )
 {
+	fcppt::io::cifstream file_stream(
+		_path);
 	return
 		fcppt::make_shared_ptr<
 			file
 		>(
+			std::tr1::ref(
+				file_stream),
 			_path
 		);
 }
@@ -80,8 +88,25 @@ sge::libpng::loader::load(
 		)
 	)
 		return sge::image2d::file_ptr();
+
+	typedef
+	boost::iostreams::stream<boost::iostreams::array_source>
+	stream_type;
+
+	stream_type raw_stream(
+		reinterpret_cast<boost::iostreams::array_source::char_type const *>(
+			_range.begin()),
+		reinterpret_cast<boost::iostreams::array_source::char_type const *>(
+			_range.end()));
 	
-	// TODO:!
+	return 
+		fcppt::make_shared_ptr<
+			file
+		>(
+			std::tr1::ref(
+				raw_stream),
+			sge::image::optional_path()
+		);
 }
 
 sge::image2d::file_ptr const

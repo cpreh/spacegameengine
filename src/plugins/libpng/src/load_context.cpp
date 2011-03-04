@@ -36,23 +36,18 @@ std::size_t const sge::libpng::load_context::header_bytes_ =
 	static_cast<std::size_t>(8);
 
 sge::libpng::load_context::load_context(
-	fcppt::filesystem::path const &_path)
+	std::istream &_stream,
+	sge::image::optional_path const &_path)
 :
 	context_base(
 		_path),
-	file_(
-		_path),
+	stream_(
+		_stream),
 	read_ptr_(),
 	dim_(),
 	bytes_(),
 	format_()
 {
-	if (!file_.is_open())
-		throw
-			image::file_exception(
-				_path,
-				FCPPT_TEXT("couldn't open file"));
-
 	if (!is_png())
 		throw
 			image::unsupported_format(
@@ -186,12 +181,12 @@ bool sge::libpng::load_context::is_png()
 {
 	char buf[header_bytes_];
 
-	file_.read(
+	stream_.read(
 		buf,
 		static_cast<std::streamsize>(
 			header_bytes_));
 
-	if (file_.gcount() < static_cast<std::streamsize>(header_bytes_))
+	if (stream_.gcount() < static_cast<std::streamsize>(header_bytes_))
 		return false;
 
 	return
@@ -218,17 +213,17 @@ void sge::libpng::load_context::handle_read_impl(
 	png_bytep _data,
 	png_size_t _length)
 {
-	file_.read(
+	stream_.read(
 		reinterpret_cast<char *>(
 			_data),
 		static_cast<std::streamsize>(
 			_length));
-	if (file_.gcount() < static_cast<std::streamsize>(_length))
+	if (stream_.gcount() < static_cast<std::streamsize>(_length))
 		throw
 			image::file_exception(
 				path_,
 				FCPPT_TEXT("didn't read as many bytes as supposed to"));
-	if (!file_)
+	if (!stream_)
 		throw
 			image::file_exception(
 				path_,

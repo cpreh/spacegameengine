@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_CONTEXT_BASE_HPP_INCLUDED
 #define SGE_LIBPNG_CONTEXT_BASE_HPP_INCLUDED
 
+#include <sge/image/optional_path.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional.hpp>
 #include <png.h>
 
 namespace sge
@@ -36,10 +38,10 @@ class context_base
 	);
 protected:
 	explicit context_base(
-		fcppt::filesystem::path const &
+		sge::image::optional_path const &
 	);
 
-	fcppt::filesystem::path const path_;
+	sge::image::optional_path const path_;
 
 	static void handle_warning(
 		png_structp,

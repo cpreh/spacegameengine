@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <climits>
 #include <iosfwd>
 
@@ -200,10 +201,10 @@ sge::libpng::write_context::write_context(
 		static_cast<png_uint_32>(
 			_dim.h()),
 		bit_depth_from_format(
-			path_,
+			*path_,
 			_format),
 		color_type_from_format(
-			path_,
+			*path_,
 			_format),
 		PNG_INTERLACE_NONE,
 		PNG_COMPRESSION_TYPE_DEFAULT,
@@ -220,7 +221,7 @@ sge::libpng::write_context::write_context(
 			_dim.h()));
 
 	row_ptr_vector::size_type const stride =
-		channels_from_format(_format) * bit_depth_from_format(path_,_format)/CHAR_BIT * _dim.w();
+		channels_from_format(_format) * bit_depth_from_format(*path_,_format)/CHAR_BIT * _dim.w();
 
 	for (row_ptr_vector::size_type i = 0; i < row_ptrs.size(); ++i)
 		row_ptrs[i] = bytes_.data() + i * stride;
