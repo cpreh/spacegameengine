@@ -18,15 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_LOCK_VOLUME_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_LOCK_VOLUME_HPP_INCLUDED
 
-#include "basic.hpp"
-#include "volume_basic.hpp"
-#include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/volume_parameters.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <fcppt/noncopyable.hpp>
+#include "optional_lock_box.hpp"
+#include "../d3dinclude.hpp"
+#include "../lock_flags.hpp"
+#include <sge/renderer/stage_type.hpp>
 
 namespace sge
 {
@@ -35,41 +33,13 @@ namespace d3d9
 namespace texture
 {
 
-class volume
-:
-	public texture::volume_basic
-{
-	FCPPT_NONCOPYABLE(
-		volume
-	);
-public:
-	volume(
-		IDirect3DDevice9 *,
-		renderer::texture::volume_parameters const &
-	);
-
-	~volume();
-
-	dim_type const
-	dim() const;
-
-	view_type const
-	lock(
-		lock_area const &,
-		renderer::lock_mode::type
-	);
-
-	const_view_type const
-	lock(
-		lock_area const &
-	) const;
-
-	void
-	unlock() const;
-private:
-	volume_basic::lock_function const
-	lock_function() const;
-};
+D3DLOCKED_BOX const
+lock_volume(
+	IDirect3DVolumeTexture9 *,
+	sge::renderer::stage_type,
+	d3d9::texture::optional_lock_box const &,
+	d3d9::lock_flags
+);
 
 }
 }

@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
 
+#include "d3d_texture_unique_ptr.hpp"
 #include "optional_lock_rect.hpp"
 #include "optional_locked_rect.hpp"
 #include "../d3dinclude.hpp"
 #include "../lock_flags.hpp"
+#include "../usage.hpp"
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/stage_type.hpp>
@@ -49,6 +51,8 @@ struct planar_types
 
 	typedef texture::optional_locked_rect locked_dest;
 
+	typedef texture::d3d_texture_unique_ptr unique_ptr;
+
 	typedef fcppt::function::object<
 		D3DLOCKED_RECT(
 			d3d_type *,
@@ -66,9 +70,11 @@ struct planar_types
 	> unlock_function;
 
 	typedef fcppt::function::object<
-		d3d_type *(
+		unique_ptr(
 			IDirect3DDevice9 *,
-			parameters const &
+			parameters const &,
+			D3DPOOL,
+			d3d9::usage
 		)
 	> create_function;
 

@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/traits/pitch.hpp>
+#include <sge/image/traits/optional_pitch.hpp>
 #include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/math/box/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -63,6 +63,8 @@ class basic
 	);
 public:
 	typedef typename Types::base base_type;
+	
+	typedef typename base_type::image_tag image_tag;
 
 	typedef opengl::texture::lock_base::pointer pointer;
 
@@ -193,11 +195,9 @@ private:
 
 	mutable optional_lock_area lock_area_;
 
-	typedef fcppt::optional<
-		typename sge::image::traits::pitch<
-			typename base_type::image_tag
-		>::type
-	> optional_pitch;
+	typedef typename sge::image::traits::optional_pitch<
+		image_tag
+	>::type optional_pitch;
 };
 
 }

@@ -210,12 +210,18 @@ SET(
 	include/sge/image/size_type.hpp
 	include/sge/image/store.hpp
 	include/sge/image/store_fwd.hpp
+	include/sge/image/traits/const_view.hpp
+	include/sge/image/traits/const_view_elements.hpp
+	include/sge/image/traits/dim.hpp
+	include/sge/image/traits/optional_pitch.hpp
 	include/sge/image/traits/pitch.hpp
 	include/sge/image/traits/tag_from_view.hpp
+	include/sge/image/traits/view.hpp
 	include/sge/image/traits/view_elements.hpp
 	include/sge/image/unsupported_format.hpp
 	include/sge/image/view/flipped.hpp
 	include/sge/image/view/make.hpp
+	include/sge/image/view/make_const.hpp
 	include/sge/image/view/sub.hpp
 	include/sge/image/view/to_const.hpp
 	include/sge/image2d/algorithm/convert_conditional.hpp
@@ -942,6 +948,9 @@ SET(
 	src/image/view/format.hpp
 	src/image/view/format_visitor.hpp
 	src/image/view/instantiate_flipped.hpp
+	src/image/view/instantiate_make.hpp
+	src/image/view/instantiate_make_const.hpp
+	src/image/view/instantiate_to_const.hpp
 	src/image/view/make_const_impl.hpp
 	src/image/view/make_impl.hpp
 	src/image/view/make_visitor.hpp

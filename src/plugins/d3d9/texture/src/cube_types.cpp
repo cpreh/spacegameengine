@@ -18,61 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
+#include "../cube_types.hpp"
+#include "../create_cube.hpp"
+#include <fcppt/function/object.hpp>
+#include <fcppt/tr1/functional.hpp>
 
-#include "basic.hpp"
-#include "volume_basic.hpp"
-#include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/volume_parameters.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+sge::d3d9::texture::cube_types::create_function const
+sge::d3d9::texture::cube_types::create()
 {
-namespace d3d9
-{
-namespace texture
-{
-
-class volume
-:
-	public texture::volume_basic
-{
-	FCPPT_NONCOPYABLE(
-		volume
-	);
-public:
-	volume(
-		IDirect3DDevice9 *,
-		renderer::texture::volume_parameters const &
-	);
-
-	~volume();
-
-	dim_type const
-	dim() const;
-
-	view_type const
-	lock(
-		lock_area const &,
-		renderer::lock_mode::type
-	);
-
-	const_view_type const
-	lock(
-		lock_area const &
-	) const;
-
-	void
-	unlock() const;
-private:
-	volume_basic::lock_function const
-	lock_function() const;
-};
-
+	return
+		std::tr1::bind(
+			texture::create_cube,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2,
+			std::tr1::placeholders::_3,
+			std::tr1::placeholders::_4
+		);	
 }
-}
-}
-
-#endif

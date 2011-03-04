@@ -22,23 +22,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_VIEW_TO_CONST_IMPL_HPP_INCLUDED
 
 #include "to_const_visitor.hpp"
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/view.hpp>
 #include <sge/image/view/to_const.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 template<
-	typename Dest,
-	typename Src
+	typename Tag
 >
-Dest const
+SGE_SYMBOL
+typename sge::image::traits::const_view<
+	Tag
+>::type const
 sge::image::view::to_const(
-	Src const &_src
+	typename image::traits::view<
+		Tag
+	>::type const &_src
 )
 {
 	return
 		fcppt::variant::apply_unary(
 			sge::image::view::to_const_visitor<
-				Dest
+				typename image::traits::const_view<
+					Tag
+				>::type
 			>(),
 			_src
 		);

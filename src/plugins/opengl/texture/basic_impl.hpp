@@ -127,7 +127,7 @@ sge::opengl::texture::basic<Types>::unlock() const
 			sge::image::algorithm::copy_and_convert(
 				this->view(),
 				sge::image::view::make<
-					view_type
+					image_tag
 				>(
 					lock_->write_view_pointer(),
 					this->lock_dim(),
@@ -254,7 +254,7 @@ sge::opengl::texture::basic<Types>::view()
 
 	view_type const ret(
 		image::view::make<
-			view_type
+			image_tag
 		>(
 			reading
 			?
@@ -296,7 +296,7 @@ sge::opengl::texture::basic<Types>::view() const
 {
 	return
 		image::view::to_const<
-			const_view_type
+			image_tag
 		>(
 			const_cast<
 				opengl::texture::basic<Types> *

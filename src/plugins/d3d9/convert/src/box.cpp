@@ -18,61 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
+#include "../box.hpp"
+#include "../../d3dinclude.hpp"
+#include <fcppt/math/box/basic_impl.hpp>
 
-#include "basic.hpp"
-#include "volume_basic.hpp"
-#include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/volume_parameters.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+D3DBOX const
+sge::d3d9::convert::box(
+	renderer::lock_box const &_box
+)
 {
-namespace d3d9
-{
-namespace texture
-{
+	D3DBOX const ret =
+	{
+		static_cast<
+			LONG
+		>(
+			_box.left()
+		),
+		static_cast<
+			LONG
+		>(
+			_box.top()
+		),
+		static_cast<
+			LONG
+		>(
+			_box.right()
+		),
+		static_cast<
+			LONG
+		>(
+			_box.bottom()
+		),
+		static_cast<
+			LONG
+		>(
+			_box.front()
+		),
+		static_cast<
+			LONG
+		>(
+			_box.back()
+		)
+	};
 
-class volume
-:
-	public texture::volume_basic
-{
-	FCPPT_NONCOPYABLE(
-		volume
-	);
-public:
-	volume(
-		IDirect3DDevice9 *,
-		renderer::texture::volume_parameters const &
-	);
-
-	~volume();
-
-	dim_type const
-	dim() const;
-
-	view_type const
-	lock(
-		lock_area const &,
-		renderer::lock_mode::type
-	);
-
-	const_view_type const
-	lock(
-		lock_area const &
-	) const;
-
-	void
-	unlock() const;
-private:
-	volume_basic::lock_function const
-	lock_function() const;
-};
-
+	return ret;
 }
-}
-}
-
-#endif

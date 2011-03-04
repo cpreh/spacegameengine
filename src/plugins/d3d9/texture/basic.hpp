@@ -24,12 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_fwd.hpp"
 #include "base.hpp"
 #include "../d3dinclude.hpp"
+#include "../lock_flags.hpp"
 #include "../usage.hpp"
 #include "../resource.hpp"
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
 namespace sge
@@ -54,7 +57,11 @@ class basic
 public:
 	typedef typename Types::base base;
 
+	typedef typename base::image_tag image_tag;
+
 	typedef typename Types::parameters parameters_type;
+
+	typedef typename Types::d3d_type d3d_type;
 
 	basic(
 		IDirect3DDevice9 *,
@@ -68,13 +75,16 @@ public:
 
 	sge::renderer::texture::capabilities_field const
 	capabilities() const;
+
+	d3d_type *
+	get() const;
 protected:
 	parameters_type const &
 	parameters() const;
 
 	typedef typename base::view_type view_type;
 
-	typedef typename base::const_view_type view_type;
+	typedef typename base::const_view_type const_view_type;
 
 	typedef typename base::lock_area lock_area;
 
@@ -93,7 +103,7 @@ protected:
 	lock_impl(
 		lock_function const &,
 		lock_area const &
-	);
+	) const;
 
 	void
 	unlock_impl(
@@ -108,16 +118,16 @@ private:
 	do_lock(
 		MakeView const &,
 		lock_function const &,
-		lock_area const &
+		lock_area const &,
 		d3d9::lock_flags
 	) const;
 
-	typedef typename Types::d3d_type d3d_type;
+	typedef typename Types::unique_ptr d3d_unique_ptr;
 
-	d3d_type *
+	d3d_unique_ptr
 	create(
 		D3DPOOL,
-		d3d::usage
+		d3d9::usage
 	) const;
 
 	void
@@ -129,7 +139,7 @@ private:
 	void
 	on_loss();
 
-	typedef typename Types::locked_type locked_type;
+	typedef typename Types::locked_dest locked_dest;
 
 	IDirect3DDevice9 *const device_;
 
@@ -146,7 +156,7 @@ private:
 	
 	mutable d3d_scoped_ptr temp_texture_;
 
-	mutable locked_type lock_dest_;
+	mutable locked_dest locked_dest_;
 };
 
 }

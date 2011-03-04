@@ -96,7 +96,7 @@ sge::d3d9::device::begin_rendering()
 		throw sge::renderer::exception(
 			FCPPT_TEXT("Clear() failed!")
 		);
-
+#endif
 	if(
 		device_->BeginScene()
 		!= D3D_OK
@@ -104,7 +104,6 @@ sge::d3d9::device::begin_rendering()
 		throw sge::renderer::exception(
 			FCPPT_TEXT("BeginScene() failed!")
 		);
-#endif
 }
 
 void

@@ -29,11 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/lock_mode.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
-#include <sge/image/traits/pitch.hpp>
+#include <sge/image/traits/optional_pitch.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/function/object_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/optional_impl.hpp>
 
 template<
@@ -62,7 +63,7 @@ sge::d3d9::texture::basic<Types>::basic(
 	),
 	main_texture_(),
 	temp_texture_(),
-	lock_dest_()
+	locked_dest_()
 {
 	this->init();
 }
@@ -95,6 +96,15 @@ sge::d3d9::texture::basic<Types>::capabilities() const
 template<
 	typename Types
 >
+typename sge::d3d9::texture::basic<Types>::d3d_type *
+sge::d3d9::texture::basic<Types>::get() const
+{
+	return main_texture_.get();
+}
+
+template<
+	typename Types
+>
 typename sge::d3d9::texture::basic<Types>::parameters_type const &
 sge::d3d9::texture::basic<Types>::parameters() const
 {
@@ -116,7 +126,7 @@ sge::d3d9::texture::basic<Types>::lock_impl(
 			view_type
 		>(
 			sge::image::view::make<
-				view_type
+				image_tag
 			>,
 			_lock,
 			_area,
@@ -134,14 +144,14 @@ typename sge::d3d9::texture::basic<Types>::const_view_type const
 sge::d3d9::texture::basic<Types>::lock_impl(
 	lock_function const &_lock,
 	lock_area const &_area
-)
+) const
 {
 	return
 		this->do_lock<
-			planar::const_view_type
+			const_view_type
 		>(
 			sge::image::view::make_const<
-				const_view_type
+				image_tag
 			>,
 			_lock,
 			_area,
@@ -171,7 +181,7 @@ sge::d3d9::texture::basic<Types>::unlock_impl(
 		);
 
 		texture::update(
-			this->device(),
+			device_,
 			temp_texture_.get(),
 			main_texture_.get()
 		);
@@ -183,7 +193,7 @@ sge::d3d9::texture::basic<Types>::unlock_impl(
 			)
 		);
 	
-	lock_dest_.reset();
+	locked_dest_.reset();
 }
 
 template<
@@ -219,7 +229,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 	)
 	{
 		temp_texture_.take(
-			this->create()(
+			this->create(
 				D3DPOOL_SYSTEMMEM,
 				d3d9::usage(
 					0u
@@ -227,7 +237,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 			)
 		);
 
-		lock_dest_ =
+		locked_dest_ =
 			_lock(
 				temp_texture_.get(),
 				renderer::stage_type(
@@ -238,9 +248,9 @@ sge::d3d9::texture::basic<Types>::do_lock(
 			);
 	}	
 	else
-		lock_dest_ =
+		locked_dest_ =
 			_lock(
-				texture_.get(),
+				main_texture_.get(),
 				renderer::stage_type(
 					0u
 				),
@@ -255,15 +265,13 @@ sge::d3d9::texture::basic<Types>::do_lock(
 				static_cast<
 					sge::renderer::raw_pointer
 				>(
-					lock_dest_->pBits
+					locked_dest_->pBits
 				),
 				_area.size(),
 				this->parameters().color_format(),
-				fcppt::optional<
-					typename sge::image::traits::pitch<
-						typename base::image_tag
-					>()
-				>() // TODO!
+				typename sge::image::traits::optional_pitch<
+					image_tag
+				>::type() // TODO:
 			)
 		);
 }
@@ -271,10 +279,10 @@ sge::d3d9::texture::basic<Types>::do_lock(
 template<
 	typename Types
 >
-typename sge::d3d9::texture::basic<Types>::d3d_type *
+typename sge::d3d9::texture::basic<Types>::d3d_unique_ptr
 sge::d3d9::texture::basic<Types>::create(
 	D3DPOOL const _pool,
-	d3d::usage const _usage
+	d3d9::usage const _usage
 ) const
 {
 	return
@@ -292,12 +300,13 @@ template<
 void
 sge::d3d9::texture::basic<Types>::init()
 {
-	main_texture_.reset(	
+	main_texture_.take(
 		this->create(
 			this->pool(),
-			this->usage()
+			usage_
 		)
 	);
+}
 
 template<
 	typename Types

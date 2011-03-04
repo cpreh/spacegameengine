@@ -18,61 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
 
-#include "basic.hpp"
-#include "volume_basic.hpp"
-#include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/volume_parameters.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/image/view/to_const.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/view.hpp>
+#include <fcppt/export_symbol.hpp>
 
-namespace sge
-{
-namespace d3d9
-{
-namespace texture
-{
-
-class volume
-:
-	public texture::volume_basic
-{
-	FCPPT_NONCOPYABLE(
-		volume
-	);
-public:
-	volume(
-		IDirect3DDevice9 *,
-		renderer::texture::volume_parameters const &
-	);
-
-	~volume();
-
-	dim_type const
-	dim() const;
-
-	view_type const
-	lock(
-		lock_area const &,
-		renderer::lock_mode::type
-	);
-
-	const_view_type const
-	lock(
-		lock_area const &
-	) const;
-
-	void
-	unlock() const;
-private:
-	volume_basic::lock_function const
-	lock_function() const;
-};
-
-}
-}
-}
+#define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST(\
+	Tag\
+)\
+template \
+FCPPT_EXPORT_SYMBOL \
+sge::image::traits::const_view<\
+	Tag\
+>::type const \
+sge::image::view::to_const< \
+	Tag \
+>( \
+	sge::image::traits::view<\
+		Tag\
+	>::type const &\
+)
 
 #endif

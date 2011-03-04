@@ -21,37 +21,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_MAKE_CONST_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_MAKE_CONST_IMPL_HPP_INCLUDED
 
+#include <sge/image/view/make_const.hpp>
+#include <sge/image/view/make.hpp>
+#include <sge/image/view/to_const.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/dim.hpp>
+#include <sge/image/traits/optional_pitch.hpp>
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/raw_pointer.hpp>
-#include <sge/image/color/format.hpp>
-
-namespace sge
-{
-namespace image
-{
-namespace view
-{
 
 template<
-	typename Result,
-	typename Dim,
-	typename OptionalPitch,
-	typename Make,
-	typename ToConst
+	typename Tag
 >
-Result const
-make_const(
+SGE_SYMBOL
+typename sge::image::traits::const_view<
+	Tag
+>::type const
+sge::image::view::make_const(
 	image::const_raw_pointer const _data,
-	Dim const &_dim,
+	typename image::traits::dim<
+		Tag
+	>::type const &_dim,
 	image::color::format::type const _format,
-	OptionalPitch const &_pitch,
-	Make const &_make,
-	ToConst const &_to_const
+	typename image::traits::optional_pitch<
+		Tag
+	>::type const &_pitch
 )
 {
 	return
-		_to_const(
-			_make(
+		image::view::to_const<
+			Tag
+		>(
+			image::view::make<
+				Tag
+			>(
 				const_cast<
 					image::raw_pointer
 				>(
@@ -62,10 +66,6 @@ make_const(
 				_pitch
 			)
 		);
-}
-
-}
-}
 }
 
 #endif

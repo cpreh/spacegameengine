@@ -75,6 +75,12 @@ sge::renderer::texture::cube::rect() const
 		);
 }
 
+sge::renderer::texture::cube::rect_type const
+sge::renderer::texture::cube::area() const
+{
+	return this->rect();
+}
+
 sge::renderer::texture::cube::~cube()
 {
 }

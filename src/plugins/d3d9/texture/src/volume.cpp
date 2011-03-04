@@ -18,113 +18,89 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#if 0
-#include "../volume_texture.hpp"
-#include "../conversion.hpp"
-#include "../texture_functions.hpp"
-#include <sge/exception.hpp>
-#include <sge/renderer/scoped_lock.hpp>
-#include <sge/algorithm.hpp>
+#include "../volume.hpp"
+#include "../basic_impl.hpp"
+#include "../lock_volume.hpp"
+#include "../unlock_volume.hpp"
+#include "../volume_types.hpp"
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-sge::d3d9::volume_texture::volume_texture(
-	renderer& r,
-  const d3d_device_ptr device,
-	const const_pointer src,
-	const box_type& box_,
-	const filter_args& filter,
-	const resource_flag_t flags)
-: detail::volume_texture_base_type(r, filter, flags),
-  device(device),
-  lock_dest(0),
-	box_(box_)
+sge::d3d9::texture::volume::volume(
+	IDirect3DDevice9 *const _device,
+	renderer::texture::volume_parameters const &_params
+)
+:
+	texture::volume_basic(
+		_device,
+		_params
+	)
 {
-	on_reset();
-	if(src)
-		set_data(src);
 }
 
-IDirect3DBaseTexture9* sge::d3d9::volume_texture::do_reset()
+sge::d3d9::texture::volume::~volume()
 {
-	tex.reset(
-		create_volume_texture(
-			device,
-			box(),
-			filter(),
-			flags(),
-			false));
-	return tex.get();
 }
 
-void sge::d3d9::volume_texture::lock(const lock_flag_t lflags)
+sge::d3d9::texture::volume::dim_type const
+sge::d3d9::texture::volume::dim() const
 {
-	lock(0, lflags);
+	return this->parameters().dim();
 }
 
-void sge::d3d9::volume_texture::lock(const lock_box& b, const lock_flag_t lflags)
+sge::d3d9::texture::volume::view_type const
+sge::d3d9::texture::volume::lock(
+	lock_area const &_box,
+	renderer::lock_mode::type const _mode
+)
 {
-	lock(&b, lflags);
+	return
+		this->lock_impl(
+			this->lock_function(),
+			_box,
+			_mode
+		);
 }
 
-void sge::d3d9::volume_texture::lock(const lock_box* const b, const lock_flag_t lflags)
+sge::d3d9::texture::volume::const_view_type const
+sge::d3d9::texture::volume::lock(
+	lock_area const &_box
+) const
 {
-	if(flags() & resource_flags::dynamic)
-		lock_dest = lock_volume_texture(tex, b, lflags, flags());
-	else
-	{
-		temp_tex.reset(
-			create_volume_texture(
-				device,
-				box(),
-				filter(),
-				flags(),
-				true));
-		lock_dest = lock_volume_texture(tex, b, lflags, flags());
-	}
+	return
+		this->lock_impl(
+			this->lock_function(),
+			_box
+		);
 }
 
-void sge::d3d9::volume_texture::unlock()
+void
+sge::d3d9::texture::volume::unlock() const
 {
-	if(flags() & resource_flags::dynamic)
-		unlock_volume_texture(tex);
-	else
-	{
-		unlock_volume_texture(temp_tex);
-		update_texture(device, temp_tex.get(), tex.get());
-		temp_tex.reset();
-	}
-	lock_dest = 0;
+	this->unlock_impl(
+		std::tr1::bind(
+			texture::unlock_volume,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
+		)
+	);
 }
 
-sge::volume_texture::pointer sge::d3d9::volume_texture::data()
+sge::d3d9::texture::volume_basic::lock_function const
+sge::d3d9::texture::volume::lock_function() const
 {
-	return lock_dest;
+	return
+		std::tr1::bind(
+			texture::lock_volume,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2,
+			std::tr1::placeholders::_3,
+			std::tr1::placeholders::_4
+		);
 }
 
-sge::volume_texture::const_pointer sge::d3d9::volume_texture::data() const
-{
-	return lock_dest;
-}
-
-void sge::d3d9::volume_texture::do_loss()
-{
-	tex.reset();
-}
-
-void sge::d3d9::volume_texture::set_data(const const_pointer data)
-{
-	const scoped_lock<volume_texture*> l(make_scoped_lock(this, lock_flags::writeonly));
-	copy_n(data, size(), lock_dest);
-}
-
-void sge::d3d9::volume_texture::set_data(const const_pointer data, const lock_box& b)
-{
-	//const scoped_lock<volume_texture*> l(make_scoped_lock(this, b, lock_flags::writeonly));
-	//copy_n(data, b.size(), lock_dest);
-}
-
-const sge::volume_texture::box_type sge::d3d9::volume_texture::box() const
-{
-	return box_;
-}
-
-#endif
+template class
+sge::d3d9::texture::basic<
+	sge::d3d9::texture::volume_types
+>;

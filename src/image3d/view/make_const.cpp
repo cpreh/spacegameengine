@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../image/view/make_const_impl.hpp"
+#include "../../image/view/instantiate_make_const.hpp"
 #include <sge/image3d/view/make_const.hpp>
-#include <sge/image3d/view/make.hpp>
-#include <sge/image3d/view/to_const.hpp>
+#include <sge/image3d/tag.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -35,7 +35,7 @@ sge::image3d::view::make_const(
 {
 	return
 		sge::image::view::make_const<
-			sge::image3d::view::const_object
+			sge::image3d::tag
 		>(
 			const_cast<
 				image::raw_pointer
@@ -44,8 +44,10 @@ sge::image3d::view::make_const(
 			),
 			_dim,
 			_format,
-			_pitch,
-			&view::make,
-			&view::to_const
+			_pitch
 		);
 }
+
+SGE_IMAGE_VIEW_INSTANTIATE_MAKE_CONST(
+	sge::image3d::tag
+);
