@@ -19,61 +19,99 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/system.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
+#include <sge/extension_set.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image/capabilities.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/no_color.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/log/global.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/system.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/sprite/animation/entity.hpp>
+#include <sge/sprite/animation/entity_vector.hpp>
+#include <sge/sprite/animation/loop_method.hpp>
+#include <sge/sprite/animation/series.hpp>
+#include <sge/sprite/animation/texture_impl.hpp>
 #include <sge/sprite/choices.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/render_one.hpp>
+#include <sge/sprite/system.hpp>
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/with_repetition.hpp>
 #include <sge/sprite/with_texture.hpp>
-#include <sge/sprite/render_one.hpp>
-#include <sge/sprite/animation/texture_impl.hpp>
-#include <sge/sprite/animation/series.hpp>
-#include <sge/sprite/animation/entity_vector.hpp>
-#include <sge/sprite/animation/entity.hpp>
-#include <sge/sprite/animation/loop_method.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/viewport/center_on_resize.hpp>
-#include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
+#include <sge/texture/manager.hpp>
 #include <sge/texture/no_fragmented.hpp>
+#include <sge/time/default_callback.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/second.hpp>
-#include <sge/time/default_callback.hpp>
-#include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/all_extensions.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/exception.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/range/iterator_range.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
-#include <cstdlib>
+#include <streambuf>
 #include <exception>
+#include <iostream>
 #include <ostream>
+#include <cstdlib>
+
+namespace
+{
+sge::texture::const_part_ptr const
+load_raw(
+	fcppt::filesystem::path const &image_path,
+	sge::texture::manager &tex_man,
+	sge::image2d::multi_loader &image_loader)
+{
+	fcppt::io::cifstream raw_stream(
+		image_path);
+
+	typedef
+	fcppt::container::raw_vector<char> 
+	raw_byte_container;
+
+	raw_byte_container raw_bytes(
+		(std::istreambuf_iterator<char>(
+			raw_stream)),
+		std::istreambuf_iterator<char>());
+
+	return 
+		sge::texture::add_image(
+			tex_man,
+			image_loader.load(
+				boost::make_iterator_range(
+					reinterpret_cast<unsigned char const *>(
+						&(*raw_bytes.cbegin())),
+					reinterpret_cast<unsigned char const *>(
+						&(*raw_bytes.cend()))),
+				sge::optional_extension()));
+}
+}
 
 int main()
 try
@@ -122,7 +160,7 @@ try
 		(
 			sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
-				sge::all_extensions
+				fcppt::assign::make_container<sge::extension_set>(FCPPT_TEXT("png"))
 			)
 		)
 	);
@@ -153,16 +191,16 @@ try
 		)
 	);
 
+	// Just for kicks, try loading an image file from a raw memory buffer
 	sge::texture::const_part_ptr const
-		tex1(
-			sge::texture::add_image(
+		tex1 = 
+			load_raw(
+				sge::config::media_path()
+					/ FCPPT_TEXT("cloudsquare.png"),
 				tex_man,
-				image_loader.load(
-					sge::config::media_path()
-					/ FCPPT_TEXT("cloudsquare.png")
-				)
-			)
-		),
+				image_loader);
+
+	sge::texture::const_part_ptr const
 		tex2(
 			sge::texture::add_image(
 				tex_man,

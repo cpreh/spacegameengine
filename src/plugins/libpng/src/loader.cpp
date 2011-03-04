@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <boost/iostreams/device/array.hpp>
 #include <boost/iostreams/stream.hpp>
+#include <iterator>
 
 namespace
 {
@@ -81,6 +82,7 @@ sge::libpng::loader::load(
 )
 {
 	if(
+		_extension &&
 		_extension
 		!=
 		sge::optional_extension(
