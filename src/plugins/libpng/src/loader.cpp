@@ -74,7 +74,8 @@ sge::libpng::loader::load(
 {
 	if(
 		_extension
-		== sge::optional_extension(
+		!=
+		sge::optional_extension(
 			supported_extension
 		)
 	)
