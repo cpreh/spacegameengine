@@ -21,11 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WAVE_FILE_HPP_INCLUDED
 #define SGE_WAVE_FILE_HPP_INCLUDED
 
+#include "stream_ptr.hpp"
 #include <sge/audio/file.hpp>
+#include <sge/audio/optional_path.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/logic/tribool.hpp>
+#include <streambuf>
 #include <string>
 
 namespace sge
@@ -33,33 +37,51 @@ namespace sge
 namespace wave
 {
 
-class file : public audio::file
+class file 
+: 
+	public audio::file
 {
+FCPPT_NONCOPYABLE(
+	file);
 public:
-	explicit file(
-		fcppt::filesystem::path const &
-	);
+	explicit 
+	file(
+		stream_ptr,
+		audio::optional_path const &);
 
-	fcppt::string const to_string() const;
+	audio::sample_count 
+	bits_per_sample() const;
 
-	audio::sample_count bits_per_sample() const { return bits_per_sample_; }
-	audio::sample_count sample_rate() const { return sample_rate_; }
-	audio::channel_type channels() const { return channels_; }
-	audio::sample_count samples() const { return samples_; }
-	void reset();
+	audio::sample_count 
+	sample_rate() const;
 
-	audio::sample_count read(audio::sample_count,audio::sample_container &);
-	audio::sample_count read_all(audio::sample_container &);
+	audio::channel_type 
+	channels() const;
+
+	audio::sample_count samples() const;
+
+	void 
+	reset();
+
+	audio::sample_count 
+	read(
+		audio::sample_count,
+		audio::sample_container &);
+
+	audio::sample_count 
+	read_all(
+		audio::sample_container &);
 private:
-	fcppt::string const         filename_;
-	boost::logic::tribool       swap_;
-	fcppt::io::cifstream        file_;
-	std::streampos              data_segment;
-	audio::sample_count         samples_,
-	                            samples_read_;
-	audio::channel_type         channels_;
-	audio::sample_count         sample_rate_;
-	audio::sample_count         bits_per_sample_;
+	sge::audio::optional_path filename_;
+	boost::logic::tribool swap_;
+	stream_ptr file_;
+	std::streampos data_segment;
+	audio::sample_count 
+		samples_,
+		samples_read_;
+	audio::channel_type channels_;
+	audio::sample_count sample_rate_;
+	audio::sample_count bits_per_sample_;
 
 	// Interne Funktionen
 	void read_riff();

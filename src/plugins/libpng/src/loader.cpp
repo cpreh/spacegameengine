@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../loader.hpp"
 #include "../file.hpp"
 #include <sge/extension_set.hpp>
+#include <sge/image/file_exception.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -31,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/iostreams/device/array.hpp>
 #include <boost/iostreams/stream.hpp>
 #include <iterator>
+#include <ios>
 
 namespace
 {
@@ -64,7 +66,12 @@ sge::libpng::loader::load(
 )
 {
 	fcppt::io::cifstream file_stream(
-		_path);
+		_path,
+		std::ios::binary);
+	if(!file_stream.is_open())
+		throw image::file_exception(
+			_path,
+			FCPPT_TEXT("couldn't open file"));
 	return
 		fcppt::make_shared_ptr<
 			file

@@ -11,6 +11,7 @@ SET(
 	include/sge/audio/exception.hpp
 	include/sge/audio/exception_fwd.hpp
 	include/sge/audio/file.hpp
+	include/sge/audio/file_exception.hpp
 	include/sge/audio/file_fwd.hpp
 	include/sge/audio/file_ptr.hpp
 	include/sge/audio/listener.hpp
@@ -23,6 +24,7 @@ SET(
 	include/sge/audio/loader_ptr.hpp
 	include/sge/audio/multi_loader.hpp
 	include/sge/audio/multi_loader_fwd.hpp
+	include/sge/audio/optional_path.hpp
 	include/sge/audio/player.hpp
 	include/sge/audio/player_capabilities.hpp
 	include/sge/audio/player_capabilities_field.hpp
@@ -200,6 +202,7 @@ SET(
 	include/sge/image/exception_fwd.hpp
 	include/sge/image/file_exception.hpp
 	include/sge/image/gray8_format.hpp
+	include/sge/image/optional_path.hpp
 	include/sge/image/pitch.hpp
 	include/sge/image/raw_pointer.hpp
 	include/sge/image/raw_value.hpp
@@ -883,6 +886,7 @@ SET(
 	src/audio/buffer.cpp
 	src/audio/exception.cpp
 	src/audio/file.cpp
+	src/audio/file_exception.cpp
 	src/audio/listener.cpp
 	src/audio/loader.cpp
 	src/audio/loader_plugin.cpp

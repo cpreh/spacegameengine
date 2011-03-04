@@ -77,6 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <streambuf>
 #include <exception>
 #include <iostream>
+#include <ios>
 #include <ostream>
 #include <cstdlib>
 
@@ -89,7 +90,8 @@ load_raw(
 	sge::image2d::multi_loader &image_loader)
 {
 	fcppt::io::cifstream raw_stream(
-		image_path);
+		image_path,
+		std::ios::binary);
 
 	typedef
 	fcppt::container::raw_vector<char> 

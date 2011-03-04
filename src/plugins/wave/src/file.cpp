@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../file.hpp"
 #include <sge/audio/exception.hpp>
+#include <sge/audio/file_exception.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/endianness/is_little_endian.hpp>
@@ -31,42 +32,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/format.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/move.hpp>
 #include <boost/cstdint.hpp>
+#include <algorithm>
 
 sge::wave::file::file(
-	fcppt::filesystem::path const &filename)
+	stream_ptr _file,
+	audio::optional_path const &_filename)
 :
 	filename_(
-		fcppt::filesystem::path_to_string(
-			filename
-		)
-	),
-	swap_(boost::logic::indeterminate),
-	file_(filename_, std::ios_base::binary)
+		_filename),
+	swap_(
+		boost::logic::indeterminate),
+	file_(
+		fcppt::move(
+			_file))
 {
-	if (!file_.is_open())
-		throw audio::exception(
-			FCPPT_TEXT("couldn't open wave file \"")+filename_+FCPPT_TEXT("\""));
-
 	read_riff();
 	read_wave();
 }
 
-fcppt::string const sge::wave::file::to_string() const
-{
-	fcppt::io::ostringstream ss;
-	ss << "bits_per_sample: " << bits_per_sample() << ", "
-	   << "sample_rate: " << sample_rate() << ", "
-	   << "channels: " << channels() << ", "
-	   << "samples: " << samples();
-	return ss.str();
+sge::audio::sample_count 
+sge::wave::file::bits_per_sample() const 
+{ 
+	return bits_per_sample_; 
+}
+
+sge::audio::sample_count 
+sge::wave::file::sample_rate() const 
+{ 
+	return sample_rate_; 
+}
+
+sge::audio::channel_type 
+sge::wave::file::channels() const 
+{ 
+	return channels_; 
+}
+
+sge::audio::sample_count 
+sge::wave::file::samples() const 
+{ 
+	return samples_; 
 }
 
 void sge::wave::file::reset()
 {
-	FCPPT_LOG_DEBUG(log::global(),fcppt::log::_ << "wave: resetting file");
-	file_.seekg(data_segment);
-	samples_read_ = static_cast<audio::sample_count>(0);
+	FCPPT_LOG_DEBUG(
+		log::global(),
+		fcppt::log::_ << "wave: resetting file");
+
+	file_->seekg(
+		data_segment);
+	samples_read_ = 
+		0;
 }
 
 sge::audio::sample_count sge::wave::file::read(
@@ -74,26 +93,31 @@ sge::audio::sample_count sge::wave::file::read(
 	audio::sample_container &_array)
 {
 	audio::sample_count const samples_to_read =
-		std::min(_sample_count,samples_ - samples_read_);
+		std::min(
+			_sample_count,
+			static_cast<audio::sample_count>(
+				samples_ - samples_read_));
 
-	if (samples_to_read == static_cast<audio::sample_count>(0))
-		return static_cast<audio::sample_count>(0);
+	if(samples_to_read == static_cast<audio::sample_count>(0))
+		return 0;
 
 	audio::sample_count const bytes_to_read =
-		samples_to_read * channels() * bytes_per_sample();
+		static_cast<audio::sample_count>(
+			samples_to_read * channels() * bytes_per_sample());
 
-	audio::sample_container::size_type old_size = _array.size();
+	audio::sample_container::size_type old_size = 
+		_array.size();
 
 	_array.resize_uninitialized(
 		static_cast<audio::sample_container::size_type>(
 			_array.size() + bytes_to_read));
 
 	audio::sample_container::pointer const old_pos(
-		_array.data() + old_size
-	);
+		_array.data() + old_size);
 
-	file_.read(
-		reinterpret_cast<char*>(old_pos),
+	file_->read(
+		reinterpret_cast<char*>(
+			old_pos),
 		bytes_to_read);
 
 	// TODO: replace this with copy_to_host
@@ -102,25 +126,28 @@ sge::audio::sample_count sge::wave::file::read(
 			old_pos,
 			_array.data_end(),
 			old_pos,
-			bytes_per_sample()
-		);
+			bytes_per_sample());
 		//for (audio::sample_container::pointer i = _array.data() + old_size; i != _array.data_end(); i += bytes_per_sample())
 		//	fcppt::endianness::swap(i,bytes_per_sample());
 
-	samples_read_ += samples_to_read;
+	samples_read_ += 
+		samples_to_read;
 	return samples_to_read;
 }
 
 
 sge::audio::sample_count sge::wave::file::read_all(audio::sample_container &_array)
 {
-	return read(samples_ - samples_read_,_array);
+	return 
+		read(
+			samples_ - samples_read_,_array);
 }
 
 void sge::wave::file::read_riff()
 {
 	std::string const rifftype =
-		extract_header(FCPPT_TEXT("riff"));
+		extract_header(
+			FCPPT_TEXT("riff"));
 
 	// Endiankrams
 	bool file_bigendian;
@@ -130,18 +157,23 @@ void sge::wave::file::read_riff()
 	else if (rifftype == "RIFX")
 		file_bigendian = true;
 	else
-		throw audio::exception(FCPPT_TEXT("file \"")+filename_+FCPPT_TEXT("\" is not a riff file and thus not a wave file"));
+		throw audio::file_exception(
+			filename_,
+			FCPPT_TEXT("file is not a riff file and thus not a wave file"));
 
 	swap_ = file_bigendian == fcppt::endianness::is_little_endian();
 
 	// throw away riff size
-	extract_primitive<boost::uint32_t>(FCPPT_TEXT("riff chunk size"));
+	extract_primitive<boost::uint32_t>(
+		FCPPT_TEXT("riff chunk size"));
 }
 
 void sge::wave::file::read_wave()
 {
 	if (extract_header(FCPPT_TEXT("wave")) != "WAVE")
-		throw audio::exception(FCPPT_TEXT("the riff file \"")+filename_+FCPPT_TEXT("\" is not a wave file (wave header not present)"));
+		throw audio::file_exception(
+			filename_,
+			FCPPT_TEXT("file is not a wave file (wave header not present)"));
 
 	ignore_chunks_until("fmt ");
 
@@ -185,7 +217,7 @@ void sge::wave::file::read_wave()
 
 	samples_read_ = static_cast<audio::sample_count>(0);
 
-	data_segment = file_.tellg();
+	data_segment = file_->tellg();
 }
 
 void sge::wave::file::ignore_chunks_until(std::string const &desc)
@@ -198,7 +230,7 @@ void sge::wave::file::ignore_chunks_until(std::string const &desc)
 			        << filename_
 			        << FCPPT_TEXT("\""));
 
-		file_.seekg(
+		file_->seekg(
 			static_cast<std::streamoff>(
 				extract_primitive<boost::uint32_t>(
 					FCPPT_TEXT("subchunk size"))),
@@ -213,35 +245,30 @@ std::string const sge::wave::file::extract_header(fcppt::string const &_desc)
 	char_vector::size_type const byte_count =
 		static_cast<char_vector::size_type>(4);
 	char_vector bytes(byte_count);
-	file_.read(&bytes[0],byte_count);
-	if (file_.bad())
-		throw audio::exception(
-			FCPPT_TEXT("error while reading header \"")
-			+ _desc
-			+ FCPPT_TEXT("\" from file \"")
-			+ filename_
-			+ FCPPT_TEXT("\""));
+	file_->read(&bytes[0],byte_count);
+	if (file_->bad())
+		throw audio::file_exception(
+			filename_,
+			FCPPT_TEXT("error while reading header \"")+_desc);
 	return std::string(bytes.begin(),bytes.end());
 }
 
 template<typename T>
-T sge::wave::file::extract_primitive(fcppt::string const &_desc)
+T sge::wave::file::extract_primitive(
+	fcppt::string const &_desc)
 {
-	FCPPT_ASSERT(swap_ != boost::logic::indeterminate);
+	FCPPT_ASSERT(
+		swap_ != boost::logic::indeterminate);
 
 	// TODO: replace this with io::read
 	T ret;
-	file_.read(
-		reinterpret_cast<char *>(&ret), sizeof(T)
-	);
+	file_->read(
+		reinterpret_cast<char *>(&ret), sizeof(T));
 
-	if (file_.bad())
-		throw audio::exception(
-			FCPPT_TEXT("error while reading ")
-			+ _desc
-			+ FCPPT_TEXT(" from file \"")
-			+ filename_
-			+ FCPPT_TEXT("\""));
+	if (file_->bad())
+		throw audio::file_exception(
+			filename_,
+			FCPPT_TEXT("error while reading ")+ _desc);
 
 	return swap_ ? fcppt::endianness::swap(ret) : ret;
 }
