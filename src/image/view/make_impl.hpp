@@ -44,12 +44,12 @@ typename sge::image::traits::view<
 	Tag
 >::type const
 sge::image::view::make(
-	image::raw_pointer const _data,
-	typename image::traits::dim<
+	sge::image::raw_pointer const _data,
+	typename sge::image::traits::dim<
 		Tag
 	>::type const &_dim,
-	image::color::format::type const _format,
-	typename image::traits::optional_pitch<
+	sge::image::color::format::type const _format,
+	typename sge::image::traits::optional_pitch<
 		Tag
 	>::type const &_pitch
 )

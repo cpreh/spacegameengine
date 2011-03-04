@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Tag
 >
-SGE_SYMBOL
 typename sge::image::traits::const_view<
 	Tag
 >::type const

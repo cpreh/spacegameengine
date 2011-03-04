@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Tag
 >
-SGE_SYMBOL
 typename sge::image::traits::const_view<
 	Tag
 >::type const
@@ -50,14 +49,14 @@ sge::image::view::make_const(
 )
 {
 	return
-		image::view::to_const<
+		sge::image::view::to_const<
 			Tag
 		>(
-			image::view::make<
+			sge::image::view::make<
 				Tag
 			>(
 				const_cast<
-					image::raw_pointer
+					sge::image::raw_pointer
 				>(
 					_data
 				),
