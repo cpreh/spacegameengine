@@ -18,27 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOADERS_EXHAUSTED_HPP_INCLUDED
-#define SGE_LOADERS_EXHAUSTED_HPP_INCLUDED
+#ifndef SGE_EXTENSION_HPP_INCLUDED
+#define SGE_EXTENSION_HPP_INCLUDED
 
-#include <sge/exception.hpp>
-#include <sge/symbol.hpp>
-#include <sge/class_symbol.hpp>
 #include <fcppt/string.hpp>
 
 namespace sge
 {
 
-class SGE_CLASS_SYMBOL loaders_exhausted
-:
-	public sge::exception
-{
-public:
-	SGE_SYMBOL
-	explicit loaders_exhausted(
-		fcppt::string const &reason
-	);
-};
+typedef fcppt::string extension;
 
 }
 

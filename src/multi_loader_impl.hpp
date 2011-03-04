@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_base.hpp>
 #include <sge/loaders_exhausted.hpp>
 #include <sge/log/global.hpp>
-#include <sge/multi_loader.hpp>
 #include <sge/all_extensions.hpp>
+#include <sge/extension.hpp>
+#include <sge/multi_loader.hpp>
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/set_intersection.hpp>
 #include <fcppt/filesystem/exists.hpp>
@@ -37,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
 #include <fcppt/log/headers.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <boost/foreach.hpp>
@@ -163,10 +165,17 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 		)
 	);
 
-	if (extension.empty())
+	if (
+		extension.empty()
+	)
 		throw sge::loaders_exhausted(
-			_file,
-			FCPPT_TEXT("File has no extension!")
+			FCPPT_TEXT("File ")
+			+
+			fcppt::filesystem::path_to_string(
+				_file
+			)
+			+
+			FCPPT_TEXT(" has no extension!")
 		);
 
 	BOOST_FOREACH(
@@ -189,9 +198,72 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 	}
 
 	throw sge::loaders_exhausted(
-		_file,
-		FCPPT_TEXT("Tried all loaders but none matched!")
+		FCPPT_TEXT("Tried all loaders for ")
+		+ 
+		fcppt::filesystem::path_to_string(
+			_file
+		)
+		+
+		FCPPT_TEXT(" but none matched!")
 	);
+}
+
+template<
+	typename Loader,
+	typename File,
+	typename Exception,
+	typename Capabilities
+>
+typename sge::multi_loader<Loader, File, Exception, Capabilities>::file_ptr const
+sge::multi_loader<Loader, File, Exception, Capabilities>::load(
+	sge::const_raw_range const &_range,
+	sge::optional_extension const &_extension
+)
+{
+	BOOST_FOREACH(
+		typename loader_container::const_reference ref,
+		loaders_
+	)
+	{
+		if(
+			_extension
+			&&
+			!fcppt::algorithm::contains(
+				ref->extensions(),
+				*_extension
+			)
+		)
+			continue;
+
+		file_ptr const ret(
+			ref->load(
+				_range,
+				_extension
+			)
+		);
+
+		if(
+			ret
+		)
+			return ret;
+	}
+
+	throw sge::loaders_exhausted(
+		FCPPT_TEXT("Couldn't load file from memory.")
+		+
+		(
+			_extension
+			?
+				FCPPT_TEXT(" It has extension ")
+				+ *_extension
+				+ FCPPT_TEXT('.')
+			:
+				sge::extension(
+					FCPPT_TEXT(" It has not extension provided.")
+				)
+		)
+	);
+
 }
 
 template<

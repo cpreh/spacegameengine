@@ -51,13 +51,13 @@ sge::devil::file::file(
 :
 	impl_()
 {
-	bind_me();
+	this->bind_me();
 
-	ilDisable(
+	::ilDisable(
 		IL_FORMAT_SET
 	);
 
-	load(
+	this->load(
 		_file
 	);
 
@@ -78,16 +78,16 @@ sge::devil::file::file(
 				<< FCPPT_TEXT(" converting the file beforehand.")
 		);
 
-        	ilSetInteger(
+        	::ilSetInteger(
 			IL_FORMAT_MODE,
 			IL_RGBA
 		);
 
-		ilEnable(
+		::ilEnable(
 			IL_FORMAT_SET
 		);
 
-		load(
+		this->load(
 			_file
 		);
 
@@ -291,7 +291,7 @@ sge::devil::file::load(
 )
 {
 	if(
-		ilLoadImage(
+		::ilLoadImage(
 #ifdef UNICODE
 			const_cast<
 				wchar_t *

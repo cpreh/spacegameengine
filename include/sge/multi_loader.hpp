@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/multi_loader_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/context.hpp>
+#include <sge/const_raw_range.hpp>
 #include <sge/extension_set.hpp>
+#include <sge/optional_extension.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -68,6 +70,12 @@ public:
 	SGE_SYMBOL file_ptr const
 	load(
 		fcppt::filesystem::path const &
+	);
+
+	SGE_SYMBOL file_ptr const
+	load(
+		sge::const_raw_range const &,
+		sge::optional_extension const &
 	);
 
 	SGE_SYMBOL loader_container const &

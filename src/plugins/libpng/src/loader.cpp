@@ -24,19 +24,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
 namespace
 {
 
-sge::extension_set const extensions_(
+fcppt::char_type const *const supported_extension(
+	FCPPT_TEXT("png")
+);
+
+sge::extension_set const extensions_((
 	fcppt::assign::make_container<
 		sge::extension_set
 	>
 	(
-		FCPPT_TEXT("png")
+		supported_extension
 	)
-);
+));
 
 }
 
@@ -62,15 +67,32 @@ sge::libpng::loader::load(
 }
 
 sge::image2d::file_ptr const
+sge::libpng::loader::load(
+	sge::const_raw_range const &_range,
+	sge::optional_extension const &_extension
+)
+{
+	if(
+		_extension
+		== sge::optional_extension(
+			supported_extension
+		)
+	)
+		return sge::image2d::file_ptr();
+	
+	// TODO:!
+}
+
+sge::image2d::file_ptr const
 sge::libpng::loader::create(
-	image2d::view::const_object const &p
+	image2d::view::const_object const &_view
 )
 {
 	return
 		fcppt::make_shared_ptr<
 			file
 		>(
-			p
+			_view
 		);
 }
 

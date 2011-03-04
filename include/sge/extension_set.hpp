@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EXTENSION_SET_HPP_INCLUDED
 #define SGE_EXTENSION_SET_HPP_INCLUDED
 
-#include <fcppt/string.hpp>
+#include <sge/extension.hpp>
 #include <set>
 
 namespace sge
 {
 
 typedef std::set<
-	fcppt::string
+	sge::extension
 > extension_set;
 
 }

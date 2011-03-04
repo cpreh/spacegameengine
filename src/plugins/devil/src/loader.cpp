@@ -55,11 +55,11 @@ sge::extension_set const extensions_(
 
 sge::devil::loader::loader()
 {
-	ilEnable(
+	::ilEnable(
 		IL_FILE_OVERWRITE
 	);
 
-	check_errors();
+	devil::check_errors();
 }
 
 sge::devil::loader::~loader()
@@ -77,6 +77,29 @@ sge::devil::loader::load(
 		>(
 			_path
 		);
+}
+
+sge::image2d::file_ptr const
+sge::devil::loader::load(
+	sge::const_raw_range const &_range,
+	sge::optional_extension const &_extension
+)
+#if 0
+try
+{
+	// TODO: don't throw exceptions here
+	return
+		fcppt::make_shared_ptr<
+			devil::file
+		>(
+			_range,
+			_extension
+		);
+}
+catch(...)
+#endif
+{
+	return image2d::file_ptr();
 }
 
 sge::image2d::file_ptr const

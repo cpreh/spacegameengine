@@ -24,7 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/loader.hpp>
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
+#include <sge/const_raw_range.hpp>
+#include <sge/optional_extension.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -35,10 +38,23 @@ class loader
 :
 	public audio::loader
 {
+	FCPPT_NONCOPYABLE(
+		loader
+	);
 public:
+	loader();
+
+	~loader();
+
 	audio::file_ptr const
 	load(
 		fcppt::filesystem::path const &
+	);
+
+	audio::file_ptr const
+	load(
+		sge::const_raw_range const &,
+		sge::optional_extension const &
 	);
 
 	audio::loader_capabilities_field const

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -39,6 +40,14 @@ sge::extension_set const extensions_(
 
 }
 
+sge::wave::loader::loader()
+{
+}
+
+sge::wave::loader::~loader()
+{
+}
+
 sge::audio::file_ptr const
 sge::wave::loader::load(
 	fcppt::filesystem::path const &filename
@@ -50,6 +59,15 @@ sge::wave::loader::load(
 		>(
 			filename
 		);
+}
+
+sge::audio::file_ptr const
+sge::wave::loader::load(
+	sge::const_raw_range const &_range,
+	sge::optional_extension const &_extension
+)
+{
+	// TODO:
 }
 
 sge::audio::loader_capabilities_field const
