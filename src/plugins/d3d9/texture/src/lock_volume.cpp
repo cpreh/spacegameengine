@@ -18,61 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
+#include "../lock_volume.hpp"
+#include "../../convert/box.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 
-#include "basic.hpp"
-#include "volume_basic.hpp"
-#include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/volume_parameters.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+D3DLOCKED_BOX const
+sge::d3d9::texture::lock_volume(
+	IDirect3DVolumeTexture9 *const _texture,
+	sge::renderer::stage_type const _stage,
+	d3d9::texture::optional_lock_box const &_box,
+	d3d9::lock_flags const _flags
+)
 {
-namespace d3d9
-{
-namespace texture
-{
+	D3DLOCKED_BOX ret = {};
 
-class volume
-:
-	public texture::volume_basic
-{
-	FCPPT_NONCOPYABLE(
-		volume
-	);
-public:
-	volume(
-		IDirect3DDevice9 *,
-		renderer::texture::volume_parameters const &
-	);
+	D3DBOX in_box = {};
 
-	~volume();
+	if(
+		_box
+	)
+		in_box =
+			d3d9::convert::box(
+				*_box
+			);
 
-	dim_type const
-	dim() const;
+	if(
+		_texture->LockBox(
+			_stage.get(),
+			&ret,
+			_box
+			?
+				&in_box
+			:
+				NULL,
+			_flags.get()
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("LockBox() failed!")
+		);
 
-	view_type const
-	lock(
-		lock_area const &,
-		renderer::lock_mode::type
-	);
-
-	const_view_type const
-	lock(
-		lock_area const &
-	) const;
-
-	void
-	unlock() const;
-private:
-	volume_basic::lock_function const
-	lock_function() const;
-};
-
+	return ret;
 }
-}
-}
-
-#endif

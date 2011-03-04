@@ -55,7 +55,7 @@ struct volume_types
 	typedef texture::d3d_volume_texture_unique_ptr unique_ptr;
 
 	typedef fcppt::function::object<
-		D3DLOCKED_RECT(
+		D3DLOCKED_BOX(
 			d3d_type *,
 			sge::renderer::stage_type,
 			lock_dest const &,

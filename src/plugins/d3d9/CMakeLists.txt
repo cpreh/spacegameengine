@@ -1,5 +1,6 @@
 SET(
 	SGE_D3D9_FILES
+	src/plugins/d3d9/convert/box.hpp
 	src/plugins/d3d9/convert/color_format.hpp
 	src/plugins/d3d9/convert/cube_side.hpp
 	src/plugins/d3d9/convert/index_format.hpp
@@ -16,6 +17,7 @@ SET(
 	src/plugins/d3d9/convert/sampler_stage_arg_value.hpp
 	src/plugins/d3d9/convert/sampler_stage_op.hpp
 	src/plugins/d3d9/convert/sampler_stage_op_value.hpp
+	src/plugins/d3d9/convert/src/box.cpp
 	src/plugins/d3d9/convert/src/color_format.cpp
 	src/plugins/d3d9/convert/src/cube_side.cpp
 	src/plugins/d3d9/convert/src/index_format.cpp
@@ -93,8 +95,10 @@ SET(
 	src/plugins/d3d9/texture/cube_types.hpp
 	src/plugins/d3d9/texture/d3d_cube_texture_unique_ptr.hpp
 	src/plugins/d3d9/texture/d3d_texture_unique_ptr.hpp
+	src/plugins/d3d9/texture/d3d_volume_texture_unique_ptr.hpp
 	src/plugins/d3d9/texture/lock_cube.hpp
 	src/plugins/d3d9/texture/lock_planar.hpp
+	src/plugins/d3d9/texture/lock_volume.hpp
 	src/plugins/d3d9/texture/mipmap_levels.hpp
 	src/plugins/d3d9/texture/optional_lock_box.hpp
 	src/plugins/d3d9/texture/optional_lock_rect.hpp
@@ -110,15 +114,19 @@ SET(
 	src/plugins/d3d9/texture/src/cube.cpp
 	src/plugins/d3d9/texture/src/lock_cube.cpp
 	src/plugins/d3d9/texture/src/lock_planar.cpp
+	src/plugins/d3d9/texture/src/lock_volume.cpp
 	src/plugins/d3d9/texture/src/mipmap_levels.cpp
 	src/plugins/d3d9/texture/src/planar.cpp
 	src/plugins/d3d9/texture/src/pool.cpp
+	src/plugins/d3d9/texture/src/unlock_cube.cpp
 	src/plugins/d3d9/texture/src/unlock_planar.cpp
+	src/plugins/d3d9/texture/src/unlock_volume.cpp
 	src/plugins/d3d9/texture/src/update.cpp
 	src/plugins/d3d9/texture/src/usage.cpp
 	src/plugins/d3d9/texture/src/volume.cpp
 	src/plugins/d3d9/texture/unlock_cube.hpp
 	src/plugins/d3d9/texture/unlock_planar.hpp
+	src/plugins/d3d9/texture/unlock_volume.hpp
 	src/plugins/d3d9/texture/update.hpp
 	src/plugins/d3d9/texture/usage.hpp
 	src/plugins/d3d9/texture/volume.hpp
