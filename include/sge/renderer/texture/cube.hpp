@@ -96,6 +96,10 @@ public:
 	SGE_SYMBOL rect_type const
 	rect() const;
 
+	SGE_SYMBOL
+	rect_type const
+	area() const;
+
 	virtual size_type
 	border_size() const = 0;
 

@@ -82,7 +82,7 @@ private:
 		renderer::texture::cube_side::type
 	> optional_cube_side;
 
-	optional_cube_side locked_side_;
+	mutable optional_cube_side locked_side_;
 };
 
 }

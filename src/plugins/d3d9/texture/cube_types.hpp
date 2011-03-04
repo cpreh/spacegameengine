@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_CUBE_TYPES_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_CUBE_TYPES_HPP_INCLUDED
 
+#include "d3d_cube_texture_unique_ptr.hpp"
 #include "optional_lock_rect.hpp"
 #include "optional_locked_rect.hpp"
 #include "../d3dinclude.hpp"
 #include "../lock_flags.hpp"
+#include "../usage.hpp"
 #include <sge/renderer/texture/cube_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <fcppt/function/object_fwd.hpp>
 
@@ -49,11 +50,12 @@ struct cube_types
 	typedef texture::optional_lock_rect lock_dest;
 
 	typedef texture::optional_locked_rect locked_dest;
+	
+	typedef texture::d3d_cube_texture_unique_ptr unique_ptr;
 
 	typedef fcppt::function::object<
 		D3DLOCKED_RECT(
 			d3d_type *,
-			sge::renderer::texture::cube_side::type,
 			sge::renderer::stage_type,
 			lock_dest const &,
 			d3d9::lock_flags
@@ -63,21 +65,21 @@ struct cube_types
 	typedef fcppt::function::object<
 		void (
 			d3d_type *,
-			sge::renderer::texture::cube_side::type,
 			sge::renderer::stage_type
 		)
 	> unlock_function;
 
 	typedef fcppt::function::object<
-		d3d_type *(
+		unique_ptr(
 			IDirect3DDevice9 *,
-			parameters const &
+			parameters const &,
+			D3DPOOL,
+			d3d9::usage
 		)
 	> create_function;
 
 	static create_function const
 	create();
-
 };
 
 }

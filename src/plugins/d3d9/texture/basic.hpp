@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
 namespace sge
@@ -55,6 +56,8 @@ class basic
 	);
 public:
 	typedef typename Types::base base;
+
+	typedef typename base::image_tag image_tag;
 
 	typedef typename Types::parameters parameters_type;
 
@@ -100,7 +103,7 @@ protected:
 	lock_impl(
 		lock_function const &,
 		lock_area const &
-	);
+	) const;
 
 	void
 	unlock_impl(
@@ -119,7 +122,9 @@ private:
 		d3d9::lock_flags
 	) const;
 
-	d3d_type *
+	typedef typename Types::unique_ptr d3d_unique_ptr;
+
+	d3d_unique_ptr
 	create(
 		D3DPOOL,
 		d3d9::usage

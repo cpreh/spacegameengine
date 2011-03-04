@@ -85,8 +85,8 @@ sge::d3d9::texture::cube::unlock() const
 	this->unlock_impl(
 		std::tr1::bind(
 			texture::unlock_cube,
-			*locked_side_,
 			std::tr1::placeholders::_1,
+			*locked_side_,
 			std::tr1::placeholders::_2
 		)
 	);
@@ -97,7 +97,7 @@ sge::d3d9::texture::cube::unlock() const
 sge::d3d9::texture::cube::size_type
 sge::d3d9::texture::cube::border_size() const
 {
-	return this->parameters()->dim();
+	return this->parameters().dim();
 }
 
 sge::d3d9::texture::cube_basic::lock_function const
@@ -108,8 +108,8 @@ sge::d3d9::texture::cube::lock_function(
 	return
 		std::tr1::bind(
 			texture::lock_cube,
-			_side,
 			std::tr1::placeholders::_1,
+			_side,
 			std::tr1::placeholders::_2,
 			std::tr1::placeholders::_3,
 			std::tr1::placeholders::_4
