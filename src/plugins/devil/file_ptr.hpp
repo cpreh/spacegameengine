@@ -18,18 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
-#include <IL/il.h>
-#include <IL/ilu.h>
+#ifndef SGE_DEVIL_FILE_PTR_HPP_INCLUDED
+#define SGE_DEVIL_FILE_PTR_HPP_INCLUDED
 
-sge::devil::library::library()
+#include "file_fwd.hpp"
+#include <fcppt/shared_ptr.hpp>
+
+namespace sge
 {
-	::ilInit();
+namespace devil
+{
 
-	::iluInit();
+typedef fcppt::shared_ptr<
+	devil::file
+> file_ptr;
+
+}
 }
 
-sge::devil::library::~library()
-{
-	::ilShutDown();
-}
+#endif

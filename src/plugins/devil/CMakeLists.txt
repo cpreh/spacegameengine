@@ -1,18 +1,49 @@
 SET(
 	SGE_DEVIL_FILES
-	src/plugins/devil/error.hpp
+	src/plugins/devil/best_il_format.hpp
+	src/plugins/devil/check_error.hpp
+	src/plugins/devil/check_error_exn.hpp
+	src/plugins/devil/convert_extension.hpp
+	src/plugins/devil/convert_format.hpp
+	src/plugins/devil/disable.hpp
+	src/plugins/devil/enable.hpp
+	src/plugins/devil/error_string.hpp
 	src/plugins/devil/file.hpp
-	src/plugins/devil/format.hpp
-	src/plugins/devil/image_impl.hpp
+	src/plugins/devil/file_fwd.hpp
+	src/plugins/devil/file_ptr.hpp
+	src/plugins/devil/get_data.hpp
+	src/plugins/devil/get_integer.hpp
+	src/plugins/devil/image_holder.hpp
 	src/plugins/devil/library.hpp
+	src/plugins/devil/load_image.hpp
+	src/plugins/devil/load_memory.hpp
 	src/plugins/devil/loader.hpp
-	src/plugins/devil/src/error.cpp
+	src/plugins/devil/optional_error.hpp
+	src/plugins/devil/set_integer.hpp
+	src/plugins/devil/src/best_il_format.cpp
+	src/plugins/devil/src/check_error.cpp
+	src/plugins/devil/src/check_error_exn.cpp
+	src/plugins/devil/src/convert_extension.cpp
+	src/plugins/devil/src/convert_format.cpp
+	src/plugins/devil/src/disable.cpp
+	src/plugins/devil/src/enable.cpp
+	src/plugins/devil/src/error_string.cpp
 	src/plugins/devil/src/exports.cpp
 	src/plugins/devil/src/file.cpp
-	src/plugins/devil/src/format.cpp
-	src/plugins/devil/src/image_impl.cpp
+	src/plugins/devil/src/get_data.cpp
+	src/plugins/devil/src/get_integer.cpp
+	src/plugins/devil/src/image_holder.cpp
 	src/plugins/devil/src/library.cpp
+	src/plugins/devil/src/load_image.cpp
+	src/plugins/devil/src/load_memory.cpp
 	src/plugins/devil/src/loader.cpp
+	src/plugins/devil/src/set_integer.cpp
+	src/plugins/devil/src/supported_extensions.cpp
+	src/plugins/devil/src/to_il_channel.cpp
+	src/plugins/devil/src/to_il_format.cpp
+	src/plugins/devil/supported_extensions.hpp
+	src/plugins/devil/to_il_channel.hpp
+	src/plugins/devil/to_il_format.hpp
 )
 
 INCLUDE_DIRECTORIES(

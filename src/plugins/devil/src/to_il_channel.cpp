@@ -18,18 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
+#include "../to_il_channel.hpp"
+#include <sge/image/exception.hpp>
+#include <fcppt/text.hpp>
 #include <IL/il.h>
-#include <IL/ilu.h>
 
-sge::devil::library::library()
+ILenum
+sge::devil::to_il_channel(
+	image::color::format::type const _format
+)
 {
-	::ilInit();
+	switch(
+		_format
+	)
+	{
+	case image::color::format::bgra8:
+	case image::color::format::rgba8:
+	case image::color::format::rgb8:
+	case image::color::format::alpha8:
+	case image::color::format::gray8:
+	case image::color::format::argb8:
+		return IL_UNSIGNED_BYTE;
+	case image::color::format::argb32f:
+	case image::color::format::bgra32f:
+	case image::color::format::rgba32f:
+	case image::color::format::rgb32f:
+		return IL_FLOAT;
+	case image::color::format::size:
+		break;
+	}
 
-	::iluInit();
-}
-
-sge::devil::library::~library()
-{
-	::ilShutDown();
+	throw sge::image::exception(
+		FCPPT_TEXT("Invalid color_format in to_il_channel!")
+	);
 }

@@ -18,18 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
+#include "../load_image.hpp"
+#include "../check_error.hpp"
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/optional_impl.hpp>
+#ifndef UNICODE
+#include <fcppt/to_std_string.hpp>
+#endif
 #include <IL/il.h>
-#include <IL/ilu.h>
 
-sge::devil::library::library()
+sge::devil::optional_error const
+sge::devil::load_image(
+	fcppt::filesystem::path const &_file
+)
 {
-	::ilInit();
-
-	::iluInit();
-}
-
-sge::devil::library::~library()
-{
-	::ilShutDown();
+	if(
+		::ilLoadImage(
+#ifdef UNICODE
+			const_cast<
+				wchar_t *
+			>(
+				fcppt::filesystem::path_to_string(
+					_file
+				).c_str()
+			)
+#else
+			const_cast<
+				char *
+			>(
+				fcppt::to_std_string(
+					fcppt::filesystem::path_to_string(
+						_file
+					)
+				).c_str()
+			)
+#endif
+		)
+		== IL_FALSE
+	)
+		return false;
+	
+	return devil::check_error();
 }

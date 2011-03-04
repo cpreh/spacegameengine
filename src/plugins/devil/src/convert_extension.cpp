@@ -18,18 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
+#include "../convert_extension.hpp"
+#include <sge/extension.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 #include <IL/il.h>
-#include <IL/ilu.h>
 
-sge::devil::library::library()
+ILenum
+sge::devil::convert_extension(
+	sge::optional_extension const &_extension
+)
 {
-	::ilInit();
+	if(
+		!_extension
+	)
+		return IL_TYPE_UNKNOWN;
+	
+	sge::extension const &extension(
+		*_extension
+	);
 
-	::iluInit();
-}
-
-sge::devil::library::~library()
-{
-	::ilShutDown();
+	// this should be kept in sync with supported_extensions
+	if(
+		extension == FCPPT_TEXT("bmp")
+	)
+		return IL_BMP;
+	if(
+		extension == FCPPT_TEXT("png")
+	)
+		return IL_PNG;
+	
+	if(
+		extension == FCPPT_TEXT("jpg")
+		|| extension == FCPPT_TEXT("jpeg")
+	)
+		return IL_JPG;
+	
+	if(
+		extension == FCPPT_TEXT("tga")
+	)
+		return IL_TGA;
+	
+	return IL_TYPE_UNKNOWN;
 }

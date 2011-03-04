@@ -18,18 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
+#ifndef SGE_DEVIL_IMAGE_HOLDER_HPP_INCLUDED
+#define SGE_DEVIL_IMAGE_HOLDER_HPP_INCLUDED
+
 #include <IL/il.h>
-#include <IL/ilu.h>
+#include <fcppt/noncopyable.hpp>
 
-sge::devil::library::library()
+namespace sge
 {
-	::ilInit();
+namespace devil
+{
 
-	::iluInit();
+class image_holder
+{
+	FCPPT_NONCOPYABLE(
+		image_holder
+	);
+public:
+	image_holder();
+
+	~image_holder();
+
+	ILuint
+	id() const;
+private:
+	ILuint id_;
+};
+
+}
 }
 
-sge::devil::library::~library()
-{
-	::ilShutDown();
-}
+#endif

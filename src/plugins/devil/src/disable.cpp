@@ -18,17 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DEVIL_ERROR_HPP_INCLUDED
-#define SGE_DEVIL_ERROR_HPP_INCLUDED
+#include "../disable.hpp"
+#include "../check_error_exn.hpp"
+#include <IL/il.h>
 
-namespace sge
+void
+sge::devil::disable(
+	ILenum const _enum
+)
 {
-namespace devil
-{
+	::ilDisable(
+		_enum
+	);
 
-void check_errors();
-
+	devil::check_error_exn();
 }
-}
-
-#endif

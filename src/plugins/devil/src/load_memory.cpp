@@ -18,18 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
+#include "../load_memory.hpp"
+#include "../check_error.hpp"
+#include "../convert_extension.hpp"
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/truncation_check_cast.hpp>
 #include <IL/il.h>
-#include <IL/ilu.h>
 
-sge::devil::library::library()
+sge::devil::optional_error const
+sge::devil::load_memory(
+	sge::const_raw_range const &_range,
+	sge::optional_extension const &_extension
+)
 {
-	::ilInit();
-
-	::iluInit();
-}
-
-sge::devil::library::~library()
-{
-	::ilShutDown();
+	if(
+		::ilLoadL(
+			devil::convert_extension(
+				_extension
+			),
+			_range.begin(),
+			fcppt::truncation_check_cast<
+				ILuint
+			>(
+				_range.size()
+			)
+		)
+		== IL_FALSE
+	)
+		return false;
+	
+	return devil::check_error();
 }

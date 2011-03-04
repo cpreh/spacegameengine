@@ -18,18 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
+#include "../enable.hpp"
+#include "../check_error_exn.hpp"
 #include <IL/il.h>
-#include <IL/ilu.h>
 
-sge::devil::library::library()
+void
+sge::devil::enable(
+	ILenum const _enum
+)
 {
-	::ilInit();
+	::ilEnable(
+		_enum
+	);
 
-	::iluInit();
-}
-
-sge::devil::library::~library()
-{
-	::ilShutDown();
+	devil::check_error_exn();
 }

@@ -18,18 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
+#ifndef SGE_DEVIL_ENABLE_HPP_INCLUDED
+#define SGE_DEVIL_ENABLE_HPP_INCLUDED
+
 #include <IL/il.h>
-#include <IL/ilu.h>
 
-sge::devil::library::library()
+namespace sge
 {
-	::ilInit();
+namespace devil
+{
 
-	::iluInit();
+void
+enable(
+	ILenum
+);
+
+}
 }
 
-sge::devil::library::~library()
-{
-	::ilShutDown();
-}
+#endif

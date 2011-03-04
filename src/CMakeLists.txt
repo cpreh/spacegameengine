@@ -113,8 +113,11 @@ SET(
 	include/sge/collision/world.hpp
 	include/sge/collision/world_fwd.hpp
 	include/sge/collision/world_ptr.hpp
+	include/sge/const_raw_pointer.hpp
+	include/sge/const_raw_range.hpp
 	include/sge/error/check_state.hpp
 	include/sge/exception.hpp
+	include/sge/extension.hpp
 	include/sge/extension_set.hpp
 	include/sge/font/char_metric.hpp
 	include/sge/font/char_metric_fwd.hpp
@@ -409,6 +412,7 @@ SET(
 	include/sge/model/vertex_sequence.hpp
 	include/sge/multi_loader.hpp
 	include/sge/multi_loader_fwd.hpp
+	include/sge/optional_extension.hpp
 	include/sge/plugin/base.hpp
 	include/sge/plugin/capabilities.hpp
 	include/sge/plugin/capabilities_field.hpp

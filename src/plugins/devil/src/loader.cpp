@@ -19,47 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../loader.hpp"
+#include "../enable.hpp"
 #include "../file.hpp"
-#include "../error.hpp"
-#include <sge/extension_set.hpp>
+#include "../file_ptr.hpp"
+#include "../supported_extensions.hpp"
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/text.hpp>
-
-namespace
-{
-	// FIXME: add more extensions, see: http://openil.sourceforge.net/features.php
-sge::extension_set const extensions_(
-	fcppt::assign::make_container<
-		sge::extension_set
-	>
-	(
-		FCPPT_TEXT("bmp")
-	)
-	(
-		FCPPT_TEXT("png")
-	)
-	(
-		FCPPT_TEXT("jpg")
-	)
-	(
-		FCPPT_TEXT("jpeg")
-	)
-	(
-		FCPPT_TEXT("tga")
-	)
-);
-
-}
+#include <fcppt/optional_impl.hpp>
 
 sge::devil::loader::loader()
 {
-	::ilEnable(
+	devil::enable(
 		IL_FILE_OVERWRITE
 	);
-
-	devil::check_errors();
 }
 
 sge::devil::loader::~loader()
@@ -71,12 +43,22 @@ sge::devil::loader::load(
 	fcppt::filesystem::path const &_path
 )
 {
-	return
+	sge::devil::file_ptr const ret(
 		fcppt::make_shared_ptr<
 			devil::file
-		>(
+		>()
+	);
+
+	return
+		ret->load(
 			_path
-		);
+		)
+		?
+			sge::image2d::file_ptr()
+		:
+			sge::image2d::file_ptr(
+				ret
+			);
 }
 
 sge::image2d::file_ptr const
@@ -84,22 +66,24 @@ sge::devil::loader::load(
 	sge::const_raw_range const &_range,
 	sge::optional_extension const &_extension
 )
-#if 0
-try
 {
-	// TODO: don't throw exceptions here
-	return
+	sge::devil::file_ptr const ret(
 		fcppt::make_shared_ptr<
 			devil::file
-		>(
+		>()
+	);
+
+	return
+		ret->load(
 			_range,
 			_extension
-		);
-}
-catch(...)
-#endif
-{
-	return image2d::file_ptr();
+		)
+		?
+			sge::image2d::file_ptr()
+		:
+			sge::image2d::file_ptr(
+				ret
+			);
 }
 
 sge::image2d::file_ptr const
@@ -124,5 +108,5 @@ sge::devil::loader::capabilities() const
 sge::extension_set const
 sge::devil::loader::extensions() const
 {
-	return extensions_;
+	return devil::supported_extensions();
 }

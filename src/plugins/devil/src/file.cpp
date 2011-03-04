@@ -18,14 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <IL/ilu.h>
 #include "../file.hpp"
-#include "../error.hpp"
-#include "../format.hpp"
+#include "../best_il_format.hpp"
+#include "../check_error_exn.hpp"
+#include "../convert_format.hpp"
+#include "../enable.hpp"
+#include "../disable.hpp"
+#include "../get_data.hpp"
+#include "../get_integer.hpp"
+#include "../load_image.hpp"
+#include "../load_memory.hpp"
+#include "../set_integer.hpp"
+#include "../to_il_channel.hpp"
+#include "../to_il_format.hpp"
 #include <sge/image/color/element_count.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/exception.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/dim.hpp>
 #include <sge/image2d/view/format.hpp>
@@ -33,68 +41,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
+#include <IL/il.h>
 
-sge::devil::file::file(
-	fcppt::filesystem::path const &_file
-)
+sge::devil::file::file()
 :
 	impl_()
 {
-	this->bind_me();
-
-	::ilDisable(
-		IL_FORMAT_SET
-	);
-
-	this->load(
-		_file
-	);
-
-	if(
-		format() == IL_COLOR_INDEX
-	)
-	{
-		FCPPT_LOG_WARNING(
-			sge::log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("File \"")
-				<< fcppt::filesystem::path_to_string(
-					_file
-				)
-				<< FCPPT_TEXT("\" has a color palette, that sge won't handle.")
-				<< FCPPT_TEXT(" Instead, the file will be reloaded and converted.")
-				<< FCPPT_TEXT(" The process is inefficient and you should consider ")
-				<< FCPPT_TEXT(" converting the file beforehand.")
-		);
-
-        	::ilSetInteger(
-			IL_FORMAT_MODE,
-			IL_RGBA
-		);
-
-		::ilEnable(
-			IL_FORMAT_SET
-		);
-
-		this->load(
-			_file
-		);
-
-		FCPPT_ASSERT(
-			format() != IL_COLOR_INDEX
-		);
-	}
 }
 
 sge::devil::file::file(
@@ -103,7 +67,7 @@ sge::devil::file::file(
 :
 	impl_()
 {
-	data(
+	this->data(
 		_src
 	);
 }
@@ -115,21 +79,21 @@ sge::devil::file::~file()
 sge::image2d::dim const
 sge::devil::file::size() const
 {
-	bind_me();
+	this->bind();
 
 	return
 		image2d::dim(
 			static_cast<
 				image2d::dim::value_type
 			>(
-				::ilGetInteger(
+				devil::get_integer(
 					IL_IMAGE_WIDTH
 				)
 			),
 			static_cast<
 				image2d::dim::value_type
 			>(
-				::ilGetInteger(
+				devil::get_integer(
 					IL_IMAGE_HEIGHT
 				)
 			)
@@ -141,11 +105,11 @@ sge::devil::file::data(
 	image2d::view::const_object const &_src
 )
 {
-	bind_me();
+	this->bind();
 
 	typedef fcppt::container::raw_vector<
 		unsigned char
-	> raw_vector_t;
+	> raw_vector;
 
 	image2d::dim const src_dim(
 		image2d::view::dim(
@@ -159,19 +123,21 @@ sge::devil::file::data(
 		)
 	);
 
-	raw_vector_t v(
+	raw_vector temp(
 		image::color::format_stride(fmt)
 		* src_dim.content()
 	);
 
 	image::color::format::type const best_il_format(
-		fmt
+		devil::best_il_format(
+			fmt
+		)
 	);
 
 	image2d::algorithm::copy_and_convert(
 		_src,
 		image2d::view::make(
-			v.data(),
+			temp.data(),
 			src_dim,
 			best_il_format,
 			image2d::view::optional_pitch()
@@ -184,7 +150,7 @@ sge::devil::file::data(
 		)
 	);
 
-	ilTexImage(
+	::ilTexImage(
 		static_cast<
 			ILuint
 		>(
@@ -209,30 +175,34 @@ sge::devil::file::data(
 		devil::to_il_channel(
 			best_il_format
 		),
-		const_cast<raw_vector_t::pointer>(v.data())
+		const_cast<
+			raw_vector::pointer
+		>(
+			temp.data()
+		)
 	);
 
-	check_errors();
+	devil::check_error_exn();
 }
 
 sge::image2d::view::const_object const
 sge::devil::file::view() const
 {
-	bind_me();
+	this->bind();
 
 	return
 		image2d::view::make_const(
 			const_cast<
 				image::const_raw_pointer
 			>(
-				ilGetData()
+				devil::get_data()
 			),
 			this->size(),
 			devil::convert_format(
-				ilGetInteger(
+				devil::get_integer(
 					IL_IMAGE_BITS_PER_PIXEL
 				),
-				format()
+				this->format()
 			),
 			image2d::view::optional_pitch()
 		);
@@ -243,12 +213,19 @@ sge::devil::file::save(
 	fcppt::filesystem::path const &_file
 )
 {
-	bind_me();
+	this->bind();
 
-	ilEnable(IL_ORIGIN_SET);
-	ilRegisterOrigin(IL_ORIGIN_UPPER_LEFT);
+	devil::enable(
+		IL_ORIGIN_SET
+	);
 
-	ilSaveImage(
+	::ilRegisterOrigin(
+		IL_ORIGIN_UPPER_LEFT
+	);
+
+	devil::check_error_exn();
+
+	::ilSaveImage(
 #ifdef UNICODE
 		const_cast<
 			wchar_t *
@@ -270,67 +247,116 @@ sge::devil::file::save(
 #endif
 	);
 
-	ilDisable(IL_ORIGIN_SET);
+	devil::check_error_exn();
 
-	check_errors();
+	devil::disable(
+		IL_ORIGIN_SET
+	);
 }
 
 void
-sge::devil::file::bind_me() const
+sge::devil::file::bind() const
 {
-	ilBindImage(
+	::ilBindImage(
 		impl_.id()
 	);
 
-	check_errors();
+	devil::check_error_exn();
 }
 
-void
+sge::devil::optional_error const
 sge::devil::file::load(
 	fcppt::filesystem::path const &_file
 )
 {
-	if(
-		::ilLoadImage(
-#ifdef UNICODE
-			const_cast<
-				wchar_t *
-			>(
-				fcppt::filesystem::path_to_string(
-					_file
-				).c_str()
-			)
-#else
-			const_cast<
-				char *
-			>(
-				fcppt::to_std_string(
-					fcppt::filesystem::path_to_string(
-						_file
-					)
-				).c_str()
-			)
-#endif
-		)
-		== IL_FALSE
-	)
-		throw sge::image::exception(
-			FCPPT_TEXT("ilLoadImage() failed! Could not load '")
-			+ fcppt::filesystem::path_to_string(
+	return
+		this->load_impl(
+			std::tr1::bind(
+				devil::load_image,
 				_file
 			)
-			+ FCPPT_TEXT("'!")
 		);
+}
+
+sge::devil::optional_error const
+sge::devil::file::load(
+	sge::const_raw_range const &_range,
+	sge::optional_extension const &_extension
+)
+{
+	return
+		this->load_impl(
+			std::tr1::bind(
+				devil::load_memory,
+				_range,
+				_extension
+			)
+		);
+
+}
+
+sge::devil::optional_error const
+sge::devil::file::load_impl(
+	load_function const &_function
+)
+{
+	this->bind();
+
+	devil::disable(
+		IL_FORMAT_SET
+	);
+
+	{
+		devil::optional_error const error(
+			_function()
+		);
+
+		if(
+			error
+			|| this->format() != IL_COLOR_INDEX
+		)
+			return error;
+	}
+
+	FCPPT_LOG_WARNING(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("SGE won't handle files with color palettes.")
+			<< FCPPT_TEXT(" Instead, the file will be reloaded and converted.")
+			<< FCPPT_TEXT(" The process is inefficient and you should consider ")
+			<< FCPPT_TEXT(" converting the file beforehand.")
+	);
+
+	devil::set_integer(
+		IL_FORMAT_MODE,
+		IL_RGBA
+	);
+
+	devil::enable(
+		IL_FORMAT_SET
+	);
+
+	devil::optional_error const error(
+		_function()
+	);
+
+	FCPPT_ASSERT(
+		this->format() != IL_COLOR_INDEX
+	);
+
+	return error;
 }
 
 ILenum
 sge::devil::file::format() const
 {
+	this->bind();
+
 	return
 		static_cast<
 			ILenum
 		>(
-			::ilGetInteger(
+			devil::get_integer(
 				IL_IMAGE_FORMAT
 			)
 		);

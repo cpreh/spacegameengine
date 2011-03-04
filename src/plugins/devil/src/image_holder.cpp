@@ -18,18 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
-#include <IL/il.h>
-#include <IL/ilu.h>
+#include "../image_holder.hpp"
+#include "../check_error_exn.hpp"
 
-sge::devil::library::library()
+sge::devil::image_holder::image_holder()
 {
-	::ilInit();
+	::ilGenImages(
+		1,
+		&id_
+	);
 
-	::iluInit();
+	devil::check_error_exn();
 }
 
-sge::devil::library::~library()
+sge::devil::image_holder::~image_holder()
 {
-	::ilShutDown();
+	::ilDeleteImages(
+		1,
+		&id_
+	);
+}
+
+ILuint
+sge::devil::image_holder::id() const
+{
+	return id_;
 }

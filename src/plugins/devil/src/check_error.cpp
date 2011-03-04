@@ -18,18 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
+#include "../check_error.hpp"
+#include <fcppt/optional_impl.hpp>
 #include <IL/il.h>
-#include <IL/ilu.h>
 
-sge::devil::library::library()
+sge::devil::optional_error const
+sge::devil::check_error()
 {
-	::ilInit();
+	ILenum const ret(
+		::ilGetError()
+	);
 
-	::iluInit();
-}
+	return
+		ret == IL_NO_ERROR
+		?
+			devil::optional_error()
+		:
+			devil::optional_error(
+				ret
+			);
 
-sge::devil::library::~library()
-{
-	::ilShutDown();
 }

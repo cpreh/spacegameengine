@@ -96,6 +96,7 @@ SET(
 	src/plugins/d3d9/texture/lock_cube.hpp
 	src/plugins/d3d9/texture/lock_planar.hpp
 	src/plugins/d3d9/texture/mipmap_levels.hpp
+	src/plugins/d3d9/texture/optional_lock_box.hpp
 	src/plugins/d3d9/texture/optional_lock_rect.hpp
 	src/plugins/d3d9/texture/optional_locked_rect.hpp
 	src/plugins/d3d9/texture/planar.hpp

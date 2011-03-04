@@ -18,18 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
+#include "../error_string.hpp"
+#include <fcppt/assert.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <IL/il.h>
 #include <IL/ilu.h>
 
-sge::devil::library::library()
+fcppt::string const
+sge::devil::error_string(
+	ILenum const _error
+)
 {
-	::ilInit();
+	FCPPT_ASSERT(
+		_error != IL_NO_ERROR
+	);
 
-	::iluInit();
-}
+	ILconst_string const ret(
+		::iluErrorString(
+			_error
+		)
+	);
 
-sge::devil::library::~library()
-{
-	::ilShutDown();
+	return
+#ifdef UNICODE
+		ret
+#else
+		fcppt::from_std_string(
+			ret
+		);
+#endif
 }

@@ -18,18 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
+#include "../get_integer.hpp"
+#include "../check_error_exn.hpp"
 #include <IL/il.h>
-#include <IL/ilu.h>
 
-sge::devil::library::library()
+ILint
+sge::devil::get_integer(
+	ILenum const _what
+)
 {
-	::ilInit();
+	ILint const ret(
+		::ilGetInteger(
+			_what
+		)
+	);
 
-	::iluInit();
-}
+	devil::check_error_exn();
 
-sge::devil::library::~library()
-{
-	::ilShutDown();
+	return ret;
 }

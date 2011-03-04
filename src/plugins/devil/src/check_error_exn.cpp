@@ -18,28 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../error.hpp"
-#include "../image_impl.hpp"
+#include "../check_error_exn.hpp"
+#include "../check_error.hpp"
+#include "../error_string.hpp"
+#include <sge/image/exception.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 
-sge::devil::image_impl::image_impl()
+void
+sge::devil::check_error_exn()
 {
-	ilGenImages(
-		1,
-		&id_
+	devil::optional_error const error(
+		devil::check_error()
 	);
 
-	check_errors();
-}
-
-sge::devil::image_impl::~image_impl()
-{
-	ilDeleteImages(
-		1,
-		&id_
-	);
-}
-
-ILuint sge::devil::image_impl::id() const
-{
-	return id_;
+	if(
+		error
+	)
+		throw sge::image::exception(
+			FCPPT_TEXT("The following devil error occured: ")
+			+ devil::error_string(
+				*error
+			)
+		);
 }

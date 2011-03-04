@@ -18,18 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
-#include <IL/il.h>
-#include <IL/ilu.h>
+#include "../supported_extensions.hpp"
+#include <sge/extension_set.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/text.hpp>
 
-sge::devil::library::library()
+namespace
 {
-	::ilInit();
 
-	::iluInit();
+// FIXME: add more extensions, see: http://openil.sourceforge.net/features.php
+sge::extension_set const extensions_(
+	fcppt::assign::make_container<
+		sge::extension_set
+	>
+	(
+		FCPPT_TEXT("bmp")
+	)
+	(
+		FCPPT_TEXT("png")
+	)
+	(
+		FCPPT_TEXT("jpg")
+	)
+	(
+		FCPPT_TEXT("jpeg")
+	)
+	(
+		FCPPT_TEXT("tga")
+	)
+);
+
 }
 
-sge::devil::library::~library()
+sge::extension_set const
+sge::devil::supported_extensions()
 {
-	::ilShutDown();
+	return extensions_;
 }

@@ -18,31 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <IL/il.h>
-#include <IL/ilu.h>
-#include "../error.hpp"
-#include <fcppt/string.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/from_std_string.hpp>
+#ifndef SGE_DEVIL_LOAD_IMAGE_HPP_INCLUDED
+#define SGE_DEVIL_LOAD_IMAGE_HPP_INCLUDED
 
-void sge::devil::check_errors()
+#include "optional_error.hpp"
+#include <fcppt/filesystem/path.hpp>
+
+namespace sge
 {
-	ILenum e = ilGetError();
-	if(e == IL_NO_ERROR)
-		return;
+namespace devil
+{
 
-	fcppt::string error_message(FCPPT_TEXT("The following devil errors were detected:\n"));
-	do
-	{
-		error_message +=
-#ifdef UNICODE
-			iluErrorString(e);
-#else
-			fcppt::from_std_string(iluErrorString(e));
-#endif
-		error_message += FCPPT_TEXT('\n');
-	}
-	while((e = ilGetError()) != IL_NO_ERROR);
-	throw exception(error_message);
+devil::optional_error const
+load_image(
+	fcppt::filesystem::path const &
+);
+
 }
+}
+
+#endif

@@ -21,9 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_FILE_HPP_INCLUDED
 #define SGE_DEVIL_FILE_HPP_INCLUDED
 
-#include "image_impl.hpp"
+#include "file_fwd.hpp"
+#include "image_holder.hpp"
+#include "optional_error.hpp"
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/file.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/const_raw_range.hpp>
+#include <sge/optional_extension.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/function/object_fwd.hpp>
+#include <IL/il.h>
 
 namespace sge
 {
@@ -38,9 +46,7 @@ class file
 		file
 	);
 public:
-	explicit file(
-		fcppt::filesystem::path const &
-	);
+	file();
 
 	explicit file(
 		image2d::view::const_object const &
@@ -63,19 +69,34 @@ public:
 	save(
 		fcppt::filesystem::path const &
 	);
-private:
-	void
-	bind_me() const;
 
-	void
+	devil::optional_error const
 	load(
 		fcppt::filesystem::path const &
 	);
 
+	devil::optional_error const
+	load(
+		sge::const_raw_range const &,
+		sge::optional_extension const &
+	);
+private:
+	typedef fcppt::function::object<
+		devil::optional_error const ()
+	> load_function;
+
+	devil::optional_error const
+	load_impl(
+		load_function const &
+	);
+
+	void
+	bind() const;
+
 	ILenum
 	format() const;
 
-	image_impl impl_;
+	devil::image_holder impl_;
 };
 
 }
