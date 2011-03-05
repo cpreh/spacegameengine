@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/io/raw_container_source.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -89,7 +90,13 @@ sge::vorbis::loader::load(
 		return sge::audio::file_ptr();
 
 	typedef
-	boost::iostreams::stream<fcppt::io::raw_container_source>
+	boost::iostreams::stream
+	<
+		fcppt::io::raw_container_source
+		<
+			fcppt::container::raw_vector<char>
+		>
+	>
 	stream_type;
 
 	stream_ptr raw_stream(
