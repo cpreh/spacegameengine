@@ -655,7 +655,7 @@ sge::d3d9::device::create_index_buffer(
 sge::renderer::onscreen_target_ptr const
 sge::d3d9::device::onscreen_target() const
 {
-	return renderer::onscreen_target_ptr();
+	return onscreen_target_;
 }
 
 sge::renderer::scissor_area const
@@ -670,7 +670,7 @@ sge::d3d9::device::scissor_area() const
 sge::renderer::target_ptr const
 sge::d3d9::device::target() const
 {
-	return renderer::target_ptr();
+	return offscreen_target_;
 }
 
 sge::renderer::matrix4 const
