@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file.hpp"
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file_exception.hpp>
+#include <sge/audio/unsupported_format.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/endianness/is_little_endian.hpp>
@@ -157,7 +158,7 @@ void sge::wave::file::read_riff()
 	else if (rifftype == "RIFX")
 		file_bigendian = true;
 	else
-		throw audio::file_exception(
+		throw audio::unsupported_format(
 			filename_,
 			FCPPT_TEXT("file is not a riff file and thus not a wave file"));
 
@@ -171,7 +172,7 @@ void sge::wave::file::read_riff()
 void sge::wave::file::read_wave()
 {
 	if (extract_header(FCPPT_TEXT("wave")) != "WAVE")
-		throw audio::file_exception(
+		throw audio::unsupported_format(
 			filename_,
 			FCPPT_TEXT("file is not a wave file (wave header not present)"));
 
@@ -184,15 +185,10 @@ void sge::wave::file::read_wave()
 		extract_primitive<boost::uint16_t>(FCPPT_TEXT("audio format"));
 
 	if (audio_format != static_cast<boost::uint16_t>(1))
-		throw audio::exception(
-			(
-				fcppt::format(
-					FCPPT_TEXT("wave file \"%1%\" is not pcm encoded (format code is %2%)")
-				)
-				% filename_
-				% audio_format
-			).str()
-		);
+		throw audio::unsupported_format(
+			filename_,
+			(fcppt::format(FCPPT_TEXT("wave file \"%1%\" is not pcm encoded (format code is %2%)"))
+					 % filename_ % audio_format).str());
 
 	channels_ = static_cast<audio::channel_type>(
 			extract_primitive<boost::uint16_t>(FCPPT_TEXT("channel count")));

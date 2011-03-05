@@ -47,6 +47,7 @@ SET(
 	include/sge/audio/sound/positional_ptr.hpp
 	include/sge/audio/sound/repeat.hpp
 	include/sge/audio/stop_mode.hpp
+	include/sge/audio/unsupported_format.hpp
 	include/sge/audio/vector.hpp
 	include/sge/charconv/const_raw_pointer.hpp
 	include/sge/charconv/conversion_failed.hpp
@@ -897,6 +898,7 @@ SET(
 	src/audio/sound/base.cpp
 	src/audio/sound/positional.cpp
 	src/audio/sound/positional_parameters.cpp
+	src/audio/unsupported_format.cpp
 	src/charconv/conversion_failed.cpp
 	src/charconv/convert.cpp
 	src/charconv/converter.cpp

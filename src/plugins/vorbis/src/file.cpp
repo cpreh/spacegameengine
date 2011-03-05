@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../file.hpp"
 #include <sge/audio/exception.hpp>
+#include <sge/audio/unsupported_format.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/endianness/is_little_endian.hpp>
@@ -76,8 +77,11 @@ sge::vorbis::file::file(
 	callbacks.close_func = &file::ogg_close_static;
 	callbacks.tell_func = &file::ogg_tell_static;
 
+	// This might fail with ENOTVORBIS, so we send an unsupported_format
+	// here (but technically, it could be a different error. FIXME: Do
+	// better error reporting here.
 	if(int error = ov_open_callbacks(this,&ogg_file_,0,static_cast<long>(0),callbacks))
-		throw audio::file_exception(
+		throw audio::unsupported_format(
 			file_name_,
 			ogg_error(
 				error));

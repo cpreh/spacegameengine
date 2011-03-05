@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../loader.hpp"
 #include "../stream_ptr.hpp"
 #include <sge/audio/optional_path.hpp>
+#include <sge/audio/unsupported_format.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/io/cifstream.hpp>
@@ -62,13 +63,20 @@ sge::vorbis::loader::load(
 		throw audio::file_exception(
 			filename,
 			FCPPT_TEXT("couldn't open file"));
-	return
-		// Can't use make_shared here because of the unique_ptr
-		sge::audio::file_ptr(
-			new file(
-				fcppt::move(
-					file_stream),
-				filename));
+	try
+	{
+		return
+			// Can't use make_shared here because of the unique_ptr
+			sge::audio::file_ptr(
+				new file(
+					fcppt::move(
+						file_stream),
+					filename));
+	}
+	catch (audio::unsupported_format const &)
+	{
+		return sge::audio::file_ptr();
+	}
 }
 
 sge::audio::file_ptr const
@@ -91,13 +99,20 @@ sge::vorbis::loader::load(
 			reinterpret_cast<boost::iostreams::array_source::char_type const *>(
 				_range.end())));
 
-	return 
-		// Can't use make_shared here because of the unique_ptr
-		sge::audio::file_ptr(
-			new file(
-				fcppt::move(
-					raw_stream),
-				sge::audio::optional_path()));
+	try
+	{
+		return 
+			// Can't use make_shared here because of the unique_ptr
+			sge::audio::file_ptr(
+				new file(
+					fcppt::move(
+						raw_stream),
+					sge::audio::optional_path()));
+	}
+	catch (audio::unsupported_format const &)
+	{
+		return sge::audio::file_ptr();
+	}
 }
 
 sge::audio::loader_capabilities_field const
