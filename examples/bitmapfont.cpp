@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/flags_none.hpp>
+#include <sge/font/text/from_fcppt_string.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -52,15 +53,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <iostream>
 #include <ostream>
 #include <exception>
 #include <cstdlib>
 
-int main()
+int
+main(
+	int argc,
+	char **argv
+)
 try
 {
+	if(
+		argc > 2
+	)
+	{
+		fcppt::io::cerr
+			<< FCPPT_TEXT("Pass exactly one argument to show a given text")
+			FCPPT_TEXT(" or pass nothing to see the default text.\n");
+
+		return EXIT_FAILURE;
+	}
+
 	sge::window::dim const window_dim(
 		1024,
 		768
@@ -155,7 +172,15 @@ try
 		sge::font::text::draw(
 			font_metrics,
 			font_drawer,
-			SGE_FONT_TEXT_LIT("test abcd"),
+			argc == 2
+			?
+				sge::font::text::from_fcppt_string(
+					fcppt::from_std_string(
+						argv[1]
+					)
+				)
+			:
+				SGE_FONT_TEXT_LIT("test abcd"),
 			sge::font::rect(
 				sge::font::rect::vector::null(),
 				fcppt::math::dim::structure_cast<
