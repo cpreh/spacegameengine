@@ -18,44 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_ONSCREEN_TARGET_HPP_INCLUDED
-#define SGE_D3D9_ONSCREEN_TARGET_HPP_INCLUDED
+#ifndef SGE_D3D9_ONSCREEN_TARGET_PTR_HPP_INCLUDED
+#define SGE_D3D9_ONSCREEN_TARGET_PTR_HPP_INCLUDED
 
 #include "onscreen_target_fwd.hpp"
-#include "basic_target.hpp"
-#include "d3dinclude.hpp"
-#include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
 
-class onscreen_target
-:
-	public d3d9::basic_target<
-		sge::renderer::onscreen_target
-	>
-{
-	FCPPT_NONCOPYABLE(
-		onscreen_target
-	);
-
-	typedef d3d9::basic_target<
-		sge::renderer::onscreen_target
-	> base;
-public:
-	explicit onscreen_target(
-		IDirect3DDevice9 *
-	);
-
-	~onscreen_target();
-
-	renderer::color_surface_ptr const
-	surface() const;
-};
+typedef fcppt::shared_ptr<
+	d3d9::onscreen_target
+> onscreen_target_ptr;
 
 }
 }

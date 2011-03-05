@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_BASIC_TARGET_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
+#include "target_base.hpp"
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/math/box/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -36,7 +37,8 @@ template<
 >
 class basic_target
 :
-	public Base
+	public Base,
+	public d3d9::target_base
 {
 	FCPPT_NONCOPYABLE(
 		basic_target
@@ -55,8 +57,18 @@ public:
 
 	renderer::viewport const
 	viewport() const;
+
+	void
+	active(
+		bool
+	);
 private:
+	void
+	check_viewport();
+
 	IDirect3DDevice9 *const device_;
+
+	bool active_;
 
 	renderer::viewport viewport_;
 };

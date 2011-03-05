@@ -29,6 +29,9 @@ sge::d3d9::onscreen_target::onscreen_target(
 		_device
 	)
 {
+	base::active(
+		true
+	);
 }
 
 sge::d3d9::onscreen_target::~onscreen_target()

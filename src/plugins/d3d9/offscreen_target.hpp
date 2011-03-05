@@ -18,14 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_ONSCREEN_TARGET_HPP_INCLUDED
-#define SGE_D3D9_ONSCREEN_TARGET_HPP_INCLUDED
+#ifndef SGE_D3D9_OFFSCREEN_TARGET_HPP_INCLUDED
+#define SGE_D3D9_OFFSCREEN_TARGET_HPP_INCLUDED
 
-#include "onscreen_target_fwd.hpp"
+#include "offscreen_target_fwd.hpp"
 #include "basic_target.hpp"
 #include "d3dinclude.hpp"
+#include "resource.hpp"
 #include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/optional_dim2.hpp>
+#include <sge/renderer/surface_index.hpp>
+#include <sge/renderer/target.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,28 +37,48 @@ namespace sge
 namespace d3d9
 {
 
-class onscreen_target
+class offscreen_target
 :
 	public d3d9::basic_target<
-		sge::renderer::onscreen_target
-	>
+		sge::renderer::target
+	>,
+	public d3d9::resource
 {
 	FCPPT_NONCOPYABLE(
-		onscreen_target
+		offscreen_target
 	);
 
 	typedef d3d9::basic_target<
-		sge::renderer::onscreen_target
+		sge::renderer::target
 	> base;
 public:
-	explicit onscreen_target(
+	explicit offscreen_target(
 		IDirect3DDevice9 *
 	);
 
-	~onscreen_target();
+	~offscreen_target();
+private:
+	void
+	color_surface(
+		renderer::color_surface_ptr,
+		renderer::surface_index
+	);
 
-	renderer::color_surface_ptr const
-	surface() const;
+	void
+	depth_stencil_surface(
+		renderer::depth_stencil_surface_ptr
+	);
+
+	renderer::optional_dim2 const
+	dim() const;
+
+	void
+	on_loss();
+
+	void
+	on_reset();
+
+	IDirect3DDevice9 *const device_;
 };
 
 }

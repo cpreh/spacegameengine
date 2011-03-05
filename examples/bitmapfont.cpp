@@ -34,11 +34,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/capabilities_field.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/font/text/drawer_3d.hpp>
-#include <sge/font/text/part.hpp>
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/flags_none.hpp>
 #include <sge/font/text/from_fcppt_string.hpp>
 #include <sge/font/text/lit.hpp>
+#include <sge/font/text/part.hpp>
+#include <sge/font/text/string.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -161,7 +162,21 @@ try
 		)
 	);
 
-	while(running)
+	sge::font::text::string const string(
+		argc == 2
+		?
+			sge::font::text::from_fcppt_string(
+				fcppt::from_std_string(
+					argv[1]
+				)
+			)
+		:
+			SGE_FONT_TEXT_LIT("test abcd")
+	);
+
+	while(
+		running
+	)
 	{
 		sys.window()->dispatch();
 
@@ -172,15 +187,7 @@ try
 		sge::font::text::draw(
 			font_metrics,
 			font_drawer,
-			argc == 2
-			?
-				sge::font::text::from_fcppt_string(
-					fcppt::from_std_string(
-						argv[1]
-					)
-				)
-			:
-				SGE_FONT_TEXT_LIT("test abcd"),
+			string,
 			sge::font::rect(
 				sge::font::rect::vector::null(),
 				fcppt::math::dim::structure_cast<
