@@ -53,6 +53,10 @@ sge::d3d9::vertex_buffer::vertex_buffer(
 	this->init();
 }
 
+sge::d3d9::vertex_buffer::~vertex_buffer()
+{
+}
+
 sge::d3d9::vertex_buffer::view_type const
 sge::d3d9::vertex_buffer::lock(
 	renderer::lock_mode::type const _lock_mode,
@@ -140,6 +144,12 @@ sge::renderer::vf::dynamic::part_index const
 sge::d3d9::vertex_buffer::format_part_index() const
 {
 	return format_part_index_;
+}
+
+IDirect3DVertexBuffer9 *
+sge::d3d9::vertex_buffer::get() const
+{
+	return buffer_.get();
 }
 
 void

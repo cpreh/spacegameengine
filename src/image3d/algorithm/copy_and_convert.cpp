@@ -19,19 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../image/algorithm/copy_and_convert_impl.hpp"
+#include "../../image/algorithm/instantiate_copy_and_convert.hpp"
 #include <sge/image3d/algorithm/copy_and_convert.hpp>
-#include <fcppt/export_symbol.hpp>
-
-template
-FCPPT_EXPORT_SYMBOL
-void
-sge::image::algorithm::copy_and_convert<
-	sge::image3d::view::const_object,
-	sge::image3d::view::object
->(
-	sge::image3d::view::const_object const &,
-	sge::image3d::view::object const &
-);
+#include <sge/image3d/tag.hpp>
 
 void
 sge::image3d::algorithm::copy_and_convert(
@@ -39,8 +29,14 @@ sge::image3d::algorithm::copy_and_convert(
 	view::object const &_dest
 )
 {
-	sge::image::algorithm::copy_and_convert(
+	sge::image::algorithm::copy_and_convert<
+		sge::image3d::tag
+	>(
 		_src,
 		_dest
 	);
 }
+
+SGE_IMAGE_ALGORITHM_INSTANTIATE_COPY_AND_CONVERT(
+	sge::image3d::tag
+);

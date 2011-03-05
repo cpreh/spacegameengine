@@ -19,32 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../image/view/sub_impl.hpp"
+#include "../../image/view/instantiate_sub.hpp"
+#include "../../image/view/instantiate_sub_const.hpp"
 #include <sge/image2d/view/sub.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
-
-// TODO: create some macros for this
-template
-FCPPT_EXPORT_SYMBOL
-sge::image2d::view::object const
-sge::image::view::sub<
-	sge::image2d::view::object,
-	sge::image2d::rect
->(
-	sge::image2d::view::object const &,
-	sge::image2d::rect const &
-);
-
-template
-FCPPT_EXPORT_SYMBOL
-sge::image2d::view::const_object const
-sge::image::view::sub<
-	sge::image2d::view::const_object,
-	sge::image2d::rect
->(
-	sge::image2d::view::const_object const &,
-	sge::image2d::rect const &
-);
+#include <sge/image2d/tag.hpp>
 
 sge::image2d::view::object const
 sge::image2d::view::sub(
@@ -53,7 +31,9 @@ sge::image2d::view::sub(
 )
 {
 	return
-		sge::image::view::sub(
+		sge::image::view::sub<
+			sge::image2d::tag
+		>(
 			_src,
 			_rect
 		);
@@ -66,8 +46,18 @@ sge::image2d::view::sub(
 )
 {
 	return
-		sge::image::view::sub(
+		sge::image::view::sub<
+			sge::image2d::tag
+		>(
 			_src,
 			_rect
 		);
 }
+
+SGE_IMAGE_VIEW_INSTANTIATE_SUB(
+	sge::image2d::tag
+);
+
+SGE_IMAGE_VIEW_INSTANTIATE_SUB_CONST(
+	sge::image2d::tag
+);

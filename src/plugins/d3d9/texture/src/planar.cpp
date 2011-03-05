@@ -92,11 +92,13 @@ sge::d3d9::texture::planar::surface(
 	renderer::stage_type const _stage
 )
 {
+	return renderer::color_surface_ptr();
 }
 
 sge::renderer::stage_type
 sge::d3d9::texture::planar::stages() const
 {
+	return renderer::stage_type(0u);
 }
 
 sge::d3d9::texture::planar_basic::lock_function const

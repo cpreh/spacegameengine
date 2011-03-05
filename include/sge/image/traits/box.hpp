@@ -18,33 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
+#ifndef SGE_IMAGE_TRAITS_BOX_HPP_INCLUDED
+#define SGE_IMAGE_TRAITS_BOX_HPP_INCLUDED
 
-#include <sge/image/traits/const_view.hpp>
-#include <sge/image/traits/view.hpp>
-#include <sge/symbol.hpp>
+#include <sge/image2d/rect.hpp>
+#include <sge/image2d/tag.hpp>
+#include <sge/image3d/box.hpp>
+#include <sge/image3d/tag.hpp>
 
 namespace sge
 {
 namespace image
 {
-namespace algorithm
+namespace traits
 {
 
 template<
-	typename Traits
+	typename Tag
 >
-SGE_SYMBOL
-void
-copy_and_convert(
-	typename image::traits::const_view<
-		Traits
-	>::type const &,
-	typename image::traits::view<
-		Traits
-	>::type const &
-);
+struct box;
+
+template<>
+struct box<
+	image2d::tag
+>
+{
+	typedef image2d::rect type;
+};
+
+template<>
+struct box<
+	image3d::tag
+>
+{
+	typedef image3d::box type;
+};
 
 }
 }

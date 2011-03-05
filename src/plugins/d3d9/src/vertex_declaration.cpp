@@ -80,11 +80,19 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 				>(
 					element.offset()
 				), // Offset
-				convert::vertex_type(
-					element.element()
+				static_cast<
+					BYTE
+				>(
+					convert::vertex_type(
+						element.element()
+					)
 				), // Type
 				D3DDECLMETHOD_DEFAULT,
-				usage,
+				static_cast<
+					BYTE
+				>(
+					usage
+				),
 				static_cast<
 					BYTE
 				>(
@@ -124,6 +132,10 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 	declaration_.reset(
 		decl
 	);
+}
+
+sge::d3d9::vertex_declaration::~vertex_declaration()
+{
 }
 
 IDirect3DVertexDeclaration9 *

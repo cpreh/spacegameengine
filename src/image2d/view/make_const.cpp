@@ -37,11 +37,7 @@ sge::image2d::view::make_const(
 		sge::image::view::make_const<
 			sge::image2d::tag
 		>(
-			const_cast<
-				image::raw_pointer
-			>(
-				_data
-			),
+			_data,
 			_dim,
 			_format,
 			_pitch

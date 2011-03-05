@@ -18,36 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
+#include "../set_viewport.hpp"
+#include "../../convert/viewport.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/image/traits/const_view.hpp>
-#include <sge/image/traits/view.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
-{
-namespace image
-{
-namespace algorithm
-{
-
-template<
-	typename Traits
->
-SGE_SYMBOL
 void
-copy_and_convert(
-	typename image::traits::const_view<
-		Traits
-	>::type const &,
-	typename image::traits::view<
-		Traits
-	>::type const &
-);
+sge::d3d9::devicefuncs::set_viewport(
+	IDirect3DDevice9 *const _device,
+	sge::renderer::viewport const &_viewport
+)
+{
+	D3DVIEWPORT9 const d3d_viewport(
+		convert::viewport(
+			_viewport
+		)
+	);
 
+	if(
+		_device->SetViewport(
+			&d3d_viewport
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("SetViewport() failed!")
+		);
 }
-}
-}
-
-#endif

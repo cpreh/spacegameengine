@@ -18,36 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
+#include "../onscreen_target.hpp"
+#include "../basic_target_impl.hpp"
 
-#include <sge/image/traits/const_view.hpp>
-#include <sge/image/traits/view.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+sge::d3d9::onscreen_target::onscreen_target(
+	IDirect3DDevice9 *const _device
+)
+:
+	base(
+		_device
+	)
 {
-namespace image
-{
-namespace algorithm
-{
-
-template<
-	typename Traits
->
-SGE_SYMBOL
-void
-copy_and_convert(
-	typename image::traits::const_view<
-		Traits
-	>::type const &,
-	typename image::traits::view<
-		Traits
-	>::type const &
-);
-
-}
-}
 }
 
-#endif
+sge::d3d9::onscreen_target::~onscreen_target()
+{
+}
+
+sge::renderer::color_surface_ptr const
+sge::d3d9::onscreen_target::surface() const
+{
+	return renderer::color_surface_ptr();
+}
+
+template class
+sge::d3d9::basic_target<
+	sge::renderer::onscreen_target
+>;

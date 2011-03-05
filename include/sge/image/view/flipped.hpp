@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_FLIPPED_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_FLIPPED_HPP_INCLUDED
 
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/view.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -31,12 +33,29 @@ namespace view
 {
 
 template<
-	typename View
+	typename Tag
 >
 SGE_SYMBOL
-View const
+typename image::traits::view<
+	Tag
+>::type const
 flipped(
-	View const &
+	typename image::traits::view<
+		Tag
+	>::type const &
+);
+
+template<
+	typename Tag
+>
+SGE_SYMBOL
+typename image::traits::const_view<
+	Tag
+>::type const
+flipped(
+	typename image::traits::const_view<
+		Tag
+	>::type const &
 );
 
 }

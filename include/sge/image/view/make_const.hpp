@@ -43,7 +43,7 @@ typename image::traits::const_view<
 	Tag
 >::type const
 make_const(
-	image::const_raw_pointer,
+	image::const_raw_pointer const, // Workaround for VC++ bug
 	typename image::traits::dim<
 		Tag
 	>::type const &,

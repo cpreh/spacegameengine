@@ -56,6 +56,7 @@ sge::d3d9::target::depth_stencil_surface(
 sge::renderer::optional_dim2 const
 sge::d3d9::target::dim() const
 {
+	return renderer::optional_dim2();
 }
 
 #if 0

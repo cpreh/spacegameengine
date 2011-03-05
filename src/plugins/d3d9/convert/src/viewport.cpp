@@ -18,36 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
+#include "../viewport.hpp"
+#include "../../d3dinclude.hpp"
+#include <fcppt/math/box/basic_impl.hpp>
 
-#include <sge/image/traits/const_view.hpp>
-#include <sge/image/traits/view.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+D3DVIEWPORT9 const
+sge::d3d9::convert::viewport(
+	sge::renderer::viewport const &_viewport
+)
 {
-namespace image
-{
-namespace algorithm
-{
+	sge::renderer::pixel_rect const rect(
+		_viewport.get()
+	);
 
-template<
-	typename Traits
->
-SGE_SYMBOL
-void
-copy_and_convert(
-	typename image::traits::const_view<
-		Traits
-	>::type const &,
-	typename image::traits::view<
-		Traits
-	>::type const &
-);
+	D3DVIEWPORT9 const ret =
+	{
+		static_cast<
+			DWORD
+		>(
+			rect.left()
+		),
+		static_cast<
+			DWORD
+		>(
+			rect.right()
+		),
+		static_cast<
+			DWORD
+		>(
+			rect.size().w()
+		),
+		static_cast<
+			DWORD
+		>(
+			rect.size().h()
+		),
+		0.f,
+		1.f
+	};
 
+	return ret;
 }
-}
-}
-
-#endif

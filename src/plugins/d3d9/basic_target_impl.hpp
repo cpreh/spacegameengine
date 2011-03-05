@@ -18,36 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
+#ifndef SGE_D3D9_BASIC_TARGET_HPP_INCLUDED
+#define SGE_D3D9_BASIC_TARGET_HPP_INCLUDED
 
-#include <sge/image/traits/const_view.hpp>
-#include <sge/image/traits/view.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
-{
-namespace image
-{
-namespace algorithm
-{
+#include "basic_target.hpp"
+#include <fcppt/math/box/basic_impl.hpp>
 
 template<
-	typename Traits
+	typename Base
 >
-SGE_SYMBOL
-void
-copy_and_convert(
-	typename image::traits::const_view<
-		Traits
-	>::type const &,
-	typename image::traits::view<
-		Traits
-	>::type const &
-);
+sge::d3d9::basic_target<Base>::basic_target(
+	IDirect3DDevice9 *const _device
+)
+:
+	device_(_device),
+	viewport_(
+		sge::renderer::viewport::value_type::null()
+	)
+{
+}
 
+sge::d3d9::basic_target<Base>::~basic_target()
+{
 }
+
+void
+sge::d3d9::basic_target<Base>::viewport(
+	renderer::viewport const &_viewport
+)
+{
+	viewport_ = _viewport;
 }
+
+sge::renderer::viewport const
+sge::d3d9::basic_target<Base>::viewport() const
+{
+	return viewport_;
 }
 
 #endif

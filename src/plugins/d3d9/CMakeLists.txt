@@ -1,5 +1,12 @@
+CHECK_DEPENDENCIES(
+	"TIME"
+	"d3d9"
+)
+
 SET(
 	SGE_D3D9_FILES
+	src/plugins/d3d9/basic_target.hpp
+	src/plugins/d3d9/basic_target_impl.hpp
 	src/plugins/d3d9/convert/box.hpp
 	src/plugins/d3d9/convert/color_format.hpp
 	src/plugins/d3d9/convert/cube_side.hpp
@@ -37,20 +44,27 @@ SET(
 	src/plugins/d3d9/convert/src/to_color_value.cpp
 	src/plugins/d3d9/convert/src/vertex_role.cpp
 	src/plugins/d3d9/convert/src/vertex_type.cpp
+	src/plugins/d3d9/convert/src/viewport.cpp
 	src/plugins/d3d9/convert/to_color_value.hpp
 	src/plugins/d3d9/convert/vertex_role.hpp
 	src/plugins/d3d9/convert/vertex_type.hpp
+	src/plugins/d3d9/convert/viewport.hpp
 	src/plugins/d3d9/create_caps.hpp
 	src/plugins/d3d9/create_device.hpp
 	src/plugins/d3d9/d3d_device_unique_ptr.hpp
 	src/plugins/d3d9/d3dinclude.hpp
 	src/plugins/d3d9/device.hpp
 	src/plugins/d3d9/devicefuncs/set_material.hpp
+	src/plugins/d3d9/devicefuncs/set_stream_source.hpp
 	src/plugins/d3d9/devicefuncs/set_transform.hpp
+	src/plugins/d3d9/devicefuncs/set_viewport.hpp
 	src/plugins/d3d9/devicefuncs/src/set_material.cpp
+	src/plugins/d3d9/devicefuncs/src/set_stream_source.cpp
 	src/plugins/d3d9/devicefuncs/src/set_transform.cpp
+	src/plugins/d3d9/devicefuncs/src/set_viewport.cpp
 	src/plugins/d3d9/index_buffer.hpp
 	src/plugins/d3d9/lock_flags.hpp
+	src/plugins/d3d9/onscreen_target.hpp
 	src/plugins/d3d9/parameters/convert/bit_depth.hpp
 	src/plugins/d3d9/parameters/convert/depth_stencil_buffer.hpp
 	src/plugins/d3d9/parameters/convert/multi_sample.hpp
@@ -75,6 +89,7 @@ SET(
 	src/plugins/d3d9/src/device.cpp
 	src/plugins/d3d9/src/exports.cpp
 	src/plugins/d3d9/src/index_buffer.cpp
+	src/plugins/d3d9/src/onscreen_target.cpp
 	src/plugins/d3d9/src/resource.cpp
 	src/plugins/d3d9/src/system.cpp
 	src/plugins/d3d9/src/target.cpp
@@ -149,5 +164,5 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_PLUGIN(
 	"d3d9"
-	"${D3D9_LIBRARIES}"
+	"sgetime;${D3D9_LIBRARIES}"
 )

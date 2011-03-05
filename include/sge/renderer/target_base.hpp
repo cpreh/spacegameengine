@@ -41,14 +41,14 @@ protected:
 	SGE_SYMBOL
 	target_base();
 public:
-        virtual void
-        viewport(
-                renderer::viewport const &
-        ) = 0;
+	virtual void
+	viewport(
+		renderer::viewport const &
+	) = 0;
 
         virtual
-        renderer::viewport const
-        viewport() const = 0;
+	renderer::viewport const
+	viewport() const = 0;
 
 	SGE_SYMBOL
 	virtual ~target_base();

@@ -18,35 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
+#ifndef SGE_D3D9_BASIC_TARGET_HPP_INCLUDED
+#define SGE_D3D9_BASIC_TARGET_HPP_INCLUDED
 
-#include <sge/image/traits/const_view.hpp>
-#include <sge/image/traits/view.hpp>
-#include <sge/symbol.hpp>
+#include "d3dinclude.hpp"
+#include <sge/renderer/viewport.hpp>
+#include <fcppt/math/box/basic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace image
-{
-namespace algorithm
+namespace d3d9
 {
 
 template<
-	typename Traits
+	typename Base
 >
-SGE_SYMBOL
-void
-copy_and_convert(
-	typename image::traits::const_view<
-		Traits
-	>::type const &,
-	typename image::traits::view<
-		Traits
-	>::type const &
-);
+class basic_target
+:
+	public Base
+{
+	FCPPT_NONCOPYABLE(
+		basic_target
+	);
+public:
+	explicit basic_target(
+		IDirect3DDevice9 *
+	);
 
-}
+	~basic_target();
+
+	void
+	viewport(
+		renderer::viewport const &
+	);
+
+	renderer::viewport const
+	viewport() const;
+private:
+	IDirect3DDevice9 *const device_;
+
+	renderer::viewport viewport_;
+};
+
 }
 }
 
