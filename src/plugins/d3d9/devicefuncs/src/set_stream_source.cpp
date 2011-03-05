@@ -18,43 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
-#define SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
+#include "../set_stream_source.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/renderer/target_base_fwd.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+void
+sge::d3d9::devicefuncs::set_stream_source(
+	IDirect3DDevice9 *const _device,
+	renderer::vf::dynamic::part_index const _part,	
+	IDirect3DVertexBuffer9 *const _buffer,
+	renderer::vf::vertex_size const _stride
+)
 {
-namespace renderer
-{
-
-class SGE_CLASS_SYMBOL target_base
-{
-	FCPPT_NONCOPYABLE(
-		target_base
-	);
-protected:
-	SGE_SYMBOL
-	target_base();
-public:
-	virtual void
-	viewport(
-		renderer::viewport const &
-	) = 0;
-
-        virtual
-	renderer::viewport const
-	viewport() const = 0;
-
-	SGE_SYMBOL
-	virtual ~target_base();
-};
-
+	if(
+		_device->SetStreamSource(
+			_part.get(),
+			_buffer,
+			0u, // offset
+			static_cast<
+				UINT
+			>(
+				_stride
+			)
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("SetStreamSource() failed!")
+		);
 }
-}
-
-#endif

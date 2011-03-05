@@ -18,42 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
-#define SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_VIEWPORT_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_VIEWPORT_HPP_INCLUDED
 
-#include <sge/renderer/target_base_fwd.hpp>
+#include "../d3dinclude.hpp"
 #include <sge/renderer/viewport.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace d3d9
+{
+namespace convert
 {
 
-class SGE_CLASS_SYMBOL target_base
-{
-	FCPPT_NONCOPYABLE(
-		target_base
-	);
-protected:
-	SGE_SYMBOL
-	target_base();
-public:
-	virtual void
-	viewport(
-		renderer::viewport const &
-	) = 0;
+D3DVIEWPORT9 const
+viewport(
+	sge::renderer::viewport const &
+);
 
-        virtual
-	renderer::viewport const
-	viewport() const = 0;
-
-	SGE_SYMBOL
-	virtual ~target_base();
-};
-
+}
 }
 }
 

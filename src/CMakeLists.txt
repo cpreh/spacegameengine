@@ -200,6 +200,7 @@ SET(
 	include/sge/image/exception_fwd.hpp
 	include/sge/image/file_exception.hpp
 	include/sge/image/gray8_format.hpp
+	include/sge/image/optional_path.hpp
 	include/sge/image/pitch.hpp
 	include/sge/image/raw_pointer.hpp
 	include/sge/image/raw_value.hpp
@@ -210,6 +211,7 @@ SET(
 	include/sge/image/size_type.hpp
 	include/sge/image/store.hpp
 	include/sge/image/store_fwd.hpp
+	include/sge/image/traits/box.hpp
 	include/sge/image/traits/const_view.hpp
 	include/sge/image/traits/const_view_elements.hpp
 	include/sge/image/traits/dim.hpp
@@ -923,6 +925,7 @@ SET(
 	src/image/algorithm/copy_and_convert_visitor.hpp
 	src/image/algorithm/fill.hpp
 	src/image/algorithm/fill_visitor.hpp
+	src/image/algorithm/instantiate_copy_and_convert.hpp
 	src/image/algorithm/print.hpp
 	src/image/algorithm/print_visitor.hpp
 	src/image/color/any/convert.cpp
@@ -948,8 +951,11 @@ SET(
 	src/image/view/format.hpp
 	src/image/view/format_visitor.hpp
 	src/image/view/instantiate_flipped.hpp
+	src/image/view/instantiate_flipped_const.hpp
 	src/image/view/instantiate_make.hpp
 	src/image/view/instantiate_make_const.hpp
+	src/image/view/instantiate_sub.hpp
+	src/image/view/instantiate_sub_const.hpp
 	src/image/view/instantiate_to_const.hpp
 	src/image/view/make_const_impl.hpp
 	src/image/view/make_impl.hpp

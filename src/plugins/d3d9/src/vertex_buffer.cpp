@@ -146,6 +146,12 @@ sge::d3d9::vertex_buffer::format_part_index() const
 	return format_part_index_;
 }
 
+IDirect3DVertexBuffer9 *
+sge::d3d9::vertex_buffer::get() const
+{
+	return buffer_.get();
+}
+
 void
 sge::d3d9::vertex_buffer::init()
 {

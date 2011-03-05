@@ -18,43 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
-#define SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
+#include "../set_viewport.hpp"
+#include "../../convert/viewport.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/renderer/target_base_fwd.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+void
+sge::d3d9::devicefuncs::set_viewport(
+	IDirect3DDevice9 *const _device,
+	sge::renderer::viewport const &_viewport
+)
 {
-namespace renderer
-{
-
-class SGE_CLASS_SYMBOL target_base
-{
-	FCPPT_NONCOPYABLE(
-		target_base
+	D3DVIEWPORT9 const d3d_viewport(
+		convert::viewport(
+			_viewport
+		)
 	);
-protected:
-	SGE_SYMBOL
-	target_base();
-public:
-	virtual void
-	viewport(
-		renderer::viewport const &
-	) = 0;
 
-        virtual
-	renderer::viewport const
-	viewport() const = 0;
-
-	SGE_SYMBOL
-	virtual ~target_base();
-};
-
+	if(
+		_device->SetViewport(
+			&d3d_viewport
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("SetViewport() failed!")
+		);
 }
-}
-
-#endif

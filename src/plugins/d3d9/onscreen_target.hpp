@@ -18,40 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
-#define SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
+#ifndef SGE_D3D9_ONSCREEN_TARGET_HPP_INCLUDED
+#define SGE_D3D9_ONSCREEN_TARGET_HPP_INCLUDED
 
-#include <sge/renderer/target_base_fwd.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
+#include "basic_target.hpp"
+#include "d3dinclude.hpp"
+#include <sge/renderer/color_surface_ptr.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace d3d9
 {
 
-class SGE_CLASS_SYMBOL target_base
+class onscreen_target
+:
+	public d3d9::basic_target<
+		sge::renderer::onscreen_target
+	>
 {
 	FCPPT_NONCOPYABLE(
-		target_base
+		onscreen_target
 	);
-protected:
-	SGE_SYMBOL
-	target_base();
+
+	typedef d3d9::basic_target<
+		sge::renderer::onscreen_target
+	> base;
 public:
-	virtual void
-	viewport(
-		renderer::viewport const &
-	) = 0;
+	explicit onscreen_target(
+		IDirect3DDevice9 *
+	);
 
-        virtual
-	renderer::viewport const
-	viewport() const = 0;
+	~onscreen_target();
 
-	SGE_SYMBOL
-	virtual ~target_base();
+	renderer::color_surface_ptr const
+	surface() const;
 };
 
 }

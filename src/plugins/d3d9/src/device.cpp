@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/indexed_primitive.hpp"
 #include "../convert/nonindexed_primitive.hpp"
 #include "../devicefuncs/set_material.hpp"
+#include "../devicefuncs/set_stream_source.hpp"
 #include "../devicefuncs/set_transform.hpp"
 #include "../parameters/create.hpp"
 #include "../texture/cube.hpp"
@@ -224,7 +225,16 @@ sge::d3d9::device::activate_vertex_buffer(
 	renderer::const_vertex_buffer_ptr const _buffer
 )
 {
-		
+	d3d9::devicefuncs::set_stream_source(
+		device_.get(),
+		_buffer->format_part_index(),
+		dynamic_cast<
+			d3d9::vertex_buffer const &
+		>(
+			*_buffer
+		).get(),
+		_buffer->format_part().stride()
+	);
 }
 
 void

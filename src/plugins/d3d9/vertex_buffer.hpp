@@ -86,6 +86,9 @@ public:
 
 	renderer::vf::dynamic::part_index const
 	format_part_index() const;
+
+	IDirect3DVertexBuffer9 *
+	get() const;
 private:
 	void
 	init();

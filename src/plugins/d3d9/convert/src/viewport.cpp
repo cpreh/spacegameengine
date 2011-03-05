@@ -18,43 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
-#define SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
+#include "../viewport.hpp"
+#include "../../d3dinclude.hpp"
+#include <fcppt/math/box/basic_impl.hpp>
 
-#include <sge/renderer/target_base_fwd.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+D3DVIEWPORT9 const
+sge::d3d9::convert::viewport(
+	sge::renderer::viewport const &_viewport
+)
 {
-namespace renderer
-{
-
-class SGE_CLASS_SYMBOL target_base
-{
-	FCPPT_NONCOPYABLE(
-		target_base
+	sge::renderer::pixel_rect const rect(
+		_viewport.get()
 	);
-protected:
-	SGE_SYMBOL
-	target_base();
-public:
-	virtual void
-	viewport(
-		renderer::viewport const &
-	) = 0;
 
-        virtual
-	renderer::viewport const
-	viewport() const = 0;
+	D3DVIEWPORT9 const ret =
+	{
+		static_cast<
+			DWORD
+		>(
+			rect.left()
+		),
+		static_cast<
+			DWORD
+		>(
+			rect.right()
+		),
+		static_cast<
+			DWORD
+		>(
+			rect.size().w()
+		),
+		static_cast<
+			DWORD
+		>(
+			rect.size().h()
+		),
+		0.f,
+		1.f
+	};
 
-	SGE_SYMBOL
-	virtual ~target_base();
-};
-
+	return ret;
 }
-}
-
-#endif
