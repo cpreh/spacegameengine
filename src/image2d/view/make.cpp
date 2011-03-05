@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/tag.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 sge::image2d::view::object const

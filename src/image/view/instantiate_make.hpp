@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_INSTANTIATE_MAKE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_INSTANTIATE_MAKE_HPP_INCLUDED
 
+#include "make_impl.hpp"
 #include <sge/image/color/format.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/traits/dim.hpp>
@@ -30,23 +31,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/export_symbol.hpp>
 
 #define SGE_IMAGE_VIEW_INSTANTIATE_MAKE(\
-	Tag\
+	tag\
 )\
 template \
 FCPPT_EXPORT_SYMBOL \
 sge::image::traits::view<\
-	Tag\
+	tag\
 >::type const \
 sge::image::view::make< \
-	Tag \
+	tag \
 >( \
 	sge::image::raw_pointer, \
 	sge::image::traits::dim<\
-		Tag\
+		tag\
 	>::type const &,\
 	sge::image::color::format::type, \
 	sge::image::traits::optional_pitch<\
-		Tag\
+		tag\
 	>::type const &\
 )
 
