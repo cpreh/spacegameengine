@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/drawer_3d.hpp>
 #include <sge/font/text/flags_none.hpp>
+#include <sge/font/text/from_fcppt_string.hpp>
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -44,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
@@ -52,7 +54,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <cstdlib>
 
-int main()
+int
+main(
+	int argc,
+	char **argv
+)
 try
 {
 	sge::window::dim const window_dim(
@@ -122,7 +128,21 @@ try
 		)
 	);
 
-	while (running)
+	sge::font::text::string const string(
+		argc == 2
+		?
+			sge::font::text::from_fcppt_string(
+				fcppt::from_std_string(
+					argv[1]
+				)
+			)
+		:
+			SGE_FONT_TEXT_LIT("hello world 1234567890hello world 123456789hello world 123456789hello world 123456789000")
+	);
+
+	while(
+		running
+	)
 	{
 		sys.window()->dispatch();
 
@@ -131,7 +151,7 @@ try
 		sge::font::text::draw(
 			metrics,
 			drawer,
-			SGE_FONT_TEXT_LIT("hello world 1234567890hello world 123456789hello world 123456789hello world 123456789000"),
+			string,
 			sge::font::rect(
 				sge::font::rect::vector::null(),
 				fcppt::math::dim::structure_cast<
