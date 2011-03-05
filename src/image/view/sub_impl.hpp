@@ -23,31 +23,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "sub_visitor.hpp"
 #include <sge/image/view/sub.hpp>
+#include <sge/image/traits/box.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/view.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
-namespace sge
-{
-namespace image
-{
-namespace view
-{
-
 template<
-	typename View,
-	typename Box
+	typename Tag
 >
-View const
-sub(
-	View const &_view,
-	Box const &_box
+typename sge::image::traits::view<
+	Tag
+>::type const
+sge::image::view::sub(
+	typename image::traits::view<
+		Tag
+	>::type const &_view,
+	typename image::traits::box<
+		Tag
+	>::type const &_box
 )
 {
 	return
 		fcppt::variant::apply_unary(
 			sge::image::view::sub_visitor<
-				View,
-				Box
+				typename image::traits::view<
+					Tag
+				>::type,
+				typename image::traits::box<
+					Tag
+				>::type
 			>(
 				_box
 			),
@@ -55,8 +60,35 @@ sub(
 		);
 }
 
-}
-}
+template<
+	typename Tag
+>
+typename sge::image::traits::const_view<
+	Tag
+>::type const
+sge::image::view::sub(
+	typename image::traits::const_view<
+		Tag
+	>::type const &_view,
+	typename image::traits::box<
+		Tag
+	>::type const &_box
+)
+{
+	return
+		fcppt::variant::apply_unary(
+			sge::image::view::sub_visitor<
+				typename image::traits::const_view<
+					Tag
+				>::type,
+				typename image::traits::box<
+					Tag
+				>::type
+			>(
+				_box
+			),
+			_view
+		);
 }
 
 #endif

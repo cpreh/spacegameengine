@@ -23,21 +23,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "flipped_visitor.hpp"
 #include <sge/image/view/flipped.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/view.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 template<
-	typename View
+	typename Tag
 >
-View const
+typename sge::image::traits::view<
+	Tag
+>::type const
 sge::image::view::flipped(
-	View const &_view
+	typename image::traits::view<
+		Tag
+	>::type const &_view
 )
 {
 	return
 		fcppt::variant::apply_unary(
 			sge::image::view::flipped_visitor<
-				View
+				typename image::traits::view<
+					Tag
+				>::type
+			>(),
+			_view
+		);
+}
+
+template<
+	typename Tag
+>
+typename sge::image::traits::const_view<
+	Tag
+>::type const
+sge::image::view::flipped(
+	typename image::traits::const_view<
+		Tag
+	>::type const &_view
+)
+{
+	return
+		fcppt::variant::apply_unary(
+			sge::image::view::flipped_visitor<
+				typename image::traits::const_view<
+					Tag
+				>::type
 			>(),
 			_view
 		);

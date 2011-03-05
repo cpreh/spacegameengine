@@ -124,7 +124,9 @@ sge::opengl::texture::basic<Types>::unlock() const
 		)
 		{
 			// this will only copy, not convert!
-			sge::image::algorithm::copy_and_convert(
+			sge::image::algorithm::copy_and_convert<
+				image_tag
+			>(
 				this->view(),
 				sge::image::view::make<
 					image_tag
@@ -275,10 +277,10 @@ sge::opengl::texture::basic<Types>::view()
 		reading && lock_area_
 		?
 			sge::image::view::flipped<
-				view_type
+				image_tag
 			>(
 				sge::image::view::sub<
-					view_type
+					image_tag
 				>(
 					ret,
 					*lock_area_

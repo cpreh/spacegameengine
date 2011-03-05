@@ -18,36 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_INSTANTIATE_FLIPPED_CONST_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_INSTANTIATE_FLIPPED_CONST_HPP_INCLUDED
 
+#include "flipped_impl.hpp"
 #include <sge/image/traits/const_view.hpp>
-#include <sge/image/traits/view.hpp>
-#include <sge/symbol.hpp>
+#include <fcppt/export_symbol.hpp>
 
-namespace sge
-{
-namespace image
-{
-namespace algorithm
-{
-
-template<
-	typename Traits
->
-SGE_SYMBOL
-void
-copy_and_convert(
-	typename image::traits::const_view<
-		Traits
-	>::type const &,
-	typename image::traits::view<
-		Traits
-	>::type const &
-);
-
-}
-}
-}
+#define SGE_IMAGE_VIEW_INSTANTIATE_FLIPPED_CONST(\
+	tag\
+) \
+template FCPPT_EXPORT_SYMBOL \
+sge::image::traits::const_view<\
+	tag\
+>::type const \
+sge::image::view::flipped<\
+	tag \
+>(\
+	sge::image::traits::const_view<\
+		tag\
+	>::type const &\
+)
 
 #endif

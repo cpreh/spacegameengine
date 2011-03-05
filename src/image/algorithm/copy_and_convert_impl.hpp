@@ -23,17 +23,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "copy_and_convert_visitor.hpp"
 #include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/view.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 template<
-	typename ConstView,
-	typename View
+	typename Tag
 >
 void
 sge::image::algorithm::copy_and_convert(
-	ConstView const &_src,
-	View const &_dest
+	typename image::traits::const_view<
+		Tag
+	>::type const &_src,
+	typename image::traits::view<
+		Tag
+	>::type const &_dest
 )
 {
 	fcppt::variant::apply_binary(
