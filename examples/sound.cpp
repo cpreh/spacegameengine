@@ -46,16 +46,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/cin.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/text.hpp>
+#include <boost/range/iterator_range.hpp>
 #include <ostream>
 #include <exception>
 #include <algorithm>
 #include <iostream>
 #include <string>
+#include <iterator>
+#include <ios>
 #include <cstdlib>
 #include <cmath>
+
+namespace
+{
+sge::audio::file_ptr const
+load_raw(
+	fcppt::filesystem::path const &path,
+	sge::audio::multi_loader &audio_loader)
+{
+	fcppt::io::cifstream raw_stream(
+		path,
+		std::ios::binary);
+
+	typedef
+	fcppt::container::raw_vector<char> 
+	raw_byte_container;
+
+	raw_byte_container raw_bytes(
+		(std::istreambuf_iterator<char>(
+			raw_stream)),
+		std::istreambuf_iterator<char>());
+
+	return 
+		audio_loader.load(
+			boost::make_iterator_range(
+				reinterpret_cast<unsigned char const *>(
+					&(*raw_bytes.cbegin())),
+				reinterpret_cast<unsigned char const *>(
+					&(*raw_bytes.cend()))),
+			sge::optional_extension());
+}
+}
 
 namespace
 {
@@ -116,9 +152,16 @@ try
 	fcppt::io::cout << FCPPT_TEXT("We will now try to load a sound file\n");
 	wait_for_input();
 
+	
+	sge::audio::file_ptr const soundfile = 
+		load_raw(
+			file_name,
+			sys.audio_loader());
+	/*
 	sge::audio::file_ptr const soundfile = 
 		sys.audio_loader().load(
 			file_name);
+	*/
 
 	fcppt::io::cout << FCPPT_TEXT("Sound file loaded\n");
 	fcppt::io::cout << FCPPT_TEXT("We will now try to create a nonstreaming buffer from it.\n");

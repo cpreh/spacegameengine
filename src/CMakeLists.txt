@@ -11,6 +11,7 @@ SET(
 	include/sge/audio/exception.hpp
 	include/sge/audio/exception_fwd.hpp
 	include/sge/audio/file.hpp
+	include/sge/audio/file_exception.hpp
 	include/sge/audio/file_fwd.hpp
 	include/sge/audio/file_ptr.hpp
 	include/sge/audio/listener.hpp
@@ -23,6 +24,7 @@ SET(
 	include/sge/audio/loader_ptr.hpp
 	include/sge/audio/multi_loader.hpp
 	include/sge/audio/multi_loader_fwd.hpp
+	include/sge/audio/optional_path.hpp
 	include/sge/audio/player.hpp
 	include/sge/audio/player_capabilities.hpp
 	include/sge/audio/player_capabilities_field.hpp
@@ -45,6 +47,7 @@ SET(
 	include/sge/audio/sound/positional_ptr.hpp
 	include/sge/audio/sound/repeat.hpp
 	include/sge/audio/stop_mode.hpp
+	include/sge/audio/unsupported_format.hpp
 	include/sge/audio/vector.hpp
 	include/sge/charconv/const_raw_pointer.hpp
 	include/sge/charconv/conversion_failed.hpp
@@ -885,6 +888,7 @@ SET(
 	src/audio/buffer.cpp
 	src/audio/exception.cpp
 	src/audio/file.cpp
+	src/audio/file_exception.cpp
 	src/audio/listener.cpp
 	src/audio/loader.cpp
 	src/audio/loader_plugin.cpp
@@ -895,6 +899,7 @@ SET(
 	src/audio/sound/base.cpp
 	src/audio/sound/positional.cpp
 	src/audio/sound/positional_parameters.cpp
+	src/audio/unsupported_format.cpp
 	src/charconv/conversion_failed.cpp
 	src/charconv/convert.cpp
 	src/charconv/converter.cpp

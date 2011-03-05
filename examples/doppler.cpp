@@ -75,6 +75,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cifstream.hpp>
+#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -84,9 +86,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/assign/list_of.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <exception>
+#include <streambuf>
 #include <ostream>
 #include <vector>
+#include <ios>
 #include <cstdlib>
+
+namespace
+{
+sge::audio::file_ptr const
+load_raw(
+	fcppt::filesystem::path const &path,
+	sge::audio::multi_loader &audio_loader)
+{
+	fcppt::io::cifstream raw_stream(
+		path,
+		std::ios::binary);
+
+	typedef
+	fcppt::container::raw_vector<char> 
+	raw_byte_container;
+
+	raw_byte_container raw_bytes(
+		(std::istreambuf_iterator<char>(
+			raw_stream)),
+		std::istreambuf_iterator<char>());
+
+	return 
+		audio_loader.load(
+			boost::make_iterator_range(
+				reinterpret_cast<unsigned char const *>(
+					&(*raw_bytes.cbegin())),
+				reinterpret_cast<unsigned char const *>(
+					&(*raw_bytes.cend()))),
+			sge::optional_extension());
+}
+}
 
 namespace
 {
@@ -373,12 +408,11 @@ try
 		.elements()
 	);
 
-	sge::audio::file_ptr const af_siren(
-		sys.audio_loader().load(
+	sge::audio::file_ptr const af_siren = 
+		load_raw(
 			sge::config::media_path()
-			/ FCPPT_TEXT("siren.ogg")
-		)
-	);
+				/ FCPPT_TEXT("siren.ogg"),
+			sys.audio_loader());
 
 	sge::audio::sound::positional_ptr const sound_siren(
 		sys.audio_player()->create_positional_stream(
