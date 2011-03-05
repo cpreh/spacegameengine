@@ -64,7 +64,12 @@ SET(
 	src/plugins/d3d9/devicefuncs/src/set_viewport.cpp
 	src/plugins/d3d9/index_buffer.hpp
 	src/plugins/d3d9/lock_flags.hpp
+	src/plugins/d3d9/offscreen_target.hpp
+	src/plugins/d3d9/offscreen_target_fwd.hpp
+	src/plugins/d3d9/offscreen_target_ptr.hpp
 	src/plugins/d3d9/onscreen_target.hpp
+	src/plugins/d3d9/onscreen_target_fwd.hpp
+	src/plugins/d3d9/onscreen_target_ptr.hpp
 	src/plugins/d3d9/parameters/convert/bit_depth.hpp
 	src/plugins/d3d9/parameters/convert/depth_stencil_buffer.hpp
 	src/plugins/d3d9/parameters/convert/multi_sample.hpp
@@ -89,16 +94,18 @@ SET(
 	src/plugins/d3d9/src/device.cpp
 	src/plugins/d3d9/src/exports.cpp
 	src/plugins/d3d9/src/index_buffer.cpp
+	src/plugins/d3d9/src/offscreen_target.cpp
 	src/plugins/d3d9/src/onscreen_target.cpp
 	src/plugins/d3d9/src/resource.cpp
 	src/plugins/d3d9/src/system.cpp
-	src/plugins/d3d9/src/target.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
 	src/plugins/d3d9/system.hpp
 	src/plugins/d3d9/systemfuncs/get_caps.hpp
 	src/plugins/d3d9/systemfuncs/src/get_caps.cpp
-	src/plugins/d3d9/target.hpp
+	src/plugins/d3d9/target_base.hpp
+	src/plugins/d3d9/target_base_fwd.hpp
+	src/plugins/d3d9/target_base_ptr.hpp
 	src/plugins/d3d9/texture/base.hpp
 	src/plugins/d3d9/texture/basic.hpp
 	src/plugins/d3d9/texture/basic_fwd.hpp

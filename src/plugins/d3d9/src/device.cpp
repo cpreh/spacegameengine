@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../create_caps.hpp"
 #include "../create_device.hpp"
 #include "../index_buffer.hpp"
-#include "../target.hpp"
+#include "../offscreen_target.hpp"
+#include "../onscreen_target.hpp"
 #include "../vertex_buffer.hpp"
 #include "../vertex_declaration.hpp"
 #include "../convert/indexed_primitive.hpp"
@@ -71,7 +72,18 @@ sge::d3d9::device::device(
 			_adapter
 		)
 	),
-	resources_()
+	resources_(),
+	onscreen_target_(
+		fcppt::make_shared_ptr<
+			d3d9::onscreen_target
+		>(
+			device_.get()
+		)
+	),
+	offscreen_target_(),
+	target_(
+		onscreen_target_
+	)
 {
 }
 
@@ -423,6 +435,39 @@ sge::d3d9::device::target(
 	renderer::target_ptr const _target
 )
 {
+	if(
+		_target == offscreen_target_ 
+	)
+		return;
+
+	if(
+		target_
+	)
+		target_->active(
+			false
+		);
+	
+	offscreen_target_ =
+		fcppt::dynamic_pointer_cast<
+			d3d9::offscreen_target
+		>(
+			_target
+		);
+	
+	target_ =
+		offscreen_target_
+		?
+			d3d9::target_base_ptr(
+				offscreen_target_
+			)
+		:
+			d3d9::target_base_ptr(
+				onscreen_target_
+			);
+
+	target_->active(
+		true
+	);
 }
 
 sge::renderer::glsl::program_ptr const

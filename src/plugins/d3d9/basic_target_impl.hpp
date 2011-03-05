@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_BASIC_TARGET_HPP_INCLUDED
-#define SGE_D3D9_BASIC_TARGET_HPP_INCLUDED
+#ifndef SGE_D3D9_BASIC_TARGET_IMPL_HPP_INCLUDED
+#define SGE_D3D9_BASIC_TARGET_IMPL_HPP_INCLUDED
 
 #include "basic_target.hpp"
+#include "devicefuncs/set_viewport.hpp"
 #include <fcppt/math/box/basic_impl.hpp>
 
 template<
@@ -32,28 +33,68 @@ sge::d3d9::basic_target<Base>::basic_target(
 )
 :
 	device_(_device),
+	active_(false),
 	viewport_(
 		sge::renderer::viewport::value_type::null()
 	)
 {
 }
 
+template<
+	typename Base
+>
 sge::d3d9::basic_target<Base>::~basic_target()
 {
 }
 
+template<
+	typename Base
+>
 void
 sge::d3d9::basic_target<Base>::viewport(
 	renderer::viewport const &_viewport
 )
 {
 	viewport_ = _viewport;
+
+	this->check_viewport();
 }
 
+template<
+	typename Base
+>
 sge::renderer::viewport const
 sge::d3d9::basic_target<Base>::viewport() const
 {
 	return viewport_;
+}
+
+template<
+	typename Base
+>
+void
+sge::d3d9::basic_target<Base>::active(
+	bool const _active
+)
+{
+	active_ = _active;
+
+	this->check_viewport();
+}
+
+template<
+	typename Base
+>
+void
+sge::d3d9::basic_target<Base>::check_viewport()
+{
+	if(
+		active_
+	)
+		devicefuncs::set_viewport(
+			device_,
+			viewport_
+		);
 }
 
 #endif

@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICE_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
+#include "offscreen_target_ptr.hpp"
+#include "onscreen_target_ptr.hpp"
 #include "resource_list.hpp"
+#include "target_base_ptr.hpp"
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/caps.hpp>
@@ -298,6 +301,12 @@ private:
 	renderer::caps const caps_;
 
 	d3d9::resource_list resources_;
+
+	d3d9::onscreen_target_ptr const onscreen_target_;
+	
+	d3d9::offscreen_target_ptr offscreen_target_;
+
+	d3d9::target_base_ptr target_;
 };
 
 }

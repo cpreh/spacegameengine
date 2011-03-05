@@ -18,15 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target.hpp"
+#include "../offscreen_target.hpp"
+#include "../basic_target_impl.hpp"
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 
-sge::d3d9::target::target(
+sge::d3d9::offscreen_target::offscreen_target(
 	IDirect3DDevice9 *const _device
 )
 :
-	sge::renderer::target(),
+	base(
+		_device
+	),
 	d3d9::resource(
 		D3DPOOL_DEFAULT
 	),
@@ -34,12 +37,12 @@ sge::d3d9::target::target(
 {
 }
 
-sge::d3d9::target::~target()
+sge::d3d9::offscreen_target::~offscreen_target()
 {
 }
 
 void
-sge::d3d9::target::color_surface(
+sge::d3d9::offscreen_target::color_surface(
 	renderer::color_surface_ptr const _surface,
 	renderer::surface_index const _index
 )
@@ -47,14 +50,14 @@ sge::d3d9::target::color_surface(
 }
 
 void
-sge::d3d9::target::depth_stencil_surface(
+sge::d3d9::offscreen_target::depth_stencil_surface(
 	renderer::depth_stencil_surface_ptr const _surface
 )
 {
 }
 
 sge::renderer::optional_dim2 const
-sge::d3d9::target::dim() const
+sge::d3d9::offscreen_target::dim() const
 {
 	return renderer::optional_dim2();
 }
@@ -85,7 +88,7 @@ sge::d3d9::render_target::init()
 #endif
 
 void
-sge::d3d9::target::on_loss()
+sge::d3d9::offscreen_target::on_loss()
 {
 #if 0
 	surface.reset();
@@ -95,9 +98,14 @@ sge::d3d9::target::on_loss()
 }
 
 void
-sge::d3d9::target::on_reset()
+sge::d3d9::offscreen_target::on_reset()
 {
 #if 0
 	init();
 #endif
 }
+
+template class
+sge::d3d9::basic_target<
+	sge::renderer::target
+>;
