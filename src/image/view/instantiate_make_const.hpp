@@ -40,7 +40,7 @@ sge::image::traits::const_view<\
 sge::image::view::make_const< \
 	Tag \
 >( \
-	sge::image::const_raw_pointer, \
+	sge::image::const_raw_pointer const, \
 	sge::image::traits::dim<\
 		Tag\
 	>::type const &,\

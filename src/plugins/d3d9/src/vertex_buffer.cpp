@@ -53,6 +53,10 @@ sge::d3d9::vertex_buffer::vertex_buffer(
 	this->init();
 }
 
+sge::d3d9::vertex_buffer::~vertex_buffer()
+{
+}
+
 sge::d3d9::vertex_buffer::view_type const
 sge::d3d9::vertex_buffer::lock(
 	renderer::lock_mode::type const _lock_mode,

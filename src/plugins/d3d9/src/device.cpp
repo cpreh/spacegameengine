@@ -456,6 +456,7 @@ sge::d3d9::device::glsl_program(
 sge::renderer::target_ptr const
 sge::d3d9::device::create_target()
 {
+	return renderer::target_ptr();
 }
 
 sge::renderer::texture::planar_ptr const
@@ -482,6 +483,7 @@ sge::d3d9::device::create_depth_stencil_texture(
 	renderer::depth_stencil_format::type const _format
 )
 {
+	return renderer::texture::depth_stencil_ptr();
 }
 
 sge::renderer::depth_stencil_surface_ptr const
@@ -490,6 +492,7 @@ sge::d3d9::device::create_depth_stencil_surface(
 	renderer::depth_stencil_format::type const _format
 )
 {
+	return renderer::depth_stencil_surface_ptr();
 }
 
 sge::renderer::texture::volume_ptr const
@@ -597,16 +600,22 @@ sge::d3d9::device::create_index_buffer(
 sge::renderer::onscreen_target_ptr const
 sge::d3d9::device::onscreen_target() const
 {
+	return renderer::onscreen_target_ptr();
 }
 
 sge::renderer::scissor_area const
 sge::d3d9::device::scissor_area() const
 {
+	return
+		renderer::scissor_area(
+			renderer::scissor_area::value_type::null()
+		);
 }
 
 sge::renderer::target_ptr const
 sge::d3d9::device::target() const
 {
+	return renderer::target_ptr();
 }
 
 sge::renderer::matrix4 const
@@ -614,6 +623,7 @@ sge::d3d9::device::transform(
 	renderer::matrix_mode::type const _mode
 )
 {
+	return renderer::matrix4::identity();
 }
 
 sge::renderer::caps const

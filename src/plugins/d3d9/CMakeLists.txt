@@ -1,3 +1,8 @@
+CHECK_DEPENDENCIES(
+	"TIME"
+	"d3d9"
+)
+
 SET(
 	SGE_D3D9_FILES
 	src/plugins/d3d9/convert/box.hpp
@@ -149,5 +154,5 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_PLUGIN(
 	"d3d9"
-	"${D3D9_LIBRARIES}"
+	"sgetime;${D3D9_LIBRARIES}"
 )

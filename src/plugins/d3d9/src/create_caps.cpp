@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../systemfuncs/get_caps.hpp"
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -100,8 +101,12 @@ sge::d3d9::create_caps(
 	return
 		renderer::caps(
 			_adapter,
-			identifier.Driver,
-			identifier.Description,
+			fcppt::from_std_string(
+				identifier.Driver
+			),
+			fcppt::from_std_string(
+				identifier.Description
+			),
 			sge::renderer::dim2(
 				caps.MaxTextureWidth,
 				caps.MaxTextureHeight
