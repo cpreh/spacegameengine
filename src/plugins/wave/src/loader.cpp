@@ -68,6 +68,7 @@ sge::wave::loader::load(
 )
 {
 	// TODO:
+	return sge::audio::file_ptr();
 }
 
 sge::audio::loader_capabilities_field const

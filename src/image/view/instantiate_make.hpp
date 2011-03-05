@@ -41,7 +41,7 @@ sge::image::traits::view<\
 sge::image::view::make< \
 	tag \
 >( \
-	sge::image::raw_pointer, \
+	sge::image::raw_pointer const, \
 	sge::image::traits::dim<\
 		tag\
 	>::type const &,\

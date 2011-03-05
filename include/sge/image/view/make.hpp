@@ -43,7 +43,7 @@ typename image::traits::view<
 	Tag
 >::type const
 make(
-	image::raw_pointer,
+	image::raw_pointer const, // this const is here because VC++ screws the type of the function up!
 	typename image::traits::dim<
 		Tag
 	>::type const &,
