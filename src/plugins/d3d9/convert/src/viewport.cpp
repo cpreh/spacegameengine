@@ -41,7 +41,7 @@ sge::d3d9::convert::viewport(
 		static_cast<
 			DWORD
 		>(
-			rect.right()
+			rect.top()
 		),
 		static_cast<
 			DWORD

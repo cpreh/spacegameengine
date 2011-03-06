@@ -79,7 +79,11 @@ sge::d3d9::parameters::create(
 		parameters::convert::depth_stencil_buffer(
 			_param.depth_stencil_buffer()
 		), // AutoDepthStencilFormat
-		D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL, // Flags
+		_param.depth_stencil_buffer() != sge::renderer::depth_stencil_buffer::off
+		?
+			D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL
+		:
+			0, // Flags
 		is_windowed
 		?
 			0u

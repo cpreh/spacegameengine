@@ -44,8 +44,9 @@ class basic_target
 		basic_target
 	);
 public:
-	explicit basic_target(
-		IDirect3DDevice9 *
+	basic_target(
+		IDirect3DDevice9 *,
+		sge::renderer::viewport const &
 	);
 
 	~basic_target();

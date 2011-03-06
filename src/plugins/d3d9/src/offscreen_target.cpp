@@ -28,7 +28,11 @@ sge::d3d9::offscreen_target::offscreen_target(
 )
 :
 	base(
-		_device
+		_device,
+		// TODO:
+		sge::renderer::viewport(
+			sge::renderer::pixel_rect::null()
+		)
 	),
 	d3d9::resource(
 		D3DPOOL_DEFAULT

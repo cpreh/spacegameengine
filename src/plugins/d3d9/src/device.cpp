@@ -37,9 +37,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/volume.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/nonindexed_primitive_count.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/sleep.hpp>
+#include <sge/window/instance.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt//make_shared_ptr.hpp>
@@ -77,7 +82,17 @@ sge::d3d9::device::device(
 		fcppt::make_shared_ptr<
 			d3d9::onscreen_target
 		>(
-			device_.get()
+			device_.get(),
+			sge::renderer::viewport(
+				sge::renderer::pixel_rect(
+					sge::renderer::pixel_rect::vector::null(),
+					fcppt::math::dim::structure_cast<
+						sge::renderer::pixel_rect::dim
+					>(
+						_window->size()
+					)
+				)
+			)	
 		)
 	),
 	offscreen_target_(),
@@ -261,6 +276,11 @@ sge::d3d9::device::vertex_declaration(
 	renderer::const_vertex_declaration_ptr const _declaration
 )
 {
+	if(
+		!_declaration
+	)
+		return;
+
 	if(
 		device_->SetVertexDeclaration(
 			dynamic_cast<

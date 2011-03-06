@@ -29,14 +29,13 @@ template<
 	typename Base
 >
 sge::d3d9::basic_target<Base>::basic_target(
-	IDirect3DDevice9 *const _device
+	IDirect3DDevice9 *const _device,
+	sge::renderer::viewport const &_viewport
 )
 :
 	device_(_device),
 	active_(false),
-	viewport_(
-		sge::renderer::viewport::value_type::null()
-	)
+	viewport_(_viewport)
 {
 }
 

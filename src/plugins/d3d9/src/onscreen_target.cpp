@@ -22,11 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../basic_target_impl.hpp"
 
 sge::d3d9::onscreen_target::onscreen_target(
-	IDirect3DDevice9 *const _device
+	IDirect3DDevice9 *const _device,
+	sge::renderer::viewport const &_viewport
 )
 :
 	base(
-		_device
+		_device,
+		_viewport
 	)
 {
 	base::active(
