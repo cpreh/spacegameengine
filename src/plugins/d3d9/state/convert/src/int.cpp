@@ -18,35 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../onscreen_target.hpp"
-#include "../basic_target_impl.hpp"
+#include "../int.hpp"
+#include "../../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::d3d9::onscreen_target::onscreen_target(
-	IDirect3DDevice9 *const _device,
-	sge::renderer::viewport const &_viewport
+D3DRENDERSTATETYPE
+sge::d3d9::state::convert::int_(
+	sge::renderer::state::int_::available_states::type const _type
 )
-:
-	base(
-		_device,
-		_viewport
-	)
 {
-	base::active(
-		true
+	switch(
+		_type
+	)
+	{
+	case sge::renderer::state::int_::available_states::stencil_clear_val:
+		break;
+	case sge::renderer::state::int_::available_states::stencil_ref:
+		return D3DRS_STENCILREF;
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid int_ state!")
 	);
 }
-
-sge::d3d9::onscreen_target::~onscreen_target()
-{
-}
-
-sge::renderer::color_surface_ptr const
-sge::d3d9::onscreen_target::surface() const
-{
-	return renderer::color_surface_ptr();
-}
-
-template class
-sge::d3d9::basic_target<
-	sge::renderer::onscreen_target
->;

@@ -18,35 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../onscreen_target.hpp"
-#include "../basic_target_impl.hpp"
+#include "../cull_mode.hpp"
+#include "../../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::d3d9::onscreen_target::onscreen_target(
-	IDirect3DDevice9 *const _device,
-	sge::renderer::viewport const &_viewport
+D3DCULL
+sge::d3d9::state::convert::cull_mode(
+	sge::renderer::state::cull_mode::type const _type
 )
-:
-	base(
-		_device,
-		_viewport
-	)
 {
-	base::active(
-		true
+	switch(
+		_type
+	)
+	{
+	case sge::renderer::state::cull_mode::off:
+		return D3DCULL_NONE;
+	case sge::renderer::state::cull_mode::back:
+		return D3DCULL_CW;
+	case sge::renderer::state::cull_mode::front:
+		return D3DCULL_CCW;
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid cull_mode!")
 	);
 }
-
-sge::d3d9::onscreen_target::~onscreen_target()
-{
-}
-
-sge::renderer::color_surface_ptr const
-sge::d3d9::onscreen_target::surface() const
-{
-	return renderer::color_surface_ptr();
-}
-
-template class
-sge::d3d9::basic_target<
-	sge::renderer::onscreen_target
->;

@@ -42,7 +42,7 @@ public:
 	virtual void
 	active(
 		bool
-	);
+	) = 0;
 };
 
 }

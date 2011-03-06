@@ -18,35 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../onscreen_target.hpp"
-#include "../basic_target_impl.hpp"
+#include "../set_render_state_float.hpp"
+#include "../../devicefuncs/set_render_state.hpp"
+#include <boost/static_assert.hpp>
+#include <cstring>
 
-sge::d3d9::onscreen_target::onscreen_target(
+void
+sge::d3d9::state::set_render_state_float(
 	IDirect3DDevice9 *const _device,
-	sge::renderer::viewport const &_viewport
+	D3DRENDERSTATETYPE const _state,
+	float const _value
 )
-:
-	base(
-		_device,
-		_viewport
-	)
 {
-	base::active(
-		true
+	BOOST_STATIC_ASSERT(
+		sizeof(float)
+		== sizeof(DWORD)
+	);
+
+	DWORD dest;
+
+	std::memcpy(
+		&dest,
+		&_value,
+		sizeof(DWORD)
+	);
+
+	d3d9::devicefuncs::set_render_state(
+		_device,
+		_state,
+		dest
 	);
 }
-
-sge::d3d9::onscreen_target::~onscreen_target()
-{
-}
-
-sge::renderer::color_surface_ptr const
-sge::d3d9::onscreen_target::surface() const
-{
-	return renderer::color_surface_ptr();
-}
-
-template class
-sge::d3d9::basic_target<
-	sge::renderer::onscreen_target
->;

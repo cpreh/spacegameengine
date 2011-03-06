@@ -18,35 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../onscreen_target.hpp"
-#include "../basic_target_impl.hpp"
+#include "../set_render_state.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::d3d9::onscreen_target::onscreen_target(
+void
+sge::d3d9::devicefuncs::set_render_state(
 	IDirect3DDevice9 *const _device,
-	sge::renderer::viewport const &_viewport
+	D3DRENDERSTATETYPE const _state,
+	DWORD const _value
 )
-:
-	base(
-		_device,
-		_viewport
+{
+	if(
+		_device->SetRenderState(
+			_state,
+			_value
+		)
+		!= D3D_OK
 	)
-{
-	base::active(
-		true
-	);
+		throw sge::renderer::exception(
+			FCPPT_TEXT("SetRenderState() failed!")
+		);
 }
-
-sge::d3d9::onscreen_target::~onscreen_target()
-{
-}
-
-sge::renderer::color_surface_ptr const
-sge::d3d9::onscreen_target::surface() const
-{
-	return renderer::color_surface_ptr();
-}
-
-template class
-sge::d3d9::basic_target<
-	sge::renderer::onscreen_target
->;

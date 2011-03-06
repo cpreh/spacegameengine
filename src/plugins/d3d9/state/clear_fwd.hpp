@@ -18,35 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../onscreen_target.hpp"
-#include "../basic_target_impl.hpp"
+#ifndef SGE_D3D9_STATE_CLEAR_FWD_HPP_INCLUDED
+#define SGE_D3D9_STATE_CLEAR_FWD_HPP_INCLUDED
 
-sge::d3d9::onscreen_target::onscreen_target(
-	IDirect3DDevice9 *const _device,
-	sge::renderer::viewport const &_viewport
-)
-:
-	base(
-		_device,
-		_viewport
-	)
+namespace sge
 {
-	base::active(
-		true
-	);
+namespace d3d9
+{
+namespace state
+{
+
+class clear;
+
+}
+}
 }
 
-sge::d3d9::onscreen_target::~onscreen_target()
-{
-}
-
-sge::renderer::color_surface_ptr const
-sge::d3d9::onscreen_target::surface() const
-{
-	return renderer::color_surface_ptr();
-}
-
-template class
-sge::d3d9::basic_target<
-	sge::renderer::onscreen_target
->;
+#endif

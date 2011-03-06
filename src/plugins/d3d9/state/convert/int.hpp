@@ -18,32 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-/*template<> D3DSAMPLERSTATETYPE sge::d3d9::convert_cast (const filter_arg& r)
-{
-	switch(r) {
-	case FARG_MinFilter:
-		return D3DSAMP_MINFILTER;
-	case FARG_MagFilter:
-		return D3DSAMP_MAGFILTER;
-	case FARG_MipFilter:
-		return D3DSAMP_MIPFILTER;
-	default:
-		throw std::logic_error("invalid filter_arg");
-	}
-}*/
+#ifndef SGE_D3D9_STATE_CONVERT_INT_HPP_INCLUDED
+#define SGE_D3D9_STATE_CONVERT_INT_HPP_INCLUDED
 
-/*template<> D3DTEXTUREFILTERTYPE sge::d3d9::convert_cast (const filter_value& r)
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/state/int.hpp>
+
+namespace sge
 {
-	switch(r) {
-	//case FARGV_None:
-	//	return D3DTEXF_NONE;
-	case FV_Point:
-		return D3DTEXF_POINT;
-	case FV_Linear:
-		return D3DTEXF_LINEAR;
-	case FV_Anisotropic:
-		return D3DTEXF_ANISOTROPIC;
-	default:
-		throw std::logic_error("invalid filter_arg_value");
-	}
-}*/
+namespace d3d9
+{
+namespace state
+{
+namespace convert
+{
+
+D3DRENDERSTATETYPE
+int_(
+	sge::renderer::state::int_::available_states::type
+);
+
+}
+}
+}
+}
+
+#endif

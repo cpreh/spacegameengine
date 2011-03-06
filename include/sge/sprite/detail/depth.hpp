@@ -18,35 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../onscreen_target.hpp"
-#include "../basic_target_impl.hpp"
+#ifndef SGE_SPRITE_DETAIL_DEPTH_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_DEPTH_HPP_INCLUDED
 
-sge::d3d9::onscreen_target::onscreen_target(
-	IDirect3DDevice9 *const _device,
-	sge::renderer::viewport const &_viewport
+#include <sge/sprite/detail/needs_depth.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <boost/utility/enable_if.hpp>
+
+namespace sge
+{
+namespace sprite
+{
+namespace detail
+{
+
+template<
+	typename Choices
+>
+typename boost::enable_if<
+	detail::needs_depth<
+		Choices
+	>,
+	typename Choices::type_choices::float_type
+>::type
+depth(
+	object<
+		Choices
+	> const &_sprite
 )
-:
-	base(
-		_device,
-		_viewport
-	)
 {
-	base::active(
-		true
-	);
+	return _sprite.z();
 }
 
-sge::d3d9::onscreen_target::~onscreen_target()
+template<
+	typename Choices
+>
+typename boost::disable_if<
+	detail::needs_depth<
+		Choices
+	>,
+	typename Choices::type_choices::float_type
+>::type
+depth(
+	object<
+		Choices
+	> const &
+)
 {
+	return 0;
 }
 
-sge::renderer::color_surface_ptr const
-sge::d3d9::onscreen_target::surface() const
-{
-	return renderer::color_surface_ptr();
+}
+}
 }
 
-template class
-sge::d3d9::basic_target<
-	sge::renderer::onscreen_target
->;
+#endif

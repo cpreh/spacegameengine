@@ -226,7 +226,13 @@ sge::d3d9::vertex_buffer::do_lock(
 			static_cast<
 				UINT
 			>(
-				_count
+				(
+					_count == npos
+					?
+						this->size()
+					:
+						_count
+				)
 				* this->stride()
 			),
 			&data,

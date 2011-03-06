@@ -18,35 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../onscreen_target.hpp"
-#include "../basic_target_impl.hpp"
+#include "../target_base.hpp"
 
-sge::d3d9::onscreen_target::onscreen_target(
-	IDirect3DDevice9 *const _device,
-	sge::renderer::viewport const &_viewport
-)
-:
-	base(
-		_device,
-		_viewport
-	)
-{
-	base::active(
-		true
-	);
-}
-
-sge::d3d9::onscreen_target::~onscreen_target()
+sge::d3d9::target_base::target_base()
 {
 }
 
-sge::renderer::color_surface_ptr const
-sge::d3d9::onscreen_target::surface() const
+sge::d3d9::target_base::~target_base()
 {
-	return renderer::color_surface_ptr();
 }
-
-template class
-sge::d3d9::basic_target<
-	sge::renderer::onscreen_target
->;
