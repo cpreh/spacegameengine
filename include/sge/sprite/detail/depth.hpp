@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_MAKE_POSITION_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_MAKE_POSITION_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_DEPTH_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_DEPTH_HPP_INCLUDED
 
-#include <sge/sprite/detail/depth.hpp>
-#include <sge/sprite/detail/pos_packed_type.hpp>
+#include <sge/sprite/detail/needs_depth.hpp>
 #include <sge/sprite/object_fwd.hpp>
-#include <fcppt/math/vector/construct.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -34,26 +33,39 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename Point
+	typename Choices
 >
-typename detail::pos_packed_type<
-	Choices
->::type const
-make_position(
-	Point const &_point,
+typename boost::enable_if<
+	detail::needs_depth<
+		Choices
+	>,
+	typename Choices::type_choices::float_type
+>::type
+depth(
 	object<
 		Choices
 	> const &_sprite
 )
 {
-	return
-		fcppt::math::vector::construct(
-			_point,
-			sge::sprite::detail::depth(
-				_sprite
-			)
-		);
+	return _sprite.z();
+}
+
+template<
+	typename Choices
+>
+typename boost::disable_if<
+	detail::needs_depth<
+		Choices
+	>,
+	typename Choices::type_choices::float_type
+>::type
+depth(
+	object<
+		Choices
+	> const &
+)
+{
+	return 0;
 }
 
 }
