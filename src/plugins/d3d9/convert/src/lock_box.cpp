@@ -18,20 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GET_SCISSOR_AREA_HPP_INCLUDED
-#define SGE_OPENGL_GET_SCISSOR_AREA_HPP_INCLUDED
+#include "../lock_box.hpp"
+#include "../../d3dinclude.hpp"
+#include <fcppt/math/box/basic_impl.hpp>
 
-#include <sge/renderer/scissor_area.hpp>
-
-namespace sge
+D3DBOX const
+sge::d3d9::convert::lock_box(
+	renderer::lock_box const &_box
+)
 {
-namespace opengl
-{
+	D3DBOX const ret =
+	{
+		static_cast<
+			LONG
+		>(
+			_box.left()
+		),
+		static_cast<
+			LONG
+		>(
+			_box.top()
+		),
+		static_cast<
+			LONG
+		>(
+			_box.right()
+		),
+		static_cast<
+			LONG
+		>(
+			_box.bottom()
+		),
+		static_cast<
+			LONG
+		>(
+			_box.front()
+		),
+		static_cast<
+			LONG
+		>(
+			_box.back()
+		)
+	};
 
-renderer::scissor_area const
-get_scissor_area();
-
+	return ret;
 }
-}
-
-#endif

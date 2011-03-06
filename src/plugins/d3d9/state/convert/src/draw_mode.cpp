@@ -18,48 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../box.hpp"
-#include "../../d3dinclude.hpp"
-#include <fcppt/math/box/basic_impl.hpp>
+#include "../draw_mode.hpp"
+#include "../../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-D3DBOX const
-sge::d3d9::convert::box(
-	renderer::lock_box const &_box
+D3DFILLMODE
+sge::d3d9::state::convert::draw_mode(
+	sge::renderer::state::draw_mode::type const _type
 )
 {
-	D3DBOX const ret =
+	switch(
+		_type
+	)
 	{
-		static_cast<
-			LONG
-		>(
-			_box.left()
-		),
-		static_cast<
-			LONG
-		>(
-			_box.top()
-		),
-		static_cast<
-			LONG
-		>(
-			_box.right()
-		),
-		static_cast<
-			LONG
-		>(
-			_box.bottom()
-		),
-		static_cast<
-			LONG
-		>(
-			_box.front()
-		),
-		static_cast<
-			LONG
-		>(
-			_box.back()
-		)
-	};
+	case sge::renderer::state::draw_mode::point:
+		return D3DFILL_POINT;
+	case sge::renderer::state::draw_mode::line:
+		return D3DFILL_WIREFRAME;
+	case sge::renderer::state::draw_mode::fill:
+		return D3DFILL_SOLID;
+	}
 
-	return ret;
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid draw_mode!")
+	);
 }

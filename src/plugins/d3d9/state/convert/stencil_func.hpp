@@ -18,38 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../rect.hpp"
+#ifndef SGE_D3D9_STATE_CONVERT_STENCIL_FUNC_HPP_INCLUDED
+#define SGE_D3D9_STATE_CONVERT_STENCIL_FUNC_HPP_INCLUDED
+
 #include "../../d3dinclude.hpp"
-#include <fcppt/math/box/basic_impl.hpp>
+#include <sge/renderer/state/stencil_func.hpp>
 
-RECT const
-sge::d3d9::convert::rect(
-	renderer::lock_rect const &_rect
-)
+namespace sge
 {
-	RECT const ret =
-	{
-		static_cast<
-			LONG
-		>(
-			_rect.left()
-		),
-		static_cast<
-			LONG
-		>(
-			_rect.top()
-		),
-		static_cast<
-			LONG
-		>(
-			_rect.right()
-		),
-		static_cast<
-			LONG
-		>(
-			_rect.bottom()
-		)
-	};
+namespace d3d9
+{
+namespace state
+{
+namespace convert
+{
 
-	return ret;
+D3DCMPFUNC
+stencil_func(
+	sge::renderer::state::stencil_func::type
+);
+
 }
+}
+}
+}
+
+#endif

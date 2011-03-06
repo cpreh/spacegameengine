@@ -18,12 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#ifndef SGE_D3D9_STATE_CONVERT_FOG_MODE_HPP_INCLUDED
+#define SGE_D3D9_STATE_CONVERT_FOG_MODE_HPP_INCLUDED
 
-sge::opengl::target_base::target_base()
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/state/fog_mode.hpp>
+
+namespace sge
 {
+namespace d3d9
+{
+namespace state
+{
+namespace convert
+{
+
+D3DFOGMODE
+fog_mode(
+	sge::renderer::state::fog_mode::type
+);
+
+}
+}
+}
 }
 
-sge::opengl::target_base::~target_base()
-{
-}
+#endif

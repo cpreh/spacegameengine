@@ -18,12 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#include "../fog_mode.hpp"
+#include "../../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::opengl::target_base::target_base()
+D3DFOGMODE
+sge::d3d9::state::convert::fog_mode(
+	sge::renderer::state::fog_mode::type const _type
+)
 {
-}
+	switch(
+		_type
+	)
+	{
+	case sge::renderer::state::fog_mode::off:
+		return D3DFOG_NONE;
+	case sge::renderer::state::fog_mode::linear:
+		return D3DFOG_LINEAR;
+	case sge::renderer::state::fog_mode::exp:
+		return D3DFOG_EXP;
+	case sge::renderer::state::fog_mode::exp2:
+		return D3DFOG_EXP2;
+	}
 
-sge::opengl::target_base::~target_base()
-{
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid fog_mode!")
+	);
 }

@@ -18,12 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#ifndef SGE_D3D9_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
+#define SGE_D3D9_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
 
-sge::opengl::target_base::target_base()
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/state/dest_blend_func.hpp>
+
+namespace sge
 {
+namespace d3d9
+{
+namespace state
+{
+namespace convert
+{
+
+D3DBLEND
+dest_blend_func(
+	sge::renderer::state::dest_blend_func::type
+);
+
+}
+}
+}
 }
 
-sge::opengl::target_base::~target_base()
-{
-}
+#endif

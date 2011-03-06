@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "d3dinclude.hpp"
 #include "target_base.hpp"
+#include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/math/box/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -60,6 +61,14 @@ public:
 	viewport() const;
 
 	void
+	scissor_area(
+		renderer::scissor_area const &
+	);
+
+	renderer::scissor_area const
+	scissor_area() const;
+
+	void
 	active(
 		bool
 	);
@@ -67,11 +76,16 @@ private:
 	void
 	check_viewport();
 
+	void
+	check_scissor_area();
+
 	IDirect3DDevice9 *const device_;
 
 	bool active_;
 
 	renderer::viewport viewport_;
+
+	renderer::scissor_area scissor_area_;
 };
 
 }

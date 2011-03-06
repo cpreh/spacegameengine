@@ -18,12 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#ifndef SGE_D3D9_CONVERT_LOCK_RECT_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_LOCK_RECT_HPP_INCLUDED
 
-sge::opengl::target_base::target_base()
+#include "../d3dinclude.hpp"
+#include <sge/renderer/lock_rect.hpp>
+
+namespace sge
 {
+namespace d3d9
+{
+namespace convert
+{
+
+RECT const
+lock_rect(
+	renderer::lock_rect const &
+);
+
+}
+}
 }
 
-sge::opengl::target_base::~target_base()
-{
-}
+#endif

@@ -18,28 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../viewport.hpp"
-#include "../check_state.hpp"
-#include "../common.hpp"
 #include "../set_flipped_area.hpp"
+#include "../common.hpp"
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/pixel_unit.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
 void
-sge::opengl::viewport(
-	renderer::viewport const &_viewport,
+sge::opengl::set_flipped_area(
+	opengl::area_function const _function,
+	renderer::pixel_rect const &_area,
 	renderer::screen_unit const _height
 )
 {
-	opengl::set_flipped_area(
-		::glViewport,
-		_viewport.get(),
-		_height
+	_function(
+		static_cast<
+			GLint
+		>(
+			_area.pos().x()
+		),
+		static_cast<
+			GLint
+		>(
+			static_cast<
+				renderer::pixel_unit
+			>(
+				_height
+			)
+			- _area.size().h()
+			- _area.pos().y()
+		),
+		static_cast<
+			GLsizei
+		>(
+			_area.size().w()
+		),
+		static_cast<
+			GLsizei
+		>(
+			_area.size().h()
+		)
 	);
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glViewport failed"),
-		sge::renderer::exception
-	)
+	// checking is done in the calling function
 }

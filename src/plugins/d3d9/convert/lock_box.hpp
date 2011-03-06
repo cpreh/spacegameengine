@@ -18,12 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#ifndef SGE_D3D9_CONVERT_LOCK_BOX_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_LOCK_BOX_HPP_INCLUDED
 
-sge::opengl::target_base::target_base()
+#include "../d3dinclude.hpp"
+#include <sge/renderer/lock_box.hpp>
+
+namespace sge
 {
+namespace d3d9
+{
+namespace convert
+{
+
+D3DBOX const
+lock_box(
+	renderer::lock_box const &
+);
+
+}
+}
 }
 
-sge::opengl::target_base::~target_base()
-{
-}
+#endif

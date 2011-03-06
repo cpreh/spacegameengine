@@ -18,12 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#ifndef SGE_D3D9_STATE_SET_RENDER_STATE_BOOL_HPP_INCLUDED
+#define SGE_D3D9_STATE_SET_RENDER_STATE_BOOL_HPP_INCLUDED
 
-sge::opengl::target_base::target_base()
+#include "../d3dinclude.hpp"
+
+namespace sge
 {
+namespace d3d9
+{
+namespace state
+{
+
+void
+set_render_state_bool(
+	IDirect3DDevice9 *,
+	D3DRENDERSTATETYPE,
+	bool
+);
+
+}
+}
 }
 
-sge::opengl::target_base::~target_base()
-{
-}
+#endif

@@ -380,13 +380,6 @@ sge::d3d9::device::clip_plane(
 }
 
 void
-sge::d3d9::device::scissor_area(
-	renderer::scissor_area const &_area
-)
-{
-}
-
-void
 sge::d3d9::device::sampler_stage_op(
 	renderer::stage_type const _stage,
 	renderer::sampler_stage_op::type const _type,
@@ -697,15 +690,6 @@ sge::renderer::onscreen_target_ptr const
 sge::d3d9::device::onscreen_target() const
 {
 	return onscreen_target_;
-}
-
-sge::renderer::scissor_area const
-sge::d3d9::device::scissor_area() const
-{
-	return
-		renderer::scissor_area(
-			renderer::scissor_area::value_type::null()
-		);
 }
 
 sge::renderer::target_ptr const

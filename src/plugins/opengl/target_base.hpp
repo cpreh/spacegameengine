@@ -39,16 +39,10 @@ public:
 	virtual ~target_base();
 
 	virtual void
-	activate_viewport() = 0;
+	bind() = 0;
 
 	virtual void
-	bind() const = 0;
-
-	virtual void
-	unbind() const = 0;
-
-	void
-	use();
+	unbind() = 0;
 };
 
 }

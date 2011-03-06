@@ -141,11 +141,6 @@ public:
 	);
 
 	void
-	scissor_area(
-		renderer::scissor_area const &
-	);
-
-	void
 	sampler_stage_op(
 		renderer::stage_type stage,
 		renderer::sampler_stage_op::type,
@@ -246,9 +241,6 @@ public:
 
 	renderer::onscreen_target_ptr const
 	onscreen_target() const;
-
-	renderer::scissor_area const
-	scissor_area() const;
 
 	renderer::target_ptr const
 	target() const;

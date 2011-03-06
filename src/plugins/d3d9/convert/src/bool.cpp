@@ -18,12 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#include "../bool.hpp"
+#include "../../d3dinclude.hpp"
 
-sge::opengl::target_base::target_base()
+BOOL
+sge::d3d9::convert::bool_(
+	bool const _value
+)
 {
-}
-
-sge::opengl::target_base::~target_base()
-{
+	return
+		_value
+		?
+			TRUE
+		:
+			FALSE;
 }

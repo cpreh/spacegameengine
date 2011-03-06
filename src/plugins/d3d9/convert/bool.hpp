@@ -18,12 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#ifndef SGE_D3D9_CONVERT_BOOL_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_BOOL_HPP_INCLUDED
 
-sge::opengl::target_base::target_base()
+#include "../d3dinclude.hpp"
+
+namespace sge
 {
+namespace d3d9
+{
+namespace convert
+{
+
+BOOL
+bool_(
+	bool
+);
+
+}
+}
 }
 
-sge::opengl::target_base::~target_base()
-{
-}
+#endif

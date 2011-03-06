@@ -18,35 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../get_scissor_area.hpp"
-#include "../get_ints.hpp"
-#include <fcppt/container/array.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#ifndef SGE_D3D9_DEVICEFUNCS_SET_SCISSOR_RECT_HPP_INCLUDED
+#define SGE_D3D9_DEVICEFUNCS_SET_SCISSOR_RECT_HPP_INCLUDED
 
-sge::renderer::scissor_area const
-sge::opengl::get_scissor_area()
+#include "../d3dinclude.hpp"
+#include <sge/renderer/scissor_area.hpp>
+
+namespace sge
 {
-	fcppt::container::array<
-		GLint,
-		4
-	> temp;
+namespace d3d9
+{
+namespace devicefuncs
+{
 
-	opengl::get_ints(
-		GL_SCISSOR_BOX,
-		temp.data()
-	);
+void
+set_scissor_rect(
+	IDirect3DDevice9 *,
+	sge::renderer::scissor_area const &
+);
 
-	return
-		sge::renderer::scissor_area(
-			sge::renderer::pixel_rect(
-				sge::renderer::pixel_rect::vector(
-					temp[0],
-					temp[1]
-				),
-				sge::renderer::pixel_rect::dim(
-					temp[2],
-					temp[3]
-				)
-			)
-		);
 }
+}
+}
+
+#endif

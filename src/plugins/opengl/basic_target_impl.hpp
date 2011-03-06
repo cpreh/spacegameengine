@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BASIC_TARGET_IMPL_HPP_INCLUDED
 
 #include "basic_target.hpp"
+#include "set_scissor_area.hpp"
 #include "viewport.hpp"
 #include <fcppt/math/box/basic_impl.hpp>
 
@@ -34,8 +35,14 @@ sge::opengl::basic_target<Base>::basic_target(
 :
 	Base(),
 	opengl::target_base(),
+	active_(false),
 	viewport_(
 		_viewport
+	),
+	scissor_area_(
+		renderer::scissor_area(
+			_viewport.get()
+		)
 	)
 {
 }
@@ -51,12 +58,26 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<Base>::activate_viewport()
+sge::opengl::basic_target<Base>::bind()
 {
-	opengl::viewport(
-		viewport_,
-		this->height()
-	);
+	active_ = true;
+
+	this->on_bind();
+
+	this->set_viewport();
+
+	this->set_scissor_area();
+}
+
+template<
+	typename Base
+>
+void
+sge::opengl::basic_target<Base>::unbind()
+{
+	active_ = false;
+
+	this->on_unbind();
 }
 
 template<
@@ -69,7 +90,10 @@ sge::opengl::basic_target<Base>::viewport(
 {
 	viewport_ = _viewport;
 
-	activate_viewport();
+	if(
+		active_
+	)
+		this->set_viewport();
 }
 
 template<
@@ -79,6 +103,55 @@ sge::renderer::viewport const
 sge::opengl::basic_target<Base>::viewport() const
 {
 	return viewport_;
+}
+
+template<
+	typename Base
+>
+void
+sge::opengl::basic_target<Base>::scissor_area(
+	renderer::scissor_area const &_scissor_area
+)
+{
+	scissor_area_ = _scissor_area;
+
+	if(
+		active_
+	)
+		this->set_scissor_area();
+}
+
+template<
+	typename Base
+>
+sge::renderer::scissor_area const
+sge::opengl::basic_target<Base>::scissor_area() const
+{
+	return scissor_area_;
+}
+
+template<
+	typename Base
+>
+void
+sge::opengl::basic_target<Base>::set_viewport()
+{
+	opengl::viewport(
+		viewport_,
+		this->height()
+	);
+}
+
+template<
+	typename Base
+>
+void
+sge::opengl::basic_target<Base>::set_scissor_area()
+{
+	opengl::set_scissor_area(
+		scissor_area_,
+		this->height()
+	);
 }
 
 #endif

@@ -87,7 +87,7 @@ sge::opengl::fbo::target::~target()
 }
 
 void
-sge::opengl::fbo::target::bind() const
+sge::opengl::fbo::target::on_bind()
 {
 	fbo_.bind();
 
@@ -97,7 +97,7 @@ sge::opengl::fbo::target::bind() const
 }
 
 void
-sge::opengl::fbo::target::unbind() const
+sge::opengl::fbo::target::on_unbind()
 {
 	opengl::fbo::bind(
 		context_,

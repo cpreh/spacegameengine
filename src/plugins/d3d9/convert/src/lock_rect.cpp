@@ -18,12 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#include "../lock_rect.hpp"
+#include "../rect_base.hpp"
+#include "../../d3dinclude.hpp"
+#include <fcppt/math/box/basic_impl.hpp>
 
-sge::opengl::target_base::target_base()
+RECT const
+sge::d3d9::convert::lock_rect(
+	renderer::lock_rect const &_rect
+)
 {
-}
-
-sge::opengl::target_base::~target_base()
-{
+	return
+		convert::rect_base(
+			_rect
+		);
 }

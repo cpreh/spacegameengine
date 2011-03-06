@@ -18,12 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#include "../set_scissor_rect.hpp"
+#include "../../convert/pixel_rect.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/text.hpp>
 
-sge::opengl::target_base::target_base()
+void
+sge::d3d9::devicefuncs::set_scissor_rect(
+	IDirect3DDevice9 *const _device,
+	sge::renderer::scissor_area const &_scissor_area
+)
 {
-}
+	RECT const d3d_rect(
+		d3d9::convert::pixel_rect(
+			_scissor_area.get()
+		)
+	);
 
-sge::opengl::target_base::~target_base()
-{
+	if(
+		_device->SetScissorRect(
+			&d3d_rect
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("SetScissorRect() failed!")
+		);
 }

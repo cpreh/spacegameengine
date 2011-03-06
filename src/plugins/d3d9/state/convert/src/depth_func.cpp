@@ -18,28 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../viewport.hpp"
-#include "../check_state.hpp"
-#include "../common.hpp"
-#include "../set_flipped_area.hpp"
+#include "../depth_func.hpp"
+#include "../../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
-void
-sge::opengl::viewport(
-	renderer::viewport const &_viewport,
-	renderer::screen_unit const _height
+D3DCMPFUNC
+sge::d3d9::state::convert::depth_func(
+	sge::renderer::state::depth_func::type const _type
 )
 {
-	opengl::set_flipped_area(
-		::glViewport,
-		_viewport.get(),
-		_height
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glViewport failed"),
-		sge::renderer::exception
+	switch(
+		_type
 	)
+	{
+	case sge::renderer::state::depth_func::off:
+		break;
+	case sge::renderer::state::depth_func::never:
+		return D3DCMP_NEVER;
+	case sge::renderer::state::depth_func::less:
+		return D3DCMP_LESS;
+	case sge::renderer::state::depth_func::equal:
+		return D3DCMP_EQUAL;
+	case sge::renderer::state::depth_func::less_equal:
+		return D3DCMP_LESSEQUAL;
+	case sge::renderer::state::depth_func::greater:
+		return D3DCMP_GREATER;
+	case sge::renderer::state::depth_func::not_equal:
+		return D3DCMP_NOTEQUAL;
+	case sge::renderer::state::depth_func::greater_equal:
+		return D3DCMP_GREATEREQUAL;
+	case sge::renderer::state::depth_func::always:
+		return D3DCMP_ALWAYS;
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid depth_func!")
+	);
 }

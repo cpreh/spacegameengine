@@ -30,19 +30,22 @@ sge::d3d9::texture::usage(
 	renderer::texture::capabilities_field const &_caps
 )
 {
-	DWORD temp(
-		d3d9::convert::resource_flags(
-			_flags
-		).get()
+	DWORD ret(
+		0u
 	);
+
+	if(
+		_flags & renderer::resource_flags::dynamic
+	)
+		ret |= D3DUSAGE_DYNAMIC;
 
 	if(
 		_caps & sge::renderer::texture::capabilities::render_target
 	)
-		temp |= D3DUSAGE_RENDERTARGET;
+		ret |= D3DUSAGE_RENDERTARGET;
 	
 	return
 		d3d9::usage(
-			temp
+			ret
 		);
 }

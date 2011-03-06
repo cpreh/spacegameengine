@@ -222,7 +222,13 @@ sge::d3d9::index_buffer::do_lock(
 			static_cast<
 				UINT
 			>(
-				_count
+				(
+					_count == index_buffer::npos
+					?
+						this->size()
+					:
+						_count
+				)
 				*
 				stride_
 			),

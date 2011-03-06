@@ -18,12 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#ifndef SGE_OPENGL_SET_FLIPPED_AREA_HPP_INCLUDED
+#define SGE_OPENGL_SET_FLIPPED_AREA_HPP_INCLUDED
 
-sge::opengl::target_base::target_base()
+#include "area_function.hpp"
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/screen_unit.hpp>
+
+namespace sge
 {
+namespace opengl
+{
+
+void
+set_flipped_area(
+	opengl::area_function,
+	renderer::pixel_rect const &,
+	renderer::screen_unit
+);
+
+}
 }
 
-sge::opengl::target_base::~target_base()
-{
-}
+#endif

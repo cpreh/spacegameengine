@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_BASIC_TARGET_IMPL_HPP_INCLUDED
 
 #include "basic_target.hpp"
+#include "devicefuncs/set_scissor_rect.hpp"
 #include "devicefuncs/set_viewport.hpp"
 #include <fcppt/math/box/basic_impl.hpp>
 
@@ -35,7 +36,12 @@ sge::d3d9::basic_target<Base>::basic_target(
 :
 	device_(_device),
 	active_(false),
-	viewport_(_viewport)
+	viewport_(_viewport),
+	scissor_area_(
+		renderer::scissor_area(
+			_viewport.get()
+		)
+	)
 {
 }
 
@@ -72,6 +78,28 @@ template<
 	typename Base
 >
 void
+sge::d3d9::basic_target<Base>::scissor_area(
+	renderer::scissor_area const &_scissor_area
+)
+{
+	scissor_area_ = _scissor_area;
+
+	this->check_scissor_area();
+}
+
+template<
+	typename Base
+>
+sge::renderer::scissor_area const
+sge::d3d9::basic_target<Base>::scissor_area() const
+{
+	return scissor_area_;
+}
+
+template<
+	typename Base
+>
+void
 sge::d3d9::basic_target<Base>::active(
 	bool const _active
 )
@@ -79,6 +107,8 @@ sge::d3d9::basic_target<Base>::active(
 	active_ = _active;
 
 	this->check_viewport();
+
+	this->check_scissor_area();
 }
 
 template<
@@ -93,6 +123,21 @@ sge::d3d9::basic_target<Base>::check_viewport()
 		devicefuncs::set_viewport(
 			device_,
 			viewport_
+		);
+}
+
+template<
+	typename Base
+>
+void
+sge::d3d9::basic_target<Base>::check_scissor_area()
+{
+	if(
+		active_
+	)
+		devicefuncs::set_scissor_rect(
+			device_,
+			scissor_area_
 		);
 }
 
