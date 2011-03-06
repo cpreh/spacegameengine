@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../devicefuncs/set_stream_source.hpp"
 #include "../devicefuncs/set_transform.hpp"
 #include "../parameters/create.hpp"
+#include "../state/visitor.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/planar.hpp"
 #include "../texture/volume.hpp"
@@ -39,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/nonindexed_primitive_count.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/state/list.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/sleep.hpp>
 #include <sge/window/instance.hpp>
@@ -47,7 +49,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt//make_shared_ptr.hpp>
+#include <boost/foreach.hpp>
 #include <algorithm>
 
 sge::d3d9::device::device(
@@ -98,7 +102,8 @@ sge::d3d9::device::device(
 	offscreen_target_(),
 	target_(
 		onscreen_target_
-	)
+	),
+	clear_state_()
 {
 }
 
@@ -109,22 +114,21 @@ sge::d3d9::device::~device()
 void
 sge::d3d9::device::begin_rendering()
 {
-#if 0
 	if(
 		device_->Clear(
 			0,
 			0,
-			clear_flags_,
-			clear_color_,
-			zbuffer_clear_val_,
-			stencil_clear_val_
+			clear_state_.flags(),
+			clear_state_.color(),
+			clear_state_.depth(),
+			clear_state_.stencil()
 		)
 		!= D3D_OK
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("Clear() failed!")
 		);
-#endif
+
 	if(
 		device_->BeginScene()
 		!= D3D_OK
@@ -301,6 +305,19 @@ sge::d3d9::device::state(
 	renderer::state::list const &_states
 )
 {
+	d3d9::state::visitor const visitor(
+		device_.get(),
+		clear_state_
+	);
+
+	BOOST_FOREACH(
+		sge::renderer::state::list::set_type::const_reference ref,
+		_states.values()
+	)
+		fcppt::variant::apply_unary(
+			visitor,
+			ref
+		);
 }
 
 void

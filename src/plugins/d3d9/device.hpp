@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "onscreen_target_ptr.hpp"
 #include "resource_list.hpp"
 #include "target_base_ptr.hpp"
+#include "state/clear.hpp"
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/caps.hpp>
@@ -307,6 +308,8 @@ private:
 	d3d9::offscreen_target_ptr offscreen_target_;
 
 	d3d9::target_base_ptr target_;
+
+	d3d9::state::clear clear_state_;
 };
 
 }
