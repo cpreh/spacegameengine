@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../load_context.hpp"
+#include "../logger.hpp"
 #include <sge/image/file_exception.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/log/global.hpp>
@@ -103,13 +104,13 @@ sge::libpng::load_context::load_context(
 			read_ptr_->ptr(),
 			read_ptr_->info());
 	FCPPT_LOG_DEBUG(
-		log::global(),
+		logger(),
 		fcppt::log::_ << FCPPT_TEXT("png: dimensions: ") << dim_);
 	FCPPT_LOG_DEBUG(
-		log::global(),
+		logger(),
 		fcppt::log::_ << FCPPT_TEXT("png: bit depth: ") << static_cast<int>(bpp));
 	FCPPT_LOG_DEBUG(
-		log::global(),
+		logger(),
 		fcppt::log::_ << FCPPT_TEXT("png: channels: ") << static_cast<int>(cs));
 
 	if (color_type == PNG_COLOR_TYPE_PALETTE)
