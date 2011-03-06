@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/bool.hpp"
 #include "../convert/color.hpp"
 #include "../convert/clear.hpp"
+#include "../convert/cull_mode.hpp"
 #include "../set_render_state_float.hpp"
 #include "../../convert/to_color.hpp"
 #include "../../devicefuncs/set_render_state.hpp"
@@ -198,6 +199,13 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::cull_mode::type const _state
 ) const
 {
+	d3d9::devicefuncs::set_render_state(
+		device_,
+		D3DRS_CULLMODE,
+		state::convert::cull_mode(
+			_state
+		)
+	);
 }
 
 sge::d3d9::state::visitor::result_type
@@ -205,6 +213,15 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::depth_func::type const _state
 ) const
 {
+#if 0
+	if(
+		_state.state()
+		== sge::renderer::state::depth_func::off
+	)
+	{
+
+	}
+#endif
 }
 
 sge::d3d9::state::visitor::result_type

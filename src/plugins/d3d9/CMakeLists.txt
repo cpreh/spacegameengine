@@ -109,11 +109,13 @@ SET(
 	src/plugins/d3d9/state/convert/bool.hpp
 	src/plugins/d3d9/state/convert/clear.hpp
 	src/plugins/d3d9/state/convert/color.hpp
+	src/plugins/d3d9/state/convert/cull_mode.hpp
 	src/plugins/d3d9/state/convert/float.hpp
 	src/plugins/d3d9/state/convert/int.hpp
 	src/plugins/d3d9/state/convert/src/bool.cpp
 	src/plugins/d3d9/state/convert/src/clear.cpp
 	src/plugins/d3d9/state/convert/src/color.cpp
+	src/plugins/d3d9/state/convert/src/cull_mode.cpp
 	src/plugins/d3d9/state/convert/src/float.cpp
 	src/plugins/d3d9/state/convert/src/int.cpp
 	src/plugins/d3d9/state/convert/src/uint.cpp
