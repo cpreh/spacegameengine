@@ -56,13 +56,11 @@ SET(
 	src/plugins/d3d9/device.hpp
 	src/plugins/d3d9/devicefuncs/set_material.hpp
 	src/plugins/d3d9/devicefuncs/set_render_state.hpp
-	src/plugins/d3d9/devicefuncs/set_render_state_float.hpp
 	src/plugins/d3d9/devicefuncs/set_stream_source.hpp
 	src/plugins/d3d9/devicefuncs/set_transform.hpp
 	src/plugins/d3d9/devicefuncs/set_viewport.hpp
 	src/plugins/d3d9/devicefuncs/src/set_material.cpp
 	src/plugins/d3d9/devicefuncs/src/set_render_state.cpp
-	src/plugins/d3d9/devicefuncs/src/set_render_state_float.cpp
 	src/plugins/d3d9/devicefuncs/src/set_stream_source.cpp
 	src/plugins/d3d9/devicefuncs/src/set_transform.cpp
 	src/plugins/d3d9/devicefuncs/src/set_viewport.cpp
@@ -101,12 +99,22 @@ SET(
 	src/plugins/d3d9/src/offscreen_target.cpp
 	src/plugins/d3d9/src/onscreen_target.cpp
 	src/plugins/d3d9/src/resource.cpp
-	src/plugins/d3d9/src/state_visitor.cpp
 	src/plugins/d3d9/src/system.cpp
 	src/plugins/d3d9/src/target_base.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
-	src/plugins/d3d9/state_visitor.hpp
+	src/plugins/d3d9/state/convert/bool.hpp
+	src/plugins/d3d9/state/convert/float.hpp
+	src/plugins/d3d9/state/convert/int.hpp
+	src/plugins/d3d9/state/convert/src/bool.cpp
+	src/plugins/d3d9/state/convert/src/float.cpp
+	src/plugins/d3d9/state/convert/src/int.cpp
+	src/plugins/d3d9/state/convert/src/uint.cpp
+	src/plugins/d3d9/state/convert/uint.hpp
+	src/plugins/d3d9/state/set_render_state_float.hpp
+	src/plugins/d3d9/state/src/set_render_state_float.cpp
+	src/plugins/d3d9/state/src/visitor.cpp
+	src/plugins/d3d9/state/visitor.hpp
 	src/plugins/d3d9/system.hpp
 	src/plugins/d3d9/systemfuncs/get_caps.hpp
 	src/plugins/d3d9/systemfuncs/src/get_caps.cpp

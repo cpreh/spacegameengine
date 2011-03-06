@@ -18,34 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_render_state_float.hpp"
-#include "../set_render_state.hpp"
-#include <boost/static_assert.hpp>
-#include <cstring>
+#ifndef SGE_D3D9_STATE_CONVERT_INT_HPP_INCLUDED
+#define SGE_D3D9_STATE_CONVERT_INT_HPP_INCLUDED
 
-void
-sge::d3d9::devicefuncs::set_render_state_float(
-	IDirect3DDevice9 *const _device,
-	D3DRENDERSTATETYPE const _state,
-	float const _value
-)
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/state/int.hpp>
+
+namespace sge
 {
-	BOOST_STATIC_ASSERT(
-		sizeof(float)
-		== sizeof(DWORD)
-	);
+namespace d3d9
+{
+namespace state
+{
+namespace convert
+{
 
-	DWORD dest;
+D3DRENDERSTATETYPE
+int_(
+	sge::renderer::state::int_::available_states::type
+);
 
-	std::memcpy(
-		&dest,
-		&_value,
-		sizeof(DWORD)
-	);
-
-	d3d9::devicefuncs::set_render_state(
-		_device,
-		_state,
-		dest
-	);
 }
+}
+}
+}
+
+#endif

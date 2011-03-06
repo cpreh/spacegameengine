@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_STATE_VISITOR_HPP_INCLUDED
 #define SGE_D3D9_STATE_VISITOR_HPP_INCLUDED
 
+#include "../d3dinclude.hpp"
 #include <sge/renderer/state/int.hpp>
 #include <sge/renderer/state/uint.hpp>
 #include <sge/renderer/state/float.hpp>
@@ -34,15 +35,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/draw_mode.hpp>
 #include <sge/renderer/state/source_blend_func.hpp>
 #include <sge/renderer/state/dest_blend_func.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
-
-class state_visitor
+namespace state
 {
+
+class visitor
+{
+	FCPPT_NONASSIGNABLE(
+		visitor
+	);
 public:
+	explicit visitor(
+		IDirect3DDevice9 *
+	);
+
 	typedef void result_type;
 
 	result_type
@@ -109,8 +120,11 @@ public:
 	operator()(
 		sge::renderer::state::dest_blend_func::type
 	) const;
+private:
+	IDirect3DDevice9 *const device_;
 };
 
+}
 }
 }
 

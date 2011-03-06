@@ -18,27 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_DEVICEFUNCS_RENDER_STATE_FLOAT_HPP_INCLUDED
-#define SGE_D3D9_DEVICEFUNCS_RENDER_STATE_FLOAT_HPP_INCLUDED
+#include "../float.hpp"
+#include "../../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "../d3dinclude.hpp"
-
-namespace sge
+D3DRENDERSTATETYPE
+sge::d3d9::state::convert::float_(
+	sge::renderer::state::float_::available_states::type const _type
+)
 {
-namespace d3d9
-{
-namespace devicefuncs
-{
+	switch(
+		_type
+	)
+	{
+	case sge::renderer::state::float_::available_states::zbuffer_clear_val:
+		break;
+	case sge::renderer::state::float_::available_states::alpha_test_ref:
+		return D3DRS_ALPHAREF;
+	case sge::renderer::state::float_::available_states::fog_start:
+		return D3DRS_FOGSTART;
+	case sge::renderer::state::float_::available_states::fog_end:
+		return D3DRS_FOGEND;
+	case sge::renderer::state::float_::available_states::fog_density:
+		return D3DRS_FOGDENSITY;
+	}
 
-void
-set_render_state_float(
-	IDirect3DDevice9 *,
-	D3DRENDERSTATETYPE,
-	float
-);
-
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid float state!")
+	);
 }
-}
-}
-
-#endif
