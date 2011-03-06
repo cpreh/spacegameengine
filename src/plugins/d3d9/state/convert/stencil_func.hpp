@@ -18,24 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_TO_COLOR_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_TO_COLOR_HPP_INCLUDED
+#ifndef SGE_D3D9_STATE_CONVERT_STENCIL_FUNC_HPP_INCLUDED
+#define SGE_D3D9_STATE_CONVERT_STENCIL_FUNC_HPP_INCLUDED
 
-#include "../d3dinclude.hpp"
-#include <sge/image/color/any/object.hpp>
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/state/stencil_func.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace state
+{
 namespace convert
 {
 
-D3DCOLOR
-to_color(
-	sge::image::color::any::object const &
+D3DCMPFUNC
+stencil_func(
+	sge::renderer::state::stencil_func::type
 );
 
+}
 }
 }
 }

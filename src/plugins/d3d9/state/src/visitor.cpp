@@ -27,6 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/color.hpp"
 #include "../convert/clear.hpp"
 #include "../convert/cull_mode.hpp"
+#include "../convert/depth_func.hpp"
+#include "../convert/stencil_func.hpp"
+#include "../convert/alpha_func.hpp"
+#include "../convert/fog_mode.hpp"
+#include "../convert/draw_mode.hpp"
+#include "../convert/source_blend_func.hpp"
+#include "../convert/dest_blend_func.hpp"
+#include "../set_render_state_bool.hpp"
 #include "../set_render_state_float.hpp"
 #include "../../convert/to_color.hpp"
 #include "../../devicefuncs/set_render_state.hpp"
@@ -143,20 +151,23 @@ sge::d3d9::state::visitor::operator()(
 		return;
 	case sge::renderer::state::bool_::available_states::enable_multi_sampling:
 		return; // FIXME
+	case sge::renderer::state::bool_::available_states::enable_alpha_blending:
+		d3d9::state::set_render_state_bool(
+			device_,
+			D3DRS_SEPARATEALPHABLENDENABLE,
+			_state.value()
+		);
+		break;
 	default:
 		break;
 	}
 
-	d3d9::devicefuncs::set_render_state(
+	d3d9::state::set_render_state_bool(
 		device_,
 		state::convert::bool_(
 			_state.state()
 		),
 		_state.value()
-		?
-			TRUE
-		:
-			FALSE
 	);
 }
 
@@ -213,15 +224,26 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::depth_func::type const _state
 ) const
 {
-#if 0
-	if(
-		_state.state()
-		== sge::renderer::state::depth_func::off
-	)
-	{
+	bool const active(
+		_state != sge::renderer::state::depth_func::off
+	);
 
-	}
-#endif
+	d3d9::state::set_render_state_bool(
+		device_,
+		D3DRS_ZENABLE,
+		active
+	);
+
+	if(
+		active
+	)
+		d3d9::devicefuncs::set_render_state(
+			device_,
+			D3DRS_ZFUNC,
+			state::convert::depth_func(
+				_state
+			)
+		);
 }
 
 sge::d3d9::state::visitor::result_type
@@ -230,6 +252,26 @@ sge::d3d9::state::visitor::operator()(
 
 ) const
 {
+	bool const active(
+		_state != sge::renderer::state::stencil_func::off
+	);
+
+	d3d9::state::set_render_state_bool(
+		device_,
+		D3DRS_STENCILENABLE,
+		active
+	);
+
+	if(
+		active
+	)
+		d3d9::devicefuncs::set_render_state(
+			device_,
+			D3DRS_STENCILFUNC,
+			state::convert::stencil_func(
+				_state
+			)
+		);
 }
 
 sge::d3d9::state::visitor::result_type
@@ -237,6 +279,26 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::alpha_func::type const _state
 ) const
 {
+	bool const active(
+		_state != sge::renderer::state::alpha_func::off
+	);
+
+	d3d9::state::set_render_state_bool(
+		device_,
+		D3DRS_ALPHATESTENABLE,
+		active
+	);
+
+	if(
+		active
+	)
+		d3d9::devicefuncs::set_render_state(
+			device_,
+			D3DRS_ALPHAFUNC,
+			state::convert::alpha_func(
+				_state
+			)
+		);
 }
 
 sge::d3d9::state::visitor::result_type
@@ -244,6 +306,24 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::fog_mode::type const _state
 ) const
 {
+	bool const active(
+		_state != sge::renderer::state::fog_mode::off
+	);
+
+	d3d9::state::set_render_state_bool(
+		device_,
+		D3DRS_FOGENABLE,
+		active
+	);
+
+	// fog has an "off" mode
+	d3d9::devicefuncs::set_render_state(
+		device_,
+		D3DRS_FOGTABLEMODE,
+		state::convert::fog_mode(
+			_state
+		)
+	);
 }
 
 sge::d3d9::state::visitor::result_type
@@ -251,6 +331,13 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::draw_mode::type const _state
 ) const
 {
+	d3d9::devicefuncs::set_render_state(
+		device_,
+		D3DRS_FILLMODE,
+		state::convert::draw_mode(
+			_state
+		)
+	);
 }
 
 sge::d3d9::state::visitor::result_type
@@ -258,6 +345,13 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::source_blend_func::type const _state
 ) const
 {
+	d3d9::devicefuncs::set_render_state(
+		device_,
+		D3DRS_SRCBLENDALPHA,
+		state::convert::source_blend_func(
+			_state
+		)
+	);
 }
 
 sge::d3d9::state::visitor::result_type
@@ -265,5 +359,11 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::dest_blend_func::type const _state
 ) const
 {
+	d3d9::devicefuncs::set_render_state(
+		device_,
+		D3DRS_DESTBLENDALPHA,
+		state::convert::dest_blend_func(
+			_state
+		)
+	);
 }
-

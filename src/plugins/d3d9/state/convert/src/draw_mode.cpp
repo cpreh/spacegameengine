@@ -18,26 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_TO_COLOR_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_TO_COLOR_HPP_INCLUDED
+#include "../draw_mode.hpp"
+#include "../../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "../d3dinclude.hpp"
-#include <sge/image/color/any/object.hpp>
-
-namespace sge
+D3DFILLMODE
+sge::d3d9::state::convert::draw_mode(
+	sge::renderer::state::draw_mode::type const _type
+)
 {
-namespace d3d9
-{
-namespace convert
-{
+	switch(
+		_type
+	)
+	{
+	case sge::renderer::state::draw_mode::point:
+		return D3DFILL_POINT;
+	case sge::renderer::state::draw_mode::line:
+		return D3DFILL_WIREFRAME;
+	case sge::renderer::state::draw_mode::fill:
+		return D3DFILL_SOLID;
+	}
 
-D3DCOLOR
-to_color(
-	sge::image::color::any::object const &
-);
-
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid draw_mode!")
+	);
 }
-}
-}
-
-#endif

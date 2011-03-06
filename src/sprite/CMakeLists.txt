@@ -39,6 +39,7 @@ SET(
 	include/sge/sprite/detail/assign_pre.hpp
 	include/sge/sprite/detail/buffers.hpp
 	include/sge/sprite/detail/convert_texture_rect.hpp
+	include/sge/sprite/detail/depth.hpp
 	include/sge/sprite/detail/fill_color.hpp
 	include/sge/sprite/detail/fill_geometry.hpp
 	include/sge/sprite/detail/fill_indices.hpp

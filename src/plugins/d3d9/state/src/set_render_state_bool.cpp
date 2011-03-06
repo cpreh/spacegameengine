@@ -18,26 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_TO_COLOR_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_TO_COLOR_HPP_INCLUDED
+#include "../set_render_state_bool.hpp"
+#include "../../devicefuncs/set_render_state.hpp"
+#include "../../convert/bool.hpp"
 
-#include "../d3dinclude.hpp"
-#include <sge/image/color/any/object.hpp>
-
-namespace sge
+void
+sge::d3d9::state::set_render_state_bool(
+	IDirect3DDevice9 *const _device,
+	D3DRENDERSTATETYPE const _state,
+	bool const _value
+)
 {
-namespace d3d9
-{
-namespace convert
-{
-
-D3DCOLOR
-to_color(
-	sge::image::color::any::object const &
-);
-
+	d3d9::devicefuncs::set_render_state(
+		_device,
+		_state,
+		d3d9::convert::bool_(
+			_value
+		)
+	);
 }
-}
-}
-
-#endif

@@ -18,26 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_TO_COLOR_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_TO_COLOR_HPP_INCLUDED
+#include "../bool.hpp"
+#include "../../d3dinclude.hpp"
 
-#include "../d3dinclude.hpp"
-#include <sge/image/color/any/object.hpp>
-
-namespace sge
+BOOL
+sge::d3d9::convert::bool_(
+	bool const _value
+)
 {
-namespace d3d9
-{
-namespace convert
-{
-
-D3DCOLOR
-to_color(
-	sge::image::color::any::object const &
-);
-
+	return
+		_value
+		?
+			TRUE
+		:
+			FALSE;
 }
-}
-}
-
-#endif
