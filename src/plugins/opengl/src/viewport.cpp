@@ -21,13 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../viewport.hpp"
 #include "../check_state.hpp"
 #include "../common.hpp"
+#include "../set_flipped_area.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/pixel_unit.hpp>
-#include <sge/renderer/viewport.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
 void
@@ -36,37 +32,10 @@ sge::opengl::viewport(
 	renderer::screen_unit const _height
 )
 {
-	sge::renderer::pixel_rect const rect(
-		_viewport.get()
-	);
-
-	::glViewport(
-		static_cast<
-			GLint
-		>(
-			rect.pos().x()
-		),
-		static_cast<
-			GLint
-		>(
-			static_cast<
-				renderer::pixel_unit
-			>(
-				_height
-			)
-			- rect.size().h()
-			- rect.pos().y()
-		),
-		static_cast<
-			GLsizei
-		>(
-			rect.size().w()
-		),
-		static_cast<
-			GLsizei
-		>(
-			rect.size().h()
-		)
+	opengl::set_flipped_area(
+		::glViewport,
+		_viewport.get(),
+		_height
 	);
 
 	SGE_OPENGL_CHECK_STATE(

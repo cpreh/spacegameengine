@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BASIC_TARGET_HPP_INCLUDED
 
 #include "target_base.hpp"
+#include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -50,11 +51,13 @@ protected:
 	);
 public:
 	virtual ~basic_target();
+private:
+	void
+	bind();
 
 	void
-	activate_viewport();
+	unbind();
 
-private:
 	void
 	viewport(
 		renderer::viewport const &
@@ -63,11 +66,35 @@ private:
 	renderer::viewport const
 	viewport() const;
 
+	void
+	scissor_area(
+		renderer::scissor_area const &
+	);
+
+	renderer::scissor_area const
+	scissor_area() const;
+
+	void
+	set_viewport();
+
+	void
+	set_scissor_area();
+
 	virtual
 	renderer::screen_unit
 	height() const = 0;
 
+	virtual void
+	on_bind() = 0;
+
+	virtual void
+	on_unbind() = 0;
+
+	bool active_;
+
 	renderer::viewport viewport_;
+
+	renderer::scissor_area scissor_area_;
 };
 
 }

@@ -1,6 +1,7 @@
 SET(
 	SGE_OPENGL_FILES
 	src/plugins/opengl/apply_states.hpp
+	src/plugins/opengl/area_function.hpp
 	src/plugins/opengl/basic_target.hpp
 	src/plugins/opengl/basic_target_impl.hpp
 	src/plugins/opengl/buffer.hpp
@@ -153,7 +154,6 @@ SET(
 	src/plugins/opengl/get_int.hpp
 	src/plugins/opengl/get_ints.hpp
 	src/plugins/opengl/get_matrix.hpp
-	src/plugins/opengl/get_scissor_area.hpp
 	src/plugins/opengl/get_string.hpp
 	src/plugins/opengl/glew/initialize.hpp
 	src/plugins/opengl/glew/is_supported.hpp
@@ -328,6 +328,7 @@ SET(
 	src/plugins/opengl/range_lock_method.hpp
 	src/plugins/opengl/read_pixels.hpp
 	src/plugins/opengl/set_clip_plane.hpp
+	src/plugins/opengl/set_flipped_area.hpp
 	src/plugins/opengl/set_light.hpp
 	src/plugins/opengl/set_material.hpp
 	src/plugins/opengl/set_matrix.hpp
@@ -362,7 +363,6 @@ SET(
 	src/plugins/opengl/src/get_int.cpp
 	src/plugins/opengl/src/get_ints.cpp
 	src/plugins/opengl/src/get_matrix.cpp
-	src/plugins/opengl/src/get_scissor_area.cpp
 	src/plugins/opengl/src/get_string.cpp
 	src/plugins/opengl/src/hardware_vbo.cpp
 	src/plugins/opengl/src/index_buffer.cpp
@@ -381,6 +381,7 @@ SET(
 	src/plugins/opengl/src/range_lock_method.cpp
 	src/plugins/opengl/src/read_pixels.cpp
 	src/plugins/opengl/src/set_clip_plane.cpp
+	src/plugins/opengl/src/set_flipped_area.cpp
 	src/plugins/opengl/src/set_light.cpp
 	src/plugins/opengl/src/set_material.cpp
 	src/plugins/opengl/src/set_matrix.cpp

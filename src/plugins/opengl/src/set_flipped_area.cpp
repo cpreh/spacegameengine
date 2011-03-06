@@ -18,35 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../get_scissor_area.hpp"
-#include "../get_ints.hpp"
-#include <fcppt/container/array.hpp>
+#include "../set_flipped_area.hpp"
+#include "../common.hpp"
+#include <sge/renderer/exception.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/pixel_unit.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/text.hpp>
 
-sge::renderer::scissor_area const
-sge::opengl::get_scissor_area()
+void
+sge::opengl::set_flipped_area(
+	opengl::area_function const _function,
+	renderer::pixel_rect const &_area,
+	renderer::screen_unit const _height
+)
 {
-	fcppt::container::array<
-		GLint,
-		4
-	> temp;
-
-	opengl::get_ints(
-		GL_SCISSOR_BOX,
-		temp.data()
+	_function(
+		static_cast<
+			GLint
+		>(
+			_area.pos().x()
+		),
+		static_cast<
+			GLint
+		>(
+			static_cast<
+				renderer::pixel_unit
+			>(
+				_height
+			)
+			- _area.size().h()
+			- _area.pos().y()
+		),
+		static_cast<
+			GLsizei
+		>(
+			_area.size().w()
+		),
+		static_cast<
+			GLsizei
+		>(
+			_area.size().h()
+		)
 	);
 
-	return
-		sge::renderer::scissor_area(
-			sge::renderer::pixel_rect(
-				sge::renderer::pixel_rect::vector(
-					temp[0],
-					temp[1]
-				),
-				sge::renderer::pixel_rect::dim(
-					temp[2],
-					temp[3]
-				)
-			)
-		);
+	// checking is done in the calling function
 }

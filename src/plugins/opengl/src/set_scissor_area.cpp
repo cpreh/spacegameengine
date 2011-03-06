@@ -21,33 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_scissor_area.hpp"
 #include "../common.hpp"
 #include "../check_state.hpp"
+#include "../set_flipped_area.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/pixel_rect.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
 void
 sge::opengl::set_scissor_area(
-	renderer::scissor_area const &_area
+	renderer::scissor_area const &_area,
+	renderer::screen_unit const _height
 )
 {
-	sge::renderer::pixel_rect const rect(
-		_area.get()
-	);
-
-	::glScissor(
-		rect.left(),
-		rect.top(),
-		static_cast<
-			GLsizei
-		>(
-			rect.w()
-		),
-		static_cast<
-			GLsizei
-		>(
-			rect.h()
-		)
+	opengl::set_flipped_area(
+		::glScissor,
+		_area.get(),
+		_height
 	);
 
 	SGE_OPENGL_CHECK_STATE(

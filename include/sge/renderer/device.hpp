@@ -48,7 +48,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/sampler_stage_arg_value.hpp>
 #include <sge/renderer/sampler_stage_op.hpp>
 #include <sge/renderer/sampler_stage_op_value.hpp>
-#include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/target_ptr.hpp>
@@ -171,11 +170,6 @@ public:
 	) = 0;
 
 	virtual void
-	scissor_area(
-		renderer::scissor_area const &
-	) = 0;
-
-	virtual void
 	sampler_stage_op(
 		renderer::stage_type,
 		renderer::sampler_stage_op::type,
@@ -276,9 +270,6 @@ public:
 
 	virtual renderer::onscreen_target_ptr const
 	onscreen_target() const = 0;
-
-	virtual renderer::scissor_area const
-	scissor_area() const = 0;
 
 	virtual renderer::target_ptr const
 	target() const = 0;

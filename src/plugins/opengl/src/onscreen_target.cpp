@@ -54,15 +54,14 @@ sge::opengl::onscreen_target::~onscreen_target()
 }
 
 void
-sge::opengl::onscreen_target::bind() const
+sge::opengl::onscreen_target::on_bind()
 {
 }
 
 void
-sge::opengl::onscreen_target::unbind() const
+sge::opengl::onscreen_target::on_unbind()
 {
 }
-
 
 sge::renderer::color_surface_ptr const
 sge::opengl::onscreen_target::surface() const

@@ -69,13 +69,13 @@ public:
 	);
 
 	~target();
-
-	void
-	bind() const;
-
-	void
-	unbind() const;
 private:
+	void
+	on_bind();
+
+	void
+	on_unbind();
+
 	void
 	color_surface(
 		renderer::color_surface_ptr,

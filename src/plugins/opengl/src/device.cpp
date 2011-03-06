@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../draw_elements.hpp"
 #include "../enable_bool.hpp"
 #include "../get_matrix.hpp"
-#include "../get_scissor_area.hpp"
 #include "../index_buffer.hpp"
 #include "../initial_states.hpp"
 #include "../onscreen_target.hpp"
@@ -37,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_light.hpp"
 #include "../set_material.hpp"
 #include "../set_matrix_and_mode.hpp"
-#include "../set_scissor_area.hpp"
 #include "../set_vertex_buffer.hpp"
 #include "../set_vertex_declaration.hpp"
 #include "../unset_vertex_buffer.hpp"
@@ -124,7 +122,7 @@ sge::opengl::device::device(
 		sge::renderer::state::default_()
 	);
 
-	target_->use();
+	target_->bind();
 }
 
 sge::opengl::device::~device()
@@ -329,16 +327,6 @@ sge::opengl::device::clip_plane(
 }
 
 void
-sge::opengl::device::scissor_area(
-	renderer::scissor_area const &_area
-)
-{
-	opengl::set_scissor_area(
-		_area
-	);
-}
-
-void
 sge::opengl::device::sampler_stage_op(
 	renderer::stage_type const _stage,
 	renderer::sampler_stage_op::type const _op,
@@ -430,7 +418,7 @@ sge::opengl::device::target(
 				onscreen_target_
 			);
 
-	target_->use();
+	target_->bind();
 }
 
 sge::renderer::glsl::program_ptr const
@@ -678,12 +666,6 @@ sge::opengl::device::onscreen_target() const
 	return onscreen_target_;
 }
 
-sge::renderer::scissor_area const
-sge::opengl::device::scissor_area() const
-{
-	return opengl::get_scissor_area();	
-}
-	
 sge::renderer::matrix4 const
 sge::opengl::device::transform(
 	renderer::matrix_mode::type const _mode

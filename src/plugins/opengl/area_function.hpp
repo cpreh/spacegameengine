@@ -18,12 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#ifndef SGE_OPENGL_AREA_FUNCTION_HPP_INCLUDED
+#define SGE_OPENGL_AREA_FUNCTION_HPP_INCLUDED
 
-sge::opengl::target_base::target_base()
+#include "common.hpp"
+
+namespace sge
 {
+namespace opengl
+{
+
+typedef void
+(*area_function)(
+	GLint,
+	GLint,
+	GLsizei,
+	GLsizei
+);
+
+}
 }
 
-sge::opengl::target_base::~target_base()
-{
-}
+#endif

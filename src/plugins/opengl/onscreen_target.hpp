@@ -53,13 +53,13 @@ public:
 	);
 
 	~onscreen_target();
-
-	void
-	bind() const;
-
-	void
-	unbind() const;
 private:
+	void
+	on_bind();
+
+	void
+	on_unbind();
+
 	renderer::color_surface_ptr const
 	surface() const;
 
