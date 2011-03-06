@@ -30,7 +30,7 @@ sge::d3d9::devicefuncs::set_viewport(
 )
 {
 	D3DVIEWPORT9 const d3d_viewport(
-		convert::viewport(
+		d3d9::convert::viewport(
 			_viewport
 		)
 	);

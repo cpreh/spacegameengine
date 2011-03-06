@@ -18,36 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../rect.hpp"
+#include "../lock_box.hpp"
 #include "../../d3dinclude.hpp"
 #include <fcppt/math/box/basic_impl.hpp>
 
-RECT const
-sge::d3d9::convert::rect(
-	renderer::lock_rect const &_rect
+D3DBOX const
+sge::d3d9::convert::lock_box(
+	renderer::lock_box const &_box
 )
 {
-	RECT const ret =
+	D3DBOX const ret =
 	{
 		static_cast<
 			LONG
 		>(
-			_rect.left()
+			_box.left()
 		),
 		static_cast<
 			LONG
 		>(
-			_rect.top()
+			_box.top()
 		),
 		static_cast<
 			LONG
 		>(
-			_rect.right()
+			_box.right()
 		),
 		static_cast<
 			LONG
 		>(
-			_rect.bottom()
+			_box.bottom()
+		),
+		static_cast<
+			LONG
+		>(
+			_box.front()
+		),
+		static_cast<
+			LONG
+		>(
+			_box.back()
 		)
 	};
 

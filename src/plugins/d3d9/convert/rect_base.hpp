@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_RECT_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_RECT_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_RECT_BASE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_RECT_BASE_HPP_INCLUDED
 
 #include "../d3dinclude.hpp"
-#include <sge/renderer/lock_rect.hpp>
+#include <fcppt/math/box/has_dim.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -31,10 +33,46 @@ namespace d3d9
 namespace convert
 {
 
-RECT const
-rect(
-	renderer::lock_rect const &
-);
+template<
+	typename Box
+>
+typename boost::enable_if<
+	fcppt::math::box::has_dim<
+		Box,
+		2
+	>,
+	RECT
+>::type const
+rect_base(
+	Box const &_rect
+)
+{
+	RECT const ret =
+	{
+		static_cast<
+			LONG
+		>(
+			_rect.left()
+		),
+		static_cast<
+			LONG
+		>(
+			_rect.top()
+		),
+		static_cast<
+			LONG
+		>(
+			_rect.right()
+		),
+		static_cast<
+			LONG
+		>(
+			_rect.bottom()
+		)
+	};
+
+	return ret;
+}
 
 }
 }

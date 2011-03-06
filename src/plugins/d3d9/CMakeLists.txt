@@ -8,17 +8,19 @@ SET(
 	src/plugins/d3d9/basic_target.hpp
 	src/plugins/d3d9/basic_target_impl.hpp
 	src/plugins/d3d9/convert/bool.hpp
-	src/plugins/d3d9/convert/box.hpp
 	src/plugins/d3d9/convert/color_format.hpp
 	src/plugins/d3d9/convert/cube_side.hpp
 	src/plugins/d3d9/convert/index_format.hpp
 	src/plugins/d3d9/convert/indexed_primitive.hpp
+	src/plugins/d3d9/convert/lock_box.hpp
 	src/plugins/d3d9/convert/lock_mode.hpp
+	src/plugins/d3d9/convert/lock_rect.hpp
 	src/plugins/d3d9/convert/material.hpp
 	src/plugins/d3d9/convert/matrix.hpp
 	src/plugins/d3d9/convert/matrix_mode.hpp
 	src/plugins/d3d9/convert/nonindexed_primitive.hpp
-	src/plugins/d3d9/convert/rect.hpp
+	src/plugins/d3d9/convert/pixel_rect.hpp
+	src/plugins/d3d9/convert/rect_base.hpp
 	src/plugins/d3d9/convert/resource_flags.hpp
 	src/plugins/d3d9/convert/resource_flags_to_pool.hpp
 	src/plugins/d3d9/convert/sampler_stage_arg.hpp
@@ -26,17 +28,18 @@ SET(
 	src/plugins/d3d9/convert/sampler_stage_op.hpp
 	src/plugins/d3d9/convert/sampler_stage_op_value.hpp
 	src/plugins/d3d9/convert/src/bool.cpp
-	src/plugins/d3d9/convert/src/box.cpp
 	src/plugins/d3d9/convert/src/color_format.cpp
 	src/plugins/d3d9/convert/src/cube_side.cpp
 	src/plugins/d3d9/convert/src/index_format.cpp
 	src/plugins/d3d9/convert/src/indexed_primitive.cpp
+	src/plugins/d3d9/convert/src/lock_box.cpp
 	src/plugins/d3d9/convert/src/lock_mode.cpp
+	src/plugins/d3d9/convert/src/lock_rect.cpp
 	src/plugins/d3d9/convert/src/material.cpp
 	src/plugins/d3d9/convert/src/matrix.cpp
 	src/plugins/d3d9/convert/src/matrix_mode.cpp
 	src/plugins/d3d9/convert/src/nonindexed_primitive.cpp
-	src/plugins/d3d9/convert/src/rect.cpp
+	src/plugins/d3d9/convert/src/pixel_rect.cpp
 	src/plugins/d3d9/convert/src/resource_flags.cpp
 	src/plugins/d3d9/convert/src/resource_flags_to_pool.cpp
 	src/plugins/d3d9/convert/src/sampler_stage_arg.cpp
@@ -60,11 +63,13 @@ SET(
 	src/plugins/d3d9/device.hpp
 	src/plugins/d3d9/devicefuncs/set_material.hpp
 	src/plugins/d3d9/devicefuncs/set_render_state.hpp
+	src/plugins/d3d9/devicefuncs/set_scissor_rect.hpp
 	src/plugins/d3d9/devicefuncs/set_stream_source.hpp
 	src/plugins/d3d9/devicefuncs/set_transform.hpp
 	src/plugins/d3d9/devicefuncs/set_viewport.hpp
 	src/plugins/d3d9/devicefuncs/src/set_material.cpp
 	src/plugins/d3d9/devicefuncs/src/set_render_state.cpp
+	src/plugins/d3d9/devicefuncs/src/set_scissor_rect.cpp
 	src/plugins/d3d9/devicefuncs/src/set_stream_source.cpp
 	src/plugins/d3d9/devicefuncs/src/set_transform.cpp
 	src/plugins/d3d9/devicefuncs/src/set_viewport.cpp

@@ -18,50 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../lock_volume.hpp"
-#include "../../convert/lock_box.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_CONVERT_PIXEL_RECT_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_PIXEL_RECT_HPP_INCLUDED
 
-D3DLOCKED_BOX const
-sge::d3d9::texture::lock_volume(
-	IDirect3DVolumeTexture9 *const _texture,
-	sge::renderer::stage_type const _stage,
-	d3d9::texture::optional_lock_box const &_box,
-	d3d9::lock_flags const _flags
-)
+#include "../d3dinclude.hpp"
+#include <sge/renderer/pixel_rect.hpp>
+
+namespace sge
 {
-	D3DLOCKED_BOX ret = {};
+namespace d3d9
+{
+namespace convert
+{
 
-	D3DBOX in_box = {};
+RECT const
+pixel_rect(
+	renderer::pixel_rect const &
+);
 
-	if(
-		_box
-	)
-		in_box =
-			d3d9::convert::lock_box(
-				*_box
-			);
-
-	if(
-		_texture->LockBox(
-			_stage.get(),
-			&ret,
-			_box
-			?
-				&in_box
-			:
-				NULL,
-			_flags.get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("LockBox() failed!")
-		);
-
-	return ret;
 }
+}
+}
+
+#endif

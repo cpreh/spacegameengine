@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_BOX_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_BOX_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_LOCK_RECT_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_LOCK_RECT_HPP_INCLUDED
 
 #include "../d3dinclude.hpp"
-#include <sge/renderer/lock_box.hpp>
+#include <sge/renderer/lock_rect.hpp>
 
 namespace sge
 {
@@ -31,9 +31,9 @@ namespace d3d9
 namespace convert
 {
 
-D3DBOX const
-box(
-	renderer::lock_box const &
+RECT const
+lock_rect(
+	renderer::lock_rect const &
 );
 
 }

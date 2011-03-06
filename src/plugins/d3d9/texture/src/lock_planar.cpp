@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../lock_planar.hpp"
-#include "../../convert/rect.hpp"
+#include "../../convert/lock_rect.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -42,7 +42,7 @@ sge::d3d9::texture::lock_planar(
 		_rect
 	)
 		in_rect =
-			d3d9::convert::rect(
+			d3d9::convert::lock_rect(
 				*_rect
 			);
 
