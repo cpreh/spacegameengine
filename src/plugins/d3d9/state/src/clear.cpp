@@ -18,10 +18,75 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/default_target.hpp>
+#include "../clear.hpp"
 
-sge::renderer::target_ptr const
-sge::renderer::default_target()
+sge::d3d9::state::clear::clear()
+:
+	color_(0),
+	depth_(0.f),
+	stencil_(0),
+	flags_(0)
 {
-	return renderer::target_ptr();
+}
+
+void
+sge::d3d9::state::clear::color(
+	D3DCOLOR const _color
+)
+{
+	color_ = _color;
+}
+
+void
+sge::d3d9::state::clear::depth(
+	float const _depth
+)
+{
+	depth_ = _depth;
+}
+
+void
+sge::d3d9::state::clear::stencil(
+	DWORD const _stencil
+)
+{
+	stencil_ = _stencil;
+}
+
+void
+sge::d3d9::state::clear::flag(
+	DWORD const _flag,
+	bool const _value
+)
+{
+	if(
+		_value
+	)
+		flags_ |= _flag;
+	else
+		flags_ &= ~_flag;
+}
+
+D3DCOLOR
+sge::d3d9::state::clear::color() const
+{
+	return color_;
+}
+
+float
+sge::d3d9::state::clear::depth() const
+{
+	return depth_;
+}
+
+DWORD
+sge::d3d9::state::clear::stencil() const
+{
+	return stencil_;
+}
+
+DWORD
+sge::d3d9::state::clear::flags() const
+{
+	return flags_;
 }

@@ -18,10 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/default_target.hpp>
+#include "../to_color.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/argb8.hpp>
+#include <sge/image/color/argb8_format.hpp>
+#include <mizuiro/color/channel/alpha.hpp>
+#include <mizuiro/color/channel/blue.hpp>
+#include <mizuiro/color/channel/green.hpp>
+#include <mizuiro/color/channel/red.hpp>
 
-sge::renderer::target_ptr const
-sge::renderer::default_target()
+D3DCOLOR
+sge::d3d9::convert::to_color(
+	sge::image::color::any::object const &_color
+)
 {
-	return renderer::target_ptr();
+	sge::image::color::argb8 const conv(
+		sge::image::color::any::convert<
+			sge::image::color::argb8_format
+		>(
+			_color
+		)
+	);
+
+	return
+		D3DCOLOR_ARGB(
+			conv.get<
+				mizuiro::color::channel::alpha
+			>(),
+			conv.get<
+				mizuiro::color::channel::red
+			>(),
+			conv.get<
+				mizuiro::color::channel::green
+			>(),
+			conv.get<
+				mizuiro::color::channel::blue
+			>()
+		);
 }

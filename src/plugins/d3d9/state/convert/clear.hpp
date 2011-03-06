@@ -18,10 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/default_target.hpp>
+#ifndef SGE_D3D9_STATE_CONVERT_CLEAR_HPP_INCLUDED
+#define SGE_D3D9_STATE_CONVERT_CLEAR_HPP_INCLUDED
 
-sge::renderer::target_ptr const
-sge::renderer::default_target()
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/state/bool.hpp>
+
+namespace sge
 {
-	return renderer::target_ptr();
+namespace d3d9
+{
+namespace state
+{
+namespace convert
+{
+
+DWORD
+clear(
+	sge::renderer::state::bool_::available_states::type
+);
+
 }
+}
+}
+}
+
+#endif

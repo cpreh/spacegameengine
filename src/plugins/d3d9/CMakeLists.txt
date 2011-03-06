@@ -41,10 +41,12 @@ SET(
 	src/plugins/d3d9/convert/src/sampler_stage_arg_value.cpp
 	src/plugins/d3d9/convert/src/sampler_stage_op.cpp
 	src/plugins/d3d9/convert/src/sampler_stage_op_value.cpp
+	src/plugins/d3d9/convert/src/to_color.cpp
 	src/plugins/d3d9/convert/src/to_color_value.cpp
 	src/plugins/d3d9/convert/src/vertex_role.cpp
 	src/plugins/d3d9/convert/src/vertex_type.cpp
 	src/plugins/d3d9/convert/src/viewport.cpp
+	src/plugins/d3d9/convert/to_color.hpp
 	src/plugins/d3d9/convert/to_color_value.hpp
 	src/plugins/d3d9/convert/vertex_role.hpp
 	src/plugins/d3d9/convert/vertex_type.hpp
@@ -90,7 +92,6 @@ SET(
 	src/plugins/d3d9/parameters/tnl_caps.hpp
 	src/plugins/d3d9/resource.hpp
 	src/plugins/d3d9/resource_list.hpp
-	src/plugins/d3d9/src/conversion.cpp
 	src/plugins/d3d9/src/create_caps.cpp
 	src/plugins/d3d9/src/create_device.cpp
 	src/plugins/d3d9/src/device.cpp
@@ -103,15 +104,22 @@ SET(
 	src/plugins/d3d9/src/target_base.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
+	src/plugins/d3d9/state/clear.hpp
+	src/plugins/d3d9/state/clear_fwd.hpp
 	src/plugins/d3d9/state/convert/bool.hpp
+	src/plugins/d3d9/state/convert/clear.hpp
+	src/plugins/d3d9/state/convert/color.hpp
 	src/plugins/d3d9/state/convert/float.hpp
 	src/plugins/d3d9/state/convert/int.hpp
 	src/plugins/d3d9/state/convert/src/bool.cpp
+	src/plugins/d3d9/state/convert/src/clear.cpp
+	src/plugins/d3d9/state/convert/src/color.cpp
 	src/plugins/d3d9/state/convert/src/float.cpp
 	src/plugins/d3d9/state/convert/src/int.cpp
 	src/plugins/d3d9/state/convert/src/uint.cpp
 	src/plugins/d3d9/state/convert/uint.hpp
 	src/plugins/d3d9/state/set_render_state_float.hpp
+	src/plugins/d3d9/state/src/clear.cpp
 	src/plugins/d3d9/state/src/set_render_state_float.cpp
 	src/plugins/d3d9/state/src/visitor.cpp
 	src/plugins/d3d9/state/visitor.hpp

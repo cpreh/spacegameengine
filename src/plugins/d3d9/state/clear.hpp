@@ -18,10 +18,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/default_target.hpp>
+#ifndef SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
+#define SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
 
-sge::renderer::target_ptr const
-sge::renderer::default_target()
+#include "clear_fwd.hpp"
+#include "../d3dinclude.hpp"
+
+namespace sge
 {
-	return renderer::target_ptr();
+namespace d3d9
+{
+namespace state
+{
+
+class clear
+{
+public:
+	clear();
+
+	void
+	color(
+		D3DCOLOR
+	);
+
+	void
+	depth(
+		float
+	);
+
+	void
+	stencil(
+		DWORD
+	);
+
+	void
+	flag(
+		DWORD,
+		bool
+	);
+
+	D3DCOLOR
+	color() const;
+
+	float
+	depth() const;
+
+	DWORD
+	stencil() const;
+
+	DWORD
+	flags() const;
+private:
+	D3DCOLOR color_;
+
+	float depth_;
+
+	DWORD stencil_;
+
+	DWORD flags_;
+};
+
 }
+}
+}
+
+#endif
