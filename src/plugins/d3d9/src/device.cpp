@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/nonindexed_primitive_count.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/sleep.hpp>
@@ -105,6 +106,9 @@ sge::d3d9::device::device(
 	),
 	clear_state_()
 {
+	this->state(
+		sge::renderer::state::default_()
+	);
 }
 
 sge::d3d9::device::~device()
