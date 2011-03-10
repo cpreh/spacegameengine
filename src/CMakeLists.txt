@@ -1340,6 +1340,9 @@ ENDIF ()
 
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
+FIND_PACKAGE(CEGUI)
+
+OPTION (ENABLE_CEGUI "Build the cegui subsystem" ${CEGUI_FOUND})
 OPTION (ENABLE_CAMERA "Build the camera" ON)
 OPTION (ENABLE_CONFIG "Build the config library" ON)
 OPTION (ENABLE_CONSOLE "Build the console" ON)
@@ -1353,6 +1356,10 @@ OPTION (ENABLE_SPRITE "Build the sprite library" ON)
 OPTION (ENABLE_SYSTEMS "Build the systems library" ON)
 OPTION (ENABLE_TEXTURE "Build the texture helpers" ON)
 OPTION (ENABLE_TIME "Build the time library" ON)
+
+IF (ENABLE_CEGUI)
+	ADD_SUBDIRECTORY(cegui)
+ENDIF ()
 
 IF (ENABLE_CAMERA)
 	ADD_SUBDIRECTORY(camera)

@@ -1,0 +1,70 @@
+CHECK_DEPENDENCIES(
+	"TIME"
+	"cegui"
+)
+
+INCLUDE_DIRECTORIES(
+	${CEGUI_INCLUDE_DIRS}
+)
+
+SET(
+	SGE_CEGUI_FILES
+	include/sge/cegui/append_multicolumn_row.hpp
+	include/sge/cegui/cegui_logger.hpp
+	include/sge/cegui/column_sequence.hpp
+	include/sge/cegui/default_target.hpp
+	include/sge/cegui/exception.hpp
+	include/sge/cegui/from_cegui_string.hpp
+	include/sge/cegui/geometry_buffer.hpp
+	include/sge/cegui/image_codec.hpp
+	include/sge/cegui/image_codec_fwd.hpp
+	include/sge/cegui/input.hpp
+	include/sge/cegui/logger.hpp
+	include/sge/cegui/renderer.hpp
+	include/sge/cegui/renderer_fwd.hpp
+	include/sge/cegui/resource_provider.hpp
+	include/sge/cegui/resource_provider_fwd.hpp
+	include/sge/cegui/scoped_system.hpp
+	include/sge/cegui/structure_cast.hpp
+	include/sge/cegui/symbol.hpp
+	include/sge/cegui/system.hpp
+	include/sge/cegui/system_fwd.hpp
+	include/sge/cegui/texture.hpp
+	include/sge/cegui/texture_fwd.hpp
+	include/sge/cegui/texture_target.hpp
+	include/sge/cegui/to_cegui_string.hpp
+	include/sge/cegui/unit.hpp
+	include/sge/cegui/vf/color.hpp
+	include/sge/cegui/vf/format.hpp
+	include/sge/cegui/vf/part.hpp
+	include/sge/cegui/vf/position.hpp
+	include/sge/cegui/vf/texcoord.hpp
+	include/sge/cegui/vf/vertex_view.hpp
+	src/cegui/append_multicolumn_row.cpp
+	src/cegui/cegui_logger.cpp
+	src/cegui/declare_local_logger.hpp
+	src/cegui/default_target.cpp
+	src/cegui/exception.cpp
+	src/cegui/from_cegui_string.cpp
+	src/cegui/geometry_buffer.cpp
+	src/cegui/image_codec.cpp
+	src/cegui/input.cpp
+	src/cegui/logger.cpp
+	src/cegui/renderer.cpp
+	src/cegui/resource_provider.cpp
+	src/cegui/scoped_system.cpp
+	src/cegui/system.cpp
+	src/cegui/texture.cpp
+	src/cegui/texture_target.cpp
+	src/cegui/to_cegui_string.cpp
+)
+
+ADD_SGE_BASE_LIBRARY(
+	cegui
+	"sgetime;sgesystems"
+)
+
+TARGET_LINK_LIBRARIES (
+	sgecegui
+	${CEGUI_BASE_LIBRARY}
+)
