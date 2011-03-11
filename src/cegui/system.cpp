@@ -52,7 +52,8 @@ sge::cegui::system::system(
 	image_codec_(
 		_image_loader),
 	resource_provider_(
-		prefix_),
+		prefix_,
+		_charconv_system),
 	system_(
 		renderer_,
 		image_codec_,

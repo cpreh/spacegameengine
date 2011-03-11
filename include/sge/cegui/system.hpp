@@ -2,13 +2,13 @@
 #define SGE_CEGUI_SYSTEM_HPP_INCLUDED
 
 #include <CEGUI/CEGUIString.h>
-#include <sge/cegui/renderer.hpp>
 #include <sge/cegui/symbol.hpp>
-#include <sge/cegui/cegui_logger.hpp>
-#include <sge/cegui/scoped_system.hpp>
-#include <sge/cegui/resource_provider.hpp>
-#include <sge/cegui/image_codec.hpp>
-#include <sge/cegui/input.hpp>
+#include <sge/cegui/detail/renderer.hpp>
+#include <sge/cegui/detail/cegui_logger.hpp>
+#include <sge/cegui/detail/scoped_system.hpp>
+#include <sge/cegui/detail/input.hpp>
+#include <sge/cegui/detail/resource_provider.hpp>
+#include <sge/cegui/detail/image_codec.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/systems/instance_fwd.hpp>
@@ -65,12 +65,12 @@ public:
 	SGE_CEGUI_SYMBOL ~system();
 private:
 	fcppt::filesystem::path prefix_;
-	cegui_logger cegui_logger_;
-	cegui::renderer renderer_;
-	image_codec image_codec_;
-	resource_provider resource_provider_;
-	scoped_system system_;
-	input input_;
+	detail::cegui_logger cegui_logger_;
+	detail::renderer renderer_;
+	detail::image_codec image_codec_;
+	detail::resource_provider resource_provider_;
+	detail::scoped_system system_;
+	detail::input input_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
 	// We have to memorize the old viewport so we don't call
 	// notifyDisplaySizeChanged if old == new (costs performance)

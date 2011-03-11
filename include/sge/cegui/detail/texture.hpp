@@ -1,10 +1,7 @@
-#ifndef SGE_CEGUI_TEXTURE_HPP_INCLUDED
-#define SGE_CEGUI_TEXTURE_HPP_INCLUDED
+#ifndef SGE_CEGUI_DETAIL_TEXTURE_HPP_INCLUDED
+#define SGE_CEGUI_DETAIL_TEXTURE_HPP_INCLUDED
 
-#include "system_fwd.hpp"
-#include <sge/class_symbol.hpp>
-#include <sge/cegui/symbol.hpp>
-#include <CEGUI/CEGUISystem.h>
+#include <sge/cegui/system_fwd.hpp>
 #include <CEGUI/CEGUITexture.h>
 #include <CEGUI/CEGUISize.h>
 #include <CEGUI/CEGUIString.h>
@@ -20,42 +17,44 @@ namespace sge
 {
 namespace cegui
 {
-class SGE_CLASS_SYMBOL texture
+namespace detail
+{
+class texture
 :
 	public CEGUI::Texture
 {
 FCPPT_NONCOPYABLE(
 	texture);
 public:
-	SGE_CEGUI_SYMBOL explicit
+	explicit
 	texture(
 		system &,
 		sge::renderer::texture::capabilities_field const &);
 
 	// We need to handle the empty texture case more than once in the
 	// texture target, so this helper function emerged
-	SGE_CEGUI_SYMBOL bool
+	bool
 	empty() const;
 
-	SGE_CEGUI_SYMBOL CEGUI::Size const &
+	CEGUI::Size const &
 	getSize() const;
 
-	SGE_CEGUI_SYMBOL CEGUI::Size const &
+	CEGUI::Size const &
 	getOriginalDataSize() const;
 
-	SGE_CEGUI_SYMBOL CEGUI::Vector2 const &
+	CEGUI::Vector2 const &
 	getTexelScaling() const;
 
-	SGE_CEGUI_SYMBOL void
+	void
 	resize(
 		CEGUI::Size const &);
 
-	SGE_CEGUI_SYMBOL void 
+	void 
 	loadFromFile(
 		CEGUI::String const &filename,
 		CEGUI::String const &resourceGroup);
 
-	SGE_CEGUI_SYMBOL void 
+	void 
 	loadFromMemory(
 		void const * buffer,
 		CEGUI::Size const & buffer_size,
@@ -63,20 +62,20 @@ public:
 
 	// This is called by the image_codec to circumvent the
 	// loadFromMemory mechanism
-	SGE_CEGUI_SYMBOL void
+	void
 	create_from_view(
 		sge::image2d::view::const_object const &);
 
-	SGE_CEGUI_SYMBOL void 
+	void 
 	saveToMemory(
 		void*);
 
 	// The geometry buffer needs this so it can scope the texture
 	// correctly.
-	SGE_CEGUI_SYMBOL sge::renderer::texture::planar_ptr const
+	sge::renderer::texture::planar_ptr const
 	impl();
 
-	SGE_CEGUI_SYMBOL ~texture();
+	~texture();
 private:
 	system &system_;
 	sge::renderer::texture::capabilities_field caps_;
@@ -85,6 +84,7 @@ private:
 	CEGUI::Size size_;
 	CEGUI::Vector2 texel_scaling_;
 };
+}
 }
 }
 

@@ -1,5 +1,6 @@
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/logger.hpp>
+#include <sge/cegui/to_cegui_string.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -42,6 +43,7 @@
 #include <CEGUI/elements/CEGUIEditbox.h>
 #include <fcppt/text.hpp>
 #include <fcppt/log/activate_levels.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/duration.hpp>
@@ -129,7 +131,10 @@ try
 
 	CEGUI::System::getSingleton().setGUISheet( 
 		CEGUI::WindowManager::getSingleton().loadWindowLayout( 
-			"text_demo.layout"));
+			sge::cegui::to_cegui_string(
+				fcppt::filesystem::path_to_string(
+					sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("text_demo.layout")),
+				sys.charconv_system())));
 
 	while (running)
 	{

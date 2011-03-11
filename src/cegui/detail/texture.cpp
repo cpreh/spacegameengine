@@ -1,5 +1,5 @@
-#include "declare_local_logger.hpp"
-#include <sge/cegui/texture.hpp>
+#include "../declare_local_logger.hpp"
+#include <sge/cegui/detail/texture.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/unit.hpp>
 #include <sge/cegui/exception.hpp>
@@ -39,7 +39,7 @@
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("texture"))
 
-sge::cegui::texture::texture(
+sge::cegui::detail::texture::texture(
 	system &_system,
 	sge::renderer::texture::capabilities_field const &_caps)
 :
@@ -65,34 +65,34 @@ sge::cegui::texture::texture(
 }
 
 bool
-sge::cegui::texture::empty() const
+sge::cegui::detail::texture::empty() const
 {
 	return !static_cast<int>(size_.d_width) || !static_cast<int>(size_.d_height);
 }
 
 CEGUI::Size const &
-sge::cegui::texture::getSize() const
+sge::cegui::detail::texture::getSize() const
 {
 	return 
 		size_;
 }
 
 CEGUI::Size const &
-sge::cegui::texture::getOriginalDataSize() const
+sge::cegui::detail::texture::getOriginalDataSize() const
 {
 	return 
 		size_;
 }
 
 CEGUI::Vector2 const &
-sge::cegui::texture::getTexelScaling() const
+sge::cegui::detail::texture::getTexelScaling() const
 {
 	return 
 		texel_scaling_;
 }
 
 void 
-sge::cegui::texture::resize(
+sge::cegui::detail::texture::resize(
 	CEGUI::Size const &_size)
 {
 	FCPPT_LOG_DEBUG(
@@ -140,7 +140,7 @@ sge::cegui::texture::resize(
 }
 
 void 
-sge::cegui::texture::loadFromFile(
+sge::cegui::detail::texture::loadFromFile(
 	CEGUI::String const &filename,
 	CEGUI::String const &resource_group)
 {
@@ -163,7 +163,7 @@ sge::cegui::texture::loadFromFile(
 }
 
 void 
-sge::cegui::texture::loadFromMemory(
+sge::cegui::detail::texture::loadFromMemory(
 	void const * const buffer,
 	CEGUI::Size const &buffer_size,
 	CEGUI::Texture::PixelFormat const pixel_format)
@@ -198,7 +198,7 @@ sge::cegui::texture::loadFromMemory(
 }
 
 void
-sge::cegui::texture::create_from_view(
+sge::cegui::detail::texture::create_from_view(
 	sge::image2d::view::const_object const &v)
 {
 	size_ = 
@@ -220,7 +220,7 @@ sge::cegui::texture::create_from_view(
 }
 
 void 
-sge::cegui::texture::saveToMemory(
+sge::cegui::detail::texture::saveToMemory(
 	void*)
 {
 	throw 
@@ -229,12 +229,12 @@ sge::cegui::texture::saveToMemory(
 }
 
 sge::renderer::texture::planar_ptr const
-sge::cegui::texture::impl()
+sge::cegui::detail::texture::impl()
 {
 	return texture_;
 }
 
-sge::cegui::texture::~texture()
+sge::cegui::detail::texture::~texture()
 {
 }
 

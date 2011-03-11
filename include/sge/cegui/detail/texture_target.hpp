@@ -1,16 +1,12 @@
-#ifndef SGE_CEGUI_TEXTURE_TARGET_HPP_INCLUDED
-#define SGE_CEGUI_TEXTURE_TARGET_HPP_INCLUDED
+#ifndef SGE_CEGUI_DETAIL_TEXTURE_TARGET_HPP_INCLUDED
+#define SGE_CEGUI_DETAIL_TEXTURE_TARGET_HPP_INCLUDED
 
 #include <sge/cegui/system_fwd.hpp>
-#include <sge/cegui/texture_fwd.hpp>
-#include <CEGUI/CEGUITexture.h>
+#include <sge/cegui/detail/texture_fwd.hpp>
 #include <CEGUI/CEGUITextureTarget.h>
 #include <CEGUI/CEGUISize.h>
-#include <CEGUI/CEGUIGeometryBuffer.h>
-#include <CEGUI/CEGUIRenderQueue.h>
 #include <CEGUI/CEGUIRect.h>
 #include <CEGUI/CEGUIVector.h>
-#include <CEGUI/CEGUISystem.h>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -18,9 +14,18 @@
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
+namespace CEGUI
+{
+class Texture;
+class GeometryBuffer;
+class RenderQueue;
+}
+
 namespace sge
 {
 namespace cegui
+{
+namespace detail
 {
 class texture_target
 :
@@ -88,6 +93,7 @@ private:
 	CEGUI::Rect area_;
 	sge::renderer::matrix4 temp_projection_;
 };
+}
 }
 }
 

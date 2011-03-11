@@ -1,4 +1,4 @@
-#include <sge/cegui/input.hpp>
+#include <sge/cegui/detail/input.hpp>
 #include <sge/cegui/unit.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/mouse/device.hpp>
@@ -152,7 +152,7 @@ keyboard_code_map()
 }
 }
 
-sge::cegui::input::input(
+sge::cegui::detail::input::input(
 	sge::input::keyboard::device &_keyboard,
 	sge::input::mouse::device &_mouse,
 	sge::charconv::system_ptr _charconv_system,
@@ -196,7 +196,7 @@ sge::cegui::input::input(
 }
 
 void
-sge::cegui::input::update(
+sge::cegui::detail::input::update(
 	sge::time::funit const delta)
 {
 	system_.injectTimePulse(
@@ -205,7 +205,7 @@ sge::cegui::input::update(
 }
 
 void
-sge::cegui::input::key_callback(
+sge::cegui::detail::input::key_callback(
 	sge::input::keyboard::key_event const &k)
 {
 	if (keyboard_code_map().find(k.key_code()) == keyboard_code_map().end())
@@ -228,7 +228,7 @@ sge::cegui::input::key_callback(
 }
 
 void
-sge::cegui::input::key_repeat_callback(
+sge::cegui::detail::input::key_repeat_callback(
 	sge::input::keyboard::key_repeat_event const &k)
 {
 	if (keyboard_code_map().find(k.key_code()) == keyboard_code_map().end())
@@ -245,7 +245,7 @@ sge::cegui::input::key_repeat_callback(
 }
 
 void
-sge::cegui::input::char_callback(
+sge::cegui::detail::input::char_callback(
 	sge::input::keyboard::char_event const &k)
 {
 	typedef 
@@ -271,7 +271,7 @@ sge::cegui::input::char_callback(
 }
 
 void
-sge::cegui::input::mouse_button_callback(
+sge::cegui::detail::input::mouse_button_callback(
 	sge::input::mouse::button_event const &e)
 {
 	typedef
@@ -304,7 +304,7 @@ sge::cegui::input::mouse_button_callback(
 }
 
 void
-sge::cegui::input::mouse_axis_callback(
+sge::cegui::detail::input::mouse_axis_callback(
 	sge::input::mouse::axis_event const &e)
 {
 	switch (e.axis())

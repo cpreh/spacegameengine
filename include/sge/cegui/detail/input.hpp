@@ -1,5 +1,5 @@
-#ifndef SGE_CEGUI_INCLUDE_SGEGUI_INPUT_HPP_INCLUDED
-#define SGE_CEGUI_INCLUDE_SGEGUI_INPUT_HPP_INCLUDED
+#ifndef SGE_CEGUI_DETAIL_INPUT_HPP_INCLUDED
+#define SGE_CEGUI_DETAIL_INPUT_HPP_INCLUDED
 
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
@@ -9,8 +9,6 @@
 #include <sge/input/mouse/button_event_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/charconv/system_ptr.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/cegui/symbol.hpp>
 #include <sge/time/funit.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
@@ -23,17 +21,19 @@ namespace sge
 {
 namespace cegui
 {
-class SGE_CLASS_SYMBOL input
+namespace detail
+{
+class input
 {
 public:
-	SGE_CEGUI_SYMBOL explicit
+	explicit
 	input(
 		sge::input::keyboard::device &,
 		sge::input::mouse::device &,
 		sge::charconv::system_ptr,
 		CEGUI::System &);
 
-	SGE_CEGUI_SYMBOL void
+	void
 	update(
 		sge::time::funit);
 private:
@@ -66,6 +66,7 @@ private:
 	mouse_axis_callback(
 		sge::input::mouse::axis_event const &);
 };
+}
 }
 }
 

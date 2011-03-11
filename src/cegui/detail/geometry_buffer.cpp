@@ -1,11 +1,12 @@
-#include "declare_local_logger.hpp"
-#include <sge/cegui/geometry_buffer.hpp>
+#include "../declare_local_logger.hpp"
+#include <CEGUI/CEGUIVertex.h>
+#include <sge/cegui/detail/geometry_buffer.hpp>
+#include <sge/cegui/detail/texture.hpp>
 #include <sge/cegui/vf/format.hpp>
 #include <sge/cegui/vf/vertex_view.hpp>
 #include <sge/cegui/vf/position.hpp>
 #include <sge/cegui/vf/texcoord.hpp>
 #include <sge/cegui/vf/color.hpp>
-#include <sge/cegui/texture.hpp>
 #include <sge/cegui/exception.hpp>
 #include <sge/cegui/structure_cast.hpp>
 #include <sge/renderer/device.hpp>
@@ -62,7 +63,7 @@
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("geometry_buffer"))
 
-sge::cegui::geometry_buffer::geometry_buffer(
+sge::cegui::detail::geometry_buffer::geometry_buffer(
 	sge::renderer::device_ptr const _renderer,
 	sge::renderer::vertex_declaration_ptr const _vertex_declaration)
 :
@@ -90,7 +91,7 @@ sge::cegui::geometry_buffer::geometry_buffer(
 }
 
 void 
-sge::cegui::geometry_buffer::draw() const
+sge::cegui::detail::geometry_buffer::draw() const
 {
 	sge::renderer::scoped_transform scoped_world(
 		renderer_,
@@ -193,7 +194,7 @@ sge::cegui::geometry_buffer::draw() const
 }
 
 void 
-sge::cegui::geometry_buffer::setTranslation(
+sge::cegui::detail::geometry_buffer::setTranslation(
 	CEGUI::Vector3 const &v)
 {
 	translation_ = 
@@ -207,7 +208,7 @@ sge::cegui::geometry_buffer::setTranslation(
 }
 
 void 
-sge::cegui::geometry_buffer::setRotation(
+sge::cegui::detail::geometry_buffer::setRotation(
 	CEGUI::Vector3 const &v)
 {
 	rotation_axis_ = 
@@ -221,7 +222,7 @@ sge::cegui::geometry_buffer::setRotation(
 }
 
 void 
-sge::cegui::geometry_buffer::setPivot(
+sge::cegui::detail::geometry_buffer::setPivot(
 	CEGUI::Vector3 const &v)
 {
 	rotation_pivot_ = 
@@ -235,7 +236,7 @@ sge::cegui::geometry_buffer::setPivot(
 }
 
 void 
-sge::cegui::geometry_buffer::setClippingRegion(
+sge::cegui::detail::geometry_buffer::setClippingRegion(
 	CEGUI::Rect const &r)
 {
 	FCPPT_LOG_DEBUG(
@@ -249,7 +250,7 @@ sge::cegui::geometry_buffer::setClippingRegion(
 }
 
 void 
-sge::cegui::geometry_buffer::appendVertex(
+sge::cegui::detail::geometry_buffer::appendVertex(
 	CEGUI::Vertex const &v)
 {
 	appendGeometry(
@@ -258,7 +259,7 @@ sge::cegui::geometry_buffer::appendVertex(
 }
 
 void 
-sge::cegui::geometry_buffer::appendGeometry(
+sge::cegui::detail::geometry_buffer::appendGeometry(
 	CEGUI::Vertex const * const vertices,
 	CEGUI::uint const vertex_count)
 {
@@ -325,7 +326,7 @@ sge::cegui::geometry_buffer::appendGeometry(
 }
 
 void 
-sge::cegui::geometry_buffer::setActiveTexture(
+sge::cegui::detail::geometry_buffer::setActiveTexture(
 	CEGUI::Texture * const tex)
 {
 	FCPPT_ASSERT(
@@ -336,7 +337,7 @@ sge::cegui::geometry_buffer::setActiveTexture(
 }
 
 void 
-sge::cegui::geometry_buffer::reset()
+sge::cegui::detail::geometry_buffer::reset()
 {
 	//std::cout << "geometry_buffer(" << this << ")::reset()\n";
 	batches_.clear();
@@ -345,19 +346,19 @@ sge::cegui::geometry_buffer::reset()
 }
 
 CEGUI::Texture* 
-sge::cegui::geometry_buffer::getActiveTexture() const
+sge::cegui::detail::geometry_buffer::getActiveTexture() const
 {
 	return active_texture_;
 }
 
 CEGUI::uint 
-sge::cegui::geometry_buffer::getVertexCount() const
+sge::cegui::detail::geometry_buffer::getVertexCount() const
 {
 	return total_vertex_count_;
 }
 
 CEGUI::uint 
-sge::cegui::geometry_buffer::getBatchCount() const
+sge::cegui::detail::geometry_buffer::getBatchCount() const
 {
 	return 
 		static_cast<CEGUI::uint>(
@@ -365,7 +366,7 @@ sge::cegui::geometry_buffer::getBatchCount() const
 }
 
 void 
-sge::cegui::geometry_buffer::setRenderEffect(
+sge::cegui::detail::geometry_buffer::setRenderEffect(
 	CEGUI::RenderEffect*)
 {
 	FCPPT_ASSERT_MESSAGE(
@@ -374,13 +375,13 @@ sge::cegui::geometry_buffer::setRenderEffect(
 }
 
 CEGUI::RenderEffect* 
-sge::cegui::geometry_buffer::getRenderEffect()
+sge::cegui::detail::geometry_buffer::getRenderEffect()
 {
 	return 0;
 }
 
 void 
-sge::cegui::geometry_buffer::setBlendMode(
+sge::cegui::detail::geometry_buffer::setBlendMode(
 	CEGUI::BlendMode const _blend_mode)
 {
 	blend_mode_ = 
@@ -388,11 +389,11 @@ sge::cegui::geometry_buffer::setBlendMode(
 }
 
 CEGUI::BlendMode 
-sge::cegui::geometry_buffer::getBlendMode() const
+sge::cegui::detail::geometry_buffer::getBlendMode() const
 {
 	return blend_mode_;
 }
 
-sge::cegui::geometry_buffer::~geometry_buffer()
+sge::cegui::detail::geometry_buffer::~geometry_buffer()
 {
 }

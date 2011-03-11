@@ -1,16 +1,14 @@
-#ifndef SGE_CEGUI_RENDERER_HPP_INCLUDED
-#define SGE_CEGUI_RENDERER_HPP_INCLUDED
+#ifndef SGE_CEGUI_DETAIL_RENDERER_HPP_INCLUDED
+#define SGE_CEGUI_DETAIL_RENDERER_HPP_INCLUDED
 
-#include <sge/cegui/default_target.hpp>
+#include <sge/cegui/detail/default_target.hpp>
+#include <sge/cegui/detail/geometry_buffer.hpp>
+#include <sge/cegui/detail/texture_target.hpp>
+#include <sge/cegui/detail/texture.hpp>
 #include <sge/cegui/system_fwd.hpp>
-#include <sge/cegui/geometry_buffer.hpp>
-#include <sge/cegui/texture_target.hpp>
-#include <sge/cegui/texture.hpp>
-#include <sge/cegui/symbol.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
-#include <sge/class_symbol.hpp>
 #include <CEGUI/CEGUIBase.h>
 #include <CEGUI/CEGUIRenderer.h>
 #include <CEGUI/CEGUIString.h>
@@ -26,86 +24,88 @@ namespace sge
 {
 namespace cegui
 {
-class SGE_CLASS_SYMBOL renderer
+namespace detail
+{
+class renderer
 :
 	public CEGUI::Renderer
 {
 FCPPT_NONCOPYABLE(
 	renderer);
 public:
-	SGE_CEGUI_SYMBOL explicit
+	explicit
 	renderer(
 		system &,
 		sge::renderer::device_ptr);
 
-	SGE_CEGUI_SYMBOL CEGUI::RenderingRoot &
+	CEGUI::RenderingRoot &
 	getDefaultRenderingRoot();
 
-	SGE_CEGUI_SYMBOL CEGUI::GeometryBuffer &
+	CEGUI::GeometryBuffer &
 	createGeometryBuffer();
 
-	SGE_CEGUI_SYMBOL void 
+	void 
 	destroyGeometryBuffer(
 		CEGUI::GeometryBuffer const &);
 
-	SGE_CEGUI_SYMBOL void 
+	void 
 	destroyAllGeometryBuffers();
 
-	SGE_CEGUI_SYMBOL CEGUI::TextureTarget * 
+	CEGUI::TextureTarget * 
 	createTextureTarget();
 
-	SGE_CEGUI_SYMBOL void 
+	void 
 	destroyTextureTarget(
 		CEGUI::TextureTarget *);
 
-	SGE_CEGUI_SYMBOL void 
+	void 
 	destroyAllTextureTargets();
 
-	SGE_CEGUI_SYMBOL CEGUI::Texture & 
+	CEGUI::Texture & 
 	createTexture();
 
-	SGE_CEGUI_SYMBOL CEGUI::Texture &
+	CEGUI::Texture &
 	createTexture(
 		CEGUI::String const &filename,
 		CEGUI::String const &resourceGroup);
 
-	SGE_CEGUI_SYMBOL CEGUI::Texture &
+	CEGUI::Texture &
 	createTexture(
 		CEGUI::Size const &);
 
-	SGE_CEGUI_SYMBOL void 
+	void 
 	destroyTexture(
 		CEGUI::Texture &);
 
-	SGE_CEGUI_SYMBOL void 
+	void 
 	destroyAllTextures();
 
-	SGE_CEGUI_SYMBOL void 
+	void 
 	beginRendering();
 
-	SGE_CEGUI_SYMBOL void 
+	void 
 	endRendering();
 
-	SGE_CEGUI_SYMBOL void 
+	void 
 	setDisplaySize(
 		CEGUI::Size const &);
 
-	SGE_CEGUI_SYMBOL CEGUI::Size const &
+	CEGUI::Size const &
 	getDisplaySize() const;
 
-	SGE_CEGUI_SYMBOL CEGUI::Vector2 const &
+	CEGUI::Vector2 const &
 	getDisplayDPI() const;
 
-	SGE_CEGUI_SYMBOL CEGUI::uint 
+	CEGUI::uint 
 	getMaxTextureSize() const;
 
-	SGE_CEGUI_SYMBOL CEGUI::String const & 
+	CEGUI::String const & 
 	getIdentifierString() const;
 
-	SGE_CEGUI_SYMBOL sge::renderer::device_ptr const
+	sge::renderer::device_ptr const
 	impl() const;
 
- 	SGE_CEGUI_SYMBOL ~renderer();
+ 	~renderer();
 private:
 	typedef
 	boost::ptr_vector<geometry_buffer>
@@ -138,6 +138,7 @@ private:
 
 	transform_array transforms_;
 };
+}
 }
 }
 
