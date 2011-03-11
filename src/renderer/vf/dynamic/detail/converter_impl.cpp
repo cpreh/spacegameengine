@@ -168,6 +168,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::~converter_impl()
 void
 sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 	renderer::raw_pointer const _data,
+	renderer::size_type const _pos,
 	detail::lock_interval_set const &_intervals,
 	detail::lock_interval const &_current_lock
 )
@@ -178,6 +179,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 	)
 		this->do_convert(
 			_data,
+			_pos,
 			interval,
 			false
 		);
@@ -186,11 +188,13 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 void
 sge::renderer::vf::dynamic::detail::converter_impl::convert_unlock(
 	renderer::raw_pointer const _data,
+	renderer::size_type const _pos,
 	detail::lock_interval const &_current_lock
 )
 {
 	this->do_convert(
 		_data,
+		_pos,
 		_current_lock,
 		true
 	);
@@ -199,6 +203,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_unlock(
 void
 sge::renderer::vf::dynamic::detail::converter_impl::do_convert(
 	renderer::raw_pointer const _data,
+	renderer::size_type const _pos,
 	detail::lock_interval const &_interval,
 	bool const _unlock
 )
@@ -210,6 +215,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::do_convert(
 		ref.convert(
 			_interval,
 			_data,
+			_pos,
 			_unlock
 		);
 }

@@ -59,6 +59,7 @@ sge::renderer::vf::dynamic::converter::lock(
 	)
 		converter_->convert_lock(
 			_locked_part.data(),
+			_locked_part.pos(),
 			written_intervals_,
 			detail::locked_part_interval(
 				_locked_part
@@ -99,6 +100,7 @@ sge::renderer::vf::dynamic::converter::unlock()
 			
 		converter_->convert_unlock(
 			locked_part_->data(),
+			locked_part_->pos(),
 			current_unlock
 		);
 

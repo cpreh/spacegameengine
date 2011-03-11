@@ -24,8 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
+#include <sge/image/color/format_stride.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/optional_impl.hpp>
 
 sge::renderer::vf::dynamic::detail::element_converter::element_converter(
@@ -40,6 +42,15 @@ sge::renderer::vf::dynamic::detail::element_converter::element_converter(
 	stride_(_stride),
 	offset_(_offset)
 {
+	FCPPT_ASSERT(
+		sge::image::color::format_stride(
+			original_color_
+		)
+		==
+		sge::image::color::format_stride(
+			backend_color_
+		)
+	);
 }
 
 sge::renderer::vf::dynamic::detail::element_converter::~element_converter()
@@ -50,6 +61,7 @@ void
 sge::renderer::vf::dynamic::detail::element_converter::convert(
 	detail::lock_interval const &_interval,
 	sge::renderer::raw_pointer const _data,
+	renderer::size_type const _pos,
 	bool const _unlock
 )
 {
@@ -58,9 +70,15 @@ sge::renderer::vf::dynamic::detail::element_converter::convert(
 	)
 		return;
 
+	// pos refers to the beginning of the lock
+	FCPPT_ASSERT(
+		_interval.lower()
+		>= _pos
+	);
+
 	sge::renderer::raw_pointer const begin(
 		_data
-		+ _interval.lower() * stride_
+		+ (_interval.lower() - _pos) * stride_
 		+ offset_
 	);
 
@@ -74,6 +92,10 @@ sge::renderer::vf::dynamic::detail::element_converter::convert(
 			sge::image2d::pitch::value_type
 		>(
 			stride_
+			-
+			sge::image::color::format_stride(
+				original_color_
+			)
 		)
 	);
 

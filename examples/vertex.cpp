@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/color/bgra8_format.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -57,8 +57,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <exception>
 #include <cstdlib>
-
-#include <sge/image/color/bgra8_format.hpp>
 
 int main()
 try
@@ -102,10 +100,10 @@ try
 		3
 	> pos3_type;
 
-	typedef sge::image::color::bgra8_format rgba8_format;
+	typedef sge::image::color::bgra8_format bgra8_format;
 
 	typedef sge::renderer::vf::color<
-		rgba8_format
+		bgra8_format
 	> color_type;
 
 	typedef sge::renderer::vf::part<
@@ -166,7 +164,7 @@ try
 
 		(*vb_it++).set<color_type>(
 			sge::image::color::any::convert<
-				rgba8_format
+				bgra8_format
 			>(
 				sge::image::colors::cyan()
 			)
@@ -178,7 +176,7 @@ try
 
 		(*vb_it++).set<color_type>(
 			sge::image::color::any::convert<
-				rgba8_format
+				bgra8_format
 			>(
 				sge::image::colors::yellow()
 			)
@@ -190,7 +188,7 @@ try
 
 		(*vb_it++).set<color_type>(
 			sge::image::color::any::convert<
-				rgba8_format
+				bgra8_format
 			>(
 				sge::image::colors::magenta()
 			)

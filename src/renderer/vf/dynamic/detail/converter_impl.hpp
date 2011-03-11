@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/detail/lock_interval_set.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -58,6 +59,7 @@ public:
 	void
 	convert_lock(
 		renderer::raw_pointer data,
+		renderer::size_type pos,
 		detail::lock_interval_set const &,
 		detail::lock_interval const &
 	);
@@ -65,12 +67,14 @@ public:
 	void
 	convert_unlock(
 		renderer::raw_pointer data,
+		renderer::size_type pos,
 		detail::lock_interval const &
 	);
 private:
 	void
 	do_convert(
 		renderer::raw_pointer data,
+		renderer::size_type pos,
 		detail::lock_interval const &,
 		bool unlock
 	);

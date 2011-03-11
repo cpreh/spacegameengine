@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "lock_interval.hpp"
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/image/color/format.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -58,6 +59,7 @@ public:
 	convert(
 		detail::lock_interval const &,
 		sge::renderer::raw_pointer data,
+		sge::renderer::size_type pos,
 		bool unlock
 	);
 private:
