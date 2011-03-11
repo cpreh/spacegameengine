@@ -3,6 +3,7 @@
 
 #include <CEGUI/CEGUIString.h>
 #include <sge/cegui/symbol.hpp>
+#include <sge/cegui/load_context_fwd.hpp>
 #include <sge/cegui/detail/renderer.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/detail/cegui_logger.hpp>
@@ -33,7 +34,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_CEGUI_SYMBOL explicit
 	system(
-		fcppt::filesystem::path const &,
+		load_context const &,
 		sge::renderer::device_ptr,
 		sge::image2d::multi_loader &,
 		sge::charconv::system_ptr,

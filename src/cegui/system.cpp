@@ -1,5 +1,7 @@
 #include <sge/cegui/system.hpp>
+#include <sge/cegui/load_context.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
+#include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/structure_cast.hpp>
 #include <sge/time/funit.hpp>
 #include <sge/systems/instance.hpp>
@@ -34,7 +36,7 @@
 #include <set>
 
 sge::cegui::system::system(
-	fcppt::filesystem::path const &scheme_file,
+	load_context const &_load_context,
 	sge::renderer::device_ptr const _renderer,
 	sge::image2d::multi_loader &_image_loader,
 	sge::charconv::system_ptr const _charconv_system,
@@ -45,7 +47,7 @@ sge::cegui::system::system(
 		_charconv_system),
 	prefix_(
 		fcppt::filesystem::remove_filename(
-			scheme_file)),
+			_load_context.scheme_file())),
 	cegui_logger_(),
 	renderer_(
 		*this,
@@ -53,7 +55,6 @@ sge::cegui::system::system(
 	image_codec_(
 		_image_loader),
 	resource_provider_(
-		prefix_,
 		_charconv_system),
 	system_(
 		renderer_,
@@ -68,10 +69,46 @@ sge::cegui::system::system(
 	old_viewport_(
 		sge::renderer::pixel_rect::null())
 {
+	CEGUI::WidgetLookManager::setDefaultResourceGroup(
+		to_cegui_string(
+			fcppt::filesystem::path_to_string(
+				_load_context.looknfeel_directory()
+				?
+					*_load_context.looknfeel_directory()
+				:
+					prefix_),
+			_charconv_system));
+
+	CEGUI::Font::setDefaultResourceGroup(
+		to_cegui_string(
+			fcppt::filesystem::path_to_string(
+				_load_context.font_directory()
+				?
+					*_load_context.font_directory()
+				:
+					prefix_),
+			_charconv_system));
+
+	CEGUI::Imageset::setDefaultResourceGroup(
+		to_cegui_string(
+			fcppt::filesystem::path_to_string(
+				_load_context.imageset_directory()
+				?
+					*_load_context.imageset_directory()
+				:
+					prefix_),
+			_charconv_system));
+
+	CEGUI::Scheme::setDefaultResourceGroup(
+		to_cegui_string(
+			fcppt::filesystem::path_to_string(
+				prefix_),
+			_charconv_system));
+
 	CEGUI::SchemeManager::getSingleton().create(
 		to_cegui_string(
 			fcppt::filesystem::path_to_string(
-				scheme_file.filename()),
+				_load_context.scheme_file().filename()),
 			_charconv_system));
 
 	switch(_cursor_visibility)
@@ -152,11 +189,8 @@ sge::cegui::system::renderer() const
 fcppt::filesystem::path const
 sge::cegui::system::to_absolute_path(
 	CEGUI::String const &filename,
-	CEGUI::String const &resource_group)
+	CEGUI::String const &)
 {
-	return 
-		resource_provider_.to_absolute_path(
-			filename,
-			resource_group);
+	return prefix_ / from_cegui_string(filename,charconv_system_);
 }
 

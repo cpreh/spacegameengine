@@ -27,6 +27,8 @@ SET(
 	include/sge/cegui/detail/texture_target.hpp
 	include/sge/cegui/exception.hpp
 	include/sge/cegui/from_cegui_string.hpp
+	include/sge/cegui/load_context.hpp
+	include/sge/cegui/load_context_fwd.hpp
 	include/sge/cegui/logger.hpp
 	include/sge/cegui/structure_cast.hpp
 	include/sge/cegui/symbol.hpp
@@ -65,6 +67,7 @@ SET(
 	src/cegui/keyboard_code_map.hpp
 	src/cegui/keyboard_code_translation.cpp
 	src/cegui/keyboard_code_translation.hpp
+	src/cegui/load_context.cpp
 	src/cegui/logger.cpp
 	src/cegui/syringe.cpp
 	src/cegui/system.cpp

@@ -1,5 +1,6 @@
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
+#include <sge/cegui/load_context.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/default_cursor.hpp>
@@ -118,7 +119,10 @@ try
 					running))));
 
 	sge::cegui::system gui_sys(
-		sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("TaharezLook.scheme"),
+		sge::cegui::load_context(
+			sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("TaharezLook.scheme"))
+			.font_directory(
+				sge::config::media_path()/FCPPT_TEXT("fonts")),
 		sys.renderer(),
 		sys.image_loader(),
 		sys.charconv_system(),

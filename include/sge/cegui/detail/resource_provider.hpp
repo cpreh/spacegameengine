@@ -21,7 +21,6 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	resource_provider(
-		fcppt::filesystem::path const &,
 		sge::charconv::system_ptr);
 
 	void 
@@ -40,14 +39,8 @@ public:
 		CEGUI::String const &file_pattern,
 		CEGUI::String const &resource_group);
 
-	fcppt::filesystem::path const
-	to_absolute_path(
-		CEGUI::String const &filename, 
-		CEGUI::String const &resourceGroup);
-
 	~resource_provider();
 private:
-	fcppt::filesystem::path const prefix_;
 	sge::charconv::system_ptr charconv_system_;
 };
 }

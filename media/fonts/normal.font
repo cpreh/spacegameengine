@@ -1,7 +1,7 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
 <Font 
 	Name="normal" 
-	Filename="DejaVuSans.ttf" 
+	Filename="default.ttf" 
 	Type="FreeType" 
 	Size="8" 
 	NativeHorzRes="800" 
