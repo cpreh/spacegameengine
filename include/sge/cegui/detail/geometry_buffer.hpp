@@ -21,7 +21,7 @@ namespace CEGUI
 {
 class RenderEffect;
 class Rect;
-class Vertex;
+struct Vertex;
 class Vector3;
 class Texture;
 }
