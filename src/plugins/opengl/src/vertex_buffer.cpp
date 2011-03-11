@@ -88,22 +88,15 @@ sge::opengl::vertex_buffer::lock(
 	size_type const _range
 )
 {
-	// FIXME: if vertices are read, we have to convert
-	// the colors as well!
-	buffer_.lock(
-		opengl::convert_lock_method(
-			_flags
-		),
-		_offset,
-		_range
-	);
-
 	return
-		view_type(
-			buffer_.data(),
-			buffer_.lock_size(),
-			this->format_part(),
-			part_index_
+		this->do_lock<
+			view_type
+		>(
+			opengl::convert_lock_method(
+				_flags
+			),
+			_offset,
+			_range
 		);
 }
 
@@ -113,14 +106,37 @@ sge::opengl::vertex_buffer::lock(
 	size_type const _range
 ) const
 {
+	return
+		this->do_lock<
+			const_view_type
+		>(
+			opengl::lock_method::readonly,
+			_offset,
+			_range
+		);
+}
+
+template<
+	typename View
+>
+View const
+sge::opengl::vertex_buffer::do_lock(
+	opengl::lock_method::type const _method,
+	size_type const _offset,
+	size_type const _range
+) const
+{
 	buffer_.lock(
-		lock_method::readonly,
+		_method,
 		_offset,
 		_range
 	);
 
+	// FIXME: if vertices are read, we have to convert
+	// the colors as well!
+	
 	return
-		const_view_type(
+		View(
 			buffer_.data(),
 			buffer_.lock_size(),
 			this->format_part(),

@@ -76,6 +76,16 @@ private:
 		size_type range
 	) const;
 
+	template<
+		typename View
+	>
+	View const
+	do_lock(
+		opengl::lock_method::type,
+		size_type offset,
+		size_type range
+	) const;
+
 	void
 	unlock() const;
 
