@@ -35,6 +35,11 @@ do_set(
 	D3DMATRIX const &
 );
 
+void
+flip_sign(
+	float &
+);
+
 }
 
 void
@@ -44,7 +49,7 @@ sge::d3d9::devicefuncs::set_transform(
 	sge::renderer::matrix4 const &_matrix
 )
 {
-	D3DMATRIX const d3d_matrix(
+	D3DMATRIX d3d_matrix(
 		convert::matrix(
 			_matrix
 		)
@@ -56,10 +61,28 @@ sge::d3d9::devicefuncs::set_transform(
 		)
 	);
 
-	if(
-		d3d_mode == D3DTS_TEXTURE0
+	switch(
+		d3d_mode
 	)
 	{
+	case D3DTS_VIEW:
+		flip_sign(
+			d3d_matrix._31
+		);
+
+		flip_sign(
+			d3d_matrix._32
+		);
+
+		flip_sign(
+			d3d_matrix._33
+		);
+
+		flip_sign(
+			d3d_matrix._34
+		);
+		break;
+	case D3DTS_TEXTURE0:
 		// TODO: make a macro in this for fcppt!
 		for(
 			unsigned index = d3d_mode;
@@ -75,13 +98,15 @@ sge::d3d9::devicefuncs::set_transform(
 				),
 				d3d_matrix
 			);
+
+		return;
 	}
-	else
-		do_set(
-			_device,
-			d3d_mode,
-			d3d_matrix
-		);
+	
+	do_set(
+		_device,
+		d3d_mode,
+		d3d_matrix
+	);
 }
 
 namespace
@@ -104,6 +129,14 @@ do_set(
 		throw sge::renderer::exception(
 			FCPPT_TEXT("SetTransform() failed!")
 		);
+}
+
+void
+flip_sign(
+	float &_value
+)
+{
+	_value *= -1.f;
 }
 
 }

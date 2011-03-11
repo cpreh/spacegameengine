@@ -119,6 +119,8 @@ void
 sge::d3d9::device::begin_rendering()
 {
 	if(
+		clear_state_.flags() != 0
+		&&
 		device_->Clear(
 			0,
 			0,
