@@ -9,8 +9,6 @@ INCLUDE_DIRECTORIES(
 
 SET(
 	SGE_CEGUI_FILES
-	include/sge/cegui/append_multicolumn_row.hpp
-	include/sge/cegui/column_sequence.hpp
 	include/sge/cegui/detail/cegui_logger.hpp
 	include/sge/cegui/detail/default_target.hpp
 	include/sge/cegui/detail/geometry_buffer.hpp
@@ -33,6 +31,9 @@ SET(
 	include/sge/cegui/system.hpp
 	include/sge/cegui/system_fwd.hpp
 	include/sge/cegui/to_cegui_string.hpp
+	include/sge/cegui/toolbox/append_row.hpp
+	include/sge/cegui/toolbox/row.hpp
+	include/sge/cegui/toolbox/scoped_layout.hpp
 	include/sge/cegui/unit.hpp
 	include/sge/cegui/vf/color.hpp
 	include/sge/cegui/vf/format.hpp
@@ -40,7 +41,6 @@ SET(
 	include/sge/cegui/vf/position.hpp
 	include/sge/cegui/vf/texcoord.hpp
 	include/sge/cegui/vf/vertex_view.hpp
-	src/cegui/append_multicolumn_row.cpp
 	src/cegui/declare_local_logger.hpp
 	src/cegui/detail/cegui_logger.cpp
 	src/cegui/detail/default_target.cpp
@@ -57,6 +57,8 @@ SET(
 	src/cegui/logger.cpp
 	src/cegui/system.cpp
 	src/cegui/to_cegui_string.cpp
+	src/cegui/toolbox/append_row.cpp
+	src/cegui/toolbox/scoped_layout.cpp
 )
 
 ADD_SGE_BASE_LIBRARY(

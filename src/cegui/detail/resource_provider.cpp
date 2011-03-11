@@ -39,17 +39,15 @@ sge::cegui::detail::resource_provider::loadRawDataContainer(
 		local_log,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("loadRawDataContainer(")
-			<< fcppt::from_std_string(filename.c_str())
+			<< from_cegui_string(filename.c_str(),charconv_system_)
 			<< FCPPT_TEXT(", ")
-			<< fcppt::from_std_string(resourceGroup.c_str())
+			<< from_cegui_string(resourceGroup.c_str(),charconv_system_)
 			<< FCPPT_TEXT(")"));
 
-//	std::cerr << "from_cegui_string: " << filename.c_str() << " (length " << filename.length() << ")\n";
 	fcppt::string const converted = 
 		from_cegui_string(
 			filename,
 			charconv_system_);
-//	std::cerr << "from_cegui_string end\n";
 
 	// The problem here is that the resource provider is used for
 	// "internally linked files" such as the imagesets as well as

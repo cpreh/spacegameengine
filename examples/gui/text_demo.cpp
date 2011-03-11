@@ -1,6 +1,7 @@
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/logger.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
+#include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -128,12 +129,9 @@ try
 			static_cast<sge::time::unit>(
 				1)));
 
-	CEGUI::System::getSingleton().setGUISheet( 
-		CEGUI::WindowManager::getSingleton().loadWindowLayout( 
-			sge::cegui::to_cegui_string(
-				fcppt::filesystem::path_to_string(
-					sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("text_demo.layout")),
-				sys.charconv_system())));
+	sge::cegui::toolbox::scoped_layout scoped_layout(
+		sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("text_demo.layout"),
+		sys.charconv_system());
 
 	while (running)
 	{
