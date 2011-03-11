@@ -36,7 +36,6 @@ public:
 	SGE_CEGUI_SYMBOL explicit
 	system(
 		fcppt::filesystem::path const &,
-		fcppt::string const &,
 		sge::renderer::device_ptr,
 		sge::image2d::multi_loader &,
 		sge::charconv::system_ptr,
@@ -44,26 +43,24 @@ public:
 		sge::input::keyboard::device &,
 		sge::input::mouse::device &);
 
+	// Sends cegui a time pulse to calculate double clicks, tooltip
+	// durations and so on
 	SGE_CEGUI_SYMBOL void
 	update(
 		sge::time::duration const &);
 
-	SGE_CEGUI_SYMBOL sge::image2d::multi_loader &
-	image_loader() const;
-
-	SGE_CEGUI_SYMBOL sge::renderer::device_ptr const
-	renderer() const;
-
-	SGE_CEGUI_SYMBOL fcppt::filesystem::path const
-	to_absolute_path(
-		CEGUI::String const &,
-		CEGUI::String const &);
-
 	SGE_CEGUI_SYMBOL void
 	render();
 
-	SGE_CEGUI_SYMBOL ~system();
+	SGE_CEGUI_SYMBOL 
+	~system();
 private:
+	// To keep the user interface clean, we permit access to the image
+	// loader and the renderer only to friend classes (see the accessor
+	// functions below)
+	friend class detail::texture;
+	friend class detail::texture_target;
+
 	fcppt::filesystem::path prefix_;
 	detail::cegui_logger cegui_logger_;
 	detail::renderer renderer_;
@@ -79,6 +76,17 @@ private:
 	void
 	viewport_change(
 		sge::renderer::device_ptr);
+
+	SGE_CEGUI_SYMBOL sge::image2d::multi_loader &
+	image_loader() const;
+
+	SGE_CEGUI_SYMBOL sge::renderer::device_ptr const
+	renderer() const;
+
+	SGE_CEGUI_SYMBOL fcppt::filesystem::path const
+	to_absolute_path(
+		CEGUI::String const &,
+		CEGUI::String const &);
 };
 }
 }

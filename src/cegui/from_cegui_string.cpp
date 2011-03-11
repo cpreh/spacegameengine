@@ -5,6 +5,7 @@
 #include <sge/charconv/string_type.hpp>
 #include <fcppt/from_std_wstring.hpp>
 #include <boost/static_assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <iostream>
 
 fcppt::string const

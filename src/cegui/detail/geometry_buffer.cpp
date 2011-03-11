@@ -128,8 +128,10 @@ sge::cegui::detail::geometry_buffer::draw() const
 		fcppt::math::matrix::translation(
 			-rotation_pivot_));
 
-	sge::renderer::state::source_blend_func::type sbf;
-	sge::renderer::state::dest_blend_func::type dbf;
+	sge::renderer::state::source_blend_func::type sbf = 
+		sge::renderer::state::source_blend_func::src_alpha;
+	sge::renderer::state::dest_blend_func::type dbf = 
+		sge::renderer::state::dest_blend_func::inv_src_alpha;
 
 	switch(
 		blend_mode_)

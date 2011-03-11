@@ -30,11 +30,11 @@
 #include <fcppt/function/object.hpp>
 #include <boost/foreach.hpp>
 #include <boost/bind.hpp>
+#include <iostream>
 #include <set>
 
 sge::cegui::system::system(
 	fcppt::filesystem::path const &scheme_file,
-	fcppt::string const &scheme_name,
 	sge::renderer::device_ptr const _renderer,
 	sge::image2d::multi_loader &_image_loader,
 	sge::charconv::system_ptr const _charconv_system,
@@ -73,18 +73,23 @@ sge::cegui::system::system(
 		sge::renderer::pixel_rect::null())
 {
 	CEGUI::SchemeManager::getSingleton().create(
-		fcppt::to_std_string(
+		to_cegui_string(
 			fcppt::filesystem::path_to_string(
-				scheme_file.filename())));
+				scheme_file.filename()),
+			_charconv_system));
+#if 0
+	CEGUI::SchemeManager::getSingleton().create(
+		fcppt::filesystem::path_to_string(
+			scheme_file.filename()).c_str()/*,
+		_charconv_system)*/);
+#endif
 
 	CEGUI::System::getSingleton().setDefaultMouseCursor(
-		scheme_name,
+		CEGUI::ImagesetManager::getSingleton().getIterator().getCurrentValue()->getName(),
 		"MouseArrow");
 
-	/*
 	viewport_change(
 		sge::renderer::device_ptr());
-	*/
 }
 
 void
@@ -96,29 +101,6 @@ sge::cegui::system::update(
 			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
 			d).count())
 			/static_cast<sge::time::funit>(1000));
-}
-
-sge::image2d::multi_loader &
-sge::cegui::system::image_loader() const
-{
-	return image_codec_.loader();
-}
-
-sge::renderer::device_ptr const
-sge::cegui::system::renderer() const
-{
-	return renderer_.impl();
-}
-
-fcppt::filesystem::path const
-sge::cegui::system::to_absolute_path(
-	CEGUI::String const &filename,
-	CEGUI::String const &resource_group)
-{
-	return 
-		resource_provider_.to_absolute_path(
-			filename,
-			resource_group);
 }
 
 void
@@ -152,3 +134,27 @@ sge::cegui::system::viewport_change(
 		&new_area_cegui);
 	old_viewport_ = new_area_fcppt;
 }
+
+sge::image2d::multi_loader &
+sge::cegui::system::image_loader() const
+{
+	return image_codec_.loader();
+}
+
+sge::renderer::device_ptr const
+sge::cegui::system::renderer() const
+{
+	return renderer_.impl();
+}
+
+fcppt::filesystem::path const
+sge::cegui::system::to_absolute_path(
+	CEGUI::String const &filename,
+	CEGUI::String const &resource_group)
+{
+	return 
+		resource_provider_.to_absolute_path(
+			filename,
+			resource_group);
+}
+

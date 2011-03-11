@@ -116,7 +116,6 @@ try
 
 	sge::cegui::system guisys(
 		sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("TaharezLook.scheme"),
-		FCPPT_TEXT("TaharezLook"),
 		sys.renderer(),
 		sys.image_loader(),
 		sys.charconv_system(),

@@ -44,7 +44,8 @@ sge::cegui::detail::default_target::draw(
 }
 
 void 
-sge::cegui::detail::default_target::draw(CEGUI::RenderQueue const &queue)
+sge::cegui::detail::default_target::draw(
+	CEGUI::RenderQueue const &queue)
 {
 	queue.draw();
 }
