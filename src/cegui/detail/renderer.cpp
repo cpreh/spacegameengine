@@ -1,29 +1,29 @@
-#include "declare_local_logger.hpp"
-#include <sge/cegui/renderer.hpp>
-#include <sge/cegui/from_cegui_string.hpp>
-#include <sge/cegui/exception.hpp>
-#include <sge/cegui/geometry_buffer.hpp>
-#include <sge/cegui/texture_target.hpp>
-#include <sge/cegui/structure_cast.hpp>
-#include <sge/cegui/texture.hpp>
-#include <sge/cegui/vf/format.hpp>
+#include "../declare_local_logger.hpp"
 #include <CEGUI/CEGUISystem.h>
-#include <sge/systems/instance.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/cegui/detail/geometry_buffer.hpp>
+#include <sge/cegui/detail/renderer.hpp>
+#include <sge/cegui/detail/texture.hpp>
+#include <sge/cegui/detail/texture_target.hpp>
+#include <sge/cegui/exception.hpp>
+#include <sge/cegui/from_cegui_string.hpp>
+#include <sge/cegui/structure_cast.hpp>
+#include <sge/cegui/vf/format.hpp>
 #include <sge/renderer/caps.hpp>
-#include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/state/draw_mode.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/stencil_func.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <sge/systems/instance.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -41,7 +41,7 @@
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("renderer"))
 
-sge::cegui::renderer::renderer(
+sge::cegui::detail::renderer::renderer(
 	system &_system,
 	sge::renderer::device_ptr const _renderer)
 :
@@ -78,13 +78,13 @@ sge::cegui::renderer::renderer(
 }
 
 CEGUI::RenderingRoot &
-sge::cegui::renderer::getDefaultRenderingRoot()
+sge::cegui::detail::renderer::getDefaultRenderingRoot()
 {
 	return default_root_;
 }
 
 CEGUI::GeometryBuffer &
-sge::cegui::renderer::createGeometryBuffer()
+sge::cegui::detail::renderer::createGeometryBuffer()
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -97,7 +97,7 @@ sge::cegui::renderer::createGeometryBuffer()
 }
 
 void 
-sge::cegui::renderer::destroyGeometryBuffer(
+sge::cegui::detail::renderer::destroyGeometryBuffer(
 	CEGUI::GeometryBuffer const &buffer)
 {
 	FCPPT_LOG_DEBUG(
@@ -112,7 +112,7 @@ sge::cegui::renderer::destroyGeometryBuffer(
 }
 
 void 
-sge::cegui::renderer::destroyAllGeometryBuffers()
+sge::cegui::detail::renderer::destroyAllGeometryBuffers()
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -121,7 +121,7 @@ sge::cegui::renderer::destroyAllGeometryBuffers()
 }
 
 CEGUI::TextureTarget * 
-sge::cegui::renderer::createTextureTarget()
+sge::cegui::detail::renderer::createTextureTarget()
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -133,7 +133,7 @@ sge::cegui::renderer::createTextureTarget()
 }
 
 void 
-sge::cegui::renderer::destroyTextureTarget(
+sge::cegui::detail::renderer::destroyTextureTarget(
 	CEGUI::TextureTarget *texture)
 {
 	FCPPT_LOG_DEBUG(
@@ -150,7 +150,7 @@ sge::cegui::renderer::destroyTextureTarget(
 }
 
 void 
-sge::cegui::renderer::destroyAllTextureTargets()
+sge::cegui::detail::renderer::destroyAllTextureTargets()
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -159,7 +159,7 @@ sge::cegui::renderer::destroyAllTextureTargets()
 }
 
 CEGUI::Texture & 
-sge::cegui::renderer::createTexture()
+sge::cegui::detail::renderer::createTexture()
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -172,7 +172,7 @@ sge::cegui::renderer::createTexture()
 }
 
 CEGUI::Texture &
-sge::cegui::renderer::createTexture(
+sge::cegui::detail::renderer::createTexture(
 	CEGUI::String const &filename,
 	CEGUI::String const &resource_group)
 {
@@ -195,7 +195,7 @@ sge::cegui::renderer::createTexture(
 }
 
 CEGUI::Texture &
-sge::cegui::renderer::createTexture(
+sge::cegui::detail::renderer::createTexture(
 	CEGUI::Size const &s)
 {
 	FCPPT_LOG_DEBUG(
@@ -212,7 +212,7 @@ sge::cegui::renderer::createTexture(
 }
 
 void 
-sge::cegui::renderer::destroyTexture(
+sge::cegui::detail::renderer::destroyTexture(
 	CEGUI::Texture &_texture)
 {
 	FCPPT_LOG_DEBUG(
@@ -228,7 +228,7 @@ sge::cegui::renderer::destroyTexture(
 }
 
 void 
-sge::cegui::renderer::destroyAllTextures()
+sge::cegui::detail::renderer::destroyAllTextures()
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -237,7 +237,7 @@ sge::cegui::renderer::destroyAllTextures()
 }
 
 void 
-sge::cegui::renderer::beginRendering()
+sge::cegui::detail::renderer::beginRendering()
 {
 	for(transform_array::size_type i = 0; i < transforms_.size(); ++i)
 		transforms_[i] = 
@@ -273,7 +273,7 @@ sge::cegui::renderer::beginRendering()
 }
 
 void 
-sge::cegui::renderer::endRendering()
+sge::cegui::detail::renderer::endRendering()
 {
 	renderer_->pop_state();
 	for(transform_array::size_type i = 0; i < transforms_.size(); ++i)
@@ -284,7 +284,7 @@ sge::cegui::renderer::endRendering()
 }
 
 void 
-sge::cegui::renderer::setDisplaySize(
+sge::cegui::detail::renderer::setDisplaySize(
 	CEGUI::Size const &_display_size)
 {
 	FCPPT_LOG_DEBUG(
@@ -303,21 +303,21 @@ sge::cegui::renderer::setDisplaySize(
 }
 
 CEGUI::Size const &
-sge::cegui::renderer::getDisplaySize() const
+sge::cegui::detail::renderer::getDisplaySize() const
 {
 	return 
 		display_size_;
 }
 
 CEGUI::Vector2 const &
-sge::cegui::renderer::getDisplayDPI() const
+sge::cegui::detail::renderer::getDisplayDPI() const
 {
 	return 
 		display_dpi_;
 }
 
 CEGUI::uint 
-sge::cegui::renderer::getMaxTextureSize() const
+sge::cegui::detail::renderer::getMaxTextureSize() const
 {
 	return 
 		static_cast<CEGUI::uint>(
@@ -327,17 +327,17 @@ sge::cegui::renderer::getMaxTextureSize() const
 }
 
 CEGUI::String const & 
-sge::cegui::renderer::getIdentifierString() const
+sge::cegui::detail::renderer::getIdentifierString() const
 {
 	return identifier_;
 }
 
 sge::renderer::device_ptr const
-sge::cegui::renderer::impl() const
+sge::cegui::detail::renderer::impl() const
 {
 	return renderer_;
 }
 
-sge::cegui::renderer::~renderer()
+sge::cegui::detail::renderer::~renderer()
 {
 }

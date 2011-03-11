@@ -1,5 +1,5 @@
-#include <sge/cegui/image_codec.hpp>
-#include <sge/cegui/texture.hpp>
+#include <sge/cegui/detail/image_codec.hpp>
+#include <sge/cegui/detail/texture.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/optional_extension.hpp>
@@ -8,7 +8,7 @@
 #include <fcppt/assert.hpp>
 #include <fcppt/optional_impl.hpp>
 
-sge::cegui::image_codec::image_codec(
+sge::cegui::detail::image_codec::image_codec(
 	sge::image2d::multi_loader &_image_loader)
 :
 	CEGUI::ImageCodec(
@@ -19,7 +19,7 @@ sge::cegui::image_codec::image_codec(
 }
 
 CEGUI::Texture *
-sge::cegui::image_codec::load(
+sge::cegui::detail::image_codec::load(
 	CEGUI::RawDataContainer const &data,
 	CEGUI::Texture *result_texture)
 {
@@ -37,7 +37,7 @@ sge::cegui::image_codec::load(
 }
 
 sge::image2d::multi_loader &
-sge::cegui::image_codec::loader() const
+sge::cegui::detail::image_codec::loader() const
 {
 	return image_loader_;
 }
