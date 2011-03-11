@@ -1191,6 +1191,8 @@ SET(
 	src/renderer/vf/dynamic/detail/element_converter.hpp
 	src/renderer/vf/dynamic/detail/element_converter_fwd.hpp
 	src/renderer/vf/dynamic/detail/lock_interval.hpp
+	src/renderer/vf/dynamic/detail/locked_part_interval.cpp
+	src/renderer/vf/dynamic/detail/locked_part_interval.hpp
 	src/renderer/vf/dynamic/element.cpp
 	src/renderer/vf/dynamic/format.cpp
 	src/renderer/vf/dynamic/locked_part.cpp

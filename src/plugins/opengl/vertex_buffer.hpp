@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vertex_declaration_fwd.hpp"
 #include "context/object_fwd.hpp"
 #include "vf/part_fwd.hpp"
+#include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -104,6 +105,8 @@ private:
 	renderer::vf::dynamic::part_index const part_index_;
 
 	renderer::vf::dynamic::part const format_part_;
+
+	mutable renderer::vf::dynamic::converter converter_;
 
 	mutable opengl::buffer buffer_;
 };

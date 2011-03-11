@@ -171,23 +171,50 @@ sge::renderer::vf::dynamic::detail::converter::~converter()
 }
 
 void
-sge::renderer::vf::dynamic::detail::converter::convert(
-	dynamic::locked_part const &_part,
+sge::renderer::vf::dynamic::detail::converter::convert_lock(
+	renderer::raw_pointer const _data,
 	detail::lock_interval_set const &_intervals,
-	bool const _unlock
+	detail::lock_interval const &_current_lock
 )
 {
 	BOOST_FOREACH(
 		detail::lock_interval_set::const_reference interval,
-		_intervals
+		_intervals & _current_lock
 	)
-		BOOST_FOREACH(
-			element_converter_vector::reference ref,
-			element_converters_
-		)
-			ref.convert(
-				interval,
-				_part.data(),
-				_unlock
-			);
+		this->do_convert(
+			_data,
+			interval,
+			false
+		);
+}
+
+void
+sge::renderer::vf::dynamic::detail::converter::convert_unlock(
+	renderer::raw_pointer const _data,
+	detail::lock_interval const &_current_lock
+)
+{
+	this->do_convert(
+		_data,
+		_current_lock,
+		true
+	);
+}
+
+void
+sge::renderer::vf::dynamic::detail::converter::do_convert(
+	renderer::raw_pointer const _data,
+	detail::lock_interval const &_interval,
+	bool const _unlock
+)
+{
+	BOOST_FOREACH(
+		element_converter_vector::reference ref,
+		element_converters_
+	)
+		ref.convert(
+			_interval,
+			_data,
+			_unlock
+		);
 }

@@ -58,6 +58,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <exception>
 #include <cstdlib>
 
+#include <sge/image/color/bgra8_format.hpp>
+
 int main()
 try
 {
@@ -100,7 +102,7 @@ try
 		3
 	> pos3_type;
 
-	typedef sge::image::color::rgba8_format rgba8_format;
+	typedef sge::image::color::bgra8_format rgba8_format;
 
 	typedef sge::renderer::vf::color<
 		rgba8_format

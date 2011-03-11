@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_CONVERTER_HPP_INCLUDED
 
 #include "element_converter_fwd.hpp"
+#include "lock_interval.hpp"
 #include <sge/renderer/vf/dynamic/detail/converter_fwd.hpp>
 #include <sge/renderer/vf/dynamic/detail/lock_interval_set.hpp>
-#include <sge/renderer/vf/dynamic/locked_part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
+#include <sge/renderer/raw_pointer.hpp>
 #include <sge/image/algorithm/accepted_format_array.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -55,12 +56,25 @@ public:
 	~converter();
 
 	void
-	convert(
-		dynamic::locked_part const &,
+	convert_lock(
+		renderer::raw_pointer data,
 		detail::lock_interval_set const &,
-		bool unlock
+		detail::lock_interval const &
+	);
+
+	void
+	convert_unlock(
+		renderer::raw_pointer data,
+		detail::lock_interval const &
 	);
 private:
+	void
+	do_convert(
+		renderer::raw_pointer data,
+		detail::lock_interval const &,
+		bool unlock
+	);
+
 	typedef boost::ptr_vector<
 		detail::element_converter
 	> element_converter_vector;

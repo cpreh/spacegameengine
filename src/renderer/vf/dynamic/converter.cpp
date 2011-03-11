@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "detail/converter.hpp"
 #include "detail/lock_interval.hpp"
+#include "detail/locked_part_interval.hpp"
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -56,10 +57,12 @@ sge::renderer::vf::dynamic::converter::lock(
 		_locked_part.read()
 		&& converter_ 
 	)
-		converter_->convert(
-			_locked_part,
+		converter_->convert_lock(
+			_locked_part.data(),
 			written_intervals_,
-			false
+			detail::locked_part_interval(
+				_locked_part
+			)
 		);
 
 	locked_part_ = _locked_part;
@@ -88,17 +91,19 @@ sge::renderer::vf::dynamic::converter::unlock()
 		locked_part_->write()
 	)
 	{
-		converter_->convert(
-			*locked_part_,
-			written_intervals_,
-			true
+		dynamic::detail::lock_interval const current_unlock(
+			detail::locked_part_interval(
+				*locked_part_
+			)
+		);
+			
+		converter_->convert_unlock(
+			locked_part_->data(),
+			current_unlock
 		);
 
 		written_intervals_.insert(
-			dynamic::detail::lock_interval(
-				locked_part_->pos(),
-				locked_part_->pos() + locked_part_->count()
-			)
+			current_unlock
 		);	
 	}
 
