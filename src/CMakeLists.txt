@@ -782,8 +782,11 @@ SET(
 	include/sge/renderer/vf/dynamic/color_fwd.hpp
 	include/sge/renderer/vf/dynamic/const_view.hpp
 	include/sge/renderer/vf/dynamic/const_view_fwd.hpp
+	include/sge/renderer/vf/dynamic/converter.hpp
+	include/sge/renderer/vf/dynamic/detail/converter_fwd.hpp
 	include/sge/renderer/vf/dynamic/detail/element_c.hpp
 	include/sge/renderer/vf/dynamic/detail/format_to_element.hpp
+	include/sge/renderer/vf/dynamic/detail/lock_interval_set.hpp
 	include/sge/renderer/vf/dynamic/detail/make_color.hpp
 	include/sge/renderer/vf/dynamic/detail/make_element.hpp
 	include/sge/renderer/vf/dynamic/detail/make_element_list.hpp
@@ -797,6 +800,8 @@ SET(
 	include/sge/renderer/vf/dynamic/element_list.hpp
 	include/sge/renderer/vf/dynamic/format.hpp
 	include/sge/renderer/vf/dynamic/format_fwd.hpp
+	include/sge/renderer/vf/dynamic/locked_part.hpp
+	include/sge/renderer/vf/dynamic/locked_part_fwd.hpp
 	include/sge/renderer/vf/dynamic/make_format.hpp
 	include/sge/renderer/vf/dynamic/normal.hpp
 	include/sge/renderer/vf/dynamic/normal_fwd.hpp
@@ -1179,6 +1184,9 @@ SET(
 	src/renderer/vf/dynamic/basic_view_impl.hpp
 	src/renderer/vf/dynamic/color.cpp
 	src/renderer/vf/dynamic/const_view.cpp
+	src/renderer/vf/dynamic/converter.cpp
+	src/renderer/vf/dynamic/detail/converter.cpp
+	src/renderer/vf/dynamic/detail/converter.hpp
 	src/renderer/vf/dynamic/element.cpp
 	src/renderer/vf/dynamic/format.cpp
 	src/renderer/vf/dynamic/normal.cpp
