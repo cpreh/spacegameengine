@@ -39,9 +39,10 @@ sge::cegui::system::system(
 	sge::image2d::multi_loader &_image_loader,
 	sge::charconv::system_ptr const _charconv_system,
 	sge::systems::instance &_systems,
-	sge::input::keyboard::device &_keyboard,
-	sge::input::mouse::device &_mouse)
+	cursor_visibility::type const _cursor_visibility)
 :
+	charconv_system_(
+		_charconv_system),
 	prefix_(
 		fcppt::filesystem::remove_filename(
 			scheme_file)),
@@ -58,11 +59,6 @@ sge::cegui::system::system(
 		renderer_,
 		image_codec_,
 		resource_provider_),
-	input_(
-		_keyboard,
-		_mouse,
-		_charconv_system,
-		CEGUI::System::getSingleton()),
 	viewport_change_connection_(
 		_systems.manage_viewport_callback(
 			boost::bind(
@@ -77,16 +73,17 @@ sge::cegui::system::system(
 			fcppt::filesystem::path_to_string(
 				scheme_file.filename()),
 			_charconv_system));
-#if 0
-	CEGUI::SchemeManager::getSingleton().create(
-		fcppt::filesystem::path_to_string(
-			scheme_file.filename()).c_str()/*,
-		_charconv_system)*/);
-#endif
 
-	CEGUI::System::getSingleton().setDefaultMouseCursor(
-		CEGUI::ImagesetManager::getSingleton().getIterator().getCurrentValue()->getName(),
-		"MouseArrow");
+	switch(_cursor_visibility)
+	{
+		case cursor_visibility::visible:
+			CEGUI::System::getSingleton().setDefaultMouseCursor(
+				CEGUI::ImagesetManager::getSingleton().getIterator().getCurrentValue()->getName(),
+				"MouseArrow");
+		break;
+		case cursor_visibility::invisible:
+		break;
+	}
 
 	viewport_change(
 		sge::renderer::device_ptr());
@@ -96,11 +93,10 @@ void
 sge::cegui::system::update(
 	sge::time::duration const &d)
 {
-	input_.update(
-		static_cast<sge::time::funit>(
+	CEGUI::System::getSingleton().injectTimePulse(
+		static_cast<unit>(
 			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
-			d).count())
-			/static_cast<sge::time::funit>(1000));
+				d).count())/static_cast<unit>(1000));
 }
 
 void
@@ -133,6 +129,12 @@ sge::cegui::system::viewport_change(
 	CEGUI::MouseCursor::getSingleton().setConstraintArea(
 		&new_area_cegui);
 	old_viewport_ = new_area_fcppt;
+}
+
+sge::charconv::system_ptr const
+sge::cegui::system::charconv_system() const
+{
+	return charconv_system_;
 }
 
 sge::image2d::multi_loader &

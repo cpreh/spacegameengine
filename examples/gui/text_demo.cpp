@@ -1,7 +1,9 @@
 #include <sge/cegui/system.hpp>
-#include <sge/cegui/logger.hpp>
-#include <sge/cegui/to_cegui_string.hpp>
+#include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
+#include <sge/cegui/syringe.hpp>
+#include <sge/cegui/default_cursor.hpp>
+#include <sge/cegui/default_keyboard.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -102,7 +104,7 @@ try
 					FCPPT_TEXT("png"))))
 		(sge::systems::input(
 			sge::systems::input_helper_field(
-				sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
+				sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector | sge::systems::input_helper::cursor_demuxer,
 			sge::systems::cursor_option_field(
 				sge::systems::cursor_option::confine) | sge::systems::cursor_option::hide))); 
 
@@ -115,14 +117,24 @@ try
 				sge::systems::running_to_false(
 					running))));
 
-	sge::cegui::system guisys(
+	sge::cegui::system gui_sys(
 		sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("TaharezLook.scheme"),
 		sys.renderer(),
 		sys.image_loader(),
 		sys.charconv_system(),
 		sys,
-		*sys.keyboard_collector(),
-		*sys.mouse_collector());
+		sge::cegui::cursor_visibility::visible);
+
+	sge::cegui::syringe gui_syringe(
+		gui_sys);
+
+	sge::cegui::default_cursor gui_cursor(
+		gui_syringe,
+		*sys.cursor_demuxer());
+
+	sge::cegui::default_keyboard gui_keyboard(
+		gui_syringe,
+		*sys.keyboard_collector());
 
 	sge::time::timer frame_timer(
 		sge::time::second(
@@ -137,7 +149,7 @@ try
 	{
 		sys.window()->dispatch();
 
-		guisys.update(
+		gui_sys.update(
 			fcppt::chrono::duration_cast<sge::time::duration>(
 				sge::time::second_f(
 					frame_timer.reset())));
@@ -151,7 +163,7 @@ try
 		sge::renderer::scoped_block scoped_block(
 			sys.renderer());
 
-		guisys.render();
+		gui_sys.render();
 	}
 }
 catch (fcppt::exception const &e)

@@ -9,12 +9,14 @@ INCLUDE_DIRECTORIES(
 
 SET(
 	SGE_CEGUI_FILES
+	include/sge/cegui/cursor_visibility.hpp
+	include/sge/cegui/default_cursor.hpp
+	include/sge/cegui/default_keyboard.hpp
 	include/sge/cegui/detail/cegui_logger.hpp
 	include/sge/cegui/detail/default_target.hpp
 	include/sge/cegui/detail/geometry_buffer.hpp
 	include/sge/cegui/detail/image_codec.hpp
 	include/sge/cegui/detail/image_codec_fwd.hpp
-	include/sge/cegui/detail/input.hpp
 	include/sge/cegui/detail/renderer.hpp
 	include/sge/cegui/detail/renderer_fwd.hpp
 	include/sge/cegui/detail/resource_provider.hpp
@@ -28,6 +30,8 @@ SET(
 	include/sge/cegui/logger.hpp
 	include/sge/cegui/structure_cast.hpp
 	include/sge/cegui/symbol.hpp
+	include/sge/cegui/syringe.hpp
+	include/sge/cegui/syringe_fwd.hpp
 	include/sge/cegui/system.hpp
 	include/sge/cegui/system_fwd.hpp
 	include/sge/cegui/to_cegui_string.hpp
@@ -41,12 +45,16 @@ SET(
 	include/sge/cegui/vf/position.hpp
 	include/sge/cegui/vf/texcoord.hpp
 	include/sge/cegui/vf/vertex_view.hpp
+	src/cegui/cursor_button_map.hpp
+	src/cegui/cursor_button_translation.cpp
+	src/cegui/cursor_button_translation.hpp
 	src/cegui/declare_local_logger.hpp
+	src/cegui/default_cursor.cpp
+	src/cegui/default_keyboard.cpp
 	src/cegui/detail/cegui_logger.cpp
 	src/cegui/detail/default_target.cpp
 	src/cegui/detail/geometry_buffer.cpp
 	src/cegui/detail/image_codec.cpp
-	src/cegui/detail/input.cpp
 	src/cegui/detail/renderer.cpp
 	src/cegui/detail/resource_provider.cpp
 	src/cegui/detail/scoped_system.cpp
@@ -54,7 +62,11 @@ SET(
 	src/cegui/detail/texture_target.cpp
 	src/cegui/exception.cpp
 	src/cegui/from_cegui_string.cpp
+	src/cegui/keyboard_code_map.hpp
+	src/cegui/keyboard_code_translation.cpp
+	src/cegui/keyboard_code_translation.hpp
 	src/cegui/logger.cpp
+	src/cegui/syringe.cpp
 	src/cegui/system.cpp
 	src/cegui/to_cegui_string.cpp
 	src/cegui/toolbox/append_row.cpp
