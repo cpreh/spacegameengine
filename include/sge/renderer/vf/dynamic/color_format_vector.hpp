@@ -18,22 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_LOCK_METHOD_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_LOCK_METHOD_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_COLOR_FORMAT_VECTOR_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_COLOR_FORMAT_VECTOR_HPP_INCLUDED
 
-#include "lock_method.hpp"
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/image/color/format.hpp>
+#include <vector>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace vf
+{
+namespace dynamic
 {
 
-opengl::lock_method::type
-convert_lock_method(
-	renderer::lock_mode::type
-);
+typedef std::vector<
+	sge::image::color::format::type
+> color_format_vector;
 
+}
+}
 }
 }
 

@@ -18,28 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_VERTICES_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_VERTICES_HPP_INCLUDED
-
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
+#ifndef SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace vf
+{
+namespace dynamic
 {
 
-void
-convert_vertices(
-	renderer::vf::dynamic::ordered_element const &,
-	renderer::size_type vertex_stride,
-	renderer::size_type num_vertices,
-	renderer::raw_pointer data
-);
+class locked_part;
 
 }
 }
-
+}
+}
 
 #endif

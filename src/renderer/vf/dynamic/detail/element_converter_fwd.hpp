@@ -18,32 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_ALGORITHM_CONVERT_CONDITIONAL_HPP_INCLUDED
-#define SGE_IMAGE3D_ALGORITHM_CONVERT_CONDITIONAL_HPP_INCLUDED
-
-#include <sge/image3d/algorithm/accepted_format_array.hpp>
-#include <sge/image3d/dim.hpp>
-#include <sge/image3d/pitch.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image/raw_pointer.hpp>
-#include <sge/symbol.hpp>
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace image3d
+namespace renderer
 {
-namespace algorithm
+namespace vf
+{
+namespace dynamic
+{
+namespace detail
 {
 
-SGE_SYMBOL void
-convert_conditional(
-	image::raw_pointer,
-	image3d::dim const &,
-	image::color::format::type,
-	image3d::pitch const &, 
-	algorithm::accepted_format_array const &
-);
+class element_converter;
 
+}
+}
 }
 }
 }

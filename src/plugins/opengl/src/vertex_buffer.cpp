@@ -19,16 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_buffer.hpp"
-#include "../convert_vertices.hpp"
+#include "../lock_flag_read.hpp"
+#include "../lock_flag_write.hpp"
 #include "../vbo_context.hpp"
-#include "../convert_lock_method.hpp"
 #include "../context/use.hpp"
+#include "../convert/lock_method.hpp"
 #include "../vf/part.hpp"
-#include <sge/renderer/vf/dynamic/view.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
+#include <sge/renderer/vf/dynamic/locked_part.hpp>
+#include <sge/renderer/vf/dynamic/view.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/assert.hpp>
-#include <boost/foreach.hpp>
 
 sge::opengl::vertex_buffer::vertex_buffer(
 	context::object &_context,
@@ -40,6 +43,17 @@ sge::opengl::vertex_buffer::vertex_buffer(
 :
 	part_index_(_part_index),
 	format_part_(_format_part),
+	converter_(
+		format_part_,
+		fcppt::assign::make_container<
+			sge::renderer::vf::dynamic::color_format_vector
+		>(
+			sge::image::color::format::rgba8
+		)
+		(
+			sge::image::color::format::rgba32f
+		)
+	),
 	buffer_(
 		context::use<
 			vbo_context
@@ -88,22 +102,15 @@ sge::opengl::vertex_buffer::lock(
 	size_type const _range
 )
 {
-	// FIXME: if vertices are read, we have to convert
-	// the colors as well!
-	buffer_.lock(
-		opengl::convert_lock_method(
-			_flags
-		),
-		_offset,
-		_range
-	);
-
 	return
-		view_type(
-			buffer_.data(),
-			buffer_.lock_size(),
-			this->format_part(),
-			part_index_
+		this->do_lock<
+			view_type
+		>(
+			opengl::convert::lock_method(
+				_flags
+			),
+			_offset,
+			_range
 		);
 }
 
@@ -113,14 +120,52 @@ sge::opengl::vertex_buffer::lock(
 	size_type const _range
 ) const
 {
+	return
+		this->do_lock<
+			const_view_type
+		>(
+			opengl::lock_method::readonly,
+			_offset,
+			_range
+		);
+}
+
+template<
+	typename View
+>
+View const
+sge::opengl::vertex_buffer::do_lock(
+	opengl::lock_method::type const _method,
+	size_type const _offset,
+	size_type const _range
+) const
+{
 	buffer_.lock(
-		lock_method::readonly,
+		_method,
 		_offset,
 		_range
 	);
 
+	converter_.lock(
+		sge::renderer::vf::dynamic::locked_part(
+			buffer_.data(),
+			_offset,
+			_range == npos
+			?
+				this->size()
+			:
+				_range,
+			opengl::lock_flag_read(
+				_method
+			),
+			opengl::lock_flag_write(
+				_method
+			)
+		)
+	);
+	
 	return
-		const_view_type(
+		View(
 			buffer_.data(),
 			buffer_.lock_size(),
 			this->format_part(),
@@ -131,28 +176,7 @@ sge::opengl::vertex_buffer::lock(
 void
 sge::opengl::vertex_buffer::unlock() const
 {
-	renderer::vf::dynamic::ordered_element_list const &elems(
-		format_part_.elements()
-	);
-
-	renderer::size_type const stride(
-		format_part_.stride()
-	);
-
-	FCPPT_ASSERT(
-		buffer_.lock_size() % stride == 0
-	);
-
-	BOOST_FOREACH(
-		renderer::vf::dynamic::ordered_element_list::const_reference elem,
-		elems
-	)
-		opengl::convert_vertices(
-			elem,
-			stride,
-			buffer_.lock_size() / stride,
-			buffer_.data()
-		);
+	converter_.unlock();
 
 	buffer_.unlock();
 }

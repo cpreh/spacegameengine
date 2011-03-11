@@ -18,29 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/algorithm/convert_conditional.hpp"
-#include <sge/image2d/algorithm/convert_conditional.hpp>
-#include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <sge/image2d/view/make.hpp>
-#include <sge/image2d/view/make_const.hpp>
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_CONVERTER_IMPL_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_CONVERTER_IMPL_FWD_HPP_INCLUDED
 
-void
-sge::image2d::algorithm::convert_conditional(
-	image::raw_pointer const _data,
-	image2d::dim const &_dim,
-	image::color::format::type const _format,
-	image2d::pitch const &_pitch,
-	image::algorithm::accepted_format_array const &_formats
-)
+namespace sge
 {
-	sge::image::algorithm::convert_conditional(
-		_data,
-		_dim,
-		_format,
-		_pitch,
-		_formats,
-		&sge::image2d::algorithm::copy_and_convert,
-		&sge::image2d::view::make,
-		&sge::image2d::view::make_const
-	);
+namespace renderer
+{
+namespace vf
+{
+namespace dynamic
+{
+namespace detail
+{
+
+class converter_impl;
+
 }
+}
+}
+}
+}
+
+#endif

@@ -18,26 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_lock_method.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_CONVERT_LOCK_METHOD_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_LOCK_METHOD_HPP_INCLUDED
 
-sge::opengl::lock_method::type
-sge::opengl::convert_lock_method(
-	renderer::lock_mode::type const _method
-)
+#include "../lock_method.hpp"
+#include <sge/renderer/lock_mode.hpp>
+
+namespace sge
 {
-	switch(
-		_method
-	)
-	{
-	case renderer::lock_mode::writeonly:
-		return lock_method::writeonly;
-	case renderer::lock_mode::readwrite:
-		return lock_method::readwrite;
-	}
+namespace opengl
+{
+namespace convert
+{
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid lock_flags in opengl!")
-	);
+opengl::lock_method::type
+lock_method(
+	renderer::lock_mode::type
+);
+
 }
+}
+}
+
+#endif

@@ -18,27 +18,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_VERTEX_COLORS_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_VERTEX_COLORS_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/vf/dynamic/color_fwd.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace vf
+{
+namespace dynamic
 {
 
-void
-convert_vertex_colors(
-	renderer::vf::dynamic::color const &,
-	renderer::size_type vertex_stride,
-	renderer::size_type num_vertices,
-	renderer::raw_pointer data,
-	renderer::size_type offset
-);
+class locked_part
+{
+public:
+	SGE_SYMBOL
+	locked_part(
+		renderer::raw_pointer,
+		renderer::size_type pos,
+		renderer::size_type count,
+		bool read,
+		bool write
+	);
 
+	SGE_SYMBOL
+	renderer::raw_pointer
+	data() const;
+
+	SGE_SYMBOL
+	renderer::size_type
+	pos() const;
+
+	SGE_SYMBOL
+	renderer::size_type
+	count() const;
+
+	SGE_SYMBOL
+	bool
+	read() const;
+
+	SGE_SYMBOL
+	bool
+	write() const;
+private:
+	renderer::raw_pointer data_;
+
+	renderer::size_type
+		pos_,
+		count_;
+	
+	bool
+		read_,
+		write_;
+};
+
+}
+}
 }
 }
 

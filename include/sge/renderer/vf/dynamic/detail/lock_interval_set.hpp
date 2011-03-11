@@ -18,23 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_ACCEPTED_FORMAT_ARRAY_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_ACCEPTED_FORMAT_ARRAY_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_LOCK_INTERVAL_SET_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_LOCK_INTERVAL_SET_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
-#include <vector>
+#include <sge/renderer/size_type.hpp>
+#include <boost/icl/interval_set.hpp>
 
 namespace sge
 {
-namespace image
+namespace renderer
 {
-namespace algorithm
+namespace vf
+{
+namespace dynamic
+{
+namespace detail
 {
 
-typedef std::vector<
-	image::color::format::type
-> accepted_format_array;
+typedef boost::icl::interval_set<
+	renderer::size_type
+> lock_interval_set;
 
+}
+}
 }
 }
 }

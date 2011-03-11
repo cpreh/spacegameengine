@@ -18,34 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_ALGORITHM_CONVERT_CONDITIONAL_HPP_INCLUDED
-#define SGE_IMAGE2D_ALGORITHM_CONVERT_CONDITIONAL_HPP_INCLUDED
+#include "../lock_method.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/pitch.hpp>
-#include <sge/image/algorithm/accepted_format_array.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image/raw_pointer.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+sge::opengl::lock_method::type
+sge::opengl::convert::lock_method(
+	renderer::lock_mode::type const _method
+)
 {
-namespace image2d
-{
-namespace algorithm
-{
+	switch(
+		_method
+	)
+	{
+	case renderer::lock_mode::writeonly:
+		return lock_method::writeonly;
+	case renderer::lock_mode::readwrite:
+		return lock_method::readwrite;
+	}
 
-SGE_SYMBOL void
-convert_conditional(
-	image::raw_pointer,
-	image2d::dim const &,
-	image::color::format::type,
-	image2d::pitch const &, 
-	image::algorithm::accepted_format_array const &
-);
-
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid lock_flags in opengl!")
+	);
 }
-}
-}
-
-#endif
