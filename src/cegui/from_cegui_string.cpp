@@ -13,6 +13,10 @@ sge::cegui::from_cegui_string(
 	CEGUI::String const &s,
 	sge::charconv::system_ptr const charconv)
 {
+	return 
+		fcppt::string(
+			s.c_str());
+#if 0
 	typedef
 	sge::charconv::string_type<sge::charconv::encoding::utf32>::type
 	source_string;
@@ -56,4 +60,5 @@ sge::cegui::from_cegui_string(
 					s.begin(),
 					s.end())));
 	*/
+#endif
 }
