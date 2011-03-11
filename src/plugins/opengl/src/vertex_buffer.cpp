@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_buffer.hpp"
-#include "../convert_lock_method.hpp"
 #include "../lock_flag_read.hpp"
 #include "../lock_flag_write.hpp"
 #include "../vbo_context.hpp"
 #include "../context/use.hpp"
+#include "../convert/lock_method.hpp"
 #include "../vf/part.hpp"
 #include <sge/image/color/format.hpp>
+#include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
@@ -45,7 +46,7 @@ sge::opengl::vertex_buffer::vertex_buffer(
 	converter_(
 		format_part_,
 		fcppt::assign::make_container<
-			sge::image::algorithm::accepted_format_array
+			sge::renderer::vf::dynamic::color_format_vector
 		>(
 			sge::image::color::format::rgba8
 		)
@@ -105,7 +106,7 @@ sge::opengl::vertex_buffer::lock(
 		this->do_lock<
 			view_type
 		>(
-			opengl::convert_lock_method(
+			opengl::convert::lock_method(
 				_flags
 			),
 			_offset,

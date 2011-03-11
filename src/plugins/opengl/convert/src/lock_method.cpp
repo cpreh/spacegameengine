@@ -18,29 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/algorithm/convert_conditional.hpp"
-#include <sge/image2d/algorithm/convert_conditional.hpp>
-#include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <sge/image2d/view/make.hpp>
-#include <sge/image2d/view/make_const.hpp>
+#include "../lock_method.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-void
-sge::image2d::algorithm::convert_conditional(
-	image::raw_pointer const _data,
-	image2d::dim const &_dim,
-	image::color::format::type const _format,
-	image2d::pitch const &_pitch,
-	image::algorithm::accepted_format_array const &_formats
+sge::opengl::lock_method::type
+sge::opengl::convert::lock_method(
+	renderer::lock_mode::type const _method
 )
 {
-	sge::image::algorithm::convert_conditional(
-		_data,
-		_dim,
-		_format,
-		_pitch,
-		_formats,
-		&sge::image2d::algorithm::copy_and_convert,
-		&sge::image2d::view::make,
-		&sge::image2d::view::make_const
+	switch(
+		_method
+	)
+	{
+	case renderer::lock_mode::writeonly:
+		return lock_method::writeonly;
+	case renderer::lock_mode::readwrite:
+		return lock_method::readwrite;
+	}
+
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid lock_flags in opengl!")
 	);
 }

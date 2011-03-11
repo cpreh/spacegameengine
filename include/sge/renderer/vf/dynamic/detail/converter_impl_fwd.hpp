@@ -18,27 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_VERTEX_COLORS_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_VERTEX_COLORS_HPP_INCLUDED
-
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/vf/dynamic/color_fwd.hpp>
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_CONVERTER_IMPL_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_CONVERTER_IMPL_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace vf
+{
+namespace dynamic
+{
+namespace detail
 {
 
-void
-convert_vertex_colors(
-	renderer::vf::dynamic::color const &,
-	renderer::size_type vertex_stride,
-	renderer::size_type num_vertices,
-	renderer::raw_pointer data,
-	renderer::size_type offset
-);
+class converter_impl;
 
+}
+}
+}
 }
 }
 

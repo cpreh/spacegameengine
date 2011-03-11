@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "detail/converter.hpp"
+#include "detail/converter_impl.hpp"
 #include "detail/lock_interval.hpp"
 #include "detail/locked_part_interval.hpp"
 #include <sge/renderer/vf/dynamic/converter.hpp>
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::vf::dynamic::converter::converter(
 	dynamic::part const &_part,
-	sge::image::algorithm::accepted_format_array const &_accepted_formats
+	dynamic::color_format_vector const &_accepted_formats
 )
 :
 	part_(_part),
@@ -80,7 +80,7 @@ sge::renderer::vf::dynamic::converter::unlock()
 	)
 		converter_.take(
 			fcppt::make_unique_ptr<
-				detail::converter
+				detail::converter_impl
 			>(
 				part_,
 				accepted_formats_

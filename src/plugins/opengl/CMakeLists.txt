@@ -51,6 +51,7 @@ SET(
 	src/plugins/opengl/convert/format_type_to_string.hpp
 	src/plugins/opengl/convert/indexed_primitive.hpp
 	src/plugins/opengl/convert/light_index.hpp
+	src/plugins/opengl/convert/lock_method.hpp
 	src/plugins/opengl/convert/matrix_mode.hpp
 	src/plugins/opengl/convert/matrix_mode_get.hpp
 	src/plugins/opengl/convert/nonindexed_primitive.hpp
@@ -79,6 +80,7 @@ SET(
 	src/plugins/opengl/convert/src/format_type_to_string.cpp
 	src/plugins/opengl/convert/src/indexed_primitive.cpp
 	src/plugins/opengl/convert/src/light_index.cpp
+	src/plugins/opengl/convert/src/lock_method.cpp
 	src/plugins/opengl/convert/src/matrix_mode.cpp
 	src/plugins/opengl/convert/src/matrix_mode_get.cpp
 	src/plugins/opengl/convert/src/nonindexed_primitive.cpp
@@ -90,9 +92,6 @@ SET(
 	src/plugins/opengl/convert/stencil_buffer.hpp
 	src/plugins/opengl/convert/stencil_func.hpp
 	src/plugins/opengl/convert/visual_depth.hpp
-	src/plugins/opengl/convert_lock_method.hpp
-	src/plugins/opengl/convert_vertex_colors.hpp
-	src/plugins/opengl/convert_vertices.hpp
 	src/plugins/opengl/create_caps.hpp
 	src/plugins/opengl/create_device_state.hpp
 	src/plugins/opengl/create_vbo_impl.hpp
@@ -341,9 +340,6 @@ SET(
 	src/plugins/opengl/split_states_fwd.hpp
 	src/plugins/opengl/src/apply_states.cpp
 	src/plugins/opengl/src/buffer.cpp
-	src/plugins/opengl/src/convert_lock_method.cpp
-	src/plugins/opengl/src/convert_vertex_colors.cpp
-	src/plugins/opengl/src/convert_vertices.cpp
 	src/plugins/opengl/src/create_caps.cpp
 	src/plugins/opengl/src/create_device_state.cpp
 	src/plugins/opengl/src/create_vbo_impl.cpp

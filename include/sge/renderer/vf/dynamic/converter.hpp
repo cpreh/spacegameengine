@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_CONVERTER_HPP_INCLUDED
 
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
+#include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
-#include <sge/renderer/vf/dynamic/detail/converter_fwd.hpp>
+#include <sge/renderer/vf/dynamic/detail/converter_impl_fwd.hpp>
 #include <sge/renderer/vf/dynamic/detail/lock_interval_set.hpp>
-#include <sge/image/algorithm/accepted_format_array.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
@@ -49,7 +49,7 @@ public:
 	SGE_SYMBOL
 	converter(
 		dynamic::part const &,
-		sge::image::algorithm::accepted_format_array const &
+		dynamic::color_format_vector const &
 	);
 
 	SGE_SYMBOL
@@ -67,7 +67,7 @@ public:
 private:
 	dynamic::part const &part_;
 
-	sge::image::algorithm::accepted_format_array const accepted_formats_;
+	dynamic::color_format_vector const accepted_formats_;
 
 	dynamic::detail::lock_interval_set written_intervals_;
 
@@ -78,7 +78,7 @@ private:
 	optional_locked_part locked_part_;
 
 	typedef fcppt::scoped_ptr<
-		dynamic::detail::converter
+		dynamic::detail::converter_impl
 	> converter_ptr;
 
 	converter_ptr converter_;

@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "converter.hpp"
+#include "converter_impl.hpp"
 #include "element_converter.hpp"
-#include <sge/image/algorithm/accepted_format_array.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
+#include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/exception.hpp>
@@ -37,13 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-namespace
-{
-
 sge::image::color::format::type
 matching_format(
 	sge::image::color::format::type const _format,
-	sge::image::algorithm::accepted_format_array const &_formats
+	sge::renderer::vf::dynamic::color_format_vector const &_formats
 )
 {
 	if(
@@ -55,7 +52,7 @@ matching_format(
 		return _format;
 
 	BOOST_FOREACH(
-		sge::image::algorithm::accepted_format_array::value_type value,
+		sge::renderer::vf::dynamic::color_format_vector::value_type value,
 		_formats
 	)
 	{
@@ -75,8 +72,6 @@ matching_format(
 	);
 }
 
-}
-
 template<
 	typename Vector,
 	typename Type
@@ -85,7 +80,7 @@ void
 convert_if_color(
 	Vector &_converters,
 	Type const &_type,
-	sge::image::algorithm::accepted_format_array const &_formats,
+	sge::renderer::vf::dynamic::color_format_vector const &_formats,
 	sge::renderer::size_type const _vertex_stride,
 	sge::renderer::size_type const _offset
 )
@@ -123,9 +118,9 @@ convert_if_color(
 
 }
 
-sge::renderer::vf::dynamic::detail::converter::converter(
+sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
 	dynamic::part const &_part,
-	sge::image::algorithm::accepted_format_array const &_accepted_formats
+	dynamic::color_format_vector const &_accepted_formats
 )
 :
 	element_converters_()
@@ -166,12 +161,12 @@ sge::renderer::vf::dynamic::detail::converter::converter(
 	}
 }
 
-sge::renderer::vf::dynamic::detail::converter::~converter()
+sge::renderer::vf::dynamic::detail::converter_impl::~converter_impl()
 {
 }
 
 void
-sge::renderer::vf::dynamic::detail::converter::convert_lock(
+sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 	renderer::raw_pointer const _data,
 	detail::lock_interval_set const &_intervals,
 	detail::lock_interval const &_current_lock
@@ -189,7 +184,7 @@ sge::renderer::vf::dynamic::detail::converter::convert_lock(
 }
 
 void
-sge::renderer::vf::dynamic::detail::converter::convert_unlock(
+sge::renderer::vf::dynamic::detail::converter_impl::convert_unlock(
 	renderer::raw_pointer const _data,
 	detail::lock_interval const &_current_lock
 )
@@ -202,7 +197,7 @@ sge::renderer::vf::dynamic::detail::converter::convert_unlock(
 }
 
 void
-sge::renderer::vf::dynamic::detail::converter::do_convert(
+sge::renderer::vf::dynamic::detail::converter_impl::do_convert(
 	renderer::raw_pointer const _data,
 	detail::lock_interval const &_interval,
 	bool const _unlock

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/color_to_format_type.hpp"
 #include "../convert/color_to_internal_format.hpp"
 #include "../convert/format_to_color.hpp"
-#include "../convert_lock_method.hpp"
+#include "../convert/lock_method.hpp"
 #include "../lock_flag_read.hpp"
 #include "../lock_flag_write.hpp"
 #include "../range_check.hpp"
@@ -73,7 +73,7 @@ sge::opengl::texture::basic<Types>::lock(
 {
 	this->lock_me(
 		_area,
-		opengl::convert_lock_method(
+		opengl::convert::lock_method(
 			_mode
 		)
 	);
