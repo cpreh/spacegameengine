@@ -119,6 +119,7 @@ sge::cegui::system::system(
 				"MouseArrow");
 		break;
 		case cursor_visibility::invisible:
+			CEGUI::MouseCursor::getSingleton().hide();
 		break;
 	}
 
