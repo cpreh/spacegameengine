@@ -19,8 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "element_converter.hpp"
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/view/make.hpp>
+#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/pitch.hpp>
+#include <sge/renderer/raw_pointer.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/optional_impl.hpp>
 
-sge::renderer::vf:;dynamic::detail::element_converter::element_converter(
+sge::renderer::vf::dynamic::detail::element_converter::element_converter(
 	sge::image::color::format::type const _original_color,
 	sge::image::color::format::type const _backend_color,
 	sge::renderer::vf::vertex_size const _stride,
@@ -34,12 +42,61 @@ sge::renderer::vf:;dynamic::detail::element_converter::element_converter(
 {
 }
 
-sge::renderer::vf:;dynamic::detail::element_converter::~element_converter();
+sge::renderer::vf::dynamic::detail::element_converter::~element_converter()
+{
+}
 
 void
-sge::renderer::vf:;dynamic::detail::element_converter::convert(
-	interval,
-	sge::renderer::pointer data,
-	bool unlock
-);
+sge::renderer::vf::dynamic::detail::element_converter::convert(
+	detail::lock_interval const &_interval,
+	sge::renderer::raw_pointer const _data,
+	bool const _unlock
+)
+{
+	if(
+		original_color_ == backend_color_
+	)
+		return;
 
+	sge::renderer::raw_pointer const begin(
+		_data
+		+ _interval.lower() * stride_
+		+ offset_
+	);
+
+	sge::image2d::dim const dim(
+		1,
+		_interval.upper() - _interval.lower()
+	);
+
+	sge::image2d::pitch const pitch(
+		static_cast<
+			sge::image2d::pitch::value_type
+		>(
+			stride_
+		)
+	);
+
+	sge::image2d::algorithm::copy_and_convert(
+		sge::image2d::view::make_const(
+			begin,
+			dim,
+			_unlock
+			?
+				original_color_
+			:
+				backend_color_,
+			pitch
+		),
+		sge::image2d::view::make(
+			begin,
+			dim,
+			_unlock
+			?
+				backend_color_
+			:
+				original_color_,
+			pitch
+		)
+	);
+}

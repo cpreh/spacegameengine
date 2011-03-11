@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_LOCK_INTERVAL_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_LOCK_INTERVAL_HPP_INCLUDED
 
-#include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/symbol.hpp>
+#include <boost/icl/interval.hpp>
 
 namespace sge
 {
@@ -33,50 +32,14 @@ namespace vf
 {
 namespace dynamic
 {
-
-class locked_part
+namespace detail
 {
-public:
-	SGE_SYMBOL
-	locked_part(
-		renderer::raw_pointer,
-		renderer::size_type pos,
-		renderer::size_type count,
-		bool read,
-		bool write
-	);
 
-	SGE_SYMBOL
-	renderer::raw_pointer
-	data() const;
-
-	SGE_SYMBOL
+typedef boost::icl::interval<
 	renderer::size_type
-	pos() const;
+>::type lock_interval;
 
-	SGE_SYMBOL
-	renderer::size_type
-	count() const;
-
-	SGE_SYMBOL
-	bool
-	read() const;
-
-	SGE_SYMBOL
-	bool
-	write() const;
-private:
-	renderer::raw_pointer data_;
-
-	renderer::size_type
-		pos_,
-		count_;
-	
-	bool
-		read_,
-		write_;
-};
-
+}
 }
 }
 }

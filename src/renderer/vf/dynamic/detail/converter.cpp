@@ -19,9 +19,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "converter.hpp"
+#include "element_converter.hpp"
+#include <sge/image/algorithm/accepted_format_array.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_stride.hpp>
+#include <sge/renderer/vf/dynamic/color.hpp>
+#include <sge/renderer/vf/dynamic/locked_part.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/algorithm/contains.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
+#include <boost/foreach.hpp>
 
 namespace
 {
+
+namespace
+{
+
+sge::image::color::format::type
+matching_format(
+	sge::image::color::format::type const _format,
+	sge::image::algorithm::accepted_format_array const &_formats
+)
+{
+	if(
+		fcppt::algorithm::contains(
+			_formats,
+			_format
+		)
+	)
+		return _format;
+
+	BOOST_FOREACH(
+		sge::image::algorithm::accepted_format_array::value_type value,
+		_formats
+	)
+	{
+		if(
+			sge::image::color::format_stride(
+				_format
+			)
+			== sge::image::color::format_stride(
+				value
+			)
+		)
+			return value;
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid vertex color!") // TODO: error message!
+	);
+}
+
+}
 
 template<
 	typename Vector,
@@ -31,29 +85,40 @@ void
 convert_if_color(
 	Vector &_converters,
 	Type const &_type,
+	sge::image::algorithm::accepted_format_array const &_formats,
 	sge::renderer::size_type const _vertex_stride,
 	sge::renderer::size_type const _offset
 )
 {
 	if(
-		fcppt::variant::holds_type<
+		!fcppt::variant::holds_type<
 			sge::renderer::vf::dynamic::color
 		>(
 			_type
 		)
 	)
-		fcppt::container::ptr::push_back_unique_ptr(
-			_converters,
-			fcppt::make_unique_ptr<
-				sge::renderer::vf::dynamic::detail::element_converter
-			>(
-				_type. template get<
-					sge::renderer::vf::dynamic::color
-				>(),
-				_vertex_stride,
-				_offset
-			)
-		);
+		return;
+
+	sge::image::color::format::type const format(
+		_type. template get<
+			sge::renderer::vf::dynamic::color
+		>().color_format()
+	);
+		
+	fcppt::container::ptr::push_back_unique_ptr(
+		_converters,
+		fcppt::make_unique_ptr<
+			sge::renderer::vf::dynamic::detail::element_converter
+		>(
+			format,
+			matching_format(
+				format,
+				_formats
+			),
+			_vertex_stride,
+			_offset
+		)
+	);
 }
 
 }
@@ -76,8 +141,8 @@ sge::renderer::vf::dynamic::detail::converter::converter(
 
 		::convert_if_color(
 			element_converters_,
-			_accepted_formats,
 			element.info(),
+			_accepted_formats,
 			_part.stride(),
 			elem.offset()
 		);
@@ -91,10 +156,10 @@ sge::renderer::vf::dynamic::detail::converter::converter(
 		)
 			::convert_if_color(
 				element_converters_,
-				_accepted_formats,
 				element.info().get<
 					renderer::vf::dynamic::unspecified
 				>().type(),
+				_accepted_formats,
 				_part.stride(),
 				elem.offset()
 			);
@@ -117,10 +182,10 @@ sge::renderer::vf::dynamic::detail::converter::convert(
 		_intervals
 	)
 		BOOST_FOREACH(
-			element_vector::reference ref,
-			elements_
+			element_converter_vector::reference ref,
+			element_converters_
 		)
-			ref->convert(
+			ref.convert(
 				interval,
 				_part.data(),
 				_unlock

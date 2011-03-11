@@ -22,6 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_HPP_INCLUDED
 
 #include "element_converter_fwd.hpp"
+#include "lock_interval.hpp"
+#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/raw_pointer.hpp>
+#include <sge/image/color/format.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -51,12 +56,12 @@ public:
 
 	void
 	convert(
-		interval,
-		sge::renderer::pointer data,
+		detail::lock_interval const &,
+		sge::renderer::raw_pointer data,
 		bool unlock
 	);
 private:
-	sge::image::color:;format::type const
+	sge::image::color::format::type const
 		original_color_,
 		backend_color_;
 

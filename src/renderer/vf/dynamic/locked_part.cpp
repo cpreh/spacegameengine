@@ -18,68 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
+#include <sge/renderer/vf/dynamic/locked_part.hpp>
 
-#include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+sge::renderer::vf::dynamic::locked_part::locked_part(
+	renderer::raw_pointer const _data,
+	renderer::size_type const _pos,
+	renderer::size_type const _count,
+	bool const _read,
+	bool const _write
+)
+:
+	data_(_data),
+	pos_(_pos),
+	count_(_count),
+	read_(_read),
+	write_(_write)
 {
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
-{
-
-class locked_part
-{
-public:
-	SGE_SYMBOL
-	locked_part(
-		renderer::raw_pointer,
-		renderer::size_type pos,
-		renderer::size_type count,
-		bool read,
-		bool write
-	);
-
-	SGE_SYMBOL
-	renderer::raw_pointer
-	data() const;
-
-	SGE_SYMBOL
-	renderer::size_type
-	pos() const;
-
-	SGE_SYMBOL
-	renderer::size_type
-	count() const;
-
-	SGE_SYMBOL
-	bool
-	read() const;
-
-	SGE_SYMBOL
-	bool
-	write() const;
-private:
-	renderer::raw_pointer data_;
-
-	renderer::size_type
-		pos_,
-		count_;
-	
-	bool
-		read_,
-		write_;
-};
-
-}
-}
-}
 }
 
-#endif
+sge::renderer::raw_pointer
+sge::renderer::vf::dynamic::locked_part::data() const
+{
+	return data_;
+}
+
+sge::renderer::size_type
+sge::renderer::vf::dynamic::locked_part::pos() const
+{
+	return pos_;
+}
+
+sge::renderer::size_type
+sge::renderer::vf::dynamic::locked_part::count() const
+{
+	return count_;
+}
+
+bool
+sge::renderer::vf::dynamic::locked_part::read() const
+{
+	return read_;
+}
+
+bool
+sge::renderer::vf::dynamic::locked_part::write() const
+{
+	return write_;
+}
