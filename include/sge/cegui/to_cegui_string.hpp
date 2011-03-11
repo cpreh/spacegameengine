@@ -3,13 +3,14 @@
 
 #include <CEGUI/CEGUIString.h>
 #include <sge/charconv/system_ptr.hpp>
+#include <sge/cegui/symbol.hpp>
 #include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace cegui
 {
-CEGUI::String const
+SGE_CEGUI_SYMBOL CEGUI::String const
 to_cegui_string(
 	fcppt::string const &,
 	sge::charconv::system_ptr);

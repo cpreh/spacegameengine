@@ -1,5 +1,7 @@
-#include "declare_local_logger.hpp"
-#include <sge/cegui/default_target.hpp>
+#include "../declare_local_logger.hpp"
+#include <CEGUI/CEGUIGeometryBuffer.h>
+#include <CEGUI/CEGUIRenderQueue.h>
+#include <sge/cegui/detail/default_target.hpp>
 #include <sge/cegui/structure_cast.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/target.hpp>
@@ -25,7 +27,7 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 
 // sge already provides this viewport-adaption technique so I just
 // update the viewport variable when the viewport is requested.
-sge::cegui::default_target::default_target(
+sge::cegui::detail::default_target::default_target(
 	sge::renderer::device_ptr const _renderer)
 :
 	renderer_(
@@ -35,20 +37,21 @@ sge::cegui::default_target::default_target(
 }
 
 void 
-sge::cegui::default_target::draw(
+sge::cegui::detail::default_target::draw(
 	CEGUI::GeometryBuffer const &buffer)
 {
 	buffer.draw();
 }
 
 void 
-sge::cegui::default_target::draw(CEGUI::RenderQueue const &queue)
+sge::cegui::detail::default_target::draw(
+	CEGUI::RenderQueue const &queue)
 {
 	queue.draw();
 }
 
 void 
-sge::cegui::default_target::setArea(
+sge::cegui::detail::default_target::setArea(
 	CEGUI::Rect const &r)
 {
 	// This is a check to see if setArea might be called from outside,
@@ -59,7 +62,7 @@ sge::cegui::default_target::setArea(
 }
 
 CEGUI::Rect const &
-sge::cegui::default_target::getArea() const
+sge::cegui::detail::default_target::getArea() const
 {
 	viewport_ =
 		structure_cast(
@@ -68,23 +71,23 @@ sge::cegui::default_target::getArea() const
 }
 
 bool 
-sge::cegui::default_target::isImageryCache() const
+sge::cegui::detail::default_target::isImageryCache() const
 {
 	return false;
 }
 
 void 
-sge::cegui::default_target::activate()
+sge::cegui::detail::default_target::activate()
 {
 }
 
 void 
-sge::cegui::default_target::deactivate()
+sge::cegui::detail::default_target::deactivate()
 {
 }
 
 void 
-sge::cegui::default_target::unprojectPoint(
+sge::cegui::detail::default_target::unprojectPoint(
 	CEGUI::GeometryBuffer const &,
 	CEGUI::Vector2 const & p_in, 
 	CEGUI::Vector2& p_out) const
@@ -96,7 +99,7 @@ sge::cegui::default_target::unprojectPoint(
 }
 
 sge::renderer::matrix4 const
-sge::cegui::default_target::projection() const
+sge::cegui::detail::default_target::projection() const
 {
 	return 
 		fcppt::math::matrix::orthogonal(

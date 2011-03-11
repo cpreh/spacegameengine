@@ -1,7 +1,7 @@
-#include "declare_local_logger.hpp"
-#include <sge/cegui/texture_target.hpp>
+#include "../declare_local_logger.hpp"
+#include <sge/cegui/detail/texture_target.hpp>
 #include <sge/cegui/system.hpp>
-#include <sge/cegui/texture.hpp>
+#include <sge/cegui/detail/texture.hpp>
 #include <sge/cegui/structure_cast.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/device.hpp>
@@ -35,7 +35,7 @@
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("texture_target"))
 
-sge::cegui::texture_target::texture_target(
+sge::cegui::detail::texture_target::texture_target(
 	system &_system)
 :
 	system_(
@@ -53,7 +53,7 @@ sge::cegui::texture_target::texture_target(
 }
 	
 void 
-sge::cegui::texture_target::draw(
+sge::cegui::detail::texture_target::draw(
 	CEGUI::GeometryBuffer const &buffer)
 {
 	// Disabled for debugging reasons
@@ -66,7 +66,7 @@ sge::cegui::texture_target::draw(
 }
 
 void 
-sge::cegui::texture_target::draw(
+sge::cegui::detail::texture_target::draw(
 	CEGUI::RenderQueue const & queue)
 {
 	// Disabled for debugging reasons
@@ -79,7 +79,7 @@ sge::cegui::texture_target::draw(
 }
 
 void 
-sge::cegui::texture_target::setArea(
+sge::cegui::detail::texture_target::setArea(
 	CEGUI::Rect const &_area)
 {
 	FCPPT_LOG_DEBUG(
@@ -92,19 +92,19 @@ sge::cegui::texture_target::setArea(
 }
 
 CEGUI::Rect const &
-sge::cegui::texture_target::getArea() const
+sge::cegui::detail::texture_target::getArea() const
 {
 	return area_;
 }
 
 bool 
-sge::cegui::texture_target::isImageryCache() const
+sge::cegui::detail::texture_target::isImageryCache() const
 {
 	return true;
 }
 
 void 
-sge::cegui::texture_target::activate()
+sge::cegui::detail::texture_target::activate()
 {
 	if(texture_->empty())
 		return;
@@ -152,7 +152,7 @@ sge::cegui::texture_target::activate()
 }
 
 void 
-sge::cegui::texture_target::deactivate()
+sge::cegui::detail::texture_target::deactivate()
 {
 	if(texture_->empty())
 		return;
@@ -166,7 +166,7 @@ sge::cegui::texture_target::deactivate()
 }
 
 void 
-sge::cegui::texture_target::unprojectPoint(
+sge::cegui::detail::texture_target::unprojectPoint(
 	CEGUI::GeometryBuffer const &,
 	CEGUI::Vector2 const &, 
 	CEGUI::Vector2 &) const
@@ -177,7 +177,7 @@ sge::cegui::texture_target::unprojectPoint(
 }
 
 void 
-sge::cegui::texture_target::clear()
+sge::cegui::detail::texture_target::clear()
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -209,13 +209,13 @@ sge::cegui::texture_target::clear()
 }
 
 CEGUI::Texture &
-sge::cegui::texture_target::getTexture() const
+sge::cegui::detail::texture_target::getTexture() const
 {
 	return *texture_;
 }
 
 void 
-sge::cegui::texture_target::declareRenderSize(
+sge::cegui::detail::texture_target::declareRenderSize(
 	CEGUI::Size const &_size)
 {
 	FCPPT_LOG_DEBUG(
@@ -230,7 +230,7 @@ sge::cegui::texture_target::declareRenderSize(
 			_size));
 
 	texture_.take(
-		fcppt::make_unique_ptr<sge::cegui::texture>(
+		fcppt::make_unique_ptr<texture>(
 			std::tr1::ref(
 				system_),
 			sge::renderer::texture::capabilities::render_target));
@@ -253,11 +253,11 @@ sge::cegui::texture_target::declareRenderSize(
 }
 
 bool 
-sge::cegui::texture_target::isRenderingInverted() const
+sge::cegui::detail::texture_target::isRenderingInverted() const
 {
 	return true;
 }
 
-sge::cegui::texture_target::~texture_target()
+sge::cegui::detail::texture_target::~texture_target()
 {
 }

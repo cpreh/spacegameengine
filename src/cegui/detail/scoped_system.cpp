@@ -1,10 +1,10 @@
-#include <sge/cegui/scoped_system.hpp>
-#include <sge/cegui/renderer.hpp>
-#include <sge/cegui/image_codec.hpp>
-#include <sge/cegui/resource_provider.hpp>
+#include <sge/cegui/detail/scoped_system.hpp>
+#include <sge/cegui/detail/renderer.hpp>
+#include <sge/cegui/detail/image_codec.hpp>
+#include <sge/cegui/detail/resource_provider.hpp>
 #include <CEGUI/CEGUISystem.h>
 
-sge::cegui::scoped_system::scoped_system(
+sge::cegui::detail::scoped_system::scoped_system(
 	renderer &_renderer,
 	image_codec &_image_codec,
 	resource_provider &_resource_provider)
@@ -24,7 +24,7 @@ sge::cegui::scoped_system::scoped_system(
 		"CEGUI.log");
 }
 
-sge::cegui::scoped_system::~scoped_system()
+sge::cegui::detail::scoped_system::~scoped_system()
 {
 	CEGUI::System::destroy();
 }

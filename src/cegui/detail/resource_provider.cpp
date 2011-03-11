@@ -1,9 +1,11 @@
-#include "declare_local_logger.hpp"
-#include <sge/cegui/resource_provider.hpp>
+#include "../declare_local_logger.hpp"
+#include <sge/cegui/detail/resource_provider.hpp>
 #include <sge/cegui/exception.hpp>
+#include <sge/cegui/from_cegui_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert_message.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fstream>
 #include <iostream>
@@ -13,11 +15,14 @@
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("resource_provider"))
 
-sge::cegui::resource_provider::resource_provider(
-	fcppt::filesystem::path const &_prefix)
+sge::cegui::detail::resource_provider::resource_provider(
+	fcppt::filesystem::path const &_prefix,
+	sge::charconv::system_ptr const _charconv_system)
 :
 	prefix_(
-		_prefix)
+		_prefix),
+	charconv_system_(
+		_charconv_system)
 {
 }
 
@@ -25,7 +30,7 @@ sge::cegui::resource_provider::resource_provider(
 // - Fonts
 // - XML files
 void 
-sge::cegui::resource_provider::loadRawDataContainer(
+sge::cegui::detail::resource_provider::loadRawDataContainer(
 	CEGUI::String const &filename, 
 	CEGUI::RawDataContainer &output, 
 	CEGUI::String const&resourceGroup)
@@ -39,31 +44,49 @@ sge::cegui::resource_provider::loadRawDataContainer(
 			<< fcppt::from_std_string(resourceGroup.c_str())
 			<< FCPPT_TEXT(")"));
 
-	fcppt::io::cifstream file_stream(
-		prefix_ 
-			/ fcppt::from_std_string(filename.c_str()));
+//	std::cerr << "from_cegui_string: " << filename.c_str() << " (length " << filename.length() << ")\n";
+	fcppt::string const converted = 
+		from_cegui_string(
+			filename,
+			charconv_system_);
+//	std::cerr << "from_cegui_string end\n";
 
-	if(!file_stream.is_open())
-		throw exception(
-			FCPPT_TEXT("Coudn't open file \"")+
-			fcppt::from_std_string(
-				filename.c_str())+
-			FCPPT_TEXT("\""));
+	// The problem here is that the resource provider is used for
+	// "internally linked files" such as the imagesets as well as
+	// "externally loaded" files like the layout files. So we first try
+	// to load it with a prefix and then without. Not perfect, but it
+	// suffices for now.
+	fcppt::scoped_ptr<fcppt::io::cifstream> file_stream(
+		new fcppt::io::cifstream(
+			prefix_ / converted));
 
-	file_stream.seekg(
+	if(!file_stream->is_open())
+	{
+		file_stream.reset(
+			new fcppt::io::cifstream(
+				converted));
+
+		if(!file_stream->is_open())
+			throw exception(
+				FCPPT_TEXT("Coudn't open file \"")+
+				converted+
+				FCPPT_TEXT("\""));
+	}
+
+	file_stream->seekg(
 		0,
 		std::ios_base::end);
 
 	std::streampos const filesize = 
-		file_stream.tellg();
+		file_stream->tellg();
 
 	CEGUI::uint8 *data = new CEGUI::uint8[static_cast<std::size_t>(filesize)];
 
-	file_stream.seekg(
+	file_stream->seekg(
 		0,
 		std::ios_base::beg);
 
-	file_stream.read(
+	file_stream->read(
 		reinterpret_cast<char*>(
 			data),
 		static_cast<std::streamsize>(
@@ -77,7 +100,7 @@ sge::cegui::resource_provider::loadRawDataContainer(
 }
 
 void 
-sge::cegui::resource_provider::unloadRawDataContainer(
+sge::cegui::detail::resource_provider::unloadRawDataContainer(
 	CEGUI::RawDataContainer&data)
 {
 	FCPPT_LOG_DEBUG(
@@ -89,7 +112,7 @@ sge::cegui::resource_provider::unloadRawDataContainer(
 }
 
 size_t 
-sge::cegui::resource_provider::getResourceGroupFileNames(
+sge::cegui::detail::resource_provider::getResourceGroupFileNames(
 	std::vector<CEGUI::String>&,
 	CEGUI::String const &file_pattern,
 	CEGUI::String const &resource_group)
@@ -109,7 +132,7 @@ sge::cegui::resource_provider::getResourceGroupFileNames(
 }
 
 fcppt::filesystem::path const
-sge::cegui::resource_provider::to_absolute_path(
+sge::cegui::detail::resource_provider::to_absolute_path(
 	CEGUI::String const &filename, 
 	CEGUI::String const &)
 {
@@ -118,6 +141,6 @@ sge::cegui::resource_provider::to_absolute_path(
 			/ fcppt::from_std_string(filename.c_str());
 }
 
-sge::cegui::resource_provider::~resource_provider()
+sge::cegui::detail::resource_provider::~resource_provider()
 {
 }

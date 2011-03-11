@@ -1,5 +1,5 @@
-#include "declare_local_logger.hpp"
-#include <sge/cegui/cegui_logger.hpp>
+#include "../declare_local_logger.hpp"
+#include <sge/cegui/detail/cegui_logger.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -10,7 +10,7 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("cegui"))
 
 void 
-sge::cegui::cegui_logger::logEvent(
+sge::cegui::detail::cegui_logger::logEvent(
 	CEGUI::String const &message, 
 	CEGUI::LoggingLevel const level)
 {
@@ -48,7 +48,7 @@ sge::cegui::cegui_logger::logEvent(
 }
 
 void 
-sge::cegui::cegui_logger::setLogFilename(
+sge::cegui::detail::cegui_logger::setLogFilename(
 	CEGUI::String const &,
 	bool)
 {
