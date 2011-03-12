@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_RENDERER_HPP_INCLUDED
 
 #include <sge/renderer/parameters.hpp>
-#include <sge/systems/viewport/factory.hpp>
 #include <sge/systems/symbol.hpp>
 
 namespace sge
@@ -34,22 +33,15 @@ class renderer
 {
 public:
 	SGE_SYSTEMS_SYMBOL
-	renderer(
-		sge::renderer::parameters const &,
-		systems::viewport::factory const &
+	explicit renderer(
+		sge::renderer::parameters const &
 	);
 
 	SGE_SYSTEMS_SYMBOL
 	sge::renderer::parameters const &
 	parameters() const;
-
-	SGE_SYSTEMS_SYMBOL
-	systems::viewport::factory const &
-	viewport_factory() const;
 private:
 	sge::renderer::parameters parameters_;
-
-	sge::systems::viewport::factory viewport_factory_;
 };
 
 }

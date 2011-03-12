@@ -18,20 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "fill_on_resize_function.hpp"
-#include "make_manager.hpp"
-#include <sge/systems/viewport/fill_on_resize.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
+#ifndef SGE_VIEWPORT_FILL_ON_RESIZE_HPP_INCLUDED
+#define SGE_VIEWPORT_FILL_ON_RESIZE_HPP_INCLUDED
 
-sge::systems::viewport::factory const
-sge::systems::viewport::fill_on_resize()
+#include <sge/viewport/factory.hpp>
+#include <sge/viewport/symbol.hpp>
+
+namespace sge
 {
-	return
-		systems::viewport::make_manager(
-			std::tr1::bind(
-				&systems::viewport::fill_on_resize_function,
-				std::tr1::placeholders::_1
-			)
-		);
+namespace viewport
+{
+
+SGE_VIEWPORT_SYMBOL
+viewport::factory const
+fill_on_resize();
+
 }
+}
+
+#endif

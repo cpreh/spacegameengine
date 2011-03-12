@@ -21,12 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 
 sge::systems::renderer::renderer(
-	sge::renderer::parameters const &_parameters,
-	systems::viewport::factory const &_viewport_factory
+	sge::renderer::parameters const &_parameters
 )
 :
-	parameters_(_parameters),
-	viewport_factory_(_viewport_factory)
+	parameters_(_parameters)
 {
 }
 
@@ -34,10 +32,4 @@ sge::renderer::parameters const &
 sge::systems::renderer::parameters() const
 {
 	return parameters_;
-}
-
-sge::systems::viewport::factory const &
-sge::systems::renderer::viewport_factory() const
-{
-	return viewport_factory_;
 }

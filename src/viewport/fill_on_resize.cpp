@@ -18,28 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "make_manager.hpp"
-#include "basic_manager.hpp"
-#include <sge/systems/viewport/manager_unique_ptr.hpp>
+#include "fill_on_resize_function.hpp"
+#include <sge/viewport/fill_on_resize.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/object/construct.hpp>
-#include <boost/spirit/home/phoenix/object/new.hpp>
+#include <fcppt/tr1/functional.hpp>
 
-sge::systems::viewport::factory const
-sge::systems::viewport::make_manager(
-	viewport::resize_function const &_resize_function
-)
+sge::viewport::factory const
+sge::viewport::fill_on_resize()
 {
 	return
-		boost::phoenix::construct<
-			viewport::manager_unique_ptr
-		>(
-			boost::phoenix::new_<
-				viewport::basic_manager
-			>(
-				boost::phoenix::arg_names::arg1,
-				_resize_function
-			)
+		std::tr1::bind(
+			&viewport::fill_on_resize_function,
+			std::tr1::placeholders::_1
 		);
 }

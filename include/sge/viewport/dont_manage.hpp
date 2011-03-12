@@ -18,25 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_VIEWPORT_MAKE_MANAGER_HPP_INCLUDED
-#define SGE_SYSTEMS_VIEWPORT_MAKE_MANAGER_HPP_INCLUDED
+#ifndef SGE_VIEWPORT_DONT_MANAGE_HPP_INCLUDED
+#define SGE_VIEWPORT_DONT_MANAGE_HPP_INCLUDED
 
-#include "resize_function.hpp"
-#include <sge/systems/viewport/factory.hpp>
+#include <sge/viewport/factory.hpp>
+#include <sge/viewport/symbol.hpp>
 
 namespace sge
-{
-namespace systems
 {
 namespace viewport
 {
 
+SGE_VIEWPORT_SYMBOL
 viewport::factory const
-make_manager(
-	viewport::resize_function const &
-);
+dont_manage();
 
-}
 }
 }
 

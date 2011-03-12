@@ -114,6 +114,8 @@ update_sublibrary texture
 
 update_sublibrary time
 
+update_sublibrary viewport
+
 # plugins
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \

@@ -18,24 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_VIEWPORT_DONT_MANAGE_HPP_INCLUDED
-#define SGE_SYSTEMS_VIEWPORT_DONT_MANAGE_HPP_INCLUDED
+#ifndef SGE_VIEWPORT_MANAGE_FUNCTION_HPP_INCLUDED
+#define SGE_VIEWPORT_MANAGE_FUNCTION_HPP_INCLUDED
 
-#include <sge/systems/viewport/factory.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/renderer/device_ptr.hpp>
 
 namespace sge
-{
-namespace systems
 {
 namespace viewport
 {
 
-SGE_SYSTEMS_SYMBOL
-viewport::factory const
-dont_manage();
+typedef
+void
+manage_function(
+	sge::renderer::device_ptr
+);
 
-}
 }
 }
 

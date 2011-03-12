@@ -41,7 +41,7 @@ center_position(
 }
 
 sge::renderer::viewport const
-sge::systems::viewport::center(
+sge::viewport::center(
 	sge::window::dim const &_ref_dim,
 	sge::window::dim const &_window_dim
 )

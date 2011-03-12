@@ -28,15 +28,6 @@ SET(
 	include/sge/systems/renderer.hpp
 	include/sge/systems/running_to_false.hpp
 	include/sge/systems/symbol.hpp
-	include/sge/systems/viewport/center_on_resize.hpp
-	include/sge/systems/viewport/dont_manage.hpp
-	include/sge/systems/viewport/factory.hpp
-	include/sge/systems/viewport/fill_on_resize.hpp
-	include/sge/systems/viewport/manage_callback.hpp
-	include/sge/systems/viewport/manage_function.hpp
-	include/sge/systems/viewport/manager.hpp
-	include/sge/systems/viewport/manager_fwd.hpp
-	include/sge/systems/viewport/manager_unique_ptr.hpp
 	include/sge/systems/window.hpp
 	include/sge/systems/window_fwd.hpp
 	include/sge/systems/wrapped_window.hpp
@@ -62,21 +53,6 @@ SET(
 	src/systems/plugin_path.hpp
 	src/systems/renderer.cpp
 	src/systems/running_to_false.cpp
-	src/systems/viewport/basic_manager.cpp
-	src/systems/viewport/basic_manager.hpp
-	src/systems/viewport/center.cpp
-	src/systems/viewport/center.hpp
-	src/systems/viewport/center_on_resize.cpp
-	src/systems/viewport/center_on_resize_function.cpp
-	src/systems/viewport/center_on_resize_function.hpp
-	src/systems/viewport/dont_manage.cpp
-	src/systems/viewport/fill_on_resize.cpp
-	src/systems/viewport/fill_on_resize_function.cpp
-	src/systems/viewport/fill_on_resize_function.hpp
-	src/systems/viewport/make_manager.cpp
-	src/systems/viewport/make_manager.hpp
-	src/systems/viewport/manager.cpp
-	src/systems/viewport/resize_function.hpp
 	src/systems/window.cpp
 	src/systems/wrap_window.cpp
 	src/systems/wrap_window.hpp

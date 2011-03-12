@@ -38,9 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_ptr.hpp>
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/symbol.hpp>
-#include <sge/systems/viewport/manage_callback.hpp>
 #include <sge/window/instance_ptr.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -126,12 +124,6 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	sge::window::instance_ptr const
 	window() const;
-
-	SGE_SYSTEMS_SYMBOL
-	fcppt::signal::auto_connection
-	manage_viewport_callback(
-		systems::viewport::manage_callback const &
-	);
 
 	class impl;
 private:

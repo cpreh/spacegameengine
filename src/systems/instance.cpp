@@ -61,7 +61,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/exception.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/viewport/manager.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/window/instance_ptr.hpp>
 #include <awl/system/create.hpp>
@@ -106,12 +105,6 @@ public:
 
 	sge::renderer::system_ptr                       renderer_system_;
 	sge::renderer::device_ptr                       renderer_;
-
-	typedef fcppt::scoped_ptr<
-		sge::systems::viewport::manager
-	> viewport_manager_ptr;
-
-	viewport_manager_ptr                            viewport_manager_;
 
 	typedef fcppt::scoped_ptr<
 		sge::systems::cursor_modifier
@@ -395,17 +388,6 @@ sge::systems::instance::window() const
 	return impl_->window_;
 }
 
-fcppt::signal::auto_connection
-sge::systems::instance::manage_viewport_callback(
-	systems::viewport::manage_callback const &_callback
-)
-{
-	return
-		impl_->viewport_manager_->manage_callback(
-			_callback
-		);
-}
-
 namespace
 {
 
@@ -568,12 +550,6 @@ sge::systems::instance::impl::init_renderer(
 			),
 			window_
 		);
-	
-	viewport_manager_.take(
-		_param.viewport_factory()(
-			renderer_	
-		)
-	);
 }
 
 void

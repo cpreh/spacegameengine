@@ -18,19 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_VIEWPORT_MANAGER_HPP_INCLUDED
-#define SGE_SYSTEMS_VIEWPORT_MANAGER_HPP_INCLUDED
+#ifndef SGE_VIEWPORT_MANAGER_HPP_INCLUDED
+#define SGE_VIEWPORT_MANAGER_HPP_INCLUDED
 
-#include <sge/systems/viewport/manager_fwd.hpp>
-#include <sge/systems/viewport/manage_callback.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/viewport/factory.hpp>
+#include <sge/viewport/manager_fwd.hpp>
+#include <sge/viewport/manage_callback.hpp>
+#include <sge/viewport/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_decl.hpp>
 
 namespace sge
-{
-namespace systems
 {
 namespace viewport
 {
@@ -40,20 +41,29 @@ class SGE_CLASS_SYMBOL manager
 	FCPPT_NONCOPYABLE(
 		manager
 	);
-protected:
-	SGE_SYSTEMS_SYMBOL
-	manager();
 public:
-	SGE_SYSTEMS_SYMBOL
-	virtual ~manager();
+	SGE_VIEWPORT_SYMBOL
+	manager(
+		renderer::device &,
+		viewport::factory const &
+	);
 
-	virtual fcppt::signal::auto_connection
+	SGE_VIEWPORT_SYMBOL
+	~manager();
+
+	SGE_VIEWPORT_SYMBOL
+	fcppt::signal::auto_connection
 	manage_callback(
-		systems::viewport::manage_callback const &
-	) = 0;
+		viewport::manage_callback const &
+	);
+private:
+	class impl;
+
+	fcppt::scoped_ptr<
+		impl
+	> impl_;
 };
 
-}
 }
 }
 

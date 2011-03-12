@@ -18,12 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/viewport/manager.hpp>
+#ifndef SGE_VIEWPORT_FACTORY_HPP_INCLUDED
+#define SGE_VIEWPORT_FACTORY_HPP_INCLUDED
 
-sge::systems::viewport::manager::manager()
+#include <sge/viewport/resize_function.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <fcppt/function/object.hpp>
+
+namespace sge
 {
+namespace viewport
+{
+
+typedef fcppt::function::object<
+	viewport::resize_function(
+		sge::renderer::device const &
+	)
+> factory;
+
+}
 }
 
-sge::systems::viewport::manager::~manager()
-{
-}
+#endif

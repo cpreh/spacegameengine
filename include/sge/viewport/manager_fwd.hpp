@@ -18,24 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "center_on_resize_function.hpp"
-#include "make_manager.hpp"
-#include <sge/systems/viewport/center_on_resize.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
+#ifndef SGE_VIEWPORT_MANAGER_FWD_HPP_INCLUDED
+#define SGE_VIEWPORT_MANAGER_FWD_HPP_INCLUDED
 
-sge::systems::viewport::factory const
-sge::systems::viewport::center_on_resize(
-	sge::window::dim const &_dim
-)
+namespace sge
 {
-	return
-		systems::viewport::make_manager(
-			std::tr1::bind(
-				&systems::viewport::center_on_resize_function,
-				_dim,
-				std::tr1::placeholders::_1
-			)
-		);
+namespace viewport
+{
+
+class manager;
+
 }
+}
+
+#endif

@@ -1,0 +1,28 @@
+SET(
+	SGE_VIEWPORT_FILES
+	include/sge/viewport/center_on_resize.hpp
+	include/sge/viewport/dont_manage.hpp
+	include/sge/viewport/factory.hpp
+	include/sge/viewport/fill_on_resize.hpp
+	include/sge/viewport/manage_callback.hpp
+	include/sge/viewport/manage_function.hpp
+	include/sge/viewport/manager.hpp
+	include/sge/viewport/manager_fwd.hpp
+	include/sge/viewport/resize_function.hpp
+	include/sge/viewport/symbol.hpp
+	src/viewport/center.cpp
+	src/viewport/center.hpp
+	src/viewport/center_on_resize.cpp
+	src/viewport/center_on_resize_function.cpp
+	src/viewport/center_on_resize_function.hpp
+	src/viewport/dont_manage.cpp
+	src/viewport/fill_on_resize.cpp
+	src/viewport/fill_on_resize_function.cpp
+	src/viewport/fill_on_resize_function.hpp
+	src/viewport/manager.cpp
+)
+
+ADD_SGE_BASE_LIBRARY(
+	viewport	
+	""
+)
