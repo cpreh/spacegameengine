@@ -1,8 +1,3 @@
-CHECK_DEPENDENCIES(
-	"PARSE"
-	"fontbitmap"
-)
-
 SET(
 	SGE_FONT_BITMAP_FILES
 	include/sge/font/bitmap/create.hpp

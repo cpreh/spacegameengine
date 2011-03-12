@@ -1,8 +1,3 @@
-CHECK_DEPENDENCIES(
-	"TEXTURE;SPRITE"
-	"fonttext"
-)
-
 SET(
 	SGE_FONT_TEXT_FILES
 	include/sge/font/text/align_h.hpp

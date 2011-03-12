@@ -1,8 +1,3 @@
-CHECK_DEPENDENCIES(
-	"PARSE"
-	"config"
-)
-
 CONFIGURE_FILE(
 	${CMAKE_SOURCE_DIR}/config_paths.hpp.in
 	${CMAKE_BINARY_DIR}/include/sge/config/config_paths.hpp

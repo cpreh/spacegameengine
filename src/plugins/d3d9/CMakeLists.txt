@@ -1,8 +1,3 @@
-CHECK_DEPENDENCIES(
-	"TIME"
-	"d3d9"
-)
-
 SET(
 	SGE_D3D9_FILES
 	src/plugins/d3d9/basic_target.hpp

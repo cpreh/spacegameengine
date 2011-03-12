@@ -1281,6 +1281,44 @@ MACRO(
 		${SGE_${UPPER_LIB_NAME}_FILES_ABS}
 	)
 
+	FOREACH(
+		DEPENDENCY
+		${ADDITONAL_DEPS}
+	)
+		STRING(
+			SUBSTRING
+			${DEPENDENCY}
+			0
+			3
+			PREFIX
+		)
+	
+		IF(
+			PREFIX STREQUAL "sge"
+		)
+			STRING(
+				REPLACE
+				"sge"
+				""
+				SUFFIX
+				${DEPENDENCY}
+			)
+
+			STRING(
+				TOUPPER
+				${SUFFIX}
+				UPPER_SUFFIX
+			)
+
+			IF(NOT ENABLE_${UPPER_SUFFIX})
+				MESSAGE(
+					FATAL_ERROR
+					"For ${LIB_NAME} to work you need to -D ENABLE_${UPPER_SUFFIX}=ON!"
+				)
+			ENDIF()
+		ENDIF()
+	ENDFOREACH()
+
 	TARGET_LINK_LIBRARIES(
 		${SGE_LIB_NAME}
 		sgecore

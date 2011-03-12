@@ -1,8 +1,3 @@
-CHECK_DEPENDENCIES(
-	"TIME"
-	"x11input"
-)
-
 SET(
 	SGE_X11INPUT_FILES
 	src/plugins/x11input/color.hpp

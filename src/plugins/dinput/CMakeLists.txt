@@ -1,8 +1,3 @@
-CHECK_DEPENDENCIES(
-	"TIME"
-	"Direct Input"
-)
-
 SET(
 	SGE_DINPUT_FILES
 	src/plugins/dinput/cast_key.hpp

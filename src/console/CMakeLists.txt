@@ -1,8 +1,3 @@
-CHECK_DEPENDENCIES(
-	"FONTTEXT;TIME"
-	"console"
-)
-
 SET(
 	SGE_CONSOLE_FILES
 	include/sge/console/arg_list.hpp

@@ -1,8 +1,3 @@
-CHECK_DEPENDENCIES(
-	"CONFIG;VIEWPORT"
-	"systems"
-)
-
 SET(
 	SGE_SYSTEMS_FILES
 	include/sge/systems/any.hpp
