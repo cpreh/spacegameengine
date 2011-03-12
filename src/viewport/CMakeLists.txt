@@ -2,7 +2,6 @@ SET(
 	SGE_VIEWPORT_FILES
 	include/sge/viewport/center_on_resize.hpp
 	include/sge/viewport/dont_manage.hpp
-	include/sge/viewport/factory.hpp
 	include/sge/viewport/fill_on_resize.hpp
 	include/sge/viewport/manage_callback.hpp
 	include/sge/viewport/manage_function.hpp

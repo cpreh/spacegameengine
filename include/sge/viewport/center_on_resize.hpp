@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VIEWPORT_CENTER_ON_RESIZE_HPP_INCLUDED
 #define SGE_VIEWPORT_CENTER_ON_RESIZE_HPP_INCLUDED
 
-#include <sge/viewport/factory.hpp>
+#include <sge/viewport/resize_function.hpp>
 #include <sge/viewport/symbol.hpp>
 #include <sge/window/dim.hpp>
 
@@ -31,7 +31,7 @@ namespace viewport
 {
 
 SGE_VIEWPORT_SYMBOL
-viewport::factory const
+viewport::resize_function const
 center_on_resize(
 	sge::window::dim const &
 );

@@ -24,15 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/resize_function.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/target_base.hpp>
 #include <sge/renderer/target_base_ptr.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/window/event/resize_fwd.hpp>
 #include <awl/window/event/resize.hpp>
 #include <awl/window/event/processor.hpp>
 #include <fcppt/function/object.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -43,7 +47,7 @@ class sge::viewport::manager::impl
 	);
 public:
 	explicit impl(
-		sge::renderer::device const &,
+		sge::renderer::device &,
 		viewport::resize_function const &
 	);
 	
@@ -76,17 +80,17 @@ private:
 
 sge::viewport::manager::manager(
 	renderer::device &_device,
-	viewport::factory const &_factory
+	viewport::resize_function const &_resize_function
 )
 :
 	impl_(
 		fcppt::make_unique_ptr<
 			impl
 		>(
-			_device,
-			_factory(
+			std::tr1::ref(
 				_device
-			)
+			),
+			_resize_function
 		)
 	)
 {
@@ -116,13 +120,13 @@ sge::viewport::manager::impl::impl(
 		_device
 	),
 	target_(
-		_device->onscreen_target()
+		_device.onscreen_target()
 	),
 	resize_function_(
 		_resize_function
 	),
 	resize_connection_(
-		_device->window()->awl_window_event_processor()->resize_callback(
+		_device.window()->awl_window_event_processor()->resize_callback(
 			std::tr1::bind(
 				&impl::on_resize,
 				this,
@@ -164,6 +168,8 @@ sge::viewport::manager::impl::on_resize(
 		);
 
 	manage_signal_(
-		device_
+		std::tr1::ref(
+			device_
+		)
 	);
 }

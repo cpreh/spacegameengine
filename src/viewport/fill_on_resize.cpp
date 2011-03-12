@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 
-sge::viewport::factory const
+sge::viewport::resize_function const
 sge::viewport::fill_on_resize()
 {
 	return

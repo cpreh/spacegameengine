@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VIEWPORT_DONT_MANAGE_HPP_INCLUDED
 #define SGE_VIEWPORT_DONT_MANAGE_HPP_INCLUDED
 
-#include <sge/viewport/factory.hpp>
+#include <sge/viewport/resize_function.hpp>
 #include <sge/viewport/symbol.hpp>
 
 namespace sge
@@ -30,7 +30,7 @@ namespace viewport
 {
 
 SGE_VIEWPORT_SYMBOL
-viewport::factory const
+viewport::resize_function const
 dont_manage();
 
 }
