@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/parameters.hpp>
 #include <sge/systems/symbol.hpp>
+#include <sge/viewport/resize_function.hpp>
 
 namespace sge
 {
@@ -33,15 +34,22 @@ class renderer
 {
 public:
 	SGE_SYSTEMS_SYMBOL
-	explicit renderer(
-		sge::renderer::parameters const &
+	renderer(
+		sge::renderer::parameters const &,
+		sge::viewport::resize_function const &
 	);
 
 	SGE_SYSTEMS_SYMBOL
 	sge::renderer::parameters const &
 	parameters() const;
+
+	SGE_SYSTEMS_SYMBOL
+	sge::viewport::resize_function const &
+	resize_function() const;
 private:
 	sge::renderer::parameters parameters_;
+
+	sge::viewport::resize_function resize_function_;
 };
 
 }

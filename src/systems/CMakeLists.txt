@@ -1,5 +1,5 @@
 CHECK_DEPENDENCIES(
-	"CONFIG"
+	"CONFIG;VIEWPORT"
 	"systems"
 )
 
@@ -61,5 +61,5 @@ SET(
 
 ADD_SGE_BASE_LIBRARY(
 	systems
-	"sgeconfig"
+	"sgeconfig;sgeviewport"
 )
