@@ -42,7 +42,7 @@ sge::sprite::set_matrices(
 		sge::renderer::matrix_mode::projection,
 		sprite::projection_matrix(
 			sge::renderer::active_target(
-				_device
+				*_device
 			)->viewport()
 		)
 	);

@@ -105,7 +105,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/systems/viewport/fill_on_resize.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/manager.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/time/frames_counter.hpp>
@@ -242,7 +243,7 @@ try
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::fill_on_resize()
+				sge::viewport::fill_on_resize()
 			)
 		)
 		(
@@ -526,7 +527,7 @@ try
 	);
 
 	fcppt::signal::scoped_connection const viewport_connection(
-		sys.manage_viewport_callback(
+		sys.viewport_manager().manage_callback(
 			std::tr1::bind(
 				sge::camera::projection::update_perspective_from_viewport,
 				std::tr1::placeholders::_1,
@@ -637,7 +638,7 @@ try
 					sge::font::rect::dim
 				>(
 					sge::renderer::active_target(
-						sys.renderer()
+						*sys.renderer()
 					)->viewport().get().size()
 				)
 			),
@@ -660,7 +661,7 @@ try
 					sge::font::rect::dim
 				>(
 					sge::renderer::active_target(
-						sys.renderer()
+						*sys.renderer()
 					)->viewport().get().size()
 				)
 			),

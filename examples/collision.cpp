@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
-#include <sge/systems/viewport/center_on_resize.hpp>
+#include <sge/viewport/center_on_resize.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
@@ -189,7 +189,7 @@ try
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::center_on_resize(
+				sge::viewport::center_on_resize(
 					window_dim
 				)
 			)

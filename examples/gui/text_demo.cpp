@@ -12,7 +12,7 @@
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/log/global.hpp>
 #include <sge/renderer/bit_depth.hpp>
-#include <sge/systems/viewport/fill_on_resize.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/systems/image_loader.hpp>
 #include <sge/renderer/display_mode.hpp>
@@ -97,7 +97,7 @@ try
 				sge::renderer::depth_stencil_buffer::d24,
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling),
-			sge::systems::viewport::fill_on_resize()))
+			sge::viewport::fill_on_resize()))
 		(sge::systems::parameterless::charconv)
 			(sge::systems::image_loader(
 				sge::image::capabilities_field::null(),

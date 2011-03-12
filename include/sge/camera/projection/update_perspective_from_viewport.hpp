@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/object_fwd.hpp>
 #include <sge/camera/symbol.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 
 namespace sge
 {
@@ -36,7 +36,7 @@ namespace projection
 SGE_CAMERA_SYMBOL
 void
 update_perspective_from_viewport(
-	sge::renderer::device_ptr,
+	sge::renderer::device &,
 	camera::object &,
 	renderer::scalar fov,
 	renderer::scalar near,

@@ -65,7 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/systems/viewport/fill_on_resize.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
 #include <fcppt/assert.hpp>
@@ -174,7 +174,7 @@ try
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::fill_on_resize()
+				sge::viewport::fill_on_resize()
 			)
 		)
 		(

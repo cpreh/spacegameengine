@@ -135,7 +135,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/parameterless.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
-#include <sge/systems/viewport/fill_on_resize.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/manager.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/timer.hpp>
@@ -837,7 +838,7 @@ try
 				// the _window size_ will be. If you don't know what the
 				// difference between the viewport and the window is, read up
 				// on it! It's important.
-				sge::systems::viewport::fill_on_resize()))
+				sge::viewport::fill_on_resize()))
 			(sge::systems::parameterless::font)
 			(sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
@@ -913,7 +914,7 @@ try
 
 	// Adapt the camera to the viewport
 	fcppt::signal::scoped_connection const viewport_connection(
-		sys.manage_viewport_callback(
+		sys.viewport_manager().manage_callback(
 			std::tr1::bind(
 				sge::camera::projection::update_perspective_from_viewport,
 				std::tr1::placeholders::_1,
@@ -1094,7 +1095,7 @@ try
 			sge::font::rect(
 				sge::font::rect::vector::null(),
 				fcppt::math::dim::structure_cast<sge::font::rect::dim>(
-					sge::renderer::active_target(sys.renderer())->viewport().get().size())),
+					sge::renderer::active_target(*sys.renderer())->viewport().get().size())),
 			sge::font::text::align_h::left,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none);

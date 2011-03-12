@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::camera::projection::update_perspective_from_viewport(
-	sge::renderer::device_ptr const _device,
+	sge::renderer::device &_device,
 	camera::object &_object,
 	renderer::scalar const _fov,
 	renderer::scalar const _near,
