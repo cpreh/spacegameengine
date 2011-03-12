@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/systems/renderer.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 
 sge::systems::renderer::renderer(
 	sge::renderer::parameters const &_parameters,
