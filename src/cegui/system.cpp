@@ -4,7 +4,7 @@
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/structure_cast.hpp>
 #include <sge/time/funit.hpp>
-#include <sge/systems/instance.hpp>
+#include <sge/viewport/manager.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -40,7 +40,7 @@ sge::cegui::system::system(
 	sge::renderer::device_ptr const _renderer,
 	sge::image2d::multi_loader &_image_loader,
 	sge::charconv::system_ptr const _charconv_system,
-	sge::systems::instance &_systems,
+	sge::viewport::manager &_viewport,
 	cursor_visibility::type const _cursor_visibility)
 :
 	charconv_system_(
@@ -61,7 +61,7 @@ sge::cegui::system::system(
 		image_codec_,
 		resource_provider_),
 	viewport_change_connection_(
-		_systems.manage_viewport_callback(
+		_viewport.manage_callback(
 			boost::bind(
 				&system::viewport_change,
 				this,
@@ -124,7 +124,7 @@ sge::cegui::system::system(
 	}
 
 	viewport_change(
-		sge::renderer::device_ptr());
+		*_renderer);
 }
 
 void
@@ -149,7 +149,7 @@ sge::cegui::system::~system()
 
 void
 sge::cegui::system::viewport_change(
-	sge::renderer::device_ptr)
+	sge::renderer::device &)
 {
 	sge::renderer::pixel_rect new_area_fcppt = 
 		renderer_.impl()->onscreen_target()->viewport().get();

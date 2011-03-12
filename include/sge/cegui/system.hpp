@@ -12,10 +12,10 @@
 #include <sge/cegui/detail/image_codec.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/pixel_rect.hpp>
-#include <sge/systems/instance_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/charconv/system_ptr.hpp>
 #include <sge/time/duration.hpp>
+#include <sge/viewport/manager_fwd.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -38,7 +38,7 @@ public:
 		sge::renderer::device_ptr,
 		sge::image2d::multi_loader &,
 		sge::charconv::system_ptr,
-		sge::systems::instance &,
+		sge::viewport::manager &,
 		sge::cegui::cursor_visibility::type);
 
 	// Sends cegui a time pulse to calculate double clicks, tooltip
@@ -74,7 +74,7 @@ private:
 
 	void
 	viewport_change(
-		sge::renderer::device_ptr);
+		sge::renderer::device &);
 
 	sge::charconv::system_ptr const
 	charconv_system() const;

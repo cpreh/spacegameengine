@@ -1,8 +1,3 @@
-CHECK_DEPENDENCIES(
-	"TIME"
-	"cegui"
-)
-
 INCLUDE_DIRECTORIES(
 	${CEGUI_INCLUDE_DIRS}
 )
@@ -78,7 +73,7 @@ SET(
 
 ADD_SGE_BASE_LIBRARY(
 	cegui
-	"sgetime;sgesystems"
+	"sgetime;sgesystems;sgeviewport"
 )
 
 TARGET_LINK_LIBRARIES (

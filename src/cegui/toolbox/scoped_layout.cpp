@@ -21,8 +21,6 @@ sge::cegui::toolbox::scoped_layout::scoped_layout(
 
 sge::cegui::toolbox::scoped_layout::~scoped_layout()
 {
-	CEGUI::System::getSingleton().setGUISheet(
-		0);
 	CEGUI::WindowManager::getSingleton().destroyWindow(
 		window_);
 }

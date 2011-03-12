@@ -156,7 +156,7 @@ sge::cegui::detail::geometry_buffer::draw() const
 
 	sge::renderer::target_base_ptr const current_target =
 		sge::renderer::active_target(
-			renderer_);
+			*renderer_);
 
 	// TODO: replace by scoped_scissor_area
 	sge::renderer::scissor_area const old_scissor_area = 

@@ -126,7 +126,7 @@ try
 		sys.renderer(),
 		sys.image_loader(),
 		sys.charconv_system(),
-		sys,
+		sys.viewport_manager(),
 		sge::cegui::cursor_visibility::visible);
 
 	sge::cegui::syringe gui_syringe(
