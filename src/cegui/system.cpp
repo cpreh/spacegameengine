@@ -64,8 +64,7 @@ sge::cegui::system::system(
 		_viewport.manage_callback(
 			boost::bind(
 				&system::viewport_change,
-				this,
-				_1))),
+				this))),
 	old_viewport_(
 		sge::renderer::pixel_rect::null())
 {
@@ -123,8 +122,7 @@ sge::cegui::system::system(
 		break;
 	}
 
-	viewport_change(
-		*_renderer);
+	viewport_change();
 }
 
 void
@@ -148,8 +146,7 @@ sge::cegui::system::~system()
 }
 
 void
-sge::cegui::system::viewport_change(
-	sge::renderer::device &)
+sge::cegui::system::viewport_change()
 {
 	sge::renderer::pixel_rect new_area_fcppt = 
 		renderer_.impl()->onscreen_target()->viewport().get();

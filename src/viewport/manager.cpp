@@ -63,8 +63,6 @@ private:
 		awl::window::event::resize const &
 	);
 
-	sge::renderer::device &device_;
-
 	sge::renderer::target_base_ptr const target_;
 
 	viewport::resize_function const resize_function_;
@@ -116,9 +114,6 @@ sge::viewport::manager::impl::impl(
 	viewport::resize_function const &_resize_function
 )
 :
-	device_(
-		_device
-	),
 	target_(
 		_device.onscreen_target()
 	),
@@ -167,9 +162,5 @@ sge::viewport::manager::impl::on_resize(
 			)
 		);
 
-	manage_signal_(
-		std::tr1::ref(
-			device_
-		)
-	);
+	manage_signal_();
 }

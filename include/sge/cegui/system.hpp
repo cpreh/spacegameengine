@@ -16,7 +16,6 @@
 #include <sge/charconv/system_ptr.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/viewport/manager_fwd.hpp>
-#include <sge/renderer/device_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -73,8 +72,7 @@ private:
 	sge::renderer::pixel_rect old_viewport_;
 
 	void
-	viewport_change(
-		sge::renderer::device &);
+	viewport_change();
 
 	sge::charconv::system_ptr const
 	charconv_system() const;

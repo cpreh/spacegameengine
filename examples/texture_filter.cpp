@@ -530,7 +530,9 @@ try
 		sys.viewport_manager().manage_callback(
 			std::tr1::bind(
 				sge::camera::projection::update_perspective_from_viewport,
-				std::tr1::placeholders::_1,
+				std::tr1::ref(
+					*sys.renderer()
+				),
 				std::tr1::ref(
 					camera
 				),
