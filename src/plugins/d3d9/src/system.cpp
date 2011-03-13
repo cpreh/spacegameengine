@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/window/to_awl_parameters.hpp>
 #include <awl/system/object.hpp>
+#include <awl/window/instance.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -66,17 +68,19 @@ sge::d3d9::system::create_renderer(
 		);
 }
 
-awl::window::instance_ptr const
+awl::window::instance_shared_ptr const
 sge::d3d9::system::create_window(
-	awl::system::object_ptr const _awl_system,
+	awl::system::object &_awl_system,
 	sge::window::simple_parameters const &_window_params,
 	sge::renderer::parameters const &
 )
 {
 	return
-		_awl_system->create(
-			sge::window::to_awl_parameters(
-				_window_params
+		awl::window::instance_shared_ptr(
+			_awl_system.create(
+				sge::window::to_awl_parameters(
+					_window_params
+				)
 			)
 		);
 }
