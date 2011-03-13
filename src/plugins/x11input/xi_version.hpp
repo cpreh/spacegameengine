@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_XI_VERSION_HPP_INCLUDED
 #define SGE_X11INPUT_XI_VERSION_HPP_INCLUDED
 
-#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace x11input
 
 bool
 xi_version(
-	awl::backends::x11::display_ptr,
+	awl::backends::x11::display &,
 	int major,
 	int minor
 );

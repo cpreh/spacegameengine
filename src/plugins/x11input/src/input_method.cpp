@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 
 sge::x11input::input_method::input_method(
-	awl::backends::x11::display_ptr const _display,
-	awl::backends::x11::window::class_hint_ptr const _class_hint
+	awl::backends::x11::display &_display,
+	awl::backends::x11::window::class_hint const *const _class_hint
 )
 :
 	class_hint_(
@@ -35,18 +35,26 @@ sge::x11input::input_method::input_method(
 	),
 	xim_(
 		::XOpenIM(
-			_display->get(),
+			_display.get(),
 			NULL,
-			const_cast<
-				char *
-			>(
-				_class_hint->res_name().c_str()
-			),
-			const_cast<
-				char *
-			>(
-				_class_hint->res_class().c_str()
-			)
+			_class_hint
+			?
+				const_cast<
+					char *
+				>(
+					_class_hint->res_name().c_str()
+				)
+			:
+				NULL,
+			_class_hint
+			?
+				const_cast<
+					char *
+				>(
+					_class_hint->res_class().c_str()
+				)
+			:
+				NULL	
 		)
 	)
 {
@@ -71,7 +79,7 @@ sge::x11input::input_method::get() const
 	return xim_;
 }
 
-awl::backends::x11::window::class_hint_ptr const
+awl::backends::x11::window::class_hint const *
 sge::x11input::input_method::class_hint() const
 {
 	return class_hint_;

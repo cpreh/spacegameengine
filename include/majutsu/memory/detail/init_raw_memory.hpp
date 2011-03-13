@@ -39,7 +39,7 @@ class init_raw_memory
 {
 	FCPPT_NONASSIGNABLE(
 		init_raw_memory
-	)
+	);
 public:
 	explicit init_raw_memory(
 		Memory &_memory

@@ -25,12 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::x11::resolution::xrandr_mode::xrandr_mode(
 	renderer::display_mode const &_mode,
-	awl::backends::x11::window::instance_ptr const _wnd
+	awl::backends::x11::window::instance &_window
 )
 :
 	resolution_(
 		xrandr::choose_resolution(
-			_wnd,
+			_window,
 			_mode
 		)
 	)

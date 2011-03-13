@@ -32,14 +32,14 @@ XColor black = { 0, 0, 0, 0, 0, 0 };
 }
 
 sge::x11input::cursor::pixmap::pixmap(
-	awl::backends::x11::display_ptr const _display,
+	awl::backends::x11::display &_display,
 	Pixmap const _pixmap
 )
 :
  	display_(_display),
 	cursor_(
 		::XCreatePixmapCursor(
-			display_->get(),
+			display_.get(),
 			_pixmap,
 			_pixmap,
 			&black,
@@ -60,8 +60,8 @@ sge::x11input::cursor::pixmap::pixmap(
 sge::x11input::cursor::pixmap::~pixmap()
 {
 	::XFreeCursor(
-		display_->get(),
-		get()
+		display_.get(),
+		this->get()
 	);
 }
 

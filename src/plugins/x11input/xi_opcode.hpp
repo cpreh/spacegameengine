@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_XI_OPCODE_HPP_INCLUDED
 
 #include "optional_opcode.hpp"
-#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace x11input
 
 optional_opcode const
 xi_opcode(
-	awl::backends::x11::display_ptr
+	awl::backends::x11::display &
 );
 
 }

@@ -24,13 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 KeySym
 sge::x11input::keyboard::key_code_to_key_sym(
-	awl::backends::x11::display_ptr const _display,
+	awl::backends::x11::display &_display,
 	int const _key_code
 )
 {
 	return
 		::XKeycodeToKeysym(
-			_display->get(),
+			_display.get(),
 			static_cast<
 				unsigned
 			>(

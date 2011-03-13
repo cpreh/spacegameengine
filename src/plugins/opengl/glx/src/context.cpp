@@ -24,14 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::glx::context::context(
-	awl::backends::x11::display_ptr const _display,
+	awl::backends::x11::display &_display,
 	XVisualInfo const &_visual_info
 )
 :
 	display_(_display),
 	context_(
 		::glXCreateContext(
-			_display->get(),
+			_display.get(),
 			const_cast<
 				XVisualInfo *
 			>(
@@ -53,8 +53,8 @@ sge::opengl::glx::context::context(
 sge::opengl::glx::context::~context()
 {
 	::glXDestroyContext(
-		display_->get(),
-		get()
+		display_.get(),
+		this->get()
 	);
 }
 

@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/dim.hpp>
 #include <sge/symbol.hpp>
-#include <awl/window/instance_ptr.hpp>
-#include <awl/window/event/processor_ptr.hpp>
-#include <awl/system/object_ptr.hpp>
-#include <awl/system/event/processor_ptr.hpp>
-#include <awl/mainloop/io_service_ptr.hpp>
-#include <awl/mainloop/dispatcher_ptr.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/window/event/processor_shared_ptr.hpp>
+#include <awl/system/object_shared_ptr.hpp>
+#include <awl/system/event/processor_shared_ptr.hpp>
+#include <awl/mainloop/io_service_shared_ptr.hpp>
+#include <awl/mainloop/dispatcher_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -45,11 +46,11 @@ public:
 	SGE_SYMBOL
 	explicit
 	instance(
-		awl::system::object_ptr,
-		awl::window::instance_ptr,
-		awl::window::event::processor_ptr,
-		awl::system::event::processor_ptr,
-		awl::mainloop::io_service_ptr
+		awl::system::object_shared_ptr,
+		awl::window::instance_shared_ptr,
+		awl::window::event::processor_shared_ptr,
+		awl::system::event::processor_shared_ptr,
+		awl::mainloop::io_service_shared_ptr
 	);
 
 	SGE_SYMBOL
@@ -68,40 +69,44 @@ public:
 	dispatch();
 
 	SGE_SYMBOL
-	awl::system::object_ptr const
+	awl::system::object_shared_ptr const
 	awl_system() const;
 
 	SGE_SYMBOL
-	awl::window::instance_ptr const
+	awl::window::instance_shared_ptr const
 	awl_instance() const;
 
 	SGE_SYMBOL
-	awl::window::event::processor_ptr const
+	awl::window::event::processor_shared_ptr const
 	awl_window_event_processor() const;
 
 	SGE_SYMBOL
-	awl::system::event::processor_ptr const
+	awl::system::event::processor_shared_ptr const
 	awl_system_event_processor() const;
 
 	SGE_SYMBOL
-	awl::mainloop::io_service_ptr const
+	awl::mainloop::io_service_shared_ptr const
 	awl_io_service() const;
 
 	SGE_SYMBOL
-	awl::mainloop::dispatcher_ptr const
+	awl::mainloop::dispatcher *
 	awl_dispatcher() const;
 private:
-	awl::system::object_ptr const system_;
+	awl::system::object_shared_ptr const system_;
 
-	awl::window::instance_ptr const instance_;
+	awl::window::instance_shared_ptr const instance_;
 
-	awl::window::event::processor_ptr const window_processor_;
+	awl::window::event::processor_shared_ptr const window_processor_;
 
-	awl::system::event::processor_ptr const system_processor_;
+	awl::system::event::processor_shared_ptr const system_processor_;
 
-	awl::mainloop::io_service_ptr const io_service_;
+	awl::mainloop::io_service_shared_ptr const io_service_;
 
-	awl::mainloop::dispatcher_ptr const dispatcher_;
+	typedef fcppt::scoped_ptr<
+		awl::mainloop::dispatcher
+	> dispatcher_scoped_ptr;
+
+	dispatcher_scoped_ptr const dispatcher_;
 };
 
 }

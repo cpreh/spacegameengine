@@ -28,24 +28,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/window/instance.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::xrandr::resolution_ptr const
 sge::opengl::xrandr::choose_resolution(
-	awl::backends::x11::window::instance_ptr const _window,
+	awl::backends::x11::window::instance &_window,
 	renderer::display_mode const &_mode
 )
 {
 	xrandr::check_extension(
-		_window->display()
+		_window.display()
 	);
 
 	xrandr::configuration_ptr const config(
 		fcppt::make_shared_ptr<
 			xrandr::configuration
 		>(
-			_window
+			std::tr1::ref(
+				_window
+			)
 		)
 	);
 
@@ -83,7 +86,9 @@ sge::opengl::xrandr::choose_resolution(
 					fcppt::make_shared_ptr<
 						xrandr::resolution
 					>(
-						_window,
+						std::tr1::ref(
+							_window
+						),
 						config,
 						xrandr::mode(
 							i,

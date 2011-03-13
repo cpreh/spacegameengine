@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "context/object_fwd.hpp"
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/window/instance_fwd.hpp>
 
 namespace sge
 {
@@ -37,7 +37,7 @@ create_device_state(
 	opengl::context::object &,
 	renderer::parameters const &,
 	renderer::adapter,
-	window::instance_ptr
+	window::instance &
 );
 
 }

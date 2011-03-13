@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::x11input::device::parameters::parameters(
 	x11input::device::id const &_id,
 	awl::backends::x11::system::event::opcode const _opcode,
-	awl::backends::x11::window::instance_ptr const _window,
+	awl::backends::x11::window::instance &_window,
 	x11input::device::window_demuxer &_window_demuxer,
 	x11input::device::raw_demuxer &_raw_demuxer
 )
@@ -48,7 +48,7 @@ sge::x11input::device::parameters::opcode() const
 	return opcode_;
 }
 
-awl::backends::x11::window::instance_ptr const
+awl::backends::x11::window::instance &
 sge::x11input::device::parameters::window() const
 {
 	return window_;

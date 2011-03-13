@@ -211,7 +211,7 @@ sge::x11input::keyboard::device::on_key_release(
 	sge::input::keyboard::key_code::type const key_code(
 		x11input::keyboard::translate_key_code(
 			x11input::keyboard::key_code_to_key_sym(
-				window_->display(),
+				window_.display(),
 				_event.get().detail
 			)
 		)

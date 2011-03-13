@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
 
 #include <X11/extensions/XInput2.h>
-#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -41,7 +41,7 @@ public:
 	typedef int size_type;
 
 	info(
-		awl::backends::x11::display_ptr,
+		awl::backends::x11::display &,
 		int type
 	);
 

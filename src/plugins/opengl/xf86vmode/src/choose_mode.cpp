@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../resolution.hpp"
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/exception.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
@@ -90,7 +91,9 @@ sge::opengl::xf86vmode::choose_mode(
 			fcppt::make_shared_ptr<
 				xf86vmode::resolution
 			>(
-				_modes.display(),
+				std::tr1::ref(
+					_modes.display()
+				),
 				_modes.screen(),
 				_modes[
 					static_cast<

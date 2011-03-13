@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 
 sge::window::parameters::parameters(
-	awl::system::object_ptr const _system,
-	awl::window::instance_ptr const _window
+	awl::system::object_shared_ptr const _system,
+	awl::window::instance_shared_ptr const _window
 )
 :
 	system_(_system),
@@ -35,7 +35,7 @@ sge::window::parameters::parameters(
 
 sge::window::parameters &
 sge::window::parameters::window_event_processor(
-	awl::window::event::processor_ptr const _window_event_processor
+	awl::window::event::processor_shared_ptr const _window_event_processor
 )
 {
 	window_event_processor_ = _window_event_processor;
@@ -45,7 +45,7 @@ sge::window::parameters::window_event_processor(
 
 sge::window::parameters &
 sge::window::parameters::system_event_processor(
-	awl::system::event::processor_ptr const _system_event_processor
+	awl::system::event::processor_shared_ptr const _system_event_processor
 )
 {
 	system_event_processor_ = _system_event_processor;
@@ -55,7 +55,7 @@ sge::window::parameters::system_event_processor(
 
 sge::window::parameters &
 sge::window::parameters::io_service(
-	awl::mainloop::io_service_ptr const _io_service
+	awl::mainloop::io_service_shared_ptr const _io_service
 )
 {
 	io_service_ = _io_service;
@@ -63,31 +63,31 @@ sge::window::parameters::io_service(
 	return *this;
 }
 
-awl::system::object_ptr const
+awl::system::object_shared_ptr const
 sge::window::parameters::system() const
 {
 	return system_;
 }
 
-awl::window::instance_ptr const
+awl::window::instance_shared_ptr const
 sge::window::parameters::window() const
 {
 	return window_;
 }
 
-awl::window::event::processor_ptr const
+awl::window::event::processor_shared_ptr const
 sge::window::parameters::window_event_processor() const
 {
 	return window_event_processor_;
 }
 
-awl::system::event::processor_ptr const
+awl::system::event::processor_shared_ptr const
 sge::window::parameters::system_event_processor() const
 {
 	return system_event_processor_;
 }
 
-awl::mainloop::io_service_ptr const
+awl::mainloop::io_service_shared_ptr const
 sge::window::parameters::io_service() const
 {
 	return io_service_;

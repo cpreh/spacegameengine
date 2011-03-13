@@ -63,9 +63,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/instance.hpp>
-#include <awl/window/instance_ptr.hpp>
 #include <awl/system/create.hpp>
-#include <awl/system/object_ptr.hpp>
+#include <awl/system/object.hpp>
+#include <awl/system/object_shared_ptr.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
@@ -102,7 +102,7 @@ public:
 	plugin::object<model::loader>::ptr_type         md3_plugin_;
 
 	fcppt::optional<sge::systems::window>           window_param_;
-	awl::system::object_ptr                         window_system_;
+	awl::system::object_shared_ptr                  window_system_;
 	sge::window::instance_ptr                       window_;
 
 	sge::renderer::system_ptr                       renderer_system_;

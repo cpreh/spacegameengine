@@ -27,14 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::xrandr::check_extension(
-	awl::backends::x11::display_ptr const _display
+	awl::backends::x11::display &_display
 )
 {
 	int event_base_return, error_base_return;
 
 	if(
 		::XRRQueryExtension(
-			_display->get(),
+			_display.get(),
 			&event_base_return,
 			&error_base_return
 		)

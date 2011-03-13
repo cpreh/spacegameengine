@@ -27,14 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::xf86vmode::check_extension(
-	awl::backends::x11::display_ptr const _display
+	awl::backends::x11::display &_display
 )
 {
 	int event_base, error_base;
 
 	if(
 		::XF86VidModeQueryExtension(
-			_display->get(),
+			_display.get(),
 			&event_base,
 			&error_base
 		)

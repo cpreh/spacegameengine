@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_function.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/window_mode.hpp>
-#include <awl/backends/x11/window/instance_ptr.hpp>
+#include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
@@ -117,7 +117,7 @@ private:
 	void
 	check_grab();
 
-	awl::backends::x11::window::instance_ptr const window_;
+	awl::backends::x11::window::instance &window_;
 
 	fcppt::signal::connection_manager const connections_;
 

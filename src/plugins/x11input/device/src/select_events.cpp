@@ -65,7 +65,7 @@ make_mask(
 
 void
 sge::x11input::device::select_events(
-	awl::backends::x11::window::instance_ptr const _window,
+	awl::backends::x11::window::instance &_window,
 	x11input::device::id const _device,
 	awl::backends::x11::system::event::type const _type,
 	bool const _add
@@ -85,12 +85,12 @@ sge::x11input::device::select_events(
 	int num_masks;
 
 	// We have to extract all masks that we already set first.
-	// If there is no such mask, the result will be a null pointers
+	// If there is no such mask, the result will be a null pointer
 	// and num_masks will be 0.
 	scoped_event_mask mask(
 		::XIGetSelectedEvents(
-			_window->display()->get(),
-			_window->get(),
+			_window.display().get(),
+			_window.get(),
 			&num_masks
 		)
 	);
@@ -222,8 +222,8 @@ sge::x11input::device::select_events(
 	
 	if(
 		::XISelectEvents(
-			_window->display()->get(),
-			_window->get(),
+			_window.display().get(),
+			_window.get(),
 			fcppt::container::data(
 				event_masks
 			),

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::window::instance_ptr const
 sge::systems::create_normal_window(
-	awl::system::object_ptr const _system,
+	awl::system::object_shared_ptr const _system,
 	sge::systems::window const &_window_param
 )
 {
@@ -35,7 +35,7 @@ sge::systems::create_normal_window(
 			sge::window::parameters(
 				_system,
 				sge::window::create_simple_from_awl(
-					_system,
+					*_system,
 					_window_param.parameter().get<
 						sge::window::simple_parameters
 					>()

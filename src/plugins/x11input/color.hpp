@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_COLOR_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -38,7 +38,7 @@ class color
 	);
 public:
 	color(
-		awl::backends::x11::display_ptr,
+		awl::backends::x11::display &,
 		Colormap,
 		fcppt::string const &name
 	);
@@ -48,7 +48,7 @@ public:
 	XColor
 	get() const;
 private:
-	awl::backends::x11::display_ptr const display_;
+	awl::backends::x11::display &display_;
 
 	Colormap const colormap_;
 

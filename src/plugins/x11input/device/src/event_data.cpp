@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 
 sge::x11input::device::event_data::event_data(
-	awl::backends::x11::display_ptr const _display,
+	awl::backends::x11::display &_display,
 	awl::backends::x11::system::event::object const &_event
 )
 :
@@ -39,7 +39,7 @@ sge::x11input::device::event_data::event_data(
 {
 	if(
 		::XGetEventData(
-			display_->get(),
+			display_.get(),
 			&store_
 		)
 		== False
@@ -52,7 +52,7 @@ sge::x11input::device::event_data::event_data(
 sge::x11input::device::event_data::~event_data()
 {
 	::XFreeEventData(
-		display_->get(),
+		display_.get(),
 		&store_
 	);
 }

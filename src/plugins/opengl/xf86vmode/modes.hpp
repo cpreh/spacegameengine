@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/xf86vmode.h>
 #include "modes_fwd.hpp"
 #include <awl/backends/x11/deleter.hpp>
-#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <cstddef>
@@ -46,7 +46,7 @@ public:
 	typedef std::size_t size_type;
 
 	modes(
-		awl::backends::x11::display_ptr,
+		awl::backends::x11::display &,
 		int screen
 	);
 
@@ -60,13 +60,13 @@ public:
 	size_type
 	size() const;
 
-	awl::backends::x11::display_ptr const
+	awl::backends::x11::display &
 	display() const;
 
 	int
 	screen() const;
 private:
-	awl::backends::x11::display_ptr const display_;
+	awl::backends::x11::display &display_;
 
 	int const screen_;
 

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/wrapped_window.hpp>
 
 sge::systems::wrapped_window::wrapped_window(
-	awl::system::object_ptr const _system,
-	awl::window::instance_ptr const _window
+	awl::system::object_shared_ptr const _system,
+	awl::window::instance_shared_ptr const _window
 )
 :
 	system_(_system),
@@ -30,13 +30,13 @@ sge::systems::wrapped_window::wrapped_window(
 {
 }
 
-awl::system::object_ptr const
+awl::system::object_shared_ptr const
 sge::systems::wrapped_window::system() const
 {
 	return system_;
 }
 
-awl::window::instance_ptr const
+awl::window::instance_shared_ptr const
 sge::systems::wrapped_window::window() const
 {
 	return window_;

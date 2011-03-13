@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/symbol.hpp>
-#include <awl/window/instance_ptr.hpp>
-#include <awl/window/event/processor_ptr.hpp>
-#include <awl/system/object_ptr.hpp>
-#include <awl/system/event/processor_ptr.hpp>
-#include <awl/mainloop/io_service_ptr.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/window/event/processor_shared_ptr.hpp>
+#include <awl/system/object_shared_ptr.hpp>
+#include <awl/system/event/processor_shared_ptr.hpp>
+#include <awl/mainloop/io_service_shared_ptr.hpp>
 
 namespace sge
 {
@@ -39,57 +39,57 @@ class parameters
 public:
 	SGE_SYMBOL
 	parameters(
-		awl::system::object_ptr,
-		awl::window::instance_ptr
+		awl::system::object_shared_ptr,
+		awl::window::instance_shared_ptr
 	);
 
 	SGE_SYMBOL
 	parameters &
 	window_event_processor(
-		awl::window::event::processor_ptr
+		awl::window::event::processor_shared_ptr
 	);
 
 	SGE_SYMBOL
 	parameters &
 	system_event_processor(
-		awl::system::event::processor_ptr
+		awl::system::event::processor_shared_ptr
 	);
 
 	SGE_SYMBOL
 	parameters &
 	io_service(
-		awl::mainloop::io_service_ptr
+		awl::mainloop::io_service_shared_ptr
 	);
 
 	SGE_SYMBOL
-	awl::system::object_ptr const
+	awl::system::object_shared_ptr const
 	system() const;
 
 	SGE_SYMBOL
-	awl::window::instance_ptr const
+	awl::window::instance_shared_ptr const
 	window() const;
 
 	SGE_SYMBOL
-	awl::window::event::processor_ptr const
+	awl::window::event::processor_shared_ptr const
 	window_event_processor() const;
 
 	SGE_SYMBOL
-	awl::system::event::processor_ptr const
+	awl::system::event::processor_shared_ptr const
 	system_event_processor() const;
 
 	SGE_SYMBOL
-	awl::mainloop::io_service_ptr const
+	awl::mainloop::io_service_shared_ptr const
 	io_service() const;
 private:
-	awl::system::object_ptr system_;
+	awl::system::object_shared_ptr system_;
 
-	awl::window::instance_ptr window_;
+	awl::window::instance_shared_ptr window_;
 
-	awl::window::event::processor_ptr window_event_processor_;
+	awl::window::event::processor_shared_ptr window_event_processor_;
 
-	awl::system::event::processor_ptr system_event_processor_;
+	awl::system::event::processor_shared_ptr system_event_processor_;
 
-	awl::mainloop::io_service_ptr io_service_;
+	awl::mainloop::io_service_shared_ptr io_service_;
 };
 
 }

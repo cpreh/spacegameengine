@@ -26,14 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::optional_opcode const
 sge::x11input::xi_opcode(
-	awl::backends::x11::display_ptr const _display
+	awl::backends::x11::display &_display
 )
 {
 	int opcode, event, error;
 
 	return
 		::XQueryExtension(
-			_display->get(),
+			_display.get(),
 			"XInputExtension",
 			&opcode,
 			&event,

@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #include <sge/window/instance.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 sge::opengl::device_state_ptr
@@ -40,7 +39,7 @@ sge::opengl::create_device_state(
 	opengl::context::object &_context,
 	renderer::parameters const &_parameters,
 	renderer::adapter const _adapter,
-	window::instance_ptr const _window
+	window::instance &_window
 )
 {
 #ifdef SGE_OPENGL_HAVE_X11
@@ -54,10 +53,12 @@ sge::opengl::create_device_state(
 				),
 				_parameters,
 				_adapter,
-				fcppt::polymorphic_pointer_cast<
-					awl::backends::x11::window::instance
-				>(
-					_window->awl_instance()
+				std::tr1::ref(
+					dynamic_cast<
+						awl::backends::x11::window::instance &
+					>(
+						*_window.awl_instance()
+					)
 				)
 			)
 		);
@@ -72,10 +73,12 @@ sge::opengl::create_device_state(
 				),
 				_parameters,
 				_adapter,
-				fcppt::polymorphic_pointer_cast<
-					awl::backends::windows::window::instance
-				>(
-					_window->awl_instance()
+				std::tr1::ref(
+					dynamic_cast<
+						awl::backends::windows::window::instance &
+					>(
+						*_window.awl_instance()
+					)
 				)
 			)
 		);

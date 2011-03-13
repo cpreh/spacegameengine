@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/instance_shared_ptr.hpp>
 #include <awl/backends/x11/window/root.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <fcppt/algorithm/append.hpp>
@@ -43,7 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
@@ -59,24 +59,24 @@ sge::x11input::processor::processor(
 	window_(_window),
 	opcode_(_opcode),
 	x11_window_(
-		fcppt::polymorphic_pointer_cast<
+		fcppt::dynamic_pointer_cast<
 			awl::backends::x11::window::instance
 		>(
 			_window->awl_instance()
 		)
 	),
 	window_event_processor_(
-		fcppt::polymorphic_pointer_cast<
-			awl::backends::x11::window::event::processor
+		dynamic_cast<
+			awl::backends::x11::window::event::processor &
 		>(
-			_window->awl_window_event_processor()
+			*_window->awl_window_event_processor()
 		)
 	),
 	system_event_processor_(
-		fcppt::polymorphic_pointer_cast<
-			awl::backends::x11::system::event::processor
+		dynamic_cast<
+			awl::backends::x11::system::event::processor &
 		>(
-			_window->awl_system_event_processor()
+			*_window->awl_system_event_processor()
 		)
 	),
 	window_demuxer_(
@@ -87,9 +87,11 @@ sge::x11input::processor::processor(
 	raw_demuxer_(
 		system_event_processor_,
 		opcode_,
-		awl::backends::x11::window::root(
-			x11_window_->display(),
-			x11_window_->screen()
+		awl::backends::x11::window::instance_shared_ptr(
+			awl::backends::x11::window::root(
+				x11_window_->display(),
+				x11_window_->screen()
+			)
 		)
 	),
 	hierarchy_demuxer_(
@@ -101,7 +103,9 @@ sge::x11input::processor::processor(
 		fcppt::make_unique_ptr<
 			x11input::input_method
 		>(
-			x11_window_->display(),
+			std::tr1::ref(
+				x11_window_->display()
+			),
 			x11_window_->class_hint()
 		)
 	),
@@ -111,7 +115,9 @@ sge::x11input::processor::processor(
 		>(
 			input_method_->get(),
 			input_method_->class_hint(),
-			x11_window_
+			std::tr1::ref(
+				*x11_window_
+			)
 		)
 	),
 	keyboards_(),
@@ -146,7 +152,7 @@ sge::x11input::processor::processor(
 		)
 		(
 			fcppt::signal::shared_connection(
-				window_event_processor_->register_callback(
+				window_event_processor_.register_callback(
 					FocusIn,
 					std::tr1::bind(
 						&processor::on_enter,
@@ -158,7 +164,7 @@ sge::x11input::processor::processor(
 		)
 		(
 			fcppt::signal::shared_connection(
-				window_event_processor_->register_callback(
+				window_event_processor_.register_callback(
 					FocusOut,
 					std::tr1::bind(
 						&processor::on_leave,
@@ -362,7 +368,7 @@ sge::x11input::processor::device_parameters(
 		x11input::device::parameters(
 			_id,
 			opcode_,
-			x11_window_,
+			*x11_window_,
 			window_demuxer_,
 			raw_demuxer_
 		);

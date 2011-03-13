@@ -100,9 +100,9 @@ template<
 	typename Event
 >
 sge::x11input::device::event_demuxer<Event>::event_demuxer(
-	awl::backends::x11::system::event::processor_ptr const _system_processor,
+	awl::backends::x11::system::event::processor &_system_processor,
 	awl::backends::x11::system::event::opcode const &_opcode,
-	awl::backends::x11::window::instance_ptr const _window
+	awl::backends::x11::window::instance_shared_ptr const _window
 )
 :
 	system_processor_(_system_processor),
@@ -137,7 +137,7 @@ sge::x11input::device::event_demuxer<Event>::register_callback(
 		fcppt::container::ptr::insert_unique_ptr_map(
 			connections_,
 			_type,
-			system_processor_->register_callback(
+			system_processor_.register_callback(
 				opcode_,
 				_type,
 				std::tr1::bind(
@@ -173,7 +173,7 @@ sge::x11input::device::event_demuxer<Event>::register_callback(
 			).first;
 
 		x11input::device::select_events(
-			window_,
+			*window_,
 			_id,
 			_type,
 			true
@@ -263,7 +263,7 @@ sge::x11input::device::event_demuxer<Event>::unregister(
 		);
 
 		x11input::device::select_events(
-			window_,
+			*window_,
 			_id,
 			_type,
 			false
