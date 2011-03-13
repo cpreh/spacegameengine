@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/simple_parameters_fwd.hpp>
 #include <sge/symbol.hpp>
-#include <awl/window/instance_ptr.hpp>
-#include <awl/system/object_ptr.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/system/object_fwd.hpp>
 
 namespace sge
 {
@@ -32,9 +32,9 @@ namespace window
 {
 
 SGE_SYMBOL
-awl::window::instance_ptr const
+awl::window::instance_shared_ptr const
 create_simple_from_awl(
-	awl::system::object_ptr,
+	awl::system::object &,
 	sge::window::simple_parameters const &
 );
 

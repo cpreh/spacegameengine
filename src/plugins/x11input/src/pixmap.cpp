@@ -33,16 +33,16 @@ char const bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
 }
 
 sge::x11input::pixmap::pixmap(
-	awl::backends::x11::window::instance_ptr const _window
+	awl::backends::x11::window::instance &_window
 )
 :
  	display_(
-		_window->display()
+		_window.display()
 	),
 	pixmap_(
 		::XCreateBitmapFromData(
-			display_->get(),
-			_window->get(),
+			display_.get(),
+			_window.get(),
 			::bm_no_data,
 			8,
 			8
@@ -60,8 +60,8 @@ sge::x11input::pixmap::pixmap(
 sge::x11input::pixmap::~pixmap()
 {
 	::XFreePixmap(
-		display_->get(),
-		get()
+		display_.get(),
+		this->get()
 	);
 }
 

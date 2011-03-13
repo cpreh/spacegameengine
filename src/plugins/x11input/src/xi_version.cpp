@@ -24,14 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::x11input::xi_version(
-	awl::backends::x11::display_ptr const _display,
+	awl::backends::x11::display &_display,
 	int _major,
 	int _minor
 )
 {
 	return
 		::XIQueryVersion(
-			_display->get(),
+			_display.get(),
 			&_major,
 			&_minor
 		)

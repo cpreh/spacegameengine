@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "raw_demuxer_fwd.hpp"
 #include "window_demuxer_fwd.hpp"
 #include <awl/backends/x11/system/event/opcode.hpp>
-#include <awl/backends/x11/window/instance_ptr.hpp>
+#include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
 namespace sge
@@ -45,7 +45,7 @@ public:
 	parameters(
 		x11input::device::id const &,
 		awl::backends::x11::system::event::opcode,
-		awl::backends::x11::window::instance_ptr,
+		awl::backends::x11::window::instance &,
 		x11input::device::window_demuxer &,
 		x11input::device::raw_demuxer &
 	);
@@ -56,7 +56,7 @@ public:
 	awl::backends::x11::system::event::opcode const
 	opcode() const;
 
-	awl::backends::x11::window::instance_ptr const
+	awl::backends::x11::window::instance &
 	window() const;
 
 	x11input::device::window_demuxer &
@@ -69,7 +69,7 @@ private:
 
 	awl::backends::x11::system::event::opcode const opcode_;
 
-	awl::backends::x11::window::instance_ptr const window_;
+	awl::backends::x11::window::instance &window_;
 
 	x11input::device::window_demuxer &window_demuxer_;
 

@@ -29,13 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
 sge::opengl::x11::state::state(
 	opengl::context::object &_context,
 	renderer::parameters const &_param,
 	renderer::adapter const _adapter,
-	awl::backends::x11::window::instance_ptr const _window
+	awl::backends::x11::window::instance &_window
 )
 :
 	device_state(),
@@ -43,21 +44,16 @@ sge::opengl::x11::state::state(
 		_window
 	),
 	display_(
-		window_->display()
-	),
-	visual_(
-		window_->visual()
+		window_.display()
 	),
 	context_(
 		fcppt::make_shared_ptr<
 			glx::context
 		>(
-			display_,
-			*fcppt::dynamic_pointer_cast<
-				awl::backends::x11::visual const
-			>(
-				visual_
-			)->info()
+			std::tr1::ref(
+				display_
+			),
+			*window_.visual().info()
 		)
 	),
 	current_(
@@ -90,7 +86,7 @@ void
 sge::opengl::x11::state::swap_buffers()
 {
 	::glXSwapBuffers(
-		display_->get(),
-		window_->get()
+		display_.get(),
+		window_.get()
 	);
 }

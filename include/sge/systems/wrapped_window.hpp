@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_WRAPPED_WINDOW_HPP_INCLUDED
 
 #include <sge/systems/symbol.hpp>
-#include <awl/system/object_ptr.hpp>
-#include <awl/window/instance_ptr.hpp>
+#include <awl/system/object_shared_ptr.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
 
 namespace sge
 {
@@ -35,21 +35,21 @@ class wrapped_window
 public:
 	SGE_SYSTEMS_SYMBOL
 	wrapped_window(
-		awl::system::object_ptr,
-		awl::window::instance_ptr
+		awl::system::object_shared_ptr,
+		awl::window::instance_shared_ptr
 	);
 
 	SGE_SYSTEMS_SYMBOL
-	awl::system::object_ptr const
+	awl::system::object_shared_ptr const
 	system() const;
 
 	SGE_SYSTEMS_SYMBOL
-	awl::window::instance_ptr const
+	awl::window::instance_shared_ptr const
 	window() const;
 private:
-	awl::system::object_ptr system_;
+	awl::system::object_shared_ptr system_;
 
-	awl::window::instance_ptr window_;
+	awl::window::instance_shared_ptr window_;
 };
 
 }

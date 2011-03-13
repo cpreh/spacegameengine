@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XRANDR_CHECK_EXTENSION_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_CHECK_EXTENSION_HPP_INCLUDED
 
-#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace xrandr
 
 void
 check_extension(
-	awl::backends::x11::display_ptr
+	awl::backends::x11::display &
 );
 
 }

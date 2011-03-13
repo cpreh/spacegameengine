@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::xrandr::set_resolution(
-	awl::backends::x11::window::instance_ptr const _window,
+	awl::backends::x11::window::instance &_window,
 	xrandr::configuration_ptr const _config,
 	xrandr::mode const &_mode
 )
@@ -42,9 +42,9 @@ sge::opengl::xrandr::set_resolution(
 	{
 		if(
 			::XRRSetScreenConfigAndRate(
-				_window->display()->get(),
+				_window.display().get(),
 				_config->get(),
-				_window->get(),
+				_window.get(),
 				_mode.index(),
 				_mode.rotation(),
 				static_cast<
@@ -63,9 +63,9 @@ sge::opengl::xrandr::set_resolution(
 	{
 		if(
 			::XRRSetScreenConfig(
-				_window->display()->get(),
+				_window.display().get(),
 				_config->get(),
-				_window->get(),
+				_window.get(),
 				_mode.index(),
 				_mode.rotation(),
 				CurrentTime

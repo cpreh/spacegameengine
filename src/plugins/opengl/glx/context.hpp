@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_CONTEXT_HPP_INCLUDED
 
 #include "context_fwd.hpp"
-#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <GL/glx.h>
 
@@ -40,7 +40,7 @@ class context
 	);
 public:
 	context(
-		awl::backends::x11::display_ptr,
+		awl::backends::x11::display &,
 		XVisualInfo const &
 	);
 
@@ -49,7 +49,7 @@ public:
 	GLXContext &
 	get();
 private:
-	awl::backends::x11::display_ptr const display_;
+	awl::backends::x11::display &display_;
 
 	GLXContext context_;
 };

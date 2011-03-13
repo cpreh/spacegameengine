@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/window/to_awl_parameters.hpp>
 #include <awl/system/object.hpp>
+#include <awl/window/instance.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
@@ -54,34 +56,36 @@ sge::opengl::system::create_renderer(
 		);
 }
 
-awl::window::instance_ptr const
+awl::window::instance_shared_ptr const
 sge::opengl::system::create_window(
-	awl::system::object_ptr const _system,
+	awl::system::object &_system,
 	sge::window::simple_parameters const &_wparam,
 	sge::renderer::parameters const &_rparam
 )
 {
 	return
-		_system->create(
-			sge::window::to_awl_parameters(
-				_wparam
-			)
-			.has_opengl(
-				true
-			)
-			.bit_depth(
-				opengl::extract_bit_depth(
-					_rparam.screen_mode()
+		awl::window::instance_shared_ptr(
+			_system.create(
+				sge::window::to_awl_parameters(
+					_wparam
 				)
-			)
-			.stencil_buffer(
-				opengl::convert::stencil_buffer(
-					_rparam.depth_stencil_buffer()
+				.has_opengl(
+					true
 				)
-			)
-			.depth_buffer(
-				opengl::convert::depth_buffer(
-					_rparam.depth_stencil_buffer()
+				.bit_depth(
+					opengl::extract_bit_depth(
+						_rparam.screen_mode()
+					)
+				)
+				.stencil_buffer(
+					opengl::convert::stencil_buffer(
+						_rparam.depth_stencil_buffer()
+					)
+				)
+				.depth_buffer(
+					opengl::convert::depth_buffer(
+						_rparam.depth_stencil_buffer()
+					)
 				)
 			)
 		);

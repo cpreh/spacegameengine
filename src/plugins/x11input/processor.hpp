@@ -52,10 +52,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance_ptr.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
-#include <awl/backends/x11/system/event/processor_ptr.hpp>
+#include <awl/backends/x11/system/event/processor_fwd.hpp>
 #include <awl/backends/x11/window/event/object_fwd.hpp>
-#include <awl/backends/x11/window/event/processor_ptr.hpp>
-#include <awl/backends/x11/window/instance_ptr.hpp>
+#include <awl/backends/x11/window/event/processor_fwd.hpp>
+#include <awl/backends/x11/window/instance_shared_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -194,11 +194,11 @@ private:
 
 	awl::backends::x11::system::event::opcode const opcode_;
 
-	awl::backends::x11::window::instance_ptr const x11_window_;
+	awl::backends::x11::window::instance_shared_ptr const x11_window_;
 
-	awl::backends::x11::window::event::processor_ptr const window_event_processor_;
+	awl::backends::x11::window::event::processor &window_event_processor_;
 
-	awl::backends::x11::system::event::processor_ptr const system_event_processor_;
+	awl::backends::x11::system::event::processor &system_event_processor_;
 
 	x11input::device::window_demuxer window_demuxer_;
 

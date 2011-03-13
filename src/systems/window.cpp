@@ -42,7 +42,7 @@ sge::systems::window::window(
 
 sge::systems::window &
 sge::systems::window::event_processor(
-	awl::window::event::processor_ptr const _window_processor
+	awl::window::event::processor_shared_ptr const _window_processor
 )
 {
 	window_processor_ = _window_processor;
@@ -52,7 +52,7 @@ sge::systems::window::event_processor(
 
 sge::systems::window &
 sge::systems::window::io_service(
-	awl::mainloop::io_service_ptr const _io_service
+	awl::mainloop::io_service_shared_ptr const _io_service
 )
 {
 	io_service_ = _io_service;
@@ -66,13 +66,13 @@ sge::systems::window::parameter() const
 	return parameter_;
 }
 
-awl::window::event::processor_ptr const
+awl::window::event::processor_shared_ptr const
 sge::systems::window::window_event_processor() const
 {
 	return window_processor_;
 }
 
-awl::mainloop::io_service_ptr const
+awl::mainloop::io_service_shared_ptr const
 sge::systems::window::io_service() const
 {
 	return io_service_;

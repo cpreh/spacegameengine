@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/to_std_string.hpp>
 
 sge::x11input::color::color(
-	awl::backends::x11::display_ptr const _display,
+	awl::backends::x11::display &_display,
 	Colormap const _colormap,
 	fcppt::string const &_name
 )
@@ -39,7 +39,7 @@ sge::x11input::color::color(
 
 	if(
 		::XAllocNamedColor(
-			display_->get(),
+			display_.get(),
 			colormap_,
 			fcppt::to_std_string(
 				_name
@@ -57,7 +57,7 @@ sge::x11input::color::color(
 sge::x11input::color::~color()
 {
 	::XFreeColors(
-		display_->get(),
+		display_.get(),
 		colormap_,
 		&color_.pixel,
 		1,

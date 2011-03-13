@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_KEYBOARD_KEY_CODE_TO_KEY_SYM_HPP_INCLUDED
 #define SGE_X11INPUT_KEYBOARD_KEY_CODE_TO_KEY_SYM_HPP_INCLUDED
 
-#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 #include <X11/Xlib.h>
 
 namespace sge
@@ -33,7 +33,7 @@ namespace keyboard
 
 KeySym
 key_code_to_key_sym(
-	awl::backends::x11::display_ptr,
+	awl::backends::x11::display &,
 	int key_code
 );
 

@@ -26,13 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/processor.hpp>
 #include <awl/window/instance.hpp>
 #include <awl/mainloop/io_service.hpp>
+#include <awl/mainloop/dispatcher.hpp>
 
 sge::window::instance::instance(
-	awl::system::object_ptr const _system,
-	awl::window::instance_ptr const _instance,
-	awl::window::event::processor_ptr const _window_processor,
-	awl::system::event::processor_ptr const _system_processor,
-	awl::mainloop::io_service_ptr const _io_service
+	awl::system::object_shared_ptr const _system,
+	awl::window::instance_shared_ptr const _instance,
+	awl::window::event::processor_shared_ptr const _window_processor,
+	awl::system::event::processor_shared_ptr const _system_processor,
+	awl::mainloop::io_service_shared_ptr const _io_service
 )
 :
 	system_(
@@ -54,14 +55,14 @@ sge::window::instance::instance(
 		io_service_
 		?
 			io_service_->create_dispatcher(
-				system_,
+				*system_,
 				std::tr1::bind(
 					&instance::dispatch,
 					this
 				)
 			)
 		:
-			awl::mainloop::dispatcher_ptr()
+			awl::mainloop::dispatcher_unique_ptr()
 	)
 {}
 
@@ -117,38 +118,38 @@ sge::window::instance::dispatch()
 	return events_processed;
 }
 
-awl::system::object_ptr const
+awl::system::object_shared_ptr const
 sge::window::instance::awl_system() const
 {
 	return system_;
 }
 
-awl::window::instance_ptr const
+awl::window::instance_shared_ptr const
 sge::window::instance::awl_instance() const
 {
 	return instance_;
 }
 
-awl::window::event::processor_ptr const
+awl::window::event::processor_shared_ptr const
 sge::window::instance::awl_window_event_processor() const
 {
 	return window_processor_;
 }
 
-awl::system::event::processor_ptr const
+awl::system::event::processor_shared_ptr const
 sge::window::instance::awl_system_event_processor() const
 {
 	return system_processor_;
 }
 
-awl::mainloop::io_service_ptr const
+awl::mainloop::io_service_shared_ptr const
 sge::window::instance::awl_io_service() const
 {
 	return io_service_;
 }
 
-awl::mainloop::dispatcher_ptr const
+awl::mainloop::dispatcher *
 sge::window::instance::awl_dispatcher() const
 {
-	return dispatcher_;
+	return dispatcher_.get();
 }

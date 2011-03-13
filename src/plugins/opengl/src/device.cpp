@@ -99,7 +99,7 @@ sge::opengl::device::device(
 			context_,
 			_parameters,
 			_adapter,
-			_window
+			*_window
 		)
 	),
 	onscreen_target_(

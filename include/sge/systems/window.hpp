@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/simple_parameters.hpp>
 #include <sge/systems/symbol.hpp>
 #include <sge/systems/wrapped_window.hpp>
-#include <awl/mainloop/io_service_ptr.hpp>
-#include <awl/window/event/processor_ptr.hpp>
+#include <awl/mainloop/io_service_shared_ptr.hpp>
+#include <awl/window/event/processor_shared_ptr.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -50,13 +50,13 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	window &
 	event_processor(
-		awl::window::event::processor_ptr
+		awl::window::event::processor_shared_ptr
 	);
 
 	SGE_SYSTEMS_SYMBOL
 	window &
 	io_service(
-		awl::mainloop::io_service_ptr
+		awl::mainloop::io_service_shared_ptr
 	);
 
 	typedef fcppt::variant::object<
@@ -71,18 +71,18 @@ public:
 	parameter() const;
 
 	SGE_SYSTEMS_SYMBOL
-	awl::window::event::processor_ptr const
+	awl::window::event::processor_shared_ptr const
 	window_event_processor() const;
 
 	SGE_SYSTEMS_SYMBOL
-	awl::mainloop::io_service_ptr const
+	awl::mainloop::io_service_shared_ptr const
 	io_service() const;
 private:
 	parameter_variant parameter_;
 
-	awl::window::event::processor_ptr window_processor_;
+	awl::window::event::processor_shared_ptr window_processor_;
 
-	awl::mainloop::io_service_ptr io_service_;
+	awl::mainloop::io_service_shared_ptr io_service_;
 };
 
 }

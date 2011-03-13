@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::input::cursor::position const
 sge::x11input::cursor::query_pointer(
-	awl::backends::x11::window::instance_ptr const _window,
+	awl::backends::x11::window::instance &_window,
 	device::id const &_id
 )
 {
@@ -51,9 +51,9 @@ sge::x11input::cursor::query_pointer(
 
 	if(
 		::XIQueryPointer(
-			_window->display()->get(),
+			_window.display().get(),
 			_id.get(),
-			_window->get(),
+			_window.get(),
 			&root_return,
 			&child_return,
 			&root_x_return,

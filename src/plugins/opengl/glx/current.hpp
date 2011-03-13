@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
 
 #include "context_ptr.hpp"
-#include <awl/backends/x11/display_ptr.hpp>
-#include <awl/backends/x11/window/instance_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -40,14 +40,14 @@ class current
 	);
 public:
 	current(
-		awl::backends::x11::display_ptr,
-		awl::backends::x11::window::instance_ptr,
+		awl::backends::x11::display &,
+		awl::backends::x11::window::instance &,
 		glx::context_ptr
 	);
 
 	~current();
 private:
-	awl::backends::x11::display_ptr const display_;
+	awl::backends::x11::display &display_;
 
 	glx::context_ptr const context_;
 };

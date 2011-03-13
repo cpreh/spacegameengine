@@ -29,9 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glx/context_ptr.hpp"
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
-#include <awl/backends/x11/window/instance_ptr.hpp>
-#include <awl/backends/x11/const_visual_ptr.hpp>
-#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -54,7 +53,7 @@ public:
 		opengl::context::object &,
 		renderer::parameters const &,
 		renderer::adapter,
-		awl::backends::x11::window::instance_ptr
+		awl::backends::x11::window::instance &
 	);
 
 	~state();
@@ -62,11 +61,9 @@ public:
 	void
 	swap_buffers();
 private:
-	awl::backends::x11::window::instance_ptr const window_;
+	awl::backends::x11::window::instance &window_;
 
-	awl::backends::x11::display_ptr const display_;
-
-	awl::backends::x11::const_visual_ptr const visual_;
+	awl::backends::x11::display &display_;
 
 	glx::context_ptr const context_;
 

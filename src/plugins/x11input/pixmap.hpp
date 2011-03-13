@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_PIXMAP_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <awl/backends/x11/window/instance_ptr.hpp>
-#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -38,7 +38,7 @@ class pixmap
 	);
 public:
 	explicit pixmap(
-		awl::backends::x11::window::instance_ptr
+		awl::backends::x11::window::instance &
 	);
 
 	~pixmap();
@@ -46,7 +46,7 @@ public:
 	Pixmap
 	get() const;
 private:
-	awl::backends::x11::display_ptr const display_;
+	awl::backends::x11::display &display_;
 
 	Pixmap const pixmap_;
 };

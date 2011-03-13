@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 
 sge::x11input::cursor::define::define(
-	awl::backends::x11::window::instance_ptr const _window,
+	awl::backends::x11::window::instance &_window,
 	device::id const &_id
 )
 :
@@ -36,15 +36,15 @@ sge::x11input::cursor::define::define(
 		_window
 	),
 	pixmap_cursor_(
-		_window->display(),
+		_window.display(),
 		pixmap_.get()
 	)
 {
 	if(
 		::XIDefineCursor(
-			_window->display()->get(),
+			_window.display().get(),
 			_id.get(),
-			_window->get(),
+			_window.get(),
 			pixmap_cursor_.get()
 		)
 		!= Success
@@ -57,8 +57,8 @@ sge::x11input::cursor::define::define(
 sge::x11input::cursor::define::~define()
 {
 	::XIUndefineCursor(
-		window_->display()->get(),
+		window_.display().get(),
 		id_.get(),
-		window_->get()
+		window_.get()
 	);
 }

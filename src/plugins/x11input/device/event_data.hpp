@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_EVENT_DATA_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_EVENT_DATA_HPP_INCLUDED
 
-#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <X11/Xlib.h>
@@ -40,7 +40,7 @@ class event_data
 	);
 public:
 	event_data(
-		awl::backends::x11::display_ptr,
+		awl::backends::x11::display &,
 		awl::backends::x11::system::event::object const &
 	);
 
@@ -49,7 +49,7 @@ public:
 	void const *
 	data() const;
 private:
-	awl::backends::x11::display_ptr const display_;
+	awl::backends::x11::display &display_;
 
 	XGenericEventCookie store_;
 };

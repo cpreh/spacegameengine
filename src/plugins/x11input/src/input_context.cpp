@@ -27,20 +27,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::input_context::input_context(
 	XIM const _xim,
-	awl::backends::x11::window::class_hint_ptr const _class_hint,
-	awl::backends::x11::window::instance_ptr const _window
+	awl::backends::x11::window::class_hint const *const _class_hint,
+	awl::backends::x11::window::instance &_window
 )
 :
 	xic_(
 		::XCreateIC(
 			_xim,
 			XNClientWindow,
-			_window->get(),
+			_window.get(),
 			XNFocusWindow,
-			_window->get(),
+			_window.get(),
 			XNInputStyle,
 			XIMPreeditNothing | XIMStatusNothing,
 			XNResourceName,
+			// FIXME!
 			_class_hint->res_name().c_str(),
 			XNResourceClass,
 			_class_hint->res_class().c_str(),

@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 
 sge::x11input::device::info::info(
-	awl::backends::x11::display_ptr const _display,
+	awl::backends::x11::display &_display,
 	int const _type
 )
 :
 	devices_(
 		::XIQueryDevice(
-			_display->get(),
+			_display.get(),
 			_type,
 			&size_
 		)

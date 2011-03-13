@@ -36,7 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim.hpp>
 #include <sge/window/simple_parameters.hpp>
 #include <awl/system/create.hpp>
-#include <awl/system/object_ptr.hpp>
+#include <awl/system/object.hpp>
+#include <awl/system/object_shared_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/exception.hpp>
@@ -66,7 +67,7 @@ try
 		plugin->get()()
 	);
 
-	awl::system::object_ptr const window_sys(
+	awl::system::object_shared_ptr const window_sys(
 		awl::system::create()
 	);
 

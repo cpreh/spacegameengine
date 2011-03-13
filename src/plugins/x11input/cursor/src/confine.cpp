@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 
 sge::x11input::cursor::confine::confine(
-	awl::backends::x11::window::instance_ptr const _window,
+	awl::backends::x11::window::instance &_window,
 	device::id const &_id
 )
 :
@@ -40,13 +40,13 @@ sge::x11input::cursor::confine::confine(
 {
 	while(
 		::XGrabPointer(
-			window_->display()->get(),
-			window_->get(),
+			window_.display().get(),
+			window_.get(),
 			True,
 			0u,
 			GrabModeAsync,
 			GrabModeAsync,
-			window_->get(),
+			window_.get(),
 			None,
 			CurrentTime
 		)
@@ -110,7 +110,7 @@ sge::x11input::cursor::confine::confine(
 sge::x11input::cursor::confine::~confine()
 {
 	::XUngrabPointer(
-		window_->display()->get(),
+		window_.display().get(),
 		CurrentTime
 	);
 #if 0

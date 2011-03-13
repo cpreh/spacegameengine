@@ -189,7 +189,9 @@ sge::x11input::cursor::object::visibility(
 			fcppt::make_unique_ptr<
 				x11input::cursor::define
 			>(
-				window_,
+				std::tr1::ref(
+					window_
+				),
 				this->id()
 			)
 		);
@@ -301,7 +303,9 @@ sge::x11input::cursor::object::check_grab()
 				fcppt::make_unique_ptr<
 					x11input::cursor::confine
 				>(
-					window_,
+					std::tr1::ref(
+						window_
+					),
 					this->id()
 				)
 			);

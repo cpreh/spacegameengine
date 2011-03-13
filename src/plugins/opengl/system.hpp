@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <sge/window/simple_parameters_fwd.hpp>
-#include <awl/system/object_ptr.hpp>
-#include <awl/window/instance_ptr.hpp>
+#include <awl/system/object_fwd.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -55,9 +55,9 @@ public:
 		window::instance_ptr
 	);
 
-	awl::window::instance_ptr const
+	awl::window::instance_shared_ptr const
 	create_window(
-		awl::system::object_ptr,
+		awl::system::object &,
 		sge::window::simple_parameters const &,
 		sge::renderer::parameters const &
 	);

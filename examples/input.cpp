@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/simple_parameters.hpp>
 #include <awl/mainloop/dispatcher.hpp>
 #include <awl/mainloop/io_service.hpp>
+#include <awl/mainloop/io_service_shared_ptr.hpp>
 #include <awl/mainloop/asio/create_io_service_base.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
@@ -214,7 +215,7 @@ private:
 int main()
 try
 {
-	awl::mainloop::io_service_ptr const io_service(
+	awl::mainloop::io_service_shared_ptr const io_service(
 		awl::mainloop::asio::create_io_service_base()
 	);
 

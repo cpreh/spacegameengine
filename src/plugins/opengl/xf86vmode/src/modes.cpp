@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::xf86vmode::modes::modes(
-	awl::backends::x11::display_ptr const _display,
+	awl::backends::x11::display &_display,
 	int const _screen
 )
 :
@@ -44,8 +44,8 @@ sge::opengl::xf86vmode::modes::modes(
 
 	if(
 		::XF86VidModeGetAllModeLines(
-			display_->get(),
-			screen(),
+			display_.get(),
+			this->screen(),
 			&mode_count,
 			&ret
 		)
@@ -89,7 +89,7 @@ sge::opengl::xf86vmode::modes::size() const
 	return size_;
 }
 
-awl::backends::x11::display_ptr const
+awl::backends::x11::display &
 sge::opengl::xf86vmode::modes::display() const
 {
 	return display_;

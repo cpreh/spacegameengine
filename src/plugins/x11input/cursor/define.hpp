@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "pixmap.hpp"
 #include "../pixmap.hpp"
 #include "../device/id.hpp"
-#include <awl/backends/x11/window/instance_ptr.hpp>
+#include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -42,13 +42,13 @@ class define
 	);
 public:
 	define(
-		awl::backends::x11::window::instance_ptr,
+		awl::backends::x11::window::instance &,
 		device::id const &
 	);
 
 	~define();
 private:
-	awl::backends::x11::window::instance_ptr const window_;
+	awl::backends::x11::window::instance &window_;
 
 	device::id const id_;
 

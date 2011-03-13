@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 
 sge::opengl::glx::current::current(
-	awl::backends::x11::display_ptr const _display,
-	awl::backends::x11::window::instance_ptr const _window,
+	awl::backends::x11::display &_display,
+	awl::backends::x11::window::instance &_window,
 	context_ptr const _context
 )
 :
@@ -37,8 +37,8 @@ sge::opengl::glx::current::current(
 {
 	if(
 		::glXMakeCurrent(
-			_display->get(),
-			_window->get(),
+			_display.get(),
+			_window.get(),
 			_context->get()
 		)
 		== false
@@ -51,7 +51,7 @@ sge::opengl::glx::current::current(
 sge::opengl::glx::current::~current()
 {
 	::glXMakeCurrent(
-		display_->get(),
+		display_.get(),
 		None,
 		NULL
 	);

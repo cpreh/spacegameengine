@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "confine_fwd.hpp"
 #include "../device/id.hpp"
-#include <awl/backends/x11/window/instance_ptr.hpp>
+#include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 //#include <X11/extensions/XInput2.h>
 
@@ -41,13 +41,13 @@ class confine
 	);
 public:
 	confine(
-		awl::backends::x11::window::instance_ptr,
+		awl::backends::x11::window::instance &,
 		device::id const &
 	);
 
 	~confine();
 private:
-	awl::backends::x11::window::instance_ptr const window_;
+	awl::backends::x11::window::instance &window_;
 #if 0
 	device::id const id_;
 

@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "event_demuxer_fwd.hpp"
 #include "id.hpp"
 #include <awl/backends/x11/system/event/opcode.hpp>
-#include <awl/backends/x11/system/event/processor_ptr.hpp>
+#include <awl/backends/x11/system/event/processor_fwd.hpp>
 #include <awl/backends/x11/system/event/type.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
-#include <awl/backends/x11/window/instance_ptr.hpp>
+#include <awl/backends/x11/window/instance_shared_ptr.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -58,9 +58,9 @@ class event_demuxer
 	);
 public:
 	explicit event_demuxer(
-		awl::backends::x11::system::event::processor_ptr,
+		awl::backends::x11::system::event::processor &,
 		awl::backends::x11::system::event::opcode const &,
-		awl::backends::x11::window::instance_ptr
+		awl::backends::x11::window::instance_shared_ptr
 	);
 
 	~event_demuxer();
@@ -107,11 +107,11 @@ private:
 		fcppt::signal::auto_connection::element_type
 	> connection_map;
 
-	awl::backends::x11::system::event::processor_ptr const system_processor_;
+	awl::backends::x11::system::event::processor &system_processor_;
 
 	awl::backends::x11::system::event::opcode const opcode_;
 
-	awl::backends::x11::window::instance_ptr const window_;
+	awl::backends::x11::window::instance_shared_ptr const window_;
 
 	connection_map connections_;
 
