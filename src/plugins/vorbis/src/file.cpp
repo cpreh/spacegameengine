@@ -104,16 +104,23 @@ sge::vorbis::file::file(
 			info->rate);
 }
 
+
 sge::audio::sample_count 
 sge::vorbis::file::read(
 	sample_count const samples,
 	sample_container &data)
 {
+	// The EOF test is stupid because the ogg library could have already
+	// read all the file's bytes while determining the sample rate (and
+	// stuff), so we don't have to test this. But I leave it here in
+	// case any problems arise.
+	/*
 	if (stdstream_->eof())
 	{
 		FCPPT_LOG_DEBUG(log::global(),fcppt::log::_ << FCPPT_TEXT("vorbis: we're at the end, returning"));
 		return 0;
 	}
+	*/
 
 	sample_count const bytes_to_read = 
 		samples*

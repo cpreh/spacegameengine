@@ -109,7 +109,7 @@ public:
 
 	SGE_CAMERA_SYMBOL
 	activation_state::type 
-	activation();
+	activation() const;
 private:
 	fcppt::signal::scoped_connection keyboard_connection_,mouse_axis_connection_;
 	projection::object projection_;

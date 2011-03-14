@@ -169,7 +169,7 @@ sge::camera::object::activation(
 }
 
 sge::camera::activation_state::type 
-sge::camera::object::activation()
+sge::camera::object::activation() const
 {
 	return activation_;
 }

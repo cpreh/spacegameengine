@@ -32,23 +32,33 @@ sge::x11input::input_context::input_context(
 )
 :
 	xic_(
-		::XCreateIC(
-			_xim,
-			XNClientWindow,
-			_window.get(),
-			XNFocusWindow,
-			_window.get(),
-			XNInputStyle,
-			XIMPreeditNothing | XIMStatusNothing,
-			XNResourceName,
-			// FIXME!
-			_class_hint->res_name().c_str(),
-			XNResourceClass,
-			_class_hint->res_class().c_str(),
+		_class_hint
+		?
+			::XCreateIC(
+				_xim,
+				XNClientWindow,
+				_window.get(),
+				XNFocusWindow,
+				_window.get(),
+				XNInputStyle,
+				XIMPreeditNothing | XIMStatusNothing,
+				XNResourceName,
+				_class_hint->res_name().c_str(),
+				XNResourceClass,
+				_class_hint->res_class().c_str(),
+				NULL
+			)
+		:
 			NULL
-		)
 	)
 {
+	if(
+		!_class_hint
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("XCreateIC() called without a class hint!")
+		);
+
 	if(
 		xic_ == NULL
 	)
