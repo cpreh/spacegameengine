@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/window_mode.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
-#include <awl/backends/windows/window/event/processor_ptr.hpp>
+#include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
-#include <awl/backends/windows/window/instance_ptr.hpp>
+#include <awl/backends/windows/window/instance_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -56,8 +56,8 @@ class cursor
 	);
 public:
 	explicit cursor(
-		awl::backends::windows::window::event::processor_ptr,
-		awl::backends::windows::window::instance_ptr
+		awl::backends::windows::window::event::processor &,
+		awl::backends::windows::window::instance &
 	);
 
 	~cursor();
@@ -122,9 +122,9 @@ private:
 		input::cursor::move_function
 	> move_signal;
 
-	awl::backends::windows::window::event::processor_ptr const event_processor_;
+	awl::backends::windows::window::event::processor &event_processor_;
 
-	awl::backends::windows::window::instance_ptr const window_;
+	awl::backends::windows::window::instance &window_;
 
 	bool acquired_;
 

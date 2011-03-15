@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_CURSOR_CONFINE_HPP_INCLUDED
 
 #include "cursor_confine_fwd.hpp"
-#include <awl/backends/windows/window/instance_ptr.hpp>
+#include <awl/backends/windows/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -37,7 +37,7 @@ class cursor_confine
 	);
 public:
 	explicit cursor_confine(
-		awl::backends::windows::window::instance_ptr
+		awl::backends::windows::window::instance &
 	);
 
 	~cursor_confine();

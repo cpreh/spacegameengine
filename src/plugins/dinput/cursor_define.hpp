@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "cursor_define_fwd.hpp"
 #include "pixmap_cursor.hpp"
 #include <awl/backends/windows/window/event/object_fwd.hpp>
-#include <awl/backends/windows/window/event/processor_ptr.hpp>
+#include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -43,7 +43,7 @@ class cursor_define
 	);
 public:
 	explicit cursor_define(
-		awl::backends::windows::window::event::processor_ptr
+		awl::backends::windows::window::event::processor &
 	);
 
 	~cursor_define();

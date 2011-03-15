@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mouse.hpp"
 #include <sge/input/exception.hpp>
 #include <sge/window/instance.hpp>
+#include <awl/backends/windows/system/event/handle.hpp>
 #include <awl/backends/windows/system/event/processor.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
@@ -38,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 
@@ -49,24 +51,24 @@ sge::dinput::processor::processor(
 	dinput_(_dinput),
 	window_(_window),
 	windows_window_(
-		fcppt::dynamic_pointer_cast<
-			awl::backends::windows::window::instance
+		dynamic_cast<
+			awl::backends::windows::window::instance &
 		>(
-			_window->awl_instance()
+			*_window->awl_instance()
 		)
 	),
 	event_processor_(
-		fcppt::dynamic_pointer_cast<
-			awl::backends::windows::window::event::processor
+		dynamic_cast<
+			awl::backends::windows::window::event::processor &
 		>(
-			_window->awl_window_event_processor()
+			*_window->awl_window_event_processor()
 		)
 	),
 	system_processor_(
-		fcppt::dynamic_pointer_cast<
-			awl::backends::windows::system::event::processor
+		dynamic_cast<
+			awl::backends::windows::system::event::processor &
 		>(
-			_window->awl_system_event_processor()
+			*_window->awl_system_event_processor()
 		)
 	),
 	keyboards_(),
@@ -75,12 +77,16 @@ sge::dinput::processor::processor(
 		fcppt::make_shared_ptr<
 			dinput::cursor
 		>(
-			event_processor_,
-			windows_window_
+			fcppt::ref(
+				event_processor_
+			),
+			fcppt::ref(
+				windows_window_
+			)
 		)
 	),
 	event_handle_(
-		system_processor_->create_event_handle()
+		system_processor_.create_event_handle()
 	),
 	key_conv_(),
 	acquired_(false),
@@ -89,7 +95,7 @@ sge::dinput::processor::processor(
 			fcppt::signal::connection_manager::container
 		>(
 			fcppt::signal::shared_connection(
-				event_processor_->register_callback(
+				event_processor_.register_callback(
 					WM_ACTIVATE,
 					std::tr1::bind(
 						&dinput::processor::on_activate,
@@ -101,7 +107,7 @@ sge::dinput::processor::processor(
 		)
 		(
 			fcppt::signal::shared_connection(
-				system_processor_->register_handle_callback(
+				system_processor_.register_handle_callback(
 					std::tr1::bind(
 						&dinput::processor::on_handle_ready,
 						this
@@ -310,7 +316,7 @@ sge::dinput::processor::enum_devices_callback(
 		product_name,
 		_ddi->guidInstance,
 		instance.windows_window_,
-		instance.event_handle_
+		*instance.event_handle_
 	);
 	
 	switch(

@@ -33,14 +33,14 @@ sge::opengl::windows::state::state(
 	opengl::context::object &,
 	renderer::parameters const &_param,
 	renderer::adapter const _adapter,
-	awl::backends::windows::window::instance_ptr const _window
+	awl::backends::windows::window::instance &_window
 )
 :
 	window_(
 		_window
 	),
 	hdc_(
-		window_->hwnd(),
+		window_.hwnd(),
 		awl::backends::windows::gdi_device::get_tag()
 	),
 	context_(

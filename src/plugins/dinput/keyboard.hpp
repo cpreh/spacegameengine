@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_function.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
 #include <sge/time/timer.hpp>
-#include <awl/backends/windows/window/instance_ptr.hpp>
 #include <fcppt/container/array_decl.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/noncopyable.hpp>

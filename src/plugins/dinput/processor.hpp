@@ -40,14 +40,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/window/instance_ptr.hpp>
-#include <awl/backends/windows/system/event/handle_ptr.hpp>
-#include <awl/backends/windows/system/event/processor_ptr.hpp>
+#include <awl/backends/windows/system/event/handle_fwd.hpp>
+#include <awl/backends/windows/system/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
-#include <awl/backends/windows/window/event/processor_ptr.hpp>
+#include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
-#include <awl/backends/windows/window/instance_ptr.hpp>
+#include <awl/backends/windows/window/instance_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <vector>
 
 namespace sge
@@ -145,11 +146,11 @@ private:
 
 	sge::window::instance_ptr const window_;
 	
-	awl::backends::windows::window::instance_ptr const windows_window_;
+	awl::backends::windows::window::instance &windows_window_;
 
-	awl::backends::windows::window::event::processor_ptr const event_processor_;
+	awl::backends::windows::window::event::processor &event_processor_;
 
-	awl::backends::windows::system::event::processor_ptr const system_processor_;
+	awl::backends::windows::system::event::processor &system_processor_;
 
 	keyboard_vector keyboards_;
 
@@ -159,7 +160,11 @@ private:
 
 	dinput::key_converter key_conv_;
 
-	awl::backends::windows::system::event::handle_ptr const event_handle_;
+	typedef fcppt::scoped_ptr<
+		awl::backends::windows::system::event::handle
+	> event_handle_scoped_ptr;
+
+	event_handle_scoped_ptr const event_handle_;
 
 	bool acquired_;
 

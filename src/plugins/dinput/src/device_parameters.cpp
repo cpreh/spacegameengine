@@ -24,8 +24,8 @@ sge::dinput::device_parameters::device_parameters(
 	dinput::dinput_ptr const _instance,
 	fcppt::string const &_name,
 	GUID const _guid,
-	awl::backends::windows::window::instance_ptr const _window,
-	awl::backends::windows::system::event::handle_ptr const _event_handle
+	awl::backends::windows::window::instance &_window,
+	awl::backends::windows::system::event::handle &_event_handle
 )
 :
 	instance_(_instance),
@@ -54,13 +54,13 @@ sge::dinput::device_parameters::guid() const
 	return guid_;
 }
 
-awl::backends::windows::window::instance_ptr const
+awl::backends::windows::window::instance &
 sge::dinput::device_parameters::window() const
 {
 	return window_;
 }
 
-awl::backends::windows::system::event::handle_ptr const
+awl::backends::windows::system::event::handle &
 sge::dinput::device_parameters::event_handle() const
 {
 	return event_handle_;

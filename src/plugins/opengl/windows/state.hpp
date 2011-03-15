@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <awl/backends/windows/gdi_device.hpp>
-#include <awl/backends/windows/window/instance_ptr.hpp>
+#include <awl/backends/windows/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -50,7 +50,7 @@ public:
 		opengl::context::object &,
 		renderer::parameters const &,
 		renderer::adapter,
-		awl::backends::windows::window::instance_ptr
+		awl::backends::windows::window::instance &
 	);
 
 	~state();
@@ -58,7 +58,7 @@ public:
 	void
 	swap_buffers();
 private:
-	awl::backends::windows::window::instance_ptr const window_;
+	awl::backends::windows::window::instance &window_;
 
 	awl::backends::windows::gdi_device const hdc_;
 

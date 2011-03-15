@@ -107,7 +107,7 @@ sge::dinput::device::device(
 	);
 
 	this->set_cooperative_level(
-		_param.window()->hwnd(),
+		_param.window().hwnd(),
 		coop_level
 	);
 
@@ -117,7 +117,7 @@ sge::dinput::device::device(
 	);
 
 	this->set_event_handle(
-		_param.event_handle()->get()
+		_param.event_handle().get()
 	);
 }
 

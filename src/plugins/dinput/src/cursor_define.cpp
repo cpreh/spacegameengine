@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 
 sge::dinput::cursor_define::cursor_define(
-	awl::backends::windows::window::event::processor_ptr const _processor
+	awl::backends::windows::window::event::processor &_processor
 )
 :
 	previous_cursor_(),
 	pixmap_cursor_(),
 	connection_(
-		_processor->register_callback(
+		_processor.register_callback(
 			WM_SETCURSOR,
 			std::tr1::bind(
 				&dinput::cursor_define::on_cursor,

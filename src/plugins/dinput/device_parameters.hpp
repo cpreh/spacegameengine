@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "device_parameters_fwd.hpp"
 #include "di.hpp"
 #include "dinput_ptr.hpp"
-#include <awl/backends/windows/system/event/handle_ptr.hpp>
-#include <awl/backends/windows/window/instance_ptr.hpp>
+#include <awl/backends/windows/system/event/handle_fwd.hpp>
+#include <awl/backends/windows/window/instance_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/string.hpp>
 
@@ -44,8 +44,8 @@ public:
 		dinput::dinput_ptr,
 		fcppt::string const &name,
 		GUID,
-		awl::backends::windows::window::instance_ptr,
-		awl::backends::windows::system::event::handle_ptr
+		awl::backends::windows::window::instance &,
+		awl::backends::windows::system::event::handle &
 	);
 
 	dinput::dinput_ptr const
@@ -57,10 +57,10 @@ public:
 	GUID
 	guid() const;
 
-	awl::backends::windows::window::instance_ptr const
+	awl::backends::windows::window::instance &
 	window() const;
 
-	awl::backends::windows::system::event::handle_ptr const
+	awl::backends::windows::system::event::handle &
 	event_handle() const;
 private:
 	dinput::dinput_ptr const instance_;
@@ -69,9 +69,9 @@ private:
 
 	GUID const guid_;
 
-	awl::backends::windows::window::instance_ptr const window_;
+	awl::backends::windows::window::instance &window_;
 
-	awl::backends::windows::system::event::handle_ptr const event_handle_;
+	awl::backends::windows::system::event::handle &event_handle_;
 };
 
 }

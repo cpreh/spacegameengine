@@ -56,14 +56,14 @@ clip_cursor(
 }
 
 sge::dinput::cursor_confine::cursor_confine(
-	awl::backends::windows::window::instance_ptr const _window
+	awl::backends::windows::window::instance &_window
 )
 {
 	clip_cursor(
 		awl::backends::windows::window::client_rect_to_screen(
-			*_window,
+			_window,
 			awl::backends::windows::window::client_rect(
-				*_window
+				_window
 			)
 		)
 	);
