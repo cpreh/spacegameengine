@@ -82,7 +82,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/ref.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/assign/list_of.hpp>
@@ -464,9 +463,7 @@ try
 		cursor->move_callback(
 			std::tr1::bind(
 				&::sprite_functor::normal_movement,
-				fcppt::ref(
-					functor
-				),
+				&functor,
 				std::tr1::placeholders::_1
 			)
 		)
@@ -480,9 +477,7 @@ try
 		rel_movement.relative_move_callback(
 			std::tr1::bind(
 				&::sprite_functor::relative_movement,
-				fcppt::ref(
-					functor
-				),
+				&functor,
 				std::tr1::placeholders::_1
 			)
 		)

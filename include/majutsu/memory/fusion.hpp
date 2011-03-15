@@ -33,8 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/container/generation/make_vector.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform_view.hpp>
+//#include <boost/mpl/transform_view.hpp>
 #include <boost/mpl/for_each.hpp>
+
+#include <boost/mpl/transform.hpp>
 
 namespace majutsu
 {
@@ -58,13 +60,16 @@ public:
 		Type
 	>::type types; // TODO
 
+	// use transform instead of transform_view for now
+	// otherwise VC++ 2010 SP1 breaks
 	typedef typename boost::fusion::result_of::as_vector<
-		boost::mpl::transform_view<
+		typename boost::mpl::transform<
+		//boost::mpl::transform_view<
 			types,
 			inner_type<
 				boost::mpl::_1
 			>
-		>
+		>::type
 	>::type tuple;
 
 	fusion()
