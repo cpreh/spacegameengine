@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <X11/extensions/XInput2.h>
 #include <X11/Xlib.h>
@@ -189,7 +190,7 @@ sge::x11input::cursor::object::visibility(
 			fcppt::make_unique_ptr<
 				x11input::cursor::define
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					window_
 				),
 				this->id()
@@ -303,7 +304,7 @@ sge::x11input::cursor::object::check_grab()
 				fcppt::make_unique_ptr<
 					x11input::cursor::confine
 				>(
-					std::tr1::ref(
+					fcppt::ref(
 						window_
 					),
 					this->id()

@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shapes/base.hpp"
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/headers.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <utility>
 #include <BulletCollision/NarrowPhaseCollision/btManifoldPoint.h>
@@ -86,9 +86,9 @@ sge::bullet::body_manager::begin(
 				fcppt::log::_ 
 					<< FCPPT_TEXT("Both items are solid, sending solid callback"));
 			solid_callback_(
-				std::tr1::ref(
+				fcppt::ref(
 					s0.satellite()),
-				std::tr1::ref(
+				fcppt::ref(
 					s1.satellite()));
 			world_.solid_collision(
 				s0,
@@ -103,9 +103,9 @@ sge::bullet::body_manager::begin(
 				<< FCPPT_TEXT("Sending begin callback"));
 				
 		begin_callback_(
-			std::tr1::ref(
+			fcppt::ref(
 				s0.satellite()),
-			std::tr1::ref(
+			fcppt::ref(
 				s1.satellite()));
 	}
 	else
@@ -186,9 +186,9 @@ sge::bullet::body_manager::end(
 				<< FCPPT_TEXT("One of the items isn't solid, so sending end callback"));
 				
 		end_callback_(
-			std::tr1::ref(
+			fcppt::ref(
 				s0.satellite()),
-			std::tr1::ref(
+			fcppt::ref(
 				s1.satellite()));
 	}
 }

@@ -26,9 +26,9 @@
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/orthogonal.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <iostream>
 
@@ -231,7 +231,7 @@ sge::cegui::detail::texture_target::declareRenderSize(
 
 	texture_.take(
 		fcppt::make_unique_ptr<texture>(
-			std::tr1::ref(
+			fcppt::ref(
 				system_),
 			sge::renderer::texture::capabilities::render_target));
 

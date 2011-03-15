@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/foreach_enumerator.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -94,7 +94,7 @@ sge::opengl::texture::cube::cube(
 			fcppt::make_unique_ptr<
 				texture::planar
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					_context
 				),
 				planar_param,

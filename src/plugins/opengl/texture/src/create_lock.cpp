@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../writeonly_lock.hpp"
 #include "../readwrite_lock.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::texture::lock_base_unique_ptr
@@ -47,7 +47,7 @@ sge::opengl::texture::create_lock(
 				fcppt::make_unique_ptr<
 					opengl::texture::readonly_lock
 				>(
-					std::tr1::ref(
+					fcppt::ref(
 						_context
 					),
 					_read_size,
@@ -61,7 +61,7 @@ sge::opengl::texture::create_lock(
 				fcppt::make_unique_ptr<
 					texture::writeonly_lock
 				>(
-					std::tr1::ref(
+					fcppt::ref(
 						_context
 					),
 					_write_size,
@@ -75,7 +75,7 @@ sge::opengl::texture::create_lock(
 				fcppt::make_unique_ptr<
 					texture::readwrite_lock
 				>(
-					std::tr1::ref(
+					fcppt::ref(
 						_context
 					),
 					_read_size,

@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing/size.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <algorithm>
 
 sge::texture::rect_fragmented::rect_fragmented(
@@ -98,7 +98,7 @@ sge::texture::rect_fragmented::consume_fragment(
 				),
 				atlased_dim
 			),
-			std::tr1::ref(
+			fcppt::ref(
 				*this
 			),
 			true,

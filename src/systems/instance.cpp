@@ -72,10 +72,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/optional.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_info.hpp>
@@ -569,7 +569,7 @@ sge::systems::instance::impl::init_renderer(
 		fcppt::make_unique_ptr<
 			sge::viewport::manager
 		>(
-			std::tr1::ref(
+			fcppt::ref(
 				*renderer_
 			),
 			_param.resize_function()
@@ -689,7 +689,7 @@ sge::systems::instance::impl::init_image(
 		fcppt::make_unique_ptr<
 			sge::image2d::multi_loader
 		>(
-			std::tr1::ref(
+			fcppt::ref(
 				plugin_manager_
 			),
 			_params.extensions(),
@@ -707,7 +707,7 @@ sge::systems::instance::impl::init_audio_loader(
 		fcppt::make_unique_ptr<
 			sge::audio::multi_loader
 		>(
-			std::tr1::ref(
+			fcppt::ref(
 				plugin_manager_
 			),
 			_params.extensions(),

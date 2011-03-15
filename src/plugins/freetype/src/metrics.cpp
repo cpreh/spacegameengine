@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
 #include <sge/font/exception.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <utility>
 
@@ -98,7 +98,7 @@ sge::freetype::metrics::load_char(
 		fcppt::make_shared_ptr<
 			freetype::char_metric
 		>(
-			std::tr1::ref(
+			fcppt::ref(
 				face_
 			),
 			conv_system_,

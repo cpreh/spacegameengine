@@ -74,10 +74,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::device::device(
@@ -194,9 +194,7 @@ sge::opengl::device::activate_vertex_buffer(
 )
 {
 	opengl::set_vertex_buffer(
-		std::tr1::ref(
-			context_
-		),
+		context_,
 		_vertex_buffer
 	);
 }
@@ -207,9 +205,7 @@ sge::opengl::device::deactivate_vertex_buffer(
 )
 {
 	opengl::unset_vertex_buffer(
-		std::tr1::ref(
-			context_
-		),
+		context_,
 		_vertex_buffer
 	);
 }
@@ -220,9 +216,7 @@ sge::opengl::device::vertex_declaration(
 )
 {
 	opengl::set_vertex_declaration(
-		std::tr1::ref(
-			context_
-		),
+		context_,
 		_vertex_declaration
 	);
 }
@@ -478,7 +472,7 @@ sge::opengl::device::create_target()
 		fcppt::make_shared_ptr<
 			fbo::target
 		>(
-			std::tr1::ref(
+			fcppt::ref(
 				context_
 			)
 		);
@@ -494,7 +488,7 @@ sge::opengl::device::create_planar_texture(
 			fcppt::make_shared_ptr<
 				opengl::texture::planar
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					context_
 				),
 				_params,
@@ -514,7 +508,7 @@ sge::opengl::device::create_depth_stencil_texture(
 			fcppt::make_shared_ptr<
 				opengl::texture::depth_stencil
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					context_
 				),
 				_dim,
@@ -532,9 +526,7 @@ sge::opengl::device::create_depth_stencil_surface(
 	return
 		renderer::depth_stencil_surface_ptr(
 			opengl::fbo::create_depth_stencil_surface(
-				std::tr1::ref(
-					context_
-				),
+				context_,
 				_dim,
 				_type
 			)
@@ -564,7 +556,7 @@ sge::opengl::device::create_volume_texture(
 			fcppt::make_shared_ptr<
 				opengl::texture::volume
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					context_
 				),
 				_param
@@ -582,7 +574,7 @@ sge::opengl::device::create_cube_texture(
 			fcppt::make_shared_ptr<
 				opengl::texture::cube
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					context_
 				),
 				_param
@@ -600,7 +592,7 @@ sge::opengl::device::create_vertex_declaration(
 			fcppt::make_shared_ptr<
 				opengl::vertex_declaration
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					context_
 				),
 				_format
@@ -621,7 +613,7 @@ sge::opengl::device::create_vertex_buffer(
 			fcppt::make_shared_ptr<
 				opengl::vertex_buffer
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					context_
 				),
 				_part,
@@ -650,7 +642,7 @@ sge::opengl::device::create_index_buffer(
 			fcppt::make_shared_ptr<
 				opengl::index_buffer
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					context_
 				),
 				_format,

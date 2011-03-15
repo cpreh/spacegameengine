@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/function.hpp>
 #include <sge/font/text/lit.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
@@ -224,7 +226,7 @@ sge::console::object::eval(
 
 	it->second->signal()(
 		args,
-		std::tr1::ref(*this));
+		fcppt::ref(*this));
 }
 
 sge::console::function_map const &

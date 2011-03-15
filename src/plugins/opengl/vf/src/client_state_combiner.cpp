@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../context/use.hpp"
 #include <fcppt/container/linear_set_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/ref.hpp>
 #include <boost/foreach.hpp>
 #include <functional>
 #include <algorithm>
@@ -128,14 +129,14 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 		new_states_.attribute_states(),
 		std::tr1::bind(
 			vf::enable_vertex_attrib_array,
-			std::tr1::ref(
+			fcppt::ref(
 				attribute_context_
 			),
 			std::tr1::placeholders::_1
 		),
 		std::tr1::bind(
 			vf::disable_vertex_attrib_array,
-			std::tr1::ref(
+			fcppt::ref(
 				attribute_context_
 			),
 			std::tr1::placeholders::_1

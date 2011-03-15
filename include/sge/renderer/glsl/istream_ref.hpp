@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_ISTREAM_REF_HPP_INCLUDED
 
 #include <sge/renderer/glsl/istream.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/reference_wrapper.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace renderer
 namespace glsl
 {
 
-typedef std::tr1::reference_wrapper<
+typedef fcppt::reference_wrapper<
 	istream
 > istream_ref;
 

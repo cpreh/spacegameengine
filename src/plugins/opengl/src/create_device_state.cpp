@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #error "Implement me!"
 #endif
 #include <sge/window/instance.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
 sge::opengl::device_state_ptr
 sge::opengl::create_device_state(
@@ -48,12 +48,12 @@ sge::opengl::create_device_state(
 			fcppt::make_unique_ptr<
 				x11::state
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					_context
 				),
 				_parameters,
 				_adapter,
-				std::tr1::ref(
+				fcppt::ref(
 					dynamic_cast<
 						awl::backends::x11::window::instance &
 					>(
@@ -68,12 +68,12 @@ sge::opengl::create_device_state(
 			fcppt::make_unique_ptr<
 				windows::state
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					_context
 				),
 				_parameters,
 				_adapter,
-				std::tr1::ref(
+				fcppt::ref(
 					dynamic_cast<
 						awl::backends::windows::window::instance &
 					>(

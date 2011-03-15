@@ -63,9 +63,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <exception>
 #include <ostream>
@@ -283,7 +283,7 @@ try
 				fcppt::make_unique_ptr<
 					object
 				>(
-					std::tr1::ref(
+					fcppt::ref(
 						s_a
 					)
 				)
@@ -331,7 +331,7 @@ try
 				fcppt::make_unique_ptr<
 					object
 				>(
-					std::tr1::ref(
+					fcppt::ref(
 						s_b
 					)
 				)

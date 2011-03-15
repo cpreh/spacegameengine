@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../native/environment.hpp"
 #include "../arb/environment.hpp"
 #include "../../context/use.hpp"
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/shared_ptr.hpp>
 
 template<
@@ -59,7 +59,7 @@ sge::opengl::glsl::create_shader(
 						native::environment
 					>
 				>(
-					std::tr1::ref(
+					fcppt::ref(
 						_context
 					),
 					_source
@@ -73,7 +73,7 @@ sge::opengl::glsl::create_shader(
 						arb::environment
 					>
 				>(
-					std::tr1::ref(
+					fcppt::ref(
 						_context
 					),
 					_source

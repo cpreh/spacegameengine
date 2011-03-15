@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/log/headers.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <ostream>
@@ -111,7 +111,7 @@ sge::texture::no_fragmented::consume_fragment(
 						_dim
 					)
 				),
-				std::tr1::ref(
+				fcppt::ref(
 					*this
 				),
 				atlasing::need(

@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../loader.hpp"
 #include "../object.hpp"
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fstream>
 
@@ -34,7 +34,7 @@ sge::md3::loader::load(
 		p);
 	return 
 		fcppt::make_shared_ptr<object>(
-			std::tr1::ref( 
+			fcppt::ref( 
 				file),
 			lf);
 }

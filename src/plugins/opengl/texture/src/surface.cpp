@@ -29,10 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <sge/renderer/color_surface.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/ref.hpp>
 
 sge::opengl::texture::surface::surface(
 	texture::scoped_work_bind const &_binding,
@@ -92,7 +92,7 @@ sge::opengl::texture::surface::lock(
 		fcppt::make_unique_ptr<
 			opengl::texture::readonly_lock
 		>(
-			std::tr1::ref(
+			fcppt::ref(
 				context_
 			),
 			this->dim().content(),

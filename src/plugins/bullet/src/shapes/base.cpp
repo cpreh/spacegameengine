@@ -35,10 +35,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -181,10 +181,10 @@ sge::bullet::shapes::base::meta_body(
 		fcppt::make_unique_ptr<
 			shape_body_connection
 		>(
-			std::tr1::ref(
+			fcppt::ref(
 				*this
 			),
-			std::tr1::ref(
+			fcppt::ref(
 				_meta_body
 			)
 		)

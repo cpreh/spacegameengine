@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/ref.hpp>
 
 class sge::viewport::manager::impl
 {
@@ -85,7 +86,7 @@ sge::viewport::manager::manager(
 		fcppt::make_unique_ptr<
 			impl
 		>(
-			std::tr1::ref(
+			fcppt::ref(
 				_device
 			),
 			_resize_function

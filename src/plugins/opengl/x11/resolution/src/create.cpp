@@ -34,10 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::x11::resolution::unique_ptr
@@ -70,7 +70,7 @@ sge::opengl::x11::resolution::create(
 					resolution::xrandr_mode
 				>(
 					display_mode,
-					std::tr1::ref(
+					fcppt::ref(
 						_window
 					)
 				)
@@ -95,7 +95,7 @@ sge::opengl::x11::resolution::create(
 					resolution::xf86_vmode
 				>(
 					display_mode,
-					std::tr1::ref(
+					fcppt::ref(
 						_window.display()
 					),
 					_window->screen()

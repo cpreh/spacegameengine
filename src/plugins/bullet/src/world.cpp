@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/null.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 #include <limits>
@@ -136,7 +136,7 @@ sge::bullet::world::create_body(
 			fcppt::make_shared_ptr<
 				body
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					*this
 				),
 				_shapes,
@@ -161,7 +161,7 @@ sge::bullet::world::create_sphere(
 					_satellite
 				),
 				constrain_,
-				std::tr1::ref(
+				fcppt::ref(
 					*this
 				),
 				_radius,
@@ -184,7 +184,7 @@ sge::bullet::world::create_box(
 					_satellite
 				),
 				constrain_,
-				std::tr1::ref(
+				fcppt::ref(
 					*this
 				),
 				_position,

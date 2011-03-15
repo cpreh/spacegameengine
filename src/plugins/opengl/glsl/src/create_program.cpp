@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../context/use.hpp"
 #include "../../common.hpp"
 #include <sge/renderer/unsupported.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 sge::renderer::glsl::program_ptr const
@@ -61,7 +61,7 @@ sge::opengl::glsl::create_program(
 						native::environment
 					>
 				>(
-					std::tr1::ref(
+					fcppt::ref(
 						_context
 					)
 				)
@@ -73,7 +73,7 @@ sge::opengl::glsl::create_program(
 						arb::environment
 					>
 				>(
-					std::tr1::ref(
+					fcppt::ref(
 						_context
 					)
 				)

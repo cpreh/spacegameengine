@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/window/instance.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::xrandr::resolution_ptr const
@@ -46,7 +46,7 @@ sge::opengl::xrandr::choose_resolution(
 		fcppt::make_shared_ptr<
 			xrandr::configuration
 		>(
-			std::tr1::ref(
+			fcppt::ref(
 				_window
 			)
 		)
@@ -86,7 +86,7 @@ sge::opengl::xrandr::choose_resolution(
 					fcppt::make_shared_ptr<
 						xrandr::resolution
 					>(
-						std::tr1::ref(
+						fcppt::ref(
 							_window
 						),
 						config,

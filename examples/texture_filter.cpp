@@ -119,6 +119,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -515,10 +516,10 @@ try
 					texture_array
 				>,
 				std::tr1::placeholders::_1,
-				std::tr1::ref(
+				fcppt::ref(
 					sprite
 				),
-				std::tr1::ref(
+				fcppt::ref(
 					current_text
 				),
 				textures
@@ -530,10 +531,10 @@ try
 		sys.viewport_manager().manage_callback(
 			std::tr1::bind(
 				sge::camera::projection::update_perspective_from_viewport,
-				std::tr1::ref(
+				fcppt::ref(
 					*sys.renderer()
 				),
-				std::tr1::ref(
+				fcppt::ref(
 					camera
 				),
 				// fov

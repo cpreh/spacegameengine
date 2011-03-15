@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../system.hpp"
 #include "../metrics.hpp"
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/ref.hpp>
 
 sge::freetype::system::system(
 	sge::charconv::system_ptr const _conv_system
@@ -45,7 +45,7 @@ sge::freetype::system::create_font(
 		fcppt::make_shared_ptr<
 			freetype::metrics
 		>(
-			std::tr1::ref(
+			fcppt::ref(
 				library_
 			),
 			conv_system_,

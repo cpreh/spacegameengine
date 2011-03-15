@@ -157,8 +157,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <exception>
 #include <iostream>
@@ -917,9 +918,9 @@ try
 		sys.viewport_manager().manage_callback(
 			std::tr1::bind(
 				sge::camera::projection::update_perspective_from_viewport,
-				std::tr1::ref(
+				fcppt::ref(
 					*sys.renderer()),
-				std::tr1::ref(
+				fcppt::ref(
 					camera),
 				// Field of view
 				static_cast<sge::renderer::scalar>(
@@ -982,9 +983,9 @@ try
 				sge::input::keyboard::key_code::e,
 				std::tr1::bind(
 					&toggle_bumpmapping,
-					std::tr1::ref(
+					fcppt::ref(
 						shader),
-					std::tr1::ref(
+					fcppt::ref(
 						enabled)))));
 
 	// To use a vertex format, we have to create a _declaration_ and

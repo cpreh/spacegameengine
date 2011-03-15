@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <boost/iostreams/device/array.hpp>
 #include <boost/iostreams/stream.hpp>
 #include <iterator>
@@ -79,7 +79,7 @@ sge::libpng::loader::load(
 			fcppt::make_shared_ptr<
 				file
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					file_stream),
 				_path
 			);
@@ -123,7 +123,7 @@ sge::libpng::loader::load(
 			fcppt::make_shared_ptr<
 				file
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					raw_stream),
 				sge::image::optional_path()
 			);

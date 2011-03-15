@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
@@ -103,7 +104,7 @@ sge::x11input::processor::processor(
 		fcppt::make_unique_ptr<
 			x11input::input_method
 		>(
-			std::tr1::ref(
+			fcppt::ref(
 				x11_window_->display()
 			),
 			x11_window_->class_hint()
@@ -115,7 +116,7 @@ sge::x11input::processor::processor(
 		>(
 			input_method_->get(),
 			input_method_->class_hint(),
-			std::tr1::ref(
+			fcppt::ref(
 				*x11_window_
 			)
 		)
@@ -384,7 +385,7 @@ sge::x11input::processor::create_keyboard(
 			x11input::keyboard::device
 		>(
 			_param,
-			std::tr1::ref(
+			fcppt::ref(
 				*input_context_
 			)
 		);

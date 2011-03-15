@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "use_fwd.hpp"
 #include "base_unique_ptr.hpp"
 #include "object_fwd.hpp"
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -77,7 +77,7 @@ make_object(
 			fcppt::make_unique_ptr<
 				Type
 			>(
-				std::tr1::ref(
+				fcppt::ref(
 					context::use<
 						typename Type::needs_before
 					>(
