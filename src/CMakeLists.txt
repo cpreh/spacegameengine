@@ -301,6 +301,7 @@ SET(
 	include/sge/input/cursor/button_event.hpp
 	include/sge/input/cursor/button_event_fwd.hpp
 	include/sge/input/cursor/button_function.hpp
+	include/sge/input/cursor/button_signal.hpp
 	include/sge/input/cursor/demuxer.hpp
 	include/sge/input/cursor/demuxer_fwd.hpp
 	include/sge/input/cursor/discover_callback.hpp
@@ -310,6 +311,7 @@ SET(
 	include/sge/input/cursor/move_event.hpp
 	include/sge/input/cursor/move_event_fwd.hpp
 	include/sge/input/cursor/move_function.hpp
+	include/sge/input/cursor/move_signal.hpp
 	include/sge/input/cursor/no_object.hpp
 	include/sge/input/cursor/object.hpp
 	include/sge/input/cursor/object_fwd.hpp

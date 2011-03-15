@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "cursor_define_fwd.hpp"
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
-#include <sge/input/cursor/button_function.hpp>
+#include <sge/input/cursor/button_signal.hpp>
 #include <sge/input/cursor/move_callback.hpp>
-#include <sge/input/cursor/move_function.hpp>
+#include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/window_mode.hpp>
@@ -114,14 +114,6 @@ private:
 		dinput::cursor_confine
 	> cursor_confine_ptr;
 
-	typedef fcppt::signal::object<
-		input::cursor::button_function
-	> button_signal;
-
-	typedef fcppt::signal::object<
-		input::cursor::move_function
-	> move_signal;
-
 	awl::backends::windows::window::event::processor &event_processor_;
 
 	awl::backends::windows::window::instance &window_;
@@ -134,9 +126,9 @@ private:
 
 	cursor_confine_ptr cursor_confine_;
 
-	button_signal button_signal_;
+	sge::input::cursor::button_signal button_signal_;
 
-	move_signal move_signal_;
+	sge::input::cursor::move_signal move_signal_;
 
 	fcppt::signal::connection_manager const connections_;
 };

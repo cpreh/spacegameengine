@@ -29,16 +29,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device/window_event_fwd.hpp"
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/button_callback.hpp>
-#include <sge/input/cursor/button_function.hpp>
+#include <sge/input/cursor/button_signal.hpp>
 #include <sge/input/cursor/move_callback.hpp>
-#include <sge/input/cursor/move_function.hpp>
+#include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/window_mode.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
-#include <fcppt/signal/object.hpp>
+#include <fcppt/signal/object_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
@@ -127,13 +127,9 @@ private:
 
 	sge::input::cursor::position position_;
 
-	fcppt::signal::object<
-		sge::input::cursor::button_function
-	> button_signal_;
+	sge::input::cursor::button_signal button_signal_;
 
-	fcppt::signal::object<
-		sge::input::cursor::move_function
-	> move_signal_;
+	sge::input::cursor::move_signal move_signal_;
 
 	fcppt::scoped_ptr<
 		x11input::cursor::confine
