@@ -11,11 +11,6 @@ sge::cegui::to_cegui_string(
 	fcppt::string const &s,
 	sge::charconv::system_ptr const charconv)
 {
-	return 
-		CEGUI::String(
-			reinterpret_cast<CEGUI::utf8 const *>(
-				s.c_str()));
-	/*
 	typedef
 	sge::charconv::string_type<sge::charconv::encoding::utf8>::type
 	utf8_string;
@@ -37,5 +32,4 @@ sge::cegui::to_cegui_string(
 				charconv,
 				fcppt::to_std_wstring(
 					s)).c_str());
-	*/
 }

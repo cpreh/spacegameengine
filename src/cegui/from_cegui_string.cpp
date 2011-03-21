@@ -13,10 +13,6 @@ sge::cegui::from_cegui_string(
 	CEGUI::String const &s,
 	sge::charconv::system_ptr const charconv)
 {
-	return 
-		fcppt::string(
-			s.c_str());
-#if 0
 	typedef
 	sge::charconv::string_type<sge::charconv::encoding::utf32>::type
 	source_string;
@@ -43,22 +39,5 @@ sge::cegui::from_cegui_string(
 					s.begin(),
 					s.end()));
 
-	return s.c_str();
 	return fcppt::from_std_wstring(d);
-	/*
-	dest_string d = 
-
-	return 
-		fcppt::from_std_wstring(
-			sge::charconv::convert
-			<
-				sge::charconv::encoding::wchar, 
-				sge::charconv::encoding::utf32
-			>(
-				charconv,
-				source_string(
-					s.begin(),
-					s.end())));
-	*/
-#endif
 }
