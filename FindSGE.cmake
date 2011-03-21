@@ -1,5 +1,9 @@
 # - Try to find SGE
 #
+# This module accepts the following variables as input
+#
+#	SGE_LIBRARY_DIR:  Sets where sge's libraries are
+#
 # This module defines the following variables
 #
 #	SGE_FOUND
@@ -15,6 +19,7 @@ FIND_PATH(
 FIND_LIBRARY(
 	SGE_CORE_LIBRARY
 	NAMES sgecore
+	PATHS "${SGE_LIBRARY_DIR}"
 )
 
 FOREACH(
@@ -24,6 +29,7 @@ FOREACH(
 	FIND_LIBRARY(
 		SGE_${COMPONENT}_LIBRARY
 		NAMES sge${COMPONENT}
+		PATHS "${SGE_LIBRARY_DIR}"
 	)
 
 	IF(
