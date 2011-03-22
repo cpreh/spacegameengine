@@ -803,16 +803,19 @@ void
 sge::systems::instance::impl::post_init()
 {
 	if(
-		window_param_
+		!window_param_
 	)
-	{
-		if(
-			!window_
-		)
-			this->create_window();
+		return;
 
+	if(
+		!window_
+	)
+		this->create_window();
+
+	if(
+		window_param_->show()
+	)
 		window_->show();
-	}
 }
 
 void

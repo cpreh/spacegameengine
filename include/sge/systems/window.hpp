@@ -37,14 +37,16 @@ namespace systems
 class window
 {
 public:
-	SGE_SYSTEMS_SYMBOL
-	explicit window(
-		sge::window::simple_parameters const &
-	);
+	typedef fcppt::variant::object<
+		boost::mpl::vector2<
+			sge::window::simple_parameters,
+			sge::systems::wrapped_window
+		>
+	> parameter_variant;
 
 	SGE_SYSTEMS_SYMBOL
 	explicit window(
-		sge::systems::wrapped_window const &
+		parameter_variant const &
 	);
 
 	SGE_SYSTEMS_SYMBOL
@@ -59,12 +61,9 @@ public:
 		awl::mainloop::io_service_shared_ptr
 	);
 
-	typedef fcppt::variant::object<
-		boost::mpl::vector2<
-			sge::window::simple_parameters,
-			sge::systems::wrapped_window
-		>
-	> parameter_variant;
+	SGE_SYSTEMS_SYMBOL
+	window &
+	dont_show();
 
 	SGE_SYSTEMS_SYMBOL
 	parameter_variant const &
@@ -77,12 +76,18 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	awl::mainloop::io_service_shared_ptr const
 	io_service() const;
+
+	SGE_SYSTEMS_SYMBOL
+	bool
+	show() const;
 private:
 	parameter_variant parameter_;
 
 	awl::window::event::processor_shared_ptr window_processor_;
 
 	awl::mainloop::io_service_shared_ptr io_service_;
+
+	bool show_;
 };
 
 }

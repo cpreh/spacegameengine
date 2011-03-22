@@ -21,22 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window.hpp>
 
 sge::systems::window::window(
-	sge::window::simple_parameters const &_parameter
+	window::parameter_variant const &_parameter
 )
 :
 	parameter_(_parameter),
 	window_processor_(),
-	io_service_()
-{
-}
-
-sge::systems::window::window(
-	sge::systems::wrapped_window const &_parameter
-)
-:
-	parameter_(_parameter),
-	window_processor_(),
-	io_service_()
+	io_service_(),
+	show_(true)
 {
 }
 
@@ -60,6 +51,14 @@ sge::systems::window::io_service(
 	return *this;
 }
 
+sge::systems::window &
+sge::systems::window::dont_show()
+{
+	show_ = false;
+
+	return *this;
+}
+
 sge::systems::window::parameter_variant const &
 sge::systems::window::parameter() const
 {
@@ -76,4 +75,10 @@ awl::mainloop::io_service_shared_ptr const
 sge::systems::window::io_service() const
 {
 	return io_service_;
+}
+
+bool
+sge::systems::window::show() const
+{
+	return show_;
 }
