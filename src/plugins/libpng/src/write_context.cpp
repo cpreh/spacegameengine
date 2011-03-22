@@ -188,7 +188,7 @@ sge::libpng::write_context::write_context(
 
 	png_set_write_fn(
 		write_ptr_.ptr(),
-		static_cast<voidp>(
+		static_cast<png_voidp>(
 			this),
 		&write_context::handle_write,
 		&write_context::handle_flush);
