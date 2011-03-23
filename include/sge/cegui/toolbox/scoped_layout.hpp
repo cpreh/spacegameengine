@@ -28,8 +28,12 @@ public:
 		sge::charconv::system_ptr);
 
 	SGE_CEGUI_SYMBOL ~scoped_layout();
+
+	SGE_CEGUI_SYMBOL
+	CEGUI::Window &
+	window() const;
 private:
-	CEGUI::Window *window_;
+	CEGUI::Window *const window_;
 };
 }
 }

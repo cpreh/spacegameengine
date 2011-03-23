@@ -1,6 +1,7 @@
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/load_context.hpp>
+#include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/default_cursor.hpp>
@@ -148,6 +149,10 @@ try
 	sge::cegui::toolbox::scoped_layout scoped_layout(
 		sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("text_demo.layout"),
 		sys.charconv_system());
+	
+	sge::cegui::toolbox::scoped_gui_sheet const scoped_gui_sheet(
+		scoped_layout.window()
+	);
 
 	while (running)
 	{

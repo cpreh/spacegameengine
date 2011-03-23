@@ -15,12 +15,16 @@ sge::cegui::toolbox::scoped_layout::scoped_layout(
 					_path),
 				_charconv_system)))
 {
-	CEGUI::System::getSingleton().setGUISheet(
-		window_);
 }
 
 sge::cegui::toolbox::scoped_layout::~scoped_layout()
 {
 	CEGUI::WindowManager::getSingleton().destroyWindow(
 		window_);
+}
+
+CEGUI::Window &
+sge::cegui::toolbox::scoped_layout::window() const
+{
+	return *window_;
 }

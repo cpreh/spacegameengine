@@ -34,6 +34,7 @@ SET(
 	include/sge/cegui/to_cegui_string.hpp
 	include/sge/cegui/toolbox/append_row.hpp
 	include/sge/cegui/toolbox/row.hpp
+	include/sge/cegui/toolbox/scoped_gui_sheet.hpp
 	include/sge/cegui/toolbox/scoped_layout.hpp
 	include/sge/cegui/unit.hpp
 	include/sge/cegui/vf/color.hpp
@@ -68,6 +69,7 @@ SET(
 	src/cegui/system.cpp
 	src/cegui/to_cegui_string.cpp
 	src/cegui/toolbox/append_row.cpp
+	src/cegui/toolbox/scoped_gui_sheet.cpp
 	src/cegui/toolbox/scoped_layout.cpp
 )
 
