@@ -1,0 +1,26 @@
+SET(
+	SGE_LINE_DRAWER_FILES
+	include/sge/line_drawer/color.hpp
+	include/sge/line_drawer/color_format.hpp
+	include/sge/line_drawer/line.hpp
+	include/sge/line_drawer/line_sequence.hpp
+	include/sge/line_drawer/object.hpp
+	include/sge/line_drawer/object_fwd.hpp
+	include/sge/line_drawer/render_to_screen.hpp
+	include/sge/line_drawer/scoped_lock.hpp
+	include/sge/line_drawer/symbol.hpp
+	src/line_drawer/line.cpp
+	src/line_drawer/object.cpp
+	src/line_drawer/render_to_screen.cpp
+	src/line_drawer/scoped_lock.cpp
+	src/line_drawer/vf/color.hpp
+	src/line_drawer/vf/format.hpp
+	src/line_drawer/vf/part.hpp
+	src/line_drawer/vf/position.hpp
+	src/line_drawer/vf/vertex_view.hpp
+)
+
+ADD_SGE_BASE_LIBRARY(
+	line_drawer
+	""
+)

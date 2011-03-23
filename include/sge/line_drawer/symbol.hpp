@@ -18,21 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROCESS_CALL_HPP_INCLUDED
-#define SGE_PROCESS_CALL_HPP_INCLUDED
+#ifndef SGE_LINE_DRAWER_SYMBOL_HPP_INCLUDED
+#define SGE_LINE_DRAWER_SYMBOL_HPP_INCLUDED
 
-#include <sge/process/symbol.hpp>
-#include <sge/process/output.hpp>
-#include <sge/process/argument_list.hpp>
-
-namespace sge
-{
-namespace process
-{
-SGE_PROCESS_SYMBOL output const
-call(
-	argument_list const &);
-}
-}
+#ifdef sgelinedrawer_EXPORTS
+#include <fcppt/export_symbol.hpp>
+#define SGE_LINE_DRAWER_SYMBOL FCPPT_EXPORT_SYMBOL
+#else
+#include <fcppt/import_symbol.hpp>
+#define SGE_LINE_DRAWER_SYMBOL FCPPT_IMPORT_SYMBOL
+#endif
 
 #endif
