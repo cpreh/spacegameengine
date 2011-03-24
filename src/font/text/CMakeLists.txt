@@ -1,5 +1,5 @@
 SET(
-	SGE_FONT_TEXT_FILES
+	SGE_FONTTEXT_FILES
 	include/sge/font/text/align_h.hpp
 	include/sge/font/text/align_v.hpp
 	include/sge/font/text/char_space.hpp
@@ -39,6 +39,6 @@ SET(
 )
 
 ADD_SGE_BASE_LIBRARY(
-	font_text
+	fonttext
 	"sgesprite;sgetexture"
 )
