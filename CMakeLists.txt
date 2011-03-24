@@ -120,6 +120,7 @@ INSTALL(
 
 INSTALL(
 	FILES
-	${CMAKE_SOURCE_DIR}/FindSGE.cmake
+	${CMAKE_SOURCE_DIR}/CMakeModules/FindSGE.cmake
+	${CMAKE_SOURCE_DIR}/CMakeModules/FindCEGUI.cmake
 	DESTINATION share/cmake/Modules
 )
