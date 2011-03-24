@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/create_directories_recursive.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config.hpp>
+#include <fcppt/platform.hpp>
 #if defined(FCPPT_POSIX_PLATFORM)
 #include <sge/config/homedir.hpp>
 #include <sge/config/getenv.hpp>

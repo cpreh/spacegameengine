@@ -1,92 +1,18 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
-
 PROJECT (spacegameengine)
-
-IF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
-	MESSAGE(
-		FATAL_ERROR
-		"In-source builds are not permitted. "
-		"Make a separate folder for building:\n"
-		"mkdir build; cd build; cmake ..\n"
-		"Before that, remove the files that cmake"
-		"just created:\nrm -rf CMakeCache.txt CMakeFiles"
-	)
-ENDIF()
 
 SET(EXTRA_CMAKE_MODULE_PATH "" CACHE PATH "Extra paths to search for cmake modules")
 
-SET (CMAKE_MODULE_PATH "${EXTRA_CMAKE_MODULE_PATH};${CMAKE_SOURCE_DIR}/CMakeModules")
+SET(CMAKE_MODULE_PATH "${EXTRA_CMAKE_MODULE_PATH};${CMAKE_SOURCE_DIR}/CMakeModules")
+
+INCLUDE(FcpptCMakeUtils)
 
 INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (CheckCXXSourceRuns)
 INCLUDE (CheckSymbolExists)
 
-INCLUDE (FindPkgConfig)
-
-CHECK_CXX_SOURCE_RUNS(
-	"#include <cstdlib>
-	int main()
-	{
-	#ifdef __clang__
-		return EXIT_SUCCESS;
-	#else
-		return EXIT_FAILURE;
-	#endif
-	}
-	"
-	COMPILER_IS_CLANGPP
-)
-
-IF (CMAKE_COMPILER_IS_GNUCXX OR COMPILER_IS_CLANGPP)
-	CHECK_CXX_COMPILER_FLAG(
-		"-fvisibility=hidden"
-		SGE_HAVE_GCC_VISIBILITY
-	)
-
-	OPTION (
-		ENABLE_DEBUG_WARNINGS "Enable -Wpadded and -Weffc++" OFF
-	)
-
-	ADD_DEFINITIONS (
-		"-ansi -pedantic-errors -Wall -Wextra -Wconversion"
-		"-Wfloat-equal -Wredundant-decls -Winit-self"
-		"-Woverloaded-virtual -Wnon-virtual-dtor -Wshadow"
-		"-Wsign-promo -Wstrict-aliasing=1 -Wmissing-declarations"
-		"-Wold-style-cast"
-	)
-
-	IF (CMAKE_COMPILER_IS_GNUCXX)
-		ADD_DEFINITIONS ("-Wsign-conversion")
-	ENDIF()
-
-	IF(ENABLE_DEBUG_WARNINGS)
-		SET (CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG}" -Wpadded -Weffc++")
-	ENDIF()
-
-	SET (CMAKE_CXX_FLAGS_RELEASE "-O3 -fomit-frame-pointer -DNDEBUG")
-	
-	IF (SGE_HAVE_GCC_VISIBILITY)
-		ADD_DEFINITIONS(-fvisibility=hidden)
-	ENDIF ()
-
-	# C++ 98 has no long long but boost insists on using it anyway
-	ADD_DEFINITIONS ("-Wno-long-long")
-ELSEIF (MSVC)
-	ADD_DEFINITIONS ("/W4 /wd4996 /EHa /D_BIND_TO_CURRENT_VCLIBS_VERSION=1")
-	#4996 - unsafe standard C++ functions
-
-	ADD_DEFINITIONS (-DUNICODE=1 -D_UNICODE=1)
-ENDIF ()
-
 INCLUDE_DIRECTORIES (${CMAKE_SOURCE_DIR}/include)
-
-SET (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
-SET (LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
-
-# FIND BOOST
-SET (Boost_ADDITIONAL_VERSIONS "1.41" "1.41.0" "1.42" "1.42.0" "1.43" "1.43.0" "1.44" "1.44.0" "1.45" "1.45.0" "1.46" "1.46.0" "1.46.1")
 
 FIND_PACKAGE(
 	Boost 1.46.0 REQUIRED

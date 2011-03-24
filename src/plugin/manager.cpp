@@ -32,18 +32,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config.hpp>
+#include <fcppt/platform.hpp>
 #include <boost/foreach.hpp>
 
 namespace
 {
 
 fcppt::char_type const *const plugin_extension =
-#ifdef FCPPT_DARWIN_PLATFORM
+#if defined(FCPPT_DARWIN_PLATFORM)
 	FCPPT_TEXT("dylib")
-#elif FCPPT_POSIX_PLATFORM
+#elif defined(FCPPT_POSIX_PLATFORM)
 	FCPPT_TEXT("so")
-#elif FCPPT_WINDOWS_PLATFORM
+#elif defined(FCPPT_WINDOWS_PLATFORM)
 	FCPPT_TEXT("dll")
 #else
 #error "Don't know which plugin extension to use!"

@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config.hpp>
-#ifdef FCPPT_WINDOWS_PLATFORM
+#include <fcppt/platform.hpp>
+#if defined(FCPPT_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #endif
@@ -61,7 +61,7 @@ public:
 private:
 	fcppt::filesystem::path const name_;
 
-#ifdef FCPPT_WINDOWS_PLATFORM
+#if defined(FCPPT_WINDOWS_PLATFORM)
 	HMODULE const handle_;
 
 	struct destroyer;
@@ -69,8 +69,10 @@ private:
 	fcppt::scoped_ptr<
 		destroyer
 	> destroyer_;
-#elif FCPPT_POSIX_PLATFORM
+#elif defined(FCPPT_POSIX_PLATFORM)
 	void *const handle_;
+#else
+#error "Don't know how to implement plugin::library!"
 #endif
 };
 

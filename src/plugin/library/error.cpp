@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "error.hpp"
-#include <fcppt/config.hpp>
-#ifdef FCPPT_WINDOWS_PLATFORM
+#include <fcppt/platform.hpp>
+#if defined(FCPPT_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/format_message.hpp>
-#elif FCPPT_POSIX_PLATFORM
+#elif defined(FCPPT_POSIX_PLATFORM)
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <dlfcn.h>

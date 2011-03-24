@@ -1367,10 +1367,6 @@ MACRO(
 	)
 ENDMACRO()
 
-IF(UNIX)
-	SET(CMAKE_SHARED_LINKER_FLAGS -Wl,--no-undefined)
-ENDIF()
-
 # configure some resource paths
 SET(SGE_PLUGIN_BUILD_PATH "${LIBRARY_OUTPUT_PATH}/plugins")
 SET(SGE_PLUGIN_INSTALL_PATH "${CMAKE_INSTALL_PREFIX}/lib/sge")
@@ -1395,7 +1391,7 @@ IF (NOT MSVC)
 ENDIF ()
 
 IF (UNIX)
-	TARGET_LINK_LIBRARIES (sgecore dl pthread)
+	TARGET_LINK_LIBRARIES (sgecore dl)
 ELSEIF (WIN32)
 	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32)
 ENDIF ()

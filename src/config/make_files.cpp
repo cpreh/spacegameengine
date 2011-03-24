@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/make_files.hpp>
 #include <sge/config/homedir.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/config.hpp>
+#include <fcppt/platform.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#ifdef FCPPT_WINDOWS_PLATFORM
+#if defined(FCPPT_WINDOWS_PLATFORM)
 #include <sge/config/appdir.hpp>
 #endif
 
@@ -33,7 +33,7 @@ sge::config::make_files(
 	fcppt::string const &_config_basename
 )
 {
-#ifdef FCPPT_WINDOWS_PLATFORM
+#if defined(FCPPT_WINDOWS_PLATFORM)
 	fcppt::string const suffix(
 		FCPPT_TEXT(".txt")
 	);
@@ -57,7 +57,7 @@ sge::config::make_files(
 				+ suffix
 			)
 		);
-#elif FCPPT_POSIX_PLATFORM
+#elif defined(FCPPT_POSIX_PLATFORM)
 	fcppt::string const suffix(
 		FCPPT_TEXT(".conf")
 	);

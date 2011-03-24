@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_LIBRARY_LOADED_SYMBOL_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_LOADED_SYMBOL_HPP_INCLUDED
 
-#include <fcppt/config.hpp>
+#include <fcppt/platform.hpp>
 #if defined(FCPPT_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #endif
