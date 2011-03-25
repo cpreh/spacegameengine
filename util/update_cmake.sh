@@ -72,7 +72,7 @@ function update_sublibrary()
 
 	update_cmake_file \
 		src/"${sublibrary}"/CMakeLists.txt \
-		SGE_"${upperpath////_}"_FILES \
+		SGE_"${upperpath////}"_FILES \
 		include/sge/"${sublibrary}" \
 		src/"${sublibrary}"
 }

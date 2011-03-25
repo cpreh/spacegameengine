@@ -1,7 +1,9 @@
 SET(
 	SGE_CAMERA_FILES
 	include/sge/camera/activation_state.hpp
+	include/sge/camera/camera.hpp
 	include/sge/camera/gizmo/basic.hpp
+	include/sge/camera/gizmo/gizmo.hpp
 	include/sge/camera/gizmo/to_rotation_matrix.hpp
 	include/sge/camera/gizmo_type.hpp
 	include/sge/camera/identity_gizmo.hpp
@@ -12,6 +14,7 @@ SET(
 	include/sge/camera/projection/object.hpp
 	include/sge/camera/projection/orthogonal.hpp
 	include/sge/camera/projection/perspective.hpp
+	include/sge/camera/projection/projection.hpp
 	include/sge/camera/projection/to_matrix.hpp
 	include/sge/camera/projection/update_perspective_from_viewport.hpp
 	include/sge/camera/symbol.hpp

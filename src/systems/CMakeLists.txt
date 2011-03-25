@@ -23,6 +23,7 @@ SET(
 	include/sge/systems/renderer.hpp
 	include/sge/systems/running_to_false.hpp
 	include/sge/systems/symbol.hpp
+	include/sge/systems/systems.hpp
 	include/sge/systems/window.hpp
 	include/sge/systems/window_fwd.hpp
 	include/sge/systems/wrapped_window.hpp

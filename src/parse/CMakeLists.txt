@@ -12,7 +12,9 @@ SET(
 	include/sge/parse/ini/entry_vector.hpp
 	include/sge/parse/ini/grammar.hpp
 	include/sge/parse/ini/header_name_equal.hpp
+	include/sge/parse/ini/ini.hpp
 	include/sge/parse/ini/output/grammar.hpp
+	include/sge/parse/ini/output/output.hpp
 	include/sge/parse/ini/output/to_file.hpp
 	include/sge/parse/ini/output/to_range.hpp
 	include/sge/parse/ini/output/to_stream.hpp
@@ -39,6 +41,7 @@ SET(
 	include/sge/parse/json/grammar.hpp
 	include/sge/parse/json/int_type.hpp
 	include/sge/parse/json/invalid_get.hpp
+	include/sge/parse/json/json.hpp
 	include/sge/parse/json/member.hpp
 	include/sge/parse/json/member_fwd.hpp
 	include/sge/parse/json/member_name_equal.hpp
@@ -50,6 +53,7 @@ SET(
 	include/sge/parse/json/optional_element_vector.hpp
 	include/sge/parse/json/optional_member_vector.hpp
 	include/sge/parse/json/output/grammar.hpp
+	include/sge/parse/json/output/output.hpp
 	include/sge/parse/json/output/to_file.hpp
 	include/sge/parse/json/output/to_range.hpp
 	include/sge/parse/json/output/to_stream.hpp
@@ -59,6 +63,7 @@ SET(
 	include/sge/parse/json/parse_stream.hpp
 	include/sge/parse/json/string.hpp
 	include/sge/parse/json/value.hpp
+	include/sge/parse/parse.hpp
 	include/sge/parse/symbol.hpp
 	src/parse/exception.cpp
 	src/parse/info_to_string.cpp

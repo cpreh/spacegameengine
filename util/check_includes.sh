@@ -1,7 +1,9 @@
 #!/bin/sh
 
-./util/Include/Main include
+INCLUDE_BINARY="check_includes"
 
-./util/Include/Main src/ | grep -v plugins
+"${INCLUDE_BINARY}" include
 
-./util/Include/Main SGE_:src/plugins
+"${INCLUDE_BINARY}" | grep -v plugins
+
+"${INCLUDE_BINARY}" SGE_:src/plugins

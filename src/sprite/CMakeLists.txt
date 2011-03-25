@@ -1,5 +1,6 @@
 SET(
 	SGE_SPRITE_FILES
+	include/sge/sprite/animation/animation.hpp
 	include/sge/sprite/animation/base.hpp
 	include/sge/sprite/animation/entity.hpp
 	include/sge/sprite/animation/entity_fwd.hpp
@@ -22,6 +23,7 @@ SET(
 	include/sge/sprite/defaults.hpp
 	include/sge/sprite/defaults/adder.hpp
 	include/sge/sprite/defaults/color.hpp
+	include/sge/sprite/defaults/defaults.hpp
 	include/sge/sprite/defaults/fwd.hpp
 	include/sge/sprite/defaults/order.hpp
 	include/sge/sprite/defaults/pos.hpp
@@ -70,6 +72,7 @@ SET(
 	include/sge/sprite/detail/render_inner.hpp
 	include/sge/sprite/detail/render_states.hpp
 	include/sge/sprite/detail/roles/index_buffer.hpp
+	include/sge/sprite/detail/roles/roles.hpp
 	include/sge/sprite/detail/roles/use_center.hpp
 	include/sge/sprite/detail/roles/vertex_buffer.hpp
 	include/sge/sprite/detail/rotation_center.hpp
@@ -100,6 +103,7 @@ SET(
 	include/sge/sprite/intrusive/detail/level_map.hpp
 	include/sge/sprite/intrusive/detail/list.hpp
 	include/sge/sprite/intrusive/detail/object_base_hook.hpp
+	include/sge/sprite/intrusive/intrusive.hpp
 	include/sge/sprite/intrusive/order.hpp
 	include/sge/sprite/intrusive/system_decl.hpp
 	include/sge/sprite/intrusive/system_fwd.hpp
@@ -124,6 +128,7 @@ SET(
 	include/sge/sprite/primitives/float.hpp
 	include/sge/sprite/primitives/order.hpp
 	include/sge/sprite/primitives/point_size.hpp
+	include/sge/sprite/primitives/primitives.hpp
 	include/sge/sprite/primitives/texture.hpp
 	include/sge/sprite/primitives/vector.hpp
 	include/sge/sprite/projection_matrix.hpp
@@ -139,6 +144,7 @@ SET(
 	include/sge/sprite/roles/point_size.hpp
 	include/sge/sprite/roles/pos.hpp
 	include/sge/sprite/roles/repetition.hpp
+	include/sge/sprite/roles/roles.hpp
 	include/sge/sprite/roles/rotate_around.hpp
 	include/sge/sprite/roles/rotation.hpp
 	include/sge/sprite/roles/size.hpp
@@ -148,6 +154,7 @@ SET(
 	include/sge/sprite/roles/visible.hpp
 	include/sge/sprite/rotation_type.hpp
 	include/sge/sprite/set_matrices.hpp
+	include/sge/sprite/sprite.hpp
 	include/sge/sprite/symbol.hpp
 	include/sge/sprite/system.hpp
 	include/sge/sprite/system_base_decl.hpp

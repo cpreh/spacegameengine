@@ -1,5 +1,6 @@
 SET(
 	SGE_FONTBITMAP_FILES
+	include/sge/font/bitmap/bitmap.hpp
 	include/sge/font/bitmap/create.hpp
 	include/sge/font/bitmap/symbol.hpp
 	src/font/bitmap/char_map.hpp

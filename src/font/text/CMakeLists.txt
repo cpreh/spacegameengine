@@ -21,6 +21,7 @@ SET(
 	include/sge/font/text/size.hpp
 	include/sge/font/text/string.hpp
 	include/sge/font/text/symbol.hpp
+	include/sge/font/text/text.hpp
 	include/sge/font/text/to_fcppt_string.hpp
 	src/font/text/align_pos_h.hpp
 	src/font/text/align_pos_v.hpp

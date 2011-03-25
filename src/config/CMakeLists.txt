@@ -10,6 +10,7 @@ INCLUDE_DIRECTORIES(
 SET(
 	SGE_CONFIG_FILES
 	include/sge/config/appdir.hpp
+	include/sge/config/config.hpp
 	include/sge/config/exception.hpp
 	include/sge/config/find_config_path.hpp
 	include/sge/config/find_path.hpp

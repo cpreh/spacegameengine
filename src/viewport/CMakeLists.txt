@@ -9,6 +9,7 @@ SET(
 	include/sge/viewport/manager_fwd.hpp
 	include/sge/viewport/resize_function.hpp
 	include/sge/viewport/symbol.hpp
+	include/sge/viewport/viewport.hpp
 	src/viewport/center.cpp
 	src/viewport/center.hpp
 	src/viewport/center_on_resize.cpp

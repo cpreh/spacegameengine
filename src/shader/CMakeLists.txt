@@ -11,6 +11,7 @@ SET(
 	include/sge/shader/sampler_sequence.hpp
 	include/sge/shader/scalar.hpp
 	include/sge/shader/scoped.hpp
+	include/sge/shader/shader.hpp
 	include/sge/shader/symbol.hpp
 	include/sge/shader/texture_variant.hpp
 	include/sge/shader/value_type.hpp
