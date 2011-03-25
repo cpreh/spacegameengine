@@ -1,3 +1,6 @@
+#ifndef SGE_CONSOLE_CONSOLE_HPP_INCLUDED
+#define SGE_CONSOLE_CONSOLE_HPP_INCLUDED
+
 #include <sge/console/arg_list.hpp>
 #include <sge/console/callback.hpp>
 #include <sge/console/callback_type.hpp>
@@ -28,3 +31,5 @@
 #include <sge/console/sprite_system.hpp>
 #include <sge/console/sprite_type_choices.hpp>
 #include <sge/console/symbol.hpp>
+
+#endif

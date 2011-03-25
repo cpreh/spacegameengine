@@ -1,3 +1,6 @@
+#ifndef SGE_SPRITE_SPRITE_HPP_INCLUDED
+#define SGE_SPRITE_SPRITE_HPP_INCLUDED
+
 #include <sge/sprite/animation/animation.hpp>
 #include <sge/sprite/bounding_rect.hpp>
 #include <sge/sprite/center.hpp>
@@ -59,3 +62,5 @@
 #include <sge/sprite/with_texture_coordinates.hpp>
 #include <sge/sprite/with_unspecified_dim.hpp>
 #include <sge/sprite/with_visibility.hpp>
+
+#endif

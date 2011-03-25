@@ -1,3 +1,6 @@
+#ifndef SGE_RENDERER_STATE_STATE_HPP_INCLUDED
+#define SGE_RENDERER_STATE_STATE_HPP_INCLUDED
+
 #include <sge/renderer/state/alpha_func.hpp>
 #include <sge/renderer/state/any.hpp>
 #include <sge/renderer/state/any_sort.hpp>
@@ -28,3 +31,5 @@
 #include <sge/renderer/state/uint_type.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/var_fwd.hpp>
+
+#endif

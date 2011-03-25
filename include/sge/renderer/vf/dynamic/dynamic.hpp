@@ -1,3 +1,6 @@
+#ifndef SGE_RENDERER_VF_DYNAMIC_DYNAMIC_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DYNAMIC_HPP_INCLUDED
+
 #include <sge/renderer/vf/dynamic/any.hpp>
 #include <sge/renderer/vf/dynamic/basic_view.hpp>
 #include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
@@ -37,3 +40,5 @@
 #include <sge/renderer/vf/dynamic/vector_fwd.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <sge/renderer/vf/dynamic/view_fwd.hpp>
+
+#endif

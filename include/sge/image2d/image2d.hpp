@@ -1,3 +1,6 @@
+#ifndef SGE_IMAGE2D_IMAGE2D_HPP_INCLUDED
+#define SGE_IMAGE2D_IMAGE2D_HPP_INCLUDED
+
 #include <sge/image2d/algorithm/algorithm.hpp>
 #include <sge/image2d/alpha8.hpp>
 #include <sge/image2d/alpha8_format.hpp>
@@ -23,3 +26,5 @@
 #include <sge/image2d/rgba8_format.hpp>
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/view.hpp>
+
+#endif

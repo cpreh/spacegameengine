@@ -1,3 +1,6 @@
+#ifndef SGE_TIME_TIME_HPP_INCLUDED
+#define SGE_TIME_TIME_HPP_INCLUDED
+
 #include <sge/time/activation_state.hpp>
 #include <sge/time/callback.hpp>
 #include <sge/time/clock.hpp>
@@ -18,3 +21,5 @@
 #include <sge/time/time.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/unit.hpp>
+
+#endif

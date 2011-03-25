@@ -1,3 +1,6 @@
+#ifndef SGE_FONT_FONT_HPP_INCLUDED
+#define SGE_FONT_FONT_HPP_INCLUDED
+
 #include <sge/font/bitmap/bitmap.hpp>
 #include <sge/font/char_metric.hpp>
 #include <sge/font/char_metric_fwd.hpp>
@@ -21,3 +24,5 @@
 #include <sge/font/system_ptr.hpp>
 #include <sge/font/text/text.hpp>
 #include <sge/font/unit.hpp>
+
+#endif

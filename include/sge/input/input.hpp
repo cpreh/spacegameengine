@@ -1,3 +1,6 @@
+#ifndef SGE_INPUT_INPUT_HPP_INCLUDED
+#define SGE_INPUT_INPUT_HPP_INCLUDED
+
 #include <sge/input/cursor/cursor.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/input/input.hpp>
@@ -11,3 +14,5 @@
 #include <sge/input/system.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/system_ptr.hpp>
+
+#endif

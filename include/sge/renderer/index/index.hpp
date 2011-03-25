@@ -1,3 +1,6 @@
+#ifndef SGE_RENDERER_INDEX_INDEX_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_INDEX_HPP_INCLUDED
+
 #include <sge/renderer/index/any/any.hpp>
 #include <sge/renderer/index/const_format_16.hpp>
 #include <sge/renderer/index/const_format_32.hpp>
@@ -32,3 +35,5 @@
 #include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/view_fwd.hpp>
+
+#endif

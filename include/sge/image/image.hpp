@@ -1,3 +1,6 @@
+#ifndef SGE_IMAGE_IMAGE_HPP_INCLUDED
+#define SGE_IMAGE_IMAGE_HPP_INCLUDED
+
 #include <sge/image/algorithm/algorithm.hpp>
 #include <sge/image/alpha8_format.hpp>
 #include <sge/image/argb32f_format.hpp>
@@ -31,3 +34,5 @@
 #include <sge/image/traits/traits.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/image/view/view.hpp>
+
+#endif

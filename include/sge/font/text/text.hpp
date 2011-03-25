@@ -1,3 +1,6 @@
+#ifndef SGE_FONT_TEXT_TEXT_HPP_INCLUDED
+#define SGE_FONT_TEXT_TEXT_HPP_INCLUDED
+
 #include <sge/font/text/align_h.hpp>
 #include <sge/font/text/align_v.hpp>
 #include <sge/font/text/char_space.hpp>
@@ -21,3 +24,5 @@
 #include <sge/font/text/symbol.hpp>
 #include <sge/font/text/text.hpp>
 #include <sge/font/text/to_fcppt_string.hpp>
+
+#endif

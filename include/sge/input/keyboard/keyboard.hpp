@@ -1,3 +1,6 @@
+#ifndef SGE_INPUT_KEYBOARD_KEYBOARD_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_KEYBOARD_HPP_INCLUDED
+
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/char_event.hpp>
@@ -36,3 +39,5 @@
 #include <sge/input/keyboard/remove_function.hpp>
 #include <sge/input/keyboard/remove_signal.hpp>
 #include <sge/input/keyboard/to_modifier.hpp>
+
+#endif

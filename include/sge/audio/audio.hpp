@@ -1,3 +1,6 @@
+#ifndef SGE_AUDIO_AUDIO_HPP_INCLUDED
+#define SGE_AUDIO_AUDIO_HPP_INCLUDED
+
 #include <sge/audio/angle.hpp>
 #include <sge/audio/angle_fwd.hpp>
 #include <sge/audio/audio.hpp>
@@ -38,3 +41,5 @@
 #include <sge/audio/stop_mode.hpp>
 #include <sge/audio/unsupported_format.hpp>
 #include <sge/audio/vector.hpp>
+
+#endif

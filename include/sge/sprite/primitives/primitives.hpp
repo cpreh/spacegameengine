@@ -1,3 +1,6 @@
+#ifndef SGE_SPRITE_PRIMITIVES_PRIMITIVES_HPP_INCLUDED
+#define SGE_SPRITE_PRIMITIVES_PRIMITIVES_HPP_INCLUDED
+
 #include <sge/sprite/primitives/adder.hpp>
 #include <sge/sprite/primitives/bool.hpp>
 #include <sge/sprite/primitives/color.hpp>
@@ -9,3 +12,5 @@
 #include <sge/sprite/primitives/primitives.hpp>
 #include <sge/sprite/primitives/texture.hpp>
 #include <sge/sprite/primitives/vector.hpp>
+
+#endif

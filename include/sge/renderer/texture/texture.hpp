@@ -1,3 +1,6 @@
+#ifndef SGE_RENDERER_TEXTURE_TEXTURE_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_TEXTURE_HPP_INCLUDED
+
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode2_fwd.hpp>
@@ -47,3 +50,5 @@
 #include <sge/renderer/texture/volume_parameters.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_ptr.hpp>
+
+#endif

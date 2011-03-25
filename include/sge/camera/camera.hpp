@@ -1,3 +1,6 @@
+#ifndef SGE_CAMERA_CAMERA_HPP_INCLUDED
+#define SGE_CAMERA_CAMERA_HPP_INCLUDED
+
 #include <sge/camera/activation_state.hpp>
 #include <sge/camera/camera.hpp>
 #include <sge/camera/gizmo/gizmo.hpp>
@@ -9,3 +12,5 @@
 #include <sge/camera/parameters_fwd.hpp>
 #include <sge/camera/projection/projection.hpp>
 #include <sge/camera/symbol.hpp>
+
+#endif

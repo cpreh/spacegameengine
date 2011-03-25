@@ -1,3 +1,6 @@
+#ifndef SGE_INPUT_CURSOR_CURSOR_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_CURSOR_HPP_INCLUDED
+
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
@@ -32,3 +35,5 @@
 #include <sge/input/cursor/remove_function.hpp>
 #include <sge/input/cursor/remove_signal.hpp>
 #include <sge/input/cursor/window_mode.hpp>
+
+#endif

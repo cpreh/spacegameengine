@@ -1,3 +1,6 @@
+#ifndef SGE_COLLISION_COLLISION_HPP_INCLUDED
+#define SGE_COLLISION_COLLISION_HPP_INCLUDED
+
 #include <sge/collision/body.hpp>
 #include <sge/collision/body_fwd.hpp>
 #include <sge/collision/body_ptr.hpp>
@@ -35,3 +38,5 @@
 #include <sge/collision/world.hpp>
 #include <sge/collision/world_fwd.hpp>
 #include <sge/collision/world_ptr.hpp>
+
+#endif

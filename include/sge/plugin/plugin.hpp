@@ -1,3 +1,6 @@
+#ifndef SGE_PLUGIN_PLUGIN_HPP_INCLUDED
+#define SGE_PLUGIN_PLUGIN_HPP_INCLUDED
+
 #include <sge/plugin/base.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
@@ -19,3 +22,5 @@
 #include <sge/plugin/object_fwd.hpp>
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/version.hpp>
+
+#endif

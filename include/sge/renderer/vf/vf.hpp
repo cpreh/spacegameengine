@@ -1,3 +1,6 @@
+#ifndef SGE_RENDERER_VF_VF_HPP_INCLUDED
+#define SGE_RENDERER_VF_VF_HPP_INCLUDED
+
 #include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/const_tag.hpp>
@@ -41,3 +44,5 @@
 #include <sge/renderer/vf/view_decl.hpp>
 #include <sge/renderer/vf/view_fwd.hpp>
 #include <sge/renderer/vf/view_impl.hpp>
+
+#endif

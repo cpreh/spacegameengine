@@ -1,3 +1,6 @@
+#ifndef SGE_IMAGE3D_VIEW_VIEW_HPP_INCLUDED
+#define SGE_IMAGE3D_VIEW_VIEW_HPP_INCLUDED
+
 #include <sge/image3d/view/checked_sub.hpp>
 #include <sge/image3d/view/const_elements.hpp>
 #include <sge/image3d/view/const_object.hpp>
@@ -14,3 +17,5 @@
 #include <sge/image3d/view/sub_out_of_range.hpp>
 #include <sge/image3d/view/to_const.hpp>
 #include <sge/image3d/view/view.hpp>
+
+#endif

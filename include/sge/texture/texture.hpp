@@ -1,3 +1,6 @@
+#ifndef SGE_TEXTURE_TEXTURE_HPP_INCLUDED
+#define SGE_TEXTURE_TEXTURE_HPP_INCLUDED
+
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/atlasing/atlasing.hpp>
@@ -23,3 +26,5 @@
 #include <sge/texture/sub_data.hpp>
 #include <sge/texture/symbol.hpp>
 #include <sge/texture/texture.hpp>
+
+#endif

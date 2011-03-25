@@ -1,3 +1,6 @@
+#ifndef SGE_INPUT_MOUSE_MOUSE_HPP_INCLUDED
+#define SGE_INPUT_MOUSE_MOUSE_HPP_INCLUDED
+
 #include <sge/input/mouse/axis.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_event.hpp>
@@ -22,3 +25,5 @@
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_function.hpp>
 #include <sge/input/mouse/remove_signal.hpp>
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef SGE_RENDERER_GLSL_GLSL_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_GLSL_HPP_INCLUDED
+
 #include <sge/renderer/glsl/char.hpp>
 #include <sge/renderer/glsl/const_program_ptr.hpp>
 #include <sge/renderer/glsl/create_program_from_streams.hpp>
@@ -26,3 +29,5 @@
 #include <sge/renderer/glsl/vertex_shader.hpp>
 #include <sge/renderer/glsl/vertex_shader_fwd.hpp>
 #include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+
+#endif

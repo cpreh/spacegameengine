@@ -1,3 +1,6 @@
+#ifndef SGE_SHADER_SHADER_HPP_INCLUDED
+#define SGE_SHADER_SHADER_HPP_INCLUDED
+
 #include <sge/shader/format_printer.hpp>
 #include <sge/shader/mat4.hpp>
 #include <sge/shader/object.hpp>
@@ -19,3 +22,5 @@
 #include <sge/shader/vec4.hpp>
 #include <sge/shader/vector_to_string.hpp>
 #include <sge/shader/vf_to_string.hpp>
+
+#endif

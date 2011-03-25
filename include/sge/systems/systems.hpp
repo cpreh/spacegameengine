@@ -1,3 +1,6 @@
+#ifndef SGE_SYSTEMS_SYSTEMS_HPP_INCLUDED
+#define SGE_SYSTEMS_SYSTEMS_HPP_INCLUDED
+
 #include <sge/systems/any.hpp>
 #include <sge/systems/any_set.hpp>
 #include <sge/systems/audio_loader.hpp>
@@ -25,3 +28,5 @@
 #include <sge/systems/window.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/wrapped_window.hpp>
+
+#endif

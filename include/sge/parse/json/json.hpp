@@ -1,3 +1,6 @@
+#ifndef SGE_PARSE_JSON_JSON_HPP_INCLUDED
+#define SGE_PARSE_JSON_JSON_HPP_INCLUDED
+
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/parse/json/element_vector.hpp>
@@ -27,3 +30,5 @@
 #include <sge/parse/json/parse_stream.hpp>
 #include <sge/parse/json/string.hpp>
 #include <sge/parse/json/value.hpp>
+
+#endif

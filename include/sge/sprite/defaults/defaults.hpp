@@ -1,3 +1,6 @@
+#ifndef SGE_SPRITE_DEFAULTS_DEFAULTS_HPP_INCLUDED
+#define SGE_SPRITE_DEFAULTS_DEFAULTS_HPP_INCLUDED
+
 #include <sge/sprite/defaults/adder.hpp>
 #include <sge/sprite/defaults/color.hpp>
 #include <sge/sprite/defaults/defaults.hpp>
@@ -10,3 +13,5 @@
 #include <sge/sprite/defaults/texture.hpp>
 #include <sge/sprite/defaults/use_center.hpp>
 #include <sge/sprite/defaults/visible.hpp>
+
+#endif

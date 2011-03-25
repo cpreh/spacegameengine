@@ -1,3 +1,6 @@
+#ifndef SGE_RENDERER_GLSL_UNIFORM_UNIFORM_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_UNIFORM_HPP_INCLUDED
+
 #include <sge/renderer/glsl/uniform/array_value.hpp>
 #include <sge/renderer/glsl/uniform/basic_value.hpp>
 #include <sge/renderer/glsl/uniform/basic_value_fwd.hpp>
@@ -14,3 +17,5 @@
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/variable_fwd.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
+
+#endif

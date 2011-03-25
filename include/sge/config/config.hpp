@@ -1,3 +1,6 @@
+#ifndef SGE_CONFIG_CONFIG_HPP_INCLUDED
+#define SGE_CONFIG_CONFIG_HPP_INCLUDED
+
 #include <sge/config/appdir.hpp>
 #include <sge/config/config.hpp>
 #include <sge/config/exception.hpp>
@@ -16,3 +19,5 @@
 #include <sge/config/path_vector.hpp>
 #include <sge/config/plugin_path.hpp>
 #include <sge/config/symbol.hpp>
+
+#endif

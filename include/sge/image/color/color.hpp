@@ -1,3 +1,6 @@
+#ifndef SGE_IMAGE_COLOR_COLOR_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_COLOR_HPP_INCLUDED
+
 #include <sge/image/color/alpha8.hpp>
 #include <sge/image/color/alpha8_format.hpp>
 #include <sge/image/color/any/any.hpp>
@@ -33,3 +36,5 @@
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
+
+#endif

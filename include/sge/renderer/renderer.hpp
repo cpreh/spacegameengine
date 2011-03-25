@@ -1,3 +1,6 @@
+#ifndef SGE_RENDERER_RENDERER_HPP_INCLUDED
+#define SGE_RENDERER_RENDERER_HPP_INCLUDED
+
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/add_depth_stencil_surface_to_target.hpp>
@@ -135,3 +138,5 @@
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+
+#endif

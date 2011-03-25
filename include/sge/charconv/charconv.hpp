@@ -1,3 +1,6 @@
+#ifndef SGE_CHARCONV_CHARCONV_HPP_INCLUDED
+#define SGE_CHARCONV_CHARCONV_HPP_INCLUDED
+
 #include <sge/charconv/charconv.hpp>
 #include <sge/charconv/const_raw_pointer.hpp>
 #include <sge/charconv/conversion_failed.hpp>
@@ -20,3 +23,5 @@
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/system_ptr.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
+
+#endif

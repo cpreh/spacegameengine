@@ -1,3 +1,6 @@
+#ifndef SGE_WINDOW_WINDOW_HPP_INCLUDED
+#define SGE_WINDOW_WINDOW_HPP_INCLUDED
+
 #include <sge/window/convert_size_hints.hpp>
 #include <sge/window/create.hpp>
 #include <sge/window/create_simple_from_awl.hpp>
@@ -16,3 +19,5 @@
 #include <sge/window/size_hints_fwd.hpp>
 #include <sge/window/to_awl_parameters.hpp>
 #include <sge/window/window.hpp>
+
+#endif
