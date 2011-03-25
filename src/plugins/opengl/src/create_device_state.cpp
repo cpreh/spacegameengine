@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../create_device_state.hpp"
 #include <sge/opengl/config.hpp>
-#include <fcppt/config.hpp>
-#ifdef SGE_OPENGL_HAVE_X11
+#include <fcppt/platform.hpp>
+#if defined(SGE_OPENGL_HAVE_X11)
 #include "../x11/state.hpp"
 #include <awl/backends/x11/window/instance.hpp>
-#elif FCPPT_WINDOWS_PLATFORM
+#elif defined(FCPPT_WINDOWS_PLATFORM)
 #include "../windows/state.hpp"
 #include <awl/backends/windows/window/instance.hpp>
 #else
@@ -42,7 +42,7 @@ sge::opengl::create_device_state(
 	window::instance &_window
 )
 {
-#ifdef SGE_OPENGL_HAVE_X11
+#if defined(SGE_OPENGL_HAVE_X11)
 	return
 		opengl::device_state_ptr(
 			fcppt::make_unique_ptr<
@@ -62,7 +62,7 @@ sge::opengl::create_device_state(
 				)
 			)
 		);
-#elif FCPPT_WINDOWS_PLATFORM
+#elif defined(FCPPT_WINDOWS_PLATFORM)
 	return
 		opengl::device_state_ptr(
 			fcppt::make_unique_ptr<

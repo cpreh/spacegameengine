@@ -20,14 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/getenv.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/config.hpp>
-#ifdef FCPPT_WINDOWS_PLATFORM
+#include <fcppt/platform.hpp>
+#if defined(FCPPT_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/text.hpp>
 #else
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/to_std_string.hpp>
 #include <cstdlib>
 #endif
 
@@ -36,7 +37,7 @@ sge::config::getenv(
 	fcppt::string const &_name
 )
 {
-#ifdef FCPPT_WINDOWS_PLATFORM
+#if defined(FCPPT_WINDOWS_PLATFORM)
 	fcppt::container::raw_vector<
 		fcppt::char_type
 	> buffer(32767);
@@ -56,7 +57,7 @@ sge::config::getenv(
 #else
 	char const *const ret(
 		::std::getenv(
-			fcppt::from_std_string(
+			fcppt::to_std_string(
 				_name
 			).c_str()
 		)
