@@ -87,7 +87,6 @@
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/refresh_rate.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
-#include <sge/renderer/renderer.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/resource_flags_none.hpp>

@@ -20,7 +20,6 @@
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/object_fwd.hpp>
-#include <sge/plugin/plugin.hpp>
 #include <sge/plugin/version.hpp>
 
 #endif

@@ -2,7 +2,6 @@
 #define SGE_CAMERA_CAMERA_HPP_INCLUDED
 
 #include <sge/camera/activation_state.hpp>
-#include <sge/camera/camera.hpp>
 #include <sge/camera/gizmo/gizmo.hpp>
 #include <sge/camera/gizmo_type.hpp>
 #include <sge/camera/identity_gizmo.hpp>

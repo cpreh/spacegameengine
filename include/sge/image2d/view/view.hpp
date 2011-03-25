@@ -16,6 +16,5 @@
 #include <sge/image2d/view/sub.hpp>
 #include <sge/image2d/view/sub_out_of_range.hpp>
 #include <sge/image2d/view/to_const.hpp>
-#include <sge/image2d/view/view.hpp>
 
 #endif

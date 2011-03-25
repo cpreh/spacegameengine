@@ -18,6 +18,5 @@
 #include <sge/window/size_hints.hpp>
 #include <sge/window/size_hints_fwd.hpp>
 #include <sge/window/to_awl_parameters.hpp>
-#include <sge/window/window.hpp>
 
 #endif

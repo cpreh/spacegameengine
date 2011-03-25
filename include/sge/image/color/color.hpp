@@ -14,7 +14,6 @@
 #include <sge/image/color/bgra8_format.hpp>
 #include <sge/image/color/channel32f.hpp>
 #include <sge/image/color/channel8.hpp>
-#include <sge/image/color/color.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/element_count.hpp>
 #include <sge/image/color/elements.hpp>

@@ -44,7 +44,6 @@
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/scoped_volume_lock.hpp>
-#include <sge/renderer/texture/texture.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_fwd.hpp>
 #include <sge/renderer/texture/volume_parameters.hpp>

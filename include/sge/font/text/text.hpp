@@ -22,7 +22,6 @@
 #include <sge/font/text/size.hpp>
 #include <sge/font/text/string.hpp>
 #include <sge/font/text/symbol.hpp>
-#include <sge/font/text/text.hpp>
 #include <sge/font/text/to_fcppt_string.hpp>
 
 #endif

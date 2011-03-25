@@ -19,7 +19,6 @@
 #include <sge/image/exception_fwd.hpp>
 #include <sge/image/file_exception.hpp>
 #include <sge/image/gray8_format.hpp>
-#include <sge/image/image.hpp>
 #include <sge/image/optional_path.hpp>
 #include <sge/image/pitch.hpp>
 #include <sge/image/raw_pointer.hpp>

@@ -39,7 +39,6 @@
 #include <sge/renderer/vf/vertex_fwd.hpp>
 #include <sge/renderer/vf/vertex_impl.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/vf.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/view_decl.hpp>
 #include <sge/renderer/vf/view_fwd.hpp>

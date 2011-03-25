@@ -8,7 +8,6 @@
 #include <sge/model/loader.hpp>
 #include <sge/model/loader_fwd.hpp>
 #include <sge/model/loader_ptr.hpp>
-#include <sge/model/model.hpp>
 #include <sge/model/normal.hpp>
 #include <sge/model/normal_sequence.hpp>
 #include <sge/model/object.hpp>

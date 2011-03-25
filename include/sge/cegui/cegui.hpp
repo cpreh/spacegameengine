@@ -1,7 +1,6 @@
 #ifndef SGE_CEGUI_CEGUI_HPP_INCLUDED
 #define SGE_CEGUI_CEGUI_HPP_INCLUDED
 
-#include <sge/cegui/cegui.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>

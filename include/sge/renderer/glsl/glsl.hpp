@@ -7,7 +7,6 @@
 #include <sge/renderer/glsl/create_program_from_strings.hpp>
 #include <sge/renderer/glsl/exception.hpp>
 #include <sge/renderer/glsl/from_fcppt_string.hpp>
-#include <sge/renderer/glsl/glsl.hpp>
 #include <sge/renderer/glsl/int_type.hpp>
 #include <sge/renderer/glsl/istream.hpp>
 #include <sge/renderer/glsl/istream_ref.hpp>

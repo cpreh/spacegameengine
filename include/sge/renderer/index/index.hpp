@@ -19,7 +19,6 @@
 #include <sge/renderer/index/format_is_32.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
-#include <sge/renderer/index/index.hpp>
 #include <sge/renderer/index/is_format.hpp>
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/iterator_decl.hpp>

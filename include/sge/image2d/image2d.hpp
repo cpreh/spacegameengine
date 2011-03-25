@@ -11,7 +11,6 @@
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/gray8.hpp>
 #include <sge/image2d/gray8_format.hpp>
-#include <sge/image2d/image2d.hpp>
 #include <sge/image2d/loader.hpp>
 #include <sge/image2d/loader_fwd.hpp>
 #include <sge/image2d/loader_ptr.hpp>

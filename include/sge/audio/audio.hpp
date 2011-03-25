@@ -3,7 +3,6 @@
 
 #include <sge/audio/angle.hpp>
 #include <sge/audio/angle_fwd.hpp>
-#include <sge/audio/audio.hpp>
 #include <sge/audio/bad_sound_alloc.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_fwd.hpp>

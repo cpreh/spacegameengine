@@ -30,7 +30,6 @@
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
-#include <sge/input/keyboard/keyboard.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
 #include <sge/input/keyboard/modifier.hpp>
 #include <sge/input/keyboard/optional_digit.hpp>

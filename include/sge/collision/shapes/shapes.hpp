@@ -8,7 +8,6 @@
 #include <sge/collision/shapes/box_fwd.hpp>
 #include <sge/collision/shapes/box_ptr.hpp>
 #include <sge/collision/shapes/container.hpp>
-#include <sge/collision/shapes/shapes.hpp>
 #include <sge/collision/shapes/sphere.hpp>
 #include <sge/collision/shapes/sphere_fwd.hpp>
 #include <sge/collision/shapes/sphere_ptr.hpp>

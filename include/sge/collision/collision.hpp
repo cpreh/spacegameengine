@@ -8,7 +8,6 @@
 #include <sge/collision/callback.hpp>
 #include <sge/collision/callback_fn.hpp>
 #include <sge/collision/callback_signal.hpp>
-#include <sge/collision/collision.hpp>
 #include <sge/collision/const_satellite_ptr.hpp>
 #include <sge/collision/constraint.hpp>
 #include <sge/collision/dim.hpp>

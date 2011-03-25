@@ -3,7 +3,6 @@
 
 #include <sge/renderer/texture/filter/anisotropic.hpp>
 #include <sge/renderer/texture/filter/anisotropy_type.hpp>
-#include <sge/renderer/texture/filter/filter.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/filter/mag.hpp>
 #include <sge/renderer/texture/filter/min.hpp>

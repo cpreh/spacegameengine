@@ -1,7 +1,6 @@
 #ifndef SGE_SPRITE_ANIMATION_ANIMATION_HPP_INCLUDED
 #define SGE_SPRITE_ANIMATION_ANIMATION_HPP_INCLUDED
 
-#include <sge/sprite/animation/animation.hpp>
 #include <sge/sprite/animation/base.hpp>
 #include <sge/sprite/animation/entity.hpp>
 #include <sge/sprite/animation/entity_fwd.hpp>

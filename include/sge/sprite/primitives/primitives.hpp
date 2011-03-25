@@ -9,7 +9,6 @@
 #include <sge/sprite/primitives/float.hpp>
 #include <sge/sprite/primitives/order.hpp>
 #include <sge/sprite/primitives/point_size.hpp>
-#include <sge/sprite/primitives/primitives.hpp>
 #include <sge/sprite/primitives/texture.hpp>
 #include <sge/sprite/primitives/vector.hpp>
 

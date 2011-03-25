@@ -12,7 +12,6 @@
 #include <sge/renderer/glsl/uniform/make_element_type.hpp>
 #include <sge/renderer/glsl/uniform/make_enum_type.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
-#include <sge/renderer/glsl/uniform/uniform.hpp>
 #include <sge/renderer/glsl/uniform/value.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/variable_fwd.hpp>

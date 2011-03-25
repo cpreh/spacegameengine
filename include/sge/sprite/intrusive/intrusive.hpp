@@ -4,7 +4,6 @@
 #include <sge/sprite/intrusive/adder_base.hpp>
 #include <sge/sprite/intrusive/adder_decl.hpp>
 #include <sge/sprite/intrusive/adder_impl.hpp>
-#include <sge/sprite/intrusive/intrusive.hpp>
 #include <sge/sprite/intrusive/order.hpp>
 #include <sge/sprite/intrusive/system_decl.hpp>
 #include <sge/sprite/intrusive/system_fwd.hpp>

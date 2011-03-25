@@ -4,7 +4,6 @@
 #include <sge/image3d/algorithm/algorithm.hpp>
 #include <sge/image3d/box.hpp>
 #include <sge/image3d/dim.hpp>
-#include <sge/image3d/image3d.hpp>
 #include <sge/image3d/pitch.hpp>
 #include <sge/image3d/rgba32f.hpp>
 #include <sge/image3d/rgba32f_format.hpp>

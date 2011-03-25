@@ -7,7 +7,6 @@
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/button_function.hpp>
 #include <sge/input/cursor/button_signal.hpp>
-#include <sge/input/cursor/cursor.hpp>
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/demuxer_fwd.hpp>
 #include <sge/input/cursor/discover_callback.hpp>

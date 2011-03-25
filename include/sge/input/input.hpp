@@ -3,7 +3,6 @@
 
 #include <sge/input/cursor/cursor.hpp>
 #include <sge/input/exception.hpp>
-#include <sge/input/input.hpp>
 #include <sge/input/keyboard/keyboard.hpp>
 #include <sge/input/mouse/mouse.hpp>
 #include <sge/input/nullary_function.hpp>

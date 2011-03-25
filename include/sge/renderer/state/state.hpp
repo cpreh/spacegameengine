@@ -23,7 +23,6 @@
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/source_blend_func.hpp>
-#include <sge/renderer/state/state.hpp>
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/trampoline_fwd.hpp>

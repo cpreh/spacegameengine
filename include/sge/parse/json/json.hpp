@@ -12,7 +12,6 @@
 #include <sge/parse/json/grammar.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/invalid_get.hpp>
-#include <sge/parse/json/json.hpp>
 #include <sge/parse/json/member.hpp>
 #include <sge/parse/json/member_fwd.hpp>
 #include <sge/parse/json/member_name_equal.hpp>

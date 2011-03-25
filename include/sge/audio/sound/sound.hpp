@@ -11,6 +11,5 @@
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_ptr.hpp>
 #include <sge/audio/sound/repeat.hpp>
-#include <sge/audio/sound/sound.hpp>
 
 #endif

@@ -10,7 +10,6 @@
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/converter.hpp>
-#include <sge/renderer/vf/dynamic/dynamic.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/element_fwd.hpp>
 #include <sge/renderer/vf/dynamic/element_list.hpp>

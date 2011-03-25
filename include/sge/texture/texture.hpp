@@ -25,6 +25,5 @@
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/sub_data.hpp>
 #include <sge/texture/symbol.hpp>
-#include <sge/texture/texture.hpp>
 
 #endif

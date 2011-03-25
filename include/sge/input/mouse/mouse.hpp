@@ -21,7 +21,6 @@
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/discover_function.hpp>
 #include <sge/input/mouse/discover_signal.hpp>
-#include <sge/input/mouse/mouse.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_function.hpp>
 #include <sge/input/mouse/remove_signal.hpp>

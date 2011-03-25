@@ -7,7 +7,6 @@
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/grammar.hpp>
 #include <sge/parse/ini/header_name_equal.hpp>
-#include <sge/parse/ini/ini.hpp>
 #include <sge/parse/ini/output/output.hpp>
 #include <sge/parse/ini/parse_file.hpp>
 #include <sge/parse/ini/parse_range.hpp>

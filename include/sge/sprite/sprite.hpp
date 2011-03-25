@@ -41,7 +41,6 @@
 #include <sge/sprite/roles/roles.hpp>
 #include <sge/sprite/rotation_type.hpp>
 #include <sge/sprite/set_matrices.hpp>
-#include <sge/sprite/sprite.hpp>
 #include <sge/sprite/symbol.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/system_base_decl.hpp>

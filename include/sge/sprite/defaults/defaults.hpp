@@ -3,7 +3,6 @@
 
 #include <sge/sprite/defaults/adder.hpp>
 #include <sge/sprite/defaults/color.hpp>
-#include <sge/sprite/defaults/defaults.hpp>
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/defaults/order.hpp>
 #include <sge/sprite/defaults/pos.hpp>

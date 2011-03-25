@@ -4,7 +4,6 @@
 #include <sge/console/arg_list.hpp>
 #include <sge/console/callback.hpp>
 #include <sge/console/callback_type.hpp>
-#include <sge/console/console.hpp>
 #include <sge/console/cursor.hpp>
 #include <sge/console/error_callback.hpp>
 #include <sge/console/error_callback_fn.hpp>

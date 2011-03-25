@@ -4,7 +4,6 @@
 #include <sge/line_drawer/color.hpp>
 #include <sge/line_drawer/color_format.hpp>
 #include <sge/line_drawer/line.hpp>
-#include <sge/line_drawer/line_drawer.hpp>
 #include <sge/line_drawer/line_sequence.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/object_fwd.hpp>

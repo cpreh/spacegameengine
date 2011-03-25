@@ -8,7 +8,6 @@
 #include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/repetition.hpp>
-#include <sge/sprite/roles/roles.hpp>
 #include <sge/sprite/roles/rotate_around.hpp>
 #include <sge/sprite/roles/rotation.hpp>
 #include <sge/sprite/roles/size.hpp>
