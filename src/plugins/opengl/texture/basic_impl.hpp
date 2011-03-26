@@ -56,8 +56,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::dim_type const
-sge::opengl::texture::basic<Types>::dim() const
+typename sge::opengl::texture::basic<Types>::dim const
+sge::opengl::texture::basic<Types>::size() const
 {
 	return dim_;
 }
@@ -65,7 +65,7 @@ sge::opengl::texture::basic<Types>::dim() const
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::view_type const
+typename sge::opengl::texture::basic<Types>::view const
 sge::opengl::texture::basic<Types>::lock(
 	lock_area const &_area,
 	renderer::lock_mode::type const _mode
@@ -78,13 +78,13 @@ sge::opengl::texture::basic<Types>::lock(
 		)
 	);
 
-	return this->view();
+	return this->lock_view();
 }
 
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::const_view_type const
+typename sge::opengl::texture::basic<Types>::const_view const
 sge::opengl::texture::basic<Types>::lock(
 	lock_area const &_area
 ) const
@@ -94,7 +94,7 @@ sge::opengl::texture::basic<Types>::lock(
 		lock_method::readonly
 	);
 
-	return this->view();
+	return this->lock_view();
 }
 
 template<
@@ -127,14 +127,14 @@ sge::opengl::texture::basic<Types>::unlock() const
 			sge::image::algorithm::copy_and_convert<
 				image_tag
 			>(
-				this->view(),
+				this->lock_view(),
 				sge::image::view::make<
 					image_tag
 				>(
 					lock_->write_view_pointer(),
 					this->lock_dim(),
 					color_type_,
-					optional_pitch()
+					basic::optional_pitch()
 				)
 			);
 
@@ -158,7 +158,7 @@ sge::opengl::texture::basic<Types>::unlock() const
 			:
 				lock_area(
 					lock_area::vector::null(),
-					this->dim()
+					this->size()
 				),
 			lock_->write_pointer()
 		);
@@ -178,7 +178,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 {
 	if(
 		!opengl::range_check(
-			dim(),
+			this->size(),
 			_lock_area
 		)
 	)
@@ -188,7 +188,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 					FCPPT_TEXT("ogl: lock (%1%) out of range! dim is %2%!")
 				)
 				% _lock_area
-				% dim()
+				% this->size()
 			).str()
 		);
 
@@ -196,7 +196,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 		opengl::texture::create_lock(
 			context_,
 			_method,
-			this->dim().content(),
+			this->size().content(),
 			_lock_area.content(),
 			this->stride(),
 			this->resource_flags()
@@ -239,8 +239,8 @@ sge::opengl::texture::basic<Types>::lock_me(
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::view_type const
-sge::opengl::texture::basic<Types>::view()
+typename sge::opengl::texture::basic<Types>::view const
+sge::opengl::texture::basic<Types>::lock_view()
 {
 	// If we are currently reading a texture,
 	// we have mapped the whole texture and
@@ -254,7 +254,7 @@ sge::opengl::texture::basic<Types>::view()
 		)
 	);
 
-	view_type const ret(
+	view const ret(
 		image::view::make<
 			image_tag
 		>(
@@ -265,11 +265,11 @@ sge::opengl::texture::basic<Types>::view()
 				lock_->write_view_pointer(),
 			reading
 			?
-				this->dim()
+				this->size()
 			:
 				this->lock_dim(),
 			color_type_,
-			optional_pitch()
+			basic::optional_pitch()
 		)
 	);
 
@@ -293,8 +293,8 @@ sge::opengl::texture::basic<Types>::view()
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::const_view_type const
-sge::opengl::texture::basic<Types>::view() const
+typename sge::opengl::texture::basic<Types>::const_view const
+sge::opengl::texture::basic<Types>::lock_view() const
 {
 	return
 		image::view::to_const<
@@ -304,14 +304,14 @@ sge::opengl::texture::basic<Types>::view() const
 				opengl::texture::basic<Types> *
 			>(
 				this
-			)->view()
+			)->lock_view()
 		);
 }
 
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::dim_type const
+typename sge::opengl::texture::basic<Types>::dim const
 sge::opengl::texture::basic<Types>::lock_dim() const
 {
 	return
@@ -319,7 +319,7 @@ sge::opengl::texture::basic<Types>::lock_dim() const
 		?
 			lock_area_->size()
 		:
-			this->dim();
+			this->size();
 }
 
 template<
@@ -410,7 +410,7 @@ sge::opengl::texture::basic<Types>::basic(
 		_parameters.capabilities()
 	),
 	dim_(
-		_parameters.dim()
+		_parameters.size()
 	),
 	format_(
 		opengl::convert::color_to_format(

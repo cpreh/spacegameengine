@@ -82,9 +82,9 @@ protected:
 	parameters_type const &
 	parameters() const;
 
-	typedef typename base::view_type view_type;
+	typedef typename base::view view;
 
-	typedef typename base::const_view_type const_view_type;
+	typedef typename base::const_view const_view;
 
 	typedef typename base::lock_area lock_area;
 
@@ -92,14 +92,14 @@ protected:
 
 	typedef typename Types::unlock_function unlock_function;
 
-	view_type const
+	view const
 	lock_impl(
 		lock_function const &,
 		lock_area const &,
 		renderer::lock_mode::type
 	);
 
-	const_view_type const
+	const_view const
 	lock_impl(
 		lock_function const &,
 		lock_area const &

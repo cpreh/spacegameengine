@@ -48,7 +48,7 @@ public:
 	explicit depth_stencil_surface(
 		fbo::context const &,
 		renderer::depth_stencil_format::type,
-		dim_type const &
+		dim const &
 	);
 
 	~depth_stencil_surface();
@@ -56,8 +56,8 @@ public:
 	fbo::render_buffer const &
 	render_buffer() const;
 private:
-	dim_type const
-	dim() const;
+	dim const
+	size() const;
 
 	renderer::depth_stencil_format::type
 	format() const;
@@ -66,7 +66,7 @@ private:
 
 	renderer::depth_stencil_format::type const format_;
 
-	dim_type const dim_;
+	dim const dim_;
 };	
 
 }

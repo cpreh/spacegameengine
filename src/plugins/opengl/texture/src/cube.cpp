@@ -51,11 +51,11 @@ sge::opengl::texture::cube::cube(
 		).cube_texture_type()
 	),
 	size_(
-		_param.dim()
+		_param.size()
 	),
 	locked_texture_(0)
 {
-	texture::cube_context &cube_context_(
+	texture::cube_context &context(
 		opengl::context::use<
 			texture::cube_context
 		>(
@@ -64,7 +64,7 @@ sge::opengl::texture::cube::cube(
 	);
 
 	if(
-		!cube_context_.have_cube_texture()
+		!context.have_cube_texture()
 	)
 		throw sge::renderer::unsupported(
 			FCPPT_TEXT("cube texture"),
@@ -73,7 +73,7 @@ sge::opengl::texture::cube::cube(
 		);
 
 	sge::renderer::texture::planar_parameters const planar_param(
-		texture::planar::dim_type(
+		texture::planar::dim(
 			size_,
 			size_
 		),
@@ -99,7 +99,7 @@ sge::opengl::texture::cube::cube(
 				),
 				planar_param,
 				convert::cube_side(
-					cube_context_.cube_sides(),
+					context.cube_sides(),
 					index
 				)
 			)
@@ -110,7 +110,7 @@ sge::opengl::texture::cube::~cube()
 {
 }
 
-sge::image2d::view::object const
+sge::opengl::texture::cube::view const
 sge::opengl::texture::cube::lock(
 	renderer::texture::cube_side::type const _side,
 	renderer::lock_rect const &_src,
@@ -131,7 +131,7 @@ sge::opengl::texture::cube::lock(
 		);
 }
 
-sge::image2d::view::const_object const
+sge::opengl::texture::cube::const_view const
 sge::opengl::texture::cube::lock(
 	renderer::texture::cube_side::type const _side,
 	renderer::lock_rect const &_src

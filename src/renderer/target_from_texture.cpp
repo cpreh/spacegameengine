@@ -74,7 +74,7 @@ sge::renderer::target_from_texture(
 				fcppt::math::dim::structure_cast<
 					renderer::pixel_rect::dim
 				>(
-					_texture->dim()
+					_texture->size()
 				)
 			)
 		)

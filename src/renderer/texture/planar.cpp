@@ -30,47 +30,40 @@ sge::renderer::texture::planar::~planar()
 {
 }
 
-sge::renderer::texture::planar::view_type const
+sge::renderer::texture::planar::view const
 sge::renderer::texture::planar::lock(
 	lock_mode::type const _flags
 )
 {
 	return
 		this->lock(
-			this->rect(),
+			this->area(),
 			_flags
 		);
 }
 
-sge::renderer::texture::planar::const_view_type const
+sge::renderer::texture::planar::const_view const
 sge::renderer::texture::planar::lock() const
 {
 	return
 		this->lock(
-			this->rect()
+			this->area()
 		);
 }
 
-sge::renderer::texture::planar::rect_type const
-sge::renderer::texture::planar::rect() const
-{
-	return
-		rect_type(
-			rect_type::vector::null(),
-			this->dim()
-		);
-}
-
-sge::renderer::texture::planar::rect_type const
+sge::renderer::texture::planar::rect const
 sge::renderer::texture::planar::area() const
 {
 	return
-		this->rect();
+		planar::rect(
+			planar::rect::vector::null(),
+			this->size()
+		);
 }
 
 sge::renderer::texture::planar::size_type
 sge::renderer::texture::planar::content() const
 {
 	return
-		this->dim().content();
+		this->size().content();
 }

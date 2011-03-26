@@ -22,18 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 
 #include <sge/texture/const_part_ptr.hpp>
-#include <sge/texture/part.hpp>
-#include <sge/renderer/lock_rect_to_coords.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/log/global.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <sge/texture/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
-#include <fcppt/math/compare.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/text.hpp>
-#include <ostream>
+#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -43,46 +35,19 @@ namespace texture
 template<
 	typename T
 >
-typename fcppt::math::box::rect<T>::type const
-area_texc(
-	texture::const_part_ptr const _part,
-	T const _repeat
-)
-{
-	if(
-		!fcppt::math::compare(
-			_repeat,
-			static_cast<T>(1)
-		)
-		&& !_part->repeatable()
-	)
-		FCPPT_LOG_WARNING(
-			log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("texture not repeatable but repetition is ")
-				<< _repeat
-				<< FCPPT_TEXT('!')
-		);
-
-	typedef typename fcppt::math::box::rect<
+SGE_TEXTURE_SYMBOL
+typename boost::enable_if<
+	boost::is_floating_point<
 		T
-	>::type ret_type;
-	
-	ret_type ret(
-		renderer::lock_rect_to_coords<
-			T
-		>(
-			_part->area(),
-			_part->texture()->dim()
-		)
-	);
-
-	ret.size(
-		ret.size() * _repeat
-	);
-
-	return ret;
-}
+	>,
+	typename fcppt::math::box::rect<
+		T
+	>::type
+>::type const
+area_texc(
+	texture::const_part_ptr,
+	T repeat
+);
 
 }
 }

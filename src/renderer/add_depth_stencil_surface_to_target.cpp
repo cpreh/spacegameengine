@@ -35,7 +35,7 @@ sge::renderer::add_depth_stencil_surface_to_target(
 )
 {
 	renderer::optional_dim2 const dim(
-		_target->dim()
+		_target->size()
 	);
 
 	if(

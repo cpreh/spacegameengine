@@ -72,25 +72,25 @@ public:
 
 	typedef typename base_type::size_type size_type;
 
-	typedef typename base_type::dim_type dim_type;
+	typedef typename base_type::dim dim;
 
 	typedef typename base_type::lock_area lock_area;
 
-	typedef typename base_type::view_type view_type;
+	typedef typename base_type::view view;
 
-	typedef typename base_type::const_view_type const_view_type;
+	typedef typename base_type::const_view const_view;
 
 	// implementation for base class
-	dim_type const
-	dim() const;
+	dim const
+	size() const;
 
-	view_type const
+	view const
 	lock(
 		lock_area const &,
 		renderer::lock_mode::type
 	);
 
-	const_view_type const
+	const_view const
 	lock(
 		lock_area const &
 	) const;
@@ -105,13 +105,13 @@ private:
 		opengl::lock_method::type
 	) const;
 
-	view_type const
-	view();
+	view const
+	lock_view();
 
-	const_view_type const
-	view() const;
+	const_view const
+	lock_view() const;
 
-	dim_type const
+	dim const
 	lock_dim() const;
 protected:
 	renderer::texture::filter::object const &
@@ -171,7 +171,7 @@ private:
 
 	renderer::texture::capabilities_field const capabilities_;
 
-	dim_type const dim_;
+	dim const dim_;
 
 	opengl::color_format const format_;
 

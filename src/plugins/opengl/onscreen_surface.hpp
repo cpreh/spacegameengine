@@ -50,7 +50,7 @@ public:
 
 	~onscreen_surface();
 private:
-	image2d::view::const_object const
+	color_surface::const_view const
 	lock(
 		renderer::lock_rect const &
 	) const;
@@ -58,8 +58,8 @@ private:
 	void
 	unlock() const;
 
-	dim_type const
-	dim() const;
+	dim const
+	size() const;
 
 	opengl::color_format const
 	format() const;

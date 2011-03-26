@@ -59,7 +59,7 @@ public:
 	) = 0;
 
 	virtual renderer::optional_dim2 const
-	dim() const = 0;
+	size() const = 0;
 
 	SGE_SYMBOL
 	virtual ~target();

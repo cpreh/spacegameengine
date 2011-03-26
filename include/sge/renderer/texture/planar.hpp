@@ -53,36 +53,36 @@ protected:
 public:
 	SGE_SYMBOL virtual ~planar();
 
-	typedef renderer::dim2 dim_type;
+	typedef renderer::dim2 dim;
 
-	typedef renderer::lock_rect rect_type;
+	typedef renderer::lock_rect rect;
 
-	typedef rect_type lock_area;
+	typedef rect lock_area;
 
 	typedef sge::image2d::tag image_tag;
 
-	typedef image2d::view::object view_type;
+	typedef image2d::view::object view;
 
-	typedef image2d::view::const_object const_view_type;
+	typedef image2d::view::const_object const_view;
 
-	virtual dim_type const
-	dim() const = 0;
+	virtual dim const
+	size() const = 0;
 
-	SGE_SYMBOL view_type const
+	SGE_SYMBOL view const
 	lock(
 		lock_mode::type
 	);
 
-	SGE_SYMBOL const_view_type const
+	SGE_SYMBOL const_view const
 	lock() const;
 
-	virtual view_type const
+	virtual view const
 	lock(
 		lock_area const &,
 		lock_mode::type
 	) = 0;
 
-	virtual const_view_type const
+	virtual const_view const
 	lock(
 		lock_area const &
 	) const = 0;
@@ -99,11 +99,7 @@ public:
 	stages() const = 0;
 
 	SGE_SYMBOL
-	rect_type const
-	rect() const;
-
-	SGE_SYMBOL
-	rect_type const
+	rect const
 	area() const;
 
 	SGE_SYMBOL

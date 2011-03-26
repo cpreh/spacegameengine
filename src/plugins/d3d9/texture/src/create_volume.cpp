@@ -40,17 +40,17 @@ sge::d3d9::texture::create_volume(
 			static_cast<
 				UINT
 			>(
-				_params.dim().w()
+				_params.size().w()
 			),
 			static_cast<
 				UINT
 			>(
-				_params.dim().h()
+				_params.size().h()
 			),
 			static_cast<
 				UINT
 			>(
-				_params.dim().d()
+				_params.size().d()
 			),
 			texture::mipmap_levels(
 				_params.filter().min()

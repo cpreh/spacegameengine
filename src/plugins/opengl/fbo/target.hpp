@@ -88,7 +88,7 @@ private:
 	);
 
 	renderer::optional_dim2 const
-	dim() const;
+	size() const;
 
 	renderer::screen_unit
 	height() const;

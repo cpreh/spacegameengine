@@ -56,7 +56,7 @@ Dim const &
 sge::renderer::texture::basic_parameters<
 	Dim,
 	AddressMode
->::dim() const
+>::size() const
 {
 	return dim_;
 }

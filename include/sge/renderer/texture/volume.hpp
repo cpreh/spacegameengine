@@ -54,36 +54,36 @@ public:
 	SGE_SYMBOL
 	virtual ~volume();
 
-	typedef renderer::dim3 dim_type;
+	typedef renderer::dim3 dim;
 
-	typedef renderer::lock_box box_type;
+	typedef renderer::lock_box box;
 
 	typedef sge::image3d::tag image_tag;
 
-	typedef box_type lock_area;
+	typedef box lock_area;
 
-	typedef image3d::view::object view_type;
+	typedef image3d::view::object view;
 
-	typedef image3d::view::const_object const_view_type;
+	typedef image3d::view::const_object const_view;
 
-	virtual dim_type const
-	dim() const = 0;
+	virtual dim const
+	size() const = 0;
 
-	SGE_SYMBOL view_type const
+	SGE_SYMBOL view const
 	lock(
 		lock_mode::type
 	);
 
-	SGE_SYMBOL const_view_type const
+	SGE_SYMBOL const_view const
 	lock() const;
 
-	virtual view_type const
+	virtual view const
 	lock(
 		lock_area const &,
 		lock_mode::type
 	) = 0;
 
-	virtual const_view_type const
+	virtual const_view const
 	lock(
 		lock_area const &
 	) const = 0;
@@ -91,10 +91,7 @@ public:
 	virtual void
 	unlock() const = 0;
 
-	SGE_SYMBOL box_type const
-	box() const;
-
-	SGE_SYMBOL box_type const
+	SGE_SYMBOL box const
 	area() const;
 
 	SGE_SYMBOL

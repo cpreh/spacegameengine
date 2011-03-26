@@ -31,47 +31,40 @@ sge::renderer::texture::volume::~volume()
 {
 }
 
-sge::renderer::texture::volume::view_type const
+sge::renderer::texture::volume::view const
 sge::renderer::texture::volume::lock(
 	lock_mode::type const _flags
 )
 {
 	return
 		this->lock(
-			this->box(),
+			this->area(),
 			_flags
 		);
 }
 
-sge::renderer::texture::volume::const_view_type const
+sge::renderer::texture::volume::const_view const
 sge::renderer::texture::volume::lock() const
 {
 	return
 		this->lock(
-			this->box()
+			this->area()
 		);
 }
 
-sge::renderer::texture::volume::box_type const
-sge::renderer::texture::volume::box() const
-{
-	return
-		box_type(
-			box_type::vector::null(),
-			this->dim()
-		);
-}
-
-sge::renderer::texture::volume::box_type const
+sge::renderer::texture::volume::box const
 sge::renderer::texture::volume::area() const
 {
 	return
-		this->box();
+		volume::box(
+			volume::box::vector::null(),
+			this->size()
+		);
 }
 
 sge::renderer::texture::volume::size_type
 sge::renderer::texture::volume::content() const
 {
 	return
-		this->dim().content();
+		this->size().content();
 }

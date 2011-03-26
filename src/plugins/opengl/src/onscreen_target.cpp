@@ -76,7 +76,7 @@ sge::opengl::onscreen_target::height() const
 		static_cast<
 			renderer::screen_unit
 		>(
-			main_surface_->dim().h()
+			main_surface_->size().h()
 		);
 }
 

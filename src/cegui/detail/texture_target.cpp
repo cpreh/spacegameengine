@@ -218,7 +218,7 @@ sge::cegui::detail::texture_target::clear()
 			sge::renderer::pixel_rect(
 				sge::renderer::pixel_rect::vector::null(),
 				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
-					texture_->impl()->dim()))));
+					texture_->impl()->size()))));
 
 	sge::renderer::scoped_target scoped_target(
 		system_.renderer(),

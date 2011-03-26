@@ -40,12 +40,12 @@ sge::d3d9::texture::create_planar(
 			static_cast<
 				UINT
 			>(
-				_params.dim().w()
+				_params.size().w()
 			),
 			static_cast<
 				UINT
 			>(
-				_params.dim().h()
+				_params.size().h()
 			),
 			texture::mipmap_levels(
 				_params.filter().min()

@@ -43,13 +43,13 @@ sge::d3d9::texture::volume::~volume()
 {
 }
 
-sge::d3d9::texture::volume::dim_type const
-sge::d3d9::texture::volume::dim() const
+sge::d3d9::texture::volume::dim const
+sge::d3d9::texture::volume::size() const
 {
-	return this->parameters().dim();
+	return this->parameters().size();
 }
 
-sge::d3d9::texture::volume::view_type const
+sge::d3d9::texture::volume::view const
 sge::d3d9::texture::volume::lock(
 	lock_area const &_box,
 	renderer::lock_mode::type const _mode
@@ -63,7 +63,7 @@ sge::d3d9::texture::volume::lock(
 		);
 }
 
-sge::d3d9::texture::volume::const_view_type const
+sge::d3d9::texture::volume::const_view const
 sge::d3d9::texture::volume::lock(
 	lock_area const &_box
 ) const

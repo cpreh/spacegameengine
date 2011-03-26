@@ -31,28 +31,28 @@ sge::renderer::color_surface::~color_surface()
 {
 }
 
-sge::image2d::view::const_object const
+sge::renderer::color_surface::const_view const
 sge::renderer::color_surface::lock() const
 {
 	return
 		this->lock(
-			this->rect()
+			this->area()
 		);
 }
 
-sge::renderer::color_surface::rect_type const
-sge::renderer::color_surface::rect() const
+sge::renderer::color_surface::rect const
+sge::renderer::color_surface::area() const
 {
 	return
-		rect_type(
-			rect_type::vector::null(),
-			this->dim()
+		color_surface::rect(
+			color_surface::rect::vector::null(),
+			this->size()
 		);
 }
 
 sge::renderer::color_surface::size_type
-sge::renderer::color_surface::size() const
+sge::renderer::color_surface::content() const
 {
 	return
-		this->dim().content();
+		this->size().content();
 }

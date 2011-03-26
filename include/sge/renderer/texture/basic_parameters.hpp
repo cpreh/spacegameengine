@@ -55,7 +55,7 @@ public:
 
 	SGE_SYMBOL
 	Dim const &
-	dim() const;
+	size() const;
 
 	SGE_SYMBOL
 	sge::image::color::format::type

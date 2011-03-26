@@ -51,37 +51,37 @@ protected:
 	SGE_SYMBOL
 	cube();
 public:
-	typedef lock_rect rect_type;
+	typedef renderer::lock_rect rect;
 
-	typedef lock_rect lock_area;
+	typedef rect lock_area;
 
 	typedef sge::image2d::tag image_tag;
 
-	typedef image2d::view::object view_type;
+	typedef image2d::view::object view;
 
-	typedef image2d::view::const_object const_view_type;
+	typedef image2d::view::const_object const_view;
 
 	SGE_SYMBOL
-	view_type const
+	view const
 	lock(
-		texture::cube_side::type side,
+		texture::cube_side::type,
 		lock_mode::type
 	);
 
 	SGE_SYMBOL
-	const_view_type const
+	const_view const
 	lock(
-		texture::cube_side::type side
+		texture::cube_side::type
 	) const;
 
-	virtual view_type const
+	virtual view const
 	lock(
 		texture::cube_side::type,
 		lock_area const &,
 		lock_mode::type
 	) = 0;
 
-	virtual const_view_type const
+	virtual const_view const
 	lock(
 		texture::cube_side::type,
 		lock_area const &
@@ -93,11 +93,8 @@ public:
 	SGE_SYMBOL size_type
 	content() const;
 
-	SGE_SYMBOL rect_type const
-	rect() const;
-
 	SGE_SYMBOL
-	rect_type const
+	rect const
 	area() const;
 
 	virtual size_type

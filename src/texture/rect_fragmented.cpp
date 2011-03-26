@@ -56,25 +56,25 @@ sge::texture::rect_fragmented::~rect_fragmented()
 
 sge::texture::part_ptr const
 sge::texture::rect_fragmented::consume_fragment(
-	renderer::dim2 const &_dim
+	renderer::dim2 const &_size
 )
 {
-	renderer::texture::planar::dim_type const atlased_dim(
+	renderer::texture::planar::dim const atlased_dim(
 		atlasing::size(
-			_dim,
+			_size,
 			true
 		)
 	);
 
 	// if there is no space left for the requested height
 	if(
-		cur_y_ + _dim.h() >= tex_->dim().h()
+		cur_y_ + _size.h() >= tex_->size().h()
 	)
 		return texture::part_ptr();
 
 	// if the current line is full advance to the next
 	if(
-		cur_x_ + _dim.w() >= tex_->dim().w()
+		cur_x_ + _size.w() >= tex_->size().w()
 	)
 	{
 		cur_x_ = 0;
@@ -83,7 +83,7 @@ sge::texture::rect_fragmented::consume_fragment(
 	}
 
 	if(
-		cur_y_ + _dim.h() >= tex_->dim().h()
+		cur_y_ + _size.h() >= tex_->size().h()
 	)
 		return texture::part_ptr();
 
@@ -106,9 +106,9 @@ sge::texture::rect_fragmented::consume_fragment(
 		)
 	);
 
-	cur_x_ += _dim.w() + 1;
+	cur_x_ += _size.w() + 1;
 
-	cur_height_ = std::max(cur_height_, _dim.h());
+	cur_height_ = std::max(cur_height_, _size.h());
 
 	++texture_count_;
 
@@ -142,8 +142,8 @@ sge::texture::rect_fragmented::free_value() const
 		static_cast<
 			free_type
 		>(
-			(this->texture()->dim().h() - cur_height_)
-			* this->texture()->dim().w()
+			(this->texture()->size().h() - cur_height_)
+			* this->texture()->size().w()
 		);	
 }
 

@@ -49,15 +49,17 @@ public:
 
 	typedef renderer::size_type size_type;
 
-	typedef renderer::dim2 dim_type;
+	typedef renderer::dim2 dim;
 
-	typedef renderer::lock_rect rect_type;
+	typedef renderer::lock_rect rect;
+
+	typedef sge::image2d::view::const_object const_view;
 	
 	SGE_SYMBOL
-	image2d::view::const_object const
+	const_view const 
 	lock() const;
 
-	virtual image2d::view::const_object const
+	virtual const_view const
 	lock(
 		lock_rect const &
 	) const = 0;
@@ -65,16 +67,16 @@ public:
 	virtual void
 	unlock() const = 0;
 
-	virtual dim_type const
-	dim() const = 0;
+	virtual dim const
+	size() const = 0;
 
 	SGE_SYMBOL
-	rect_type const
-	rect() const;
+	rect const
+	area() const;
 
 	SGE_SYMBOL
 	size_type
-	size() const;
+	content() const;
 };
 
 }

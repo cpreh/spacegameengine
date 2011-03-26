@@ -27,7 +27,7 @@ sge::renderer::texture::cube::cube()
 {
 }
 
-sge::image2d::view::object const
+sge::renderer::texture::cube::view const
 sge::renderer::texture::cube::lock(
 	cube_side::type const _side,
 	lock_mode::type const _flags
@@ -36,12 +36,12 @@ sge::renderer::texture::cube::lock(
 	return
 		this->lock(
 			_side,
-			this->rect(),
+			this->area(),
 			_flags
 		);
 }
 
-sge::image2d::view::const_object const
+sge::renderer::texture::cube::const_view const
 sge::renderer::texture::cube::lock(
 	cube_side::type const _side
 ) const
@@ -49,7 +49,7 @@ sge::renderer::texture::cube::lock(
 	return
 		this->lock(
 			_side,
-			this->rect()
+			this->area()
 		);
 }
 
@@ -62,23 +62,17 @@ sge::renderer::texture::cube::content() const
 		);
 }
 
-sge::renderer::texture::cube::rect_type const
-sge::renderer::texture::cube::rect() const
+sge::renderer::texture::cube::rect const
+sge::renderer::texture::cube::area() const
 {
 	return
-		rect_type(
-			rect_type::vector::null(),
-			rect_type::dim(
+		cube::rect(
+			cube::rect::vector::null(),
+			cube::rect::dim(
 				this->border_size(),
 				this->border_size()
 			)
 		);
-}
-
-sge::renderer::texture::cube::rect_type const
-sge::renderer::texture::cube::area() const
-{
-	return this->rect();
 }
 
 sge::renderer::texture::cube::~cube()

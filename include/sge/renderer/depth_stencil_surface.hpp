@@ -42,13 +42,13 @@ protected:
 	SGE_SYMBOL
 	depth_stencil_surface();
 public:
-	typedef renderer::dim2 dim_type;
+	typedef renderer::dim2 dim;
 
 	SGE_SYMBOL
 	virtual ~depth_stencil_surface();
 
-	virtual dim_type const
-	dim() const = 0;
+	virtual dim const
+	size() const = 0;
 
 	virtual renderer::depth_stencil_format::type
 	format() const = 0;

@@ -97,7 +97,7 @@ sge::d3d9::texture::cube::unlock() const
 sge::d3d9::texture::cube::size_type
 sge::d3d9::texture::cube::border_size() const
 {
-	return this->parameters().dim();
+	return this->parameters().size();
 }
 
 sge::d3d9::texture::cube_basic::lock_function const

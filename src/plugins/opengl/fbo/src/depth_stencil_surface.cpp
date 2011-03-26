@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::fbo::depth_stencil_surface::depth_stencil_surface(
 	fbo::context const &_context,
 	renderer::depth_stencil_format::type const _format,
-	sge::renderer::dim2 const &_dim
+	dim const &_dim
 )
 :
 	render_buffer_(
@@ -56,8 +56,8 @@ sge::opengl::fbo::depth_stencil_surface::format() const
 	return format_;
 }
 
-sge::opengl::fbo::depth_stencil_surface::dim_type const
-sge::opengl::fbo::depth_stencil_surface::dim() const
+sge::opengl::fbo::depth_stencil_surface::dim const
+sge::opengl::fbo::depth_stencil_surface::size() const
 {
 	return dim_;
 }

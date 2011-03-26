@@ -76,8 +76,8 @@ sge::opengl::texture::basic_surface<Base>::~basic_surface()
 template<
 	typename Base
 >
-typename sge::opengl::texture::basic_surface<Base>::dim_type const
-sge::opengl::texture::basic_surface<Base>::dim() const
+typename sge::opengl::texture::basic_surface<Base>::dim const
+sge::opengl::texture::basic_surface<Base>::size() const
 {
 	return dim_;
 }

@@ -114,7 +114,7 @@ sge::d3d9::texture::basic<Types>::parameters() const
 template<
 	typename Types
 >
-typename sge::d3d9::texture::basic<Types>::view_type const
+typename sge::d3d9::texture::basic<Types>::view const
 sge::d3d9::texture::basic<Types>::lock_impl(
 	lock_function const &_lock,
 	lock_area const &_area,
@@ -123,7 +123,7 @@ sge::d3d9::texture::basic<Types>::lock_impl(
 {
 	return
 		this->do_lock<
-			view_type
+			view
 		>(
 			sge::image::view::make<
 				image_tag
@@ -140,7 +140,7 @@ sge::d3d9::texture::basic<Types>::lock_impl(
 template<
 	typename Types
 >
-typename sge::d3d9::texture::basic<Types>::const_view_type const
+typename sge::d3d9::texture::basic<Types>::const_view const
 sge::d3d9::texture::basic<Types>::lock_impl(
 	lock_function const &_lock,
 	lock_area const &_area
@@ -148,7 +148,7 @@ sge::d3d9::texture::basic<Types>::lock_impl(
 {
 	return
 		this->do_lock<
-			const_view_type
+			const_view
 		>(
 			sge::image::view::make_const<
 				image_tag

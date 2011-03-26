@@ -50,16 +50,16 @@ public:
 
 	~volume();
 
-	dim_type const
-	dim() const;
+	dim const
+	size() const;
 
-	view_type const
+	view const
 	lock(
 		lock_area const &,
 		renderer::lock_mode::type
 	);
 
-	const_view_type const
+	const_view const
 	lock(
 		lock_area const &
 	) const;

@@ -76,9 +76,9 @@ sge::opengl::texture::surface::is_render_target() const
 	return is_render_target_;
 }
 
-sge::image2d::view::const_object const
+sge::opengl::texture::surface::const_view const
 sge::opengl::texture::surface::lock(
-	rect_type const &_lock_rect
+	rect const &_lock_rect
 ) const
 {
 	sge::image::color::format::type const image_color_format(
@@ -95,7 +95,7 @@ sge::opengl::texture::surface::lock(
 			fcppt::ref(
 				context_
 			),
-			this->dim().content(),
+			this->size().content(),
 			image::color::format_stride(
 				image_color_format
 			),
@@ -127,7 +127,7 @@ sge::opengl::texture::surface::lock(
 		sge::image2d::view::sub(
 			sge::image2d::view::make_const(
 				lock_->read_view_pointer(),
-				this->dim(),
+				this->size(),
 				image_color_format,
 				image2d::view::optional_pitch()
 			),

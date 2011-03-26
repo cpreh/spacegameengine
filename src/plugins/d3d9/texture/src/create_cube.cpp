@@ -40,7 +40,7 @@ sge::d3d9::texture::create_cube(
 			static_cast<
 				UINT
 			>(
-				_params.dim()
+				_params.size()
 			),
 			texture::mipmap_levels(
 				_params.filter().min()

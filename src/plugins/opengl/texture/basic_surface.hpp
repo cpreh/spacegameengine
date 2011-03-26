@@ -47,7 +47,7 @@ class basic_surface
 		basic_surface
 	);
 public:
-	typedef typename Base::dim_type dim_type;
+	typedef typename Base::dim dim;
 
 	basic_surface(
 		texture::scoped_work_bind const &,
@@ -58,10 +58,10 @@ public:
 	
 	~basic_surface();
 protected:
-	dim_type const
-	dim() const;
+	dim const
+	size() const;
 private:
-	dim_type const dim_;
+	dim const dim_;
 };
 
 }

@@ -40,6 +40,7 @@ SET(
 	include/sge/texture/symbol.hpp
 	include/sge/texture/texture.hpp
 	src/texture/add_image.cpp
+	src/texture/area_texc.cpp
 	src/texture/atlasing/border_h.cpp
 	src/texture/atlasing/border_w.cpp
 	src/texture/atlasing/bound.cpp

@@ -147,7 +147,7 @@ sge::opengl::fbo::target::color_surface(
 			);
 
 		this->add_dim(
-			_surface->dim()
+			_surface->size()
 		);
 
 		fcppt::container::ptr::insert_unique_ptr_map(
@@ -199,7 +199,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 		return;
 
 	this->add_dim(
-		_surface->dim()
+		_surface->size()
 	);
 
 	if(
@@ -246,7 +246,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 }
 
 sge::renderer::optional_dim2 const
-sge::opengl::fbo::target::dim() const
+sge::opengl::fbo::target::size() const
 {
 	return dim_;
 }

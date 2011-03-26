@@ -53,16 +53,16 @@ public:
 
 	~planar();
 
-	dim_type const
-	dim() const;
+	dim const
+	size() const;
 
-	view_type const
+	view const
 	lock(
 		renderer::lock_rect const &,
 		renderer::lock_mode::type
 	);
 
-	const_view_type const
+	const_view const
 	lock(
 		renderer::lock_rect const &
 	) const;

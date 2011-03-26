@@ -54,7 +54,7 @@ sge::opengl::onscreen_surface::~onscreen_surface()
 {
 }
 
-sge::image2d::view::const_object const
+sge::opengl::onscreen_surface::const_view const
 sge::opengl::onscreen_surface::lock(
 	renderer::lock_rect const &_dest
 ) const
@@ -109,12 +109,12 @@ sge::opengl::onscreen_surface::unlock() const
 	buffer_.free_memory();
 }
 
-sge::opengl::onscreen_surface::dim_type const
-sge::opengl::onscreen_surface::dim() const
+sge::opengl::onscreen_surface::dim const
+sge::opengl::onscreen_surface::size() const
 {
 	return
 		fcppt::math::dim::structure_cast<
-			dim_type
+			dim
 		>(
 			window_->size()
 		);

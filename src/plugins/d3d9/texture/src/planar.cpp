@@ -43,13 +43,13 @@ sge::d3d9::texture::planar::~planar()
 {
 }
 
-sge::d3d9::texture::planar::dim_type const
-sge::d3d9::texture::planar::dim() const
+sge::d3d9::texture::planar::dim const
+sge::d3d9::texture::planar::size() const
 {
-	return this->parameters().dim();
+	return this->parameters().size();
 }
 
-sge::d3d9::texture::planar::view_type const
+sge::d3d9::texture::planar::view const
 sge::d3d9::texture::planar::lock(
 	renderer::lock_rect const &_rect,
 	renderer::lock_mode::type const _mode
@@ -63,7 +63,7 @@ sge::d3d9::texture::planar::lock(
 		);
 }
 
-sge::d3d9::texture::planar::const_view_type const
+sge::d3d9::texture::planar::const_view const
 sge::d3d9::texture::planar::lock(
 	renderer::lock_rect const &_rect
 ) const

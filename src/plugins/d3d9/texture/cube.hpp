@@ -54,14 +54,14 @@ public:
 
 	~cube();
 public:
-	view_type const
+	view const
 	lock(
 		renderer::texture::cube_side::type,
 		renderer::lock_rect const &,
 		renderer::lock_mode::type
 	);
 
-	const_view_type const
+	const_view const
 	lock(
 		renderer::texture::cube_side::type,
 		renderer::lock_rect const &

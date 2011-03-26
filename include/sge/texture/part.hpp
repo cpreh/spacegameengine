@@ -57,7 +57,7 @@ public:
 	area() const = 0;
 
 	SGE_TEXTURE_SYMBOL renderer::dim2 const
-	dim() const;
+	size() const;
 
 	virtual renderer::texture::planar_ptr const
 	texture() = 0;

@@ -40,7 +40,7 @@ sge::texture::part_raw::part_raw(
 :
 	area_(
 		renderer::lock_rect::vector::null(),
-		_tex->dim()
+		_tex->size()
 	),
 	tex_(_tex)
 {
@@ -84,6 +84,6 @@ bool
 sge::texture::part_raw::repeatable() const
 {
 	return
-		this->dim()
-		== tex_->dim();
+		this->size()
+		== tex_->size();
 }
