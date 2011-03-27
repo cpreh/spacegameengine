@@ -585,11 +585,18 @@ sge::x11input::processor::on_enter(
 	awl::backends::x11::window::event::object const &
 )
 {
-	BOOST_FOREACH(
-		device_vector::value_type device,
-		devices()
+	device_vector const devices_(
+		this->devices()
+	);
+
+	for(
+		device_vector::const_iterator it(
+			devices_.begin()
+		);
+		it != devices_.end();
+		++it
 	)
-		device->on_enter();
+		(*it)->on_enter();
 }
 
 void
@@ -597,9 +604,16 @@ sge::x11input::processor::on_leave(
 	awl::backends::x11::window::event::object const &
 )
 {
-	BOOST_FOREACH(
-		device_vector::value_type device,
-		devices()
+	device_vector const devices_(
+		this->devices()
+	);
+
+	for(
+		device_vector::const_iterator it(
+			devices_.begin()
+		);
+		it != devices_.end();
+		++it
 	)
-		device->on_leave();
+		(*it)->on_leave();
 }

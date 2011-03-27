@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <boost/foreach.hpp>
 
 sge::input::keyboard::collector::collector(
 	input::processor_ptr const _processor
@@ -65,12 +64,19 @@ sge::input::keyboard::collector::collector(
 	char_signal_(),
 	devices_()
 {
-	BOOST_FOREACH(
-		keyboard::device_vector::value_type cur_device,
+	keyboard::device_vector const devices(
 		_processor->keyboards()
+	);
+
+	for(
+		keyboard::device_vector::const_iterator it(
+			devices.begin()
+		);
+		it != devices.end();
+		++it
 	)
 		this->discover_callback(
-			cur_device
+			*it
 		);
 }
 

@@ -66,7 +66,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
-#include <boost/foreach.hpp>
 #include <cstdlib>
 
 namespace
@@ -539,29 +538,59 @@ device_manager::device_manager(
 	cursor_listeners_(),
 	keyboard_listeners_()
 {
-	BOOST_FOREACH(
-		sge::input::mouse::device_vector::value_type const mouse,
-		_processor->mice()
-	)
-		this->on_mouse_add(
-			mouse
-		);
-	
-	BOOST_FOREACH(
-		sge::input::cursor::object_vector::value_type const cursor,
-		_processor->cursors()
-	)
-		this->on_cursor_add(
-			cursor
+	{
+		sge::input::mouse::device_vector const devices(
+			_processor->mice()
 		);
 
-	BOOST_FOREACH(
-		sge::input::keyboard::device_vector::value_type const keyboard,
-		_processor->keyboards()
-	)
-		this->on_keyboard_add(
-			keyboard
+
+		for(
+			sge::input::mouse::device_vector::const_iterator it(
+				devices.begin()
+			);
+			it != devices.end();
+			++it
+		)
+			this->on_mouse_add(
+				*it
+			);
+	}
+	
+	{
+		sge::input::keyboard::device_vector const devices(
+			_processor->keyboards()
 		);
+
+
+		for(
+			sge::input::keyboard::device_vector::const_iterator it(
+				devices.begin()
+			);
+			it != devices.end();
+			++it
+		)
+			this->on_keyboard_add(
+				*it
+			);
+	}
+
+	{
+		sge::input::cursor::object_vector const objects(
+			_processor->cursors()
+		);
+
+
+		for(
+			sge::input::cursor::object_vector::const_iterator it(
+				objects.begin()
+			);
+			it != objects.end();
+			++it
+		)
+			this->on_cursor_add(
+				*it
+			);
+	}
 }
 
 void

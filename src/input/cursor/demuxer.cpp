@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/signal/shared_connection.hpp>
-#include <boost/foreach.hpp>
 
 sge::input::cursor::demuxer::demuxer(
 	input::processor_ptr const _processor
@@ -64,12 +63,19 @@ sge::input::cursor::demuxer::demuxer(
 	cursor_connections_(),
 	current_cursor_()
 {
-	BOOST_FOREACH(
-		cursor::object_vector::value_type cursor,
+	cursor::object_vector const cursors(
 		_processor->cursors()
+	);
+
+	for(
+		cursor::object_vector::const_iterator it(
+			cursors.begin()
+		);
+		it != cursors.end();
+		++it
 	)
 		this->discover_callback(
-			cursor
+			*it
 		);
 }
 

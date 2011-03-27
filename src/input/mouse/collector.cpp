@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <boost/foreach.hpp>
 
 sge::input::mouse::collector::collector(
 	input::processor_ptr const _processor
@@ -63,12 +62,19 @@ sge::input::mouse::collector::collector(
 	button_signal_(),
 	devices_()
 {
-	BOOST_FOREACH(
-		mouse::device_vector::value_type cur_device,
+	mouse::device_vector const devices(
 		_processor->mice()
+	);
+
+	for(
+		mouse::device_vector::const_iterator it(
+			devices.begin()
+		);
+		it != devices.end();
+		++it
 	)
 		discover_callback(
-			cur_device
+			*it
 		);
 }
 

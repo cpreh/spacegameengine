@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <boost/foreach.hpp>
 
 sge::systems::cursor_modifier::cursor_modifier(
 	sge::input::processor_ptr const _processor,
@@ -41,12 +40,19 @@ sge::systems::cursor_modifier::cursor_modifier(
 		)
 	)
 {
-	BOOST_FOREACH(
-		input::cursor::object_vector::value_type cursor,
+	input::cursor::object_vector const cursors(
 		_processor->cursors()
+	);
+
+	for(
+		input::cursor::object_vector::const_iterator it(
+			cursors.begin()
+		);
+		it != cursors.end();
+		++it
 	)
 		this->cursor_discover(
-			cursor
+			*it
 		);
 }
 
