@@ -88,6 +88,8 @@ function update_plugin()
 }
 
 # base libs
+update_sublibrary projectile
+
 update_sublibrary cegui
 
 update_sublibrary camera

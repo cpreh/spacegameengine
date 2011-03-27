@@ -1,0 +1,101 @@
+SET(
+	SGE_PROJECTILE_FILES
+	include/sge/projectile/body/collision.hpp
+	include/sge/projectile/body/collision_fn.hpp
+	include/sge/projectile/body/linear_velocity.hpp
+	include/sge/projectile/body/mass.hpp
+	include/sge/projectile/body/object.hpp
+	include/sge/projectile/body/object_fwd.hpp
+	include/sge/projectile/body/parameters.hpp
+	include/sge/projectile/body/parameters_fwd.hpp
+	include/sge/projectile/body/position.hpp
+	include/sge/projectile/body/position_change.hpp
+	include/sge/projectile/body/position_change_fn.hpp
+	include/sge/projectile/body/rotation.hpp
+	include/sge/projectile/body/rotation_change.hpp
+	include/sge/projectile/body/rotation_change_fn.hpp
+	include/sge/projectile/body/solidity/nonsolid.hpp
+	include/sge/projectile/body/solidity/solid.hpp
+	include/sge/projectile/body/solidity/static.hpp
+	include/sge/projectile/body/solidity/variant.hpp
+	include/sge/projectile/body/user_data.hpp
+	include/sge/projectile/debug_drawer.hpp
+	include/sge/projectile/debug_drawer_fwd.hpp
+	include/sge/projectile/detail/triangle_set_hash.hpp
+	include/sge/projectile/dim2.hpp
+	include/sge/projectile/ghost/body_enter.hpp
+	include/sge/projectile/ghost/body_enter_fn.hpp
+	include/sge/projectile/ghost/body_exit.hpp
+	include/sge/projectile/ghost/body_exit_fn.hpp
+	include/sge/projectile/ghost/detail/pair_callback.hpp
+	include/sge/projectile/ghost/object.hpp
+	include/sge/projectile/ghost/object_fwd.hpp
+	include/sge/projectile/ghost/parameters.hpp
+	include/sge/projectile/ghost/parameters_fwd.hpp
+	include/sge/projectile/ghost/position.hpp
+	include/sge/projectile/ghost/size.hpp
+	include/sge/projectile/ghost/user_data.hpp
+	include/sge/projectile/group/id.hpp
+	include/sge/projectile/group/object.hpp
+	include/sge/projectile/group/object_fwd.hpp
+	include/sge/projectile/group/sequence.hpp
+	include/sge/projectile/rect.hpp
+	include/sge/projectile/scalar.hpp
+	include/sge/projectile/shape/base.hpp
+	include/sge/projectile/shape/base_fwd.hpp
+	include/sge/projectile/shape/circle.hpp
+	include/sge/projectile/shape/shared_base_ptr.hpp
+	include/sge/projectile/shape/triangle_mesh.hpp
+	include/sge/projectile/shape/triangle_set.hpp
+	include/sge/projectile/structure_cast.hpp
+	include/sge/projectile/symbol.hpp
+	include/sge/projectile/triangle.hpp
+	include/sge/projectile/triangulation/detail/area.hpp
+	include/sge/projectile/triangulation/detail/point_inside_triangle.hpp
+	include/sge/projectile/triangulation/detail/snip.hpp
+	include/sge/projectile/triangulation/triangulate.hpp
+	include/sge/projectile/vector2.hpp
+	include/sge/projectile/vector3.hpp
+	include/sge/projectile/world.hpp
+	include/sge/projectile/world_fwd.hpp
+	src/projectile/body/object.cpp
+	src/projectile/body/parameters.cpp
+	src/projectile/body/solidity/extract_mass.cpp
+	src/projectile/body/solidity/extract_mass.hpp
+	src/projectile/body/solidity/is_solid.cpp
+	src/projectile/body/solidity/is_solid.hpp
+	src/projectile/body/solidity/solid.cpp
+	src/projectile/bullet_to_vector2.cpp
+	src/projectile/bullet_to_vector2.hpp
+	src/projectile/debug_drawer.cpp
+	src/projectile/declare_local_logger.hpp
+	src/projectile/ghost/detail/pair_callback.cpp
+	src/projectile/ghost/object.cpp
+	src/projectile/ghost/parameters.cpp
+	src/projectile/group/object.cpp
+	src/projectile/logger.cpp
+	src/projectile/logger.hpp
+	src/projectile/object_extrusion_depth.cpp
+	src/projectile/object_extrusion_depth.hpp
+	src/projectile/shape/base.cpp
+	src/projectile/shape/circle.cpp
+	src/projectile/shape/triangle_mesh.cpp
+	src/projectile/vector2_to_bullet.cpp
+	src/projectile/vector2_to_bullet.hpp
+	src/projectile/world.cpp
+)
+
+INCLUDE_DIRECTORIES(
+	SYSTEM
+	${BULLET_INCLUDE_DIRS}
+)
+
+ADD_SGE_BASE_LIBRARY(
+	projectile
+	"sgeline_drawer"
+)
+
+TARGET_LINK_LIBRARIES (
+	sgeprojectile
+	${BULLET_LIBRARIES}
+)

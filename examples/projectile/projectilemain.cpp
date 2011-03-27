@@ -1,0 +1,522 @@
+#include <sge/config/media_path.hpp>
+#include <sge/log/global_context.hpp>
+#include <sge/extension_set.hpp>
+#include <sge/image2d/multi_loader.hpp>
+#include <sge/image/capabilities.hpp>
+#include <sge/image/colors.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/sprite/projection_matrix.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/log/global.hpp>
+#include <sge/projectile/body/parameters.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <sge/projectile/dim2.hpp>
+#include <sge/projectile/world.hpp>
+#include <sge/projectile/ghost/object.hpp>
+#include <sge/projectile/ghost/position.hpp>
+#include <sge/projectile/ghost/parameters.hpp>
+#include <sge/projectile/triangulation/triangulate.hpp>
+#include <sge/projectile/body/object.hpp>
+#include <sge/projectile/group/object.hpp>
+#include <sge/projectile/debug_drawer.hpp>
+#include <sge/projectile/scalar.hpp>
+#include <sge/projectile/shape/circle.hpp>
+#include <sge/projectile/shape/triangle_mesh.hpp>
+#include <sge/projectile/rect.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/system.hpp>
+#include <sge/sprite/center.hpp>
+#include <sge/sprite/choices.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/render_one.hpp>
+#include <sge/sprite/system.hpp>
+#include <sge/sprite/type_choices.hpp>
+#include <sge/sprite/with_dim.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
+#include <sge/systems/running_to_false.hpp>
+#include <sge/time/default_callback.hpp>
+#include <sge/time/millisecond.hpp>
+#include <sge/time/second.hpp>
+#include <sge/time/second_f.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/viewport/center_on_resize.hpp>
+#include <sge/window/instance.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/log/log.hpp>
+#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cifstream.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/math/box/box.hpp>
+#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <boost/range/iterator_range.hpp>
+#include <istream>
+#include <exception>
+#include <ios>
+#include <iostream>
+#include <sstream>
+#include <ostream>
+#include <streambuf>
+#include <vector>
+#include <cstdlib>
+
+namespace
+{
+template<typename Container,typename Ch,typename Traits>
+Container const
+container_from_stream(
+	std::basic_istream<Ch,Traits> &s)
+{
+	Ch c;
+	s >> c;
+	if(c != s.widen('('))
+	{
+		s.setstate(
+			std::ios_base::failbit);
+		return Container();
+	}
+
+	s >> c;
+	Container result;
+	while(c != s.widen(')'))
+	{
+		s.putback(
+			c);
+		if(!s)
+			return Container();
+		typename Container::value_type new_value;
+		s >> new_value;
+		if(!s)
+			return Container();
+		result.insert(
+			result.end(),
+			new_value);
+		s >> c;
+		s >> c;
+	}
+
+	return result;
+}
+
+typedef 
+sge::sprite::choices
+<
+	sge::sprite::type_choices<int,float,sge::sprite::no_color>,
+	boost::mpl::vector1
+	<
+		sge::sprite::with_dim
+	>
+> 
+sprite_choices;
+
+typedef 
+sge::sprite::system<sprite_choices>::type 
+sprite_system;
+
+typedef 
+sge::sprite::object<sprite_choices> 
+sprite_object;
+
+typedef 
+sge::sprite::parameters<sprite_choices> 
+sprite_parameters;
+
+class sprite_body
+{
+FCPPT_NONCOPYABLE(
+	sprite_body);
+public:
+	explicit
+	sprite_body(
+		sge::projectile::world &_world,
+		sge::projectile::group::object &group,
+		sge::projectile::shape::shared_base_ptr const shape,
+		sge::projectile::body::solidity::variant const &solidity,
+		sge::projectile::rect const &r)
+	:
+		sprite_(
+			sprite_parameters()
+				.pos(
+					fcppt::math::vector::structure_cast<sprite_object::vector>(
+						r.pos()))
+				.size(
+					fcppt::math::dim::structure_cast<sprite_object::dim>(
+						r.size()))
+				.elements()),
+		body_(
+			sge::projectile::body::parameters(
+				_world,
+				sge::projectile::body::position(
+					fcppt::math::vector::structure_cast<sge::projectile::vector2>(
+						fcppt::math::box::center(
+							r))),
+				sge::projectile::body::linear_velocity(
+					sge::projectile::vector2::null()),
+				shape,
+				sge::projectile::body::rotation(
+					static_cast<sge::projectile::scalar>(
+						0)),
+				solidity,
+				fcppt::assign::make_container<sge::projectile::group::sequence>(
+					fcppt::ref(
+						group)),
+				sge::projectile::body::user_data())),
+		position_change_connection_(
+			body_.position_change(
+				std::tr1::bind(
+					&sprite_body::position_change,
+					this,
+					std::tr1::placeholders::_1)))
+	{
+	}
+
+	sprite_object const &
+	sprite() const
+	{
+		return sprite_;
+	}
+
+	sge::projectile::body::object &
+	body()
+	{
+		return body_;
+	}
+private:
+	sprite_object sprite_;
+	sge::projectile::body::object body_;
+	fcppt::signal::scoped_connection position_change_connection_;
+	void
+	position_change(
+		sge::projectile::body::position const &p)
+	{
+		sge::sprite::center(
+			sprite_,
+			fcppt::math::vector::structure_cast<sprite_object::vector>(
+				p.get()));
+	}
+};
+
+class body_keyboard_mover
+{
+public:
+	explicit
+	body_keyboard_mover(
+		sge::projectile::body::object &_body,
+		sge::input::keyboard::device &_keyboard)
+	:
+		body_(
+			_body),
+		key_callback_connection_(
+			_keyboard.key_callback(
+				std::tr1::bind(
+					&body_keyboard_mover::key_callback,
+					this,
+					std::tr1::placeholders::_1)))
+	{
+	}
+private:
+	sge::projectile::body::object &body_;
+	fcppt::signal::scoped_connection key_callback_connection_;
+
+	void
+	key_callback(
+		sge::input::keyboard::key_event const &e)
+	{
+		body_.linear_velocity(
+			body_.linear_velocity() + 
+			static_cast<sge::projectile::scalar>(30) * 
+			key_event_to_vector(
+				e));
+	}
+
+	sge::projectile::vector2 const
+	key_event_to_vector(
+		sge::input::keyboard::key_event const &e)
+	{
+		sge::projectile::vector2 result = 
+			sge::projectile::vector2::null();
+
+		switch (e.key_code())
+		{
+			case sge::input::keyboard::key_code::left:
+				result = sge::projectile::vector2(-1,0);
+				break;
+			case sge::input::keyboard::key_code::right:
+				result = sge::projectile::vector2(1,0);
+				break;
+			case sge::input::keyboard::key_code::up:
+				result = sge::projectile::vector2(0,-1);
+				break;
+			case sge::input::keyboard::key_code::down:
+				result = sge::projectile::vector2(0,1);
+				break;
+			default:
+				break;
+		}
+			
+		return e.pressed() ? result : (-result);
+	}
+
+};
+
+void
+body_collision(
+	sge::projectile::body::object const &,
+	sge::projectile::body::object const &)
+{
+	static unsigned ticker = 1u;
+	std::cout << ticker++ << ": body collision!\n";
+}
+
+class body_following_ghost
+{
+public:
+	explicit
+	body_following_ghost(
+		sge::projectile::world &_world,
+		sge::projectile::body::object &_body,
+		sge::projectile::ghost::size const &_size,
+		sge::projectile::group::sequence const &_groups)
+	:
+		ghost_(
+			sge::projectile::ghost::parameters(
+				_world,
+				sge::projectile::ghost::position(
+					_body.position()),
+				_size,
+				_groups,
+				sge::projectile::ghost::user_data())),
+		body_position_change_connection_(
+			_body.position_change(
+				std::tr1::bind(
+					&body_following_ghost::body_position_change,
+					this,
+					std::tr1::placeholders::_1))),
+		body_enter_connection_(
+			ghost_.body_enter(
+				std::tr1::bind(
+					&body_following_ghost::body_enter,
+					this,
+					std::tr1::placeholders::_1))),
+		body_exit_connection_(
+			ghost_.body_exit(
+				std::tr1::bind(
+					&body_following_ghost::body_exit,
+					this,
+					std::tr1::placeholders::_1)))
+	{
+	}
+private:
+	sge::projectile::ghost::object ghost_;
+	fcppt::signal::scoped_connection
+		body_position_change_connection_,
+		body_enter_connection_,
+		body_exit_connection_;
+
+	void
+	body_position_change(
+		sge::projectile::body::position const &p)
+	{
+		ghost_.position(
+			p.get());
+	}
+
+	void
+	body_enter(
+		sge::projectile::body::object const &)
+	{
+		std::cout << "Body enter!\n";
+	}
+
+	void
+	body_exit(
+		sge::projectile::body::object const &)
+	{
+		std::cout << "Body exit!\n";
+	}
+};
+}
+
+int main()
+try
+{
+	sge::log::global_context().apply(
+		fcppt::log::location(
+			FCPPT_TEXT("projectile")),
+		std::tr1::bind(
+			&fcppt::log::object::activate,
+			std::tr1::placeholders::_1,
+			fcppt::log::level::debug));
+
+	sge::systems::instance sys(
+		sge::systems::list()
+		(sge::systems::window(
+				sge::window::simple_parameters(
+					FCPPT_TEXT("projectile"),
+					sge::window::dim(1024,768))))
+		(sge::systems::renderer(
+				sge::renderer::parameters(
+					sge::renderer::visual_depth::depth32,
+					sge::renderer::depth_stencil_buffer::off,
+					sge::renderer::vsync::on,
+					sge::renderer::no_multi_sampling),
+				sge::viewport::center_on_resize(
+					sge::window::dim(1024,768))))
+		(sge::systems::input(
+				sge::systems::input_helper_field(
+					sge::systems::input_helper::keyboard_collector),
+				sge::systems::cursor_option_field::null())));
+
+	sprite_system ss(
+		sys.renderer());
+
+	sge::projectile::world world;
+
+	fcppt::signal::scoped_connection body_collision_world(
+		world.body_collision(
+			&body_collision));
+
+	sge::projectile::debug_drawer debug_drawer(
+		world,
+		sys.renderer());
+	sge::projectile::group::object 
+		first_group(
+			world),
+		second_group(
+			world);
+	world.make_groups_collide(
+		first_group,
+		second_group);
+
+	debug_drawer.active(
+		true);
+
+	sprite_body first_sprite(
+		world,
+		first_group,
+		fcppt::make_shared_ptr<sge::projectile::shape::circle>(
+			static_cast<sge::projectile::scalar>(
+				5)),
+		sge::projectile::body::solidity::solid(
+			sge::projectile::body::mass(
+				static_cast<sge::projectile::scalar>(
+					1))),
+		sge::projectile::rect(
+			sge::projectile::vector2(
+				10,10),
+			sge::projectile::dim2(
+				10,10)));
+
+	std::istringstream polygon_stream(
+		"((42,296),(253,162),(12,23),(420,22),(420,310))");
+
+	sprite_body second_sprite(
+		world,
+		second_group,
+		fcppt::make_shared_ptr<sge::projectile::shape::triangle_mesh>(
+			sge::projectile::triangulation::triangulate<sge::projectile::shape::triangle_set>(
+				container_from_stream< std::vector< sge::projectile::vector2 > >(
+					polygon_stream),
+				static_cast<sge::projectile::scalar>(
+					0.00001))),
+		sge::projectile::body::solidity::static_(),
+		sge::projectile::rect(
+			sge::projectile::vector2(
+				100,100),
+			sge::projectile::dim2(
+				20,20)));
+
+	body_following_ghost first_ghost(
+		world,
+		first_sprite.body(),
+		sge::projectile::ghost::size(
+			sge::projectile::dim2(
+				100,
+				100)),
+		fcppt::assign::make_container<sge::projectile::group::sequence>(
+			fcppt::ref(
+				first_group)));
+
+	body_keyboard_mover keyboard_mover(
+		first_sprite.body(),
+		*sys.keyboard_collector());
+
+	bool running = 
+		true;
+
+	fcppt::signal::scoped_connection const cb(
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
+				sge::systems::running_to_false(
+					running))));
+
+	sys.renderer()->state(
+		sge::renderer::state::list
+			(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::color::clear_color = sge::image::colors::black()));
+
+	sge::time::timer frame_timer(
+		sge::time::second(1));
+
+	sge::time::timer position_change_timer(
+		sge::time::second(4));
+
+	while(running)
+	{
+		sys.window()->dispatch();
+
+#if 0
+		if(position_change_timer.active() && position_change_timer.expired())
+		{
+			first_sprite.body().position(
+				sge::projectile::body::position(
+					sge::projectile::vector2(
+						200,200)));
+			position_change_timer.deactivate();
+		}
+#endif
+
+		world.update(
+			sge::time::second_f(
+				frame_timer.reset()));
+
+		debug_drawer.update();
+
+		sge::renderer::scoped_block const block_(
+			sys.renderer());
+
+		/*
+		sge::sprite::render_one(
+			ss,
+			first_sprite.sprite());
+		*/
+
+		debug_drawer.render(
+			sge::sprite::projection_matrix(
+				sys.renderer()->onscreen_target()->viewport()));
+	}
+}
+catch(fcppt::exception const &e)
+{
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
+	return EXIT_FAILURE;
+}

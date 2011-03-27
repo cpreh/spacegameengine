@@ -1462,6 +1462,7 @@ ENDIF ()
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
 FIND_PACKAGE(CEGUI)
+FIND_PACKAGE(Bullet)
 
 OPTION (ENABLE_CEGUI "Build the cegui subsystem" ${CEGUI_FOUND})
 OPTION (ENABLE_CAMERA "Build the camera" ON)
@@ -1471,6 +1472,7 @@ OPTION (ENABLE_FONTBITMAP "Build the bitmap font" ON)
 OPTION (ENABLE_FONTTEXT "Build the font text library" ON)
 OPTION (ENABLE_LINE_DRAWER "Build the line drawing library" ON)
 OPTION (ENABLE_PARSE "Build the parse library" ON)
+OPTION (ENABLE_PROJECTILE "Build the projectile subsystem" ${BULLET_FOUND})
 OPTION (ENABLE_SHADER "Build the shader" ON)
 OPTION (ENABLE_SPRITE "Build the sprite library" ON)
 OPTION (ENABLE_SYSTEMS "Build the systems library" ON)
@@ -1508,6 +1510,10 @@ ENDIF ()
 
 IF (ENABLE_PARSE)
 	ADD_SUBDIRECTORY (parse)
+ENDIF ()
+
+IF (ENABLE_PROJECTILE)
+	ADD_SUBDIRECTORY (projectile)
 ENDIF ()
 
 IF (ENABLE_SHADER)
