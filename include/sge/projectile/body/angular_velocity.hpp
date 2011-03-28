@@ -1,5 +1,5 @@
-#ifndef SGE_PROJECTILE_BODY_LINEAR_VELOCITY_HPP_INCLUDED
-#define SGE_PROJECTILE_BODY_LINEAR_VELOCITY_HPP_INCLUDED
+#ifndef SGE_PROJECTILE_BODY_ANGULAR_VELOCITY_HPP_INCLUDED
+#define SGE_PROJECTILE_BODY_ANGULAR_VELOCITY_HPP_INCLUDED
 
 #include <sge/projectile/scalar.hpp>
 #include <fcppt/strong_typedef.hpp>
@@ -11,8 +11,8 @@ namespace projectile
 namespace body
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
-	vector2,
-	linear_velocity);
+	scalar,
+	angular_velocity);
 }
 }
 }

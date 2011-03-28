@@ -4,6 +4,7 @@ sge::projectile::body::parameters::parameters(
 	sge::projectile::world &_world,
 	sge::projectile::body::position const &_position,
 	sge::projectile::body::linear_velocity const &_linear_velocity,
+	sge::projectile::body::angular_velocity const &_angular_velocity,
 	sge::projectile::shape::shared_base_ptr const &_shape,
 	sge::projectile::body::rotation const &_rotation,
 	sge::projectile::body::solidity::variant const &_solidity,
@@ -16,6 +17,8 @@ sge::projectile::body::parameters::parameters(
 		_position),
 	linear_velocity_(
 		_linear_velocity),
+	angular_velocity_(
+		_angular_velocity),
 	shape_(
 		_shape),
 	rotation_(
@@ -45,6 +48,12 @@ sge::projectile::body::linear_velocity const &
 sge::projectile::body::parameters::linear_velocity() const
 {
 	return linear_velocity_;
+}
+
+sge::projectile::body::angular_velocity const &
+sge::projectile::body::parameters::angular_velocity() const
+{
+	return angular_velocity_;
 }
 
 sge::projectile::shape::shared_base_ptr const &

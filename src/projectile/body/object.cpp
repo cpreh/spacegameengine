@@ -103,7 +103,10 @@ sge::projectile::body::object::object(
 					p.solidity())
 			<< FCPPT_TEXT(", linear velocity ")
 			<< 
-				p.linear_velocity().get());
+				p.linear_velocity().get()
+			<< FCPPT_TEXT(", angular velocity ")
+			<<
+				p.angular_velocity().get());
 
 	body_.setUserPointer(
 		this);
@@ -141,6 +144,18 @@ sge::projectile::body::object::object(
 
 	linear_velocity(
 		p.linear_velocity().get());
+
+	body_.setAngularFactor(
+		btVector3(
+			static_cast<btScalar>(
+				0),
+			static_cast<btScalar>(
+				0),
+			static_cast<btScalar>(
+				1)));
+
+	angular_velocity(
+		p.angular_velocity().get());
 
 	// Set no groups by default!
 	FCPPT_ASSERT(
@@ -222,6 +237,35 @@ sge::projectile::body::object::linear_velocity(
 	body_.setLinearVelocity(
 		vector2_to_bullet(
 			v));
+	// We have to re-activate a maybe-sleeping body
+	body_.setActivationState(
+		ACTIVE_TAG);
+}
+
+sge::projectile::scalar
+sge::projectile::body::object::angular_velocity() const
+{
+	return 
+		body_.getAngularVelocity().length();
+}
+
+void 
+sge::projectile::body::object::angular_velocity(
+	scalar const v)
+{
+	FCPPT_LOG_DEBUG(
+		local_log,
+		fcppt::log::_ 
+			<< this
+			<< FCPPT_TEXT(": Somebody reset the body's angular velocity to ") 
+			<< 
+				v);
+	body_.setAngularVelocity(
+		btVector3(
+			0,
+			0,
+			v));
+
 	// We have to re-activate a maybe-sleeping body
 	body_.setActivationState(
 		ACTIVE_TAG);

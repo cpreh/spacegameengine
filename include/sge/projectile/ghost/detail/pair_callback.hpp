@@ -2,7 +2,7 @@
 #define SGE_PROJECTILE_GHOST_DETAIL_PAIR_CALLBACK_HPP_INCLUDED
 
 // The header below isn't self-contained, this is a fix for that
-class btBroadphaseProxy;
+struct btBroadphaseProxy;
 
 #include <bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h>
 

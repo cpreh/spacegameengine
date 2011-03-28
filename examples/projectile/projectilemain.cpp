@@ -170,6 +170,9 @@ public:
 							r))),
 				sge::projectile::body::linear_velocity(
 					sge::projectile::vector2::null()),
+				sge::projectile::body::angular_velocity(
+					static_cast<sge::projectile::scalar>(
+						0)),
 				shape,
 				sge::projectile::body::rotation(
 					static_cast<sge::projectile::scalar>(
@@ -203,6 +206,7 @@ private:
 	sprite_object sprite_;
 	sge::projectile::body::object body_;
 	fcppt::signal::scoped_connection position_change_connection_;
+
 	void
 	position_change(
 		sge::projectile::body::position const &p)
@@ -219,32 +223,61 @@ class body_keyboard_mover
 public:
 	explicit
 	body_keyboard_mover(
+		sge::projectile::world &_world,
 		sge::projectile::body::object &_body,
 		sge::input::keyboard::device &_keyboard)
 	:
 		body_(
 			_body),
+		body_collision_connection_(
+			_world.body_collision(
+				std::tr1::bind(
+					&body_keyboard_mover::body_collision,
+					this,
+					std::tr1::placeholders::_1,
+					std::tr1::placeholders::_2))),
 		key_callback_connection_(
 			_keyboard.key_callback(
 				std::tr1::bind(
 					&body_keyboard_mover::key_callback,
 					this,
-					std::tr1::placeholders::_1)))
+					std::tr1::placeholders::_1))),
+		velocity_(
+			sge::projectile::vector2::null())
 	{
 	}
 private:
 	sge::projectile::body::object &body_;
+	fcppt::signal::scoped_connection body_collision_connection_;
 	fcppt::signal::scoped_connection key_callback_connection_;
+	sge::projectile::vector2 velocity_;
+
+	void
+	body_collision(
+		sge::projectile::body::object const &a,
+		sge::projectile::body::object const &b)
+	{
+		if (&a == &body_ || &b == &body_)
+		{
+			body_.linear_velocity(
+				velocity_);
+			body_.angular_velocity(
+				static_cast<sge::projectile::scalar>(
+					0));
+		}
+	}
 
 	void
 	key_callback(
 		sge::input::keyboard::key_event const &e)
 	{
-		body_.linear_velocity(
+		velocity_ = 
 			body_.linear_velocity() + 
-			static_cast<sge::projectile::scalar>(30) * 
-			key_event_to_vector(
-				e));
+				static_cast<sge::projectile::scalar>(30) * 
+				key_event_to_vector(
+					e);
+		body_.linear_velocity(
+			velocity_);
 	}
 
 	sge::projectile::vector2 const
@@ -456,6 +489,7 @@ try
 				first_group)));
 
 	body_keyboard_mover keyboard_mover(
+		world,
 		first_sprite.body(),
 		*sys.keyboard_collector());
 

@@ -7,11 +7,7 @@
 #include <sge/projectile/body/user_data.hpp>
 #include <sge/projectile/body/position_change_fn.hpp>
 #include <sge/projectile/body/rotation_change.hpp>
-#include <sge/projectile/body/rotation_change_fn.hpp>
-#include <sge/projectile/body/position.hpp>
-#include <sge/projectile/body/linear_velocity.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
-#include <sge/projectile/body/rotation.hpp>
 #include <sge/projectile/body/parameters_fwd.hpp>
 #include <sge/projectile/group/object_fwd.hpp>
 #include <sge/class_symbol.hpp>
@@ -54,6 +50,13 @@ public:
 	linear_velocity(
 		vector2 const &);
 
+	SGE_PROJECTILE_SYMBOL scalar
+	angular_velocity() const;
+
+	SGE_PROJECTILE_SYMBOL void
+	angular_velocity(
+		scalar);
+
 	SGE_PROJECTILE_SYMBOL sge::projectile::shape::shared_base_ptr const
 	shape() const;
 		
@@ -69,7 +72,7 @@ public:
 		sge::projectile::body::position_change const &);
 
 	SGE_PROJECTILE_SYMBOL fcppt::signal::auto_connection
-	SGE_PROJECTILE_SYMBOL rotation_change(
+	rotation_change(
 		sge::projectile::body::rotation_change const &);
 
 	SGE_PROJECTILE_SYMBOL sge::projectile::body::user_data const &

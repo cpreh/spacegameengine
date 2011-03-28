@@ -6,6 +6,7 @@
 #include <sge/projectile/body/user_data.hpp>
 #include <sge/projectile/body/solidity/variant.hpp>
 #include <sge/projectile/body/position.hpp>
+#include <sge/projectile/body/angular_velocity.hpp>
 #include <sge/projectile/body/rotation.hpp>
 #include <sge/projectile/body/linear_velocity.hpp>
 #include <sge/projectile/group/sequence.hpp>
@@ -29,6 +30,7 @@ public:
 		sge::projectile::world &,
 		sge::projectile::body::position const &,
 		sge::projectile::body::linear_velocity const &,
+		sge::projectile::body::angular_velocity const &,
 		sge::projectile::shape::shared_base_ptr const &,
 		sge::projectile::body::rotation const &,
 		sge::projectile::body::solidity::variant const &,
@@ -43,6 +45,9 @@ public:
 
 	SGE_PROJECTILE_SYMBOL sge::projectile::body::linear_velocity const &
 	linear_velocity() const;
+
+	SGE_PROJECTILE_SYMBOL sge::projectile::body::angular_velocity const &
+	angular_velocity() const;
 
 	SGE_PROJECTILE_SYMBOL sge::projectile::shape::shared_base_ptr const &
 	shape() const;
@@ -62,6 +67,7 @@ private:
 	sge::projectile::world &world_;
 	sge::projectile::body::position position_;
 	sge::projectile::body::linear_velocity linear_velocity_;
+	sge::projectile::body::angular_velocity angular_velocity_;
 	sge::projectile::shape::shared_base_ptr shape_;
 	sge::projectile::body::rotation rotation_;
 	sge::projectile::body::solidity::variant solidity_;
