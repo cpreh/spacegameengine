@@ -40,7 +40,7 @@ class transform_binary
 {
 	FCPPT_NONASSIGNABLE(
 		transform_binary
-	)
+	);
 public:
 	typedef void result_type;
 

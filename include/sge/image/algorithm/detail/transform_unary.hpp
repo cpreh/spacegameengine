@@ -40,7 +40,7 @@ class transform_unary
 {
 	FCPPT_NONASSIGNABLE(
 		transform_unary
-	)
+	);
 public:
 	typedef void result_type;
 
