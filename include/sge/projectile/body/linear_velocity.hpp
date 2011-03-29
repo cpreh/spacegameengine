@@ -1,7 +1,7 @@
 #ifndef SGE_PROJECTILE_BODY_LINEAR_VELOCITY_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_LINEAR_VELOCITY_HPP_INCLUDED
 
-#include <sge/projectile/scalar.hpp>
+#include <sge/projectile/vector2.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace sge
