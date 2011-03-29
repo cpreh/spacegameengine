@@ -1,7 +1,7 @@
 #ifndef SGE_PROJECTILE_OBJECT_EXTRUSION_DEPTH_HPP_INCLUDED
 #define SGE_PROJECTILE_OBJECT_EXTRUSION_DEPTH_HPP_INCLUDED
 
-#include <bullet/LinearMath/btScalar.h> 
+#include <LinearMath/btScalar.h> 
 
 namespace sge
 {

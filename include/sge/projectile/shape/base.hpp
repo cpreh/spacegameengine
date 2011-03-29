@@ -1,7 +1,7 @@
 #ifndef SGE_PROJECTILE_SHAPE_BASE_HPP_INCLUDED
 #define SGE_PROJECTILE_SHAPE_BASE_HPP_INCLUDED
 
-#include <bullet/BulletCollision/CollisionShapes/btCollisionShape.h>
+#include <BulletCollision/CollisionShapes/btCollisionShape.h>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge

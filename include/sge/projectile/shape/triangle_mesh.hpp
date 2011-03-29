@@ -5,9 +5,9 @@
 #include <sge/projectile/shape/triangle_set.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/scoped_ptr.hpp>
-#include <bullet/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
-#include <bullet/LinearMath/btScalar.h>
-#include <bullet/BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h>
+#include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
+#include <LinearMath/btScalar.h>
+#include <BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h>
 
 namespace sge
 {

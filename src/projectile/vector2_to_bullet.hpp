@@ -1,7 +1,7 @@
 #ifndef SGE_PROJECTILE_VECTOR2_TO_BULLET_HPP_INCLUDED
 #define SGE_PROJECTILE_VECTOR2_TO_BULLET_HPP_INCLUDED
 
-#include <bullet/LinearMath/btVector3.h>
+#include <LinearMath/btVector3.h>
 #include <sge/projectile/vector2.hpp>
 
 namespace sge

@@ -2,7 +2,7 @@
 #define SGE_PROJECTILE_VECTOR3_HPP_INCLUDED
 
 #include <fcppt/math/vector/static.hpp>
-#include <bullet/LinearMath/btScalar.h>
+#include <LinearMath/btScalar.h>
 
 namespace sge
 {

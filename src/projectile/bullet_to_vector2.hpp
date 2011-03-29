@@ -3,7 +3,7 @@
 
 #include <sge/projectile/vector2.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <bullet/LinearMath/btVector3.h>
+#include <LinearMath/btVector3.h>
 
 namespace sge
 {

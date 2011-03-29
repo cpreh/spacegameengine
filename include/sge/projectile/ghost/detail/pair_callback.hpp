@@ -4,7 +4,7 @@
 // The header below isn't self-contained, this is a fix for that
 struct btBroadphaseProxy;
 
-#include <bullet/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h>
+#include <BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h>
 
 namespace sge
 {

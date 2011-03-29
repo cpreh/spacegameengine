@@ -2,7 +2,7 @@
 #define SGE_PROJECTILE_BODY_SOLIDITY_EXTRACT_MASS_HPP_INCLUDED
 
 #include <sge/projectile/body/solidity/variant.hpp>
-#include <bullet/LinearMath/btScalar.h>
+#include <LinearMath/btScalar.h>
 
 namespace sge
 {

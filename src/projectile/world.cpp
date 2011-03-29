@@ -8,9 +8,9 @@
 #include <fcppt/assert_message.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
-#include <bullet/LinearMath/btVector3.h>
-#include <bullet/LinearMath/btScalar.h>
-#include <bullet/BulletCollision/CollisionDispatch/btCollisionObject.h>
+#include <LinearMath/btVector3.h>
+#include <LinearMath/btScalar.h>
+#include <BulletCollision/CollisionDispatch/btCollisionObject.h>
 #include <boost/foreach.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/adaptor/filtered.hpp>

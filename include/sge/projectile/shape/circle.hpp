@@ -2,7 +2,7 @@
 #define SGE_PROJECTILE_SHAPE_CIRCLE_HPP_INCLUDED
 
 #include <sge/projectile/shape/base.hpp>
-#include <bullet/BulletCollision/CollisionShapes/btSphereShape.h>
+#include <BulletCollision/CollisionShapes/btSphereShape.h>
 
 namespace sge
 {

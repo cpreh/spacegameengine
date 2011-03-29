@@ -14,10 +14,10 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <bullet/LinearMath/btMotionState.h>
-#include <bullet/BulletDynamics/Dynamics/btRigidBody.h>
-#include <bullet/BulletDynamics/Dynamics/btDynamicsWorld.h>
-#include <bullet/LinearMath/btTransform.h>
+#include <LinearMath/btMotionState.h>
+#include <BulletDynamics/Dynamics/btRigidBody.h>
+#include <BulletDynamics/Dynamics/btDynamicsWorld.h>
+#include <LinearMath/btTransform.h>
 
 namespace sge
 {

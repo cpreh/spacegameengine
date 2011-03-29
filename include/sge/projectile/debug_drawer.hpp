@@ -7,9 +7,9 @@
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h>
-#include <bullet/LinearMath/btIDebugDraw.h>
-#include <bullet/LinearMath/btVector3.h>
+#include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
+#include <LinearMath/btIDebugDraw.h>
+#include <LinearMath/btVector3.h>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/scoped_ptr.hpp>
 

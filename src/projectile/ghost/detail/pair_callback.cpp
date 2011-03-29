@@ -1,9 +1,9 @@
 #include <sge/projectile/ghost/detail/pair_callback.hpp>
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/body/object.hpp>
-#include <bullet/BulletCollision/CollisionDispatch/btCollisionObject.h>
-#include <bullet/BulletCollision/CollisionDispatch/btGhostObject.h>
-#include <bullet/BulletCollision/BroadphaseCollision/btBroadphaseProxy.h>
+#include <BulletCollision/CollisionDispatch/btCollisionObject.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
+#include <BulletCollision/BroadphaseCollision/btBroadphaseProxy.h>
 #include <fcppt/assert.hpp>
 
 btBroadphasePair *

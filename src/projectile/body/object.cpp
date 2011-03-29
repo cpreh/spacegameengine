@@ -11,7 +11,7 @@
 #include <sge/projectile/group/object.hpp>
 #include <sge/projectile/vector2.hpp>
 #include <sge/projectile/vector3.hpp>
-#include <bullet/LinearMath/btMatrix3x3.h>
+#include <LinearMath/btMatrix3x3.h>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/output.hpp>

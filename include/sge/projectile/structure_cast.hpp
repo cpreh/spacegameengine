@@ -1,9 +1,9 @@
 #ifndef SGE_PROJECTILE_STRUCTURE_CAST_HPP_INCLUDED
 #define SGE_PROJECTILE_STRUCTURE_CAST_HPP_INCLUDED
 
-#include <bullet/LinearMath/btVector3.h>
-#include <bullet/LinearMath/btMatrix3x3.h>
-#include <bullet/LinearMath/btScalar.h>
+#include <LinearMath/btVector3.h>
+#include <LinearMath/btMatrix3x3.h>
+#include <LinearMath/btScalar.h>
 #include <fcppt/math/vector/has_dim.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/has_dim.hpp>

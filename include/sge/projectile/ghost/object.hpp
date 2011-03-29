@@ -12,9 +12,9 @@
 #include <sge/projectile/group/object_fwd.hpp>
 #include <sge/projectile/ghost/parameters_fwd.hpp>
 #include <sge/projectile/vector2.hpp>
-#include <bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h>
-#include <bullet/BulletCollision/CollisionShapes/btBoxShape.h>
-#include <bullet/BulletCollision/CollisionDispatch/btGhostObject.h>
+#include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
+#include <BulletCollision/CollisionShapes/btBoxShape.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
