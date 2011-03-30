@@ -11,6 +11,7 @@
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
 namespace sge
@@ -25,6 +26,8 @@ class debug_drawer
 :
 	public btIDebugDraw
 {
+FCPPT_NONCOPYABLE(
+	debug_drawer);
 public:	
 	SGE_PROJECTILE_SYMBOL explicit
 	debug_drawer(

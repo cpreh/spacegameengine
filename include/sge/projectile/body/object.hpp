@@ -14,6 +14,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <LinearMath/btMotionState.h>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <BulletDynamics/Dynamics/btDynamicsWorld.h>

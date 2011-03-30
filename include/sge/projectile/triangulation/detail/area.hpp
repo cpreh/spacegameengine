@@ -1,6 +1,8 @@
 #ifndef SGE_PROJECTILE_TRIANGULATION_DETAIL_AREA_HPP_INCLUDED
 #define SGE_PROJECTILE_TRIANGULATION_DETAIL_AREA_HPP_INCLUDED
 
+#include <boost/mpl/identity.hpp>
+
 namespace sge
 {
 namespace projectile
@@ -19,7 +21,10 @@ namespace detail
 // - PointContainer::value_type::value_type needs to be a ring
 template<typename PointContainer>
 typename
-PointContainer::value_type::value_type
+// hack VC++ constructor type bug
+boost::mpl::identity<
+	typename PointContainer::value_type
+>::type::value_type
 area(
 	PointContainer const &contour)
 {
