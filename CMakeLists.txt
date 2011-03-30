@@ -6,6 +6,12 @@ SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMakeModules;${CMAKE_MODULE_PATH}")
 
 INCLUDE(FcpptCMakeUtils)
 
+# Put libraries and exe files in the same directory
+# because Windows lacks 'rpath'
+IF(MSVC)
+	SET(LIBRARY_OUTPUT_PATH ${EXECUTABLE_OUTPUT_PATH})
+ENDIF()
+
 INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (CheckCXXSourceRuns)
 INCLUDE (CheckSymbolExists)
