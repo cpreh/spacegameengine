@@ -1,8 +1,8 @@
 #ifndef SGE_PROJECTILE_VECTOR3_HPP_INCLUDED
 #define SGE_PROJECTILE_VECTOR3_HPP_INCLUDED
 
+#include <sge/projectile/scalar.hpp>
 #include <fcppt/math/vector/static.hpp>
-#include <LinearMath/btScalar.h>
 
 namespace sge
 {
@@ -11,7 +11,7 @@ namespace projectile
 typedef
 fcppt::math::vector::static_
 <
-	btScalar,
+	scalar,
 	3
 >::type
 vector3;

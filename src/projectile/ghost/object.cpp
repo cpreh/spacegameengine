@@ -10,6 +10,10 @@
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
+#include <BulletDynamics/Dynamics/btDynamicsWorld.h>
+#include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
+#include <BulletCollision/CollisionShapes/btBoxShape.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("ghost"))
@@ -20,14 +24,16 @@ sge::projectile::ghost::object::object(
 	body_enter_(),
 	body_exit_(),
 	world_(
-		p.world().world_),
+		*p.world().world_),
 	box_shape_(
 		// The box shape gets _HALF EXTENTS_
-		btVector3(
-			p.size().get().w()/2,
-			p.size().get().h()/2,
-			object_extrusion_depth())),
-	ghost_object_(),
+		fcppt::make_unique_ptr<btBoxShape>(
+			btVector3(
+				p.size().get().w()/2,
+				p.size().get().h()/2,
+				object_extrusion_depth()))),
+	ghost_object_(
+		fcppt::make_unique_ptr<btPairCachingGhostObject>()),
 	user_data_(
 		p.user_data())
 {
@@ -40,14 +46,14 @@ sge::projectile::ghost::object::object(
 			<< FCPPT_TEXT(", size ")
 			<< p.size().get());
 
-	ghost_object_.setUserPointer(
+	ghost_object_->setUserPointer(
 		this);
 
-	ghost_object_.setCollisionShape(
-		&box_shape_);
+	ghost_object_->setCollisionShape(
+		box_shape_.get());
 
 	world_.addCollisionObject(
-		&ghost_object_);
+		ghost_object_.get());
 
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -57,11 +63,11 @@ sge::projectile::ghost::object::object(
 
 	// Set no groups by default!
 	FCPPT_ASSERT(
-		ghost_object_.getBroadphaseHandle());
-	ghost_object_.getBroadphaseHandle()->m_collisionFilterGroup = 
+		ghost_object_->getBroadphaseHandle());
+	ghost_object_->getBroadphaseHandle()->m_collisionFilterGroup = 
 		static_cast<group::id>(
 			0);
-	ghost_object_.getBroadphaseHandle()->m_collisionFilterMask = 
+	ghost_object_->getBroadphaseHandle()->m_collisionFilterMask = 
 		static_cast<group::id>(
 			0);
 
@@ -77,14 +83,14 @@ sge::projectile::ghost::object::position() const
 {
 	return 
 		bullet_to_vector2(
-			ghost_object_.getWorldTransform().getOrigin());
+			ghost_object_->getWorldTransform().getOrigin());
 }
 
 void
 sge::projectile::ghost::object::position(
 	vector2 const &p)
 {
-	ghost_object_.setWorldTransform(
+	ghost_object_->setWorldTransform(
 		btTransform(
 			btMatrix3x3::getIdentity(),
 			vector2_to_bullet(
@@ -95,14 +101,18 @@ fcppt::signal::auto_connection
 sge::projectile::ghost::object::body_enter(
 	sge::projectile::ghost::body_enter const &f)
 {
-	return body_enter_.connect(f);
+	return 
+		body_enter_.connect(
+			f);
 }
 
 fcppt::signal::auto_connection
 sge::projectile::ghost::object::body_exit(
 	sge::projectile::ghost::body_exit const &f)
 {
-	return body_exit_.connect(f);
+	return 
+		body_exit_.connect(
+			f);
 }
 
 sge::projectile::ghost::user_data const &
@@ -114,7 +124,7 @@ sge::projectile::ghost::object::user_data() const
 sge::projectile::ghost::object::~object()
 {
 	world_.removeCollisionObject(
-		&ghost_object_);
+		ghost_object_.get());
 }
 
 void

@@ -1,24 +1,27 @@
 #ifndef SGE_PROJECTILE_WORLD_HPP_INCLUDED
 #define SGE_PROJECTILE_WORLD_HPP_INCLUDED
 
+#include <sge/projectile/scalar.hpp>
 #include <sge/projectile/body/collision.hpp>
 #include <sge/projectile/body/collision_fn.hpp>
 #include <sge/projectile/body/object_fwd.hpp>
 #include <sge/projectile/ghost/object_fwd.hpp>
-#include <sge/projectile/ghost/detail/pair_callback.hpp>
+#include <sge/projectile/ghost/detail/pair_callback_fwd.hpp>
 #include <sge/projectile/group/id.hpp>
 #include <sge/projectile/group/object_fwd.hpp>
-#include <sge/projectile/debug_drawer_fwd.hpp>
+#include <sge/projectile/detail/debug_drawer_impl_fwd.hpp>
 #include <sge/projectile/symbol.hpp>
 #include <sge/time/duration.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
-#include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
-#include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
-#include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
-#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+
+class btCollisionConfiguration;
+class btCollisionDispatcher;
+class btBroadphaseInterface;
+class btConstraintSolver;
+class btDynamicsWorld;
 
 namespace sge
 {
@@ -50,15 +53,15 @@ private:
 	friend class sge::projectile::body::object;
 	friend class sge::projectile::ghost::object;
 	friend class sge::projectile::group::object;
-	friend class sge::projectile::debug_drawer;
+	friend class sge::projectile::detail::debug_drawer_impl;
 
 	fcppt::signal::object<body::collision_fn> body_collision_;
-	btDefaultCollisionConfiguration configuration_;
-	btCollisionDispatcher dispatcher_;
-	btDbvtBroadphase broadphase_;
-	btSequentialImpulseConstraintSolver solver_;
-	btDiscreteDynamicsWorld world_;
-	ghost::detail::pair_callback ghost_pair_callback_;
+	fcppt::scoped_ptr<btCollisionConfiguration> configuration_;
+	fcppt::scoped_ptr<btCollisionDispatcher> dispatcher_;
+	fcppt::scoped_ptr<btBroadphaseInterface> broadphase_;
+	fcppt::scoped_ptr<btConstraintSolver> solver_;
+	fcppt::scoped_ptr<btDynamicsWorld> world_;
+	fcppt::scoped_ptr<ghost::detail::pair_callback> ghost_pair_callback_;
 	group::id next_group_id_;
 
 	// for group
@@ -68,11 +71,11 @@ private:
 	static void
 	internal_tick_callback_static(
 		btDynamicsWorld *,
-		btScalar);
+		scalar);
 
 	void
 	internal_tick_callback(
-		btScalar);
+		scalar);
 };
 }
 }

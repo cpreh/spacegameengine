@@ -4,6 +4,7 @@
 #include "../bullet_to_vector2.hpp"
 #include "solidity/extract_mass.hpp"
 #include "solidity/is_solid.hpp"
+#include "detail/motion_state.hpp"
 #include <sge/projectile/world.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/shape/base.hpp>
@@ -11,11 +12,17 @@
 #include <sge/projectile/group/object.hpp>
 #include <sge/projectile/vector2.hpp>
 #include <sge/projectile/vector3.hpp>
-#include <LinearMath/btMatrix3x3.h>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <LinearMath/btMatrix3x3.h>
+#include <BulletDynamics/Dynamics/btRigidBody.h>
+#include <BulletDynamics/Dynamics/btDynamicsWorld.h>
+#include <BulletCollision/CollisionShapes/btCollisionShape.h>
+#include <LinearMath/btTransform.h>
 
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("body"))
@@ -63,29 +70,34 @@ sge::projectile::body::object::object(
 	parameters const &p)
 :
 	world_(
-		p.world().world_),
+		*p.world().world_),
 	transformation_(
-		btTransform(
+		fcppt::make_unique_ptr<btTransform>(
 			create_rotation_matrix(
 				p.rotation().get()),
 			vector2_to_bullet(
 				p.position().get()))),
+	motion_state_(
+		fcppt::make_unique_ptr<detail::motion_state>(
+			fcppt::ref(
+				*this))),
 	position_change_(),
 	rotation_change_(),
 	shape_(
 		p.shape()),
 	body_(
-		btRigidBody::btRigidBodyConstructionInfo(
-			// mass
-			solidity::extract_mass(
-				p.solidity()),
-			// motion state
-			this,
-			// shape
-			&(shape_->bullet_shape()),
-			inertia_for_shape(
-				shape_->bullet_shape(),
-				p.solidity()))),
+		fcppt::make_unique_ptr<btRigidBody>(
+			btRigidBody::btRigidBodyConstructionInfo(
+				// mass
+				solidity::extract_mass(
+					p.solidity()),
+				// motion state
+				motion_state_.get(),
+				// shape
+				&(shape_->bullet_shape()),
+				inertia_for_shape(
+					shape_->bullet_shape(),
+					p.solidity())))),
 	user_data_(
 		p.user_data())
 {
@@ -108,11 +120,11 @@ sge::projectile::body::object::object(
 			<<
 				p.angular_velocity().get());
 
-	body_.setUserPointer(
+	body_->setUserPointer(
 		this);
 
 	world_.addRigidBody(
-		&body_);
+		body_.get());
 
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -127,13 +139,13 @@ sge::projectile::body::object::object(
 			fcppt::log::_ 
 				<< this
 				<< FCPPT_TEXT(": Setting to nonsolid (no contact response)"));
-		body_.setCollisionFlags(
-			body_.getCollisionFlags() | 
+		body_->setCollisionFlags(
+			body_->getCollisionFlags() | 
 			btCollisionObject::CF_NO_CONTACT_RESPONSE);
 	}
 
 	// Constrain to 2D
-	body_.setLinearFactor(
+	body_->setLinearFactor(
 		btVector3(
 			static_cast<btScalar>(
 				1),
@@ -145,7 +157,7 @@ sge::projectile::body::object::object(
 	linear_velocity(
 		p.linear_velocity().get());
 
-	body_.setAngularFactor(
+	body_->setAngularFactor(
 		btVector3(
 			static_cast<btScalar>(
 				0),
@@ -159,11 +171,11 @@ sge::projectile::body::object::object(
 
 	// Set no groups by default!
 	FCPPT_ASSERT(
-		body_.getBroadphaseProxy());
-	body_.getBroadphaseProxy()->m_collisionFilterGroup = 
+		body_->getBroadphaseProxy());
+	body_->getBroadphaseProxy()->m_collisionFilterGroup = 
 		static_cast<group::id>(
 			0);
-	body_.getBroadphaseProxy()->m_collisionFilterMask = 
+	body_->getBroadphaseProxy()->m_collisionFilterMask = 
 		static_cast<group::id>(
 			0);
 
@@ -181,7 +193,7 @@ sge::projectile::body::object::position() const
 {
 	return 
 		bullet_to_vector2(
-			transformation_.getOrigin());
+			transformation_->getOrigin());
 }
 
 void 
@@ -195,20 +207,20 @@ sge::projectile::body::object::position(
 			<< FCPPT_TEXT(": Somebody reset the body's position to ") 
 			<< 
 				p);
-	transformation_.setOrigin(
+	transformation_->setOrigin(
 		vector2_to_bullet(
 			p));
 	// For speed and position calculation afterwards, it uses the
 	// centerOfMassTransform and the *Interpolation* methods, so we
 	// reset them here, too. It _seems_ to work at least.
-	//body_.setWorldTransform(
+	//body_->setWorldTransform(
 	//	transformation_);
-	body_.setCenterOfMassTransform(
-		transformation_);
-	//body_.setInterpolationWorldTransform(
+	body_->setCenterOfMassTransform(
+		*transformation_);
+	//body_->setInterpolationWorldTransform(
 	//	transformation_);
 	// We have to re-activate a maybe-sleeping body
-	body_.setActivationState(
+	body_->setActivationState(
 		ACTIVE_TAG);
 	position_change_(
 		sge::projectile::body::position(
@@ -220,7 +232,7 @@ sge::projectile::body::object::linear_velocity() const
 {
 	return 
 		bullet_to_vector2(
-			body_.getLinearVelocity());
+			body_->getLinearVelocity());
 }
 
 void 
@@ -234,11 +246,11 @@ sge::projectile::body::object::linear_velocity(
 			<< FCPPT_TEXT(": Somebody reset the body's linear velocity to ") 
 			<< 
 				v);
-	body_.setLinearVelocity(
+	body_->setLinearVelocity(
 		vector2_to_bullet(
 			v));
 	// We have to re-activate a maybe-sleeping body
-	body_.setActivationState(
+	body_->setActivationState(
 		ACTIVE_TAG);
 }
 
@@ -246,7 +258,7 @@ sge::projectile::scalar
 sge::projectile::body::object::angular_velocity() const
 {
 	return 
-		body_.getAngularVelocity().length();
+		body_->getAngularVelocity().length();
 }
 
 void 
@@ -260,14 +272,14 @@ sge::projectile::body::object::angular_velocity(
 			<< FCPPT_TEXT(": Somebody reset the body's angular velocity to ") 
 			<< 
 				v);
-	body_.setAngularVelocity(
+	body_->setAngularVelocity(
 		btVector3(
 			0,
 			0,
 			v));
 
 	// We have to re-activate a maybe-sleeping body
-	body_.setActivationState(
+	body_->setActivationState(
 		ACTIVE_TAG);
 }
 
@@ -281,7 +293,7 @@ sge::projectile::scalar
 sge::projectile::body::object::rotation() const
 {
 	btScalar y,x,z;
-	transformation_.getBasis().getEulerYPR(
+	transformation_->getBasis().getEulerYPR(
 		y,x,z);
 	return 
 		z;
@@ -298,12 +310,12 @@ sge::projectile::body::object::rotation(
 			<< FCPPT_TEXT(": Somebody reset the body's rotation to ") 
 			<< 
 				r);
-	transformation_.getBasis().setEulerYPR(
+	transformation_->getBasis().setEulerYPR(
 		0,
 		0,
 		r);
-	body_.setWorldTransform(
-		transformation_);
+	body_->setWorldTransform(
+		*transformation_);
 	rotation_change_(
 		sge::projectile::body::rotation(
 			rotation()));
@@ -341,7 +353,7 @@ sge::projectile::body::object::~object()
 			<< this
 			<< FCPPT_TEXT(": Now removing body from world."));
 	world_.removeRigidBody(
-		&body_);
+		body_.get());
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_ 
@@ -354,7 +366,7 @@ void
 sge::projectile::body::object::getWorldTransform(
 	btTransform &t) const
 {
-	t = transformation_;
+	t = *transformation_;
 }
 
 // @override
@@ -367,7 +379,7 @@ sge::projectile::body::object::setWorldTransform(
 		fcppt::log::_ 
 			<< this
 			<< FCPPT_TEXT(": Somebody wants to reset our world transformation! "));
-	transformation_ = t;
+	(*transformation_) = t;
 	FCPPT_LOG_VERBOSE(
 		local_log,
 		fcppt::log::_ 

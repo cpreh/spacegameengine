@@ -5,6 +5,8 @@
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
+#include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
+#include <BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h>
 
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("triangle_mesh"))
@@ -171,3 +173,6 @@ sge::projectile::shape::triangle_mesh::bullet_shape() const
 	return *bullet_shape_;
 }
 
+sge::projectile::shape::triangle_mesh::~triangle_mesh()
+{
+}

@@ -1,4 +1,4 @@
-#include <sge/projectile/ghost/detail/pair_callback.hpp>
+#include "pair_callback.hpp"
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <BulletCollision/CollisionDispatch/btCollisionObject.h>

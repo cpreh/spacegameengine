@@ -1,4 +1,5 @@
 #include "declare_local_logger.hpp"
+#include "ghost/detail/pair_callback.hpp"
 #include <sge/projectile/world.hpp>
 #include <sge/projectile/group/object.hpp>
 #include <sge/projectile/group/id.hpp>
@@ -8,14 +9,20 @@
 #include <fcppt/assert_message.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
-#include <LinearMath/btVector3.h>
-#include <LinearMath/btScalar.h>
-#include <BulletCollision/CollisionDispatch/btCollisionObject.h>
+#include <fcppt/make_unique_ptr.hpp>
 #include <boost/foreach.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/adaptor/filtered.hpp>
 #include <iostream>
 #include <limits>
+#include <LinearMath/btVector3.h>
+#include <LinearMath/btScalar.h>
+#include <BulletCollision/CollisionDispatch/btCollisionObject.h>
+#include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
+#include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
+#include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
+#include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
+#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("world"))
@@ -77,17 +84,23 @@ struct is_collision_manifold
 sge::projectile::world::world()
 :
 	body_collision_(),
-	configuration_(),
+	configuration_(
+		fcppt::make_unique_ptr<btDefaultCollisionConfiguration>()),
 	dispatcher_(
-		&configuration_),
-	broadphase_(),
-	solver_(),
+		fcppt::make_unique_ptr<btCollisionDispatcher>(
+			configuration_.get())),
+	broadphase_(
+		fcppt::make_unique_ptr<btDbvtBroadphase>()),
+	solver_(
+		fcppt::make_unique_ptr<btSequentialImpulseConstraintSolver>()),
 	world_(
-		&dispatcher_,
-		&broadphase_,
-		&solver_,
-		&configuration_),
-	ghost_pair_callback_(),
+		fcppt::make_unique_ptr<btDiscreteDynamicsWorld>(
+			dispatcher_.get(),
+			broadphase_.get(),
+			solver_.get(),
+			configuration_.get())),
+	ghost_pair_callback_(
+		fcppt::make_unique_ptr<ghost::detail::pair_callback>()),
 	next_group_id_(
 		static_cast<group::id>(
 			1))
@@ -96,7 +109,7 @@ sge::projectile::world::world()
 		local_log,
 		fcppt::log::_ << FCPPT_TEXT("constructed world"));
 	// bullet sets some default gravity
-	world_.setGravity(
+	world_->setGravity(
 		btVector3(
 			static_cast<btScalar>(
 				0),
@@ -104,13 +117,13 @@ sge::projectile::world::world()
 				0),
 			static_cast<btScalar>(
 				0)));
-	world_.setInternalTickCallback(
+	world_->setInternalTickCallback(
 		&internal_tick_callback_static,
 		this,
 		// isPreTick
 		false);
-	broadphase_.getOverlappingPairCache()->setInternalGhostPairCallback(
-		&ghost_pair_callback_);
+	broadphase_->getOverlappingPairCache()->setInternalGhostPairCallback(
+		ghost_pair_callback_.get());
 }
 
 void
@@ -127,7 +140,7 @@ sge::projectile::world::update(
 						d).count())/
 				static_cast<btScalar>(
 						1000)));
-	world_.stepSimulation(
+	world_->stepSimulation(
 		static_cast<btScalar>(
 			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
 				d).count())/
@@ -195,9 +208,9 @@ sge::projectile::world::internal_tick_callback(
 	BOOST_FOREACH(
 		btPersistentManifold *current_manifold,
 		boost::make_iterator_range(
-			world_.getDispatcher()->getInternalManifoldPointer(),
-			world_.getDispatcher()->getInternalManifoldPointer() + 
-				world_.getDispatcher()->getNumManifolds()) | 
+			world_->getDispatcher()->getInternalManifoldPointer(),
+			world_->getDispatcher()->getInternalManifoldPointer() + 
+				world_->getDispatcher()->getNumManifolds()) | 
 				boost::adaptors::filtered(
 					is_collision_manifold()))
 	{

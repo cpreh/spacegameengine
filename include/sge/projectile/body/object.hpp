@@ -1,23 +1,24 @@
 #ifndef SGE_PROJECTILE_BODY_OBJECT_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_OBJECT_HPP_INCLUDED
 
-#include <sge/projectile/scalar.hpp>
-#include <sge/projectile/symbol.hpp>
-#include <sge/projectile/body/position_change.hpp>
-#include <sge/projectile/body/user_data.hpp>
-#include <sge/projectile/body/position_change_fn.hpp>
-#include <sge/projectile/body/rotation_change.hpp>
-#include <sge/projectile/shape/shared_base_ptr.hpp>
+#include <sge/projectile/body/detail/motion_state_fwd.hpp>
 #include <sge/projectile/body/parameters_fwd.hpp>
+#include <sge/projectile/body/position_change_fn.hpp>
+#include <sge/projectile/body/position_change.hpp>
+#include <sge/projectile/body/rotation_change.hpp>
+#include <sge/projectile/body/user_data.hpp>
 #include <sge/projectile/group/object_fwd.hpp>
-#include <sge/class_symbol.hpp>
+#include <sge/projectile/scalar.hpp>
+#include <sge/projectile/shape/shared_base_ptr.hpp>
+#include <sge/projectile/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <LinearMath/btMotionState.h>
-#include <BulletDynamics/Dynamics/btRigidBody.h>
-#include <BulletDynamics/Dynamics/btDynamicsWorld.h>
-#include <LinearMath/btTransform.h>
+#include <fcppt/scoped_ptr.hpp>
+
+class btDynamicsWorld;
+class btRigidBody;
+class btTransform;
 
 namespace sge
 {
@@ -25,9 +26,7 @@ namespace projectile
 {
 namespace body
 {
-class SGE_CLASS_SYMBOL object
-:
-	public btMotionState
+class object
 {
 FCPPT_NONCOPYABLE(
 	object);
@@ -81,13 +80,15 @@ public:
 	SGE_PROJECTILE_SYMBOL ~object();
 private:
 	friend class sge::projectile::group::object;
+	friend class sge::projectile::body::detail::motion_state;
 
 	btDynamicsWorld &world_;
-	btTransform transformation_;
+	fcppt::scoped_ptr<btTransform> transformation_;
+	fcppt::scoped_ptr<detail::motion_state> motion_state_;
 	fcppt::signal::object<position_change_fn> position_change_;
 	fcppt::signal::object<rotation_change_fn> rotation_change_;
 	shape::shared_base_ptr shape_;
-	btRigidBody body_;
+	fcppt::scoped_ptr<btRigidBody> body_;
 	sge::projectile::body::user_data user_data_;
 
 	// @override

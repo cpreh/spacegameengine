@@ -1,7 +1,9 @@
 SET(
 	SGE_PROJECTILE_FILES
+	include/sge/projectile/body/angular_velocity.hpp
 	include/sge/projectile/body/collision.hpp
 	include/sge/projectile/body/collision_fn.hpp
+	include/sge/projectile/body/detail/motion_state_fwd.hpp
 	include/sge/projectile/body/linear_velocity.hpp
 	include/sge/projectile/body/mass.hpp
 	include/sge/projectile/body/object.hpp
@@ -21,13 +23,14 @@ SET(
 	include/sge/projectile/body/user_data.hpp
 	include/sge/projectile/debug_drawer.hpp
 	include/sge/projectile/debug_drawer_fwd.hpp
+	include/sge/projectile/detail/debug_drawer_impl_fwd.hpp
 	include/sge/projectile/detail/triangle_set_hash.hpp
 	include/sge/projectile/dim2.hpp
 	include/sge/projectile/ghost/body_enter.hpp
 	include/sge/projectile/ghost/body_enter_fn.hpp
 	include/sge/projectile/ghost/body_exit.hpp
 	include/sge/projectile/ghost/body_exit_fn.hpp
-	include/sge/projectile/ghost/detail/pair_callback.hpp
+	include/sge/projectile/ghost/detail/pair_callback_fwd.hpp
 	include/sge/projectile/ghost/object.hpp
 	include/sge/projectile/ghost/object_fwd.hpp
 	include/sge/projectile/ghost/parameters.hpp
@@ -47,7 +50,6 @@ SET(
 	include/sge/projectile/shape/shared_base_ptr.hpp
 	include/sge/projectile/shape/triangle_mesh.hpp
 	include/sge/projectile/shape/triangle_set.hpp
-	include/sge/projectile/structure_cast.hpp
 	include/sge/projectile/symbol.hpp
 	include/sge/projectile/triangle.hpp
 	include/sge/projectile/triangulation/detail/area.hpp
@@ -58,6 +60,8 @@ SET(
 	include/sge/projectile/vector3.hpp
 	include/sge/projectile/world.hpp
 	include/sge/projectile/world_fwd.hpp
+	src/projectile/body/detail/motion_state.cpp
+	src/projectile/body/detail/motion_state.hpp
 	src/projectile/body/object.cpp
 	src/projectile/body/parameters.cpp
 	src/projectile/body/solidity/extract_mass.cpp
@@ -69,7 +73,10 @@ SET(
 	src/projectile/bullet_to_vector2.hpp
 	src/projectile/debug_drawer.cpp
 	src/projectile/declare_local_logger.hpp
+	src/projectile/detail/debug_drawer_impl.cpp
+	src/projectile/detail/debug_drawer_impl.hpp
 	src/projectile/ghost/detail/pair_callback.cpp
+	src/projectile/ghost/detail/pair_callback.hpp
 	src/projectile/ghost/object.cpp
 	src/projectile/ghost/parameters.cpp
 	src/projectile/group/object.cpp
@@ -80,6 +87,7 @@ SET(
 	src/projectile/shape/base.cpp
 	src/projectile/shape/circle.cpp
 	src/projectile/shape/triangle_mesh.cpp
+	src/projectile/structure_cast.hpp
 	src/projectile/vector2_to_bullet.cpp
 	src/projectile/vector2_to_bullet.hpp
 	src/projectile/world.cpp

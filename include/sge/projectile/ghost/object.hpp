@@ -1,23 +1,25 @@
 #ifndef SGE_PROJECTILE_GHOST_OBJECT_HPP_INCLUDED
 #define SGE_PROJECTILE_GHOST_OBJECT_HPP_INCLUDED
 
-#include <sge/projectile/symbol.hpp>
-#include <sge/projectile/ghost/detail/pair_callback_fwd.hpp>
-#include <sge/projectile/ghost/body_enter.hpp>
-#include <sge/projectile/ghost/body_enter_fn.hpp>
-#include <sge/projectile/ghost/body_exit.hpp>
-#include <sge/projectile/ghost/body_exit_fn.hpp>
-#include <sge/projectile/ghost/user_data.hpp>
 #include <sge/projectile/body/object_fwd.hpp>
-#include <sge/projectile/group/object_fwd.hpp>
+#include <sge/projectile/ghost/body_enter_fn.hpp>
+#include <sge/projectile/ghost/body_enter.hpp>
+#include <sge/projectile/ghost/body_exit_fn.hpp>
+#include <sge/projectile/ghost/body_exit.hpp>
+#include <sge/projectile/ghost/detail/pair_callback_fwd.hpp>
 #include <sge/projectile/ghost/parameters_fwd.hpp>
+#include <sge/projectile/ghost/user_data.hpp>
+#include <sge/projectile/group/object_fwd.hpp>
+#include <sge/projectile/symbol.hpp>
 #include <sge/projectile/vector2.hpp>
-#include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
-#include <BulletCollision/CollisionShapes/btBoxShape.h>
-#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
+
+class btCollisionShape;
+class btCollisionWorld;
+class btPairCachingGhostObject;
 
 namespace sge
 {
@@ -60,8 +62,8 @@ private:
 	fcppt::signal::object<body_enter_fn> body_enter_;
 	fcppt::signal::object<body_exit_fn> body_exit_;
 	btCollisionWorld &world_;
-	btBoxShape box_shape_;
-	btPairCachingGhostObject ghost_object_;
+	fcppt::scoped_ptr<btCollisionShape> box_shape_;
+	fcppt::scoped_ptr<btPairCachingGhostObject> ghost_object_;
 	sge::projectile::ghost::user_data user_data_;
 
 	void

@@ -1,13 +1,17 @@
 #ifndef SGE_PROJECTILE_SHAPE_TRIANGLE_MESH_HPP_INCLUDED
 #define SGE_PROJECTILE_SHAPE_TRIANGLE_MESH_HPP_INCLUDED
 
+#include <sge/projectile/scalar.hpp>
+#include <sge/projectile/symbol.hpp>
 #include <sge/projectile/shape/base.hpp>
 #include <sge/projectile/shape/triangle_set.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/scoped_ptr.hpp>
-#include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
-#include <LinearMath/btScalar.h>
-#include <BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h>
+#include <fcppt/noncopyable.hpp>
+
+class btCollisionShape;
+class btTriangleIndexVertexArray;
+class btBvhTriangleMeshShape;
 
 namespace sge
 {
@@ -19,23 +23,27 @@ class triangle_mesh
 :
 	public base
 {
+FCPPT_NONCOPYABLE(
+	triangle_mesh);
 public:
-	explicit
+	SGE_PROJECTILE_SYMBOL explicit
 	triangle_mesh(
 		triangle_set const &);
 
-	btCollisionShape &
+	SGE_PROJECTILE_SYMBOL btCollisionShape &
 	bullet_shape();
 
-	btCollisionShape const &
+	SGE_PROJECTILE_SYMBOL btCollisionShape const &
 	bullet_shape() const;
+
+	SGE_PROJECTILE_SYMBOL ~triangle_mesh();
 private:
 	typedef
 	fcppt::container::raw_vector<int>
 	index_vector;
 
 	typedef
-	fcppt::container::raw_vector<btScalar>
+	fcppt::container::raw_vector<scalar>
 	scalar_vector;
 
 	scalar_vector scalars_;

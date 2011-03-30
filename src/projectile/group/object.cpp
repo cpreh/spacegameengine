@@ -6,6 +6,8 @@
 #include <fcppt/assert_message.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
+#include <BulletDynamics/Dynamics/btRigidBody.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 
 sge::projectile::group::object::object(
 	world &_world)
@@ -26,9 +28,9 @@ sge::projectile::group::object::add_body(
 	body::object &_body)
 {
 	FCPPT_ASSERT(
-		_body.body_.getBroadphaseProxy());
-	_body.body_.getBroadphaseProxy()->m_collisionFilterGroup |= category_;
-	_body.body_.getBroadphaseProxy()->m_collisionFilterMask |= collides_;
+		_body.body_->getBroadphaseProxy());
+	_body.body_->getBroadphaseProxy()->m_collisionFilterGroup |= category_;
+	_body.body_->getBroadphaseProxy()->m_collisionFilterMask |= collides_;
 	dirty_ = true;
 }
 
@@ -37,9 +39,9 @@ sge::projectile::group::object::add_ghost(
 	ghost::object &_ghost)
 {
 	FCPPT_ASSERT(
-		_ghost.ghost_object_.getBroadphaseHandle());
-	_ghost.ghost_object_.getBroadphaseHandle()->m_collisionFilterGroup |= category_;
-	_ghost.ghost_object_.getBroadphaseHandle()->m_collisionFilterMask |= collides_;
+		_ghost.ghost_object_->getBroadphaseHandle());
+	_ghost.ghost_object_->getBroadphaseHandle()->m_collisionFilterGroup |= category_;
+	_ghost.ghost_object_->getBroadphaseHandle()->m_collisionFilterMask |= collides_;
 	dirty_ = true;
 }
 
