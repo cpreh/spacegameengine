@@ -27,6 +27,9 @@ public:
 	circle(
 		scalar const radius);
 
+	SGE_PROJECTILE_SYMBOL
+	~circle();
+
 	// No symbol needed here
 	btCollisionShape &
 	bullet_shape();

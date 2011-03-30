@@ -2,6 +2,7 @@
 #define SGE_PROJECTILE_TRIANGULATION_DETAIL_SNIP_HPP_INCLUDED
 
 #include <sge/projectile/triangulation/detail/point_inside_triangle.hpp>
+#include <boost/mpl/identity.hpp>
 
 namespace sge
 {
@@ -20,7 +21,10 @@ snip(
 	typename PointContainer::size_type const w,
 	typename PointContainer::size_type const n,
 	IndexContainer const &V,
-	typename PointContainer::value_type::value_type const epsilon)
+	// hack VC++ constructor type bug
+	typename boost::mpl::identity<
+		typename PointContainer::value_type
+	>::type::value_type const epsilon)
 {
 	typedef typename
 	PointContainer::size_type

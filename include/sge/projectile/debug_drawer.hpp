@@ -7,6 +7,7 @@
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
 namespace sge
@@ -19,6 +20,8 @@ namespace projectile
 /// super-slow).
 class debug_drawer
 {
+FCPPT_NONCOPYABLE(
+	debug_drawer);
 public:	
 	SGE_PROJECTILE_SYMBOL explicit
 	debug_drawer(

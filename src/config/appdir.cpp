@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/appdir.hpp>
 #include <sge/config/exception.hpp>
-#include <fcppt/config.hpp>
+#include <fcppt/platform.hpp>
 #include <fcppt/text.hpp>
 #if defined(FCPPT_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
@@ -31,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/filesystem/readlink.hpp>
 #include <fcppt/filesystem/exists.hpp>
+#else
+#error "Implement me!"
 #endif
 
 fcppt::filesystem::path const
@@ -81,8 +83,6 @@ sge::config::appdir()
 			)
 		);
 #else
-	throw config::exception(
-		FCPPT_TEXT("Can't find the application's path!")
-	);
+#error "Implement me!"
 #endif
 }

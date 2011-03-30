@@ -5,6 +5,7 @@
 #include <sge/projectile/triangulation/detail/snip.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/assert.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/range/algorithm_ext/iota.hpp>
 
 namespace sge
@@ -13,11 +14,15 @@ namespace projectile
 {
 namespace triangulation
 {
+
 template<typename ResultContainer,typename ContourContainer>
 ResultContainer const
 triangulate(
 	ContourContainer const &contour,
-	typename ContourContainer::value_type::value_type const epsilon)
+	// hack VC++ constructor type bug
+	typename boost::mpl::identity<
+		typename ContourContainer::value_type
+	>::type::value_type const epsilon)
 {
 	typedef typename
 	ContourContainer::size_type
