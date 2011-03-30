@@ -29,8 +29,8 @@
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("world"))
 
-BOOST_STATIC_ASSERT(
-	boost::is_same<btScalar,float>::value);
+BOOST_STATIC_ASSERT((
+	boost::is_same<btScalar,float>::value));
 
 namespace
 {

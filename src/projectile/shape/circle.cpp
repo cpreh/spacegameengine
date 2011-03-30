@@ -12,10 +12,6 @@ sge::projectile::shape::circle::circle(
 {
 }
 
-sge::projectile::shape::circle::~circle()
-{
-}
-
 btCollisionShape &
 sge::projectile::shape::circle::bullet_shape()
 {

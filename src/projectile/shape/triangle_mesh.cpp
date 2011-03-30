@@ -161,10 +161,6 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 			true));
 }
 
-sge::projectile::shape::triangle_mesh::~triangle_mesh()
-{
-}
-
 btCollisionShape &
 sge::projectile::shape::triangle_mesh::bullet_shape()
 {
