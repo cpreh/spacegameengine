@@ -23,9 +23,14 @@
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("world"))
+
+BOOST_STATIC_ASSERT(
+	boost::is_same<btScalar,float>::value);
 
 namespace
 {
