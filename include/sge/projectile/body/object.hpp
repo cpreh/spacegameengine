@@ -12,6 +12,7 @@
 #include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <sge/projectile/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/scoped_ptr.hpp>
