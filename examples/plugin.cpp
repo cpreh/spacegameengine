@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/info.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
-#include <sge/collision/system.hpp>
 #include <sge/font/system.hpp>
 #include <sge/image2d/loader.hpp>
 #include <sge/input/system.hpp>
@@ -84,10 +83,9 @@ try
 		sge::config::plugin_path()
 	);
 
-	typedef boost::mpl::vector8<
+	typedef boost::mpl::vector7<
 		sge::audio::loader,
 		sge::audio::player,
-		sge::collision::system,
 		sge::font::system,
 		sge::image2d::loader,
 		sge::input::system,

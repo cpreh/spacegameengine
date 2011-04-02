@@ -36,7 +36,6 @@ enum type
 	audio_player,
 	font,
 	audio_loader,
-	collision_system,
 	model_loader,
 	char_conv,
 	size

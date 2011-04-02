@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/player_ptr.hpp>
 #include <sge/charconv/system_ptr.hpp>
-#include <sge/collision/system_ptr.hpp>
 #include <sge/font/system_ptr.hpp>
 #include <sge/input/processor_ptr.hpp>
 #include <sge/input/system_ptr.hpp>
@@ -109,10 +108,6 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	charconv::system_ptr const
 	charconv_system() const;
-
-	SGE_SYSTEMS_SYMBOL
-	collision::system_ptr const
-	collision_system() const;
 
 	SGE_SYSTEMS_SYMBOL
 	font::system_ptr const

@@ -27,9 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_ptr.hpp>
 #include <sge/audio/player_plugin.hpp>
-#include <sge/collision/plugin.hpp>
-#include <sge/collision/system.hpp>
-#include <sge/collision/system_ptr.hpp>
 #include <sge/charconv/plugin.hpp>
 #include <sge/charconv/system.hpp>
 #include <sge/charconv/system_ptr.hpp>
@@ -96,7 +93,6 @@ public:
 	plugin::object<sge::renderer::system>::ptr_type renderer_plugin_;
 	plugin::object<sge::input::system>::ptr_type    input_plugin_;
 	plugin::object<audio::player>::ptr_type         audio_player_plugin_;
-	plugin::object<collision::system>::ptr_type     collision_plugin_;
 	plugin::object<charconv::system>::ptr_type      charconv_plugin_;
 	plugin::object<font::system>::ptr_type          font_plugin_;
 	plugin::object<model::loader>::ptr_type         md3_plugin_;
@@ -139,8 +135,6 @@ public:
 
 	audio::player_ptr                               audio_player_;
 
-	collision::system_ptr                           collision_system_;
-
 	font::system_ptr                                font_system_;
 
 	charconv::system_ptr                            charconv_system_;
@@ -167,9 +161,6 @@ public:
 	init_input(
 		sge::systems::input const &
 	);
-
-	void
-	init_collision_system();
 
 	void
 	init_image(
@@ -372,12 +363,6 @@ sge::systems::instance::charconv_system() const
 	return impl_->charconv_system_;
 }
 
-sge::collision::system_ptr const
-sge::systems::instance::collision_system() const
-{
-	return impl_->collision_system_;
-}
-
 sge::font::system_ptr const
 sge::systems::instance::font_system() const
 {
@@ -490,9 +475,6 @@ visitor::operator()(
 	{
 	case sge::systems::parameterless::charconv:
 		impl_.init_charconv();
-		return;
-	case sge::systems::parameterless::collision_system:
-		impl_.init_collision_system();
 		return;
 	case sge::systems::parameterless::font:
 		impl_.init_font();
@@ -670,14 +652,6 @@ sge::systems::instance::impl::init_input(
 				_param.cursor_options()
 			)
 		);
-}
-
-void
-sge::systems::instance::impl::init_collision_system()
-{
-	collision_plugin_ = default_plugin<sge::collision::system>();
-
-	collision_system_ = collision_plugin_->get()();
 }
 
 void
