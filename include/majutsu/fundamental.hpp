@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/detail/copy_n.hpp>
 #include <majutsu/concepts/static_memory/tag.hpp>
 #include <majutsu/concepts/static_size.hpp>
+#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/integral_size.hpp>
@@ -72,22 +73,22 @@ place(
 	fundamental<
 		Type
 	> const *,
-	Type const &value_,
-	raw_pointer const memory_
+	Type const &_value,
+	raw_pointer const _memory
 )
 {
 	detail::copy_n(
 		reinterpret_cast<
 			const_raw_pointer
 		>(
-			&value_
+			&_value
 		),
 		concepts::static_size<
 			fundamental<
 				Type
 			>
 		>::value,
-		memory_
+		_memory
 	);
 }
 
@@ -100,13 +101,13 @@ make(
 	fundamental<
 		Type
 	> const *,
-	const_raw_pointer const memory_
+	const_raw_pointer const _memory
 )
 {
 	Type ret;
 
 	detail::copy_n(
-		memory_,
+		_memory,
 		concepts::static_size<
 			fundamental<
 				Type

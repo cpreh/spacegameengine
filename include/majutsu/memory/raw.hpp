@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/concepts/dynamic_memory/place.hpp>
 #include <majutsu/concepts/dynamic_memory/make.hpp>
 #include <majutsu/concepts/dynamic_memory/needed_size.hpp>
+#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/is_constant.hpp>
 #include <majutsu/is_role.hpp>
 #include <majutsu/size_type.hpp>
@@ -85,6 +86,7 @@ public:
 	typedef flattened_types types; // TODO
 
 	typedef raw_pointer pointer;
+
 	typedef const_raw_pointer const_pointer;
 
 	raw()
