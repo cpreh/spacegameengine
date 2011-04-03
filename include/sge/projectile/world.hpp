@@ -9,6 +9,7 @@
 #include <sge/projectile/ghost/detail/pair_callback_fwd.hpp>
 #include <sge/projectile/group/id.hpp>
 #include <sge/projectile/group/object_fwd.hpp>
+#include <sge/projectile/group/sequence.hpp>
 #include <sge/projectile/detail/debug_drawer_impl_fwd.hpp>
 #include <sge/projectile/symbol.hpp>
 #include <sge/time/duration.hpp>
@@ -21,6 +22,7 @@ class btCollisionConfiguration;
 class btCollisionDispatcher;
 class btBroadphaseInterface;
 class btConstraintSolver;
+class btDiscreteDynamicsWorld;
 class btDynamicsWorld;
 
 namespace sge
@@ -48,10 +50,26 @@ public:
 	body_collision(
 		body::collision const &);
 
+	SGE_PROJECTILE_SYMBOL void
+	add_body(
+		body::object &,
+		group::sequence const &);
+
+	SGE_PROJECTILE_SYMBOL void
+	remove_body(
+		body::object &);
+
+	SGE_PROJECTILE_SYMBOL void
+	add_ghost(
+		ghost::object &,
+		group::sequence const &);
+
+	SGE_PROJECTILE_SYMBOL void
+	remove_ghost(
+		ghost::object &);
+
 	SGE_PROJECTILE_SYMBOL ~world();
 private:
-	friend class sge::projectile::body::object;
-	friend class sge::projectile::ghost::object;
 	friend class sge::projectile::group::object;
 	friend class sge::projectile::detail::debug_drawer_impl;
 
@@ -60,7 +78,9 @@ private:
 	fcppt::scoped_ptr<btCollisionDispatcher> dispatcher_;
 	fcppt::scoped_ptr<btBroadphaseInterface> broadphase_;
 	fcppt::scoped_ptr<btConstraintSolver> solver_;
-	fcppt::scoped_ptr<btDynamicsWorld> world_;
+	// This is not a btDynamicsWorld because btDynamicsWorld doesn't
+	// have addRigidBody with group and mask parameter.
+	fcppt::scoped_ptr<btDiscreteDynamicsWorld> world_;
 	fcppt::scoped_ptr<ghost::detail::pair_callback> ghost_pair_callback_;
 	group::id next_group_id_;
 

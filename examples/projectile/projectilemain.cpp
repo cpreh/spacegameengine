@@ -1,44 +1,46 @@
 #include <sge/config/media_path.hpp>
-#include <sge/log/global_context.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image/capabilities.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
-#include <sge/sprite/projection_matrix.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/log/global_context.hpp>
 #include <sge/log/global.hpp>
-#include <sge/projectile/body/parameters.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/projectile/dim2.hpp>
-#include <sge/projectile/world.hpp>
-#include <sge/projectile/ghost/object.hpp>
-#include <sge/projectile/ghost/position.hpp>
-#include <sge/projectile/ghost/parameters.hpp>
-#include <sge/projectile/triangulation/triangulate.hpp>
 #include <sge/projectile/body/object.hpp>
-#include <sge/projectile/group/object.hpp>
+#include <sge/projectile/body/parameters.hpp>
+#include <sge/projectile/body/scoped.hpp>
 #include <sge/projectile/debug_drawer.hpp>
+#include <sge/projectile/dim2.hpp>
+#include <sge/projectile/ghost/object.hpp>
+#include <sge/projectile/ghost/scoped.hpp>
+#include <sge/projectile/ghost/parameters.hpp>
+#include <sge/projectile/ghost/position.hpp>
+#include <sge/projectile/group/object.hpp>
+#include <sge/projectile/rect.hpp>
 #include <sge/projectile/scalar.hpp>
 #include <sge/projectile/shape/circle.hpp>
 #include <sge/projectile/shape/triangle_mesh.hpp>
-#include <sge/projectile/rect.hpp>
+#include <sge/projectile/triangulation/triangulate.hpp>
+#include <sge/projectile/world.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/system.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/sprite/center.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/no_color.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/projection_matrix.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/type_choices.hpp>
@@ -48,8 +50,8 @@
 #include <sge/systems/running_to_false.hpp>
 #include <sge/time/default_callback.hpp>
 #include <sge/time/millisecond.hpp>
-#include <sge/time/second.hpp>
 #include <sge/time/second_f.hpp>
+#include <sge/time/second.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/instance.hpp>
@@ -147,7 +149,7 @@ public:
 	explicit
 	sprite_body(
 		sge::projectile::world &_world,
-		sge::projectile::group::object &group,
+		sge::projectile::group::object &_group,
 		sge::projectile::shape::shared_base_ptr const shape,
 		sge::projectile::body::solidity::variant const &solidity,
 		sge::projectile::rect const &r)
@@ -163,7 +165,6 @@ public:
 				.elements()),
 		body_(
 			sge::projectile::body::parameters(
-				_world,
 				sge::projectile::body::position(
 					fcppt::math::vector::structure_cast<sge::projectile::vector2>(
 						fcppt::math::box::center(
@@ -178,10 +179,13 @@ public:
 					static_cast<sge::projectile::scalar>(
 						0)),
 				solidity,
-				fcppt::assign::make_container<sge::projectile::group::sequence>(
-					fcppt::ref(
-						group)),
 				sge::projectile::body::user_data())),
+		body_scope_(
+			_world,
+			body_,
+			fcppt::assign::make_container<sge::projectile::group::sequence>(
+				fcppt::ref(
+					_group))),
 		position_change_connection_(
 			body_.position_change(
 				std::tr1::bind(
@@ -205,6 +209,7 @@ public:
 private:
 	sprite_object sprite_;
 	sge::projectile::body::object body_;
+	sge::projectile::body::scoped body_scope_;
 	fcppt::signal::scoped_connection position_change_connection_;
 
 	void
@@ -331,12 +336,13 @@ public:
 	:
 		ghost_(
 			sge::projectile::ghost::parameters(
-				_world,
 				sge::projectile::ghost::position(
 					_body.position()),
-				_size,
-				_groups,
-				sge::projectile::ghost::user_data())),
+				_size)),
+		ghost_scope_(
+			_world,
+			ghost_,
+			_groups),
 		body_position_change_connection_(
 			_body.position_change(
 				std::tr1::bind(
@@ -359,6 +365,7 @@ public:
 	}
 private:
 	sge::projectile::ghost::object ghost_;
+	sge::projectile::ghost::scoped ghost_scope_;
 	fcppt::signal::scoped_connection
 		body_position_change_connection_,
 		body_enter_connection_,

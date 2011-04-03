@@ -3,6 +3,8 @@
 #include <sge/projectile/world.hpp>
 #include <sge/projectile/group/object.hpp>
 #include <sge/projectile/group/id.hpp>
+#include <sge/projectile/body/object.hpp>
+#include <sge/projectile/ghost/object.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
@@ -23,6 +25,7 @@
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -173,6 +176,68 @@ sge::projectile::world::body_collision(
 	return 
 		body_collision_.connect(
 			f);
+}
+
+void
+sge::projectile::world::add_body(
+	body::object &_body,
+	group::sequence const &_groups)
+{
+	group::id 
+		group = static_cast<group::id>(0),
+		mask = group;
+
+	BOOST_FOREACH(
+		group::sequence::const_reference r,
+		_groups)
+	{
+		group |= r.get().category_;
+		mask |= r.get().collides_;
+	}
+
+	world_->addRigidBody(
+		_body.body_.get(),
+		group,
+		mask);
+}
+
+void
+sge::projectile::world::remove_body(
+	body::object &_body)
+{
+	world_->removeRigidBody(
+		_body.body_.get());
+}
+
+void
+sge::projectile::world::add_ghost(
+	ghost::object &_ghost,
+	group::sequence const &_groups)
+{
+	group::id 
+		group = static_cast<group::id>(0),
+		mask = group;
+
+	BOOST_FOREACH(
+		group::sequence::const_reference r,
+		_groups)
+	{
+		group |= r.get().category_;
+		mask |= r.get().collides_;
+	}
+
+	world_->addCollisionObject(
+		_ghost.ghost_object_.get(),
+		group,
+		mask);
+}
+
+void
+sge::projectile::world::remove_ghost(
+	ghost::object &_ghost)
+{
+	world_->removeCollisionObject(
+		_ghost.ghost_object_.get());
 }
 
 sge::projectile::world::~world()

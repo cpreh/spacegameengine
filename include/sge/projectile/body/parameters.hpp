@@ -9,7 +9,6 @@
 #include <sge/projectile/body/angular_velocity.hpp>
 #include <sge/projectile/body/rotation.hpp>
 #include <sge/projectile/body/linear_velocity.hpp>
-#include <sge/projectile/group/sequence.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -27,18 +26,13 @@ FCPPT_NONASSIGNABLE(
 public:
 	SGE_PROJECTILE_SYMBOL explicit
 	parameters(
-		sge::projectile::world &,
 		sge::projectile::body::position const &,
 		sge::projectile::body::linear_velocity const &,
 		sge::projectile::body::angular_velocity const &,
 		sge::projectile::shape::shared_base_ptr const &,
 		sge::projectile::body::rotation const &,
 		sge::projectile::body::solidity::variant const &,
-		sge::projectile::group::sequence const &,
 		sge::projectile::body::user_data const &);
-
-	SGE_PROJECTILE_SYMBOL sge::projectile::world &
-	world() const;
 
 	SGE_PROJECTILE_SYMBOL sge::projectile::body::position const &
 	position() const;
@@ -58,20 +52,15 @@ public:
 	SGE_PROJECTILE_SYMBOL sge::projectile::body::solidity::variant const &
 	solidity() const;
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::group::sequence const &
-	groups() const;
-
 	SGE_PROJECTILE_SYMBOL sge::projectile::body::user_data const &
 	user_data() const;
 private:
-	sge::projectile::world &world_;
 	sge::projectile::body::position position_;
 	sge::projectile::body::linear_velocity linear_velocity_;
 	sge::projectile::body::angular_velocity angular_velocity_;
 	sge::projectile::shape::shared_base_ptr shape_;
 	sge::projectile::body::rotation rotation_;
 	sge::projectile::body::solidity::variant solidity_;
-	sge::projectile::group::sequence groups_;
 	sge::projectile::body::user_data user_data_;
 };
 }

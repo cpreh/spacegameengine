@@ -4,14 +4,10 @@
 #include "../object_extrusion_depth.hpp"
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/ghost/parameters.hpp>
-#include <sge/projectile/group/object.hpp>
-#include <sge/projectile/world.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
-#include <BulletDynamics/Dynamics/btDynamicsWorld.h>
-#include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
 #include <BulletCollision/CollisionDispatch/btGhostObject.h>
 
@@ -23,8 +19,6 @@ sge::projectile::ghost::object::object(
 :
 	body_enter_(),
 	body_exit_(),
-	world_(
-		*p.world().world_),
 	box_shape_(
 		// The box shape gets _HALF EXTENTS_
 		fcppt::make_unique_ptr<btBoxShape>(
@@ -33,9 +27,7 @@ sge::projectile::ghost::object::object(
 				p.size().get().h()/2,
 				object_extrusion_depth()))),
 	ghost_object_(
-		fcppt::make_unique_ptr<btPairCachingGhostObject>()),
-	user_data_(
-		p.user_data())
+		fcppt::make_unique_ptr<btPairCachingGhostObject>())
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -51,31 +43,6 @@ sge::projectile::ghost::object::object(
 
 	ghost_object_->setCollisionShape(
 		box_shape_.get());
-
-	world_.addCollisionObject(
-		ghost_object_.get());
-
-	FCPPT_LOG_DEBUG(
-		local_log,
-		fcppt::log::_ 
-			<< this
-			<< FCPPT_TEXT(": The ghost object is now in the world"));
-
-	// Set no groups by default!
-	FCPPT_ASSERT(
-		ghost_object_->getBroadphaseHandle());
-	ghost_object_->getBroadphaseHandle()->m_collisionFilterGroup = 
-		static_cast<group::id>(
-			0);
-	ghost_object_->getBroadphaseHandle()->m_collisionFilterMask = 
-		static_cast<group::id>(
-			0);
-
-	BOOST_FOREACH(
-		group::sequence::const_reference r,
-		p.groups())
-		r.get().add_ghost(
-			*this);
 }
 
 sge::projectile::vector2 const
@@ -115,16 +82,8 @@ sge::projectile::ghost::object::body_exit(
 			f);
 }
 
-sge::projectile::ghost::user_data const &
-sge::projectile::ghost::object::user_data() const
-{
-	return user_data_;
-}
-
 sge::projectile::ghost::object::~object()
 {
-	world_.removeCollisionObject(
-		ghost_object_.get());
 }
 
 void

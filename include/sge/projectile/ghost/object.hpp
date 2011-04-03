@@ -1,6 +1,7 @@
 #ifndef SGE_PROJECTILE_GHOST_OBJECT_HPP_INCLUDED
 #define SGE_PROJECTILE_GHOST_OBJECT_HPP_INCLUDED
 
+#include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/body/object_fwd.hpp>
 #include <sge/projectile/ghost/body_enter_fn.hpp>
 #include <sge/projectile/ghost/body_enter.hpp>
@@ -8,7 +9,6 @@
 #include <sge/projectile/ghost/body_exit.hpp>
 #include <sge/projectile/ghost/detail/pair_callback_fwd.hpp>
 #include <sge/projectile/ghost/parameters_fwd.hpp>
-#include <sge/projectile/ghost/user_data.hpp>
 #include <sge/projectile/group/object_fwd.hpp>
 #include <sge/projectile/symbol.hpp>
 #include <sge/projectile/vector2.hpp>
@@ -18,7 +18,6 @@
 #include <fcppt/signal/object.hpp>
 
 class btCollisionShape;
-class btCollisionWorld;
 class btPairCachingGhostObject;
 
 namespace sge
@@ -51,20 +50,15 @@ public:
 	body_exit(
 		sge::projectile::ghost::body_exit const &);
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::ghost::user_data const &
-	user_data() const;
-
 	SGE_PROJECTILE_SYMBOL ~object();
 private:
-	friend class sge::projectile::group::object;
 	friend class detail::pair_callback;
+	friend class sge::projectile::world;
 
 	fcppt::signal::object<body_enter_fn> body_enter_;
 	fcppt::signal::object<body_exit_fn> body_exit_;
-	btCollisionWorld &world_;
 	fcppt::scoped_ptr<btCollisionShape> box_shape_;
 	fcppt::scoped_ptr<btPairCachingGhostObject> ghost_object_;
-	sge::projectile::ghost::user_data user_data_;
 
 	void
 	enter_internal(

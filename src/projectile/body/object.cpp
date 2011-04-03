@@ -5,11 +5,9 @@
 #include "solidity/extract_mass.hpp"
 #include "solidity/is_solid.hpp"
 #include "detail/motion_state.hpp"
-#include <sge/projectile/world.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/shape/base.hpp>
 #include <sge/projectile/body/parameters.hpp>
-#include <sge/projectile/group/object.hpp>
 #include <sge/projectile/vector2.hpp>
 #include <sge/projectile/vector3.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -20,7 +18,6 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <LinearMath/btMatrix3x3.h>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
-#include <BulletDynamics/Dynamics/btDynamicsWorld.h>
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 #include <LinearMath/btTransform.h>
 
@@ -69,8 +66,6 @@ create_rotation_matrix(
 sge::projectile::body::object::object(
 	parameters const &p)
 :
-	world_(
-		*p.world().world_),
 	transformation_(
 		fcppt::make_unique_ptr<btTransform>(
 			create_rotation_matrix(
@@ -123,15 +118,6 @@ sge::projectile::body::object::object(
 	body_->setUserPointer(
 		this);
 
-	world_.addRigidBody(
-		body_.get());
-
-	FCPPT_LOG_DEBUG(
-		local_log,
-		fcppt::log::_ 
-			<< this
-			<< FCPPT_TEXT(": The body is now in the world"));
-
 	if(!solidity::is_solid(p.solidity()))
 	{
 		FCPPT_LOG_DEBUG(
@@ -168,24 +154,6 @@ sge::projectile::body::object::object(
 
 	angular_velocity(
 		p.angular_velocity().get());
-
-	// Set no groups by default!
-	FCPPT_ASSERT(
-		body_->getBroadphaseProxy());
-	body_->getBroadphaseProxy()->m_collisionFilterGroup = 
-		static_cast<group::id>(
-			0);
-	body_->getBroadphaseProxy()->m_collisionFilterMask = 
-		static_cast<group::id>(
-			0);
-
-	BOOST_FOREACH(
-		group::sequence::const_reference r,
-		p.groups())
-	{
-		r.get().add_body(
-			*this);
-	}
 }
 
 sge::projectile::vector2 const 
@@ -347,18 +315,6 @@ sge::projectile::body::object::user_data() const
 
 sge::projectile::body::object::~object()
 {
-	FCPPT_LOG_DEBUG(
-		local_log,
-		fcppt::log::_ 
-			<< this
-			<< FCPPT_TEXT(": Now removing body from world."));
-	world_.removeRigidBody(
-		body_.get());
-	FCPPT_LOG_DEBUG(
-		local_log,
-		fcppt::log::_ 
-			<< this
-			<< FCPPT_TEXT(": Done removing body."));
 }
 
 // @override

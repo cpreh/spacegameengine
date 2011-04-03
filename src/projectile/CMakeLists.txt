@@ -16,6 +16,7 @@ SET(
 	include/sge/projectile/body/rotation.hpp
 	include/sge/projectile/body/rotation_change.hpp
 	include/sge/projectile/body/rotation_change_fn.hpp
+	include/sge/projectile/body/scoped.hpp
 	include/sge/projectile/body/solidity/nonsolid.hpp
 	include/sge/projectile/body/solidity/solid.hpp
 	include/sge/projectile/body/solidity/static.hpp
@@ -36,8 +37,8 @@ SET(
 	include/sge/projectile/ghost/parameters.hpp
 	include/sge/projectile/ghost/parameters_fwd.hpp
 	include/sge/projectile/ghost/position.hpp
+	include/sge/projectile/ghost/scoped.hpp
 	include/sge/projectile/ghost/size.hpp
-	include/sge/projectile/ghost/user_data.hpp
 	include/sge/projectile/group/id.hpp
 	include/sge/projectile/group/object.hpp
 	include/sge/projectile/group/object_fwd.hpp
@@ -64,6 +65,7 @@ SET(
 	src/projectile/body/detail/motion_state.hpp
 	src/projectile/body/object.cpp
 	src/projectile/body/parameters.cpp
+	src/projectile/body/scoped.cpp
 	src/projectile/body/solidity/extract_mass.cpp
 	src/projectile/body/solidity/extract_mass.hpp
 	src/projectile/body/solidity/is_solid.cpp
@@ -79,6 +81,7 @@ SET(
 	src/projectile/ghost/detail/pair_callback.hpp
 	src/projectile/ghost/object.cpp
 	src/projectile/ghost/parameters.cpp
+	src/projectile/ghost/scoped.cpp
 	src/projectile/group/object.cpp
 	src/projectile/logger.cpp
 	src/projectile/logger.hpp

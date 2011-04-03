@@ -9,6 +9,7 @@
 #include <sge/projectile/body/user_data.hpp>
 #include <sge/projectile/group/object_fwd.hpp>
 #include <sge/projectile/scalar.hpp>
+#include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <sge/projectile/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -16,7 +17,6 @@
 #include <fcppt/signal/object.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
-class btDynamicsWorld;
 class btRigidBody;
 class btTransform;
 
@@ -79,10 +79,9 @@ public:
 		
 	SGE_PROJECTILE_SYMBOL ~object();
 private:
-	friend class sge::projectile::group::object;
 	friend class sge::projectile::body::detail::motion_state;
+	friend class sge::projectile::world;
 
-	btDynamicsWorld &world_;
 	fcppt::scoped_ptr<btTransform> transformation_;
 	fcppt::scoped_ptr<detail::motion_state> motion_state_;
 	fcppt::signal::object<position_change_fn> position_change_;
