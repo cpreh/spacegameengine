@@ -27,7 +27,6 @@ update_cmake_file \
 	-r \
 	include/sge/audio \
 	include/sge/charconv \
-	include/sge/collision \
 	include/sge/error \
 	-n \
 	include/sge/font \
@@ -50,7 +49,6 @@ update_cmake_file \
 	-r \
 	src/audio \
 	src/charconv \
-	src/collision \
 	-n \
 	src/font \
 	-r \
@@ -157,8 +155,6 @@ update_cmake_file \
 	src/plugins/opengl/xrandr
 
 update_plugin audio_null
-
-update_plugin bullet
 
 update_plugin devil
 

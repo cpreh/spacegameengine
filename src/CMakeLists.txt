@@ -74,53 +74,6 @@ SET(
 	include/sge/charconv/system_ptr.hpp
 	include/sge/charconv/unsupported_conversion.hpp
 	include/sge/class_symbol.hpp
-	include/sge/collision/body.hpp
-	include/sge/collision/body_fwd.hpp
-	include/sge/collision/body_ptr.hpp
-	include/sge/collision/box.hpp
-	include/sge/collision/callback.hpp
-	include/sge/collision/callback_fn.hpp
-	include/sge/collision/callback_signal.hpp
-	include/sge/collision/collision.hpp
-	include/sge/collision/const_satellite_ptr.hpp
-	include/sge/collision/constraint.hpp
-	include/sge/collision/dim.hpp
-	include/sge/collision/group.hpp
-	include/sge/collision/group_fwd.hpp
-	include/sge/collision/group_overflow.hpp
-	include/sge/collision/group_ptr.hpp
-	include/sge/collision/optional_box.hpp
-	include/sge/collision/plugin.hpp
-	include/sge/collision/point.hpp
-	include/sge/collision/satellite.hpp
-	include/sge/collision/satellite_fwd.hpp
-	include/sge/collision/satellite_ptr.hpp
-	include/sge/collision/shape_ambiguity.hpp
-	include/sge/collision/shape_callback.hpp
-	include/sge/collision/shape_callback_fn.hpp
-	include/sge/collision/shapes/base.hpp
-	include/sge/collision/shapes/base_fwd.hpp
-	include/sge/collision/shapes/base_ptr.hpp
-	include/sge/collision/shapes/box.hpp
-	include/sge/collision/shapes/box_fwd.hpp
-	include/sge/collision/shapes/box_ptr.hpp
-	include/sge/collision/shapes/container.hpp
-	include/sge/collision/shapes/shapes.hpp
-	include/sge/collision/shapes/sphere.hpp
-	include/sge/collision/shapes/sphere_fwd.hpp
-	include/sge/collision/shapes/sphere_ptr.hpp
-	include/sge/collision/solidity.hpp
-	include/sge/collision/system.hpp
-	include/sge/collision/system_fwd.hpp
-	include/sge/collision/system_ptr.hpp
-	include/sge/collision/test_callback.hpp
-	include/sge/collision/test_callback_combiner.hpp
-	include/sge/collision/test_callback_fn.hpp
-	include/sge/collision/time_unit.hpp
-	include/sge/collision/unit.hpp
-	include/sge/collision/world.hpp
-	include/sge/collision/world_fwd.hpp
-	include/sge/collision/world_ptr.hpp
 	include/sge/const_raw_pointer.hpp
 	include/sge/const_raw_range.hpp
 	include/sge/error/check_state.hpp
@@ -952,17 +905,6 @@ SET(
 	src/charconv/plugin.cpp
 	src/charconv/system.cpp
 	src/charconv/unsupported_conversion.cpp
-	src/collision/body.cpp
-	src/collision/group.cpp
-	src/collision/group_overflow.cpp
-	src/collision/plugin.cpp
-	src/collision/satellite.cpp
-	src/collision/shape_ambiguity.cpp
-	src/collision/shapes/base.cpp
-	src/collision/shapes/box.cpp
-	src/collision/shapes/sphere.cpp
-	src/collision/system.cpp
-	src/collision/world.cpp
 	src/exception.cpp
 	src/font/char_metric.cpp
 	src/font/char_not_available.cpp

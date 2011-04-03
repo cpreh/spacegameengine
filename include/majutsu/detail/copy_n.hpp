@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef MAJUTSU_DETAIL_COPY_N_HPP_INCLUDED
 #define MAJUTSU_DETAIL_COPY_N_HPP_INCLUDED
 
+#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/size_type.hpp>
 #include <cstring>
@@ -32,15 +33,15 @@ namespace detail
 
 inline void
 copy_n(
-	const_raw_pointer const src,
-	size_type const sz,
-	raw_pointer const dest
+	const_raw_pointer const _src,
+	size_type const _sz,
+	raw_pointer const _dest
 )
 {
 	std::memcpy(
-		dest,
-		src,
-		sz
+		_dest,
+		_src,
+		_sz
 	);
 }
 

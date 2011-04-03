@@ -27,7 +27,6 @@ namespace majutsu
 {
 
 typedef raw_data *raw_pointer;
-typedef raw_data const *const_raw_pointer;
 
 }
 

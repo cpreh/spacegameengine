@@ -18,22 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_COLLISION_TEST_CALLBACK_HPP_INCLUDED
-#define SGE_COLLISION_TEST_CALLBACK_HPP_INCLUDED
+#ifndef MAJUTSU_CONST_RAW_POINTER_HPP_INCLUDED
+#define MAJUTSU_CONST_RAW_POINTER_HPP_INCLUDED
 
-#include <sge/collision/test_callback_fn.hpp>
-#include <fcppt/function/object_fwd.hpp>
+#include <majutsu/raw_data.hpp>
 
-namespace sge
-{
-namespace collision
+namespace majutsu
 {
 
-typedef fcppt::function::object<
-	test_callback_fn
-> test_callback;
+typedef raw_data const *const_raw_pointer;
 
-}
 }
 
 #endif
