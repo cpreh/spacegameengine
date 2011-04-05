@@ -21,16 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../system.hpp"
 #include "../optional_opcode.hpp"
 #include "../processor.hpp"
+#include "../scoped_locale.hpp"
 #include "../xi_opcode.hpp"
 #include "../xi_version.hpp"
-#include <sge/window/instance.hpp>
 #include <sge/input/exception.hpp>
+#include <sge/log/global.hpp>
+#include <sge/window/instance.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/window/instance_shared_ptr.hpp>
+#include <fcppt/log/info.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
+#include <X11/Xlib.h>
+#include <string>
+#include <clocale>
+#include <cstdlib>
 
 sge::x11input::system::system()
 {
@@ -39,9 +48,6 @@ sge::x11input::system::system()
 sge::x11input::system::~system()
 {
 }
-
-//#include <X11/Xlib.h>
-//#include <clocale>
 
 sge::input::processor_ptr const
 sge::x11input::system::create_processor(
@@ -80,30 +86,60 @@ sge::x11input::system::create_processor(
 			FCPPT_TEXT("X Input extension is not version 2 or later!")
 		);
 
-#if 0
-	::setlocale(
-		LC_ALL,
-		""
-	);
-
 	if(
-		::XSupportsLocale()
-		== False
+		char const *locale_name =
+			std::getenv("LC_ALL")
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("X doesn't support this locale!")
+	{
+		x11input::scoped_locale const temp_locale(
+			locale_name
 		);
 
-	if(
-		::XSetLocaleModifiers(
-			"@im=ibus"
+		if(
+			::XSupportsLocale()
+			== False
 		)
-		== NULL
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XSetLocaleModifiers() failed!")
+			throw sge::input::exception(
+				FCPPT_TEXT("X doesn't support the locale ")
+				+ std::string(
+					locale_name
+				)
+			);
+
+		if(
+			char const *im_modifiers =
+				std::getenv("XMODIFIERS")
+		)
+		{
+			if(
+				::XSetLocaleModifiers(
+					im_modifiers
+				)
+				== NULL
+			)
+				throw sge::input::exception(
+					FCPPT_TEXT("XSetLocaleModifiers() failed!")
+				);
+		}
+		else
+		{
+			FCPPT_LOG_INFO(
+				sge::log::global(),
+				fcppt::log::_
+					<< FCPPT_TEXT("XMODIFIERS is not set.")
+			);
+		}
+	}
+	else
+	{
+		FCPPT_LOG_WARNING(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("LC_ALL is not set.")
+				<< FCPPT_TEXT(" Character conversion of X11 will not work properly!")
 		);
-#endif
+	}
+
 	return
 		fcppt::make_shared_ptr<
 			x11input::processor

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../input_context.hpp"
 #include <sge/input/exception.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 #include <X11/extensions/XInput2.h>
 #include <X11/Xlib.h>
@@ -98,6 +99,8 @@ sge::x11input::keyboard::lookup_string(
 			unsigned
 		>(
 			_event.mods.effective
+			|
+			((_event.group.effective & 0x3) << 13)
 		),
 		static_cast<
 			unsigned
@@ -110,7 +113,10 @@ sge::x11input::keyboard::lookup_string(
 	Status status;
 
 	// first get the size needed
+	// FIXME: why can't we read how many chars will be returned?
 	int const needed_chars(
+		42
+	);/*
 		::do_lookup(
 			_input_context,
 			xev,
@@ -119,7 +125,7 @@ sge::x11input::keyboard::lookup_string(
 			key_sym,
 			status
 		)
-	);
+	);*/
 
 	x11input::keyboard::char_vector buffer(
 		static_cast<
@@ -144,20 +150,32 @@ sge::x11input::keyboard::lookup_string(
 		)
 	);
 
+	buffer.resize_uninitialized(
+		chars_return
+	);
+
+#if 0
 	if(
 		chars_return != needed_chars
 	)
 		throw sge::input::exception(
-			FCPPT_TEXT("XmbLookupString mismatch of lengths!")
+			(
+				fcppt::format(
+					FCPPT_TEXT("XwcLookupString mismatch of lengths!")
+					FCPPT_TEXT(" Expected: %1%, got %2%.")
+				)
+				% needed_chars
+				% chars_return
+			).str()
 		);
-
+#endif
 	switch(
 		status
 	)
 	{
 	case XBufferOverflow:
 		throw sge::input::exception(
-			FCPPT_TEXT("XmbLookupString(): XBufferOverflow!")
+			FCPPT_TEXT("XwcLookupString(): XBufferOverflow!")
 		);
 	case XLookupChars:
 		return
@@ -190,6 +208,6 @@ sge::x11input::keyboard::lookup_string(
 	}
 
 	throw sge::input::exception(
-		FCPPT_TEXT("XmbLookupString(): Unknown return value!")
+		FCPPT_TEXT("XwcLookupString(): Unknown return value!")
 	);
 }

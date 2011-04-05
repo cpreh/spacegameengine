@@ -79,12 +79,16 @@ SET(
 	src/plugins/x11input/optional_opcode.hpp
 	src/plugins/x11input/pixmap.hpp
 	src/plugins/x11input/processor.hpp
+	src/plugins/x11input/scoped_locale.hpp
+	src/plugins/x11input/setlocale.hpp
 	src/plugins/x11input/src/color.cpp
 	src/plugins/x11input/src/exports.cpp
 	src/plugins/x11input/src/input_context.cpp
 	src/plugins/x11input/src/input_method.cpp
 	src/plugins/x11input/src/pixmap.cpp
 	src/plugins/x11input/src/processor.cpp
+	src/plugins/x11input/src/scoped_locale.cpp
+	src/plugins/x11input/src/setlocale.cpp
 	src/plugins/x11input/src/system.cpp
 	src/plugins/x11input/src/xi_opcode.cpp
 	src/plugins/x11input/src/xi_version.cpp
