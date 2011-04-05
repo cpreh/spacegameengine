@@ -24,8 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../translate_key_code.hpp"
 #include "../../input_context.hpp"
 #include <sge/input/exception.hpp>
+#include <sge/log/global.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/format.hpp>
+#include <fcppt/log/error.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <X11/extensions/XInput2.h>
 #include <X11/Xlib.h>
@@ -113,10 +116,7 @@ sge::x11input::keyboard::lookup_string(
 	Status status;
 
 	// first get the size needed
-	// FIXME: why can't we read how many chars will be returned?
 	int const needed_chars(
-		42
-	);/*
 		::do_lookup(
 			_input_context,
 			xev,
@@ -125,7 +125,13 @@ sge::x11input::keyboard::lookup_string(
 			key_sym,
 			status
 		)
-	);*/
+	);
+
+	FCPPT_ASSERT(
+		needed_chars == 0
+		||
+		status == XBufferOverflow
+	);
 
 	x11input::keyboard::char_vector buffer(
 		static_cast<
@@ -150,25 +156,31 @@ sge::x11input::keyboard::lookup_string(
 		)
 	);
 
-	buffer.resize_uninitialized(
-		chars_return
+	FCPPT_ASSERT(
+		chars_return >= 0
 	);
 
-#if 0
+	// less chars might be returned here if the locale doesn't support it
+	buffer.resize_uninitialized(
+		static_cast<
+			x11input::keyboard::char_vector::size_type
+		>(
+			chars_return
+		)
+	);
+
 	if(
 		chars_return != needed_chars
 	)
-		throw sge::input::exception(
-			(
-				fcppt::format(
-					FCPPT_TEXT("XwcLookupString mismatch of lengths!")
-					FCPPT_TEXT(" Expected: %1%, got %2%.")
-				)
-				% needed_chars
-				% chars_return
-			).str()
+	{
+		FCPPT_LOG_ERROR(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("XwcLookupString mismatch of lengths!")
+				FCPPT_TEXT(" This usually happens if your locale is not set.")
 		);
-#endif
+	}
+
 	switch(
 		status
 	)
