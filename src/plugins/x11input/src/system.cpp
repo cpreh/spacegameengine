@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/window/instance_shared_ptr.hpp>
-#include <fcppt/log/info.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -107,28 +106,14 @@ sge::x11input::system::create_processor(
 			);
 
 		if(
-			char const *im_modifiers =
-				std::getenv("XMODIFIERS")
-		)
-		{
-			if(
-				::XSetLocaleModifiers(
-					im_modifiers
-				)
-				== NULL
+			::XSetLocaleModifiers(
+				"" // XMODIFIERS are appended automatically
 			)
-				throw sge::input::exception(
-					FCPPT_TEXT("XSetLocaleModifiers() failed!")
-				);
-		}
-		else
-		{
-			FCPPT_LOG_INFO(
-				sge::log::global(),
-				fcppt::log::_
-					<< FCPPT_TEXT("XMODIFIERS is not set.")
+			== NULL
+		)
+			throw sge::input::exception(
+				FCPPT_TEXT("XSetLocaleModifiers() failed!")
 			);
-		}
 	}
 	else
 	{
