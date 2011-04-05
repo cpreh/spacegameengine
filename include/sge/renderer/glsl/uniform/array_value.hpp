@@ -44,28 +44,28 @@ template<
 >
 void
 array_value(
-	variable_ptr const var,
-	In const beg,
-	In const end
+	variable_ptr const _var,
+	In const _beg,
+	In const _end
 )
 {
 	typedef typename std::iterator_traits<
 		In
-	>::value_type value_type;
+	>::value_type it_value_type;
 
-	typedef typename make_basic_value<
-		typename value_type::value_type
-	>::type value;
+	typedef typename uniform::make_basic_value<
+		typename it_value_type::value_type
+	>::type value_type;
 
-	typedef typename value::data_type data_type;
+	typedef typename value_type::data_type data_type;
 
 	data_type buffer;
 
 	size_type count = 0;
 
 	for(
-		In it(beg);
-		it != end;
+		In it(_beg);
+		it != _end;
 		++it, ++count
 	)
 		buffer.insert(
@@ -74,12 +74,12 @@ array_value(
 			it->end()
 		);
 
-	var->set(
-		value(
+	_var->set(
+		value_type(
 			buffer,
 			count,
-			make_element_type<
-				value_type
+			uniform::make_element_type<
+				it_value_type
 			>::value
 		)
 	);
@@ -90,14 +90,14 @@ template<
 >
 void
 array_value(
-	variable_ptr const var,
-	Container const &cont
+	variable_ptr const _var,
+	Container const &_cont
 )
 {
-	array_value(
-		var,
-		cont.begin(),
-		cont.end()
+	uniform::array_value(
+		_var,
+		_cont.begin(),
+		_cont.end()
 	);
 }
 
