@@ -4,6 +4,7 @@
 #include <sge/projectile/symbol.hpp>
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/body/object_fwd.hpp>
+#include <sge/projectile/body/scoped_fwd.hpp>
 #include <sge/projectile/group/sequence.hpp>
 #include <fcppt/noncopyable.hpp>
 

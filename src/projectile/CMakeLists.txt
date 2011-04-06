@@ -17,6 +17,7 @@ SET(
 	include/sge/projectile/body/rotation_change.hpp
 	include/sge/projectile/body/rotation_change_fn.hpp
 	include/sge/projectile/body/scoped.hpp
+	include/sge/projectile/body/scoped_fwd.hpp
 	include/sge/projectile/body/solidity/nonsolid.hpp
 	include/sge/projectile/body/solidity/solid.hpp
 	include/sge/projectile/body/solidity/static.hpp
@@ -38,6 +39,7 @@ SET(
 	include/sge/projectile/ghost/parameters_fwd.hpp
 	include/sge/projectile/ghost/position.hpp
 	include/sge/projectile/ghost/scoped.hpp
+	include/sge/projectile/ghost/scoped_fwd.hpp
 	include/sge/projectile/ghost/size.hpp
 	include/sge/projectile/group/id.hpp
 	include/sge/projectile/group/object.hpp
