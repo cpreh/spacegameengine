@@ -43,6 +43,9 @@ sge::projectile::ghost::object::object(
 
 	ghost_object_->setCollisionShape(
 		box_shape_.get());
+
+	position(
+		p.position().get());
 }
 
 sge::projectile::vector2 const

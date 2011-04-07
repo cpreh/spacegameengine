@@ -284,6 +284,9 @@ sge::projectile::world::internal_tick_callback(
 				boost::adaptors::filtered(
 					is_collision_manifold()))
 	{
+		FCPPT_LOG_VERBOSE(
+			local_log,
+			fcppt::log::_ << FCPPT_TEXT("There has been a collision between two bodies"));
 		body_collision_(
 			void_ptr_to_body(
 				current_manifold->getBody0()),

@@ -43,9 +43,15 @@ inertia_for_shape(
 	// FIXME: Rather test if the solidity actually implies a mass, then
 	// do an if() on that.
 	if(mass > static_cast<btScalar>(0.000001))
+	{
+		FCPPT_LOG_DEBUG(
+			local_log,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("solid body with mass ") << mass << FCPPT_TEXT(" so calculating inertia"));
 		shape.calculateLocalInertia(
 			mass,
 			inertia);
+	}
 
 	return inertia;
 }
