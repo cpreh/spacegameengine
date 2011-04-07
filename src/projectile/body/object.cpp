@@ -192,7 +192,7 @@ sge::projectile::body::object::position(
 	body_->setCenterOfMassTransform(
 		*transformation_);
 	//body_->setInterpolationWorldTransform(
-	//	transformation_);
+	//	*transformation_);
 	// We have to re-activate a maybe-sleeping body
 	body_->setActivationState(
 		ACTIVE_TAG);
@@ -348,14 +348,17 @@ sge::projectile::body::object::setWorldTransform(
 			<< this
 			<< FCPPT_TEXT(": New position ")
 			<<
-				this->position());
+				this->position()
+			<< FCPPT_TEXT(", rotation ")
+			<<
+				this->rotation());
 	FCPPT_LOG_VERBOSE(
 		local_log,
 		fcppt::log::_ 
 			<< this
-			<< FCPPT_TEXT(": New rotation ")
+			<< FCPPT_TEXT(": New linear velocity ")
 			<<
-				this->rotation());
+				this->linear_velocity());
 	position_change_(
 		sge::projectile::body::position(
 			this->position()));

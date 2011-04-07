@@ -33,10 +33,14 @@ sge::projectile::ghost::object::object(
 		local_log,
 		fcppt::log::_ 
 			<< this
-			<< FCPPT_TEXT(": Created a new body, position ")
+			<< FCPPT_TEXT(": Created a new ghost, position ")
 			<< p.position().get()
 			<< FCPPT_TEXT(", size ")
 			<< p.size().get());
+
+	ghost_object_->setCollisionFlags(
+		ghost_object_->getCollisionFlags() | 
+		btCollisionObject::CF_NO_CONTACT_RESPONSE);
 
 	ghost_object_->setUserPointer(
 		this);
