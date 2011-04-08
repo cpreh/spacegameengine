@@ -18,47 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_BUFFER_HPP_INCLUDED
-#define SGE_OPENAL_BUFFER_HPP_INCLUDED
+#include "../buffer_holder.hpp"
+#include "../check_state.hpp"
+#include "../log.hpp"
+#include "../openal.hpp"
+#include <sge/audio/exception.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/text.hpp>
 
-#include "buffer_holder.hpp"
-#include <sge/audio/buffer.hpp>
-#include <sge/audio/file_ptr.hpp>
-#include <sge/audio/sound/positional_ptr.hpp>
-#include <sge/audio/sound/positional_parameters_fwd.hpp>
-#include <sge/audio/sound/base_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+sge::openal::buffer_holder::buffer_holder()
+{
 
-namespace sge
-{
-namespace openal
-{
-class buffer
-:
-	public audio::buffer
-{
-	FCPPT_NONCOPYABLE(
-		buffer
+	::alGenBuffers(
+		static_cast<
+			ALsizei
+		>(
+			1
+		),
+		&buffer_
 	);
-public:
-	explicit
-	buffer(
-		audio::file_ptr
-	);
+
+	SGE_OPENAL_CHECK_STATE(
+		FCPPT_TEXT("alGenBuffers failed"),
+		audio::exception
+	)
+}
 	
-	audio::sound::positional_ptr const
-	create_positional(
-		audio::sound::positional_parameters const &
+sge::openal::buffer_holder::~buffer_holder()
+{
+	FCPPT_LOG_DEBUG(
+		openal::log(),
+		fcppt::log::_
+			<< FCPPT_TEXT("Deleting a buffer")
 	);
 
-	audio::sound::base_ptr const
-	create_nonpositional();
 
-	~buffer();
-private:
-	buffer_holder const holder_;
-};
-}
+	::alDeleteBuffers(
+		static_cast<
+			ALsizei
+		>(
+			1
+		),
+		&buffer_
+	);
+
+	SGE_OPENAL_CHECK_STATE(
+		FCPPT_TEXT("alDeleteBuffers failed"),
+		audio::exception
+	)
 }
 
-#endif
+ALuint
+sge::openal::buffer_holder::get() const
+{
+	return buffer_;
+}

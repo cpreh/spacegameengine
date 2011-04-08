@@ -25,12 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "openal.hpp"
 #include <sge/error/check_state.hpp>
 
-#define SGE_OPENAL_CHECK_STATE(message, exception)\
+#define SGE_OPENAL_CHECK_STATE(\
+	message,\
+	exception\
+)\
 SGE_ERROR_CHECK_STATE(\
 	exception,\
 	message,\
 	ALenum,\
-	alGetError(),\
+	::alGetError(),\
 	AL_NO_ERROR,\
 	sge::openal::error_string\
 )

@@ -18,46 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_BUFFER_HPP_INCLUDED
-#define SGE_OPENAL_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
+#define SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
 
-#include "buffer_holder.hpp"
-#include <sge/audio/buffer.hpp>
-#include <sge/audio/file_ptr.hpp>
-#include <sge/audio/sound/positional_ptr.hpp>
-#include <sge/audio/sound/positional_parameters_fwd.hpp>
-#include <sge/audio/sound/base_ptr.hpp>
+#include "openal.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace openal
 {
-class buffer
-:
-	public audio::buffer
+
+class buffer_holder
 {
 	FCPPT_NONCOPYABLE(
-		buffer
+		buffer_holder
 	);
 public:
-	explicit
-	buffer(
-		audio::file_ptr
-	);
-	
-	audio::sound::positional_ptr const
-	create_positional(
-		audio::sound::positional_parameters const &
-	);
+	buffer_holder();
 
-	audio::sound::base_ptr const
-	create_nonpositional();
+	~buffer_holder();
 
-	~buffer();
+	ALuint
+	get() const;
 private:
-	buffer_holder const holder_;
+	ALuint buffer_;
 };
+
 }
 }
 

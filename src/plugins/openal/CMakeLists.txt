@@ -2,6 +2,7 @@ SET(
 	SGE_OPENAL_FILES
 	src/plugins/openal/alc_error_string.hpp
 	src/plugins/openal/buffer.hpp
+	src/plugins/openal/buffer_holder.hpp
 	src/plugins/openal/buffer_wrapper.hpp
 	src/plugins/openal/check_alc_state.hpp
 	src/plugins/openal/check_state.hpp
@@ -18,6 +19,7 @@ SET(
 	src/plugins/openal/source_wrapper.hpp
 	src/plugins/openal/src/alc_error_string.cpp
 	src/plugins/openal/src/buffer.cpp
+	src/plugins/openal/src/buffer_holder.cpp
 	src/plugins/openal/src/buffer_wrapper.cpp
 	src/plugins/openal/src/context.cpp
 	src/plugins/openal/src/device.cpp
