@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../device.hpp"
+#include "../fake_core_event.hpp"
 #include "../key_code_to_key_sym.hpp"
 #include "../looked_up_string.hpp"
 #include "../lookup_string.hpp"
@@ -156,18 +157,10 @@ sge::x11input::keyboard::device::on_key_press(
 	x11input::device::window_event const &_event
 )
 {
-#if 0
-	awl::backends::x11::window::event::filter(
-		awl::backends::x11::window::event::object(
-			to_any_event(
-				keyboard::translate_event(
-					_event.get()
-				)
-			)
-		),
-		window_
+	keyboard::fake_core_event(
+		window_,
+		_event
 	);
-#endif
 
 	sge::x11input::keyboard::looked_up_string const lookup(
 		x11input::keyboard::lookup_string(
@@ -220,18 +213,10 @@ sge::x11input::keyboard::device::on_key_release(
 	x11input::device::window_event const &_event
 )
 {
-#if 0
-	awl::backends::x11::window::event::filter(
-		awl::backends::x11::window::event::object(
-			to_any_event(
-				keyboard::translate_event(
-					_event.get()
-				)
-			)
-		),
-		window_
+	keyboard::fake_core_event(
+		window_,
+		_event
 	);
-#endif
 
 	sge::input::keyboard::key_code::type const key_code(
 		x11input::keyboard::translate_key_code(

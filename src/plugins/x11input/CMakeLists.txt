@@ -58,16 +58,20 @@ SET(
 	src/plugins/x11input/keyboard/device.hpp
 	src/plugins/x11input/keyboard/device_fwd.hpp
 	src/plugins/x11input/keyboard/device_ptr.hpp
+	src/plugins/x11input/keyboard/fake_core_event.hpp
 	src/plugins/x11input/keyboard/key_code_to_key_sym.hpp
 	src/plugins/x11input/keyboard/looked_up_string.hpp
 	src/plugins/x11input/keyboard/looked_up_string_fwd.hpp
 	src/plugins/x11input/keyboard/lookup_string.hpp
 	src/plugins/x11input/keyboard/src/device.cpp
+	src/plugins/x11input/keyboard/src/fake_core_event.cpp
 	src/plugins/x11input/keyboard/src/key_code_to_key_sym.cpp
 	src/plugins/x11input/keyboard/src/looked_up_string.cpp
 	src/plugins/x11input/keyboard/src/lookup_string.cpp
+	src/plugins/x11input/keyboard/src/to_base_event.cpp
 	src/plugins/x11input/keyboard/src/translate_event.cpp
 	src/plugins/x11input/keyboard/src/translate_key_code.cpp
+	src/plugins/x11input/keyboard/to_base_event.hpp
 	src/plugins/x11input/keyboard/translate_event.hpp
 	src/plugins/x11input/keyboard/translate_key_code.hpp
 	src/plugins/x11input/mouse/axis.hpp
