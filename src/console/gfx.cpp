@@ -124,6 +124,15 @@ sge::console::gfx::gfx(
 			)
 		)
 	),
+	key_repeat_connection_(
+		keyboard_.key_repeat_callback(
+			std::tr1::bind(
+				&gfx::key_action,
+				this,
+				std::tr1::placeholders::_1
+			)
+		)
+	),
 	char_connection_(
 		_keyboard.char_callback(
 			std::tr1::bind(
