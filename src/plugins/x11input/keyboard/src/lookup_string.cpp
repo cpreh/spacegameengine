@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../lookup_string.hpp"
 #include "../char_vector.hpp"
 #include "../looked_up_string.hpp"
+#include "../translate_event.hpp"
 #include "../translate_key_code.hpp"
 #include "../../input_context.hpp"
 #include <sge/input/exception.hpp>
@@ -67,51 +68,15 @@ sge::x11input::keyboard::lookup_string(
 {
 	KeySym key_sym;
 
-	// HACK HACK
-	XKeyPressedEvent xev =
-	{
-		KeyPress,
-		_event.serial,
-		_event.send_event,
-		_event.display,
-		_event.event,
-		_event.root,
-		_event.child,
-		_event.time,
-		static_cast<
-			int
-		>(
-			_event.event_x
-		),
-		static_cast<
-			int
-		>(
-			_event.event_y
-		),
-		static_cast<
-			int
-		>(
-			_event.root_x
-		),
-		static_cast<
-			int
-		>(
-			_event.root_y
-		),
-		static_cast<
-			unsigned
-		>(
-			_event.mods.effective
-			|
-			((_event.group.effective & 0x3) << 13)
-		),
-		static_cast<
-			unsigned
-		>(
-			_event.detail
-		),
-		True // same_screen?
-	};
+	XKeyPressedEvent xev(
+		keyboard::translate_event(
+			_event
+		)
+	);
+
+	FCPPT_ASSERT(
+		xev.type == KeyPress
+	);
 
 	Status status;
 

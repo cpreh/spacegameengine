@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <boost/foreach.hpp>
-#include <cassert>
 #include <X11/extensions/XInput2.h>
 
 sge::x11input::keyboard::device::device(
@@ -157,6 +156,19 @@ sge::x11input::keyboard::device::on_key_press(
 	x11input::device::window_event const &_event
 )
 {
+#if 0
+	awl::backends::x11::window::event::filter(
+		awl::backends::x11::window::event::object(
+			to_any_event(
+				keyboard::translate_event(
+					_event.get()
+				)
+			)
+		),
+		window_
+	);
+#endif
+
 	sge::x11input::keyboard::looked_up_string const lookup(
 		x11input::keyboard::lookup_string(
 			input_context_,
@@ -208,6 +220,19 @@ sge::x11input::keyboard::device::on_key_release(
 	x11input::device::window_event const &_event
 )
 {
+#if 0
+	awl::backends::x11::window::event::filter(
+		awl::backends::x11::window::event::object(
+			to_any_event(
+				keyboard::translate_event(
+					_event.get()
+				)
+			)
+		),
+		window_
+	);
+#endif
+
 	sge::input::keyboard::key_code::type const key_code(
 		x11input::keyboard::translate_key_code(
 			x11input::keyboard::key_code_to_key_sym(
