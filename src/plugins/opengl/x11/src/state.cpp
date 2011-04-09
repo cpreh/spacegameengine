@@ -53,7 +53,7 @@ sge::opengl::x11::state::state(
 			fcppt::ref(
 				display_
 			),
-			*window_.visual().info()
+			window_.visual().info()
 		)
 	),
 	current_(
