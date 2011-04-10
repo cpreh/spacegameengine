@@ -31,6 +31,7 @@ SET(
 	include/sge/sprite/defaults/rotation.hpp
 	include/sge/sprite/defaults/size.hpp
 	include/sge/sprite/defaults/texture.hpp
+	include/sge/sprite/defaults/texture_coordinates.hpp
 	include/sge/sprite/defaults/use_center.hpp
 	include/sge/sprite/defaults/visible.hpp
 	include/sge/sprite/depth_type.hpp

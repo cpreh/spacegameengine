@@ -320,6 +320,25 @@ template<
 	typename Choices
 >
 sge::sprite::parameters<Choices> &
+sge::sprite::parameters<Choices>::texture_coordinates(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::texture_coordinates
+	>::type const &_texture_coordinates
+)
+{
+	return
+		this->set<
+			roles::texture_coordinates
+		>(
+			_texture_coordinates
+		);
+}
+
+template<
+	typename Choices
+>
+sge::sprite::parameters<Choices> &
 sge::sprite::parameters<Choices>::order(
 	typename majutsu::role_return_type<
 		flattened_types,

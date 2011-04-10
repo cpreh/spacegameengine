@@ -18,35 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_PRIMITIVES_COORDINATES_HPP_INCLUDED
-#define SGE_SPRITE_PRIMITIVES_COORDINATES_HPP_INCLUDED
+#ifndef SGE_SPRITE_DEFAULTS_TEXTURE_COORDINATES_HPP_INCLUDED
+#define SGE_SPRITE_DEFAULTS_TEXTURE_COORDINATES_HPP_INCLUDED
 
-#include <sge/sprite/primitives/vector.hpp>
-#include <fcppt/homogenous_pair.hpp>
-#include <majutsu/simple.hpp>
+#include <sge/sprite/defaults/fwd.hpp>
+#include <sge/sprite/roles/texture_coordinates.hpp>
+#include <sge/sprite/texture_coordinates.hpp>
 
 namespace sge
 {
 namespace sprite
 {
-namespace primitives
-{
 
 template<
-	typename Type
+	typename Choices
 >
-struct coordinates
+struct defaults<
+	Choices,
+	roles::texture_coordinates
+>
 {
-	typedef majutsu::simple<
-		fcppt::homogenous_pair<
-			typename primitives::vector<
-				Type
-			>::type::type
-		>
-	> type;
+	typedef typename sprite::texture_coordinates<
+		typename Choices::type_choices::float_type
+	>::type type;
+
+	static type
+	get()
+	{
+		return
+			type(
+				type::first_type(
+					0,
+					0
+				),
+				type::second_type(
+					1,
+					1
+				)
+			);
+	}
 };
 
-}
 }
 }
 

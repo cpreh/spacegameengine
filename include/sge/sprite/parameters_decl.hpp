@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/rotate_around.hpp>
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/texture.hpp>
+#include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/roles/visible.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <majutsu/role_return_type.hpp>
@@ -171,6 +172,14 @@ public:
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::repetition
+		>::type const &
+	);
+
+	parameters &
+	texture_coordinates(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::texture_coordinates
 		>::type const &
 	);
 
