@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_GET_HPP_INCLUDED
-#define SGE_PARSE_JSON_GET_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_GET_UNSIGNED_HPP_INCLUDED
+#define SGE_PARSE_JSON_GET_UNSIGNED_HPP_INCLUDED
 
-#include <sge/parse/json/detail/get_return_type.hpp>
+#include <sge/parse/json/get.hpp>
 #include <sge/parse/json/invalid_get.hpp>
-#include <fcppt/type_name.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <fcppt/text.hpp>
-#include <boost/variant/get.hpp>
+#include <fcppt/type_name.hpp>
+#include <boost/type_traits/is_unsigned.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <typeinfo>
-#include <exception>
 
 namespace sge
 {
@@ -40,39 +41,46 @@ template<
 	typename T,
 	typename Arg
 >
-typename detail::get_return_type<
-	T,
-	Arg
+typename boost::enable_if<
+	boost::is_unsigned<
+		T
+	>,
+	T
 >::type
-get(
+get_unsigned(
 	Arg &_val
 )
 {
-	try
-	{
-		return
-			boost::get<
-				T
-			>(
-				_val
-			);
-	}
-	catch(
-		std::exception const &
+	int const result(
+		json::get<
+			int
+		>(
+			_val
+		)
+	);
+
+	if(
+		result < 0
 	)
-	{
 		throw json::invalid_get(
-			FCPPT_TEXT("json::get<")
+			FCPPT_TEXT("json::get_unsigned<")
 			+ fcppt::type_name(
 				typeid(T)
 			)
-			+ FCPPT_TEXT("> failed! Type is \"")
-			+ fcppt::type_name(
-				_val.type()
+			+ FCPPT_TEXT("> failed! Value is negative: ")
+			+ fcppt::lexical_cast<
+				fcppt::string
+			>(
+				result
 			)
-			+ FCPPT_TEXT("\" instead!")
 		);
-	}
+	
+	return
+		static_cast<
+			T
+		>(
+			result
+		);
 }
 
 }
