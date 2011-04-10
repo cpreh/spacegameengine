@@ -45,11 +45,18 @@ struct defaults<
 	static type
 	get()
 	{
-		return
+		typename type::value_type const elem(
 			static_cast<
-				type
+				typename type::value_type
 			>(
 				1
+			)
+		);
+
+		return
+			type(
+				elem,
+				elem
 			);
 	}
 };
