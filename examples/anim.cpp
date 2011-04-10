@@ -128,7 +128,7 @@ try
 		768
 	);
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(
 			sge::systems::window(
@@ -257,7 +257,10 @@ try
 			)
 		)
 		.repetition(
-			2
+			sprite_object::repetition_type(
+				2,
+				2
+			)
 		)
 		.elements()
 	);

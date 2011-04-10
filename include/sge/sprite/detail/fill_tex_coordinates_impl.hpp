@@ -105,7 +105,9 @@ fill_tex_coordinates_impl(
 	>(
 		_iterator,
 		detail::convert_texture_rect(
-			texture::area_texc(
+			texture::area_texc<
+				typename Choices::type_choices::float_type
+			>(
 				_sprite.texture(),
 				_sprite.repetition()
 			)

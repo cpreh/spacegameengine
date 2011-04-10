@@ -207,7 +207,10 @@ try
 			&system
 		)
 		.repetition(
-			2.f
+			sprite_object::repetition_type(
+				2.f,
+				2.f
+			)
 		)
 		.elements()
 	);

@@ -474,7 +474,10 @@ try
 			)
 		)
 		.repetition(
-			100u
+			sprite_object::repetition_type(
+				100u,
+				100u
+			)
 		)
 		.texture(
 			sge::texture::const_part_ptr()

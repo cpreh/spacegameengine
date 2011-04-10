@@ -23,10 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/rect.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/comparison.hpp>
+#include <fcppt/math/vector/dim.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/compare.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/export_symbol.hpp>
@@ -48,13 +53,23 @@ typename boost::enable_if<
 >::type const
 sge::texture::area_texc(
 	texture::const_part_ptr const _part,
-	T const _repeat
+	typename fcppt::math::vector::static_<
+		T,
+		2
+	>::type const &_repeat
 )
 {
+	typedef typename fcppt::math::vector::static_<
+		T,
+		2
+	>::type vector_type;
+
 	if(
-		!fcppt::math::compare(
-			_repeat,
-			static_cast<T>(1)
+		_repeat
+		!=
+		vector_type(
+			1.f,
+			1.f
 		)
 		&& !_part->repeatable()
 	)
@@ -80,7 +95,11 @@ sge::texture::area_texc(
 	);
 
 	ret.size(
-		ret.size() * _repeat
+		fcppt::math::vector::structure_cast<
+			typename ret_type::dim
+		>(
+			_repeat * ret.size()
+		)
 	);
 
 	return ret;
@@ -103,7 +122,10 @@ sge::texture::area_texc<\
 	ftype\
 >( \
 	sge::texture::const_part_ptr,\
-	ftype\
+	fcppt::math::vector::static_<\
+		ftype,\
+		2\
+	>::type const &\
 )
 
 SGE_TEXTURE_INSTANTIATE_AREA_TEXC(

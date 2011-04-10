@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_WITH_REPETITION_HPP_INCLUDED
 #define SGE_SPRITE_WITH_REPETITION_HPP_INCLUDED
 
-#include <sge/sprite/primitives/float.hpp>
+#include <sge/sprite/primitives/vector.hpp>
 #include <sge/sprite/roles/repetition.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
@@ -42,7 +42,7 @@ struct with_repetition
 		typedef majutsu::composite<
 			boost::mpl::vector1<
 				majutsu::role<
-					typename primitives::float_<
+					typename primitives::vector<
 						typename Choices::type_choices::float_type
 					>::type,
 					roles::repetition

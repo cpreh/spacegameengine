@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -46,7 +47,10 @@ typename boost::enable_if<
 >::type const
 area_texc(
 	texture::const_part_ptr,
-	T repeat
+	typename fcppt::math::vector::static_<
+		T,
+		2
+	>::type const &repeat
 );
 
 }
