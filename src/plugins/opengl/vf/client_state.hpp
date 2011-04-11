@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
 
 #include "../common.hpp"
-#include <fcppt/container/linear_set.hpp>
+#include <fcppt/tr1/unordered_set.hpp>
 
 namespace sge
 {
@@ -34,11 +34,11 @@ namespace vf
 class client_state
 {
 public:
-	typedef fcppt::container::linear_set<
+	typedef std::tr1::unordered_set<
 		GLenum
 	> normal_state_set;
 
-	typedef fcppt::container::linear_set<
+	typedef std::tr1::unordered_set<
 		GLuint
 	> index_state_set;
 

@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../context.hpp"
 #include "../../context/make_id.hpp"
-#include <fcppt/container/linear_set_impl.hpp>
 
 sge::opengl::vf::context::context()
 :

@@ -24,12 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../enable_vertex_attrib_array.hpp"
 #include "../disable_vertex_attrib_array.hpp"
 #include "../../context/use.hpp"
-#include <fcppt/container/linear_set_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/ref.hpp>
 #include <boost/foreach.hpp>
-#include <functional>
 #include <algorithm>
+#include <functional>
 
 namespace
 {
