@@ -37,7 +37,7 @@ template<
 >
 Dest const
 subelements(
-	Src const &src
+	Src const &_src
 )
 {
 	Dest ret;
@@ -46,7 +46,7 @@ subelements(
 		typename boost::mpl::remove_if<
 			typename Src::memory_type::types,
 			boost::mpl::not_<
-				is_role<
+				majutsu::is_role<
 					boost::mpl::_1
 				>
 			>
@@ -57,7 +57,7 @@ subelements(
 			Src
 		>(
 			ret,
-			src
+			_src
 		)
 	);
 

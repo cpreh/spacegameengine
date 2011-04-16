@@ -34,7 +34,8 @@ template<
 	typename Base,
 	typename Binders
 >
-struct bind {
+struct bind
+{
 	typedef typename boost::mpl::transform<
 		typename Base::type,
 		typename Binders::type,

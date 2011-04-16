@@ -33,7 +33,8 @@ template<
 	typename Types,
 	typename Role
 >
-struct extract_constant {
+struct extract_constant
+{
 private:
 	typedef typename flatten<
 		Types

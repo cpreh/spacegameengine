@@ -27,7 +27,8 @@ namespace majutsu
 template<
 	typename T
 >
-struct simple {
+struct simple
+{
 	typedef T type;
 };
 

@@ -36,8 +36,8 @@ template<
 >
 void
 place(
-	typename Element::type const &value_,
-	raw_pointer const place_
+	typename Element::type const &_value,
+	raw_pointer const _place
 )
 {
 	place(
@@ -47,8 +47,8 @@ place(
 		static_cast<
 			Element const *
 		>(0),
-		value_,
-		place_
+		_value,
+		_place
 	);
 }
 

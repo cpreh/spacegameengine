@@ -40,13 +40,21 @@ class store
 {
 public:
 	typedef T value_type;
+
 	typedef Alloc allocator_type;
+
 	typedef typename allocator_type::size_type size_type;
+
 	typedef typename allocator_type::reference reference;
+
 	typedef typename allocator_type::const_reference const_reference;
+
 	typedef typename allocator_type::pointer pointer;
+
 	typedef typename allocator_type::const_pointer const_pointer;
+
 	typedef pointer iterator;
+
 	typedef const_pointer const_iterator;
 
 	explicit store(
@@ -116,10 +124,12 @@ public:
 		)
 			return *this;
 
-		deallocate();
+		this->deallocate();
 
 		data_ = alloc_.allocate(_other.size());
+
 		data_end_ = data_ + _other.size();
+
 		cap_ = data_end_;
 
 		std::copy(
@@ -133,7 +143,7 @@ public:
 
 	~store()
 	{
-		deallocate();
+		this->deallocate();
 	}
 
 	size_type
@@ -185,22 +195,26 @@ public:
 		return data_end_;
 	}
 
-	iterator begin()
+	iterator
+	begin()
 	{
 		return data();
 	}
 
-	const_iterator begin() const
+	const_iterator
+	begin() const
 	{
 		return data();
 	}
 
-	iterator end()
+	iterator
+	end()
 	{
 		return data_end();
 	}
 
-	const_iterator end() const
+	const_iterator
+	end() const
 	{
 		return data_end();
 	}

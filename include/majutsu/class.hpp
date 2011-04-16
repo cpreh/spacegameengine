@@ -44,7 +44,8 @@ template<
 		typename
 	> class Memory
 >
-struct class_ {
+struct class_
+{
 	typedef Type types;
 
 	typedef Memory<
@@ -57,11 +58,11 @@ struct class_ {
 	{}
 
 	class_(
-		class_ const &other_
+		class_ const &_other
 	)
 	:
 		memory_(
-			other_.memory_
+			_other.memory_
 		)
 	{}
 
@@ -69,7 +70,7 @@ struct class_ {
 		typename Argument
 	>
 	explicit class_(
-		Argument const &argument_,
+		Argument const &_argument,
 		typename boost::disable_if<
 			boost::fusion::traits::is_sequence<
 				Argument	
@@ -80,7 +81,7 @@ struct class_ {
 	:
 		memory_(
 			boost::fusion::make_vector(
-				argument_
+				_argument
 			)
 		)
 	{
@@ -138,7 +139,7 @@ BOOST_PP_REPEAT_FROM_TO(
 		typename Vector
 	>
 	explicit class_(
-		Vector const &initializers_,
+		Vector const &_initializers,
 		typename boost::enable_if<
 			boost::fusion::traits::is_sequence<
 				Vector
@@ -148,7 +149,7 @@ BOOST_PP_REPEAT_FROM_TO(
 	)
 	:
 		memory_(
-			initializers_
+			_initializers
 		)
 	{
 		BOOST_STATIC_ASSERT(
@@ -167,13 +168,13 @@ BOOST_PP_REPEAT_FROM_TO(
 	>
 	void
 	set(
-		T const &t
+		T const &_value
 	)
 	{
 		memory_.set<
 			Role
 		>(
-			t
+			_value
 		);
 	}
 
@@ -186,9 +187,10 @@ BOOST_PP_REPEAT_FROM_TO(
 	>::type
 	get() const
 	{
-		return memory_.get<
-			Role
-		>();
+		return
+			memory_.get<
+				Role
+			>();
 	}
 
 	memory_type &

@@ -27,7 +27,8 @@ namespace majutsu
 template<
 	typename Types
 >
-struct composite {
+struct composite
+{
 	typedef Types type;
 };
 

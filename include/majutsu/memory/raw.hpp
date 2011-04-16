@@ -94,20 +94,20 @@ public:
 		store_(),
 		sizes_()
 	{
-		init();
+		this->init();
 	}
 
 	template<
 		typename Arguments
 	>
 	raw(
-		Arguments const &arguments_
+		Arguments const &_arguments
 	)
 	:
 		store_(),
 		sizes_()
 	{
-		init();
+		this->init();
 
 		typedef typename boost::mpl::remove_if<
 			typename majutsu::detail::make_iterators<
@@ -124,11 +124,11 @@ public:
 
 		boost::fusion::for_each(
 			boost::fusion::zip(
-				arguments_,
+				_arguments,
 				types_to_init()
 			),
 			detail::init_raw_memory<
-				raw<
+				memory::raw<
 					Type
 				>
 			>(
@@ -145,7 +145,7 @@ public:
 		typename majutsu::role_return_type<
 			flattened_types,
 			Role
-		>::type const &value_
+		>::type const &_value
 	)
 	{
 		set_internal<
@@ -154,7 +154,7 @@ public:
 				Role
 			>::type
 		>(
-			value_
+			_value
 		);
 	}
 
@@ -249,7 +249,7 @@ public:
 	>
 	void
 	set_internal(
-		Value const &value_
+		Value const &_value
 	)
 	{
 		typedef typename boost::mpl::deref<
@@ -271,7 +271,7 @@ public:
 			concepts::dynamic_memory::needed_size<
 				element
 			>(
-				value_
+				_value
 			)
 		);
 
@@ -310,7 +310,7 @@ public:
 		concepts::dynamic_memory::place<
 			element
 		>(
-			value_,
+			_value,
 			store_.begin() + offset
 		);
 

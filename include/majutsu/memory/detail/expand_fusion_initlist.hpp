@@ -39,18 +39,19 @@ template<
 >
 Tuple const
 expand_fusion_initlist(
-	Arguments const &arguments_
+	Arguments const &_arguments
 )
 {
-	return boost::fusion::transform(
-		Types(),
-		init_fusion_element<
-			Types,
-			Arguments
-		>(
-			arguments_
-		)
-	);
+	return
+		boost::fusion::transform(
+			Types(),
+			init_fusion_element<
+				Types,
+				Arguments
+			>(
+				_arguments
+			)
+		);
 }
 
 }

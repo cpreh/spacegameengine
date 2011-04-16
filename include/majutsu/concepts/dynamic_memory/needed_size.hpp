@@ -36,7 +36,7 @@ template<
 >
 size_type
 needed_size(
-	typename Element::type const &value_
+	typename Element::type const &_value
 )
 {
 	return
@@ -47,7 +47,7 @@ needed_size(
 			static_cast<
 				Element const *
 			>(0),
-			value_
+			_value
 		);
 }
 

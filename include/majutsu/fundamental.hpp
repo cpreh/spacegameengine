@@ -37,7 +37,8 @@ namespace majutsu
 template<
 	typename T
 >
-struct fundamental {
+struct fundamental
+{
 	typedef T type;
 
 	BOOST_STATIC_ASSERT(

@@ -46,10 +46,10 @@ struct unwrap_role<
 		T,
 		Alias
 	>
-> {
+>
+{
 	typedef Alias type;
 };
-		
 
 }
 }
