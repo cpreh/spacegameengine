@@ -480,7 +480,6 @@ SET(
 	include/sge/renderer/dim3.hpp
 	include/sge/renderer/display_mode.hpp
 	include/sge/renderer/display_mode_fwd.hpp
-	include/sge/renderer/dynamic_vector.hpp
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/first_index.hpp
 	include/sge/renderer/first_vertex.hpp
