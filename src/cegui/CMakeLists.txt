@@ -32,6 +32,7 @@ SET(
 	include/sge/cegui/syringe_fwd.hpp
 	include/sge/cegui/system.hpp
 	include/sge/cegui/system_fwd.hpp
+	include/sge/cegui/to_cegui_color.hpp
 	include/sge/cegui/to_cegui_string.hpp
 	include/sge/cegui/toolbox/append_row.hpp
 	include/sge/cegui/toolbox/row.hpp
@@ -70,6 +71,7 @@ SET(
 	src/cegui/logger.cpp
 	src/cegui/syringe.cpp
 	src/cegui/system.cpp
+	src/cegui/to_cegui_color.cpp
 	src/cegui/to_cegui_string.cpp
 	src/cegui/toolbox/append_row.cpp
 	src/cegui/toolbox/scoped_gui_sheet.cpp
