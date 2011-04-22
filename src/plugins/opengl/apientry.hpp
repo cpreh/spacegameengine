@@ -18,28 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_AREA_FUNCTION_HPP_INCLUDED
-#define SGE_OPENGL_AREA_FUNCTION_HPP_INCLUDED
+#ifndef SGE_OPENGL_APIENTRY_HPP_INCLUDED
+#define SGE_OPENGL_APIENTRY_HPP_INCLUDED
 
-#include "common.hpp"
-#include "apientry.hpp"
-
-namespace sge
-{
-namespace opengl
-{
-
-typedef
-void
-(SGE_OPENGL_APIENTRY *area_function)
-(
-	GLint,
-	GLint,
-	GLsizei,
-	GLsizei
-);
-
-}
-}
+// this is what GLEW does but sadly it hides it in the header file and later #undefs it
+#  if defined(__MINGW32__) || defined(__CYGWIN__)
+#    define SGE_OPENGL_APIENTRY __stdcall
+#  elif (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED) || defined(__BORLANDC__)
+#    define SGE_OPENGL_APIENTRY __stdcall
+#  else
+#    define SGE_OPENGL_APIENTRY
+#  endif
 
 #endif

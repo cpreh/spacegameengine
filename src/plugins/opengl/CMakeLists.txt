@@ -1,5 +1,6 @@
 SET(
 	SGE_OPENGL_FILES
+	src/plugins/opengl/apientry.hpp
 	src/plugins/opengl/apply_states.hpp
 	src/plugins/opengl/area_function.hpp
 	src/plugins/opengl/basic_target.hpp
