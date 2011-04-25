@@ -18,26 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/projectile/ghost/scoped.hpp>
+#ifndef SGE_PROJECTILE_PROJECTILE_HPP_INCLUDED
+#define SGE_PROJECTILE_PROJECTILE_HPP_INCLUDED
+
+#include <sge/projectile/body/body.hpp>
+#include <sge/projectile/debug_drawer.hpp>
+#include <sge/projectile/debug_drawer_fwd.hpp>
+#include <sge/projectile/dim2.hpp>
+#include <sge/projectile/ghost/ghost.hpp>
+#include <sge/projectile/group/group.hpp>
+#include <sge/projectile/rect.hpp>
+#include <sge/projectile/scalar.hpp>
+#include <sge/projectile/shape/shape.hpp>
+#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/triangle.hpp>
+#include <sge/projectile/triangulation/triangulation.hpp>
+#include <sge/projectile/vector2.hpp>
+#include <sge/projectile/vector3.hpp>
 #include <sge/projectile/world.hpp>
+#include <sge/projectile/world_fwd.hpp>
 
-sge::projectile::ghost::scoped::scoped(
-	world &_world,
-	object &_object,
-	group::sequence const &_groups)
-:
-	world_(
-		_world),
-	object_(
-		_object)
-{
-	world_.add_ghost(
-		object_,
-		_groups);
-}
-
-sge::projectile::ghost::scoped::~scoped()
-{
-	world_.remove_ghost(
-		object_);
-}
+#endif

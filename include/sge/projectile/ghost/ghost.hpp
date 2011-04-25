@@ -18,26 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_PROJECTILE_GHOST_GHOST_HPP_INCLUDED
+#define SGE_PROJECTILE_GHOST_GHOST_HPP_INCLUDED
+
+#include <sge/projectile/ghost/body_enter.hpp>
+#include <sge/projectile/ghost/body_enter_fn.hpp>
+#include <sge/projectile/ghost/body_exit.hpp>
+#include <sge/projectile/ghost/body_exit_fn.hpp>
+#include <sge/projectile/ghost/object.hpp>
+#include <sge/projectile/ghost/object_fwd.hpp>
+#include <sge/projectile/ghost/parameters.hpp>
+#include <sge/projectile/ghost/parameters_fwd.hpp>
+#include <sge/projectile/ghost/position.hpp>
 #include <sge/projectile/ghost/scoped.hpp>
-#include <sge/projectile/world.hpp>
+#include <sge/projectile/ghost/scoped_fwd.hpp>
+#include <sge/projectile/ghost/size.hpp>
 
-sge::projectile::ghost::scoped::scoped(
-	world &_world,
-	object &_object,
-	group::sequence const &_groups)
-:
-	world_(
-		_world),
-	object_(
-		_object)
-{
-	world_.add_ghost(
-		object_,
-		_groups);
-}
-
-sge::projectile::ghost::scoped::~scoped()
-{
-	world_.remove_ghost(
-		object_);
-}
+#endif

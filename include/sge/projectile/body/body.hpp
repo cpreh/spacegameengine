@@ -18,40 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_BODY_SCOPED_HPP_INCLUDED
-#define SGE_PROJECTILE_BODY_SCOPED_HPP_INCLUDED
+#ifndef SGE_PROJECTILE_BODY_BODY_HPP_INCLUDED
+#define SGE_PROJECTILE_BODY_BODY_HPP_INCLUDED
 
-#include <sge/projectile/symbol.hpp>
-#include <sge/projectile/world_fwd.hpp>
+#include <sge/projectile/body/angular_velocity.hpp>
+#include <sge/projectile/body/collision.hpp>
+#include <sge/projectile/body/collision_fn.hpp>
+#include <sge/projectile/body/linear_velocity.hpp>
+#include <sge/projectile/body/mass.hpp>
+#include <sge/projectile/body/object.hpp>
 #include <sge/projectile/body/object_fwd.hpp>
+#include <sge/projectile/body/parameters.hpp>
+#include <sge/projectile/body/parameters_fwd.hpp>
+#include <sge/projectile/body/position.hpp>
+#include <sge/projectile/body/position_change.hpp>
+#include <sge/projectile/body/position_change_fn.hpp>
+#include <sge/projectile/body/rotation.hpp>
+#include <sge/projectile/body/rotation_change.hpp>
+#include <sge/projectile/body/rotation_change_fn.hpp>
+#include <sge/projectile/body/scoped.hpp>
 #include <sge/projectile/body/scoped_fwd.hpp>
-#include <sge/projectile/group/sequence.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
-{
-namespace projectile
-{
-namespace body
-{
-class scoped
-{
-FCPPT_NONCOPYABLE(
-	scoped);
-public:
-	SGE_PROJECTILE_SYMBOL explicit
-	scoped(
-		world &,
-		object &,
-		group::sequence const &);
-
-	SGE_PROJECTILE_SYMBOL ~scoped();
-private:
-	world &world_;
-	object &object_;
-};
-}
-}
-}
+#include <sge/projectile/body/solidity/solidity.hpp>
+#include <sge/projectile/body/user_data.hpp>
 
 #endif
