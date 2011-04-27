@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/ghost/object.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/duration_output.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/assert.hpp>
@@ -158,22 +159,22 @@ void
 sge::projectile::world::update(
 	sge::time::duration const &d)
 {
+	typedef fcppt::chrono::duration<
+		btScalar
+	> bullet_duration;
+
+	bullet_duration const step(
+		fcppt::chrono::duration_cast<bullet_duration>(
+			d));
+
 	FCPPT_LOG_VERBOSE(
 		local_log,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("Doing a simulation step with delta ")
-			<< 
-				(static_cast<btScalar>(
-					fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
-						d).count())/
-				static_cast<btScalar>(
-						1000)));
+			<< step);
+
 	world_->stepSimulation(
-		static_cast<btScalar>(
-			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
-				d).count())/
-		static_cast<btScalar>(
-				1000),
+		step.count(),
 		// numer of simulation substeps
 		3);
 }
