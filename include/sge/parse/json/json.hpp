@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_unsigned.hpp>
 #include <sge/parse/json/grammar.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/invalid_get.hpp>
