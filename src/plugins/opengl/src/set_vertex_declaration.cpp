@@ -22,12 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_context.hpp"
 #include "../vertex_declaration.hpp"
 #include "../context/use.hpp"
-#include <fcppt/dynamic_pointer_cast.hpp>
 
 void
 sge::opengl::set_vertex_declaration(
 	opengl::context::object &_context,
-	renderer::const_vertex_declaration_ptr const _declaration
+	renderer::vertex_declaration const *const _declaration
 )
 {
 	opengl::context::use<
@@ -35,8 +34,8 @@ sge::opengl::set_vertex_declaration(
 	>(
 		_context
 	).vertex_declaration(
-		fcppt::dynamic_pointer_cast<
-			opengl::vertex_declaration const
+		dynamic_cast<
+			opengl::vertex_declaration const *
 		>(
 			_declaration
 		)

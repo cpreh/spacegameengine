@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_NO_PROGRAM_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_NO_PROGRAM_HPP_INCLUDED
 
-#include <sge/renderer/glsl/const_program_ptr.hpp>
+#include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -32,7 +32,7 @@ namespace glsl
 {
 
 SGE_SYMBOL
-renderer::glsl::const_program_ptr const
+renderer::glsl::program const *
 no_program();
 
 }

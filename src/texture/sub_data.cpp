@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::texture::sub_data(
-	renderer::texture::planar_ptr const _texture,
+	renderer::texture::planar &_texture,
 	image2d::view::const_object const &_view,
 	texture::pos_type const &_pos
 )

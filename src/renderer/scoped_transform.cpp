@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/basic_impl.hpp>
 
 sge::renderer::scoped_transform::scoped_transform(
-	renderer::device_ptr const _device,
+	renderer::device &_device,
 	renderer::matrix_mode::type const _mode,
 	renderer::matrix4 const &_new_matrix
 )
@@ -31,12 +31,12 @@ sge::renderer::scoped_transform::scoped_transform(
 	device_(_device),
 	mode_(_mode),
 	old_matrix_(
-		_device->transform(
+		_device.transform(
 			_mode
 		)
 	)
 {
-	device_->transform(
+	device_.transform(
 		_mode,
 		_new_matrix
 	);
@@ -44,7 +44,7 @@ sge::renderer::scoped_transform::scoped_transform(
 
 sge::renderer::scoped_transform::~scoped_transform()
 {
-	device_->transform(
+	device_.transform(
 		mode_,
 		old_matrix_
 	);

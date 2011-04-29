@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/index_buffer.hpp>
 #include <sge/sprite/detail/indices_per_sprite.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -43,7 +42,7 @@ template<
 >
 void
 allocate_index_buffer(
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	sge::renderer::size_type const _num_sprites,
 	Buffers &_buffers
 )
@@ -51,7 +50,7 @@ allocate_index_buffer(
 	_buffers. template set<
 		detail::roles::index_buffer
 	>(
-		_renderer->create_index_buffer(
+		_renderer.create_index_buffer(
 			renderer::index::dynamic::format::i16,
 			_num_sprites
 			*

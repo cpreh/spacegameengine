@@ -41,7 +41,7 @@ typename sge::charconv::string_type<
 	DestEncoding
 >::type
 sge::charconv::convert(
-	sge::charconv::system_ptr const _system,
+	sge::charconv::system &_system,
 	typename charconv::string_type<
 		SourceEncoding
 	>::type const &_source
@@ -61,7 +61,7 @@ sge::charconv::convert(
 		return dest_type();
 
 	sge::charconv::converter_ptr const converter(
-		_system->create_converter(
+		_system.create_converter(
 			charconv::source_encoding(
 				SourceEncoding
 			),
@@ -187,7 +187,7 @@ sge::charconv::convert<\
 	BOOST_PP_SEQ_ELEM(0, param),\
 	BOOST_PP_SEQ_ELEM(1, param)\
 >( \
-	sge::charconv::system_ptr, \
+	sge::charconv::system &, \
 	sge::charconv::string_type< \
 		BOOST_PP_SEQ_ELEM(1, param) \
 	>::type const & \

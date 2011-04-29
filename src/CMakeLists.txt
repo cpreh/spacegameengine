@@ -455,16 +455,10 @@ SET(
 	include/sge/renderer/color_surface_fwd.hpp
 	include/sge/renderer/color_surface_ptr.hpp
 	include/sge/renderer/const_basic_scoped_buffer_lock.hpp
-	include/sge/renderer/const_color_surface_ptr.hpp
-	include/sge/renderer/const_index_buffer_ptr.hpp
 	include/sge/renderer/const_raw_pointer.hpp
 	include/sge/renderer/const_scoped_color_surface_lock.hpp
 	include/sge/renderer/const_scoped_index_lock.hpp
 	include/sge/renderer/const_scoped_vertex_lock.hpp
-	include/sge/renderer/const_target_ptr.hpp
-	include/sge/renderer/const_vertex_buffer_ptr.hpp
-	include/sge/renderer/const_vertex_declaration_ptr.hpp
-	include/sge/renderer/create_device_with_window.hpp
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
 	include/sge/renderer/default_target.hpp
@@ -484,7 +478,6 @@ SET(
 	include/sge/renderer/first_index.hpp
 	include/sge/renderer/first_vertex.hpp
 	include/sge/renderer/glsl/char.hpp
-	include/sge/renderer/glsl/const_program_ptr.hpp
 	include/sge/renderer/glsl/create_program_from_streams.hpp
 	include/sge/renderer/glsl/create_program_from_strings.hpp
 	include/sge/renderer/glsl/exception.hpp
@@ -608,7 +601,6 @@ SET(
 	include/sge/renderer/npos.hpp
 	include/sge/renderer/onscreen_target.hpp
 	include/sge/renderer/onscreen_target_fwd.hpp
-	include/sge/renderer/onscreen_target_ptr.hpp
 	include/sge/renderer/optional_dim2.hpp
 	include/sge/renderer/parameters.hpp
 	include/sge/renderer/parameters_fwd.hpp
@@ -700,9 +692,7 @@ SET(
 	include/sge/renderer/texture/basic_scoped_lock.hpp
 	include/sge/renderer/texture/capabilities.hpp
 	include/sge/renderer/texture/capabilities_field.hpp
-	include/sge/renderer/texture/const_base_ptr.hpp
 	include/sge/renderer/texture/const_basic_scoped_lock.hpp
-	include/sge/renderer/texture/const_planar_ptr.hpp
 	include/sge/renderer/texture/const_scoped_planar_lock.hpp
 	include/sge/renderer/texture/const_scoped_volume_lock.hpp
 	include/sge/renderer/texture/const_volume_ptr.hpp
@@ -1059,7 +1049,6 @@ SET(
 	src/renderer/const_scoped_color_surface_lock.cpp
 	src/renderer/const_scoped_index_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
-	src/renderer/create_device_with_window.cpp
 	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp
 	src/renderer/default_target.cpp

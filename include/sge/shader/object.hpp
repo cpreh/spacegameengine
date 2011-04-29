@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/texture_variant.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <boost/unordered_map.hpp>
@@ -46,7 +47,7 @@ public:
 	// files. There could be stream support, too. It's just laziness
 	SGE_SHADER_SYMBOL explicit
 	object(
-		renderer::device_ptr,
+		renderer::device &,
 		fcppt::filesystem::path const &vertex,
 		fcppt::filesystem::path const &fragment,
 		renderer::glsl::string const &format_declaration,
@@ -63,7 +64,7 @@ public:
 		renderer::glsl::string const &name,
 		texture_variant const &);
 
-	SGE_SHADER_SYMBOL renderer::glsl::program_ptr const
+	SGE_SHADER_SYMBOL renderer::glsl::program &
 	program();
 
 	// This is called by the scoped class, but you may call it manually, too
@@ -86,7 +87,7 @@ private:
 	>
 	uniform_map;
 
-	renderer::device_ptr renderer_;
+	renderer::device &renderer_;
 	renderer::glsl::program_ptr program_;
 	uniform_map uniforms_;
 	sampler_sequence samplers_;

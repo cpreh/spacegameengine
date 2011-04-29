@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/part_fwd.hpp>
 #include <sge/font/text/string.hpp>
 #include <sge/font/text/symbol.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/metrics_fwd.hpp>
 #include <sge/font/dim.hpp>
 
 namespace sge
@@ -38,7 +38,7 @@ namespace text
 SGE_FONT_TEXT_SYMBOL
 font::text::part const
 size(
-	metrics_ptr,
+	metrics &,
 	text::string::const_iterator beg,
 	text::string::const_iterator end,
 	dim const &max_size,
@@ -48,7 +48,7 @@ size(
 SGE_FONT_TEXT_SYMBOL
 font::text::part const
 size(
-	metrics_ptr,
+	metrics &,
 	text::string const &,
 	dim const &max_size,
 	flags_field const &

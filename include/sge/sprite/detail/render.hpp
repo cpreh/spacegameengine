@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/render_inner.hpp>
 #include <sge/sprite/detail/set_texture_pre.hpp>
 #include <sge/sprite/detail/set_texture.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <iterator>
 
@@ -44,7 +45,7 @@ render(
 	In const _beg,
 	In const _end,
 	Comp const _comp,
-	renderer::device_ptr const _rend,
+	renderer::device &_rend,
 	Buffers const &_buffers
 )
 {

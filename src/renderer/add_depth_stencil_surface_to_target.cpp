@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::renderer::add_depth_stencil_surface_to_target(
-	renderer::device_ptr const _device,
-	renderer::target_ptr const _target,
+	renderer::device &_device,
+	renderer::target &_target,
 	renderer::depth_stencil_format::type const _format
 )
 {
 	renderer::optional_dim2 const dim(
-		_target->size()
+		_target.size()
 	);
 
 	if(
@@ -46,8 +46,8 @@ sge::renderer::add_depth_stencil_surface_to_target(
 			FCPPT_TEXT("you should add a color_surface first!")
 		);
 	
-	_target->depth_stencil_surface(
-		_device->create_depth_stencil_surface(
+	_target.depth_stencil_surface(
+		_device.create_depth_stencil_surface(
 			*dim,
 			_format
 		)

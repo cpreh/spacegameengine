@@ -27,16 +27,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 
 sge::input::cursor::relative_movement::relative_movement(
-	cursor::object_ptr const _cursor
+	cursor::object &_cursor
 )
 :
 	cursor_(_cursor),
 	last_position_(
-		cursor_->position()
+		cursor_.position()
 	),
 	relative_move_signal_(),
 	connection_(
-		cursor_->move_callback(
+		cursor_.move_callback(
 			std::tr1::bind(
 				&cursor::relative_movement::move_callback_internal,
 				this,

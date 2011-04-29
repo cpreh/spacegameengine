@@ -33,7 +33,7 @@ namespace renderer
 {
 
 template<
-	typename Ptr,
+	typename Buffer,
 	typename View
 >
 class basic_scoped_buffer_lock
@@ -43,7 +43,7 @@ class basic_scoped_buffer_lock
 	);
 public:
 	SGE_SYMBOL basic_scoped_buffer_lock(
-		Ptr,
+		Buffer &,
 		lock_mode::type,
 		size_type first = 0,
 		size_type count = renderer::npos()
@@ -54,7 +54,7 @@ public:
 
 	SGE_SYMBOL ~basic_scoped_buffer_lock();
 private:
-	Ptr const ptr_;
+	Buffer &buffer_;
 
 	View const view_;
 };

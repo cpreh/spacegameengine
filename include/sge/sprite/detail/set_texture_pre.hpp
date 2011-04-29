@@ -46,7 +46,7 @@ typename boost::enable_if<
 	void
 >::type
 set_texture_pre(
-	sge::renderer::device_ptr const
+	sge::renderer::device &
 )
 {
 }
@@ -62,10 +62,10 @@ typename boost::disable_if<
 	void
 >::type
 set_texture_pre(
-	sge::renderer::device_ptr const _rend
+	sge::renderer::device &_rend
 )
 {
-	_rend->texture(
+	_rend.texture(
 		renderer::no_texture(),
 		sge::renderer::stage_type(0)
 	);

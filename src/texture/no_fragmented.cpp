@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 
 sge::texture::no_fragmented::no_fragmented(
-	renderer::device_ptr const _rend,
+	renderer::device &_rend,
 	image::color::format::type const _format,
 	renderer::texture::filter::object const &_filter,
 	renderer::texture::address_mode2 const &_address_mode
@@ -76,7 +76,7 @@ sge::texture::no_fragmented::consume_fragment(
 	);
 
 	tex_ =
-		rend_->create_planar_texture(
+		rend_.create_planar_texture(
 			renderer::texture::planar_parameters(	
 				real_dim,
 				format_,
@@ -132,10 +132,16 @@ sge::texture::no_fragmented::on_return_fragment(
 	tex_.reset();
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar &
+sge::texture::no_fragmented::texture()
+{
+	return *tex_;
+}
+
+sge::renderer::texture::planar const &
 sge::texture::no_fragmented::texture() const
 {
-	return tex_;
+	return *tex_;
 }
 
 bool

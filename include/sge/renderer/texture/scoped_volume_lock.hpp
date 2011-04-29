@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_SCOPED_VOLUME_LOCK_HPP_INCLUDED
 
 #include <sge/renderer/texture/basic_scoped_lock.hpp>
-#include <sge/renderer/texture/volume_ptr.hpp>
+#include <sge/renderer/texture/volume_fwd.hpp>
 #include <sge/renderer/lock_box.hpp>
 #include <sge/image3d/view/object.hpp>
 #include <sge/symbol.hpp>
@@ -36,7 +36,7 @@ namespace texture
 {
 
 typedef texture::basic_scoped_lock<
-	texture::volume_ptr,
+	texture::volume,
 	renderer::lock_box,
 	image3d::view::object
 > scoped_volume_lock;

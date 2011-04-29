@@ -29,14 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::texture::planar_ptr const
 sge::texture::atlasing::create(
-	renderer::device_ptr const _rend,
+	renderer::device &_rend,
 	image::color::format::type const _format,
 	renderer::texture::filter::object const &_filter,
 	renderer::dim2 const &_dim
 )
 {
 	return
-		_rend->create_planar_texture(
+		_rend.create_planar_texture(
 			renderer::texture::planar_parameters(
 				_dim,
 				_format,

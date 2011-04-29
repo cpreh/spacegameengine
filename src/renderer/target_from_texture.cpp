@@ -36,13 +36,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::target_ptr const
 sge::renderer::target_from_texture(
-	renderer::device_ptr const _device,
-	renderer::texture::planar_ptr const _texture
+	renderer::device &_device,
+	renderer::texture::planar &_texture
 )
 {
 	if(
 		!(
-			_texture->capabilities()
+			_texture.capabilities()
 			&
 			sge::renderer::texture::capabilities::render_target
 		)
@@ -53,11 +53,11 @@ sge::renderer::target_from_texture(
 		);
 
 	sge::renderer::target_ptr const target(
-		_device->create_target()
+		_device.create_target()
 	);
 
 	target->color_surface(
-		_texture->surface(
+		_texture.surface(
 			renderer::stage_type(
 				0u
 			)
@@ -74,7 +74,7 @@ sge::renderer::target_from_texture(
 				fcppt::math::dim::structure_cast<
 					renderer::pixel_rect::dim
 				>(
-					_texture->size()
+					_texture.size()
 				)
 			)
 		)

@@ -518,19 +518,19 @@ try
 	body_keyboard_mover keyboard_mover(
 		world,
 		first_sprite.body(),
-		*sys.keyboard_collector());
+		sys.keyboard_collector());
 
 	bool running = 
 		true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
 					running))));
 
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color = sge::image::colors::black()));
@@ -543,7 +543,7 @@ try
 
 	while(running)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 #if 0
 		if(position_change_timer.active() && position_change_timer.expired())
@@ -573,7 +573,7 @@ try
 
 		debug_drawer.render(
 			sge::sprite::projection_matrix(
-				sys.renderer()->onscreen_target()->viewport()));
+				sys.renderer().onscreen_target().viewport()));
 	}
 }
 catch(fcppt::exception const &e)

@@ -23,14 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "context/base.hpp"
 #include "context/id.hpp"
-#include "const_vertex_buffer_ptr.hpp"
-#include "const_vertex_declaration_ptr.hpp"
 #include "vertex_buffer_fwd.hpp"
 #include "vertex_declaration_fwd.hpp"
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/weak_ptr.hpp>
 
 namespace sge
 {
@@ -49,7 +46,7 @@ public:
 
 	~vertex_context();
 
-	opengl::const_vertex_buffer_ptr const
+	opengl::vertex_buffer const *
 	vertex_buffer(
 		renderer::vf::dynamic::part_index
 	) const;
@@ -57,34 +54,26 @@ public:
 	void
 	vertex_buffer(
 		renderer::vf::dynamic::part_index,
-		opengl::const_vertex_buffer_ptr
+		opengl::vertex_buffer const *
 	);
 
 	void
 	vertex_declaration(
-		opengl::const_vertex_declaration_ptr
+		opengl::vertex_declaration const *
 	);
 
-	opengl::const_vertex_declaration_ptr const
+	opengl::vertex_declaration const *
 	vertex_declaration() const;
 
 	typedef void needs_before;
 
 	static opengl::context::id const static_id;
 private:
-	typedef fcppt::weak_ptr<
-		opengl::vertex_declaration const
-	> vertex_declaration_weak_ptr;
-
-	typedef fcppt::weak_ptr<
-		opengl::vertex_buffer const
-	> vertex_buffer_weak_ptr;
-
 	typedef fcppt::container::index_map<
-		vertex_buffer_weak_ptr
+		opengl::vertex_buffer const *
 	> vertex_buffer_map;
 
-	vertex_declaration_weak_ptr last_declaration_;
+	opengl::vertex_declaration const *last_declaration_;
 
 	mutable vertex_buffer_map last_buffers_;
 };

@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::renderer::screenshot(
-	const_device_ptr const _renderer,
+	renderer::device const &_renderer,
 	image2d::multi_loader const &_loader,
 	fcppt::filesystem::path const &_file
 )
 {
 	renderer::const_scoped_color_surface_lock const lock(
-		_renderer->onscreen_target()->surface()
+		_renderer.onscreen_target().surface()
 	);
 
 	// FIXME

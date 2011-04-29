@@ -28,10 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
 sge::opengl::onscreen_target::onscreen_target(
-	sge::window::instance_ptr const _window
+	sge::window::instance &_window
 )
 :
 	base(
@@ -40,10 +41,12 @@ sge::opengl::onscreen_target::onscreen_target(
 		)
 	),
 	main_surface_(
-		fcppt::make_shared_ptr<
+		fcppt::make_unique_ptr<
 			opengl::onscreen_surface
 		>(
-			_window
+			fcppt::ref(
+				_window
+			)
 		)
 	)
 {
@@ -63,10 +66,10 @@ sge::opengl::onscreen_target::on_unbind()
 {
 }
 
-sge::renderer::color_surface_ptr const
+sge::renderer::color_surface const &
 sge::opengl::onscreen_target::surface() const
 {
-	return main_surface_;
+	return *main_surface_;
 }
 
 sge::renderer::screen_unit

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::line_drawer::render_to_screen(
-	sge::renderer::device_ptr const renderer,
+	sge::renderer::device &renderer,
 	object &drawer)
 {
 	sge::renderer::scoped_transform projection_scope(
@@ -43,9 +43,9 @@ sge::line_drawer::render_to_screen(
 			static_cast<sge::renderer::scalar>(
 				0),
 			static_cast<sge::renderer::scalar>(
-				renderer->onscreen_target()->viewport().get().w()),
+				renderer.onscreen_target().viewport().get().w()),
 			static_cast<sge::renderer::scalar>(
-				renderer->onscreen_target()->viewport().get().h()),
+				renderer.onscreen_target().viewport().get().h()),
 			static_cast<sge::renderer::scalar>(
 				0),
 			static_cast<sge::renderer::scalar>(

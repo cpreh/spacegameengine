@@ -52,7 +52,7 @@ typename boost::enable_if<
 	>::type
 >::type const
 sge::texture::area_texc(
-	texture::const_part_ptr const _part,
+	texture::part const &_part,
 	typename fcppt::math::vector::static_<
 		T,
 		2
@@ -71,7 +71,7 @@ sge::texture::area_texc(
 			1.f,
 			1.f
 		)
-		&& !_part->repeatable()
+		&& !_part.repeatable()
 	)
 		FCPPT_LOG_WARNING(
 			log::global(),
@@ -89,8 +89,8 @@ sge::texture::area_texc(
 		renderer::lock_rect_to_coords<
 			T
 		>(
-			_part->area(),
-			_part->texture()->size()
+			_part.area(),
+			_part.texture().size()
 		)
 	);
 
@@ -121,7 +121,7 @@ boost::enable_if< \
 sge::texture::area_texc<\
 	ftype\
 >( \
-	sge::texture::const_part_ptr,\
+	sge::texture::part const &,\
 	fcppt::math::vector::static_<\
 		ftype,\
 		2\

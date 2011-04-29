@@ -18,22 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_CONST_BASE_PTR_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_CONST_BASE_PTR_HPP_INCLUDED
+#ifndef SGE_CEGUI_DETAIL_BATCH_HPP_INCLUDED
+#define SGE_CEGUI_DETAIL_BATCH_HPP_INCLUDED
 
-#include <sge/renderer/texture/base_fwd.hpp>
-#include <fcppt/shared_ptr.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace cegui
 {
-namespace texture
+namespace detail
 {
 
-typedef fcppt::shared_ptr<
-	texture::base const
-> const_base_ptr;
+class batch
+{
+public:
+	explicit
+	batch(
+		sge::renderer::texture::planar &,
+		sge::renderer::vertex_buffer_ptr);
+	
+	sge::renderer::texture::planar &
+	texture() const;
+
+	sge::renderer::vertex_buffer &
+	vertex_buffer() const;
+private:
+	sge::renderer::texture::planar *texture_;
+
+	sge::renderer::vertex_buffer_ptr vertex_buffer_;
+};
 
 }
 }

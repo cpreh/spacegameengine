@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
-#include <sge/charconv/system_ptr.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
@@ -71,7 +71,7 @@ public:
 		sge::input::cursor::position const &);
 private:
 	system &system_;
-	sge::charconv::system_ptr charconv_system_;
+	sge::charconv::system &charconv_system_;
 };
 }
 }

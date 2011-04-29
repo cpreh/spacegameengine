@@ -30,10 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/scoped_system.hpp>
 #include <sge/cegui/detail/resource_provider.hpp>
 #include <sge/cegui/detail/image_codec.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
-#include <sge/charconv/system_ptr.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -54,9 +54,9 @@ public:
 	SGE_CEGUI_SYMBOL explicit
 	system(
 		load_context const &,
-		sge::renderer::device_ptr,
+		sge::renderer::device &,
 		sge::image2d::multi_loader &,
-		sge::charconv::system_ptr,
+		sge::charconv::system &,
 		sge::viewport::manager &,
 		sge::cegui::cursor_visibility::type);
 
@@ -79,7 +79,7 @@ private:
 	friend class detail::texture_target;
 	friend class syringe;
 
-	sge::charconv::system_ptr charconv_system_;
+	sge::charconv::system &charconv_system_;
 	fcppt::filesystem::path prefix_;
 	detail::cegui_logger cegui_logger_;
 	detail::renderer renderer_;
@@ -94,13 +94,13 @@ private:
 	void
 	viewport_change();
 
-	sge::charconv::system_ptr const
+	sge::charconv::system &
 	charconv_system() const;
 
 	sge::image2d::multi_loader &
 	image_loader() const;
 
-	sge::renderer::device_ptr const
+	sge::renderer::device &
 	renderer() const;
 
 	fcppt::filesystem::path const

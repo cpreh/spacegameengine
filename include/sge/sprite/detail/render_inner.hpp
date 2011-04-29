@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/indices_per_sprite.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/with_dim.hpp>
-#include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -53,14 +52,14 @@ typename boost::enable_if<
 	void
 >::type
 render_inner(
-	renderer::device_ptr const _renderer,
+	renderer::device &_renderer,
 	renderer::size_type const _offset,
 	renderer::size_type const _num_objects,
 	Buffers const &_buffers
 )
 {
-	_renderer->render(
-		_buffers. template get<
+	_renderer.render(
+		*_buffers. template get<
 			detail::roles::index_buffer
 		>(),
 		renderer::first_vertex(
@@ -103,13 +102,13 @@ typename boost::disable_if<
 	void
 >::type
 render_inner(
-	renderer::device_ptr const _renderer,
+	renderer::device &_renderer,
 	renderer::size_type const _offset,
 	renderer::size_type const _num_objects,
 	Buffers const &
 )
 {
-	_renderer->render(
+	_renderer.render(
 		renderer::first_vertex(
 			_offset
 			*

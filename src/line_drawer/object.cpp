@@ -46,7 +46,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
@@ -58,12 +57,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 
 sge::line_drawer::object::object(
-	sge::renderer::device_ptr const _renderer)
+	sge::renderer::device &_renderer)
 :
 	renderer_(
 		_renderer),
 	vertex_declaration_(
-		renderer_->create_vertex_declaration(
+		renderer_.create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>())),
 	vb_(),
 	lines_()
@@ -89,19 +88,18 @@ sge::line_drawer::object::render()
 
 	sge::renderer::scoped_vertex_declaration scoped_decl(
 		renderer_,
-		vertex_declaration_);
+		*vertex_declaration_);
 
 	sge::renderer::scoped_vertex_buffer scoped_vb(
 		renderer_,
-		vb_);
+		*vb_);
 
-	sge::renderer::texture::scoped scoped_tex(
-		renderer_,
+	renderer_.texture(
 		sge::renderer::no_texture(),
 		static_cast<sge::renderer::stage_type>(
 			0));
 
-	renderer_->render(
+	renderer_.render(
 		sge::renderer::first_vertex(
 			0),
 		sge::renderer::vertex_count(
@@ -126,8 +124,8 @@ sge::line_drawer::object::unlock()
 
 	if (!vb_ || vb_->size() < static_cast<sge::renderer::size_type>(lines_.size()*2))
 		vb_ = 
-			renderer_->create_vertex_buffer(
-				vertex_declaration_,
+			renderer_.create_vertex_buffer(
+				*vertex_declaration_,
 				sge::renderer::vf::dynamic::part_index(
 					0u),
 				static_cast<sge::renderer::size_type>(
@@ -135,7 +133,7 @@ sge::line_drawer::object::unlock()
 				sge::renderer::resource_flags::none);
 
 	sge::renderer::scoped_vertex_lock const vblock(
-		vb_,
+		*vb_,
 		sge::renderer::lock_mode::writeonly);
 
 	vf::vertex_view const vertices(

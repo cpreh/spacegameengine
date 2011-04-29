@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(
 			sge::charconv::encoding::utf32,
 			sge::charconv::encoding::utf8
 		>(
-			charconv_system,
+			*charconv_system,
 			utf8_test
 		)
 	);

@@ -63,7 +63,7 @@ fill_tex_coordinates(
 {
 	if(
 		!_sprite.texture()
-		|| !_sprite.texture()->texture()
+		//|| !_sprite.texture().texture()
 	)
 		return;
 	

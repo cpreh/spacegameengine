@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::texture::atlasing::border_h(
-	renderer::texture::planar_ptr const _texture,
+	renderer::texture::planar &_texture,
 	image2d::view::const_object const &_source,
 	renderer::lock_rect const &_outer_area,
 	renderer::lock_rect const &_inner_area

@@ -90,14 +90,14 @@ public:
 	operator()(T const &_value) const
 	{
 		sge::renderer::glsl::uniform::single_value(
-			variable_,
+			*variable_,
 			_value);
 	}
 };
 }
 
 sge::shader::object::object(
-	renderer::device_ptr const _renderer,
+	renderer::device &_renderer,
 	fcppt::filesystem::path const &vertex,
 	fcppt::filesystem::path const &fragment,
 	renderer::glsl::string const &format_declaration,
@@ -160,7 +160,7 @@ sge::shader::object::object(
 
 	sge::renderer::glsl::scoped_program scoped_shader_(
 		renderer_,
-		program_);
+		*program_);
 
 	BOOST_FOREACH(variable const &v,_variables)
 	{
@@ -197,7 +197,7 @@ sge::shader::object::object(
 			v);
 
 		sge::renderer::glsl::uniform::single_value(
-			uniforms_.insert(
+			*uniforms_.insert(
 				uniform_map::value_type(
 					v.name(),
 					program_->uniform(v.name()))).first->second,
@@ -265,23 +265,23 @@ sge::shader::object::update_texture(
 			FCPPT_TEXT("\" you tried to update in a shader doesn't exist!"));
 }
 
-sge::renderer::glsl::program_ptr const
+sge::renderer::glsl::program &
 sge::shader::object::program()
 {
-	return program_;
+	return *program_;
 }
 
 void
 sge::shader::object::activate()
 {
-	renderer_->glsl_program(
-		program_);
+	renderer_.glsl_program(
+		program_.get());
 	
 	BOOST_FOREACH(
 		sampler_sequence::const_reference r,
 		samplers_)
-		renderer_->texture(
-			r.texture(),
+		renderer_.texture(
+			r.texture().get(),
 			static_cast<
 				sge::renderer::stage_type
 			>(
@@ -291,12 +291,12 @@ sge::shader::object::activate()
 void
 sge::shader::object::deactivate()
 {
-	renderer_->glsl_program(
+	renderer_.glsl_program(
 		sge::renderer::glsl::no_program());
 	BOOST_FOREACH(
 		sampler_sequence::const_reference r,
 		samplers_)
-		renderer_->texture(
+		renderer_.texture(
 			sge::renderer::no_texture(),
 			static_cast<
 				sge::renderer::stage_type

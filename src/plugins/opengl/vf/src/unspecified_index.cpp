@@ -31,7 +31,7 @@ sge::opengl::vf::unspecified_index(
 	sge::renderer::vf::string const &_name
 )
 {
-	glsl::const_program_base_ptr const ptr(
+	glsl::program_base const *const ptr(
 		_context.active_program()
 	);
 

@@ -22,16 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CEGUI_DETAIL_GEOMETRY_BUFFER_HPP_INCLUDED
 
 #include <sge/cegui/detail/texture_fwd.hpp>
+#include <sge/cegui/detail/batch.hpp>
 #include <CEGUI/CEGUIGeometryBuffer.h>
 #include <CEGUI/CEGUITexture.h>
 #include <CEGUI/CEGUIBase.h>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scissor_area.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -61,8 +60,8 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	geometry_buffer(
-		sge::renderer::device_ptr,
-		sge::renderer::vertex_declaration_ptr);
+		sge::renderer::device &,
+		sge::renderer::vertex_declaration &);
 
 	void 
 	draw() const;
@@ -124,32 +123,13 @@ public:
 
 	~geometry_buffer();
 private:
-	struct batch
-	{
-		sge::renderer::texture::planar_ptr texture_;
-		sge::renderer::vertex_buffer_ptr vb_;
-
-		// Yes, this should be placed in a separate header, TODO
-		explicit
-		batch(
-			sge::renderer::texture::planar_ptr const _texture,
-			sge::renderer::vertex_buffer_ptr const _vb)
-		:
-			texture_(
-				_texture),
-			vb_(
-				_vb)
-		{
-		}
-	};
-
 	typedef
-	std::vector<batch>
+	std::vector<detail::batch>
 	batch_sequence;
 
 	batch_sequence batches_;
-	sge::renderer::device_ptr renderer_;
-	sge::renderer::vertex_declaration_ptr vertex_declaration_;
+	sge::renderer::device &renderer_;
+	sge::renderer::vertex_declaration &vertex_declaration_;
 	// This is important only to cegui, so this is CEGUI::uint instead
 	// of renderer::size_type
 	CEGUI::uint total_vertex_count_;

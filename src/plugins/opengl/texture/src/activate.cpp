@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::activate(
 	opengl::context::object &_context,
-	sge::renderer::texture::const_base_ptr const _texture,
+	sge::renderer::texture::base const *const _texture,
 	sge::renderer::stage_type const _stage
 )
 {
@@ -45,10 +45,10 @@ sge::opengl::texture::activate(
 	)
 		context.bind_for_rendering(
 			_context,
-			fcppt::dynamic_pointer_cast<
-				opengl::texture::base const
+			dynamic_cast<
+				opengl::texture::base const &
 			>(
-				_texture
+				*_texture
 			),
 			_stage
 		);

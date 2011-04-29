@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Choices
 >
-sge::renderer::device_ptr const
+sge::renderer::device &
 sge::sprite::system_base<Choices>::renderer() const
 {
 	return rend_;
@@ -40,7 +40,7 @@ template<
 	typename Choices
 >
 sge::sprite::system_base<Choices>::system_base(
-	renderer::device_ptr const _rend
+	renderer::device &_rend
 )
 :
 	rend_(_rend),
@@ -87,37 +87,37 @@ sge::sprite::system_base<Choices>::allocate_buffers(
 template<
 	typename Choices
 >
-sge::renderer::vertex_buffer_ptr const
-sge::sprite::system_base<Choices>::vertex_buffer() const
+sge::renderer::vertex_buffer *
+sge::sprite::system_base<Choices>::vertex_buffer()
 {
 	return
 		buffers_. template get<
 			detail::roles::vertex_buffer
-		>().second;
+		>().second.get();
 }
 
 template<
 	typename Choices
 >
-sge::renderer::vertex_declaration_ptr const
+sge::renderer::vertex_declaration const *
 sge::sprite::system_base<Choices>::vertex_declaration() const
 {
 	return
 		buffers_. template get<
 			detail::roles::vertex_buffer
-		>().first;
+		>().first.get();
 }
 
 template<
 	typename Choices
 >
-sge::renderer::index_buffer_ptr const
-sge::sprite::system_base<Choices>::index_buffer() const
+sge::renderer::index_buffer *
+sge::sprite::system_base<Choices>::index_buffer()
 {
 	return
 		buffers_. template get<
 			detail::roles::index_buffer
-		>();
+		>().get();
 }
 
 template<

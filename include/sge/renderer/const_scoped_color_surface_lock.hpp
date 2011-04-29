@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CONST_SCOPED_COLOR_SURFACE_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_CONST_SCOPED_COLOR_SURFACE_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/const_color_surface_ptr.hpp>
+#include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/symbol.hpp>
@@ -40,12 +40,12 @@ class const_scoped_color_surface_lock
 	);
 public:
 	SGE_SYMBOL explicit const_scoped_color_surface_lock(
-		const_color_surface_ptr
+		renderer::color_surface const &
 	);
 
 	SGE_SYMBOL const_scoped_color_surface_lock(
-		const_color_surface_ptr,
-		lock_rect const &
+		renderer::color_surface const &,
+		renderer::lock_rect const &
 	);
 
 	SGE_SYMBOL image2d::view::const_object const
@@ -53,7 +53,7 @@ public:
 
 	SGE_SYMBOL ~const_scoped_color_surface_lock();
 private:
-	const_color_surface_ptr const color_surface_;
+	renderer::color_surface const &color_surface_;
 
 	image2d::view::const_object const view_;
 };

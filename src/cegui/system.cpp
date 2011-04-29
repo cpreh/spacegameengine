@@ -57,9 +57,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::cegui::system::system(
 	load_context const &_load_context,
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	sge::image2d::multi_loader &_image_loader,
-	sge::charconv::system_ptr const _charconv_system,
+	sge::charconv::system &_charconv_system,
 	sge::viewport::manager &_viewport,
 	cursor_visibility::type const _cursor_visibility)
 :
@@ -169,7 +169,7 @@ void
 sge::cegui::system::viewport_change()
 {
 	sge::renderer::pixel_rect new_area_fcppt = 
-		renderer_.impl()->onscreen_target()->viewport().get();
+		renderer_.impl().onscreen_target().viewport().get();
 	// Calling notifyDisplaySizeChanged with a null rect causes a strange problem
 	if(!new_area_fcppt.content() || old_viewport_ == new_area_fcppt)
 		return;
@@ -186,7 +186,7 @@ sge::cegui::system::viewport_change()
 	old_viewport_ = new_area_fcppt;
 }
 
-sge::charconv::system_ptr const
+sge::charconv::system &
 sge::cegui::system::charconv_system() const
 {
 	return charconv_system_;
@@ -198,7 +198,7 @@ sge::cegui::system::image_loader() const
 	return image_codec_.loader();
 }
 
-sge::renderer::device_ptr const
+sge::renderer::device &
 sge::cegui::system::renderer() const
 {
 	return renderer_.impl();

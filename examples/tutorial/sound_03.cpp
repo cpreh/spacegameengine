@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/file.hpp>
+#include <sge/audio/file_ptr.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/time/timer.hpp>
@@ -72,8 +73,8 @@ try
 	);
 
 	sge::audio::sound::positional_ptr const sound(
-		sys.audio_player()->create_positional_stream(
-			file,
+		sys.audio_player().create_positional_stream(
+			*file,
 			sge::audio::sound::positional_parameters()
 		)
 	);

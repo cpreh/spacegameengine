@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::cegui::toolbox::scoped_layout::scoped_layout(
 	fcppt::filesystem::path const &_path,
-	sge::charconv::system_ptr const _charconv_system)
+	sge::charconv::system &_charconv_system)
 :
 	window_(
 		CEGUI::WindowManager::getSingleton().loadWindowLayout( 

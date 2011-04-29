@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_SET_MATRICES_HPP_INCLUDED
 
 #include <sge/sprite/symbol.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace sprite
 SGE_SPRITE_SYMBOL
 void
 set_matrices(
-	renderer::device_ptr
+	renderer::device &
 );
 
 }

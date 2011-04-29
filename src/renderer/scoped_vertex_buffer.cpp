@@ -22,21 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 
 sge::renderer::scoped_vertex_buffer::scoped_vertex_buffer(
-	renderer::device_ptr const _device,
-	renderer::const_vertex_buffer_ptr const _vertex_buffer
+	renderer::device &_device,
+	renderer::vertex_buffer const &_vertex_buffer
 )
 :
 	device_(_device),
 	vertex_buffer_(_vertex_buffer)
 {
-	device_->activate_vertex_buffer(
+	device_.activate_vertex_buffer(
 		_vertex_buffer
 	);
 }
 
 sge::renderer::scoped_vertex_buffer::~scoped_vertex_buffer()
 {
-	device_->deactivate_vertex_buffer(
+	device_.deactivate_vertex_buffer(
 		vertex_buffer_
 	);
 }

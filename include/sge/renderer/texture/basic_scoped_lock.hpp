@@ -33,7 +33,7 @@ namespace texture
 {
 
 template<
-	typename Ptr,
+	typename Texture,
 	typename LockArea,
 	typename View
 >
@@ -45,13 +45,13 @@ class basic_scoped_lock
 public:
 	SGE_SYMBOL
 	basic_scoped_lock(
-		Ptr,
+		Texture &,
 		renderer::lock_mode::type
 	);
 
 	SGE_SYMBOL
 	basic_scoped_lock(
-		Ptr,
+		Texture &,
 		LockArea const &,
 		renderer::lock_mode::type
 	);
@@ -63,7 +63,7 @@ public:
 	SGE_SYMBOL
 	~basic_scoped_lock();
 private:
-	Ptr const texture_;
+	Texture &texture_;
 
 	View const view_;
 };

@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/file.hpp>
+#include <sge/audio/file_ptr.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
@@ -48,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/relative_move_event.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/rgba8.hpp>
@@ -82,6 +84,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/ref.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/assign/list_of.hpp>
@@ -279,7 +282,7 @@ try
 		)
 	);
 
-	sge::input::cursor::object_ptr const cursor(
+	sge::input::cursor::object &cursor(
 		sys.cursor_demuxer()
 	);
 
@@ -298,14 +301,15 @@ try
 		);
 
 	sge::texture::manager tex_man(
-		sys.renderer(),
 		boost::phoenix::construct<
 			sge::texture::fragmented_unique_ptr
 		>(
 			boost::phoenix::new_<
 				sge::texture::no_fragmented
 			>(
-				sys.renderer(),
+				fcppt::ref(
+					sys.renderer()
+				),
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
@@ -319,13 +323,13 @@ try
 		tex_bg(
 			sge::texture::add_image(
 				tex_man,
-				image_bg
+				*image_bg
 			)
 		),
 		tex_tux(
 			sge::texture::add_image(
 				tex_man,
-				image_tux
+				*image_tux
 			)
 		);
 
@@ -409,15 +413,17 @@ try
 		.elements()
 	);
 
-	sge::audio::file_ptr const af_siren = 
+	sge::audio::file_ptr const af_siren(
 		load_raw(
 			sge::config::media_path()
-				/ FCPPT_TEXT("siren.ogg"),
-			sys.audio_loader());
+			/ FCPPT_TEXT("siren.ogg"),
+			sys.audio_loader()
+		)
+	);
 
 	sge::audio::sound::positional_ptr const sound_siren(
-		sys.audio_player()->create_positional_stream(
-			af_siren,
+		sys.audio_player().create_positional_stream(
+			*af_siren,
 			sge::audio::sound::positional_parameters()
 			.rolloff(
 				static_cast<sge::audio::scalar>(1)
@@ -426,7 +432,7 @@ try
 		)
 	);
 
-	sys.audio_player()->listener().position(
+	sys.audio_player().listener().position(
 		sge::audio::vector(
 			static_cast<sge::audio::scalar>(window_dim.w()/2),
 			static_cast<sge::audio::scalar>(0),
@@ -434,7 +440,7 @@ try
 		)
 	);
 
-	sys.audio_player()->speed_of_sound(
+	sys.audio_player().speed_of_sound(
 		static_cast<sge::audio::scalar>(500)
 	);
 
@@ -445,7 +451,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -460,7 +466,7 @@ try
 	);
 
 	fcppt::signal::scoped_connection const normal_connection(
-		cursor->move_callback(
+		cursor.move_callback(
 			std::tr1::bind(
 				&::sprite_functor::normal_movement,
 				&functor,
@@ -484,7 +490,7 @@ try
 	);
 
 
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color = sge::image::colors::black())
@@ -492,7 +498,7 @@ try
 
 	while(running)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()

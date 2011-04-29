@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_ACTIVATE_HPP_INCLUDED
 
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/texture/const_base_ptr.hpp>
+#include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/stage_type.hpp>
 
 namespace sge
@@ -35,7 +35,7 @@ namespace texture
 void
 activate(
 	opengl::context::object &,
-	sge::renderer::texture::const_base_ptr,
+	sge::renderer::texture::base const *,
 	sge::renderer::stage_type
 );
 

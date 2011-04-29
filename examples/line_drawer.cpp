@@ -259,14 +259,14 @@ try
 		true;
 
 	fcppt::signal::scoped_connection const input_connection(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
 					running))));
 
 	sge::font::metrics_ptr const font_metrics(
-		sys.font_system()->create_font(
+		sys.font_system().create_font(
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")
 			/ FCPPT_TEXT("default.ttf"),
@@ -277,7 +277,7 @@ try
 		sys.renderer(),
 		sge::image::colors::red());
 
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color
@@ -296,21 +296,21 @@ try
 		lock.value().push_back(
 			sge::line_drawer::line(
 				cursor_position_to_vector3(
-					sys.cursor_demuxer()->position()),
+					sys.cursor_demuxer().position()),
 				cursor_position_to_vector3(
-					sys.cursor_demuxer()->position()),
+					sys.cursor_demuxer().position()),
 				sge::image::colors::red(),
 				sge::image::colors::blue()));
 	}
 
-	follows_cursor follows_cursor(
+	::follows_cursor follows_cursor(
 		line_drawer,
-		*sys.cursor_demuxer());
+		sys.cursor_demuxer());
 
 	while(
 		running)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		frames_counter.update();
 
@@ -324,20 +324,21 @@ try
 			line_drawer);
 
 		sge::font::text::draw(
-			font_metrics,
+			*font_metrics,
 			font_drawer,
 			SGE_FONT_TEXT_LIT("Press the left mouse button to set a point"),
 			sge::font::rect(
 				sge::font::rect::vector::null(),
 				fcppt::math::dim::structure_cast<sge::font::rect::dim>(
 					sge::renderer::active_target(
-						*sys.renderer())->viewport().get().size())),
+						sys.renderer()
+					).viewport().get().size())),
 			sge::font::text::align_h::left,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none);
 
 		sge::font::text::draw(
-			font_metrics,
+			*font_metrics,
 			font_drawer,
 			sge::font::text::from_fcppt_string(
 				frames_counter.frames_str())
@@ -346,8 +347,8 @@ try
 				sge::font::rect::vector::null(),
 				fcppt::math::dim::structure_cast<sge::font::rect::dim>(
 					sge::renderer::active_target(
-						*sys.renderer()
-					)->viewport().get().size())),
+						sys.renderer()
+					).viewport().get().size())),
 			sge::font::text::align_h::right,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none);

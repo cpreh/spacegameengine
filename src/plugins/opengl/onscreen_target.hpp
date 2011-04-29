@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "onscreen_target_fwd.hpp"
 #include "basic_target.hpp"
-#include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/screen_unit.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -49,7 +49,7 @@ public:
 	> base;
 
 	explicit onscreen_target(
-		sge::window::instance_ptr
+		sge::window::instance &
 	);
 
 	~onscreen_target();
@@ -60,13 +60,17 @@ private:
 	void
 	on_unbind();
 
-	renderer::color_surface_ptr const
+	renderer::color_surface const &
 	surface() const;
 
 	renderer::screen_unit
 	height() const;
 
-	sge::renderer::color_surface_ptr const main_surface_;
+	typedef fcppt::scoped_ptr<
+		sge::renderer::color_surface
+	> color_surface_scoped_ptr;
+	
+	color_surface_scoped_ptr const main_surface_;
 };
 
 }

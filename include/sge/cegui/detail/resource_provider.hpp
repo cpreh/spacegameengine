@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DETAIL_RESOURCE_PROVIDER_HPP_INCLUDED
 #define SGE_CEGUI_DETAIL_RESOURCE_PROVIDER_HPP_INCLUDED
 
-#include <sge/charconv/system_ptr.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <CEGUI/CEGUIResourceProvider.h>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
@@ -41,7 +41,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	resource_provider(
-		sge::charconv::system_ptr);
+		sge::charconv::system &);
 
 	void 
 	loadRawDataContainer(
@@ -61,7 +61,7 @@ public:
 
 	~resource_provider();
 private:
-	sge::charconv::system_ptr charconv_system_;
+	sge::charconv::system &charconv_system_;
 };
 }
 }

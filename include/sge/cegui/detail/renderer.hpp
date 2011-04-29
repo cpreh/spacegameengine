@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/texture_target.hpp>
 #include <sge/cegui/detail/texture.hpp>
 #include <sge/cegui/system_fwd.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <CEGUI/CEGUIBase.h>
@@ -56,7 +56,7 @@ public:
 	explicit
 	renderer(
 		system &,
-		sge::renderer::device_ptr);
+		sge::renderer::device &);
 
 	CEGUI::RenderingRoot &
 	getDefaultRenderingRoot();
@@ -122,7 +122,7 @@ public:
 	CEGUI::String const & 
 	getIdentifierString() const;
 
-	sge::renderer::device_ptr const
+	sge::renderer::device &
 	impl() const;
 
  	~renderer();
@@ -140,7 +140,7 @@ private:
 	texture_sequence;
 
 	system &system_;
-	sge::renderer::device_ptr renderer_;
+	sge::renderer::device &renderer_;
 	sge::renderer::vertex_declaration_ptr vertex_declaration_;
 	CEGUI::Size display_size_;
 	CEGUI::Vector2 display_dpi_;

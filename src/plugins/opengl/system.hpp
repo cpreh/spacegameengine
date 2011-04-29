@@ -52,7 +52,7 @@ public:
 	create_renderer(
 		renderer::parameters const &,
 		renderer::adapter,
-		window::instance_ptr
+		window::instance &
 	);
 
 	awl::window::instance_shared_ptr const

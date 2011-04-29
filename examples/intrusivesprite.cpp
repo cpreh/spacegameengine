@@ -52,11 +52,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
@@ -118,7 +119,6 @@ try
 	);
 
 	sge::texture::manager tex_man(
-		sys.renderer(),
 		boost::phoenix::construct<
 			sge::texture::fragmented_unique_ptr
 		>(
@@ -126,7 +126,9 @@ try
 				sge::texture::no_fragmented
 			>
 			(
-				sys.renderer(),
+				fcppt::ref(
+					sys.renderer()
+				),
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
@@ -140,7 +142,7 @@ try
 		tex1(
 			sge::texture::add_image(
 				tex_man,
-				sys.image_loader().load(
+				*sys.image_loader().load(
 					sge::config::media_path()
 					/ FCPPT_TEXT("cloudsquare.png")
 				)
@@ -149,7 +151,7 @@ try
 		tex2(
 			sge::texture::add_image(
 				tex_man,
-				sys.image_loader().load(
+				*sys.image_loader().load(
 					sge::config::media_path()
 					/ FCPPT_TEXT("grass.png")
 				)
@@ -241,7 +243,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -251,11 +253,13 @@ try
 		)
 	);
 
-	while(running)
+	while(
+		running
+	)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
-		sge::renderer::scoped_block const block_(
+		sge::renderer::scoped_block const block(
 			sys.renderer()
 		);
 
@@ -263,24 +267,23 @@ try
 			sge::sprite::default_equal()
 		);
 	}
-
 }
 catch(
-	sge::exception const &e
+	fcppt::exception const &_error
 )
 {
 	fcppt::io::cerr
-		<< e.string()
+		<< _error.string()
 		<< FCPPT_TEXT('\n');
 	
 	return EXIT_FAILURE;
 }
 catch(
-	std::exception const &e
+	std::exception const &_error
 )
 {
 	fcppt::io::cerr
-		<< e.what()
+		<< _error.what()
 		<< FCPPT_TEXT('\n');
 	
 	return EXIT_FAILURE;

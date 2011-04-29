@@ -25,6 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template FCPPT_EXPORT_SYMBOL class
 sge::renderer::basic_scoped_buffer_lock<
-	sge::renderer::vertex_buffer_ptr,
+	sge::renderer::vertex_buffer,
 	sge::renderer::vf::dynamic::view
 >;

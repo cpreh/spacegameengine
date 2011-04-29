@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::texture::planar_ptr const
 sge::renderer::texture::create_planar_from_view(
-	renderer::device_ptr const _renderer,
+	renderer::device &_renderer,
 	sge::image2d::view::const_object const &_view,
 	texture::filter::object const &_filter,
 	texture::address_mode2 const &_address_mode,
@@ -38,7 +38,7 @@ sge::renderer::texture::create_planar_from_view(
 )
 {
 	texture::planar_ptr const tex(
-		_renderer->create_planar_texture(
+		_renderer.create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				sge::image2d::view::dim(
 					_view
@@ -55,7 +55,7 @@ sge::renderer::texture::create_planar_from_view(
 	);
 
 	renderer::texture::scoped_planar_lock const lock(
-		tex,
+		*tex,
 		renderer::lock_mode::writeonly
 	);
 

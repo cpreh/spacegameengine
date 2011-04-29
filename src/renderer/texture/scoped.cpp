@@ -23,23 +23,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_texture.hpp>
 
 sge::renderer::texture::scoped::scoped(
-	renderer::device_ptr const _device,
-	renderer::texture::const_base_ptr const _texture,
+	renderer::device &_device,
+	renderer::texture::base const &_texture,
 	renderer::stage_type const _stage
 )
 :
 	device_(_device),
 	stage_(_stage)
 {
-	device_->texture(
-		_texture,
+	device_.texture(
+		&_texture,
 		stage_
 	);
 }
 
 sge::renderer::texture::scoped::~scoped()
 {
-	device_->texture(
+	device_.texture(
 		renderer::no_texture(),
 		stage_
 	);

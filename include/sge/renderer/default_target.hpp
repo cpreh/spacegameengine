@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DEFAULT_TARGET_HPP_INCLUDED
 #define SGE_RENDERER_DEFAULT_TARGET_HPP_INCLUDED
 
-#include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/target_fwd.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -30,7 +30,7 @@ namespace renderer
 {
 
 SGE_SYMBOL
-renderer::target_ptr const
+renderer::target *
 default_target();
 
 }

@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/CEGUISize.h>
 #include <CEGUI/CEGUIRect.h>
 #include <CEGUI/CEGUIVector.h>
-#include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <fcppt/noncopyable.hpp>

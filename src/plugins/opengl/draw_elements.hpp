@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
 
 #include "context/object_fwd.hpp"
-#include <sge/renderer/const_index_buffer_ptr.hpp>
+#include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
@@ -37,7 +37,7 @@ namespace opengl
 void
 draw_elements(
 	opengl::context::object &,
-	renderer::const_index_buffer_ptr,
+	renderer::index_buffer const &,
 	renderer::first_vertex,
 	renderer::vertex_count,
 	renderer::indexed_primitive_type::type,

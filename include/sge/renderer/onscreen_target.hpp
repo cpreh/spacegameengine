@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_ONSCREEN_TARGET_HPP_INCLUDED
 
 #include <sge/renderer/onscreen_target_fwd.hpp>
-#include <sge/renderer/color_surface_ptr.hpp>
+#include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
@@ -44,7 +44,7 @@ protected:
 	SGE_SYMBOL
 	onscreen_target();
 public:
-	virtual renderer::color_surface_ptr const
+	virtual renderer::color_surface const &
 	surface() const = 0;
 
 	SGE_SYMBOL

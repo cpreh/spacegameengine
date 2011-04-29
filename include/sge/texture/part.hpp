@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/symbol.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/texture/const_planar_ptr.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -59,10 +58,10 @@ public:
 	SGE_TEXTURE_SYMBOL renderer::dim2 const
 	size() const;
 
-	virtual renderer::texture::planar_ptr const
+	virtual renderer::texture::planar &
 	texture() = 0;
 
-	virtual renderer::texture::const_planar_ptr const
+	virtual renderer::texture::planar const &
 	texture() const = 0;
 
 	virtual bool

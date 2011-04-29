@@ -61,7 +61,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -145,7 +144,7 @@ namespace
 
 sge::texture::const_part_ptr const
 make_texture(
-	sge::renderer::device_ptr const _device,
+	sge::renderer::device &_device,
 	sge::image2d::view::const_object const &_view,
 	sge::renderer::texture::filter::object const &_filter
 )
@@ -281,8 +280,8 @@ try
 			),
 			// position
 			sge::camera::identity_gizmo(),
-			*sys.keyboard_collector(),
-			*sys.mouse_collector(),
+			sys.keyboard_collector(),
+			sys.mouse_collector(),
 			sge::camera::activation_state::active
 		)
 	);
@@ -371,7 +370,7 @@ try
 	);
 
 	sge::renderer::texture::filter::anisotropy_type const anisotropy(
-		sys.renderer()->caps().max_anisotropy()
+		sys.renderer().caps().max_anisotropy()
 	);
 
 	texture_array const textures =
@@ -501,7 +500,7 @@ try
 	);
 
 	fcppt::signal::scoped_connection const input_connection(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -512,7 +511,7 @@ try
 	);
 
 	fcppt::signal::scoped_connection const texture_connection(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			std::tr1::bind(
 				change_texture<
 					sprite_object,
@@ -535,7 +534,7 @@ try
 			std::tr1::bind(
 				sge::camera::projection::update_perspective_from_viewport,
 				fcppt::ref(
-					*sys.renderer()
+					sys.renderer()
 				),
 				fcppt::ref(
 					camera
@@ -565,7 +564,7 @@ try
 	);
 
 	sge::font::metrics_ptr const font_metrics(
-		sys.font_system()->create_font(
+		sys.font_system().create_font(
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")
 			/ FCPPT_TEXT("default.ttf"),
@@ -588,7 +587,7 @@ try
 		)
 	);
 
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(
@@ -603,7 +602,7 @@ try
 		running
 	)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		camera.update(
 			static_cast<
@@ -619,12 +618,12 @@ try
 			sys.renderer()
 		);
 
-		sys.renderer()->transform(
+		sys.renderer().transform(
 			sge::renderer::matrix_mode::world,
 			camera.world()
 		);
 
-		sys.renderer()->transform(
+		sys.renderer().transform(
 			sge::renderer::matrix_mode::projection,
 			camera.projection()
 		);
@@ -635,7 +634,7 @@ try
 		);
 
 		sge::font::text::draw(
-			font_metrics,
+			*font_metrics,
 			font_drawer,
 			current_text,
 			sge::font::rect(
@@ -644,8 +643,8 @@ try
 					sge::font::rect::dim
 				>(
 					sge::renderer::active_target(
-						*sys.renderer()
-					)->viewport().get().size()
+						sys.renderer()
+					).viewport().get().size()
 				)
 			),
 			sge::font::text::align_h::left,
@@ -655,7 +654,7 @@ try
 
 
 		sge::font::text::draw(
-			font_metrics,
+			*font_metrics,
 			font_drawer,
 			sge::font::text::from_fcppt_string(
 				frames_counter.frames_str()
@@ -667,8 +666,8 @@ try
 					sge::font::rect::dim
 				>(
 					sge::renderer::active_target(
-						*sys.renderer()
-					)->viewport().get().size()
+						sys.renderer()
+					).viewport().get().size()
 				)
 			),
 			sge::font::text::align_h::right,

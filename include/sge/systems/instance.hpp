@@ -22,23 +22,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 
 #include <sge/audio/multi_loader_fwd.hpp>
-#include <sge/audio/player_ptr.hpp>
-#include <sge/charconv/system_ptr.hpp>
-#include <sge/font/system_ptr.hpp>
-#include <sge/input/processor_ptr.hpp>
-#include <sge/input/system_ptr.hpp>
-#include <sge/input/cursor/object_ptr.hpp>
-#include <sge/input/keyboard/device_ptr.hpp>
-#include <sge/input/mouse/device_ptr.hpp>
+#include <sge/audio/player_fwd.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/font/system_fwd.hpp>
+#include <sge/input/processor_fwd.hpp>
+#include <sge/input/system_fwd.hpp>
+#include <sge/input/cursor/object_fwd.hpp>
+#include <sge/input/keyboard/device_fwd.hpp>
+#include <sge/input/mouse/device_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
-#include <sge/model/loader_ptr.hpp>
+#include <sge/model/loader_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/system_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/system_fwd.hpp>
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/symbol.hpp>
 #include <sge/viewport/manager_fwd.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/window/instance_fwd.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -66,31 +66,31 @@ public:
 	plugin_manager();
 
 	SGE_SYSTEMS_SYMBOL
-	sge::renderer::system_ptr const
+	sge::renderer::system &
 	renderer_system() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::renderer::device_ptr const
+	sge::renderer::device &
 	renderer() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::input::system_ptr const
+	sge::input::system &
 	input_system() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::input::processor_ptr const
+	sge::input::processor &
 	input_processor() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::input::cursor::object_ptr const
+	sge::input::cursor::object &
 	cursor_demuxer() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::input::keyboard::device_ptr const
+	sge::input::keyboard::device &
 	keyboard_collector() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::input::mouse::device_ptr const
+	sge::input::mouse::device &
 	mouse_collector() const;
 
 	SGE_SYSTEMS_SYMBOL
@@ -102,23 +102,23 @@ public:
 	audio_loader() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::audio::player_ptr const
+	sge::audio::player  &
 	audio_player() const;
 
 	SGE_SYSTEMS_SYMBOL
-	charconv::system_ptr const
+	charconv::system &
 	charconv_system() const;
 
 	SGE_SYSTEMS_SYMBOL
-	font::system_ptr const
+	font::system &
 	font_system() const;
 
 	SGE_SYSTEMS_SYMBOL
-	model::loader_ptr const
+	model::loader &
 	md3_loader() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::window::instance_ptr const
+	sge::window::instance &
 	window() const;
 
 	SGE_SYSTEMS_SYMBOL
@@ -127,7 +127,9 @@ public:
 
 	class impl;
 private:
-	fcppt::scoped_ptr<impl> impl_;
+	fcppt::scoped_ptr<
+		impl
+	> impl_;
 };
 
 }

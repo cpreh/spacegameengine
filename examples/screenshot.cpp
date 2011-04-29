@@ -116,19 +116,20 @@ try
 		)
 	);
 
-	sge::renderer::device_ptr const device(
+	sge::renderer::device &device(
 		sys.renderer()
 	);
 
 	sge::texture::manager tex_man(
-		device,
 		boost::phoenix::construct<
 			sge::texture::fragmented_unique_ptr
 		>(
 			boost::phoenix::new_<
 				sge::texture::no_fragmented
 			>(
-				device,
+				fcppt::ref(
+					device
+				),
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
@@ -141,7 +142,7 @@ try
 	sge::texture::const_part_ptr const tex(
 		sge::texture::add_image(
 			tex_man,
-			sys.image_loader().load(
+			*sys.image_loader().load(
 				sge::config::media_path() / FCPPT_TEXT("tux.png")
 			)
 		)
@@ -180,12 +181,14 @@ try
 		.pos(
 			sprite_object::vector::null()
 		)
-		.texture(tex)
+		.texture(
+			tex
+		)
 		.texture_size()
 		.elements()
 	);
 
-	device->state(
+	device.state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color
@@ -196,7 +199,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -207,12 +210,14 @@ try
 	);
 
 	fcppt::signal::scoped_connection const cb2(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f12,
 				std::tr1::bind(
 					sge::renderer::screenshot,
-					device,
+					fcppt::ref(
+						device
+					),
 					fcppt::ref(
 						sys.image_loader()
 					),
@@ -224,9 +229,11 @@ try
 		)
 	);
 
-	while(running)
+	while(
+		running
+	)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		sge::renderer::scoped_block const block_(
 			device

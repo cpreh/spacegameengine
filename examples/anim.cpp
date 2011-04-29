@@ -70,6 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/ref.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
@@ -83,36 +84,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+
 sge::texture::const_part_ptr const
 load_raw(
-	fcppt::filesystem::path const &image_path,
-	sge::texture::manager &tex_man,
-	sge::image2d::multi_loader &image_loader)
+	fcppt::filesystem::path const &_image_path,
+	sge::texture::manager &_tex_man,
+	sge::image2d::multi_loader &_image_loader
+)
 {
 	fcppt::io::cifstream raw_stream(
-		image_path,
-		std::ios::binary);
+		_image_path,
+		std::ios::binary
+	);
 
 	typedef
 	fcppt::container::raw_vector<char> 
 	raw_byte_container;
 
 	raw_byte_container raw_bytes(
-		(std::istreambuf_iterator<char>(
-			raw_stream)),
-		std::istreambuf_iterator<char>());
+		(
+			std::istreambuf_iterator<char>(
+				raw_stream
+			)
+		),
+		std::istreambuf_iterator<char>()
+	);
 
 	return 
 		sge::texture::add_image(
-			tex_man,
-			image_loader.load(
+			_tex_man,
+			*_image_loader.load(
 				boost::make_iterator_range(
-					reinterpret_cast<unsigned char const *>(
-						&(*raw_bytes.cbegin())),
-					reinterpret_cast<unsigned char const *>(
-						&(*raw_bytes.cend()))),
-				sge::optional_extension()));
+					reinterpret_cast<
+						unsigned char const *
+					>(
+						&(*raw_bytes.cbegin())
+					),
+					reinterpret_cast<
+						unsigned char const *
+					>(
+						&(*raw_bytes.cend())
+					)
+				),
+				sge::optional_extension()
+			)
+		);
 }
+
 }
 
 int main()
@@ -167,7 +185,7 @@ try
 		)
 	);
 
-	sge::renderer::device_ptr const rend(
+	sge::renderer::device &rend(
 		sys.renderer()
 	);
 
@@ -176,14 +194,15 @@ try
 	);
 
 	sge::texture::manager tex_man(
-		rend,
 		boost::phoenix::construct<
 			sge::texture::fragmented_unique_ptr
 		>(
 			boost::phoenix::new_<
 				sge::texture::no_fragmented
 			>(
-				rend,
+				fcppt::ref(
+					rend
+				),
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
@@ -195,18 +214,20 @@ try
 
 	// Just for kicks, try loading an image file from a raw memory buffer
 	sge::texture::const_part_ptr const
-		tex1 = 
+		tex1(
 			load_raw(
 				sge::config::media_path()
-					/ FCPPT_TEXT("cloudsquare.png"),
+				/ FCPPT_TEXT("cloudsquare.png"),
 				tex_man,
-				image_loader);
+				image_loader
+			)
+		);
 
 	sge::texture::const_part_ptr const
 		tex2(
 			sge::texture::add_image(
 				tex_man,
-				image_loader.load(
+				*image_loader.load(
 					sge::config::media_path()
 					/ FCPPT_TEXT("grass.png")
 				)
@@ -298,7 +319,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -308,7 +329,7 @@ try
 		)
 	);
 
-	rend->state(
+	rend.state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(
@@ -317,9 +338,11 @@ try
 			)
 	);
 
-	while(running)
+	while(
+		running
+	)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		sge::renderer::scoped_block const block_(
 			rend
@@ -336,8 +359,13 @@ try
 		);
 	}
 }
-catch(fcppt::exception const &e)
+catch(
+	fcppt::exception const &_error
+)
 {
-	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
+	fcppt::io::cerr
+		<< _error.string()
+		<< FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
 }

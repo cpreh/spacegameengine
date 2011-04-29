@@ -54,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/object_impl.hpp>
+#include <sge/image2d/file_ptr.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/external_system_impl.hpp>
@@ -85,6 +86,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/ref.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/assign/list_of.hpp>
@@ -174,7 +176,7 @@ try
 		768
 	);
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(
 			sge::systems::window(
@@ -244,15 +246,15 @@ try
 		);
 
 	sge::texture::manager tex_man(
-		sys.renderer(),
 		boost::phoenix::construct<
 			sge::texture::fragmented_unique_ptr
 		>(
 			boost::phoenix::new_<
 				sge::texture::no_fragmented
 			>(
-
-				sys.renderer(),
+				fcppt::ref(
+					sys.renderer()
+				),
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
@@ -266,19 +268,19 @@ try
 		tex_bg(
 			sge::texture::add_image(
 				tex_man,
-				image_bg
+				*image_bg
 			)
 		),
 		tex_pointer(
 			sge::texture::add_image(
 				tex_man,
-				image_pointer
+				*image_pointer
 			)
 		),
 		tex_tux(
 			sge::texture::add_image(
 				tex_man,
-				image_tux
+				*image_tux
 			)
 		);
 
@@ -370,7 +372,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -381,7 +383,7 @@ try
 	);
 
 	fcppt::signal::scoped_connection const pc(
-		sys.mouse_collector()->axis_callback(
+		sys.mouse_collector().axis_callback(
 			sprite_functor(
 				pointer
 			)
@@ -397,7 +399,7 @@ try
 	*/
 
 	sge::renderer::texture::planar_ptr const target_texture(
-		sys.renderer()->create_planar_texture(
+		sys.renderer().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<
 					sge::renderer::dim2
@@ -420,7 +422,7 @@ try
 	sge::renderer::target_ptr const target(
 		sge::renderer::target_from_texture(
 			sys.renderer(),
-			target_texture
+			*target_texture
 		)
 	);
 
@@ -470,8 +472,8 @@ try
 		)
 	);
 
-	sys.renderer()->glsl_program(
-		p
+	sys.renderer().glsl_program(
+		p.get()
 	);
 
 	sge::renderer::glsl::uniform::variable_ptr const v(
@@ -479,7 +481,7 @@ try
 	);
 
 	sge::renderer::glsl::uniform::single_value(
-		v,
+		*v,
 		static_cast<int>(0)
 	);
 
@@ -498,11 +500,13 @@ try
 	);
 #endif
 
-	while(running)
+	while(
+		running
+	)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 		{
-			sys.renderer()->glsl_program(
+			sys.renderer().glsl_program(
 				sge::renderer::glsl::no_program()
 			);
 
@@ -512,7 +516,7 @@ try
 
 			sge::renderer::scoped_target const target_(
 				sys.renderer(),
-				target
+				*target
 			);
 
 			typedef std::vector<
@@ -533,8 +537,8 @@ try
 			);
 		}
 
-		sys.renderer()->glsl_program(
-			p
+		sys.renderer().glsl_program(
+			p.get()
 		);
 
 		sge::renderer::scoped_block const block_(

@@ -28,13 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::index_buffer_ptr const
 sge::renderer::create_index_buffer_from_view(
-	renderer::device_ptr const _device,
+	renderer::device &_device,
 	index::dynamic::const_view const &_view,
 	renderer::resource_flags_field const &_resource_flags
 )
 {
 	renderer::index_buffer_ptr const buffer(
-		_device->create_index_buffer(
+		_device.create_index_buffer(
 			_view.format(),
 			_view.size(),
 			_resource_flags
@@ -42,7 +42,7 @@ sge::renderer::create_index_buffer_from_view(
 	);
 
 	renderer::scoped_index_lock const lock(
-		buffer,
+		*buffer,
 		renderer::lock_mode::writeonly
 	);
 

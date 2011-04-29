@@ -141,7 +141,7 @@ try
 		sys.renderer(),
 		sge::image::colors::white());
 
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color
@@ -152,7 +152,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -178,14 +178,14 @@ try
 		running
 	)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()
 		);
 
 		sge::font::text::draw(
-			font_metrics,
+			*font_metrics,
 			font_drawer,
 			string,
 			sge::font::rect(
@@ -193,7 +193,7 @@ try
 				fcppt::math::dim::structure_cast<
 					sge::font::rect::dim
 				>(
-					sys.renderer()->onscreen_target()->viewport().get().size()
+					sys.renderer().onscreen_target().viewport().get().size()
 				)
 			),
 			sge::font::text::align_h::center,

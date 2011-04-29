@@ -24,22 +24,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/basic_scoped_lock.hpp>
 
 template<
-	typename Ptr,
+	typename Texture,
 	typename LockArea,
 	typename View
 >
 sge::renderer::texture::basic_scoped_lock<
-	Ptr,
+	Texture,
 	LockArea,
 	View
 >::basic_scoped_lock(
-	Ptr const _texture,
+	Texture &_texture,
 	renderer::lock_mode::type const _flags
 )
 :
 	texture_(_texture),
 	view_(
-		texture_->lock(
+		texture_.lock(
 			_flags
 		)
 	)
@@ -47,23 +47,23 @@ sge::renderer::texture::basic_scoped_lock<
 }
 
 template<
-	typename Ptr,
+	typename Texture,
 	typename LockArea,
 	typename View
 >
 sge::renderer::texture::basic_scoped_lock<
-	Ptr,
+	Texture,
 	LockArea,
 	View
 >::basic_scoped_lock(
-	Ptr const _texture,
+	Texture &_texture,
 	LockArea const &_area,
 	renderer::lock_mode::type const _flags
 )
 :
 	texture_(_texture),
 	view_(
-		texture_->lock(
+		texture_.lock(
 			_area,
 			_flags
 		)
@@ -72,13 +72,13 @@ sge::renderer::texture::basic_scoped_lock<
 }
 
 template<
-	typename Ptr,
+	typename Texture,
 	typename LockArea,
 	typename View
 >
 View const
 sge::renderer::texture::basic_scoped_lock<
-	Ptr,
+	Texture,
 	LockArea,
 	View
 >::value() const
@@ -87,17 +87,17 @@ sge::renderer::texture::basic_scoped_lock<
 }
 
 template<
-	typename Ptr,
+	typename Texture,
 	typename LockArea,
 	typename View
 >
 sge::renderer::texture::basic_scoped_lock<
-	Ptr,
+	Texture,
 	LockArea,
 	View
 >::~basic_scoped_lock()
 {
-	texture_->unlock();
+	texture_.unlock();
 }
 
 #endif

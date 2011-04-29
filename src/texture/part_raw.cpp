@@ -56,7 +56,7 @@ sge::texture::part_raw::data(
 )
 {
 	texture::sub_data(
-		tex_,
+		*tex_,
 		_src,
 		this->area().pos()
 	);
@@ -68,16 +68,16 @@ sge::texture::part_raw::area() const
 	return area_;
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar &
 sge::texture::part_raw::texture()
 {
-	return tex_;
+	return *tex_;
 }
 
-sge::renderer::texture::const_planar_ptr const
+sge::renderer::texture::planar const &
 sge::texture::part_raw::texture() const
 {
-	return tex_;
+	return *tex_;
 }
 
 bool

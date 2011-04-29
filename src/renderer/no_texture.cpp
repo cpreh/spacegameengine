@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/no_texture.hpp>
 
-sge::renderer::texture::const_base_ptr const
+sge::renderer::texture::base const *
 sge::renderer::no_texture()
 {
-	return texture::const_base_ptr();
+	return 0;
 }

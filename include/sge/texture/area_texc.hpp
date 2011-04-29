@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 #define SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 
-#include <sge/texture/const_part_ptr.hpp>
+#include <sge/texture/part_fwd.hpp>
 #include <sge/texture/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/vector/static.hpp>
@@ -46,7 +46,7 @@ typename boost::enable_if<
 	>::type
 >::type const
 area_texc(
-	texture::const_part_ptr,
+	texture::part const &,
 	typename fcppt::math::vector::static_<
 		T,
 		2

@@ -41,7 +41,7 @@ sge::camera::projection::update_perspective_from_viewport(
 			sge::renderer::aspect_from_viewport(
 				sge::renderer::active_target(
 					_device
-				)->viewport()
+				).viewport()
 			),
 			_fov,
 			_near,

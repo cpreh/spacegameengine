@@ -24,18 +24,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
 
 template<
-	typename Ptr,
+	typename Buffer,
 	typename View
 >
-sge::renderer::const_basic_scoped_buffer_lock<Ptr, View>::const_basic_scoped_buffer_lock(
-	Ptr const _ptr,
+sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::const_basic_scoped_buffer_lock(
+	Buffer const &_buffer,
 	size_type const _first,
 	size_type const _count
 )
 :
-	ptr_(_ptr),
+	buffer_(_buffer),
 	view_(
-		ptr_->lock(
+		buffer_.lock(
 			_first,
 			_count
 		)
@@ -44,22 +44,22 @@ sge::renderer::const_basic_scoped_buffer_lock<Ptr, View>::const_basic_scoped_buf
 }
 
 template<
-	typename Ptr,
+	typename Buffer,
 	typename View
 >
 View const
-sge::renderer::const_basic_scoped_buffer_lock<Ptr, View>::value() const
+sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::value() const
 {
 	return view_;
 }
 
 template<
-	typename Ptr,
+	typename Buffer,
 	typename View
 >
-sge::renderer::const_basic_scoped_buffer_lock<Ptr, View>::~const_basic_scoped_buffer_lock()
+sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::~const_basic_scoped_buffer_lock()
 {
-	ptr_->unlock();
+	buffer_.unlock();
 }
 
 #endif

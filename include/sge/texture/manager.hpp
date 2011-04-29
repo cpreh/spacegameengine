@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/detail/container_position.hpp>
 #include <sge/texture/symbol.hpp>
-#include <sge/renderer/device_ptr.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -42,27 +41,28 @@ class manager
 		manager
 	);
 public:
-	SGE_TEXTURE_SYMBOL manager(
-		sge::renderer::device_ptr rend,
-		on_alloc_function const &
+	SGE_TEXTURE_SYMBOL
+	explicit manager(
+		texture::on_alloc_function const &
 	);
 
-	SGE_TEXTURE_SYMBOL ~manager();
+	SGE_TEXTURE_SYMBOL
+	~manager();
 
-	SGE_TEXTURE_SYMBOL part_ptr const
+	SGE_TEXTURE_SYMBOL
+	texture::part_ptr const
 	add(
 		image2d::view::const_object const &
 	);
 
-	SGE_TEXTURE_SYMBOL sge::renderer::device_ptr const
-	renderer() const;
-
-	SGE_TEXTURE_SYMBOL void
+	SGE_TEXTURE_SYMBOL
+	void
 	on_alloc(
-		on_alloc_function const &
+		texture::on_alloc_function const &
 	);
 
-	SGE_TEXTURE_SYMBOL void
+	SGE_TEXTURE_SYMBOL
+	void
 	free_empty_textures();
 private:
 	friend class fragmented;
@@ -72,8 +72,6 @@ private:
 		detail::container_position const &,
 		fragmented const &
 	);
-
-	sge::renderer::device_ptr const rend_;
 
 	on_alloc_function on_alloc_;
 

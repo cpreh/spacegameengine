@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/device_ptr.hpp>
 #include <sge/input/mouse/device_vector.hpp>
 #include <sge/input/processor.hpp>
-#include <sge/input/processor_ptr.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -152,7 +151,7 @@ class device_manager
 	);
 public:
 	explicit device_manager(
-		sge::input::processor_ptr
+		sge::input::processor &
 	);
 private:	
 	void
@@ -247,19 +246,19 @@ try
 		)
 	);
 
-	sys.window()->show();
+	sys.window().show();
 
 	::device_manager const manager(
 		sys.input_processor()
 	);
 
 	fcppt::signal::scoped_connection const input_connection(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				std::tr1::bind(
 					&awl::mainloop::dispatcher::stop,
-					sys.window()->awl_dispatcher()
+					sys.window().awl_dispatcher()
 				)
 			)
 		)
@@ -482,7 +481,7 @@ keyboard_listener::on_char_event(
 
 
 device_manager::device_manager(
-	sge::input::processor_ptr const _processor
+	sge::input::processor &_processor
 )
 :
 	connections_(
@@ -490,7 +489,7 @@ device_manager::device_manager(
 			fcppt::signal::connection_manager::container		
 		>(
 			fcppt::signal::shared_connection(
-				_processor->mouse_discover_callback(
+				_processor.mouse_discover_callback(
 					std::tr1::bind(
 						&device_manager::on_mouse_add,
 						this,
@@ -501,7 +500,7 @@ device_manager::device_manager(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_processor->mouse_remove_callback(
+				_processor.mouse_remove_callback(
 					std::tr1::bind(
 						&device_manager::on_mouse_remove,
 						this,
@@ -512,7 +511,7 @@ device_manager::device_manager(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_processor->cursor_discover_callback(
+				_processor.cursor_discover_callback(
 					std::tr1::bind(
 						&device_manager::on_cursor_add,
 						this,
@@ -523,7 +522,7 @@ device_manager::device_manager(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_processor->cursor_remove_callback(
+				_processor.cursor_remove_callback(
 					std::tr1::bind(
 						&device_manager::on_cursor_remove,
 						this,
@@ -540,7 +539,7 @@ device_manager::device_manager(
 {
 	{
 		sge::input::mouse::device_vector const devices(
-			_processor->mice()
+			_processor.mice()
 		);
 
 
@@ -558,7 +557,7 @@ device_manager::device_manager(
 	
 	{
 		sge::input::keyboard::device_vector const devices(
-			_processor->keyboards()
+			_processor.keyboards()
 		);
 
 
@@ -576,7 +575,7 @@ device_manager::device_manager(
 
 	{
 		sge::input::cursor::object_vector const objects(
-			_processor->cursors()
+			_processor.cursors()
 		);
 
 

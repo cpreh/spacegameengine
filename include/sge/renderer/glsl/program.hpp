@@ -54,12 +54,12 @@ public:
 
 	virtual void
 	vertex_shader(
-		vertex_shader_ptr
+		glsl::vertex_shader_ptr
 	) = 0;
 
 	virtual void
 	pixel_shader(
-		pixel_shader_ptr
+		glsl::pixel_shader_ptr
 	) = 0;
 
 	virtual void

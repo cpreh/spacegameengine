@@ -74,8 +74,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -83,7 +83,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::device::device(
 	renderer::parameters const &_parameters,
 	renderer::adapter const _adapter,
-	window::instance_ptr const _window
+	window::instance &_window
 )
 :
 	depth_stencil_buffer_(
@@ -99,19 +99,21 @@ sge::opengl::device::device(
 			context_,
 			_parameters,
 			_adapter,
-			*_window
+			_window
 		)
 	),
 	onscreen_target_(
-		fcppt::make_shared_ptr<
+		fcppt::make_unique_ptr<
 			opengl::onscreen_target
 		>(
-			_window
+			fcppt::ref(
+				_window
+			)
 		)
 	),
 	fbo_target_(),
 	target_(
-		onscreen_target_
+		onscreen_target_.get()
 	),
 	caps_(),
 	state_levels_()
@@ -155,7 +157,7 @@ sge::opengl::device::end_rendering()
 
 void
 sge::opengl::device::render(
-	renderer::const_index_buffer_ptr const _ib,
+	renderer::index_buffer const &_ib,
 	renderer::first_vertex const _first_vertex,
 	renderer::vertex_count const _num_vertices,
 	renderer::indexed_primitive_type::type const _ptype,
@@ -190,7 +192,7 @@ sge::opengl::device::render(
 
 void
 sge::opengl::device::activate_vertex_buffer(
-	renderer::const_vertex_buffer_ptr const _vertex_buffer
+	renderer::vertex_buffer const &_vertex_buffer
 )
 {
 	opengl::set_vertex_buffer(
@@ -201,7 +203,7 @@ sge::opengl::device::activate_vertex_buffer(
 
 void
 sge::opengl::device::deactivate_vertex_buffer(
-	renderer::const_vertex_buffer_ptr const _vertex_buffer
+	renderer::vertex_buffer const &_vertex_buffer
 )
 {
 	opengl::unset_vertex_buffer(
@@ -212,7 +214,7 @@ sge::opengl::device::deactivate_vertex_buffer(
 
 void
 sge::opengl::device::vertex_declaration(
-	renderer::const_vertex_declaration_ptr const _vertex_declaration
+	renderer::vertex_declaration const *const _vertex_declaration
 )
 {
 	opengl::set_vertex_declaration(
@@ -356,7 +358,7 @@ sge::opengl::device::sampler_stage_arg(
 
 void
 sge::opengl::device::texture(
-	renderer::texture::const_base_ptr const _texture,
+	renderer::texture::base const *const _texture,
 	renderer::stage_type const _stage
 )
 {
@@ -384,7 +386,7 @@ sge::opengl::device::transform(
 
 void
 sge::opengl::device::target(
-	renderer::target_ptr const _target
+	renderer::target *const _target
 )
 {
 	if(
@@ -393,8 +395,8 @@ sge::opengl::device::target(
 		return;
 	
 	fbo_target_ =
-		fcppt::dynamic_pointer_cast<
-			opengl::fbo::target
+		dynamic_cast<
+			opengl::fbo::target *
 		>(
 			_target
 		);
@@ -404,12 +406,16 @@ sge::opengl::device::target(
 	target_ =
 		_target
 		?
-			opengl::target_base_ptr(
+			static_cast<
+				opengl::target_base *
+			>(
 				fbo_target_
 			)
 		:
-			opengl::target_base_ptr(
-				onscreen_target_
+			static_cast<
+				opengl::target_base *
+			>(
+				onscreen_target_.get()
 			);
 
 	target_->bind();
@@ -450,7 +456,7 @@ sge::opengl::device::create_glsl_pixel_shader(
 
 void
 sge::opengl::device::glsl_program(
-	renderer::glsl::const_program_ptr const _program
+	renderer::glsl::program const *const _program
 )
 {
 	glsl::set_program(
@@ -459,7 +465,7 @@ sge::opengl::device::glsl_program(
 	);
 }
 
-sge::renderer::target_ptr const
+sge::renderer::target *
 sge::opengl::device::target() const
 {
 	return fbo_target_;
@@ -602,7 +608,7 @@ sge::opengl::device::create_vertex_declaration(
 
 sge::renderer::vertex_buffer_ptr const
 sge::opengl::device::create_vertex_buffer(
-	renderer::vertex_declaration_ptr const _declaration,
+	renderer::vertex_declaration const &_declaration,
 	renderer::vf::dynamic::part_index const _part,
 	renderer::size_type const _size,
 	renderer::resource_flags_field const &_flags
@@ -617,11 +623,11 @@ sge::opengl::device::create_vertex_buffer(
 					context_
 				),
 				_part,
-				fcppt::dynamic_pointer_cast<
-					opengl::vertex_declaration
+				dynamic_cast<
+					opengl::vertex_declaration const &
 				>(
 					_declaration
-				)->format_part(
+				).format_part(
 					_part
 				),
 				_size,
@@ -652,10 +658,10 @@ sge::opengl::device::create_index_buffer(
 		);
 }
 
-sge::renderer::onscreen_target_ptr const
+sge::renderer::onscreen_target &
 sge::opengl::device::onscreen_target() const
 {
-	return onscreen_target_;
+	return *onscreen_target_;
 }
 
 sge::renderer::matrix4 const
@@ -686,7 +692,7 @@ sge::opengl::device::caps() const
 	return *caps_;
 }
 
-sge::window::instance_ptr const
+sge::window::instance &
 sge::opengl::device::window() const
 {
 	return window_;

@@ -23,20 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 
 sge::renderer::scoped_target::scoped_target(
-	renderer::device_ptr const _rend,
-	renderer::target_ptr const _target
+	renderer::device &_rend,
+	renderer::target &_target
 )
 :
 	rend_(_rend)
 {
-	rend_->target(
-		_target
+	rend_.target(
+		&_target
 	);
 }
 
 sge::renderer::scoped_target::~scoped_target()
 {
-	rend_->target(
+	rend_.target(
 		renderer::default_target()
 	);
 }

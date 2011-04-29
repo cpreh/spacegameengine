@@ -61,7 +61,7 @@ sge::freetype::char_metric::char_metric(
 			sge::charconv::encoding::utf32,
 			sge::charconv::encoding::wchar
 		>(
-			_conv_system,
+			*_conv_system,
 			std::basic_string<
 				font::char_type
 			>(

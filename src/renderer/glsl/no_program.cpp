@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/glsl/no_program.hpp>
 
-sge::renderer::glsl::const_program_ptr const
+sge::renderer::glsl::program const *
 sge::renderer::glsl::no_program()
 {
-	return const_program_ptr();
+	return 0;
 }

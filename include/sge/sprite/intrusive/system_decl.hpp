@@ -64,7 +64,7 @@ public:
 	> adder_base;
 
 	explicit system(
-		renderer::device_ptr
+		renderer::device &
 	);
 
 	~system();

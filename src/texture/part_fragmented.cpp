@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::texture::part_fragmented::part_fragmented(
 	renderer::lock_rect const &_outer_area,
-	fragmented &_fragment,
+	texture::fragmented &_fragment,
 	bool const _need_atlasing_w,
 	bool const _need_atlasing_h
 )
@@ -91,13 +91,13 @@ sge::texture::part_fragmented::area() const
 	return inner_area_;
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar &
 sge::texture::part_fragmented::texture()
 {
 	return fragment_.texture();
 }
 
-sge::renderer::texture::const_planar_ptr const
+sge::renderer::texture::planar const &
 sge::texture::part_fragmented::texture() const
 {
 	return fragment_.texture();

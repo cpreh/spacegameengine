@@ -24,15 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps_fwd.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
-#include <sge/renderer/const_index_buffer_ptr.hpp>
-#include <sge/renderer/const_vertex_buffer_ptr.hpp>
-#include <sge/renderer/const_vertex_declaration_ptr.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/light_index.hpp>
@@ -41,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/onscreen_target_ptr.hpp>
+#include <sge/renderer/onscreen_target_fwd.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/sampler_stage_arg.hpp>
@@ -51,17 +49,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
-#include <sge/renderer/glsl/const_program_ptr.hpp>
 #include <sge/renderer/glsl/pixel_shader_ptr.hpp>
+#include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/vertex_shader_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/texture/const_base_ptr.hpp>
+#include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_ptr.hpp>
 #include <sge/renderer/texture/depth_stencil_ptr.hpp>
@@ -97,7 +97,7 @@ public:
 
 	virtual void
 	render(
-		renderer::const_index_buffer_ptr,
+		renderer::index_buffer const &,
 		renderer::first_vertex,
 		renderer::vertex_count,
 		renderer::indexed_primitive_type::type ptype,
@@ -114,17 +114,17 @@ public:
 
 	virtual void
 	activate_vertex_buffer(
-		renderer::const_vertex_buffer_ptr
+		renderer::vertex_buffer const &
 	) = 0;
 
 	virtual void
 	deactivate_vertex_buffer(
-		renderer::const_vertex_buffer_ptr
+		renderer::vertex_buffer const &
 	) = 0;
 
 	virtual void
 	vertex_declaration(
-		renderer::const_vertex_declaration_ptr
+		renderer::vertex_declaration const *
 	) = 0;
 
 	virtual void
@@ -185,7 +185,7 @@ public:
 
 	virtual void
 	texture(
-		renderer::texture::const_base_ptr,
+		renderer::texture::base const *,
 		renderer::stage_type
 	) = 0;
 
@@ -197,7 +197,7 @@ public:
 
 	virtual void
 	target(
-		renderer::target_ptr
+		renderer::target *
 	) = 0;
 
 	virtual renderer::glsl::program_ptr const
@@ -215,7 +215,7 @@ public:
 
 	virtual void
 	glsl_program(
-		renderer::glsl::const_program_ptr
+		renderer::glsl::program const *
 	) = 0;
 
 	virtual renderer::target_ptr const
@@ -255,7 +255,7 @@ public:
 
 	virtual renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
-		renderer::vertex_declaration_ptr,
+		renderer::vertex_declaration const &,
 		renderer::vf::dynamic::part_index,
 		renderer::size_type size,
 		renderer::resource_flags_field const &
@@ -268,10 +268,10 @@ public:
 		renderer::resource_flags_field const &
 	) = 0;
 
-	virtual renderer::onscreen_target_ptr const
+	virtual renderer::onscreen_target &
 	onscreen_target() const = 0;
 
-	virtual renderer::target_ptr const
+	virtual renderer::target *
 	target() const = 0;
 
 	virtual renderer::matrix4 const
@@ -282,7 +282,7 @@ public:
 	virtual renderer::caps const
 	caps() const = 0;
 
-	virtual sge::window::instance_ptr const
+	virtual sge::window::instance &
 	window() const = 0;
 
 	SGE_SYMBOL virtual ~device();

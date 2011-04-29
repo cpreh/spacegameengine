@@ -41,7 +41,7 @@ SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 
 sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
 	world &_world,
-	sge::renderer::device_ptr const _renderer)
+	sge::renderer::device &_renderer)
 :
 	world_(
 		*_world.world_),
@@ -202,6 +202,7 @@ void
 sge::projectile::detail::debug_drawer_impl::reportErrorWarning(
 	char const* warningString)
 {
+	// FIXME!
 	std::cerr 
 		<< "Debug drawer warning: "
 		<< warningString

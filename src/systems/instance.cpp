@@ -297,46 +297,46 @@ sge::systems::instance::plugin_manager()
 	return impl_->plugin_manager_;
 }
 
-sge::renderer::system_ptr const
+sge::renderer::system &
 sge::systems::instance::renderer_system() const
 {
-	return impl_->renderer_system_;
+	return *impl_->renderer_system_;
 }
 
-sge::renderer::device_ptr const
+sge::renderer::device &
 sge::systems::instance::renderer() const
 {
-	return impl_->renderer_;
+	return *impl_->renderer_;
 }
 
-sge::input::system_ptr const
+sge::input::system &
 sge::systems::instance::input_system() const
 {
-	return impl_->input_system_;
+	return *impl_->input_system_;
 }
 
-sge::input::processor_ptr const
+sge::input::processor &
 sge::systems::instance::input_processor() const
 {
-	return impl_->input_processor_;
+	return *impl_->input_processor_;
 }
 
-sge::input::cursor::object_ptr const
+sge::input::cursor::object &
 sge::systems::instance::cursor_demuxer() const
 {
-	return impl_->cursor_demuxer_;
+	return *impl_->cursor_demuxer_;
 }
 
-sge::input::keyboard::device_ptr const
+sge::input::keyboard::device &
 sge::systems::instance::keyboard_collector() const
 {
-	return impl_->keyboard_collector_;
+	return *impl_->keyboard_collector_;
 }
 
-sge::input::mouse::device_ptr const
+sge::input::mouse::device &
 sge::systems::instance::mouse_collector() const
 {
-	return impl_->mouse_collector_;
+	return *impl_->mouse_collector_;
 }
 
 sge::image2d::multi_loader &
@@ -351,34 +351,34 @@ sge::systems::instance::audio_loader() const
 	return *impl_->audio_multi_loader_;
 }
 
-sge::audio::player_ptr const
+sge::audio::player &
 sge::systems::instance::audio_player() const
 {
-	return impl_->audio_player_;
+	return *impl_->audio_player_;
 }
 
-sge::charconv::system_ptr const
+sge::charconv::system &
 sge::systems::instance::charconv_system() const
 {
-	return impl_->charconv_system_;
+	return *impl_->charconv_system_;
 }
 
-sge::font::system_ptr const
+sge::font::system &
 sge::systems::instance::font_system() const
 {
-	return impl_->font_system_;
+	return *impl_->font_system_;
 }
 
-sge::model::loader_ptr const
+sge::model::loader &
 sge::systems::instance::md3_loader() const
 {
-	return impl_->md3_loader_;
+	return *impl_->md3_loader_;
 }
 
-sge::window::instance_ptr const
+sge::window::instance &
 sge::systems::instance::window() const
 {
-	return impl_->window_;
+	return *impl_->window_;
 }
 
 sge::viewport::manager &
@@ -544,7 +544,7 @@ sge::systems::instance::impl::init_renderer(
 			sge::renderer::adapter(
 				0
 			),
-			window_
+			*window_
 		);
 	
 	viewport_manager_.take(

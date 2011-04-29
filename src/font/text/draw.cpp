@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::text::part const
 sge::font::text::draw(
-	font::metrics_ptr const _metrics,
+	font::metrics &_metrics,
 	text::drawer &_drawer,
 	text::string const &_text,
 	font::rect const &_bounding_box,
@@ -128,7 +128,7 @@ sge::font::text::draw(
 		)
 		{
 			char_metric_ptr const cm(
-				_metrics->load_char(
+				_metrics.load_char(
 					*sbeg
 				)
 			);

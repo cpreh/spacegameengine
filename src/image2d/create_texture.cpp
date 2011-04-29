@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::texture::planar_ptr const
 sge::image2d::create_texture(
-	renderer::device_ptr const _renderer,
-	image2d::file_ptr const _file,
+	renderer::device &_renderer,
+	image2d::file &_file,
 	renderer::texture::filter::object const &_filter,
 	renderer::texture::address_mode2 const &_address_mode,
 	renderer::resource_flags_field const &_flags
@@ -36,7 +36,7 @@ sge::image2d::create_texture(
 	return
 		renderer::texture::create_planar_from_view(
 			_renderer,
-			_file->view(),
+			_file.view(),
 			_filter,
 			_address_mode,
 			_flags
@@ -46,7 +46,7 @@ sge::image2d::create_texture(
 sge::renderer::texture::planar_ptr const
 sge::image2d::create_texture(
 	fcppt::filesystem::path const &_file,
-	renderer::device_ptr const _renderer,
+	renderer::device &_renderer,
 	image2d::multi_loader &_loader,
 	renderer::texture::filter::object const &_filter,
 	renderer::texture::address_mode2 const &_address_mode,
@@ -56,7 +56,7 @@ sge::image2d::create_texture(
 	return
 		image2d::create_texture(
 			_renderer,
-			_loader.load(
+			*_loader.load(
 				_file
 			),
 			_filter,

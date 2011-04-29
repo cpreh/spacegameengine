@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "buffer_holder.hpp"
 #include <sge/audio/buffer.hpp>
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file_fwd.hpp>
 #include <sge/audio/sound/positional_ptr.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
@@ -43,7 +43,7 @@ class buffer
 public:
 	explicit
 	buffer(
-		audio::file_ptr
+		audio::file &
 	);
 	
 	audio::sound::positional_ptr const

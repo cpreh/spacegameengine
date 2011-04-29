@@ -133,7 +133,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -155,11 +155,11 @@ try
 
 	sge::cegui::default_cursor gui_cursor(
 		gui_syringe,
-		*sys.cursor_demuxer());
+		sys.cursor_demuxer());
 
 	sge::cegui::default_keyboard gui_keyboard(
 		gui_syringe,
-		*sys.keyboard_collector());
+		sys.keyboard_collector());
 
 	sge::time::timer frame_timer(
 		sge::time::second(
@@ -176,7 +176,7 @@ try
 
 	while (running)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		gui_sys.update(
 			fcppt::chrono::duration_cast<sge::time::duration>(

@@ -26,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::texture::part_ptr const
 sge::texture::add_image(
 	texture::manager &_manager,
-	image2d::file_ptr const _file
+	image2d::file &_file
 )
 {
 	return
 		_manager.add(
-			_file->view()
+			_file.view()
 		);
 }
