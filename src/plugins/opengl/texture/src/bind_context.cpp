@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../bind_context.hpp"
 #include "../base.hpp"
-#include "../const_base_ptr.hpp"
 #include "../optional_type.hpp"
 #include "../funcs/bind.hpp"
 #include "../funcs/set_active_level.hpp"
@@ -48,20 +47,20 @@ sge::opengl::texture::bind_context::~bind_context()
 void
 sge::opengl::texture::bind_context::bind_for_rendering(
 	opengl::context::object &_context,
-	opengl::texture::const_base_ptr const _texture,
+	opengl::texture::base const &_texture,
 	renderer::stage_type const _stage
 )
 {
 	render_textures_[
 		_stage.get()
-	] = _texture;
+	] = &_texture;
 
 	// Check that there is no temp binding active
 	// because we would override it otherwise!
 	FCPPT_ASSERT(
 		!temp_textures_[
 			_stage.get()
-		].lock()
+		]
 	);
 
 	texture::funcs::set_active_level(
@@ -70,8 +69,8 @@ sge::opengl::texture::bind_context::bind_for_rendering(
 	);
 
 	texture::funcs::bind(
-		_texture->type(),
-		_texture->id()
+		_texture.type(),
+		_texture.id()
 	);
 
 	texture::optional_type const last_type(
@@ -84,7 +83,7 @@ sge::opengl::texture::bind_context::bind_for_rendering(
 		last_type
 		== 
 		texture::optional_type(
-			_texture->type()
+			_texture.type()
 		)
 	)
 		return;
@@ -98,17 +97,17 @@ sge::opengl::texture::bind_context::bind_for_rendering(
 
 	if(
 		texture_type_counts_[
-			_texture->type()
+			_texture.type()
 		]++
 		== 0u
 	)
 		opengl::enable(
-			_texture->type().get()
+			_texture.type().get()
 		);
 
 	last_types_[
 		_stage.get()
-	] = _texture->type();
+	] = _texture.type();
 }
 
 void
@@ -120,7 +119,7 @@ sge::opengl::texture::bind_context::unbind_for_rendering(
 	FCPPT_ASSERT(
 		!temp_textures_[
 			_stage.get()
-		].lock()
+		]
 	);
 
 	texture::optional_type const last_type(
@@ -145,7 +144,7 @@ sge::opengl::texture::bind_context::unbind_for_rendering(
 
 	render_textures_[
 		_stage.get()
-	].reset();
+	] = 0;
 
 	texture::funcs::bind(
 		*last_type,
@@ -191,10 +190,10 @@ sge::opengl::texture::bind_context::unbind_for_work(
 	renderer::stage_type const _stage
 )
 {
-	texture::const_base_ptr const prev_texture(
+	texture::base const *const prev_texture(
 		temp_textures_[
 			_stage.get()
-		].lock()
+		]
 	);
 
 	render_textures_[
@@ -204,14 +203,14 @@ sge::opengl::texture::bind_context::unbind_for_work(
 
 	temp_textures_[
 		_stage.get()
-	].reset();
+	] = 0;
 	
 	if(
 		prev_texture
 	)
 		this->bind_for_rendering(
 			_context,
-			prev_texture,
+			*prev_texture,
 			_stage
 		);
 }

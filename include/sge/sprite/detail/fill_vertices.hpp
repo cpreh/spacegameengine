@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/optional_size.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_buffer.hpp> // for npos
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -53,7 +52,7 @@ sge::renderer::size_type
 fill_vertices(
 	It _begin,
 	It const _end,
-	sge::renderer::vertex_buffer_ptr const _vb,
+	sge::renderer::vertex_buffer &_vb,
 	detail::optional_size const &_num_sprites
 )
 {

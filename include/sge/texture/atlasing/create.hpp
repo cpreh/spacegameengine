@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_ATLASING_CREATE_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_CREATE_HPP_INCLUDED
 
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
@@ -36,7 +36,7 @@ namespace atlasing
 
 renderer::texture::planar_ptr const
 create(
-	renderer::device_ptr,
+	renderer::device &,
 	image::color::format::type,
 	renderer::texture::filter::object const &,
 	renderer::dim2 const &

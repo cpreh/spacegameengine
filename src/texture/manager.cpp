@@ -75,16 +75,16 @@ private:
 }
 
 sge::texture::manager::manager(
-	renderer::device_ptr const _rend,
-	on_alloc_function const &_on_alloc
+	texture::on_alloc_function const &_on_alloc
 )
 :
-	rend_(_rend),
 	on_alloc_(_on_alloc)
-{}
+{
+}
 
 sge::texture::manager::~manager()
-{}
+{
+}
 
 sge::texture::part_ptr const
 sge::texture::manager::add(
@@ -170,12 +170,6 @@ sge::texture::manager::add(
 		);
 
 	return new_part;
-}
-
-sge::renderer::device_ptr const
-sge::texture::manager::renderer() const
-{
-	return rend_;
 }
 
 void

@@ -171,7 +171,7 @@ try
 	);
 
 	sge::renderer::texture::planar_ptr const target_texture(
-		sys.renderer()->create_planar_texture(
+		sys.renderer().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				sge::renderer::dim2(
 					640,
@@ -193,7 +193,7 @@ try
 	sge::renderer::target_ptr const target(
 		sge::renderer::target_from_texture(
 			sys.renderer(),
-			target_texture
+			*target_texture
 		)
 	);
 
@@ -214,7 +214,7 @@ try
 	);
 
 	{
-		sys.renderer()->state(
+		sys.renderer().state(
 			sge::renderer::state::list
 			(
 				sge::renderer::state::bool_::clear_backbuffer = true
@@ -263,7 +263,7 @@ try
 			.elements()
 		);
 
-		sys.renderer()->state(
+		sys.renderer().state(
 			sge::renderer::state::list
 			(
 				sge::renderer::state::bool_::clear_backbuffer = true
@@ -274,7 +274,7 @@ try
 			)
 		);
 
-		sys.renderer()->texture(
+		sys.renderer().texture(
 			sge::renderer::no_texture(),
 			sge::renderer::stage_type(
 				0u
@@ -283,7 +283,7 @@ try
 
 		sge::renderer::scoped_target const target_(
 			sys.renderer(),
-			target
+			*target
 		);
 
 		sge::renderer::scoped_block const block_(
@@ -301,7 +301,7 @@ try
 		);
 	}
 
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 		(
 			sge::renderer::state::bool_::clear_backbuffer = true
@@ -315,7 +315,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -327,7 +327,7 @@ try
 
 	while (running)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()

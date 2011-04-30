@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::glsl::program_ptr const
 sge::renderer::glsl::create_program_from_streams(
-	sge::renderer::device_ptr const _device,
+	sge::renderer::device &_device,
 	glsl::optional_istream const &_vertex_shader_source,
 	glsl::optional_istream const &_pixel_shader_source
 )

@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/sprite_system.hpp>
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/symbol.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/metrics_fwd.hpp>
 #include <sge/font/text/string.hpp>
 #include <sge/font/text/drawer_3d.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
@@ -56,9 +56,9 @@ class gfx
 public:
 	SGE_CONSOLE_SYMBOL gfx(
 		sge::console::object &,
-		renderer::device_ptr,
+		renderer::device &,
 		image::color::any::object const &font_color,
-		font::metrics_ptr,
+		font::metrics &,
 		input::keyboard::device &,
 		sprite_object const &,
 		output_line_limit
@@ -101,7 +101,7 @@ private:
 
 	sge::console::object &object_;
 
-	font::metrics_ptr const font_metrics_;
+	font::metrics &font_metrics_;
 
 	font::text::drawer_3d font_drawer_;
 

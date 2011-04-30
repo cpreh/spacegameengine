@@ -18,25 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_CONST_PROGRAM_BASE_PTR_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_CONST_PROGRAM_BASE_PTR_HPP_INCLUDED
+#include <sge/cegui/detail/batch.hpp>
 
-#include "program_base_fwd.hpp"
-#include <fcppt/shared_ptr.hpp>
-
-namespace sge
+sge::cegui::detail::batch::batch(
+	sge::renderer::texture::planar &_texture,
+	sge::renderer::vertex_buffer_ptr const _vertex_buffer
+)
+:
+	texture_(&_texture),
+	vertex_buffer_(_vertex_buffer)
 {
-namespace opengl
-{
-namespace glsl
-{
-
-typedef fcppt::shared_ptr<
-	program_base const
-> const_program_base_ptr;
-
 }
-}
+	
+sge::renderer::texture::planar &
+sge::cegui::detail::batch::texture() const
+{
+	return *texture_;
 }
 
-#endif
+sge::renderer::vertex_buffer &
+sge::cegui::detail::batch::vertex_buffer() const
+{
+	return *vertex_buffer_;
+}

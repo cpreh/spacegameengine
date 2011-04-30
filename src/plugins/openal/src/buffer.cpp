@@ -34,14 +34,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::openal::buffer::buffer(
-	audio::file_ptr const _file
+	audio::file &_file
 )
 :
 	holder_()
 {
 	audio::sample_container data;
 
-	_file->read_all(
+	_file.read_all(
 		data
 	);
 
@@ -52,10 +52,10 @@ sge::openal::buffer::buffer(
 			<< data.size()
 			<< FCPPT_TEXT(" and format ")
 			<< openal::file_format(
-				*_file
+				_file
 			)
 			<< FCPPT_TEXT(" and sample rate ")
-			<< _file->sample_rate()
+			<< _file.sample_rate()
 	);
 
 	if(
@@ -69,7 +69,7 @@ sge::openal::buffer::buffer(
 	::alBufferData(
 		holder_.get(),
 		openal::file_format(
-			*_file
+			_file
 		),
 		data.data(),
 		static_cast<
@@ -80,7 +80,7 @@ sge::openal::buffer::buffer(
 		static_cast<
 			ALsizei
 		>(
-			_file->sample_rate()
+			_file.sample_rate()
 		)
 	);
 

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::onscreen_surface::onscreen_surface(
-	sge::window::instance_ptr const _window
+	sge::window::instance &_window
 )
 :
 	sge::renderer::color_surface(),
@@ -116,7 +116,7 @@ sge::opengl::onscreen_surface::size() const
 		fcppt::math::dim::structure_cast<
 			dim
 		>(
-			window_->size()
+			window_.size()
 		);
 }
 

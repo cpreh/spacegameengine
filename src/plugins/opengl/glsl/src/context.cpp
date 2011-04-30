@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../glew/is_supported.hpp"
 #include "../../context/make_id.hpp"
 #include <sge/renderer/glsl/program.hpp>
-#include <fcppt/dynamic_pointer_cast.hpp>
 
 sge::opengl::glsl::context::context()
 :
@@ -57,46 +56,38 @@ sge::opengl::glsl::context::is_native() const
 
 void
 sge::opengl::glsl::context::use(
-	sge::renderer::glsl::const_program_ptr const _prog
+	sge::renderer::glsl::program const *const _prog
 )
 {
-	typedef fcppt::shared_ptr<
-		program_base const
-	> program_base_ptr;
+	if(
+		last_program_
+	)
+		last_program_->unuse();
+
+	last_program_ = 0;
 
 	if(
 		!_prog
 	)
-	{
-		program_base_ptr const locked(
-			last_program_.lock()
-		);
+		return;
 
-		if(
-			locked
+	glsl::program_base const &prog_base(
+		dynamic_cast<
+			glsl::program_base const &
+		>(
+			*_prog
 		)
-			locked->unuse();
-	}
-	else
-	{
-		program_base_ptr const prog_base(
-			fcppt::dynamic_pointer_cast<
-				program_base const
-			>(
-				_prog
-			)
-		);
+	);
 
-		prog_base->use();
+	prog_base.use();
 
-		last_program_ = prog_base;
-	}
+	last_program_ = &prog_base;
 }
 
-sge::opengl::glsl::const_program_base_ptr const
+sge::opengl::glsl::program_base const *
 sge::opengl::glsl::context::active_program() const
 {
-	return last_program_.lock();
+	return last_program_;
 }
 
 sge::opengl::context::id const

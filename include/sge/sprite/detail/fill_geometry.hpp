@@ -63,13 +63,13 @@ fill_geometry(
 			It
 		>::value_type::choices
 	>(
-		_buffers.template get<
+		*_buffers.template get<
 			detail::roles::index_buffer
 		>(),
 		detail::fill_vertices(
 			_begin,
 			_end,
-			_buffers.template get<
+			*_buffers.template get<
 				detail::roles::vertex_buffer
 			>().second,
 			_num_sprites
@@ -100,7 +100,7 @@ fill_geometry(
 	detail::fill_vertices(
 		_begin,
 		_end,
-		_buffers.template get<
+		*_buffers.template get<
 			detail::roles::vertex_buffer
 		>().second,
 		_num_sprites

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_TRANSFORM_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_TRANSFORM_HPP_INCLUDED
 
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/symbol.hpp>
@@ -41,7 +41,7 @@ class scoped_transform
 public:
 	SGE_SYMBOL
 	scoped_transform(
-		renderer::device_ptr,
+		renderer::device &,
 		renderer::matrix_mode::type,
 		renderer::matrix4 const &
 	);
@@ -49,7 +49,7 @@ public:
 	SGE_SYMBOL
 	~scoped_transform();
 private:
-	renderer::device_ptr const device_;
+	renderer::device &device_;
 
 	renderer::matrix_mode::type const mode_;
 

@@ -266,7 +266,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const conn(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			::input_functor(
 				running
 			)
@@ -274,14 +274,14 @@ try
 	);
 
 	fcppt::signal::scoped_connection const conn_other(
-		sys.mouse_collector()->axis_callback(
+		sys.mouse_collector().axis_callback(
 			sprite_functor(
 				my_object
 			)
 		)
 	);
 
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 		(
 			sge::renderer::state::bool_::clear_backbuffer = true
@@ -294,7 +294,7 @@ try
 
 	while (running)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()

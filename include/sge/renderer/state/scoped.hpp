@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_SCOPED_HPP_INCLUDED
 
 #include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -40,12 +40,12 @@ class scoped
 	);
 public:
 	SGE_SYMBOL scoped(
-		device_ptr,
-		list const &
+		renderer::device &,
+		state::list const &
 	);
 	SGE_SYMBOL ~scoped();
 private:
-	device_ptr const rend_;
+	renderer::device &rend_;
 };
 
 }

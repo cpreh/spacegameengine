@@ -30,20 +30,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::sprite::set_matrices(
-	renderer::device_ptr const _device
+	renderer::device &_device
 )
 {
-	_device->transform(
+	_device.transform(
 		sge::renderer::matrix_mode::world,
 		sge::renderer::matrix4::identity()
 	);
 
-	_device->transform(
+	_device.transform(
 		sge::renderer::matrix_mode::projection,
 		sprite::projection_matrix(
 			sge::renderer::active_target(
-				*_device
-			)->viewport()
+				_device
+			).viewport()
 		)
 	);
 }

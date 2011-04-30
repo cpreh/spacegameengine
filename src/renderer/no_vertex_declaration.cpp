@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/no_vertex_declaration.hpp>
 
-sge::renderer::const_vertex_declaration_ptr const
+sge::renderer::vertex_declaration const *
 sge::renderer::no_vertex_declaration()
 {
-	return renderer::const_vertex_declaration_ptr();
+	return 0;
 }

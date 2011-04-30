@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/allocate_index_buffer.hpp>
 #include <sge/sprite/detail/allocate_vertex_buffer.hpp>
 #include <sge/sprite/with_dim.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -49,7 +49,7 @@ typename boost::enable_if<
 	void
 >::type
 allocate_buffers(
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	DynVertex const &_format,
 	sge::renderer::size_type const _num_sprites,
 	Buffers &_buffers
@@ -86,7 +86,7 @@ typename boost::disable_if<
 	void
 >::type
 allocate_buffers(
-	sge::renderer::device_ptr const _renderer,
+	sge::renderer::device &_renderer,
 	DynVertex const &_format,
 	sge::renderer::size_type const _num_sprites,
 	Buffers &_buffers

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
-#include <sge/charconv/system_ptr.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -40,7 +40,7 @@ typename charconv::string_type<
 	DestEncoding
 >::type
 convert(
-	charconv::system_ptr,
+	charconv::system &,
 	typename charconv::string_type<
 		SourceEncoding
 	>::type const &

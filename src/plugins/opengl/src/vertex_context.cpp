@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::vertex_context::vertex_context()
 :
-	last_declaration_(),
+	last_declaration_(0),
 	last_buffers_()
 {
 }
@@ -33,7 +33,7 @@ sge::opengl::vertex_context::~vertex_context()
 {
 }
 
-sge::opengl::const_vertex_buffer_ptr const
+sge::opengl::vertex_buffer const *
 sge::opengl::vertex_context::vertex_buffer(
 	renderer::vf::dynamic::part_index const _index
 ) const
@@ -41,13 +41,13 @@ sge::opengl::vertex_context::vertex_buffer(
 	return
 		last_buffers_[
 			_index.get()
-		].lock();
+		];
 }
 
 void
 sge::opengl::vertex_context::vertex_buffer(
 	renderer::vf::dynamic::part_index const _index,
-	opengl::const_vertex_buffer_ptr const _buffer
+	opengl::vertex_buffer const *const _buffer
 )
 {
 	last_buffers_[
@@ -58,17 +58,17 @@ sge::opengl::vertex_context::vertex_buffer(
 
 void
 sge::opengl::vertex_context::vertex_declaration(
-	opengl::const_vertex_declaration_ptr const _declaration
+	opengl::vertex_declaration const *const _declaration
 )
 {
 	last_declaration_ = _declaration;
 }
 
-sge::opengl::const_vertex_declaration_ptr const
+sge::opengl::vertex_declaration const *
 sge::opengl::vertex_context::vertex_declaration() const
 {
 	return
-		last_declaration_.lock();
+		last_declaration_;
 }
 
 sge::opengl::context::id const

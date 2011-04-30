@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/relative_move_callback.hpp>
 #include <sge/input/cursor/relative_move_function.hpp>
-#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
@@ -49,7 +49,7 @@ class relative_movement
 public:
 	SGE_SYMBOL
 	explicit relative_movement(
-		cursor::object_ptr
+		cursor::object &
 	);
 
 	SGE_SYMBOL
@@ -70,7 +70,7 @@ private:
 		cursor::relative_move_function
 	> relative_move_signal;
 
-	cursor::object_ptr const cursor_;
+	cursor::object &cursor_;
 
 	cursor::position last_position_;
 

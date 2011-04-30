@@ -160,7 +160,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -170,7 +170,7 @@ try
 		)
 	);
 
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 		(sge::renderer::state::bool_::clear_backbuffer = true)
 		(sge::renderer::state::color::clear_color = sge::image::colors::blue())
@@ -180,7 +180,7 @@ try
 		running
 	)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()

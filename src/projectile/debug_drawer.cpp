@@ -25,13 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::projectile::debug_drawer::debug_drawer(
 	world &_world,
-	sge::renderer::device_ptr const _renderer)
+	sge::renderer::device &_renderer)
 :
 	impl_(
 		fcppt::make_unique_ptr<detail::debug_drawer_impl>(
 			fcppt::ref(
 				_world),
-			_renderer))
+			fcppt::ref(
+				_renderer)))
 {
 }
 

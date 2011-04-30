@@ -22,18 +22,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
 #include "common.hpp"
-#include "device_state_ptr.hpp"
-#include "onscreen_target_ptr.hpp"
-#include "target_base_ptr.hpp"
+#include "device_state_fwd.hpp"
+#include "onscreen_target_fwd.hpp"
+#include "target_base_fwd.hpp"
 #include "context/object.hpp"
-#include "fbo/target_ptr.hpp"
+#include "fbo/target_fwd.hpp"
 #include <sge/renderer/adapter.hpp>
+#include <sge/renderer/caps_fwd.hpp>
+#include <sge/renderer/clip_plane.hpp>
+#include <sge/renderer/clip_plane_index.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/depth_stencil_format.hpp>
+#include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/first_index.hpp>
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/index_buffer_fwd.hpp>
+#include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/light_fwd.hpp>
+#include <sge/renderer/light_index.hpp>
+#include <sge/renderer/material_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix_mode.hpp>
+#include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/onscreen_target_fwd.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/target_fwd.hpp>
+#include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/vertex_buffer_fwd.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/sampler_stage_arg.hpp>
+#include <sge/renderer/sampler_stage_arg_value.hpp>
+#include <sge/renderer/sampler_stage_op.hpp>
+#include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
+#include <sge/renderer/glsl/program_fwd.hpp>
+#include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/texture/depth_stencil_ptr.hpp>
+#include <sge/renderer/texture/cube_parameters_fwd.hpp>
+#include <sge/renderer/texture/cube_ptr.hpp>
+#include <sge/renderer/texture/planar_parameters_fwd.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/volume_parameters_fwd.hpp>
+#include <sge/renderer/texture/volume_ptr.hpp>
+#include <sge/renderer/vf/dynamic/format_fwd.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -55,7 +104,7 @@ public:
 	device(
 		renderer::parameters const &,
 		renderer::adapter,
-		window::instance_ptr
+		window::instance &
 	);
 
 	~device();
@@ -68,7 +117,7 @@ public:
 
 	void
 	render(
-		renderer::const_index_buffer_ptr,
+		renderer::index_buffer const &,
 		renderer::first_vertex,
 		renderer::vertex_count,
 		renderer::indexed_primitive_type::type,
@@ -85,17 +134,17 @@ public:
 
 	void
 	activate_vertex_buffer(
-		renderer::const_vertex_buffer_ptr
+		renderer::vertex_buffer const &
 	);
 
 	void
 	deactivate_vertex_buffer(
-		renderer::const_vertex_buffer_ptr
+		renderer::vertex_buffer const &
 	);
 
 	void
 	vertex_declaration(
-		renderer::const_vertex_declaration_ptr
+		renderer::vertex_declaration const *
 	);
 
 	void
@@ -156,7 +205,7 @@ public:
 
 	void
 	texture(
-		renderer::texture::const_base_ptr,
+		renderer::texture::base const *,
 		renderer::stage_type
 	);
 
@@ -168,7 +217,7 @@ public:
 
 	void
 	target(
-		renderer::target_ptr
+		renderer::target *
 	);
 
 	renderer::glsl::program_ptr const
@@ -186,7 +235,7 @@ public:
 
 	void
 	glsl_program(
-		renderer::glsl::const_program_ptr
+		renderer::glsl::program const *
 	);
 
 	renderer::target_ptr const
@@ -226,7 +275,7 @@ public:
 
 	renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
-		renderer::vertex_declaration_ptr,
+		renderer::vertex_declaration const &,
 		renderer::vf::dynamic::part_index,
 		renderer::size_type,
 		renderer::resource_flags_field const &
@@ -239,10 +288,10 @@ public:
 		renderer::resource_flags_field const &
 	);
 
-	renderer::onscreen_target_ptr const
+	renderer::onscreen_target &
 	onscreen_target() const;
 
-	renderer::target_ptr const
+	renderer::target *
 	target() const;
 
 	renderer::matrix4 const
@@ -253,7 +302,7 @@ public:
 	renderer::caps const
 	caps() const;
 
-	window::instance_ptr const
+	window::instance &
 	window() const;
 private:
 	GLenum
@@ -266,19 +315,27 @@ private:
 
 	renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
 
-	window::instance_ptr const window_;
+	window::instance &window_;
 
 	renderer::state::list current_states_;
 
-	mutable context::object context_;
+	mutable opengl::context::object context_;
 
-	opengl::device_state_ptr state_;
+	typedef fcppt::scoped_ptr<
+		opengl::device_state
+	> device_state_scoped_ptr;
 
-	opengl::onscreen_target_ptr const onscreen_target_;
+	device_state_scoped_ptr state_;
 
-	opengl::fbo::target_ptr fbo_target_;
+	typedef fcppt::scoped_ptr<
+		opengl::onscreen_target
+	> onscreen_target_scoped_ptr;
 
-	opengl::target_base_ptr target_;
+	onscreen_target_scoped_ptr const onscreen_target_;
+
+	opengl::fbo::target *fbo_target_;
+
+	opengl::target_base *target_;
 
 	typedef std::stack<
 		renderer::state::list

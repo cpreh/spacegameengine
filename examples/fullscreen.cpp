@@ -49,7 +49,7 @@ try
 		600
 	);
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(
 			sge::systems::window(
@@ -83,10 +83,11 @@ try
 	sge::time::timer tm(
 		sge::time::second(10));
 
-	sge::renderer::device_ptr const rend(
-		sys.renderer());
+	sge::renderer::device &rend(
+		sys.renderer()
+	);
 
-	rend->state(
+	rend.state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color
@@ -94,20 +95,32 @@ try
 			)
 	);
 
-	while(!tm.update_b())
+	while(
+		!tm.update_b()
+	)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		sge::renderer::scoped_block const block_(rend);
 	}
 }
-catch(sge::exception const &e)
+catch(
+	sge::exception const &_error
+)
 {
-	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
+	fcppt::io::cerr
+		<< _error.string()
+		<< FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
 }
-catch(std::exception const &e)
+catch(
+	std::exception const &_error
+)
 {
-	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
+	fcppt::io::cerr
+		<< _error.what()
+		<< FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
 }

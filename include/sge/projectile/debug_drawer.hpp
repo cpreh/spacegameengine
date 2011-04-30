@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/detail/debug_drawer_impl_fwd.hpp>
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/symbol.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -46,7 +46,7 @@ public:
 	SGE_PROJECTILE_SYMBOL explicit
 	debug_drawer(
 		world &,
-		sge::renderer::device_ptr);
+		sge::renderer::device &);
 
 	// Updates the line cache
 	SGE_PROJECTILE_SYMBOL void

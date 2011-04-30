@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/renderer/caps.hpp>
-#include <sge/renderer/create_device_with_window.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -33,7 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/window/create.hpp>
 #include <sge/window/dim.hpp>
+#include <sge/window/parameters.hpp>
 #include <sge/window/simple_parameters.hpp>
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
@@ -71,27 +72,40 @@ try
 		awl::system::create()
 	);
 
+	sge::renderer::parameters const render_params(
+		sge::renderer::visual_depth::depth32,
+		sge::renderer::depth_stencil_buffer::off,
+		sge::renderer::vsync::on,
+		sge::renderer::no_multi_sampling
+	);
+
+	sge::window::instance_ptr const window(
+		sge::window::create(
+			sge::window::parameters(
+				window_sys,
+				render_sys->create_window(
+					*window_sys,
+					sge::window::simple_parameters(
+						FCPPT_TEXT("sge caps"),
+						sge::window::dim(
+							1024,
+							768
+						)
+					),
+					render_params
+				)
+			)
+		)
+	);
+
 	fcppt::io::cout
 		<<
-		sge::renderer::create_device_with_window(
-			window_sys,
-			render_sys,
-			sge::renderer::parameters(
-				sge::renderer::visual_depth::depth32,
-				sge::renderer::depth_stencil_buffer::off,
-				sge::renderer::vsync::on,
-				sge::renderer::no_multi_sampling
-			),
+		render_sys->create_renderer(
+			render_params,
 			sge::renderer::adapter(
 				0
 			),
-			sge::window::simple_parameters(
-				FCPPT_TEXT("sge caps"),
-				sge::window::dim(
-					1024,
-					768
-				)
-			)
+			*window
 		)->caps()
 		<< FCPPT_TEXT('\n');
 }

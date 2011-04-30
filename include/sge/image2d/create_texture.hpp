@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_CREATE_TEXTURE_HPP_INCLUDED
 
 #include <sge/image2d/multi_loader_fwd.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file_fwd.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <sge/renderer/texture/address_mode2_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 
@@ -38,8 +38,8 @@ namespace image2d
 
 SGE_SYMBOL renderer::texture::planar_ptr const
 create_texture(
-	renderer::device_ptr,
-	image2d::file_ptr,
+	renderer::device &,
+	image2d::file &,
 	renderer::texture::filter::object const &,
 	renderer::texture::address_mode2 const &,
 	renderer::resource_flags_field const &
@@ -48,7 +48,7 @@ create_texture(
 SGE_SYMBOL renderer::texture::planar_ptr const
 create_texture(
 	fcppt::filesystem::path const &,
-	renderer::device_ptr,
+	renderer::device &,
 	image2d::multi_loader &,
 	renderer::texture::filter::object const &,
 	renderer::texture::address_mode2 const &,

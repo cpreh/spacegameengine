@@ -40,13 +40,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
 #include <sge/renderer/const_color_surface_ptr.hpp>
-#include <sge/renderer/const_index_buffer_ptr.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/const_scoped_color_surface_lock.hpp>
 #include <sge/renderer/const_scoped_index_lock.hpp>
 #include <sge/renderer/const_scoped_vertex_lock.hpp>
 #include <sge/renderer/const_target_ptr.hpp>
-#include <sge/renderer/const_vertex_buffer_ptr.hpp>
 #include <sge/renderer/const_vertex_declaration_ptr.hpp>
 #include <sge/renderer/create_device_with_window.hpp>
 #include <sge/renderer/create_index_buffer_from_view.hpp>
@@ -94,7 +92,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/npos.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/onscreen_target_fwd.hpp>
-#include <sge/renderer/onscreen_target_ptr.hpp>
 #include <sge/renderer/optional_dim2.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/parameters_fwd.hpp>

@@ -22,18 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 
 sge::renderer::state::scoped::scoped(
-	device_ptr const _rend,
-	list const &_list
+	renderer::device &_rend,
+	state::list const &_list
 )
 :
 	rend_(_rend)
 {
-	rend_->push_state(
+	rend_.push_state(
 		_list
 	);
 }
 
 sge::renderer::state::scoped::~scoped()
 {
-	rend_->pop_state();
+	rend_.pop_state();
 }

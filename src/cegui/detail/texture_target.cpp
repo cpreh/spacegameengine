@@ -61,7 +61,7 @@ sge::cegui::detail::texture_target::texture_target(
 	system_(
 		_system),
 	target_(
-		system_.renderer()->create_target()),
+		system_.renderer().create_target()),
 	texture_(),
 	// This is exactly what cegui does and it avoids certain bugs :/
 	area_(0,0,0,0),
@@ -138,14 +138,14 @@ sge::cegui::detail::texture_target::activate()
 			structure_cast<sge::renderer::pixel_rect>(
 				area_)));
 
-	system_.renderer()->target(
-		target_);
+	system_.renderer().target(
+		target_.get());
 
 	temp_projection_ = 
-		system_.renderer()->transform(
+		system_.renderer().transform(
 			sge::renderer::matrix_mode::projection);
 
-	system_.renderer()->transform(
+	system_.renderer().transform(
 		sge::renderer::matrix_mode::projection,
 		fcppt::math::matrix::orthogonal(
 			static_cast<sge::renderer::scalar>(
@@ -164,11 +164,11 @@ sge::cegui::detail::texture_target::activate()
 
 	// This is critical: We do NOT want to clear the texture
 	// here. Clearing is explicitly done in the clear() function.
-	system_.renderer()->push_state(
+	system_.renderer().push_state(
 		sge::renderer::state::list(
 			sge::renderer::state::bool_::clear_backbuffer = false));
 
-	system_.renderer()->begin_rendering();
+	system_.renderer().begin_rendering();
 }
 
 void 
@@ -176,12 +176,12 @@ sge::cegui::detail::texture_target::deactivate()
 {
 	if(texture_->empty())
 		return;
-	system_.renderer()->end_rendering();
-	system_.renderer()->pop_state();
-	system_.renderer()->transform(
+	system_.renderer().end_rendering();
+	system_.renderer().pop_state();
+	system_.renderer().transform(
 		sge::renderer::matrix_mode::projection,
 		temp_projection_);
-	system_.renderer()->target(
+	system_.renderer().target(
 		sge::renderer::default_target());
 }
 
@@ -218,11 +218,11 @@ sge::cegui::detail::texture_target::clear()
 			sge::renderer::pixel_rect(
 				sge::renderer::pixel_rect::vector::null(),
 				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
-					texture_->impl()->size()))));
+					texture_->impl().size()))));
 
 	sge::renderer::scoped_target scoped_target(
 		system_.renderer(),
-		target_);
+		*target_);
 
 	sge::renderer::scoped_block scoped_block(
 		system_.renderer());
@@ -265,7 +265,7 @@ sge::cegui::detail::texture_target::declareRenderSize(
 		?
 			sge::renderer::color_surface_ptr()
 		:
-			texture_->impl()->surface(
+			texture_->impl().surface(
 				sge::renderer::stage_type(0u)),
 		sge::renderer::surface_index(0u));
 

@@ -35,7 +35,7 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("resource_provider"))
 
 sge::cegui::detail::resource_provider::resource_provider(
-	sge::charconv::system_ptr const _charconv_system)
+	sge::charconv::system &_charconv_system)
 :
 	charconv_system_(
 		_charconv_system)
@@ -53,11 +53,11 @@ sge::cegui::detail::resource_provider::loadRawDataContainer(
 {
 	fcppt::string const
 		converted_filename = 
-			from_cegui_string(
+			cegui::from_cegui_string(
 				filename,
 				charconv_system_),
 		converted_resource_group = 
-			from_cegui_string(
+			cegui::from_cegui_string(
 				resource_group,
 				charconv_system_);
 

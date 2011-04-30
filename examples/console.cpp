@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/console/object.hpp>
@@ -51,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/font/text/to_fcppt_string.hpp>
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/font/system.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
@@ -137,7 +137,9 @@ try
 				sge::systems::cursor_option_field::null()
 			)
 		)
-		(sge::systems::parameterless::font)
+		(
+			sge::systems::parameterless::font
+		)
 		(
 			sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
@@ -151,7 +153,7 @@ try
 	);
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -186,16 +188,7 @@ try
 		)
 	);
 
-	sge::image2d::file_ptr const
-		image_bg(
-			sys.image_loader().load(
-				sge::config::media_path()
-				/ FCPPT_TEXT("grass.png")
-			)
-		);
-
 	sge::texture::manager tex_man(
-		sys.renderer(),
 		boost::phoenix::construct<
 			sge::texture::fragmented_unique_ptr
 		>
@@ -204,7 +197,9 @@ try
 				sge::texture::no_fragmented
 			>
 			(
-				sys.renderer(),
+				fcppt::ref(
+					sys.renderer()
+				),
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
@@ -218,21 +213,28 @@ try
 		tex_bg(
 			sge::texture::add_image(
 				tex_man,
-				image_bg
+				*sys.image_loader().load(
+					sge::config::media_path()
+					/ FCPPT_TEXT("grass.png")
+				)
 			)
 		);
+
+	sge::font::metrics_ptr const font_metrics(
+		sys.font_system().create_font(
+			sge::config::media_path()
+			/ FCPPT_TEXT("fonts")
+			/ FCPPT_TEXT("default.ttf"),
+			15
+		)
+	);
 
 	sge::console::gfx gfx_(
 		object,
 		sys.renderer(),
 		sge::image::colors::white(),
-		sys.font_system()->create_font(
-			sge::config::media_path()
-			/ FCPPT_TEXT("fonts")
-			/ FCPPT_TEXT("default.ttf"),
-			15
-		),
-		*sys.keyboard_collector(),
+		*font_metrics,
+		sys.keyboard_collector(),
 		sge::console::sprite_object(
 			sge::console::sprite_parameters()
 			.pos(
@@ -253,7 +255,7 @@ try
 		)
 	);
 
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color = sge::image::colors::black())
@@ -263,7 +265,7 @@ try
 
 	while (running)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()

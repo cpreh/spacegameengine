@@ -23,20 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_vertex_declaration.hpp>
 
 sge::renderer::scoped_vertex_declaration::scoped_vertex_declaration(
-	renderer::device_ptr const _device,
-	renderer::const_vertex_declaration_ptr const _declaration
+	renderer::device &_device,
+	renderer::vertex_declaration const &_declaration
 )
 :
 	device_(_device)
 {
-	device_->vertex_declaration(
-		_declaration
+	device_.vertex_declaration(
+		&_declaration
 	);
 }
 
 sge::renderer::scoped_vertex_declaration::~scoped_vertex_declaration()
 {
-	device_->vertex_declaration(
+	device_.vertex_declaration(
 		renderer::no_vertex_declaration()
 	);
 }

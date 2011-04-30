@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_PLAYER_HPP_INCLUDED
 
 #include <sge/audio/player_fwd.hpp>
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file_fwd.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/player_capabilities_field.hpp>
@@ -60,31 +60,37 @@ public:
 
 	virtual void 
 	speed_of_sound(
-		scalar) = 0;
+		scalar
+	) = 0;
 
 	virtual void
 	doppler_factor(
-		scalar) = 0;
+		scalar
+	) = 0;
 
 	virtual void
 	gain(
-		scalar) = 0;
+		scalar
+	) = 0;
 
 	virtual scalar
 	gain() const = 0;
 
 	virtual buffer_ptr const
 	create_buffer(
-		file_ptr) = 0;
+		audio::file &
+	) = 0;
 
 	virtual sound::positional_ptr const 
 	create_positional_stream(
-		file_ptr,
-		sound::positional_parameters const &) = 0;
+		audio::file &,
+		sound::positional_parameters const &
+	) = 0;
 
 	virtual sound::base_ptr const 
 	create_nonpositional_stream(
-		file_ptr) = 0;
+		audio::file &
+	) = 0;
 
 	virtual player_capabilities_field const
 	capabilities() const = 0;

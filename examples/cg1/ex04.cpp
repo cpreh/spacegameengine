@@ -187,7 +187,7 @@ try
 		)
 	);
 
-	sge::renderer::device_ptr const rend(
+	sge::renderer::device &rend(
 		sys.renderer()
 	);
 
@@ -197,7 +197,7 @@ try
 	);
 
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
-		rend->create_vertex_declaration(
+		rend.create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
 				vertex_format
 			>()
@@ -205,8 +205,8 @@ try
 	);
 
 	sge::renderer::vertex_buffer_ptr const vb(
-		rend->create_vertex_buffer(
-			vertex_declaration,
+		rend.create_vertex_buffer(
+			*vertex_declaration,
 			sge::renderer::vf::dynamic::part_index(
 				0u
 			),
@@ -228,7 +228,7 @@ try
 
 	{
 		sge::renderer::scoped_vertex_lock const vblock(
-			vb,
+			*vb,
 			sge::renderer::lock_mode::writeonly
 		);
 
@@ -299,7 +299,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -311,7 +311,7 @@ try
 
 	typedef sge::image::color::rgba32f rgba32f_color;
 
-	rend->state(
+	rend.state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::bool_::clear_zbuffer = true)
@@ -337,7 +337,7 @@ try
 			3
 		>::type vec3f;
 
-		rend->light(
+		rend.light(
 			light_index,
 			sge::renderer::light(
 				sge::image::colors::white(),
@@ -361,13 +361,13 @@ try
 			)
 		);
 
-		rend->enable_light(
+		rend.enable_light(
 			light_index,
 			true
 		);
 	}
 
-	rend->material(
+	rend.material(
 		sge::renderer::material(
 			rgba32f_color(
 				(sge::image::color::init::red %= 0.1)
@@ -402,28 +402,28 @@ try
 
 	sge::renderer::scoped_vertex_declaration const scoped_declaration(
 		rend,
-		vertex_declaration
+		*vertex_declaration
 	);
 
 	sge::renderer::scoped_vertex_buffer const scoped_vb(
 		rend,
-		vb
+		*vb
 	);
 
 	while(
 		running
 	)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
-		rend->transform(
+		rend.transform(
 			sge::renderer::matrix_mode::projection,
 			fcppt::math::matrix::perspective(
 				sge::renderer::aspect(
 					fcppt::math::dim::structure_cast<
 						sge::renderer::screen_size
 					>(
-						sys.window()->size()
+						sys.window().size()
 					)
 				),
 				fcppt::math::pi<float_type>() / 2,
@@ -441,7 +441,7 @@ try
 				3
 			>::type vec3;
 
-			rend->transform(
+			rend.transform(
 				sge::renderer::matrix_mode::world,
 				fcppt::math::matrix::rotation_y(
 					angle
@@ -467,7 +467,7 @@ try
 			rend
 		);
 
-		rend->render(
+		rend.render(
 			sge::renderer::first_vertex(0),
 			sge::renderer::vertex_count(
 				vb->size()

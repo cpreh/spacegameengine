@@ -77,15 +77,15 @@ try
 		)
 	);
 
-	sys.window()->show();
+	sys.window().show();
 
 	fcppt::signal::scoped_connection const input_connection(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				std::tr1::bind(
 					&awl::mainloop::dispatcher::stop,
-					sys.window()->awl_dispatcher()
+					sys.window().awl_dispatcher()
 				)
 			)
 		)

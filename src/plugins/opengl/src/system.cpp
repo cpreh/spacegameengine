@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/instance_shared_ptr.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 
 sge::opengl::system::system()
 {
@@ -43,7 +44,7 @@ sge::renderer::device_ptr const
 sge::opengl::system::create_renderer(
 	renderer::parameters const &_param,
 	renderer::adapter const _adapter,
-	window::instance_ptr const _wnd
+	window::instance &_wnd
 )
 {
 	return
@@ -52,7 +53,9 @@ sge::opengl::system::create_renderer(
 		>(
 			_param,
 			_adapter,
-			_wnd
+			fcppt::ref(
+				_wnd
+			)
 		);
 }
 

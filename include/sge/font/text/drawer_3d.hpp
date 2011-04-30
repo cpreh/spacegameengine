@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/image_view.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/const_part_ptr.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/external_system_decl.hpp>
 #include <sge/sprite/object_decl.hpp>
@@ -63,7 +63,7 @@ class SGE_CLASS_SYMBOL drawer_3d
 public:
 	SGE_FONT_TEXT_SYMBOL
 	drawer_3d(
-		renderer::device_ptr rend,
+		renderer::device &,
 		image::color::any::object const &
 	);
 
@@ -101,8 +101,6 @@ private:
 		font::text::char_type,
 		font::const_image_view const &
 	);
-
-	renderer::device_ptr const rend_;
 
 	image::color::any::object col_;
 

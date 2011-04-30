@@ -25,20 +25,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::glsl::program_ptr const
 sge::renderer::glsl::create_program_from_strings(
-	sge::renderer::device_ptr const _device,
+	sge::renderer::device &_device,
 	glsl::optional_string const &_vertex_shader_source,
 	glsl::optional_string const &_pixel_shader_source
 )
 {
 	glsl::program_ptr const ret(
-		_device->create_glsl_program()
+		_device.create_glsl_program()
 	);
 
 	if(
 		_vertex_shader_source
 	)
 		ret->vertex_shader(
-			_device->create_glsl_vertex_shader(
+			_device.create_glsl_vertex_shader(
 				*_vertex_shader_source
 			)
 		);
@@ -47,7 +47,7 @@ sge::renderer::glsl::create_program_from_strings(
 		_pixel_shader_source
 	)
 		ret->pixel_shader(
-			_device->create_glsl_pixel_shader(
+			_device.create_glsl_pixel_shader(
 				*_pixel_shader_source
 			)
 		);

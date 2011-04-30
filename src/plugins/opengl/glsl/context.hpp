@@ -23,11 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "context_fwd.hpp"
 #include "program_base_fwd.hpp"
-#include "const_program_base_ptr.hpp"
 #include "../context/base.hpp"
 #include "../context/id.hpp"
-#include <sge/renderer/glsl/const_program_ptr.hpp>
-#include <fcppt/weak_ptr.hpp>
+#include <sge/renderer/glsl/program_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -57,10 +55,10 @@ public:
 
 	void
 	use(
-		sge::renderer::glsl::const_program_ptr
+		sge::renderer::glsl::program const *
 	);
 
-	glsl::const_program_base_ptr const
+	glsl::program_base const *
 	active_program() const;
 
 	static opengl::context::id const static_id;
@@ -71,11 +69,7 @@ private:
 		normal_shader_,
 		arb_shader_;
 	
-	typedef fcppt::weak_ptr<
-		program_base const
-	> program_weak_ptr;
-
-	program_weak_ptr last_program_;
+	glsl::program_base const *last_program_;
 };
 
 }

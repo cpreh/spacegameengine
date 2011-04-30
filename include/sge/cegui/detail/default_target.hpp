@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <CEGUI/CEGUIRenderTarget.h>
 #include <CEGUI/CEGUIRect.h>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 
@@ -47,7 +47,7 @@ class default_target
 public:
 	explicit
 	default_target(
-		sge::renderer::device_ptr);
+		sge::renderer::device &);
 
 	void 
 	draw(
@@ -82,7 +82,7 @@ public:
 	sge::renderer::matrix4 const
 	projection() const;
 private:
-	sge::renderer::device_ptr renderer_;
+	sge::renderer::device &renderer_;
 	mutable CEGUI::Rect viewport_;
 };
 }

@@ -107,8 +107,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/spirit/home/phoenix/object/construct.hpp>
-#include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/assign/list_of.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <exception>
@@ -168,12 +166,12 @@ vertex_view;
 
 sge::renderer::vertex_buffer_ptr const
 create_quad(
-	sge::renderer::vertex_declaration_ptr const _declaration,
+	sge::renderer::vertex_declaration &_declaration,
 	sge::shader::object &shader,
-	sge::renderer::device_ptr const renderer)
+	sge::renderer::device &renderer)
 {
 	sge::renderer::vertex_buffer_ptr const vb(
-		renderer->create_vertex_buffer(
+		renderer.create_vertex_buffer(
 			_declaration,
 			sge::renderer::vf::dynamic::part_index(
 				0u
@@ -187,10 +185,10 @@ create_quad(
 	
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer,
-		vb);
+		*vb);
 
 	sge::renderer::scoped_vertex_lock const vblock(
-		vb,
+		*vb,
 		sge::renderer::lock_mode::writeonly);
 
 	vertex_view const vertices(
@@ -289,7 +287,7 @@ try
 					FCPPT_TEXT("png")))));
 
 	sge::renderer::texture::planar_ptr target_texture(
-		sys.renderer()->create_planar_texture(
+		sys.renderer().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
 					window_dim
@@ -311,19 +309,19 @@ try
 	sge::renderer::target_ptr const temp_target(
 		sge::renderer::target_from_texture(
 			sys.renderer(),
-			target_texture
+			*target_texture
 		)
 	);
 
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(running))));
 
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color = sge::image::colors::black()));
@@ -345,7 +343,7 @@ try
 				sge::renderer::texture::planar_ptr())));
 
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
-		sys.renderer()->create_vertex_declaration(
+		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
 				screen_vf::format
 			>()
@@ -354,14 +352,14 @@ try
 
 	sge::renderer::vertex_buffer_ptr const quad_(
 		screen_vf::create_quad(
-			vertex_declaration,
+			*vertex_declaration,
 			shader_,
 			sys.renderer()));
 
 	{
 		sge::renderer::scoped_target scoped_target(
 			sys.renderer(),
-			temp_target);
+			*temp_target);
 
 		sge::renderer::scoped_block scoped_block(
 			sys.renderer());
@@ -371,9 +369,9 @@ try
 
 		sge::renderer::scoped_vertex_buffer const scoped_vb_(
 			sys.renderer(),
-			quad_);
+			*quad_);
 
-		sys.renderer()->render(
+		sys.renderer().render(
 			sge::renderer::first_vertex(
 				0),
 			sge::renderer::vertex_count(
@@ -382,10 +380,11 @@ try
 	}
 
 	sge::renderer::texture::const_scoped_planar_lock slock(
-		target_texture);
+		*target_texture);
 
 	sys.image_loader().loaders().at(0)->create(
-		slock.value())->save(
+		slock.value()
+	)->save(
 		fcppt::from_std_string(
 			argv[1]));
 }

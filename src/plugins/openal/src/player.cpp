@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 
@@ -141,7 +142,7 @@ sge::openal::player::gain(
 
 sge::audio::buffer_ptr const
 sge::openal::player::create_buffer(
-	audio::file_ptr const _file
+	audio::file &_file
 )
 {
 	return 
@@ -149,14 +150,16 @@ sge::openal::player::create_buffer(
 			fcppt::make_shared_ptr<
 				openal::buffer
 			>(
-				_file
+				fcppt::ref(
+					_file
+				)
 			)
 		);
 }
 
 sge::audio::sound::positional_ptr const 
 sge::openal::player::create_positional_stream(
-	audio::file_ptr const _file,
+	audio::file &_file,
 	audio::sound::positional_parameters const &_parameters
 )
 {
@@ -166,14 +169,16 @@ sge::openal::player::create_positional_stream(
 				openal::stream_sound
 			>(
 				_parameters,
-				_file
+				fcppt::ref(
+					_file
+				)
 			)
 		);
 }
 
 sge::audio::sound::base_ptr const 
 sge::openal::player::create_nonpositional_stream(
-	audio::file_ptr const _file
+	audio::file &_file
 )
 {
 	return 
@@ -181,7 +186,9 @@ sge::openal::player::create_nonpositional_stream(
 			fcppt::make_shared_ptr<
 				openal::stream_sound
 			>(
-				_file
+				fcppt::ref(
+					_file
+				)
 			)
 		);
 }

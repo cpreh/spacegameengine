@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_BIND_CONTEXT_HPP_INCLUDED
 
 #include "bind_context_fwd.hpp"
-#include "const_base_ptr.hpp"
+#include "base_fwd.hpp"
 #include "id.hpp"
 #include "optional_type.hpp"
 #include "type.hpp"
@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
-#include <fcppt/weak_ptr_decl.hpp>
 #include <map>
 #include <vector>
 
@@ -59,7 +58,7 @@ public:
 	void
 	bind_for_rendering(
 		opengl::context::object &,
-		opengl::texture::const_base_ptr,
+		opengl::texture::base const &,
 		renderer::stage_type
 	);
 
@@ -92,12 +91,8 @@ private:
 		texture::type
 	);
 
-	typedef fcppt::weak_ptr<
-		opengl::texture::base const
-	> texture_weak_ptr;
-
 	typedef fcppt::container::index_map<
-		texture_weak_ptr
+		opengl::texture::base const *
 	> texture_vector;
 
 	typedef fcppt::container::index_map<

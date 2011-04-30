@@ -173,7 +173,6 @@ SET(
 	src/plugins/opengl/glsl/arb/uniform_context_fwd.hpp
 	src/plugins/opengl/glsl/attachment.hpp
 	src/plugins/opengl/glsl/attachment_fwd.hpp
-	src/plugins/opengl/glsl/const_program_base_ptr.hpp
 	src/plugins/opengl/glsl/context.hpp
 	src/plugins/opengl/glsl/context_fwd.hpp
 	src/plugins/opengl/glsl/create_pixel_shader.hpp

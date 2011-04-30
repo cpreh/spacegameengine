@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 
 sge::texture::rect_fragmented::rect_fragmented(
-	renderer::device_ptr const _rend,
+	renderer::device &_rend,
 	image::color::format::type const _format,
 	renderer::texture::filter::object const &_filter,
 	renderer::dim2 const &_initial_size
@@ -123,10 +123,16 @@ sge::texture::rect_fragmented::on_return_fragment(
 	--texture_count_;
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar &
+sge::texture::rect_fragmented::texture()
+{
+	return *tex_;
+}
+
+sge::renderer::texture::planar const &
 sge::texture::rect_fragmented::texture() const
 {
-	return tex_;
+	return *tex_;
 }
 
 bool
@@ -142,9 +148,9 @@ sge::texture::rect_fragmented::free_value() const
 		static_cast<
 			free_type
 		>(
-			(this->texture()->size().h() - cur_height_)
-			* this->texture()->size().w()
-		);	
+			(this->texture().size().h() - cur_height_)
+			* this->texture().size().w()
+		);
 }
 
 bool

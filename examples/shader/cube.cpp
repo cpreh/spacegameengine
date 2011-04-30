@@ -295,7 +295,7 @@ format_part_view;
 void
 fill_vb_with_cube(
 	sge::shader::object &shader,
-	sge::renderer::vertex_buffer_ptr const vb)
+	sge::renderer::vertex_buffer &vb)
 {
 	// Since we're using unspecified attributes (which are, in a way,
 	// "bound" to the shader), we have to activate it here.
@@ -885,7 +885,7 @@ try
 	// When escape is pressed, the main loop should end, so we need to
 	// set running to false.
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			// keyboard::action is just a wrapper for: Test if the key code
 			// is escape and then execute the action given.
 			sge::input::keyboard::action(
@@ -910,8 +910,8 @@ try
 			// three orientation vectors. Identity gizmo means: position =
 			// (0,0,0), left, right up as the standard basis for R^3
 			sge::camera::identity_gizmo(),
-			*sys.keyboard_collector(),
-			*sys.mouse_collector(),
+			sys.keyboard_collector(),
+			sys.mouse_collector(),
 			sge::camera::activation_state::active));
 
 	// Adapt the camera to the viewport
@@ -920,7 +920,7 @@ try
 			std::tr1::bind(
 				sge::camera::projection::update_perspective_from_viewport,
 				fcppt::ref(
-					*sys.renderer()),
+					sys.renderer()),
 				fcppt::ref(
 					camera),
 				// Field of view
@@ -979,7 +979,7 @@ try
 		true;
 
 	fcppt::signal::scoped_connection const cb_enabled(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::e,
 				std::tr1::bind(
@@ -992,12 +992,12 @@ try
 	// To use a vertex format, we have to create a _declaration_ and
 	// some _buffers_.
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
-		sys.renderer()->create_vertex_declaration(
+		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>()));
 
 	sge::renderer::vertex_buffer_ptr const vb(
-		sys.renderer()->create_vertex_buffer(
-			vertex_declaration,
+		sys.renderer().create_vertex_buffer(
+			*vertex_declaration,
 			sge::renderer::vf::dynamic::part_index(0u),
 			// 6 sides, 2 triangles per side, 3 vertices (we don't use an
 			// index buffer - overkill)
@@ -1006,10 +1006,10 @@ try
 
 	fill_vb_with_cube(
 		shader,
-		vb);
+		*vb);
 
 	// Some render states
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::bool_::clear_zbuffer = true)
@@ -1034,7 +1034,7 @@ try
 		sge::image::colors::red());
 
 	sge::font::metrics_ptr const font_metrics(
-		sys.font_system()->create_font(
+		sys.font_system().create_font(
 			sge::config::media_path()
 				/ FCPPT_TEXT("fonts")
 				/ FCPPT_TEXT("default.ttf"),
@@ -1043,7 +1043,7 @@ try
 
 	while(running)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		camera.update(
 			frame_timer.reset());
@@ -1057,11 +1057,11 @@ try
 
 			sge::renderer::scoped_vertex_declaration const vb_declaration_context(
 				sys.renderer(),
-				vertex_declaration);
+				*vertex_declaration);
 
 			sge::renderer::scoped_vertex_buffer const vb_context(
 				sys.renderer(),
-				vb);
+				*vb);
 
 			shader.update_uniform(
 				"mvp",
@@ -1084,7 +1084,7 @@ try
 						fcppt::math::twopi<sge::renderer::scalar>() * 
 						elapsed)));
 
-			sys.renderer()->render(
+			sys.renderer().render(
 				sge::renderer::first_vertex(0),
 				sge::renderer::vertex_count(
 					vb->size()),
@@ -1092,13 +1092,17 @@ try
 		}
 
 		sge::font::text::draw(
-			font_metrics,
+			*font_metrics,
 			font_drawer,
 			SGE_FONT_TEXT_LIT("Press 'e' to toggle bump mapping"),
 			sge::font::rect(
 				sge::font::rect::vector::null(),
 				fcppt::math::dim::structure_cast<sge::font::rect::dim>(
-					sge::renderer::active_target(*sys.renderer())->viewport().get().size())),
+					sge::renderer::active_target(
+						sys.renderer()
+					).viewport().get().size()
+				)
+			),
 			sge::font::text::align_h::left,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none);

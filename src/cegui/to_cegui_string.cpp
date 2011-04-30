@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 CEGUI::String const
 sge::cegui::to_cegui_string(
-	fcppt::string const &s,
-	sge::charconv::system_ptr const charconv)
+	fcppt::string const &_string,
+	sge::charconv::system &_charconv)
 {
 	typedef
 	sge::charconv::string_type<sge::charconv::encoding::utf8>::type
@@ -49,7 +49,7 @@ sge::cegui::to_cegui_string(
 				sge::charconv::encoding::utf8, 
 				sge::charconv::encoding::wchar
 			>(
-				charconv,
+				_charconv,
 				fcppt::to_std_wstring(
-					s)).c_str());
+					_string)).c_str());
 }

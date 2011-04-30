@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_DETAIL_DEBUG_DRAWER_IMPL_HPP_INCLUDED
 
 #include <sge/projectile/world_fwd.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -49,7 +49,7 @@ public:
 	explicit
 	debug_drawer_impl(
 		world &,
-		sge::renderer::device_ptr);
+		sge::renderer::device &);
 
 	void
 	update();
@@ -68,7 +68,7 @@ public:
 	~debug_drawer_impl();
 private:
 	btCollisionWorld &world_;
-	sge::renderer::device_ptr const renderer_;
+	sge::renderer::device &renderer_;
 	int debug_mode_;
 	sge::line_drawer::object line_drawer_;
 	fcppt::scoped_ptr<sge::line_drawer::scoped_lock> scoped_lock_;

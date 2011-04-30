@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::draw_elements(
 	opengl::context::object &_context,
-	renderer::const_index_buffer_ptr const _ib,
+	renderer::index_buffer const &_ib,
 	renderer::first_vertex const _first_vertex,
 	renderer::vertex_count const _num_vertices,
 	renderer::indexed_primitive_type::type const _ptype,
@@ -69,7 +69,7 @@ sge::opengl::draw_elements(
 		dynamic_cast<
 			opengl::index_buffer const &
 		>(
-			*_ib
+			_ib
 		)
 	);
 

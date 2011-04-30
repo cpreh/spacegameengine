@@ -41,7 +41,7 @@ template<
 	typename Choices
 >
 sge::sprite::intrusive::system<Choices>::system(
-	renderer::device_ptr const _rend
+	renderer::device &_rend
 )
 :
 	base(
@@ -195,12 +195,12 @@ sge::sprite::intrusive::system<Choices>::render_list(
 
 	renderer::scoped_vertex_declaration const vb_declaration(
 		base::renderer(),
-		base::vertex_declaration()
+		*base::vertex_declaration()
 	);
 
 	renderer::scoped_vertex_buffer const vb_context(
 		base::renderer(),
-		base::vertex_buffer()
+		*base::vertex_buffer()
 	);
 
 	sprite::detail::render(

@@ -119,19 +119,15 @@ try
 		>
 	> format;
 
-	sge::renderer::device_ptr const rend(
-		sys.renderer()
-	);
-
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
-		rend->create_vertex_declaration(
+		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<format>()
 		)
 	);
 
 	sge::renderer::vertex_buffer_ptr const vb(
-		rend->create_vertex_buffer(
-			vertex_declaration,
+		sys.renderer().create_vertex_buffer(
+			*vertex_declaration,
 			sge::renderer::vf::dynamic::part_index(0u),
 			3,
 			sge::renderer::resource_flags::none
@@ -140,7 +136,7 @@ try
 
 	{
 		sge::renderer::scoped_vertex_lock const vblock(
-			vb,
+			*vb,
 			sge::renderer::lock_mode::writeonly
 		);
 
@@ -198,7 +194,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -208,7 +204,7 @@ try
 		)
 	);
 
-	rend->state(
+	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color
@@ -217,22 +213,26 @@ try
 	);
 
 	sge::renderer::scoped_vertex_declaration const vb_declaration_context(
-		rend,
-		vertex_declaration
+		sys.renderer(),
+		*vertex_declaration
 	);
 
 	sge::renderer::scoped_vertex_buffer const vb_context(
-		rend,
-		vb
+		sys.renderer(),
+		*vb
 	);
 
-	while(running)
+	while(
+		running
+	)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
-		sge::renderer::scoped_block const block_(rend);
+		sge::renderer::scoped_block const block(
+			sys.renderer()
+		);
 
-		rend->render(
+		sys.renderer().render(
 			sge::renderer::first_vertex(0),
 			sge::renderer::vertex_count(3),
 			sge::renderer::nonindexed_primitive_type::triangle

@@ -84,8 +84,8 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("geometry_buffer"))
 
 sge::cegui::detail::geometry_buffer::geometry_buffer(
-	sge::renderer::device_ptr const _renderer,
-	sge::renderer::vertex_declaration_ptr const _vertex_declaration)
+	sge::renderer::device &_renderer,
+	sge::renderer::vertex_declaration &_vertex_declaration)
 :
 	batches_(),
 	renderer_(
@@ -174,15 +174,15 @@ sge::cegui::detail::geometry_buffer::draw() const
 			(sbf)
 			(dbf));
 
-	sge::renderer::target_base_ptr const current_target =
+	sge::renderer::target_base &current_target =
 		sge::renderer::active_target(
-			*renderer_);
+			renderer_);
 
 	// TODO: replace by scoped_scissor_area
 	sge::renderer::scissor_area const old_scissor_area = 
-		current_target->scissor_area();
+		current_target.scissor_area();
 
-	current_target->scissor_area(
+	current_target.scissor_area(
 		scissor_area_);
 
 	sge::renderer::scoped_vertex_declaration scoped_vdecl(
@@ -195,23 +195,23 @@ sge::cegui::detail::geometry_buffer::draw() const
 	{
 		sge::renderer::scoped_vertex_buffer scoped_vb(
 			renderer_,
-			b.vb_);
+			b.vertex_buffer());
 
 		sge::renderer::texture::scoped scoped_texture(
 			renderer_,
-			b.texture_,
+			b.texture(),
 			sge::renderer::stage_type(
 				0u));
 
-		renderer_->render(
+		renderer_.render(
 			sge::renderer::first_vertex(
 				0),
 			sge::renderer::vertex_count(
-				b.vb_->size()),
+				b.vertex_buffer().size()),
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}
 
-	current_target->scissor_area(
+	current_target.scissor_area(
 		old_scissor_area);
 }
 
@@ -296,7 +296,7 @@ sge::cegui::detail::geometry_buffer::appendGeometry(
 	batches_.push_back(
 		batch(
 			active_texture_->impl(),
-			renderer_->create_vertex_buffer(
+			renderer_.create_vertex_buffer(
 				vertex_declaration_,
 				sge::renderer::vf::dynamic::part_index(
 					0u),
@@ -305,7 +305,7 @@ sge::cegui::detail::geometry_buffer::appendGeometry(
 				sge::renderer::resource_flags::none)));
 
 	sge::renderer::scoped_vertex_lock const vblock(
-		batches_.back().vb_,
+		batches_.back().vertex_buffer(),
 		sge::renderer::lock_mode::writeonly);
 
 	vf::vertex_view const vertex_view(

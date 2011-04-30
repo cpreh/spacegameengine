@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/target.hpp>
-#include <sge/renderer/target_base_ptr.hpp>
 
-sge::renderer::target_base_ptr const
+sge::renderer::target_base &
 sge::renderer::active_target(
 	renderer::device &_device
 )
@@ -32,11 +31,15 @@ sge::renderer::active_target(
 	return
 		_device.target()
 		?
-			renderer::target_base_ptr(
-				_device.target()
+			static_cast<
+				renderer::target_base &
+			>(
+				*_device.target()
 			)
 		:
-			renderer::target_base_ptr(
+			static_cast<
+				renderer::target_base &
+			>(
 				_device.onscreen_target()
 			);
 }

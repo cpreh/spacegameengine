@@ -48,7 +48,7 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 // sge already provides this viewport-adaption technique so I just
 // update the viewport variable when the viewport is requested.
 sge::cegui::detail::default_target::default_target(
-	sge::renderer::device_ptr const _renderer)
+	sge::renderer::device &_renderer)
 :
 	renderer_(
 		_renderer),
@@ -78,7 +78,7 @@ sge::cegui::detail::default_target::setArea(
 	// too. If this fails, it _should_ indicate that indeed, it _is_
 	// called from outside the renderer
 	FCPPT_ASSERT(
-		structure_cast<sge::renderer::pixel_rect>(r) == renderer_->onscreen_target()->viewport().get());
+		structure_cast<sge::renderer::pixel_rect>(r) == renderer_.onscreen_target().viewport().get());
 }
 
 CEGUI::Rect const &
@@ -86,7 +86,7 @@ sge::cegui::detail::default_target::getArea() const
 {
 	viewport_ =
 		structure_cast(
-			renderer_->target()->viewport().get());
+			renderer_.target()->viewport().get());
 	return viewport_;
 }
 
@@ -126,9 +126,9 @@ sge::cegui::detail::default_target::projection() const
 			static_cast<sge::renderer::scalar>(
 				0),
 			static_cast<sge::renderer::scalar>(
-				renderer_->onscreen_target()->viewport().get().size().w()),
+				renderer_.onscreen_target().viewport().get().size().w()),
 			static_cast<sge::renderer::scalar>(
-				renderer_->onscreen_target()->viewport().get().size().h()),
+				renderer_.onscreen_target().viewport().get().size().h()),
 			static_cast<sge::renderer::scalar>(
 				0),
 			static_cast<sge::renderer::scalar>(

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_SINGLE_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_SINGLE_VALUE_HPP_INCLUDED
 
-#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/make_element_type.hpp>
 #include <sge/renderer/glsl/uniform/make_basic_value.hpp>
@@ -51,7 +50,7 @@ typename boost::disable_if<
 	void
 >::type
 single_value(
-	variable_ptr const _var,
+	uniform::variable &_var,
 	Value const &_arg
 )
 {
@@ -61,7 +60,7 @@ single_value(
 
 	typedef typename cur_value::data_type data_type;
 
-	_var->set(
+	_var.set(
 		cur_value(
 			data_type(
 				_arg.begin(),
@@ -86,7 +85,7 @@ typename boost::enable_if<
 	void
 >::type
 single_value(
-	variable_ptr const _var,
+	uniform::variable &_var,
 	Value const &_arg
 )
 {

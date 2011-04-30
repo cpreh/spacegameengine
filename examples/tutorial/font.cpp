@@ -103,7 +103,7 @@ try
 	);
 
 	sge::font::metrics_ptr const metrics(
-		sys.font_system()->create_font(
+		sys.font_system().create_font(
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")
 			/ FCPPT_TEXT("default.ttf"),
@@ -118,7 +118,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector()->key_callback(
+		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
@@ -144,12 +144,12 @@ try
 		running
 	)
 	{
-		sys.window()->dispatch();
+		sys.window().dispatch();
 
 		sge::renderer::scoped_block const block(sys.renderer());
 
 		sge::font::text::draw(
-			metrics,
+			*metrics,
 			drawer,
 			string,
 			sge::font::rect(
@@ -157,7 +157,7 @@ try
 				fcppt::math::dim::structure_cast<
 					sge::font::rect::dim
 				>(
-					sys.renderer()->onscreen_target()->viewport().get().size()
+					sys.renderer().onscreen_target().viewport().get().size()
 				)
 			),
 			sge::font::text::align_h::center,

@@ -22,27 +22,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_surface.hpp>
 
 sge::renderer::const_scoped_color_surface_lock::const_scoped_color_surface_lock(
-	const_color_surface_ptr const _color_surface
+	renderer::color_surface const &_color_surface
 )
 :
 	color_surface_(_color_surface),
 	view_(
-		color_surface_->lock()
+		color_surface_.lock()
 	)
-{}
+{
+}
 
 sge::renderer::const_scoped_color_surface_lock::const_scoped_color_surface_lock(
-	const_color_surface_ptr const _color_surface,
-	lock_rect const &_rect
+	renderer::color_surface const &_color_surface,
+	renderer::lock_rect const &_rect
 )
 :
 	color_surface_(_color_surface),
 	view_(
-		color_surface_->lock(
+		color_surface_.lock(
 			_rect
 		)
 	)
-{}
+{
+}
 
 sge::image2d::view::const_object const
 sge::renderer::const_scoped_color_surface_lock::value() const
@@ -52,5 +54,5 @@ sge::renderer::const_scoped_color_surface_lock::value() const
 
 sge::renderer::const_scoped_color_surface_lock::~const_scoped_color_surface_lock()
 {
-	color_surface_->unlock();
+	color_surface_.unlock();
 }

@@ -25,19 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context/use.hpp"
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <fcppt/dynamic_pointer_cast.hpp>
-#include <fcppt/assert.hpp>
 
 void
 sge::opengl::unset_vertex_buffer(
 	opengl::context::object &_context,
-	renderer::const_vertex_buffer_ptr const _buffer
+	renderer::vertex_buffer const &_buffer
 )
 {
-	FCPPT_ASSERT(
-		_buffer
-	);
-
 	opengl::vertex_context &context(
 		opengl::context::use<
 			opengl::vertex_context
@@ -47,14 +41,14 @@ sge::opengl::unset_vertex_buffer(
 	);
 
 	sge::renderer::vf::dynamic::part_index const index(
-		_buffer->format_part_index()
+		_buffer.format_part_index()
 	);
 
-	fcppt::dynamic_pointer_cast<
-		opengl::vertex_buffer const
+	dynamic_cast<
+		opengl::vertex_buffer const &
 	>(
 		_buffer
-	)->unuse(
+	).unuse(
 		context.vertex_declaration()->gl_format_part(
 			index
 		)
@@ -62,6 +56,6 @@ sge::opengl::unset_vertex_buffer(
 
 	context.vertex_buffer(
 		index,
-		opengl::const_vertex_buffer_ptr()
+		0
 	);
 }

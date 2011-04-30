@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/filter/point.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -40,9 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/image2d/view/dim.hpp>
 #include <sge/image2d/dim.hpp>
-#include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/const_raw_pointer.hpp>
 #include <CEGUI/CEGUIResourceProvider.h>
@@ -147,7 +145,7 @@ sge::cegui::detail::texture::resize(
 			static_cast<unit>(1)/size_.d_height);
 
 	texture_ = 
-		system_.renderer()->create_planar_texture(
+		system_.renderer().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				structure_cast<sge::renderer::dim2>(
 					_size),
@@ -248,10 +246,10 @@ sge::cegui::detail::texture::saveToMemory(
 			FCPPT_TEXT("texture::saveToMemory() is not implemented yet"));
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar &
 sge::cegui::detail::texture::impl()
 {
-	return texture_;
+	return *texture_;
 }
 
 sge::cegui::detail::texture::~texture()

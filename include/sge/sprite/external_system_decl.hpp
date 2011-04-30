@@ -54,7 +54,7 @@ public:
 	> object;
 
 	explicit external_system(
-		renderer::device_ptr
+		renderer::device &
 	);
 
 	~external_system();

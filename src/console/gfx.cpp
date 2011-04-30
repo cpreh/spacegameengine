@@ -59,7 +59,7 @@ line_sequence;
 
 line_sequence const
 wrap(
-	sge::font::metrics_ptr const metrics,
+	sge::font::metrics &metrics,
 	sge::font::text::string const &s,
 	sge::font::dim const &max_dim)
 {
@@ -94,9 +94,9 @@ wrap(
 
 sge::console::gfx::gfx(
 	sge::console::object &_object,
-	renderer::device_ptr const _rend,
+	renderer::device &_rend,
 	image::color::any::object const &_font_color,
-	font::metrics_ptr const _metrics,
+	font::metrics &_metrics,
 	input::keyboard::device &_keyboard,
 	sprite_object const &_background,
 	output_line_limit const _line_limit

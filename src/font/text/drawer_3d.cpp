@@ -35,27 +35,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/quad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/ref.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <utility>
 
 sge::font::text::drawer_3d::drawer_3d(
-	renderer::device_ptr const _rend,
+	renderer::device &_rend,
 	sge::image::color::any::object const &_col
 )
 :
-	rend_(_rend),
 	col_(_col),
 	texman_(
-		rend_,
 		boost::phoenix::construct<
 			texture::fragmented_unique_ptr
 		>(
 			boost::phoenix::new_<
 				texture::rect_fragmented
 			>(
-				rend_,
-				rend_->caps().preferred_texture_format(),
+				fcppt::ref(
+					_rend
+				),
+				_rend.caps().preferred_texture_format(),
 				renderer::texture::filter::linear,
 				fcppt::math::dim::quad<
 					renderer::dim2
@@ -65,7 +66,7 @@ sge::font::text::drawer_3d::drawer_3d(
 			)
 		)
 	),
-	sys_(rend_),
+	sys_(_rend),
 	sprites_()
 {}
 

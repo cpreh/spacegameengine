@@ -63,14 +63,14 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 
 sge::cegui::detail::renderer::renderer(
 	system &_system,
-	sge::renderer::device_ptr const _renderer)
+	sge::renderer::device &_renderer)
 :
 	system_(
 		_system),
 	renderer_(
 		_renderer),
 	vertex_declaration_(
-		renderer_->create_vertex_declaration(
+		renderer_.create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>())),
 	// We initialize that later
 	display_size_(
@@ -112,7 +112,7 @@ sge::cegui::detail::renderer::createGeometryBuffer()
 	geometry_buffers_.push_back(
 		new geometry_buffer(
 			renderer_,
-			vertex_declaration_));
+			*vertex_declaration_));
 	return geometry_buffers_.back();
 }
 
@@ -261,7 +261,7 @@ sge::cegui::detail::renderer::beginRendering()
 {
 	for(transform_array::size_type i = 0; i < transforms_.size(); ++i)
 		transforms_[i] = 
-			renderer_->transform(
+			renderer_.transform(
 				static_cast<sge::renderer::matrix_mode::type>(
 					i));
 
@@ -278,11 +278,11 @@ sge::cegui::detail::renderer::beginRendering()
 	// default_target::deactivate, we have no mouse cursor. Hence this
 	// projection matrix is set _here_.
 
-	renderer_->transform(
+	renderer_.transform(
 		sge::renderer::matrix_mode::projection,
 		default_target_.projection());
 
-	renderer_->push_state(
+	renderer_.push_state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::enable_alpha_blending = true)
 			(sge::renderer::state::bool_::enable_scissor_test = true)
@@ -295,9 +295,9 @@ sge::cegui::detail::renderer::beginRendering()
 void 
 sge::cegui::detail::renderer::endRendering()
 {
-	renderer_->pop_state();
+	renderer_.pop_state();
 	for(transform_array::size_type i = 0; i < transforms_.size(); ++i)
-		renderer_->transform(
+		renderer_.transform(
 			static_cast<sge::renderer::matrix_mode::type>(
 				i),
 			transforms_[i]);
@@ -319,7 +319,7 @@ sge::cegui::detail::renderer::setDisplaySize(
 	// ignores this message
 	default_target_.setArea(
 		structure_cast(
-			renderer_->onscreen_target()->viewport().get()));
+			renderer_.onscreen_target().viewport().get()));
 }
 
 CEGUI::Size const &
@@ -342,8 +342,8 @@ sge::cegui::detail::renderer::getMaxTextureSize() const
 	return 
 		static_cast<CEGUI::uint>(
 			std::min(
-				renderer_->caps().max_texture_size().w(),
-				renderer_->caps().max_texture_size().h()));
+				renderer_.caps().max_texture_size().w(),
+				renderer_.caps().max_texture_size().h()));
 }
 
 CEGUI::String const & 
@@ -352,7 +352,7 @@ sge::cegui::detail::renderer::getIdentifierString() const
 	return identifier_;
 }
 
-sge::renderer::device_ptr const
+sge::renderer::device &
 sge::cegui::detail::renderer::impl() const
 {
 	return renderer_;

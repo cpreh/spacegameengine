@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/target_base.hpp>
-#include <sge/renderer/target_base_ptr.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/window/event/resize_fwd.hpp>
 #include <awl/window/event/resize.hpp>
@@ -64,7 +63,7 @@ private:
 		awl::window::event::resize const &
 	);
 
-	sge::renderer::target_base_ptr const target_;
+	sge::renderer::target_base &target_;
 
 	viewport::resize_function const resize_function_;
 
@@ -122,7 +121,7 @@ sge::viewport::manager::impl::impl(
 		_resize_function
 	),
 	resize_connection_(
-		_device.window()->awl_window_event_processor()->resize_callback(
+		_device.window().awl_window_event_processor()->resize_callback(
 			std::tr1::bind(
 				&impl::on_resize,
 				this,
@@ -157,7 +156,7 @@ sge::viewport::manager::impl::on_resize(
 	if(
 		resize_function_
 	)
-		target_->viewport(
+		target_.viewport(
 			resize_function_(
 				_resize
 			)

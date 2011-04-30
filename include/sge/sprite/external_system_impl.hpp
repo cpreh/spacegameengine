@@ -41,7 +41,7 @@ template<
 	typename Choices
 >
 sge::sprite::external_system<Choices>::external_system(
-	renderer::device_ptr const _rend
+	renderer::device &_rend
 )
 :
  	base(
@@ -144,12 +144,12 @@ sge::sprite::external_system<Choices>::render_advanced(
 
 	renderer::scoped_vertex_declaration const vb_declaration(
 		base::renderer(),
-		base::vertex_declaration()
+		*base::vertex_declaration()
 	);
 
 	renderer::scoped_vertex_buffer const vb_context(
 		base::renderer(),
-		base::vertex_buffer()
+		*base::vertex_buffer()
 	);
 
 	detail::render(

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/make_basic_value.hpp>
 #include <sge/renderer/glsl/uniform/make_element_type.hpp>
 #include <sge/renderer/glsl/uniform/basic_value.hpp>
-#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
@@ -44,7 +43,7 @@ template<
 >
 void
 array_value(
-	variable_ptr const _var,
+	glsl::variable &_var,
 	In const _beg,
 	In const _end
 )
@@ -74,7 +73,7 @@ array_value(
 			it->end()
 		);
 
-	_var->set(
+	_var.set(
 		value_type(
 			buffer,
 			count,
@@ -90,7 +89,7 @@ template<
 >
 void
 array_value(
-	variable_ptr const _var,
+	glsl::variable &_var,
 	Container const &_cont
 )
 {

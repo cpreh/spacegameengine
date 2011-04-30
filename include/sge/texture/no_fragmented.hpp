@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/symbol.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/image/color/format.hpp>
@@ -48,7 +49,7 @@ class SGE_CLASS_SYMBOL no_fragmented
 public:
 	SGE_TEXTURE_SYMBOL
 	no_fragmented(
-		renderer::device_ptr,
+		renderer::device &,
 		image::color::format::type,
 		renderer::texture::filter::object const &,
 		renderer::texture::address_mode2 const &
@@ -67,7 +68,10 @@ private:
 		texture::part const &
 	);
 
-	renderer::texture::planar_ptr const
+	renderer::texture::planar &
+	texture();
+
+	renderer::texture::planar const &
 	texture() const;
 
 	bool
@@ -79,7 +83,7 @@ private:
 	bool
 	empty() const;
 
-	renderer::device_ptr const rend_;
+	renderer::device &rend_;
 
 	image::color::format::type const format_;
 

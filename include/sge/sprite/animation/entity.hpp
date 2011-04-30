@@ -40,7 +40,7 @@ class entity
 public:
 	SGE_SPRITE_SYMBOL entity(
 		time::duration const &delay,
-		sge::texture::const_part_ptr tex
+		sge::texture::const_part_ptr
 	);
 
 	SGE_SPRITE_SYMBOL time::unit
@@ -58,6 +58,7 @@ public:
 	dim() const;
 private:
 	time::unit delay_;
+
 	sge::texture::const_part_ptr tex_;
 };
 

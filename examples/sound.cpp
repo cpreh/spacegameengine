@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/multi_loader.hpp>
+#include <sge/audio/file_ptr.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
@@ -168,8 +169,8 @@ try
 	wait_for_input();
 
 	sge::audio::buffer_ptr const buf = 
-		sys.audio_player()->create_buffer(
-			soundfile);
+		sys.audio_player().create_buffer(
+			*soundfile);
 
 	fcppt::io::cout << FCPPT_TEXT("Buffer created\n");
 	fcppt::io::cout << FCPPT_TEXT("We will now try to create a nonpositional source from it.\n");
@@ -236,7 +237,7 @@ try
 	fcppt::io::cout << FCPPT_TEXT("Now 50% volume...\n");
 	wait_for_input();
 
-	sys.audio_player()->gain(
+	sys.audio_player().gain(
 		static_cast<sge::audio::scalar>(0.5));
 
 	s->play(
@@ -247,7 +248,7 @@ try
 	fcppt::io::cout << FCPPT_TEXT("Now 25% volume...\n");
 	wait_for_input();
 
-	sys.audio_player()->gain(
+	sys.audio_player().gain(
 		static_cast<sge::audio::scalar>(0.25));
 
 	s->play(
@@ -258,7 +259,7 @@ try
 	fcppt::io::cout << FCPPT_TEXT("And finally 0% volume...\n");
 	wait_for_input();
 
-	sys.audio_player()->gain(
+	sys.audio_player().gain(
 		static_cast<sge::audio::scalar>(0.0));
 
 	s->play(
@@ -266,7 +267,7 @@ try
 	wait_for_sound(
 		s);
 
-	sys.audio_player()->gain(
+	sys.audio_player().gain(
 		static_cast<sge::audio::scalar>(1.0));
 
 	fcppt::io::cout << FCPPT_TEXT("Let's try changing the sound pitch now...You'll hear the sound with a 50% pitch now.\n");
@@ -297,8 +298,8 @@ try
 	wait_for_input();
 
 	sge::audio::sound::positional_ptr const sps = 
-		sys.audio_player()->create_positional_stream(
-			sys.audio_loader().load(
+		sys.audio_player().create_positional_stream(
+			*sys.audio_loader().load(
 				streaming_file_name),
 			sge::audio::sound::positional_parameters()
 				.linear_velocity(

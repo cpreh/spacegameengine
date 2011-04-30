@@ -37,10 +37,6 @@ typedef fcppt::shared_ptr<
 	variable
 > variable_ptr;
 
-typedef fcppt::shared_ptr<
-	variable const
-> const_variable_ptr;
-
 }
 }
 }

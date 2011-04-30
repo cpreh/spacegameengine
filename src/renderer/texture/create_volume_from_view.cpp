@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::texture::volume_ptr const
 sge::renderer::texture::create_volume_from_view(
-	renderer::device_ptr const _renderer,
+	renderer::device &_renderer,
 	sge::image3d::view::const_object const &_view,
 	texture::filter::object const &_filter,
 	texture::address_mode3 const &_address_mode,
@@ -38,7 +38,7 @@ sge::renderer::texture::create_volume_from_view(
 )
 {
 	texture::volume_ptr const tex(
-		_renderer->create_volume_texture(
+		_renderer.create_volume_texture(
 			sge::renderer::texture::volume_parameters(
 				sge::image3d::view::dim(
 					_view
@@ -55,7 +55,7 @@ sge::renderer::texture::create_volume_from_view(
 	);
 
 	renderer::texture::scoped_volume_lock const lock(
-		tex,
+		*tex,
 		renderer::lock_mode::writeonly
 	);
 

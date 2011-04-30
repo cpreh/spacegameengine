@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/default_target.hpp>
 
-sge::renderer::target_ptr const
+sge::renderer::target *
 sge::renderer::default_target()
 {
-	return renderer::target_ptr();
+	return 0;
 }
