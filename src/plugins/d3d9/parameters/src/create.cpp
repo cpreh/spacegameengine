@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 D3DPRESENT_PARAMETERS const
 sge::d3d9::parameters::create(
 	renderer::parameters const &_param,
-	sge::window::instance_ptr const _window
+	sge::window::instance  &_window
 )
 {
 	sge::renderer::screen_size const back_buffer_size(
@@ -72,7 +72,7 @@ sge::d3d9::parameters::create(
 		fcppt::dynamic_pointer_cast<
 			awl::backends::windows::window::instance
 		>(
-			_window->awl_instance()
+			_window.awl_instance()
 		)->hwnd(), // hDeviceWindow 
 		is_windowed, // Windowed
 		_param.depth_stencil_buffer() != sge::renderer::depth_stencil_buffer::off, // EnableAutoDepthStencil

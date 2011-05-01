@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/system.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/window/instance_fwd.hpp>
 #include <sge/window/simple_parameters_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/window/instance_shared_ptr.hpp>
@@ -55,7 +55,7 @@ public:
 	create_renderer(
 		renderer::parameters const &,
 		renderer::adapter,
-		sge::window::instance_ptr
+		sge::window::instance &
 	);
 
 	awl::window::instance_shared_ptr const
