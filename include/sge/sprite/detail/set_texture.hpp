@@ -61,7 +61,7 @@ set_texture(
 	_rend.texture(
 		vtex
 		?
-			&vtex->texture()
+			vtex->texture().get()
 		:
 			renderer::no_texture(),
 		sge::renderer::stage_type(0)

@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/const_basic_scoped_lock.hpp>
+#include <sge/renderer/texture/const_planar_ptr.hpp>
 #include <sge/renderer/texture/const_scoped_planar_lock.hpp>
 #include <sge/renderer/texture/const_scoped_volume_lock.hpp>
 #include <sge/renderer/texture/const_volume_ptr.hpp>

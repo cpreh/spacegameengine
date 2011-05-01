@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/texture/const_planar_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/image/color/format.hpp>
@@ -68,10 +68,10 @@ private:
 		texture::part const &
 	);
 
-	renderer::texture::planar &
+	renderer::texture::planar_ptr const
 	texture();
 
-	renderer::texture::planar const &
+	renderer::texture::const_planar_ptr const
 	texture() const;
 
 	bool

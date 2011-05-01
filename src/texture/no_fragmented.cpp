@@ -132,16 +132,16 @@ sge::texture::no_fragmented::on_return_fragment(
 	tex_.reset();
 }
 
-sge::renderer::texture::planar &
+sge::renderer::texture::planar_ptr const
 sge::texture::no_fragmented::texture()
 {
-	return *tex_;
+	return tex_;
 }
 
-sge::renderer::texture::planar const &
+sge::renderer::texture::const_planar_ptr const
 sge::texture::no_fragmented::texture() const
 {
-	return *tex_;
+	return tex_;
 }
 
 bool
