@@ -123,16 +123,16 @@ sge::texture::rect_fragmented::on_return_fragment(
 	--texture_count_;
 }
 
-sge::renderer::texture::planar &
+sge::renderer::texture::planar_ptr const
 sge::texture::rect_fragmented::texture()
 {
-	return *tex_;
+	return tex_;
 }
 
-sge::renderer::texture::planar const &
+sge::renderer::texture::const_planar_ptr const
 sge::texture::rect_fragmented::texture() const
 {
-	return *tex_;
+	return tex_;
 }
 
 bool
@@ -148,8 +148,8 @@ sge::texture::rect_fragmented::free_value() const
 		static_cast<
 			free_type
 		>(
-			(this->texture().size().h() - cur_height_)
-			* this->texture().size().w()
+			(this->texture()->size().h() - cur_height_)
+			* this->texture()->size().w()
 		);
 }
 

@@ -40,10 +40,11 @@ sge::d3d9::onscreen_target::~onscreen_target()
 {
 }
 
-sge::renderer::color_surface_ptr const
+sge::renderer::color_surface const &
 sge::d3d9::onscreen_target::surface() const
 {
-	return renderer::color_surface_ptr();
+	// FIXME!
+	return *static_cast<renderer::color_surface const *>(0);
 }
 
 template class

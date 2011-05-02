@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt//make_shared_ptr.hpp>
+#include <fcppt//make_unique_ptr.hpp>
 #include <boost/foreach.hpp>
 #include <algorithm>
 
@@ -59,7 +60,7 @@ sge::d3d9::device::device(
 	IDirect3D9 *const _system,
 	renderer::adapter const _adapter,
 	renderer::parameters const &_parameters,
-	window::instance_ptr const _window
+	window::instance &_window
 )
 :
 	present_parameters_(
@@ -84,7 +85,7 @@ sge::d3d9::device::device(
 	),
 	resources_(),
 	onscreen_target_(
-		fcppt::make_shared_ptr<
+		fcppt::make_unique_ptr<
 			d3d9::onscreen_target
 		>(
 			device_.get(),
@@ -94,7 +95,7 @@ sge::d3d9::device::device(
 					fcppt::math::dim::structure_cast<
 						sge::renderer::pixel_rect::dim
 					>(
-						_window->size()
+						_window.size()
 					)
 				)
 			)	
@@ -102,7 +103,7 @@ sge::d3d9::device::device(
 	),
 	offscreen_target_(),
 	target_(
-		onscreen_target_
+		onscreen_target_.get()
 	),
 	clear_state_()
 {
@@ -178,7 +179,7 @@ sge::d3d9::device::end_rendering()
 
 void
 sge::d3d9::device::render(
-	renderer::const_index_buffer_ptr const _index_buffer,
+	renderer::index_buffer const &_index_buffer,
 	renderer::first_vertex const _first_vertex,
 	renderer::vertex_count const _num_vertices,
 	renderer::indexed_primitive_type::type const _primitive_type,
@@ -259,31 +260,31 @@ sge::d3d9::device::render(
 
 void
 sge::d3d9::device::activate_vertex_buffer(
-	renderer::const_vertex_buffer_ptr const _buffer
+	renderer::vertex_buffer const &_buffer
 )
 {
 	d3d9::devicefuncs::set_stream_source(
 		device_.get(),
-		_buffer->format_part_index(),
+		_buffer.format_part_index(),
 		dynamic_cast<
 			d3d9::vertex_buffer const &
 		>(
-			*_buffer
+			_buffer
 		).get(),
-		_buffer->format_part().stride()
+		_buffer.format_part().stride()
 	);
 }
 
 void
 sge::d3d9::device::deactivate_vertex_buffer(
-	renderer::const_vertex_buffer_ptr const _buffer
+	renderer::vertex_buffer const &_buffer
 )
 {
 }
 
 void
 sge::d3d9::device::vertex_declaration(
-	renderer::const_vertex_declaration_ptr const _declaration
+	renderer::vertex_declaration const *const _declaration
 )
 {
 	if(
@@ -425,7 +426,7 @@ sge::d3d9::device::sampler_stage_arg(
 
 void
 sge::d3d9::device::texture(
-	renderer::texture::const_base_ptr const _texture,
+	renderer::texture::base const *const _texture,
 	renderer::stage_type const _stage
 )
 {
@@ -468,7 +469,7 @@ sge::d3d9::device::transform(
 
 void
 sge::d3d9::device::target(
-	renderer::target_ptr const _target
+	renderer::target *const _target
 )
 {
 	if(
@@ -484,8 +485,8 @@ sge::d3d9::device::target(
 		);
 	
 	offscreen_target_ =
-		fcppt::dynamic_pointer_cast<
-			d3d9::offscreen_target
+		dynamic_cast<
+			d3d9::offscreen_target *
 		>(
 			_target
 		);
@@ -493,12 +494,16 @@ sge::d3d9::device::target(
 	target_ =
 		offscreen_target_
 		?
-			d3d9::target_base_ptr(
+			static_cast<
+				d3d9::target_base *
+			>(
 				offscreen_target_
 			)
 		:
-			d3d9::target_base_ptr(
-				onscreen_target_
+			static_cast<
+				d3d9::target_base *
+			>(
+				onscreen_target_.get()
 			);
 
 	target_->active(
@@ -536,7 +541,7 @@ sge::d3d9::device::create_glsl_pixel_shader(
 
 void
 sge::d3d9::device::glsl_program(
-	renderer::glsl::const_program_ptr
+	renderer::glsl::program const *
 )
 {
 	throw sge::renderer::exception(
@@ -638,7 +643,7 @@ sge::d3d9::device::create_vertex_declaration(
 
 sge::renderer::vertex_buffer_ptr const
 sge::d3d9::device::create_vertex_buffer(
-	renderer::vertex_declaration_ptr const _declaration,
+	renderer::vertex_declaration const &_declaration,
 	renderer::vf::dynamic::part_index const _part,
 	renderer::size_type const _size,
 	renderer::resource_flags_field const &_resource_flags
@@ -655,7 +660,7 @@ sge::d3d9::device::create_vertex_buffer(
 				dynamic_cast<
 					d3d9::vertex_declaration const &
 				>(
-					*_declaration
+					_declaration
 				).format().parts().at(
 					_part.get()
 				),
@@ -688,13 +693,13 @@ sge::d3d9::device::create_index_buffer(
 		);
 }
 
-sge::renderer::onscreen_target_ptr const
+sge::renderer::onscreen_target &
 sge::d3d9::device::onscreen_target() const
 {
-	return onscreen_target_;
+	return *onscreen_target_;
 }
 
-sge::renderer::target_ptr const
+sge::renderer::target *
 sge::d3d9::device::target() const
 {
 	return offscreen_target_;
@@ -714,7 +719,7 @@ sge::d3d9::device::caps() const
 	return caps_;
 }
 
-sge::window::instance_ptr const
+sge::window::instance &
 sge::d3d9::device::window() const
 {
 	return window_;
@@ -782,14 +787,14 @@ sge::d3d9::device::release_resources()
 
 void
 sge::d3d9::device::set_index_buffer(
-	sge::renderer::const_index_buffer_ptr const _buffer
+	sge::renderer::index_buffer const &_buffer
 )
 {
 	d3d9::index_buffer const &d3d_buffer(
 		dynamic_cast<
 			d3d9::index_buffer const &
 		>(
-			*_buffer
+			_buffer
 		)
 	);
 

@@ -12,8 +12,6 @@ SET(
 	src/plugins/opengl/color_format.hpp
 	src/plugins/opengl/color_format_type.hpp
 	src/plugins/opengl/common.hpp
-	src/plugins/opengl/const_vertex_buffer_ptr.hpp
-	src/plugins/opengl/const_vertex_declaration_ptr.hpp
 	src/plugins/opengl/context/base.hpp
 	src/plugins/opengl/context/base_fwd.hpp
 	src/plugins/opengl/context/base_unique_ptr.hpp
@@ -414,7 +412,6 @@ SET(
 	src/plugins/opengl/texture/basic_surface_impl.hpp
 	src/plugins/opengl/texture/bind_context.hpp
 	src/plugins/opengl/texture/bind_context_fwd.hpp
-	src/plugins/opengl/texture/const_base_ptr.hpp
 	src/plugins/opengl/texture/context.hpp
 	src/plugins/opengl/texture/convert/address_mode.hpp
 	src/plugins/opengl/texture/convert/address_mode_type.hpp

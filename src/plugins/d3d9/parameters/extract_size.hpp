@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/screen_mode.hpp>
 #include <sge/renderer/screen_size.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/window/instance_fwd.hpp>
 
 namespace sge
 {
@@ -35,7 +35,7 @@ namespace parameters
 sge::renderer::screen_size const
 extract_size(
 	renderer::screen_mode const &,
-	sge::window::instance_ptr
+	sge::window::instance &
 );
 
 }

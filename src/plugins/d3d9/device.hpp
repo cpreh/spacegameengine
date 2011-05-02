@@ -22,16 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICE_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
-#include "offscreen_target_ptr.hpp"
-#include "onscreen_target_ptr.hpp"
+#include "offscreen_target_fwd.hpp"
+#include "onscreen_target_fwd.hpp"
 #include "resource_list.hpp"
-#include "target_base_ptr.hpp"
+#include "target_base_fwd.hpp"
 #include "state/clear.hpp"
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/window/instance_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/shared_ptr.hpp>
@@ -53,7 +53,7 @@ public:
 		IDirect3D9 *,
 		renderer::adapter,
 		renderer::parameters const &,
-		sge::window::instance_ptr
+		sge::window::instance &
 	);
 
 	~device();
@@ -66,7 +66,7 @@ public:
 
 	void
 	render(
-		renderer::const_index_buffer_ptr,
+		renderer::index_buffer const &,
 		renderer::first_vertex,
 		renderer::vertex_count,
 		renderer::indexed_primitive_type::type ptype,
@@ -83,17 +83,17 @@ public:
 
 	void
 	activate_vertex_buffer(
-		renderer::const_vertex_buffer_ptr
+		renderer::vertex_buffer const &
 	);
 
 	void
 	deactivate_vertex_buffer(
-		renderer::const_vertex_buffer_ptr
+		renderer::vertex_buffer const &
 	);
 
 	void
 	vertex_declaration(
-		renderer::const_vertex_declaration_ptr
+		renderer::vertex_declaration const *
 	);
 
 	void
@@ -154,7 +154,7 @@ public:
 
 	void
 	texture(
-		renderer::texture::const_base_ptr,
+		renderer::texture::base const *,
 		renderer::stage_type
 	);
 
@@ -166,7 +166,7 @@ public:
 
 	void
 	target(
-		renderer::target_ptr
+		renderer::target *
 	);
 
 	renderer::glsl::program_ptr const
@@ -184,7 +184,7 @@ public:
 
 	void
 	glsl_program(
-		renderer::glsl::const_program_ptr
+		renderer::glsl::program const *
 	);
 
 	renderer::target_ptr const
@@ -224,7 +224,7 @@ public:
 
 	renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
-		renderer::vertex_declaration_ptr,
+		renderer::vertex_declaration const &,
 		renderer::vf::dynamic::part_index,
 		renderer::size_type size,
 		renderer::resource_flags_field const &
@@ -237,10 +237,10 @@ public:
 		renderer::resource_flags_field const &
 	);
 
-	renderer::onscreen_target_ptr const
+	renderer::onscreen_target &
 	onscreen_target() const;
 
-	renderer::target_ptr const
+	renderer::target *
 	target() const;
 
 	renderer::matrix4 const
@@ -251,7 +251,7 @@ public:
 	renderer::caps const
 	caps() const;
 
-	sge::window::instance_ptr const
+	sge::window::instance &
 	window() const;
 private:
 	template<
@@ -277,7 +277,7 @@ private:
 
 	void
 	set_index_buffer(
-		renderer::const_index_buffer_ptr
+		renderer::index_buffer const &
 	);
 
 	D3DPRESENT_PARAMETERS present_parameters_;
@@ -289,17 +289,21 @@ private:
 
 	d3d_device_scoped_ptr const device_;
 
-	sge::window::instance_ptr const window_;
+	sge::window::instance &window_;
 
 	renderer::caps const caps_;
 
 	d3d9::resource_list resources_;
 
-	d3d9::onscreen_target_ptr const onscreen_target_;
-	
-	d3d9::offscreen_target_ptr offscreen_target_;
+	typedef fcppt::scoped_ptr<
+		d3d9::onscreen_target
+	> onscreen_target_scoped_ptr;
 
-	d3d9::target_base_ptr target_;
+	onscreen_target_scoped_ptr const onscreen_target_;
+	
+	d3d9::offscreen_target *offscreen_target_;
+
+	d3d9::target_base *target_;
 
 	d3d9::state::clear clear_state_;
 };

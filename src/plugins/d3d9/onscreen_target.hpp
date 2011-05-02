@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "onscreen_target_fwd.hpp"
 #include "basic_target.hpp"
 #include "d3dinclude.hpp"
-#include <sge/renderer/color_surface_ptr.hpp>
+#include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -55,7 +55,7 @@ public:
 
 	~onscreen_target();
 
-	renderer::color_surface_ptr const
+	renderer::color_surface const &
 	surface() const;
 };
 

@@ -156,7 +156,7 @@ fill_tex_coordinates_impl(
 				typename Choices::type_choices::float_type
 			>(
 				_sprite.texture()->area(),
-				_sprite.texture()->texture().size()
+				_sprite.texture()->texture()->size()
 			)
 		)
 	);

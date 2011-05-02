@@ -68,16 +68,16 @@ sge::texture::part_raw::area() const
 	return area_;
 }
 
-sge::renderer::texture::planar &
+sge::renderer::texture::planar_ptr const
 sge::texture::part_raw::texture()
 {
-	return *tex_;
+	return tex_;
 }
 
-sge::renderer::texture::planar const &
+sge::renderer::texture::const_planar_ptr const
 sge::texture::part_raw::texture() const
 {
-	return *tex_;
+	return tex_;
 }
 
 bool

@@ -18,21 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONST_VERTEX_DECLARATION_PTR_HPP_INCLUDED
-#define SGE_OPENGL_CONST_VERTEX_DECLARATION_PTR_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_CONST_PLANAR_PTR_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_CONST_PLANAR_PTR_HPP_INCLUDED
 
-#include "vertex_declaration_fwd.hpp"
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace texture
 {
 
 typedef fcppt::shared_ptr<
-	opengl::vertex_declaration const
-> const_vertex_declaration_ptr;
+	texture::planar const
+> const_planar_ptr;
 
+}
 }
 }
 

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::screen_size const
 sge::d3d9::parameters::extract_size(
 	renderer::screen_mode const &_screen_mode,
-	sge::window::instance_ptr const _window
+	sge::window::instance &_window
 )
 {
 	return
@@ -43,5 +43,5 @@ sge::d3d9::parameters::extract_size(
 				sge::renderer::display_mode
 			>().size()
 		:
-			_window->size();
+			_window.size();
 }

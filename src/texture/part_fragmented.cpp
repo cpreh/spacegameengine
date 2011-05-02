@@ -59,7 +59,7 @@ sge::texture::part_fragmented::data(
 )
 {
 	texture::sub_data(
-		this->texture(),
+		*this->texture(),
 		_src,
 		inner_area_.pos()
 	);
@@ -68,7 +68,7 @@ sge::texture::part_fragmented::data(
 		need_atlasing_h_
 	)
 		atlasing::border_h(
-			this->texture(),
+			*this->texture(),
 			_src,
 			outer_area_,
 			inner_area_
@@ -78,7 +78,7 @@ sge::texture::part_fragmented::data(
 		need_atlasing_w_
 	)
 		atlasing::border_w(
-			this->texture(),
+			*this->texture(),
 			_src,
 			outer_area_,
 			inner_area_
@@ -91,13 +91,13 @@ sge::texture::part_fragmented::area() const
 	return inner_area_;
 }
 
-sge::renderer::texture::planar &
+sge::renderer::texture::planar_ptr const
 sge::texture::part_fragmented::texture()
 {
 	return fragment_.texture();
 }
 
-sge::renderer::texture::planar const &
+sge::renderer::texture::const_planar_ptr const
 sge::texture::part_fragmented::texture() const
 {
 	return fragment_.texture();

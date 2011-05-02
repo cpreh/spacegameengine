@@ -28,7 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/symbol.hpp>
 #include <sge/texture/detail/optional_container_position.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/texture/const_planar_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -59,10 +60,10 @@ public:
 		part const &
 	);
 
-	virtual renderer::texture::planar &
+	virtual renderer::texture::planar_ptr const
 	texture() = 0;
 
-	virtual renderer::texture::planar const &
+	virtual renderer::texture::const_planar_ptr const
 	texture() const = 0;
 
 	virtual bool
