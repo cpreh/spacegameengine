@@ -43,7 +43,7 @@ template<
 >
 void
 array_value(
-	glsl::variable &_var,
+	uniform::variable &_var,
 	In const _beg,
 	In const _end
 )
@@ -89,7 +89,7 @@ template<
 >
 void
 array_value(
-	glsl::variable &_var,
+	uniform::variable &_var,
 	Container const &_cont
 )
 {
