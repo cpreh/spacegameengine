@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_RECT_FLOAT_HPP_INCLUDED
 
 #include <fcppt/math/box/rect.hpp>
-#include <fcppt/restrict_typedef_struct.hpp>
 
 namespace sge
 {
@@ -40,9 +39,6 @@ fcppt::math::box::rect<
 	typename TypeChoices::float_type
 >
 {
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(
-		rect_float
-	);
 };
 
 }

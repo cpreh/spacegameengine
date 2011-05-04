@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "shader_context_fwd.hpp"
 #include "uniform_context_fwd.hpp"
 #include "handle.hpp"
-#include <fcppt/restrict_typedef_struct.hpp>
 
 namespace sge
 {
@@ -38,10 +37,6 @@ namespace native
 
 struct environment
 {
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(
-		environment
-	);
-public:
 	typedef native::handle handle;
 
 	typedef native::program_context program_context;
