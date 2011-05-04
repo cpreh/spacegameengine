@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CHOICES_HPP_INCLUDED
 #define SGE_SPRITE_CHOICES_HPP_INCLUDED
 
-#include <fcppt/restrict_typedef_struct.hpp>
-
 namespace sge
 {
 namespace sprite
@@ -37,10 +35,6 @@ struct choices
 	typedef TypeChoices type_choices;
 
 	typedef Elements elements;
-
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(
-		choices
-	);
 };
 
 }

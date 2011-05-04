@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/tag.hpp>
 #include <sge/sprite/intrusive/system_fwd.hpp>
 #include <sge/sprite/external_system_fwd.hpp>
-#include <fcppt/restrict_typedef_struct.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/contains.hpp>
 
@@ -51,9 +50,6 @@ boost::mpl::if_<
 	>
 >
 {
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(
-		system
-	);
 };
 
 }

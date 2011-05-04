@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/size_type.hpp>
 #include <fcppt/math/dim/static.hpp>
-#include <fcppt/restrict_typedef_struct.hpp>
 
 namespace sge
 {
@@ -40,9 +39,6 @@ fcppt::math::dim::static_<
 	Dim
 >
 {
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(
-		dim
-	);
 };
 
 }
