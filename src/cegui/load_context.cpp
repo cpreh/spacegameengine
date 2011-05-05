@@ -26,7 +26,9 @@ sge::cegui::load_context::load_context(
 	scheme_file_(
 		_scheme_file),
 	font_directory_(),
-	looknfeel_directory_()
+	looknfeel_directory_(),
+	imageset_directory_(),
+	default_font_()
 {
 }
 
@@ -60,6 +62,14 @@ sge::cegui::load_context::imageset_directory(
 	return *this;
 }
 
+sge::cegui::load_context &
+sge::cegui::load_context::default_font(
+	cegui::default_font const &_default_font)
+{
+	default_font_ = _default_font;
+	return *this;
+}
+
 fcppt::optional<fcppt::filesystem::path> const &
 sge::cegui::load_context::font_directory() const
 {
@@ -76,4 +86,10 @@ fcppt::optional<fcppt::filesystem::path> const &
 sge::cegui::load_context::imageset_directory() const
 {
 	return imageset_directory_;
+}
+
+fcppt::optional<sge::cegui::default_font> const &
+sge::cegui::load_context::default_font() const
+{
+	return default_font_;
 }
