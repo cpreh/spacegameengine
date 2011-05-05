@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device/id.hpp"
 #include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-//#include <X11/extensions/XInput2.h>
 
 namespace sge
 {
@@ -50,10 +49,6 @@ private:
 	awl::backends::x11::window::instance &window_;
 #if 0
 	device::id const id_;
-
-	int num_modifiers_;
-
-	XIGrabModifiers modifiers_;
 #endif
 };
 
