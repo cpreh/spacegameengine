@@ -18,13 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_FIND_MEMBER_EXN_HPP_INCLUDED
-#define SGE_PARSE_JSON_FIND_MEMBER_EXN_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_FIND_MEMBER_VALUE_HPP_INCLUDED
+#define SGE_PARSE_JSON_FIND_MEMBER_VALUE_HPP_INCLUDED
 
-#include <sge/parse/json/find_member_value_exn.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/detail/find_member_return_type.hpp>
+#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/member_name_equal.hpp>
+#include <sge/parse/json/member.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_const.hpp>
+#include <algorithm>
 
 namespace sge
 {
@@ -35,34 +40,44 @@ namespace json
 
 /// Searches for a member with the name @a name
 /**
- * @throws member_not_found if the member is not found
- * @throws invalid_get if the member has a different type than T
+ * @return 0 if the member was not found
 */
 template<
-	typename T,
 	typename Arg
 >
-typename boost::mpl::if_<
-	boost::is_const<
-		Arg
-	>,
-	T const &,
-	T &
+typename detail::find_member_return_type<
+	json::value,
+	Arg
 >::type
-find_member_exn(
+find_member_value(
 	Arg &_members,
 	fcppt::string const &_name
 )
 {
-	return
-		json::get<
-			T
-		>(
-			json::find_member_value_exn(
-				_members,
+	typedef typename boost::mpl::if_<
+		boost::is_const<
+			Arg
+		>,
+		member_vector::const_iterator,
+		member_vector::iterator
+	>::type iterator;
+
+	iterator const it(
+		std::find_if(
+			_members.begin(),
+			_members.end(),
+			json::member_name_equal(
 				_name
 			)
-		);
+		)
+	);
+
+	return 
+		it == _members.end()
+		?
+			0
+		:
+			&it->value;
 }
 
 }

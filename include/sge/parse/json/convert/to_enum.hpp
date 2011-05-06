@@ -18,13 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_FIND_MEMBER_EXN_HPP_INCLUDED
-#define SGE_PARSE_JSON_FIND_MEMBER_EXN_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_CONVERT_TO_ENUM_HPP_INCLUDED
+#define SGE_PARSE_JSON_CONVERT_TO_ENUM_HPP_INCLUDED
 
-#include <sge/parse/json/find_member_value_exn.hpp>
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/get.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_const.hpp>
+#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/value.hpp>
+#include <fcppt/text.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_enum.hpp>
 
 namespace sge
 {
@@ -32,39 +35,55 @@ namespace parse
 {
 namespace json
 {
+namespace convert
+{
 
-/// Searches for a member with the name @a name
-/**
- * @throws member_not_found if the member is not found
- * @throws invalid_get if the member has a different type than T
-*/
 template<
-	typename T,
-	typename Arg
+	typename Enum
 >
-typename boost::mpl::if_<
-	boost::is_const<
-		Arg
+typename boost::enable_if<
+	boost::is_enum<
+		Enum
 	>,
-	T const &,
-	T &
+	Enum
 >::type
-find_member_exn(
-	Arg &_members,
-	fcppt::string const &_name
+to_enum(
+	json::value const &_value,
+	Enum const _max_value
 )
 {
-	return
+	json::int_type const int_value(
 		json::get<
-			T
+			json::int_type
 		>(
-			json::find_member_value_exn(
-				_members,
-				_name
-			)
+			_value
+		)
+	);
+
+	if(
+		int_value < 0
+		||
+		int_value
+		>=
+		static_cast<
+			json::int_type
+		>(
+			_max_value
+		)
+	)
+		throw sge::parse::json::exception(
+			FCPPT_TEXT("Enum value out of range!")
+		);
+
+	return
+		static_cast<
+			Enum
+		>(
+			int_value
 		);
 }
 
+}
 }
 }
 }

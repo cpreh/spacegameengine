@@ -28,7 +28,11 @@ SET(
 	include/sge/parse/json/array.hpp
 	include/sge/parse/json/array_fwd.hpp
 	include/sge/parse/json/convert/choose_fundamental.hpp
+	include/sge/parse/json/convert/convert.hpp
 	include/sge/parse/json/convert/from_container.hpp
+	include/sge/parse/json/convert/from_enum.hpp
+	include/sge/parse/json/convert/to_enum.hpp
+	include/sge/parse/json/convert/to_static_container.hpp
 	include/sge/parse/json/detail/adapt_array.hpp
 	include/sge/parse/json/detail/adapt_member.hpp
 	include/sge/parse/json/detail/adapt_object.hpp
@@ -38,6 +42,8 @@ SET(
 	include/sge/parse/json/exception.hpp
 	include/sge/parse/json/find_member.hpp
 	include/sge/parse/json/find_member_exn.hpp
+	include/sge/parse/json/find_member_value.hpp
+	include/sge/parse/json/find_member_value_exn.hpp
 	include/sge/parse/json/float_type.hpp
 	include/sge/parse/json/get.hpp
 	include/sge/parse/json/get_unsigned.hpp

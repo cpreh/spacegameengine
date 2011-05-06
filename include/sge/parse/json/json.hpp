@@ -23,10 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/array_fwd.hpp>
+#include <sge/parse/json/convert/convert.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_member.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
+#include <sge/parse/json/find_member_value.hpp>
+#include <sge/parse/json/find_member_value_exn.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/get_unsigned.hpp>
