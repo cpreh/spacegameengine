@@ -27,6 +27,8 @@ SET(
 	include/sge/parse/ini/string.hpp
 	include/sge/parse/json/array.hpp
 	include/sge/parse/json/array_fwd.hpp
+	include/sge/parse/json/convert/choose_fundamental.hpp
+	include/sge/parse/json/convert/from_container.hpp
 	include/sge/parse/json/detail/adapt_array.hpp
 	include/sge/parse/json/detail/adapt_member.hpp
 	include/sge/parse/json/detail/adapt_object.hpp
