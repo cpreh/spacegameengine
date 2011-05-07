@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_LOAD_CONTEXT_HPP_INCLUDED
 #define SGE_CEGUI_LOAD_CONTEXT_HPP_INCLUDED
 
+#include <sge/cegui/default_font.hpp>
 #include <sge/cegui/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/optional.hpp>
@@ -51,6 +52,10 @@ public:
 	imageset_directory(
 		fcppt::filesystem::path const &);
 
+	SGE_CEGUI_SYMBOL load_context &
+	default_font(
+		cegui::default_font const &);
+
 	fcppt::optional<fcppt::filesystem::path> const &
 	font_directory() const;
 
@@ -59,11 +64,15 @@ public:
 
 	fcppt::optional<fcppt::filesystem::path> const &
 	imageset_directory() const;
+
+	fcppt::optional<cegui::default_font> const &
+	default_font() const;
 private:
 	fcppt::filesystem::path scheme_file_;
 	fcppt::optional<fcppt::filesystem::path> font_directory_;
 	fcppt::optional<fcppt::filesystem::path> looknfeel_directory_;
 	fcppt::optional<fcppt::filesystem::path> imageset_directory_;
+	fcppt::optional<cegui::default_font> default_font_;
 };
 }
 }

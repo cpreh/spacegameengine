@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
-//#include <X11/extensions/XInput2.h>
+#include <X11/extensions/XInput2.h>
 #include <sge/time/sleep.hpp>
 #include <sge/time/second.hpp>
 #include <X11/Xlib.h>
@@ -34,9 +34,7 @@ sge::x11input::cursor::confine::confine(
 )
 :
 	window_(_window)//,
-	//id_(_id),
-	//num_modifiers_(1),
-//	modifiers_()
+	//id_(_id)
 {
 	while(
 		::XGrabPointer(
@@ -57,12 +55,8 @@ sge::x11input::cursor::confine::confine(
 				1
 			)
 		);
-
 #if 0
-	modifiers_.modifiers = 0;
-	modifiers_.status = 0;
-
-	unsigned char raw_data[4];
+	unsigned char raw_data[4] = {0};
 
 	XISetMask(
 		raw_data,
@@ -87,24 +81,26 @@ sge::x11input::cursor::confine::confine(
 	};
 
 	if(
-		::XIGrabEnter(
-			_window->display()->get(),
+		::XIGrabDeviceWithConfine(
+			_window.display().get(),
 			_id.get(),
-			_window->get(),
+			_window.get(),
+			_window.get(),
+			CurrentTime,
 			None,//_window->display()->get()->cursor,
 			GrabModeAsync,
 			GrabModeAsync,
 			True,
-			&mask,
-			num_modifiers_,
-			&modifiers_
+			&mask//,
+			//num_modifiers_,
+			//&modifiers_
 		)
 		== -1
 	)
 		throw sge::input::exception(
 			FCPPT_TEXT("XIGrabEnter failed!")
 		);
-#endif		
+#endif
 }
 
 sge::x11input::cursor::confine::~confine()
@@ -114,12 +110,10 @@ sge::x11input::cursor::confine::~confine()
 		CurrentTime
 	);
 #if 0
-	::XIUngrabEnter(
-		window_->display()->get(),
+	::XIUngrabDevice(
+		window_.display().get(),
 		id_.get(),
-		window_->get(),
-		num_modifiers_,
-		&modifiers_
+		CurrentTime
 	);
 #endif
 }

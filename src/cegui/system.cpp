@@ -33,7 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/falagard/CEGUIFalWidgetLookManager.h>
 #include <CEGUI/CEGUIImageset.h>
 #include <CEGUI/CEGUIFont.h>
+#include <CEGUI/CEGUIFontManager.h>
 #include <CEGUI/CEGUIScheme.h>
+#include <CEGUI/CEGUISystem.h>
 #include <CEGUI/CEGUIWindowManager.h>
 #include <CEGUI/CEGUIScriptModule.h>
 #include <CEGUI/CEGUIXMLParser.h>
@@ -141,6 +143,17 @@ sge::cegui::system::system(
 			CEGUI::MouseCursor::getSingleton().hide();
 		break;
 	}
+	
+	if(_load_context.default_font())
+		CEGUI::System::getSingleton().setDefaultFont(	
+			&CEGUI::FontManager::getSingleton().createFreeTypeFont(
+				"",
+				_load_context.default_font()->font_size(),
+				true,
+				cegui::to_cegui_string(
+					fcppt::filesystem::path_to_string(
+						_load_context.default_font()->path()),
+					_charconv_system)));
 
 	viewport_change();
 }

@@ -7,6 +7,7 @@ SET(
 	include/sge/cegui/cegui.hpp
 	include/sge/cegui/cursor_visibility.hpp
 	include/sge/cegui/default_cursor.hpp
+	include/sge/cegui/default_font.hpp
 	include/sge/cegui/default_keyboard.hpp
 	include/sge/cegui/detail/batch.hpp
 	include/sge/cegui/detail/cegui_logger.hpp
@@ -53,6 +54,7 @@ SET(
 	src/cegui/cursor_button_translation.hpp
 	src/cegui/declare_local_logger.hpp
 	src/cegui/default_cursor.cpp
+	src/cegui/default_font.cpp
 	src/cegui/default_keyboard.cpp
 	src/cegui/detail/batch.cpp
 	src/cegui/detail/cegui_logger.cpp

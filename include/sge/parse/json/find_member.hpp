@@ -22,10 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
 
 #include <sge/parse/json/detail/find_member_return_type.hpp>
+#include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/get.hpp>
-#include <sge/parse/json/member_vector.hpp>
-#include <sge/parse/json/member_name_equal.hpp>
-#include <sge/parse/json/member.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <boost/mpl/if.hpp>
@@ -57,34 +55,29 @@ find_member(
 	fcppt::string const &_name
 )
 {
-	typedef typename boost::mpl::if_<
-		boost::is_const<
-			Arg
-		>,
-		member_vector::const_iterator,
-		member_vector::iterator
-	>::type iterator;
+	typedef typename detail::find_member_return_type<
+		json::value,
+		Arg
+	>::type return_type;
 
-	iterator const it(
-		std::find_if(
-			_members.begin(),
-			_members.end(),
-			json::member_name_equal(
-				_name
-			)
+	return_type const ret(
+		json::find_member_value(
+			_members,
+			_name
 		)
 	);
 
-	return 
-		it == _members.end()
+	return
+		ret
 		?
-			0
-		:
 			&json::get<
 				T
 			>(
-				it->value
-			);
+				*ret
+			)
+		:
+			0
+		;
 }
 
 }

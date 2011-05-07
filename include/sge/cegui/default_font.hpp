@@ -18,28 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CEGUI_CEGUI_HPP_INCLUDED
-#define SGE_CEGUI_CEGUI_HPP_INCLUDED
+#ifndef SGE_CEGUI_DEFAULT_FONT_HPP_INCLUDED
+#define SGE_CEGUI_DEFAULT_FONT_HPP_INCLUDED
 
-#include <sge/cegui/cursor_visibility.hpp>
-#include <sge/cegui/default_cursor.hpp>
-#include <sge/cegui/default_font.hpp>
-#include <sge/cegui/default_keyboard.hpp>
-#include <sge/cegui/exception.hpp>
-#include <sge/cegui/from_cegui_string.hpp>
-#include <sge/cegui/load_context.hpp>
-#include <sge/cegui/load_context_fwd.hpp>
-#include <sge/cegui/logger.hpp>
-#include <sge/cegui/structure_cast.hpp>
 #include <sge/cegui/symbol.hpp>
-#include <sge/cegui/syringe.hpp>
-#include <sge/cegui/syringe_fwd.hpp>
-#include <sge/cegui/system.hpp>
-#include <sge/cegui/system_fwd.hpp>
-#include <sge/cegui/to_cegui_color.hpp>
-#include <sge/cegui/to_cegui_string.hpp>
-#include <sge/cegui/toolbox/toolbox.hpp>
-#include <sge/cegui/unit.hpp>
-#include <sge/cegui/vf/vf.hpp>
+#include <fcppt/filesystem/path.hpp>
+
+namespace sge
+{
+namespace cegui
+{
+
+class default_font
+{
+public:
+	SGE_CEGUI_SYMBOL
+	default_font(
+		fcppt::filesystem::path const &,
+		float font_size
+	);
+
+	fcppt::filesystem::path const &
+	path() const;
+
+	float
+	font_size() const;
+private:
+	fcppt::filesystem::path path_;
+
+	float font_size_;
+};
+
+}
+}
 
 #endif

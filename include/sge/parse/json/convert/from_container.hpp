@@ -18,13 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_FIND_MEMBER_EXN_HPP_INCLUDED
-#define SGE_PARSE_JSON_FIND_MEMBER_EXN_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_CONVERT_FROM_CONTAINER_HPP_INCLUDED
+#define SGE_PARSE_JSON_CONVERT_FROM_CONTAINER_HPP_INCLUDED
 
-#include <sge/parse/json/find_member_value_exn.hpp>
-#include <sge/parse/json/get.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_const.hpp>
+#include <sge/parse/json/convert/choose_fundamental.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/element_vector.hpp>
+#include <sge/parse/json/object.hpp>
+#include <fcppt/algorithm/map.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/object/static_cast.hpp>
 
 namespace sge
 {
@@ -32,39 +35,35 @@ namespace parse
 {
 namespace json
 {
+namespace convert
+{
 
-/// Searches for a member with the name @a name
-/**
- * @throws member_not_found if the member is not found
- * @throws invalid_get if the member has a different type than T
-*/
 template<
-	typename T,
-	typename Arg
+	typename Container
 >
-typename boost::mpl::if_<
-	boost::is_const<
-		Arg
-	>,
-	T const &,
-	T &
->::type
-find_member_exn(
-	Arg &_members,
-	fcppt::string const &_name
+sge::parse::json::array const
+from_container(
+	Container const &_container
 )
 {
 	return
-		json::get<
-			T
-		>(
-			json::find_member_value_exn(
-				_members,
-				_name
+		sge::parse::json::array(
+			fcppt::algorithm::map<
+				sge::parse::json::element_vector
+			>(
+				_container,
+				boost::phoenix::static_cast_<
+					typename convert::choose_fundamental<
+						typename Container::value_type
+					>::type
+				>(
+					boost::phoenix::arg_names::arg1
+				)
 			)
 		);
 }
-
+	
+}
 }
 }
 }
