@@ -557,8 +557,9 @@ try
 #endif
 
 		world.update(
-			sge::time::second_f(
-				frame_timer.reset()));
+			sge::projectile::time_increment(
+				sge::time::second_f(
+					frame_timer.reset())));
 
 		debug_drawer.update();
 

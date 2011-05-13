@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_WORLD_HPP_INCLUDED
 
 #include <sge/projectile/scalar.hpp>
+#include <sge/projectile/maximum_substeps.hpp>
+#include <sge/projectile/time_increment.hpp>
+#include <sge/projectile/fixed_timestep.hpp>
 #include <sge/projectile/body/collision.hpp>
 #include <sge/projectile/body/collision_fn.hpp>
 #include <sge/projectile/body/object_fwd.hpp>
@@ -59,7 +62,13 @@ public:
 
 	SGE_PROJECTILE_SYMBOL void
 	update(
-		sge::time::duration const &);
+		time_increment const &,
+		fixed_timestep const &,
+		maximum_substeps const &);
+
+	SGE_PROJECTILE_SYMBOL void
+	update(
+		time_increment const &);
 
 	SGE_PROJECTILE_SYMBOL void
 	make_groups_collide(

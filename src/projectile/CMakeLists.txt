@@ -30,6 +30,7 @@ SET(
 	include/sge/projectile/detail/debug_drawer_impl_fwd.hpp
 	include/sge/projectile/detail/triangle_set_hash.hpp
 	include/sge/projectile/dim2.hpp
+	include/sge/projectile/fixed_timestep.hpp
 	include/sge/projectile/ghost/body_enter.hpp
 	include/sge/projectile/ghost/body_enter_fn.hpp
 	include/sge/projectile/ghost/body_exit.hpp
@@ -49,6 +50,7 @@ SET(
 	include/sge/projectile/group/object.hpp
 	include/sge/projectile/group/object_fwd.hpp
 	include/sge/projectile/group/sequence.hpp
+	include/sge/projectile/maximum_substeps.hpp
 	include/sge/projectile/projectile.hpp
 	include/sge/projectile/rect.hpp
 	include/sge/projectile/scalar.hpp
@@ -60,6 +62,7 @@ SET(
 	include/sge/projectile/shape/triangle_mesh.hpp
 	include/sge/projectile/shape/triangle_set.hpp
 	include/sge/projectile/symbol.hpp
+	include/sge/projectile/time_increment.hpp
 	include/sge/projectile/triangle.hpp
 	include/sge/projectile/triangulation/detail/area.hpp
 	include/sge/projectile/triangulation/detail/point_inside_triangle.hpp
@@ -80,6 +83,7 @@ SET(
 	src/projectile/body/solidity/is_solid.cpp
 	src/projectile/body/solidity/is_solid.hpp
 	src/projectile/body/solidity/solid.cpp
+	src/projectile/bullet_duration.hpp
 	src/projectile/bullet_to_vector2.cpp
 	src/projectile/bullet_to_vector2.hpp
 	src/projectile/debug_drawer.cpp
