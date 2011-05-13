@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_POINTED_HISTORY_HPP_INCLUDED
 
 #include <fcppt/assert.hpp>
-#include <boost/circular_buffer.hpp>
+#include <boost/next_prior.hpp>
+#include <deque>
 
 namespace sge
 {
@@ -37,7 +38,7 @@ public:
 	value_type;
 	
 	typedef 
-	boost::circular_buffer<value_type> 
+	std::deque<value_type> 
 	container;
 	
 	typedef typename
@@ -55,13 +56,15 @@ public:
 	pointed_history(
 		size_type const _limit)
 	:
-		container_(
+		container_(),
+		limit_(
 			_limit),
 		point_(
 			static_cast<size_type>(
 				0))
 	{
-		FCPPT_ASSERT(_limit);
+		FCPPT_ASSERT(
+			limit_);
 	}
 	
 	void
@@ -70,6 +73,8 @@ public:
 	{
 		container_.push_front(
 			_t);
+		if(container_.size() > limit_)
+			container_.pop_back();
 		if (point_ != static_cast<size_type>(0))
 			++point_;
 	}
@@ -123,6 +128,7 @@ public:
 	}
 private:
 	container container_;
+	size_type limit_;
 	size_type point_;
 };
 }
