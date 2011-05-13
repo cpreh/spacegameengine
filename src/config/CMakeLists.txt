@@ -12,6 +12,7 @@ SET(
 	include/sge/config/appdir.hpp
 	include/sge/config/config.hpp
 	include/sge/config/exception.hpp
+	include/sge/config/find_cache_path.hpp
 	include/sge/config/find_config_path.hpp
 	include/sge/config/find_path.hpp
 	include/sge/config/find_path_exn.hpp
@@ -29,6 +30,7 @@ SET(
 	include/sge/config/symbol.hpp
 	src/config/appdir.cpp
 	src/config/exception.cpp
+	src/config/find_cache_path.cpp
 	src/config/find_config_path.cpp
 	src/config/find_own_path.cpp
 	src/config/find_own_path.hpp
@@ -42,6 +44,8 @@ SET(
 	src/config/no_such_env_var.cpp
 	src/config/path_not_found.cpp
 	src/config/plugin_path.cpp
+	src/config/try_create_path.cpp
+	src/config/try_create_path.hpp
 )
 
 ADD_SGE_BASE_LIBRARY(

@@ -19,59 +19,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "try_create_path.hpp"
-#include <sge/config/find_config_path.hpp>
-#include <sge/config/optional_string.hpp>
 #include <sge/config/exception.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/is_directory.hpp>
 #include <fcppt/filesystem/create_directories_recursive.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/platform.hpp>
-#if defined(FCPPT_POSIX_PLATFORM)
-#include <sge/config/homedir.hpp>
-#include <sge/config/getenv.hpp>
-#include <fcppt/optional_impl.hpp>
-#elif defined(FCPPT_WINDOWS_PLATFORM)
-#include <sge/config/getenv_exn.hpp>
-#endif
 
 fcppt::filesystem::path const
-sge::config::find_config_path(
-	fcppt::string const &_appname
+sge::config::try_create_path(
+	fcppt::filesystem::path const &_path
 )
 {
-#if defined(FCPPT_WINDOWS_PLATFORM)
-	return
-		config::try_create_path(
-			fcppt::filesystem::path(
-				config::getenv_exn(
-					FCPPT_TEXT("APPDATA")
-				)
-			)
-			/ _appname
-		);
-#elif defined(FCPPT_POSIX_PLATFORM)
-	optional_string const xdg_config_path(
-		config::getenv(
-			FCPPT_TEXT("XDG_CONFIG_HOME")
+	if(
+		!fcppt::filesystem::exists(
+			_path
 		)
-	);
-
-	fcppt::filesystem::path const path(
-		xdg_config_path
-		?
-			*xdg_config_path
-		:
-			config::homedir() / FCPPT_TEXT(".config")
-	);
-	
-	return
-		config::try_create_path(
-			path
-			/ _appname
+	)
+		fcppt::filesystem::create_directories_recursive(
+			_path
 		);
-#else
-#error "don't know how to find a config path"
-#endif
+
+	if(
+		!fcppt::filesystem::is_directory(
+			_path
+		)
+	)
+		throw sge::config::exception(
+			fcppt::filesystem::path_to_string(
+				_path
+			)
+			+ FCPPT_TEXT(" is not a directory!")
+		);
+
+	return _path;
 }
