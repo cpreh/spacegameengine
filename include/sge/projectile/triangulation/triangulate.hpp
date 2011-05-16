@@ -62,31 +62,31 @@ triangulate(
 	fcppt::container::raw_vector<size_type> V(
 		contour.size());
 
-  /* we want a counter-clockwise polygon in V */
-  if(static_cast<scalar>(0.0) < sge::projectile::triangulation::detail::area(contour))
+	/* we want a counter-clockwise polygon in V */
+	if(static_cast<scalar>(0.0) < sge::projectile::triangulation::detail::area(contour))
 	{
 		boost::iota(
 			V,
 			static_cast<size_type>(
 				0));
 	}
-  else
+	else
 	{
-    for(size_type v = 0; v < contour.size(); v++) 
+		for(size_type v = 0; v < contour.size(); v++) 
 			V[v] = static_cast<size_type>((contour.size()-1)-v);
 	}
 
-  size_type nv = 
+	size_type nv = 
 		contour.size();
 
-  /*  remove nv-2 Vertices, creating 1 triangle every time */
-  size_type count = 
+	/*  remove nv-2 Vertices, creating 1 triangle every time */
+	size_type count = 
 		static_cast<size_type>(
 			2*nv);   /* error detection */
 
 	ResultContainer result;
 
-  for(
+	for(
 		size_type 
 			m = 
 				0, 
@@ -94,21 +94,21 @@ triangulate(
 				static_cast<size_type>(
 					nv-1); 
 			nv>2u; )
-  {
+	{
 		FCPPT_ASSERT(
 			0 < (count--));
 
-    /* three consecutive vertices in current polygon, <u,v,w> */
-    size_type u = v  ; if (nv <= u) u = 0;     /* previous */
-    v = u+1; if (nv <= v) v = 0;     /* new v    */
-    size_type w = v+1; if (nv <= w) w = 0;     /* next     */
+		/* three consecutive vertices in current polygon, <u,v,w> */
+		size_type u = v  ; if (nv <= u) u = 0;     /* previous */
+		v = u+1; if (nv <= v) v = 0;     /* new v    */
+		size_type w = v+1; if (nv <= w) w = 0;     /* next     */
 
-    if(sge::projectile::triangulation::detail::snip(contour,u,v,w,nv,V,epsilon))
-    {
-      size_type a,b,c,s,t;
+		if(sge::projectile::triangulation::detail::snip(contour,u,v,w,nv,V,epsilon))
+		{
+			size_type a,b,c,s,t;
 
-      /* true names of the vertices */
-      a = V[u]; b = V[v]; c = V[w];
+			/* true names of the vertices */
+			a = V[u]; b = V[v]; c = V[w];
 
 			typename ResultContainer::value_type new_triangle;
 			new_triangle[0] = contour[a];
@@ -118,14 +118,14 @@ triangulate(
 				result.end(),
 				new_triangle);
 
-      m++;
+			m++;
 
-      /* remove v from remaining polygon */
-      for(s=v,t=v+1;t<nv;s++,t++) V[s] = V[t]; nv--;
+			/* remove v from remaining polygon */
+			for(s=v,t=v+1;t<nv;s++,t++) V[s] = V[t]; nv--;
 
-      /* resest error detection counter */
-      count = 2*nv;
-    }
+			/* resest error detection counter */
+			count = 2*nv;
+		}
 	}
 	return result;
 }

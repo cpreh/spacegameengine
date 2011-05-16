@@ -9,6 +9,7 @@ SET(
 	include/sge/projectile/body/mass.hpp
 	include/sge/projectile/body/object.hpp
 	include/sge/projectile/body/object_fwd.hpp
+	include/sge/projectile/body/object_unique_ptr.hpp
 	include/sge/projectile/body/parameters.hpp
 	include/sge/projectile/body/parameters_fwd.hpp
 	include/sge/projectile/body/position.hpp
