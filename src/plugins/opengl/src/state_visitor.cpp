@@ -83,7 +83,7 @@ sge::opengl::state_visitor::operator()(
 		_state.state()
 	)
 	{
-	case rs::stencil_clear_val:
+	case rs::stencil_buffer_clear_val:
 		::glClearStencil(
 			_state.value()
 		);
@@ -139,7 +139,7 @@ sge::opengl::state_visitor::operator()(
 		_state.state()
 	)
 	{
-	case rs::zbuffer_clear_val:
+	case rs::depth_buffer_clear_val:
 		::glClearDepth(
 			static_cast<
 				GLdouble
@@ -198,9 +198,9 @@ sge::opengl::state_visitor::operator()(
 		_state.state()
 	)
 	{
-	case rs::clear_backbuffer:
-	case rs::clear_zbuffer:
-	case rs::clear_stencil:
+	case rs::clear_back_buffer:
+	case rs::clear_depth_buffer:
+	case rs::clear_stencil_buffer:
 		return;
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
@@ -263,7 +263,7 @@ sge::opengl::state_visitor::operator()(
 		);
 
 		return;
-	case rs::write_to_zbuffer:
+	case rs::write_to_depth_buffer:
 		::glDepthMask(
 			_state.value()
 		);
@@ -300,7 +300,7 @@ sge::opengl::state_visitor::operator()(
 		_state.state()
 	)
 	{
-	case rs::clear_color:
+	case rs::back_buffer_clear_color:
 		::glClearColor(
 			fcolor.get<mizuiro::color::channel::red>(),
 			fcolor.get<mizuiro::color::channel::green>(),

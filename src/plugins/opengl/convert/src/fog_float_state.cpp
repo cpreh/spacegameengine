@@ -20,30 +20,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../fog_float_state.hpp"
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
 GLenum
 sge::opengl::convert::fog_float_state(
-	renderer::state::float_::type const &s
+	renderer::state::float_::type const &_state
 )
 {
 	namespace rs = renderer::state::float_::available_states;
 
-	switch(s.state()) {
+	switch(
+		_state.state()
+	)
+	{
 	case rs::fog_start:
 		return GL_FOG_START;
 	case rs::fog_end:
 		return GL_FOG_END;
 	case rs::fog_density:
 		return GL_FOG_DENSITY;
-	case rs::zbuffer_clear_val:
+	case rs::depth_buffer_clear_val:
 	case rs::alpha_test_ref:
 		break;
 	}
 
-	throw exception(
+	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid fog float_state!")
 	);
 }

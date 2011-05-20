@@ -22,5 +22,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/int.hpp>
 
 SGE_RENDERER_STATE_INSTANTIATE_VAR_AND_TRAMPOLINE(int_)
-SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(int_, stencil_clear_val)
+SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(int_, stencil_buffer_clear_val)
 SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(int_, stencil_ref)

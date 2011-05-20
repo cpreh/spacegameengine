@@ -44,16 +44,16 @@ typedef fcppt::container::array<
 translation_array const translation =
 {{
 	std::make_pair(
-		sge::renderer::clear_flags::back,
-		&sge::renderer::state::bool_::clear_backbuffer
+		sge::renderer::clear_flags::back_buffer,
+		&sge::renderer::state::bool_::clear_back_buffer
 	),
 	std::make_pair(
-		sge::renderer::clear_flags::depth,
-		&sge::renderer::state::bool_::clear_zbuffer
+		sge::renderer::clear_flags::depth_buffer,
+		&sge::renderer::state::bool_::clear_depth_buffer
 	),
 	std::make_pair(
-		sge::renderer::clear_flags::stencil,
-		&sge::renderer::state::bool_::clear_stencil
+		sge::renderer::clear_flags::stencil_buffer,
+		&sge::renderer::state::bool_::clear_stencil_buffer
 	)
 }};
 

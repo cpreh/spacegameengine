@@ -59,17 +59,17 @@ sge::opengl::clear(
 	::glClear(
 		::clear_bit(
 			_flags,
-			renderer::clear_flags::back
+			renderer::clear_flags::back_buffer
 		)
 		|
 		::clear_bit(
 			_flags,
-			renderer::clear_flags::depth
+			renderer::clear_flags::depth_buffer
 		)
 		|
 		::clear_bit(
 			_flags,
-			renderer::clear_flags::stencil
+			renderer::clear_flags::stencil_buffer
 		)
 	);
 

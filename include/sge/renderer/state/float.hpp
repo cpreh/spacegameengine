@@ -33,12 +33,15 @@ namespace renderer
 namespace state
 {
 
-namespace float_ {
-	typedef scalar base_type;
+namespace float_
+{
+	typedef renderer::scalar base_type;
 
-	namespace available_states {
-		enum type {
-			zbuffer_clear_val,
+	namespace available_states
+	{
+		enum type
+		{
+			depth_buffer_clear_val,
 			alpha_test_ref,
 			fog_start,
 			fog_end,
@@ -46,18 +49,18 @@ namespace float_ {
 		};
 	}
 
-	typedef trampoline<
+	typedef state::trampoline<
 		base_type,
 		available_states::type
 	> trampoline_type;
 
-	typedef var<
+	typedef state::var<
 		base_type,
 		available_states::type
 	> type;
 
 	SGE_SYMBOL extern trampoline_type const
-		zbuffer_clear_val,
+		depth_buffer_clear_val,
 		alpha_test_ref,
 		fog_start,
 		fog_end,

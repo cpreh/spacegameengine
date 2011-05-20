@@ -166,7 +166,7 @@ sge::cegui::detail::texture_target::activate()
 	// here. Clearing is explicitly done in the clear() function.
 	system_.renderer().push_state(
 		sge::renderer::state::list(
-			sge::renderer::state::bool_::clear_backbuffer = false));
+			sge::renderer::state::bool_::clear_back_buffer = false));
 
 	system_.renderer().begin_rendering();
 }
@@ -208,8 +208,8 @@ sge::cegui::detail::texture_target::clear()
 	sge::renderer::state::scoped scoped_state(
 		system_.renderer(),
 		sge::renderer::state::list
-			(sge::renderer::state::color::clear_color = sge::image::colors::transparent())
-			(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::transparent())
+			(sge::renderer::state::bool_::clear_back_buffer = true)
 			(sge::renderer::state::bool_::enable_scissor_test = false));
 
 	// Make sure we clear everything

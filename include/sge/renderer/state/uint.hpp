@@ -33,21 +33,24 @@ namespace renderer
 namespace state
 {
 
-namespace uint {
-	typedef uint_type base_type;
+namespace uint
+{
+	typedef state::uint_type base_type;
 
-	namespace available_states {
-		enum type {
+	namespace available_states
+	{
+		enum type
+		{
 			stencil_mask
 		};
 	}
 
-	typedef trampoline<
+	typedef state::trampoline<
 		base_type,
 		available_states::type
 	> trampoline_type;
 
-	typedef var<
+	typedef state::var<
 		base_type,
 		available_states::type
 	> type;

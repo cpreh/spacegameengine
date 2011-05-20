@@ -33,29 +33,32 @@ namespace renderer
 namespace state
 {
 
-namespace color {
+namespace color
+{
 	typedef color_type base_type;
 
-	namespace available_states {
-		enum type {
-			clear_color,
+	namespace available_states
+	{
+		enum type
+		{
+			back_buffer_clear_color,
 			ambient_light_color,
 			fog_color
 		};
 	}
 
-	typedef var<
+	typedef state::var<
 		base_type,
 		available_states::type
 	> type;
 
-	typedef trampoline<
+	typedef state::trampoline<
 		base_type,
 		available_states::type
 	> trampoline_type;
 
 	SGE_SYMBOL extern trampoline_type const
-		clear_color,
+		back_buffer_clear_color,
 		ambient_light_color,
 		fog_color;
 }

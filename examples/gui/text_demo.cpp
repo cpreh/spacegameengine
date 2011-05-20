@@ -186,8 +186,8 @@ try
 		sge::renderer::state::scoped scoped_state(
 			sys.renderer(),
 			sge::renderer::state::list
-				(sge::renderer::state::bool_::clear_backbuffer = true)
-				(sge::renderer::state::color::clear_color = sge::image::colors::red()));
+				(sge::renderer::state::bool_::clear_back_buffer = true)
+				(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::red()));
 
 		sge::renderer::scoped_block scoped_block(
 			sys.renderer());

@@ -33,28 +33,31 @@ namespace renderer
 namespace state
 {
 
-namespace int_ {
-	typedef int_type base_type;
+namespace int_
+{
+	typedef state::int_type base_type;
 
-	namespace available_states {
-		enum type {
-			stencil_clear_val,
+	namespace available_states
+	{
+		enum type
+		{
+			stencil_buffer_clear_val,
 			stencil_ref
 		};
 	}
 
-	typedef var<
+	typedef state::var<
 		base_type,
 		available_states::type
 	> type;
 
-	typedef trampoline<
+	typedef state::trampoline<
 		base_type,
 		available_states::type
 	> trampoline_type;
 
 	SGE_SYMBOL extern trampoline_type const
-		stencil_clear_val,
+		stencil_buffer_clear_val,
 		stencil_ref;
 }
 

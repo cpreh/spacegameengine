@@ -40,12 +40,12 @@ sge::opengl::convert::bool_(
 		return GL_LIGHTING;
 	case rs::enable_scissor_test:
 		return GL_SCISSOR_TEST;
-	case rs::clear_backbuffer:
-	case rs::clear_zbuffer:
-	case rs::clear_stencil:
+	case rs::clear_back_buffer:
+	case rs::clear_depth_buffer:
+	case rs::clear_stencil_buffer:
 	case rs::enable_multi_sampling:
 	case rs::enable_point_sprites:
-	case rs::write_to_zbuffer:
+	case rs::write_to_depth_buffer:
 		break;
 	}
 

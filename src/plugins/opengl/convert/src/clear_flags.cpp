@@ -31,11 +31,11 @@ sge::opengl::convert::clear_flags(
 		_flag
 	)
 	{
-	case sge::renderer::clear_flags::back:
+	case sge::renderer::clear_flags::back_buffer:
 		return GL_COLOR_BUFFER_BIT;
-	case sge::renderer::clear_flags::depth:
+	case sge::renderer::clear_flags::depth_buffer:
 		return GL_DEPTH_BUFFER_BIT;
-	case sge::renderer::clear_flags::stencil:
+	case sge::renderer::clear_flags::stencil_buffer:
 		return GL_STENCIL_BUFFER_BIT;
 	case sge::renderer::clear_flags::size:
 		break;

@@ -33,43 +33,46 @@ namespace renderer
 namespace state
 {
 
-namespace bool_ {
-	typedef bool_type base_type;
+namespace bool_
+{
+	typedef state::bool_type base_type;
 
-	namespace available_states {
-		enum type {
-			clear_zbuffer,
-			clear_backbuffer,
-			clear_stencil,
+	namespace available_states
+	{
+		enum type
+		{
+			clear_depth_buffer,
+			clear_back_buffer,
+			clear_stencil_buffer,
 			enable_alpha_blending,
 			enable_lighting,
 			enable_multi_sampling,
 			enable_point_sprites,
 			enable_scissor_test,
-			write_to_zbuffer
+			write_to_depth_buffer
 		};
 	}
 
-	typedef trampoline<
-		bool_type,
+	typedef state::trampoline<
+		base_type,
 		available_states::type
 	> trampoline_type;
 
-	typedef var<
+	typedef state::var<
 		base_type,
 		available_states::type
 	> type;
 
 	SGE_SYMBOL extern trampoline_type const
-		clear_zbuffer,
-		clear_backbuffer,
-		clear_stencil,
+		clear_depth_buffer,
+		clear_back_buffer,
+		clear_stencil_buffer,
 		enable_alpha_blending,
 		enable_lighting,
 		enable_multi_sampling,
 		enable_point_sprites,
 		enable_scissor_test,
-		write_to_zbuffer;
+		write_to_depth_buffer;
 }
 
 }

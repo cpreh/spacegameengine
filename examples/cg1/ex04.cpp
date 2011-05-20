@@ -313,8 +313,8 @@ try
 
 	rend.state(
 		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::bool_::clear_zbuffer = true)
+			(sge::renderer::state::bool_::clear_back_buffer = true)
+			(sge::renderer::state::bool_::clear_depth_buffer = true)
 			(sge::renderer::state::bool_::enable_lighting = true)
 			(sge::renderer::state::color::ambient_light_color
 				= rgba32f_color(
@@ -324,8 +324,8 @@ try
 					(sge::image::color::init::alpha %= 0.)
 				)
 			)
-			(sge::renderer::state::float_::zbuffer_clear_val = 1.f)
-			(sge::renderer::state::color::clear_color = sge::image::colors::black())
+			(sge::renderer::state::float_::depth_buffer_clear_val = 1.f)
+			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black())
 			(sge::renderer::state::cull_mode::back)
 			(sge::renderer::state::depth_func::less));
 

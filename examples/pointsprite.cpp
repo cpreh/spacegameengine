@@ -487,14 +487,14 @@ try
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::enable_point_sprites = true)
 			(sge::renderer::state::bool_::enable_alpha_blending = true)
-			(sge::renderer::state::bool_::clear_backbuffer = true) 
-			(sge::renderer::state::color::clear_color = sge::image::color::rgba8
-					(
-						(sge::image::color::init::red %= 0.)
-						(sge::image::color::init::green %= 0.)
-						(sge::image::color::init::blue %= 0.)
-						(sge::image::color::init::alpha %= 1.)
-					))
+			(sge::renderer::state::bool_::clear_back_buffer = true) 
+			(sge::renderer::state::color::back_buffer_clear_color = sge::image::color::rgba8
+				(
+					(sge::image::color::init::red %= 0.)
+					(sge::image::color::init::green %= 0.)
+					(sge::image::color::init::blue %= 0.)
+					(sge::image::color::init::alpha %= 1.)
+				))
 			(sge::renderer::state::source_blend_func::src_alpha)
 			(sge::renderer::state::dest_blend_func::inv_src_alpha)
 		);

@@ -30,9 +30,9 @@ namespace clear_flags
 {
 enum type
 {
-	back,
-	depth,
-	stencil,
+	back_buffer,
+	depth_buffer,
+	stencil_buffer,
 	size
 };
 }

@@ -217,10 +217,10 @@ try
 		sys.renderer().state(
 			sge::renderer::state::list
 			(
-				sge::renderer::state::bool_::clear_backbuffer = true
+				sge::renderer::state::bool_::clear_back_buffer = true
 			)
 			(
-				sge::renderer::state::color::clear_color
+				sge::renderer::state::color::back_buffer_clear_color
 					= sge::image::colors::red()
 			)
 		);
@@ -266,10 +266,10 @@ try
 		sys.renderer().state(
 			sge::renderer::state::list
 			(
-				sge::renderer::state::bool_::clear_backbuffer = true
+				sge::renderer::state::bool_::clear_back_buffer = true
 			)
 			(
-				sge::renderer::state::color::clear_color
+				sge::renderer::state::color::back_buffer_clear_color
 					= sge::image::colors::red()
 			)
 		);
@@ -304,10 +304,10 @@ try
 	sys.renderer().state(
 		sge::renderer::state::list
 		(
-			sge::renderer::state::bool_::clear_backbuffer = true
+			sge::renderer::state::bool_::clear_back_buffer = true
 		)
 		(
-			sge::renderer::state::color::clear_color
+			sge::renderer::state::color::back_buffer_clear_color
 				= sge::image::colors::blue()
 		)
 	);
