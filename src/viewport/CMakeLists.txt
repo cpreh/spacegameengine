@@ -23,6 +23,6 @@ SET(
 )
 
 ADD_SGE_BASE_LIBRARY(
-	viewport	
+	viewport
 	""
 )
