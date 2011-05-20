@@ -35,8 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <boost/foreach.hpp>
-#include <boost/range/iterator_range.hpp>
-#include <boost/range/adaptor/filtered.hpp>
 #include <iostream>
 #include <limits>
 #include <LinearMath/btVector3.h>
@@ -96,19 +94,17 @@ is_ghost(
 // manifolds. The rules are simple
 // - we reject collisions where a ghost is involved (ghosts are by definition aabb overlap only, no narrow phase!)
 // - just because a manifold is created doesn't mean the two objects collide, we have to inspect getNumContacts
-struct is_collision_manifold
+bool
+is_collision_manifold(
+	btPersistentManifold *manifold)
 {
-	bool
-	operator()(btPersistentManifold *manifold) const
-	{
-		return 
-			manifold->getNumContacts() && 
-			!is_ghost(
-				manifold->getBody0()) && 
-			!is_ghost(
-				manifold->getBody1());
-	}
-};
+	return 
+		manifold->getNumContacts() && 
+		!is_ghost(
+			manifold->getBody0()) && 
+		!is_ghost(
+			manifold->getBody1());
+}
 }
 
 sge::projectile::world::world()
@@ -325,23 +321,33 @@ void
 sge::projectile::world::internal_tick_callback(
 	btScalar /* time_step */)
 {
-	BOOST_FOREACH(
-		btPersistentManifold *current_manifold,
-		boost::make_iterator_range(
-			world_->getDispatcher()->getInternalManifoldPointer(),
-			world_->getDispatcher()->getInternalManifoldPointer() + 
-				world_->getDispatcher()->getNumManifolds()) | 
-				boost::adaptors::filtered(
-					is_collision_manifold()))
+	for(
+		btPersistentManifold **current_manifold(
+			world_->getDispatcher()->getInternalManifoldPointer()
+		),
+		**manifold_end(
+				world_->getDispatcher()->getInternalManifoldPointer() + 
+				world_->getDispatcher()->getNumManifolds()
+		);
+		current_manifold != manifold_end;
+		++current_manifold
+	)
 	{
+		if(
+			!is_collision_manifold(
+				*current_manifold
+			)
+		)
+			continue;
+
 		FCPPT_LOG_VERBOSE(
 			local_log,
 			fcppt::log::_ << FCPPT_TEXT("There has been a collision between two bodies"));
 		body_collision_(
 			void_ptr_to_body(
-				current_manifold->getBody0()),
+				(*current_manifold)->getBody0()),
 			void_ptr_to_body(
-				current_manifold->getBody1()));
+				(*current_manifold)->getBody1()));
 
 		// For additional data:
 		/*
