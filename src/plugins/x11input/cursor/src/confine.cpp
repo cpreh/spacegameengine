@@ -19,44 +19,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../confine.hpp"
-#include <sge/input/exception.hpp>
+#include <sge/x11input/config.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <fcppt/text.hpp>
+#if defined(SGE_X11INPUT_HAVE_XI_2_1)
+#include <sge/input/exception.hpp>
 #include <X11/extensions/XInput2.h>
+#include <fcppt/text.hpp>
+#else
 #include <sge/time/sleep.hpp>
 #include <sge/time/second.hpp>
 #include <X11/Xlib.h>
+#endif
 
 sge::x11input::cursor::confine::confine(
 	awl::backends::x11::window::instance &_window,
 	device::id const &_id
 )
 :
-	window_(_window),
+	window_(_window)
+#if defined(SGE_X11INPUT_HAVE_XI_2_1)
+	,
 	id_(_id)
-{
-#if 0
-	while(
-		::XGrabPointer(
-			window_.display().get(),
-			window_.get(),
-			True,
-			0u,
-			GrabModeAsync,
-			GrabModeAsync,
-			window_.get(),
-			None,
-			CurrentTime
-		)
-		!= GrabSuccess
-	)
-		sge::time::sleep(
-			sge::time::second(
-				1
-			)
-		);
 #endif
+{
+#if defined(SGE_X11INPUT_HAVE_XI_2_1)
 	unsigned char raw_data[4] = {0};
 
 	XISetMask(
@@ -98,22 +85,45 @@ sge::x11input::cursor::confine::confine(
 		)
 		== -1
 	)
+	// TODO: do we have to sleep here on some return values as well?
 		throw sge::input::exception(
 			FCPPT_TEXT("XIGrabEnter failed!")
 		);
+#else
+	while(
+		::XGrabPointer(
+			window_.display().get(),
+			window_.get(),
+			True,
+			0u,
+			GrabModeAsync,
+			GrabModeAsync,
+			window_.get(),
+			None,
+			CurrentTime
+		)
+		!= GrabSuccess
+	)
+		sge::time::sleep(
+			sge::time::second(
+				1
+			)
+		);
+#endif
 }
 
 sge::x11input::cursor::confine::~confine()
 {
-#if 0
-	::XUngrabPointer(
-		window_.display().get(),
-		CurrentTime
-	);
-#endif
+#if defined(SGE_X11INPUT_HAVE_XI_2_1)
 	::XIUngrabDevice(
 		window_.display().get(),
 		id_.get(),
 		CurrentTime
 	);
+#else
+	::XUngrabPointer(
+		window_.display().get(),
+		CurrentTime
+	);
+#endif
 }

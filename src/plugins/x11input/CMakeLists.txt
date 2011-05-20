@@ -103,8 +103,41 @@ SET(
 	src/plugins/x11input/xi_version.hpp
 )
 
+INCLUDE(
+	CheckCXXSourceRuns
+)
+
 INCLUDE_DIRECTORIES(
 	${X11_X11_INCLUDE_PATH}
+)
+
+SET(
+	CMAKE_REQUIRED_INCLUDES ${X11_Xinput_INCLUDE_PATH}
+)
+
+CHECK_CXX_SOURCE_RUNS(
+	"#include <X11/extensions/XI2.h>
+	#include <cstdlib>
+	int main()
+	{
+		return
+			XInput_2_1 == 8
+			?
+				EXIT_SUCCESS
+			:
+				EXIT_FAILURE
+			;
+	}"
+	SGE_X11INPUT_HAVE_XI_2_1
+)
+
+CONFIGURE_FILE(
+	${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
+	${CMAKE_CURRENT_BINARY_DIR}/include/sge/x11input/config.hpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_BINARY_DIR}/include
 )
 
 INCLUDE_DIRECTORIES(
