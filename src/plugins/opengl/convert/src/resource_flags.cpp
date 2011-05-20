@@ -20,15 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../resource_flags.hpp"
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
 
 GLuint
 sge::opengl::convert::resource_flags(
-	renderer::resource_flags_field const &f
+	renderer::resource_flags_field const &_flags
 )
 {
-	return (f & renderer::resource_flags::dynamic)
-		? GL_DYNAMIC_DRAW
-		: GL_STATIC_DRAW;
+	return
+		(_flags & renderer::resource_flags::dynamic)
+		?
+			GL_DYNAMIC_DRAW
+		:
+			GL_STATIC_DRAW;
 }

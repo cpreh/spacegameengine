@@ -19,15 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../draw_mode.hpp"
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 GLenum
 sge::opengl::convert::draw_mode(
-	renderer::state::draw_mode::type const m
+	renderer::state::draw_mode::type const _mode
 )
 {
-	switch(m) {
+	switch(
+		_mode
+	)
+	{
 	case renderer::state::draw_mode::point:
 		return GL_POINT;
 	case renderer::state::draw_mode::line:
@@ -36,7 +39,7 @@ sge::opengl::convert::draw_mode(
 		return GL_FILL;
 	}
 
-	throw exception(
+	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid draw_mode!")
 	);
 }

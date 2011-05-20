@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::convert::clip_plane_index(
-	renderer::clip_plane_index const index
+	renderer::clip_plane_index const _index
 )
 {
-	return GL_CLIP_PLANE0 + index;
+	return GL_CLIP_PLANE0 + _index;
 }

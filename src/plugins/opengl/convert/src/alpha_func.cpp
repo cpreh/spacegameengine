@@ -19,15 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../alpha_func.hpp"
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 GLenum
 sge::opengl::convert::alpha_func(
-	renderer::state::alpha_func::type const f
+	renderer::state::alpha_func::type const _func
 )
 {
-	switch(f) {
+	switch(
+		_func
+	)
+	{
 	case renderer::state::alpha_func::never:
 		return GL_NEVER;
 	case renderer::state::alpha_func::less:
@@ -48,9 +51,7 @@ sge::opengl::convert::alpha_func(
 		break;
 	}
 
-	throw exception(
+	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid alpha_func!")
 	);
 }
-
-

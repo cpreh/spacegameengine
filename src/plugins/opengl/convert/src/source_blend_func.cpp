@@ -19,15 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../source_blend_func.hpp"
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 GLenum
 sge::opengl::convert::source_blend_func(
-	renderer::state::source_blend_func::type const f
+	renderer::state::source_blend_func::type const _func
 )
 {
-	switch(f) {
+	switch(
+		_func
+	)
+	{
 	case renderer::state::source_blend_func::zero:
 		return GL_ZERO;
 	case renderer::state::source_blend_func::one:
@@ -48,7 +51,7 @@ sge::opengl::convert::source_blend_func(
 		return GL_SRC_ALPHA_SATURATE;
 	}
 
-	throw exception(
+	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid source_blend_func!")
 	);
 }

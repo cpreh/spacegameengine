@@ -19,15 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../cull_mode.hpp"
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 GLenum
 sge::opengl::convert::cull_mode(
-	renderer::state::cull_mode::type const m
+	renderer::state::cull_mode::type const _mode
 )
 {
-	switch(m) {
+	switch(
+		_mode
+	)
+	{
 	case renderer::state::cull_mode::back:
 		return GL_BACK;
 	case renderer::state::cull_mode::front:
@@ -36,7 +39,7 @@ sge::opengl::convert::cull_mode(
 		break;
 	}
 
-	throw exception(
+	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid cull_mode!")
 	);
 }

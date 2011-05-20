@@ -19,15 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../dest_blend_func.hpp"
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 GLenum
 sge::opengl::convert::dest_blend_func(
-	renderer::state::dest_blend_func::type const f
+	renderer::state::dest_blend_func::type const _func
 )
 {
-	switch(f) {
+	switch(
+		_func
+	)
+	{
 	case renderer::state::dest_blend_func::zero:
 		return GL_ZERO;
 	case renderer::state::dest_blend_func::one:
@@ -46,7 +49,7 @@ sge::opengl::convert::dest_blend_func(
 		return GL_ONE_MINUS_DST_ALPHA;
 	}
 
-	throw exception(
+	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid dest_blend_func!")
 	);
 }

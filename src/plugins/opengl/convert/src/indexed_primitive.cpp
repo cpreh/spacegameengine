@@ -19,22 +19,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../indexed_primitive.hpp"
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 GLenum
 sge::opengl::convert::indexed_primitive(
-	renderer::indexed_primitive_type::type const t
+	renderer::indexed_primitive_type::type const _type
 )
 {
-	switch(t) {
+	switch(
+		_type
+	)
+	{
 	case renderer::indexed_primitive_type::line:
 		return GL_LINES;
 	case renderer::indexed_primitive_type::triangle:
 		return GL_TRIANGLES;
 	}
 
-	throw exception(
+	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid nonindexed_primitive_type!")
 	);
 }
