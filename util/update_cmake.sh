@@ -7,7 +7,7 @@ function die()
 
 function update_cmake_file()
 {
-	local cmakefile="$1"	
+	local cmakefile="$1"
 
 	update_cmake \
 		"${cmakefile}" \
@@ -100,7 +100,7 @@ update_sublibrary font/bitmap
 
 update_sublibrary font/text
 
-update_sublibrary line_drawer 
+update_sublibrary line_drawer
 
 update_sublibrary parse
 
@@ -137,7 +137,7 @@ update_cmake_file \
 	SGE_OPENGL_WIN32_FILES \
 	src/plugins/opengl/wgl \
 	src/plugins/opengl/windows
-	
+
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_X11_FILES \
