@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../device.hpp"
 #include "../apply_states.hpp"
-#include "../check_state.hpp"
+#include "../clear.hpp"
 #include "../common.hpp"
 #include "../create_caps.hpp"
 #include "../create_device_state.hpp"
@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_buffer.hpp"
 #include "../vertex_declaration.hpp"
 #include "../context/use.hpp"
-#include "../convert/clear_bit.hpp"
 #include "../convert/clip_plane_index.hpp"
 #include "../convert/light_index.hpp"
 #include "../convert/matrix_mode.hpp"
@@ -65,10 +64,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/caps.hpp>
-#include <sge/renderer/exception.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/default.hpp>
+#include <sge/renderer/state/to_clear_flags_field.hpp>
 #include <sge/window/instance.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -134,16 +133,11 @@ sge::opengl::device::~device()
 void
 sge::opengl::device::begin_rendering()
 {
-	::glClear(
-		clear_bit(renderer::state::bool_::clear_backbuffer)
-		| clear_bit(renderer::state::bool_::clear_zbuffer)
-		| clear_bit(renderer::state::bool_::clear_stencil)
+	this->clear(
+		renderer::state::to_clear_flags_field(
+			current_states_	
+		)
 	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glClear failed"),
-		sge::renderer::exception
-	)
 }
 
 void
@@ -153,6 +147,16 @@ sge::opengl::device::end_rendering()
 		!fbo_active()
 	)
 		state_->swap_buffers();
+}
+
+void
+sge::opengl::device::clear(
+	renderer::clear_flags_field const &_flags
+)
+{
+	opengl::clear(
+		_flags	
+	);
 }
 
 void
@@ -696,23 +700,6 @@ sge::window::instance &
 sge::opengl::device::window() const
 {
 	return window_;
-}
-
-GLenum
-sge::opengl::device::clear_bit(
-	renderer::state::bool_::trampoline_type const &_state
-) const
-{
-	return
-		current_states_.get(
-			_state
-		)
-		?
-			convert::clear_bit(
-				_state
-			)
-		:
-			0;
 }
 
 bool

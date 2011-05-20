@@ -18,28 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_COMBINE_HPP_INCLUDED
-#define SGE_RENDERER_STATE_COMBINE_HPP_INCLUDED
+#include "../clear_flags.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/renderer/state/list_fwd.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+GLenum
+sge::opengl::convert::clear_flags(
+	sge::renderer::clear_flags::type const _flag
+)
 {
-namespace renderer
-{
-namespace state
-{
+	switch(
+		_flag
+	)
+	{
+	case sge::renderer::clear_flags::back:
+		return GL_COLOR_BUFFER_BIT;
+	case sge::renderer::clear_flags::depth:
+		return GL_DEPTH_BUFFER_BIT;
+	case sge::renderer::clear_flags::stencil:
+		return GL_STENCIL_BUFFER_BIT;
+	case sge::renderer::clear_flags::size:
+		break;
+	}
 
-SGE_SYMBOL
-state::list const
-combine(
-	state::list const &,
-	state::list const &
-);
-
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid clear_flag in convert::clear_flags()!")
+	);
 }
-}
-}
-
-#endif

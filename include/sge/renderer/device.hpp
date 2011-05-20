@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
 #include <sge/renderer/caps_fwd.hpp>
+#include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
@@ -94,6 +95,11 @@ public:
 
 	virtual void
 	end_rendering() = 0;
+
+	virtual void
+	clear(
+		renderer::clear_flags_field const &
+	) = 0;
 
 	virtual void
 	render(

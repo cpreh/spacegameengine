@@ -18,27 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_COMBINE_HPP_INCLUDED
-#define SGE_RENDERER_STATE_COMBINE_HPP_INCLUDED
-
-#include <sge/renderer/state/list_fwd.hpp>
-#include <sge/symbol.hpp>
+#ifndef SGE_RENDERER_CLEAR_FLAGS_HPP_INCLUDED
+#define SGE_RENDERER_CLEAR_FLAGS_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
-namespace state
+
+namespace clear_flags
 {
-
-SGE_SYMBOL
-state::list const
-combine(
-	state::list const &,
-	state::list const &
-);
-
+enum type
+{
+	back,
+	depth,
+	stencil,
+	size
+};
 }
+
 }
 }
 

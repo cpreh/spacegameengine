@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_DEVICE_HPP_INCLUDED
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
-#include "common.hpp"
 #include "device_state_fwd.hpp"
 #include "onscreen_target_fwd.hpp"
 #include "target_base_fwd.hpp"
@@ -29,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "fbo/target_fwd.hpp"
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/caps_fwd.hpp>
+#include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
@@ -71,7 +71,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/vertex_shader_ptr.hpp>
-#include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_ptr.hpp>
@@ -114,6 +113,11 @@ public:
 
 	void
 	end_rendering();
+
+	void
+	clear(
+		renderer::clear_flags_field const &
+	);
 
 	void
 	render(
@@ -305,11 +309,6 @@ public:
 	window::instance &
 	window() const;
 private:
-	GLenum
-	clear_bit(
-		renderer::state::bool_::trampoline_type const &
-	) const;
-
 	bool
 	fbo_active() const;
 

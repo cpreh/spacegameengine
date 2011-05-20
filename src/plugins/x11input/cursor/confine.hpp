@@ -47,9 +47,8 @@ public:
 	~confine();
 private:
 	awl::backends::x11::window::instance &window_;
-#if 0
+
 	device::id const id_;
-#endif
 };
 
 }

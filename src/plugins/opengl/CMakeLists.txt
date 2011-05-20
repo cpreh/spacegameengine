@@ -9,6 +9,7 @@ SET(
 	src/plugins/opengl/buffer_fwd.hpp
 	src/plugins/opengl/caps_unique_ptr.hpp
 	src/plugins/opengl/check_state.hpp
+	src/plugins/opengl/clear.hpp
 	src/plugins/opengl/color_format.hpp
 	src/plugins/opengl/color_format_type.hpp
 	src/plugins/opengl/common.hpp
@@ -30,7 +31,7 @@ SET(
 	src/plugins/opengl/convert/alpha_func.hpp
 	src/plugins/opengl/convert/bit_depth.hpp
 	src/plugins/opengl/convert/bool.hpp
-	src/plugins/opengl/convert/clear_bit.hpp
+	src/plugins/opengl/convert/clear_flags.hpp
 	src/plugins/opengl/convert/clip_plane_index.hpp
 	src/plugins/opengl/convert/color_to_format.hpp
 	src/plugins/opengl/convert/color_to_format_type.hpp
@@ -59,7 +60,7 @@ SET(
 	src/plugins/opengl/convert/src/alpha_func.cpp
 	src/plugins/opengl/convert/src/bit_depth.cpp
 	src/plugins/opengl/convert/src/bool.cpp
-	src/plugins/opengl/convert/src/clear_bit.cpp
+	src/plugins/opengl/convert/src/clear_flags.cpp
 	src/plugins/opengl/convert/src/clip_plane_index.cpp
 	src/plugins/opengl/convert/src/color_to_format.cpp
 	src/plugins/opengl/convert/src/color_to_format_type.cpp
@@ -338,6 +339,7 @@ SET(
 	src/plugins/opengl/split_states_fwd.hpp
 	src/plugins/opengl/src/apply_states.cpp
 	src/plugins/opengl/src/buffer.cpp
+	src/plugins/opengl/src/clear.cpp
 	src/plugins/opengl/src/create_caps.cpp
 	src/plugins/opengl/src/create_device_state.cpp
 	src/plugins/opengl/src/create_vbo_impl.cpp

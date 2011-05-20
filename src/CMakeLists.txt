@@ -449,6 +449,8 @@ SET(
 	include/sge/renderer/buffer_has_stencil.hpp
 	include/sge/renderer/caps.hpp
 	include/sge/renderer/caps_fwd.hpp
+	include/sge/renderer/clear_flags.hpp
+	include/sge/renderer/clear_flags_field.hpp
 	include/sge/renderer/clip_plane.hpp
 	include/sge/renderer/clip_plane_index.hpp
 	include/sge/renderer/color_surface.hpp
@@ -659,6 +661,7 @@ SET(
 	include/sge/renderer/state/source_blend_func.hpp
 	include/sge/renderer/state/state.hpp
 	include/sge/renderer/state/stencil_func.hpp
+	include/sge/renderer/state/to_clear_flags_field.hpp
 	include/sge/renderer/state/trampoline.hpp
 	include/sge/renderer/state/trampoline_fwd.hpp
 	include/sge/renderer/state/uint.hpp
@@ -1112,6 +1115,7 @@ SET(
 	src/renderer/state/int.cpp
 	src/renderer/state/list.cpp
 	src/renderer/state/scoped.cpp
+	src/renderer/state/to_clear_flags_field.cpp
 	src/renderer/state/trampoline_impl.hpp
 	src/renderer/state/uint.cpp
 	src/renderer/state/var_impl.hpp

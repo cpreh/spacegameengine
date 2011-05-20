@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_COMBINE_HPP_INCLUDED
-#define SGE_RENDERER_STATE_COMBINE_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_TO_CLEAR_FLAGS_FIELD_HPP_INCLUDED
+#define SGE_RENDERER_STATE_TO_CLEAR_FLAGS_FIELD_HPP_INCLUDED
 
 #include <sge/renderer/state/list_fwd.hpp>
+#include <sge/renderer/clear_flags_field.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -32,9 +33,8 @@ namespace state
 {
 
 SGE_SYMBOL
-state::list const
-combine(
-	state::list const &,
+renderer::clear_flags_field const
+to_clear_flags_field(
 	state::list const &
 );
 

@@ -18,25 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_CLEAR_BIT_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_CLEAR_BIT_HPP_INCLUDED
+#ifndef SGE_RENDERER_CLEAR_FLAGS_FIELD_HPP_INCLUDED
+#define SGE_RENDERER_CLEAR_FLAGS_FIELD_HPP_INCLUDED
 
-#include "../common.hpp"
-#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/clear_flags.hpp>
+#include <fcppt/container/bitfield/basic_fwd.hpp>
 
 namespace sge
 {
-namespace opengl
-{
-namespace convert
+namespace renderer
 {
 
-GLenum
-clear_bit(
-	renderer::state::bool_::trampoline_type const &
-);
+typedef fcppt::container::bitfield::basic<
+	renderer::clear_flags::type,
+	renderer::clear_flags::size
+> clear_flags_field;
 
-}
 }
 }
 

@@ -33,9 +33,10 @@ sge::x11input::cursor::confine::confine(
 	device::id const &_id
 )
 :
-	window_(_window)//,
-	//id_(_id)
+	window_(_window),
+	id_(_id)
 {
+#if 0
 	while(
 		::XGrabPointer(
 			window_.display().get(),
@@ -55,7 +56,7 @@ sge::x11input::cursor::confine::confine(
 				1
 			)
 		);
-#if 0
+#endif
 	unsigned char raw_data[4] = {0};
 
 	XISetMask(
@@ -100,20 +101,19 @@ sge::x11input::cursor::confine::confine(
 		throw sge::input::exception(
 			FCPPT_TEXT("XIGrabEnter failed!")
 		);
-#endif
 }
 
 sge::x11input::cursor::confine::~confine()
 {
+#if 0
 	::XUngrabPointer(
 		window_.display().get(),
 		CurrentTime
 	);
-#if 0
+#endif
 	::XIUngrabDevice(
 		window_.display().get(),
 		id_.get(),
 		CurrentTime
 	);
-#endif
 }
