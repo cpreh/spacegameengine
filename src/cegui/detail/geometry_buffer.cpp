@@ -322,26 +322,37 @@ sge::cegui::detail::geometry_buffer::appendGeometry(
 	vf::texcoord::packed_type 
 	texcoord_vector;
 
-	BOOST_FOREACH(
-		CEGUI::Vertex const &v,
+	typedef boost::iterator_range<
+		CEGUI::Vertex const *
+	> vertex_iterator_range;
+
+	vertex_iterator_range const range(
 		boost::make_iterator_range(
 			vertices,
-			vertices + vertex_count))
+			vertices + vertex_count));
+
+	for(
+		vertex_iterator_range::const_iterator it(
+			range.begin()
+		);
+		it != range.end();
+		++it
+	)
 	{
 		vb_it->set<vf::position>(
 			position_vector(
-				v.position.d_x,
-				v.position.d_y,
-				v.position.d_z));
+				it->position.d_x,
+				it->position.d_y,
+				it->position.d_z));
 		vb_it->set<vf::texcoord>(
 			texcoord_vector(
-				v.tex_coords.d_x,
-				v.tex_coords.d_y));
+				it->tex_coords.d_x,
+				it->tex_coords.d_y));
 		vb_it->set<vf::color>(
-			(sge::image::color::init::red %= v.colour_val.getRed())
-			(sge::image::color::init::green %= v.colour_val.getGreen())
-			(sge::image::color::init::blue %= v.colour_val.getBlue())
-			(sge::image::color::init::alpha %= v.colour_val.getAlpha()));
+			(sge::image::color::init::red %= it->colour_val.getRed())
+			(sge::image::color::init::green %= it->colour_val.getGreen())
+			(sge::image::color::init::blue %= it->colour_val.getBlue())
+			(sge::image::color::init::alpha %= it->colour_val.getAlpha()));
 
 		vb_it++;
 	}

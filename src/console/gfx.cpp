@@ -45,7 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
-#include <boost/foreach.hpp>
 #include <locale>
 
 namespace
@@ -282,15 +281,22 @@ sge::console::gfx::print(
 	font::text::string const &_s
 )
 {
-	BOOST_FOREACH(
-		font::text::string const &l,
+	line_sequence const sequence(
 		wrap(
 			font_metrics_,
 			_s,
 			fcppt::math::dim::structure_cast<font::dim>(
-				background_.size())))
+				background_.size())));
+	
+	for(
+		line_sequence::const_iterator it(
+			sequence.begin()
+		);
+		it != sequence.end();
+		++it
+	)
 		output_lines_.push_front(
-			l);
+			*it);
 }
 
 sge::console::object &

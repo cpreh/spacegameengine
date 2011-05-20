@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
 
 namespace
 {
@@ -51,16 +50,24 @@ matching_format(
 	)
 		return _format;
 
-	BOOST_FOREACH(
-		sge::renderer::vf::dynamic::color_format_vector::value_type value,
-		_formats
+	for(
+		sge::renderer::vf::dynamic::color_format_vector::const_iterator format_it(
+			_formats.begin()
+		);
+		format_it != _formats.end();
+		++format_it
 	)
 	{
+		sge::renderer::vf::dynamic::color_format_vector::value_type const value(
+			*format_it
+		);
+
 		if(
 			sge::image::color::format_stride(
 				_format
 			)
-			== sge::image::color::format_stride(
+			==
+			sge::image::color::format_stride(
 				value
 			)
 		)
@@ -125,13 +132,21 @@ sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
 :
 	element_converters_()
 {
-	BOOST_FOREACH(
-		renderer::vf::dynamic::ordered_element_list::const_reference elem,
+	
+	renderer::vf::dynamic::ordered_element_list const &elements(
 		_part.elements()
+	);
+
+	for(
+		renderer::vf::dynamic::ordered_element_list::const_iterator elem_it(
+			elements.begin()
+		);
+		elem_it != elements.end();
+		++elem_it
 	)
 	{
 		renderer::vf::dynamic::element const element(
-			elem.element()
+			elem_it->element()
 		);
 
 		::convert_if_color(
@@ -139,7 +154,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
 			element.info(),
 			_accepted_formats,
 			_part.stride(),
-			elem.offset()
+			elem_it->offset()
 		);
 
 		if(
@@ -156,7 +171,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
 				>().type(),
 				_accepted_formats,
 				_part.stride(),
-				elem.offset()
+				elem_it->offset()
 			);
 	}
 }
@@ -173,14 +188,21 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 	detail::lock_interval const &_current_lock
 )
 {
-	BOOST_FOREACH(
-		detail::lock_interval_set::const_reference interval,
+	detail::lock_interval_set const new_lock(
 		_intervals & _current_lock
+	);
+
+	for(
+		detail::lock_interval_set::const_iterator interval_it(
+			new_lock.begin()
+		);
+		interval_it != new_lock.end();
+		++interval_it
 	)
 		this->do_convert(
 			_data,
 			_pos,
-			interval,
+			*interval_it,
 			false
 		);
 }
@@ -208,11 +230,14 @@ sge::renderer::vf::dynamic::detail::converter_impl::do_convert(
 	bool const _unlock
 )
 {
-	BOOST_FOREACH(
-		element_converter_vector::reference ref,
-		element_converters_
+	for(
+		element_converter_vector::iterator it(
+			element_converters_.begin()
+		);
+		it != element_converters_.end();
+		++it
 	)
-		ref.convert(
+		it->convert(
 			_interval,
 			_data,
 			_pos,
