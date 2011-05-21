@@ -121,6 +121,17 @@ sge::opengl::state_visitor::operator()(
 			depth_stencil_buffer_
 		);
 		return;
+	case rs::stencil_write_mask:
+		::glStencilMask(
+			_state.value()
+		);
+
+		SGE_OPENGL_CHECK_STATE(
+			FCPPT_TEXT("glStencilMask failed"),
+			sge::renderer::exception
+		)
+
+		return;
 	}
 
 	throw sge::renderer::exception(

@@ -41,7 +41,8 @@ namespace uint
 	{
 		enum type
 		{
-			stencil_mask
+			stencil_mask,
+			stencil_write_mask
 		};
 	}
 
@@ -56,7 +57,8 @@ namespace uint
 	> type;
 
 	SGE_SYMBOL extern trampoline_type const
-		stencil_mask;
+		stencil_mask,
+		stencil_write_mask;
 }
 
 }
