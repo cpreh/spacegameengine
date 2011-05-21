@@ -18,18 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/any_sort_functor.hpp>
-#include <sge/renderer/state/any_sort.hpp>
+#ifndef SGE_OPENGL_CONVERT_STENCIL_OP_VALUE_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_STENCIL_OP_VALUE_HPP_INCLUDED
 
-sge::renderer::state::any_sort_functor::result_type
-sge::renderer::state::any_sort_functor::operator()(
-	state::any const &_a,
-	state::any const &_b
-) const
+#include "../common.hpp"
+#include <sge/renderer/state/stencil_op_value.hpp>
+
+namespace sge
 {
-	return
-		state::any_sort(
-			_a,
-			_b
-		);
+namespace opengl
+{
+namespace convert
+{
+
+GLenum
+stencil_op_value(
+	sge::renderer::state::stencil_op_value::type
+);
+
 }
+}
+}
+
+#endif

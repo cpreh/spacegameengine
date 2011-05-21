@@ -94,7 +94,7 @@ sge::opengl::state_visitor::operator()(
 		)
 		return;
 	case rs::stencil_ref:
-		states_.update_stencil(
+		states_.update_stencil_func(
 			depth_stencil_buffer_
 		);
 		return;
@@ -117,7 +117,7 @@ sge::opengl::state_visitor::operator()(
 	)
 	{
 	case rs::stencil_mask:
-		states_.update_stencil(
+		states_.update_stencil_func(
 			depth_stencil_buffer_
 		);
 		return;
@@ -356,10 +356,10 @@ sge::opengl::state_visitor::operator()(
 }
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::stencil_op::type const &_state
+	renderer::state::stencil_op::type const &
 ) const
 {
-		
+	states_.update_stencil_op();
 }
 
 sge::opengl::state_visitor::result_type
@@ -441,7 +441,7 @@ sge::opengl::state_visitor::operator()(
 	renderer::state::stencil_func::type
 ) const
 {
-	states_.update_stencil(
+	states_.update_stencil_func(
 		depth_stencil_buffer_
 	);
 }

@@ -24,16 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::state::list const
 sge::renderer::state::combine(
-	list const &_left,
-	list const &_right
+	state::list const &_left,
+	state::list const &_right
 )
 {
-	list result(
+	state::list result(
 		_left
 	);
 
 	BOOST_FOREACH(
-		any const &rstate,
+		state::any const &rstate,
 		_right.values()
 	)
 		result.overwrite(

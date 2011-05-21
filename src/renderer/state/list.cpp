@@ -36,20 +36,23 @@ sge::renderer::state::list::list()
 }
 
 sge::renderer::state::list::list(
-	any const &a
+	state::any const &_any
 )
 :
 	set_()
 {
-	set_.insert(a);
+	set_.insert(
+		_any
+	);
 }
 
 sge::renderer::state::list::~list()
-{}
+{
+}
 
 sge::renderer::state::list const
 sge::renderer::state::list::operator()(
-	any const &_arg
+	state::any const &_arg
 ) const
 {
 	state::list temp(
@@ -76,7 +79,7 @@ sge::renderer::state::list::operator()(
 
 void
 sge::renderer::state::list::overwrite(
-	any const &_state
+	state::any const &_state
 )
 {
 	set_.erase(
@@ -207,10 +210,28 @@ sge::renderer::state::list::get(\
 	> const &\
 ) const;
 
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::int_)
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::uint)
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::bool_)
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::float_)
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::color)
+SGE_INSTANTIATE_STATE_LIST_GET_T(
+	sge::renderer::state::int_
+)
+
+SGE_INSTANTIATE_STATE_LIST_GET_T(
+	sge::renderer::state::uint
+)
+
+SGE_INSTANTIATE_STATE_LIST_GET_T(
+	sge::renderer::state::bool_
+)
+
+SGE_INSTANTIATE_STATE_LIST_GET_T(
+	sge::renderer::state::float_
+)
+
+SGE_INSTANTIATE_STATE_LIST_GET_T(
+	sge::renderer::state::color
+)
+
+SGE_INSTANTIATE_STATE_LIST_GET_T(
+	sge::renderer::state::stencil_op
+)
 
 #undef SGE_INSTANTIATE_STATE_LIST_GET_T

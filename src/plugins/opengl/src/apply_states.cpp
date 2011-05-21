@@ -156,7 +156,8 @@ compare_state_visitor::compare_state_visitor(
 )
 :
 	state_(_state)
-{}
+{
+}
 
 template<
 	typename Type,

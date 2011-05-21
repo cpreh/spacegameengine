@@ -38,7 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/stencil_func.hpp>
-#include <sge/renderer/state/uint.hpp>
+#include <sge/renderer/state/stencil_op.hpp>
+#include <sge/renderer/state/stencil_op_value.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
@@ -261,7 +262,11 @@ try
 				sys.renderer(),
 				sge::renderer::state::list
 				(
-					sge::renderer::state::uint::stencil_mask = 0x1u
+					sge::renderer::state::stencil_func::always
+				)
+				(
+					sge::renderer::state::stencil_op::pass =
+						sge::renderer::state::stencil_op_value::inc_sat
 				)
 			);
 
@@ -275,9 +280,6 @@ try
 			sge::renderer::state::scoped const scoped_state(
 				sys.renderer(),
 				sge::renderer::state::list
-				(
-					sge::renderer::state::uint::stencil_mask = 0x0
-				)
 				(
 					sge::renderer::state::int_::stencil_ref = 1
 				)

@@ -40,12 +40,27 @@ sge::opengl::initial_states()
 			sge::renderer::state::alpha_func::off
 		)
 		(
-			sge::renderer::state::int_::stencil_ref = 1
+			sge::renderer::state::int_::stencil_ref = 0
 		)
 		(
 			sge::renderer::state::uint::stencil_mask = ~0u
 		)
 		(
+			sge::renderer::state::uint::stencil_write_mask = ~0u
+		)
+		(
 			sge::renderer::state::float_::alpha_test_ref = 0.f
+		)
+		(
+			sge::renderer::state::stencil_op::stencil_fail
+				= sge::renderer::state::stencil_op_value::keep
+		)
+		(
+			sge::renderer::state::stencil_op::depth_fail
+				= sge::renderer::state::stencil_op_value::keep
+		)
+		(
+			sge::renderer::state::stencil_op::pass
+				= sge::renderer::state::stencil_op_value::keep
 		);
 }

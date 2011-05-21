@@ -58,15 +58,16 @@ public:
 
 bool
 sge::renderer::state::any_sort(
-	any const &a,
-	any const &b
+	state::any const &_left,
+	state::any const &_right
 )
 {
-	return fcppt::variant::apply_binary(
-		compare(),
-		a,
-		b
-	);
+	return
+		fcppt::variant::apply_binary(
+			compare(),
+			_left,
+			_right
+		);
 }
 
 namespace
@@ -78,13 +79,13 @@ template<
 >
 bool
 compare::operator()(
-	sge::renderer::state::var<T, States> const &a,
-	sge::renderer::state::var<T, States> const &b
+	sge::renderer::state::var<T, States> const &_left,
+	sge::renderer::state::var<T, States> const &_right
 ) const
 {
 	return
-		a.state()
-		< b.state();
+		_left.state()
+		< _right.state();
 }
 
 template<

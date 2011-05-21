@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../enable.hpp"
 #include "../disable.hpp"
 #include "../convert/stencil_func.hpp"
+#include "../convert/stencil_op_value.hpp"
 #include "../convert/source_blend_func.hpp"
 #include "../convert/dest_blend_func.hpp"
 #include "../convert/alpha_func.hpp"
@@ -31,6 +32,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/buffer_has_stencil.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
+
+namespace
+{
+
+void
+check_depth_stencil(
+	sge::renderer::depth_stencil_buffer::type const _depth_stencil_type
+)
+{
+	if(
+		!sge::renderer::buffer_has_stencil(
+			_depth_stencil_type
+		)
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("You tried to use a stencil_func besides stencil_func::off.")
+			FCPPT_TEXT(" This will only work if you request a stencil buffer in renderer::parameters!")
+		);
+}
+
+}
 
 sge::opengl::split_states::split_states(
 	renderer::state::list &_states
@@ -44,12 +66,14 @@ sge::opengl::split_states::split_states(
 // to set all things in one go for a state::list
 
 void
-sge::opengl::split_states::update_stencil(
+sge::opengl::split_states::update_stencil_func(
 	renderer::depth_stencil_buffer::type const _depth_stencil_type
 )
 {
 	renderer::state::stencil_func::type const method(
-		states_.get<renderer::state::stencil_func::type>()
+		states_.get<
+			renderer::state::stencil_func::type
+		>()
 	);
 
 	if(
@@ -63,15 +87,9 @@ sge::opengl::split_states::update_stencil(
 		return;
 	}
 
-	if(
-		!sge::renderer::buffer_has_stencil(
-			_depth_stencil_type
-		)
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("You tried to use a stencil_func besides stencil_func::off.")
-			FCPPT_TEXT(" This will only work if you request a stencil buffer in renderer::parameters!")
-		);
+	::check_depth_stencil(
+		_depth_stencil_type
+	);
 
 	opengl::enable(
 		GL_STENCIL_TEST
@@ -104,6 +122,33 @@ sge::opengl::split_states::update_stencil(
 }
 
 void
+sge::opengl::split_states::update_stencil_op()
+{
+	::glStencilOp(
+		opengl::convert::stencil_op_value(
+			states_.get(
+				renderer::state::stencil_op::stencil_fail
+			)
+		),
+		opengl::convert::stencil_op_value(
+			states_.get(
+				renderer::state::stencil_op::depth_fail
+			)
+		),
+		opengl::convert::stencil_op_value(
+			states_.get(
+				renderer::state::stencil_op::pass
+			)
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glStencilOp failed"),
+		sge::renderer::exception
+	)
+}
+
+void
 sge::opengl::split_states::update_blend()
 {
 	::glBlendFunc(
@@ -129,7 +174,9 @@ void
 sge::opengl::split_states::update_alpha_test()
 {
 	renderer::state::alpha_func::type const func(
-		states_.get<renderer::state::alpha_func::type>()
+		states_.get<
+			renderer::state::alpha_func::type
+		>()
 	);
 
 	if(
@@ -147,7 +194,7 @@ sge::opengl::split_states::update_alpha_test()
 		GL_ALPHA_TEST
 	);
 
-	glAlphaFunc(
+	::glAlphaFunc(
 		convert::alpha_func(
 			func
 		),

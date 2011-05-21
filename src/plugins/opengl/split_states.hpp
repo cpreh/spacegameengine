@@ -43,9 +43,12 @@ public:
 	);
 
 	void
-	update_stencil(
+	update_stencil_func(
 		renderer::depth_stencil_buffer::type
 	);
+
+	void
+	update_stencil_op();
 
 	void
 	update_blend();

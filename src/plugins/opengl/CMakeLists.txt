@@ -88,9 +88,11 @@ SET(
 	src/plugins/opengl/convert/src/source_blend_func.cpp
 	src/plugins/opengl/convert/src/stencil_buffer.cpp
 	src/plugins/opengl/convert/src/stencil_func.cpp
+	src/plugins/opengl/convert/src/stencil_op_value.cpp
 	src/plugins/opengl/convert/src/visual_depth.cpp
 	src/plugins/opengl/convert/stencil_buffer.hpp
 	src/plugins/opengl/convert/stencil_func.hpp
+	src/plugins/opengl/convert/stencil_op_value.hpp
 	src/plugins/opengl/convert/visual_depth.hpp
 	src/plugins/opengl/create_caps.hpp
 	src/plugins/opengl/create_device_state.hpp
