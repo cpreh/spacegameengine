@@ -661,6 +661,8 @@ SET(
 	include/sge/renderer/state/source_blend_func.hpp
 	include/sge/renderer/state/state.hpp
 	include/sge/renderer/state/stencil_func.hpp
+	include/sge/renderer/state/stencil_op.hpp
+	include/sge/renderer/state/stencil_op_value.hpp
 	include/sge/renderer/state/to_clear_flags_field.hpp
 	include/sge/renderer/state/trampoline.hpp
 	include/sge/renderer/state/trampoline_fwd.hpp
@@ -1115,6 +1117,7 @@ SET(
 	src/renderer/state/int.cpp
 	src/renderer/state/list.cpp
 	src/renderer/state/scoped.cpp
+	src/renderer/state/stencil_op.cpp
 	src/renderer/state/to_clear_flags_field.cpp
 	src/renderer/state/trampoline_impl.hpp
 	src/renderer/state/uint.cpp

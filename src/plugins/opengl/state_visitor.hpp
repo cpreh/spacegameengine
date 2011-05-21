@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/stencil_op.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/stencil_func.hpp>
@@ -62,19 +63,75 @@ public:
 
 	~state_visitor();
 
-	result_type operator()(renderer::state::int_::type) const;
-	result_type operator()(renderer::state::uint::type) const;
-	result_type operator()(renderer::state::float_::type const &) const;
-	result_type operator()(renderer::state::bool_::type) const;
-	result_type operator()(renderer::state::color::type const &) const;
-	result_type operator()(renderer::state::cull_mode::type) const;
-	result_type operator()(renderer::state::depth_func::type) const;
-	result_type operator()(renderer::state::stencil_func::type) const;
-	result_type operator()(renderer::state::alpha_func::type) const;
-	result_type operator()(renderer::state::fog_mode::type) const;
-	result_type operator()(renderer::state::draw_mode::type) const;
-	result_type operator()(renderer::state::source_blend_func::type) const;
-	result_type operator()(renderer::state::dest_blend_func::type) const;
+	result_type
+	operator()(
+		renderer::state::int_::type
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::uint::type
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::float_::type const &
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::bool_::type
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::color::type const &
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::stencil_op::type const &
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::cull_mode::type
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::depth_func::type
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::stencil_func::type
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::alpha_func::type
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::fog_mode::type
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::draw_mode::type
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::source_blend_func::type
+	) const;
+
+	result_type
+	operator()(
+		renderer::state::dest_blend_func::type
+	) const;
 private:
 	opengl::multi_sample_context &multi_sample_context_;
 

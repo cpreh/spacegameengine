@@ -354,6 +354,13 @@ sge::opengl::state_visitor::operator()(
 		FCPPT_TEXT("Invalid color_state!")
 	);
 }
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
+	renderer::state::stencil_op::type const &_state
+) const
+{
+		
+}
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(

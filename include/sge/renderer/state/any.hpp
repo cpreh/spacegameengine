@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/draw_mode.hpp>
 #include <sge/renderer/state/source_blend_func.hpp>
 #include <sge/renderer/state/dest_blend_func.hpp>
+#include <sge/renderer/state/stencil_op.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 #include <boost/mpl/vector/vector20.hpp>
@@ -46,7 +47,7 @@ namespace state
 {
 
 typedef fcppt::variant::object<
-	boost::mpl::vector13<
+	boost::mpl::vector14<
 		int_::type,
 		uint::type,
 		float_::type,
@@ -59,7 +60,8 @@ typedef fcppt::variant::object<
 		fog_mode::type,
 		draw_mode::type,
 		source_blend_func::type,
-		dest_blend_func::type
+		dest_blend_func::type,
+		stencil_op::type
 	>
 > any;
 
