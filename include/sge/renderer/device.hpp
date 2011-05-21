@@ -106,7 +106,7 @@ public:
 		renderer::index_buffer const &,
 		renderer::first_vertex,
 		renderer::vertex_count,
-		renderer::indexed_primitive_type::type ptype,
+		renderer::indexed_primitive_type::type,
 		renderer::primitive_count,
 		renderer::first_index
 	) = 0;
@@ -115,7 +115,7 @@ public:
 	render(
 		renderer::first_vertex,
 		renderer::vertex_count,
-		renderer::nonindexed_primitive_type::type ptype
+		renderer::nonindexed_primitive_type::type
 	) = 0;
 
 	virtual void
