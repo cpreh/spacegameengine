@@ -253,7 +253,7 @@ try
 	{
 		sys.window().dispatch();
 
-		sge::renderer::scoped_block const block_(
+		sge::renderer::scoped_block const block(
 			sys.renderer()
 		);
 
@@ -281,10 +281,10 @@ try
 				sys.renderer(),
 				sge::renderer::state::list
 				(
-					sge::renderer::state::int_::stencil_ref = 1
+					sge::renderer::state::int_::stencil_ref = 0
 				)
 				(
-					sge::renderer::state::stencil_func::less
+					sge::renderer::state::stencil_func::equal
 				)
 			);
 
