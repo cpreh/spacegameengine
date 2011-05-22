@@ -74,7 +74,7 @@ try
 
 	sge::audio::sound::positional_ptr const sound(
 		sys.audio_player().create_positional_stream(
-			*file,
+			file,
 			sge::audio::sound::positional_parameters()
 		)
 	);

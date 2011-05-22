@@ -94,7 +94,7 @@ sge::audio_null::player::create_buffer(
 
 sge::audio::sound::positional_ptr const 
 sge::audio_null::player::create_positional_stream(
-	audio::file &,
+	audio::file_ptr,
 	audio::sound::positional_parameters const &
 )
 {
@@ -108,7 +108,7 @@ sge::audio_null::player::create_positional_stream(
 
 sge::audio::sound::base_ptr const 
 sge::audio_null::player::create_nonpositional_stream(
-	audio::file &
+	audio::file_ptr
 )
 {
 	return 

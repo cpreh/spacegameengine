@@ -85,7 +85,7 @@ try
 
 	sge::audio::sound::base_ptr sound(
 		sys.audio_player().create_nonpositional_stream(
-			*soundfile
+			soundfile
 		)
 	);
 

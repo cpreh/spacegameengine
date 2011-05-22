@@ -65,7 +65,7 @@ try
 
 	sge::audio::sound::base_ptr const sound(
 		sys.audio_player().create_nonpositional_stream(
-			*file
+			file
 		)
 	);
 

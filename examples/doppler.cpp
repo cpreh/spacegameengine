@@ -423,7 +423,7 @@ try
 
 	sge::audio::sound::positional_ptr const sound_siren(
 		sys.audio_player().create_positional_stream(
-			*af_siren,
+			af_siren,
 			sge::audio::sound::positional_parameters()
 			.rolloff(
 				static_cast<sge::audio::scalar>(1)

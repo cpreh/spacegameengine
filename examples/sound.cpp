@@ -299,7 +299,7 @@ try
 
 	sge::audio::sound::positional_ptr const sps = 
 		sys.audio_player().create_positional_stream(
-			*sys.audio_loader().load(
+			sys.audio_loader().load(
 				streaming_file_name),
 			sge::audio::sound::positional_parameters()
 				.linear_velocity(

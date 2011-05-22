@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/file_fwd.hpp>
+#include <sge/audio/file_ptr.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/sound/positional_ptr.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
@@ -83,12 +84,12 @@ public:
 
 	audio::sound::positional_ptr const 
 	create_positional_stream(
-		audio::file &,
+		audio::file_ptr,
 		audio::sound::positional_parameters const &);
 
 	audio::sound::base_ptr const 
 	create_nonpositional_stream(
-		audio::file &);
+		audio::file_ptr);
 	
 	audio::player_capabilities_field const
 	capabilities() const;

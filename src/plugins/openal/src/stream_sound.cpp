@@ -32,17 +32,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert.hpp>
 
 sge::openal::stream_sound::stream_sound(
-	audio::file &_audio_file)
+	audio::file_ptr const _audio_file)
 :
 	source(),
 	audio_file_(
 		_audio_file),
 	buffer_samples_(
 		static_cast<audio::sample_count>(
-			2 * _audio_file.sample_rate())),
+			2 * _audio_file->sample_rate())),
 	format_(
 		openal::file_format(
-			_audio_file))
+			*_audio_file))
 {
 	alGenBuffers(
 		static_cast<ALsizei>(
@@ -57,7 +57,7 @@ sge::openal::stream_sound::stream_sound(
 
 sge::openal::stream_sound::stream_sound(
 	audio::sound::positional_parameters const &p,
-	audio::file &_audio_file)
+	audio::file_ptr const _audio_file)
 :
 	source(
 		p),
@@ -65,10 +65,10 @@ sge::openal::stream_sound::stream_sound(
 		_audio_file),
 	buffer_samples_(
 		static_cast<audio::sample_count>(
-			2 * _audio_file.sample_rate())),
+			2 * _audio_file->sample_rate())),
 	format_(
 		openal::file_format(
-			_audio_file))
+			*_audio_file))
 {
 	alGenBuffers(
 		static_cast<ALsizei>(
@@ -133,7 +133,7 @@ sge::openal::stream_sound::do_play()
 	if (status() == audio::sound::play_status::playing)
 		return;
 
-	audio_file_.reset();
+	audio_file_->reset();
 
 	fill_buffer(
 		al_buffers_[0]);
@@ -163,7 +163,7 @@ sge::openal::stream_sound::fill_buffer(
 {
 	audio::sample_container data;
 	audio::sample_count samples_read =
-		audio_file_.read(
+		audio_file_->read(
 			buffer_samples_, 
 			data);
 
@@ -182,9 +182,9 @@ sge::openal::stream_sound::fill_buffer(
 		if (repeat() != audio::sound::repeat::loop)
 			return false;
 
-		audio_file_.reset();
+		audio_file_->reset();
 		samples_read = 
-			audio_file_.read(
+			audio_file_->read(
 				buffer_samples_,
 				data);
 	}
@@ -199,7 +199,7 @@ sge::openal::stream_sound::fill_buffer(
 		static_cast<ALsizei>(
 			data.size()),
 		static_cast<ALsizei>(
-			audio_file_.sample_rate()));
+			audio_file_->sample_rate()));
 
 	SGE_OPENAL_CHECK_STATE(
 		FCPPT_TEXT("alBufferData failed"),
