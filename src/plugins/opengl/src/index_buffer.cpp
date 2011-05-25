@@ -57,6 +57,10 @@ sge::opengl::index_buffer::index_buffer(
 {
 }
 
+sge::opengl::index_buffer::~index_buffer()
+{
+}
+
 GLenum
 sge::opengl::index_buffer::gl_format() const
 {

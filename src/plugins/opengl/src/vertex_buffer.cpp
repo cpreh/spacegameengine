@@ -73,6 +73,10 @@ sge::opengl::vertex_buffer::vertex_buffer(
 {
 }
 
+sge::opengl::vertex_buffer::~vertex_buffer()
+{
+}
+
 void
 sge::opengl::vertex_buffer::use(
 	opengl::vf::part const &_format_part

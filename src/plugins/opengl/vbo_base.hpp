@@ -38,6 +38,8 @@ class vbo_base
 protected:
 	vbo_base();
 public:
+	virtual ~vbo_base();
+
 	virtual GLuint
 	gen_buffer() = 0;
 
@@ -98,8 +100,6 @@ public:
 
 	virtual bool
 	hardware_supported() const = 0;
-
-	virtual ~vbo_base();
 };
 
 }

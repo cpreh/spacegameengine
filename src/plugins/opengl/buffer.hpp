@@ -42,19 +42,24 @@ class buffer
 		buffer
 	);
 public:
-	typedef renderer::size_type                  size_type;
-	typedef sge::renderer::raw_value             value_type;
-	typedef value_type                           *pointer;
-	typedef value_type const                     *const_pointer;
-	typedef renderer::resource_flags_field       resource_flag_type;
-	typedef lock_method::type                    lock_flag_type;
+	typedef renderer::size_type size_type;
+
+	typedef sge::renderer::raw_value value_type;
+
+	typedef value_type *pointer;
+
+	typedef value_type const *const_pointer;
+
+	typedef renderer::resource_flags_field resource_flag_type;
+
+	typedef lock_method::type lock_flag_type;
 
 	buffer(
 		vbo_base &,
 		GLenum type,
 		size_type size,
 		size_type stride,
-		resource_flag_type flags,
+		resource_flag_type,
 		const_pointer src
 	);
 

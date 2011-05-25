@@ -62,6 +62,10 @@ sge::opengl::split_states::split_states(
 {
 }
 
+sge::opengl::split_states::~split_states()
+{
+}
+
 // TODO: those functions can be optimized
 // to set all things in one go for a state::list
 

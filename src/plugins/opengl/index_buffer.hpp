@@ -48,6 +48,8 @@ public:
 		renderer::resource_flags_field const &
 	);
 
+	~index_buffer();
+
 	GLenum
 	gl_format() const;
 

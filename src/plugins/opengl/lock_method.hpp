@@ -28,7 +28,8 @@ namespace opengl
 
 namespace lock_method
 {
-enum type {
+enum type
+{
 	readonly,
 	writeonly,
 	readwrite

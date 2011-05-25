@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,13 +34,15 @@ namespace opengl
 
 class split_states
 {
-	FCPPT_NONASSIGNABLE(
+	FCPPT_NONCOPYABLE(
 		split_states
 	);
 public:
 	explicit split_states(
 		renderer::state::list &
 	);
+
+	~split_states();
 
 	void
 	update_stencil_func(

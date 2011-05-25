@@ -54,6 +54,8 @@ public:
 		renderer::resource_flags_field const &
 	);
 
+	~vertex_buffer();
+
 	void
 	use(
 		opengl::vf::part const &
