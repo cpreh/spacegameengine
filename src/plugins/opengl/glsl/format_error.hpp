@@ -43,10 +43,10 @@ template<
 >
 fcppt::string const
 format_error(
-	Function const &function_,
-	LengthFunction const &length_function_,
-	Id const &id_,
-	Context const &context_
+	Function const &_function,
+	LengthFunction const &_length_function,
+	Id const &_id,
+	Context const &_context
 )
 {
 	typedef fcppt::container::raw_vector<
@@ -54,18 +54,19 @@ format_error(
 	> errorlog_array;
 
 	GLint const required_length(
-		length_function_(
-			context_,
-			id_
+		_length_function(
+			_context,
+			_id
 		)
 	);
 
 	if(
 		required_length == 0
 	)
-		return fcppt::string(
-			FCPPT_TEXT("glsl::format_error: No message.")
-		);
+		return
+			fcppt::string(
+				FCPPT_TEXT("glsl::format_error: No message.")
+			);
 
 	// note: required_length includes the terminating 0 character,
 	// so we should get at least 1
@@ -83,9 +84,9 @@ format_error(
 
 	GLsizei length_return;
 
-	function_(
-		context_,
-		id_,
+	_function(
+		_context,
+		_id,
 		static_cast<
 			GLint
 		>(

@@ -39,8 +39,8 @@ fcppt::shared_ptr<
 	typename Shader::base_type
 > const
 create_shader(
-	opengl::context::object &_context,
-	sge::renderer::glsl::string const &_source
+	opengl::context::object &,
+	sge::renderer::glsl::string const &source
 );
 
 }

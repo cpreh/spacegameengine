@@ -34,8 +34,8 @@ namespace glsl
 
 sge::renderer::glsl::vertex_shader_ptr const
 create_vertex_shader(
-	opengl::context::object &_context,
-	sge::renderer::glsl::string const &_source
+	opengl::context::object &,
+	sge::renderer::glsl::string const &source
 );
 
 }
