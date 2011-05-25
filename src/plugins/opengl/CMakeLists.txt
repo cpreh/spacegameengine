@@ -227,12 +227,10 @@ SET(
 	src/plugins/opengl/glsl/programfuncs/use.hpp
 	src/plugins/opengl/glsl/set_program.hpp
 	src/plugins/opengl/glsl/shader.hpp
-	src/plugins/opengl/glsl/shader_arb.hpp
 	src/plugins/opengl/glsl/shader_base.hpp
 	src/plugins/opengl/glsl/shader_base_fwd.hpp
 	src/plugins/opengl/glsl/shader_contexts.hpp
 	src/plugins/opengl/glsl/shader_fwd.hpp
-	src/plugins/opengl/glsl/shader_native.hpp
 	src/plugins/opengl/glsl/shader_type.hpp
 	src/plugins/opengl/glsl/shaderfuncs/compile.hpp
 	src/plugins/opengl/glsl/shaderfuncs/compile_status.hpp
