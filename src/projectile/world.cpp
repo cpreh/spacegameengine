@@ -322,13 +322,13 @@ sge::projectile::world::internal_tick_callback(
 	btScalar /* time_step */)
 {
 	for(
-		btPersistentManifold **current_manifold(
+		btPersistentManifold **current_manifold =
 			world_->getDispatcher()->getInternalManifoldPointer()
-		),
-		**manifold_end(
+		,
+		**manifold_end =
 				world_->getDispatcher()->getInternalManifoldPointer() + 
 				world_->getDispatcher()->getNumManifolds()
-		);
+		;
 		current_manifold != manifold_end;
 		++current_manifold
 	)

@@ -32,7 +32,7 @@ sge::d3d9::state::convert::color(
 		_type
 	)
 	{
-	case sge::renderer::state::color::available_states::clear_color:
+	case sge::renderer::state::color::available_states::back_buffer_clear_color:
 		break;
 	case sge::renderer::state::color::available_states::ambient_light_color:
 		return D3DRS_AMBIENT;

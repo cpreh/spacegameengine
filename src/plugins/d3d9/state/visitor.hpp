@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/draw_mode.hpp>
 #include <sge/renderer/state/source_blend_func.hpp>
 #include <sge/renderer/state/dest_blend_func.hpp>
+#include <sge/renderer/state/stencil_op.hpp>
 #include <fcppt/nonassignable.hpp>
 
 namespace sge
@@ -121,6 +122,11 @@ public:
 	result_type
 	operator()(
 		sge::renderer::state::dest_blend_func::type
+	) const;
+
+	result_type
+	operator()(
+		sge::renderer::state::stencil_op::type
 	) const;
 private:
 	IDirect3DDevice9 *const device_;

@@ -32,9 +32,9 @@ sge::d3d9::state::convert::bool_(
 		_type
 	)
 	{
-	case sge::renderer::state::bool_::available_states::clear_zbuffer:
-	case sge::renderer::state::bool_::available_states::clear_backbuffer:
-	case sge::renderer::state::bool_::available_states::clear_stencil:
+	case sge::renderer::state::bool_::available_states::clear_depth_buffer:
+	case sge::renderer::state::bool_::available_states::clear_back_buffer:
+	case sge::renderer::state::bool_::available_states::clear_stencil_buffer:
 		break;
 	case sge::renderer::state::bool_::available_states::enable_alpha_blending:
 		return D3DRS_ALPHABLENDENABLE;
@@ -45,7 +45,7 @@ sge::d3d9::state::convert::bool_(
 		return D3DRS_POINTSPRITEENABLE;	
 	case sge::renderer::state::bool_::available_states::enable_scissor_test:
 		return D3DRS_SCISSORTESTENABLE;
-	case sge::renderer::state::bool_::available_states::write_to_zbuffer:
+	case sge::renderer::state::bool_::available_states::write_to_depth_buffer:
 		return D3DRS_ZWRITEENABLE;
 	}
 

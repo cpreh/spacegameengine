@@ -58,7 +58,7 @@ sge::d3d9::state::visitor::operator()(
 {
 	if(
 		_state.state()
-		== sge::renderer::state::int_::available_states::stencil_clear_val
+		== sge::renderer::state::int_::available_states::stencil_buffer_clear_val
 	)
 	{
 		clear_.stencil(
@@ -110,7 +110,7 @@ sge::d3d9::state::visitor::operator()(
 {
 	if(
 		_state.state()
-		== sge::renderer::state::float_::available_states::zbuffer_clear_val
+		== sge::renderer::state::float_::available_states::depth_buffer_clear_val
 	)
 	{
 		clear_.depth(
@@ -138,9 +138,9 @@ sge::d3d9::state::visitor::operator()(
 		_state.state()
 	)
 	{
-	case sge::renderer::state::bool_::available_states::clear_zbuffer:
-	case sge::renderer::state::bool_::available_states::clear_backbuffer:
-	case sge::renderer::state::bool_::available_states::clear_stencil:
+	case sge::renderer::state::bool_::available_states::clear_depth_buffer:
+	case sge::renderer::state::bool_::available_states::clear_back_buffer:
+	case sge::renderer::state::bool_::available_states::clear_stencil_buffer:
 		clear_.flag(
 			state::convert::clear(
 				_state.state()
@@ -178,7 +178,7 @@ sge::d3d9::state::visitor::operator()(
 {
 	if(
 		_state.state()
-		== sge::renderer::state::color::available_states::clear_color
+		== sge::renderer::state::color::available_states::back_buffer_clear_color
 	)
 	{
 		clear_.color(
@@ -366,4 +366,12 @@ sge::d3d9::state::visitor::operator()(
 			_state
 		)
 	);
+}
+
+sge::d3d9::state::visitor::result_type
+sge::d3d9::state::visitor::operator()(
+	sge::renderer::state::stencil_op::type const _state
+) const
+{
+	// TODO!
 }

@@ -32,18 +32,18 @@ sge::d3d9::state::convert::clear(
 		_type
 	)
 	{
-	case sge::renderer::state::bool_::available_states::clear_zbuffer:
+	case sge::renderer::state::bool_::available_states::clear_depth_buffer:
 		return D3DCLEAR_ZBUFFER;
-	case sge::renderer::state::bool_::available_states::clear_backbuffer:
+	case sge::renderer::state::bool_::available_states::clear_back_buffer:
 		return D3DCLEAR_TARGET;
-	case sge::renderer::state::bool_::available_states::clear_stencil:
+	case sge::renderer::state::bool_::available_states::clear_stencil_buffer:
 		return D3DCLEAR_STENCIL;
 	case sge::renderer::state::bool_::available_states::enable_alpha_blending:
 	case sge::renderer::state::bool_::available_states::enable_lighting:
 	case sge::renderer::state::bool_::available_states::enable_multi_sampling:
 	case sge::renderer::state::bool_::available_states::enable_point_sprites:
 	case sge::renderer::state::bool_::available_states::enable_scissor_test:
-	case sge::renderer::state::bool_::available_states::write_to_zbuffer:
+	case sge::renderer::state::bool_::available_states::write_to_depth_buffer:
 		break;
 	}
 

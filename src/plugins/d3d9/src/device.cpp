@@ -178,6 +178,14 @@ sge::d3d9::device::end_rendering()
 }
 
 void
+sge::d3d9::device::clear(
+	renderer::clear_flags_field const &_flags
+)
+{
+	// TODO!
+}
+
+void
 sge::d3d9::device::render(
 	renderer::index_buffer const &_index_buffer,
 	renderer::first_vertex const _first_vertex,

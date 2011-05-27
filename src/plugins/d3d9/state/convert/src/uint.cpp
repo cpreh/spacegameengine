@@ -34,6 +34,8 @@ sge::d3d9::state::convert::uint(
 	{
 	case sge::renderer::state::uint::available_states::stencil_mask:
 		return D3DRS_STENCILMASK;
+	case sge::renderer::state::uint::available_states::stencil_write_mask:
+		return D3DRS_STENCILWRITEMASK;
 	}
 
 	throw sge::renderer::exception(

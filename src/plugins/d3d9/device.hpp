@@ -65,6 +65,11 @@ public:
 	end_rendering();
 
 	void
+	clear(
+		renderer::clear_flags_field const &
+	);
+
+	void
 	render(
 		renderer::index_buffer const &,
 		renderer::first_vertex,
