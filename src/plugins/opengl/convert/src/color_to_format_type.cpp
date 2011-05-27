@@ -27,7 +27,9 @@ sge::opengl::convert::color_to_format_type(
 	image::color::format::type const _fmt
 )
 {
-	switch(_fmt)
+	switch(
+		_fmt
+	)
 	{
 	case image::color::format::alpha8:
 	case image::color::format::gray8:
@@ -35,6 +37,8 @@ sge::opengl::convert::color_to_format_type(
 	case image::color::format::argb8:
 	case image::color::format::bgra8:
 	case image::color::format::rgb8:
+	case image::color::format::ag8:
+	case image::color::format::ga8:
 		return
 			opengl::color_format_type(
 				GL_UNSIGNED_BYTE

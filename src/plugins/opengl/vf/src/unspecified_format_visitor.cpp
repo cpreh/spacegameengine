@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../unspecified_format_visitor.hpp"
 #include "../convert_element_type.hpp"
-#include "../convert_color_type.hpp"
+#include "../../convert/color_to_format_type.hpp"
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 
@@ -41,7 +41,7 @@ sge::opengl::vf::unspecified_format_visitor::operator()(
 ) const
 {
 	return
-		vf::convert_color_type(
+		opengl::convert::color_to_format_type(
 			_color.color_format()
-		);
+		).get();
 }

@@ -37,13 +37,15 @@ template<
 >
 mizuiro::color::object<Dest> const
 convert(
-	Src const &src)
+	Src const &_src
+)
 {
-	return mizuiro::color::convert<
-		Dest
-	>(
-		src
-	);
+	return
+		mizuiro::color::convert<
+			Dest
+		>(
+			_src
+		);
 }
 
 }

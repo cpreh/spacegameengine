@@ -34,7 +34,9 @@ base_size(
 {
 	namespace format = sge::image::color::format;
 
-	switch(_format)
+	switch(
+		_format
+	)
 	{
 	case format::gray8:
 	case format::alpha8:
@@ -42,6 +44,8 @@ base_size(
 	case format::argb8:
 	case format::bgra8:
 	case format::rgb8:
+	case format::ag8:
+	case format::ga8:
 		return sizeof(boost::uint8_t);
 	case format::rgba32f:
 	case format::argb32f:

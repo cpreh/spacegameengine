@@ -558,7 +558,6 @@ SET(
 	src/plugins/opengl/vf/color_actor.hpp
 	src/plugins/opengl/vf/context.hpp
 	src/plugins/opengl/vf/context_fwd.hpp
-	src/plugins/opengl/vf/convert_color_type.hpp
 	src/plugins/opengl/vf/convert_element_type.hpp
 	src/plugins/opengl/vf/disable_vertex_attrib_array.hpp
 	src/plugins/opengl/vf/enable_vertex_attrib_array.hpp
@@ -577,7 +576,6 @@ SET(
 	src/plugins/opengl/vf/src/client_state_combiner.cpp
 	src/plugins/opengl/vf/src/color_actor.cpp
 	src/plugins/opengl/vf/src/context.cpp
-	src/plugins/opengl/vf/src/convert_color_type.cpp
 	src/plugins/opengl/vf/src/convert_element_type.cpp
 	src/plugins/opengl/vf/src/disable_vertex_attrib_array.cpp
 	src/plugins/opengl/vf/src/enable_vertex_attrib_array.cpp

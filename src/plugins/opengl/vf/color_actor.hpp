@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "actor_parameters_fwd.hpp"
 #include "pointer.hpp"
 #include "../common.hpp"
+#include "../color_format_type.hpp"
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -57,7 +58,7 @@ private:
 
 	GLint const elements_;
 
-	GLenum const format_;
+	opengl::color_format_type const format_;
 };
 
 }

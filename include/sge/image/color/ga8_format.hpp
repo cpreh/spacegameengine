@@ -18,23 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_CONVERT_COLOR_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_VF_CONVERT_COLOR_TYPE_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_GA8_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_GA8_FORMAT_HPP_INCLUDED
 
-#include "../common.hpp"
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/channel8.hpp>
+#include <mizuiro/color/homogenous.hpp>
+#include <mizuiro/color/channel/alpha.hpp>
+#include <mizuiro/color/channel/luminance.hpp>
+#include <mizuiro/color/layout/luminance.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace image
 {
-namespace vf
+namespace color
 {
 
-GLenum
-convert_color_type(
-	image::color::format::type const _format
-);
+typedef mizuiro::color::homogenous<
+	color::channel8,
+	mizuiro::color::layout::luminance<
+		boost::mpl::vector2<
+			mizuiro::color::channel::luminance,
+			mizuiro::color::channel::alpha
+		>
+	>
+> ga8_format;
 
 }
 }

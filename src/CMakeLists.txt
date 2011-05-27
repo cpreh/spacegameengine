@@ -114,6 +114,7 @@ SET(
 	include/sge/image/bgra8_format.hpp
 	include/sge/image/capabilities.hpp
 	include/sge/image/capabilities_field.hpp
+	include/sge/image/color/ag8_format.hpp
 	include/sge/image/color/alpha8.hpp
 	include/sge/image/color/alpha8_format.hpp
 	include/sge/image/color/any/any.hpp
@@ -140,6 +141,7 @@ SET(
 	include/sge/image/color/format_static.hpp
 	include/sge/image/color/format_stride.hpp
 	include/sge/image/color/format_to_string.hpp
+	include/sge/image/color/ga8_format.hpp
 	include/sge/image/color/gray8.hpp
 	include/sge/image/color/gray8_format.hpp
 	include/sge/image/color/init.hpp

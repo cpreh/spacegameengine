@@ -33,7 +33,7 @@ namespace color
 {
 
 typedef mizuiro::color::homogenous<
-	channel8,
+	color::channel8,
 	mizuiro::color::layout::gray
 > gray8_format;
 

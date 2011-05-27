@@ -51,6 +51,10 @@ sge::image::color::format_to_string(
 		return FCPPT_TEXT("bgra32f");
 	case format::rgb32f:
 		return FCPPT_TEXT("rgb32f");
+	case format::ag8:
+		return FCPPT_TEXT("ag8");
+	case format::ga8:
+		return FCPPT_TEXT("ga8");
 	case format::size:
 		break;
 	}

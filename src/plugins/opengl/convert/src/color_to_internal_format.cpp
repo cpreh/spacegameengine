@@ -39,7 +39,7 @@ sge::opengl::convert::color_to_internal_format(
 	case image::color::format::alpha8:
 		return
 			opengl::internal_color_format(
-				GL_ALPHA
+				GL_ALPHA8
 			);
 	case image::color::format::rgba8:
 		return
@@ -68,6 +68,12 @@ sge::opengl::convert::color_to_internal_format(
 		return
 			opengl::internal_color_format(
 				GL_RGB32F
+			);
+	case image::color::format::ag8:
+	case image::color::format::ga8:
+		return
+			opengl::internal_color_format(
+				GL_LUMINANCE_ALPHA
 			);
 	case image::color::format::size:
 		break;
