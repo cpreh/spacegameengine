@@ -84,7 +84,7 @@ load_raw(
 		std::istreambuf_iterator<char>());
 
 	return 
-		audio_loader.load(
+		audio_loader.load_raw(
 			boost::make_iterator_range(
 				reinterpret_cast<unsigned char const *>(
 					&(*raw_bytes.cbegin())),

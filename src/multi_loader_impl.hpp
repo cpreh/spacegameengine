@@ -221,7 +221,7 @@ template<
 	typename Capabilities
 >
 typename sge::multi_loader<Loader, File, Exception, Capabilities>::file_ptr const
-sge::multi_loader<Loader, File, Exception, Capabilities>::load(
+sge::multi_loader<Loader, File, Exception, Capabilities>::load_raw(
 	sge::const_raw_range const &_range,
 	sge::optional_extension const &_extension
 )
@@ -242,7 +242,7 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 			continue;
 
 		file_ptr const ret(
-			ref->load(
+			ref->load_raw(
 				_range,
 				_extension
 			)

@@ -54,7 +54,7 @@ public:
 	);
 
 	image2d::file_ptr const
-	load(
+	load_raw(
 		sge::const_raw_range const &,
 		sge::optional_extension const &
 	);

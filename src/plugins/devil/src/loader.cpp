@@ -62,7 +62,7 @@ sge::devil::loader::load(
 }
 
 sge::image2d::file_ptr const
-sge::devil::loader::load(
+sge::devil::loader::load_raw(
 	sge::const_raw_range const &_range,
 	sge::optional_extension const &_extension
 )

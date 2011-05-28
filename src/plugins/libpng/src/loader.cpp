@@ -92,7 +92,7 @@ sge::libpng::loader::load(
 }
 
 sge::image2d::file_ptr const
-sge::libpng::loader::load(
+sge::libpng::loader::load_raw(
 	sge::const_raw_range const &_range,
 	sge::optional_extension const &_extension
 )

@@ -47,7 +47,7 @@ sge::cegui::detail::image_codec::load(
 		result_texture);
 
 	dynamic_cast<texture &>(*result_texture).create_from_view(
-		image_loader_.load(
+		image_loader_.load_raw(
 			sge::const_raw_range(
 				data.getDataPtr(),
 				data.getDataPtr() + data.getSize()),

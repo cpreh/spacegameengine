@@ -113,7 +113,7 @@ load_raw(
 	return 
 		sge::texture::add_image(
 			_tex_man,
-			*_image_loader.load(
+			*_image_loader.load_raw(
 				boost::make_iterator_range(
 					reinterpret_cast<
 						unsigned char const *
