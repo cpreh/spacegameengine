@@ -795,5 +795,5 @@ INSTALL(
 	TARGETS
 	sgeopengl
 	DESTINATION
-	lib/sge
+	${PLUGIN_INSTALL_DIR}
 )
