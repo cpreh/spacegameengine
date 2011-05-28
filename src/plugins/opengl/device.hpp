@@ -120,7 +120,7 @@ public:
 	);
 
 	void
-	render(
+	render_indexed(
 		renderer::index_buffer const &,
 		renderer::first_vertex,
 		renderer::vertex_count,
@@ -130,7 +130,7 @@ public:
 	);
 
 	void
-	render(
+	render_nonindexed(
 		renderer::first_vertex,
 		renderer::vertex_count,
 		renderer::nonindexed_primitive_type::type 

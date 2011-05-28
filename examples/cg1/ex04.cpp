@@ -467,7 +467,7 @@ try
 			rend
 		);
 
-		rend.render(
+		rend.render_nonindexed(
 			sge::renderer::first_vertex(0),
 			sge::renderer::vertex_count(
 				vb->size()

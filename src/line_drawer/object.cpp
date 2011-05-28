@@ -99,7 +99,7 @@ sge::line_drawer::object::render()
 		static_cast<sge::renderer::stage_type>(
 			0));
 
-	renderer_.render(
+	renderer_.render_nonindexed(
 		sge::renderer::first_vertex(
 			0),
 		sge::renderer::vertex_count(

@@ -160,7 +160,7 @@ sge::opengl::device::clear(
 }
 
 void
-sge::opengl::device::render(
+sge::opengl::device::render_indexed(
 	renderer::index_buffer const &_ib,
 	renderer::first_vertex const _first_vertex,
 	renderer::vertex_count const _num_vertices,
@@ -181,7 +181,7 @@ sge::opengl::device::render(
 }
 
 void
-sge::opengl::device::render(
+sge::opengl::device::render_nonindexed(
 	renderer::first_vertex const _first_vertex,
 	renderer::vertex_count const _num_vertices,
 	renderer::nonindexed_primitive_type::type const _ptype

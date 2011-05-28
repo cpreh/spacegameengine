@@ -203,7 +203,7 @@ sge::cegui::detail::geometry_buffer::draw() const
 			sge::renderer::stage_type(
 				0u));
 
-		renderer_.render(
+		renderer_.render_nonindexed(
 			sge::renderer::first_vertex(
 				0),
 			sge::renderer::vertex_count(

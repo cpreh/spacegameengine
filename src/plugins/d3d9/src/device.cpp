@@ -186,7 +186,7 @@ sge::d3d9::device::clear(
 }
 
 void
-sge::d3d9::device::render(
+sge::d3d9::device::render_indexed(
 	renderer::index_buffer const &_index_buffer,
 	renderer::first_vertex const _first_vertex,
 	renderer::vertex_count const _num_vertices,
@@ -234,7 +234,7 @@ sge::d3d9::device::render(
 }
 
 void
-sge::d3d9::device::render(
+sge::d3d9::device::render_nonindexed(
 	renderer::first_vertex const _first_vertex,
 	renderer::vertex_count const _num_vertices,
 	renderer::nonindexed_primitive_type::type const _primitive_type

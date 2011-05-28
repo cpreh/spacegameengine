@@ -1084,7 +1084,7 @@ try
 						fcppt::math::twopi<sge::renderer::scalar>() * 
 						elapsed)));
 
-			sys.renderer().render(
+			sys.renderer().render_nonindexed(
 				sge::renderer::first_vertex(0),
 				sge::renderer::vertex_count(
 					vb->size()),

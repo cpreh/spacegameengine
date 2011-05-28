@@ -58,7 +58,7 @@ render_inner(
 	Buffers const &_buffers
 )
 {
-	_renderer.render(
+	_renderer.render_indexed(
 		*_buffers. template get<
 			detail::roles::index_buffer
 		>(),
@@ -108,7 +108,7 @@ render_inner(
 	Buffers const &
 )
 {
-	_renderer.render(
+	_renderer.render_nonindexed(
 		renderer::first_vertex(
 			_offset
 			*
