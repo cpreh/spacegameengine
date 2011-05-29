@@ -852,6 +852,7 @@ SET(
 	include/sge/renderer/vf/view_fwd.hpp
 	include/sge/renderer/vf/view_impl.hpp
 	include/sge/renderer/viewport.hpp
+	include/sge/renderer/viewport_size.hpp
 	include/sge/renderer/visual_depth.hpp
 	include/sge/renderer/vsync.hpp
 	include/sge/symbol.hpp
@@ -1182,6 +1183,7 @@ SET(
 	src/renderer/vf/dynamic/unspecified.cpp
 	src/renderer/vf/dynamic/vector.cpp
 	src/renderer/vf/dynamic/view.cpp
+	src/renderer/viewport_size.cpp
 	src/window/convert_size_hints.cpp
 	src/window/create.cpp
 	src/window/create_simple_from_awl.cpp
