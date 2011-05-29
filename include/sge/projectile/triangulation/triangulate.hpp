@@ -96,7 +96,9 @@ triangulate(
 			nv>2u; )
 	{
 		FCPPT_ASSERT(
-			0 < (count--));
+			0 < count);
+
+		--count;
 
 		/* three consecutive vertices in current polygon, <u,v,w> */
 		size_type u = v  ; if (nv <= u) u = 0;     /* previous */
