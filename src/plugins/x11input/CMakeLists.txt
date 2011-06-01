@@ -2,6 +2,7 @@ SET(
 	SGE_X11INPUT_FILES
 	src/plugins/x11input/color.hpp
 	src/plugins/x11input/cursor/button_code.hpp
+	src/plugins/x11input/cursor/client_pointer.hpp
 	src/plugins/x11input/cursor/confine.hpp
 	src/plugins/x11input/cursor/confine_fwd.hpp
 	src/plugins/x11input/cursor/confine_unique_ptr.hpp
@@ -24,6 +25,7 @@ SET(
 	src/plugins/x11input/cursor/pixmap_fwd.hpp
 	src/plugins/x11input/cursor/query_pointer.hpp
 	src/plugins/x11input/cursor/src/button_code.cpp
+	src/plugins/x11input/cursor/src/client_pointer.cpp
 	src/plugins/x11input/cursor/src/confine.cpp
 	src/plugins/x11input/cursor/src/create_confine.cpp
 	src/plugins/x11input/cursor/src/define.cpp
@@ -44,6 +46,7 @@ SET(
 	src/plugins/x11input/device/object.hpp
 	src/plugins/x11input/device/object_fwd.hpp
 	src/plugins/x11input/device/object_ptr.hpp
+	src/plugins/x11input/device/optional_id.hpp
 	src/plugins/x11input/device/parameters.hpp
 	src/plugins/x11input/device/parameters_fwd.hpp
 	src/plugins/x11input/device/raw_demuxer.hpp
