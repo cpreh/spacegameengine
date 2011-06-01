@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/data.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/math/ceil_div.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_member_variable.hpp>
@@ -209,6 +212,9 @@ sge::x11input::device::select_events(
 	if(
 		_add
 	)
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wconversion)
 		XISetMask(
 			store.data(),
 			_type.get()
@@ -219,7 +225,7 @@ sge::x11input::device::select_events(
 			store.data(),
 			_type.get()
 		);
-	
+FCPPT_PP_POP_WARNING
 	if(
 		::XISelectEvents(
 			_window.display().get(),
