@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_CURSOR_CONFINE_HPP_INCLUDED
-#define SGE_X11INPUT_CURSOR_CONFINE_HPP_INCLUDED
+#ifndef SGE_X11INPUT_CURSOR_GRAB_CORE_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_GRAB_CORE_HPP_INCLUDED
 
-#include "confine_fwd.hpp"
+#include "../confine.hpp"
+#include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -30,18 +31,27 @@ namespace x11input
 {
 namespace cursor
 {
+namespace grab
+{
 
-class confine
+class core
+:
+	public cursor::confine
 {
 	FCPPT_NONCOPYABLE(
-		confine
+		core
 	);
-protected:
-	confine();
 public:
-	virtual ~confine();
+	explicit core(
+		awl::backends::x11::window::instance &
+	);
+
+	~core();
+private:
+	awl::backends::x11::window::instance &window_;
 };
 
+}
 }
 }
 }

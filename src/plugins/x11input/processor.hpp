@@ -76,9 +76,10 @@ class processor
 		processor
 	);
 public:
-	explicit processor(
+	processor(
 		sge::window::instance_ptr,
-		awl::backends::x11::system::event::opcode
+		awl::backends::x11::system::event::opcode,
+		bool have_version_2_1
 	);
 
 	~processor();
@@ -193,6 +194,8 @@ private:
 	sge::window::instance_ptr const window_;
 
 	awl::backends::x11::system::event::opcode const opcode_;
+
+	bool const have_version_2_1_;
 
 	awl::backends::x11::window::instance_shared_ptr const x11_window_;
 

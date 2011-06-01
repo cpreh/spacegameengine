@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_CURSOR_CONFINE_HPP_INCLUDED
-#define SGE_X11INPUT_CURSOR_CONFINE_HPP_INCLUDED
+#ifndef SGE_X11INPUT_CURSOR_CREATE_CONFINE_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_CREATE_CONFINE_HPP_INCLUDED
 
-#include "confine_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
+#include "confine_unique_ptr.hpp"
+#include "../device/id.hpp"
+#include <awl/backends/x11/window/instance_fwd.hpp>
 
 namespace sge
 {
@@ -31,16 +32,12 @@ namespace x11input
 namespace cursor
 {
 
-class confine
-{
-	FCPPT_NONCOPYABLE(
-		confine
-	);
-protected:
-	confine();
-public:
-	virtual ~confine();
-};
+cursor::confine_unique_ptr
+create_confine(
+	awl::backends::x11::window::instance &,
+	x11input::device::id,
+	bool have_xi_2_1
+);
 
 }
 }

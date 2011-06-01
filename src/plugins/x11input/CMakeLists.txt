@@ -4,8 +4,19 @@ SET(
 	src/plugins/x11input/cursor/button_code.hpp
 	src/plugins/x11input/cursor/confine.hpp
 	src/plugins/x11input/cursor/confine_fwd.hpp
+	src/plugins/x11input/cursor/confine_unique_ptr.hpp
+	src/plugins/x11input/cursor/create_confine.hpp
 	src/plugins/x11input/cursor/define.hpp
 	src/plugins/x11input/cursor/define_fwd.hpp
+	src/plugins/x11input/cursor/grab/core.hpp
+	src/plugins/x11input/cursor/grab/function.hpp
+	src/plugins/x11input/cursor/grab/handle.hpp
+	src/plugins/x11input/cursor/grab/return_value.hpp
+	src/plugins/x11input/cursor/grab/return_value_set.hpp
+	src/plugins/x11input/cursor/grab/src/core.cpp
+	src/plugins/x11input/cursor/grab/src/handle.cpp
+	src/plugins/x11input/cursor/grab/src/xi2.cpp
+	src/plugins/x11input/cursor/grab/xi2.hpp
 	src/plugins/x11input/cursor/object.hpp
 	src/plugins/x11input/cursor/object_fwd.hpp
 	src/plugins/x11input/cursor/object_ptr.hpp
@@ -14,6 +25,7 @@ SET(
 	src/plugins/x11input/cursor/query_pointer.hpp
 	src/plugins/x11input/cursor/src/button_code.cpp
 	src/plugins/x11input/cursor/src/confine.cpp
+	src/plugins/x11input/cursor/src/create_confine.cpp
 	src/plugins/x11input/cursor/src/define.cpp
 	src/plugins/x11input/cursor/src/object.cpp
 	src/plugins/x11input/cursor/src/pixmap.cpp

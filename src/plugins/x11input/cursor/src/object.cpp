@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../object.hpp"
 #include "../button_code.hpp"
 #include "../confine.hpp"
+#include "../create_confine.hpp"
 #include "../define.hpp"
 #include "../query_pointer.hpp"
 #include "../../device/parameters.hpp"
@@ -31,10 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/input/exception.hpp>
-//#include <sge/log/global.hpp>
 #include <fcppt/assign/make_container.hpp>
-//#include <fcppt/log/error.hpp>
-//#include <fcppt/log/output.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
@@ -46,13 +44,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 
 sge::x11input::cursor::object::object(
-	x11input::device::parameters const &_param
+	x11input::device::parameters const &_param,
+	bool const _have_version_2_1
 )
 :
 	sge::input::cursor::object(),
 	sge::x11input::device::object(
 		_param.id()
 	),
+	have_version_2_1_(_have_version_2_1),
 	window_(
 		_param.window()
 	),
@@ -276,22 +276,6 @@ sge::x11input::cursor::object::button_event(
 void
 sge::x11input::cursor::object::check_grab()
 {
-#if 0
-	if(
-		!event_processor_
-	)
-	{
-		FCPPT_LOG_ERROR(
-			sge::log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("Tried to confine a cursor that doesn't support it.")
-				<< FCPPT_TEXT(" XI2 currently doesn't allow cursor confinement so ")
-				<< FCPPT_TEXT(" it is only supported for the master cursor.")
-		);
-
-		return;
-	}
-#endif
 	switch(
 		window_mode_
 	)
@@ -302,13 +286,10 @@ sge::x11input::cursor::object::check_grab()
 			&& entered_
 		)
 			cursor_confine_.take(
-				fcppt::make_unique_ptr<
-					x11input::cursor::confine
-				>(
-					fcppt::ref(
-						window_
-					),
-					this->id()
+				x11input::cursor::create_confine(
+					window_,
+					this->id(),
+					have_version_2_1_
 				)
 			);
 		else if(

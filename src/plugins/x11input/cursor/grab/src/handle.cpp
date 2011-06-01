@@ -18,32 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_CURSOR_CONFINE_HPP_INCLUDED
-#define SGE_X11INPUT_CURSOR_CONFINE_HPP_INCLUDED
+#include "../handle.hpp"
+#include <sge/input/exception.hpp>
+#include <sge/time/millisecond.hpp>
+#include <sge/time/sleep.hpp>
+#include <fcppt/function/object.hpp>
+#include <fcppt/text.hpp>
 
-#include "confine_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
+void
+sge::x11input::cursor::grab::handle(
+	cursor::grab::function const &_function,
+	cursor::grab::return_value const _ok_value,
+	cursor::grab::return_value_set const &_waiting_values
+)
+{
+	cursor::grab::return_value ret;
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
-{
-
-class confine
-{
-	FCPPT_NONCOPYABLE(
-		confine
-	);
-protected:
-	confine();
-public:
-	virtual ~confine();
-};
-
+	while(
+		(
+			ret =
+				cursor::grab::return_value(
+					_function()
+				)
+		)
+		!= _ok_value
+	)
+	{
+		if(
+			_waiting_values.count(
+				ret
+			)
+		)
+			sge::time::sleep(
+				sge::time::millisecond(
+					10
+				)
+			);
+		else
+			throw sge::input::exception(
+				FCPPT_TEXT("X11 grab failed!")
+			);
+	}
 }
-}
-}
-
-#endif

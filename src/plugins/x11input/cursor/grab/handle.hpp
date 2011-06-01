@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_CURSOR_CONFINE_HPP_INCLUDED
-#define SGE_X11INPUT_CURSOR_CONFINE_HPP_INCLUDED
+#ifndef SGE_X11INPUT_CURSOR_GRAB_HANDLE_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_GRAB_HANDLE_HPP_INCLUDED
 
-#include "confine_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
+#include "function.hpp"
+#include "return_value.hpp"
+#include "return_value_set.hpp"
 
 namespace sge
 {
@@ -30,18 +31,17 @@ namespace x11input
 {
 namespace cursor
 {
-
-class confine
+namespace grab
 {
-	FCPPT_NONCOPYABLE(
-		confine
-	);
-protected:
-	confine();
-public:
-	virtual ~confine();
-};
 
+void
+handle(
+	cursor::grab::function const &,
+	cursor::grab::return_value ok_value,
+	cursor::grab::return_value_set const &waiting_values
+);
+
+}
 }
 }
 }

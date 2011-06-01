@@ -54,11 +54,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::processor::processor(
 	sge::window::instance_ptr const _window,
-	awl::backends::x11::system::event::opcode const _opcode
+	awl::backends::x11::system::event::opcode const _opcode,
+	bool const _have_version_2_1
 )
 :
 	window_(_window),
 	opcode_(_opcode),
+	have_version_2_1_(_have_version_2_1),
 	x11_window_(
 		fcppt::dynamic_pointer_cast<
 			awl::backends::x11::window::instance
@@ -413,8 +415,8 @@ sge::x11input::processor::create_cursor(
 		fcppt::make_shared_ptr<
 			x11input::cursor::object
 		>(
-			// FIXME: tell this device if it is the master pointer!
-			_param
+			_param,
+			have_version_2_1_
 		);
 }
 

@@ -74,7 +74,24 @@ sge::x11input::system::create_processor(
 			FCPPT_TEXT("X Input extension not available! Please install libXi!")
 		);
 
+	// First check if we can use 2.1 on the server side.
+	bool const have_version_2_1(
+#if defined(SGE_X11INPUT_HAVE_XI_2_1)
+		x11input::xi_version(
+			x11_window->display(),
+			2,
+			1
+		)
+#else
+		false
+#endif
+	);
+
+	// It is important not to check for a different version,
+	// because the server takes this as the client's version.
 	if(
+		!have_version_2_1
+		&&
 		!x11input::xi_version(
 			x11_window->display(),
 			2,
@@ -82,7 +99,7 @@ sge::x11input::system::create_processor(
 		)
 	)
 		throw sge::input::exception(
-			FCPPT_TEXT("X Input extension is not version 2 or later!")
+			FCPPT_TEXT("The X server doesn't support XI2!")
 		);
 
 	if(
@@ -130,6 +147,7 @@ sge::x11input::system::create_processor(
 			x11input::processor
 		>(
 			_window,
-			*opcode
+			*opcode,
+			have_version_2_1
 		);
 }

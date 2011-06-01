@@ -18,42 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../xi_version.hpp"
-#include <awl/backends/x11/display.hpp>
-#include <X11/extensions/XInput2.h>
+#include "../create_confine.hpp"
+#include "../grab/core.hpp"
+#include <sge/x11input/config.hpp>
+#if defined(SGE_X11INPUT_HAVE_XI_2_1)
+#include "../grab/xi2.hpp"
+#endif
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
-bool
-sge::x11input::xi_version(
-	awl::backends::x11::display &_display,
-	int const _major,
-	int const _minor
+sge::x11input::cursor::confine_unique_ptr
+sge::x11input::cursor::create_confine(
+	awl::backends::x11::window::instance &_window,
+#if defined(SGE_X11INPUT_HAVE_XI_2_1)
+	x11input::device::id const _id,
+	bool const _have_xi_2_1
+#else
+	x11input::device::id,
+	bool
+#endif
 )
 {
-	// BadRequest will be generated if the
-	// server doesn't support XI2 at all.
-	// Otherwise the version the server actually supports is returned.
+#if defined(SGE_X11INPUT_HAVE_XI_2_1)
+	if(
+		_have_xi_2_1
+	)
+		return
+			cursor::confine_unique_ptr(
+				fcppt::make_unique_ptr<
+					cursor::grab::xi2
+				>(
+					fcppt::ref(
+						_window
+					),
+					_id
+				)
+			);
+#endif
 	
-	int
-		major_ret(
-			_major
-		),
-		minor_ret(
-			_minor
-		);
 	return
-		::XIQueryVersion(
-			_display.get(),
-			&major_ret,
-			&minor_ret
-		)
-		!= BadRequest
-		&&
-		(
-			major_ret > _major
-			||
-			(
-				_major == major_ret
-				&& minor_ret >= _minor
+		cursor::confine_unique_ptr(
+			fcppt::make_unique_ptr<
+				cursor::grab::core
+			>(
+				fcppt::ref(
+					_window
+				)
 			)
 		);
 }
