@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../scoped_locale.hpp"
 #include "../xi_opcode.hpp"
 #include "../xi_version.hpp"
+#include <sge/x11input/config.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>

@@ -40,28 +40,11 @@ sge::x11input::cursor::grab::xi2::xi2(
 	window_(_window),
 	id_(_id)
 {
-	unsigned char raw_data[4] = {0};
-
-	XISetMask(
-		raw_data,
-		XI_Motion
-	);
-
-	XISetMask(
-		raw_data,
-		XI_ButtonPress
-	);
-
-	XISetMask(
-		raw_data,
-		XI_ButtonRelease
-	);
-
 	XIEventMask mask =
 	{
 		id_.get(),
-		4,
-		raw_data
+		0,
+		0
 	};
 
 	cursor::grab::handle(
