@@ -35,11 +35,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::x11input::cursor::confine_unique_ptr
 sge::x11input::cursor::create_confine(
 	awl::backends::x11::window::instance &_window,
-#if defined(SGE_X11INPUT_HAVE_XI_2_1)
 	x11input::device::id const _id,
+#if defined(SGE_X11INPUT_HAVE_XI_2_1)
 	bool const _have_xi_2_1
 #else
-	x11input::device::id,
 	bool
 #endif
 )
