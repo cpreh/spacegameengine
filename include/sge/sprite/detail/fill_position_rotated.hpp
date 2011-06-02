@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/container/array.hpp>
-#include <boost/foreach.hpp>
 #include <cmath>
 
 namespace sge
@@ -139,9 +138,12 @@ fill_position_rotated(
 		Choices
 	>::type vertex_pos;
 
-	BOOST_FOREACH(
-		typename position_array::const_reference ref,
-		positions
+	for(
+		typename position_array::const_iterator pos_it(
+			positions.begin()
+		);
+		pos_it != positions.end();
+		++pos_it
 	)
 		(*_iterator++). template set<
 			vertex_pos
@@ -149,7 +151,7 @@ fill_position_rotated(
 			detail::make_position<
 				Choices
 			>(
-				(mat_rot * ref) + centerf,
+				(mat_rot * *pos_it) + centerf,
 				_sprite
 			)
 		);

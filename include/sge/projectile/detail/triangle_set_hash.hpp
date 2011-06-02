@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_DETAIL_TRIANGLE_SET_HASH_HPP_INCLUDED
 
 #include <sge/projectile/triangle.hpp>
-#include <boost/foreach.hpp>
 #include <boost/functional/hash/hash.hpp>
 #include <cstddef>
 
@@ -37,21 +36,32 @@ class triangle_set_hash
 public:
 	std::size_t
 	operator()(
-		triangle const &s) const
+		triangle const &_value
+	) const
 	{
 		std::size_t result = 0;
-		BOOST_FOREACH(
-			triangle::const_reference point,
-			s)
-		{
-			BOOST_FOREACH(
-				triangle::value_type::const_reference point_component,
-				point)
-			{
+
+		for(
+			triangle::const_iterator point_it(
+				_value.begin()
+			);
+			point_it != _value.end();
+			++point_it
+		)
+			for(
+				triangle::value_type::const_iterator point_component_it(
+					point_it->begin()
+				);
+				point_component_it != point_it->end();
+				++point_component_it
+			)
 				result ^= 
-					boost::hash_value(point_component) + 0x9e3779b9 + (result<<6) + (result>>2);
-			}
-		}
+					boost::hash_value(
+						*point_component_it
+					)
+					+ 0x9e3779b9
+					+ (result<<6) + (result>>2);
+
 		return result;
 	}
 };

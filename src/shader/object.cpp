@@ -162,19 +162,25 @@ sge::shader::object::object(
 		renderer_,
 		*program_);
 
-	BOOST_FOREACH(variable const &v,_variables)
+	for(
+		variable_sequence::const_iterator it(
+			_variables.begin()
+		);
+		it != _variables.end();
+		++it
+	)
 	{
-		if (v.type() != variable_type::uniform)
+		if (it->type() != variable_type::uniform)
 			continue;
 
 		uniforms_.insert(
 			uniform_map::value_type(
-				v.name(),
-					program_->uniform(v.name())));
+				it->name(),
+					program_->uniform(it->name())));
 
 		update_uniform(
-			v.name(),
-			v.initial_value());
+			it->name(),
+			it->initial_value());
 		// TODO: See above
 		/*
 		fcppt::variant::apply_unary(
@@ -189,18 +195,23 @@ sge::shader::object::object(
 
 	sampler::texture_unit_type current_tu = 
 		static_cast<sampler::texture_unit_type>(0);
-	BOOST_FOREACH(
-		sampler const &v,
-		_samplers)
+	
+	for(
+		sampler_sequence::const_iterator it(
+			_samplers.begin()
+		);
+		it != _samplers.end();
+		++it
+	)
 	{
 		samplers_.push_back(
-			v);
+			*it);
 
 		sge::renderer::glsl::uniform::single_value(
 			*uniforms_.insert(
 				uniform_map::value_type(
-					v.name(),
-					program_->uniform(v.name()))).first->second,
+					it->name(),
+					program_->uniform(it->name()))).first->second,
 			current_tu);
 
 		samplers_.back().texture_unit(
@@ -246,13 +257,17 @@ sge::shader::object::update_texture(
 	sge::renderer::glsl::string const &name,
 	texture_variant const &newtex)
 {
-	BOOST_FOREACH(
-		sampler_sequence::reference r,
-		samplers_)
+	for(
+		sampler_sequence::iterator it(
+			samplers_.begin()
+		);
+		it != samplers_.end();
+		++it
+	)
 	{
-		if (r.name() == name)
+		if (it->name() == name)
 		{
-			r.texture(
+			it->texture(
 				newtex);
 			return;
 		}
@@ -277,15 +292,19 @@ sge::shader::object::activate()
 	renderer_.glsl_program(
 		program_.get());
 	
-	BOOST_FOREACH(
-		sampler_sequence::const_reference r,
-		samplers_)
+	for(
+		sampler_sequence::const_iterator it(
+			samplers_.begin()
+		);
+		it != samplers_.end();
+		++it
+	)
 		renderer_.texture(
-			r.texture().get(),
+			it->texture().get(),
 			static_cast<
 				sge::renderer::stage_type
 			>(
-				r.texture_unit()));
+				it->texture_unit()));
 }
 
 void
@@ -293,15 +312,20 @@ sge::shader::object::deactivate()
 {
 	renderer_.glsl_program(
 		sge::renderer::glsl::no_program());
-	BOOST_FOREACH(
-		sampler_sequence::const_reference r,
-		samplers_)
+	
+	for(
+		sampler_sequence::const_iterator it(
+			samplers_.begin()
+		);
+		it != samplers_.end();
+		++it
+	)
 		renderer_.texture(
 			sge::renderer::no_texture(),
 			static_cast<
 				sge::renderer::stage_type
 			>(
-				r.texture_unit()));
+				it->texture_unit()));
 }
 
 sge::shader::object::~object()

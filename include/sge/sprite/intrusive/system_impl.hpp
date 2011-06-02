@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <boost/foreach.hpp>
 
 template<
 	typename Choices
@@ -99,12 +98,15 @@ sge::sprite::intrusive::system<Choices>::render_all_advanced(
 	EqualFunction const &_equal
 )
 {
-	BOOST_FOREACH(
-		typename level_map::value_type const &level,
-		sprite_levels_
+	for(
+		typename level_map::const_iterator level_it(
+			sprite_levels_.begin()
+		);
+		level_it != sprite_levels_.end();
+		++level_it
 	)
-		render_list(
-			*level.second,
+		this->render_list(
+			*level_it->second,
 			_equal
 		);
 }
