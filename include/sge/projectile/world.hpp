@@ -61,13 +61,13 @@ public:
 	world();
 
 	SGE_PROJECTILE_SYMBOL void
-	update(
+	update_discrete(
 		time_increment const &,
 		fixed_timestep const &,
 		maximum_substeps const &);
 
 	SGE_PROJECTILE_SYMBOL void
-	update(
+	update_continuous(
 		time_increment const &);
 
 	SGE_PROJECTILE_SYMBOL void

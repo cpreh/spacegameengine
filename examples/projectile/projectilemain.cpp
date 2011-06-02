@@ -556,7 +556,7 @@ try
 		}
 #endif
 
-		world.update(
+		world.update_continuous(
 			sge::projectile::time_increment(
 				sge::time::second_f(
 					frame_timer.reset())));

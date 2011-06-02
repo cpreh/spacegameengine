@@ -153,7 +153,7 @@ sge::projectile::world::world()
 }
 
 void
-sge::projectile::world::update(
+sge::projectile::world::update_discrete(
 	time_increment const &delta,
 	fixed_timestep const &fixed,
 	maximum_substeps const &max_substeps)
@@ -185,7 +185,7 @@ sge::projectile::world::update(
 }
 
 void
-sge::projectile::world::update(
+sge::projectile::world::update_continuous(
 	time_increment const &delta)
 {
 	bullet_duration const step(
