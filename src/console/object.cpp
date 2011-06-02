@@ -266,11 +266,20 @@ sge::console::object::help_callback(
 			funcs_.size())
 		+ SGE_FONT_TEXT_LIT(" available functions:"));
 
-	BOOST_FOREACH(function_map::value_type const &p,funcs_)
-		emit_message(
-			(p->first)+
-			SGE_FONT_TEXT_LIT(": ")+
-			(p.second)->short_description());
+	for(
+		function_map::const_iterator it(
+			funcs_.begin()
+		);
+		it != funcs_.end();
+		++it
+	)
+		this->emit_message(
+			((*it)->first)
+			+
+			SGE_FONT_TEXT_LIT(": ")
+			+
+			(it->second)->short_description()
+		);
 }
 
 void

@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
 #include <utility>
 
 sge::image2d::file_ptr const
@@ -66,14 +65,21 @@ sge::font::bitmap::load_one_file(
 		)
 	);
 
-	BOOST_FOREACH(
-		parse::json::element_vector::const_reference elem,
+	sge::parse::json::array const &glyph_array(
 		parse::json::find_member_exn<
 			parse::json::array
 		>(
 			top_members,
 			FCPPT_TEXT("glyphs")
-		).elements
+		)
+	);
+
+	for(
+		parse::json::element_vector::const_iterator elem_it(
+			glyph_array.elements.begin()
+		);
+		elem_it != glyph_array.elements.end();
+		++elem_it
 	)
 	try
 	{
@@ -81,7 +87,7 @@ sge::font::bitmap::load_one_file(
 			parse::json::get<
 				parse::json::object
 			>(
-				elem
+				*elem_it
 			).members
 		);
 

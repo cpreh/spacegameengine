@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/output.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
 #include <algorithm>
 
 sge::config::optional_path const
@@ -44,16 +43,19 @@ sge::config::find_path(
 	config::path_vector const &_hard_paths
 )
 {
-	BOOST_FOREACH(
-		path_vector::const_reference ref,
-		_config_files
+	for(
+		path_vector::const_iterator it(
+			_config_files.begin()
+		);
+		it != _config_files.end();
+		++it
 	)
 	{
 		parse::ini::section_vector result;
 
 		if(
 			!fcppt::filesystem::exists(
-				ref
+				*it
 			)
 		)
 		{
@@ -61,7 +63,7 @@ sge::config::find_path(
 				sge::log::global(),
 				fcppt::log::_
 					<< FCPPT_TEXT("Config file ")
-					<< ref
+					<< *it
 					<< FCPPT_TEXT(" does not exist.")
 			);
 
@@ -70,7 +72,7 @@ sge::config::find_path(
 
 		if(
 			!parse::ini::parse_file(
-				ref,
+				*it,
 				result
 			)
 		)
@@ -80,7 +82,7 @@ sge::config::find_path(
 				fcppt::log::_
 					<< FCPPT_TEXT("Failed to parse ini file ")
 					<< fcppt::filesystem::path_to_string(
-						ref
+						*it	
 					)
 			);
 
@@ -106,7 +108,7 @@ sge::config::find_path(
 				fcppt::log::_
 					<< FCPPT_TEXT("Cannot find section [paths] in ")
 					<< fcppt::filesystem::path_to_string(
-						ref
+						*it	
 					)
 			);
 
@@ -138,7 +140,7 @@ sge::config::find_path(
 					<< _what
 					<< FCPPT_TEXT(" in section [paths] in ")
 					<< fcppt::filesystem::path_to_string(
-						ref
+						*it	
 					)
 			);
 
@@ -172,16 +174,19 @@ sge::config::find_path(
 		return ret_path;
 	}
 
-	BOOST_FOREACH(
-		path_vector::const_reference path,
-		_hard_paths
+	for(
+		path_vector::const_iterator it(
+			_hard_paths.begin()
+		);
+		it != _hard_paths.end();
+		++it
 	)
 		if(
 			fcppt::filesystem::exists(
-				path
+				*it
 			)
 		)
-			return path;
+			return *it;
 
 	return optional_path();
 }

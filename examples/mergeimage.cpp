@@ -47,7 +47,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <boost/foreach.hpp>
 #include <algorithm>
 #include <iterator>
 #include <iostream>
@@ -61,19 +60,28 @@ namespace
 
 sge::renderer::size_type
 calc_size(
-	sge::renderer::size_type const image_count,
-	sge::renderer::dim2 const &dim
+	sge::renderer::size_type const _image_count,
+	sge::renderer::dim2 const &_dim
 )
 {
-	for(sge::renderer::size_type i = 0; i <= 10; ++i)
+	for(
+		sge::renderer::size_type index(0);
+		index <= 10;
+		++index
+	)
 	{
-		sge::renderer::size_type const sz(
-			1 << i
+		sge::renderer::size_type const size(
+			1u << index
 		);
 
-		if((sz / (dim.w() + 1)) * (sz / (dim.h() + 1)) >= image_count)
-			return sz;
+		if(
+			(size / (_dim.w() + 1))
+			* (size / (_dim.h() + 1))
+			>= _image_count
+		)
+			return size;
 	}
+
 	throw sge::exception(
 		FCPPT_TEXT("size too big!")
 	);
@@ -81,15 +89,18 @@ calc_size(
 
 sge::renderer::dim2 const
 first_dim(
-	fcppt::filesystem::path const &p,
-	sge::image2d::multi_loader &il
+	fcppt::filesystem::path const &_path,
+	sge::image2d::multi_loader &_loader
 )
 {
 	fcppt::filesystem::directory_iterator const it(
-		p
+		_path
 	);
 
-	return il.load(*it)->size();
+	return
+		_loader.load(
+			*it
+		)->size();
 }
 
 typedef std::vector<
@@ -98,13 +109,15 @@ typedef std::vector<
 
 path_vector const
 sort_paths(
-	fcppt::filesystem::path const &p
+	fcppt::filesystem::path const &_path
 )
 {
 	path_vector ret;
 
 	std::copy(
-		fcppt::filesystem::directory_iterator(p),
+		fcppt::filesystem::directory_iterator(
+			_path
+		),
 		fcppt::filesystem::directory_iterator(),
 		std::back_inserter(
 			ret
@@ -216,20 +229,27 @@ try
 			path
 		)
 	);
-	BOOST_FOREACH(
-		path_vector::const_reference cur_path,
-		paths
+
+	for(
+		path_vector::const_iterator cur_path_it(
+			paths.begin()
+		);
+		cur_path_it != paths.end();
+		++cur_path_it
 	)
 	{
 		sge::image2d::file_ptr const img(
 			il.load(
-				cur_path
+				*cur_path_it
 			)
 		);
 
-		if(img->size() != dim)
+		if(
+			img->size() != dim
+		)
 		{
 			fcppt::io::cerr << FCPPT_TEXT("some dimensions do not match!\n");
+
 			return EXIT_FAILURE;
 		}
 
@@ -245,7 +265,10 @@ try
 		);
 
 		pos.x() += dim.w() + 1;
-		if(pos.x() + dim.w() + 1 > border_sz)
+
+		if(
+			pos.x() + dim.w() + 1 > border_sz
+		)
 		{
 			pos.x() = 0;
 			pos.y() += dim.h() + 1;

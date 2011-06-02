@@ -42,6 +42,9 @@ public:
 	SGE_SYMBOL explicit 
 	pool();
 
+	SGE_SYMBOL 
+	~pool();
+
 	SGE_SYMBOL void 
 	add(
 		sound::base_ptr,
@@ -61,7 +64,7 @@ private:
 	std::vector<value_type> 
 	container_type;
 
-	container_type sounds;
+	container_type sounds_;
 };
 
 }

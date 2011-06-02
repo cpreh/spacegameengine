@@ -24,9 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert_message.hpp>
-#include <boost/foreach.hpp>
 
 sge::audio::pool::pool()
+:
+	sounds_()
+{}
+
+sge::audio::pool::~pool()
 {}
 
 void
@@ -35,7 +39,7 @@ sge::audio::pool::add(
 	stop_mode::type const pm
 )
 {
-	sounds.push_back(
+	sounds_.push_back(
 		value_type(
 			s,
 			pm));
@@ -44,42 +48,46 @@ sge::audio::pool::add(
 void
 sge::audio::pool::update()
 {
-	for (container_type::iterator s = sounds.begin();
-	     s != sounds.end();)
+	for(
+		container_type::iterator sound_it(
+			sounds_.begin()
+		);
+		sound_it != sounds_.end();
+	)
 	{
 		// sound's not dead yet?
-		if (!s->first.unique())
+		if (!sound_it->first.unique())
 		{
-			s->first->update();
-			s++;
+			sound_it->first->update();
+			sound_it++;
 			continue;
 		}
 
-		switch (s->second)
+		switch (sound_it->second)
 		{
 			case stop_mode::stop_playing:
 			break;
 			case stop_mode::continue_playing:
 				FCPPT_ASSERT_MESSAGE(
-					s->first->status() != audio::sound::play_status::paused,
+					sound_it->first->status() != audio::sound::play_status::paused,
 					FCPPT_TEXT("a paused sound was destroyed but kept alive by the sound pool")
 				);
 
-				if (s->first->status() != audio::sound::play_status::stopped)
+				if (sound_it->first->status() != audio::sound::play_status::stopped)
 				{
-					s++;
+					sound_it++;
 					continue;
 				}
 			break;
 			case stop_mode::play_once:
 				FCPPT_ASSERT_MESSAGE(
-					s->first->status() != audio::sound::play_status::paused,
+					sound_it->first->status() != audio::sound::play_status::paused,
 					FCPPT_TEXT("a paused sound was destroyed but kept alive by the sound pool")
 				);
 
-				if (s->first->status() != audio::sound::play_status::stopped)
+				if (sound_it->first->status() != audio::sound::play_status::stopped)
 				{
-					if (s->first->repeat() != sound::repeat::once)
+					if (sound_it->first->repeat() != sound::repeat::once)
 					{
 						FCPPT_LOG_WARNING(
 							log::global(),
@@ -87,26 +95,34 @@ sge::audio::pool::update()
 								<< FCPPT_TEXT("got a looping sound, setting to play only once")
 						);
 
-						s->first->play(sound::repeat::once);
+						sound_it->first->play(
+							sound::repeat::once
+						);
 					}
-					s++;
+					sound_it++;
 					continue;
 				}
 			break;
 		}
 
-		s = sounds.erase(s);
+		sound_it = sounds_.erase(sound_it);
 	}
 }
 
 bool
 sge::audio::pool::sounds_finished() const
 {
-	BOOST_FOREACH(
-		value_type const &s,
-		sounds
+	for(
+		container_type::const_iterator it(
+			sounds_.begin()
+		);
+		it != sounds_.end();
+		++it
 	)
-		if (s.first->status() != audio::sound::play_status::stopped)
+		if(
+			it->first->status()
+			!= audio::sound::play_status::stopped
+		)
 			return false;
 	return true;
 }

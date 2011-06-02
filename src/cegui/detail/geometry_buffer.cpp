@@ -77,8 +77,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert_message.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/foreach.hpp>
-#include <iostream>
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("geometry_buffer"))
@@ -189,17 +187,21 @@ sge::cegui::detail::geometry_buffer::draw() const
 		renderer_,
 		vertex_declaration_);
 
-	BOOST_FOREACH(
-		batch const &b,
-		batches_)
+	for(
+		batch_sequence::const_iterator it(
+			batches_.begin()
+		);
+		it != batches_.end();
+		++it
+	)
 	{
 		sge::renderer::scoped_vertex_buffer scoped_vb(
 			renderer_,
-			b.vertex_buffer());
+			it->vertex_buffer());
 
 		sge::renderer::texture::scoped scoped_texture(
 			renderer_,
-			b.texture(),
+			it->texture(),
 			sge::renderer::stage_type(
 				0u));
 
@@ -207,7 +209,7 @@ sge::cegui::detail::geometry_buffer::draw() const
 			sge::renderer::first_vertex(
 				0),
 			sge::renderer::vertex_count(
-				b.vertex_buffer().size()),
+				it->vertex_buffer().size()),
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}
 
@@ -372,7 +374,6 @@ sge::cegui::detail::geometry_buffer::setActiveTexture(
 void 
 sge::cegui::detail::geometry_buffer::reset()
 {
-	//std::cout << "geometry_buffer(" << this << ")::reset()\n";
 	batches_.clear();
 	active_texture_ = 0;
 	total_vertex_count_ = 0;
