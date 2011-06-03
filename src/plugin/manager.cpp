@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/platform.hpp>
-#include <boost/foreach.hpp>
 
 namespace
 {
@@ -139,21 +138,24 @@ sge::plugin::manager::manager(
 		}
 	}
 
-	BOOST_FOREACH(
-		plugin_array::reference ref,
-		plugins_
+	for(
+		plugin_array::iterator it(
+			plugins_.begin()
+		);
+		it != plugins_.end();
+		++it
 	)
 		FCPPT_FOREACH_ENUMERATOR(
 			index,
 			plugin::capabilities
 		)
 			if(
-				ref.info().capabilities() & index
+				it->info().capabilities() & index
 			)
 				categories_[
 					index
 				].push_back(
-					&ref
+					&*it
 				);
 
 }

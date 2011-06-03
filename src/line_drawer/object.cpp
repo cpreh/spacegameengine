@@ -53,8 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <boost/foreach.hpp>
-#include <iostream>
 
 sge::line_drawer::object::object(
 	sge::renderer::device &_renderer)
@@ -142,19 +140,23 @@ sge::line_drawer::object::unlock()
 	vf::vertex_view::iterator vb_it(
 		vertices.begin());
 
-	BOOST_FOREACH(
-		line const &l,
-		lines_)
+	for(
+		line_sequence::const_iterator it(
+			lines_.begin()
+		);
+		it != lines_.end();
+		++it
+	)
 	{
 		(vb_it)->set<vf::position>(
 			fcppt::math::vector::structure_cast<vf::position::packed_type>(
-				l.begin()));
+				it->begin()));
 		(vb_it++)->set<vf::color>(
-			l.begin_color());
+			it->begin_color());
 		(vb_it)->set<vf::position>(
 			fcppt::math::vector::structure_cast<vf::position::packed_type>(
-				l.end()));
+				it->end()));
 		(vb_it++)->set<vf::color>(
-			l.end_color());
+			it->end_color());
 	}
 }

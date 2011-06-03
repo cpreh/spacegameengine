@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../context/use.hpp"
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/ref.hpp>
-#include <boost/foreach.hpp>
 #include <algorithm>
 #include <functional>
 
@@ -157,49 +156,59 @@ template<
 >
 void
 apply_difference(
-	Set const &old_states,
-	Set const &new_states,
-	EnableFun const enable,
-	DisableFun const disable
+	Set const &_old_states,
+	Set const &_new_states,
+	EnableFun const _enable,
+	DisableFun const _disable
 )
 {
 	Set diff;
 
 	std::set_difference(
-		old_states.begin(),
-		old_states.end(),
-		new_states.begin(),
-		new_states.end(),
+		_old_states.begin(),
+		_old_states.end(),
+		_new_states.begin(),
+		_new_states.end(),
 		std::inserter(
 			diff,
 			diff.begin()
 		)
 	);
 
-	BOOST_FOREACH(
-		typename Set::const_reference r,
-		diff
+	for(
+		typename Set::const_iterator it(
+			diff.begin()
+		);
+		it != diff.end();
+		++it
 	)
-		disable(r);
+		_disable(
+			*it
+		);
 
 	diff.clear();
 
 	std::set_difference(
-		new_states.begin(),
-		new_states.end(),
-		old_states.begin(),
-		old_states.end(),
+		_new_states.begin(),
+		_new_states.end(),
+		_old_states.begin(),
+		_old_states.end(),
 		std::inserter(
 			diff,
 			diff.begin()
 		)
 	);
 
-	BOOST_FOREACH(
-		typename Set::const_reference r,
-		diff
+	for(
+		typename Set::const_iterator it(
+			diff.begin()
+		);
+		it != diff.end();
+		++it
 	)
-		enable(r);
+		_enable(
+			*it
+		);
 }
 
 }

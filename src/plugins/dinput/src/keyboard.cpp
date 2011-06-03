@@ -230,21 +230,30 @@ sge::dinput::keyboard::dispatch()
 			key_value
 			&& virtual_code
 		)
-			BOOST_FOREACH(
-				dinput::char_vector::value_type ch,
+		{
+			sge::dinput::char_vector const &chars(
 				dinput::keycode_to_chars(
 					*virtual_code,
 					offset,
 					states_,
 					kblayout_
 				)
+			);
+
+			for(
+				sge::dinput::char_vector::const_iterator it(
+					chars.begin()
+				);
+				it != chars.end();
+				++it
 			)
 				char_signal_(
 					sge::input::keyboard::char_event(
-						ch,
+						*it,
 						false
 					)
 				);
+		}
 
 		if(
 			!key_value

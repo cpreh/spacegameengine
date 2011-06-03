@@ -22,11 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/log/headers.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
-#include <ostream>
 
 namespace
 {
@@ -71,7 +70,9 @@ sge::systems::list::operator()(
 	systems::any const &_any
 ) const
 {
-	list ret(*this);
+	list ret(
+		*this
+	);
 
 	if(
 		!ret.states_.insert(
@@ -94,14 +95,26 @@ sge::systems::list::append(
 	systems::list const &_other
 ) const
 {
-	systems::list ret(*this);
+	systems::list ret(
+		*this
+	);
 
 	// TODO: this could be optimized
-	BOOST_FOREACH(
-		any_set::const_reference ref,
+	systems::any_set const &set(
 		_other.get()
+	);
+
+	for(
+		any_set::const_iterator it(
+			set.begin()
+		);
+		it != set.end();
+		++it
 	)
-		ret = ret(ref);
+		ret =
+			ret(
+				*it
+			);
 	
 	return ret;
 }

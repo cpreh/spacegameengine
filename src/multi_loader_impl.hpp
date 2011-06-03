@@ -41,7 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
-#include <boost/foreach.hpp>
 #include <typeinfo>
 
 template<
@@ -178,21 +177,24 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 			FCPPT_TEXT(" has no extension!")
 		);
 
-	BOOST_FOREACH(
-		typename loader_container::const_reference ref,
-		loaders_
+	for(
+		typename loader_container::const_iterator it(
+			loaders_.begin()
+		);
+		it != loaders_.end();
+		++it
 	)
 	{
 		if(
 			!fcppt::algorithm::contains(
-				ref->extensions(),
+				(*it)->extensions(),
 				extension
 			)
 		)
 			continue;
 
 		file_ptr const ret(
-			ref->load(
+			(*it)->load(
 				_file
 			)
 		);
@@ -226,23 +228,26 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load_raw(
 	sge::optional_extension const &_extension
 )
 {
-	BOOST_FOREACH(
-		typename loader_container::const_reference ref,
-		loaders_
+	for(
+		typename loader_container::const_iterator it(
+			loaders_.begin()
+		);
+		it != loaders_.end();
+		++it
 	)
 	{
 		if(
 			_extension
 			&&
 			!fcppt::algorithm::contains(
-				ref->extensions(),
+				(*it)->extensions(),
 				*_extension
 			)
 		)
 			continue;
 
 		file_ptr const ret(
-			ref->load_raw(
+			(*it)->load_raw(
 				_range,
 				_extension
 			)

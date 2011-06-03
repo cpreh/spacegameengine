@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
 
 namespace sge
 {
@@ -58,12 +57,15 @@ warn_min(
 {
 	typedef fcppt::math::dim::basic<T, N, S> dim_type;
 
-	BOOST_FOREACH(
-		typename dim_type::const_reference val,
-		_dim
+	for(
+		typename dim_type::const_iterator it(
+			_dim.begin()
+		);
+		it != _dim.end();
+		++it
 	)
 		if(
-			val < _min
+			*it < _min
 		)
 		{
 			FCPPT_LOG_WARNING(

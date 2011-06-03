@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <boost/foreach.hpp>
 #include <X11/extensions/XInput2.h>
 
 sge::x11input::keyboard::device::device(
@@ -196,13 +195,20 @@ sge::x11input::keyboard::device::on_key_press(
 		);
 	}
 
-	BOOST_FOREACH(
-		x11input::keyboard::char_vector::value_type element,
+	x11input::keyboard::char_vector const &char_codes(
 		lookup.char_codes()
+	);
+
+	for(
+		x11input::keyboard::char_vector::const_iterator element_it(
+			char_codes.begin()
+		);
+		element_it != char_codes.end();
+		++element_it
 	)
 		char_signal_(
 			input::keyboard::char_event(
-				element,
+				*element_it,
 				is_repeated
 			)
 		);

@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
 
 sge::font::bitmap::metrics::metrics(
 	fcppt::filesystem::path const &_path,
@@ -76,14 +75,21 @@ sge::font::bitmap::metrics::metrics(
 		)
 	);
 
-	BOOST_FOREACH(
-		parse::json::element_vector::const_reference elem,
+	sge::parse::json::array const &textures_array(
 		parse::json::find_member_exn<
 			parse::json::array
 		>(
 			top_members,
 			FCPPT_TEXT("textures")
-		).elements
+		)
+	);
+
+	for(
+		sge::parse::json::element_vector::const_iterator elem_it(
+			textures_array.elements.begin()
+		);
+		elem_it != textures_array.elements.end();
+		++elem_it
 	)
 		images_.push_back(
 			font::bitmap::load_one_file(
@@ -91,7 +97,7 @@ sge::font::bitmap::metrics::metrics(
 				parse::json::get<
 					parse::json::object
 				>(
-					elem
+					*elem_it
 				),
 				_loader,
 				char_map_

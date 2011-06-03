@@ -78,7 +78,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/type_info.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <boost/foreach.hpp>
 #include <typeinfo>
 
 class sge::systems::instance::impl
@@ -273,15 +272,22 @@ sge::systems::instance::instance(
 		)
 	)
 {
-	BOOST_FOREACH(
-		sge::systems::any const &elem,
+	systems::any_set const &set(
 		_list.get()
+	);
+
+	for(
+		systems::any_set::const_iterator it(
+			set.begin()
+		);
+		it != set.end();
+		++it
 	)
 		fcppt::variant::apply_unary(
 			::visitor(
 				*impl_
 			),
-			elem
+			*it
 		);
 	
 	impl_->post_init();

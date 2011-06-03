@@ -27,20 +27,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/assert.hpp>
-#include <boost/foreach.hpp>
 #include <vector>
 
 sge::openal::context::context(
 	device &_device,
-	attribute_container const &attributes)
+	attribute_container const &_attributes
+)
 :
 	device_(_device)
 {
 	std::vector<ALCint> al_attributes;
-	BOOST_FOREACH(attribute_container::value_type const &v,attributes)
+
+	for(
+		attribute_container::const_iterator it(
+			_attributes.begin()
+		);
+		it != _attributes.end();
+		++it
+	)
 	{
-		al_attributes.push_back(v.first);
-		al_attributes.push_back(v.second);
+		al_attributes.push_back(
+			it->first
+		);
+
+		al_attributes.push_back(
+			it->second
+		);
 	}
 	// attribute array has to be null terminated
 	al_attributes.push_back(static_cast<ALCint>(0));

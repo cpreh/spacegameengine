@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../d3dinclude.hpp"
 #include "../convert/vertex_role.hpp"
 #include "../convert/vertex_type.hpp"
+#include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <sge/renderer/vf/dynamic/part_list.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
 #include <map>
 
 sge::d3d9::vertex_declaration::vertex_declaration(
@@ -54,18 +54,37 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 		unsigned
 	> usage_count_map;
 
-	BOOST_FOREACH(
-		renderer::vf::dynamic::part_list::const_reference part,
+	sge::renderer::vf::dynamic::part_list const &parts(
 		_format.parts()
+	);
+
+	for(
+		renderer::vf::dynamic::part_list::const_iterator part_it(
+			parts.begin()
+		);
+		part_it != parts.end();
+		++part_it
 	)
 	{
 		usage_count_map usage_counts;
 
-		BOOST_FOREACH(
-			renderer::vf::dynamic::ordered_element_list::const_reference element,
-			part.elements()
+		
+		sge::renderer::vf::dynamic::ordered_element_list const &elements(
+			part_it->elements()
+		);
+
+		for(
+			sge::renderer::vf::dynamic::ordered_element_list::const_iterator element_it(
+				elements.begin()
+			);
+			element_it != elements.end();
+			++element_it
 		)
 		{
+			sge::renderer::vf::dynamic::element const &element(
+				*element_it
+			);
+
 			D3DDECLUSAGE const usage(
 				convert::vertex_role(
 					element.element()

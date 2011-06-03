@@ -53,7 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt//make_shared_ptr.hpp>
 #include <fcppt//make_unique_ptr.hpp>
-#include <boost/foreach.hpp>
 #include <algorithm>
 
 sge::d3d9::device::device(
@@ -325,13 +324,20 @@ sge::d3d9::device::state(
 		clear_state_
 	);
 
-	BOOST_FOREACH(
-		sge::renderer::state::list::set_type::const_reference ref,
+	sge::renderer::state::list::set_type const &set(
 		_states.values()
+	);
+
+	for(
+		sge::renderer::state::list::set_type::const_iterator it(
+			set.begin()
+		);
+		it != set.end();
+		++it
 	)
 		fcppt::variant::apply_unary(
 			visitor,
-			ref
+			*it
 		);
 }
 

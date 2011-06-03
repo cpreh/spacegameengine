@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
-#include <boost/foreach.hpp>
 
 sge::opengl::vertex_declaration::vertex_declaration(
 	opengl::context::object &_context,
@@ -35,9 +34,16 @@ sge::opengl::vertex_declaration::vertex_declaration(
 	format_(_format),
 	parts_()
 {
-	BOOST_FOREACH(
-		renderer::vf::dynamic::part_list::const_reference ref,
+	sge::renderer::vf::dynamic::part_list const &parts(
 		format_.parts()
+	);
+
+	for(
+		renderer::vf::dynamic::part_list::const_iterator it(
+			parts.begin()
+		);
+		it != parts.end();
+		++it
 	)
 		fcppt::container::ptr::push_back_unique_ptr(
 			parts_,
@@ -47,7 +53,7 @@ sge::opengl::vertex_declaration::vertex_declaration(
 				fcppt::ref(
 					_context
 				),
-				ref
+				*it
 			)
 		);
 }

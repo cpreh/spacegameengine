@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../client_state_combiner.hpp"
 #include "../../common.hpp"
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <boost/foreach.hpp>
 
 sge::opengl::vf::part::part(
 	sge::opengl::context::object &_context,
@@ -42,14 +41,17 @@ sge::opengl::vf::part::part(
 		part_.elements()
 	);
 
-	BOOST_FOREACH(
-		renderer::vf::dynamic::ordered_element_list::const_reference elem,
-		elems
+	for(
+		renderer::vf::dynamic::ordered_element_list::const_iterator elem_it(
+			elems.begin()
+		);
+		elem_it != elems.end();
+		++elem_it
 	)
 		fcppt::container::ptr::push_back_unique_ptr(
 			actors_,
 			vf::to_actor(
-				elem,
+				*elem_it,
 				part_.stride(),
 				_context
 			)
@@ -75,18 +77,21 @@ sge::opengl::vf::part::use_me(
 		context_
 	);
 
-	BOOST_FOREACH(
-		actor_array::reference actor,
-		actors_
+	for(
+		actor_array::iterator actor_it(
+			actors_.begin()
+		);
+		actor_it != actors_.end();
+		++actor_it
 	)
-		actor(
+		(*actor_it)(
 			states_,
 			static_cast<
 				unsigned char const *
 			>(
 				_src
 			)
-			+ actor.offset()
+			+ actor_it->offset()
 		);
 }
 
@@ -97,11 +102,14 @@ sge::opengl::vf::part::unuse_me() const
 		context_
 	);
 
-	BOOST_FOREACH(
-		actor_array::reference current,
-		actors_
+	for(
+		actor_array::iterator actor_it(
+			actors_.begin()
+		);
+		actor_it != actors_.end();
+		++actor_it
 	)
-		current.unuse(
+		actor_it->unuse(
 			states_
 		);
 }

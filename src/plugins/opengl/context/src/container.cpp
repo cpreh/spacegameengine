@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
 
 sge::opengl::context::container::container()
 :
@@ -94,13 +93,16 @@ sge::opengl::context::container::insert(
 void
 sge::opengl::context::container::destroy()
 {
-	BOOST_FOREACH(
-		inner_container::value_type val,
-		elements_
+	for(
+		inner_container::iterator it(
+			elements_.begin()
+		);
+		it != elements_.end();
+		++it
 	)
 		try
 		{
-			delete val;
+			delete *it;
 		}
 		catch(...)
 		{

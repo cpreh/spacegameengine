@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/equal.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <mizuiro/color/operators/equal.hpp>
-#include <boost/foreach.hpp>
 
 namespace
 {
@@ -94,26 +93,33 @@ sge::opengl::apply_states(
 		_depth_stencil_buffer
 	);
 
-	BOOST_FOREACH(
-		renderer::state::any const &state,
+	sge::renderer::state::list::set_type const &set(
 		_new_states.values()
+	);
+
+	for(
+		sge::renderer::state::list::set_type::const_iterator it(
+			set.begin()
+		);
+		it != set.end();
+		++it
 	)
 	{
 		if(
 			::state_unchanged(
-				state,
+				*it,
 				_current_states
 			)
 		)
 			continue;
 
 		_current_states.overwrite(
-			state
+			*it
 		);
 
 		fcppt::variant::apply_unary(
 			visitor,
-			state
+			*it
 		);
 	}
 }
