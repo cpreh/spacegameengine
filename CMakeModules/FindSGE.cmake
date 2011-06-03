@@ -18,7 +18,7 @@ FIND_PACKAGE(
 )
 
 FIND_PACKAGE(
-	AWL
+	Awl
 	REQUIRED
 )
 
