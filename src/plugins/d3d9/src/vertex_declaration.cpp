@@ -81,13 +81,13 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 			++element_it
 		)
 		{
-			sge::renderer::vf::dynamic::element const &element(
+			sge::renderer::vf::dynamic::ordered_element const &ordered_element(
 				*element_it
 			);
 
 			D3DDECLUSAGE const usage(
 				convert::vertex_role(
-					element.element()
+					ordered_element.element()
 				)
 			);
 
@@ -97,13 +97,13 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 				static_cast<
 					WORD
 				>(
-					element.offset()
+					ordered_element.offset()
 				), // Offset
 				static_cast<
 					BYTE
 				>(
 					convert::vertex_type(
-						element.element()
+						ordered_element.element()
 					)
 				), // Type
 				D3DDECLMETHOD_DEFAULT,
