@@ -139,22 +139,38 @@ sge::shader::object::object(
 					&sampler::declaration,
 					boost::phoenix::arg_names::arg2));
 
-	program_ = 
-		sge::renderer::glsl::create_program_from_strings(
-			renderer_,
-			sge::renderer::glsl::optional_string(
-				boost::algorithm::replace_first_copy(
-					::file_to_string(
-						vertex),
-					std::string("$$$HEADER$$$"),
-					format_declaration
-					+ header)),
-			sge::renderer::glsl::optional_string(
-				boost::algorithm::replace_first_copy(
-					::file_to_string(
-						fragment),
-					std::string("$$$HEADER$$$"),
-					header)));
+	try
+	{
+		program_ = 
+			sge::renderer::glsl::create_program_from_strings(
+				renderer_,
+				sge::renderer::glsl::optional_string(
+					boost::algorithm::replace_first_copy(
+						::file_to_string(
+							vertex),
+						std::string("$$$HEADER$$$"),
+						format_declaration
+						+ header)),
+				sge::renderer::glsl::optional_string(
+					boost::algorithm::replace_first_copy(
+						::file_to_string(
+							fragment),
+						std::string("$$$HEADER$$$"),
+						header)));
+	}
+	catch(sge::exception const &e)
+	{
+		throw 
+			sge::exception(
+				FCPPT_TEXT("Shader error for shaders: \n")+
+				fcppt::filesystem::path_to_string(
+					vertex)+
+				FCPPT_TEXT("\n")+
+				fcppt::filesystem::path_to_string(
+					fragment)+
+				FCPPT_TEXT("\n")+
+				e.string());
+	}
 
 	sge::renderer::glsl::scoped_program scoped_shader_(
 		renderer_,
