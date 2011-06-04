@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/structure_cast.hpp>
-#include <sge/time/funit.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/device.hpp>
@@ -47,14 +46,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
-#include <fcppt/to_std_string.hpp>
 #include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 // YES, OF COURSE I HAVE TO INCLUDE THAT!
 #include <fcppt/function/object.hpp>
-#include <boost/bind.hpp>
-#include <iostream>
-#include <set>
+#include <fcppt/tr1/functional.hpp>
 
 sge::cegui::system::system(
 	load_context const &_load_context,
@@ -83,7 +79,7 @@ sge::cegui::system::system(
 		resource_provider_),
 	viewport_change_connection_(
 		_viewport.manage_callback(
-			boost::bind(
+			std::tr1::bind(
 				&system::viewport_change,
 				this))),
 	old_viewport_(

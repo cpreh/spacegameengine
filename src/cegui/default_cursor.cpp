@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/input/cursor/object.hpp>
-#include <boost/bind.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 sge::cegui::default_cursor::default_cursor(
 	syringe &_syringe,
@@ -31,16 +31,16 @@ sge::cegui::default_cursor::default_cursor(
 		_syringe),
 	button_connection_(
 		_cursor.button_callback(
-			boost::bind(
+			std::tr1::bind(
 				&default_cursor::button_callback,
 				this,
-				_1))),
+				std::tr1::placeholders::_1))),
 	axis_connection_(
 		_cursor.move_callback(
-			boost::bind(
+			std::tr1::bind(
 				&default_cursor::move_callback,
 				this,
-				_1)))
+				std::tr1::placeholders::_1)))
 {
 	syringe_.inject(
 		_cursor.position());

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/unit.hpp>
 #include <sge/cegui/exception.hpp>
-#include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/structure_cast.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -52,7 +51,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 // FFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUU
 #include <fcppt/optional.hpp>
-#include <iostream>
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("texture"))
@@ -242,7 +240,7 @@ sge::cegui::detail::texture::saveToMemory(
 	void*)
 {
 	throw 
-		exception(
+		cegui::exception(
 			FCPPT_TEXT("texture::saveToMemory() is not implemented yet"));
 }
 

@@ -29,12 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/duration_output.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <iostream>
 #include <limits>
 #include <LinearMath/btVector3.h>
 #include <LinearMath/btScalar.h>

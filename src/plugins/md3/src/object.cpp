@@ -27,11 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/read.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/log/headers.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <ios>
 #include <algorithm>
+#include <ios>
+#include <fstream>
 #include <cmath>
 
 namespace

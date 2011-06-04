@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/default_keyboard.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <boost/bind.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 sge::cegui::default_keyboard::default_keyboard(
 	syringe &_syringe,
@@ -31,22 +31,22 @@ sge::cegui::default_keyboard::default_keyboard(
 		_syringe),
 	key_callback_(
 		_keyboard.key_callback(
-			boost::bind(
+			std::tr1::bind(
 				&default_keyboard::key_callback,
 				this,
-				_1))),
+				std::tr1::placeholders::_1))),
 	key_repeat_callback_(
 		_keyboard.key_repeat_callback(
-			boost::bind(
+			std::tr1::bind(
 				&default_keyboard::key_repeat_callback,
 				this,
-				_1))),
+				std::tr1::placeholders::_1))),
 	char_callback_(
 		_keyboard.char_callback(
-			boost::bind(
+			std::tr1::bind(
 				&default_keyboard::char_callback,
 				this,
-				_1)))
+				std::tr1::placeholders::_1)))
 {
 }
 

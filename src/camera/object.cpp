@@ -22,40 +22,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/gizmo/to_rotation_matrix.hpp>
 #include <sge/camera/projection/to_matrix.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/mouse/axis_event.hpp>
-#include <sge/input/keyboard/device.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/matrix/rotation_axis.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/vector.hpp>
-#include <fcppt/io/cout.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/variant/object.hpp>
 // FFFFFFFFFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 #include <fcppt/function/object.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <boost/range/numeric.hpp>
-#include <boost/bind.hpp>
-#include <algorithm>
-#include <iostream>
 
 sge::camera::object::object(
 	parameters const &params)
 :
 	keyboard_connection_(
 		params.keyboard().key_callback(
-			boost::bind(
+			std::tr1::bind(
 				&object::key_callback,
 				this,
-				_1))),
+				std::tr1::placeholders::_1))),
 	mouse_axis_connection_(
 		params.mouse().axis_callback(
-			boost::bind(
+			std::tr1::bind(
 				&object::mouse_axis_callback,
 				this,
-				_1))),
+				std::tr1::placeholders::_1))),
 	projection_(
 		params.projection()),
 	projection_matrix_(

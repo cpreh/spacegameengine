@@ -24,14 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/renderer.hpp>
 #include <sge/cegui/detail/texture.hpp>
 #include <sge/cegui/detail/texture_target.hpp>
-#include <sge/cegui/exception.hpp>
-#include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/structure_cast.hpp>
 #include <sge/cegui/vf/format.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
@@ -43,19 +40,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/systems/instance.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/output.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/assert_message.hpp>
-#include <fcppt/lexical_cast.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert_message.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/output.hpp>
 #include <fcppt/assert.hpp>
-#include <iostream>
+#include <fcppt/assert_message.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
 #include <algorithm>
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(

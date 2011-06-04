@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/io/cifstream.hpp>
-#include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
 // Minimal includes my ass
 #include <fcppt/log/headers.hpp>
@@ -49,7 +48,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/operator.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <streambuf>
-#include <iostream>
 
 namespace
 {

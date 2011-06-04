@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/vector.hpp>
 #include <sge/audio/scalar.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 

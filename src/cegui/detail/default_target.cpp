@@ -30,12 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/matrix/orthogonal.hpp>
-#include <fcppt/math/box/output.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/text.hpp>
-#include <iostream>
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("default_target"))
