@@ -58,20 +58,34 @@ sge::opengl::convert::format_to_color(
 		}
 		break;
 	case GL_RGB:
-		if(
-			_format_type.get() == GL_UNSIGNED_BYTE
+		switch(
+			_format_type.get()
 		)
+		{
+		case GL_UNSIGNED_BYTE:
 			return image::color::format::rgb8;
+		case GL_FLOAT:
+			return image::color::format::rgb32f;
+		}
+		break;
 	case GL_ALPHA:
 		if(
 			_format_type.get() == GL_UNSIGNED_BYTE
 		)
 			return image::color::format::alpha8;
+		break;
 	case GL_LUMINANCE:
 		if(
 			_format_type.get() == GL_UNSIGNED_BYTE
 		)
 			return image::color::format::gray8;
+		break;
+	case GL_LUMINANCE_ALPHA:
+		if(
+			_format_type.get() == GL_UNSIGNED_BYTE
+		)
+			return image::color::format::ga8;
+		break;
 	}
 
 	throw renderer::exception(
