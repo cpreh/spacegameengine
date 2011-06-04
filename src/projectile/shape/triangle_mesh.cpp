@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/shape/triangle_mesh.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assign/make_array.hpp>
+#include <fcppt/container/array.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
 #include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
 #include <BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h>
 
@@ -32,17 +32,17 @@ SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("triangle_mesh"))
 
 sge::projectile::shape::triangle_mesh::triangle_mesh(
-	triangle_set const &triangles)
+	triangle_set const &_triangles)
 :
 	scalars_(
 		static_cast<index_vector::size_type>(
-			triangles.size() * 8u * 3u * 3u)),
+			_triangles.size() * 8u * 3u * 3u)),
 	indices_(
 		// Since we have to extrude each triangle separately (well,
 		// technically we don't have to but this is a good compromise)
 		// there are 8 output triangles per input triangle.
 		static_cast<scalar_vector::size_type>(
-			triangles.size() * 2u * 3u * 4u)),
+			_triangles.size() * 2u * 3u * 4u)),
 	mesh_(),
 	bullet_shape_()
 {
@@ -51,41 +51,77 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 		fcppt::log::_ 
 			<< this
 			<< FCPPT_TEXT(": constructing triangle mesh with ")
-			<< triangles.size() 
+			<< _triangles.size() 
 			<< FCPPT_TEXT(" triangles"));
 
 	scalar_vector::iterator current_scalar = 
 		scalars_.begin();
-	BOOST_FOREACH(
-		triangle_set::const_reference current_triangle,
-		triangles)
+	
+	for(
+		triangle_set::const_iterator triangle_it(
+			_triangles.begin()
+		);
+		triangle_it != _triangles.end();
+		++triangle_it
+	)
 	{
-		BOOST_FOREACH(
-			btScalar const current_z,
+		typedef fcppt::container::array<
+			btScalar,
+			2
+		> extrusion_array;
+
+		extrusion_array const extrusion_depth(
 			fcppt::assign::make_array
 				(static_cast<btScalar>(-object_extrusion_depth()/2))
-				(static_cast<btScalar>(object_extrusion_depth()/2)).container())
+				(static_cast<btScalar>(object_extrusion_depth()/2))
+		);
+
+		for(
+			extrusion_array::const_iterator current_z_it(
+				extrusion_depth.begin()
+			);
+			current_z_it != extrusion_depth.end();
+			++current_z_it
+		)
 		{
+			btScalar const current_z(
+				*current_z_it
+			);
+
 			FCPPT_LOG_VERBOSE(
 				local_log,
 				fcppt::log::_ 
 					<< this
 					<< FCPPT_TEXT(": triangle begin"));
-			BOOST_FOREACH(
-				triangle::const_reference current_triangle_point,
-				current_triangle)
+
+			for(
+				triangle::const_iterator triangle_point_it(
+					triangle_it->begin()
+				);
+				triangle_point_it != triangle_it->end();
+				++triangle_it
+			)
 			{
+				triangle::const_reference current_triangle_point(
+					*triangle_point_it
+				);
+
 				FCPPT_LOG_VERBOSE(
 					local_log,
 					fcppt::log::_ 
 						<< this
 						<< FCPPT_TEXT(": adding point ")
-						<< current_triangle_point[0] << FCPPT_TEXT(",") << current_triangle_point[1] << FCPPT_TEXT(",") << current_z);
+						<< current_triangle_point[0]
+						<< FCPPT_TEXT(',')
+						<< current_triangle_point[1]
+						<< FCPPT_TEXT(',')
+						<< current_z);
 
 				*current_scalar++ = current_triangle_point[0];
 				*current_scalar++ = current_triangle_point[1];
 				*current_scalar++ = current_z;
 			}
+
 			FCPPT_LOG_VERBOSE(
 				local_log,
 				fcppt::log::_ 
@@ -155,7 +191,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 		fcppt::make_unique_ptr<btTriangleIndexVertexArray>(
 			// number of triangles
 			static_cast<int>(
-				triangles.size() * 8u),
+				_triangles.size() * 8u),
 			// pointer to index array
 			indices_.data(),
 			// index stride
@@ -165,7 +201,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 					int)),
 			// number of vertices
 			static_cast<int>(
-				triangles.size() * 8u * 3u),
+				_triangles.size() * 8u * 3u),
 			// pointer to vertex array
 			scalars_.data(),
 			// vertex stride

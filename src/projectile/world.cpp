@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <boost/foreach.hpp>
 #include <iostream>
 #include <limits>
 #include <LinearMath/btVector3.h>
@@ -233,12 +232,16 @@ sge::projectile::world::add_body(
 		group = static_cast<group::id>(0),
 		mask = group;
 
-	BOOST_FOREACH(
-		group::sequence::const_reference r,
-		_groups)
+	for(
+		group::sequence::const_iterator it(
+			_groups.begin()
+		);
+		it != _groups.end();
+		++it
+	)
 	{
-		group |= r.get().category_;
-		mask |= r.get().collides_;
+		group |= it->get().category_;
+		mask |= it->get().collides_;
 	}
 
 	world_->addRigidBody(
@@ -264,12 +267,16 @@ sge::projectile::world::add_ghost(
 		group = static_cast<group::id>(0),
 		mask = group;
 
-	BOOST_FOREACH(
-		group::sequence::const_reference r,
-		_groups)
+	for(
+		group::sequence::const_iterator it(
+			_groups.begin()
+		);
+		it != _groups.end();
+		++it
+	)
 	{
-		group |= r.get().category_;
-		mask |= r.get().collides_;
+		group |= it->get().category_;
+		mask |= it->get().collides_;
 	}
 
 	world_->addCollisionObject(

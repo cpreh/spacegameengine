@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/foreach.hpp>
 #include <X11/extensions/XInput2.h>
 
 namespace

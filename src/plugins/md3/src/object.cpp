@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <boost/foreach.hpp>
 #include <ios>
 #include <algorithm>
 #include <cmath>
@@ -116,27 +115,39 @@ sge::md3::object::object(
 
 sge::model::index_sequence const
 sge::md3::object::indices(
-	fcppt::string const &name) const
+	fcppt::string const &_name
+) const
 {
 	model::index_sequence result;
 	model::index ib_offset(0);
 
-	sge::md3::object::surface_vector::const_reference surf = 
-		surface_by_name(name);
+	sge::md3::object::surface_vector::const_reference surf(
+		surface_by_name(
+			_name
+		)
+	);
 
-	BOOST_FOREACH(
-		sge::md3::object::surface::triangle_vector::const_reference r,
-		surf.triangles)
+	for(	
+		sge::md3::object::surface::triangle_vector::const_iterator triangle_it(
+			surf.triangles.begin()
+		);
+		triangle_it != surf.triangles.end();
+		++triangle_it
+	)
 	{
-		BOOST_FOREACH(
-			sge::md3::object::surface::triangle::index_array::const_reference ind,
-			r.indices)
+		for(
+			sge::md3::object::surface::triangle::index_array::const_iterator index_it(
+				triangle_it->indices.begin()
+			);
+			index_it != triangle_it->indices.end();
+			++index_it
+		)
 		{
 			result.push_back(
 				static_cast<
 					model::index
 				>(
-					ind
+					*index_it
 				)
 				+ ib_offset
 			);
@@ -222,11 +233,16 @@ sge::model::part_name_sequence const
 sge::md3::object::part_names() const
 {
 	model::part_name_sequence result;
-	BOOST_FOREACH(
-		surface_vector::const_reference surf,
-		surfaces_)
+
+	for(
+		surface_vector::const_iterator surface_it(
+			surfaces_.begin()
+		);
+		surface_it != surfaces_.end();
+		++surface_it
+	)
 		result.push_back(
-			surf.name);
+			surface_it->name);
 	return result;
 }
 
@@ -303,14 +319,17 @@ sge::md3::object::surface_by_name(
 	fcppt::string const &_name
 ) const
 {
-	BOOST_FOREACH(
-		surface_vector::const_reference surf,
-		surfaces_
+	for(
+		surface_vector::const_iterator surface_it(
+			surfaces_.begin()
+		);
+		surface_it != surfaces_.end();
+		++surface_it
 	)
 		if(
-			surf.name == _name
+			surface_it->name == _name
 		)
-			return surf;
+			return *surface_it;
 	
 	throw sge::model::exception(
 		FCPPT_TEXT("Couldn't find surface called \"")

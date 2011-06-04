@@ -52,7 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 // YES, OF COURSE I HAVE TO INCLUDE THAT!
 #include <fcppt/function/object.hpp>
-#include <boost/foreach.hpp>
 #include <boost/bind.hpp>
 #include <iostream>
 #include <set>
