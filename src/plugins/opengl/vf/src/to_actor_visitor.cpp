@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../color_actor.hpp"
 #include "../texpos_actor.hpp"
 #include "../attribute_actor.hpp"
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 sge::opengl::vf::to_actor_visitor::to_actor_visitor(
@@ -46,7 +47,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 				vf::pos_actor
 			>(
 				parameters_,
-				_pos
+				fcppt::cref(
+					_pos
+				)
 			)
 		);
 }
@@ -62,7 +65,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 				vf::normal_actor
 			>(
 				parameters_,
-				_normal
+				fcppt::cref(
+					_normal
+				)
 			)
 		);
 }
@@ -78,7 +83,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 				vf::color_actor
 			>(
 				parameters_,
-				_color
+				fcppt::cref(
+					_color
+				)
 			)
 		);
 }
@@ -94,7 +101,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 				vf::texpos_actor
 			>(
 				parameters_,
-				_texpos
+				fcppt::cref(
+					_texpos
+				)
 			)
 		);
 }
@@ -110,7 +119,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 				vf::attribute_actor
 			>(
 				parameters_,
-				_unspecified
+				fcppt::cref(
+					_unspecified
+				)
 			)
 		);
 }

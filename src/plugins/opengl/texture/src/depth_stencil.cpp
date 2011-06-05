@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
 // TODO: this should inherit from basic_texture as well!
@@ -114,7 +115,9 @@ sge::opengl::texture::depth_stencil::surface() const
 		fcppt::make_shared_ptr<
 			opengl::texture::depth_stencil_surface
 		>(
-			binding,
+			fcppt::cref(
+				binding
+			),
 			this->type(),
 			this->id(),
 			format_

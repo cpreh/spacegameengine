@@ -37,9 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/vertex_shader.hpp>
 #include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/text.hpp>
 
 template<
 	typename Environment
@@ -125,7 +126,9 @@ sge::opengl::glsl::program<Environment>::uniform(
 				Environment
 			>
 		>(
-			uniform_context_,
+			fcppt::cref(
+				uniform_context_
+			),
 			holder_.id(),
 			_name
 		);
@@ -259,7 +262,9 @@ sge::opengl::glsl::program<Environment>::make_attachment(
 		fcppt::make_unique_ptr<
 			attachment_type
 		>(
-			holder_.context(),
+			fcppt::cref(
+				holder_.context()
+			),
 			_shader,
 			holder_.id()
 		);

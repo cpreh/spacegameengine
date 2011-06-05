@@ -73,6 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -501,7 +502,9 @@ sge::opengl::device::create_planar_texture(
 				fcppt::ref(
 					context_
 				),
-				_params,
+				fcppt::cref(
+					_params
+				),
 				opengl::texture::optional_type()
 			)
 		);
@@ -569,7 +572,9 @@ sge::opengl::device::create_volume_texture(
 				fcppt::ref(
 					context_
 				),
-				_param
+				fcppt::cref(
+					_param
+				)
 			)
 		);
 }
@@ -587,7 +592,9 @@ sge::opengl::device::create_cube_texture(
 				fcppt::ref(
 					context_
 				),
-				_param
+				fcppt::cref(
+					_param
+				)
 			)
 		);
 }
@@ -605,7 +612,9 @@ sge::opengl::device::create_vertex_declaration(
 				fcppt::ref(
 					context_
 				),
-				_format
+				fcppt::cref(
+					_format
+				)
 			)
 		);	
 }

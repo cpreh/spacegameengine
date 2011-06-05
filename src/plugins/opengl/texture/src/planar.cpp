@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
@@ -114,7 +115,9 @@ sge::opengl::texture::planar::surface(
 		fcppt::make_shared_ptr<
 			opengl::texture::surface
 		>(
-			binding,
+			fcppt::cref(
+				binding
+			),
 			fcppt::ref(
 				this->context()
 			),

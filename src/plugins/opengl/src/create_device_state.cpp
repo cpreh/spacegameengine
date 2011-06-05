@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #error "Implement me!"
 #endif
 #include <sge/window/instance.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 
@@ -51,7 +52,9 @@ sge::opengl::create_device_state(
 				fcppt::ref(
 					_context
 				),
-				_parameters,
+				fcppt::cref(
+					_parameters
+				),
 				_adapter,
 				fcppt::ref(
 					dynamic_cast<
@@ -71,7 +74,9 @@ sge::opengl::create_device_state(
 				fcppt::ref(
 					_context
 				),
-				_parameters,
+				fcppt::cref(
+					_parameters
+				),
 				_adapter,
 				fcppt::ref(
 					dynamic_cast<

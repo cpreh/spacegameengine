@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
@@ -100,7 +101,9 @@ sge::openal::buffer::create_positional(
 			fcppt::make_shared_ptr<
 				openal::source
 			>(
-				_param,
+				fcppt::cref(
+					_param
+				),
 				holder_.get()
 			)
 		);

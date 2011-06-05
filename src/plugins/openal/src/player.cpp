@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -167,7 +168,9 @@ sge::openal::player::create_positional_stream(
 			fcppt::make_shared_ptr<
 				openal::stream_sound
 			>(
-				_parameters,
+				fcppt::cref(
+					_parameters
+				),
 				_file
 			)
 		);
