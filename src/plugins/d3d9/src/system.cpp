@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/instance.hpp>
 #include <awl/window/instance_shared_ptr.hpp>
 #include <awl/window/parameters.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -64,7 +65,9 @@ sge::d3d9::system::create_renderer(
 		>(
 			system_.get(),
 			_adapter,
-			_param,
+			fcppt::cref(
+				_param
+			),
 			fcppt::ref(
 				_window
 			)

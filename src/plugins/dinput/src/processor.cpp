@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -329,7 +330,9 @@ sge::dinput::processor::enum_devices_callback(
 				dinput::keyboard
 			>(
 				parameters,
-				instance.key_conv_
+				fcppt::cref(
+					instance.key_conv_
+				)
 			)
 		);
 		break;
