@@ -99,7 +99,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 					triangle_it->begin()
 				);
 				triangle_point_it != triangle_it->end();
-				++triangle_it
+				++triangle_point_it
 			)
 			{
 				triangle::const_reference current_triangle_point(

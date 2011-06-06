@@ -422,7 +422,7 @@ try
 		fcppt::log::location(
 			FCPPT_TEXT("projectile")),
 		std::tr1::bind(
-			&fcppt::log::object::activate,
+			&fcppt::log::activate_levels,
 			std::tr1::placeholders::_1,
 			fcppt::log::level::debug));
 
