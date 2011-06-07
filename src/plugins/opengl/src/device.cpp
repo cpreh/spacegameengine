@@ -49,9 +49,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fbo/target.hpp"
 #include "../glew/initialize.hpp"
 #include "../glsl/set_program.hpp"
+#include "../glsl/create_geometry_shader.hpp"
+#include "../glsl/create_pixel_shader.hpp"
 #include "../glsl/create_program.hpp"
 #include "../glsl/create_vertex_shader.hpp"
-#include "../glsl/create_pixel_shader.hpp"
 #include "../texture/activate.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/depth_stencil.hpp"
@@ -454,6 +455,18 @@ sge::opengl::device::create_glsl_pixel_shader(
 {
 	return
 		glsl::create_pixel_shader(
+			context_,
+			_source
+		);
+}
+
+sge::renderer::glsl::geometry_shader_ptr const
+sge::opengl::device::create_glsl_geometry_shader(
+	renderer::glsl::string const &_source
+)
+{
+	return
+		glsl::create_geometry_shader(
 			context_,
 			_source
 		);

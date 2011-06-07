@@ -33,10 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../programfuncs/use.hpp"
 #include "../uniform/contexts.hpp"
 #include "../../context/use.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <sge/renderer/glsl/geometry_shader.hpp>
+#include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/shader.hpp>
 #include <sge/renderer/glsl/vertex_shader.hpp>
-#include <sge/renderer/glsl/pixel_shader.hpp>
-#include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -62,7 +63,8 @@ sge::opengl::glsl::program<Environment>::program(
 		)
 	),
 	vertex_shader_(),
-	pixel_shader_()
+	pixel_shader_(),
+	geometry_shader_()
 {}
 
 template<
@@ -158,6 +160,21 @@ sge::opengl::glsl::program<Environment>::pixel_shader(
 )
 {
 	pixel_shader_.take(
+		make_attachment(
+			_pointer
+		)
+	);
+}
+
+template<
+	typename Environment
+>
+void
+sge::opengl::glsl::program<Environment>::geometry_shader(
+	sge::renderer::glsl::geometry_shader_ptr const _pointer
+)
+{
+	geometry_shader_.take(
 		make_attachment(
 			_pointer
 		)

@@ -18,19 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_GEOMETRY_SHADER_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_GEOMETRY_SHADER_HPP_INCLUDED
 
-#include <sge/renderer/glsl/geometry_shader_ptr.hpp>
-#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
-#include <sge/renderer/glsl/program_fwd.hpp>
-#include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
-#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/glsl/geometry_shader_fwd.hpp>
+#include <sge/renderer/glsl/shader.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -40,47 +34,17 @@ namespace renderer
 namespace glsl
 {
 
-class SGE_CLASS_SYMBOL program
+class SGE_CLASS_SYMBOL geometry_shader
+:
+	public glsl::shader
 {
 	FCPPT_NONCOPYABLE(
-		program
+		geometry_shader
 	);
 protected:
-	SGE_SYMBOL program();
+	SGE_SYMBOL geometry_shader();
 public:
-	virtual glsl::uniform::variable_ptr const
-	uniform(
-		glsl::string const &
-	) = 0;
-
-	virtual void
-	vertex_shader(
-		glsl::vertex_shader_ptr
-	) = 0;
-
-	virtual void
-	pixel_shader(
-		glsl::pixel_shader_ptr
-	) = 0;
-
-	virtual void
-	geometry_shader(
-		glsl::geometry_shader_ptr
-	) = 0;
-
-	virtual void
-	color_surface_location(
-		renderer::stage_type,
-		glsl::string const &
-	) = 0;
-
-	virtual void
-	link() = 0;
-
-	virtual fcppt::string const
-	info_log() const = 0;
-
-	SGE_SYMBOL virtual ~program();
+	SGE_SYMBOL virtual ~geometry_shader();
 };
 
 }

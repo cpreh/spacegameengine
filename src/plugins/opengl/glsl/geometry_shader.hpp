@@ -18,8 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_SHADER_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_SHADER_TYPE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_GEOMETRY_SHADER_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_GEOMETRY_SHADER_HPP_INCLUDED
+
+#include "shader_type.hpp"
+#include <sge/renderer/glsl/geometry_shader.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -28,20 +32,21 @@ namespace opengl
 namespace glsl
 {
 
-namespace shader_type
+struct geometry_shader
 {
-enum type
-{
-	pixel,
-	vertex,
-	geometry,
-	size
+	typedef sge::renderer::glsl::geometry_shader base_type;
+
+	static
+	glsl::shader_type::type
+	shader_type();
+
+	static
+	fcppt::string const
+	shader_name();
 };
-}
 
 }
 }
 }
-
 
 #endif

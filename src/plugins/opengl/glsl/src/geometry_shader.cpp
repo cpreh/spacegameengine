@@ -18,30 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_SHADER_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_SHADER_TYPE_HPP_INCLUDED
+#include "../geometry_shader.hpp"
+#include "../shader_type.hpp"
+#include <fcppt/text.hpp>
 
-namespace sge
+sge::opengl::glsl::shader_type::type
+sge::opengl::glsl::geometry_shader::shader_type()
 {
-namespace opengl
-{
-namespace glsl
-{
-
-namespace shader_type
-{
-enum type
-{
-	pixel,
-	vertex,
-	geometry,
-	size
-};
+	return shader_type::geometry;
 }
 
+fcppt::string const
+sge::opengl::glsl::geometry_shader::shader_name()
+{
+	return FCPPT_TEXT("geometry");
 }
-}
-}
-
-
-#endif

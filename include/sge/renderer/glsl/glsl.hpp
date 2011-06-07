@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/create_program_from_strings.hpp>
 #include <sge/renderer/glsl/exception.hpp>
 #include <sge/renderer/glsl/from_fcppt_string.hpp>
+#include <sge/renderer/glsl/geometry_shader.hpp>
+#include <sge/renderer/glsl/geometry_shader_fwd.hpp>
+#include <sge/renderer/glsl/geometry_shader_ptr.hpp>
 #include <sge/renderer/glsl/int_type.hpp>
 #include <sge/renderer/glsl/istream.hpp>
 #include <sge/renderer/glsl/istream_ref.hpp>

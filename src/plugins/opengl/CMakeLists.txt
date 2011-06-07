@@ -176,11 +176,13 @@ SET(
 	src/plugins/opengl/glsl/attachment_fwd.hpp
 	src/plugins/opengl/glsl/context.hpp
 	src/plugins/opengl/glsl/context_fwd.hpp
+	src/plugins/opengl/glsl/create_geometry_shader.hpp
 	src/plugins/opengl/glsl/create_pixel_shader.hpp
 	src/plugins/opengl/glsl/create_program.hpp
 	src/plugins/opengl/glsl/create_shader.hpp
 	src/plugins/opengl/glsl/create_vertex_shader.hpp
 	src/plugins/opengl/glsl/format_error.hpp
+	src/plugins/opengl/glsl/geometry_shader.hpp
 	src/plugins/opengl/glsl/handle.hpp
 	src/plugins/opengl/glsl/instantiate.hpp
 	src/plugins/opengl/glsl/make_shader_type.hpp
@@ -250,10 +252,12 @@ SET(
 	src/plugins/opengl/glsl/shaderfuncs/src/source.cpp
 	src/plugins/opengl/glsl/src/attachment.cpp
 	src/plugins/opengl/glsl/src/context.cpp
+	src/plugins/opengl/glsl/src/create_geometry_shader.cpp
 	src/plugins/opengl/glsl/src/create_pixel_shader.cpp
 	src/plugins/opengl/glsl/src/create_program.cpp
 	src/plugins/opengl/glsl/src/create_shader.cpp
 	src/plugins/opengl/glsl/src/create_vertex_shader.cpp
+	src/plugins/opengl/glsl/src/geometry_shader.cpp
 	src/plugins/opengl/glsl/src/make_shader_type.cpp
 	src/plugins/opengl/glsl/src/pixel_shader.cpp
 	src/plugins/opengl/glsl/src/program.cpp

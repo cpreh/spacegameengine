@@ -26,11 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shaderfuncs/info_log.hpp"
 #include "../shaderfuncs/info_log_length.hpp"
 #include "../format_error.hpp"
+#include "../geometry_shader.hpp"
 #include "../instantiate.hpp"
-#include "../vertex_shader.hpp"
-#include "../pixel_shader.hpp"
 #include "../make_shader_type.hpp"
+#include "../pixel_shader.hpp"
 #include "../shader_contexts.hpp"
+#include "../vertex_shader.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>
@@ -156,6 +157,10 @@ SGE_OPENGL_GLSL_INSTANTIATE_SHADER_CONCRETE(\
 )\
 SGE_OPENGL_GLSL_INSTANTIATE_SHADER_CONCRETE(\
 	sge::opengl::glsl::pixel_shader,\
+	env\
+)\
+SGE_OPENGL_GLSL_INSTANTIATE_SHADER_CONCRETE(\
+	sge::opengl::glsl::geometry_shader,\
 	env\
 )
 

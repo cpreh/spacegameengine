@@ -66,6 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/glsl/geometry_shader_ptr.hpp>
 #include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
@@ -234,6 +235,11 @@ public:
 
 	renderer::glsl::pixel_shader_ptr const
 	create_glsl_pixel_shader(
+		renderer::glsl::string const &
+	);
+
+	renderer::glsl::geometry_shader_ptr const
+	create_glsl_geometry_shader(
 		renderer::glsl::string const &
 	);
 

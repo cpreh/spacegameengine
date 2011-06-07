@@ -88,6 +88,9 @@ public:
 	pixel_shader_type() const;
 
 	GLenum
+	geometry_shader_type() const;
+
+	GLenum
 	compile_status_type() const;
 
 	GLenum
@@ -112,6 +115,7 @@ private:
 	GLenum const
 		vertex_shader_type_,
 		pixel_shader_type_,
+		geometry_shader_type_,
 		compile_status_type_,
 		info_log_length_type_;
 };

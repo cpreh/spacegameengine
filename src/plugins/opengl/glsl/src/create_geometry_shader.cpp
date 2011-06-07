@@ -18,30 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_SHADER_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_SHADER_TYPE_HPP_INCLUDED
+#include "../create_geometry_shader.hpp"
+#include "../geometry_shader.hpp"
+#include "../create_shader.hpp"
 
-namespace sge
+sge::renderer::glsl::geometry_shader_ptr const
+sge::opengl::glsl::create_geometry_shader(
+	opengl::context::object &_context,
+	sge::renderer::glsl::string const &_source
+)
 {
-namespace opengl
-{
-namespace glsl
-{
-
-namespace shader_type
-{
-enum type
-{
-	pixel,
-	vertex,
-	geometry,
-	size
-};
+	return
+		opengl::glsl::create_shader<
+			opengl::glsl::geometry_shader	
+		>(
+			_context,
+			_source
+		);
 }
-
-}
-}
-}
-
-
-#endif

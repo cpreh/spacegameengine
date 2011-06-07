@@ -486,6 +486,9 @@ SET(
 	include/sge/renderer/glsl/create_program_from_strings.hpp
 	include/sge/renderer/glsl/exception.hpp
 	include/sge/renderer/glsl/from_fcppt_string.hpp
+	include/sge/renderer/glsl/geometry_shader.hpp
+	include/sge/renderer/glsl/geometry_shader_fwd.hpp
+	include/sge/renderer/glsl/geometry_shader_ptr.hpp
 	include/sge/renderer/glsl/glsl.hpp
 	include/sge/renderer/glsl/int_type.hpp
 	include/sge/renderer/glsl/istream.hpp
@@ -1069,6 +1072,7 @@ SET(
 	src/renderer/glsl/create_program_from_strings.cpp
 	src/renderer/glsl/exception.cpp
 	src/renderer/glsl/from_fcppt_string.cpp
+	src/renderer/glsl/geometry_shader.cpp
 	src/renderer/glsl/no_program.cpp
 	src/renderer/glsl/pixel_shader.cpp
 	src/renderer/glsl/program.cpp

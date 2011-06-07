@@ -43,6 +43,9 @@ sge::opengl::glsl::make_shader_type(
 	case shader_type::pixel:
 		return
 			_context.pixel_shader_type();
+	case shader_type::geometry:
+		return
+			_context.geometry_shader_type();
 	case shader_type::size:
 		break;
 	}

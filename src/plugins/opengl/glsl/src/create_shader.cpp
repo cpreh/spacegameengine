@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../create_shader.hpp"
-#include "../shader.hpp"
 #include "../context.hpp"
-#include "../vertex_shader.hpp"
+#include "../geometry_shader.hpp"
 #include "../pixel_shader.hpp"
+#include "../shader.hpp"
+#include "../vertex_shader.hpp"
 #include "../native/environment.hpp"
 #include "../arb/environment.hpp"
 #include "../../context/use.hpp"
@@ -100,6 +101,10 @@ SGE_OPENGL_GLSL_CREATE_SHADER(
 
 SGE_OPENGL_GLSL_CREATE_SHADER(
 	sge::opengl::glsl::pixel_shader
+)
+
+SGE_OPENGL_GLSL_CREATE_SHADER(
+	sge::opengl::glsl::geometry_shader
 )
 
 #undef SGE_OPENGL_GLSL_CREATE_SHADER

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context/object_fwd.hpp"
 #include "../common.hpp"
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
+#include <sge/renderer/glsl/geometry_shader_ptr.hpp>
 #include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/string.hpp>
@@ -92,6 +93,11 @@ private:
 	);
 
 	void
+	geometry_shader(
+		sge::renderer::glsl::geometry_shader_ptr
+	);
+
+	void
 	color_surface_location(
 		renderer::stage_type,
 		renderer::glsl::string const &
@@ -141,7 +147,8 @@ private:
 
 	attachment_ptr
 		vertex_shader_,
-		pixel_shader_;
+		pixel_shader_,
+		geometry_shader_;
 };
 
 }

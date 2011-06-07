@@ -48,6 +48,9 @@ sge::opengl::glsl::native::shader_context::shader_context()
 	pixel_shader_type_(
 		GL_FRAGMENT_SHADER
 	),
+	geometry_shader_type_(
+		GL_GEOMETRY_SHADER
+	),
 	compile_status_type_(
 		GL_COMPILE_STATUS
 	),
@@ -105,6 +108,12 @@ GLenum
 sge::opengl::glsl::native::shader_context::pixel_shader_type() const
 {
 	return pixel_shader_type_;
+}
+
+GLenum
+sge::opengl::glsl::native::shader_context::geometry_shader_type() const
+{
+	return geometry_shader_type_;
 }
 
 GLenum

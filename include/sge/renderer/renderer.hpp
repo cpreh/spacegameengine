@@ -149,6 +149,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/vf/vf.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 
