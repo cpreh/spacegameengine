@@ -18,37 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SHADER_VALUE_TYPE_HPP_INCLUDED
-#define SGE_SHADER_VALUE_TYPE_HPP_INCLUDED
+#include <sge/shader/update_single_uniform.hpp>
+#include <sge/shader/scoped.hpp>
+#include <sge/shader/activation_method.hpp>
+#include <sge/shader/object.hpp>
 
-#include <sge/shader/scalar.hpp>
-#include <sge/shader/vec2.hpp>
-#include <sge/shader/vec3.hpp>
-#include <sge/shader/vec4.hpp>
-#include <sge/shader/mat4.hpp>
-#include <fcppt/variant/object_decl.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-
-namespace sge
+void
+sge::shader::update_single_uniform(
+	shader::object &s,
+	renderer::glsl::string const &name,
+	value_type const &value)
 {
-namespace shader
-{
-typedef
-fcppt::variant::object
-<
-	boost::mpl::vector7
-	<
-		vec2,
-		vec3,
-		vec4,
-		mat4,
-		scalar,
-		int,
-		bool
-	>
->
-value_type;
-}
-}
+	shader::scoped scope(
+		s,
+		shader::activation_method::bare);
 
-#endif
+	s.update_uniform(
+		name,
+		value);
+}

@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/scoped.hpp>
 #include <sge/shader/symbol.hpp>
 #include <sge/shader/texture_variant.hpp>
+#include <sge/shader/update_single_uniform.hpp>
 #include <sge/shader/value_type.hpp>
 #include <sge/shader/variable.hpp>
 #include <sge/shader/variable_sequence.hpp>

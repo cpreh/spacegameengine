@@ -92,6 +92,15 @@ public:
 			*variable_,
 			_value);
 	}
+
+	result_type
+	operator()(bool const _value) const
+	{
+		sge::renderer::glsl::uniform::single_value(
+			*variable_,
+			static_cast<int>(
+				_value));
+	}
 };
 }
 

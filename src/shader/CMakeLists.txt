@@ -1,5 +1,6 @@
 SET(
 	SGE_SHADER_FILES
+	include/sge/shader/activation_method.hpp
 	include/sge/shader/detail/all_parts.hpp
 	include/sge/shader/detail/copy_parts.hpp
 	include/sge/shader/format_printer.hpp
@@ -16,6 +17,7 @@ SET(
 	include/sge/shader/shader.hpp
 	include/sge/shader/symbol.hpp
 	include/sge/shader/texture_variant.hpp
+	include/sge/shader/update_single_uniform.hpp
 	include/sge/shader/value_type.hpp
 	include/sge/shader/variable.hpp
 	include/sge/shader/variable_sequence.hpp
@@ -30,6 +32,7 @@ SET(
 	src/shader/object_parameters.cpp
 	src/shader/sampler.cpp
 	src/shader/scoped.cpp
+	src/shader/update_single_uniform.cpp
 	src/shader/variable.cpp
 )
 
