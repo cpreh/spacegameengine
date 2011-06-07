@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_SHADER_HPP_INCLUDED
 #define SGE_SHADER_SHADER_HPP_INCLUDED
 
+#include <sge/shader/activation_method.hpp>
 #include <sge/shader/format_printer.hpp>
 #include <sge/shader/mat4.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/shader/object_fwd.hpp>
+#include <sge/shader/object_parameters.hpp>
+#include <sge/shader/object_parameters_fwd.hpp>
 #include <sge/shader/object_ptr.hpp>
 #include <sge/shader/sampler.hpp>
 #include <sge/shader/sampler_sequence.hpp>
@@ -40,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/vec3.hpp>
 #include <sge/shader/vec4.hpp>
 #include <sge/shader/vector_to_string.hpp>
+#include <sge/shader/vertex_format_string.hpp>
 #include <sge/shader/vf_to_string.hpp>
 
 #endif
