@@ -187,6 +187,11 @@ public:
 		renderer::glsl::string const &
 	);
 
+	renderer::glsl::geometry_shader_ptr const
+	create_glsl_geometry_shader(
+		renderer::glsl::string const &
+	);
+
 	void
 	glsl_program(
 		renderer::glsl::program const *

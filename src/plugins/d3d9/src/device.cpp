@@ -553,6 +553,16 @@ sge::d3d9::device::create_glsl_pixel_shader(
 	);
 }
 
+sge::renderer::glsl::geometry_shader_ptr const
+sge::d3d9::device::create_glsl_geometry_shader(
+	renderer::glsl::string const &
+)
+{
+	throw sge::renderer::exception(
+		FCPPT_TEXT("glsl not supported for d3d9!")
+	);
+}
+
 void
 sge::d3d9::device::glsl_program(
 	renderer::glsl::program const *
