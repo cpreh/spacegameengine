@@ -22,15 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/object.hpp>
 
 sge::shader::scoped::scoped(
-	object &_object)
+	shader::object &_object,
+	shader::activation_method::type const _type)
 :
 	object_(
-		_object)
+		_object),
+	type_(
+		_type)
 {
-	object_.activate();
+	object_.activate(
+		type_);
 }
 
 sge::shader::scoped::~scoped()
 {
-	object_.deactivate();
+	object_.deactivate(
+		type_);
 }

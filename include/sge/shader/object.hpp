@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_OBJECT_HPP_INCLUDED
 
 #include <sge/shader/symbol.hpp>
+#include <sge/shader/activation_method.hpp>
 #include <sge/shader/value_type.hpp>
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/object_parameters_fwd.hpp>
@@ -63,11 +64,13 @@ public:
 
 	// This is called by the scoped class, but you may call it manually, too
 	SGE_SHADER_SYMBOL void
-	activate();
+	activate(
+		shader::activation_method::type);
 
 	// This is called by the scoped class, but you may call it manually, too
 	SGE_SHADER_SYMBOL void
-	deactivate();
+	deactivate(
+		shader::activation_method::type);
 
 	// noncopyable classes are supposed to have a destructor
 	SGE_SHADER_SYMBOL ~object();

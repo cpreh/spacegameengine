@@ -297,11 +297,15 @@ sge::shader::object::program()
 }
 
 void
-sge::shader::object::activate()
+sge::shader::object::activate(
+	shader::activation_method::type const t)
 {
 	renderer_.glsl_program(
 		program_.get());
-	
+
+	if(t != shader::activation_method::with_textures)
+		return;
+
 	for(
 		sampler_sequence::const_iterator it(
 			samplers_.begin()
@@ -318,10 +322,14 @@ sge::shader::object::activate()
 }
 
 void
-sge::shader::object::deactivate()
+sge::shader::object::deactivate(
+	shader::activation_method::type const t)
 {
 	renderer_.glsl_program(
 		sge::renderer::glsl::no_program());
+
+	if(t != shader::activation_method::with_textures)
+		return;
 	
 	for(
 		sampler_sequence::const_iterator it(

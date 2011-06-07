@@ -127,6 +127,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/variable_type.hpp>
 #include <sge/shader/vf_to_string.hpp>
+#include <sge/shader/activation_method.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -301,7 +302,8 @@ fill_vb_with_cube(
 	// Since we're using unspecified attributes (which are, in a way,
 	// "bound" to the shader), we have to activate it here.
 	sge::shader::scoped scoped_shader(
-		shader);
+		shader,
+		sge::shader::activation_method::bare);
 
 	// Then we lock the vertex buffer for writing. When this lock is
 	// released, the data is sent the GPU.
@@ -799,7 +801,8 @@ toggle_bumpmapping(
 	bool &enabled)
 {
 	sge::shader::scoped scoped_shader(
-		shader);
+		shader,
+		sge::shader::activation_method::bare);
 	enabled = !enabled;
 	shader.update_uniform(
 		"enabled",
@@ -1055,7 +1058,8 @@ try
 
 		{
 			sge::shader::scoped scoped_shader(
-				shader);
+				shader,
+				sge::shader::activation_method::with_textures);
 
 			sge::renderer::scoped_vertex_declaration const vb_declaration_context(
 				sys.renderer(),

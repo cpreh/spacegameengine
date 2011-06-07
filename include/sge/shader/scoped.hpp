@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_SCOPED_HPP_INCLUDED
 
 #include <sge/shader/symbol.hpp>
+#include <sge/shader/activation_method.hpp>
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -31,15 +32,18 @@ namespace shader
 {
 class scoped
 {
-FCPPT_NONCOPYABLE(scoped);
+FCPPT_NONCOPYABLE(
+	scoped);
 public:
 	SGE_SHADER_SYMBOL explicit
 	scoped(
-		object &);
+		shader::object &,
+		shader::activation_method::type);
 
 	SGE_SHADER_SYMBOL ~scoped();
 private:
-	object &object_;
+	shader::object &object_;
+	shader::activation_method::type const type_;
 };
 }
 }

@@ -75,6 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/scoped.hpp>
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/sampler_sequence.hpp>
+#include <sge/shader/activation_method.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
@@ -182,7 +183,8 @@ create_quad(
 			sge::renderer::resource_flags::none));
 	
 	sge::shader::scoped scoped_shader(
-		shader);
+		shader,
+		sge::shader::activation_method::bare);
 	
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer,
@@ -367,7 +369,8 @@ try
 			sys.renderer());
 
 		sge::shader::scoped scoped_shader(
-			shader_);
+			shader_,
+			sge::shader::activation_method::with_textures);
 
 		sge::renderer::scoped_vertex_buffer const scoped_vb_(
 			sys.renderer(),
