@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/shader/symbol.hpp>
 #include <sge/shader/value_type.hpp>
-#include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/sampler_sequence.hpp>
+#include <sge/shader/object_parameters_fwd.hpp>
 #include <sge/shader/texture_variant.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <boost/unordered_map.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -47,12 +46,7 @@ public:
 	// files. There could be stream support, too. It's just laziness
 	SGE_SHADER_SYMBOL explicit
 	object(
-		renderer::device &,
-		fcppt::filesystem::path const &vertex,
-		fcppt::filesystem::path const &fragment,
-		renderer::glsl::string const &format_declaration,
-		variable_sequence const &variables,
-		sampler_sequence const &samplers);
+		shader::object_parameters const &);
 
 	SGE_SHADER_SYMBOL void
 	update_uniform(

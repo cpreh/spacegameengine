@@ -68,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/default_equal.hpp>
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/shader/object_parameters.hpp>
 #include <sge/shader/variable.hpp>
 #include <sge/shader/variable_type.hpp>
 #include <sge/shader/sampler.hpp>
@@ -327,20 +328,21 @@ try
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
 	sge::shader::object shader_(
-		sys.renderer(),
-		sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
-		sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_fragment.glsl"),
-		sge::shader::vf_to_string<screen_vf::format>(),
-		fcppt::assign::make_container<sge::shader::variable_sequence>(
-			sge::shader::variable(
-				"target_size",
-				sge::shader::variable_type::const_,
-				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					window_dim))),
-		fcppt::assign::make_container<sge::shader::sampler_sequence>(
-			sge::shader::sampler(
-				"tex",
-				sge::renderer::texture::planar_ptr())));
+		sge::shader::object_parameters(
+			sys.renderer(),
+			sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
+			sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_fragment.glsl"),
+			sge::shader::vf_to_string<screen_vf::format>(),
+			fcppt::assign::make_container<sge::shader::variable_sequence>(
+				sge::shader::variable(
+					"target_size",
+					sge::shader::variable_type::const_,
+					fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+						window_dim))),
+			fcppt::assign::make_container<sge::shader::sampler_sequence>(
+				sge::shader::sampler(
+					"tex",
+					sge::renderer::texture::planar_ptr()))));
 
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(

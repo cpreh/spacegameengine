@@ -6,6 +6,8 @@ SET(
 	include/sge/shader/mat4.hpp
 	include/sge/shader/object.hpp
 	include/sge/shader/object_fwd.hpp
+	include/sge/shader/object_parameters.hpp
+	include/sge/shader/object_parameters_fwd.hpp
 	include/sge/shader/object_ptr.hpp
 	include/sge/shader/sampler.hpp
 	include/sge/shader/sampler_sequence.hpp
@@ -22,8 +24,10 @@ SET(
 	include/sge/shader/vec3.hpp
 	include/sge/shader/vec4.hpp
 	include/sge/shader/vector_to_string.hpp
+	include/sge/shader/vertex_format_string.hpp
 	include/sge/shader/vf_to_string.hpp
 	src/shader/object.cpp
+	src/shader/object_parameters.cpp
 	src/shader/sampler.cpp
 	src/shader/scoped.cpp
 	src/shader/variable.cpp

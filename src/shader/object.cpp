@@ -18,19 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/shader/object.hpp>
 #include <sge/exception.hpp>
+#include <sge/log/global.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/glsl/create_program_from_strings.hpp>
+#include <sge/renderer/glsl/no_program.hpp>
 #include <sge/renderer/glsl/optional_string.hpp>
+#include <sge/renderer/glsl/program.hpp>
+#include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
-#include <sge/renderer/glsl/program.hpp>
-#include <sge/renderer/glsl/no_program.hpp>
-#include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/no_texture.hpp>
-#include <sge/log/global.hpp>
+#include <sge/shader/object.hpp>
+#include <sge/shader/object_parameters.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -95,44 +96,39 @@ public:
 }
 
 sge::shader::object::object(
-	renderer::device &_renderer,
-	fcppt::filesystem::path const &vertex,
-	fcppt::filesystem::path const &fragment,
-	renderer::glsl::string const &format_declaration,
-	variable_sequence const &_variables,
-	sampler_sequence const &_samplers)
+	shader::object_parameters const &p)
 :
 	renderer_(
-		_renderer)
+		p.renderer())
 {
-	if (!fcppt::filesystem::exists(vertex))
+	if (!fcppt::filesystem::exists(p.vertex_file()))
 		throw exception(
 			FCPPT_TEXT("Vertex shader file\n")+
 			fcppt::filesystem::path_to_string(
-				vertex
+				p.vertex_file()
 			)
 			+
 			FCPPT_TEXT("\ndoes not exist!"));
 	
-	if (!fcppt::filesystem::exists(fragment))
+	if (!fcppt::filesystem::exists(p.fragment_file()))
 		throw exception(
 			FCPPT_TEXT("Fragment shader file\n")+
 			fcppt::filesystem::path_to_string(
-				fragment
+				p.fragment_file()
 			)
 			+
 			FCPPT_TEXT("\ndoes not exist!"));
 
 	renderer::glsl::string const header = 
 		boost::accumulate(
-			_variables,
+			p.variables(),
 			sge::renderer::glsl::string(),
 			boost::phoenix::arg_names::arg1 + 
 				boost::phoenix::bind(
 					&variable::declaration,
 					boost::phoenix::arg_names::arg2)) +
 		boost::accumulate(
-			_samplers,
+			p.samplers(),
 			sge::renderer::glsl::string(),
 			boost::phoenix::arg_names::arg1 + 
 				boost::phoenix::bind(
@@ -147,14 +143,14 @@ sge::shader::object::object(
 				sge::renderer::glsl::optional_string(
 					boost::algorithm::replace_first_copy(
 						::file_to_string(
-							vertex),
+							p.vertex_file()),
 						std::string("$$$HEADER$$$"),
-						format_declaration
+						p.vertex_format_string().get()
 						+ header)),
 				sge::renderer::glsl::optional_string(
 					boost::algorithm::replace_first_copy(
 						::file_to_string(
-							fragment),
+							p.fragment_file()),
 						std::string("$$$HEADER$$$"),
 						header)));
 	}
@@ -164,10 +160,10 @@ sge::shader::object::object(
 			sge::exception(
 				FCPPT_TEXT("Shader error for shaders: \n")+
 				fcppt::filesystem::path_to_string(
-					vertex)+
+					p.vertex_file())+
 				FCPPT_TEXT("\n")+
 				fcppt::filesystem::path_to_string(
-					fragment)+
+					p.fragment_file())+
 				FCPPT_TEXT("\n")+
 				e.string());
 	}
@@ -178,9 +174,9 @@ sge::shader::object::object(
 
 	for(
 		variable_sequence::const_iterator it(
-			_variables.begin()
+			p.variables().begin()
 		);
-		it != _variables.end();
+		it != p.variables().end();
 		++it
 	)
 	{
@@ -212,9 +208,9 @@ sge::shader::object::object(
 	
 	for(
 		sampler_sequence::const_iterator it(
-			_samplers.begin()
+			p.samplers().begin()
 		);
-		it != _samplers.end();
+		it != p.samplers().end();
 		++it
 	)
 	{

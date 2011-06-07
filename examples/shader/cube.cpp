@@ -120,6 +120,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/shader/object_parameters.hpp>
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/scoped.hpp>
 #include <sge/shader/variable.hpp>
@@ -936,44 +937,45 @@ try
 
 	// Ah, the shader object 
 	sge::shader::object shader(
-		sys.renderer(),
-		sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("cube_vertex.glsl"),
-		sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("cube_fragment.glsl"),
-		// This turns the vertex format we defined above into a glsl
-		// variable declaration which replaces the '$$$HEADER$$$' magic
-		// string in the glsl files (not completely though, HEADER also
-		// contains the uniform variables and constants as well as the
-		// sampler declarations)
-		sge::shader::vf_to_string<vf::format>(),
-		fcppt::assign::make_container<sge::shader::variable_sequence>
-			(sge::shader::variable(
-				"mvp",
-				sge::shader::variable_type::uniform,
-				sge::renderer::matrix4::identity()))
-			(sge::shader::variable(
-				"radius",
-				sge::shader::variable_type::const_,
-				static_cast<sge::renderer::scalar>(
-					4)))
-			// There's no "bool" support for shader variables, so we use an
-			// integer here
-			(sge::shader::variable(
-				"enabled",
-				sge::shader::variable_type::uniform,
-				1))
-			(sge::shader::variable(
-				"light_position",
-				sge::shader::variable_type::uniform,
-				sge::renderer::vector3::null())),
-		// Two textures. They'll be assigned to a uniform variable index
-		// automatically.
-		fcppt::assign::make_container<sge::shader::sampler_sequence>
-			(sge::shader::sampler(
-				"normal_texture",
-				normal_texture))
-			(sge::shader::sampler(
-				"color_texture",
-				color_texture)));
+		sge::shader::object_parameters(
+			sys.renderer(),
+			sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("cube_vertex.glsl"),
+			sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("cube_fragment.glsl"),
+			// This turns the vertex format we defined above into a glsl
+			// variable declaration which replaces the '$$$HEADER$$$' magic
+			// string in the glsl files (not completely though, HEADER also
+			// contains the uniform variables and constants as well as the
+			// sampler declarations)
+			sge::shader::vf_to_string<vf::format>(),
+			fcppt::assign::make_container<sge::shader::variable_sequence>
+				(sge::shader::variable(
+					"mvp",
+					sge::shader::variable_type::uniform,
+					sge::renderer::matrix4::identity()))
+				(sge::shader::variable(
+					"radius",
+					sge::shader::variable_type::const_,
+					static_cast<sge::renderer::scalar>(
+						4)))
+				// There's no "bool" support for shader variables, so we use an
+				// integer here
+				(sge::shader::variable(
+					"enabled",
+					sge::shader::variable_type::uniform,
+					1))
+				(sge::shader::variable(
+					"light_position",
+					sge::shader::variable_type::uniform,
+					sge::renderer::vector3::null())),
+			// Two textures. They'll be assigned to a uniform variable index
+			// automatically.
+			fcppt::assign::make_container<sge::shader::sampler_sequence>
+				(sge::shader::sampler(
+					"normal_texture",
+					normal_texture))
+				(sge::shader::sampler(
+					"color_texture",
+					color_texture))));
 
 	bool enabled = 
 		true;
