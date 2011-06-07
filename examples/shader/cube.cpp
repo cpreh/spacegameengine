@@ -120,6 +120,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/shader/update_single_uniform.hpp>
 #include <sge/shader/object_parameters.hpp>
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/scoped.hpp>
@@ -800,11 +801,8 @@ toggle_bumpmapping(
 	sge::shader::object &shader,
 	bool &enabled)
 {
-	sge::shader::scoped scoped_shader(
+	sge::shader::update_single_uniform(
 		shader,
-		sge::shader::activation_method::bare);
-	enabled = !enabled;
-	shader.update_uniform(
 		"enabled",
 		enabled ? 1 : 0);
 }
