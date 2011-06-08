@@ -47,6 +47,9 @@ class system_base
 public:
 	sge::renderer::device &
 	renderer() const;
+
+	sge::renderer::vertex_declaration const *
+	vertex_declaration() const;
 protected:
 	explicit system_base(
 		sge::renderer::device &
@@ -61,9 +64,6 @@ protected:
 
 	sge::renderer::vertex_buffer *
 	vertex_buffer();
-
-	sge::renderer::vertex_declaration const *
-	vertex_declaration() const;
 
 	sge::renderer::index_buffer *
 	index_buffer();

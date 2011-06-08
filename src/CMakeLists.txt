@@ -482,8 +482,7 @@ SET(
 	include/sge/renderer/first_index.hpp
 	include/sge/renderer/first_vertex.hpp
 	include/sge/renderer/glsl/char.hpp
-	include/sge/renderer/glsl/create_program_from_streams.hpp
-	include/sge/renderer/glsl/create_program_from_strings.hpp
+	include/sge/renderer/glsl/create_program.hpp
 	include/sge/renderer/glsl/exception.hpp
 	include/sge/renderer/glsl/from_fcppt_string.hpp
 	include/sge/renderer/glsl/geometry_shader.hpp
@@ -491,16 +490,14 @@ SET(
 	include/sge/renderer/glsl/geometry_shader_ptr.hpp
 	include/sge/renderer/glsl/glsl.hpp
 	include/sge/renderer/glsl/int_type.hpp
-	include/sge/renderer/glsl/istream.hpp
-	include/sge/renderer/glsl/istream_ref.hpp
 	include/sge/renderer/glsl/no_program.hpp
-	include/sge/renderer/glsl/optional_istream.hpp
-	include/sge/renderer/glsl/optional_string.hpp
 	include/sge/renderer/glsl/pixel_shader.hpp
 	include/sge/renderer/glsl/pixel_shader_fwd.hpp
 	include/sge/renderer/glsl/pixel_shader_ptr.hpp
 	include/sge/renderer/glsl/program.hpp
 	include/sge/renderer/glsl/program_fwd.hpp
+	include/sge/renderer/glsl/program_parameters.hpp
+	include/sge/renderer/glsl/program_parameters_fwd.hpp
 	include/sge/renderer/glsl/program_ptr.hpp
 	include/sge/renderer/glsl/scoped_program.hpp
 	include/sge/renderer/glsl/shader.hpp
@@ -1068,14 +1065,14 @@ SET(
 	src/renderer/device.cpp
 	src/renderer/display_mode.cpp
 	src/renderer/exception.cpp
-	src/renderer/glsl/create_program_from_streams.cpp
-	src/renderer/glsl/create_program_from_strings.cpp
+	src/renderer/glsl/create_program.cpp
 	src/renderer/glsl/exception.cpp
 	src/renderer/glsl/from_fcppt_string.cpp
 	src/renderer/glsl/geometry_shader.cpp
 	src/renderer/glsl/no_program.cpp
 	src/renderer/glsl/pixel_shader.cpp
 	src/renderer/glsl/program.cpp
+	src/renderer/glsl/program_parameters.cpp
 	src/renderer/glsl/scoped_program.cpp
 	src/renderer/glsl/shader.cpp
 	src/renderer/glsl/uniform/basic_value_impl.hpp

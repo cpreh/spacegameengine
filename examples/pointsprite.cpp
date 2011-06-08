@@ -35,8 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
-#include <sge/renderer/glsl/create_program_from_streams.hpp>
-#include <sge/renderer/glsl/istream_ref.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
@@ -465,6 +463,7 @@ try
 		/ FCPPT_TEXT("shaders")
 		/ FCPPT_TEXT("pointsprite_vertex.glsl"));
 
+#if 0
 	sge::renderer::glsl::program_ptr const p(
 		sge::renderer::glsl::create_program_from_streams(
 			sys.renderer(),
@@ -530,6 +529,7 @@ try
 		ps.update();
 		ps.render();
 	}
+#endif
 
 }
 catch(

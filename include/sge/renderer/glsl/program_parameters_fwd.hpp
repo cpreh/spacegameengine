@@ -18,11 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_OPTIONAL_ISTREAM_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_OPTIONAL_ISTREAM_HPP_INCLUDED
-
-#include <sge/renderer/glsl/istream_ref.hpp>
-#include <fcppt/optional_fwd.hpp>
+#ifndef SGE_RENDERER_GLSL_PROGRAM_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_PROGRAM_PARAMETERS_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -31,9 +28,7 @@ namespace renderer
 namespace glsl
 {
 
-typedef fcppt::optional<
-	istream_ref
-> optional_istream;
+class program_parameters;
 
 }
 }

@@ -41,8 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
-#include <sge/renderer/glsl/create_program_from_streams.hpp>
+#include <sge/renderer/glsl/create_program.hpp>
 #include <sge/renderer/glsl/program.hpp>
+#include <sge/renderer/glsl/program_parameters.hpp>
 #include <sge/renderer/glsl/no_program.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/log/global.hpp>
@@ -84,6 +85,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cifstream.hpp>
+#include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/ref.hpp>
@@ -461,13 +463,19 @@ try
 	);
 
 	sge::renderer::glsl::program_ptr const p(
-		sge::renderer::glsl::create_program_from_streams(
+		sge::renderer::glsl::create_program(
 			sys.renderer(),
-			sge::renderer::glsl::istream_ref(
-				vertex_stream
-			),
-			sge::renderer::glsl::istream_ref(
-				fragment_stream
+			sge::renderer::glsl::program_parameters()
+			.vertex_shader(
+				*ss.vertex_declaration(),
+				fcppt::io::stream_to_string(
+					vertex_stream
+				)
+			)
+			.pixel_shader(
+				fcppt::io::stream_to_string(
+					fragment_stream
+				)
 			)
 		)
 	);

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_CREATE_PROGRAM_FROM_STRINGS_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_CREATE_PROGRAM_FROM_STRINGS_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_CREATE_PROGRAM_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_CREATE_PROGRAM_HPP_INCLUDED
 
 #include <sge/renderer/glsl/program_ptr.hpp>
-#include <sge/renderer/glsl/optional_string.hpp>
+#include <sge/renderer/glsl/program_parameters_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/symbol.hpp>
 
@@ -35,10 +35,9 @@ namespace glsl
 
 SGE_SYMBOL
 glsl::program_ptr const
-create_program_from_strings(
+create_program(
 	sge::renderer::device &,
-	glsl::optional_string const &vertex_shader_source,
-	glsl::optional_string const &pixel_shader_source
+	glsl::program_parameters const &
 );
 
 }

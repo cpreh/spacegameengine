@@ -39,6 +39,18 @@ sge::sprite::system_base<Choices>::renderer() const
 template<
 	typename Choices
 >
+sge::renderer::vertex_declaration const *
+sge::sprite::system_base<Choices>::vertex_declaration() const
+{
+	return
+		buffers_. template get<
+			detail::roles::vertex_buffer
+		>().first.get();
+}
+
+template<
+	typename Choices
+>
 sge::sprite::system_base<Choices>::system_base(
 	renderer::device &_rend
 )
@@ -94,18 +106,6 @@ sge::sprite::system_base<Choices>::vertex_buffer()
 		buffers_. template get<
 			detail::roles::vertex_buffer
 		>().second.get();
-}
-
-template<
-	typename Choices
->
-sge::renderer::vertex_declaration const *
-sge::sprite::system_base<Choices>::vertex_declaration() const
-{
-	return
-		buffers_. template get<
-			detail::roles::vertex_buffer
-		>().first.get();
 }
 
 template<

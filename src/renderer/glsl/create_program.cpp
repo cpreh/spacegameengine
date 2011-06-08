@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/glsl/create_program_from_strings.hpp>
+#include <sge/renderer/glsl/create_program.hpp>
 #include <sge/renderer/glsl/program.hpp>
+#include <sge/renderer/glsl/program_parameters.hpp>
+#include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/device.hpp>
 #include <fcppt/optional_impl.hpp>
 
 sge::renderer::glsl::program_ptr const
-sge::renderer::glsl::create_program_from_strings(
+sge::renderer::glsl::create_program(
 	sge::renderer::device &_device,
-	glsl::optional_string const &_vertex_shader_source,
-	glsl::optional_string const &_pixel_shader_source
+	glsl::program_parameters const &_parameters
 )
 {
 	glsl::program_ptr const ret(
@@ -35,20 +36,38 @@ sge::renderer::glsl::create_program_from_strings(
 	);
 
 	if(
-		_vertex_shader_source
+		glsl::program_parameters::optional_vertex_shader vertex_shader =
+			_parameters.vertex_shader()
 	)
+	{
+		ret->vertex_declaration(
+			*vertex_shader->first
+		);
+
 		ret->vertex_shader(
 			_device.create_glsl_vertex_shader(
-				*_vertex_shader_source
+				vertex_shader->second
 			)
 		);
+	}
 	
 	if(
-		_pixel_shader_source
+		glsl::program_parameters::optional_string const pixel_shader_source =
+			_parameters.pixel_shader()
 	)
 		ret->pixel_shader(
 			_device.create_glsl_pixel_shader(
-				*_pixel_shader_source
+				*pixel_shader_source
+			)
+		);
+
+	if(
+		glsl::program_parameters::optional_string const geometry_shader_source =
+			_parameters.geometry_shader()
+	)
+		ret->geometry_shader(
+			_device.create_glsl_geometry_shader(
+				*geometry_shader_source
 			)
 		);
 
