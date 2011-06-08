@@ -197,7 +197,7 @@ sge::sprite::intrusive::system<Choices>::render_list(
 
 	renderer::scoped_vertex_declaration const vb_declaration(
 		base::renderer(),
-		*base::vertex_declaration()
+		base::vertex_declaration()
 	);
 
 	renderer::scoped_vertex_buffer const vb_context(

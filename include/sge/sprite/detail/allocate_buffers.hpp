@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/allocate_vertex_buffer.hpp>
 #include <sge/sprite/with_dim.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -38,7 +39,6 @@ namespace detail
 
 template<
 	typename Elements,
-	typename DynVertex,
 	typename Buffers
 >
 typename boost::enable_if<
@@ -50,7 +50,7 @@ typename boost::enable_if<
 >::type
 allocate_buffers(
 	sge::renderer::device &_renderer,
-	DynVertex const &_format,
+	sge::renderer::vertex_declaration const &_vertex_declaration,
 	sge::renderer::size_type const _num_sprites,
 	Buffers &_buffers
 )
@@ -59,7 +59,7 @@ allocate_buffers(
 		Elements
 	>(
 		_renderer,
-		_format,
+		_vertex_declaration,
 		_num_sprites,
 		_buffers
 	);
@@ -75,7 +75,6 @@ allocate_buffers(
 
 template<
 	typename Elements,
-	typename DynVertex,
 	typename Buffers
 >
 typename boost::disable_if<
@@ -87,7 +86,7 @@ typename boost::disable_if<
 >::type
 allocate_buffers(
 	sge::renderer::device &_renderer,
-	DynVertex const &_format,
+	sge::renderer::vertex_declaration const &_vertex_declaration,
 	sge::renderer::size_type const _num_sprites,
 	Buffers &_buffers
 )
@@ -96,7 +95,7 @@ allocate_buffers(
 		Elements
 	>(
 		_renderer,
-		_format,
+		_vertex_declaration,
 		_num_sprites,
 		_buffers
 	);

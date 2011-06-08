@@ -82,7 +82,6 @@ SET(
 	include/sge/sprite/detail/transform_init_arguments.hpp
 	include/sge/sprite/detail/transform_parameters_arguments.hpp
 	include/sge/sprite/detail/vector_float.hpp
-	include/sge/sprite/detail/vertex_buffer_declaration_pair.hpp
 	include/sge/sprite/detail/vertex_color.hpp
 	include/sge/sprite/detail/vertex_format.hpp
 	include/sge/sprite/detail/vertex_format_part.hpp

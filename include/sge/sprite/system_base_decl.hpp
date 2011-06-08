@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -48,7 +49,7 @@ public:
 	sge::renderer::device &
 	renderer() const;
 
-	sge::renderer::vertex_declaration const *
+	sge::renderer::vertex_declaration const &
 	vertex_declaration() const;
 protected:
 	explicit system_base(
@@ -75,7 +76,9 @@ protected:
 	buffers_type const &
 	buffers() const;
 private:
-	sge::renderer::device &rend_;
+	sge::renderer::device &renderer_;
+
+	sge::renderer::vertex_declaration_ptr const vertex_declaration_;
 	
 	buffers_type buffers_;
 

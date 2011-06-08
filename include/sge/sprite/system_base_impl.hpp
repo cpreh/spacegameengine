@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/vertex_format.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/device.hpp>
 
 template<
 	typename Choices
@@ -33,29 +34,31 @@ template<
 sge::renderer::device &
 sge::sprite::system_base<Choices>::renderer() const
 {
-	return rend_;
+	return renderer_;
 }
 
 template<
 	typename Choices
 >
-sge::renderer::vertex_declaration const *
+sge::renderer::vertex_declaration const &
 sge::sprite::system_base<Choices>::vertex_declaration() const
 {
-	return
-		buffers_. template get<
-			detail::roles::vertex_buffer
-		>().first.get();
+	return *vertex_declaration_;
 }
 
 template<
 	typename Choices
 >
 sge::sprite::system_base<Choices>::system_base(
-	renderer::device &_rend
+	renderer::device &_renderer
 )
 :
-	rend_(_rend),
+	renderer_(_renderer),
+	vertex_declaration_(
+		_renderer.create_vertex_declaration(
+			dyn_vertex_fmt_
+		)
+	),
 	buffers_()
 {
 }
@@ -89,8 +92,8 @@ sge::sprite::system_base<Choices>::allocate_buffers(
 	detail::allocate_buffers<
 		typename Choices::elements
 	>(
-		rend_,
-		dyn_vertex_fmt_,
+		renderer_,
+		*vertex_declaration_,
 		_num_sprites,
 		buffers_
 	);
@@ -105,7 +108,7 @@ sge::sprite::system_base<Choices>::vertex_buffer()
 	return
 		buffers_. template get<
 			detail::roles::vertex_buffer
-		>().second.get();
+		>().get();
 }
 
 template<

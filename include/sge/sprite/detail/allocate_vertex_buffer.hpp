@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/vf_part_index.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <utility>
 
 namespace sge
 {
@@ -39,38 +39,28 @@ namespace detail
 
 template<
 	typename Elements,
-	typename DynVertex,
 	typename Buffers
 >
 void
 allocate_vertex_buffer(
 	sge::renderer::device &_renderer,
-	DynVertex const &_format,
+	sge::renderer::vertex_declaration const &_vertex_declaration,
 	sge::renderer::size_type const _num_sprites,
 	Buffers &_buffers
 )
 {
-	sge::renderer::vertex_declaration_ptr const vertex_declaration(
-		_renderer.create_vertex_declaration(
-			_format
-		)
-	);
-
 	_buffers. template set<
 		detail::roles::vertex_buffer
 	>(
-		std::make_pair(
-			vertex_declaration,
-			_renderer.create_vertex_buffer(
-				*vertex_declaration,
-				detail::vf_part_index(),
-				_num_sprites
-				*
-				detail::vertices_per_sprite<
-					Elements
-				>::value,
-				renderer::resource_flags::dynamic
-			)
+		_renderer.create_vertex_buffer(
+			_vertex_declaration,
+			detail::vf_part_index(),
+			_num_sprites
+			*
+			detail::vertices_per_sprite<
+				Elements
+			>::value,
+			renderer::resource_flags::dynamic
 		)
 	);
 }

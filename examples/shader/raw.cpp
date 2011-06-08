@@ -467,7 +467,7 @@ try
 			sys.renderer(),
 			sge::renderer::glsl::program_parameters()
 			.vertex_shader(
-				*ss.vertex_declaration(),
+				ss.vertex_declaration(),
 				fcppt::io::stream_to_string(
 					vertex_stream
 				)
