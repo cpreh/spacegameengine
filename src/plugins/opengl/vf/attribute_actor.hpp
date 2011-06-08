@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glsl/context_fwd.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/vf/dynamic/unspecified_fwd.hpp>
-#include <sge/renderer/vf/string.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -75,9 +74,7 @@ private:
 
 	GLenum const format_;
 
-	sge::renderer::vf::string const element_tag_;
-
-	GLuint location_;
+	GLuint const location_;
 };
 
 }

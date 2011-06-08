@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../context/use.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <fcppt/to_std_string.hpp>
 
 sge::opengl::vf::attribute_actor::attribute_actor(
 	opengl::vf::actor_parameters const &_param,
@@ -63,9 +64,6 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 			_unspec.type()
 		)
 	),
-	element_tag_(
-		_unspec.tag()
-	),
 	location_(
 		static_cast<
 			GLuint
@@ -87,7 +85,9 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 	_attribute_locations.push_back(
 		vf::attribute_location(
 			location_,
-			element_tag_
+			fcppt::to_std_string(
+				_unspec.tag()
+			)
 		)
 	);
 }
