@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/log/global.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/no_vertex_declaration.hpp>
 #include <sge/renderer/glsl/create_program.hpp>
 #include <sge/renderer/glsl/no_program.hpp>
 #include <sge/renderer/glsl/program.hpp>
@@ -108,7 +109,9 @@ sge::shader::object::object(
 	shader::object_parameters const &p)
 :
 	renderer_(
-		p.renderer())
+		p.renderer()),
+	vertex_declaration_(
+		p.vertex_declaration())
 {
 	if (!fcppt::filesystem::exists(p.vertex_file()))
 		throw exception(
@@ -146,25 +149,24 @@ sge::shader::object::object(
 
 	try
 	{
-		// FIXME!
-#if 0
 		program_ = 
-			sge::renderer::glsl::create_program_from_strings(
+			sge::renderer::glsl::create_program(
 				renderer_,
-				sge::renderer::glsl::optional_string(
-					boost::algorithm::replace_first_copy(
-						::file_to_string(
-							p.vertex_file()),
-						std::string("$$$HEADER$$$"),
-						p.vertex_format_string().get()
-						+ header)),
-				sge::renderer::glsl::optional_string(
-					boost::algorithm::replace_first_copy(
-						::file_to_string(
-							p.fragment_file()),
-						std::string("$$$HEADER$$$"),
-						header)));
-#endif
+				sge::renderer::glsl::program_parameters()
+					.vertex_shader(
+						vertex_declaration_,
+						boost::algorithm::replace_first_copy(
+							::file_to_string(
+								p.vertex_file()),
+							std::string("$$$HEADER$$$"),
+							p.vertex_format_string().get()
+							+ header))
+					.pixel_shader(
+						boost::algorithm::replace_first_copy(
+							::file_to_string(
+								p.fragment_file()),
+							std::string("$$$HEADER$$$"),
+							header)));
 	}
 	catch(sge::exception const &e)
 	{
@@ -266,7 +268,7 @@ sge::shader::object::update_uniform(
 			FCPPT_TEXT("Error in update_uniform: The uniform variable \"")+
 			fcppt::from_std_string(
 				name)+
-			FCPPT_TEXT("\" was not foundW"));
+			FCPPT_TEXT("\" was not found"));
 
 	fcppt::variant::apply_unary(
 		uniform_setter(
@@ -310,52 +312,62 @@ sge::shader::object::program()
 
 void
 sge::shader::object::activate(
-	shader::activation_method::type const t)
+	shader::activation_method_field const &t)
 {
 	renderer_.glsl_program(
 		program_.get());
 
-	if(t != shader::activation_method::with_textures)
-		return;
+	if(t & shader::activation_method::textures)
+	{
+		for(
+			sampler_sequence::const_iterator it(
+				samplers_.begin()
+			);
+			it != samplers_.end();
+			++it
+		)
+			renderer_.texture(
+				it->texture().get(),
+				static_cast<
+					sge::renderer::stage_type
+				>(
+					it->texture_unit()));
+	}
 
-	for(
-		sampler_sequence::const_iterator it(
-			samplers_.begin()
-		);
-		it != samplers_.end();
-		++it
-	)
-		renderer_.texture(
-			it->texture().get(),
-			static_cast<
-				sge::renderer::stage_type
-			>(
-				it->texture_unit()));
+	if(t & shader::activation_method::vertex_declaration)
+	{
+		renderer_.vertex_declaration(
+			&vertex_declaration_);
+	}
 }
 
 void
 sge::shader::object::deactivate(
-	shader::activation_method::type const t)
+	shader::activation_method_field const &t)
 {
 	renderer_.glsl_program(
 		sge::renderer::glsl::no_program());
 
-	if(t != shader::activation_method::with_textures)
-		return;
-	
-	for(
-		sampler_sequence::const_iterator it(
-			samplers_.begin()
-		);
-		it != samplers_.end();
-		++it
-	)
-		renderer_.texture(
-			sge::renderer::no_texture(),
-			static_cast<
-				sge::renderer::stage_type
-			>(
-				it->texture_unit()));
+	if(t & shader::activation_method::textures)
+	{
+		for(
+			sampler_sequence::const_iterator it(
+				samplers_.begin()
+			);
+			it != samplers_.end();
+			++it
+		)
+			renderer_.texture(
+				sge::renderer::no_texture(),
+				static_cast<
+					sge::renderer::stage_type
+				>(
+					it->texture_unit()));
+	}
+
+	if(t & shader::activation_method::vertex_declaration)
+		renderer_.vertex_declaration(
+			renderer::no_vertex_declaration());
 }
 
 sge::shader::object::~object()

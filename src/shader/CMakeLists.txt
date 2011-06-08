@@ -1,6 +1,9 @@
 SET(
 	SGE_SHADER_FILES
+	include/sge/shader/activate_bare.hpp
+	include/sge/shader/activate_everything.hpp
 	include/sge/shader/activation_method.hpp
+	include/sge/shader/activation_method_field.hpp
 	include/sge/shader/detail/all_parts.hpp
 	include/sge/shader/detail/copy_parts.hpp
 	include/sge/shader/format_printer.hpp
@@ -28,6 +31,8 @@ SET(
 	include/sge/shader/vector_to_string.hpp
 	include/sge/shader/vertex_format_string.hpp
 	include/sge/shader/vf_to_string.hpp
+	src/shader/activate_bare.cpp
+	src/shader/activate_everything.cpp
 	src/shader/object.cpp
 	src/shader/object_parameters.cpp
 	src/shader/sampler.cpp

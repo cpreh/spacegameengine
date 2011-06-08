@@ -76,6 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/activation_method.hpp>
+#include <sge/shader/activation_method_field.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
@@ -169,7 +170,6 @@ vertex_view;
 sge::renderer::vertex_buffer_ptr const
 create_quad(
 	sge::renderer::vertex_declaration &_declaration,
-	sge::shader::object &shader,
 	sge::renderer::device &renderer)
 {
 	sge::renderer::vertex_buffer_ptr const vb(
@@ -181,10 +181,6 @@ create_quad(
 			static_cast<sge::renderer::size_type>(
 				6),
 			sge::renderer::resource_flags::none));
-	
-	sge::shader::scoped scoped_shader(
-		shader,
-		sge::shader::activation_method::bare);
 	
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer,
@@ -329,9 +325,23 @@ try
 			(sge::renderer::state::bool_::clear_back_buffer = true)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
+	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+		sys.renderer().create_vertex_declaration(
+			sge::renderer::vf::dynamic::make_format<
+				screen_vf::format
+			>()
+		)
+	);
+
+	sge::renderer::vertex_buffer_ptr const quad_(
+		screen_vf::create_quad(
+			*vertex_declaration,
+			sys.renderer()));
+
 	sge::shader::object shader_(
 		sge::shader::object_parameters(
 			sys.renderer(),
+			*vertex_declaration,
 			sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
 			sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_fragment.glsl"),
 			sge::shader::vf_to_string<screen_vf::format>(),
@@ -346,20 +356,6 @@ try
 					"tex",
 					sge::renderer::texture::planar_ptr()))));
 
-	sge::renderer::vertex_declaration_ptr const vertex_declaration(
-		sys.renderer().create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<
-				screen_vf::format
-			>()
-		)
-	);
-
-	sge::renderer::vertex_buffer_ptr const quad_(
-		screen_vf::create_quad(
-			*vertex_declaration,
-			shader_,
-			sys.renderer()));
-
 	{
 		sge::renderer::scoped_target scoped_target(
 			sys.renderer(),
@@ -370,7 +366,9 @@ try
 
 		sge::shader::scoped scoped_shader(
 			shader_,
-			sge::shader::activation_method::with_textures);
+			sge::shader::activation_method_field(
+				sge::shader::activation_method::textures) | 
+				sge::shader::activation_method::vertex_declaration);
 
 		sge::renderer::scoped_vertex_buffer const scoped_vb_(
 			sys.renderer(),

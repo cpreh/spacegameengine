@@ -21,7 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_SHADER_HPP_INCLUDED
 #define SGE_SHADER_SHADER_HPP_INCLUDED
 
+#include <sge/shader/activate_bare.hpp>
+#include <sge/shader/activate_everything.hpp>
 #include <sge/shader/activation_method.hpp>
+#include <sge/shader/activation_method_field.hpp>
 #include <sge/shader/format_printer.hpp>
 #include <sge/shader/mat4.hpp>
 #include <sge/shader/object.hpp>

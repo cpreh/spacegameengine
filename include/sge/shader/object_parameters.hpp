@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/symbol.hpp>
 #include <sge/shader/variable_sequence.hpp>
@@ -41,6 +42,7 @@ public:
 	SGE_SHADER_SYMBOL explicit
 	object_parameters(
 		renderer::device &,
+		renderer::vertex_declaration const &,
 		fcppt::filesystem::path const &vertex,
 		fcppt::filesystem::path const &fragment,
 		shader::vertex_format_string const &format_declaration,
@@ -49,6 +51,9 @@ public:
 
 	SGE_SHADER_SYMBOL renderer::device &
 	renderer() const;
+
+	SGE_SHADER_SYMBOL renderer::vertex_declaration const &
+	vertex_declaration() const;
 
 	SGE_SHADER_SYMBOL fcppt::filesystem::path const &
 	vertex_file() const;
@@ -68,6 +73,7 @@ public:
 	SGE_SHADER_SYMBOL ~object_parameters();
 private:
 	renderer::device &renderer_;
+	renderer::vertex_declaration const  &vertex_declaration_;
 	fcppt::filesystem::path const vertex_file_;
 	fcppt::filesystem::path const fragment_file_;
 	shader::vertex_format_string const vertex_format_string_;

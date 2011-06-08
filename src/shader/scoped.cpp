@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::shader::scoped::scoped(
 	shader::object &_object,
-	shader::activation_method::type const _type)
+	shader::activation_method_field const &_type)
 :
 	object_(
 		_object),

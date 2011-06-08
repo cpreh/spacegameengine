@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_OBJECT_HPP_INCLUDED
 
 #include <sge/shader/symbol.hpp>
-#include <sge/shader/activation_method.hpp>
+#include <sge/shader/activation_method_field.hpp>
 #include <sge/shader/value_type.hpp>
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/object_parameters_fwd.hpp>
 #include <sge/shader/texture_variant.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
@@ -65,12 +66,12 @@ public:
 	// This is called by the scoped class, but you may call it manually, too
 	SGE_SHADER_SYMBOL void
 	activate(
-		shader::activation_method::type);
+		shader::activation_method_field const &);
 
 	// This is called by the scoped class, but you may call it manually, too
 	SGE_SHADER_SYMBOL void
 	deactivate(
-		shader::activation_method::type);
+		shader::activation_method_field const &);
 
 	// noncopyable classes are supposed to have a destructor
 	SGE_SHADER_SYMBOL ~object();
@@ -85,6 +86,7 @@ private:
 	uniform_map;
 
 	renderer::device &renderer_;
+	renderer::vertex_declaration const &vertex_declaration_;
 	renderer::glsl::program_ptr program_;
 	uniform_map uniforms_;
 	sampler_sequence samplers_;

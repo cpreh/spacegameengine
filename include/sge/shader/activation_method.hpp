@@ -29,8 +29,9 @@ namespace activation_method
 {
 enum type
 {
-	bare,
-	with_textures
+	textures,
+	vertex_declaration,
+	size
 };
 }
 }

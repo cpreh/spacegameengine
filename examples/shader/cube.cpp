@@ -120,6 +120,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/shader/activate_everything.hpp>
 #include <sge/shader/update_single_uniform.hpp>
 #include <sge/shader/object_parameters.hpp>
 #include <sge/shader/sampler_sequence.hpp>
@@ -297,15 +298,8 @@ format_part_view;
 
 void
 fill_vb_with_cube(
-	sge::shader::object &shader,
 	sge::renderer::vertex_buffer &vb)
 {
-	// Since we're using unspecified attributes (which are, in a way,
-	// "bound" to the shader), we have to activate it here.
-	sge::shader::scoped scoped_shader(
-		shader,
-		sge::shader::activation_method::bare);
-
 	// Then we lock the vertex buffer for writing. When this lock is
 	// released, the data is sent the GPU.
 	sge::renderer::scoped_vertex_lock const vblock(
@@ -936,10 +930,17 @@ try
 				static_cast<sge::renderer::scalar>(
 					1000.))));
 
+	// To use a vertex format, we have to create a _declaration_ and
+	// some _buffers_.
+	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+		sys.renderer().create_vertex_declaration(
+			sge::renderer::vf::dynamic::make_format<vf::format>()));
+
 	// Ah, the shader object 
 	sge::shader::object shader(
 		sge::shader::object_parameters(
 			sys.renderer(),
+			*vertex_declaration,
 			sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("cube_vertex.glsl"),
 			sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("cube_fragment.glsl"),
 			// This turns the vertex format we defined above into a glsl
@@ -992,12 +993,6 @@ try
 					fcppt::ref(
 						enabled)))));
 
-	// To use a vertex format, we have to create a _declaration_ and
-	// some _buffers_.
-	sge::renderer::vertex_declaration_ptr const vertex_declaration(
-		sys.renderer().create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<vf::format>()));
-
 	sge::renderer::vertex_buffer_ptr const vb(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
@@ -1008,7 +1003,6 @@ try
 			sge::renderer::resource_flags::none));
 
 	fill_vb_with_cube(
-		shader,
 		*vb);
 
 	// Some render states
@@ -1057,11 +1051,7 @@ try
 		{
 			sge::shader::scoped scoped_shader(
 				shader,
-				sge::shader::activation_method::with_textures);
-
-			sge::renderer::scoped_vertex_declaration const vb_declaration_context(
-				sys.renderer(),
-				*vertex_declaration);
+				sge::shader::activate_everything());
 
 			sge::renderer::scoped_vertex_buffer const vb_context(
 				sys.renderer(),

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::shader::object_parameters::object_parameters(
 	renderer::device &_renderer,
+	renderer::vertex_declaration const &_vertex_declaration,
 	fcppt::filesystem::path const &_vertex_file,
 	fcppt::filesystem::path const &_fragment_file,
 	shader::vertex_format_string const &_vertex_format_string,
@@ -30,6 +31,8 @@ sge::shader::object_parameters::object_parameters(
 :
 	renderer_(
 		_renderer),
+	vertex_declaration_(
+		_vertex_declaration),
 	vertex_file_(
 		_vertex_file),
 	fragment_file_(
@@ -47,6 +50,12 @@ sge::renderer::device &
 sge::shader::object_parameters::renderer() const
 {
 	return renderer_;
+}
+
+sge::renderer::vertex_declaration const &
+sge::shader::object_parameters::vertex_declaration() const
+{
+	return vertex_declaration_;
 }
 
 fcppt::filesystem::path const &

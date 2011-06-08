@@ -18,22 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/shader/update_single_uniform.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/shader/activate_bare.hpp>
-#include <sge/shader/object.hpp>
+#ifndef SGE_SHADER_ACTIVATION_METHOD_FIELD_HPP_INCLUDED
+#define SGE_SHADER_ACTIVATION_METHOD_FIELD_HPP_INCLUDED
 
-void
-sge::shader::update_single_uniform(
-	shader::object &s,
-	renderer::glsl::string const &name,
-	value_type const &value)
+#include <sge/shader/activation_method.hpp>
+#include <fcppt/container/bitfield/bitfield.hpp>
+
+namespace sge
 {
-	shader::scoped scope(
-		s,
-		shader::activate_bare());
-
-	s.update_uniform(
-		name,
-		value);
+namespace shader
+{
+typedef
+fcppt::container::bitfield::basic<activation_method::type,activation_method::size>
+activation_method_field;
 }
+}
+
+#endif

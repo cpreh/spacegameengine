@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_SCOPED_HPP_INCLUDED
 
 #include <sge/shader/symbol.hpp>
-#include <sge/shader/activation_method.hpp>
+#include <sge/shader/activation_method_field.hpp>
 #include <sge/shader/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -38,12 +38,12 @@ public:
 	SGE_SHADER_SYMBOL explicit
 	scoped(
 		shader::object &,
-		shader::activation_method::type);
+		shader::activation_method_field const &);
 
 	SGE_SHADER_SYMBOL ~scoped();
 private:
 	shader::object &object_;
-	shader::activation_method::type const type_;
+	shader::activation_method_field const type_;
 };
 }
 }
