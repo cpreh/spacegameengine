@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../get_attrib_location.hpp"
+#include "../bind_attrib_location.hpp"
 #include "../../program_contexts.hpp"
 #include "../../instantiate.hpp"
 #include "../../../check_state.hpp"
@@ -29,58 +29,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Environment
 >
-GLint
-sge::opengl::glsl::programfuncs::get_attrib_location(
+void
+sge::opengl::glsl::programfuncs::bind_attrib_location(
 	typename Environment::program_context const &_context,
-	typename Environment::handle const _handle,
+	typename Environment::handle const _program,
+	GLuint const _location,
 	char const *const _name
 )
 {
-	GLint const result(
-		_context.get_attrib_location()(
-			_handle,
-			_name
-		)
+	_context.bind_attrib_location()(
+		_program,
+		_location,
+		_name
 	);
 
-	if(
-		result == -1
-	)
-		throw sge::renderer::glsl::exception(
-			FCPPT_TEXT("Get of the following attribute variable failed: \"")
-			+ fcppt::from_std_string(
-				_name
-			)
-			+ FCPPT_TEXT("\". This either means that the variable is not present in the shader, ")
-			+ FCPPT_TEXT("or you tried to use a reserved name that starts with gl_. ")
-			+ FCPPT_TEXT(" Please make sure your vertex declaration and vertex shader use the same names.")
-		);
-
 	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Getting attribute location \"")
+		FCPPT_TEXT("Binding an attribute location \"")
 		+ fcppt::from_std_string(
 			_name
 		)
 		+ FCPPT_TEXT("\" failed."),
 		sge::renderer::glsl::exception
 	)
-
-	return result;
 }
 
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_GET_ATTRIB_LOCATION(\
+#define SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_BIND_ATTRIB_LOCATION(\
 	env\
 )\
 template \
-GLint \
-sge::opengl::glsl::programfuncs::get_attrib_location<\
+void \
+sge::opengl::glsl::programfuncs::bind_attrib_location<\
 	env\
 >(\
 	env::program_context const &,\
 	env::handle,\
+	GLuint,\
 	char const *\
 );
 
 SGE_OPENGL_GLSL_INSTANTIATE(
-	SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_GET_ATTRIB_LOCATION
+	SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_BIND_ATTRIB_LOCATION
 )

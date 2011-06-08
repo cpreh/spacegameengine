@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "part_fwd.hpp"
 #include "actor_fwd.hpp"
+#include "attribute_location_container.hpp"
 #include "pointer.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/vf/dynamic/part.hpp>
@@ -42,9 +43,10 @@ class part
 		part	
 	);
 public:
-	explicit part(
+	part(
 		sge::opengl::context::object &,
-		renderer::vf::dynamic::part const &
+		renderer::vf::dynamic::part const &,
+		opengl::vf::attribute_location_container &
 	);
 
 	~part();

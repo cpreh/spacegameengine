@@ -69,6 +69,9 @@ public:
 
 	typedef PFNGLGETATTRIBLOCATIONPROC gl_get_attrib_location;
 
+	typedef PFNGLBINDATTRIBLOCATIONPROC gl_bind_attrib_location;
+
+
 	typedef PFNGLBINDFRAGDATALOCATIONPROC gl_bind_frag_data_location;
 
 	gl_create_program
@@ -97,6 +100,9 @@ public:
 
 	gl_get_attrib_location
 	get_attrib_location() const;
+
+	gl_bind_attrib_location
+	bind_attrib_location() const;
 
 	gl_bind_frag_data_location
 	bind_frag_data_location() const;
@@ -128,6 +134,8 @@ private:
 	gl_program_info_log const program_info_log_;
 
 	gl_get_attrib_location const get_attrib_location_;
+
+	gl_bind_attrib_location const bind_attrib_location_;
 
 	gl_bind_frag_data_location const bind_frag_data_location_;
 

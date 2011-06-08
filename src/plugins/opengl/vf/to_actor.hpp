@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_TO_ACTOR_HPP_INCLUDED
 
 #include "actor_ptr.hpp"
+#include "attribute_location_container.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
@@ -37,7 +38,8 @@ actor_ptr
 to_actor(
 	renderer::vf::dynamic::ordered_element const &,
 	renderer::vf::vertex_size stride,
-	opengl::context::object &
+	opengl::context::object &,
+	opengl::vf::attribute_location_container &
 );
 
 }

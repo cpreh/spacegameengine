@@ -18,31 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../to_actor.hpp"
-#include "../to_actor_visitor.hpp"
-#include "../actor_parameters.hpp"
-#include "../actor.hpp"
-#include <sge/renderer/vf/dynamic/ordered_element.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#ifndef SGE_OPENGL_VF_ATTRIBUTE_LOCATION_HPP_INCLUDED
+#define SGE_OPENGL_VF_ATTRIBUTE_LOCATION_HPP_INCLUDED
 
-sge::opengl::vf::actor_ptr
-sge::opengl::vf::to_actor(
-	renderer::vf::dynamic::ordered_element const &_element,
-	renderer::vf::vertex_size const _stride,
-	opengl::context::object &_context,
-	opengl::vf::attribute_location_container &_attribute_locations
-)
+#include "../common.hpp"
+#include <sge/renderer/glsl/string.hpp>
+
+namespace sge
 {
-	return
-		fcppt::variant::apply_unary(
-			vf::to_actor_visitor(
-				vf::actor_parameters(
-					_stride,
-					_element.offset(),
-					_context
-				),
-				_attribute_locations
-			),
-			_element.element().info()
-		);
+namespace opengl
+{
+namespace vf
+{
+
+class attribute_location
+{
+public:
+	attribute_location(
+		GLuint,
+		renderer::glsl::string const &
+	);
+
+	GLuint
+	location() const;
+
+	renderer::glsl::string const &
+	name() const;
+private:
+	GLuint location_;
+
+	renderer::glsl::string name_;
+};
+
 }
+}
+}
+
+#endif

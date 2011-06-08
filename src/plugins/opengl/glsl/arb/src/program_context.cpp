@@ -51,6 +51,9 @@ sge::opengl::glsl::arb::program_context::program_context()
 	get_attrib_location_(
 		glGetAttribLocationARB
 	),
+	bind_attrib_location_(
+		glBindAttribLocationARB
+	),
 	link_status_type_(
 		GL_OBJECT_LINK_STATUS_ARB
 	),
@@ -114,6 +117,12 @@ sge::opengl::glsl::arb::program_context::gl_get_attrib_location
 sge::opengl::glsl::arb::program_context::get_attrib_location() const
 {
 	return get_attrib_location_;
+}
+
+sge::opengl::glsl::arb::program_context::gl_bind_attrib_location
+sge::opengl::glsl::arb::program_context::bind_attrib_location() const
+{
+	return bind_attrib_location_;
 }
 
 sge::opengl::glsl::arb::program_context::gl_bind_frag_data_location

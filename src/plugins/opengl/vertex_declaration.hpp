@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "vertex_declaration_fwd.hpp"
 #include "context/object_fwd.hpp"
+#include "vf/attribute_location_container.hpp"
 #include "vf/part_fwd.hpp"
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
@@ -60,6 +61,9 @@ public:
 	gl_format_part(
 		sge::renderer::vf::dynamic::part_index
 	) const;
+
+	opengl::vf::attribute_location_container const &
+	attribute_locations() const;
 private:
 	sge::renderer::vf::dynamic::format const format_;
 
@@ -68,6 +72,8 @@ private:
 	> part_vector;
 
 	part_vector parts_;
+
+	opengl::vf::attribute_location_container attribute_locations_;
 };
 
 }

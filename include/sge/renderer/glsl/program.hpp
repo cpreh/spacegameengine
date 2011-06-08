@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/vertex_shader_ptr.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/string.hpp>
@@ -51,6 +52,11 @@ public:
 	virtual glsl::uniform::variable_ptr const
 	uniform(
 		glsl::string const &
+	) = 0;
+
+	virtual void
+	vertex_declaration(
+		renderer::vertex_declaration const &
 	) = 0;
 
 	virtual void

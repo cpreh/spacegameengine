@@ -51,6 +51,9 @@ sge::opengl::glsl::native::program_context::program_context()
 	get_attrib_location_(
 		glGetAttribLocation
 	),
+	bind_attrib_location_(
+		glBindAttribLocation
+	),
 	bind_frag_data_location_(
 		glBindFragDataLocation
 	),
@@ -117,6 +120,12 @@ sge::opengl::glsl::native::program_context::gl_get_attrib_location
 sge::opengl::glsl::native::program_context::get_attrib_location() const
 {
 	return get_attrib_location_;
+}
+
+sge::opengl::glsl::native::program_context::gl_bind_attrib_location
+sge::opengl::glsl::native::program_context::bind_attrib_location() const
+{
+	return bind_attrib_location_;
 }
 
 sge::opengl::glsl::native::program_context::gl_bind_frag_data_location

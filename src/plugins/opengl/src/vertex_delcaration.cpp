@@ -32,7 +32,8 @@ sge::opengl::vertex_declaration::vertex_declaration(
 )
 :
 	format_(_format),
-	parts_()
+	parts_(),
+	attribute_locations_()
 {
 	sge::renderer::vf::dynamic::part_list const &parts(
 		format_.parts()
@@ -53,7 +54,10 @@ sge::opengl::vertex_declaration::vertex_declaration(
 				fcppt::ref(
 					_context
 				),
-				*it
+				*it,
+				fcppt::ref(
+					attribute_locations_
+				)
 			)
 		);
 }
@@ -82,4 +86,10 @@ sge::opengl::vertex_declaration::gl_format_part(
 		parts_.at(
 			_part.get()
 		);
+}
+
+sge::opengl::vf::attribute_location_container const &
+sge::opengl::vertex_declaration::attribute_locations() const
+{
+	return attribute_locations_;
 }

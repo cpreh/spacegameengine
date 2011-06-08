@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../program.hpp"
 #include "../attachment.hpp"
+#include "../bind_attrib_locations.hpp"
 #include "../format_error.hpp"
 #include "../instantiate.hpp"
 #include "../program_contexts.hpp"
@@ -134,6 +135,23 @@ sge::opengl::glsl::program<Environment>::uniform(
 			holder_.id(),
 			_name
 		);
+}
+
+template<
+	typename Environment
+>
+void
+sge::opengl::glsl::program<Environment>::vertex_declaration(
+	renderer::vertex_declaration const &_declaration
+)
+{
+	glsl::bind_attrib_locations<
+		Environment
+	>(
+		holder_.context(),
+		holder_.id(),
+		_declaration
+	);
 }
 
 template<

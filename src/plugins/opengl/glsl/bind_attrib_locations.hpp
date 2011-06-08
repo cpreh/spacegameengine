@@ -18,37 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../unspecified_index.hpp"
-#include "../../glsl/context.hpp"
-#include "../../glsl/program_base.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/to_std_string.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_GLSL_BIND_ATTRIB_LOCATIONS_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_BIND_ATTRIB_LOCATIONS_HPP_INCLUDED
 
-GLint
-sge::opengl::vf::unspecified_index(
-	opengl::glsl::context &_context,
-	sge::renderer::vf::string const &_name
-)
+#include <sge/renderer/vertex_declaration_fwd.hpp>
+
+namespace sge
 {
-	glsl::program_base const *const ptr(
-		_context.active_program()
-	);
+namespace opengl
+{
+namespace glsl
+{
 
-	if(
-		!ptr
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Tried to set a vertex_buffer that uses unspecified elements, ")
-			FCPPT_TEXT("but a GLSL program is not set.")
-			FCPPT_TEXT(" You have to set the GLSL program before setting the vertex buffer, ")
-			FCPPT_TEXT("e.g. device.glsl_program(prog); device.activate_vertex_buffer(buf);")
-		);
-	
-	return
-		ptr->location(
-			fcppt::to_std_string(
-				_name
-			)
-		);
+template<
+	typename Environment
+>
+void
+bind_attrib_locations(
+	typename Environment::program_context const &,
+	typename Environment::handle,
+	renderer::vertex_declaration const &
+);
+
 }
+}
+}
+
+#endif

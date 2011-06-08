@@ -58,9 +58,6 @@ public:
 		sge::renderer::glsl::program const *
 	);
 
-	glsl::program_base const *
-	active_program() const;
-
 	static opengl::context::id const static_id;
 
 	typedef void needs_before;

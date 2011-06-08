@@ -84,12 +84,6 @@ sge::opengl::glsl::context::use(
 	last_program_ = &prog_base;
 }
 
-sge::opengl::glsl::program_base const *
-sge::opengl::glsl::context::active_program() const
-{
-	return last_program_;
-}
-
 sge::opengl::context::id const
 sge::opengl::glsl::context::static_id(
 	sge::opengl::context::make_id()

@@ -23,11 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../actor.hpp"
 #include "../client_state_combiner.hpp"
 #include "../../common.hpp"
+#include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 sge::opengl::vf::part::part(
 	sge::opengl::context::object &_context,
-	renderer::vf::dynamic::part const &_part
+	renderer::vf::dynamic::part const &_part,
+	opengl::vf::attribute_location_container &_attribute_locations
 )
 :
 	context_(
@@ -53,7 +55,8 @@ sge::opengl::vf::part::part(
 			vf::to_actor(
 				*elem_it,
 				part_.stride(),
-				_context
+				_context,
+				_attribute_locations
 			)
 		);
 }

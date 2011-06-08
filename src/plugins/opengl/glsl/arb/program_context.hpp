@@ -69,6 +69,8 @@ public:
 
 	typedef PFNGLGETATTRIBLOCATIONARBPROC gl_get_attrib_location;
 
+	typedef PFNGLBINDATTRIBLOCATIONARBPROC gl_bind_attrib_location;
+
 	// note: this is not supported by ARB
 	typedef PFNGLBINDFRAGDATALOCATIONPROC gl_bind_frag_data_location;
 
@@ -98,6 +100,9 @@ public:
 
 	gl_get_attrib_location
 	get_attrib_location() const;
+
+	gl_bind_attrib_location
+	bind_attrib_location() const;
 
 	gl_bind_frag_data_location
 	bind_frag_data_location() const;
@@ -129,6 +134,8 @@ private:
 	gl_program_info_log const program_info_log_;
 
 	gl_get_attrib_location const get_attrib_location_;
+
+	gl_bind_attrib_location const bind_attrib_location_;
 
 	GLenum const
 		link_status_type_,

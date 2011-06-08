@@ -18,28 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_UNSPECIFIED_INDEX_HPP_INCLUDED
-#define SGE_OPENGL_VF_UNSPECIFIED_INDEX_HPP_INCLUDED
+#include "../attribute_location.hpp"
 
-#include "../common.hpp"
-#include "../glsl/context_fwd.hpp"
-#include <sge/renderer/vf/string.hpp>
-
-namespace sge
+sge::opengl::vf::attribute_location::attribute_location(
+	GLuint const _location,
+	renderer::glsl::string const &_name
+)
+:
+	location_(_location),
+	name_(_name)
 {
-namespace opengl
-{
-namespace vf
-{
-
-GLint
-unspecified_index(
-	opengl::glsl::context &,
-	sge::renderer::vf::string const &
-);
-
-}
-}
 }
 
-#endif
+GLuint
+sge::opengl::vf::attribute_location::location() const
+{
+	return location_;
+}
+
+sge::renderer::glsl::string const &
+sge::opengl::vf::attribute_location::name() const
+{
+	return name_;
+}

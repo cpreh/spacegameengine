@@ -20,21 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../attribute_actor.hpp"
 #include "../attribute_context.hpp"
+#include "../attribute_location.hpp"
 #include "../actor_parameters.hpp"
 #include "../unspecified_elements.hpp"
 #include "../unspecified_format.hpp"
-#include "../unspecified_index.hpp"
 #include "../client_state_combiner.hpp"
 #include "../../glsl/context.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/unsupported.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/assert.hpp>
 
 sge::opengl::vf::attribute_actor::attribute_actor(
-	actor_parameters const &_param,
-	renderer::vf::dynamic::unspecified const &_unspec
+	opengl::vf::actor_parameters const &_param,
+	renderer::vf::dynamic::unspecified const &_unspec,
+	opengl::vf::attribute_location_container &_attribute_locations
 )
 :
 	pointer_actor(
@@ -67,10 +66,15 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 	element_tag_(
 		_unspec.tag()
 	),
-	index_()
+	location_(
+		static_cast<
+			GLuint
+		>(
+			// don't use 0 as a location
+			_attribute_locations.size() + 1u
+		)
+	)
 {
-	// This check is not really necessary because this format cannot
-	// be used without an active program. But I'll leave it here.
 	if(
 		!attribute_context_.is_supported()
 	)
@@ -79,6 +83,13 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 			FCPPT_TEXT("GL_VERSION_2_0"),
 			FCPPT_TEXT("GL_ARB_vertex_shader")
 		);
+
+	_attribute_locations.push_back(
+		vf::attribute_location(
+			location_,
+			element_tag_
+		)
+	);
 }
 
 sge::opengl::vf::attribute_actor::~attribute_actor()
@@ -91,32 +102,12 @@ sge::opengl::vf::attribute_actor::operator()(
 	vf::pointer const _src
 ) const
 {
-	// This function is called when the vertex format
-	// is actually used.
-	// It is important to postpone the glGetAttribLocation
-	// until here.
-	index_ =
-		vf::unspecified_index(
-			glsl_context_,
-			element_tag_
-		);
-
-	// glGetAttribLocation returns GLint but
-	// the rest of the functions expect GLuint
 	_combiner.enable_attribute(
-		static_cast<
-			GLuint
-		>(
-			*index_
-		)
+		location_
 	);
 
 	attribute_context_.vertex_attrib_pointer()(
-		static_cast<
-			GLuint
-		>(
-			*index_
-		),
+		location_,
 		elements_,
 		format_,
 		GL_TRUE, // normalized
@@ -134,17 +125,7 @@ sge::opengl::vf::attribute_actor::unuse(
 	client_state_combiner &_combiner
 ) const
 {
-	FCPPT_ASSERT(
-		index_
-	);
-
 	_combiner.disable_attribute(
-		static_cast<
-			GLuint
-		>(
-			*index_
-		)
+		location_	
 	);
-
-	index_.reset();
 }

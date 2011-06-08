@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "pointer_actor.hpp"
 #include "client_state_combiner_fwd.hpp"
 #include "attribute_context_fwd.hpp"
+#include "attribute_location_container.hpp"
 #include "actor_parameters_fwd.hpp"
 #include "pointer.hpp"
 #include "../glsl/context_fwd.hpp"
@@ -31,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/unspecified_fwd.hpp>
 #include <sge/renderer/vf/string.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
 
 namespace sge
 {
@@ -48,9 +48,10 @@ class attribute_actor
 		attribute_actor
 	);
 public:
-	explicit attribute_actor(
+	attribute_actor(
 		actor_parameters const &,
-		renderer::vf::dynamic::unspecified const &
+		renderer::vf::dynamic::unspecified const &,
+		opengl::vf::attribute_location_container &
 	);
 
 	~attribute_actor();
@@ -74,13 +75,9 @@ private:
 
 	GLenum const format_;
 
-	typedef fcppt::optional<
-		GLint
-	> optional_int;
-
 	sge::renderer::vf::string const element_tag_;
 
-	mutable optional_int index_;
+	GLuint location_;
 };
 
 }

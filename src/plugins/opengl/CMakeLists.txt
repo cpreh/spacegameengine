@@ -174,6 +174,7 @@ SET(
 	src/plugins/opengl/glsl/arb/uniform_context_fwd.hpp
 	src/plugins/opengl/glsl/attachment.hpp
 	src/plugins/opengl/glsl/attachment_fwd.hpp
+	src/plugins/opengl/glsl/bind_attrib_locations.hpp
 	src/plugins/opengl/glsl/context.hpp
 	src/plugins/opengl/glsl/context_fwd.hpp
 	src/plugins/opengl/glsl/create_geometry_shader.hpp
@@ -204,6 +205,7 @@ SET(
 	src/plugins/opengl/glsl/program_contexts.hpp
 	src/plugins/opengl/glsl/program_holder.hpp
 	src/plugins/opengl/glsl/programfuncs/attach_shader.hpp
+	src/plugins/opengl/glsl/programfuncs/bind_attrib_location.hpp
 	src/plugins/opengl/glsl/programfuncs/bind_frag_data_location.hpp
 	src/plugins/opengl/glsl/programfuncs/create.hpp
 	src/plugins/opengl/glsl/programfuncs/delete.hpp
@@ -215,6 +217,7 @@ SET(
 	src/plugins/opengl/glsl/programfuncs/link.hpp
 	src/plugins/opengl/glsl/programfuncs/link_status.hpp
 	src/plugins/opengl/glsl/programfuncs/src/attach_shader.cpp
+	src/plugins/opengl/glsl/programfuncs/src/bind_attrib_location.cpp
 	src/plugins/opengl/glsl/programfuncs/src/bind_frag_data_location.cpp
 	src/plugins/opengl/glsl/programfuncs/src/create.cpp
 	src/plugins/opengl/glsl/programfuncs/src/delete.cpp
@@ -251,6 +254,7 @@ SET(
 	src/plugins/opengl/glsl/shaderfuncs/src/info_log_length.cpp
 	src/plugins/opengl/glsl/shaderfuncs/src/source.cpp
 	src/plugins/opengl/glsl/src/attachment.cpp
+	src/plugins/opengl/glsl/src/bind_attrib_locations.cpp
 	src/plugins/opengl/glsl/src/context.cpp
 	src/plugins/opengl/glsl/src/create_geometry_shader.cpp
 	src/plugins/opengl/glsl/src/create_pixel_shader.cpp
@@ -556,6 +560,8 @@ SET(
 	src/plugins/opengl/vf/attribute_actor.hpp
 	src/plugins/opengl/vf/attribute_context.hpp
 	src/plugins/opengl/vf/attribute_context_fwd.hpp
+	src/plugins/opengl/vf/attribute_location.hpp
+	src/plugins/opengl/vf/attribute_location_container.hpp
 	src/plugins/opengl/vf/client_state.hpp
 	src/plugins/opengl/vf/client_state_combiner.hpp
 	src/plugins/opengl/vf/client_state_combiner_fwd.hpp
@@ -576,6 +582,7 @@ SET(
 	src/plugins/opengl/vf/src/actor_parameters.cpp
 	src/plugins/opengl/vf/src/attribute_actor.cpp
 	src/plugins/opengl/vf/src/attribute_context.cpp
+	src/plugins/opengl/vf/src/attribute_location.cpp
 	src/plugins/opengl/vf/src/client_state.cpp
 	src/plugins/opengl/vf/src/client_state_combiner.cpp
 	src/plugins/opengl/vf/src/color_actor.cpp
@@ -595,7 +602,6 @@ SET(
 	src/plugins/opengl/vf/src/unspecified_elements_visitor.cpp
 	src/plugins/opengl/vf/src/unspecified_format.cpp
 	src/plugins/opengl/vf/src/unspecified_format_visitor.cpp
-	src/plugins/opengl/vf/src/unspecified_index.cpp
 	src/plugins/opengl/vf/src/vertex_attrib_pointer.cpp
 	src/plugins/opengl/vf/texpos_actor.hpp
 	src/plugins/opengl/vf/to_actor.hpp
@@ -604,7 +610,6 @@ SET(
 	src/plugins/opengl/vf/unspecified_elements_visitor.hpp
 	src/plugins/opengl/vf/unspecified_format.hpp
 	src/plugins/opengl/vf/unspecified_format_visitor.hpp
-	src/plugins/opengl/vf/unspecified_index.hpp
 	src/plugins/opengl/vf/vertex_attrib_pointer.hpp
 	src/plugins/opengl/viewport.hpp
 )
