@@ -48,9 +48,6 @@ sge::opengl::glsl::native::program_context::program_context()
 	program_info_log_(
 		glGetProgramInfoLog
 	),
-	get_attrib_location_(
-		glGetAttribLocation
-	),
 	bind_attrib_location_(
 		glBindAttribLocation
 	),
@@ -114,12 +111,6 @@ sge::opengl::glsl::native::program_context::gl_program_info_log
 sge::opengl::glsl::native::program_context::program_info_log() const
 {
 	return program_info_log_;
-}
-
-sge::opengl::glsl::native::program_context::gl_get_attrib_location
-sge::opengl::glsl::native::program_context::get_attrib_location() const
-{
-	return get_attrib_location_;
 }
 
 sge::opengl::glsl::native::program_context::gl_bind_attrib_location

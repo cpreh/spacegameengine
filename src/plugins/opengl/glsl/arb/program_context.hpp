@@ -67,8 +67,6 @@ public:
 
 	typedef PFNGLGETINFOLOGARBPROC gl_program_info_log;
 
-	typedef PFNGLGETATTRIBLOCATIONARBPROC gl_get_attrib_location;
-
 	typedef PFNGLBINDATTRIBLOCATIONARBPROC gl_bind_attrib_location;
 
 	// note: this is not supported by ARB
@@ -97,9 +95,6 @@ public:
 
 	gl_program_info_log
 	program_info_log() const;
-
-	gl_get_attrib_location
-	get_attrib_location() const;
 
 	gl_bind_attrib_location
 	bind_attrib_location() const;
@@ -132,8 +127,6 @@ private:
 	gl_use_program const use_program_;
 
 	gl_program_info_log const program_info_log_;
-
-	gl_get_attrib_location const get_attrib_location_;
 
 	gl_bind_attrib_location const bind_attrib_location_;
 
