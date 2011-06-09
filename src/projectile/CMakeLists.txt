@@ -72,6 +72,7 @@ SET(
 	include/sge/projectile/triangulation/traits/access_element.hpp
 	include/sge/projectile/triangulation/traits/construct_result.hpp
 	include/sge/projectile/triangulation/traits/scalar.hpp
+	include/sge/projectile/triangulation/traits/traits.hpp
 	include/sge/projectile/triangulation/triangulate.hpp
 	include/sge/projectile/triangulation/triangulation.hpp
 	include/sge/projectile/vector2.hpp
