@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/indexed_primitive.hpp"
 #include "../convert/nonindexed_primitive.hpp"
 #include "../devicefuncs/clear.hpp"
+#include "../devicefuncs/light_enable.hpp"
+#include "../devicefuncs/set_light.hpp"
 #include "../devicefuncs/set_material.hpp"
 #include "../devicefuncs/set_stream_source.hpp"
 #include "../devicefuncs/set_transform.hpp"
@@ -364,6 +366,11 @@ sge::d3d9::device::enable_light(
 	bool const _enable
 )
 {
+	devicefuncs::light_enable(
+		device_.get(),
+		_index,
+		_enable
+	);		
 }
 
 void
@@ -372,6 +379,11 @@ sge::d3d9::device::light(
 	renderer::light const &_light
 )
 {
+	devicefuncs::set_light(
+		device_.get(),
+		_index,
+		_light
+	);
 }
 
 void

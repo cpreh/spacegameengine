@@ -8,6 +8,8 @@ SET(
 	src/plugins/d3d9/convert/cube_side.hpp
 	src/plugins/d3d9/convert/index_format.hpp
 	src/plugins/d3d9/convert/indexed_primitive.hpp
+	src/plugins/d3d9/convert/light.hpp
+	src/plugins/d3d9/convert/light_index.hpp
 	src/plugins/d3d9/convert/lock_box.hpp
 	src/plugins/d3d9/convert/lock_mode.hpp
 	src/plugins/d3d9/convert/lock_rect.hpp
@@ -29,6 +31,8 @@ SET(
 	src/plugins/d3d9/convert/src/cube_side.cpp
 	src/plugins/d3d9/convert/src/index_format.cpp
 	src/plugins/d3d9/convert/src/indexed_primitive.cpp
+	src/plugins/d3d9/convert/src/light.cpp
+	src/plugins/d3d9/convert/src/light_index.cpp
 	src/plugins/d3d9/convert/src/lock_box.cpp
 	src/plugins/d3d9/convert/src/lock_mode.cpp
 	src/plugins/d3d9/convert/src/lock_rect.cpp
@@ -45,11 +49,13 @@ SET(
 	src/plugins/d3d9/convert/src/sampler_stage_op_value.cpp
 	src/plugins/d3d9/convert/src/to_color.cpp
 	src/plugins/d3d9/convert/src/to_color_value.cpp
+	src/plugins/d3d9/convert/src/vector3.cpp
 	src/plugins/d3d9/convert/src/vertex_role.cpp
 	src/plugins/d3d9/convert/src/vertex_type.cpp
 	src/plugins/d3d9/convert/src/viewport.cpp
 	src/plugins/d3d9/convert/to_color.hpp
 	src/plugins/d3d9/convert/to_color_value.hpp
+	src/plugins/d3d9/convert/vector3.hpp
 	src/plugins/d3d9/convert/vertex_role.hpp
 	src/plugins/d3d9/convert/vertex_type.hpp
 	src/plugins/d3d9/convert/viewport.hpp
@@ -59,6 +65,8 @@ SET(
 	src/plugins/d3d9/d3dinclude.hpp
 	src/plugins/d3d9/device.hpp
 	src/plugins/d3d9/devicefuncs/clear.hpp
+	src/plugins/d3d9/devicefuncs/light_enable.hpp
+	src/plugins/d3d9/devicefuncs/set_light.hpp
 	src/plugins/d3d9/devicefuncs/set_material.hpp
 	src/plugins/d3d9/devicefuncs/set_render_state.hpp
 	src/plugins/d3d9/devicefuncs/set_scissor_rect.hpp
@@ -66,6 +74,8 @@ SET(
 	src/plugins/d3d9/devicefuncs/set_transform.hpp
 	src/plugins/d3d9/devicefuncs/set_viewport.hpp
 	src/plugins/d3d9/devicefuncs/src/clear.cpp
+	src/plugins/d3d9/devicefuncs/src/light_enable.cpp
+	src/plugins/d3d9/devicefuncs/src/set_light.cpp
 	src/plugins/d3d9/devicefuncs/src/set_material.cpp
 	src/plugins/d3d9/devicefuncs/src/set_render_state.cpp
 	src/plugins/d3d9/devicefuncs/src/set_scissor_rect.cpp

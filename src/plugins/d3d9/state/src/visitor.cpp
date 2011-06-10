@@ -142,13 +142,6 @@ sge::d3d9::state::visitor::operator()(
 	case sge::renderer::state::bool_::available_states::clear_depth_buffer:
 	case sge::renderer::state::bool_::available_states::clear_back_buffer:
 	case sge::renderer::state::bool_::available_states::clear_stencil_buffer:
-		/*clear_flags_.flag(
-			state::convert::clear(
-				_state.state()
-			),
-			_state.value()
-		);*/
-
 		return;
 	case sge::renderer::state::bool_::available_states::enable_multi_sampling:
 		return; // FIXME
