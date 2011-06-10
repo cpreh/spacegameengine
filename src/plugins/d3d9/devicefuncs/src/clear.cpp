@@ -19,10 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../clear.hpp"
+#include "../../convert/clear_flag.hpp"
 #include "../../state/clear.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/text.hpp>
+
+namespace
+{
+
+DWORD
+make_flag(
+	sge::renderer::clear_flags_field const &,
+	sge::renderer::clear_flags::type
+);
+
+}
 
 void
 sge::d3d9::devicefuncs::clear(
@@ -31,16 +43,26 @@ sge::d3d9::devicefuncs::clear(
 	state::clear const &_state
 )
 {
-#if 0
 	if(
 		_flags
 		&&
 		_device->Clear(
 			0,
 			0,
-			state::convert::clear_flags(
+			::make_flag(
+				_flags,
+				sge::renderer::clear_flags::back_buffer
 			)
-			clear_state_.flags(),
+			|
+			::make_flag(
+				_flags,
+				sge::renderer::clear_flags::depth_buffer
+			)
+			|
+			::make_flag(
+				_flags,
+				sge::renderer::clear_flags::stencil_buffer
+			),
 			_state.color(),
 			_state.depth(),
 			_state.stencil()
@@ -50,5 +72,27 @@ sge::d3d9::devicefuncs::clear(
 		throw sge::renderer::exception(
 			FCPPT_TEXT("Clear() failed!")
 		);
-#endif
+}
+
+namespace
+{
+
+DWORD
+make_flag(
+	sge::renderer::clear_flags_field const &_field,
+	sge::renderer::clear_flags::type const _flag
+)
+{
+	return
+		_field[
+				_flag
+		]
+		?
+			sge::d3d9::convert::clear_flag(
+				_flag
+			)
+		:
+			0;
+}
+
 }

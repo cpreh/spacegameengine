@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/float.hpp"
 #include "../convert/bool.hpp"
 #include "../convert/color.hpp"
-#include "../convert/clear.hpp"
 #include "../convert/cull_mode.hpp"
 #include "../convert/depth_func.hpp"
 #include "../convert/stencil_func.hpp"

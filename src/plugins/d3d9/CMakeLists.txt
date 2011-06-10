@@ -3,6 +3,7 @@ SET(
 	src/plugins/d3d9/basic_target.hpp
 	src/plugins/d3d9/basic_target_impl.hpp
 	src/plugins/d3d9/convert/bool.hpp
+	src/plugins/d3d9/convert/clear_flag.hpp
 	src/plugins/d3d9/convert/color_format.hpp
 	src/plugins/d3d9/convert/cube_side.hpp
 	src/plugins/d3d9/convert/index_format.hpp
@@ -23,6 +24,7 @@ SET(
 	src/plugins/d3d9/convert/sampler_stage_op.hpp
 	src/plugins/d3d9/convert/sampler_stage_op_value.hpp
 	src/plugins/d3d9/convert/src/bool.cpp
+	src/plugins/d3d9/convert/src/clear_flag.cpp
 	src/plugins/d3d9/convert/src/color_format.cpp
 	src/plugins/d3d9/convert/src/cube_side.cpp
 	src/plugins/d3d9/convert/src/index_format.cpp
@@ -113,7 +115,6 @@ SET(
 	src/plugins/d3d9/state/clear_fwd.hpp
 	src/plugins/d3d9/state/convert/alpha_func.hpp
 	src/plugins/d3d9/state/convert/bool.hpp
-	src/plugins/d3d9/state/convert/clear.hpp
 	src/plugins/d3d9/state/convert/color.hpp
 	src/plugins/d3d9/state/convert/cull_mode.hpp
 	src/plugins/d3d9/state/convert/depth_func.hpp
@@ -125,7 +126,6 @@ SET(
 	src/plugins/d3d9/state/convert/source_blend_func.hpp
 	src/plugins/d3d9/state/convert/src/alpha_func.cpp
 	src/plugins/d3d9/state/convert/src/bool.cpp
-	src/plugins/d3d9/state/convert/src/clear.cpp
 	src/plugins/d3d9/state/convert/src/color.cpp
 	src/plugins/d3d9/state/convert/src/cull_mode.cpp
 	src/plugins/d3d9/state/convert/src/depth_func.cpp

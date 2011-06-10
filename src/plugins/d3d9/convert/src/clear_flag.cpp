@@ -18,29 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CONVERT_CLEAR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CONVERT_CLEAR_HPP_INCLUDED
-
+#include "../clear_flag.hpp"
 #include "../../d3dinclude.hpp"
-#include <sge/renderer/state/bool.hpp>
-
-namespace sge
-{
-namespace d3d9
-{
-namespace state
-{
-namespace convert
-{
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 DWORD
-clear(
-	sge::renderer::state::bool_::available_states::type
-);
+sge::d3d9::convert::clear_flag(
+	sge::renderer::clear_flags::type const _type
+)
+{
+	switch(
+		_type
+	)
+	{
+	case sge::renderer::clear_flags::depth_buffer:
+		return D3DCLEAR_ZBUFFER;
+	case sge::renderer::clear_flags::back_buffer:
+		return D3DCLEAR_TARGET;
+	case sge::renderer::clear_flags::stencil_buffer:
+		return D3DCLEAR_STENCIL;
+	}
 
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid clear flag!")
+	);
 }
-}
-}
-}
-
-#endif
