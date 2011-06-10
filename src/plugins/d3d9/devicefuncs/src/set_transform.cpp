@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_transform.hpp"
 #include "../../convert/matrix.hpp"
 #include "../../convert/matrix_mode.hpp"
-#include <fcppt/math/matrix/basic_impl.hpp>
 #include <sge/renderer/exception.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -51,7 +52,9 @@ sge::d3d9::devicefuncs::set_transform(
 {
 	D3DMATRIX d3d_matrix(
 		convert::matrix(
-			_matrix
+			fcppt::math::matrix::transpose(
+				_matrix
+			)
 		)
 	);
 
