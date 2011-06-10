@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CONVERT_CLEAR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CONVERT_CLEAR_HPP_INCLUDED
+#ifndef SGE_D3D9_DEVICEFUNCS_LIGHT_ENABLE_HPP_INCLUDED
+#define SGE_D3D9_DEVICEFUNCS_LIGHT_ENABLE_HPP_INCLUDED
 
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/state/bool.hpp>
+#include "../d3dinclude.hpp"
+#include <sge/renderer/light_index.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
-namespace state
-{
-namespace convert
+namespace devicefuncs
 {
 
-DWORD
-clear(
-	sge::renderer::state::bool_::available_states::type
+void
+light_enable(
+	IDirect3DDevice9 *,
+	sge::renderer::light_index,
+	bool
 );
 
-}
 }
 }
 }

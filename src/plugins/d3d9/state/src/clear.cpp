@@ -24,8 +24,7 @@ sge::d3d9::state::clear::clear()
 :
 	color_(0),
 	depth_(0.f),
-	stencil_(0),
-	flags_(0)
+	stencil_(0)
 {
 }
 
@@ -53,20 +52,6 @@ sge::d3d9::state::clear::stencil(
 	stencil_ = _stencil;
 }
 
-void
-sge::d3d9::state::clear::flag(
-	DWORD const _flag,
-	bool const _value
-)
-{
-	if(
-		_value
-	)
-		flags_ |= _flag;
-	else
-		flags_ &= ~_flag;
-}
-
 D3DCOLOR
 sge::d3d9::state::clear::color() const
 {
@@ -83,10 +68,4 @@ DWORD
 sge::d3d9::state::clear::stencil() const
 {
 	return stencil_;
-}
-
-DWORD
-sge::d3d9::state::clear::flags() const
-{
-	return flags_;
 }

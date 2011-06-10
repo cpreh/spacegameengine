@@ -18,57 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
+#include "../vector3.hpp"
+#include "../../d3dinclude.hpp"
+#include <fcppt/math/vector/basic_impl.hpp>
 
-#include "clear_fwd.hpp"
-#include "../d3dinclude.hpp"
-
-namespace sge
+D3DVECTOR const
+sge::d3d9::convert::vector3(
+	renderer::vector3 const &_vec
+)
 {
-namespace d3d9
-{
-namespace state
-{
+	D3DVECTOR const ret =
+	{
+		_vec.x(),
+		_vec.y(),
+		_vec.z()
+	};
 
-class clear
-{
-public:
-	clear();
-
-	void
-	color(
-		D3DCOLOR
-	);
-
-	void
-	depth(
-		float
-	);
-
-	void
-	stencil(
-		DWORD
-	);
-
-	D3DCOLOR
-	color() const;
-
-	float
-	depth() const;
-
-	DWORD
-	stencil() const;
-private:
-	D3DCOLOR color_;
-
-	float depth_;
-
-	DWORD stencil_;
-};
-
+	return ret;
 }
-}
-}
-
-#endif

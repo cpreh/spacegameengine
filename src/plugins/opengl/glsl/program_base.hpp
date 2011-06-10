@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_PROGRAM_BASE_HPP_INCLUDED
 
 #include "program_base_fwd.hpp"
-#include "../common.hpp"
-#include <sge/renderer/glsl/string.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -46,11 +44,6 @@ public:
 
 	virtual void
 	unuse() const = 0;
-
-	virtual GLint
-	location(
-		sge::renderer::glsl::string const &
-	) const = 0;
 
 	virtual ~program_base();
 };

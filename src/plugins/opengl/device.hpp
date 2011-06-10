@@ -73,6 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/vertex_shader_ptr.hpp>
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/stack.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_ptr.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
@@ -86,7 +87,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
-#include <stack>
 
 namespace sge
 {
@@ -342,15 +342,11 @@ private:
 
 	opengl::target_base *target_;
 
-	typedef std::stack<
-		renderer::state::list
-	> stack_type;
-
 	mutable fcppt::scoped_ptr<
 		renderer::caps
 	> caps_;
 
-	stack_type state_levels_;
+	sge::renderer::state::stack state_levels_;
 };
 
 }

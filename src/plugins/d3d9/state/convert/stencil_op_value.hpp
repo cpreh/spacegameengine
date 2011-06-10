@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
+#ifndef SGE_D3D9_STATE_CONVERT_STENCIL_OP_VALUE_HPP_INCLUDED
+#define SGE_D3D9_STATE_CONVERT_STENCIL_OP_VALUE_HPP_INCLUDED
 
-#include "clear_fwd.hpp"
-#include "../d3dinclude.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/state/stencil_op_value.hpp>
 
 namespace sge
 {
@@ -30,43 +30,15 @@ namespace d3d9
 {
 namespace state
 {
-
-class clear
+namespace convert
 {
-public:
-	clear();
 
-	void
-	color(
-		D3DCOLOR
-	);
+D3DSTENCILOP
+stencil_op_value(
+	sge::renderer::state::stencil_op_value::type
+);
 
-	void
-	depth(
-		float
-	);
-
-	void
-	stencil(
-		DWORD
-	);
-
-	D3DCOLOR
-	color() const;
-
-	float
-	depth() const;
-
-	DWORD
-	stencil() const;
-private:
-	D3DCOLOR color_;
-
-	float depth_;
-
-	DWORD stencil_;
-};
-
+}
 }
 }
 }

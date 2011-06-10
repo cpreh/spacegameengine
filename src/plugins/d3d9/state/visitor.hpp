@@ -131,7 +131,7 @@ public:
 private:
 	IDirect3DDevice9 *const device_;
 
-	state::clear &clear_;
+	state::clear &clear_state_;
 };
 
 }

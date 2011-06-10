@@ -18,36 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../clear.hpp"
-#include "../../../d3dinclude.hpp"
+#include "../clear_flag.hpp"
+#include "../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 DWORD
-sge::d3d9::state::convert::clear(
-	sge::renderer::state::bool_::available_states::type const _type
+sge::d3d9::convert::clear_flag(
+	sge::renderer::clear_flags::type const _type
 )
 {
 	switch(
 		_type
 	)
 	{
-	case sge::renderer::state::bool_::available_states::clear_depth_buffer:
+	case sge::renderer::clear_flags::depth_buffer:
 		return D3DCLEAR_ZBUFFER;
-	case sge::renderer::state::bool_::available_states::clear_back_buffer:
+	case sge::renderer::clear_flags::back_buffer:
 		return D3DCLEAR_TARGET;
-	case sge::renderer::state::bool_::available_states::clear_stencil_buffer:
+	case sge::renderer::clear_flags::stencil_buffer:
 		return D3DCLEAR_STENCIL;
-	case sge::renderer::state::bool_::available_states::enable_alpha_blending:
-	case sge::renderer::state::bool_::available_states::enable_lighting:
-	case sge::renderer::state::bool_::available_states::enable_multi_sampling:
-	case sge::renderer::state::bool_::available_states::enable_point_sprites:
-	case sge::renderer::state::bool_::available_states::enable_scissor_test:
-	case sge::renderer::state::bool_::available_states::write_to_depth_buffer:
-		break;
 	}
 
 	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid bool state!")
+		FCPPT_TEXT("Invalid clear flag!")
 	);
 }

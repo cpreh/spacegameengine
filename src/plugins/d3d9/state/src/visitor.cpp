@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/float.hpp"
 #include "../convert/bool.hpp"
 #include "../convert/color.hpp"
-#include "../convert/clear.hpp"
 #include "../convert/cull_mode.hpp"
 #include "../convert/depth_func.hpp"
 #include "../convert/stencil_func.hpp"
@@ -34,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/draw_mode.hpp"
 #include "../convert/source_blend_func.hpp"
 #include "../convert/dest_blend_func.hpp"
+#include "../convert/stencil_op.hpp"
+#include "../convert/stencil_op_value.hpp"
 #include "../set_render_state_bool.hpp"
 #include "../set_render_state_float.hpp"
 #include "../../convert/to_color.hpp"
@@ -43,11 +44,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::state::visitor::visitor(
 	IDirect3DDevice9 *const _device,
-	state::clear &_clear
+	state::clear &_clear_state
 )
 :
 	device_(_device),
-	clear_(_clear)
+	clear_state_(_clear_state)
 {
 }
 
@@ -61,7 +62,7 @@ sge::d3d9::state::visitor::operator()(
 		== sge::renderer::state::int_::available_states::stencil_buffer_clear_val
 	)
 	{
-		clear_.stencil(
+		clear_state_.stencil(
 			static_cast<
 				DWORD
 			>(
@@ -113,7 +114,7 @@ sge::d3d9::state::visitor::operator()(
 		== sge::renderer::state::float_::available_states::depth_buffer_clear_val
 	)
 	{
-		clear_.depth(
+		clear_state_.depth(
 			_state.value()
 		);
 
@@ -141,13 +142,6 @@ sge::d3d9::state::visitor::operator()(
 	case sge::renderer::state::bool_::available_states::clear_depth_buffer:
 	case sge::renderer::state::bool_::available_states::clear_back_buffer:
 	case sge::renderer::state::bool_::available_states::clear_stencil_buffer:
-		clear_.flag(
-			state::convert::clear(
-				_state.state()
-			),
-			_state.value()
-		);
-
 		return;
 	case sge::renderer::state::bool_::available_states::enable_multi_sampling:
 		return; // FIXME
@@ -181,7 +175,7 @@ sge::d3d9::state::visitor::operator()(
 		== sge::renderer::state::color::available_states::back_buffer_clear_color
 	)
 	{
-		clear_.color(
+		clear_state_.color(
 			d3d9::convert::to_color(	
 				_state.value()
 			)
@@ -373,5 +367,13 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::stencil_op::type const _state
 ) const
 {
-	// TODO!
+	d3d9::devicefuncs::set_render_state(
+		device_,
+		state::convert::stencil_op(
+			_state.state()
+		),
+		state::convert::stencil_op_value(
+			_state.value()
+		)
+	);
 }

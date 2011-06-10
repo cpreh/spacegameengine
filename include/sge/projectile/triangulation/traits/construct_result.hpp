@@ -18,55 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
+#ifndef SGE_PROJECTLE_TRIANGULATION_TRAITS_CONSTRUCT_RESULT_HPP_INCLUDED
+#define SGE_PROJECTLE_TRIANGULATION_TRAITS_CONSTRUCT_RESULT_HPP_INCLUDED
 
-#include "clear_fwd.hpp"
-#include "../d3dinclude.hpp"
+#include <sge/projectile/triangulation/default_tag.hpp>
 
 namespace sge
 {
-namespace d3d9
+namespace projectile
 {
-namespace state
+namespace triangulation
+{
+namespace traits
 {
 
-class clear
+template<
+	typename Result,
+	typename Vertex,
+	typename Tag
+>
+struct construct_result;
+
+template<
+	typename Result,
+	typename Vertex
+>
+struct construct_result<
+	Result,
+	Vertex,
+	triangulation::default_tag
+>
 {
-public:
-	clear();
+	static
+	Result const
+	execute(
+		Vertex const &_v1,
+		Vertex const &_v2,
+		Vertex const &_v3
+	)
+	{
+		Result const ret = {{
+			_v1,
+			_v2,
+			_v3
+		}};
 
-	void
-	color(
-		D3DCOLOR
-	);
-
-	void
-	depth(
-		float
-	);
-
-	void
-	stencil(
-		DWORD
-	);
-
-	D3DCOLOR
-	color() const;
-
-	float
-	depth() const;
-
-	DWORD
-	stencil() const;
-private:
-	D3DCOLOR color_;
-
-	float depth_;
-
-	DWORD stencil_;
+		return ret;
+	}
 };
 
+}
 }
 }
 }

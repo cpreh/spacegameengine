@@ -210,7 +210,6 @@ SET(
 	src/plugins/opengl/glsl/programfuncs/create.hpp
 	src/plugins/opengl/glsl/programfuncs/delete.hpp
 	src/plugins/opengl/glsl/programfuncs/detach_shader.hpp
-	src/plugins/opengl/glsl/programfuncs/get_attrib_location.hpp
 	src/plugins/opengl/glsl/programfuncs/get_integer.hpp
 	src/plugins/opengl/glsl/programfuncs/info_log.hpp
 	src/plugins/opengl/glsl/programfuncs/info_log_length.hpp
@@ -222,7 +221,6 @@ SET(
 	src/plugins/opengl/glsl/programfuncs/src/create.cpp
 	src/plugins/opengl/glsl/programfuncs/src/delete.cpp
 	src/plugins/opengl/glsl/programfuncs/src/detach_shader.cpp
-	src/plugins/opengl/glsl/programfuncs/src/get_attrib_location.cpp
 	src/plugins/opengl/glsl/programfuncs/src/get_integer.cpp
 	src/plugins/opengl/glsl/programfuncs/src/info_log.cpp
 	src/plugins/opengl/glsl/programfuncs/src/info_log_length.cpp

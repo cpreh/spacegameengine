@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_TRIANGULATION_TRIANGULATION_HPP_INCLUDED
 #define SGE_PROJECTILE_TRIANGULATION_TRIANGULATION_HPP_INCLUDED
 
+#include <sge/projectile/triangulation/default_tag.hpp>
+#include <sge/projectile/triangulation/traits/traits.hpp>
 #include <sge/projectile/triangulation/triangulate.hpp>
 
 #endif

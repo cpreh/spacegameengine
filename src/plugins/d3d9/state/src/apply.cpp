@@ -18,57 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
+#include "../apply.hpp"
+#include "../visitor.hpp"
+#include <sge/renderer/state/any.hpp>
+#include <sge/renderer/state/apply.hpp>
+#include <fcppt/function/object.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/cref.hpp>
 
-#include "clear_fwd.hpp"
-#include "../d3dinclude.hpp"
-
-namespace sge
+void
+sge::d3d9::state::apply(
+	IDirect3DDevice9 *const _device,
+	state::clear &_clear_state,
+	sge::renderer::state::list &_current_states,
+	sge::renderer::state::list const &_new_states
+)
 {
-namespace d3d9
-{
-namespace state
-{
-
-class clear
-{
-public:
-	clear();
-
-	void
-	color(
-		D3DCOLOR
+	d3d9::state::visitor const visitor(
+		_device,
+		_clear_state
 	);
 
-	void
-	depth(
-		float
+	sge::renderer::state::apply(
+		_current_states,
+		_new_states,
+		std::tr1::bind(
+			&fcppt::variant::apply_unary<
+				d3d9::state::visitor,
+				sge::renderer::state::any
+			>,
+			fcppt::cref(
+				visitor
+			),
+			std::tr1::placeholders::_1
+		)
 	);
-
-	void
-	stencil(
-		DWORD
-	);
-
-	D3DCOLOR
-	color() const;
-
-	float
-	depth() const;
-
-	DWORD
-	stencil() const;
-private:
-	D3DCOLOR color_;
-
-	float depth_;
-
-	DWORD stencil_;
-};
-
 }
-}
-}
-
-#endif

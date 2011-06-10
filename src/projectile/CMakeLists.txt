@@ -65,9 +65,14 @@ SET(
 	include/sge/projectile/symbol.hpp
 	include/sge/projectile/time_increment.hpp
 	include/sge/projectile/triangle.hpp
+	include/sge/projectile/triangulation/default_tag.hpp
 	include/sge/projectile/triangulation/detail/area.hpp
 	include/sge/projectile/triangulation/detail/point_inside_triangle.hpp
 	include/sge/projectile/triangulation/detail/snip.hpp
+	include/sge/projectile/triangulation/traits/access_element.hpp
+	include/sge/projectile/triangulation/traits/construct_result.hpp
+	include/sge/projectile/triangulation/traits/scalar.hpp
+	include/sge/projectile/triangulation/traits/traits.hpp
 	include/sge/projectile/triangulation/triangulate.hpp
 	include/sge/projectile/triangulation/triangulation.hpp
 	include/sge/projectile/vector2.hpp

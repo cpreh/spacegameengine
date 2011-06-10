@@ -18,54 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_APPLY_CALLBACK_HPP_INCLUDED
+#define SGE_RENDERER_STATE_APPLY_CALLBACK_HPP_INCLUDED
 
-#include "clear_fwd.hpp"
-#include "../d3dinclude.hpp"
+#include <sge/renderer/state/any.hpp>
+#include <fcppt/function/object_fwd.hpp>
 
 namespace sge
 {
-namespace d3d9
+namespace renderer
 {
 namespace state
 {
 
-class clear
-{
-public:
-	clear();
-
-	void
-	color(
-		D3DCOLOR
-	);
-
-	void
-	depth(
-		float
-	);
-
-	void
-	stencil(
-		DWORD
-	);
-
-	D3DCOLOR
-	color() const;
-
-	float
-	depth() const;
-
-	DWORD
-	stencil() const;
-private:
-	D3DCOLOR color_;
-
-	float depth_;
-
-	DWORD stencil_;
-};
+typedef fcppt::function::object<
+	void (
+		state::any const &
+	)
+> apply_callback;
 
 }
 }

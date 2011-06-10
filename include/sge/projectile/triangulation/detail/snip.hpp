@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_TRIANGULATION_DETAIL_SNIP_HPP_INCLUDED
 
 #include <sge/projectile/triangulation/detail/point_inside_triangle.hpp>
-#include <boost/mpl/identity.hpp>
+#include <sge/projectile/triangulation/traits/access_element.hpp>
+#include <sge/projectile/triangulation/traits/scalar.hpp>
 
 namespace sge
 {
@@ -32,19 +33,25 @@ namespace triangulation
 {
 namespace detail
 {
-template<typename PointContainer,typename IndexContainer>
+
+template<
+	typename Tag,
+	typename PointContainer,
+	typename IndexContainer
+>
 bool 
 snip(
-	PointContainer const &contour,
-	typename PointContainer::size_type const u,
-	typename PointContainer::size_type const v,
-	typename PointContainer::size_type const w,
-	typename PointContainer::size_type const n,
-	IndexContainer const &V,
-	// hack VC++ constructor type bug
-	typename boost::mpl::identity<
-		typename PointContainer::value_type
-	>::type::value_type const epsilon)
+	PointContainer const &_contour,
+	typename PointContainer::size_type const _prev_vertex,
+	typename PointContainer::size_type const _cur_vertex,
+	typename PointContainer::size_type const _next_vertex,
+	typename PointContainer::size_type const _num_vertices,
+	IndexContainer const &_indices,
+	typename traits::scalar<
+		typename PointContainer::value_type,
+		Tag
+	>::type const _epsilon
+)
 {
 	typedef typename
 	PointContainer::size_type
@@ -52,40 +59,134 @@ snip(
 
 	typedef typename
 	PointContainer::value_type
-	vector;
+	vertex;
+
+	typedef traits::access_element<
+		vertex,
+		Tag
+	> access_element;
 
 	typedef typename
-	vector::value_type
+	traits::scalar<
+		vertex,
+		Tag
+	>::type
 	scalar;
 
-	vector a,b,c,p;
+	vertex const 
+		v1(
+			_contour[
+				_indices[
+					_prev_vertex
+				]
+			]
+		),
+		v2(
+			_contour[
+				_indices[
+					_cur_vertex
+				]
+			]
+		),
+		v3(
+			_contour[
+				_indices[
+					_next_vertex
+				]
+			]
+		);
 
-  a[0] = contour[V[u]][0];
-  a[1] = contour[V[u]][1];
+	scalar const
+		v10(
+			access_element::execute(
+				v1,
+				0
+			)
+		),
+		v11(
+			access_element::execute(
+				v1,
+				1
+			)
+		),
+		v20(
+			access_element::execute(
+				v2,
+				0
+			)
+		),
+		v21(
+			access_element::execute(
+				v2,
+				1
+			)
+		),
+		v30(
+			access_element::execute(
+				v3,
+				0
+			)
+		),
+		v31(
+			access_element::execute(
+				v3,
+				1
+			)
+		);
 
-  b[0] = contour[V[v]][0];
-  b[1] = contour[V[v]][1];
-
-  c[0] = contour[V[w]][0];
-  c[1] = contour[V[w]][1];
-
-  if(epsilon > (((b[0]-a[0])*(c[1]-a[1])) - ((b[1]-a[1])*(c[0]-a[0])))) 
+	if(
+		_epsilon >
+		(
+			(
+				(v20-v10)
+				*
+				(v31 - v11)
+			)
+			-
+			(
+				(v21 - v11)
+				*
+				(v30 - v10)
+			)
+		)
+	)
 		return false;
 
-  for(size_type i = 0; i<n; i++)
-  {
-    if((i == u) || (i == v) || (i == w)) 
+	for(
+		size_type index(
+			0u
+		);
+		index < _num_vertices;
+		++index
+	)
+	{
+		if(
+			(index == _prev_vertex)
+			|| (index == _cur_vertex)
+			|| (index == _next_vertex)
+		)
 			continue;
 
-    p[0] = contour[V[i]][0];
-    p[1] = contour[V[i]][1];
-
-    if(sge::projectile::triangulation::detail::point_inside_triangle(a,b,c,p)) 
+		if(
+			sge::projectile::triangulation::detail::point_inside_triangle<
+				Tag
+			>(
+				v1,
+				v2,
+				v3,
+				_contour[
+					_indices[
+						index
+					]
+				]
+			)
+		)
 			return false;
-  }
+	}
 
-  return true;
+	return true;
 }
+
 }
 }
 }

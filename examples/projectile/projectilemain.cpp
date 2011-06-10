@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/scalar.hpp>
 #include <sge/projectile/shape/circle.hpp>
 #include <sge/projectile/shape/triangle_mesh.hpp>
+#include <sge/projectile/triangulation/default_tag.hpp>
 #include <sge/projectile/triangulation/triangulate.hpp>
 #include <sge/projectile/world.hpp>
 #include <sge/renderer/device.hpp>
@@ -492,7 +493,10 @@ try
 		world,
 		second_group,
 		fcppt::make_shared_ptr<sge::projectile::shape::triangle_mesh>(
-			sge::projectile::triangulation::triangulate<sge::projectile::shape::triangle_set>(
+			sge::projectile::triangulation::triangulate<
+				sge::projectile::triangulation::default_tag,
+				sge::projectile::shape::triangle_set
+			>(
 				container_from_stream< std::vector< sge::projectile::vector2 > >(
 					polygon_stream),
 				static_cast<sge::projectile::scalar>(

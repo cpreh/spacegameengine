@@ -18,57 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
+#include "../stencil_op.hpp"
+#include "../../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "clear_fwd.hpp"
-#include "../d3dinclude.hpp"
+D3DRENDERSTATETYPE
+sge::d3d9::state::convert::stencil_op(
+	sge::renderer::state::stencil_op::available_states::type const _type
+)
+{
+	switch(
+		_type
+	)
+	{
+	case sge::renderer::state::stencil_op::available_states::stencil_fail:
+		return D3DRS_STENCILFAIL;
+	case sge::renderer::state::stencil_op::available_states::depth_fail:
+		return D3DRS_STENCILZFAIL;
+	case sge::renderer::state::stencil_op::available_states::pass:
+		return D3DRS_STENCILPASS;
+	}
 
-namespace sge
-{
-namespace d3d9
-{
-namespace state
-{
-
-class clear
-{
-public:
-	clear();
-
-	void
-	color(
-		D3DCOLOR
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid stencil_op!")
 	);
-
-	void
-	depth(
-		float
-	);
-
-	void
-	stencil(
-		DWORD
-	);
-
-	D3DCOLOR
-	color() const;
-
-	float
-	depth() const;
-
-	DWORD
-	stencil() const;
-private:
-	D3DCOLOR color_;
-
-	float depth_;
-
-	DWORD stencil_;
-};
-
 }
-}
-}
-
-#endif

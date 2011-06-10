@@ -643,6 +643,8 @@ SET(
 	include/sge/renderer/state/any.hpp
 	include/sge/renderer/state/any_sort.hpp
 	include/sge/renderer/state/any_sort_functor.hpp
+	include/sge/renderer/state/apply.hpp
+	include/sge/renderer/state/apply_callback.hpp
 	include/sge/renderer/state/bool.hpp
 	include/sge/renderer/state/bool_type.hpp
 	include/sge/renderer/state/color.hpp
@@ -661,6 +663,7 @@ SET(
 	include/sge/renderer/state/list_fwd.hpp
 	include/sge/renderer/state/scoped.hpp
 	include/sge/renderer/state/source_blend_func.hpp
+	include/sge/renderer/state/stack.hpp
 	include/sge/renderer/state/state.hpp
 	include/sge/renderer/state/stencil_func.hpp
 	include/sge/renderer/state/stencil_op.hpp
@@ -1112,6 +1115,7 @@ SET(
 	src/renderer/screenshot.cpp
 	src/renderer/state/any_sort.cpp
 	src/renderer/state/any_sort_functor.cpp
+	src/renderer/state/apply.cpp
 	src/renderer/state/bool.cpp
 	src/renderer/state/color.cpp
 	src/renderer/state/combine.cpp

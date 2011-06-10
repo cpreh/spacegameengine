@@ -3,10 +3,13 @@ SET(
 	src/plugins/d3d9/basic_target.hpp
 	src/plugins/d3d9/basic_target_impl.hpp
 	src/plugins/d3d9/convert/bool.hpp
+	src/plugins/d3d9/convert/clear_flag.hpp
 	src/plugins/d3d9/convert/color_format.hpp
 	src/plugins/d3d9/convert/cube_side.hpp
 	src/plugins/d3d9/convert/index_format.hpp
 	src/plugins/d3d9/convert/indexed_primitive.hpp
+	src/plugins/d3d9/convert/light.hpp
+	src/plugins/d3d9/convert/light_index.hpp
 	src/plugins/d3d9/convert/lock_box.hpp
 	src/plugins/d3d9/convert/lock_mode.hpp
 	src/plugins/d3d9/convert/lock_rect.hpp
@@ -23,10 +26,13 @@ SET(
 	src/plugins/d3d9/convert/sampler_stage_op.hpp
 	src/plugins/d3d9/convert/sampler_stage_op_value.hpp
 	src/plugins/d3d9/convert/src/bool.cpp
+	src/plugins/d3d9/convert/src/clear_flag.cpp
 	src/plugins/d3d9/convert/src/color_format.cpp
 	src/plugins/d3d9/convert/src/cube_side.cpp
 	src/plugins/d3d9/convert/src/index_format.cpp
 	src/plugins/d3d9/convert/src/indexed_primitive.cpp
+	src/plugins/d3d9/convert/src/light.cpp
+	src/plugins/d3d9/convert/src/light_index.cpp
 	src/plugins/d3d9/convert/src/lock_box.cpp
 	src/plugins/d3d9/convert/src/lock_mode.cpp
 	src/plugins/d3d9/convert/src/lock_rect.cpp
@@ -43,11 +49,13 @@ SET(
 	src/plugins/d3d9/convert/src/sampler_stage_op_value.cpp
 	src/plugins/d3d9/convert/src/to_color.cpp
 	src/plugins/d3d9/convert/src/to_color_value.cpp
+	src/plugins/d3d9/convert/src/vector3.cpp
 	src/plugins/d3d9/convert/src/vertex_role.cpp
 	src/plugins/d3d9/convert/src/vertex_type.cpp
 	src/plugins/d3d9/convert/src/viewport.cpp
 	src/plugins/d3d9/convert/to_color.hpp
 	src/plugins/d3d9/convert/to_color_value.hpp
+	src/plugins/d3d9/convert/vector3.hpp
 	src/plugins/d3d9/convert/vertex_role.hpp
 	src/plugins/d3d9/convert/vertex_type.hpp
 	src/plugins/d3d9/convert/viewport.hpp
@@ -56,12 +64,18 @@ SET(
 	src/plugins/d3d9/d3d_device_unique_ptr.hpp
 	src/plugins/d3d9/d3dinclude.hpp
 	src/plugins/d3d9/device.hpp
+	src/plugins/d3d9/devicefuncs/clear.hpp
+	src/plugins/d3d9/devicefuncs/light_enable.hpp
+	src/plugins/d3d9/devicefuncs/set_light.hpp
 	src/plugins/d3d9/devicefuncs/set_material.hpp
 	src/plugins/d3d9/devicefuncs/set_render_state.hpp
 	src/plugins/d3d9/devicefuncs/set_scissor_rect.hpp
 	src/plugins/d3d9/devicefuncs/set_stream_source.hpp
 	src/plugins/d3d9/devicefuncs/set_transform.hpp
 	src/plugins/d3d9/devicefuncs/set_viewport.hpp
+	src/plugins/d3d9/devicefuncs/src/clear.cpp
+	src/plugins/d3d9/devicefuncs/src/light_enable.cpp
+	src/plugins/d3d9/devicefuncs/src/set_light.cpp
 	src/plugins/d3d9/devicefuncs/src/set_material.cpp
 	src/plugins/d3d9/devicefuncs/src/set_render_state.cpp
 	src/plugins/d3d9/devicefuncs/src/set_scissor_rect.cpp
@@ -106,11 +120,11 @@ SET(
 	src/plugins/d3d9/src/target_base.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
+	src/plugins/d3d9/state/apply.hpp
 	src/plugins/d3d9/state/clear.hpp
 	src/plugins/d3d9/state/clear_fwd.hpp
 	src/plugins/d3d9/state/convert/alpha_func.hpp
 	src/plugins/d3d9/state/convert/bool.hpp
-	src/plugins/d3d9/state/convert/clear.hpp
 	src/plugins/d3d9/state/convert/color.hpp
 	src/plugins/d3d9/state/convert/cull_mode.hpp
 	src/plugins/d3d9/state/convert/depth_func.hpp
@@ -122,7 +136,6 @@ SET(
 	src/plugins/d3d9/state/convert/source_blend_func.hpp
 	src/plugins/d3d9/state/convert/src/alpha_func.cpp
 	src/plugins/d3d9/state/convert/src/bool.cpp
-	src/plugins/d3d9/state/convert/src/clear.cpp
 	src/plugins/d3d9/state/convert/src/color.cpp
 	src/plugins/d3d9/state/convert/src/cull_mode.cpp
 	src/plugins/d3d9/state/convert/src/depth_func.cpp
@@ -133,11 +146,16 @@ SET(
 	src/plugins/d3d9/state/convert/src/int.cpp
 	src/plugins/d3d9/state/convert/src/source_blend_func.cpp
 	src/plugins/d3d9/state/convert/src/stencil_func.cpp
+	src/plugins/d3d9/state/convert/src/stencil_op.cpp
+	src/plugins/d3d9/state/convert/src/stencil_op_value.cpp
 	src/plugins/d3d9/state/convert/src/uint.cpp
 	src/plugins/d3d9/state/convert/stencil_func.hpp
+	src/plugins/d3d9/state/convert/stencil_op.hpp
+	src/plugins/d3d9/state/convert/stencil_op_value.hpp
 	src/plugins/d3d9/state/convert/uint.hpp
 	src/plugins/d3d9/state/set_render_state_bool.hpp
 	src/plugins/d3d9/state/set_render_state_float.hpp
+	src/plugins/d3d9/state/src/apply.cpp
 	src/plugins/d3d9/state/src/clear.cpp
 	src/plugins/d3d9/state/src/set_render_state_bool.cpp
 	src/plugins/d3d9/state/src/set_render_state_float.cpp

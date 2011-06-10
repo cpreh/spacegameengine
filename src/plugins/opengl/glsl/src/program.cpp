@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program_contexts.hpp"
 #include "../uniform/variable.hpp"
 #include "../programfuncs/bind_frag_data_location.hpp"
-#include "../programfuncs/get_attrib_location.hpp"
 #include "../programfuncs/info_log.hpp"
 #include "../programfuncs/info_log_length.hpp"
 #include "../programfuncs/link.hpp"
@@ -95,24 +94,6 @@ sge::opengl::glsl::program<Environment>::unuse() const
 	do_use(
 		0
 	);
-}
-
-template<
-	typename Environment
->
-GLint
-sge::opengl::glsl::program<Environment>::location(
-	sge::renderer::glsl::string const &_name
-) const
-{
-	return
-		programfuncs::get_attrib_location<
-			Environment
-		>(
-			holder_.context(),
-			holder_.id(),
-			_name.c_str()
-		);
 }
 
 template<

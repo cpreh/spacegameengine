@@ -18,31 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_GET_ATTRIB_LOCATION_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_GET_ATTRIB_LOCATION_HPP_INCLUDED
-
-#include "../../common.hpp"
+#ifndef SGE_PROJECTLE_TRIANGULATION_DEFAULT_TAG_HPP_INCLUDED
+#define SGE_PROJECTLE_TRIANGULATION_DEFAULT_TAG_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
+namespace projectile
 {
-namespace glsl
-{
-namespace programfuncs
+namespace triangulation
 {
 
-template<
-	typename Environment
->
-GLint
-get_attrib_location(
-	typename Environment::program_context const &,
-	typename Environment::handle,
-	char const *name
-);
+struct default_tag
+{
+};
 
-}
 }
 }
 }

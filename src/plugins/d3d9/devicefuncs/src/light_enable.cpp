@@ -18,57 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
+#include "../light_enable.hpp"
+#include "../../convert/bool.hpp"
+#include "../../convert/light_index.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "clear_fwd.hpp"
-#include "../d3dinclude.hpp"
-
-namespace sge
+void
+sge::d3d9::devicefuncs::light_enable(
+	IDirect3DDevice9 *const _device,
+	sge::renderer::light_index const _index,
+	bool const _enable
+)
 {
-namespace d3d9
-{
-namespace state
-{
-
-class clear
-{
-public:
-	clear();
-
-	void
-	color(
-		D3DCOLOR
-	);
-
-	void
-	depth(
-		float
-	);
-
-	void
-	stencil(
-		DWORD
-	);
-
-	D3DCOLOR
-	color() const;
-
-	float
-	depth() const;
-
-	DWORD
-	stencil() const;
-private:
-	D3DCOLOR color_;
-
-	float depth_;
-
-	DWORD stencil_;
-};
-
+	if(
+		_device->LightEnable(
+			d3d9::convert::light_index(
+				_index
+			),
+			d3d9::convert::bool_(
+				_enable
+			)
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("LightEnable() failed!")
+		);
 }
-}
-}
-
-#endif

@@ -18,57 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
+#include "../light.hpp"
+#include "../to_color_value.hpp"
+#include "../vector3.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/light.hpp>
 
-#include "clear_fwd.hpp"
-#include "../d3dinclude.hpp"
-
-namespace sge
+D3DLIGHT9 const
+sge::d3d9::convert::light(
+	sge::renderer::light const &_light
+)
 {
-namespace d3d9
-{
-namespace state
-{
+	D3DLIGHT9 const ret =
+	{
+		D3DLIGHT_SPOT, // TODO: is this ok?
+		d3d9::convert::to_color_value(
+			_light.diffuse()
+		),
+		d3d9::convert::to_color_value(
+			_light.specular()
+		),
+		d3d9::convert::to_color_value(
+			_light.ambient()
+		),
+		d3d9::convert::vector3(
+			_light.position()
+		),
+		d3d9::convert::vector3(
+			_light.direction()
+		),
+		0 // FIXME: range
+		// FIXME!
+	};
 
-class clear
-{
-public:
-	clear();
-
-	void
-	color(
-		D3DCOLOR
-	);
-
-	void
-	depth(
-		float
-	);
-
-	void
-	stencil(
-		DWORD
-	);
-
-	D3DCOLOR
-	color() const;
-
-	float
-	depth() const;
-
-	DWORD
-	stencil() const;
-private:
-	D3DCOLOR color_;
-
-	float depth_;
-
-	DWORD stencil_;
-};
-
+	return ret;
 }
-}
-}
-
-#endif

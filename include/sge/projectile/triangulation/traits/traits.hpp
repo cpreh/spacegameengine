@@ -18,57 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CLEAR_HPP_INCLUDED
+#ifndef SGE_PROJECTILE_TRIANGULATION_TRAITS_TRAITS_HPP_INCLUDED
+#define SGE_PROJECTILE_TRIANGULATION_TRAITS_TRAITS_HPP_INCLUDED
 
-#include "clear_fwd.hpp"
-#include "../d3dinclude.hpp"
-
-namespace sge
-{
-namespace d3d9
-{
-namespace state
-{
-
-class clear
-{
-public:
-	clear();
-
-	void
-	color(
-		D3DCOLOR
-	);
-
-	void
-	depth(
-		float
-	);
-
-	void
-	stencil(
-		DWORD
-	);
-
-	D3DCOLOR
-	color() const;
-
-	float
-	depth() const;
-
-	DWORD
-	stencil() const;
-private:
-	D3DCOLOR color_;
-
-	float depth_;
-
-	DWORD stencil_;
-};
-
-}
-}
-}
+#include <sge/projectile/triangulation/traits/access_element.hpp>
+#include <sge/projectile/triangulation/traits/construct_result.hpp>
+#include <sge/projectile/triangulation/traits/scalar.hpp>
 
 #endif
