@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/draw_mode.hpp"
 #include "../convert/source_blend_func.hpp"
 #include "../convert/dest_blend_func.hpp"
+#include "../convert/stencil_op.hpp"
+#include "../convert/stencil_op_value.hpp"
 #include "../set_render_state_bool.hpp"
 #include "../set_render_state_float.hpp"
 #include "../../convert/to_color.hpp"
@@ -373,5 +375,13 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::stencil_op::type const _state
 ) const
 {
-	// TODO!
+	d3d9::devicefuncs::set_render_state(
+		device_,
+		state::convert::stencil_op(
+			_state.state()
+		),
+		state::convert::stencil_op_value(
+			_state.value()
+		)
+	);
 }

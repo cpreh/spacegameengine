@@ -133,8 +133,12 @@ SET(
 	src/plugins/d3d9/state/convert/src/int.cpp
 	src/plugins/d3d9/state/convert/src/source_blend_func.cpp
 	src/plugins/d3d9/state/convert/src/stencil_func.cpp
+	src/plugins/d3d9/state/convert/src/stencil_op.cpp
+	src/plugins/d3d9/state/convert/src/stencil_op_value.cpp
 	src/plugins/d3d9/state/convert/src/uint.cpp
 	src/plugins/d3d9/state/convert/stencil_func.hpp
+	src/plugins/d3d9/state/convert/stencil_op.hpp
+	src/plugins/d3d9/state/convert/stencil_op_value.hpp
 	src/plugins/d3d9/state/convert/uint.hpp
 	src/plugins/d3d9/state/set_render_state_bool.hpp
 	src/plugins/d3d9/state/set_render_state_float.hpp
