@@ -28,11 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_declaration.hpp"
 #include "../convert/indexed_primitive.hpp"
 #include "../convert/nonindexed_primitive.hpp"
+#include "../devicefuncs/clear.hpp"
 #include "../devicefuncs/set_material.hpp"
 #include "../devicefuncs/set_stream_source.hpp"
 #include "../devicefuncs/set_transform.hpp"
 #include "../parameters/create.hpp"
-#include "../state/visitor.hpp"
+#include "../state/apply.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/planar.hpp"
 #include "../texture/volume.hpp"
@@ -42,15 +43,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/to_clear_flags_field.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/sleep.hpp>
 #include <sge/window/instance.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt//make_shared_ptr.hpp>
 #include <fcppt//make_unique_ptr.hpp>
 #include <algorithm>
@@ -104,7 +106,9 @@ sge::d3d9::device::device(
 	target_(
 		onscreen_target_.get()
 	),
-	clear_state_()
+	clear_state_(),
+	current_states_(),
+	state_stack_()
 {
 	this->state(
 		sge::renderer::state::default_()
@@ -118,22 +122,11 @@ sge::d3d9::device::~device()
 void
 sge::d3d9::device::begin_rendering()
 {
-	if(
-		clear_state_.flags() != 0
-		&&
-		device_->Clear(
-			0,
-			0,
-			clear_state_.flags(),
-			clear_state_.color(),
-			clear_state_.depth(),
-			clear_state_.stencil()
+	this->clear(
+		sge::renderer::state::to_clear_flags_field(
+			current_states_
 		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Clear() failed!")
-		);
+	);
 
 	if(
 		device_->BeginScene()
@@ -181,7 +174,11 @@ sge::d3d9::device::clear(
 	renderer::clear_flags_field const &_flags
 )
 {
-	// TODO!
+	devicefuncs::clear(
+		device_.get(),
+		_flags,
+		clear_state_
+	);
 }
 
 void
@@ -319,26 +316,12 @@ sge::d3d9::device::state(
 	renderer::state::list const &_states
 )
 {
-	d3d9::state::visitor const visitor(
+	d3d9::state::apply(
 		device_.get(),
-		clear_state_
+		clear_state_,
+		current_states_,
+		_states
 	);
-
-	sge::renderer::state::list::set_type const &set(
-		_states.values()
-	);
-
-	for(
-		sge::renderer::state::list::set_type::const_iterator it(
-			set.begin()
-		);
-		it != set.end();
-		++it
-	)
-		fcppt::variant::apply_unary(
-			visitor,
-			*it
-		);
 }
 
 void
@@ -346,13 +329,24 @@ sge::d3d9::device::push_state(
 	renderer::state::list const &_states
 )
 {
+	state_stack_.push(
+		current_states_
+	);
+
+	this->state(
+		_states
+	);
 }
 
 void
 sge::d3d9::device::pop_state()
 {
-}
+	this->state(
+		state_stack_.top()
+	);
 
+	state_stack_.pop();
+}
 void
 sge::d3d9::device::material(
 	renderer::material const &_material

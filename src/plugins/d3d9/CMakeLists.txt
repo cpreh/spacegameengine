@@ -56,12 +56,14 @@ SET(
 	src/plugins/d3d9/d3d_device_unique_ptr.hpp
 	src/plugins/d3d9/d3dinclude.hpp
 	src/plugins/d3d9/device.hpp
+	src/plugins/d3d9/devicefuncs/clear.hpp
 	src/plugins/d3d9/devicefuncs/set_material.hpp
 	src/plugins/d3d9/devicefuncs/set_render_state.hpp
 	src/plugins/d3d9/devicefuncs/set_scissor_rect.hpp
 	src/plugins/d3d9/devicefuncs/set_stream_source.hpp
 	src/plugins/d3d9/devicefuncs/set_transform.hpp
 	src/plugins/d3d9/devicefuncs/set_viewport.hpp
+	src/plugins/d3d9/devicefuncs/src/clear.cpp
 	src/plugins/d3d9/devicefuncs/src/set_material.cpp
 	src/plugins/d3d9/devicefuncs/src/set_render_state.cpp
 	src/plugins/d3d9/devicefuncs/src/set_scissor_rect.cpp
@@ -106,6 +108,7 @@ SET(
 	src/plugins/d3d9/src/target_base.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
+	src/plugins/d3d9/state/apply.hpp
 	src/plugins/d3d9/state/clear.hpp
 	src/plugins/d3d9/state/clear_fwd.hpp
 	src/plugins/d3d9/state/convert/alpha_func.hpp
@@ -142,6 +145,7 @@ SET(
 	src/plugins/d3d9/state/convert/uint.hpp
 	src/plugins/d3d9/state/set_render_state_bool.hpp
 	src/plugins/d3d9/state/set_render_state_float.hpp
+	src/plugins/d3d9/state/src/apply.cpp
 	src/plugins/d3d9/state/src/clear.cpp
 	src/plugins/d3d9/state/src/set_render_state_bool.cpp
 	src/plugins/d3d9/state/src/set_render_state_float.cpp

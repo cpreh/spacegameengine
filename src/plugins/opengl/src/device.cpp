@@ -251,7 +251,7 @@ sge::opengl::device::push_state(
 		current_states_
 	);
 
-	state(
+	this->state(
 		_states
 	);
 }
@@ -259,7 +259,7 @@ sge::opengl::device::push_state(
 void
 sge::opengl::device::pop_state()
 {
-	state(
+	this->state(
 		state_levels_.top()
 	);
 
@@ -727,5 +727,7 @@ sge::opengl::device::window() const
 bool
 sge::opengl::device::fbo_active() const
 {
-	return fbo_target_;
+	return
+		fbo_target_
+		!= 0;
 }

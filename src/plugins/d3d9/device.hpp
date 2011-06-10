@@ -31,6 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/clear_flags_field.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/stack.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -316,6 +319,10 @@ private:
 	d3d9::target_base *target_;
 
 	d3d9::state::clear clear_state_;
+
+	renderer::state::list current_states_;
+
+	renderer::state::stack state_stack_;
 };
 
 }
