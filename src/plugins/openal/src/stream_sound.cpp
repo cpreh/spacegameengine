@@ -28,8 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
+#include <algorithm>
 
 sge::openal::stream_sound::stream_sound(
 	audio::file_ptr const _audio_file)
@@ -39,15 +41,34 @@ sge::openal::stream_sound::stream_sound(
 		_audio_file),
 	buffer_samples_(
 		static_cast<audio::sample_count>(
-			2 * _audio_file->sample_rate())),
+			audio_file_->sample_rate())),
 	format_(
 		openal::file_format(
-			*_audio_file))
+			*audio_file_)),
+	al_buffers_(
+		audio_file_->expected_package_size()
+		?
+			static_cast<buffer_sequence::size_type>(
+				audio_file_->sample_rate()/audio_file_->expected_package_size())
+		:
+			static_cast<buffer_sequence::size_type>(
+				2))
 {
+	FCPPT_LOG_DEBUG(
+		log(),
+		fcppt::log::_ 
+			<< FCPPT_TEXT("Creating ") 
+			<< al_buffers_.size() 
+			<< FCPPT_TEXT(" buffers for this audio file (expected package size ")
+			<< audio_file_->expected_package_size()
+			<< FCPPT_TEXT(", sample rate ") 
+			<< audio_file_->sample_rate()
+			<< FCPPT_TEXT(")"));
+
 	alGenBuffers(
 		static_cast<ALsizei>(
-			2), 
-		al_buffers_);
+			al_buffers_.size()), 
+		&al_buffers_[0]);
 
 	SGE_OPENAL_CHECK_STATE(
 		FCPPT_TEXT("alGenBuffers failed"),
@@ -65,15 +86,30 @@ sge::openal::stream_sound::stream_sound(
 		_audio_file),
 	buffer_samples_(
 		static_cast<audio::sample_count>(
-			2 * _audio_file->sample_rate())),
+			_audio_file->sample_rate())),
 	format_(
 		openal::file_format(
-			*_audio_file))
+			*_audio_file)),
+	al_buffers_(
+		_audio_file->expected_package_size()
+		?
+			static_cast<buffer_sequence::size_type>(
+				_audio_file->sample_rate()/_audio_file->expected_package_size())
+		:
+			static_cast<buffer_sequence::size_type>(
+				2))
 {
+	FCPPT_LOG_DEBUG(
+		log(),
+		fcppt::log::_ 
+			<< FCPPT_TEXT("Creating ") 
+			<< al_buffers_.size() 
+			<< FCPPT_TEXT(" buffers for this audio file"));
+
 	alGenBuffers(
 		static_cast<ALsizei>(
-			2), 
-		al_buffers_);
+			al_buffers_.size()), 
+		&al_buffers_[0]);
 
 	SGE_OPENAL_CHECK_STATE(
 		FCPPT_TEXT("alGenBuffers failed"),
@@ -135,26 +171,29 @@ sge::openal::stream_sound::do_play()
 
 	audio_file_->reset();
 
-	fill_buffer(
-		al_buffers_[0]);
-	fill_buffer(
-		al_buffers_[1]);
-
-	FCPPT_LOG_DEBUG(
-		log(),
-		fcppt::log::_ << FCPPT_TEXT("queued 2 buffers"));
+	std::for_each(
+		al_buffers_.begin(),
+		al_buffers_.end(),
+		std::tr1::bind(
+			&stream_sound::fill_buffer,
+			this,
+			std::tr1::placeholders::_1));
 
 	alSourceQueueBuffers(
 		source_id(),
 		static_cast<ALsizei>(
-			2),
-		al_buffers_
+			al_buffers_.size()),
+		&al_buffers_[0]
 	);
 
 	SGE_OPENAL_CHECK_STATE(
 		FCPPT_TEXT("alSourceQueueBuffers failed"),
 		audio::exception
 	)
+
+	FCPPT_LOG_DEBUG(
+		log(),
+		fcppt::log::_ << FCPPT_TEXT("queued ") << al_buffers_.size() <<  FCPPT_TEXT(" buffers"));
 }
 
 bool 

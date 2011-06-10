@@ -77,6 +77,12 @@ sge::wave::file::samples() const
 	return samples_; 
 }
 
+sge::audio::sample_count 
+sge::wave::file::expected_package_size() const
+{
+	return 0;
+}
+
 void sge::wave::file::reset()
 {
 	FCPPT_LOG_DEBUG(

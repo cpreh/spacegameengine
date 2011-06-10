@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <vector>
 
 namespace sge
 {
@@ -55,10 +56,14 @@ public:
 	void 
 	do_play();
 private:
+	typedef
+	std::vector<ALuint>
+	buffer_sequence;
+
 	audio::file_ptr const audio_file_;
 	audio::sample_count const buffer_samples_;
 	ALenum const format_;
-	ALuint al_buffers_[2];
+	buffer_sequence al_buffers_;
 
 	bool 
 	fill_buffer(

@@ -52,6 +52,9 @@ public:
 	read_all(
 		sample_container &) = 0;
 
+	virtual sample_count
+	expected_package_size() const = 0;
+
 	virtual channel_type 
 	channels() const = 0;
 	

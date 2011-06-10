@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file_exception.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/endianness/is_little_endian.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/io/cifstream.hpp>
@@ -102,6 +103,9 @@ sge::vorbis::file::file(
 	sample_rate_ = 
 		fcppt::sn_cast<sample_count>(
 			info->rate);
+
+	//std::cerr << "channels: " << channels_ << ", bits per sample: " << bits_per_sample() << ", sampling rate: " << info->rate << "\n";
+	//std::cerr << "bitrate: upper: " << info->bitrate_upper << ", nominal: " << info->bitrate_nominal << ", lower: " << info->bitrate_lower << "\n";
 }
 
 
@@ -134,7 +138,12 @@ sge::vorbis::file::read(
 	sample_count bytes_read = 
 		0;
 
-	while (bytes_read < bytes_to_read)
+	// When reading from the file, you might encounter a bad fragment
+	// which is indicated by OV_HOLE. According to a mailing list post,
+	// we can just ignore holes.
+	bool hit_a_hole = 
+		true;
+	while(hit_a_hole)
 	{
 		int bitstream;
 
@@ -154,7 +163,17 @@ sge::vorbis::file::read(
 		switch (result)
 		{
 			case OV_HOLE:
-				continue;
+				hit_a_hole = true;
+				FCPPT_LOG_WARNING(
+					log::global(),
+					fcppt::log::_ 
+						<< FCPPT_TEXT("Encountered corrupt vorbis data") 
+						<< 
+							(file_name_ 
+							? 
+								(FCPPT_TEXT(" in file ")+(fcppt::filesystem::path_to_string(*file_name_))) 
+							: 
+								fcppt::string()));
 			case OV_EBADLINK:
 				throw audio::file_exception(
 					file_name_,
@@ -165,17 +184,18 @@ sge::vorbis::file::read(
 					FCPPT_TEXT("the initial file headers couldn't be read or are corrupt, or the initial open call for vf failed"));
 		}
 
+		hit_a_hole = false;
+
 		if(result == 0)
 		{
 			FCPPT_LOG_DEBUG(
 				log::global(),
 				fcppt::log::_ << FCPPT_TEXT("vorbis: read until the end"));
-			break;
 		}
 
 		bytes_read = 
 			static_cast<sample_count>(
-				bytes_read + result);
+				bytes_read + static_cast<unsigned long>(result));
 	}
 
 	std::copy(
@@ -183,6 +203,11 @@ sge::vorbis::file::read(
 		newdata.begin() + bytes_read,
 		std::back_inserter(
 			data));
+
+	FCPPT_ASSERT(
+		bytes_read % bytes_per_sample() == 0);
+
+//	std::cout << "got " << (bytes_read/bytes_per_sample()) << " samples, sample rate is " << sample_rate() << "\n";
 
 	return bytes_read/bytes_per_sample();
 }
@@ -212,6 +237,13 @@ sge::vorbis::file::sample_count
 sge::vorbis::file::bits_per_sample() const
 {
 	return static_cast<sample_count>(16);
+}
+
+sge::audio::sample_count
+sge::vorbis::file::expected_package_size() const
+{
+	// FIXME: How do we determine the correct size? :(
+	return 2048;
 }
 
 void sge::vorbis::file::reset()

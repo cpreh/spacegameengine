@@ -73,6 +73,9 @@ public:
 
 	sample_count 
 	bits_per_sample() const;
+
+	sample_count
+	expected_package_size() const;
 	
 	void 
 	reset();

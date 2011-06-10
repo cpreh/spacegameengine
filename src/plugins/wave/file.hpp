@@ -58,7 +58,11 @@ public:
 	audio::channel_type 
 	channels() const;
 
-	audio::sample_count samples() const;
+	audio::sample_count 
+	samples() const;
+
+	audio::sample_count 
+	expected_package_size() const;
 
 	void 
 	reset();
