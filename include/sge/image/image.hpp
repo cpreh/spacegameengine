@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/exception_fwd.hpp>
 #include <sge/image/file_exception.hpp>
 #include <sge/image/gray8_format.hpp>
+#include <sge/image/instantiate_symbol.hpp>
 #include <sge/image/optional_path.hpp>
 #include <sge/image/pitch.hpp>
 #include <sge/image/raw_pointer.hpp>
@@ -50,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/size_type.hpp>
 #include <sge/image/store.hpp>
 #include <sge/image/store_fwd.hpp>
+#include <sge/image/symbol.hpp>
 #include <sge/image/traits/traits.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/image/view/view.hpp>

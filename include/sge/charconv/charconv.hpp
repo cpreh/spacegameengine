@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/raw_value.hpp>
 #include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/string_type.hpp>
+#include <sge/charconv/symbol.hpp>
 #include <sge/charconv/system.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/system_ptr.hpp>

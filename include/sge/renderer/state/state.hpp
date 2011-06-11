@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/any.hpp>
 #include <sge/renderer/state/any_sort.hpp>
 #include <sge/renderer/state/any_sort_functor.hpp>
+#include <sge/renderer/state/apply.hpp>
+#include <sge/renderer/state/apply_callback.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/bool_type.hpp>
 #include <sge/renderer/state/color.hpp>
@@ -43,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/source_blend_func.hpp>
+#include <sge/renderer/state/stack.hpp>
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/stencil_op.hpp>
 #include <sge/renderer/state/stencil_op_value.hpp>
