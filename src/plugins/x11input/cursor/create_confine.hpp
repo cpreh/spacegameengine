@@ -35,8 +35,7 @@ namespace cursor
 cursor::confine_unique_ptr
 create_confine(
 	awl::backends::x11::window::instance &,
-	x11input::device::id,
-	bool have_xi_2_1
+	x11input::device::id
 );
 
 }

@@ -58,9 +58,8 @@ class object
 		object
 	);
 public:
-	object(
-		x11input::device::parameters const &,
-		bool have_version_2_1
+	explicit object(
+		x11input::device::parameters const &
 	);
 
 	~object();
@@ -117,8 +116,6 @@ private:
 
 	void
 	check_grab();
-
-	bool const have_version_2_1_;
 
 	awl::backends::x11::window::instance &window_;
 

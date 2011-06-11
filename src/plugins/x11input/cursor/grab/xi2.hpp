@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_CURSOR_GRAB_XI2_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_GRAB_XI2_HPP_INCLUDED
 
-#include <sge/x11input/config.hpp>
-#if defined(SGE_X11INPUT_HAVE_XI_2_1)
 #include "../confine.hpp"
 #include "../../device/id.hpp"
 #include <awl/backends/x11/window/instance_fwd.hpp>
@@ -61,7 +59,5 @@ private:
 }
 }
 }
-
-#endif
 
 #endif

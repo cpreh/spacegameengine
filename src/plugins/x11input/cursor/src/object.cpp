@@ -44,15 +44,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 
 sge::x11input::cursor::object::object(
-	x11input::device::parameters const &_param,
-	bool const _have_version_2_1
+	x11input::device::parameters const &_param
 )
 :
 	sge::input::cursor::object(),
 	sge::x11input::device::object(
 		_param.id()
 	),
-	have_version_2_1_(_have_version_2_1),
 	window_(
 		_param.window()
 	),
@@ -288,8 +286,7 @@ sge::x11input::cursor::object::check_grab()
 			cursor_confine_.take(
 				x11input::cursor::create_confine(
 					window_,
-					this->id(),
-					have_version_2_1_
+					this->id()
 				)
 			);
 		else if(

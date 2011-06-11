@@ -19,9 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../xi2.hpp"
-#include <sge/x11input/config.hpp>
-
-#if defined(SGE_X11INPUT_HAVE_XI_2_1)
 #include "../handle.hpp"
 #include "../return_value.hpp"
 #include "../return_value_set.hpp"
@@ -49,10 +46,9 @@ sge::x11input::cursor::grab::xi2::xi2(
 
 	cursor::grab::handle(
 		std::tr1::bind(
-			::XIGrabDeviceWithConfine,
+			::XIGrabDevice,
 			_window.display().get(),
 			_id.get(),
-			_window.get(),
 			_window.get(),
 			CurrentTime,
 			None,
@@ -87,5 +83,3 @@ sge::x11input::cursor::grab::xi2::~xi2()
 		CurrentTime
 	);
 }
-
-#endif

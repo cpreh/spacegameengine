@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../scoped_locale.hpp"
 #include "../xi_opcode.hpp"
 #include "../xi_version.hpp"
-#include <sge/x11input/config.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>
@@ -32,12 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/instance_shared_ptr.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
 #include <X11/Xlib.h>
-#include <string>
 #include <clocale>
 #include <cstdlib>
 
@@ -75,24 +74,7 @@ sge::x11input::system::create_processor(
 			FCPPT_TEXT("X Input extension not available! Please install libXi!")
 		);
 
-	// First check if we can use 2.1 on the server side.
-	bool const have_version_2_1(
-#if defined(SGE_X11INPUT_HAVE_XI_2_1)
-		x11input::xi_version(
-			x11_window->display(),
-			2,
-			1
-		)
-#else
-		false
-#endif
-	);
-
-	// It is important not to check for a different version,
-	// because the server takes this as the client's version.
 	if(
-		!have_version_2_1
-		&&
 		!x11input::xi_version(
 			x11_window->display(),
 			2,
@@ -118,7 +100,8 @@ sge::x11input::system::create_processor(
 		)
 			throw sge::input::exception(
 				FCPPT_TEXT("X doesn't support the locale ")
-				+ std::string(
+				+
+				fcppt::from_std_string(
 					locale_name
 				)
 			);
@@ -148,7 +131,6 @@ sge::x11input::system::create_processor(
 			x11input::processor
 		>(
 			_window,
-			*opcode,
-			have_version_2_1
+			*opcode
 		);
 }

@@ -2,19 +2,16 @@ SET(
 	SGE_X11INPUT_FILES
 	src/plugins/x11input/color.hpp
 	src/plugins/x11input/cursor/button_code.hpp
-	src/plugins/x11input/cursor/client_pointer.hpp
 	src/plugins/x11input/cursor/confine.hpp
 	src/plugins/x11input/cursor/confine_fwd.hpp
 	src/plugins/x11input/cursor/confine_unique_ptr.hpp
 	src/plugins/x11input/cursor/create_confine.hpp
 	src/plugins/x11input/cursor/define.hpp
 	src/plugins/x11input/cursor/define_fwd.hpp
-	src/plugins/x11input/cursor/grab/core.hpp
 	src/plugins/x11input/cursor/grab/function.hpp
 	src/plugins/x11input/cursor/grab/handle.hpp
 	src/plugins/x11input/cursor/grab/return_value.hpp
 	src/plugins/x11input/cursor/grab/return_value_set.hpp
-	src/plugins/x11input/cursor/grab/src/core.cpp
 	src/plugins/x11input/cursor/grab/src/handle.cpp
 	src/plugins/x11input/cursor/grab/src/xi2.cpp
 	src/plugins/x11input/cursor/grab/xi2.hpp
@@ -25,7 +22,6 @@ SET(
 	src/plugins/x11input/cursor/pixmap_fwd.hpp
 	src/plugins/x11input/cursor/query_pointer.hpp
 	src/plugins/x11input/cursor/src/button_code.cpp
-	src/plugins/x11input/cursor/src/client_pointer.cpp
 	src/plugins/x11input/cursor/src/confine.cpp
 	src/plugins/x11input/cursor/src/create_confine.cpp
 	src/plugins/x11input/cursor/src/define.cpp
@@ -118,37 +114,8 @@ SET(
 	src/plugins/x11input/xi_version.hpp
 )
 
-INCLUDE(
-	CheckCXXSourceRuns
-)
-
 INCLUDE_DIRECTORIES(
 	${X11_X11_INCLUDE_PATH}
-)
-
-SET(
-	CMAKE_REQUIRED_INCLUDES ${X11_Xinput_INCLUDE_PATH}
-)
-
-CHECK_CXX_SOURCE_RUNS(
-	"#include <X11/extensions/XI2.h>
-	#include <cstdlib>
-	int main()
-	{
-		return
-			XInput_2_1 == 8
-			?
-				EXIT_SUCCESS
-			:
-				EXIT_FAILURE
-			;
-	}"
-	SGE_X11INPUT_HAVE_XI_2_1
-)
-
-CONFIGURE_FILE(
-	${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
-	${CMAKE_CURRENT_BINARY_DIR}/include/sge/x11input/config.hpp
 )
 
 INCLUDE_DIRECTORIES(
