@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LISTENER_HPP_INCLUDED
 #define SGE_AUDIO_LISTENER_HPP_INCLUDED
 
-#include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/angle_fwd.hpp>
+#include <sge/audio/listener_fwd.hpp>
+#include <sge/audio/symbol.hpp>
 #include <sge/audio/vector.hpp>
-#include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -39,7 +39,7 @@ class SGE_CLASS_SYMBOL listener
 		listener
 	);
 protected:
-	SGE_SYMBOL explicit
+	SGE_AUDIO_SYMBOL explicit
 	listener();
 public:
 	virtual vector const 
@@ -63,7 +63,7 @@ public:
 	direction(
 		angle const &) = 0;
 		
-	SGE_SYMBOL virtual 
+	SGE_AUDIO_SYMBOL virtual 
 	~listener();
 };
 

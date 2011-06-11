@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/device_vector.hpp>
+#include <sge/input/symbol.hpp>
 #include <sge/window/instance_ptr.hpp>
-#include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -49,7 +49,8 @@ class SGE_CLASS_SYMBOL processor
 		processor
 	);
 protected:
-	SGE_SYMBOL processor();
+	SGE_INPUT_SYMBOL
+	processor();
 public:
 	//
 	// keyboards
@@ -105,7 +106,8 @@ public:
 	virtual sge::window::instance_ptr const
 	window() const = 0;
 
-	SGE_SYMBOL virtual ~processor();
+	SGE_INPUT_SYMBOL
+	virtual ~processor();
 };
 
 }

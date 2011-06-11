@@ -27,11 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_base_fwd.hpp>
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/iterator_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/plugin/instantiate_symbol.hpp>
+#include <sge/plugin/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <vector>
 #include <map>
+#include <vector>
 #include <cstddef>
 
 namespace sge
@@ -47,29 +48,33 @@ class manager
 public:
 	typedef std::size_t size_type;
 
-	SGE_SYMBOL
+	SGE_PLUGIN_SYMBOL
 	explicit manager(
 		fcppt::filesystem::path const &
 	);
 
-	SGE_SYMBOL ~manager();
+	SGE_PLUGIN_SYMBOL
+	~manager();
 
 	template<
 		typename T
 	>
-	SGE_SYMBOL iterator<T>
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	iterator<T>
 	begin();
 
 	template<
 		typename T
 	>
-	SGE_SYMBOL iterator<T>
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	iterator<T>
 	end();
 
 	template<
 		typename T
 	>
-	SGE_SYMBOL context<T>
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	context<T>
 	plugin(
 		size_type index = 0
 	);
@@ -77,7 +82,8 @@ public:
 	template<
 		typename T
 	>
-	SGE_SYMBOL size_type
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	size_type
 	size() const;
 private:
 	typedef std::vector<

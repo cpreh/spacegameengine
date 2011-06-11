@@ -33,6 +33,7 @@ typedef fcppt::shared_ptr<
 	system
 > system_ptr;
 
+// FIXME: remove this!
 typedef fcppt::shared_ptr<
 	system const
 > const_system_ptr;

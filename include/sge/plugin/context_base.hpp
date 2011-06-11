@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/base.hpp>
 #include <sge/plugin/info.hpp>
-#include <sge/symbol.hpp>
+#include <sge/plugin/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/weak_ptr.hpp>
 
@@ -37,14 +37,17 @@ namespace plugin
 class context_base
 {
 public:
-	SGE_SYMBOL explicit context_base(
+	SGE_PLUGIN_SYMBOL explicit
+	context_base(
 		fcppt::filesystem::path const &
 	);
 
-	SGE_SYMBOL fcppt::filesystem::path const &
+	SGE_PLUGIN_SYMBOL
+	fcppt::filesystem::path const &
 	path() const;
 
-	SGE_SYMBOL plugin::info const &
+	SGE_PLUGIN_SYMBOL
+	plugin::info const &
 	info() const;
 private:
 	template<

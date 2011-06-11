@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/dynamic/element_fwd.hpp>
 #include <sge/renderer/vf/dynamic/any.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 namespace sge
@@ -38,11 +38,13 @@ namespace dynamic
 class element
 {
 public:
-	SGE_SYMBOL explicit element(
+	SGE_RENDERER_SYMBOL
+	explicit element(
 		dynamic::any const &
 	);
 
-	SGE_SYMBOL dynamic::any const &
+	SGE_RENDERER_SYMBOL
+	dynamic::any const &
 	info() const;
 private:
 	dynamic::any info_;

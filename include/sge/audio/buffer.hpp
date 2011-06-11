@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional_ptr.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -38,17 +38,18 @@ class SGE_CLASS_SYMBOL buffer
 		buffer
 	);
 public:
-	SGE_SYMBOL explicit 
+	SGE_AUDIO_SYMBOL explicit 
 	buffer();
 
 	virtual sound::positional_ptr const
 	create_positional(
-		sound::positional_parameters const&) = 0;
+		sound::positional_parameters const &
+	) = 0;
 
 	virtual sound::base_ptr const
 	create_nonpositional() = 0;
 
-	SGE_SYMBOL virtual 
+	SGE_AUDIO_SYMBOL virtual 
 	~buffer();
 };
 }

@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 namespace sge
@@ -35,7 +35,7 @@ namespace renderer
 class material
 {
 public:
-	SGE_SYMBOL material(
+	SGE_RENDERER_SYMBOL material(
 		image::color::any::object const &diffuse,
 		image::color::any::object const &ambient,
 		image::color::any::object const &specular,
@@ -43,19 +43,19 @@ public:
 		scalar const &power
 	);
 
-	SGE_SYMBOL image::color::any::object const &
+	SGE_RENDERER_SYMBOL image::color::any::object const &
 	diffuse() const;
 
-	SGE_SYMBOL image::color::any::object const &
+	SGE_RENDERER_SYMBOL image::color::any::object const &
 	ambient() const;
 
-	SGE_SYMBOL image::color::any::object const &
+	SGE_RENDERER_SYMBOL image::color::any::object const &
 	specular() const;
 
-	SGE_SYMBOL image::color::any::object const &
+	SGE_RENDERER_SYMBOL image::color::any::object const &
 	emissive() const;
 
-	SGE_SYMBOL scalar const &
+	SGE_RENDERER_SYMBOL scalar const &
 	power() const;
 private:
 	image::color::any::object

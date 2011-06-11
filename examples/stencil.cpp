@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image2d/create_texture.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -62,6 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/no_color.hpp>
 #include <sge/sprite/object.hpp>
@@ -222,7 +222,7 @@ try
 				// Create a texture from "grass.png",
 				// which will use a linear filter
 				// and clamping at its corners.
-				sge::image2d::create_texture(
+				sge::renderer::texture::create_planar_from_path(
 					sge::config::media_path()
 					/ FCPPT_TEXT("grass.png"),
 					sys.renderer(),
@@ -253,7 +253,7 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				sge::image2d::create_texture(
+				sge::renderer::texture::create_planar_from_path(
 					sge::config::media_path()
 					/ FCPPT_TEXT("cloudsquare.png"),
 					sys.renderer(),

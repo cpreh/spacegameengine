@@ -21,18 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CREATE_INDEX_BUFFER_FROM_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_CREATE_INDEX_BUFFER_FROM_VIEW_HPP_INCLUDED
 
+#include <sge/renderer/index/dynamic/const_view_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/index/dynamic/const_view_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_SYMBOL
+SGE_RENDERER_SYMBOL
 renderer::index_buffer_ptr const
 create_index_buffer_from_view(
 	renderer::device &,

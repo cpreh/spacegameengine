@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_FILTER_LINEAR_HPP_INCLUDED
 
 #include <sge/renderer/texture/filter/object.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace texture
 namespace filter
 {
 
-SGE_SYMBOL extern
+SGE_RENDERER_SYMBOL extern
 filter::object const linear;
 
 }

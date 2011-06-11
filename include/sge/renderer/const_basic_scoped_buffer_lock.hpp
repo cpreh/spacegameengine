@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/npos.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -41,16 +41,19 @@ class const_basic_scoped_buffer_lock
 		const_basic_scoped_buffer_lock
 	);
 public:
-	SGE_SYMBOL explicit const_basic_scoped_buffer_lock(
+	SGE_RENDERER_SYMBOL
+	explicit const_basic_scoped_buffer_lock(
 		Buffer const &,
 		size_type first = 0,
 		size_type count = renderer::npos()
 	);
 
-	SGE_SYMBOL View const
+	SGE_RENDERER_SYMBOL
+	View const
 	value() const;
 
-	SGE_SYMBOL ~const_basic_scoped_buffer_lock();
+	SGE_RENDERER_SYMBOL
+	~const_basic_scoped_buffer_lock();
 private:
 	Buffer const &buffer_;
 

@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/target_base_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_SYMBOL
+SGE_RENDERER_SYMBOL
 renderer::target_base &
 active_target(
 	renderer::device &

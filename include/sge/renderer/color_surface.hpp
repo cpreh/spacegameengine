@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -41,10 +41,10 @@ class SGE_CLASS_SYMBOL color_surface
 		color_surface
 	);
 protected:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	color_surface();
 public:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	virtual ~color_surface();
 
 	typedef renderer::size_type size_type;
@@ -55,7 +55,7 @@ public:
 
 	typedef sge::image2d::view::const_object const_view;
 	
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	const_view const 
 	lock() const;
 
@@ -70,11 +70,11 @@ public:
 	virtual dim const
 	size() const = 0;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	rect const
 	area() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	size_type
 	content() const;
 };

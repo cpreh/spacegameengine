@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_PLUGIN_HPP_INCLUDED
 #define SGE_CHARCONV_PLUGIN_HPP_INCLUDED
 
+#include <sge/charconv/symbol.hpp>
 #include <sge/charconv/system_ptr.hpp>
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/plugin/capabilities.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -39,10 +39,12 @@ struct traits<
 	charconv::system
 >
 {
-	SGE_SYMBOL static address_name
+	SGE_CHARCONV_SYMBOL
+	static address_name
 	plugin_loader_name();
 
-	SGE_SYMBOL static capabilities::type
+	SGE_CHARCONV_SYMBOL
+	static capabilities::type
 	plugin_type();
 
 	typedef charconv::system_ptr const (*loader_fun)();

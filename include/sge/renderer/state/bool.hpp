@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/bool_type.hpp>
 #include <sge/renderer/state/trampoline_fwd.hpp>
 #include <sge/renderer/state/var_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -63,7 +63,8 @@ namespace bool_
 		available_states::type
 	> type;
 
-	SGE_SYMBOL extern trampoline_type const
+	SGE_RENDERER_SYMBOL
+	extern trampoline_type const
 		clear_depth_buffer,
 		clear_back_buffer,
 		clear_stencil_buffer,

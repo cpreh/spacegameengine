@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/min.hpp>
 #include <sge/renderer/texture/filter/mag.hpp>
 #include <sge/renderer/texture/filter/anisotropy_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -39,19 +39,23 @@ namespace filter
 class object
 {
 public:
-	SGE_SYMBOL object(
+	SGE_RENDERER_SYMBOL
+	object(
 		filter::min::type,
 		filter::mag::type,
 		filter::anisotropy_type
 	);
 
-	SGE_SYMBOL filter::min::type
+	SGE_RENDERER_SYMBOL
+	filter::min::type
 	min() const;
 
-	SGE_SYMBOL filter::mag::type
+	SGE_RENDERER_SYMBOL
+	filter::mag::type
 	mag() const;
 
-	SGE_SYMBOL filter::anisotropy_type const
+	SGE_RENDERER_SYMBOL
+	filter::anisotropy_type const
 	anisotropy() const;
 private:
 	filter::min::type min_;

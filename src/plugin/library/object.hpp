@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "loaded_symbol.hpp"
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
+#include <sge/plugin/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/platform.hpp>
@@ -45,10 +46,12 @@ class object
 		object
 	);
 public:
+	SGE_PLUGIN_SYMBOL
 	explicit object(
 		fcppt::filesystem::path const &
 	);
 
+	SGE_PLUGIN_SYMBOL
 	~object();
 
 	library::loaded_symbol 

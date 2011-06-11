@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/const_raw_range.hpp>
 #include <sge/extension_set.hpp>
+#include <sge/instantiate_symbol.hpp>
 #include <sge/optional_extension.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/shared_ptr.hpp>
@@ -59,26 +59,31 @@ public:
 		loader_ptr
 	> loader_container;
 
-	SGE_SYMBOL explicit multi_loader(
+	SGE_INSTANTIATE_SYMBOL
+	explicit multi_loader(
 		plugin::manager &,
 		extension_set const &,
 		capabilities const &
 	);
 
-	SGE_SYMBOL ~multi_loader();
+	SGE_INSTANTIATE_SYMBOL
+	~multi_loader();
 
-	SGE_SYMBOL file_ptr const
+	SGE_INSTANTIATE_SYMBOL
+	file_ptr const
 	load(
 		fcppt::filesystem::path const &
 	);
 
-	SGE_SYMBOL file_ptr const
+	SGE_INSTANTIATE_SYMBOL
+	file_ptr const
 	load_raw(
 		sge::const_raw_range const &,
 		sge::optional_extension const &
 	);
 
-	SGE_SYMBOL loader_container const &
+	SGE_INSTANTIATE_SYMBOL
+	loader_container const &
 	loaders() const;
 private:
 	typedef typename plugin::context<

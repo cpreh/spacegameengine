@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/loader_fwd.hpp>
 #include <sge/model/object_ptr.hpp>
 #include <sge/model/load_flags.hpp>
-#include <sge/symbol.hpp>
+#include <sge/model/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
@@ -40,7 +40,8 @@ class SGE_CLASS_SYMBOL loader
 		loader
 	);
 protected:
-	SGE_SYMBOL loader();
+	SGE_MODEL_SYMBOL
+	loader();
 public:
 	virtual object_ptr const
 	load(
@@ -48,7 +49,8 @@ public:
 		load_flags::type = load_flags::none
 	) = 0;
 
-	SGE_SYMBOL virtual ~loader();
+	SGE_MODEL_SYMBOL
+	virtual ~loader();
 };
 
 }

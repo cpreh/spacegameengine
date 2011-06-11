@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLORS_HPP_INCLUDED
 
 #include <sge/image/color/any/object.hpp>
-#include <sge/symbol.hpp>
+#include <sge/image/symbol.hpp>
 
 namespace sge
 {
@@ -30,9 +30,10 @@ namespace image
 {
 
 #define SGE_DECLARE_COLOR(name)\
-SGE_SYMBOL color::any::object const name();
+SGE_IMAGE_SYMBOL color::any::object const name();
 
-namespace colors {
+namespace colors
+{
 	SGE_DECLARE_COLOR(aliceblue            )
 	SGE_DECLARE_COLOR(antiquewhite         )
 	SGE_DECLARE_COLOR(aqua                 )

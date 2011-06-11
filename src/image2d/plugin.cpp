@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#define SGE_PLUGIN_INSTANTIATE_EXPORTS
+
 #include <sge/image2d/plugin.hpp>
 #include <sge/image2d/loader.hpp>
 #include "../plugin/address_name.hpp"

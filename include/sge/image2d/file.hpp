@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/file_fwd.hpp>
 #include <sge/image2d/dim.hpp>
+#include <sge/image2d/symbol.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -40,7 +40,8 @@ class SGE_CLASS_SYMBOL file
 		file
 	);
 protected:
-	SGE_SYMBOL file();
+	SGE_IMAGE2D_SYMBOL
+	file();
 public:
 	virtual void
 	data(
@@ -58,7 +59,8 @@ public:
 		fcppt::filesystem::path const &
 	) = 0;
 
-	SGE_SYMBOL virtual ~file();
+	SGE_IMAGE2D_SYMBOL
+	virtual ~file();
 };
 
 }

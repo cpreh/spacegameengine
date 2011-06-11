@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_SHADER_HPP_INCLUDED
 
 #include <sge/renderer/glsl/shader_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
@@ -40,9 +40,11 @@ class SGE_CLASS_SYMBOL shader
 		shader
 	);
 protected:
-	SGE_SYMBOL shader();
+	SGE_RENDERER_SYMBOL
+	shader();
 public:
-	SGE_SYMBOL virtual ~shader();
+	SGE_RENDERER_SYMBOL
+	virtual ~shader();
 
 	virtual fcppt::string const
 	info_log() const = 0;

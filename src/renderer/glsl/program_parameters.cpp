@@ -44,7 +44,6 @@ sge::renderer::glsl::program_parameters::vertex_shader(
 	return *this;
 }
 
-SGE_SYMBOL
 sge::renderer::glsl::program_parameters &
 sge::renderer::glsl::program_parameters::pixel_shader(
 	glsl::string const &_source
@@ -55,7 +54,6 @@ sge::renderer::glsl::program_parameters::pixel_shader(
 	return *this;
 }
 	
-SGE_SYMBOL
 sge::renderer::glsl::program_parameters &
 sge::renderer::glsl::program_parameters::geometry_shader(
 	glsl::string const &_source

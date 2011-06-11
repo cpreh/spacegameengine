@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/window_mode.hpp>
 #include <sge/input/processor_ptr.hpp>
+#include <sge/input/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
@@ -56,43 +56,43 @@ class SGE_CLASS_SYMBOL demuxer
 		demuxer
 	);
 public:
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	explicit demuxer(
 		input::processor_ptr
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	~demuxer();
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	button_callback(
 		cursor::button_callback const &
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	move_callback(
 		cursor::move_callback const &
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	cursor::position const
 	position() const;
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	void
 	visibility(
 		bool
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	void
 	window_mode(
 		cursor::window_mode::type
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	cursor::object_ptr const
 	current_cursor() const;
 private:

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
 #include <sge/input/processor_ptr.hpp>
-#include <sge/symbol.hpp>
+#include <sge/input/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
@@ -53,21 +53,21 @@ class collector
 		collector
 	);
 public:
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	explicit collector(
 		input::processor_ptr
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	~collector();
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	axis_callback(
 		mouse::axis_callback const &
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	button_callback(
 		mouse::button_callback const &

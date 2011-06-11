@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_UNSUPPORTED_HPP_INCLUDED
 
 #include <sge/renderer/exception.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/string.hpp>
 
@@ -36,26 +36,26 @@ class SGE_CLASS_SYMBOL unsupported
 	public sge::renderer::exception
 {
 public:
-	SGE_SYMBOL 
+	SGE_RENDERER_SYMBOL 
 	explicit unsupported(
 		fcppt::string const &feature,
 		fcppt::string const &minimum_version_required,
 		fcppt::string const &possible_extensions
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	fcppt::string const &
 	feature() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	fcppt::string const &
 	minimum_version_required() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	fcppt::string const &
 	possible_extensions() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	~unsupported() throw();
 private:
 	fcppt::string

@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_PLUGIN_HPP_INCLUDED
 
 #include <sge/model/loader_ptr.hpp>
+#include <sge/model/symbol.hpp>
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/plugin/capabilities.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -39,10 +39,12 @@ struct traits<
 	model::loader
 >
 {
-	SGE_SYMBOL static address_name
+	SGE_MODEL_SYMBOL
+	static address_name
 	plugin_loader_name();
 
-	SGE_SYMBOL static capabilities::type
+	SGE_MODEL_SYMBOL
+	static capabilities::type
 	plugin_type();
 
 	typedef model::loader_ptr const (*loader_fun)();

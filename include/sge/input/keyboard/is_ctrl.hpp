@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEYBOARD_IS_CTRL_HPP_INCLUDED
 
 #include <sge/input/keyboard/key_code.hpp>
-#include <sge/symbol.hpp>
+#include <sge/input/symbol.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace input
 namespace keyboard
 {
 
-SGE_SYMBOL
+SGE_INPUT_SYMBOL
 bool
 is_ctrl(
 	key_code::type

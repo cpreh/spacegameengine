@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <sge/renderer/vf/dynamic/offset_list.hpp>
 #include <sge/renderer/vf/dynamic/element_list.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -39,15 +39,18 @@ namespace dynamic
 class part
 {
 public:
-	SGE_SYMBOL part(
+	SGE_RENDERER_SYMBOL
+	part(
 		element_list const &,
 		offset_list const &
 	);
 
-	SGE_SYMBOL ordered_element_list const &
+	SGE_RENDERER_SYMBOL
+	ordered_element_list const &
 	elements() const;
 
-	SGE_SYMBOL vertex_size
+	SGE_RENDERER_SYMBOL
+	vertex_size
 	stride() const;
 private:
 	ordered_element_list elements_;

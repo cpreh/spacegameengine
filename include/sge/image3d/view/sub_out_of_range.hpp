@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE3D_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
 #include <sge/image3d/box.hpp>
+#include <sge/image3d/symbol.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
 namespace sge
@@ -39,21 +39,21 @@ class SGE_CLASS_SYMBOL sub_out_of_range
 	public sge::image::exception
 {
 public:
-	SGE_SYMBOL 
+	SGE_IMAGE3D_SYMBOL 
 	sub_out_of_range(
 		sge::image3d::box const &outer,
 		sge::image3d::box const &inner
 	);
 
-	SGE_SYMBOL 
+	SGE_IMAGE3D_SYMBOL 
 	sge::image3d::rect const &
 	outer() const;
 
-	SGE_SYMBOL 
+	SGE_IMAGE3D_SYMBOL 
 	sge::image3d::rect const &
 	inner() const;
 
-	SGE_SYMBOL
+	SGE_IMAGE3D_SYMBOL
 	virtual ~sub_out_of_range() throw();
 private:
 	sge::image3d::box

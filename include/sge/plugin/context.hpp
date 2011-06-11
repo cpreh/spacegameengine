@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/context_base_fwd.hpp>
+#include <sge/plugin/instantiate_symbol.hpp>
 #include <sge/plugin/object_fwd.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/shared_ptr.hpp>
 
 namespace sge
@@ -38,7 +38,8 @@ template<
 class context
 {
 public:
-	SGE_SYMBOL explicit context(
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	explicit context(
 		plugin::context_base &
 	);
 
@@ -48,10 +49,12 @@ public:
 		>
 	> ptr_type;
 
-	SGE_SYMBOL ptr_type
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	ptr_type
 	load();
 
-	SGE_SYMBOL plugin::context_base const &
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	plugin::context_base const &
 	base() const;
 private:
 	context_base *base_;

@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/optional_pitch.hpp>
 #include <sge/image3d/dim.hpp>
+#include <sge/image3d/symbol.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/const_raw_pointer.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -35,7 +35,8 @@ namespace image3d
 namespace view
 {
 
-SGE_SYMBOL image3d::view::const_object const
+SGE_IMAGE3D_SYMBOL
+image3d::view::const_object const
 make_const(
 	image::const_raw_pointer,
 	image3d::dim const &,

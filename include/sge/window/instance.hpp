@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOW_INSTANCE_HPP_INCLUDED
 
 #include <sge/window/dim.hpp>
-#include <sge/symbol.hpp>
+#include <sge/window/symbol.hpp>
 #include <awl/window/instance_shared_ptr.hpp>
 #include <awl/window/event/processor_shared_ptr.hpp>
 #include <awl/system/object_shared_ptr.hpp>
@@ -43,7 +43,7 @@ class instance
 		instance
 	);
 public:
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	explicit
 	instance(
 		awl::system::object_shared_ptr,
@@ -53,42 +53,42 @@ public:
 		awl::mainloop::io_service_shared_ptr
 	);
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	~instance();
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	window::dim const
 	size() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	void
 	show();
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	bool
 	dispatch();
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	awl::system::object_shared_ptr const
 	awl_system() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	awl::window::instance_shared_ptr const
 	awl_instance() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	awl::window::event::processor_shared_ptr const
 	awl_window_event_processor() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	awl::system::event::processor_shared_ptr const
 	awl_system_event_processor() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	awl::mainloop::io_service_shared_ptr const
 	awl_io_service() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	awl::mainloop::dispatcher *
 	awl_dispatcher() const;
 private:

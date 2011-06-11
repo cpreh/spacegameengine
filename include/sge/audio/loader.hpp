@@ -24,11 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
+#include <sge/audio/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/const_raw_range.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/optional_extension.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -43,7 +43,8 @@ class SGE_CLASS_SYMBOL loader
 		loader
 	);
 protected:
-	SGE_SYMBOL loader();
+	SGE_AUDIO_SYMBOL
+	loader();
 public:
 	virtual file_ptr const
 	load(
@@ -62,7 +63,8 @@ public:
 	virtual extension_set const
 	extensions() const = 0;
 	
-	SGE_SYMBOL virtual ~loader();
+	SGE_AUDIO_SYMBOL
+	virtual ~loader();
 };
 
 }

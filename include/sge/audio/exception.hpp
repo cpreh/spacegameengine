@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_EXCEPTION_HPP_INCLUDED
 
 #include <sge/audio/exception_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/audio/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/string.hpp>
@@ -37,9 +37,10 @@ class SGE_CLASS_SYMBOL exception
 	public sge::exception
 {
 public:
-	SGE_SYMBOL explicit 
+	SGE_AUDIO_SYMBOL explicit 
 	exception(
-		fcppt::string const &s);
+		fcppt::string const &
+	);
 };
 
 }

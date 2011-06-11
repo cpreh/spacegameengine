@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/vector_fwd.hpp>
 #include <sge/renderer/vf/element_type.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -38,15 +38,18 @@ namespace dynamic
 class vector
 {
 public:
-	SGE_SYMBOL vector(
+	SGE_RENDERER_SYMBOL
+	vector(
 		vf::element_type::type,
 		vertex_size num_elements
 	);
 	
-	SGE_SYMBOL vf::element_type::type
+	SGE_RENDERER_SYMBOL
+	vf::element_type::type
 	element_type() const;
 
-	SGE_SYMBOL vertex_size
+	SGE_RENDERER_SYMBOL
+	vertex_size
 	elements() const;
 private:
 	vf::element_type::type element_type_;

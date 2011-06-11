@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -39,14 +39,14 @@ class scoped_transform
 		scoped_transform
 	);
 public:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	scoped_transform(
 		renderer::device &,
 		renderer::matrix_mode::type,
 		renderer::matrix4 const &
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	~scoped_transform();
 private:
 	renderer::device &device_;

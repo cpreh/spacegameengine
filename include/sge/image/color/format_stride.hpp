@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/format.hpp>
 #include <sge/image/size_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/image/symbol.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace image
 namespace color
 {
 
-SGE_SYMBOL
+SGE_IMAGE_SYMBOL
 size_type
 format_stride(
 	format::type

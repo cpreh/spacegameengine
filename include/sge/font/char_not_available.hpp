@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_CHAR_NOT_AVAILABLE_HPP_INCLUDED
 #define SGE_FONT_CHAR_NOT_AVAILABLE_HPP_INCLUDED
 
-#include <sge/font/exception.hpp>
 #include <sge/font/char_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/font/exception.hpp>
+#include <sge/font/symbol.hpp>
 #include <sge/class_symbol.hpp>
 
 namespace sge
@@ -36,11 +36,12 @@ class SGE_CLASS_SYMBOL char_not_available
 	public exception
 {
 public:
-	SGE_SYMBOL explicit char_not_available(
+	SGE_FONT_SYMBOL
+	explicit char_not_available(
 		font::char_type
 	);
 
-	SGE_SYMBOL 
+	SGE_FONT_SYMBOL 
 	font::char_type
 	character() const;
 private:

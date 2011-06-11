@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/rect.hpp>
-#include <sge/symbol.hpp>
+#include <sge/image2d/symbol.hpp>
 
 namespace sge
 {
@@ -33,14 +33,14 @@ namespace image2d
 namespace view
 {
 
-SGE_SYMBOL
+SGE_IMAGE2D_SYMBOL
 view::object const
 checked_sub(
 	view::object const &,
 	image2d::rect const &
 );
 
-SGE_SYMBOL
+SGE_IMAGE2D_SYMBOL
 view::const_object const
 checked_sub(
 	view::const_object const &,

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image3d/view/object.hpp>
 #include <sge/image3d/view/const_object.hpp>
-#include <sge/symbol.hpp>
+#include <sge/image3d/symbol.hpp>
 
 namespace sge
 {
@@ -32,13 +32,13 @@ namespace image3d
 namespace view
 {
 
-SGE_SYMBOL
+SGE_IMAGE3D_SYMBOL
 view::object const
 flipped(
 	view::object const &
 );
 
-SGE_SYMBOL
+SGE_IMAGE3D_SYMBOL
 view::const_object const
 flipped(
 	view::const_object const &

@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_PLUGIN_HPP_INCLUDED
 
 #include <sge/font/system_ptr.hpp>
+#include <sge/font/symbol.hpp>
+#include <sge/charconv/system_ptr.hpp>
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/capabilities.hpp>
-#include <sge/charconv/system_ptr.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -40,10 +40,12 @@ struct traits<
 	font::system
 >
 {
-	SGE_SYMBOL static address_name
+	SGE_FONT_SYMBOL
+	static address_name
 	plugin_loader_name();
 
-	SGE_SYMBOL static capabilities::type
+	SGE_FONT_SYMBOL
+	static capabilities::type
 	plugin_type();
 
 	typedef font::system_ptr const

@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/image3d/view/const_object.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -36,7 +36,7 @@ namespace renderer
 namespace texture
 {
 
-SGE_SYMBOL
+SGE_RENDERER_SYMBOL
 texture::volume_ptr const
 create_volume_from_view(
 	renderer::device &,

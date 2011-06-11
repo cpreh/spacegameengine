@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_ANY_SORT_FUNCTOR_HPP_INCLUDED
 
 #include <sge/renderer/state/any.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -35,7 +35,7 @@ struct any_sort_functor
 {
 	typedef bool result_type;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	result_type
 	operator()(
 		any const &,

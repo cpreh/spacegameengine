@@ -25,21 +25,8 @@ update_cmake_file \
 	-n \
 	include/sge \
 	-r \
-	include/sge/audio \
-	include/sge/charconv \
 	include/sge/error \
-	-n \
-	include/sge/font \
-	-r \
-	include/sge/image \
-	include/sge/image2d \
-	include/sge/image3d \
-	include/sge/input \
-	include/sge/log \
-	include/sge/model \
-	include/sge/plugin \
-	include/sge/renderer \
-	include/sge/window
+	include/sge/log
 
 update_cmake_file \
 	src/CMakeLists.txt \
@@ -47,20 +34,7 @@ update_cmake_file \
 	-n \
 	src \
 	-r \
-	src/audio \
-	src/charconv \
-	-n \
-	src/font \
-	-r \
-	src/image \
-	src/image2d \
-	src/image3d \
-	src/input \
-	src/log \
-	src/model \
-	src/plugin \
-	src/renderer \
-	src/window
+	src/log
 
 function update_sublibrary()
 {
@@ -71,6 +45,7 @@ function update_sublibrary()
 	update_cmake_file \
 		src/"${sublibrary}"/CMakeLists.txt \
 		SGE_"${upperpath////}"_FILES \
+		$2 \
 		include/sge/"${sublibrary}" \
 		src/"${sublibrary}"
 }
@@ -86,23 +61,43 @@ function update_plugin()
 }
 
 # base libs
-update_sublibrary projectile
+update_sublibrary audio
+
+update_sublibrary camera
 
 update_sublibrary cegui
 
-update_sublibrary camera
+update_sublibrary charconv
 
 update_sublibrary config
 
 update_sublibrary console
 
+update_sublibrary font -n
+
 update_sublibrary font/bitmap
 
 update_sublibrary font/text
 
+update_sublibrary image
+
+update_sublibrary image2d
+
+update_sublibrary image3d
+
+update_sublibrary input
+
 update_sublibrary line_drawer
 
+update_sublibrary model
+
 update_sublibrary parse
+
+update_sublibrary projectile
+
+update_sublibrary plugin
+
+update_sublibrary renderer
 
 update_sublibrary shader
 
@@ -115,6 +110,8 @@ update_sublibrary texture
 update_sublibrary time
 
 update_sublibrary viewport
+
+update_sublibrary window
 
 # plugins
 update_cmake_file \

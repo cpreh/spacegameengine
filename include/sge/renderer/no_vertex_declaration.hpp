@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_NO_VERTEX_DECLARATION_HPP_INCLUDED
 
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_SYMBOL
+SGE_RENDERER_SYMBOL
 renderer::vertex_declaration const *
 no_vertex_declaration();
 

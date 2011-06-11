@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/audio/scalar.hpp>
+#include <sge/audio/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -42,10 +42,10 @@ class SGE_CLASS_SYMBOL positional
 		positional
 	);
 protected:
-	SGE_SYMBOL
+	SGE_AUDIO_SYMBOL
 	positional();
 public:
-	SGE_SYMBOL
+	SGE_AUDIO_SYMBOL
 	virtual ~positional();
 
 	virtual vector const 

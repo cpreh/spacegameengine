@@ -32,7 +32,8 @@ namespace uniform
 
 namespace int_value_type
 {
-enum type {
+enum type
+{
 	int1,
 	int2,
 	int3,

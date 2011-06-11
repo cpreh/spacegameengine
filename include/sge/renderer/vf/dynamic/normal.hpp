@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
 #include <sge/renderer/vf/element_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -37,11 +37,13 @@ namespace dynamic
 class normal
 {
 public:
-	SGE_SYMBOL explicit normal(
+	SGE_RENDERER_SYMBOL
+	explicit normal(
 		vf::element_type::type
 	);
 
-	SGE_SYMBOL vf::element_type::type
+	SGE_RENDERER_SYMBOL
+	vf::element_type::type
 	element_type() const;
 private:
 	vf::element_type::type element_type_;

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -37,7 +37,7 @@ namespace dynamic
 class locked_part
 {
 public:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	locked_part(
 		renderer::raw_pointer,
 		renderer::size_type pos,
@@ -46,23 +46,23 @@ public:
 		bool write
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	renderer::raw_pointer
 	data() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	renderer::size_type
 	pos() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	renderer::size_type
 	count() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	bool
 	read() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	bool
 	write() const;
 private:

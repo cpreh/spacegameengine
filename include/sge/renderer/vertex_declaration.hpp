@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VERTEX_DECLARATION_HPP_INCLUDED
 
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -37,10 +37,10 @@ class SGE_CLASS_SYMBOL vertex_declaration
 		vertex_declaration
 	);
 public:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	vertex_declaration();
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	virtual ~vertex_declaration();
 };
 

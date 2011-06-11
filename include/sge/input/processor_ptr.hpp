@@ -30,7 +30,7 @@ namespace input
 {
 
 typedef fcppt::shared_ptr<
-	processor
+	input::processor
 > processor_ptr;
 
 }

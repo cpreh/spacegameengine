@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/refresh_rate.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
@@ -37,19 +37,23 @@ namespace renderer
 class display_mode
 {
 public:
-	SGE_SYMBOL display_mode(
+	SGE_RENDERER_SYMBOL
+	display_mode(
 		screen_size const &,
 		renderer::bit_depth::type,
 		renderer::refresh_rate
 	);
 
-	SGE_SYMBOL screen_size const &
+	SGE_RENDERER_SYMBOL
+	screen_size const &
 	size() const;
 
-	SGE_SYMBOL renderer::bit_depth::type
+	SGE_RENDERER_SYMBOL
+	renderer::bit_depth::type
 	bit_depth() const;
 
-	SGE_SYMBOL renderer::refresh_rate
+	SGE_RENDERER_SYMBOL
+	renderer::refresh_rate
 	refresh_rate() const;
 private:
 	renderer::screen_size size_;
@@ -59,19 +63,22 @@ private:
 	renderer::refresh_rate refresh_rate_;
 };
 
-SGE_SYMBOL fcppt::io::ostream &
+SGE_RENDERER_SYMBOL
+fcppt::io::ostream &
 operator<<(
 	fcppt::io::ostream &,
 	display_mode const &
 );
 
-SGE_SYMBOL bool
+SGE_RENDERER_SYMBOL
+bool
 operator== (
 	display_mode const &,
 	display_mode const &
 );
 
-SGE_SYMBOL bool
+SGE_RENDERER_SYMBOL
+bool
 operator!= (
 	display_mode const &,
 	display_mode const &

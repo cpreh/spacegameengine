@@ -22,15 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_ASPECT_FROM_VIEWPORT_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_SYMBOL
+SGE_RENDERER_SYMBOL
 renderer::scalar
 aspect_from_viewport(
 	renderer::viewport const &

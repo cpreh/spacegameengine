@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/dynamic/pos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -37,11 +37,13 @@ namespace dynamic
 class pos
 {
 public:
-	SGE_SYMBOL explicit pos(
+	SGE_RENDERER_SYMBOL
+	explicit pos(
 		vector const &
 	);
 
-	SGE_SYMBOL vector const &
+	SGE_RENDERER_SYMBOL
+	vector const &
 	type() const;
 private:
 	vector type_;

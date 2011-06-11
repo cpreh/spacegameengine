@@ -13,5 +13,5 @@ SET(
 
 ADD_SGE_PLUGIN(
 	audio_null
-	""
+	"sgeaudio"
 )

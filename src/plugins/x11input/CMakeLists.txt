@@ -128,5 +128,5 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_PLUGIN(
 	x11input
-	"sgetime;${X11_X11_LIB};${X11_Xinput_LIB}"
+	"sgeinput;sgetime;sgewindow;${X11_X11_LIB};${X11_Xinput_LIB}"
 )

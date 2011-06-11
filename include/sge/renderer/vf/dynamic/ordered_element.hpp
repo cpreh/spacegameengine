@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -38,15 +38,18 @@ namespace dynamic
 class ordered_element
 {
 public:
-	SGE_SYMBOL ordered_element(
+	SGE_RENDERER_SYMBOL
+	ordered_element(
 		dynamic::element const &,
 		vertex_size offset
 	);
 
-	SGE_SYMBOL dynamic::element const &
+	SGE_RENDERER_SYMBOL
+	dynamic::element const &
 	element() const;
 
-	SGE_SYMBOL vertex_size
+	SGE_RENDERER_SYMBOL
+	vertex_size
 	offset() const;
 private:
 	dynamic::element element_;

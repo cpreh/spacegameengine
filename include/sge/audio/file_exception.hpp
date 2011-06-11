@@ -23,8 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/exception.hpp>
 #include <sge/audio/optional_path.hpp>
-#include <sge/image/optional_path.hpp>
-#include <sge/symbol.hpp>
+#include <sge/audio/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/string.hpp>
@@ -39,7 +38,8 @@ class SGE_CLASS_SYMBOL file_exception
 	public audio::exception
 {
 public:
-	SGE_SYMBOL file_exception(
+	SGE_AUDIO_SYMBOL
+	file_exception(
 		optional_path const &,
 		fcppt::string const &
 	);

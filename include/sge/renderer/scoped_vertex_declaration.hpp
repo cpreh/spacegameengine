@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -37,13 +37,13 @@ class scoped_vertex_declaration
 		scoped_vertex_declaration
 	);
 public:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	scoped_vertex_declaration(
 		renderer::device &,
 		renderer::vertex_declaration const &
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	~scoped_vertex_declaration();
 private:
 	renderer::device &device_;

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_COLOR_HPP_INCLUDED
 
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -37,11 +37,13 @@ namespace dynamic
 class color
 {
 public:
-	SGE_SYMBOL explicit color(
+	SGE_RENDERER_SYMBOL
+	explicit color(
 		image::color::format::type
 	);
 
-	SGE_SYMBOL image::color::format::type
+	SGE_RENDERER_SYMBOL
+	image::color::format::type
 	color_format() const;
 private:
 	image::color::format::type color_format_;

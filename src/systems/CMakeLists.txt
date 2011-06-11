@@ -57,5 +57,5 @@ SET(
 
 ADD_SGE_BASE_LIBRARY(
 	systems
-	"sgeconfig;sgeviewport"
+	"sgeaudio;sgecharconv;sgeconfig;sgefont;sgeimage2d;sgeinput;sgemodel;sgerenderer;sgeviewport;sgewindow"
 )

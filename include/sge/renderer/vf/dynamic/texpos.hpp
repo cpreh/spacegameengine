@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -38,16 +38,17 @@ namespace dynamic
 class texpos
 {
 public:
-	SGE_SYMBOL explicit texpos(
+	SGE_RENDERER_SYMBOL
+	texpos(
 		vector const &,
 		vf::vertex_size index
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	vector const &
 	type() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	vf::vertex_size
 	index() const;
 private:

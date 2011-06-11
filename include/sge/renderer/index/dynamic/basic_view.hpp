@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <boost/mpl/if.hpp>
 
 namespace sge
@@ -52,22 +52,22 @@ public:
 		
 	typedef renderer::size_type size_type;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	explicit basic_view(
 		pointer,
 		size_type,
 		dynamic::format::type
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	pointer
 	data() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	size_type
 	size() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	dynamic::format::type
 	format() const;
 private:

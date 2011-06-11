@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_DYNAMIC_MAKE_FORMAT_HPP_INCLUDED
 
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -36,7 +36,8 @@ namespace dynamic
 template<
 	typename Format
 >
-SGE_SYMBOL format::type
+SGE_RENDERER_SYMBOL
+format::type
 make_format();
 
 }

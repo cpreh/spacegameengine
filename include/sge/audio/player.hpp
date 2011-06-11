@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/symbol.hpp>
+#include <sge/audio/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -47,7 +47,7 @@ public:
 		player
 	);
 protected:
-	SGE_SYMBOL explicit
+	SGE_AUDIO_SYMBOL explicit
 	player();
 public:
 	virtual audio::listener &
@@ -96,7 +96,7 @@ public:
 	virtual player_capabilities_field const
 	capabilities() const = 0;
 
-	SGE_SYMBOL virtual ~player();
+	SGE_AUDIO_SYMBOL virtual ~player();
 };
 
 }

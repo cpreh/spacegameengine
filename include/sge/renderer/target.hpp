@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/optional_dim2.hpp>
 #include <sge/renderer/surface_index.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -44,7 +44,7 @@ class SGE_CLASS_SYMBOL target
 		target
 	);
 protected:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	target();
 public:
 	virtual void
@@ -61,7 +61,7 @@ public:
 	virtual renderer::optional_dim2 const
 	size() const = 0;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	virtual ~target();
 };
 

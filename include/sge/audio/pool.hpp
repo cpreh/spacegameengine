@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/stop_mode.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
-#include <sge/symbol.hpp>
+#include <sge/audio/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <vector>
@@ -39,21 +39,21 @@ class SGE_CLASS_SYMBOL pool
 		pool
 	);
 public:
-	SGE_SYMBOL explicit 
+	SGE_AUDIO_SYMBOL explicit 
 	pool();
 
-	SGE_SYMBOL 
+	SGE_AUDIO_SYMBOL 
 	~pool();
 
-	SGE_SYMBOL void 
+	SGE_AUDIO_SYMBOL void 
 	add(
 		sound::base_ptr,
 		stop_mode::type);
 
-	SGE_SYMBOL void 
+	SGE_AUDIO_SYMBOL void 
 	update();
 
-	SGE_SYMBOL bool 
+	SGE_AUDIO_SYMBOL bool 
 	sounds_finished() const;
 private:
 	typedef 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_CONST_BASIC_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CONST_BASIC_SCOPED_LOCK_HPP_INCLUDED
 
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -42,22 +42,22 @@ class const_basic_scoped_lock
 		const_basic_scoped_lock
 	);
 public:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	explicit const_basic_scoped_lock(
 		Texture const &
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	const_basic_scoped_lock(
 		Texture const &,
 		LockArea const &
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	View const
 	value() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	~const_basic_scoped_lock();
 private:
 	Texture const &texture_;

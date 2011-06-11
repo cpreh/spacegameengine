@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -43,7 +43,8 @@ class SGE_CLASS_SYMBOL index_buffer
 		index_buffer
 	);
 protected:
-	SGE_SYMBOL index_buffer();
+	SGE_RENDERER_SYMBOL
+	index_buffer();
 public:
 	typedef renderer::size_type size_type;
 
@@ -51,7 +52,8 @@ public:
 
 	typedef index::dynamic::const_view const_view_type;
 
-	SGE_SYMBOL static size_type const npos;
+	SGE_RENDERER_SYMBOL
+	static size_type const npos;
 
 	virtual view_type const
 	lock(
@@ -78,7 +80,8 @@ public:
 	virtual index::dynamic::format::type
 	format() const = 0;
 
-	SGE_SYMBOL virtual ~index_buffer();
+	SGE_RENDERER_SYMBOL
+	virtual ~index_buffer();
 };
 
 }

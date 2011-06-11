@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target_base_fwd.hpp>
 #include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -39,7 +39,7 @@ class SGE_CLASS_SYMBOL target_base
 		target_base
 	);
 protected:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	target_base();
 public:
 	virtual void
@@ -59,7 +59,7 @@ public:
 	virtual renderer::scissor_area const
 	scissor_area() const = 0;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	virtual ~target_base();
 };
 

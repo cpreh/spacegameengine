@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/window_mode.hpp>
+#include <sge/input/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -44,9 +44,11 @@ class SGE_CLASS_SYMBOL object
 		object
 	);
 protected:
-	SGE_SYMBOL object();
+	SGE_INPUT_SYMBOL
+	object();
 public:
-	SGE_SYMBOL virtual ~object();
+	SGE_INPUT_SYMBOL
+	virtual ~object();
 
 	virtual fcppt::signal::auto_connection
 	button_callback(

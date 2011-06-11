@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <sge/window/simple_parameters_fwd.hpp>
-#include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <awl/window/instance_shared_ptr.hpp>
 #include <awl/system/object_fwd.hpp>
@@ -44,7 +44,8 @@ class SGE_CLASS_SYMBOL system
 		system
 	);
 protected:
-	SGE_SYMBOL system();
+	SGE_RENDERER_SYMBOL
+	system();
 public:
 	virtual renderer::device_ptr const
 	create_renderer(
@@ -60,7 +61,8 @@ public:
 		sge::renderer::parameters const &
 	) = 0;
 
-	SGE_SYMBOL virtual ~system();
+	SGE_RENDERER_SYMBOL
+	virtual ~system();
 };
 
 }

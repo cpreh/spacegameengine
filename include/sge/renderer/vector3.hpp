@@ -28,9 +28,11 @@ namespace sge
 {
 namespace renderer
 {
+
 typedef
 fcppt::math::vector::static_<scalar,3>::type
 vector3;
+
 }
 }
 

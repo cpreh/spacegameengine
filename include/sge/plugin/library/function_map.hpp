@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
-#include <sge/symbol.hpp>
+#include <sge/plugin/symbol.hpp>
 #include <map>
 
 namespace sge
@@ -41,18 +41,18 @@ public:
 		library::function_base
 	> container;
 
-	SGE_SYMBOL
+	SGE_PLUGIN_SYMBOL
 	explicit function_map(
 		container const &
 	);
 
-	SGE_SYMBOL
+	SGE_PLUGIN_SYMBOL
 	library::function_base
 	function(
 		library::symbol_string const &
 	) const;
 
-	SGE_SYMBOL
+	SGE_PLUGIN_SYMBOL
 	container const &
 	get() const;
 private:

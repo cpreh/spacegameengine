@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_CURSOR_NO_OBJECT_HPP_INCLUDED
 
 #include <sge/input/exception.hpp>
-#include <sge/symbol.hpp>
+#include <sge/input/symbol.hpp>
 #include <sge/class_symbol.hpp>
 
 namespace sge
@@ -37,7 +37,8 @@ class SGE_CLASS_SYMBOL no_object
 	public sge::input::exception
 {
 public:
-	SGE_SYMBOL no_object();
+	SGE_INPUT_SYMBOL
+	no_object();
 };
 
 }

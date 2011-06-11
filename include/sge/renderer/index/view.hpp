@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/size_type.hpp>
 #include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/static_assert.hpp>
 
@@ -77,29 +77,36 @@ public:
 		>::value
 	> dynamic_view_type;		
 
-	SGE_SYMBOL explicit view(
+	SGE_RENDERER_SYMBOL
+	explicit view(
 		pointer,
 		size_type
 	);
 
-	SGE_SYMBOL view(
+	SGE_RENDERER_SYMBOL
+	view(
 		nonconst_type const &
 	);
 
-	SGE_SYMBOL explicit view(
+	SGE_RENDERER_SYMBOL
+	explicit view(
 		dynamic_view_type const &
 	);
 
-	SGE_SYMBOL pointer
+	SGE_RENDERER_SYMBOL
+	pointer
 	data() const;
 
-	SGE_SYMBOL size_type
+	SGE_RENDERER_SYMBOL
+	size_type
 	size() const;
 
-	SGE_SYMBOL iterator
+	SGE_RENDERER_SYMBOL
+	iterator
 	begin() const;
 
-	SGE_SYMBOL iterator
+	SGE_RENDERER_SYMBOL
+	iterator
 	end() const;
 private:
 	pointer data_;

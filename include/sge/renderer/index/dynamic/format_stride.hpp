@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -34,7 +34,8 @@ namespace index
 namespace dynamic
 {
 
-SGE_SYMBOL size_type
+SGE_RENDERER_SYMBOL
+size_type
 format_stride(
 	format::type
 );

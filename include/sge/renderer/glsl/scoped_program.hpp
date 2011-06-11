@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -39,13 +39,13 @@ class scoped_program
 		scoped_program
 	);
 public:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	explicit scoped_program(
 		renderer::device &,
 		glsl::program const &
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	~scoped_program();
 private:
 	renderer::device &rend_;

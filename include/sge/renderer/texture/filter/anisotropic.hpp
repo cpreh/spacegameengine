@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/texture/filter/anisotropy_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace texture
 namespace filter
 {
 
-SGE_SYMBOL
+SGE_RENDERER_SYMBOL
 filter::object const
 anisotropic(
 	filter::anisotropy_type

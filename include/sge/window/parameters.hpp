@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 
 #include <sge/window/parameters_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/window/symbol.hpp>
 #include <awl/window/instance_shared_ptr.hpp>
 #include <awl/window/event/processor_shared_ptr.hpp>
 #include <awl/system/object_shared_ptr.hpp>
@@ -37,47 +37,47 @@ namespace window
 class parameters
 {
 public:
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	parameters(
 		awl::system::object_shared_ptr,
 		awl::window::instance_shared_ptr
 	);
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	parameters &
 	window_event_processor(
 		awl::window::event::processor_shared_ptr
 	);
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	parameters &
 	system_event_processor(
 		awl::system::event::processor_shared_ptr
 	);
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	parameters &
 	io_service(
 		awl::mainloop::io_service_shared_ptr
 	);
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	awl::system::object_shared_ptr const
 	system() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	awl::window::instance_shared_ptr const
 	window() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	awl::window::event::processor_shared_ptr const
 	window_event_processor() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	awl::system::event::processor_shared_ptr const
 	system_event_processor() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	awl::mainloop::io_service_shared_ptr const
 	io_service() const;
 private:

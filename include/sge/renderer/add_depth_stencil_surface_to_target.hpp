@@ -23,15 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/target_fwd.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_SYMBOL
+SGE_RENDERER_SYMBOL
 void
 add_depth_stencil_surface_to_target(
 	renderer::device &,

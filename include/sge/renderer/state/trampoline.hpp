@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/trampoline_fwd.hpp>
 #include <sge/renderer/state/var_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -54,12 +54,14 @@ public:
 		state_type
 	);
 
-	SGE_SYMBOL var_type const
+	SGE_RENDERER_SYMBOL
+	var_type const
 	operator=(
 		T const &
 	) const;
 
-	SGE_SYMBOL state_type
+	SGE_RENDERER_SYMBOL
+	state_type
 	state() const;
 private:
 	state_type const state_;

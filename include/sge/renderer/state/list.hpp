@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/any_sort_functor.hpp>
 #include <sge/renderer/state/trampoline_fwd.hpp>
 #include <sge/renderer/state/any.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <set>
 
@@ -44,21 +44,25 @@ public:
 		any_sort_functor
 	> set_type;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	list();
 
-	SGE_SYMBOL explicit list(
+	SGE_RENDERER_SYMBOL
+	explicit list(
 		any const &
 	);
 
-	SGE_SYMBOL ~list();
+	SGE_RENDERER_SYMBOL
+	~list();
 
-	SGE_SYMBOL list const
+	SGE_RENDERER_SYMBOL
+	list const
 	operator()(
 		any const &
 	) const;
 
-	SGE_SYMBOL void
+	SGE_RENDERER_SYMBOL
+	void
 	overwrite(
 		any const &
 	);
@@ -66,19 +70,22 @@ public:
 	template<
 		typename T
 	>
-	SGE_SYMBOL T
+	SGE_RENDERER_SYMBOL
+	T
 	get() const;
 
 	template<
 		typename T,
 		typename States
 	>
-	SGE_SYMBOL T
+	SGE_RENDERER_SYMBOL
+	T
 	get(
 		state::trampoline<T, States> const &
 	) const;
 
-	SGE_SYMBOL set_type const &
+	SGE_RENDERER_SYMBOL
+	set_type const &
 	values() const;
 private:
 	set_type set_;

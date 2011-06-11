@@ -26,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/lock_box.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
 #include <sge/image3d/tag.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -48,10 +48,10 @@ class SGE_CLASS_SYMBOL volume
 		volume
 	);
 protected:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	volume();
 public:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	virtual ~volume();
 
 	typedef renderer::dim3 dim;
@@ -69,12 +69,14 @@ public:
 	virtual dim const
 	size() const = 0;
 
-	SGE_SYMBOL view const
+	SGE_RENDERER_SYMBOL
+	view const
 	lock(
 		lock_mode::type
 	);
 
-	SGE_SYMBOL const_view const
+	SGE_RENDERER_SYMBOL
+	const_view const
 	lock() const;
 
 	virtual view const
@@ -91,10 +93,11 @@ public:
 	virtual void
 	unlock() const = 0;
 
-	SGE_SYMBOL box const
+	SGE_RENDERER_SYMBOL
+	box const
 	area() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	texture::base::size_type
 	content() const;
 };

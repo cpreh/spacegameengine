@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/glsl/uniform/basic_value_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
 
 namespace sge
@@ -52,22 +52,27 @@ public:
 	typedef typename data_type::pointer pointer;
 	typedef typename data_type::const_pointer const_pointer;
 
-	SGE_SYMBOL basic_value(
+	SGE_RENDERER_SYMBOL
+	basic_value(
 		data_type const &,
 		renderer::size_type elements,
 		Type
 	);
 
-	SGE_SYMBOL const_pointer
+	SGE_RENDERER_SYMBOL
+	const_pointer
 	data() const;
 
-	SGE_SYMBOL pointer
+	SGE_RENDERER_SYMBOL
+	pointer
 	data();
 
-	SGE_SYMBOL renderer::size_type
+	SGE_RENDERER_SYMBOL
+	renderer::size_type
 	elements() const;
 
-	SGE_SYMBOL Type
+	SGE_RENDERER_SYMBOL
+	Type
 	type() const;
 private:
 	data_type data_;

@@ -37,7 +37,8 @@ namespace detail
 template<
 	typename Format
 >
-struct make_object {
+struct make_object
+{
 	typedef mizuiro::color::object<
 		Format
 	> type;

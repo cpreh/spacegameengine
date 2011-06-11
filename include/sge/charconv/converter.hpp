@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/conversion_status.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
+#include <sge/charconv/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -40,9 +40,11 @@ class SGE_CLASS_SYMBOL converter
 		converter
 	);
 protected:
-	SGE_SYMBOL converter();
+	SGE_CHARCONV_SYMBOL
+	converter();
 public:
-	SGE_SYMBOL virtual ~converter();
+	SGE_CHARCONV_SYMBOL
+	virtual ~converter();
 
 	virtual charconv::conversion_status::type
 	convert(

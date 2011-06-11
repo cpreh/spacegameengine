@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_ALGORITHM_PRINT_HPP_INCLUDED
 
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/symbol.hpp>
+#include <sge/image2d/symbol.hpp>
 #include <fcppt/io/ostream.hpp>
 
 namespace sge
@@ -32,7 +32,7 @@ namespace image2d
 namespace algorithm
 {
 
-SGE_SYMBOL
+SGE_IMAGE2D_SYMBOL
 void
 print(
 	fcppt::io::ostream &,

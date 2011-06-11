@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_FILE_HPP_INCLUDED
 
 #include <sge/audio/file_fwd.hpp>
-#include <sge/audio/sample_count.hpp>
-#include <sge/audio/sample_container.hpp>
 #include <sge/audio/channel_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/audio/sample_container.hpp>
+#include <sge/audio/sample_count.hpp>
+#include <sge/audio/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -40,7 +40,7 @@ class SGE_CLASS_SYMBOL file
 		file
 	);
 protected:
-	SGE_SYMBOL explicit
+	SGE_AUDIO_SYMBOL explicit
 	file();
 public:
 	virtual sample_count 
@@ -67,10 +67,11 @@ public:
 	virtual void 
 	reset() = 0;
 	
-	SGE_SYMBOL sample_count 
+	SGE_AUDIO_SYMBOL
+	sample_count 
 	bytes_per_sample() const;
 	
-	SGE_SYMBOL 
+	SGE_AUDIO_SYMBOL 
 	virtual ~file();
 };
 

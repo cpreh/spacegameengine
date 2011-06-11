@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/apply_callback.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace renderer
 namespace state
 {
 
-SGE_SYMBOL
+SGE_RENDERER_SYMBOL
 void
 apply(
 	state::list &current_states,

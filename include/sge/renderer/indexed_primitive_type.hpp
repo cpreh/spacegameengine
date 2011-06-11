@@ -28,7 +28,8 @@ namespace renderer
 
 namespace indexed_primitive_type
 {
-enum type {
+enum type
+{
 	line,
 	triangle
 };

@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
+#include <sge/input/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -42,9 +42,11 @@ class SGE_CLASS_SYMBOL device
 		device
 	);
 protected:
-	SGE_SYMBOL device();
+	SGE_INPUT_SYMBOL
+	device();
 public:
-	SGE_SYMBOL virtual ~device();
+	SGE_INPUT_SYMBOL
+	virtual ~device();
 
 	virtual fcppt::signal::auto_connection
 	button_callback(

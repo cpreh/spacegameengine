@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
 
 namespace sge
@@ -50,7 +50,7 @@ public:
 
 	typedef vertex_size size_type;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	basic_view(
 		pointer data,
 		size_type elements,
@@ -58,19 +58,19 @@ public:
 		dynamic::part_index
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	pointer
 	data() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	size_type
 	size() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	dynamic::part const &
 	part() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	dynamic::part_index const
 	part_index() const;
 private:

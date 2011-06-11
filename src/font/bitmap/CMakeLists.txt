@@ -19,5 +19,5 @@ SET(
 
 ADD_SGE_BASE_LIBRARY(
 	fontbitmap
-	"sgeparse"
+	"sgefont;sgeimage2d;sgeparse"
 )

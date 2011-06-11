@@ -28,7 +28,8 @@ namespace renderer
 
 namespace vsync
 {
-enum type {
+enum type
+{
 	off,
 	on
 };

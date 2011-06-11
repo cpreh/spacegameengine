@@ -1,0 +1,36 @@
+SET(
+	SGE_WINDOW_FILES
+	include/sge/window/convert_size_hints.hpp
+	include/sge/window/create.hpp
+	include/sge/window/create_simple_from_awl.hpp
+	include/sge/window/default_class_name.hpp
+	include/sge/window/dim.hpp
+	include/sge/window/instance.hpp
+	include/sge/window/instance_fwd.hpp
+	include/sge/window/instance_ptr.hpp
+	include/sge/window/optional_dim.hpp
+	include/sge/window/parameters.hpp
+	include/sge/window/parameters_fwd.hpp
+	include/sge/window/pos_type.hpp
+	include/sge/window/simple_parameters.hpp
+	include/sge/window/simple_parameters_fwd.hpp
+	include/sge/window/size_hints.hpp
+	include/sge/window/size_hints_fwd.hpp
+	include/sge/window/symbol.hpp
+	include/sge/window/to_awl_parameters.hpp
+	include/sge/window/window.hpp
+	src/window/convert_size_hints.cpp
+	src/window/create.cpp
+	src/window/create_simple_from_awl.cpp
+	src/window/default_class_name.cpp
+	src/window/instance.cpp
+	src/window/parameters.cpp
+	src/window/simple_parameters.cpp
+	src/window/size_hints.cpp
+	src/window/to_awl_parameters.cpp
+)
+
+ADD_SGE_BASE_LIBRARY(
+	window	
+	""
+)

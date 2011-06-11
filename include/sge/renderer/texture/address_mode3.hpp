@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode_t.hpp>
 #include <sge/renderer/texture/address_mode_u.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -38,28 +38,28 @@ namespace texture
 class address_mode3
 {
 public:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	explicit
 	address_mode3(
 		texture::address_mode::type
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	address_mode3(
 		texture::address_mode_s,
 		texture::address_mode_t,
 		texture::address_mode_u
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	texture::address_mode_s const
 	address_mode_s() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	texture::address_mode_t const
 	address_mode_t() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	texture::address_mode_u const
 	address_mode_u() const;
 private:

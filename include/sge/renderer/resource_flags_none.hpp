@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_RESOURCE_FLAGS_NONE_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -32,7 +32,8 @@ namespace renderer
 namespace resource_flags
 {
 
-SGE_SYMBOL extern resource_flags_field const none;
+SGE_RENDERER_SYMBOL
+extern resource_flags_field const none;
 
 }
 

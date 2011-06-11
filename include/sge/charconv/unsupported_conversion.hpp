@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CHARCONV_UNSUPPORTED_CONVERSION_HPP_INCLUDED
 
 #include <sge/charconv/exception.hpp>
-#include <sge/symbol.hpp>
+#include <sge/charconv/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/string.hpp>
 
@@ -36,20 +36,20 @@ class SGE_CLASS_SYMBOL unsupported_conversion
 	public sge::charconv::exception
 {
 public:
-	SGE_SYMBOL
+	SGE_CHARCONV_SYMBOL
 	unsupported_conversion(
 		fcppt::string const &source,
 		fcppt::string const &dest
 	);
 
-	SGE_SYMBOL
+	SGE_CHARCONV_SYMBOL
 	~unsupported_conversion() throw();
 
-	SGE_SYMBOL
+	SGE_CHARCONV_SYMBOL
 	fcppt::string const &
 	source() const;
 
-	SGE_SYMBOL
+	SGE_CHARCONV_SYMBOL
 	fcppt::string const &
 	dest() const;
 private:

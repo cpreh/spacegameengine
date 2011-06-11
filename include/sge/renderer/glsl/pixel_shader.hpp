@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/glsl/pixel_shader_fwd.hpp>
 #include <sge/renderer/glsl/shader.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -42,9 +42,11 @@ class SGE_CLASS_SYMBOL pixel_shader
 		pixel_shader
 	);
 protected:
-	SGE_SYMBOL pixel_shader();
+	SGE_RENDERER_SYMBOL
+	pixel_shader();
 public:
-	SGE_SYMBOL virtual ~pixel_shader();
+	SGE_RENDERER_SYMBOL
+	virtual ~pixel_shader();
 };
 
 }

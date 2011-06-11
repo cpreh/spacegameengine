@@ -21,18 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDICES_PER_PRIMITIVE_HPP_INCLUDED
 #define SGE_RENDERER_INDICES_PER_PRIMITIVE_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_SYMBOL size_type
+SGE_RENDERER_SYMBOL
+size_type
 indices_per_primitive(
-	indexed_primitive_type::type);
+	indexed_primitive_type::type
+);
 
 }
 }

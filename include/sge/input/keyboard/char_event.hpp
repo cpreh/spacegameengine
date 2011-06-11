@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/char_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/input/symbol.hpp>
 
 namespace sge
 {
@@ -35,17 +35,17 @@ namespace keyboard
 class char_event
 {
 public:
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	char_event(
 		keyboard::char_type,
 		bool repeated
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	keyboard::char_type
 	character() const;
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	bool
 	repeated() const;
 private:

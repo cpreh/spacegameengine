@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SOUND_BASE_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_BASE_HPP_INCLUDED
 
-#include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/audio/sound/play_status.hpp>
+#include <sge/audio/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -40,7 +40,7 @@ class SGE_CLASS_SYMBOL base
 		base
 	);
 public:
-	SGE_SYMBOL explicit
+	SGE_AUDIO_SYMBOL explicit
 	base();
 
 	virtual void 
@@ -76,7 +76,7 @@ public:
 	virtual void
 	update() = 0;
 
-	SGE_SYMBOL virtual
+	SGE_AUDIO_SYMBOL virtual
 	~base();
 };
 }

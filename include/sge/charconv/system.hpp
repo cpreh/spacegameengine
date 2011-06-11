@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CHARCONV_SYSTEM_HPP_INCLUDED
 
 #include <sge/charconv/system_fwd.hpp>
+#include <sge/charconv/converter_ptr.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/source_encoding.hpp>
-#include <sge/charconv/converter_ptr.hpp>
+#include <sge/charconv/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -40,9 +40,11 @@ class SGE_CLASS_SYMBOL system
 		system
 	);
 protected:
-	SGE_SYMBOL system();
+	SGE_CHARCONV_SYMBOL
+	system();
 public:
-	SGE_SYMBOL virtual ~system();
+	SGE_CHARCONV_SYMBOL
+	virtual ~system();
 
 	virtual charconv::converter_ptr const
 	create_converter(

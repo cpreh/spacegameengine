@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/onscreen_target_fwd.hpp>
 #include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/target_base.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -41,13 +41,13 @@ class SGE_CLASS_SYMBOL onscreen_target
 		onscreen_target
 	);
 protected:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	onscreen_target();
 public:
 	virtual renderer::color_surface const &
 	surface() const = 0;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	virtual ~onscreen_target();
 };
 

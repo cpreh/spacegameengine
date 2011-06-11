@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
 #include <sge/plugin/library/function_base.hpp>
+#include <sge/plugin/symbol.hpp>
 
 namespace sge
 {
@@ -32,6 +33,7 @@ namespace plugin
 namespace library
 {
 
+SGE_PLUGIN_SYMBOL
 sge::plugin::library::function_base
 load_function_base(
 	library::object &,

@@ -66,5 +66,5 @@ SET(
 
 ADD_SGE_BASE_LIBRARY(
 	texture
-	""
+	"sgeimage2d;sgerenderer"
 )

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_VIEW_DIM_HPP_INCLUDED
 #define SGE_IMAGE3D_VIEW_DIM_HPP_INCLUDED
 
-#include <sge/image3d/dim.hpp>
 #include <sge/image3d/view/const_object.hpp>
-#include <sge/symbol.hpp>
+#include <sge/image3d/dim.hpp>
+#include <sge/image3d/symbol.hpp>
 
 namespace sge
 {
@@ -32,7 +32,8 @@ namespace image3d
 namespace view
 {
 
-SGE_SYMBOL image3d::dim const
+SGE_IMAGE3D_SYMBOL
+image3d::dim const
 dim(
 	const_object const &
 );

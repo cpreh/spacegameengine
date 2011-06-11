@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SCOPED_BLOCK_HPP_INCLUDED
 
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -36,11 +36,13 @@ class scoped_block
 		scoped_block
 	);
 public:
-	SGE_SYMBOL explicit scoped_block(
+	SGE_RENDERER_SYMBOL
+	explicit scoped_block(
 		renderer::device &
 	);
 
-	SGE_SYMBOL ~scoped_block();
+	SGE_RENDERER_SYMBOL
+	~scoped_block();
 private:
 	renderer::device &rend_;
 };

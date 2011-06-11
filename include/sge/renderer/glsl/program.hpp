@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/vertex_shader_ptr.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -47,7 +47,8 @@ class SGE_CLASS_SYMBOL program
 		program
 	);
 protected:
-	SGE_SYMBOL program();
+	SGE_RENDERER_SYMBOL
+	program();
 public:
 	virtual glsl::uniform::variable_ptr const
 	uniform(
@@ -86,7 +87,8 @@ public:
 	virtual fcppt::string const
 	info_log() const = 0;
 
-	SGE_SYMBOL virtual ~program();
+	SGE_RENDERER_SYMBOL
+	virtual ~program();
 };
 
 }

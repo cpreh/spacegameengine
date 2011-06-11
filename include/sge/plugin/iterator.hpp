@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator_fwd.hpp>
 #include <sge/plugin/detail/iterator_base_type.hpp>
 #include <sge/plugin/category_array.hpp>
-#include <sge/symbol.hpp>
+#include <sge/plugin/instantiate_symbol.hpp>
 
 namespace sge
 {
@@ -36,41 +36,55 @@ template<
 >
 class iterator
 :
-	public detail::iterator_base_type<T>::type
+public
+	detail::iterator_base_type<
+		T
+	>::type
 {
 public:
 	typedef typename detail::iterator_base_type<T>::type base_type;
 
 	typedef typename base_type::value_type value_type;
+
 	typedef typename base_type::reference reference;
+
 	typedef typename base_type::pointer pointer;
+
 	typedef typename base_type::difference_type difference_type;
+
 	typedef typename base_type::iterator_category iterator_category;
 
-	SGE_SYMBOL explicit iterator(
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	explicit iterator(
 		category_array::iterator
 	);
 
-	SGE_SYMBOL void
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	void
 	advance(
 		difference_type
 	);
 
-	SGE_SYMBOL void
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	void
 	increment();
 
-	SGE_SYMBOL void
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	void
 	decrement();
 
-	SGE_SYMBOL bool
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	bool
 	equal(
 		iterator const &
 	) const;
 
-	SGE_SYMBOL reference
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	reference
 	dereference() const;
 
-	SGE_SYMBOL difference_type
+	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	difference_type
 	distance_to(
 		iterator const &
 	) const;

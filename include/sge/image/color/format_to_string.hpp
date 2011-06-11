@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_FORMAT_TO_STRING_HPP_INCLUDED
 
 #include <sge/image/color/format.hpp>
-#include <sge/symbol.hpp>
+#include <sge/image/symbol.hpp>
 #include <fcppt/string.hpp>
 
 namespace sge
@@ -32,7 +32,7 @@ namespace image
 namespace color
 {
 
-SGE_SYMBOL
+SGE_IMAGE_SYMBOL
 fcppt::string const
 format_to_string(
 	format::type

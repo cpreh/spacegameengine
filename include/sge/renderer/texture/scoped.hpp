@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/stage_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -40,14 +40,14 @@ class scoped
 		scoped
 	);
 public:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	scoped(
 		renderer::device &,
 		texture::base const &,
 		renderer::stage_type
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	~scoped();
 private:
 	renderer::device &device_;

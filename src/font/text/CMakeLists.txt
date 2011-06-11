@@ -41,5 +41,5 @@ SET(
 
 ADD_SGE_BASE_LIBRARY(
 	fonttext
-	"sgesprite;sgetexture"
+	"sgefont;sgesprite;sgetexture"
 )

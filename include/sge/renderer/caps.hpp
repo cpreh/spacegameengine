@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/filter/anisotropy_type.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/string.hpp>
@@ -39,7 +39,8 @@ namespace renderer
 class caps
 {
 public:
-	SGE_SYMBOL caps(
+	SGE_RENDERER_SYMBOL
+	caps(
 		renderer::adapter,
 		fcppt::string const &driver_name,
 		fcppt::string const &description,
@@ -50,28 +51,36 @@ public:
 		image::color::format::type preferred_texture_format
 	);
 
-	SGE_SYMBOL renderer::adapter const
+	SGE_RENDERER_SYMBOL
+	renderer::adapter const
 	adapter() const;
 
-	SGE_SYMBOL fcppt::string const &
+	SGE_RENDERER_SYMBOL
+	fcppt::string const &
 	driver_name() const;
 
-	SGE_SYMBOL fcppt::string const &
+	SGE_RENDERER_SYMBOL
+	fcppt::string const &
 	description() const;
 
-	SGE_SYMBOL dim2 const &
+	SGE_RENDERER_SYMBOL
+	dim2 const &
 	max_texture_size() const;
 
-	SGE_SYMBOL texture::filter::anisotropy_type
+	SGE_RENDERER_SYMBOL
+	texture::filter::anisotropy_type
 	max_anisotropy() const;
 
-	SGE_SYMBOL bool
+	SGE_RENDERER_SYMBOL
+	bool
 	render_target_supported() const;
 
-	SGE_SYMBOL bool
+	SGE_RENDERER_SYMBOL
+	bool
 	glsl_supported() const;
 
-	SGE_SYMBOL image::color::format::type
+	SGE_RENDERER_SYMBOL
+	image::color::format::type
 	preferred_texture_format() const;
 private:
 	renderer::adapter adapter_;
@@ -91,7 +100,7 @@ private:
 	image::color::format::type preferred_texture_format_;
 };
 
-SGE_SYMBOL
+SGE_RENDERER_SYMBOL
 fcppt::io::ostream &
 operator<<(
 	fcppt::io::ostream &,

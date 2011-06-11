@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/simple_parameters_fwd.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/size_hints.hpp>
-#include <sge/symbol.hpp>
+#include <sge/window/symbol.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/string.hpp>
 
@@ -36,37 +36,37 @@ namespace window
 class simple_parameters
 {
 public:
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	explicit simple_parameters(
 		fcppt::string const &title,
 		sge::window::dim const &
 	);
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	simple_parameters &
 	class_name(
 		fcppt::string const &
 	);
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	simple_parameters &
 	size_hints(
 		window::size_hints const &
 	);
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	fcppt::string const &
 	title() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	sge::window::dim const &
 	dim() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	fcppt::string const &
 	class_name() const;
 
-	SGE_SYMBOL
+	SGE_WINDOW_SYMBOL
 	window::size_hints const &
 	size_hints() const;
 private:

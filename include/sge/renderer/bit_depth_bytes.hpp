@@ -21,16 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_BIT_DEPTH_BYTES_HPP_INCLUDED
 #define SGE_RENDERER_BIT_DEPTH_BYTES_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/bit_depth.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_SYMBOL
+SGE_RENDERER_SYMBOL
 renderer::size_type
 bit_depth_bytes(
 	renderer::bit_depth::type

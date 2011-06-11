@@ -30,7 +30,7 @@ namespace input
 {
 
 typedef fcppt::shared_ptr<
-	system
+	input::system
 > system_ptr;
 
 }

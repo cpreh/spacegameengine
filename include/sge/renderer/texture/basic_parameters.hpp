@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
 namespace sge
@@ -43,7 +43,7 @@ template<
 class basic_parameters
 {
 public:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	basic_parameters(
 		Dim const &,
 		sge::image::color::format::type,
@@ -53,27 +53,27 @@ public:
 		texture::capabilities_field const &
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	Dim const &
 	size() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	sge::image::color::format::type
 	color_format() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	texture::filter::object const &
 	filter() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	AddressMode const &
 	address_mode() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	renderer::resource_flags_field const &
 	resource_flags() const;
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	texture::capabilities_field const &
 	capabilities() const;
 private:

@@ -40,5 +40,5 @@ SET(
 
 ADD_SGE_BASE_LIBRARY(
 	console
-	"sgefonttext;sgetime"
+	"sgefonttext;sgeinput;sgetime"
 )

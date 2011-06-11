@@ -30,5 +30,5 @@ ADD_DEFINITIONS(
 
 ADD_SGE_PLUGIN(
 	libpng
-	"${PNG_LIBRARIES}"
+	"sgeimage2d;${PNG_LIBRARIES}"
 )

@@ -47,5 +47,5 @@ IF(ENABLE_PARSE)
 ENDIF()
 
 IF(ENABLE_CONFIG)
-	ADD_SGE_TEST(charconv/main "sgeconfig")
+	ADD_SGE_TEST(charconv/main "sgecharconv;sgeconfig")
 ENDIF()

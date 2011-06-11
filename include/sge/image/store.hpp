@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/store_fwd.hpp>
 #include <sge/image/dim.hpp>
-#include <sge/symbol.hpp>
+#include <sge/image/instantiate_symbol.hpp>
 #include <mizuiro/image/store_decl.hpp>
 #include <mizuiro/image/raw_view.hpp>
 #include <mizuiro/access/raw.hpp>
@@ -55,36 +55,46 @@ public:
 
 	typedef typename internal_type::const_view_type const_view_type;
 
-	SGE_SYMBOL store();
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	store();
 
-	SGE_SYMBOL explicit store(
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	explicit store(
 		dim_type const &
 	);
 
-	SGE_SYMBOL store(
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	store(
 		store const &
 	);
 
-	SGE_SYMBOL store &
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	store &
 	operator=(
 		store const &
 	);
 
-	SGE_SYMBOL ~store();
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	~store();
 
-	SGE_SYMBOL pointer
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	pointer
 	data();
 
-	SGE_SYMBOL const_pointer
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	const_pointer
 	data() const;
 
-	SGE_SYMBOL view_type const
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	view_type const
 	view();
 
-	SGE_SYMBOL const_view_type const
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	const_view_type const
 	view() const;
 
-	SGE_SYMBOL dim_type const
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	dim_type const
 	dim() const;
 private:
 	internal_type internal_;

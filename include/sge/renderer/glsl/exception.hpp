@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_EXCEPTION_HPP_INCLUDED
 
 #include <sge/renderer/exception.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/string.hpp>
 
@@ -38,7 +38,8 @@ class SGE_CLASS_SYMBOL exception
 	public renderer::exception
 {
 public:
-	SGE_SYMBOL explicit exception(
+	SGE_RENDERER_SYMBOL
+	explicit exception(
 		fcppt::string const &
 	);
 };

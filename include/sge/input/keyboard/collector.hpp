@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
 #include <sge/input/processor_ptr.hpp>
-#include <sge/symbol.hpp>
+#include <sge/input/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
@@ -57,33 +57,33 @@ class collector
 		collector
 	);
 public:
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	explicit collector(
 		input::processor_ptr
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	~collector();
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	key_callback(
 		keyboard::key_callback const &
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	key_repeat_callback(
 		keyboard::key_repeat_callback const &
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	char_callback(
 		keyboard::char_callback const &
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	keyboard::mod_state const
 	mod_state() const;
 private:

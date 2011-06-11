@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_DEFAULT_HPP_INCLUDED
 
 #include <sge/renderer/state/list_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -31,7 +31,9 @@ namespace renderer
 namespace state
 {
 
-SGE_SYMBOL list const default_();
+SGE_RENDERER_SYMBOL
+state::list const
+default_();
 
 }
 }

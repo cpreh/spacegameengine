@@ -10,5 +10,5 @@ SET(
 
 ADD_SGE_PLUGIN(
 	wave
-	""
+	"sgeaudio"
 )

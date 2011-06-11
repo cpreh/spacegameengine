@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/int_type.hpp>
 #include <sge/renderer/state/trampoline_fwd.hpp>
 #include <sge/renderer/state/var_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -56,7 +56,8 @@ namespace int_
 		available_states::type
 	> trampoline_type;
 
-	SGE_SYMBOL extern trampoline_type const
+	SGE_RENDERER_SYMBOL extern
+	trampoline_type const
 		stencil_buffer_clear_val,
 		stencil_ref;
 }

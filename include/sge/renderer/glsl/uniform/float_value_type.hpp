@@ -32,7 +32,8 @@ namespace uniform
 
 namespace float_value_type
 {
-enum type {
+enum type
+{
 	float1,
 	float2,
 	float3,

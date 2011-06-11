@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/any/view_fwd.hpp>
 #include <sge/renderer/index/dynamic/view_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace index
 namespace any
 {
 
-SGE_SYMBOL
+SGE_RENDERER_SYMBOL
 any::view const
 make_view(
 	renderer::index::dynamic::view const &

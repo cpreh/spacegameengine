@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/const_image_view.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/unit.hpp>
-#include <sge/symbol.hpp>
+#include <sge/font/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -40,7 +40,8 @@ class SGE_CLASS_SYMBOL char_metric
 		char_metric
 	);
 protected:
-	SGE_SYMBOL char_metric();
+	SGE_FONT_SYMBOL
+	char_metric();
 public:
 	virtual const_image_view const
 	pixmap() const = 0;
@@ -51,7 +52,8 @@ public:
 	virtual unit
 	x_advance() const = 0;
 
-	SGE_SYMBOL virtual ~char_metric();
+	SGE_FONT_SYMBOL
+	virtual ~char_metric();
 };
 
 }

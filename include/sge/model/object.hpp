@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/texcoord_sequence.hpp>
 #include <sge/model/normal_sequence.hpp>
 #include <sge/model/part_name_sequence.hpp>
-#include <sge/symbol.hpp>
+#include <sge/model/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
@@ -44,7 +44,8 @@ class SGE_CLASS_SYMBOL object
 		object
 	);
 protected:
-	SGE_SYMBOL object();
+	SGE_MODEL_SYMBOL
+	object();
 public:
 	virtual index_sequence const
 	indices(
@@ -65,7 +66,8 @@ public:
 	virtual part_name_sequence const
 	part_names() const = 0;
 
-	SGE_SYMBOL virtual ~object();
+	SGE_MODEL_SYMBOL
+	virtual ~object();
 };
 
 }

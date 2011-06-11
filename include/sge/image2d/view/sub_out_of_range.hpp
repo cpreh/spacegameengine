@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
 #include <sge/image2d/rect.hpp>
+#include <sge/image2d/symbol.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
 namespace sge
@@ -39,21 +39,21 @@ class SGE_CLASS_SYMBOL sub_out_of_range
 	public sge::image::exception
 {
 public:
-	SGE_SYMBOL 
+	SGE_IMAGE2D_SYMBOL 
 	sub_out_of_range(
 		sge::image2d::rect const &outer,
 		sge::image2d::rect const &inner
 	);
 
-	SGE_SYMBOL 
+	SGE_IMAGE2D_SYMBOL 
 	sge::image2d::rect const &
 	outer() const;
 
-	SGE_SYMBOL 
+	SGE_IMAGE2D_SYMBOL 
 	sge::image2d::rect const &
 	inner() const;
 
-	SGE_SYMBOL
+	SGE_IMAGE2D_SYMBOL
 	virtual ~sub_out_of_range() throw();
 private:
 	sge::image2d::rect

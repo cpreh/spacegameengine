@@ -25,5 +25,5 @@ ENDIF()
 
 ADD_SGE_PLUGIN(
 	iconv
-	"${ICONV_LINK_LIBRARY}"
+	"sgecharconv;${ICONV_LINK_LIBRARY}"
 )

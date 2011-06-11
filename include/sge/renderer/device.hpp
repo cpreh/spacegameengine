@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
@@ -75,7 +76,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -89,7 +89,8 @@ class SGE_CLASS_SYMBOL device
 		device
 	);
 protected:
-	SGE_SYMBOL device();
+	SGE_RENDERER_SYMBOL
+	device();
 public:
 	virtual void
 	begin_rendering() = 0;
@@ -297,7 +298,8 @@ public:
 	virtual sge::window::instance &
 	window() const = 0;
 
-	SGE_SYMBOL virtual ~device();
+	SGE_RENDERER_SYMBOL
+	virtual ~device();
 };
 
 }

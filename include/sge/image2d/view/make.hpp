@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/image2d/dim.hpp>
+#include <sge/image2d/symbol.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/raw_pointer.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -35,7 +35,8 @@ namespace image2d
 namespace view
 {
 
-SGE_SYMBOL image2d::view::object const
+SGE_IMAGE2D_SYMBOL
+image2d::view::object const
 make(
 	image::raw_pointer,
 	image2d::dim const &,

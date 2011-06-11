@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/detail/converter_impl_fwd.hpp>
 #include <sge/renderer/vf/dynamic/detail/lock_interval_set.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr_decl.hpp>
@@ -46,22 +46,22 @@ class converter
 		converter
 	);
 public:
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	converter(
 		dynamic::part const &,
 		dynamic::color_format_vector const &
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	~converter();
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	void
 	lock(
 		dynamic::locked_part const &
 	);
 
-	SGE_SYMBOL
+	SGE_RENDERER_SYMBOL
 	void
 	unlock();
 private:

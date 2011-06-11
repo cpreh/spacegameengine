@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/keyboard/optional_digit.hpp>
 #include <sge/input/keyboard/key_code.hpp>
-#include <sge/symbol.hpp>
+#include <sge/input/symbol.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace input
 namespace keyboard
 {
 
-SGE_SYMBOL
+SGE_INPUT_SYMBOL
 keyboard::optional_digit const
 key_code_to_digit(
 	key_code::type

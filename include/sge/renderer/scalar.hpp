@@ -25,9 +25,11 @@ namespace sge
 {
 namespace renderer
 {
+
 typedef
 float
 scalar;
+
 }
 }
 

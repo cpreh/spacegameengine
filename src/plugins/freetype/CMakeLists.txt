@@ -24,5 +24,5 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_PLUGIN(
 	freetype
-	"${FREETYPE_LIBRARY}"
+	"sgecharconv;sgefont;sgeimage2d;${FREETYPE_LIBRARY}"
 )

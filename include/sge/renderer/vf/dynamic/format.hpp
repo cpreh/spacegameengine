@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_list.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -37,11 +37,13 @@ namespace dynamic
 class format
 {
 public:
-	SGE_SYMBOL explicit format(
+	SGE_RENDERER_SYMBOL
+	explicit format(
 		part_list const &
 	);
 
-	SGE_SYMBOL part_list const &
+	SGE_RENDERER_SYMBOL
+	part_list const &
 	parts() const;
 private:
 	part_list parts_;

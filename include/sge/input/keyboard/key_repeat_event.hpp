@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/key_code.hpp>
-#include <sge/symbol.hpp>
+#include <sge/input/symbol.hpp>
 
 namespace sge
 {
@@ -35,12 +35,12 @@ namespace keyboard
 class key_repeat_event
 {
 public:
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	explicit key_repeat_event(
 		keyboard::key_code::type
 	);
 
-	SGE_SYMBOL
+	SGE_INPUT_SYMBOL
 	keyboard::key_code::type
 	key_code() const;
 private:

@@ -11,5 +11,5 @@ SET(
 
 ADD_SGE_PLUGIN(
 	md3
-	""
+	"sgemodel"
 )

@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/instance_ptr.hpp>
 #include <sge/window/parameters_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/window/symbol.hpp>
 
 namespace sge
 {
 namespace window
 {
 
-SGE_SYMBOL
+SGE_WINDOW_SYMBOL
 sge::window::instance_ptr const
 create(
 	sge::window::parameters const &
