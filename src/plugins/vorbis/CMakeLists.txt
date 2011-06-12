@@ -1,6 +1,5 @@
 SET(
 	SGE_VORBIS_FILES
-	src/plugins/vorbis/container_source.hpp
 	src/plugins/vorbis/file.hpp
 	src/plugins/vorbis/loader.hpp
 	src/plugins/vorbis/src/exports.cpp
