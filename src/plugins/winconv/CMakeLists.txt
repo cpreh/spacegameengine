@@ -9,5 +9,5 @@ SET(
 
 ADD_SGE_PLUGIN(
 	winconv
-	""
+	"sgecharconv"
 )

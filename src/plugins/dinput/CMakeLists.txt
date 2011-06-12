@@ -68,5 +68,5 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_PLUGIN(
 	"dinput"
-	"sgetime;${DINPUT_LIBRARIES}"
+	"sgeinput;sgetime;sgewindow;${DINPUT_LIBRARIES}"
 )

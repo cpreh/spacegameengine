@@ -232,5 +232,5 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_PLUGIN(
 	"d3d9"
-	"sgetime;${D3D9_LIBRARIES}"
+	"sgeimage2d;sgeimage3d;sgerenderer;sgetime;sgewindow;${D3D9_LIBRARIES}"
 )
