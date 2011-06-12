@@ -12,7 +12,7 @@
 # This module accepts the following variables as input
 #
 #	SGE_INCLUDEDIR - Hint where sge's includes might be.
-#	SGE_LIBRARYDIR - Hint where sge's libraries might be>
+#	SGE_LIBRARYDIR - Hint where sge's libraries might be.
 #
 
 # Find all required packages for SGE.
@@ -187,9 +187,9 @@ if(
 		"Found SGE: ${SGE_INCLUDE_DIR}"
 	)
 else()
-	message(
-		SEND_ERROR
-		"Could not find SGE"
+	set(
+		SGE_ERROR_MESSAGE
+		"Could NOT find SGE (missing: "
 	)
 
 	set(
@@ -204,12 +204,21 @@ else()
 		if(
 			NOT ${CUR_VARIABLE}
 		)
-			message(
-				SEND_ERROR
-				"Missing ${CUR_VARIABLE}"
+			set(
+				SGE_ERROR_MESSAGE
+				"${SGE_ERROR_MESSAGE} ${CUR_VARIABLE}"
 			)
 		endif()
 	endforeach()
+
+	message(
+		SEND_ERROR
+		"${SGE_ERROR_MESSAGE})"
+	)
+
+	unset(
+		SGE_ERROR_MESSAGE
+	)
 endif()
 
 unset(
