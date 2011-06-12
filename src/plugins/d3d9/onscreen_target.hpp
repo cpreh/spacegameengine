@@ -23,11 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "onscreen_target_fwd.hpp"
 #include "basic_target.hpp"
+#include "color_surface_fwd.hpp"
+#include "depth_stencil_surface_fwd.hpp"
 #include "d3dinclude.hpp"
 #include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -57,6 +60,24 @@ public:
 
 	renderer::color_surface const &
 	surface() const;
+private:
+	void
+	on_activate();
+
+	void
+	on_deactivate();
+
+	typedef fcppt::scoped_ptr<
+		d3d9::color_surface
+	> color_surface_scoped_ptr;
+
+	color_surface_scoped_ptr const color_surface_;
+
+	typedef fcppt::scoped_ptr<
+		d3d9::depth_stencil_surface
+	> depth_stencil_surface_scoped_ptr;
+
+	depth_stencil_surface_scoped_ptr const depth_stencil_surface_;
 };
 
 }

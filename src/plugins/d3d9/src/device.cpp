@@ -115,6 +115,10 @@ sge::d3d9::device::device(
 	this->state(
 		sge::renderer::state::default_()
 	);
+
+	onscreen_target_->active(
+		true
+	);
 }
 
 sge::d3d9::device::~device()
@@ -582,7 +586,12 @@ sge::d3d9::device::glsl_program(
 sge::renderer::target_ptr const
 sge::d3d9::device::create_target()
 {
-	return renderer::target_ptr();
+	return
+		fcppt::make_shared_ptr<
+			d3d9::offscreen_target
+		>(
+			device_.get()
+		);
 }
 
 sge::renderer::texture::planar_ptr const

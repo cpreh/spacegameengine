@@ -23,13 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "offscreen_target_fwd.hpp"
 #include "basic_target.hpp"
+#include "color_surface_ptr.hpp"
 #include "d3dinclude.hpp"
-#include "resource.hpp"
+#include "depth_stencil_surface_ptr.hpp"
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/optional_dim2.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/target.hpp>
+#include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -41,8 +43,7 @@ class offscreen_target
 :
 	public d3d9::basic_target<
 		sge::renderer::target
-	>,
-	public d3d9::resource
+	>
 {
 	FCPPT_NONCOPYABLE(
 		offscreen_target
@@ -70,15 +71,26 @@ private:
 	);
 
 	renderer::optional_dim2 const
-	dim() const;
+	size() const;
 
 	void
-	on_loss();
+	on_activate();
 
 	void
-	on_reset();
+	on_deactivate();
 
-	IDirect3DDevice9 *const device_;
+	void
+	change_surfaces(
+		bool
+	);
+
+	typedef fcppt::container::index_map<
+		d3d9::color_surface_ptr
+	> color_surface_map;
+
+	color_surface_map color_surfaces_;
+
+	d3d9::depth_stencil_surface_ptr depth_stencil_surface_;
 };
 
 }

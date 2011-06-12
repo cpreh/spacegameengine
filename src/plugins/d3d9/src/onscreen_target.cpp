@@ -20,6 +20,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../onscreen_target.hpp"
 #include "../basic_target_impl.hpp"
+#include "../color_surface.hpp"
+#include "../depth_stencil_surface.hpp"
+#include "../devicefuncs/get_depth_stencil_surface.hpp"
+#include "../devicefuncs/get_render_target.hpp"
+#include "../devicefuncs/set_depth_stencil_surface.hpp"
+#include "../devicefuncs/set_render_target.hpp"
+#include <fcppt/make_unique_ptr.hpp>
+
+namespace
+{
+
+void
+set_surfaces(
+	IDirect3DDevice9 *,
+	IDirect3DSurface9 *color,
+	IDirect3DSurface9 *depth_stencil
+);
+
+}
 
 sge::d3d9::onscreen_target::onscreen_target(
 	IDirect3DDevice9 *const _device,
@@ -29,11 +48,26 @@ sge::d3d9::onscreen_target::onscreen_target(
 	base(
 		_device,
 		_viewport
+	),
+	color_surface_(
+		fcppt::make_unique_ptr<
+			d3d9::color_surface
+		>(
+			devicefuncs::get_render_target(
+				_device
+			)
+		)
+	),
+	depth_stencil_surface_(
+		fcppt::make_unique_ptr<
+			d3d9::depth_stencil_surface
+		>(
+			devicefuncs::get_depth_stencil_surface(
+				_device
+			)
+		)
 	)
 {
-	base::active(
-		true
-	);
 }
 
 sge::d3d9::onscreen_target::~onscreen_target()
@@ -43,11 +77,56 @@ sge::d3d9::onscreen_target::~onscreen_target()
 sge::renderer::color_surface const &
 sge::d3d9::onscreen_target::surface() const
 {
-	// FIXME!
-	return *static_cast<renderer::color_surface const *>(0);
+	return *color_surface_;
+}
+
+void
+sge::d3d9::onscreen_target::on_activate()
+{
+	::set_surfaces(
+		this->device(),
+		color_surface_->surface(),
+		depth_stencil_surface_->surface()
+	);
+}
+
+void
+sge::d3d9::onscreen_target::on_deactivate()
+{
+	::set_surfaces(
+		this->device(),
+		0,
+		0
+	);
 }
 
 template class
 sge::d3d9::basic_target<
 	sge::renderer::onscreen_target
 >;
+
+namespace
+{
+
+void
+set_surfaces(
+	IDirect3DDevice9 *const _device,
+	IDirect3DSurface9 *const _color,
+	IDirect3DSurface9 *const _depth_stencil
+)
+{
+	sge::d3d9::devicefuncs::set_render_target(
+		_device,
+		sge::renderer::surface_index(
+			0u
+		),
+		_color
+	);
+
+	sge::d3d9::devicefuncs::set_depth_stencil_surface(
+		_device,
+		_depth_stencil
+	);
+}
+
+}

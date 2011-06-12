@@ -20,7 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../offscreen_target.hpp"
 #include "../basic_target_impl.hpp"
+#include "../color_surface.hpp"
+#include "../color_surface_ptr.hpp"
+#include "../depth_stencil_surface.hpp"
+#include "../devicefuncs/set_depth_stencil_surface.hpp"
+#include "../devicefuncs/set_render_target.hpp"
+#include <sge/renderer/surface_index.hpp>
+#include <fcppt/container/index_map_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/optional_impl.hpp>
 
 sge::d3d9::offscreen_target::offscreen_target(
@@ -29,15 +37,10 @@ sge::d3d9::offscreen_target::offscreen_target(
 :
 	base(
 		_device,
-		// TODO:
 		sge::renderer::viewport(
 			sge::renderer::pixel_rect::null()
 		)
-	),
-	d3d9::resource(
-		D3DPOOL_DEFAULT
-	),
-	device_(_device)
+	)
 {
 }
 
@@ -51,6 +54,14 @@ sge::d3d9::offscreen_target::color_surface(
 	renderer::surface_index const _index
 )
 {
+	color_surfaces_[
+		_index.get()
+	] =
+		fcppt::dynamic_pointer_cast<
+			d3d9::color_surface
+		>(
+			_surface
+		);
 }
 
 void
@@ -58,55 +69,86 @@ sge::d3d9::offscreen_target::depth_stencil_surface(
 	renderer::depth_stencil_surface_ptr const _surface
 )
 {
+	depth_stencil_surface_ =
+		fcppt::dynamic_pointer_cast<
+			d3d9::depth_stencil_surface
+		>(
+			_surface
+		);
 }
 
 sge::renderer::optional_dim2 const
-sge::d3d9::offscreen_target::dim() const
+sge::d3d9::offscreen_target::size() const
 {
 	return renderer::optional_dim2();
 }
 
-#if 0
 void
-sge::d3d9::render_target::init()
+sge::d3d9::offscreen_target::on_activate()
 {
-	/*
-	IDirect3DTexture9* t;
-	if(device->CreateTexture(
-		static_cast<UINT>(dim().w()),
-		static_cast<UINT>(dim().h()),
-		1,
-		D3DUSAGE_RENDERTARGET,
-		D3DFMT_A8R8G8B8,
-		D3DPOOL_DEFAULT,
-		&t,
-		0) != D3D_OK)
-		throw exception(FCPPT_TEXT("Creating render target failed!"));
-	tex.reset(t);
-	IDirect3DSurface9* s;
-	if(tex->GetSurfaceLevel(0,&s) != D3D_OK)
-		throw exception(FCPPT_TEXT("Getting surface for render target failed!"));
-	surface.reset(s);
-	*/
-}
-#endif
-
-void
-sge::d3d9::offscreen_target::on_loss()
-{
-#if 0
-	surface.reset();
-
-	tex.reset();
-#endif
+	this->change_surfaces(
+		true
+	);
 }
 
 void
-sge::d3d9::offscreen_target::on_reset()
+sge::d3d9::offscreen_target::on_deactivate()
 {
-#if 0
-	init();
-#endif
+	this->change_surfaces(
+		false
+	);
+}
+
+void
+sge::d3d9::offscreen_target::change_surfaces(
+	bool const _activate
+)
+{
+	for(
+		color_surface_map::size_type index(
+			0u
+		);
+		index != color_surfaces_.size();
+		++index
+	)
+	{
+		d3d9::color_surface_ptr const surface(
+			color_surfaces_[
+				index
+			]
+		);
+
+		if(
+			surface
+		)
+			devicefuncs::set_render_target(
+				this->device(),
+				renderer::surface_index(
+					static_cast<
+						renderer::surface_index::value_type
+					>(
+						index
+					)
+				),
+				_activate
+				?
+					surface->surface()
+				:
+					0
+			);
+	}
+
+	if(
+		depth_stencil_surface_
+	)
+		devicefuncs::set_depth_stencil_surface(
+			this->device(),
+			_activate
+			?
+				depth_stencil_surface_->surface()
+			:
+				0
+		);
 }
 
 template class

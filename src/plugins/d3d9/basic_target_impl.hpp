@@ -109,6 +109,22 @@ sge::d3d9::basic_target<Base>::active(
 	this->check_viewport();
 
 	this->check_scissor_area();
+
+	if(
+		_active
+	)
+		this->on_activate();
+	else
+		this->on_deactivate();
+}
+
+template<
+	typename Base
+>
+IDirect3DDevice9 *
+sge::d3d9::basic_target<Base>::device() const
+{
+	return device_;
 }
 
 template<

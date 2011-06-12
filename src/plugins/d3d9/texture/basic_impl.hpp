@@ -246,7 +246,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 				dest_rect,
 				_flags
 			);
-	}	
+	}
 	else
 		locked_dest_ =
 			_lock(

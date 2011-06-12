@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_BASIC_TARGET_HPP_INCLUDED
-#define SGE_D3D9_BASIC_TARGET_HPP_INCLUDED
+#ifndef SGE_D3D9_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
+#define SGE_D3D9_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 
+#include "depth_stencil_surface_fwd.hpp"
 #include "d3dinclude.hpp"
-#include "target_base.hpp"
-#include <sge/renderer/scissor_area.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <fcppt/math/box/basic_decl.hpp>
+#include "d3d_surface_unique_ptr.hpp"
+#include "d3d_surface_scoped_ptr.hpp"
+#include <sge/renderer/depth_stencil_surface.hpp>
+#include <sge/renderer/depth_stencil_format.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,68 +34,30 @@ namespace sge
 namespace d3d9
 {
 
-template<
-	typename Base
->
-class basic_target
+class depth_stencil_surface
 :
-	public Base,
-	public d3d9::target_base
+	public sge::renderer::depth_stencil_surface
 {
 	FCPPT_NONCOPYABLE(
-		basic_target
+		depth_stencil_surface
 	);
 public:
-	basic_target(
-		IDirect3DDevice9 *,
-		sge::renderer::viewport const &
+	depth_stencil_surface(
+		d3d9::d3d_surface_unique_ptr
 	);
 
-	~basic_target();
+	~depth_stencil_surface();
 
-	void
-	viewport(
-		renderer::viewport const &
-	);
+	dim const
+	size() const;
 
-	renderer::viewport const
-	viewport() const;
+	renderer::depth_stencil_format::type
+	format() const;
 
-	void
-	scissor_area(
-		renderer::scissor_area const &
-	);
-
-	renderer::scissor_area const
-	scissor_area() const;
-
-	void
-	active(
-		bool
-	);
-protected:
-	IDirect3DDevice9 *
-	device() const;
+	IDirect3DSurface9 *
+	surface() const;
 private:
-	void
-	check_viewport();
-
-	void
-	check_scissor_area();
-
-	virtual void
-	on_activate() = 0;
-
-	virtual void
-	on_deactivate() = 0;
-
-	IDirect3DDevice9 *const device_;
-
-	bool active_;
-
-	renderer::viewport viewport_;
-
-	renderer::scissor_area scissor_area_;
+	d3d9::d3d_surface_scoped_ptr const surface_;
 };
 
 }
