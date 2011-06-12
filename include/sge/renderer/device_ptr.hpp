@@ -33,11 +33,6 @@ typedef fcppt::shared_ptr<
 	device
 > device_ptr;
 
-// FIXME: remove this!
-typedef fcppt::shared_ptr<
-	device const
-> const_device_ptr;
-
 }
 }
 
