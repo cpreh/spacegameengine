@@ -82,6 +82,7 @@ SET(
 	src/plugins/d3d9/devicefuncs/get_render_target.hpp
 	src/plugins/d3d9/devicefuncs/get_render_target_data.hpp
 	src/plugins/d3d9/devicefuncs/light_enable.hpp
+	src/plugins/d3d9/devicefuncs/set_clip_plane.hpp
 	src/plugins/d3d9/devicefuncs/set_depth_stencil_surface.hpp
 	src/plugins/d3d9/devicefuncs/set_light.hpp
 	src/plugins/d3d9/devicefuncs/set_material.hpp
@@ -97,6 +98,7 @@ SET(
 	src/plugins/d3d9/devicefuncs/src/get_render_target.cpp
 	src/plugins/d3d9/devicefuncs/src/get_render_target_data.cpp
 	src/plugins/d3d9/devicefuncs/src/light_enable.cpp
+	src/plugins/d3d9/devicefuncs/src/set_clip_plane.cpp
 	src/plugins/d3d9/devicefuncs/src/set_depth_stencil_surface.cpp
 	src/plugins/d3d9/devicefuncs/src/set_light.cpp
 	src/plugins/d3d9/devicefuncs/src/set_material.cpp
@@ -156,6 +158,7 @@ SET(
 	src/plugins/d3d9/state/apply.hpp
 	src/plugins/d3d9/state/clear.hpp
 	src/plugins/d3d9/state/clear_fwd.hpp
+	src/plugins/d3d9/state/clip_plane.hpp
 	src/plugins/d3d9/state/convert/alpha_func.hpp
 	src/plugins/d3d9/state/convert/bool.hpp
 	src/plugins/d3d9/state/convert/color.hpp
@@ -190,6 +193,7 @@ SET(
 	src/plugins/d3d9/state/set_render_state_float.hpp
 	src/plugins/d3d9/state/src/apply.cpp
 	src/plugins/d3d9/state/src/clear.cpp
+	src/plugins/d3d9/state/src/clip_plane.cpp
 	src/plugins/d3d9/state/src/set_render_state_bool.cpp
 	src/plugins/d3d9/state/src/set_render_state_float.cpp
 	src/plugins/d3d9/state/src/visitor.cpp

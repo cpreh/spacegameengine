@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device.hpp"
 #include "../create_caps.hpp"
 #include "../create_device.hpp"
+#include "../d3dinclude.hpp"
 #include "../index_buffer.hpp"
 #include "../offscreen_target.hpp"
 #include "../onscreen_target.hpp"
@@ -30,8 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/nonindexed_primitive.hpp"
 #include "../devicefuncs/clear.hpp"
 #include "../devicefuncs/light_enable.hpp"
+#include "../devicefuncs/set_clip_plane.hpp"
 #include "../devicefuncs/set_light.hpp"
 #include "../devicefuncs/set_material.hpp"
+#include "../devicefuncs/set_render_state.hpp"
 #include "../devicefuncs/set_stream_source.hpp"
 #include "../devicefuncs/set_transform.hpp"
 #include "../parameters/create.hpp"
@@ -109,6 +112,7 @@ sge::d3d9::device::device(
 		onscreen_target_.get()
 	),
 	clear_state_(),
+	clip_plane_state_(),
 	current_states_(),
 	state_stack_()
 {
@@ -396,6 +400,16 @@ sge::d3d9::device::enable_clip_plane(
 	bool const _enable
 )
 {
+	clip_plane_state_.set(
+		_index,
+		_enable
+	);
+
+	devicefuncs::set_render_state(
+		device_.get(),
+		D3DRS_CLIPPLANEENABLE,
+		clip_plane_state_.dword()
+	);
 }
 
 void
@@ -404,6 +418,11 @@ sge::d3d9::device::clip_plane(
 	renderer::clip_plane const &_plane
 )
 {
+	devicefuncs::set_clip_plane(
+		device_.get(),
+		_index,
+		_plane
+	);
 }
 
 void
