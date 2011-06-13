@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../create_caps.hpp"
 #include "../create_device.hpp"
 #include "../d3dinclude.hpp"
+#include "../depth_stencil_surface.hpp"
 #include "../index_buffer.hpp"
 #include "../offscreen_target.hpp"
 #include "../onscreen_target.hpp"
@@ -30,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/indexed_primitive.hpp"
 #include "../convert/nonindexed_primitive.hpp"
 #include "../devicefuncs/clear.hpp"
+#include "../devicefuncs/create_depth_stencil_surface.hpp"
 #include "../devicefuncs/light_enable.hpp"
 #include "../devicefuncs/sampler_stage_arg.hpp"
 #include "../devicefuncs/sampler_stage_op.hpp"
@@ -636,7 +638,20 @@ sge::d3d9::device::create_depth_stencil_surface(
 	renderer::depth_stencil_format::type const _format
 )
 {
-	return renderer::depth_stencil_surface_ptr();
+	return
+		sge::renderer::depth_stencil_surface_ptr(
+			fcppt::make_unique_ptr<
+				d3d9::depth_stencil_surface
+			>(
+				devicefuncs::create_depth_stencil_surface(
+					device_.get(),
+					_dim,
+					_format,
+					present_parameters_.MultiSampleType,
+					present_parameters_.MultiSampleQuality
+				)
+			)
+		);
 }
 
 sge::renderer::texture::volume_ptr const

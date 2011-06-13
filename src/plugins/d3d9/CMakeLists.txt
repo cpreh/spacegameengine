@@ -9,6 +9,7 @@ SET(
 	src/plugins/d3d9/convert/clear_flag.hpp
 	src/plugins/d3d9/convert/color_format.hpp
 	src/plugins/d3d9/convert/cube_side.hpp
+	src/plugins/d3d9/convert/depth_stencil_format.hpp
 	src/plugins/d3d9/convert/index_format.hpp
 	src/plugins/d3d9/convert/indexed_primitive.hpp
 	src/plugins/d3d9/convert/light.hpp
@@ -32,6 +33,7 @@ SET(
 	src/plugins/d3d9/convert/src/clear_flag.cpp
 	src/plugins/d3d9/convert/src/color_format.cpp
 	src/plugins/d3d9/convert/src/cube_side.cpp
+	src/plugins/d3d9/convert/src/depth_stencil_format.cpp
 	src/plugins/d3d9/convert/src/index_format.cpp
 	src/plugins/d3d9/convert/src/indexed_primitive.cpp
 	src/plugins/d3d9/convert/src/light.cpp
@@ -77,6 +79,7 @@ SET(
 	src/plugins/d3d9/depth_stencil_surface_ptr.hpp
 	src/plugins/d3d9/device.hpp
 	src/plugins/d3d9/devicefuncs/clear.hpp
+	src/plugins/d3d9/devicefuncs/create_depth_stencil_surface.hpp
 	src/plugins/d3d9/devicefuncs/create_offscreen_plain_surface.hpp
 	src/plugins/d3d9/devicefuncs/get_depth_stencil_surface.hpp
 	src/plugins/d3d9/devicefuncs/get_render_target.hpp
@@ -96,6 +99,7 @@ SET(
 	src/plugins/d3d9/devicefuncs/set_transform.hpp
 	src/plugins/d3d9/devicefuncs/set_viewport.hpp
 	src/plugins/d3d9/devicefuncs/src/clear.cpp
+	src/plugins/d3d9/devicefuncs/src/create_depth_stencil_surface.cpp
 	src/plugins/d3d9/devicefuncs/src/create_offscreen_plain_surface.cpp
 	src/plugins/d3d9/devicefuncs/src/get_depth_stencil_surface.cpp
 	src/plugins/d3d9/devicefuncs/src/get_render_target.cpp
@@ -129,9 +133,11 @@ SET(
 	src/plugins/d3d9/parameters/convert/bit_depth.hpp
 	src/plugins/d3d9/parameters/convert/depth_stencil_buffer.hpp
 	src/plugins/d3d9/parameters/convert/multi_sample.hpp
+	src/plugins/d3d9/parameters/convert/multi_sample_quality.hpp
 	src/plugins/d3d9/parameters/convert/src/bit_depth.cpp
 	src/plugins/d3d9/parameters/convert/src/depth_stencil_buffer.cpp
 	src/plugins/d3d9/parameters/convert/src/multi_sample.cpp
+	src/plugins/d3d9/parameters/convert/src/multi_sample_quality.cpp
 	src/plugins/d3d9/parameters/convert/src/visual_depth.cpp
 	src/plugins/d3d9/parameters/convert/visual_depth.hpp
 	src/plugins/d3d9/parameters/create.hpp

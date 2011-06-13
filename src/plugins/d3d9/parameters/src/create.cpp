@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../extract_size.hpp"
 #include "../convert/depth_stencil_buffer.hpp"
 #include "../convert/multi_sample.hpp"
+#include "../convert/multi_sample_quality.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/display_mode.hpp>
@@ -67,7 +68,9 @@ sge::d3d9::parameters::create(
 		parameters::convert::multi_sample(
 			_param.samples()
 		),
-		0u, // MultiSampleQuality TODO?
+		parameters::convert::multi_sample_quality(
+			_param.samples()
+		),
 		D3DSWAPEFFECT_DISCARD, // SwapEffect
 		fcppt::dynamic_pointer_cast<
 			awl::backends::windows::window::instance
