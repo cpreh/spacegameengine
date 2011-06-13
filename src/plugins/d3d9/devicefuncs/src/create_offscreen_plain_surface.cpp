@@ -18,55 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../lock_cube.hpp"
-#include "../../convert/cube_side.hpp"
-#include "../../convert/lock_rect.hpp"
+#include "../create_offscreen_plain_surface.hpp"
+#include "../../convert/color_format.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
-D3DLOCKED_RECT const
-sge::d3d9::texture::lock_cube(
-	IDirect3DCubeTexture9 *const _texture,
-	sge::renderer::texture::cube_side::type const _side,
-	sge::renderer::stage_type const _stage,
-	d3d9::optional_lock_rect const &_rect,
-	d3d9::lock_flags const _flags
+sge::d3d9::d3d_surface_unique_ptr
+sge::d3d9::devicefuncs::create_offscreen_plain_surface(
+	IDirect3DDevice9 *const _device,
+	sge::renderer::dim2 const &_dim,
+	sge::image::color::format::type const _format,
+	D3DPOOL const _pool
 )
 {
-	D3DLOCKED_RECT ret = {};
-
-	RECT in_rect = {};
+	IDirect3DSurface9 *ret;
 
 	if(
-		_rect
-	)
-		in_rect =
-			d3d9::convert::lock_rect(
-				*_rect
-			);
-
-	if(
-		_texture->LockRect(
-			d3d9::convert::cube_side(
-				_side
+		_device->CreateOffscreenPlainSurface(
+			_dim.w(),
+			_dim.h(),
+			d3d9::convert::color_format(
+				_format
 			),
-			_stage.get(),
+			_pool,
 			&ret,
-			_rect
-			?
-				&in_rect
-			:
-				NULL,
-			_flags.get()
+			0
 		)
 		!= D3D_OK
 	)
 		throw sge::renderer::exception(
-			FCPPT_TEXT("LockRect() failed!")
+			FCPPT_TEXT("CreateOffscreenPlainSurface() failed!")
 		);
 
-	return ret;
+	return
+		d3d9::d3d_surface_unique_ptr(
+			ret
+		);
 }

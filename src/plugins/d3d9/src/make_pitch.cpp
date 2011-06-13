@@ -18,55 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../lock_cube.hpp"
-#include "../../convert/cube_side.hpp"
-#include "../../convert/lock_rect.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include "../make_pitch.hpp"
+#include "../make_pitch_2d.hpp"
+#include "../make_pitch_3d.hpp"
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
 
-D3DLOCKED_RECT const
-sge::d3d9::texture::lock_cube(
-	IDirect3DCubeTexture9 *const _texture,
-	sge::renderer::texture::cube_side::type const _side,
-	sge::renderer::stage_type const _stage,
-	d3d9::optional_lock_rect const &_rect,
-	d3d9::lock_flags const _flags
+sge::image2d::view::optional_pitch const
+sge::d3d9::make_pitch(
+	D3DLOCKED_RECT const &_rect
 )
 {
-	D3DLOCKED_RECT ret = {};
-
-	RECT in_rect = {};
-
-	if(
-		_rect
-	)
-		in_rect =
-			d3d9::convert::lock_rect(
-				*_rect
-			);
-
-	if(
-		_texture->LockRect(
-			d3d9::convert::cube_side(
-				_side
-			),
-			_stage.get(),
-			&ret,
+	return
+		d3d9::make_pitch_2d(
 			_rect
-			?
-				&in_rect
-			:
-				NULL,
-			_flags.get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("LockRect() failed!")
 		);
+}
 
-	return ret;
+sge::image3d::view::optional_pitch const
+sge::d3d9::make_pitch(
+	D3DLOCKED_BOX const &_box
+)
+{
+	return
+		d3d9::make_pitch_3d(
+			_box
+		);
 }

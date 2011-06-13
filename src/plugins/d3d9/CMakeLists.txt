@@ -51,6 +51,7 @@ SET(
 	src/plugins/d3d9/convert/src/sampler_stage_op.cpp
 	src/plugins/d3d9/convert/src/sampler_stage_op_value.cpp
 	src/plugins/d3d9/convert/src/to_color.cpp
+	src/plugins/d3d9/convert/src/to_color_format.cpp
 	src/plugins/d3d9/convert/src/to_color_value.cpp
 	src/plugins/d3d9/convert/src/to_depth_stencil_format.cpp
 	src/plugins/d3d9/convert/src/vector3.cpp
@@ -58,6 +59,7 @@ SET(
 	src/plugins/d3d9/convert/src/vertex_type.cpp
 	src/plugins/d3d9/convert/src/viewport.cpp
 	src/plugins/d3d9/convert/to_color.hpp
+	src/plugins/d3d9/convert/to_color_format.hpp
 	src/plugins/d3d9/convert/to_color_value.hpp
 	src/plugins/d3d9/convert/to_depth_stencil_format.hpp
 	src/plugins/d3d9/convert/vector3.hpp
@@ -75,8 +77,10 @@ SET(
 	src/plugins/d3d9/depth_stencil_surface_ptr.hpp
 	src/plugins/d3d9/device.hpp
 	src/plugins/d3d9/devicefuncs/clear.hpp
+	src/plugins/d3d9/devicefuncs/create_offscreen_plain_surface.hpp
 	src/plugins/d3d9/devicefuncs/get_depth_stencil_surface.hpp
 	src/plugins/d3d9/devicefuncs/get_render_target.hpp
+	src/plugins/d3d9/devicefuncs/get_render_target_data.hpp
 	src/plugins/d3d9/devicefuncs/light_enable.hpp
 	src/plugins/d3d9/devicefuncs/set_depth_stencil_surface.hpp
 	src/plugins/d3d9/devicefuncs/set_light.hpp
@@ -88,8 +92,10 @@ SET(
 	src/plugins/d3d9/devicefuncs/set_transform.hpp
 	src/plugins/d3d9/devicefuncs/set_viewport.hpp
 	src/plugins/d3d9/devicefuncs/src/clear.cpp
+	src/plugins/d3d9/devicefuncs/src/create_offscreen_plain_surface.cpp
 	src/plugins/d3d9/devicefuncs/src/get_depth_stencil_surface.cpp
 	src/plugins/d3d9/devicefuncs/src/get_render_target.cpp
+	src/plugins/d3d9/devicefuncs/src/get_render_target_data.cpp
 	src/plugins/d3d9/devicefuncs/src/light_enable.cpp
 	src/plugins/d3d9/devicefuncs/src/set_depth_stencil_surface.cpp
 	src/plugins/d3d9/devicefuncs/src/set_light.cpp
@@ -102,12 +108,16 @@ SET(
 	src/plugins/d3d9/devicefuncs/src/set_viewport.cpp
 	src/plugins/d3d9/index_buffer.hpp
 	src/plugins/d3d9/lock_flags.hpp
+	src/plugins/d3d9/make_pitch.hpp
+	src/plugins/d3d9/make_pitch_2d.hpp
+	src/plugins/d3d9/make_pitch_3d.hpp
 	src/plugins/d3d9/offscreen_target.hpp
 	src/plugins/d3d9/offscreen_target_fwd.hpp
 	src/plugins/d3d9/offscreen_target_ptr.hpp
 	src/plugins/d3d9/onscreen_target.hpp
 	src/plugins/d3d9/onscreen_target_fwd.hpp
 	src/plugins/d3d9/onscreen_target_ptr.hpp
+	src/plugins/d3d9/optional_lock_rect.hpp
 	src/plugins/d3d9/parameters/convert/bit_depth.hpp
 	src/plugins/d3d9/parameters/convert/depth_stencil_buffer.hpp
 	src/plugins/d3d9/parameters/convert/multi_sample.hpp
@@ -133,6 +143,9 @@ SET(
 	src/plugins/d3d9/src/device.cpp
 	src/plugins/d3d9/src/exports.cpp
 	src/plugins/d3d9/src/index_buffer.cpp
+	src/plugins/d3d9/src/make_pitch.cpp
+	src/plugins/d3d9/src/make_pitch_2d.cpp
+	src/plugins/d3d9/src/make_pitch_3d.cpp
 	src/plugins/d3d9/src/offscreen_target.cpp
 	src/plugins/d3d9/src/onscreen_target.cpp
 	src/plugins/d3d9/src/resource.cpp
@@ -181,12 +194,20 @@ SET(
 	src/plugins/d3d9/state/src/set_render_state_float.cpp
 	src/plugins/d3d9/state/src/visitor.cpp
 	src/plugins/d3d9/state/visitor.hpp
+	src/plugins/d3d9/surfacefuncs/color_format.hpp
 	src/plugins/d3d9/surfacefuncs/depth_stencil_format.hpp
 	src/plugins/d3d9/surfacefuncs/dim.hpp
 	src/plugins/d3d9/surfacefuncs/get_desc.hpp
+	src/plugins/d3d9/surfacefuncs/is_render_target.hpp
+	src/plugins/d3d9/surfacefuncs/lock_rect.hpp
+	src/plugins/d3d9/surfacefuncs/src/color_format.cpp
 	src/plugins/d3d9/surfacefuncs/src/depth_stencil_format.cpp
 	src/plugins/d3d9/surfacefuncs/src/dim.cpp
 	src/plugins/d3d9/surfacefuncs/src/get_desc.cpp
+	src/plugins/d3d9/surfacefuncs/src/is_render_target.cpp
+	src/plugins/d3d9/surfacefuncs/src/lock_rect.cpp
+	src/plugins/d3d9/surfacefuncs/src/unlock_rect.cpp
+	src/plugins/d3d9/surfacefuncs/unlock_rect.hpp
 	src/plugins/d3d9/system.hpp
 	src/plugins/d3d9/systemfuncs/get_caps.hpp
 	src/plugins/d3d9/systemfuncs/src/get_caps.cpp
@@ -211,7 +232,6 @@ SET(
 	src/plugins/d3d9/texture/lock_volume.hpp
 	src/plugins/d3d9/texture/mipmap_levels.hpp
 	src/plugins/d3d9/texture/optional_lock_box.hpp
-	src/plugins/d3d9/texture/optional_lock_rect.hpp
 	src/plugins/d3d9/texture/optional_locked_box.hpp
 	src/plugins/d3d9/texture/optional_locked_rect.hpp
 	src/plugins/d3d9/texture/planar.hpp

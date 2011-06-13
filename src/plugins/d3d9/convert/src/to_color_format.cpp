@@ -18,55 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../lock_cube.hpp"
-#include "../../convert/cube_side.hpp"
-#include "../../convert/lock_rect.hpp"
+#include "../to_color_format.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
-D3DLOCKED_RECT const
-sge::d3d9::texture::lock_cube(
-	IDirect3DCubeTexture9 *const _texture,
-	sge::renderer::texture::cube_side::type const _side,
-	sge::renderer::stage_type const _stage,
-	d3d9::optional_lock_rect const &_rect,
-	d3d9::lock_flags const _flags
+sge::image::color::format::type
+sge::d3d9::convert::to_color_format(
+	D3DFORMAT const _format
 )
 {
-	D3DLOCKED_RECT ret = {};
-
-	RECT in_rect = {};
-
-	if(
-		_rect
+	switch(
+		_format
 	)
-		in_rect =
-			d3d9::convert::lock_rect(
-				*_rect
-			);
+	{
+	case D3DFMT_A8:
+		return sge::image::color::format::alpha8;
+	case D3DFMT_L8:
+		return sge::image::color::format::gray8;
+	case D3DFMT_A8R8G8B8:
+		return sge::image::color::format::argb8;
+	case D3DFMT_R8G8B8:
+		return sge::image::color::format::rgb8;
+	case D3DFMT_A32B32G32R32F:
+		return sge::image::color::format::argb32f;
+	case D3DFMT_A8L8:
+		return sge::image::color::format::ag8;
+	}
 
-	if(
-		_texture->LockRect(
-			d3d9::convert::cube_side(
-				_side
-			),
-			_stage.get(),
-			&ret,
-			_rect
-			?
-				&in_rect
-			:
-				NULL,
-			_flags.get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("LockRect() failed!")
-		);
-
-	return ret;
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid format in to_color_format()!")
+	);
 }

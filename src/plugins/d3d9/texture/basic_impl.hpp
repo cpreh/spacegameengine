@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "update.hpp"
 #include "usage.hpp"
 #include "../d3dinclude.hpp"
+#include "../make_pitch.hpp"
 #include "../convert/lock_mode.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
-#include <sge/image/traits/optional_pitch.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -269,9 +269,9 @@ sge::d3d9::texture::basic<Types>::do_lock(
 				),
 				_area.size(),
 				this->parameters().color_format(),
-				typename sge::image::traits::optional_pitch<
-					image_tag
-				>::type() // TODO:
+				d3d9::make_pitch(
+					*locked_dest_
+				)
 			)
 		);
 }

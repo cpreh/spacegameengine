@@ -18,22 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_OPTIONAL_LOCK_RECT_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_OPTIONAL_LOCK_RECT_HPP_INCLUDED
+#ifndef SGE_D3D9_DEVICEFUNCS_GET_RENDER_TARGET_DATA_HPP_INCLUDED
+#define SGE_D3D9_DEVICEFUNCS_GET_RENDER_TARGET_DATA_HPP_INCLUDED
 
-#include <sge/renderer/lock_rect.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include "../d3dinclude.hpp"
 
 namespace sge
 {
 namespace d3d9
 {
-namespace texture
+namespace devicefuncs
 {
 
-typedef fcppt::optional<
-	renderer::lock_rect
-> optional_lock_rect;
+void
+get_render_target_data(
+	IDirect3DDevice9 *,
+	IDirect3DSurface9 *source,
+	IDirect3DSurface9 *dest
+);
 
 }
 }

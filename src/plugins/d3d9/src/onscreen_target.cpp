@@ -53,6 +53,7 @@ sge::d3d9::onscreen_target::onscreen_target(
 		fcppt::make_unique_ptr<
 			d3d9::color_surface
 		>(
+			_device,
 			devicefuncs::get_render_target(
 				_device
 			)

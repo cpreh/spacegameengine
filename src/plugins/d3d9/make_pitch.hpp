@@ -18,50 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../lock_planar.hpp"
-#include "../../convert/lock_rect.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_MAKE_PITCH_HPP_INCLUDED
+#define SGE_D3D9_MAKE_PITCH_HPP_INCLUDED
 
-D3DLOCKED_RECT const
-sge::d3d9::texture::lock_planar(
-	IDirect3DTexture9 *const _texture,
-	sge::renderer::stage_type const _stage,
-	d3d9::optional_lock_rect const &_rect,
-	d3d9::lock_flags const _flags
-)
+#include "d3dinclude.hpp"
+#include <sge/image2d/view/optional_pitch.hpp>
+#include <sge/image3d/view/optional_pitch.hpp>
+
+namespace sge
 {
-	D3DLOCKED_RECT ret = {};
+namespace d3d9
+{
 
-	RECT in_rect = {};
+sge::image2d::view::optional_pitch const
+make_pitch(
+	D3DLOCKED_RECT const &
+);
 
-	if(
-		_rect
-	)
-		in_rect =
-			d3d9::convert::lock_rect(
-				*_rect
-			);
+sge::image3d::view::optional_pitch const
+make_pitch(
+	D3DLOCKED_BOX const &
+);
 
-	if(
-		_texture->LockRect(
-			_stage.get(),
-			&ret,
-			_rect
-			?
-				&in_rect
-			:
-				NULL,
-			_flags.get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("LockRect() failed!")
-		);
-
-	return ret;
 }
+}
+
+#endif

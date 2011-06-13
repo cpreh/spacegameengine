@@ -18,8 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../lock_cube.hpp"
-#include "../../convert/cube_side.hpp"
+#include "../lock_rect.hpp"
 #include "../../convert/lock_rect.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
@@ -28,14 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 D3DLOCKED_RECT const
-sge::d3d9::texture::lock_cube(
-	IDirect3DCubeTexture9 *const _texture,
-	sge::renderer::texture::cube_side::type const _side,
-	sge::renderer::stage_type const _stage,
+sge::d3d9::surfacefuncs::lock_rect(
+	IDirect3DSurface9 *const _surface,
 	d3d9::optional_lock_rect const &_rect,
 	d3d9::lock_flags const _flags
 )
 {
+	// TODO: this function is almost the same as lock_planar!
 	D3DLOCKED_RECT ret = {};
 
 	RECT in_rect = {};
@@ -49,11 +47,7 @@ sge::d3d9::texture::lock_cube(
 			);
 
 	if(
-		_texture->LockRect(
-			d3d9::convert::cube_side(
-				_side
-			),
-			_stage.get(),
+		_surface->LockRect(
 			&ret,
 			_rect
 			?
@@ -65,7 +59,7 @@ sge::d3d9::texture::lock_cube(
 		!= D3D_OK
 	)
 		throw sge::renderer::exception(
-			FCPPT_TEXT("LockRect() failed!")
+			FCPPT_TEXT("Surface::LockRect() failed!")
 		);
 
 	return ret;

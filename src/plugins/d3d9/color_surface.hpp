@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "d3dinclude.hpp"
 #include "d3d_surface_scoped_ptr.hpp"
 #include "d3d_surface_unique_ptr.hpp"
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/color_surface.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -42,7 +44,8 @@ class color_surface
 		color_surface
 	);
 public:
-	explicit color_surface(
+	color_surface(
+		IDirect3DDevice9 *,
 		d3d9::d3d_surface_unique_ptr
 	);
 
@@ -62,7 +65,20 @@ public:
 	IDirect3DSurface9 *
 	surface() const;
 private:
+	IDirect3DSurface9 *
+	lock_surface() const;
+
+	IDirect3DDevice9 *const device_;
+
 	d3d9::d3d_surface_scoped_ptr const surface_;
+
+	mutable d3d9::d3d_surface_scoped_ptr temp_surface_;
+
+	dim const size_;
+
+	sge::image::color::format::type const format_;
+
+	bool const is_render_target_;
 };
 
 }

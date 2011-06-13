@@ -47,6 +47,9 @@ sge::d3d9::convert::color_format(
 	case sge::image::color::format::bgra32f:
 	case sge::image::color::format::rgb32f:
 		return D3DFMT_A32B32G32R32F;
+	case sge::image::color::format::ag8:
+	case sge::image::color::format::ga8:
+		return D3DFMT_A8L8;
 	case sge::image::color::format::size:
 		break;
 	}

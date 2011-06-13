@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
 
 #include "d3d_texture_unique_ptr.hpp"
-#include "optional_lock_rect.hpp"
 #include "optional_locked_rect.hpp"
 #include "../d3dinclude.hpp"
 #include "../lock_flags.hpp"
+#include "../optional_lock_rect.hpp"
 #include "../usage.hpp"
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
@@ -47,7 +47,7 @@ struct planar_types
 
 	typedef IDirect3DTexture9 d3d_type;
 
-	typedef texture::optional_lock_rect lock_dest;
+	typedef d3d9::optional_lock_rect lock_dest;
 
 	typedef texture::optional_locked_rect locked_dest;
 
