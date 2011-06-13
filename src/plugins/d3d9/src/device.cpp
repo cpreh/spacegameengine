@@ -31,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/nonindexed_primitive.hpp"
 #include "../devicefuncs/clear.hpp"
 #include "../devicefuncs/light_enable.hpp"
+#include "../devicefuncs/sampler_stage_arg.hpp"
+#include "../devicefuncs/sampler_stage_op.hpp"
 #include "../devicefuncs/set_clip_plane.hpp"
 #include "../devicefuncs/set_light.hpp"
 #include "../devicefuncs/set_material.hpp"
@@ -432,18 +434,12 @@ sge::d3d9::device::sampler_stage_op(
 	renderer::sampler_stage_op_value::type const _arg
 )
 {
-#if 0
-	set_texture_stage_state(
-		device,
-		stage,
-		convert_texture_stage_op(
-			type
-		),
-		convert_texture_stage_op_value(
-			value
-		)
+	devicefuncs::sampler_stage_op(
+		device_.get(),
+		_stage,
+		_type,
+		_arg
 	);
-#endif
 }
 
 void
@@ -453,18 +449,12 @@ sge::d3d9::device::sampler_stage_arg(
 	renderer::sampler_stage_arg_value::type const _arg
 )
 {
-#if 0
-	set_texture_stage_state(
-		device,
-		stage,
-		convert_texture_arg(
-			type
-		),
-		convert_texture_arg_value(
-			arg
-		)
+	devicefuncs::sampler_stage_arg(
+		device_.get(),
+		_stage,
+		_type,
+		_arg
 	);
-#endif
 }
 
 void
@@ -919,164 +909,4 @@ sge::d3d9::device::reset()
 	set_sampler_state(device,stage,d3d_type,d3d_value);
 }*/
 
-/*
-void sge::d3d9::renderer::set_bool_state(const bool_state::type state, const bool_type value)
-{
-	switch(state) {
-	case bool_state::clear_zbuffer:
-		set_bit(D3DCLEAR_ZBUFFER, clear_flags, value);
-		break;
-	case bool_state::clear_stencil:
-		set_bit(D3DCLEAR_STENCIL, clear_flags, value);
-		break;
-	case bool_state::clear_backbuffer:
-		set_bit(D3DCLEAR_TARGET, clear_flags, value);
-		break;
-	case bool_state::enable_fog:
-		set_render_state(device,D3DRS_FOGENABLE,value);
-		break;
-  case BS_EnableRangeFog:
-		set_render_state(device,D3DRS_RANGEFOGENABLE,value);
-		break;
-	case bool_state::enable_stencil:
-		set_render_state(device,D3DRS_STENCILENABLE,value);
-		break;
-	case bool_state::enable_alpha_blending:
-		set_render_state(device,D3DRS_ALPHABLENDENABLE,value);
-		if(value)
-		{
-			set_render_state(device,D3DRS_SRCBLEND, int_type(D3DBLEND_SRCALPHA) );
-			set_render_state(device,D3DRS_DESTBLEND, int_type(D3DBLEND_INVSRCALPHA) );
-		}
-		else
-		{
-			set_render_state(device,D3DRS_SRCBLEND, int_type(D3DBLEND_ONE) );
-			set_render_state(device,D3DRS_DESTBLEND, int_type(D3DBLEND_ZERO) );
-		}
-		break;
-	case bool_state::enable_zbuffer:
-		set_render_state(device,D3DRS_ZENABLE,value);
-		break;
-	}
-}
-
-void sge::d3d9::renderer::set_float_state(const float_state::type state, const float_type value)
-{
-	switch(state) {
-	case float_state::zbuffer_clear_val:
-		zbuffer_clear_val = value;
-		break;
-	case float_state::fog_start:
-		set_render_state(device,D3DRS_FOGSTART,value);
-		break;
-	case float_state::fog_end:
-		set_render_state(device,D3DRS_FOGEND,value);
-		break;
-	case float_state::fog_density:
-		set_render_state(device,D3DRS_FOGDENSITY,value);
-		break;
-	}
-}
-
-void sge::d3d9::renderer::set_int_state(const int_state::type state, const int_type value)
-{
-	switch(state) {
-	case IS_FogMode:
-		set_render_state(device,D3DRS_FOGTABLEMODE,value);
-		break;
-	case int_state::stencil_clear_val:
-		stencil_clear_val = value;
-		break;
-	}
-}
-
-void sge::d3d9::renderer::set_color_state(const color_state::type state, const color value)
-{
-	switch(state) {
-	case color_state::ambient_light_color:
-		set_render_state(device,D3DRS_AMBIENT,value);
-		break;
-	case color_state::fog_color:
-		set_render_state(device,D3DRS_FOGCOLOR,value);
-		break;
-	case color_state::clear_color:
-		clear_color = value;
-		break;
-	}
-}
-
-void sge::d3d9::renderer::set_cull_mode(const cull_mode::type mode)
-{
-	SGE_STUB_FUNCTION
-}
-
-void sge::d3d9::renderer::set_depth_func(const depth_func::type func)
-{
-	SGE_STUB_FUNCTION
-}
-
-void sge::d3d9::renderer::set_stencil_func(const stencil_func::type func,
-                                           const signed_type value,
-                                           const unsigned_type mask)
-{
-	SGE_STUB_FUNCTION
-}
-
-void sge::d3d9::renderer::set_fog_mode(const fog_mode::type mode)
-{
-	SGE_STUB_FUNCTION
-}
-
-void sge::d3d9::renderer::set_blend_func(const source_blend_func::type source,
-                                         const dest_blend_func::type dest)
-{
-	SGE_STUB_FUNCTION
-}
-
-void sge::d3d9::renderer::set_draw_mode(const draw_mode::type mode)
-{
-	SGE_STUB_FUNCTION
-}
-*/
-
-namespace
-{
-
-void set_render_state(const sge::d3d9::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::bool_type value)
-{
-	if(device->SetRenderState(state,value) != D3D_OK)
-		throw sge::exception(FCPPT_TEXT("SetRenderState() failed!"));
-}
-
-void set_render_state(const sge::d3d9::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::int_type value)
-{
-	if(device->SetRenderState(state,value) != D3D_OK)
-		throw sge::exception(FCPPT_TEXT("SetRenderState() failed!"));
-}
-
-void set_render_state(const sge::d3d9::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::float_type value)
-{
-	if(device->SetRenderState(state,reinterpret_cast<const DWORD&>(value)) != D3D_OK)
-		throw sge::exception(FCPPT_TEXT("SetRenderState() failed!"));
-}
-
-void set_texture_stage_state(const sge::d3d9::d3d_device_ptr device, const sge::stage_type stage, const D3DTEXTURESTAGESTATETYPE state, const sge::renderer::int_type value)
-{
-	if(device->SetTextureStageState(static_cast<DWORD>(stage),state,value) != D3D_OK)
-		throw sge::exception(FCPPT_TEXT("SetTextureStageState() failed!"));
-}
-
-void set_sampler_state(const sge::d3d9::d3d_device_ptr device, const sge::stage_type stage, const D3DSAMPLERSTATETYPE state, const sge::renderer::int_type value)
-{
-	if(device->SetSamplerState(static_cast<DWORD>(stage),state,value) != D3D_OK)
-		throw sge::exception(FCPPT_TEXT("SetSamplerState() failed!"));
-}
-
-void set_render_target(const sge::d3d9::d3d_device_ptr device, const sge::d3d9::d3d_surface_ptr target)
-{
-		if(device->SetRenderTarget(0, target.get()) != D3D_OK)
-			throw sge::exception(FCPPT_TEXT("SetRenderTarget() failed!"));
-}
-
-}
 #endif

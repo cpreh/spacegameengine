@@ -82,6 +82,8 @@ SET(
 	src/plugins/d3d9/devicefuncs/get_render_target.hpp
 	src/plugins/d3d9/devicefuncs/get_render_target_data.hpp
 	src/plugins/d3d9/devicefuncs/light_enable.hpp
+	src/plugins/d3d9/devicefuncs/sampler_stage_arg.hpp
+	src/plugins/d3d9/devicefuncs/sampler_stage_op.hpp
 	src/plugins/d3d9/devicefuncs/set_clip_plane.hpp
 	src/plugins/d3d9/devicefuncs/set_depth_stencil_surface.hpp
 	src/plugins/d3d9/devicefuncs/set_light.hpp
@@ -90,6 +92,7 @@ SET(
 	src/plugins/d3d9/devicefuncs/set_render_target.hpp
 	src/plugins/d3d9/devicefuncs/set_scissor_rect.hpp
 	src/plugins/d3d9/devicefuncs/set_stream_source.hpp
+	src/plugins/d3d9/devicefuncs/set_texture_stage_state.hpp
 	src/plugins/d3d9/devicefuncs/set_transform.hpp
 	src/plugins/d3d9/devicefuncs/set_viewport.hpp
 	src/plugins/d3d9/devicefuncs/src/clear.cpp
@@ -98,6 +101,8 @@ SET(
 	src/plugins/d3d9/devicefuncs/src/get_render_target.cpp
 	src/plugins/d3d9/devicefuncs/src/get_render_target_data.cpp
 	src/plugins/d3d9/devicefuncs/src/light_enable.cpp
+	src/plugins/d3d9/devicefuncs/src/sampler_stage_arg.cpp
+	src/plugins/d3d9/devicefuncs/src/sampler_stage_op.cpp
 	src/plugins/d3d9/devicefuncs/src/set_clip_plane.cpp
 	src/plugins/d3d9/devicefuncs/src/set_depth_stencil_surface.cpp
 	src/plugins/d3d9/devicefuncs/src/set_light.cpp
@@ -106,6 +111,7 @@ SET(
 	src/plugins/d3d9/devicefuncs/src/set_render_target.cpp
 	src/plugins/d3d9/devicefuncs/src/set_scissor_rect.cpp
 	src/plugins/d3d9/devicefuncs/src/set_stream_source.cpp
+	src/plugins/d3d9/devicefuncs/src/set_texture_stage_state.cpp
 	src/plugins/d3d9/devicefuncs/src/set_transform.cpp
 	src/plugins/d3d9/devicefuncs/src/set_viewport.cpp
 	src/plugins/d3d9/index_buffer.hpp
