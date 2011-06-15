@@ -81,7 +81,8 @@ try
 	);
 
 	sge::time::timer tm(
-		sge::time::second(10));
+		sge::time::second(5)
+	);
 
 	sge::renderer::device &rend(
 		sys.renderer()

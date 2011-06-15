@@ -55,7 +55,17 @@ sge::opengl::x11::resolution::create(
 		)
 	)
 		return resolution::unique_ptr();
-	
+
+#if !defined(SGE_OPENGL_HAVE_XRANDR) && !defined(SGE_OPENGL_HAVE_XF86VMODE)
+	FCPPT_LOG_WARNING(
+		log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("sge has not been compiled with fullscreen support.")
+			<< FCPPT_TEXT(" Try -D ENABLE_XRANDR=ON or -D ENABLE_XF86VMODE=ON.")
+	);
+
+	return resolution::unique_ptr();
+#else
 	sge::renderer::display_mode const display_mode(
 		_param.screen_mode().get<
 			sge::renderer::display_mode
@@ -120,4 +130,5 @@ sge::opengl::x11::resolution::create(
 	);
 
 	return resolution::unique_ptr();
+#endif
 }
