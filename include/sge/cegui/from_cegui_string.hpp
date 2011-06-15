@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/symbol.hpp>
 #include <sge/charconv/system_fwd.hpp>
-#include <CEGUI/CEGUIString.h>
 #include <fcppt/string.hpp>
+#include <CEGUIString.h>
 
 namespace sge
 {

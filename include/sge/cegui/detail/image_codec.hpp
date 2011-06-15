@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CEGUI_DETAIL_IMAGE_CODEC_HPP_INCLUDED
 
 #include <sge/image2d/multi_loader_fwd.hpp>
-#include <CEGUI/CEGUIImageCodec.h>
+#include <CEGUIImageCodec.h>
 
 namespace CEGUI
 {

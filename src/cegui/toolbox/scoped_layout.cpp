@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
-#include <CEGUI/CEGUIWindowManager.h>
-#include <CEGUI/CEGUISystem.h>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <CEGUIWindowManager.h>
+#include <CEGUISystem.h>
 
 sge::cegui::toolbox::scoped_layout::scoped_layout(
 	fcppt::filesystem::path const &_path,

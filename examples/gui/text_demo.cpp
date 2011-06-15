@@ -63,9 +63,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/unit.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/window/instance.hpp>
-#include <CEGUI/CEGUIWindowManager.h>
-#include <CEGUI/elements/CEGUIFrameWindow.h>
-#include <CEGUI/elements/CEGUIEditbox.h>
 #include <fcppt/text.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -85,6 +82,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <set>
 #include <cstdlib>
+#include <CEGUIWindowManager.h>
+#include <elements/CEGUIFrameWindow.h>
+#include <elements/CEGUIEditbox.h>
 
 int main(
 	int,

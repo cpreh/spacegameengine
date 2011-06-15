@@ -42,8 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/const_raw_pointer.hpp>
-#include <CEGUI/CEGUIResourceProvider.h>
-#include <CEGUI/CEGUIImageCodec.h>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -51,6 +49,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 // FFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUU
 #include <fcppt/optional.hpp>
+#include <CEGUIResourceProvider.h>
+#include <CEGUIImageCodec.h>
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("texture"))

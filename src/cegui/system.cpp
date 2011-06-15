@@ -27,21 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <CEGUI/CEGUISystem.h>
-#include <CEGUI/CEGUIDefaultResourceProvider.h>
-#include <CEGUI/falagard/CEGUIFalWidgetLookManager.h>
-#include <CEGUI/CEGUIImageset.h>
-#include <CEGUI/CEGUIFont.h>
-#include <CEGUI/CEGUIFontManager.h>
-#include <CEGUI/CEGUIScheme.h>
-#include <CEGUI/CEGUISystem.h>
-#include <CEGUI/CEGUIWindowManager.h>
-#include <CEGUI/CEGUIScriptModule.h>
-#include <CEGUI/CEGUIXMLParser.h>
-#include <CEGUI/CEGUIWindow.h>
-#include <CEGUI/elements/CEGUIFrameWindow.h>
-#include <CEGUI/elements/CEGUIEditbox.h>
-#include <CEGUI/CEGUIAnimationManager.h>
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -51,6 +36,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // YES, OF COURSE I HAVE TO INCLUDE THAT!
 #include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <elements/CEGUIFrameWindow.h>
+#include <elements/CEGUIEditbox.h>
+#include <falagard/CEGUIFalWidgetLookManager.h>
+#include <CEGUISystem.h>
+#include <CEGUIDefaultResourceProvider.h>
+#include <CEGUIImageset.h>
+#include <CEGUIFont.h>
+#include <CEGUIFontManager.h>
+#include <CEGUIScheme.h>
+#include <CEGUISystem.h>
+#include <CEGUIWindowManager.h>
+#include <CEGUIScriptModule.h>
+#include <CEGUIXMLParser.h>
+#include <CEGUIWindow.h>
+#include <CEGUIAnimationManager.h>
 
 sge::cegui::system::system(
 	load_context const &_load_context,

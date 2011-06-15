@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_KEYBOARD_CODE_MAP_HPP_INCLUDED
 #define SGE_CEGUI_KEYBOARD_CODE_MAP_HPP_INCLUDED
 
-#include <CEGUI/CEGUIBase.h>
 #include <sge/input/keyboard/key_code.hpp>
 #include <fcppt/container/map.hpp>
 #include <map>
+#include <CEGUIBase.h>
 
 namespace sge
 {

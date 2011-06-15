@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "cursor_button_translation.hpp"
 #include <sge/input/cursor/button_code.hpp>
-#include <CEGUI/CEGUIInputEvent.h>
+#include <CEGUIInputEvent.h>
 
 sge::cegui::cursor_button_map const &
 sge::cegui::cursor_button_translation()

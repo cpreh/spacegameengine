@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_CURSOR_BUTTON_MAP_HPP_INCLUDED
 #define SGE_CEGUI_CURSOR_BUTTON_MAP_HPP_INCLUDED
 
-#include <CEGUI/CEGUIInputEvent.h>
 #include <sge/input/cursor/button_code.hpp>
 #include <fcppt/container/map.hpp>
 #include <map>
+#include <CEGUIInputEvent.h>
 
 namespace sge
 {

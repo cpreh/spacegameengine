@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/renderer.hpp>
 #include <sge/cegui/detail/image_codec.hpp>
 #include <sge/cegui/detail/resource_provider.hpp>
-#include <CEGUI/CEGUISystem.h>
+#include <CEGUISystem.h>
 
 sge::cegui::detail::scoped_system::scoped_system(
 	renderer &_renderer,

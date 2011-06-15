@@ -19,8 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../declare_local_logger.hpp"
-#include <CEGUI/CEGUIGeometryBuffer.h>
-#include <CEGUI/CEGUIRenderQueue.h>
 #include <sge/cegui/detail/default_target.hpp>
 #include <sge/cegui/structure_cast.hpp>
 #include <sge/renderer/device.hpp>
@@ -36,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/text.hpp>
+#include <CEGUIGeometryBuffer.h>
+#include <CEGUIRenderQueue.h>
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("default_target"))

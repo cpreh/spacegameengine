@@ -29,16 +29,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
-#include <CEGUI/CEGUIBase.h>
-#include <CEGUI/CEGUIRenderer.h>
-#include <CEGUI/CEGUIString.h>
-#include <CEGUI/CEGUIRenderingRoot.h>
 #include <fcppt/noncopyable.hpp> 
 #include <fcppt/signal/scoped_connection.hpp> 
 #include <fcppt/math/matrix/basic_impl.hpp> 
 #include <fcppt/container/array.hpp> 
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <vector>
+#include <CEGUIBase.h>
+#include <CEGUIRenderer.h>
+#include <CEGUIString.h>
+#include <CEGUIRenderingRoot.h>
 
 namespace sge
 {

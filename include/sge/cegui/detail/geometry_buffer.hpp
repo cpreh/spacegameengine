@@ -23,9 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/detail/texture_fwd.hpp>
 #include <sge/cegui/detail/batch.hpp>
-#include <CEGUI/CEGUIGeometryBuffer.h>
-#include <CEGUI/CEGUITexture.h>
-#include <CEGUI/CEGUIBase.h>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -35,6 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <vector>
+#include <CEGUIGeometryBuffer.h>
+#include <CEGUITexture.h>
+#include <CEGUIBase.h>
 
 namespace CEGUI
 {

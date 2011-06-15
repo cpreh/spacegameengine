@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../declare_local_logger.hpp"
-#include <CEGUI/CEGUIVertex.h>
 #include <sge/cegui/detail/geometry_buffer.hpp>
 #include <sge/cegui/detail/texture.hpp>
 #include <sge/cegui/vf/format.hpp>
@@ -77,6 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert_message.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <CEGUIVertex.h>
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("geometry_buffer"))

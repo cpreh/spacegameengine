@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CEGUI_DETAIL_RESOURCE_PROVIDER_HPP_INCLUDED
 
 #include <sge/charconv/system_fwd.hpp>
-#include <CEGUI/CEGUIResourceProvider.h>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <CEGUIResourceProvider.h>
 
 namespace sge
 {

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/toolbox/row.hpp>
 #include <sge/cegui/symbol.hpp>
-#include <CEGUI/elements/CEGUIMultiColumnList.h>
+#include <elements/CEGUIMultiColumnList.h>
 
 namespace sge
 {

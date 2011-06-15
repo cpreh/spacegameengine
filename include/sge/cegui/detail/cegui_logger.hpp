@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DETAIL_CEGUI_LOGGER_HPP_INCLUDED
 #define SGE_CEGUI_DETAIL_CEGUI_LOGGER_HPP_INCLUDED
 
-#include <CEGUI/CEGUILogger.h>
+#include <CEGUILogger.h>
 
 namespace sge
 {

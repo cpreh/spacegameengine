@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_TOOLBOX_ROW_HPP_INCLUDED
 #define SGE_CEGUI_TOOLBOX_ROW_HPP_INCLUDED
 
-#include <CEGUI/CEGUIString.h>
 #include <vector>
+#include <CEGUIString.h>
 
 namespace sge
 {

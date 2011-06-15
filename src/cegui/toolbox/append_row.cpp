@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/toolbox/append_row.hpp>
-#include <CEGUI/CEGUIBase.h>
-#include <CEGUI/elements/CEGUIListboxTextItem.h>
 #include <fcppt/assert.hpp>
+#include <CEGUIBase.h>
+#include <elements/CEGUIListboxTextItem.h>
 
 void
 sge::cegui::toolbox::append_row(

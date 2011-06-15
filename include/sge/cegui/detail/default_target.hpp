@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DETAIL_DEFAULT_TARGET_HPP_INCLUDED
 #define SGE_CEGUI_DETAIL_DEFAULT_TARGET_HPP_INCLUDED
 
-#include <CEGUI/CEGUIRenderTarget.h>
-#include <CEGUI/CEGUIRect.h>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <CEGUIRenderTarget.h>
+#include <CEGUIRect.h>
 
 namespace CEGUI
 {

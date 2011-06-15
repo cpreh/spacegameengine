@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/channel/blue.hpp>
 #include <mizuiro/color/channel/green.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
-#include <CEGUI/CEGUIcolour.h>
+#include <CEGUIcolour.h>
 
 CEGUI::colour const
 sge::cegui::to_cegui_color(

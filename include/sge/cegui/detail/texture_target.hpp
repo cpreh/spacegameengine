@@ -23,15 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/system_fwd.hpp>
 #include <sge/cegui/detail/texture_fwd.hpp>
-#include <CEGUI/CEGUITextureTarget.h>
-#include <CEGUI/CEGUISize.h>
-#include <CEGUI/CEGUIRect.h>
-#include <CEGUI/CEGUIVector.h>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <CEGUITextureTarget.h>
+#include <CEGUISize.h>
+#include <CEGUIRect.h>
+#include <CEGUIVector.h>
 
 namespace CEGUI
 {

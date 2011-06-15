@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "keyboard_code_translation.hpp"
 #include <sge/input/keyboard/key_code.hpp>
-#include <CEGUI/CEGUIInputEvent.h>
+#include <CEGUIInputEvent.h>
 
 sge::cegui::keyboard_code_map const &
 sge::cegui::keyboard_code_translation()

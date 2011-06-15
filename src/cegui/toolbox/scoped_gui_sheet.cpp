@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
-#include <CEGUI/CEGUISystem.h>
+#include <CEGUISystem.h>
 
 sge::cegui::toolbox::scoped_gui_sheet::scoped_gui_sheet(
 	CEGUI::Window &_window
