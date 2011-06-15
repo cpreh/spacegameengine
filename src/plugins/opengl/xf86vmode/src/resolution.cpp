@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::xf86vmode::resolution::resolution(
 	awl::backends::x11::display &_display,
-	int const _screen,
+	awl::backends::x11::screen const _screen,
 	XF86VidModeModeInfo const &_new_mode,
 	XF86VidModeModeInfo const &_old_mode
 )
@@ -37,7 +37,7 @@ sge::opengl::xf86vmode::resolution::resolution(
 	if(
 		::XF86VidModeSwitchToMode(
 			display_.get(),
-			screen_,
+			screen_.get(),
 			const_cast<
 				::XF86VidModeModeInfo *
 			>(
@@ -52,7 +52,7 @@ sge::opengl::xf86vmode::resolution::resolution(
 
 	::XF86VidModeSetViewPort(
 		display_.get(),
-		screen_,
+		screen_.get(),
 		0,
 		0
 	);
@@ -62,7 +62,7 @@ sge::opengl::xf86vmode::resolution::~resolution()
 {
 	::XF86VidModeSwitchToMode(
 		display_.get(),
-		screen_,
+		screen_.get(),
 		const_cast<
 			::XF86VidModeModeInfo *
 		>(

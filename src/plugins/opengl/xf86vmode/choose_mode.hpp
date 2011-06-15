@@ -35,7 +35,7 @@ namespace xf86vmode
 resolution_ptr const
 choose_mode(
 	renderer::display_mode const &,
-	modes const &
+	xf86vmode::modes const &
 );
 
 }

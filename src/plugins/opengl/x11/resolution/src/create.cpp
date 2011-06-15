@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_OPENGL_HAVE_XRANDR)
 #include "../xrandr_mode.hpp"
 #endif
-#if defined(SGE_OPENGL_HAVE_XF86_VMODE)
+#if defined(SGE_OPENGL_HAVE_XF86VMODE)
 #include "../xf86_vmode.hpp"
 #endif
 #include <sge/renderer/display_mode.hpp>
@@ -86,7 +86,7 @@ sge::opengl::x11::resolution::create(
 		);
 	}
 #endif
-#if defined(SGE_OPENGL_HAVE_XF86_VMODE)
+#if defined(SGE_OPENGL_HAVE_XF86VMODE)
 	try
 	{
 		return
@@ -98,7 +98,7 @@ sge::opengl::x11::resolution::create(
 					fcppt::ref(
 						_window.display()
 					),
-					_window->screen()
+					_window.screen()
 				)
 			);
 	}

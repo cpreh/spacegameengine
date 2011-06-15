@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../xf86vmode/resolution_ptr.hpp"
 #include <sge/renderer/display_mode_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/screen.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -48,7 +49,7 @@ public:
 	xf86_vmode(
 		renderer::display_mode const &,
 		awl::backends::x11::display &,
-		int screen
+		awl::backends::x11::screen
 	);
 
 	~xf86_vmode();

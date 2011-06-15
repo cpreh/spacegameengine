@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
 #include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/screen.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -41,7 +42,7 @@ class resolution
 public:
 	resolution(
 		awl::backends::x11::display &,
-		int screen,
+		awl::backends::x11::screen,
 		XF86VidModeModeInfo const &new_mode,
 		XF86VidModeModeInfo const &old_mode
 	);
@@ -50,7 +51,7 @@ public:
 private:
 	awl::backends::x11::display &display_;
 
-	int const screen_;
+	awl::backends::x11::screen const screen_;
 
 	XF86VidModeModeInfo const old_mode_;
 };

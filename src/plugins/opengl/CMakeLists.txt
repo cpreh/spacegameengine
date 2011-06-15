@@ -719,7 +719,14 @@ IF (X11_FOUND)
 		SGE_OPENGL_FILES_ABS
 	)
 
-	IF(X11_xf86vmode_FOUND)
+	OPTION(
+		ENABLE_XF86VMODE
+		"Enables screen mode switching via xrandr"
+		${X11_xf86vmode_FOUND}
+	)
+
+
+	IF(ENABLE_XF86VMODE)
 		SET (SGE_OPENGL_HAVE_XF86VMODE TRUE)
 
 		INCLUDE_DIRECTORIES(${X11_xf86vmode_INCLUDE_PATH})
@@ -730,7 +737,13 @@ IF (X11_FOUND)
 		)
 	ENDIF()
 
-	IF(X11_Xrandr_FOUND)
+	OPTION(
+		ENABLE_XRANDR
+		"Enables screen mode switching via xrandr"
+		${X11_Xrandr_FOUND}
+	)
+
+	IF(ENABLE_XRANDR)
 		SET (SGE_OPENGL_HAVE_XRANDR TRUE)
 
 		INCLUDE_DIRECTORIES(${X11_Xrandr_INCLUDE_PATH})
@@ -788,7 +801,7 @@ TARGET_LINK_LIBRARIES(
 IF (X11_FOUND)
 	INCLUDE_DIRECTORIES(${X11_Xinput_INCLUDE_PATH})
 
-	IF(X11_xf86vmode_FOUND)
+	IF(ENABLE_XF86VMODE)
 		# somehow this is not handled by FindX11
 		FIND_LIBRARY(
 			X11_xf86vmode_LIB
@@ -801,7 +814,7 @@ IF (X11_FOUND)
 		)
 	ENDIF()
 
-	IF(X11_Xrandr_FOUND)
+	IF(ENABLE_XRANDR)
 		TARGET_LINK_LIBRARIES(
 			sgeopengl
 			${X11_Xrandr_LIB}

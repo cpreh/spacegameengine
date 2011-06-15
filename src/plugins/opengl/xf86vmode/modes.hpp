@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "modes_fwd.hpp"
 #include <awl/backends/x11/deleter.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/screen.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <cstddef>
@@ -47,7 +48,7 @@ public:
 
 	modes(
 		awl::backends::x11::display &,
-		int screen
+		awl::backends::x11::screen
 	);
 
 	~modes();
@@ -63,12 +64,12 @@ public:
 	awl::backends::x11::display &
 	display() const;
 
-	int
+	awl::backends::x11::screen const
 	screen() const;
 private:
 	awl::backends::x11::display &display_;
 
-	int const screen_;
+	awl::backends::x11::screen const screen_;
 
 	typedef fcppt::shared_ptr<
 		XF86VidModeModeInfo *,

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::xf86vmode::modes::modes(
 	awl::backends::x11::display &_display,
-	int const _screen
+	awl::backends::x11::screen const _screen
 )
 :
 	display_(_display),
@@ -45,7 +45,7 @@ sge::opengl::xf86vmode::modes::modes(
 	if(
 		::XF86VidModeGetAllModeLines(
 			display_.get(),
-			this->screen(),
+			this->screen().get(),
 			&mode_count,
 			&ret
 		)
@@ -95,7 +95,7 @@ sge::opengl::xf86vmode::modes::display() const
 	return display_;
 }
 
-int
+awl::backends::x11::screen const
 sge::opengl::xf86vmode::modes::screen() const
 {
 	return screen_;
