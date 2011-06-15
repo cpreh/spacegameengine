@@ -721,7 +721,7 @@ IF (X11_FOUND)
 
 	OPTION(
 		ENABLE_XF86VMODE
-		"Enables screen mode switching via xrandr"
+		"Enables screen mode switching via xf86vmode"
 		${X11_xf86vmode_FOUND}
 	)
 
