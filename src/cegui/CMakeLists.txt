@@ -84,7 +84,7 @@ SET(
 
 ADD_SGE_BASE_LIBRARY(
 	cegui
-	"sgerenderer;sgetime;sgesystems;sgeviewport"
+	"sgerenderer;sgetime;sgeviewport"
 )
 
 TARGET_LINK_LIBRARIES (
