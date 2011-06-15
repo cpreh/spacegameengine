@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/image2d/view/make_const.hpp>
-//#include <sge/image2d/view/flipped.hpp>
+#include <sge/image2d/view/flipped.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/window/instance.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
@@ -90,7 +90,7 @@ sge::opengl::onscreen_surface::lock(
 	);
 
 	return
-//		image2d::view::flipped(
+		image2d::view::flipped(
 			image2d::view::make_const(
 				buffer_.data(),
 				_dest.size(),
@@ -100,7 +100,7 @@ sge::opengl::onscreen_surface::lock(
 				),
 				image2d::view::optional_pitch()
 			)
-		/*)*/;
+		);
 }
 
 void
