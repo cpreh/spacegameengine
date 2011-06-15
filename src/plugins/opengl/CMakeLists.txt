@@ -766,14 +766,20 @@ ADD_LIBRARY (
 	${SGE_OPENGL_FILES_ABS}
 )
 
-# TODO: check for libs' availability!
-TARGET_LINK_LIBRARIES (
+SET(
+	SGE_OPENGL_ADDITIONAL_DEPS
+	"sgeimage2d;sgeimage3d;sgerenderer;sgewindow"
+)
+
+CHECK_LIBRARY_DEPS(
+	"sgeopengl"
+	"${SGE_OPENGL_ADDITIONAL_DEPS}"
+)
+
+TARGET_LINK_LIBRARIES(
 	sgeopengl
 	sgecore
-	sgeimage2d
-	sgeimage3d
-	sgerenderer
-	sgewindow
+	${SGE_OPENGL_ADDITIONAL_DEPS}
 	${OPENGL_gl_LIBRARY}
 	${GLEW_LIBRARY}
 	${AWL_LIBRARY}
