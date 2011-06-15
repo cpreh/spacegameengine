@@ -16,24 +16,44 @@
 #
 
 # Find all required packages for SGE.
+if(
+	SGE_FIND_QUIETLY
+)
+	set(
+		SGE_FIND_OPTIONS
+		"QUIET"
+	)
+endif()
+
+if(
+	SGE_FIND_REQUIRED
+)
+	set(
+		SGE_FIND_OPTIONS
+		"REQUIRED"
+	)
+endif()
+
+
 find_package(
 	Boost
-	${SGE_FIND_REQUIRED}
+	1.46.0
+	${SGE_FIND_OPTIONS}
 )
 
 find_package(
 	Fcppt
-	${SGE_FIND_REQUIRED}
+	${SGE_FIND_OPTIONS}
 )
 
 find_package(
 	Awl
-	${SGE_FIND_REQUIRED}
+	${SGE_FIND_OPTIONS}
 )
 
 find_package(
 	Mizuiro
-	${SGE_FIND_REQUIRED}
+	${SGE_FIND_OPTIONS}
 )
 
 # Find SGE's include dir, take SGE_INCLUDEDIR as a HINT.
@@ -109,7 +129,7 @@ foreach(
 		# CEGUI headers are required for sgecegui.
 		find_package(
 			CEGUI
-			${SGE_FIND_REQUIRED}
+			${SGE_FIND_OPTIONS}
 		)
 
 		if(
@@ -182,10 +202,14 @@ mark_as_advanced(
 if(
 	SGE_FOUND
 )
-	message(
-		STATUS
-		"Found SGE: ${SGE_INCLUDE_DIR}"
+	if(
+		NOT SGE_FIND_QUIETLY
 	)
+		message(
+			STATUS
+			"Found SGE: ${SGE_INCLUDE_DIR}"
+		)
+	endif()
 else()
 	set(
 		SGE_ERROR_MESSAGE
@@ -211,15 +235,23 @@ else()
 		endif()
 	endforeach()
 
-	message(
-		SEND_ERROR
-		"${SGE_ERROR_MESSAGE})"
+	if(
+		NOT SGE_FIND_REQUIRED
 	)
+		message(
+			SEND_ERROR
+			"${SGE_ERROR_MESSAGE})"
+		)
+	endif()
 
 	unset(
 		SGE_ERROR_MESSAGE
 	)
 endif()
+
+unset(
+	SGE_FIND_OPTIONS
+)
 
 unset(
 	SGE_CURRENT_LIB
