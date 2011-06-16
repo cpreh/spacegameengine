@@ -18,17 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_VIEW_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_VIEW_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_INSTANTIATE_DATA_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_INSTANTIATE_DATA_HPP_INCLUDED
 
-#include <sge/image/view/checked_sub.hpp>
-#include <sge/image/view/data.hpp>
-#include <sge/image/view/dim.hpp>
-#include <sge/image/view/flipped.hpp>
-#include <sge/image/view/make.hpp>
-#include <sge/image/view/make_const.hpp>
-#include <sge/image/view/sub.hpp>
-#include <sge/image/view/sub_out_of_range.hpp>
-#include <sge/image/view/to_const.hpp>
+#include "data_impl.hpp"
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/view.hpp>
+#include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/raw_pointer.hpp>
+#include <fcppt/export_symbol.hpp>
+
+#define SGE_IMAGE_VIEW_INSTANTIATE_DATA_BASE(\
+	tag,\
+	view_type,\
+	pointer\
+)\
+template \
+FCPPT_EXPORT_SYMBOL \
+pointer \
+sge::image::view::data<\
+	tag\
+>(\
+	sge::image::traits::view_type<\
+		tag\
+	>::type const &\
+);
+
+#define SGE_IMAGE_VIEW_INSTANTIATE_DATA(\
+	tag\
+)\
+SGE_IMAGE_VIEW_INSTANTIATE_DATA_BASE(\
+	tag,\
+	view,\
+	sge::image::raw_pointer\
+)\
+SGE_IMAGE_VIEW_INSTANTIATE_DATA_BASE(\
+	tag,\
+	const_view,\
+	sge::image::const_raw_pointer\
+)
 
 #endif

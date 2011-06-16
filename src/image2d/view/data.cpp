@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/data.hpp"
+#include "../../image/view/data_impl.hpp"
+#include "../../image/view/instantiate_data.hpp"
 #include <sge/image2d/view/data.hpp>
+#include <sge/image2d/tag.hpp>
 
 sge::image::raw_pointer
 sge::image2d::view::data(
@@ -28,7 +30,7 @@ sge::image2d::view::data(
 {
 	return
 		sge::image::view::data<
-			image::raw_pointer
+			sge::image2d::tag
 		>(
 			_view
 		);
@@ -41,8 +43,12 @@ sge::image2d::view::data(
 {
 	return
 		sge::image::view::data<
-			image::const_raw_pointer
+			sge::image2d::tag
 		>(
 			_view
 		);
 }
+
+SGE_IMAGE_VIEW_INSTANTIATE_DATA(
+	sge::image2d::tag
+)

@@ -18,40 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_DATA_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_DATA_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_DATA_IMPL_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_DATA_IMPL_HPP_INCLUDED
 
-#include "data_visitor.hpp"
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#define SGE_IMAGE_INSTANTIATE_EXPORTS
 
-namespace sge
-{
-namespace image
-{
-namespace view
-{
+#include "data_any.hpp"
+#include <sge/image/view/data.hpp>
 
 template<
-	typename Dest,
-	typename View
+	typename Tag
 >
-Dest
-data(
-	View const &_view
+sge::image::raw_pointer
+sge::image::view::data(
+	typename image::traits::view<
+		Tag
+	>::type const &_view
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			sge::image::view::data_visitor<
-				Dest
-			>(),
+		image::view::data_any<
+			sge::image::raw_pointer
+		>(
 			_view
 		);
 }
 
-}
-}
+template<
+	typename Tag
+>
+sge::image::const_raw_pointer
+sge::image::view::data(
+	typename image::traits::const_view<
+		Tag
+	>::type const &_view
+)
+{
+	return
+		image::view::data_any<
+			sge::image::const_raw_pointer
+		>(
+			_view
+		);
 }
 
 #endif

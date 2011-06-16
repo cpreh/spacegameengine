@@ -93,6 +93,7 @@ SET(
 	include/sge/image/traits/view_elements.hpp
 	include/sge/image/unsupported_format.hpp
 	include/sge/image/view/checked_sub.hpp
+	include/sge/image/view/data.hpp
 	include/sge/image/view/dim.hpp
 	include/sge/image/view/flipped.hpp
 	include/sge/image/view/make.hpp
@@ -123,7 +124,8 @@ SET(
 	src/image/view/checked_sub_any.hpp
 	src/image/view/checked_sub_condition.hpp
 	src/image/view/checked_sub_impl.hpp
-	src/image/view/data.hpp
+	src/image/view/data_any.hpp
+	src/image/view/data_impl.hpp
 	src/image/view/data_visitor.hpp
 	src/image/view/dim_any.hpp
 	src/image/view/dim_impl.hpp
@@ -134,6 +136,7 @@ SET(
 	src/image/view/format_visitor.hpp
 	src/image/view/instantiate_checked_sub.hpp
 	src/image/view/instantiate_const_nonconst.hpp
+	src/image/view/instantiate_data.hpp
 	src/image/view/instantiate_dim.hpp
 	src/image/view/instantiate_flipped.hpp
 	src/image/view/instantiate_make.hpp
