@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <CEGUIRenderTarget.h>
 #include <CEGUIRect.h>
 
@@ -44,10 +45,15 @@ class default_target
 :
 	public CEGUI::RenderTarget
 {
+	FCPPT_NONCOPYABLE(
+		default_target
+	);
 public:
 	explicit
 	default_target(
 		sge::renderer::device &);
+
+	~default_target();
 
 	void 
 	draw(

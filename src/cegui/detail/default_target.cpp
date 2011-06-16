@@ -56,6 +56,10 @@ sge::cegui::detail::default_target::default_target(
 {
 }
 
+sge::cegui::detail::default_target::~default_target()
+{
+}
+
 void 
 sge::cegui::detail::default_target::draw(
 	CEGUI::GeometryBuffer const &buffer)
