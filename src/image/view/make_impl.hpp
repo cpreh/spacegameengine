@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_VIEW_MAKE_IMPL_HPP_INCLUDED
 
 #define SGE_IMAGE_INSTANTIATE_EXPORTS
-
-#include "make_visitor.hpp"
 #include <sge/image/view/make.hpp>
+#undef SGE_IMAGE_INSTANTIATE_EXPORTS
+#include "make_visitor.hpp"
 #include <sge/image/size_type.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
