@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#define SGE_IMAGE_INSTANTIATE_EXPORTS
-
 #include "../../image/view/sub_out_of_range_impl.hpp"
 #include <sge/image3d/view/sub_out_of_range.hpp>
 #include <sge/image3d/box.hpp>
