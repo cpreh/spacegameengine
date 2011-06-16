@@ -18,19 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/dim.hpp"
+#include "../../image/view/dim_impl.hpp"
+#include "../../image/view/instantiate_dim.hpp"
 #include <sge/image2d/view/dim.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <sge/image2d/tag.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
 sge::image2d::dim const
 sge::image2d::view::dim(
-	object const &_view
+	image2d::view::object const &_view
 )
 {
 	return
 		sge::image::view::dim<
-			sge::image2d::dim
+			sge::image2d::tag
 		>(
 			_view
 		);
@@ -38,13 +39,17 @@ sge::image2d::view::dim(
 
 sge::image2d::dim const
 sge::image2d::view::dim(
-	const_object const &_view
+	image2d::view::const_object const &_view
 )
 {
 	return
 		sge::image::view::dim<
-			sge::image2d::dim
+			sge::image2d::tag
 		>(
 			_view
 		);
 }
+
+SGE_IMAGE_VIEW_INSTANTIATE_DIM(
+	sge::image2d::tag
+)

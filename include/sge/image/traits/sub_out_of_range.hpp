@@ -18,31 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_INSTANTIATE_SUB_CONST_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_INSTANTIATE_SUB_CONST_HPP_INCLUDED
+#ifndef SGE_IMAGE_TRAITS_SUB_OUT_OF_RANGE_HPP_INCLUDED
+#define SGE_IMAGE_TRAITS_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
-#include "sub_impl.hpp"
-#include <sge/image/traits/box.hpp>
-#include <sge/image/traits/const_view.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/image2d/view/sub_out_of_range.hpp>
+#include <sge/image2d/tag.hpp>
+#include <sge/image3d/view/sub_out_of_range.hpp>
+#include <sge/image3d/tag.hpp>
 
-#define SGE_IMAGE_VIEW_INSTANTIATE_SUB_CONST(\
-	tag\
-)\
-template \
-FCPPT_EXPORT_SYMBOL \
-sge::image::traits::const_view<\
-	tag\
->::type const \
-sge::image::view::sub<\
-	tag\
->(\
-	sge::image::traits::const_view<\
-		tag\
-	>::type const &,\
-	sge::image::traits::box<\
-		tag\
-	>::type const &\
-)
+namespace sge
+{
+namespace image
+{
+namespace traits
+{
+
+template<
+	typename Tag
+>
+struct sub_out_of_range;
+
+template<>
+struct sub_out_of_range<
+	image2d::tag
+>
+{
+	typedef image2d::view::sub_out_of_range type;
+};
+
+template<>
+struct sub_out_of_range<
+	image3d::tag
+>
+{
+	typedef image3d::view::sub_out_of_range type;
+};
+
+}
+}
+}
 
 #endif

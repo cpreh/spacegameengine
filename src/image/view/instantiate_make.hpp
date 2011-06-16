@@ -49,6 +49,6 @@ sge::image::view::make< \
 	sge::image::traits::optional_pitch<\
 		tag\
 	>::type const &\
-)
+);
 
 #endif

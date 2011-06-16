@@ -34,6 +34,7 @@ SET(
 	src/image3d/algorithm/copy_and_convert.cpp
 	src/image3d/rgba32f.cpp
 	src/image3d/rgba8.cpp
+	src/image3d/view/checked_sub.cpp
 	src/image3d/view/dim.cpp
 	src/image3d/view/flipped.cpp
 	src/image3d/view/format.cpp

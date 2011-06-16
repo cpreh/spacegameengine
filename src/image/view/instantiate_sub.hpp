@@ -22,27 +22,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_VIEW_INSTANTIATE_SUB_HPP_INCLUDED
 
 #include "sub_impl.hpp"
+#include "instantiate_const_nonconst.hpp"
 #include <sge/image/traits/box.hpp>
 #include <sge/image/traits/view.hpp>
 #include <fcppt/export_symbol.hpp>
 
-#define SGE_IMAGE_VIEW_INSTANTIATE_SUB(\
-	tag\
+#define SGE_IMAGE_VIEW_INSTANTIATE_SUB_BASE(\
+	tag,\
+	view_type\
 )\
 template \
 FCPPT_EXPORT_SYMBOL \
-sge::image::traits::view<\
+sge::image::traits::view_type<\
 	tag\
 >::type const \
 sge::image::view::sub<\
 	tag\
 >(\
-	sge::image::traits::view<\
+	sge::image::traits::view_type<\
 		tag\
 	>::type const &,\
 	sge::image::traits::box<\
 		tag\
 	>::type const &\
+);
+
+#define SGE_IMAGE_VIEW_INSTANTIATE_SUB(\
+	tag\
+)\
+SGE_IMAGE_VIEW_INSTANTIATE_CONST_NONCONST(\
+	tag,\
+	SGE_IMAGE_VIEW_INSTANTIATE_SUB_BASE\
 )
 
 #endif

@@ -39,4 +39,4 @@ sge::image2d::view::to_const(
 
 SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST(
 	sge::image2d::tag
-);
+)

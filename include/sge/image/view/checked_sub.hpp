@@ -18,28 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_CHECKED_SUB_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_CHECKED_SUB_HPP_INCLUDED
 
-#include <sge/image/view/to_const.hpp>
+#include <sge/image/traits/box.hpp>
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/view.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/image/instantiate_symbol.hpp>
 
-#define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST(\
-	Tag\
-)\
-template \
-FCPPT_EXPORT_SYMBOL \
-sge::image::traits::const_view<\
-	Tag\
->::type const \
-sge::image::view::to_const< \
-	Tag \
->( \
-	sge::image::traits::view<\
-		Tag\
-	>::type const &\
+namespace sge
+{
+namespace image
+{
+namespace view
+{
+
+template<
+	typename Tag
+>
+SGE_IMAGE_INSTANTIATE_SYMBOL
+typename image::traits::view<
+	Tag
+>::type const
+checked_sub(
+	typename image::traits::view<
+		Tag
+	>::type const &,
+	typename image::traits::box<
+		Tag
+	>::type const &
 );
+
+template<
+	typename Tag
+>
+SGE_IMAGE_INSTANTIATE_SYMBOL
+typename image::traits::const_view<
+	Tag
+>::type const
+checked_sub(
+	typename image::traits::const_view<
+		Tag
+	>::type const &,
+	typename image::traits::box<
+		Tag
+	>::type const &
+);
+
+}
+}
+}
 
 #endif

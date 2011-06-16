@@ -18,28 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
+#include "../../image/view/checked_sub_impl.hpp"
+#include "../../image/view/instantiate_checked_sub.hpp"
+#include <sge/image3d/view/checked_sub.hpp>
+#include <sge/image3d/tag.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-#include <sge/image/view/to_const.hpp>
-#include <sge/image/traits/const_view.hpp>
-#include <sge/image/traits/view.hpp>
-#include <fcppt/export_symbol.hpp>
+sge::image3d::view::object const
+sge::image3d::view::checked_sub(
+	view::object const &_view,
+	image3d::box const &_box
+)
+{
+	return
+		sge::image::view::checked_sub<
+			sge::image3d::tag
+		>(
+			_view,
+			_box
+		);
+}
 
-#define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST(\
-	Tag\
-)\
-template \
-FCPPT_EXPORT_SYMBOL \
-sge::image::traits::const_view<\
-	Tag\
->::type const \
-sge::image::view::to_const< \
-	Tag \
->( \
-	sge::image::traits::view<\
-		Tag\
-	>::type const &\
-);
+sge::image3d::view::const_object const
+sge::image3d::view::checked_sub(
+	view::const_object const &_view,
+	image3d::box const &_box
+)
+{
+	return
+		sge::image::view::checked_sub<
+			sge::image3d::tag
+		>(
+			_view,
+			_box
+		);
+}
 
-#endif
+SGE_IMAGE_VIEW_INSTANTIATE_CHECKED_SUB(
+	sge::image3d::tag
+)

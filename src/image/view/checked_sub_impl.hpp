@@ -18,32 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/make_const_impl.hpp"
-#include "../../image/view/instantiate_make_const.hpp"
-#include <sge/image3d/view/make_const.hpp>
-#include <sge/image3d/tag.hpp>
-#include <sge/image/raw_pointer.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_IMAGE_VIEW_CHECKED_SUB_IMPL_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_CHECKED_SUB_IMPL_HPP_INCLUDED
 
-sge::image3d::view::const_object const
-sge::image3d::view::make_const(
-	image::const_raw_pointer const _data,
-	image3d::dim const &_dim,
-	image::color::format::type const _format,
-	image3d::view::optional_pitch const &_pitch
+#define SGE_IMAGE_INSTANTIATE_EXPORTS
+
+#include "checked_sub_any.hpp"
+#include <sge/image/view/checked_sub.hpp>
+
+template<
+	typename Tag
+>
+typename sge::image::traits::view<
+	Tag
+>::type const
+sge::image::view::checked_sub(
+	typename image::traits::view<
+		Tag
+	>::type const &_view,
+	typename image::traits::box<
+		Tag
+	>::type const &_box
 )
 {
 	return
-		sge::image::view::make_const<
-			sge::image3d::tag
+		sge::image::view::checked_sub_any<
+			Tag
 		>(
-			_data,
-			_dim,
-			_format,
-			_pitch
+			_view,
+			_box
 		);
 }
 
-SGE_IMAGE_VIEW_INSTANTIATE_MAKE_CONST(
-	sge::image3d::tag
+template<
+	typename Tag
+>
+typename sge::image::traits::const_view<
+	Tag
+>::type const
+sge::image::view::checked_sub(
+	typename image::traits::const_view<
+		Tag
+	>::type const &_view,
+	typename image::traits::box<
+		Tag
+	>::type const &_box
 )
+{
+	return
+		sge::image::view::checked_sub_any<
+			Tag
+		>(
+			_view,
+			_box
+		);
+}
+
+#endif

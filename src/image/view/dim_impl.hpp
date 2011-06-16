@@ -18,50 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_CHECKED_SUB_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_CHECKED_SUB_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_DIM_IMPL_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_DIM_IMPL_HPP_INCLUDED
 
-#include "checked_sub_condition.hpp"
-
-namespace sge
-{
-namespace image
-{
-namespace view
-{
+#include "dim_any.hpp"
+#include <sge/image/view/dim.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 template<
-	typename Exception,
-	typename View,
-	typename Box,
-	typename SubFunction,
-	typename DimFunction
+	typename Tag
 >
-View const
-checked_sub(
-	View const &_src,
-	Box const &_box,
-	SubFunction const &_sub,
-	DimFunction const &_dim
+typename sge::image::traits::dim<
+	Tag
+>::type const
+sge::image::view::dim(
+	typename image::traits::view<
+		Tag
+	>::type const &_view
 )
 {
-	sge::image::view::checked_sub_condition<
-		Exception
-	>(
-		_src,
-		_box,
-		_dim
-	);
-
 	return
-		_sub(
-			_src,
-			_box
+		sge::image::view::dim_any<
+			Tag
+		>(
+			_view
 		);
 }
 
-}
-}
+template<
+	typename Tag
+>
+typename sge::image::traits::dim<
+	Tag
+>::type const
+sge::image::view::dim(
+	typename image::traits::const_view<
+		Tag
+	>::type const &_view
+)
+{
+	return
+		sge::image::view::dim_any<
+			Tag
+		>(
+			_view
+		);
 }
 
 #endif

@@ -18,28 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_INSTANTIATE_CHECKED_SUB_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_INSTANTIATE_CHECKED_SUB_HPP_INCLUDED
 
-#include <sge/image/view/to_const.hpp>
-#include <sge/image/traits/const_view.hpp>
+#include "checked_sub_impl.hpp"
+#include "instantiate_const_nonconst.hpp"
+#include <sge/image/traits/box.hpp>
 #include <sge/image/traits/view.hpp>
 #include <fcppt/export_symbol.hpp>
 
-#define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST(\
-	Tag\
+#define SGE_IMAGE_VIEW_INSTANTIATE_CHECKED_SUB_BASE(\
+	tag,\
+	view_type\
 )\
 template \
 FCPPT_EXPORT_SYMBOL \
-sge::image::traits::const_view<\
-	Tag\
+sge::image::traits::view_type<\
+	tag\
 >::type const \
-sge::image::view::to_const< \
-	Tag \
->( \
-	sge::image::traits::view<\
-		Tag\
+sge::image::view::checked_sub<\
+	tag\
+>(\
+	sge::image::traits::view_type<\
+		tag\
+	>::type const &,\
+	sge::image::traits::box<\
+		tag\
 	>::type const &\
 );
+
+#define SGE_IMAGE_VIEW_INSTANTIATE_CHECKED_SUB(\
+	tag\
+)\
+SGE_IMAGE_VIEW_INSTANTIATE_CONST_NONCONST(\
+	tag,\
+	SGE_IMAGE_VIEW_INSTANTIATE_CHECKED_SUB_BASE\
+)
 
 #endif

@@ -18,28 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_INSTANTIATE_DIM_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_INSTANTIATE_DIM_HPP_INCLUDED
 
-#include <sge/image/view/to_const.hpp>
-#include <sge/image/traits/const_view.hpp>
-#include <sge/image/traits/view.hpp>
+#include "dim_impl.hpp"
+#include "instantiate_const_nonconst.hpp"
+#include <sge/image/traits/dim.hpp>
 #include <fcppt/export_symbol.hpp>
 
-#define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST(\
-	Tag\
+#define SGE_IMAGE_VIEW_INSTANTIATE_DIM_BASE(\
+	tag,\
+	view_type\
 )\
 template \
 FCPPT_EXPORT_SYMBOL \
-sge::image::traits::const_view<\
-	Tag\
+sge::image::traits::dim<\
+	tag\
 >::type const \
-sge::image::view::to_const< \
-	Tag \
->( \
-	sge::image::traits::view<\
-		Tag\
+sge::image::view::dim<\
+	tag\
+>(\
+	sge::image::traits::view_type<\
+		tag\
 	>::type const &\
 );
+
+#define SGE_IMAGE_VIEW_INSTANTIATE_DIM(\
+	tag\
+)\
+SGE_IMAGE_VIEW_INSTANTIATE_CONST_NONCONST(\
+	tag,\
+	SGE_IMAGE_VIEW_INSTANTIATE_DIM_BASE\
+)
 
 #endif

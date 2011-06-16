@@ -36,13 +36,13 @@ namespace view
 SGE_IMAGE2D_SYMBOL
 image2d::dim const
 dim(
-	object const &
+	image2d::view::object const &
 );
 
 SGE_IMAGE2D_SYMBOL
 image2d::dim const
 dim(
-	const_object const &
+	image2d::view::const_object const &
 );
 
 }

@@ -18,89 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/checked_sub.hpp"
+#include "../../image/view/checked_sub_impl.hpp"
+#include "../../image/view/instantiate_checked_sub.hpp"
 #include <sge/image2d/view/checked_sub.hpp>
-#include <sge/image2d/view/sub.hpp>
-#include <sge/image2d/view/sub_out_of_range.hpp>
-#include <sge/image2d/view/dim.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/rect.hpp>
+#include <sge/image2d/tag.hpp>
 #include <fcppt/variant/object_impl.hpp>
-
-namespace
-{
-
-template<
-	typename View
->
-View const
-checked_sub_impl(
-	View const &,
-	sge::image2d::rect const &
-);
-
-}
 
 sge::image2d::view::object const
 sge::image2d::view::checked_sub(
-	view::object const &_src,
+	view::object const &_view,
 	image2d::rect const &_rect
 )
 {
 	return
-		::checked_sub_impl(
-			_src,
+		sge::image::view::checked_sub<
+			sge::image2d::tag
+		>(
+			_view,
 			_rect
 		);
 }
 
 sge::image2d::view::const_object const
 sge::image2d::view::checked_sub(
-	view::const_object const &_src,
+	view::const_object const &_view,
 	image2d::rect const &_rect
 )
 {
 	return
-		::checked_sub_impl(
-			_src,
+		sge::image::view::checked_sub<
+			sge::image2d::tag
+		>(
+			_view,
 			_rect
 		);
 }
 
-namespace
-{
-
-template<
-	typename View
->
-View const
-checked_sub_impl(
-	View const &_view,
-	sge::image2d::rect const &_rect
+SGE_IMAGE_VIEW_INSTANTIATE_CHECKED_SUB(
+	sge::image2d::tag
 )
-{
-	return
-		sge::image::view::checked_sub<
-			sge::image2d::view::sub_out_of_range
-		>(
-			_view,
-			_rect,
-			static_cast<
-				View const (*)(
-					View const &,
-					sge::image2d::rect const &
-				)
-			>(
-				&sge::image2d::view::sub
-			),
-			static_cast<
-				sge::image2d::dim const (*)(
-					View const &
-				)
-			>(
-				&sge::image2d::view::dim
-			)
-		);
-}
-
-}

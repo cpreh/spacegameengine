@@ -86,11 +86,14 @@ SET(
 	include/sge/image/traits/dim.hpp
 	include/sge/image/traits/optional_pitch.hpp
 	include/sge/image/traits/pitch.hpp
+	include/sge/image/traits/sub_out_of_range.hpp
 	include/sge/image/traits/tag_from_view.hpp
 	include/sge/image/traits/traits.hpp
 	include/sge/image/traits/view.hpp
 	include/sge/image/traits/view_elements.hpp
 	include/sge/image/unsupported_format.hpp
+	include/sge/image/view/checked_sub.hpp
+	include/sge/image/view/dim.hpp
 	include/sge/image/view/flipped.hpp
 	include/sge/image/view/make.hpp
 	include/sge/image/view/make_const.hpp
@@ -117,22 +120,25 @@ SET(
 	src/image/file_exception.cpp
 	src/image/store_impl.hpp
 	src/image/unsupported_format.cpp
-	src/image/view/checked_sub.hpp
+	src/image/view/checked_sub_any.hpp
 	src/image/view/checked_sub_condition.hpp
+	src/image/view/checked_sub_impl.hpp
 	src/image/view/data.hpp
 	src/image/view/data_visitor.hpp
-	src/image/view/dim.hpp
+	src/image/view/dim_any.hpp
+	src/image/view/dim_impl.hpp
 	src/image/view/dim_visitor.hpp
 	src/image/view/flipped_impl.hpp
 	src/image/view/flipped_visitor.hpp
 	src/image/view/format.hpp
 	src/image/view/format_visitor.hpp
+	src/image/view/instantiate_checked_sub.hpp
+	src/image/view/instantiate_const_nonconst.hpp
+	src/image/view/instantiate_dim.hpp
 	src/image/view/instantiate_flipped.hpp
-	src/image/view/instantiate_flipped_const.hpp
 	src/image/view/instantiate_make.hpp
 	src/image/view/instantiate_make_const.hpp
 	src/image/view/instantiate_sub.hpp
-	src/image/view/instantiate_sub_const.hpp
 	src/image/view/instantiate_to_const.hpp
 	src/image/view/make_const_impl.hpp
 	src/image/view/make_impl.hpp

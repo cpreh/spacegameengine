@@ -18,26 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_INSTANTIATE_FLIPPED_CONST_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_INSTANTIATE_FLIPPED_CONST_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_DIM_ANY_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_DIM_ANY_HPP_INCLUDED
 
-#include "flipped_impl.hpp"
-#include <sge/image/traits/const_view.hpp>
-#include <fcppt/export_symbol.hpp>
+#include "dim_visitor.hpp"
+#include <sge/image/traits/dim.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-#define SGE_IMAGE_VIEW_INSTANTIATE_FLIPPED_CONST(\
-	tag\
-) \
-template FCPPT_EXPORT_SYMBOL \
-sge::image::traits::const_view<\
-	tag\
->::type const \
-sge::image::view::flipped<\
-	tag \
->(\
-	sge::image::traits::const_view<\
-		tag\
-	>::type const &\
+namespace sge
+{
+namespace image
+{
+namespace view
+{
+
+template<
+	typename Tag,
+	typename View
+>
+typename sge::image::traits::dim<
+	Tag
+>::type const
+dim_any(
+	View const &_view
 )
+{
+	return
+		fcppt::variant::apply_unary(
+			sge::image::view::dim_visitor<
+				typename sge::image::traits::dim<
+					Tag
+				>::type
+			>(),
+			_view
+		);
+}
+
+}
+}
+}
 
 #endif

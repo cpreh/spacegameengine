@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_DIM_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_DIM_HPP_INCLUDED
 
-#include "dim_visitor.hpp"
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/image/traits/dim.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/view.hpp>
+#include <sge/image/instantiate_symbol.hpp>
 
 namespace sge
 {
@@ -33,22 +34,30 @@ namespace view
 {
 
 template<
-	typename Dim,
-	typename View
+	typename Tag
 >
-Dim const
+SGE_IMAGE_INSTANTIATE_SYMBOL
+typename image::traits::dim<
+	Tag
+>::type const
 dim(
-	View const &_view
-)
-{
-	return
-		fcppt::variant::apply_unary(
-			sge::image::view::dim_visitor<
-				Dim
-			>(),
-			_view
-		);
-}
+	typename image::traits::view<
+		Tag
+	>::type const &
+);
+
+template<
+	typename Tag
+>
+SGE_IMAGE_INSTANTIATE_SYMBOL
+typename image::traits::dim<
+	Tag
+>::type const
+dim(
+	typename image::traits::const_view<
+		Tag
+	>::type const &
+);
 
 }
 }
