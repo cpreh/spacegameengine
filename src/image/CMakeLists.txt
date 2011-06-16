@@ -139,6 +139,7 @@ SET(
 	src/image/view/instantiate_make.hpp
 	src/image/view/instantiate_make_const.hpp
 	src/image/view/instantiate_sub.hpp
+	src/image/view/instantiate_sub_out_of_range.hpp
 	src/image/view/instantiate_to_const.hpp
 	src/image/view/make_const_impl.hpp
 	src/image/view/make_impl.hpp

@@ -18,12 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/sub_out_of_range_impl.hpp"
+#include "../../image/view/instantiate_sub_out_of_range.hpp"
 #include <sge/image3d/view/sub_out_of_range.hpp>
-#include <sge/image3d/box.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/image3d/tag.hpp>
 
-template FCPPT_EXPORT_SYMBOL class
-sge::image::view::sub_out_of_range<
-	sge::image3d::box
->;
+SGE_IMAGE_VIEW_INSTANTIATE_SUB_OUT_OF_RANGE(
+	sge::image3d::tag
+)
