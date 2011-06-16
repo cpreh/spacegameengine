@@ -18,25 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
-#define SGE_IMAGE3D_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_SUB_OUT_OF_RANGE_IMPL_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_SUB_OUT_OF_RANGE_IMPL_HPP_INCLUDED
 
-#include <sge/image3d/box.hpp>
 #include <sge/image/view/sub_out_of_range.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/format.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
+template<
+	typename Box
+>
+sge::image::view::sub_out_of_range<Box>::sub_out_of_range(
+	Box const &_outer,
+	Box const &_inner
+)
+:
+	sge::image::exception(
+		(
+			fcppt::format(
+				FCPPT_TEXT("sub_out_of_range: %1% not in %2%!")		
+			)
+			% _inner
+			% _outer
+		).str()
+	),
+	outer_(_outer),
+	inner_(_inner)
 {
-namespace image3d
-{
-namespace view
-{
-
-typedef sge::image::view::sub_out_of_range<
-	sge::image3d::box
-> sub_out_of_range;
-
 }
+
+template<
+	typename Box
+>
+Box const &
+sge::image::view::sub_out_of_range<Box>::outer() const
+{
+	return outer_;
 }
+
+template<
+	typename Box
+>
+Box const &
+sge::image::view::sub_out_of_range<Box>::inner() const
+{
+	return inner_;
+}
+
+template<
+	typename Box
+>
+sge::image::view::sub_out_of_range<Box>::~sub_out_of_range() throw()
+{
 }
 
 #endif

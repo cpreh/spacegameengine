@@ -18,42 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#define SGE_IMAGE_INSTANTIATE_EXPORTS
+
+#include "../../image/view/sub_out_of_range_impl.hpp"
 #include <sge/image2d/view/sub_out_of_range.hpp>
-#include <fcppt/math/box/output.hpp>
-#include <fcppt/format.hpp>
-#include <fcppt/text.hpp>
+#include <sge/image2d/rect.hpp>
+#include <fcppt/export_symbol.hpp>
 
-sge::image2d::view::sub_out_of_range::sub_out_of_range(
-	sge::image2d::rect const &_outer,
-	sge::image2d::rect const &_inner
-)
-:
-	sge::image::exception(
-		(
-			fcppt::format(
-				FCPPT_TEXT("sub_out_of_range: %1% not in %2%!")		
-			)
-			% _inner
-			% _outer
-		).str()
-	),
-	outer_(_outer),
-	inner_(_inner)
-{
-}
-
-sge::image2d::rect const &
-sge::image2d::view::sub_out_of_range::outer() const
-{
-	return outer_;
-}
-
-sge::image2d::rect const &
-sge::image2d::view::sub_out_of_range::inner() const
-{
-	return inner_;
-}
-
-sge::image2d::view::sub_out_of_range::~sub_out_of_range() throw()
-{
-}
+template FCPPT_EXPORT_SYMBOL class
+sge::image::view::sub_out_of_range<
+	sge::image2d::rect
+>;

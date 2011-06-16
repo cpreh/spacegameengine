@@ -95,6 +95,7 @@ SET(
 	include/sge/image/view/make.hpp
 	include/sge/image/view/make_const.hpp
 	include/sge/image/view/sub.hpp
+	include/sge/image/view/sub_out_of_range.hpp
 	include/sge/image/view/to_const.hpp
 	include/sge/image/view/view.hpp
 	src/image/algorithm/copy_and_convert_impl.hpp
@@ -137,6 +138,7 @@ SET(
 	src/image/view/make_impl.hpp
 	src/image/view/make_visitor.hpp
 	src/image/view/sub_impl.hpp
+	src/image/view/sub_out_of_range_impl.hpp
 	src/image/view/sub_visitor.hpp
 	src/image/view/to_const_impl.hpp
 	src/image/view/to_const_visitor.hpp

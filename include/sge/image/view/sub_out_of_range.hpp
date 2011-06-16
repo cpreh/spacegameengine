@@ -18,22 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
-#define SGE_IMAGE3D_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
-#include <sge/image3d/box.hpp>
-#include <sge/image/view/sub_out_of_range.hpp>
+#include <sge/image/exception.hpp>
+#include <sge/image/instantiate_symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 
 namespace sge
 {
-namespace image3d
+namespace image
 {
 namespace view
 {
 
-typedef sge::image::view::sub_out_of_range<
-	sge::image3d::box
-> sub_out_of_range;
+template<
+	typename Box
+>
+class SGE_CLASS_SYMBOL sub_out_of_range
+:
+	public sge::image::exception
+{
+public:
+	SGE_IMAGE_INSTANTIATE_SYMBOL 
+	sub_out_of_range(
+		Box const &outer,
+		Box const &inner
+	);
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL 
+	Box const &
+	outer() const;
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL 
+	Box const &
+	inner() const;
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL 
+	virtual ~sub_out_of_range() throw();
+private:
+	Box
+		outer_,
+		inner_;
+};
 
 }
 }

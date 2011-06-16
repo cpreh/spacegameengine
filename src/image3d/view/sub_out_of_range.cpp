@@ -18,25 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
-#define SGE_IMAGE3D_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
+#define SGE_IMAGE_INSTANTIATE_EXPORTS
 
+#include "../../image/view/sub_out_of_range_impl.hpp"
+#include <sge/image3d/view/sub_out_of_range.hpp>
 #include <sge/image3d/box.hpp>
-#include <sge/image/view/sub_out_of_range.hpp>
+#include <fcppt/export_symbol.hpp>
 
-namespace sge
-{
-namespace image3d
-{
-namespace view
-{
-
-typedef sge::image::view::sub_out_of_range<
+template FCPPT_EXPORT_SYMBOL class
+sge::image::view::sub_out_of_range<
 	sge::image3d::box
-> sub_out_of_range;
-
-}
-}
-}
-
-#endif
+>;

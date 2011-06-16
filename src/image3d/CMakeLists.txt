@@ -40,6 +40,7 @@ SET(
 	src/image3d/view/make.cpp
 	src/image3d/view/make_const.cpp
 	src/image3d/view/sub.cpp
+	src/image3d/view/sub_out_of_range.cpp
 	src/image3d/view/to_const.cpp
 )
 
