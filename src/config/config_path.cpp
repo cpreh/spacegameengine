@@ -19,8 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "try_create_path.hpp"
-#include <sge/config/find_cache_path.hpp>
+#include <sge/config/config_path.hpp>
 #include <sge/config/optional_string.hpp>
+#include <sge/config/exception.hpp>
+#include <fcppt/filesystem/exists.hpp>
+#include <fcppt/filesystem/is_directory.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/platform.hpp>
 #if defined(FCPPT_POSIX_PLATFORM)
@@ -32,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 
 fcppt::filesystem::path const
-sge::config::find_cache_path(
+sge::config::config_path(
 	fcppt::string const &_appname
 )
 {
@@ -47,18 +51,18 @@ sge::config::find_cache_path(
 			/ _appname
 		);
 #elif defined(FCPPT_POSIX_PLATFORM)
-	optional_string const xdg_cache_path(
+	optional_string const xdg_config_path(
 		config::getenv(
-			FCPPT_TEXT("XDG_CACHE_HOME")
+			FCPPT_TEXT("XDG_CONFIG_HOME")
 		)
 	);
 
 	fcppt::filesystem::path const path(
-		xdg_cache_path
+		xdg_config_path
 		?
-			*xdg_cache_path
+			*xdg_config_path
 		:
-			config::homedir() / FCPPT_TEXT(".cache")
+			config::homedir() / FCPPT_TEXT(".config")
 	);
 	
 	return
@@ -67,6 +71,6 @@ sge::config::find_cache_path(
 			/ _appname
 		);
 #else
-#error "don't know how to find a cache path"
+#error "don't know how to find a config path"
 #endif
 }

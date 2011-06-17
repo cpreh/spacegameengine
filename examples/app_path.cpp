@@ -18,22 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONFIG_APPDIR_HPP_INCLUDED
-#define SGE_CONFIG_APPDIR_HPP_INCLUDED
+#include <sge/config/app_path.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/text.hpp>
+#include <exception>
+#include <cstdlib>
+#include <iostream>
+#include <ostream>
 
-#include <sge/config/symbol.hpp>
-#include <fcppt/filesystem/path.hpp>
-
-namespace sge
+int main()
+try
 {
-namespace config
+	fcppt::io::cout
+		<< sge::config::app_path()
+		<< FCPPT_TEXT('\n');
+}
+catch(
+	std::exception const &_exception
+)
 {
+	std::cerr << _exception.what() << '\n';
 
-SGE_CONFIG_SYMBOL
-fcppt::filesystem::path const
-appdir();
-
+	return EXIT_FAILURE;
 }
-}
-
-#endif

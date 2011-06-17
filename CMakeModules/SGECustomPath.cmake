@@ -9,7 +9,7 @@ file(
 #cmakedefine SGE_CONFIG_WINDOWS_LOCAL_PACKAGE
 
 #if defined(SGE_CONFIG_WINDOWS_LOCAL_PACKAGE)
-#include <sge/config/appdir.hpp>
+#include <sge/config/app_path.hpp>
 #endif
 
 #include <fcppt/filesystem/path.hpp>
@@ -39,7 +39,7 @@ build_@SGE_CONFIG_PATH_NAME@_path()
 			\"@SGE_CONFIG_INSTALL_PATH@\"
 		)
 #elif defined(SGE_CONFIG_WINDOWS_LOCAL_PACKAGE)
-		sge::config::appdir()
+		sge::config::app_path()
 		/
 		\"@SGE_CONFIG_LIBRARY_NAME@\"
 		/

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/appdir.hpp>
+#include <sge/config/app_path.hpp>
 #include <sge/config/exception.hpp>
 #include <fcppt/platform.hpp>
 #include <fcppt/text.hpp>
@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 
 fcppt::filesystem::path const
-sge::config::appdir()
+sge::config::app_path()
 {
 #if defined(FCPPT_WINDOWS_PLATFORM)
 	typedef fcppt::container::raw_vector<

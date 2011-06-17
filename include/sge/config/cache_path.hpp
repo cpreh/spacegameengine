@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONFIG_FIND_CACHE_PATH_HPP_INCLUDED
-#define SGE_CONFIG_FIND_CACHE_PATH_HPP_INCLUDED
+#ifndef SGE_CONFIG_CACHE_PATH_HPP_INCLUDED
+#define SGE_CONFIG_CACHE_PATH_HPP_INCLUDED
 
 #include <sge/config/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
@@ -29,11 +29,13 @@ namespace sge
 {
 namespace config
 {
+
 SGE_CONFIG_SYMBOL
 fcppt::filesystem::path const
-find_cache_path(
+cache_path(
 	fcppt::string const &appname
 );
+
 }
 }
 

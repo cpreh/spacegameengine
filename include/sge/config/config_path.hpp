@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONFIG_FIND_CONFIG_PATH_HPP_INCLUDED
-#define SGE_CONFIG_FIND_CONFIG_PATH_HPP_INCLUDED
+#ifndef SGE_CONFIG_CONFIG_PATH_HPP_INCLUDED
+#define SGE_CONFIG_CONFIG_PATH_HPP_INCLUDED
 
 #include <sge/config/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
@@ -32,7 +32,7 @@ namespace config
 
 SGE_CONFIG_SYMBOL
 fcppt::filesystem::path const
-find_config_path(
+config_path(
 	fcppt::string const &appname
 );
 

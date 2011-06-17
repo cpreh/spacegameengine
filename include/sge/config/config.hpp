@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONFIG_CONFIG_HPP_INCLUDED
 #define SGE_CONFIG_CONFIG_HPP_INCLUDED
 
-#include <sge/config/appdir.hpp>
+#include <sge/config/app_path.hpp>
+#include <sge/config/cache_path.hpp>
+#include <sge/config/config_path.hpp>
 #include <sge/config/exception.hpp>
-#include <sge/config/find_cache_path.hpp>
-#include <sge/config/find_config_path.hpp>
 #include <sge/config/getenv.hpp>
 #include <sge/config/getenv_exn.hpp>
 #include <sge/config/homedir.hpp>
