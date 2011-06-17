@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/algorithm/print.hpp"
+#include "../../image/algorithm/print_impl.hpp"
+#include "../../image/algorithm/instantiate_print.hpp"
 #include <sge/image2d/algorithm/print.hpp>
+#include <sge/image2d/tag.hpp>
 
 void
 sge::image2d::algorithm::print(
@@ -27,8 +29,14 @@ sge::image2d::algorithm::print(
 	view::const_object const &_view
 )
 {
-	sge::image::algorithm::print(
+	sge::image::algorithm::print<
+		sge::image2d::tag
+	>(
 		_ostream,
 		_view
 	);
 }
+
+SGE_IMAGE_ALGORITHM_INSTANTIATE_PRINT(
+	sge::image2d::tag
+)

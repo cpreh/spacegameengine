@@ -41,6 +41,6 @@ sge::image::algorithm::copy_and_convert< \
 	sge::image::traits::view<\
 		tag\
 	>::type const & \
-)
+);
 
 #endif

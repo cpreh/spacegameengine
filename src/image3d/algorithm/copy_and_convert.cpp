@@ -39,4 +39,4 @@ sge::image3d::algorithm::copy_and_convert(
 
 SGE_IMAGE_ALGORITHM_INSTANTIATE_COPY_AND_CONVERT(
 	sge::image3d::tag
-);
+)

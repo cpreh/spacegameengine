@@ -18,25 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/algorithm/fill_impl.hpp"
-#include "../../image/algorithm/instantiate_fill.hpp"
-#include <sge/image2d/algorithm/fill.hpp>
-#include <sge/image2d/tag.hpp>
+#ifndef SGE_IMAGE_ALGORITHM_FILL_HPP_INCLUDED
+#define SGE_IMAGE_ALGORITHM_FILL_HPP_INCLUDED
 
-void
-sge::image2d::algorithm::fill(
-	view::object const &_dest,
-	image::color::any::object const &_col
-)
+#include <sge/image/color/any/object.hpp>
+#include <sge/image/traits/view.hpp>
+#include <sge/image/instantiate_symbol.hpp>
+
+namespace sge
 {
-	sge::image::algorithm::fill<
-		sge::image2d::tag
-	>(
-		_dest,
-		_col
-	);
+namespace image
+{
+namespace algorithm 
+{
+
+template<
+	typename Tag
+>
+SGE_IMAGE_INSTANTIATE_SYMBOL
+void
+fill(
+	typename image::traits::view<
+		Tag	
+	>::type const &,
+	image::color::any::object const &
+);
+
+}
+}
 }
 
-SGE_IMAGE_ALGORITHM_INSTANTIATE_FILL(
-	sge::image2d::tag
-)
+#endif

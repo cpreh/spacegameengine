@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/algorithm/fill_impl.hpp"
-#include "../../image/algorithm/instantiate_fill.hpp"
-#include <sge/image2d/algorithm/fill.hpp>
-#include <sge/image2d/tag.hpp>
+#include "../../image/algorithm/print_impl.hpp"
+#include "../../image/algorithm/instantiate_print.hpp"
+#include <sge/image3d/algorithm/print.hpp>
+#include <sge/image3d/tag.hpp>
 
 void
-sge::image2d::algorithm::fill(
-	view::object const &_dest,
-	image::color::any::object const &_col
+sge::image3d::algorithm::print(
+	fcppt::io::ostream &_ostream,
+	view::const_object const &_view
 )
 {
-	sge::image::algorithm::fill<
-		sge::image2d::tag
+	sge::image::algorithm::print<
+		sge::image3d::tag
 	>(
-		_dest,
-		_col
+		_ostream,
+		_view
 	);
 }
 
-SGE_IMAGE_ALGORITHM_INSTANTIATE_FILL(
-	sge::image2d::tag
+SGE_IMAGE_ALGORITHM_INSTANTIATE_PRINT(
+	sge::image3d::tag
 )

@@ -18,28 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_PRINT_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_PRINT_HPP_INCLUDED
+#ifndef SGE_IMAGE_ALGORITHM_PRINT_IMPL_HPP_INCLUDED
+#define SGE_IMAGE_ALGORITHM_PRINT_IMPL_HPP_INCLUDED
 
+#define SGE_IMAGE_INSTANTIATE_EXPORTS
+#include <sge/image/algorithm/print.hpp>
+#undef SGE_IMAGE_INSTANTIATE_EXPORTS
 #include "print_visitor.hpp"
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/io/ostream.hpp>
-
-namespace sge
-{
-namespace image
-{
-namespace algorithm
-{
 
 template<
-	typename View
+	typename Tag
 >
 void
-print(
+sge::image::algorithm::print(
 	fcppt::io::ostream &_ostream,
-	View const &_view
+	typename image::traits::const_view<
+		Tag
+	>::type const &_view
 )
 {
 	fcppt::variant::apply_unary(
@@ -48,10 +45,6 @@ print(
 		),
 		_view
 	);
-}
-
-}
-}
 }
 
 #endif

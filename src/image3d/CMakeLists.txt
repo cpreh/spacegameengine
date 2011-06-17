@@ -32,6 +32,8 @@ SET(
 	include/sge/image3d/view/to_const.hpp
 	include/sge/image3d/view/view.hpp
 	src/image3d/algorithm/copy_and_convert.cpp
+	src/image3d/algorithm/fill.cpp
+	src/image3d/algorithm/print.cpp
 	src/image3d/rgba32f.cpp
 	src/image3d/rgba8.cpp
 	src/image3d/view/checked_sub.cpp

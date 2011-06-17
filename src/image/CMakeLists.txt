@@ -4,6 +4,8 @@ SET(
 	include/sge/image/algorithm/copy_and_convert.hpp
 	include/sge/image/algorithm/detail/transform_binary.hpp
 	include/sge/image/algorithm/detail/transform_unary.hpp
+	include/sge/image/algorithm/fill.hpp
+	include/sge/image/algorithm/print.hpp
 	include/sge/image/alpha8_format.hpp
 	include/sge/image/argb32f_format.hpp
 	include/sge/image/argb8_format.hpp
@@ -96,6 +98,7 @@ SET(
 	include/sge/image/view/data.hpp
 	include/sge/image/view/dim.hpp
 	include/sge/image/view/flipped.hpp
+	include/sge/image/view/format.hpp
 	include/sge/image/view/make.hpp
 	include/sge/image/view/make_const.hpp
 	include/sge/image/view/sub.hpp
@@ -104,10 +107,12 @@ SET(
 	include/sge/image/view/view.hpp
 	src/image/algorithm/copy_and_convert_impl.hpp
 	src/image/algorithm/copy_and_convert_visitor.hpp
-	src/image/algorithm/fill.hpp
+	src/image/algorithm/fill_impl.hpp
 	src/image/algorithm/fill_visitor.hpp
 	src/image/algorithm/instantiate_copy_and_convert.hpp
-	src/image/algorithm/print.hpp
+	src/image/algorithm/instantiate_fill.hpp
+	src/image/algorithm/instantiate_print.hpp
+	src/image/algorithm/print_impl.hpp
 	src/image/algorithm/print_visitor.hpp
 	src/image/color/any/convert.cpp
 	src/image/color/any/print.cpp
@@ -132,13 +137,15 @@ SET(
 	src/image/view/dim_visitor.hpp
 	src/image/view/flipped_impl.hpp
 	src/image/view/flipped_visitor.hpp
-	src/image/view/format.hpp
+	src/image/view/format_any.hpp
+	src/image/view/format_impl.hpp
 	src/image/view/format_visitor.hpp
 	src/image/view/instantiate_checked_sub.hpp
 	src/image/view/instantiate_const_nonconst.hpp
 	src/image/view/instantiate_data.hpp
 	src/image/view/instantiate_dim.hpp
 	src/image/view/instantiate_flipped.hpp
+	src/image/view/instantiate_format.hpp
 	src/image/view/instantiate_make.hpp
 	src/image/view/instantiate_make_const.hpp
 	src/image/view/instantiate_sub.hpp

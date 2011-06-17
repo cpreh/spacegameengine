@@ -22,5 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_ALGORITHM_ALGORITHM_HPP_INCLUDED
 
 #include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image/algorithm/fill.hpp>
+#include <sge/image/algorithm/print.hpp>
 
 #endif

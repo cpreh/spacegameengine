@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_VIEW_FORMAT_HPP_INCLUDED
 
 #include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/symbol.hpp>
 #include <sge/image/color/format.hpp>
 
@@ -31,6 +32,12 @@ namespace image2d
 {
 namespace view
 {
+
+SGE_IMAGE2D_SYMBOL
+image::color::format::type
+format(
+	view::object const &
+);
 
 SGE_IMAGE2D_SYMBOL
 image::color::format::type

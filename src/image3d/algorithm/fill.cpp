@@ -20,17 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../image/algorithm/fill_impl.hpp"
 #include "../../image/algorithm/instantiate_fill.hpp"
-#include <sge/image2d/algorithm/fill.hpp>
-#include <sge/image2d/tag.hpp>
+#include <sge/image3d/algorithm/fill.hpp>
+#include <sge/image3d/tag.hpp>
 
 void
-sge::image2d::algorithm::fill(
+sge::image3d::algorithm::fill(
 	view::object const &_dest,
 	image::color::any::object const &_col
 )
 {
 	sge::image::algorithm::fill<
-		sge::image2d::tag
+		sge::image3d::tag
 	>(
 		_dest,
 		_col
@@ -38,5 +38,5 @@ sge::image2d::algorithm::fill(
 }
 
 SGE_IMAGE_ALGORITHM_INSTANTIATE_FILL(
-	sge::image2d::tag
+	sge::image3d::tag
 )

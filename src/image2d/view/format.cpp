@@ -18,16 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/format.hpp"
+#include "../../image/view/format_impl.hpp"
+#include "../../image/view/instantiate_format.hpp"
 #include <sge/image2d/view/format.hpp>
+#include <sge/image2d/tag.hpp>
 
 sge::image::color::format::type
 sge::image2d::view::format(
-	const_object const &_view
+	view::object const &_view
 )
 {
 	return
-		sge::image::view::format(
+		sge::image::view::format<
+			sge::image2d::tag
+		>(
 			_view
 		);
 }
+
+sge::image::color::format::type
+sge::image2d::view::format(
+	view::const_object const &_view
+)
+{
+	return
+		sge::image::view::format<
+			sge::image2d::tag
+		>(
+			_view
+		);
+}
+
+SGE_IMAGE_VIEW_INSTANTIATE_FORMAT(
+	sge::image2d::tag
+)

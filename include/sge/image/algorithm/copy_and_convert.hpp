@@ -33,16 +33,16 @@ namespace algorithm
 {
 
 template<
-	typename Traits
+	typename Tag
 >
 SGE_IMAGE_INSTANTIATE_SYMBOL
 void
 copy_and_convert(
 	typename image::traits::const_view<
-		Traits
+		Tag
 	>::type const &,
 	typename image::traits::view<
-		Traits
+		Tag
 	>::type const &
 );
 
