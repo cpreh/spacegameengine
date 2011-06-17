@@ -1,37 +1,79 @@
+# - Try to find GLEW library and include path.
 #
-# Try to find GLEW library and include path.
-# Once done this will define
+# This module defines the following variables
 #
-# GLEW_FOUND
-# GLEW_INCLUDE_PATH
-# GLEW_LIBRARY
+# 	GLEW_FOUND
+#	GLEW_DEFINITIONS
+# 	GLEW_INCLUDE_DIRS
+# 	GLEW_LIBRARRIES
 #
+# This module accepts the following variables as input
+#
+#	GLEW_WANT_STATIC_LINK
+#	GLEW_INCLUDEDIR
+#	GLEW_LIBRARYDIR
 
-FIND_PATH(
-	GLEW_INCLUDE_PATH
+find_path(
+	GLEW_INCLUDE_DIR
 	NAMES GL/glew.h
-	PATHS ${GLEW_ROOT}/include
+	HINTS ${GLEW_INCLUDEDIR}
 )
 
-IF(WIN32)
-	FIND_LIBRARY(
-		GLEW_LIBRARY
-		NAMES GLEW glew glew32 glew32s
-		PATHS ${GLEW_ROOT}/lib
+if(
+	WIN32
+)
+	if(
+		GLEW_WANT_STATIC_LINK
 	)
-ELSE()
-	FIND_LIBRARY(
-		GLEW_LIBRARY
-		NAMES GLEW glew
-		PATHS ${GLEW_ROOT}/lib
+		set(
+			GLEW_NAMES "glew32s"
+		)
+	else()
+		set(
+			GLEW_NAMES "glew32"
+		)
+	endif()
+else()
+	set(
+		GLEW_NAMES "GLEW"
 	)
-ENDIF()
+endif()
 
-INCLUDE(FindPackageHandleStandardArgs)
+if(
+	GLEW_WANT_STATIC_LINK
+)
+	set(
+		GLEW_DEFINITIONS "-D GLEW_STATIC"
+	)
+endif()
 
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(
+find_library(
+	GLEW_LIBRARY
+	NAMES ${GLEW_NAMES}
+	PATHS ${GLEW_LIBRARYDIR}
+)
+
+include(
+	FindPackageHandleStandardArgs
+)
+
+unset(
+	GLEW_NAMES
+)
+
+find_package_handle_standard_args(
 	GLEW
 	DEFAULT_MSG
-	GLEW_INCLUDE_PATH
+	GLEW_INCLUDE_DIR
 	GLEW_LIBRARY
+)
+
+set(
+	GLEW_INCLUDE_DIRS
+	"${GLEW_INCLUDE_DIR}"
+)
+
+set(
+	GLEW_LIBRARIES
+	"${GLEW_LIBRARY}"
 )
