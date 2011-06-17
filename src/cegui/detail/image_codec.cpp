@@ -38,6 +38,10 @@ sge::cegui::detail::image_codec::image_codec(
 {
 }
 
+sge::cegui::detail::image_codec::~image_codec()
+{
+}
+
 CEGUI::Texture *
 sge::cegui::detail::image_codec::load(
 	CEGUI::RawDataContainer const &data,

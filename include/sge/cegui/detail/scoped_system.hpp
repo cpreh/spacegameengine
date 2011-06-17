@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/renderer_fwd.hpp>
 #include <sge/cegui/detail/image_codec_fwd.hpp>
 #include <sge/cegui/detail/resource_provider_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -33,6 +34,9 @@ namespace detail
 {
 class scoped_system
 {
+	FCPPT_NONCOPYABLE(
+		scoped_system
+	);
 public:
 	explicit
 	scoped_system(

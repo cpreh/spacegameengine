@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DETAIL_CEGUI_LOGGER_HPP_INCLUDED
 #define SGE_CEGUI_DETAIL_CEGUI_LOGGER_HPP_INCLUDED
 
+#include <fcppt/noncopyable.hpp>
 #include <CEGUILogger.h>
 
 namespace sge
@@ -33,7 +34,14 @@ class cegui_logger
 :
 	public CEGUI::Logger
 {
+	FCPPT_NONCOPYABLE(
+		cegui_logger
+	);
 public:
+	cegui_logger();
+
+	~cegui_logger();
+
 	void 
 	logEvent(
 		CEGUI::String const & message, 
