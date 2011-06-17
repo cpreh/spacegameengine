@@ -1,18 +1,23 @@
-if(
-	CMAKE_INSTALL_PREFIX STREQUAL ""
-)
-	set(
-		SGE_LOCAL_BUILD TRUE
-	)
-endif()
-
-configure_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/paths.hpp.in
-	${CMAKE_CURRENT_BINARY_DIR}/include/sge/config/paths.hpp
+include(
+	SGECustomPath
 )
 
 include_directories(
-	${CMAKE_CURRENT_BINARY_DIR}/include
+	${CMAKE_BINARY_DIR}/include
+)
+
+SGE_CONFIG_ADD_CUSTOM_PATH(
+	sge
+	media
+	${SGE_MEDIA_BUILD_PATH}
+	${SGE_MEDIA_INSTALL_PATH}
+)
+
+SGE_CONFIG_ADD_CUSTOM_PATH(
+	sge
+	plugin
+	${SGE_PLUGIN_BUILD_PATH}
+	${SGE_PLUGIN_INSTALL_PATH}
 )
 
 SET(
@@ -22,35 +27,23 @@ SET(
 	include/sge/config/exception.hpp
 	include/sge/config/find_cache_path.hpp
 	include/sge/config/find_config_path.hpp
-	include/sge/config/find_path.hpp
-	include/sge/config/find_path_exn.hpp
 	include/sge/config/getenv.hpp
 	include/sge/config/getenv_exn.hpp
 	include/sge/config/homedir.hpp
-	include/sge/config/make_files.hpp
 	include/sge/config/media_path.hpp
 	include/sge/config/no_such_env_var.hpp
-	include/sge/config/optional_path.hpp
 	include/sge/config/optional_string.hpp
-	include/sge/config/path_not_found.hpp
-	include/sge/config/path_vector.hpp
 	include/sge/config/plugin_path.hpp
 	include/sge/config/symbol.hpp
 	src/config/appdir.cpp
 	src/config/exception.cpp
 	src/config/find_cache_path.cpp
 	src/config/find_config_path.cpp
-	src/config/find_own_path.cpp
-	src/config/find_own_path.hpp
-	src/config/find_path.cpp
-	src/config/find_path_exn.cpp
 	src/config/getenv.cpp
 	src/config/getenv_exn.cpp
 	src/config/homedir.cpp
-	src/config/make_files.cpp
 	src/config/media_path.cpp
 	src/config/no_such_env_var.cpp
-	src/config/path_not_found.cpp
 	src/config/plugin_path.cpp
 	src/config/try_create_path.cpp
 	src/config/try_create_path.hpp
@@ -58,5 +51,5 @@ SET(
 
 ADD_SGE_BASE_LIBRARY(
 	config
-	"sgeparse"
+	""
 )

@@ -155,6 +155,7 @@ INSTALL(
 	FILES
 	${CMAKE_SOURCE_DIR}/CMakeModules/FindSGE.cmake
 	${CMAKE_SOURCE_DIR}/CMakeModules/FindCEGUI.cmake
+	${CMAKE_SOURCE_DIR}/CMakeModules/SGECustomPath.cmake
 	DESTINATION
 	${INSTALL_CMAKEMODULES_DIR}
 )

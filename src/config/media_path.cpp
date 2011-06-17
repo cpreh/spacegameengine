@@ -18,25 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "find_own_path.hpp"
-#include <sge/config/paths.hpp>
+#include <sge/build/media_path.hpp>
 #include <sge/config/media_path.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/text.hpp>
 
 fcppt::filesystem::path const
 sge::config::media_path()
 {
 	return
-		config::find_own_path(
-			FCPPT_TEXT("media_path"),
-			fcppt::assign::make_container<
-				sge::config::path_vector
-			>(
-				fcppt::from_std_string(
-					SGE_MEDIA_PATH
-				)
-			)
-		);
+		sge::build_media_path();
 }
