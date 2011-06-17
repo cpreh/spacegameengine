@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <fcppt/log/activate_levels.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/type_name.hpp>
@@ -102,10 +103,22 @@ try
 	);
 }
 catch(
+	fcppt::exception const &_exception
+)
+{
+	fcppt::io::cerr
+		<< _exception.string()
+		<< FCPPT_TEXT('\n');
+	
+	return EXIT_FAILURE;
+}
+catch(
 	std::exception const &_exception
 )
 {
-	std::cerr << _exception.what() << '\n';
+	std::cerr
+		<< _exception.what()
+		<< '\n';
 
 	return EXIT_FAILURE;
 }

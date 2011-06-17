@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "find_own_path.hpp"
-#include <sge/config/config_paths.hpp>
+#include <sge/config/paths.hpp>
 #include <sge/config/plugin_path.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -28,27 +28,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 fcppt::filesystem::path const
 sge::config::plugin_path()
 {
-	static fcppt::filesystem::path const ret(
+	return
 		config::find_own_path(
 			FCPPT_TEXT("plugin_path"),
 			fcppt::assign::make_container<
 				sge::config::path_vector
 			>(
 				fcppt::from_std_string(
-					SGE_PLUGIN_INSTALL_PATH
-				)
-			)
-			(
-				fcppt::from_std_string(
-					SGE_PLUGIN_BUILD_PATH
+					SGE_PLUGIN_PATH
 // VC++ puts the binaries inside ${LIBRARY_OUTPUT_PATH}/Release or Debug
-#ifdef _MSC_VER
+#if defined(SGE_LOCAL_BUILD) && defined(_MSC_VER)
 					"/" CMAKE_INTDIR
 #endif
 				)
 			)
-		)
-	);
-
-	return ret;
+		);
 }

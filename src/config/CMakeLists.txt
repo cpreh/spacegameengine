@@ -1,10 +1,18 @@
-CONFIGURE_FILE(
-	${CMAKE_SOURCE_DIR}/config_paths.hpp.in
-	${CMAKE_BINARY_DIR}/include/sge/config/config_paths.hpp
+if(
+	CMAKE_INSTALL_PREFIX STREQUAL ""
+)
+	set(
+		SGE_LOCAL_BUILD TRUE
+	)
+endif()
+
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/paths.hpp.in
+	${CMAKE_CURRENT_BINARY_DIR}/include/sge/config/paths.hpp
 )
 
-INCLUDE_DIRECTORIES(
-	${CMAKE_BINARY_DIR}/include
+include_directories(
+	${CMAKE_CURRENT_BINARY_DIR}/include
 )
 
 SET(
