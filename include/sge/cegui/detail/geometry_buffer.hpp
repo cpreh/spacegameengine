@@ -63,62 +63,62 @@ public:
 		sge::renderer::device &,
 		sge::renderer::vertex_declaration &);
 
-	void 
+	void
 	draw() const;
 
-	void 
+	void
 	setTranslation(
 		CEGUI::Vector3 const & v);
 
-	void 
+	void
 	setRotation(
 		CEGUI::Vector3 const &);
 
-	void 
+	void
 	setPivot(
 		CEGUI::Vector3 const &);
 
-	void 
+	void
 	setClippingRegion(
 		CEGUI::Rect const &);
 
-	void 
+	void
 	appendVertex(
 		CEGUI::Vertex const &);
 
-	void 
+	void
 	appendGeometry(
-		CEGUI::Vertex const *,
+		CEGUI::Vertex const *const, // const for VC++
 		CEGUI::uint vertex_count);
 
-	void 
+	void
 	setActiveTexture(
 		CEGUI::Texture*);
 
-	void 
+	void
 	reset();
 
-	CEGUI::Texture* 
+	CEGUI::Texture*
 	getActiveTexture() const;
 
-	CEGUI::uint 
+	CEGUI::uint
 	getVertexCount() const;
 
-	CEGUI::uint 
+	CEGUI::uint
 	getBatchCount() const;
 
-	void 
+	void
 	setRenderEffect(
 		CEGUI::RenderEffect*);
 
-	CEGUI::RenderEffect* 
+	CEGUI::RenderEffect*
 	getRenderEffect();
 
-	void 
+	void
 	setBlendMode(
-		CEGUI::BlendMode);
+		CEGUI::BlendMode const); // const for VC++
 
-	CEGUI::BlendMode 
+	CEGUI::BlendMode
 	getBlendMode() const;
 
 	~geometry_buffer();

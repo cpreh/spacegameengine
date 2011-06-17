@@ -37,8 +37,16 @@ sge::d3d9::devicefuncs::create_offscreen_plain_surface(
 
 	if(
 		_device->CreateOffscreenPlainSurface(
-			_dim.w(),
-			_dim.h(),
+			static_cast<
+				UINT
+			>(
+				_dim.w()
+			),
+			static_cast<
+				UINT
+			>(
+				_dim.h()
+			),
 			d3d9::convert::color_format(
 				_format
 			),
