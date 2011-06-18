@@ -94,37 +94,41 @@ sge::opengl::set_material(
 	renderer::material const &_material
 )
 {
-	GLenum const face = GL_FRONT_AND_BACK;
+	GLenum const face(
+		GL_FRONT_AND_BACK
+	);
 
 	::material_color(
 		face,
 		GL_AMBIENT,
-		_material.ambient()
+		_material.ambient().get()
 	);
 
 	::material_color(
 		face,
 		GL_DIFFUSE,
-		_material.diffuse()
+		_material.diffuse().get()
 	);
 
 	::material_color(
 		face,
 		GL_SPECULAR,
-		_material.specular()
+		_material.specular().get()
 	);
 
 	::material_color(
 		face,
 		GL_EMISSION,
-		_material.emissive()
+		_material.emissive().get()
 	);
 
 	::materialf(
 		face,
 		GL_SHININESS,
-		static_cast<GLfloat>(
-			_material.power()
+		static_cast<
+			GLfloat
+		>(
+			_material.shininess().get()
 		)
 	);
 }
