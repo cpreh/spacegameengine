@@ -18,32 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_enable.hpp"
-#include "../../convert/light/index.hpp"
-#include "../../convert/bool.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_CONVERT_LIGHT_VISITOR_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_LIGHT_VISITOR_HPP_INCLUDED
 
-void
-sge::d3d9::devicefuncs::light_enable(
-	IDirect3DDevice9 *const _device,
-	sge::renderer::light::index const _index,
-	bool const _enable
-)
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/light/directional_fwd.hpp>
+#include <sge/renderer/light/point_fwd.hpp>
+#include <sge/renderer/light/spot_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
+
+namespace sge
 {
-	if(
-		_device->LightEnable(
-			d3d9::convert::light::index(
-				_index
-			),
-			d3d9::convert::bool_(
-				_enable
-			)
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("LightEnable() failed!")
-		);
+namespace d3d9
+{
+namespace convert
+{
+namespace light
+{
+
+class visitor
+{
+	FCPPT_NONASSIGNABLE(
+		visitor
+	);
+public:
+	explicit visitor(
+		D3DLIGHT9 &
+	);
+
+	typedef void result_type;
+
+	result_type const
+	operator()(
+		sge::renderer::light::directional const &
+	) const;
+
+	result_type const
+	operator()(
+		sge::renderer::light::point const &
+	) const;
+
+	result_type const
+	operator()(
+		sge::renderer::light::spot const &
+	) const;
+private:
+	D3DLIGHT9 &object_;
+};
+
 }
+}
+}
+}
+
+#endif

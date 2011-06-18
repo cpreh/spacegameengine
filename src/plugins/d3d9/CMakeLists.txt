@@ -12,8 +12,26 @@ SET(
 	src/plugins/d3d9/convert/depth_stencil_format.hpp
 	src/plugins/d3d9/convert/index_format.hpp
 	src/plugins/d3d9/convert/indexed_primitive.hpp
-	src/plugins/d3d9/convert/light.hpp
-	src/plugins/d3d9/convert/light_index.hpp
+	src/plugins/d3d9/convert/light/attenuation.hpp
+	src/plugins/d3d9/convert/light/cutoff_angle.hpp
+	src/plugins/d3d9/convert/light/direction.hpp
+	src/plugins/d3d9/convert/light/directional.hpp
+	src/plugins/d3d9/convert/light/index.hpp
+	src/plugins/d3d9/convert/light/object.hpp
+	src/plugins/d3d9/convert/light/point.hpp
+	src/plugins/d3d9/convert/light/position.hpp
+	src/plugins/d3d9/convert/light/spot.hpp
+	src/plugins/d3d9/convert/light/src/attenuation.cpp
+	src/plugins/d3d9/convert/light/src/cutoff_angle.cpp
+	src/plugins/d3d9/convert/light/src/direction.cpp
+	src/plugins/d3d9/convert/light/src/directional.cpp
+	src/plugins/d3d9/convert/light/src/index.cpp
+	src/plugins/d3d9/convert/light/src/object.cpp
+	src/plugins/d3d9/convert/light/src/point.cpp
+	src/plugins/d3d9/convert/light/src/position.cpp
+	src/plugins/d3d9/convert/light/src/spot.cpp
+	src/plugins/d3d9/convert/light/src/visitor.cpp
+	src/plugins/d3d9/convert/light/visitor.hpp
 	src/plugins/d3d9/convert/lock_box.hpp
 	src/plugins/d3d9/convert/lock_mode.hpp
 	src/plugins/d3d9/convert/lock_rect.hpp
@@ -36,8 +54,6 @@ SET(
 	src/plugins/d3d9/convert/src/depth_stencil_format.cpp
 	src/plugins/d3d9/convert/src/index_format.cpp
 	src/plugins/d3d9/convert/src/indexed_primitive.cpp
-	src/plugins/d3d9/convert/src/light.cpp
-	src/plugins/d3d9/convert/src/light_index.cpp
 	src/plugins/d3d9/convert/src/lock_box.cpp
 	src/plugins/d3d9/convert/src/lock_mode.cpp
 	src/plugins/d3d9/convert/src/lock_rect.cpp

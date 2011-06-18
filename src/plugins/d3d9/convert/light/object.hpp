@@ -18,32 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_enable.hpp"
-#include "../../convert/light/index.hpp"
-#include "../../convert/bool.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_CONVERT_LIGHT_OBJECT_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_LIGHT_OBJECT_HPP_INCLUDED
 
-void
-sge::d3d9::devicefuncs::light_enable(
-	IDirect3DDevice9 *const _device,
-	sge::renderer::light::index const _index,
-	bool const _enable
-)
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/light/object_fwd.hpp>
+
+namespace sge
 {
-	if(
-		_device->LightEnable(
-			d3d9::convert::light::index(
-				_index
-			),
-			d3d9::convert::bool_(
-				_enable
-			)
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("LightEnable() failed!")
-		);
+namespace d3d9
+{
+namespace convert
+{
+namespace light
+{
+
+D3DLIGHT9 const
+object(
+	sge::renderer::light::object const &
+);
+
 }
+}
+}
+}
+
+#endif

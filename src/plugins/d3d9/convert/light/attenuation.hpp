@@ -18,32 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_enable.hpp"
-#include "../../convert/light/index.hpp"
-#include "../../convert/bool.hpp"
+#ifndef SGE_D3D9_CONVERT_ATTENUATION_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_ATTENUATION_HPP_INCLUDED
+
 #include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/light/attenuation_fwd.hpp>
+
+namespace sge
+{
+namespace d3d9
+{
+namespace convert
+{
+namespace light
+{
 
 void
-sge::d3d9::devicefuncs::light_enable(
-	IDirect3DDevice9 *const _device,
-	sge::renderer::light::index const _index,
-	bool const _enable
-)
-{
-	if(
-		_device->LightEnable(
-			d3d9::convert::light::index(
-				_index
-			),
-			d3d9::convert::bool_(
-				_enable
-			)
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("LightEnable() failed!")
-		);
+attenuation(
+	D3DLIGHT9 &,
+	renderer::light::attenuation const &
+);
+
 }
+}
+}
+}
+
+#endif

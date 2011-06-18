@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set_light.hpp"
-#include "../../convert/light.hpp"
-#include "../../convert/light_index.hpp"
+#include "../../convert/light/index.hpp"
+#include "../../convert/light/object.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -33,14 +33,14 @@ sge::d3d9::devicefuncs::set_light(
 )
 {
 	D3DLIGHT9 const d3d_light(
-		d3d9::convert::light(
+		d3d9::convert::light::object(
 			_light
 		)
 	);
 
 	if(
 		_device->SetLight(
-			d3d9::convert::light_index(
+			d3d9::convert::light::index(
 				_index
 			),
 			&d3d_light

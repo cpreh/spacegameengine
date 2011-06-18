@@ -18,32 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_enable.hpp"
-#include "../../convert/light/index.hpp"
-#include "../../convert/bool.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../directional.hpp"
+#include "../cutoff_angle.hpp"
+#include "../direction.hpp"
+#include "../../../d3dinclude.hpp"
+#include <sge/renderer/light/directional.hpp>
 
 void
-sge::d3d9::devicefuncs::light_enable(
-	IDirect3DDevice9 *const _device,
-	sge::renderer::light::index const _index,
-	bool const _enable
+sge::d3d9::convert::light::directional(
+	D3DLIGHT9 &_light,
+	renderer::light::directional const &_directional
 )
 {
-	if(
-		_device->LightEnable(
-			d3d9::convert::light::index(
-				_index
-			),
-			d3d9::convert::bool_(
-				_enable
-			)
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("LightEnable() failed!")
-		);
+	_light.Type = D3DLIGHT_DIRECTIONAL;
+
+	light::direction(
+		_light,
+		_directional.direction()
+	);
+
+	light::cutoff_angle(
+		_light,
+		_directional.cutoff_angle()
+	);
 }

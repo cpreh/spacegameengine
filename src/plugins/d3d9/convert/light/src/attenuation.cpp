@@ -18,41 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light.hpp"
-#include "../to_color_value.hpp"
-#include "../vector3.hpp"
-#include "../../d3dinclude.hpp"
-//#include <sge/renderer/light.hpp>
+#include "../attenuation.hpp"
+#include <sge/renderer/light/attenuation.hpp>
 
-D3DLIGHT9 const
-sge::d3d9::convert::light(
-	sge::renderer::light::object const &_light
+void
+sge::d3d9::convert::light::attenuation(
+	D3DLIGHT9 &_light,
+	renderer::light::attenuation const &_attenuation
 )
 {
-#if 0
-	D3DLIGHT9 const ret =
-	{
-		D3DLIGHT_SPOT, // TODO: is this ok?
-		d3d9::convert::to_color_value(
-			_light.diffuse()
-		),
-		d3d9::convert::to_color_value(
-			_light.specular()
-		),
-		d3d9::convert::to_color_value(
-			_light.ambient()
-		),
-		d3d9::convert::vector3(
-			_light.position()
-		),
-		d3d9::convert::vector3(
-			_light.direction()
-		),
-		0 // FIXME: range
-		// FIXME!
-	};
-#endif
-	D3DLIGHT9 ret;
+	_light.Attenuation0
+		= _attenuation.constant_attenuation().get();
 
-	return ret;
+	_light.Attenuation1
+		= _attenuation.linear_attenuation().get();
+
+	_light.Attenuation2
+		= _attenuation.quadratic_attenuation().get();
 }

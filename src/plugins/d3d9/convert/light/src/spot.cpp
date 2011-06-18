@@ -18,32 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_enable.hpp"
-#include "../../convert/light/index.hpp"
-#include "../../convert/bool.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../spot.hpp"
+#include "../attenuation.hpp"
+#include "../cutoff_angle.hpp"
+#include "../direction.hpp"
+#include "../position.hpp"
+#include "../../../d3dinclude.hpp"
+#include <sge/renderer/light/spot.hpp>
 
 void
-sge::d3d9::devicefuncs::light_enable(
-	IDirect3DDevice9 *const _device,
-	sge::renderer::light::index const _index,
-	bool const _enable
+sge::d3d9::convert::light::spot(
+	D3DLIGHT9 &_light,
+	renderer::light::spot const &_spot
 )
 {
-	if(
-		_device->LightEnable(
-			d3d9::convert::light::index(
-				_index
-			),
-			d3d9::convert::bool_(
-				_enable
-			)
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("LightEnable() failed!")
-		);
+	_light.Type = D3DLIGHT_SPOT;
+
+	light::attenuation(
+		_light,
+		_spot.attenuation()
+	);
+
+	light::cutoff_angle(
+		_light,
+		_spot.cutoff_angle()
+	);
+
+	light::direction(
+		_light,
+		_spot.direction()
+	);
+
+	light::position(
+		_light,
+		_spot.position()
+	);
 }

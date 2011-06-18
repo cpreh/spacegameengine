@@ -18,32 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_enable.hpp"
-#include "../../convert/light/index.hpp"
-#include "../../convert/bool.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../object.hpp"
+#include "../visitor.hpp"
+#include "../../to_color_value.hpp"
+#include "../../../d3dinclude.hpp"
+#include <sge/renderer/light/object.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-void
-sge::d3d9::devicefuncs::light_enable(
-	IDirect3DDevice9 *const _device,
-	sge::renderer::light::index const _index,
-	bool const _enable
+D3DLIGHT9 const
+sge::d3d9::convert::light::object(
+	sge::renderer::light::object const &_light
 )
 {
-	if(
-		_device->LightEnable(
-			d3d9::convert::light::index(
-				_index
+	D3DLIGHT9 ret;
+
+	fcppt::variant::apply_unary(
+			convert::light::visitor(
+				ret
 			),
-			d3d9::convert::bool_(
-				_enable
-			)
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("LightEnable() failed!")
+			_light.variant()
 		);
+
+	ret.Diffuse
+		= d3d9::convert::to_color_value(
+			_light.diffuse().get()
+		);
+
+	ret.Specular
+		= d3d9::convert::to_color_value(
+			_light.specular().get()
+		);
+
+	ret.Ambient
+		= d3d9::convert::to_color_value(
+			_light.ambient().get()
+		);
+
+	ret.Range =
+		std::sqrt(
+			FLT_MAX
+		);
+
+	ret.Falloff = 1.0f;
+
+	return ret;
 }

@@ -15,29 +15,51 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+*/	
 
 
-#ifndef SGE_D3D9_CONVERT_LIGHT_INDEX_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_LIGHT_INDEX_HPP_INCLUDED
+#include "../visitor.hpp"
+#include "../directional.hpp"
+#include "../point.hpp"
+#include "../spot.hpp"
 
-#include "../d3dinclude.hpp"
-#include <sge/renderer/light/index.hpp>
-
-namespace sge
+sge::d3d9::convert::light::visitor::visitor(
+	D3DLIGHT9 &_object
+)
+:
+	object_(_object)
 {
-namespace d3d9
-{
-namespace convert
-{
-
-DWORD
-light_index(
-	sge::renderer::light::index
-);
-
-}
-}
 }
 
-#endif
+sge::d3d9::convert::light::visitor::result_type const
+sge::d3d9::convert::light::visitor::operator()(
+	sge::renderer::light::directional const &_directional
+) const
+{
+	light::directional(
+		object_,
+		_directional
+	);
+}
+
+sge::d3d9::convert::light::visitor::result_type const
+sge::d3d9::convert::light::visitor::operator()(
+	sge::renderer::light::point const &_point
+) const
+{
+	light::point(
+		object_,
+		_point
+	);
+}
+
+sge::d3d9::convert::light::visitor::result_type const
+sge::d3d9::convert::light::visitor::operator()(
+	sge::renderer::light::spot const &_spot
+) const
+{
+	light::spot(
+		object_,
+		_spot
+	);
+}

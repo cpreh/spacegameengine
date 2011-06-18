@@ -18,18 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
+#ifndef SGE_D3D9_CONVERT_LIGHT_INDEX_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_LIGHT_INDEX_HPP_INCLUDED
+
 #include "../../d3dinclude.hpp"
+#include <sge/renderer/light/index.hpp>
+
+namespace sge
+{
+namespace d3d9
+{
+namespace convert
+{
+namespace light
+{
 
 DWORD
-sge::d3d9::convert::light_index(
-	sge::renderer::light::index const _index
-)
-{
-	return
-		static_cast<
-			DWORD
-		>(
-			_index.get()
-		);
+index(
+	sge::renderer::light::index
+);
+
 }
+}
+}
+}
+
+#endif
