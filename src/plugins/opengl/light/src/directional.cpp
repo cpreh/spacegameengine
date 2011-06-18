@@ -18,17 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#include "../directional.hpp"
+#include "../cutoff_angle.hpp"
+#include "../direction.hpp"
+#include "../position_impl.hpp"
+#include "../../vector4f.hpp"
+#include <sge/renderer/light/directional.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+void
+sge::opengl::light::directional(
+	light::index const _index,
+	renderer::light::directional const &_directional
 )
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+	light::direction(
+		_index,
+		_directional.direction()
+	);
+
+	light::cutoff_angle(
+		_index,
+		_directional.cutoff_angle()
+	);
+
+	// special value to make this a directional light
+	light::position_impl(
+		_index,
+		opengl::vector4f::null()
+	);
 }

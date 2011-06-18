@@ -18,17 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_LIGHT_INDEX_HPP_INCLUDED
-#define SGE_RENDERER_LIGHT_INDEX_HPP_INCLUDED
+#include "../position_impl.hpp"
+#include "../float_ptr.hpp"
+#include "../../common.hpp"
+#include <fcppt/math/vector/basic_impl.hpp>
 
-namespace sge
+void
+sge::opengl::light::position_impl(
+	light::index const _index,
+	opengl::vector4f const &_pos4
+)
 {
-namespace renderer
-{
-
-typedef unsigned light_index;
-
+	light::float_ptr(
+		_index,
+		GL_POSITION,
+		_pos4.data()
+	);
 }
-}
-
-#endif

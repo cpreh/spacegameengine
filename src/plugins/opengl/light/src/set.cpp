@@ -18,17 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#include "../set.hpp"
+#include "../color.hpp"
+#include "../index.hpp"
+#include "../visitor.hpp"
+#include "../../convert/light_index.hpp"
+#include <sge/renderer/light/object.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+void
+sge::opengl::light::set(
+	renderer::light::index const _index,
+	renderer::light::object const &_light
 )
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+	light::index const glindex(
+		convert::light_index(
+			_index
+		)
+	);
+
+	light::color(
+		glindex,
+		GL_AMBIENT,
+		_light.ambient().get()
+	);
+
+	light::color(
+		glindex,
+		GL_DIFFUSE,
+		_light.diffuse().get()
+	);
+
+	light::color(
+		glindex,
+		GL_SPECULAR,
+		_light.specular().get()
+	);
+
+	fcppt::variant::apply_unary(
+		light::visitor(
+			glindex
+		),
+		_light.variant()
+	);
 }

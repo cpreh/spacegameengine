@@ -18,23 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SET_LIGHT_HPP_INCLUDED
-#define SGE_OPENGL_SET_LIGHT_HPP_INCLUDED
-
-#include <sge/renderer/light_index.hpp>
-#include <sge/renderer/light_fwd.hpp>
+#ifndef SGE_RENDERER_LIGHT_DIRECTIONAL_FWD_HPP_INCLUDED
+#define SGE_RENDERER_LIGHT_DIRECTIONAL_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace light
 {
 
-void
-set_light(
-	renderer::light_index,
-	renderer::light const &
-);
+class directional;
 
+}
 }
 }
 

@@ -18,26 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_LIGHT_INDEX_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_LIGHT_INDEX_HPP_INCLUDED
+#include <sge/renderer/light/attenuation.hpp>
 
-#include "../light/index.hpp"
-#include <sge/renderer/light/index.hpp>
-
-namespace sge
+sge::renderer::light::attenuation::attenuation(
+	light::constant_attenuation const _constant_attenuation,
+	light::linear_attenuation const _linear_attenuation,
+	light::quadratic_attenuation const _quadratic_attenuation
+)
+:
+	constant_attenuation_(_constant_attenuation),
+	linear_attenuation_(_linear_attenuation),
+	quadratic_attenuation_(_quadratic_attenuation)
 {
-namespace opengl
-{
-namespace convert
-{
-
-opengl::light::index const
-light_index(
-	renderer::light::index
-);
-
-}
-}
 }
 
-#endif
+sge::renderer::light::constant_attenuation const
+sge::renderer::light::attenuation::constant_attenuation() const
+{
+	return constant_attenuation_;
+}
+
+sge::renderer::light::linear_attenuation const
+sge::renderer::light::attenuation::linear_attenuation() const
+{
+	return linear_attenuation_;
+}
+
+sge::renderer::light::quadratic_attenuation const
+sge::renderer::light::attenuation::quadratic_attenuation() const
+{
+	return quadratic_attenuation_;
+}

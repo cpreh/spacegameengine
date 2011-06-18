@@ -18,17 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#include "../color.hpp"
+#include "../float_ptr.hpp"
+#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/rgba32f_format.hpp>
+#include <fcppt/variant/object.hpp>
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+void
+sge::opengl::light::color(
+	light::index const _index,
+	GLenum const _name,
+	sge::image::color::any::object const &_color
 )
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+	light::float_ptr(
+		_index,
+		_name,
+		sge::image::color::any::convert<
+			sge::image::color::rgba32f_format
+		>(
+			_color
+		).data()
+	);
 }

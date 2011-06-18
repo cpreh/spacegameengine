@@ -18,17 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
+#include "../float.hpp"
+#include "../../check_state.hpp"
 #include "../../common.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+void
+sge::opengl::light::float_(
+	light::index const _index,
+	GLenum const _name,
+	GLfloat const _value
 )
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+	::glLightf(
+		_index.get(),
+		_name,
+		_value
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glLightf failed"),
+		sge::renderer::exception
+	)
 }

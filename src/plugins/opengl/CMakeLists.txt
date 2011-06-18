@@ -312,6 +312,35 @@ SET(
 	src/plugins/opengl/index_buffer.hpp
 	src/plugins/opengl/initial_states.hpp
 	src/plugins/opengl/internal_color_format.hpp
+	src/plugins/opengl/light/attenuation.hpp
+	src/plugins/opengl/light/color.hpp
+	src/plugins/opengl/light/cutoff_angle.hpp
+	src/plugins/opengl/light/direction.hpp
+	src/plugins/opengl/light/directional.hpp
+	src/plugins/opengl/light/enable.hpp
+	src/plugins/opengl/light/float.hpp
+	src/plugins/opengl/light/float_ptr.hpp
+	src/plugins/opengl/light/index.hpp
+	src/plugins/opengl/light/point.hpp
+	src/plugins/opengl/light/position.hpp
+	src/plugins/opengl/light/position_impl.hpp
+	src/plugins/opengl/light/set.hpp
+	src/plugins/opengl/light/spot.hpp
+	src/plugins/opengl/light/src/attenuation.cpp
+	src/plugins/opengl/light/src/color.cpp
+	src/plugins/opengl/light/src/cutoff_angle.cpp
+	src/plugins/opengl/light/src/direction.cpp
+	src/plugins/opengl/light/src/directional.cpp
+	src/plugins/opengl/light/src/enable.cpp
+	src/plugins/opengl/light/src/float.cpp
+	src/plugins/opengl/light/src/float_ptr.cpp
+	src/plugins/opengl/light/src/point.cpp
+	src/plugins/opengl/light/src/position.cpp
+	src/plugins/opengl/light/src/position_impl.cpp
+	src/plugins/opengl/light/src/set.cpp
+	src/plugins/opengl/light/src/spot.cpp
+	src/plugins/opengl/light/src/visitor.cpp
+	src/plugins/opengl/light/visitor.hpp
 	src/plugins/opengl/lock_flag_read.hpp
 	src/plugins/opengl/lock_flag_write.hpp
 	src/plugins/opengl/lock_method.hpp
@@ -333,7 +362,6 @@ SET(
 	src/plugins/opengl/read_pixels.hpp
 	src/plugins/opengl/set_clip_plane.hpp
 	src/plugins/opengl/set_flipped_area.hpp
-	src/plugins/opengl/set_light.hpp
 	src/plugins/opengl/set_material.hpp
 	src/plugins/opengl/set_matrix.hpp
 	src/plugins/opengl/set_matrix_and_mode.hpp
@@ -384,7 +412,6 @@ SET(
 	src/plugins/opengl/src/read_pixels.cpp
 	src/plugins/opengl/src/set_clip_plane.cpp
 	src/plugins/opengl/src/set_flipped_area.cpp
-	src/plugins/opengl/src/set_light.cpp
 	src/plugins/opengl/src/set_material.cpp
 	src/plugins/opengl/src/set_matrix.cpp
 	src/plugins/opengl/src/set_matrix_and_mode.cpp

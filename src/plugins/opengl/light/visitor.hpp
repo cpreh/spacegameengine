@@ -18,17 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#ifndef SGE_OPENGL_LIGHT_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_LIGHT_VISITOR_HPP_INCLUDED
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
-)
+#include "index.hpp"
+#include <sge/renderer/light/directional_fwd.hpp>
+#include <sge/renderer/light/point_fwd.hpp>
+#include <sge/renderer/light/spot_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
+
+namespace sge
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+namespace opengl
+{
+namespace light
+{
+
+class visitor
+{
+	FCPPT_NONASSIGNABLE(
+		visitor
+	);
+public:
+	explicit visitor(
+		light::index
+	);
+
+	typedef void result_type;
+
+	result_type
+	operator()(
+		sge::renderer::light::directional const &
+	) const;
+
+	result_type
+	operator()(
+		sge::renderer::light::point const &
+	) const;
+	
+	result_type
+	operator()(
+		sge::renderer::light::spot const &
+	) const;
+private:
+	light::index const index_;
+};
+
 }
+}
+}
+
+#endif

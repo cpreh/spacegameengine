@@ -18,17 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#include <sge/renderer/light/directional.hpp>
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+sge::renderer::light::directional::directional(
+	light::direction const &_direction,
+	light::cutoff_angle const _cutoff_angle
 )
+:
+	direction_(_direction),
+	cutoff_angle_(_cutoff_angle)
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+}
+
+sge::renderer::light::direction const &
+sge::renderer::light::directional::direction() const
+{
+	return direction_;
+}
+
+sge::renderer::light::cutoff_angle const
+sge::renderer::light::directional::cutoff_angle() const
+{
+	return cutoff_angle_;
 }

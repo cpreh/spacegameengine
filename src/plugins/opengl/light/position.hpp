@@ -18,16 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_LIGHT_FWD_HPP_INCLUDED
-#define SGE_RENDERER_LIGHT_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_LIGHT_POSITION_HPP_INCLUDED
+#define SGE_OPENGL_LIGHT_POSITION_HPP_INCLUDED
+
+#include "index.hpp"
+#include <sge/renderer/light/position.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace opengl
+{
+namespace light
 {
 
-class light;
+void
+position(
+	light::index,
+	renderer::light::position const &
+);
 
+}
 }
 }
 

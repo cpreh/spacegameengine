@@ -18,17 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#include "../visitor.hpp"
+#include "../directional.hpp"
+#include "../point.hpp"
+#include "../spot.hpp"
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+sge::opengl::light::visitor::visitor(
+	light::index const _index
 )
+:
+	index_(_index)
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+}
+
+sge::opengl::light::visitor::result_type
+sge::opengl::light::visitor::operator()(
+	sge::renderer::light::directional const &_directional
+) const
+{
+	light::directional(
+		index_,
+		_directional
+	);
+}
+
+sge::opengl::light::visitor::result_type
+sge::opengl::light::visitor::operator()(
+	sge::renderer::light::point const &_point
+) const
+{
+	light::point(
+		index_,
+		_point
+	);
+}
+
+sge::opengl::light::visitor::result_type
+sge::opengl::light::visitor::operator()(
+	sge::renderer::light::spot const &_spot
+) const
+{
+	light::spot(
+		index_,
+		_spot
+	);
 }

@@ -18,17 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#include "../enable.hpp"
+#include "../../convert/light_index.hpp"
+#include "../../enable_bool.hpp"
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+void
+sge::opengl::light::enable(
+	renderer::light::index const _index,
+	bool const _enable
 )
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+	opengl::enable_bool(
+		convert::light_index(
+			_index
+		).get(),
+		_enable
+	);
 }

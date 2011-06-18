@@ -149,9 +149,24 @@ SET(
 	include/sge/renderer/index_buffer_ptr.hpp
 	include/sge/renderer/indexed_primitive_type.hpp
 	include/sge/renderer/indices_per_primitive.hpp
-	include/sge/renderer/light.hpp
-	include/sge/renderer/light_fwd.hpp
-	include/sge/renderer/light_index.hpp
+	include/sge/renderer/light/attenuation.hpp
+	include/sge/renderer/light/attenuation_fwd.hpp
+	include/sge/renderer/light/constant_attenuation.hpp
+	include/sge/renderer/light/cutoff_angle.hpp
+	include/sge/renderer/light/direction.hpp
+	include/sge/renderer/light/directional.hpp
+	include/sge/renderer/light/directional_fwd.hpp
+	include/sge/renderer/light/index.hpp
+	include/sge/renderer/light/linear_attenuation.hpp
+	include/sge/renderer/light/object.hpp
+	include/sge/renderer/light/object_fwd.hpp
+	include/sge/renderer/light/point.hpp
+	include/sge/renderer/light/point_fwd.hpp
+	include/sge/renderer/light/position.hpp
+	include/sge/renderer/light/quadratic_attenuation.hpp
+	include/sge/renderer/light/spot.hpp
+	include/sge/renderer/light/spot_fwd.hpp
+	include/sge/renderer/light/variant.hpp
 	include/sge/renderer/lock_box.hpp
 	include/sge/renderer/lock_mode.hpp
 	include/sge/renderer/lock_rect.hpp
@@ -473,7 +488,11 @@ SET(
 	src/renderer/index/view.cpp
 	src/renderer/index_buffer.cpp
 	src/renderer/indices_per_primitive.cpp
-	src/renderer/light.cpp
+	src/renderer/light/attenuation.cpp
+	src/renderer/light/directional.cpp
+	src/renderer/light/object.cpp
+	src/renderer/light/point.cpp
+	src/renderer/light/spot.cpp
 	src/renderer/material.cpp
 	src/renderer/no_multi_sampling.cpp
 	src/renderer/no_texture.cpp

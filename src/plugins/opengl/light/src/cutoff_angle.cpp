@@ -18,17 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
+#include "../cutoff_angle.hpp"
+#include "../float.hpp"
 #include "../../common.hpp"
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+void
+sge::opengl::light::cutoff_angle(
+	light::index const _index,
+	renderer::light::cutoff_angle const _angle
 )
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+	light::float_(
+		_index,
+		GL_SPOT_CUTOFF,
+		_angle.get()
+	);
 }

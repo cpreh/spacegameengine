@@ -18,17 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#include "../position.hpp"
+#include "../position_impl.hpp"
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/construct.hpp>
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+void
+sge::opengl::light::position(
+	light::index const _index,
+	renderer::light::position const &_position
 )
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+	light::position_impl(
+		_index,
+		fcppt::math::vector::construct(
+			_position.get(),
+			1.f
+		)
+	);
 }

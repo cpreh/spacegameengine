@@ -18,17 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#include "../spot.hpp"
+#include "../attenuation.hpp"
+#include "../cutoff_angle.hpp"
+#include "../direction.hpp"
+#include "../position.hpp"
+#include <sge/renderer/light/spot.hpp>
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+void
+sge::opengl::light::spot(
+	light::index const _index,
+	renderer::light::spot const &_spot
 )
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+	light::position(
+		_index,
+		_spot.position()
+	);
+
+	light::direction(
+		_index,
+		_spot.direction()
+	);
+
+	light::cutoff_angle(
+		_index,
+		_spot.cutoff_angle()
+	);
+
+	light::attenuation(
+		_index,
+		_spot.attenuation()
+	);
 }

@@ -18,17 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#include <sge/renderer/light/object.hpp>
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+sge::renderer::light::object::object(
+	renderer::diffuse_color const &_diffuse,
+	renderer::specular_color const &_specular,
+	renderer::ambient_color const &_ambient,
+	light::variant const &_variant
 )
+:
+	diffuse_(_diffuse),
+	specular_(_specular),
+	ambient_(_ambient),
+	variant_(_variant)
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+}
+
+sge::renderer::diffuse_color const &
+sge::renderer::light::object::diffuse() const
+{
+	return diffuse_;
+}
+
+sge::renderer::specular_color const &
+sge::renderer::light::object::specular() const
+{
+	return specular_;
+}
+
+sge::renderer::ambient_color const &
+sge::renderer::light::object::ambient() const
+{
+	return ambient_;
+}
+
+sge::renderer::light::variant const &
+sge::renderer::light::object::variant() const
+{
+	return variant_;
 }

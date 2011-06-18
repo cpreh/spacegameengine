@@ -34,8 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
-#include <sge/renderer/light_index.hpp>
-#include <sge/renderer/light_fwd.hpp>
 #include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
@@ -63,6 +61,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/vertex_shader_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/light/index.hpp>
+#include <sge/renderer/light/object_fwd.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
@@ -155,14 +155,14 @@ public:
 
 	virtual void
 	enable_light(
-		renderer::light_index,
+		renderer::light::index,
 		bool enable
 	) = 0;
 
 	virtual void
 	light(
-		renderer::light_index,
-		renderer::light const &
+		renderer::light::index,
+		renderer::light::object const &
 	) = 0;
 
 	virtual void

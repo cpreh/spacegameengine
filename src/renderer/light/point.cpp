@@ -18,17 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#include <sge/renderer/light/point.hpp>
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+sge::renderer::light::point::point(
+	light::position const &_position,
+	light::attenuation const &_attenuation
 )
+:
+	position_(_position),
+	attenuation_(_attenuation)
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+}
+
+sge::renderer::light::position const &
+sge::renderer::light::point::position() const
+{
+	return position_;
+}
+
+sge::renderer::light::attenuation const &
+sge::renderer::light::point::attenuation() const
+{
+	return attenuation_;
 }

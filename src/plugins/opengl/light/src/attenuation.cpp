@@ -18,17 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
+#include "../attenuation.hpp"
+#include "../float.hpp"
 #include "../../common.hpp"
+#include <sge/renderer/light/attenuation.hpp>
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
+void
+sge::opengl::light::attenuation(
+	light::index const _index,
+	renderer::light::attenuation const &_attenuation
 )
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+	light::float_(
+		_index,
+		GL_CONSTANT_ATTENUATION,
+		_attenuation.constant_attenuation().get()
+	);
+
+	light::float_(
+		_index,
+		GL_LINEAR_ATTENUATION,
+		_attenuation.linear_attenuation().get()
+	);
+
+	light::float_(
+		_index,
+		GL_QUADRATIC_ATTENUATION,
+		_attenuation.quadratic_attenuation().get()
+	);
 }

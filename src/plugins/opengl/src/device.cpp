@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../initial_states.hpp"
 #include "../onscreen_target.hpp"
 #include "../set_clip_plane.hpp"
-#include "../set_light.hpp"
 #include "../set_material.hpp"
 #include "../set_matrix_and_mode.hpp"
 #include "../set_vertex_buffer.hpp"
@@ -43,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_declaration.hpp"
 #include "../context/use.hpp"
 #include "../convert/clip_plane_index.hpp"
-#include "../convert/light_index.hpp"
 #include "../convert/matrix_mode.hpp"
 #include "../fbo/create_depth_stencil_surface.hpp"
 #include "../fbo/target.hpp"
@@ -53,6 +51,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glsl/create_pixel_shader.hpp"
 #include "../glsl/create_program.hpp"
 #include "../glsl/create_vertex_shader.hpp"
+#include "../light/enable.hpp"
+#include "../light/set.hpp"
 #include "../texture/activate.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/depth_stencil.hpp"
@@ -278,25 +278,23 @@ sge::opengl::device::material(
 
 void
 sge::opengl::device::enable_light(
-	renderer::light_index const _index,
+	renderer::light::index const _index,
 	bool const _enable
 )
 {
-	opengl::enable_bool(
-		convert::light_index(
-			_index
-		),
+	opengl::light::enable(
+		_index,
 		_enable
 	);
 }
 
 void
 sge::opengl::device::light(
-	renderer::light_index const _index,
-	renderer::light const &_light
+	renderer::light::index const _index,
+	renderer::light::object const &_light
 )
 {
-	opengl::set_light(
+	opengl::light::set(
 		_index,
 		_light
 	);

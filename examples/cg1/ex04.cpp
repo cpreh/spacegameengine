@@ -30,8 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/diffuse_color.hpp>
 #include <sge/renderer/emissive_color.hpp>
-#include <sge/renderer/light.hpp>
-#include <sge/renderer/light_index.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/material.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -46,6 +44,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/specular_color.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/light/attenuation.hpp>
+#include <sge/renderer/light/constant_attenuation.hpp>
+#include <sge/renderer/light/index.hpp>
+#include <sge/renderer/light/linear_attenuation.hpp>
+#include <sge/renderer/light/object.hpp>
+#include <sge/renderer/light/point.hpp>
+#include <sge/renderer/light/position.hpp>
+#include <sge/renderer/light/quadratic_attenuation.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
@@ -335,34 +341,40 @@ try
 			(sge::renderer::state::depth_func::less));
 
 	{
-		sge::renderer::light_index const light_index(0);
-
-		typedef fcppt::math::vector::static_<
-			float_type,
-			3
-		>::type vec3f;
+		sge::renderer::light::index const light_index(0);
 
 		rend.light(
 			light_index,
-			sge::renderer::light(
-				sge::image::colors::white(),
-				sge::image::colors::white(),
-				sge::image::colors::white(),
-				vec3f(
-					0.577350269f,
-					0.577350269f,
-					0.577350269f
+			sge::renderer::light::object(
+				sge::renderer::diffuse_color(
+					sge::image::colors::white()
 				),
-				vec3f(
-					0,
-					0,
-					-1
+				sge::renderer::specular_color(
+					sge::image::colors::white()
 				),
-				1.f,
-				0.f,
-				0.f,
-				1.f,
-				180.f
+				sge::renderer::ambient_color(
+					sge::image::colors::white()
+				),
+				sge::renderer::light::point(
+					sge::renderer::light::position(
+						sge::renderer::light::position::value_type(
+							0.577350269f,
+							0.577350269f,
+							0.577350269f
+						)
+					),
+					sge::renderer::light::attenuation(
+						sge::renderer::light::constant_attenuation(
+							1.f
+						),
+						sge::renderer::light::linear_attenuation(
+							0.f
+						),
+						sge::renderer::light::quadratic_attenuation(
+							0.f
+						)
+					)
+				)
 			)
 		);
 

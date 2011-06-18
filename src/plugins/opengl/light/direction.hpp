@@ -18,17 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#ifndef SGE_OPENGL_LIGHT_DIRECTION_HPP_INCLUDED
+#define SGE_OPENGL_LIGHT_DIRECTION_HPP_INCLUDED
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
-)
+#include "index.hpp"
+#include <sge/renderer/light/direction.hpp>
+
+namespace sge
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+namespace opengl
+{
+namespace light
+{
+
+void
+direction(
+	light::index,
+	renderer::light::direction const &
+);
+
 }
+}
+}
+
+#endif

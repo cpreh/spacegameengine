@@ -18,17 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#ifndef SGE_RENDERER_LIGHT_POINT_HPP_INCLUDED
+#define SGE_RENDERER_LIGHT_POINT_HPP_INCLUDED
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
-)
+#include <sge/renderer/light/point_fwd.hpp>
+#include <sge/renderer/light/attenuation.hpp>
+#include <sge/renderer/light/position.hpp>
+#include <sge/renderer/symbol.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+
+namespace sge
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+namespace renderer
+{
+namespace light
+{
+
+class point
+{
+public:
+	SGE_RENDERER_SYMBOL
+	point(
+		light::position const &,
+		light::attenuation const &
+	);
+
+	SGE_RENDERER_SYMBOL
+	light::position const &
+	position() const;
+
+	SGE_RENDERER_SYMBOL
+	light::attenuation const &
+	attenuation() const;
+private:
+	light::position position_;
+
+	light::attenuation attenuation_;
+};
+
 }
+}
+}
+
+#endif

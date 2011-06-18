@@ -18,17 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light_index.hpp"
-#include "../../common.hpp"
+#ifndef SGE_RENDERER_LIGHT_ATTENUATION_FWD_HPP_INCLUDED
+#define SGE_RENDERER_LIGHT_ATTENUATION_FWD_HPP_INCLUDED
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
-)
+namespace sge
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+namespace renderer
+{
+namespace light
+{
+
+class attenuation;
+
 }
+}
+}
+
+#endif
