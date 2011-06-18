@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 DWORD
 sge::d3d9::convert::light_index(
-	sge::renderer::light_index const _index
+	sge::renderer::light::index const _index
 )
 {
 	return
 		static_cast<
 			DWORD
 		>(
-			_index
+			_index.get()
 		);
 }

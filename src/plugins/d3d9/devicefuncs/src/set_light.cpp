@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::d3d9::devicefuncs::set_light(
 	IDirect3DDevice9 *const _device,
-	sge::renderer::light_index const _index,
-	sge::renderer::light const &_light
+	sge::renderer::light::index const _index,
+	sge::renderer::light::object const &_light
 )
 {
 	D3DLIGHT9 const d3d_light(

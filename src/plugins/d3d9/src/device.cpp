@@ -374,7 +374,7 @@ sge::d3d9::device::material(
 
 void
 sge::d3d9::device::enable_light(
-	renderer::light_index const _index,
+	renderer::light::index const _index,
 	bool const _enable
 )
 {
@@ -387,8 +387,8 @@ sge::d3d9::device::enable_light(
 
 void
 sge::d3d9::device::light(
-	renderer::light_index const _index,
-	renderer::light const &_light
+	renderer::light::index const _index,
+	renderer::light::object const &_light
 )
 {
 	devicefuncs::set_light(

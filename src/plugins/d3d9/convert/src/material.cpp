@@ -31,18 +31,18 @@ sge::d3d9::convert::material(
 	D3DMATERIAL9 const ret =
 	{
 		d3d9::convert::to_color_value(
-			_material.diffuse()
+			_material.diffuse().get()
 		),
 		d3d9::convert::to_color_value(
-			_material.ambient()
+			_material.ambient().get()
 		),
 		d3d9::convert::to_color_value(
-			_material.specular()
+			_material.specular().get()
 		),
 		d3d9::convert::to_color_value(
-			_material.emissive()
+			_material.emissive().get()
 		),
-		_material.power()
+		_material.shininess().get()
 	};
 
 	return ret;

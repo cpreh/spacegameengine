@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../to_color_value.hpp"
 #include "../vector3.hpp"
 #include "../../d3dinclude.hpp"
-#include <sge/renderer/light.hpp>
+//#include <sge/renderer/light.hpp>
 
 D3DLIGHT9 const
 sge::d3d9::convert::light(
-	sge::renderer::light const &_light
+	sge::renderer::light::object const &_light
 )
 {
+#if 0
 	D3DLIGHT9 const ret =
 	{
 		D3DLIGHT_SPOT, // TODO: is this ok?
@@ -50,6 +51,8 @@ sge::d3d9::convert::light(
 		0 // FIXME: range
 		// FIXME!
 	};
+#endif
+	D3DLIGHT9 ret;
 
 	return ret;
 }

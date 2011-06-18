@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_SET_LIGHT_HPP_INCLUDED
 
 #include "../d3dinclude.hpp"
-#include <sge/renderer/light_index.hpp>
-#include <sge/renderer/light_fwd.hpp>
+#include <sge/renderer/light/index.hpp>
+#include <sge/renderer/light/object_fwd.hpp>
 
 namespace sge
 {
@@ -35,8 +35,8 @@ namespace devicefuncs
 void
 set_light(
 	IDirect3DDevice9 *,
-	sge::renderer::light_index,
-	sge::renderer::light const &
+	sge::renderer::light::index,
+	sge::renderer::light::object const &
 );
 
 }

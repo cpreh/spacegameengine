@@ -125,14 +125,14 @@ public:
 
 	void
 	enable_light(
-		renderer::light_index,
+		renderer::light::index,
 		bool enable
 	);
 
 	void
 	light(
-		renderer::light_index,
-		renderer::light const &
+		renderer::light::index,
+		renderer::light::object const &
 	);
 
 	void
