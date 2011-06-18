@@ -7,6 +7,8 @@ SET(
 	include/sge/image3d/algorithm/transform.hpp
 	include/sge/image3d/box.hpp
 	include/sge/image3d/dim.hpp
+	include/sge/image3d/gray8.hpp
+	include/sge/image3d/gray8_format.hpp
 	include/sge/image3d/image3d.hpp
 	include/sge/image3d/pitch.hpp
 	include/sge/image3d/rgba32f.hpp
@@ -34,6 +36,7 @@ SET(
 	src/image3d/algorithm/copy_and_convert.cpp
 	src/image3d/algorithm/fill.cpp
 	src/image3d/algorithm/print.cpp
+	src/image3d/gray8.cpp
 	src/image3d/rgba32f.cpp
 	src/image3d/rgba8.cpp
 	src/image3d/view/checked_sub.cpp
