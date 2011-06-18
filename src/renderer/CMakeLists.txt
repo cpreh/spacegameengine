@@ -157,6 +157,7 @@ SET(
 	include/sge/renderer/light/directional.hpp
 	include/sge/renderer/light/directional_fwd.hpp
 	include/sge/renderer/light/index.hpp
+	include/sge/renderer/light/light.hpp
 	include/sge/renderer/light/linear_attenuation.hpp
 	include/sge/renderer/light/object.hpp
 	include/sge/renderer/light/object_fwd.hpp

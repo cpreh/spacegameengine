@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/add_depth_stencil_surface_to_target.hpp>
+#include <sge/renderer/ambient_color.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/aspect_from_viewport.hpp>
 #include <sge/renderer/basic_scoped_buffer_lock.hpp>
@@ -56,10 +57,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/diffuse_color.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/display_mode_fwd.hpp>
+#include <sge/renderer/emissive_color.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -70,9 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer_ptr.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
-#include <sge/renderer/light.hpp>
-#include <sge/renderer/light_fwd.hpp>
-#include <sge/renderer/light_index.hpp>
+#include <sge/renderer/light/light.hpp>
 #include <sge/renderer/lock_box.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_rect.hpp>
@@ -121,7 +122,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/screenshot.hpp>
+#include <sge/renderer/shininess.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/specular_color.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/state/state.hpp>
 #include <sge/renderer/surface_index.hpp>

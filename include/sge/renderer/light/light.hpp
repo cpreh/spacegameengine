@@ -18,30 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_LIGHT_POINT_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_LIGHT_POINT_HPP_INCLUDED
+#ifndef SGE_RENDERER_LIGHT_LIGHT_HPP_INCLUDED
+#define SGE_RENDERER_LIGHT_LIGHT_HPP_INCLUDED
 
-#include "../../d3dinclude.hpp"
+#include <sge/renderer/light/attenuation.hpp>
+#include <sge/renderer/light/attenuation_fwd.hpp>
+#include <sge/renderer/light/constant_attenuation.hpp>
+#include <sge/renderer/light/cutoff_angle.hpp>
+#include <sge/renderer/light/direction.hpp>
+#include <sge/renderer/light/directional.hpp>
+#include <sge/renderer/light/directional_fwd.hpp>
+#include <sge/renderer/light/index.hpp>
+#include <sge/renderer/light/linear_attenuation.hpp>
+#include <sge/renderer/light/object.hpp>
+#include <sge/renderer/light/object_fwd.hpp>
+#include <sge/renderer/light/point.hpp>
 #include <sge/renderer/light/point_fwd.hpp>
-
-namespace sge
-{
-namespace d3d9
-{
-namespace convert
-{
-namespace light
-{
-
-void
-point(
-	D3DLIGHT9 &,
-	renderer::light::point const &
-);
-
-}
-}
-}
-}
+#include <sge/renderer/light/position.hpp>
+#include <sge/renderer/light/quadratic_attenuation.hpp>
+#include <sge/renderer/light/spot.hpp>
+#include <sge/renderer/light/spot_fwd.hpp>
+#include <sge/renderer/light/variant.hpp>
 
 #endif
