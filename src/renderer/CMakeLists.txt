@@ -3,6 +3,7 @@ SET(
 	include/sge/renderer/active_target.hpp
 	include/sge/renderer/adapter.hpp
 	include/sge/renderer/add_depth_stencil_surface_to_target.hpp
+	include/sge/renderer/ambient_color.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/aspect_from_viewport.hpp
 	include/sge/renderer/basic_scoped_buffer_lock.hpp
@@ -35,10 +36,12 @@ SET(
 	include/sge/renderer/device.hpp
 	include/sge/renderer/device_fwd.hpp
 	include/sge/renderer/device_ptr.hpp
+	include/sge/renderer/diffuse_color.hpp
 	include/sge/renderer/dim2.hpp
 	include/sge/renderer/dim3.hpp
 	include/sge/renderer/display_mode.hpp
 	include/sge/renderer/display_mode_fwd.hpp
+	include/sge/renderer/emissive_color.hpp
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/first_index.hpp
 	include/sge/renderer/first_vertex.hpp
@@ -198,7 +201,9 @@ SET(
 	include/sge/renderer/screen_size.hpp
 	include/sge/renderer/screen_unit.hpp
 	include/sge/renderer/screenshot.hpp
+	include/sge/renderer/shininess.hpp
 	include/sge/renderer/size_type.hpp
+	include/sge/renderer/specular_color.hpp
 	include/sge/renderer/stage_type.hpp
 	include/sge/renderer/state/alpha_func.hpp
 	include/sge/renderer/state/any.hpp

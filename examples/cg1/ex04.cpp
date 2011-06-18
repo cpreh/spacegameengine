@@ -25,8 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/renderer/ambient_color.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/diffuse_color.hpp>
+#include <sge/renderer/emissive_color.hpp>
 #include <sge/renderer/light.hpp>
 #include <sge/renderer/light_index.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -38,7 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/shininess.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/specular_color.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/state/bool.hpp>
@@ -369,26 +374,36 @@ try
 
 	rend.material(
 		sge::renderer::material(
-			rgba32f_color(
-				(sge::image::color::init::red %= 0.1)
-				(sge::image::color::init::green %= 0.1)
-				(sge::image::color::init::blue %= 0.1)
-				(sge::image::color::init::alpha %= 1.)
+			sge::renderer::diffuse_color(
+				rgba32f_color(
+					(sge::image::color::init::red %= 0.1)
+					(sge::image::color::init::green %= 0.1)
+					(sge::image::color::init::blue %= 0.1)
+					(sge::image::color::init::alpha %= 1.)
+				)
 			),
-			rgba32f_color(
-				(sge::image::color::init::red %= 0.75)
-				(sge::image::color::init::green %= 0.75)
-				(sge::image::color::init::blue %= 1.)
-				(sge::image::color::init::alpha %= 1.)
+			sge::renderer::ambient_color(
+				rgba32f_color(
+					(sge::image::color::init::red %= 0.75)
+					(sge::image::color::init::green %= 0.75)
+					(sge::image::color::init::blue %= 1.)
+					(sge::image::color::init::alpha %= 1.)
+				)
 			),
-			rgba32f_color(
-				(sge::image::color::init::red %= 0.5)
-				(sge::image::color::init::green %= 0.5)
-				(sge::image::color::init::blue %= 0.5)
-				(sge::image::color::init::alpha %= 1.)
+			sge::renderer::specular_color(
+				rgba32f_color(
+					(sge::image::color::init::red %= 0.5)
+					(sge::image::color::init::green %= 0.5)
+					(sge::image::color::init::blue %= 0.5)
+					(sge::image::color::init::alpha %= 1.)
+				)
 			),
-			sge::image::colors::black(),
-			100.f
+			sge::renderer::emissive_color(
+				sge::image::colors::black()
+			),
+			sge::renderer::shininess(
+				100.f
+			)
 		)
 	);
 

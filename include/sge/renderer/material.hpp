@@ -22,9 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_MATERIAL_HPP_INCLUDED
 
 #include <sge/renderer/material_fwd.hpp>
-#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/ambient_color.hpp>
+#include <sge/renderer/diffuse_color.hpp>
+#include <sge/renderer/emissive_color.hpp>
+#include <sge/renderer/specular_color.hpp>
+#include <sge/renderer/shininess.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 namespace sge
@@ -35,36 +38,44 @@ namespace renderer
 class material
 {
 public:
-	SGE_RENDERER_SYMBOL material(
-		image::color::any::object const &diffuse,
-		image::color::any::object const &ambient,
-		image::color::any::object const &specular,
-		image::color::any::object const &emissive,
-		scalar const &power
+	SGE_RENDERER_SYMBOL
+	material(
+		renderer::diffuse_color const &,
+		renderer::ambient_color const &,
+		renderer::specular_color const &,
+		renderer::emissive_color const &,
+		renderer::shininess
 	);
 
-	SGE_RENDERER_SYMBOL image::color::any::object const &
+	SGE_RENDERER_SYMBOL
+	renderer::diffuse_color const &
 	diffuse() const;
 
-	SGE_RENDERER_SYMBOL image::color::any::object const &
+	SGE_RENDERER_SYMBOL
+	renderer::ambient_color const &
 	ambient() const;
 
-	SGE_RENDERER_SYMBOL image::color::any::object const &
+	SGE_RENDERER_SYMBOL
+	renderer::specular_color const &
 	specular() const;
 
-	SGE_RENDERER_SYMBOL image::color::any::object const &
+	SGE_RENDERER_SYMBOL
+	renderer::emissive_color const &
 	emissive() const;
 
-	SGE_RENDERER_SYMBOL scalar const &
-	power() const;
+	SGE_RENDERER_SYMBOL
+	renderer::shininess const
+	shininess() const;
 private:
-	image::color::any::object
-		diffuse_,
-		ambient_,
-		specular_,
-		emissive_;
+	renderer::diffuse_color diffuse_;
+
+	renderer::ambient_color ambient_;
+
+	renderer::specular_color specular_;
+
+	renderer::emissive_color emissive_;
 	
-	scalar power_;
+	renderer::shininess shininess_;
 };
 
 }
