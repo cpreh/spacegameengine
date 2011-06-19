@@ -72,6 +72,11 @@ sge::x11input::cursor::grab::xi2::xi2(
 				BadWindow
 			)
 		)
+		(
+			grab::return_value(
+				BadRequest
+			)
+		)
 	);
 }
 

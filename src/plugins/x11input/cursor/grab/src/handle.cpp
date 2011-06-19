@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/millisecond.hpp>
 #include <sge/time/sleep.hpp>
 #include <fcppt/function/object.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <fcppt/text.hpp>
 
 void
@@ -56,7 +57,13 @@ sge::x11input::cursor::grab::handle(
 			);
 		else
 			throw sge::input::exception(
-				FCPPT_TEXT("X11 grab failed!")
+				FCPPT_TEXT("X11 grab failed with value ")
+				+
+				fcppt::lexical_cast<
+					fcppt::string
+				>(
+					ret
+				)
 			);
 	}
 }
