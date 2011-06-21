@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "input_context_fwd.hpp"
 #include "input_method_fwd.hpp"
+#include "pixmap.hpp"
 #include "cursor/object_ptr.hpp"
+#include "cursor/pixmap.hpp"
 #include "device/id.hpp"
 #include "device/hierarchy_demuxer.hpp"
 #include "device/hierarchy_event_fwd.hpp"
@@ -205,6 +207,10 @@ private:
 	x11input::device::raw_demuxer raw_demuxer_;
 
 	x11input::device::hierarchy_demuxer hierarchy_demuxer_;
+
+	x11input::pixmap const invisible_pixmap_;
+
+	x11input::cursor::pixmap const invisible_cursor_;
 
 	typedef fcppt::scoped_ptr<
 		x11input::input_method

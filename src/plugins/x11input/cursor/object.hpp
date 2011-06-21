@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_CURSOR_OBJECT_HPP_INCLUDED
 
 #include "object_fwd.hpp"
-#include "define_fwd.hpp"
 #include "grab_fwd.hpp"
+#include "image.hpp"
 #include "../device/object.hpp"
 #include "../device/parameters_fwd.hpp"
 #include "../device/window_event_fwd.hpp"
@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <sge/input/cursor/window_mode.hpp>
+#include <sge/input/cursor/mode.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -58,8 +58,9 @@ class object
 		object
 	);
 public:
-	explicit object(
-		x11input::device::parameters const &
+	object(
+		x11input::device::parameters const &,
+		cursor::image invisible_pixmap
 	);
 
 	~object();
@@ -84,13 +85,8 @@ private:
 	position() const;
 
 	void
-	visibility(
-		bool
-	);
-
-	void
-	window_mode(
-		input::cursor::window_mode::type
+	mode(
+		input::cursor::mode::type
 	);
 
 	void
@@ -119,9 +115,11 @@ private:
 
 	awl::backends::x11::window::instance &window_;
 
+	cursor::image const invisible_image_;
+
 	fcppt::signal::connection_manager const connections_;
 
-	sge::input::cursor::window_mode::type window_mode_;
+	sge::input::cursor::mode::type mode_;
 
 	bool entered_;
 
@@ -134,10 +132,6 @@ private:
 	fcppt::scoped_ptr<
 		x11input::cursor::grab
 	> cursor_grab_;
-
-	fcppt::scoped_ptr<
-		x11input::cursor::define
-	> cursor_define_;
 };
 
 }

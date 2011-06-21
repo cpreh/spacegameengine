@@ -66,15 +66,9 @@ sge::systems::cursor_modifier::cursor_discover(
 )
 {
 	if(
-		options_ & systems::cursor_option::grab
+		options_ & systems::cursor_option::exclusive
 	)
-		_cursor->window_mode(
-			sge::input::cursor::window_mode::grab
-		);
-	if(
-		options_ & systems::cursor_option::hide
-	)
-		_cursor->visibility(
-			false
+		_cursor->mode(
+			sge::input::cursor::mode::exclusive
 		);
 }

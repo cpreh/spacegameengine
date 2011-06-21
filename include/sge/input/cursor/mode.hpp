@@ -18,17 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_CURSOR_DEFINE_FWD_HPP_INCLUDED
-#define SGE_X11INPUT_CURSOR_DEFINE_FWD_HPP_INCLUDED
+#ifndef SGE_INPUT_CURSOR_MODE_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_MODE_HPP_INCLUDED
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
 namespace cursor
 {
 
-class define;
+namespace mode
+{
+enum type
+{
+	exclusive,
+	normal,
+	size
+};
+}
 
 }
 }

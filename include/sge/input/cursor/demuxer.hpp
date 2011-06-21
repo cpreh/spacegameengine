@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/button_function.hpp>
+#include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/move_function.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <sge/input/cursor/window_mode.hpp>
 #include <sge/input/processor_ptr.hpp>
 #include <sge/input/symbol.hpp>
 #include <sge/class_symbol.hpp>
@@ -82,14 +82,8 @@ public:
 
 	SGE_INPUT_SYMBOL
 	void
-	visibility(
-		bool
-	);
-
-	SGE_INPUT_SYMBOL
-	void
-	window_mode(
-		cursor::window_mode::type
+	mode(
+		cursor::mode::type
 	);
 
 	SGE_INPUT_SYMBOL

@@ -100,6 +100,13 @@ sge::x11input::processor::processor(
 		opcode_,
 		x11_window_
 	),
+	invisible_pixmap_(
+		*x11_window_
+	),
+	invisible_cursor_(
+		x11_window_->display(),
+		invisible_pixmap_
+	),
 	input_method_(
 		fcppt::make_unique_ptr<
 			x11input::input_method
@@ -413,7 +420,8 @@ sge::x11input::processor::create_cursor(
 		fcppt::make_shared_ptr<
 			x11input::cursor::object
 		>(
-			_param
+			_param,
+			invisible_cursor_.get()
 		);
 }
 

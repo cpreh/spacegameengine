@@ -18,47 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../define.hpp"
-#include <sge/input/exception.hpp>
-#include <awl/backends/x11/window/instance.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <fcppt/text.hpp>
-#include <X11/extensions/XInput2.h>
+#ifndef SGE_X11INPUT_PIXMAP_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_PIXMAP_FWD_HPP_INCLUDED
 
-sge::x11input::cursor::define::define(
-	awl::backends::x11::window::instance &_window,
-	device::id const &_id
-)
-:
-	window_(_window),
-	id_(_id),
-	pixmap_(
-		_window
-	),
-	pixmap_cursor_(
-		_window.display(),
-		pixmap_.get()
-	)
+namespace sge
 {
-	if(
-		::XIDefineCursor(
-			_window.display().get(),
-			_id.get(),
-			_window.get(),
-			pixmap_cursor_.get()
-		)
-		!= Success
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XIDefineCursor failed!")
-		);
+namespace x11input
+{
+
+class pixmap;
+
+}
 }
 
-sge::x11input::cursor::define::~define()
-{
-	::XIUndefineCursor(
-		window_.display().get(),
-		id_.get(),
-		window_.get()
-	);
-}
+#endif

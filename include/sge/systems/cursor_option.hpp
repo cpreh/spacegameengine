@@ -30,8 +30,7 @@ namespace cursor_option
 {
 enum type
 {
-	grab,
-	hide,
+	exclusive,
 	size
 };
 }

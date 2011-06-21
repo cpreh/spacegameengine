@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #ifndef SGE_DINPUT_KEYBOARD_CHAR_VECTOR_HPP_INCLUDED
-#define SGE_DINPUT_KEYBOAD_CHAR_VECTOR_HPP_INCLUDED
+#define SGE_DINPUT_KEYBOARD_CHAR_VECTOR_HPP_INCLUDED
 
 #include <sge/input/keyboard/char_type.hpp>
 #include <fcppt/container/raw_vector_fwd.hpp>

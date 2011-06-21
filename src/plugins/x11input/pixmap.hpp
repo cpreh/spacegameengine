@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_PIXMAP_HPP_INCLUDED
 #define SGE_X11INPUT_PIXMAP_HPP_INCLUDED
 
-#include <X11/Xlib.h>
+#include "pixmap_fwd.hpp"
+#include <X11/X.h>
 #include <awl/backends/x11/window/instance_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

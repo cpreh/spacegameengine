@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_CURSOR_PIXMAP_HPP_INCLUDED
 
 #include "pixmap_fwd.hpp"
+#include "image.hpp"
+#include "../pixmap_fwd.hpp"
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <X11/Xlib.h>
 
 namespace sge
 {
@@ -41,17 +42,17 @@ class pixmap
 public:
 	pixmap(
 		awl::backends::x11::display &,
-		Pixmap
+		x11input::pixmap const &
 	);
 
 	~pixmap();
 
-	Cursor
+	cursor::image const
 	get() const;
 private:
 	awl::backends::x11::display &display_;
 
-	Cursor cursor_;
+	cursor::image const cursor_;
 };
 
 }

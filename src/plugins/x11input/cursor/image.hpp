@@ -18,15 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_CURSOR_DEFINE_HPP_INCLUDED
-#define SGE_X11INPUT_CURSOR_DEFINE_HPP_INCLUDED
+#ifndef SGE_X11INPUT_CURSOR_IMAGE_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_IMAGE_HPP_INCLUDED
 
-#include "define_fwd.hpp"
-#include "pixmap.hpp"
-#include "../pixmap.hpp"
-#include "../device/id.hpp"
-#include <awl/backends/x11/window/instance_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/strong_typedef.hpp>
+#include <X11/X.h>
 
 namespace sge
 {
@@ -35,27 +31,10 @@ namespace x11input
 namespace cursor
 {
 
-class define
-{
-	FCPPT_NONCOPYABLE(
-		define
-	);
-public:
-	define(
-		awl::backends::x11::window::instance &,
-		device::id const &
-	);
-
-	~define();
-private:
-	awl::backends::x11::window::instance &window_;
-
-	device::id const id_;
-
-	x11input::pixmap const pixmap_;
-
-	x11input::cursor::pixmap const pixmap_cursor_;
-};
+FCPPT_MAKE_STRONG_TYPEDEF(
+	Cursor,
+	image
+);
 
 }
 }

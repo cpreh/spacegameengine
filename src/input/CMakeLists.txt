@@ -12,6 +12,7 @@ SET(
 	include/sge/input/cursor/discover_callback.hpp
 	include/sge/input/cursor/discover_function.hpp
 	include/sge/input/cursor/discover_signal.hpp
+	include/sge/input/cursor/mode.hpp
 	include/sge/input/cursor/move_callback.hpp
 	include/sge/input/cursor/move_event.hpp
 	include/sge/input/cursor/move_event_fwd.hpp
@@ -33,7 +34,6 @@ SET(
 	include/sge/input/cursor/remove_callback.hpp
 	include/sge/input/cursor/remove_function.hpp
 	include/sge/input/cursor/remove_signal.hpp
-	include/sge/input/cursor/window_mode.hpp
 	include/sge/input/exception.hpp
 	include/sge/input/input.hpp
 	include/sge/input/keyboard/action.hpp

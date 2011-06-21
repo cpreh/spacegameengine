@@ -845,13 +845,12 @@ try
 			(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
-				// This is important for any application: Do you want to show
-				// the system cursor? And do you want to grab it?
-				// In an ego shooter, both make sense. If you don't
-				// grab it, the cursor may go to other windows and
-				// your focus will be taken, so you cannot turn around 360 degrees.
+				// This is important for any application that needs relative mouse movement:
+				// An exclusive cursor won't be shown, nor will it be able
+				// to click into other windows, so you don't lose the focus.
+				// Switching the focus with your window manager is still possible.
 				sge::systems::cursor_option_field(
-					sge::systems::cursor_option::hide) | sge::systems::cursor_option::grab)));
+					sge::systems::cursor_option::exclusive))));
 
 	// Load two images and create two textures from them.
 	sge::renderer::texture::planar_ptr const 

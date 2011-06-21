@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../object.hpp"
 #include "../button_code.hpp"
-#include "../define.hpp"
 #include "../grab.hpp"
 #include "../query_pointer.hpp"
 #include "../../device/parameters.hpp"
@@ -43,7 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 
 sge::x11input::cursor::object::object(
-	x11input::device::parameters const &_param
+	x11input::device::parameters const &_param,
+	cursor::image const _invisible_image
 )
 :
 	sge::input::cursor::object(),
@@ -52,6 +52,9 @@ sge::x11input::cursor::object::object(
 	),
 	window_(
 		_param.window()
+	),
+	invisible_image_(
+		_invisible_image
 	),
 	connections_(
 		fcppt::assign::make_container<
@@ -102,8 +105,8 @@ sge::x11input::cursor::object::object(
 			)
 		)
 	),
-	window_mode_(
-		sge::input::cursor::window_mode::normal
+	mode_(
+		sge::input::cursor::mode::normal
 	),
 	entered_(
 		false
@@ -116,8 +119,7 @@ sge::x11input::cursor::object::object(
 	),
 	button_signal_(),
 	move_signal_(),
-	cursor_grab_(),
-	cursor_define_()
+	cursor_grab_()
 {
 }
 
@@ -170,38 +172,11 @@ sge::x11input::cursor::object::position() const
 }
 
 void
-sge::x11input::cursor::object::visibility(
-	bool const _value
+sge::x11input::cursor::object::mode(
+	input::cursor::mode::type const _mode
 )
 {
-	if(
-		!_value && cursor_define_
-	)
-		return;
-	
-	if(
-		_value
-	)
-		cursor_define_.reset();
-	else
-		cursor_define_.take(
-			fcppt::make_unique_ptr<
-				x11input::cursor::define
-			>(
-				fcppt::ref(
-					window_
-				),
-				this->id()
-			)
-		);
-}
-
-void
-sge::x11input::cursor::object::window_mode(
-	input::cursor::window_mode::type const _mode
-)
-{
-	window_mode_ = _mode;
+	mode_ = _mode;
 
 	this->check_grab();
 }
@@ -274,10 +249,10 @@ void
 sge::x11input::cursor::object::check_grab()
 {
 	switch(
-		window_mode_
+		mode_
 	)
 	{
-	case input::cursor::window_mode::grab:
+	case input::cursor::mode::exclusive:
 		if(
 			!cursor_grab_
 			&& entered_
@@ -289,7 +264,8 @@ sge::x11input::cursor::object::check_grab()
 					fcppt::ref(
 						window_
 					),
-					this->id()
+					this->id(),
+					invisible_image_
 				)
 			);
 		else if(
@@ -298,14 +274,14 @@ sge::x11input::cursor::object::check_grab()
 			cursor_grab_.reset();
 
 		return;
-	case input::cursor::window_mode::normal:
+	case input::cursor::mode::normal:
 		cursor_grab_.reset();
 		return;
-	case input::cursor::window_mode::size:
+	case input::cursor::mode::size:
 		break;
 	}
 
 	throw sge::input::exception(
-		FCPPT_TEXT("Invalid cursor::window_mode!")
+		FCPPT_TEXT("Invalid cursor::mode!")
 	);
 }

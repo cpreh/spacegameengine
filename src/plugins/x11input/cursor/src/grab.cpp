@@ -32,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::cursor::grab::grab(
 	awl::backends::x11::window::instance &_window,
-	device::id const _id
+	device::id const _id,
+	cursor::image const _image
 )
 :
 	window_(_window),
@@ -55,7 +56,7 @@ sge::x11input::cursor::grab::grab(
 				_id.get(),
 				_window.get(),
 				CurrentTime,
-				None,
+				_image.get(),
 				GrabModeAsync,
 				GrabModeAsync,
 				True,

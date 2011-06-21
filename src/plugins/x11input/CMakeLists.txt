@@ -2,10 +2,9 @@ SET(
 	SGE_X11INPUT_FILES
 	src/plugins/x11input/color.hpp
 	src/plugins/x11input/cursor/button_code.hpp
-	src/plugins/x11input/cursor/define.hpp
-	src/plugins/x11input/cursor/define_fwd.hpp
 	src/plugins/x11input/cursor/grab.hpp
 	src/plugins/x11input/cursor/grab_fwd.hpp
+	src/plugins/x11input/cursor/image.hpp
 	src/plugins/x11input/cursor/object.hpp
 	src/plugins/x11input/cursor/object_fwd.hpp
 	src/plugins/x11input/cursor/object_ptr.hpp
@@ -13,7 +12,6 @@ SET(
 	src/plugins/x11input/cursor/pixmap_fwd.hpp
 	src/plugins/x11input/cursor/query_pointer.hpp
 	src/plugins/x11input/cursor/src/button_code.cpp
-	src/plugins/x11input/cursor/src/define.cpp
 	src/plugins/x11input/cursor/src/grab.cpp
 	src/plugins/x11input/cursor/src/object.cpp
 	src/plugins/x11input/cursor/src/pixmap.cpp
@@ -85,6 +83,7 @@ SET(
 	src/plugins/x11input/mouse/src/device.cpp
 	src/plugins/x11input/optional_opcode.hpp
 	src/plugins/x11input/pixmap.hpp
+	src/plugins/x11input/pixmap_fwd.hpp
 	src/plugins/x11input/processor.hpp
 	src/plugins/x11input/scoped_locale.hpp
 	src/plugins/x11input/setlocale.hpp

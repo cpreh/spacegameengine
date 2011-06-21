@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/Xlib.h>
 #include "../pixmap.hpp"
+#include "../../pixmap.hpp"
 #include <sge/input/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
@@ -33,24 +34,26 @@ XColor black = { 0, 0, 0, 0, 0, 0 };
 
 sge::x11input::cursor::pixmap::pixmap(
 	awl::backends::x11::display &_display,
-	Pixmap const _pixmap
+	x11input::pixmap const &_pixmap
 )
 :
  	display_(_display),
 	cursor_(
-		::XCreatePixmapCursor(
-			display_.get(),
-			_pixmap,
-			_pixmap,
-			&black,
-			&black,
-			0,
-			0
+		cursor::image(
+			::XCreatePixmapCursor(
+				display_.get(),
+				_pixmap.get(),
+				_pixmap.get(),
+				&black,
+				&black,
+				0,
+				0
+			)
 		)
 	)
 {
 	if(
-		cursor_ == None
+		cursor_.get() == None
 	)
 		throw sge::input::exception(
 			FCPPT_TEXT("XCreatePixmapCursor() failed!")
@@ -61,11 +64,11 @@ sge::x11input::cursor::pixmap::~pixmap()
 {
 	::XFreeCursor(
 		display_.get(),
-		this->get()
+		cursor_.get()
 	);
 }
 
-Cursor
+sge::x11input::cursor::image const
 sge::x11input::cursor::pixmap::get() const
 {
 	return cursor_;

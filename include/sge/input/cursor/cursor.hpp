@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_function.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
+#include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
@@ -53,6 +54,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_function.hpp>
 #include <sge/input/cursor/remove_signal.hpp>
-#include <sge/input/cursor/window_mode.hpp>
 
 #endif
