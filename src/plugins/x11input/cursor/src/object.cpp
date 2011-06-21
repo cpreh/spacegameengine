@@ -20,9 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../object.hpp"
 #include "../button_code.hpp"
-#include "../confine.hpp"
-#include "../create_confine.hpp"
 #include "../define.hpp"
+#include "../grab.hpp"
 #include "../query_pointer.hpp"
 #include "../../device/parameters.hpp"
 #include "../../device/window_demuxer.hpp"
@@ -104,7 +103,7 @@ sge::x11input::cursor::object::object(
 		)
 	),
 	window_mode_(
-		sge::input::cursor::window_mode::move_freely
+		sge::input::cursor::window_mode::normal
 	),
 	entered_(
 		false
@@ -117,7 +116,7 @@ sge::x11input::cursor::object::object(
 	),
 	button_signal_(),
 	move_signal_(),
-	cursor_confine_(),
+	cursor_grab_(),
 	cursor_define_()
 {
 }
@@ -278,25 +277,29 @@ sge::x11input::cursor::object::check_grab()
 		window_mode_
 	)
 	{
-	case input::cursor::window_mode::confine:
+	case input::cursor::window_mode::grab:
 		if(
-			!cursor_confine_
+			!cursor_grab_
 			&& entered_
 		)
-			cursor_confine_.take(
-				x11input::cursor::create_confine(
-					window_,
+			cursor_grab_.take(
+				fcppt::make_unique_ptr<
+					cursor::grab
+				>(
+					fcppt::ref(
+						window_
+					),
 					this->id()
 				)
 			);
 		else if(
 			!entered_
 		)
-			cursor_confine_.reset();
+			cursor_grab_.reset();
 
 		return;
-	case input::cursor::window_mode::move_freely:
-		cursor_confine_.reset();
+	case input::cursor::window_mode::normal:
+		cursor_grab_.reset();
 		return;
 	case input::cursor::window_mode::size:
 		break;

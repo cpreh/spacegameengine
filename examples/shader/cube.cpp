@@ -846,11 +846,12 @@ try
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
 				// This is important for any application: Do you want to show
-				// the system cursor? And do you want to confine it to the
-				// window? In an ego shooter, both make sense. If you don't
-				// confine it, you cannot turn around 360 degrees.
+				// the system cursor? And do you want to grab it?
+				// In an ego shooter, both make sense. If you don't
+				// grab it, the cursor may go to other windows and
+				// your focus will be taken, so you cannot turn around 360 degrees.
 				sge::systems::cursor_option_field(
-					sge::systems::cursor_option::hide) | sge::systems::cursor_option::confine)));
+					sge::systems::cursor_option::hide) | sge::systems::cursor_option::grab)));
 
 	// Load two images and create two textures from them.
 	sge::renderer::texture::planar_ptr const 

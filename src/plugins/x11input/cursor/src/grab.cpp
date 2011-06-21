@@ -18,18 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../xi2.hpp"
-#include "../handle.hpp"
-#include "../return_value.hpp"
-#include "../return_value_set.hpp"
+#include "../grab.hpp"
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/instance.hpp>
+#include <sge/input/exception.hpp>
+#include <sge/time/millisecond.hpp>
+#include <sge/time/sleep.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/text.hpp>
 #include <X11/extensions/XInput2.h>
 
-sge::x11input::cursor::grab::xi2::xi2(
+sge::x11input::cursor::grab::grab(
 	awl::backends::x11::window::instance &_window,
 	device::id const _id
 )
@@ -44,43 +45,44 @@ sge::x11input::cursor::grab::xi2::xi2(
 		0
 	};
 
-	cursor::grab::handle(
-		std::tr1::bind(
-			::XIGrabDevice,
-			_window.display().get(),
-			_id.get(),
-			_window.get(),
-			CurrentTime,
-			None,
-			GrabModeAsync,
-			GrabModeAsync,
-			True,
-			&mask
-		),
-		grab::return_value(
-			Success
-		),
-		fcppt::assign::make_container<
-			cursor::grab::return_value_set
-		>(
-			grab::return_value(
-				BadMatch
+	for(
+		;;
+	)
+	{
+		switch(
+			::XIGrabDevice(
+				_window.display().get(),
+				_id.get(),
+				_window.get(),
+				CurrentTime,
+				None,
+				GrabModeAsync,
+				GrabModeAsync,
+				True,
+				&mask
 			)
 		)
-		(
-			grab::return_value(
-				BadWindow
-			)
-		)
-		(
-			grab::return_value(
-				BadRequest
-			)
-		)
-	);
+		{
+		case Success:
+			return;
+		case BadMatch:
+		case BadWindow:
+		case BadRequest:
+			sge::time::sleep(
+				sge::time::millisecond(
+					10
+				)
+			);
+			break;
+		default:
+			throw sge::input::exception(
+				FCPPT_TEXT("X11 grab failed!")
+			);
+		}
+	}
 }
 
-sge::x11input::cursor::grab::xi2::~xi2()
+sge::x11input::cursor::grab::~grab()
 {
 	::XIUngrabDevice(
 		window_.display().get(),

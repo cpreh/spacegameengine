@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_CURSOR_GRAB_HANDLE_HPP_INCLUDED
-#define SGE_X11INPUT_CURSOR_GRAB_HANDLE_HPP_INCLUDED
-
-#include "function.hpp"
-#include "return_value.hpp"
-#include "return_value_set.hpp"
+#ifndef SGE_X11INPUT_CURSOR_GRAB_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_GRAB_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -31,17 +27,9 @@ namespace x11input
 {
 namespace cursor
 {
-namespace grab
-{
 
-void
-handle(
-	cursor::grab::function const &,
-	cursor::grab::return_value ok_value,
-	cursor::grab::return_value_set const &waiting_values
-);
+class grab;
 
-}
 }
 }
 }

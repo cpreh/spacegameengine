@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_CURSOR_CONFINE_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_X11INPUT_CURSOR_CONFINE_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_X11INPUT_CURSOR_GRAB_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_GRAB_HPP_INCLUDED
 
-#include "confine_fwd.hpp"
-#include <fcppt/unique_ptr.hpp>
+#include "grab_fwd.hpp"
+#include "../device/id.hpp"
+#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,9 +33,23 @@ namespace x11input
 namespace cursor
 {
 
-typedef fcppt::unique_ptr<
-	cursor::confine
-> confine_unique_ptr;
+class grab
+{
+	FCPPT_NONCOPYABLE(
+		grab
+	);
+public:
+	grab(
+		awl::backends::x11::window::instance &,
+		x11input::device::id
+	);
+
+	~grab();
+private:
+	awl::backends::x11::window::instance &window_;
+
+	x11input::device::id const id_;
+};
 
 }
 }

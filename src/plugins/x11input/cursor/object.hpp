@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_CURSOR_OBJECT_HPP_INCLUDED
 
 #include "object_fwd.hpp"
-#include "confine_fwd.hpp"
 #include "define_fwd.hpp"
+#include "grab_fwd.hpp"
 #include "../device/object.hpp"
 #include "../device/parameters_fwd.hpp"
 #include "../device/window_event_fwd.hpp"
@@ -132,8 +132,8 @@ private:
 	sge::input::cursor::move_signal move_signal_;
 
 	fcppt::scoped_ptr<
-		x11input::cursor::confine
-	> cursor_confine_;
+		x11input::cursor::grab
+	> cursor_grab_;
 
 	fcppt::scoped_ptr<
 		x11input::cursor::define

@@ -32,8 +32,8 @@ namespace window_mode
 {
 enum type
 {
-	confine,
-	move_freely,
+	grab,
+	normal,
 	size
 };
 }

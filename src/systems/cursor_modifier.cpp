@@ -66,10 +66,10 @@ sge::systems::cursor_modifier::cursor_discover(
 )
 {
 	if(
-		options_ & systems::cursor_option::confine
+		options_ & systems::cursor_option::grab
 	)
 		_cursor->window_mode(
-			sge::input::cursor::window_mode::confine
+			sge::input::cursor::window_mode::grab
 		);
 	if(
 		options_ & systems::cursor_option::hide

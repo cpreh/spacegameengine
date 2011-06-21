@@ -239,7 +239,7 @@ try
 					sge::systems::input_helper::keyboard_collector
 				),
 				sge::systems::cursor_option_field(
-					sge::systems::cursor_option::confine
+					sge::systems::cursor_option::grab
 				)
 				| sge::systems::cursor_option::hide
 			)
