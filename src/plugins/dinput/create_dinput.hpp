@@ -16,29 +16,22 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-
-
-#include "../system.hpp"
-#include "../processor.hpp"
-#include <fcppt/make_shared_ptr.hpp>
-
-sge::dinput::system::system()
-{
-}
-
-sge::dinput::system::~system()
-{
-}
 	
-sge::input::processor_ptr const
-sge::dinput::system::create_processor(
-	sge::window::instance_ptr const _window
-)
+
+#ifndef SGE_DINPUT_CREATE_DINPUT_HPP_INCLUDED
+#define SGE_DINPUT_CREATE_DINPUT_HPP_INCLUDED
+
+#include "dinput_unique_ptr.hpp"
+
+namespace sge
 {
-	return
-		fcppt::make_shared_ptr<
-			sge::dinput::processor
-		>(
-			_window
-		);
+namespace dinput
+{
+
+dinput::dinput_unique_ptr
+create_dinput();
+
 }
+}
+
+#endif

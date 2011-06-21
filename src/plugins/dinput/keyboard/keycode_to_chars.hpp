@@ -18,27 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../processor.hpp"
-#include <fcppt/make_shared_ptr.hpp>
+#ifndef SGE_DINPUT_KEYBOARD_KEYCODE_TO_CHARS_HPP_INCLUDED
+#define SGE_DINPUT_KEYBOARD_KEYCODE_TO_CHARS_HPP_INCLUDED
 
-sge::dinput::system::system()
+#include "char_vector.hpp"
+#include "../di.hpp"
+#include "../state_array.hpp"
+
+namespace sge
 {
+namespace dinput
+{
+namespace keyboard
+{
+
+sge::dinput::keyboard::char_vector const
+keycode_to_chars(
+	UINT virtual_code,
+	UINT di_code,
+	dinput::state_array const &,
+	HKL
+);
+
+}
+}
 }
 
-sge::dinput::system::~system()
-{
-}
-	
-sge::input::processor_ptr const
-sge::dinput::system::create_processor(
-	sge::window::instance_ptr const _window
-)
-{
-	return
-		fcppt::make_shared_ptr<
-			sge::dinput::processor
-		>(
-			_window
-		);
-}
+#endif

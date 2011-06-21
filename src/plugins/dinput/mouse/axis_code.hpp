@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../processor.hpp"
-#include <fcppt/make_shared_ptr.hpp>
+#ifndef SGE_DINPUT_MOUSE_AXIS_CODE_HPP_INCLUDED
+#define SGE_DINPUT_MOUSE_AXIS_CODE_HPP_INCLUDED
 
-sge::dinput::system::system()
+#include "../di.hpp"
+#include <sge/input/mouse/axis.hpp>
+
+namespace sge
 {
+namespace dinput
+{
+namespace mouse
+{
+
+sge::input::mouse::axis::type
+axis_code(
+	DWORD
+);
+
+}
+}
 }
 
-sge::dinput::system::~system()
-{
-}
-	
-sge::input::processor_ptr const
-sge::dinput::system::create_processor(
-	sge::window::instance_ptr const _window
-)
-{
-	return
-		fcppt::make_shared_ptr<
-			sge::dinput::processor
-		>(
-			_window
-		);
-}
+#endif

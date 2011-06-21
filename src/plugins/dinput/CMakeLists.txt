@@ -1,61 +1,56 @@
 SET(
 	SGE_DINPUT_FILES
 	src/plugins/dinput/cast_key.hpp
-	src/plugins/dinput/char_vector.hpp
-	src/plugins/dinput/cursor.hpp
-	src/plugins/dinput/cursor_confine.hpp
-	src/plugins/dinput/cursor_confine_fwd.hpp
-	src/plugins/dinput/cursor_define.hpp
-	src/plugins/dinput/cursor_define_fwd.hpp
-	src/plugins/dinput/cursor_fwd.hpp
-	src/plugins/dinput/cursor_ptr.hpp
-	src/plugins/dinput/device.hpp
-	src/plugins/dinput/device_fwd.hpp
-	src/plugins/dinput/device_parameters.hpp
-	src/plugins/dinput/device_parameters_fwd.hpp
-	src/plugins/dinput/device_ptr.hpp
+	src/plugins/dinput/create_dinput.hpp
+	src/plugins/dinput/cursor/define.hpp
+	src/plugins/dinput/cursor/define_fwd.hpp
+	src/plugins/dinput/cursor/object.hpp
+	src/plugins/dinput/cursor/object_fwd.hpp
+	src/plugins/dinput/cursor/object_ptr.hpp
+	src/plugins/dinput/cursor/pixmap.hpp
+	src/plugins/dinput/cursor/src/define.cpp
+	src/plugins/dinput/cursor/src/object.cpp
+	src/plugins/dinput/cursor/src/pixmap.cpp
+	src/plugins/dinput/device/object.hpp
+	src/plugins/dinput/device/object_fwd.hpp
+	src/plugins/dinput/device/object_ptr.hpp
+	src/plugins/dinput/device/parameters.hpp
+	src/plugins/dinput/device/parameters_fwd.hpp
+	src/plugins/dinput/device/src/object.cpp
+	src/plugins/dinput/device/src/parameters.cpp
 	src/plugins/dinput/di.hpp
-	src/plugins/dinput/dinput_device_ptr.hpp
-	src/plugins/dinput/dinput_ptr.hpp
-	src/plugins/dinput/is_mouse_axis.hpp
-	src/plugins/dinput/joystick.hpp
-	src/plugins/dinput/key_converter.hpp
-	src/plugins/dinput/key_converter_fwd.hpp
-	src/plugins/dinput/key_is_down.hpp
-	src/plugins/dinput/keyboard.hpp
-	src/plugins/dinput/keyboard_fwd.hpp
-	src/plugins/dinput/keyboard_ptr.hpp
-	src/plugins/dinput/keyboard_repeat.hpp
-	src/plugins/dinput/keycode_to_chars.hpp
-	src/plugins/dinput/map_virtual_key.hpp
-	src/plugins/dinput/mouse.hpp
-	src/plugins/dinput/mouse_axis_code.hpp
-	src/plugins/dinput/mouse_button_code.hpp
-	src/plugins/dinput/mouse_fwd.hpp
-	src/plugins/dinput/mouse_ptr.hpp
-	src/plugins/dinput/optional_uint.hpp
-	src/plugins/dinput/pixmap_cursor.hpp
+	src/plugins/dinput/dinput_unique_ptr.hpp
+	src/plugins/dinput/keyboard/char_vector.hpp
+	src/plugins/dinput/keyboard/device.hpp
+	src/plugins/dinput/keyboard/device_fwd.hpp
+	src/plugins/dinput/keyboard/device_ptr.hpp
+	src/plugins/dinput/keyboard/key_converter.hpp
+	src/plugins/dinput/keyboard/key_converter_fwd.hpp
+	src/plugins/dinput/keyboard/key_is_down.hpp
+	src/plugins/dinput/keyboard/keycode_to_chars.hpp
+	src/plugins/dinput/keyboard/map_virtual_key.hpp
+	src/plugins/dinput/keyboard/optional_uint.hpp
+	src/plugins/dinput/keyboard/repeat.hpp
+	src/plugins/dinput/keyboard/src/device.cpp
+	src/plugins/dinput/keyboard/src/key_converter.cpp
+	src/plugins/dinput/keyboard/src/key_is_down.cpp
+	src/plugins/dinput/keyboard/src/keycode_to_chars.cpp
+	src/plugins/dinput/keyboard/src/map_virtual_key.cpp
+	src/plugins/dinput/keyboard/src/repeat.cpp
+	src/plugins/dinput/mouse/axis_code.hpp
+	src/plugins/dinput/mouse/button_code.hpp
+	src/plugins/dinput/mouse/device.hpp
+	src/plugins/dinput/mouse/device_fwd.hpp
+	src/plugins/dinput/mouse/device_ptr.hpp
+	src/plugins/dinput/mouse/is_axis.hpp
+	src/plugins/dinput/mouse/src/axis_code.cpp
+	src/plugins/dinput/mouse/src/button_code.cpp
+	src/plugins/dinput/mouse/src/device.cpp
+	src/plugins/dinput/mouse/src/is_axis.cpp
 	src/plugins/dinput/processor.hpp
-	src/plugins/dinput/signal.hpp
 	src/plugins/dinput/src/cast_key.cpp
-	src/plugins/dinput/src/cursor.cpp
-	src/plugins/dinput/src/cursor_confine.cpp
-	src/plugins/dinput/src/cursor_define.cpp
-	src/plugins/dinput/src/device.cpp
-	src/plugins/dinput/src/device_parameters.cpp
+	src/plugins/dinput/src/create_dinput.cpp
 	src/plugins/dinput/src/exports.cpp
-	src/plugins/dinput/src/is_mouse_axis.cpp
-	src/plugins/dinput/src/joystick.cpp
-	src/plugins/dinput/src/key_converter.cpp
-	src/plugins/dinput/src/key_is_down.cpp
-	src/plugins/dinput/src/keyboard.cpp
-	src/plugins/dinput/src/keyboard_repeat.cpp
-	src/plugins/dinput/src/keycode_to_chars.cpp
-	src/plugins/dinput/src/map_virtual_key.cpp
-	src/plugins/dinput/src/mouse.cpp
-	src/plugins/dinput/src/mouse_axis_code.cpp
-	src/plugins/dinput/src/mouse_button_code.cpp
-	src/plugins/dinput/src/pixmap_cursor.cpp
 	src/plugins/dinput/src/processor.cpp
 	src/plugins/dinput/src/system.cpp
 	src/plugins/dinput/state_array.hpp

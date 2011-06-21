@@ -18,27 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../processor.hpp"
-#include <fcppt/make_shared_ptr.hpp>
+#include "../key_is_down.hpp"
 
-sge::dinput::system::system()
-{
-}
-
-sge::dinput::system::~system()
-{
-}
-	
-sge::input::processor_ptr const
-sge::dinput::system::create_processor(
-	sge::window::instance_ptr const _window
+bool
+sge::dinput::keyboard::key_is_down(
+	BYTE const _key
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			sge::dinput::processor
-		>(
-			_window
-		);
+		(_key & 0x80)
+		!= 0;
 }

@@ -18,27 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../processor.hpp"
-#include <fcppt/make_shared_ptr.hpp>
+#include "../map_virtual_key.hpp"
+#include "../../di.hpp"
+#include <fcppt/optional_impl.hpp>
 
-sge::dinput::system::system()
-{
-}
-
-sge::dinput::system::~system()
-{
-}
-	
-sge::input::processor_ptr const
-sge::dinput::system::create_processor(
-	sge::window::instance_ptr const _window
+sge::dinput::keyboard::optional_uint const
+sge::dinput::keyboard::map_virtual_key(
+	UINT const _dik,
+	HKL const _hkl
 )
 {
+	UINT const ret(
+		::MapVirtualKeyEx(
+			_dik,
+			MAPVK_VSC_TO_VK,
+			_hkl
+		)
+	);
+
 	return
-		fcppt::make_shared_ptr<
-			sge::dinput::processor
-		>(
-			_window
-		);
+		ret != 0
+		?
+			keyboard::optional_uint(
+				ret
+			)
+		:
+			keyboard::optional_uint();
 }

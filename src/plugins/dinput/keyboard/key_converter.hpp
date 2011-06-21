@@ -18,27 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../processor.hpp"
-#include <fcppt/make_shared_ptr.hpp>
+#ifndef SGE_DINPUT_KEYBOARD_KEY_CONVERTER_HPP_INCLUDED
+#define SGE_DINPUT_KEYBOARD_KEY_CONVERTER_HPP_INCLUDED
 
-sge::dinput::system::system()
+#include "key_converter_fwd.hpp"
+#include "../di.hpp"
+#include <sge/input/keyboard/key_code.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <vector>
+#include <map>
+
+namespace sge
 {
+namespace dinput
+{
+namespace keyboard
+{
+
+class key_converter
+{
+	FCPPT_NONCOPYABLE(
+		key_converter
+	);
+public:
+	key_converter();
+
+	~key_converter();
+
+	input::keyboard::key_code::type
+	create_key_code(
+		DWORD ofs
+	) const;
+
+	DWORD
+	create_dik(
+		input::keyboard::key_code::type
+	) const;
+private:
+	typedef std::vector<
+		input::keyboard::key_code::type
+	> key_vector;
+
+	key_vector key_vector_;
+
+	typedef std::map<
+		input::keyboard::key_code::type,
+		DWORD
+	> reverse_map;
+
+	reverse_map reverse_map_;
+};
+
+}
+}
 }
 
-sge::dinput::system::~system()
-{
-}
-	
-sge::input::processor_ptr const
-sge::dinput::system::create_processor(
-	sge::window::instance_ptr const _window
-)
-{
-	return
-		fcppt::make_shared_ptr<
-			sge::dinput::processor
-		>(
-			_window
-		);
-}
+#endif

@@ -18,27 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../processor.hpp"
-#include <fcppt/make_shared_ptr.hpp>
+#include "../is_axis.hpp"
+#include "../../cast_key.hpp"
+#include "../../di.hpp"
 
-sge::dinput::system::system()
-{
-}
-
-sge::dinput::system::~system()
-{
-}
-	
-sge::input::processor_ptr const
-sge::dinput::system::create_processor(
-	sge::window::instance_ptr const _window
+bool
+sge::dinput::mouse::is_axis(
+	DWORD const _code
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			sge::dinput::processor
-		>(
-			_window
-		);
+		_code == dinput::cast_key(DIMOFS_X)
+		|| _code == dinput::cast_key(DIMOFS_Y)
+	    || _code == dinput::cast_key(DIMOFS_Z);
 }

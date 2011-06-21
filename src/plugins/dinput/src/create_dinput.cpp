@@ -18,27 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../processor.hpp"
-#include <fcppt/make_shared_ptr.hpp>
+#include "../create_dinput.hpp"
+#include "../di.hpp"
+#include "../dinput_unique_ptr.hpp"
+#include <sge/input/exception.hpp>
+#include <awl/backends/windows/module_handle.hpp>
+#include <fcppt/text.hpp>
 
-sge::dinput::system::system()
+sge::dinput::dinput_unique_ptr
+sge::dinput::create_dinput()
 {
-}
+	IDirectInput8 *instance;
 
-sge::dinput::system::~system()
-{
-}
-	
-sge::input::processor_ptr const
-sge::dinput::system::create_processor(
-	sge::window::instance_ptr const _window
-)
-{
+	if(
+		::DirectInput8Create(
+			awl::backends::windows::module_handle(),
+			DIRECTINPUT_VERSION,
+			IID_IDirectInput8A,
+			reinterpret_cast<LPVOID *>(&instance), // this is undefined but Direct Input wants us to do it
+			0
+		)
+		!= DI_OK
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("Cannot create direct input!")
+		);
+
 	return
-		fcppt::make_shared_ptr<
-			sge::dinput::processor
-		>(
-			_window
+		dinput::dinput_unique_ptr(
+			instance
 		);
 }

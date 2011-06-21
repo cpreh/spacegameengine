@@ -21,14 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_DINPUT_PROCESSOR_HPP_INCLUDED
 
-#include "cursor_ptr.hpp"
-#include "device_fwd.hpp"
-#include "device_ptr.hpp"
 #include "di.hpp"
-#include "dinput_ptr.hpp"
-#include "key_converter.hpp"
-#include "keyboard_ptr.hpp"
-#include "mouse_ptr.hpp"
+#include "cursor/object_ptr.hpp"
+#include "device/object_fwd.hpp"
+#include "device/object_ptr.hpp"
+#include "keyboard/key_converter.hpp"
+#include "keyboard/device_ptr.hpp"
+#include "mouse/device_ptr.hpp"
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/object_vector.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
@@ -65,7 +64,6 @@ class processor
 	);
 public:
 	explicit processor(
-		dinput::dinput_ptr,
 		sge::window::instance_ptr
 	);
 
@@ -122,7 +120,7 @@ private:
 	on_handle_ready();
 
 	typedef std::vector<
-		dinput::device_ptr
+		dinput::device::object_ptr
 	> device_vector;
 
 	device_vector const
@@ -135,14 +133,19 @@ private:
 	);
 
 	typedef std::vector<
-		dinput::keyboard_ptr
+		dinput::keyboard::device_ptr
 	> keyboard_vector;
 
 	typedef std::vector<
-		dinput::mouse_ptr
+		dinput::mouse::device_ptr
 	> mouse_vector;
 
-	dinput::dinput_ptr const dinput_;
+	typedef fcppt::scoped_ptr<
+		IDirectInput8,
+		fcppt::com_deleter
+	> dinput_scoped_ptr;
+
+	dinput_scoped_ptr const dinput_;
 
 	sge::window::instance_ptr const window_;
 	
@@ -156,9 +159,9 @@ private:
 
 	mouse_vector mice_;
 
-	dinput::cursor_ptr const cursor_;
+	dinput::cursor::object_ptr const cursor_;
 
-	dinput::key_converter key_conv_;
+	dinput::keyboard::key_converter key_conv_;
 
 	typedef fcppt::scoped_ptr<
 		awl::backends::windows::system::event::handle

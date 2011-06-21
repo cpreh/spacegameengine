@@ -19,12 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../processor.hpp"
-#include "../cursor.hpp"
-#include "../device_parameters.hpp"
-#include "../device.hpp"
+#include "../cursor/object.hpp"
+#include "../device/parameters.hpp"
+#include "../device/object.hpp"
+#include "../keyboard/device.hpp"
+#include "../mouse/device.hpp"
+#include "../create_dinput.hpp"
 #include "../di.hpp"
-#include "../keyboard.hpp"
-#include "../mouse.hpp"
 #include <sge/input/exception.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
@@ -45,11 +46,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 
 sge::dinput::processor::processor(
-	dinput::dinput_ptr const _dinput,
 	sge::window::instance_ptr const _window
 )
 :
-	dinput_(_dinput),
+	dinput_(
+		dinput::create_dinput()
+	),
 	window_(_window),
 	windows_window_(
 		dynamic_cast<
@@ -76,7 +78,7 @@ sge::dinput::processor::processor(
 	mice_(),
 	cursor_(
 		fcppt::make_shared_ptr<
-			dinput::cursor
+			dinput::cursor::object
 		>(
 			fcppt::ref(
 				event_processor_
@@ -312,8 +314,8 @@ sge::dinput::processor::enum_devices_callback(
 		_ddi->tszProductName
 	);
 
-	dinput::device_parameters const parameters(
-		instance.dinput_,
+	dinput::device::parameters const parameters(
+		instance.dinput_.get(),
 		product_name,
 		_ddi->guidInstance,
 		instance.windows_window_,
@@ -327,7 +329,7 @@ sge::dinput::processor::enum_devices_callback(
 	case DI8DEVTYPE_KEYBOARD:
 		instance.keyboards_.push_back(
 			fcppt::make_shared_ptr<
-				dinput::keyboard
+				dinput::keyboard::device
 			>(
 				parameters,
 				fcppt::cref(
@@ -339,42 +341,13 @@ sge::dinput::processor::enum_devices_callback(
 	case DI8DEVTYPE_MOUSE:
 		instance.mice_.push_back(
 			fcppt::make_shared_ptr<
-				dinput::mouse
+				dinput::mouse::device
 			>(
 				parameters
 			)
 		);
 		break;
-	/*
-	case DI8DEVTYPE_JOYSTICK:
-		SetDataFormat(Device,&c_dfDIJoystick2);
-
-		DIPROPRANGE	Range;
-		Range.diph.dwHeaderSize	= sizeof(DIPROPHEADER);
-		Range.diph.dwSize		= sizeof(DIPROPRANGE);
-		Range.diph.dwObj		= 0;
-		Range.diph.dwHow		= DIPH_DEVICE;
-		Range.lMin				= -1000;
-		Range.lMax				= +1000;
-		SetProperty(Device,DIPROP_RANGE,&Range.diph);
-
-		DIPROPDWORD	DeadZone;
-		DeadZone.diph.dwHeaderSize	= sizeof(DIPROPHEADER);
-		DeadZone.diph.dwSize		= sizeof(DIPROPDWORD);
-		DeadZone.diph.dwObj			= 0;
-		DeadZone.diph.dwHow			= DIPH_DEVICE;
-		DeadZone.dwData				= 1000;
-		SetProperty(Device,DIPROP_DEADZONE,&DeadZone.diph);
-
-		DIPROPDWORD	Saturation;
-		Saturation.diph.dwHeaderSize	= sizeof(DIPROPHEADER);
-		Saturation.diph.dwSize			= sizeof(DIPROPDWORD);
-		Saturation.diph.dwObj			= 0;
-		Saturation.diph.dwHow			= DIPH_DEVICE;
-		Saturation.dwData				= 9000;
-		SetProperty(Device,DIPROP_SATURATION,&Saturation.diph);
-
-		++sys->joysticks;*/
 	}
+
 	return DIENUM_CONTINUE;
 }

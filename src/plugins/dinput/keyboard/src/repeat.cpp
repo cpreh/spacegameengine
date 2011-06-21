@@ -18,27 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../processor.hpp"
-#include <fcppt/make_shared_ptr.hpp>
+#include "../repeat.hpp"
+#include <sge/input/exception.hpp>
+#include <sge/time/millisecond.hpp>
+#include <awl/backends/windows/windows.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
+#include <fcppt/text.hpp>
 
-sge::dinput::system::system()
+sge::time::duration const
+sge::dinput::keyboard::repeat()
 {
-}
+	int ret = 0;
 
-sge::dinput::system::~system()
-{
-}
-	
-sge::input::processor_ptr const
-sge::dinput::system::create_processor(
-	sge::window::instance_ptr const _window
-)
-{
+	if(
+		::SystemParametersInfo(
+			SPI_GETKEYBOARDDELAY,
+			0,
+			&ret,
+			0
+		) == 0
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("SystemParametersInfo() failed!")
+		);
+
 	return
-		fcppt::make_shared_ptr<
-			sge::dinput::processor
-		>(
-			_window
+		time::millisecond(
+			ret * 250
 		);
 }
