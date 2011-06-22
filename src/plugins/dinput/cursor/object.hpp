@@ -22,15 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_CURSOR_OBJECT_HPP_INCLUDED
 
 #include "object_fwd.hpp"
-#include "define_fwd.hpp"
+#include "../di.hpp"
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_signal.hpp>
+#include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <sge/input/cursor/window_mode.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
@@ -56,9 +56,10 @@ class object
 		object
 	);
 public:
-	explicit object(
+	object(
 		awl::backends::windows::window::event::processor &,
-		awl::backends::windows::window::instance &
+		awl::backends::windows::window::instance &,
+		IDirectInputDevice8 *system_mouse
 	);
 
 	~object();
@@ -77,13 +78,8 @@ public:
 	position() const;
 
 	void
-	visibility(
-		bool
-	);
-
-	void
-	window_mode(
-		input::cursor::window_mode::type
+	mode(
+		input::cursor::mode::type
 	);
 
 	void
@@ -105,30 +101,17 @@ private:
 	);
 
 	void
-	update_confine();
-
-	typedef fcppt::scoped_ptr<
-		dinput::cursor::define
-	> cursor_define_ptr;
-
-
-#if 0
-	typedef fcppt::scoped_ptr<
-		dinput::cursor_confine
-	> cursor_confine_ptr;
-#endif
+	update_grab();
 
 	awl::backends::windows::window::event::processor &event_processor_;
 
 	awl::backends::windows::window::instance &window_;
 
+	IDirectInputDevice8 *const system_mouse_;
+
 	bool acquired_;
 
-	sge::input::cursor::window_mode::type window_mode_;
-
-	cursor_define_ptr cursor_define_;
-
-	//cursor_confine_ptr cursor_confine_;
+	sge::input::cursor::mode::type mode_;
 
 	sge::input::cursor::button_signal button_signal_;
 

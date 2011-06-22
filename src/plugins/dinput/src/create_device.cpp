@@ -18,20 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_CREATE_DINPUT_HPP_INCLUDED
-#define SGE_DINPUT_CREATE_DINPUT_HPP_INCLUDED
+#include "../create_device.hpp"
+#include "../dinput_device_unique_ptr.hpp"
+#include <sge/input/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "dinput_unique_ptr.hpp"
-
-namespace sge
+sge::dinput::dinput_device_unique_ptr
+sge::dinput::create_device(
+	IDirectInput8 *const _dinput,
+	GUID const _guid
+)
 {
-namespace dinput
-{
+	IDirectInputDevice8 *ret;
 
-dinput::dinput_unique_ptr
-create_dinput();
+	if(
+		_dinput->CreateDevice(
+			_guid,
+			&ret,
+			NULL
+		)
+		!= DI_OK
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("CreateDevice() failed!")
+		);
 
+	return
+		dinput::dinput_device_unique_ptr(
+			ret
+		);
 }
-}
-
-#endif

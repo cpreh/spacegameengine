@@ -20,6 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../object.hpp"
 #include "../parameters.hpp"
+#include "../funcs/acquire.hpp"
+#include "../funcs/set_cooperative_level.hpp"
+#include "../funcs/set_data_format.hpp"
+#include "../../create_device.hpp"
 #include "../../di.hpp"
 #include <sge/input/exception.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
@@ -53,32 +57,17 @@ sge::dinput::device::object::~object()
 bool
 sge::dinput::device::object::acquire()
 {
-	switch(
-		device_->Acquire()
-	)
-	{
-	case S_FALSE:
-	case DI_OK:
-		return true;
-	case DIERR_OTHERAPPHASPRIO:
-		return false;
-	default:
-		throw sge::input::exception(
-			FCPPT_TEXT("Acquire() failed!")
+	return
+		device::funcs::acquire(
+			device_.get()
 		);
-	}
 }
 
 void
 sge::dinput::device::object::unacquire()
 {
-	if(
-		device_->Unacquire()
-		!= S_FALSE
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("Unaquire() failed!")
-		);
+	// this method can at most have no effect
+	device_->Unacquire();
 }
 
 sge::dinput::device::object::object(
@@ -86,28 +75,16 @@ sge::dinput::device::object::object(
 )
 :
 	name_(_param.name()),
-	device_()
-{
-	IDirectInputDevice8 *ret;
-	
-	if(
-		_param.instance()->CreateDevice(
-			_param.guid(),
-			&ret,
-			0
+	device_(
+		dinput::create_device(
+			_param.instance(),
+			_param.guid()
 		)
-		!= DI_OK
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("dinput: cannot create input device!")
-		);
-
-	device_.reset(
-		ret
-	);
-
-	this->set_cooperative_level(
-		_param.window().hwnd(),
+{
+	dinput::device::funcs::set_cooperative_level(
+		device_.get(),
+		_param.window(),
 		coop_level
 	);
 
@@ -122,37 +99,14 @@ sge::dinput::device::object::object(
 }
 
 void
-sge::dinput::device::object::set_cooperative_level(
-	HWND const _hwnd,
-	DWORD const _flags
-)
-{
-	if(
-		device_->SetCooperativeLevel(
-			_hwnd,
-			_flags
-		)
-		!= DI_OK
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("SetCooperativeLevel() failed!")
-		);
-}
-
-void
 sge::dinput::device::object::set_data_format(
-	LPCDIDATAFORMAT const _df
+	LPCDIDATAFORMAT const _format
 )
 {
-	if(
-		device_->SetDataFormat(
-			_df
-		)
-		!= DI_OK
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("SetDataFormat() failed!")
-		);
+	device::funcs::set_data_format(
+		device_.get(),
+		_format
+	);
 }
 
 void

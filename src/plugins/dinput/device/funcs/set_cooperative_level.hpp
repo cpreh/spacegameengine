@@ -16,21 +16,32 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+	
 
+#ifndef SGE_DINPUT_DEVICE_FUNCS_SET_COOPERATIVE_LEVEL_HPP_INCLUDED
+#define SGE_DINPUT_DEVICE_FUNCS_SET_COOPERATIVE_LEVEL_HPP_INCLUDED
 
-#ifndef SGE_DINPUT_CREATE_DINPUT_HPP_INCLUDED
-#define SGE_DINPUT_CREATE_DINPUT_HPP_INCLUDED
-
-#include "dinput_unique_ptr.hpp"
+#include "../../di.hpp"
+#include <awl/backends/windows/window/instance_fwd.hpp>
 
 namespace sge
 {
 namespace dinput
 {
+namespace device
+{
+namespace funcs
+{
 
-dinput::dinput_unique_ptr
-create_dinput();
+void
+set_cooperative_level(
+	IDirectInputDevice8 *,
+	awl::backends::windows::window::instance &,
+	DWORD flags
+);
 
+}
+}
 }
 }
 

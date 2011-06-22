@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device/object.hpp"
 #include "../keyboard/device.hpp"
 #include "../mouse/device.hpp"
+#include "../create_device.hpp"
 #include "../create_dinput.hpp"
 #include "../di.hpp"
 #include <sge/input/exception.hpp>
@@ -76,6 +77,12 @@ sge::dinput::processor::processor(
 	),
 	keyboards_(),
 	mice_(),
+	system_mouse_(
+		dinput::create_device(
+			dinput_.get(),
+			GUID_SysMouse
+		)
+	),
 	cursor_(
 		fcppt::make_shared_ptr<
 			dinput::cursor::object
@@ -85,7 +92,8 @@ sge::dinput::processor::processor(
 			),
 			fcppt::ref(
 				windows_window_
-			)
+			),
+			system_mouse_.get()
 		)
 	),
 	event_handle_(

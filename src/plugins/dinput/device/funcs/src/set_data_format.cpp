@@ -18,20 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_CREATE_DINPUT_HPP_INCLUDED
-#define SGE_DINPUT_CREATE_DINPUT_HPP_INCLUDED
+#include "../set_data_format.hpp"
+#include "../../../di.hpp"
+#include <sge/input/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "dinput_unique_ptr.hpp"
-
-namespace sge
+void
+sge::dinput::device::funcs::set_data_format(
+	IDirectInputDevice8 *const _device,
+	LPCDIDATAFORMAT const _format
+)
 {
-namespace dinput
-{
-
-dinput::dinput_unique_ptr
-create_dinput();
-
+	if(
+		_device->SetDataFormat(
+			_format
+		)
+		!= DI_OK
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("SetDataFormat() failed!")
+		);
 }
-}
-
-#endif

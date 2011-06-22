@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_PROCESSOR_HPP_INCLUDED
 
 #include "di.hpp"
+#include "dinput_device_scoped_ptr.hpp"
 #include "cursor/object_ptr.hpp"
 #include "device/object_fwd.hpp"
 #include "device/object_ptr.hpp"
@@ -158,6 +159,8 @@ private:
 	keyboard_vector keyboards_;
 
 	mouse_vector mice_;
+
+	dinput::dinput_device_scoped_ptr const system_mouse_;
 
 	dinput::cursor::object_ptr const cursor_;
 

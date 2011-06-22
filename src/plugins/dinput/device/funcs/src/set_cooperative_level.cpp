@@ -16,22 +16,28 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+	
 
+#include "../set_cooperative_level.hpp"
+#include <sge/input/exception.hpp>
+#include <awl/backends/windows/window/instance.hpp>
+#include <fcppt/text.hpp>
 
-#ifndef SGE_DINPUT_CREATE_DINPUT_HPP_INCLUDED
-#define SGE_DINPUT_CREATE_DINPUT_HPP_INCLUDED
-
-#include "dinput_unique_ptr.hpp"
-
-namespace sge
+void
+sge::dinput::device::funcs::set_cooperative_level(
+	IDirectInputDevice8 *const _device,
+	awl::backends::windows::window::instance &_window,
+	DWORD const _flags
+)
 {
-namespace dinput
-{
-
-dinput::dinput_unique_ptr
-create_dinput();
-
+	if(
+		_device->SetCooperativeLevel(
+			_window.hwnd(),
+			_flags
+		)
+		!= DI_OK
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("SetCooperativeLevel() failed!")
+		);
 }
-}
-
-#endif

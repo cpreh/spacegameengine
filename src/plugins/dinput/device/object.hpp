@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "object_fwd.hpp"
 #include "parameters_fwd.hpp"
 #include "../di.hpp"
+#include "../dinput_device_scoped_ptr.hpp"
 #include <fcppt/container/array.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <cstddef>
 
@@ -99,20 +99,9 @@ protected:
 	fcppt::string const &
 	name() const;
 private:
-	void
-	set_cooperative_level(
-		HWND,
-		DWORD flags
-	);
-
 	fcppt::string const name_;
-
-	typedef fcppt::scoped_ptr<
-		IDirectInputDevice8,
-		fcppt::com_deleter
-	> device_scoped_ptr;
 	
-	device_scoped_ptr device_;
+	dinput::dinput_device_scoped_ptr const device_;
 };
 
 }

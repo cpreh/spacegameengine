@@ -19,14 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../object.hpp"
-//#include "../confine.hpp"
-#include "../define.hpp"
+#include "../../device/funcs/acquire.hpp"
+#include "../../device/funcs/set_cooperative_level.hpp"
+#include "../../device/funcs/set_data_format.hpp"
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
+#include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
-#include <sge/input/cursor/window_mode.hpp>
 #include <sge/input/exception.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
@@ -45,18 +46,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::dinput::cursor::object::object(
 	awl::backends::windows::window::event::processor &_event_processor,
-	awl::backends::windows::window::instance &_window
+	awl::backends::windows::window::instance &_window,
+	IDirectInputDevice8 *const _system_mouse
 )
 :
 	event_processor_(_event_processor),
 	window_(_window),
-	cursor_define_(),
-	//cursor_confine_(),
+	system_mouse_(_system_mouse),
 	button_signal_(),
 	move_signal_(),
 	acquired_(false),
-	window_mode_(
-		sge::input::cursor::window_mode::normal
+	mode_(
+		sge::input::cursor::mode::normal
 	),
 	connections_(
 		fcppt::assign::make_container<
@@ -159,6 +160,11 @@ sge::dinput::cursor::object::object(
 		)
 	)
 {
+	// TODO: this should not be here
+	device::funcs::set_data_format(
+		system_mouse_,
+		&c_dfDIMouse
+	);
 }
 
 sge::dinput::cursor::object::~object()
@@ -224,39 +230,13 @@ sge::dinput::cursor::object::position() const
 }
 
 void
-sge::dinput::cursor::object::visibility(
-	bool const _value
+sge::dinput::cursor::object::mode(
+	input::cursor::mode::type const _mode
 )
 {
-	if(
-		_value == !cursor_define_
-	)
-		return;
+	mode_ = _mode;
 
-	if(
-		_value
-	)
-		cursor_define_.reset();
-	else
-		cursor_define_.take(
-			fcppt::make_unique_ptr<
-				dinput::cursor::define
-			>(
-				fcppt::ref(
-					event_processor_
-				)
-			)
-		);
-}
-
-void
-sge::dinput::cursor::object::window_mode(
-	input::cursor::window_mode::type const _mode
-)
-{
-	window_mode_ = _mode;
-
-	this->update_confine();
+	this->update_grab();
 }
 
 void
@@ -264,7 +244,7 @@ sge::dinput::cursor::object::acquire()
 {
 	acquired_ = true;
 
-	this->update_confine();
+	this->update_grab();
 }
 
 void
@@ -272,7 +252,7 @@ sge::dinput::cursor::object::unacquire()
 {
 	acquired_ = false;
 
-	this->update_confine();
+	this->update_grab();
 }
 
 awl::backends::windows::window::event::return_type
@@ -314,28 +294,27 @@ sge::dinput::cursor::object::on_button(
 }
 
 void
-sge::dinput::cursor::object::update_confine()
+sge::dinput::cursor::object::update_grab()
 {
-#if 0
+	system_mouse_->Unacquire();
+
 	if(
-		window_mode_ == sge::input::cursor::window_mode::confine
+		mode_ == sge::input::cursor::mode::exclusive
 		&& acquired_
 	)
-	{
-		if(
-			!cursor_confine_
-		)
-			cursor_confine_.take(
-				fcppt::make_unique_ptr<
-					dinput::cursor::object_confine
-				>(
-					fcppt::ref(
-						window_
-					)
-				)
-			);
-	}
+		dinput::device::funcs::set_cooperative_level(
+			system_mouse_,
+			window_,
+			DISCL_FOREGROUND | DISCL_EXCLUSIVE
+		);
 	else
-		cursor_confine_.reset();
-#endif
+		dinput::device::funcs::set_cooperative_level(
+			system_mouse_,
+			window_,
+			DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
+		);
+
+	device::funcs::acquire(
+		system_mouse_
+	);
 }

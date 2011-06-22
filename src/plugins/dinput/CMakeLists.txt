@@ -1,6 +1,7 @@
 SET(
 	SGE_DINPUT_FILES
 	src/plugins/dinput/cast_key.hpp
+	src/plugins/dinput/create_device.hpp
 	src/plugins/dinput/create_dinput.hpp
 	src/plugins/dinput/cursor/define.hpp
 	src/plugins/dinput/cursor/define_fwd.hpp
@@ -11,6 +12,12 @@ SET(
 	src/plugins/dinput/cursor/src/define.cpp
 	src/plugins/dinput/cursor/src/object.cpp
 	src/plugins/dinput/cursor/src/pixmap.cpp
+	src/plugins/dinput/device/funcs/acquire.hpp
+	src/plugins/dinput/device/funcs/set_cooperative_level.hpp
+	src/plugins/dinput/device/funcs/set_data_format.hpp
+	src/plugins/dinput/device/funcs/src/acquire.cpp
+	src/plugins/dinput/device/funcs/src/set_cooperative_level.cpp
+	src/plugins/dinput/device/funcs/src/set_data_format.cpp
 	src/plugins/dinput/device/object.hpp
 	src/plugins/dinput/device/object_fwd.hpp
 	src/plugins/dinput/device/object_ptr.hpp
@@ -19,6 +26,8 @@ SET(
 	src/plugins/dinput/device/src/object.cpp
 	src/plugins/dinput/device/src/parameters.cpp
 	src/plugins/dinput/di.hpp
+	src/plugins/dinput/dinput_device_scoped_ptr.hpp
+	src/plugins/dinput/dinput_device_unique_ptr.hpp
 	src/plugins/dinput/dinput_unique_ptr.hpp
 	src/plugins/dinput/keyboard/char_vector.hpp
 	src/plugins/dinput/keyboard/device.hpp
@@ -49,6 +58,7 @@ SET(
 	src/plugins/dinput/mouse/src/is_axis.cpp
 	src/plugins/dinput/processor.hpp
 	src/plugins/dinput/src/cast_key.cpp
+	src/plugins/dinput/src/create_device.cpp
 	src/plugins/dinput/src/create_dinput.cpp
 	src/plugins/dinput/src/exports.cpp
 	src/plugins/dinput/src/processor.cpp
