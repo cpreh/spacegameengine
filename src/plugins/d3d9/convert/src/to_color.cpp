@@ -43,17 +43,17 @@ sge::d3d9::convert::to_color(
 
 	return
 		D3DCOLOR_ARGB(
-			conv.get<
-				mizuiro::color::channel::alpha
-			>(),
-			conv.get<
-				mizuiro::color::channel::red
-			>(),
-			conv.get<
-				mizuiro::color::channel::green
-			>(),
-			conv.get<
-				mizuiro::color::channel::blue
-			>()
+			conv.get(
+				mizuiro::color::channel::alpha()
+			),
+			conv.get(
+				mizuiro::color::channel::red()
+			),
+			conv.get(
+				mizuiro::color::channel::green()
+			),
+			conv.get(
+				mizuiro::color::channel::blue()
+			)
 		);
 }

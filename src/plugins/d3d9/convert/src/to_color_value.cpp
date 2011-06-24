@@ -43,18 +43,18 @@ sge::d3d9::convert::to_color_value(
 
 	D3DCOLORVALUE const ret =
 	{
-		conv.get<
-			mizuiro::color::channel::red
-		>(),
-		conv.get<
-			mizuiro::color::channel::green
-		>(),
-		conv.get<
-			mizuiro::color::channel::blue
-		>(),
-		conv.get<
-			mizuiro::color::channel::alpha
-		>()
+		conv.get(
+			mizuiro::color::channel::red()
+		),
+		conv.get(
+			mizuiro::color::channel::green()
+		),
+		conv.get(
+			mizuiro::color::channel::blue()
+		),
+		conv.get(
+			mizuiro::color::channel::alpha()
+		)
 	};
 
 	return ret;
