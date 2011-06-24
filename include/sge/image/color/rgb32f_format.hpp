@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_RGB32F_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/channel32f.hpp>
-#include <mizuiro/color/homogenous.hpp>
+#include <sge/image/color/homogenous_format.hpp>
 #include <mizuiro/color/layout/rgb.hpp>
 
 namespace sge
@@ -32,10 +32,10 @@ namespace image
 namespace color
 {
 
-typedef mizuiro::color::homogenous<
+typedef color::homogenous_format<
 	channel32f,
 	mizuiro::color::layout::rgb
-> rgb32f_format;
+>::type rgb32f_format;
 
 }
 }

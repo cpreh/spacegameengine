@@ -40,6 +40,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <mizuiro/color/channel/alpha.hpp>
+#include <mizuiro/color/channel/blue.hpp>
+#include <mizuiro/color/channel/green.hpp>
+#include <mizuiro/color/channel/red.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/text.hpp>
 
@@ -313,10 +317,18 @@ sge::opengl::state_visitor::operator()(
 	{
 	case rs::back_buffer_clear_color:
 		::glClearColor(
-			fcolor.get<mizuiro::color::channel::red>(),
-			fcolor.get<mizuiro::color::channel::green>(),
-			fcolor.get<mizuiro::color::channel::blue>(),
-			fcolor.get<mizuiro::color::channel::alpha>()
+			fcolor.get(
+				mizuiro::color::channel::red()
+			),
+			fcolor.get(
+				mizuiro::color::channel::green()
+			),
+			fcolor.get(
+				mizuiro::color::channel::blue()
+			),
+			fcolor.get(
+				mizuiro::color::channel::alpha()
+			)
 		);
 
 		SGE_OPENGL_CHECK_STATE(

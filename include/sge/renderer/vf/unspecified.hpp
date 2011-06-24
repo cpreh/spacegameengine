@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/vector_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <mizuiro/color/homogenous_fwd.hpp>
+#include <mizuiro/color/homogenous_static_fwd.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
 #include <boost/static_assert.hpp>
 
@@ -97,7 +97,7 @@ template<
 	typename Tag
 >
 struct unspecified<
-	mizuiro::color::homogenous<
+	mizuiro::color::homogenous_static<
 		ColorChannel,
 		ColorLayout
 	>,
@@ -106,7 +106,7 @@ struct unspecified<
 :
 unspecified_base<
 	color_base<
-		mizuiro::color::homogenous<
+		mizuiro::color::homogenous_static<
 			ColorChannel,
 			ColorLayout
 		>

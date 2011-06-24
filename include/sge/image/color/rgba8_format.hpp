@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_RGBA8_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/channel8.hpp>
-#include <mizuiro/color/homogenous.hpp>
+#include <sge/image/color/homogenous_format.hpp>
 #include <mizuiro/color/layout/rgba.hpp>
 
 namespace sge
@@ -32,10 +32,10 @@ namespace image
 namespace color
 {
 
-typedef mizuiro::color::homogenous<
+typedef color::homogenous_format<
 	channel8,
 	mizuiro::color::layout::rgba
-> rgba8_format;
+>::type rgba8_format;
 
 }
 }

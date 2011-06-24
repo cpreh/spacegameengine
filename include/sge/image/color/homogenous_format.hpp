@@ -18,12 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_RGBA32F_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_RGBA32F_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_HOMOGENOUS_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_HOMOGENOUS_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/channel32f.hpp>
-#include <sge/image/color/homogenous_format.hpp>
-#include <mizuiro/color/layout/rgba.hpp>
+#include <mizuiro/color/homogenous_static.hpp>
 
 namespace sge
 {
@@ -32,10 +30,17 @@ namespace image
 namespace color
 {
 
-typedef color::homogenous_format<
-	channel32f,
-	mizuiro::color::layout::rgba
->::type rgba32f_format;
+template<
+	typename Channel,
+	typename Layout
+>
+struct homogenous_format
+{
+	typedef mizuiro::color::homogenous_static<
+		Channel,
+		Layout
+	> type;
+};
 
 }
 }

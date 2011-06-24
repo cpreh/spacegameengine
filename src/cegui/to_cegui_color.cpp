@@ -43,17 +43,17 @@ sge::cegui::to_cegui_color(
 
 	return
 		CEGUI::colour(
-			dest.get<
-				mizuiro::color::channel::red
-			>(),
-			dest.get<
-				mizuiro::color::channel::green
-			>(),
-			dest.get<
-				mizuiro::color::channel::blue
-			>(),
-			dest.get<
-				mizuiro::color::channel::alpha
-			>()
+			dest.get(
+				mizuiro::color::channel::red()
+			),
+			dest.get(
+				mizuiro::color::channel::green()
+			),
+			dest.get(
+				mizuiro::color::channel::blue()
+			),
+			dest.get(
+				mizuiro::color::channel::alpha()
+			)
 		);
 }

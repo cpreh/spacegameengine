@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_AG8_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/channel8.hpp>
-#include <mizuiro/color/homogenous.hpp>
+#include <sge/image/color/homogenous_format.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <mizuiro/color/channel/luminance.hpp>
 #include <mizuiro/color/layout/luminance.hpp>
@@ -35,7 +35,7 @@ namespace image
 namespace color
 {
 
-typedef mizuiro::color::homogenous<
+typedef color::homogenous_format<
 	color::channel8,
 	mizuiro::color::layout::luminance<
 		boost::mpl::vector2<
@@ -43,7 +43,7 @@ typedef mizuiro::color::homogenous<
 			mizuiro::color::channel::luminance
 		>
 	>
-> ag8_format;
+>::type ag8_format;
 
 }
 }
