@@ -21,11 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_MIZUIRO_TYPE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_MIZUIRO_TYPE_HPP_INCLUDED
 
+#include <sge/image/basic_format.hpp>
 #include <mizuiro/image/view_impl.hpp>
 #include <mizuiro/image/raw_view.hpp>
-#include <mizuiro/image/interleaved.hpp>
-#include <mizuiro/image/dimension_impl.hpp>
-#include <mizuiro/image/format.hpp>
 #include <mizuiro/access/raw.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -37,7 +35,7 @@ namespace view
 {
 
 template<
-	typename Color,
+	typename ColorFormat,
 	typename Dim,
 	typename Constness
 >
@@ -45,14 +43,10 @@ struct mizuiro_type
 {
 	typedef mizuiro::image::view<
 		mizuiro::access::raw,
-		mizuiro::image::format<
-			mizuiro::image::dimension<
-				Dim::value
-			>,
-			mizuiro::image::interleaved<
-				Color
-			>
-		>,
+		typename sge::image::basic_format<
+			Dim::value,
+			ColorFormat
+		>::type,
 		Constness
 	> type;
 };
