@@ -18,11 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DETAIL_VIEW_VIEW_HPP_INCLUDED
-#define SGE_IMAGE_DETAIL_VIEW_VIEW_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_VIEW_ELEMENT_HPP_INCLUDED
+#define SGE_IMAGE2D_VIEW_ELEMENT_HPP_INCLUDED
 
-#include <sge/image/detail/view/const_elements.hpp>
-#include <sge/image/detail/view/elements.hpp>
-#include <sge/image/detail/view/mizuiro_type.hpp>
+#include <sge/image2d/view/element_base.hpp>
+#include <mizuiro/nonconst_tag.hpp>
+
+namespace sge
+{
+namespace image2d
+{
+namespace view
+{
+
+template<
+	typename ColorFormat
+>
+struct element
+:
+image2d::view::element_base<
+	ColorFormat,
+	mizuiro::nonconst_tag
+>
+{
+};
+
+}
+}
+}
 
 #endif

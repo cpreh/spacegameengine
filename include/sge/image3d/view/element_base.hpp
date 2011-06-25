@@ -18,48 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DETAIL_VIEW_MIZUIRO_TYPE_HPP_INCLUDED
-#define SGE_IMAGE_DETAIL_VIEW_MIZUIRO_TYPE_HPP_INCLUDED
+#ifndef SGE_IMAGE3D_VIEW_ELEMENT_BASE_HPP_INCLUDED
+#define SGE_IMAGE3D_VIEW_ELEMENT_BASE_HPP_INCLUDED
 
-#include <mizuiro/image/view_impl.hpp>
-#include <mizuiro/image/raw_view.hpp>
-#include <mizuiro/image/interleaved.hpp>
-#include <mizuiro/image/dimension_impl.hpp>
-#include <mizuiro/image/format.hpp>
-#include <mizuiro/access/raw.hpp>
-#include <mizuiro/nonconst_tag.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <sge/image/view/element_base.hpp>
 
 namespace sge
 {
-namespace image
-{
-namespace detail
+namespace image3d
 {
 namespace view
 {
 
 template<
-	typename Color,
-	typename Dim
+	typename ColorFormat,
+	typename Constness
 >
-struct mizuiro_type
+struct element_base
+:
+image::view::element_base<
+	ColorFormat,
+	3,
+	Constness
+>
 {
-	typedef mizuiro::image::view<
-		mizuiro::access::raw,
-		mizuiro::image::format<
-			mizuiro::image::dimension<
-				Dim::value
-			>,
-			mizuiro::image::interleaved<
-				Color
-			>
-		>,
-		mizuiro::nonconst_tag
-	> type;
 };
 
-}
 }
 }
 }

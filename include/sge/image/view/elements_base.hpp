@@ -18,26 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_VIEW_VIEW_HPP_INCLUDED
-#define SGE_IMAGE3D_VIEW_VIEW_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_ELEMENTS_BASE_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_ELEMENTS_BASE_HPP_INCLUDED
 
-#include <sge/image3d/view/checked_sub.hpp>
-#include <sge/image3d/view/const_element.hpp>
-#include <sge/image3d/view/const_elements.hpp>
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/data.hpp>
-#include <sge/image3d/view/dim.hpp>
-#include <sge/image3d/view/element.hpp>
-#include <sge/image3d/view/element_base.hpp>
-#include <sge/image3d/view/elements.hpp>
-#include <sge/image3d/view/flipped.hpp>
-#include <sge/image3d/view/format.hpp>
-#include <sge/image3d/view/make.hpp>
-#include <sge/image3d/view/make_const.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <sge/image3d/view/optional_pitch.hpp>
-#include <sge/image3d/view/sub.hpp>
-#include <sge/image3d/view/sub_out_of_range.hpp>
-#include <sge/image3d/view/to_const.hpp>
+#include <sge/image/color/elements.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/transform.hpp>
+
+namespace sge
+{
+namespace image
+{
+namespace view
+{
+
+template<
+	template<
+		typename
+	> class Element
+>
+struct elements_base
+:
+boost::mpl::transform<
+	image::color::elements,
+	boost::mpl::quote1<
+		Element
+	>
+>
+{
+};
+
+}
+}
+}
 
 #endif

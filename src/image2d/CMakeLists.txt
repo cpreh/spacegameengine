@@ -29,10 +29,13 @@ SET(
 	include/sge/image2d/symbol.hpp
 	include/sge/image2d/tag.hpp
 	include/sge/image2d/view/checked_sub.hpp
+	include/sge/image2d/view/const_element.hpp
 	include/sge/image2d/view/const_elements.hpp
 	include/sge/image2d/view/const_object.hpp
 	include/sge/image2d/view/data.hpp
 	include/sge/image2d/view/dim.hpp
+	include/sge/image2d/view/element.hpp
+	include/sge/image2d/view/element_base.hpp
 	include/sge/image2d/view/elements.hpp
 	include/sge/image2d/view/flipped.hpp
 	include/sge/image2d/view/format.hpp

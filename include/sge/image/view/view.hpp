@@ -24,10 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/checked_sub.hpp>
 #include <sge/image/view/data.hpp>
 #include <sge/image/view/dim.hpp>
+#include <sge/image/view/element_base.hpp>
+#include <sge/image/view/elements_base.hpp>
 #include <sge/image/view/flipped.hpp>
 #include <sge/image/view/format.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
+#include <sge/image/view/mizuiro_type.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/sub_out_of_range.hpp>
 #include <sge/image/view/to_const.hpp>

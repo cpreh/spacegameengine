@@ -44,6 +44,7 @@ SET(
 	include/sge/image/color/ga8_format.hpp
 	include/sge/image/color/gray8.hpp
 	include/sge/image/color/gray8_format.hpp
+	include/sge/image/color/homogenous_format.hpp
 	include/sge/image/color/init.hpp
 	include/sge/image/color/object.hpp
 	include/sge/image/color/object_impl.hpp
@@ -58,10 +59,6 @@ SET(
 	include/sge/image/color/rgba8_format.hpp
 	include/sge/image/colors.hpp
 	include/sge/image/const_raw_pointer.hpp
-	include/sge/image/detail/view/const_elements.hpp
-	include/sge/image/detail/view/elements.hpp
-	include/sge/image/detail/view/mizuiro_type.hpp
-	include/sge/image/detail/view/view.hpp
 	include/sge/image/difference_type.hpp
 	include/sge/image/dim.hpp
 	include/sge/image/exception.hpp
@@ -97,10 +94,13 @@ SET(
 	include/sge/image/view/checked_sub.hpp
 	include/sge/image/view/data.hpp
 	include/sge/image/view/dim.hpp
+	include/sge/image/view/element_base.hpp
+	include/sge/image/view/elements_base.hpp
 	include/sge/image/view/flipped.hpp
 	include/sge/image/view/format.hpp
 	include/sge/image/view/make.hpp
 	include/sge/image/view/make_const.hpp
+	include/sge/image/view/mizuiro_type.hpp
 	include/sge/image/view/sub.hpp
 	include/sge/image/view/sub_out_of_range.hpp
 	include/sge/image/view/to_const.hpp

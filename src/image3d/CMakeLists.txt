@@ -18,10 +18,13 @@ SET(
 	include/sge/image3d/symbol.hpp
 	include/sge/image3d/tag.hpp
 	include/sge/image3d/view/checked_sub.hpp
+	include/sge/image3d/view/const_element.hpp
 	include/sge/image3d/view/const_elements.hpp
 	include/sge/image3d/view/const_object.hpp
 	include/sge/image3d/view/data.hpp
 	include/sge/image3d/view/dim.hpp
+	include/sge/image3d/view/element.hpp
+	include/sge/image3d/view/element_base.hpp
 	include/sge/image3d/view/elements.hpp
 	include/sge/image3d/view/flipped.hpp
 	include/sge/image3d/view/format.hpp

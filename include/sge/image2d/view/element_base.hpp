@@ -18,44 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DETAIL_VIEW_ELEMENTS_HPP_INCLUDED
-#define SGE_IMAGE_DETAIL_VIEW_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_VIEW_ELEMENT_BASE_HPP_INCLUDED
+#define SGE_IMAGE2D_VIEW_ELEMENT_BASE_HPP_INCLUDED
 
-#include <sge/image/detail/view/mizuiro_type.hpp>
-#include <sge/image/color/elements.hpp>
-#include <sge/image/size_type.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <sge/image/view/element_base.hpp>
 
 namespace sge
 {
-namespace image
-{
-namespace detail
+namespace image2d
 {
 namespace view
 {
 
 template<
-	image::size_type Dim
+	typename ColorFormat,
+	typename Constness
 >
-struct elements
+struct element_base
 :
-boost::mpl::transform<
-	image::color::elements,
-	image::detail::view::mizuiro_type<
-		boost::mpl::_1,
-		boost::mpl::integral_c<
-			image::size_type,
-			Dim
-		>
-	>
+image::view::element_base<
+	ColorFormat,
+	2,
+	Constness
 >
 {
 };
 
-}
 }
 }
 }

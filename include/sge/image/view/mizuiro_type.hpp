@@ -18,26 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_VIEW_VIEW_HPP_INCLUDED
-#define SGE_IMAGE3D_VIEW_VIEW_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_MIZUIRO_TYPE_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_MIZUIRO_TYPE_HPP_INCLUDED
 
-#include <sge/image3d/view/checked_sub.hpp>
-#include <sge/image3d/view/const_element.hpp>
-#include <sge/image3d/view/const_elements.hpp>
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/data.hpp>
-#include <sge/image3d/view/dim.hpp>
-#include <sge/image3d/view/element.hpp>
-#include <sge/image3d/view/element_base.hpp>
-#include <sge/image3d/view/elements.hpp>
-#include <sge/image3d/view/flipped.hpp>
-#include <sge/image3d/view/format.hpp>
-#include <sge/image3d/view/make.hpp>
-#include <sge/image3d/view/make_const.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <sge/image3d/view/optional_pitch.hpp>
-#include <sge/image3d/view/sub.hpp>
-#include <sge/image3d/view/sub_out_of_range.hpp>
-#include <sge/image3d/view/to_const.hpp>
+#include <mizuiro/image/view_impl.hpp>
+#include <mizuiro/image/raw_view.hpp>
+#include <mizuiro/image/interleaved.hpp>
+#include <mizuiro/image/dimension_impl.hpp>
+#include <mizuiro/image/format.hpp>
+#include <mizuiro/access/raw.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+
+namespace sge
+{
+namespace image
+{
+namespace view
+{
+
+template<
+	typename Color,
+	typename Dim,
+	typename Constness
+>
+struct mizuiro_type
+{
+	typedef mizuiro::image::view<
+		mizuiro::access::raw,
+		mizuiro::image::format<
+			mizuiro::image::dimension<
+				Dim::value
+			>,
+			mizuiro::image::interleaved<
+				Color
+			>
+		>,
+		Constness
+	> type;
+};
+
+}
+}
+}
 
 #endif
