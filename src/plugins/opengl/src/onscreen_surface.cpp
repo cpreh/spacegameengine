@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/format_to_color.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_unit.hpp>
-#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/flipped.hpp>
+#include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/window/instance.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
@@ -33,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 

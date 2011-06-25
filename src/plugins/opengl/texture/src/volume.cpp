@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../funcs/set_3d.hpp"
 #include "../funcs/set_rect_3d.hpp"
 #include "../../context/use.hpp"
+#include <sge/image3d/view/const_object.hpp>
+#include <sge/image3d/view/object.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters.hpp>
 

@@ -43,7 +43,7 @@ sge::image::algorithm::print(
 		sge::image::algorithm::print_visitor(
 			_ostream
 		),
-		_view
+		_view.get()
 	);
 }
 

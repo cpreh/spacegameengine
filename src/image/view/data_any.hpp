@@ -46,7 +46,7 @@ data_any(
 			sge::image::view::data_visitor<
 				Dest
 			>(),
-			_view
+			_view.get()
 		);
 }
 

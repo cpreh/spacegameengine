@@ -20,12 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../image/view/sub_impl.hpp"
 #include "../../image/view/instantiate_sub.hpp"
+#include <sge/image3d/view/const_object.hpp>
+#include <sge/image3d/view/object.hpp>
 #include <sge/image3d/view/sub.hpp>
 #include <sge/image3d/tag.hpp>
 
 sge::image3d::view::object const
 sge::image3d::view::sub(
-	object const &_src,
+	view::object const &_src,
 	image3d::box const &_box
 )
 {
@@ -40,7 +42,7 @@ sge::image3d::view::sub(
 
 sge::image3d::view::const_object const
 sge::image3d::view::sub(
-	const_object const &_src,
+	view::const_object const &_src,
 	image3d::box const &_box
 )
 {

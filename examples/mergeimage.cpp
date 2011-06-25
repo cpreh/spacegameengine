@@ -26,8 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/rgba8.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <sge/image2d/view/to_const.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/store.hpp>
 #include <sge/renderer/dim2.hpp>

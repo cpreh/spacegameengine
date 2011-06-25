@@ -4,7 +4,6 @@ SET(
 	include/sge/image2d/algorithm/copy_and_convert.hpp
 	include/sge/image2d/algorithm/fill.hpp
 	include/sge/image2d/algorithm/print.hpp
-	include/sge/image2d/algorithm/transform.hpp
 	include/sge/image2d/alpha8.hpp
 	include/sge/image2d/alpha8_format.hpp
 	include/sge/image2d/dim.hpp
@@ -31,17 +30,23 @@ SET(
 	include/sge/image2d/view/checked_sub.hpp
 	include/sge/image2d/view/const_element.hpp
 	include/sge/image2d/view/const_elements.hpp
+	include/sge/image2d/view/const_elements_wrapper.hpp
+	include/sge/image2d/view/const_elements_wrapper_fwd.hpp
 	include/sge/image2d/view/const_object.hpp
+	include/sge/image2d/view/const_object_fwd.hpp
 	include/sge/image2d/view/data.hpp
 	include/sge/image2d/view/dim.hpp
 	include/sge/image2d/view/element.hpp
 	include/sge/image2d/view/element_base.hpp
 	include/sge/image2d/view/elements.hpp
+	include/sge/image2d/view/elements_wrapper.hpp
+	include/sge/image2d/view/elements_wrapper_fwd.hpp
 	include/sge/image2d/view/flipped.hpp
 	include/sge/image2d/view/format.hpp
 	include/sge/image2d/view/make.hpp
 	include/sge/image2d/view/make_const.hpp
 	include/sge/image2d/view/object.hpp
+	include/sge/image2d/view/object_fwd.hpp
 	include/sge/image2d/view/optional_pitch.hpp
 	include/sge/image2d/view/sub.hpp
 	include/sge/image2d/view/sub_out_of_range.hpp
@@ -59,12 +64,14 @@ SET(
 	src/image2d/rgba32f.cpp
 	src/image2d/rgba8.cpp
 	src/image2d/view/checked_sub.cpp
+	src/image2d/view/const_object.cpp
 	src/image2d/view/data.cpp
 	src/image2d/view/dim.cpp
 	src/image2d/view/flipped.cpp
 	src/image2d/view/format.cpp
 	src/image2d/view/make.cpp
 	src/image2d/view/make_const.cpp
+	src/image2d/view/object.cpp
 	src/image2d/view/sub.cpp
 	src/image2d/view/sub_out_of_range.cpp
 	src/image2d/view/to_const.cpp

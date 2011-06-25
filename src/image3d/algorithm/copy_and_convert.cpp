@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../image/algorithm/copy_and_convert_impl.hpp"
 #include "../../image/algorithm/instantiate_copy_and_convert.hpp"
 #include <sge/image3d/algorithm/copy_and_convert.hpp>
+#include <sge/image3d/view/const_object.hpp>
+#include <sge/image3d/view/object.hpp>
 #include <sge/image3d/tag.hpp>
 
 void

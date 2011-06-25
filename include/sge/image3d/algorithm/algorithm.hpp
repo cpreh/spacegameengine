@@ -24,6 +24,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/algorithm/copy_and_convert.hpp>
 #include <sge/image3d/algorithm/fill.hpp>
 #include <sge/image3d/algorithm/print.hpp>
-#include <sge/image3d/algorithm/transform.hpp>
 
 #endif

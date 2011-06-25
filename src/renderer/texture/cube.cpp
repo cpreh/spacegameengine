@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture/cube.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/quad.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 sge::renderer::texture::cube::cube()
 {

@@ -25,13 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../common.hpp"
 #include "../../context/use.hpp"
 #include "../../glew/is_supported.hpp"
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>

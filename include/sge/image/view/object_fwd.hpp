@@ -18,63 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_DETAIL_TRANSFORM_BINARY_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_DETAIL_TRANSFORM_BINARY_HPP_INCLUDED
-
-#include <mizuiro/image/algorithm/transform_ternary.hpp>
-#include <fcppt/nonassignable.hpp>
+#ifndef SGE_IMAGE_VIEW_OBJECT_FWD_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_OBJECT_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace image
 {
-namespace algorithm
-{
-namespace detail
+namespace view
 {
 
 template<
-	typename Op
+	typename ElementsWrapper
 >
-class transform_binary
-{
-	FCPPT_NONASSIGNABLE(
-		transform_binary
-	);
-public:
-	typedef void result_type;
+class object;
 
-	explicit transform_binary(
-		Op const &_op
-	)
-	:
-		op_(_op)
-	{}
-
-	template<
-		typename Src1,
-		typename Src2,
-		typename Dest
-	>
-	result_type
-	operator()(
-		Src1 const &_src1,
-		Src2 const &_src2,
-		Dest const &_dest
-	) const
-	{
-		mizuiro::image::algorithm::transform_ternary(
-			_src1,
-			_src2,
-			_dest,
-			op_
-		);
-	}
-private:
-	Op const op_;
-};
-
-}
 }
 }
 }

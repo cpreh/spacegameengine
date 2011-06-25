@@ -18,60 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_DETAIL_TRANSFORM_UNARY_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_DETAIL_TRANSFORM_UNARY_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_OBJECT_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_OBJECT_HPP_INCLUDED
 
-#include <fcppt/nonassignable.hpp>
-#include <mizuiro/image/algorithm/transform_binary.hpp>
+#include <sge/image/view/object_fwd.hpp>
+#include <sge/image/instantiate_symbol.hpp>
+#include <fcppt/variant/object_decl.hpp>
 
 namespace sge
 {
 namespace image
 {
-namespace algorithm
-{
-namespace detail
+namespace view
 {
 
 template<
-	typename Op
+	typename ElementsWrapper
 >
-class transform_unary
+class object
 {
-	FCPPT_NONASSIGNABLE(
-		transform_unary
-	);
 public:
-	typedef void result_type;
+	typedef fcppt::variant::object<
+		typename ElementsWrapper::type
+	> variant;
 
-	explicit transform_unary(
-		Op const &_op
-	)
-	:
-		op_(_op)
-	{}
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	explicit object(
+		variant const &
+	);
 
-	template<
-		typename Src,
-		typename Dest
-	>
-	result_type
-	operator()(
-		Src const &_src,
-		Dest const &_dest
-	) const
-	{
-		mizuiro::image::algorithm::transform_binary(
-			_src,
-			_dest,
-			op_
-		);
-	}
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	object(
+		object const &
+	);
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	object &
+	operator=(
+		object const &
+	);
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	~object();
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	variant const &
+	get() const;
 private:
-	Op const op_;
+	variant variant_;
 };
 
-}
 }
 }
 }

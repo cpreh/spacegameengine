@@ -4,7 +4,6 @@ SET(
 	include/sge/image3d/algorithm/copy_and_convert.hpp
 	include/sge/image3d/algorithm/fill.hpp
 	include/sge/image3d/algorithm/print.hpp
-	include/sge/image3d/algorithm/transform.hpp
 	include/sge/image3d/box.hpp
 	include/sge/image3d/dim.hpp
 	include/sge/image3d/gray8.hpp
@@ -20,17 +19,23 @@ SET(
 	include/sge/image3d/view/checked_sub.hpp
 	include/sge/image3d/view/const_element.hpp
 	include/sge/image3d/view/const_elements.hpp
+	include/sge/image3d/view/const_elements_wrapper.hpp
+	include/sge/image3d/view/const_elements_wrapper_fwd.hpp
 	include/sge/image3d/view/const_object.hpp
+	include/sge/image3d/view/const_object_fwd.hpp
 	include/sge/image3d/view/data.hpp
 	include/sge/image3d/view/dim.hpp
 	include/sge/image3d/view/element.hpp
 	include/sge/image3d/view/element_base.hpp
 	include/sge/image3d/view/elements.hpp
+	include/sge/image3d/view/elements_wrapper.hpp
+	include/sge/image3d/view/elements_wrapper_fwd.hpp
 	include/sge/image3d/view/flipped.hpp
 	include/sge/image3d/view/format.hpp
 	include/sge/image3d/view/make.hpp
 	include/sge/image3d/view/make_const.hpp
 	include/sge/image3d/view/object.hpp
+	include/sge/image3d/view/object_fwd.hpp
 	include/sge/image3d/view/optional_pitch.hpp
 	include/sge/image3d/view/sub.hpp
 	include/sge/image3d/view/sub_out_of_range.hpp
@@ -43,12 +48,14 @@ SET(
 	src/image3d/rgba32f.cpp
 	src/image3d/rgba8.cpp
 	src/image3d/view/checked_sub.cpp
+	src/image3d/view/const_object.cpp
 	src/image3d/view/data.cpp
 	src/image3d/view/dim.cpp
 	src/image3d/view/flipped.cpp
 	src/image3d/view/format.cpp
 	src/image3d/view/make.cpp
 	src/image3d/view/make_const.cpp
+	src/image3d/view/object.cpp
 	src/image3d/view/sub.cpp
 	src/image3d/view/sub_out_of_range.cpp
 	src/image3d/view/to_const.cpp

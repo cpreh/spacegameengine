@@ -24,11 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_INSTANTIATE_EXPORTS
 #include <sge/image/view/flipped.hpp>
 #undef SGE_IMAGE_INSTANTIATE_EXPORTS
-#include "flipped_visitor.hpp"
+#include "flipped_any.hpp"
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/view.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 template<
 	typename Tag
@@ -43,12 +41,7 @@ sge::image::view::flipped(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			sge::image::view::flipped_visitor<
-				typename image::traits::view<
-					Tag
-				>::type
-			>(),
+		image::view::flipped_any(
 			_view
 		);
 }
@@ -66,12 +59,7 @@ sge::image::view::flipped(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			sge::image::view::flipped_visitor<
-				typename image::traits::const_view<
-					Tag
-				>::type
-			>(),
+		image::view::flipped_any(
 			_view
 		);
 }

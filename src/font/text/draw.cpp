@@ -29,10 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/size.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/char_metric.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 sge::font::text::part const
 sge::font::text::draw(

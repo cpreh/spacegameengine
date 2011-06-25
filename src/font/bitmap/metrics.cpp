@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/exception.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/filesystem/remove_filename.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/text.hpp>
 
 sge::font::bitmap::metrics::metrics(

@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../image/view/dim_impl.hpp"
 #include "../../image/view/instantiate_dim.hpp"
+#include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/dim.hpp>
+#include <sge/image3d/view/object.hpp>
 #include <sge/image3d/tag.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 

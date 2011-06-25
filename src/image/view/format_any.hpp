@@ -44,7 +44,7 @@ format_any(
 	return
 		fcppt::variant::apply_unary(
 			image::view::format_visitor(),
-			_view
+			_view.get()
 		);
 }
 

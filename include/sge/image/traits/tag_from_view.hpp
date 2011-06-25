@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_TRAITS_TAG_FROM_VIEW_HPP_INCLUDED
 
 #include <sge/image2d/tag.hpp>
-#include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/object_fwd.hpp>
 #include <sge/image3d/tag.hpp>
-#include <sge/image3d/view/object.hpp>
+#include <sge/image3d/view/object_fwd.hpp>
 
 namespace sge
 {

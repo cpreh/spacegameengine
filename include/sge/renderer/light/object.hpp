@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/diffuse_color.hpp>
 #include <sge/renderer/specular_color.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 namespace sge

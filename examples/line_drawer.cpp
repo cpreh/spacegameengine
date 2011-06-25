@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/string.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/button_event.hpp>
@@ -200,8 +201,10 @@ private:
 				lock.value().back().begin(),
 				cursor_position_to_vector3(
 					e.position()),
-				lock.value().back().begin_color(),
-				lock.value().back().end_color());
+				sge::image::color::any::object(
+					lock.value().back().begin_color()),
+				sge::image::color::any::object(
+					lock.value().back().end_color()));
 	}
 
 	void
@@ -222,8 +225,10 @@ private:
 			sge::line_drawer::line(
 				lock.value().back().end(),
 				lock.value().back().end(),
-				lock.value().back().end_color(),
-				lock.value().back().begin_color()));
+				sge::image::color::any::object(
+					lock.value().back().end_color()),
+				sge::image::color::any::object(
+					lock.value().back().begin_color())));
 	}
 };
 }

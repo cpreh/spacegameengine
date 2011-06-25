@@ -20,8 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "element_converter.hpp"
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image/color/format_stride.hpp>
