@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/loader.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 void
 sge::renderer::screenshot(

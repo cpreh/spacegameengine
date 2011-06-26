@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/store.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/gray8.hpp>
 #include <sge/image2d/rect.hpp>
@@ -306,7 +307,9 @@ try
 		);
 
 		sge::image2d::algorithm::fill(
-			white_store.view(),
+			sge::image2d::view::object(
+				white_store.view()
+			),
 			sge::image::colors::white()
 		);
 
@@ -315,7 +318,9 @@ try
 		);
 
 		sge::image2d::algorithm::fill(
-			black_store.view(),
+			sge::image2d::view::object(
+				black_store.view()
+			),
 			sge::image::colors::black()
 		);
 		
@@ -331,11 +336,13 @@ try
 			)
 				sge::image2d::algorithm::copy_and_convert(
 					sge::image2d::view::to_const(
-						(((x + y) % 2u) == 0u)
-						?
-							white_store.view()
-						:
-							black_store.view()
+						sge::image2d::view::object(
+							(((x + y) % 2u) == 0u)
+							?
+								white_store.view()
+							:
+								black_store.view()
+						)
 					),
 					sge::image2d::view::sub(
 						sge::image2d::view::object(
@@ -364,7 +371,9 @@ try
 
 	sge::image2d::view::const_object const texture_view(
 		sge::image2d::view::to_const(
-			whole_store.view()
+			sge::image2d::view::object(
+				whole_store.view()
+			)
 		)
 	);
 

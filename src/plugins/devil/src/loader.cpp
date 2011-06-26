@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file_ptr.hpp"
 #include "../supported_extensions.hpp"
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 
@@ -95,7 +96,9 @@ sge::devil::loader::create(
 		fcppt::make_shared_ptr<
 			devil::file
 		>(
-			_src
+			fcppt::cref(
+				_src
+			)
 		);
 }
 

@@ -18,48 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DETAIL_VIEW_MIZUIRO_TYPE_HPP_INCLUDED
-#define SGE_IMAGE_DETAIL_VIEW_MIZUIRO_TYPE_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_OBJECT_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_OBJECT_HPP_INCLUDED
 
-#include <mizuiro/image/view_impl.hpp>
-#include <mizuiro/image/raw_view.hpp>
-#include <mizuiro/image/interleaved.hpp>
-#include <mizuiro/image/dimension_impl.hpp>
-#include <mizuiro/image/format.hpp>
-#include <mizuiro/access/raw.hpp>
-#include <mizuiro/nonconst_tag.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <sge/image/view/object_fwd.hpp>
+#include <sge/image/instantiate_symbol.hpp>
+#include <fcppt/variant/object_decl.hpp>
 
 namespace sge
 {
 namespace image
 {
-namespace detail
-{
 namespace view
 {
 
 template<
-	typename Color,
-	typename Dim
+	typename ElementsWrapper
 >
-struct mizuiro_type
+class object
 {
-	typedef mizuiro::image::view<
-		mizuiro::access::raw,
-		mizuiro::image::format<
-			mizuiro::image::dimension<
-				Dim::value
-			>,
-			mizuiro::image::interleaved<
-				Color
-			>
-		>,
-		mizuiro::nonconst_tag
-	> type;
+public:
+	typedef fcppt::variant::object<
+		typename ElementsWrapper::type
+	> variant;
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	explicit object(
+		variant const &
+	);
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	object(
+		object const &
+	);
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	object &
+	operator=(
+		object const &
+	);
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	~object();
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	variant const &
+	get() const;
+private:
+	variant variant_;
 };
 
-}
 }
 }
 }

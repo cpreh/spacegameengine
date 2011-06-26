@@ -49,7 +49,7 @@ sge::image::view::to_const(
 					Tag
 				>::type
 			>(),
-			_src
+			_src.get()
 		);
 }
 

@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/string.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>

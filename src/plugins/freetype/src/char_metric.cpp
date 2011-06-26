@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../face.hpp"
 #include "../char_metric.hpp"
 #include "../glyph.hpp"
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
@@ -34,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/log/headers.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
@@ -167,7 +168,9 @@ sge::freetype::char_metric::char_metric(
 				bitmap.pitch - bitmap.width
 			)
 		),
-		buffer_.view()
+		sge::image2d::view::object(
+			buffer_.view()
+		)
 	);
 }
 
@@ -183,7 +186,10 @@ sge::freetype::char_metric::offset() const
 sge::font::const_image_view const
 sge::freetype::char_metric::pixmap() const
 {
-	return buffer_.view();
+	return
+		sge::font::const_image_view(
+			buffer_.view()
+		);
 }
 
 sge::font::unit

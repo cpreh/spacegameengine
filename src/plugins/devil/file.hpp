@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "file_fwd.hpp"
 #include "image_holder.hpp"
 #include "optional_error.hpp"
-#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/const_raw_range.hpp>

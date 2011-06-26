@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/colors.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/color/init/red.hpp>
@@ -34,11 +35,13 @@ sge::image::colors::name()\
 	typedef color_type::format::channel_type value_type;\
 \
 	return \
-		sge::image::color::rgba8(\
-			(mizuiro::color::init::red = static_cast<value_type>(r))\
-			(mizuiro::color::init::green = static_cast<value_type>(g))\
-			(mizuiro::color::init::blue = static_cast<value_type>(b))\
-			(mizuiro::color::init::alpha = static_cast<value_type>(a))\
+		sge::image::color::any::object(\
+			sge::image::color::rgba8(\
+				(mizuiro::color::init::red = static_cast<value_type>(r))\
+				(mizuiro::color::init::green = static_cast<value_type>(g))\
+				(mizuiro::color::init::blue = static_cast<value_type>(b))\
+				(mizuiro::color::init::alpha = static_cast<value_type>(a))\
+			)\
 		);\
 }
 

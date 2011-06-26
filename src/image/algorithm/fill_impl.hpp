@@ -43,7 +43,7 @@ sge::image::algorithm::fill(
 		sge::image::algorithm::fill_visitor(
 			_color
 		),
-		_view
+		_view.get()
 	);
 }
 

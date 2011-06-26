@@ -20,12 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../image/view/data_impl.hpp"
 #include "../../image/view/instantiate_data.hpp"
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/data.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/tag.hpp>
 
 sge::image::raw_pointer
 sge::image2d::view::data(
-	object const &_view
+	view::object const &_view
 )
 {
 	return
@@ -38,7 +40,7 @@ sge::image2d::view::data(
 
 sge::image::const_raw_pointer
 sge::image2d::view::data(
-	const_object const &_view
+	view::const_object const &_view
 )
 {
 	return

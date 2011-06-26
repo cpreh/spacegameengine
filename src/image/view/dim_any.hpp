@@ -51,7 +51,7 @@ dim_any(
 					Tag
 				>::type
 			>(),
-			_view
+			_view.get()
 		);
 }
 

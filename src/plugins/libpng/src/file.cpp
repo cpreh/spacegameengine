@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file.hpp"
 #include "../load_context.hpp"
 #include "../write_context.hpp"
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/dim.hpp>
 #include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/const_raw_pointer.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 
 sge::libpng::file::file(

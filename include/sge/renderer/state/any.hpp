@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/dest_blend_func.hpp>
 #include <sge/renderer/state/stencil_op.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 #include <boost/mpl/vector/vector20.hpp>
 

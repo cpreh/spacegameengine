@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/depth_func.hpp"
 #include "../convert/fog_float_state.hpp"
 #include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
 #include <sge/renderer/buffer_has_depth.hpp>

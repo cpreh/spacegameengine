@@ -20,13 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../image/view/flipped_impl.hpp"
 #include "../../image/view/instantiate_flipped.hpp"
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/flipped.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/tag.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 sge::image2d::view::object const
 sge::image2d::view::flipped(
-	object const &_view
+	view::object const &_view
 )
 {
 	return
@@ -39,7 +40,7 @@ sge::image2d::view::flipped(
 
 sge::image2d::view::const_object const
 sge::image2d::view::flipped(
-	const_object const &_view
+	view::const_object const &_view
 )
 {
 	return

@@ -22,16 +22,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE3D_VIEW_VIEW_HPP_INCLUDED
 
 #include <sge/image3d/view/checked_sub.hpp>
+#include <sge/image3d/view/const_element.hpp>
 #include <sge/image3d/view/const_elements.hpp>
+#include <sge/image3d/view/const_elements_wrapper.hpp>
+#include <sge/image3d/view/const_elements_wrapper_fwd.hpp>
 #include <sge/image3d/view/const_object.hpp>
+#include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/data.hpp>
 #include <sge/image3d/view/dim.hpp>
+#include <sge/image3d/view/element.hpp>
+#include <sge/image3d/view/element_base.hpp>
 #include <sge/image3d/view/elements.hpp>
+#include <sge/image3d/view/elements_wrapper.hpp>
+#include <sge/image3d/view/elements_wrapper_fwd.hpp>
 #include <sge/image3d/view/flipped.hpp>
 #include <sge/image3d/view/format.hpp>
 #include <sge/image3d/view/make.hpp>
 #include <sge/image3d/view/make_const.hpp>
 #include <sge/image3d/view/object.hpp>
+#include <sge/image3d/view/object_fwd.hpp>
 #include <sge/image3d/view/optional_pitch.hpp>
 #include <sge/image3d/view/sub.hpp>
 #include <sge/image3d/view/sub_out_of_range.hpp>

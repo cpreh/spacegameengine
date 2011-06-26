@@ -62,18 +62,20 @@ public:
 	) const
 	{
 		return
-			mizuiro::image::sub_view(
-				_view,
-				typename T::bound_type(
-					sge::image::convert_dim<
-						typename T::bound_type::dim_type
-					>(
-						box_.pos()
-					),
-					sge::image::convert_dim<
-						typename T::bound_type::dim_type
-					>(
-						box_.size()
+			result_type(
+				mizuiro::image::sub_view(
+					_view,
+					typename T::bound_type(
+						sge::image::convert_dim<
+							typename T::bound_type::dim_type
+						>(
+							box_.pos()
+						),
+						sge::image::convert_dim<
+							typename T::bound_type::dim_type
+						>(
+							box_.size()
+						)
 					)
 				)
 			);

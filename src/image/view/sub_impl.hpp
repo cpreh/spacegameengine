@@ -24,12 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_INSTANTIATE_EXPORTS
 #include <sge/image/view/sub.hpp>
 #undef SGE_IMAGE_INSTANTIATE_EXPORTS
-#include "sub_visitor.hpp"
+#include "sub_any.hpp"
 #include <sge/image/traits/box.hpp>
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/view.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 template<
 	typename Tag
@@ -47,18 +45,9 @@ sge::image::view::sub(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			sge::image::view::sub_visitor<
-				typename image::traits::view<
-					Tag
-				>::type,
-				typename image::traits::box<
-					Tag
-				>::type
-			>(
-				_box
-			),
-			_view
+		image::view::sub_any(
+			_view,
+			_box
 		);
 }
 
@@ -78,18 +67,9 @@ sge::image::view::sub(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			sge::image::view::sub_visitor<
-				typename image::traits::const_view<
-					Tag
-				>::type,
-				typename image::traits::box<
-					Tag
-				>::type
-			>(
-				_box
-			),
-			_view
+		image::view::sub_any(
+			_view,
+			_box
 		);
 }
 

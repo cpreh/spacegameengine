@@ -2,8 +2,6 @@ SET(
 	SGE_IMAGE_FILES
 	include/sge/image/algorithm/algorithm.hpp
 	include/sge/image/algorithm/copy_and_convert.hpp
-	include/sge/image/algorithm/detail/transform_binary.hpp
-	include/sge/image/algorithm/detail/transform_unary.hpp
 	include/sge/image/algorithm/fill.hpp
 	include/sge/image/algorithm/print.hpp
 	include/sge/image/alpha8_format.hpp
@@ -22,6 +20,7 @@ SET(
 	include/sge/image/color/any/detail/make_object.hpp
 	include/sge/image/color/any/elements.hpp
 	include/sge/image/color/any/object.hpp
+	include/sge/image/color/any/object_fwd.hpp
 	include/sge/image/color/any/print.hpp
 	include/sge/image/color/argb32f.hpp
 	include/sge/image/color/argb32f_format.hpp
@@ -59,10 +58,6 @@ SET(
 	include/sge/image/color/rgba8_format.hpp
 	include/sge/image/colors.hpp
 	include/sge/image/const_raw_pointer.hpp
-	include/sge/image/detail/view/const_elements.hpp
-	include/sge/image/detail/view/elements.hpp
-	include/sge/image/detail/view/mizuiro_type.hpp
-	include/sge/image/detail/view/view.hpp
 	include/sge/image/difference_type.hpp
 	include/sge/image/dim.hpp
 	include/sge/image/exception.hpp
@@ -96,12 +91,19 @@ SET(
 	include/sge/image/traits/view_elements.hpp
 	include/sge/image/unsupported_format.hpp
 	include/sge/image/view/checked_sub.hpp
+	include/sge/image/view/const_object.hpp
+	include/sge/image/view/const_object_fwd.hpp
 	include/sge/image/view/data.hpp
 	include/sge/image/view/dim.hpp
+	include/sge/image/view/element_base.hpp
+	include/sge/image/view/elements_base.hpp
 	include/sge/image/view/flipped.hpp
 	include/sge/image/view/format.hpp
 	include/sge/image/view/make.hpp
 	include/sge/image/view/make_const.hpp
+	include/sge/image/view/mizuiro_type.hpp
+	include/sge/image/view/object.hpp
+	include/sge/image/view/object_fwd.hpp
 	include/sge/image/view/sub.hpp
 	include/sge/image/view/sub_out_of_range.hpp
 	include/sge/image/view/to_const.hpp
@@ -116,6 +118,7 @@ SET(
 	src/image/algorithm/print_impl.hpp
 	src/image/algorithm/print_visitor.hpp
 	src/image/color/any/convert.cpp
+	src/image/color/any/object.cpp
 	src/image/color/any/print.cpp
 	src/image/color/element_count.cpp
 	src/image/color/format.cpp
@@ -130,12 +133,14 @@ SET(
 	src/image/view/checked_sub_any.hpp
 	src/image/view/checked_sub_condition.hpp
 	src/image/view/checked_sub_impl.hpp
+	src/image/view/const_object_impl.hpp
 	src/image/view/data_any.hpp
 	src/image/view/data_impl.hpp
 	src/image/view/data_visitor.hpp
 	src/image/view/dim_any.hpp
 	src/image/view/dim_impl.hpp
 	src/image/view/dim_visitor.hpp
+	src/image/view/flipped_any.hpp
 	src/image/view/flipped_impl.hpp
 	src/image/view/flipped_visitor.hpp
 	src/image/view/format_any.hpp
@@ -143,18 +148,22 @@ SET(
 	src/image/view/format_visitor.hpp
 	src/image/view/instantiate_checked_sub.hpp
 	src/image/view/instantiate_const_nonconst.hpp
+	src/image/view/instantiate_const_object.hpp
 	src/image/view/instantiate_data.hpp
 	src/image/view/instantiate_dim.hpp
 	src/image/view/instantiate_flipped.hpp
 	src/image/view/instantiate_format.hpp
 	src/image/view/instantiate_make.hpp
 	src/image/view/instantiate_make_const.hpp
+	src/image/view/instantiate_object.hpp
 	src/image/view/instantiate_sub.hpp
 	src/image/view/instantiate_sub_out_of_range.hpp
 	src/image/view/instantiate_to_const.hpp
 	src/image/view/make_const_impl.hpp
 	src/image/view/make_impl.hpp
 	src/image/view/make_visitor.hpp
+	src/image/view/object_impl.hpp
+	src/image/view/sub_any.hpp
 	src/image/view/sub_impl.hpp
 	src/image/view/sub_out_of_range_impl.hpp
 	src/image/view/sub_visitor.hpp

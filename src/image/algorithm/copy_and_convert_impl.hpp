@@ -45,8 +45,8 @@ sge::image::algorithm::copy_and_convert(
 {
 	fcppt::variant::apply_binary(
 		algorithm::copy_and_convert_visitor(),
-		_src,
-		_dest
+		_src.get(),
+		_dest.get()
 	);
 }
 

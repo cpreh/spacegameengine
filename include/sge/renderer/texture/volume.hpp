@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_box.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/object.hpp>
+#include <sge/image3d/view/const_object_fwd.hpp>
+#include <sge/image3d/view/object_fwd.hpp>
 #include <sge/image3d/tag.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>

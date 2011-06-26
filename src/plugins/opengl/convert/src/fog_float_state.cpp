@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fog_float_state.hpp"
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/text.hpp>
 
 GLenum

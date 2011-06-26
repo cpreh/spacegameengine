@@ -19,20 +19,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/convert.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <sge/image/color/ag8_format.hpp>
 #include <sge/image/color/alpha8_format.hpp>
-#include <sge/image/color/gray8_format.hpp>
-#include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/color/bgra8_format.hpp>
+#include <sge/image/color/argb32f_format.hpp>
 #include <sge/image/color/argb8_format.hpp>
+#include <sge/image/color/bgra32f_format.hpp>
+#include <sge/image/color/bgra8_format.hpp>
+#include <sge/image/color/convert.hpp>
+#include <sge/image/color/ga8_format.hpp>
+#include <sge/image/color/gray8_format.hpp>
+#include <sge/image/color/rgb32f_format.hpp>
 #include <sge/image/color/rgb8_format.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
-#include <sge/image/color/bgra32f_format.hpp>
-#include <sge/image/color/argb32f_format.hpp>
+#include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/color/object_impl.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/export_symbol.hpp>
-#include <mizuiro/color/object_impl.hpp>
 
 namespace
 {
@@ -43,9 +47,9 @@ template<
 class visitor
 {
 public:
-	typedef mizuiro::color::object<
+	typedef typename sge::image::color::object<
 		Dest
-	> result_type;
+	>::type result_type;
 
 	template<
 		typename Source
@@ -61,7 +65,9 @@ public:
 template<
 	typename Dest
 >
-mizuiro::color::object<Dest> const
+typename sge::image::color::object<
+	Dest
+>::type const
 sge::image::color::any::convert(
 	object const &_color
 )
@@ -71,7 +77,7 @@ sge::image::color::any::convert(
 			::visitor<
 				Dest
 			>(),
-			_color
+			_color.get()
 		);
 }
 
@@ -99,11 +105,15 @@ visitor<Dest>::operator()(
 
 }
 
-#define SGE_INSTANTIATE_COLOR_CONVERT(x)\
+#define SGE_INSTANTIATE_COLOR_CONVERT(\
+	format\
+)\
 template FCPPT_EXPORT_SYMBOL \
-mizuiro::color::object<sge::image::color::x> const \
+typename sge::image::color::object<\
+	sge::image::color::format\
+>::type const \
 sge::image::color::any::convert<\
-	sge::image::color::x\
+	sge::image::color::format\
 >(\
 	sge::image::color::any::object const &\
 );

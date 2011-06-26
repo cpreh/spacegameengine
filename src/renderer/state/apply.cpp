@@ -25,10 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/function/object.hpp>
 #include <fcppt/math/compare.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/equal.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <mizuiro/color/operators/equal.hpp>
 
 namespace
 {

@@ -18,35 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DETAIL_VIEW_CONST_ELEMENTS_HPP_INCLUDED
-#define SGE_IMAGE_DETAIL_VIEW_CONST_ELEMENTS_HPP_INCLUDED
-
-#include <mizuiro/image/const_view.hpp>
-#include <boost/mpl/transform.hpp>
-#include <boost/mpl/placeholders.hpp>
+#ifndef SGE_IMAGE_COLOR_ANY_OBJECT_FWD_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_ANY_OBJECT_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace image
 {
-namespace detail
+namespace color
 {
-namespace view
+namespace any
 {
 
-template<
-	typename Elements
->
-struct const_elements
-:
-boost::mpl::transform<
-	Elements,
-	mizuiro::image::const_view<
-		boost::mpl::_1
-	>
->
-{
-};
+class object;
 
 }
 }

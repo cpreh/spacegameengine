@@ -20,12 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../image/view/sub_impl.hpp"
 #include "../../image/view/instantiate_sub.hpp"
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <sge/image2d/tag.hpp>
 
 sge::image2d::view::object const
 sge::image2d::view::sub(
-	object const &_src,
+	view::object const &_src,
 	image2d::rect const &_rect
 )
 {
@@ -40,7 +42,7 @@ sge::image2d::view::sub(
 
 sge::image2d::view::const_object const
 sge::image2d::view::sub(
-	const_object const &_src,
+	view::const_object const &_src,
 	image2d::rect const &_rect
 )
 {

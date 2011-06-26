@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "instantiate.hpp"
 #include <sge/renderer/state/float.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 SGE_RENDERER_STATE_INSTANTIATE_VAR_AND_TRAMPOLINE(float_)
 SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(float_, depth_buffer_clear_val)

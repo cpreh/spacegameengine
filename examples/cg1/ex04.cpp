@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -328,11 +329,14 @@ try
 			(sge::renderer::state::bool_::clear_depth_buffer = true)
 			(sge::renderer::state::bool_::enable_lighting = true)
 			(sge::renderer::state::color::ambient_light_color
-				= rgba32f_color(
-					(sge::image::color::init::red %= 0.577350269)
-					(sge::image::color::init::green %= 0.577350269f)
-					(sge::image::color::init::blue %= 0.577350269f)
-					(sge::image::color::init::alpha %= 0.)
+				=
+				sge::image::color::any::object(
+					rgba32f_color(
+						(sge::image::color::init::red %= 0.577350269)
+						(sge::image::color::init::green %= 0.577350269f)
+						(sge::image::color::init::blue %= 0.577350269f)
+						(sge::image::color::init::alpha %= 0.)
+					)
 				)
 			)
 			(sge::renderer::state::float_::depth_buffer_clear_val = 1.f)

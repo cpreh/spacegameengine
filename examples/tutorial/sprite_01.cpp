@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/config/media_path.hpp>
