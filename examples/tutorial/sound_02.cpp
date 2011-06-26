@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/multi_loader.hpp>
-#include <sge/audio/pool.hpp>
+#include <sge/audio/pool/object.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
@@ -60,7 +60,13 @@ try
 		)
 	);
 
-	sge::audio::pool pool;
+	sge::audio::pool::object pool(
+		sge::audio::pool::gain_factor(
+			static_cast<sge::audio::pool::gain_factor::value_type>(
+				1)),
+		sge::audio::pool::pitch_factor(
+			static_cast<sge::audio::pool::pitch_factor::value_type>(
+				1)));
 
 	{
 		sge::audio::sound::base_ptr const sound_01(
@@ -81,12 +87,12 @@ try
 
 		pool.add(
 			sound_01,
-			sge::audio::stop_mode::play_once
+			sge::audio::pool::stop_mode::play_once
 		);
 
 		pool.add(
 			sound_02,
-			sge::audio::stop_mode::play_once
+			sge::audio::pool::stop_mode::play_once
 		);
 
 		sound_01->play(

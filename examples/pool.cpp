@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/player.hpp>
-#include <sge/audio/pool.hpp>
+#include <sge/audio/pool/object.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/multi_loader.hpp>
@@ -81,7 +81,13 @@ try
 		)
 	);
 
-	sge::audio::pool pool;
+	sge::audio::pool::object pool(
+		sge::audio::pool::gain_factor(
+			static_cast<sge::audio::pool::gain_factor::value_type>(
+				1)),
+		sge::audio::pool::pitch_factor(
+			static_cast<sge::audio::pool::pitch_factor::value_type>(
+				1)));
 
 	sge::audio::sound::base_ptr sound(
 		sys.audio_player().create_nonpositional_stream(
@@ -95,7 +101,7 @@ try
 
 	pool.add(
 		sound,
-		sge::audio::stop_mode::play_once
+		sge::audio::pool::stop_mode::play_once
 	);
 
 	sge::time::timer t(sge::time::second(2));
@@ -107,7 +113,6 @@ try
 		if (t.update_b())
 		{
 			fcppt::io::cerr << FCPPT_TEXT("killing sound\n");
-
 			sound.reset();
 		}
 	}

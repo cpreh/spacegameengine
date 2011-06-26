@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_STOP_MODE_HPP_INCLUDED
-#define SGE_AUDIO_STOP_MODE_HPP_INCLUDED
+#ifndef SGE_AUDIO_POOL_PITCH_FACTOR_HPP_INCLUDED
+#define SGE_AUDIO_POOL_PITCH_FACTOR_HPP_INCLUDED
+
+#include <sge/audio/scalar.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
 namespace audio
 {
-namespace stop_mode
+namespace pool
 {
-enum type
-{
-	stop_playing,     // stop and erase as soon as the sound is dead
-	continue_playing, // continue playing until pool is destroyed
-	play_once         // when dead, play once more and then kill
-};
+FCPPT_MAKE_STRONG_TYPEDEF(
+	audio::scalar,
+	pitch_factor);
 }
 }
 }

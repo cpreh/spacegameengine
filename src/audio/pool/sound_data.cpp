@@ -18,17 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_POOL_FWD_HPP_INCLUDED
-#define SGE_AUDIO_POOL_FWD_HPP_INCLUDED
+#include <sge/audio/pool/sound_data.hpp>
 
-namespace sge
+sge::audio::pool::sound_data::sound_data(
+	audio::sound::base_ptr const _sound_ptr,
+	pool::stop_mode::type const _stop_mode)
+:
+	sound_ptr_(
+		_sound_ptr),
+	stop_mode_(
+		_stop_mode)
 {
-namespace audio
+}
+
+sge::audio::sound::base_ptr const
+sge::audio::pool::sound_data::sound() const
 {
-
-class pool;
-
-}
+	return sound_ptr_;
 }
 
-#endif
+sge::audio::pool::stop_mode::type
+sge::audio::pool::sound_data::stop_mode() const
+{
+	return stop_mode_;
+}

@@ -18,55 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_POOL_HPP_INCLUDED
-#define SGE_AUDIO_POOL_HPP_INCLUDED
+#ifndef SGE_AUDIO_POOL_SOUND_DATA_HPP_INCLUDED
+#define SGE_AUDIO_POOL_SOUND_DATA_HPP_INCLUDED
 
-#include <sge/audio/stop_mode.hpp>
+#include <sge/audio/pool/stop_mode.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
-#include <sge/audio/symbol.hpp>
-#include <sge/class_symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <vector>
-#include <utility>
+#include <sge/audio/sound/base_fwd.hpp>
 
 namespace sge
 {
 namespace audio
 {
-class SGE_CLASS_SYMBOL pool
+namespace pool
 {
-	FCPPT_NONCOPYABLE(
-		pool
-	);
+class sound_data
+{
 public:
-	SGE_AUDIO_SYMBOL explicit 
-	pool();
+	explicit
+	sound_data(
+		audio::sound::base_ptr,
+		pool::stop_mode::type);
 
-	SGE_AUDIO_SYMBOL 
-	~pool();
+	audio::sound::base_ptr const
+	sound() const;
 
-	SGE_AUDIO_SYMBOL void 
-	add(
-		sound::base_ptr,
-		stop_mode::type);
-
-	SGE_AUDIO_SYMBOL void 
-	update();
-
-	SGE_AUDIO_SYMBOL bool 
-	sounds_finished() const;
+	pool::stop_mode::type
+	stop_mode() const;
 private:
-	typedef 
-	std::pair<sound::base_ptr,stop_mode::type> 
-	value_type;
-
-	typedef 
-	std::vector<value_type> 
-	container_type;
-
-	container_type sounds_;
+	audio::sound::base_ptr sound_ptr_;
+	pool::stop_mode::type stop_mode_;
 };
-
+}
 }
 }
 

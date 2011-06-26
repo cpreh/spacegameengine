@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file_format.hpp"
 #include "../log.hpp"
 #include "../buffer.hpp"
-#include <sge/audio/pool.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/sample_container.hpp>
