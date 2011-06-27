@@ -63,18 +63,18 @@ public:
 	SGE_AUDIO_SYMBOL bool 
 	sounds_finished() const;
 
-	void
+	SGE_AUDIO_SYMBOL void
 	gain_factor(
 		pool::gain_factor::value_type);
 
-	pool::gain_factor::value_type
+	SGE_AUDIO_SYMBOL pool::gain_factor::value_type
 	gain_factor() const;
 
-	void
+	SGE_AUDIO_SYMBOL void
 	pitch_factor(
 		pool::pitch_factor::value_type);
 
-	pool::pitch_factor::value_type
+	SGE_AUDIO_SYMBOL pool::pitch_factor::value_type
 	pitch_factor() const;
 private:
 	typedef 

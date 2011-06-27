@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_POOL_SOUND_DATA_HPP_INCLUDED
 #define SGE_AUDIO_POOL_SOUND_DATA_HPP_INCLUDED
 
+#include <sge/audio/symbol.hpp>
 #include <sge/audio/pool/stop_mode.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
 #include <sge/audio/sound/base_fwd.hpp>
@@ -34,15 +35,15 @@ namespace pool
 class sound_data
 {
 public:
-	explicit
+	SGE_AUDIO_SYMBOL explicit
 	sound_data(
 		audio::sound::base_ptr,
 		pool::stop_mode::type);
 
-	audio::sound::base_ptr const
+	SGE_AUDIO_SYMBOL audio::sound::base_ptr const
 	sound() const;
 
-	pool::stop_mode::type
+	SGE_AUDIO_SYMBOL pool::stop_mode::type
 	stop_mode() const;
 private:
 	audio::sound::base_ptr sound_ptr_;
