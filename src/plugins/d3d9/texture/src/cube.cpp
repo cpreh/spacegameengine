@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../cube_types.hpp"
 #include "../lock_cube.hpp"
 #include "../unlock_cube.hpp"
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/optional_impl.hpp>
 

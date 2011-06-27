@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../convert/to_color.hpp"
 #include "../../devicefuncs/set_render_state.hpp"
 #include <sge/renderer/state/var.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 sge::d3d9::state::visitor::visitor(

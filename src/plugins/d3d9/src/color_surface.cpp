@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../surfacefuncs/unlock_rect.hpp"
 #include "../make_pitch_2d.hpp"
 #include "../optional_lock_rect.hpp"
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
