@@ -18,30 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#ifndef SGE_MD3_MD3_HPP_INCLUDED
+#define SGE_MD3_MD3_HPP_INCLUDED
 
-namespace sge
-{
-namespace plugin
-{
-
-namespace capabilities
-{
-enum type
-{
-	renderer,
-	input,
-	image2d_loader,
-	audio_player,
-	font,
-	audio_loader,
-	char_conv,
-	size
-};
-}
-
-}
-}
+#include <sge/md3/create.hpp>
+#include <sge/md3/exception.hpp>
+#include <sge/md3/index.hpp>
+#include <sge/md3/index_sequence.hpp>
+#include <sge/md3/load_flags.hpp>
+#include <sge/md3/loader.hpp>
+#include <sge/md3/loader_fwd.hpp>
+#include <sge/md3/loader_ptr.hpp>
+#include <sge/md3/normal.hpp>
+#include <sge/md3/normal_sequence.hpp>
+#include <sge/md3/object.hpp>
+#include <sge/md3/object_fwd.hpp>
+#include <sge/md3/object_ptr.hpp>
+#include <sge/md3/part_name_sequence.hpp>
+#include <sge/md3/position.hpp>
+#include <sge/md3/scalar.hpp>
+#include <sge/md3/symbol.hpp>
+#include <sge/md3/texcoord.hpp>
+#include <sge/md3/texcoord_sequence.hpp>
+#include <sge/md3/vertex_sequence.hpp>
 
 #endif

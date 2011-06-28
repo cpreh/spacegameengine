@@ -43,9 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/collector.hpp>
 #include <sge/input/mouse/collector.hpp>
 #include <sge/log/global.hpp>
-#include <sge/model/plugin.hpp>
-#include <sge/model/loader.hpp>
-#include <sge/model/loader_ptr.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/iterator.hpp>
@@ -94,7 +91,6 @@ public:
 	plugin::object<audio::player>::ptr_type         audio_player_plugin_;
 	plugin::object<charconv::system>::ptr_type      charconv_plugin_;
 	plugin::object<font::system>::ptr_type          font_plugin_;
-	plugin::object<model::loader>::ptr_type         md3_plugin_;
 
 	fcppt::optional<sge::systems::window>           window_param_;
 	awl::system::object_shared_ptr                  window_system_;
@@ -138,8 +134,6 @@ public:
 
 	charconv::system_ptr                            charconv_system_;
 
-	model::loader_ptr                               md3_loader_;
-
 	explicit impl(
 		fcppt::filesystem::path const &plugin_path
 	);
@@ -181,9 +175,6 @@ public:
 
 	void
 	init_charconv();
-
-	void
-	init_md3();
 
 	void
 	post_init();
@@ -375,12 +366,6 @@ sge::systems::instance::font_system() const
 	return *impl_->font_system_;
 }
 
-sge::model::loader &
-sge::systems::instance::md3_loader() const
-{
-	return *impl_->md3_loader_;
-}
-
 sge::window::instance &
 sge::systems::instance::window() const
 {
@@ -484,9 +469,6 @@ visitor::operator()(
 		return;
 	case sge::systems::parameterless::font:
 		impl_.init_font();
-		return;
-	case sge::systems::parameterless::md3_loader:
-		impl_.init_md3();
 		return;
 	}
 
@@ -769,14 +751,6 @@ sge::systems::instance::impl::init_charconv()
 	charconv_plugin_ = default_plugin<sge::charconv::system>();
 
 	charconv_system_ = charconv_plugin_->get()();
-}
-
-void
-sge::systems::instance::impl::init_md3()
-{
-	md3_plugin_ = default_plugin<sge::model::loader>();
-
-	md3_loader_ = md3_plugin_->get()();
 }
 
 void

@@ -18,28 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#ifndef SGE_MD3_CREATE_HPP_INCLUDED
+#define SGE_MD3_CREATE_HPP_INCLUDED
+
+#include <sge/md3/loader_ptr.hpp>
+#include <sge/md3/symbol.hpp>
 
 namespace sge
 {
-namespace plugin
+namespace md3
 {
 
-namespace capabilities
-{
-enum type
-{
-	renderer,
-	input,
-	image2d_loader,
-	audio_player,
-	font,
-	audio_loader,
-	char_conv,
-	size
-};
-}
+SGE_MD3_SYMBOL
+md3::loader_ptr const
+create();
 
 }
 }

@@ -18,30 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#include <sge/md3/exception.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
-{
-namespace plugin
-{
-
-namespace capabilities
-{
-enum type
-{
-	renderer,
-	input,
-	image2d_loader,
-	audio_player,
-	font,
-	audio_loader,
-	char_conv,
-	size
-};
-}
-
-}
-}
-
-#endif
+sge::md3::exception::exception(
+	fcppt::string const &_what
+)
+:
+	sge::exception(
+		FCPPT_TEXT("md3: ")
+		+ _what
+	)
+{}

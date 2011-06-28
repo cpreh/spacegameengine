@@ -18,28 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#ifndef SGE_MD3_LOADER_IMPL_HPP_INCLUDED
+#define SGE_MD3_LOADER_IMPL_HPP_INCLUDED
+
+#include <sge/md3/loader.hpp>
+#include <sge/md3/load_flags.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace plugin
+namespace md3
 {
 
-namespace capabilities
+class loader_impl
+:
+	public md3::loader
 {
-enum type
-{
-	renderer,
-	input,
-	image2d_loader,
-	audio_player,
-	font,
-	audio_loader,
-	char_conv,
-	size
+	FCPPT_NONCOPYABLE(
+		loader_impl
+	);
+public:
+	loader_impl();
+
+	~loader_impl();
+
+	md3::object_ptr const
+	load(
+		fcppt::filesystem::path const &,
+		md3::load_flags::type
+	);
 };
-}
 
 }
 }

@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
-#include <sge/model/loader_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
@@ -112,10 +111,6 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	font::system &
 	font_system() const;
-
-	SGE_SYSTEMS_SYMBOL
-	model::loader &
-	md3_loader() const;
 
 	SGE_SYSTEMS_SYMBOL
 	sge::window::instance &

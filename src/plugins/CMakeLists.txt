@@ -14,8 +14,6 @@ FIND_PACKAGE(Vorbis)
 # These plugins have no dependencies and are enabled by default
 OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
 
-OPTION (ENABLE_MD3 "Build the md3 model loader plugin" ON)
-
 OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 
 
@@ -129,10 +127,6 @@ ENDIF ()
 
 IF (ENABLE_WINCONV)
 	ADD_SUBDIRECTORY (winconv)
-ENDIF ()
-
-IF (ENABLE_MD3)
-	ADD_SUBDIRECTORY (md3)
 ENDIF ()
 
 IF (ENABLE_OPENAL)

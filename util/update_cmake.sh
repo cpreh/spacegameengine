@@ -89,7 +89,7 @@ update_sublibrary input
 
 update_sublibrary line_drawer
 
-update_sublibrary model
+update_sublibrary md3
 
 update_sublibrary parse
 
@@ -165,8 +165,6 @@ update_plugin freetype
 update_plugin iconv
 
 update_plugin libpng
-
-update_plugin md3
 
 update_plugin openal
 

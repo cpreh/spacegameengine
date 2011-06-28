@@ -31,7 +31,6 @@ namespace parameterless
 enum type
 {
 	charconv,
-	md3_loader,
 	font
 };
 }
