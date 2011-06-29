@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -91,17 +92,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
-#include <sge/shader/object.hpp>
-#include <sge/shader/update_single_uniform.hpp>
-#include <sge/shader/object_parameters.hpp>
-#include <sge/shader/activate_everything.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/scoped.hpp>
-#include <sge/shader/sampler.hpp>
-#include <sge/shader/variable.hpp>
-#include <sge/shader/variable_sequence.hpp>
-#include <sge/shader/variable_type.hpp>
-#include <sge/shader/vf_to_string.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -422,7 +412,6 @@ public:
 	explicit	
 	random_model_collection(
 		sge::renderer::device &,
-		sge::shader::object &,
 		compiled_model const &);
 
 	void
@@ -436,20 +425,16 @@ private:
 	model_sequence;
 
 	sge::renderer::device &renderer_;
-	sge::shader::object &shader_;
 	compiled_model const &backend_;
 	model_sequence models_;
 };
 
 random_model_collection::random_model_collection(
 	sge::renderer::device &_renderer,
-	sge::shader::object &_shader,
 	compiled_model const &_backend)
 :
 	renderer_(
 		_renderer),
-	shader_(
-		_shader),
 	backend_(
 		_backend),
 	models_()
@@ -756,27 +741,6 @@ try
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>()));
 
-	sge::shader::object shader(
-		sge::shader::object_parameters(
-			sys.renderer(),
-			*vertex_declaration,
-			sge::config::media_path() 
-				/ FCPPT_TEXT("shaders")
-				/ FCPPT_TEXT("anaglyph")
-				/ FCPPT_TEXT("vertex.glsl"),
-			sge::config::media_path() 
-				/ FCPPT_TEXT("shaders")
-				/ FCPPT_TEXT("anaglyph")
-				/ FCPPT_TEXT("fragment.glsl"),
-			sge::shader::vf_to_string<vf::format>(),
-			fcppt::assign::make_container<sge::shader::variable_sequence>
-				(sge::shader::variable(
-					"channel",
-					sge::shader::variable_type::uniform,
-					static_cast<sge::renderer::glsl::int_type>(
-						0))),
-			sge::shader::sampler_sequence()));
-
 	// Create an md3 loader using the "create" function.
 	sge::md3::loader_ptr md3_loader(
 		sge::md3::create());
@@ -792,7 +756,6 @@ try
 
 	random_model_collection model_collection(
 		sys.renderer(),
-		shader,
 		main_model);
 
 	// Set the important render states
@@ -809,25 +772,37 @@ try
 			(sge::renderer::state::color::back_buffer_clear_color = 
 				sge::image::colors::black()));
 
+	// We need this timer to update the camera
 	sge::time::timer 
 		frame_timer(
 			sge::time::second(
 				1));
 
-
-	sge::shader::scoped scoped_shader(
-		shader,
-		sge::shader::activate_everything());
+	// The vertex declaration can be set once in this case
+	sge::renderer::scoped_vertex_declaration scoped_vd(
+		sys.renderer(),
+		*vertex_declaration);
 
 	while(running)
 	{
 		sys.window().dispatch();
 
+		// If we have no viewport (yet), don't do anything (this is just a
+		// precaution, we _might_ divide by zero somewhere below, otherwise)
 		if(!sge::renderer::viewport_size(sys.renderer()).content())
 			continue;
 
+		// This moves the camera around
 		camera.update(
 			frame_timer.reset());
+
+		// Since the "write_*" attributes also apply to the "clear
+		// backbuffer" stuff, we set everything to "true" here.
+		sys.renderer().state(
+			sge::renderer::state::list
+				(sge::renderer::state::bool_::write_red = true)
+				(sge::renderer::state::bool_::write_blue = true)
+				(sge::renderer::state::bool_::write_green = true));
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer());
@@ -835,9 +810,12 @@ try
 		sge::camera::gizmo_type const original_gizmo = 
 			camera.gizmo();
 
-		shader.update_uniform(
-			"channel",
-			0);
+		// Set the color mask to "red"
+		sys.renderer().state(
+			sge::renderer::state::list
+				(sge::renderer::state::bool_::write_red = true)
+				(sge::renderer::state::bool_::write_blue = false)
+				(sge::renderer::state::bool_::write_green = false));
 
 		move_eye_position(
 			camera,
@@ -850,12 +828,16 @@ try
 		camera.gizmo() = 
 			original_gizmo;
 
+		// Clear depth buffer
 		sys.renderer().clear(
 			sge::renderer::clear_flags::depth_buffer);
 
-		shader.update_uniform(
-			"channel",
-			1);
+		// Set the color mask to cyan
+		sys.renderer().state(
+			sge::renderer::state::list
+				(sge::renderer::state::bool_::write_red = false)
+				(sge::renderer::state::bool_::write_blue = true)
+				(sge::renderer::state::bool_::write_green = true));
 
 		move_eye_position(
 			camera,
