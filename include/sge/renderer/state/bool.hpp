@@ -49,7 +49,11 @@ namespace bool_
 			enable_multi_sampling,
 			enable_point_sprites,
 			enable_scissor_test,
-			write_to_depth_buffer
+			write_to_depth_buffer,
+			write_alpha,
+			write_blue,
+			write_green,
+			write_red
 		};
 	}
 
@@ -73,7 +77,11 @@ namespace bool_
 		enable_multi_sampling,
 		enable_point_sprites,
 		enable_scissor_test,
-		write_to_depth_buffer;
+		write_to_depth_buffer,
+		write_alpha,
+		write_blue,
+		write_green,
+		write_red;
 }
 
 }

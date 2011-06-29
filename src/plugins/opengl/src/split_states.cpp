@@ -216,3 +216,27 @@ sge::opengl::split_states::update_alpha_test()
 		sge::renderer::exception
 	)
 }
+
+void
+sge::opengl::split_states::update_write_color_buffer()
+{
+	::glColorMask(
+		states_.get(
+			sge::renderer::state::bool_::write_red
+		),
+		states_.get(
+			sge::renderer::state::bool_::write_blue
+		),
+		states_.get(
+			sge::renderer::state::bool_::write_green
+		),
+		states_.get(
+			sge::renderer::state::bool_::write_alpha
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glColorMask failed"),
+		sge::renderer::exception
+	)
+}
