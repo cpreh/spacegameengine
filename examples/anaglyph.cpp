@@ -155,20 +155,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 /**
 	Example description:
 
+	This example implements anaglyph 3D, which means you have to buy
+	red/cyan 3D glasses to enjoy it. When running it (with default
+	parameters), you should be able to look around with the mouse, as
+	well as move around with w, a, s and d. You should see "arrow"
+	models at various locations and in various orientations around the
+	"spawn point".
 
-	This example shows the usage of:
-
+	Anaglyph 3D is achieved by rendering each object twice: From the
+	left eye and from the right eye. The left eye is rendered in red,
+	the right eye in cyan.
  */
 
 
 namespace
 {
+// Define the vertex format which consists of just a position value,
+// nothing more (no textures, no colors).
 namespace vf
 {
+// As you can see, we're using OpenGL-2 and below
 typedef 
 sge::renderer::vf::pos
 <
-	// type and dimension of the position attribute values from 1 to 4 are possible
 	sge::renderer::scalar,
 	3
 > 
@@ -196,6 +205,9 @@ sge::renderer::vf::view<format_part>
 format_part_view;
 }
 
+// This class is just a wrapper around a vertex buffer and an index
+// buffer. It receives the loaded md3 model and "compiles" both
+// buffers from it.
 class compiled_model
 {
 FCPPT_NONCOPYABLE(
@@ -230,6 +242,7 @@ compiled_model::compiled_model(
 :
 	renderer_(
 		_renderer),
+	// Create the vertex buffer
 	vb_(
 		renderer_.create_vertex_buffer(
 			_vd,
@@ -239,6 +252,10 @@ compiled_model::compiled_model(
 				_model.vertices(
 					_model.part_names().front()).size()),
 			sge::renderer::resource_flags::none)),
+	// Create the index buffer. We have to decide which data type to
+	// use. Since our models have < 100 vertices, a 16 bit integer is
+	// enough, so we're using "format::i16" here. You'll see more of
+	// this later on.
 	ib_(
 		renderer_.create_index_buffer(
 			sge::renderer::index::dynamic::format::i16,
@@ -247,6 +264,7 @@ compiled_model::compiled_model(
 					_model.part_names().front()).size()),
 		sge::renderer::resource_flags::none))
 {
+	// Fill the vertex buffer first (arbitrary choice)
 	{
 		sge::renderer::scoped_vertex_lock const vblock(
 			*vb_,
@@ -276,13 +294,19 @@ compiled_model::compiled_model(
 					*current_model_vertex));
 	}
 
+	// Then fill the index buffer. The code is somewhat "dual" to the
+	// vertex buffer, but has some subtleties. First, we lock the buffer...
 	sge::renderer::scoped_index_lock const iblock(
 		*ib_,
 		sge::renderer::lock_mode::writeonly);
 
+	// then we create a dynamic view to the buffer...
 	sge::renderer::index::dynamic::view const indices(
 		iblock.value());
 
+	// ...then we declare an iterator for the buffer. Again, you we meet
+	// the index format. We could have designed the following code to be
+	// agnostic of the integer type, but that would be even more code.
 	sge::renderer::index::iterator<sge::renderer::index::format_16> current_index(
 		indices.data());
 
@@ -290,6 +314,7 @@ compiled_model::compiled_model(
 		_model.indices(
 			_model.part_names().front());
 
+	// Fill the buffer. _Again_, the format type appears.
 	for(
 		sge::md3::index_sequence::const_iterator current_model_index = 
 			model_indices.begin();
@@ -315,6 +340,11 @@ compiled_model::vb() const
 void
 compiled_model::render() const
 {
+	// This should be pretty self-explanatory. Note that here, we just
+	// call render. The vertex buffer isn't activated here, neither is
+	// the vertex declaration. This is done at a "higher" level so we
+	// don't activate/deactive it too often (which decreases
+	// performance).
 	renderer_.render_indexed(
 		*ib_,
 		sge::renderer::first_vertex(0),
@@ -331,6 +361,8 @@ compiled_model::~compiled_model()
 {
 }
 
+// This is a specific model instance, meaning it has a position and an
+// orientation. It has no logic, however.
 class model_instance
 {
 FCPPT_NONCOPYABLE(
@@ -380,6 +412,8 @@ model_instance::~model_instance()
 {
 }
 
+// This class represents a collection of randomly placed and oriented
+// "model_instance" objects (see above).
 class random_model_collection
 {
 FCPPT_NONCOPYABLE(
@@ -420,15 +454,19 @@ random_model_collection::random_model_collection(
 		_backend),
 	models_()
 {
+	// Create objects in the cube with side length 10
 	sge::renderer::scalar const position_range = 
 		static_cast<sge::renderer::scalar>(
 			10);
 
+	// See the fcppt documentation on how this really works. It's not
+	// that difficult, however.
 	fcppt::random::uniform<sge::renderer::scalar> position_rng(
 		fcppt::random::make_inclusive_range<sge::renderer::scalar>(
 			-position_range,
 			position_range));
 
+	// Ditto
 	fcppt::random::uniform<sge::renderer::scalar> angle_rng(
 		fcppt::random::make_inclusive_range<sge::renderer::scalar>(
 			0,
@@ -438,11 +476,16 @@ random_model_collection::random_model_collection(
 		100;
 
 	for(model_sequence::size_type i = 0; i < number_of_models; ++i)
+		// Again, we refer to the fcppt documentation on what the hell
+		// we're doing here. tl;dr: This is for exception safety and
+		// against memory leaks.
 		fcppt::container::ptr::push_back_unique_ptr(
 			models_,
 			fcppt::make_unique_ptr<model_instance>(
 				fcppt::cref(
 					backend_),
+				// Concatenate translation and rotation. Slightly expensive,
+				// but we only need to do it once, so...
 				fcppt::math::matrix::rotation_x(
 					angle_rng()) *
 				fcppt::math::matrix::rotation_y(
@@ -460,6 +503,8 @@ void
 random_model_collection::render(
 	sge::renderer::matrix4 const &mv)
 {
+	// Finally, we activate the vertex buffer so we can render stuff
+	// with it. We only activate it once, however, not for every model.
 	sge::renderer::scoped_vertex_buffer scoped_vb(
 		renderer_,
 		backend_.vb());
@@ -470,6 +515,7 @@ random_model_collection::render(
 		current_model != models_.end(); 
 		++current_model)
 	{
+		// Set the world transformation and render
 		renderer_.transform(
 			sge::renderer::matrix_mode::world,
 			mv * current_model->modelview());
@@ -482,6 +528,7 @@ random_model_collection::~random_model_collection()
 {
 }
 
+// Just a little helper method.
 void
 show_usage(
 	char const * const app_path)
@@ -489,6 +536,39 @@ show_usage(
 	std::cerr << "usage: " << app_path << " [<eye-distance] [<focal-length>]\n";
 	std::cerr << "The default eye distance is 0.01, the default focal length is 5\n";
 }
+
+// Rendering works as follows:
+// The camera gives us a coordinate system consisting of three vectors: right, up, and forward:
+//
+// .oO(The following ascii art is probably screwed up if you're using a non-monospace font)
+//     ^
+//     |
+//     | forward
+//     |
+// up  +-----> right
+//
+// We want to emulate a person looking straight ahead (along the
+// forward vector) with two eyes, focusing an object at distance
+// 'f'. The distance between the eyes is 'd'. So we have:
+//          x
+//   |     / \     |    
+//   |    /   \    |
+//   |   /  ^  \   |  f
+//   |  /   |   \ a|
+//   | /    |    \ |
+//   |/     |     \|
+//   y      +----->z
+//    <---->
+//      d/2
+//
+// Here, 'y' and 'z' are the two eyes, focusing the object at location 'x'.
+// Now, rendering is just:
+// 
+// - Translate d/2 along the "right" vector
+// - Rotate the coordinate system around the "up" vector with angle 'a'
+//
+// Using simple trigonometry, we get "atan(f/(d/2))" for 'a'
+// The following function implements just this.
 
 void
 move_eye_position(
@@ -523,6 +603,7 @@ move_eye_position(
 
 }
 
+// This adapts the perspective matrix to the now changed camera.
 void
 adapt_perspective(
 	sge::renderer::device &renderer,
@@ -696,9 +777,11 @@ try
 						0))),
 			sge::shader::sampler_sequence()));
 
+	// Create an md3 loader using the "create" function.
 	sge::md3::loader_ptr md3_loader(
 		sge::md3::create());
 
+	// Create a model and a model collection
 	compiled_model main_model(
 		sys.renderer(),
 		*vertex_declaration,
@@ -712,7 +795,7 @@ try
 		shader,
 		main_model);
 
-	// Some render states
+	// Set the important render states
 	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_back_buffer = true)
@@ -731,10 +814,10 @@ try
 			sge::time::second(
 				1));
 
+
 	sge::shader::scoped scoped_shader(
 		shader,
 		sge::shader::activate_everything());
-
 
 	while(running)
 	{
