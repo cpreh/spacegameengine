@@ -99,7 +99,7 @@ public:
 	{
 		sge::renderer::glsl::uniform::single_value(
 			*variable_,
-			static_cast<int>(
+			static_cast<sge::renderer::glsl::int_type>(
 				_value));
 	}
 };

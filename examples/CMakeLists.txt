@@ -49,7 +49,7 @@ FUNCTION(
 	)
 ENDFUNCTION()
 
-ADD_SGE_EXAMPLE(anaglyph "config;systems;texture;time;model;shader;camera" "")
+ADD_SGE_EXAMPLE(anaglyph "config;systems;texture;time;md3;shader;camera" "")
 ADD_SGE_EXAMPLE(anim "config;sprite;systems;texture;time" "")
 ADD_SGE_EXAMPLE(app_path "config" "")
 ADD_SGE_EXAMPLE(asio_window "systems" "")

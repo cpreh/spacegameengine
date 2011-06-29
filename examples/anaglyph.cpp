@@ -28,19 +28,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
-#include <sge/model/index_sequence.hpp>
-#include <sge/model/loader.hpp>
-#include <sge/model/object.hpp>
-#include <sge/model/vertex_sequence.hpp>
-#include <sge/model/index_sequence.hpp>
+#include <sge/md3/index_sequence.hpp>
+#include <sge/md3/loader_ptr.hpp>
+#include <sge/md3/loader.hpp>
+#include <sge/md3/create.hpp>
+#include <sge/md3/object.hpp>
+#include <sge/md3/vertex_sequence.hpp>
+#include <sge/md3/index_sequence.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/glsl/int_type.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/clear_flags.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -84,6 +92,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/shader/update_single_uniform.hpp>
 #include <sge/shader/object_parameters.hpp>
 #include <sge/shader/activate_everything.hpp>
 #include <sge/shader/sampler_sequence.hpp>
@@ -116,20 +125,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <fcppt/log/log.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/twopi.hpp>
+#include <fcppt/random/uniform.hpp>
+#include <fcppt/random/make_inclusive_range.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/vector/vector.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/signal/signal.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/bad_lexical_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <cstdlib>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <string>
 #include <exception>
 #include <iostream>
+#include <ostream>
+#include <cmath>
+#include <cstdlib>
 
 /**
 	Example description:
@@ -184,10 +205,16 @@ public:
 	compiled_model(
 		sge::renderer::device &,
 		sge::renderer::vertex_declaration const &,
-		sge::model::object const &);
+		sge::md3::object const &);
+
+	sge::renderer::vertex_buffer &
+	vb();
+
+	sge::renderer::vertex_buffer const &
+	vb() const;
 
 	void
-	render();
+	render() const;
 
 	~compiled_model();
 private:
@@ -199,7 +226,7 @@ private:
 compiled_model::compiled_model(
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration const &_vd,
-	sge::model::object const &_model)
+	sge::md3::object const &_model)
 :
 	renderer_(
 		_renderer),
@@ -209,13 +236,15 @@ compiled_model::compiled_model(
 			sge::renderer::vf::dynamic::part_index(
 				0u),
 			static_cast<sge::renderer::size_type>(
-				_model.vertices(_model.part_names().front()).size()),
+				_model.vertices(
+					_model.part_names().front()).size()),
 			sge::renderer::resource_flags::none)),
 	ib_(
 		renderer_.create_index_buffer(
 			sge::renderer::index::dynamic::format::i16,
 			static_cast<sge::renderer::size_type>(
-				_model.indices(_model.part_names().front()).size()),
+				_model.indices(
+					_model.part_names().front()).size()),
 		sge::renderer::resource_flags::none))
 {
 	{
@@ -233,12 +262,12 @@ compiled_model::compiled_model(
 		vf::position::packed_type 
 		position_vector;
 
-		sge::model::vertex_sequence const model_vertices = 
+		sge::md3::vertex_sequence const model_vertices = 
 			_model.vertices(
 				_model.part_names().front());
 
 		for(
-			sge::model::vertex_sequence::const_iterator current_model_vertex = 
+			sge::md3::vertex_sequence::const_iterator current_model_vertex = 
 				model_vertices.begin();
 			current_model_vertex != model_vertices.end();
 			++current_model_vertex)
@@ -257,12 +286,12 @@ compiled_model::compiled_model(
 	sge::renderer::index::iterator<sge::renderer::index::format_16> current_index(
 		indices.data());
 
-	sge::model::index_sequence const model_indices = 
+	sge::md3::index_sequence const model_indices = 
 		_model.indices(
 			_model.part_names().front());
 
 	for(
-		sge::model::index_sequence::const_iterator current_model_index = 
+		sge::md3::index_sequence::const_iterator current_model_index = 
 			model_indices.begin();
 		current_model_index != model_indices.end();
 		++current_model_index)
@@ -271,55 +300,305 @@ compiled_model::compiled_model(
 				*current_model_index));
 }
 
-void
-compiled_model::render()
+sge::renderer::vertex_buffer &
+compiled_model::vb()
 {
-	renderer_.render_nonindexed(
+	return *vb_;
+}
+
+sge::renderer::vertex_buffer const &
+compiled_model::vb() const
+{
+	return *vb_;
+}
+
+void
+compiled_model::render() const
+{
+	renderer_.render_indexed(
+		*ib_,
 		sge::renderer::first_vertex(0),
 		sge::renderer::vertex_count(
 			vb_->size()),
-		sge::renderer::nonindexed_primitive_type::triangle);
+		sge::renderer::indexed_primitive_type::triangle,
+		sge::renderer::primitive_count(
+			ib_->size()/3),
+		sge::renderer::first_index(
+			0));
 }
 
 compiled_model::~compiled_model()
 {
 }
 
-void
-create_back_texture(
-	sge::renderer::device &renderer,
-	sge::shader::object &shader,
-	sge::renderer::target_ptr &target)
+class model_instance
 {
-	sge::renderer::texture::planar_ptr target_texture(
-		renderer.create_planar_texture(
-			sge::renderer::texture::planar_parameters(
-				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-					sge::renderer::viewport_size(
-						renderer)),
-				sge::image::color::format::rgb8,
-				sge::renderer::texture::filter::linear,
-				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::clamp),
-				sge::renderer::resource_flags::none,
-				sge::renderer::texture::capabilities_field(
-					sge::renderer::texture::capabilities::render_target))));
+FCPPT_NONCOPYABLE(
+	model_instance);
+public:
+	explicit
+	model_instance(
+		compiled_model const &,
+		sge::renderer::matrix4 const &);
 
-	target = 
-		sge::renderer::target_from_texture(
-			renderer,
-			*target_texture);
+	void
+	render();
 
-	shader.update_texture(
-		"first_pass_texture",
-		target_texture);
+	sge::renderer::matrix4 const &
+	modelview() const;
+
+	~model_instance();
+private:
+	compiled_model const &backend_;
+	sge::renderer::matrix4 const modelview_;
+};
+
+model_instance::model_instance(
+	compiled_model const &_backend,
+	sge::renderer::matrix4 const &_modelview)
+:
+	backend_(
+		_backend),
+	modelview_(
+		_modelview)
+{
+}
+
+void
+model_instance::render()
+{
+	backend_.render();
+}
+
+sge::renderer::matrix4 const &
+model_instance::modelview() const
+{
+	return modelview_;
+}
+
+model_instance::~model_instance()
+{
+}
+
+class random_model_collection
+{
+FCPPT_NONCOPYABLE(
+	random_model_collection);
+public:
+	explicit	
+	random_model_collection(
+		sge::renderer::device &,
+		sge::shader::object &,
+		compiled_model const &);
+
+	void
+	render(
+		sge::renderer::matrix4 const &);
+
+	~random_model_collection();
+private:
+	typedef
+	boost::ptr_vector<model_instance>
+	model_sequence;
+
+	sge::renderer::device &renderer_;
+	sge::shader::object &shader_;
+	compiled_model const &backend_;
+	model_sequence models_;
+};
+
+random_model_collection::random_model_collection(
+	sge::renderer::device &_renderer,
+	sge::shader::object &_shader,
+	compiled_model const &_backend)
+:
+	renderer_(
+		_renderer),
+	shader_(
+		_shader),
+	backend_(
+		_backend),
+	models_()
+{
+	sge::renderer::scalar const position_range = 
+		static_cast<sge::renderer::scalar>(
+			10);
+
+	fcppt::random::uniform<sge::renderer::scalar> position_rng(
+		fcppt::random::make_inclusive_range<sge::renderer::scalar>(
+			-position_range,
+			position_range));
+
+	fcppt::random::uniform<sge::renderer::scalar> angle_rng(
+		fcppt::random::make_inclusive_range<sge::renderer::scalar>(
+			0,
+			fcppt::math::twopi<sge::renderer::scalar>()));
+
+	model_sequence::size_type const number_of_models = 
+		100;
+
+	for(model_sequence::size_type i = 0; i < number_of_models; ++i)
+		fcppt::container::ptr::push_back_unique_ptr(
+			models_,
+			fcppt::make_unique_ptr<model_instance>(
+				fcppt::cref(
+					backend_),
+				fcppt::math::matrix::rotation_x(
+					angle_rng()) *
+				fcppt::math::matrix::rotation_y(
+					angle_rng()) *
+				fcppt::math::matrix::rotation_z(
+					angle_rng()) * 
+				fcppt::math::matrix::translation(
+					sge::renderer::vector3(
+						position_rng(),
+						position_rng(),
+						position_rng()))));
+}
+
+void
+random_model_collection::render(
+	sge::renderer::matrix4 const &mv)
+{
+	sge::renderer::scoped_vertex_buffer scoped_vb(
+		renderer_,
+		backend_.vb());
+
+	for(
+		model_sequence::iterator current_model = 
+			models_.begin(); 
+		current_model != models_.end(); 
+		++current_model)
+	{
+		renderer_.transform(
+			sge::renderer::matrix_mode::world,
+			mv * current_model->modelview());
+
+		current_model->render();
+	}
+}
+
+random_model_collection::~random_model_collection()
+{
+}
+
+void
+show_usage(
+	char const * const app_path)
+{
+	std::cerr << "usage: " << app_path << " [<eye-distance] [<focal-length>]\n";
+	std::cerr << "The default eye distance is 0.01, the default focal length is 5\n";
+}
+
+void
+move_eye_position(
+	sge::camera::object &camera,
+	sge::renderer::scalar const eye_distance,
+	sge::renderer::scalar const focal_length)
+{
+	camera.gizmo().position(
+		camera.gizmo().position() + eye_distance * camera.gizmo().right());
+
+	sge::renderer::scalar const
+		angle = 
+			std::atan(
+				eye_distance/focal_length),
+		sinx = std::sin(angle),
+		cosx = std::cos(angle),
+		cosxc = 1 - cosx,
+		x = camera.gizmo().up().x(),
+		y = camera.gizmo().up().y(),
+		z = camera.gizmo().up().z();
+
+	fcppt::math::matrix::static_<sge::renderer::scalar,3,3>::type rotation_matrix(
+		cosx + x*x*cosxc,   x*y*cosxc - z*sinx, x*z*cosxc + y*sinx,
+		x*y*cosxc + z*sinx, cosx + y*y*cosxc,   y*z*cosxc - x*sinx,
+		x*z*cosxc - y*sinx, y*z*cosxc + x*sinx, cosx + z*z*cosxc);
+
+	camera.gizmo().right(
+		rotation_matrix * camera.gizmo().right());
+
+	camera.gizmo().forward(
+		rotation_matrix * camera.gizmo().forward());
+
+}
+
+void
+adapt_perspective(
+	sge::renderer::device &renderer,
+	sge::camera::object const &camera)
+{
+	renderer.transform(
+		sge::renderer::matrix_mode::projection,
+		camera.projection());
 }
 }
 
 int 
-main()
+main(
+	int argc,
+	char *argv[])
 try
 {
+	if(argc > 3)
+	{
+		std::cerr << "Error, you provided too many arguments, exiting...\n";
+		show_usage(
+			argv[0]);
+		return EXIT_FAILURE;
+	}
+
+	sge::renderer::scalar 
+		eye_distance = 
+			static_cast<sge::renderer::scalar>(
+				0.01),
+		focal_length = 
+			static_cast<sge::renderer::scalar>(
+				1);
+
+	if(argc >= 2)
+	{
+		if(std::string(argv[1]) == "--help")
+		{
+			show_usage(
+				argv[0]);
+			return EXIT_SUCCESS;
+		}
+
+		try
+		{
+			eye_distance = 
+				fcppt::lexical_cast<sge::renderer::scalar>(
+					std::string(
+						argv[1]));
+		}
+		catch(fcppt::bad_lexical_cast const &)
+		{
+			std::cerr << "The eye distance argument has to be floating point! Exiting...\n";
+			show_usage(
+				argv[0]);
+			return EXIT_FAILURE;
+		}
+
+		if(argc == 3)
+		{
+			try
+			{
+				focal_length = 
+					fcppt::lexical_cast<sge::renderer::scalar>(
+						std::string(
+							argv[2]));
+			}
+			catch(fcppt::bad_lexical_cast const &)
+			{
+				std::cerr << "The focal length argument has to be floating point! Exiting...\n";
+				show_usage(
+					argv[0]);
+				return EXIT_FAILURE;
+			}
+		}
+	}
+
 	fcppt::log::activate_levels(
 		sge::log::global(),
 		fcppt::log::level::debug);
@@ -337,7 +616,6 @@ try
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
 				sge::viewport::fill_on_resize()))
-			(sge::systems::parameterless::md3_loader)
 			(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
@@ -365,92 +643,74 @@ try
 			sge::camera::activation_state::active));
 
 	// Adapt the camera to the viewport
-	fcppt::signal::scoped_connection const viewport_connection(
-		sys.viewport_manager().manage_callback(
-			std::tr1::bind(
-				sge::camera::projection::update_perspective_from_viewport,
-				fcppt::ref(
-					sys.renderer()),
-				fcppt::ref(
-					camera),
-				// Field of view
-				static_cast<sge::renderer::scalar>(
-					fcppt::math::deg_to_rad(
-						90.)),
-				// Near plane
-				static_cast<sge::renderer::scalar>(
-					0.1),
-				// Far plane
-				static_cast<sge::renderer::scalar>(
-					1000.))));
+	fcppt::signal::scoped_connection const 
+		viewport_connection(
+			sys.viewport_manager().manage_callback(
+				std::tr1::bind(
+					sge::camera::projection::update_perspective_from_viewport,
+					fcppt::ref(
+						sys.renderer()),
+					fcppt::ref(
+						camera),
+					// Field of view
+					static_cast<sge::renderer::scalar>(
+						fcppt::math::deg_to_rad(
+							90.)),
+					// Near plane
+					static_cast<sge::renderer::scalar>(
+						0.1),
+					// Far plane
+					static_cast<sge::renderer::scalar>(
+						1000.)))),
+		adapt_perspective_connection(
+			sys.viewport_manager().manage_callback(
+				std::tr1::bind(
+					&adapt_perspective,
+					fcppt::ref(
+						sys.renderer()),
+					fcppt::cref(
+						camera))));
 
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>()));
 
-	sge::shader::object first_pass_shader(
+	sge::shader::object shader(
 		sge::shader::object_parameters(
 			sys.renderer(),
 			*vertex_declaration,
 			sge::config::media_path() 
 				/ FCPPT_TEXT("shaders")
 				/ FCPPT_TEXT("anaglyph")
-				/ FCPPT_TEXT("first_pass_vertex.glsl"),
+				/ FCPPT_TEXT("vertex.glsl"),
 			sge::config::media_path() 
 				/ FCPPT_TEXT("shaders")
 				/ FCPPT_TEXT("anaglyph")
-				/ FCPPT_TEXT("first_pass_fragment.glsl"),
+				/ FCPPT_TEXT("fragment.glsl"),
 			sge::shader::vf_to_string<vf::format>(),
 			fcppt::assign::make_container<sge::shader::variable_sequence>
 				(sge::shader::variable(
-					"mvp",
+					"channel",
 					sge::shader::variable_type::uniform,
-					sge::renderer::matrix4::identity())),
+					static_cast<sge::renderer::glsl::int_type>(
+						0))),
 			sge::shader::sampler_sequence()));
 
-	sge::shader::object second_pass_shader(
-		sge::shader::object_parameters(
-			sys.renderer(),
-			*vertex_declaration,
-			sge::config::media_path() 
-				/ FCPPT_TEXT("shaders")
-				/ FCPPT_TEXT("anaglyph")
-				/ FCPPT_TEXT("second_pass_vertex.glsl"),
-			sge::config::media_path() 
-				/ FCPPT_TEXT("shaders")
-				/ FCPPT_TEXT("anaglyph")
-				/ FCPPT_TEXT("second_pass_fragment.glsl"),
-			sge::shader::vf_to_string<vf::format>(),
-			fcppt::assign::make_container<sge::shader::variable_sequence>
-				(sge::shader::variable(
-					"mvp",
-					sge::shader::variable_type::uniform,
-					sge::renderer::matrix4::identity())),
-			fcppt::assign::make_container<sge::shader::sampler_sequence>(
-				sge::shader::sampler(
-					"first_pass_texture",
-					sge::renderer::texture::planar_ptr()))));
-
-	sge::renderer::target_ptr temp_target;
-
-	fcppt::signal::scoped_connection create_back_texture_connection(
-		sys.viewport_manager().manage_callback(
-			std::tr1::bind(
-				&create_back_texture,
-				fcppt::ref(
-					sys.renderer()),
-				fcppt::ref(
-					second_pass_shader),
-				fcppt::ref(
-					temp_target))));
+	sge::md3::loader_ptr md3_loader(
+		sge::md3::create());
 
 	compiled_model main_model(
 		sys.renderer(),
 		*vertex_declaration,
-		*sys.md3_loader().load(
+		*md3_loader->load(
 			sge::config::media_path()
 				/ FCPPT_TEXT("models") 
-				/ FCPPT_TEXT("european_fnt_v2.md3")));
+				/ FCPPT_TEXT("arrow.md3")));
+
+	random_model_collection model_collection(
+		sys.renderer(),
+		shader,
+		main_model);
 
 	// Some render states
 	sys.renderer().state(
@@ -471,52 +731,59 @@ try
 			sge::time::second(
 				1));
 
+	sge::shader::scoped scoped_shader(
+		shader,
+		sge::shader::activate_everything());
+
+
 	while(running)
 	{
 		sys.window().dispatch();
 
-		camera.update(
-			frame_timer.reset());
-
-		if(!temp_target)
+		if(!sge::renderer::viewport_size(sys.renderer()).content())
 			continue;
 
-		{
-			sge::renderer::scoped_target const target_(
-				sys.renderer(),
-				*temp_target);
-
-			sge::renderer::scoped_block const block_(
-				sys.renderer());
-
-			sge::shader::scoped scoped_shader(
-				first_pass_shader,
-				sge::shader::activate_everything());
-
-			first_pass_shader.update_uniform(
-				"mvp",
-				camera.mvp());
-
-			main_model.render();	
-		}
-
-		// Next up: 
-		// - move camera
+		camera.update(
+			frame_timer.reset());
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer());
 
-		sge::shader::scoped scoped_shader(
-			second_pass_shader,
-			sge::shader::activate_everything());
+		sge::camera::gizmo_type const original_gizmo = 
+			camera.gizmo();
 
-		second_pass_shader.update_uniform(
-			"mvp",
-			camera.mvp());
+		shader.update_uniform(
+			"channel",
+			0);
 
-		
+		move_eye_position(
+			camera,
+			eye_distance,
+			focal_length);
 
-		main_model.render();	
+		model_collection.render(
+			camera.world());
+
+		camera.gizmo() = 
+			original_gizmo;
+
+		sys.renderer().clear(
+			sge::renderer::clear_flags::depth_buffer);
+
+		shader.update_uniform(
+			"channel",
+			1);
+
+		move_eye_position(
+			camera,
+			-eye_distance,
+			focal_length);
+
+		model_collection.render(
+			camera.world());
+
+		camera.gizmo() = 
+			original_gizmo;
 	}
 }
 catch(fcppt::exception const &e)

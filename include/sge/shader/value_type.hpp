@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_VALUE_TYPE_HPP_INCLUDED
 
 #include <sge/shader/scalar.hpp>
+#include <sge/renderer/glsl/int_type.hpp>
 #include <sge/shader/vec2.hpp>
 #include <sge/shader/vec3.hpp>
 #include <sge/shader/vec4.hpp>
@@ -43,7 +44,7 @@ fcppt::variant::object
 		vec4,
 		mat4,
 		scalar,
-		int,
+		renderer::glsl::int_type,
 		bool
 	>
 >
