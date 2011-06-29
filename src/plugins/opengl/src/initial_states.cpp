@@ -52,6 +52,18 @@ sge::opengl::initial_states()
 			sge::renderer::state::float_::alpha_test_ref = 0.f
 		)
 		(
+			sge::renderer::state::bool_::write_alpha = true
+		)
+		(
+			sge::renderer::state::bool_::write_blue = true
+		)
+		(
+			sge::renderer::state::bool_::write_green = true
+		)
+		(
+			sge::renderer::state::bool_::write_red = true
+		)
+		(
 			sge::renderer::state::stencil_op::stencil_fail
 				= sge::renderer::state::stencil_op_value::keep
 		)
