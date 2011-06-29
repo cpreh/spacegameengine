@@ -57,6 +57,9 @@ public:
 
 	void
 	update_alpha_test();
+
+	void
+	update_write_color_buffer();
 private:
 	template<
 		typename T

@@ -46,6 +46,10 @@ sge::opengl::convert::bool_(
 	case rs::enable_multi_sampling:
 	case rs::enable_point_sprites:
 	case rs::write_to_depth_buffer:
+	case rs::write_alpha:
+	case rs::write_blue:
+	case rs::write_green:
+	case rs::write_red:
 		break;
 	}
 

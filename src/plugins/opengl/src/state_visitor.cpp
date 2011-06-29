@@ -288,7 +288,11 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glDepthMask failed"),
 			sge::renderer::exception
 		)
-
+	case rs::write_alpha:
+	case rs::write_blue:
+	case rs::write_green:
+	case rs::write_red:
+		states_.update_write_color_buffer();	
 		return;
 	}
 	
