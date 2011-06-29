@@ -215,6 +215,7 @@ try
 				tex_man,
 				*sys.image_loader().load(
 					sge::config::media_path()
+					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("grass.png")
 				)
 			)

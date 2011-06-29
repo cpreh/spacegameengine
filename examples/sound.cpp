@@ -126,9 +126,11 @@ try
 	fcppt::filesystem::path const 
 		file_name = 
 			sge::config::media_path() / 
+			FCPPT_TEXT("sounds") /
 			FCPPT_TEXT("ding.wav"),
 		streaming_file_name =
 			sge::config::media_path() / 
+			FCPPT_TEXT("sounds") /
 			FCPPT_TEXT("epoq.ogg");
 
 	fcppt::io::cout << FCPPT_TEXT("This is the sge sound example. We will now try to load the audio loader\n");

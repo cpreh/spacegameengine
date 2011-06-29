@@ -230,6 +230,7 @@ try
 		image_bg(
 			sys.image_loader().load(
 				sge::config::media_path()
+				/ FCPPT_TEXT("images")
 				/ FCPPT_TEXT("shadertest.jpg")
 			)
 		),
@@ -453,12 +454,14 @@ try
 	fcppt::io::cifstream fragment_stream(
 		sge::config::media_path()
 		/ FCPPT_TEXT("shaders")
+		/ FCPPT_TEXT("raw")
 		/ FCPPT_TEXT("fragment.glsl")
 	);
 
 	fcppt::io::cifstream vertex_stream(
 		sge::config::media_path()
 		/ FCPPT_TEXT("shaders")
+		/ FCPPT_TEXT("raw")
 		/ FCPPT_TEXT("vertex.glsl")
 	);
 

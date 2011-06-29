@@ -55,6 +55,7 @@ try
 
 	fcppt::filesystem::path const file_name(
 		sge::config::media_path()
+		/ FCPPT_TEXT("sounds")
 		/ FCPPT_TEXT("ding.wav")
 	);
 

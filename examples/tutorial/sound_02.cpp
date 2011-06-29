@@ -72,7 +72,7 @@ try
 		sge::audio::sound::base_ptr const sound_01(
 			sys.audio_player().create_nonpositional_stream(
 				sys.audio_loader().load(
-					sge::config::media_path() / FCPPT_TEXT("ding.wav")
+					sge::config::media_path() / FCPPT_TEXT("sounds") / FCPPT_TEXT("ding.wav")
 				)
 			)
 		);
@@ -80,7 +80,7 @@ try
 		sge::audio::sound::base_ptr const sound_02(
 			sys.audio_player().create_nonpositional_stream(
 				sys.audio_loader().load(
-					sge::config::media_path() / FCPPT_TEXT("siren.ogg")
+					sge::config::media_path() / FCPPT_TEXT("sounds") /  FCPPT_TEXT("siren.ogg")
 				)
 			)
 		);

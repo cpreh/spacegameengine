@@ -342,8 +342,14 @@ try
 		sge::shader::object_parameters(
 			sys.renderer(),
 			*vertex_declaration,
-			sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
-			sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_fragment.glsl"),
+			sge::config::media_path()
+				/ FCPPT_TEXT("shaders")
+				/ FCPPT_TEXT("copy")
+				/ FCPPT_TEXT("vertex.glsl"),
+			sge::config::media_path()
+				/ FCPPT_TEXT("shaders")
+				/ FCPPT_TEXT("copy")
+				/ FCPPT_TEXT("fragment.glsl"),
 			sge::shader::vf_to_string<screen_vf::format>(),
 			fcppt::assign::make_container<sge::shader::variable_sequence>(
 				sge::shader::variable(

@@ -304,6 +304,7 @@ particles::particles(
 		>(
 			sge::renderer::texture::create_planar_from_path(
 				sge::config::media_path() 
+					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("smooth_particle.png"),
 				sys.renderer(),
 				sys.image_loader(),
@@ -456,12 +457,14 @@ try
 	fcppt::io::cifstream fragment_stream(
 		sge::config::media_path()
 		/ FCPPT_TEXT("shaders")
-		/ FCPPT_TEXT("pointsprite_fragment.glsl"));
+		/ FCPPT_TEXT("pointsprite")
+		/ FCPPT_TEXT("fragment.glsl"));
 
 	fcppt::io::cifstream vertex_stream(
 		sge::config::media_path()
 		/ FCPPT_TEXT("shaders")
-		/ FCPPT_TEXT("pointsprite_vertex.glsl"));
+		/ FCPPT_TEXT("pointsprite")
+		/ FCPPT_TEXT("vertex.glsl"));
 
 #if 0
 	sge::renderer::glsl::program_ptr const p(

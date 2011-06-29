@@ -224,6 +224,7 @@ try
 				// and clamping at its corners.
 				sge::renderer::texture::create_planar_from_path(
 					sge::config::media_path()
+					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("grass.png"),
 					sys.renderer(),
 					sys.image_loader(),
@@ -255,6 +256,7 @@ try
 			>(
 				sge::renderer::texture::create_planar_from_path(
 					sge::config::media_path()
+					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("cloudsquare.png"),
 					sys.renderer(),
 					sys.image_loader(),

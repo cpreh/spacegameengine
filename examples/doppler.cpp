@@ -290,6 +290,7 @@ try
 		image_bg(
 			sys.image_loader().load(
 				sge::config::media_path()
+				/ FCPPT_TEXT("images")
 				/ FCPPT_TEXT("grass.png")
 			)
 		),
@@ -416,6 +417,7 @@ try
 	sge::audio::file_ptr const af_siren(
 		load_raw(
 			sge::config::media_path()
+			/ FCPPT_TEXT("sounds")
 			/ FCPPT_TEXT("siren.ogg"),
 			sys.audio_loader()
 		)

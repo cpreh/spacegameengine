@@ -217,6 +217,7 @@ try
 		tex1(
 			load_raw(
 				sge::config::media_path()
+				/ FCPPT_TEXT("images")
 				/ FCPPT_TEXT("cloudsquare.png"),
 				tex_man,
 				image_loader
@@ -229,6 +230,7 @@ try
 				tex_man,
 				*image_loader.load(
 					sge::config::media_path()
+					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("grass.png")
 				)
 			)

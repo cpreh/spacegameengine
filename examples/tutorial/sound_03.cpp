@@ -68,6 +68,7 @@ try
 	sge::audio::file_ptr const file(
 		sys.audio_loader().load(
 			sge::config::media_path()
+			/	FCPPT_TEXT("sounds")
 			/ FCPPT_TEXT("ding.wav")
 		)
 	);

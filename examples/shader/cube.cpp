@@ -859,7 +859,7 @@ try
 			sge::renderer::texture::create_planar_from_view(
 				sys.renderer(),
 				sys.image_loader().load(
-					sge::config::media_path()/FCPPT_TEXT("normal_map.png"))->view(),
+					sge::config::media_path()/FCPPT_TEXT("images")/FCPPT_TEXT("normal_map.png"))->view(),
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
@@ -869,7 +869,7 @@ try
 			sge::renderer::texture::create_planar_from_view(
 				sys.renderer(),
 				sys.image_loader().load(
-					sge::config::media_path()/FCPPT_TEXT("color_map.png"))->view(),
+					sge::config::media_path()/FCPPT_TEXT("images")/FCPPT_TEXT("color_map.png"))->view(),
 				// Other filter settings are possible: point, trilinear, anisotropic.
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
@@ -942,8 +942,14 @@ try
 		sge::shader::object_parameters(
 			sys.renderer(),
 			*vertex_declaration,
-			sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("cube_vertex.glsl"),
-			sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("cube_fragment.glsl"),
+			sge::config::media_path()
+				/ FCPPT_TEXT("shaders") 
+				/ FCPPT_TEXT("cube") 
+				/ FCPPT_TEXT("vertex.glsl"),
+			sge::config::media_path()
+				/ FCPPT_TEXT("shaders") 
+				/ FCPPT_TEXT("cube") 
+				/ FCPPT_TEXT("fragment.glsl"),
 			// This turns the vertex format we defined above into a glsl
 			// variable declaration which replaces the '$$$HEADER$$$' magic
 			// string in the glsl files (not completely though, HEADER also
