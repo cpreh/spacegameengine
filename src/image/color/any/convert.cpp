@@ -109,7 +109,7 @@ visitor<Dest>::operator()(
 	format\
 )\
 template FCPPT_EXPORT_SYMBOL \
-typename sge::image::color::object<\
+sge::image::color::object<\
 	sge::image::color::format\
 >::type const \
 sge::image::color::any::convert<\

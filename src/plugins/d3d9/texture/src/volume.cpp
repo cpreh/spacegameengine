@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../lock_volume.hpp"
 #include "../unlock_volume.hpp"
 #include "../volume_types.hpp"
+#include <sge/image3d/view/const_object.hpp>
+#include <sge/image3d/view/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 

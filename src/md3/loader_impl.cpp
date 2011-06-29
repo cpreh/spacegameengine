@@ -18,30 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#include "loader_impl.hpp"
+#include "object_impl.hpp"
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/io/cifstream.hpp>
 
-namespace sge
+sge::md3::loader_impl::loader_impl()
 {
-namespace plugin
-{
-
-namespace capabilities
-{
-enum type
-{
-	renderer,
-	input,
-	image2d_loader,
-	audio_player,
-	font,
-	audio_loader,
-	char_conv,
-	size
-};
 }
 
-}
+sge::md3::loader_impl::~loader_impl()
+{
 }
 
-#endif
+sge::md3::object_ptr const
+sge::md3::loader_impl::load(
+	fcppt::filesystem::path const &_path,
+	md3::load_flags::type const _flags
+)
+{
+	fcppt::io::cifstream file(
+		_path
+	);
+
+	return 
+		fcppt::make_shared_ptr<
+			md3::object_impl
+		>(
+			fcppt::ref( 
+				file
+			),
+			_flags
+		);
+}
