@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/md3/create.hpp>
 #include <sge/md3/object.hpp>
 #include <sge/md3/vertex_sequence.hpp>
+#include <sge/md3/normal_sequence.hpp>
 #include <sge/md3/index_sequence.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/glsl/int_type.hpp>
@@ -88,6 +89,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
+#include <sge/renderer/vf/normal.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/visual_depth.hpp>
@@ -160,8 +162,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-// Define the vertex format which consists of just a position value,
-// nothing more (no textures, no colors).
+// Define the vertex format which consists of a position value and a normal (for the diffuse shading)
 namespace vf
 {
 // As you can see, we're using OpenGL-2 and below
@@ -173,12 +174,21 @@ sge::renderer::vf::pos
 > 
 position;
 
+// As you can see, we're using OpenGL-2 and below
+typedef 
+sge::renderer::vf::normal
+<
+	sge::renderer::scalar
+> 
+normal;
+
 typedef 
 sge::renderer::vf::part
 <
-	boost::mpl::vector1
+	boost::mpl::vector2
 	<
-		position
+		position,
+		normal
 	>
 > 
 format_part;
@@ -266,22 +276,31 @@ compiled_model::compiled_model(
 		vf::format_part_view::iterator current_vertex(
 			current_vertex_view.begin());
 
-		typedef 
-		vf::position::packed_type 
-		position_vector;
-
 		sge::md3::vertex_sequence const model_vertices = 
 			_model.vertices(
 				_model.part_names().front());
 
+		// Here, we assume that the model has normals (notice the operator*)
+		sge::md3::normal_sequence const model_normals = 
+			*_model.normals(
+				_model.part_names().front());
+
+		sge::md3::normal_sequence::const_iterator current_model_normal = 
+			model_normals.begin();
+		
 		for(
 			sge::md3::vertex_sequence::const_iterator current_model_vertex = 
 				model_vertices.begin();
 			current_model_vertex != model_vertices.end();
 			++current_model_vertex)
-			(*current_vertex++).set<vf::position>(
-				fcppt::math::vector::structure_cast<position_vector>(
+		{
+			(*current_vertex).set<vf::position>(
+				fcppt::math::vector::structure_cast<vf::position::packed_type>(
 					*current_model_vertex));
+			(*current_vertex++).set<vf::normal>(
+				fcppt::math::vector::structure_cast<vf::normal::packed_type>(
+					*current_model_normal++));
+		}
 	}
 
 	// Then fill the index buffer. The code is somewhat "dual" to the
@@ -768,9 +787,15 @@ try
 			(sge::renderer::state::bool_::enable_alpha_blending = false)
 			(sge::renderer::state::cull_mode::off)
 			(sge::renderer::state::draw_mode::fill)
+			(sge::renderer::state::bool_::enable_lighting = true)
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::color::back_buffer_clear_color = 
 				sge::image::colors::black()));
+
+	sys.renderer().enable_light(
+		sge::renderer::light::index(
+			0),
+		true);
 
 	// We need this timer to update the camera
 	sge::time::timer 
