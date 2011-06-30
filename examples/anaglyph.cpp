@@ -785,7 +785,7 @@ try
 			(sge::renderer::state::float_::depth_buffer_clear_val = 1.f)
 			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::bool_::enable_alpha_blending = false)
-			(sge::renderer::state::cull_mode::off)
+			(sge::renderer::state::cull_mode::front)
 			(sge::renderer::state::draw_mode::fill)
 			(sge::renderer::state::bool_::enable_lighting = true)
 			(sge::renderer::state::stencil_func::off)
