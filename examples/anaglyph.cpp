@@ -767,7 +767,7 @@ try
 			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::bool_::enable_alpha_blending = false)
 			(sge::renderer::state::cull_mode::off)
-			(sge::renderer::state::draw_mode::line)
+			(sge::renderer::state::draw_mode::fill)
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::color::back_buffer_clear_color = 
 				sge::image::colors::black()));
