@@ -126,6 +126,11 @@ SET(
 	src/image/color/format_to_string.cpp
 	src/image/colors.cpp
 	src/image/convert_dim.hpp
+	src/image/dynamic/available_channels.hpp
+	src/image/dynamic/basic_format.hpp
+	src/image/dynamic/c8_4_format.hpp
+	src/image/dynamic/rgba8_format.cpp
+	src/image/dynamic/rgba8_format.hpp
 	src/image/exception.cpp
 	src/image/file_exception.cpp
 	src/image/store_impl.hpp
