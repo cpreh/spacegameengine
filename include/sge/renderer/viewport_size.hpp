@@ -33,7 +33,7 @@ namespace renderer
 SGE_RENDERER_SYMBOL
 renderer::screen_size const
 viewport_size(
-	renderer::device &
+	renderer::device const &
 );
 
 }
