@@ -236,7 +236,7 @@ else()
 	endforeach()
 
 	if(
-		NOT SGE_FIND_REQUIRED
+		SGE_FIND_REQUIRED
 	)
 		message(
 			SEND_ERROR
