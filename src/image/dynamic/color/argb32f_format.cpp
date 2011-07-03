@@ -18,26 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "rgba8_format.hpp"
+#include "argb32f_format.hpp"
 #include "available_channels.hpp"
-#include "c8_4_format.hpp"
+#include "c32f_4_format.hpp"
 #include <fcppt/assign/make_array.hpp>
 
-sge::image::dynamic::c8_4_format const
-sge::image::dynamic::rgba8_format(
+sge::image::dynamic::color::c32f_4_format const
+sge::image::dynamic::color::argb32f_format(
 	fcppt::assign::make_array<
-		sge::image::dynamic::available_channels::type
+		sge::image::dynamic::color::available_channels::type
 	>
 	(
-		sge::image::dynamic::available_channels::red
+		sge::image::dynamic::color::available_channels::alpha
 	)
 	(
-		sge::image::dynamic::available_channels::green
+		sge::image::dynamic::color::available_channels::red
 	)
 	(
-		sge::image::dynamic::available_channels::blue
+		sge::image::dynamic::color::available_channels::green
 	)
 	(
-		sge::image::dynamic::available_channels::alpha
+		sge::image::dynamic::color::available_channels::blue
 	)
 );

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_BASIC_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_BASIC_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE_DYNAMIC_COLOR_C32F_4_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_DYNAMIC_COLOR_C32F_4_FORMAT_HPP_INCLUDED
 
-#include "available_channels.hpp"
-#include <mizuiro/color/homogenous_dynamic.hpp>
+#include "basic_format.hpp"
+#include <sge/image/color/channel32f.hpp>
 
 namespace sge
 {
@@ -30,21 +30,15 @@ namespace image
 {
 namespace dynamic
 {
-
-template<
-	typename BaseType,
-	unsigned NumChannels
->
-struct basic_format
+namespace color
 {
-	typedef mizuiro::color::homogenous_dynamic<
-		BaseType,
-		available_channels::type,
-		available_channels::size,
-		NumChannels
-	> type;
-};
 
+typedef dynamic::color::basic_format<
+	image::color::channel32f,
+	4
+>::type c32f_4_format;
+
+}
 }
 }
 }

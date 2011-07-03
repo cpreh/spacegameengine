@@ -18,31 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_AVAILABLE_CHANNELS_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_AVAILABLE_CHANNELS_HPP_INCLUDED
+#include "bgra8_format.hpp"
+#include "available_channels.hpp"
+#include "c8_4_format.hpp"
+#include <fcppt/assign/make_array.hpp>
 
-namespace sge
-{
-namespace image
-{
-namespace dynamic
-{
-
-namespace available_channels
-{
-enum type
-{
-	alpha,
-	blue,
-	green,
-	luminance,
-	red,
-	size
-};
-}
-
-}
-}
-}
-
-#endif
+sge::image::dynamic::color::c8_4_format const
+sge::image::dynamic::color::bgra8_format(
+	fcppt::assign::make_array<
+		sge::image::dynamic::color::available_channels::type
+	>
+	(
+		sge::image::dynamic::color::available_channels::blue
+	)
+	(
+		sge::image::dynamic::color::available_channels::green
+	)
+	(
+		sge::image::dynamic::color::available_channels::red
+	)
+	(
+		sge::image::dynamic::color::available_channels::alpha
+	)
+);
