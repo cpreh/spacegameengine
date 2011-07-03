@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_COLOR_FROM_STATIC_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_COLOR_FROM_STATIC_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE_DYNAMIC_COLOR_FROM_STATIC_FORMAT_TYPE_HPP_INCLUDED
+#define SGE_IMAGE_DYNAMIC_COLOR_FROM_STATIC_FORMAT_TYPE_HPP_INCLUDED
 
 #include "c8_1_format.hpp"
 #include "c8_2_format.hpp"
@@ -49,65 +49,106 @@ namespace dynamic
 namespace color
 {
 
-color::c8_1_format const *
-from_static_format(
-	image::color::alpha8_format const &
-);
+template<
+	typename Format
+>
+struct from_static_format_type;
 
-color::c8_1_format const *
-from_static_format(
-	image::color::gray8_format const &
-);
+template<>
+struct from_static_format_type<
+	image::color::alpha8_format
+>
+{
+	typedef color::c8_1_format type;
+};
 
-color::c8_2_format const *
-from_static_format(
-	image::color::ag8_format const &
-);
+template<>
+struct from_static_format_type<
+	image::color::gray8_format
+>
+{
+	typedef color::c8_1_format type;
+};
 
-color::c8_2_format const *
-from_static_format(
-	image::color::ga8_format const &
-);
+template<>
+struct from_static_format_type<
+	image::color::ag8_format
+>
+{
+	typedef color::c8_2_format type;
+};
 
-color::c8_3_format const *
-from_static_format(
-	image::color::rgb8_format const &
-);
+template<>
+struct from_static_format_type<
+	image::color::ga8_format
+>
+{
+	typedef color::c8_2_format type;
+};
 
-color::c8_4_format const *
-from_static_format(
-	image::color::rgba8_format const &
-);
+template<>
+struct from_static_format_type<
+	image::color::rgb8_format
+>
+{
+	typedef color::c8_3_format type;
+};
 
-color::c8_4_format const *
-from_static_format(
-	image::color::argb8_format const &
-);
+template<>
+struct from_static_format_type<
+	image::color::rgba8_format
+>
+{
+	typedef color::c8_4_format type;
+};
 
-color::c8_4_format const *
-from_static_format(
-	image::color::bgra8_format const &
-);
+template<>
+struct from_static_format_type<
+	image::color::argb8_format
+>
+{
+	typedef color::c8_4_format type;
+};
 
-color::c32f_3_format const *
-from_static_format(
-	image::color::rgb32f_format const &
-);
+template<>
+struct from_static_format_type<
+	image::color::bgra8_format
+>
+{
+	typedef color::c8_4_format type;
+};
 
-color::c32f_4_format const *
-from_static_format(
-	image::color::rgba32f_format const &
-);
+template<>
+struct from_static_format_type<
+	image::color::rgb32f_format
+>
+{
+	typedef color::c32f_3_format type;
+};
 
-color::c32f_4_format const *
-from_static_format(
-	image::color::argb32f_format const &
-);
+template<>
+struct from_static_format_type<
+	image::color::rgba32f_format
+>
+{
+	typedef color::c32f_4_format type;
+};
 
-color::c32f_4_format const *
-from_static_format(
-	image::color::bgra32f_format const &
-);
+template<>
+struct from_static_format_type<
+	image::color::argb32f_format
+>
+{
+	typedef color::c32f_4_format type;
+};
+
+template<>
+struct from_static_format_type<
+	image::color::bgra32f_format
+>
+{
+	typedef color::c32f_4_format;
+};
 
 }
 }

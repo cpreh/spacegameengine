@@ -32,98 +32,98 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "argb32f_format.hpp"
 #include "bgra32f_format.hpp"
 
-sge::image::dynamic::color::c8_1_format const
+sge::image::dynamic::color::c8_1_format const *
 sge::image::dynamic::color::from_static_format(
 	image::color::alpha8_format const &
 )
 {
-	return dynamic::color::alpha8_format;
+	return &dynamic::color::alpha8_format;
 }
 
-sge::image::dynamic::color::c8_1_format const
+sge::image::dynamic::color::c8_1_format const *
 sge::image::dynamic::color::from_static_format(
 	image::color::gray8_format const &
 )
 {
-	return dynamic::color::gray8_format;
+	return &dynamic::color::gray8_format;
 }
 
-sge::image::dynamic::color::c8_2_format const
+sge::image::dynamic::color::c8_2_format const *
 sge::image::dynamic::color::from_static_format(
 	image::color::ag8_format const &
 )
 {
-	return dynamic::color::ag8_format;
+	return &dynamic::color::ag8_format;
 }
 
-sge::image::dynamic::color::c8_2_format const
+sge::image::dynamic::color::c8_2_format const *
 sge::image::dynamic::color::from_static_format(
 	image::color::ga8_format const &
 )
 {
-	return dynamic::color::ga8_format;
+	return &dynamic::color::ga8_format;
 }
 
-sge::image::dynamic::color::c8_3_format const
+sge::image::dynamic::color::c8_3_format const *
 sge::image::dynamic::color::from_static_format(
 	image::color::rgb8_format const &
 )
 {
-	return dynamic::color::rgb8_format;
+	return &dynamic::color::rgb8_format;
 }
 
-sge::image::dynamic::color::c8_4_format const
+sge::image::dynamic::color::c8_4_format const *
 sge::image::dynamic::color::from_static_format(
 	image::color::rgba8_format const &
 )
 {
-	return dynamic::color::rgba8_format;
+	return &dynamic::color::rgba8_format;
 }
 
-sge::image::dynamic::color::c8_4_format const
+sge::image::dynamic::color::c8_4_format const *
 sge::image::dynamic::color::from_static_format(
 	image::color::argb8_format const &
 )
 {
-	return dynamic::color::argb8_format;
+	return &dynamic::color::argb8_format;
 }
 
-sge::image::dynamic::color::c8_4_format const
+sge::image::dynamic::color::c8_4_format const *
 sge::image::dynamic::color::from_static_format(
 	image::color::bgra8_format const &
 )
 {
-	return dynamic::color::bgra8_format;
+	return &dynamic::color::bgra8_format;
 }
 
-sge::image::dynamic::color::c32f_3_format const
+sge::image::dynamic::color::c32f_3_format const *
 sge::image::dynamic::color::from_static_format(
 	image::color::rgb32f_format const &
 )
 {
-	return dynamic::color::rgb32f_format;
+	return &dynamic::color::rgb32f_format;
 }
 
-sge::image::dynamic::color::c32f_4_format const
+sge::image::dynamic::color::c32f_4_format const *
 sge::image::dynamic::color::from_static_format(
 	image::color::rgba32f_format const &
 )
 {
-	return dynamic::color::rgba32f_format;
+	return &dynamic::color::rgba32f_format;
 }
 
-sge::image::dynamic::color::c32f_4_format const
+sge::image::dynamic::color::c32f_4_format const *
 sge::image::dynamic::color::from_static_format(
 	image::color::argb32f_format const &
 )
 {
-	return dynamic::color::argb32f_format;
+	return &dynamic::color::argb32f_format;
 }
 
-sge::image::dynamic::color::c32f_4_format const
+sge::image::dynamic::color::c32f_4_format const *
 sge::image::dynamic::color::from_static_format(
 	image::color::bgra32f_format const &
 )
 {
-	return dynamic::color::bgra32f_format;
+	return &dynamic::color::bgra32f_format;
 }
