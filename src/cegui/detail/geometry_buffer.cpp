@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/structure_cast.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_transform.hpp>
+#include <sge/renderer/scoped_scissor_area.hpp>
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
@@ -176,11 +177,8 @@ sge::cegui::detail::geometry_buffer::draw() const
 		sge::renderer::active_target(
 			renderer_);
 
-	// TODO: replace by scoped_scissor_area
-	sge::renderer::scissor_area const old_scissor_area = 
-		current_target.scissor_area();
-
-	current_target.scissor_area(
+	sge::renderer::scoped_scissor_area _scoped_scissor_area(
+		current_target,
 		scissor_area_);
 
 	sge::renderer::scoped_vertex_declaration scoped_vdecl(
@@ -212,9 +210,6 @@ sge::cegui::detail::geometry_buffer::draw() const
 				it->vertex_buffer().size()),
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}
-
-	current_target.scissor_area(
-		old_scissor_area);
 }
 
 void 

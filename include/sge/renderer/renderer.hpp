@@ -113,6 +113,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
+#include <sge/renderer/scoped_scissor_area.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
