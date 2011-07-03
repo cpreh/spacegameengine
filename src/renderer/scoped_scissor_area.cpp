@@ -18,22 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/viewport_size.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/scoped_scissor_area.hpp>
+#include <sge/renderer/target_base.hpp>
+#include <sge/renderer/scissor_area.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 
-sge::renderer::screen_size const
-sge::renderer::viewport_size(
-	renderer::device const &_device
-)
+sge::renderer::scoped_scissor_area::scoped_scissor_area(
+	renderer::target_base &_target,
+	renderer::scissor_area const &_new_scissor_area)
+:
+	target_(
+		_target),
+	old_area_(
+		target_.scissor_area())
 {
-	return
-		fcppt::math::dim::structure_cast<
-			sge::renderer::screen_size
-		>(
-			_device.onscreen_target().viewport().get().size()
-		);
+	target_.scissor_area(
+		_new_scissor_area);
+}
+
+sge::renderer::scoped_scissor_area::~scoped_scissor_area()
+{
+	target_.scissor_area(
+		old_area_);
 }

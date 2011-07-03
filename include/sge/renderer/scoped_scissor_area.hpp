@@ -18,22 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/viewport_size.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#ifndef SGE_RENDERER_SCOPED_SCISSOR_AREA_HPP_INCLUDED
+#define SGE_RENDERER_SCOPED_SCISSOR_AREA_HPP_INCLUDED
 
-sge::renderer::screen_size const
-sge::renderer::viewport_size(
-	renderer::device const &_device
-)
+#include <sge/renderer/target_base_fwd.hpp>
+#include <sge/renderer/scissor_area.hpp>
+#include <sge/renderer/symbol.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
-	return
-		fcppt::math::dim::structure_cast<
-			sge::renderer::screen_size
-		>(
-			_device.onscreen_target().viewport().get().size()
-		);
+namespace renderer
+{
+class scoped_scissor_area
+{
+FCPPT_NONCOPYABLE(
+	scoped_scissor_area);
+public:
+	SGE_RENDERER_SYMBOL explicit
+	scoped_scissor_area(
+		renderer::target_base &,
+		renderer::scissor_area const &);
+
+	SGE_RENDERER_SYMBOL ~scoped_scissor_area();
+private:
+	renderer::target_base &target_;
+	renderer::scissor_area old_area_;
+};
 }
+}
+
+#endif

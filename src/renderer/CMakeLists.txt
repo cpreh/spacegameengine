@@ -208,6 +208,7 @@ SET(
 	include/sge/renderer/scissor_area.hpp
 	include/sge/renderer/scoped_block.hpp
 	include/sge/renderer/scoped_index_lock.hpp
+	include/sge/renderer/scoped_scissor_area.hpp
 	include/sge/renderer/scoped_target.hpp
 	include/sge/renderer/scoped_transform.hpp
 	include/sge/renderer/scoped_vertex_buffer.hpp
@@ -507,6 +508,7 @@ SET(
 	src/renderer/resource_flags_none.cpp
 	src/renderer/scoped_block.cpp
 	src/renderer/scoped_index_lock.cpp
+	src/renderer/scoped_scissor_area.cpp
 	src/renderer/scoped_target.cpp
 	src/renderer/scoped_transform.cpp
 	src/renderer/scoped_vertex_buffer.cpp
