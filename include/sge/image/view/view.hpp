@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/format.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
+#include <sge/image/view/mizuiro_access.hpp>
 #include <sge/image/view/mizuiro_type.hpp>
 #include <sge/image/view/object.hpp>
 #include <sge/image/view/object_fwd.hpp>

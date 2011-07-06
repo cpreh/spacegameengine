@@ -18,15 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_VIEW_BASIC_ELEMENTS_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_VIEW_BASIC_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CONVERT_HPP_INCLUDED
+#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CONVERT_HPP_INCLUDED
 
-#include "../color/formats.hpp"
-#include <sge/image/size_type.hpp>
-#include <sge/image/view/mizuiro_type.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include "choose.hpp"
+#include "convert_visitor.hpp"
+#include "function.hpp"
+#include <mizuiro/image/algorithm/detail/apply_binary_iteration.hpp> // TODO
+#include <mizuiro/detail/variant_apply_binary.hpp> // TODO
 
 namespace sge
 {
@@ -34,29 +33,41 @@ namespace image
 {
 namespace dynamic
 {
-namespace view
+namespace algorithm
+{
+namespace cac
 {
 
 template<
-	sge::image::size_type Dim,
-	typename Constness
+	typename Source,
+	typename Dest
 >
-struct basic_elements
-:
-boost::mpl::transform<
-	dynamic::color::formats,
-	sge::image::view::mizuiro_type<
-		boost::mpl::_1,
-		boost::mpl::integral_c<
-			sge::image::size_type,
-			Dim
-		>,
-		Constness
-	>
->
+void
+convert(
+	Source const &_source,
+	Dest const &_dest
+)
 {
-};
+	mizuiro::detail::variant_apply_binary(
+		mizuiro::image::algorithm::detail::apply_binary_iteration(
+			cac::convert_visitor<
+				typename cac::function<
+					typename Source::format,
+					typename Dest::format
+				>::type
+			>(
+				cac::choose(
+					*_source.format_store().get(),
+					*_dest.format_store().get()
+				)
+			)
+		),
+		_source.range(),
+		_dest.range()
+	);
+}
 
+}
 }
 }
 }

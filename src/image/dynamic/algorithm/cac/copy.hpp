@@ -18,15 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_VIEW_BASIC_ELEMENTS_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_VIEW_BASIC_ELEMENTS_HPP_INCLUDED
-
-#include "../color/formats.hpp"
-#include <sge/image/size_type.hpp>
-#include <sge/image/view/mizuiro_type.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_COPY_HPP_INCLUDED
+#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_COPY_HPP_INCLUDED
 
 namespace sge
 {
@@ -34,29 +27,24 @@ namespace image
 {
 namespace dynamic
 {
-namespace view
+namespace algorithm
+{
+namespace cac
 {
 
 template<
-	sge::image::size_type Dim,
-	typename Constness
+	typename Source,
+	typename Dest
 >
-struct basic_elements
-:
-boost::mpl::transform<
-	dynamic::color::formats,
-	sge::image::view::mizuiro_type<
-		boost::mpl::_1,
-		boost::mpl::integral_c<
-			sge::image::size_type,
-			Dim
-		>,
-		Constness
-	>
->
+void
+copy(
+	Source const &,
+	Dest const &
+)
 {
-};
+}
 
+}
 }
 }
 }

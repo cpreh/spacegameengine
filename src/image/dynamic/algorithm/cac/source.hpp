@@ -18,8 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_COPY_AND_CONVERT_VISITOR_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_ALGORITHM_COPY_AND_CONVERT_VISITOR_HPP_INCLUDED
+#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_SOURCE_HPP_INCLUDED
+#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_SOURCE_HPP_INCLUDED
+
+#include <sge/image/view/mizuiro_access.hpp>
+#include <mizuiro/image/types/reference.hpp>
+#include <mizuiro/const_tag.hpp>
 
 namespace sge
 {
@@ -29,25 +33,23 @@ namespace dynamic
 {
 namespace algorithm
 {
-
-struct copy_and_convert_visitor
+namespace cac
 {
-	typedef void result_type;
 
-	template<
-		typename Src,
-		typename Dest
-	>
-	result_type
-	operator()(
-		Src const &_src,
-		Dest const &_dest
-	) const
-	{
-		
-	}
+template<
+	typename ImageFormat 
+>
+struct source
+:
+mizuiro::image::types::reference<
+	sge::image::view::mizuiro_access,
+	ImageFormat,
+	mizuiro::const_tag
+>
+{
 };
 
+}
 }
 }
 }

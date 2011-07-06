@@ -21,8 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
 
-#include "copy_and_convert_visitor.hpp"
+#include "cac/visitor.hpp"
 #include "../view/from_static_visitor.hpp"
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/dim.hpp>
+#include <sge/image/traits/view.hpp>
+#include <mizuiro/const_tag.hpp>
+#include <mizuiro/nonconst_tag.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
@@ -36,30 +42,37 @@ namespace algorithm
 {
 
 template<
-	typename Source,
-	typename Dest
+	typename Tag
 >
 void
 copy_and_convert(
-	Source const &_source,
-	Dest const &_dest
+	typename image::traits::const_view<
+		Tag
+	>::type const &_source,
+	typename image::traits::view<
+		Tag
+	>::type const &_dest
 )
 {
+	typedef typename image::traits::dim<
+		Tag
+	>::type::dim_wrapper dim_wrapper;
+
 	fcppt::variant::apply_binary(
-		dynamic::algorithm::copy_and_convert_visitor(),
+		dynamic::algorithm::cac::visitor(),
 		fcppt::variant::apply_unary(
 			dynamic::view::from_static_visitor<
-				Source::dim_type::static_size,
-				typename Source::constness
+				dim_wrapper::value,
+				mizuiro::const_tag
 			>(),
-			_source
+			_source.get()
 		),
 		fcppt::variant::apply_unary(
 			dynamic::view::from_static_visitor<
-				Dest::dim_type::static_size,
-				typename Dest::constness
+				dim_wrapper::value,
+				mizuiro::nonconst_tag
 			>(),
-			_dest
+			_dest.get()
 		)
 	);
 }

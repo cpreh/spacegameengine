@@ -101,6 +101,7 @@ SET(
 	include/sge/image/view/format.hpp
 	include/sge/image/view/make.hpp
 	include/sge/image/view/make_const.hpp
+	include/sge/image/view/mizuiro_access.hpp
 	include/sge/image/view/mizuiro_type.hpp
 	include/sge/image/view/object.hpp
 	include/sge/image/view/object_fwd.hpp
@@ -126,8 +127,14 @@ SET(
 	src/image/color/format_to_string.cpp
 	src/image/colors.cpp
 	src/image/convert_dim.hpp
+	src/image/dynamic/algorithm/cac/choose.hpp
+	src/image/dynamic/algorithm/cac/convert.hpp
+	src/image/dynamic/algorithm/cac/convert_visitor.hpp
+	src/image/dynamic/algorithm/cac/copy.hpp
+	src/image/dynamic/algorithm/cac/function.hpp
+	src/image/dynamic/algorithm/cac/source.hpp
+	src/image/dynamic/algorithm/cac/visitor.hpp
 	src/image/dynamic/algorithm/copy_and_convert.hpp
-	src/image/dynamic/algorithm/copy_and_convert_visitor.hpp
 	src/image/dynamic/color/ag8_format.cpp
 	src/image/dynamic/color/ag8_format.hpp
 	src/image/dynamic/color/alpha8_format.cpp

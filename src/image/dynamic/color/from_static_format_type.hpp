@@ -147,7 +147,7 @@ struct from_static_format_type<
 	image::color::bgra32f_format
 >
 {
-	typedef color::c32f_4_format;
+	typedef color::c32f_4_format type;
 };
 
 }

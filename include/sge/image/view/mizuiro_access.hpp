@@ -18,46 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_VIEW_BASIC_ELEMENTS_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_VIEW_BASIC_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_MIZUIRO_ACCESS_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_MIZUIRO_ACCESS_HPP_INCLUDED
 
-#include "../color/formats.hpp"
-#include <sge/image/size_type.hpp>
-#include <sge/image/view/mizuiro_type.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <mizuiro/access/raw.hpp>
 
 namespace sge
 {
 namespace image
 {
-namespace dynamic
-{
 namespace view
 {
 
-template<
-	sge::image::size_type Dim,
-	typename Constness
->
-struct basic_elements
-:
-boost::mpl::transform<
-	dynamic::color::formats,
-	sge::image::view::mizuiro_type<
-		boost::mpl::_1,
-		boost::mpl::integral_c<
-			sge::image::size_type,
-			Dim
-		>,
-		Constness
-	>
->
-{
-};
+typedef mizuiro::access::raw mizuiro_access;
 
-}
 }
 }
 }
