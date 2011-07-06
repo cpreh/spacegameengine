@@ -31,9 +31,7 @@ SET(
 	include/sge/audio/player_fwd.hpp
 	include/sge/audio/player_plugin.hpp
 	include/sge/audio/player_ptr.hpp
-	include/sge/audio/pool/gain_factor.hpp
 	include/sge/audio/pool/object.hpp
-	include/sge/audio/pool/pitch_factor.hpp
 	include/sge/audio/pool/pool.hpp
 	include/sge/audio/pool/sound_data.hpp
 	include/sge/audio/pool/stop_mode.hpp

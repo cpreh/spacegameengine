@@ -42,6 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <CEGUIString.h>
 
+namespace CEGUI
+{
+class WindowManager;
+}
+
 namespace sge
 {
 namespace cegui
@@ -68,6 +73,12 @@ public:
 
 	SGE_CEGUI_SYMBOL void
 	render();
+
+	SGE_CEGUI_SYMBOL CEGUI::WindowManager &
+	window_manager();
+
+	SGE_CEGUI_SYMBOL CEGUI::WindowManager const &
+	window_manager() const;
 
 	SGE_CEGUI_SYMBOL 
 	~system();

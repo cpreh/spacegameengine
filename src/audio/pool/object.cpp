@@ -26,15 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/inverse.hpp>
 #include <fcppt/assert_message.hpp>
 
-sge::audio::pool::object::object(
-	pool::gain_factor const &_gain_factor,
-	pool::pitch_factor const &_pitch_factor)
+sge::audio::pool::object::object()
 :
-	sounds_(),
-	gain_factor_(
-		_gain_factor.get()),
-	pitch_factor_(
-		_pitch_factor.get())
+	sounds_()
 {}
 
 sge::audio::pool::object::~object()
@@ -46,10 +40,6 @@ sge::audio::pool::object::add(
 	pool::stop_mode::type const pm
 )
 {
-	s->gain(
-		s->gain() * gain_factor());
-	s->pitch(
-		s->pitch() * pitch_factor());
 	sounds_.push_back(
 		pool::sound_data(
 			s,
@@ -136,58 +126,4 @@ sge::audio::pool::object::sounds_finished() const
 		)
 			return false;
 	return true;
-}
-
-sge::audio::pool::gain_factor::value_type
-sge::audio::pool::object::gain_factor() const
-{
-	return gain_factor_;
-}
-
-void
-sge::audio::pool::object::gain_factor(
-	sge::audio::pool::gain_factor::value_type const _gain_factor)
-{
-	for(
-		container_type::iterator i = 
-			sounds_.begin(); 
-		i != sounds_.end(); 
-		++i)
-		i->sound()->gain(
-			// Technically leads to numerical drift, but not important here
-			i->sound()->gain() 
-				* 
-					fcppt::math::inverse(
-						gain_factor_) 
-				* _gain_factor);
-
-	gain_factor_ = 
-		_gain_factor;
-}
-
-sge::audio::pool::pitch_factor::value_type
-sge::audio::pool::object::pitch_factor() const
-{
-	return pitch_factor_;
-}
-
-void
-sge::audio::pool::object::pitch_factor(
-	sge::audio::pool::pitch_factor::value_type const _pitch_factor)
-{
-	for(
-		container_type::iterator i = 
-			sounds_.begin(); 
-		i != sounds_.end(); 
-		++i)
-		i->sound()->pitch(
-			// Technically leads to numerical drift, but not important here
-			i->sound()->pitch() 
-				* 
-					fcppt::math::inverse(
-						pitch_factor_) 
-				* _pitch_factor);
-
-	pitch_factor_ = 
-		_pitch_factor;
 }
