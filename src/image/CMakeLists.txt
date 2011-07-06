@@ -126,6 +126,48 @@ SET(
 	src/image/color/format_to_string.cpp
 	src/image/colors.cpp
 	src/image/convert_dim.hpp
+	src/image/dynamic/algorithm/copy_and_convert.hpp
+	src/image/dynamic/algorithm/copy_and_convert_visitor.hpp
+	src/image/dynamic/color/ag8_format.cpp
+	src/image/dynamic/color/ag8_format.hpp
+	src/image/dynamic/color/alpha8_format.cpp
+	src/image/dynamic/color/alpha8_format.hpp
+	src/image/dynamic/color/argb32f_format.cpp
+	src/image/dynamic/color/argb32f_format.hpp
+	src/image/dynamic/color/argb8_format.cpp
+	src/image/dynamic/color/argb8_format.hpp
+	src/image/dynamic/color/available_channels.hpp
+	src/image/dynamic/color/basic_format.hpp
+	src/image/dynamic/color/bgra32f_format.cpp
+	src/image/dynamic/color/bgra32f_format.hpp
+	src/image/dynamic/color/bgra8_format.cpp
+	src/image/dynamic/color/bgra8_format.hpp
+	src/image/dynamic/color/c32f_3_format.hpp
+	src/image/dynamic/color/c32f_4_format.hpp
+	src/image/dynamic/color/c8_1_format.hpp
+	src/image/dynamic/color/c8_2_format.hpp
+	src/image/dynamic/color/c8_3_format.hpp
+	src/image/dynamic/color/c8_4_format.hpp
+	src/image/dynamic/color/formats.hpp
+	src/image/dynamic/color/from_static_format.cpp
+	src/image/dynamic/color/from_static_format.hpp
+	src/image/dynamic/color/from_static_format_type.hpp
+	src/image/dynamic/color/ga8_format.cpp
+	src/image/dynamic/color/ga8_format.hpp
+	src/image/dynamic/color/gray8_format.cpp
+	src/image/dynamic/color/gray8_format.hpp
+	src/image/dynamic/color/rgb32f_format.cpp
+	src/image/dynamic/color/rgb32f_format.hpp
+	src/image/dynamic/color/rgb8_format.cpp
+	src/image/dynamic/color/rgb8_format.hpp
+	src/image/dynamic/color/rgba32f_format.cpp
+	src/image/dynamic/color/rgba32f_format.hpp
+	src/image/dynamic/color/rgba8_format.cpp
+	src/image/dynamic/color/rgba8_format.hpp
+	src/image/dynamic/view/basic_elements.hpp
+	src/image/dynamic/view/basic_variant.hpp
+	src/image/dynamic/view/from_static.hpp
+	src/image/dynamic/view/from_static_visitor.hpp
 	src/image/exception.cpp
 	src/image/file_exception.cpp
 	src/image/store_impl.hpp
