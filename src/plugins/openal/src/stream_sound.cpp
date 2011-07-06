@@ -126,6 +126,11 @@ sge::openal::stream_sound::update()
 {
 	sync();
 
+	// We store this here to prevent multithreading issues (what if the
+	// source stops playing while we're processing suff further down?
+	audio::sound::play_status::type const current_play_status = 
+		stream_sound::status();
+
 	// TODO: split this!
 	ALint processed;
 	alGetSourcei(
@@ -139,11 +144,36 @@ sge::openal::stream_sound::update()
 	)
 
 	if (processed)
+	{
 		FCPPT_LOG_DEBUG(
 			log(),
 			fcppt::log::_ << processed << FCPPT_TEXT(" buffers processed"));
+	}
+	else
+	{
+		// If no buffers were processed, we can exit right now and don't
+		// need to refill any buffers.
+		return;
+	}
+	
 
-	while(processed--)
+	// The description for this "hack" comes directly from a Creative Labs guy:
+	// http://opensource.creative.com/pipermail/openal/2010-June/012128.html
+	// 
+	// The problem is: If all buffers are processed in one "update" call
+	// (which might be the case if we have a long time difference
+	// because of lag), OpenAL sets the playing status to
+	// "stopped". This stopped is, at first, indistinguishable from the
+	// "real" stopped state which you get if you explicitly call
+	// "stop()" on the source.
+	// 
+	// See the comments below to see how we hack around this.
+
+	// First, we create a new variable which stores if we've really
+	// filled any more buffers. If we haven't, then the sound stopped
+	// because it's the stream's end.
+	bool new_data = false;
+	for(ALint i = 0; i < processed; ++i)
 	{
 		// TODO: how to handle those errors?
 		ALuint buffer;
@@ -153,13 +183,25 @@ sge::openal::stream_sound::update()
 			static_cast<ALsizei>(1),
 			&buffer);
 
+		if(!fill_buffer(buffer))
+			break;
+
 		// ...and put the newly filled back in
-		if (fill_buffer(buffer))
-			alSourceQueueBuffers(
-				source_id(),
-				static_cast<ALsizei>(1),
-				&buffer);
+		alSourceQueueBuffers(
+			source_id(),
+			static_cast<ALsizei>(1),
+			&buffer);
+		new_data = true;
 	}
+
+	// Then we check if the source has really stopped (possible underrun)
+	if(current_play_status != audio::sound::play_status::playing && new_data)
+		// And if an underrun occured, play (again)
+		alSourcePlay(
+			source_id());
+
+	// Note that this works for paused sources, too, since paused sounds
+	// don't consume any buffers. At least I think so.
 }
 
 void 
