@@ -169,6 +169,18 @@ sge::cegui::system::render()
 	CEGUI::System::getSingleton().renderGUI();
 }
 
+CEGUI::WindowManager &
+sge::cegui::system::window_manager()
+{
+	return CEGUI::WindowManager::getSingleton();
+}
+
+CEGUI::WindowManager const &
+sge::cegui::system::window_manager() const
+{
+	return CEGUI::WindowManager::getSingleton();
+}
+
 sge::cegui::system::~system()
 {
 }

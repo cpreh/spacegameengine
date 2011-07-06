@@ -21,9 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_POOL_POOL_HPP_INCLUDED
 #define SGE_AUDIO_POOL_POOL_HPP_INCLUDED
 
-#include <sge/audio/pool/gain_factor.hpp>
 #include <sge/audio/pool/object.hpp>
-#include <sge/audio/pool/pitch_factor.hpp>
 #include <sge/audio/pool/sound_data.hpp>
 #include <sge/audio/pool/stop_mode.hpp>
 

@@ -60,13 +60,7 @@ try
 		)
 	);
 
-	sge::audio::pool::object pool(
-		sge::audio::pool::gain_factor(
-			static_cast<sge::audio::pool::gain_factor::value_type>(
-				1)),
-		sge::audio::pool::pitch_factor(
-			static_cast<sge::audio::pool::pitch_factor::value_type>(
-				1)));
+	sge::audio::pool::object pool;
 
 	{
 		sge::audio::sound::base_ptr const sound_01(

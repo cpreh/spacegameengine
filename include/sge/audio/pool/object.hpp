@@ -23,8 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/pool/stop_mode.hpp>
 #include <sge/audio/pool/sound_data.hpp>
-#include <sge/audio/pool/gain_factor.hpp>
-#include <sge/audio/pool/pitch_factor.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
 #include <sge/audio/symbol.hpp>
 #include <sge/audio/scalar.hpp>
@@ -45,9 +43,7 @@ FCPPT_NONCOPYABLE(
 	object);
 public:
 	SGE_AUDIO_SYMBOL explicit 
-	object(
-		pool::gain_factor const &,
-		pool::pitch_factor const &);
+	object();
 
 	SGE_AUDIO_SYMBOL 
 	~object();
@@ -62,28 +58,12 @@ public:
 
 	SGE_AUDIO_SYMBOL bool 
 	sounds_finished() const;
-
-	SGE_AUDIO_SYMBOL void
-	gain_factor(
-		pool::gain_factor::value_type);
-
-	SGE_AUDIO_SYMBOL pool::gain_factor::value_type
-	gain_factor() const;
-
-	SGE_AUDIO_SYMBOL void
-	pitch_factor(
-		pool::pitch_factor::value_type);
-
-	SGE_AUDIO_SYMBOL pool::pitch_factor::value_type
-	pitch_factor() const;
 private:
 	typedef 
 	std::vector<pool::sound_data> 
 	container_type;
 
 	container_type sounds_;
-	pool::gain_factor::value_type gain_factor_;
-	pool::pitch_factor::value_type pitch_factor_;
 };
 
 }
