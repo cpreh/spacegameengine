@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CEGUI_TOOLBOX_SCOPED_GUI_SHEET_HPP_INCLUDED
 
 #include <sge/cegui/symbol.hpp>
+#include <sge/cegui/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace CEGUI
@@ -44,11 +45,14 @@ class scoped_gui_sheet
 public:
 	SGE_CEGUI_SYMBOL
 	explicit scoped_gui_sheet(
+		cegui::system &,
 		CEGUI::Window &
 	);
 
 	SGE_CEGUI_SYMBOL
 	~scoped_gui_sheet();
+private:
+	cegui::system &system_;
 };
 
 }
