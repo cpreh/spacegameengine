@@ -78,6 +78,7 @@ SET(
 	include/sge/sprite/detail/roles/vertex_buffer.hpp
 	include/sge/sprite/detail/rotation_center.hpp
 	include/sge/sprite/detail/set_texture.hpp
+	include/sge/sprite/detail/set_texture_post.hpp
 	include/sge/sprite/detail/set_texture_pre.hpp
 	include/sge/sprite/detail/transform_init_arguments.hpp
 	include/sge/sprite/detail/transform_parameters_arguments.hpp

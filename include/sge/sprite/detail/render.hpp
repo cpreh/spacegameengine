@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/render_inner.hpp>
 #include <sge/sprite/detail/set_texture_pre.hpp>
+#include <sge/sprite/detail/set_texture_post.hpp>
 #include <sge/sprite/detail/set_texture.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -103,6 +104,12 @@ render(
 
 		offset += num_objects;
 	}
+
+	detail::set_texture_post<
+		typename object_type::elements
+	>(
+		_rend
+	);
 }
 
 }
