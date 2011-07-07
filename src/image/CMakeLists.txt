@@ -237,6 +237,28 @@ SET(
 	src/image/view/to_const_visitor.hpp
 )
 
+OPTION(
+	ENABLE_STATIC_COPY_AND_CONVERT 
+	"Use static copy and convert which will produce bigger but probably faster code"
+	TRUE
+)
+
+IF(
+	ENABLE_STATIC_COPY_AND_CONVERT
+)
+	SET(
+		SGE_IMAGE_STATIC_COPY_AND_CONVERT
+		TRUE
+	)
+ENDIF()
+
+CONFIGURE_FILE(
+	${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
+	${CMAKE_BINARY_DIR}/include/sge/image/config.hpp
+)
+
+INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/include)
+
 ADD_SGE_BASE_LIBRARY(
 	image
 	""

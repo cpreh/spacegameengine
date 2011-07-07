@@ -61,6 +61,8 @@ SET(
 	src/image3d/view/to_const.cpp
 )
 
+INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/include)
+
 ADD_SGE_BASE_LIBRARY(
 	image3d
 	"sgeimage"

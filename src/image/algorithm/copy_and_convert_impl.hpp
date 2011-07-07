@@ -24,13 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_INSTANTIATE_EXPORTS
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #undef SGE_IMAGE_INSTANTIATE_EXPORTS
-#include "copy_and_convert_visitor.hpp"
+#include <sge/image/config.hpp>
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/view.hpp>
+
+#if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
+#include "copy_and_convert_visitor.hpp"
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-
+#else
 #include "../dynamic/algorithm/copy_and_convert.hpp"
+#endif
 
 template<
 	typename Tag
@@ -45,19 +49,20 @@ sge::image::algorithm::copy_and_convert(
 	>::type const &_dest
 )
 {
-#if 0
+#if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
 	fcppt::variant::apply_binary(
 		algorithm::copy_and_convert_visitor(),
 		_src.get(),
 		_dest.get()
 	);
-#endif
+#else
 	image::dynamic::algorithm::copy_and_convert<
 		Tag
 	>(
 		_src,
 		_dest
 	);
+#endif
 }
 
 #endif
