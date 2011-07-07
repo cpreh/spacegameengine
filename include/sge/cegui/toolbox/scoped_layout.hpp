@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/cegui/symbol.hpp>
+#include <sge/cegui/system_fwd.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -44,6 +45,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_CEGUI_SYMBOL explicit
 	scoped_layout(
+		cegui::system &,
 		fcppt::filesystem::path const &,
 		sge::charconv::system &);
 
@@ -53,6 +55,7 @@ public:
 	CEGUI::Window &
 	window() const;
 private:
+	cegui::system &system_;
 	CEGUI::Window *const window_;
 };
 }

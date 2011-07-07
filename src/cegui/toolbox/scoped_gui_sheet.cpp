@@ -22,8 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUISystem.h>
 
 sge::cegui::toolbox::scoped_gui_sheet::scoped_gui_sheet(
+	cegui::system &_system,
 	CEGUI::Window &_window
 )
+:
+	system_(
+		_system)
 {
 	CEGUI::System::getSingleton().setGUISheet(
 		&_window
