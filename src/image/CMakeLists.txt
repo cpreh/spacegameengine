@@ -144,6 +144,7 @@ SET(
 	src/image/dynamic/algorithm/cac/convert_visitor.hpp
 	src/image/dynamic/algorithm/cac/copy.hpp
 	src/image/dynamic/algorithm/cac/function.hpp
+	src/image/dynamic/algorithm/cac/permutate_compare.hpp
 	src/image/dynamic/algorithm/cac/source.hpp
 	src/image/dynamic/algorithm/cac/visitor.hpp
 	src/image/dynamic/algorithm/copy_and_convert.hpp

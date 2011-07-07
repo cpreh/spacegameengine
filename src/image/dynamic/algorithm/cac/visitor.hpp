@@ -21,14 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_VISITOR_HPP_INCLUDED
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_VISITOR_HPP_INCLUDED
 
+#include "permutate_compare.hpp"
 #include "../../view/color_layout.hpp"
 #include "convert.hpp"
 #include "copy.hpp"
-#include <fcppt/algorithm/shift_compare.hpp>
-#include <fcppt/container/array_comparison.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <functional>
 
 namespace sge
 {
@@ -62,16 +60,13 @@ struct visitor
 	) const
 	{
 		if(
-			fcppt::algorithm::shift_compare(
+			cac::permuate_compare(
 				view::color_layout(
 					_source
 				),
 				view::color_layout(
 					_dest
-				),
-				std::equal_to<
-					typename Source::color_format::channel_type
-				>()
+				)
 			)
 		)
 			cac::copy(
