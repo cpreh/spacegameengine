@@ -62,6 +62,7 @@ from_static(
 		dest_type(
 			_view.dim(),
 			_view.data(),
+			_view.pitch(),
 			typename dest_type::format_store_type(
 				dest_format(
 					typename dest_format::color_format_store_type(
