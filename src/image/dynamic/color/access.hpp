@@ -18,47 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_FUNCTION_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_FUNCTION_HPP_INCLUDED
+#ifndef SGE_IMAGE_DYNAMIC_COLOR_ACCESS_HPP_INCLUDED
+#define SGE_IMAGE_DYNAMIC_COLOR_ACCESS_HPP_INCLUDED
 
-#include "source.hpp"
-#include <mizuiro/color/object.hpp>
+#include "available_channels.hpp"
+#include "channel_index.hpp"
+#include <mizuiro/color/access/dynamic_index.hpp>
+#include <mizuiro/color/format_store.hpp>
+#include <mizuiro/size_type.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/utility/enable_if.hpp>
 
-namespace sge
+namespace mizuiro
 {
-namespace image
+namespace color
 {
-namespace dynamic
-{
-namespace algorithm
-{
-namespace cac
+namespace access
 {
 
 template<
-	typename SourceFormat,
-	typename DestFormat
+	typename Format,
+	typename Channel
 >
-struct function
+struct dynamic_index<
+	Format,
+	Channel,
+	typename boost::enable_if<
+		boost::is_same<
+			typename Format::available_channels,
+			sge::image::dynamic::color::available_channels::type
+		>
+	>::type
+>
 {
-	typedef
-		mizuiro::color::object<
-			typename DestFormat::color_format
-		> const
-		(
-			*type
-		)(
-			typename cac::source<
-				SourceFormat
-			>::type const &,
-			typename mizuiro::color::object<
-				typename DestFormat::color_format
-			>::format_store_type const &
-		);
+	static
+	mizuiro::size_type
+	execute(
+		mizuiro::color::format_store<Format> const &,
+		Channel const &
+	)
+	{
+		return
+			sge::image::dynamic::color::channel_index(
+				Channel()
+			);
+	}
 };
 
-}
-}
 }
 }
 }

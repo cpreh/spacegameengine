@@ -18,49 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_FUNCTION_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_FUNCTION_HPP_INCLUDED
+#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH_HPP_INCLUDED
+#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH_HPP_INCLUDED
 
-#include "source.hpp"
-#include <mizuiro/color/object.hpp>
+#include <cstdlib>
 
-namespace sge
-{
-namespace image
-{
-namespace dynamic
-{
-namespace algorithm
-{
-namespace cac
-{
-
-template<
-	typename SourceFormat,
-	typename DestFormat
->
-struct function
-{
-	typedef
-		mizuiro::color::object<
-			typename DestFormat::color_format
-		> const
-		(
-			*type
-		)(
-			typename cac::source<
-				SourceFormat
-			>::type const &,
-			typename mizuiro::color::object<
-				typename DestFormat::color_format
-			>::format_store_type const &
-		);
-};
-
-}
-}
-}
-}
-}
+#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH \
+std::abort();
 
 #endif

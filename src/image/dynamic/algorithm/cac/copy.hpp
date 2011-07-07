@@ -21,6 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_COPY_HPP_INCLUDED
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_COPY_HPP_INCLUDED
 
+#include "../../view/color_layout.hpp"
+#include <mizuiro/image/algorithm/copy_different_channel_order.hpp>
+#include <mizuiro/image/algorithm/copy_same_channel_order.hpp>
+#include <fcppt/container/array_comparison.hpp>
+
 namespace sge
 {
 namespace image
@@ -38,10 +43,28 @@ template<
 >
 void
 copy(
-	Source const &,
-	Dest const &
+	Source const &_source,
+	Dest const &_dest
 )
 {
+	if(
+		view::color_layout(
+			_source
+		)
+		==
+		view::color_layout(
+			_dest
+		)
+	)
+		mizuiro::image::algorithm::copy_same_channel_order(
+			_source,
+			_dest
+		);
+	else
+		mizuiro::image::algorithm::copy_different_channel_order(
+			_source,
+			_dest
+		);
 }
 
 }

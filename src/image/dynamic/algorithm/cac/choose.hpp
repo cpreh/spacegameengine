@@ -21,103 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_HPP_INCLUDED
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_HPP_INCLUDED
 
-#include "function.hpp"
-#include "source.hpp"
-#include "../../color/available_channels.hpp"
-#include "../../color/c8_1_format.hpp"
-#include <mizuiro/color/conversion/alpha_to_any.hpp>
-#include <mizuiro/color/conversion/luminance_to_rgb.hpp>
-#include <cstdlib>
-
-namespace sge
-{
-namespace image
-{
-namespace dynamic
-{
-namespace algorithm
-{
-namespace cac
-{
-
-#if 0
-template<
-	typename DestFormat
->
-typename cac::function<
-	dynamic::color::c8_1_format,
-	DestFormat
->::type
-choose(
-	dynamic::color::c8_1_format const &_source_format
-	DestFormat const &_dest_format
-)
-{
-	switch(
-		_source_format.layout[0]
-	)
-	case dynamic::color::available_channels::alpha:
-		return
-			&mizuiro::color::conversion::alpha_to_any<
-				DestFormat,
-				typename cac::source<
-					dynamic::color::c8_1_format
-				>::type
-			>;
-	case dynamic::color::available_channels::luminance:
-		if(
-			cac::is_rgb(
-				_dest_format
-			)
-		)
-			return
-				&mizuiro::color::conversion::luminance_to_rgb<
-					DestFormat,
-					typename cac::source<
-						dynamic::color::c8_1_format
-					>::type
-				>;
-		else if(
-			_dest_format.layout[0] == dynamic::color::available_channels::alpha
-		)
-			return
-				&mizuiro::color::conversion::alpha_to_any<
-					DestFormat,
-					typename cac::source<
-						dynamic::color::c8_1_format
-					>::type
-				>;
-	case dynamic::color::available_channels::red:
-	case dynamic::color::available_channels::green:
-	case dynamic::color::available_channels::blue:
-		break;
-	}	
-
-	std::abort();
-}
-#endif
-
-template<
-	typename SourceFormat,
-	typename DestFormat
->
-typename cac::function<
-	SourceFormat,
-	DestFormat
->::type
-choose(
-	SourceFormat const &,
-	DestFormat const &
-)
-{
-	// TODO:
-	return 0;
-}
-
-}
-}
-}
-}
-}
+#include "choose/source_1_dest_1.hpp"
+#include "choose/source_1_dest_2.hpp"
+#include "choose/source_1_dest_3_4.hpp"
+#include "choose/source_2_dest_1.hpp"
+#include "choose/source_2_dest_2.hpp"
+#include "choose/source_2_dest_3_4.hpp"
+#include "choose/source_3_4_dest_1.hpp"
+#include "choose/source_3_4_dest_2.hpp"
+#include "choose/source_3_4_dest_3_4.hpp"
 
 #endif

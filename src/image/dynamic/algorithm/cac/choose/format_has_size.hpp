@@ -18,15 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CONVERT_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CONVERT_HPP_INCLUDED
+#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_FORMAT_HAS_SIZE_HPP_INCLUDED
+#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_FORMAT_HAS_SIZE_HPP_INCLUDED
 
-#include "../../view/image_format.hpp"
-#include "choose.hpp"
-#include "convert_visitor.hpp"
-#include "function.hpp"
-#include <mizuiro/image/algorithm/detail/apply_binary_iteration.hpp> // TODO
-#include <mizuiro/detail/variant_apply_binary.hpp> // TODO
+#include <sge/image/size_type.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace sge
 {
@@ -40,37 +36,21 @@ namespace cac
 {
 
 template<
-	typename Source,
-	typename Dest
+	typename Format,
+	sge::image::size_type Size
 >
-void
-convert(
-	Source const &_source,
-	Dest const &_dest
-)
+struct format_has_size
+:
+boost::mpl::bool_<
+	static_cast<
+		sge::image::size_type
+	>(
+		Format::color_format::layout::static_size
+	)
+	== Size
+>
 {
-	mizuiro::detail::variant_apply_binary(
-		mizuiro::image::algorithm::detail::apply_binary_iteration(
-			cac::convert_visitor<
-				typename cac::function<
-					typename Source::format,
-					typename Dest::format
-				>::type 
-			>(
-				cac::choose(
-					view::image_format(
-						_source
-					),
-					view::image_format(
-						_dest
-					)
-				)
-			)
-		),
-		_source.range(),
-		_dest.range()
-	);
-}
+};
 
 }
 }

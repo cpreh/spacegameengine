@@ -128,6 +128,18 @@ SET(
 	src/image/colors.cpp
 	src/image/convert_dim.hpp
 	src/image/dynamic/algorithm/cac/choose.hpp
+	src/image/dynamic/algorithm/cac/choose/format_has_size.hpp
+	src/image/dynamic/algorithm/cac/choose/no_match.hpp
+	src/image/dynamic/algorithm/cac/choose/source_1_dest_1.hpp
+	src/image/dynamic/algorithm/cac/choose/source_1_dest_2.hpp
+	src/image/dynamic/algorithm/cac/choose/source_1_dest_3_4.hpp
+	src/image/dynamic/algorithm/cac/choose/source_2_dest_1.hpp
+	src/image/dynamic/algorithm/cac/choose/source_2_dest_2.hpp
+	src/image/dynamic/algorithm/cac/choose/source_2_dest_3_4.hpp
+	src/image/dynamic/algorithm/cac/choose/source_3_4_dest_1.hpp
+	src/image/dynamic/algorithm/cac/choose/source_3_4_dest_2.hpp
+	src/image/dynamic/algorithm/cac/choose/source_3_4_dest_3_4.hpp
+	src/image/dynamic/algorithm/cac/choose_source_2.hpp
 	src/image/dynamic/algorithm/cac/convert.hpp
 	src/image/dynamic/algorithm/cac/convert_visitor.hpp
 	src/image/dynamic/algorithm/cac/copy.hpp
@@ -135,6 +147,7 @@ SET(
 	src/image/dynamic/algorithm/cac/source.hpp
 	src/image/dynamic/algorithm/cac/visitor.hpp
 	src/image/dynamic/algorithm/copy_and_convert.hpp
+	src/image/dynamic/color/access.hpp
 	src/image/dynamic/color/ag8_format.cpp
 	src/image/dynamic/color/ag8_format.hpp
 	src/image/dynamic/color/alpha8_format.cpp
@@ -155,6 +168,7 @@ SET(
 	src/image/dynamic/color/c8_2_format.hpp
 	src/image/dynamic/color/c8_3_format.hpp
 	src/image/dynamic/color/c8_4_format.hpp
+	src/image/dynamic/color/channel_index.hpp
 	src/image/dynamic/color/formats.hpp
 	src/image/dynamic/color/from_static_format.cpp
 	src/image/dynamic/color/from_static_format.hpp
@@ -173,8 +187,11 @@ SET(
 	src/image/dynamic/color/rgba8_format.hpp
 	src/image/dynamic/view/basic_elements.hpp
 	src/image/dynamic/view/basic_variant.hpp
+	src/image/dynamic/view/color_layout.hpp
+	src/image/dynamic/view/format_channel.hpp
 	src/image/dynamic/view/from_static.hpp
 	src/image/dynamic/view/from_static_visitor.hpp
+	src/image/dynamic/view/image_format.hpp
 	src/image/exception.cpp
 	src/image/file_exception.cpp
 	src/image/store_impl.hpp

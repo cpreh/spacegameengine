@@ -18,15 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CONVERT_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CONVERT_HPP_INCLUDED
+#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_SOURCE_2_HPP_INCLUDED
+#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_SOURCE_2_HPP_INCLUDED
 
-#include "../../view/image_format.hpp"
-#include "choose.hpp"
-#include "convert_visitor.hpp"
-#include "function.hpp"
-#include <mizuiro/image/algorithm/detail/apply_binary_iteration.hpp> // TODO
-#include <mizuiro/detail/variant_apply_binary.hpp> // TODO
+#include "choose_return.hpp"
+#include "not_match.hpp"
+#include "../../color/available_channels.hpp"
+#include "../../color/c8_2_format.hpp"
 
 namespace sge
 {
@@ -40,36 +38,19 @@ namespace cac
 {
 
 template<
-	typename Source,
-	typename Dest
+	typename SourceFormat,
+	typename DestFormat
 >
-void
-convert(
-	Source const &_source,
-	Dest const &_dest
+typename cac::choose_return<
+	SourceFormat,
+	DestFormat,
+	dynamic::color::c8_2_format
+>::type
+choose(
+	SourceFormat const &_source_format,
+	DestFormat const &_dest_format
 )
 {
-	mizuiro::detail::variant_apply_binary(
-		mizuiro::image::algorithm::detail::apply_binary_iteration(
-			cac::convert_visitor<
-				typename cac::function<
-					typename Source::format,
-					typename Dest::format
-				>::type 
-			>(
-				cac::choose(
-					view::image_format(
-						_source
-					),
-					view::image_format(
-						_dest
-					)
-				)
-			)
-		),
-		_source.range(),
-		_dest.range()
-	);
 }
 
 }

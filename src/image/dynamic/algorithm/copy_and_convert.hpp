@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
 
 #include "cac/visitor.hpp"
+#include "../color/access.hpp"
 #include "../view/from_static_visitor.hpp"
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/dim.hpp>

@@ -18,11 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_FUNCTION_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_FUNCTION_HPP_INCLUDED
+#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_SOURCE_3_4_DEST_3_4_HPP_INCLUDED
+#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_SOURCE_3_4_DEST_3_4_HPP_INCLUDED
 
-#include "source.hpp"
-#include <mizuiro/color/object.hpp>
+#include "format_has_size.hpp"
+#include "../function.hpp"
+#include "../source.hpp"
+#include <mizuiro/color/conversion/same_to_same.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -39,23 +44,48 @@ template<
 	typename SourceFormat,
 	typename DestFormat
 >
-struct function
+typename boost::enable_if<
+	boost::mpl::and_<
+		boost::mpl::or_<
+			cac::format_has_size<
+				SourceFormat,
+				3
+			>,
+			cac::format_has_size<
+				SourceFormat,
+				4
+			>
+		>,
+		boost::mpl::or_<
+			cac::format_has_size<
+				DestFormat,
+				3
+			>,
+			cac::format_has_size<
+				DestFormat,
+				4
+			>
+		>
+	>,
+	typename cac::function<
+		SourceFormat,
+		DestFormat
+	>::type
+>::type
+choose(
+	SourceFormat const &,
+	DestFormat const &
+)
 {
-	typedef
-		mizuiro::color::object<
-			typename DestFormat::color_format
-		> const
-		(
-			*type
-		)(
+	// rgb to rgb
+	return
+		&mizuiro::color::conversion::same_to_same<
+			typename DestFormat::color_format,
 			typename cac::source<
 				SourceFormat
-			>::type const &,
-			typename mizuiro::color::object<
-				typename DestFormat::color_format
-			>::format_store_type const &
-		);
-};
+			>::type
+		>;
+}
 
 }
 }

@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CONVERT_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CONVERT_HPP_INCLUDED
+#ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_SOURCE_3_4_DEST_2_HPP_INCLUDED
+#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_SOURCE_3_4_DEST_2_HPP_INCLUDED
 
-#include "../../view/image_format.hpp"
-#include "choose.hpp"
-#include "convert_visitor.hpp"
-#include "function.hpp"
-#include <mizuiro/image/algorithm/detail/apply_binary_iteration.hpp> // TODO
-#include <mizuiro/detail/variant_apply_binary.hpp> // TODO
+#include "format_has_size.hpp"
+#include "../function.hpp"
+#include "../source.hpp"
+#include <mizuiro/color/conversion/rgb_to_luminance.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -40,36 +41,44 @@ namespace cac
 {
 
 template<
-	typename Source,
-	typename Dest
+	typename SourceFormat,
+	typename DestFormat
 >
-void
-convert(
-	Source const &_source,
-	Dest const &_dest
+typename boost::enable_if<
+	boost::mpl::and_<
+		boost::mpl::or_<
+			cac::format_has_size<
+				SourceFormat,
+				3
+			>,
+			cac::format_has_size<
+				SourceFormat,
+				4
+			>
+		>,
+		cac::format_has_size<
+			DestFormat,
+			2
+		>
+	>,
+	typename cac::function<
+		SourceFormat,
+		DestFormat
+	>::type
+>::type
+choose(
+	SourceFormat const &,
+	DestFormat const &
 )
 {
-	mizuiro::detail::variant_apply_binary(
-		mizuiro::image::algorithm::detail::apply_binary_iteration(
-			cac::convert_visitor<
-				typename cac::function<
-					typename Source::format,
-					typename Dest::format
-				>::type 
-			>(
-				cac::choose(
-					view::image_format(
-						_source
-					),
-					view::image_format(
-						_dest
-					)
-				)
-			)
-		),
-		_source.range(),
-		_dest.range()
-	);
+	// rgb to ag8 or ga8
+	return
+		&mizuiro::color::conversion::rgb_to_luminance<
+			typename DestFormat::color_format,
+			typename cac::source<
+				SourceFormat
+			>::type
+		>;
 }
 
 }

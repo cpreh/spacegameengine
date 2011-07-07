@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/bgra32f_format.hpp>
 #include <sge/image/color/argb32f_format.hpp>
+#include <sge/image/symbol.hpp>
 
 namespace sge
 {
@@ -49,61 +50,73 @@ namespace dynamic
 namespace color
 {
 
+SGE_IMAGE_SYMBOL
 color::c8_1_format const *
 from_static_format(
 	image::color::alpha8_format const &
 );
 
+SGE_IMAGE_SYMBOL
 color::c8_1_format const *
 from_static_format(
 	image::color::gray8_format const &
 );
 
+SGE_IMAGE_SYMBOL
 color::c8_2_format const *
 from_static_format(
 	image::color::ag8_format const &
 );
 
+SGE_IMAGE_SYMBOL
 color::c8_2_format const *
 from_static_format(
 	image::color::ga8_format const &
 );
 
+SGE_IMAGE_SYMBOL
 color::c8_3_format const *
 from_static_format(
 	image::color::rgb8_format const &
 );
 
+SGE_IMAGE_SYMBOL
 color::c8_4_format const *
 from_static_format(
 	image::color::rgba8_format const &
 );
 
+SGE_IMAGE_SYMBOL
 color::c8_4_format const *
 from_static_format(
 	image::color::argb8_format const &
 );
 
+SGE_IMAGE_SYMBOL
 color::c8_4_format const *
 from_static_format(
 	image::color::bgra8_format const &
 );
 
+SGE_IMAGE_SYMBOL
 color::c32f_3_format const *
 from_static_format(
 	image::color::rgb32f_format const &
 );
 
+SGE_IMAGE_SYMBOL
 color::c32f_4_format const *
 from_static_format(
 	image::color::rgba32f_format const &
 );
 
+SGE_IMAGE_SYMBOL
 color::c32f_4_format const *
 from_static_format(
 	image::color::argb32f_format const &
 );
 
+SGE_IMAGE_SYMBOL
 color::c32f_4_format const *
 from_static_format(
 	image::color::bgra32f_format const &

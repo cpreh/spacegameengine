@@ -30,9 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
-#if 0
 #include "../dynamic/algorithm/copy_and_convert.hpp"
-#endif
 
 template<
 	typename Tag
@@ -47,19 +45,19 @@ sge::image::algorithm::copy_and_convert(
 	>::type const &_dest
 )
 {
+#if 0
 	fcppt::variant::apply_binary(
 		algorithm::copy_and_convert_visitor(),
 		_src.get(),
 		_dest.get()
 	);
-#if 0
+#endif
 	image::dynamic::algorithm::copy_and_convert<
 		Tag
 	>(
 		_src,
 		_dest
 	);
-#endif
 }
 
 #endif
