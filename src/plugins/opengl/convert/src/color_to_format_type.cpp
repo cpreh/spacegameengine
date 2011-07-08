@@ -35,6 +35,7 @@ sge::opengl::convert::color_to_format_type(
 	case image::color::format::gray8:
 	case image::color::format::rgba8:
 	case image::color::format::argb8:
+	case image::color::format::xrgb8:
 	case image::color::format::bgra8:
 	case image::color::format::rgb8:
 	case image::color::format::ag8:

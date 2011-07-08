@@ -57,6 +57,7 @@ sge::opengl::convert::color_to_internal_format(
 				GL_RGB8
 			);
 	case image::color::format::argb8:
+	case image::color::format::xrgb8:
 	case image::color::format::bgra8:
 	case image::color::format::argb32f:
 	case image::color::format::bgra32f:

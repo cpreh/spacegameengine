@@ -56,6 +56,8 @@ SET(
 	include/sge/image/color/rgba32f_format.hpp
 	include/sge/image/color/rgba8.hpp
 	include/sge/image/color/rgba8_format.hpp
+	include/sge/image/color/xrgb8.hpp
+	include/sge/image/color/xrgb8_format.hpp
 	include/sge/image/colors.hpp
 	include/sge/image/const_raw_pointer.hpp
 	include/sge/image/difference_type.hpp
@@ -109,6 +111,7 @@ SET(
 	include/sge/image/view/sub_out_of_range.hpp
 	include/sge/image/view/to_const.hpp
 	include/sge/image/view/view.hpp
+	include/sge/image/xrgb8_format.hpp
 	src/image/algorithm/copy_and_convert_impl.hpp
 	src/image/algorithm/copy_and_convert_visitor.hpp
 	src/image/algorithm/fill_impl.hpp
@@ -186,6 +189,8 @@ SET(
 	src/image/dynamic/color/rgba32f_format.hpp
 	src/image/dynamic/color/rgba8_format.cpp
 	src/image/dynamic/color/rgba8_format.hpp
+	src/image/dynamic/color/xrgb8_format.cpp
+	src/image/dynamic/color/xrgb8_format.hpp
 	src/image/dynamic/view/basic_elements.hpp
 	src/image/dynamic/view/basic_variant.hpp
 	src/image/dynamic/view/color_layout.hpp

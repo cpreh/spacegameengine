@@ -42,6 +42,7 @@ base_size(
 	case format::alpha8:
 	case format::rgba8:
 	case format::argb8:
+	case format::xrgb8:
 	case format::bgra8:
 	case format::rgb8:
 	case format::ag8:

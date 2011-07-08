@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgb8_format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/argb8_format.hpp>
+#include <sge/image/color/xrgb8_format.hpp>
 #include <sge/image/color/bgra8_format.hpp>
 #include <sge/image/color/rgb32f_format.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
@@ -105,6 +106,14 @@ struct from_static_format_type<
 template<>
 struct from_static_format_type<
 	image::color::argb8_format
+>
+{
+	typedef color::c8_4_format type;
+};
+
+template<>
+struct from_static_format_type<
+	image::color::xrgb8_format
 >
 {
 	typedef color::c8_4_format type;

@@ -36,6 +36,7 @@ enum type
 	gray8,
 	rgba8,
 	argb8,
+	xrgb8,
 	bgra8,
 	rgb8,
 	rgba32f,

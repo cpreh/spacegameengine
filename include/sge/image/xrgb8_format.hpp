@@ -18,41 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/element_count.hpp>
-#include <sge/image/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_IMAGE_XRGB8_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_XRGB8_FORMAT_HPP_INCLUDED
 
-sge::image::size_type
-sge::image::color::element_count(
-	format::type const _format
-)
+#include <sge/image/color/xrgb8_format.hpp>
+#include <sge/image/basic_format.hpp>
+#include <sge/image/size_type.hpp>
+
+namespace sge
 {
-	switch(
-		_format
-	)
-	{
-	case format::gray8:
-	case format::alpha8:
-		return 1;
-	case format::rgba8:
-	case format::argb8:
-	case format::xrgb8:
-	case format::bgra8:
-	case format::rgba32f:
-	case format::argb32f:
-	case format::bgra32f:
-		return 4;
-	case format::rgb8:
-	case format::rgb32f:
-		return 3;
-	case format::ag8:
-	case format::ga8:
-		return 2;
-	case format::size:
-		break;
-	}
+namespace image
+{
 
-	throw sge::image::exception(
-		FCPPT_TEXT("Invalid format in format_stride()!")
-	);
+template<
+	image::size_type Dim
+>
+struct xrgb8_format
+:
+image::basic_format<
+	Dim,
+	color::xrgb8_format
+>
+{
+};
+
 }
+}
+
+#endif

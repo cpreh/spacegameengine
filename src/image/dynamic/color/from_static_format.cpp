@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "rgb8_format.hpp"
 #include "rgba8_format.hpp"
 #include "argb8_format.hpp"
+#include "xrgb8_format.hpp"
 #include "bgra8_format.hpp"
 #include "rgb32f_format.hpp"
 #include "rgba32f_format.hpp"
@@ -86,6 +87,14 @@ sge::image::dynamic::color::from_static_format(
 )
 {
 	return &dynamic::color::argb8_format;
+}
+
+sge::image::dynamic::color::c8_4_format const *
+sge::image::dynamic::color::from_static_format(
+	image::color::xrgb8_format const &
+)
+{
+	return &dynamic::color::xrgb8_format;
 }
 
 sge::image::dynamic::color::c8_4_format const *

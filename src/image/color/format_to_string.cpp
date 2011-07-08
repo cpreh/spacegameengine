@@ -39,6 +39,8 @@ sge::image::color::format_to_string(
 		return FCPPT_TEXT("rgba8");
 	case format::argb8:
 		return FCPPT_TEXT("argb8");
+	case format::xrgb8:
+		return FCPPT_TEXT("xrgb8");
 	case format::bgra8:
 		return FCPPT_TEXT("bgra8");
 	case format::rgb8:

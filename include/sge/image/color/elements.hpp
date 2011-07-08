@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/gray8_format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/argb8_format.hpp>
+#include <sge/image/color/xrgb8_format.hpp>
 #include <sge/image/color/bgra8_format.hpp>
 #include <sge/image/color/rgb8_format.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
@@ -42,11 +43,12 @@ namespace image
 namespace color
 {
 
-typedef boost::mpl::vector12<
+typedef boost::mpl::vector13<
 	alpha8_format,
 	gray8_format,
 	rgba8_format,
 	argb8_format,
+	xrgb8_format,
 	bgra8_format,
 	rgb8_format,
 	rgba32f_format,
