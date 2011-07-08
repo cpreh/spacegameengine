@@ -246,7 +246,7 @@ SET(
 OPTION(
 	ENABLE_STATIC_COPY_AND_CONVERT 
 	"Use static copy and convert which will produce bigger but probably faster code"
-	TRUE
+	OFF
 )
 
 IF(
