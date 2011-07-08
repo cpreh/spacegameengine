@@ -39,6 +39,7 @@ enum type
 	green,
 	luminance,
 	red,
+	undefined,
 	size
 };
 }
