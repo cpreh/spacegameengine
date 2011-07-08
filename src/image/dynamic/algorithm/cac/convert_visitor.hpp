@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CONVERT_VISITOR_HPP_INCLUDED
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CONVERT_VISITOR_HPP_INCLUDED
 
+#include <fcppt/nonassignable.hpp>
+
 namespace sge
 {
 namespace image
@@ -37,6 +39,9 @@ template<
 >
 class convert_visitor
 {
+	FCPPT_NONASSIGNABLE(
+		convert_visitor
+	);
 public:
 	explicit convert_visitor(
 		Function const &_function

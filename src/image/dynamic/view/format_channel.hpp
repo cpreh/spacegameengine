@@ -35,7 +35,7 @@ namespace view
 template<
 	typename ImageFormat
 >
-typename ImageFormat::color_format::channel_type
+typename ImageFormat::color_format::available_channels
 format_channel(
 	ImageFormat const &_format,
 	sge::image::size_type const _index
