@@ -96,6 +96,8 @@ choose(
 	case dynamic::color::available_channels::red:
 	case dynamic::color::available_channels::green:
 	case dynamic::color::available_channels::blue:
+	case dynamic::color::available_channels::undefined:
+	case dynamic::color::available_channels::size:
 		break;
 	}
 
