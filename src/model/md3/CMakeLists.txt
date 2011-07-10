@@ -1,0 +1,38 @@
+SET(
+	SGE_MODELMD3_FILES
+	include/sge/model/md3/create.hpp
+	include/sge/model/md3/exception.hpp
+	include/sge/model/md3/index.hpp
+	include/sge/model/md3/index_sequence.hpp
+	include/sge/model/md3/load_flags.hpp
+	include/sge/model/md3/loader.hpp
+	include/sge/model/md3/loader_fwd.hpp
+	include/sge/model/md3/loader_ptr.hpp
+	include/sge/model/md3/md3.hpp
+	include/sge/model/md3/normal.hpp
+	include/sge/model/md3/normal_sequence.hpp
+	include/sge/model/md3/object.hpp
+	include/sge/model/md3/object_fwd.hpp
+	include/sge/model/md3/object_ptr.hpp
+	include/sge/model/md3/part_name_sequence.hpp
+	include/sge/model/md3/position.hpp
+	include/sge/model/md3/scalar.hpp
+	include/sge/model/md3/symbol.hpp
+	include/sge/model/md3/texcoord.hpp
+	include/sge/model/md3/texcoord_sequence.hpp
+	include/sge/model/md3/vertex_sequence.hpp
+	src/model/md3/create.cpp
+	src/model/md3/exception.cpp
+	src/model/md3/loader.cpp
+	src/model/md3/loader_impl.cpp
+	src/model/md3/loader_impl.hpp
+	src/model/md3/object.cpp
+	src/model/md3/object_impl.cpp
+	src/model/md3/object_impl.hpp
+	src/model/md3/vertex_format.hpp
+)
+
+ADD_SGE_BASE_LIBRARY(
+	modelmd3
+	""
+)

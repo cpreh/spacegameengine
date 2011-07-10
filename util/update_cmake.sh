@@ -89,7 +89,7 @@ update_sublibrary input
 
 update_sublibrary line_drawer
 
-update_sublibrary md3
+update_sublibrary model/md3
 
 update_sublibrary parse
 

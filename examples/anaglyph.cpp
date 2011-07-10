@@ -29,14 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
-#include <sge/md3/index_sequence.hpp>
-#include <sge/md3/loader_ptr.hpp>
-#include <sge/md3/loader.hpp>
-#include <sge/md3/create.hpp>
-#include <sge/md3/object.hpp>
-#include <sge/md3/vertex_sequence.hpp>
-#include <sge/md3/normal_sequence.hpp>
-#include <sge/md3/index_sequence.hpp>
+#include <sge/model/md3/index_sequence.hpp>
+#include <sge/model/md3/loader_ptr.hpp>
+#include <sge/model/md3/loader.hpp>
+#include <sge/model/md3/create.hpp>
+#include <sge/model/md3/object.hpp>
+#include <sge/model/md3/vertex_sequence.hpp>
+#include <sge/model/md3/normal_sequence.hpp>
+#include <sge/model/md3/index_sequence.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/glsl/int_type.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
@@ -218,7 +218,7 @@ public:
 	compiled_model(
 		sge::renderer::device &,
 		sge::renderer::vertex_declaration const &,
-		sge::md3::object const &);
+		sge::model::md3::object const &);
 
 	sge::renderer::vertex_buffer &
 	vb();
@@ -239,7 +239,7 @@ private:
 compiled_model::compiled_model(
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration const &_vd,
-	sge::md3::object const &_model)
+	sge::model::md3::object const &_model)
 :
 	renderer_(
 		_renderer),
@@ -277,20 +277,20 @@ compiled_model::compiled_model(
 		vf::format_part_view::iterator current_vertex(
 			current_vertex_view.begin());
 
-		sge::md3::vertex_sequence const model_vertices = 
+		sge::model::md3::vertex_sequence const model_vertices = 
 			_model.vertices(
 				_model.part_names().front());
 
 		// Here, we assume that the model has normals (notice the operator*)
-		sge::md3::normal_sequence const model_normals = 
+		sge::model::md3::normal_sequence const model_normals = 
 			*_model.normals(
 				_model.part_names().front());
 
-		sge::md3::normal_sequence::const_iterator current_model_normal = 
+		sge::model::md3::normal_sequence::const_iterator current_model_normal = 
 			model_normals.begin();
 		
 		for(
-			sge::md3::vertex_sequence::const_iterator current_model_vertex = 
+			sge::model::md3::vertex_sequence::const_iterator current_model_vertex = 
 				model_vertices.begin();
 			current_model_vertex != model_vertices.end();
 			++current_model_vertex)
@@ -320,13 +320,13 @@ compiled_model::compiled_model(
 	sge::renderer::index::iterator<sge::renderer::index::format_16> current_index(
 		indices.data());
 
-	sge::md3::index_sequence const model_indices = 
+	sge::model::md3::index_sequence const model_indices = 
 		_model.indices(
 			_model.part_names().front());
 
 	// Fill the buffer. _Again_, the format type appears.
 	for(
-		sge::md3::index_sequence::const_iterator current_model_index = 
+		sge::model::md3::index_sequence::const_iterator current_model_index = 
 			model_indices.begin();
 		current_model_index != model_indices.end();
 		++current_model_index)
@@ -762,8 +762,8 @@ try
 			sge::renderer::vf::dynamic::make_format<vf::format>()));
 
 	// Create an md3 loader using the "create" function.
-	sge::md3::loader_ptr md3_loader(
-		sge::md3::create());
+	sge::model::md3::loader_ptr md3_loader(
+		sge::model::md3::create());
 
 	// Create a model and a model collection
 	compiled_model main_model(
