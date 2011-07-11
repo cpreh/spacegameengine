@@ -1,0 +1,23 @@
+SET(
+	SGE_MODELOBJ_FILES
+	include/sge/model/obj/face.hpp
+	include/sge/model/obj/face_sequence.hpp
+	include/sge/model/obj/group_name.hpp
+	include/sge/model/obj/group_sequence.hpp
+	include/sge/model/obj/instance.hpp
+	include/sge/model/obj/normal.hpp
+	include/sge/model/obj/normal_sequence.hpp
+	include/sge/model/obj/object_name.hpp
+	include/sge/model/obj/object_sequence.hpp
+	include/sge/model/obj/scalar.hpp
+	include/sge/model/obj/texcoord.hpp
+	include/sge/model/obj/texcoord_sequence.hpp
+	include/sge/model/obj/vertex.hpp
+	include/sge/model/obj/vertex_sequence.hpp
+	src/model/obj/instance.cpp
+)
+
+ADD_SGE_BASE_LIBRARY(
+	modelobj
+	""
+)

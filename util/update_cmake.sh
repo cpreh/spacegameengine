@@ -91,6 +91,8 @@ update_sublibrary line_drawer
 
 update_sublibrary model/md3
 
+update_sublibrary model/obj
+
 update_sublibrary parse
 
 update_sublibrary projectile

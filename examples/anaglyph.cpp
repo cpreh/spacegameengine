@@ -75,7 +75,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
 // Yeah, I probably shouldn't include this.
@@ -884,6 +883,6 @@ catch(fcppt::exception const &e)
 }
 catch(std::exception const &e)
 {
-	std::cerr << e.what() << FCPPT_TEXT('\n');
+	std::cerr << e.what() << '\n';
 	return EXIT_FAILURE;
 }

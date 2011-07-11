@@ -283,6 +283,7 @@ OPTION (ENABLE_IMAGE2D "Build the image2d library" ON)
 OPTION (ENABLE_IMAGE3D "Build the image3d library" ON)
 OPTION (ENABLE_INPUT "Build the input library" ON)
 OPTION (ENABLE_MODELMD3 "Build the md3 model library" ON)
+OPTION (ENABLE_MODELOBJ "Build the md3 model library" ON)
 OPTION (ENABLE_PLUGIN "Build the plugin library" ON)
 OPTION (ENABLE_RENDERER "Build the renderer library" ON)
 OPTION (ENABLE_WINDOW "Build the window library" ON)
@@ -317,6 +318,10 @@ ENDIF ()
 
 IF (ENABLE_MODELMD3)
 	ADD_SUBDIRECTORY(model/md3)
+ENDIF ()
+
+IF (ENABLE_MODELOBJ)
+	ADD_SUBDIRECTORY(model/obj)
 ENDIF ()
 
 IF (ENABLE_PLUGIN)
