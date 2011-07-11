@@ -142,7 +142,6 @@ SET(
 	src/image/dynamic/algorithm/cac/choose/source_3_4_dest_1.hpp
 	src/image/dynamic/algorithm/cac/choose/source_3_4_dest_2.hpp
 	src/image/dynamic/algorithm/cac/choose/source_3_4_dest_3_4.hpp
-	src/image/dynamic/algorithm/cac/choose_source_2.hpp
 	src/image/dynamic/algorithm/cac/convert.hpp
 	src/image/dynamic/algorithm/cac/convert_visitor.hpp
 	src/image/dynamic/algorithm/cac/copy.hpp
