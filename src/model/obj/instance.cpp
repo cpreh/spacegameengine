@@ -107,12 +107,16 @@ sge::model::obj::instance::objects() const
 
 sge::model::obj::face_sequence const
 sge::model::obj::instance::group_faces(
-	obj::group_name const &)
+	obj::group_name const &_name)
 {
+	return
+		obj::face_sequence();
 }
 
 sge::model::obj::face_sequence const
 sge::model::obj::instance::object_faces(
-	obj::object_name const &)
+	obj::object_name const &_name)
 {
+	return
+		obj::face_sequence();
 }
