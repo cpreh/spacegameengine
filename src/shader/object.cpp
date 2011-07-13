@@ -47,8 +47,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/range/numeric.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/operator.hpp>
-#include <boost/spirit/home/phoenix/bind.hpp>
+#include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
+#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
 #include <streambuf>
 
 namespace
