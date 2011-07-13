@@ -21,27 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH_HPP_INCLUDED
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH_HPP_INCLUDED
 
-#ifdef _MSC_VER
-#define SGE_IMAGE_DYNAMIC_ALGORITM_CAC_SILENCE_RETURN_WARNING
-#endif
-
 #include <exception>
 
-#if defined(SGE_IMAGE_DYNAMIC_ALGORITM_CAC_SILENCE_RETURN_WARNING)
-#define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH \
-std::terminate(); \
-return \
-	typename cac::function<\
-		SourceFormat,\
-		DestFormat\
-	>::type(\
-		0\
-	);
-#else
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH \
 std::terminate();
-#endif
-
-#undef SGE_IMAGE_DYNAMIC_ALGORITM_CAC_SILENCE_RETURN_WARNING
 
 #endif
