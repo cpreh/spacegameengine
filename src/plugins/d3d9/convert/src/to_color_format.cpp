@@ -38,6 +38,8 @@ sge::d3d9::convert::to_color_format(
 		return sge::image::color::format::gray8;
 	case D3DFMT_A8R8G8B8:
 		return sge::image::color::format::argb8;
+	case D3DFMT_X8R8G8B8:
+		return sge::image::color::format::xrgb8;
 	case D3DFMT_R8G8B8:
 		return sge::image::color::format::rgb8;
 	case D3DFMT_A32B32G32R32F:
