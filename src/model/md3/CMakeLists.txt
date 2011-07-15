@@ -29,7 +29,6 @@ SET(
 	src/model/md3/object.cpp
 	src/model/md3/object_impl.cpp
 	src/model/md3/object_impl.hpp
-	src/model/md3/vertex_format.hpp
 )
 
 ADD_SGE_BASE_LIBRARY(
