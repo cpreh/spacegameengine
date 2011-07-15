@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_STATE_VISITOR_HPP_INCLUDED
 
 #include "clear_fwd.hpp"
+#include "deferred/object_fwd.hpp"
 #include "../d3dinclude.hpp"
 #include <sge/renderer/state/int.hpp>
 #include <sge/renderer/state/uint.hpp>
@@ -54,6 +55,7 @@ class visitor
 public:
 	visitor(
 		IDirect3DDevice9 *,
+		deferred::object &,
 		state::clear &
 	);
 
@@ -130,6 +132,8 @@ public:
 	) const;
 private:
 	IDirect3DDevice9 *const device_;
+
+	deferred::object &deferred_;
 
 	state::clear &clear_state_;
 };

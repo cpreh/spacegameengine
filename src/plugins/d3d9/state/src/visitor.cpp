@@ -35,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/dest_blend_func.hpp"
 #include "../convert/stencil_op.hpp"
 #include "../convert/stencil_op_value.hpp"
+#include "../deferred/bundle.hpp"
+#include "../deferred/object.hpp"
 #include "../set_render_state_bool.hpp"
 #include "../set_render_state_float.hpp"
 #include "../../convert/to_color.hpp"
@@ -45,10 +47,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::state::visitor::visitor(
 	IDirect3DDevice9 *const _device,
+	deferred::object &_deferred,
 	state::clear &_clear_state
 )
 :
 	device_(_device),
+	deferred_(_deferred),
 	clear_state_(_clear_state)
 {
 }
@@ -143,6 +147,14 @@ sge::d3d9::state::visitor::operator()(
 	case sge::renderer::state::bool_::available_states::clear_depth_buffer:
 	case sge::renderer::state::bool_::available_states::clear_back_buffer:
 	case sge::renderer::state::bool_::available_states::clear_stencil_buffer:
+		return;
+	case sge::renderer::state::bool_::available_states::write_alpha:
+	case sge::renderer::state::bool_::available_states::write_blue:
+	case sge::renderer::state::bool_::available_states::write_green:
+	case sge::renderer::state::bool_::available_states::write_red:
+		deferred_.add(
+			deferred::bundle::color_write
+		);
 		return;
 	case sge::renderer::state::bool_::available_states::enable_multi_sampling:
 		return; // FIXME

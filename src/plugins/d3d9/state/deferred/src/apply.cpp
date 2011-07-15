@@ -19,50 +19,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../apply.hpp"
-#include "../visitor.hpp"
-#include "../deferred/object.hpp"
-#include <sge/renderer/state/any.hpp>
-#include <sge/renderer/state/apply.hpp>
-#include <fcppt/function/object.hpp>
-#include <fcppt/tr1/functional.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/cref.hpp>
+#include "../bundle.hpp"
+#include "../color_write.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 void
-sge::d3d9::state::apply(
+sge::d3d9::state::deferred::apply(
 	IDirect3DDevice9 *const _device,
-	state::clear &_clear_state,
-	sge::renderer::state::list &_current_states,
-	sge::renderer::state::list const &_new_states
+	deferred::bundle::type const _bundle,
+	sge::renderer::state::list const &_list
 )
 {
-	d3d9::state::deferred::object deferred_states(
-		_device
-	);
+	switch(
+		_bundle
+	)
+	{
+	case deferred::bundle::color_write:
+		deferred::color_write(
+			_device,
+			_list
+		);
 
-	d3d9::state::visitor const visitor(
-		_device,
-		deferred_states,
-		_clear_state
-	);
+		return;
+	}
 
-	sge::renderer::state::apply(
-		_current_states,
-		_new_states,
-		std::tr1::bind(
-			&fcppt::variant::apply_unary<
-				d3d9::state::visitor,
-				sge::renderer::state::any
-			>,
-			fcppt::cref(
-				visitor
-			),
-			std::tr1::placeholders::_1
-		)
-	);
-
-	deferred_states.update(
-		_current_states
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid deferred::bundle!")
 	);
 }

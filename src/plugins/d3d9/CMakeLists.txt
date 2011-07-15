@@ -190,6 +190,7 @@ SET(
 	src/plugins/d3d9/state/convert/alpha_func.hpp
 	src/plugins/d3d9/state/convert/bool.hpp
 	src/plugins/d3d9/state/convert/color.hpp
+	src/plugins/d3d9/state/convert/color_write.hpp
 	src/plugins/d3d9/state/convert/cull_mode.hpp
 	src/plugins/d3d9/state/convert/depth_func.hpp
 	src/plugins/d3d9/state/convert/dest_blend_func.hpp
@@ -201,6 +202,7 @@ SET(
 	src/plugins/d3d9/state/convert/src/alpha_func.cpp
 	src/plugins/d3d9/state/convert/src/bool.cpp
 	src/plugins/d3d9/state/convert/src/color.cpp
+	src/plugins/d3d9/state/convert/src/color_write.cpp
 	src/plugins/d3d9/state/convert/src/cull_mode.cpp
 	src/plugins/d3d9/state/convert/src/depth_func.cpp
 	src/plugins/d3d9/state/convert/src/dest_blend_func.cpp
@@ -217,6 +219,14 @@ SET(
 	src/plugins/d3d9/state/convert/stencil_op.hpp
 	src/plugins/d3d9/state/convert/stencil_op_value.hpp
 	src/plugins/d3d9/state/convert/uint.hpp
+	src/plugins/d3d9/state/deferred/apply.hpp
+	src/plugins/d3d9/state/deferred/bundle.hpp
+	src/plugins/d3d9/state/deferred/color_write.hpp
+	src/plugins/d3d9/state/deferred/object.hpp
+	src/plugins/d3d9/state/deferred/object_fwd.hpp
+	src/plugins/d3d9/state/deferred/src/apply.cpp
+	src/plugins/d3d9/state/deferred/src/color_write.cpp
+	src/plugins/d3d9/state/deferred/src/object.cpp
 	src/plugins/d3d9/state/set_render_state_bool.hpp
 	src/plugins/d3d9/state/set_render_state_float.hpp
 	src/plugins/d3d9/state/src/apply.cpp
