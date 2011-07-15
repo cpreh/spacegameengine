@@ -18,48 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-	
-#include "../object.hpp"
-#include "../apply.hpp"
+#include "../parameters.hpp"
 
-sge::d3d9::state::deferred::object::object(
-	IDirect3DDevice9 *const _device
+sge::opengl::state::deferred::parameters::parameters(
+	renderer::depth_stencil_buffer::type const _depth_stencil_buffer
 )
 :
-	device_(_device),
-	set_()
-{
-}
-
-sge::d3d9::state::deferred::object::~object()
-{
-}
-
-void
-sge::d3d9::state::deferred::object::add(
-	deferred::bundle::type const _bundle
-)
-{
-	set_.insert(
-		_bundle
-	);
-}
-
-void
-sge::d3d9::state::deferred::object::update(
-	sge::renderer::state::list const &_states
-)
-{
-	for(
-		bundle_set::const_iterator it(
-			set_.begin()
-		);
-		it != set_.end();
-		++it
+	depth_stencil_buffer_(
+		_depth_stencil_buffer
 	)
-		deferred::apply(
-			device_,
-			*it,
-			_states
-		);
+{
+}
+
+sge::renderer::depth_stencil_buffer::type
+sge::opengl::state::deferred::parameters::depth_stencil_buffer() const
+{
+	return depth_stencil_buffer_;
 }

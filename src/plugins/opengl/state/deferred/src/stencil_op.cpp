@@ -18,48 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-	
-#include "../object.hpp"
-#include "../apply.hpp"
-
-sge::d3d9::state::deferred::object::object(
-	IDirect3DDevice9 *const _device
-)
-:
-	device_(_device),
-	set_()
-{
-}
-
-sge::d3d9::state::deferred::object::~object()
-{
-}
+#include "../stencil_op.hpp"
+#include "../../convert/stencil_op_value.hpp"
+#include "../../../check_state.hpp"
+#include "../../../common.hpp"
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/stencil_op.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 void
-sge::d3d9::state::deferred::object::add(
-	deferred::bundle::type const _bundle
+sge::opengl::state::deferred::stencil_op(
+	deferred::parameters const &,
+	sge::renderer::state::list const &_list
 )
 {
-	set_.insert(
-		_bundle
+	::glStencilOp(
+		state::convert::stencil_op_value(
+			_list.get(
+				renderer::state::stencil_op::stencil_fail
+			)
+		),
+		state::convert::stencil_op_value(
+			_list.get(
+				renderer::state::stencil_op::depth_fail
+			)
+		),
+		state::convert::stencil_op_value(
+			_list.get(
+				renderer::state::stencil_op::pass
+			)
+		)
 	);
-}
 
-void
-sge::d3d9::state::deferred::object::update(
-	sge::renderer::state::list const &_states
-)
-{
-	for(
-		bundle_set::const_iterator it(
-			set_.begin()
-		);
-		it != set_.end();
-		++it
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glStencilOp failed"),
+		sge::renderer::exception
 	)
-		deferred::apply(
-			device_,
-			*it,
-			_states
-		);
 }

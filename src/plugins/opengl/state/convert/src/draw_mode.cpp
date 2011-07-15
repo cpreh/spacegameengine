@@ -18,48 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-	
-#include "../object.hpp"
-#include "../apply.hpp"
+#include "../draw_mode.hpp"
+#include "../../../common.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::d3d9::state::deferred::object::object(
-	IDirect3DDevice9 *const _device
-)
-:
-	device_(_device),
-	set_()
-{
-}
-
-sge::d3d9::state::deferred::object::~object()
-{
-}
-
-void
-sge::d3d9::state::deferred::object::add(
-	deferred::bundle::type const _bundle
+GLenum
+sge::opengl::state::convert::draw_mode(
+	renderer::state::draw_mode::type const _mode
 )
 {
-	set_.insert(
-		_bundle
-	);
-}
-
-void
-sge::d3d9::state::deferred::object::update(
-	sge::renderer::state::list const &_states
-)
-{
-	for(
-		bundle_set::const_iterator it(
-			set_.begin()
-		);
-		it != set_.end();
-		++it
+	switch(
+		_mode
 	)
-		deferred::apply(
-			device_,
-			*it,
-			_states
-		);
+	{
+	case renderer::state::draw_mode::point:
+		return GL_POINT;
+	case renderer::state::draw_mode::line:
+		return GL_LINE;
+	case renderer::state::draw_mode::fill:
+		return GL_FILL;
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid draw_mode!")
+	);
 }

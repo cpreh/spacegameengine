@@ -18,48 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-	
-#include "../object.hpp"
-#include "../apply.hpp"
+#ifndef SGE_OPENGL_STATE_DEFERRED_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_DEFERRED_OBJECT_HPP_INCLUDED
 
-sge::d3d9::state::deferred::object::object(
-	IDirect3DDevice9 *const _device
-)
-:
-	device_(_device),
-	set_()
-{
-}
+#include "object_fwd.hpp"
+#include "bundle.hpp"
+#include "parameters.hpp"
+#include <sge/renderer/state/list_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <set>
 
-sge::d3d9::state::deferred::object::~object()
+namespace sge
 {
-}
+namespace opengl
+{
+namespace state
+{
+namespace deferred
+{
 
-void
-sge::d3d9::state::deferred::object::add(
-	deferred::bundle::type const _bundle
-)
+class object
 {
-	set_.insert(
-		_bundle
+	FCPPT_NONCOPYABLE(
+		object
 	);
+public:
+	explicit object(
+		deferred::parameters const &
+	);
+
+	~object();
+
+	void
+	add(
+		deferred::bundle::type
+	);
+
+	void
+	update(
+		sge::renderer::state::list const &
+	);
+private:
+	deferred::parameters const parameters_;
+
+	typedef std::set<
+		deferred::bundle::type
+	> bundle_set;
+
+	bundle_set set_;
+};
+
+}
+}
+}
 }
 
-void
-sge::d3d9::state::deferred::object::update(
-	sge::renderer::state::list const &_states
-)
-{
-	for(
-		bundle_set::const_iterator it(
-			set_.begin()
-		);
-		it != set_.end();
-		++it
-	)
-		deferred::apply(
-			device_,
-			*it,
-			_states
-		);
-}
+#endif

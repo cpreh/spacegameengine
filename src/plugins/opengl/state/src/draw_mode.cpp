@@ -18,48 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-	
-#include "../object.hpp"
-#include "../apply.hpp"
-
-sge::d3d9::state::deferred::object::object(
-	IDirect3DDevice9 *const _device
-)
-:
-	device_(_device),
-	set_()
-{
-}
-
-sge::d3d9::state::deferred::object::~object()
-{
-}
+#include "../draw_mode.hpp"
+#include "../convert/draw_mode.hpp"
+#include "../../check_state.hpp"
+#include "../../common.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 void
-sge::d3d9::state::deferred::object::add(
-	deferred::bundle::type const _bundle
+sge::opengl::state::draw_mode(
+	state::parameters const &,
+	renderer::state::draw_mode::type const _mode
 )
 {
-	set_.insert(
-		_bundle
+	::glPolygonMode(
+		GL_FRONT_AND_BACK,
+		state::convert::draw_mode(
+			_mode
+		)
 	);
-}
 
-void
-sge::d3d9::state::deferred::object::update(
-	sge::renderer::state::list const &_states
-)
-{
-	for(
-		bundle_set::const_iterator it(
-			set_.begin()
-		);
-		it != set_.end();
-		++it
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glPolygonMode failed"),
+		sge::renderer::exception
 	)
-		deferred::apply(
-			device_,
-			*it,
-			_states
-		);
 }

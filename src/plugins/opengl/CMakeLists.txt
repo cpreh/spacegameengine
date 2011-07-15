@@ -1,7 +1,6 @@
 SET(
 	SGE_OPENGL_FILES
 	src/plugins/opengl/apientry.hpp
-	src/plugins/opengl/apply_states.hpp
 	src/plugins/opengl/area_function.hpp
 	src/plugins/opengl/basic_target.hpp
 	src/plugins/opengl/basic_target_impl.hpp
@@ -28,24 +27,16 @@ SET(
 	src/plugins/opengl/context/src/object.cpp
 	src/plugins/opengl/context/use.hpp
 	src/plugins/opengl/context/use_fwd.hpp
-	src/plugins/opengl/convert/alpha_func.hpp
 	src/plugins/opengl/convert/bit_depth.hpp
-	src/plugins/opengl/convert/bool.hpp
 	src/plugins/opengl/convert/clear_flags.hpp
 	src/plugins/opengl/convert/clip_plane_index.hpp
 	src/plugins/opengl/convert/color_to_format.hpp
 	src/plugins/opengl/convert/color_to_format_type.hpp
 	src/plugins/opengl/convert/color_to_internal_format.hpp
-	src/plugins/opengl/convert/cull_mode.hpp
 	src/plugins/opengl/convert/depth_buffer.hpp
-	src/plugins/opengl/convert/depth_func.hpp
 	src/plugins/opengl/convert/depth_stencil_to_format.hpp
 	src/plugins/opengl/convert/depth_stencil_to_format_type.hpp
 	src/plugins/opengl/convert/depth_stencil_to_internal_format.hpp
-	src/plugins/opengl/convert/dest_blend_func.hpp
-	src/plugins/opengl/convert/draw_mode.hpp
-	src/plugins/opengl/convert/fog_float_state.hpp
-	src/plugins/opengl/convert/fog_mode.hpp
 	src/plugins/opengl/convert/format_to_color.hpp
 	src/plugins/opengl/convert/format_to_string.hpp
 	src/plugins/opengl/convert/format_type_to_string.hpp
@@ -55,25 +46,16 @@ SET(
 	src/plugins/opengl/convert/matrix_mode_get.hpp
 	src/plugins/opengl/convert/nonindexed_primitive.hpp
 	src/plugins/opengl/convert/resource_flags.hpp
-	src/plugins/opengl/convert/source_blend_func.hpp
-	src/plugins/opengl/convert/src/alpha_func.cpp
 	src/plugins/opengl/convert/src/bit_depth.cpp
-	src/plugins/opengl/convert/src/bool.cpp
 	src/plugins/opengl/convert/src/clear_flags.cpp
 	src/plugins/opengl/convert/src/clip_plane_index.cpp
 	src/plugins/opengl/convert/src/color_to_format.cpp
 	src/plugins/opengl/convert/src/color_to_format_type.cpp
 	src/plugins/opengl/convert/src/color_to_internal_format.cpp
-	src/plugins/opengl/convert/src/cull_mode.cpp
 	src/plugins/opengl/convert/src/depth_buffer.cpp
-	src/plugins/opengl/convert/src/depth_func.cpp
 	src/plugins/opengl/convert/src/depth_stencil_to_format.cpp
 	src/plugins/opengl/convert/src/depth_stencil_to_format_type.cpp
 	src/plugins/opengl/convert/src/depth_stencil_to_internal_format.cpp
-	src/plugins/opengl/convert/src/dest_blend_func.cpp
-	src/plugins/opengl/convert/src/draw_mode.cpp
-	src/plugins/opengl/convert/src/fog_float_state.cpp
-	src/plugins/opengl/convert/src/fog_mode.cpp
 	src/plugins/opengl/convert/src/format_to_color.cpp
 	src/plugins/opengl/convert/src/format_to_string.cpp
 	src/plugins/opengl/convert/src/format_type_to_string.cpp
@@ -83,14 +65,9 @@ SET(
 	src/plugins/opengl/convert/src/matrix_mode_get.cpp
 	src/plugins/opengl/convert/src/nonindexed_primitive.cpp
 	src/plugins/opengl/convert/src/resource_flags.cpp
-	src/plugins/opengl/convert/src/source_blend_func.cpp
 	src/plugins/opengl/convert/src/stencil_buffer.cpp
-	src/plugins/opengl/convert/src/stencil_func.cpp
-	src/plugins/opengl/convert/src/stencil_op_value.cpp
 	src/plugins/opengl/convert/src/visual_depth.cpp
 	src/plugins/opengl/convert/stencil_buffer.hpp
-	src/plugins/opengl/convert/stencil_func.hpp
-	src/plugins/opengl/convert/stencil_op_value.hpp
 	src/plugins/opengl/convert/visual_depth.hpp
 	src/plugins/opengl/create_caps.hpp
 	src/plugins/opengl/create_device_state.hpp
@@ -308,7 +285,6 @@ SET(
 	src/plugins/opengl/glsl/vertex_shader.hpp
 	src/plugins/opengl/hardware_vbo.hpp
 	src/plugins/opengl/index_buffer.hpp
-	src/plugins/opengl/initial_states.hpp
 	src/plugins/opengl/internal_color_format.hpp
 	src/plugins/opengl/light/attenuation.hpp
 	src/plugins/opengl/light/color.hpp
@@ -364,9 +340,6 @@ SET(
 	src/plugins/opengl/set_vertex_buffer.hpp
 	src/plugins/opengl/set_vertex_declaration.hpp
 	src/plugins/opengl/software_vbo.hpp
-	src/plugins/opengl/split_states.hpp
-	src/plugins/opengl/split_states_fwd.hpp
-	src/plugins/opengl/src/apply_states.cpp
 	src/plugins/opengl/src/buffer.cpp
 	src/plugins/opengl/src/clear.cpp
 	src/plugins/opengl/src/create_caps.cpp
@@ -391,7 +364,6 @@ SET(
 	src/plugins/opengl/src/get_string.cpp
 	src/plugins/opengl/src/hardware_vbo.cpp
 	src/plugins/opengl/src/index_buffer.cpp
-	src/plugins/opengl/src/initial_states.cpp
 	src/plugins/opengl/src/make_buffer_type.cpp
 	src/plugins/opengl/src/matrix_context.cpp
 	src/plugins/opengl/src/matrix_mode.cpp
@@ -412,8 +384,6 @@ SET(
 	src/plugins/opengl/src/set_vertex_buffer.cpp
 	src/plugins/opengl/src/set_vertex_declaration.cpp
 	src/plugins/opengl/src/software_vbo.cpp
-	src/plugins/opengl/src/split_states.cpp
-	src/plugins/opengl/src/state_visitor.cpp
 	src/plugins/opengl/src/system.cpp
 	src/plugins/opengl/src/target_base.cpp
 	src/plugins/opengl/src/unset_vertex_buffer.cpp
@@ -423,7 +393,84 @@ SET(
 	src/plugins/opengl/src/vertex_context.cpp
 	src/plugins/opengl/src/vertex_delcaration.cpp
 	src/plugins/opengl/src/viewport.cpp
-	src/plugins/opengl/state_visitor.hpp
+	src/plugins/opengl/state/alpha_func.hpp
+	src/plugins/opengl/state/apply.hpp
+	src/plugins/opengl/state/bool.hpp
+	src/plugins/opengl/state/color.hpp
+	src/plugins/opengl/state/convert/alpha_func.hpp
+	src/plugins/opengl/state/convert/bool.hpp
+	src/plugins/opengl/state/convert/cull_mode.hpp
+	src/plugins/opengl/state/convert/depth_func.hpp
+	src/plugins/opengl/state/convert/dest_blend_func.hpp
+	src/plugins/opengl/state/convert/draw_mode.hpp
+	src/plugins/opengl/state/convert/fog_float.hpp
+	src/plugins/opengl/state/convert/fog_mode.hpp
+	src/plugins/opengl/state/convert/source_blend_func.hpp
+	src/plugins/opengl/state/convert/src/alpha_func.cpp
+	src/plugins/opengl/state/convert/src/bool.cpp
+	src/plugins/opengl/state/convert/src/cull_mode.cpp
+	src/plugins/opengl/state/convert/src/depth_func.cpp
+	src/plugins/opengl/state/convert/src/dest_blend_func.cpp
+	src/plugins/opengl/state/convert/src/draw_mode.cpp
+	src/plugins/opengl/state/convert/src/fog_float.cpp
+	src/plugins/opengl/state/convert/src/fog_mode.cpp
+	src/plugins/opengl/state/convert/src/source_blend_func.cpp
+	src/plugins/opengl/state/convert/src/stencil_func.cpp
+	src/plugins/opengl/state/convert/src/stencil_op_value.cpp
+	src/plugins/opengl/state/convert/stencil_func.hpp
+	src/plugins/opengl/state/convert/stencil_op_value.hpp
+	src/plugins/opengl/state/cull_mode.hpp
+	src/plugins/opengl/state/deferred/alpha_test.hpp
+	src/plugins/opengl/state/deferred/apply.hpp
+	src/plugins/opengl/state/deferred/blend_func.hpp
+	src/plugins/opengl/state/deferred/bundle.hpp
+	src/plugins/opengl/state/deferred/color_write.hpp
+	src/plugins/opengl/state/deferred/object.hpp
+	src/plugins/opengl/state/deferred/object_fwd.hpp
+	src/plugins/opengl/state/deferred/parameters.hpp
+	src/plugins/opengl/state/deferred/parameters_fwd.hpp
+	src/plugins/opengl/state/deferred/src/alpha_test.cpp
+	src/plugins/opengl/state/deferred/src/apply.cpp
+	src/plugins/opengl/state/deferred/src/blend_func.cpp
+	src/plugins/opengl/state/deferred/src/color_write.cpp
+	src/plugins/opengl/state/deferred/src/object.cpp
+	src/plugins/opengl/state/deferred/src/parameters.cpp
+	src/plugins/opengl/state/deferred/src/stencil_func.cpp
+	src/plugins/opengl/state/deferred/src/stencil_op.cpp
+	src/plugins/opengl/state/deferred/stencil_func.hpp
+	src/plugins/opengl/state/deferred/stencil_op.hpp
+	src/plugins/opengl/state/depth_func.hpp
+	src/plugins/opengl/state/dest_blend_func.hpp
+	src/plugins/opengl/state/draw_mode.hpp
+	src/plugins/opengl/state/float.hpp
+	src/plugins/opengl/state/fog_mode.hpp
+	src/plugins/opengl/state/initial.hpp
+	src/plugins/opengl/state/int.hpp
+	src/plugins/opengl/state/parameters.hpp
+	src/plugins/opengl/state/parameters_fwd.hpp
+	src/plugins/opengl/state/source_blend_func.hpp
+	src/plugins/opengl/state/src/alpha_func.cpp
+	src/plugins/opengl/state/src/apply.cpp
+	src/plugins/opengl/state/src/bool.cpp
+	src/plugins/opengl/state/src/color.cpp
+	src/plugins/opengl/state/src/cull_mode.cpp
+	src/plugins/opengl/state/src/depth_func.cpp
+	src/plugins/opengl/state/src/dest_blend_func.cpp
+	src/plugins/opengl/state/src/draw_mode.cpp
+	src/plugins/opengl/state/src/float.cpp
+	src/plugins/opengl/state/src/fog_mode.cpp
+	src/plugins/opengl/state/src/initial.cpp
+	src/plugins/opengl/state/src/int.cpp
+	src/plugins/opengl/state/src/parameters.cpp
+	src/plugins/opengl/state/src/source_blend_func.cpp
+	src/plugins/opengl/state/src/stencil_func.cpp
+	src/plugins/opengl/state/src/stencil_op.cpp
+	src/plugins/opengl/state/src/uint.cpp
+	src/plugins/opengl/state/src/visitor.cpp
+	src/plugins/opengl/state/stencil_func.hpp
+	src/plugins/opengl/state/stencil_op.hpp
+	src/plugins/opengl/state/uint.hpp
+	src/plugins/opengl/state/visitor.hpp
 	src/plugins/opengl/system.hpp
 	src/plugins/opengl/target_base.hpp
 	src/plugins/opengl/target_base_fwd.hpp

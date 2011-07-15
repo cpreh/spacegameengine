@@ -18,48 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-	
-#include "../object.hpp"
-#include "../apply.hpp"
-
-sge::d3d9::state::deferred::object::object(
-	IDirect3DDevice9 *const _device
-)
-:
-	device_(_device),
-	set_()
-{
-}
-
-sge::d3d9::state::deferred::object::~object()
-{
-}
+#include "../cull_mode.hpp"
+#include "../convert/cull_mode.hpp"
+#include "../../check_state.hpp"
+#include "../../common.hpp"
+#include "../../enable.hpp"
+#include "../../disable.hpp"
+#include <sge/renderer/state/cull_mode.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 void
-sge::d3d9::state::deferred::object::add(
-	deferred::bundle::type const _bundle
+sge::opengl::state::cull_mode(
+	state::parameters const &,
+	renderer::state::cull_mode::type const _mode
 )
 {
-	set_.insert(
-		_bundle
-	);
-}
-
-void
-sge::d3d9::state::deferred::object::update(
-	sge::renderer::state::list const &_states
-)
-{
-	for(
-		bundle_set::const_iterator it(
-			set_.begin()
-		);
-		it != set_.end();
-		++it
+	if(
+		_mode == renderer::state::cull_mode::off
 	)
-		deferred::apply(
-			device_,
-			*it,
-			_states
+	{
+		opengl::disable(
+			GL_CULL_FACE
 		);
+
+		return;
+	}
+
+	opengl::enable(
+		GL_CULL_FACE
+	);
+
+	::glCullFace(
+		state::convert::cull_mode(
+			_mode
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glCullFace failed"),
+		sge::renderer::exception
+	)
 }

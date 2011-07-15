@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../device.hpp"
-#include "../apply_states.hpp"
 #include "../clear.hpp"
 #include "../common.hpp"
 #include "../create_caps.hpp"
@@ -30,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../enable_bool.hpp"
 #include "../get_matrix.hpp"
 #include "../index_buffer.hpp"
-#include "../initial_states.hpp"
 #include "../onscreen_target.hpp"
 #include "../set_clip_plane.hpp"
 #include "../set_material.hpp"
@@ -53,6 +51,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glsl/create_vertex_shader.hpp"
 #include "../light/enable.hpp"
 #include "../light/set.hpp"
+#include "../state/apply.hpp"
+#include "../state/initial.hpp"
 #include "../texture/activate.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/depth_stencil.hpp"
@@ -92,7 +92,7 @@ sge::opengl::device::device(
 	),
 	window_(_window),
 	current_states_(
-		opengl::initial_states()
+		opengl::state::initial()
 	),
 	context_(),
 	state_(
@@ -234,7 +234,7 @@ sge::opengl::device::state(
 	renderer::state::list const &_states
 )
 {
-	opengl::apply_states(
+	opengl::state::apply(
 		context_,
 		current_states_,
 		_states,

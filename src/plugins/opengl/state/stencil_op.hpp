@@ -18,48 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-	
-#include "../object.hpp"
-#include "../apply.hpp"
+#ifndef SGE_OPENGL_STATE_STENCIL_OP_HPP_INCLUDED
+#define SGE_OPENGL_STATE_STENCIL_OP_HPP_INCLUDED
 
-sge::d3d9::state::deferred::object::object(
-	IDirect3DDevice9 *const _device
-)
-:
-	device_(_device),
-	set_()
-{
-}
+#include "parameters_fwd.hpp"
+#include <sge/renderer/state/stencil_op.hpp>
 
-sge::d3d9::state::deferred::object::~object()
+namespace sge
 {
-}
+namespace opengl
+{
+namespace state
+{
 
 void
-sge::d3d9::state::deferred::object::add(
-	deferred::bundle::type const _bundle
-)
-{
-	set_.insert(
-		_bundle
-	);
+stencil_op(
+	state::parameters const &,
+	renderer::state::stencil_op::type const &
+);
+
+}
+}
 }
 
-void
-sge::d3d9::state::deferred::object::update(
-	sge::renderer::state::list const &_states
-)
-{
-	for(
-		bundle_set::const_iterator it(
-			set_.begin()
-		);
-		it != set_.end();
-		++it
-	)
-		deferred::apply(
-			device_,
-			*it,
-			_states
-		);
-}
+#endif

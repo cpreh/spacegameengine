@@ -18,48 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-	
-#include "../object.hpp"
-#include "../apply.hpp"
+#include "../fog_mode.hpp"
+#include "../../../common.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::d3d9::state::deferred::object::object(
-	IDirect3DDevice9 *const _device
-)
-:
-	device_(_device),
-	set_()
-{
-}
-
-sge::d3d9::state::deferred::object::~object()
-{
-}
-
-void
-sge::d3d9::state::deferred::object::add(
-	deferred::bundle::type const _bundle
+GLint
+sge::opengl::state::convert::fog_mode(
+	renderer::state::fog_mode::type const _mode
 )
 {
-	set_.insert(
-		_bundle
-	);
-}
-
-void
-sge::d3d9::state::deferred::object::update(
-	sge::renderer::state::list const &_states
-)
-{
-	for(
-		bundle_set::const_iterator it(
-			set_.begin()
-		);
-		it != set_.end();
-		++it
+	switch(
+		_mode
 	)
-		deferred::apply(
-			device_,
-			*it,
-			_states
-		);
+	{
+	case renderer::state::fog_mode::linear:
+		return GL_LINEAR;
+	case renderer::state::fog_mode::exp:
+		return GL_EXP;
+	case renderer::state::fog_mode::exp2:
+		return GL_EXP2;
+	case renderer::state::fog_mode::off:
+		break;
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid fog_mode!")
+	);
 }

@@ -129,6 +129,7 @@ update_cmake_file \
 	src/plugins/opengl/glsl \
 	src/plugins/opengl/light \
 	src/plugins/opengl/src \
+	src/plugins/opengl/state \
 	src/plugins/opengl/texture \
 	src/plugins/opengl/vf
 

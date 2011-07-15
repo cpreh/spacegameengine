@@ -18,48 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-	
-#include "../object.hpp"
-#include "../apply.hpp"
+#include "../bool.hpp"
+#include "../../../common.hpp"
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::d3d9::state::deferred::object::object(
-	IDirect3DDevice9 *const _device
-)
-:
-	device_(_device),
-	set_()
-{
-}
-
-sge::d3d9::state::deferred::object::~object()
-{
-}
-
-void
-sge::d3d9::state::deferred::object::add(
-	deferred::bundle::type const _bundle
+GLenum
+sge::opengl::state::convert::bool_(
+	renderer::state::bool_::type const _state
 )
 {
-	set_.insert(
-		_bundle
-	);
-}
+	namespace rs = renderer::state::bool_::available_states;
 
-void
-sge::d3d9::state::deferred::object::update(
-	sge::renderer::state::list const &_states
-)
-{
-	for(
-		bundle_set::const_iterator it(
-			set_.begin()
-		);
-		it != set_.end();
-		++it
+	switch(
+		_state.state()
 	)
-		deferred::apply(
-			device_,
-			*it,
-			_states
-		);
+	{
+	case rs::enable_alpha_blending:
+		return GL_BLEND;
+	case rs::enable_lighting:
+		return GL_LIGHTING;
+	case rs::enable_scissor_test:
+		return GL_SCISSOR_TEST;
+	case rs::clear_back_buffer:
+	case rs::clear_depth_buffer:
+	case rs::clear_stencil_buffer:
+	case rs::enable_multi_sampling:
+	case rs::enable_point_sprites:
+	case rs::write_to_depth_buffer:
+	case rs::write_alpha:
+	case rs::write_blue:
+	case rs::write_green:
+	case rs::write_red:
+		break;
+	}
+
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid bool_state!")
+	);
 }

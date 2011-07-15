@@ -18,25 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-	
 #include "../object.hpp"
 #include "../apply.hpp"
 
-sge::d3d9::state::deferred::object::object(
-	IDirect3DDevice9 *const _device
+sge::opengl::state::deferred::object::object(
+	deferred::parameters const &_parameters
 )
 :
-	device_(_device),
+	parameters_(_parameters),
 	set_()
 {
 }
 
-sge::d3d9::state::deferred::object::~object()
+sge::opengl::state::deferred::object::~object()
 {
 }
 
 void
-sge::d3d9::state::deferred::object::add(
+sge::opengl::state::deferred::object::add(
 	deferred::bundle::type const _bundle
 )
 {
@@ -46,8 +45,8 @@ sge::d3d9::state::deferred::object::add(
 }
 
 void
-sge::d3d9::state::deferred::object::update(
-	sge::renderer::state::list const &_states
+sge::opengl::state::deferred::object::update(
+	sge::renderer::state::list const &_list
 )
 {
 	for(
@@ -58,8 +57,8 @@ sge::d3d9::state::deferred::object::update(
 		++it
 	)
 		deferred::apply(
-			device_,
+			parameters_,
 			*it,
-			_states
+			_list
 		);
 }
