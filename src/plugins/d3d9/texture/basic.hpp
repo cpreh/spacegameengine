@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_fwd.hpp"
 #include "base.hpp"
 #include "../d3dinclude.hpp"
-#include "../lock_flags.hpp"
 #include "../usage.hpp"
 #include "../resource.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -119,7 +119,7 @@ private:
 		MakeView const &,
 		lock_function const &,
 		lock_area const &,
-		d3d9::lock_flags
+		renderer::lock_flags::method::type
 	) const;
 
 	typedef typename Types::unique_ptr d3d_unique_ptr;

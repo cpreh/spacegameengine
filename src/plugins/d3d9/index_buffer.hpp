@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_INDEX_BUFFER_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
-#include "lock_flags.hpp"
 #include "resource.hpp"
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -100,7 +100,7 @@ private:
 	do_lock(
 		size_type first,
 		size_type count,
-		d3d9::lock_flags
+		renderer::lock_flags::method::type
 	) const;
 
 	IDirect3DDevice9 *const device_;

@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../index_buffer.hpp"
 #include "../d3dinclude.hpp"
 #include "../convert/index_format.hpp"
-#include "../convert/lock_mode.hpp"
+#include "../convert/lock_flags.hpp"
 #include "../convert/resource_flags.hpp"
 #include "../convert/resource_flags_to_pool.hpp"
 #include <sge/renderer/index/dynamic/format_stride.hpp>
+#include <sge/renderer/lock_flags/from_mode.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <fcppt/text.hpp>
@@ -74,9 +76,8 @@ sge::d3d9::index_buffer::lock(
 		>(
 			_first,
 			_count,
-			d3d9::convert::lock_mode(
-				_mode,
-				this->resource_flags()
+			renderer::lock_flags::from_mode(
+				_mode
 			)
 		);
 }
@@ -93,9 +94,7 @@ sge::d3d9::index_buffer::lock(
 		>(
 			_first,
 			_count,
-			d3d9::lock_flags(
-				D3DLOCK_READONLY
-			)
+			renderer::lock_flags::method::read
 		);
 }
 
@@ -198,7 +197,7 @@ View const
 sge::d3d9::index_buffer::do_lock(
 	size_type const _first,
 	size_type const _count,
-	d3d9::lock_flags const _flags
+	renderer::lock_flags::method::type const _method
 ) const
 {
 	if(
@@ -233,7 +232,10 @@ sge::d3d9::index_buffer::do_lock(
 				stride_
 			),
 			&dest,
-			_flags.get()
+			d3d9::convert::lock_flags(
+				_method,
+				this->resource_flags()
+			).get()
 		)
 		!= D3D_OK
 	)

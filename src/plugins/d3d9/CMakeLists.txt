@@ -33,7 +33,7 @@ SET(
 	src/plugins/d3d9/convert/light/src/visitor.cpp
 	src/plugins/d3d9/convert/light/visitor.hpp
 	src/plugins/d3d9/convert/lock_box.hpp
-	src/plugins/d3d9/convert/lock_mode.hpp
+	src/plugins/d3d9/convert/lock_flags.hpp
 	src/plugins/d3d9/convert/lock_rect.hpp
 	src/plugins/d3d9/convert/material.hpp
 	src/plugins/d3d9/convert/matrix.hpp
@@ -55,7 +55,7 @@ SET(
 	src/plugins/d3d9/convert/src/index_format.cpp
 	src/plugins/d3d9/convert/src/indexed_primitive.cpp
 	src/plugins/d3d9/convert/src/lock_box.cpp
-	src/plugins/d3d9/convert/src/lock_mode.cpp
+	src/plugins/d3d9/convert/src/lock_flags.cpp
 	src/plugins/d3d9/convert/src/lock_rect.cpp
 	src/plugins/d3d9/convert/src/material.cpp
 	src/plugins/d3d9/convert/src/matrix.cpp

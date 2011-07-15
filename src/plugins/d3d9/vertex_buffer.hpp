@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_VERTEX_BUFFER_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
-#include "lock_flags.hpp"
 #include "resource.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -106,7 +107,7 @@ private:
 	do_lock(
 		size_type offset,
 		size_type range,
-		d3d9::lock_flags
+		renderer::lock_flags::method::type
 	) const;
 
 	size_type
@@ -121,6 +122,8 @@ private:
 	size_type const size_;
 
 	renderer::resource_flags_field const resource_flags_;
+
+	mutable renderer::vf::dynamic::converter converter_;
 
 	typedef fcppt::scoped_ptr<
 		IDirect3DVertexBuffer9,

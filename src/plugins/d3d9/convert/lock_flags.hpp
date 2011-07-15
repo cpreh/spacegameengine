@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_LOCK_FLAGS_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_LOCK_FLAGS_HPP_INCLUDED
 
 #include "../lock_flags.hpp"
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 
 namespace sge
@@ -33,8 +33,8 @@ namespace convert
 {
 
 d3d9::lock_flags const
-lock_mode(
-	renderer::lock_mode::type,
+lock_flags(
+	renderer::lock_flags::method::type,
 	renderer::resource_flags_field const &
 );
 

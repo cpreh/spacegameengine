@@ -120,3 +120,11 @@ sge::renderer::vf::dynamic::converter::unlock()
 
 	locked_part_.reset();
 }
+
+void
+sge::renderer::vf::dynamic::converter::reset()
+{
+	locked_part_.reset();
+
+	written_intervals_.clear();
+}

@@ -18,28 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../lock_mode.hpp"
+#include "../lock_flags.hpp"
 #include "../../d3dinclude.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/text.hpp>
 
 sge::d3d9::lock_flags const
-sge::d3d9::convert::lock_mode(
-	renderer::lock_mode::type const _mode,
+sge::d3d9::convert::lock_flags(
+	renderer::lock_flags::method::type const _method,
 	renderer::resource_flags_field const &_flags
 )
 {
-	return
-		sge::d3d9::lock_flags(
-			(
-				_mode == renderer::lock_mode::writeonly
-			)
-			&&
-			(
-				_flags & renderer::resource_flags::dynamic
-			)
-			?
-				D3DLOCK_DISCARD
-			:
+	switch(
+		_method
+	)
+	{
+	case sge::renderer::lock_flags::method::read:
+		return
+			d3d9::lock_flags(
+				D3DLOCK_READONLY
+			);
+	case sge::renderer::lock_flags::method::write:
+		if(
+			_flags & renderer::resource_flags::dynamic
+		)
+			return
+				d3d9::lock_flags(
+					D3DLOCK_DISCARD
+				);
+		// fall through
+	case sge::renderer::lock_flags::method::readwrite:
+		return
+			d3d9::lock_flags(
 				0
-		);
+			);
+	default:
+		break;
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid lock_flags!")
+	);
 }

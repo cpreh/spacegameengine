@@ -26,10 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "update.hpp"
 #include "usage.hpp"
 #include "../d3dinclude.hpp"
+#include "../lock_flags.hpp"
 #include "../make_pitch.hpp"
-#include "../convert/lock_mode.hpp"
+#include "../convert/lock_flags.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
+#include <sge/renderer/lock_flags/from_mode.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -130,9 +133,8 @@ sge::d3d9::texture::basic<Types>::lock_impl(
 			>,
 			_lock,
 			_area,
-			d3d9::convert::lock_mode(
-				_mode,
-				this->resource_flags()
+			renderer::lock_flags::from_mode(
+				_mode
 			)
 		);
 }
@@ -155,9 +157,7 @@ sge::d3d9::texture::basic<Types>::lock_impl(
 			>,
 			_lock,
 			_area,
-			d3d9::lock_flags(
-				D3DLOCK_READONLY
-			)
+			renderer::lock_flags::method::read
 		);
 }
 
@@ -208,7 +208,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 	MakeView const &_make_view,
 	lock_function const &_lock,
 	lock_area const &_area,
-	d3d9::lock_flags const _flags
+	renderer::lock_flags::method::type const _method
 ) const
 {
 	typedef typename Types::lock_dest lock_dest;
@@ -222,6 +222,13 @@ sge::d3d9::texture::basic<Types>::do_lock(
 			lock_dest(
 				_area
 			)
+	);
+
+	d3d9::lock_flags const lock_method(
+		d3d9::convert::lock_flags(
+			_method,
+			this->resource_flags()
+		)
 	);
 
 	if(
@@ -244,7 +251,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 					0u
 				),
 				dest_rect,
-				_flags
+				lock_method
 			);
 	}
 	else
@@ -255,7 +262,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 					0u
 				),
 				dest_rect,
-				_flags
+				lock_method
 			);
 	
 

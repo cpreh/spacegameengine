@@ -60,6 +60,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/defaults.hpp>
 
+#include <sge/sprite/render_one_advanced.hpp>
+#include <fcppt/math/matrix/orthogonal_xy.hpp>
+
 int main()
 try
 {
@@ -173,7 +176,7 @@ try
 	sys.renderer().state(
 		sge::renderer::state::list
 		(sge::renderer::state::bool_::clear_back_buffer = true)
-		(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::blue())
+		(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black())
 	);
 
 	while(
@@ -186,7 +189,12 @@ try
 			sys.renderer()
 		);
 
-		sge::sprite::render_one(
+		sys.renderer().transform(
+			sge::renderer::matrix_mode::projection,
+			fcppt::math::matrix::orthogonal_xy<sge::renderer::scalar>()
+		);
+
+		sge::sprite::render_one_advanced(
 			ss,
 			spr
 		);

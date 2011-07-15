@@ -64,6 +64,10 @@ public:
 	SGE_RENDERER_SYMBOL
 	void
 	unlock();
+
+	SGE_RENDERER_SYMBOL
+	void
+	reset();
 private:
 	dynamic::part const &part_;
 
