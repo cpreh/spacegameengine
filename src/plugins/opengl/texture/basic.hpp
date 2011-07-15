@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../color_format.hpp"
 #include "../color_format_type.hpp"
 #include "../internal_color_format.hpp"
-#include "../lock_method.hpp"
 #include "../context/object_fwd.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -102,7 +102,7 @@ private:
 	void
 	lock_me(
 		lock_area const &,
-		opengl::lock_method::type
+		renderer::lock_flags::method::type
 	) const;
 
 	view const

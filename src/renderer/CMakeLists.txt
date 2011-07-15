@@ -169,6 +169,11 @@ SET(
 	include/sge/renderer/light/spot_fwd.hpp
 	include/sge/renderer/light/variant.hpp
 	include/sge/renderer/lock_box.hpp
+	include/sge/renderer/lock_flags/from_mode.hpp
+	include/sge/renderer/lock_flags/lock_flags.hpp
+	include/sge/renderer/lock_flags/method.hpp
+	include/sge/renderer/lock_flags/read.hpp
+	include/sge/renderer/lock_flags/write.hpp
 	include/sge/renderer/lock_mode.hpp
 	include/sge/renderer/lock_rect.hpp
 	include/sge/renderer/lock_rect_to_coords.hpp
@@ -495,6 +500,9 @@ SET(
 	src/renderer/light/object.cpp
 	src/renderer/light/point.cpp
 	src/renderer/light/spot.cpp
+	src/renderer/lock_flags/from_mode.cpp
+	src/renderer/lock_flags/read.cpp
+	src/renderer/lock_flags/write.cpp
 	src/renderer/material.cpp
 	src/renderer/no_multi_sampling.cpp
 	src/renderer/no_texture.cpp

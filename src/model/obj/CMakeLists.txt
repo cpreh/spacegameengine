@@ -7,6 +7,7 @@ SET(
 	include/sge/model/obj/instance.hpp
 	include/sge/model/obj/normal.hpp
 	include/sge/model/obj/normal_sequence.hpp
+	include/sge/model/obj/obj.hpp
 	include/sge/model/obj/object_name.hpp
 	include/sge/model/obj/object_sequence.hpp
 	include/sge/model/obj/scalar.hpp

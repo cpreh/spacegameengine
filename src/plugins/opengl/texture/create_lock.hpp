@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "lock_base_unique_ptr.hpp"
 #include "lock_base.hpp"
-#include "../lock_method.hpp"
 #include "../context/object_fwd.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 
 namespace sge
@@ -37,7 +37,7 @@ namespace texture
 texture::lock_base_unique_ptr
 create_lock(
 	context::object &,
-	opengl::lock_method::type,
+	renderer::lock_flags::method::type,
 	texture::lock_base::size_type read_size,
 	texture::lock_base::size_type write_size,
 	texture::lock_base::size_type stride,

@@ -58,7 +58,7 @@ void
 sge::opengl::texture::writeonly_lock::lock()
 {
 	buffer_.lock(
-		lock_method::writeonly
+		this->method()
 	);
 }
 
@@ -106,8 +106,8 @@ sge::opengl::texture::writeonly_lock::write_view_pointer()
 	return buffer_.data();
 }
 
-sge::opengl::lock_method::type
+sge::renderer::lock_flags::method::type
 sge::opengl::texture::writeonly_lock::method() const
 {
-	return lock_method::writeonly;
+	return renderer::lock_flags::method::write;
 }

@@ -19,27 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../normal_lock_method.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 GLenum
 sge::opengl::normal_lock_method(
-	lock_method::type const _method
+	renderer::lock_flags::method::type const _method
 )
 {
 	switch(
 		_method
 	)
 	{
-	case lock_method::readonly:
+	case renderer::lock_flags::method::read:
 		return GL_READ_ONLY;
-	case lock_method::writeonly:
+	case renderer::lock_flags::method::write:
 		return GL_WRITE_ONLY;
-	case lock_method::readwrite:
+	case renderer::lock_flags::method::readwrite:
 		return GL_READ_WRITE;
 	}
 
 	throw renderer::exception(
-		FCPPT_TEXT("Invalid lock_method!")
+		FCPPT_TEXT("Invalid lock_flags!")
 	);
 }

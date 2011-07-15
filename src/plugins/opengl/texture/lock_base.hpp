@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_LOCK_BASE_HPP_INCLUDED
 
 #include "lock_base_fwd.hpp"
-#include "../lock_method.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -76,7 +76,7 @@ public:
 	virtual pointer
 	write_view_pointer() = 0;
 
-	virtual lock_method::type
+	virtual renderer::lock_flags::method::type
 	method() const = 0;
 };
 

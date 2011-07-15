@@ -18,12 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../lock_flag_read.hpp"
+#ifndef SGE_MODEL_OBJ_OBJ_HPP_INCLUDED
+#define SGE_MODEL_OBJ_OBJ_HPP_INCLUDED
 
-bool
-sge::opengl::lock_flag_read(
-	lock_method::type const _method
-)
-{
-	return _method != lock_method::writeonly;
-}
+#include <sge/model/obj/face.hpp>
+#include <sge/model/obj/face_sequence.hpp>
+#include <sge/model/obj/group_name.hpp>
+#include <sge/model/obj/group_sequence.hpp>
+#include <sge/model/obj/instance.hpp>
+#include <sge/model/obj/normal.hpp>
+#include <sge/model/obj/normal_sequence.hpp>
+#include <sge/model/obj/object_name.hpp>
+#include <sge/model/obj/object_sequence.hpp>
+#include <sge/model/obj/scalar.hpp>
+#include <sge/model/obj/texcoord.hpp>
+#include <sge/model/obj/texcoord_sequence.hpp>
+#include <sge/model/obj/vertex.hpp>
+#include <sge/model/obj/vertex_sequence.hpp>
+
+#endif

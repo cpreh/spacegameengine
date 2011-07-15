@@ -18,22 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LOCK_FLAG_READ_HPP_INCLUDED
-#define SGE_OPENGL_LOCK_FLAG_READ_HPP_INCLUDED
+#include <sge/renderer/lock_flags/from_mode.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "lock_method.hpp"
-
-namespace sge
+sge::renderer::lock_flags::method::type
+sge::renderer::lock_flags::from_mode(
+	renderer::lock_mode::type const _mode
+)
 {
-namespace opengl
-{
+	switch(
+		_mode
+	)
+	{
+	case renderer::lock_mode::writeonly:
+		return lock_flags::method::write;
+	case renderer::lock_mode::readwrite:
+		return lock_flags::method::readwrite;
+	}
 
-bool
-lock_flag_read(
-	lock_method::type
-);
-
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid lock_mode!")
+	);
 }
-}
-
-#endif

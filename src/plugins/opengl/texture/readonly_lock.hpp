@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "lock_base.hpp"
 #include "../buffer.hpp"
 #include "../context/object_fwd.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -75,7 +76,7 @@ public:
 	pointer
 	write_view_pointer();
 private:
-	lock_method::type
+	renderer::lock_flags::method::type
 	method() const;
 
 	opengl::buffer buffer_;

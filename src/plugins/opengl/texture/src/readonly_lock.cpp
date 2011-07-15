@@ -58,7 +58,7 @@ void
 sge::opengl::texture::readonly_lock::lock()
 {
 	buffer_.lock(
-		lock_method::readonly
+		this->method()
 	);
 }
 
@@ -106,8 +106,8 @@ sge::opengl::texture::readonly_lock::write_view_pointer()
 	);
 }
 
-sge::opengl::lock_method::type
+sge::renderer::lock_flags::method::type
 sge::opengl::texture::readonly_lock::method() const
 {
-	return lock_method::readonly;
+	return renderer::lock_flags::method::read;
 }

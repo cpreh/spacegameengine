@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_NORMAL_LOCK_METHOD_HPP_INCLUDED
 
 #include "common.hpp"
-#include "lock_method.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace opengl
 
 GLenum
 normal_lock_method(
-	opengl::lock_method::type
+	renderer::lock_flags::method::type
 );
 
 }

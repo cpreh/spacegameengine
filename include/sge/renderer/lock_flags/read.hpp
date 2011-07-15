@@ -18,69 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_WRITEONLY_LOCK_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_WRITEONLY_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_LOCK_FLAGS_READ_HPP_INCLUDED
+#define SGE_RENDERER_LOCK_FLAGS_READ_HPP_INCLUDED
 
-#include "lock_base.hpp"
-#include "../buffer.hpp"
-#include "../context/object_fwd.hpp"
 #include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
-namespace texture
+namespace lock_flags
 {
 
-class writeonly_lock
-:
-	public texture::lock_base 
-{
-	FCPPT_NONCOPYABLE(
-		writeonly_lock
-	);
-public:
-	writeonly_lock(
-		opengl::context::object &,
-		size_type lock_size,
-		size_type stride,
-		renderer::resource_flags_field const &
-	);
-
-	~writeonly_lock();
-
-	void
-	lock();
-
-	void
-	unlock();
-
-	void
-	pre_unlock();
-
-	void
-	post_copy();
-
-	pointer
-	read_pointer();
-
-	pointer
-	write_pointer();
-
-	pointer
-	read_view_pointer();
-
-	pointer
-	write_view_pointer();
-private:
-	renderer::lock_flags::method::type
-	method() const;
-
-	buffer buffer_;
-};
+SGE_RENDERER_SYMBOL
+bool
+read(
+	lock_flags::method::type
+);
 
 }
 }

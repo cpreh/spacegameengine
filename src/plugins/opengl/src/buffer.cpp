@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../buffer.hpp"
 #include "../common.hpp"
 #include "../vbo_base.hpp"
-#include "../lock_flag_read.hpp"
-#include "../range_lock_method.hpp"
 #include "../normal_lock_method.hpp"
+#include "../range_lock_method.hpp"
 #include "../convert/resource_flags.hpp"
+#include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/text.hpp>
@@ -38,19 +38,43 @@ sge::opengl::buffer::buffer(
 	const_pointer const _src
 )
 :
-	vbo_base_(_vbo_base),
-	type_(_type),
-	size_(_size),
-	stride_(_stride),
-	flags_(_flags),
-	dest_(0),
-	id_(vbo_base_.gen_buffer()),
-	lock_offset_(0),
-	lock_size_(0)
+	vbo_base_(
+		_vbo_base
+	),
+	type_(
+		_type
+	),
+	size_(
+		_size
+	),
+	stride_(
+		_stride
+	),
+	flags_(
+		_flags
+	),
+	dest_(
+		0
+	),
+	id_(
+		vbo_base_.gen_buffer()
+	),
+	lock_offset_(
+		0
+	),
+	lock_size_(
+		0
+	)
 {
-	size_type const nsz = size() * stride();
+	size_type const new_size(
+		this->size()
+		*
+		this->stride()
+	);
 
-	if(nsz == 0)
+	if(
+		new_size == 0
+	)
 		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer: cannot create an empty buffer!")
 		);
@@ -59,20 +83,26 @@ sge::opengl::buffer::buffer(
 
 	vbo_base_.buffer_data(
 		type_,
-		static_cast<GLsizei>(nsz),
+		static_cast<
+			GLsizei
+		>(
+			new_size
+		),
 		_src,
 		convert::resource_flags(
-			flags()
+			this->flags()
 		)
 	);
 }
 
 sge::opengl::buffer::~buffer()
 {
-	if(dest_)
-		unlock();
+	if(
+		dest_
+	)
+		this->unlock();
 
-	unbind();
+	this->unbind();
 
 	vbo_base_.delete_buffer(
 		id_
@@ -81,33 +111,47 @@ sge::opengl::buffer::~buffer()
 
 void
 sge::opengl::buffer::lock(
-	lock_flag_type const _lockflags,
+	lock_flag_type const &_lockflags,
 	size_type const _first,
 	size_type _count
 )
 {
-	if(dest_)
+	if(
+		dest_
+	)
 		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer::lock(): you have to unlock before locking!")
 		);
 
 	if(
-		opengl::lock_flag_read(_lockflags)
-		&& !(flags() & renderer::resource_flags::readable)
+		renderer::lock_flags::read(
+			_lockflags
+		)
+		&&
+		!(
+			this->flags()
+			& renderer::resource_flags::readable
+		)
 	)
 		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer: Cannot lock a writeonly buffer for reading!")
 		);
 
-	if(_first > size())
+	if(
+		_first > this->size()
+	)
 		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer::lock(): first out of range!")
 		);
 
-	if(_count == npos)
-		_count = size() - _first;
+	if(
+		_count == npos
+	)
+		_count = this->size() - _first;
 
-	if(_first + _count > size())
+	if(
+		_first + _count > this->size()
+	)
 		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer::lock(): first + count > size()")
 		);
@@ -115,7 +159,7 @@ sge::opengl::buffer::lock(
 	this->bind();
 
 	if(
-		_count < size()
+		_count < this->size()
 		&& vbo_base_.map_buffer_range_supported()
 	)
 	{
@@ -131,12 +175,12 @@ sge::opengl::buffer::lock(
 					static_cast<
 						GLsizei
 					>(
-						_first * stride()
+						_first * this->stride()
 					),
 					static_cast<
 						GLsizei
 					>(
-						_count * stride()
+						_count * this->stride()
 					)
 				)
 			);
@@ -166,11 +210,13 @@ sge::opengl::buffer::lock(
 void
 sge::opengl::buffer::unlock()
 {
-	if(!dest_)
+	if(
+		!dest_
+	)
 		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!")
 		);
-	
+
 	this->bind();
 
 	vbo_base_.unmap_buffer(

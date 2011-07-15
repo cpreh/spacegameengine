@@ -19,13 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_buffer.hpp"
-#include "../lock_flag_read.hpp"
-#include "../lock_flag_write.hpp"
 #include "../vbo_context.hpp"
 #include "../context/use.hpp"
-#include "../convert/lock_method.hpp"
 #include "../vf/part.hpp"
 #include <sge/image/color/format.hpp>
+#include <sge/renderer/lock_flags/from_mode.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
@@ -110,7 +109,7 @@ sge::opengl::vertex_buffer::lock(
 		this->do_lock<
 			view_type
 		>(
-			opengl::convert::lock_method(
+			renderer::lock_flags::from_mode(
 				_flags
 			),
 			_offset,
@@ -128,7 +127,7 @@ sge::opengl::vertex_buffer::lock(
 		this->do_lock<
 			const_view_type
 		>(
-			opengl::lock_method::readonly,
+			renderer::lock_flags::method::read,
 			_offset,
 			_range
 		);
@@ -139,7 +138,7 @@ template<
 >
 View const
 sge::opengl::vertex_buffer::do_lock(
-	opengl::lock_method::type const _method,
+	renderer::lock_flags::method::type const _method,
 	size_type const _offset,
 	size_type const _range
 ) const
@@ -158,13 +157,9 @@ sge::opengl::vertex_buffer::do_lock(
 			?
 				this->size()
 			:
-				_range,
-			opengl::lock_flag_read(
-				_method
-			),
-			opengl::lock_flag_write(
-				_method
-			)
+				_range
+			,
+			_method
 		)
 	);
 	

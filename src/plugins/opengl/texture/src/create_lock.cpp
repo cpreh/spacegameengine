@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../readonly_lock.hpp"
 #include "../writeonly_lock.hpp"
 #include "../readwrite_lock.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -30,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::texture::lock_base_unique_ptr
 sge::opengl::texture::create_lock(
 	opengl::context::object &_context,
-	opengl::lock_method::type const _method,
+	renderer::lock_flags::method::type const _method,
 	texture::lock_base::size_type const _read_size,
 	texture::lock_base::size_type const _write_size,
 	texture::lock_base::size_type const _stride,
@@ -41,7 +42,7 @@ sge::opengl::texture::create_lock(
 		_method
 	)
 	{
-	case opengl::lock_method::readonly:
+	case renderer::lock_flags::method::read:
 		return
 			texture::lock_base_unique_ptr(
 				fcppt::make_unique_ptr<
@@ -55,7 +56,7 @@ sge::opengl::texture::create_lock(
 					_flags
 				)
 			);
-	case opengl::lock_method::writeonly:
+	case renderer::lock_flags::method::write:
 		return
 			texture::lock_base_unique_ptr(
 				fcppt::make_unique_ptr<
@@ -69,7 +70,7 @@ sge::opengl::texture::create_lock(
 					_flags
 				)
 			);
-	case opengl::lock_method::readwrite:
+	case renderer::lock_flags::method::readwrite:
 		return
 			texture::lock_base_unique_ptr(
 				fcppt::make_unique_ptr<

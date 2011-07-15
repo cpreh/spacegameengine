@@ -18,12 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../lock_flag_write.hpp"
+#ifndef SGE_RENDERER_LOCK_FLAGS_WRITE_HPP_INCLUDED
+#define SGE_RENDERER_LOCK_FLAGS_WRITE_HPP_INCLUDED
 
-bool
-sge::opengl::lock_flag_write(
-	lock_method::type const _method
-)
+#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/symbol.hpp>
+
+namespace sge
 {
-	return _method != lock_method::readonly;
+namespace renderer
+{
+namespace lock_flags
+{
+
+SGE_RENDERER_SYMBOL
+bool
+write(
+	lock_flags::method::type
+);
+
 }
+}
+}
+
+#endif

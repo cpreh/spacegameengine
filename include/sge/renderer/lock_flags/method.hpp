@@ -18,22 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LOCK_FLAG_WRITE_HPP_INCLUDED
-#define SGE_OPENGL_LOCK_FLAG_WRITE_HPP_INCLUDED
-
-#include "lock_method.hpp"
+#ifndef SGE_RENDERER_LOCK_FLAGS_METHOD_HPP_INCLUDED
+#define SGE_RENDERER_LOCK_FLAGS_METHOD_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace lock_flags
 {
 
-bool
-lock_flag_write(
-	lock_method::type
-);
+namespace method
+{
+enum type
+{
+	read,
+	write,
+	readwrite
+};
+}
 
+}
 }
 }
 
 #endif
+

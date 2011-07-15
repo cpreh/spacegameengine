@@ -51,7 +51,6 @@ SET(
 	src/plugins/opengl/convert/format_type_to_string.hpp
 	src/plugins/opengl/convert/indexed_primitive.hpp
 	src/plugins/opengl/convert/light_index.hpp
-	src/plugins/opengl/convert/lock_method.hpp
 	src/plugins/opengl/convert/matrix_mode.hpp
 	src/plugins/opengl/convert/matrix_mode_get.hpp
 	src/plugins/opengl/convert/nonindexed_primitive.hpp
@@ -80,7 +79,6 @@ SET(
 	src/plugins/opengl/convert/src/format_type_to_string.cpp
 	src/plugins/opengl/convert/src/indexed_primitive.cpp
 	src/plugins/opengl/convert/src/light_index.cpp
-	src/plugins/opengl/convert/src/lock_method.cpp
 	src/plugins/opengl/convert/src/matrix_mode.cpp
 	src/plugins/opengl/convert/src/matrix_mode_get.cpp
 	src/plugins/opengl/convert/src/nonindexed_primitive.cpp
@@ -341,9 +339,6 @@ SET(
 	src/plugins/opengl/light/src/spot.cpp
 	src/plugins/opengl/light/src/visitor.cpp
 	src/plugins/opengl/light/visitor.hpp
-	src/plugins/opengl/lock_flag_read.hpp
-	src/plugins/opengl/lock_flag_write.hpp
-	src/plugins/opengl/lock_method.hpp
 	src/plugins/opengl/make_buffer_type.hpp
 	src/plugins/opengl/matrix_context.hpp
 	src/plugins/opengl/matrix_mode.hpp
@@ -397,8 +392,6 @@ SET(
 	src/plugins/opengl/src/hardware_vbo.cpp
 	src/plugins/opengl/src/index_buffer.cpp
 	src/plugins/opengl/src/initial_states.cpp
-	src/plugins/opengl/src/lock_flag_read.cpp
-	src/plugins/opengl/src/lock_flag_write.cpp
 	src/plugins/opengl/src/make_buffer_type.cpp
 	src/plugins/opengl/src/matrix_context.cpp
 	src/plugins/opengl/src/matrix_mode.cpp

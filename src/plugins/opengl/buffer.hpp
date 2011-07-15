@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "buffer_fwd.hpp"
 #include "common.hpp"
-#include "lock_method.hpp"
 #include "vbo_base_fwd.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/raw_value.hpp>
@@ -52,7 +52,7 @@ public:
 
 	typedef renderer::resource_flags_field resource_flag_type;
 
-	typedef lock_method::type lock_flag_type;
+	typedef renderer::lock_flags::method::type lock_flag_type;
 
 	buffer(
 		vbo_base &,
@@ -69,7 +69,7 @@ public:
 
 	void
 	lock(
-		lock_flag_type lock_flags,
+		lock_flag_type const &,
 		size_type first = 0,
 		size_type count = npos
 	);

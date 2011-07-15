@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "readonly_lock.hpp"
 #include "writeonly_lock.hpp"
 #include "../context/object_fwd.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -77,7 +78,7 @@ private:
 	pointer
 	write_view_pointer();
 
-	lock_method::type
+	renderer::lock_flags::method::type
 	method() const;
 
 	opengl::texture::readonly_lock read_lock_;

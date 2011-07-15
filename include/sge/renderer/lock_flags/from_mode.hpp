@@ -18,21 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_LOCK_METHOD_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_LOCK_METHOD_HPP_INCLUDED
+#ifndef SGE_RENDERER_LOCK_FLAGS_FROM_MODE_HPP_INCLUDED
+#define SGE_RENDERER_LOCK_FLAGS_FROM_MODE_HPP_INCLUDED
 
-#include "../lock_method.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
-namespace convert
+namespace lock_flags
 {
 
-opengl::lock_method::type
-lock_method(
+SGE_RENDERER_SYMBOL
+lock_flags::method::type
+from_mode(
 	renderer::lock_mode::type
 );
 

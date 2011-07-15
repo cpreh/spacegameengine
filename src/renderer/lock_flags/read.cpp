@@ -18,72 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_WRITEONLY_LOCK_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_WRITEONLY_LOCK_HPP_INCLUDED
-
-#include "lock_base.hpp"
-#include "../buffer.hpp"
-#include "../context/object_fwd.hpp"
+#include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
+bool
+sge::renderer::lock_flags::read(
+	lock_flags::method::type const _method
+)
 {
-namespace opengl
-{
-namespace texture
-{
+	switch(
+		_method
+	)
+	{
+	case lock_flags::method::read:
+	case lock_flags::method::readwrite:
+		return true;
+	case lock_flags::method::write:
+		return false;
+	}
 
-class writeonly_lock
-:
-	public texture::lock_base 
-{
-	FCPPT_NONCOPYABLE(
-		writeonly_lock
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid lock_flags!")
 	);
-public:
-	writeonly_lock(
-		opengl::context::object &,
-		size_type lock_size,
-		size_type stride,
-		renderer::resource_flags_field const &
-	);
-
-	~writeonly_lock();
-
-	void
-	lock();
-
-	void
-	unlock();
-
-	void
-	pre_unlock();
-
-	void
-	post_copy();
-
-	pointer
-	read_pointer();
-
-	pointer
-	write_pointer();
-
-	pointer
-	read_view_pointer();
-
-	pointer
-	write_view_pointer();
-private:
-	renderer::lock_flags::method::type
-	method() const;
-
-	buffer buffer_;
-};
-
 }
-}
-}
-
-#endif

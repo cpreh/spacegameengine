@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../vbo_context.hpp"
 #include "../context/use.hpp"
-#include "../convert/lock_method.hpp"
+#include <sge/renderer/lock_flags/from_mode.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/exception.hpp>
@@ -104,7 +105,7 @@ sge::opengl::index_buffer::lock(
 )
 {
 	buffer_.lock(
-		opengl::convert::lock_method(
+		renderer::lock_flags::from_mode(
 			_flags
 		),
 		_offset,
@@ -130,7 +131,7 @@ sge::opengl::index_buffer::lock(
 ) const
 {
 	buffer_.lock(
-		lock_method::readonly,
+		renderer::lock_flags::method::read,
 		_offset,
 		_range
 	);

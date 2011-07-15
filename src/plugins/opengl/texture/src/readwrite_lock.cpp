@@ -96,8 +96,8 @@ sge::opengl::texture::readwrite_lock::write_view_pointer()
 	return write_lock_.write_view_pointer();
 }
 
-sge::opengl::lock_method::type
+sge::renderer::lock_flags::method::type
 sge::opengl::texture::readwrite_lock::method() const
 {
-	return lock_method::readwrite;
+	return renderer::lock_flags::method::readwrite;
 }

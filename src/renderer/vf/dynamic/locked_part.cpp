@@ -24,15 +24,13 @@ sge::renderer::vf::dynamic::locked_part::locked_part(
 	renderer::raw_pointer const _data,
 	renderer::size_type const _pos,
 	renderer::size_type const _count,
-	bool const _read,
-	bool const _write
+	renderer::lock_flags::method::type const _lock_flags
 )
 :
 	data_(_data),
 	pos_(_pos),
 	count_(_count),
-	read_(_read),
-	write_(_write)
+	lock_flags_(_lock_flags)
 {
 }
 
@@ -54,14 +52,8 @@ sge::renderer::vf::dynamic::locked_part::count() const
 	return count_;
 }
 
-bool
-sge::renderer::vf::dynamic::locked_part::read() const
+sge::renderer::lock_flags::method::type
+sge::renderer::vf::dynamic::locked_part::lock_flags() const
 {
-	return read_;
-}
-
-bool
-sge::renderer::vf::dynamic::locked_part::write() const
-{
-	return write_;
+	return lock_flags_;
 }

@@ -31,9 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/color_to_format_type.hpp"
 #include "../convert/color_to_internal_format.hpp"
 #include "../convert/format_to_color.hpp"
-#include "../convert/lock_method.hpp"
-#include "../lock_flag_read.hpp"
-#include "../lock_flag_write.hpp"
 #include "../range_check.hpp"
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/color/format_stride.hpp>
@@ -41,6 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/to_const.hpp>
+#include <sge/renderer/lock_flags/from_mode.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/lock_flags/read.hpp>
+#include <sge/renderer/lock_flags/write.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -72,7 +73,7 @@ sge::opengl::texture::basic<Types>::lock(
 {
 	this->lock_me(
 		_area,
-		opengl::convert::lock_method(
+		renderer::lock_flags::from_mode(
 			_mode
 		)
 	);
@@ -90,7 +91,7 @@ sge::opengl::texture::basic<Types>::lock(
 {
 	this->lock_me(
 		_area,
-		lock_method::readonly
+		renderer::lock_flags::method::read
 	);
 
 	return this->lock_view();
@@ -107,7 +108,7 @@ sge::opengl::texture::basic<Types>::unlock() const
 	lock_->pre_unlock();
 
 	if(
-		opengl::lock_flag_write(
+		renderer::lock_flags::write(
 			lock_->method()
 		)
 	)
@@ -117,7 +118,7 @@ sge::opengl::texture::basic<Types>::unlock() const
 		// a slice into the whole texture retrieved,
 		// to the destination buffer.
 		if(
-			opengl::lock_flag_read(
+			renderer::lock_flags::read(
 				lock_->method()
 			)
 		)
@@ -172,7 +173,7 @@ template<
 void
 sge::opengl::texture::basic<Types>::lock_me(
 	lock_area const &_lock_area,
-	lock_method::type const _method
+	renderer::lock_flags::method::type const _method
 ) const
 {
 	if(
@@ -203,7 +204,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 	);
 
 	if(
-		opengl::lock_flag_read(
+		renderer::lock_flags::read(
 			_method
 		)
 	)
@@ -248,7 +249,7 @@ sge::opengl::texture::basic<Types>::lock_view()
 	// so we have to flip it too.
 	
 	bool const reading(
-		opengl::lock_flag_read(
+		renderer::lock_flags::read(
 			lock_->method()
 		)
 	);
