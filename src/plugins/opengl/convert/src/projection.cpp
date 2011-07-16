@@ -18,26 +18,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SET_MATRIX_AND_MODE_HPP_INCLUDED
-#define SGE_OPENGL_SET_MATRIX_AND_MODE_HPP_INCLUDED
-
-#include "context/object_fwd.hpp"
-#include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/matrix4.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-
-void
-set_matrix_and_mode(
-	context::object &,
-	renderer::matrix_mode::type,
-	renderer::matrix4 const &
-);
-
-}
-}
-
+#include "../projection.hpp"
+//#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#if 0
+#include <fcppt/math/matrix/scaling.hpp>
+#include <fcppt/math/matrix/translation.hpp>
+#include <fcppt/math/matrix/transpose.hpp>
 #endif
+
+sge::renderer::matrix4 const
+sge::opengl::convert::projection(
+	renderer::matrix4 const &_matrix
+)
+{
+	return _matrix;
+#if 0
+	renderer::scalar const
+		m33(
+			_matrix[2][2]
+		),
+		m34(
+			_matrix[3][2]
+		),
+		near(
+			-m34
+			/ m33
+		),
+		far(
+			m34 * near
+			/
+			(m34 + near)
+		),
+		zero(
+			0.f
+		),
+		one(
+			1.f
+		);
+
+	return
+		fcppt::math::matrix::transpose(
+			_matrix
+		)
+		*
+		fcppt::math::matrix::translation(
+			zero,
+			zero,
+			-far
+		)
+		*
+		fcppt::math::matrix::scaling(
+			one,
+			one,
+			static_cast<
+				renderer::scalar
+			>(
+				-2.f
+			)
+		);
+#endif
+}

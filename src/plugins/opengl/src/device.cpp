@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_declaration.hpp"
 #include "../context/use.hpp"
 #include "../convert/clip_plane_index.hpp"
-#include "../convert/matrix_mode.hpp"
 #include "../fbo/create_depth_stencil_surface.hpp"
 #include "../fbo/target.hpp"
 #include "../glew/initialize.hpp"
@@ -381,9 +380,7 @@ sge::opengl::device::transform(
 {
 	opengl::set_matrix_and_mode(
 		context_,
-		convert::matrix_mode(
-			_mode
-		),
+		_mode,
 		_matrix
 	);
 }

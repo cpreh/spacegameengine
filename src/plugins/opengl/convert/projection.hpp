@@ -18,25 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SET_MATRIX_AND_MODE_HPP_INCLUDED
-#define SGE_OPENGL_SET_MATRIX_AND_MODE_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONVERT_PROJECTION_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_PROJECTION_HPP_INCLUDED
 
-#include "context/object_fwd.hpp"
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace convert
+{
 
-void
-set_matrix_and_mode(
-	context::object &,
-	renderer::matrix_mode::type,
+renderer::matrix4 const
+projection(
 	renderer::matrix4 const &
 );
 
+}
 }
 }
 

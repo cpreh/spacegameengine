@@ -21,20 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_matrix_and_mode.hpp"
 #include "../set_matrix.hpp"
 #include "../matrix_mode.hpp"
+#include "../convert/matrix_mode.hpp"
+#include "../convert/projection.hpp"
+#include <fcppt/math/matrix/basic_impl.hpp>
 
 void
 sge::opengl::set_matrix_and_mode(
 	context::object &_context,
-	GLenum const _mode,
+	renderer::matrix_mode::type const _mode,
 	renderer::matrix4 const &_matrix
 )
 {
 	opengl::matrix_mode(
-		_mode
+		convert::matrix_mode(
+			_mode
+		)
 	);
 
 	opengl::set_matrix(
 		_context,
-		_matrix
+		_mode == renderer::matrix_mode::projection
+		?
+			convert::projection(
+				_matrix
+			)
+		:
+			_matrix
 	);
 }

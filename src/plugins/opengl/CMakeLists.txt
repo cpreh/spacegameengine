@@ -45,6 +45,7 @@ SET(
 	src/plugins/opengl/convert/matrix_mode.hpp
 	src/plugins/opengl/convert/matrix_mode_get.hpp
 	src/plugins/opengl/convert/nonindexed_primitive.hpp
+	src/plugins/opengl/convert/projection.hpp
 	src/plugins/opengl/convert/resource_flags.hpp
 	src/plugins/opengl/convert/src/bit_depth.cpp
 	src/plugins/opengl/convert/src/clear_flags.cpp
@@ -64,6 +65,7 @@ SET(
 	src/plugins/opengl/convert/src/matrix_mode.cpp
 	src/plugins/opengl/convert/src/matrix_mode_get.cpp
 	src/plugins/opengl/convert/src/nonindexed_primitive.cpp
+	src/plugins/opengl/convert/src/projection.cpp
 	src/plugins/opengl/convert/src/resource_flags.cpp
 	src/plugins/opengl/convert/src/stencil_buffer.cpp
 	src/plugins/opengl/convert/src/visual_depth.cpp
