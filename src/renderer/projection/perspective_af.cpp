@@ -18,26 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_MATRIX4_HPP_INCLUDED
-#define SGE_RENDERER_MATRIX4_HPP_INCLUDED
+#include <sge/renderer/projection/perspective_af.hpp>
+#include <sge/renderer/projection/dim.hpp>
+#include <sge/renderer/projection/perspective_wh.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <cmath>
 
-#include <sge/renderer/scalar.hpp>
-#include <fcppt/math/matrix/static.hpp>
-
-namespace sge
+sge::renderer::matrix4 const
+sge::renderer::projection::perspective_af(
+	projection::aspect const _aspect,
+	projection::fov const _fov,
+	projection::near const _near,
+	projection::far const _far
+)
 {
-namespace renderer
-{
+	renderer::scalar const
+		h(
+			1.f
+			/
+			std::tan(
+				_fov.get()
+				/
+				2.f
+			)
+		),
+		w(
+			h
+			/
+			_aspect.get()
+		);
 
-typedef
-fcppt::math::matrix::static_<
-	renderer::scalar,
-	4,
-	4
->::type
-matrix4;
-
+	return
+		projection::perspective_wh(
+			projection::dim(
+				w,
+				h
+			),
+			_near,
+			_far
+		);
 }
-}
-
-#endif

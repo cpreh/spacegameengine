@@ -18,26 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_MATRIX4_HPP_INCLUDED
-#define SGE_RENDERER_MATRIX4_HPP_INCLUDED
-
+#include <sge/renderer/projection/orthogonal_xy.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/math/matrix/static.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 
-namespace sge
+sge::renderer::matrix4 const
+sge::renderer::projection::orthogonal_xy()
 {
-namespace renderer
-{
+	renderer::scalar const
+		one(
+			1.f
+		),
+		zero(
+			0.f
+		);
 
-typedef
-fcppt::math::matrix::static_<
-	renderer::scalar,
-	4,
-	4
->::type
-matrix4;
-
+	return
+		renderer::matrix4(
+			one, zero, zero, zero,
+			zero, one, zero, zero,
+			zero, zero, zero, zero,
+			zero, zero, zero, one
+		);
 }
-}
-
-#endif

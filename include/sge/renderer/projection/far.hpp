@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_MATRIX4_HPP_INCLUDED
-#define SGE_RENDERER_MATRIX4_HPP_INCLUDED
+#ifndef SGE_RENDERER_PROJECTION_FAR_HPP_INCLUDED
+#define SGE_RENDERER_PROJECTION_FAR_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/math/matrix/static.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace projection
+{
 
-typedef
-fcppt::math::matrix::static_<
+FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::scalar,
-	4,
-	4
->::type
-matrix4;
+	far
+);
 
+}
 }
 }
 

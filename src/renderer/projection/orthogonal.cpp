@@ -18,26 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_MATRIX4_HPP_INCLUDED
-#define SGE_RENDERER_MATRIX4_HPP_INCLUDED
-
+#include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/math/matrix/static.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 
-namespace sge
+sge::renderer::matrix4 const
+sge::renderer::projection::orthogonal(
+	projection::rect const &_rect,
+	projection::near const _near,
+	projection::far const _far
+)
 {
-namespace renderer
-{
+	renderer::scalar const
+		one(
+			1.f
+		),
+		zero(
+			0.f
+		),
+		left(
+			_rect.left()
+		),
+		right(
+			_rect.right()
+		),
+		top(
+			_rect.top()
+		),
+		bottom(
+			_rect.bottom()
+		),
+		near(
+			_near.get()
+		),
+		far(
+			_far.get()
+		);
 
-typedef
-fcppt::math::matrix::static_<
-	renderer::scalar,
-	4,
-	4
->::type
-matrix4;
-
+	return
+		renderer::matrix4(
+			2.f / (right - left), zero, zero, zero,
+			zero, 2.f / (top - bottom), zero, zero,
+			zero, zero, 1.f / (far - near), zero,
+			(left + right) / (left - right), (top + bottom) / (bottom - top), near / (near - far), one
+		);
 }
-}
-
-#endif

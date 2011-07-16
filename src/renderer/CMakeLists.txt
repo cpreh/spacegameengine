@@ -197,6 +197,17 @@ SET(
 	include/sge/renderer/pixel_unit.hpp
 	include/sge/renderer/plugin.hpp
 	include/sge/renderer/primitive_count.hpp
+	include/sge/renderer/projection/aspect.hpp
+	include/sge/renderer/projection/dim.hpp
+	include/sge/renderer/projection/far.hpp
+	include/sge/renderer/projection/fov.hpp
+	include/sge/renderer/projection/near.hpp
+	include/sge/renderer/projection/orthogonal.hpp
+	include/sge/renderer/projection/orthogonal_xy.hpp
+	include/sge/renderer/projection/perspective_af.hpp
+	include/sge/renderer/projection/perspective_wh.hpp
+	include/sge/renderer/projection/projection.hpp
+	include/sge/renderer/projection/rect.hpp
 	include/sge/renderer/raw_pointer.hpp
 	include/sge/renderer/raw_value.hpp
 	include/sge/renderer/refresh_rate.hpp
@@ -512,6 +523,10 @@ SET(
 	src/renderer/onscreen_target.cpp
 	src/renderer/parameters.cpp
 	src/renderer/plugin.cpp
+	src/renderer/projection/orthogonal.cpp
+	src/renderer/projection/orthogonal_xy.cpp
+	src/renderer/projection/perspective_af.cpp
+	src/renderer/projection/perspective_wh.cpp
 	src/renderer/refresh_rate_dont_care.cpp
 	src/renderer/resource_flags_none.cpp
 	src/renderer/scoped_block.cpp
