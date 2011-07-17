@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "check_near_far.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/math/compare.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_RENDERER_PROJECTION_CHECK_NEAR_HPP_INCLUDED
+#define SGE_RENDERER_PROJECTION_CHECK_NEAR_HPP_INCLUDED
+
+#include <sge/renderer/projection/near.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+namespace projection
+{
 
 void
-sge::renderer::projection::check_near_far(
-	projection::near const _near,
-	projection::far const _far
-)
-{
-	if(
-		fcppt::math::compare(
-			_far.get(),
-			_near.get()
-		)
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("projection: far may not be near!")
-		);
+check_near(
+	projection::near
+);
 
 }
+}
+}
+
+#endif

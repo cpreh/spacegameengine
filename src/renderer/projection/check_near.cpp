@@ -18,63 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "check_near_far.hpp"
 #include "check_near.hpp"
-#include <sge/renderer/projection/perspective_af.hpp>
-#include <sge/renderer/scalar.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <cmath>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/math/almost_zero.hpp>
+#include <fcppt/text.hpp>
 
-sge::renderer::matrix4 const
-sge::renderer::projection::perspective_af(
-	projection::aspect const _aspect,
-	projection::fov const _fov,
-	projection::near const _near,
-	projection::far const _far
+void
+sge::renderer::projection::check_near(
+	projection::near const _near
 )
 {
-	projection::check_near_far(
-		_near,
-		_far
-	);
-
-	projection::check_near(
-		_near
-	);
-
-	sge::renderer::scalar const
-		far(
-			_far.get()
-		),
-		near(
+	if(
+		fcppt::math::almost_zero(
 			_near.get()
-		),
-		scale_y(
-			1.f
-			/
-			std::tan(
-				_fov.get()
-				/
-				2.f
-			)
-		),
-		scale_x(
-			scale_y	
-			/
-			_aspect.get()
-		),
-		zero(
-			0.f
-		),
-		one(
-			1.f
-		);
-
-	return
-		sge::renderer::matrix4(
-			scale_x, zero, zero, zero,
-			zero, scale_y, zero, zero,
-			zero, zero, far / (far - near), -near * far / (far - near),
-			zero, zero, one, zero
+		)
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("projection: near must not be 0!")
 		);
 }
