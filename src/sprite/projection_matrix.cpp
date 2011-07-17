@@ -19,9 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/projection_matrix.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/projection/orthogonal.hpp>
+#include <sge/renderer/projection/rect.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/matrix/orthogonal.hpp>
 
 sge::sprite::matrix const
 sge::sprite::projection_matrix(
@@ -29,37 +33,19 @@ sge::sprite::projection_matrix(
 )
 {
 	return
-		fcppt::math::matrix::orthogonal<
-			sge::sprite::matrix::value_type
-		>(
-			static_cast<
-				sge::sprite::matrix::value_type
-			>(
+		sge::renderer::projection::orthogonal(
+			sge::renderer::projection::rect(
+				sge::renderer::projection::rect::vector::null(),
+				fcppt::math::dim::structure_cast<
+					sge::renderer::projection::rect::dim
+				>(
+					_viewport.get().size()
+				)
+			),
+			sge::renderer::projection::near(
 				0
 			),
-			static_cast<
-				sge::sprite::matrix::value_type
-			>(
-				_viewport.get().size().w()
-			),
-			static_cast<
-				sge::sprite::matrix::value_type
-			>(
-				_viewport.get().size().h()
-			),
-			static_cast<
-				sge::sprite::matrix::value_type
-			>(
-				0
-			),
-			static_cast<
-				sge::sprite::matrix::value_type
-			>(
-				0
-			),
-			static_cast<
-				sge::sprite::matrix::value_type
-			>(
+			sge::renderer::projection::far(
 				10
 			)
 		);

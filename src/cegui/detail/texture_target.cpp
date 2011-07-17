@@ -39,13 +39,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/default_target.hpp>
 #include <sge/renderer/color_surface_ptr.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/projection/orthogonal.hpp>
+#include <sge/renderer/projection/rect.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/image/colors.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/matrix/orthogonal.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -146,20 +149,20 @@ sge::cegui::detail::texture_target::activate()
 
 	system_.renderer().transform(
 		sge::renderer::matrix_mode::projection,
-		fcppt::math::matrix::orthogonal(
-			static_cast<sge::renderer::scalar>(
-				area_.getPosition().d_x),
-			static_cast<sge::renderer::scalar>(
-				area_.getWidth()),
-			// Note that technically, we flip everything here
-			static_cast<sge::renderer::scalar>(
-				area_.getHeight()),
-			static_cast<sge::renderer::scalar>(
-				area_.getPosition().d_y),
-			static_cast<sge::renderer::scalar>(
-				0),
-			static_cast<sge::renderer::scalar>(
-				2)));
+		sge::renderer::projection::orthogonal(
+			sge::cegui::structure_cast<
+				sge::renderer::projection::rect
+			>(
+				area_
+			),
+			sge::renderer::projection::near(
+				0
+			),
+			sge::renderer::projection::far(
+				2
+			)
+		)
+	);
 
 	// This is critical: We do NOT want to clear the texture
 	// here. Clearing is explicitly done in the clear() function.

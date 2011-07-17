@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
-//#include <sge/renderer/projection/perspective_af.hpp>
-//#include <sge/renderer/projection/orthogonal_xy.hpp>
+#include <sge/renderer/projection/perspective_af.hpp>
+#include <sge/renderer/projection/orthogonal_xy.hpp>
 
 namespace
 {
@@ -41,14 +41,13 @@ public:
 	sge::renderer::matrix4 const
 	operator()(sge::camera::projection::orthogonal const &) const
 	{
-		return fcppt::math::matrix::orthogonal_xy<sge::renderer::scalar>();
-//		return sge::renderer::projection::orthogonal_xy();
+//		return fcppt::math::matrix::orthogonal_xy<sge::renderer::scalar>();
+		return sge::renderer::projection::orthogonal_xy();
 	}
 
 	sge::renderer::matrix4 const
 	operator()(sge::camera::projection::perspective const &o) const
 	{
-#if 0
 		return
 			sge::renderer::projection::perspective_af(
 				sge::renderer::projection::aspect(
@@ -64,13 +63,14 @@ public:
 					o.far()
 				)
 			);
-#endif
+#if 0
 		return 
 			fcppt::math::matrix::perspective(
 				o.aspect(),
 				o.fov(),
 				o.near(),
 				o.far());
+#endif
 	}
 };
 }

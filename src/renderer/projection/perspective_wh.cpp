@@ -79,7 +79,7 @@ sge::renderer::projection::perspective_wh(
 		sge::renderer::matrix4(
 			2 * near / w, zero, zero, zero,
 			zero, 2 * near / h, zero, zero,
-			zero, zero, far / (far - near), one,
-			zero, zero, near * far / (near - far), zero
+			zero, zero, far / (far - near), near * far / (near - far),
+			zero, zero, one, zero
 		);
 }

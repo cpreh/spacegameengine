@@ -58,9 +58,9 @@ sge::renderer::projection::orthogonal(
 
 	return
 		renderer::matrix4(
-			2.f / (right - left), zero, zero, zero,
-			zero, 2.f / (top - bottom), zero, zero,
-			zero, zero, 1.f / (far - near), zero,
-			(left + right) / (left - right), (top + bottom) / (bottom - top), near / (near - far), one
+			2.f / (right - left), zero, zero, (left + right) / (left - right),
+			zero, 2.f / (top - bottom), zero, (top + bottom) / (bottom - top),
+			zero, zero, 1.f / (far - near), near / (near - far),
+			zero, zero, zero, one
 		);
 }

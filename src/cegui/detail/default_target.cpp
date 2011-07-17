@@ -23,14 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/structure_cast.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/target.hpp>
-#include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/viewport_size.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/projection/orthogonal.hpp>
+#include <sge/renderer/projection/rect.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/matrix/orthogonal.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/text.hpp>
@@ -126,17 +128,22 @@ sge::renderer::matrix4 const
 sge::cegui::detail::default_target::projection() const
 {
 	return 
-		fcppt::math::matrix::orthogonal(
-			static_cast<sge::renderer::scalar>(
-				0),
-			static_cast<sge::renderer::scalar>(
-				renderer_.onscreen_target().viewport().get().size().w()),
-			static_cast<sge::renderer::scalar>(
-				renderer_.onscreen_target().viewport().get().size().h()),
-			static_cast<sge::renderer::scalar>(
-				0),
-			static_cast<sge::renderer::scalar>(
-				0),
-			static_cast<sge::renderer::scalar>(
-				2));
+		sge::renderer::projection::orthogonal(
+			sge::renderer::projection::rect(
+				sge::renderer::projection::rect::vector::null(),
+				fcppt::math::dim::structure_cast<
+					sge::renderer::projection::rect::dim
+				>(
+					sge::renderer::viewport_size(
+						renderer_
+					)
+				)
+			),
+			sge::renderer::projection::near(
+				0
+			),
+			sge::renderer::projection::far(
+				2
+			)
+		);
 }
