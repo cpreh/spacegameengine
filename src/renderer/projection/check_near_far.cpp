@@ -18,17 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/projection/orthogonal.hpp>
+#include "check_near_far.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/scalar.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/compare.hpp>
+#include <fcppt/math/almost_zero.hpp>
 #include <fcppt/text.hpp>
 
-sge::renderer::matrix4 const
-sge::renderer::projection::orthogonal(
-	projection::rect const &_rect,
+void
+sge::renderer::projection::check_near_far(
 	projection::near const _near,
 	projection::far const _far
 )
@@ -43,37 +40,12 @@ sge::renderer::projection::orthogonal(
 			FCPPT_TEXT("projection: far may not be near!")
 		);
 
-	renderer::scalar const
-		one(
-			1.f
-		),
-		zero(
-			0.f
-		),
-		left(
-			_rect.left()
-		),
-		right(
-			_rect.right()
-		),
-		top(
-			_rect.top()
-		),
-		bottom(
-			_rect.bottom()
-		),
-		near(
+	if(
+		fcppt::math::almost_zero(
 			_near.get()
-		),
-		far(
-			_far.get()
-		);
-
-	return
-		renderer::matrix4(
-			2.f / (right - left), zero, zero, (left + right) / (left - right),
-			zero, 2.f / (top - bottom), zero, (top + bottom) / (bottom - top),
-			zero, zero, 1.f / (far - near), near / (near - far),
-			zero, zero, zero, one
+		)
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("projection: near must not be 0!")
 		);
 }

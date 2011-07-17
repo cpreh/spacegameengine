@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "check_near_far.hpp"
 #include <sge/renderer/projection/perspective_af.hpp>
-#include <sge/renderer/projection/dim.hpp>
-#include <sge/renderer/projection/perspective_wh.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <cmath>
 
@@ -33,8 +32,19 @@ sge::renderer::projection::perspective_af(
 	projection::far const _far
 )
 {
-	renderer::scalar const
-		h(
+	projection::check_near_far(
+		_near,
+		_far
+	);
+
+	sge::renderer::scalar const
+		far(
+			_far.get()
+		),
+		near(
+			_near.get()
+		),
+		scale_y(
 			1.f
 			/
 			std::tan(
@@ -43,19 +53,23 @@ sge::renderer::projection::perspective_af(
 				2.f
 			)
 		),
-		w(
-			h
+		scale_x(
+			scale_y	
 			/
 			_aspect.get()
+		),
+		zero(
+			0.f
+		),
+		one(
+			1.f
 		);
 
 	return
-		projection::perspective_wh(
-			projection::dim(
-				w,
-				h
-			),
-			_near,
-			_far
+		sge::renderer::matrix4(
+			scale_x, zero, zero, zero,
+			zero, scale_y, zero, zero,
+			zero, zero, far / (far - near), -near * far / (far - near),
+			zero, zero, one, zero
 		);
 }

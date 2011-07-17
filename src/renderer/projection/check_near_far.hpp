@@ -18,49 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "check_near_far.hpp"
-#include <sge/renderer/projection/perspective_wh.hpp>
-#include <sge/renderer/scalar.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#ifndef SGE_RENDERER_PROJECTION_CHECK_NEAR_FAR_HPP_INCLUDED
+#define SGE_RENDERER_PROJECTION_CHECK_NEAR_FAR_HPP_INCLUDED
 
-sge::renderer::matrix4 const
-sge::renderer::projection::perspective_wh(
-	projection::dim const &_dim,
-	projection::near const _near,
-	projection::far const _far
-)
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
+
+namespace sge
 {
-	projection::check_near_far(
-		_near,
-		_far
-	);
+namespace renderer
+{
+namespace projection
+{
 
-	sge::renderer::scalar const
-		far(
-			_far.get()
-		),
-		near(
-			_near.get()
-		),
-		h(
-			_dim.h()
-		),
-		w(
-			_dim.w()
-		),
-		zero(
-			0.f
-		),
-		one(
-			1.f
-		);
+void
+check_near_far(
+	projection::near,
+	projection::far
+);
 
-	return
-		sge::renderer::matrix4(
-			2 * near / w, zero, zero, zero,
-			zero, 2 * near / h, zero, zero,
-			zero, zero, far / (far - near), near * far / (near - far),
-			zero, zero, one, zero
-		);
 }
+}
+}
+
+#endif

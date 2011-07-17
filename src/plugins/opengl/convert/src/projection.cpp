@@ -31,12 +31,19 @@ sge::opengl::convert::projection(
 		_matrix
 	);
 
-	ret[2][2] *=
-		static_cast<
-			sge::renderer::scalar
-		>(
-			-1
+	for(
+		sge::renderer::matrix4::size_type row(
+			0
 		);
-	
+		row < ret.rows();
+		++row
+	)
+		ret[row][2] *=
+			static_cast<
+				sge::renderer::scalar
+			>(
+				-1
+			);
+
 	return ret;
 }

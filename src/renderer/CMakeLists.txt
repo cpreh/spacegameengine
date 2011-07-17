@@ -523,6 +523,8 @@ SET(
 	src/renderer/onscreen_target.cpp
 	src/renderer/parameters.cpp
 	src/renderer/plugin.cpp
+	src/renderer/projection/check_near_far.cpp
+	src/renderer/projection/check_near_far.hpp
 	src/renderer/projection/orthogonal.cpp
 	src/renderer/projection/orthogonal_xy.cpp
 	src/renderer/projection/perspective_af.cpp
