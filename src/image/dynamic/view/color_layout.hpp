@@ -35,7 +35,7 @@ namespace view
 template<
 	typename View
 >
-typename View::color_format::layout const &
+typename View::color_format::layout const
 color_layout(
 	View const &_view
 )
