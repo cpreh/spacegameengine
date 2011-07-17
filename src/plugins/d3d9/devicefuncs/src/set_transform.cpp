@@ -36,11 +36,6 @@ do_set(
 	D3DMATRIX const &
 );
 
-void
-flip_sign(
-	float &
-);
-
 }
 
 void
@@ -68,23 +63,6 @@ sge::d3d9::devicefuncs::set_transform(
 		d3d_mode
 	)
 	{
-	case D3DTS_VIEW:
-		flip_sign(
-			d3d_matrix._31
-		);
-
-		flip_sign(
-			d3d_matrix._32
-		);
-
-		flip_sign(
-			d3d_matrix._33
-		);
-
-		flip_sign(
-			d3d_matrix._34
-		);
-		break;
 	case D3DTS_TEXTURE0:
 		// TODO: make a macro in this for fcppt!
 		for(
@@ -132,14 +110,6 @@ do_set(
 		throw sge::renderer::exception(
 			FCPPT_TEXT("SetTransform() failed!")
 		);
-}
-
-void
-flip_sign(
-	float &_value
-)
-{
-	_value *= -1.f;
 }
 
 }

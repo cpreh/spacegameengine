@@ -60,9 +60,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/defaults.hpp>
 
-#include <sge/sprite/render_one_advanced.hpp>
-#include <fcppt/math/matrix/orthogonal_xy.hpp>
-
 int main()
 try
 {
@@ -188,13 +185,8 @@ try
 		sge::renderer::scoped_block const block_(
 			sys.renderer()
 		);
-
-		sys.renderer().transform(
-			sge::renderer::matrix_mode::projection,
-			fcppt::math::matrix::orthogonal_xy<sge::renderer::scalar>()
-		);
-
-		sge::sprite::render_one_advanced(
+		
+		sge::sprite::render_one(
 			ss,
 			spr
 		);
