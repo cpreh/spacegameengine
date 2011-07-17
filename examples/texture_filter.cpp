@@ -71,6 +71,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target_base.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/fov.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -547,25 +550,16 @@ try
 				fcppt::ref(
 					camera
 				),
-				// fov
-				static_cast<
-					sge::renderer::scalar
-				>(
+				sge::renderer::projection::fov(
 					fcppt::math::deg_to_rad(
-						90.
+						90.f
 					)
 				),
-				// near
-				static_cast<
-					sge::renderer::scalar
-				>(
-					0.1
+				sge::renderer::projection::near(
+					0.1f
 				),
-				// far
-				static_cast<
-					sge::renderer::scalar
-				>(
-					1000.
+				sge::renderer::projection::far(
+					1000.f
 				)
 			)
 		)

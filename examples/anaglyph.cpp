@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -72,7 +73,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -737,16 +737,13 @@ try
 						sys.renderer()),
 					fcppt::ref(
 						camera),
-					// Field of view
-					static_cast<sge::renderer::scalar>(
+					sge::renderer::projection::fov(
 						fcppt::math::deg_to_rad(
-							90.)),
-					// Near plane
-					static_cast<sge::renderer::scalar>(
-						0.1),
-					// Far plane
-					static_cast<sge::renderer::scalar>(
-						1000.)))),
+							90.f)),
+					sge::renderer::projection::near(
+						0.1f),
+					sge::renderer::projection::far(
+						1000.f)))),
 		adapt_perspective_connection(
 			sys.viewport_manager().manage_callback(
 				std::tr1::bind(

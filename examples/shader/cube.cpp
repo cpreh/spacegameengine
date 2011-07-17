@@ -84,6 +84,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/fov.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
@@ -920,16 +923,14 @@ try
 					sys.renderer()),
 				fcppt::ref(
 					camera),
-				// Field of view
-				static_cast<sge::renderer::scalar>(
+				sge::renderer::projection::fov(
 					fcppt::math::deg_to_rad(
-						90.)),
-				// Near plane
-				static_cast<sge::renderer::scalar>(
-					0.1),
+						90.f)),
+				sge::renderer::projection::near(
+					0.1f),
 				// Far plane
-				static_cast<sge::renderer::scalar>(
-					1000.))));
+				sge::renderer::projection::far(
+					1000.f))));
 
 	// To use a vertex format, we have to create a _declaration_ and
 	// some _buffers_.

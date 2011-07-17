@@ -31,17 +31,19 @@ void
 sge::camera::projection::update_perspective_from_viewport(
 	sge::renderer::device &_device,
 	camera::object &_object,
-	renderer::scalar const _fov,
-	renderer::scalar const _near,
-	renderer::scalar const _far
+	renderer::projection::fov const _fov,
+	renderer::projection::near const _near,
+	renderer::projection::far const _far
 )
 {
 	_object.projection_object(
 		projection::perspective(
-			sge::renderer::aspect_from_viewport(
-				sge::renderer::active_target(
-					_device
-				).viewport()
+			sge::renderer::projection::aspect(
+				sge::renderer::aspect_from_viewport(
+					sge::renderer::active_target(
+						_device
+					).viewport()
+				)
 			),
 			_fov,
 			_near,

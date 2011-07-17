@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/object_fwd.hpp>
 #include <sge/camera/symbol.hpp>
-#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/fov.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/device_fwd.hpp>
 
 namespace sge
@@ -38,9 +40,9 @@ void
 update_perspective_from_viewport(
 	sge::renderer::device &,
 	camera::object &,
-	renderer::scalar fov,
-	renderer::scalar near,
-	renderer::scalar far
+	renderer::projection::fov,
+	renderer::projection::near,
+	renderer::projection::far
 );
 
 }
