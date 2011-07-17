@@ -73,6 +73,7 @@ struct cube_types
 		unique_ptr(
 			IDirect3DDevice9 *,
 			parameters const &,
+			D3DFORMAT,
 			D3DPOOL,
 			d3d9::usage
 		)

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../d3dinclude.hpp"
 #include "../usage.hpp"
 #include "../resource.hpp"
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -144,6 +145,10 @@ private:
 	IDirect3DDevice9 *const device_;
 
 	parameters_type const parameters_;
+
+	D3DFORMAT const d3d_color_format_;
+
+	sge::image::color::format::type const color_format_;
 
 	d3d9::usage const usage_;
 

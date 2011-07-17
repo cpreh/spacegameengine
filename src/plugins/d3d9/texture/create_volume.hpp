@@ -37,6 +37,7 @@ texture::d3d_volume_texture_unique_ptr
 create_volume(
 	IDirect3DDevice9 *,
 	renderer::texture::volume_parameters const &,
+	D3DFORMAT,
 	D3DPOOL,
 	d3d9::usage
 );

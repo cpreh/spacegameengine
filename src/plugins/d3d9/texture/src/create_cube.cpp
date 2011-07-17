@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../create_cube.hpp"
 #include "../mipmap_levels.hpp"
-#include "../../convert/color_format.hpp"
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -29,6 +28,7 @@ sge::d3d9::texture::d3d_cube_texture_unique_ptr
 sge::d3d9::texture::create_cube(
 	IDirect3DDevice9 * const _device,
 	renderer::texture::cube_parameters const &_params,
+	D3DFORMAT const _color_format,
 	D3DPOOL const _pool,
 	d3d9::usage const _usage
 )
@@ -46,9 +46,7 @@ sge::d3d9::texture::create_cube(
 				_params.filter().min()
 			),
 			_usage.get(),
-			d3d9::convert::color_format(
-				_params.color_format()
-			),
+			_color_format,
 			_pool,
 			&ret,
 			0

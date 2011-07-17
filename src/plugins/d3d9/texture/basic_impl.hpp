@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../d3dinclude.hpp"
 #include "../lock_flags.hpp"
 #include "../make_pitch.hpp"
+#include "../convert/color_format.hpp"
 #include "../convert/lock_flags.hpp"
+#include "../convert/to_color_format.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
@@ -58,6 +60,16 @@ sge::d3d9::texture::basic<Types>::basic(
 	),
 	device_(_device),
 	parameters_(_parameters),
+	d3d_color_format_(
+		d3d9::convert::color_format(
+			_parameters.color_format()
+		)
+	),
+	color_format_(
+		d3d9::convert::to_color_format(
+			d3d_color_format_
+		)
+	),
 	usage_(
 		texture::usage(
 			_parameters.resource_flags(),
@@ -275,7 +287,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 					locked_dest_->pBits
 				),
 				_area.size(),
-				this->parameters().color_format(),
+				color_format_,
 				d3d9::make_pitch(
 					*locked_dest_
 				)
@@ -296,6 +308,7 @@ sge::d3d9::texture::basic<Types>::create(
 		Types::create()(
 			device_,
 			this->parameters(),
+			d3d_color_format_,
 			_pool,
 			_usage
 		);
