@@ -87,7 +87,8 @@ public:
 
 	template<typename T>
 	result_type
-	operator()(T const &_value) const
+	operator()(
+		T const &_value) const
 	{
 		sge::renderer::glsl::uniform::single_value(
 			*variable_,
@@ -95,12 +96,41 @@ public:
 	}
 
 	result_type
-	operator()(bool const _value) const
+	operator()(
+		bool const _value) const
 	{
 		sge::renderer::glsl::uniform::single_value(
 			*variable_,
 			static_cast<sge::renderer::glsl::int_type>(
 				_value));
+	}
+
+	result_type
+	operator()(
+		sge::shader::matrix const &m) const
+	{
+		sge::renderer::matrix4 value = 
+			m.value();
+		switch(m.flags())
+		{
+			case sge::shader::matrix_flags::none:
+				break;
+			case sge::shader::matrix_flags::size:
+				break;
+			case sge::shader::matrix_flags::projection:
+				for(
+					sge::renderer::matrix4::size_type row = 0; 
+					row < value.rows(); 
+					++row)
+					value[row][2] *=
+						static_cast<sge::renderer::scalar>(
+							-1);
+				break;
+		}
+
+		sge::renderer::glsl::uniform::single_value(
+			*variable_,
+			value);
 	}
 };
 }
@@ -111,7 +141,11 @@ sge::shader::object::object(
 	renderer_(
 		p.renderer()),
 	vertex_declaration_(
-		p.vertex_declaration())
+		p.vertex_declaration()),
+	program_(),
+	uniforms_(),
+	uniform_matrices_(),
+	samplers_()
 {
 	if (!fcppt::filesystem::exists(p.vertex_file()))
 		throw exception(
@@ -194,27 +228,22 @@ sge::shader::object::object(
 		++it
 	)
 	{
-		if (it->type() != variable_type::uniform)
-			continue;
-
-		uniforms_.insert(
-			uniform_map::value_type(
-				it->name(),
-					program_->uniform(it->name())));
-
-		update_uniform(
-			it->name(),
-			it->initial_value());
-		// TODO: See above
-		/*
-		fcppt::variant::apply_unary(
-			uniform_setter(
+		switch(it->type())
+		{
+			case shader::variable_type::constant:
+				break;
+			case shader::variable_type::uniform:
 				uniforms_.insert(
 					uniform_map::value_type(
-						v.name(),
-						program_->uniform(v.name()))).first->second),
-			v.initial_value());
-		*/
+						it->name(),
+						program_->uniform(
+							it->name())));
+
+				update_uniform(
+					it->name(),
+					it->initial_value());
+				break;
+		}
 	}
 
 	sampler::texture_unit_type current_tu = 
@@ -258,7 +287,7 @@ sge::shader::object::object(
 void
 sge::shader::object::update_uniform(
 	sge::renderer::glsl::string const &name,
-	value_type const &v)
+	shader::value_variant const &v)
 {
 	uniform_map::iterator const i = 
 		uniforms_.find(name);
@@ -304,11 +333,13 @@ sge::shader::object::update_texture(
 			FCPPT_TEXT("\" you tried to update in a shader doesn't exist!"));
 }
 
+/* Deprecated
 sge::renderer::glsl::program &
 sge::shader::object::program()
 {
 	return *program_;
 }
+*/
 
 void
 sge::shader::object::activate(

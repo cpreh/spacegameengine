@@ -354,7 +354,7 @@ try
 			fcppt::assign::make_container<sge::shader::variable_sequence>(
 				sge::shader::variable(
 					"target_size",
-					sge::shader::variable_type::const_,
+					sge::shader::variable_type::constant,
 					fcppt::math::dim::structure_cast<sge::renderer::vector2>(
 						window_dim))),
 			fcppt::assign::make_container<sge::shader::sampler_sequence>(

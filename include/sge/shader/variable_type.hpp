@@ -30,7 +30,7 @@ namespace variable_type
 enum type
 {
 	uniform,
-	const_
+	constant
 };
 }
 }

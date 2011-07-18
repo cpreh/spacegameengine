@@ -22,18 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_OBJECT_HPP_INCLUDED
 
 #include <sge/shader/symbol.hpp>
+#include <sge/shader/matrix_flags.hpp>
 #include <sge/shader/activation_method_field.hpp>
-#include <sge/shader/value_type.hpp>
+#include <sge/shader/value_variant.hpp>
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/object_parameters_fwd.hpp>
 #include <sge/shader/texture_variant.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
-#include <boost/unordered_map.hpp>
+#include <fcppt/tr1/unordered_map.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -53,15 +55,16 @@ public:
 	SGE_SHADER_SYMBOL void
 	update_uniform(
 		renderer::glsl::string const &name,
-		value_type const &);
+		shader::value_variant const &);
 
 	SGE_SHADER_SYMBOL void
 	update_texture(
 		renderer::glsl::string const &name,
-		texture_variant const &);
+		shader::texture_variant const &);
 
-	SGE_SHADER_SYMBOL renderer::glsl::program &
-	program();
+// Deprecated
+//	SGE_SHADER_SYMBOL renderer::glsl::program &
+//	program();
 
 	// This is called by the scoped class, but you may call it manually, too
 	SGE_SHADER_SYMBOL void
@@ -78,7 +81,7 @@ public:
 private:
 	// This is unordered because std::maps perform badly with strings
 	typedef
-	boost::unordered_map
+	std::tr1::unordered_map
 	<
 		renderer::glsl::string,
 		renderer::glsl::uniform::variable_ptr
@@ -88,8 +91,8 @@ private:
 	renderer::device &renderer_;
 	renderer::vertex_declaration const &vertex_declaration_;
 	renderer::glsl::program_ptr program_;
-	uniform_map uniforms_;
-	sampler_sequence samplers_;
+	uniform_map uniforms_,uniform_matrices_;
+	shader::sampler_sequence samplers_;
 };
 }
 }

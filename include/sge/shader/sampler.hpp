@@ -42,7 +42,7 @@ public:
 	SGE_SHADER_SYMBOL explicit
 	sampler(
 		renderer::glsl::string const &name,
-		texture_variant const &);
+		shader::texture_variant const &);
 
 	SGE_SHADER_SYMBOL renderer::glsl::string const
 	name() const;
@@ -67,12 +67,12 @@ public:
 	// this
 	SGE_SHADER_SYMBOL void
 	texture(
-		texture_variant const &);
+		shader::texture_variant const &);
 	
 	SGE_SHADER_SYMBOL ~sampler();
 private:
 	renderer::glsl::string name_,declaration_;
-	texture_variant texture_;
+	shader::texture_variant texture_;
 	texture_unit_type texture_unit_;
 };
 }

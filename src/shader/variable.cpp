@@ -65,7 +65,7 @@ public:
 
 	result_type
 	operator()(
-		sge::shader::scalar const &v) const
+		sge::renderer::scalar const &v) const
 	{
 		return result_type("float","("+lexical_cast(v)+")");
 	}
@@ -80,30 +80,30 @@ public:
 	// Those could be made into a template taking vector::static_
 	result_type
 	operator()(
-		sge::shader::vec2 const &v) const
+		sge::renderer::vector2 const &v) const
 	{
 		return result_type("vec2",lexical_cast(v));
 	}
 
 	result_type
 	operator()(
-		sge::shader::vec3 const &v) const
+		sge::renderer::vector3 const &v) const
 	{
 		return result_type("vec3",lexical_cast(v));
 	}
 
 	result_type
 	operator()(
-		sge::shader::vec4 const &v) const
+		sge::renderer::vector4 const &v) const
 	{
 		return result_type("vec4",lexical_cast(v));
 	}
 
 	result_type
 	operator()(
-		sge::shader::mat4 const &v) const 
+		sge::shader::matrix const &v) const 
 	{
-		return result_type("mat4",lexical_cast(v));
+		return result_type("mat4",lexical_cast(v.value()));
 	}
 };
 
@@ -111,7 +111,7 @@ sge::renderer::glsl::string const
 generate_declaration(
 	sge::renderer::glsl::string const &name,
 	sge::shader::variable_type::type const t,
-	sge::shader::value_type const &v)
+	sge::shader::value_variant const &v)
 {
 	sge::renderer::glsl::string s;
 
@@ -120,7 +120,7 @@ generate_declaration(
 		case sge::shader::variable_type::uniform:
 			s = "uniform ";
 			break;
-		case sge::shader::variable_type::const_:
+		case sge::shader::variable_type::constant:
 			s = "const ";
 			break;
 	}
@@ -141,7 +141,7 @@ generate_declaration(
 		case sge::shader::variable_type::uniform:
 			s += ";";
 			break;
-		case sge::shader::variable_type::const_:
+		case sge::shader::variable_type::constant:
 			s += 
 				(boost::format(" = %s%s;")
 					% type_value.first
@@ -156,7 +156,7 @@ generate_declaration(
 sge::shader::variable::variable(
 	sge::renderer::glsl::string const &_name,
 	variable_type::type const _type,
-	value_type const &_initial_value)
+	shader::value_variant const &_initial_value)
 :
 	name_(
 		_name),
@@ -190,7 +190,7 @@ sge::shader::variable::name() const
 	return name_;
 }
 
-sge::shader::value_type const
+sge::shader::value_variant const
 sge::shader::variable::initial_value() const
 {
 	return initial_value_;

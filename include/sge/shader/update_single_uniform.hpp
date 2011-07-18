@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_UPDATE_SINGLE_UNIFORM_HPP_INCLUDED
 
 #include <sge/shader/object_fwd.hpp>
-#include <sge/shader/value_type.hpp>
+#include <sge/shader/value_variant.hpp>
 #include <sge/shader/symbol.hpp>
 #include <sge/renderer/glsl/string.hpp>
 
@@ -34,7 +34,7 @@ SGE_SHADER_SYMBOL void
 update_single_uniform(
 	shader::object &,
 	renderer::glsl::string const &,
-	value_type const &);
+	shader::value_variant const &);
 }
 }
 

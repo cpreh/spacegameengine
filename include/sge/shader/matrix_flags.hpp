@@ -18,24 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SHADER_MAT4_HPP_INCLUDED
-#define SGE_SHADER_MAT4_HPP_INCLUDED
-
-#include <sge/shader/scalar.hpp>
-#include <fcppt/math/matrix/static.hpp>
+#ifndef SGE_SHADER_MATRIX_FLAGS_HPP_INCLUDED
+#define SGE_SHADER_MATRIX_FLAGS_HPP_INCLUDED
 
 namespace sge
 {
 namespace shader
 {
-typedef
-fcppt::math::matrix::static_
-<
-	scalar,
-	4,
-	4
->::type
-mat4;
+namespace matrix_flags
+{
+enum type
+{
+	none,
+	projection,
+	size
+};
+}
 }
 }
 

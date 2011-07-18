@@ -131,6 +131,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/variable_type.hpp>
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/shader/activation_method.hpp>
+#include <sge/shader/matrix.hpp>
+#include <sge/shader/matrix_flags.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -960,10 +962,12 @@ try
 				(sge::shader::variable(
 					"mvp",
 					sge::shader::variable_type::uniform,
-					sge::renderer::matrix4::identity()))
+					sge::shader::matrix(
+						sge::renderer::matrix4::identity(),
+						sge::shader::matrix_flags::projection)))
 				(sge::shader::variable(
 					"radius",
-					sge::shader::variable_type::const_,
+					sge::shader::variable_type::constant,
 					static_cast<sge::renderer::scalar>(
 						4)))
 				// There's no "bool" support for shader variables, so we use an
@@ -1066,7 +1070,9 @@ try
 
 			shader.update_uniform(
 				"mvp",
-				camera.mvp());
+				sge::shader::matrix(
+					camera.mvp(),
+					sge::shader::matrix_flags::projection));
 
 			sge::renderer::scalar const elapsed = 
 				static_cast<sge::renderer::scalar>(

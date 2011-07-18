@@ -187,10 +187,10 @@ sge::camera::object::key_callback(
 			dirs_[1] = !k.pressed() ? 0.f : -1.f;
 			break;
 		case sge::input::keyboard::key_code::w:
-			dirs_[2] = !k.pressed() ? 0.f : -1.f;
+			dirs_[2] = !k.pressed() ? 0.f : 1.f;
 			break;
 		case sge::input::keyboard::key_code::s:
-			dirs_[2] = !k.pressed() ? 0.f : 1.f;
+			dirs_[2] = !k.pressed() ? 0.f : -1.f;
 			break;
 		case sge::input::keyboard::key_code::a:
 			dirs_[0] = !k.pressed() ? 0.f : -1.f;
@@ -226,7 +226,7 @@ sge::camera::object::mouse_axis_callback(
 			forward = 
 				narrow_cast<renderer::vector3>(
 					rotation_axis(
-						-angle,
+						angle,
 						renderer::vector3(0,1,0)) *
 					construct(
 						gizmo_.forward(),
@@ -258,7 +258,7 @@ sge::camera::object::mouse_axis_callback(
 				forward = 
 					narrow_cast<renderer::vector3>(
 						rotation_axis(
-							-angle,
+							angle,
 							gizmo_.right()) *
 						construct(
 							gizmo_.forward(),

@@ -29,7 +29,7 @@ namespace sge
 namespace shader
 {
 typedef
-fcppt::container::bitfield::basic<activation_method::type,activation_method::size>
+fcppt::container::bitfield::basic<shader::activation_method::type,shader::activation_method::size>
 activation_method_field;
 }
 }

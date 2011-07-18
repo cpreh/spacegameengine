@@ -18,20 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SHADER_VEC4_HPP_INCLUDED
-#define SGE_SHADER_VEC4_HPP_INCLUDED
+#include <sge/shader/matrix.hpp>
 
-#include <sge/shader/scalar.hpp>
-#include <fcppt/math/vector/static.hpp>
-
-namespace sge
+sge::shader::matrix::matrix(
+	renderer::matrix4 const &_matrix,
+	shader::matrix_flags::type const _flags)
+:
+	matrix_(
+		_matrix),
+	flags_(
+		_flags)
 {
-namespace shader
-{
-typedef
-fcppt::math::vector::static_<scalar,4>::type
-vec4;
-}
 }
 
-#endif
+sge::renderer::matrix4 const &
+sge::shader::matrix::value() const
+{
+	return matrix_;
+}
+
+sge::shader::matrix_flags::type
+sge::shader::matrix::flags() const
+{
+	return flags_;
+}

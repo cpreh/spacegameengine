@@ -29,7 +29,7 @@ namespace sge
 namespace shader
 {
 typedef
-std::vector<sampler>
+std::vector<shader::sampler>
 sampler_sequence;
 }
 }

@@ -27,7 +27,7 @@ void
 sge::shader::update_single_uniform(
 	shader::object &s,
 	renderer::glsl::string const &name,
-	value_type const &value)
+	shader::value_variant const &value)
 {
 	shader::scoped scope(
 		s,
