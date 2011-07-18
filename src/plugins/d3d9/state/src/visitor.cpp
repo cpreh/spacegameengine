@@ -158,13 +158,6 @@ sge::d3d9::state::visitor::operator()(
 		return;
 	case sge::renderer::state::bool_::available_states::enable_multi_sampling:
 		return; // FIXME
-	case sge::renderer::state::bool_::available_states::enable_alpha_blending:
-		d3d9::state::set_render_state_bool(
-			device_,
-			D3DRS_SEPARATEALPHABLENDENABLE,
-			_state.value()
-		);
-		break;
 	default:
 		break;
 	}
@@ -354,7 +347,7 @@ sge::d3d9::state::visitor::operator()(
 {
 	d3d9::devicefuncs::set_render_state(
 		device_,
-		D3DRS_SRCBLENDALPHA,
+		D3DRS_SRCBLEND,
 		state::convert::source_blend_func(
 			_state
 		)
@@ -368,7 +361,7 @@ sge::d3d9::state::visitor::operator()(
 {
 	d3d9::devicefuncs::set_render_state(
 		device_,
-		D3DRS_DESTBLENDALPHA,
+		D3DRS_DESTBLEND,
 		state::convert::dest_blend_func(
 			_state
 		)

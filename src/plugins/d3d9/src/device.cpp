@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../devicefuncs/set_material.hpp"
 #include "../devicefuncs/set_render_state.hpp"
 #include "../devicefuncs/set_stream_source.hpp"
+#include "../devicefuncs/set_texture.hpp"
 #include "../devicefuncs/set_transform.hpp"
 #include "../parameters/create.hpp"
 #include "../state/apply.hpp"
@@ -465,28 +466,11 @@ sge::d3d9::device::texture(
 	renderer::stage_type const _stage
 )
 {
-	if(
-		device_->SetTexture(
-			static_cast<
-				DWORD
-			>(
-				_stage.get()
-			),
-			_texture
-			?
-				dynamic_cast<
-					d3d9::texture::base const &
-				>(
-					*_texture
-				).get()
-			:
-				0
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("SetTexture() failed!")
-		);
+	devicefuncs::set_texture(
+		device_.get(),
+		_stage,
+		_texture
+	);
 }
 
 void

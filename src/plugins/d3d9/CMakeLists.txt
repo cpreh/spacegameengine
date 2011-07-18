@@ -111,6 +111,7 @@ SET(
 	src/plugins/d3d9/devicefuncs/set_render_target.hpp
 	src/plugins/d3d9/devicefuncs/set_scissor_rect.hpp
 	src/plugins/d3d9/devicefuncs/set_stream_source.hpp
+	src/plugins/d3d9/devicefuncs/set_texture.hpp
 	src/plugins/d3d9/devicefuncs/set_texture_stage_state.hpp
 	src/plugins/d3d9/devicefuncs/set_transform.hpp
 	src/plugins/d3d9/devicefuncs/set_viewport.hpp
@@ -131,6 +132,7 @@ SET(
 	src/plugins/d3d9/devicefuncs/src/set_render_target.cpp
 	src/plugins/d3d9/devicefuncs/src/set_scissor_rect.cpp
 	src/plugins/d3d9/devicefuncs/src/set_stream_source.cpp
+	src/plugins/d3d9/devicefuncs/src/set_texture.cpp
 	src/plugins/d3d9/devicefuncs/src/set_texture_stage_state.cpp
 	src/plugins/d3d9/devicefuncs/src/set_transform.cpp
 	src/plugins/d3d9/devicefuncs/src/set_viewport.cpp
