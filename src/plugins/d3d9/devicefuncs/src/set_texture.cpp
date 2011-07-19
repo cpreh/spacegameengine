@@ -18,35 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
-#define SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
+#include "../set_texture.hpp"
+#include "../../d3dinclude.hpp"
+#include "../../texture/base.hpp"
+#include <sge/renderer/texture/base.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/camera/object_fwd.hpp>
-#include <sge/camera/symbol.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/fov.hpp>
-#include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/device_fwd.hpp>
-
-namespace sge
-{
-namespace camera
-{
-namespace projection
-{
-
-SGE_CAMERA_SYMBOL
 void
-update_perspective_from_viewport(
-	sge::renderer::device &,
-	camera::object &,
-	renderer::projection::fov,
-	renderer::projection::near,
-	renderer::projection::far
-);
-
+sge::d3d9::devicefuncs::set_texture(
+	IDirect3DDevice9 *const _device,
+	renderer::stage_type const _stage,
+	sge::renderer::texture::base const *const _texture
+)
+{
+	if(
+		_device->SetTexture(
+			static_cast<
+				DWORD
+			>(
+				_stage.get()
+			),
+			_texture
+			?
+				dynamic_cast<
+					d3d9::texture::base const &
+				>(
+					*_texture
+				).get()
+			:
+				0
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("SetTexture() failed!")
+		);
 }
-}
-}
-
-#endif

@@ -18,35 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
-#define SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
+#include <sge/renderer/glsl/to_ccv.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/scaling.hpp>
+#include <fcppt/math/matrix/translation.hpp>
 
-#include <sge/camera/object_fwd.hpp>
-#include <sge/camera/symbol.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/fov.hpp>
-#include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/device_fwd.hpp>
-
-namespace sge
+sge::renderer::matrix4 const
+sge::renderer::glsl::to_ccv(
+	sge::renderer::matrix4 const &_matrix
+)
 {
-namespace camera
-{
-namespace projection
-{
+	sge::renderer::scalar const
+		one(
+			1.f
+		),
+		one_half(
+			0.5f
+		);
 
-SGE_CAMERA_SYMBOL
-void
-update_perspective_from_viewport(
-	sge::renderer::device &,
-	camera::object &,
-	renderer::projection::fov,
-	renderer::projection::near,
-	renderer::projection::far
-);
-
+	return
+		fcppt::math::matrix::translation(
+			one,
+			one,
+			one_half
+		)
+		*
+		fcppt::math::matrix::scaling(
+			one,
+			one,
+			one_half
+		)
+		*
+		_matrix;
 }
-}
-}
-
-#endif

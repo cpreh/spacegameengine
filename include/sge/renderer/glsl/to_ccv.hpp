@@ -18,31 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
-#define SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_TO_CCV_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_TO_CCV_HPP_INCLUDED
 
-#include <sge/camera/object_fwd.hpp>
-#include <sge/camera/symbol.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/fov.hpp>
-#include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
-namespace camera
+namespace renderer
 {
-namespace projection
+namespace glsl
 {
 
-SGE_CAMERA_SYMBOL
-void
-update_perspective_from_viewport(
-	sge::renderer::device &,
-	camera::object &,
-	renderer::projection::fov,
-	renderer::projection::near,
-	renderer::projection::far
+SGE_RENDERER_SYMBOL
+sge::renderer::matrix4 const
+to_ccv(
+	sge::renderer::matrix4 const &
 );
 
 }

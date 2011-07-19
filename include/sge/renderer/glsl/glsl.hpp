@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/shader_fwd.hpp>
 #include <sge/renderer/glsl/shader_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/to_ccv.hpp>
 #include <sge/renderer/glsl/uniform/uniform.hpp>
 #include <sge/renderer/glsl/vertex_shader.hpp>
 #include <sge/renderer/glsl/vertex_shader_fwd.hpp>

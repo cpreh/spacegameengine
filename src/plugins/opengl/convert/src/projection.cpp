@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../projection.hpp"
-#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/glsl/to_ccv.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 
 sge::renderer::matrix4 const
@@ -27,23 +27,8 @@ sge::opengl::convert::projection(
 	renderer::matrix4 const &_matrix
 )
 {
-	sge::renderer::matrix4 ret(
-		_matrix
-	);
-
-	for(
-		sge::renderer::matrix4::size_type row(
-			0
+	return
+		sge::renderer::glsl::to_ccv(
+			_matrix
 		);
-		row < ret.rows();
-		++row
-	)
-		ret[row][2] *=
-			static_cast<
-				sge::renderer::scalar
-			>(
-				-1
-			);
-
-	return ret;
 }

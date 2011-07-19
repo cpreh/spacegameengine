@@ -18,31 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
-#define SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
+#ifndef SGE_D3D9_DEVICEFUNCS_SET_TEXTURE_HPP_INCLUDED
+#define SGE_D3D9_DEVICEFUNCS_SET_TEXTURE_HPP_INCLUDED
 
-#include <sge/camera/object_fwd.hpp>
-#include <sge/camera/symbol.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/fov.hpp>
-#include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include "../d3dinclude.hpp"
+#include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/stage_type.hpp>
 
 namespace sge
 {
-namespace camera
+namespace d3d9
 {
-namespace projection
+namespace devicefuncs
 {
 
-SGE_CAMERA_SYMBOL
 void
-update_perspective_from_viewport(
-	sge::renderer::device &,
-	camera::object &,
-	renderer::projection::fov,
-	renderer::projection::near,
-	renderer::projection::far
+set_texture(
+	IDirect3DDevice9 *,
+	sge::renderer::stage_type,
+	sge::renderer::texture::base const *
 );
 
 }

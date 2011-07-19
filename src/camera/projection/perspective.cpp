@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/projection/perspective.hpp>
 
 sge::camera::projection::perspective::perspective(
-	renderer::scalar const _aspect,
-	renderer::scalar const _fov,
-	renderer::scalar const _near,
-	renderer::scalar const _far)
+	renderer::projection::aspect const _aspect,
+	renderer::projection::fov const _fov,
+	renderer::projection::near const _near,
+	renderer::projection::far const _far)
 :
 	aspect_(
 		_aspect),
@@ -37,25 +37,25 @@ sge::camera::projection::perspective::perspective(
 {
 }
 
-sge::renderer::scalar 
+sge::renderer::projection::aspect const
 sge::camera::projection::perspective::aspect() const
 {
 	return aspect_;
 }
 
-sge::renderer::scalar 
+sge::renderer::projection::fov const
 sge::camera::projection::perspective::fov() const
 {
 	return fov_;
 }
 
-sge::renderer::scalar 
+sge::renderer::projection::near const
 sge::camera::projection::perspective::near() const
 {
 	return near_;
 }
 
-sge::renderer::scalar 
+sge::renderer::projection::far const
 sge::camera::projection::perspective::far() const
 {
 	return far_;

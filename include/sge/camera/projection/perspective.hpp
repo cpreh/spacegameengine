@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_PROJECTION_PERSPECTIVE_HPP_INCLUDED
 
 #include <sge/camera/symbol.hpp>
-#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/projection/aspect.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/fov.hpp>
+#include <sge/renderer/projection/near.hpp>
 
 namespace sge
 {
@@ -36,28 +39,31 @@ public:
 	SGE_CAMERA_SYMBOL
 	explicit
 	perspective(
-		renderer::scalar aspect,
-		renderer::scalar fov,
-		renderer::scalar near,
-		renderer::scalar far);
+		renderer::projection::aspect,
+		renderer::projection::fov,
+		renderer::projection::near,
+		renderer::projection::far);
 
 	SGE_CAMERA_SYMBOL
-	renderer::scalar 
+	renderer::projection::aspect const
 	aspect() const;
 
 	SGE_CAMERA_SYMBOL
-	renderer::scalar 
+	renderer::projection::fov const
 	fov() const;
 
 	SGE_CAMERA_SYMBOL
-	renderer::scalar 
+	renderer::projection::near const
 	near() const;
 
 	SGE_CAMERA_SYMBOL
-	renderer::scalar 
+	renderer::projection::far const
 	far() const;
 private:
-	renderer::scalar aspect_,fov_,near_,far_;
+	renderer::projection::aspect aspect_;
+	renderer::projection::fov fov_;
+	renderer::projection::near near_;
+	renderer::projection::far far_;
 };
 }
 }

@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/renderer/ambient_color.hpp>
-#include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/diffuse_color.hpp>
 #include <sge/renderer/emissive_color.hpp>
@@ -45,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/specular_color.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/light/attenuation.hpp>
 #include <sge/renderer/light/constant_attenuation.hpp>
 #include <sge/renderer/light/index.hpp>
@@ -53,6 +53,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light/point.hpp>
 #include <sge/renderer/light/position.hpp>
 #include <sge/renderer/light/quadratic_attenuation.hpp>
+#include <sge/renderer/projection/dim.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/projection/perspective_wh.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
@@ -87,7 +91,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/matrix/perspective.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
 #include <fcppt/math/matrix/look_at.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -449,20 +452,22 @@ try
 
 		rend.transform(
 			sge::renderer::matrix_mode::projection,
-			fcppt::math::matrix::perspective(
-				sge::renderer::aspect(
-					fcppt::math::dim::structure_cast<
-						sge::renderer::screen_size
-					>(
-						sys.window().size()
+			sge::renderer::projection::perspective_wh(
+				fcppt::math::dim::structure_cast<
+					sge::renderer::projection::dim
+				>(
+					sge::renderer::viewport_size(
+						rend
 					)
 				),
-				fcppt::math::pi<float_type>() / 2,
-				static_cast<float_type>(1),
-				static_cast<float_type>(256)
+				sge::renderer::projection::near(
+					1
+				),
+				sge::renderer::projection::far(
+					256
+				)
 			)
 		);
-
 
 		angle += fcppt::math::twopi<float_type>() * rotation_time.update();
 
