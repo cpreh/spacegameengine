@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -28,6 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/default_equal.hpp>
@@ -252,6 +256,17 @@ try
 					running
 				)
 			)
+		)
+	);
+
+	sys.renderer().state(
+		sge::renderer::state::list
+		(
+			sge::renderer::state::bool_::clear_back_buffer = true
+		)
+		(
+			sge::renderer::state::color::back_buffer_clear_color =
+				sge::image::colors::black()
 		)
 	);
 
