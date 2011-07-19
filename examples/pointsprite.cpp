@@ -18,56 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/image/color/init.hpp>
-#include <sge/image/color/rgba8.hpp>
-#include <sge/image/color/rgba8_format.hpp>
 #include <sge/all_extensions.hpp>
 #include <sge/config/media_path.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/multi_loader.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/color/rgba8.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/log/global.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/glsl/create_program.hpp>
+#include <sge/renderer/glsl/program.hpp>
+#include <sge/renderer/glsl/program_parameters.hpp>
+#include <sge/renderer/glsl/uniform/single_value.hpp>
+#include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/glsl/uniform/variable.hpp>
-#include <sge/renderer/glsl/uniform/single_value.hpp>
-#include <sge/renderer/glsl/program.hpp>
+//#include <sge/renderer/scoped_texture.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/dont_sort.hpp>
-#include <sge/texture/part_ptr.hpp>
-#include <sge/texture/part_raw.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
-//#include <sge/renderer/scoped_texture.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/with_color.hpp>
-#include <sge/sprite/with_unspecified_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/with_unspecified_dim.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/parameterless.hpp>
 #include <sge/systems/running_to_false.hpp>
-#include <sge/viewport/center_on_resize.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/renderer/vector2.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part_raw.hpp>
 #include <sge/time/duration.hpp>
-#include <sge/time/timer.hpp>
 #include <sge/time/funit.hpp>
 #include <sge/time/second_f.hpp>
+#include <sge/time/second.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/viewport/center_on_resize.hpp>
+#include <sge/window/instance.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cifstream.hpp>
@@ -83,49 +84,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <mizuiro/color/operators/scalar_multiply.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
-#include <boost/lexical_cast.hpp>
 #include <vector>
 #include <iostream>
+#include <iterator>
 #include <cstdlib>
 
 namespace
 {
+sge::window::dim window_dim(1024,768);
 
-sge::window::dim const window_dim(
-	1024,
-	768
-);
-
-typedef sge::sprite::choices<
-	sge::sprite::type_choices<
+typedef 
+sge::sprite::choices
+<
+	sge::sprite::type_choices
+	<
 		int,
 		float,
 		sge::image::color::rgba8_format
 	>,
-	boost::mpl::vector3<
+	boost::mpl::vector3
+	<
 		sge::sprite::with_color,
 		sge::sprite::with_texture,
 		sge::sprite::with_unspecified_dim
 	>
-> sprite_choices;
+> 
+sprite_choices;
 
-typedef sge::sprite::system<
+typedef 
+sge::sprite::system
+<
 	sprite_choices
->::type sprite_system;
+>::type 
+sprite_system;
 
-typedef sge::sprite::object<
+typedef 
+sge::sprite::object
+<
 	sprite_choices
-> sprite_object;
+> 
+sprite_object;
 
-typedef sge::sprite::parameters<
+typedef 
+sge::sprite::parameters
+<
 	sprite_choices
-> sprite_parameters;
+> 
+sprite_parameters;
 
 class particle
 {
+FCPPT_NONCOPYABLE(
+	particle);
 public:
 	explicit
 	particle(
@@ -137,9 +152,8 @@ public:
 		life_timer_(
 			_life_time),
 		seconds_timer_(
-			sge::time::second_f(
-				static_cast<sge::time::funit>(
-					1))),
+			sge::time::second(
+				1)),
 		sprite_(
 			params.elements()),
 		color_(
@@ -155,9 +169,10 @@ public:
 	}
 
 	bool 
-	dead() 
+	dead() const
 	{
-		return life_timer_.expired();
+		return 
+			life_timer_.expired();
 	}
 
 	void
@@ -194,6 +209,8 @@ private:
 
 class particles
 {
+FCPPT_NONCOPYABLE(
+	particles);
 public:
 	explicit
 	particles(
@@ -205,6 +222,9 @@ public:
 
 	void
 	render();
+
+	sge::renderer::vertex_declaration const &
+	vertex_declaration() const;
 private:
 	typedef
 	boost::ptr_list<particle>
@@ -299,9 +319,7 @@ particles::particles(
 			explosion_rng_()),
 		sge::time::activation_state::inactive),
 	texture_(
-		fcppt::make_shared_ptr<
-			sge::texture::part_raw
-		>(
+		fcppt::make_shared_ptr<sge::texture::part_raw>(
 			sge::renderer::texture::create_planar_from_path(
 				sge::config::media_path() 
 					/ FCPPT_TEXT("images")
@@ -318,7 +336,7 @@ particles::particles(
 void
 particles::update()
 {
-	if (!explosion_timer_.active() || explosion_timer_.expired())
+	if(!explosion_timer_.active() || explosion_timer_.expired())
 	{
 		if (!explosion_timer_.active())
 			explosion_timer_.activate();
@@ -348,9 +366,7 @@ particles::update()
 
 			fcppt::container::ptr::push_back_unique_ptr(
 				particles_,
-				fcppt::make_unique_ptr<
-					particle
-				>(
+				fcppt::make_unique_ptr<particle>(
 					sge::time::second_f(
 						lifetime_rng_()),
 					sprite_parameters()
@@ -397,6 +413,12 @@ particles::render()
 		sge::sprite::dont_sort(),
 		sge::sprite::default_equal());
 }
+
+sge::renderer::vertex_declaration const &
+particles::vertex_declaration() const
+{
+	return ss_.vertex_declaration();
+}
 }
 
 int main(
@@ -412,47 +434,35 @@ try
 
 	fcppt::log::activate_levels(
 		sge::log::global(),
-		fcppt::log::level::debug
-	);
+		fcppt::log::level::debug);
 
 	sge::systems::instance const sys(
 		sge::systems::list()
-		(
-			sge::systems::window(
+		(sge::systems::window(
 				sge::window::simple_parameters(
 					FCPPT_TEXT("sge point sprite example"),
-					window_dim
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
+					window_dim)))
+		(sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::visual_depth::depth32,
 					sge::renderer::depth_stencil_buffer::off,
 					sge::renderer::vsync::on,
-					sge::renderer::no_multi_sampling
-				),
+					sge::renderer::no_multi_sampling),
 				sge::viewport::center_on_resize(
-					window_dim
-				)
-			)
-		)
-		(
-			sge::systems::input(
+					window_dim)))
+		(sge::systems::input(
 				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector
-				),
-				sge::systems::cursor_option_field::null()
-			)
-		)
-		(
-			sge::systems::image_loader(
+					sge::systems::input_helper::keyboard_collector),
+				sge::systems::cursor_option_field::null()))
+		(sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
-				sge::all_extensions
-			)
-		)
-	);
+				sge::all_extensions)));
+
+	particles ps(
+		fcppt::lexical_cast<unsigned>(
+			std::string(
+				argv[1])),
+		sys);
 
 	fcppt::io::cifstream fragment_stream(
 		sge::config::media_path()
@@ -466,14 +476,21 @@ try
 		/ FCPPT_TEXT("pointsprite")
 		/ FCPPT_TEXT("vertex.glsl"));
 
-#if 0
 	sge::renderer::glsl::program_ptr const p(
-		sge::renderer::glsl::create_program_from_streams(
+		sge::renderer::glsl::create_program(
 			sys.renderer(),
-			sge::renderer::glsl::istream_ref(
-				vertex_stream),
-			sge::renderer::glsl::istream_ref(
-				fragment_stream)));
+			sge::renderer::glsl::program_parameters()
+				.vertex_shader(
+					ps.vertex_declaration(),
+					std::string(
+						std::istreambuf_iterator<char>(
+							vertex_stream),
+						std::istreambuf_iterator<char>()))
+				.pixel_shader(
+					std::string(
+						std::istreambuf_iterator<char>(
+							fragment_stream),
+						std::istreambuf_iterator<char>()))));
 
 	sys.renderer().glsl_program(
 		p.get());
@@ -485,22 +502,6 @@ try
 		*v,
 		static_cast<int>(0));
 
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::enable_point_sprites = true)
-			(sge::renderer::state::bool_::enable_alpha_blending = true)
-			(sge::renderer::state::bool_::clear_back_buffer = true) 
-			(sge::renderer::state::color::back_buffer_clear_color = sge::image::color::rgba8
-				(
-					(sge::image::color::init::red %= 0.)
-					(sge::image::color::init::green %= 0.)
-					(sge::image::color::init::blue %= 0.)
-					(sge::image::color::init::alpha %= 1.)
-				))
-			(sge::renderer::state::source_blend_func::src_alpha)
-			(sge::renderer::state::dest_blend_func::inv_src_alpha)
-		);
-
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
@@ -508,36 +509,22 @@ try
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
-					running
-				)
-			)
-		)
-	);
-
-	particles ps(
-		boost::lexical_cast<unsigned>(
-			argv[1]),
-		sys);
+					running))));
 
 	while(
-		running
-	)
+		running)
 	{
 		sys.window().dispatch();
 
 		sge::renderer::scoped_block const block_(
-			sys.renderer()
-		);
+			sys.renderer());
 
 		ps.update();
 		ps.render();
 	}
-#endif
-
 }
 catch(
-	fcppt::exception const &_error
-)
+	fcppt::exception const &_error)
 {
 	fcppt::io::cerr
 		<< _error.string()
