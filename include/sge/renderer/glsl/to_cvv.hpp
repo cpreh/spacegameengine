@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_TO_CCV_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_TO_CCV_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_TO_CVV_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_TO_CVV_HPP_INCLUDED
 
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/symbol.hpp>
@@ -33,7 +33,7 @@ namespace glsl
 
 SGE_RENDERER_SYMBOL
 sge::renderer::matrix4 const
-to_ccv(
+to_cvv(
 	sge::renderer::matrix4 const &
 );
 

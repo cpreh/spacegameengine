@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/create_program.hpp>
 #include <sge/renderer/glsl/no_program.hpp>
 #include <sge/renderer/glsl/program.hpp>
+#include <sge/renderer/glsl/to_cvv.hpp>
 #include <sge/renderer/glsl/program_parameters.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/glsl/string.hpp>
@@ -111,6 +112,7 @@ public:
 	{
 		sge::renderer::matrix4 value = 
 			m.value();
+
 		switch(m.flags())
 		{
 			case sge::shader::matrix_flags::none:
@@ -118,13 +120,9 @@ public:
 			case sge::shader::matrix_flags::size:
 				break;
 			case sge::shader::matrix_flags::projection:
-				for(
-					sge::renderer::matrix4::size_type row = 0; 
-					row < value.rows(); 
-					++row)
-					value[row][2] *=
-						static_cast<sge::renderer::scalar>(
-							-1);
+				value = 
+					sge::renderer::glsl::to_cvv(
+						value);
 				break;
 		}
 

@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../projection.hpp"
-#include <sge/renderer/glsl/to_ccv.hpp>
+#include <sge/renderer/glsl/to_cvv.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 
 sge::renderer::matrix4 const
@@ -28,7 +28,7 @@ sge::opengl::convert::projection(
 )
 {
 	return
-		sge::renderer::glsl::to_ccv(
+		sge::renderer::glsl::to_cvv(
 			_matrix
 		);
 }

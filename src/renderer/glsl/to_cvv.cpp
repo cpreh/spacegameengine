@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/glsl/to_ccv.hpp>
+#include <sge/renderer/glsl/to_cvv.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/translation.hpp>
 
 sge::renderer::matrix4 const
-sge::renderer::glsl::to_ccv(
+sge::renderer::glsl::to_cvv(
 	sge::renderer::matrix4 const &_matrix
 )
 {
@@ -34,21 +34,23 @@ sge::renderer::glsl::to_ccv(
 		one(
 			1.f
 		),
-		one_half(
+		two(
 			0.5f
-		);
+		),
+		zero(
+			0.0f);
 
 	return
 		fcppt::math::matrix::translation(
-			one,
-			one,
-			one_half
+			zero,
+			zero,
+			-one
 		)
 		*
 		fcppt::math::matrix::scaling(
 			one,
 			one,
-			one_half
+			two
 		)
 		*
 		_matrix;

@@ -68,7 +68,7 @@ SET(
 	include/sge/renderer/glsl/shader_fwd.hpp
 	include/sge/renderer/glsl/shader_ptr.hpp
 	include/sge/renderer/glsl/string.hpp
-	include/sge/renderer/glsl/to_ccv.hpp
+	include/sge/renderer/glsl/to_cvv.hpp
 	include/sge/renderer/glsl/uniform/array_value.hpp
 	include/sge/renderer/glsl/uniform/basic_value.hpp
 	include/sge/renderer/glsl/uniform/basic_value_fwd.hpp
@@ -492,7 +492,7 @@ SET(
 	src/renderer/glsl/program_parameters.cpp
 	src/renderer/glsl/scoped_program.cpp
 	src/renderer/glsl/shader.cpp
-	src/renderer/glsl/to_ccv.cpp
+	src/renderer/glsl/to_cvv.cpp
 	src/renderer/glsl/uniform/basic_value_impl.hpp
 	src/renderer/glsl/uniform/float_value.cpp
 	src/renderer/glsl/uniform/int_value.cpp
