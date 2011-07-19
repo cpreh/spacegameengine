@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../draw_arrays.hpp"
 #include "../draw_elements.hpp"
 #include "../enable_bool.hpp"
-#include "../get_matrix.hpp"
 #include "../index_buffer.hpp"
 #include "../onscreen_target.hpp"
 #include "../set_clip_plane.hpp"
@@ -683,17 +682,6 @@ sge::renderer::onscreen_target &
 sge::opengl::device::onscreen_target() const
 {
 	return *onscreen_target_;
-}
-
-sge::renderer::matrix4 const
-sge::opengl::device::transform(
-	renderer::matrix_mode::type const _mode
-)
-{
-	return
-		opengl::get_matrix(
-			_mode
-		);
 }
 
 sge::renderer::caps const

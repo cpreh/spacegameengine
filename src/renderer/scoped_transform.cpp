@@ -29,12 +29,7 @@ sge::renderer::scoped_transform::scoped_transform(
 )
 :
 	device_(_device),
-	mode_(_mode),
-	old_matrix_(
-		_device.transform(
-			_mode
-		)
-	)
+	mode_(_mode)
 {
 	device_.transform(
 		_mode,
@@ -46,6 +41,6 @@ sge::renderer::scoped_transform::~scoped_transform()
 {
 	device_.transform(
 		mode_,
-		old_matrix_
+		renderer::matrix4::identity()
 	);
 }

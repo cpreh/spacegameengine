@@ -32,7 +32,8 @@ enum type
 {
 	world,
 	projection,
-	texture
+	texture,
+	size
 };
 }
 

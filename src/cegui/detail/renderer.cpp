@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp> 
 #include <fcppt/assert.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -82,8 +83,7 @@ sge::cegui::detail::renderer::renderer(
 		default_target_),
 	geometry_buffers_(),
 	texture_targets_(),
-	textures_(),
-	transforms_()
+	textures_()
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -252,12 +252,6 @@ sge::cegui::detail::renderer::destroyAllTextures()
 void 
 sge::cegui::detail::renderer::beginRendering()
 {
-	for(transform_array::size_type i = 0; i < transforms_.size(); ++i)
-		transforms_[i] = 
-			renderer_.transform(
-				static_cast<sge::renderer::matrix_mode::type>(
-					i));
-
 	// This is a hack around a bug in cegui: In the "main loop", cegui
 	// does the following:
 	// beginRendering()
@@ -285,15 +279,21 @@ sge::cegui::detail::renderer::beginRendering()
 			(sge::renderer::state::draw_mode::fill));
 }
 
+#include <sge/renderer/matrix_mode.hpp>
+#include <fcppt/foreach_enumerator.hpp>
+
 void 
 sge::cegui::detail::renderer::endRendering()
 {
 	renderer_.pop_state();
-	for(transform_array::size_type i = 0; i < transforms_.size(); ++i)
+
+	FCPPT_FOREACH_ENUMERATOR(
+		index,
+		sge::renderer::matrix_mode
+	)
 		renderer_.transform(
-			static_cast<sge::renderer::matrix_mode::type>(
-				i),
-			transforms_[i]);
+			index,
+			sge::renderer::matrix4::identity());
 }
 
 void 
