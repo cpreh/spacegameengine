@@ -61,7 +61,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt//make_shared_ptr.hpp>
 #include <fcppt//make_unique_ptr.hpp>
@@ -750,14 +749,6 @@ sge::renderer::target *
 sge::d3d9::device::target() const
 {
 	return offscreen_target_;
-}
-
-sge::renderer::matrix4 const
-sge::d3d9::device::transform(
-	renderer::matrix_mode::type const _mode
-)
-{
-	return renderer::matrix4::identity();
 }
 
 sge::renderer::caps const
