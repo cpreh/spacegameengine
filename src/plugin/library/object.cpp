@@ -224,7 +224,9 @@ sge::plugin::library::object::load(
 		throw sge::plugin::library::exception(
 			fcppt::from_std_string(_fun)
 			+ FCPPT_TEXT(" not found in library ")
-			+ this->name().string()
+			+ fcppt::filesystem::path_to_string(
+				this->name()
+			)
 		);
 
 	return ret;

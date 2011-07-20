@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/output_range.hpp>
 #include <sge/charconv/raw_pointer.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <iconv.h>
 #include <cstddef>
@@ -51,8 +52,12 @@ sge::iconv::converter::converter(
 		)
 	)
 		throw sge::charconv::unsupported_conversion(
-			_source,
-			_dest
+			fcppt::from_std_string(
+				_source
+			),
+			fcppt::from_std_string(
+				_dest
+			)
 		);
 }
 
