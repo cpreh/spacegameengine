@@ -124,6 +124,8 @@ public:
 
  	~renderer();
 private:
+	friend class detail::texture_target;
+
 	typedef
 	boost::ptr_vector<geometry_buffer>
 	geometry_buffer_sequence;

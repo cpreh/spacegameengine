@@ -105,6 +105,9 @@ sge::cegui::detail::default_target::isImageryCache() const
 void 
 sge::cegui::detail::default_target::activate()
 {
+	renderer_.transform(
+		sge::renderer::matrix_mode::projection,
+		projection());
 }
 
 void 
