@@ -18,19 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_PROJECTION_PROJECTION_HPP_INCLUDED
-#define SGE_RENDERER_PROJECTION_PROJECTION_HPP_INCLUDED
+#ifndef SGE_RENDERER_PROJECTION_ORTHOGONAL_WH_HPP_INCLUDED
+#define SGE_RENDERER_PROJECTION_ORTHOGONAL_WH_HPP_INCLUDED
 
-#include <sge/renderer/projection/aspect.hpp>
-#include <sge/renderer/projection/dim.hpp>
 #include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/projection/orthogonal.hpp>
-#include <sge/renderer/projection/orthogonal_wh.hpp>
-#include <sge/renderer/projection/orthogonal_xy.hpp>
-#include <sge/renderer/projection/perspective_af.hpp>
-#include <sge/renderer/projection/perspective_wh.hpp>
-#include <sge/renderer/projection/rect.hpp>
+#include <sge/renderer/projection/dim.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/symbol.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+namespace projection
+{
+
+SGE_RENDERER_SYMBOL
+renderer::matrix4 const
+orthogonal_wh(
+	projection::dim const &,
+	projection::near,
+	projection::far
+);
+
+}
+}
+}
 
 #endif
