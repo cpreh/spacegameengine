@@ -67,7 +67,9 @@ sge::cegui::detail::texture_target::texture_target(
 		system_.renderer().create_target()),
 	texture_(),
 	// This is exactly what cegui does and it avoids certain bugs :/
-	area_(0,0,0,0)
+	area_(0,0,0,0),
+	default_projection_(
+		system_.renderer_.default_target_.projection())
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -172,13 +174,16 @@ sge::cegui::detail::texture_target::activate()
 void 
 sge::cegui::detail::texture_target::deactivate()
 {
+	FCPPT_LOG_DEBUG(
+		local_log,
+		fcppt::log::_ << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::deactivate()"));
 	if(texture_->empty())
 		return;
 	system_.renderer().end_rendering();
 	system_.renderer().pop_state();
 	system_.renderer().transform(
 		sge::renderer::matrix_mode::projection,
-		sge::renderer::matrix4::identity());
+		default_projection_);
 	system_.renderer().target(
 		sge::renderer::default_target());
 }

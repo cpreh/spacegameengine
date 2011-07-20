@@ -265,9 +265,10 @@ sge::cegui::detail::renderer::beginRendering()
 	// default_target::deactivate, we have no mouse cursor. Hence this
 	// projection matrix is set _here_.
 
-	renderer_.transform(
-		sge::renderer::matrix_mode::projection,
-		default_target_.projection());
+	FCPPT_LOG_DEBUG(
+		local_log,
+		fcppt::log::_ << FCPPT_TEXT("beginRendering()"));
+
 
 	renderer_.push_state(
 		sge::renderer::state::list
@@ -285,6 +286,10 @@ sge::cegui::detail::renderer::beginRendering()
 void 
 sge::cegui::detail::renderer::endRendering()
 {
+	FCPPT_LOG_DEBUG(
+		local_log,
+		fcppt::log::_ << FCPPT_TEXT("endRendering()"));
+
 	renderer_.pop_state();
 
 	FCPPT_FOREACH_ENUMERATOR(
