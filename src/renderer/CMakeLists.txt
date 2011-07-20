@@ -204,6 +204,7 @@ SET(
 	include/sge/renderer/projection/fov.hpp
 	include/sge/renderer/projection/near.hpp
 	include/sge/renderer/projection/orthogonal.hpp
+	include/sge/renderer/projection/orthogonal_wh.hpp
 	include/sge/renderer/projection/orthogonal_xy.hpp
 	include/sge/renderer/projection/perspective_af.hpp
 	include/sge/renderer/projection/perspective_wh.hpp
@@ -530,6 +531,7 @@ SET(
 	src/renderer/projection/check_near_far.cpp
 	src/renderer/projection/check_near_far.hpp
 	src/renderer/projection/orthogonal.cpp
+	src/renderer/projection/orthogonal_wh.cpp
 	src/renderer/projection/orthogonal_xy.cpp
 	src/renderer/projection/perspective_af.cpp
 	src/renderer/projection/perspective_wh.cpp
