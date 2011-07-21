@@ -44,7 +44,7 @@ center(
 {
 	return
 		_spr.pos()
-		+ _spr.size() / 2;
+		+ _spr.size() / static_cast<typename object<Choices>::unit>(2);
 }
 
 template<
@@ -62,7 +62,7 @@ center(
 {
 	_spr.pos(
 		_center
-		- _spr.size() / 2
+		- _spr.size() / static_cast<typename object<Choices>::unit>(2)
 	);
 }
 
