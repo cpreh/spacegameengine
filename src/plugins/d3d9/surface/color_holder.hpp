@@ -18,21 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_DEPTH_STENCIL_SURFACE_PTR_HPP_INCLUDED
-#define SGE_D3D9_DEPTH_STENCIL_SURFACE_PTR_HPP_INCLUDED
+#ifndef SGE_D3D9_SURFACE_COLOR_HOLDER_HPP_INCLUDED
+#define SGE_D3D9_SURFACE_COLOR_HOLDER_HPP_INCLUDED
 
-#include "depth_stencil_surface_fwd.hpp"
-#include <fcppt/shared_ptr.hpp>
+#include "color_holder_fwd.hpp"
+#include "d3d_unique_ptr.hpp"
+#include "d3d_scoped_ptr.hpp"
+#include "../d3dinclude.hpp"
+#include <sge/image/color/format.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace surface
+{
 
-typedef fcppt::shared_ptr<
-	d3d9::depth_stencil_surface
-> depth_stencil_surface_ptr;
+class color_holder
+{
+	FCPPT_NONCOPYABLE(
+		color_holder
+	);
+public:
+	explicit color_holder(
+		surface::d3d_unique_ptr
+	);
 
+	~color_holder();
+
+	IDirect3DSurface9 *
+	get() const;
+
+	sge::renderer::dim2 const &
+	size() const;
+
+	sge::image::color::format::type
+	format() const;
+
+	bool
+	is_render_target() const;
+private:
+	surface::d3d_scoped_ptr const surface_;
+
+	sge::renderer::dim2 const size_;
+
+	sge::image::color::format::type const format_;
+
+	bool const is_render_target_;
+};
+
+}
 }
 }
 

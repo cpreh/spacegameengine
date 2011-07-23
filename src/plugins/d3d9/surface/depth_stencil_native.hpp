@@ -18,69 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_COLOR_SURFACE_HPP_INCLUDED
-#define SGE_D3D9_COLOR_SURFACE_HPP_INCLUDED
+#ifndef SGE_D3D9_SURFACE_DEPTH_STENCIL_NATIVE_HPP_INCLUDED
+#define SGE_D3D9_SURFACE_DEPTH_STENCIL_NATIVE_HPP_INCLUDED
 
-#include "color_surface_fwd.hpp"
-#include "d3dinclude.hpp"
-#include "d3d_surface_scoped_ptr.hpp"
-#include "d3d_surface_unique_ptr.hpp"
-#include <sge/image/color/format.hpp>
-#include <sge/renderer/color_surface.hpp>
+#include "d3d_unique_ptr.hpp"
+#include "depth_stencil_create.hpp"
+#include "../d3dinclude.hpp"
+#include "../multi_sample_quality.hpp"
+#include <sge/renderer/depth_stencil_format.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
-#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace surface
+{
 
-class color_surface
+class depth_stencil_native
 :
-	public sge::renderer::color_surface
+	public surface::depth_stencil_create
 {
 	FCPPT_NONCOPYABLE(
-		color_surface
+		depth_stencil_native
 	);
 public:
-	color_surface(
+	depth_stencil_native(
 		IDirect3DDevice9 *,
-		d3d9::d3d_surface_unique_ptr
+		sge::renderer::dim2 const &,
+		sge::renderer::depth_stencil_format::type,
+		D3DMULTISAMPLE_TYPE,
+		d3d9::multi_sample_quality
 	);
 
-	~color_surface();
+	~depth_stencil_native();
 
-	const_view const
-	lock(
-		rect const &
-	) const;
-
-	void
-	unlock() const;
-
-	dim const
-	size() const;
-
-	IDirect3DSurface9 *
-	surface() const;
+	surface::d3d_unique_ptr
+	create() const;
 private:
-	IDirect3DSurface9 *
-	lock_surface() const;
-
 	IDirect3DDevice9 *const device_;
 
-	d3d9::d3d_surface_scoped_ptr const surface_;
+	sge::renderer::dim2 const dim_;
 
-	mutable d3d9::d3d_surface_scoped_ptr temp_surface_;
-
-	dim const size_;
-
-	sge::image::color::format::type const format_;
-
-	bool const is_render_target_;
+	sge::renderer::depth_stencil_format::type const format_;
+	
+	D3DMULTISAMPLE_TYPE const samples_;
+	
+	d3d9::multi_sample_quality const multi_sample_quality_;
 };
 
+}
 }
 }
 

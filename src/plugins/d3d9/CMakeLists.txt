@@ -2,9 +2,6 @@ SET(
 	SGE_D3D9_FILES
 	src/plugins/d3d9/basic_target.hpp
 	src/plugins/d3d9/basic_target_impl.hpp
-	src/plugins/d3d9/color_surface.hpp
-	src/plugins/d3d9/color_surface_fwd.hpp
-	src/plugins/d3d9/color_surface_ptr.hpp
 	src/plugins/d3d9/convert/bool.hpp
 	src/plugins/d3d9/convert/clear_flag.hpp
 	src/plugins/d3d9/convert/color_format.hpp
@@ -87,12 +84,7 @@ SET(
 	src/plugins/d3d9/create_caps.hpp
 	src/plugins/d3d9/create_device.hpp
 	src/plugins/d3d9/d3d_device_unique_ptr.hpp
-	src/plugins/d3d9/d3d_surface_scoped_ptr.hpp
-	src/plugins/d3d9/d3d_surface_unique_ptr.hpp
 	src/plugins/d3d9/d3dinclude.hpp
-	src/plugins/d3d9/depth_stencil_surface.hpp
-	src/plugins/d3d9/depth_stencil_surface_fwd.hpp
-	src/plugins/d3d9/depth_stencil_surface_ptr.hpp
 	src/plugins/d3d9/device.hpp
 	src/plugins/d3d9/devicefuncs/clear.hpp
 	src/plugins/d3d9/devicefuncs/create_depth_stencil_surface.hpp
@@ -101,6 +93,7 @@ SET(
 	src/plugins/d3d9/devicefuncs/get_render_target.hpp
 	src/plugins/d3d9/devicefuncs/get_render_target_data.hpp
 	src/plugins/d3d9/devicefuncs/light_enable.hpp
+	src/plugins/d3d9/devicefuncs/reset.hpp
 	src/plugins/d3d9/devicefuncs/sampler_stage_arg.hpp
 	src/plugins/d3d9/devicefuncs/sampler_stage_op.hpp
 	src/plugins/d3d9/devicefuncs/set_clip_plane.hpp
@@ -122,6 +115,7 @@ SET(
 	src/plugins/d3d9/devicefuncs/src/get_render_target.cpp
 	src/plugins/d3d9/devicefuncs/src/get_render_target_data.cpp
 	src/plugins/d3d9/devicefuncs/src/light_enable.cpp
+	src/plugins/d3d9/devicefuncs/src/reset.cpp
 	src/plugins/d3d9/devicefuncs/src/sampler_stage_arg.cpp
 	src/plugins/d3d9/devicefuncs/src/sampler_stage_op.cpp
 	src/plugins/d3d9/devicefuncs/src/set_clip_plane.cpp
@@ -141,6 +135,8 @@ SET(
 	src/plugins/d3d9/make_pitch.hpp
 	src/plugins/d3d9/make_pitch_2d.hpp
 	src/plugins/d3d9/make_pitch_3d.hpp
+	src/plugins/d3d9/multi_sample_quality.hpp
+	src/plugins/d3d9/needs_reset.hpp
 	src/plugins/d3d9/offscreen_target.hpp
 	src/plugins/d3d9/offscreen_target_fwd.hpp
 	src/plugins/d3d9/offscreen_target_ptr.hpp
@@ -168,10 +164,8 @@ SET(
 	src/plugins/d3d9/parameters/tnl_caps.hpp
 	src/plugins/d3d9/resource.hpp
 	src/plugins/d3d9/resource_list.hpp
-	src/plugins/d3d9/src/color_surface.cpp
 	src/plugins/d3d9/src/create_caps.cpp
 	src/plugins/d3d9/src/create_device.cpp
-	src/plugins/d3d9/src/depth_stencil_surface.cpp
 	src/plugins/d3d9/src/device.cpp
 	src/plugins/d3d9/src/exports.cpp
 	src/plugins/d3d9/src/index_buffer.cpp
@@ -238,6 +232,33 @@ SET(
 	src/plugins/d3d9/state/src/set_render_state_float.cpp
 	src/plugins/d3d9/state/src/visitor.cpp
 	src/plugins/d3d9/state/visitor.hpp
+	src/plugins/d3d9/surface/color.hpp
+	src/plugins/d3d9/surface/color_create.hpp
+	src/plugins/d3d9/surface/color_create_fwd.hpp
+	src/plugins/d3d9/surface/color_create_unique_ptr.hpp
+	src/plugins/d3d9/surface/color_fwd.hpp
+	src/plugins/d3d9/surface/color_holder.hpp
+	src/plugins/d3d9/surface/color_holder_fwd.hpp
+	src/plugins/d3d9/surface/color_onscreen_target.hpp
+	src/plugins/d3d9/surface/color_ptr.hpp
+	src/plugins/d3d9/surface/d3d_scoped_ptr.hpp
+	src/plugins/d3d9/surface/d3d_unique_ptr.hpp
+	src/plugins/d3d9/surface/depth_stencil.hpp
+	src/plugins/d3d9/surface/depth_stencil_create.hpp
+	src/plugins/d3d9/surface/depth_stencil_create_fwd.hpp
+	src/plugins/d3d9/surface/depth_stencil_create_unique_ptr.hpp
+	src/plugins/d3d9/surface/depth_stencil_fwd.hpp
+	src/plugins/d3d9/surface/depth_stencil_native.hpp
+	src/plugins/d3d9/surface/depth_stencil_onscreen_target.hpp
+	src/plugins/d3d9/surface/depth_stencil_ptr.hpp
+	src/plugins/d3d9/surface/src/color.cpp
+	src/plugins/d3d9/surface/src/color_create.cpp
+	src/plugins/d3d9/surface/src/color_holder.cpp
+	src/plugins/d3d9/surface/src/color_onscreen_target.cpp
+	src/plugins/d3d9/surface/src/depth_stencil.cpp
+	src/plugins/d3d9/surface/src/depth_stencil_create.cpp
+	src/plugins/d3d9/surface/src/depth_stencil_native.cpp
+	src/plugins/d3d9/surface/src/depth_stencil_onscreen_target.cpp
 	src/plugins/d3d9/surfacefuncs/color_format.hpp
 	src/plugins/d3d9/surfacefuncs/depth_stencil_format.hpp
 	src/plugins/d3d9/surfacefuncs/dim.hpp

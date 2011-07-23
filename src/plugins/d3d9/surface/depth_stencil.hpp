@@ -18,68 +18,73 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_ONSCREEN_TARGET_HPP_INCLUDED
-#define SGE_D3D9_ONSCREEN_TARGET_HPP_INCLUDED
+#ifndef SGE_D3D9_SURFACE_DEPTH_STENCIL_HPP_INCLUDED
+#define SGE_D3D9_SURFACE_DEPTH_STENCIL_HPP_INCLUDED
 
-#include "onscreen_target_fwd.hpp"
-#include "basic_target.hpp"
-#include "d3dinclude.hpp"
-#include "surface/color_fwd.hpp"
-#include "surface/depth_stencil_fwd.hpp"
-#include <sge/renderer/color_surface_fwd.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <fcppt/noncopyable.hpp>
+#include "depth_stencil_fwd.hpp"
+#include "d3d_unique_ptr.hpp"
+#include "d3d_scoped_ptr.hpp"
+#include "depth_stencil_create_fwd.hpp"
+#include "depth_stencil_create_unique_ptr.hpp"
+#include "../d3dinclude.hpp"
+#include "../needs_reset.hpp"
+#include "../resource.hpp"
+#include <sge/renderer/depth_stencil_surface.hpp>
+#include <sge/renderer/depth_stencil_format.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace surface
+{
 
-class onscreen_target
+class depth_stencil
 :
-	public d3d9::basic_target<
-		sge::renderer::onscreen_target
-	>
+	public sge::renderer::depth_stencil_surface,
+	public d3d9::resource
 {
 	FCPPT_NONCOPYABLE(
-		onscreen_target
+		depth_stencil
 	);
-
-	typedef d3d9::basic_target<
-		sge::renderer::onscreen_target
-	> base;
 public:
-	onscreen_target(
-		IDirect3DDevice9 *,
-		sge::renderer::viewport const &
+	depth_stencil(
+		surface::depth_stencil_create_unique_ptr,
+		d3d9::needs_reset::type
 	);
 
-	~onscreen_target();
+	~depth_stencil();
 
-	renderer::color_surface const &
+	dim const
+	size() const;
+
+	renderer::depth_stencil_format::type
+	format() const;
+
+	IDirect3DSurface9 *
 	surface() const;
 private:
 	void
-	on_activate();
+	init();
 
 	void
-	on_deactivate();
+	on_loss();
+
+	void
+	on_reset();
 
 	typedef fcppt::scoped_ptr<
-		d3d9::surface::color
-	> color_surface_scoped_ptr;
+		d3d9::surface::depth_stencil_create
+	> depth_stencil_create_scoped_ptr;
 
-	color_surface_scoped_ptr const color_surface_;
+	depth_stencil_create_scoped_ptr const create_;
 
-	typedef fcppt::scoped_ptr<
-		d3d9::surface::depth_stencil
-	> depth_stencil_surface_scoped_ptr;
-
-	depth_stencil_surface_scoped_ptr const depth_stencil_surface_;
+	surface::d3d_scoped_ptr surface_;
 };
 
+}
 }
 }
 

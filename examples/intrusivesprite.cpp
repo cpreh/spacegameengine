@@ -266,7 +266,7 @@ try
 		)
 		(
 			sge::renderer::state::color::back_buffer_clear_color =
-				sge::image::colors::black()
+				sge::image::colors::red()
 		)
 	);
 

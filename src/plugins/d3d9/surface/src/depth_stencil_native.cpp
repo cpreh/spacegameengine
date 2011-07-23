@@ -18,22 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_COLOR_SURFACE_PTR_HPP_INCLUDED
-#define SGE_D3D9_COLOR_SURFACE_PTR_HPP_INCLUDED
+#include "../depth_stencil_native.hpp"
+#include "../../devicefuncs/create_depth_stencil_surface.hpp"
+#include <fcppt/math/dim/basic_impl.hpp>
 
-#include "color_surface_fwd.hpp"
-#include <fcppt/shared_ptr.hpp>
-
-namespace sge
+sge::d3d9::surface::depth_stencil_native::depth_stencil_native(
+	IDirect3DDevice9 *const _device,
+	sge::renderer::dim2 const &_dim,
+	sge::renderer::depth_stencil_format::type const _format,
+	D3DMULTISAMPLE_TYPE const _samples,
+	d3d9::multi_sample_quality const _multi_sample_quality
+)
+:
+	device_(_device),
+	dim_(_dim),
+	format_(_format),
+	samples_(_samples),
+	multi_sample_quality_(_multi_sample_quality)
 {
-namespace d3d9
+}
+
+sge::d3d9::surface::depth_stencil_native::~depth_stencil_native()
 {
-
-typedef fcppt::shared_ptr<
-	d3d9::color_surface
-> color_surface_ptr;
-
-}
 }
 
-#endif
+sge::d3d9::surface::d3d_unique_ptr
+sge::d3d9::surface::depth_stencil_native::create() const
+{
+	return
+		d3d9::devicefuncs::create_depth_stencil_surface(
+			device_,
+			dim_,
+			format_,
+			samples_,
+			multi_sample_quality_
+		);
+}

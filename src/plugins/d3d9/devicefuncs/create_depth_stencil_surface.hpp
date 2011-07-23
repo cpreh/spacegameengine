@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_CREATE_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 
 #include "../d3dinclude.hpp"
-#include "../d3d_surface_unique_ptr.hpp"
+#include "../multi_sample_quality.hpp"
+#include "../surface/d3d_unique_ptr.hpp"
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/dim2.hpp>
 
@@ -33,13 +34,13 @@ namespace d3d9
 namespace devicefuncs
 {
 
-d3d9::d3d_surface_unique_ptr
+d3d9::surface::d3d_unique_ptr
 create_depth_stencil_surface(
 	IDirect3DDevice9 *,
 	sge::renderer::dim2 const &,
 	sge::renderer::depth_stencil_format::type,
 	D3DMULTISAMPLE_TYPE,
-	DWORD multi_sample_quality
+	d3d9::multi_sample_quality
 );
 
 }

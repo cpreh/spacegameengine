@@ -18,63 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_RESOURCE_HPP_INCLUDED
-#define SGE_D3D9_RESOURCE_HPP_INCLUDED
+#include "../reset.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "d3dinclude.hpp"
-#include "needs_reset.hpp"
-#include <fcppt/noncopyable.hpp>
-#include <boost/intrusive/list_hook.hpp>
-
-namespace sge
+bool
+sge::d3d9::devicefuncs::reset(
+	IDirect3DDevice9 *const _device,
+	D3DPRESENT_PARAMETERS &_present_parameters
+)
 {
-namespace d3d9
-{
-
-class resource
-:
-	public boost::intrusive::list_base_hook<
-		boost::intrusive::link_mode<
-			boost::intrusive::auto_unlink
-		>
-	>
-{
-	FCPPT_NONCOPYABLE(
-		resource
-	);
-public:
-	explicit resource(
-		D3DPOOL
-	);
-
-	explicit resource(
-		d3d9::needs_reset::type
-	);
-
-	virtual ~resource();
-
-	void
-	loss();
-
-	void
-	reset();
-
-	D3DPOOL
-	pool() const;
-
-	bool
-	needs_reset() const ;
-private:
-	virtual void
-	on_loss() = 0;
-
-	virtual void
-	on_reset() = 0;
-
-	D3DPOOL const pool_;
-};
-
+	switch(
+		_device->Reset(
+			&_present_parameters
+		)
+	)
+	{
+	case D3D_OK:
+		return true;
+	case D3DERR_DEVICELOST:
+		return false;
+	case D3DERR_DRIVERINTERNALERROR:
+		throw sge::renderer::exception(
+			FCPPT_TEXT("D3D internal driver error on reset!")
+		);
+	case D3DERR_INVALIDCALL:
+		throw sge::renderer::exception(
+			FCPPT_TEXT("D3D invalid call on reset!")
+		);
+	default:
+		throw sge::renderer::exception(
+			FCPPT_TEXT("d3d reset failed!")
+		);
+	}
 }
-}
-
-#endif

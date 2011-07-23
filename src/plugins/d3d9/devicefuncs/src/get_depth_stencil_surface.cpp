@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../get_depth_stencil_surface.hpp"
 #include "../../d3dinclude.hpp"
-#include "../../d3d_surface_unique_ptr.hpp"
+#include "../../surface/d3d_unique_ptr.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::d3d9::d3d_surface_unique_ptr
+sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::devicefuncs::get_depth_stencil_surface(
 	IDirect3DDevice9 *const _device
 )
@@ -39,11 +39,11 @@ sge::d3d9::devicefuncs::get_depth_stencil_surface(
 	{
 	case D3D_OK:
 		return
-			d3d9::d3d_surface_unique_ptr(
+			d3d9::surface::d3d_unique_ptr(
 				ret
 			);
 	case D3DERR_NOTFOUND:
-		return d3d9::d3d_surface_unique_ptr();
+		return d3d9::surface::d3d_unique_ptr();
 	}
 	
 	throw sge::renderer::exception(

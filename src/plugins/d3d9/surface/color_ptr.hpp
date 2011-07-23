@@ -18,48 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../depth_stencil_surface.hpp"
-#include "../surfacefuncs/dim.hpp"
-#include "../surfacefuncs/depth_stencil_format.hpp"
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/move.hpp>
+#ifndef SGE_D3D9_SURFACE_COLOR_PTR_HPP_INCLUDED
+#define SGE_D3D9_SURFACE_COLOR_PTR_HPP_INCLUDED
 
-sge::d3d9::depth_stencil_surface::depth_stencil_surface(
-	d3d9::d3d_surface_unique_ptr _surface
-)
-:
-	surface_(
-		fcppt::move(
-			_surface
-		)
-	)
+#include "color_fwd.hpp"
+#include <fcppt/shared_ptr.hpp>
+
+namespace sge
 {
+namespace d3d9
+{
+namespace surface
+{
+
+typedef fcppt::shared_ptr<
+	d3d9::surface::color
+> color_ptr;
+
+}
+}
 }
 
-sge::d3d9::depth_stencil_surface::~depth_stencil_surface()
-{
-}
-
-sge::d3d9::depth_stencil_surface::dim const
-sge::d3d9::depth_stencil_surface::size() const
-{
-	return
-		d3d9::surfacefuncs::dim(
-			surface_.get()
-		);
-}
-
-sge::renderer::depth_stencil_format::type
-sge::d3d9::depth_stencil_surface::format() const
-{
-	return
-		d3d9::surfacefuncs::depth_stencil_format(
-			surface_.get()
-		);
-}
-
-IDirect3DSurface9 *
-sge::d3d9::depth_stencil_surface::surface() const
-{
-	return surface_.get();
-}
+#endif

@@ -313,7 +313,7 @@ private:
 		d3d9::onscreen_target
 	> onscreen_target_scoped_ptr;
 
-	onscreen_target_scoped_ptr const onscreen_target_;
+	onscreen_target_scoped_ptr onscreen_target_;
 	
 	d3d9::offscreen_target *offscreen_target_;
 

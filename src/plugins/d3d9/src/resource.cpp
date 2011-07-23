@@ -29,6 +29,20 @@ sge::d3d9::resource::resource(
 {
 }
 
+sge::d3d9::resource::resource(
+	d3d9::needs_reset::type const _needs_reset
+)
+:
+	pool_(
+		_needs_reset == d3d9::needs_reset::yes
+		?
+			D3DPOOL_DEFAULT
+		:
+			D3DPOOL_MANAGED
+	)
+{
+}
+
 sge::d3d9::resource::~resource()
 {
 }

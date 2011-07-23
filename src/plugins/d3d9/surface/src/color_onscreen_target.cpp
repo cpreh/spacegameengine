@@ -17,64 +17,27 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+	
+#include "../color_onscreen_target.hpp"
+#include "../../devicefuncs/get_render_target.hpp"
 
-#ifndef SGE_D3D9_RESOURCE_HPP_INCLUDED
-#define SGE_D3D9_RESOURCE_HPP_INCLUDED
-
-#include "d3dinclude.hpp"
-#include "needs_reset.hpp"
-#include <fcppt/noncopyable.hpp>
-#include <boost/intrusive/list_hook.hpp>
-
-namespace sge
-{
-namespace d3d9
-{
-
-class resource
+sge::d3d9::surface::color_onscreen_target::color_onscreen_target(
+	IDirect3DDevice9 *const _device
+)
 :
-	public boost::intrusive::list_base_hook<
-		boost::intrusive::link_mode<
-			boost::intrusive::auto_unlink
-		>
-	>
+	device_(_device)
 {
-	FCPPT_NONCOPYABLE(
-		resource
-	);
-public:
-	explicit resource(
-		D3DPOOL
-	);
-
-	explicit resource(
-		d3d9::needs_reset::type
-	);
-
-	virtual ~resource();
-
-	void
-	loss();
-
-	void
-	reset();
-
-	D3DPOOL
-	pool() const;
-
-	bool
-	needs_reset() const ;
-private:
-	virtual void
-	on_loss() = 0;
-
-	virtual void
-	on_reset() = 0;
-
-	D3DPOOL const pool_;
-};
-
-}
 }
 
-#endif
+sge::d3d9::surface::color_onscreen_target::~color_onscreen_target()
+{
+}
+
+sge::d3d9::surface::d3d_unique_ptr
+sge::d3d9::surface::color_onscreen_target::create() const
+{
+	return
+		devicefuncs::get_render_target(
+			device_
+		);
+}

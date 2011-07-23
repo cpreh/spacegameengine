@@ -18,48 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
-#define SGE_D3D9_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
+#ifndef SGE_D3D9_SURFACE_DEPTH_STENCIL_CREATE_HPP_INCLUDED
+#define SGE_D3D9_SURFACE_DEPTH_STENCIL_CREATE_HPP_INCLUDED
 
-#include "depth_stencil_surface_fwd.hpp"
-#include "d3dinclude.hpp"
-#include "d3d_surface_unique_ptr.hpp"
-#include "d3d_surface_scoped_ptr.hpp"
-#include <sge/renderer/depth_stencil_surface.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
+#include "depth_stencil_create_fwd.hpp"
+#include "d3d_unique_ptr.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace surface
+{
 
-class depth_stencil_surface
-:
-	public sge::renderer::depth_stencil_surface
+class depth_stencil_create
 {
 	FCPPT_NONCOPYABLE(
-		depth_stencil_surface
+		depth_stencil_create
 	);
+protected:
+	depth_stencil_create();
 public:
-	depth_stencil_surface(
-		d3d9::d3d_surface_unique_ptr
-	);
+	virtual ~depth_stencil_create();
 
-	~depth_stencil_surface();
-
-	dim const
-	size() const;
-
-	renderer::depth_stencil_format::type
-	format() const;
-
-	IDirect3DSurface9 *
-	surface() const;
-private:
-	d3d9::d3d_surface_scoped_ptr const surface_;
+	virtual surface::d3d_unique_ptr
+	create() const = 0;
 };
 
+}
 }
 }
 

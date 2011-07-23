@@ -18,62 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_RESOURCE_HPP_INCLUDED
-#define SGE_D3D9_RESOURCE_HPP_INCLUDED
+#ifndef SGE_D3D9_SURFACE_COLOR_ONSCREEN_TARGET_HPP_INCLUDED
+#define SGE_D3D9_SURFACE_COLOR_ONSCREEN_TARGET_HPP_INCLUDED
 
-#include "d3dinclude.hpp"
-#include "needs_reset.hpp"
+#include "color_create.hpp"
+#include "d3d_unique_ptr.hpp"
+#include "../d3dinclude.hpp"
 #include <fcppt/noncopyable.hpp>
-#include <boost/intrusive/list_hook.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace surface
+{
 
-class resource
+class color_onscreen_target
 :
-	public boost::intrusive::list_base_hook<
-		boost::intrusive::link_mode<
-			boost::intrusive::auto_unlink
-		>
-	>
+	public surface::color_create
 {
 	FCPPT_NONCOPYABLE(
-		resource
+		color_onscreen_target
 	);
 public:
-	explicit resource(
-		D3DPOOL
+	explicit color_onscreen_target(
+		IDirect3DDevice9 *
 	);
 
-	explicit resource(
-		d3d9::needs_reset::type
-	);
+	~color_onscreen_target();
 
-	virtual ~resource();
-
-	void
-	loss();
-
-	void
-	reset();
-
-	D3DPOOL
-	pool() const;
-
-	bool
-	needs_reset() const ;
+	surface::d3d_unique_ptr
+	create() const;
 private:
-	virtual void
-	on_loss() = 0;
-
-	virtual void
-	on_reset() = 0;
-
-	D3DPOOL const pool_;
+	IDirect3DDevice9 *const device_;
 };
 
+}
 }
 }
 

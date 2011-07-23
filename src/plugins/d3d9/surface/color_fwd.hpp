@@ -18,23 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_D3D_SURFACE_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_D3D9_D3D_SURFACE_UNIQUE_PTR_HPP_INCLUDED
-
-#include "d3dinclude.hpp"
-#include <fcppt/com_deleter.hpp>
-#include <fcppt/unique_ptr.hpp>
+#ifndef SGE_D3D9_SURFACE_COLOR_FWD_HPP_INCLUDED
+#define SGE_D3D9_SURFACE_COLOR_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace d3d9
 {
+namespace surface
+{
 
-typedef fcppt::unique_ptr<
-	IDirect3DSurface9,
-	fcppt::com_deleter
-> d3d_surface_unique_ptr;
+class color;
 
+}
 }
 }
 

@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../create_caps.hpp"
 #include "../create_device.hpp"
 #include "../d3dinclude.hpp"
-#include "../depth_stencil_surface.hpp"
 #include "../index_buffer.hpp"
+#include "../multi_sample_quality.hpp"
+#include "../needs_reset.hpp"
 #include "../offscreen_target.hpp"
 #include "../onscreen_target.hpp"
 #include "../vertex_buffer.hpp"
@@ -33,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../devicefuncs/clear.hpp"
 #include "../devicefuncs/create_depth_stencil_surface.hpp"
 #include "../devicefuncs/light_enable.hpp"
+#include "../devicefuncs/reset.hpp"
 #include "../devicefuncs/sampler_stage_arg.hpp"
 #include "../devicefuncs/sampler_stage_op.hpp"
 #include "../devicefuncs/set_clip_plane.hpp"
@@ -44,6 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../devicefuncs/set_transform.hpp"
 #include "../parameters/create.hpp"
 #include "../state/apply.hpp"
+#include "../surface/depth_stencil.hpp"
+#include "../surface/depth_stencil_native.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/planar.hpp"
 #include "../texture/volume.hpp"
@@ -383,7 +387,7 @@ sge::d3d9::device::enable_light(
 		device_.get(),
 		_index,
 		_enable
-	);		
+	);
 }
 
 void
@@ -623,17 +627,24 @@ sge::d3d9::device::create_depth_stencil_surface(
 )
 {
 	return
-		sge::renderer::depth_stencil_surface_ptr(
-			fcppt::make_unique_ptr<
-				d3d9::depth_stencil_surface
+		this->add_resource<
+			d3d9::surface::depth_stencil
+		>(
+			fcppt::make_shared_ptr<
+				d3d9::surface::depth_stencil
 			>(
-				devicefuncs::create_depth_stencil_surface(
+				fcppt::make_unique_ptr<
+					d3d9::surface::depth_stencil_native
+				>(
 					device_.get(),
 					_dim,
 					_format,
 					present_parameters_.MultiSampleType,
-					present_parameters_.MultiSampleQuality
-				)
+					d3d9::multi_sample_quality(
+						present_parameters_.MultiSampleQuality
+					)
+				),
+				d3d9::needs_reset::yes
 			)
 		);
 }
@@ -864,6 +875,11 @@ sge::d3d9::device::reset()
 	while(
 		device_->TestCooperativeLevel()
 		== D3DERR_DEVICELOST
+		||
+		!d3d9::devicefuncs::reset(
+			device_.get(),
+			present_parameters_
+		)
 	)
 		sge::time::sleep(
 			sge::time::millisecond(
@@ -871,32 +887,7 @@ sge::d3d9::device::reset()
 			)
 		);
 
-	switch(
-		device_->Reset(
-			&present_parameters_
-		)
-	)
-	{
-	case D3D_OK:
-		this->reinit_resources();
-		break;
-	case D3DERR_DEVICELOST:
-		throw sge::renderer::exception(
-			FCPPT_TEXT("d3d device still lost!")
-		);
-	case D3DERR_DRIVERINTERNALERROR:
-		throw sge::renderer::exception(
-			FCPPT_TEXT("d3d driver internal error!")
-		);
-	case D3DERR_INVALIDCALL:
-		throw sge::renderer::exception(
-			FCPPT_TEXT("d3d invalid call to reset!")
-		);
-	default:
-		throw sge::renderer::exception(
-			FCPPT_TEXT("d3d reset failed!")
-		);
-	}
+	this->reinit_resources();
 }
 
 #if 0
