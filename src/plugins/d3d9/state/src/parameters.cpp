@@ -18,35 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../clip_plane.hpp"
+#include "../parameters.hpp"
 
-sge::d3d9::state::clip_plane::clip_plane()
-:
-	dword_(0u)
-{
-}
-
-sge::d3d9::state::clip_plane::~clip_plane()
-{
-}
-
-void
-sge::d3d9::state::clip_plane::set(
-	renderer::clip_plane_index const _index,
-	bool const _value
+sge::d3d9::state::parameters::parameters(
+	IDirect3DDevice9 *const _device,
+	state::deferred::object &_deferred,
+	state::clear &_clear
 )
+:
+	device_(_device),
+	deferred_(_deferred),
+	clear_(_clear)
 {
-	// TODO: create a function for this in fcppt
-	if(
-		_value
-	)
-		dword_ |= (1u << _index);
-	else
-		dword_ &= ~(1u << _index);
 }
 
-DWORD
-sge::d3d9::state::clip_plane::dword() const
+IDirect3DDevice9 *
+sge::d3d9::state::parameters::device() const
 {
-	return dword_;
+	return device_;
+}
+
+sge::d3d9::state::deferred::object &
+sge::d3d9::state::parameters::deferred() const
+{
+	return deferred_;
+}
+
+sge::d3d9::state::clear &
+sge::d3d9::state::parameters::clear() const
+{
+	return clear_;
 }

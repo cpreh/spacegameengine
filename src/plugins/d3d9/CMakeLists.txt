@@ -197,10 +197,13 @@ SET(
 	src/plugins/d3d9/src/target_base.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
+	src/plugins/d3d9/state/alpha_func.hpp
 	src/plugins/d3d9/state/apply.hpp
+	src/plugins/d3d9/state/bool.hpp
 	src/plugins/d3d9/state/clear.hpp
 	src/plugins/d3d9/state/clear_fwd.hpp
 	src/plugins/d3d9/state/clip_plane.hpp
+	src/plugins/d3d9/state/color.hpp
 	src/plugins/d3d9/state/convert/alpha_func.hpp
 	src/plugins/d3d9/state/convert/bool.hpp
 	src/plugins/d3d9/state/convert/color.hpp
@@ -233,6 +236,7 @@ SET(
 	src/plugins/d3d9/state/convert/stencil_op.hpp
 	src/plugins/d3d9/state/convert/stencil_op_value.hpp
 	src/plugins/d3d9/state/convert/uint.hpp
+	src/plugins/d3d9/state/cull_mode.hpp
 	src/plugins/d3d9/state/deferred/apply.hpp
 	src/plugins/d3d9/state/deferred/bundle.hpp
 	src/plugins/d3d9/state/deferred/color_write.hpp
@@ -241,17 +245,44 @@ SET(
 	src/plugins/d3d9/state/deferred/src/apply.cpp
 	src/plugins/d3d9/state/deferred/src/color_write.cpp
 	src/plugins/d3d9/state/deferred/src/object.cpp
+	src/plugins/d3d9/state/depth_func.hpp
+	src/plugins/d3d9/state/dest_blend_func.hpp
 	src/plugins/d3d9/state/device.hpp
 	src/plugins/d3d9/state/device_fwd.hpp
+	src/plugins/d3d9/state/draw_mode.hpp
+	src/plugins/d3d9/state/float.hpp
+	src/plugins/d3d9/state/fog_mode.hpp
+	src/plugins/d3d9/state/int.hpp
+	src/plugins/d3d9/state/parameters.hpp
+	src/plugins/d3d9/state/parameters_fwd.hpp
 	src/plugins/d3d9/state/set_render_state_bool.hpp
 	src/plugins/d3d9/state/set_render_state_float.hpp
+	src/plugins/d3d9/state/source_blend_func.hpp
+	src/plugins/d3d9/state/src/alpha_func.cpp
 	src/plugins/d3d9/state/src/apply.cpp
+	src/plugins/d3d9/state/src/bool.cpp
 	src/plugins/d3d9/state/src/clear.cpp
 	src/plugins/d3d9/state/src/clip_plane.cpp
+	src/plugins/d3d9/state/src/color.cpp
+	src/plugins/d3d9/state/src/cull_mode.cpp
+	src/plugins/d3d9/state/src/depth_func.cpp
+	src/plugins/d3d9/state/src/dest_blend_func.cpp
 	src/plugins/d3d9/state/src/device.cpp
+	src/plugins/d3d9/state/src/draw_mode.cpp
+	src/plugins/d3d9/state/src/float.cpp
+	src/plugins/d3d9/state/src/fog_mode.cpp
+	src/plugins/d3d9/state/src/int.cpp
+	src/plugins/d3d9/state/src/parameters.cpp
 	src/plugins/d3d9/state/src/set_render_state_bool.cpp
 	src/plugins/d3d9/state/src/set_render_state_float.cpp
+	src/plugins/d3d9/state/src/source_blend_func.cpp
+	src/plugins/d3d9/state/src/stencil_func.cpp
+	src/plugins/d3d9/state/src/stencil_op.cpp
+	src/plugins/d3d9/state/src/uint.cpp
 	src/plugins/d3d9/state/src/visitor.cpp
+	src/plugins/d3d9/state/stencil_func.hpp
+	src/plugins/d3d9/state/stencil_op.hpp
+	src/plugins/d3d9/state/uint.hpp
 	src/plugins/d3d9/state/visitor.hpp
 	src/plugins/d3d9/surface/color.hpp
 	src/plugins/d3d9/surface/color_create.hpp

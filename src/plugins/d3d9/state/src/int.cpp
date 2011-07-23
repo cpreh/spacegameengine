@@ -18,35 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../clip_plane.hpp"
-
-sge::d3d9::state::clip_plane::clip_plane()
-:
-	dword_(0u)
-{
-}
-
-sge::d3d9::state::clip_plane::~clip_plane()
-{
-}
+#include "../int.hpp"
+#include "../clear.hpp"
+#include "../parameters.hpp"
+#include "../convert/int.hpp"
+#include "../../d3dinclude.hpp"
+#include "../../devicefuncs/set_render_state.hpp"
+#include <sge/renderer/state/int.hpp>
+#include <sge/renderer/state/var.hpp>
 
 void
-sge::d3d9::state::clip_plane::set(
-	renderer::clip_plane_index const _index,
-	bool const _value
+sge::d3d9::state::int_(
+	state::parameters const &_parameters,
+	sge::renderer::state::int_::type const &_state
 )
 {
-	// TODO: create a function for this in fcppt
 	if(
-		_value
+		_state.state()
+		== sge::renderer::state::int_::available_states::stencil_buffer_clear_val
 	)
-		dword_ |= (1u << _index);
-	else
-		dword_ &= ~(1u << _index);
-}
+	{
+		_parameters.clear().stencil(
+			static_cast<
+				DWORD
+			>(
+				_state.value()
+			)
+		);
 
-DWORD
-sge::d3d9::state::clip_plane::dword() const
-{
-	return dword_;
+		return;
+	}
+
+	d3d9::devicefuncs::set_render_state(
+		_parameters.device(),
+		state::convert::int_(
+			_state.state()
+		),
+		static_cast<
+			DWORD
+		>(
+			_state.value()
+		)
+	);
 }

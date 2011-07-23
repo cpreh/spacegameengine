@@ -18,35 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../clip_plane.hpp"
+#ifndef SGE_D3D9_STATE_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_D3D9_STATE_PARAMETERS_FWD_HPP_INCLUDED
 
-sge::d3d9::state::clip_plane::clip_plane()
-:
-	dword_(0u)
+namespace sge
 {
+namespace d3d9
+{
+namespace state
+{
+
+class parameters;
+
+}
+}
 }
 
-sge::d3d9::state::clip_plane::~clip_plane()
-{
-}
-
-void
-sge::d3d9::state::clip_plane::set(
-	renderer::clip_plane_index const _index,
-	bool const _value
-)
-{
-	// TODO: create a function for this in fcppt
-	if(
-		_value
-	)
-		dword_ |= (1u << _index);
-	else
-		dword_ &= ~(1u << _index);
-}
-
-DWORD
-sge::d3d9::state::clip_plane::dword() const
-{
-	return dword_;
-}
+#endif

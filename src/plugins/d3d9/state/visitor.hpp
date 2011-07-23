@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_STATE_VISITOR_HPP_INCLUDED
 
 #include "clear_fwd.hpp"
-#include "deferred/object_fwd.hpp"
-#include "../d3dinclude.hpp"
+#include "parameters.hpp"
 #include <sge/renderer/state/int.hpp>
 #include <sge/renderer/state/uint.hpp>
 #include <sge/renderer/state/float.hpp>
@@ -53,37 +52,35 @@ class visitor
 		visitor
 	);
 public:
-	visitor(
-		IDirect3DDevice9 *,
-		deferred::object &,
-		state::clear &
+	explicit visitor(
+		state::parameters const &
 	);
 
 	typedef void result_type;
 
 	result_type
 	operator()(
-		sge::renderer::state::int_::type
+		sge::renderer::state::int_::type const &
 	) const;
 
 	result_type
 	operator()(
-		sge::renderer::state::uint::type
+		sge::renderer::state::uint::type const &
 	) const;
 
 	result_type
 	operator()(
-		sge::renderer::state::float_::type
+		sge::renderer::state::float_::type const &
 	) const;
 
 	result_type
 	operator()(
-		sge::renderer::state::bool_::type
+		sge::renderer::state::bool_::type const &
 	) const;
 
 	result_type
 	operator()(
-		sge::renderer::state::color::type
+		sge::renderer::state::color::type const &
 	) const;
 
 	result_type
@@ -128,14 +125,10 @@ public:
 
 	result_type
 	operator()(
-		sge::renderer::state::stencil_op::type
+		sge::renderer::state::stencil_op::type const &
 	) const;
 private:
-	IDirect3DDevice9 *const device_;
-
-	deferred::object &deferred_;
-
-	state::clear &clear_state_;
+	state::parameters const parameters_;
 };
 
 }

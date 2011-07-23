@@ -18,35 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../clip_plane.hpp"
-
-sge::d3d9::state::clip_plane::clip_plane()
-:
-	dword_(0u)
-{
-}
-
-sge::d3d9::state::clip_plane::~clip_plane()
-{
-}
+#include "../uint.hpp"
+#include "../parameters.hpp"
+#include "../convert/uint.hpp"
+#include "../../d3dinclude.hpp"
+#include "../../devicefuncs/set_render_state.hpp"
+#include <sge/renderer/state/uint.hpp>
+#include <sge/renderer/state/var.hpp>
 
 void
-sge::d3d9::state::clip_plane::set(
-	renderer::clip_plane_index const _index,
-	bool const _value
+sge::d3d9::state::uint(
+	state::parameters const &_parameters,
+	sge::renderer::state::uint::type const &_state
 )
 {
-	// TODO: create a function for this in fcppt
-	if(
-		_value
-	)
-		dword_ |= (1u << _index);
-	else
-		dword_ &= ~(1u << _index);
-}
-
-DWORD
-sge::d3d9::state::clip_plane::dword() const
-{
-	return dword_;
+	d3d9::devicefuncs::set_render_state(
+		_parameters.device(),
+		state::convert::uint(
+			_state.state()
+		),
+		static_cast<
+			DWORD
+		>(
+			_state.value()
+		)
+	);
 }

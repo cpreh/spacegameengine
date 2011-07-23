@@ -18,35 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../clip_plane.hpp"
+#ifndef SGE_D3D9_STATE_PARAMETERS_HPP_INCLUDED
+#define SGE_D3D9_STATE_PARAMETERS_HPP_INCLUDED
 
-sge::d3d9::state::clip_plane::clip_plane()
-:
-	dword_(0u)
+#include "parameters_fwd.hpp"
+#include "clear_fwd.hpp"
+#include "deferred/object_fwd.hpp"
+#include "../d3dinclude.hpp"
+#include <fcppt/nonassignable.hpp>
+
+namespace sge
 {
+namespace d3d9
+{
+namespace state
+{
+
+class parameters
+{
+	FCPPT_NONASSIGNABLE(
+		parameters
+	);
+public:
+	parameters(
+		IDirect3DDevice9 *,
+		state::deferred::object &,
+		state::clear &
+	);
+
+	IDirect3DDevice9 *
+	device() const;
+
+	state::deferred::object &
+	deferred() const;
+
+	state::clear &
+	clear() const;
+private:
+	IDirect3DDevice9 *const device_;
+
+	state::deferred::object &deferred_;
+
+	state::clear &clear_;
+};
+
+}
+}
 }
 
-sge::d3d9::state::clip_plane::~clip_plane()
-{
-}
-
-void
-sge::d3d9::state::clip_plane::set(
-	renderer::clip_plane_index const _index,
-	bool const _value
-)
-{
-	// TODO: create a function for this in fcppt
-	if(
-		_value
-	)
-		dword_ |= (1u << _index);
-	else
-		dword_ &= ~(1u << _index);
-}
-
-DWORD
-sge::d3d9::state::clip_plane::dword() const
-{
-	return dword_;
-}
+#endif

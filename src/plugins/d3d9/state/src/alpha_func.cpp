@@ -18,35 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../clip_plane.hpp"
-
-sge::d3d9::state::clip_plane::clip_plane()
-:
-	dword_(0u)
-{
-}
-
-sge::d3d9::state::clip_plane::~clip_plane()
-{
-}
+#include "../alpha_func.hpp"
+#include "../parameters.hpp"
+#include "../set_render_state_bool.hpp"
+#include "../convert/alpha_func.hpp"
+#include "../../devicefuncs/set_render_state.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/state/alpha_func.hpp>
 
 void
-sge::d3d9::state::clip_plane::set(
-	renderer::clip_plane_index const _index,
-	bool const _value
+sge::d3d9::state::alpha_func(
+	state::parameters const &_parameters,
+	sge::renderer::state::alpha_func::type const &_state
 )
 {
-	// TODO: create a function for this in fcppt
-	if(
-		_value
-	)
-		dword_ |= (1u << _index);
-	else
-		dword_ &= ~(1u << _index);
-}
+	bool const active(
+		_state != sge::renderer::state::alpha_func::off
+	);
 
-DWORD
-sge::d3d9::state::clip_plane::dword() const
-{
-	return dword_;
+	d3d9::state::set_render_state_bool(
+		_parameters.device(),
+		D3DRS_ALPHATESTENABLE,
+		active
+	);
+
+	if(
+		active
+	)
+		d3d9::devicefuncs::set_render_state(
+			_parameters.device(),
+			D3DRS_ALPHAFUNC,
+			state::convert::alpha_func(
+				_state
+			)
+		);
 }

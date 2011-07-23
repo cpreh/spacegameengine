@@ -18,35 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../clip_plane.hpp"
-
-sge::d3d9::state::clip_plane::clip_plane()
-:
-	dword_(0u)
-{
-}
-
-sge::d3d9::state::clip_plane::~clip_plane()
-{
-}
+#include "../color.hpp"
+#include "../clear.hpp"
+#include "../parameters.hpp"
+#include "../convert/color.hpp"
+#include "../../d3dinclude.hpp"
+#include "../../convert/to_color.hpp"
+#include "../../devicefuncs/set_render_state.hpp"
+#include <sge/image/color/any/object.hpp>
+#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/var.hpp>
 
 void
-sge::d3d9::state::clip_plane::set(
-	renderer::clip_plane_index const _index,
-	bool const _value
+sge::d3d9::state::color(
+	state::parameters const &_parameters,
+	sge::renderer::state::color::type const &_state
 )
 {
-	// TODO: create a function for this in fcppt
 	if(
-		_value
+		_state.state()
+		== sge::renderer::state::color::available_states::back_buffer_clear_color
 	)
-		dword_ |= (1u << _index);
-	else
-		dword_ &= ~(1u << _index);
-}
+	{
+		_parameters.clear().color(
+			d3d9::convert::to_color(	
+				_state.value()
+			)
+		);
 
-DWORD
-sge::d3d9::state::clip_plane::dword() const
-{
-	return dword_;
+		return;
+	}
+
+	d3d9::devicefuncs::set_render_state(
+		_parameters.device(),
+		state::convert::color(
+			_state.state()
+		),
+		static_cast<
+			DWORD
+		>(
+			d3d9::convert::to_color(
+				_state.value()
+			)
+		)
+	);
 }

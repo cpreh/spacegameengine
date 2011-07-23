@@ -19,189 +19,81 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../visitor.hpp"
-#include "../clear.hpp"
-#include "../convert/int.hpp"
-#include "../convert/uint.hpp"
-#include "../convert/float.hpp"
-#include "../convert/bool.hpp"
-#include "../convert/color.hpp"
-#include "../convert/cull_mode.hpp"
-#include "../convert/depth_func.hpp"
-#include "../convert/stencil_func.hpp"
-#include "../convert/alpha_func.hpp"
-#include "../convert/fog_mode.hpp"
-#include "../convert/draw_mode.hpp"
-#include "../convert/source_blend_func.hpp"
-#include "../convert/dest_blend_func.hpp"
-#include "../convert/stencil_op.hpp"
-#include "../convert/stencil_op_value.hpp"
-#include "../deferred/bundle.hpp"
-#include "../deferred/object.hpp"
-#include "../set_render_state_bool.hpp"
-#include "../set_render_state_float.hpp"
-#include "../../convert/to_color.hpp"
-#include "../../devicefuncs/set_render_state.hpp"
-#include <sge/renderer/state/var.hpp>
-#include <sge/image/color/any/object.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include "../alpha_func.hpp"
+#include "../bool.hpp"
+#include "../color.hpp"
+#include "../cull_mode.hpp"
+#include "../depth_func.hpp"
+#include "../dest_blend_func.hpp"
+#include "../draw_mode.hpp"
+#include "../float.hpp"
+#include "../fog_mode.hpp"
+#include "../int.hpp"
+#include "../source_blend_func.hpp"
+#include "../stencil_func.hpp"
+#include "../stencil_op.hpp"
+#include "../uint.hpp"
 
 sge::d3d9::state::visitor::visitor(
-	IDirect3DDevice9 *const _device,
-	deferred::object &_deferred,
-	state::clear &_clear_state
+	state::parameters const &_parameters
 )
 :
-	device_(_device),
-	deferred_(_deferred),
-	clear_state_(_clear_state)
+	parameters_(_parameters)
 {
 }
 
 sge::d3d9::state::visitor::result_type
 sge::d3d9::state::visitor::operator()(
-	sge::renderer::state::int_::type const _state
+	sge::renderer::state::int_::type const &_state
 ) const
 {
-	if(
-		_state.state()
-		== sge::renderer::state::int_::available_states::stencil_buffer_clear_val
-	)
-	{
-		clear_state_.stencil(
-			static_cast<
-				DWORD
-			>(
-				_state.value()
-			)
-		);
-
-		return;
-	}
-
-	d3d9::devicefuncs::set_render_state(
-		device_,
-		state::convert::int_(
-			_state.state()
-		),
-		static_cast<
-			DWORD
-		>(
-			_state.value()
-		)
+	state::int_(
+		parameters_,
+		_state
 	);
 }
 
 sge::d3d9::state::visitor::result_type
 sge::d3d9::state::visitor::operator()(
-	sge::renderer::state::uint::type const _state
+	sge::renderer::state::uint::type const &_state
 ) const
 {
-	d3d9::devicefuncs::set_render_state(
-		device_,
-		state::convert::uint(
-			_state.state()
-		),
-		static_cast<
-			DWORD
-		>(
-			_state.value()
-		)
+	state::uint(
+		parameters_,
+		_state
 	);
 }
 
 sge::d3d9::state::visitor::result_type
 sge::d3d9::state::visitor::operator()(
-	sge::renderer::state::float_::type const _state
+	sge::renderer::state::float_::type const &_state
 ) const
 {
-	if(
-		_state.state()
-		== sge::renderer::state::float_::available_states::depth_buffer_clear_val
-	)
-	{
-		clear_state_.depth(
-			_state.value()
-		);
-
-		return;
-	}
-
-	d3d9::state::set_render_state_float(
-		device_,
-		state::convert::float_(
-			_state.state()
-		),
-		_state.value()
+	state::float_(
+		parameters_,
+		_state
 	);
 }
 
 sge::d3d9::state::visitor::result_type
 sge::d3d9::state::visitor::operator()(
-	sge::renderer::state::bool_::type const _state
+	sge::renderer::state::bool_::type const &_state
 ) const
 {
-	switch(
-		_state.state()
-	)
-	{
-	case sge::renderer::state::bool_::available_states::clear_depth_buffer:
-	case sge::renderer::state::bool_::available_states::clear_back_buffer:
-	case sge::renderer::state::bool_::available_states::clear_stencil_buffer:
-		return;
-	case sge::renderer::state::bool_::available_states::write_alpha:
-	case sge::renderer::state::bool_::available_states::write_blue:
-	case sge::renderer::state::bool_::available_states::write_green:
-	case sge::renderer::state::bool_::available_states::write_red:
-		deferred_.add(
-			deferred::bundle::color_write
-		);
-		return;
-	case sge::renderer::state::bool_::available_states::enable_multi_sampling:
-		return; // FIXME
-	default:
-		break;
-	}
-
-	d3d9::state::set_render_state_bool(
-		device_,
-		state::convert::bool_(
-			_state.state()
-		),
-		_state.value()
+	state::bool_(
+		parameters_,
+		_state
 	);
 }
 
 sge::d3d9::state::visitor::result_type
 sge::d3d9::state::visitor::operator()(
-	sge::renderer::state::color::type const _state
+	sge::renderer::state::color::type const &_state
 ) const
 {
-	if(
-		_state.state()
-		== sge::renderer::state::color::available_states::back_buffer_clear_color
-	)
-	{
-		clear_state_.color(
-			d3d9::convert::to_color(	
-				_state.value()
-			)
-		);
-
-		return;
-	}
-
-	d3d9::devicefuncs::set_render_state(
-		device_,
-		state::convert::color(
-			_state.state()
-		),
-		static_cast<
-			DWORD
-		>(
-			d3d9::convert::to_color(
-				_state.value()
-			)
-		)
+	state::color(
+		parameters_,
+		_state
 	);
 }
 
@@ -210,12 +102,9 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::cull_mode::type const _state
 ) const
 {
-	d3d9::devicefuncs::set_render_state(
-		device_,
-		D3DRS_CULLMODE,
-		state::convert::cull_mode(
-			_state
-		)
+	state::cull_mode(
+		parameters_,
+		_state
 	);
 }
 
@@ -224,54 +113,21 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::depth_func::type const _state
 ) const
 {
-	bool const active(
-		_state != sge::renderer::state::depth_func::off
+	state::depth_func(
+		parameters_,
+		_state
 	);
-
-	d3d9::state::set_render_state_bool(
-		device_,
-		D3DRS_ZENABLE,
-		active
-	);
-
-	if(
-		active
-	)
-		d3d9::devicefuncs::set_render_state(
-			device_,
-			D3DRS_ZFUNC,
-			state::convert::depth_func(
-				_state
-			)
-		);
 }
 
 sge::d3d9::state::visitor::result_type
 sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::stencil_func::type const _state
-
 ) const
 {
-	bool const active(
-		_state != sge::renderer::state::stencil_func::off
+	state::stencil_func(
+		parameters_,
+		_state
 	);
-
-	d3d9::state::set_render_state_bool(
-		device_,
-		D3DRS_STENCILENABLE,
-		active
-	);
-
-	if(
-		active
-	)
-		d3d9::devicefuncs::set_render_state(
-			device_,
-			D3DRS_STENCILFUNC,
-			state::convert::stencil_func(
-				_state
-			)
-		);
 }
 
 sge::d3d9::state::visitor::result_type
@@ -279,26 +135,10 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::alpha_func::type const _state
 ) const
 {
-	bool const active(
-		_state != sge::renderer::state::alpha_func::off
+	state::alpha_func(
+		parameters_,
+		_state
 	);
-
-	d3d9::state::set_render_state_bool(
-		device_,
-		D3DRS_ALPHATESTENABLE,
-		active
-	);
-
-	if(
-		active
-	)
-		d3d9::devicefuncs::set_render_state(
-			device_,
-			D3DRS_ALPHAFUNC,
-			state::convert::alpha_func(
-				_state
-			)
-		);
 }
 
 sge::d3d9::state::visitor::result_type
@@ -306,23 +146,9 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::fog_mode::type const _state
 ) const
 {
-	bool const active(
-		_state != sge::renderer::state::fog_mode::off
-	);
-
-	d3d9::state::set_render_state_bool(
-		device_,
-		D3DRS_FOGENABLE,
-		active
-	);
-
-	// fog has an "off" mode
-	d3d9::devicefuncs::set_render_state(
-		device_,
-		D3DRS_FOGTABLEMODE,
-		state::convert::fog_mode(
-			_state
-		)
+	state::fog_mode(
+		parameters_,
+		_state
 	);
 }
 
@@ -331,12 +157,9 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::draw_mode::type const _state
 ) const
 {
-	d3d9::devicefuncs::set_render_state(
-		device_,
-		D3DRS_FILLMODE,
-		state::convert::draw_mode(
-			_state
-		)
+	state::draw_mode(
+		parameters_,
+		_state
 	);
 }
 
@@ -345,12 +168,9 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::source_blend_func::type const _state
 ) const
 {
-	d3d9::devicefuncs::set_render_state(
-		device_,
-		D3DRS_SRCBLEND,
-		state::convert::source_blend_func(
-			_state
-		)
+	state::source_blend_func(
+		parameters_,
+		_state
 	);
 }
 
@@ -359,27 +179,19 @@ sge::d3d9::state::visitor::operator()(
 	sge::renderer::state::dest_blend_func::type const _state
 ) const
 {
-	d3d9::devicefuncs::set_render_state(
-		device_,
-		D3DRS_DESTBLEND,
-		state::convert::dest_blend_func(
-			_state
-		)
+	state::dest_blend_func(
+		parameters_,
+		_state
 	);
 }
 
 sge::d3d9::state::visitor::result_type
 sge::d3d9::state::visitor::operator()(
-	sge::renderer::state::stencil_op::type const _state
+	sge::renderer::state::stencil_op::type const &_state
 ) const
 {
-	d3d9::devicefuncs::set_render_state(
-		device_,
-		state::convert::stencil_op(
-			_state.state()
-		),
-		state::convert::stencil_op_value(
-			_state.value()
-		)
+	state::stencil_op(
+		parameters_,
+		_state
 	);
 }
