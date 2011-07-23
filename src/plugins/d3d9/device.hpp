@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "d3dinclude.hpp"
 #include "offscreen_target_fwd.hpp"
 #include "onscreen_target_fwd.hpp"
-#include "resource_list.hpp"
+#include "resource_manager.hpp"
 #include "target_base_fwd.hpp"
 #include "state/clear.hpp"
 #include "state/clip_plane.hpp"
@@ -302,7 +302,7 @@ private:
 
 	renderer::caps const caps_;
 
-	d3d9::resource_list resources_;
+	d3d9::resource_manager resources_;
 
 	typedef fcppt::scoped_ptr<
 		d3d9::onscreen_target
