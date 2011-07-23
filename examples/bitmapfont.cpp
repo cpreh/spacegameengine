@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -190,12 +191,9 @@ try
 			string,
 			sge::font::rect(
 				sge::font::rect::vector::null(),
-				fcppt::math::dim::structure_cast<
-					sge::font::rect::dim
-				>(
-					sys.renderer().onscreen_target().viewport().get().size()
-				)
-			),
+				fcppt::math::dim::structure_cast<sge::font::rect::dim>(
+					sge::renderer::viewport_size(
+						sys.renderer()))),
 			sge::font::text::align_h::center,
 			sge::font::text::align_v::center,
 			sge::font::text::flags::none

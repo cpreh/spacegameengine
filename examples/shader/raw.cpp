@@ -55,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/object_impl.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
@@ -73,7 +74,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/multi_loader.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -82,11 +82,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/output.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/ref.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
@@ -95,11 +96,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/vector/vector10.hpp>
 #include <exception>
 #include <ostream>
-#include <cstdlib>
-
-//#include <sge/renderer/glsl/uniform/array_value.hpp>
-#include <fcppt/math/matrix/matrix.hpp>
 #include <vector>
+#include <cstdlib>
 
 namespace
 {
@@ -146,15 +144,13 @@ public:
 		{
 		case sge::input::mouse::axis::x:
 			sprite_.x(
-				sprite_.x()
-				+ _event.axis_value()
-			);
+				static_cast<sprite_object::unit>(
+					sprite_.x() + _event.axis_value()));
 			break;
 		case sge::input::mouse::axis::y:
 			sprite_.y(
-				sprite_.y()
-				+ _event.axis_value()
-			);
+				static_cast<sprite_object::unit>(
+					sprite_.y() + _event.axis_value()));
 			break;
 		default:
 			break;
@@ -183,7 +179,7 @@ try
 		(
 			sge::systems::window(
 				sge::window::simple_parameters(
-					FCPPT_TEXT("sge dopplertest"),
+					FCPPT_TEXT("sge raw glsl shader test"),
 					window_dim
 				)
 			)
@@ -208,7 +204,8 @@ try
 				)
 				|
 				sge::systems::input_helper::mouse_collector,
-				sge::systems::cursor_option_field::null()
+				sge::systems::cursor_option_field(
+					sge::systems::cursor_option::exclusive)
 			)
 		)
 		(
@@ -237,13 +234,14 @@ try
 		image_pointer(
 			sys.image_loader().load(
 				sge::config::media_path()
-				/ FCPPT_TEXT("gui")
+				/ FCPPT_TEXT("images")
 				/ FCPPT_TEXT("cursor.png")
 			)
 		),
 		image_tux(
 			sys.image_loader().load(
 				sge::config::media_path()
+				/ FCPPT_TEXT("images")
 				/ FCPPT_TEXT("tux.png")
 			)
 		);
@@ -317,8 +315,9 @@ try
 			.depth(
 				static_cast<
 					sprite_object::depth_type
-				>(2)
+				>(0)
 			)
+			.default_color()
 			.elements()
 		);
 
@@ -335,7 +334,7 @@ try
 		.depth(
 			static_cast<
 				sprite_object::depth_type
-			>(0)
+			>(2)
 		)
 		.elements()
 	);
@@ -344,8 +343,10 @@ try
 		sprite_parameters()
 		.pos(
 			sprite_object::vector(
-				window_dim.w()/2-16,
-				window_dim.h()/2-16
+ 				static_cast<sprite_object::unit>(
+					window_dim.w()/2-16),
+ 				static_cast<sprite_object::unit>(
+					window_dim.h()/2-16)
 			)
 		)
 		.texture(
@@ -393,13 +394,11 @@ try
 		)
 	);
 
-	/*
-	sys.renderer()->state(
+	sys.renderer().state(
 		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = sge::renderer::rgba8_color(0, 0, 0, 0))
-	);
-	*/
+			(sge::renderer::state::bool_::clear_back_buffer = true)
+			(sge::renderer::state::depth_func::off)
+			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
 	sge::renderer::texture::planar_ptr const target_texture(
 		sys.renderer().create_planar_texture(
@@ -496,21 +495,6 @@ try
 		static_cast<int>(0)
 	);
 
-#if 0
-	std::vector<
-		fcppt::math::matrix::static_<
-			float,
-			3,
-			3
-		>::type
-	> matrix_vector;
-
-	sge::renderer::glsl::uniform::array_value(
-		v,
-		matrix_vector
-	);
-#endif
-
 	while(
 		running
 	)
@@ -521,13 +505,13 @@ try
 				sge::renderer::glsl::no_program()
 			);
 
-			sge::renderer::scoped_block const block_(
-				sys.renderer()
-			);
-
 			sge::renderer::scoped_target const target_(
 				sys.renderer(),
 				*target
+			);
+
+			sge::renderer::scoped_block const block_(
+				sys.renderer()
 			);
 
 			typedef std::vector<
@@ -562,13 +546,13 @@ try
 		);
 	}
 }
-catch(sge::exception const &e)
+catch(fcppt::exception const &e)
 {
 	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
+	std::cerr << e.what() << '\n';
 	return EXIT_FAILURE;
 }

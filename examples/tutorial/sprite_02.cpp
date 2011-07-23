@@ -212,7 +212,7 @@ try
 				)
 				|
 				sge::systems::input_helper::mouse_collector,
-				sge::systems::cursor_option_field::null()
+				sge::systems::cursor_option::exclusive
 			)
 		)
 	);
@@ -228,6 +228,7 @@ try
 	sge::image2d::file_ptr const image(
 		sys.image_loader().load(
 			sge::config::media_path()
+			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("tux.png")
 		)
 	);

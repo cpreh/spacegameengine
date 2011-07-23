@@ -35,9 +35,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/object.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 // FFFFFFFFFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
-#include <fcppt/function/object.hpp>
+//#include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <boost/range/numeric.hpp>
+
+namespace
+{
+sge::renderer::scalar const epsilon = 
+	0.1f;
+}
 
 sge::camera::object::object(
 	camera::parameters const &params)
@@ -80,7 +86,6 @@ void
 sge::camera::object::update(
 	camera::duration const &d)
 {
-	//std::cout << "count: " << d.count() << "\n";
 	gizmo_.position( 
 		gizmo_.position() + 
 		movement_speed_ * 
@@ -174,29 +179,29 @@ sge::camera::object::active() const
 
 void
 sge::camera::object::key_callback(
-	sge::input::keyboard::key_event const &k)
+	input::keyboard::key_event const &k)
 {
 	if (!active())
 		return;
 
 	switch (k.key_code())
 	{
-		case sge::input::keyboard::key_code::space:
+		case input::keyboard::key_code::space:
 			dirs_[1] = !k.pressed() ? 0.f : 1.f;
 			break;
-		case sge::input::keyboard::key_code::lctrl:
+		case input::keyboard::key_code::lctrl:
 			dirs_[1] = !k.pressed() ? 0.f : -1.f;
 			break;
-		case sge::input::keyboard::key_code::w:
+		case input::keyboard::key_code::w:
 			dirs_[2] = !k.pressed() ? 0.f : 1.f;
 			break;
-		case sge::input::keyboard::key_code::s:
+		case input::keyboard::key_code::s:
 			dirs_[2] = !k.pressed() ? 0.f : -1.f;
 			break;
-		case sge::input::keyboard::key_code::a:
+		case input::keyboard::key_code::a:
 			dirs_[0] = !k.pressed() ? 0.f : -1.f;
 			break;
-		case sge::input::keyboard::key_code::d:
+		case input::keyboard::key_code::d:
 			dirs_[0] = !k.pressed() ? 0.f : 1.f;
 			break;
 		default:
@@ -206,7 +211,7 @@ sge::camera::object::key_callback(
 
 void
 sge::camera::object::mouse_axis_callback(
-	sge::input::mouse::axis_event const &k)
+	input::mouse::axis_event const &k)
 {
 	if (!active())
 		return;
@@ -217,9 +222,9 @@ sge::camera::object::mouse_axis_callback(
 	switch (k.axis())
 	{
 		// What's the use...
-		case sge::input::mouse::axis::unknown:
+		case input::mouse::axis::unknown:
 			break;
-		case sge::input::mouse::axis::x:
+		case input::mouse::axis::x:
 		{
 		using fcppt::math::matrix::rotation_axis;
 		using fcppt::math::vector::narrow_cast;
@@ -252,11 +257,28 @@ sge::camera::object::mouse_axis_callback(
 			.right(normalize(right));
 		}
 		break;
-		case sge::input::mouse::axis::y:
+		case input::mouse::axis::y:
 		{
 			using fcppt::math::matrix::rotation_axis;
 			using fcppt::math::vector::narrow_cast;
 			using fcppt::math::vector::construct;
+
+			if(
+				(fcppt::math::vector::length(
+					renderer::vector3(
+						0.f,
+						-1.f,
+						0.f) - 
+					gizmo_.forward()) < epsilon && 
+					angle > 0.f) || 
+				(fcppt::math::vector::length(
+					renderer::vector3(
+						0.f,
+						1.f,
+						0.f) - 
+					gizmo_.forward()) < epsilon &&
+					angle < 0.f))
+				return;
 
 			renderer::vector3 
 				forward = 
@@ -279,7 +301,7 @@ sge::camera::object::mouse_axis_callback(
 				.right(normalize(right));
 		}
 		break;
-		case sge::input::mouse::axis::wheel:
+		case input::mouse::axis::wheel:
 		break;
 	}
 }
