@@ -27,12 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/texture.hpp>
 #include <sge/cegui/system_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <fcppt/noncopyable.hpp> 
 #include <fcppt/signal/scoped_connection.hpp> 
-#include <fcppt/math/matrix/basic_impl.hpp> 
-#include <fcppt/container/array.hpp> 
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <vector>
 #include <CEGUIBase.h>
@@ -127,6 +124,8 @@ public:
 
  	~renderer();
 private:
+	friend class detail::texture_target;
+
 	typedef
 	boost::ptr_vector<geometry_buffer>
 	geometry_buffer_sequence;
@@ -151,12 +150,6 @@ private:
 	texture_target_sequence texture_targets_;
 	texture_sequence textures_;
 	fcppt::signal::scoped_connection viewport_change_connection_;
-
-	typedef
-	fcppt::container::array<sge::renderer::matrix4,3>
-	transform_array;
-
-	transform_array transforms_;
 };
 }
 }

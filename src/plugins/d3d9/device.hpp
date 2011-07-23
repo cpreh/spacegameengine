@@ -257,11 +257,6 @@ public:
 	renderer::target *
 	target() const;
 
-	renderer::matrix4 const
-	transform(
-		renderer::matrix_mode::type
-	);
-
 	renderer::caps const
 	caps() const;
 

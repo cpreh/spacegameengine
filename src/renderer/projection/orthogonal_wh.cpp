@@ -18,22 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GET_FLOAT_HPP_INCLUDED
-#define SGE_OPENGL_GET_FLOAT_HPP_INCLUDED
+#include "check_near_far.hpp"
+#include <sge/renderer/projection/orthogonal_wh.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 
-#include "common.hpp"
-
-namespace sge
+sge::renderer::matrix4 const
+sge::renderer::projection::orthogonal_wh(
+	projection::dim const &_dim,
+	projection::near const _near,
+	projection::far const _far
+)
 {
-namespace opengl
-{
+	projection::check_near_far(
+		_near,
+		_far
+	);
 
-GLfloat
-get_float(
-	GLenum
-);
+	renderer::scalar const
+		one(
+			1.f
+		),
+		zero(
+			0.f
+		),
+		width(
+			_dim.w()
+		),
+		height(
+			_dim.h()
+		),
+		near(
+			_near.get()
+		),
+		far(
+			_far.get()
+		);
 
+	return
+		renderer::matrix4(
+			2.f / width, zero, zero, one,
+			zero, 2.f / height, zero, one,
+			zero, zero, 1.f / (far - near), near / (near - far),
+			zero, zero, zero, one
+		);
 }
-}
-
-#endif

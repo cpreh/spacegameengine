@@ -801,6 +801,7 @@ toggle_bumpmapping(
 	sge::shader::object &shader,
 	bool &enabled)
 {
+	enabled = !enabled;
 	sge::shader::update_single_uniform(
 		shader,
 		"enabled",
@@ -978,6 +979,10 @@ try
 					sge::shader::variable_type::uniform,
 					1))
 				(sge::shader::variable(
+					"camera",
+					sge::shader::variable_type::uniform,
+					sge::renderer::vector3()))
+				(sge::shader::variable(
 					"light_position",
 					sge::shader::variable_type::uniform,
 					sge::renderer::vector3::null())),
@@ -1036,7 +1041,7 @@ try
 				1)),
 		revolve_timer(
 			sge::time::second(
-				15));
+				10));
 
 	sge::font::text::drawer_3d font_drawer(
 		sys.renderer(),
@@ -1074,6 +1079,10 @@ try
 				sge::shader::matrix(
 					camera.mvp(),
 					sge::shader::matrix_flags::projection));
+
+			shader.update_uniform(
+				"camera",
+				camera.gizmo().position());
 
 			sge::renderer::scalar const elapsed = 
 				static_cast<sge::renderer::scalar>(

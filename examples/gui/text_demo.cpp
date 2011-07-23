@@ -76,6 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/location.hpp>
+#include <sge/log/global_context.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <exception>
@@ -95,15 +96,14 @@ try
 		sge::log::global(),
 		fcppt::log::level::debug);
 
-	/* Usually too verbose (maybe add a log switcher later?)
-	sgegui::log_context().apply(
+	// Usually too verbose (maybe add a log switcher later?)
+	sge::log::global_context().apply(
 		fcppt::log::location(
-			FCPPT_TEXT("sgegui")) + FCPPT_TEXT("cegui"),
+			FCPPT_TEXT("sgegui")),
 		std::tr1::bind(
 			&fcppt::log::object::activate,
 			std::tr1::placeholders::_1,
 			fcppt::log::level::debug));
-	*/
 
 	sge::systems::instance sys(
 		sge::systems::list()

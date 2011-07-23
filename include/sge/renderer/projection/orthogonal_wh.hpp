@@ -18,20 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../get_float.hpp"
-#include "../get_floats.hpp"
+#ifndef SGE_RENDERER_PROJECTION_ORTHOGONAL_WH_HPP_INCLUDED
+#define SGE_RENDERER_PROJECTION_ORTHOGONAL_WH_HPP_INCLUDED
 
-GLfloat
-sge::opengl::get_float(
-	GLenum const _what
-)
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/projection/dim.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/symbol.hpp>
+
+namespace sge
 {
-	GLfloat ret;
+namespace renderer
+{
+namespace projection
+{
 
-	opengl::get_floats(
-		_what,
-		&ret
-	);
+SGE_RENDERER_SYMBOL
+renderer::matrix4 const
+orthogonal_wh(
+	projection::dim const &,
+	projection::near,
+	projection::far
+);
 
-	return ret;
 }
+}
+}
+
+#endif

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
+#include <sge/renderer/projection/orthogonal_wh.hpp>
 #include <sge/renderer/projection/orthogonal_xy.hpp>
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/renderer/projection/perspective_wh.hpp>

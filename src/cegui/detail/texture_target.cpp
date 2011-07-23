@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -67,7 +68,8 @@ sge::cegui::detail::texture_target::texture_target(
 	texture_(),
 	// This is exactly what cegui does and it avoids certain bugs :/
 	area_(0,0,0,0),
-	temp_projection_()
+	default_projection_(
+		system_.renderer_.default_target_.projection())
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -143,10 +145,6 @@ sge::cegui::detail::texture_target::activate()
 	system_.renderer().target(
 		target_.get());
 
-	temp_projection_ = 
-		system_.renderer().transform(
-			sge::renderer::matrix_mode::projection);
-
 	system_.renderer().transform(
 		sge::renderer::matrix_mode::projection,
 		sge::renderer::projection::orthogonal(
@@ -176,13 +174,16 @@ sge::cegui::detail::texture_target::activate()
 void 
 sge::cegui::detail::texture_target::deactivate()
 {
+	FCPPT_LOG_DEBUG(
+		local_log,
+		fcppt::log::_ << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::deactivate()"));
 	if(texture_->empty())
 		return;
 	system_.renderer().end_rendering();
 	system_.renderer().pop_state();
 	system_.renderer().transform(
 		sge::renderer::matrix_mode::projection,
-		temp_projection_);
+		default_projection_);
 	system_.renderer().target(
 		sge::renderer::default_target());
 }

@@ -287,11 +287,6 @@ public:
 	virtual renderer::target *
 	target() const = 0;
 
-	virtual renderer::matrix4 const
-	transform(
-		renderer::matrix_mode::type
-	) = 0;
-
 	virtual renderer::caps const
 	caps() const = 0;
 

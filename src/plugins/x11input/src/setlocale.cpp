@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../setlocale.hpp"
 #include <sge/input/exception.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <clocale>
 
@@ -40,7 +41,10 @@ sge::x11input::setlocale(
 	)
 		throw sge::input::exception(
 			FCPPT_TEXT("Can't set LC_ALL to ")
-			+ _what
+			+
+			fcppt::from_std_string(
+				_what
+			)
 		);
 	
 	return ret;
