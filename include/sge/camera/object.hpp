@@ -116,12 +116,16 @@ private:
 	renderer::matrix4 projection_matrix_;
 	// Rotation speed means mouse sensitivity, movement-speed should be
 	// self-explanatory
-	renderer::scalar const movement_speed_,rotation_speed_;
+	renderer::scalar const movement_speed_;
+	renderer::scalar const rotation_speed_;
 	// The camera's position and orientation
 	camera::gizmo_type gizmo_;
 	// Those are the directions the camera currently moves in
 	// (corresponds to the movement keys currently pressed)
 	renderer::vector3 dirs_;
+	// Rotation around the two angles
+	renderer::scalar phi_;
+	renderer::scalar theta_;
 	bool active_;
 
 	void

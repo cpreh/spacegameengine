@@ -297,6 +297,7 @@ try
 		image_tux(
 			sys.image_loader().load(
 				sge::config::media_path()
+				/ FCPPT_TEXT("images")
 				/ FCPPT_TEXT("tux.png")
 			)
 		);
@@ -398,14 +399,7 @@ try
 		.size(
 			sprite_object::dim(32,32)
 		)
-		.color(
-			sge::image::color::rgba8(
-				(sge::image::color::init::red %= 1.0)
-				(sge::image::color::init::green %= 1.0)
-				(sge::image::color::init::blue %= 1.0)
-				(sge::image::color::init::alpha %= 0.25)
-			)
-		)
+		.default_color()
 		.depth(
 			static_cast<
 				sprite_object::depth_type

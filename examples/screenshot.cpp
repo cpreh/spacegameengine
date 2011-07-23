@@ -55,8 +55,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/io/cout.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
@@ -68,6 +70,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
+	fcppt::io::cout << FCPPT_TEXT("Press F12 to take a screenshot...");
+
 	sge::window::dim const window_dim(
 		1024,
 		768
@@ -143,7 +147,7 @@ try
 		sge::texture::add_image(
 			tex_man,
 			*sys.image_loader().load(
-				sge::config::media_path() / FCPPT_TEXT("tux.png")
+				sge::config::media_path() / FCPPT_TEXT("images") / FCPPT_TEXT("tux.png")
 			)
 		)
 	);
@@ -244,6 +248,13 @@ try
 			bg
 		);
 	}
+}
+catch(
+	fcppt::exception const &_exception
+	)
+{
+	fcppt::io::cerr << _exception.string() << FCPPT_TEXT('\n');
+	return EXIT_FAILURE;
 }
 catch(
 	std::exception const &_exception
