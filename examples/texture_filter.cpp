@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/activation_state.hpp>
-#include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/object.hpp>
+#include <sge/camera/movement_speed.hpp>
+#include <sge/camera/rotation_speed.hpp>
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
@@ -112,9 +112,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/time/frames_counter.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/timer.hpp>
+#include <sge/timer/frames_counter.hpp>
+#include <sge/timer/elapsed.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/parameters.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
@@ -268,26 +269,15 @@ try
 
 	sge::camera::object camera(
 		sge::camera::parameters(
-			sge::camera::projection::object(),
 			// movementspeed
-			static_cast<
-				sge::renderer::scalar
-			>(
-				4.
-			),
+			sge::camera::movement_speed(
+				4.0f),
 			// mousespeed
-			static_cast<
-				sge::renderer::scalar
-			>(
-				200.
-			),
+			sge::camera::rotation_speed(
+				200.0f),
 			// position
-			sge::camera::identity_gizmo(),
 			sys.keyboard_collector(),
-			sys.mouse_collector(),
-			sge::camera::activation_state::active
-		)
-	);
+			sys.mouse_collector())); 
 
 	sge::image2d::dim const block_size(
 		16u,
@@ -583,11 +573,10 @@ try
 		sge::image::colors::red()
 	);
 
-	sge::time::timer frame_timer(
-		sge::time::second(
-			1
-		)
-	);
+	sge::timer::basic<sge::camera::duration> frame_timer(
+		sge::timer::parameters<sge::camera::duration>(
+			sge::camera::duration(
+				1.0f)));
 
 	sys.renderer().state(
 		sge::renderer::state::list
@@ -598,7 +587,7 @@ try
 			)
 	);
 
-	sge::time::frames_counter frames_counter;
+	sge::timer::frames_counter frames_counter;
 
 	while(
 		running
@@ -607,12 +596,10 @@ try
 		sys.window().dispatch();
 
 		camera.update(
-			static_cast<
-				sge::renderer::scalar
-			>(
-				frame_timer.reset()
-			)
-		);
+			sge::timer::elapsed(
+				frame_timer));
+
+		frame_timer.reset();
 
 		frames_counter.update();
 

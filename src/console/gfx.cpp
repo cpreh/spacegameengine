@@ -36,11 +36,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
-#include <sge/time/second_f.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/reset_when_expired.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/container/map_impl.hpp>
+#include <fcppt/chrono/time_point.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -161,11 +163,9 @@ sge::console::gfx::gfx(
 		false),
 	input_line_(),
 	cursor_blink_(
-		time::second_f(
-			static_cast<time::funit>(
-				0.5)
-		)
-	),
+		cursor_blink_timer::parameters(
+			fcppt::chrono::milliseconds(
+				500))),
 	cursor_active_(
 		false),
 	input_history_(),
@@ -256,7 +256,7 @@ sge::console::gfx::draw()
 		font::text::align_v::top,
 		font::text::flags::none);
 
-	if (cursor_blink_.update_b())
+	if(timer::reset_when_expired(cursor_blink_))
 		cursor_active_ = !cursor_active_;
 }
 

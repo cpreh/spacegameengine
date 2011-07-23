@@ -23,6 +23,7 @@ SET(
 	include/sge/cegui/detail/texture.hpp
 	include/sge/cegui/detail/texture_fwd.hpp
 	include/sge/cegui/detail/texture_target.hpp
+	include/sge/cegui/duration.hpp
 	include/sge/cegui/exception.hpp
 	include/sge/cegui/from_cegui_string.hpp
 	include/sge/cegui/load_context.hpp
@@ -84,7 +85,7 @@ SET(
 
 ADD_SGE_BASE_LIBRARY(
 	cegui
-	"sgecharconv;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgetime;sgeviewport"
+	"sgecharconv;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgeviewport"
 )
 
 TARGET_LINK_LIBRARIES (

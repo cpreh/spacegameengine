@@ -98,9 +98,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/time/frames_counter.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/timer.hpp>
+#include <sge/timer/frames_counter.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
@@ -288,7 +286,7 @@ try
 			(sge::renderer::state::color::back_buffer_clear_color
 					= sge::image::colors::black()));
 
-	sge::time::frames_counter frames_counter;
+	sge::timer::frames_counter frames_counter;
 
 	sge::line_drawer::object line_drawer(
 		sys.renderer());

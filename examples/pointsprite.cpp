@@ -62,11 +62,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/running_to_false.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/time/duration.hpp>
-#include <sge/time/funit.hpp>
-#include <sge/time/second_f.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/timer.hpp>
+#include <sge/timer/remaining_fractional.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/parameters.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/instance.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -84,6 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/chrono/duration.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <mizuiro/color/operators/scalar_multiply.hpp>
@@ -97,6 +96,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 sge::window::dim window_dim(1024,768);
+
+typedef
+sge::timer::basic
+<
+	fcppt::chrono::duration<sge::renderer::scalar> 
+>
+float_timer;
 
 typedef 
 sge::sprite::choices
@@ -144,16 +150,18 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	particle(
-		sge::time::duration const &_life_time,
+		float_timer::duration const &_life_time,
 		sprite_parameters const &params,
 		sge::renderer::vector2 const &_velocity,
 		sge::renderer::vector2 const &_acceleration)
 	:
 		life_timer_(
-			_life_time),
+			float_timer::parameters(
+				_life_time)),
 		seconds_timer_(
-			sge::time::second(
-				1)),
+			float_timer::parameters(
+				float_timer::duration(
+					1.0f))),
 		sprite_(
 			params.elements()),
 		color_(
@@ -179,8 +187,9 @@ public:
 	update()
 	{
 		sge::renderer::scalar const delta = 
-			static_cast<sge::renderer::scalar>(
-				seconds_timer_.reset());
+			sge::timer::elapsed_fractional<sge::renderer::scalar>(
+				seconds_timer_);
+		seconds_timer_.reset();
 		position_ += 
 			delta * velocity_;
 		velocity_ += 
@@ -189,7 +198,7 @@ public:
 			fcppt::math::vector::structure_cast<sprite_object::vector>(
 				position_));
 		sprite_.color(
-			(static_cast<sge::time::funit>(1) - life_timer_.elapsed_frames()) * color_);
+			sge::timer::remaining_fractional<sge::renderer::scalar>(life_timer_) * color_);
 	}
 
 	sprite_object const &
@@ -198,8 +207,8 @@ public:
 		return sprite_;
 	}
 private:
-	sge::time::timer life_timer_;
-	sge::time::timer seconds_timer_;
+	float_timer life_timer_;
+	float_timer seconds_timer_;
 	sprite_object sprite_;
 	sprite_object::color_type color_;
 	sge::renderer::vector2 position_;
@@ -231,7 +240,7 @@ private:
 	particle_sequence;
 
 	typedef
-	fcppt::random::uniform<sge::time::funit>
+	fcppt::random::uniform<float_timer::duration::rep>
 	time_rng;
 
 	typedef
@@ -254,7 +263,7 @@ private:
 	scalar_rng position_y_rng_;
 	scalar_rng size_rng_;
 	scalar_rng color_rng_;
-	sge::time::timer explosion_timer_;
+	float_timer explosion_timer_;
 	sge::texture::part_ptr texture_;
 };
 
@@ -269,15 +278,15 @@ particles::particles(
 	particles_(),
 	explosion_rng_(
 		fcppt::random::make_inclusive_range(
-			static_cast<sge::time::funit>(
+			static_cast<float_timer::duration::rep>(
 				0.5),
-			static_cast<sge::time::funit>(
+			static_cast<float_timer::duration::rep>(
 				2.0))),
 	lifetime_rng_(
 		fcppt::random::make_inclusive_range(
-			static_cast<sge::time::funit>(
+			static_cast<float_timer::duration::rep>(
 				0.5),
-			static_cast<sge::time::funit>(
+			static_cast<float_timer::duration::rep>(
 				2.0))),
 	velocity_radius_rng_(
 		fcppt::random::make_inclusive_range(
@@ -315,9 +324,11 @@ particles::particles(
 			static_cast<sge::renderer::scalar>(
 				1))),
 	explosion_timer_(
-		sge::time::second_f(
-			explosion_rng_()),
-		sge::time::activation_state::inactive),
+		float_timer::parameters(
+			float_timer::duration(
+				explosion_rng_()))
+			.active(
+				false)),
 	texture_(
 		fcppt::make_shared_ptr<sge::texture::part_raw>(
 			sge::renderer::texture::create_planar_from_path(
@@ -338,11 +349,11 @@ particles::update()
 {
 	if(!explosion_timer_.active() || explosion_timer_.expired())
 	{
-		if (!explosion_timer_.active())
-			explosion_timer_.activate();
+		explosion_timer_.active(
+			true);
 
 		explosion_timer_.interval(
-			sge::time::second_f(
+			float_timer::duration(
 				explosion_rng_()));
 		explosion_timer_.reset();
 
@@ -367,7 +378,7 @@ particles::update()
 			fcppt::container::ptr::push_back_unique_ptr(
 				particles_,
 				fcppt::make_unique_ptr<particle>(
-					sge::time::second_f(
+					float_timer::duration(
 						lifetime_rng_()),
 					sprite_parameters()
 						.pos(

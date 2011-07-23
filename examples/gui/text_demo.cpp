@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
+#include <sge/cegui/duration.hpp>
+#include <sge/cegui/unit.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -57,12 +59,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/parameterless.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/time/second_f.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/unit.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/elapsed.hpp>
+#include <sge/timer/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -159,10 +160,11 @@ try
 		gui_syringe,
 		sys.keyboard_collector());
 
-	sge::time::timer frame_timer(
-		sge::time::second(
-			static_cast<sge::time::unit>(
-				1)));
+	sge::timer::basic<sge::cegui::duration> frame_timer(
+		sge::timer::parameters<sge::cegui::duration>(
+			sge::cegui::duration(
+				static_cast<sge::cegui::unit>(
+					1))));
 
 	sge::cegui::toolbox::scoped_layout scoped_layout(
 		gui_sys,
@@ -179,9 +181,9 @@ try
 		sys.window().dispatch();
 
 		gui_sys.update(
-			fcppt::chrono::duration_cast<sge::time::duration>(
-				sge::time::second_f(
-					frame_timer.reset())));
+			sge::timer::elapsed(frame_timer));
+
+		frame_timer.reset();
 
 		sge::renderer::state::scoped scoped_state(
 			sys.renderer(),

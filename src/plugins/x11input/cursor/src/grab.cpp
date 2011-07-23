@@ -22,12 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <sge/input/exception.hpp>
-#include <sge/time/millisecond.hpp>
-#include <sge/time/sleep.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/time/sleep.hpp>
+#include <fcppt/time/sleep_duration.hpp>
+#include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
 #include <X11/extensions/XInput2.h>
 
 sge::x11input::cursor::grab::grab(
@@ -69,9 +72,11 @@ sge::x11input::cursor::grab::grab(
 		case BadMatch:
 		case BadWindow:
 		case BadRequest:
-			sge::time::sleep(
-				sge::time::millisecond(
-					10
+			fcppt::time::sleep(
+				fcppt::chrono::duration_cast<fcppt::time::sleep_duration>(
+					fcppt::chrono::milliseconds(
+						10
+					)
 				)
 			);
 			break;

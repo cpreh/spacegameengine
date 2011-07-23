@@ -31,11 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/second.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/parameters.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/text.hpp>
 #include <ostream>
 #include <exception>
@@ -80,9 +81,10 @@ try
 		)
 	);
 
-	sge::time::timer tm(
-		sge::time::second(5)
-	);
+	sge::timer::basic<fcppt::chrono::seconds> tm(
+		sge::timer::parameters<fcppt::chrono::seconds>(
+			fcppt::chrono::seconds(
+				5)));
 
 	sge::renderer::device &rend(
 		sys.renderer()
@@ -97,8 +99,7 @@ try
 	);
 
 	while(
-		!tm.update_b()
-	)
+		!tm.expired())
 	{
 		sys.window().dispatch();
 

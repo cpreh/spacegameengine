@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/group/object.hpp>
 #include <sge/projectile/rect.hpp>
 #include <sge/projectile/scalar.hpp>
+#include <sge/projectile/duration.hpp>
 #include <sge/projectile/shape/circle.hpp>
 #include <sge/projectile/shape/triangle_mesh.hpp>
 #include <sge/projectile/triangulation/default_tag.hpp>
@@ -69,11 +70,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
-#include <sge/time/default_callback.hpp>
-#include <sge/time/millisecond.hpp>
-#include <sge/time/second_f.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/timer.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/elapsed.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/instance.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -539,31 +538,21 @@ try
 			(sge::renderer::state::bool_::clear_back_buffer = true)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
-	sge::time::timer frame_timer(
-		sge::time::second(1));
-
-	sge::time::timer position_change_timer(
-		sge::time::second(4));
+	sge::timer::basic<sge::projectile::duration> frame_timer(
+		sge::timer::parameters<sge::projectile::duration>(
+			sge::projectile::duration(
+				1.0f)));
 
 	while(running)
 	{
 		sys.window().dispatch();
 
-#if 0
-		if(position_change_timer.active() && position_change_timer.expired())
-		{
-			first_sprite.body().position(
-				sge::projectile::body::position(
-					sge::projectile::vector2(
-						200,200)));
-			position_change_timer.deactivate();
-		}
-#endif
-
 		world.update_continuous(
 			sge::projectile::time_increment(
-				sge::time::second_f(
-					frame_timer.reset())));
+				sge::timer::elapsed(
+					frame_timer)));
+
+		frame_timer.reset();
 
 		debug_drawer.update();
 

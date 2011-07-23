@@ -19,33 +19,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/parameters.hpp>
+#include <sge/camera/identity_gizmo.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 sge::camera::parameters::parameters(
-	projection::object const &_projection,
-	renderer::scalar const _movement_speed,
-	renderer::scalar const _rotation_speed,
-	gizmo_type const &_gizmo,
-	sge::input::keyboard::device &_keyboard,
-	sge::input::mouse::device &_mouse,
-	activation_state::type const _activation)
+	camera::movement_speed const &_movement_speed,
+	camera::rotation_speed const &_rotation_speed,
+	input::keyboard::device &_keyboard,
+	input::mouse::device &_mouse)
 :
 	projection_(
-		_projection),
+		camera::projection::object()),
 	movement_speed_(
-		_movement_speed),
+		_movement_speed.get()),
 	rotation_speed_(
-		_rotation_speed),
+		_rotation_speed.get()),
 	gizmo_(
-		_gizmo),
+		camera::identity_gizmo()),
 	keyboard_(
 		_keyboard),
 	mouse_(
 		_mouse),
-	activation_(
-		_activation)
+	active_(
+		true)
 {
 	
+}
+
+sge::camera::parameters &
+sge::camera::parameters::projection(
+	projection::object const &_projection)
+{
+	projection_ = 
+		_projection;
+	return 
+		*this;
+}
+
+sge::camera::parameters &
+sge::camera::parameters::gizmo(
+	camera::gizmo_type const &_gizmo)
+{
+	gizmo_ = 
+		_gizmo;
+	return 
+		*this;
+}
+
+void
+sge::camera::parameters::active(
+	bool const _active)
+{
+	active_ = 
+		_active;
 }
 
 sge::camera::projection::object const &
@@ -84,8 +110,8 @@ sge::camera::parameters::mouse() const
 	return mouse_;
 }
 
-sge::camera::activation_state::type
-sge::camera::parameters::activation() const
+bool
+sge::camera::parameters::active() const
 {
-	return activation_;
+	return active_;
 }

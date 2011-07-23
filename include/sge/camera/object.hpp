@@ -24,9 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/parameters_fwd.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/gizmo_type.hpp>
-#include <sge/camera/activation_state.hpp>
 #include <sge/camera/symbol.hpp>
-#include <sge/time/funit.hpp>
+#include <sge/camera/duration.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -55,7 +54,7 @@ public:
 	SGE_CAMERA_SYMBOL
 	explicit
 	object(
-		parameters const &);
+		camera::parameters const &);
 	
 	SGE_CAMERA_SYMBOL
 	~object();
@@ -63,7 +62,7 @@ public:
 	SGE_CAMERA_SYMBOL
 	void
 	update(
-		time::funit);
+		camera::duration const &);
 	
 	SGE_CAMERA_SYMBOL
 	renderer::matrix4 const
@@ -95,42 +94,43 @@ public:
 	mvp() const;
 
 	SGE_CAMERA_SYMBOL
-	gizmo_type const &
+	camera::gizmo_type const &
 	gizmo() const;
 
 	SGE_CAMERA_SYMBOL
-	gizmo_type &
+	camera::gizmo_type &
 	gizmo();
 
 	SGE_CAMERA_SYMBOL
 	void
-	activation(
-		activation_state::type);
+	active(
+		bool);
 
 	SGE_CAMERA_SYMBOL
-	activation_state::type 
-	activation() const;
+	bool
+	active() const;
 private:
-	fcppt::signal::scoped_connection keyboard_connection_,mouse_axis_connection_;
+	fcppt::signal::scoped_connection keyboard_connection_;
+	fcppt::signal::scoped_connection mouse_axis_connection_;
 	projection::object projection_;
 	renderer::matrix4 projection_matrix_;
 	// Rotation speed means mouse sensitivity, movement-speed should be
 	// self-explanatory
 	renderer::scalar const movement_speed_,rotation_speed_;
 	// The camera's position and orientation
-	gizmo_type gizmo_;
+	camera::gizmo_type gizmo_;
 	// Those are the directions the camera currently moves in
 	// (corresponds to the movement keys currently pressed)
 	renderer::vector3 dirs_;
-	activation_state::type activation_;
+	bool active_;
 
 	void
 	key_callback(
-		sge::input::keyboard::key_event const &);
+		input::keyboard::key_event const &);
 
 	void
 	mouse_axis_callback(
-		sge::input::mouse::axis_event const &);
+		input::mouse::axis_event const &);
 };
 }
 }

@@ -117,5 +117,5 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_PLUGIN(
 	x11input
-	"sgeinput;sgetime;sgewindow;${X11_X11_LIB};${X11_Xinput_LIB}"
+	"${Fcppt_LIBRARIES};sgeinput;sgewindow;${X11_X11_LIB};${X11_Xinput_LIB}"
 )

@@ -21,20 +21,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/audio/sound/positional.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/player.hpp>
-#include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
+#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/exception.hpp>
 #include <sge/audio/multi_loader.hpp>
-#include <sge/audio/pool/object.hpp>
-#include <sge/audio/sound/base.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/elapsed_fractional.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/math/twopi.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/chrono/seconds.hpp>
 #include <exception>
+#include <iostream>
+#include <ostream>
+#include <cmath>
 #include <cstdlib>
 
 int main()
@@ -53,61 +63,70 @@ try
 				>(
 					FCPPT_TEXT("wav")
 				)
-				(
-					FCPPT_TEXT("ogg")
-				)
 			)
 		)
 	);
 
-	sge::audio::pool::object pool;
+	sge::audio::file_ptr const file(
+		sys.audio_loader().load(
+			sge::config::media_path()
+			/	FCPPT_TEXT("sounds")
+			/ FCPPT_TEXT("ding.wav")
+		)
+	);
 
+	sge::audio::sound::positional_ptr const sound(
+		sys.audio_player().create_positional_stream(
+			file,
+			sge::audio::sound::positional_parameters()
+		)
+	);
+
+	sound->play(
+		sge::audio::sound::repeat::loop
+	);
+
+	sge::timer::basic<fcppt::chrono::seconds> frame_timer(
+		sge::timer::parameters<fcppt::chrono::seconds>(
+			fcppt::chrono::seconds(
+				1)));
+
+	sge::audio::scalar const rpm(
+		static_cast<sge::audio::scalar>(
+			1));
+
+	sge::audio::scalar const speed(
+		static_cast<sge::audio::scalar>(
+			fcppt::math::twopi<sge::audio::scalar>() * rpm));
+
+	for(;;)
 	{
-		sge::audio::sound::base_ptr const sound_01(
-			sys.audio_player().create_nonpositional_stream(
-				sys.audio_loader().load(
-					sge::config::media_path() / FCPPT_TEXT("sounds") / FCPPT_TEXT("ding.wav")
-				)
+		sge::audio::scalar const angle(
+			static_cast<sge::audio::scalar>(
+				sge::timer::elapsed_fractional<sge::audio::scalar>(
+					frame_timer) *
+				speed));
+
+		sound->position(
+			sge::audio::vector(
+				std::sin(angle),
+				static_cast<sge::audio::scalar>(0),
+				std::cos(angle)
 			)
 		);
 
-		sge::audio::sound::base_ptr const sound_02(
-			sys.audio_player().create_nonpositional_stream(
-				sys.audio_loader().load(
-					sge::config::media_path() / FCPPT_TEXT("sounds") /  FCPPT_TEXT("siren.ogg")
-				)
-			)
-		);
-
-		pool.add(
-			sound_01,
-			sge::audio::pool::stop_mode::play_once
-		);
-
-		pool.add(
-			sound_02,
-			sge::audio::pool::stop_mode::play_once
-		);
-
-		sound_01->play(
-			sge::audio::sound::repeat::once
-		);
-
-		sound_02->play(
-			sge::audio::sound::repeat::once
-		);
+		sound->update();
 	}
-
-	while (!pool.sounds_finished())
-		pool.update();
 }
 catch(sge::exception const &e)
 {
 	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
+	std::cerr << e.what() << '\n';
+
 	return EXIT_FAILURE;
 }

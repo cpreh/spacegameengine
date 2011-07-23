@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/symbol.hpp>
-#include <sge/camera/activation_state.hpp>
 #include <sge/camera/gizmo_type.hpp>
+#include <sge/camera/movement_speed.hpp>
+#include <sge/camera/rotation_speed.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
@@ -44,13 +45,22 @@ public:
 	SGE_CAMERA_SYMBOL
 	explicit
 	parameters(
-		projection::object const &,
-		renderer::scalar movement_speed,
-		renderer::scalar rotation_speed,
-		gizmo_type const &g,
-		sge::input::keyboard::device &,
-		sge::input::mouse::device &,
-		activation_state::type);
+		camera::movement_speed const &,
+		camera::rotation_speed const &,
+		input::keyboard::device &,
+		input::mouse::device &);
+
+	SGE_CAMERA_SYMBOL camera::parameters &
+	projection(
+		projection::object const &);
+
+	SGE_CAMERA_SYMBOL camera::parameters &
+	gizmo(
+		camera::gizmo_type const &);
+
+	SGE_CAMERA_SYMBOL void
+	active(
+		bool);
 
 	SGE_CAMERA_SYMBOL
 	projection::object const &
@@ -65,27 +75,27 @@ public:
 	rotation_speed() const;
 
 	SGE_CAMERA_SYMBOL
-	gizmo_type const &
+	camera::gizmo_type const &
 	gizmo() const;
 
 	SGE_CAMERA_SYMBOL
-	sge::input::keyboard::device &
+	input::keyboard::device &
 	keyboard() const;
 
 	SGE_CAMERA_SYMBOL
-	sge::input::mouse::device &
+	input::mouse::device &
 	mouse() const;
 
-	activation_state::type
-	activation() const;
+	bool
+	active() const;
 private:
-	projection::object projection_;
+	camera::projection::object projection_;
 	renderer::scalar movement_speed_;
 	renderer::scalar rotation_speed_;
-	gizmo_type gizmo_;
-	sge::input::keyboard::device &keyboard_;
-	sge::input::mouse::device &mouse_;
-	activation_state::type activation_;
+	camera::gizmo_type gizmo_;
+	input::keyboard::device &keyboard_;
+	input::mouse::device &mouse_;
+	bool active_;
 };
 }
 }

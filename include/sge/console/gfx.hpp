@@ -36,10 +36,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
-#include <sge/time/timer.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/default_clock.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/external_system_decl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <list>
 
@@ -99,6 +101,10 @@ private:
 	std::list<font::text::string>
 	input_history_sequence;
 
+	typedef
+	timer::basic<fcppt::chrono::milliseconds>
+	cursor_blink_timer;
+
 	sge::console::object &object_;
 
 	font::metrics &font_metrics_;
@@ -119,7 +125,7 @@ private:
 	bool active_;
 
 	cursor input_line_;
-	time::timer cursor_blink_;
+	timer::basic<fcppt::chrono::milliseconds> cursor_blink_;
 	bool cursor_active_;
 	input_history_sequence input_history_;
 	input_history_sequence::iterator current_input_;

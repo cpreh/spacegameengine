@@ -2,6 +2,7 @@ SET(
 	SGE_CAMERA_FILES
 	include/sge/camera/activation_state.hpp
 	include/sge/camera/camera.hpp
+	include/sge/camera/duration.hpp
 	include/sge/camera/gizmo/basic.hpp
 	include/sge/camera/gizmo/gizmo.hpp
 	include/sge/camera/gizmo/to_rotation_matrix.hpp

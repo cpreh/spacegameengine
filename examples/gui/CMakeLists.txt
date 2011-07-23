@@ -7,4 +7,4 @@ INCLUDE_DIRECTORIES(
 	SYSTEM "${CEGUI_INCLUDE_DIRS}"
 )
 
-ADD_SGE_EXAMPLE(text_demo "cegui;systems;time;config" "${CEGUI_LIBRARIES}")
+ADD_SGE_EXAMPLE(text_demo "cegui;systems;config" "${CEGUI_LIBRARIES}")

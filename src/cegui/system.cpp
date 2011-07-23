@@ -27,10 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/duration.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 // YES, OF COURSE I HAVE TO INCLUDE THAT!
@@ -155,12 +153,10 @@ sge::cegui::system::system(
 
 void
 sge::cegui::system::update(
-	sge::time::duration const &d)
+	cegui::duration const &d)
 {
 	CEGUI::System::getSingleton().injectTimePulse(
-		static_cast<unit>(
-			fcppt::chrono::duration_cast<fcppt::chrono::milliseconds>(
-				d).count())/static_cast<unit>(1000));
+		d.count());
 }
 
 void

@@ -1,16 +1,5 @@
 SET(
 	SGE_SPRITE_FILES
-	include/sge/sprite/animation/animation.hpp
-	include/sge/sprite/animation/base.hpp
-	include/sge/sprite/animation/entity.hpp
-	include/sge/sprite/animation/entity_fwd.hpp
-	include/sge/sprite/animation/entity_vector.hpp
-	include/sge/sprite/animation/loop_method.hpp
-	include/sge/sprite/animation/series.hpp
-	include/sge/sprite/animation/series_fwd.hpp
-	include/sge/sprite/animation/texture_decl.hpp
-	include/sge/sprite/animation/texture_fwd.hpp
-	include/sge/sprite/animation/texture_impl.hpp
 	include/sge/sprite/bounding_rect.hpp
 	include/sge/sprite/center.hpp
 	include/sge/sprite/choices.hpp
@@ -176,9 +165,6 @@ SET(
 	include/sge/sprite/with_texture_coordinates.hpp
 	include/sge/sprite/with_unspecified_dim.hpp
 	include/sge/sprite/with_visibility.hpp
-	src/sprite/animation/base.cpp
-	src/sprite/animation/entity.cpp
-	src/sprite/animation/series.cpp
 	src/sprite/detail/normal_render_states.cpp
 	src/sprite/projection_matrix.cpp
 	src/sprite/set_matrices.cpp
