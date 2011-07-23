@@ -18,35 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../clip_plane.hpp"
-
-sge::d3d9::state::clip_plane::clip_plane()
-:
-	dword_(0u)
-{
-}
-
-sge::d3d9::state::clip_plane::~clip_plane()
-{
-}
+#include "../float.hpp"
+#include "../clear.hpp"
+#include "../parameters.hpp"
+#include "../set_render_state_float.hpp"
+#include "../convert/float.hpp"
+#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/var.hpp>
 
 void
-sge::d3d9::state::clip_plane::set(
-	renderer::clip_plane_index const _index,
-	bool const _value
+sge::d3d9::state::float_(
+	state::parameters const &_parameters,
+	sge::renderer::state::float_::type const &_state
 )
 {
-	// TODO: create a function for this in fcppt
 	if(
-		_value
+		_state.state()
+		== sge::renderer::state::float_::available_states::depth_buffer_clear_val
 	)
-		dword_ |= (1u << _index);
-	else
-		dword_ &= ~(1u << _index);
-}
+	{
+		_parameters.clear().depth(
+			_state.value()
+		);
 
-DWORD
-sge::d3d9::state::clip_plane::dword() const
-{
-	return dword_;
+		return;
+	}
+
+	d3d9::state::set_render_state_float(
+		_parameters.device(),
+		state::convert::float_(
+			_state.state()
+		),
+		_state.value()
+	);
 }

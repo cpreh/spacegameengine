@@ -18,35 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../clip_plane.hpp"
-
-sge::d3d9::state::clip_plane::clip_plane()
-:
-	dword_(0u)
-{
-}
-
-sge::d3d9::state::clip_plane::~clip_plane()
-{
-}
+#include "../stencil_op.hpp"
+#include "../parameters.hpp"
+#include "../convert/stencil_op.hpp"
+#include "../convert/stencil_op_value.hpp"
+#include "../../devicefuncs/set_render_state.hpp"
+#include <sge/renderer/state/stencil_op.hpp>
+#include <sge/renderer/state/var.hpp>
 
 void
-sge::d3d9::state::clip_plane::set(
-	renderer::clip_plane_index const _index,
-	bool const _value
+sge::d3d9::state::stencil_op(
+	state::parameters const &_parameters,
+	sge::renderer::state::stencil_op::type const &_state
 )
 {
-	// TODO: create a function for this in fcppt
-	if(
-		_value
-	)
-		dword_ |= (1u << _index);
-	else
-		dword_ &= ~(1u << _index);
-}
-
-DWORD
-sge::d3d9::state::clip_plane::dword() const
-{
-	return dword_;
+	d3d9::devicefuncs::set_render_state(
+		_parameters.device(),
+		state::convert::stencil_op(
+			_state.state()
+		),
+		state::convert::stencil_op_value(
+			_state.value()
+		)
+	);
 }
