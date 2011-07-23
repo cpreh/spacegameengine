@@ -72,7 +72,7 @@ public:
 		renderer::index_buffer const &,
 		renderer::first_vertex,
 		renderer::vertex_count,
-		renderer::indexed_primitive_type::type ptype,
+		renderer::indexed_primitive_type::type,
 		renderer::primitive_count,
 		renderer::first_index
 	);
@@ -81,7 +81,7 @@ public:
 	render_nonindexed(
 		renderer::first_vertex,
 		renderer::vertex_count,
-		renderer::nonindexed_primitive_type::type ptype
+		renderer::nonindexed_primitive_type::type
 	);
 
 	void
@@ -280,11 +280,6 @@ private:
 
 	void
 	release();
-
-	void
-	set_index_buffer(
-		renderer::index_buffer const &
-	);
 
 	D3DPRESENT_PARAMETERS present_parameters_;
 

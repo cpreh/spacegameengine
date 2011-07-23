@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_DEVICEFUNCS_SET_STREAM_SOURCE_HPP_INCLUDED
-#define SGE_D3D9_DEVICEFUNCS_SET_STREAM_SOURCE_HPP_INCLUDED
+#ifndef SGE_D3D9_DEVICEFUNCS_BEGIN_SCENE_HPP_INCLUDED
+#define SGE_D3D9_DEVICEFUNCS_BEGIN_SCENE_HPP_INCLUDED
 
 #include "../d3dinclude.hpp"
-#include <sge/renderer/vertex_buffer_fwd.hpp>
 
 namespace sge
 {
@@ -32,9 +31,8 @@ namespace devicefuncs
 {
 
 void
-set_stream_source(
-	IDirect3DDevice9 *,
-	renderer::vertex_buffer const &
+begin_scene(
+	IDirect3DDevice9 *
 );
 
 }

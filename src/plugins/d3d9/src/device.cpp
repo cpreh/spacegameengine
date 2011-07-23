@@ -29,21 +29,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../onscreen_target.hpp"
 #include "../vertex_buffer.hpp"
 #include "../vertex_declaration.hpp"
-#include "../convert/indexed_primitive.hpp"
-#include "../convert/nonindexed_primitive.hpp"
+#include "../devicefuncs/begin_scene.hpp"
 #include "../devicefuncs/clear.hpp"
 #include "../devicefuncs/create_depth_stencil_surface.hpp"
+#include "../devicefuncs/draw_indexed_primitive.hpp"
+#include "../devicefuncs/draw_primitive.hpp"
+#include "../devicefuncs/end_scene.hpp"
 #include "../devicefuncs/light_enable.hpp"
+#include "../devicefuncs/present.hpp"
 #include "../devicefuncs/reset.hpp"
 #include "../devicefuncs/sampler_stage_arg.hpp"
 #include "../devicefuncs/sampler_stage_op.hpp"
 #include "../devicefuncs/set_clip_plane.hpp"
+#include "../devicefuncs/set_index_buffer.hpp"
 #include "../devicefuncs/set_light.hpp"
 #include "../devicefuncs/set_material.hpp"
 #include "../devicefuncs/set_render_state.hpp"
 #include "../devicefuncs/set_stream_source.hpp"
 #include "../devicefuncs/set_texture.hpp"
 #include "../devicefuncs/set_transform.hpp"
+#include "../devicefuncs/set_vertex_declaration.hpp"
 #include "../parameters/create.hpp"
 #include "../state/apply.hpp"
 #include "../state/device.hpp"
@@ -53,7 +58,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/planar.hpp"
 #include "../texture/volume.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/nonindexed_primitive_count.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/state/default.hpp>
@@ -136,45 +140,24 @@ sge::d3d9::device::begin_rendering()
 		)
 	);
 
-	if(
-		device_->BeginScene()
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("BeginScene() failed!")
-		);
+	devicefuncs::begin_scene(
+		device_.get()
+	);
 }
 
 void
 sge::d3d9::device::end_rendering()
 {
-	if(
-		device_->EndScene()
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("EndScene() failed!")
-		);
+	devicefuncs::end_scene(
+		device_.get()
+	);
 
-	switch(
-		device_->Present(
-			0,
-			0,
-			0,
-			0
+	if(
+		!devicefuncs::present(
+			device_.get()
 		)
 	)
-	{
-	case D3D_OK:
-		break;
-	case D3DERR_DEVICELOST:
 		this->reset();
-		break;
-	default:
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Present() failed!")
-		);
-	}
 }
 
 void
@@ -199,42 +182,20 @@ sge::d3d9::device::render_indexed(
 	renderer::first_index const _first_index
 )
 {
-	this->set_index_buffer(
+	devicefuncs::set_index_buffer(
+		device_.get(),
 		_index_buffer
 	);
 
-	if(
-		device_->DrawIndexedPrimitive(
-			convert::indexed_primitive(
-				_primitive_type
-			),
-			0,
-			static_cast<
-				UINT
-			>(
-				_first_vertex.get()
-			),
-			static_cast<
-				UINT
-			>(
-				_num_vertices.get()
-			),
-			static_cast<
-				UINT
-			>(
-				_first_index.get()
-			),
-			static_cast<
-				UINT
-			>(
-				_primitive_count.get()
-			)
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("DrawIndexedPrimitive() failed!")
-		);
+	devicefuncs::draw_indexed_primitive(
+		device_.get(),
+		_first_vertex,
+		_num_vertices,
+		_primitive_type,
+		_primitive_count,
+		_first_index
+	);
+
 }
 
 void
@@ -244,30 +205,12 @@ sge::d3d9::device::render_nonindexed(
 	renderer::nonindexed_primitive_type::type const _primitive_type
 )
 {
-	if(
-		device_->DrawPrimitive(
-			convert::nonindexed_primitive(
-				_primitive_type
-			),
-			static_cast<
-				UINT
-			>(
-				_first_vertex.get()
-			),
-			static_cast<
-				UINT
-			>(
-				sge::renderer::nonindexed_primitive_count(
-					_num_vertices,
-					_primitive_type
-				)
-			)
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("DrawPrimitive() failed!")
-		);
+	devicefuncs::draw_primitive(
+		device_.get(),
+		_first_vertex,
+		_num_vertices,
+		_primitive_type
+	);
 }
 
 void
@@ -277,13 +220,7 @@ sge::d3d9::device::activate_vertex_buffer(
 {
 	d3d9::devicefuncs::set_stream_source(
 		device_.get(),
-		_buffer.format_part_index(),
-		dynamic_cast<
-			d3d9::vertex_buffer const &
-		>(
-			_buffer
-		).get(),
-		_buffer.format_part().stride()
+		_buffer
 	);
 }
 
@@ -304,19 +241,10 @@ sge::d3d9::device::vertex_declaration(
 	)
 		return;
 
-	if(
-		device_->SetVertexDeclaration(
-			dynamic_cast<
-				d3d9::vertex_declaration const &
-			>(
-				*_declaration
-			).get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("SetVertexDeclaration() failed!")
-		);
+	devicefuncs::set_vertex_declaration(
+		device_.get(),
+		*_declaration
+	);
 }
 
 void
@@ -775,30 +703,6 @@ void
 sge::d3d9::device::release()
 {
 	resources_.release();
-}
-
-void
-sge::d3d9::device::set_index_buffer(
-	sge::renderer::index_buffer const &_buffer
-)
-{
-	d3d9::index_buffer const &d3d_buffer(
-		dynamic_cast<
-			d3d9::index_buffer const &
-		>(
-			_buffer
-		)
-	);
-
-	if(
-		device_->SetIndices(
-			d3d_buffer.get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("set_index_buffer() failed")
-		);
 }
 
 void
