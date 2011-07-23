@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_CREATE_OFFSCREEN_PLAIN_SURFACE_HPP_INCLUDED
 
 #include "../d3dinclude.hpp"
-#include "../d3d_surface_unique_ptr.hpp"
+#include "../surface/d3d_unique_ptr.hpp"
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/dim2.hpp>
 
@@ -33,7 +33,7 @@ namespace d3d9
 namespace devicefuncs
 {
 
-d3d9::d3d_surface_unique_ptr
+d3d9::surface::d3d_unique_ptr
 create_offscreen_plain_surface(
 	IDirect3DDevice9 *,
 	sge::renderer::dim2 const &,

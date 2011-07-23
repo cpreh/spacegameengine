@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
-sge::d3d9::d3d_surface_unique_ptr
+sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::devicefuncs::create_offscreen_plain_surface(
 	IDirect3DDevice9 *const _device,
 	sge::renderer::dim2 const &_dim,
@@ -61,7 +61,7 @@ sge::d3d9::devicefuncs::create_offscreen_plain_surface(
 		);
 
 	return
-		d3d9::d3d_surface_unique_ptr(
+		d3d9::surface::d3d_unique_ptr(
 			ret
 		);
 }

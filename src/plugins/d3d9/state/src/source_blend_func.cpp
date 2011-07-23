@@ -18,49 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
-#define SGE_D3D9_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
+#include "../source_blend_func.hpp"
+#include "../parameters.hpp"
+#include "../convert/source_blend_func.hpp"
+#include "../../d3dinclude.hpp"
+#include "../../devicefuncs/set_render_state.hpp"
 
-#include "depth_stencil_surface_fwd.hpp"
-#include "d3dinclude.hpp"
-#include "d3d_surface_unique_ptr.hpp"
-#include "d3d_surface_scoped_ptr.hpp"
-#include <sge/renderer/depth_stencil_surface.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+void
+sge::d3d9::state::source_blend_func(
+	state::parameters const &_parameters,
+	sge::renderer::state::source_blend_func::type const &_state
+)
 {
-namespace d3d9
-{
-
-class depth_stencil_surface
-:
-	public sge::renderer::depth_stencil_surface
-{
-	FCPPT_NONCOPYABLE(
-		depth_stencil_surface
+	d3d9::devicefuncs::set_render_state(
+		_parameters.device(),
+		D3DRS_SRCBLEND,
+		state::convert::source_blend_func(
+			_state
+		)
 	);
-public:
-	depth_stencil_surface(
-		d3d9::d3d_surface_unique_ptr
-	);
-
-	~depth_stencil_surface();
-
-	dim const
-	size() const;
-
-	renderer::depth_stencil_format::type
-	format() const;
-
-	IDirect3DSurface9 *
-	surface() const;
-private:
-	d3d9::d3d_surface_scoped_ptr const surface_;
-};
-
 }
-}
-
-#endif

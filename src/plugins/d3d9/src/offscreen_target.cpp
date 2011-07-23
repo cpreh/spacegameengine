@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../offscreen_target.hpp"
 #include "../basic_target_impl.hpp"
-#include "../color_surface.hpp"
-#include "../color_surface_ptr.hpp"
-#include "../depth_stencil_surface.hpp"
 #include "../devicefuncs/set_depth_stencil_surface.hpp"
 #include "../devicefuncs/set_render_target.hpp"
+#include "../surface/color_ptr.hpp"
+#include "../surface/color.hpp"
+#include "../surface/depth_stencil.hpp"
 #include <sge/renderer/surface_index.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -58,7 +58,7 @@ sge::d3d9::offscreen_target::color_surface(
 		_index.get()
 	] =
 		fcppt::dynamic_pointer_cast<
-			d3d9::color_surface
+			d3d9::surface::color
 		>(
 			_surface
 		);
@@ -71,7 +71,7 @@ sge::d3d9::offscreen_target::depth_stencil_surface(
 {
 	depth_stencil_surface_ =
 		fcppt::dynamic_pointer_cast<
-			d3d9::depth_stencil_surface
+			d3d9::surface::depth_stencil
 		>(
 			_surface
 		);
@@ -112,7 +112,7 @@ sge::d3d9::offscreen_target::change_surfaces(
 		++index
 	)
 	{
-		d3d9::color_surface_ptr const surface(
+		d3d9::surface::color_ptr const surface(
 			color_surfaces_[
 				index
 			]

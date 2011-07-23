@@ -18,24 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_D3D_SURFACE_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_D3D9_D3D_SURFACE_UNIQUE_PTR_HPP_INCLUDED
+#include "../end_scene.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "d3dinclude.hpp"
-#include <fcppt/com_deleter.hpp>
-#include <fcppt/unique_ptr.hpp>
-
-namespace sge
+void
+sge::d3d9::devicefuncs::end_scene(
+	IDirect3DDevice9 *const _device
+)
 {
-namespace d3d9
-{
-
-typedef fcppt::unique_ptr<
-	IDirect3DSurface9,
-	fcppt::com_deleter
-> d3d_surface_unique_ptr;
-
+	if(
+		_device->EndScene()
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("EndScene() failed!")
+		);
 }
-}
-
-#endif

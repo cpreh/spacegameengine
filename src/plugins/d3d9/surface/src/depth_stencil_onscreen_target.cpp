@@ -18,17 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_DEPTH_STENCIL_SURFACE_FWD_HPP_INCLUDED
-#define SGE_D3D9_DEPTH_STENCIL_SURFACE_FWD_HPP_INCLUDED
+#include "../depth_stencil_onscreen_target.hpp"
+#include "../../devicefuncs/get_depth_stencil_surface.hpp"
 
-namespace sge
+sge::d3d9::surface::depth_stencil_onscreen_target::depth_stencil_onscreen_target(
+	IDirect3DDevice9 *const _device
+)
+:
+	device_(_device)
 {
-namespace d3d9
-{
-
-class depth_stencil_surface;
-
-}
 }
 
-#endif
+sge::d3d9::surface::depth_stencil_onscreen_target::~depth_stencil_onscreen_target()
+{
+}
+
+sge::d3d9::surface::d3d_unique_ptr
+sge::d3d9::surface::depth_stencil_onscreen_target::create() const
+{
+	return
+		d3d9::devicefuncs::get_depth_stencil_surface(
+			device_
+		);
+}

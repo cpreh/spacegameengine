@@ -18,22 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_COLOR_SURFACE_PTR_HPP_INCLUDED
-#define SGE_D3D9_COLOR_SURFACE_PTR_HPP_INCLUDED
+#include "../dest_blend_func.hpp"
+#include "../parameters.hpp"
+#include "../convert/dest_blend_func.hpp"
+#include "../../d3dinclude.hpp"
+#include "../../devicefuncs/set_render_state.hpp"
+#include <sge/renderer/state/dest_blend_func.hpp>
 
-#include "color_surface_fwd.hpp"
-#include <fcppt/shared_ptr.hpp>
-
-namespace sge
+void
+sge::d3d9::state::dest_blend_func(
+	state::parameters const &_parameters,
+	sge::renderer::state::dest_blend_func::type const &_state
+)
 {
-namespace d3d9
-{
-
-typedef fcppt::shared_ptr<
-	d3d9::color_surface
-> color_surface_ptr;
-
+	d3d9::devicefuncs::set_render_state(
+		_parameters.device(),
+		D3DRS_DESTBLEND,
+		state::convert::dest_blend_func(
+			_state
+		)
+	);
 }
-}
-
-#endif

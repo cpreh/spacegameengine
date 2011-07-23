@@ -20,12 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../onscreen_target.hpp"
 #include "../basic_target_impl.hpp"
-#include "../color_surface.hpp"
-#include "../depth_stencil_surface.hpp"
-#include "../devicefuncs/get_depth_stencil_surface.hpp"
-#include "../devicefuncs/get_render_target.hpp"
+#include "../needs_reset.hpp"
+#include "../resource_manager.hpp"
 #include "../devicefuncs/set_depth_stencil_surface.hpp"
 #include "../devicefuncs/set_render_target.hpp"
+#include "../surface/color.hpp"
+#include "../surface/color_onscreen_target.hpp"
+#include "../surface/depth_stencil.hpp"
+#include "../surface/depth_stencil_onscreen_target.hpp"
 #include <fcppt/make_unique_ptr.hpp>
 
 namespace
@@ -42,7 +44,8 @@ set_surfaces(
 
 sge::d3d9::onscreen_target::onscreen_target(
 	IDirect3DDevice9 *const _device,
-	sge::renderer::viewport const &_viewport
+	sge::renderer::viewport const &_viewport,
+	d3d9::resource_manager &_resources
 )
 :
 	base(
@@ -51,24 +54,36 @@ sge::d3d9::onscreen_target::onscreen_target(
 	),
 	color_surface_(
 		fcppt::make_unique_ptr<
-			d3d9::color_surface
+			d3d9::surface::color
 		>(
-			_device,
-			devicefuncs::get_render_target(
-				_device
+			this->device(),
+			fcppt::make_unique_ptr<
+				d3d9::surface::color_onscreen_target
+			>(
+				this->device()
 			)
 		)
 	),
 	depth_stencil_surface_(
 		fcppt::make_unique_ptr<
-			d3d9::depth_stencil_surface
+			d3d9::surface::depth_stencil
 		>(
-			devicefuncs::get_depth_stencil_surface(
-				_device
-			)
+			fcppt::make_unique_ptr<
+				d3d9::surface::depth_stencil_onscreen_target
+			>(
+				this->device()
+			),
+			d3d9::needs_reset::yes
 		)
 	)
 {
+	_resources.add(
+		*color_surface_
+	);
+
+	_resources.add(
+		*depth_stencil_surface_
+	);
 }
 
 sge::d3d9::onscreen_target::~onscreen_target()

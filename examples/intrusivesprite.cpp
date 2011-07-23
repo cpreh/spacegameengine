@@ -259,22 +259,22 @@ try
 		)
 	);
 
-	sys.renderer().state(
-		sge::renderer::state::list
-		(
-			sge::renderer::state::bool_::clear_back_buffer = true
-		)
-		(
-			sge::renderer::state::color::back_buffer_clear_color =
-				sge::image::colors::black()
-		)
-	);
-
 	while(
 		running
 	)
 	{
 		sys.window().dispatch();
+
+		sys.renderer().state(
+			sge::renderer::state::list
+			(
+				sge::renderer::state::bool_::clear_back_buffer = true
+			)
+			(
+				sge::renderer::state::color::back_buffer_clear_color =
+					sge::image::colors::red()
+			)
+		);
 
 		sge::renderer::scoped_block const block(
 			sys.renderer()

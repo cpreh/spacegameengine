@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../get_render_target.hpp"
 #include "../../d3dinclude.hpp"
-#include "../../d3d_surface_unique_ptr.hpp"
+#include "../../surface/d3d_unique_ptr.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::d3d9::d3d_surface_unique_ptr
+sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::devicefuncs::get_render_target(
 	IDirect3DDevice9 *const _device
 )
@@ -43,7 +43,7 @@ sge::d3d9::devicefuncs::get_render_target(
 		);
 
 	return
-		d3d9::d3d_surface_unique_ptr(
+		d3d9::surface::d3d_unique_ptr(
 			ret
 		);
 }

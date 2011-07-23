@@ -18,69 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_COLOR_SURFACE_HPP_INCLUDED
-#define SGE_D3D9_COLOR_SURFACE_HPP_INCLUDED
+#ifndef SGE_D3D9_SURFACE_COLOR_HOLDER_HPP_INCLUDED
+#define SGE_D3D9_SURFACE_COLOR_HOLDER_HPP_INCLUDED
 
-#include "color_surface_fwd.hpp"
-#include "d3dinclude.hpp"
-#include "d3d_surface_scoped_ptr.hpp"
-#include "d3d_surface_unique_ptr.hpp"
+#include "color_holder_fwd.hpp"
+#include "d3d_unique_ptr.hpp"
+#include "d3d_scoped_ptr.hpp"
+#include "../d3dinclude.hpp"
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/color_surface.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
-#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace surface
+{
 
-class color_surface
-:
-	public sge::renderer::color_surface
+class color_holder
 {
 	FCPPT_NONCOPYABLE(
-		color_surface
+		color_holder
 	);
 public:
-	color_surface(
-		IDirect3DDevice9 *,
-		d3d9::d3d_surface_unique_ptr
+	explicit color_holder(
+		surface::d3d_unique_ptr
 	);
 
-	~color_surface();
+	~color_holder();
 
-	const_view const
-	lock(
-		rect const &
-	) const;
+	IDirect3DSurface9 *
+	get() const;
 
-	void
-	unlock() const;
-
-	dim const
+	sge::renderer::dim2 const &
 	size() const;
 
-	IDirect3DSurface9 *
-	surface() const;
+	sge::image::color::format::type
+	format() const;
+
+	bool
+	is_render_target() const;
 private:
-	IDirect3DSurface9 *
-	lock_surface() const;
+	surface::d3d_scoped_ptr const surface_;
 
-	IDirect3DDevice9 *const device_;
-
-	d3d9::d3d_surface_scoped_ptr const surface_;
-
-	mutable d3d9::d3d_surface_scoped_ptr temp_surface_;
-
-	dim const size_;
+	sge::renderer::dim2 const size_;
 
 	sge::image::color::format::type const format_;
 
 	bool const is_render_target_;
 };
 
+}
 }
 }
 

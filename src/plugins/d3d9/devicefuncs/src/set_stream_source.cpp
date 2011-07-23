@@ -19,26 +19,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set_stream_source.hpp"
+#include "../../vertex_buffer.hpp"
+#include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
 #include <fcppt/text.hpp>
 
 void
 sge::d3d9::devicefuncs::set_stream_source(
 	IDirect3DDevice9 *const _device,
-	renderer::vf::dynamic::part_index const _part,	
-	IDirect3DVertexBuffer9 *const _buffer,
-	renderer::vf::vertex_size const _stride
+	renderer::vertex_buffer const &_vertex_buffer
 )
 {
 	if(
 		_device->SetStreamSource(
-			_part.get(),
-			_buffer,
+			_vertex_buffer.format_part_index().get(),
+			dynamic_cast<
+				d3d9::vertex_buffer const &
+			>(
+				_vertex_buffer
+			).get(),
 			0u, // offset
 			static_cast<
 				UINT
 			>(
-				_stride
+				_vertex_buffer.format_part().stride()
 			)
 		)
 		!= D3D_OK

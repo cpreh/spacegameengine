@@ -18,16 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_COLOR_SURFACE_FWD_HPP_INCLUDED
-#define SGE_D3D9_COLOR_SURFACE_FWD_HPP_INCLUDED
+#ifndef SGE_D3D9_SURFACE_COLOR_FWD_HPP_INCLUDED
+#define SGE_D3D9_SURFACE_COLOR_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace d3d9
 {
+namespace surface
+{
 
-class color_surface;
+class color;
 
+}
 }
 }
 

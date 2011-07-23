@@ -18,21 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_DEPTH_STENCIL_SURFACE_PTR_HPP_INCLUDED
-#define SGE_D3D9_DEPTH_STENCIL_SURFACE_PTR_HPP_INCLUDED
+#ifndef SGE_D3D9_STATE_SOURCE_BLEND_FUNC_HPP_INCLUDED
+#define SGE_D3D9_STATE_SOURCE_BLEND_FUNC_HPP_INCLUDED
 
-#include "depth_stencil_surface_fwd.hpp"
-#include <fcppt/shared_ptr.hpp>
+#include "parameters_fwd.hpp"
+#include <sge/renderer/state/source_blend_func.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace state
+{
 
-typedef fcppt::shared_ptr<
-	d3d9::depth_stencil_surface
-> depth_stencil_surface_ptr;
+void
+source_blend_func(
+	state::parameters const &,
+	sge::renderer::state::source_blend_func::type const &
+);
 
+}
 }
 }
 

@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "offscreen_target_fwd.hpp"
 #include "basic_target.hpp"
-#include "color_surface_ptr.hpp"
 #include "d3dinclude.hpp"
-#include "depth_stencil_surface_ptr.hpp"
+#include "surface/color_ptr.hpp"
+#include "surface/depth_stencil_ptr.hpp"
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/optional_dim2.hpp>
@@ -85,12 +85,12 @@ private:
 	);
 
 	typedef fcppt::container::index_map<
-		d3d9::color_surface_ptr
+		d3d9::surface::color_ptr
 	> color_surface_map;
 
 	color_surface_map color_surfaces_;
 
-	d3d9::depth_stencil_surface_ptr depth_stencil_surface_;
+	d3d9::surface::depth_stencil_ptr depth_stencil_surface_;
 };
 
 }

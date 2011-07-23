@@ -2,9 +2,6 @@ SET(
 	SGE_D3D9_FILES
 	src/plugins/d3d9/basic_target.hpp
 	src/plugins/d3d9/basic_target_impl.hpp
-	src/plugins/d3d9/color_surface.hpp
-	src/plugins/d3d9/color_surface_fwd.hpp
-	src/plugins/d3d9/color_surface_ptr.hpp
 	src/plugins/d3d9/convert/bool.hpp
 	src/plugins/d3d9/convert/clear_flag.hpp
 	src/plugins/d3d9/convert/color_format.hpp
@@ -87,24 +84,26 @@ SET(
 	src/plugins/d3d9/create_caps.hpp
 	src/plugins/d3d9/create_device.hpp
 	src/plugins/d3d9/d3d_device_unique_ptr.hpp
-	src/plugins/d3d9/d3d_surface_scoped_ptr.hpp
-	src/plugins/d3d9/d3d_surface_unique_ptr.hpp
 	src/plugins/d3d9/d3dinclude.hpp
-	src/plugins/d3d9/depth_stencil_surface.hpp
-	src/plugins/d3d9/depth_stencil_surface_fwd.hpp
-	src/plugins/d3d9/depth_stencil_surface_ptr.hpp
 	src/plugins/d3d9/device.hpp
+	src/plugins/d3d9/devicefuncs/begin_scene.hpp
 	src/plugins/d3d9/devicefuncs/clear.hpp
 	src/plugins/d3d9/devicefuncs/create_depth_stencil_surface.hpp
 	src/plugins/d3d9/devicefuncs/create_offscreen_plain_surface.hpp
+	src/plugins/d3d9/devicefuncs/draw_indexed_primitive.hpp
+	src/plugins/d3d9/devicefuncs/draw_primitive.hpp
+	src/plugins/d3d9/devicefuncs/end_scene.hpp
 	src/plugins/d3d9/devicefuncs/get_depth_stencil_surface.hpp
 	src/plugins/d3d9/devicefuncs/get_render_target.hpp
 	src/plugins/d3d9/devicefuncs/get_render_target_data.hpp
 	src/plugins/d3d9/devicefuncs/light_enable.hpp
+	src/plugins/d3d9/devicefuncs/present.hpp
+	src/plugins/d3d9/devicefuncs/reset.hpp
 	src/plugins/d3d9/devicefuncs/sampler_stage_arg.hpp
 	src/plugins/d3d9/devicefuncs/sampler_stage_op.hpp
 	src/plugins/d3d9/devicefuncs/set_clip_plane.hpp
 	src/plugins/d3d9/devicefuncs/set_depth_stencil_surface.hpp
+	src/plugins/d3d9/devicefuncs/set_index_buffer.hpp
 	src/plugins/d3d9/devicefuncs/set_light.hpp
 	src/plugins/d3d9/devicefuncs/set_material.hpp
 	src/plugins/d3d9/devicefuncs/set_render_state.hpp
@@ -114,18 +113,26 @@ SET(
 	src/plugins/d3d9/devicefuncs/set_texture.hpp
 	src/plugins/d3d9/devicefuncs/set_texture_stage_state.hpp
 	src/plugins/d3d9/devicefuncs/set_transform.hpp
+	src/plugins/d3d9/devicefuncs/set_vertex_declaration.hpp
 	src/plugins/d3d9/devicefuncs/set_viewport.hpp
+	src/plugins/d3d9/devicefuncs/src/begin_rendering.cpp
 	src/plugins/d3d9/devicefuncs/src/clear.cpp
 	src/plugins/d3d9/devicefuncs/src/create_depth_stencil_surface.cpp
 	src/plugins/d3d9/devicefuncs/src/create_offscreen_plain_surface.cpp
+	src/plugins/d3d9/devicefuncs/src/draw_indexed_primitive.cpp
+	src/plugins/d3d9/devicefuncs/src/draw_primitive.cpp
+	src/plugins/d3d9/devicefuncs/src/end_scene.cpp
 	src/plugins/d3d9/devicefuncs/src/get_depth_stencil_surface.cpp
 	src/plugins/d3d9/devicefuncs/src/get_render_target.cpp
 	src/plugins/d3d9/devicefuncs/src/get_render_target_data.cpp
 	src/plugins/d3d9/devicefuncs/src/light_enable.cpp
+	src/plugins/d3d9/devicefuncs/src/present.cpp
+	src/plugins/d3d9/devicefuncs/src/reset.cpp
 	src/plugins/d3d9/devicefuncs/src/sampler_stage_arg.cpp
 	src/plugins/d3d9/devicefuncs/src/sampler_stage_op.cpp
 	src/plugins/d3d9/devicefuncs/src/set_clip_plane.cpp
 	src/plugins/d3d9/devicefuncs/src/set_depth_stencil_surface.cpp
+	src/plugins/d3d9/devicefuncs/src/set_index_buffer.cpp
 	src/plugins/d3d9/devicefuncs/src/set_light.cpp
 	src/plugins/d3d9/devicefuncs/src/set_material.cpp
 	src/plugins/d3d9/devicefuncs/src/set_render_state.cpp
@@ -135,12 +142,15 @@ SET(
 	src/plugins/d3d9/devicefuncs/src/set_texture.cpp
 	src/plugins/d3d9/devicefuncs/src/set_texture_stage_state.cpp
 	src/plugins/d3d9/devicefuncs/src/set_transform.cpp
+	src/plugins/d3d9/devicefuncs/src/set_vertex_declaration.cpp
 	src/plugins/d3d9/devicefuncs/src/set_viewport.cpp
 	src/plugins/d3d9/index_buffer.hpp
 	src/plugins/d3d9/lock_flags.hpp
 	src/plugins/d3d9/make_pitch.hpp
 	src/plugins/d3d9/make_pitch_2d.hpp
 	src/plugins/d3d9/make_pitch_3d.hpp
+	src/plugins/d3d9/multi_sample_quality.hpp
+	src/plugins/d3d9/needs_reset.hpp
 	src/plugins/d3d9/offscreen_target.hpp
 	src/plugins/d3d9/offscreen_target_fwd.hpp
 	src/plugins/d3d9/offscreen_target_ptr.hpp
@@ -167,11 +177,12 @@ SET(
 	src/plugins/d3d9/parameters/src/tnl_caps.cpp
 	src/plugins/d3d9/parameters/tnl_caps.hpp
 	src/plugins/d3d9/resource.hpp
+	src/plugins/d3d9/resource_fwd.hpp
 	src/plugins/d3d9/resource_list.hpp
-	src/plugins/d3d9/src/color_surface.cpp
+	src/plugins/d3d9/resource_manager.hpp
+	src/plugins/d3d9/resource_manager_fwd.hpp
 	src/plugins/d3d9/src/create_caps.cpp
 	src/plugins/d3d9/src/create_device.cpp
-	src/plugins/d3d9/src/depth_stencil_surface.cpp
 	src/plugins/d3d9/src/device.cpp
 	src/plugins/d3d9/src/exports.cpp
 	src/plugins/d3d9/src/index_buffer.cpp
@@ -181,14 +192,18 @@ SET(
 	src/plugins/d3d9/src/offscreen_target.cpp
 	src/plugins/d3d9/src/onscreen_target.cpp
 	src/plugins/d3d9/src/resource.cpp
+	src/plugins/d3d9/src/resource_manager.cpp
 	src/plugins/d3d9/src/system.cpp
 	src/plugins/d3d9/src/target_base.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
+	src/plugins/d3d9/state/alpha_func.hpp
 	src/plugins/d3d9/state/apply.hpp
+	src/plugins/d3d9/state/bool.hpp
 	src/plugins/d3d9/state/clear.hpp
 	src/plugins/d3d9/state/clear_fwd.hpp
 	src/plugins/d3d9/state/clip_plane.hpp
+	src/plugins/d3d9/state/color.hpp
 	src/plugins/d3d9/state/convert/alpha_func.hpp
 	src/plugins/d3d9/state/convert/bool.hpp
 	src/plugins/d3d9/state/convert/color.hpp
@@ -221,6 +236,7 @@ SET(
 	src/plugins/d3d9/state/convert/stencil_op.hpp
 	src/plugins/d3d9/state/convert/stencil_op_value.hpp
 	src/plugins/d3d9/state/convert/uint.hpp
+	src/plugins/d3d9/state/cull_mode.hpp
 	src/plugins/d3d9/state/deferred/apply.hpp
 	src/plugins/d3d9/state/deferred/bundle.hpp
 	src/plugins/d3d9/state/deferred/color_write.hpp
@@ -229,15 +245,72 @@ SET(
 	src/plugins/d3d9/state/deferred/src/apply.cpp
 	src/plugins/d3d9/state/deferred/src/color_write.cpp
 	src/plugins/d3d9/state/deferred/src/object.cpp
+	src/plugins/d3d9/state/depth_func.hpp
+	src/plugins/d3d9/state/dest_blend_func.hpp
+	src/plugins/d3d9/state/device.hpp
+	src/plugins/d3d9/state/device_fwd.hpp
+	src/plugins/d3d9/state/draw_mode.hpp
+	src/plugins/d3d9/state/float.hpp
+	src/plugins/d3d9/state/fog_mode.hpp
+	src/plugins/d3d9/state/int.hpp
+	src/plugins/d3d9/state/parameters.hpp
+	src/plugins/d3d9/state/parameters_fwd.hpp
 	src/plugins/d3d9/state/set_render_state_bool.hpp
 	src/plugins/d3d9/state/set_render_state_float.hpp
+	src/plugins/d3d9/state/source_blend_func.hpp
+	src/plugins/d3d9/state/src/alpha_func.cpp
 	src/plugins/d3d9/state/src/apply.cpp
+	src/plugins/d3d9/state/src/bool.cpp
 	src/plugins/d3d9/state/src/clear.cpp
 	src/plugins/d3d9/state/src/clip_plane.cpp
+	src/plugins/d3d9/state/src/color.cpp
+	src/plugins/d3d9/state/src/cull_mode.cpp
+	src/plugins/d3d9/state/src/depth_func.cpp
+	src/plugins/d3d9/state/src/dest_blend_func.cpp
+	src/plugins/d3d9/state/src/device.cpp
+	src/plugins/d3d9/state/src/draw_mode.cpp
+	src/plugins/d3d9/state/src/float.cpp
+	src/plugins/d3d9/state/src/fog_mode.cpp
+	src/plugins/d3d9/state/src/int.cpp
+	src/plugins/d3d9/state/src/parameters.cpp
 	src/plugins/d3d9/state/src/set_render_state_bool.cpp
 	src/plugins/d3d9/state/src/set_render_state_float.cpp
+	src/plugins/d3d9/state/src/source_blend_func.cpp
+	src/plugins/d3d9/state/src/stencil_func.cpp
+	src/plugins/d3d9/state/src/stencil_op.cpp
+	src/plugins/d3d9/state/src/uint.cpp
 	src/plugins/d3d9/state/src/visitor.cpp
+	src/plugins/d3d9/state/stencil_func.hpp
+	src/plugins/d3d9/state/stencil_op.hpp
+	src/plugins/d3d9/state/uint.hpp
 	src/plugins/d3d9/state/visitor.hpp
+	src/plugins/d3d9/surface/color.hpp
+	src/plugins/d3d9/surface/color_create.hpp
+	src/plugins/d3d9/surface/color_create_fwd.hpp
+	src/plugins/d3d9/surface/color_create_unique_ptr.hpp
+	src/plugins/d3d9/surface/color_fwd.hpp
+	src/plugins/d3d9/surface/color_holder.hpp
+	src/plugins/d3d9/surface/color_holder_fwd.hpp
+	src/plugins/d3d9/surface/color_onscreen_target.hpp
+	src/plugins/d3d9/surface/color_ptr.hpp
+	src/plugins/d3d9/surface/d3d_scoped_ptr.hpp
+	src/plugins/d3d9/surface/d3d_unique_ptr.hpp
+	src/plugins/d3d9/surface/depth_stencil.hpp
+	src/plugins/d3d9/surface/depth_stencil_create.hpp
+	src/plugins/d3d9/surface/depth_stencil_create_fwd.hpp
+	src/plugins/d3d9/surface/depth_stencil_create_unique_ptr.hpp
+	src/plugins/d3d9/surface/depth_stencil_fwd.hpp
+	src/plugins/d3d9/surface/depth_stencil_native.hpp
+	src/plugins/d3d9/surface/depth_stencil_onscreen_target.hpp
+	src/plugins/d3d9/surface/depth_stencil_ptr.hpp
+	src/plugins/d3d9/surface/src/color.cpp
+	src/plugins/d3d9/surface/src/color_create.cpp
+	src/plugins/d3d9/surface/src/color_holder.cpp
+	src/plugins/d3d9/surface/src/color_onscreen_target.cpp
+	src/plugins/d3d9/surface/src/depth_stencil.cpp
+	src/plugins/d3d9/surface/src/depth_stencil_create.cpp
+	src/plugins/d3d9/surface/src/depth_stencil_native.cpp
+	src/plugins/d3d9/surface/src/depth_stencil_onscreen_target.cpp
 	src/plugins/d3d9/surfacefuncs/color_format.hpp
 	src/plugins/d3d9/surfacefuncs/depth_stencil_format.hpp
 	src/plugins/d3d9/surfacefuncs/dim.hpp

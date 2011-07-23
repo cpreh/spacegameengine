@@ -22,33 +22,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../create_caps.hpp"
 #include "../create_device.hpp"
 #include "../d3dinclude.hpp"
-#include "../depth_stencil_surface.hpp"
 #include "../index_buffer.hpp"
+#include "../multi_sample_quality.hpp"
+#include "../needs_reset.hpp"
 #include "../offscreen_target.hpp"
 #include "../onscreen_target.hpp"
 #include "../vertex_buffer.hpp"
 #include "../vertex_declaration.hpp"
-#include "../convert/indexed_primitive.hpp"
-#include "../convert/nonindexed_primitive.hpp"
+#include "../devicefuncs/begin_scene.hpp"
 #include "../devicefuncs/clear.hpp"
 #include "../devicefuncs/create_depth_stencil_surface.hpp"
+#include "../devicefuncs/draw_indexed_primitive.hpp"
+#include "../devicefuncs/draw_primitive.hpp"
+#include "../devicefuncs/end_scene.hpp"
 #include "../devicefuncs/light_enable.hpp"
+#include "../devicefuncs/present.hpp"
+#include "../devicefuncs/reset.hpp"
 #include "../devicefuncs/sampler_stage_arg.hpp"
 #include "../devicefuncs/sampler_stage_op.hpp"
 #include "../devicefuncs/set_clip_plane.hpp"
+#include "../devicefuncs/set_index_buffer.hpp"
 #include "../devicefuncs/set_light.hpp"
 #include "../devicefuncs/set_material.hpp"
 #include "../devicefuncs/set_render_state.hpp"
 #include "../devicefuncs/set_stream_source.hpp"
 #include "../devicefuncs/set_texture.hpp"
 #include "../devicefuncs/set_transform.hpp"
+#include "../devicefuncs/set_vertex_declaration.hpp"
 #include "../parameters/create.hpp"
 #include "../state/apply.hpp"
+#include "../state/device.hpp"
+#include "../surface/depth_stencil.hpp"
+#include "../surface/depth_stencil_native.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/planar.hpp"
 #include "../texture/volume.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/nonindexed_primitive_count.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/state/default.hpp>
@@ -61,10 +70,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/tr1/functional.hpp>
-#include <fcppt//make_shared_ptr.hpp>
-#include <fcppt//make_unique_ptr.hpp>
-#include <algorithm>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
 sge::d3d9::device::device(
 	IDirect3D9 *const _system,
@@ -108,25 +116,15 @@ sge::d3d9::device::device(
 						_window.size()
 					)
 				)
-			)	
+			),
+			fcppt::ref(
+				resources_
+			)
 		)
 	),
-	offscreen_target_(),
-	target_(
-		onscreen_target_.get()
-	),
-	clear_state_(),
-	clip_plane_state_(),
-	current_states_(),
-	state_stack_()
+	device_state_()
 {
-	this->state(
-		sge::renderer::state::default_()
-	);
-
-	onscreen_target_->active(
-		true
-	);
+	this->init();
 }
 
 sge::d3d9::device::~device()
@@ -138,49 +136,28 @@ sge::d3d9::device::begin_rendering()
 {
 	this->clear(
 		sge::renderer::state::to_clear_flags_field(
-			current_states_
+			device_state_->current()
 		)
 	);
 
-	if(
-		device_->BeginScene()
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("BeginScene() failed!")
-		);
+	devicefuncs::begin_scene(
+		device_.get()
+	);
 }
 
 void
 sge::d3d9::device::end_rendering()
 {
-	if(
-		device_->EndScene()
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("EndScene() failed!")
-		);
+	devicefuncs::end_scene(
+		device_.get()
+	);
 
-	switch(
-		device_->Present(
-			0,
-			0,
-			0,
-			0
+	if(
+		!devicefuncs::present(
+			device_.get()
 		)
 	)
-	{
-	case D3D_OK:
-		break;
-	case D3DERR_DEVICELOST:
 		this->reset();
-		break;
-	default:
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Present() failed!")
-		);
-	}
 }
 
 void
@@ -191,7 +168,7 @@ sge::d3d9::device::clear(
 	devicefuncs::clear(
 		device_.get(),
 		_flags,
-		clear_state_
+		device_state_->clear()
 	);
 }
 
@@ -205,42 +182,20 @@ sge::d3d9::device::render_indexed(
 	renderer::first_index const _first_index
 )
 {
-	this->set_index_buffer(
+	devicefuncs::set_index_buffer(
+		device_.get(),
 		_index_buffer
 	);
 
-	if(
-		device_->DrawIndexedPrimitive(
-			convert::indexed_primitive(
-				_primitive_type
-			),
-			0,
-			static_cast<
-				UINT
-			>(
-				_first_vertex.get()
-			),
-			static_cast<
-				UINT
-			>(
-				_num_vertices.get()
-			),
-			static_cast<
-				UINT
-			>(
-				_first_index.get()
-			),
-			static_cast<
-				UINT
-			>(
-				_primitive_count.get()
-			)
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("DrawIndexedPrimitive() failed!")
-		);
+	devicefuncs::draw_indexed_primitive(
+		device_.get(),
+		_first_vertex,
+		_num_vertices,
+		_primitive_type,
+		_primitive_count,
+		_first_index
+	);
+
 }
 
 void
@@ -250,30 +205,12 @@ sge::d3d9::device::render_nonindexed(
 	renderer::nonindexed_primitive_type::type const _primitive_type
 )
 {
-	if(
-		device_->DrawPrimitive(
-			convert::nonindexed_primitive(
-				_primitive_type
-			),
-			static_cast<
-				UINT
-			>(
-				_first_vertex.get()
-			),
-			static_cast<
-				UINT
-			>(
-				sge::renderer::nonindexed_primitive_count(
-					_num_vertices,
-					_primitive_type
-				)
-			)
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("DrawPrimitive() failed!")
-		);
+	devicefuncs::draw_primitive(
+		device_.get(),
+		_first_vertex,
+		_num_vertices,
+		_primitive_type
+	);
 }
 
 void
@@ -283,13 +220,7 @@ sge::d3d9::device::activate_vertex_buffer(
 {
 	d3d9::devicefuncs::set_stream_source(
 		device_.get(),
-		_buffer.format_part_index(),
-		dynamic_cast<
-			d3d9::vertex_buffer const &
-		>(
-			_buffer
-		).get(),
-		_buffer.format_part().stride()
+		_buffer
 	);
 }
 
@@ -310,19 +241,10 @@ sge::d3d9::device::vertex_declaration(
 	)
 		return;
 
-	if(
-		device_->SetVertexDeclaration(
-			dynamic_cast<
-				d3d9::vertex_declaration const &
-			>(
-				*_declaration
-			).get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("SetVertexDeclaration() failed!")
-		);
+	devicefuncs::set_vertex_declaration(
+		device_.get(),
+		*_declaration
+	);
 }
 
 void
@@ -332,8 +254,8 @@ sge::d3d9::device::state(
 {
 	d3d9::state::apply(
 		device_.get(),
-		clear_state_,
-		current_states_,
+		device_state_->clear(),
+		device_state_->current(),
 		_states
 	);
 }
@@ -343,9 +265,7 @@ sge::d3d9::device::push_state(
 	renderer::state::list const &_states
 )
 {
-	state_stack_.push(
-		current_states_
-	);
+	device_state_->push();
 
 	this->state(
 		_states
@@ -356,10 +276,8 @@ void
 sge::d3d9::device::pop_state()
 {
 	this->state(
-		state_stack_.top()
+		device_state_->pop()
 	);
-
-	state_stack_.pop();
 }
 void
 sge::d3d9::device::material(
@@ -382,7 +300,7 @@ sge::d3d9::device::enable_light(
 		device_.get(),
 		_index,
 		_enable
-	);		
+	);
 }
 
 void
@@ -404,7 +322,7 @@ sge::d3d9::device::enable_clip_plane(
 	bool const _enable
 )
 {
-	clip_plane_state_.set(
+	device_state_->clip_plane().set(
 		_index,
 		_enable
 	);
@@ -412,7 +330,7 @@ sge::d3d9::device::enable_clip_plane(
 	devicefuncs::set_render_state(
 		device_.get(),
 		D3DRS_CLIPPLANEENABLE,
-		clip_plane_state_.dword()
+		device_state_->clip_plane().dword()
 	);
 }
 
@@ -490,42 +408,8 @@ sge::d3d9::device::target(
 	renderer::target *const _target
 )
 {
-	if(
-		_target == offscreen_target_ 
-	)
-		return;
-
-	if(
-		target_
-	)
-		target_->active(
-			false
-		);
-	
-	offscreen_target_ =
-		dynamic_cast<
-			d3d9::offscreen_target *
-		>(
-			_target
-		);
-	
-	target_ =
-		offscreen_target_
-		?
-			static_cast<
-				d3d9::target_base *
-			>(
-				offscreen_target_
-			)
-		:
-			static_cast<
-				d3d9::target_base *
-			>(
-				onscreen_target_.get()
-			);
-
-	target_->active(
-		true
+	device_state_->target(
+		_target
 	);
 }
 
@@ -622,17 +506,24 @@ sge::d3d9::device::create_depth_stencil_surface(
 )
 {
 	return
-		sge::renderer::depth_stencil_surface_ptr(
-			fcppt::make_unique_ptr<
-				d3d9::depth_stencil_surface
+		this->add_resource<
+			d3d9::surface::depth_stencil
+		>(
+			fcppt::make_shared_ptr<
+				d3d9::surface::depth_stencil
 			>(
-				devicefuncs::create_depth_stencil_surface(
+				fcppt::make_unique_ptr<
+					d3d9::surface::depth_stencil_native
+				>(
 					device_.get(),
 					_dim,
 					_format,
 					present_parameters_.MultiSampleType,
-					present_parameters_.MultiSampleQuality
-				)
+					d3d9::multi_sample_quality(
+						present_parameters_.MultiSampleQuality
+					)
+				),
+				d3d9::needs_reset::yes
 			)
 		);
 }
@@ -748,7 +639,7 @@ sge::d3d9::device::onscreen_target() const
 sge::renderer::target *
 sge::d3d9::device::target() const
 {
-	return offscreen_target_;
+	return device_state_->target();
 }
 
 sge::renderer::caps const
@@ -775,7 +666,7 @@ sge::d3d9::device::add_resource(
 	> const _ptr
 )
 {
-	resources_.push_back(
+	resources_.add(
 		*_ptr
 	);
 
@@ -783,78 +674,50 @@ sge::d3d9::device::add_resource(
 }
 
 void
-sge::d3d9::device::reinit_resources()
+sge::d3d9::device::init()
 {
-#if 0
-	IDirect3DSurface9 *surface;
-
-	if(device->GetRenderTarget(0,&surface) != D3D_OK)
-		throw exception(FCPPT_TEXT("d3d: cannot obtain default render target!"));
-
-	default_render_target.reset(surface);
-
-#endif
-	std::for_each(
-		resources_.begin(),
-		resources_.end(),
-		std::tr1::bind(
-			&resource::reset,
-			std::tr1::placeholders::_1
-		)
-	);
-}
-
-void
-sge::d3d9::device::release_resources()
-{
-	std::for_each(
-		resources_.begin(),
-		resources_.end(),
-		std::tr1::bind(
-			&resource::loss,
-			std::tr1::placeholders::_1
-		)
-	);
-
-#if 0
-	default_render_target.reset();
-
-	vertex_declaration.reset();
-#endif
-}
-
-void
-sge::d3d9::device::set_index_buffer(
-	sge::renderer::index_buffer const &_buffer
-)
-{
-	d3d9::index_buffer const &d3d_buffer(
-		dynamic_cast<
-			d3d9::index_buffer const &
+	device_state_.take(
+		fcppt::make_unique_ptr<
+			d3d9::state::device
 		>(
-			_buffer
+			fcppt::ref(
+				*onscreen_target_
+			)
 		)
 	);
 
-	if(
-		device_->SetIndices(
-			d3d_buffer.get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("set_index_buffer() failed")
-		);
+	this->state(
+		sge::renderer::state::default_()
+	);
+}
+
+void
+sge::d3d9::device::reinit()
+{
+	this->init();
+
+	resources_.reinit();
+}
+
+void
+sge::d3d9::device::release()
+{
+	resources_.release();
 }
 
 void
 sge::d3d9::device::reset()
 {
-	this->release_resources();
+	this->release();
 
 	while(
 		device_->TestCooperativeLevel()
 		== D3DERR_DEVICELOST
+		||
+		!d3d9::devicefuncs::reset(
+			device_.get(),
+			present_parameters_
+		)
 	)
 		sge::time::sleep(
 			sge::time::millisecond(
@@ -862,32 +725,7 @@ sge::d3d9::device::reset()
 			)
 		);
 
-	switch(
-		device_->Reset(
-			&present_parameters_
-		)
-	)
-	{
-	case D3D_OK:
-		this->reinit_resources();
-		break;
-	case D3DERR_DEVICELOST:
-		throw sge::renderer::exception(
-			FCPPT_TEXT("d3d device still lost!")
-		);
-	case D3DERR_DRIVERINTERNALERROR:
-		throw sge::renderer::exception(
-			FCPPT_TEXT("d3d driver internal error!")
-		);
-	case D3DERR_INVALIDCALL:
-		throw sge::renderer::exception(
-			FCPPT_TEXT("d3d invalid call to reset!")
-		);
-	default:
-		throw sge::renderer::exception(
-			FCPPT_TEXT("d3d reset failed!")
-		);
-	}
+	this->reinit();
 }
 
 #if 0

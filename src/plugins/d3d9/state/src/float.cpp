@@ -18,24 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_D3D_SURFACE_SCOPED_PTR_HPP_INCLUDED
-#define SGE_D3D9_D3D_SURFACE_SCOPED_PTR_HPP_INCLUDED
+#include "../float.hpp"
+#include "../clear.hpp"
+#include "../parameters.hpp"
+#include "../set_render_state_float.hpp"
+#include "../convert/float.hpp"
+#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/var.hpp>
 
-#include "d3dinclude.hpp"
-#include <fcppt/com_deleter.hpp>
-#include <fcppt/scoped_ptr.hpp>
-
-namespace sge
+void
+sge::d3d9::state::float_(
+	state::parameters const &_parameters,
+	sge::renderer::state::float_::type const &_state
+)
 {
-namespace d3d9
-{
+	if(
+		_state.state()
+		== sge::renderer::state::float_::available_states::depth_buffer_clear_val
+	)
+	{
+		_parameters.clear().depth(
+			_state.value()
+		);
 
-typedef fcppt::scoped_ptr<
-	IDirect3DSurface9,
-	fcppt::com_deleter
-> d3d_surface_scoped_ptr;
+		return;
+	}
 
+	d3d9::state::set_render_state_float(
+		_parameters.device(),
+		state::convert::float_(
+			_state.state()
+		),
+		_state.value()
+	);
 }
-}
-
-#endif
