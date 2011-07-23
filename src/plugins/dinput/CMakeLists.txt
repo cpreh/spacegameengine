@@ -40,6 +40,7 @@ SET(
 	src/plugins/dinput/keyboard/map_virtual_key.hpp
 	src/plugins/dinput/keyboard/optional_uint.hpp
 	src/plugins/dinput/keyboard/repeat.hpp
+	src/plugins/dinput/keyboard/repeat_duration.hpp
 	src/plugins/dinput/keyboard/src/device.cpp
 	src/plugins/dinput/keyboard/src/key_converter.cpp
 	src/plugins/dinput/keyboard/src/key_is_down.cpp
@@ -73,5 +74,5 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_PLUGIN(
 	"dinput"
-	"sgeinput;sgetime;sgewindow;${DINPUT_LIBRARIES}"
+	"sgeinput;sgewindow;${DINPUT_LIBRARIES}"
 )

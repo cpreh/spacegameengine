@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "device_fwd.hpp"
 #include "key_converter_fwd.hpp"
+#include "repeat_duration.hpp"
 #include "../device/object.hpp"
 #include "../device/parameters_fwd.hpp"
 #include "../di.hpp"
@@ -36,7 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
-#include <sge/time/timer.hpp>
+#include <sge/timer/basic_decl.hpp>
+#include <fcppt/chrono/duration_decl.hpp>
+#include <fcppt/chrono/time_point_decl.hpp>
 #include <fcppt/container/array_decl.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -121,7 +124,11 @@ private:
 
 	char_signal char_signal_;
 
-	sge::time::timer repeat_time_;
+	typedef sge::timer::basic<
+		keyboard::repeat_duration
+	> repeat_timer;
+
+	repeat_timer repeat_time_;
 
 	typedef fcppt::optional<
 		input::keyboard::key_code::type

@@ -63,13 +63,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/to_clear_flags_field.hpp>
-#include <sge/time/millisecond.hpp>
-#include <sge/time/sleep.hpp>
 #include <sge/window/instance.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/time/sleep_any.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -719,8 +720,8 @@ sge::d3d9::device::reset()
 			present_parameters_
 		)
 	)
-		sge::time::sleep(
-			sge::time::millisecond(
+		fcppt::time::sleep_any(
+			fcppt::chrono::milliseconds(
 				1
 			)
 		);

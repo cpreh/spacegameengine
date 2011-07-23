@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_KEYBOARD_REPEAT_HPP_INCLUDED
 #define SGE_DINPUT_KEYBOARD_REPEAT_HPP_INCLUDED
 
-#include <sge/time/duration.hpp>
+#include "repeat_duration.hpp"
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace dinput
 namespace keyboard
 {
 
-sge::time::duration const
+keyboard::repeat_duration const
 repeat();
 
 }
