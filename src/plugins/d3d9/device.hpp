@@ -22,19 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICE_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
-#include "offscreen_target_fwd.hpp"
 #include "onscreen_target_fwd.hpp"
 #include "resource_manager.hpp"
-#include "target_base_fwd.hpp"
-#include "state/clear.hpp"
-#include "state/clip_plane.hpp"
+#include "state/device_fwd.hpp"
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/clear_flags_field.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/stack.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -276,13 +270,16 @@ private:
 	);
 
 	void
+	init();
+
+	void
 	reset();
 
 	void
-	reinit_resources();
+	reinit();
 
 	void
-	release_resources();
+	release();
 
 	void
 	set_index_buffer(
@@ -309,18 +306,12 @@ private:
 	> onscreen_target_scoped_ptr;
 
 	onscreen_target_scoped_ptr onscreen_target_;
-	
-	d3d9::offscreen_target *offscreen_target_;
 
-	d3d9::target_base *target_;
+	typedef fcppt::scoped_ptr<
+		d3d9::state::device
+	> device_state_scoped_ptr;
 
-	d3d9::state::clear clear_state_;
-	
-	d3d9::state::clip_plane clip_plane_state_;
-
-	renderer::state::list current_states_;
-
-	renderer::state::stack state_stack_;
+	device_state_scoped_ptr device_state_;
 };
 
 }

@@ -227,11 +227,14 @@ SET(
 	src/plugins/d3d9/state/deferred/src/apply.cpp
 	src/plugins/d3d9/state/deferred/src/color_write.cpp
 	src/plugins/d3d9/state/deferred/src/object.cpp
+	src/plugins/d3d9/state/device.hpp
+	src/plugins/d3d9/state/device_fwd.hpp
 	src/plugins/d3d9/state/set_render_state_bool.hpp
 	src/plugins/d3d9/state/set_render_state_float.hpp
 	src/plugins/d3d9/state/src/apply.cpp
 	src/plugins/d3d9/state/src/clear.cpp
 	src/plugins/d3d9/state/src/clip_plane.cpp
+	src/plugins/d3d9/state/src/device.cpp
 	src/plugins/d3d9/state/src/set_render_state_bool.cpp
 	src/plugins/d3d9/state/src/set_render_state_float.cpp
 	src/plugins/d3d9/state/src/visitor.cpp

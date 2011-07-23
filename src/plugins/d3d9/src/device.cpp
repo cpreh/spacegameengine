@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../devicefuncs/set_transform.hpp"
 #include "../parameters/create.hpp"
 #include "../state/apply.hpp"
+#include "../state/device.hpp"
 #include "../surface/depth_stencil.hpp"
 #include "../surface/depth_stencil_native.hpp"
 #include "../texture/cube.hpp"
@@ -117,22 +118,9 @@ sge::d3d9::device::device(
 			)
 		)
 	),
-	offscreen_target_(),
-	target_(
-		onscreen_target_.get()
-	),
-	clear_state_(),
-	clip_plane_state_(),
-	current_states_(),
-	state_stack_()
+	device_state_()
 {
-	this->state(
-		sge::renderer::state::default_()
-	);
-
-	onscreen_target_->active(
-		true
-	);
+	this->init();
 }
 
 sge::d3d9::device::~device()
@@ -144,7 +132,7 @@ sge::d3d9::device::begin_rendering()
 {
 	this->clear(
 		sge::renderer::state::to_clear_flags_field(
-			current_states_
+			device_state_->current()
 		)
 	);
 
@@ -197,7 +185,7 @@ sge::d3d9::device::clear(
 	devicefuncs::clear(
 		device_.get(),
 		_flags,
-		clear_state_
+		device_state_->clear()
 	);
 }
 
@@ -338,8 +326,8 @@ sge::d3d9::device::state(
 {
 	d3d9::state::apply(
 		device_.get(),
-		clear_state_,
-		current_states_,
+		device_state_->clear(),
+		device_state_->current(),
 		_states
 	);
 }
@@ -349,9 +337,7 @@ sge::d3d9::device::push_state(
 	renderer::state::list const &_states
 )
 {
-	state_stack_.push(
-		current_states_
-	);
+	device_state_->push();
 
 	this->state(
 		_states
@@ -362,10 +348,8 @@ void
 sge::d3d9::device::pop_state()
 {
 	this->state(
-		state_stack_.top()
+		device_state_->pop()
 	);
-
-	state_stack_.pop();
 }
 void
 sge::d3d9::device::material(
@@ -410,7 +394,7 @@ sge::d3d9::device::enable_clip_plane(
 	bool const _enable
 )
 {
-	clip_plane_state_.set(
+	device_state_->clip_plane().set(
 		_index,
 		_enable
 	);
@@ -418,7 +402,7 @@ sge::d3d9::device::enable_clip_plane(
 	devicefuncs::set_render_state(
 		device_.get(),
 		D3DRS_CLIPPLANEENABLE,
-		clip_plane_state_.dword()
+		device_state_->clip_plane().dword()
 	);
 }
 
@@ -496,42 +480,8 @@ sge::d3d9::device::target(
 	renderer::target *const _target
 )
 {
-	if(
-		_target == offscreen_target_ 
-	)
-		return;
-
-	if(
-		target_
-	)
-		target_->active(
-			false
-		);
-	
-	offscreen_target_ =
-		dynamic_cast<
-			d3d9::offscreen_target *
-		>(
-			_target
-		);
-	
-	target_ =
-		offscreen_target_
-		?
-			static_cast<
-				d3d9::target_base *
-			>(
-				offscreen_target_
-			)
-		:
-			static_cast<
-				d3d9::target_base *
-			>(
-				onscreen_target_.get()
-			);
-
-	target_->active(
-		true
+	device_state_->target(
+		_target
 	);
 }
 
@@ -761,7 +711,7 @@ sge::d3d9::device::onscreen_target() const
 sge::renderer::target *
 sge::d3d9::device::target() const
 {
-	return offscreen_target_;
+	return device_state_->target();
 }
 
 sge::renderer::caps const
@@ -796,13 +746,33 @@ sge::d3d9::device::add_resource(
 }
 
 void
-sge::d3d9::device::reinit_resources()
+sge::d3d9::device::init()
 {
+	device_state_.take(
+		fcppt::make_unique_ptr<
+			d3d9::state::device
+		>(
+			fcppt::ref(
+				*onscreen_target_
+			)
+		)
+	);
+
+	this->state(
+		sge::renderer::state::default_()
+	);
+}
+
+void
+sge::d3d9::device::reinit()
+{
+	this->init();
+
 	resources_.reinit();
 }
 
 void
-sge::d3d9::device::release_resources()
+sge::d3d9::device::release()
 {
 	resources_.release();
 }
@@ -834,7 +804,7 @@ sge::d3d9::device::set_index_buffer(
 void
 sge::d3d9::device::reset()
 {
-	this->release_resources();
+	this->release();
 
 	while(
 		device_->TestCooperativeLevel()
@@ -851,7 +821,7 @@ sge::d3d9::device::reset()
 			)
 		);
 
-	this->reinit_resources();
+	this->reinit();
 }
 
 #if 0
