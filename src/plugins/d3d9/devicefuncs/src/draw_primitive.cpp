@@ -17,28 +17,43 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
-#ifndef SGE_D3D9_DEVICEFUNCS_SET_STREAM_SOURCE_HPP_INCLUDED
-#define SGE_D3D9_DEVICEFUNCS_SET_STREAM_SOURCE_HPP_INCLUDED
-
-#include "../d3dinclude.hpp"
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-
-namespace sge
-{
-namespace d3d9
-{
-namespace devicefuncs
-{
+#include "../draw_primitive.hpp"
+#include "../../convert/nonindexed_primitive.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/nonindexed_primitive_count.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 void
-set_stream_source(
-	IDirect3DDevice9 *,
-	renderer::vertex_buffer const &
-);
-
+sge::d3d9::devicefuncs::draw_primitive(
+	IDirect3DDevice9 *const _device,
+	renderer::first_vertex const _first_vertex,
+	renderer::vertex_count const _num_vertices,
+	renderer::nonindexed_primitive_type::type const _primitive_type
+)
+{
+	if(
+		_device->DrawPrimitive(
+			convert::nonindexed_primitive(
+				_primitive_type
+			),
+			static_cast<
+				UINT
+			>(
+				_first_vertex.get()
+			),
+			static_cast<
+				UINT
+			>(
+				sge::renderer::nonindexed_primitive_count(
+					_num_vertices,
+					_primitive_type
+				)
+			)
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("DrawPrimitive() failed!")
+		);
 }
-}
-}
-
-#endif

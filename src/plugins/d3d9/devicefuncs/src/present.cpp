@@ -18,27 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_DEVICEFUNCS_SET_STREAM_SOURCE_HPP_INCLUDED
-#define SGE_D3D9_DEVICEFUNCS_SET_STREAM_SOURCE_HPP_INCLUDED
+#include "../present.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "../d3dinclude.hpp"
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-
-namespace sge
+bool
+sge::d3d9::devicefuncs::present(
+	IDirect3DDevice9 *const _device
+)
 {
-namespace d3d9
-{
-namespace devicefuncs
-{
-
-void
-set_stream_source(
-	IDirect3DDevice9 *,
-	renderer::vertex_buffer const &
-);
-
+	switch(
+		_device->Present(
+			0,
+			0,
+			0,
+			0
+		)
+	)
+	{
+	case D3D_OK:
+		return true;
+	case D3DERR_DEVICELOST:
+		return false;
+	default:
+		throw sge::renderer::exception(
+			FCPPT_TEXT("Present() failed!")
+		);
+	}
 }
-}
-}
-
-#endif

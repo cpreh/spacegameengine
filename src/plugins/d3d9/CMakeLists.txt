@@ -86,18 +86,24 @@ SET(
 	src/plugins/d3d9/d3d_device_unique_ptr.hpp
 	src/plugins/d3d9/d3dinclude.hpp
 	src/plugins/d3d9/device.hpp
+	src/plugins/d3d9/devicefuncs/begin_scene.hpp
 	src/plugins/d3d9/devicefuncs/clear.hpp
 	src/plugins/d3d9/devicefuncs/create_depth_stencil_surface.hpp
 	src/plugins/d3d9/devicefuncs/create_offscreen_plain_surface.hpp
+	src/plugins/d3d9/devicefuncs/draw_indexed_primitive.hpp
+	src/plugins/d3d9/devicefuncs/draw_primitive.hpp
+	src/plugins/d3d9/devicefuncs/end_scene.hpp
 	src/plugins/d3d9/devicefuncs/get_depth_stencil_surface.hpp
 	src/plugins/d3d9/devicefuncs/get_render_target.hpp
 	src/plugins/d3d9/devicefuncs/get_render_target_data.hpp
 	src/plugins/d3d9/devicefuncs/light_enable.hpp
+	src/plugins/d3d9/devicefuncs/present.hpp
 	src/plugins/d3d9/devicefuncs/reset.hpp
 	src/plugins/d3d9/devicefuncs/sampler_stage_arg.hpp
 	src/plugins/d3d9/devicefuncs/sampler_stage_op.hpp
 	src/plugins/d3d9/devicefuncs/set_clip_plane.hpp
 	src/plugins/d3d9/devicefuncs/set_depth_stencil_surface.hpp
+	src/plugins/d3d9/devicefuncs/set_index_buffer.hpp
 	src/plugins/d3d9/devicefuncs/set_light.hpp
 	src/plugins/d3d9/devicefuncs/set_material.hpp
 	src/plugins/d3d9/devicefuncs/set_render_state.hpp
@@ -107,19 +113,26 @@ SET(
 	src/plugins/d3d9/devicefuncs/set_texture.hpp
 	src/plugins/d3d9/devicefuncs/set_texture_stage_state.hpp
 	src/plugins/d3d9/devicefuncs/set_transform.hpp
+	src/plugins/d3d9/devicefuncs/set_vertex_declaration.hpp
 	src/plugins/d3d9/devicefuncs/set_viewport.hpp
+	src/plugins/d3d9/devicefuncs/src/begin_rendering.cpp
 	src/plugins/d3d9/devicefuncs/src/clear.cpp
 	src/plugins/d3d9/devicefuncs/src/create_depth_stencil_surface.cpp
 	src/plugins/d3d9/devicefuncs/src/create_offscreen_plain_surface.cpp
+	src/plugins/d3d9/devicefuncs/src/draw_indexed_primitive.cpp
+	src/plugins/d3d9/devicefuncs/src/draw_primitive.cpp
+	src/plugins/d3d9/devicefuncs/src/end_scene.cpp
 	src/plugins/d3d9/devicefuncs/src/get_depth_stencil_surface.cpp
 	src/plugins/d3d9/devicefuncs/src/get_render_target.cpp
 	src/plugins/d3d9/devicefuncs/src/get_render_target_data.cpp
 	src/plugins/d3d9/devicefuncs/src/light_enable.cpp
+	src/plugins/d3d9/devicefuncs/src/present.cpp
 	src/plugins/d3d9/devicefuncs/src/reset.cpp
 	src/plugins/d3d9/devicefuncs/src/sampler_stage_arg.cpp
 	src/plugins/d3d9/devicefuncs/src/sampler_stage_op.cpp
 	src/plugins/d3d9/devicefuncs/src/set_clip_plane.cpp
 	src/plugins/d3d9/devicefuncs/src/set_depth_stencil_surface.cpp
+	src/plugins/d3d9/devicefuncs/src/set_index_buffer.cpp
 	src/plugins/d3d9/devicefuncs/src/set_light.cpp
 	src/plugins/d3d9/devicefuncs/src/set_material.cpp
 	src/plugins/d3d9/devicefuncs/src/set_render_state.cpp
@@ -129,6 +142,7 @@ SET(
 	src/plugins/d3d9/devicefuncs/src/set_texture.cpp
 	src/plugins/d3d9/devicefuncs/src/set_texture_stage_state.cpp
 	src/plugins/d3d9/devicefuncs/src/set_transform.cpp
+	src/plugins/d3d9/devicefuncs/src/set_vertex_declaration.cpp
 	src/plugins/d3d9/devicefuncs/src/set_viewport.cpp
 	src/plugins/d3d9/index_buffer.hpp
 	src/plugins/d3d9/lock_flags.hpp

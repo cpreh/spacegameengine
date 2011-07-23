@@ -18,37 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_stream_source.hpp"
-#include "../../vertex_buffer.hpp"
-#include <sge/renderer/vf/dynamic/part.hpp>
+#include "../draw_indexed_primitive.hpp"
+#include "../../convert/indexed_primitive.hpp"
+#include "../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
 #include <fcppt/text.hpp>
 
 void
-sge::d3d9::devicefuncs::set_stream_source(
+sge::d3d9::devicefuncs::draw_indexed_primitive(
 	IDirect3DDevice9 *const _device,
-	renderer::vertex_buffer const &_vertex_buffer
+	renderer::first_vertex const _first_vertex,
+	renderer::vertex_count const _num_vertices,
+	renderer::indexed_primitive_type::type const _primitive_type,
+	renderer::primitive_count const _primitive_count,
+	renderer::first_index const _first_index
 )
 {
 	if(
-		_device->SetStreamSource(
-			_vertex_buffer.format_part_index().get(),
-			dynamic_cast<
-				d3d9::vertex_buffer const &
-			>(
-				_vertex_buffer
-			).get(),
-			0u, // offset
+		_device->DrawIndexedPrimitive(
+			convert::indexed_primitive(
+				_primitive_type
+			),
+			0,
 			static_cast<
 				UINT
 			>(
-				_vertex_buffer.format_part().stride()
+				_first_vertex.get()
+			),
+			static_cast<
+				UINT
+			>(
+				_num_vertices.get()
+			),
+			static_cast<
+				UINT
+			>(
+				_first_index.get()
+			),
+			static_cast<
+				UINT
+			>(
+				_primitive_count.get()
 			)
 		)
 		!= D3D_OK
 	)
 		throw sge::renderer::exception(
-			FCPPT_TEXT("SetStreamSource() failed!")
+			FCPPT_TEXT("DrawIndexedPrimitive() failed!")
 		);
 }

@@ -18,27 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_DEVICEFUNCS_SET_STREAM_SOURCE_HPP_INCLUDED
-#define SGE_D3D9_DEVICEFUNCS_SET_STREAM_SOURCE_HPP_INCLUDED
-
-#include "../d3dinclude.hpp"
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-
-namespace sge
-{
-namespace d3d9
-{
-namespace devicefuncs
-{
+#include "../set_vertex_declaration.hpp"
+#include "../../d3dinclude.hpp"
+#include "../../vertex_declaration.hpp"
+#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 void
-set_stream_source(
-	IDirect3DDevice9 *,
-	renderer::vertex_buffer const &
-);
-
+sge::d3d9::devicefuncs::set_vertex_declaration(
+	IDirect3DDevice9 *const _device,
+	renderer::vertex_declaration const &_vertex_declaration
+)
+{
+	if(
+		_device->SetVertexDeclaration(
+			dynamic_cast<
+				d3d9::vertex_declaration const &
+			>(
+				_vertex_declaration
+			).get()
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("SetVertexDeclaration() failed!")
+		);
 }
-}
-}
-
-#endif
