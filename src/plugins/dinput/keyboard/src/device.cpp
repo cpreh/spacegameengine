@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/keyboard/modifier.hpp>
 #include <sge/input/exception.hpp>
+#include <sge/timer/basic_impl.hpp>
+#include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -59,8 +61,9 @@ sge::dinput::keyboard::device::device(
 	key_repeat_signal_(),
 	char_signal_(),
 	repeat_time_(
-		dinput::keyboard::repeat(),
-		sge::time::activation_state::active
+		repeat_timer::parameters(
+			dinput::keyboard::repeat()
+		)
 	),
 	old_key_code_(),
 	keys_(),
@@ -277,7 +280,9 @@ sge::dinput::keyboard::device::dispatch()
 	if(
 		old_key_code_
 		&&
-		repeat_time_.update_b()
+		sge::timer::reset_when_expired(
+			repeat_time_
+		)
 	)
 		key_repeat_signal_(
 			sge::input::keyboard::key_repeat_event(

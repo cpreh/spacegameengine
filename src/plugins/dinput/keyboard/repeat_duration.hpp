@@ -18,31 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../repeat.hpp"
-#include <sge/input/exception.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_DINPUT_KEYBOARD_REPEAT_DURATION_HPP_INCLUDED
+#define SGE_DINPUT_KEYBOARD_REPEAT_DURATION_HPP_INCLUDED
 
-sge::dinput::keyboard::repeat_duration const
-sge::dinput::keyboard::repeat()
+#include <fcppt/chrono/milliseconds.hpp>
+
+namespace sge
 {
-	int ret = 0;
+namespace dinput
+{
+namespace keyboard
+{
 
-	if(
-		::SystemParametersInfo(
-			SPI_GETKEYBOARDDELAY,
-			0,
-			&ret,
-			0
-		) == 0
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("SystemParametersInfo() failed!")
-		);
+typedef fcppt::chrono::milliseconds repeat_duration;
 
-	return
-		keyboard::repeat_duration(
-			ret * 250
-		);
 }
+}
+}
+
+#endif
