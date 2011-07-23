@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/activation_state.hpp>
-#include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/object.hpp>
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/object.hpp>
@@ -94,6 +92,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/default_clock.hpp>
+#include <sge/timer/elapsed.hpp>
+#include <sge/timer/parameters.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -105,8 +107,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/timer.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
@@ -719,13 +719,12 @@ try
 
 	sge::camera::object camera(
 		sge::camera::parameters(
-			sge::camera::projection::object(),
-			static_cast<sge::renderer::scalar>(4.),
-			static_cast<sge::renderer::scalar>(200.),
-			sge::camera::identity_gizmo(),
+			sge::camera::movement_speed(
+				4.f),
+			sge::camera::rotation_speed(
+				200.f),
 			sys.keyboard_collector(),
-			sys.mouse_collector(),
-			sge::camera::activation_state::active));
+			sys.mouse_collector()));
 
 	// Adapt the camera to the viewport
 	fcppt::signal::scoped_connection const 
@@ -794,11 +793,10 @@ try
 			0),
 		true);
 
-	// We need this timer to update the camera
-	sge::time::timer 
-		frame_timer(
-			sge::time::second(
-				1));
+	sge::timer::basic<sge::camera::duration> camera_timer(
+		sge::timer::parameters<sge::camera::duration>(
+			sge::camera::duration(
+				1.0f)));
 
 	// The vertex declaration can be set once in this case
 	sge::renderer::scoped_vertex_declaration scoped_vd(
@@ -816,7 +814,10 @@ try
 
 		// This moves the camera around
 		camera.update(
-			frame_timer.reset());
+			sge::timer::elapsed(
+				camera_timer));
+
+		camera_timer.reset();
 
 		// Since the "write_*" attributes also apply to the "clear
 		// backbuffer" stuff, we set everything to "true" here.

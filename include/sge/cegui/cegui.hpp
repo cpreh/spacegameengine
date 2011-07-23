@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_font.hpp>
 #include <sge/cegui/default_keyboard.hpp>
+#include <sge/cegui/duration.hpp>
 #include <sge/cegui/exception.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/load_context.hpp>

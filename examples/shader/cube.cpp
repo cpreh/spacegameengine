@@ -40,9 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	- font::text::draw
  */
 
-#include <sge/camera/activation_state.hpp>
-#include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/object.hpp>
+#include <sge/camera/movement_speed.hpp>
+#include <sge/camera/rotation_speed.hpp>
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
@@ -69,6 +69,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/collector.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/log/global.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/elapsed_fractional.hpp>
+#include <sge/timer/reset_when_expired.hpp>
+#include <sge/timer/elapsed.hpp>
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
@@ -149,8 +154,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/timer.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
@@ -170,6 +173,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <exception>
@@ -902,20 +906,14 @@ try
 	// 's' and 'd' and you can look around using the mouse.
 	sge::camera::object camera(
 		sge::camera::parameters(
-			// We can set the projection object to "empty" for now since we don't have a viewport yet.
-			sge::camera::projection::object(),
 			// Movement speed.
-			static_cast<sge::renderer::scalar>(4.),
+			sge::camera::movement_speed(
+				4.0f),
 			// Mouse speed
-			static_cast<sge::renderer::scalar>(200.),
-			// Position and orientation of the camera give in form of a
-			// "gizmo" which is nothing more than a position vector and
-			// three orientation vectors. Identity gizmo means: position =
-			// (0,0,0), left, right up as the standard basis for R^3
-			sge::camera::identity_gizmo(),
+			sge::camera::rotation_speed(
+				200.f),
 			sys.keyboard_collector(),
-			sys.mouse_collector(),
-			sge::camera::activation_state::active));
+			sys.mouse_collector()));
 
 	// Adapt the camera to the viewport
 	fcppt::signal::scoped_connection const viewport_connection(
@@ -1035,13 +1033,15 @@ try
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
-	sge::time::timer 
-		frame_timer(
-			sge::time::second(
-				1)),
-		revolve_timer(
-			sge::time::second(
-				10));
+	sge::timer::basic<sge::camera::duration> camera_timer(
+		sge::timer::parameters<sge::camera::duration>(
+			sge::camera::duration(
+				1.0f)));
+
+	sge::timer::basic<fcppt::chrono::seconds> revolve_timer(
+		sge::timer::parameters<fcppt::chrono::seconds>(
+			fcppt::chrono::seconds(
+				10)));
 
 	sge::font::text::drawer_3d font_drawer(
 		sys.renderer(),
@@ -1060,7 +1060,10 @@ try
 		sys.window().dispatch();
 
 		camera.update(
-			frame_timer.reset());
+			sge::timer::elapsed(
+				camera_timer));
+
+		camera_timer.reset();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer());
@@ -1085,10 +1088,11 @@ try
 				camera.gizmo().position());
 
 			sge::renderer::scalar const elapsed = 
-				static_cast<sge::renderer::scalar>(
-					revolve_timer.elapsed_frames());
-			if (revolve_timer.expired())
-				revolve_timer.reset();
+				sge::timer::elapsed_fractional<sge::renderer::scalar>(
+					revolve_timer);
+
+			sge::timer::reset_when_expired(
+				revolve_timer);
 
 			shader.update_uniform(
 				"light_position",

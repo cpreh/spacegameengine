@@ -350,7 +350,6 @@ OPTION (ENABLE_SHADER "Build the shader" ON)
 OPTION (ENABLE_SPRITE "Build the sprite library" ON)
 OPTION (ENABLE_SYSTEMS "Build the systems library" ON)
 OPTION (ENABLE_TEXTURE "Build the texture helpers" ON)
-OPTION (ENABLE_TIME "Build the time library" ON)
 OPTION (ENABLE_VIEWPORT "Build the viewport library" ON)
 
 IF (ENABLE_CEGUI)
@@ -403,10 +402,6 @@ ENDIF ()
 
 IF (ENABLE_TEXTURE)
 	ADD_SUBDIRECTORY(texture)
-ENDIF ()
-
-IF (ENABLE_TIME)
-	ADD_SUBDIRECTORY(time)
 ENDIF ()
 
 IF (ENABLE_VIEWPORT)

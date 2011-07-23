@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_TIME_INCREMENT_HPP_INCLUDED
 #define SGE_PROJECTILE_TIME_INCREMENT_HPP_INCLUDED
 
+#include <sge/projectile/duration.hpp>
 #include <fcppt/strong_typedef.hpp>
-#include <sge/time/duration.hpp>
 
 namespace sge
 {
 namespace projectile
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::time::duration,
+	projectile::duration,
 	time_increment);
 }
 }

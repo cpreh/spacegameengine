@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/symbol.hpp>
 #include <sge/cegui/load_context_fwd.hpp>
+#include <sge/cegui/duration.hpp>
 #include <sge/cegui/detail/renderer.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/detail/cegui_logger.hpp>
@@ -33,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/time/duration.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -69,7 +69,7 @@ public:
 	// durations and so on
 	SGE_CEGUI_SYMBOL void
 	update(
-		sge::time::duration const &);
+		cegui::duration const &);
 
 	SGE_CEGUI_SYMBOL void
 	render();

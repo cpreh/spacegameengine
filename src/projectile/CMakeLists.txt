@@ -31,6 +31,7 @@ SET(
 	include/sge/projectile/detail/debug_drawer_impl_fwd.hpp
 	include/sge/projectile/detail/triangle_set_hash.hpp
 	include/sge/projectile/dim2.hpp
+	include/sge/projectile/duration.hpp
 	include/sge/projectile/fixed_timestep.hpp
 	include/sge/projectile/ghost/body_enter.hpp
 	include/sge/projectile/ghost/body_enter_fn.hpp
@@ -89,7 +90,6 @@ SET(
 	src/projectile/body/solidity/is_solid.cpp
 	src/projectile/body/solidity/is_solid.hpp
 	src/projectile/body/solidity/solid.cpp
-	src/projectile/bullet_duration.hpp
 	src/projectile/bullet_to_vector2.cpp
 	src/projectile/bullet_to_vector2.hpp
 	src/projectile/debug_drawer.cpp

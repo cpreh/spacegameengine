@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "declare_local_logger.hpp"
-#include "bullet_duration.hpp"
 #include "ghost/detail/pair_callback.hpp"
 #include <sge/projectile/world.hpp>
 #include <sge/projectile/group/object.hpp>
@@ -27,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/ghost/object.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/duration_output.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/assert.hpp>
@@ -159,44 +157,32 @@ sge::projectile::world::update_discrete(
 		max_substeps.get(),
 		FCPPT_TEXT("If you want a variable timestep, use the other update function"));
 
-	bullet_duration const step(
-		fcppt::chrono::duration_cast<bullet_duration>(
-			delta.get()));
-
-	bullet_duration const fixed_step(
-		fcppt::chrono::duration_cast<bullet_duration>(
-			fixed.get()));
-
 	FCPPT_LOG_VERBOSE(
 		local_log,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("Doing a fixed simulation step with delta ")
-			<< step);
+			<< delta.get().count());
 
 	world_->stepSimulation(
-		step.count(),
+		delta.get().count(),
 		// number of simulation substeps
 		static_cast<int>(
 			max_substeps.get()),
-		fixed_step.count());
+		fixed.get().count());
 }
 
 void
 sge::projectile::world::update_continuous(
 	time_increment const &delta)
 {
-	bullet_duration const step(
-		fcppt::chrono::duration_cast<bullet_duration>(
-			delta.get()));
-
 	FCPPT_LOG_VERBOSE(
 		local_log,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("Doing a variable simulation step with delta ")
-			<< step);
+			<< delta.get().count());
 
 	world_->stepSimulation(
-		step.count(),
+		delta.get().count(),
 		// number of simulation substeps
 		0);
 }

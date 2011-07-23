@@ -28,17 +28,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/file_ptr.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/millisecond.hpp>
-#include <sge/time/sleep.hpp>
 #include <sge/log/global.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/time/sleep.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/parameters.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/log/activate_levels.hpp>
@@ -51,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/container/raw_vector.hpp>
+#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/text.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <ostream>
@@ -322,15 +320,17 @@ try
 
 	sps->position(
 		sge::audio::vector(
-						-2000,
-						0,
-						0));
+			-2000,
+			0,
+			0));
 
 	wait_for_sound(
 		s);
 
-	sge::time::timer frame_timer(
-		sge::time::second(10));
+	sge::timer::basic<fcppt::chrono::seconds> frame_timer(
+		sge::timer::parameters<fcppt::chrono::seconds>(
+			fcppt::chrono::seconds(
+				10)));
 
 	while(
 		sps->status() != sge::audio::sound::play_status::stopped 

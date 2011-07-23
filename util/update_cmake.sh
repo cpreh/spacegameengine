@@ -109,8 +109,6 @@ update_sublibrary systems
 
 update_sublibrary texture
 
-update_sublibrary time
-
 update_sublibrary viewport
 
 update_sublibrary window

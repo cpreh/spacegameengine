@@ -33,13 +33,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/variant/object.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
 // FFFFFFFFFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 #include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <boost/range/numeric.hpp>
 
 sge::camera::object::object(
-	parameters const &params)
+	camera::parameters const &params)
 :
 	keyboard_connection_(
 		params.keyboard().key_callback(
@@ -66,8 +67,8 @@ sge::camera::object::object(
 		params.gizmo()),
 	dirs_(
 		renderer::vector3::null()),
-	activation_(
-		params.activation())
+	active_(
+		params.active())
 {
 }
 
@@ -77,13 +78,13 @@ sge::camera::object::~object()
 
 void
 sge::camera::object::update(
-	time::funit const time_delta)
+	camera::duration const &d)
 {
+	//std::cout << "count: " << d.count() << "\n";
 	gizmo_.position( 
 		gizmo_.position() + 
 		movement_speed_ * 
-		static_cast<sge::renderer::scalar>(
-			time_delta) * 
+		d.count() * 
 		boost::inner_product(
 			gizmo_.array(),
 			dirs_,
@@ -158,24 +159,24 @@ sge::camera::object::gizmo()
 }
 
 void
-sge::camera::object::activation(
-	activation_state::type const _activation)
+sge::camera::object::active(
+	bool const _active)
 {
-	activation_ = 
-		_activation;
+	active_ = 
+		_active;
 }
 
-sge::camera::activation_state::type 
-sge::camera::object::activation() const
+bool
+sge::camera::object::active() const
 {
-	return activation_;
+	return active_;
 }
 
 void
 sge::camera::object::key_callback(
 	sge::input::keyboard::key_event const &k)
 {
-	if (activation_ == activation_state::inactive)
+	if (!active())
 		return;
 
 	switch (k.key_code())
@@ -207,7 +208,7 @@ void
 sge::camera::object::mouse_axis_callback(
 	sge::input::mouse::axis_event const &k)
 {
-	if (activation_ == activation_state::inactive)
+	if (!active())
 		return;
 
 	renderer::scalar const angle = 
@@ -215,6 +216,9 @@ sge::camera::object::mouse_axis_callback(
 
 	switch (k.axis())
 	{
+		// What's the use...
+		case sge::input::mouse::axis::unknown:
+			break;
 		case sge::input::mouse::axis::x:
 		{
 		using fcppt::math::matrix::rotation_axis;

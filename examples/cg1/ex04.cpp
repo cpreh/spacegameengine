@@ -73,8 +73,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/vertex.hpp>
-#include <sge/time/second_f.hpp>
-#include <sge/time/timer.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -84,6 +82,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/elapsed_fractional.hpp>
+#include <sge/timer/reset_when_expired.hpp>
+#include <sge/timer/default_clock.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/quad.hpp>
@@ -95,6 +97,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/look_at.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
+#include <fcppt/chrono/duration.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -426,11 +429,14 @@ try
 		)
 	);
 
-	sge::time::timer rotation_time(
-		sge::time::second_f(
-			0.1f
-		)
-	);
+	typedef
+	sge::timer::basic<sge::timer::default_clock,fcppt::chrono::duration<float_type> >
+	rotation_timer;
+
+	rotation_timer rotation_time(
+		rotation_timer::parameters(
+			rotation_timer::duration(
+				0.5f)));
 
 	float_type angle(0);
 
@@ -469,7 +475,13 @@ try
 			)
 		);
 
-		angle += fcppt::math::twopi<float_type>() * rotation_time.update();
+		angle += 
+			fcppt::math::twopi<float_type>() * 
+			sge::timer::elapsed_fractional<float_type>(
+				rotation_time);
+
+		sge::timer::reset_when_expired(
+			rotation_time);
 
 		{
 			typedef fcppt::math::vector::static_<
