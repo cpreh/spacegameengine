@@ -18,64 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_RESOURCE_HPP_INCLUDED
-#define SGE_D3D9_RESOURCE_HPP_INCLUDED
+#include "../resource_manager.hpp"
+#include "../resource.hpp"
+#include <fcppt/tr1/functional.hpp>
+#include <algorithm>
 
-#include "resource_fwd.hpp"
-#include "d3dinclude.hpp"
-#include "needs_reset.hpp"
-#include <fcppt/noncopyable.hpp>
-#include <boost/intrusive/list_hook.hpp>
-
-namespace sge
-{
-namespace d3d9
-{
-
-class resource
+sge::d3d9::resource_manager::resource_manager()
 :
-	public boost::intrusive::list_base_hook<
-		boost::intrusive::link_mode<
-			boost::intrusive::auto_unlink
-		>
-	>
+	resources_()
 {
-	FCPPT_NONCOPYABLE(
-		resource
-	);
-public:
-	explicit resource(
-		D3DPOOL
-	);
-
-	explicit resource(
-		d3d9::needs_reset::type
-	);
-
-	virtual ~resource();
-
-	void
-	loss();
-
-	void
-	reset();
-
-	D3DPOOL
-	pool() const;
-
-	bool
-	needs_reset() const ;
-private:
-	virtual void
-	on_loss() = 0;
-
-	virtual void
-	on_reset() = 0;
-
-	D3DPOOL const pool_;
-};
-
-}
 }
 
-#endif
+sge::d3d9::resource_manager::~resource_manager()
+{
+}
+
+void
+sge::d3d9::resource_manager::add(
+	d3d9::resource &_resource
+)
+{
+	resources_.push_back(
+		_resource
+	);
+}
+
+void
+sge::d3d9::resource_manager::release()
+{
+	std::for_each(
+		resources_.begin(),
+		resources_.end(),
+		std::tr1::bind(
+			&resource::loss,
+			std::tr1::placeholders::_1
+		)
+	);
+}
+
+void
+sge::d3d9::resource_manager::reinit()
+{
+	std::for_each(
+		resources_.begin(),
+		resources_.end(),
+		std::tr1::bind(
+			&resource::reset,
+			std::tr1::placeholders::_1
+		)
+	);
+}

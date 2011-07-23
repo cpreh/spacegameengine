@@ -163,7 +163,10 @@ SET(
 	src/plugins/d3d9/parameters/src/tnl_caps.cpp
 	src/plugins/d3d9/parameters/tnl_caps.hpp
 	src/plugins/d3d9/resource.hpp
+	src/plugins/d3d9/resource_fwd.hpp
 	src/plugins/d3d9/resource_list.hpp
+	src/plugins/d3d9/resource_manager.hpp
+	src/plugins/d3d9/resource_manager_fwd.hpp
 	src/plugins/d3d9/src/create_caps.cpp
 	src/plugins/d3d9/src/create_device.cpp
 	src/plugins/d3d9/src/device.cpp
@@ -175,6 +178,7 @@ SET(
 	src/plugins/d3d9/src/offscreen_target.cpp
 	src/plugins/d3d9/src/onscreen_target.cpp
 	src/plugins/d3d9/src/resource.cpp
+	src/plugins/d3d9/src/resource_manager.cpp
 	src/plugins/d3d9/src/system.cpp
 	src/plugins/d3d9/src/target_base.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp

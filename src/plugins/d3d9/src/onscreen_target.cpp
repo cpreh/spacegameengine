@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../onscreen_target.hpp"
 #include "../basic_target_impl.hpp"
 #include "../needs_reset.hpp"
+#include "../resource_manager.hpp"
 #include "../devicefuncs/set_depth_stencil_surface.hpp"
 #include "../devicefuncs/set_render_target.hpp"
 #include "../surface/color.hpp"
@@ -43,7 +44,8 @@ set_surfaces(
 
 sge::d3d9::onscreen_target::onscreen_target(
 	IDirect3DDevice9 *const _device,
-	sge::renderer::viewport const &_viewport
+	sge::renderer::viewport const &_viewport,
+	d3d9::resource_manager &_resources
 )
 :
 	base(
@@ -75,6 +77,13 @@ sge::d3d9::onscreen_target::onscreen_target(
 		)
 	)
 {
+	_resources.add(
+		*color_surface_
+	);
+
+	_resources.add(
+		*depth_stencil_surface_
+	);
 }
 
 sge::d3d9::onscreen_target::~onscreen_target()

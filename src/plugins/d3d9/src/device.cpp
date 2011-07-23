@@ -65,10 +65,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/tr1/functional.hpp>
-#include <fcppt//make_shared_ptr.hpp>
-#include <fcppt//make_unique_ptr.hpp>
-#include <algorithm>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
 sge::d3d9::device::device(
 	IDirect3D9 *const _system,
@@ -112,7 +111,10 @@ sge::d3d9::device::device(
 						_window.size()
 					)
 				)
-			)	
+			),
+			fcppt::ref(
+				resources_
+			)
 		)
 	),
 	offscreen_target_(),
@@ -786,7 +788,7 @@ sge::d3d9::device::add_resource(
 	> const _ptr
 )
 {
-	resources_.push_back(
+	resources_.add(
 		*_ptr
 	);
 
@@ -796,42 +798,13 @@ sge::d3d9::device::add_resource(
 void
 sge::d3d9::device::reinit_resources()
 {
-#if 0
-	IDirect3DSurface9 *surface;
-
-	if(device->GetRenderTarget(0,&surface) != D3D_OK)
-		throw exception(FCPPT_TEXT("d3d: cannot obtain default render target!"));
-
-	default_render_target.reset(surface);
-
-#endif
-	std::for_each(
-		resources_.begin(),
-		resources_.end(),
-		std::tr1::bind(
-			&resource::reset,
-			std::tr1::placeholders::_1
-		)
-	);
+	resources_.reinit();
 }
 
 void
 sge::d3d9::device::release_resources()
 {
-	std::for_each(
-		resources_.begin(),
-		resources_.end(),
-		std::tr1::bind(
-			&resource::loss,
-			std::tr1::placeholders::_1
-		)
-	);
-
-#if 0
-	default_render_target.reset();
-
-	vertex_declaration.reset();
-#endif
+	resources_.release();
 }
 
 void

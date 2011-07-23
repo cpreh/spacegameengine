@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "onscreen_target_fwd.hpp"
 #include "basic_target.hpp"
 #include "d3dinclude.hpp"
+#include "resource_manager_fwd.hpp"
 #include "surface/color_fwd.hpp"
 #include "surface/depth_stencil_fwd.hpp"
 #include <sge/renderer/color_surface_fwd.hpp>
@@ -53,7 +54,8 @@ class onscreen_target
 public:
 	onscreen_target(
 		IDirect3DDevice9 *,
-		sge::renderer::viewport const &
+		sge::renderer::viewport const &,
+		d3d9::resource_manager &
 	);
 
 	~onscreen_target();
