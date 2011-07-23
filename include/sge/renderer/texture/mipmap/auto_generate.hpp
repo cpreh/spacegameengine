@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_FILTER_MAG_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_FILTER_MAG_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_MIPMAP_AUTO_GENERATE_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_MIPMAP_AUTO_GENERATE_HPP_INCLUDED
 
 namespace sge
 {
@@ -27,15 +27,15 @@ namespace renderer
 {
 namespace texture
 {
-namespace filter
+namespace mipmap
 {
 
-namespace mag
+namespace auto_generate
 {
 enum type
 {
-	point,
-	linear
+	yes,
+	no
 };
 }
 

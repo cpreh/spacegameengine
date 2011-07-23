@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -257,7 +257,7 @@ try
 					sys.renderer()
 				),
 				sge::image::color::format::rgba8,
-				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::repeat
 				)
@@ -409,7 +409,7 @@ try
 					window_dim
 				),
 				sge::image::color::format::rgba8,
-				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp
 				),

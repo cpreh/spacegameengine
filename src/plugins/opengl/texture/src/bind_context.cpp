@@ -48,7 +48,7 @@ void
 sge::opengl::texture::bind_context::bind_for_rendering(
 	opengl::context::object &_context,
 	opengl::texture::base const &_texture,
-	renderer::stage_type const _stage
+	renderer::stage const _stage
 )
 {
 	render_textures_[
@@ -113,7 +113,7 @@ sge::opengl::texture::bind_context::bind_for_rendering(
 void
 sge::opengl::texture::bind_context::unbind_for_rendering(
 	opengl::context::object &_context,
-	renderer::stage_type const _stage
+	renderer::stage const _stage
 )
 {
 	FCPPT_ASSERT(
@@ -163,7 +163,7 @@ sge::opengl::texture::bind_context::bind_for_work(
 	opengl::context::object &_context,
 	texture::type const _type,
 	texture::id const _id,
-	renderer::stage_type const _stage
+	renderer::stage const _stage
 )
 {
 	temp_textures_[
@@ -187,7 +187,7 @@ sge::opengl::texture::bind_context::bind_for_work(
 void
 sge::opengl::texture::bind_context::unbind_for_work(
 	opengl::context::object &_context,
-	renderer::stage_type const _stage
+	renderer::stage const _stage
 )
 {
 	texture::base const *const prev_texture(
@@ -213,6 +213,17 @@ sge::opengl::texture::bind_context::unbind_for_work(
 			*prev_texture,
 			_stage
 		);
+}
+
+sge::opengl::texture::base const *
+sge::opengl::texture::bind_context::render_texture(
+	renderer::stage const _stage
+)
+{
+	return
+		render_textures_[
+			_stage.get()
+		];
 }
 
 sge::opengl::context::id const

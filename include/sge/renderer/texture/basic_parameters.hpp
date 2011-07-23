@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture/basic_parameters_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
+#include <sge/renderer/texture/mipmap/object.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/image/color/format.hpp>
@@ -47,7 +47,7 @@ public:
 	basic_parameters(
 		Dim const &,
 		sge::image::color::format::type,
-		texture::filter::object const &,
+		texture::mipmap::object const &,
 		AddressMode const &,
 		renderer::resource_flags_field const &,
 		texture::capabilities_field const &
@@ -62,8 +62,8 @@ public:
 	color_format() const;
 
 	SGE_RENDERER_SYMBOL
-	texture::filter::object const &
-	filter() const;
+	texture::mipmap::object const &
+	mipmap() const;
 
 	SGE_RENDERER_SYMBOL
 	AddressMode const &
@@ -81,7 +81,7 @@ private:
 
 	sge::image::color::format::type color_format_;
 
-	texture::filter::object filter_;
+	texture::mipmap::object mipmap_;
 
 	AddressMode address_mode_;
 

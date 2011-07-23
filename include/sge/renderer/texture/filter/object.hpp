@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_FILTER_OBJECT_HPP_INCLUDED
 
 #include <sge/renderer/texture/filter/object_fwd.hpp>
-#include <sge/renderer/texture/filter/min.hpp>
-#include <sge/renderer/texture/filter/mag.hpp>
-#include <sge/renderer/texture/filter/anisotropy_type.hpp>
+#include <sge/renderer/texture/filter/variant.hpp>
+#include <sge/renderer/texture/filter/anisotropic/object.hpp>
+#include <sge/renderer/texture/filter/normal/object.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 namespace sge
 {
@@ -39,31 +40,23 @@ namespace filter
 class object
 {
 public:
-	SGE_RENDERER_SYMBOL
-	object(
-		filter::min::type,
-		filter::mag::type,
-		filter::anisotropy_type
+	explicit object(
+		filter::variant const &
 	);
 
 	SGE_RENDERER_SYMBOL
-	filter::min::type
-	min() const;
-
-	SGE_RENDERER_SYMBOL
-	filter::mag::type
-	mag() const;
-
-	SGE_RENDERER_SYMBOL
-	filter::anisotropy_type const
-	anisotropy() const;
+	filter::variant const &
+	variant() const;
 private:
-	filter::min::type min_;
-
-	filter::mag::type mag_;
-
-	filter::anisotropy_type anisotropy_;
+	filter::variant variant_;
 };
+
+SGE_RENDERER_SYMBOL
+bool
+operator==(
+	filter::object const &,
+	filter::object const &
+);
 
 }
 }

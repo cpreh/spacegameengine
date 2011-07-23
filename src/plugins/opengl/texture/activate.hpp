@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/texture/base_fwd.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 
 namespace sge
 {
@@ -36,7 +36,7 @@ void
 activate(
 	opengl::context::object &,
 	sge::renderer::texture::base const *,
-	sge::renderer::stage_type
+	sge::renderer::stage
 );
 
 }

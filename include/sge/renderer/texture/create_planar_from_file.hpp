@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_FILE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_FILE_HPP_INCLUDED
 
-#include <sge/renderer/texture/filter/object_fwd.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/renderer/texture/address_mode2_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -41,7 +41,7 @@ renderer::texture::planar_ptr const
 create_planar_from_file(
 	renderer::device &,
 	image2d::file &,
-	renderer::texture::filter::object const &,
+	renderer::texture::mipmap::object const &,
 	renderer::texture::address_mode2 const &,
 	renderer::resource_flags_field const &
 );

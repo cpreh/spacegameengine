@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context/base.hpp"
 #include "../context/id.hpp"
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 #include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
@@ -59,13 +59,13 @@ public:
 	bind_for_rendering(
 		opengl::context::object &,
 		opengl::texture::base const &,
-		renderer::stage_type
+		renderer::stage
 	);
 
 	void
 	unbind_for_rendering(
 		opengl::context::object &,
-		renderer::stage_type
+		renderer::stage
 	);
 
 	void
@@ -73,13 +73,18 @@ public:
 		opengl::context::object &,
 		texture::type,
 		texture::id,
-		renderer::stage_type
+		renderer::stage
 	);
 
 	void
 	unbind_for_work(
 		opengl::context::object &,
-		renderer::stage_type
+		renderer::stage
+	);
+
+	opengl::texture::base const *
+	render_texture(
+		renderer::stage
 	);
 
 	typedef void needs_before;
@@ -101,7 +106,7 @@ private:
 
 	typedef std::map<
 		texture::type,
-		renderer::stage_type::value_type
+		renderer::stage::value_type
 	> texture_type_map;
 
 	texture_vector

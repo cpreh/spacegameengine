@@ -32,7 +32,7 @@ sge::renderer::texture::volume_ptr const
 sge::renderer::texture::create_volume_from_view(
 	renderer::device &_renderer,
 	sge::image3d::view::const_object const &_view,
-	texture::filter::object const &_filter,
+	texture::mipmap::object const &_mipmap,
 	texture::address_mode3 const &_address_mode,
 	renderer::resource_flags_field const &_resource_flags
 )
@@ -46,7 +46,7 @@ sge::renderer::texture::create_volume_from_view(
 				sge::image3d::view::format(
 					_view
 				),
-				_filter,
+				_mipmap,
 				_address_mode,
 				_resource_flags,
 				renderer::texture::capabilities_field::null()

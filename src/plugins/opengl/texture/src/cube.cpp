@@ -79,7 +79,7 @@ sge::opengl::texture::cube::cube(
 			size_
 		),
 		_param.color_format(),
-		_param.filter(),
+		_param.mipmap(),
 		_param.address_mode(),
 		_param.resource_flags(),
 		_param.capabilities()

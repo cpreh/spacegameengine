@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/sampler_stage_op.hpp>
 #include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
@@ -72,6 +72,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_ptr.hpp>
+#include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/window/instance_ptr.hpp>
@@ -179,22 +180,28 @@ public:
 
 	virtual void
 	sampler_stage_op(
-		renderer::stage_type,
+		renderer::stage,
 		renderer::sampler_stage_op::type,
 		renderer::sampler_stage_op_value::type
 	) = 0;
 
 	virtual void
 	sampler_stage_arg(
-		renderer::stage_type,
+		renderer::stage,
 		renderer::sampler_stage_arg::type,
 		renderer::sampler_stage_arg_value::type
 	) = 0;
 
 	virtual void
+	texture_filter(
+		renderer::texture::filter::object const &,
+		renderer::stage
+	) = 0;
+
+	virtual void
 	texture(
 		renderer::texture::base const *,
-		renderer::stage_type
+		renderer::stage
 	) = 0;
 
 	virtual void

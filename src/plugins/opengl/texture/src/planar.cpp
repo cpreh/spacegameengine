@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../common.hpp"
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <fcppt/cref.hpp>
@@ -64,7 +64,7 @@ sge::opengl::texture::planar::planar(
 		_context,
 		this->type(),
 		this->id(),
-		renderer::stage_type(0u)
+		renderer::stage(0u)
 	);
 
 	opengl::texture::funcs::set_2d(
@@ -103,14 +103,14 @@ sge::opengl::texture::planar::set_area(
 
 sge::renderer::color_surface_ptr const
 sge::opengl::texture::planar::surface(
-	renderer::stage_type const _stage
+	renderer::stage const _stage
 )
 {
 	opengl::texture::scoped_work_bind const binding(
 		this->context(),
 		this->type(),
 		this->id(),
-		renderer::stage_type(0u)
+		renderer::stage(0u)
 	);
 
 	return
@@ -134,28 +134,24 @@ sge::opengl::texture::planar::surface(
 		);
 }
 
-sge::renderer::stage_type
+sge::renderer::stage const
 sge::opengl::texture::planar::stages() const
 {
 	opengl::texture::scoped_work_bind const binding(
 		this->context(),
 		this->type(),
 		this->id(),
-		renderer::stage_type(
+		renderer::stage(
 			0u
 		)
 	);
 
 	return
-		renderer::stage_type(
-			static_cast<
-				renderer::stage_type::value_type
-			>(
-				funcs::get_parameter_int(
-					binding,
-					this->type(),
-					GL_TEXTURE_BASE_LEVEL
-				)
+		renderer::stage(
+			funcs::get_parameter_int(
+				binding,
+				this->type(),
+				GL_TEXTURE_BASE_LEVEL
 			)
 		);
 }

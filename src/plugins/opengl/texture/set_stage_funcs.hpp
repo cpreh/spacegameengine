@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_SET_STAGE_FUNCS_HPP_INCLUDED
 
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 
 namespace sge
 {
@@ -38,7 +38,7 @@ template<
 void
 set_stage_funcs(
 	opengl::context::object &,
-	renderer::stage_type,
+	renderer::stage,
 	Arg,
 	Value 
 );

@@ -33,8 +33,9 @@ namespace texture
 namespace filter
 {
 
-SGE_RENDERER_SYMBOL extern
-filter::object const point;
+SGE_RENDERER_SYMBOL
+filter::object const
+point();
 
 }
 }

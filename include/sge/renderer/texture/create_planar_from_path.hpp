@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_PATH_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_PATH_HPP_INCLUDED
 
-#include <sge/renderer/texture/filter/object_fwd.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/renderer/texture/address_mode2_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -43,7 +43,7 @@ create_planar_from_path(
 	fcppt::filesystem::path const &,
 	renderer::device &,
 	image2d::multi_loader &,
-	renderer::texture::filter::object const &,
+	renderer::texture::mipmap::object const &,
 	renderer::texture::address_mode2 const &,
 	renderer::resource_flags_field const &
 );

@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../activate.hpp"
 #include "../base.hpp"
 #include "../bind_context.hpp"
+#include "../filter_context.hpp"
+#include "../funcs/set_filter.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/texture/base.hpp>
-#include <fcppt/dynamic_pointer_cast.hpp>
 
 void
 sge::opengl::texture::activate(
 	opengl::context::object &_context,
 	sge::renderer::texture::base const *const _texture,
-	sge::renderer::stage_type const _stage
+	sge::renderer::stage const _stage
 )
 {
 	opengl::texture::bind_context &context(
@@ -43,15 +44,35 @@ sge::opengl::texture::activate(
 	if(
 		_texture
 	)
-		context.bind_for_rendering(
-			_context,
+	{
+		opengl::texture::base const &texture_base(
 			dynamic_cast<
 				opengl::texture::base const &
 			>(
 				*_texture
-			),
+			)
+		);
+
+		// TODO: optimize this!
+		opengl::texture::funcs::set_filter(
+			_context,
+			texture_base,
+			_stage,
+			opengl::context::use<
+				opengl::texture::filter_context
+			>(
+				_context
+			).get(
+				_stage
+			)
+		);
+
+		context.bind_for_rendering(
+			_context,
+			texture_base,
 			_stage
 		);
+	}
 	else
 		context.unbind_for_rendering(
 			_context,

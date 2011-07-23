@@ -18,21 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/texture/filter/anisotropic.hpp>
-#include <sge/renderer/texture/filter/anisotropy_type.hpp>
-#include <sge/renderer/texture/filter/mag.hpp>
-#include <sge/renderer/texture/filter/min.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/renderer/texture/mipmap/object.hpp>
+#include <sge/renderer/texture/mipmap/off_rep.hpp>
 
-sge::renderer::texture::filter::object const
-sge::renderer::texture::filter::anisotropic(
-	filter::anisotropy_type const _level
-)
+SGE_RENDERER_SYMBOL
+sge::renderer::texture::mipmap::object const
+sge::renderer::texture::mipmap::off()
 {
 	return
-		filter::object(
-			filter::min::point,
-			filter::mag::point,
-			_level
+		mipmap::object(
+			mipmap::off_rep()
 		);
 }

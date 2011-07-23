@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../color_format_type.hpp"
 #include <sge/renderer/color_surface.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -63,7 +63,7 @@ public:
 		opengl::context::object &,
 		texture::type,
 		texture::id,
-		renderer::stage_type,
+		renderer::stage,
 		renderer::resource_flags_field const &,
 		opengl::color_format,
 		opengl::color_format_type,
@@ -85,7 +85,7 @@ private:
 
 	opengl::context::object &context_;
 
-	sge::renderer::stage_type const stage_;
+	sge::renderer::stage const stage_;
 
 	renderer::resource_flags_field const resource_flags_;
 

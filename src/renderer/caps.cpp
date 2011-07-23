@@ -29,7 +29,7 @@ sge::renderer::caps::caps(
 	fcppt::string const &_driver_name,
 	fcppt::string const &_description,
 	dim2 const &_max_texture_size,
-	texture::filter::anisotropy_type const _max_anisotropy,
+	texture::filter::anisotropic::level const _max_anisotropy,
 	bool const _render_target_supported,
 	bool const _glsl_supported,
 	image::color::format::type const _preferred_texture_format
@@ -70,7 +70,7 @@ sge::renderer::caps::max_texture_size() const
 	return max_texture_size_;
 }
 
-sge::renderer::texture::filter::anisotropy_type
+sge::renderer::texture::filter::anisotropic::level const
 sge::renderer::caps::max_anisotropy() const
 {
 	return max_anisotropy_;

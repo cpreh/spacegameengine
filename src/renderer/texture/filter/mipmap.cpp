@@ -19,12 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture/filter/mipmap.hpp>
+#include <sge/renderer/texture/filter/normal/mag.hpp>
+#include <sge/renderer/texture/filter/normal/make.hpp>
+#include <sge/renderer/texture/filter/normal/min.hpp>
+#include <sge/renderer/texture/filter/normal/mip.hpp>
 
 sge::renderer::texture::filter::object const
-sge::renderer::texture::filter::mipmap(
-	min::mipmap,
-	mag::linear,
-	sge::renderer::texture::filter::anisotropy_type(
-		0u
-	)
-);
+sge::renderer::texture::filter::mipmap()
+{
+	return
+		filter::normal::make(
+			filter::normal::mag::linear,
+			filter::normal::min::linear,
+			filter::normal::mip::point
+		);
+}

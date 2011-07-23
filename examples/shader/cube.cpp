@@ -107,7 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
@@ -871,7 +871,7 @@ try
 				sys.renderer(),
 				sys.image_loader().load(
 					sge::config::media_path()/FCPPT_TEXT("images")/FCPPT_TEXT("normal_map.png"))->view(),
-				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
 				// Here, you could specify "readable", for example
@@ -881,8 +881,7 @@ try
 				sys.renderer(),
 				sys.image_loader().load(
 					sge::config::media_path()/FCPPT_TEXT("images")/FCPPT_TEXT("color_map.png"))->view(),
-				// Other filter settings are possible: point, trilinear, anisotropic.
-				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none);

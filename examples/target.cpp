@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
@@ -135,7 +135,7 @@ try
 		sge::renderer::texture::create_planar_from_view(
 			sys.renderer(),
 			image->view(),
-			sge::renderer::texture::filter::linear,
+			sge::renderer::texture::mipmap::off(),
 			sge::renderer::texture::address_mode2(
 				sge::renderer::texture::address_mode::clamp
 			),
@@ -179,7 +179,7 @@ try
 					480
 				),
 				sge::image::color::format::rgba8,
-				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp
 				),
@@ -277,7 +277,7 @@ try
 
 		sys.renderer().texture(
 			sge::renderer::no_texture(),
-			sge::renderer::stage_type(
+			sge::renderer::stage(
 				0u
 			)
 		);

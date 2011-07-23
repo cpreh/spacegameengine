@@ -19,12 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture/filter/trilinear.hpp>
+#include <sge/renderer/texture/filter/normal/mag.hpp>
+#include <sge/renderer/texture/filter/normal/make.hpp>
+#include <sge/renderer/texture/filter/normal/min.hpp>
+#include <sge/renderer/texture/filter/normal/mip.hpp>
 
 sge::renderer::texture::filter::object const
-sge::renderer::texture::filter::trilinear(
-	min::trilinear,
-	mag::linear,
-	sge::renderer::texture::filter::anisotropy_type(
-		0u
-	)
-);
+sge::renderer::texture::filter::trilinear()
+{
+	return
+		filter::normal::make(
+			filter::normal::mag::linear,
+			filter::normal::min::linear,
+			filter::normal::mip::linear
+		);
+}

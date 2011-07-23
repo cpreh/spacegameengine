@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "scoped_work_bind_fwd.hpp"
 #include "surface_base.hpp"
 #include "type.hpp"
+#include <sge/renderer/stage.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -53,7 +54,7 @@ public:
 		texture::scoped_work_bind const &,
 		texture::type,
 		texture::id,
-		renderer::stage_type
+		renderer::stage
 	);
 	
 	~basic_surface();

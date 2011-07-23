@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_FUNCS_SET_FILTER_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_FUNCS_SET_FILTER_HPP_INCLUDED
 
-#include "../scoped_work_bind_fwd.hpp"
-#include "../type.hpp"
+#include "../base_fwd.hpp"
 #include "../../context/object_fwd.hpp"
 #include <sge/renderer/texture/filter/object_fwd.hpp>
+#include <sge/renderer/stage.hpp>
 
 namespace sge
 {
@@ -37,9 +37,9 @@ namespace funcs
 
 void
 set_filter(
-	texture::scoped_work_bind const &,
-	context::object &,
-	texture::type,
+	opengl::context::object &,
+	opengl::texture::base const &,
+	renderer::stage,
 	renderer::texture::filter::object const &
 );
 

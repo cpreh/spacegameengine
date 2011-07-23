@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::texture::rect_fragmented::rect_fragmented(
 	renderer::device &_rend,
 	image::color::format::type const _format,
-	renderer::texture::filter::object const &_filter,
+	renderer::texture::mipmap::object const &_mipmap,
 	renderer::dim2 const &_initial_size
 )
 :
@@ -42,7 +42,7 @@ sge::texture::rect_fragmented::rect_fragmented(
 		atlasing::create(
 			_rend,
 			_format,
-			_filter,
+			_mipmap,
 			_initial_size
 		)
 	),

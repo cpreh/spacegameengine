@@ -19,25 +19,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../mag_filter.hpp"
+#include "../../../common.hpp"
+#include <sge/renderer/texture/filter/normal/mag.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 GLenum
 sge::opengl::texture::convert::mag_filter(
-	renderer::texture::filter::mag::type const _arg
+	renderer::texture::filter::normal::mag::type const _filter
 )
 {
 	switch(
-		_arg
+		_filter
 	)
 	{
-	case renderer::texture::filter::mag::point:
+	case renderer::texture::filter::normal::mag::point:
 		return GL_NEAREST;
-	case renderer::texture::filter::mag::linear:
+	case renderer::texture::filter::normal::mag::linear:
 		return GL_LINEAR;
 	}
 
 	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid mag_filter!")
+		FCPPT_TEXT("Invalid mag filter!")
 	);
 }

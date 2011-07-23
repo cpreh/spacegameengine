@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::context::context()
 :
+	opengl::context::base(),
 	anisotropic_filter_supported_(
 		sge::opengl::glew::is_supported(
 			"GL_EXT_texture_filter_anisotropic"

@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/stencil_op.hpp>
 #include <sge/renderer/state/stencil_op_value.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
@@ -220,7 +220,7 @@ try
 				sge::texture::part_raw
 			>(
 				// Create a texture from "grass.png",
-				// which will use a linear filter
+				// which uses no mipmapping
 				// and clamping at its corners.
 				sge::renderer::texture::create_planar_from_path(
 					sge::config::media_path()
@@ -228,7 +228,7 @@ try
 					/ FCPPT_TEXT("grass.png"),
 					sys.renderer(),
 					sys.image_loader(),
-					sge::renderer::texture::filter::linear,
+					sge::renderer::texture::mipmap::off(),
 					sge::renderer::texture::address_mode2(
 						sge::renderer::texture::address_mode::clamp
 					),
@@ -260,7 +260,7 @@ try
 					/ FCPPT_TEXT("cloudsquare.png"),
 					sys.renderer(),
 					sys.image_loader(),
-					sge::renderer::texture::filter::linear,
+					sge::renderer::texture::mipmap::off(),
 					sge::renderer::texture::address_mode2(
 						sge::renderer::texture::address_mode::clamp
 					),

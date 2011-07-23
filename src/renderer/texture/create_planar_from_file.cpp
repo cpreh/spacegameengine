@@ -27,7 +27,7 @@ sge::renderer::texture::planar_ptr const
 sge::renderer::texture::create_planar_from_file(
 	renderer::device &_renderer,
 	image2d::file &_file,
-	renderer::texture::filter::object const &_filter,
+	renderer::texture::mipmap::object const &_filter,
 	renderer::texture::address_mode2 const &_address_mode,
 	renderer::resource_flags_field const &_flags
 )

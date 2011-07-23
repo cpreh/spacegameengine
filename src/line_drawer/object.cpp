@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
@@ -94,7 +94,7 @@ sge::line_drawer::object::render()
 
 	renderer_.texture(
 		sge::renderer::no_texture(),
-		static_cast<sge::renderer::stage_type>(
+		sge::renderer::stage(
 			0));
 
 	renderer_.render_nonindexed(

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "create_lock.hpp"
 #include "scoped_work_bind.hpp"
 #include "funcs/get_image.hpp"
-#include "funcs/set_filter.hpp"
+#include "funcs/create_mipmap.hpp"
 #include "../convert/color_to_format.hpp"
 #include "../convert/color_to_format_type.hpp"
 #include "../convert/color_to_internal_format.hpp"
@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/lock_flags/write.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -147,7 +147,7 @@ sge::opengl::texture::basic<Types>::unlock() const
 			context_,
 			this->type(),
 			this->id(),
-			renderer::stage_type(0u)
+			renderer::stage(0u)
 		);
 
 		this->set_area(
@@ -213,7 +213,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 			context_,
 			this->type(),
 			this->id(),
-			renderer::stage_type(0u)
+			renderer::stage(0u)
 		);
 
 		opengl::texture::funcs::get_image(
@@ -222,7 +222,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 			this->format(),
 			this->format_type(),
 			lock_->read_pointer(),
-			renderer::stage_type(0u)
+			renderer::stage(0u)
 		);
 	}
 
@@ -325,10 +325,10 @@ sge::opengl::texture::basic<Types>::lock_dim() const
 template<
 	typename Types
 >
-sge::renderer::texture::filter::object const &
-sge::opengl::texture::basic<Types>::filter() const
+sge::renderer::texture::mipmap::object const &
+sge::opengl::texture::basic<Types>::mipmap() const
 {
-	return filter_;
+	return mipmap_;
 }
 
 template<
@@ -400,8 +400,8 @@ sge::opengl::texture::basic<Types>::basic(
 	context_(
 		_context
 	),
-	filter_(
-		_parameters.filter()
+	mipmap_(
+		_parameters.mipmap()
 	),
 	resource_flags_(
 		_parameters.resource_flags()
@@ -447,7 +447,7 @@ sge::opengl::texture::basic<Types>::basic(
 		context_,
 		this->type(),
 		this->id(),
-		renderer::stage_type(0u)
+		renderer::stage(0u)
 	);
 
 	opengl::texture::address_mode(
@@ -456,11 +456,11 @@ sge::opengl::texture::basic<Types>::basic(
 		_parameters.address_mode()
 	);
 
-	opengl::texture::funcs::set_filter(
+	opengl::texture::funcs::create_mipmap(
 		binding,
 		context_,
 		this->type(),
-		this->filter()
+		this->mipmap()
 	);
 }
 

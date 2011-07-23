@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "surface_base_fwd.hpp"
 #include "id.hpp"
 #include "type.hpp"
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -40,10 +40,10 @@ class surface_base
 		surface_base
 	);
 protected:
-	explicit surface_base(
+	surface_base(
 		texture::type,
 		texture::id,
-		sge::renderer::stage_type
+		sge::renderer::stage
 	);
 public:
 	virtual ~surface_base();
@@ -54,14 +54,14 @@ public:
 	texture::id const
 	id() const;
 
-	sge::renderer::stage_type const
+	sge::renderer::stage const
 	stage() const;
 private:
 	texture::type const type_;
 
 	texture::id const id_;
 
-	sge::renderer::stage_type const stage_;
+	sge::renderer::stage const stage_;
 };
 
 }
