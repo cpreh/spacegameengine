@@ -86,8 +86,8 @@ try
 		sge::audio::sound::repeat::loop
 	);
 
-	sge::timer::basic<fcppt::chrono::seconds> frame_timer(
-		sge::timer::parameters<fcppt::chrono::seconds>(
+	sge::timer::basic<> frame_timer(
+		sge::timer::parameters<>(
 			fcppt::chrono::seconds(
 				1)));
 
