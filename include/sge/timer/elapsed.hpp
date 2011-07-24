@@ -25,8 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/time_point_arithmetic.hpp>
 
-#include <iostream>
-
 namespace sge
 {
 namespace timer
@@ -34,10 +32,11 @@ namespace timer
 template<typename Duration,typename Clock>
 Duration const
 elapsed(
-	timer::basic<Duration,Clock> const &t)
+	timer::basic<Clock> const &t)
 {
 	if(t.expired())
-		return t.interval();
+		return 
+			t.template interval<Duration>();
 
 	return 
 		fcppt::chrono::duration_cast<Duration>(

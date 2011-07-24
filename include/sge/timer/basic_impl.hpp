@@ -27,13 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/time_point_impl.hpp>
 #include <fcppt/chrono/time_point_arithmetic.hpp>
 
-template<typename Duration,typename Clock>
-sge::timer::basic<Duration,Clock>::basic(
+template<typename Clock>
+sge::timer::basic<Clock>::basic(
 	parameters const &params)
 :
 	interval_(
-		fcppt::chrono::duration_cast<typename Clock::duration>(
-			params.interval())),
+		params.interval()),
 	callback_(
 		params.callback()),
 	active_(
@@ -45,33 +44,33 @@ sge::timer::basic<Duration,Clock>::basic(
 {
 }
 
-template<typename Duration,typename Clock>
+template<typename Clock>
 bool
-sge::timer::basic<Duration,Clock>::expired() const
+sge::timer::basic<Clock>::expired() const
 {
 	return 
 		this->active() && (expired_ || (this->callback_() - this->last_time()).count() > interval_.count());
 }
 
-template<typename Duration,typename Clock>
+template<typename Clock>
 void
-sge::timer::basic<Duration,Clock>::expired(
+sge::timer::basic<Clock>::expired(
 	bool const _expired)
 {
 	expired_ = 
 		_expired;
 }
 
-template<typename Duration,typename Clock>
+template<typename Clock>
 bool
-sge::timer::basic<Duration,Clock>::active() const
+sge::timer::basic<Clock>::active() const
 {
 	return active_;
 }
 
-template<typename Duration,typename Clock>
+template<typename Clock>
 void
-sge::timer::basic<Duration,Clock>::active(
+sge::timer::basic<Clock>::active(
 	bool const _active)
 {
 	if(active_ == _active)
@@ -88,43 +87,46 @@ sge::timer::basic<Duration,Clock>::active(
 	}
 }
 
-template<typename Duration,typename Clock>
+template<typename Clock>
 typename sge::timer::callback<Clock>::type const
-sge::timer::basic<Duration,Clock>::callback() const
+sge::timer::basic<Clock>::callback() const
 {
 	return callback_;
 }
 
-template<typename Duration,typename Clock>
-Duration const
-sge::timer::basic<Duration,Clock>::interval() const
+template<typename Clock>
+template<typename NewDuration>
+NewDuration const
+sge::timer::basic<Clock>::interval() const
 {
 	return 
-		fcppt::chrono::duration_cast<Duration>(
+		fcppt::chrono::duration_cast<duration>(
 			interval_);
 }
 
-template<typename Duration,typename Clock>
+template<typename Clock>
+template<typename NewDuration>
 void
-sge::timer::basic<Duration,Clock>::interval(
-	Duration const &_interval)
+sge::timer::basic<Clock>::interval(
+	NewDuration const &_interval)
 {
 	interval_ = 
-		fcppt::chrono::duration_cast<Duration>(
+		fcppt::chrono::duration_cast<duration>(
 			_interval);
 	this->reset();
 }
 
-template<typename Duration,typename Clock>
-typename sge::timer::time_point<Clock>::type
-sge::timer::basic<Duration,Clock>::last_time() const
+template<typename Clock>
+typename 
+sge::timer::basic<Clock>::time_point const
+sge::timer::basic<Clock>::last_time() const
 {
 	return last_time_;
 }
 
-template<typename Duration,typename Clock>
+template<typename Clock>
 void
-sge::timer::basic<Duration,Clock>::reset()
+sge::timer::basic<Clock>::reset()
 {
 	last_time_ = this->callback_();
 	expired_ = false;

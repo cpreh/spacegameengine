@@ -163,7 +163,7 @@ sge::console::gfx::gfx(
 		false),
 	input_line_(),
 	cursor_blink_(
-		cursor_blink_timer::parameters(
+		sge::timer::parameters<>(
 			fcppt::chrono::milliseconds(
 				500))),
 	cursor_active_(

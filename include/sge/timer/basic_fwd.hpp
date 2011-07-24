@@ -27,7 +27,7 @@ namespace sge
 {
 namespace timer
 {
-template<typename Duration,typename Clock = sge::timer::default_clock>
+template<typename Clock = sge::timer::default_clock>
 class basic;
 }
 }

@@ -27,10 +27,10 @@ namespace sge
 {
 namespace timer
 {
-template<typename Duration,typename Clock>
+template<typename Clock>
 bool
 reset_when_expired(
-	timer::basic<Duration,Clock> &t)
+	timer::basic<Clock> &t)
 {
 	if(!t.expired())
 		return false;

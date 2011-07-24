@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/basic.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/time_point_arithmetic.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -32,7 +31,7 @@ namespace sge
 {
 namespace timer
 {
-template<typename Float,typename Duration,typename Clock>
+template<typename Float,typename Clock>
 typename
 boost::enable_if
 <
@@ -40,7 +39,7 @@ boost::enable_if
 	Float
 >::type
 elapsed_fractional(
-	timer::basic<Duration,Clock> const &t)
+	timer::basic<Clock> const &t)
 {
 	if(!t.active())
 		return 
@@ -55,8 +54,7 @@ elapsed_fractional(
 	return 
 		static_cast<Float>((t.callback()() - t.last_time()).count()) / 
 		static_cast<Float>(
-			fcppt::chrono::duration_cast<typename Clock::duration>(
-				t.interval()).count());
+			t.template interval<typename Clock::duration>().count());
 }
 }
 }

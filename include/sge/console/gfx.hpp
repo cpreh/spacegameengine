@@ -125,7 +125,7 @@ private:
 	bool active_;
 
 	cursor input_line_;
-	timer::basic<fcppt::chrono::milliseconds> cursor_blink_;
+	timer::basic<> cursor_blink_;
 	bool cursor_active_;
 	input_history_sequence input_history_;
 	input_history_sequence::iterator current_input_;

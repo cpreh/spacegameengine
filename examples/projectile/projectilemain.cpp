@@ -538,8 +538,8 @@ try
 			(sge::renderer::state::bool_::clear_back_buffer = true)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
-	sge::timer::basic<sge::projectile::duration> frame_timer(
-		sge::timer::parameters<sge::projectile::duration>(
+	sge::timer::basic<> frame_timer(
+		sge::timer::parameters<>(
 			sge::projectile::duration(
 				1.0f)));
 
@@ -549,7 +549,7 @@ try
 
 		world.update_continuous(
 			sge::projectile::time_increment(
-				sge::timer::elapsed(
+				sge::timer::elapsed<sge::projectile::duration>(
 					frame_timer)));
 
 		frame_timer.reset();

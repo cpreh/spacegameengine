@@ -160,8 +160,8 @@ try
 		gui_syringe,
 		sys.keyboard_collector());
 
-	sge::timer::basic<sge::cegui::duration> frame_timer(
-		sge::timer::parameters<sge::cegui::duration>(
+	sge::timer::basic<> frame_timer(
+		sge::timer::parameters<>(
 			sge::cegui::duration(
 				static_cast<sge::cegui::unit>(
 					1))));
@@ -181,7 +181,8 @@ try
 		sys.window().dispatch();
 
 		gui_sys.update(
-			sge::timer::elapsed(frame_timer));
+			sge::timer::elapsed<sge::cegui::duration>(
+				frame_timer));
 
 		frame_timer.reset();
 

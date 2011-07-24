@@ -34,15 +34,9 @@ Duration const
 remaining(
 	timer::basic<Duration,Clock> const &t)
 {
-	if(t.expired())
-		return 
-			Duration(
-				static_cast<typename Duration::rep>(
-					0));
-
 	return 
 		fcppt::chrono::duration_cast<Duration>(
-			(t.last_time() + t.interval()) - t.callback()());
+			t.interval() - timer::elapsed());
 }
 }
 }

@@ -31,23 +31,31 @@ namespace sge
 {
 namespace timer
 {
-template<typename Duration,typename Clock>
+template<typename Clock>
 class basic
 {
 FCPPT_NONCOPYABLE(
 	basic);
 public:
 	typedef
-	timer::parameters<Duration,Clock>
-	parameters;
-
-	typedef
 	Clock
 	clock;
 
 	typedef
-	Duration
+	timer::parameters<clock>
+	parameters;
+
+	typedef typename
+	clock::duration
 	duration;
+
+	typedef typename 
+	timer::callback<clock>::type
+	callback_type;
+
+	typedef typename 
+	timer::time_point<clock>::type
+	time_point;
 
 	explicit
 	basic(
@@ -67,27 +75,29 @@ public:
 	active(
 		bool);
 
-	typename timer::callback<Clock>::type const
+	callback_type const
 	callback() const;
 
-	Duration const
+	template<typename NewDuration>
+	NewDuration const
 	interval() const;
 
+	template<typename NewDuration>
 	void
 	interval(
-		Duration const &);
+		NewDuration const &);
 
-	typename timer::time_point<Clock>::type
+	time_point const
 	last_time() const;
 
 	void
 	reset();
 private:
-	typename Clock::duration interval_;
-	typename timer::callback<Clock>::type callback_;
+	duration interval_;
+	callback_type callback_;
 	bool active_;
 	bool expired_;
-	typename timer::time_point<Clock>::type last_time_;
+	time_point last_time_;
 };
 }
 }
