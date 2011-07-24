@@ -81,8 +81,8 @@ try
 		)
 	);
 
-	sge::timer::basic<fcppt::chrono::seconds> tm(
-		sge::timer::parameters<fcppt::chrono::seconds>(
+	sge::timer::basic<> tm(
+		sge::timer::parameters<>(
 			fcppt::chrono::seconds(
 				5)));
 

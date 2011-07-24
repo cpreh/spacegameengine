@@ -327,8 +327,8 @@ try
 	wait_for_sound(
 		s);
 
-	sge::timer::basic<fcppt::chrono::seconds> frame_timer(
-		sge::timer::parameters<fcppt::chrono::seconds>(
+	sge::timer::basic<> frame_timer(
+		sge::timer::parameters<>(
 			fcppt::chrono::seconds(
 				10)));
 
