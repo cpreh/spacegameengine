@@ -29,7 +29,7 @@ namespace sge
 {
 namespace timer
 {
-template<typename Float,typename Duration,typename Clock>
+template<typename Float,typename Clock>
 typename
 boost::enable_if
 <
@@ -37,7 +37,7 @@ boost::enable_if
 	Float
 >::type
 remaining_fractional(
-	timer::basic<Duration,Clock> const &t)
+	timer::basic<Clock> const &t)
 {
 	return 
 		static_cast<Float>(1) - 

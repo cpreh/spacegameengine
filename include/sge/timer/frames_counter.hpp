@@ -46,8 +46,9 @@ public:
 	frames_counter()
 	:
 		timer_(
-			timer::parameters<fcppt::chrono::seconds>(
-				fcppt::chrono::seconds(1))),
+			timer::parameters<>(
+				fcppt::chrono::seconds(
+					1))),
 		current_frames_(
 			0),
 		display_frames_(
@@ -87,7 +88,7 @@ public:
 	{
 	}
 private:
-	timer::basic<fcppt::chrono::seconds> timer_;
+	timer::basic<> timer_;
 	frame_counter current_frames_;
 	frame_counter display_frames_;
 };

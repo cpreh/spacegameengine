@@ -793,8 +793,8 @@ try
 			0),
 		true);
 
-	sge::timer::basic<sge::camera::duration> camera_timer(
-		sge::timer::parameters<sge::camera::duration>(
+	sge::timer::basic<> camera_timer(
+		sge::timer::parameters<>(
 			sge::camera::duration(
 				1.0f)));
 
@@ -814,7 +814,7 @@ try
 
 		// This moves the camera around
 		camera.update(
-			sge::timer::elapsed(
+			sge::timer::elapsed<sge::camera::duration>(
 				camera_timer));
 
 		camera_timer.reset();

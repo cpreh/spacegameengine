@@ -1033,13 +1033,13 @@ try
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
-	sge::timer::basic<sge::camera::duration> camera_timer(
-		sge::timer::parameters<sge::camera::duration>(
+	sge::timer::basic<> camera_timer(
+		sge::timer::parameters<>(
 			sge::camera::duration(
 				1.0f)));
 
-	sge::timer::basic<fcppt::chrono::seconds> revolve_timer(
-		sge::timer::parameters<fcppt::chrono::seconds>(
+	sge::timer::basic<> revolve_timer(
+		sge::timer::parameters<>(
 			fcppt::chrono::seconds(
 				10)));
 
@@ -1060,7 +1060,7 @@ try
 		sys.window().dispatch();
 
 		camera.update(
-			sge::timer::elapsed(
+			sge::timer::elapsed<sge::camera::duration>(
 				camera_timer));
 
 		camera_timer.reset();

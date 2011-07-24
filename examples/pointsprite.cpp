@@ -98,11 +98,8 @@ namespace
 sge::window::dim window_dim(1024,768);
 
 typedef
-sge::timer::basic
-<
-	fcppt::chrono::duration<sge::renderer::scalar> 
->
-float_timer;
+fcppt::chrono::duration<sge::renderer::scalar> 
+float_duration;
 
 typedef 
 sge::sprite::choices
@@ -150,17 +147,17 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	particle(
-		float_timer::duration const &_life_time,
+		float_duration const &_life_time,
 		sprite_parameters const &params,
 		sge::renderer::vector2 const &_velocity,
 		sge::renderer::vector2 const &_acceleration)
 	:
 		life_timer_(
-			float_timer::parameters(
+			sge::timer::parameters<>(
 				_life_time)),
 		seconds_timer_(
-			float_timer::parameters(
-				float_timer::duration(
+			sge::timer::parameters<>(
+				float_duration(
 					1.0f))),
 		sprite_(
 			params.elements()),
@@ -207,8 +204,8 @@ public:
 		return sprite_;
 	}
 private:
-	float_timer life_timer_;
-	float_timer seconds_timer_;
+	sge::timer::basic<> life_timer_;
+	sge::timer::basic<> seconds_timer_;
 	sprite_object sprite_;
 	sprite_object::color_type color_;
 	sge::renderer::vector2 position_;
@@ -240,7 +237,7 @@ private:
 	particle_sequence;
 
 	typedef
-	fcppt::random::uniform<float_timer::duration::rep>
+	fcppt::random::uniform<float_duration::rep>
 	time_rng;
 
 	typedef
@@ -263,7 +260,7 @@ private:
 	scalar_rng position_y_rng_;
 	scalar_rng size_rng_;
 	scalar_rng color_rng_;
-	float_timer explosion_timer_;
+	sge::timer::basic<> explosion_timer_;
 	sge::texture::part_ptr texture_;
 };
 
@@ -278,15 +275,15 @@ particles::particles(
 	particles_(),
 	explosion_rng_(
 		fcppt::random::make_inclusive_range(
-			static_cast<float_timer::duration::rep>(
+			static_cast<float_duration::rep>(
 				0.5),
-			static_cast<float_timer::duration::rep>(
+			static_cast<float_duration::rep>(
 				2.0))),
 	lifetime_rng_(
 		fcppt::random::make_inclusive_range(
-			static_cast<float_timer::duration::rep>(
+			static_cast<float_duration::rep>(
 				0.5),
-			static_cast<float_timer::duration::rep>(
+			static_cast<float_duration::rep>(
 				2.0))),
 	velocity_radius_rng_(
 		fcppt::random::make_inclusive_range(
@@ -324,8 +321,8 @@ particles::particles(
 			static_cast<sge::renderer::scalar>(
 				1))),
 	explosion_timer_(
-		float_timer::parameters(
-			float_timer::duration(
+		sge::timer::parameters<>(
+			float_duration(
 				explosion_rng_()))
 			.active(
 				false)),
@@ -353,7 +350,7 @@ particles::update()
 			true);
 
 		explosion_timer_.interval(
-			float_timer::duration(
+			float_duration(
 				explosion_rng_()));
 		explosion_timer_.reset();
 
@@ -378,7 +375,7 @@ particles::update()
 			fcppt::container::ptr::push_back_unique_ptr(
 				particles_,
 				fcppt::make_unique_ptr<particle>(
-					float_timer::duration(
+					float_duration(
 						lifetime_rng_()),
 					sprite_parameters()
 						.pos(

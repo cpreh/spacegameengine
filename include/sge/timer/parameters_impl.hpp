@@ -23,13 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/parameters_decl.hpp>
 #include <sge/timer/callback.hpp>
+#include <fcppt/chrono/duration_cast.hpp>
 
-template<typename Duration,typename Clock>
-sge::timer::parameters<Duration,Clock>::parameters(
+template<typename Clock>
+template<typename Duration>
+sge::timer::parameters<Clock>::parameters(
 	Duration const &_interval)
 :
 	interval_(
-		_interval),
+		fcppt::chrono::duration_cast<typename Clock::duration>(
+			_interval)),
 	active_(
 		true),
 	expired_(
@@ -39,9 +42,9 @@ sge::timer::parameters<Duration,Clock>::parameters(
 {
 }
 
-template<typename Duration,typename Clock>
-sge::timer::parameters<Duration,Clock> &
-sge::timer::parameters<Duration,Clock>::active(
+template<typename Clock>
+sge::timer::parameters<Clock> &
+sge::timer::parameters<Clock>::active(
 	bool const _active)
 {
 	active_ = 
@@ -50,9 +53,9 @@ sge::timer::parameters<Duration,Clock>::active(
 		*this;
 }
 
-template<typename Duration,typename Clock>
-sge::timer::parameters<Duration,Clock> &
-sge::timer::parameters<Duration,Clock>::expired(
+template<typename Clock>
+sge::timer::parameters<Clock> &
+sge::timer::parameters<Clock>::expired(
 	bool const _expired)
 {
 	expired_ = 
@@ -61,9 +64,9 @@ sge::timer::parameters<Duration,Clock>::expired(
 		*this;
 }
 
-template<typename Duration,typename Clock>
-sge::timer::parameters<Duration,Clock> &
-sge::timer::parameters<Duration,Clock>::callback(
+template<typename Clock>
+sge::timer::parameters<Clock> &
+sge::timer::parameters<Clock>::callback(
 	typename timer::callback<Clock>::type const &_callback)
 {
 	callback_ = 
@@ -72,32 +75,32 @@ sge::timer::parameters<Duration,Clock>::callback(
 		*this;
 }
 
-template<typename Duration,typename Clock>
-Duration const
-sge::timer::parameters<Duration,Clock>::interval() const
+template<typename Clock>
+typename Clock::duration const
+sge::timer::parameters<Clock>::interval() const
 {
 	return interval_;
 }
 
-template<typename Duration,typename Clock>
+template<typename Clock>
 bool
-sge::timer::parameters<Duration,Clock>::active() const
+sge::timer::parameters<Clock>::active() const
 {
 	return 
 		active_;
 }
 
-template<typename Duration,typename Clock>
+template<typename Clock>
 bool
-sge::timer::parameters<Duration,Clock>::expired() const
+sge::timer::parameters<Clock>::expired() const
 {
 	return
 		expired_;
 }
 
-template<typename Duration,typename Clock>
+template<typename Clock>
 typename sge::timer::callback<Clock>::type const
-sge::timer::parameters<Duration,Clock>::callback() const
+sge::timer::parameters<Clock>::callback() const
 {
 	return callback_;
 }

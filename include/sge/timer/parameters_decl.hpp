@@ -28,27 +28,28 @@ namespace sge
 {
 namespace timer
 {
-template<typename Duration,typename Clock>
+template<typename Clock>
 class parameters
 {
 public:
+	template<typename Duration>
 	explicit
 	parameters(
 		Duration const &);
 
-	timer::parameters<Duration,Clock> &
+	timer::parameters<Clock> &
 	active(
 		bool);
 
-	timer::parameters<Duration,Clock> &
+	timer::parameters<Clock> &
 	expired(
 		bool);
 
-	timer::parameters<Duration,Clock> &
+	timer::parameters<Clock> &
 	callback(
 		typename timer::callback<Clock>::type const &);
 
-	Duration const
+	typename Clock::duration const
 	interval() const;
 
 	bool
@@ -60,7 +61,7 @@ public:
 	typename timer::callback<Clock>::type const
 	callback() const;
 private:
-	Duration interval_;
+	typename Clock::duration interval_;
 	bool active_;
 	bool expired_;
 	typename timer::callback<Clock>::type callback_;

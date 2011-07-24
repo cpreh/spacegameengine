@@ -573,8 +573,8 @@ try
 		sge::image::colors::red()
 	);
 
-	sge::timer::basic<sge::camera::duration> frame_timer(
-		sge::timer::parameters<sge::camera::duration>(
+	sge::timer::basic<> frame_timer(
+		sge::timer::parameters<>(
 			sge::camera::duration(
 				1.0f)));
 
@@ -596,7 +596,7 @@ try
 		sys.window().dispatch();
 
 		camera.update(
-			sge::timer::elapsed(
+			sge::timer::elapsed<sge::camera::duration>(
 				frame_timer));
 
 		frame_timer.reset();
