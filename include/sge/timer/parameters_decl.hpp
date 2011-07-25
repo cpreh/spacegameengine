@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_PARAMETERS_DECL_HPP_INCLUDED
 
 #include <sge/timer/parameters_fwd.hpp>
-#include <sge/timer/callback.hpp>
 
 namespace sge
 {
@@ -32,39 +31,44 @@ template<typename Clock>
 class parameters
 {
 public:
+	typedef
+	Clock
+	clock_type;
+
+	typedef typename
+	Clock::duration
+	duration;
+
 	template<typename Duration>
 	explicit
 	parameters(
+		clock_type const &,
 		Duration const &);
 
-	timer::parameters<Clock> &
+	parameters &
 	active(
 		bool);
 
-	timer::parameters<Clock> &
+	parameters &
 	expired(
 		bool);
 
-	timer::parameters<Clock> &
-	callback(
-		typename timer::callback<Clock>::type const &);
-
-	typename Clock::duration const
+	duration const
 	interval() const;
+
+	clock_type const &
+	clock() const;
 
 	bool
 	active() const;
 
 	bool
 	expired() const;
-
-	typename timer::callback<Clock>::type const
-	callback() const;
 private:
-	typename Clock::duration interval_;
+	clock_type const &clock_;
+	duration interval_;
 	bool active_;
 	bool expired_;
-	typename timer::callback<Clock>::type callback_;
 };
 }
 }

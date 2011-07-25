@@ -25,9 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/basic_decl.hpp>
 #include <sge/timer/basic_fwd.hpp>
 #include <sge/timer/basic_impl.hpp>
-#include <sge/timer/callback.hpp>
-#include <sge/timer/callback_function_type.hpp>
-#include <sge/timer/default_clock.hpp>
+#include <sge/timer/clocks/clocks.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/frames_counter.hpp>
@@ -38,6 +36,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/remaining.hpp>
 #include <sge/timer/remaining_fractional.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <sge/timer/time_point.hpp>
 
 #endif

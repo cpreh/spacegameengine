@@ -18,28 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_CALLBACK_HPP_INCLUDED
-#define SGE_TIMER_CALLBACK_HPP_INCLUDED
+#ifndef SGE_TIMER_CLOCKS_CLOCKS_HPP_INCLUDED
+#define SGE_TIMER_CLOCKS_CLOCKS_HPP_INCLUDED
 
-#include <sge/timer/callback_function_type.hpp>
-#include <fcppt/function/object.hpp>
-
-namespace sge
-{
-namespace timer
-{
-template<typename Clock>
-struct callback
-{
-	typedef
-	fcppt::function::object
-	<
-		typename 
-		timer::callback_function_type<Clock>::type
-	>
-	type;
-};
-}
-}
+#include <sge/timer/clocks/delta.hpp>
+#include <sge/timer/clocks/standard.hpp>
 
 #endif

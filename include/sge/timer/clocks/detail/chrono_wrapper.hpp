@@ -18,25 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_DEFAULT_CLOCK_HPP_INCLUDED
-#define SGE_TIMER_DEFAULT_CLOCK_HPP_INCLUDED
-
-#include <fcppt/chrono/steady_clock.hpp>
-#include <fcppt/chrono/high_resolution_clock.hpp>
-#include <boost/mpl/if.hpp>
+#ifndef SGE_TIMER_CLOCKS_CHRONO_WRAPPER_HPP_INCLUDED
+#define SGE_TIMER_CLOCKS_CHRONO_WRAPPER_HPP_INCLUDED
 
 namespace sge
 {
 namespace timer
 {
-typedef
-boost::mpl::if_c
-<
-	fcppt::chrono::high_resolution_clock::is_steady,
-	fcppt::chrono::high_resolution_clock,
-	fcppt::chrono::steady_clock
->::type
-default_clock;
+namespace clocks
+{
+namespace detail
+{
+template<typename Impl>
+class chrono_wrapper
+{
+FCPPT_NONCOPYABLE(
+	chrono_wrapper);
+public:
+	typedef typename
+	Impl::rep
+	rep;
+
+	typedef typename
+	Impl::period
+	period;
+
+	typedef typename
+	Impl::duration
+	duration;
+
+	typedef typename
+	Impl::time_point
+	time_point;
+
+	static bool const is_steady = Impl::is_steady;
+
+	explicit
+	chrono_wrapper()
+	{
+	}
+
+	time_point
+	now() const
+	{
+		return Impl::now();
+	}
+};
+}
+}
 }
 }
 

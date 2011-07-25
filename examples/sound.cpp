@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/extension_set.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/parameters.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/log/activate_levels.hpp>
@@ -327,8 +328,11 @@ try
 	wait_for_sound(
 		s);
 
-	sge::timer::basic<> frame_timer(
-		sge::timer::parameters<>(
+	sge::timer::clocks::standard global_clock;
+
+	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			global_clock,
 			fcppt::chrono::seconds(
 				10)));
 

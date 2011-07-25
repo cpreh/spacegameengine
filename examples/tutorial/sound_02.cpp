@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/timer/basic.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/config/media_path.hpp>
@@ -86,8 +87,11 @@ try
 		sge::audio::sound::repeat::loop
 	);
 
-	sge::timer::basic<> frame_timer(
-		sge::timer::parameters<>(
+	sge::timer::clocks::standard global_clock;
+
+	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			global_clock,
 			fcppt::chrono::seconds(
 				1)));
 

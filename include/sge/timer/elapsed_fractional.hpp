@@ -52,7 +52,7 @@ elapsed_fractional(
 				1);
 
 	return 
-		static_cast<Float>((t.callback()() - t.last_time()).count()) / 
+		static_cast<Float>((t.clock().now() - t.last_time()).count()) / 
 		static_cast<Float>(
 			t.template interval<typename Clock::duration>().count());
 }

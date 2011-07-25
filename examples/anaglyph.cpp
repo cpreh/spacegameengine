@@ -93,7 +93,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/timer/basic.hpp>
-#include <sge/timer/default_clock.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/systems/cursor_option_field.hpp>
@@ -793,8 +793,11 @@ try
 			0),
 		true);
 
-	sge::timer::basic<> camera_timer(
-		sge::timer::parameters<>(
+	sge::timer::clocks::standard global_clock;
+
+	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			global_clock,
 			sge::camera::duration(
 				1.0f)));
 

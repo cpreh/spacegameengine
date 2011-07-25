@@ -115,6 +115,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/frames_counter.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/basic.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
@@ -573,8 +574,11 @@ try
 		sge::image::colors::red()
 	);
 
-	sge::timer::basic<> frame_timer(
-		sge::timer::parameters<>(
+	sge::timer::clocks::standard global_clock;
+
+	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			global_clock,
 			sge::camera::duration(
 				1.0f)));
 
@@ -587,7 +591,8 @@ try
 			)
 	);
 
-	sge::timer::frames_counter frames_counter;
+	sge::timer::frames_counter frames_counter(
+		global_clock);
 
 	while(
 		running

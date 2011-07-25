@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_function.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
 #include <sge/timer/basic_decl.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <fcppt/chrono/duration_decl.hpp>
 #include <fcppt/chrono/time_point_decl.hpp>
 #include <fcppt/container/array_decl.hpp>
@@ -102,6 +103,8 @@ private:
 		LPVOID
 	);
 
+	timer::clocks::standard global_clock_;
+
 	dinput::keyboard::key_converter const &conv_;
 
 	HKL kblayout_;
@@ -125,7 +128,7 @@ private:
 	char_signal char_signal_;
 
 	typedef sge::timer::basic<
-		keyboard::repeat_duration
+		timer::clocks::standard
 	> repeat_timer;
 
 	repeat_timer repeat_time_;

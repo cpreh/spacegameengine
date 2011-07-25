@@ -286,7 +286,10 @@ try
 			(sge::renderer::state::color::back_buffer_clear_color
 					= sge::image::colors::black()));
 
-	sge::timer::frames_counter frames_counter;
+	sge::timer::clocks::standard global_clock;
+
+	sge::timer::frames_counter frames_counter(
+		global_clock);
 
 	sge::line_drawer::object line_drawer(
 		sys.renderer());

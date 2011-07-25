@@ -22,23 +22,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_PARAMETERS_IMPL_HPP_INCLUDED
 
 #include <sge/timer/parameters_decl.hpp>
-#include <sge/timer/callback.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
 
 template<typename Clock>
 template<typename Duration>
 sge::timer::parameters<Clock>::parameters(
+	clock_type const &_clock,
 	Duration const &_interval)
 :
+	clock_(
+		_clock),
 	interval_(
-		fcppt::chrono::duration_cast<typename Clock::duration>(
+		fcppt::chrono::duration_cast<duration>(
 			_interval)),
 	active_(
 		true),
 	expired_(
-		false),
-	callback_(
-		&Clock::now)
+		false)
 {
 }
 
@@ -65,21 +65,19 @@ sge::timer::parameters<Clock>::expired(
 }
 
 template<typename Clock>
-sge::timer::parameters<Clock> &
-sge::timer::parameters<Clock>::callback(
-	typename timer::callback<Clock>::type const &_callback)
-{
-	callback_ = 
-		_callback;
-	return 
-		*this;
-}
-
-template<typename Clock>
-typename Clock::duration const
+typename 
+sge::timer::parameters<Clock>::duration const
 sge::timer::parameters<Clock>::interval() const
 {
 	return interval_;
+}
+
+template<typename Clock>
+typename
+sge::timer::parameters<Clock>::clock_type const &
+sge::timer::parameters<Clock>::clock() const
+{
+	return clock_;
 }
 
 template<typename Clock>
@@ -96,13 +94,6 @@ sge::timer::parameters<Clock>::expired() const
 {
 	return
 		expired_;
-}
-
-template<typename Clock>
-typename sge::timer::callback<Clock>::type const
-sge::timer::parameters<Clock>::callback() const
-{
-	return callback_;
 }
 
 #endif

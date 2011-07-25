@@ -21,13 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_PARAMETERS_FWD_HPP_INCLUDED
 #define SGE_TIMER_PARAMETERS_FWD_HPP_INCLUDED
 
-#include <sge/timer/default_clock.hpp>
-
 namespace sge
 {
 namespace timer
 {
-template<typename Clock = sge::timer::default_clock>
+template<typename Clock>
 class parameters;
 }
 }

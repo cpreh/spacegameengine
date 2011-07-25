@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/basic.hpp>
 #include <sge/timer/parameters.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <fcppt/lexical_cast.hpp>
@@ -39,14 +40,20 @@ FCPPT_NONCOPYABLE(
 	frames_counter);
 public:
 	typedef
+	clocks::standard
+	clock;
+
+	typedef
 	unsigned long
 	frame_counter;
 
 	explicit
-	frames_counter()
+	frames_counter(
+		clock const &_clock)
 	:
 		timer_(
-			timer::parameters<>(
+			timer::parameters<clock>(
+				_clock,
 				fcppt::chrono::seconds(
 					1))),
 		current_frames_(
@@ -88,7 +95,7 @@ public:
 	{
 	}
 private:
-	timer::basic<> timer_;
+	timer::basic<clock> timer_;
 	frame_counter current_frames_;
 	frame_counter display_frames_;
 };
