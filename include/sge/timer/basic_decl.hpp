@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_BASIC_DECL_HPP_INCLUDED
 
 #include <sge/timer/basic_fwd.hpp>
-#include <sge/timer/time_point.hpp>
-#include <sge/timer/callback.hpp>
 #include <sge/timer/parameters_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -39,23 +37,19 @@ FCPPT_NONCOPYABLE(
 public:
 	typedef
 	Clock
-	clock;
+	clock_type;
 
 	typedef
-	timer::parameters<clock>
+	timer::parameters<clock_type>
 	parameters;
 
 	typedef typename
-	clock::duration
-	duration;
-
-	typedef typename 
-	timer::callback<clock>::type
-	callback_type;
-
-	typedef typename 
-	timer::time_point<clock>::type
+	clock_type::time_point
 	time_point;
+
+	typedef typename
+	clock_type::duration
+	duration;
 
 	explicit
 	basic(
@@ -75,8 +69,8 @@ public:
 	active(
 		bool);
 
-	callback_type const
-	callback() const;
+	clock_type const &
+	clock() const;
 
 	template<typename NewDuration>
 	NewDuration const
@@ -93,8 +87,8 @@ public:
 	void
 	reset();
 private:
+	clock_type const &clock_;
 	duration interval_;
-	callback_type callback_;
 	bool active_;
 	bool expired_;
 	time_point last_time_;

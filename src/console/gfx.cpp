@@ -36,8 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
-#include <sge/timer/parameters.hpp>
-#include <sge/timer/reset_when_expired.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -162,12 +160,6 @@ sge::console::gfx::gfx(
 	active_(
 		false),
 	input_line_(),
-	cursor_blink_(
-		sge::timer::parameters<>(
-			fcppt::chrono::milliseconds(
-				500))),
-	cursor_active_(
-		false),
 	input_history_(),
 	current_input_(
 		input_history_.begin()),
@@ -235,7 +227,10 @@ sge::console::gfx::draw()
 
 	font::text::string const il = 
 		input_line_.edited(
-			cursor_active_);
+			// This used to be "bool cursor_active" which was controlled by
+			// a timer, but due to the unneccessary timer depenceny, this
+			// was removed
+			true);
 
 	font::text::draw(
 		font_metrics_,
@@ -255,9 +250,6 @@ sge::console::gfx::draw()
 		font::text::align_h::left,
 		font::text::align_v::top,
 		font::text::flags::none);
-
-	if(timer::reset_when_expired(cursor_blink_))
-		cursor_active_ = !cursor_active_;
 }
 
 bool

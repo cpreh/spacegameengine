@@ -71,6 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/timer/basic.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <sge/viewport/center_on_resize.hpp>
@@ -538,8 +539,11 @@ try
 			(sge::renderer::state::bool_::clear_back_buffer = true)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
-	sge::timer::basic<> frame_timer(
-		sge::timer::parameters<>(
+	sge::timer::clocks::standard global_clock;
+
+	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			global_clock,
 			sge::projectile::duration(
 				1.0f)));
 

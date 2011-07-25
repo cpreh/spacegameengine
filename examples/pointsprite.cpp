@@ -64,6 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw.hpp>
 #include <sge/timer/remaining_fractional.hpp>
 #include <sge/timer/basic.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/instance.hpp>
@@ -82,6 +83,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/lexical_cast.hpp>
@@ -147,16 +149,19 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	particle(
+		sge::timer::clocks::standard const &_clock,
 		float_duration const &_life_time,
 		sprite_parameters const &params,
 		sge::renderer::vector2 const &_velocity,
 		sge::renderer::vector2 const &_acceleration)
 	:
 		life_timer_(
-			sge::timer::parameters<>(
+			sge::timer::parameters<sge::timer::clocks::standard>(
+				_clock,
 				_life_time)),
 		seconds_timer_(
-			sge::timer::parameters<>(
+			sge::timer::parameters<sge::timer::clocks::standard>(
+				_clock,
 				float_duration(
 					1.0f))),
 		sprite_(
@@ -204,8 +209,8 @@ public:
 		return sprite_;
 	}
 private:
-	sge::timer::basic<> life_timer_;
-	sge::timer::basic<> seconds_timer_;
+	sge::timer::basic<sge::timer::clocks::standard> life_timer_;
+	sge::timer::basic<sge::timer::clocks::standard> seconds_timer_;
 	sprite_object sprite_;
 	sprite_object::color_type color_;
 	sge::renderer::vector2 position_;
@@ -220,6 +225,7 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	particles(
+		sge::timer::clocks::standard const &,
 		unsigned particle_count,
 		sge::systems::instance const &);
 
@@ -260,11 +266,12 @@ private:
 	scalar_rng position_y_rng_;
 	scalar_rng size_rng_;
 	scalar_rng color_rng_;
-	sge::timer::basic<> explosion_timer_;
+	sge::timer::basic<sge::timer::clocks::standard> explosion_timer_;
 	sge::texture::part_ptr texture_;
 };
 
 particles::particles(
+	sge::timer::clocks::standard const &_clock,
 	unsigned const _particle_count,
 	sge::systems::instance const &sys)
 :
@@ -321,11 +328,12 @@ particles::particles(
 			static_cast<sge::renderer::scalar>(
 				1))),
 	explosion_timer_(
-		sge::timer::parameters<>(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			_clock,
 			float_duration(
 				explosion_rng_()))
-			.active(
-				false)),
+				.active(
+					false)),
 	texture_(
 		fcppt::make_shared_ptr<sge::texture::part_raw>(
 			sge::renderer::texture::create_planar_from_path(
@@ -375,6 +383,8 @@ particles::update()
 			fcppt::container::ptr::push_back_unique_ptr(
 				particles_,
 				fcppt::make_unique_ptr<particle>(
+					fcppt::cref(
+						explosion_timer_.clock()),
 					float_duration(
 						lifetime_rng_()),
 					sprite_parameters()
@@ -466,7 +476,10 @@ try
 				sge::image::capabilities_field::null(),
 				sge::all_extensions)));
 
+	sge::timer::clocks::standard global_clock;
+
 	particles ps(
+		global_clock,
 		fcppt::lexical_cast<unsigned>(
 			std::string(
 				argv[1])),

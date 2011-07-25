@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/parameters.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -81,8 +82,11 @@ try
 		)
 	);
 
-	sge::timer::basic<> tm(
-		sge::timer::parameters<>(
+	sge::timer::clocks::standard global_clock;
+
+	sge::timer::basic<sge::timer::clocks::standard> tm(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			global_clock,
 			fcppt::chrono::seconds(
 				5)));
 

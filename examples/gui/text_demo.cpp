@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/extension_set.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/timer/basic.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/parameters.hpp>
 #include <fcppt/text.hpp>
@@ -160,8 +161,11 @@ try
 		gui_syringe,
 		sys.keyboard_collector());
 
-	sge::timer::basic<> frame_timer(
-		sge::timer::parameters<>(
+	sge::timer::clocks::standard global_clock;
+
+	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			global_clock,
 			sge::cegui::duration(
 				static_cast<sge::cegui::unit>(
 					1))));

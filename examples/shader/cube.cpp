@@ -73,6 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/reset_when_expired.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
@@ -1033,13 +1034,17 @@ try
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
-	sge::timer::basic<> camera_timer(
-		sge::timer::parameters<>(
+	sge::timer::clocks::standard global_clock;
+
+	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			global_clock,
 			sge::camera::duration(
 				1.0f)));
 
-	sge::timer::basic<> revolve_timer(
-		sge::timer::parameters<>(
+	sge::timer::basic<sge::timer::clocks::standard> revolve_timer(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			global_clock,
 			fcppt::chrono::seconds(
 				10)));
 

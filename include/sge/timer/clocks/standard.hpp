@@ -18,22 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_CALLBACK_FUNCTION_TYPE_HPP_INCLUDED
-#define SGE_TIMER_CALLBACK_FUNCTION_TYPE_HPP_INCLUDED
+#ifndef SGE_TIMER_CLOCKS_STANDARD_HPP_INCLUDED
+#define SGE_TIMER_CLOCKS_STANDARD_HPP_INCLUDED
 
-#include <sge/timer/time_point.hpp>
+#include <sge/timer/clocks/detail/chrono_wrapper.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/chrono/steady_clock.hpp>
+#include <fcppt/chrono/high_resolution_clock.hpp>
+#include <boost/mpl/if.hpp>
 
 namespace sge
 {
 namespace timer
 {
-template<typename Clock>
-struct callback_function_type
+namespace clocks
 {
-	typedef typename
-	timer::time_point<Clock>::type
-	type();
-};
+typedef
+detail::chrono_wrapper
+<
+	boost::mpl::if_c
+	<
+		fcppt::chrono::high_resolution_clock::is_steady,
+		fcppt::chrono::high_resolution_clock,
+		fcppt::chrono::steady_clock
+	>::type
+>
+standard;
+}
 }
 }
 
