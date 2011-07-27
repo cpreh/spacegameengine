@@ -43,7 +43,6 @@ SET(
 	src/plugins/opengl/convert/indexed_primitive.hpp
 	src/plugins/opengl/convert/light_index.hpp
 	src/plugins/opengl/convert/matrix_mode.hpp
-	src/plugins/opengl/convert/matrix_mode_get.hpp
 	src/plugins/opengl/convert/nonindexed_primitive.hpp
 	src/plugins/opengl/convert/projection.hpp
 	src/plugins/opengl/convert/resource_flags.hpp
@@ -63,7 +62,6 @@ SET(
 	src/plugins/opengl/convert/src/indexed_primitive.cpp
 	src/plugins/opengl/convert/src/light_index.cpp
 	src/plugins/opengl/convert/src/matrix_mode.cpp
-	src/plugins/opengl/convert/src/matrix_mode_get.cpp
 	src/plugins/opengl/convert/src/nonindexed_primitive.cpp
 	src/plugins/opengl/convert/src/projection.cpp
 	src/plugins/opengl/convert/src/resource_flags.cpp

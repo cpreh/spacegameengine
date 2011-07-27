@@ -37,6 +37,8 @@ sge::opengl::convert::matrix_mode(
 		return GL_PROJECTION;
 	case renderer::matrix_mode::texture:
 		return GL_TEXTURE;
+	case renderer::matrix_mode::size:
+		break;
 	}
 
 	throw sge::renderer::exception(
