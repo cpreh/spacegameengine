@@ -66,12 +66,14 @@ sge::camera::parameters::gizmo(
 		*this;
 }
 
-void
+sge::camera::parameters &
 sge::camera::parameters::active(
 	bool const _active)
 {
 	active_ = 
 		_active;
+	return 
+		*this;
 }
 
 sge::camera::projection::object const &

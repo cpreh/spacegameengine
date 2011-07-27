@@ -58,7 +58,7 @@ public:
 	gizmo(
 		camera::gizmo_type const &);
 
-	SGE_CAMERA_SYMBOL void
+	SGE_CAMERA_SYMBOL camera::parameters &
 	active(
 		bool);
 
