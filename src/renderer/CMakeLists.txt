@@ -323,6 +323,7 @@ SET(
 	include/sge/renderer/texture/depth_stencil.hpp
 	include/sge/renderer/texture/depth_stencil_fwd.hpp
 	include/sge/renderer/texture/depth_stencil_ptr.hpp
+	include/sge/renderer/texture/filter/anisotropic/anisotropic.hpp
 	include/sge/renderer/texture/filter/anisotropic/level.hpp
 	include/sge/renderer/texture/filter/anisotropic/make.hpp
 	include/sge/renderer/texture/filter/anisotropic/mip.hpp
@@ -336,6 +337,7 @@ SET(
 	include/sge/renderer/texture/filter/normal/make.hpp
 	include/sge/renderer/texture/filter/normal/min.hpp
 	include/sge/renderer/texture/filter/normal/mip.hpp
+	include/sge/renderer/texture/filter/normal/normal.hpp
 	include/sge/renderer/texture/filter/normal/object.hpp
 	include/sge/renderer/texture/filter/normal/object_fwd.hpp
 	include/sge/renderer/texture/filter/object.hpp
@@ -351,6 +353,7 @@ SET(
 	include/sge/renderer/texture/mipmap/levels.hpp
 	include/sge/renderer/texture/mipmap/levels_rep.hpp
 	include/sge/renderer/texture/mipmap/levels_rep_fwd.hpp
+	include/sge/renderer/texture/mipmap/mipmap.hpp
 	include/sge/renderer/texture/mipmap/object.hpp
 	include/sge/renderer/texture/mipmap/object_fwd.hpp
 	include/sge/renderer/texture/mipmap/off.hpp
@@ -617,6 +620,8 @@ SET(
 	src/renderer/texture/filter/trilinear.cpp
 	src/renderer/texture/mipmap/all_levels.cpp
 	src/renderer/texture/mipmap/all_levels_rep.cpp
+	src/renderer/texture/mipmap/levels.cpp
+	src/renderer/texture/mipmap/levels_rep.cpp
 	src/renderer/texture/mipmap/object.cpp
 	src/renderer/texture/mipmap/off.cpp
 	src/renderer/texture/mipmap/off_rep.cpp

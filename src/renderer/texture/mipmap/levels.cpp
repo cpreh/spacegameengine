@@ -18,47 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_MIPMAP_LEVELS_REP_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_MIPMAP_LEVELS_REP_HPP_INCLUDED
+#include <sge/renderer/texture/mipmap/levels.hpp>
+#include <sge/renderer/texture/mipmap/levels_rep.hpp>
+#include <sge/renderer/texture/mipmap/object.hpp>
 
-#include <sge/renderer/texture/mipmap/levels_rep_fwd.hpp>
-#include <sge/renderer/texture/mipmap/auto_generate.hpp>
-#include <sge/renderer/texture/mipmap/level_count.hpp>
-#include <sge/renderer/symbol.hpp>
-
-namespace sge
+sge::renderer::texture::mipmap::object const
+sge::renderer::texture::mipmap::levels(
+	mipmap::level_count const _levels,
+	mipmap::auto_generate::type const _auto_generate
+)
 {
-namespace renderer
-{
-namespace texture
-{
-namespace mipmap
-{
-
-class levels_rep
-{
-public:
-	levels_rep(
-		mipmap::level_count,
-		mipmap::auto_generate::type
-	);
-
-	SGE_RENDERER_SYMBOL
-	mipmap::level_count
-	value() const;
-
-	SGE_RENDERER_SYMBOL
-	mipmap::auto_generate::type
-	auto_generate() const;
-private:
-	mipmap::level_count value_;
-
-	mipmap::auto_generate::type auto_generate_;
-};
-
+	return
+		mipmap::object(
+			mipmap::levels_rep(
+				_levels,
+				_auto_generate
+			)
+		);
 }
-}
-}
-}
-
-#endif
