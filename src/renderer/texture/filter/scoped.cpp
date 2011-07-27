@@ -18,19 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_FILTER_FILTER_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_FILTER_FILTER_HPP_INCLUDED
-
-#include <sge/renderer/texture/filter/anisotropic/anisotropic.hpp>
-#include <sge/renderer/texture/filter/default.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/filter/mipmap.hpp>
-#include <sge/renderer/texture/filter/normal/normal.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/texture/filter/object_fwd.hpp>
-#include <sge/renderer/texture/filter/point.hpp>
 #include <sge/renderer/texture/filter/scoped.hpp>
-#include <sge/renderer/texture/filter/trilinear.hpp>
-#include <sge/renderer/texture/filter/variant.hpp>
+#include <sge/renderer/texture/filter/default.hpp>
+#include <sge/renderer/device.hpp>
 
-#endif
+sge::renderer::texture::filter::scoped::scoped(
+	renderer::device &_device,
+	renderer::stage const _stage,
+	filter::object const &_filter
+)
+:
+	device_(_device),
+	stage_(_stage)
+{
+	device_.texture_filter(
+		_filter,
+		stage_
+	);
+}
+
+sge::renderer::texture::filter::scoped::~scoped()
+{
+	device_.texture_filter(
+		filter::default_(),
+		stage_
+	);
+}

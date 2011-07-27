@@ -343,6 +343,7 @@ SET(
 	include/sge/renderer/texture/filter/object.hpp
 	include/sge/renderer/texture/filter/object_fwd.hpp
 	include/sge/renderer/texture/filter/point.hpp
+	include/sge/renderer/texture/filter/scoped.hpp
 	include/sge/renderer/texture/filter/trilinear.hpp
 	include/sge/renderer/texture/filter/variant.hpp
 	include/sge/renderer/texture/mipmap/all_levels.hpp
@@ -617,6 +618,7 @@ SET(
 	src/renderer/texture/filter/normal/object.cpp
 	src/renderer/texture/filter/object.cpp
 	src/renderer/texture/filter/point.cpp
+	src/renderer/texture/filter/scoped.cpp
 	src/renderer/texture/filter/trilinear.cpp
 	src/renderer/texture/mipmap/all_levels.cpp
 	src/renderer/texture/mipmap/all_levels_rep.cpp
