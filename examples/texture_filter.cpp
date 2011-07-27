@@ -68,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
@@ -80,13 +81,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/texture/filter/anisotropic.hpp>
-#include <sge/renderer/texture/filter/anisotropy_type.hpp>
+#include <sge/renderer/texture/filter/anisotropic/level.hpp>
+#include <sge/renderer/texture/filter/anisotropic/make.hpp>
+#include <sge/renderer/texture/filter/anisotropic/mip.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/filter/mipmap.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/texture/filter/point.hpp>
 #include <sge/renderer/texture/filter/trilinear.hpp>
+#include <sge/renderer/texture/mipmap/all_levels.hpp>
+#include <sge/renderer/texture/mipmap/auto_generate.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/no_color.hpp>
@@ -148,39 +152,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::texture::const_part_ptr const
-make_texture(
-	sge::renderer::device &_device,
-	sge::image2d::view::const_object const &_view,
-	sge::renderer::texture::filter::object const &_filter
-)
-{
-	return
-		fcppt::make_shared_ptr<
-			sge::texture::part_raw
-		>(
-			sge::renderer::texture::create_planar_from_view(
-				_device,
-				_view,
-				_filter,
-				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::repeat
-				),
-				sge::renderer::resource_flags::none
-			)
-		);
-}
-
 template<
-	typename Sprite,
-	typename Textures
+	typename Filters
 >
 void
-change_texture(
+change_filter(
 	sge::input::keyboard::key_event const &_event,
-	Sprite &_sprite,
+	sge::renderer::device &_renderer,
 	sge::font::text::string &_text,
-	Textures const &_textures
+	Filters const &_filters
 )
 {
 	if(
@@ -199,26 +179,29 @@ change_texture(
 	)
 		return;
 	
-	typename Textures::size_type const index(
+	typename Filters::size_type const index(
 		digit->get() - 1u
 	);
 
 	if(
 		index
-		>= _textures.size()
+		>= _filters.size()
 	)
 		return;
 
-	typename Textures::const_reference ref(
-		_textures[
+	typename Filters::const_reference ref(
+		_filters[
 			index
 		]
 	);
 
 	_text = ref.first;
 
-	_sprite.texture(
-		ref.second
+	_renderer.texture_filter(
+		ref.second,
+		sge::renderer::stage(
+			0u
+		)
 	);
 }
 
@@ -272,13 +255,17 @@ try
 		sge::camera::parameters(
 			// movementspeed
 			sge::camera::movement_speed(
-				4.0f),
+				4.0f
+			),
 			// mousespeed
 			sge::camera::rotation_speed(
-				200.0f),
+				200.0f
+			),
 			// position
 			sys.keyboard_collector(),
-			sys.mouse_collector())); 
+			sys.mouse_collector()
+		)
+	);
 
 	sge::image2d::dim const block_size(
 		16u,
@@ -355,74 +342,53 @@ try
 
 	typedef std::pair<
 		sge::font::text::string,
-		sge::texture::const_part_ptr
-	> string_texture_pair;
+		sge::renderer::texture::filter::object
+	> string_filter_pair;
 
 	typedef fcppt::container::array<
-		string_texture_pair,
+		string_filter_pair,
 		5u
-	> texture_array;
+	> filter_array;
 
-	sge::image2d::view::const_object const texture_view(
-		sge::image2d::view::to_const(
-			sge::image2d::view::object(
-				whole_store.view()
-			)
-		)
-	);
-
-	sge::renderer::texture::filter::anisotropy_type const anisotropy(
+	sge::renderer::texture::filter::anisotropic::level const anisotropy(
 		sys.renderer().caps().max_anisotropy()
 	);
 
-	texture_array const textures =
+	sge::font::text::string const anisotropy_string(
+		fcppt::lexical_cast<
+			sge::font::text::string
+		>(
+			anisotropy
+		)
+		+
+		SGE_FONT_TEXT_LIT('x')
+	);
+
+	filter_array const filters =
 	{{
 		std::make_pair(
 			SGE_FONT_TEXT_LIT("point"),
-			make_texture(
-				sys.renderer(),
-				texture_view,
-				sge::renderer::texture::filter::point
-			)
+			sge::renderer::texture::filter::point()
 		),
 		std::make_pair(
 			SGE_FONT_TEXT_LIT("linear"),
-			make_texture(
-				sys.renderer(),
-				texture_view,
-				sge::renderer::texture::filter::linear
-			)
+			sge::renderer::texture::filter::linear()
 		),
 		std::make_pair(
 			SGE_FONT_TEXT_LIT("mipmap"),
-			make_texture(
-				sys.renderer(),
-				texture_view,
-				sge::renderer::texture::filter::mipmap
-			)
+			sge::renderer::texture::filter::mipmap()
 		),
 		std::make_pair(
 			SGE_FONT_TEXT_LIT("trilinear"),
-			make_texture(
-				sys.renderer(),
-				texture_view,
-				sge::renderer::texture::filter::trilinear
-			)
+			sge::renderer::texture::filter::trilinear()
 		),
 		std::make_pair(
 			SGE_FONT_TEXT_LIT("anisotropic ")
-			+ fcppt::lexical_cast<
-				sge::font::text::string
-			>(
+			+
+			anisotropy_string,
+			sge::renderer::texture::filter::anisotropic::make(
+				sge::renderer::texture::filter::anisotropic::mip::off,
 				anisotropy
-			)
-			+ SGE_FONT_TEXT_LIT('x'),
-			make_texture(
-				sys.renderer(),
-				texture_view,
-				sge::renderer::texture::filter::anisotropic(
-					anisotropy
-				)
 			)
 		)
 	}};
@@ -481,7 +447,25 @@ try
 			)
 		)
 		.texture(
-			sge::texture::const_part_ptr()
+			fcppt::make_shared_ptr<
+				sge::texture::part_raw
+			>(
+				sge::renderer::texture::create_planar_from_view(
+					sys.renderer(),
+					sge::image2d::view::to_const(
+						sge::image2d::view::object(
+							whole_store.view()
+						)
+					),
+					sge::renderer::texture::mipmap::all_levels(
+						sge::renderer::texture::mipmap::auto_generate::yes
+					),
+					sge::renderer::texture::address_mode2(
+						sge::renderer::texture::address_mode::repeat
+					),
+					sge::renderer::resource_flags::none
+				)
+			)
 		)
 		.elements()
 	);
@@ -492,7 +476,7 @@ try
 		fcppt::lexical_cast<
 			sge::font::text::string
 		>(
-			textures.size()
+			filters.size()
 		)
 		+ SGE_FONT_TEXT_LIT(" to select a filter!")
 	);
@@ -515,18 +499,17 @@ try
 	fcppt::signal::scoped_connection const texture_connection(
 		sys.keyboard_collector().key_callback(
 			std::tr1::bind(
-				change_texture<
-					sprite_object,
-					texture_array
+				::change_filter<
+					filter_array
 				>,
 				std::tr1::placeholders::_1,
 				fcppt::ref(
-					sprite
+					sys.renderer()
 				),
 				fcppt::ref(
 					current_text
 				),
-				textures
+				filters
 			)
 		)
 	);

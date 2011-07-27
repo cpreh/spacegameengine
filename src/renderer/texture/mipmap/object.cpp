@@ -18,28 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/texture/filter/need_mipmap.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/texture/mipmap/object.hpp>
 
-bool
-sge::renderer::texture::filter::need_mipmap(
-	sge::renderer::texture::filter::min::type const _filter
+sge::renderer::texture::mipmap::object::object(
+	mipmap::variant const &_variant
 )
+:
+	variant_(_variant)
 {
-	switch(
-		_filter
-	)
-	{
-	case sge::renderer::texture::filter::min::mipmap:
-	case sge::renderer::texture::filter::min::trilinear:
-		return true;
-	case sge::renderer::texture::filter::min::point:
-	case sge::renderer::texture::filter::min::linear:
-		return false;
-	}
-	
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid texture filter!")
-	);
+}
+
+sge::renderer::texture::mipmap::variant const &
+sge::renderer::texture::mipmap::object::variant() const
+{
+	return variant_;
 }

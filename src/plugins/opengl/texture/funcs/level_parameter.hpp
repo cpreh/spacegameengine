@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../scoped_work_bind_fwd.hpp"
 #include "../type.hpp"
 #include "../../common.hpp"
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 
 namespace sge
 {
@@ -39,7 +39,7 @@ GLint
 level_parameter(
 	texture::scoped_work_bind const &,
 	texture::type,
-	renderer::stage_type,
+	renderer::stage,
 	GLenum what
 );
 

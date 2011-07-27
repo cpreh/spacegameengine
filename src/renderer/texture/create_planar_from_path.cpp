@@ -28,7 +28,7 @@ sge::renderer::texture::create_planar_from_path(
 	fcppt::filesystem::path const &_file,
 	renderer::device &_renderer,
 	image2d::multi_loader &_loader,
-	renderer::texture::filter::object const &_filter,
+	renderer::texture::mipmap::object const &_mipmap,
 	renderer::texture::address_mode2 const &_address_mode,
 	renderer::resource_flags_field const &_flags
 )
@@ -39,7 +39,7 @@ sge::renderer::texture::create_planar_from_path(
 			*_loader.load(
 				_file
 			),
-			_filter,
+			_mipmap,
 			_address_mode,
 			_flags
 		);

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/const_planar_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
+#include <sge/renderer/texture/mipmap/object.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -51,7 +51,7 @@ public:
 	no_fragmented(
 		renderer::device &,
 		image::color::format::type,
-		renderer::texture::filter::object const &,
+		renderer::texture::mipmap::object const &,
 		renderer::texture::address_mode2 const &
 	);
 
@@ -87,7 +87,7 @@ private:
 
 	image::color::format::type const format_;
 
-	renderer::texture::filter::object const filter_;
+	renderer::texture::mipmap::object const mipmap_;
 
 	renderer::texture::address_mode2 const address_mode_;
 

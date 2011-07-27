@@ -30,7 +30,7 @@ sge::opengl::fbo::attach_texture_2d(
 	GLenum const _attachment,
 	opengl::texture::type const _texture_type,
 	opengl::texture::id const _texture_id,
-	renderer::stage_type const _stage
+	renderer::stage const _stage
 )
 {
 	_context.framebuffer_texture_2d()(

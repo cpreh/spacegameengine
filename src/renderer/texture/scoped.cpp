@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::texture::scoped::scoped(
 	renderer::device &_device,
 	renderer::texture::base const &_texture,
-	renderer::stage_type const _stage
+	renderer::stage const _stage
 )
 :
 	device_(_device),

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -135,7 +135,7 @@ try
 					device
 				),
 				sge::image::color::format::rgba8,
-				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp
 				)

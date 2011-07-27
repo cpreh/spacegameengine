@@ -58,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/planar.hpp"
 #include "../texture/set_stage_funcs.hpp"
 #include "../texture/set_stage_scale.hpp"
+#include "../texture/update_filter.hpp"
 #include "../texture/volume.hpp"
 #include "../texture/volume_context.hpp"
 #include <sge/renderer/index/i16.hpp>
@@ -326,7 +327,7 @@ sge::opengl::device::clip_plane(
 
 void
 sge::opengl::device::sampler_stage_op(
-	renderer::stage_type const _stage,
+	renderer::stage const _stage,
 	renderer::sampler_stage_op::type const _op,
 	renderer::sampler_stage_op_value::type const _value
 )
@@ -345,7 +346,7 @@ sge::opengl::device::sampler_stage_op(
 
 void
 sge::opengl::device::sampler_stage_arg(
-	renderer::stage_type const _stage,
+	renderer::stage const _stage,
 	renderer::sampler_stage_arg::type const _arg,
 	renderer::sampler_stage_arg_value::type const _value
 )
@@ -359,9 +360,22 @@ sge::opengl::device::sampler_stage_arg(
 }
 
 void
+sge::opengl::device::texture_filter(
+	renderer::texture::filter::object const &_filter,
+	renderer::stage const _stage
+)
+{
+	opengl::texture::update_filter(
+		context_,
+		_stage,
+		_filter
+	);
+}
+
+void
 sge::opengl::device::texture(
 	renderer::texture::base const *const _texture,
-	renderer::stage_type const _stage
+	renderer::stage const _stage
 )
 {
 	opengl::texture::activate(

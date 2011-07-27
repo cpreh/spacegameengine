@@ -185,7 +185,7 @@ template<
 >
 void
 sge::opengl::glsl::program<Environment>::color_surface_location(
-	renderer::stage_type const _stage,
+	renderer::stage const _stage,
 	renderer::glsl::string const &_name
 )
 {

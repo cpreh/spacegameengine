@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../texture/id.hpp"
 #include "../texture/type.hpp"
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 
 namespace sge
 {
@@ -40,7 +40,7 @@ attach_texture_2d(
 	GLenum attachment,
 	opengl::texture::type,
 	opengl::texture::id,
-	renderer::stage_type
+	renderer::stage
 );
 
 }

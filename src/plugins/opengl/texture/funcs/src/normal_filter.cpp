@@ -18,22 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STAGE_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_STAGE_TYPE_HPP_INCLUDED
+#include "../normal_filter.hpp"
+#include "../parameter_int.hpp"
+#include "../../convert/mag_filter.hpp"
+#include "../../convert/min_filter.hpp"
+#include "../../../common.hpp"
+#include <sge/renderer/texture/filter/normal/object.hpp>
 
-#include <fcppt/strong_typedef.hpp>
-
-namespace sge
+void
+sge::opengl::texture::funcs::normal_filter(
+	texture::scoped_work_bind const &_scoped_work,
+	texture::type const _type,
+	renderer::texture::filter::normal::object const &_filter
+)
 {
-namespace renderer
-{
+	funcs::parameter_int(
+		_scoped_work,
+		_type,
+		GL_TEXTURE_MAG_FILTER,
+		static_cast<
+			GLint
+		>(
+			texture::convert::mag_filter(
+				_filter.mag()
+			)
+		)
+	);
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	unsigned,
-	stage_type
-);
-
+	funcs::parameter_int(
+		_scoped_work,
+		_type,
+		GL_TEXTURE_MIN_FILTER,
+		static_cast<
+			GLint
+		>(
+			texture::convert::min_filter(
+				_filter.min(),
+				_filter.mip()
+			)
+		)
+	);
 }
-}
-
-#endif

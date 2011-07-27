@@ -19,33 +19,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture/filter/object.hpp>
+#include <fcppt/variant/equal.hpp>
 
 sge::renderer::texture::filter::object::object(
-	filter::min::type const _min,
-	filter::mag::type const _mag,
-	filter::anisotropy_type const _anisotropy
+	filter::variant const &_variant
 )
 :
-	min_(_min),
-	mag_(_mag),
-	anisotropy_(_anisotropy)
+	variant_(_variant)
 {
 }
 
-sge::renderer::texture::filter::min::type
-sge::renderer::texture::filter::object::min() const
+sge::renderer::texture::filter::variant const &
+sge::renderer::texture::filter::object::variant() const
 {
-	return min_;
+	return variant_;
 }
 
-sge::renderer::texture::filter::mag::type
-sge::renderer::texture::filter::object::mag() const
+bool
+sge::renderer::texture::filter::operator==(
+	filter::object const &_left,
+	filter::object const &_right
+)
 {
-	return mag_;
-}
-
-sge::renderer::texture::filter::anisotropy_type const
-sge::renderer::texture::filter::object::anisotropy() const
-{
-	return anisotropy_;
+	return
+		_left.variant()
+		==
+		_right.variant();
 }

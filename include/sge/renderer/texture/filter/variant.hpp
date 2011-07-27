@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_FILTER_ANISOTROPY_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_FILTER_ANISOTROPY_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_FILTER_VARIANT_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_FILTER_VARIANT_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
+#include <sge/renderer/texture/filter/anisotropic/object_fwd.hpp>
+#include <sge/renderer/texture/filter/normal/object_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -32,10 +35,12 @@ namespace texture
 namespace filter
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	unsigned,
-	anisotropy_type
-);
+typedef fcppt::variant::object<
+	boost::mpl::vector2<
+		anisotropic::object,
+		normal::object
+	>
+> variant;
 
 }
 }

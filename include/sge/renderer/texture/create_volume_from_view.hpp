@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture/volume_ptr.hpp>
 #include <sge/renderer/texture/address_mode3_fwd.hpp>
-#include <sge/renderer/texture/filter/object_fwd.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/symbol.hpp>
@@ -41,7 +41,7 @@ texture::volume_ptr const
 create_volume_from_view(
 	renderer::device &,
 	sge::image3d::view::const_object const &,
-	texture::filter::object const &,
+	texture::mipmap::object const &,
 	texture::address_mode3 const &,
 	renderer::resource_flags_field const &
 );

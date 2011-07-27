@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
@@ -96,10 +96,10 @@ public:
 
 	virtual renderer::color_surface_ptr const
 	surface(
-		renderer::stage_type
+		renderer::stage
 	) = 0;
 
-	virtual sge::renderer::stage_type
+	virtual sge::renderer::stage const
 	stages() const = 0;
 
 	SGE_RENDERER_SYMBOL

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "scoped_work_bind_fwd.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -67,10 +67,10 @@ private:
 
 	renderer::color_surface_ptr const
 	surface(
-		renderer::stage_type
+		renderer::stage
 	);
 
-	sge::renderer::stage_type
+	sge::renderer::stage const
 	stages() const;
 };
 

@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/const_scoped_planar_lock.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/scoped_target.hpp>
@@ -292,7 +292,7 @@ try
 					window_dim
 				),
 				sge::image::color::format::rgb8,
-				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags_field(

@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_FILTER_ANISOTROPIC_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_FILTER_ANISOTROPIC_HPP_INCLUDED
-
-#include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/texture/filter/anisotropy_type.hpp>
-#include <sge/renderer/symbol.hpp>
+#ifndef SGE_RENDERER_TEXTURE_FILTER_NORMAL_MIN_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_FILTER_NORMAL_MIN_HPP_INCLUDED
 
 namespace sge
 {
@@ -33,13 +29,19 @@ namespace texture
 {
 namespace filter
 {
+namespace normal
+{
 
-SGE_RENDERER_SYMBOL
-filter::object const
-anisotropic(
-	filter::anisotropy_type
-);
+namespace min
+{
+enum type
+{
+	point,
+	linear
+};
+}
 
+}
 }
 }
 }

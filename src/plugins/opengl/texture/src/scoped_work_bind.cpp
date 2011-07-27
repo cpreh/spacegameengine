@@ -26,7 +26,7 @@ sge::opengl::texture::scoped_work_bind::scoped_work_bind(
 	opengl::context::object &_context,
 	opengl::texture::type const _type,
 	opengl::texture::id const _id,
-	renderer::stage_type const _stage
+	renderer::stage const _stage
 )
 :
 	context_(

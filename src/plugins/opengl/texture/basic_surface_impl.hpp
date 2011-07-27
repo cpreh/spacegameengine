@@ -32,7 +32,7 @@ sge::opengl::texture::basic_surface<Base>::basic_surface(
 	texture::scoped_work_bind const &_binding,
 	texture::type const _type,
 	texture::id const _id,
-	renderer::stage_type const _stage
+	renderer::stage const _stage
 )
 :
 	Base(),

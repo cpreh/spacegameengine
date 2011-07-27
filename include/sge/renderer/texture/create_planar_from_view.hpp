@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/address_mode2_fwd.hpp>
-#include <sge/renderer/texture/filter/object_fwd.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/symbol.hpp>
@@ -41,7 +41,7 @@ texture::planar_ptr const
 create_planar_from_view(
 	renderer::device &,
 	sge::image2d::view::const_object const &,
-	texture::filter::object const &,
+	texture::mipmap::object const &,
 	texture::address_mode2 const &,
 	renderer::resource_flags_field const &
 );

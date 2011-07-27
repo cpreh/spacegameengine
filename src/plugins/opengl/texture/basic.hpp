@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../internal_color_format.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
+#include <sge/renderer/texture/mipmap/object.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -114,8 +114,8 @@ private:
 	dim const
 	lock_dim() const;
 protected:
-	renderer::texture::filter::object const &
-	filter() const;
+	renderer::texture::mipmap::object const &
+	mipmap() const;
 
 	renderer::texture::capabilities_field const
 	capabilities() const;
@@ -165,7 +165,7 @@ private:
 
 	opengl::context::object &context_;
 
-	renderer::texture::filter::object const filter_;
+	renderer::texture::mipmap::object const mipmap_;
 
 	renderer::resource_flags_field const resource_flags_;
 

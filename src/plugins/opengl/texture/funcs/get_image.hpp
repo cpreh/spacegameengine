@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../color_format.hpp"
 #include "../../color_format_type.hpp"
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 
 namespace sge
 {
@@ -44,7 +44,7 @@ get_image(
 	opengl::color_format,
 	opengl::color_format_type,
 	renderer::raw_pointer dest,
-	renderer::stage_type
+	renderer::stage
 );
 
 }

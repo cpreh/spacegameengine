@@ -37,7 +37,7 @@ template<
 void
 sge::opengl::texture::set_stage_funcs(
 	context::object &_context,
-	renderer::stage_type const _stage,
+	renderer::stage const _stage,
 	Arg const _arg,
 	Value const _value
 )
@@ -65,7 +65,7 @@ template \
 void \
 sge::opengl::texture::set_stage_funcs(\
 	sge::opengl::context::object &,\
-	sge::renderer::stage_type,\
+	sge::renderer::stage,\
 	arg,\
 	value\
 );

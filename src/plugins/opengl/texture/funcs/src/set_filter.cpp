@@ -19,117 +19,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set_filter.hpp"
-#include "../auto_generate_mipmap.hpp"
-#include "../parameter_int.hpp"
-#include "../../convert/min_filter.hpp"
-#include "../../convert/mag_filter.hpp"
-#include "../../context.hpp"
-#include "../../../context/use.hpp"
-#include "../../../common.hpp"
-#include <sge/renderer/texture/filter/need_mipmap.hpp>
+#include "../filter_visitor.hpp"
+#include "../../base.hpp"
+#include "../../scoped_work_bind.hpp"
 #include <sge/renderer/texture/filter/object.hpp>
-#include <sge/log/global.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/log/error.hpp>
-#include <fcppt/log/output.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 void
 sge::opengl::texture::funcs::set_filter(
-	texture::scoped_work_bind const &_scoped_work,
 	opengl::context::object &_context,
-	texture::type const _type,
+	opengl::texture::base const &_texture,
+	renderer::stage const _stage,
 	renderer::texture::filter::object const &_filter
 )
 {
-	funcs::parameter_int(
-		_scoped_work,
-		_type,
-		GL_TEXTURE_MIN_FILTER,
-		static_cast<
-			GLint
-		>(
-			convert::min_filter(
-				_filter.min()
-			)
-		)
+	opengl::texture::scoped_work_bind const binding(
+		_context,
+		_texture.type(),
+		_texture.id(),
+		_stage
 	);
 
-	funcs::parameter_int(
-		_scoped_work,
-		_type,
-		GL_TEXTURE_MAG_FILTER,
-		static_cast<
-			GLint
-		>(
-			convert::mag_filter(
-				_filter.mag()
-			)
-		)
-	);
-
-	if(
-		sge::renderer::texture::filter::need_mipmap(
-			_filter.min()
-		)
-	)
-		opengl::texture::funcs::auto_generate_mipmap(
-			_scoped_work,
+	fcppt::variant::apply_unary(
+		funcs::filter_visitor(
 			_context,
-			_type
-		);
-
-	if(
-		_filter.anisotropy().get() == 0u
-	)
-		return;
-
-	texture::context const &context(
-		opengl::context::use<
-			texture::context
-		>(
-			_context
-		)
+			binding,
+			_texture.type()
+		),
+		_filter.variant()
 	);
-	
-	if(
-		!context.anisotropic_filter_supported()
-	)
-	{
-		FCPPT_LOG_ERROR(
-			log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("anisotropic filtering is not supported!")
-		);
-
-		return;
-	}
-
-	try
-	{
-		funcs::parameter_int(
-			_scoped_work,
-			_type,
-			context.anisotropy_flag(),
-			static_cast<
-				GLint
-			>(
-				_filter.anisotropy().get()
-			)
-		);
-	}
-	catch(
-		sge::exception const &
-	)
-	{
-		FCPPT_LOG_ERROR(
-			log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("anisotropy level ")
-				<< _filter.anisotropy()
-				<< FCPPT_TEXT(" not supported!")
-		);
-
-		throw;
-	}
 }

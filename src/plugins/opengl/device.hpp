@@ -60,7 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/sampler_stage_op.hpp>
 #include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/glsl/geometry_shader_ptr.hpp>
@@ -82,6 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_ptr.hpp>
+#include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/window/instance_fwd.hpp>
@@ -196,22 +197,28 @@ public:
 
 	void
 	sampler_stage_op(
-		renderer::stage_type stage,
+		renderer::stage stage,
 		renderer::sampler_stage_op::type,
 		renderer::sampler_stage_op_value::type
 	);
 
 	void
 	sampler_stage_arg(
-		renderer::stage_type stage,
+		renderer::stage stage,
 		renderer::sampler_stage_arg::type,
 		renderer::sampler_stage_arg_value::type
 	);
 
 	void
+	texture_filter(
+		renderer::texture::filter::object const &,
+		renderer::stage
+	);
+
+	void
 	texture(
 		renderer::texture::base const *,
-		renderer::stage_type
+		renderer::stage
 	);
 
 	void

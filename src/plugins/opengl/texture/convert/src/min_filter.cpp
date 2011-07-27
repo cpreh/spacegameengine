@@ -19,29 +19,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../min_filter.hpp"
+#include "../../../common.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 GLenum
 sge::opengl::texture::convert::min_filter(
-	renderer::texture::filter::min::type const _arg
+	renderer::texture::filter::normal::min::type const _min,
+	renderer::texture::filter::normal::mip::type const _mip
 )
 {
 	switch(
-		_arg
+		_min
 	)
 	{
-	case renderer::texture::filter::min::point:
-		return GL_NEAREST;
-	case renderer::texture::filter::min::linear:
-		return GL_LINEAR;
-	case renderer::texture::filter::min::mipmap:
-		return GL_LINEAR_MIPMAP_NEAREST;
-	case renderer::texture::filter::min::trilinear:
-		return GL_LINEAR_MIPMAP_LINEAR;
+	case renderer::texture::filter::normal::min::point:
+		switch(
+			_mip
+		)
+		{
+		case renderer::texture::filter::normal::mip::off:
+			return GL_NEAREST;
+		case renderer::texture::filter::normal::mip::point:
+			return GL_NEAREST_MIPMAP_NEAREST;
+		case renderer::texture::filter::normal::mip::linear:
+			return GL_NEAREST_MIPMAP_LINEAR;
+		}
+
+		throw sge::renderer::exception(
+			FCPPT_TEXT("Invalid mip filter!")
+		);
+	case renderer::texture::filter::normal::min::linear:
+		switch(
+			_mip
+		)
+		{
+		case renderer::texture::filter::normal::mip::off:
+			return GL_LINEAR;
+		case renderer::texture::filter::normal::mip::point:
+			return GL_LINEAR_MIPMAP_NEAREST;
+		case renderer::texture::filter::normal::mip::linear:
+			return GL_LINEAR_MIPMAP_LINEAR;
+		}
+
+		throw sge::renderer::exception(
+			FCPPT_TEXT("Invalid mip filter!")
+		);
 	}
 
 	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid min_filter!")
+		FCPPT_TEXT("Invalid min filter!")
 	);
 }

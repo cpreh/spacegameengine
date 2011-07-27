@@ -357,9 +357,7 @@ sge::shader::object::activate(
 		)
 			renderer_.texture(
 				it->texture().get(),
-				static_cast<
-					sge::renderer::stage_type
-				>(
+				sge::renderer::stage(
 					it->texture_unit()));
 	}
 
@@ -388,9 +386,7 @@ sge::shader::object::deactivate(
 		)
 			renderer_.texture(
 				sge::renderer::no_texture(),
-				static_cast<
-					sge::renderer::stage_type
-				>(
+				sge::renderer::stage(
 					it->texture_unit()));
 	}
 

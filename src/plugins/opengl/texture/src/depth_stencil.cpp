@@ -22,13 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../depth_stencil_surface.hpp"
 #include "../scoped_work_bind.hpp"
 #include "../funcs/set_2d.hpp"
-#include "../funcs/set_filter.hpp"
 #include "../../common.hpp"
 #include "../../convert/depth_stencil_to_format.hpp"
 #include "../../convert/depth_stencil_to_format_type.hpp"
 #include "../../convert/depth_stencil_to_internal_format.hpp"
-#include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/texture/filter/point.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
@@ -60,18 +57,7 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		_context,
 		this->type(),
 		this->id(),
-		renderer::stage_type(0u)
-	);
-
-	sge::renderer::texture::filter::object const filter(
-		sge::renderer::texture::filter::point
-	);
-
-	texture::funcs::set_filter(
-		binding,
-		_context,
-		this->type(),
-		filter
+		renderer::stage(0u)
 	);
 
 	texture::funcs::set_2d(
@@ -108,7 +94,7 @@ sge::opengl::texture::depth_stencil::surface() const
 		context_,
 		this->type(),
 		this->id(),
-		renderer::stage_type(0u)
+		renderer::stage(0u)
 	);
 
 	return

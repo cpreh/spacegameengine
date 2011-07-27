@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/surface_index.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -58,7 +58,7 @@ sge::renderer::target_from_texture(
 
 	target->color_surface(
 		_texture.surface(
-			renderer::stage_type(
+			renderer::stage(
 				0u
 			)
 		),

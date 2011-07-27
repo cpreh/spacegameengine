@@ -33,7 +33,7 @@ sge::renderer::texture::basic_parameters<
 >::basic_parameters(
 	Dim const &_dim,
 	sge::image::color::format::type const _color_format,
-	texture::filter::object const &_filter,
+	texture::mipmap::object const &_mipmap,
 	AddressMode const &_address_mode,
 	renderer::resource_flags_field const &_resource_flags,
 	texture::capabilities_field const &_capabilities
@@ -41,7 +41,7 @@ sge::renderer::texture::basic_parameters<
 :
 	dim_(_dim),
 	color_format_(_color_format),
-	filter_(_filter),
+	mipmap_(_mipmap),
 	address_mode_(_address_mode),
 	resource_flags_(_resource_flags),
 	capabilities_(_capabilities)
@@ -78,13 +78,13 @@ template<
 	typename Dim,
 	typename AddressMode
 >
-sge::renderer::texture::filter::object const &
+sge::renderer::texture::mipmap::object const &
 sge::renderer::texture::basic_parameters<
 	Dim,
 	AddressMode
->::filter() const
+>::mipmap() const
 {
-	return filter_;
+	return mipmap_;
 }
 
 template<

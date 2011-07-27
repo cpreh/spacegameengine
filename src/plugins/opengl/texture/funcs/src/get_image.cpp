@@ -31,7 +31,7 @@ sge::opengl::texture::funcs::get_image(
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
 	renderer::raw_pointer const _dest,
-	renderer::stage_type const _stage
+	renderer::stage const _stage
 )
 {
 	::glGetTexImage(

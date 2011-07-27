@@ -106,9 +106,9 @@ sge::opengl::vf::texpos_actor::on_use(
 {
 	opengl::texture::funcs::set_client_level(
 		context_,
-		sge::renderer::stage_type(
+		sge::renderer::stage(
 			static_cast<
-				sge::renderer::stage_type::value_type
+				sge::renderer::stage::value_type
 			>(
 				index_
 			)

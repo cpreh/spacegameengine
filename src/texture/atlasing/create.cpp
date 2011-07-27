@@ -31,7 +31,7 @@ sge::renderer::texture::planar_ptr const
 sge::texture::atlasing::create(
 	renderer::device &_rend,
 	image::color::format::type const _format,
-	renderer::texture::filter::object const &_filter,
+	renderer::texture::mipmap::object const &_mipmap,
 	renderer::dim2 const &_dim
 )
 {
@@ -40,7 +40,7 @@ sge::texture::atlasing::create(
 			renderer::texture::planar_parameters(
 				_dim,
 				_format,
-				_filter,
+				_mipmap,
 				renderer::texture::address_mode2(
 					renderer::texture::address_mode::clamp
 				),

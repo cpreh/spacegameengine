@@ -486,11 +486,13 @@ SET(
 	src/plugins/opengl/texture/context.hpp
 	src/plugins/opengl/texture/convert/address_mode.hpp
 	src/plugins/opengl/texture/convert/address_mode_type.hpp
+	src/plugins/opengl/texture/convert/anisotropic_mip_filter.hpp
 	src/plugins/opengl/texture/convert/cube_side.hpp
 	src/plugins/opengl/texture/convert/mag_filter.hpp
 	src/plugins/opengl/texture/convert/min_filter.hpp
 	src/plugins/opengl/texture/convert/src/address_mode.cpp
 	src/plugins/opengl/texture/convert/src/address_mode_type.cpp
+	src/plugins/opengl/texture/convert/src/anisotropic_mip_filter.cpp
 	src/plugins/opengl/texture/convert/src/cube_side.cpp
 	src/plugins/opengl/texture/convert/src/mag_filter.cpp
 	src/plugins/opengl/texture/convert/src/min_filter.cpp
@@ -510,14 +512,20 @@ SET(
 	src/plugins/opengl/texture/depth_stencil_fwd.hpp
 	src/plugins/opengl/texture/depth_stencil_ptr.hpp
 	src/plugins/opengl/texture/depth_stencil_surface.hpp
+	src/plugins/opengl/texture/filter_context.hpp
+	src/plugins/opengl/texture/filter_context_fwd.hpp
+	src/plugins/opengl/texture/funcs/anisotropic_filter.hpp
 	src/plugins/opengl/texture/funcs/auto_generate_mipmap.hpp
 	src/plugins/opengl/texture/funcs/bind.hpp
+	src/plugins/opengl/texture/funcs/create_mipmap.hpp
 	src/plugins/opengl/texture/funcs/delete.hpp
 	src/plugins/opengl/texture/funcs/envf.hpp
+	src/plugins/opengl/texture/funcs/filter_visitor.hpp
 	src/plugins/opengl/texture/funcs/gen.hpp
 	src/plugins/opengl/texture/funcs/get_image.hpp
 	src/plugins/opengl/texture/funcs/get_parameter_int.hpp
 	src/plugins/opengl/texture/funcs/level_parameter.hpp
+	src/plugins/opengl/texture/funcs/normal_filter.hpp
 	src/plugins/opengl/texture/funcs/parameter_int.hpp
 	src/plugins/opengl/texture/funcs/set_2d.hpp
 	src/plugins/opengl/texture/funcs/set_3d.hpp
@@ -527,14 +535,18 @@ SET(
 	src/plugins/opengl/texture/funcs/set_filter.hpp
 	src/plugins/opengl/texture/funcs/set_rect.hpp
 	src/plugins/opengl/texture/funcs/set_rect_3d.hpp
+	src/plugins/opengl/texture/funcs/src/anisotropic_filter.cpp
 	src/plugins/opengl/texture/funcs/src/auto_generate_mipmap.cpp
 	src/plugins/opengl/texture/funcs/src/bind.cpp
+	src/plugins/opengl/texture/funcs/src/create_mipmap.cpp
 	src/plugins/opengl/texture/funcs/src/delete.cpp
 	src/plugins/opengl/texture/funcs/src/envf.cpp
+	src/plugins/opengl/texture/funcs/src/filter_visitor.cpp
 	src/plugins/opengl/texture/funcs/src/gen.cpp
 	src/plugins/opengl/texture/funcs/src/get_image.cpp
 	src/plugins/opengl/texture/funcs/src/get_parameter_int.cpp
 	src/plugins/opengl/texture/funcs/src/level_parameter.cpp
+	src/plugins/opengl/texture/funcs/src/normal_filter.cpp
 	src/plugins/opengl/texture/funcs/src/parameter_int.cpp
 	src/plugins/opengl/texture/funcs/src/set_2d.cpp
 	src/plugins/opengl/texture/funcs/src/set_3d.cpp
@@ -575,6 +587,7 @@ SET(
 	src/plugins/opengl/texture/src/cube_context.cpp
 	src/plugins/opengl/texture/src/depth_stencil.cpp
 	src/plugins/opengl/texture/src/depth_stencil_surface.cpp
+	src/plugins/opengl/texture/src/filter_context.cpp
 	src/plugins/opengl/texture/src/holder.cpp
 	src/plugins/opengl/texture/src/lock_base.cpp
 	src/plugins/opengl/texture/src/multi_context.cpp
@@ -586,6 +599,7 @@ SET(
 	src/plugins/opengl/texture/src/set_stage_scale.cpp
 	src/plugins/opengl/texture/src/surface.cpp
 	src/plugins/opengl/texture/src/surface_base.cpp
+	src/plugins/opengl/texture/src/update_filter.cpp
 	src/plugins/opengl/texture/src/volume.cpp
 	src/plugins/opengl/texture/src/volume_context.cpp
 	src/plugins/opengl/texture/src/writeonly_lock.cpp
@@ -596,6 +610,7 @@ SET(
 	src/plugins/opengl/texture/surface_fwd.hpp
 	src/plugins/opengl/texture/surface_ptr.hpp
 	src/plugins/opengl/texture/type.hpp
+	src/plugins/opengl/texture/update_filter.hpp
 	src/plugins/opengl/texture/volume.hpp
 	src/plugins/opengl/texture/volume_basic.hpp
 	src/plugins/opengl/texture/volume_context.hpp

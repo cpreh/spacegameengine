@@ -55,7 +55,7 @@ sge::opengl::texture::volume::volume(
 		_context,
 		this->type(),
 		this->id(),
-		renderer::stage_type(0u)
+		renderer::stage(0u)
 	);
 
 	texture::funcs::set_3d(

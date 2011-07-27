@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -149,7 +149,7 @@ sge::cegui::detail::texture::resize(
 				structure_cast<sge::renderer::dim2>(
 					_size),
 				sge::image::color::format::rgba8,
-				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none,
@@ -230,7 +230,7 @@ sge::cegui::detail::texture::create_from_view(
 		sge::renderer::texture::create_planar_from_view(
 			system_.renderer(),
 			v,
-			sge::renderer::texture::filter::linear,
+			sge::renderer::texture::mipmap::off(),
 			sge::renderer::texture::address_mode2(
 				sge::renderer::texture::address_mode::clamp),
 			sge::renderer::resource_flags::none);
