@@ -18,22 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DIM3_HPP_INCLUDED
-#define SGE_RENDERER_DIM3_HPP_INCLUDED
+#ifndef SGE_RENDERER_BASIC_LOCK_BOX_HPP_INCLUDED
+#define SGE_RENDERER_BASIC_LOCK_BOX_HPP_INCLUDED
 
-#include <sge/renderer/basic_dim.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/math/box/basic_fwd.hpp>
+#include <fcppt/math/size_type.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef 
-renderer::basic_dim
-<
-	3
->::type 
-dim3;
+template<
+	fcppt::math::size_type Size
+>
+struct basic_lock_box
+{
+	typedef fcppt::math::box::basic<
+		renderer::size_type,
+		Size
+	> type;
+};
 
 }
 }

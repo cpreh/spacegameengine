@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "planar_basic.hpp"
 #include "basic.hpp"
 #include "optional_type.hpp"
-#include "scoped_work_bind_fwd.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/stage.hpp>
@@ -56,15 +55,6 @@ public:
 
 	~planar();
 private:
-	typedef texture::planar_basic::pointer pointer;
-
-	void
-	set_area(
-		opengl::texture::scoped_work_bind const &,
-		lock_area const &,
-		pointer
-	) const;
-
 	renderer::color_surface_ptr const
 	surface(
 		renderer::stage

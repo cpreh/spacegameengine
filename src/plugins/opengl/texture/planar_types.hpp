@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
 
+#include "init_function.hpp"
+#include "sub_function.hpp"
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -46,6 +48,22 @@ struct planar_types
 	static
 	fcppt::string
 	name();
+
+	typedef texture::init_function<
+		2
+	>::type init_function_type;
+
+	typedef texture::sub_function<
+		2
+	>::type sub_function_type;
+
+	static
+	init_function_type
+	init_function();
+
+	static
+	sub_function_type
+	sub_function();
 };
 
 }

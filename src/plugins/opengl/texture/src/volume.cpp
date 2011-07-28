@@ -21,10 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../volume.hpp"
 #include "../volume_types.hpp"
 #include "../basic_impl.hpp"
-#include "../scoped_work_bind.hpp"
 #include "../volume_context.hpp"
-#include "../funcs/set_3d.hpp"
-#include "../funcs/set_box.hpp"
 #include "../../context/use.hpp"
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
@@ -48,32 +45,11 @@ sge::opengl::texture::volume::volume(
 		>(
 			_context
 		).volume_texture_type(),
-		_param,
-		opengl::texture::funcs::set_3d
+		_param
 	)
 {
 }
 
 sge::opengl::texture::volume::~volume()
 {
-}
-
-void
-sge::opengl::texture::volume::set_area(
-	opengl::texture::scoped_work_bind const &_binding,
-	lock_area const &_area,
-	pointer const _dest
-) const
-{
-	texture::funcs::set_box(
-		_binding,
-		this->context(),
-		this->type(),
-		this->format(),
-		this->format_type(),
-		renderer::stage(0u),
-		this->size(),
-		_area,
-		_dest
-	);
 }

@@ -6,6 +6,8 @@ SET(
 	include/sge/renderer/ambient_color.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/aspect_from_viewport.hpp
+	include/sge/renderer/basic_dim.hpp
+	include/sge/renderer/basic_lock_box.hpp
 	include/sge/renderer/basic_scoped_buffer_lock.hpp
 	include/sge/renderer/bit_depth.hpp
 	include/sge/renderer/bit_depth_bytes.hpp

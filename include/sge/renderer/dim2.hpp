@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DIM2_HPP_INCLUDED
 #define SGE_RENDERER_DIM2_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/math/dim/static.hpp>
+#include <sge/renderer/basic_dim.hpp>
 
 namespace sge
 {
@@ -30,9 +29,8 @@ namespace renderer
 {
 
 typedef 
-fcppt::math::dim::static_
+renderer::basic_dim
 <
-	size_type,
 	2
 >::type
 dim2;

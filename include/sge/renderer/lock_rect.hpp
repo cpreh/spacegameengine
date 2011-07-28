@@ -21,16 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LOCK_RECT_HPP_INCLUDED
 #define SGE_RENDERER_LOCK_RECT_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/math/box/rect.hpp>
+#include <sge/renderer/basic_lock_box.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef fcppt::math::box::rect<
-	renderer::size_type
+typedef renderer::basic_lock_box<
+	2
 >::type lock_rect;
 
 }

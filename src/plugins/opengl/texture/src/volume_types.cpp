@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../volume_types.hpp"
+#include "../funcs/set_3d.hpp"
+#include "../funcs/set_box.hpp"
 #include <fcppt/text.hpp>
 
 sge::renderer::size_type
@@ -31,4 +33,16 @@ fcppt::string
 sge::opengl::texture::volume_types::name()
 {
 	return FCPPT_TEXT("volume texture");
+}
+
+sge::opengl::texture::volume_types::init_function_type
+sge::opengl::texture::volume_types::init_function()
+{
+	return &texture::funcs::set_3d;
+}
+
+sge::opengl::texture::volume_types::sub_function_type
+sge::opengl::texture::volume_types::sub_function()
+{
+	return &texture::funcs::set_box;
 }

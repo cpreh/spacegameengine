@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic.hpp"
 #include "volume_basic.hpp"
-#include "scoped_work_bind_fwd.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
@@ -50,15 +49,6 @@ public:
 	);
 
 	~volume();
-private:
-	typedef texture::volume_basic::pointer pointer;
-
-	void
-	set_area(
-		opengl::texture::scoped_work_bind const &,
-		lock_area const &,
-		pointer
-	) const;
 };
 
 }

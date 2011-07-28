@@ -151,8 +151,14 @@ sge::opengl::texture::basic<Types>::unlock() const
 			renderer::stage(0u)
 		);
 
-		this->set_area(
+		Types::sub_function()(
 			binding,
+			context_,
+			this->type(),
+			format_,
+			format_type_,
+			renderer::stage(0u),
+			this->size(),
 			lock_area_
 			?
 				*lock_area_
@@ -160,7 +166,8 @@ sge::opengl::texture::basic<Types>::unlock() const
 				lock_area(
 					lock_area::vector::null(),
 					this->size()
-				),
+				)
+			,
 			lock_->write_pointer()
 		);
 	}
@@ -392,8 +399,7 @@ template<
 sge::opengl::texture::basic<Types>::basic(
 	opengl::context::object &_context,
 	opengl::texture::type const _type,
-	parameters_type const &_parameters,
-	init_function const &_init
+	parameters_type const &_parameters
 )
 :
 	opengl::texture::base(
@@ -462,7 +468,7 @@ sge::opengl::texture::basic<Types>::basic(
 		_parameters.address_mode()
 	);
 
-	_init(
+	Types::init_function()(
 		binding,
 		_context,
 		this->type(),

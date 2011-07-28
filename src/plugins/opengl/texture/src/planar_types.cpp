@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../planar_types.hpp"
+#include "../funcs/set_2d.hpp"
+#include "../funcs/set_rect.hpp"
 #include <fcppt/text.hpp>
 
 sge::renderer::size_type
@@ -31,4 +33,16 @@ fcppt::string
 sge::opengl::texture::planar_types::name()
 {
 	return FCPPT_TEXT("planar texture");
+}
+
+sge::opengl::texture::planar_types::init_function_type
+sge::opengl::texture::planar_types::init_function()
+{
+	return &texture::funcs::set_2d;
+}
+
+sge::opengl::texture::planar_types::sub_function_type
+sge::opengl::texture::planar_types::sub_function()
+{
+	return &texture::funcs::set_rect;
 }

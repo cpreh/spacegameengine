@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic_fwd.hpp"
 #include "base.hpp"
-#include "init_function.hpp"
 #include "lock_base.hpp"
 #include "scoped_work_bind_fwd.hpp"
 #include "type.hpp"
@@ -140,15 +139,10 @@ protected:
 
 	typedef typename Types::parameters parameters_type;
 
-	typedef typename texture::init_function<
-		dim
-	>::type init_function;
-
 	basic(
 		opengl::context::object &,
 		opengl::texture::type,
-		parameters_type const &,
-		init_function const &
+		parameters_type const &
 	);
 public:
 	~basic();
@@ -156,13 +150,6 @@ public:
 	renderer::resource_flags_field const
 	resource_flags() const;
 private:
-	virtual void
-	set_area(
-		opengl::texture::scoped_work_bind const &,
-		lock_area const &,
-		pointer dest
-	) const = 0;
-
 	void
 	check_locked() const;
 

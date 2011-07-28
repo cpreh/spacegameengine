@@ -43,7 +43,7 @@ namespace funcs
 void
 set_rect(
 	texture::scoped_work_bind const &,
-	context::object &,
+	opengl::context::object &,
 	texture::type,
 	opengl::color_format,
 	opengl::color_format_type,

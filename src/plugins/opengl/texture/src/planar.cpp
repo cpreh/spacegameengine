@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../scoped_work_bind.hpp"
 #include "../surface.hpp"
 #include "../funcs/get_parameter_int.hpp"
-#include "../funcs/set_2d.hpp"
-#include "../funcs/set_rect.hpp"
 #include "../../common.hpp"
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
@@ -56,35 +54,15 @@ sge::opengl::texture::planar::planar(
 		:
 			opengl::texture::type(
 				GL_TEXTURE_2D
-			),
-		_param,
-		opengl::texture::funcs::set_2d
+			)
+		,
+		_param
 	)
 {
 }
 
 sge::opengl::texture::planar::~planar()
 {
-}
-
-void
-sge::opengl::texture::planar::set_area(
-	opengl::texture::scoped_work_bind const &_binding,
-	lock_area const &_area,
-	pointer const _dest
-) const
-{
-	opengl::texture::funcs::set_rect(
-		_binding,
-		this->context(),
-		this->type(),
-		this->format(),
-		this->format_type(),
-		renderer::stage(0u),
-		this->size(),
-		_area,
-		_dest
-	);
 }
 
 sge::renderer::color_surface_ptr const

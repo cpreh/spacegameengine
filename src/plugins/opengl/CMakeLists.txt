@@ -603,6 +603,7 @@ SET(
 	src/plugins/opengl/texture/src/volume_context.cpp
 	src/plugins/opengl/texture/src/volume_types.cpp
 	src/plugins/opengl/texture/src/writeonly_lock.cpp
+	src/plugins/opengl/texture/sub_function.hpp
 	src/plugins/opengl/texture/surface.hpp
 	src/plugins/opengl/texture/surface_base.hpp
 	src/plugins/opengl/texture/surface_base_fwd.hpp
