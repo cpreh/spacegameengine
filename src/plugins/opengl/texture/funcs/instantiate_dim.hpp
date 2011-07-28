@@ -18,37 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_CHECK_DIM_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_CHECK_DIM_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_DIM_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_DIM_HPP_INCLUDED
 
-#include <sge/renderer/basic_dim.hpp>
-#include <fcppt/math/size_type.hpp>
-#include <fcppt/string.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
-{
-
-template<
-	fcppt::math::size_type Size
->
-void
-check_dim(
-	typename renderer::basic_dim<
-		Size
-	>::type const &,
-	renderer::size_type min_value,
-	fcppt::string const &what
-);
-
-}
-}
-}
-}
+#define SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_DIM(\
+	macro\
+)\
+macro(\
+	2\
+)\
+macro(\
+	3\
+)
 
 #endif

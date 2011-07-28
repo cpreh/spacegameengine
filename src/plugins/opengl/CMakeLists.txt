@@ -523,6 +523,7 @@ SET(
 	src/plugins/opengl/texture/funcs/gen.hpp
 	src/plugins/opengl/texture/funcs/get_image.hpp
 	src/plugins/opengl/texture/funcs/get_parameter_int.hpp
+	src/plugins/opengl/texture/funcs/instantiate_dim.hpp
 	src/plugins/opengl/texture/funcs/level_parameter.hpp
 	src/plugins/opengl/texture/funcs/normal_filter.hpp
 	src/plugins/opengl/texture/funcs/parameter_int.hpp
@@ -553,6 +554,7 @@ SET(
 	src/plugins/opengl/texture/funcs/src/set_client_level.cpp
 	src/plugins/opengl/texture/funcs/src/set_filter.cpp
 	src/plugins/opengl/texture/funcs/src/set_rect.cpp
+	src/plugins/opengl/texture/funcs/src/warn_dim.cpp
 	src/plugins/opengl/texture/funcs/warn_min.hpp
 	src/plugins/opengl/texture/funcs/warn_pow2.hpp
 	src/plugins/opengl/texture/holder.hpp

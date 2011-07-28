@@ -18,37 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_CHECK_DIM_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_CHECK_DIM_HPP_INCLUDED
-
-#include <sge/renderer/basic_dim.hpp>
-#include <fcppt/math/size_type.hpp>
-#include <fcppt/string.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
-{
+#include "../check_dim.hpp"
+#include "../instantiate_dim.hpp"
+#include "../warn_min.hpp"
+#include "../warn_pow2.hpp"
 
 template<
 	fcppt::math::size_type Size
 >
 void
-check_dim(
+sge::opengl::texture::funcs::check_dim(
 	typename renderer::basic_dim<
 		Size
-	>::type const &,
-	renderer::size_type min_value,
-	fcppt::string const &what
+	>::type const &_dim,
+	renderer::size_type const _min_value,
+	fcppt::string const &_what
+)
+{
+	opengl::texture::funcs::warn_min(
+		_dim,
+		_min_value,
+		_what
+	);
+
+	opengl::texture::funcs::warn_pow2(
+		_dim,
+		_what
+	);
+}
+
+#define SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_CHECK_DIM(\
+	dimension\
+)\
+template \
+void \
+sge::opengl::texture::funcs::check_dim<\
+	dimension\
+>(\
+	sge::renderer::basic_dim< \
+		dimension \
+	>::type const &, \
+	sge::renderer::size_type, \
+	fcppt::string const & \
 );
 
-}
-}
-}
-}
-
-#endif
+SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_DIM(
+	SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_CHECK_DIM
+)

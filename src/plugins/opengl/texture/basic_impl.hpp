@@ -449,7 +449,9 @@ sge::opengl::texture::basic<Types>::basic(
 	lock_(),
 	lock_area_()
 {
-	opengl::texture::funcs::check_dim(
+	opengl::texture::funcs::check_dim<
+		dim::dim_wrapper::value
+	>(
 		this->size(),
 		Types::min_size(),
 		Types::name()
