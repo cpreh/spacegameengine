@@ -18,17 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_SET_RECT_3D_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_SET_RECT_3D_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_FUNCS_SET_BOX_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FUNCS_SET_BOX_HPP_INCLUDED
 
 #include "../scoped_work_bind_fwd.hpp"
 #include "../type.hpp"
 #include "../../color_format.hpp"
 #include "../../color_format_type.hpp"
 #include "../../context/object_fwd.hpp"
+#include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/lock_box.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
+#include <sge/renderer/stage.hpp>
 
 namespace sge
 {
@@ -40,12 +41,13 @@ namespace funcs
 {
 
 void
-set_rect_3d(
+set_box(
 	texture::scoped_work_bind const &,
 	context::object &,
 	texture::type,
 	opengl::color_format,
 	opengl::color_format_type,
+	renderer::stage,
 	renderer::dim3 const &,
 	renderer::lock_box const &,
 	renderer::const_raw_pointer src

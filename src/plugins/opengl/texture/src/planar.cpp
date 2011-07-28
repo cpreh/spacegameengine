@@ -64,7 +64,9 @@ sge::opengl::texture::planar::planar(
 		_context,
 		this->type(),
 		this->id(),
-		renderer::stage(0u)
+		renderer::stage(
+			0u
+		)
 	);
 
 	opengl::texture::funcs::set_2d(
@@ -73,6 +75,7 @@ sge::opengl::texture::planar::planar(
 		this->format(),
 		this->format_type(),
 		this->internal_format(),
+		renderer::stage(0u),
 		this->size(),
 		0
 	);
@@ -95,6 +98,7 @@ sge::opengl::texture::planar::set_area(
 		this->type(),
 		this->format(),
 		this->format_type(),
+		renderer::stage(0u),
 		this->size(),
 		_area,
 		_dest

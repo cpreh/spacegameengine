@@ -38,6 +38,7 @@ sge::opengl::texture::funcs::set_3d(
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
 	opengl::internal_color_format const _internal_format,
+	renderer::stage const _stage,
 	renderer::dim3 const &_dim,
 	renderer::const_raw_pointer const _src
 )
@@ -63,7 +64,11 @@ sge::opengl::texture::funcs::set_3d(
 		_context
 	).tex_image_3d()(
 		_type.get(),
-		0,
+		static_cast<
+			GLint
+		>(
+			_stage.get()
+		),
 		_internal_format.get(),
 		static_cast<
 			GLsizei

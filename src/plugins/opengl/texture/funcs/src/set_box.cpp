@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_rect_3d.hpp"
+#include "../set_box.hpp"
 #include "../../volume_context.hpp"
 #include "../../../check_state.hpp"
 #include "../../../pbo_context.hpp"
@@ -34,12 +34,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 void
-sge::opengl::texture::funcs::set_rect_3d(
+sge::opengl::texture::funcs::set_box(
 	texture::scoped_work_bind const &,
 	opengl::context::object &_context,
 	texture::type const _type,
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
+	renderer::stage const _stage,
 	renderer::dim3 const &_dim,
 	renderer::lock_box const &_lock_box,
 	renderer::const_raw_pointer const _src
@@ -82,7 +83,11 @@ sge::opengl::texture::funcs::set_rect_3d(
 		_context
 	).tex_sub_image_3d()(
 		_type.get(),
-		0,
+		static_cast<
+			GLint
+		>(
+			_stage.get()
+		),
 		static_cast<
 			GLint
 		>(

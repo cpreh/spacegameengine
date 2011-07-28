@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/stage.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/cref.hpp>
@@ -57,7 +58,9 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		_context,
 		this->type(),
 		this->id(),
-		renderer::stage(0u)
+		renderer::stage(
+			0u
+		)
 	);
 
 	texture::funcs::set_2d(
@@ -71,6 +74,9 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		),
 		convert::depth_stencil_to_internal_format(
 			_format
+		),
+		renderer::stage(
+			0u
 		),
 		this->dim(),
 		0
@@ -94,7 +100,9 @@ sge::opengl::texture::depth_stencil::surface() const
 		context_,
 		this->type(),
 		this->id(),
-		renderer::stage(0u)
+		renderer::stage(
+			0u
+		)
 	);
 
 	return

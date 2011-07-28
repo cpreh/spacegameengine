@@ -26,9 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../color_format.hpp"
 #include "../../color_format_type.hpp"
 #include "../../context/object_fwd.hpp"
+#include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
+#include <sge/renderer/stage.hpp>
 
 namespace sge
 {
@@ -46,6 +47,7 @@ set_rect(
 	texture::type,
 	opengl::color_format,
 	opengl::color_format_type,
+	renderer::stage,
 	renderer::dim2 const &,
 	renderer::lock_rect const &,
 	renderer::const_raw_pointer src

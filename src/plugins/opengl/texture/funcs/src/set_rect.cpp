@@ -39,6 +39,7 @@ sge::opengl::texture::funcs::set_rect(
 	texture::type const _type,
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
+	renderer::stage const _stage,
 	renderer::dim2 const &_dim,
 	renderer::lock_rect const &_lock_rect,
 	renderer::const_raw_pointer const _src
@@ -77,7 +78,11 @@ sge::opengl::texture::funcs::set_rect(
 
 	::glTexSubImage2D(
 		_type.get(),
-		0,
+		static_cast<
+			GLint
+		>(
+			_stage.get()
+		),
 		static_cast<
 			GLint
 		>(

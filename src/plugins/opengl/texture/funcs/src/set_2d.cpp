@@ -35,6 +35,7 @@ sge::opengl::texture::funcs::set_2d(
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
 	opengl::internal_color_format const _internal_format,
+	renderer::stage const _stage,
 	renderer::dim2 const &_dim,
 	renderer::const_raw_pointer const _src
 )
@@ -56,7 +57,11 @@ sge::opengl::texture::funcs::set_2d(
 
 	::glTexImage2D(
 		_type.get(),
-		0,
+		static_cast<
+			GLint
+		>(
+			_stage.get()
+		),
 		_internal_format.get(),
 		static_cast<
 			GLsizei

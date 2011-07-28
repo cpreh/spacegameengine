@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../color_format_type.hpp"
 #include "../../internal_color_format.hpp"
 #include "../../context/object_fwd.hpp"
-#include <sge/renderer/dim3.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
+#include <sge/renderer/dim3.hpp>
+#include <sge/renderer/stage.hpp>
 
 namespace sge
 {
@@ -47,6 +48,7 @@ set_3d(
 	opengl::color_format,
 	opengl::color_format_type,
 	opengl::internal_color_format,
+	renderer::stage,
 	renderer::dim3 const &,
 	renderer::const_raw_pointer src
 );

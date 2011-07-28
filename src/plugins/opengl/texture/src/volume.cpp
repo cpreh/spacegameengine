@@ -65,6 +65,7 @@ sge::opengl::texture::volume::volume(
 		this->format(),
 		this->format_type(),
 		this->internal_format(),
+		renderer::stage(0u),
 		this->size(),
 		0
 	);
@@ -87,6 +88,7 @@ sge::opengl::texture::volume::set_area(
 		this->type(),
 		this->format(),
 		this->format_type(),
+		renderer::stage(0u),
 		this->size(),
 		_area,
 		_dest
