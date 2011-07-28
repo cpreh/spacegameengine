@@ -391,7 +391,8 @@ template<
 sge::opengl::texture::basic<Types>::basic(
 	opengl::context::object &_context,
 	opengl::texture::type const _type,
-	parameters_type const &_parameters
+	parameters_type const &_parameters,
+	init_function const &_init
 )
 :
 	opengl::texture::base(
@@ -441,8 +442,6 @@ sge::opengl::texture::basic<Types>::basic(
 	lock_(),
 	lock_area_()
 {
-	// note: What is done here is important to do before the
-	// constructor of the derived class runs!
 	opengl::texture::scoped_work_bind const binding(
 		context_,
 		this->type(),
@@ -454,6 +453,18 @@ sge::opengl::texture::basic<Types>::basic(
 		binding,
 		this->type(),
 		_parameters.address_mode()
+	);
+
+	_init(
+		binding,
+		_context,
+		this->type(),
+		this->format(),
+		this->format_type(),
+		this->internal_format(),
+		renderer::stage(0u),
+		this->size(),
+		0
 	);
 
 	opengl::texture::funcs::create_mipmap(

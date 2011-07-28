@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic_fwd.hpp"
 #include "base.hpp"
+#include "init_function.hpp"
 #include "lock_base.hpp"
 #include "scoped_work_bind_fwd.hpp"
 #include "type.hpp"
@@ -139,10 +140,15 @@ protected:
 
 	typedef typename Types::parameters parameters_type;
 
+	typedef typename texture::init_function<
+		dim
+	>::type init_function;
+
 	basic(
 		opengl::context::object &,
 		opengl::texture::type,
-		parameters_type const &
+		parameters_type const &,
+		init_function const &
 	);
 public:
 	~basic();

@@ -48,27 +48,10 @@ sge::opengl::texture::volume::volume(
 		>(
 			_context
 		).volume_texture_type(),
-		_param
+		_param,
+		opengl::texture::funcs::set_3d
 	)
 {
-	opengl::texture::scoped_work_bind const binding(
-		_context,
-		this->type(),
-		this->id(),
-		renderer::stage(0u)
-	);
-
-	texture::funcs::set_3d(
-		binding,
-		_context,
-		this->type(),
-		this->format(),
-		this->format_type(),
-		this->internal_format(),
-		renderer::stage(0u),
-		this->size(),
-		0
-	);
 }
 
 sge::opengl::texture::volume::~volume()

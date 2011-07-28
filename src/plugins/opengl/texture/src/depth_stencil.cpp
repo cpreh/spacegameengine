@@ -65,6 +65,7 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 
 	texture::funcs::set_2d(
 		binding,
+		_context,
 		this->type(),
 		convert::depth_stencil_to_format(
 			_format

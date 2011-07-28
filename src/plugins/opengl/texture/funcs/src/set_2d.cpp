@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::funcs::set_2d(
 	texture::scoped_work_bind const &,
+	opengl::context::object &,
 	texture::type const _type,
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
