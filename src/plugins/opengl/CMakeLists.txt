@@ -566,6 +566,8 @@ SET(
 	src/plugins/opengl/texture/mipmap/src/auto_generate.cpp
 	src/plugins/opengl/texture/mipmap/src/create.cpp
 	src/plugins/opengl/texture/mipmap/src/parameters.cpp
+	src/plugins/opengl/texture/mipmap/src/visitor.cpp
+	src/plugins/opengl/texture/mipmap/visitor.hpp
 	src/plugins/opengl/texture/multi_context.hpp
 	src/plugins/opengl/texture/multi_context_fwd.hpp
 	src/plugins/opengl/texture/optional_type.hpp

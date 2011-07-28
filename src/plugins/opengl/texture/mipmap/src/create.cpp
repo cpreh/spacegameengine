@@ -19,7 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../create.hpp"
+#include "../visitor.hpp"
 #include "../../instantiate_dim.hpp"
+#include <sge/renderer/texture/mipmap/object.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 template<
 	fcppt::math::size_type Dim
@@ -32,14 +36,14 @@ sge::opengl::texture::mipmap::create(
 	renderer::texture::mipmap::object const &_mipmap
 )
 {
-#if 0
 	fcppt::variant::apply_unary(
-		funcs::mipmap_visitor(
+		mipmap::visitor<
+			Dim
+		>(
 			_parameters
 		),
 		_mipmap.variant()
 	);
-#endif
 #if 0
 		opengl::texture::funcs::auto_generate_mipmap(
 			_scoped_work,
