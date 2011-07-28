@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "funcs/check_dim.hpp"
 #include "funcs/create_mipmap.hpp"
 #include "funcs/get_image.hpp"
+#include "funcs/mipmap_parameters.hpp"
 #include "../convert/color_to_format.hpp"
 #include "../convert/color_to_format_type.hpp"
 #include "../convert/color_to_internal_format.hpp"
@@ -482,10 +483,18 @@ sge::opengl::texture::basic<Types>::basic(
 		0
 	);
 
-	opengl::texture::funcs::create_mipmap(
-		binding,
-		context_,
-		this->type(),
+	opengl::texture::funcs::create_mipmap<
+		dim::dim_wrapper::value
+	>(
+		funcs::mipmap_parameters<
+			dim::dim_wrapper::value
+		>(
+			binding,
+			context_,
+			this->type(),
+			this->size(),
+			Types::init_function()
+		),
 		this->mipmap()
 	);
 }

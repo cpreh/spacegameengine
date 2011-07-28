@@ -525,6 +525,8 @@ SET(
 	src/plugins/opengl/texture/funcs/get_parameter_int.hpp
 	src/plugins/opengl/texture/funcs/instantiate_dim.hpp
 	src/plugins/opengl/texture/funcs/level_parameter.hpp
+	src/plugins/opengl/texture/funcs/mipmap_parameters.hpp
+	src/plugins/opengl/texture/funcs/mipmap_parameters_fwd.hpp
 	src/plugins/opengl/texture/funcs/normal_filter.hpp
 	src/plugins/opengl/texture/funcs/parameter_int.hpp
 	src/plugins/opengl/texture/funcs/set_2d.hpp
@@ -537,6 +539,7 @@ SET(
 	src/plugins/opengl/texture/funcs/src/anisotropic_filter.cpp
 	src/plugins/opengl/texture/funcs/src/auto_generate_mipmap.cpp
 	src/plugins/opengl/texture/funcs/src/bind.cpp
+	src/plugins/opengl/texture/funcs/src/check_dim.cpp
 	src/plugins/opengl/texture/funcs/src/create_mipmap.cpp
 	src/plugins/opengl/texture/funcs/src/delete.cpp
 	src/plugins/opengl/texture/funcs/src/envf.cpp
@@ -545,6 +548,7 @@ SET(
 	src/plugins/opengl/texture/funcs/src/get_image.cpp
 	src/plugins/opengl/texture/funcs/src/get_parameter_int.cpp
 	src/plugins/opengl/texture/funcs/src/level_parameter.cpp
+	src/plugins/opengl/texture/funcs/src/mipmap_parameters.cpp
 	src/plugins/opengl/texture/funcs/src/normal_filter.cpp
 	src/plugins/opengl/texture/funcs/src/parameter_int.cpp
 	src/plugins/opengl/texture/funcs/src/set_2d.cpp
@@ -554,7 +558,6 @@ SET(
 	src/plugins/opengl/texture/funcs/src/set_client_level.cpp
 	src/plugins/opengl/texture/funcs/src/set_filter.cpp
 	src/plugins/opengl/texture/funcs/src/set_rect.cpp
-	src/plugins/opengl/texture/funcs/src/warn_dim.cpp
 	src/plugins/opengl/texture/funcs/warn_min.hpp
 	src/plugins/opengl/texture/funcs/warn_pow2.hpp
 	src/plugins/opengl/texture/holder.hpp

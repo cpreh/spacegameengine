@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_CREATE_MIPMAP_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_CREATE_MIPMAP_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_FUNCS_MIPMAP_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FUNCS_MIPMAP_PARAMETERS_FWD_HPP_INCLUDED
 
-#include "mipmap_parameters_fwd.hpp"
-#include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <fcppt/math/size_type.hpp>
 
 namespace sge
 {
@@ -36,13 +35,7 @@ namespace funcs
 template<
 	fcppt::math::size_type Dim
 >
-void
-create_mipmap(
-	funcs::mipmap_parameters<
-		Dim
-	> const &,
-	renderer::texture::mipmap::object const &
-);
+class mipmap_parameters;
 
 }
 }

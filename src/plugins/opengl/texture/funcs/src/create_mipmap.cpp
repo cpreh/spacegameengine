@@ -19,21 +19,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../create_mipmap.hpp"
-#include "../auto_generate_mipmap.hpp"
-#include "../parameter_int.hpp"
-#include "../../context.hpp"
-#include "../../../context/use.hpp"
-#include "../../../common.hpp"
-#include <sge/renderer/texture/mipmap/object.hpp>
+#include "../instantiate_dim.hpp"
 
+template<
+	fcppt::math::size_type Dim
+>
 void
 sge::opengl::texture::funcs::create_mipmap(
-	texture::scoped_work_bind const &_scoped_work,
-	opengl::context::object &_context,
-	texture::type const _type,
+	funcs::mipmap_parameters<
+		Dim
+	> const &_parameters,
 	renderer::texture::mipmap::object const &_mipmap
 )
 {
+#if 0
+	fcppt::variant::apply_unary(
+		funcs::mipmap_visitor(
+			_parameters
+		),
+		_mipmap.variant()
+	);
+#endif
 #if 0
 		opengl::texture::funcs::auto_generate_mipmap(
 			_scoped_work,
@@ -69,3 +75,21 @@ sge::opengl::texture::funcs::create_mipmap(
 
 #endif
 }
+
+#define SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_CREATE_MIPMAP(\
+	dimension\
+)\
+template \
+void \
+sge::opengl::texture::funcs::create_mipmap<\
+	dimension\
+>(\
+	sge::opengl::texture::funcs::mipmap_parameters< \
+		dimension \
+	> const &, \
+	sge::renderer::texture::mipmap::object const &\
+);
+
+SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_DIM(
+	SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_CREATE_MIPMAP
+)
