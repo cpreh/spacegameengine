@@ -532,7 +532,6 @@ SET(
 	src/plugins/opengl/texture/funcs/set_client_level.hpp
 	src/plugins/opengl/texture/funcs/set_filter.hpp
 	src/plugins/opengl/texture/funcs/set_rect.hpp
-	src/plugins/opengl/texture/funcs/set_rect_3d.hpp
 	src/plugins/opengl/texture/funcs/src/anisotropic_filter.cpp
 	src/plugins/opengl/texture/funcs/src/auto_generate_mipmap.cpp
 	src/plugins/opengl/texture/funcs/src/bind.cpp
@@ -553,7 +552,6 @@ SET(
 	src/plugins/opengl/texture/funcs/src/set_client_level.cpp
 	src/plugins/opengl/texture/funcs/src/set_filter.cpp
 	src/plugins/opengl/texture/funcs/src/set_rect.cpp
-	src/plugins/opengl/texture/funcs/src/set_rect_3d.cpp
 	src/plugins/opengl/texture/funcs/warn_min.hpp
 	src/plugins/opengl/texture/funcs/warn_pow2.hpp
 	src/plugins/opengl/texture/holder.hpp

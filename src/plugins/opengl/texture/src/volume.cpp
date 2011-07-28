@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../scoped_work_bind.hpp"
 #include "../volume_context.hpp"
 #include "../funcs/set_3d.hpp"
-#include "../funcs/set_rect_3d.hpp"
+#include "../funcs/set_box.hpp"
 #include "../../context/use.hpp"
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
@@ -81,7 +81,7 @@ sge::opengl::texture::volume::set_area(
 	pointer const _dest
 ) const
 {
-	texture::funcs::set_rect_3d(
+	texture::funcs::set_box(
 		_binding,
 		this->context(),
 		this->type(),

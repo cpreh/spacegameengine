@@ -18,9 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_box.hpp"
+#include "../set_rect_3d.hpp"
+#include "../../volume_context.hpp"
 #include "../../../check_state.hpp"
 #include "../../../pbo_context.hpp"
+#include "../../../range_check.hpp"
 #include "../../../vbo_base.hpp"
 #include "../../../context/use.hpp"
 #include <sge/renderer/exception.hpp>
@@ -32,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 void
-sge::opengl::texture::funcs::set_box(
+sge::opengl::texture::funcs::set_rect_3d(
 	texture::scoped_work_bind const &,
 	opengl::context::object &_context,
 	texture::type const _type,
@@ -54,18 +56,19 @@ sge::opengl::texture::funcs::set_box(
 		.hardware_supported()
 	)
 		throw renderer::exception(
-			FCPPT_TEXT("ogl::texfuncs::set_box(): src is 0!")
+			FCPPT_TEXT("ogl::set_texture_rect(): src is 0!")
 		);
 
 	if(
-		_lock_box.right() > _dim.w()
-		|| _lock_box.bottom() > _dim.h()
-		|| _lock_box.back() > _dim.d()
+		!opengl::range_check(
+			_dim,
+			_lock_box
+		)
 	)
 		throw renderer::exception(
 			(
 				fcppt::format(
-					FCPPT_TEXT("box for setting a texture is out of range (rect=%1%, dim=%2%)!")
+					FCPPT_TEXT("rect for setting a texture is out of range (rect=%1%, dim=%2%)!")
 				)
 				% _lock_box
 				% _dim
@@ -73,7 +76,11 @@ sge::opengl::texture::funcs::set_box(
 			.str()
 		);
 
-	::glTexSubImage3D(
+	context::use<
+		opengl::texture::volume_context
+	>(
+		_context
+	).tex_sub_image_3d()(
 		_type.get(),
 		0,
 		static_cast<
@@ -120,4 +127,5 @@ sge::opengl::texture::funcs::set_box(
 		).str(),
 		sge::renderer::exception
 	)
+
 }
