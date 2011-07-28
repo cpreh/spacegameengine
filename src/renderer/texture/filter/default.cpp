@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture/filter/default.hpp>
-#include <sge/renderer/texture/filter/point.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
 
 sge::renderer::texture::filter::object const
 sge::renderer::texture::filter::default_()
 {
 	return
-		filter::point();
+		filter::linear();
 }
