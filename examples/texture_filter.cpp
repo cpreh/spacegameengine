@@ -88,6 +88,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/mipmap.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/texture/filter/point.hpp>
+#include <sge/renderer/texture/filter/scoped.hpp>
 #include <sge/renderer/texture/filter/trilinear.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
@@ -152,15 +153,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-template<
-	typename Filters
->
+typedef std::pair<
+	sge::font::text::string,
+	sge::renderer::texture::filter::object
+> string_filter_pair;
+
+typedef fcppt::container::array<
+	string_filter_pair,
+	7u
+> filter_array;
+
 void
 change_filter(
 	sge::input::keyboard::key_event const &_event,
-	sge::renderer::device &_renderer,
-	sge::font::text::string &_text,
-	Filters const &_filters
+	filter_array const &_filters,
+	filter_array::const_pointer &_result
 )
 {
 	if(
@@ -179,7 +186,7 @@ change_filter(
 	)
 		return;
 	
-	typename Filters::size_type const index(
+	filter_array::size_type const index(
 		digit->get() - 1u
 	);
 
@@ -189,20 +196,10 @@ change_filter(
 	)
 		return;
 
-	typename Filters::const_reference ref(
-		_filters[
+	_result =
+		&_filters[
 			index
-		]
-	);
-
-	_text = ref.first;
-
-	_renderer.texture_filter(
-		ref.second,
-		sge::renderer::stage(
-			0u
-		)
-	);
+		];
 }
 
 }
@@ -211,7 +208,7 @@ int
 main()
 try
 {
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(
 			sge::systems::window(
@@ -253,15 +250,12 @@ try
 
 	sge::camera::object camera(
 		sge::camera::parameters(
-			// movementspeed
 			sge::camera::movement_speed(
 				4.0f
 			),
-			// mousespeed
 			sge::camera::rotation_speed(
 				200.0f
 			),
-			// position
 			sys.keyboard_collector(),
 			sys.mouse_collector()
 		)
@@ -340,21 +334,13 @@ try
 				);
 	}
 
-	typedef std::pair<
-		sge::font::text::string,
-		sge::renderer::texture::filter::object
-	> string_filter_pair;
-
-	typedef fcppt::container::array<
-		string_filter_pair,
-		5u
-	> filter_array;
-
 	sge::renderer::texture::filter::anisotropic::level const anisotropy(
 		sys.renderer().caps().max_anisotropy()
 	);
 
 	sge::font::text::string const anisotropy_string(
+		SGE_FONT_TEXT_LIT(' ')
+		+
 		fcppt::lexical_cast<
 			sge::font::text::string
 		>(
@@ -383,11 +369,29 @@ try
 			sge::renderer::texture::filter::trilinear()
 		),
 		std::make_pair(
-			SGE_FONT_TEXT_LIT("anisotropic ")
+			SGE_FONT_TEXT_LIT("anisotropic")
 			+
 			anisotropy_string,
 			sge::renderer::texture::filter::anisotropic::make(
 				sge::renderer::texture::filter::anisotropic::mip::off,
+				anisotropy
+			)
+		),
+		std::make_pair(
+			SGE_FONT_TEXT_LIT("ansiotropic + mipmap")
+			+
+			anisotropy_string,
+			sge::renderer::texture::filter::anisotropic::make(
+				sge::renderer::texture::filter::anisotropic::mip::point,
+				anisotropy
+			)
+		),
+		std::make_pair(
+			SGE_FONT_TEXT_LIT("ansiotropic + trilinear")
+			+
+			anisotropy_string,
+			sge::renderer::texture::filter::anisotropic::make(
+				sge::renderer::texture::filter::anisotropic::mip::linear,
 				anisotropy
 			)
 		)
@@ -470,17 +474,6 @@ try
 		.elements()
 	);
 
-	sge::font::text::string current_text(
-		SGE_FONT_TEXT_LIT("Press 1 through ")
-		+
-		fcppt::lexical_cast<
-			sge::font::text::string
-		>(
-			filters.size()
-		)
-		+ SGE_FONT_TEXT_LIT(" to select a filter!")
-	);
-
 	bool running(
 		true
 	);
@@ -496,20 +489,19 @@ try
 		)
 	);
 
+	filter_array::const_pointer current_filter(
+		filters.data()
+	);
+
 	fcppt::signal::scoped_connection const texture_connection(
 		sys.keyboard_collector().key_callback(
 			std::tr1::bind(
-				::change_filter<
-					filter_array
-				>,
+				::change_filter,
 				std::tr1::placeholders::_1,
+				filters,
 				fcppt::ref(
-					sys.renderer()
-				),
-				fcppt::ref(
-					current_text
-				),
-				filters
+					current_filter
+				)
 			)
 		)
 	);
@@ -577,6 +569,17 @@ try
 	sge::timer::frames_counter frames_counter(
 		global_clock);
 
+	sge::font::text::string const text_appendix(
+		SGE_FONT_TEXT_LIT(" (Press 1 through ")
+		+
+		fcppt::lexical_cast<
+			sge::font::text::string
+		>(
+			filters.size()
+		)
+		+ SGE_FONT_TEXT_LIT(" to select a filter!)")
+	);
+
 	while(
 		running
 	)
@@ -605,15 +608,31 @@ try
 			camera.projection()
 		);
 
-		sge::sprite::render_one_advanced(
-			sprite_sys,
-			sprite
+		sys.renderer().texture_filter(
+			current_filter->second,
+			sge::renderer::stage(0u)
 		);
+
+		{
+		#if 0
+			sge::renderer::texture::filter::scoped(
+				sys.renderer(),
+				sge::renderer::stage(0u),
+				current_filter->second
+			);
+		#endif
+			sge::sprite::render_one_advanced(
+				sprite_sys,
+				sprite
+			);
+		}
 
 		sge::font::text::draw(
 			*font_metrics,
 			font_drawer,
-			current_text,
+			current_filter->first
+			+
+			text_appendix,
 			sge::font::rect(
 				sge::font::rect::vector::null(),
 				fcppt::math::dim::structure_cast<

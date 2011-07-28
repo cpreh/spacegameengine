@@ -42,12 +42,14 @@ class scoped
 		scoped
 	);
 public:
+	SGE_RENDERER_SYMBOL
 	scoped(
 		renderer::device &,
 		renderer::stage,
 		filter::object const &
 	);
 
+	SGE_RENDERER_SYMBOL
 	~scoped();
 private:
 	renderer::device &device_;
