@@ -57,7 +57,7 @@ sge::opengl::texture::update_filter(
 		!bound_texture
 	)
 		return;
-	
+
 	opengl::texture::funcs::set_filter(
 		_context,
 		*bound_texture,

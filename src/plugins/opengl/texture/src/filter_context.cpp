@@ -64,9 +64,9 @@ sge::opengl::texture::filter_context::set(
 		_filter
 	)
 		return false;
-	
+
 	current = _filter;
-	
+
 	return true;
 }
 

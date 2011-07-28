@@ -19,6 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../base.hpp"
+#include <sge/renderer/texture/filter/normal/mag.hpp>
+#include <sge/renderer/texture/filter/normal/make.hpp>
+#include <sge/renderer/texture/filter/normal/min.hpp>
+#include <sge/renderer/texture/filter/normal/mip.hpp>
 
 sge::opengl::texture::type const
 sge::opengl::texture::base::type() const
@@ -32,6 +36,21 @@ sge::opengl::texture::base::id() const
 	return holder_.id();
 }
 
+bool
+sge::opengl::texture::base::update_filter(
+	renderer::texture::filter::object const &_filter
+) const
+{
+	if(
+		filter_ == _filter
+	)
+		return false;
+	
+	filter_ = _filter;
+
+	return true;
+}
+
 sge::opengl::texture::base::~base()
 {
 }
@@ -41,6 +60,13 @@ sge::opengl::texture::base::base(
 )
 :
 	type_(_type),
-	holder_()
+	holder_(),
+	filter_(
+		sge::renderer::texture::filter::normal::make(
+			sge::renderer::texture::filter::normal::mag::linear,
+			sge::renderer::texture::filter::normal::min::point,
+			sge::renderer::texture::filter::normal::mip::linear
+		)
+	)
 {
 }

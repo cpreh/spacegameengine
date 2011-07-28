@@ -41,41 +41,56 @@ sge::opengl::texture::activate(
 		)
 	);
 
+#if 0
 	if(
-		_texture
+		dynamic_cast<
+			opengl::texture::base const *
+		>(
+			_texture
+		)
+		==
+		context.render_texture(
+			_stage
+		)
+	)
+		return;
+#endif
+	if(
+		!_texture
 	)
 	{
-		opengl::texture::base const &texture_base(
-			dynamic_cast<
-				opengl::texture::base const &
-			>(
-				*_texture
-			)
-		);
-
-		// TODO: optimize this!
-		opengl::texture::funcs::set_filter(
-			_context,
-			texture_base,
-			_stage,
-			opengl::context::use<
-				opengl::texture::filter_context
-			>(
-				_context
-			).get(
-				_stage
-			)
-		);
-
-		context.bind_for_rendering(
-			_context,
-			texture_base,
-			_stage
-		);
-	}
-	else
 		context.unbind_for_rendering(
 			_context,
 			_stage
 		);
+
+		return;
+	}
+
+	opengl::texture::base const &texture_base(
+		dynamic_cast<
+			opengl::texture::base const &
+		>(
+			*_texture
+		)
+	);
+
+	funcs::set_filter(
+		_context,
+		texture_base,
+		_stage,
+		opengl::context::use<
+			opengl::texture::filter_context
+		>(
+			_context
+		).get(
+			_stage
+		)
+	);
+
+	context.bind_for_rendering(
+		_context,
+		texture_base,
+		_stage
+	);
 }

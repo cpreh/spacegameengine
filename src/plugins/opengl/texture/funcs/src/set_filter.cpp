@@ -34,6 +34,13 @@ sge::opengl::texture::funcs::set_filter(
 	renderer::texture::filter::object const &_filter
 )
 {
+	if(
+		!_texture.update_filter(
+			_filter
+		)
+	)
+		return;
+
 	opengl::texture::scoped_work_bind const binding(
 		_context,
 		_texture.type(),

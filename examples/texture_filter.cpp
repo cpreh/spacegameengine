@@ -608,19 +608,13 @@ try
 			camera.projection()
 		);
 
-		sys.renderer().texture_filter(
-			current_filter->second,
-			sge::renderer::stage(0u)
-		);
-
 		{
-		#if 0
-			sge::renderer::texture::filter::scoped(
+			sge::renderer::texture::filter::scoped const scoped_filter(
 				sys.renderer(),
 				sge::renderer::stage(0u),
 				current_filter->second
 			);
-		#endif
+
 			sge::sprite::render_one_advanced(
 				sprite_sys,
 				sprite
@@ -647,7 +641,6 @@ try
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none
 		);
-
 
 		sge::font::text::draw(
 			*font_metrics,

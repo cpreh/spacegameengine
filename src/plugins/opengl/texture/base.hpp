@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "holder.hpp"
 #include "id.hpp"
 #include "type.hpp"
+#include "../context/object_fwd.hpp"
+#include <sge/renderer/texture/filter/object.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -46,6 +48,11 @@ public:
 	texture::id const 
 	id() const;
 
+	bool
+	update_filter(
+		renderer::texture::filter::object const &
+	) const;
+
 	virtual ~base();
 protected:
 	explicit base(
@@ -55,6 +62,8 @@ private:
 	texture::type const type_;
 
 	opengl::texture::holder const holder_;
+	
+	mutable sge::renderer::texture::filter::object filter_;
 };
 
 }
