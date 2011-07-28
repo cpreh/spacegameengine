@@ -72,7 +72,7 @@ warn_pow2(
 				fcppt::log::_
 					<< FCPPT_TEXT("opengl implementations are not required to support ")
 					<< _what
-					<< FCPPT_TEXT(" with dimensions that are not a power of 2.")\
+					<< FCPPT_TEXT("s with dimensions that are not a power of 2.")\
 					FCPPT_TEXT(" Specified size was ")
 					<< _dim
 					<< FCPPT_TEXT('.')
