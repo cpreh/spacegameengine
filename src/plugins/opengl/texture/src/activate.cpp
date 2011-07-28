@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../activate.hpp"
 #include "../base.hpp"
 #include "../bind_context.hpp"
-#include "../filter_context.hpp"
-#include "../funcs/set_filter.hpp"
+#include "../filter/context.hpp"
+#include "../filter/set.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/texture/base.hpp>
 
@@ -75,12 +75,12 @@ sge::opengl::texture::activate(
 		)
 	);
 
-	funcs::set_filter(
+	filter::set(
 		_context,
 		texture_base,
 		_stage,
 		opengl::context::use<
-			opengl::texture::filter_context
+			opengl::texture::filter::context
 		>(
 			_context
 		).get(

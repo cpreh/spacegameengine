@@ -18,15 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_FILTER_VISITOR_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_FILTER_VISITOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_FILTER_NORMAL_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FILTER_NORMAL_HPP_INCLUDED
 
 #include "../scoped_work_bind_fwd.hpp"
 #include "../type.hpp"
-#include "../../context/object_fwd.hpp"
-#include <sge/renderer/texture/filter/anisotropic/object_fwd.hpp>
 #include <sge/renderer/texture/filter/normal/object_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -34,39 +31,15 @@ namespace opengl
 {
 namespace texture
 {
-namespace funcs
+namespace filter
 {
 
-class filter_visitor
-{
-	FCPPT_NONASSIGNABLE(
-		filter_visitor
-	);
-public:
-	filter_visitor(
-		opengl::context::object &,
-		texture::scoped_work_bind const &,
-		texture::type
-	);
-
-	typedef void result_type;
-
-	result_type
-	operator()(
-		sge::renderer::texture::filter::anisotropic::object const &
-	) const;
-
-	result_type
-	operator()(
-		sge::renderer::texture::filter::normal::object const &
-	) const;
-private:
-	opengl::context::object &context_;
-
-	texture::scoped_work_bind const &scoped_work_;
-
-	texture::type const type_;
-};
+void
+normal(
+	texture::scoped_work_bind const &,
+	texture::type,
+	renderer::texture::filter::normal::object const &
+);
 
 }
 }

@@ -481,6 +481,7 @@ SET(
 	src/plugins/opengl/texture/basic_surface_impl.hpp
 	src/plugins/opengl/texture/bind_context.hpp
 	src/plugins/opengl/texture/bind_context_fwd.hpp
+	src/plugins/opengl/texture/check_dim.hpp
 	src/plugins/opengl/texture/context.hpp
 	src/plugins/opengl/texture/convert/address_mode.hpp
 	src/plugins/opengl/texture/convert/address_mode_type.hpp
@@ -510,62 +511,61 @@ SET(
 	src/plugins/opengl/texture/depth_stencil_fwd.hpp
 	src/plugins/opengl/texture/depth_stencil_ptr.hpp
 	src/plugins/opengl/texture/depth_stencil_surface.hpp
-	src/plugins/opengl/texture/filter_context.hpp
-	src/plugins/opengl/texture/filter_context_fwd.hpp
-	src/plugins/opengl/texture/funcs/anisotropic_filter.hpp
-	src/plugins/opengl/texture/funcs/auto_generate_mipmap.hpp
+	src/plugins/opengl/texture/filter/anisotropic.hpp
+	src/plugins/opengl/texture/filter/context.hpp
+	src/plugins/opengl/texture/filter/context_fwd.hpp
+	src/plugins/opengl/texture/filter/normal.hpp
+	src/plugins/opengl/texture/filter/set.hpp
+	src/plugins/opengl/texture/filter/src/anisotropic.cpp
+	src/plugins/opengl/texture/filter/src/context.cpp
+	src/plugins/opengl/texture/filter/src/normal.cpp
+	src/plugins/opengl/texture/filter/src/set.cpp
+	src/plugins/opengl/texture/filter/src/update.cpp
+	src/plugins/opengl/texture/filter/src/visitor.cpp
+	src/plugins/opengl/texture/filter/update.hpp
+	src/plugins/opengl/texture/filter/visitor.hpp
 	src/plugins/opengl/texture/funcs/bind.hpp
-	src/plugins/opengl/texture/funcs/check_dim.hpp
-	src/plugins/opengl/texture/funcs/create_mipmap.hpp
 	src/plugins/opengl/texture/funcs/delete.hpp
 	src/plugins/opengl/texture/funcs/envf.hpp
-	src/plugins/opengl/texture/funcs/filter_visitor.hpp
 	src/plugins/opengl/texture/funcs/gen.hpp
 	src/plugins/opengl/texture/funcs/get_image.hpp
 	src/plugins/opengl/texture/funcs/get_parameter_int.hpp
-	src/plugins/opengl/texture/funcs/instantiate_dim.hpp
 	src/plugins/opengl/texture/funcs/level_parameter.hpp
-	src/plugins/opengl/texture/funcs/mipmap_parameters.hpp
-	src/plugins/opengl/texture/funcs/mipmap_parameters_fwd.hpp
-	src/plugins/opengl/texture/funcs/normal_filter.hpp
 	src/plugins/opengl/texture/funcs/parameter_int.hpp
 	src/plugins/opengl/texture/funcs/set_2d.hpp
 	src/plugins/opengl/texture/funcs/set_3d.hpp
 	src/plugins/opengl/texture/funcs/set_active_level.hpp
 	src/plugins/opengl/texture/funcs/set_box.hpp
 	src/plugins/opengl/texture/funcs/set_client_level.hpp
-	src/plugins/opengl/texture/funcs/set_filter.hpp
 	src/plugins/opengl/texture/funcs/set_rect.hpp
-	src/plugins/opengl/texture/funcs/src/anisotropic_filter.cpp
-	src/plugins/opengl/texture/funcs/src/auto_generate_mipmap.cpp
 	src/plugins/opengl/texture/funcs/src/bind.cpp
-	src/plugins/opengl/texture/funcs/src/check_dim.cpp
-	src/plugins/opengl/texture/funcs/src/create_mipmap.cpp
 	src/plugins/opengl/texture/funcs/src/delete.cpp
 	src/plugins/opengl/texture/funcs/src/envf.cpp
-	src/plugins/opengl/texture/funcs/src/filter_visitor.cpp
 	src/plugins/opengl/texture/funcs/src/gen.cpp
 	src/plugins/opengl/texture/funcs/src/get_image.cpp
 	src/plugins/opengl/texture/funcs/src/get_parameter_int.cpp
 	src/plugins/opengl/texture/funcs/src/level_parameter.cpp
-	src/plugins/opengl/texture/funcs/src/mipmap_parameters.cpp
-	src/plugins/opengl/texture/funcs/src/normal_filter.cpp
 	src/plugins/opengl/texture/funcs/src/parameter_int.cpp
 	src/plugins/opengl/texture/funcs/src/set_2d.cpp
 	src/plugins/opengl/texture/funcs/src/set_3d.cpp
 	src/plugins/opengl/texture/funcs/src/set_active_level.cpp
 	src/plugins/opengl/texture/funcs/src/set_box.cpp
 	src/plugins/opengl/texture/funcs/src/set_client_level.cpp
-	src/plugins/opengl/texture/funcs/src/set_filter.cpp
 	src/plugins/opengl/texture/funcs/src/set_rect.cpp
-	src/plugins/opengl/texture/funcs/warn_min.hpp
-	src/plugins/opengl/texture/funcs/warn_pow2.hpp
 	src/plugins/opengl/texture/holder.hpp
 	src/plugins/opengl/texture/id.hpp
 	src/plugins/opengl/texture/init_function.hpp
+	src/plugins/opengl/texture/instantiate_dim.hpp
 	src/plugins/opengl/texture/lock_base.hpp
 	src/plugins/opengl/texture/lock_base_fwd.hpp
 	src/plugins/opengl/texture/lock_base_unique_ptr.hpp
+	src/plugins/opengl/texture/mipmap/auto_generate.hpp
+	src/plugins/opengl/texture/mipmap/create.hpp
+	src/plugins/opengl/texture/mipmap/parameters.hpp
+	src/plugins/opengl/texture/mipmap/parameters_fwd.hpp
+	src/plugins/opengl/texture/mipmap/src/auto_generate.cpp
+	src/plugins/opengl/texture/mipmap/src/create.cpp
+	src/plugins/opengl/texture/mipmap/src/parameters.cpp
 	src/plugins/opengl/texture/multi_context.hpp
 	src/plugins/opengl/texture/multi_context_fwd.hpp
 	src/plugins/opengl/texture/optional_type.hpp
@@ -584,13 +584,13 @@ SET(
 	src/plugins/opengl/texture/src/address_mode.cpp
 	src/plugins/opengl/texture/src/base.cpp
 	src/plugins/opengl/texture/src/bind_context.cpp
+	src/plugins/opengl/texture/src/check_dim.cpp
 	src/plugins/opengl/texture/src/context.cpp
 	src/plugins/opengl/texture/src/create_lock.cpp
 	src/plugins/opengl/texture/src/cube.cpp
 	src/plugins/opengl/texture/src/cube_context.cpp
 	src/plugins/opengl/texture/src/depth_stencil.cpp
 	src/plugins/opengl/texture/src/depth_stencil_surface.cpp
-	src/plugins/opengl/texture/src/filter_context.cpp
 	src/plugins/opengl/texture/src/holder.cpp
 	src/plugins/opengl/texture/src/lock_base.cpp
 	src/plugins/opengl/texture/src/multi_context.cpp
@@ -603,7 +603,6 @@ SET(
 	src/plugins/opengl/texture/src/set_stage_scale.cpp
 	src/plugins/opengl/texture/src/surface.cpp
 	src/plugins/opengl/texture/src/surface_base.cpp
-	src/plugins/opengl/texture/src/update_filter.cpp
 	src/plugins/opengl/texture/src/volume.cpp
 	src/plugins/opengl/texture/src/volume_context.cpp
 	src/plugins/opengl/texture/src/volume_types.cpp
@@ -616,11 +615,12 @@ SET(
 	src/plugins/opengl/texture/surface_fwd.hpp
 	src/plugins/opengl/texture/surface_ptr.hpp
 	src/plugins/opengl/texture/type.hpp
-	src/plugins/opengl/texture/update_filter.hpp
 	src/plugins/opengl/texture/volume.hpp
 	src/plugins/opengl/texture/volume_basic.hpp
 	src/plugins/opengl/texture/volume_context.hpp
 	src/plugins/opengl/texture/volume_types.hpp
+	src/plugins/opengl/texture/warn_min.hpp
+	src/plugins/opengl/texture/warn_pow2.hpp
 	src/plugins/opengl/texture/writeonly_lock.hpp
 	src/plugins/opengl/unset_vertex_buffer.hpp
 	src/plugins/opengl/vbo_base.hpp

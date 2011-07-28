@@ -18,45 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../auto_generate_mipmap.hpp"
-#include "../parameter_int.hpp"
-#include "../../context.hpp"
-#include "../../../common.hpp"
-#include "../../../context/use.hpp"
-#include <sge/log/global.hpp>
-#include <fcppt/log/output.hpp>
-#include <fcppt/log/error.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_TEXTURE_FILTER_SET_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FILTER_SET_HPP_INCLUDED
+
+#include "../base_fwd.hpp"
+#include "../../context/object_fwd.hpp"
+#include <sge/renderer/texture/filter/object_fwd.hpp>
+#include <sge/renderer/stage.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+namespace texture
+{
+namespace filter
+{
 
 void
-sge::opengl::texture::funcs::auto_generate_mipmap(
-	texture::scoped_work_bind const &_scoped_work,
-	opengl::context::object &_context,
-	texture::type const _type
-)
-{
-	if(
-		!opengl::context::use<
-			texture::context
-		>(
-			_context
-		).generate_mipmap_flag_supported()
-	)
-	{
-		FCPPT_LOG_ERROR(
-			sge::log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("Building mipmaps is not supported.")
-				<< FCPPT_TEXT(" The mip_filter will not work correctly.")
-		);
+set(
+	opengl::context::object &,
+	opengl::texture::base const &,
+	renderer::stage,
+	renderer::texture::filter::object const &
+);
 
-		return;
-	}
-	
-	funcs::parameter_int(
-		_scoped_work,
-		_type,
-		GL_GENERATE_MIPMAP,
-		GL_TRUE
-	);
 }
+}
+}
+}
+
+#endif

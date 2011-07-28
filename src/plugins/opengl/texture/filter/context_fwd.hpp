@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_NORMAL_FILTER_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_NORMAL_FILTER_HPP_INCLUDED
-
-#include "../scoped_work_bind_fwd.hpp"
-#include "../type.hpp"
-#include <sge/renderer/texture/filter/normal/object_fwd.hpp>
+#ifndef SGE_OPENGL_TEXTURE_FILTER_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FILTER_CONTEXT_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -31,15 +27,10 @@ namespace opengl
 {
 namespace texture
 {
-namespace funcs
+namespace filter
 {
 
-void
-normal_filter(
-	texture::scoped_work_bind const &,
-	texture::type,
-	renderer::texture::filter::normal::object const &
-);
+class context;
 
 }
 }

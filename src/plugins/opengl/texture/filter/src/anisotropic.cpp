@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../anisotropic_filter.hpp"
-#include "../parameter_int.hpp"
+#include "../anisotropic.hpp"
 #include "../../convert/anisotropic_mip_filter.hpp"
+#include "../../funcs/parameter_int.hpp"
 #include "../../context.hpp"
 #include "../../../context/use.hpp"
 #include "../../../common.hpp"
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 void
-sge::opengl::texture::funcs::anisotropic_filter(
+sge::opengl::texture::filter::anisotropic(
 	opengl::context::object &_context,
 	texture::scoped_work_bind const &_scoped_work,
 	texture::type const _type,
@@ -59,7 +59,7 @@ sge::opengl::texture::funcs::anisotropic_filter(
 		)
 	);
 
-	texture::context const &context(
+	texture::context const &texture_context(
 		opengl::context::use<
 			texture::context
 		>(
@@ -68,7 +68,7 @@ sge::opengl::texture::funcs::anisotropic_filter(
 	);
 
 	if(
-		!context.anisotropic_filter_supported()
+		!texture_context.anisotropic_filter_supported()
 	)
 	{
 		FCPPT_LOG_ERROR(
@@ -85,7 +85,7 @@ sge::opengl::texture::funcs::anisotropic_filter(
 		funcs::parameter_int(
 			_scoped_work,
 			_type,
-			context.anisotropy_flag(),
+			texture_context.anisotropy_flag(),
 			static_cast<
 				GLint
 			>(

@@ -18,29 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_UPDATE_FILTER_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_UPDATE_FILTER_HPP_INCLUDED
-
-#include "../context/object_fwd.hpp"
-#include <sge/renderer/texture/filter/object_fwd.hpp>
-#include <sge/renderer/stage.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
+#include "../set.hpp"
+#include "../visitor.hpp"
+#include "../../base.hpp"
+#include "../../scoped_work_bind.hpp"
+#include <sge/renderer/texture/filter/object.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 void
-update_filter(
-	opengl::context::object &,
-	sge::renderer::stage,
-	sge::renderer::texture::filter::object const &
-);
+sge::opengl::texture::filter::set(
+	opengl::context::object &_context,
+	opengl::texture::base const &_texture,
+	renderer::stage const _stage,
+	renderer::texture::filter::object const &_filter
+)
+{
+	if(
+		!_texture.update_filter(
+			_filter
+		)
+	)
+		return;
 
-}
-}
-}
+	opengl::texture::scoped_work_bind const binding(
+		_context,
+		_texture.type(),
+		_texture.id(),
+		_stage
+	);
 
-#endif
+	fcppt::variant::apply_unary(
+		filter::visitor(
+			_context,
+			binding,
+			_texture.type()
+		),
+		_filter.variant()
+	);
+}

@@ -18,37 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_CHECK_DIM_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_CHECK_DIM_HPP_INCLUDED
-
-#include <sge/renderer/basic_dim.hpp>
-#include <fcppt/math/size_type.hpp>
-#include <fcppt/string.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
-{
+#include "../parameters.hpp"
+#include "../../instantiate_dim.hpp"
 
 template<
-	fcppt::math::size_type Size
+	fcppt::math::size_type Dim
 >
-void
-check_dim(
-	typename renderer::basic_dim<
-		Size
-	>::type const &,
-	renderer::size_type min_value,
-	fcppt::string const &what
-);
+sge::opengl::texture::mipmap::parameters<Dim>::parameters(
+	texture::scoped_work_bind const &_scoped_work,
+	opengl::context::object &_context,
+	texture::type const _type,
+	dim const &_size,
+	init_function_type const &_init_function
+)
+:
+	scoped_work_(_scoped_work),
+	context_(_context),
+	type_(_type),
+	size_(_size),
+	init_function_(_init_function)
+{
+}
 
-}
-}
-}
-}
+#define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_PARAMETERS(\
+	dimension\
+)\
+template class \
+sge::opengl::texture::mipmap::parameters<\
+	dimension\
+>;
 
-#endif
+SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
+	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_PARAMETERS
+)

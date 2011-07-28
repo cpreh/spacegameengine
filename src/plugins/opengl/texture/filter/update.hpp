@@ -18,50 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../check_dim.hpp"
-#include "../instantiate_dim.hpp"
-#include "../warn_min.hpp"
-#include "../warn_pow2.hpp"
+#ifndef SGE_OPENGL_TEXTURE_FILTER_UPDATE_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FILTER_UPDATE_HPP_INCLUDED
 
-template<
-	fcppt::math::size_type Size
->
-void
-sge::opengl::texture::funcs::check_dim(
-	typename renderer::basic_dim<
-		Size
-	>::type const &_dim,
-	renderer::size_type const _min_value,
-	fcppt::string const &_what
-)
+#include "../../context/object_fwd.hpp"
+#include <sge/renderer/texture/filter/object_fwd.hpp>
+#include <sge/renderer/stage.hpp>
+
+namespace sge
 {
-	opengl::texture::funcs::warn_min(
-		_dim,
-		_min_value,
-		_what
-	);
+namespace opengl
+{
+namespace texture
+{
+namespace filter
+{
 
-	opengl::texture::funcs::warn_pow2(
-		_dim,
-		_what
-	);
-}
-
-#define SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_CHECK_DIM(\
-	dimension\
-)\
-template \
-void \
-sge::opengl::texture::funcs::check_dim<\
-	dimension\
->(\
-	sge::renderer::basic_dim< \
-		dimension \
-	>::type const &, \
-	sge::renderer::size_type, \
-	fcppt::string const & \
+void
+update(
+	opengl::context::object &,
+	sge::renderer::stage,
+	sge::renderer::texture::filter::object const &
 );
 
-SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_DIM(
-	SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_CHECK_DIM
-)
+}
+}
+}
+}
+
+#endif

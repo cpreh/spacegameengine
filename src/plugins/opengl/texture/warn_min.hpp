@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_WARN_MIN_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_WARN_MIN_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_WARN_MIN_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_WARN_MIN_HPP_INCLUDED
 
 #include <sge/log/global.hpp>
 #include <fcppt/log/warning.hpp>
@@ -35,8 +35,6 @@ namespace sge
 namespace opengl
 {
 namespace texture
-{
-namespace funcs
 {
 
 template<
@@ -88,7 +86,6 @@ warn_min(
 		}
 }
 
-}
 }
 }
 }

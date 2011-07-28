@@ -18,18 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_MIPMAP_PARAMETERS_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_MIPMAP_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_CHECK_DIM_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CHECK_DIM_HPP_INCLUDED
 
-#include "mipmap_parameters_fwd.hpp"
-#include "../init_function.hpp"
-#include "../scoped_work_bind_fwd.hpp"
-#include "../type.hpp"
-#include "../../context/object_fwd.hpp"
 #include <sge/renderer/basic_dim.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -37,46 +31,19 @@ namespace opengl
 {
 namespace texture
 {
-namespace funcs
-{
 
 template<
-	fcppt::math::size_type Dim
+	fcppt::math::size_type Size
 >
-class mipmap_parameters
-{
-	FCPPT_NONASSIGNABLE(
-		mipmap_parameters
-	);
-public:
-	typedef typename renderer::basic_dim<
-		Dim
-	>::type dim;
+void
+check_dim(
+	typename renderer::basic_dim<
+		Size
+	>::type const &,
+	renderer::size_type min_value,
+	fcppt::string const &what
+);
 
-	typedef typename texture::init_function<
-		Dim
-	>::type init_function_type;
-
-	mipmap_parameters(
-		texture::scoped_work_bind const &,
-		opengl::context::object &,
-		texture::type,
-		dim const &,
-		init_function_type const &
-	);
-private:
-	texture::scoped_work_bind const &scoped_work_;
-
-	opengl::context::object &context_;
-
-	texture::type const type_;
-
-	dim const size_;
-
-	init_function_type const init_function_;
-};
-
-}
 }
 }
 }

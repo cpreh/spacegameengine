@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../filter_context.hpp"
-#include "../../context/make_id.hpp"
+#include "../context.hpp"
+#include "../../../context/make_id.hpp"
 #include <sge/renderer/texture/filter/default.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 #include <fcppt/variant/equal.hpp>
 
-sge::opengl::texture::filter_context::filter_context()
+sge::opengl::texture::filter::context::context()
 :
 	opengl::context::base(),
 	filters_()
 {
 }
 
-sge::opengl::texture::filter_context::~filter_context()
+sge::opengl::texture::filter::context::~context()
 {
 }
 
 sge::renderer::texture::filter::object const &
-sge::opengl::texture::filter_context::get(
+sge::opengl::texture::filter::context::get(
 	renderer::stage const _stage
 )
 {
@@ -47,7 +47,7 @@ sge::opengl::texture::filter_context::get(
 }
 
 bool
-sge::opengl::texture::filter_context::set(
+sge::opengl::texture::filter::context::set(
 	renderer::stage const _stage,
 	renderer::texture::filter::object const &_filter
 )
@@ -71,7 +71,7 @@ sge::opengl::texture::filter_context::set(
 }
 
 sge::renderer::texture::filter::object &
-sge::opengl::texture::filter_context::get_mutable(
+sge::opengl::texture::filter::context::get_mutable(
 	renderer::stage const _stage
 )
 {
@@ -83,6 +83,6 @@ sge::opengl::texture::filter_context::get_mutable(
 }
 
 sge::opengl::context::id const
-sge::opengl::texture::filter_context::static_id(
+sge::opengl::texture::filter::context::static_id(
 	sge::opengl::context::make_id()
 );

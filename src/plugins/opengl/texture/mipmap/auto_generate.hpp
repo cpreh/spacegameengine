@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_AUTO_GENERATE_MIPMAP_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_AUTO_GENERATE_MIPMAP_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_MIPMAP_AUTO_GENERATE_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_MIPMAP_AUTO_GENERATE_HPP_INCLUDED
 
 #include "../scoped_work_bind_fwd.hpp"
 #include "../type.hpp"
@@ -31,11 +31,11 @@ namespace opengl
 {
 namespace texture
 {
-namespace funcs
+namespace mipmap
 {
 
 void
-auto_generate_mipmap(
+auto_generate(
 	texture::scoped_work_bind const &,
 	opengl::context::object &,
 	texture::type

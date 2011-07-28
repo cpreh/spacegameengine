@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_ANISOTROPIC_FILTER_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_ANISOTROPIC_FILTER_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_FILTER_ANISOTROPIC_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FILTER_ANISOTROPIC_HPP_INCLUDED
 
 #include "../scoped_work_bind_fwd.hpp"
 #include "../type.hpp"
@@ -32,11 +32,11 @@ namespace opengl
 {
 namespace texture
 {
-namespace funcs
+namespace filter
 {
 
 void
-anisotropic_filter(
+anisotropic(
 	opengl::context::object &,
 	texture::scoped_work_bind const &,
 	texture::type,

@@ -18,17 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_DIM_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_DIM_HPP_INCLUDED
+#include "../check_dim.hpp"
+#include "../instantiate_dim.hpp"
+#include "../warn_min.hpp"
+#include "../warn_pow2.hpp"
 
-#define SGE_OPENGL_TEXTURE_FUNCS_INSTANTIATE_DIM(\
-	macro\
-)\
-macro(\
-	2\
-)\
-macro(\
-	3\
+template<
+	fcppt::math::size_type Size
+>
+void
+sge::opengl::texture::check_dim(
+	typename renderer::basic_dim<
+		Size
+	>::type const &_dim,
+	renderer::size_type const _min_value,
+	fcppt::string const &_what
 )
+{
+	opengl::texture::warn_min(
+		_dim,
+		_min_value,
+		_what
+	);
 
-#endif
+	opengl::texture::warn_pow2(
+		_dim,
+		_what
+	);
+}
+
+#define SGE_OPENGL_TEXTURE_INSTANTIATE_CHECK_DIM(\
+	dimension\
+)\
+template \
+void \
+sge::opengl::texture::check_dim<\
+	dimension\
+>(\
+	sge::renderer::basic_dim< \
+		dimension \
+	>::type const &, \
+	sge::renderer::size_type, \
+	fcppt::string const & \
+);
+
+SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
+	SGE_OPENGL_TEXTURE_INSTANTIATE_CHECK_DIM
+)

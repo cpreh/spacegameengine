@@ -18,34 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_SET_FILTER_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_SET_FILTER_HPP_INCLUDED
-
-#include "../base_fwd.hpp"
-#include "../../context/object_fwd.hpp"
-#include <sge/renderer/texture/filter/object_fwd.hpp>
-#include <sge/renderer/stage.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
-{
+#include "../update.hpp"
+#include "../context.hpp"
+#include "..//set.hpp"
+#include "../../bind_context.hpp"
+#include "../../../context/use.hpp"
 
 void
-set_filter(
-	opengl::context::object &,
-	opengl::texture::base const &,
-	renderer::stage,
-	renderer::texture::filter::object const &
-);
+sge::opengl::texture::filter::update(
+	opengl::context::object &_context,
+	sge::renderer::stage const _stage,
+	sge::renderer::texture::filter::object const &_filter
+)
+{
+	if(
+		!opengl::context::use<
+			opengl::texture::filter::context
+		>(
+			_context
+		).set(
+			_stage,
+			_filter
+		)
+	)
+		return;
 
-}
-}
-}
-}
+	opengl::texture::base const *const bound_texture(
+		opengl::context::use<
+			opengl::texture::bind_context
+		>(
+			_context
+		).render_texture(
+			_stage
+		)
+	);
 
-#endif
+	if(
+		!bound_texture
+	)
+		return;
+
+	opengl::texture::filter::set(
+		_context,
+		*bound_texture,
+		_stage,
+		_filter
+	);
+}

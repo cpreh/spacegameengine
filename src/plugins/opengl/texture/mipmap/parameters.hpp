@@ -18,10 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_MIPMAP_PARAMETERS_FWD_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_MIPMAP_PARAMETERS_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_MIPMAP_PARAMETERS_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_MIPMAP_PARAMETERS_HPP_INCLUDED
 
+#include "parameters_fwd.hpp"
+#include "../init_function.hpp"
+#include "../scoped_work_bind_fwd.hpp"
+#include "../type.hpp"
+#include "../../context/object_fwd.hpp"
+#include <sge/renderer/basic_dim.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -29,13 +37,44 @@ namespace opengl
 {
 namespace texture
 {
-namespace funcs
+namespace mipmap
 {
 
 template<
 	fcppt::math::size_type Dim
 >
-class mipmap_parameters;
+class parameters
+{
+	FCPPT_NONASSIGNABLE(
+		parameters
+	);
+public:
+	typedef typename renderer::basic_dim<
+		Dim
+	>::type dim;
+
+	typedef typename texture::init_function<
+		Dim
+	>::type init_function_type;
+
+	parameters(
+		texture::scoped_work_bind const &,
+		opengl::context::object &,
+		texture::type,
+		dim const &,
+		init_function_type const &
+	);
+private:
+	texture::scoped_work_bind const &scoped_work_;
+
+	opengl::context::object &context_;
+
+	texture::type const type_;
+
+	dim const size_;
+
+	init_function_type const init_function_;
+};
 
 }
 }

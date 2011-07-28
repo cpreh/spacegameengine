@@ -18,43 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../filter_visitor.hpp"
-#include "../anisotropic_filter.hpp"
-#include "../normal_filter.hpp"
+#include "../auto_generate.hpp"
+#include "../../context.hpp"
+#include "../../funcs/parameter_int.hpp"
+#include "../../../common.hpp"
+#include "../../../context/use.hpp"
+#include <sge/log/global.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/error.hpp>
+#include <fcppt/text.hpp>
 
-sge::opengl::texture::funcs::filter_visitor::filter_visitor(
-	opengl::context::object &_context,
+void
+sge::opengl::texture::mipmap::auto_generate(
 	texture::scoped_work_bind const &_scoped_work,
+	opengl::context::object &_context,
 	texture::type const _type
 )
-:
-	context_(_context),
-	scoped_work_(_scoped_work),
-	type_(_type)
 {
-}
+	if(
+		!opengl::context::use<
+			texture::context
+		>(
+			_context
+		).generate_mipmap_flag_supported()
+	)
+	{
+		FCPPT_LOG_ERROR(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Building mipmaps is not supported.")
+				<< FCPPT_TEXT(" The mip_filter will not work correctly.")
+		);
 
-sge::opengl::texture::funcs::filter_visitor::result_type
-sge::opengl::texture::funcs::filter_visitor::operator()(
-	sge::renderer::texture::filter::anisotropic::object const &_filter
-) const
-{
-	funcs::anisotropic_filter(
-		context_,
-		scoped_work_,
-		type_,
-		_filter
-	);
-}
-
-sge::opengl::texture::funcs::filter_visitor::result_type
-sge::opengl::texture::funcs::filter_visitor::operator()(
-	sge::renderer::texture::filter::normal::object const &_filter
-) const
-{
-	funcs::normal_filter(
-		scoped_work_,
-		type_,
-		_filter
+		return;
+	}
+	
+	texture::funcs::parameter_int(
+		_scoped_work,
+		_type,
+		GL_GENERATE_MIPMAP,
+		GL_TRUE
 	);
 }

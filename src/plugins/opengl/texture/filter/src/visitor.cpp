@@ -18,42 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_filter.hpp"
-#include "../filter_visitor.hpp"
-#include "../../base.hpp"
-#include "../../scoped_work_bind.hpp"
-#include <sge/renderer/texture/filter/object.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include "../visitor.hpp"
+#include "../anisotropic.hpp"
+#include "../normal.hpp"
 
-void
-sge::opengl::texture::funcs::set_filter(
+sge::opengl::texture::filter::visitor::visitor(
 	opengl::context::object &_context,
-	opengl::texture::base const &_texture,
-	renderer::stage const _stage,
-	renderer::texture::filter::object const &_filter
+	texture::scoped_work_bind const &_scoped_work,
+	texture::type const _type
 )
+:
+	context_(_context),
+	scoped_work_(_scoped_work),
+	type_(_type)
 {
-	if(
-		!_texture.update_filter(
-			_filter
-		)
-	)
-		return;
+}
 
-	opengl::texture::scoped_work_bind const binding(
-		_context,
-		_texture.type(),
-		_texture.id(),
-		_stage
+sge::opengl::texture::filter::visitor::result_type
+sge::opengl::texture::filter::visitor::operator()(
+	sge::renderer::texture::filter::anisotropic::object const &_filter
+) const
+{
+	filter::anisotropic(
+		context_,
+		scoped_work_,
+		type_,
+		_filter
 	);
+}
 
-	fcppt::variant::apply_unary(
-		funcs::filter_visitor(
-			_context,
-			binding,
-			_texture.type()
-		),
-		_filter.variant()
+sge::opengl::texture::filter::visitor::result_type
+sge::opengl::texture::filter::visitor::operator()(
+	sge::renderer::texture::filter::normal::object const &_filter
+) const
+{
+	filter::normal(
+		scoped_work_,
+		type_,
+		_filter
 	);
 }

@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic.hpp"
 #include "address_mode.hpp"
+#include "check_dim.hpp"
 #include "create_lock.hpp"
 #include "scoped_work_bind.hpp"
-#include "funcs/check_dim.hpp"
-#include "funcs/create_mipmap.hpp"
 #include "funcs/get_image.hpp"
-#include "funcs/mipmap_parameters.hpp"
+#include "mipmap/create.hpp"
+#include "mipmap/parameters.hpp"
 #include "../convert/color_to_format.hpp"
 #include "../convert/color_to_format_type.hpp"
 #include "../convert/color_to_internal_format.hpp"
@@ -450,7 +450,7 @@ sge::opengl::texture::basic<Types>::basic(
 	lock_(),
 	lock_area_()
 {
-	opengl::texture::funcs::check_dim<
+	opengl::texture::check_dim<
 		dim::dim_wrapper::value
 	>(
 		this->size(),
@@ -483,10 +483,10 @@ sge::opengl::texture::basic<Types>::basic(
 		0
 	);
 
-	opengl::texture::funcs::create_mipmap<
+	opengl::texture::mipmap::create<
 		dim::dim_wrapper::value
 	>(
-		funcs::mipmap_parameters<
+		opengl::texture::mipmap::parameters<
 			dim::dim_wrapper::value
 		>(
 			binding,

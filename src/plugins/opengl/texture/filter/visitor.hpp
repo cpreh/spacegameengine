@@ -18,16 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FILTER_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FILTER_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_FILTER_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FILTER_VISITOR_HPP_INCLUDED
 
-#include "../context/base.hpp"
-#include "../context/id.hpp"
-#include "filter_context_fwd.hpp"
-#include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/stage.hpp>
-#include <fcppt/container/index_map_decl.hpp>
-#include <fcppt/noncopyable.hpp>
+#include "../scoped_work_bind_fwd.hpp"
+#include "../type.hpp"
+#include "../../context/object_fwd.hpp"
+#include <sge/renderer/texture/filter/anisotropic/object_fwd.hpp>
+#include <sge/renderer/texture/filter/normal/object_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -35,46 +34,41 @@ namespace opengl
 {
 namespace texture
 {
-
-class filter_context
-:
-	public opengl::context::base
+namespace filter
 {
-	FCPPT_NONCOPYABLE(
-		filter_context
+
+class visitor
+{
+	FCPPT_NONASSIGNABLE(
+		visitor
 	);
 public:
-	filter_context();
-
-	~filter_context();
-
-	renderer::texture::filter::object const &
-	get(
-		renderer::stage
+	visitor(
+		opengl::context::object &,
+		texture::scoped_work_bind const &,
+		texture::type
 	);
 
-	bool
-	set(
-		renderer::stage,
-		renderer::texture::filter::object const &
-	);
+	typedef void result_type;
 
-	typedef void needs_before;
+	result_type
+	operator()(
+		sge::renderer::texture::filter::anisotropic::object const &
+	) const;
 
-	static opengl::context::id const static_id;
+	result_type
+	operator()(
+		sge::renderer::texture::filter::normal::object const &
+	) const;
 private:
-	renderer::texture::filter::object &
-	get_mutable(
-		renderer::stage
-	);
+	opengl::context::object &context_;
 
-	typedef fcppt::container::index_map<
-		renderer::texture::filter::object
-	> filter_map;
+	texture::scoped_work_bind const &scoped_work_;
 
-	filter_map filters_;
+	texture::type const type_;
 };
 
+}
 }
 }
 }

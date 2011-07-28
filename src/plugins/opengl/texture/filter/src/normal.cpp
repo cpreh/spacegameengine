@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../normal_filter.hpp"
-#include "../parameter_int.hpp"
+#include "../normal.hpp"
 #include "../../convert/mag_filter.hpp"
 #include "../../convert/min_filter.hpp"
+#include "../../funcs/parameter_int.hpp"
 #include "../../../common.hpp"
 #include <sge/renderer/texture/filter/normal/object.hpp>
 
 void
-sge::opengl::texture::funcs::normal_filter(
+sge::opengl::texture::filter::normal(
 	texture::scoped_work_bind const &_scoped_work,
 	texture::type const _type,
 	renderer::texture::filter::normal::object const &_filter

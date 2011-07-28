@@ -58,9 +58,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/planar.hpp"
 #include "../texture/set_stage_funcs.hpp"
 #include "../texture/set_stage_scale.hpp"
-#include "../texture/update_filter.hpp"
 #include "../texture/volume.hpp"
 #include "../texture/volume_context.hpp"
+#include "../texture/filter/update.hpp"
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/caps.hpp>
@@ -365,7 +365,7 @@ sge::opengl::device::texture_filter(
 	renderer::stage const _stage
 )
 {
-	opengl::texture::update_filter(
+	opengl::texture::filter::update(
 		context_,
 		_stage,
 		_filter
