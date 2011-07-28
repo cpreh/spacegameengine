@@ -33,6 +33,6 @@ set(
 find_package_handle_standard_args(
 	CEGUI
 	DEFAULT_MSG
-	CEGUI_INCLUDE_DIRS
-	CEGUI_LIBRARIES
+	CEGUI_INCLUDE_DIR
+	CEGUI_LIBRARY
 )
