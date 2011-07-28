@@ -71,9 +71,9 @@ warn_min(
 			FCPPT_LOG_WARNING(
 				log::global(),
 				fcppt::log::_
-					<< FCPPT_TEXT("opengl implementations are not required to support ")
+					<< FCPPT_TEXT("OpenGL implementations are not required to support ")
 					<< _what
-					<< FCPPT_TEXT(" smaller than ")
+					<< FCPPT_TEXT("s smaller than ")
 					<< fcppt::math::dim::fill<
 						N::value
 					>(

@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_VOLUME_TYPES_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_VOLUME_TYPES_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_FUNCS_CHECK_DIM_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FUNCS_CHECK_DIM_HPP_INCLUDED
 
-#include <sge/renderer/texture/volume_fwd.hpp>
-#include <sge/renderer/texture/volume_parameters_fwd.hpp>
-#include <sge/renderer/size_type.hpp>
+#include "warn_min.hpp"
+#include "warn_pow2.hpp"
+#include <fcppt/math/dim/basic_fwd.hpp>
 #include <fcppt/string.hpp>
 
 namespace sge
@@ -32,22 +32,38 @@ namespace opengl
 {
 namespace texture
 {
-
-struct volume_types
+namespace funcs
 {
-	typedef sge::renderer::texture::volume base;
 
-	typedef sge::renderer::texture::volume_parameters parameters;
+template<
+	typename T,
+	typename N,
+	typename S
+>
+void
+check_dim(
+	fcppt::math::dim::basic<
+		T,
+		N,
+		S
+	> const &_dim,
+	T const &_min_value,
+	fcppt::string const &_what
+)
+{
+	opengl::texture::funcs::warn_min(
+		_dim,
+		_min_value,
+		_what
+	);
 
-	static
-	sge::renderer::size_type
-	min_size();
+	opengl::texture::funcs::warn_pow2(
+		_dim,
+		_what
+	);
+}
 
-	static
-	fcppt::string
-	name();
-};
-
+}
 }
 }
 }

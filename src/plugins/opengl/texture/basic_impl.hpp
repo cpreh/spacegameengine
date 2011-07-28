@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "address_mode.hpp"
 #include "create_lock.hpp"
 #include "scoped_work_bind.hpp"
-#include "funcs/get_image.hpp"
+#include "funcs/check_dim.hpp"
 #include "funcs/create_mipmap.hpp"
+#include "funcs/get_image.hpp"
 #include "../convert/color_to_format.hpp"
 #include "../convert/color_to_format_type.hpp"
 #include "../convert/color_to_internal_format.hpp"
@@ -442,6 +443,12 @@ sge::opengl::texture::basic<Types>::basic(
 	lock_(),
 	lock_area_()
 {
+	opengl::texture::funcs::check_dim(
+		this->size(),
+		Types::min_size(),
+		Types::name()
+	);
+
 	opengl::texture::scoped_work_bind const binding(
 		context_,
 		this->type(),

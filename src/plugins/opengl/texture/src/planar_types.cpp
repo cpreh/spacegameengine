@@ -18,38 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_VOLUME_TYPES_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_VOLUME_TYPES_HPP_INCLUDED
+#include "../planar_types.hpp"
+#include <fcppt/text.hpp>
 
-#include <sge/renderer/texture/volume_fwd.hpp>
-#include <sge/renderer/texture/volume_parameters_fwd.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/string.hpp>
-
-namespace sge
+sge::renderer::size_type
+sge::opengl::texture::planar_types::min_size()
 {
-namespace opengl
-{
-namespace texture
-{
-
-struct volume_types
-{
-	typedef sge::renderer::texture::volume base;
-
-	typedef sge::renderer::texture::volume_parameters parameters;
-
-	static
-	sge::renderer::size_type
-	min_size();
-
-	static
-	fcppt::string
-	name();
-};
-
-}
-}
+	return 64u;
 }
 
-#endif
+fcppt::string
+sge::opengl::texture::planar_types::name()
+{
+	return FCPPT_TEXT("planar texture");
+}

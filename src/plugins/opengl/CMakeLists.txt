@@ -515,6 +515,7 @@ SET(
 	src/plugins/opengl/texture/funcs/anisotropic_filter.hpp
 	src/plugins/opengl/texture/funcs/auto_generate_mipmap.hpp
 	src/plugins/opengl/texture/funcs/bind.hpp
+	src/plugins/opengl/texture/funcs/check_dim.hpp
 	src/plugins/opengl/texture/funcs/create_mipmap.hpp
 	src/plugins/opengl/texture/funcs/delete.hpp
 	src/plugins/opengl/texture/funcs/envf.hpp
@@ -556,6 +557,7 @@ SET(
 	src/plugins/opengl/texture/funcs/warn_pow2.hpp
 	src/plugins/opengl/texture/holder.hpp
 	src/plugins/opengl/texture/id.hpp
+	src/plugins/opengl/texture/init_function.hpp
 	src/plugins/opengl/texture/lock_base.hpp
 	src/plugins/opengl/texture/lock_base_fwd.hpp
 	src/plugins/opengl/texture/lock_base_unique_ptr.hpp
@@ -588,6 +590,7 @@ SET(
 	src/plugins/opengl/texture/src/lock_base.cpp
 	src/plugins/opengl/texture/src/multi_context.cpp
 	src/plugins/opengl/texture/src/planar.cpp
+	src/plugins/opengl/texture/src/planar_types.cpp
 	src/plugins/opengl/texture/src/readonly_lock.cpp
 	src/plugins/opengl/texture/src/readwrite_lock.cpp
 	src/plugins/opengl/texture/src/scoped_work_bind.cpp
@@ -598,6 +601,7 @@ SET(
 	src/plugins/opengl/texture/src/update_filter.cpp
 	src/plugins/opengl/texture/src/volume.cpp
 	src/plugins/opengl/texture/src/volume_context.cpp
+	src/plugins/opengl/texture/src/volume_types.cpp
 	src/plugins/opengl/texture/src/writeonly_lock.cpp
 	src/plugins/opengl/texture/surface.hpp
 	src/plugins/opengl/texture/surface_base.hpp

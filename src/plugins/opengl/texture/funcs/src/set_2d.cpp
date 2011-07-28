@@ -19,8 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set_2d.hpp"
-#include "../warn_min.hpp"
-#include "../warn_pow2.hpp"
 #include "../../../common.hpp"
 #include "../../../check_state.hpp"
 #include <sge/renderer/texture/creation_failed.hpp>
@@ -41,21 +39,6 @@ sge::opengl::texture::funcs::set_2d(
 	renderer::const_raw_pointer const _src
 )
 {
-	opengl::texture::funcs::warn_min(
-		_dim,
-		static_cast<
-			renderer::dim2::value_type
-		>(
-			64u
-		),
-		FCPPT_TEXT("textures")
-	);
-
-	opengl::texture::funcs::warn_pow2(
-		_dim,
-		FCPPT_TEXT("textures")
-	);
-
 	::glTexImage2D(
 		_type.get(),
 		static_cast<

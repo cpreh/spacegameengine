@@ -19,8 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set_3d.hpp"
-#include "../warn_min.hpp"
-#include "../warn_pow2.hpp"
 #include "../../volume_context.hpp"
 #include "../../../check_state.hpp"
 #include "../../../common.hpp"
@@ -43,21 +41,6 @@ sge::opengl::texture::funcs::set_3d(
 	renderer::const_raw_pointer const _src
 )
 {
-	opengl::texture::funcs::warn_min(
-		_dim,
-		static_cast<
-			renderer::dim3::value_type
-		>(
-			16u
-		),
-		FCPPT_TEXT("volume textures")
-	);
-
-	opengl::texture::funcs::warn_pow2(
-		_dim,
-		FCPPT_TEXT("volume textures")
-	);
-
 	context::use<
 		opengl::texture::volume_context
 	>(

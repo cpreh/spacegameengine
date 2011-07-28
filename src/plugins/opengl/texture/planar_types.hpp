@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -36,6 +38,14 @@ struct planar_types
 	typedef sge::renderer::texture::planar base;
 
 	typedef sge::renderer::texture::planar_parameters parameters;
+
+	static
+	sge::renderer::size_type
+	min_size();
+
+	static
+	fcppt::string
+	name();
 };
 
 }
