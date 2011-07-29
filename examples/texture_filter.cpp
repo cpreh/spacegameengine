@@ -261,13 +261,17 @@ try
 		)
 	);
 
+	sge::image::size_type const block_element_size(
+		32u
+	);
+
 	sge::image2d::dim const block_size(
-		16u,
-		16u
+		block_element_size,
+		block_element_size
 	);
 
 	sge::image::size_type const num_blocks(
-		16u
+		2u
 	);
 
 	typedef sge::image2d::gray8 store_type;
@@ -427,7 +431,15 @@ try
 	);
 
 	sprite_object::unit const sprite_size(
-		1000
+		2000
+	);
+
+	sprite_object::repetition_type::value_type const repetition(
+		static_cast<
+			sprite_object::repetition_type::value_type
+		>(
+			sprite_size / 5 
+		)
 	);
 
 	sprite_object sprite(
@@ -446,8 +458,8 @@ try
 		)
 		.repetition(
 			sprite_object::repetition_type(
-				100u,
-				100u
+				repetition,
+				repetition
 			)
 		)
 		.texture(
