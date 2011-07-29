@@ -492,6 +492,9 @@ sge::opengl::texture::basic<Types>::basic(
 			binding,
 			context_,
 			this->type(),
+			this->format(),
+			this->format_type(),
+			this->internal_format(),
 			this->size(),
 			Types::init_function()
 		),

@@ -28,6 +28,9 @@ sge::opengl::texture::mipmap::parameters<Dim>::parameters(
 	texture::scoped_work_bind const &_scoped_work,
 	opengl::context::object &_context,
 	texture::type const _type,
+	opengl::color_format const _format,
+	opengl::color_format_type const _format_type,
+	opengl::internal_color_format const _internal_format,
 	dim const &_size,
 	init_function_type const &_init_function
 )
@@ -35,6 +38,9 @@ sge::opengl::texture::mipmap::parameters<Dim>::parameters(
 	scoped_work_(_scoped_work),
 	context_(_context),
 	type_(_type),
+	format_(_format),
+	format_type_(_format_type),
+	internal_format_(_internal_format),
 	size_(_size),
 	init_function_(_init_function)
 {
@@ -65,6 +71,51 @@ sge::opengl::texture::type const
 sge::opengl::texture::mipmap::parameters<Dim>::type() const
 {
 	return type_;
+}
+
+template<
+	fcppt::math::size_type Dim
+>
+sge::opengl::color_format const
+sge::opengl::texture::mipmap::parameters<Dim>::format() const
+{
+	return format_;
+}
+
+template<
+	fcppt::math::size_type Dim
+>
+sge::opengl::color_format_type const
+sge::opengl::texture::mipmap::parameters<Dim>::format_type() const
+{
+	return format_type_;
+}
+
+template<
+	fcppt::math::size_type Dim
+>
+sge::opengl::internal_color_format const
+sge::opengl::texture::mipmap::parameters<Dim>::internal_format() const
+{
+	return internal_format_;
+}
+
+template<
+	fcppt::math::size_type Dim
+>
+typename sge::opengl::texture::mipmap::parameters<Dim>::dim const &
+sge::opengl::texture::mipmap::parameters<Dim>::size() const
+{
+	return size_;
+}
+
+template<
+	fcppt::math::size_type Dim
+>
+typename sge::opengl::texture::mipmap::parameters<Dim>::init_function_type const &
+sge::opengl::texture::mipmap::parameters<Dim>::init_function() const
+{
+	return init_function_;
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_PARAMETERS(\

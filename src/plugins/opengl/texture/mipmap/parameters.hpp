@@ -61,6 +61,9 @@ public:
 		texture::scoped_work_bind const &,
 		opengl::context::object &,
 		texture::type,
+		opengl::color_format,
+		opengl::color_format_type,
+		opengl::internal_color_format,
 		dim const &,
 		init_function_type const &
 	);
@@ -73,12 +76,33 @@ public:
 
 	texture::type const
 	type() const;
+
+	opengl::color_format const
+	format() const;
+
+	opengl::color_format_type const
+	format_type() const;
+
+	opengl::internal_color_format const
+	internal_format() const;
+
+	dim const &
+	size() const;
+
+	init_function_type const &
+	init_function() const;
 private:
 	texture::scoped_work_bind const &scoped_work_;
 
 	opengl::context::object &context_;
 
 	texture::type const type_;
+
+	opengl::color_format format_;
+
+	opengl::color_format_type format_type_;
+
+	opengl::internal_color_format internal_format_;
 
 	dim const size_;
 

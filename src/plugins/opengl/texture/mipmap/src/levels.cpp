@@ -19,7 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../levels.hpp"
+#include "../auto_generate.hpp"
+#include "../generate_levels.hpp"
+#include "../parameters.hpp"
+#include "../../funcs/parameter_int.hpp"
 #include "../../instantiate_dim.hpp"
+#include "../../../common.hpp"
+#include <sge/renderer/texture/mipmap/auto_generate.hpp>
+#include <sge/renderer/texture/mipmap/levels_rep.hpp>
 
 template<
 	fcppt::math::size_type Size
@@ -32,6 +39,33 @@ sge::opengl::texture::mipmap::levels(
 	renderer::texture::mipmap::levels_rep const &_rep
 )
 {
+	if(
+		_rep.auto_generate()
+		== renderer::texture::mipmap::auto_generate::yes
+	)
+	{
+		funcs::parameter_int(
+			_parameters.scoped_work(),
+			_parameters.type(),
+			GL_TEXTURE_MAX_LEVEL,
+			static_cast<
+				GLint
+			>(
+				_rep.value().get()
+			)
+		);
+
+		mipmap::auto_generate(
+			_parameters.scoped_work(),
+			_parameters.context(),
+			_parameters.type()
+		);
+	}
+	else
+		mipmap::generate_levels(
+			_parameters,
+			_rep.value()
+		);
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_LEVELS(\
