@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_SET_TEXTURE_STAGE_STATE_HPP_INCLUDED
 
 #include "../d3dinclude.hpp"
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace devicefuncs
 void
 set_texture_stage_state(
 	IDirect3DDevice9 *,
-	sge::renderer::stage_type,
+	sge::renderer::stage,
 	D3DTEXTURESTAGESTATETYPE,
 	DWORD
 );

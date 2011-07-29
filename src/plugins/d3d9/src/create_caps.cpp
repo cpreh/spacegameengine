@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../create_caps.hpp"
 #include "../systemfuncs/get_caps.hpp"
+#include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -111,7 +112,7 @@ sge::d3d9::create_caps(
 				caps.MaxTextureWidth,
 				caps.MaxTextureHeight
 			),
-			sge::renderer::texture::filter::anisotropy_type(
+			sge::renderer::texture::filter::anisotropic::level(
 				caps.MaxAnisotropy
 			),
 			false, // FIXME: find out if render to texture is supported

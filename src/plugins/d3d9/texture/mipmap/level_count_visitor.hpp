@@ -18,21 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../mipmap_levels.hpp"
-#include <sge/renderer/texture/filter/need_mipmap.hpp>
+#ifndef SGE_D3D9_TEXTURE_MIPMAP_LEVEL_COUNT_VISITOR_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_MIPMAP_LEVEL_COUNT_VISITOR_HPP_INCLUDED
 
-UINT
-sge::d3d9::texture::mipmap_levels(
-	sge::renderer::texture::filter::min::type const _min
-)
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/texture/mipmap/all_levels_rep_fwd.hpp>
+#include <sge/renderer/texture/mipmap/levels_rep_fwd.hpp>
+#include <sge/renderer/texture/mipmap/off_rep_fwd.hpp>
+
+namespace sge
 {
-	return
-		sge::renderer::texture::filter::need_mipmap(
-			_min
-		)
-		?
-			0u
-		:
-			1u
-		;
+namespace d3d9
+{
+namespace texture
+{
+namespace mipmap
+{
+
+class level_count_visitor
+{
+public:
+	typedef UINT result_type;
+
+	result_type
+	operator()(
+		renderer::texture::mipmap::all_levels_rep const &
+	) const;
+
+	result_type
+	operator()(
+		renderer::texture::mipmap::levels_rep const &
+	) const;
+
+	result_type
+	operator()(
+		renderer::texture::mipmap::off_rep const &
+	) const;
+};
+
 }
+}
+}
+}
+
+#endif

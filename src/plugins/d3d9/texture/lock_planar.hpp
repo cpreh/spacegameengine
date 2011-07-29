@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../d3dinclude.hpp"
 #include "../lock_flags.hpp"
 #include "../optional_lock_rect.hpp"
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 
 namespace sge
 {
@@ -36,7 +36,7 @@ namespace texture
 D3DLOCKED_RECT const
 lock_planar(
 	IDirect3DTexture9 *,
-	sge::renderer::stage_type,
+	sge::renderer::stage,
 	d3d9::optional_lock_rect const &,
 	d3d9::lock_flags
 );

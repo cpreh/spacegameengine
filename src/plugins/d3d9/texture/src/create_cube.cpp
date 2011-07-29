@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../create_cube.hpp"
-#include "../mipmap_levels.hpp"
+#include "../mipmap/level_count.hpp"
+#include "../mipmap/usage.hpp"
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -42,10 +43,14 @@ sge::d3d9::texture::create_cube(
 			>(
 				_params.size()
 			),
-			texture::mipmap_levels(
-				_params.filter().min()
+			texture::mipmap::level_count(
+				_params.mipmap()
 			),
-			_usage.get(),
+			_usage.get()
+			|
+			texture::mipmap::usage(
+				_params.mipmap()
+			).get(),
 			_color_format,
 			_pool,
 			&ret,

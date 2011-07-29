@@ -347,7 +347,16 @@ SET(
 	src/plugins/d3d9/texture/lock_cube.hpp
 	src/plugins/d3d9/texture/lock_planar.hpp
 	src/plugins/d3d9/texture/lock_volume.hpp
-	src/plugins/d3d9/texture/mipmap_levels.hpp
+	src/plugins/d3d9/texture/mipmap/auto_generate_usage.hpp
+	src/plugins/d3d9/texture/mipmap/level_count.hpp
+	src/plugins/d3d9/texture/mipmap/level_count_visitor.hpp
+	src/plugins/d3d9/texture/mipmap/src/auto_generate_usage.cpp
+	src/plugins/d3d9/texture/mipmap/src/level_count.cpp
+	src/plugins/d3d9/texture/mipmap/src/level_count_visitor.cpp
+	src/plugins/d3d9/texture/mipmap/src/usage.cpp
+	src/plugins/d3d9/texture/mipmap/src/usage_visitor.cpp
+	src/plugins/d3d9/texture/mipmap/usage.hpp
+	src/plugins/d3d9/texture/mipmap/usage_visitor.hpp
 	src/plugins/d3d9/texture/optional_lock_box.hpp
 	src/plugins/d3d9/texture/optional_locked_box.hpp
 	src/plugins/d3d9/texture/optional_locked_rect.hpp
@@ -364,7 +373,6 @@ SET(
 	src/plugins/d3d9/texture/src/lock_cube.cpp
 	src/plugins/d3d9/texture/src/lock_planar.cpp
 	src/plugins/d3d9/texture/src/lock_volume.cpp
-	src/plugins/d3d9/texture/src/mipmap_levels.cpp
 	src/plugins/d3d9/texture/src/planar.cpp
 	src/plugins/d3d9/texture/src/planar_types.cpp
 	src/plugins/d3d9/texture/src/pool.cpp

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 D3DLOCKED_BOX const
 sge::d3d9::texture::lock_volume(
 	IDirect3DVolumeTexture9 *const _texture,
-	sge::renderer::stage_type const _stage,
+	sge::renderer::stage const _stage,
 	d3d9::texture::optional_lock_box const &_box,
 	d3d9::lock_flags const _flags
 )

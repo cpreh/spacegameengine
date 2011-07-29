@@ -18,29 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../unlock_cube.hpp"
-#include "../../convert/cube_side.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../level_count.hpp"
+#include "../level_count_visitor.hpp"
+#include <sge/renderer/texture/mipmap/object.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-void
-sge::d3d9::texture::unlock_cube(
-	IDirect3DCubeTexture9 *const _texture,
-	sge::renderer::texture::cube_side::type const _side,
-	sge::renderer::stage const _stage
+UINT
+sge::d3d9::texture::mipmap::level_count(
+	sge::renderer::texture::mipmap::object const &_object
 )
 {
-	if(
-		_texture->UnlockRect(
-			d3d9::convert::cube_side(
-				_side
-			),
-			_stage.get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("UnlockRect() failed!")
+	return
+		fcppt::variant::apply_unary(
+			mipmap::level_count_visitor(),
+			_object.variant()
 		);
 }

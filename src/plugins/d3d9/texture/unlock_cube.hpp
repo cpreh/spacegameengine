@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../d3dinclude.hpp"
 #include <sge/renderer/texture/cube_side.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 
 namespace sge
 {
@@ -36,7 +36,7 @@ void
 unlock_cube(
 	IDirect3DCubeTexture9 *,
 	sge::renderer::texture::cube_side::type,
-	sge::renderer::stage_type
+	sge::renderer::stage
 );
 
 }

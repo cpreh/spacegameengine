@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -72,10 +72,10 @@ public:
 
 	renderer::color_surface_ptr const
 	surface(
-		renderer::stage_type
+		renderer::stage
 	);
 
-	sge::renderer::stage_type
+	sge::renderer::stage const
 	stages() const;
 private:
 	planar_basic::lock_function const

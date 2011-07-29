@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_MIPMAP_LEVELS_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_MIPMAP_LEVELS_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_MIPMAP_USAGE_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_MIPMAP_USAGE_HPP_INCLUDED
 
-#include "../d3dinclude.hpp"
-#include <sge/renderer/texture/filter/min.hpp>
+#include "../../usage.hpp"
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 
 namespace sge
 {
@@ -30,12 +30,15 @@ namespace d3d9
 {
 namespace texture
 {
+namespace mipmap
+{
 
-UINT
-mipmap_levels(
-	sge::renderer::texture::filter::min::type
+d3d9::usage const
+usage(
+	sge::renderer::texture::mipmap::object const &
 );
 
+}
 }
 }
 }

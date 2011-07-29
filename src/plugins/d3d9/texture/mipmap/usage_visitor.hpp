@@ -18,29 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../unlock_cube.hpp"
-#include "../../convert/cube_side.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_TEXTURE_MIPMAP_USAGE_VISITOR_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_MIPMAP_USAGE_VISITOR_HPP_INCLUDED
 
-void
-sge::d3d9::texture::unlock_cube(
-	IDirect3DCubeTexture9 *const _texture,
-	sge::renderer::texture::cube_side::type const _side,
-	sge::renderer::stage const _stage
-)
+#include "../../usage.hpp"
+#include <sge/renderer/texture/mipmap/all_levels_rep_fwd.hpp>
+#include <sge/renderer/texture/mipmap/levels_rep_fwd.hpp>
+#include <sge/renderer/texture/mipmap/off_rep_fwd.hpp>
+
+namespace sge
 {
-	if(
-		_texture->UnlockRect(
-			d3d9::convert::cube_side(
-				_side
-			),
-			_stage.get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("UnlockRect() failed!")
-		);
+namespace d3d9
+{
+namespace texture
+{
+namespace mipmap
+{
+
+class usage_visitor
+{
+public:
+	typedef d3d9::usage result_type;
+
+	result_type
+	operator()(
+		renderer::texture::mipmap::all_levels_rep const &
+	) const;
+
+	result_type
+	operator()(
+		renderer::texture::mipmap::levels_rep const &
+	) const;
+
+	result_type
+	operator()(
+		renderer::texture::mipmap::off_rep const &
+	) const;
+};
+
 }
+}
+}
+}
+
+#endif

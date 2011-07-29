@@ -18,29 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../unlock_cube.hpp"
-#include "../../convert/cube_side.hpp"
-#include "../../d3dinclude.hpp"
+#include "../auto_generate_usage.hpp"
+#include "../../../d3dinclude.hpp"
+#include <sge/renderer/texture/mipmap/auto_generate.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-void
-sge::d3d9::texture::unlock_cube(
-	IDirect3DCubeTexture9 *const _texture,
-	sge::renderer::texture::cube_side::type const _side,
-	sge::renderer::stage const _stage
+sge::d3d9::usage const
+sge::d3d9::texture::mipmap::auto_generate_usage(
+	sge::renderer::texture::mipmap::auto_generate::type const _value
 )
 {
-	if(
-		_texture->UnlockRect(
-			d3d9::convert::cube_side(
-				_side
-			),
-			_stage.get()
-		)
-		!= D3D_OK
+	switch(
+		_value
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("UnlockRect() failed!")
-		);
+	{
+	case renderer::texture::mipmap::auto_generate::yes:
+		return
+			d3d9::usage(
+				D3DUSAGE_AUTOGENMIPMAP
+			);
+	case renderer::texture::mipmap::auto_generate::no:
+		return
+			d3d9::usage(
+				0u
+			);
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid mipmap::auto_generate!")
+	);
 }

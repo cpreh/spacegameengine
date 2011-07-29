@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <fcppt/com_deleter.hpp>
@@ -76,6 +77,9 @@ public:
 
 	sge::renderer::texture::capabilities_field const
 	capabilities() const;
+
+	sge::renderer::texture::mipmap::object const
+	mipmap() const;
 
 	d3d_type *
 	get() const;

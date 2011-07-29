@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::d3d9::devicefuncs::set_texture_stage_state(
 	IDirect3DDevice9 *const _device,
-	sge::renderer::stage_type const _stage,
+	sge::renderer::stage const _stage,
 	D3DTEXTURESTAGESTATETYPE const _type,
 	DWORD const _value
 )

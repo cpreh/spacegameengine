@@ -350,7 +350,7 @@ sge::d3d9::device::clip_plane(
 
 void
 sge::d3d9::device::sampler_stage_op(
-	renderer::stage_type const _stage,
+	renderer::stage const _stage,
 	renderer::sampler_stage_op::type const _type,
 	renderer::sampler_stage_op_value::type const _arg
 )
@@ -365,7 +365,7 @@ sge::d3d9::device::sampler_stage_op(
 
 void
 sge::d3d9::device::sampler_stage_arg(
-	renderer::stage_type const _stage,
+	renderer::stage const _stage,
 	renderer::sampler_stage_arg::type const _type,
 	renderer::sampler_stage_arg_value::type const _arg
 )
@@ -381,7 +381,7 @@ sge::d3d9::device::sampler_stage_arg(
 void
 sge::d3d9::device::texture(
 	renderer::texture::base const *const _texture,
-	renderer::stage_type const _stage
+	renderer::stage const _stage
 )
 {
 	devicefuncs::set_texture(
@@ -389,6 +389,14 @@ sge::d3d9::device::texture(
 		_stage,
 		_texture
 	);
+}
+
+void
+sge::d3d9::device::texture_filter(
+	renderer::texture::filter::object const &_filter,
+	renderer::stage const _stage
+)
+{
 }
 
 void

@@ -18,29 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../unlock_cube.hpp"
-#include "../../convert/cube_side.hpp"
-#include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../level_count_visitor.hpp"
+#include <sge/renderer/texture/mipmap/levels_rep.hpp>
 
-void
-sge::d3d9::texture::unlock_cube(
-	IDirect3DCubeTexture9 *const _texture,
-	sge::renderer::texture::cube_side::type const _side,
-	sge::renderer::stage const _stage
-)
+sge::d3d9::texture::mipmap::level_count_visitor::result_type
+sge::d3d9::texture::mipmap::level_count_visitor::operator()(
+	renderer::texture::mipmap::all_levels_rep const &
+) const
 {
-	if(
-		_texture->UnlockRect(
-			d3d9::convert::cube_side(
-				_side
-			),
-			_stage.get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("UnlockRect() failed!")
-		);
+	return 0u;
+}
+
+sge::d3d9::texture::mipmap::level_count_visitor::result_type
+sge::d3d9::texture::mipmap::level_count_visitor::operator()(
+	renderer::texture::mipmap::levels_rep const &_rep
+) const
+{
+	return _rep.value().get();
+}
+
+sge::d3d9::texture::mipmap::level_count_visitor::result_type
+sge::d3d9::texture::mipmap::level_count_visitor::operator()(
+	renderer::texture::mipmap::off_rep const &
+) const
+{
+	return 1u;
 }

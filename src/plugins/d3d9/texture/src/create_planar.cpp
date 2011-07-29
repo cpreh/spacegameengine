@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../create_planar.hpp"
-#include "../mipmap_levels.hpp"
+#include "../mipmap/level_count.hpp"
+#include "../mipmap/usage.hpp"
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -47,10 +48,14 @@ sge::d3d9::texture::create_planar(
 			>(
 				_params.size().h()
 			),
-			texture::mipmap_levels(
-				_params.filter().min()
+			texture::mipmap::level_count(
+				_params.mipmap()
 			),
-			_usage.get(),
+			_usage.get()
+			|
+			texture::mipmap::usage(
+				_params.mipmap()
+			).get(),
 			_color_format,
 			_pool,
 			&ret,
