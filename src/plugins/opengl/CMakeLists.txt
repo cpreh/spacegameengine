@@ -559,12 +559,16 @@ SET(
 	src/plugins/opengl/texture/lock_base.hpp
 	src/plugins/opengl/texture/lock_base_fwd.hpp
 	src/plugins/opengl/texture/lock_base_unique_ptr.hpp
+	src/plugins/opengl/texture/mipmap/all_levels.hpp
 	src/plugins/opengl/texture/mipmap/auto_generate.hpp
 	src/plugins/opengl/texture/mipmap/create.hpp
+	src/plugins/opengl/texture/mipmap/levels.hpp
 	src/plugins/opengl/texture/mipmap/parameters.hpp
 	src/plugins/opengl/texture/mipmap/parameters_fwd.hpp
+	src/plugins/opengl/texture/mipmap/src/all_levels.cpp
 	src/plugins/opengl/texture/mipmap/src/auto_generate.cpp
 	src/plugins/opengl/texture/mipmap/src/create.cpp
+	src/plugins/opengl/texture/mipmap/src/levels.cpp
 	src/plugins/opengl/texture/mipmap/src/parameters.cpp
 	src/plugins/opengl/texture/mipmap/src/visitor.cpp
 	src/plugins/opengl/texture/mipmap/visitor.hpp

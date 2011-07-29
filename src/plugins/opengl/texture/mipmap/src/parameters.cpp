@@ -40,6 +40,33 @@ sge::opengl::texture::mipmap::parameters<Dim>::parameters(
 {
 }
 
+template<
+	fcppt::math::size_type Dim
+>
+sge::opengl::texture::scoped_work_bind const &
+sge::opengl::texture::mipmap::parameters<Dim>::scoped_work() const
+{
+	return scoped_work_;
+}
+
+template<
+	fcppt::math::size_type Dim
+>
+sge::opengl::context::object &
+sge::opengl::texture::mipmap::parameters<Dim>::context() const
+{
+	return context_;
+}
+
+template<
+	fcppt::math::size_type Dim
+>
+sge::opengl::texture::type const
+sge::opengl::texture::mipmap::parameters<Dim>::type() const
+{
+	return type_;
+}
+
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_PARAMETERS(\
 	dimension\
 )\

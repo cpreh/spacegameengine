@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../visitor.hpp"
+#include "../all_levels.hpp"
+#include "../levels.hpp"
 #include "../../instantiate_dim.hpp"
 
 template<
@@ -37,7 +39,7 @@ template<
 >
 typename sge::opengl::texture::mipmap::visitor<Dim>::result_type
 sge::opengl::texture::mipmap::visitor<Dim>::operator()(
-	renderer::texture::mipmap::off_rep const &_off
+	renderer::texture::mipmap::off_rep const &
 ) const
 {
 }
@@ -50,6 +52,10 @@ sge::opengl::texture::mipmap::visitor<Dim>::operator()(
 	renderer::texture::mipmap::all_levels_rep const &_all_levels
 ) const
 {
+	mipmap::all_levels(
+		parameters_,
+		_all_levels
+	);
 }
 	
 template<
@@ -60,6 +66,10 @@ sge::opengl::texture::mipmap::visitor<Dim>::operator()(
 	renderer::texture::mipmap::levels_rep const &_levels
 ) const
 {
+	mipmap::levels(
+		parameters_,
+		_levels
+	);
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_VISITOR(\

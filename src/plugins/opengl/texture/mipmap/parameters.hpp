@@ -64,6 +64,15 @@ public:
 		dim const &,
 		init_function_type const &
 	);
+
+	texture::scoped_work_bind const &
+	scoped_work() const;
+
+	opengl::context::object &
+	context() const;
+
+	texture::type const
+	type() const;
 private:
 	texture::scoped_work_bind const &scoped_work_;
 
