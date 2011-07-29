@@ -22,11 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../convert/mag_filter.hpp"
 #include "../../convert/min_filter.hpp"
 #include "../../funcs/parameter_int.hpp"
+#include "../../context.hpp"
+#include "../../../context/use.hpp"
 #include "../../../common.hpp"
 #include <sge/renderer/texture/filter/normal/object.hpp>
 
 void
 sge::opengl::texture::filter::normal(
+	opengl::context::object &_context,
 	texture::scoped_work_bind const &_scoped_work,
 	texture::type const _type,
 	renderer::texture::filter::normal::object const &_filter
@@ -58,4 +61,22 @@ sge::opengl::texture::filter::normal(
 			)
 		)
 	);
+
+	texture::context const &texture_context(
+		opengl::context::use<
+			texture::context
+		>(
+			_context
+		)
+	);
+
+	if(
+		texture_context.anisotropic_filter_supported()
+	)
+		funcs::parameter_int(
+			_scoped_work,
+			_type,
+			texture_context.anisotropy_flag(),
+			1
+		);
 }

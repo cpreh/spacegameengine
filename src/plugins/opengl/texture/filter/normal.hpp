@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../scoped_work_bind_fwd.hpp"
 #include "../type.hpp"
+#include "../../context/object_fwd.hpp"
 #include <sge/renderer/texture/filter/normal/object_fwd.hpp>
 
 namespace sge
@@ -36,6 +37,7 @@ namespace filter
 
 void
 normal(
+	opengl::context::object &,
 	texture::scoped_work_bind const &,
 	texture::type,
 	renderer::texture::filter::normal::object const &

@@ -53,6 +53,7 @@ sge::opengl::texture::filter::visitor::operator()(
 ) const
 {
 	filter::normal(
+		context_,
 		scoped_work_,
 		type_,
 		_filter
