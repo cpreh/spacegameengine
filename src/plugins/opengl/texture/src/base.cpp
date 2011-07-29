@@ -23,6 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/normal/make.hpp>
 #include <sge/renderer/texture/filter/normal/min.hpp>
 #include <sge/renderer/texture/filter/normal/mip.hpp>
+#include <sge/renderer/texture/mipmap/object.hpp>
+#include <sge/renderer/texture/mipmap/off_rep.hpp>
+#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 sge::opengl::texture::type const
 sge::opengl::texture::base::type() const
@@ -49,6 +53,17 @@ sge::opengl::texture::base::update_filter(
 	filter_ = _filter;
 
 	return true;
+}
+
+bool
+sge::opengl::texture::base::has_mipmap() const
+{
+	return
+		!fcppt::variant::holds_type<
+			sge::renderer::texture::mipmap::off_rep
+		>(
+			this->mipmap().variant()
+		);
 }
 
 sge::opengl::texture::base::~base()

@@ -18,56 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set.hpp"
-#include "../visitor.hpp"
-#include "../../base.hpp"
-#include "../../scoped_work_bind.hpp"
+#include "need_mipmap_visitor.hpp"
 #include <sge/renderer/texture/filter/need_mipmap.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/exception.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/text.hpp>
 
-void
-sge::opengl::texture::filter::set(
-	opengl::context::object &_context,
-	opengl::texture::base const &_texture,
-	renderer::stage const _stage,
-	renderer::texture::filter::object const &_filter
+bool
+sge::renderer::texture::filter::need_mipmap(
+	filter::object const &_filter
 )
 {
-	if(
-		!_texture.update_filter(
-			_filter
-		)
-	)
-		return;
-
-	if(
-		sge::renderer::texture::filter::need_mipmap(
-			_filter
-		)
-		&&
-		!_texture.has_mipmap()
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Mipmap filter used with a texture that has none!")
+	return
+		fcppt::variant::apply_unary(
+			filter::need_mipmap_visitor(),
+			_filter.variant()
 		);
-
-	opengl::texture::scoped_work_bind const binding(
-		_context,
-		_texture.type(),
-		_texture.id(),
-		_stage
-	);
-
-	fcppt::variant::apply_unary(
-		filter::visitor(
-			_context,
-			binding,
-			_texture.type()
-		),
-		_filter.variant()
-	);
 }

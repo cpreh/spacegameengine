@@ -18,20 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_FILTER_FILTER_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_FILTER_FILTER_HPP_INCLUDED
+#include "need_mipmap_visitor.hpp"
+#include <sge/renderer/texture/filter/anisotropic/mip.hpp>
+#include <sge/renderer/texture/filter/anisotropic/object.hpp>
+#include <sge/renderer/texture/filter/normal/mip.hpp>
+#include <sge/renderer/texture/filter/normal/object.hpp>
 
-#include <sge/renderer/texture/filter/anisotropic/anisotropic.hpp>
-#include <sge/renderer/texture/filter/default.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/filter/mipmap.hpp>
-#include <sge/renderer/texture/filter/need_mipmap.hpp>
-#include <sge/renderer/texture/filter/normal/normal.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/texture/filter/object_fwd.hpp>
-#include <sge/renderer/texture/filter/point.hpp>
-#include <sge/renderer/texture/filter/scoped.hpp>
-#include <sge/renderer/texture/filter/trilinear.hpp>
-#include <sge/renderer/texture/filter/variant.hpp>
+sge::renderer::texture::filter::need_mipmap_visitor::result_type
+sge::renderer::texture::filter::need_mipmap_visitor::operator()(
+	filter::anisotropic::object const &_object
+) const
+{
+	return
+		_object.mip()
+		!=
+		filter::anisotropic::mip::off;
+}
 
-#endif
+sge::renderer::texture::filter::need_mipmap_visitor::result_type
+sge::renderer::texture::filter::need_mipmap_visitor::operator()(
+	filter::normal::object const &_object
+) const
+{
+	return
+		_object.mip()
+		!=
+		filter::normal::mip::off;
+}

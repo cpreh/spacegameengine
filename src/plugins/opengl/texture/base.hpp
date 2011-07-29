@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "type.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/texture/filter/object.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -53,12 +54,18 @@ public:
 		renderer::texture::filter::object const &
 	) const;
 
+	bool
+	has_mipmap() const;
+
 	virtual ~base();
 protected:
 	explicit base(
 		texture::type
 	);
 private:
+	virtual renderer::texture::mipmap::object const
+	mipmap() const = 0;
+
 	texture::type const type_;
 
 	opengl::texture::holder const holder_;

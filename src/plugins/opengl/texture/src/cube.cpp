@@ -179,6 +179,12 @@ sge::opengl::texture::cube::capabilities() const
 	return textures_[0].capabilities();
 }
 
+sge::renderer::texture::mipmap::object const
+sge::opengl::texture::cube::mipmap() const
+{
+	return textures_[0].mipmap();
+}
+
 void
 sge::opengl::texture::cube::check_locked() const
 {

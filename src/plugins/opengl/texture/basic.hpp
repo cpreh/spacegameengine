@@ -114,7 +114,7 @@ private:
 	dim const
 	lock_dim() const;
 protected:
-	renderer::texture::mipmap::object const &
+	renderer::texture::mipmap::object const
 	mipmap() const;
 
 	renderer::texture::capabilities_field const

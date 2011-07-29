@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
@@ -58,6 +59,9 @@ public:
 
 	virtual renderer::texture::capabilities_field const
 	capabilities() const = 0;
+
+	virtual renderer::texture::mipmap::object const
+	mipmap() const = 0;
 };
 
 }

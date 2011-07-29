@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 
 namespace sge
@@ -65,6 +66,9 @@ public:
 	renderer::texture::capabilities_field const
 	capabilities() const;
 private:
+	renderer::texture::mipmap::object const
+	mipmap() const;
+
 	opengl::context::object &context_;
 
 	dim_type const dim_;

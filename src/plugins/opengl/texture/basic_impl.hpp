@@ -334,7 +334,7 @@ sge::opengl::texture::basic<Types>::lock_dim() const
 template<
 	typename Types
 >
-sge::renderer::texture::mipmap::object const &
+sge::renderer::texture::mipmap::object const
 sge::opengl::texture::basic<Types>::mipmap() const
 {
 	return mipmap_;

@@ -335,6 +335,7 @@ SET(
 	include/sge/renderer/texture/filter/filter.hpp
 	include/sge/renderer/texture/filter/linear.hpp
 	include/sge/renderer/texture/filter/mipmap.hpp
+	include/sge/renderer/texture/filter/need_mipmap.hpp
 	include/sge/renderer/texture/filter/normal/mag.hpp
 	include/sge/renderer/texture/filter/normal/make.hpp
 	include/sge/renderer/texture/filter/normal/min.hpp
@@ -616,6 +617,9 @@ SET(
 	src/renderer/texture/filter/default.cpp
 	src/renderer/texture/filter/linear.cpp
 	src/renderer/texture/filter/mipmap.cpp
+	src/renderer/texture/filter/need_mipmap.cpp
+	src/renderer/texture/filter/need_mipmap_visitor.cpp
+	src/renderer/texture/filter/need_mipmap_visitor.hpp
 	src/renderer/texture/filter/normal/make.cpp
 	src/renderer/texture/filter/normal/object.cpp
 	src/renderer/texture/filter/object.cpp
