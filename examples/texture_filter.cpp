@@ -382,18 +382,22 @@ try
 			)
 		),
 		std::make_pair(
-			SGE_FONT_TEXT_LIT("ansiotropic + mipmap")
+			SGE_FONT_TEXT_LIT("anisotropic")
 			+
-			anisotropy_string,
+			anisotropy_string
+			+
+			SGE_FONT_TEXT_LIT(" + mipmap"),
 			sge::renderer::texture::filter::anisotropic::make(
 				sge::renderer::texture::filter::anisotropic::mip::point,
 				anisotropy
 			)
 		),
 		std::make_pair(
-			SGE_FONT_TEXT_LIT("ansiotropic + trilinear")
+			SGE_FONT_TEXT_LIT("anisotropic")
 			+
-			anisotropy_string,
+			anisotropy_string
+			+
+			SGE_FONT_TEXT_LIT(" + trilinear"),
 			sge::renderer::texture::filter::anisotropic::make(
 				sge::renderer::texture::filter::anisotropic::mip::linear,
 				anisotropy
