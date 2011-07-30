@@ -87,11 +87,8 @@ try
 		sge::audio::sound::repeat::loop
 	);
 
-	sge::timer::clocks::standard global_clock;
-
 	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			global_clock,
 			fcppt::chrono::seconds(
 				1)));
 

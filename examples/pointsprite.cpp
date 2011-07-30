@@ -83,7 +83,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/lexical_cast.hpp>
@@ -149,7 +148,6 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	particle(
-		sge::timer::clocks::standard const &_clock,
 		float_duration const &_life_time,
 		sprite_parameters const &params,
 		sge::renderer::vector2 const &_velocity,
@@ -157,11 +155,9 @@ public:
 	:
 		life_timer_(
 			sge::timer::parameters<sge::timer::clocks::standard>(
-				_clock,
 				_life_time)),
 		seconds_timer_(
 			sge::timer::parameters<sge::timer::clocks::standard>(
-				_clock,
 				float_duration(
 					1.0f))),
 		sprite_(
@@ -225,7 +221,6 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	particles(
-		sge::timer::clocks::standard const &,
 		unsigned particle_count,
 		sge::systems::instance const &);
 
@@ -271,7 +266,6 @@ private:
 };
 
 particles::particles(
-	sge::timer::clocks::standard const &_clock,
 	unsigned const _particle_count,
 	sge::systems::instance const &sys)
 :
@@ -329,7 +323,6 @@ particles::particles(
 				1))),
 	explosion_timer_(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			_clock,
 			float_duration(
 				explosion_rng_()))
 				.active(
@@ -383,8 +376,6 @@ particles::update()
 			fcppt::container::ptr::push_back_unique_ptr(
 				particles_,
 				fcppt::make_unique_ptr<particle>(
-					fcppt::cref(
-						explosion_timer_.clock()),
 					float_duration(
 						lifetime_rng_()),
 					sprite_parameters()
@@ -476,10 +467,7 @@ try
 				sge::image::capabilities_field::null(),
 				sge::all_extensions)));
 
-	sge::timer::clocks::standard global_clock;
-
 	particles ps(
-		global_clock,
 		fcppt::lexical_cast<unsigned>(
 			std::string(
 				argv[1])),

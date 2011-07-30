@@ -18,21 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_CLOCKS_DETAIL_IS_STATEFUL_HPP_INCLUDED
-#define SGE_TIMER_CLOCKS_DETAIL_IS_STATEFUL_HPP_INCLUDED
+#ifndef SGE_TIMER_CLOCKS_IS_STATEFUL_HPP_INCLUDED
+#define SGE_TIMER_CLOCKS_IS_STATEFUL_HPP_INCLUDED
 
-#include <fcppt/chrono/high_resolution_clock.hpp>
-#include <fcppt/chrono/steady_clock.hpp>
-#include <fcppt/chrono/system_clock.hpp>
-#include <boost/mpl/bool.hpp>
+#include <fcppt/chrono/high_resolution_clock_fwd.hpp>
+#include <fcppt/chrono/steady_clock_fwd.hpp>
+#include <fcppt/chrono/system_clock_fwd.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace sge
 {
 namespace timer
 {
 namespace clocks
-{
-namespace detail
 {
 template<typename Clock>
 struct is_stateful 
@@ -53,7 +51,7 @@ template<>
 struct is_stateful<fcppt::chrono::system_clock>
 	: boost::false_type 
 {};
-}
+
 }
 }
 }

@@ -21,7 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_PARAMETERS_DECL_HPP_INCLUDED
 #define SGE_TIMER_PARAMETERS_DECL_HPP_INCLUDED
 
+#include <sge/timer/clocks/detail/wrapper.hpp>
+#include <sge/timer/enable_ctor_stateful.hpp>
+#include <sge/timer/enable_ctor_stateless.hpp>
 #include <sge/timer/parameters_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -29,7 +33,17 @@ namespace timer
 {
 template<typename Clock>
 class parameters
+:
+	timer::clocks::detail::wrapper<
+		Clock
+	>::type
 {
+FCPPT_NONASSIGNABLE(
+	parameters);
+
+	typedef typename timer::clocks::detail::wrapper<
+		Clock
+	>::type state_base;
 public:
 	typedef
 	Clock
@@ -39,11 +53,27 @@ public:
 	Clock::duration
 	duration;
 
-	template<typename Duration>
+	template<
+		typename Clock2,
+		typename Duration>
 	explicit
 	parameters(
-		clock_type const &,
-		Duration const &);
+		Clock2 const &,
+		Duration const &,
+		typename timer::enable_ctor_stateful<
+			Clock,
+			Clock2
+		>::type const * = 0);
+	
+	template<
+		typename Duration>
+	explicit
+	parameters(
+		Duration const &,
+		typename timer::enable_ctor_stateless<
+			Clock,
+			Duration
+		>::type const * = 0);
 
 	parameters &
 	active(
@@ -56,7 +86,7 @@ public:
 	duration const
 	interval() const;
 
-	clock_type const &
+	state_base const &
 	clock() const;
 
 	bool
@@ -65,7 +95,6 @@ public:
 	bool
 	expired() const;
 private:
-	clock_type const &clock_;
 	duration interval_;
 	bool active_;
 	bool expired_;

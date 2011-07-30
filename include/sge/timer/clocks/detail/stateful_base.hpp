@@ -33,10 +33,17 @@ template<typename Clock>
 class stateful_base
 {
 public:
-	typename Clock::time_point const
-	now() const
+	explicit stateful_base(
+		Clock const &_clock)
+	:
+		clock_(_clock)
 	{
-		return clock_.now();
+	}
+
+	Clock const &
+	clock_base() const
+	{
+		return clock_;
 	}
 private:
 	Clock const &clock_;

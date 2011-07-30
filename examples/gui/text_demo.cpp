@@ -161,11 +161,8 @@ try
 		gui_syringe,
 		sys.keyboard_collector());
 
-	sge::timer::clocks::standard global_clock;
-
 	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			global_clock,
 			sge::cegui::duration(
 				static_cast<sge::cegui::unit>(
 					1))));

@@ -1033,17 +1033,13 @@ try
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
-	sge::timer::clocks::standard global_clock;
-
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			global_clock,
 			sge::camera::duration(
 				1.0f)));
 
 	sge::timer::basic<sge::timer::clocks::standard> revolve_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			global_clock,
 			fcppt::chrono::seconds(
 				10)));
 

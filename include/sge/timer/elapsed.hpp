@@ -40,7 +40,7 @@ elapsed(
 
 	return 
 		fcppt::chrono::duration_cast<Duration>(
-			t.clock().now() - 
+			t.now() - 
 			t.last_time());
 }
 }

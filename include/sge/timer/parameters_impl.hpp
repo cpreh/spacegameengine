@@ -25,13 +25,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/duration_cast.hpp>
 
 template<typename Clock>
+template<
+	typename Clock2,
+	typename Duration>
+sge::timer::parameters<Clock>::parameters(
+	Clock2 const &_clock,
+	Duration const &_interval,
+	typename timer::enable_ctor_stateful<
+		Clock,
+		Clock2
+	>::type const *)
+:
+	state_base(
+		_clock),
+// TODO: simplify both ctors
+	interval_(
+		fcppt::chrono::duration_cast<duration>(
+			_interval)),
+	active_(
+		true),
+	expired_(
+		false)
+{
+}
+
+template<typename Clock>
 template<typename Duration>
 sge::timer::parameters<Clock>::parameters(
-	clock_type const &_clock,
-	Duration const &_interval)
+	Duration const &_interval,
+	typename timer::enable_ctor_stateless<
+		Clock,
+		Duration
+	>::type const *)
 :
-	clock_(
-		_clock),
+	state_base(),
 	interval_(
 		fcppt::chrono::duration_cast<duration>(
 			_interval)),
@@ -74,10 +101,10 @@ sge::timer::parameters<Clock>::interval() const
 
 template<typename Clock>
 typename
-sge::timer::parameters<Clock>::clock_type const &
+sge::timer::parameters<Clock>::state_base const &
 sge::timer::parameters<Clock>::clock() const
 {
-	return clock_;
+	return *this;
 }
 
 template<typename Clock>

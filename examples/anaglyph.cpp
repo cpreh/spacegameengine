@@ -778,11 +778,8 @@ try
 			0),
 		true);
 
-	sge::timer::clocks::standard global_clock;
-
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			global_clock,
 			sge::camera::duration(
 				1.0f)));
 

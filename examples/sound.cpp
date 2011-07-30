@@ -328,11 +328,8 @@ try
 	wait_for_sound(
 		s);
 
-	sge::timer::clocks::standard global_clock;
-
 	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			global_clock,
 			fcppt::chrono::seconds(
 				10)));
 

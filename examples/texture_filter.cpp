@@ -565,11 +565,8 @@ try
 		sge::image::colors::red()
 	);
 
-	sge::timer::clocks::standard global_clock;
-
 	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			global_clock,
 			sge::camera::duration(
 				1.0f)));
 
@@ -582,8 +579,7 @@ try
 			)
 	);
 
-	sge::timer::frames_counter frames_counter(
-		global_clock);
+	sge::timer::frames_counter frames_counter;
 
 	sge::font::text::string const text_appendix(
 		SGE_FONT_TEXT_LIT(" (Press 1 through ")

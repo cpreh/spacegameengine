@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_CLOCKS_CLOCKS_HPP_INCLUDED
 
 #include <sge/timer/clocks/delta.hpp>
+#include <sge/timer/clocks/is_stateful.hpp>
 #include <sge/timer/clocks/standard.hpp>
 
 #endif

@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/clocks/clocks.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
+#include <sge/timer/enable_ctor_stateful.hpp>
+#include <sge/timer/enable_ctor_stateless.hpp>
 #include <sge/timer/frames_counter.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/parameters_decl.hpp>

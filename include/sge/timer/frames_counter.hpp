@@ -47,13 +47,10 @@ public:
 	unsigned long
 	frame_counter;
 
-	explicit
-	frames_counter(
-		clock const &_clock)
+	frames_counter()
 	:
 		timer_(
 			timer::parameters<clock>(
-				_clock,
 				fcppt::chrono::seconds(
 					1))),
 		current_frames_(

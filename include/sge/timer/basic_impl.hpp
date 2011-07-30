@@ -31,7 +31,7 @@ template<typename Clock>
 sge::timer::basic<Clock>::basic(
 	parameters const &params)
 :
-	clock_(
+	base(
 		params.clock()),
 	interval_(
 		params.interval()),
@@ -40,7 +40,7 @@ sge::timer::basic<Clock>::basic(
 	expired_(
 		params.expired()),
 	last_time_(
-		clock_.now())
+		this->now())
 {
 }
 
@@ -49,7 +49,7 @@ bool
 sge::timer::basic<Clock>::expired() const
 {
 	return 
-		active_ && (expired_ || (clock_.now() - last_time_).count() > interval_.count());
+		active_ && (expired_ || (this->now() - last_time_).count() > interval_.count());
 }
 
 template<typename Clock>
@@ -88,15 +88,6 @@ sge::timer::basic<Clock>::active(
 }
 
 template<typename Clock>
-typename
-sge::timer::basic<Clock>::clock_type const &
-sge::timer::basic<Clock>::clock() const
-{
-	return 
-		clock_;
-}
-
-template<typename Clock>
 template<typename NewDuration>
 NewDuration const
 sge::timer::basic<Clock>::interval() const
@@ -121,6 +112,14 @@ sge::timer::basic<Clock>::interval(
 template<typename Clock>
 typename 
 sge::timer::basic<Clock>::time_point const
+sge::timer::basic<Clock>::now() const
+{
+	return this->clock_base().now();
+}
+
+template<typename Clock>
+typename 
+sge::timer::basic<Clock>::time_point const
 sge::timer::basic<Clock>::last_time() const
 {
 	return last_time_;
@@ -130,7 +129,7 @@ template<typename Clock>
 void
 sge::timer::basic<Clock>::reset()
 {
-	last_time_ = clock_.now();
+	last_time_ = this->now();
 	expired_ = false;
 }
 

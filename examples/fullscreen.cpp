@@ -82,11 +82,8 @@ try
 		)
 	);
 
-	sge::timer::clocks::standard global_clock;
-
 	sge::timer::basic<sge::timer::clocks::standard> tm(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			global_clock,
 			fcppt::chrono::seconds(
 				5)));
 

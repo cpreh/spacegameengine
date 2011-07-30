@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_CLOCKS_STANDARD_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_STANDARD_HPP_INCLUDED
 
-#include <sge/timer/clocks/detail/chrono_wrapper.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/chrono/steady_clock.hpp>
 #include <fcppt/chrono/high_resolution_clock.hpp>
@@ -34,15 +33,12 @@ namespace timer
 namespace clocks
 {
 typedef
-detail::chrono_wrapper
+boost::mpl::if_c
 <
-	boost::mpl::if_c
-	<
-		fcppt::chrono::high_resolution_clock::is_steady,
-		fcppt::chrono::high_resolution_clock,
-		fcppt::chrono::steady_clock
-	>::type
->
+	fcppt::chrono::high_resolution_clock::is_steady,
+	fcppt::chrono::high_resolution_clock,
+	fcppt::chrono::steady_clock
+>::type
 standard;
 }
 }

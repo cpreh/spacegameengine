@@ -18,29 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_CLOCKS_DETAIL_STATELESS_BASE_HPP_INCLUDED
-#define SGE_TIMER_CLOCKS_DETAIL_STATELESS_BASE_HPP_INCLUDED
+#ifndef SGE_TIMER_ENABLE_CTOR_STATEFUL_HPP_INCLUDED
+#define SGE_TIMER_ENABLE_CTOR_STATEFUL_HPP_INCLUDED
+
+#include <sge/timer/clocks/is_stateful.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
 namespace timer
 {
-namespace clocks
+template<
+	typename Clock1,
+	typename Clock2>
+struct enable_ctor_stateful
+:
+boost::enable_if<
+	boost::mpl::and_<
+		boost::is_same<
+			Clock1,
+			Clock2
+		>,
+		clocks::is_stateful<
+			Clock1
+		>
+	>
+>
 {
-namespace detail
-{
-template<typename Clock>
-class stateless_base
-{
-public:
-	Clock const
-	clock_base() const
-	{
-		return Clock();
-	}
 };
-}
-}
 }
 }
 

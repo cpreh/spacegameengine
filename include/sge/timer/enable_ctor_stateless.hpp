@@ -18,56 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_CLOCKS_DETAIL_CHRONO_WRAPPER_HPP_INCLUDED
-#define SGE_TIMER_CLOCKS_DETAIL_CHRONO_WRAPPER_HPP_INCLUDED
+#ifndef SGE_TIMER_ENABLE_CTOR_STATELESS_HPP_INCLUDED
+#define SGE_TIMER_ENABLE_CTOR_STATELESS_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
+#include <sge/timer/clocks/is_stateful.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
 namespace timer
 {
-namespace clocks
+template<
+	typename Clock,
+	typename Duration>
+struct enable_ctor_stateless
+:
+boost::enable_if<
+	boost::mpl::not_<
+		clocks::is_stateful<
+			Clock
+		>
+	>
+>
 {
-namespace detail
-{
-template<typename Impl>
-class chrono_wrapper
-{
-FCPPT_NONCOPYABLE(
-	chrono_wrapper);
-public:
-	typedef typename
-	Impl::rep
-	rep;
-
-	typedef typename
-	Impl::period
-	period;
-
-	typedef typename
-	Impl::duration
-	duration;
-
-	typedef typename
-	Impl::time_point
-	time_point;
-
-	static bool const is_steady = Impl::is_steady;
-
-	explicit
-	chrono_wrapper()
-	{
-	}
-
-	time_point
-	now() const
-	{
-		return Impl::now();
-	}
 };
-}
-}
 }
 }
 

@@ -539,11 +539,8 @@ try
 			(sge::renderer::state::bool_::clear_back_buffer = true)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
-	sge::timer::clocks::standard global_clock;
-
 	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			global_clock,
 			sge::projectile::duration(
 				1.0f)));
 
