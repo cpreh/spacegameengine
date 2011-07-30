@@ -117,11 +117,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/timer/frames_counter.hpp>
-#include <sge/timer/elapsed.hpp>
 #include <sge/timer/basic.hpp>
-#include <sge/timer/clocks/standard.hpp>
+#include <sge/timer/elapsed_and_reset.hpp>
+#include <sge/timer/frames_counter.hpp>
 #include <sge/timer/parameters.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
@@ -599,10 +599,12 @@ try
 		sys.window().dispatch();
 
 		camera.update(
-			sge::timer::elapsed<sge::camera::duration>(
-				frame_timer));
-
-		frame_timer.reset();
+			sge::timer::elapsed_and_reset<
+				sge::camera::duration
+			>(
+				frame_timer
+			)
+		);
 
 		frames_counter.update();
 
