@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_ENABLE_CTOR_STATEFUL_HPP_INCLUDED
 
 #include <sge/timer/clocks/is_stateful.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 
 namespace sge
@@ -31,19 +29,13 @@ namespace sge
 namespace timer
 {
 template<
-	typename Clock1,
-	typename Clock2>
+	typename Clock,
+	typename Duration>
 struct enable_ctor_stateful
 :
 boost::enable_if<
-	boost::mpl::and_<
-		boost::is_same<
-			Clock1,
-			Clock2
-		>,
-		clocks::is_stateful<
-			Clock1
-		>
+	clocks::is_stateful<
+		Clock
 	>
 >
 {

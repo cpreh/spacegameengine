@@ -25,15 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/duration_cast.hpp>
 
 template<typename Clock>
-template<
-	typename Clock2,
-	typename Duration>
+template<typename Duration>
 sge::timer::parameters<Clock>::parameters(
-	Clock2 const &_clock,
+	clock_type const &_clock,
 	Duration const &_interval,
 	typename timer::enable_ctor_stateful<
 		Clock,
-		Clock2
+		Duration
 	>::type const *)
 :
 	state_base(

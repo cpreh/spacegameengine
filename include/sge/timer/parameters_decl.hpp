@@ -54,15 +54,14 @@ public:
 	duration;
 
 	template<
-		typename Clock2,
 		typename Duration>
 	explicit
 	parameters(
-		Clock2 const &,
+		clock_type const &,
 		Duration const &,
 		typename timer::enable_ctor_stateful<
 			Clock,
-			Clock2
+			Duration
 		>::type const * = 0);
 	
 	template<
