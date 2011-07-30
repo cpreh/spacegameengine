@@ -18,14 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_CLOCKS_CLOCKS_HPP_INCLUDED
-#define SGE_TIMER_CLOCKS_CLOCKS_HPP_INCLUDED
+#ifndef SGE_TIMER_CLOCKS_DELTA_FWD_HPP_INCLUDED
+#define SGE_TIMER_CLOCKS_DELTA_FWD_HPP_INCLUDED
 
-#include <sge/timer/clocks/delta.hpp>
-#include <sge/timer/clocks/delta_decl.hpp>
-#include <sge/timer/clocks/delta_fwd.hpp>
-#include <sge/timer/clocks/delta_impl.hpp>
-#include <sge/timer/clocks/is_stateful.hpp>
-#include <sge/timer/clocks/standard.hpp>
+namespace sge
+{
+namespace timer
+{
+namespace clocks
+{
+template<typename Impl>
+class delta;
+
+}
+}
+}
 
 #endif
