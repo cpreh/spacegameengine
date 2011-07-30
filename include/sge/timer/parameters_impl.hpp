@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_PARAMETERS_IMPL_HPP_INCLUDED
 
 #include <sge/timer/parameters_decl.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
+#include <sge/timer/enable_ctor_stateful.hpp>
+#include <sge/timer/enable_ctor_stateless.hpp>
+#include <sge/timer/detail/parameters_base_impl.hpp>
 
 template<typename Clock>
 template<typename Duration>
@@ -36,14 +38,8 @@ sge::timer::parameters<Clock>::parameters(
 :
 	state_base(
 		_clock),
-// TODO: simplify both ctors
-	interval_(
-		fcppt::chrono::duration_cast<duration>(
-			_interval)),
-	active_(
-		true),
-	expired_(
-		false)
+	parameters_base(
+		_interval)
 {
 }
 
@@ -57,13 +53,8 @@ sge::timer::parameters<Clock>::parameters(
 	>::type const *)
 :
 	state_base(),
-	interval_(
-		fcppt::chrono::duration_cast<duration>(
-			_interval)),
-	active_(
-		true),
-	expired_(
-		false)
+	parameters_base(
+		_interval)
 {
 }
 
@@ -72,7 +63,7 @@ sge::timer::parameters<Clock> &
 sge::timer::parameters<Clock>::active(
 	bool const _active)
 {
-	active_ = 
+	this->active_ = 
 		_active;
 	return 
 		*this;
@@ -83,7 +74,7 @@ sge::timer::parameters<Clock> &
 sge::timer::parameters<Clock>::expired(
 	bool const _expired)
 {
-	expired_ = 
+	this->expired_ = 
 		_expired;
 	return 
 		*this;
@@ -94,7 +85,7 @@ typename
 sge::timer::parameters<Clock>::duration const
 sge::timer::parameters<Clock>::interval() const
 {
-	return interval_;
+	return this->interval_;
 }
 
 template<typename Clock>
@@ -110,7 +101,7 @@ bool
 sge::timer::parameters<Clock>::active() const
 {
 	return 
-		active_;
+		this->active_;
 }
 
 template<typename Clock>
@@ -118,7 +109,7 @@ bool
 sge::timer::parameters<Clock>::expired() const
 {
 	return
-		expired_;
+		this->expired_;
 }
 
 #endif

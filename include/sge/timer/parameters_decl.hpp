@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_PARAMETERS_DECL_HPP_INCLUDED
 
 #include <sge/timer/clocks/detail/wrapper.hpp>
+#include <sge/timer/detail/parameters_base_decl.hpp>
 #include <sge/timer/enable_ctor_stateful.hpp>
 #include <sge/timer/enable_ctor_stateless.hpp>
 #include <sge/timer/parameters_fwd.hpp>
@@ -36,7 +37,10 @@ class parameters
 :
 	timer::clocks::detail::wrapper<
 		Clock
-	>::type
+	>::type,
+	timer::detail::parameters_base<
+		Clock
+	>
 {
 FCPPT_NONASSIGNABLE(
 	parameters);
@@ -44,13 +48,17 @@ FCPPT_NONASSIGNABLE(
 	typedef typename timer::clocks::detail::wrapper<
 		Clock
 	>::type state_base;
+
+	typedef timer::detail::parameters_base<
+		Clock
+	> parameters_base;
 public:
 	typedef
 	Clock
 	clock_type;
 
-	typedef typename
-	Clock::duration
+	typedef
+	typename parameters_base::duration
 	duration;
 
 	template<
@@ -93,10 +101,6 @@ public:
 
 	bool
 	expired() const;
-private:
-	duration interval_;
-	bool active_;
-	bool expired_;
 };
 }
 }
