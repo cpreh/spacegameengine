@@ -93,7 +93,7 @@ NewDuration const
 sge::timer::basic<Clock>::interval() const
 {
 	return 
-		fcppt::chrono::duration_cast<duration>(
+		fcppt::chrono::duration_cast<NewDuration>(
 			interval_);
 }
 

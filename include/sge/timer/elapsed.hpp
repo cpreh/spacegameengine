@@ -34,6 +34,10 @@ Duration const
 elapsed(
 	timer::basic<Clock> const &t)
 {
+	if(!t.active())
+		return
+			Duration();
+
 	if(t.expired())
 		return 
 			t.template interval<Duration>();

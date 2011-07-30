@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_ELAPSED_FRACTIONAL_HPP_INCLUDED
 
 #include <sge/timer/basic.hpp>
+#include <sge/timer/elapsed.hpp>
+#include <fcppt/chrono/duration_arithmetic.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/chrono/time_point_arithmetic.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -41,20 +42,20 @@ boost::enable_if
 elapsed_fractional(
 	timer::basic<Clock> const &t)
 {
-	if(!t.active())
-		return 
-			static_cast<Float>(
-				0);
+	typedef fcppt::chrono::duration<
+		Float,
+		typename Clock::duration::period
+	> float_duration;
 
-	if(t.expired())
-		return 
-			static_cast<Float>(
-				1);
-
-	return 
-		static_cast<Float>((t.now() - t.last_time()).count()) / 
-		static_cast<Float>(
-			t.template interval<typename Clock::duration>().count());
+	return
+		timer::elapsed<
+			float_duration
+		>(
+			t)
+		/
+		t. template interval<
+			float_duration
+		>();
 }
 }
 }
