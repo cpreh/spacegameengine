@@ -53,3 +53,5 @@ sge::timer::clocks::delta<Impl>::now() const
 	return 
 		now_;
 }
+
+#endif
