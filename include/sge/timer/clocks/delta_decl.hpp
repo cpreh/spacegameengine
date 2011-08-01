@@ -38,6 +38,10 @@ FCPPT_NONCOPYABLE(
 	delta);
 public:
 	typedef typename
+	Impl::rep
+	rep;
+
+	typedef typename
 	Impl::period
 	period;
 
