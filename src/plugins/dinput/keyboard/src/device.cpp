@@ -51,7 +51,6 @@ sge::dinput::keyboard::device::device(
 	dinput::device::object(
 		_parameters
 	),
-	global_clock_(),
 	conv_(_conv),
 	kblayout_(
 		::GetKeyboardLayout(
@@ -63,7 +62,6 @@ sge::dinput::keyboard::device::device(
 	char_signal_(),
 	repeat_time_(
 		repeat_timer::parameters(
-			global_clock_,
 			dinput::keyboard::repeat()
 		)
 	),

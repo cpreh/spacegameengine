@@ -103,8 +103,6 @@ private:
 		LPVOID
 	);
 
-	timer::clocks::standard global_clock_;
-
 	dinput::keyboard::key_converter const &conv_;
 
 	HKL kblayout_;
