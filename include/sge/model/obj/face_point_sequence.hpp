@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_OBJECT_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_OBJECT_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJ_FACE_POINT_SEQUENCE_HPP_INCLUDED
+#define SGE_MODEL_OBJ_FACE_POINT_SEQUENCE_HPP_INCLUDED
 
-#include <sge/model/obj/object_name.hpp>
+#include <sge/model/obj/face_point.hpp>
 #include <vector>
 
 namespace sge
@@ -31,8 +31,8 @@ namespace model
 namespace obj
 {
 typedef
-std::vector<obj::object_name>
-object_sequence;
+std::vector<obj::face_point>
+face_point_sequence;
 }
 }
 }

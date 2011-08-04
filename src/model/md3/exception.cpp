@@ -29,4 +29,5 @@ sge::model::md3::exception::exception(
 		FCPPT_TEXT("md3: ")
 		+ _what
 	)
-{}
+{
+}

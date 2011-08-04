@@ -18,11 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJ_BASIC_TOKENS_DECL_HPP_INCLUDED
+#define SGE_MODEL_OBJ_BASIC_TOKENS_DECL_HPP_INCLUDED
 
-#include <sge/model/obj/face_fwd.hpp>
-#include <sge/model/obj/face_point_sequence.hpp>
+#include "basic_tokens_fwd.hpp"
+#include <sge/model/obj/index.hpp>
+#include <sge/model/obj/scalar.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
+#include <boost/spirit/include/lex_lexertl.hpp>
 
 namespace sge
 {
@@ -31,9 +35,42 @@ namespace model
 namespace obj
 {
 
-struct face
+template<
+	typename Lexer
+>
+struct basic_tokens
+:
+	boost::spirit::lex::lexer<
+		Lexer
+	>
 {
-	obj::face_point_sequence points_;
+	FCPPT_NONCOPYABLE(
+		basic_tokens
+	);
+public:
+	basic_tokens();
+
+	~basic_tokens();
+
+	boost::spirit::lex::token_def<> vt_;
+
+	boost::spirit::lex::token_def<> vn_;
+
+	boost::spirit::lex::token_def<> mtllib_;
+
+	boost::spirit::lex::token_def<> usemtl_;
+
+	boost::spirit::lex::token_def<
+		obj::index
+	> int_;
+
+	boost::spirit::lex::token_def<
+		obj::scalar
+	> float_;
+
+	boost::spirit::lex::token_def<
+		fcppt::string
+	> name_;
 };
 
 }

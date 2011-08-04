@@ -18,8 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_OBJECT_NAME_HPP_INCLUDED
-#define SGE_MODEL_OBJ_OBJECT_NAME_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJ_GRAMMAR_HPP_INCLUDED
+#define SGE_MODEL_OBJ_GRAMMAR_HPP_INCLUDED
+
+#include "basic_grammar_decl.hpp"
+#include "iterator.hpp"
+#include "tokens.hpp"
 
 namespace sge
 {
@@ -27,9 +31,13 @@ namespace model
 {
 namespace obj
 {
+
 typedef
-fcppt::string
-object_name;
+obj::basic_grammar<
+	obj::iterator,
+	obj::tokens::lexer_def
+> grammar;
+
 }
 }
 }

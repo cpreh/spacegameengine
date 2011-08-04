@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJ_PARSE_STATE_HPP_INCLUDED
+#define SGE_MODEL_OBJ_PARSE_STATE_HPP_INCLUDED
 
-#include <sge/model/obj/face_fwd.hpp>
-#include <sge/model/obj/face_point_sequence.hpp>
+#include "parse_state_fwd.hpp"
+#include <sge/model/obj/mesh_sequence.hpp>
+#include <sge/model/obj/normal_sequence.hpp>
+#include <sge/model/obj/texcoord_sequence.hpp>
+#include <sge/model/obj/vertex_sequence.hpp>
 
 namespace sge
 {
@@ -31,9 +34,15 @@ namespace model
 namespace obj
 {
 
-struct face
+struct parse_state
 {
-	obj::face_point_sequence points_;
+	obj::vertex_sequence vertices_;
+
+	obj::texcoord_sequence texcoords_;
+
+	obj::normal_sequence normals_;
+
+	obj::mesh_sequence meshes_;
 };
 
 }

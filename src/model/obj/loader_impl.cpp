@@ -18,23 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_GROUP_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_GROUP_SEQUENCE_HPP_INCLUDED
+#include "loader_impl.hpp"
+#include "instance_impl.hpp"
+#include <fcppt/cref.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
-#include "group_name.hpp"
-#include <vector>
-
-namespace sge
+sge::model::obj::loader_impl::loader_impl()
+:
+	tokens_()
 {
-namespace model
-{
-namespace obj
-{
-typedef
-std::vector<obj::group_name>
-group_sequence;
-}
-}
 }
 
-#endif
+sge::model::obj::loader_impl::~loader_impl()
+{
+}
+
+sge::model::obj::instance_ptr const
+sge::model::obj::loader_impl::load(
+	fcppt::filesystem::path const &_path
+)
+{
+	return
+		fcppt::make_shared_ptr<
+			obj::instance_impl
+		>(
+			fcppt::cref(
+				tokens_
+			),
+			_path
+		);
+}

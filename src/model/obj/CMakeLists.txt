@@ -1,21 +1,73 @@
 SET(
 	SGE_MODELOBJ_FILES
+	include/sge/model/obj/create.hpp
+	include/sge/model/obj/exception.hpp
 	include/sge/model/obj/face.hpp
+	include/sge/model/obj/face_fwd.hpp
+	include/sge/model/obj/face_point.hpp
+	include/sge/model/obj/face_point_fwd.hpp
+	include/sge/model/obj/face_point_sequence.hpp
 	include/sge/model/obj/face_sequence.hpp
-	include/sge/model/obj/group_name.hpp
-	include/sge/model/obj/group_sequence.hpp
+	include/sge/model/obj/index.hpp
 	include/sge/model/obj/instance.hpp
+	include/sge/model/obj/instance_fwd.hpp
+	include/sge/model/obj/instance_ptr.hpp
+	include/sge/model/obj/loader.hpp
+	include/sge/model/obj/loader_fwd.hpp
+	include/sge/model/obj/loader_ptr.hpp
+	include/sge/model/obj/mesh.hpp
+	include/sge/model/obj/mesh_fwd.hpp
+	include/sge/model/obj/mesh_name.hpp
+	include/sge/model/obj/mesh_sequence.hpp
 	include/sge/model/obj/normal.hpp
+	include/sge/model/obj/normal_fwd.hpp
 	include/sge/model/obj/normal_sequence.hpp
 	include/sge/model/obj/obj.hpp
-	include/sge/model/obj/object_name.hpp
-	include/sge/model/obj/object_sequence.hpp
+	include/sge/model/obj/optional_index.hpp
+	include/sge/model/obj/optional_index_fwd.hpp
+	include/sge/model/obj/optional_scalar.hpp
+	include/sge/model/obj/optional_scalar_fwd.hpp
 	include/sge/model/obj/scalar.hpp
+	include/sge/model/obj/symbol.hpp
 	include/sge/model/obj/texcoord.hpp
+	include/sge/model/obj/texcoord_fwd.hpp
 	include/sge/model/obj/texcoord_sequence.hpp
 	include/sge/model/obj/vertex.hpp
+	include/sge/model/obj/vertex_fwd.hpp
 	include/sge/model/obj/vertex_sequence.hpp
+	src/model/obj/adapt_face.hpp
+	src/model/obj/adapt_face_point.hpp
+	src/model/obj/adapt_mesh.hpp
+	src/model/obj/adapt_normal.hpp
+	src/model/obj/adapt_texcoord.hpp
+	src/model/obj/adapt_vertex.hpp
+	src/model/obj/base_iterator.hpp
+	src/model/obj/basic_grammar_decl.hpp
+	src/model/obj/basic_grammar_fwd.hpp
+	src/model/obj/basic_grammar_impl.hpp
+	src/model/obj/basic_tokens_decl.hpp
+	src/model/obj/basic_tokens_fwd.hpp
+	src/model/obj/basic_tokens_impl.hpp
+	src/model/obj/create.cpp
+	src/model/obj/exception.cpp
+	src/model/obj/grammar.cpp
+	src/model/obj/grammar.hpp
 	src/model/obj/instance.cpp
+	src/model/obj/instance_impl.cpp
+	src/model/obj/instance_impl.hpp
+	src/model/obj/iterator.hpp
+	src/model/obj/lexer.hpp
+	src/model/obj/loader.cpp
+	src/model/obj/loader_impl.cpp
+	src/model/obj/loader_impl.hpp
+	src/model/obj/parse.cpp
+	src/model/obj/parse.hpp
+	src/model/obj/parse_state.hpp
+	src/model/obj/parse_state_fwd.hpp
+	src/model/obj/token.hpp
+	src/model/obj/tokens.cpp
+	src/model/obj/tokens.hpp
+	src/model/obj/tokens_fwd.hpp
 )
 
 ADD_SGE_BASE_LIBRARY(

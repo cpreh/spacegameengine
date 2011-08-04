@@ -18,26 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
+#include "grammar.hpp"
+#include "basic_grammar_impl.hpp"
+#include "iterator.hpp"
+#include "parse_state_fwd.hpp"
+#include "tokens.hpp"
 
-#include <sge/model/obj/face_fwd.hpp>
-#include <sge/model/obj/face_point_sequence.hpp>
+template class
+sge::model::obj::basic_grammar<
+	sge::model::obj::iterator,
+	sge::model::obj::tokens::lexer_def
+>;
 
-namespace sge
-{
-namespace model
-{
-namespace obj
-{
-
-struct face
-{
-	obj::face_point_sequence points_;
-};
-
-}
-}
-}
-
-#endif
+template
+sge::model::obj::basic_grammar<
+	sge::model::obj::iterator,
+	sge::model::obj::tokens::lexer_def
+>::basic_grammar<
+	sge::model::obj::tokens
+>(
+	sge::model::obj::tokens const &,
+	sge::model::obj::parse_state &
+);

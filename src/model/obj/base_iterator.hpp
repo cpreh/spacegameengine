@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJ_BASE_ITERATOR_HPP_INCLUDED
+#define SGE_MODEL_OBJ_BASE_ITERATOR_HPP_INCLUDED
 
-#include <sge/model/obj/face_fwd.hpp>
-#include <sge/model/obj/face_point_sequence.hpp>
+#include <fcppt/char_type.hpp>
+#include <boost/spirit/home/support/iterators/istream_iterator.hpp>
 
 namespace sge
 {
@@ -31,10 +31,9 @@ namespace model
 namespace obj
 {
 
-struct face
-{
-	obj::face_point_sequence points_;
-};
+typedef boost::spirit::basic_istream_iterator<
+	fcppt::char_type
+> base_iterator;
 
 }
 }
