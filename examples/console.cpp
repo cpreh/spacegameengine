@@ -272,7 +272,7 @@ try
 			sys.renderer()
 		);
 
-		gfx_.draw();
+		gfx_.render();
 	}
 }
 catch(sge::exception const &e)

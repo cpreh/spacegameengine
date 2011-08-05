@@ -81,7 +81,8 @@ void
 sge::timer::clocks::adjustable<ClockImpl>::factor(
 	float_type const _factor)
 {
-	return factor_;
+	factor_ = 
+		_factor;
 }
 
 template<typename ClockImpl>
