@@ -68,7 +68,7 @@ public:
 	SGE_CONSOLE_SYMBOL ~gfx();
 
 	SGE_CONSOLE_SYMBOL void
-	draw();
+	render();
 
 	SGE_CONSOLE_SYMBOL bool
 	active() const;

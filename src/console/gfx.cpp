@@ -171,7 +171,7 @@ sge::console::gfx::gfx(
 sge::console::gfx::~gfx() {}
 
 void
-sge::console::gfx::draw()
+sge::console::gfx::render()
 {
 	sprite::render_one(
 		sprite_system_,
