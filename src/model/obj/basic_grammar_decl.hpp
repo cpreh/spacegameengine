@@ -46,8 +46,9 @@ template<
 	typename Iterator,
 	typename Lexer
 >
-struct basic_grammar
+class basic_grammar
 :
+	public
 	boost::spirit::qi::grammar<
 		Iterator,
 		boost::spirit::qi::in_state_skipper<

@@ -34,9 +34,7 @@ template
 sge::model::obj::basic_grammar<
 	sge::model::obj::iterator,
 	sge::model::obj::tokens::lexer_def
->::basic_grammar<
-	sge::model::obj::tokens
->(
+>::basic_grammar(
 	sge::model::obj::tokens const &,
 	sge::model::obj::parse_state &
 );
