@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJ_FACE_POINT_HPP_INCLUDED
+#define SGE_MODEL_OBJ_FACE_POINT_HPP_INCLUDED
 
-#include <sge/model/obj/face_fwd.hpp>
-#include <sge/model/obj/face_point_sequence.hpp>
+#include <sge/model/obj/face_point_fwd.hpp>
+#include <sge/model/obj/index.hpp>
+#include <sge/model/obj/optional_index.hpp>
 
 namespace sge
 {
@@ -31,9 +32,13 @@ namespace model
 namespace obj
 {
 
-struct face
+struct face_point
 {
-	obj::face_point_sequence points_;
+	obj::index vertex_;
+
+	obj::optional_index texcoord_index_;
+
+	obj::optional_index normal_index_;
 };
 
 }

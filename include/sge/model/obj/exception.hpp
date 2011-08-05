@@ -18,22 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJ_EXCEPTION_HPP_INCLUDED
+#define SGE_MODEL_OBJ_EXCEPTION_HPP_INCLUDED
 
-#include <sge/model/obj/face_fwd.hpp>
-#include <sge/model/obj/face_point_sequence.hpp>
+#include <sge/model/obj/symbol.hpp>
+#include <sge/exception.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
 
-namespace sge
-{
+namespace sge 
+{ 
 namespace model
 {
 namespace obj
 {
 
-struct face
+class SGE_CLASS_SYMBOL exception
+:
+	public sge::exception
 {
-	obj::face_point_sequence points_;
+public:
+	SGE_MODEL_OBJ_SYMBOL
+	explicit exception(
+		fcppt::string const &
+	);
 };
 
 }

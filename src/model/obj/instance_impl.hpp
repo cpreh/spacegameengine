@@ -18,11 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJ_INSTANCE_IMPL_HPP_INCLUDED
+#define SGE_MODEL_OBJ_INSTANCE_IMPL_HPP_INCLUDED
 
-#include <sge/model/obj/face_fwd.hpp>
-#include <sge/model/obj/face_point_sequence.hpp>
+#include "lexer.hpp"
+#include "parse_state.hpp"
+#include "tokens_fwd.hpp"
+#include <sge/model/obj/instance.hpp>
+#include <sge/model/obj/vertex_sequence.hpp>
+#include <sge/model/obj/texcoord_sequence.hpp>
+#include <sge/model/obj/normal_sequence.hpp>
+#include <sge/model/obj/mesh_sequence.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,9 +39,34 @@ namespace model
 namespace obj
 {
 
-struct face
+class instance_impl
+:
+	public sge::model::obj::instance
 {
-	obj::face_point_sequence points_;
+	FCPPT_NONCOPYABLE(
+		instance_impl
+	);
+public:
+	instance_impl(
+		obj::tokens const &,
+		fcppt::filesystem::path const &
+	);
+
+	~instance_impl();
+private:
+	obj::vertex_sequence const &
+	vertices() const;
+
+	obj::texcoord_sequence const &
+	texcoords() const;
+
+	obj::normal_sequence const &
+	normals() const;
+
+	obj::mesh_sequence const &
+	meshes() const;
+
+	obj::parse_state state_;
 };
 
 }

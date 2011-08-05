@@ -18,11 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJ_TOKEN_HPP_INCLUDED
+#define SGE_MODEL_OBJ_TOKEN_HPP_INCLUDED
 
-#include <sge/model/obj/face_fwd.hpp>
-#include <sge/model/obj/face_point_sequence.hpp>
+#include "base_iterator.hpp"
+#include <sge/model/obj/index.hpp>
+#include <sge/model/obj/scalar.hpp>
+#include <fcppt/string.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <boost/spirit/home/lex/lexer/terminals.hpp> // not self contained
+#include <boost/spirit/include/lex_lexertl_token.hpp>
 
 namespace sge
 {
@@ -31,10 +36,14 @@ namespace model
 namespace obj
 {
 
-struct face
-{
-	obj::face_point_sequence points_;
-};
+typedef boost::spirit::lex::lexertl::token<
+	obj::base_iterator,
+	boost::mpl::vector3<
+		obj::scalar,
+		obj::index,
+		fcppt::string
+	>
+> token;
 
 }
 }

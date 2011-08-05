@@ -42,13 +42,12 @@ class SGE_CLASS_SYMBOL loader
 		loader
 	);
 protected:
-	SGE_MODEL_MD3_SYMBOL
 	loader();
 public:
-	virtual object_ptr const
+	virtual md3::object_ptr const
 	load(
 		fcppt::filesystem::path const &,
-		load_flags::type = load_flags::none
+		md3::load_flags::type = md3::load_flags::none
 	) = 0;
 
 	SGE_MODEL_MD3_SYMBOL

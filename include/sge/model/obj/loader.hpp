@@ -18,22 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJ_LOADER_HPP_INCLUDED
+#define SGE_MODEL_OBJ_LOADER_HPP_INCLUDED
 
-#include <sge/model/obj/face_fwd.hpp>
-#include <sge/model/obj/face_point_sequence.hpp>
+#include <sge/model/obj/loader_fwd.hpp>
+#include <sge/model/obj/instance_ptr.hpp>
+#include <sge/model/obj/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
 
-namespace sge
-{
+namespace sge 
+{ 
 namespace model
 {
 namespace obj
 {
 
-struct face
+class SGE_CLASS_SYMBOL loader
 {
-	obj::face_point_sequence points_;
+	FCPPT_NONCOPYABLE(
+		loader
+	);
+protected:
+	loader();
+public:
+	virtual obj::instance_ptr const
+	load(
+		fcppt::filesystem::path const &
+	) = 0;
+
+	SGE_MODEL_OBJ_SYMBOL
+	virtual ~loader();
 };
 
 }

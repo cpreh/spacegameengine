@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_VERTEX_HPP_INCLUDED
 #define SGE_MODEL_OBJ_VERTEX_HPP_INCLUDED
 
+#include <sge/model/obj/vertex_fwd.hpp>
+#include <sge/model/obj/optional_scalar.hpp>
 #include <sge/model/obj/scalar.hpp>
-#include <fcppt/math/vector/static.hpp>
 
 namespace sge
 {
@@ -30,9 +31,18 @@ namespace model
 {
 namespace obj
 {
-typedef
-fcppt::math::vector::static_<obj::scalar,4>::type
-vertex;
+
+struct vertex
+{
+	obj::scalar v1_;
+
+	obj::scalar v2_;
+
+	obj::scalar v3_;
+
+	obj::optional_scalar v4_;
+};
+
 }
 }
 }

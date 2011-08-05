@@ -18,26 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJ_SYMBOL_HPP_INCLUDED
+#define SGE_MODEL_OBJ_SYMBOL_HPP_INCLUDED
 
-#include <sge/model/obj/face_fwd.hpp>
-#include <sge/model/obj/face_point_sequence.hpp>
-
-namespace sge
-{
-namespace model
-{
-namespace obj
-{
-
-struct face
-{
-	obj::face_point_sequence points_;
-};
-
-}
-}
-}
+#ifdef sgemodelobj_EXPORTS
+#include <fcppt/export_symbol.hpp>
+#define SGE_MODEL_OBJ_SYMBOL FCPPT_EXPORT_SYMBOL
+#else
+#include <fcppt/import_symbol.hpp>
+#define SGE_MODEL_OBJ_SYMBOL FCPPT_IMPORT_SYMBOL
+#endif
 
 #endif

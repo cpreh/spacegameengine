@@ -21,19 +21,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_OBJ_HPP_INCLUDED
 #define SGE_MODEL_OBJ_OBJ_HPP_INCLUDED
 
+#include <sge/model/obj/create.hpp>
+#include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/face.hpp>
+#include <sge/model/obj/face_fwd.hpp>
+#include <sge/model/obj/face_point.hpp>
+#include <sge/model/obj/face_point_fwd.hpp>
+#include <sge/model/obj/face_point_sequence.hpp>
 #include <sge/model/obj/face_sequence.hpp>
-#include <sge/model/obj/group_name.hpp>
-#include <sge/model/obj/group_sequence.hpp>
+#include <sge/model/obj/index.hpp>
 #include <sge/model/obj/instance.hpp>
+#include <sge/model/obj/instance_fwd.hpp>
+#include <sge/model/obj/instance_ptr.hpp>
+#include <sge/model/obj/loader.hpp>
+#include <sge/model/obj/loader_fwd.hpp>
+#include <sge/model/obj/loader_ptr.hpp>
+#include <sge/model/obj/mesh.hpp>
+#include <sge/model/obj/mesh_fwd.hpp>
+#include <sge/model/obj/mesh_name.hpp>
+#include <sge/model/obj/mesh_sequence.hpp>
 #include <sge/model/obj/normal.hpp>
+#include <sge/model/obj/normal_fwd.hpp>
 #include <sge/model/obj/normal_sequence.hpp>
-#include <sge/model/obj/object_name.hpp>
-#include <sge/model/obj/object_sequence.hpp>
+#include <sge/model/obj/optional_index.hpp>
+#include <sge/model/obj/optional_index_fwd.hpp>
+#include <sge/model/obj/optional_scalar.hpp>
+#include <sge/model/obj/optional_scalar_fwd.hpp>
 #include <sge/model/obj/scalar.hpp>
+#include <sge/model/obj/symbol.hpp>
 #include <sge/model/obj/texcoord.hpp>
+#include <sge/model/obj/texcoord_fwd.hpp>
 #include <sge/model/obj/texcoord_sequence.hpp>
 #include <sge/model/obj/vertex.hpp>
+#include <sge/model/obj/vertex_fwd.hpp>
 #include <sge/model/obj/vertex_sequence.hpp>
 
 #endif

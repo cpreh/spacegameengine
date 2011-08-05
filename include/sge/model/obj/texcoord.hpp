@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_TEXCOORD_HPP_INCLUDED
 #define SGE_MODEL_OBJ_TEXCOORD_HPP_INCLUDED
 
+#include <sge/model/obj/texcoord_fwd.hpp>
+#include <sge/model/obj/optional_scalar.hpp>
 #include <sge/model/obj/scalar.hpp>
-#include <fcppt/math/vector/static.hpp>
 
 namespace sge
 {
@@ -30,9 +31,16 @@ namespace model
 {
 namespace obj
 {
-typedef
-fcppt::math::vector::static_<obj::scalar,3>::type
-texcoord;
+
+struct texcoord
+{
+	obj::scalar t1_;
+
+	obj::scalar t2_;
+
+	obj::optional_scalar t3_;
+};
+
 }
 }
 }

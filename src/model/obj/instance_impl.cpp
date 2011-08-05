@@ -18,26 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
+#include "instance_impl.hpp"
+#include "parse.hpp"
 
-#include <sge/model/obj/face_fwd.hpp>
-#include <sge/model/obj/face_point_sequence.hpp>
-
-namespace sge
+sge::model::obj::instance_impl::instance_impl(
+	obj::tokens const &_tokens,
+	fcppt::filesystem::path const &_path
+)
+:
+	state_()
 {
-namespace model
-{
-namespace obj
-{
-
-struct face
-{
-	obj::face_point_sequence points_;
-};
-
-}
-}
+	obj::parse(
+		_tokens,
+		_path,
+		state_
+	);
 }
 
-#endif
+sge::model::obj::instance_impl::~instance_impl()
+{
+}
+
+sge::model::obj::vertex_sequence const &
+sge::model::obj::instance_impl::vertices() const
+{
+	return state_.vertices_;
+}
+
+sge::model::obj::texcoord_sequence const &
+sge::model::obj::instance_impl::texcoords() const
+{
+	return state_.texcoords_;
+}
+
+sge::model::obj::normal_sequence const &
+sge::model::obj::instance_impl::normals() const
+{
+	return state_.normals_;
+}
+
+sge::model::obj::mesh_sequence const &
+sge::model::obj::instance_impl::meshes() const
+{
+	return state_.meshes_;
+}
