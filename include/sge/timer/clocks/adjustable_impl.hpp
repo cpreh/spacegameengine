@@ -49,7 +49,7 @@ sge::timer::clocks::adjustable<ClockImpl>::update()
 {
 	// So what does this do? Well, we effectively manage two "clocks"
 	// here. One goes along with the real clock (with
-	// sge::time::clock) and knows the "real" current time. The other
+	// sge::timer::clock) and knows the "real" current time. The other
 	// one (transformed_time) might be faster or slower than the real
 	// clock. The real clock acts as a "duration difference" giver.
 	time_point const latest_time = 
