@@ -83,7 +83,7 @@ sge::model::obj::parse(
 			end,
 			grammar,
 			boost::spirit::qi::in_state(
-				"WS"
+				FCPPT_TEXT("WS")
 			)[
 				_tokens.self
 			]

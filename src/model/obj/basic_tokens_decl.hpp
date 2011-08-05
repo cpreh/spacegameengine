@@ -24,9 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_tokens_fwd.hpp"
 #include <sge/model/obj/index.hpp>
 #include <sge/model/obj/scalar.hpp>
+#include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <boost/spirit/include/lex_lexertl.hpp>
+#include <boost/spirit/home/support/unused.hpp>
 
 namespace sge
 {
@@ -52,24 +54,39 @@ public:
 
 	~basic_tokens();
 
-	boost::spirit::lex::token_def<> vt_;
-
-	boost::spirit::lex::token_def<> vn_;
-
-	boost::spirit::lex::token_def<> mtllib_;
-
-	boost::spirit::lex::token_def<> usemtl_;
+	boost::spirit::lex::token_def<
+		boost::spirit::unused_type,
+		fcppt::char_type
+	> vt_;
 
 	boost::spirit::lex::token_def<
-		obj::index
+		boost::spirit::unused_type,
+		fcppt::char_type
+	> vn_;
+
+	boost::spirit::lex::token_def<
+		boost::spirit::unused_type,
+		fcppt::char_type
+	> mtllib_;
+
+	boost::spirit::lex::token_def<
+		boost::spirit::unused_type,
+		fcppt::char_type
+	> usemtl_;
+
+	boost::spirit::lex::token_def<
+		obj::index,
+		fcppt::char_type
 	> int_;
 
 	boost::spirit::lex::token_def<
-		obj::scalar
+		obj::scalar,
+		fcppt::char_type
 	> float_;
 
 	boost::spirit::lex::token_def<
-		fcppt::string
+		fcppt::string,
+		fcppt::char_type
 	> name_;
 };
 

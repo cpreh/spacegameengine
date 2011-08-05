@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/normal_fwd.hpp>
 #include <sge/model/obj/texcoord_fwd.hpp>
 #include <sge/model/obj/vertex_fwd.hpp>
+#include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/spirit/include/qi_grammar.hpp>
 #include <boost/spirit/include/qi_rule.hpp>
@@ -50,7 +51,8 @@ struct basic_grammar
 	boost::spirit::qi::grammar<
 		Iterator,
 		boost::spirit::qi::in_state_skipper<
-			Lexer
+			Lexer,
+			fcppt::char_type const *
 		>
 	>
 {
@@ -69,7 +71,8 @@ public:
 	~basic_grammar();
 private:
 	typedef boost::spirit::qi::in_state_skipper<
-		Lexer
+		Lexer,
+		fcppt::char_type const *
 	> skipper;
 
 	boost::spirit::qi::rule<

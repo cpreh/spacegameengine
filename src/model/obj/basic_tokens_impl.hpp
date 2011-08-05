@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJ_BASIC_TOKENS_IMPL_HPP_INCLUDED
 
 #include "basic_tokens_decl.hpp"
+#include <boost/spirit/home/support/unused.hpp>
+#include <fcppt/char_type.hpp>
 #include <fcppt/text.hpp>
 
 template<
@@ -79,7 +81,10 @@ sge::model::obj::basic_tokens<Lexer>::basic_tokens()
 		FCPPT_TEXT("WS")
 	)
 		=
-		boost::spirit::lex::token_def<>(
+		boost::spirit::lex::token_def<
+			boost::spirit::unused_type,
+			fcppt::char_type
+		>(
 			FCPPT_TEXT("[ \\t]+")
 		)
 		|
