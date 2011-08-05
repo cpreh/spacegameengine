@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_REMAINING_HPP_INCLUDED
 
 #include <sge/timer/basic.hpp>
-#include <fcppt/chrono/time_point_arithmetic.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/chrono/duration_arithmetic.hpp>
 
 namespace sge
 {
@@ -32,11 +31,12 @@ namespace timer
 template<typename Duration,typename Clock>
 Duration const
 remaining(
-	timer::basic<Duration,Clock> const &t)
+	timer::basic<Clock> const &t)
 {
 	return 
-		fcppt::chrono::duration_cast<Duration>(
-			t.interval() - timer::elapsed());
+		t.template interval<Duration>() - 
+		timer::elapsed<Duration>(
+			t);
 }
 }
 }
