@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/argb8.hpp>
 #include <sge/image/color/channel8.hpp>
-#include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/image/color/object.hpp>
 #include <sge/image/store.hpp>
-#include <sge/image2d/argb8.hpp>
-#include <sge/image2d/rgba8.hpp>
+#include <sge/image2d/argb8_format.hpp>
+#include <sge/image2d/rgb8_format.hpp>
+#include <sge/image2d/rgba8_format.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
@@ -49,47 +49,56 @@ channel8(
 		);
 }
 
-}
-
-BOOST_AUTO_TEST_CASE(
-	rgba_to_argb
+template<
+	typename Source,
+	typename Dest,
+	typename ColorInitSource,
+	typename ColorInitDest
+>
+void
+test_conversion(
+	ColorInitSource const &_source,
+	ColorInitDest const &_dest = _source
 )
 {
-	typedef sge::image2d::rgba8 source_store;
+	typedef sge::image::store<
+		Source
+	> source_store;
 
 	source_store source(
-		sge::image2d::rgba8::dim_type(
+		typename source_store::dim_type(
 			1,
-			1	
+			1
 		)
 	);
 
-	typedef source_store::view_type source_view_type;
+	typedef typename source_store::view_type source_view_type;
 
 	source_view_type const source_view(
 		source.view()
 	);
 
 	source_view[
-		source_view_type::dim_type(
+		typename source_view_type::dim_type(
 			0,
 			0
 		)
 	] =
-		sge::image::color::rgba8(
-			(sge::image::color::init::red = channel8(0))
-			(sge::image::color::init::blue = channel8(37))
-			(sge::image::color::init::green = channel8(255))
-			(sge::image::color::init::alpha = channel8(128))
+		typename sge::image::color::object<
+			typename Source::color_format
+		>::type(
+			_source
 		);
 	
-	typedef sge::image2d::argb8 dest_store;
+	typedef sge::image::store<
+		Dest
+	> dest_store;
 
 	dest_store dest(
 		source.dim()
 	);
 
-	typedef dest_store::view_type dest_view_type;
+	typedef typename dest_store::view_type dest_view_type;
 
 	dest_view_type dest_view(
 		dest.view()
@@ -97,7 +106,7 @@ BOOST_AUTO_TEST_CASE(
 
 	sge::image2d::algorithm::copy_and_convert(
 		sge::image2d::view::const_object(
-			source_store::const_view_type(
+			typename source_store::const_view_type(
 				source_view
 			)
 		),
@@ -108,17 +117,71 @@ BOOST_AUTO_TEST_CASE(
 
 	BOOST_REQUIRE(
 		dest_view[
-			dest_view_type::dim_type(
+			typename dest_view_type::dim_type(
 				0,
 				0
 			)
 		]
 		==
-		sge::image::color::argb8(
-			(sge::image::color::init::red = channel8(0))
-			(sge::image::color::init::blue = channel8(37))
-			(sge::image::color::init::green = channel8(255))
-			(sge::image::color::init::alpha = channel8(128))
+		typename sge::image::color::object<
+			typename Dest::color_format
+		>::type(
+			_dest
 		)
+	);
+}
+
+template<
+	typename Source,
+	typename Dest,
+	typename ColorInit
+>
+void
+test_conversion(
+	ColorInit const &_value
+)
+{
+	test_conversion<
+		Source,
+		Dest
+	>(
+		_value,
+		_value
+	);
+}
+
+}
+
+BOOST_AUTO_TEST_CASE(
+	rgba_to_argb
+)
+{
+	test_conversion<
+		sge::image2d::rgba8_format,
+		sge::image2d::argb8_format
+	>(
+		(sge::image::color::init::red = channel8(0))
+		(sge::image::color::init::blue = channel8(37))
+		(sge::image::color::init::green = channel8(255))
+		(sge::image::color::init::alpha = channel8(128))
+	);
+}
+
+BOOST_AUTO_TEST_CASE(
+	rgb_to_rgba
+)
+{
+	test_conversion<
+		sge::image2d::rgb8_format,
+		sge::image2d::rgba8_format
+	>(
+		(sge::image::color::init::red = channel8(0))
+		(sge::image::color::init::blue = channel8(37))
+		(sge::image::color::init::green = channel8(255))
+		,
+		(sge::image::color::init::red = channel8(0))
+		(sge::image::color::init::blue = channel8(37))
+		(sge::image::color::init::green = channel8(255))
+		(sge::image::color::init::alpha = channel8(255))
 	);
 }
