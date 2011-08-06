@@ -58,7 +58,7 @@ template<
 void
 test_conversion(
 	ColorInitSource const &_source,
-	ColorInitDest const &_dest = _source
+	ColorInitDest const &_dest
 )
 {
 	typedef sge::image::store<
