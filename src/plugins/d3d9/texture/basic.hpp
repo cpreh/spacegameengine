@@ -26,12 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../d3dinclude.hpp"
 #include "../usage.hpp"
 #include "../resource.hpp"
+#include "../state/address_mode_fwd.hpp"
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/stage.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
@@ -83,6 +85,13 @@ public:
 
 	d3d_type *
 	get() const;
+
+	void
+	address_mode(
+		IDirect3DDevice9 *,
+		d3d9::state::address_mode &,
+		renderer::stage
+	) const;
 protected:
 	parameters_type const &
 	parameters() const;

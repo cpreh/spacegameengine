@@ -18,41 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-
-#include "../d3dinclude.hpp"
-#include "../state/address_mode_fwd.hpp"
-#include <sge/renderer/stage.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_D3D9_STATE_ADDRESS_MODE_FWD_HPP_INCLUDED
+#define SGE_D3D9_STATE_ADDRESS_MODE_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace d3d9
 {
-namespace texture
+namespace state
 {
 
-class base
-{
-	FCPPT_NONCOPYABLE(
-		base
-	);
-protected:
-	base();
-
-	virtual ~base();
-public:
-	virtual IDirect3DBaseTexture9 *
-	get() const = 0;
-
-	virtual void
-	address_mode(
-		IDirect3DDevice9 *,
-		d3d9::state::address_mode &,
-		renderer::stage
-	) const = 0;
-};
+class address_mode;
 
 }
 }

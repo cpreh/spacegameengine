@@ -18,40 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
+#ifndef SGE_D3D9_STATE_ADDRESS_MODE_HPP_INCLUDED
+#define SGE_D3D9_STATE_ADDRESS_MODE_HPP_INCLUDED
 
+#include "address_mode_fwd.hpp"
 #include "../d3dinclude.hpp"
-#include "../state/address_mode_fwd.hpp"
 #include <sge/renderer/stage.hpp>
+#include <fcppt/container/array_decl.hpp>
+#include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
-namespace texture
+namespace state
 {
 
-class base
+class address_mode
 {
 	FCPPT_NONCOPYABLE(
-		base
+		address_mode
 	);
-protected:
-	base();
-
-	virtual ~base();
 public:
-	virtual IDirect3DBaseTexture9 *
-	get() const = 0;
+	address_mode();
 
-	virtual void
-	address_mode(
-		IDirect3DDevice9 *,
-		d3d9::state::address_mode &,
-		renderer::stage
-	) const = 0;
+	~address_mode();
+
+	bool
+	update(
+		renderer::stage,
+		D3DSAMPLERSTATETYPE,
+		D3DTEXTUREADDRESS
+	);
+private:
+	typedef fcppt::container::array<
+		D3DTEXTUREADDRESS,
+		3
+	> address_level;
+
+	typedef fcppt::container::index_map<
+		address_level
+	> level_map;
+
+	level_map levels_;
 };
 
 }

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 
 #include "basic.hpp"
+#include "address_mode.hpp"
 #include "pool.hpp"
 #include "update.hpp"
 #include "usage.hpp"
@@ -125,6 +126,24 @@ typename sge::d3d9::texture::basic<Types>::d3d_type *
 sge::d3d9::texture::basic<Types>::get() const
 {
 	return main_texture_.get();
+}
+
+template<
+	typename Types
+>
+void
+sge::d3d9::texture::basic<Types>::address_mode(
+	IDirect3DDevice9 *const _device,
+	d3d9::state::address_mode &_address_mode,
+	renderer::stage const _stage
+) const
+{
+	texture::address_mode(
+		_device,
+		_address_mode,
+		_stage,
+		parameters_.address_mode()
+	);
 }
 
 template<

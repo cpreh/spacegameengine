@@ -2,6 +2,7 @@ SET(
 	SGE_D3D9_FILES
 	src/plugins/d3d9/basic_target.hpp
 	src/plugins/d3d9/basic_target_impl.hpp
+	src/plugins/d3d9/convert/address_mode.hpp
 	src/plugins/d3d9/convert/bool.hpp
 	src/plugins/d3d9/convert/clear_flag.hpp
 	src/plugins/d3d9/convert/color_format.hpp
@@ -44,6 +45,7 @@ SET(
 	src/plugins/d3d9/convert/sampler_stage_arg_value.hpp
 	src/plugins/d3d9/convert/sampler_stage_op.hpp
 	src/plugins/d3d9/convert/sampler_stage_op_value.hpp
+	src/plugins/d3d9/convert/src/address_mode.cpp
 	src/plugins/d3d9/convert/src/bool.cpp
 	src/plugins/d3d9/convert/src/clear_flag.cpp
 	src/plugins/d3d9/convert/src/color_format.cpp
@@ -199,6 +201,8 @@ SET(
 	src/plugins/d3d9/src/target_base.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
+	src/plugins/d3d9/state/address_mode.hpp
+	src/plugins/d3d9/state/address_mode_fwd.hpp
 	src/plugins/d3d9/state/alpha_func.hpp
 	src/plugins/d3d9/state/apply.hpp
 	src/plugins/d3d9/state/bool.hpp
@@ -260,6 +264,7 @@ SET(
 	src/plugins/d3d9/state/set_render_state_bool.hpp
 	src/plugins/d3d9/state/set_render_state_float.hpp
 	src/plugins/d3d9/state/source_blend_func.hpp
+	src/plugins/d3d9/state/src/address_mode.cpp
 	src/plugins/d3d9/state/src/alpha_func.cpp
 	src/plugins/d3d9/state/src/apply.cpp
 	src/plugins/d3d9/state/src/bool.cpp
@@ -333,6 +338,7 @@ SET(
 	src/plugins/d3d9/target_base.hpp
 	src/plugins/d3d9/target_base_fwd.hpp
 	src/plugins/d3d9/target_base_ptr.hpp
+	src/plugins/d3d9/texture/address_mode.hpp
 	src/plugins/d3d9/texture/base.hpp
 	src/plugins/d3d9/texture/basic.hpp
 	src/plugins/d3d9/texture/basic_fwd.hpp
@@ -384,6 +390,8 @@ SET(
 	src/plugins/d3d9/texture/planar_basic.hpp
 	src/plugins/d3d9/texture/planar_types.hpp
 	src/plugins/d3d9/texture/pool.hpp
+	src/plugins/d3d9/texture/set.hpp
+	src/plugins/d3d9/texture/src/address_mode.cpp
 	src/plugins/d3d9/texture/src/base.cpp
 	src/plugins/d3d9/texture/src/create_cube.cpp
 	src/plugins/d3d9/texture/src/create_planar.cpp
@@ -396,6 +404,7 @@ SET(
 	src/plugins/d3d9/texture/src/planar.cpp
 	src/plugins/d3d9/texture/src/planar_types.cpp
 	src/plugins/d3d9/texture/src/pool.cpp
+	src/plugins/d3d9/texture/src/set.cpp
 	src/plugins/d3d9/texture/src/unlock_cube.cpp
 	src/plugins/d3d9/texture/src/unlock_planar.cpp
 	src/plugins/d3d9/texture/src/unlock_volume.cpp

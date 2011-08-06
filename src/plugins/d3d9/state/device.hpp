@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_STATE_DEVICE_HPP_INCLUDED
 
 #include "device_fwd.hpp"
+#include "address_mode.hpp"
 #include "clear.hpp"
 #include "clip_plane.hpp"
 #include "../offscreen_target_fwd.hpp"
@@ -59,6 +60,9 @@ public:
 	renderer::target *
 	target();
 
+	d3d9::state::address_mode &
+	address_mode();
+
 	d3d9::state::clear &
 	clear();
 
@@ -79,6 +83,8 @@ private:
 	d3d9::offscreen_target *offscreen_target_;
 
 	d3d9::target_base *target_;
+
+	d3d9::state::address_mode address_mode_;
 
 	d3d9::state::clear clear_;
 	

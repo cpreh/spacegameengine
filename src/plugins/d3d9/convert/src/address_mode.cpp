@@ -18,44 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
+#include "../address_mode.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "../d3dinclude.hpp"
-#include "../state/address_mode_fwd.hpp"
-#include <sge/renderer/stage.hpp>
-#include <fcppt/noncopyable.hpp>
+D3DTEXTUREADDRESS
+sge::d3d9::convert::address_mode(
+	renderer::texture::address_mode::type const _mode
+)
+{
+	switch(
+		_mode
+	)
+	{
+	case renderer::texture::address_mode::clamp:
+		return D3DTADDRESS_CLAMP;
+	case renderer::texture::address_mode::mirror_repeat:
+		return D3DTADDRESS_MIRROR;
+	case renderer::texture::address_mode::repeat:
+		return D3DTADDRESS_WRAP;
+	}
 
-namespace sge
-{
-namespace d3d9
-{
-namespace texture
-{
-
-class base
-{
-	FCPPT_NONCOPYABLE(
-		base
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid address_mode!")
 	);
-protected:
-	base();
-
-	virtual ~base();
-public:
-	virtual IDirect3DBaseTexture9 *
-	get() const = 0;
-
-	virtual void
-	address_mode(
-		IDirect3DDevice9 *,
-		d3d9::state::address_mode &,
-		renderer::stage
-	) const = 0;
-};
-
 }
-}
-}
-
-#endif
