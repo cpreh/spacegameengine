@@ -108,6 +108,7 @@ SET(
 	src/plugins/d3d9/devicefuncs/set_material.hpp
 	src/plugins/d3d9/devicefuncs/set_render_state.hpp
 	src/plugins/d3d9/devicefuncs/set_render_target.hpp
+	src/plugins/d3d9/devicefuncs/set_sampler_state.hpp
 	src/plugins/d3d9/devicefuncs/set_scissor_rect.hpp
 	src/plugins/d3d9/devicefuncs/set_stream_source.hpp
 	src/plugins/d3d9/devicefuncs/set_texture.hpp
@@ -137,6 +138,7 @@ SET(
 	src/plugins/d3d9/devicefuncs/src/set_material.cpp
 	src/plugins/d3d9/devicefuncs/src/set_render_state.cpp
 	src/plugins/d3d9/devicefuncs/src/set_render_target.cpp
+	src/plugins/d3d9/devicefuncs/src/set_sampler_state.cpp
 	src/plugins/d3d9/devicefuncs/src/set_scissor_rect.cpp
 	src/plugins/d3d9/devicefuncs/src/set_stream_source.cpp
 	src/plugins/d3d9/devicefuncs/src/set_texture.cpp
@@ -344,6 +346,24 @@ SET(
 	src/plugins/d3d9/texture/d3d_cube_texture_unique_ptr.hpp
 	src/plugins/d3d9/texture/d3d_texture_unique_ptr.hpp
 	src/plugins/d3d9/texture/d3d_volume_texture_unique_ptr.hpp
+	src/plugins/d3d9/texture/filter/anisotropic.hpp
+	src/plugins/d3d9/texture/filter/anisotropic_level.hpp
+	src/plugins/d3d9/texture/filter/convert/anisotropic_mip.hpp
+	src/plugins/d3d9/texture/filter/convert/mag.hpp
+	src/plugins/d3d9/texture/filter/convert/min.hpp
+	src/plugins/d3d9/texture/filter/convert/normal_mip.hpp
+	src/plugins/d3d9/texture/filter/convert/src/anisotropic_mip.cpp
+	src/plugins/d3d9/texture/filter/convert/src/mag.cpp
+	src/plugins/d3d9/texture/filter/convert/src/min.cpp
+	src/plugins/d3d9/texture/filter/convert/src/normal_mip.cpp
+	src/plugins/d3d9/texture/filter/normal.hpp
+	src/plugins/d3d9/texture/filter/set.hpp
+	src/plugins/d3d9/texture/filter/src/anisotropic.cpp
+	src/plugins/d3d9/texture/filter/src/anisotropic_level.cpp
+	src/plugins/d3d9/texture/filter/src/normal.cpp
+	src/plugins/d3d9/texture/filter/src/set.cpp
+	src/plugins/d3d9/texture/filter/src/visitor.cpp
+	src/plugins/d3d9/texture/filter/visitor.hpp
 	src/plugins/d3d9/texture/lock_cube.hpp
 	src/plugins/d3d9/texture/lock_planar.hpp
 	src/plugins/d3d9/texture/lock_volume.hpp
