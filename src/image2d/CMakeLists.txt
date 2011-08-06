@@ -6,6 +6,8 @@ SET(
 	include/sge/image2d/algorithm/print.hpp
 	include/sge/image2d/alpha8.hpp
 	include/sge/image2d/alpha8_format.hpp
+	include/sge/image2d/argb8.hpp
+	include/sge/image2d/argb8_format.hpp
 	include/sge/image2d/dim.hpp
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_fwd.hpp
@@ -21,6 +23,8 @@ SET(
 	include/sge/image2d/pitch.hpp
 	include/sge/image2d/plugin.hpp
 	include/sge/image2d/rect.hpp
+	include/sge/image2d/rgb8.hpp
+	include/sge/image2d/rgb8_format.hpp
 	include/sge/image2d/rgba32f.hpp
 	include/sge/image2d/rgba32f_format.hpp
 	include/sge/image2d/rgba8.hpp
@@ -56,11 +60,13 @@ SET(
 	src/image2d/algorithm/fill.cpp
 	src/image2d/algorithm/print.cpp
 	src/image2d/alpha8.cpp
+	src/image2d/argb8.cpp
 	src/image2d/file.cpp
 	src/image2d/gray8.cpp
 	src/image2d/loader.cpp
 	src/image2d/multi_loader.cpp
 	src/image2d/plugin.cpp
+	src/image2d/rgb8.cpp
 	src/image2d/rgba32f.cpp
 	src/image2d/rgba8.cpp
 	src/image2d/view/checked_sub.cpp
