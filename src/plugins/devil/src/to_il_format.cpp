@@ -25,10 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 ILenum
 sge::devil::to_il_format(
-	image::color::format::type const fmt
+	image::color::format::type const _format
 )
 {
-	switch(fmt)
+	switch(
+		_format
+	)
 	{
 	case image::color::format::bgra8:
 		return IL_BGRA;
@@ -38,8 +40,13 @@ sge::devil::to_il_format(
 		return IL_RGB;
 	case image::color::format::alpha8:
 		return IL_ALPHA;
-	case image::color::format::argb8:
 	case image::color::format::gray8:
+		return IL_LUMINANCE;
+	case image::color::format::ga8:
+		return IL_LUMINANCE_ALPHA;
+	case image::color::format::ag8:
+	case image::color::format::argb8:
+	case image::color::format::xrgb8:
 	case image::color::format::argb32f:
 	case image::color::format::bgra32f:
 	case image::color::format::rgba32f:
