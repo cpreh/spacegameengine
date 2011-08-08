@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_PATH_HPP_INCLUDED
 #define SGE_PARSE_JSON_PATH_HPP_INCLUDED
 
+#include <sge/parse/symbol.hpp>
 #include <fcppt/string.hpp>
 #include <vector>
 
@@ -49,31 +50,31 @@ public:
 	sequence_type::size_type
 	size_type;
 
-	explicit
+	SGE_PARSE_SYMBOL explicit
 	path(
 		const_iterator,
 		const_iterator);
 
-	explicit
+	SGE_PARSE_SYMBOL explicit
 	path(
 		fcppt::string const &);
 
-	const_iterator 
+	SGE_PARSE_SYMBOL const_iterator 
 	begin() const;
 
-	const_iterator 
+	SGE_PARSE_SYMBOL const_iterator 
 	end() const;
 
-	size_type
+	SGE_PARSE_SYMBOL size_type
 	size() const;
 
-	const_reference
+	SGE_PARSE_SYMBOL const_reference
 	back() const;
 
-	bool
+	SGE_PARSE_SYMBOL bool
 	empty() const;
 
-	path &
+	SGE_PARSE_SYMBOL path &
 	operator/(
 		fcppt::string const &);
 private:

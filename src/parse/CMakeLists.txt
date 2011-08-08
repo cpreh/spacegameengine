@@ -36,6 +36,7 @@ SET(
 	include/sge/parse/json/convert/to_static_container.hpp
 	include/sge/parse/json/convert_from.hpp
 	include/sge/parse/json/convert_to.hpp
+	include/sge/parse/json/create_command_line_parameters.hpp
 	include/sge/parse/json/detail/adapt_array.hpp
 	include/sge/parse/json/detail/adapt_member.hpp
 	include/sge/parse/json/detail/adapt_object.hpp
@@ -109,6 +110,7 @@ SET(
 	src/parse/ini/parse_stream.cpp
 	src/parse/ini/section.cpp
 	src/parse/json/array.cpp
+	src/parse/json/create_command_line_parameters.cpp
 	src/parse/json/exception.cpp
 	src/parse/json/find_object.cpp
 	src/parse/json/find_object_exn.cpp
