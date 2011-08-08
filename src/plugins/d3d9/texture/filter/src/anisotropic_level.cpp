@@ -18,23 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "grammar.hpp"
-#include "basic_grammar_impl.hpp"
-#include "iterator.hpp"
-#include "parse_state_fwd.hpp"
-#include "tokens.hpp"
+#include "../anisotropic_level.hpp"
+#include "../../../devicefuncs/set_sampler_state.hpp"
+#include "../../../d3dinclude.hpp"
 
-template class
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->;
-
-template
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->::basic_grammar(
-	sge::model::obj::tokens const &,
-	sge::model::obj::parse_state &
-);
+void
+sge::d3d9::texture::filter::anisotropic_level(
+	IDirect3DDevice9 *const _device,
+	renderer::stage const _stage,
+	renderer::texture::filter::anisotropic::level const _level
+)
+{
+	devicefuncs::set_sampler_state(
+		_device,
+		_stage,
+		D3DSAMP_MAXANISOTROPY,
+		_level.get()
+	);
+}

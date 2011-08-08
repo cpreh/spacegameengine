@@ -18,23 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "grammar.hpp"
-#include "basic_grammar_impl.hpp"
-#include "iterator.hpp"
-#include "parse_state_fwd.hpp"
-#include "tokens.hpp"
+#include "../set_sampler_state.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-template class
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->;
-
-template
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->::basic_grammar(
-	sge::model::obj::tokens const &,
-	sge::model::obj::parse_state &
-);
+void
+sge::d3d9::devicefuncs::set_sampler_state(
+	IDirect3DDevice9 *const _device,
+	sge::renderer::stage const _stage,
+	D3DSAMPLERSTATETYPE const _type,
+	DWORD const _value
+)
+{
+	if(
+		_device->SetSamplerState(
+			_stage.get(),
+			_type,
+			_value
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("SetSamplerState() failed!")
+		);
+}

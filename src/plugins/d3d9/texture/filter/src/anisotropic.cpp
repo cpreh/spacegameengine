@@ -18,40 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../to_il_channel.hpp"
-#include <sge/image/exception.hpp>
-#include <fcppt/text.hpp>
-#include <IL/il.h>
+#include "../anisotropic.hpp"
+#include "../anisotropic_level.hpp"
+#include "../convert/anisotropic_mip.hpp"
+#include "../../../devicefuncs/set_sampler_state.hpp"
+#include "../../../d3dinclude.hpp"
+#include <sge/renderer/texture/filter/anisotropic/object.hpp>
 
-ILenum
-sge::devil::to_il_channel(
-	image::color::format::type const _format
+void
+sge::d3d9::texture::filter::anisotropic(
+	IDirect3DDevice9 *const _device,
+	renderer::stage const _stage,
+	renderer::texture::filter::anisotropic::object const &_object
 )
 {
-	switch(
-		_format
-	)
-	{
-	case image::color::format::bgra8:
-	case image::color::format::rgba8:
-	case image::color::format::rgb8:
-	case image::color::format::alpha8:
-	case image::color::format::gray8:
-	case image::color::format::argb8:
-	case image::color::format::xrgb8:
-	case image::color::format::ga8:
-	case image::color::format::ag8:
-		return IL_UNSIGNED_BYTE;
-	case image::color::format::argb32f:
-	case image::color::format::bgra32f:
-	case image::color::format::rgba32f:
-	case image::color::format::rgb32f:
-		return IL_FLOAT;
-	case image::color::format::size:
-		break;
-	}
+	filter::anisotropic_level(
+		_device,
+		_stage,
+		_object.level()
+	);
 
-	throw sge::image::exception(
-		FCPPT_TEXT("Invalid color_format in to_il_channel!")
+	devicefuncs::set_sampler_state(
+		_device,
+		_stage,
+		D3DSAMP_MAGFILTER,
+		D3DTEXF_ANISOTROPIC
+	);
+
+	devicefuncs::set_sampler_state(
+		_device,
+		_stage,
+		D3DSAMP_MINFILTER,
+		D3DTEXF_ANISOTROPIC
+	);
+
+	devicefuncs::set_sampler_state(
+		_device,
+		_stage,
+		D3DSAMP_MIPFILTER,
+		filter::convert::anisotropic_mip(
+			_object.mip()
+		)
 	);
 }

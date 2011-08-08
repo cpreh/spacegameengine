@@ -18,44 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../to_il_format.hpp"
-#include <sge/image/exception.hpp>
+#include "../address_mode.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <IL/il.h>
 
-ILenum
-sge::devil::to_il_format(
-	image::color::format::type const _format
+D3DTEXTUREADDRESS
+sge::d3d9::convert::address_mode(
+	renderer::texture::address_mode::type const _mode
 )
 {
 	switch(
-		_format
+		_mode
 	)
 	{
-	case image::color::format::bgra8:
-		return IL_BGRA;
-	case image::color::format::rgba8:
-		return IL_RGBA;
-	case image::color::format::rgb8:
-		return IL_RGB;
-	case image::color::format::alpha8:
-		return IL_ALPHA;
-	case image::color::format::gray8:
-		return IL_LUMINANCE;
-	case image::color::format::ga8:
-		return IL_LUMINANCE_ALPHA;
-	case image::color::format::ag8:
-	case image::color::format::argb8:
-	case image::color::format::xrgb8:
-	case image::color::format::argb32f:
-	case image::color::format::bgra32f:
-	case image::color::format::rgba32f:
-	case image::color::format::rgb32f:
-	case image::color::format::size:
-		break;
+	case renderer::texture::address_mode::clamp:
+		return D3DTADDRESS_CLAMP;
+	case renderer::texture::address_mode::mirror_repeat:
+		return D3DTADDRESS_MIRROR;
+	case renderer::texture::address_mode::repeat:
+		return D3DTADDRESS_WRAP;
 	}
 
-	throw sge::image::exception(
-		FCPPT_TEXT("Invalid color_format in to_il_format!")
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid address_mode!")
 	);
 }

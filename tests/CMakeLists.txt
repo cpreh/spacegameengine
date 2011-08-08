@@ -38,14 +38,18 @@ MACRO(
 	ADD_TEST(NAME ${TESTNAME} COMMAND ${TESTNAME})
 ENDMACRO()
 
+IF(ENABLE_CONFIG)
+	ADD_SGE_TEST(charconv/main "sgecharconv;sgeconfig")
+ENDIF()
+
 IF(ENABLE_CONSOLE)
 	ADD_SGE_TEST(console/cursor "sgeconsole")
 ENDIF()
 
-IF(ENABLE_PARSE)
-	ADD_SGE_TEST(parse/json "sgeparse")
+IF(ENABLE_IMAGE2D)
+	ADD_SGE_TEST(image2d/copy_and_convert "sgeimage2d")
 ENDIF()
 
-IF(ENABLE_CONFIG)
-	ADD_SGE_TEST(charconv/main "sgecharconv;sgeconfig")
+IF(ENABLE_PARSE)
+	ADD_SGE_TEST(parse/json "sgeparse")
 ENDIF()

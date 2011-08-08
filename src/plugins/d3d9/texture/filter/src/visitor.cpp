@@ -18,23 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "grammar.hpp"
-#include "basic_grammar_impl.hpp"
-#include "iterator.hpp"
-#include "parse_state_fwd.hpp"
-#include "tokens.hpp"
+#include "../visitor.hpp"
+#include "../anisotropic.hpp"
+#include "../normal.hpp"
 
-template class
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->;
+sge::d3d9::texture::filter::visitor::visitor(
+	IDirect3DDevice9 *const _device,
+	renderer::stage const _stage
+)
+:
+	device_(_device),
+	stage_(_stage)
+{
+}
 
-template
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->::basic_grammar(
-	sge::model::obj::tokens const &,
-	sge::model::obj::parse_state &
-);
+sge::d3d9::texture::filter::visitor::result_type
+sge::d3d9::texture::filter::visitor::operator()(
+	renderer::texture::filter::anisotropic::object const &_object
+) const
+{
+	filter::anisotropic(
+		device_,
+		stage_,
+		_object
+	);
+}
+
+sge::d3d9::texture::filter::visitor::result_type
+sge::d3d9::texture::filter::visitor::operator()(
+	renderer::texture::filter::normal::object const &_object
+) const
+{
+	filter::normal(
+		device_,
+		stage_,
+		_object
+	);
+}

@@ -18,23 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "grammar.hpp"
-#include "basic_grammar_impl.hpp"
-#include "iterator.hpp"
-#include "parse_state_fwd.hpp"
-#include "tokens.hpp"
+#ifndef SGE_IMAGE2D_ARGB8_HPP_INCLUDED
+#define SGE_IMAGE2D_ARGB8_HPP_INCLUDED
 
-template class
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->;
+#include <sge/image2d/argb8_format.hpp>
+#include <sge/image/store_fwd.hpp>
 
-template
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->::basic_grammar(
-	sge::model::obj::tokens const &,
-	sge::model::obj::parse_state &
-);
+namespace sge
+{
+namespace image2d
+{
+
+typedef image::store<
+	image2d::argb8_format
+> argb8;
+
+}
+}
+
+#endif

@@ -18,23 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "grammar.hpp"
-#include "basic_grammar_impl.hpp"
-#include "iterator.hpp"
-#include "parse_state_fwd.hpp"
-#include "tokens.hpp"
+#include "../set.hpp"
+#include "../base.hpp"
+#include "../../devicefuncs/set_texture.hpp"
+#include <sge/renderer/texture/base.hpp>
 
-template class
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->;
+void
+sge::d3d9::texture::set(
+	IDirect3DDevice9 *const _device,
+	state::address_mode &_address_mode,
+	renderer::stage const _stage,
+	renderer::texture::base const *const _base
+)
+{
+	devicefuncs::set_texture(
+		_device,
+		_stage,
+		_base
+	);
 
-template
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->::basic_grammar(
-	sge::model::obj::tokens const &,
-	sge::model::obj::parse_state &
-);
+	if(
+		_base
+	)
+		dynamic_cast<
+			d3d9::texture::base const &
+		>(
+			*_base
+		).address_mode(
+			_device,
+			_address_mode,
+			_stage
+		);
+}

@@ -46,7 +46,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../devicefuncs/set_material.hpp"
 #include "../devicefuncs/set_render_state.hpp"
 #include "../devicefuncs/set_stream_source.hpp"
-#include "../devicefuncs/set_texture.hpp"
 #include "../devicefuncs/set_transform.hpp"
 #include "../devicefuncs/set_vertex_declaration.hpp"
 #include "../parameters/create.hpp"
@@ -56,7 +55,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../surface/depth_stencil_native.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/planar.hpp"
+#include "../texture/set.hpp"
 #include "../texture/volume.hpp"
+#include "../texture/filter/set.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -384,8 +385,9 @@ sge::d3d9::device::texture(
 	renderer::stage const _stage
 )
 {
-	devicefuncs::set_texture(
+	texture::set(
 		device_.get(),
+		device_state_->address_mode(),
 		_stage,
 		_texture
 	);
@@ -397,6 +399,11 @@ sge::d3d9::device::texture_filter(
 	renderer::stage const _stage
 )
 {
+	texture::filter::set(
+		device_.get(),
+		_stage,
+		_filter
+	);
 }
 
 void
@@ -736,14 +743,3 @@ sge::d3d9::device::reset()
 
 	this->reinit();
 }
-
-#if 0
-
-/*void sge::d3d9::renderer::set_filter_state(const stage_type stage, const filter_arg type, const filter_arg_value value)
-{
-	const D3DSAMPLERSTATETYPE d3d_type = convert_cast<D3DSAMPLERSTATETYPE>(type);
-	const D3DTEXTUREFILTERTYPE d3d_value = convert_cast<D3DTEXTUREFILTERTYPE>(value);
-	set_sampler_state(device,stage,d3d_type,d3d_value);
-}*/
-
-#endif

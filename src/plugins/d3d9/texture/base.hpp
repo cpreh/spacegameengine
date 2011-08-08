@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
 
 #include "../d3dinclude.hpp"
+#include "../state/address_mode_fwd.hpp"
+#include <sge/renderer/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -43,6 +45,13 @@ protected:
 public:
 	virtual IDirect3DBaseTexture9 *
 	get() const = 0;
+
+	virtual void
+	address_mode(
+		IDirect3DDevice9 *,
+		d3d9::state::address_mode &,
+		renderer::stage
+	) const = 0;
 };
 
 }

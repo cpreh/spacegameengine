@@ -18,23 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "grammar.hpp"
-#include "basic_grammar_impl.hpp"
-#include "iterator.hpp"
-#include "parse_state_fwd.hpp"
-#include "tokens.hpp"
+#ifndef SGE_D3D9_STATE_ADDRESS_MODE_HPP_INCLUDED
+#define SGE_D3D9_STATE_ADDRESS_MODE_HPP_INCLUDED
 
-template class
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->;
+#include "address_mode_fwd.hpp"
+#include "../d3dinclude.hpp"
+#include <sge/renderer/stage.hpp>
+#include <fcppt/container/array_decl.hpp>
+#include <fcppt/container/index_map_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
-template
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->::basic_grammar(
-	sge::model::obj::tokens const &,
-	sge::model::obj::parse_state &
-);
+namespace sge
+{
+namespace d3d9
+{
+namespace state
+{
+
+class address_mode
+{
+	FCPPT_NONCOPYABLE(
+		address_mode
+	);
+public:
+	address_mode();
+
+	~address_mode();
+
+	bool
+	update(
+		renderer::stage,
+		D3DSAMPLERSTATETYPE,
+		D3DTEXTUREADDRESS
+	);
+private:
+	typedef fcppt::container::array<
+		D3DTEXTUREADDRESS,
+		3
+	> address_level;
+
+	typedef fcppt::container::index_map<
+		address_level
+	> level_map;
+
+	level_map levels_;
+};
+
+}
+}
+}
+
+#endif

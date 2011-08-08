@@ -18,23 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "grammar.hpp"
-#include "basic_grammar_impl.hpp"
-#include "iterator.hpp"
-#include "parse_state_fwd.hpp"
-#include "tokens.hpp"
+#ifndef SGE_D3D9_DEVICEFUNCS_SET_SAMPLER_STATE_HPP_INCLUDED
+#define SGE_D3D9_DEVICEFUNCS_SET_SAMPLER_STATE_HPP_INCLUDED
 
-template class
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->;
+#include "../d3dinclude.hpp"
+#include <sge/renderer/stage.hpp>
 
-template
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->::basic_grammar(
-	sge::model::obj::tokens const &,
-	sge::model::obj::parse_state &
+namespace sge
+{
+namespace d3d9
+{
+namespace devicefuncs
+{
+
+void
+set_sampler_state(
+	IDirect3DDevice9 *,
+	sge::renderer::stage,
+	D3DSAMPLERSTATETYPE,
+	DWORD
 );
+
+}
+}
+}
+
+#endif

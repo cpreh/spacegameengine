@@ -18,23 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "grammar.hpp"
-#include "basic_grammar_impl.hpp"
-#include "iterator.hpp"
-#include "parse_state_fwd.hpp"
-#include "tokens.hpp"
+#ifndef SGE_D3D9_TEXTURE_FILTER_NORMAL_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_FILTER_NORMAL_HPP_INCLUDED
 
-template class
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->;
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/texture/filter/normal/object_fwd.hpp>
+#include <sge/renderer/stage.hpp>
 
-template
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->::basic_grammar(
-	sge::model::obj::tokens const &,
-	sge::model::obj::parse_state &
+namespace sge
+{
+namespace d3d9
+{
+namespace texture
+{
+namespace filter
+{
+
+void
+normal(
+	IDirect3DDevice9 *,
+	renderer::stage,
+	renderer::texture::filter::normal::object const &
 );
+
+}
+}
+}
+}
+
+#endif

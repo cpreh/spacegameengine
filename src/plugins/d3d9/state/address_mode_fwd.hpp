@@ -18,23 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "grammar.hpp"
-#include "basic_grammar_impl.hpp"
-#include "iterator.hpp"
-#include "parse_state_fwd.hpp"
-#include "tokens.hpp"
+#ifndef SGE_D3D9_STATE_ADDRESS_MODE_FWD_HPP_INCLUDED
+#define SGE_D3D9_STATE_ADDRESS_MODE_FWD_HPP_INCLUDED
 
-template class
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->;
+namespace sge
+{
+namespace d3d9
+{
+namespace state
+{
 
-template
-sge::model::obj::basic_grammar<
-	sge::model::obj::iterator,
-	sge::model::obj::tokens::lexer_def
->::basic_grammar(
-	sge::model::obj::tokens const &,
-	sge::model::obj::parse_state &
-);
+class address_mode;
+
+}
+}
+}
+
+#endif

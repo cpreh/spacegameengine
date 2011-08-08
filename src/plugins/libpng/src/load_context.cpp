@@ -135,7 +135,7 @@ sge::libpng::load_context::load_context(
 		png_set_strip_16(
 			read_ptr_->ptr());
 
-	bytes_.reserve(
+	bytes_.resize_uninitialized(
 		static_cast<byte_vector::size_type>(
 			dim_.content()*(bpp/CHAR_BIT)*cs));
 
@@ -146,7 +146,12 @@ sge::libpng::load_context::load_context(
 			dim_.h()));
 
 	row_ptr_vector::size_type const stride =
-		cs * bpp/CHAR_BIT * dim_.w();
+		static_cast<
+			row_ptr_vector::size_type
+		>(
+			cs * bpp/CHAR_BIT
+		)
+		* dim_.w();
 
 	for (row_ptr_vector::size_type i = 0; i < row_ptrs.size(); ++i)
 		row_ptrs[i] = bytes_.data() + i * stride;
