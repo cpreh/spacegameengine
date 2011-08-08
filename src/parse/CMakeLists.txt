@@ -27,35 +27,48 @@ SET(
 	include/sge/parse/ini/string.hpp
 	include/sge/parse/json/array.hpp
 	include/sge/parse/json/array_fwd.hpp
+	include/sge/parse/json/command_line_parameters.hpp
 	include/sge/parse/json/convert/choose_fundamental.hpp
 	include/sge/parse/json/convert/convert.hpp
 	include/sge/parse/json/convert/from_container.hpp
 	include/sge/parse/json/convert/from_enum.hpp
 	include/sge/parse/json/convert/to_enum.hpp
 	include/sge/parse/json/convert/to_static_container.hpp
+	include/sge/parse/json/convert_from.hpp
+	include/sge/parse/json/convert_to.hpp
 	include/sge/parse/json/detail/adapt_array.hpp
 	include/sge/parse/json/detail/adapt_member.hpp
 	include/sge/parse/json/detail/adapt_object.hpp
 	include/sge/parse/json/detail/find_member_return_type.hpp
 	include/sge/parse/json/detail/get_return_type.hpp
+	include/sge/parse/json/detail/is_array.hpp
 	include/sge/parse/json/element_vector.hpp
 	include/sge/parse/json/exception.hpp
+	include/sge/parse/json/find_and_convert_member.hpp
 	include/sge/parse/json/find_member.hpp
 	include/sge/parse/json/find_member_exn.hpp
 	include/sge/parse/json/find_member_value.hpp
 	include/sge/parse/json/find_member_value_exn.hpp
+	include/sge/parse/json/find_object.hpp
+	include/sge/parse/json/find_object_exn.hpp
 	include/sge/parse/json/float_type.hpp
 	include/sge/parse/json/get.hpp
 	include/sge/parse/json/get_unsigned.hpp
 	include/sge/parse/json/grammar.hpp
+	include/sge/parse/json/help_needed_exception.hpp
 	include/sge/parse/json/int_type.hpp
 	include/sge/parse/json/invalid_get.hpp
+	include/sge/parse/json/is_null.hpp
 	include/sge/parse/json/json.hpp
+	include/sge/parse/json/make_recursive_objects.hpp
 	include/sge/parse/json/member.hpp
 	include/sge/parse/json/member_fwd.hpp
 	include/sge/parse/json/member_name_equal.hpp
 	include/sge/parse/json/member_not_found.hpp
 	include/sge/parse/json/member_vector.hpp
+	include/sge/parse/json/merge_command_line_parameters.hpp
+	include/sge/parse/json/merge_trees.hpp
+	include/sge/parse/json/modify_user_value.hpp
 	include/sge/parse/json/null.hpp
 	include/sge/parse/json/object.hpp
 	include/sge/parse/json/object_fwd.hpp
@@ -66,11 +79,22 @@ SET(
 	include/sge/parse/json/output/to_file.hpp
 	include/sge/parse/json/output/to_range.hpp
 	include/sge/parse/json/output/to_stream.hpp
+	include/sge/parse/json/output_tabbed.hpp
 	include/sge/parse/json/parse_file.hpp
 	include/sge/parse/json/parse_file_exn.hpp
 	include/sge/parse/json/parse_range.hpp
 	include/sge/parse/json/parse_stream.hpp
+	include/sge/parse/json/parse_string_exn.hpp
+	include/sge/parse/json/path.hpp
+	include/sge/parse/json/path_fwd.hpp
+	include/sge/parse/json/path_to_string.hpp
 	include/sge/parse/json/string.hpp
+	include/sge/parse/json/string_to_path.hpp
+	include/sge/parse/json/string_to_value.hpp
+	include/sge/parse/json/user_config_variable.hpp
+	include/sge/parse/json/user_config_variable_decl.hpp
+	include/sge/parse/json/user_config_variable_fwd.hpp
+	include/sge/parse/json/user_config_variable_impl.hpp
 	include/sge/parse/json/value.hpp
 	include/sge/parse/parse.hpp
 	include/sge/parse/symbol.hpp
@@ -86,16 +110,30 @@ SET(
 	src/parse/ini/section.cpp
 	src/parse/json/array.cpp
 	src/parse/json/exception.cpp
+	src/parse/json/find_object.cpp
+	src/parse/json/find_object_exn.cpp
+	src/parse/json/help_needed_exception.cpp
 	src/parse/json/invalid_get.cpp
+	src/parse/json/is_null.cpp
+	src/parse/json/make_recursive_objects.cpp
 	src/parse/json/member.cpp
 	src/parse/json/member_name_equal.cpp
 	src/parse/json/member_not_found.cpp
+	src/parse/json/merge_command_line_parameters.cpp
+	src/parse/json/merge_trees.cpp
+	src/parse/json/modify_user_value.cpp
 	src/parse/json/object.cpp
 	src/parse/json/output/to_file.cpp
 	src/parse/json/output/to_stream.cpp
+	src/parse/json/output_tabbed.cpp
 	src/parse/json/parse_file.cpp
 	src/parse/json/parse_file_exn.cpp
 	src/parse/json/parse_stream.cpp
+	src/parse/json/parse_string_exn.cpp
+	src/parse/json/path.cpp
+	src/parse/json/path_to_string.cpp
+	src/parse/json/string_to_path.cpp
+	src/parse/json/string_to_value.cpp
 	src/parse/output/to_file.hpp
 	src/parse/output/to_stream.hpp
 	src/parse/parse_file.hpp
