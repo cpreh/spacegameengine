@@ -66,7 +66,7 @@ sge::opengl::texture::funcs::set_3d(
 		static_cast<
 			GLsizei
 		>(
-			_dim.h()
+			_dim.d()
 		),
 		0,
 		_format.get(),
