@@ -46,7 +46,7 @@ sge::opengl::texture::funcs::set_active_level(
 			_context
 		)
 	);
-		
+
 	if(
 		!context.is_supported()
 	)

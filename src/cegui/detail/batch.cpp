@@ -29,7 +29,7 @@ sge::cegui::detail::batch::batch(
 	vertex_buffer_(_vertex_buffer)
 {
 }
-	
+
 sge::renderer::texture::planar &
 sge::cegui::detail::batch::texture() const
 {

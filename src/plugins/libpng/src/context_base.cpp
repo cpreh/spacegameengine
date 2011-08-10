@@ -50,7 +50,7 @@ void sge::libpng::context_base::handle_warning(
 void sge::libpng::context_base::handle_warning_impl(
 	png_const_charp const message)
 {
-	fcppt::string const prelude = 
+	fcppt::string const prelude =
 		path_
 		?
 			FCPPT_TEXT("file: ")+
@@ -58,7 +58,7 @@ void sge::libpng::context_base::handle_warning_impl(
 				*path_)
 		:
 			FCPPT_TEXT("stream");
-			
+
 	FCPPT_LOG_WARNING(
 		logger(),
 		fcppt::log::_

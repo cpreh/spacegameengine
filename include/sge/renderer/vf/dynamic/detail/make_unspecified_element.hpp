@@ -89,7 +89,7 @@ make_unspecified_element(
 			mizuiro::color::homogenous_static<
 				ColorChannel,
 				ColorLayout
-			> 		
+			>
 		>();
 }
 

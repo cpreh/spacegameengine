@@ -40,7 +40,7 @@ struct defaults<
 {
 	// Is this the correct type? Or is there a
 	// "types<choices>::order_type" kind of thing?
-	typedef 
+	typedef
 	intrusive::order
 	type;
 

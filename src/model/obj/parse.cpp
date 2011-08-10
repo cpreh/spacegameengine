@@ -55,8 +55,8 @@ sge::model::obj::parse(
 	stream.unsetf(
 		std::ios_base::skipws
 	);
-	
-	
+
+
 	obj::base_iterator base_begin(
 		stream
 	);
@@ -67,7 +67,7 @@ sge::model::obj::parse(
 			base_iterator()
 		)
 	);
-	
+
 	obj::iterator const end(
 		_tokens.end()
 	);

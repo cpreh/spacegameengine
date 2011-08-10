@@ -112,7 +112,7 @@ sge::opengl::index_buffer::lock(
 		_range
 	);
 
-	return 
+	return
 		view_type(
 			buffer_.data(),
 			buffer_.lock_size()
@@ -136,7 +136,7 @@ sge::opengl::index_buffer::lock(
 		_range
 	);
 
-	return 
+	return
 		const_view_type(
 			buffer_.data(),
 			buffer_.lock_size()

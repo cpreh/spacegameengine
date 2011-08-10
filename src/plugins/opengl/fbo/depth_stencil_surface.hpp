@@ -67,7 +67,7 @@ private:
 	renderer::depth_stencil_format::type const format_;
 
 	dim const dim_;
-};	
+};
 
 }
 }

@@ -108,7 +108,7 @@ load_raw(
 		std::ios::binary);
 
 	typedef
-	fcppt::container::raw_vector<char> 
+	fcppt::container::raw_vector<char>
 	raw_byte_container;
 
 	raw_byte_container raw_bytes(
@@ -116,7 +116,7 @@ load_raw(
 			raw_stream)),
 		std::istreambuf_iterator<char>());
 
-	return 
+	return
 		audio_loader.load_raw(
 			boost::make_iterator_range(
 				reinterpret_cast<unsigned char const *>(
@@ -143,7 +143,7 @@ typedef sge::sprite::choices<
 		sge::sprite::with_texture,
 		sge::sprite::with_depth,
 		sge::sprite::with_dim
-	> 
+	>
 > sprite_choices;
 
 typedef sge::sprite::object<

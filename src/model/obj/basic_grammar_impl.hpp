@@ -114,7 +114,7 @@ sge::model::obj::basic_grammar<
 			-_tokens.int_
 		)
 		;
-	
+
 	face_ %=
 		boost::spirit::lit(
 			FCPPT_TEXT('f')
@@ -180,7 +180,7 @@ sge::model::obj::basic_grammar<
 					boost::phoenix::bind(
 						&obj::parse_state::texcoords_,
 						boost::phoenix::ref(
-							state_	
+							state_
 						)
 					),
 					boost::spirit::qi::_1

@@ -99,10 +99,10 @@ namespace
 sge::window::dim window_dim(1024,768);
 
 typedef
-fcppt::chrono::duration<sge::renderer::scalar> 
+fcppt::chrono::duration<sge::renderer::scalar>
 float_duration;
 
-typedef 
+typedef
 sge::sprite::choices
 <
 	sge::sprite::type_choices
@@ -117,28 +117,28 @@ sge::sprite::choices
 		sge::sprite::with_texture,
 		sge::sprite::with_unspecified_dim
 	>
-> 
+>
 sprite_choices;
 
-typedef 
+typedef
 sge::sprite::system
 <
 	sprite_choices
->::type 
+>::type
 sprite_system;
 
-typedef 
+typedef
 sge::sprite::object
 <
 	sprite_choices
-> 
+>
 sprite_object;
 
-typedef 
+typedef
 sge::sprite::parameters
 <
 	sprite_choices
-> 
+>
 sprite_parameters;
 
 class particle
@@ -174,23 +174,23 @@ public:
 	{
 	}
 
-	bool 
+	bool
 	dead() const
 	{
-		return 
+		return
 			life_timer_.expired();
 	}
 
 	void
 	update()
 	{
-		sge::renderer::scalar const delta = 
+		sge::renderer::scalar const delta =
 			sge::timer::elapsed_fractional<sge::renderer::scalar>(
 				seconds_timer_);
 		seconds_timer_.reset();
-		position_ += 
+		position_ +=
 			delta * velocity_;
-		velocity_ += 
+		velocity_ +=
 			delta * acceleration_;
 		sprite_.pos(
 			fcppt::math::vector::structure_cast<sprite_object::vector>(
@@ -330,7 +330,7 @@ particles::particles(
 	texture_(
 		fcppt::make_shared_ptr<sge::texture::part_raw>(
 			sge::renderer::texture::create_planar_from_path(
-				sge::config::media_path() 
+				sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("smooth_particle.png"),
 				sys.renderer(),
@@ -360,13 +360,13 @@ particles::update()
 				position_x_rng_()),
 			static_cast<sprite_object::vector::value_type>(
 				position_y_rng_()));
-		
+
 		for (unsigned i = 0; i < particle_count_; ++i)
 		{
 			sge::renderer::scalar const
-				radius = 
+				radius =
 					velocity_radius_rng_(),
-				angle = 
+				angle =
 					velocity_angle_rng_();
 
 			sge::renderer::vector2 const vel(
@@ -405,7 +405,7 @@ particles::update()
 			i->sprite());
 		i->update();
 		if (i->dead())
-			i = 
+			i =
 				particles_.erase(
 					i);
 		else

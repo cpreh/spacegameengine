@@ -33,7 +33,7 @@ namespace cegui
 {
 namespace vf
 {
-typedef 
+typedef
 sge::renderer::vf::part
 <
 	boost::mpl::vector3
@@ -42,7 +42,7 @@ sge::renderer::vf::part
 		texcoord,
 		color
 	>
-> 
+>
 part;
 }
 }

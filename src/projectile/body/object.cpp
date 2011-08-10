@@ -56,7 +56,7 @@ inertia_for_shape(
 		0,
 		0);
 
-	btScalar const mass = 
+	btScalar const mass =
 		sge::projectile::body::solidity::extract_mass(
 			solidity);
 
@@ -66,7 +66,7 @@ inertia_for_shape(
 	{
 		FCPPT_LOG_DEBUG(
 			local_log,
-			fcppt::log::_ 
+			fcppt::log::_
 				<< FCPPT_TEXT("solid body with mass ") << mass << FCPPT_TEXT(" so calculating inertia"));
 		shape.calculateLocalInertia(
 			mass,
@@ -124,18 +124,18 @@ sge::projectile::body::object::object(
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": Created a new body, position ")
 			<< p.position().get()
 			<< FCPPT_TEXT(", rotation ")
 			<< p.rotation().get()
 			<< FCPPT_TEXT(", mass ")
-			<< 
+			<<
 				solidity::extract_mass(
 					p.solidity())
 			<< FCPPT_TEXT(", linear velocity ")
-			<< 
+			<<
 				p.linear_velocity().get()
 			<< FCPPT_TEXT(", angular velocity ")
 			<<
@@ -148,11 +148,11 @@ sge::projectile::body::object::object(
 	{
 		FCPPT_LOG_DEBUG(
 			local_log,
-			fcppt::log::_ 
+			fcppt::log::_
 				<< this
 				<< FCPPT_TEXT(": Setting to nonsolid (no contact response)"));
 		body_->setCollisionFlags(
-			body_->getCollisionFlags() | 
+			body_->getCollisionFlags() |
 			btCollisionObject::CF_NO_CONTACT_RESPONSE);
 	}
 
@@ -182,24 +182,24 @@ sge::projectile::body::object::object(
 		p.angular_velocity().get());
 }
 
-sge::projectile::vector2 const 
+sge::projectile::vector2 const
 sge::projectile::body::object::position() const
 {
-	return 
+	return
 		bullet_to_vector2(
 			transformation_->getOrigin());
 }
 
-void 
+void
 sge::projectile::body::object::position(
 	vector2 const &p)
 {
 	FCPPT_LOG_VERBOSE(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< this
-			<< FCPPT_TEXT(": Somebody reset the body's position to ") 
-			<< 
+			<< FCPPT_TEXT(": Somebody reset the body's position to ")
+			<<
 				p);
 	transformation_->setOrigin(
 		vector2_to_bullet(
@@ -221,24 +221,24 @@ sge::projectile::body::object::position(
 			p));
 }
 
-sge::projectile::vector2 const 
+sge::projectile::vector2 const
 sge::projectile::body::object::linear_velocity() const
 {
-	return 
+	return
 		bullet_to_vector2(
 			body_->getLinearVelocity());
 }
 
-void 
+void
 sge::projectile::body::object::linear_velocity(
 	vector2 const &v)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< this
-			<< FCPPT_TEXT(": Somebody reset the body's linear velocity to ") 
-			<< 
+			<< FCPPT_TEXT(": Somebody reset the body's linear velocity to ")
+			<<
 				v);
 	body_->setLinearVelocity(
 		vector2_to_bullet(
@@ -251,20 +251,20 @@ sge::projectile::body::object::linear_velocity(
 sge::projectile::scalar
 sge::projectile::body::object::angular_velocity() const
 {
-	return 
+	return
 		body_->getAngularVelocity().length();
 }
 
-void 
+void
 sge::projectile::body::object::angular_velocity(
 	scalar const v)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< this
-			<< FCPPT_TEXT(": Somebody reset the body's angular velocity to ") 
-			<< 
+			<< FCPPT_TEXT(": Somebody reset the body's angular velocity to ")
+			<<
 				v);
 	body_->setAngularVelocity(
 		btVector3(
@@ -289,20 +289,20 @@ sge::projectile::body::object::rotation() const
 	btScalar y,x,z;
 	transformation_->getBasis().getEulerYPR(
 		y,x,z);
-	return 
+	return
 		z;
 }
 
-void 
+void
 sge::projectile::body::object::rotation(
 	scalar const r)
 {
 	FCPPT_LOG_VERBOSE(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< this
-			<< FCPPT_TEXT(": Somebody reset the body's rotation to ") 
-			<< 
+			<< FCPPT_TEXT(": Somebody reset the body's rotation to ")
+			<<
 				r);
 	transformation_->getBasis().setEulerYPR(
 		0,
@@ -319,7 +319,7 @@ fcppt::signal::auto_connection
 sge::projectile::body::object::position_change(
 	sge::projectile::body::position_change const &f)
 {
-	return 
+	return
 		position_change_.connect(
 			f);
 }
@@ -328,7 +328,7 @@ fcppt::signal::auto_connection
 sge::projectile::body::object::rotation_change(
 	sge::projectile::body::rotation_change const &f)
 {
-	return 
+	return
 		rotation_change_.connect(
 			f);
 }
@@ -344,7 +344,7 @@ sge::projectile::body::object::~object()
 }
 
 // @override
-void	
+void
 sge::projectile::body::object::getWorldTransform(
 	btTransform &t) const
 {
@@ -352,19 +352,19 @@ sge::projectile::body::object::getWorldTransform(
 }
 
 // @override
-void	
+void
 sge::projectile::body::object::setWorldTransform(
 	btTransform const &t)
 {
 	FCPPT_LOG_VERBOSE(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": Somebody wants to reset our world transformation! "));
 	(*transformation_) = t;
 	FCPPT_LOG_VERBOSE(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": New position ")
 			<<
@@ -374,7 +374,7 @@ sge::projectile::body::object::setWorldTransform(
 				this->rotation());
 	FCPPT_LOG_VERBOSE(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": New linear velocity ")
 			<<

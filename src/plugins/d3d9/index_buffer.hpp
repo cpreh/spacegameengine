@@ -109,7 +109,7 @@ private:
 		IDirect3DIndexBuffer9,
 		fcppt::com_deleter
 	> d3d_scoped_index_buffer_ptr;
-		
+
 	d3d_scoped_index_buffer_ptr buffer_;
 
 	renderer::resource_flags_field const resource_flags_;

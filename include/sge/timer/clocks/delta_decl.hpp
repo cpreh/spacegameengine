@@ -53,7 +53,7 @@ public:
 	Impl::time_point
 	time_point;
 
-	static bool const is_steady = 
+	static bool const is_steady =
 		true;
 
 	delta();

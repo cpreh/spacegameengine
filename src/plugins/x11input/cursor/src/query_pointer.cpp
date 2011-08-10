@@ -36,13 +36,13 @@ sge::x11input::cursor::query_pointer(
 	Window
 		root_return,
 		child_return;
-	
+
 	double
 		root_x_return,
 		root_y_return,
 		win_x_return,
 		win_y_return;
-	
+
 	XIButtonState buttons_return;
 
 	XIModifierState modifiers_return;
@@ -68,12 +68,12 @@ sge::x11input::cursor::query_pointer(
 	)
 		// TODO: what to do here?
 		return input::cursor::position::null();
-	
+
 	typedef fcppt::scoped_ptr<
 		unsigned char,
 		awl::backends::x11::deleter
 	> scoped_mask;
-	
+
 	scoped_mask scoped_buttons_mask(
 		buttons_return.mask
 	);

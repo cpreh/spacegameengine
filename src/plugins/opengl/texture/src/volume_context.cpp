@@ -55,7 +55,7 @@ sge::opengl::texture::volume_context::have_volume_texture() const
 sge::opengl::texture::type const
 sge::opengl::texture::volume_context::volume_texture_type() const
 {
-	return volume_texture_type_;	
+	return volume_texture_type_;
 }
 
 sge::opengl::texture::volume_context::gl_tex_image_3d

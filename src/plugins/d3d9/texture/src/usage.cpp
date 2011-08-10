@@ -43,7 +43,7 @@ sge::d3d9::texture::usage(
 		_caps & sge::renderer::texture::capabilities::render_target
 	)
 		ret |= D3DUSAGE_RENDERTARGET;
-	
+
 	return
 		d3d9::usage(
 			ret

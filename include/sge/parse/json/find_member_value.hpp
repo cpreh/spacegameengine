@@ -72,7 +72,7 @@ find_member_value(
 		)
 	);
 
-	return 
+	return
 		it == _members.end()
 		?
 			0

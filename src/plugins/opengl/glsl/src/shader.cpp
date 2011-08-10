@@ -67,7 +67,7 @@ sge::opengl::glsl::shader<Type, Environment>::shader(
 
 template<
 	typename Type,
-	typename Environment 
+	typename Environment
 >
 sge::opengl::glsl::shader<Type, Environment>::~shader()
 {}

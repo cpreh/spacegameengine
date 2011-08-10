@@ -152,7 +152,7 @@ try
 		boost::mpl::vector2<
 			sge::sprite::with_dim,
 			sge::sprite::with_texture
-		> 
+		>
 	> sprite_choices;
 
 	typedef sge::sprite::system<
@@ -346,7 +346,7 @@ catch (sge::exception const &e)
 		<< FCPPT_TEXT("caught sge exception: ")
 		<< e.string()
 		<< FCPPT_TEXT('\n');
-	
+
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)
@@ -355,6 +355,6 @@ catch (std::exception const &e)
 		<< "caught std exception: "
 		<< e.what()
 		<< '\n';
-	
+
 	return EXIT_FAILURE;
 }

@@ -50,7 +50,7 @@ struct cube_types
 	typedef d3d9::optional_lock_rect lock_dest;
 
 	typedef texture::optional_locked_rect locked_dest;
-	
+
 	typedef texture::d3d_cube_texture_unique_ptr unique_ptr;
 
 	typedef fcppt::function::object<

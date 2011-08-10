@@ -63,7 +63,7 @@ sge::opengl::texture::mipmap::create(
 			_context
 		)
 	);
-	
+
 	if(
 		!context.anisotropic_filter_supported()
 	)

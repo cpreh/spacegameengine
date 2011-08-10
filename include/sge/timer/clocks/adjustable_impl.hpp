@@ -52,19 +52,19 @@ sge::timer::clocks::adjustable<ClockImpl>::update()
 	// sge::timer::clock) and knows the "real" current time. The other
 	// one (transformed_time) might be faster or slower than the real
 	// clock. The real clock acts as a "duration difference" giver.
-	time_point const latest_time = 
+	time_point const latest_time =
 		ClockImpl::now();
 
 	duration const diff(
 		static_cast<rep>(
-			factor_ * 
+			factor_ *
 			static_cast<float_type>(
 				(latest_time - current_time_).count())));
 
-	transformed_time_ += 
+	transformed_time_ +=
 		diff;
 
-	current_time_ = 
+	current_time_ =
 		latest_time;
 }
 
@@ -77,11 +77,11 @@ sge::timer::clocks::adjustable<ClockImpl>::factor() const
 }
 
 template<typename ClockImpl>
-void	
+void
 sge::timer::clocks::adjustable<ClockImpl>::factor(
 	float_type const _factor)
 {
-	factor_ = 
+	factor_ =
 		_factor;
 }
 

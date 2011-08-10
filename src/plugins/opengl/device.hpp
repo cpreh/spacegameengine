@@ -135,7 +135,7 @@ public:
 	render_nonindexed(
 		renderer::first_vertex,
 		renderer::vertex_count,
-		renderer::nonindexed_primitive_type::type 
+		renderer::nonindexed_primitive_type::type
 	);
 
 	void

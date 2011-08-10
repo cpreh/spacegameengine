@@ -43,14 +43,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 class sge::viewport::manager::impl
 {
 	FCPPT_NONCOPYABLE(
-		impl	
+		impl
 	);
 public:
 	explicit impl(
 		sge::renderer::device &,
 		viewport::resize_function const &
 	);
-	
+
 	~impl();
 
 	fcppt::signal::auto_connection

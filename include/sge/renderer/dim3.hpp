@@ -28,11 +28,11 @@ namespace sge
 namespace renderer
 {
 
-typedef 
+typedef
 renderer::basic_dim
 <
 	3
->::type 
+>::type
 dim3;
 
 }

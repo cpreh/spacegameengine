@@ -45,7 +45,7 @@ sge::renderer::add_depth_stencil_surface_to_target(
 			FCPPT_TEXT("To add a depth_stencil_surface with the correct dimensions to a target, ")
 			FCPPT_TEXT("you should add a color_surface first!")
 		);
-	
+
 	_target.depth_stencil_surface(
 		_device.create_depth_stencil_surface(
 			*dim,

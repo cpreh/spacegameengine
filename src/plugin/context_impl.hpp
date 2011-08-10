@@ -47,7 +47,7 @@ sge::plugin::context<T>::load()
 	typedef fcppt::shared_ptr<
 		plugin::base
 	> base_ptr;
-	
+
 	base_ptr const ptr(
 		base_->ref_.lock()
 	);

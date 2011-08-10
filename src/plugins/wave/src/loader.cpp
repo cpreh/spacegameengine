@@ -102,8 +102,8 @@ sge::wave::loader::load_raw(
 	<
 		fcppt::io::raw_container_source
 		<
-			fcppt::container::raw_vector<char> 
-		> 
+			fcppt::container::raw_vector<char>
+		>
 	>
 	stream_type;
 
@@ -116,7 +116,7 @@ sge::wave::loader::load_raw(
 
 	try
 	{
-		return 
+		return
 			// Can't use make_shared here because of the unique_ptr
 			sge::audio::file_ptr(
 				new file(

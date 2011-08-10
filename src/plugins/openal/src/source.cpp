@@ -113,7 +113,7 @@ sge::openal::source::~source()
 {
 }
 
-void 
+void
 sge::openal::source::play(
 	audio::sound::repeat::type const _repeat)
 {
@@ -135,7 +135,7 @@ sge::openal::source::play(
 	}
 }
 
-void 
+void
 sge::openal::source::toggle_pause()
 {
 	sync();
@@ -167,20 +167,20 @@ sge::openal::source::toggle_pause()
 	sync();
 }
 
-sge::audio::sound::play_status::type 
+sge::audio::sound::play_status::type
 sge::openal::source::status() const
 {
 	sync();
 	return status_;
 }
 
-sge::audio::sound::repeat::type 
+sge::audio::sound::repeat::type
 sge::openal::source::repeat() const
 {
 	return repeat_;
 }
 
-void 
+void
 sge::openal::source::stop()
 {
 	sync();
@@ -199,18 +199,18 @@ sge::openal::source::stop()
 	sync();
 }
 
-void 
+void
 sge::openal::source::update()
 {
 }
 
-sge::audio::vector const 
+sge::audio::vector const
 sge::openal::source::position() const
 {
 	return position_;
 }
 
-void 
+void
 sge::openal::source::position(
 	audio::vector const &n)
 {
@@ -235,13 +235,13 @@ sge::openal::source::position(
 	)
 }
 
-sge::audio::vector const 
+sge::audio::vector const
 sge::openal::source::linear_velocity() const
 {
 	return linear_velocity_;
 }
 
-void 
+void
 sge::openal::source::linear_velocity(
 	audio::vector const &n)
 {
@@ -266,13 +266,13 @@ sge::openal::source::linear_velocity(
 	)
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::openal::source::gain() const
 {
 	return gain_;
 }
 
-void 
+void
 sge::openal::source::gain(
 	audio::scalar const n)
 {
@@ -290,13 +290,13 @@ sge::openal::source::gain(
 	)
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::openal::source::pitch() const
 {
 	return pitch_;
 }
 
-void 
+void
 sge::openal::source::pitch(
 	audio::scalar const n)
 {
@@ -314,17 +314,17 @@ sge::openal::source::pitch(
 	)
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::openal::source::rolloff() const
 {
 	return rolloff_;
 }
 
-void 
+void
 sge::openal::source::rolloff(
 	audio::scalar const n)
 {
-	rolloff_ = 
+	rolloff_ =
 		n;
 
 	alSourcef(
@@ -340,13 +340,13 @@ sge::openal::source::rolloff(
 	)
 }
 
-sge::audio::vector const 
+sge::audio::vector const
 sge::openal::source::direction() const
 {
 	return direction_;
 }
 
-void 
+void
 sge::openal::source::direction(
 	audio::vector const &n)
 {
@@ -371,13 +371,13 @@ sge::openal::source::direction(
 	)
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::openal::source::inner_cone_angle() const
 {
 	return inner_cone_angle_;
 }
 
-void 
+void
 sge::openal::source::inner_cone_angle(
 	audio::scalar const n)
 {
@@ -396,17 +396,17 @@ sge::openal::source::inner_cone_angle(
 	)
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::openal::source::outer_cone_angle() const
 {
 	return outer_cone_angle_;
 }
 
-void 
+void
 sge::openal::source::outer_cone_angle(
 	audio::scalar const n)
 {
-	outer_cone_angle_ = 
+	outer_cone_angle_ =
 		n;
 
 	alSourcef(
@@ -431,14 +431,14 @@ sge::openal::source::do_play()
 		repeat_ == audio::sound::repeat::loop ? AL_TRUE : AL_FALSE);
 }
 
-void 
+void
 sge::openal::source::sync() const
 {
 	ALint play_mode;
 
 	alGetSourcei(
-		source_id(), 
-		AL_SOURCE_STATE, 
+		source_id(),
+		AL_SOURCE_STATE,
 		&play_mode
 	);
 
@@ -473,22 +473,22 @@ sge::openal::source::source_id() const
 }
 
 // that's a hack because we have two constructors
-void 
+void
 sge::openal::source::init(
 	audio::sound::positional_parameters const &p)
 {
-	status_ = 
+	status_ =
 		audio::sound::play_status::stopped;
 
-	pitch_ = 
+	pitch_ =
 		static_cast<audio::scalar>(1.0);
-	
+
 	position(
 		p.position());
 
 	linear_velocity(
 		p.linear_velocity());
-	
+
 	gain(
 		p.gain());
 
@@ -500,12 +500,12 @@ sge::openal::source::init(
 
 	outer_cone_angle(
 		p.outer_cone_angle());
-	
+
 	direction(
 		p.direction());
 }
 
-void 
+void
 sge::openal::source::positional(
 	bool const n)
 {

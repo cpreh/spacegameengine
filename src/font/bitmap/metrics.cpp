@@ -67,7 +67,7 @@ sge::font::bitmap::metrics::metrics(
 			top_members,
 			FCPPT_TEXT("line_height")
 		);
-	
+
 	fcppt::filesystem::path const stem(
 		fcppt::filesystem::remove_filename(
 			_path

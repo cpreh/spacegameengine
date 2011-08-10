@@ -50,4 +50,4 @@ sge::camera::projection::update_perspective_from_viewport(
 			_far
 		)
 	);
-} 
+}

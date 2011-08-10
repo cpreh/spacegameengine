@@ -42,7 +42,7 @@ struct section
 	explicit section(
 		string const &header
 	);
-	
+
 	string header;
 
 	entry_vector entries;

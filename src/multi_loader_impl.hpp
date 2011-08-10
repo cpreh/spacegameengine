@@ -207,7 +207,7 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 
 	throw sge::loaders_exhausted(
 		FCPPT_TEXT("Tried all loaders for ")
-		+ 
+		+
 		fcppt::filesystem::path_to_string(
 			_file
 		)

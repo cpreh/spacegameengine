@@ -57,7 +57,7 @@ try
 	sge::plugin::object<
 		sge::renderer::system
 	>::ptr_type plugin_ptr;
-	
+
 	plugin_ptr const plugin(
 		manager.plugin<
 			sge::renderer::system

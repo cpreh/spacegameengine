@@ -60,7 +60,7 @@ sge::config::cache_path(
 		:
 			config::homedir() / FCPPT_TEXT(".cache")
 	);
-	
+
 	return
 		config::try_create_path(
 			path

@@ -35,7 +35,7 @@ namespace keyboard
 SGE_INPUT_SYMBOL
 optional_modifier const
 to_modifier(
-	key_code::type	
+	key_code::type
 );
 
 }

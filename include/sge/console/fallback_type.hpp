@@ -28,7 +28,7 @@ namespace sge
 namespace console
 {
 
-typedef void 
+typedef void
 fallback_type(
 	font::text::string const &
 );

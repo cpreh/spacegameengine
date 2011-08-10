@@ -132,7 +132,7 @@ sge::opengl::state::bool_(
 		);
 		return;
 	}
-	
+
 	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid bool_state!")
 	);

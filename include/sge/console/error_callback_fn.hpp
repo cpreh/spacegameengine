@@ -29,7 +29,7 @@ namespace console
 {
 
 typedef
-void 
+void
 error_callback_fn(
 	font::text::string const &
 );

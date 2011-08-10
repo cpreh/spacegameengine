@@ -98,7 +98,7 @@ public:
 	static opengl::context::id const static_id;
 private:
 	PFNGLGETUNIFORMLOCATIONARBPROC const get_uniform_location_;
-	
+
 	PFNGLGETUNIFORMIVARBPROC const get_uniform_iv_;
 
 	PFNGLGETUNIFORMFVARBPROC const get_uniform_fv_;

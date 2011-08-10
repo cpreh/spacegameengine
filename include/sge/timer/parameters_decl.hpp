@@ -71,7 +71,7 @@ public:
 			Clock,
 			Duration
 		>::type const * = 0);
-	
+
 	template<
 		typename Duration>
 	explicit

@@ -46,6 +46,6 @@ sge::x11input::mouse::button_code(
 	case 8:
 		return sge::input::mouse::button_code::_8;
 	}
-	
+
 	return sge::input::mouse::button_code::unknown;
 }

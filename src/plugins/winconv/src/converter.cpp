@@ -37,7 +37,7 @@ sge::winconv::converter::converter(
 	charconv::dest_encoding const &_dest)
 {
 	if(
-		(_source.get() != sge::charconv::encoding::wchar && _source.get() != sge::charconv::encoding::utf16) 
+		(_source.get() != sge::charconv::encoding::wchar && _source.get() != sge::charconv::encoding::utf16)
 			|| _dest.get() != sge::charconv::encoding::utf32)
 		throw exception(FCPPT_TEXT("winconv can only convert between utf16 and utf32!"));
 }
@@ -60,23 +60,23 @@ sge::winconv::converter::convert(
 
 	while(_input.begin() != _input.end())
 	{
-		typedef 
-		boost::uint16_t 
+		typedef
+		boost::uint16_t
 		utf16;
 
-		typedef 
-		boost::uint32_t 
+		typedef
+		boost::uint32_t
 		utf32;
 
 		// Instead of operating on the ranges themselves, put everything
 		// in small arrays, which are must prettier to handle
-		fcppt::container::array<charconv::raw_value,2> const lobytes = 
+		fcppt::container::array<charconv::raw_value,2> const lobytes =
 			{{
 				*_input.begin(),
 				(*boost::next(_input.begin()))
 			}};
 
-		fcppt::container::array<charconv::raw_value,4> output_bytes = 
+		fcppt::container::array<charconv::raw_value,4> output_bytes =
 			{{
 				0,0,0,0
 			}};
@@ -85,7 +85,7 @@ sge::winconv::converter::convert(
 			static_cast<charconv::input_range::difference_type>(
 				2));
 
-		utf16 const lo = 
+		utf16 const lo =
 			static_cast<utf16>(
 				(lobytes[1] << 8) | lobytes[0]);
 
@@ -104,7 +104,7 @@ sge::winconv::converter::convert(
 			if (_input.size() < static_cast<charconv::input_range::difference_type>(2))
 				return charconv::conversion_status::invalid_input;
 
-			fcppt::container::array<charconv::raw_value,2> const hibytes = 
+			fcppt::container::array<charconv::raw_value,2> const hibytes =
 				{{
 					*_input.begin(),
 					(*boost::next(_input.begin()))
@@ -114,7 +114,7 @@ sge::winconv::converter::convert(
 				static_cast<charconv::input_range::difference_type>(
 					2));
 
-			utf16 const hi = 
+			utf16 const hi =
 				static_cast<utf16>(
 					hibytes[1] << 8 | hibytes[0]);
 
@@ -125,18 +125,18 @@ sge::winconv::converter::convert(
 			// X' = X - 0x10000
 			// hi = top_ten(X') + 0xd800
 			// lo = lower_ten(X') + 0xdc00
-			// 
+			//
 			// So to invert this process, starting with hi and lo:
 			//
 			// top_ten(X') = hi - 0xd800
 			// lower_ten(X') = lo - 0xdc00
 			// X' = top_ten(X') << 10 + lower_ten(X')
 			// X = X' + 0x10000
-			utf32 const result = 
+			utf32 const result =
 				static_cast<utf32>(
 					static_cast<utf32>(
-						((lo - static_cast<utf32>(0xd800)) << 10) | 
-						(hi - static_cast<utf32>(0xdc00))) + 
+						((lo - static_cast<utf32>(0xd800)) << 10) |
+						(hi - static_cast<utf32>(0xdc00))) +
 						static_cast<utf32>(0x10000));
 
 			for (std::size_t i = 0; i < 4; ++i)

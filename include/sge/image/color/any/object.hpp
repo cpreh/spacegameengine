@@ -69,7 +69,7 @@ public:
 	get() const;
 
 private:
-	variant variant_;	
+	variant variant_;
 };
 
 SGE_IMAGE_SYMBOL

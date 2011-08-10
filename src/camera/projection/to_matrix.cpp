@@ -31,8 +31,8 @@ namespace
 class conversion_operator
 {
 public:
-	typedef 
-	sge::renderer::matrix4 
+	typedef
+	sge::renderer::matrix4
 	result_type;
 
 	sge::renderer::matrix4 const
@@ -61,7 +61,7 @@ sge::camera::projection::to_matrix(
 {
 	if (o.empty())
 		return fcppt::math::matrix::scaling<renderer::scalar>(0, 0, 0);
-	return 
+	return
 		fcppt::variant::apply_unary(
 			conversion_operator(),
 			o);

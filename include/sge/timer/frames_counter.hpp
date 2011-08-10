@@ -83,7 +83,7 @@ public:
 	fcppt::string const
 	frames_str() const
 	{
-		return 
+		return
 			fcppt::lexical_cast<fcppt::string>(
 				this->frames());
 	}

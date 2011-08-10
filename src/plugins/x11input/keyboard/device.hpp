@@ -97,7 +97,7 @@ private:
 	on_key_release(
 		x11input::device::window_event const &
 	);
-	
+
 	void
 	update_modifiers(
 		sge::input::keyboard::key_code::type,

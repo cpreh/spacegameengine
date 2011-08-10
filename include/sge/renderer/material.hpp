@@ -75,7 +75,7 @@ private:
 	renderer::specular_color specular_;
 
 	renderer::emissive_color emissive_;
-	
+
 	renderer::shininess shininess_;
 };
 

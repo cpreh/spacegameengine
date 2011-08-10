@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/system_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
-#include <fcppt/noncopyable.hpp> 
-#include <fcppt/signal/scoped_connection.hpp> 
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <vector>
 #include <CEGUIBase.h>
@@ -61,24 +61,24 @@ public:
 	CEGUI::GeometryBuffer &
 	createGeometryBuffer();
 
-	void 
+	void
 	destroyGeometryBuffer(
 		CEGUI::GeometryBuffer const &);
 
-	void 
+	void
 	destroyAllGeometryBuffers();
 
-	CEGUI::TextureTarget * 
+	CEGUI::TextureTarget *
 	createTextureTarget();
 
-	void 
+	void
 	destroyTextureTarget(
 		CEGUI::TextureTarget *);
 
-	void 
+	void
 	destroyAllTextureTargets();
 
-	CEGUI::Texture & 
+	CEGUI::Texture &
 	createTexture();
 
 	CEGUI::Texture &
@@ -90,20 +90,20 @@ public:
 	createTexture(
 		CEGUI::Size const &);
 
-	void 
+	void
 	destroyTexture(
 		CEGUI::Texture &);
 
-	void 
+	void
 	destroyAllTextures();
 
-	void 
+	void
 	beginRendering();
 
-	void 
+	void
 	endRendering();
 
-	void 
+	void
 	setDisplaySize(
 		CEGUI::Size const &);
 
@@ -113,10 +113,10 @@ public:
 	CEGUI::Vector2 const &
 	getDisplayDPI() const;
 
-	CEGUI::uint 
+	CEGUI::uint
 	getMaxTextureSize() const;
 
-	CEGUI::String const & 
+	CEGUI::String const &
 	getIdentifierString() const;
 
 	sge::renderer::device &

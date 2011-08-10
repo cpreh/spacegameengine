@@ -126,6 +126,6 @@ sge::opengl::vf::attribute_actor::unuse(
 ) const
 {
 	_combiner.disable_attribute(
-		location_	
+		location_
 	);
 }

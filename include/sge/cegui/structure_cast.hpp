@@ -48,7 +48,7 @@ boost::enable_if_c
 structure_cast(
 	Container const &c)
 {
-	return 
+	return
 		CEGUI::Size(
 			static_cast<unit>(c[0]),
 			static_cast<unit>(c[1]));
@@ -65,7 +65,7 @@ boost::enable_if_c
 structure_cast(
 	CEGUI::Size const &s)
 {
-	return 
+	return
 		Container(
 			static_cast<typename Container::value_type>(
 				s.d_width),
@@ -89,7 +89,7 @@ boost::enable_if_c
 structure_cast(
 	Container const &c)
 {
-	return 
+	return
 		CEGUI::Rect(
 			static_cast<unit>(
 				c.left()),
@@ -111,7 +111,7 @@ boost::enable_if_c
 structure_cast(
 	CEGUI::Rect const &s)
 {
-	return 
+	return
 		Container(
 			typename Container::vector(
 				static_cast<typename Container::vector::value_type>(

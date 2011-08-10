@@ -64,7 +64,7 @@ private:
 	) const;
 
 	opengl::context::object &context_;
-	
+
 	GLint const elements_;
 
 	GLenum const format_;

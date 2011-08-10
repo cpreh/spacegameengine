@@ -174,7 +174,7 @@ change_filter(
 		!_event.pressed()
 	)
 		return;
-	
+
 	sge::input::keyboard::optional_digit const digit(
 		sge::input::keyboard::key_code_to_digit(
 			_event.key_code()
@@ -185,7 +185,7 @@ change_filter(
 		!digit
 	)
 		return;
-	
+
 	filter_array::size_type const index(
 		digit->get() - 1u
 	);
@@ -204,7 +204,7 @@ change_filter(
 
 }
 
-int 
+int
 main()
 try
 {
@@ -302,7 +302,7 @@ try
 			),
 			sge::image::colors::black()
 		);
-		
+
 		for(
 			sge::image::size_type y = 0;
 			y < num_blocks;
@@ -442,7 +442,7 @@ try
 		static_cast<
 			sprite_object::repetition_type::value_type
 		>(
-			sprite_size / 5 
+			sprite_size / 5
 		)
 	);
 

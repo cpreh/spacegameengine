@@ -47,7 +47,7 @@ sge::renderer::state::trampoline<T, States>::operator=(
 	return
 		var_type(
 			state_,
-			_value	
+			_value
 		);
 }
 

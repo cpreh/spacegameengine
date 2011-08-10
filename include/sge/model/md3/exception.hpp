@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <fcppt/string.hpp>
 
-namespace sge 
-{ 
+namespace sge
+{
 namespace model
 {
 namespace md3

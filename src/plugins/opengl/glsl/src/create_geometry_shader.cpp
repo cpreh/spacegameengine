@@ -30,7 +30,7 @@ sge::opengl::glsl::create_geometry_shader(
 {
 	return
 		opengl::glsl::create_shader<
-			opengl::glsl::geometry_shader	
+			opengl::glsl::geometry_shader
 		>(
 			_context,
 			_source

@@ -85,7 +85,7 @@ sge::d3d9::create_caps(
 			_adapter.get(),
 			0,
 			&identifier
-		)	
+		)
 		!= D3D_OK
 	)
 		throw sge::renderer::exception(

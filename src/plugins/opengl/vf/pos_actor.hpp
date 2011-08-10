@@ -51,7 +51,7 @@ public:
 	~pos_actor();
 private:
 	void
-	on_use(	
+	on_use(
 		vf::pointer
 	) const;
 

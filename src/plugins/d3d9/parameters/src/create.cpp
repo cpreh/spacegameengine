@@ -60,7 +60,7 @@ sge::d3d9::parameters::create(
 	D3DPRESENT_PARAMETERS const ret =
 	{
 		back_buffer_size.w(), // BackBufferWidth
-		back_buffer_size.h(), // BackBufferHeight 
+		back_buffer_size.h(), // BackBufferHeight
 		parameters::extract_back_buffer_format(
 			_param.screen_mode()
 		), // BackBufferFormat
@@ -76,7 +76,7 @@ sge::d3d9::parameters::create(
 			awl::backends::windows::window::instance
 		>(
 			_window.awl_instance()
-		)->hwnd(), // hDeviceWindow 
+		)->hwnd(), // hDeviceWindow
 		is_windowed, // Windowed
 		_param.depth_stencil_buffer() != sge::renderer::depth_stencil_buffer::off, // EnableAutoDepthStencil
 		parameters::convert::depth_stencil_buffer(

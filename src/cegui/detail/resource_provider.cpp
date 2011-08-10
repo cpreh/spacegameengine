@@ -45,32 +45,32 @@ sge::cegui::detail::resource_provider::resource_provider(
 // This is called for
 // - Fonts
 // - XML files
-void 
+void
 sge::cegui::detail::resource_provider::loadRawDataContainer(
-	CEGUI::String const &filename, 
-	CEGUI::RawDataContainer &output, 
+	CEGUI::String const &filename,
+	CEGUI::RawDataContainer &output,
 	CEGUI::String const &resource_group)
 {
 	fcppt::string const
-		converted_filename = 
+		converted_filename =
 			cegui::from_cegui_string(
 				filename,
 				charconv_system_),
-		converted_resource_group = 
+		converted_resource_group =
 			cegui::from_cegui_string(
 				resource_group,
 				charconv_system_);
 
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< FCPPT_TEXT("loadRawDataContainer(")
 			<< converted_filename
 			<< FCPPT_TEXT(", ")
-			<< converted_resource_group 
+			<< converted_resource_group
 			<< FCPPT_TEXT(")"));
 
-	fcppt::filesystem::path const load_path = 
+	fcppt::filesystem::path const load_path =
 		!converted_resource_group.empty()
 		?
 			fcppt::filesystem::path(
@@ -93,7 +93,7 @@ sge::cegui::detail::resource_provider::loadRawDataContainer(
 		0,
 		std::ios_base::end);
 
-	std::streampos const filesize = 
+	std::streampos const filesize =
 		file_stream.tellg();
 
 	CEGUI::uint8 *data = new CEGUI::uint8[static_cast<std::size_t>(filesize)];
@@ -115,41 +115,41 @@ sge::cegui::detail::resource_provider::loadRawDataContainer(
 			filesize));
 }
 
-void 
+void
 sge::cegui::detail::resource_provider::unloadRawDataContainer(
 	CEGUI::RawDataContainer&data)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< FCPPT_TEXT("unloadRawDataContainer()"));
 
 	data.release();
 }
 
-size_t 
+size_t
 sge::cegui::detail::resource_provider::getResourceGroupFileNames(
 	std::vector<CEGUI::String>&,
 	CEGUI::String const &file_pattern,
 	CEGUI::String const &resource_group)
 {
 	fcppt::string const
-		converted_file_pattern = 
+		converted_file_pattern =
 			from_cegui_string(
 				file_pattern,
 				charconv_system_),
-		converted_resource_group = 
+		converted_resource_group =
 			from_cegui_string(
 				resource_group,
 				charconv_system_);
 
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< FCPPT_TEXT("loadRawDataContainer(")
 			<< converted_file_pattern
 			<< FCPPT_TEXT(", ")
-			<< converted_resource_group 
+			<< converted_resource_group
 			<< FCPPT_TEXT(")"));
 	FCPPT_ASSERT_MESSAGE(
 		false,

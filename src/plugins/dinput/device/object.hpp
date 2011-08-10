@@ -63,7 +63,7 @@ protected:
 
 	void
 	poll();
-	
+
 	void
 	set_data_format(
 		LPCDIDATAFORMAT
@@ -100,7 +100,7 @@ protected:
 	name() const;
 private:
 	fcppt::string const name_;
-	
+
 	dinput::dinput_device_scoped_ptr const device_;
 };
 

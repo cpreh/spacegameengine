@@ -42,12 +42,12 @@ public:
 
 	~cegui_logger();
 
-	void 
+	void
 	logEvent(
-		CEGUI::String const & message, 
+		CEGUI::String const & message,
 		CEGUI::LoggingLevel level);
 
-	void 
+	void
 	setLogFilename(
 		CEGUI::String const &filename,
 		bool append);

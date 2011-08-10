@@ -139,7 +139,7 @@ container_from_stream(
 	return result;
 }
 
-typedef 
+typedef
 sge::sprite::choices
 <
 	sge::sprite::type_choices<int,float,sge::sprite::no_color>,
@@ -147,19 +147,19 @@ sge::sprite::choices
 	<
 		sge::sprite::with_dim
 	>
-> 
+>
 sprite_choices;
 
-typedef 
-sge::sprite::system<sprite_choices>::type 
+typedef
+sge::sprite::system<sprite_choices>::type
 sprite_system;
 
-typedef 
-sge::sprite::object<sprite_choices> 
+typedef
+sge::sprite::object<sprite_choices>
 sprite_object;
 
-typedef 
-sge::sprite::parameters<sprite_choices> 
+typedef
+sge::sprite::parameters<sprite_choices>
 sprite_parameters;
 
 class sprite_body
@@ -297,9 +297,9 @@ private:
 	key_callback(
 		sge::input::keyboard::key_event const &e)
 	{
-		velocity_ = 
-			body_.linear_velocity() + 
-				static_cast<sge::projectile::scalar>(30) * 
+		velocity_ =
+			body_.linear_velocity() +
+				static_cast<sge::projectile::scalar>(30) *
 				key_event_to_vector(
 					e);
 		body_.linear_velocity(
@@ -310,7 +310,7 @@ private:
 	key_event_to_vector(
 		sge::input::keyboard::key_event const &e)
 	{
-		sge::projectile::vector2 result = 
+		sge::projectile::vector2 result =
 			sge::projectile::vector2::null();
 
 		switch (e.key_code())
@@ -330,7 +330,7 @@ private:
 			default:
 				break;
 		}
-			
+
 		return e.pressed() ? result : (-result);
 	}
 
@@ -458,7 +458,7 @@ try
 	sge::projectile::debug_drawer debug_drawer(
 		world,
 		sys.renderer());
-	sge::projectile::group::object 
+	sge::projectile::group::object
 		first_group(
 			world),
 		second_group(
@@ -524,7 +524,7 @@ try
 		first_sprite.body(),
 		sys.keyboard_collector());
 
-	bool running = 
+	bool running =
 		true;
 
 	fcppt::signal::scoped_connection const cb(

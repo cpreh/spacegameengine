@@ -52,7 +52,7 @@ sge::opengl::texture::mipmap::auto_generate(
 
 		return;
 	}
-	
+
 	texture::funcs::parameter_int(
 		_scoped_work,
 		_type,

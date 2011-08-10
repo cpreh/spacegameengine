@@ -153,7 +153,7 @@ public:
 	explicit device_manager(
 		sge::input::processor &
 	);
-private:	
+private:
 	void
 	on_mouse_add(
 		sge::input::mouse::device_ptr
@@ -272,7 +272,7 @@ catch(
 	fcppt::io::cerr
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
-	
+
 	return EXIT_FAILURE;
 }
 
@@ -285,7 +285,7 @@ mouse_listener::mouse_listener(
 :
 	connections_(
 		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container		
+			fcppt::signal::connection_manager::container
 		>(
 			fcppt::signal::shared_connection(
 				_device->button_callback(
@@ -345,7 +345,7 @@ cursor_listener::cursor_listener(
 :
 	connections_(
 		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container		
+			fcppt::signal::connection_manager::container
 		>(
 			fcppt::signal::shared_connection(
 				_device->button_callback(
@@ -403,7 +403,7 @@ keyboard_listener::keyboard_listener(
 :
 	connections_(
 		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container		
+			fcppt::signal::connection_manager::container
 		>(
 			fcppt::signal::shared_connection(
 				_device->key_callback(
@@ -485,7 +485,7 @@ device_manager::device_manager(
 :
 	connections_(
 		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container		
+			fcppt::signal::connection_manager::container
 		>(
 			fcppt::signal::shared_connection(
 				_processor.mouse_discover_callback(
@@ -553,7 +553,7 @@ device_manager::device_manager(
 				*it
 			);
 	}
-	
+
 	{
 		sge::input::keyboard::device_vector const devices(
 			_processor.keyboards()

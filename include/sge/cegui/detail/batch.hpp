@@ -38,7 +38,7 @@ public:
 	batch(
 		sge::renderer::texture::planar &,
 		sge::renderer::vertex_buffer_ptr);
-	
+
 	sge::renderer::texture::planar &
 	texture() const;
 

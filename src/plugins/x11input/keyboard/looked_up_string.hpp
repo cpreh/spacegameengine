@@ -44,7 +44,7 @@ public:
 		x11input::keyboard::char_vector const &,
 		sge::input::keyboard::key_code::type
 	);
-	
+
 	x11input::keyboard::char_vector const &
 	char_codes() const;
 

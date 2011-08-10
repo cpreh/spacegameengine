@@ -187,7 +187,7 @@ catch(
 		<< FCPPT_TEXT("caught sge exception: ")
 		<< e.string()
 		<< FCPPT_TEXT('\n');
-	
+
 	return EXIT_FAILURE;
 }
 catch(

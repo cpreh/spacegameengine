@@ -65,6 +65,6 @@ sge::opengl::context::object::insert(
 		throw sge::exception(
 			FCPPT_TEXT("Double insert in opengl::context!")
 		);
-	
+
 	return *ret;
 }

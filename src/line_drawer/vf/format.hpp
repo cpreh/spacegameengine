@@ -31,11 +31,11 @@ namespace line_drawer
 {
 namespace vf
 {
-typedef 
+typedef
 sge::renderer::vf::format
 <
 	boost::mpl::vector1<part>
-> 
+>
 format;
 }
 }

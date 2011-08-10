@@ -30,7 +30,7 @@ sge::cegui::toolbox::append_row(
 {
 	FCPPT_ASSERT(
 		static_cast<row::size_type>(list.getColumnCount()) == mapper.size());
-	CEGUI::uint const index = 
+	CEGUI::uint const index =
 		list.addRow(
 			new CEGUI::ListboxTextItem(
 				mapper[0]),

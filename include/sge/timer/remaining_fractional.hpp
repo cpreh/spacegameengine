@@ -39,8 +39,8 @@ boost::enable_if
 remaining_fractional(
 	timer::basic<Clock> const &t)
 {
-	return 
-		static_cast<Float>(1) - 
+	return
+		static_cast<Float>(1) -
 		timer::elapsed_fractional<Float>(
 			t);
 }

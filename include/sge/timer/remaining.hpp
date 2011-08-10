@@ -33,8 +33,8 @@ Duration const
 remaining(
 	timer::basic<Clock> const &t)
 {
-	return 
-		t.template interval<Duration>() - 
+	return
+		t.template interval<Duration>() -
 		timer::elapsed<Duration>(
 			t);
 }

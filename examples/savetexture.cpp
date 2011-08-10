@@ -129,7 +129,7 @@ SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(position)
 
 }
 
-typedef 
+typedef
 sge::renderer::vf::unspecified
 <
 	sge::renderer::vf::vector
@@ -138,7 +138,7 @@ sge::renderer::vf::unspecified
 		2
 	>,
 	tags::position
-> 
+>
 position;
 
 typedef
@@ -150,21 +150,21 @@ sge::renderer::vf::part
 	>
 > part;
 
-typedef 
+typedef
 sge::renderer::vf::format
 <
 	boost::mpl::vector1
 	<
 		part
 	>
-> 
+>
 format;
 
-typedef 
+typedef
 sge::renderer::vf::view
 <
 	part
-> 
+>
 vertex_view;
 
 sge::renderer::vertex_buffer_ptr const
@@ -181,7 +181,7 @@ create_quad(
 			static_cast<sge::renderer::size_type>(
 				6),
 			sge::renderer::resource_flags::none));
-	
+
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer,
 		*vb);
@@ -276,7 +276,7 @@ try
 		(
 			sge::systems::input(
 				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector) | 
+					sge::systems::input_helper::keyboard_collector) |
 					sge::systems::input_helper::mouse_collector,
 				sge::systems::cursor_option_field::null()))
 		(
@@ -373,7 +373,7 @@ try
 		sge::shader::scoped scoped_shader(
 			shader_,
 			sge::shader::activation_method_field(
-				sge::shader::activation_method::textures) | 
+				sge::shader::activation_method::textures) |
 				sge::shader::activation_method::vertex_declaration);
 
 		sge::renderer::scoped_vertex_buffer const scoped_vb_(

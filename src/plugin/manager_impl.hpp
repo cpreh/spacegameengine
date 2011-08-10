@@ -72,7 +72,7 @@ sge::plugin::manager::plugin(
 			+ fcppt::type_name(typeid(T))
 			+ FCPPT_TEXT("\"!")
 		);
-	
+
 	return
 		*(
 			begin<T>()

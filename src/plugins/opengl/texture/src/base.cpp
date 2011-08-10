@@ -49,7 +49,7 @@ sge::opengl::texture::base::update_filter(
 		filter_ == _filter
 	)
 		return false;
-	
+
 	filter_ = _filter;
 
 	return true;

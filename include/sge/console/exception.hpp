@@ -47,7 +47,7 @@ public:
 	font::text::string const &
 	console_string() const;
 private:
-	font::text::string console_string_;	
+	font::text::string console_string_;
 };
 
 }

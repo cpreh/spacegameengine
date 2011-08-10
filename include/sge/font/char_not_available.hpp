@@ -41,7 +41,7 @@ public:
 		font::char_type
 	);
 
-	SGE_FONT_SYMBOL 
+	SGE_FONT_SYMBOL
 	font::char_type
 	character() const;
 private:

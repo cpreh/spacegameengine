@@ -98,23 +98,23 @@ private:
 		btVector3 const & color);
 
 	// @override
-	void	
+	void
 	draw3dText(
 		btVector3 const&location,
 		char const*textString);
-	
+
 	// @override
 	void
 	reportErrorWarning(
 		char const* warningString);
 
 	// @override
-	void 
+	void
 	setDebugMode(
 		int);
 
 	// @override
-	int 
+	int
 	getDebugMode() const;
 };
 }

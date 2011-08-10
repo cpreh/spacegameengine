@@ -46,7 +46,7 @@ protected:
 		opengl::context::object &,
 		GLenum type
 	);
-	
+
 	typedef typename Environment::shader_context shader_context;
 
 	shader_context const &
@@ -62,7 +62,7 @@ private:
 	shader_context &context_;
 
 	handle const id_;
-	
+
 };
 
 }

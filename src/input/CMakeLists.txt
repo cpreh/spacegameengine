@@ -136,6 +136,6 @@ SET(
 )
 
 ADD_SGE_BASE_LIBRARY(
-	input	
+	input
 	"sgeplugin"
 )

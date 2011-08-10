@@ -28,7 +28,7 @@ namespace sge
 namespace console
 {
 typedef
-void 
+void
 message_callback_fn(
 	font::text::string const &);
 }

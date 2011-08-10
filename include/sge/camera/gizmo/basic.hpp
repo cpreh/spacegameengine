@@ -35,8 +35,8 @@ template<typename Scalar,fcppt::math::size_type N>
 class basic
 {
 public:
-	typedef 
-	Scalar 
+	typedef
+	Scalar
 	scalar;
 
 	typedef typename

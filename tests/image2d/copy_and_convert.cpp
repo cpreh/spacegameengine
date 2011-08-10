@@ -89,7 +89,7 @@ test_conversion(
 		>::type(
 			_source
 		);
-	
+
 	typedef sge::image::store<
 		Dest
 	> dest_store;

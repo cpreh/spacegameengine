@@ -40,26 +40,26 @@ sge::audio_null::player::listener()
 	return listener_;
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::audio_null::player::speed_of_sound() const
 {
 	return audio::scalar();
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::audio_null::player::doppler_factor() const
 {
 	return audio::scalar();
 }
 
-void 
+void
 sge::audio_null::player::speed_of_sound(
 	audio::scalar
 )
 {
 }
 
-void 
+void
 sge::audio_null::player::doppler_factor(
 	audio::scalar
 )
@@ -84,7 +84,7 @@ sge::audio_null::player::create_buffer(
 	audio::file &
 )
 {
-	return 
+	return
 		sge::audio::buffer_ptr(
 			fcppt::make_shared_ptr<
 				audio_null::buffer
@@ -92,13 +92,13 @@ sge::audio_null::player::create_buffer(
 		);
 }
 
-sge::audio::sound::positional_ptr const 
+sge::audio::sound::positional_ptr const
 sge::audio_null::player::create_positional_stream(
 	audio::file_ptr,
 	audio::sound::positional_parameters const &
 )
 {
-	return 
+	return
 		sge::audio::sound::positional_ptr(
 			fcppt::make_shared_ptr<
 				audio_null::positional
@@ -106,12 +106,12 @@ sge::audio_null::player::create_positional_stream(
 		);
 }
 
-sge::audio::sound::base_ptr const 
+sge::audio::sound::base_ptr const
 sge::audio_null::player::create_nonpositional_stream(
 	audio::file_ptr
 )
 {
-	return 
+	return
 		sge::audio::sound::positional_ptr(
 			fcppt::make_shared_ptr<
 				audio_null::positional

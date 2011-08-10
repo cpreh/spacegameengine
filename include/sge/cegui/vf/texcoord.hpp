@@ -30,12 +30,12 @@ namespace cegui
 {
 namespace vf
 {
-typedef 
+typedef
 sge::renderer::vf::texpos
 <
 	unit,
 	2
-> 
+>
 texcoord;
 }
 }

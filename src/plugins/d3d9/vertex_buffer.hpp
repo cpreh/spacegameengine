@@ -103,7 +103,7 @@ private:
 	template<
 		typename View
 	>
-	View const	
+	View const
 	do_lock(
 		size_type offset,
 		size_type range,
@@ -129,7 +129,7 @@ private:
 		IDirect3DVertexBuffer9,
 		fcppt::com_deleter
 	> d3d_scoped_vertex_buffer_ptr;
-	
+
 	d3d_scoped_vertex_buffer_ptr buffer_;
 
 	mutable renderer::raw_pointer lock_dest_;

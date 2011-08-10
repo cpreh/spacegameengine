@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE(
 	typedef sge::plugin::object<
 		sge::charconv::system
 	>::ptr_type plugin_ptr;
-	
+
 	plugin_ptr const plugin_(
 		plugin_manager_.plugin<
 			sge::charconv::system

@@ -136,7 +136,7 @@ sge::renderer::vector3 const
 cursor_position_to_vector3(
 	sge::input::cursor::position const &p)
 {
-	return 
+	return
 		fcppt::math::vector::construct(
 			fcppt::math::vector::structure_cast<sge::renderer::vector2>(
 				p),
@@ -174,8 +174,8 @@ public:
 
 	}
 private:
-	sge::line_drawer::object &line_drawer_;	
-	fcppt::signal::scoped_connection 
+	sge::line_drawer::object &line_drawer_;
+	fcppt::signal::scoped_connection
 		move_connection_,
 		click_connection_;
 
@@ -194,7 +194,7 @@ private:
 		// Then we can freely (!) change everything. When unlock is called
 		// (in the lock's destructor), all the geometry will be updated at
 		// once.
-		lock.value().back() = 
+		lock.value().back() =
 			sge::line_drawer::line(
 				lock.value().back().begin(),
 				cursor_position_to_vector3(
@@ -231,7 +231,7 @@ private:
 };
 }
 
-int 
+int
 main()
 try
 {
@@ -252,13 +252,13 @@ try
 				sge::viewport::fill_on_resize()))
 		(sge::systems::input(
 				sge::systems::input_helper_field(
-					sge::systems::input_helper::mouse_collector) 
-					| sge::systems::input_helper::cursor_demuxer 
+					sge::systems::input_helper::mouse_collector)
+					| sge::systems::input_helper::cursor_demuxer
 					| sge::systems::input_helper::keyboard_collector,
 				sge::systems::cursor_option_field::null()))
 		(sge::systems::parameterless::font));
 
-	bool running = 
+	bool running =
 		true;
 
 	fcppt::signal::scoped_connection const input_connection(

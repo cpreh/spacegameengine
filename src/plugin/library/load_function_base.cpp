@@ -34,7 +34,7 @@ sge::plugin::library::load_function_base(
 
 #if defined(FCPPT_WINDOWS_PLATFORM)
 	typedef library::function_map const *(*map_function)();
-	
+
 	return
 		reinterpret_cast<
 			map_function

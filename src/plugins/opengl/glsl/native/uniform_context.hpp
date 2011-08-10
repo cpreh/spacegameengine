@@ -62,7 +62,7 @@ public:
 
 	PFNGLUNIFORM1IVPROC
 	uniform_1iv() const;
-	
+
 	PFNGLUNIFORM2IVPROC
 	uniform_2iv() const;
 
@@ -86,7 +86,7 @@ public:
 
 	PFNGLUNIFORMMATRIX2FVPROC
 	uniform_matrix_2fv() const;
-	
+
 	PFNGLUNIFORMMATRIX3FVPROC
 	uniform_matrix_3fv() const;
 
@@ -116,13 +116,13 @@ public:
 	static opengl::context::id const static_id;
 private:
 	PFNGLGETUNIFORMLOCATIONPROC const get_uniform_location_;
-	
+
 	PFNGLGETUNIFORMIVPROC const get_uniform_iv_;
 
 	PFNGLGETUNIFORMFVPROC const get_uniform_fv_;
 
 	PFNGLUNIFORM1IVPROC const uniform_1iv_;
-	
+
 	PFNGLUNIFORM2IVPROC const uniform_2iv_;
 
 	PFNGLUNIFORM3IVPROC const uniform_3iv_;
@@ -138,7 +138,7 @@ private:
 	PFNGLUNIFORM3FVPROC const uniform_4fv_;
 
 	PFNGLUNIFORMMATRIX2FVPROC const uniform_matrix_2fv_;
-	
+
 	PFNGLUNIFORMMATRIX3FVPROC const uniform_matrix_3fv_;
 
 	PFNGLUNIFORMMATRIX4FVPROC const uniform_matrix_4fv_;

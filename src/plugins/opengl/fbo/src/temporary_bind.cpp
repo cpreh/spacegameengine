@@ -33,7 +33,7 @@ sge::opengl::fbo::temporary_bind::temporary_bind(
 		_context.last_buffer()
 	)
 {
-	_object.bind();	
+	_object.bind();
 }
 
 sge::opengl::fbo::temporary_bind::~temporary_bind()
@@ -42,7 +42,7 @@ sge::opengl::fbo::temporary_bind::~temporary_bind()
 		context_,
 		last_buffer_
 	);
-	
+
 	context_.last_buffer(
 		last_buffer_
 	);

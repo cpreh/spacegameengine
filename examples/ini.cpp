@@ -49,7 +49,7 @@ int main()
 	{
 		fcppt::io::cerr
 			<< FCPPT_TEXT("Parsing failed\n");
-	
+
 		return EXIT_FAILURE;
 	}
 

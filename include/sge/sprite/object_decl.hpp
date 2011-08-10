@@ -57,7 +57,7 @@ class object
 		boost::mpl::if_<
 			boost::mpl::contains<
 				typename Choices::elements,
-				intrusive::tag	
+				intrusive::tag
 			>,
 			intrusive::detail::object_base_hook,
 			boost::mpl::empty_base
@@ -131,7 +131,7 @@ public:
 	explicit object(
 		Parameters const &
 	);
-	
+
 	object(
 		object const &
 	);
@@ -241,7 +241,7 @@ public:
 		sge::texture::const_part_ptr
 	);
 
-	void 
+	void
 	rotation(
 		rotation_type
 	);

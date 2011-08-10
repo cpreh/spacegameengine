@@ -32,12 +32,12 @@ namespace vf
 {
 // I don't really know why they're using three-dimensional
 // coordinates, I just copy & pasted that part.
-typedef 
+typedef
 sge::renderer::vf::pos
 <
 	unit,
 	3
-> 
+>
 position;
 }
 }

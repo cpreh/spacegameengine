@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/loader_ptr.hpp>
 #include <sge/model/obj/symbol.hpp>
 
-namespace sge 
-{ 
+namespace sge
+{
 namespace model
 {
 namespace obj

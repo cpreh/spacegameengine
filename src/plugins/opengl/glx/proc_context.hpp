@@ -52,7 +52,7 @@ public:
 
 	static opengl::context::id const static_id;
 private:
-	bool const get_proc_address_supported_;	
+	bool const get_proc_address_supported_;
 };
 
 }

@@ -25,7 +25,7 @@ btVector3 const
 sge::projectile::vector2_to_bullet(
 	vector2 const &v)
 {
-	return 
+	return
 		btVector3(
 			v[0],
 			v[1],

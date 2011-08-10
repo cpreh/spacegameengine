@@ -58,7 +58,7 @@ sge::projectile::debug_drawer::active(
 		_active);
 }
 
-bool 
+bool
 sge::projectile::debug_drawer::active() const
 {
 	return impl_->active();

@@ -159,7 +159,7 @@ public:
 	init_image(
 		sge::systems::image_loader const &
 	);
-	
+
 	void
 	init_audio_loader(
 		sge::systems::audio_loader const &
@@ -280,7 +280,7 @@ sge::systems::instance::instance(
 			),
 			*it
 		);
-	
+
 	impl_->post_init();
 }
 
@@ -534,7 +534,7 @@ sge::systems::instance::impl::init_renderer(
 			),
 			*window_
 		);
-	
+
 	viewport_manager_.take(
 		fcppt::make_unique_ptr<
 			sge::viewport::manager
@@ -618,7 +618,7 @@ sge::systems::instance::impl::init_input(
 			>(
 				input_processor_
 			);
-	
+
 	if(
 		_param.input_helpers() & systems::input_helper::mouse_collector
 	)
@@ -628,7 +628,7 @@ sge::systems::instance::impl::init_input(
 			>(
 				input_processor_
 			);
-	
+
 	if(
 		_param.cursor_options()
 	)
@@ -708,7 +708,7 @@ sge::systems::instance::impl::init_audio_player(
 		)
 		{
 			audio_player_plugin_ = plugin;
-			
+
 			audio_player_ = audio_player_plugin_->get()();
 
 			return;

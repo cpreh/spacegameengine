@@ -70,7 +70,7 @@ wrap(
 	for (sge::font::text::string::const_iterator i = s.begin(); i != s.end();)
 	{
 
-		sge::font::text::part const tp = 
+		sge::font::text::part const tp =
 			sge::font::text::line_width(
 				metrics,
 				i,
@@ -83,7 +83,7 @@ wrap(
 				i,
 				tp.end()));
 
-		i = 
+		i =
 			tp.next_begin();
 	}
 
@@ -178,8 +178,8 @@ sge::console::gfx::render()
 		background_
 	);
 
-	
-	output_line_sequence::size_type const line_count = 
+
+	output_line_sequence::size_type const line_count =
 		background_.h() < font::text::height(font_metrics_)
 		?
 			0
@@ -188,21 +188,21 @@ sge::console::gfx::render()
 				background_.h()/
 				font::text::height(
 					font_metrics_));
-	
-	font::unit current_y = 
+
+	font::unit current_y =
 		static_cast<font::unit>(
 			background_.y()+background_.h()-2*font::text::height(font_metrics_));
-			
+
 	for(
-		output_line_sequence::const_iterator 
-			i = 
+		output_line_sequence::const_iterator
+			i =
 				output_lines_.point(),
-			end = 
+			end =
 				next_or_last(
 					output_lines_.point(),
 					output_lines_.end(),
-					line_count); 
-		i != end; 
+					line_count);
+		i != end;
 		++i)
 	{
 		// draw history lines
@@ -215,17 +215,17 @@ sge::console::gfx::render()
 					background_.x(),
 					current_y),
 				font::dim(
-					background_.w(), 
+					background_.w(),
 					background_.h() - font::text::height(font_metrics_))),
 			font::text::align_h::left,
 			font::text::align_v::top,
 			font::text::flags::none);
-		current_y -= 
+		current_y -=
 			font::text::height(
 				font_metrics_);
 	}
 
-	font::text::string const il = 
+	font::text::string const il =
 		input_line_.edited(
 			// This used to be "bool cursor_active" which was controlled by
 			// a timer, but due to the unneccessary timer depenceny, this
@@ -255,7 +255,7 @@ sge::console::gfx::render()
 bool
 sge::console::gfx::active() const
 {
-	return 
+	return
 		active_;
 }
 
@@ -264,7 +264,7 @@ sge::console::gfx::active(
 	bool const _active
 )
 {
-	active_ = 
+	active_ =
 		_active;
 }
 
@@ -279,7 +279,7 @@ sge::console::gfx::print(
 			_s,
 			fcppt::math::dim::structure_cast<font::dim>(
 				background_.size())));
-	
+
 	for(
 		line_sequence::const_iterator it(
 			sequence.begin()
@@ -294,14 +294,14 @@ sge::console::gfx::print(
 sge::console::object &
 sge::console::gfx::object()
 {
-	return 
+	return
 		object_;
 }
 
 sge::console::object const &
 sge::console::gfx::object() const
 {
-	return 
+	return
 		object_;
 }
 
@@ -443,7 +443,7 @@ sge::console::gfx::key_action(
 			input_history_.push_front(
 				input_line_.string());
 
-			current_input_ = 
+			current_input_ =
 				input_history_.begin();
 
 			// clear input line

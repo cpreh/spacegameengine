@@ -36,12 +36,12 @@ sge::console::cursor::edited(
 	bool const _active
 ) const
 {
-	font::text::string l = 
+	font::text::string l =
 		line_;
 	if (_active)
-		l[pos_] = 
+		l[pos_] =
 			SGE_FONT_TEXT_LIT('_');
-	return 
+	return
 		l;
 }
 
@@ -49,7 +49,7 @@ sge::font::text::string const
 sge::console::cursor::string() const
 {
 	// skip last space
-	return 
+	return
 		line_.substr(
 			static_cast<size_type>(
 				0),
@@ -62,9 +62,9 @@ sge::console::cursor::string(
 	font::text::string const &_line
 )
 {
-	line_ = 
+	line_ =
 		_line + SGE_FONT_TEXT_LIT(' ');
-	pos_ = 
+	pos_ =
 		static_cast<size_type>(
 			line_.length()-1);
 }
@@ -75,15 +75,15 @@ sge::console::cursor::erase_word()
 	if (line_.length() == static_cast<size_type>(1) || pos_ == static_cast<size_type>(0))
 		return;
 
-	size_type 
-		s = 
+	size_type
+		s =
 			line_.rfind(
 				SGE_FONT_TEXT_LIT(' '),
 				static_cast<size_type>(
 					pos_-1));
 
 	if (s == font::text::string::npos)
-		s = 
+		s =
 			static_cast<size_type>(
 				0);
 
@@ -91,7 +91,7 @@ sge::console::cursor::erase_word()
 		s,
 		static_cast<size_type>(
 			pos_-s));
-	pos_ = 
+	pos_ =
 		s;
 }
 
@@ -112,7 +112,7 @@ sge::console::cursor::left()
 {
 	if (pos_ == static_cast<size_type>(0))
 		return;
-	pos_ = 
+	pos_ =
 		static_cast<size_type>(
 			pos_-1);
 }
@@ -128,7 +128,7 @@ sge::console::cursor::right()
 void
 sge::console::cursor::to_start()
 {
-	pos_ = 
+	pos_ =
 		static_cast<size_type>(
 			0);
 }
@@ -136,7 +136,7 @@ sge::console::cursor::to_start()
 void
 sge::console::cursor::to_end()
 {
-	pos_ = 
+	pos_ =
 		static_cast<size_type>(
 			line_.length()-1);
 }
@@ -144,8 +144,8 @@ sge::console::cursor::to_end()
 bool
 sge::console::cursor::empty() const
 {
-	return 
-		line_.length() == 
+	return
+		line_.length() ==
 			static_cast<size_type>(
 				1);
 }
@@ -166,8 +166,8 @@ sge::console::cursor::insert(
 bool
 sge::console::cursor::at_start() const
 {
-	return 
-		pos_ == 
+	return
+		pos_ ==
 			static_cast<size_type>(
 				0);
 }

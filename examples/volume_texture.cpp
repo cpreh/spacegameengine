@@ -185,7 +185,7 @@ coord_to_texcoord(
 			(_value + 1.f) / 2.f
 		);
 }
-	
+
 void
 fill_geometry(
 	sge::renderer::vertex_buffer &_vertex_buffer
@@ -505,7 +505,7 @@ create_texture(
 						)
 					)
 				);
-	
+
 	return
 		sge::renderer::texture::create_volume_from_view(
 			_device,
@@ -524,7 +524,7 @@ create_texture(
 
 }
 
-int 
+int
 main()
 try
 {
@@ -653,7 +653,7 @@ try
 	typedef sge::timer::basic<
 		sge::timer::clocks::standard
 	> timer;
-	
+
 	timer frame_timer(
 		timer::parameters(
 			fcppt::chrono::seconds(

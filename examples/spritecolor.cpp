@@ -185,7 +185,7 @@ try
 		sge::renderer::scoped_block const block_(
 			sys.renderer()
 		);
-		
+
 		sge::sprite::render_one(
 			ss,
 			spr

@@ -55,7 +55,7 @@ public:
 				point_component_it != point_it->end();
 				++point_component_it
 			)
-				result ^= 
+				result ^=
 					boost::hash_value(
 						*point_component_it
 					)

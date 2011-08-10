@@ -125,7 +125,7 @@ typename boost::enable_if<
 			typename Choices::elements,
 			sprite::with_dim
 		>,
-		boost::mpl::not_<	
+		boost::mpl::not_<
 			boost::mpl::or_<
 				boost::mpl::contains<
 					typename Choices::elements,

@@ -67,7 +67,7 @@ sge::opengl::glsl::arb::shader_context::create_shader() const
 {
 	return create_shader_;
 }
-	
+
 sge::opengl::glsl::arb::shader_context::gl_delete_shader
 sge::opengl::glsl::arb::shader_context::delete_shader() const
 {

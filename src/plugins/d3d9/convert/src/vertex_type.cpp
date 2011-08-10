@@ -134,7 +134,7 @@ visitor::operator()(
 			FCPPT_TEXT(""),
 			FCPPT_TEXT("")
 		);
-	
+
 	return D3DDECLTYPE_D3DCOLOR;
 }
 

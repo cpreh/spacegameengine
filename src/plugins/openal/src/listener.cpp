@@ -54,7 +54,7 @@ sge::openal::listener::listener()
 {
 }
 
-void 
+void
 sge::openal::listener::linear_velocity(
 	audio::vector const &n)
 {
@@ -62,8 +62,8 @@ sge::openal::listener::linear_velocity(
 	FCPPT_LOG_DEBUG(
 		log(),
 		fcppt::log::_ << FCPPT_TEXT("setting listener velocity to ") << n);*/
-	
-	linear_velocity_ = 
+
+	linear_velocity_ =
 		n;
 
 	// TODO: use sge::fcppt::math::vector!
@@ -73,19 +73,19 @@ sge::openal::listener::linear_velocity(
 			static_cast<ALfloat>(n.y()),
 			static_cast<ALfloat>(n.z())
 		};
-		
+
 	listener_fv(
 		AL_VELOCITY,
 		vec);
 }
 
-sge::audio::vector const 
+sge::audio::vector const
 sge::openal::listener::linear_velocity() const
 {
 	return linear_velocity_;
 }
 
-void 
+void
 sge::openal::listener::position(
 	audio::vector const &n)
 {
@@ -94,7 +94,7 @@ sge::openal::listener::position(
 		log(),
 		fcppt::log::_ << FCPPT_TEXT("setting listener position to ") << n);
 */
-	
+
 	position_ = n;
 	ALfloat const vec[3] =
 		{
@@ -108,13 +108,13 @@ sge::openal::listener::position(
 	);
 }
 
-sge::audio::vector const 
+sge::audio::vector const
 sge::openal::listener::position() const
 {
 	return position_;
 }
 
-void 
+void
 sge::openal::listener::direction(
 	audio::angle const &n)
 {
@@ -135,7 +135,7 @@ sge::openal::listener::direction(
 }
 
 
-sge::audio::angle const 
+sge::audio::angle const
 sge::openal::listener::direction() const
 {
 	return angle_;

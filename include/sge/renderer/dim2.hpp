@@ -28,7 +28,7 @@ namespace sge
 namespace renderer
 {
 
-typedef 
+typedef
 renderer::basic_dim
 <
 	2

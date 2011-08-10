@@ -176,7 +176,7 @@ sge::sprite::intrusive::system<Choices>::render_list(
 		_sprites.empty()
 	)
 		return;
-	
+
 	// TODO: better track the sprites size
 	renderer::size_type const sprite_count(
 		_sprites.size()

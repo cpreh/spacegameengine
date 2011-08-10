@@ -67,6 +67,6 @@ SET(
 )
 
 ADD_SGE_BASE_LIBRARY(
-	audio	
+	audio
 	"sgeplugin"
 )

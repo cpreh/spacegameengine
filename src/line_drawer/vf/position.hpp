@@ -30,12 +30,12 @@ namespace line_drawer
 {
 namespace vf
 {
-typedef 
+typedef
 sge::renderer::vf::pos
 <
 	sge::renderer::scalar,
 	3
-> 
+>
 position;
 }
 }

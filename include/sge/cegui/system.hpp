@@ -80,7 +80,7 @@ public:
 	SGE_CEGUI_SYMBOL CEGUI::WindowManager const &
 	window_manager() const;
 
-	SGE_CEGUI_SYMBOL 
+	SGE_CEGUI_SYMBOL
 	~system();
 private:
 	// To keep the user interface clean, we permit access to the image

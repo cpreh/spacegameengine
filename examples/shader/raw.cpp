@@ -517,7 +517,7 @@ try
 			typedef std::vector<
 				sprite_object
 			> sprite_container;
-			
+
 			sprite_container sprites;
 
 			sprites.push_back(bg);

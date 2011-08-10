@@ -63,9 +63,9 @@ sge::timer::parameters<Clock> &
 sge::timer::parameters<Clock>::active(
 	bool const _active)
 {
-	this->active_ = 
+	this->active_ =
 		_active;
-	return 
+	return
 		*this;
 }
 
@@ -74,14 +74,14 @@ sge::timer::parameters<Clock> &
 sge::timer::parameters<Clock>::expired(
 	bool const _expired)
 {
-	this->expired_ = 
+	this->expired_ =
 		_expired;
-	return 
+	return
 		*this;
 }
 
 template<typename Clock>
-typename 
+typename
 sge::timer::parameters<Clock>::duration const
 sge::timer::parameters<Clock>::interval() const
 {
@@ -100,7 +100,7 @@ template<typename Clock>
 bool
 sge::timer::parameters<Clock>::active() const
 {
-	return 
+	return
 		this->active_;
 }
 

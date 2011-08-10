@@ -44,7 +44,7 @@ public:
 		sge::input::cursor::object &);
 private:
 	syringe &syringe_;
-	fcppt::signal::scoped_connection 
+	fcppt::signal::scoped_connection
 		button_connection_,
 		axis_connection_;
 

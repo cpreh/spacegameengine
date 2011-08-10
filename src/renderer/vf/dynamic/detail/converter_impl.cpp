@@ -106,7 +106,7 @@ convert_if_color(
 			sge::renderer::vf::dynamic::color
 		>().color_format()
 	);
-		
+
 	fcppt::container::ptr::push_back_unique_ptr(
 		_converters,
 		fcppt::make_unique_ptr<
@@ -132,7 +132,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
 :
 	element_converters_()
 {
-	
+
 	renderer::vf::dynamic::ordered_element_list const &elements(
 		_part.elements()
 	);

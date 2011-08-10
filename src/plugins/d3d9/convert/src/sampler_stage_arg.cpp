@@ -46,7 +46,7 @@ sge::d3d9::convert::sampler_stage_arg(
 	case renderer::sampler_stage_arg::alpha2:
 		return D3DTSS_ALPHAARG2;
 	}
-	
+
 	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid sampler_stage_arg!")
 	);

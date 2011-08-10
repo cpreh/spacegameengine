@@ -117,10 +117,10 @@ sge::libpng::loader::load_raw(
 			_range.begin()),
 		reinterpret_cast<boost::iostreams::array_source::char_type const *>(
 			_range.end()));
-	
+
 	try
 	{
-		return 
+		return
 			fcppt::make_shared_ptr<
 				file
 			>(

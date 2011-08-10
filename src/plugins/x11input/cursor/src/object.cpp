@@ -186,7 +186,7 @@ sge::x11input::cursor::object::on_motion(
 	x11input::device::window_event const &_event
 )
 {
-	position_ = 
+	position_ =
 		input::cursor::position(
 			static_cast<
 				input::cursor::position_unit
@@ -199,7 +199,7 @@ sge::x11input::cursor::object::on_motion(
 				_event.get().event_y
 			)
 		);
-	
+
 	move_signal_(
 		input::cursor::move_event(
 			position_

@@ -149,7 +149,7 @@ private:
 	dinput_scoped_ptr const dinput_;
 
 	sge::window::instance_ptr const window_;
-	
+
 	awl::backends::windows::window::instance &windows_window_;
 
 	awl::backends::windows::window::event::processor &event_processor_;

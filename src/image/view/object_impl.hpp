@@ -60,7 +60,7 @@ sge::image::view::object<ElementsWrapper>::operator=(
 		this != &_other
 	)
 		variant_ = _other.variant_;
-	
+
 	return *this;
 }
 

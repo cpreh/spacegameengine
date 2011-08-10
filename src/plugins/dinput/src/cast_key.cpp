@@ -25,7 +25,7 @@ sge::dinput::cast_key(
 	LONG const _key
 )
 {
-	return 
+	return
 		static_cast<
 			DWORD
 		>(

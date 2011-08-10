@@ -36,7 +36,7 @@ sge::renderer::index::dynamic::basic_view<IsConst>::basic_view(
 	size_(_size),
 	format_(_format)
 {}
-	
+
 template<
 	bool IsConst
 >

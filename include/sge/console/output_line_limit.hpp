@@ -27,7 +27,7 @@ namespace sge
 {
 namespace console
 {
-typedef 
+typedef
 output_line_sequence::size_type
 output_line_limit;
 }

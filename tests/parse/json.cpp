@@ -39,7 +39,7 @@ print_exception(
 	fcppt::io::cout
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
-	
+
 	return true;
 }
 

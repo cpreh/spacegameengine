@@ -57,7 +57,7 @@ public:
 private:
 	XIDeviceInfo *const devices_;
 
-	int size_;	
+	int size_;
 };
 
 }

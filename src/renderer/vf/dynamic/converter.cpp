@@ -60,7 +60,7 @@ sge::renderer::vf::dynamic::converter::lock(
 		renderer::lock_flags::read(
 			_locked_part.lock_flags()
 		)
-		&& converter_ 
+		&& converter_
 	)
 		converter_->convert_lock(
 			_locked_part.data(),
@@ -94,7 +94,7 @@ sge::renderer::vf::dynamic::converter::unlock()
 				accepted_formats_
 			)
 		);
-	
+
 	if(
 		renderer::lock_flags::write(
 			locked_part_->lock_flags()
@@ -106,7 +106,7 @@ sge::renderer::vf::dynamic::converter::unlock()
 				*locked_part_
 			)
 		);
-			
+
 		converter_->convert_unlock(
 			locked_part_->data(),
 			locked_part_->pos(),
@@ -115,7 +115,7 @@ sge::renderer::vf::dynamic::converter::unlock()
 
 		written_intervals_.insert(
 			current_unlock
-		);	
+		);
 	}
 
 	locked_part_.reset();

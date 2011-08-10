@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-fcppt::string 
+fcppt::string
 ogg_error(
 	int const code)
 {
@@ -63,7 +63,7 @@ ogg_error(
 
 sge::vorbis::file::file(
 	stream_ptr _stdstream,
-	sge::audio::optional_path const &_file_name) 
+	sge::audio::optional_path const &_file_name)
 :
 	file_name_(
 		_file_name),
@@ -87,7 +87,7 @@ sge::vorbis::file::file(
 			ogg_error(
 				error));
 
-	vorbis_info * const info = 
+	vorbis_info * const info =
 		ov_info(
 			&ogg_file_,
 			-1);
@@ -97,10 +97,10 @@ sge::vorbis::file::file(
 			file_name_,
 			FCPPT_TEXT("couldn't read file info from ogg vorbis file"));
 
-	channels_ = 
+	channels_ =
 		fcppt::sn_cast<channel_type>(
 			info->channels);
-	sample_rate_ = 
+	sample_rate_ =
 		fcppt::sn_cast<sample_count>(
 			info->rate);
 
@@ -109,7 +109,7 @@ sge::vorbis::file::file(
 }
 
 
-sge::audio::sample_count 
+sge::audio::sample_count
 sge::vorbis::file::read(
 	sample_count const samples,
 	sample_container &data)
@@ -126,7 +126,7 @@ sge::vorbis::file::read(
 	}
 	*/
 
-	sample_count const bytes_to_read = 
+	sample_count const bytes_to_read =
 		samples*
 		channels()*
 		bytes_per_sample();
@@ -135,19 +135,19 @@ sge::vorbis::file::read(
 		fcppt::sn_cast<sample_container::size_type>(
 			bytes_to_read));
 
-	sample_count bytes_read = 
+	sample_count bytes_read =
 		0;
 
 	// When reading from the file, you might encounter a bad fragment
 	// which is indicated by OV_HOLE. According to a mailing list post,
 	// we can just ignore holes.
-	bool hit_a_hole = 
+	bool hit_a_hole =
 		true;
 	while(hit_a_hole)
 	{
 		int bitstream;
 
-		long result = 
+		long result =
 			ov_read(
 				&ogg_file_,
 				reinterpret_cast<char *>(
@@ -166,13 +166,13 @@ sge::vorbis::file::read(
 				hit_a_hole = true;
 				FCPPT_LOG_WARNING(
 					log::global(),
-					fcppt::log::_ 
-						<< FCPPT_TEXT("Encountered corrupt vorbis data") 
-						<< 
-							(file_name_ 
-							? 
-								(FCPPT_TEXT(" in file ")+(fcppt::filesystem::path_to_string(*file_name_))) 
-							: 
+					fcppt::log::_
+						<< FCPPT_TEXT("Encountered corrupt vorbis data")
+						<<
+							(file_name_
+							?
+								(FCPPT_TEXT(" in file ")+(fcppt::filesystem::path_to_string(*file_name_)))
+							:
 								fcppt::string()));
 			case OV_EBADLINK:
 				throw audio::file_exception(
@@ -193,7 +193,7 @@ sge::vorbis::file::read(
 				fcppt::log::_ << FCPPT_TEXT("vorbis: read until the end"));
 		}
 
-		bytes_read = 
+		bytes_read =
 			static_cast<sample_count>(
 				bytes_read + static_cast<unsigned long>(result));
 	}
@@ -212,7 +212,7 @@ sge::vorbis::file::read(
 	return bytes_read/bytes_per_sample();
 }
 
-sge::audio::sample_count 
+sge::audio::sample_count
 sge::vorbis::file::read_all(
 	sample_container &data)
 {
@@ -258,55 +258,55 @@ void sge::vorbis::file::reset()
 
 sge::vorbis::file::~file()
 {
-	int result = 
+	int result =
 		ov_clear(
 			&ogg_file_);
 	FCPPT_ASSERT(
 		!result);
 }
 
-std::size_t 
+std::size_t
 sge::vorbis::file::ogg_read_static(
 	void * const ptr,
 	std::size_t const size,
 	std::size_t const nmemb,
 	void * const datasource)
 {
-	return 
+	return
 		static_cast<sge::vorbis::file*>(datasource)->ogg_read(
 			ptr,
 			size,
 			nmemb);
 }
 
-int 
+int
 sge::vorbis::file::ogg_seek_static(
 	void * const datasource,
 	ogg_int64_t const offset,
 	int const whence)
 {
-	return 
+	return
 		static_cast<sge::vorbis::file*>(datasource)->ogg_seek(
 			offset,
 			whence);
 }
 
-int 
+int
 sge::vorbis::file::ogg_close_static(void *datasource)
 {
-	return 
+	return
 		static_cast<sge::vorbis::file*>(
 			datasource)->ogg_close();
 }
 
-long 
+long
 sge::vorbis::file::ogg_tell_static(void *datasource)
 {
-	return 
+	return
 		static_cast<sge::vorbis::file*>(datasource)->ogg_tell();
 }
 
-std::size_t 
+std::size_t
 sge::vorbis::file::ogg_read(
 	void * const ptr,
 	std::size_t const size,  // size of a "package"
@@ -323,11 +323,11 @@ sge::vorbis::file::ogg_read(
 		throw audio::file_exception(
 			file_name_,
 			FCPPT_TEXT("vorbis: stream error"));
-	return 
+	return
 		static_cast<std::size_t>(stdstream_->gcount()/size);
 }
 
-int 
+int
 sge::vorbis::file::ogg_seek(
 	ogg_int64_t const offset,
 	int whence)
@@ -376,7 +376,7 @@ sge::vorbis::file::ogg_seek(
 	return 0;
 }
 
-int 
+int
 sge::vorbis::file::ogg_close()
 {
 	// Kind of a hack here, sorry.
@@ -387,10 +387,10 @@ sge::vorbis::file::ogg_close()
 	return 0;
 }
 
-long 
+long
 sge::vorbis::file::ogg_tell()
 {
-	return 
+	return
 		// Doesn't work (investigate?)
 		//fcppt::sn_cast<long>(
 		static_cast<long>(

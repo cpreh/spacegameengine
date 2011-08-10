@@ -44,7 +44,7 @@ public:
 	pbo_context();
 
 	~pbo_context();
-	
+
 	vbo_base &
 	impl();
 

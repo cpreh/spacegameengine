@@ -41,8 +41,8 @@ namespace sge
 {
 namespace openal
 {
-class player 
-: 
+class player
+:
 	public audio::player
 {
 	FCPPT_NONCOPYABLE(
@@ -57,24 +57,24 @@ public:
 	audio::listener &
 	listener();
 
-	audio::scalar 
+	audio::scalar
 	speed_of_sound() const;
 
-	audio::scalar 
+	audio::scalar
 	doppler_factor() const;
 
-	void 
+	void
 	speed_of_sound(
 		audio::scalar);
 
-	void 
+	void
 	doppler_factor(
 		audio::scalar);
 
-	audio::scalar 
+	audio::scalar
 	gain() const;
 
-	void 
+	void
 	gain(
 		audio::scalar);
 
@@ -82,15 +82,15 @@ public:
 	create_buffer(
 		audio::file &);
 
-	audio::sound::positional_ptr const 
+	audio::sound::positional_ptr const
 	create_positional_stream(
 		audio::file_ptr,
 		audio::sound::positional_parameters const &);
 
-	audio::sound::base_ptr const 
+	audio::sound::base_ptr const
 	create_nonpositional_stream(
 		audio::file_ptr);
-	
+
 	audio::player_capabilities_field const
 	capabilities() const;
 private:

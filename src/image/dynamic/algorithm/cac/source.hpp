@@ -37,7 +37,7 @@ namespace cac
 {
 
 template<
-	typename ImageFormat 
+	typename ImageFormat
 >
 struct source
 :

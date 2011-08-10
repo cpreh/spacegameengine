@@ -55,7 +55,7 @@ use(
 			>(
 				*ptr
 			);
-	
+
 	return
 		static_cast<
 			Type &

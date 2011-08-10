@@ -136,9 +136,9 @@ sge::cegui::system::system(
 			CEGUI::MouseCursor::getSingleton().hide();
 		break;
 	}
-	
+
 	if(_load_context.default_font())
-		CEGUI::System::getSingleton().setDefaultFont(	
+		CEGUI::System::getSingleton().setDefaultFont(
 			&CEGUI::FontManager::getSingleton().createFreeTypeFont(
 				"",
 				_load_context.default_font()->font_size(),
@@ -184,12 +184,12 @@ sge::cegui::system::~system()
 void
 sge::cegui::system::viewport_change()
 {
-	sge::renderer::pixel_rect new_area_fcppt = 
+	sge::renderer::pixel_rect new_area_fcppt =
 		renderer_.impl().onscreen_target().viewport().get();
 	// Calling notifyDisplaySizeChanged with a null rect causes a strange problem
 	if(!new_area_fcppt.content() || old_viewport_ == new_area_fcppt)
 		return;
-	CEGUI::Rect const new_area_cegui = 
+	CEGUI::Rect const new_area_cegui =
 		structure_cast(
 			new_area_fcppt);
 	CEGUI::System::getSingleton().notifyDisplaySizeChanged(

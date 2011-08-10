@@ -50,7 +50,7 @@ sge::projectile::ghost::object::object(
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": Created a new ghost, position ")
 			<< p.position().get()
@@ -58,7 +58,7 @@ sge::projectile::ghost::object::object(
 			<< p.size().get());
 
 	ghost_object_->setCollisionFlags(
-		ghost_object_->getCollisionFlags() | 
+		ghost_object_->getCollisionFlags() |
 		btCollisionObject::CF_NO_CONTACT_RESPONSE);
 
 	ghost_object_->setUserPointer(
@@ -74,7 +74,7 @@ sge::projectile::ghost::object::object(
 sge::projectile::vector2 const
 sge::projectile::ghost::object::position() const
 {
-	return 
+	return
 		bullet_to_vector2(
 			ghost_object_->getWorldTransform().getOrigin());
 }
@@ -94,7 +94,7 @@ fcppt::signal::auto_connection
 sge::projectile::ghost::object::body_enter(
 	sge::projectile::ghost::body_enter const &f)
 {
-	return 
+	return
 		body_enter_.connect(
 			f);
 }
@@ -103,7 +103,7 @@ fcppt::signal::auto_connection
 sge::projectile::ghost::object::body_exit(
 	sge::projectile::ghost::body_exit const &f)
 {
-	return 
+	return
 		body_exit_.connect(
 			f);
 }

@@ -41,21 +41,21 @@ class SGE_CLASS_SYMBOL sub_out_of_range
 	public sge::image::exception
 {
 public:
-	SGE_IMAGE_INSTANTIATE_SYMBOL 
+	SGE_IMAGE_INSTANTIATE_SYMBOL
 	sub_out_of_range(
 		Box const &outer,
 		Box const &inner
 	);
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL 
+	SGE_IMAGE_INSTANTIATE_SYMBOL
 	Box const &
 	outer() const;
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL 
+	SGE_IMAGE_INSTANTIATE_SYMBOL
 	Box const &
 	inner() const;
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL 
+	SGE_IMAGE_INSTANTIATE_SYMBOL
 	virtual ~sub_out_of_range() throw();
 private:
 	Box

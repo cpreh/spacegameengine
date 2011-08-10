@@ -76,7 +76,7 @@ area(
 	);
 
 	for(
-		size_type 
+		size_type
 			p1(
 				static_cast<
 					size_type
@@ -90,11 +90,11 @@ area(
 				>(
 					0
 				)
-			); 
-			p2 < _contour.size(); 
+			);
+			p2 < _contour.size();
 			p1 = p2++
 	)
-		result = 
+		result =
 			static_cast<
 				scalar
 			>(
@@ -129,7 +129,7 @@ area(
 				)
 			);
 
-	return 
+	return
 		static_cast<
 			scalar
 		>(

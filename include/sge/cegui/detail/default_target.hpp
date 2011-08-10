@@ -55,34 +55,34 @@ public:
 
 	~default_target();
 
-	void 
+	void
 	draw(
 		CEGUI::GeometryBuffer const &);
 
-	void 
+	void
 	draw(
 		CEGUI::RenderQueue const &);
 
-	void 
+	void
 	setArea(
 		CEGUI::Rect const &);
 
 	CEGUI::Rect const &
 	getArea() const;
 
-	bool 
+	bool
 	isImageryCache() const;
 
-	void 
+	void
 	activate();
 
-	void 
+	void
 	deactivate();
 
-	void 
+	void
 	unprojectPoint(
 		CEGUI::GeometryBuffer const &,
-		CEGUI::Vector2 const & p_in, 
+		CEGUI::Vector2 const & p_in,
 		CEGUI::Vector2& p_out) const;
 
 	sge::renderer::matrix4 const

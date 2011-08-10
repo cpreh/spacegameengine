@@ -151,23 +151,23 @@ namespace
 namespace vf
 {
 // As you can see, we're using OpenGL-2 and below
-typedef 
+typedef
 sge::renderer::vf::pos
 <
 	sge::renderer::scalar,
 	3
-> 
+>
 position;
 
 // As you can see, we're using OpenGL-2 and below
-typedef 
+typedef
 sge::renderer::vf::normal
 <
 	sge::renderer::scalar
-> 
+>
 normal;
 
-typedef 
+typedef
 sge::renderer::vf::part
 <
 	boost::mpl::vector2
@@ -175,14 +175,14 @@ sge::renderer::vf::part
 		position,
 		normal
 	>
-> 
+>
 format_part;
 
-typedef 
+typedef
 sge::renderer::vf::format
 <
 	boost::mpl::vector1<format_part>
-> 
+>
 format;
 
 typedef
@@ -261,20 +261,20 @@ compiled_model::compiled_model(
 		vf::format_part_view::iterator current_vertex(
 			current_vertex_view.begin());
 
-		sge::model::md3::vertex_sequence const model_vertices = 
+		sge::model::md3::vertex_sequence const model_vertices =
 			_model.vertices(
 				_model.part_names().front());
 
 		// Here, we assume that the model has normals (notice the operator*)
-		sge::model::md3::normal_sequence const model_normals = 
+		sge::model::md3::normal_sequence const model_normals =
 			*_model.normals(
 				_model.part_names().front());
 
-		sge::model::md3::normal_sequence::const_iterator current_model_normal = 
+		sge::model::md3::normal_sequence::const_iterator current_model_normal =
 			model_normals.begin();
-		
+
 		for(
-			sge::model::md3::vertex_sequence::const_iterator current_model_vertex = 
+			sge::model::md3::vertex_sequence::const_iterator current_model_vertex =
 				model_vertices.begin();
 			current_model_vertex != model_vertices.end();
 			++current_model_vertex)
@@ -304,13 +304,13 @@ compiled_model::compiled_model(
 	sge::renderer::index::iterator<sge::renderer::index::format_16> current_index(
 		indices.data());
 
-	sge::model::md3::index_sequence const model_indices = 
+	sge::model::md3::index_sequence const model_indices =
 		_model.indices(
 			_model.part_names().front());
 
 	// Fill the buffer. _Again_, the format type appears.
 	for(
-		sge::model::md3::index_sequence::const_iterator current_model_index = 
+		sge::model::md3::index_sequence::const_iterator current_model_index =
 			model_indices.begin();
 		current_model_index != model_indices.end();
 		++current_model_index)
@@ -413,7 +413,7 @@ class random_model_collection
 FCPPT_NONCOPYABLE(
 	random_model_collection);
 public:
-	explicit	
+	explicit
 	random_model_collection(
 		sge::renderer::device &,
 		compiled_model const &);
@@ -444,7 +444,7 @@ random_model_collection::random_model_collection(
 	models_()
 {
 	// Create objects in the cube with side length 10
-	sge::renderer::scalar const position_range = 
+	sge::renderer::scalar const position_range =
 		static_cast<sge::renderer::scalar>(
 			10);
 
@@ -461,7 +461,7 @@ random_model_collection::random_model_collection(
 			0,
 			fcppt::math::twopi<sge::renderer::scalar>()));
 
-	model_sequence::size_type const number_of_models = 
+	model_sequence::size_type const number_of_models =
 		100;
 
 	for(model_sequence::size_type i = 0; i < number_of_models; ++i)
@@ -480,7 +480,7 @@ random_model_collection::random_model_collection(
 				fcppt::math::matrix::rotation_y(
 					angle_rng()) *
 				fcppt::math::matrix::rotation_z(
-					angle_rng()) * 
+					angle_rng()) *
 				fcppt::math::matrix::translation(
 					sge::renderer::vector3(
 						position_rng(),
@@ -499,9 +499,9 @@ random_model_collection::render(
 		backend_.vb());
 
 	for(
-		model_sequence::iterator current_model = 
-			models_.begin(); 
-		current_model != models_.end(); 
+		model_sequence::iterator current_model =
+			models_.begin();
+		current_model != models_.end();
 		++current_model)
 	{
 		// Set the world transformation and render
@@ -540,7 +540,7 @@ show_usage(
 // forward vector) with two eyes, focusing an object at distance
 // 'f'. The distance between the eyes is 'd'. So we have:
 //          x
-//   |     / \     |    
+//   |     / \     |
 //   |    /   \    |
 //   |   /  ^  \   |  f
 //   |  /   |   \ a|
@@ -552,7 +552,7 @@ show_usage(
 //
 // Here, 'y' and 'z' are the two eyes, focusing the object at location 'x'.
 // Now, rendering is just:
-// 
+//
 // - Translate d/2 along the "right" vector
 // - Rotate the coordinate system around the "up" vector with angle 'a'
 //
@@ -569,7 +569,7 @@ move_eye_position(
 		camera.gizmo().position() + eye_distance * camera.gizmo().right());
 
 	sge::renderer::scalar const
-		angle = 
+		angle =
 			std::atan(
 				eye_distance/focal_length),
 		sinx = std::sin(angle),
@@ -604,7 +604,7 @@ adapt_perspective(
 }
 }
 
-int 
+int
 main(
 	int argc,
 	char *argv[])
@@ -618,11 +618,11 @@ try
 		return EXIT_FAILURE;
 	}
 
-	sge::renderer::scalar 
-		eye_distance = 
+	sge::renderer::scalar
+		eye_distance =
 			static_cast<sge::renderer::scalar>(
 				0.01),
-		focal_length = 
+		focal_length =
 			static_cast<sge::renderer::scalar>(
 				1);
 
@@ -637,7 +637,7 @@ try
 
 		try
 		{
-			eye_distance = 
+			eye_distance =
 				fcppt::lexical_cast<sge::renderer::scalar>(
 					std::string(
 						argv[1]));
@@ -654,7 +654,7 @@ try
 		{
 			try
 			{
-				focal_length = 
+				focal_length =
 					fcppt::lexical_cast<sge::renderer::scalar>(
 						std::string(
 							argv[2]));
@@ -692,7 +692,7 @@ try
 				sge::systems::cursor_option_field(
 					sge::systems::cursor_option::exclusive))));
 
-	bool running = 
+	bool running =
 		true;
 
 	fcppt::signal::scoped_connection const cb(
@@ -712,7 +712,7 @@ try
 			sys.mouse_collector()));
 
 	// Adapt the camera to the viewport
-	fcppt::signal::scoped_connection const 
+	fcppt::signal::scoped_connection const
 		viewport_connection(
 			sys.viewport_manager().manage_callback(
 				std::tr1::bind(
@@ -751,7 +751,7 @@ try
 		*vertex_declaration,
 		*md3_loader->load(
 			sge::config::media_path()
-				/ FCPPT_TEXT("models") 
+				/ FCPPT_TEXT("models")
 				/ FCPPT_TEXT("arrow.md3")));
 
 	random_model_collection model_collection(
@@ -770,7 +770,7 @@ try
 			(sge::renderer::state::draw_mode::fill)
 			(sge::renderer::state::bool_::enable_lighting = true)
 			(sge::renderer::state::stencil_func::off)
-			(sge::renderer::state::color::back_buffer_clear_color = 
+			(sge::renderer::state::color::back_buffer_clear_color =
 				sge::image::colors::black()));
 
 	sys.renderer().enable_light(
@@ -815,7 +815,7 @@ try
 		sge::renderer::scoped_block const block_(
 			sys.renderer());
 
-		sge::camera::gizmo_type const original_gizmo = 
+		sge::camera::gizmo_type const original_gizmo =
 			camera.gizmo();
 
 		// Set the color mask to "red"
@@ -833,7 +833,7 @@ try
 		model_collection.render(
 			camera.world());
 
-		camera.gizmo() = 
+		camera.gizmo() =
 			original_gizmo;
 
 		// Clear depth buffer
@@ -855,7 +855,7 @@ try
 		model_collection.render(
 			camera.world());
 
-		camera.gizmo() = 
+		camera.gizmo() =
 			original_gizmo;
 	}
 }

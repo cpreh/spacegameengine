@@ -109,7 +109,7 @@ catch(
 		<< FCPPT_TEXT("caugth exception: ")
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
-	
+
 	return EXIT_FAILURE;
 }
 catch(
@@ -120,6 +120,6 @@ catch(
 		<< "caught exception: "
 		<< _exception.what()
 		<< '\n';
-	
+
 	return EXIT_FAILURE;
 }

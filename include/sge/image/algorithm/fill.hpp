@@ -29,7 +29,7 @@ namespace sge
 {
 namespace image
 {
-namespace algorithm 
+namespace algorithm
 {
 
 template<
@@ -39,7 +39,7 @@ SGE_IMAGE_INSTANTIATE_SYMBOL
 void
 fill(
 	typename image::traits::view<
-		Tag	
+		Tag
 	>::type const &,
 	image::color::any::object const &
 );

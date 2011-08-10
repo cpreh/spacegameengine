@@ -52,7 +52,7 @@ public:
 
 	virtual fcppt::signal::auto_connection
 	key_callback(
-		keyboard::key_callback const &		
+		keyboard::key_callback const &
 	) = 0;
 
 	virtual fcppt::signal::auto_connection

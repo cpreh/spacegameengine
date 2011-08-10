@@ -53,7 +53,7 @@ public:
 	pixel_shader(
 		glsl::string const &
 	);
-		
+
 	SGE_RENDERER_SYMBOL
 	glsl::program_parameters &
 	geometry_shader(

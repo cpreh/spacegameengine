@@ -81,13 +81,13 @@ sge::opengl::texture::bind_context::bind_for_rendering(
 
 	if(
 		last_type
-		== 
+		==
 		texture::optional_type(
 			_texture.type()
 		)
 	)
 		return;
-	
+
 	if(
 		last_type
 	)
@@ -172,7 +172,7 @@ sge::opengl::texture::bind_context::bind_for_work(
 		render_textures_[
 			_stage.get()
 		];
-	
+
 	texture::funcs::set_active_level(
 		_context,
 		_stage
@@ -204,7 +204,7 @@ sge::opengl::texture::bind_context::unbind_for_work(
 	temp_textures_[
 		_stage.get()
 	] = 0;
-	
+
 	if(
 		prev_texture
 	)

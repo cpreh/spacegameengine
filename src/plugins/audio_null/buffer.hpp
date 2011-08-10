@@ -41,7 +41,7 @@ class buffer
 	);
 public:
 	buffer();
-	
+
 	~buffer();
 
 	audio::sound::positional_ptr const

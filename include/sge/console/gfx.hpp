@@ -72,7 +72,7 @@ public:
 
 	SGE_CONSOLE_SYMBOL bool
 	active() const;
-	
+
 	SGE_CONSOLE_SYMBOL void
 	active(
 		bool
@@ -95,7 +95,7 @@ public:
 	SGE_CONSOLE_SYMBOL sprite_object const &
 	background_sprite() const;
 private:
-	typedef 
+	typedef
 	std::list<font::text::string>
 	input_history_sequence;
 

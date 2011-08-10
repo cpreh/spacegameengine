@@ -42,7 +42,7 @@ class debug_drawer
 {
 FCPPT_NONCOPYABLE(
 	debug_drawer);
-public:	
+public:
 	SGE_PROJECTILE_SYMBOL explicit
 	debug_drawer(
 		world &,

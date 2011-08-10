@@ -77,7 +77,7 @@ sge::console::object::insert(
 			function_map::iterator,
 			bool
 		> ret_type;
-		
+
 		ret_type const ret(
 			fcppt::container::ptr::insert_unique_ptr_map(
 				funcs_,
@@ -262,7 +262,7 @@ sge::console::object::help_callback(
 	arg_list const &)
 {
 	emit_message(
-		fcppt::lexical_cast<font::text::string>( 
+		fcppt::lexical_cast<font::text::string>(
 			funcs_.size())
 		+ SGE_FONT_TEXT_LIT(" available functions:"));
 
@@ -293,10 +293,10 @@ sge::console::object::man_callback(
 		return;
 	}
 
-	function_map const &fns = 
+	function_map const &fns =
 		funcs_;
 
-	function_map::const_iterator i = 
+	function_map::const_iterator i =
 		funcs_.find(
 			v[1]);
 
@@ -315,7 +315,7 @@ sge::console::object::man_callback(
 		emit_message(
 			SGE_FONT_TEXT_LIT("No manpage available")
 		);
-	else	
+	else
 		emit_message(
 			i->second->long_description());
 }

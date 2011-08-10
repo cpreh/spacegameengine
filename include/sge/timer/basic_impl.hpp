@@ -48,7 +48,7 @@ template<typename Clock>
 bool
 sge::timer::basic<Clock>::expired() const
 {
-	return 
+	return
 		active_ && (expired_ || (this->now() - last_time_).count() > interval_.count());
 }
 
@@ -57,7 +57,7 @@ void
 sge::timer::basic<Clock>::expired(
 	bool const _expired)
 {
-	expired_ = 
+	expired_ =
 		_expired;
 }
 
@@ -92,7 +92,7 @@ template<typename NewDuration>
 NewDuration const
 sge::timer::basic<Clock>::interval() const
 {
-	return 
+	return
 		fcppt::chrono::duration_cast<NewDuration>(
 			interval_);
 }
@@ -103,14 +103,14 @@ void
 sge::timer::basic<Clock>::interval(
 	NewDuration const &_interval)
 {
-	interval_ = 
+	interval_ =
 		fcppt::chrono::duration_cast<duration>(
 			_interval);
 	this->reset();
 }
 
 template<typename Clock>
-typename 
+typename
 sge::timer::basic<Clock>::time_point const
 sge::timer::basic<Clock>::now() const
 {
@@ -118,7 +118,7 @@ sge::timer::basic<Clock>::now() const
 }
 
 template<typename Clock>
-typename 
+typename
 sge::timer::basic<Clock>::time_point const
 sge::timer::basic<Clock>::last_time() const
 {

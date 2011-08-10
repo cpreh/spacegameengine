@@ -47,7 +47,7 @@ class SGE_CLASS_SYMBOL object
 		object
 	);
 public:
-	SGE_CONSOLE_SYMBOL explicit 
+	SGE_CONSOLE_SYMBOL explicit
 	object(
 		font::text::char_type prefix
 	);
@@ -108,11 +108,11 @@ private:
 	fallback_signal fallback_;
 	fcppt::signal::scoped_connection help_connection_,man_connection_;
 
-	void 
+	void
 	help_callback(
 		arg_list const &);
 
-	void 
+	void
 	man_callback(
 		arg_list const &);
 };

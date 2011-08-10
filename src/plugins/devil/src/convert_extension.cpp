@@ -33,7 +33,7 @@ sge::devil::convert_extension(
 		!_extension
 	)
 		return IL_TYPE_UNKNOWN;
-	
+
 	sge::extension const &extension(
 		*_extension
 	);
@@ -47,17 +47,17 @@ sge::devil::convert_extension(
 		extension == FCPPT_TEXT("png")
 	)
 		return IL_PNG;
-	
+
 	if(
 		extension == FCPPT_TEXT("jpg")
 		|| extension == FCPPT_TEXT("jpeg")
 	)
 		return IL_JPG;
-	
+
 	if(
 		extension == FCPPT_TEXT("tga")
 	)
 		return IL_TGA;
-	
+
 	return IL_TYPE_UNKNOWN;
 }

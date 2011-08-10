@@ -56,7 +56,7 @@ public:
 		texture::id,
 		renderer::depth_stencil_format::type
 	);
-	
+
 	~depth_stencil_surface();
 private:
 	renderer::depth_stencil_format::type

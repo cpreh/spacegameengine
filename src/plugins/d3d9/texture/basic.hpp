@@ -74,7 +74,7 @@ public:
 
 	~basic();
 
-	sge::renderer::resource_flags_field const 
+	sge::renderer::resource_flags_field const
 	resource_flags() const;
 
 	sge::renderer::texture::capabilities_field const
@@ -171,7 +171,7 @@ private:
 	> d3d_scoped_ptr;
 
 	d3d_scoped_ptr main_texture_;
-	
+
 	mutable d3d_scoped_ptr temp_texture_;
 
 	mutable locked_dest locked_dest_;

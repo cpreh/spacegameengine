@@ -50,7 +50,7 @@ template<typename Impl>
 typename sge::timer::clocks::delta<Impl>::time_point
 sge::timer::clocks::delta<Impl>::now() const
 {
-	return 
+	return
 		now_;
 }
 

@@ -43,7 +43,7 @@ sge::renderer::nonindexed_primitive_count(
 			);
 
 		return _vertex_count.get() / 2;
-	
+
 	case nonindexed_primitive_type::line_strip:
 		if(
 			_vertex_count.get() <= 1

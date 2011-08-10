@@ -57,7 +57,7 @@ private:
 	sge::renderer::size_type const
 		stride_,
 		offset_;
-	
+
 	opengl::context::object &context_;
 };
 

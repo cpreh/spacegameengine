@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp> 
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -109,7 +109,7 @@ sge::cegui::detail::renderer::createGeometryBuffer()
 	return geometry_buffers_.back();
 }
 
-void 
+void
 sge::cegui::detail::renderer::destroyGeometryBuffer(
 	CEGUI::GeometryBuffer const &buffer)
 {
@@ -124,7 +124,7 @@ sge::cegui::detail::renderer::destroyGeometryBuffer(
 		FCPPT_TEXT("Tried to destroy a geometry buffer which was not registered"));
 }
 
-void 
+void
 sge::cegui::detail::renderer::destroyAllGeometryBuffers()
 {
 	FCPPT_LOG_DEBUG(
@@ -133,7 +133,7 @@ sge::cegui::detail::renderer::destroyAllGeometryBuffers()
 	geometry_buffers_.clear();
 }
 
-CEGUI::TextureTarget * 
+CEGUI::TextureTarget *
 sge::cegui::detail::renderer::createTextureTarget()
 {
 	FCPPT_LOG_DEBUG(
@@ -145,7 +145,7 @@ sge::cegui::detail::renderer::createTextureTarget()
 	return &(texture_targets_.back());
 }
 
-void 
+void
 sge::cegui::detail::renderer::destroyTextureTarget(
 	CEGUI::TextureTarget *texture)
 {
@@ -162,7 +162,7 @@ sge::cegui::detail::renderer::destroyTextureTarget(
 		FCPPT_TEXT("Tried to destroy a texture target which was not registered"));
 }
 
-void 
+void
 sge::cegui::detail::renderer::destroyAllTextureTargets()
 {
 	FCPPT_LOG_DEBUG(
@@ -171,7 +171,7 @@ sge::cegui::detail::renderer::destroyAllTextureTargets()
 	texture_targets_.clear();
 }
 
-CEGUI::Texture & 
+CEGUI::Texture &
 sge::cegui::detail::renderer::createTexture()
 {
 	FCPPT_LOG_DEBUG(
@@ -191,8 +191,8 @@ sge::cegui::detail::renderer::createTexture(
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("createTexture(") 
+		fcppt::log::_
+			<< FCPPT_TEXT("createTexture(")
 			<< fcppt::from_std_string(filename.c_str())
 			<< FCPPT_TEXT(", ")
 			<< fcppt::from_std_string(resource_group.c_str())
@@ -213,7 +213,7 @@ sge::cegui::detail::renderer::createTexture(
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< FCPPT_TEXT("createTexture(") << structure_cast<sge::renderer::dim2>(s) << FCPPT_TEXT(")"));
 	textures_.push_back(
 		new texture(
@@ -224,13 +224,13 @@ sge::cegui::detail::renderer::createTexture(
 	return textures_.back();
 }
 
-void 
+void
 sge::cegui::detail::renderer::destroyTexture(
 	CEGUI::Texture &_texture)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< FCPPT_TEXT("destroyTexture(") << &_texture << FCPPT_TEXT(")"));
 	FCPPT_ASSERT_MESSAGE(
 		fcppt::algorithm::ptr_container_erase(
@@ -240,7 +240,7 @@ sge::cegui::detail::renderer::destroyTexture(
 		FCPPT_TEXT("Tried to destroy a texture which was not registered"));
 }
 
-void 
+void
 sge::cegui::detail::renderer::destroyAllTextures()
 {
 	FCPPT_LOG_DEBUG(
@@ -249,7 +249,7 @@ sge::cegui::detail::renderer::destroyAllTextures()
 	textures_.clear();
 }
 
-void 
+void
 sge::cegui::detail::renderer::beginRendering()
 {
 	// This is a hack around a bug in cegui: In the "main loop", cegui
@@ -283,7 +283,7 @@ sge::cegui::detail::renderer::beginRendering()
 #include <sge/renderer/matrix_mode.hpp>
 #include <fcppt/foreach_enumerator.hpp>
 
-void 
+void
 sge::cegui::detail::renderer::endRendering()
 {
 	FCPPT_LOG_DEBUG(
@@ -301,17 +301,17 @@ sge::cegui::detail::renderer::endRendering()
 			sge::renderer::matrix4::identity());
 }
 
-void 
+void
 sge::cegui::detail::renderer::setDisplaySize(
 	CEGUI::Size const &_display_size)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("setDisplaySize(") 
-			<< structure_cast<sge::renderer::dim2>(_display_size) 
+		fcppt::log::_
+			<< FCPPT_TEXT("setDisplaySize(")
+			<< structure_cast<sge::renderer::dim2>(_display_size)
 			<< FCPPT_TEXT(")"));
-	display_size_ = 
+	display_size_ =
 		_display_size;
 	// This is what OpenGL does, too, but the default target currently
 	// ignores this message
@@ -323,28 +323,28 @@ sge::cegui::detail::renderer::setDisplaySize(
 CEGUI::Size const &
 sge::cegui::detail::renderer::getDisplaySize() const
 {
-	return 
+	return
 		display_size_;
 }
 
 CEGUI::Vector2 const &
 sge::cegui::detail::renderer::getDisplayDPI() const
 {
-	return 
+	return
 		display_dpi_;
 }
 
-CEGUI::uint 
+CEGUI::uint
 sge::cegui::detail::renderer::getMaxTextureSize() const
 {
-	return 
+	return
 		static_cast<CEGUI::uint>(
 			std::min(
 				renderer_.caps().max_texture_size().w(),
 				renderer_.caps().max_texture_size().h()));
 }
 
-CEGUI::String const & 
+CEGUI::String const &
 sge::cegui::detail::renderer::getIdentifierString() const
 {
 	return identifier_;

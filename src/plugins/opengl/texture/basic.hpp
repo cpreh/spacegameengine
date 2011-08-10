@@ -63,7 +63,7 @@ class basic
 	);
 public:
 	typedef typename Types::base base_type;
-	
+
 	typedef typename base_type::image_tag image_tag;
 
 	typedef opengl::texture::lock_base::pointer pointer;

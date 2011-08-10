@@ -29,7 +29,7 @@ sge::audio_null::positional::~positional()
 {
 }
 
-void 
+void
 sge::audio_null::positional::play(
 	sge::audio::sound::repeat::type
 )
@@ -42,18 +42,18 @@ sge::audio_null::positional::repeat() const
 	return sge::audio::sound::repeat::once;
 }
 
-void 
+void
 sge::audio_null::positional::toggle_pause()
 {
 }
 
-sge::audio::sound::play_status::type 
+sge::audio::sound::play_status::type
 sge::audio_null::positional::status() const
 {
 	return audio::sound::play_status::stopped;
 }
 
-void 
+void
 sge::audio_null::positional::stop()
 {
 }
@@ -63,105 +63,105 @@ sge::audio_null::positional::update()
 {
 }
 
-sge::audio::vector const 
+sge::audio::vector const
 sge::audio_null::positional::position() const
 {
 	return audio::vector();
 }
 
-void 
+void
 sge::audio_null::positional::position(
 	audio::vector const &
 )
 {
 }
 
-sge::audio::vector const 
+sge::audio::vector const
 sge::audio_null::positional::linear_velocity() const
 {
 	return audio::vector();
 }
 
-void 
+void
 sge::audio_null::positional::linear_velocity(
 	audio::vector const &
 )
 {
 }
 
-void 
+void
 sge::audio_null::positional::gain(
 	audio::scalar
 )
 {
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::audio_null::positional::gain() const
 {
 	return audio::scalar();
 }
 
-void 
+void
 sge::audio_null::positional::pitch(
 	audio::scalar
 )
 {
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::audio_null::positional::pitch() const
 {
 	return audio::scalar();
 }
 
-void 
+void
 sge::audio_null::positional::rolloff(
 	audio::scalar
 )
 {
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::audio_null::positional::rolloff() const
 {
 	return audio::scalar();
 }
 
-void 
+void
 sge::audio_null::positional::direction(
 	audio::vector const &
 )
 {
 }
 
-sge::audio::vector const 
+sge::audio::vector const
 sge::audio_null::positional::direction() const
 {
 	return audio::vector();
 }
 
-void 
+void
 sge::audio_null::positional::inner_cone_angle(
 	audio::scalar
 )
 {
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::audio_null::positional::inner_cone_angle() const
 {
 	return audio::scalar();
 }
 
-void 
+void
 sge::audio_null::positional::outer_cone_angle(
 	audio::scalar
 )
 {
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::audio_null::positional::outer_cone_angle() const
 {
 	return audio::scalar();

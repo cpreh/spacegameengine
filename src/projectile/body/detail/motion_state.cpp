@@ -33,7 +33,7 @@ sge::projectile::body::detail::motion_state::~motion_state()
 {
 }
 
-void	
+void
 sge::projectile::body::detail::motion_state::getWorldTransform(
 	btTransform &t) const
 {
@@ -41,7 +41,7 @@ sge::projectile::body::detail::motion_state::getWorldTransform(
 		t);
 }
 
-void	
+void
 sge::projectile::body::detail::motion_state::setWorldTransform(
 	btTransform const &t)
 {

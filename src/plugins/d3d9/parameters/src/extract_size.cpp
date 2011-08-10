@@ -36,7 +36,7 @@ sge::d3d9::parameters::extract_size(
 		fcppt::variant::holds_type<
 			sge::renderer::display_mode
 		>(
-			_screen_mode	
+			_screen_mode
 		)
 		?
 			_screen_mode.get<

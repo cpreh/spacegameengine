@@ -38,7 +38,7 @@ sge::opengl::vf::fp_actor::fp_actor(
 	)
 {
 }
-		
+
 void
 sge::opengl::vf::fp_actor::operator()(
 	vf::client_state_combiner &_combiner,

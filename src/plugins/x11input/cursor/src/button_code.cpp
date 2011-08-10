@@ -36,6 +36,6 @@ sge::x11input::cursor::button_code(
 	case 3:
 		return sge::input::cursor::button_code::right;
 	}
-	
+
 	return sge::input::cursor::button_code::unknown;
 }

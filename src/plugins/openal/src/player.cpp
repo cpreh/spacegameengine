@@ -76,31 +76,31 @@ sge::openal::player::listener()
 }
 
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::openal::player::speed_of_sound() const
 {
 	ALfloat dest;
 	alGetFloatv(
 		AL_SPEED_OF_SOUND,
 		&dest);
-	return 
+	return
 		static_cast<audio::scalar>(
 			dest);
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::openal::player::doppler_factor() const
 {
 	ALfloat dest;
 	alGetFloatv(
 		AL_DOPPLER_FACTOR,
 		&dest);
-	return 
+	return
 		static_cast<audio::scalar>(
 			dest);
 }
 
-void 
+void
 sge::openal::player::speed_of_sound(
 	audio::scalar const dest)
 {
@@ -109,7 +109,7 @@ sge::openal::player::speed_of_sound(
 			dest));
 }
 
-void 
+void
 sge::openal::player::doppler_factor(
 	audio::scalar const dest)
 {
@@ -118,19 +118,19 @@ sge::openal::player::doppler_factor(
 			dest));
 }
 
-sge::audio::scalar 
+sge::audio::scalar
 sge::openal::player::gain() const
 {
 	ALfloat dest;
 	alGetListenerfv(
 		AL_GAIN,
 		&dest);
-	return 
+	return
 		static_cast<audio::scalar>(
 			dest);
 }
 
-void 
+void
 sge::openal::player::gain(
 	audio::scalar g)
 {
@@ -144,7 +144,7 @@ sge::openal::player::create_buffer(
 	audio::file &_file
 )
 {
-	return 
+	return
 		audio::buffer_ptr(
 			fcppt::make_shared_ptr<
 				openal::buffer
@@ -156,13 +156,13 @@ sge::openal::player::create_buffer(
 		);
 }
 
-sge::audio::sound::positional_ptr const 
+sge::audio::sound::positional_ptr const
 sge::openal::player::create_positional_stream(
 	audio::file_ptr const _file,
 	audio::sound::positional_parameters const &_parameters
 )
 {
-	return 
+	return
 		audio::sound::positional_ptr(
 			fcppt::make_shared_ptr<
 				openal::stream_sound
@@ -175,12 +175,12 @@ sge::openal::player::create_positional_stream(
 		);
 }
 
-sge::audio::sound::base_ptr const 
+sge::audio::sound::base_ptr const
 sge::openal::player::create_nonpositional_stream(
 	audio::file_ptr const _file
 )
 {
-	return 
+	return
 		audio::sound::positional_ptr(
 			fcppt::make_shared_ptr<
 				openal::stream_sound

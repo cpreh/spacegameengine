@@ -28,7 +28,7 @@ sge::parse::info_to_string(
 )
 {
 	std::ostringstream stream;
-	
+
 	stream << _info;
 
 	return

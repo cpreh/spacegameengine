@@ -171,7 +171,7 @@ try
 		gui_sys,
 		sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("text_demo.layout"),
 		sys.charconv_system());
-	
+
 	sge::cegui::toolbox::scoped_gui_sheet const scoped_gui_sheet(
 		gui_sys,
 		scoped_layout.window()

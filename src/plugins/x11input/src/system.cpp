@@ -60,7 +60,7 @@ sge::x11input::system::create_processor(
 			_window->awl_instance()
 		)
 	);
-	
+
 	x11input::optional_opcode const opcode(
 		x11input::xi_opcode(
 			x11_window->display()

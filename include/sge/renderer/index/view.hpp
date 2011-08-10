@@ -75,7 +75,7 @@ public:
 			typename Format::constness,
 			index::const_tag
 		>::value
-	> dynamic_view_type;		
+	> dynamic_view_type;
 
 	SGE_RENDERER_SYMBOL
 	explicit view(

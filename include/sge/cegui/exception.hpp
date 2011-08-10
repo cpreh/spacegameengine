@@ -35,7 +35,7 @@ class SGE_CLASS_SYMBOL exception
 	public fcppt::exception
 {
 public:
-	SGE_CEGUI_SYMBOL explicit 
+	SGE_CEGUI_SYMBOL explicit
 	exception(
 		fcppt::string const &);
 

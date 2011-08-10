@@ -47,7 +47,7 @@ vf_to_string()
 		)
 	);
 
-	return 
+	return
 		shader::vertex_format_string(
 			ret);
 }

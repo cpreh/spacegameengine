@@ -113,7 +113,7 @@ sge::opengl::glsl::native::uniform_context::uniform_1iv() const
 {
 	return uniform_1iv_;
 }
-	
+
 PFNGLUNIFORM2IVPROC
 sge::opengl::glsl::native::uniform_context::uniform_2iv() const
 {
@@ -161,7 +161,7 @@ sge::opengl::glsl::native::uniform_context::uniform_matrix_2fv() const
 {
 	return uniform_matrix_2fv_;
 }
-	
+
 PFNGLUNIFORMMATRIX3FVPROC
 sge::opengl::glsl::native::uniform_context::uniform_matrix_3fv() const
 {

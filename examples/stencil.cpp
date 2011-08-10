@@ -366,7 +366,7 @@ try
 				big_sprite
 			);
 		}
-	}	
+	}
 }
 catch(
 	fcppt::exception const &_error

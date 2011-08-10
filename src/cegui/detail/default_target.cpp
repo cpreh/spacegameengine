@@ -45,7 +45,7 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 // cegui's internal OpenGL renderer uses a static viewport (I
 // think). The area is initialized to the current viewport in the
 // constructor and is changed only by setArea which is called by the
-// renderer after a window size change. 
+// renderer after a window size change.
 
 // sge already provides this viewport-adaption technique so I just
 // update the viewport variable when the viewport is requested.
@@ -62,21 +62,21 @@ sge::cegui::detail::default_target::~default_target()
 {
 }
 
-void 
+void
 sge::cegui::detail::default_target::draw(
 	CEGUI::GeometryBuffer const &buffer)
 {
 	buffer.draw();
 }
 
-void 
+void
 sge::cegui::detail::default_target::draw(
 	CEGUI::RenderQueue const &queue)
 {
 	queue.draw();
 }
 
-void 
+void
 sge::cegui::detail::default_target::setArea(
 	CEGUI::Rect const &r)
 {
@@ -96,13 +96,13 @@ sge::cegui::detail::default_target::getArea() const
 	return viewport_;
 }
 
-bool 
+bool
 sge::cegui::detail::default_target::isImageryCache() const
 {
 	return false;
 }
 
-void 
+void
 sge::cegui::detail::default_target::activate()
 {
 	renderer_.transform(
@@ -110,15 +110,15 @@ sge::cegui::detail::default_target::activate()
 		projection());
 }
 
-void 
+void
 sge::cegui::detail::default_target::deactivate()
 {
 }
 
-void 
+void
 sge::cegui::detail::default_target::unprojectPoint(
 	CEGUI::GeometryBuffer const &,
-	CEGUI::Vector2 const & p_in, 
+	CEGUI::Vector2 const & p_in,
 	CEGUI::Vector2& p_out) const
 {
 	FCPPT_ASSERT_MESSAGE(
@@ -130,7 +130,7 @@ sge::cegui::detail::default_target::unprojectPoint(
 sge::renderer::matrix4 const
 sge::cegui::detail::default_target::projection() const
 {
-	return 
+	return
 		sge::renderer::projection::orthogonal(
 			sge::renderer::projection::rect(
 				sge::renderer::projection::rect::vector::null(),

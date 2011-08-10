@@ -57,6 +57,6 @@ sge::devil::load_image(
 		== IL_FALSE
 	)
 		return false;
-	
+
 	return devil::check_error();
 }

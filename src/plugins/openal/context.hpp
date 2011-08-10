@@ -38,24 +38,24 @@ class context
 		context
 	);
 public:
-	typedef 
+	typedef
 	std::vector
-	< 
-		std::pair<ALCint,ALCint> 
-	> 
+	<
+		std::pair<ALCint,ALCint>
+	>
 	attribute_container;
-	
+
 	explicit
 	context(
 		openal::device &,
 		attribute_container const & = attribute_container());
-	
+
 	ALCcontext *
 	alcontext();
-	
-	void 
+
+	void
 	make_current();
-	
+
 	~context();
 private:
 	ALCcontext *context_;

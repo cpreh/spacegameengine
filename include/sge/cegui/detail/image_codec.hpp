@@ -45,7 +45,7 @@ class image_codec
 		image_codec
 	);
 public:
-	explicit	
+	explicit
 	image_codec(
 		sge::image2d::multi_loader &);
 

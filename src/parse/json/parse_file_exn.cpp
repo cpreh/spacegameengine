@@ -29,7 +29,7 @@ sge::parse::json::parse_file_exn(
 	fcppt::filesystem::path const &_path
 )
 {
-	return 
+	return
 		parse::parse_file_exn<
 			json::object
 		>(

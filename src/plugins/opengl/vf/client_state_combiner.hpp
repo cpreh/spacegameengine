@@ -79,7 +79,7 @@ public:
 	~client_state_combiner();
 private:
 	vf::context &context_;
-	
+
 	vf::attribute_context &attribute_context_;
 
 	vf::client_state const old_states_;

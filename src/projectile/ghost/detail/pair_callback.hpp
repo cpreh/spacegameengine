@@ -35,7 +35,7 @@ namespace ghost
 namespace detail
 {
 class pair_callback
-: 
+:
 	public btOverlappingPairCallback
 {
 public:
@@ -44,7 +44,7 @@ public:
 		btBroadphaseProxy*,
 		btBroadphaseProxy*);
 
-	void*	
+	void*
 	removeOverlappingPair(
 		btBroadphaseProxy*,
 		btBroadphaseProxy*,

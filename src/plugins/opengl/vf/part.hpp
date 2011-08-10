@@ -40,7 +40,7 @@ namespace vf
 class part
 {
 	FCPPT_NONCOPYABLE(
-		part	
+		part
 	);
 public:
 	part(

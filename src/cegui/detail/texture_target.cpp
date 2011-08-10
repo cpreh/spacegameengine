@@ -75,8 +75,8 @@ sge::cegui::detail::texture_target::texture_target(
 		local_log,
 		fcppt::log::_ << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::texture_target"));
 }
-	
-void 
+
+void
 sge::cegui::detail::texture_target::draw(
 	CEGUI::GeometryBuffer const &buffer)
 {
@@ -89,7 +89,7 @@ sge::cegui::detail::texture_target::draw(
 	buffer.draw();
 }
 
-void 
+void
 sge::cegui::detail::texture_target::draw(
 	CEGUI::RenderQueue const & queue)
 {
@@ -102,16 +102,16 @@ sge::cegui::detail::texture_target::draw(
 	queue.draw();
 }
 
-void 
+void
 sge::cegui::detail::texture_target::setArea(
 	CEGUI::Rect const &_area)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::setArea(" 
+		fcppt::log::_
+			<< FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::setArea("
 			<< structure_cast<sge::renderer::pixel_rect>(_area) << ")"));
-	area_ = 
+	area_ =
 		_area;
 }
 
@@ -121,13 +121,13 @@ sge::cegui::detail::texture_target::getArea() const
 	return area_;
 }
 
-bool 
+bool
 sge::cegui::detail::texture_target::isImageryCache() const
 {
 	return true;
 }
 
-void 
+void
 sge::cegui::detail::texture_target::activate()
 {
 	if(texture_->empty())
@@ -171,7 +171,7 @@ sge::cegui::detail::texture_target::activate()
 	system_.renderer().begin_rendering();
 }
 
-void 
+void
 sge::cegui::detail::texture_target::deactivate()
 {
 	FCPPT_LOG_DEBUG(
@@ -188,10 +188,10 @@ sge::cegui::detail::texture_target::deactivate()
 		sge::renderer::default_target());
 }
 
-void 
+void
 sge::cegui::detail::texture_target::unprojectPoint(
 	CEGUI::GeometryBuffer const &,
-	CEGUI::Vector2 const &, 
+	CEGUI::Vector2 const &,
 	CEGUI::Vector2 &) const
 {
 	FCPPT_ASSERT_MESSAGE(
@@ -199,7 +199,7 @@ sge::cegui::detail::texture_target::unprojectPoint(
 		FCPPT_TEXT("texture_target::unprojectPoint not implemented yet"));
 }
 
-void 
+void
 sge::cegui::detail::texture_target::clear()
 {
 	FCPPT_LOG_DEBUG(
@@ -237,14 +237,14 @@ sge::cegui::detail::texture_target::getTexture() const
 	return *texture_;
 }
 
-void 
+void
 sge::cegui::detail::texture_target::declareRenderSize(
 	CEGUI::Size const &_size)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::declareRenderSize(") 
+		fcppt::log::_
+			<< FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::declareRenderSize(")
 			<< structure_cast<sge::renderer::dim2>(_size) << FCPPT_TEXT(")"));
 
 	setArea(
@@ -263,7 +263,7 @@ sge::cegui::detail::texture_target::declareRenderSize(
 
 	target_->color_surface(
 	// The size here could be (0,0), for example if the viewport hasn't
-	// been initialized yet. If that's the case, we shouldn't switch 
+	// been initialized yet. If that's the case, we shouldn't switch
 		texture_->empty()
 		?
 			sge::renderer::color_surface_ptr()
@@ -275,7 +275,7 @@ sge::cegui::detail::texture_target::declareRenderSize(
 	clear();
 }
 
-bool 
+bool
 sge::cegui::detail::texture_target::isRenderingInverted() const
 {
 	return true;

@@ -41,7 +41,7 @@ sge::d3d9::state::color(
 	)
 	{
 		_parameters.clear().color(
-			d3d9::convert::to_color(	
+			d3d9::convert::to_color(
 				_state.value()
 			)
 		);

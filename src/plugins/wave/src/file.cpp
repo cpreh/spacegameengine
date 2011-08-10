@@ -53,31 +53,31 @@ sge::wave::file::file(
 	read_wave();
 }
 
-sge::audio::sample_count 
-sge::wave::file::bits_per_sample() const 
-{ 
-	return bits_per_sample_; 
+sge::audio::sample_count
+sge::wave::file::bits_per_sample() const
+{
+	return bits_per_sample_;
 }
 
-sge::audio::sample_count 
-sge::wave::file::sample_rate() const 
-{ 
-	return sample_rate_; 
+sge::audio::sample_count
+sge::wave::file::sample_rate() const
+{
+	return sample_rate_;
 }
 
-sge::audio::channel_type 
-sge::wave::file::channels() const 
-{ 
-	return channels_; 
+sge::audio::channel_type
+sge::wave::file::channels() const
+{
+	return channels_;
 }
 
-sge::audio::sample_count 
-sge::wave::file::samples() const 
-{ 
-	return samples_; 
+sge::audio::sample_count
+sge::wave::file::samples() const
+{
+	return samples_;
 }
 
-sge::audio::sample_count 
+sge::audio::sample_count
 sge::wave::file::expected_package_size() const
 {
 	return 0;
@@ -91,7 +91,7 @@ void sge::wave::file::reset()
 
 	file_->seekg(
 		data_segment);
-	samples_read_ = 
+	samples_read_ =
 		0;
 }
 
@@ -112,7 +112,7 @@ sge::audio::sample_count sge::wave::file::read(
 		static_cast<audio::sample_count>(
 			samples_to_read * channels() * bytes_per_sample());
 
-	audio::sample_container::size_type old_size = 
+	audio::sample_container::size_type old_size =
 		_array.size();
 
 	_array.resize_uninitialized(
@@ -137,7 +137,7 @@ sge::audio::sample_count sge::wave::file::read(
 		//for (audio::sample_container::pointer i = _array.data() + old_size; i != _array.data_end(); i += bytes_per_sample())
 		//	fcppt::endianness::swap(i,bytes_per_sample());
 
-	samples_read_ += 
+	samples_read_ +=
 		samples_to_read;
 	return samples_to_read;
 }
@@ -145,7 +145,7 @@ sge::audio::sample_count sge::wave::file::read(
 
 sge::audio::sample_count sge::wave::file::read_all(audio::sample_container &_array)
 {
-	return 
+	return
 		read(
 			samples_ - samples_read_,_array);
 }

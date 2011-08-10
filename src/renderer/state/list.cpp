@@ -113,7 +113,7 @@ sge::renderer::state::list::get() const
 			)
 			+ FCPPT_TEXT(">(): state not found!")
 		);
-	
+
 	return it->get<T>();
 }
 
@@ -138,7 +138,7 @@ sge::renderer::state::list::get(
 		throw renderer::exception(
 			FCPPT_TEXT("renderer::list::get(): state not found!")
 		);
-	
+
 	return
 		it->get<
 			typename state::trampoline<

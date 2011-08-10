@@ -34,5 +34,5 @@ sge::d3d9::texture::cube_types::create()
 			std::tr1::placeholders::_3,
 			std::tr1::placeholders::_4,
 			std::tr1::placeholders::_5
-		);	
+		);
 }

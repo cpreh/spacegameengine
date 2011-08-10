@@ -64,7 +64,7 @@ public:
 	line_height() const;
 private:
 	freetype::face face_;
-	
+
 	sge::charconv::system_ptr const conv_system_;
 
 	font::size_type pixel_size_;

@@ -84,7 +84,7 @@ sge::texture::area_texc(
 	typedef typename fcppt::math::box::rect<
 		T
 	>::type ret_type;
-	
+
 	ret_type ret(
 		renderer::lock_rect_to_coords<
 			T
@@ -133,5 +133,5 @@ SGE_TEXTURE_INSTANTIATE_AREA_TEXC(
 );
 
 SGE_TEXTURE_INSTANTIATE_AREA_TEXC(
-	double	
+	double
 );

@@ -30,8 +30,8 @@ namespace line_drawer
 {
 namespace vf
 {
-typedef 
-sge::renderer::vf::view<part> 
+typedef
+sge::renderer::vf::view<part>
 vertex_view;
 }
 }

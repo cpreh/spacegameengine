@@ -31,7 +31,7 @@ namespace renderer
 
 FCPPT_MAKE_STRONG_TYPEDEF(
 	size_type,
-	primitive_count	
+	primitive_count
 );
 
 }

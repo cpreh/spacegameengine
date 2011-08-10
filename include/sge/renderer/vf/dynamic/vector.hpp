@@ -43,7 +43,7 @@ public:
 		vf::element_type::type,
 		vertex_size num_elements
 	);
-	
+
 	SGE_RENDERER_SYMBOL
 	vf::element_type::type
 	element_type() const;

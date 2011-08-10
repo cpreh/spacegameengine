@@ -42,11 +42,11 @@ sge::cegui::to_cegui_string(
 			CEGUI::utf8
 		>::value));
 
-	return 
+	return
 		CEGUI::String(
 			sge::charconv::convert
 			<
-				sge::charconv::encoding::utf8, 
+				sge::charconv::encoding::utf8,
 				sge::charconv::encoding::wchar
 			>(
 				_charconv,

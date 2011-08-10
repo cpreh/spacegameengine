@@ -23,6 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::shader::activation_method_field const
 sge::shader::activate_bare()
 {
-	return 
+	return
 		sge::shader::activation_method_field();
 }

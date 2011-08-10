@@ -47,7 +47,7 @@ sge::opengl::texture::funcs::set_box(
 )
 {
 	if(!
-		_src && 
+		_src &&
 		!context::use<
 			pbo_context
 		>(

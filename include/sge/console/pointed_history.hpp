@@ -36,23 +36,23 @@ public:
 	typedef
 	T
 	value_type;
-	
-	typedef 
-	std::deque<value_type> 
+
+	typedef
+	std::deque<value_type>
 	container;
-	
+
 	typedef typename
 	container::size_type
 	size_type;
-	
+
 	typedef typename
 	container::iterator
 	iterator;
-	
+
 	typedef typename
 	container::const_iterator
 	const_iterator;
-	
+
 	pointed_history(
 		size_type const _limit)
 	:
@@ -66,7 +66,7 @@ public:
 		FCPPT_ASSERT(
 			limit_);
 	}
-	
+
 	void
 	push_front(
 		T const &_t)
@@ -78,52 +78,52 @@ public:
 		if (point_ != static_cast<size_type>(0))
 			++point_;
 	}
-	
+
 	void
 	up()
 	{
 		if (point_ != static_cast<size_type>(container_.size()-1))
 			point_++;
 	}
-	
+
 	void
 	down()
 	{
 		if (point_ != static_cast<size_type>(0))
 			point_--;
 	}
-	
+
 	bool empty() const
 	{
-		return 
+		return
 			container_.empty();
 	}
-	
+
 	iterator const point()
 	{
-		return 
+		return
 			boost::next(
 				container_.begin(),
 				point_);
 	}
-	
+
 	const_iterator const point() const
 	{
-		return 
+		return
 			boost::next(
 				container_.begin(),
 				point_);
 	}
-	
+
 	iterator const end()
 	{
-		return 
+		return
 			container_.end();
 	}
-	
+
 	const_iterator const end() const
 	{
-		return 
+		return
 			container_.end();
 	}
 private:

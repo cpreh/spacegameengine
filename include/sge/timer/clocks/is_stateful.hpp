@@ -33,7 +33,7 @@ namespace timer
 namespace clocks
 {
 template<typename Clock>
-struct is_stateful 
+struct is_stateful
 	: boost::true_type
 {};
 
@@ -44,12 +44,12 @@ struct is_stateful<fcppt::chrono::high_resolution_clock>
 
 template<>
 struct is_stateful<fcppt::chrono::steady_clock>
-	: boost::false_type 
+	: boost::false_type
 {};
 
 template<>
 struct is_stateful<fcppt::chrono::system_clock>
-	: boost::false_type 
+	: boost::false_type
 {};
 
 }

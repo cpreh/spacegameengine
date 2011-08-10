@@ -33,7 +33,7 @@ namespace detail
 
 template<
 	typename Elements,
-	typename Iterator 
+	typename Iterator
 >
 struct index_of
 :

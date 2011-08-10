@@ -109,14 +109,14 @@ sge::cegui::detail::geometry_buffer::geometry_buffer(
 		fcppt::log::_ << FCPPT_TEXT("geometry_buffer(") << this << FCPPT_TEXT(")::geometry_buffer"));
 }
 
-void 
+void
 sge::cegui::detail::geometry_buffer::draw() const
 {
 	sge::renderer::scoped_transform scoped_world(
 		renderer_,
 		sge::renderer::matrix_mode::world,
 		fcppt::math::matrix::translation(
-			translation_ + rotation_pivot_) * 
+			translation_ + rotation_pivot_) *
 		fcppt::math::matrix::rotation_axis(
 			rotation_axis_[2],
 			sge::renderer::vector3(
@@ -147,9 +147,9 @@ sge::cegui::detail::geometry_buffer::draw() const
 		fcppt::math::matrix::translation(
 			-rotation_pivot_));
 
-	sge::renderer::state::source_blend_func::type sbf = 
+	sge::renderer::state::source_blend_func::type sbf =
 		sge::renderer::state::source_blend_func::src_alpha;
-	sge::renderer::state::dest_blend_func::type dbf = 
+	sge::renderer::state::dest_blend_func::type dbf =
 		sge::renderer::state::dest_blend_func::inv_src_alpha;
 
 	switch(
@@ -212,11 +212,11 @@ sge::cegui::detail::geometry_buffer::draw() const
 	}
 }
 
-void 
+void
 sge::cegui::detail::geometry_buffer::setTranslation(
 	CEGUI::Vector3 const &v)
 {
-	translation_ = 
+	translation_ =
 		sge::renderer::vector3(
 			static_cast<sge::renderer::scalar>(
 				v.d_x),
@@ -226,11 +226,11 @@ sge::cegui::detail::geometry_buffer::setTranslation(
 				v.d_z));
 }
 
-void 
+void
 sge::cegui::detail::geometry_buffer::setRotation(
 	CEGUI::Vector3 const &v)
 {
-	rotation_axis_ = 
+	rotation_axis_ =
 		sge::renderer::vector3(
 			static_cast<sge::renderer::scalar>(
 				v.d_x),
@@ -240,11 +240,11 @@ sge::cegui::detail::geometry_buffer::setRotation(
 				v.d_z));
 }
 
-void 
+void
 sge::cegui::detail::geometry_buffer::setPivot(
 	CEGUI::Vector3 const &v)
 {
-	rotation_pivot_ = 
+	rotation_pivot_ =
 		sge::renderer::vector3(
 			static_cast<sge::renderer::scalar>(
 				v.d_x),
@@ -254,21 +254,21 @@ sge::cegui::detail::geometry_buffer::setPivot(
 				v.d_z));
 }
 
-void 
+void
 sge::cegui::detail::geometry_buffer::setClippingRegion(
 	CEGUI::Rect const &r)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< FCPPT_TEXT("geometry_buffer(") << this << FCPPT_TEXT(")::setClippingRegion(")
 			<< structure_cast<sge::renderer::pixel_rect>(r) << FCPPT_TEXT(")"));
-	scissor_area_ = 
+	scissor_area_ =
 		structure_cast<sge::renderer::pixel_rect>(
 			r);
 }
 
-void 
+void
 sge::cegui::detail::geometry_buffer::appendVertex(
 	CEGUI::Vertex const &v)
 {
@@ -277,7 +277,7 @@ sge::cegui::detail::geometry_buffer::appendVertex(
 		1);
 }
 
-void 
+void
 sge::cegui::detail::geometry_buffer::appendGeometry(
 	CEGUI::Vertex const * const vertices,
 	CEGUI::uint const vertex_count)
@@ -286,7 +286,7 @@ sge::cegui::detail::geometry_buffer::appendGeometry(
 		active_texture_,
 		FCPPT_TEXT("I got geometry without an active texture, how should I handle this? :/"));
 
-	total_vertex_count_ = 
+	total_vertex_count_ =
 		static_cast<CEGUI::uint>(
 			total_vertex_count_ + vertex_count);
 
@@ -311,12 +311,12 @@ sge::cegui::detail::geometry_buffer::appendGeometry(
 	vf::vertex_view::iterator vb_it(
 		vertex_view.begin());
 
-	typedef 
-	vf::position::packed_type 
+	typedef
+	vf::position::packed_type
 	position_vector;
 
-	typedef 
-	vf::texcoord::packed_type 
+	typedef
+	vf::texcoord::packed_type
 	texcoord_vector;
 
 	typedef boost::iterator_range<
@@ -355,18 +355,18 @@ sge::cegui::detail::geometry_buffer::appendGeometry(
 	}
 }
 
-void 
+void
 sge::cegui::detail::geometry_buffer::setActiveTexture(
 	CEGUI::Texture * const tex)
 {
 	FCPPT_ASSERT(
 		tex);
-	active_texture_ = 
+	active_texture_ =
 		&dynamic_cast<texture &>(
 			*tex);
 }
 
-void 
+void
 sge::cegui::detail::geometry_buffer::reset()
 {
 	batches_.clear();
@@ -374,27 +374,27 @@ sge::cegui::detail::geometry_buffer::reset()
 	total_vertex_count_ = 0;
 }
 
-CEGUI::Texture* 
+CEGUI::Texture*
 sge::cegui::detail::geometry_buffer::getActiveTexture() const
 {
 	return active_texture_;
 }
 
-CEGUI::uint 
+CEGUI::uint
 sge::cegui::detail::geometry_buffer::getVertexCount() const
 {
 	return total_vertex_count_;
 }
 
-CEGUI::uint 
+CEGUI::uint
 sge::cegui::detail::geometry_buffer::getBatchCount() const
 {
-	return 
+	return
 		static_cast<CEGUI::uint>(
 			batches_.size());
 }
 
-void 
+void
 sge::cegui::detail::geometry_buffer::setRenderEffect(
 	CEGUI::RenderEffect*)
 {
@@ -403,21 +403,21 @@ sge::cegui::detail::geometry_buffer::setRenderEffect(
 		FCPPT_TEXT("Render effects are not implemented yet"));
 }
 
-CEGUI::RenderEffect* 
+CEGUI::RenderEffect*
 sge::cegui::detail::geometry_buffer::getRenderEffect()
 {
 	return 0;
 }
 
-void 
+void
 sge::cegui::detail::geometry_buffer::setBlendMode(
 	CEGUI::BlendMode const _blend_mode)
 {
-	blend_mode_ = 
+	blend_mode_ =
 		_blend_mode;
 }
 
-CEGUI::BlendMode 
+CEGUI::BlendMode
 sge::cegui::detail::geometry_buffer::getBlendMode() const
 {
 	return blend_mode_;

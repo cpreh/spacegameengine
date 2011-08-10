@@ -54,9 +54,9 @@ public:
 	typedef renderer::lock_rect rect;
 
 	typedef sge::image2d::view::const_object const_view;
-	
+
 	SGE_RENDERER_SYMBOL
-	const_view const 
+	const_view const
 	lock() const;
 
 	virtual const_view const
