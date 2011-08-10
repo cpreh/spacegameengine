@@ -63,6 +63,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode3.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
@@ -100,6 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -133,7 +141,7 @@ try
 			sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::visual_depth::depth32,
-					sge::renderer::depth_stencil_buffer::off,
+					sge::renderer::depth_stencil_buffer::d16,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
@@ -378,8 +386,8 @@ try
 	
 	timer frame_timer(
 		timer::parameters(
-			sge::camera::duration(
-				1.0f
+			fcppt::chrono::seconds(
+				1
 			)
 		)
 	);
@@ -410,6 +418,23 @@ try
 		sge::renderer::scoped_vertex_buffer const scoped_vb(
 			sys.renderer(),
 			*vertex_buffer
+		);
+
+		sge::renderer::state::scoped const scoped_state(
+			sys.renderer(),
+			sge::renderer::state::list(
+				sge::renderer::state::bool_::clear_back_buffer = true
+			)(
+				sge::renderer::state::bool_::clear_depth_buffer = true
+			)(
+				sge::renderer::state::color::back_buffer_clear_color =
+					sge::image::colors::black()
+			)(
+				sge::renderer::state::float_::depth_buffer_clear_val =
+					1.0f
+			)(
+				sge::renderer::state::depth_func::less
+			)
 		);
 
 		sys.renderer().transform(
