@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_USER_CONFIG_VARIABLE_DECL_HPP_INCLUDED
-#define SGE_PARSE_JSON_USER_CONFIG_VARIABLE_DECL_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_CONFIG_USER_CONFIG_VARIABLE_DECL_HPP_INCLUDED
+#define SGE_PARSE_JSON_CONFIG_USER_CONFIG_VARIABLE_DECL_HPP_INCLUDED
 
-#include <sge/parse/json/user_config_variable_fwd.hpp>
+#include <sge/parse/json/config/user_config_variable_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/path.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -33,6 +33,8 @@ namespace sge
 namespace parse
 {
 namespace json
+{
+namespace config
 {
 template<typename T>
 class user_config_variable
@@ -51,8 +53,8 @@ public:
 
 	explicit
 	user_config_variable(
-		sge::parse::json::object const &,
-		sge::parse::json::object &,
+		json::object const &,
+		json::object &,
 		json::path const &);
 
 	void
@@ -68,12 +70,13 @@ public:
 
 	~user_config_variable();
 private:
-	sge::parse::json::object const &global_config_;
-	sge::parse::json::object &user_config_;
+	json::object const &global_config_;
+	json::object &user_config_;
 	json::path const path_;
 	T value_;
 	fcppt::signal::object<callback_fn> callback_; 
 };
+}
 }
 }
 }

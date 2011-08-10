@@ -18,29 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_DEVICE_FUNCS_SET_DATA_FORMAT_HPP_INCLUDED
-#define SGE_DINPUT_DEVICE_FUNCS_SET_DATA_FORMAT_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_CONFIG_CONFIG_HPP_INCLUDED
+#define SGE_PARSE_JSON_CONFIG_CONFIG_HPP_INCLUDED
 
-#include "../../di.hpp"
-
-namespace sge
-{
-namespace dinput
-{
-namespace device
-{
-namespace funcs
-{
-
-void
-set_data_format(
-	IDirectInputDevice8 *,
-	LPCDIDATAFORMAT
-);
-
-}
-}
-}
-}
+#include <sge/parse/json/config/command_line_parameters.hpp>
+#include <sge/parse/json/config/create_command_line_parameters.hpp>
+#include <sge/parse/json/config/help_needed_exception.hpp>
+#include <sge/parse/json/config/merge_command_line_parameters.hpp>
+#include <sge/parse/json/config/merge_trees.hpp>
+#include <sge/parse/json/config/modify_user_value.hpp>
+#include <sge/parse/json/config/user_config_variable.hpp>
+#include <sge/parse/json/config/user_config_variable_decl.hpp>
+#include <sge/parse/json/config/user_config_variable_fwd.hpp>
+#include <sge/parse/json/config/user_config_variable_impl.hpp>
 
 #endif

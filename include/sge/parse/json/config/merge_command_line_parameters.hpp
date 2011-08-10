@@ -18,15 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/help_needed_exception.hpp>
-#include <sge/parse/json/exception.hpp>
-#include <fcppt/string.hpp>
+#ifndef SGE_PARSE_JSON_CONFIG_MERGE_COMMAND_LINE_PARAMETERS_HPP_INCLUDED
+#define SGE_PARSE_JSON_CONFIG_MERGE_COMMAND_LINE_PARAMETERS_HPP_INCLUDED
 
-sge::parse::json::help_needed_exception::help_needed_exception(
-	fcppt::string const &_string
-)
-:
-	sge::parse::json::exception(
-		_string
-	)
-{}
+#include <sge/parse/json/config/command_line_parameters.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/symbol.hpp>
+
+namespace sge
+{
+namespace parse
+{
+namespace json
+{
+namespace config
+{
+SGE_PARSE_SYMBOL json::object const
+merge_command_line_parameters(
+	json::object,
+	config::command_line_parameters const &);
+}
+}
+}
+}
+
+#endif

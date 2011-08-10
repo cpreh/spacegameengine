@@ -18,11 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_USER_CONFIG_VARIABLE_HPP_INCLUDED
-#define SGE_PARSE_JSON_USER_CONFIG_VARIABLE_HPP_INCLUDED
+#include <sge/parse/json/config/create_command_line_parameters.hpp>
+#include <sge/parse/json/config/command_line_parameters.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <cstddef>
 
-#include <sge/parse/json/user_config_variable_fwd.hpp>
-#include <sge/parse/json/user_config_variable_decl.hpp>
-#include <sge/parse/json/user_config_variable_impl.hpp>
-
-#endif
+sge::parse::json::config::command_line_parameters const
+sge::parse::json::config::create_command_line_parameters(
+	int argc,
+	char *argv[])
+{
+	config::command_line_parameters result(
+		static_cast<config::command_line_parameters::size_type>(
+			argc));
+	for(
+		config::command_line_parameters::size_type i = 
+			0; 
+		i < static_cast<config::command_line_parameters::size_type>(argc); 
+		++i)
+		result[i] = 
+			fcppt::from_std_string(
+				argv[static_cast<std::size_t>(i)]);
+	return result;
+}

@@ -18,18 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_USER_CONFIG_VARIABLE_IMPL_HPP_INCLUDED
-#define SGE_PARSE_JSON_USER_CONFIG_VARIABLE_IMPL_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_CONFIG_USER_CONFIG_VARIABLE_IMPL_HPP_INCLUDED
+#define SGE_PARSE_JSON_CONFIG_USER_CONFIG_VARIABLE_IMPL_HPP_INCLUDED
 
-#include <sge/parse/json/user_config_variable_decl.hpp>
+#include <sge/parse/json/config/user_config_variable_decl.hpp>
+#include <sge/parse/json/config/modify_user_value.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/parse/json/modify_user_value.hpp>
 #include <sge/parse/json/convert_to.hpp>
 
 template<typename T>
-sge::parse::json::user_config_variable<T>::user_config_variable(
-	sge::parse::json::object const &_global_config,
-	sge::parse::json::object &_user_config,
+sge::parse::json::config::user_config_variable<T>::user_config_variable(
+	json::object const &_global_config,
+	json::object &_user_config,
 	json::path const &_path)
 :
 	global_config_(
@@ -48,7 +48,7 @@ sge::parse::json::user_config_variable<T>::user_config_variable(
 
 template<typename T>
 void
-sge::parse::json::user_config_variable<T>::value(
+sge::parse::json::config::user_config_variable<T>::value(
 	T const &_value)
 {
 	value_ = 
@@ -59,14 +59,14 @@ sge::parse::json::user_config_variable<T>::value(
 
 template<typename T>
 T const &
-sge::parse::json::user_config_variable<T>::value() const
+sge::parse::json::config::user_config_variable<T>::value() const
 {
 	return value_;
 }
 
 template<typename T>
 fcppt::signal::auto_connection
-sge::parse::json::user_config_variable<T>::change_callback(
+sge::parse::json::config::user_config_variable<T>::change_callback(
 	callback const &f)
 {
 	return 
@@ -75,9 +75,9 @@ sge::parse::json::user_config_variable<T>::change_callback(
 }
 
 template<typename T>
-sge::parse::json::user_config_variable<T>::~user_config_variable()
+sge::parse::json::config::user_config_variable<T>::~user_config_variable()
 {
-	json::modify_user_value(
+	config::modify_user_value(
 		global_config_,
 		user_config_,
 		path_,

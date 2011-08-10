@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/merge_trees.hpp>
+#include <sge/parse/json/config/merge_trees.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/member.hpp>
@@ -47,7 +47,7 @@ public:
 		sge::parse::json::object const &update) const
 	{
 		return 
-			sge::parse::json::merge_trees(
+			sge::parse::json::config::merge_trees(
 				original,
 				update);
 	}
@@ -109,7 +109,7 @@ key_set(
 }
 
 sge::parse::json::object const
-sge::parse::json::merge_trees(
+sge::parse::json::config::merge_trees(
 	sge::parse::json::object const &original,
 	sge::parse::json::object const &update)
 {

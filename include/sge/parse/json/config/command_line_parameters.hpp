@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_HELP_NEEDED_EXCEPTION_HPP_INCLUDED
-#define SGE_PARSE_JSON_HELP_NEEDED_EXCEPTION_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_CONFIG_COMMAND_LINE_PARAMETERS_HPP_INCLUDED
+#define SGE_PARSE_JSON_CONFIG_COMMAND_LINE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/parse/json/exception.hpp>
-#include <sge/parse/symbol.hpp>
-#include <sge/class_symbol.hpp>
 #include <fcppt/string.hpp>
+#include <vector>
 
 namespace sge
 {
@@ -32,16 +30,12 @@ namespace parse
 {
 namespace json
 {
-class SGE_CLASS_SYMBOL help_needed_exception
-:
-	public sge::parse::json::exception
+namespace config
 {
-public:
-	SGE_PARSE_SYMBOL
-	explicit help_needed_exception(
-		fcppt::string const &
-	);
-};
+typedef
+std::vector<fcppt::string>
+command_line_parameters;
+}
 }
 }
 }

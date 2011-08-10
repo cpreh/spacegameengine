@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/merge_command_line_parameters.hpp>
+#include <sge/parse/json/config/merge_command_line_parameters.hpp>
+#include <sge/parse/json/config/help_needed_exception.hpp>
+#include <sge/parse/json/config/command_line_parameters.hpp>
 #include <sge/parse/json/string_to_value.hpp>
-#include <sge/parse/json/command_line_parameters.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
@@ -28,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/string_to_value.hpp>
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/help_needed_exception.hpp>
 #include <sge/parse/json/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
@@ -129,9 +129,9 @@ process_option(
 }
 
 sge::parse::json::object const
-sge::parse::json::merge_command_line_parameters(
-	sge::parse::json::object input,
-	sge::parse::json::command_line_parameters const &parameters)
+sge::parse::json::config::merge_command_line_parameters(
+	json::object input,
+	config::command_line_parameters const &parameters)
 {
 	if (parameters.size() >= 2 && parameters[1] == FCPPT_TEXT("--help"))
 	{
@@ -153,12 +153,12 @@ sge::parse::json::merge_command_line_parameters(
 			"player/name='\"foobar\"'\n\n"
 			"It's a good idea to always put the argument in apostrophes.\n";
 		throw 
-			sge::parse::json::help_needed_exception(
+			config::help_needed_exception(
 				FCPPT_TEXT("Help was needed"));
 	}
 
 	for(
-		sge::parse::json::command_line_parameters::const_iterator i = 
+		config::command_line_parameters::const_iterator i = 
 			++parameters.begin(); 
 		i != parameters.end(); 
 		++i)

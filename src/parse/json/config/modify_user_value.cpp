@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/modify_user_value.hpp>
+#include <sge/parse/json/config/modify_user_value.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
 #include <sge/parse/json/path_to_string.hpp>
@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <typeinfo>
 
 void
-sge::parse::json::modify_user_value(
+sge::parse::json::config::modify_user_value(
 	sge::parse::json::object const &structure_json,
 	sge::parse::json::object &user_json,
 	json::path const &input_path,

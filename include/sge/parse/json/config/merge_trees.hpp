@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_USER_CONFIG_VARIABLE_FWD_HPP_INCLUDED
-#define SGE_PARSE_JSON_USER_CONFIG_VARIABLE_FWD_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_CONFIG_MERGE_TREES_HPP_INCLUDED
+#define SGE_PARSE_JSON_CONFIG_MERGE_TREES_HPP_INCLUDED
+
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/symbol.hpp>
 
 namespace sge
 {
@@ -27,8 +30,13 @@ namespace parse
 {
 namespace json
 {
-template<typename T>
-class user_config_variable;
+namespace config
+{
+SGE_PARSE_SYMBOL json::object const
+merge_trees(
+	json::object const &original,
+	json::object const &update);
+}
 }
 }
 }

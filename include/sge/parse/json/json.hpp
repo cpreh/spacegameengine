@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/array_fwd.hpp>
-#include <sge/parse/json/command_line_parameters.hpp>
+#include <sge/parse/json/config/config.hpp>
 #include <sge/parse/json/convert/convert.hpp>
 #include <sge/parse/json/convert_from.hpp>
 #include <sge/parse/json/convert_to.hpp>
@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/get_unsigned.hpp>
 #include <sge/parse/json/grammar.hpp>
-#include <sge/parse/json/help_needed_exception.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/is_null.hpp>
@@ -50,9 +49,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_name_equal.hpp>
 #include <sge/parse/json/member_not_found.hpp>
 #include <sge/parse/json/member_vector.hpp>
-#include <sge/parse/json/merge_command_line_parameters.hpp>
-#include <sge/parse/json/merge_trees.hpp>
-#include <sge/parse/json/modify_user_value.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -71,10 +67,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/string.hpp>
 #include <sge/parse/json/string_to_path.hpp>
 #include <sge/parse/json/string_to_value.hpp>
-#include <sge/parse/json/user_config_variable.hpp>
-#include <sge/parse/json/user_config_variable_decl.hpp>
-#include <sge/parse/json/user_config_variable_fwd.hpp>
-#include <sge/parse/json/user_config_variable_impl.hpp>
 #include <sge/parse/json/value.hpp>
 
 #endif
