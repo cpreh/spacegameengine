@@ -54,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -73,6 +74,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode3.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
+#include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
@@ -418,6 +421,14 @@ try
 		sge::renderer::scoped_vertex_buffer const scoped_vb(
 			sys.renderer(),
 			*vertex_buffer
+		);
+
+		sge::renderer::texture::scoped const scoped_texture(
+			sys.renderer(),
+			*texture,
+			sge::renderer::stage(
+				0u
+			)
 		);
 
 		sge::renderer::state::scoped const scoped_state(
