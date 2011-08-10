@@ -175,10 +175,183 @@ coord_to_texcoord(
 	
 void
 fill_geometry(
-	sge::renderer::vertex_buffer &_vertex_buffer,
-	pos_array const &_positions
+	sge::renderer::vertex_buffer &_vertex_buffer
 )
 {
+	pos_array const positions(
+		fcppt::assign::make_array<
+			pos_vector
+		>
+		// bottom 1
+		(
+			pos_vector(
+				-1,-1,-1
+			)
+		)(
+			pos_vector(
+				-1,-1,1
+			)
+		)(
+			pos_vector(
+				1,-1,1
+			)
+		)
+		// bottom 2
+		(
+			pos_vector(
+				1,-1,1
+			)
+		)(
+			pos_vector(
+				1,-1,-1
+			)
+		)(
+			pos_vector(
+				-1,-1,-1
+			)
+		)
+		// top 1
+		(
+			pos_vector(
+				-1,1,-1
+			)
+		)(
+			pos_vector(
+				1,1,-1
+			)
+		)(
+			pos_vector(
+				1,1,1
+			)
+		)
+		// top 2
+		(
+			pos_vector(
+				1,1,1
+			)
+		)(
+			pos_vector(
+				-1,1,1
+			)
+		)(
+			pos_vector(
+				-1,1,-1
+			)
+		)
+		// left 1
+		(
+			pos_vector(
+				-1,-1,-1
+			)
+		)(
+			pos_vector(
+				-1,1,-1
+			)
+		)(
+			pos_vector(
+				-1,1,1
+			)
+		)
+		// left 2
+		(
+			pos_vector(
+				-1,1,1
+			)
+		)(
+			pos_vector(
+				-1,-1,1
+			)
+		)(
+			pos_vector(
+				-1,-1,-1
+			)
+		)
+		// right 1
+		(
+			pos_vector(
+				1,-1,-1
+			)
+		)(
+			pos_vector(
+				1,-1,1
+			)
+		)(
+			pos_vector(
+				1,1,1
+			)
+		)
+		// right 2
+		(
+			pos_vector(
+				1,1,1
+			)
+		)(
+			pos_vector(
+				1,1,-1
+			)
+		)(
+			pos_vector(
+				1,-1,-1
+			)
+		)
+		// front 1
+		(
+			pos_vector(
+				-1,-1,1
+			)
+		)(
+			pos_vector(
+				-1,1,1
+			)
+		)(
+			pos_vector(
+				1,1,1
+			)
+		)
+		// front 2
+		(
+			pos_vector(
+				1,1,1
+			)
+		)(
+			pos_vector(
+				1,-1,1
+			)
+		)(
+			pos_vector(
+				-1,-1,1
+			)
+		)
+		// back 1
+		(
+			pos_vector(
+				-1,-1,-1
+			)
+		)(
+			pos_vector(
+				1,-1,-1
+			)
+		)(
+			pos_vector(
+				1,1,-1
+			)
+		)
+		// back 2
+		(
+			pos_vector(
+				1,1,-1
+			)
+		)(
+			pos_vector(
+				-1,1,-1
+			)
+		)(
+			pos_vector(
+				-1,-1,-1
+			)
+		)
+	);
+
 	sge::renderer::scoped_vertex_lock const vb_lock(
 		_vertex_buffer,
 		sge::renderer::lock_mode::writeonly
@@ -202,9 +375,9 @@ fill_geometry(
 
 	for(
 		pos_array::const_iterator it(
-			_positions.begin()
+			positions.begin()
 		);
-		it != _positions.end();
+		it != positions.end();
 		++it
 	)
 	{
@@ -400,178 +573,7 @@ try
 	);
 
 	::fill_geometry(
-		*vertex_buffer,
-		fcppt::assign::make_array<
-			pos_vector
-		>
-		// bottom 1
-		(
-			pos_vector(
-				-1,-1,-1
-			)
-		)(
-			pos_vector(
-				-1,-1,1
-			)
-		)(
-			pos_vector(
-				1,-1,1
-			)
-		)
-		// bottom 2
-		(
-			pos_vector(
-				1,-1,1
-			)
-		)(
-			pos_vector(
-				1,-1,-1
-			)
-		)(
-			pos_vector(
-				-1,-1,-1
-			)
-		)
-		// top 1
-		(
-			pos_vector(
-				-1,1,-1
-			)
-		)(
-			pos_vector(
-				1,1,-1
-			)
-		)(
-			pos_vector(
-				1,1,1
-			)
-		)
-		// top 2
-		(
-			pos_vector(
-				1,1,1
-			)
-		)(
-			pos_vector(
-				-1,1,1
-			)
-		)(
-			pos_vector(
-				-1,1,-1
-			)
-		)
-		// left 1
-		(
-			pos_vector(
-				-1,-1,-1
-			)
-		)(
-			pos_vector(
-				-1,1,-1
-			)
-		)(
-			pos_vector(
-				-1,1,1
-			)
-		)
-		// left 2
-		(
-			pos_vector(
-				-1,1,1
-			)
-		)(
-			pos_vector(
-				-1,-1,1
-			)
-		)(
-			pos_vector(
-				-1,-1,-1
-			)
-		)
-		// right 1
-		(
-			pos_vector(
-				1,-1,-1
-			)
-		)(
-			pos_vector(
-				1,-1,1
-			)
-		)(
-			pos_vector(
-				1,1,1
-			)
-		)
-		// right 2
-		(
-			pos_vector(
-				1,1,1
-			)
-		)(
-			pos_vector(
-				1,1,-1
-			)
-		)(
-			pos_vector(
-				1,-1,-1
-			)
-		)
-		// front 1
-		(
-			pos_vector(
-				-1,-1,1
-			)
-		)(
-			pos_vector(
-				-1,1,1
-			)
-		)(
-			pos_vector(
-				1,1,1
-			)
-		)
-		// front 2
-		(
-			pos_vector(
-				1,1,1
-			)
-		)(
-			pos_vector(
-				1,-1,1
-			)
-		)(
-			pos_vector(
-				-1,-1,1
-			)
-		)
-		// back 1
-		(
-			pos_vector(
-				-1,-1,-1
-			)
-		)(
-			pos_vector(
-				1,-1,-1
-			)
-		)(
-			pos_vector(
-				1,1,-1
-			)
-		)
-		// back 2
-		(
-			pos_vector(
-				1,1,-1
-			)
-		)(
-			pos_vector(
-				-1,1,-1
-			)
-		)(
-			pos_vector(
-				-1,-1,-1
-			)
-		)
+		*vertex_buffer
 	);
 
 	bool running(
