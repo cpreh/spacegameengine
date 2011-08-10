@@ -85,7 +85,7 @@ process_option(
 
 	boost::fusion::at_c<0>(result).pop_back();
 
-	sge::parse::json::object *target = 
+	sge::parse::json::object *target =
 		boost::accumulate(
 			boost::fusion::at_c<0>(
 				result),
@@ -101,7 +101,7 @@ process_option(
 					boost::phoenix::arg_names::arg1),
 				boost::phoenix::arg_names::arg2));
 
-	sge::parse::json::member_vector::iterator it = 
+	sge::parse::json::member_vector::iterator it =
 		std::find_if(
 			target->members.begin(),
 			target->members.end(),
@@ -121,7 +121,7 @@ process_option(
 						boost::phoenix::arg_names::arg1)),
 				element));
 
-	it->value = 
+	it->value =
 		sge::parse::json::string_to_value(
 			boost::fusion::at_c<1>(
 				result));
@@ -135,7 +135,7 @@ sge::parse::json::config::merge_command_line_parameters(
 {
 	if (parameters.size() >= 2 && parameters[1] == FCPPT_TEXT("--help"))
 	{
-		std::cout << 
+		std::cout <<
 			"Command line options are of the form:\n\n"
 			"foo/bar/baz=qux\n\n"
 			"where foo/bar/baz is a sequence of objects in the config.json file.\n"
@@ -152,20 +152,20 @@ sge::parse::json::config::merge_command_line_parameters(
 			"to set a json string, you have to write:\n\n"
 			"player/name='\"foobar\"'\n\n"
 			"It's a good idea to always put the argument in apostrophes.\n";
-		throw 
+		throw
 			config::help_needed_exception(
 				FCPPT_TEXT("Help was needed"));
 	}
 
 	for(
-		config::command_line_parameters::const_iterator i = 
-			++parameters.begin(); 
-		i != parameters.end(); 
+		config::command_line_parameters::const_iterator i =
+			++parameters.begin();
+		i != parameters.end();
 		++i)
 		::process_option(
 			input,
 			*i);
 
-	return 
+	return
 		input;
 }

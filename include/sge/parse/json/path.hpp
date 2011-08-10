@@ -45,7 +45,7 @@ public:
 	typedef
 	sequence_type::const_reference
 	const_reference;
-	
+
 	typedef
 	sequence_type::size_type
 	size_type;
@@ -59,10 +59,10 @@ public:
 	path(
 		fcppt::string const &);
 
-	SGE_PARSE_SYMBOL const_iterator 
+	SGE_PARSE_SYMBOL const_iterator
 	begin() const;
 
-	SGE_PARSE_SYMBOL const_iterator 
+	SGE_PARSE_SYMBOL const_iterator
 	end() const;
 
 	SGE_PARSE_SYMBOL size_type

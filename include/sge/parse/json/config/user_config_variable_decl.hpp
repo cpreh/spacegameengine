@@ -43,7 +43,7 @@ FCPPT_NONCOPYABLE(
 	user_config_variable);
 public:
 	typedef
-	void 
+	void
 	callback_fn(
 		T const &);
 
@@ -74,7 +74,7 @@ private:
 	json::object &user_config_;
 	json::path const path_;
 	T value_;
-	fcppt::signal::object<callback_fn> callback_; 
+	fcppt::signal::object<callback_fn> callback_;
 };
 }
 }

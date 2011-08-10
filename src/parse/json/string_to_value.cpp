@@ -36,14 +36,14 @@ sge::parse::json::string_to_value(
 {
 	using namespace sge::parse::json;
 
-	fcppt::string const edited = 
+	fcppt::string const edited =
 		(fcppt::format(FCPPT_TEXT("{ \"value\" : %s }")) % s).str();
-	
+
 	fcppt::io::istringstream stream(edited);
 	object result;
 	if (!parse_stream(stream,result))
 		throw sge::parse::json::exception(FCPPT_TEXT("Couldn't convert string \"")+s+FCPPT_TEXT("\" to json value"));
-	return 
+	return
 		std::find_if(
 			result.members.begin(),
 			result.members.end(),

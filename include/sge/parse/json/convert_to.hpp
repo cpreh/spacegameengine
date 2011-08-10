@@ -46,15 +46,15 @@ boost::enable_if_c
 <
 	boost::is_same<T,sge::parse::json::object>::value ||
 	boost::is_same<T,sge::parse::json::array>::value ||
-	boost::is_same<T,sge::parse::json::null>::value || 
-	boost::is_same<T,fcppt::string>::value || 
+	boost::is_same<T,sge::parse::json::null>::value ||
+	boost::is_same<T,fcppt::string>::value ||
 	boost::is_same<T,bool>::value,
 	sge::parse::json::value
 >::type
 convert_to(
 	T const &t)
 {
-	return 
+	return
 		t;
 }
 
@@ -69,7 +69,7 @@ boost::enable_if_c
 convert_to(
 	T const &t)
 {
-	return 
+	return
 		static_cast<sge::parse::json::int_type>(
 			t);
 }
@@ -84,7 +84,7 @@ boost::enable_if_c
 convert_to(
 	T const &t)
 {
-	return 
+	return
 		static_cast<sge::parse::json::float_type>(
 			t);
 }
@@ -95,7 +95,7 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	fcppt::type_traits::is_iterable<T>::value && 
+	fcppt::type_traits::is_iterable<T>::value &&
 	!boost::is_same<T,fcppt::string>::value,
 	sge::parse::json::value
 >::type

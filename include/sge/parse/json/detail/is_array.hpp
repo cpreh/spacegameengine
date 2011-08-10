@@ -54,7 +54,7 @@ struct is_array< boost::array<T,N> > : boost::true_type {};
 
 template<typename T,fcppt::math::size_type N>
 struct is_array
-< 
+<
 	fcppt::math::vector::basic
 	<
 		T,
@@ -63,18 +63,18 @@ struct is_array
 			fcppt::math::size_type,
 			N
 		>,
-		typename 
+		typename
 		fcppt::math::detail::static_storage
 		<
 			T,
 			N
 		>::type
-	> 
+	>
 > : boost::true_type {};
 
 template<typename T,fcppt::math::size_type N>
 struct is_array
-< 
+<
 	fcppt::math::dim::basic
 	<
 		T,
@@ -83,13 +83,13 @@ struct is_array
 			fcppt::math::size_type,
 			N
 		>,
-		typename 
+		typename
 		fcppt::math::detail::static_storage
 		<
 			T,
 			N
 		>::type
-	> 
+	>
 > : boost::true_type {};
 }
 }
