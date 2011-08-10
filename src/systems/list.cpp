@@ -115,7 +115,7 @@ sge::systems::list::append(
 			ret(
 				*it
 			);
-	
+
 	return ret;
 }
 

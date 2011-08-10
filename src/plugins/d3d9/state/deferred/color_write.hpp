@@ -32,7 +32,7 @@ namespace state
 {
 namespace deferred
 {
-	
+
 void
 color_write(
 	IDirect3DDevice9 *,

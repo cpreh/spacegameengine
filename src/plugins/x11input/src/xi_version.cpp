@@ -32,7 +32,7 @@ sge::x11input::xi_version(
 	// BadRequest will be generated if the
 	// server doesn't support XI2 at all.
 	// Otherwise the version the server actually supports is returned.
-	
+
 	int
 		major_ret(
 			_major

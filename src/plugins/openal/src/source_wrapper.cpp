@@ -45,7 +45,7 @@ sge::openal::source_wrapper::~source_wrapper()
 		log(),
 		fcppt::log::_
 			<< FCPPT_TEXT("Deleting a source"));
-	
+
 	alDeleteSources(
 		static_cast<ALsizei>(1),
 		&value_

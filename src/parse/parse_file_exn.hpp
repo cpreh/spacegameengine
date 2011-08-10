@@ -42,7 +42,7 @@ parse_file_exn(
 {
 	Result result;
 
-	if( 
+	if(
 		!parse::parse_file(
 			_path,
 			result

@@ -55,12 +55,12 @@ lexical_cast(
 class type_value_generator
 {
 public:
-	typedef 
+	typedef
 	std::pair
 	<
 		sge::renderer::glsl::string,
 		sge::renderer::glsl::string
-	> 
+	>
 	result_type;
 
 	result_type
@@ -101,7 +101,7 @@ public:
 
 	result_type
 	operator()(
-		sge::shader::matrix const &v) const 
+		sge::shader::matrix const &v) const
 	{
 		return result_type("mat4",lexical_cast(v.value()));
 	}
@@ -129,7 +129,7 @@ generate_declaration(
 	<
 		sge::renderer::glsl::string,
 		sge::renderer::glsl::string
-	> const type_value = 
+	> const type_value =
 		fcppt::variant::apply_unary(
 			type_value_generator(),
 			v);
@@ -142,7 +142,7 @@ generate_declaration(
 			s += ";";
 			break;
 		case sge::shader::variable_type::constant:
-			s += 
+			s +=
 				(boost::format(" = %s%s;")
 					% type_value.first
 					% type_value.second).str();

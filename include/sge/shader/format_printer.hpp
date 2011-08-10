@@ -42,10 +42,10 @@ class format_printer
 		format_printer
 	);
 public:
-	explicit 
+	explicit
 	format_printer(
-		renderer::glsl::string &_s) 
-	: s(_s) 
+		renderer::glsl::string &_s)
+	: s(_s)
 	{}
 
 	template
@@ -60,7 +60,7 @@ public:
 		<
 			renderer::vf::vector<T,N>,Tag>)
 	{
-		s += 
+		s +=
 			boost::str(
 				boost::format("in %s %s;\n")
 				% shader::vector_to_string<T,N>()

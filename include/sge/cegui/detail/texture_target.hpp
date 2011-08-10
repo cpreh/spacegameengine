@@ -53,57 +53,57 @@ class texture_target
 FCPPT_NONCOPYABLE(
 	texture_target);
 public:
-	explicit 
+	explicit
 	texture_target(
 		system &);
 
-	void 
+	void
 	draw(
 		CEGUI::GeometryBuffer const & buffer);
 
-	void 
+	void
 	draw(
 		CEGUI::RenderQueue const & queue);
 
-	void 
+	void
 	setArea(
 		CEGUI::Rect const & area);
 
 	CEGUI::Rect const &
 	getArea() const;
 
-	bool 
+	bool
 	isImageryCache() const;
 
-	void 
+	void
 	activate();
 
-	void 
+	void
 	deactivate();
 
-	void 
+	void
 	unprojectPoint(
 		CEGUI::GeometryBuffer const & buff,
-		CEGUI::Vector2 const &p_in, 
+		CEGUI::Vector2 const &p_in,
 		CEGUI::Vector2 & p_out) const;
 
-	void 
+	void
 	clear();
 
 	CEGUI::Texture &
 	getTexture() const;
 
-	void 
+	void
 	declareRenderSize(
 		CEGUI::Size const &);
 
-	bool 
+	bool
 	isRenderingInverted() const;
 
 	~texture_target();
 private:
-	typedef 
-	fcppt::scoped_ptr<texture> 
+	typedef
+	fcppt::scoped_ptr<texture>
 	texture_scoped_ptr;
 
 	system &system_;

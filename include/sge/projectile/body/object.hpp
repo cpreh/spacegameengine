@@ -55,18 +55,18 @@ public:
 	SGE_PROJECTILE_SYMBOL explicit
 	object(
 		parameters const &);
-	
-	SGE_PROJECTILE_SYMBOL vector2 const 
+
+	SGE_PROJECTILE_SYMBOL vector2 const
 	position() const;
-	
-	SGE_PROJECTILE_SYMBOL void 
+
+	SGE_PROJECTILE_SYMBOL void
 	position(
 		vector2 const &);
 
-	SGE_PROJECTILE_SYMBOL vector2 const 
+	SGE_PROJECTILE_SYMBOL vector2 const
 	linear_velocity() const;
-	
-	SGE_PROJECTILE_SYMBOL void 
+
+	SGE_PROJECTILE_SYMBOL void
 	linear_velocity(
 		vector2 const &);
 
@@ -79,11 +79,11 @@ public:
 
 	SGE_PROJECTILE_SYMBOL sge::projectile::shape::shared_base_ptr const
 	shape() const;
-		
+
 	SGE_PROJECTILE_SYMBOL scalar
 	rotation() const;
-	
-	SGE_PROJECTILE_SYMBOL void 
+
+	SGE_PROJECTILE_SYMBOL void
 	rotation(
 		scalar);
 
@@ -97,7 +97,7 @@ public:
 
 	SGE_PROJECTILE_SYMBOL sge::projectile::body::user_data const &
 	user_data() const;
-		
+
 	SGE_PROJECTILE_SYMBOL ~object();
 private:
 	friend class sge::projectile::body::detail::motion_state;
@@ -112,12 +112,12 @@ private:
 	sge::projectile::body::user_data user_data_;
 
 	// @override
-	void	
+	void
 	getWorldTransform(
 		btTransform &) const;
 
 	// @override
-	void	
+	void
 	setWorldTransform(
 		btTransform const &);
 };

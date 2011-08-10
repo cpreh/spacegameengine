@@ -245,7 +245,7 @@ try
 	test2.texture(
 		tex2
 	);
-	
+
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
@@ -292,7 +292,7 @@ catch(
 	fcppt::io::cerr
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
-	
+
 	return EXIT_FAILURE;
 }
 catch(
@@ -302,6 +302,6 @@ catch(
 	fcppt::io::cerr
 		<< _error.what()
 		<< FCPPT_TEXT('\n');
-	
+
 	return EXIT_FAILURE;
 }

@@ -43,34 +43,34 @@ public:
 	SGE_AUDIO_SYMBOL explicit
 	base();
 
-	virtual void 
+	virtual void
 	play(
 		sge::audio::sound::repeat::type) = 0;
 
 	virtual sge::audio::sound::repeat::type
 	repeat() const = 0;
 
-	virtual void 
+	virtual void
 	toggle_pause() = 0;
 
-	virtual play_status::type 
+	virtual play_status::type
 	status() const = 0;
 
-	virtual void 
+	virtual void
 	gain(
 		scalar) = 0;
 
-	virtual scalar 
+	virtual scalar
 	gain() const = 0;
 
-	virtual void 
+	virtual void
 	pitch(
 		scalar) = 0;
 
-	virtual scalar 
+	virtual scalar
 	pitch() const = 0;
 
-	virtual void 
+	virtual void
 	stop() = 0;
 
 	virtual void

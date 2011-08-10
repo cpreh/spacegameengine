@@ -62,7 +62,7 @@ public:
 
 	virtual extension_set const
 	extensions() const = 0;
-	
+
 	SGE_AUDIO_SYMBOL
 	virtual ~loader();
 };

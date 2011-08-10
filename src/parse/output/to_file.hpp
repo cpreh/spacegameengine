@@ -65,7 +65,7 @@ to_file(
 			ofs,
 			data
 		);
-#undef SGE_PARSE_DETAIL_TO_STREAM_NAMESPACE 
+#undef SGE_PARSE_DETAIL_TO_STREAM_NAMESPACE
 }
 
 }

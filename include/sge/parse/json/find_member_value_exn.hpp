@@ -72,7 +72,7 @@ find_member_value_exn(
 			+ _name
 			+ FCPPT_TEXT("\" in a json object's member list!")
 		);
-	
+
 	return *ret;
 }
 

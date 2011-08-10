@@ -30,11 +30,11 @@ namespace cegui
 {
 namespace vf
 {
-typedef 
+typedef
 sge::renderer::vf::color
 <
 	sge::image::color::rgba8_format
-> 
+>
 color;
 }
 }

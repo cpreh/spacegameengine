@@ -65,7 +65,7 @@ public:
 
 	gl_create_shader
 	create_shader() const;
-	
+
 	gl_delete_shader
 	delete_shader() const;
 

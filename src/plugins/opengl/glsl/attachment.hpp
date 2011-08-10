@@ -62,7 +62,7 @@ private:
 	typedef fcppt::shared_ptr<
 		shader_type
 	> shader_ptr;
-	
+
 	program_context const &context_;
 
 	shader_ptr const shader_;

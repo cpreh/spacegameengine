@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_OBJECT_EXTRUSION_DEPTH_HPP_INCLUDED
 #define SGE_PROJECTILE_OBJECT_EXTRUSION_DEPTH_HPP_INCLUDED
 
-#include <LinearMath/btScalar.h> 
+#include <LinearMath/btScalar.h>
 
 namespace sge
 {

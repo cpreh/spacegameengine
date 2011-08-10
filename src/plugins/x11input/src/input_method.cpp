@@ -54,7 +54,7 @@ sge::x11input::input_method::input_method(
 					_class_hint->res_class().c_str()
 				)
 			:
-				NULL	
+				NULL
 		)
 	)
 {

@@ -55,7 +55,7 @@ sge::plugin::library::function_map::function(
 			+
 			FCPPT_TEXT("\" in a library!")
 		);
-	
+
 	return it->second;
 }
 

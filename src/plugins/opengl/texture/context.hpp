@@ -64,7 +64,7 @@ private:
 	bool const
 		anisotropic_filter_supported_,
 		generate_mipmap_flag_supported_;
-	
+
 	GLenum const
 		anisotropy_flag_,
 		max_anisotropy_flag_;

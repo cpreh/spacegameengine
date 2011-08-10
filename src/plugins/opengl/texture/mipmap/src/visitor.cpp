@@ -57,7 +57,7 @@ sge::opengl::texture::mipmap::visitor<Dim>::operator()(
 		_all_levels
 	);
 }
-	
+
 template<
 	fcppt::math::size_type Dim
 >

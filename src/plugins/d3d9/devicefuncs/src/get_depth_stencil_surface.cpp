@@ -45,7 +45,7 @@ sge::d3d9::devicefuncs::get_depth_stencil_surface(
 	case D3DERR_NOTFOUND:
 		return d3d9::surface::d3d_unique_ptr();
 	}
-	
+
 	throw sge::renderer::exception(
 		FCPPT_TEXT("GetDepthStencilSurface() failed!")
 	);

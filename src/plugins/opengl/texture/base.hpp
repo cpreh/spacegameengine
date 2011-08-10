@@ -46,7 +46,7 @@ public:
 	texture::type const
 	type() const;
 
-	texture::id const 
+	texture::id const
 	id() const;
 
 	bool
@@ -69,7 +69,7 @@ private:
 	texture::type const type_;
 
 	opengl::texture::holder const holder_;
-	
+
 	mutable sge::renderer::texture::filter::object filter_;
 };
 

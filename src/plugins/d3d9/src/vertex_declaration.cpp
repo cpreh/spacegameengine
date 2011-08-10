@@ -42,7 +42,7 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 	typedef fcppt::container::raw_vector<
 		D3DVERTEXELEMENT9
 	> element_vector;
-	
+
 	element_vector vertex_elements;
 
 	WORD stream(
@@ -68,7 +68,7 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 	{
 		usage_count_map usage_counts;
 
-		
+
 		sge::renderer::vf::dynamic::ordered_element_list const &elements(
 			part_it->elements()
 		);

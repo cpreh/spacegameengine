@@ -54,7 +54,7 @@ public:
 	SGE_PLUGIN_SYMBOL
 	~object();
 
-	library::loaded_symbol 
+	library::loaded_symbol
 	load(
 		library::symbol_string const &
 	);

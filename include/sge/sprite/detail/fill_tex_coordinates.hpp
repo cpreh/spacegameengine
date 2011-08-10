@@ -66,7 +66,7 @@ fill_tex_coordinates(
 		//|| !_sprite.texture().texture()
 	)
 		return;
-	
+
 	detail::fill_tex_coordinates_impl(
 		_iterator,
 		_sprite

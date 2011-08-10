@@ -31,6 +31,6 @@ sge::parse::ini::parse_file(
 	return
 		parse::parse_file(
 			_path,
-			_result	
+			_result
 		);
 }

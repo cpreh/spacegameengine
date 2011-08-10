@@ -132,7 +132,7 @@ format_to_string(
 		return FCPPT_TEXT("LUMINANCE_ALPHA");
 	}
 
-	throw sge::image::exception(	
+	throw sge::image::exception(
 		FCPPT_TEXT("Unknown il format")
 	);
 }

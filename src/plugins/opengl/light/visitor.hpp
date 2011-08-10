@@ -55,7 +55,7 @@ public:
 	operator()(
 		sge::renderer::light::point const &
 	) const;
-	
+
 	result_type
 	operator()(
 		sge::renderer::light::spot const &

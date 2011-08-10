@@ -109,7 +109,7 @@ sge::x11input::device::select_events(
 	typedef std::vector<
 		XIEventMask
 	> event_mask_vector;
-	
+
 	// Copy all masks over because we might need to add a new mask.
 	event_mask_vector event_masks(
 		mask.get(),

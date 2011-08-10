@@ -64,7 +64,7 @@ sge::config::config_path(
 		:
 			config::homedir() / FCPPT_TEXT(".config")
 	);
-	
+
 	return
 		config::try_create_path(
 			path

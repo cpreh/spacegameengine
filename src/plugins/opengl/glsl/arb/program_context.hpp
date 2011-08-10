@@ -74,7 +74,7 @@ public:
 
 	gl_create_program
 	create_program() const;
-	
+
 	gl_delete_program
 	delete_program() const;
 

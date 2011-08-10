@@ -90,9 +90,9 @@ public:
 		value_ %=
 			object_
 			| array_
-			| bool_ 
+			| bool_
 			| quoted_string_
-			| float_ 
+			| float_
 			| int_
 			| null_;
 

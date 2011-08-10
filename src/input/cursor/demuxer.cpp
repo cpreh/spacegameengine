@@ -190,7 +190,7 @@ sge::input::cursor::demuxer::remove_callback(
 	)
 	{
 		current_cursor_.reset();
-		
+
 		cursor_connections_.clear();
 	}
 	else

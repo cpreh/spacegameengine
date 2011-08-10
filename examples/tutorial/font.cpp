@@ -188,7 +188,7 @@ catch (sge::exception const &e)
 		<< FCPPT_TEXT("caught sge exception: ")
 		<< e.string()
 		<< FCPPT_TEXT('\n');
-	
+
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)
@@ -197,6 +197,6 @@ catch (std::exception const &e)
 		<< "caught std exception: "
 		<< e.what()
 		<< '\n';
-	
+
 	return EXIT_FAILURE;
 }

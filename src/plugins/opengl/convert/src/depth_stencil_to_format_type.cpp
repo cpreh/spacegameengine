@@ -45,7 +45,7 @@ sge::opengl::convert::depth_stencil_to_format_type(
 			);
 	}
 
-	throw sge::renderer::exception(	
+	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid depth_stencil_format in depth_stencil_to_format_type()!")
 	);
 }

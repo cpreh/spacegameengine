@@ -90,40 +90,40 @@ sge::cegui::detail::texture::empty() const
 CEGUI::Size const &
 sge::cegui::detail::texture::getSize() const
 {
-	return 
+	return
 		size_;
 }
 
 CEGUI::Size const &
 sge::cegui::detail::texture::getOriginalDataSize() const
 {
-	return 
+	return
 		size_;
 }
 
 CEGUI::Vector2 const &
 sge::cegui::detail::texture::getTexelScaling() const
 {
-	return 
+	return
 		texel_scaling_;
 }
 
-void 
+void
 sge::cegui::detail::texture::resize(
 	CEGUI::Size const &_size)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("texture(") 
-			<< this 
-			<< FCPPT_TEXT(")::resize(") 
-			<< _size.d_width 
-			<< FCPPT_TEXT("x") 
-			<< _size.d_height 
+		fcppt::log::_
+			<< FCPPT_TEXT("texture(")
+			<< this
+			<< FCPPT_TEXT(")::resize(")
+			<< _size.d_width
+			<< FCPPT_TEXT("x")
+			<< _size.d_height
 			<< FCPPT_TEXT(")"));
 
-	size_ = 
+	size_ =
 		_size;
 
 	// The size here could be (0,0), for example if the viewport hasn't
@@ -131,19 +131,19 @@ sge::cegui::detail::texture::resize(
 	if(empty())
 	{
 		// If the size is zero...no scaling ;)
-		texel_scaling_ = 
+		texel_scaling_ =
 			CEGUI::Vector2(
 				static_cast<unit>(1),
 				static_cast<unit>(1));
 		return;
 	}
 
-	texel_scaling_ = 
+	texel_scaling_ =
 		CEGUI::Vector2(
 			static_cast<unit>(1)/size_.d_width,
 			static_cast<unit>(1)/size_.d_height);
 
-	texture_ = 
+	texture_ =
 		system_.renderer().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				structure_cast<sge::renderer::dim2>(
@@ -156,22 +156,22 @@ sge::cegui::detail::texture::resize(
 				caps_));
 }
 
-void 
+void
 sge::cegui::detail::texture::loadFromFile(
 	CEGUI::String const &filename,
 	CEGUI::String const &resource_group)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("texture(") 
-			<< this 
-			<< FCPPT_TEXT(")::loadFromFile(") 
+		fcppt::log::_
+			<< FCPPT_TEXT("texture(")
+			<< this
+			<< FCPPT_TEXT(")::loadFromFile(")
 			<< fcppt::from_std_string(filename.c_str())
-			<< FCPPT_TEXT(", ") 
+			<< FCPPT_TEXT(", ")
 			<< fcppt::from_std_string(resource_group.c_str())
 			<< FCPPT_TEXT(")"));
-	
+
 	create_from_view(
 		system_.image_loader().load(
 			system_.to_absolute_path(
@@ -179,7 +179,7 @@ sge::cegui::detail::texture::loadFromFile(
 				resource_group))->view());
 }
 
-void 
+void
 sge::cegui::detail::texture::loadFromMemory(
 	void const * const buffer,
 	CEGUI::Size const &buffer_size,
@@ -187,16 +187,16 @@ sge::cegui::detail::texture::loadFromMemory(
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("texture(") 
-			<< this 
-			<< FCPPT_TEXT(")::loadFromMemory(") 
+		fcppt::log::_
+			<< FCPPT_TEXT("texture(")
+			<< this
+			<< FCPPT_TEXT(")::loadFromMemory(")
 			<< structure_cast<sge::renderer::dim2>(buffer_size)
 			<< FCPPT_TEXT(")"));
 
 	FCPPT_ASSERT(
 		static_cast<int>(buffer_size.d_width) && static_cast<int>(buffer_size.d_height));
-	
+
 	create_from_view(
 		sge::image2d::view::make_const(
 			static_cast<sge::image::const_raw_pointer>(
@@ -218,15 +218,15 @@ void
 sge::cegui::detail::texture::create_from_view(
 	sge::image2d::view::const_object const &v)
 {
-	size_ = 
+	size_ =
 		structure_cast(
 			sge::image2d::view::dim(
 				v));
-	texel_scaling_ = 
+	texel_scaling_ =
 		CEGUI::Vector2(
 			static_cast<unit>(1)/size_.d_width,
 			static_cast<unit>(1)/size_.d_height);
-	texture_ = 
+	texture_ =
 		sge::renderer::texture::create_planar_from_view(
 			system_.renderer(),
 			v,
@@ -236,11 +236,11 @@ sge::cegui::detail::texture::create_from_view(
 			sge::renderer::resource_flags::none);
 }
 
-void 
+void
 sge::cegui::detail::texture::saveToMemory(
 	void*)
 {
-	throw 
+	throw
 		cegui::exception(
 			FCPPT_TEXT("texture::saveToMemory() is not implemented yet"));
 }

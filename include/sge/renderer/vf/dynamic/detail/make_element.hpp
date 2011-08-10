@@ -115,7 +115,7 @@ template<
 	vertex_size NumSubElements,
 	typename Index
 >
-dynamic::element const 
+dynamic::element const
 make_element(
 	vf::texpos<
 		Format,

@@ -32,7 +32,7 @@ namespace primitives
 {
 
 template<
-	typename Type 
+	typename Type
 >
 struct vector
 {

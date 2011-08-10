@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
-sge::camera::gizmo_type 
+sge::camera::gizmo_type
 sge::camera::identity_gizmo()
 {
-	return 
+	return
 		gizmo_type()
 			.position(
 				sge::renderer::vector3::null())

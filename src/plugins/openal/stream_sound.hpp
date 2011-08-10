@@ -31,8 +31,8 @@ namespace sge
 {
 namespace openal
 {
-class stream_sound 
-: 
+class stream_sound
+:
 	public source
 {
 	FCPPT_NONCOPYABLE(
@@ -47,13 +47,13 @@ public:
 	stream_sound(
 		audio::sound::positional_parameters const &,
 		audio::file_ptr);
-	
+
 	~stream_sound();
 
-	void 
+	void
 	update();
 
-	void 
+	void
 	do_play();
 private:
 	typedef
@@ -65,7 +65,7 @@ private:
 	ALenum const format_;
 	buffer_sequence al_buffers_;
 
-	bool 
+	bool
 	fill_buffer(
 		ALuint);
 };

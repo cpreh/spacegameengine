@@ -39,7 +39,7 @@ template<
 	typename PointContainer,
 	typename IndexContainer
 >
-bool 
+bool
 snip(
 	PointContainer const &_contour,
 	typename PointContainer::size_type const _prev_vertex,
@@ -73,7 +73,7 @@ snip(
 	>::type
 	scalar;
 
-	vertex const 
+	vertex const
 		v1(
 			_contour[
 				_indices[

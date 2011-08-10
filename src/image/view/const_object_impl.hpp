@@ -97,7 +97,7 @@ sge::image::view::const_object<
 		this != &_other
 	)
 		variant_ = _other.variant_;
-	
+
 	return *this;
 }
 

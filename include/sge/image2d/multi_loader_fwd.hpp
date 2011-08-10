@@ -36,7 +36,7 @@ typedef sge::multi_loader<
 	sge::image2d::loader,
 	sge::image2d::file,
 	sge::image::exception,
-	sge::image::capabilities_field	
+	sge::image::capabilities_field
 > multi_loader;
 
 }

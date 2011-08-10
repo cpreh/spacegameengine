@@ -50,7 +50,7 @@ sge::renderer::glsl::create_program(
 			)
 		);
 	}
-	
+
 	if(
 		glsl::program_parameters::optional_string const pixel_shader_source =
 			_parameters.pixel_shader()

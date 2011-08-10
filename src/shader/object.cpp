@@ -62,7 +62,7 @@ file_to_string(
 {
 	fcppt::io::cifstream stream(
 		p);
-	return 
+	return
 		sge::renderer::glsl::string(
 			std::istreambuf_iterator<sge::renderer::glsl::string::value_type>(
 				stream),
@@ -73,7 +73,7 @@ file_to_string(
 struct uniform_setter
 {
 public:
-	// apply_unary needs this 
+	// apply_unary needs this
 	typedef void result_type;
 
 	sge::renderer::glsl::uniform::variable_ptr variable_;
@@ -110,7 +110,7 @@ public:
 	operator()(
 		sge::shader::matrix const &m) const
 	{
-		sge::renderer::matrix4 value = 
+		sge::renderer::matrix4 value =
 			m.value();
 
 		switch(m.flags())
@@ -120,7 +120,7 @@ public:
 			case sge::shader::matrix_flags::size:
 				break;
 			case sge::shader::matrix_flags::projection:
-				value = 
+				value =
 					sge::renderer::glsl::to_cvv(
 						value);
 				break;
@@ -153,7 +153,7 @@ sge::shader::object::object(
 			)
 			+
 			FCPPT_TEXT("\ndoes not exist!"));
-	
+
 	if (!fcppt::filesystem::exists(p.fragment_file()))
 		throw exception(
 			FCPPT_TEXT("Fragment shader file\n")+
@@ -163,25 +163,25 @@ sge::shader::object::object(
 			+
 			FCPPT_TEXT("\ndoes not exist!"));
 
-	renderer::glsl::string const header = 
+	renderer::glsl::string const header =
 		boost::accumulate(
 			p.variables(),
 			sge::renderer::glsl::string(),
-			boost::phoenix::arg_names::arg1 + 
+			boost::phoenix::arg_names::arg1 +
 				boost::phoenix::bind(
 					&variable::declaration,
 					boost::phoenix::arg_names::arg2)) +
 		boost::accumulate(
 			p.samplers(),
 			sge::renderer::glsl::string(),
-			boost::phoenix::arg_names::arg1 + 
+			boost::phoenix::arg_names::arg1 +
 				boost::phoenix::bind(
 					&sampler::declaration,
 					boost::phoenix::arg_names::arg2));
 
 	try
 	{
-		program_ = 
+		program_ =
 			sge::renderer::glsl::create_program(
 				renderer_,
 				sge::renderer::glsl::program_parameters()
@@ -202,7 +202,7 @@ sge::shader::object::object(
 	}
 	catch(sge::exception const &e)
 	{
-		throw 
+		throw
 			sge::exception(
 				FCPPT_TEXT("Shader error for shaders: \n")+
 				fcppt::filesystem::path_to_string(
@@ -244,9 +244,9 @@ sge::shader::object::object(
 		}
 	}
 
-	sampler::texture_unit_type current_tu = 
+	sampler::texture_unit_type current_tu =
 		static_cast<sampler::texture_unit_type>(0);
-	
+
 	for(
 		sampler_sequence::const_iterator it(
 			p.samplers().begin()
@@ -270,12 +270,12 @@ sge::shader::object::object(
 
 		++current_tu;
 	}
-	
+
 	if (!program_->info_log().empty())
 	{
 		FCPPT_LOG_INFO(
 			log::global(),
-			fcppt::log::_ 
+			fcppt::log::_
 				<< FCPPT_TEXT("Shader program error log: ")
 				<< program_->info_log()
 				<< FCPPT_TEXT("\n"));
@@ -287,7 +287,7 @@ sge::shader::object::update_uniform(
 	sge::renderer::glsl::string const &name,
 	shader::value_variant const &v)
 {
-	uniform_map::iterator const i = 
+	uniform_map::iterator const i =
 		uniforms_.find(name);
 
 	if (i == uniforms_.end())
@@ -324,7 +324,7 @@ sge::shader::object::update_texture(
 		}
 	}
 
-	throw 
+	throw
 		sge::exception(
 			FCPPT_TEXT("The texture \"")+
 			fcppt::from_std_string(name)+

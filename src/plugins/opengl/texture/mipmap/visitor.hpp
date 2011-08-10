@@ -65,7 +65,7 @@ public:
 	operator()(
 		renderer::texture::mipmap::all_levels_rep const &
 	) const;
-	
+
 	result_type
 	operator()(
 		renderer::texture::mipmap::levels_rep const &

@@ -45,7 +45,7 @@ public:
 		sge::input::keyboard::device &);
 private:
 	syringe &syringe_;
-	fcppt::signal::scoped_connection 
+	fcppt::signal::scoped_connection
 		key_callback_,
 		key_repeat_callback_,
 		char_callback_;

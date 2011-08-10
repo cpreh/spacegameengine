@@ -29,33 +29,33 @@ namespace sge
 {
 namespace openal
 {
-class listener 
-: 
+class listener
+:
 	public sge::audio::listener
 {
 public:
 	explicit
 	listener();
-	
-	void 
+
+	void
 	position(
 		audio::vector const &);
-	
-	audio::vector const 
+
+	audio::vector const
 	position() const;
-	
-	void 
+
+	void
 	linear_velocity(
 		audio::vector const &);
-	
-	audio::vector const 
+
+	audio::vector const
 	linear_velocity() const;
-	
-	void 
+
+	void
 	direction(
 		audio::angle const &);
-	
-	audio::angle const 
+
+	audio::angle const
 	direction() const;
 private:
 	audio::vector position_;

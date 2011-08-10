@@ -42,7 +42,7 @@ sge::config::app_path()
 	typedef fcppt::container::raw_vector<
 		fcppt::char_type
 	> buffer_type;
-	
+
 	buffer_type buf(32768);
 
 	if(

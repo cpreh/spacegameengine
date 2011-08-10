@@ -56,7 +56,7 @@ struct render_states<
 	>::type
 >
 {
-	static sge::renderer::state::list const value;	
+	static sge::renderer::state::list const value;
 };
 
 template<
@@ -72,7 +72,7 @@ struct render_states<
 	>::type
 >
 {
-	static sge::renderer::state::list const value;	
+	static sge::renderer::state::list const value;
 };
 
 }

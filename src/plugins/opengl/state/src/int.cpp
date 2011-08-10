@@ -57,7 +57,7 @@ sge::opengl::state::int_(
 		);
 		return;
 	}
-	
+
 	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid int_state!")
 	);

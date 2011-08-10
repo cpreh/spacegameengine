@@ -41,6 +41,6 @@ sge::config::getenv_exn(
 		throw config::no_such_env_var(
 			_name
 		);
-	
+
 	return *ret;
 }

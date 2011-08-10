@@ -32,7 +32,7 @@ namespace line_drawer
 {
 namespace vf
 {
-typedef 
+typedef
 sge::renderer::vf::part
 <
 	boost::mpl::vector2
@@ -40,7 +40,7 @@ sge::renderer::vf::part
 		position,
 		color
 	>
-> 
+>
 part;
 }
 }

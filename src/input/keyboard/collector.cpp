@@ -132,7 +132,7 @@ sge::input::keyboard::collector::mod_state() const
 		++it
 	)
 		ret |= it->first->mod_state();
-	
+
 	return ret;
 }
 

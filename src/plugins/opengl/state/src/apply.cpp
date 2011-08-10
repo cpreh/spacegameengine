@@ -52,7 +52,7 @@ sge::opengl::state::apply(
 			_depth_stencil_buffer
 		)
 	);
-	
+
 	sge::renderer::state::apply(
 		_current_states,
 		_new_states,

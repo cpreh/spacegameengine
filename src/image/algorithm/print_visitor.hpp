@@ -47,7 +47,7 @@ public:
 		ostream_(_ostream)
 	{
 	}
-	
+
 	template<
 		typename View
 	>

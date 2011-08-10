@@ -79,7 +79,7 @@ private:
 	sge::renderer::device &renderer_;
 
 	sge::renderer::vertex_declaration_ptr const vertex_declaration_;
-	
+
 	buffers_type buffers_;
 
 	static sge::renderer::vf::dynamic::format const dyn_vertex_fmt_;

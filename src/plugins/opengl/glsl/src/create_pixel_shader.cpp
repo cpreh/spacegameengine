@@ -30,7 +30,7 @@ sge::opengl::glsl::create_pixel_shader(
 {
 	return
 		opengl::glsl::create_shader<
-			opengl::glsl::pixel_shader	
+			opengl::glsl::pixel_shader
 		>(
 			_context,
 			_source

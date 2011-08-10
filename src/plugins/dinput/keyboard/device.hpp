@@ -73,7 +73,7 @@ public:
 
 	fcppt::signal::auto_connection
 	key_callback(
-		sge::input::keyboard::key_callback const &		
+		sge::input::keyboard::key_callback const &
 	);
 
 	fcppt::signal::auto_connection
@@ -134,7 +134,7 @@ private:
 	typedef fcppt::optional<
 		input::keyboard::key_code::type
 	> optional_key_code;
-	
+
 	optional_key_code old_key_code_;
 
 	typedef std::map<

@@ -34,7 +34,7 @@ template<
 void
 sge::image::algorithm::fill(
 	typename image::traits::view<
-		Tag	
+		Tag
 	>::type const &_view,
 	image::color::any::object const &_color
 )

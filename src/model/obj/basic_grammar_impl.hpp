@@ -34,9 +34,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/include/phoenix_bind.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
+#include <boost/spirit/include/qi_action.hpp>
 #include <boost/spirit/include/qi_core.hpp>
 #include <boost/spirit/include/qi_grammar.hpp>
 #include <boost/spirit/include/qi_lit.hpp>
+#include <boost/spirit/include/qi_optional.hpp>
 #include <boost/spirit/include/qi_repeat.hpp>
 
 template<
@@ -112,7 +114,7 @@ sge::model::obj::basic_grammar<
 			-_tokens.int_
 		)
 		;
-	
+
 	face_ %=
 		boost::spirit::lit(
 			FCPPT_TEXT('f')
@@ -178,7 +180,7 @@ sge::model::obj::basic_grammar<
 					boost::phoenix::bind(
 						&obj::parse_state::texcoords_,
 						boost::phoenix::ref(
-							state_	
+							state_
 						)
 					),
 					boost::spirit::qi::_1

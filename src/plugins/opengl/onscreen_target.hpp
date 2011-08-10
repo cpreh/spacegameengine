@@ -69,7 +69,7 @@ private:
 	typedef fcppt::scoped_ptr<
 		sge::renderer::color_surface
 	> color_surface_scoped_ptr;
-	
+
 	color_surface_scoped_ptr const main_surface_;
 };
 

@@ -29,7 +29,7 @@ sge::dinput::system::system()
 sge::dinput::system::~system()
 {
 }
-	
+
 sge::input::processor_ptr const
 sge::dinput::system::create_processor(
 	sge::window::instance_ptr const _window

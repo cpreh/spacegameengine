@@ -63,9 +63,9 @@ private:
 	sge::renderer::dim2 const dim_;
 
 	sge::renderer::depth_stencil_format::type const format_;
-	
+
 	D3DMULTISAMPLE_TYPE const samples_;
-	
+
 	d3d9::multi_sample_quality const multi_sample_quality_;
 };
 

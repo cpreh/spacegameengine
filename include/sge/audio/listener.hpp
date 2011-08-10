@@ -42,28 +42,28 @@ protected:
 	SGE_AUDIO_SYMBOL explicit
 	listener();
 public:
-	virtual vector const 
+	virtual vector const
 	position() const = 0;
-	
-	virtual void 
+
+	virtual void
 	position(
 		vector const &) = 0;
-		
-	virtual vector const 
+
+	virtual vector const
 	linear_velocity() const = 0;
-	
-	virtual void 
+
+	virtual void
 	linear_velocity(
 		vector const &) = 0;
-		
-	virtual angle const 
+
+	virtual angle const
 	direction() const = 0;
-	
-	virtual void 
+
+	virtual void
 	direction(
 		angle const &) = 0;
-		
-	SGE_AUDIO_SYMBOL virtual 
+
+	SGE_AUDIO_SYMBOL virtual
 	~listener();
 };
 

@@ -35,20 +35,20 @@ sge::input::keyboard::to_modifier(
 		)
 	)
 		return modifier::ctrl;
-	
+
 	if(
 		keyboard::is_alt(
 			_code
 		)
 	)
 		return modifier::alt;
-	
+
 	if(
 		keyboard::is_shift(
 			_code
 		)
 	)
 		return modifier::shift;
-	
+
 	return optional_modifier();
 }

@@ -39,7 +39,7 @@ sge::image::view::sub_out_of_range<Box>::sub_out_of_range(
 	sge::image::exception(
 		(
 			fcppt::format(
-				FCPPT_TEXT("sub_out_of_range: %1% not in %2%!")		
+				FCPPT_TEXT("sub_out_of_range: %1% not in %2%!")
 			)
 			% _inner
 			% _outer

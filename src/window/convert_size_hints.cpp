@@ -64,7 +64,7 @@ sge::window::convert_size_hints(
 				_size_hints.exact_size_hint()
 			)
 		);
-	
+
 	if(
 		_size_hints.minimum_size_hint()
 	)

@@ -26,8 +26,8 @@ namespace sge
 namespace audio
 {
 
-typedef 
-float 
+typedef
+float
 scalar; // TODO: is float ok here?
 
 }

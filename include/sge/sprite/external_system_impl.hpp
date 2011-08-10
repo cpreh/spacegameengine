@@ -74,7 +74,7 @@ sge::sprite::external_system<Choices>::render(
 )
 {
 	sprite::set_matrices(
-		base::renderer()	
+		base::renderer()
 	);
 
 	sge::renderer::state::scoped const state(
@@ -112,7 +112,7 @@ sge::sprite::external_system<Choices>::render_advanced(
 		_begin == _end
 	)
 		return;
-	
+
 	_sort_fun(
 		_begin,
 		_end

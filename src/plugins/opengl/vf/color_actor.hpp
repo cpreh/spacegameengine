@@ -46,7 +46,7 @@ class color_actor
 public:
 	explicit color_actor(
 		actor_parameters const &,
-		sge::renderer::vf::dynamic::color const & 
+		sge::renderer::vf::dynamic::color const &
 	);
 
 	~color_actor();

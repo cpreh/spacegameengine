@@ -55,15 +55,15 @@ public:
 	explicit
 	object(
 		camera::parameters const &);
-	
+
 	SGE_CAMERA_SYMBOL
 	~object();
-	
+
 	SGE_CAMERA_SYMBOL
 	void
 	update(
 		camera::duration const &);
-	
+
 	SGE_CAMERA_SYMBOL
 	renderer::matrix4 const
 	world() const;
@@ -90,7 +90,7 @@ public:
 		projection::object const &);
 
 	SGE_CAMERA_SYMBOL
-	renderer::matrix4 const 
+	renderer::matrix4 const
 	mvp() const;
 
 	SGE_CAMERA_SYMBOL

@@ -59,7 +59,7 @@ sge::renderer::projection::perspective_af(
 			)
 		),
 		scale_x(
-			scale_y	
+			scale_y
 			/
 			_aspect.get()
 		),

@@ -52,7 +52,7 @@ sge::d3d9::state::device::target(
 )
 {
 	if(
-		_target == offscreen_target_ 
+		_target == offscreen_target_
 	)
 		return;
 
@@ -62,14 +62,14 @@ sge::d3d9::state::device::target(
 		target_->active(
 			false
 		);
-	
+
 	offscreen_target_ =
 		dynamic_cast<
 			d3d9::offscreen_target *
 		>(
 			_target
 		);
-	
+
 	target_ =
 		offscreen_target_
 		?

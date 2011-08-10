@@ -25,7 +25,7 @@ namespace sge
 {
 namespace input
 {
-namespace mouse 
+namespace mouse
 {
 
 class button_event;

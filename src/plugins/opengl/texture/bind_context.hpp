@@ -112,7 +112,7 @@ private:
 	texture_vector
 		render_textures_,
 		temp_textures_;
-	
+
 	texture_type_vector last_types_;
 
 	texture_type_map texture_type_counts_;

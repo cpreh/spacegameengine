@@ -42,7 +42,7 @@ public:
 	system();
 
 	~system();
-	
+
 	input::processor_ptr const
 	create_processor(
 		sge::window::instance_ptr

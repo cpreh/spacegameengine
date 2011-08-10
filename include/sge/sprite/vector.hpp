@@ -31,10 +31,10 @@ namespace sprite
 template<
 	typename UnitType
 >
-struct vector 
+struct vector
 {
 	typedef typename primitives::vector<
-		UnitType	
+		UnitType
 	>::type::type type;
 };
 

@@ -45,7 +45,7 @@ public:
 
 	~object();
 
-	void 
+	void
 	bind() const;
 
 	GLuint

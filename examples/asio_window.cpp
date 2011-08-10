@@ -100,6 +100,6 @@ catch(
 	std::cerr
 		<< _exception.what()
 		<< '\n';
-	
+
 	return EXIT_FAILURE;
 }

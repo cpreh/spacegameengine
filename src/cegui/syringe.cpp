@@ -60,9 +60,9 @@ sge::cegui::syringe::inject(
 	{
 		FCPPT_LOG_WARNING(
 			local_log,
-			fcppt::log::_ 
+			fcppt::log::_
 				<< FCPPT_TEXT("Warning: got a key which I couldn't process. Its code is: ")
-				<< static_cast<unsigned>(k.key_code()) 
+				<< static_cast<unsigned>(k.key_code())
 				<< FCPPT_TEXT("; Doing nothing."));
 		return;
 	}
@@ -87,9 +87,9 @@ sge::cegui::syringe::inject(
 	{
 		FCPPT_LOG_WARNING(
 			local_log,
-			fcppt::log::_ 
+			fcppt::log::_
 				<< FCPPT_TEXT("Warning: got a key which I couldn't process. Its code is: ")
-				<< static_cast<unsigned>(k.key_code()) 
+				<< static_cast<unsigned>(k.key_code())
 				<< FCPPT_TEXT("; Doing nothing."));
 		return;
 	}
@@ -102,14 +102,14 @@ void
 sge::cegui::syringe::inject(
 	sge::input::keyboard::char_event const &k)
 {
-	typedef 
-	sge::charconv::string_type<sge::charconv::encoding::utf32>::type 
+	typedef
+	sge::charconv::string_type<sge::charconv::encoding::utf32>::type
 	utf32_string;
 
 	utf32_string const converted_string(
 		sge::charconv::convert
 		<
-			sge::charconv::encoding::utf32, 
+			sge::charconv::encoding::utf32,
 			sge::charconv::encoding::wchar
 		>(
 			charconv_system_,
@@ -132,9 +132,9 @@ sge::cegui::syringe::inject(
 	{
 		FCPPT_LOG_WARNING(
 			local_log,
-			fcppt::log::_ 
+			fcppt::log::_
 				<< FCPPT_TEXT("Warning: got a button which I couldn't process. Its code is: ")
-				<< static_cast<unsigned>(e.button_code()) 
+				<< static_cast<unsigned>(e.button_code())
 				<< FCPPT_TEXT("; Doing nothing."));
 		return;
 	}

@@ -233,7 +233,7 @@ sge::d3d9::texture::basic<Types>::unlock_impl(
 				0u
 			)
 		);
-	
+
 	locked_dest_.reset();
 }
 
@@ -305,7 +305,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 				dest_rect,
 				lock_method
 			);
-	
+
 
 	return
 		View(

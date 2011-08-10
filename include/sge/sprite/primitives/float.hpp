@@ -37,7 +37,7 @@ struct float_
 {
 	typedef majutsu::simple<
 		FloatType
-	> type;	
+	> type;
 };
 
 }

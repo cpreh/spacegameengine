@@ -114,7 +114,7 @@ fill_position_rotated(
 	typedef typename sprite::rotation_type<
 		funit
 	>::type rotation_type;
-	
+
 	rotation_type const rot(
 		_sprite.rotation()
 	);
@@ -128,7 +128,7 @@ fill_position_rotated(
 		2,
 		2
 	>::type matrix2x2;
-	
+
 	matrix2x2 const mat_rot(
 		cosx, -sinx,
 		sinx,  cosx

@@ -50,7 +50,7 @@ public:
 	have_volume_texture() const;
 
 	typedef PFNGLTEXIMAGE3DPROC gl_tex_image_3d;
-	
+
 	typedef PFNGLTEXSUBIMAGE3DPROC gl_tex_sub_image_3d;
 
 	texture::type const

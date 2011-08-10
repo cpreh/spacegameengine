@@ -73,7 +73,7 @@ struct class_
 		Argument const &_argument,
 		typename boost::disable_if<
 			boost::fusion::traits::is_sequence<
-				Argument	
+				Argument
 			>,
 			void
 		>::type * = 0
@@ -92,7 +92,7 @@ struct class_
 			== 1u
 		);
 	}
-		
+
 #define MAJUTSU_CLASS_MAKE_VARIADIC_CTOR(z, n, text)\
 template<\
         BOOST_PP_ENUM_PARAMS_Z(\
@@ -161,7 +161,7 @@ BOOST_PP_REPEAT_FROM_TO(
 			>::value
 		);
 	}
-		
+
 	template<
 		typename Role,
 		typename T
@@ -201,7 +201,7 @@ BOOST_PP_REPEAT_FROM_TO(
 
 	memory_type const &
 	memory() const
-	{	
+	{
 		return memory_;
 	}
 private:

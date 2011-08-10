@@ -360,7 +360,7 @@ template<
 void
 sge::sprite::object<Choices>::z(
 	depth_type const _depth
-) 
+)
 {
 	elements_. template set<
 		roles::depth
@@ -406,7 +406,7 @@ template<
 void
 sge::sprite::object<Choices>::h(
 	unit const _h
-) 
+)
 {
 	size(
 		dim(
@@ -422,7 +422,7 @@ template<
 void
 sge::sprite::object<Choices>::size(
 	dim const &_dim
-) 
+)
 {
 	elements_. template set<
 		roles::size
@@ -437,7 +437,7 @@ template<
 void
 sge::sprite::object<Choices>::point_size(
 	point_size_type const _point_size
-) 
+)
 {
 	elements_. template set<
 		roles::point_size

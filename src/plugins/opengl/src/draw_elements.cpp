@@ -91,7 +91,7 @@ sge::opengl::draw_elements(
 			* _pcount.get()
 		)
 	);
-	
+
 	GLenum const format(
 		gl_ib.gl_format()
 	);
@@ -133,7 +133,7 @@ sge::opengl::draw_elements(
 
 		return;
 	}
-	
+
 	::glDrawElements(
 		primitive_type,
 		primitive_count,

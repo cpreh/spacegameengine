@@ -146,9 +146,9 @@ sge::x11input::device::event_demuxer<Event>::register_callback(
 				)
 			)
 		);
-	
+
 	event_pair const pair(
-		_type,	
+		_type,
 		_id
 	);
 

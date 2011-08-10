@@ -50,7 +50,7 @@ bool
 sge::projectile::body::solidity::is_solid(
 	variant const &v)
 {
-	return 
+	return
 		fcppt::variant::apply_unary(
 			is_solid_visitor(),
 			v);

@@ -82,7 +82,7 @@ sge::d3d9::devicefuncs::set_transform(
 
 		return;
 	}
-	
+
 	do_set(
 		_device,
 		d3d_mode,

@@ -40,7 +40,7 @@ set_stage_funcs(
 	opengl::context::object &,
 	renderer::stage,
 	Arg,
-	Value 
+	Value
 );
 
 }

@@ -162,7 +162,7 @@ sge::opengl::vertex_buffer::do_lock(
 			_method
 		)
 	);
-	
+
 	return
 		View(
 			buffer_.data(),

@@ -136,7 +136,7 @@ sge::opengl::device::begin_rendering()
 {
 	this->clear(
 		renderer::state::to_clear_flags_field(
-			current_states_	
+			current_states_
 		)
 	);
 }
@@ -156,7 +156,7 @@ sge::opengl::device::clear(
 )
 {
 	opengl::clear(
-		_flags	
+		_flags
 	);
 }
 
@@ -407,7 +407,7 @@ sge::opengl::device::target(
 		_target == fbo_target_
 	)
 		return;
-	
+
 	fbo_target_ =
 		dynamic_cast<
 			opengl::fbo::target *
@@ -637,7 +637,7 @@ sge::opengl::device::create_vertex_declaration(
 					_format
 				)
 			)
-		);	
+		);
 }
 
 sge::renderer::vertex_buffer_ptr const

@@ -45,7 +45,7 @@ public:
 	buffer(
 		audio::file &
 	);
-	
+
 	audio::sound::positional_ptr const
 	create_positional(
 		audio::sound::positional_parameters const &

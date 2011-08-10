@@ -37,42 +37,42 @@ namespace sge
 namespace wave
 {
 
-class file 
-: 
+class file
+:
 	public audio::file
 {
 FCPPT_NONCOPYABLE(
 	file);
 public:
-	explicit 
+	explicit
 	file(
 		stream_ptr,
 		audio::optional_path const &);
 
-	audio::sample_count 
+	audio::sample_count
 	bits_per_sample() const;
 
-	audio::sample_count 
+	audio::sample_count
 	sample_rate() const;
 
-	audio::channel_type 
+	audio::channel_type
 	channels() const;
 
-	audio::sample_count 
+	audio::sample_count
 	samples() const;
 
-	audio::sample_count 
+	audio::sample_count
 	expected_package_size() const;
 
-	void 
+	void
 	reset();
 
-	audio::sample_count 
+	audio::sample_count
 	read(
 		audio::sample_count,
 		audio::sample_container &);
 
-	audio::sample_count 
+	audio::sample_count
 	read_all(
 		audio::sample_container &);
 private:
@@ -80,7 +80,7 @@ private:
 	boost::logic::tribool swap_;
 	stream_ptr file_;
 	std::streampos data_segment;
-	audio::sample_count 
+	audio::sample_count
 		samples_,
 		samples_read_;
 	audio::channel_type channels_;

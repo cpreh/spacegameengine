@@ -42,7 +42,7 @@ sge::d3d9::state::convert::bool_(
 		return D3DRS_LIGHTING;
 	//case sge::renderer::state::bool_::available_states::enable_multi_sampling:
 	case sge::renderer::state::bool_::available_states::enable_point_sprites:
-		return D3DRS_POINTSPRITEENABLE;	
+		return D3DRS_POINTSPRITEENABLE;
 	case sge::renderer::state::bool_::available_states::enable_scissor_test:
 		return D3DRS_SCISSORTESTENABLE;
 	case sge::renderer::state::bool_::available_states::write_to_depth_buffer:

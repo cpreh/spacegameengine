@@ -37,7 +37,7 @@ class SGE_CLASS_SYMBOL exception
 	public sge::exception
 {
 public:
-	SGE_AUDIO_SYMBOL explicit 
+	SGE_AUDIO_SYMBOL explicit
 	exception(
 		fcppt::string const &
 	);

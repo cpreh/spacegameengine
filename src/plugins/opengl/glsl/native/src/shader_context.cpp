@@ -67,7 +67,7 @@ sge::opengl::glsl::native::shader_context::create_shader() const
 {
 	return create_shader_;
 }
-	
+
 sge::opengl::glsl::native::shader_context::gl_delete_shader
 sge::opengl::glsl::native::shader_context::delete_shader() const
 {

@@ -41,7 +41,7 @@ sge::opengl::x11::vsync(
 			_context
 		)
 	);
-		
+
 	if(
 		!context.swap_interval_supported()
 	)

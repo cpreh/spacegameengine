@@ -69,7 +69,7 @@ public:
 		opengl::color_format_type,
 		bool is_render_target
 	);
-	
+
 	~surface();
 
 	bool

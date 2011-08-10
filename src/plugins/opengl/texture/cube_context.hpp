@@ -45,7 +45,7 @@ public:
 	cube_context();
 
 	~cube_context();
-	
+
 	bool
 	have_cube_texture() const;
 

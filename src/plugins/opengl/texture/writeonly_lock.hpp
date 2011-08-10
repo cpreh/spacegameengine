@@ -37,7 +37,7 @@ namespace texture
 
 class writeonly_lock
 :
-	public texture::lock_base 
+	public texture::lock_base
 {
 	FCPPT_NONCOPYABLE(
 		writeonly_lock

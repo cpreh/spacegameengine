@@ -73,7 +73,7 @@ public:
 	operator()(
 		T const &,U const &) const
 	{
-		throw 
+		throw
 			sge::exception(
 				FCPPT_TEXT("Texture type mismatch, tried to assign a ")+
 				fcppt::type_name(
@@ -177,7 +177,7 @@ sge::shader::sampler::texture_unit() const
 sge::renderer::texture::base_ptr const
 sge::shader::sampler::texture() const
 {
-	return 
+	return
 		fcppt::variant::apply_unary(
 			to_base_ptr(),
 			texture_);

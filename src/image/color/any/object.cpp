@@ -54,7 +54,7 @@ sge::image::color::any::object::operator=(
 		this != &_other
 	)
 		variant_ = _other.variant_;
-	
+
 	return *this;
 }
 

@@ -49,7 +49,7 @@ public:
 
 	SGE_SYSTEMS_SYMBOL sge::extension_set const &
 	extensions() const;
-	
+
 	SGE_SYSTEMS_SYMBOL capabilities_type const &
 	capabilities() const;
 private:

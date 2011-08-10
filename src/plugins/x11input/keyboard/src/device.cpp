@@ -237,7 +237,7 @@ sge::x11input::keyboard::device::on_key_release(
 		key_code,
 		false
 	);
-		
+
 	key_signal_(
 		input::keyboard::key_event(
 			key_code,

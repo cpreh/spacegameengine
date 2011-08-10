@@ -136,31 +136,31 @@ namespace
 namespace vf
 {
 // As you can see, we're using OpenGL-2 and below
-typedef 
-sge::renderer::vf::pos<sge::renderer::scalar,3> 
+typedef
+sge::renderer::vf::pos<sge::renderer::scalar,3>
 position;
 
-typedef 
-sge::renderer::vf::texpos<sge::renderer::scalar, 2> 
+typedef
+sge::renderer::vf::texpos<sge::renderer::scalar, 2>
 texcoord;
 
 // As you can see, we're using OpenGL-2 and below
-typedef 
-sge::renderer::vf::normal<sge::renderer::scalar> 
+typedef
+sge::renderer::vf::normal<sge::renderer::scalar>
 normal;
 
-typedef 
+typedef
 sge::renderer::vf::part
 <
 	boost::mpl::vector3<position,texcoord,normal>
-> 
+>
 format_part;
 
-typedef 
+typedef
 sge::renderer::vf::format
 <
 	boost::mpl::vector1<format_part>
-> 
+>
 format;
 
 typedef
@@ -193,13 +193,13 @@ public:
 		has_normals_(
 			_has_normal)
 	{
-		
+
 	}
 
 	sge::renderer::first_vertex
 	first_vertex() const
 	{
-		return 
+		return
 			sge::renderer::first_vertex(
 				first_vertex_);
 	}
@@ -276,17 +276,17 @@ insert_faces(
 	sge::renderer::size_type const start_index,
 	sge::model::obj::face_sequence const &faces)
 {
-	sge::renderer::size_type current_index = 
+	sge::renderer::size_type current_index =
 		start_index;
 
 	for(
-		sge::model::obj::face_sequence::const_iterator current_face = 
+		sge::model::obj::face_sequence::const_iterator current_face =
 			faces.begin();
 		current_face != faces.end();
 		++current_face)
 	{
 		if(current_face->vertices().size() != 3)
-			throw 
+			throw
 				sge::exception(
 					FCPPT_TEXT("Encountered a face with ")+
 					fcppt::lexical_cast<fcppt::string>(
@@ -294,7 +294,7 @@ insert_faces(
 					FCPPT_TEXT(" vertices. Only triangles are allowed, however."));
 
 		for(
-			sge::model::obj::face::vertex_indices::size_type current_face_vertex = 
+			sge::model::obj::face::vertex_indices::size_type current_face_vertex =
 				0;
 			current_face_vertex < 3;
 			++current_face_vertex)
@@ -319,10 +319,10 @@ insert_faces(
 
 			++current_vertex;
 			++current_index;
-		}	
+		}
 	}
 
-	return 
+	return
 		fcppt::homogenous_pair<sge::renderer::size_type>(
 			start_index,
 			current_index);
@@ -334,34 +334,34 @@ count_vertices(
 {
 	sge::renderer::size_type result = 0;
 	for(
-		sge::model::obj::group_sequence::const_iterator it = 
-			groups.begin(); 
-		it != groups.end(); 
+		sge::model::obj::group_sequence::const_iterator it =
+			groups.begin();
+		it != groups.end();
 		++it)
 	{
-		sge::model::obj::face_sequence const faces = 
+		sge::model::obj::face_sequence const faces =
 			_model.group_faces(
 				_group);
 
-		result = 
+		result =
 			static_cast<sge::renderer::size_type>(
-				result + 
+				result +
 				3u * faces.size());
 	}
 
 	for(
-		sge::model::obj::group_sequence::const_iterator it = 
-			objects.begin(); 
-		it != objects.end(); 
+		sge::model::obj::group_sequence::const_iterator it =
+			objects.begin();
+		it != objects.end();
 		++it)
 	{
-		sge::model::obj::face_sequence const faces = 
+		sge::model::obj::face_sequence const faces =
 			_model.object_faces(
 				_group);
 
-		result = 
+		result =
 			static_cast<sge::renderer::size_type>(
-				result + 
+				result +
 				3u * faces.size());
 	}
 	return result;
@@ -385,9 +385,9 @@ compiled_model::compiled_model(
 	texture_(
 		_texture)
 {
-	sge::model::obj::group_sequence const groups = 
+	sge::model::obj::group_sequence const groups =
 		_model.groups();
-	sge::model::obj::object_sequence const objects = 
+	sge::model::obj::object_sequence const objects =
 		_model.objects();
 
 	sge::renderer::scoped_vertex_lock const vblock(
@@ -403,12 +403,12 @@ compiled_model::compiled_model(
 	sge::renderer::size_type current_index = 0;
 
 	for(
-		sge::model::obj::group_sequence::const_iterator it = 
-			groups.begin(); 
-		it != groups.end(); 
+		sge::model::obj::group_sequence::const_iterator it =
+			groups.begin();
+		it != groups.end();
 		++it)
 	{
-		sge::model::obj::face_sequence const faces = 
+		sge::model::obj::face_sequence const faces =
 			_model.group_faces(
 				*it);
 
@@ -431,12 +431,12 @@ compiled_model::compiled_model(
 	}
 
 	for(
-		sge::model::obj::object_sequence::const_iterator it = 
-			objects.begin(); 
-		it != objects.end(); 
+		sge::model::obj::object_sequence::const_iterator it =
+			objects.begin();
+		it != objects.end();
 		++it)
 	{
-		sge::model::obj::face_sequence const faces = 
+		sge::model::obj::face_sequence const faces =
 			_model.object_faces(
 				*it);
 
@@ -463,13 +463,13 @@ compiled_model::render()
 				*texture_,
 				static_cast<sge::renderer::stage_type>(
 					0)));
-	
+
 	sge::renderer::scoped_vertex_buffer scoped_vb(
 		renderer_,
 		*vb_);
 
 	for(
-		group_to_representation::const_iterator it = 
+		group_to_representation::const_iterator it =
 			group_to_representation_.begin();
 		it != group_to_representation_.end();
 		++it)
@@ -477,7 +477,7 @@ compiled_model::render()
 			it->second);
 
 	for(
-		object_to_representation::const_iterator it = 
+		object_to_representation::const_iterator it =
 			object_to_representation_.begin();
 		it != object_to_representation_.end();
 		++it)
@@ -505,7 +505,7 @@ compiled_model::render_group(
 }
 }
 
-int 
+int
 main(
 	int argc,
 	char *argv[])
@@ -545,7 +545,7 @@ try
 				sge::systems::cursor_option_field(
 					sge::systems::cursor_option::exclusive))));
 
-	bool running = 
+	bool running =
 		true;
 
 	fcppt::signal::scoped_connection const cb(
@@ -566,7 +566,7 @@ try
 			sge::camera::activation_state::active));
 
 	// Adapt the camera to the viewport
-	fcppt::signal::scoped_connection const 
+	fcppt::signal::scoped_connection const
 		viewport_connection(
 			sys.viewport_manager().manage_callback(
 				std::tr1::bind(
@@ -604,7 +604,7 @@ try
 
 	sge::renderer::texture::planar_ptr texture;
 	if(argc == 3)
-		texture = 
+		texture =
 			sge::renderer::texture::create_planar_from_file(
 				sys.renderer(),
 				sys.image_loader(),
@@ -612,7 +612,7 @@ try
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none);
-		
+
 	compiled_model compiled(
 		model,
 		sys.renderer(),
@@ -631,7 +631,7 @@ try
 			(sge::renderer::state::draw_mode::fill)
 			(sge::renderer::state::bool_::enable_lighting = false)
 			(sge::renderer::state::stencil_func::off)
-			(sge::renderer::state::color::back_buffer_clear_color = 
+			(sge::renderer::state::color::back_buffer_clear_color =
 				sge::image::colors::black()));
 
 	sys.renderer().enable_light(
@@ -640,7 +640,7 @@ try
 		true);
 
 	// We need this timer to update the camera
-	sge::time::timer 
+	sge::time::timer
 		frame_timer(
 			sge::time::second(
 				1));

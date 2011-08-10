@@ -38,14 +38,14 @@ sge::opengl::vf::fp_actor::fp_actor(
 	)
 {
 }
-		
+
 void
 sge::opengl::vf::fp_actor::operator()(
-	client_state_combiner &_combiner,
+	vf::client_state_combiner &_combiner,
 	vf::pointer const _src
 ) const
 {
-	on_use(
+	this->on_use(
 		_src
 	);
 
@@ -56,7 +56,7 @@ sge::opengl::vf::fp_actor::operator()(
 
 void
 sge::opengl::vf::fp_actor::unuse(
-	client_state_combiner &_combiner
+	vf::client_state_combiner &_combiner
 ) const
 {
 	_combiner.disable(

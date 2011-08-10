@@ -30,11 +30,11 @@ namespace line_drawer
 {
 namespace vf
 {
-typedef 
+typedef
 sge::renderer::vf::color
 <
 	color_format
-> 
+>
 color;
 }
 }

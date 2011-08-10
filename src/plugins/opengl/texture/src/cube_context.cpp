@@ -131,7 +131,7 @@ sge::opengl::texture::cube_context::cube_context()
 sge::opengl::texture::cube_context::~cube_context()
 {
 }
-	
+
 bool
 sge::opengl::texture::cube_context::have_cube_texture() const
 {

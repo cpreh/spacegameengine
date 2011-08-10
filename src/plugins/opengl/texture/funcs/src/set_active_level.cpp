@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../set_active_level.hpp"
 #include "../../multi_context.hpp"
+#include "../../convert/level.hpp"
 #include "../../../check_state.hpp"
 #include "../../../common.hpp"
 #include "../../../context/use.hpp"
@@ -45,7 +46,7 @@ sge::opengl::texture::funcs::set_active_level(
 			_context
 		)
 	);
-		
+
 	if(
 		!context.is_supported()
 	)
@@ -89,10 +90,8 @@ sge::opengl::texture::funcs::set_active_level(
 	}
 
 	context.active_texture()(
-		static_cast<
-			GLenum
-		>(
-			GL_TEXTURE0 + _stage.get()
+		texture::convert::level(
+			_stage
 		)
 	);
 

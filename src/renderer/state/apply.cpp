@@ -135,7 +135,7 @@ state_unchanged(
 		it == state_list.end()
 	)
 		return false;
-	
+
 	return
 		fcppt::variant::apply_unary(
 			::compare_state_visitor(

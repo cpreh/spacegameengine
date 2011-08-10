@@ -87,7 +87,7 @@ private:
 	d3d9::state::address_mode address_mode_;
 
 	d3d9::state::clear clear_;
-	
+
 	d3d9::state::clip_plane clip_plane_;
 
 	renderer::state::list current_;

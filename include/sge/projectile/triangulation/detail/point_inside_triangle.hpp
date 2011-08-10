@@ -37,7 +37,7 @@ template<
 	typename Tag,
 	typename Vertex
 >
-bool 
+bool
 point_inside_triangle(
 	Vertex const &_v1,
 	Vertex const &_v2,
@@ -158,8 +158,8 @@ point_inside_triangle(
 				0
 			)
 		);
-			
-	return 
+
+	return
 		a_cross_bp >= zero
 		&&
 		b_cross_cp >= zero

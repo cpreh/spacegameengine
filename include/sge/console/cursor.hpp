@@ -33,8 +33,8 @@ namespace console
 class cursor
 {
 public:
-	typedef 
-	font::text::string::size_type 
+	typedef
+	font::text::string::size_type
 	size_type;
 
 	SGE_CONSOLE_SYMBOL cursor();

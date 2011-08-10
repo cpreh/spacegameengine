@@ -63,7 +63,7 @@ sge::config::getenv(
 		)
 	);
 
-	return 
+	return
 		ret
 		?
 			config::optional_string(

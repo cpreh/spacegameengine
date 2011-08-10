@@ -43,35 +43,35 @@ protected:
 	SGE_AUDIO_SYMBOL explicit
 	file();
 public:
-	virtual sample_count 
+	virtual sample_count
 	read(
-		sample_count samples, 
+		sample_count samples,
 		sample_container &) = 0;
-	
-	virtual sample_count 
+
+	virtual sample_count
 	read_all(
 		sample_container &) = 0;
 
 	virtual sample_count
 	expected_package_size() const = 0;
 
-	virtual channel_type 
+	virtual channel_type
 	channels() const = 0;
-	
-	virtual sample_count 
+
+	virtual sample_count
 	sample_rate() const = 0;
-	
-	virtual sample_count 
+
+	virtual sample_count
 	bits_per_sample() const = 0;
-	
-	virtual void 
+
+	virtual void
 	reset() = 0;
-	
+
 	SGE_AUDIO_SYMBOL
-	sample_count 
+	sample_count
 	bytes_per_sample() const;
-	
-	SGE_AUDIO_SYMBOL 
+
+	SGE_AUDIO_SYMBOL
 	virtual ~file();
 };
 

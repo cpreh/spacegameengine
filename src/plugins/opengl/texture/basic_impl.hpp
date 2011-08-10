@@ -256,7 +256,7 @@ sge::opengl::texture::basic<Types>::lock_view()
 	// have to take a sub view.
 	// Also, opengl reads the image flipped,
 	// so we have to flip it too.
-	
+
 	bool const reading(
 		renderer::lock_flags::read(
 			lock_->method()
@@ -361,7 +361,7 @@ sge::opengl::texture::basic<Types>::stride() const
 template<
 	typename Types
 >
-sge::opengl::color_format const 
+sge::opengl::color_format const
 sge::opengl::texture::basic<Types>::format() const
 {
 	return format_;

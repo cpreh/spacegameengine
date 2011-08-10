@@ -60,7 +60,7 @@ private:
 	bool const
 		is_native_,
 		is_arb_;
-	
+
 	GLenum const
 		point_sprite_flag_,
 		vertex_shader_size_flag_;

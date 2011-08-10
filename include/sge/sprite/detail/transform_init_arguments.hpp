@@ -88,7 +88,7 @@ transform_init_arguments(
 				>()->area().size()
 			)
 		);
-	
+
 	return _object;
 }
 

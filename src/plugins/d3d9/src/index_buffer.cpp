@@ -247,7 +247,7 @@ sge::d3d9::index_buffer::do_lock(
 		static_cast<
 			sge::renderer::raw_pointer
 		>(
-			dest	
+			dest
 		);
 
 	return

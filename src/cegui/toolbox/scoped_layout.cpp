@@ -33,7 +33,7 @@ sge::cegui::toolbox::scoped_layout::scoped_layout(
 	system_(
 		_system),
 	window_(
-		system_.window_manager().loadWindowLayout( 
+		system_.window_manager().loadWindowLayout(
 			sge::cegui::to_cegui_string(
 				fcppt::filesystem::path_to_string(
 					_path),

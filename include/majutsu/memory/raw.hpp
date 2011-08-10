@@ -183,7 +183,7 @@ public:
 		size_type const index(
 			detail::index_of<
 				flattened_types,
-				role_iter	
+				role_iter
 			>::value
 		);
 
@@ -199,7 +199,7 @@ public:
 				)
 			);
 	}
-	
+
 	pointer
 	data()
 	{

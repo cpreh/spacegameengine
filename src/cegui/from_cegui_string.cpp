@@ -47,10 +47,10 @@ sge::cegui::from_cegui_string(
 	sge::charconv::string_type<sge::charconv::encoding::wchar>::type
 	dest_string;
 
-	dest_string d = 
+	dest_string d =
 		sge::charconv::convert
 			<
-				sge::charconv::encoding::wchar, 
+				sge::charconv::encoding::wchar,
 				sge::charconv::encoding::utf32
 			>(
 				_charconv,

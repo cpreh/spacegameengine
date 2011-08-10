@@ -47,16 +47,16 @@ to_rotation_matrix(
 	basic<T,3>::array_type
 	array_type;
 
-	scalar const 
-		zero = 
+	scalar const
+		zero =
 			static_cast<scalar>(0),
-		one = 
+		one =
 			static_cast<scalar>(1);
 
-	array_type const &a = 
+	array_type const &a =
 		b.array();
 
-	return 
+	return
 		// NOTE that transposing here is correct!
 		typename fcppt::math::matrix::static_<scalar,4,4>::type(
 			a[0][0],a[0][1],a[0][2],zero,

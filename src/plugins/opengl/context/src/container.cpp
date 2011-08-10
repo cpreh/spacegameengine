@@ -80,7 +80,7 @@ sge::opengl::context::container::insert(
 		elements_[_index]
 	)
 		return 0;
-	
+
 	pointer const nptr(
 		_ptr.release()
 	);

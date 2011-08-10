@@ -41,7 +41,7 @@ public:
 	object(
 		world &);
 
-	SGE_PROJECTILE_SYMBOL 
+	SGE_PROJECTILE_SYMBOL
 	~object();
 private:
 	friend class sge::projectile::world;

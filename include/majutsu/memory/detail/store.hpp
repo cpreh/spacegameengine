@@ -159,7 +159,7 @@ public:
 				)
 			);
 	}
-	
+
 	size_type
 	capacity() const
 	{
@@ -243,7 +243,7 @@ public:
 					new_cap
 				)
 			);
-		
+
 			std::copy(
 				data_,
 				_first,

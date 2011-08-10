@@ -103,7 +103,7 @@ sge::projectile::detail::debug_drawer_impl::render(
 		renderer_,
 		sge::renderer::matrix_mode::world,
 		sge::renderer::matrix4::identity());
-	
+
 	line_drawer_.render();
 }
 
@@ -119,7 +119,7 @@ sge::projectile::detail::debug_drawer_impl::active(
 			btIDebugDraw::DBG_NoDebug);
 }
 
-bool 
+bool
 sge::projectile::detail::debug_drawer_impl::active() const
 {
 	return debug_mode_ != btIDebugDraw::DBG_NoDebug;
@@ -192,7 +192,7 @@ sge::projectile::detail::debug_drawer_impl::drawContactPoint(
 }
 
 // @override
-void	
+void
 sge::projectile::detail::debug_drawer_impl::draw3dText(
 	btVector3 const&,
 	char const*)
@@ -205,14 +205,14 @@ sge::projectile::detail::debug_drawer_impl::reportErrorWarning(
 	char const* warningString)
 {
 	// FIXME!
-	std::cerr 
+	std::cerr
 		<< "Debug drawer warning: "
 		<< warningString
 		<< "\n";
 }
 
 // @override
-void 
+void
 sge::projectile::detail::debug_drawer_impl::setDebugMode(
 	int const _debug_mode)
 {
@@ -220,7 +220,7 @@ sge::projectile::detail::debug_drawer_impl::setDebugMode(
 }
 
 // @override
-int 
+int
 sge::projectile::detail::debug_drawer_impl::getDebugMode() const
 {
 	return debug_mode_;

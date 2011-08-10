@@ -72,7 +72,7 @@ single_value(
 			>::value
 		)
 	);
-		
+
 }
 
 template<

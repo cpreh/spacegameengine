@@ -57,7 +57,7 @@ public:
 	float
 	float_type;
 
-	static bool const is_steady = 
+	static bool const is_steady =
 		true;
 
 	adjustable();
@@ -70,7 +70,7 @@ public:
 	float_type
 	factor() const;
 
-	void	
+	void
 	factor(
 		float_type);
 

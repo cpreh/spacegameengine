@@ -131,7 +131,7 @@ sge::model::md3::object_impl::indices(
 		)
 	);
 
-	for(	
+	for(
 		sge::model::md3::object_impl::surface::triangle_vector::const_iterator triangle_it(
 			surf.triangles.begin()
 		);
@@ -167,9 +167,9 @@ sge::model::md3::object_impl::vertices(
 {
 	md3::vertex_sequence result;
 
-	sge::model::md3::object_impl::surface_vector::const_reference surf = 
+	sge::model::md3::object_impl::surface_vector::const_reference surf =
 		surface_by_name(name);
-	
+
 	for(
 		surface::transformed_vertex_vector::size_type sz = 0;
 		sz < surf.transformed_vertices.size();
@@ -192,13 +192,13 @@ sge::model::md3::object_impl::texcoords(
 {
 	md3::texcoord_sequence result;
 
-	sge::model::md3::object_impl::surface_vector::const_reference surf = 
+	sge::model::md3::object_impl::surface_vector::const_reference surf =
 		surface_by_name(name);
 
 	for(
 		surface::transformed_vertex_vector::size_type sz = 0;
 		sz < surf.transformed_vertices.size();
-		++sz) 
+		++sz)
 	{
 		result.push_back(
 			static_cast<md3::texcoord>(
@@ -214,9 +214,9 @@ sge::model::md3::object_impl::normals(
 {
 	md3::normal_sequence result;
 
-	sge::model::md3::object_impl::surface_vector::const_reference surf = 
+	sge::model::md3::object_impl::surface_vector::const_reference surf =
 		surface_by_name(name);
-	
+
 	for(
 		surface::transformed_vertex_vector::size_type sz = 0;
 		sz < surf.transformed_vertices.size();
@@ -334,7 +334,7 @@ sge::model::md3::object_impl::surface_by_name(
 			surface_it->name == _name
 		)
 			return *surface_it;
-	
+
 	throw sge::model::md3::exception(
 		FCPPT_TEXT("Couldn't find surface called \"")
 		+
@@ -467,21 +467,21 @@ sge::model::md3::object_impl::surface::vertex::vertex(
 			// We assume our md3 is aligned with z as the "up" axis. To
 			// realign it, we rotate by 90 degrees on the x axis. This
 			// corresponds to a rotation matrix:
-			// 
+			//
 			//  1  0  0
 			//  0  0  1
 			//  0 -1  0
-			// 
+			//
 			// After that, however, the z axis points to the wrong
 			// direction (found empirically). So we rotate by 180 degrees
 			// around the y axis, which corresponds to a rotation matrix
-			// 
+			//
 			//  -1 0  0
 			//  0  1  0
 			//  0  0 -1
-			//	
+			//
 			// Multiplying those with an arbitrary vector (x,y,z) results in:
-			// 
+			//
 			// (-x,z,y)
 			x = static_cast<s16>(-x);
 			std::swap(y,z);

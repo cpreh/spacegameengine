@@ -24,15 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/loader_fwd.hpp>
 #include <fcppt/shared_ptr.hpp>
 
-namespace sge 
-{ 
-namespace model 
+namespace sge
+{
+namespace model
 {
 namespace md3
 {
 
-typedef 
-fcppt::shared_ptr<loader> 
+typedef
+fcppt::shared_ptr<loader>
 loader_ptr;
 
 }

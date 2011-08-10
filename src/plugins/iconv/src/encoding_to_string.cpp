@@ -35,7 +35,7 @@ sge::iconv::encoding_to_string(
 	case charconv::encoding::utf8:
 		return "UTF-8";
 	case charconv::encoding::utf16:
-		return 
+		return
 			fcppt::endianness::is_little_endian()
 			?
 				"UTF-16LE"

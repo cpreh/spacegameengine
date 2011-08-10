@@ -63,7 +63,7 @@ sge::opengl::state::depth_func(
 
 	::glDepthFunc(
 		state::convert::depth_func(
-			_func	
+			_func
 		)
 	);
 

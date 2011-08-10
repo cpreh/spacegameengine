@@ -184,7 +184,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			FCPPT_TEXT("3.0"),
 			FCPPT_TEXT("")
 		);
-	
+
 	opengl::fbo::temporary_bind const scoped_exit(
 		context_,
 		fbo_

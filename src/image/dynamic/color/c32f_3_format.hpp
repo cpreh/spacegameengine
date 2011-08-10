@@ -35,7 +35,7 @@ namespace color
 
 typedef dynamic::color::basic_format<
 	image::color::channel32f,
-	3	
+	3
 >::type c32f_3_format;
 
 }

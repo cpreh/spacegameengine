@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
 
 #include "../common.hpp"
+#include <sge/renderer/stage.hpp>
+#include <fcppt/container/index_map.hpp>
 #include <fcppt/tr1/unordered_set.hpp>
+#include <set>
 
 namespace sge
 {
@@ -37,6 +40,11 @@ public:
 	typedef std::tr1::unordered_set<
 		GLenum
 	> normal_state_set;
+
+	// use until we have a good way to define hashes
+	typedef std::set<
+		renderer::stage
+	> texture_state_set;
 
 	typedef std::tr1::unordered_set<
 		GLuint
@@ -53,6 +61,16 @@ public:
 	);
 
 	void
+	enable_texture(
+		renderer::stage
+	);
+
+	void
+	disable_texture(
+		renderer::stage
+	);
+
+	void
 	enable_attribute(
 		GLuint
 	);
@@ -65,10 +83,15 @@ public:
 	normal_state_set const &
 	normal_states() const;
 
+	texture_state_set const &
+	texture_states() const;
+
 	index_state_set const &
 	attribute_states() const;
 private:
 	normal_state_set normal_states_;
+
+	texture_state_set texture_states_;
 
 	index_state_set attribute_states_;
 };

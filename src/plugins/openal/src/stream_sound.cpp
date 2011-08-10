@@ -56,18 +56,18 @@ sge::openal::stream_sound::stream_sound(
 {
 	FCPPT_LOG_DEBUG(
 		log(),
-		fcppt::log::_ 
-			<< FCPPT_TEXT("Creating ") 
-			<< al_buffers_.size() 
+		fcppt::log::_
+			<< FCPPT_TEXT("Creating ")
+			<< al_buffers_.size()
 			<< FCPPT_TEXT(" buffers for this audio file (expected package size ")
 			<< audio_file_->expected_package_size()
-			<< FCPPT_TEXT(", sample rate ") 
+			<< FCPPT_TEXT(", sample rate ")
 			<< audio_file_->sample_rate()
 			<< FCPPT_TEXT(")"));
 
 	alGenBuffers(
 		static_cast<ALsizei>(
-			al_buffers_.size()), 
+			al_buffers_.size()),
 		&al_buffers_[0]);
 
 	SGE_OPENAL_CHECK_STATE(
@@ -101,14 +101,14 @@ sge::openal::stream_sound::stream_sound(
 {
 	FCPPT_LOG_DEBUG(
 		log(),
-		fcppt::log::_ 
-			<< FCPPT_TEXT("Creating ") 
-			<< al_buffers_.size() 
+		fcppt::log::_
+			<< FCPPT_TEXT("Creating ")
+			<< al_buffers_.size()
 			<< FCPPT_TEXT(" buffers for this audio file"));
 
 	alGenBuffers(
 		static_cast<ALsizei>(
-			al_buffers_.size()), 
+			al_buffers_.size()),
 		&al_buffers_[0]);
 
 	SGE_OPENAL_CHECK_STATE(
@@ -121,21 +121,21 @@ sge::openal::stream_sound::~stream_sound()
 {
 }
 
-void 
+void
 sge::openal::stream_sound::update()
 {
 	sync();
 
 	// We store this here to prevent multithreading issues (what if the
 	// source stops playing while we're processing suff further down?
-	audio::sound::play_status::type const current_play_status = 
+	audio::sound::play_status::type const current_play_status =
 		stream_sound::status();
 
 	// TODO: split this!
 	ALint processed;
 	alGetSourcei(
-		source_id(), 
-		AL_BUFFERS_PROCESSED, 
+		source_id(),
+		AL_BUFFERS_PROCESSED,
 		&processed);
 
 	SGE_OPENAL_CHECK_STATE(
@@ -155,18 +155,18 @@ sge::openal::stream_sound::update()
 		// need to refill any buffers.
 		return;
 	}
-	
+
 
 	// The description for this "hack" comes directly from a Creative Labs guy:
 	// http://opensource.creative.com/pipermail/openal/2010-June/012128.html
-	// 
+	//
 	// The problem is: If all buffers are processed in one "update" call
 	// (which might be the case if we have a long time difference
 	// because of lag), OpenAL sets the playing status to
 	// "stopped". This stopped is, at first, indistinguishable from the
 	// "real" stopped state which you get if you explicitly call
 	// "stop()" on the source.
-	// 
+	//
 	// See the comments below to see how we hack around this.
 
 	// First, we create a new variable which stores if we've really
@@ -204,7 +204,7 @@ sge::openal::stream_sound::update()
 	// don't consume any buffers. At least I think so.
 }
 
-void 
+void
 sge::openal::stream_sound::do_play()
 {
 	// reset file and fill buffers
@@ -238,14 +238,14 @@ sge::openal::stream_sound::do_play()
 		fcppt::log::_ << FCPPT_TEXT("queued ") << al_buffers_.size() <<  FCPPT_TEXT(" buffers"));
 }
 
-bool 
+bool
 sge::openal::stream_sound::fill_buffer(
 	ALuint const buffer)
 {
 	audio::sample_container data;
 	audio::sample_count samples_read =
 		audio_file_->read(
-			buffer_samples_, 
+			buffer_samples_,
 			data);
 
 	FCPPT_LOG_DEBUG(
@@ -264,7 +264,7 @@ sge::openal::stream_sound::fill_buffer(
 			return false;
 
 		audio_file_->reset();
-		samples_read = 
+		samples_read =
 			audio_file_->read(
 				buffer_samples_,
 				data);

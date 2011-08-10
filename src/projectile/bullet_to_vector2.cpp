@@ -24,7 +24,7 @@ sge::projectile::vector2 const
 sge::projectile::bullet_to_vector2(
 	btVector3 const &v)
 {
-	return 
+	return
 		vector2(
 			v.getX(),
 			v.getY());

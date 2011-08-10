@@ -42,11 +42,11 @@ sge::model::md3::loader_impl::load(
 		_path
 	);
 
-	return 
+	return
 		fcppt::make_shared_ptr<
 			md3::object_impl
 		>(
-			fcppt::ref( 
+			fcppt::ref(
 				file
 			),
 			_flags

@@ -46,6 +46,6 @@ sge::x11input::setlocale(
 				_what
 			)
 		);
-	
+
 	return ret;
 }

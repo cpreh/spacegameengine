@@ -30,11 +30,11 @@ namespace cegui
 {
 namespace vf
 {
-typedef 
+typedef
 sge::renderer::vf::view
 <
 	part
-> 
+>
 vertex_view;
 }
 }

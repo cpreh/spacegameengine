@@ -65,7 +65,7 @@ private:
 	bool const
 		normal_shader_,
 		arb_shader_;
-	
+
 	glsl::program_base const *last_program_;
 };
 

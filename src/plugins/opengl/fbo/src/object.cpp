@@ -65,7 +65,7 @@ sge::opengl::fbo::object::~object()
 	)
 }
 
-void 
+void
 sge::opengl::fbo::object::bind() const
 {
 	opengl::fbo::bind(

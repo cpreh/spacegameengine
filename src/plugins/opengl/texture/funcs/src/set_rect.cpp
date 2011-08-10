@@ -46,7 +46,7 @@ sge::opengl::texture::funcs::set_rect(
 )
 {
 	if(!
-		_src && 
+		_src &&
 		!context::use<
 			pbo_context
 		>(

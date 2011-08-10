@@ -43,17 +43,17 @@ public:
 	resource_provider(
 		sge::charconv::system &);
 
-	void 
+	void
 	loadRawDataContainer(
-		CEGUI::String const &filename, 
-		CEGUI::RawDataContainer &output, 
+		CEGUI::String const &filename,
+		CEGUI::RawDataContainer &output,
 		CEGUI::String const &resourceGroup);
 
-	void 
+	void
 	unloadRawDataContainer(
 		CEGUI::RawDataContainer&);
 
-	size_t 
+	size_t
 	getResourceGroupFileNames(
 		std::vector<CEGUI::String>& out_vec,
 		CEGUI::String const &file_pattern,

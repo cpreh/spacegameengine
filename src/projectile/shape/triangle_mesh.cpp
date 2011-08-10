@@ -48,15 +48,15 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": constructing triangle mesh with ")
-			<< _triangles.size() 
+			<< _triangles.size()
 			<< FCPPT_TEXT(" triangles"));
 
-	scalar_vector::iterator current_scalar = 
+	scalar_vector::iterator current_scalar =
 		scalars_.begin();
-	
+
 	for(
 		triangle_set::const_iterator triangle_it(
 			_triangles.begin()
@@ -90,7 +90,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 
 			FCPPT_LOG_VERBOSE(
 				local_log,
-				fcppt::log::_ 
+				fcppt::log::_
 					<< this
 					<< FCPPT_TEXT(": triangle begin"));
 
@@ -108,7 +108,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 
 				FCPPT_LOG_VERBOSE(
 					local_log,
-					fcppt::log::_ 
+					fcppt::log::_
 						<< this
 						<< FCPPT_TEXT(": adding point ")
 						<< current_triangle_point[0]
@@ -124,7 +124,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 
 			FCPPT_LOG_VERBOSE(
 				local_log,
-				fcppt::log::_ 
+				fcppt::log::_
 					<< this
 					<< FCPPT_TEXT(": triangle end"));
 		}
@@ -132,13 +132,13 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": filled scalar container, now filling index container"));
 
-	index_vector::iterator current_index_iterator = 
+	index_vector::iterator current_index_iterator =
 		indices_.begin();
-	index_vector::value_type current_index = 
+	index_vector::value_type current_index =
 		0;
 	while(current_index_iterator != indices_.end())
 	{
@@ -150,7 +150,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 		*current_index_iterator++ = current_index+3;
 		*current_index_iterator++ = current_index+4;
 		*current_index_iterator++ = current_index+5;
-		
+
 		// first side
 		*current_index_iterator++ = current_index+0;
 		*current_index_iterator++ = current_index+3;
@@ -183,7 +183,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": filled index container (last index was ") << current_index << FCPPT_TEXT("), now creating bullet shape"));
 
@@ -206,7 +206,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 			scalars_.data(),
 			// vertex stride
 			static_cast<int>(
-				3u * 
+				3u *
 				sizeof(
 					btScalar))));
 

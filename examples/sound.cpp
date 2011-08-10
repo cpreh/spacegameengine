@@ -74,7 +74,7 @@ load_raw(
 		std::ios::binary);
 
 	typedef
-	fcppt::container::raw_vector<char> 
+	fcppt::container::raw_vector<char>
 	raw_byte_container;
 
 	raw_byte_container raw_bytes(
@@ -82,7 +82,7 @@ load_raw(
 			raw_stream)),
 		std::istreambuf_iterator<char>());
 
-	return 
+	return
 		audio_loader.load_raw(
 			boost::make_iterator_range(
 				reinterpret_cast<unsigned char const *>(
@@ -122,13 +122,13 @@ try
 		fcppt::log::level::debug
 	);
 
-	fcppt::filesystem::path const 
-		file_name = 
-			sge::config::media_path() / 
+	fcppt::filesystem::path const
+		file_name =
+			sge::config::media_path() /
 			FCPPT_TEXT("sounds") /
 			FCPPT_TEXT("ding.wav"),
 		streaming_file_name =
-			sge::config::media_path() / 
+			sge::config::media_path() /
 			FCPPT_TEXT("sounds") /
 			FCPPT_TEXT("epoq.ogg");
 
@@ -154,13 +154,13 @@ try
 	fcppt::io::cout << FCPPT_TEXT("We will now try to load a sound file\n");
 	wait_for_input();
 
-	
-	sge::audio::file_ptr const soundfile = 
+
+	sge::audio::file_ptr const soundfile =
 		load_raw(
 			file_name,
 			sys.audio_loader());
 	/*
-	sge::audio::file_ptr const soundfile = 
+	sge::audio::file_ptr const soundfile =
 		sys.audio_loader().load(
 			file_name);
 	*/
@@ -169,15 +169,15 @@ try
 	fcppt::io::cout << FCPPT_TEXT("We will now try to create a nonstreaming buffer from it.\n");
 	wait_for_input();
 
-	sge::audio::buffer_ptr const buf = 
+	sge::audio::buffer_ptr const buf =
 		sys.audio_player().create_buffer(
 			*soundfile);
 
 	fcppt::io::cout << FCPPT_TEXT("Buffer created\n");
 	fcppt::io::cout << FCPPT_TEXT("We will now try to create a nonpositional source from it.\n");
 	wait_for_input();
-	
-	sge::audio::sound::base_ptr const s = 
+
+	sge::audio::sound::base_ptr const s =
 		buf->create_nonpositional();
 
 	fcppt::io::cout << FCPPT_TEXT("Nonpositional source loaded\n");
@@ -193,7 +193,7 @@ try
 	fcppt::io::cout << FCPPT_TEXT("Now we use the same sound, but create a positional source from it.\n");
 	wait_for_input();
 
-	sge::audio::sound::positional_ptr const ps = 
+	sge::audio::sound::positional_ptr const ps =
 		buf->create_positional(
 			sge::audio::sound::positional_parameters()
 				.linear_velocity(
@@ -277,7 +277,7 @@ try
 	s->pitch(
 		static_cast<sge::audio::scalar>(
 			0.5));
-	
+
 	s->play(
 		sge::audio::sound::repeat::once);
 	wait_for_sound(
@@ -289,7 +289,7 @@ try
 	s->pitch(
 		static_cast<sge::audio::scalar>(
 			1.5));
-	
+
 	s->play(
 		sge::audio::sound::repeat::once);
 	wait_for_sound(
@@ -298,7 +298,7 @@ try
 	fcppt::io::cout << FCPPT_TEXT("On to streaming sounds, we'll now create a positional streaming sound...\n");
 	wait_for_input();
 
-	sge::audio::sound::positional_ptr const sps = 
+	sge::audio::sound::positional_ptr const sps =
 		sys.audio_player().create_positional_stream(
 			sys.audio_loader().load(
 				streaming_file_name),
@@ -334,7 +334,7 @@ try
 				10)));
 
 	while(
-		sps->status() != sge::audio::sound::play_status::stopped 
+		sps->status() != sge::audio::sound::play_status::stopped
 		&& !frame_timer.expired())
 		sps->update();
 	sps->stop();

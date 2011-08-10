@@ -236,7 +236,7 @@ sge::dinput::processor::on_activate(
 )
 {
 	acquired_ = (_event.wparam() != 0);
-	
+
 	if(
 		acquired_
 	)
@@ -329,7 +329,7 @@ sge::dinput::processor::enum_devices_callback(
 		instance.windows_window_,
 		*instance.event_handle_
 	);
-	
+
 	switch(
 		dev_type
 	)

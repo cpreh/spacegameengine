@@ -35,7 +35,7 @@ namespace color
 
 typedef dynamic::color::basic_format<
 	image::color::channel8,
-	1	
+	1
 >::type c8_1_format;
 
 }

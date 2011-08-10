@@ -101,7 +101,7 @@ sge::iconv::converter::convert(
 			_output.begin()
 		)
 	);
-		
+
 	std::size_t out_bytes_left(
 		static_cast<
 			std::size_t
@@ -135,7 +135,7 @@ sge::iconv::converter::convert(
 			)
 			+ in_bytes_left
 		);
-	
+
 	_output =
 		charconv::output_range(
 			reinterpret_cast<
@@ -160,7 +160,7 @@ sge::iconv::converter::convert(
 		)
 	)
 		return charconv::conversion_status::ok;
-	
+
 	switch(
 		errno
 	)

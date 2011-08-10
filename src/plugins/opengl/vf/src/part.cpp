@@ -76,7 +76,7 @@ sge::opengl::vf::part::use_me(
 	vf::pointer const _src
 ) const
 {
-	client_state_combiner states_(
+	opengl::vf::client_state_combiner states(
 		context_
 	);
 
@@ -88,7 +88,7 @@ sge::opengl::vf::part::use_me(
 		++actor_it
 	)
 		(*actor_it)(
-			states_,
+			states,
 			static_cast<
 				unsigned char const *
 			>(
@@ -101,7 +101,7 @@ sge::opengl::vf::part::use_me(
 void
 sge::opengl::vf::part::unuse_me() const
 {
-	client_state_combiner states_(
+	opengl::vf::client_state_combiner states(
 		context_
 	);
 
@@ -113,6 +113,6 @@ sge::opengl::vf::part::unuse_me() const
 		++actor_it
 	)
 		actor_it->unuse(
-			states_
+			states
 		);
 }

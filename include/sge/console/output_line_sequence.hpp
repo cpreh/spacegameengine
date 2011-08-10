@@ -28,10 +28,10 @@ namespace sge
 {
 namespace console
 {
-typedef 
+typedef
 pointed_history<
 	sge::font::text::string
-> 
+>
 output_line_sequence;
 }
 }

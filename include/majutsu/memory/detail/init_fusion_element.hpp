@@ -66,7 +66,7 @@ struct init_fusion_element
 			>::type
 		>::type::type type;
 	};
-	
+
 
 	explicit init_fusion_element(
 		Arguments const &_arguments

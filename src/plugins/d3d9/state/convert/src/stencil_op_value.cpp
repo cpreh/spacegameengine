@@ -49,7 +49,7 @@ sge::d3d9::state::convert::stencil_op_value(
 	case sge::renderer::state::stencil_op_value::invert:
 		return D3DSTENCILOP_INVERT;
 	}
-	
+
 	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid stencil_op_value!")
 	);

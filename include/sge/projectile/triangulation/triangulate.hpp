@@ -81,7 +81,7 @@ triangulate(
 		size_type
 	>
 	index_vector;
-	
+
 	index_vector indices(
 		_contour.size()
 	);
@@ -113,7 +113,7 @@ triangulate(
 			size_type index = 0;
 			index < indices.size();
 			++index
-		) 
+		)
 			indices[
 				index
 			]
@@ -142,7 +142,7 @@ triangulate(
 				num_vertices - 1u
 			)
 		)
-		; 
+		;
 		num_vertices > 2u
 		;
 		--num_vertices
@@ -152,14 +152,14 @@ triangulate(
 		size_type prev_vertex(
 			cur_vertex
 		);
-		
+
 		if(
 			num_vertices <= prev_vertex
 		)
 			prev_vertex = 0;
 
 		cur_vertex = prev_vertex + 1u;
-		
+
 		if(
 			num_vertices <= cur_vertex
 		)
@@ -168,7 +168,7 @@ triangulate(
 		size_type next_vertex(
 			cur_vertex + 1u
 		);
-		
+
 		if(
 			num_vertices <= next_vertex
 		)

@@ -38,7 +38,7 @@ class SGE_CLASS_SYMBOL buffer
 		buffer
 	);
 public:
-	SGE_AUDIO_SYMBOL explicit 
+	SGE_AUDIO_SYMBOL explicit
 	buffer();
 
 	virtual sound::positional_ptr const
@@ -49,7 +49,7 @@ public:
 	virtual sound::base_ptr const
 	create_nonpositional() = 0;
 
-	SGE_AUDIO_SYMBOL virtual 
+	SGE_AUDIO_SYMBOL virtual
 	~buffer();
 };
 }

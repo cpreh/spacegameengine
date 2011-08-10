@@ -30,7 +30,7 @@ sge::opengl::glsl::create_vertex_shader(
 {
 	return
 		opengl::glsl::create_shader<
-			opengl::glsl::vertex_shader	
+			opengl::glsl::vertex_shader
 		>(
 			_context,
 			_source

@@ -121,7 +121,7 @@ sge::line_drawer::object::unlock()
 		return;
 
 	if (!vb_ || vb_->size() < static_cast<sge::renderer::size_type>(lines_.size()*2))
-		vb_ = 
+		vb_ =
 			renderer_.create_vertex_buffer(
 				*vertex_declaration_,
 				sge::renderer::vf::dynamic::part_index(

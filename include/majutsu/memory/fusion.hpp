@@ -78,7 +78,7 @@ public:
 	{
 		boost::mpl::for_each<
 			typename majutsu::detail::make_iterators<
-				types	
+				types
 			>::type
 		>(
 			detail::init_constants<

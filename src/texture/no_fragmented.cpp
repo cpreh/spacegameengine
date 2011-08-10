@@ -77,7 +77,7 @@ sge::texture::no_fragmented::consume_fragment(
 
 	tex_ =
 		rend_.create_planar_texture(
-			renderer::texture::planar_parameters(	
+			renderer::texture::planar_parameters(
 				real_dim,
 				format_,
 				mipmap_,

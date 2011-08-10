@@ -53,13 +53,13 @@ public:
 	virtual audio::listener &
 	listener() = 0;
 
-	virtual scalar 
+	virtual scalar
 	speed_of_sound() const = 0;
 
-	virtual scalar 
+	virtual scalar
 	doppler_factor() const = 0;
 
-	virtual void 
+	virtual void
 	speed_of_sound(
 		scalar
 	) = 0;
@@ -82,13 +82,13 @@ public:
 		audio::file &
 	) = 0;
 
-	virtual sound::positional_ptr const 
+	virtual sound::positional_ptr const
 	create_positional_stream(
 		audio::file_ptr,
 		sound::positional_parameters const &
 	) = 0;
 
-	virtual sound::base_ptr const 
+	virtual sound::base_ptr const
 	create_nonpositional_stream(
 		audio::file_ptr
 	) = 0;

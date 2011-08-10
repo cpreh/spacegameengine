@@ -34,50 +34,50 @@ namespace sge
 {
 namespace vorbis
 {
-class file 
-: 
+class file
+:
 	public audio::file
 {
 public:
-	typedef 
-	audio::sample_count 
+	typedef
+	audio::sample_count
 	sample_count;
 
-	typedef 
-	audio::channel_type 
+	typedef
+	audio::channel_type
 	channel_type;
 
-	typedef 
-	audio::sample_container 
+	typedef
+	audio::sample_container
 	sample_container;
 
-	explicit 
+	explicit
 	file(
 		stream_ptr,
 		sge::audio::optional_path const &);
 
-	sample_count 
+	sample_count
 	read(
-		sample_count samples, 
+		sample_count samples,
 		sample_container &);
 
-	sample_count 
+	sample_count
 	read_all(
 		sample_container &);
 
-	channel_type 
+	channel_type
 	channels() const;
 
-	sample_count 
+	sample_count
 	sample_rate() const;
 
-	sample_count 
+	sample_count
 	bits_per_sample() const;
 
 	sample_count
 	expected_package_size() const;
-	
-	void 
+
+	void
 	reset();
 
 	~file();
@@ -89,42 +89,42 @@ private:
 	sample_count sample_rate_;
 
 	// ogg callbacks
-	static std::size_t 
+	static std::size_t
 	ogg_read_static(
-		void *ptr, 
-		std::size_t size, 
-		std::size_t nmemb, 
+		void *ptr,
+		std::size_t size,
+		std::size_t nmemb,
 		void *datasource);
 
-	static int 
+	static int
 	ogg_seek_static(
-		void *datasource, 
-		ogg_int64_t offset, 
+		void *datasource,
+		ogg_int64_t offset,
 		int whence);
 
-	static int 
+	static int
 	ogg_close_static(
 		void *datasource);
 
-	static long 
+	static long
 	ogg_tell_static(
 		void *datasource);
 
-	std::size_t 
+	std::size_t
 	ogg_read(
-		void *ptr, 
-		std::size_t size, 
+		void *ptr,
+		std::size_t size,
 		std::size_t nmemb);
 
-	int 
+	int
 	ogg_seek(
-		ogg_int64_t offset, 
+		ogg_int64_t offset,
 		int whence);
 
-	int 
+	int
 	ogg_close();
 
-	long 
+	long
 	ogg_tell();
 };
 }

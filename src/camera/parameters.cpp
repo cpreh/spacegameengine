@@ -43,16 +43,16 @@ sge::camera::parameters::parameters(
 	active_(
 		true)
 {
-	
+
 }
 
 sge::camera::parameters &
 sge::camera::parameters::projection(
 	projection::object const &_projection)
 {
-	projection_ = 
+	projection_ =
 		_projection;
-	return 
+	return
 		*this;
 }
 
@@ -60,9 +60,9 @@ sge::camera::parameters &
 sge::camera::parameters::gizmo(
 	camera::gizmo_type const &_gizmo)
 {
-	gizmo_ = 
+	gizmo_ =
 		_gizmo;
-	return 
+	return
 		*this;
 }
 
@@ -70,9 +70,9 @@ sge::camera::parameters &
 sge::camera::parameters::active(
 	bool const _active)
 {
-	active_ = 
+	active_ =
 		_active;
-	return 
+	return
 		*this;
 }
 

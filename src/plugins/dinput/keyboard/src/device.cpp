@@ -136,7 +136,7 @@ sge::dinput::keyboard::device::mod_state() const
 		)
 	)
 		ret |= sge::input::keyboard::modifier::ctrl;
-	
+
 	if(
 		dinput::keyboard::key_is_down(
 			states_[
@@ -208,7 +208,7 @@ sge::dinput::keyboard::device::dispatch()
 			)
 		);
 
-		
+
 		dinput::keyboard::optional_uint const virtual_code(
 			dinput::keyboard::map_virtual_key(
 				offset,

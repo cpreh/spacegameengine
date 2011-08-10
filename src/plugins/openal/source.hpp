@@ -36,8 +36,8 @@ namespace sge
 {
 namespace openal
 {
-class source 
-: 
+class source
+:
 	public audio::sound::positional
 {
 	FCPPT_NONCOPYABLE(
@@ -48,7 +48,7 @@ public:
 	source(
 		ALuint buffer);
 
-	explicit 
+	explicit
 	source(
 		audio::sound::positional_parameters const &,
 		ALuint buffer);
@@ -56,94 +56,94 @@ public:
 	explicit
 	source();
 
-	explicit 
+	explicit
 	source(
 		audio::sound::positional_parameters const &);
 
 	~source();
 
-	void 
+	void
 	play(
 		audio::sound::repeat::type);
 
-	void 
+	void
 	toggle_pause();
 
-	audio::sound::play_status::type 
+	audio::sound::play_status::type
 	status() const;
-	
+
 	audio::sound::repeat::type
 	repeat() const;
 
-	void 
+	void
 	stop();
 
-	void 
+	void
 	update();
 
-	audio::vector const 
+	audio::vector const
 	position() const;
 
-	void 
+	void
 	position(
 		audio::vector const &);
 
-	audio::vector const 
+	audio::vector const
 	linear_velocity() const;
 
-	void 
+	void
 	linear_velocity(
 		audio::vector const &);
 
-	audio::scalar 
+	audio::scalar
 	gain() const;
 
-	void 
+	void
 	gain(
 		audio::scalar);
 
-	audio::scalar 
+	audio::scalar
 	pitch() const;
 
-	void 
+	void
 	pitch(
 		audio::scalar);
 
-	audio::scalar 
+	audio::scalar
 	rolloff() const;
 
-	void 
+	void
 	rolloff(
 		audio::scalar);
 
-	audio::vector const 
+	audio::vector const
 	direction() const;
 
-	void 
+	void
 	direction(
 		audio::vector const &);
 
-	audio::scalar 
+	audio::scalar
 	inner_cone_angle() const;
 
-	void 
+	void
 	inner_cone_angle(
 		audio::scalar);
 
-	audio::scalar 
+	audio::scalar
 	outer_cone_angle() const;
 
-	void 
+	void
 	outer_cone_angle(
 		audio::scalar);
 protected:
 	virtual void
 	do_play();
 
-	void 
+	void
 	sync() const;
 
-	ALuint 
+	ALuint
 	source_id() const;
 private:
 	source_wrapper source_;
@@ -158,10 +158,10 @@ private:
 	audio::scalar inner_cone_angle_;
 	audio::scalar outer_cone_angle_;
 
-	void 
+	void
 	init(
 		audio::sound::positional_parameters const &);
-	
+
 	void
 	positional(
 		bool);

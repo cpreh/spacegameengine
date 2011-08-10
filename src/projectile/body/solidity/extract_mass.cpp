@@ -41,7 +41,7 @@ public:
 	operator()(
 		sge::projectile::body::solidity::static_ const &) const
 	{
-		return 
+		return
 			static_cast<btScalar>(
 				0);
 	}
@@ -50,7 +50,7 @@ public:
 	operator()(
 		sge::projectile::body::solidity::nonsolid const &) const
 	{
-		return 
+		return
 			static_cast<btScalar>(
 				1);
 	}
@@ -61,7 +61,7 @@ btScalar
 sge::projectile::body::solidity::extract_mass(
 	variant const &v)
 {
-	return 
+	return
 		fcppt::variant::apply_unary(
 			mass_visitor(),
 			v);

@@ -39,12 +39,12 @@ elapsed(
 			Duration();
 
 	if(t.expired())
-		return 
+		return
 			t.template interval<Duration>();
 
-	return 
+	return
 		fcppt::chrono::duration_cast<Duration>(
-			t.now() - 
+			t.now() -
 			t.last_time());
 }
 }

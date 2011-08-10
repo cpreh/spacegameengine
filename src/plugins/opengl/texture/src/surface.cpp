@@ -65,7 +65,7 @@ sge::opengl::texture::surface::surface(
 	lock_()
 {
 }
-	
+
 sge::opengl::texture::surface::~surface()
 {
 }

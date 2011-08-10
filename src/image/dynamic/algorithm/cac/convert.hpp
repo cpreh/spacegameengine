@@ -55,7 +55,7 @@ convert(
 				typename cac::function<
 					typename Source::format,
 					typename Dest::format
-				>::type 
+				>::type
 			>(
 				cac::choose(
 					view::image_format(

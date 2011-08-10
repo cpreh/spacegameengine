@@ -29,7 +29,7 @@ namespace sge
 namespace audio
 {
 
-typedef 
+typedef
 fcppt::math::vector::static_
 <
 	scalar,

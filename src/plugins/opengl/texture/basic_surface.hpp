@@ -56,7 +56,7 @@ public:
 		texture::id,
 		renderer::stage
 	);
-	
+
 	~basic_surface();
 protected:
 	dim const

@@ -65,7 +65,7 @@ private:
 	bool const
 		is_native_,
 		is_arb_;
-	
+
 	PFNGLACTIVETEXTUREPROC const active_texture_;
 
 	PFNGLCLIENTACTIVETEXTUREPROC const client_active_texture_;

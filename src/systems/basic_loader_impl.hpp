@@ -43,7 +43,7 @@ sge::systems::basic_loader<Capabilities>::extensions() const
 {
 	return extensions_;
 }
-	
+
 template<
 	typename Capabilities
 >

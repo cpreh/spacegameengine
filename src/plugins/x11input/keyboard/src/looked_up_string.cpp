@@ -29,7 +29,7 @@ sge::x11input::keyboard::looked_up_string::looked_up_string(
 	key_code_(_key_code)
 {
 }
-	
+
 sge::x11input::keyboard::char_vector const &
 sge::x11input::keyboard::looked_up_string::char_codes() const
 {

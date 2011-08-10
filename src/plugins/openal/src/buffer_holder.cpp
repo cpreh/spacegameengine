@@ -44,7 +44,7 @@ sge::openal::buffer_holder::buffer_holder()
 		audio::exception
 	)
 }
-	
+
 sge::openal::buffer_holder::~buffer_holder()
 {
 	FCPPT_LOG_DEBUG(

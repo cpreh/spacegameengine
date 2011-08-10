@@ -62,14 +62,14 @@ void_ptr_to_body(
 	FCPPT_ASSERT(
 		a);
 
-	btCollisionObject *co = 
+	btCollisionObject *co =
 		static_cast<btCollisionObject *>(
 			a);
 
 	FCPPT_ASSERT(
 		co->getUserPointer());
 
-	return 
+	return
 		*static_cast<sge::projectile::body::object *>(
 			co->getUserPointer());
 }
@@ -80,7 +80,7 @@ bool
 is_ghost(
 	void const * const obj)
 {
-	return 
+	return
 		static_cast<btCollisionObject const *>(
 			obj)->getInternalType() == btCollisionObject::CO_GHOST_OBJECT;
 }
@@ -93,10 +93,10 @@ bool
 is_collision_manifold(
 	btPersistentManifold *manifold)
 {
-	return 
-		manifold->getNumContacts() && 
+	return
+		manifold->getNumContacts() &&
 		!is_ghost(
-			manifold->getBody0()) && 
+			manifold->getBody0()) &&
 		!is_ghost(
 			manifold->getBody1());
 }
@@ -159,7 +159,7 @@ sge::projectile::world::update_discrete(
 
 	FCPPT_LOG_VERBOSE(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< FCPPT_TEXT("Doing a fixed simulation step with delta ")
 			<< delta.get().count());
 
@@ -177,7 +177,7 @@ sge::projectile::world::update_continuous(
 {
 	FCPPT_LOG_VERBOSE(
 		local_log,
-		fcppt::log::_ 
+		fcppt::log::_
 			<< FCPPT_TEXT("Doing a variable simulation step with delta ")
 			<< delta.get().count());
 
@@ -202,7 +202,7 @@ fcppt::signal::auto_connection
 sge::projectile::world::body_collision(
 	body::collision const &f)
 {
-	return 
+	return
 		body_collision_.connect(
 			f);
 }
@@ -212,7 +212,7 @@ sge::projectile::world::add_body(
 	body::object &_body,
 	group::sequence const &_groups)
 {
-	group::id 
+	group::id
 		group = static_cast<group::id>(0),
 		mask = group;
 
@@ -247,7 +247,7 @@ sge::projectile::world::add_ghost(
 	ghost::object &_ghost,
 	group::sequence const &_groups)
 {
-	group::id 
+	group::id
 		group = static_cast<group::id>(0),
 		mask = group;
 
@@ -289,7 +289,7 @@ sge::projectile::world::next_group_id()
 		FCPPT_TEXT("You have created too many groups. Bummer. :/"));
 	group::id const old = next_group_id_;
 	// <<= doesn't work because of -Wconversion
-	next_group_id_ = 
+	next_group_id_ =
 		static_cast<group::id>(
 			next_group_id_ << 1);
 	return old;
@@ -317,7 +317,7 @@ sge::projectile::world::internal_tick_callback(
 			world_->getDispatcher()->getInternalManifoldPointer()
 		,
 		**manifold_end =
-				world_->getDispatcher()->getInternalManifoldPointer() + 
+				world_->getDispatcher()->getInternalManifoldPointer() +
 				world_->getDispatcher()->getNumManifolds()
 		;
 		current_manifold != manifold_end;

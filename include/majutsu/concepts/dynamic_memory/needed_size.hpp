@@ -63,7 +63,7 @@ needed_size(
 	typename Element::type const &
 )
 {
-	return static_size<Element>::value; 
+	return static_size<Element>::value;
 }
 
 }

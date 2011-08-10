@@ -33,7 +33,7 @@ namespace parse
 namespace json
 {
 
-class SGE_CLASS_SYMBOL exception 
+class SGE_CLASS_SYMBOL exception
 :
 	public sge::parse::exception
 {

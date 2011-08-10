@@ -69,12 +69,12 @@ public:
 	resize(
 		CEGUI::Size const &);
 
-	void 
+	void
 	loadFromFile(
 		CEGUI::String const &filename,
 		CEGUI::String const &resourceGroup);
 
-	void 
+	void
 	loadFromMemory(
 		void const * buffer,
 		CEGUI::Size const & buffer_size,
@@ -86,7 +86,7 @@ public:
 	create_from_view(
 		sge::image2d::view::const_object const &);
 
-	void 
+	void
 	saveToMemory(
 		void*);
 

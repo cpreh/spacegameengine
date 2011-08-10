@@ -68,7 +68,7 @@ public:
 	SGE_SHADER_SYMBOL void
 	texture(
 		shader::texture_variant const &);
-	
+
 	SGE_SHADER_SYMBOL ~sampler();
 private:
 	renderer::glsl::string name_,declaration_;

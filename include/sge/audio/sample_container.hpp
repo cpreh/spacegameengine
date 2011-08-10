@@ -28,8 +28,8 @@ namespace sge
 namespace audio
 {
 
-typedef 
-fcppt::container::raw_vector<unsigned char> 
+typedef
+fcppt::container::raw_vector<unsigned char>
 sample_container;
 
 }

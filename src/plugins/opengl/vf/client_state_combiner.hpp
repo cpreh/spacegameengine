@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "attribute_context_fwd.hpp"
 #include "client_state.hpp"
 #include "../context/object_fwd.hpp"
+#include <sge/renderer/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -56,6 +57,16 @@ public:
 	);
 
 	void
+	enable_texture(
+		renderer::stage
+	);
+
+	void
+	disable_texture(
+		renderer::stage
+	);
+
+	void
 	enable_attribute(
 		GLuint
 	);
@@ -68,12 +79,12 @@ public:
 	~client_state_combiner();
 private:
 	vf::context &context_;
-	
+
 	vf::attribute_context &attribute_context_;
 
-	client_state const old_states_;
+	vf::client_state const old_states_;
 
-	client_state new_states_;
+	vf::client_state new_states_;
 };
 
 }

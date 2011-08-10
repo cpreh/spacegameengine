@@ -37,7 +37,7 @@ namespace font
 {
 namespace text
 {
-	
+
 SGE_FONT_TEXT_SYMBOL
 text::part const
 draw(

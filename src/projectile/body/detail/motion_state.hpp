@@ -53,12 +53,12 @@ private:
 	object &body_;
 
 	// @override
-	void	
+	void
 	getWorldTransform(
 		btTransform &) const;
 
 	// @override
-	void	
+	void
 	setWorldTransform(
 		btTransform const &);
 };

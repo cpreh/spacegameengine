@@ -42,7 +42,7 @@ sge::opengl::texture::convert::cube_side(
 		throw sge::renderer::exception(
 			FCPPT_TEXT("Invalid cube_side!")
 		);
-	
+
 	return
 		_cube_sides[
 			pos

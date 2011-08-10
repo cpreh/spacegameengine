@@ -49,7 +49,7 @@ public:
 		renderer::const_raw_pointer,
 		renderer::raw_pointer
 	>::type pointer;
-		
+
 	typedef renderer::size_type size_type;
 
 	SGE_RENDERER_SYMBOL

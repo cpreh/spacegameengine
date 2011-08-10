@@ -49,7 +49,7 @@ parse_file(
 		std::ios_base::skipws
 	);
 
-	return 
+	return
 		ifs.is_open()
 		&&
 		// use ADL

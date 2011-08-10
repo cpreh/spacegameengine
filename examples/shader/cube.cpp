@@ -190,9 +190,9 @@ namespace
 // What's this all about? Well, the ultimate goal is to copy vertices
 // to the GPU. To do that, the graphics APIs give you access to the
 // graphics card's memory and return it as, say, a void pointer. You
-// have to do two things: 
+// have to do two things:
 // 1) You have to fill this buffer with the vertices. Of course, a
-//    vertex has an arbitrary amount of data attached to it: 
+//    vertex has an arbitrary amount of data attached to it:
 //    position, normal, texture coordinate and so on.
 // 2) You have to tell the graphics API how many vertices there are
 //    and what attributes they consist of.
@@ -206,23 +206,23 @@ namespace vf
 // accessible via gl_Vertex). Those attributes are, however,
 // deprecated in newer OpenGL and DirectX versions. unspecified is the
 // successor (see below)
-typedef 
+typedef
 sge::renderer::vf::pos
 <
 	// type and dimension of the position attribute values from 1 to 4 are possible
 	sge::renderer::scalar,
 	3
-> 
+>
 position;
 
 // Again, a builtin attribute. This time, for (2D) texture
 // coordinates. 2 to 4 dimensions are possible.
-typedef 
+typedef
 sge::renderer::vf::texpos
 <
 	sge::renderer::scalar,
 	2
-> 
+>
 texcoord;
 
 // An unspecified attribute has to have a "tag" which is...
@@ -233,7 +233,7 @@ namespace tags
 SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(vertex_normal)
 }
 
-typedef 
+typedef
 sge::renderer::vf::unspecified
 <
 	sge::renderer::vf::vector
@@ -243,7 +243,7 @@ sge::renderer::vf::unspecified
 	>,
 	// This binds the tag to the attribute
 	tags::vertex_normal
-> 
+>
 vertex_normal;
 
 // Since we're doing a coordinate transformation in the shader, we
@@ -254,7 +254,7 @@ namespace tags
 SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(vertex_tangent)
 }
 
-typedef 
+typedef
 sge::renderer::vf::unspecified
 <
 	sge::renderer::vf::vector
@@ -263,7 +263,7 @@ sge::renderer::vf::unspecified
 		3
 	>,
 	tags::vertex_tangent
-> 
+>
 vertex_tangent;
 
 // A vertex format can consist of multiple parts. You could, for
@@ -274,7 +274,7 @@ vertex_tangent;
 //
 // In this example, we define only one part which contains all 4
 // attributes.
-typedef 
+typedef
 sge::renderer::vf::part
 <
 	// Note that here, there's no distinction between unspecified and
@@ -286,17 +286,17 @@ sge::renderer::vf::part
 		vertex_normal,
 		vertex_tangent
 	>
-> 
+>
 format_part;
 
 // The "sum of its parts". Here, we have only one part. You have to
 // watch out later on. Sometimes you need the whole vertex format,
 // sometimes only a part.
-typedef 
+typedef
 sge::renderer::vf::format
 <
 	boost::mpl::vector1<format_part>
-> 
+>
 format;
 
 // The graphics API gives us a raw buffer, but we want to write to it
@@ -329,26 +329,26 @@ fill_vb_with_cube(
 	// This "vertex" class has a "set" function which can set arbitrary
 	// vertex attributes. Which attribute it sets is determined by a
 	// template parameter. You can pass all of the attributes defined
-	// above. 
+	// above.
 	// _But_ there's a distinction between the _attribute type_ and the
 	// _value type_ of the attribute. The position attribute, for
 	// example, has type "sge::renderer::vf::pos<...>" which could be
 	// anything. It's certainly _not_ a vector3, though. That's what the
 	// ::packed_type is for.
-	typedef 
-	vf::position::packed_type 
+	typedef
+	vf::position::packed_type
 	position_vector;
 
-	typedef 
-	vf::vertex_normal::packed_type 
+	typedef
+	vf::vertex_normal::packed_type
 	vertex_normal_vector;
 
-	typedef 
-	vf::vertex_tangent::packed_type 
+	typedef
+	vf::vertex_tangent::packed_type
 	vertex_tangent_vector;
 
-	typedef 
-	vf::texcoord::packed_type 
+	typedef
+	vf::texcoord::packed_type
 	texcoord_vector;
 
 	// Now we fill the vertex buffer which is pretty boring and tedious.
@@ -865,7 +865,7 @@ try
 					sge::systems::cursor_option::exclusive))));
 
 	// Load two images and create two textures from them.
-	sge::renderer::texture::planar_ptr const 
+	sge::renderer::texture::planar_ptr const
 		normal_texture =
 			sge::renderer::texture::create_planar_from_view(
 				sys.renderer(),
@@ -876,7 +876,7 @@ try
 					sge::renderer::texture::address_mode::clamp),
 				// Here, you could specify "readable", for example
 				sge::renderer::resource_flags::none),
-		color_texture = 
+		color_texture =
 			sge::renderer::texture::create_planar_from_view(
 				sys.renderer(),
 				sys.image_loader().load(
@@ -886,7 +886,7 @@ try
 					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none);
 
-	bool running = 
+	bool running =
 		true;
 
 	// When escape is pressed, the main loop should end, so we need to
@@ -939,18 +939,18 @@ try
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>()));
 
-	// Ah, the shader object 
+	// Ah, the shader object
 	sge::shader::object shader(
 		sge::shader::object_parameters(
 			sys.renderer(),
 			*vertex_declaration,
 			sge::config::media_path()
-				/ FCPPT_TEXT("shaders") 
-				/ FCPPT_TEXT("cube") 
+				/ FCPPT_TEXT("shaders")
+				/ FCPPT_TEXT("cube")
 				/ FCPPT_TEXT("vertex.glsl"),
 			sge::config::media_path()
-				/ FCPPT_TEXT("shaders") 
-				/ FCPPT_TEXT("cube") 
+				/ FCPPT_TEXT("shaders")
+				/ FCPPT_TEXT("cube")
 				/ FCPPT_TEXT("fragment.glsl"),
 			// This turns the vertex format we defined above into a glsl
 			// variable declaration which replaces the '$$$HEADER$$$' magic
@@ -994,7 +994,7 @@ try
 					"color_texture",
 					color_texture))));
 
-	bool enabled = 
+	bool enabled =
 		true;
 
 	fcppt::signal::scoped_connection const cb_enabled(
@@ -1087,7 +1087,7 @@ try
 				"camera",
 				camera.gizmo().position());
 
-			sge::renderer::scalar const elapsed = 
+			sge::renderer::scalar const elapsed =
 				sge::timer::elapsed_fractional<sge::renderer::scalar>(
 					revolve_timer);
 
@@ -1098,11 +1098,11 @@ try
 				"light_position",
 				sge::renderer::vector3(
 					std::sin(
-						fcppt::math::twopi<sge::renderer::scalar>() * 
+						fcppt::math::twopi<sge::renderer::scalar>() *
 						elapsed),
 					0,
 					std::cos(
-						fcppt::math::twopi<sge::renderer::scalar>() * 
+						fcppt::math::twopi<sge::renderer::scalar>() *
 						elapsed)));
 
 			sys.renderer().render_nonindexed(

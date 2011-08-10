@@ -132,7 +132,7 @@ private:
 	bool
 		has_native_,
 		has_ext_;
-	
+
 	gl_gen_framebuffers const gen_framebuffers_;
 
 	gl_delete_framebuffers const delete_framebuffers_;

@@ -67,7 +67,7 @@ private:
 	renderer::size_type
 		pos_,
 		count_;
-	
+
 	renderer::lock_flags::method::type lock_flags_;
 };
 

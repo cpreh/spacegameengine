@@ -37,12 +37,12 @@ sge::cegui::detail::cegui_logger::~cegui_logger()
 {
 }
 
-void 
+void
 sge::cegui::detail::cegui_logger::logEvent(
-	CEGUI::String const &message, 
+	CEGUI::String const &message,
 	CEGUI::LoggingLevel const level)
 {
-	fcppt::string const converted = 
+	fcppt::string const converted =
 		fcppt::from_std_string(
 			message.c_str());
 	switch (level)
@@ -75,7 +75,7 @@ sge::cegui::detail::cegui_logger::logEvent(
 	}
 }
 
-void 
+void
 sge::cegui::detail::cegui_logger::setLogFilename(
 	CEGUI::String const &,
 	bool)

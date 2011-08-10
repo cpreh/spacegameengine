@@ -74,7 +74,7 @@ get_unsigned(
 				result
 			)
 		);
-	
+
 	return
 		static_cast<
 			T
