@@ -225,6 +225,109 @@ fill_geometry(
 	}
 }
 
+sge::renderer::texture::volume_ptr const
+create_texture(
+	sge::renderer::device &_device
+)
+{
+	typedef sge::image3d::gray8 store_type;
+
+	sge::image::size_type const block_element_size(
+		4u
+	);
+
+	sge::image3d::dim const block_size(
+		block_element_size,
+		block_element_size,
+		block_element_size
+	);
+
+	sge::image::size_type const num_blocks(
+		16u
+	);
+
+	store_type whole_store(
+		block_size * num_blocks
+	);
+
+	store_type white_store(
+		block_size
+	);
+
+	sge::image3d::algorithm::fill(
+		sge::image3d::view::object(
+			white_store.view()
+		),
+		sge::image::colors::white()
+	);
+
+	store_type black_store(
+		block_size
+	);
+
+	sge::image3d::algorithm::fill(
+		sge::image3d::view::object(
+			black_store.view()
+		),
+		sge::image::colors::black()
+	);
+
+	for(
+		sge::image::size_type z = 0;
+		z < num_blocks;
+		++z
+	)
+		for(
+			sge::image::size_type y = 0;
+			y < num_blocks;
+			++y
+		)
+			for(
+				sge::image::size_type x = 0;
+				x < num_blocks;
+				++x
+			)
+				sge::image3d::algorithm::copy_and_convert(
+					sge::image3d::view::to_const(
+						sge::image3d::view::object(
+							(((x + y + z) % 2u) == 0u)
+							?
+								white_store.view()
+							:
+								black_store.view()
+						)
+					),
+					sge::image3d::view::sub(
+						sge::image3d::view::object(
+							whole_store.view()
+						),
+						sge::image3d::box(
+							sge::image3d::box::vector(
+								x * block_size.w(),
+								y * block_size.h(),
+								z * block_size.d()
+							),
+							block_size
+						)
+					)
+				);
+	
+	return
+		sge::renderer::texture::create_volume_from_view(
+			_device,
+			sge::image3d::view::to_const(
+				sge::image3d::view::object(
+					whole_store.view()
+				)
+			),
+			sge::renderer::texture::mipmap::off(),
+			sge::renderer::texture::address_mode3(
+				sge::renderer::texture::address_mode::clamp
+			),
+			sge::renderer::resource_flags::none
+		);
+}
+
 }
 
 int 
@@ -271,103 +374,9 @@ try
 		)
 	);
 
-	typedef sge::image3d::gray8 store_type;
-
-	sge::image::size_type const block_element_size(
-		4u
-	);
-
-	sge::image3d::dim const block_size(
-		block_element_size,
-		block_element_size,
-		block_element_size
-	);
-
-	sge::image::size_type const num_blocks(
-		16u
-	);
-
-	store_type whole_store(
-		block_size * num_blocks
-	);
-
-	{
-		store_type white_store(
-			block_size
-		);
-
-		sge::image3d::algorithm::fill(
-			sge::image3d::view::object(
-				white_store.view()
-			),
-			sge::image::colors::white()
-		);
-
-		store_type black_store(
-			block_size
-		);
-
-		sge::image3d::algorithm::fill(
-			sge::image3d::view::object(
-				black_store.view()
-			),
-			sge::image::colors::black()
-		);
-
-		for(
-			sge::image::size_type z = 0;
-			z < num_blocks;
-			++z
-		)
-			for(
-				sge::image::size_type y = 0;
-				y < num_blocks;
-				++y
-			)
-				for(
-					sge::image::size_type x = 0;
-					x < num_blocks;
-					++x
-				)
-					sge::image3d::algorithm::copy_and_convert(
-						sge::image3d::view::to_const(
-							sge::image3d::view::object(
-								(((x + y + z) % 2u) == 0u)
-								?
-									white_store.view()
-								:
-									black_store.view()
-							)
-						),
-						sge::image3d::view::sub(
-							sge::image3d::view::object(
-								whole_store.view()
-							),
-							sge::image3d::box(
-								sge::image3d::box::vector(
-									x * block_size.w(),
-									y * block_size.h(),
-									z * block_size.d()
-								),
-								block_size
-							)
-						)
-					);
-	}
-
 	sge::renderer::texture::volume_ptr const texture(
-		sge::renderer::texture::create_volume_from_view(
-			sys.renderer(),
-			sge::image3d::view::to_const(
-				sge::image3d::view::object(
-					whole_store.view()
-				)
-			),
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::texture::address_mode3(
-				sge::renderer::texture::address_mode::clamp
-			),
-			sge::renderer::resource_flags::none
+		::create_texture(
+			sys.renderer()
 		)
 	);
 
