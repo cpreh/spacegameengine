@@ -51,45 +51,67 @@ erase_checked(
 
 void
 sge::opengl::vf::client_state::enable(
-	GLenum const e
+	GLenum const _value
 )
 {
-	insert_checked(
+	::insert_checked(
 		normal_states_,
-		e
+		_value
 	);
 }
 
 void
 sge::opengl::vf::client_state::disable(
-	GLenum const e
+	GLenum const _value
 )
 {
-	erase_checked(
+	::erase_checked(
 		normal_states_,
-		e
+		_value
+	);
+}
+
+void
+sge::opengl::vf::client_state::enable_texture(
+	renderer::stage const _value
+)
+{
+	::insert_checked(
+		texture_states_,
+		_value
+	);
+}
+
+void
+sge::opengl::vf::client_state::disable_texture(
+	renderer::stage const _value
+)
+{
+	::erase_checked(
+		texture_states_,
+		_value
 	);
 }
 
 void
 sge::opengl::vf::client_state::enable_attribute(
-	GLuint const i
+	GLuint const _value
 )
 {
-	insert_checked(
+	::insert_checked(
 		attribute_states_,
-		i
+		_value
 	);
 }
 
 void
 sge::opengl::vf::client_state::disable_attribute(
-	GLuint const i
+	GLuint const _value
 )
 {
-	erase_checked(
+	::erase_checked(
 		attribute_states_,
-		i
+		_value
 	);
 }
 
@@ -97,6 +119,12 @@ sge::opengl::vf::client_state::normal_state_set const &
 sge::opengl::vf::client_state::normal_states() const
 {
 	return normal_states_;
+}
+
+sge::opengl::vf::client_state::texture_state_set const &
+sge::opengl::vf::client_state::texture_states() const
+{
+	return texture_states_;
 }
 
 sge::opengl::vf::client_state::index_state_set const &
@@ -117,12 +145,14 @@ template<
 >
 void
 insert_checked(
-	Set &s,
-	typename Set::value_type const v
+	Set &_set,
+	typename Set::value_type const _value
 )
 {
 	if(
-		!s.insert(v).second
+		!_set.insert(
+			_value
+		).second
 	)
 		FCPPT_LOG_WARNING(
 			sge::log::global(),
@@ -137,12 +167,14 @@ template<
 >
 void
 erase_checked(
-	Set &s,
-	typename Set::value_type const v
+	Set &_set,
+	typename Set::value_type const _value
 )
 {
 	if(
-		!s.erase(v)
+		!_set.erase(
+			_value
+		)
 	)
 		FCPPT_LOG_WARNING(
 			sge::log::global(),

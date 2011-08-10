@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texpos_actor.hpp"
 #include "../actor_parameters.hpp"
+#include "../client_state_combiner.hpp"
 #include "../convert_element_type.hpp"
 #include "../../check_state.hpp"
 #include "../../common.hpp"
@@ -34,13 +35,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::vf::texpos_actor::texpos_actor(
-	actor_parameters const &_param,
+	vf::actor_parameters const &_param,
 	renderer::vf::dynamic::texpos const &_element
 )
 :
-	fp_actor(
-		_param,
-		GL_TEXTURE_COORD_ARRAY
+	vf::pointer_actor(
+		_param
 	),
 	context_(
 		_param.context()
@@ -58,7 +58,13 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		)
 	),
 	index_(
-		_element.index()
+		renderer::stage(
+			static_cast<
+				renderer::stage::value_type
+			>(
+				_element.index()
+			)
+		)
 	)
 {
 	texture::multi_context &texture_context(
@@ -71,7 +77,7 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 
 	if(
 		!texture_context.is_supported()
-		&& index_ != 0
+		&& index_.get() != 0
 	)
 		throw renderer::exception(
 			FCPPT_TEXT("multiple texture coordinates are not supported!")
@@ -79,10 +85,12 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 	else if(
 		index_
 		>=
-		static_cast<
-			renderer::vf::vertex_size
-		>(
-			texture_context.max_level()
+		renderer::stage(
+			static_cast<
+				renderer::stage::value_type
+			>(
+				texture_context.max_level()
+			)
 		)
 	)
 		throw renderer::exception(
@@ -100,18 +108,19 @@ sge::opengl::vf::texpos_actor::~texpos_actor()
 }
 
 void
-sge::opengl::vf::texpos_actor::on_use(
+sge::opengl::vf::texpos_actor::operator()(
+	vf::client_state_combiner &_combiner,
 	vf::pointer const _src
 ) const
 {
+	_combiner.enable_texture(
+		index_
+	);
+
 	opengl::texture::funcs::set_client_level(
 		context_,
 		sge::renderer::stage(
-			static_cast<
-				sge::renderer::stage::value_type
-			>(
-				index_
-			)
+			index_
 		)
 	);
 
@@ -121,7 +130,7 @@ sge::opengl::vf::texpos_actor::on_use(
 		static_cast<
 			GLsizei
 		>(
-			stride()
+			this->stride()
 		),
 		_src
 	);
@@ -130,4 +139,14 @@ sge::opengl::vf::texpos_actor::on_use(
 		FCPPT_TEXT("glTexCoordPointer failed"),
 		sge::renderer::exception
 	)
+}
+
+void
+sge::opengl::vf::texpos_actor::unuse(
+	vf::client_state_combiner &_combiner
+) const
+{
+	_combiner.disable_texture(
+		index_
+	);
 }

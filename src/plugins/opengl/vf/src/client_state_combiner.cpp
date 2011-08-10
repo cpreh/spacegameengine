@@ -94,6 +94,26 @@ sge::opengl::vf::client_state_combiner::disable(
 }
 
 void
+sge::opengl::vf::client_state_combiner::enable_texture(
+	renderer::stage const _texture
+)
+{
+	new_states_.enable_texture(
+		_texture
+	);
+}
+
+void
+sge::opengl::vf::client_state_combiner::disable_texture(
+	renderer::stage const _texture
+)
+{
+	new_states_.disable_texture(
+		_texture
+	);
+}
+
+void
 sge::opengl::vf::client_state_combiner::enable_attribute(
 	GLuint const _attribute
 )
@@ -118,9 +138,24 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 	apply_difference(
 		old_states_.normal_states(),
 		new_states_.normal_states(),
-		glEnableClientState,
-		glDisableClientState
+		::glEnableClientState,
+		::glDisableClientState
 	);
+
+	if(
+		old_states_.texture_states().empty()
+		&& !new_states_.texture_states().empty()
+	)
+		::glEnableClientState(
+			GL_TEXTURE_COORD_ARRAY
+		);
+	else if(
+		!old_states_.texture_states().empty()
+		&& new_states_.texture_states().empty()
+	)
+		::glDisableClientState(
+			GL_TEXTURE_COORD_ARRAY
+		);
 
 	apply_difference(
 		old_states_.attribute_states(),

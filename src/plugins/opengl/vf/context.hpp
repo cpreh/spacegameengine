@@ -46,19 +46,19 @@ public:
 
 	~context();
 
-	client_state const &
+	opengl::vf::client_state const &
 	state();
 
 	void
 	state(
-		client_state const &
+		opengl::vf::client_state const &
 	);
 
 	typedef void needs_before;
 
 	static opengl::context::id const static_id;
 private:
-	client_state state_;
+	opengl::vf::client_state state_;
 };
 
 }

@@ -38,7 +38,7 @@ sge::opengl::vf::context::state()
 
 void
 sge::opengl::vf::context::state(
-	client_state const &_state
+	opengl::vf::client_state const &_state
 )
 {
 	state_ = _state;
