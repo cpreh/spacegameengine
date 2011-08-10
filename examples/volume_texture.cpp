@@ -79,6 +79,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/volume_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/index.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
@@ -108,6 +109,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/simple_parameters.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/assign/make_array.hpp>
@@ -117,6 +120,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/transform.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -135,15 +139,35 @@ typedef sge::renderer::vf::pos<
 	3
 > vf_pos;
 
-typedef sge::renderer::vf::texpos<
-	sge::renderer::scalar,
-	3
-> vf_texpos;
+template<
+	typename Index
+>
+struct make_vf_texpos
+{
+	typedef sge::renderer::vf::texpos<
+		sge::renderer::scalar,
+		3,
+		Index
+	> type;
+};
+
+typedef make_vf_texpos<
+	sge::renderer::vf::index<
+		0
+	>
+>::type vf_texpos0;
+
+typedef make_vf_texpos<
+	sge::renderer::vf::index<
+		1
+	>
+>::type vf_texpos1;
 
 typedef sge::renderer::vf::part<
-	boost::mpl::vector2<
+	boost::mpl::vector3<
 		vf_pos,
-		vf_texpos
+		vf_texpos0,
+		vf_texpos1
 	>
 > vf_part;
 
@@ -367,7 +391,7 @@ fill_geometry(
 
 	typedef vf_view::iterator vf_iterator;
 
-	typedef vf_texpos::packed_type texpos_vector;
+	typedef vf_texpos0::packed_type texpos_vector;
 
 	vf_iterator vb_it(
 		view.begin()
@@ -387,62 +411,78 @@ fill_geometry(
 			*it
 		);
 
-		(*vb_it++).set<
-			vf_texpos
-		>(
+		texpos_vector const texcoord(
 			fcppt::math::vector::transform(
 				*it,
 				::coord_to_texcoord
 			)
 		);
+
+		(*vb_it).set<
+			vf_texpos0
+		>(
+			texcoord
+		);
+
+		(*vb_it++).set<
+			vf_texpos1
+		>(
+			texcoord
+		);
 	}
 }
 
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::image::size_type,
+	block_element_size
+);
+
 sge::renderer::texture::volume_ptr const
 create_texture(
-	sge::renderer::device &_device
+	sge::renderer::device &_device,
+	block_element_size const _block_element_size,
+	sge::image::color::any::object const &_color1,
+	sge::image::color::any::object const &_color2
 )
 {
 	typedef sge::image3d::gray8 store_type;
 
-	sge::image::size_type const block_element_size(
-		4u
-	);
-
 	sge::image3d::dim const block_size(
-		block_element_size,
-		block_element_size,
-		block_element_size
+		fcppt::math::dim::fill<
+			sge::image3d::dim::dim_wrapper::value
+		>(
+			_block_element_size.get()
+		)
 	);
 
 	sge::image::size_type const num_blocks(
-		16u
+		64u / _block_element_size.get()
 	);
 
 	store_type whole_store(
 		block_size * num_blocks
 	);
 
-	store_type white_store(
+	store_type store1(
 		block_size
 	);
 
 	sge::image3d::algorithm::fill(
 		sge::image3d::view::object(
-			white_store.view()
+			store1.view()
 		),
-		sge::image::colors::white()
+		_color1
 	);
 
-	store_type black_store(
+	store_type store2(
 		block_size
 	);
 
 	sge::image3d::algorithm::fill(
 		sge::image3d::view::object(
-			black_store.view()
+			store2.view()
 		),
-		sge::image::colors::black()
+		_color2
 	);
 
 	for(
@@ -465,9 +505,9 @@ create_texture(
 						sge::image3d::view::object(
 							(((x + y + z) % 2u) == 0u)
 							?
-								white_store.view()
+								store1.view()
 							:
-								black_store.view()
+								store2.view()
 						)
 					),
 					sge::image3d::view::sub(
@@ -547,9 +587,25 @@ try
 		)
 	);
 
-	sge::renderer::texture::volume_ptr const texture(
+	sge::renderer::texture::volume_ptr const texture1(
 		::create_texture(
-			sys.renderer()
+			sys.renderer(),
+			::block_element_size(
+				4u
+			),
+			sge::image::colors::black(),
+			sge::image::colors::white()
+		)
+	);
+
+	sge::renderer::texture::volume_ptr const texture2(
+		::create_texture(
+			sys.renderer(),
+			::block_element_size(
+				2u
+			),
+			sge::image::colors::yellow(),
+			sge::image::colors::cyan()
 		)
 	);
 
@@ -665,11 +721,19 @@ try
 			*vertex_buffer
 		);
 
-		sge::renderer::texture::scoped const scoped_texture(
+		sge::renderer::texture::scoped const scoped_texture1(
 			sys.renderer(),
-			*texture,
+			*texture1,
 			sge::renderer::stage(
 				0u
+			)
+		);
+
+		sge::renderer::texture::scoped const scoped_texture2(
+			sys.renderer(),
+			*texture2,
+			sge::renderer::stage(
+				1u
 			)
 		);
 
