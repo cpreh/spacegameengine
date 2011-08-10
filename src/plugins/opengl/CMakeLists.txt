@@ -487,12 +487,14 @@ SET(
 	src/plugins/opengl/texture/convert/address_mode_type.hpp
 	src/plugins/opengl/texture/convert/anisotropic_mip_filter.hpp
 	src/plugins/opengl/texture/convert/cube_side.hpp
+	src/plugins/opengl/texture/convert/level.hpp
 	src/plugins/opengl/texture/convert/mag_filter.hpp
 	src/plugins/opengl/texture/convert/min_filter.hpp
 	src/plugins/opengl/texture/convert/src/address_mode.cpp
 	src/plugins/opengl/texture/convert/src/address_mode_type.cpp
 	src/plugins/opengl/texture/convert/src/anisotropic_mip_filter.cpp
 	src/plugins/opengl/texture/convert/src/cube_side.cpp
+	src/plugins/opengl/texture/convert/src/level.cpp
 	src/plugins/opengl/texture/convert/src/mag_filter.cpp
 	src/plugins/opengl/texture/convert/src/min_filter.cpp
 	src/plugins/opengl/texture/convert/src/stage_arg.cpp
