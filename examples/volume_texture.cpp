@@ -653,10 +653,6 @@ try
 			)
 		);
 
-		sge::renderer::scoped_block const block(
-			sys.renderer()
-		);
-
 		sge::renderer::scoped_vertex_declaration const scoped_vd(
 			sys.renderer(),
 			*vertex_declaration
@@ -690,6 +686,10 @@ try
 			)(
 				sge::renderer::state::depth_func::less
 			)
+		);
+
+		sge::renderer::scoped_block const block(
+			sys.renderer()
 		);
 
 		sys.renderer().transform(
