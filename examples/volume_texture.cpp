@@ -110,11 +110,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/assign/make_array.hpp>
 #include <fcppt/chrono/seconds.hpp>
+#include <fcppt/container/array.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/transform.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -122,6 +126,106 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <ostream>
 #include <cstdlib>
+
+namespace
+{
+
+typedef sge::renderer::vf::pos<
+	sge::renderer::scalar,
+	3
+> vf_pos;
+
+typedef sge::renderer::vf::texpos<
+	sge::renderer::scalar,
+	3
+> vf_texpos;
+
+typedef sge::renderer::vf::part<
+	boost::mpl::vector2<
+		vf_pos,
+		vf_texpos
+	>
+> vf_part;
+
+typedef sge::renderer::vf::format<
+	boost::mpl::vector1<
+		vf_part
+	>
+> vf_format;
+
+typedef vf_pos::packed_type pos_vector;
+
+typedef fcppt::container::array<
+	pos_vector,
+	2 * 3 * 6
+> pos_array;
+
+sge::renderer::scalar
+coord_to_texcoord(
+	sge::renderer::scalar const _value
+)
+{
+	return
+		static_cast<
+			sge::renderer::scalar
+		>(
+			(_value + 1.f) / 2.f
+		);
+}
+	
+void
+fill_geometry(
+	sge::renderer::vertex_buffer &_vertex_buffer,
+	pos_array const &_positions
+)
+{
+	sge::renderer::scoped_vertex_lock const vb_lock(
+		_vertex_buffer,
+		sge::renderer::lock_mode::writeonly
+	);
+
+	typedef sge::renderer::vf::view<
+		vf_part
+	> vf_view;
+
+	vf_view const view(
+		vb_lock.value()
+	);
+
+	typedef vf_view::iterator vf_iterator;
+
+	typedef vf_texpos::packed_type texpos_vector;
+
+	vf_iterator vb_it(
+		view.begin()
+	);
+
+	for(
+		pos_array::const_iterator it(
+			_positions.begin()
+		);
+		it != _positions.end();
+		++it
+	)
+	{
+		(*vb_it).set<
+			vf_pos
+		>(
+			*it
+		);
+
+		(*vb_it++).set<
+			vf_texpos
+		>(
+			fcppt::math::vector::transform(
+				*it,
+				::coord_to_texcoord
+			)
+		);
+	}
+}
+
+}
 
 int 
 main()
@@ -267,29 +371,6 @@ try
 		)
 	);
 
-	typedef sge::renderer::vf::pos<
-		sge::renderer::scalar,
-		3
-	> vf_pos;
-
-	typedef sge::renderer::vf::texpos<
-		sge::renderer::scalar,
-		3
-	> vf_texpos;
-
-	typedef sge::renderer::vf::part<
-		boost::mpl::vector2<
-			vf_pos,
-			vf_texpos
-		>
-	> vf_part;
-
-	typedef sge::renderer::vf::format<
-		boost::mpl::vector1<
-			vf_part
-		>
-	> vf_format;
-
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
@@ -304,31 +385,185 @@ try
 			sge::renderer::vf::dynamic::part_index(
 				0u
 			),
-			2 * 3 * 6,
+			pos_array::static_size,
 			sge::renderer::resource_flags::none
 		)
 	);
 
-	{
-		sge::renderer::scoped_vertex_lock const vb_lock(
-			*vertex_buffer,
-			sge::renderer::lock_mode::writeonly
-		);
-
-		typedef sge::renderer::vf::view<
-			vf_part
-		> vf_view;
-
-		vf_view const view(
-			vb_lock.value()
-		);
-
-		typedef vf_view::iterator vf_iterator;
-
-		vf_iterator it(
-			view.begin()
-		);
-	}
+	::fill_geometry(
+		*vertex_buffer,
+		fcppt::assign::make_array<
+			pos_vector
+		>
+		// bottom 1
+		(
+			pos_vector(
+				-1,-1,-1
+			)
+		)(
+			pos_vector(
+				-1,-1,1
+			)
+		)(
+			pos_vector(
+				1,-1,1
+			)
+		)
+		// bottom 2
+		(
+			pos_vector(
+				1,-1,1
+			)
+		)(
+			pos_vector(
+				1,-1,-1
+			)
+		)(
+			pos_vector(
+				-1,-1,-1
+			)
+		)
+		// top 1
+		(
+			pos_vector(
+				-1,1,-1
+			)
+		)(
+			pos_vector(
+				1,1,-1
+			)
+		)(
+			pos_vector(
+				1,1,1
+			)
+		)
+		// top 2
+		(
+			pos_vector(
+				1,1,1
+			)
+		)(
+			pos_vector(
+				-1,1,1
+			)
+		)(
+			pos_vector(
+				-1,1,-1
+			)
+		)
+		// left 1
+		(
+			pos_vector(
+				-1,-1,-1
+			)
+		)(
+			pos_vector(
+				-1,1,-1
+			)
+		)(
+			pos_vector(
+				-1,1,1
+			)
+		)
+		// left 2
+		(
+			pos_vector(
+				-1,1,1
+			)
+		)(
+			pos_vector(
+				-1,-1,1
+			)
+		)(
+			pos_vector(
+				-1,-1,-1
+			)
+		)
+		// right 1
+		(
+			pos_vector(
+				1,-1,-1
+			)
+		)(
+			pos_vector(
+				1,-1,1
+			)
+		)(
+			pos_vector(
+				1,1,1
+			)
+		)
+		// right 2
+		(
+			pos_vector(
+				1,1,1
+			)
+		)(
+			pos_vector(
+				1,1,-1
+			)
+		)(
+			pos_vector(
+				1,-1,-1
+			)
+		)
+		// front 1
+		(
+			pos_vector(
+				-1,-1,1
+			)
+		)(
+			pos_vector(
+				-1,1,1
+			)
+		)(
+			pos_vector(
+				1,1,1
+			)
+		)
+		// front 2
+		(
+			pos_vector(
+				1,1,1
+			)
+		)(
+			pos_vector(
+				1,-1,1
+			)
+		)(
+			pos_vector(
+				-1,-1,1
+			)
+		)
+		// back 1
+		(
+			pos_vector(
+				-1,-1,-1
+			)
+		)(
+			pos_vector(
+				1,-1,-1
+			)
+		)(
+			pos_vector(
+				1,1,-1
+			)
+		)
+		// back 2
+		(
+			pos_vector(
+				1,1,-1
+			)
+		)(
+			pos_vector(
+				-1,1,-1
+			)
+		)(
+			pos_vector(
+				-1,-1,-1
+			)
+		)
+	);
 
 	bool running(
 		true
