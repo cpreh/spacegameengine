@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_unspecified_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/renderer/vf/part.hpp>
+#include <fcppt/mpl/append.hpp>
 #include <fcppt/mpl/inner.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/contains.hpp>
@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/pair.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/push_back.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -60,13 +60,25 @@ private:
 		>::type
 	> basic;
 
+	template<
+		typename Meta
+	>
+	struct make_vector
+	{
+		typedef boost::mpl::vector1<
+			typename Meta::type
+		> type;
+	};
+
 	typedef boost::mpl::vector3<
 		boost::mpl::pair<
 			boost::mpl::vector1<
 				sprite::with_color
 			>,
-			detail::vertex_color<
-				Choices
+			make_vector<
+				detail::vertex_color<
+					Choices
+				>
 			>
 		>,
 		boost::mpl::pair<
@@ -83,8 +95,10 @@ private:
 				sprite::with_texture,
 				sprite::with_unspecified_dim
 			>,
-			detail::vertex_unspecified_dim<
-				Choices
+			make_vector<
+				detail::vertex_unspecified_dim<
+					Choices
+				>
 			>
 		>
 	> optional_elements;
@@ -118,7 +132,7 @@ public:
 						boost::mpl::_2
 					>
 				>,
-				boost::mpl::push_back<
+				fcppt::mpl::append<
 					boost::mpl::_1,
 					fcppt::mpl::inner<
 						boost::mpl::second<

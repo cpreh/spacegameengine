@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstdlib>
 
 #include <sge/sprite/default_parameters.hpp>
-#include <sge/sprite/defaults.hpp>
+#include <sge/sprite/defaults/defaults.hpp>
 
 int main()
 try
@@ -78,7 +78,7 @@ try
 		(
 			sge::systems::window(
 				sge::window::simple_parameters(
-					FCPPT_TEXT("sge animtest"),
+					FCPPT_TEXT("sge sprite color example"),
 					window_dim
 				)
 			)

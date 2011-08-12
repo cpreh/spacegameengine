@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/fill_tex_coordinates.hpp>
 #include <sge/sprite/detail/visible.hpp>
 #include <sge/sprite/detail/optional_size.hpp>
+#include <sge/renderer/npos.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vertex_buffer.hpp> // for npos
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
@@ -61,7 +61,7 @@ fill_vertices(
 		?
 			*_num_sprites
 		:
-			renderer::vertex_buffer::npos
+			renderer::npos()
 	);
 
 	typedef typename std::iterator_traits<

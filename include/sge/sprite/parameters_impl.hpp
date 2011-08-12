@@ -91,13 +91,43 @@ sge::sprite::parameters<Choices> &
 sge::sprite::parameters<Choices>::texture(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::texture
+		roles::texture<
+			0
+		>
 	>::type const &_texture
 )
 {
 	return
 		this->set<
-			roles::texture
+			roles::texture<
+				0
+			>
+		>(
+			_texture
+		);
+}
+
+template<
+	typename Choices
+>
+template<
+	sge::sprite::texture_level Level
+>
+sge::sprite::parameters<Choices> &
+sge::sprite::parameters<Choices>::texture_level(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::texture<
+			Level
+		>
+	>::type const &_texture
+)
+{
+	return
+		this->set<
+			roles::texture<
+				Level
+			>
 		>(
 			_texture
 		);
@@ -323,13 +353,43 @@ sge::sprite::parameters<Choices> &
 sge::sprite::parameters<Choices>::texture_coordinates(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::texture_coordinates
+		roles::texture_coordinates<
+			0
+		>
 	>::type const &_texture_coordinates
 )
 {
 	return
 		this->set<
-			roles::texture_coordinates
+			roles::texture_coordinates<
+				0
+			>
+		>(
+			_texture_coordinates
+		);
+}
+
+template<
+	typename Choices
+>
+template<
+	sge::sprite::texture_level Level
+>
+sge::sprite::parameters<Choices> &
+sge::sprite::parameters<Choices>::texture_coordinates_level(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::texture_coordinates<
+			Level
+		>
+	>::type const &_texture_coordinates
+)
+{
+	return
+		this->set<
+			roles::texture_coordinates<
+				Level
+			>
 		>(
 			_texture_coordinates
 		);

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/system.hpp>
+#include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/detail/roles/use_center.hpp>
 #include <sge/sprite/detail/make_class.hpp>
 #include <sge/sprite/roles/adder.hpp>
@@ -93,7 +94,22 @@ public:
 	texture(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::texture
+			roles::texture<
+				0
+			>
+		>::type const &
+	);
+
+	template<
+		sprite::texture_level Level
+	>
+	parameters &
+	texture_level(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::texture<
+				Level
+			>
 		>::type const &
 	);
 
@@ -179,7 +195,22 @@ public:
 	texture_coordinates(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::texture_coordinates
+			roles::texture_coordinates<
+				0
+			>
+		>::type const &
+	);
+
+	template<
+		sprite::texture_level Level
+	>
+	parameters &
+	texture_coordinates_level(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::texture_coordinates<
+				Level
+			>
 		>::type const &
 	);
 

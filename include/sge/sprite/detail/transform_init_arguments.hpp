@@ -72,7 +72,9 @@ transform_init_arguments(
 		>()
 		&&
 		_object. template get<
-			sge::sprite::roles::texture
+			sge::sprite::roles::texture<
+				0
+			>
 		>()
 	)
 		_object. template set<
@@ -84,7 +86,9 @@ transform_init_arguments(
 				>::type
 			>(
 				_object. template get<
-					sge::sprite::roles::texture
+					sge::sprite::roles::texture<
+						0
+					>
 				>()->area().size()
 			)
 		);

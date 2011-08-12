@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTEX_TEXPOS_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTEX_TEXPOS_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_FOLD_TEXTURE_LEVELS_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_FOLD_TEXTURE_LEVELS_HPP_INCLUDED
 
-#include <sge/renderer/vf/index.hpp>
-#include <sge/renderer/vf/texpos.hpp>
-#include <sge/sprite/detail/fold_texture_levels.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <sge/sprite/detail/make_texture_levels.hpp>
+#include <boost/mpl/transform.hpp>
 
 namespace sge
 {
@@ -34,30 +32,18 @@ namespace detail
 {
 
 template<
-	typename Choices
+	typename Function,
+	typename Levels
 >
-struct vertex_texpos
+struct fold_texture_levels
+:
+boost::mpl::transform<
+	typename detail::make_texture_levels<
+		Levels
+	>::type,
+	Function
+>
 {
-	template<
-		typename Level
-	>
-	struct make_pos
-	{
-		typedef renderer::vf::texpos<
-			typename Choices::type_choices::float_type,
-			2,
-			sge::renderer::vf::index<
-				Level::value
-			>
-		> type;
-	};
-
-	typedef typename detail::fold_texture_levels<
-		make_pos<
-			boost::mpl::_1
-		>,
-		typename Choices::type_choices::texture_levels
-	>::type type;
 };
 
 }

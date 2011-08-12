@@ -18,16 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_SET_TEXTURE_POST_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_SET_TEXTURE_POST_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_APPLY_TEXTURE_LEVELS_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_APPLY_TEXTURE_LEVELS_HPP_INCLUDED
 
-#include <sge/sprite/with_texture.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/no_texture.hpp>
-#include <sge/renderer/stage.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <iostream>
+#include <sge/sprite/detail/make_texture_levels.hpp>
+#include <boost/mpl/for_each.hpp>
 
 namespace sge
 {
@@ -37,38 +32,20 @@ namespace detail
 {
 
 template<
-	typename Elements
+	typename Levels,
+	typename Function
 >
-typename boost::disable_if<
-	boost::mpl::contains<
-		Elements,
-		with_texture
-	>,
-	void
->::type
-set_texture_post(
-	sge::renderer::device &
+void
+apply_texture_levels(
+	Function const &_function
 )
 {
-}
-
-template<
-	typename Elements
->
-typename boost::enable_if<
-	boost::mpl::contains<
-		Elements,
-		with_texture
-	>,
-	void
->::type
-set_texture_post(
-	sge::renderer::device &_rend
-)
-{
-	_rend.texture(
-		renderer::no_texture(),
-		sge::renderer::stage(0)
+	boost::mpl::for_each<
+		typename detail::make_texture_levels<
+			Levels
+		>::type
+	>(
+		_function
 	);
 }
 

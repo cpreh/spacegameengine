@@ -280,11 +280,27 @@ typename sge::sprite::object<Choices>::texture_coordinates_type const
 sge::sprite::object<Choices>::texture_coordinates() const
 {
 	return
-		elements_. template get<
-			roles::texture_coordinates
+		this->texture_coordinates_level<
+			0
 		>();
 }
 
+template<
+	typename Choices
+>
+template<
+	sge::sprite::texture_level Level
+>
+typename sge::sprite::object<Choices>::texture_coordinates_type const
+sge::sprite::object<Choices>::texture_coordinates_level() const
+{
+	return
+		elements_. template get<
+			roles::texture_coordinates<
+				Level
+			>
+		>();
+}
 
 template<
 	typename Choices
@@ -305,8 +321,25 @@ sge::texture::const_part_ptr const
 sge::sprite::object<Choices>::texture() const
 {
 	return
+		this->texture_level<
+			0
+		>();
+}
+
+template<
+	typename Choices
+>
+template<
+	sge::sprite::texture_level Level
+>
+sge::texture::const_part_ptr const
+sge::sprite::object<Choices>::texture_level() const
+{
+	return
 		elements_. template get<
-			roles::texture
+			roles::texture<
+				Level
+			>
 		>();
 }
 
@@ -469,8 +502,28 @@ sge::sprite::object<Choices>::texture(
 	::sge::texture::const_part_ptr const _texture
 )
 {
+	this->texture_level<
+		0
+	>(
+		_texture
+	);
+}
+
+template<
+	typename Choices
+>
+template<
+	sge::sprite::texture_level Level
+>
+void
+sge::sprite::object<Choices>::texture_level(
+	::sge::texture::const_part_ptr const _texture
+)
+{
 	elements_. template set<
-		roles::texture
+		roles::texture<
+			Level
+		>
 	>(
 		_texture
 	);
@@ -548,8 +601,28 @@ sge::sprite::object<Choices>::texture_coordinates(
 	texture_coordinates_type const &_coordinates
 )
 {
+	this->texture_coordinates_level<
+		0
+	>(
+		_coordinates
+	);
+}
+
+template<
+	typename Choices
+>
+template<
+	sge::sprite::texture_level Level
+>
+void
+sge::sprite::object<Choices>::texture_coordinates_level(
+	texture_coordinates_type const &_coordinates
+)
+{
 	elements_. template set<
-		roles::texture_coordinates
+		roles::texture_coordinates<
+			Level
+		>
 	>(
 		_coordinates
 	);

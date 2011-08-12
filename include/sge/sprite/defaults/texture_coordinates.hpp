@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/texture_coordinates.hpp>
+#include <sge/sprite/texture_level.hpp>
 
 namespace sge
 {
@@ -31,11 +32,14 @@ namespace sprite
 {
 
 template<
-	typename Choices
+	typename Choices,
+	sprite::texture_level Level
 >
 struct defaults<
 	Choices,
-	roles::texture_coordinates
+	roles::texture_coordinates<
+		Level
+	>
 >
 {
 	typedef typename sprite::texture_coordinates<

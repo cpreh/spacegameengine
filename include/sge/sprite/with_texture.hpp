@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_WITH_TEXTURE_HPP_INCLUDED
 #define SGE_SPRITE_WITH_TEXTURE_HPP_INCLUDED
 
+#include <sge/sprite/detail/fold_texture_levels.hpp>
 #include <sge/sprite/primitives/texture.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -39,13 +41,32 @@ struct with_texture
 	>
 	struct apply
 	{
-		typedef majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					primitives::texture::type,
-					roles::texture
+		typedef typename Choices::type_choices::texture_levels levels;
+
+		BOOST_STATIC_ASSERT(
+			levels::value >= 1
+		);
+
+		template<
+			typename Level
+		>
+		struct make_role
+		{
+			typedef majutsu::role<
+				primitives::texture::type,
+				roles::texture<
+					Level::value
 				>
-			>
+			> type;
+		};
+
+		typedef majutsu::composite<
+			typename detail::fold_texture_levels<
+				make_role<
+					boost::mpl::_1
+				>,
+				levels
+			>::type
 		> type;
 	};
 };

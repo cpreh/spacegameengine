@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTEX_TEXPOS_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTEX_TEXPOS_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_LEVEL_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_LEVEL_HPP_INCLUDED
 
-#include <sge/renderer/vf/index.hpp>
-#include <sge/renderer/vf/texpos.hpp>
-#include <sge/sprite/detail/fold_texture_levels.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <sge/sprite/detail/fill_tex_coordinates_impl.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -34,30 +33,53 @@ namespace detail
 {
 
 template<
+	typename Iterator,
 	typename Choices
 >
-struct vertex_texpos
+class fill_tex_coordinates_level
 {
+	FCPPT_NONASSIGNABLE(
+		fill_tex_coordinates_level
+	);
+public:
+	typedef sprite::object<
+		Choices
+	> object;
+
+	fill_tex_coordinates_level(
+		Iterator const &_iterator,
+		object const &_object
+	)
+	:
+		iterator_(_iterator),
+		object_(_object)
+	{
+	}
+
 	template<
 		typename Level
 	>
-	struct make_pos
+	void
+	operator()(
+		Level const &
+	) const
 	{
-		typedef renderer::vf::texpos<
-			typename Choices::type_choices::float_type,
-			2,
-			sge::renderer::vf::index<
+		if(
+			object_. template texture_level<
 				Level::value
-			>
-		> type;
-	};
+			>()
+		)
+			detail::fill_tex_coordinates_impl<
+				Level
+			>(
+				iterator_,
+				object_
+			);
+	}
+private:
+	Iterator const iterator_;
 
-	typedef typename detail::fold_texture_levels<
-		make_pos<
-			boost::mpl::_1
-		>,
-		typename Choices::type_choices::texture_levels
-	>::type type;
+	object const &object_;
 };
 
 }

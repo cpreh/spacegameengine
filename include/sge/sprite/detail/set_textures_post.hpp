@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTEX_TEXPOS_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTEX_TEXPOS_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_SET_TEXTURES_POST_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_SET_TEXTURES_POST_HPP_INCLUDED
 
-#include <sge/renderer/vf/index.hpp>
-#include <sge/renderer/vf/texpos.hpp>
-#include <sge/sprite/detail/fold_texture_levels.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <sge/sprite/detail/unset_texture_stages.hpp>
+#include <sge/sprite/with_texture.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -34,31 +35,43 @@ namespace detail
 {
 
 template<
-	typename Choices
+	typename Elements,
+	typename TextureLevels
 >
-struct vertex_texpos
+typename boost::disable_if<
+	boost::mpl::contains<
+		Elements,
+		sprite::with_texture
+	>,
+	void
+>::type
+set_textures_post(
+	sge::renderer::device &
+)
 {
-	template<
-		typename Level
-	>
-	struct make_pos
-	{
-		typedef renderer::vf::texpos<
-			typename Choices::type_choices::float_type,
-			2,
-			sge::renderer::vf::index<
-				Level::value
-			>
-		> type;
-	};
+}
 
-	typedef typename detail::fold_texture_levels<
-		make_pos<
-			boost::mpl::_1
-		>,
-		typename Choices::type_choices::texture_levels
-	>::type type;
-};
+template<
+	typename Elements,
+	typename TextureLevels
+>
+typename boost::enable_if<
+	boost::mpl::contains<
+		Elements,
+		sprite::with_texture
+	>,
+	void
+>::type
+set_textures_post(
+	sge::renderer::device &_rend
+)
+{
+	detail::unset_texture_stages<
+		TextureLevels
+	>(
+		_rend
+	);
+}
 
 }
 }

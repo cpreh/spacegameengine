@@ -9,7 +9,6 @@ SET(
 	include/sge/sprite/default_equal.hpp
 	include/sge/sprite/default_parameters.hpp
 	include/sge/sprite/default_sort.hpp
-	include/sge/sprite/defaults.hpp
 	include/sge/sprite/defaults/adder.hpp
 	include/sge/sprite/defaults/color.hpp
 	include/sge/sprite/defaults/defaults.hpp
@@ -27,6 +26,7 @@ SET(
 	include/sge/sprite/detail/allocate_buffers.hpp
 	include/sge/sprite/detail/allocate_index_buffer.hpp
 	include/sge/sprite/detail/allocate_vertex_buffer.hpp
+	include/sge/sprite/detail/apply_texture_levels.hpp
 	include/sge/sprite/detail/assign_post.hpp
 	include/sge/sprite/detail/assign_pre.hpp
 	include/sge/sprite/detail/buffers.hpp
@@ -41,9 +41,11 @@ SET(
 	include/sge/sprite/detail/fill_position_unrotated.hpp
 	include/sge/sprite/detail/fill_tex_coordinates.hpp
 	include/sge/sprite/detail/fill_tex_coordinates_impl.hpp
+	include/sge/sprite/detail/fill_tex_coordinates_level.hpp
 	include/sge/sprite/detail/fill_tex_coordinates_rect.hpp
 	include/sge/sprite/detail/fill_unspecified.hpp
 	include/sge/sprite/detail/fill_vertices.hpp
+	include/sge/sprite/detail/fold_texture_levels.hpp
 	include/sge/sprite/detail/geometry_count.hpp
 	include/sge/sprite/detail/geometry_count_constant.hpp
 	include/sge/sprite/detail/index_array.hpp
@@ -53,6 +55,7 @@ SET(
 	include/sge/sprite/detail/initialize_default_parameters.hpp
 	include/sge/sprite/detail/make_class.hpp
 	include/sge/sprite/detail/make_position.hpp
+	include/sge/sprite/detail/make_texture_levels.hpp
 	include/sge/sprite/detail/needs_depth.hpp
 	include/sge/sprite/detail/normal_render_states.hpp
 	include/sge/sprite/detail/optional_size.hpp
@@ -66,11 +69,14 @@ SET(
 	include/sge/sprite/detail/roles/use_center.hpp
 	include/sge/sprite/detail/roles/vertex_buffer.hpp
 	include/sge/sprite/detail/rotation_center.hpp
-	include/sge/sprite/detail/set_texture.hpp
-	include/sge/sprite/detail/set_texture_post.hpp
-	include/sge/sprite/detail/set_texture_pre.hpp
+	include/sge/sprite/detail/set_texture_level.hpp
+	include/sge/sprite/detail/set_textures.hpp
+	include/sge/sprite/detail/set_textures_post.hpp
+	include/sge/sprite/detail/set_textures_pre.hpp
 	include/sge/sprite/detail/transform_init_arguments.hpp
 	include/sge/sprite/detail/transform_parameters_arguments.hpp
+	include/sge/sprite/detail/unset_texture_stage.hpp
+	include/sge/sprite/detail/unset_texture_stages.hpp
 	include/sge/sprite/detail/vector_float.hpp
 	include/sge/sprite/detail/vertex_color.hpp
 	include/sge/sprite/detail/vertex_format.hpp
@@ -152,6 +158,8 @@ SET(
 	include/sge/sprite/system_base_impl.hpp
 	include/sge/sprite/texture_coordinates.hpp
 	include/sge/sprite/texture_dim.hpp
+	include/sge/sprite/texture_level.hpp
+	include/sge/sprite/texture_level_c.hpp
 	include/sge/sprite/type_choices.hpp
 	include/sge/sprite/unspecified_dim_tag.hpp
 	include/sge/sprite/vector.hpp

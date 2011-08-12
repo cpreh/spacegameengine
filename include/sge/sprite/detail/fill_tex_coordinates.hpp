@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_HPP_INCLUDED
 
-#include <sge/sprite/detail/fill_tex_coordinates_impl.hpp>
+#include <sge/sprite/detail/apply_texture_levels.hpp>
+#include <sge/sprite/detail/fill_tex_coordinates_level.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
-#include <sge/texture/part.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -56,20 +56,21 @@ typename boost::enable_if<
 >::type
 fill_tex_coordinates(
 	Iterator const &_iterator,
-	object<
+	sprite::object<
 		Choices
 	> const &_sprite
 )
 {
-	if(
-		!_sprite.texture()
-		//|| !_sprite.texture().texture()
-	)
-		return;
-
-	detail::fill_tex_coordinates_impl(
-		_iterator,
-		_sprite
+	detail::apply_texture_levels<
+		typename Choices::type_choices::texture_levels
+	>(
+		detail::fill_tex_coordinates_level<
+			Iterator,
+			Choices
+		>(
+			_iterator,
+			_sprite
+		)
 	);
 }
 
@@ -92,7 +93,7 @@ typename boost::disable_if<
 >::type
 fill_tex_coordinates(
 	Iterator const &,
-	object<
+	sprite::object<
 		Choices
 	> const &
 )

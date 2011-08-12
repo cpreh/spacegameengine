@@ -32,6 +32,20 @@ SET(
 	include/sge/model/obj/texcoord.hpp
 	include/sge/model/obj/texcoord_fwd.hpp
 	include/sge/model/obj/texcoord_sequence.hpp
+	include/sge/model/obj/vb_converter/convert.hpp
+	include/sge/model/obj/vb_converter/detail/convert_face.hpp
+	include/sge/model/obj/vb_converter/detail/convert_face_point.hpp
+	include/sge/model/obj/vb_converter/detail/convert_mesh.hpp
+	include/sge/model/obj/vb_converter/detail/convert_normal.hpp
+	include/sge/model/obj/vb_converter/detail/convert_texcoord.hpp
+	include/sge/model/obj/vb_converter/detail/convert_vertex.hpp
+	include/sge/model/obj/vb_converter/detail/count_vertices.hpp
+	include/sge/model/obj/vb_converter/roles/detail/type.hpp
+	include/sge/model/obj/vb_converter/roles/normal.hpp
+	include/sge/model/obj/vb_converter/roles/position.hpp
+	include/sge/model/obj/vb_converter/roles/roles.hpp
+	include/sge/model/obj/vb_converter/roles/texcoord.hpp
+	include/sge/model/obj/vb_converter/vb_converter.hpp
 	include/sge/model/obj/vertex.hpp
 	include/sge/model/obj/vertex_fwd.hpp
 	include/sge/model/obj/vertex_sequence.hpp

@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/default_sort.hpp>
-#include <sge/sprite/defaults.hpp>
 #include <sge/sprite/defaults/defaults.hpp>
 #include <sge/sprite/depth_type.hpp>
 #include <sge/sprite/dim.hpp>
@@ -67,6 +66,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system_base_impl.hpp>
 #include <sge/sprite/texture_coordinates.hpp>
 #include <sge/sprite/texture_dim.hpp>
+#include <sge/sprite/texture_level.hpp>
+#include <sge/sprite/texture_level_c.hpp>
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/unspecified_dim_tag.hpp>
 #include <sge/sprite/vector.hpp>

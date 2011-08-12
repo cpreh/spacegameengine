@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_texture_coordinates.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/texture/area_texc.hpp>
+#include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
@@ -45,6 +46,7 @@ namespace detail
 {
 
 template<
+	typename Level,
 	typename Iterator,
 	typename Choices
 >
@@ -69,14 +71,18 @@ fill_tex_coordinates_impl(
 )
 {
 	detail::fill_tex_coordinates_rect<
+		Level,
 		Choices
 	>(
 		_iterator,
-		_sprite.texture_coordinates()
+		_sprite. template texture_coordinates_level<
+			Level::value
+		>()
 	);
 }
 
 template<
+	typename Level,
 	typename Iterator,
 	typename Choices
 >
@@ -101,6 +107,7 @@ fill_tex_coordinates_impl(
 )
 {
 	detail::fill_tex_coordinates_rect<
+		Level,
 		Choices
 	>(
 		_iterator,
@@ -108,7 +115,9 @@ fill_tex_coordinates_impl(
 			texture::area_texc<
 				typename Choices::type_choices::float_type
 			>(
-				*_sprite.texture(),
+				*_sprite. template texture_level<
+					Level::value
+				>(),
 				_sprite.repetition()
 			)
 		)
@@ -116,6 +125,7 @@ fill_tex_coordinates_impl(
 }
 
 template<
+	typename Level,
 	typename Iterator,
 	typename Choices
 >
@@ -147,7 +157,14 @@ fill_tex_coordinates_impl(
 	> const &_sprite
 )
 {
+	sge::texture::const_part_ptr const texture(
+		_sprite. template texture_level<
+			Level::value
+		>()
+	);
+
 	detail::fill_tex_coordinates_rect<
+		Level,
 		Choices
 	>(
 		_iterator,
@@ -155,8 +172,8 @@ fill_tex_coordinates_impl(
 			renderer::lock_rect_to_coords<
 				typename Choices::type_choices::float_type
 			>(
-				_sprite.texture()->area(),
-				_sprite.texture()->texture()->size()
+				texture->area(),
+				texture->texture()->size()
 			)
 		)
 	);

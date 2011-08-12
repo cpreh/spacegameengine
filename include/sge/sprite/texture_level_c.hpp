@@ -18,19 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DEFAULTS_HPP_INCLUDED
-#define SGE_SPRITE_DEFAULTS_HPP_INCLUDED
+#ifndef SGE_SPRITE_TEXTURE_LEVEL_C_HPP_INCLUDED
+#define SGE_SPRITE_TEXTURE_LEVEL_C_HPP_INCLUDED
 
-#include <sge/sprite/defaults/fwd.hpp>
-#include <sge/sprite/defaults/color.hpp>
-#include <sge/sprite/defaults/pos.hpp>
-#include <sge/sprite/defaults/repetition.hpp>
-#include <sge/sprite/defaults/size.hpp>
-#include <sge/sprite/defaults/adder.hpp>
-#include <sge/sprite/defaults/rotation.hpp>
-#include <sge/sprite/defaults/order.hpp>
-#include <sge/sprite/defaults/texture.hpp>
-#include <sge/sprite/defaults/use_center.hpp> // TODO: put this in detail somehow
-#include <sge/sprite/defaults/visible.hpp>
+#include <sge/sprite/texture_level.hpp>
+#include <boost/mpl/integral_c.hpp>
+
+namespace sge
+{
+namespace sprite
+{
+
+template<
+	sprite::texture_level Count
+>
+struct texture_level_c
+:
+boost::mpl::integral_c<
+	sprite::texture_level,
+	Count
+>
+{
+};
+
+}
+}
 
 #endif

@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTEX_TEXPOS_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTEX_TEXPOS_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_SET_TEXTURE_LEVEL_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_SET_TEXTURE_LEVEL_HPP_INCLUDED
 
-#include <sge/renderer/vf/index.hpp>
-#include <sge/renderer/vf/texpos.hpp>
-#include <sge/sprite/detail/fold_texture_levels.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/no_texture.hpp>
+#include <sge/renderer/stage.hpp>
+#include <sge/texture/const_part_ptr.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -36,28 +37,56 @@ namespace detail
 template<
 	typename Choices
 >
-struct vertex_texpos
+class set_texture_level
 {
+	FCPPT_NONASSIGNABLE(
+		set_texture_level
+	);
+public:
+	typedef sprite::object<
+		Choices
+	> object;
+
+	set_texture_level(
+		object const &_object,
+		renderer::device &_renderer
+	)
+	:
+		object_(_object),
+		renderer_(_renderer)
+	{
+	}
+
 	template<
 		typename Level
 	>
-	struct make_pos
+	void
+	operator()(
+		Level const &
+	) const
 	{
-		typedef renderer::vf::texpos<
-			typename Choices::type_choices::float_type,
-			2,
-			sge::renderer::vf::index<
+		texture::const_part_ptr const vtex(
+			object_. template texture_level<
 				Level::value
-			>
-		> type;
-	};
+			>()
+		);
 
-	typedef typename detail::fold_texture_levels<
-		make_pos<
-			boost::mpl::_1
-		>,
-		typename Choices::type_choices::texture_levels
-	>::type type;
+		renderer_.texture(
+			vtex
+			?
+				vtex->texture().get()
+			:
+				renderer::no_texture()
+			,
+			sge::renderer::stage(
+				Level::value
+			)
+		);
+	}
+private:
+	object const &object_;
+
+	renderer::device &renderer_;
 };
 
 }

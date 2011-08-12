@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/texture_coordinates.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <boost/mpl/at.hpp>
 
 namespace sge
 {
@@ -35,6 +36,7 @@ namespace detail
 {
 
 template<
+	typename Level,
 	typename Choices,
 	typename Iterator
 >
@@ -52,8 +54,11 @@ fill_tex_coordinates_rect(
 		type_choices
 	>::type tex_pos;
 
-	typedef typename detail::vertex_texpos<
-		Choices
+	typedef typename boost::mpl::at<
+		typename detail::vertex_texpos<
+			Choices
+		>::type,
+		Level
 	>::type vertex_texpos;
 
 	(*_iterator++). template set<

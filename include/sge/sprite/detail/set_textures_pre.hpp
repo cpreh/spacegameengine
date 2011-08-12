@@ -18,15 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_SET_TEXTURE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_SET_TEXTURE_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_SET_TEXTURES_PRE_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_SET_TEXTURES_PRE_HPP_INCLUDED
 
+#include <sge/sprite/detail/unset_texture_stages.hpp>
 #include <sge/sprite/with_texture.hpp>
-#include <sge/sprite/object_impl.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/no_texture.hpp>
-#include <sge/renderer/stage.hpp>
-#include <sge/texture/const_part_ptr.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -38,53 +34,42 @@ namespace detail
 {
 
 template<
-	typename Choices
+	typename Elements,
+	typename TextureLevels
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		typename Choices::elements,
-		with_texture
+		Elements,
+		sprite::with_texture
 	>,
 	void
 >::type
-set_texture(
-	object<
-		Choices
-	> const &_obj,
-	sge::renderer::device &_rend
-)
-{
-	texture::const_part_ptr const vtex(
-		_obj.texture()
-	);
-
-	_rend.texture(
-		vtex
-		?
-			vtex->texture().get()
-		:
-			renderer::no_texture(),
-		sge::renderer::stage(0)
-	);
-}
-
-template<
-	typename Choices
->
-typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		with_texture
-	>,
-	void
->::type
-set_texture(
-	object<
-		Choices
-	> const &,
+set_textures_pre(
 	sge::renderer::device &
 )
 {
+}
+
+template<
+	typename Elements,
+	typename TextureLevels
+>
+typename boost::disable_if<
+	boost::mpl::contains<
+		Elements,
+		sprite::with_texture
+	>,
+	void
+>::type
+set_textures_pre(
+	sge::renderer::device &_rend
+)
+{
+	detail::unset_texture_stages<
+		TextureLevels
+	>(
+		_rend
+	);
 }
 
 }

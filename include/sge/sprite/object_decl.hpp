@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/rotation_type.hpp>
 #include <sge/sprite/repetition_type.hpp>
 #include <sge/sprite/texture_coordinates.hpp>
+#include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/vector.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
@@ -182,11 +183,23 @@ public:
 	texture_coordinates_type const
 	texture_coordinates() const;
 
+	template<
+		sprite::texture_level Level
+	>
+	texture_coordinates_type const
+	texture_coordinates_level() const;
+
 	color_type const
 	color() const;
 
 	texture::const_part_ptr const
 	texture() const;
+
+	template<
+		sprite::texture_level Level
+	>
+	texture::const_part_ptr const
+	texture_level() const;
 
 	order_type
 	order() const;
@@ -241,6 +254,14 @@ public:
 		sge::texture::const_part_ptr
 	);
 
+	template<
+		sprite::texture_level
+	>
+	void
+	texture_level(
+		sge::texture::const_part_ptr
+	);
+
 	void
 	rotation(
 		rotation_type
@@ -261,6 +282,14 @@ public:
 
 	void
 	texture_coordinates(
+		texture_coordinates_type const &
+	);
+
+	template<
+		sprite::texture_level
+	>
+	void
+	texture_coordinates_level(
 		texture_coordinates_type const &
 	);
 

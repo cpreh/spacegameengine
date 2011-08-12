@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_RENDER_HPP_INCLUDED
 
 #include <sge/sprite/detail/render_inner.hpp>
-#include <sge/sprite/detail/set_texture_pre.hpp>
-#include <sge/sprite/detail/set_texture_post.hpp>
-#include <sge/sprite/detail/set_texture.hpp>
+#include <sge/sprite/detail/set_textures_pre.hpp>
+#include <sge/sprite/detail/set_textures_post.hpp>
+#include <sge/sprite/detail/set_textures.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <iterator>
@@ -54,10 +54,13 @@ render(
 		In
 	>::value_type object_type;
 
+	typedef typename object_type::type_choices::texture_levels texture_levels;
+
 	renderer::size_type offset(0);
 
-	detail::set_texture_pre<
-		typename object_type::elements
+	detail::set_textures_pre<
+		typename object_type::elements,
+		texture_levels
 	>(
 		_rend
 	);
@@ -83,7 +86,9 @@ render(
 				++num_objects;
 		}
 
-		detail::set_texture(
+		detail::set_textures<
+			texture_levels
+		>(
 			*cur,
 			_rend
 		);
@@ -105,8 +110,9 @@ render(
 		offset += num_objects;
 	}
 
-	detail::set_texture_post<
-		typename object_type::elements
+	detail::set_textures_post<
+		typename object_type::elements,
+		texture_levels
 	>(
 		_rend
 	);
