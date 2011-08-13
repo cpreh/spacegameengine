@@ -28,6 +28,7 @@ SET(
 	include/sge/parse/json/array.hpp
 	include/sge/parse/json/array_fwd.hpp
 	include/sge/parse/json/config/command_line_parameters.hpp
+	include/sge/parse/json/config/config.hpp
 	include/sge/parse/json/config/create_command_line_parameters.hpp
 	include/sge/parse/json/config/help_needed_exception.hpp
 	include/sge/parse/json/config/merge_command_line_parameters.hpp
