@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/member_name_equal.hpp>
 #include <sge/parse/json/invalid_get.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert.hpp>
 #include <boost/range/algorithm/find_if.hpp>
 
 namespace sge
@@ -41,32 +41,32 @@ namespace parse
 namespace json
 {
 template<typename T>
-T const 
+T const
 find_and_convert_member(
 	sge::parse::json::object const &o,
 	json::path const &input_path)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		!input_path.empty());
 
-	json::path const shortened_path = 
+	json::path const shortened_path =
 		json::path(
 			input_path.begin(),
 			--input_path.end());
 
-	sge::parse::json::object const &found_object = 
+	sge::parse::json::object const &found_object =
 		json::find_object_exn(
 			o,
 			shortened_path);
 
-	sge::parse::json::member_vector::const_iterator it = 
+	sge::parse::json::member_vector::const_iterator it =
 		boost::find_if(
 			found_object.members,
 			sge::parse::json::member_name_equal(
 				input_path.back()));
 
 	if (it == found_object.members.end())
-		throw 
+		throw
 			sge::parse::json::exception(
 				FCPPT_TEXT("Couldn't find member \"")+
 				input_path.back()+
@@ -78,7 +78,7 @@ find_and_convert_member(
 	if(
 		json::is_null(
 			it->value))
-		throw 
+		throw
 			sge::parse::json::exception(
 				FCPPT_TEXT("The member \"")+
 				it->name+
@@ -89,13 +89,13 @@ find_and_convert_member(
 
 	try
 	{
-		return 
+		return
 			json::convert_from<T>(
 				it->value);
 	}
 	catch (sge::parse::json::invalid_get const &e)
 	{
-		throw 
+		throw
 			sge::parse::json::exception(
 				FCPPT_TEXT("Unable to parse member \"")+
 				it->name+

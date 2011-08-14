@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/optional_extension.hpp>
 #include <sge/const_raw_range.hpp>
 #include <sge/image2d/file.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/optional_impl.hpp>
 
 sge::cegui::detail::image_codec::image_codec(
@@ -48,7 +48,7 @@ sge::cegui::detail::image_codec::load(
 	CEGUI::RawDataContainer const &data,
 	CEGUI::Texture *result_texture)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		result_texture);
 
 	dynamic_cast<texture &>(*result_texture).create_from_view(

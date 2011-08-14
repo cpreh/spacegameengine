@@ -44,8 +44,8 @@ struct output_visitor
 FCPPT_NONASSIGNABLE(
 	output_visitor);
 public:
-	typedef 
-	fcppt::string 
+	typedef
+	fcppt::string
 	result_type;
 
 	typedef
@@ -67,19 +67,19 @@ public:
 	{
 		fcppt::io::ostringstream stream;
 
-		stream 
+		stream
 			<< (fcppt::format(FCPPT_TEXT("%s{\n")) % make_tabs()).str();
 
 		for(
-			sge::parse::json::member_vector::const_iterator i = 
+			sge::parse::json::member_vector::const_iterator i =
 				o.members.begin();
 			i != o.members.end();
 			++i)
 		{
 			stream <<
 				(fcppt::format(FCPPT_TEXT("%s\"%s\" : \n")) % make_more_tabs() % i->name).str();
-			
-			stream << 
+
+			stream <<
 				boost::apply_visitor(
 					output_visitor(
 						tabs_+2),
@@ -100,16 +100,16 @@ public:
 	{
 		fcppt::io::ostringstream stream;
 
-		stream 
+		stream
 			<< (fcppt::format(FCPPT_TEXT("%s[\n")) % make_tabs()).str();
 
 		for(
-			sge::parse::json::element_vector::const_iterator i = 
+			sge::parse::json::element_vector::const_iterator i =
 				o.elements.begin();
 			i != o.elements.end();
 			++i)
 		{
-			stream << 
+			stream <<
 				boost::apply_visitor(
 					output_visitor(
 						tabs_+1),
@@ -137,7 +137,7 @@ public:
 	operator()(
 		bool const o) const
 	{
-		return 
+		return
 			make_tabs()+(
 			o
 			?
@@ -196,7 +196,7 @@ sge::parse::json::output_tabbed(
 	sge::parse::json::value v(
 		o);
 
-	return 
+	return
 		boost::apply_visitor(
 			output_visitor(
 				0),

@@ -32,8 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/button_event.hpp>
-#include <fcppt/assert.hpp>
-#include <fcppt/assert_message.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/text.hpp>
 #include <string>
 #include <CEGUISystem.h>
@@ -117,7 +116,7 @@ sge::cegui::syringe::inject(
 				1u,
 				k.character())));
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		converted_string.size() == 1);
 
 	CEGUI::System::getSingleton().injectChar(

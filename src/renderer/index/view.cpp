@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
 #include <sge/renderer/index/dynamic/basic_view.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/export_symbol.hpp>
-#include <fcppt/assert.hpp>
 
 template<
 	typename Format
@@ -37,7 +37,7 @@ sge::renderer::index::view<Format>::view(
 	data_(_data),
 	size_(_size)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		data_
 	);
 }
@@ -68,7 +68,7 @@ sge::renderer::index::view<Format>::view(
 		_view.size()
 	)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		_view.format()
 		==
 		sge::renderer::index::dynamic::make_format<

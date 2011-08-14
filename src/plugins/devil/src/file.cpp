@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/element_count.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/exception.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/dim.hpp>
@@ -43,13 +44,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/assert/post.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -341,8 +342,9 @@ sge::devil::file::load_impl(
 		_function()
 	);
 
-	FCPPT_ASSERT(
-		this->format() != IL_COLOR_INDEX
+	FCPPT_ASSERT_POST(
+		this->format() != IL_COLOR_INDEX,
+		sge::image::exception
 	);
 
 	return error;

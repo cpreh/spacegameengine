@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/ghost/parameters.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/assert.hpp>
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
 #include <BulletCollision/CollisionDispatch/btGhostObject.h>
 

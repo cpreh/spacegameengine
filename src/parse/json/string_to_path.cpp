@@ -30,14 +30,14 @@ sge::parse::json::string_to_path(
 	fcppt::string const &input_path)
 {
 	json::path::sequence_type parts;
-	
+
 	boost::algorithm::split(
 		parts,
 		input_path,
 		boost::algorithm::is_any_of(
 			FCPPT_TEXT("/")));
 
-	return 
+	return
 		json::path(
 			parts.begin(),
 			parts.end());

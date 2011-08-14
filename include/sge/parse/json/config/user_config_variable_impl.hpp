@@ -51,7 +51,7 @@ void
 sge::parse::json::config::user_config_variable<T>::value(
 	T const &_value)
 {
-	value_ = 
+	value_ =
 		_value;
 	callback_(
 		value_);
@@ -69,7 +69,7 @@ fcppt::signal::auto_connection
 sge::parse::json::config::user_config_variable<T>::change_callback(
 	callback const &f)
 {
-	return 
+	return
 		callback_.connect(
 			f);
 }

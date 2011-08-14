@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/pre.hpp>
 
 namespace
 {
@@ -94,7 +94,7 @@ center_position(
 	sge::window::dim::value_type const _window_size
 )
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		_window_size >= _target_size
 	);
 

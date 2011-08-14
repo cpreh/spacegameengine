@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/symbol.hpp>
 #include <sge/exception.hpp>
 #include <sge/class_symbol.hpp>
+#include <fcppt/assert/information_fwd.hpp>
 #include <fcppt/string.hpp>
 
 namespace sge
@@ -40,6 +41,11 @@ public:
 	SGE_IMAGE_SYMBOL
 	explicit exception(
 		fcppt::string const &
+	);
+
+	SGE_IMAGE_SYMBOL
+	explicit exception(
+		fcppt::assert_::information const &
 	);
 };
 

@@ -26,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/file.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert.hpp>
 #include <algorithm>
 
 sge::openal::stream_sound::stream_sound(
@@ -270,8 +270,8 @@ sge::openal::stream_sound::fill_buffer(
 				data);
 	}
 
-	FCPPT_ASSERT(
-		data.size());
+	FCPPT_ASSERT_ERROR(
+		!data.empty());
 
 	alBufferData(
 		buffer,

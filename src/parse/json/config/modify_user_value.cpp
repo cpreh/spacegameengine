@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/exception.hpp>
 #include <boost/variant/get.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/type_name.hpp>
-#include <fcppt/assert.hpp>
 #include <numeric>
 #include <algorithm>
 #include <typeinfo>
@@ -40,16 +40,16 @@ sge::parse::json::config::modify_user_value(
 	json::path const &input_path,
 	sge::parse::json::value const &new_value)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		!input_path.empty());
 
-	sge::parse::json::value const old_value = 
+	sge::parse::json::value const old_value =
 		json::find_and_convert_member<sge::parse::json::value>(
 			structure_json,
 			input_path);
 
 	if(old_value.which() != new_value.which())
-		throw 
+		throw
 			sge::parse::json::exception(
 				FCPPT_TEXT("Error trying to update the user configuration node \"")+
 				json::path_to_string(
@@ -59,7 +59,7 @@ sge::parse::json::config::modify_user_value(
 				FCPPT_TEXT("\", the new type was \"")+
 				fcppt::type_name(new_value.type()));
 
-	sge::parse::json::object &target = 
+	sge::parse::json::object &target =
 		// 0 is not permitted, 1 would mean: just take a value from
 		// user_json, > 1 means: recursively make a path in the user_json
 		(std::distance(
@@ -74,7 +74,7 @@ sge::parse::json::config::modify_user_value(
 		:
 			user_json;
 
-	sge::parse::json::member_vector::iterator it = 
+	sge::parse::json::member_vector::iterator it =
 		boost::find_if(
 			target.members,
 			sge::parse::json::member_name_equal(

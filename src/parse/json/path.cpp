@@ -40,13 +40,13 @@ sge::parse::json::path::path(
 		s);
 }
 
-sge::parse::json::path::const_iterator 
+sge::parse::json::path::const_iterator
 sge::parse::json::path::begin() const
 {
 	return sequence_.begin();
 }
 
-sge::parse::json::path::const_iterator 
+sge::parse::json::path::const_iterator
 sge::parse::json::path::end() const
 {
 	return sequence_.end();
@@ -58,7 +58,7 @@ sge::parse::json::path::size() const
 	return sequence_.size();
 }
 
-sge::parse::json::path::const_reference 
+sge::parse::json::path::const_reference
 sge::parse::json::path::back() const
 {
 	return sequence_.back();

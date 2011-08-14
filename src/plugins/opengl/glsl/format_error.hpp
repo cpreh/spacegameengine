@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_FORMAT_ERROR_HPP_INCLUDED
 
 #include "../common.hpp"
+#include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert.hpp>
-#include <fcppt/from_std_string.hpp>
 
 namespace sge
 {
@@ -70,7 +70,7 @@ format_error(
 
 	// note: required_length includes the terminating 0 character,
 	// so we should get at least 1
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		required_length > 0
 	);
 
@@ -98,7 +98,7 @@ format_error(
 
 	// note: the required length includes the terminating 0 character,
 	// while length_return does not!
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		length_return
 		==
 		static_cast<

@@ -32,11 +32,11 @@ sge::parse::json::config::create_command_line_parameters(
 		static_cast<config::command_line_parameters::size_type>(
 			argc));
 	for(
-		config::command_line_parameters::size_type i = 
-			0; 
-		i < static_cast<config::command_line_parameters::size_type>(argc); 
+		config::command_line_parameters::size_type i =
+			0;
+		i < static_cast<config::command_line_parameters::size_type>(argc);
 		++i)
-		result[i] = 
+		result[i] =
 			fcppt::from_std_string(
 				argv[static_cast<std::size_t>(i)]);
 	return result;

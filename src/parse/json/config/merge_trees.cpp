@@ -46,7 +46,7 @@ public:
 		sge::parse::json::object const &original,
 		sge::parse::json::object const &update) const
 	{
-		return 
+		return
 			sge::parse::json::config::merge_trees(
 				original,
 				update);
@@ -97,7 +97,7 @@ std::set<fcppt::string> const
 key_set(
 	sge::parse::json::object const &o)
 {
-	return 
+	return
 		fcppt::algorithm::map<std::set<fcppt::string> >(
 			o.members,
 			boost::phoenix::bind(
@@ -121,7 +121,7 @@ sge::parse::json::config::merge_trees(
 	std::set<fcppt::string>
 	string_set;
 
-	string_set const union_set = 
+	string_set const union_set =
 		sge::parse::stdlib::union_(
 			key_set(
 				original),
@@ -129,19 +129,19 @@ sge::parse::json::config::merge_trees(
 				update));
 
 	for(
-		string_set::const_iterator key = 
+		string_set::const_iterator key =
 			union_set.begin();
 		key != union_set.end();
 		++key)
 	{
-		member_vector::const_iterator 
-			original_it = 
+		member_vector::const_iterator
+			original_it =
 				std::find_if(
 					original.members.begin(),
 					original.members.end(),
 					member_name_equal(
 						*key)),
-			update_it = 
+			update_it =
 				std::find_if(
 					update.members.begin(),
 					update.members.end(),
@@ -155,7 +155,7 @@ sge::parse::json::config::merge_trees(
 				*update_it);
 			continue;
 		}
-		
+
 		// Object exists only in the original? Then copy
 		if (update_it == update.members.end())
 		{

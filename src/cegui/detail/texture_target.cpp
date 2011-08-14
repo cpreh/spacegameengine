@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/assert_message.hpp>
+#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -194,8 +194,7 @@ sge::cegui::detail::texture_target::unprojectPoint(
 	CEGUI::Vector2 const &,
 	CEGUI::Vector2 &) const
 {
-	FCPPT_ASSERT_MESSAGE(
-		false,
+	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
 		FCPPT_TEXT("texture_target::unprojectPoint not implemented yet"));
 }
 

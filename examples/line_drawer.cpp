@@ -106,7 +106,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/simple_parameters.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/lexical_cast.hpp>
@@ -188,8 +187,9 @@ private:
 		sge::line_drawer::scoped_lock lock(
 			line_drawer_);
 
-		FCPPT_ASSERT(
-			!lock.value().empty());
+// FIXME: ASSERT
+//		FCPPT_ASSERT(
+//			!lock.value().empty());
 
 		// Then we can freely (!) change everything. When unlock is called
 		// (in the lock's destructor), all the geometry will be updated at
@@ -216,8 +216,9 @@ private:
 		sge::line_drawer::scoped_lock lock(
 			line_drawer_);
 
-		FCPPT_ASSERT(
-			!lock.value().empty());
+// FIXME: ASSERT
+//		FCPPT_ASSERT(
+//			!lock.value().empty());
 
 		lock.value().push_back(
 			sge::line_drawer::line(

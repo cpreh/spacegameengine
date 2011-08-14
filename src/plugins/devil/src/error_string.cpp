@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../error_string.hpp"
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <IL/il.h>
 #include <IL/ilu.h>
@@ -29,7 +29,7 @@ sge::devil::error_string(
 	ILenum const _error
 )
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		_error != IL_NO_ERROR
 	);
 

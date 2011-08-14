@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../openal.hpp"
 #include "../log.hpp"
 #include <sge/audio/exception.hpp>
+#include <fcppt/assert/post.hpp>
 #include <fcppt/log/headers.hpp>
-#include <fcppt/assert.hpp>
 #include <vector>
 
 sge::openal::context::context(
@@ -78,7 +78,11 @@ sge::openal::context::context(
 
 	// FIXME: can this leak? For example the creation of the context succeeds but there is an alError?
 
-	FCPPT_ASSERT(context_);
+	FCPPT_ASSERT_POST(
+		context_,
+		sge::audio::exception
+	);
+
 	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("created audio context"))
 }
 

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../glew/is_supported.hpp"
 #include <sge/renderer/exception.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert.hpp>
 
 sge::opengl::hardware_vbo::hardware_vbo()
 :
@@ -187,7 +187,7 @@ sge::opengl::hardware_vbo::map_buffer_range(
 	GLsizei const _size
 )
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		gl_map_buffer_range_
 	);
 

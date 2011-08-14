@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
+#include <fcppt/assert/make_message.hpp>
 
 sge::exception::exception(
 	fcppt::string const &_string
@@ -27,7 +28,20 @@ sge::exception::exception(
 	fcppt::exception(
 		_string
 	)
-{}
+{
+}
+
+sge::exception::exception(
+	fcppt::assert_::information const &_info
+)
+:
+	fcppt::exception(
+		fcppt::assert_::make_message(
+			_info
+		)
+	)
+{
+}
 
 sge::exception::~exception() throw()
 {

@@ -196,7 +196,7 @@ boost::enable_if_c
 sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
 {
-	return 
+	return
 		static_cast<T>(
 			sge::parse::json::get<sge::parse::json::float_type>(
 				v));
@@ -213,7 +213,7 @@ boost::enable_if_c
 sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
 {
-	return 
+	return
 		sge::parse::json::get<bool>(v);
 }
 
@@ -235,7 +235,7 @@ boost::enable_if
 sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
 {
-	return 
+	return
 		static_cast<T>(
 			sge::parse::json::get<sge::parse::json::int_type>(
 				v));
@@ -252,11 +252,11 @@ boost::enable_if_c
 sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
 {
-	sge::parse::json::element_vector const 
-		outer_array = 
+	sge::parse::json::element_vector const
+		outer_array =
 			sge::parse::json::get<sge::parse::json::array>(
 				v).elements,
-		first_outer_vector = 
+		first_outer_vector =
 			sge::parse::json::get<sge::parse::json::array>(
 				outer_array.front()).elements;
 
@@ -272,12 +272,12 @@ sge::parse::json::convert_from(
 		i != outer_array.size();
 		++i)
 	{
-		sge::parse::json::element_vector const current_inner_array = 
+		sge::parse::json::element_vector const current_inner_array =
 			sge::parse::json::get<sge::parse::json::array>(
 				outer_array[i]).elements;
 
 		if(current_inner_array.size() != first_outer_vector.size())
-			throw 
+			throw
 				sge::parse::json::exception(
 					FCPPT_TEXT("You tried to input a matrix, but the inner dimensions don't match!"));
 
@@ -286,7 +286,7 @@ sge::parse::json::convert_from(
 			j != current_inner_array.size();
 			++j)
 		{
-			result[static_cast<typename T::size_type>(i)][static_cast<typename T::size_type>(j)] = 
+			result[static_cast<typename T::size_type>(i)][static_cast<typename T::size_type>(j)] =
 				json::convert_from<typename T::value_type>(
 					current_inner_array[j]);
 		}
@@ -326,14 +326,14 @@ boost::enable_if
 sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
 {
-	sge::parse::json::array const &a = 
+	sge::parse::json::array const &a =
 		sge::parse::json::get<sge::parse::json::array>(
 			v);
 
 	T result;
 
 	if(result.size() && result.size() != a.elements.size())
-		throw 
+		throw
 			sge::parse::json::exception(
 				FCPPT_TEXT("Tried to convert into an array, but the dimensions did not match. Target array has dimension ")+
 				fcppt::lexical_cast<fcppt::string>(
@@ -343,9 +343,9 @@ sge::parse::json::convert_from(
 					a.elements.size()));
 
 	for(
-		sge::parse::json::element_vector::const_iterator i = 
-			a.elements.begin(); 
-		i != a.elements.end(); 
+		sge::parse::json::element_vector::const_iterator i =
+			a.elements.begin();
+		i != a.elements.end();
 		++i)
 		result.insert(
 			result.end(),
@@ -368,12 +368,12 @@ sge::parse::json::convert_from(
 {
 	T result;
 
-	sge::parse::json::array const &a = 
+	sge::parse::json::array const &a =
 		sge::parse::json::get<sge::parse::json::array>(
 			v);
-	
+
 	if(result.size() != a.elements.size())
-		throw 
+		throw
 			sge::parse::json::exception(
 				FCPPT_TEXT("Tried to convert into an array, but the dimensions did not match. Target array has dimension ")+
 				fcppt::lexical_cast<fcppt::string>(
@@ -382,18 +382,18 @@ sge::parse::json::convert_from(
 				fcppt::lexical_cast<fcppt::string>(
 					a.elements.size()));
 
-	typename T::iterator result_it = 
+	typename T::iterator result_it =
 		result.begin();
 
 	for(
-		sge::parse::json::element_vector::const_iterator i = 
-			a.elements.begin(); 
-		i != a.elements.end(); 
+		sge::parse::json::element_vector::const_iterator i =
+			a.elements.begin();
+		i != a.elements.end();
 		++i)
-		*result_it++ = 
+		*result_it++ =
 			json::convert_from<typename T::value_type>(
 				*i);
-	
+
 	return result;
 }
 
@@ -409,7 +409,7 @@ boost::enable_if_c
 sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
 {
-	return 
+	return
 		sge::parse::json::get<fcppt::string>(
 			v);
 }
@@ -458,7 +458,7 @@ boost::enable_if
 sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
 {
-	return 
+	return
 		sge::parse::json::get<T>(
 			v);
 }

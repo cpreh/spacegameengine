@@ -37,16 +37,16 @@ sge::parse::json::find_object_exn(
 	sge::parse::json::object &input_object,
 	json::path const &p)
 {
-	sge::parse::json::object *current_object = 
+	sge::parse::json::object *current_object =
 		&input_object;
 
 	for(
-		json::path::const_iterator current_member = 
-			p.begin(); 
-		current_member != p.end(); 
+		json::path::const_iterator current_member =
+			p.begin();
+		current_member != p.end();
 		++current_member)
 	{
-		sge::parse::json::member_vector::iterator it = 
+		sge::parse::json::member_vector::iterator it =
 			std::find_if(
 				current_object->members.begin(),
 				current_object->members.end(),
@@ -54,7 +54,7 @@ sge::parse::json::find_object_exn(
 					*current_member));
 
 		if(it == current_object->members.end())
-			throw 
+			throw
 				sge::parse::json::exception(
 					FCPPT_TEXT("Couldn't navigate to \"")+
 					json::path_to_string(
@@ -64,7 +64,7 @@ sge::parse::json::find_object_exn(
 					FCPPT_TEXT("\" because we couldn't find the object here!"));
 
 		if(it->value.type() != typeid(sge::parse::json::object))
-			throw 
+			throw
 				sge::parse::json::exception(
 					FCPPT_TEXT("Couldn't navigate to \"")+
 					json::path_to_string(
@@ -76,12 +76,12 @@ sge::parse::json::find_object_exn(
 						it->value.type())+
 					FCPPT_TEXT("\" instead of type sge::parse::json::object!"));
 
-		current_object = 
+		current_object =
 			&sge::parse::json::get<sge::parse::json::object>(
 				it->value);
 	}
 
-	return 
+	return
 		*current_object;
 }
 
@@ -90,7 +90,7 @@ sge::parse::json::find_object_exn(
 	sge::parse::json::object const &input_object,
 	json::path const &p)
 {
-	return 
+	return
 			json::find_object_exn(
 				const_cast<sge::parse::json::object &>(
 					input_object),

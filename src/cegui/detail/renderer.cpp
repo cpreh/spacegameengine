@@ -40,13 +40,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
+#include <fcppt/assert/error_message.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/assert.hpp>
-#include <fcppt/assert_message.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <algorithm>
@@ -116,7 +116,7 @@ sge::cegui::detail::renderer::destroyGeometryBuffer(
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_ << FCPPT_TEXT("destroyGeometryBuffer()"));
-	FCPPT_ASSERT_MESSAGE(
+	FCPPT_ASSERT_ERROR_MESSAGE(
 		fcppt::algorithm::ptr_container_erase(
 			geometry_buffers_,
 			dynamic_cast<geometry_buffer const *>(
@@ -152,9 +152,9 @@ sge::cegui::detail::renderer::destroyTextureTarget(
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_ << FCPPT_TEXT("destroyTextureTarget(") << texture << FCPPT_TEXT(")"));
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		texture);
-	FCPPT_ASSERT_MESSAGE(
+	FCPPT_ASSERT_ERROR_MESSAGE(
 		fcppt::algorithm::ptr_container_erase(
 			texture_targets_,
 			dynamic_cast<texture_target *>(
@@ -232,7 +232,7 @@ sge::cegui::detail::renderer::destroyTexture(
 		local_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("destroyTexture(") << &_texture << FCPPT_TEXT(")"));
-	FCPPT_ASSERT_MESSAGE(
+	FCPPT_ASSERT_ERROR_MESSAGE(
 		fcppt::algorithm::ptr_container_erase(
 			textures_,
 			dynamic_cast<texture *>(

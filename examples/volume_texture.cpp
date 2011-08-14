@@ -401,7 +401,7 @@ fill_geometry(
 		pos_vector const texpos(
 			fcppt::math::vector::transform(
 				*it,
-				::coord_to_texcoord
+				coord_to_texcoord
 			)
 		);
 

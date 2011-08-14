@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/triangulation/detail/snip.hpp>
 #include <sge/projectile/triangulation/traits/construct_result.hpp>
 #include <sge/projectile/triangulation/traits/scalar.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/container/raw_vector.hpp>
-#include <fcppt/assert.hpp>
 #include <boost/range/algorithm_ext/iota.hpp>
 
 namespace sge
@@ -66,7 +66,7 @@ triangulate(
 	>::type
 	scalar;
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		_contour.size()
 		>=
 		static_cast<

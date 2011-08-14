@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/from_cegui_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/assert_message.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fstream>
 #include <ios>
@@ -151,8 +151,7 @@ sge::cegui::detail::resource_provider::getResourceGroupFileNames(
 			<< FCPPT_TEXT(", ")
 			<< converted_resource_group
 			<< FCPPT_TEXT(")"));
-	FCPPT_ASSERT_MESSAGE(
-		false,
+	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
 		FCPPT_TEXT("resource_provider::getResourceGroupFilenames not implemented yet!"));
 	return 0;
 }

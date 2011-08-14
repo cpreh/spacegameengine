@@ -31,3 +31,13 @@ sge::renderer::exception::exception(
 	)
 {
 }
+
+sge::renderer::exception::exception(
+	fcppt::assert_::information const &_information
+)
+:
+	sge::exception(
+		_information
+	)
+{
+}

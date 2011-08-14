@@ -30,10 +30,10 @@ sge::parse::json::parse_string_exn(
 	fcppt::string const &s)
 {
 	sge::parse::json::object result;
-	fcppt::string::const_iterator current = 
+	fcppt::string::const_iterator current =
 		s.begin();
 	if(!sge::parse::json::parse_range(current,s.end(),result))
-		throw	
+		throw
 			sge::parse::json::exception(
 				FCPPT_TEXT("Error parsing json"));
 	return result;

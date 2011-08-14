@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../context/make_id.hpp"
 #include "../../disable.hpp"
 #include "../../enable.hpp"
+#include <fcppt/assert/error.hpp>
 #include <fcppt/container/index_map_impl.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/weak_ptr_impl.hpp>
 
@@ -57,7 +57,7 @@ sge::opengl::texture::bind_context::bind_for_rendering(
 
 	// Check that there is no temp binding active
 	// because we would override it otherwise!
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		!temp_textures_[
 			_stage.get()
 		]
@@ -116,7 +116,7 @@ sge::opengl::texture::bind_context::unbind_for_rendering(
 	renderer::stage const _stage
 )
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		!temp_textures_[
 			_stage.get()
 		]

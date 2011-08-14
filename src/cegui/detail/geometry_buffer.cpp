@@ -63,6 +63,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/image/color/init.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/pre_message.hpp>
+#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/output.hpp>
@@ -73,9 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/box/output.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert_message.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <CEGUIVertex.h>
 
@@ -282,7 +283,7 @@ sge::cegui::detail::geometry_buffer::appendGeometry(
 	CEGUI::Vertex const * const vertices,
 	CEGUI::uint const vertex_count)
 {
-	FCPPT_ASSERT_MESSAGE(
+	FCPPT_ASSERT_PRE_MESSAGE(
 		active_texture_,
 		FCPPT_TEXT("I got geometry without an active texture, how should I handle this? :/"));
 
@@ -359,7 +360,7 @@ void
 sge::cegui::detail::geometry_buffer::setActiveTexture(
 	CEGUI::Texture * const tex)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		tex);
 	active_texture_ =
 		&dynamic_cast<texture &>(
@@ -398,8 +399,7 @@ void
 sge::cegui::detail::geometry_buffer::setRenderEffect(
 	CEGUI::RenderEffect*)
 {
-	FCPPT_ASSERT_MESSAGE(
-		false,
+	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
 		FCPPT_TEXT("Render effects are not implemented yet"));
 }
 

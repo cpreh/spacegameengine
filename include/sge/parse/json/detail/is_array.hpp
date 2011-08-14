@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_DETAIL_IS_ARRAY_HPP_INCLUDED
 
 #include <fcppt/container/array.hpp>
-#include <fcppt/tr1/array.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -47,14 +46,11 @@ template<typename T,std::size_t N>
 struct is_array< fcppt::container::array<T,N> > : boost::true_type {};
 
 template<typename T,std::size_t N>
-struct is_array< std::tr1::array<T,N> > : boost::true_type {};
-
-template<typename T,std::size_t N>
 struct is_array< boost::array<T,N> > : boost::true_type {};
 
 template<typename T,fcppt::math::size_type N>
 struct is_array
-< 
+<
 	fcppt::math::vector::basic
 	<
 		T,
@@ -63,18 +59,18 @@ struct is_array
 			fcppt::math::size_type,
 			N
 		>,
-		typename 
+		typename
 		fcppt::math::detail::static_storage
 		<
 			T,
 			N
 		>::type
-	> 
+	>
 > : boost::true_type {};
 
 template<typename T,fcppt::math::size_type N>
 struct is_array
-< 
+<
 	fcppt::math::dim::basic
 	<
 		T,
@@ -83,13 +79,13 @@ struct is_array
 			fcppt::math::size_type,
 			N
 		>,
-		typename 
+		typename
 		fcppt::math::detail::static_storage
 		<
 			T,
 			N
 		>::type
-	> 
+	>
 > : boost::true_type {};
 }
 }

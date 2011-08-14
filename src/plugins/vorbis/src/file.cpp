@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/unsupported_format.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/endianness/is_little_endian.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
@@ -31,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/sn_cast.hpp>
-#include <fcppt/assert.hpp>
 #include <algorithm>
 #include <iterator>
 
@@ -204,8 +204,9 @@ sge::vorbis::file::read(
 		std::back_inserter(
 			data));
 
-	FCPPT_ASSERT(
-		bytes_read % bytes_per_sample() == 0);
+// FIXME: ASSERT
+//	FCPPT_ASSERT(
+//		bytes_read % bytes_per_sample() == 0);
 
 //	std::cout << "got " << (bytes_read/bytes_per_sample()) << " samples, sample rate is " << sample_rate() << "\n";
 
@@ -261,7 +262,7 @@ sge::vorbis::file::~file()
 	int result =
 		ov_clear(
 			&ogg_file_);
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		!result);
 }
 

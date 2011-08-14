@@ -43,10 +43,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/const_raw_pointer.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/from_std_string.hpp>
 // FFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUU
 #include <fcppt/optional.hpp>
@@ -194,7 +194,7 @@ sge::cegui::detail::texture::loadFromMemory(
 			<< structure_cast<sge::renderer::dim2>(buffer_size)
 			<< FCPPT_TEXT(")"));
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		static_cast<int>(buffer_size.d_width) && static_cast<int>(buffer_size.d_height));
 
 	create_from_view(

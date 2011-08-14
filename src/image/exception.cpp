@@ -29,4 +29,15 @@ sge::image::exception::exception(
 		FCPPT_TEXT("image: ")
 		+ _what
 	)
-{}
+{
+}
+
+sge::image::exception::exception(
+	fcppt::assert_::information const &_information
+)
+:
+	sge::exception(
+		_information
+	)
+{
+}
