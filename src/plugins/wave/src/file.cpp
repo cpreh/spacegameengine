@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/io/ostringstream.hpp>
 #include <fcppt/format.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/move.hpp>
 #include <boost/cstdint.hpp>
@@ -259,8 +258,9 @@ template<typename T>
 T sge::wave::file::extract_primitive(
 	fcppt::string const &_desc)
 {
-	FCPPT_ASSERT(
-		swap_ != boost::logic::indeterminate);
+	// FIXME: ASSERT
+//	FCPPT_ASSERT(
+//		swap_ != boost::logic::indeterminate);
 
 	// TODO: replace this with io::read
 	T ret;

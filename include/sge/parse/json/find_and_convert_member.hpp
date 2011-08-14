@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/member_name_equal.hpp>
 #include <sge/parse/json/invalid_get.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert.hpp>
 #include <boost/range/algorithm/find_if.hpp>
 
 namespace sge
@@ -46,7 +46,7 @@ find_and_convert_member(
 	sge::parse::json::object const &o,
 	json::path const &input_path)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		!input_path.empty());
 
 	json::path const shortened_path =

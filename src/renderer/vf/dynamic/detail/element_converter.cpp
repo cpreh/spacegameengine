@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/pitch.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/optional_impl.hpp>
 
 sge::renderer::vf::dynamic::detail::element_converter::element_converter(
@@ -44,7 +44,7 @@ sge::renderer::vf::dynamic::detail::element_converter::element_converter(
 	stride_(_stride),
 	offset_(_offset)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		sge::image::color::format_stride(
 			original_color_
 		)
@@ -73,7 +73,7 @@ sge::renderer::vf::dynamic::detail::element_converter::convert(
 		return;
 
 	// pos refers to the beginning of the lock
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		_interval.lower()
 		>= _pos
 	);

@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/assert.hpp>
 #include <numeric>
 #include <algorithm>
 
@@ -44,7 +44,7 @@ create_or_navigate_path(
 	sge::parse::json::object * const old,
 	fcppt::string const &new_member)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		old);
 
 	sge::parse::json::member_vector::iterator it =

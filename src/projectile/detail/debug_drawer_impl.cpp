@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/init.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
@@ -53,7 +53,7 @@ sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
 		renderer_),
 	scoped_lock_()
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		!world_.getDebugDrawer());
 	world_.setDebugDrawer(
 		this);

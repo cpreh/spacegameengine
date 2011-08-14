@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_NEXT_OR_LAST_HPP_INCLUDED
 
 #include <fcppt/math/is_negative.hpp>
+#include <fcppt/assert/error.hpp>
 #include <boost/next_prior.hpp>
-#include <fcppt/assert.hpp>
 #include <algorithm>
 #include <iterator>
 
@@ -52,7 +52,7 @@ next_or_last(
 			it,
 			last);
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		!fcppt::math::is_negative(
 			d));
 

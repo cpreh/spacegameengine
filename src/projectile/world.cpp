@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/group/id.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/ghost/object.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/duration_output.hpp>
-#include <fcppt/assert_message.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <limits>
@@ -59,14 +59,14 @@ sge::projectile::body::object &
 void_ptr_to_body(
 	void *a)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		a);
 
 	btCollisionObject *co =
 		static_cast<btCollisionObject *>(
 			a);
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		co->getUserPointer());
 
 	return
@@ -153,7 +153,7 @@ sge::projectile::world::update_discrete(
 	fixed_timestep const &fixed,
 	maximum_substeps const &max_substeps)
 {
-	FCPPT_ASSERT_MESSAGE(
+	FCPPT_ASSERT_PRE_MESSAGE(
 		max_substeps.get(),
 		FCPPT_TEXT("If you want a variable timestep, use the other update function"));
 
@@ -284,7 +284,7 @@ sge::projectile::world::~world()
 sge::projectile::group::id
 sge::projectile::world::next_group_id()
 {
-	FCPPT_ASSERT_MESSAGE(
+	FCPPT_ASSERT_PRE_MESSAGE(
 		next_group_id_ != std::numeric_limits<group::id>::max(),
 		FCPPT_TEXT("You have created too many groups. Bummer. :/"));
 	group::id const old = next_group_id_;
@@ -300,7 +300,7 @@ sge::projectile::world::internal_tick_callback_static(
 	btDynamicsWorld *w,
 	btScalar const time_step)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		w->getWorldUserInfo());
 
 	static_cast<world *>(

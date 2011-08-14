@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/mainloop/io_service.hpp>
 #include <awl/mainloop/io_service_shared_ptr.hpp>
 #include <awl/mainloop/asio/create_io_service_base.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -59,7 +60,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -596,7 +596,7 @@ device_manager::on_mouse_add(
 	sge::input::mouse::device_ptr const _device
 )
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		fcppt::container::ptr::insert_unique_ptr_map(
 			mouse_listeners_,
 			_device,
@@ -620,7 +620,7 @@ device_manager::on_mouse_remove(
 	sge::input::mouse::device_ptr const _device
 )
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		mouse_listeners_.erase(
 			_device
 		) == 1u
@@ -637,7 +637,7 @@ device_manager::on_cursor_add(
 	sge::input::cursor::object_ptr const _device
 )
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		fcppt::container::ptr::insert_unique_ptr_map(
 			cursor_listeners_,
 			_device,
@@ -661,7 +661,7 @@ device_manager::on_cursor_remove(
 	sge::input::cursor::object_ptr const _device
 )
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		cursor_listeners_.erase(
 			_device
 		) == 1u
@@ -678,7 +678,7 @@ device_manager::on_keyboard_add(
 	sge::input::keyboard::device_ptr const _device
 )
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		fcppt::container::ptr::insert_unique_ptr_map(
 			keyboard_listeners_,
 			_device,
@@ -702,7 +702,7 @@ device_manager::on_keyboard_remove(
 	sge::input::keyboard::device_ptr const _device
 )
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		keyboard_listeners_.erase(
 			_device
 		) == 1u

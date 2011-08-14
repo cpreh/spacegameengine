@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/exception.hpp>
 #include <boost/variant/get.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/type_name.hpp>
-#include <fcppt/assert.hpp>
 #include <numeric>
 #include <algorithm>
 #include <typeinfo>
@@ -40,7 +40,7 @@ sge::parse::json::config::modify_user_value(
 	json::path const &input_path,
 	sge::parse::json::value const &new_value)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		!input_path.empty());
 
 	sge::parse::json::value const old_value =

@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/exception.hpp>
 #include <sge/console/function.hpp>
 #include <sge/font/text/lit.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/include/qi.hpp>
@@ -93,7 +93,7 @@ sge::console::object::insert(
 
 		i = ret.first;
 
-		FCPPT_ASSERT(ret.second);
+		FCPPT_ASSERT_ERROR(ret.second);
 	}
 	return i->second->signal().connect(c);
 }

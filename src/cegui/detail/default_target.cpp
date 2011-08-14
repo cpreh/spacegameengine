@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/assert.hpp>
-#include <fcppt/assert_message.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/text.hpp>
 #include <CEGUIGeometryBuffer.h>
 #include <CEGUIRenderQueue.h>
@@ -83,7 +83,7 @@ sge::cegui::detail::default_target::setArea(
 	// This is a check to see if setArea might be called from outside,
 	// too. If this fails, it _should_ indicate that indeed, it _is_
 	// called from outside the renderer
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		structure_cast<sge::renderer::pixel_rect>(r) == renderer_.onscreen_target().viewport().get());
 }
 
@@ -121,8 +121,7 @@ sge::cegui::detail::default_target::unprojectPoint(
 	CEGUI::Vector2 const & p_in,
 	CEGUI::Vector2& p_out) const
 {
-	FCPPT_ASSERT_MESSAGE(
-		false,
+	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
 		FCPPT_TEXT("default_target::unprojectPoint not implemented yet"));
 	p_out = p_in;
 }

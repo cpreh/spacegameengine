@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <LinearMath/btMatrix3x3.h>

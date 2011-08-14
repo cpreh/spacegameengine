@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/toolbox/append_row.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <CEGUIBase.h>
 #include <elements/CEGUIListboxTextItem.h>
 
@@ -28,7 +28,7 @@ sge::cegui::toolbox::append_row(
 	CEGUI::MultiColumnList &list,
 	row const &mapper)
 {
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_PRE(
 		static_cast<row::size_type>(list.getColumnCount()) == mapper.size());
 	CEGUI::uint const index =
 		list.addRow(

@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/algorithm/shortest_levenshtein.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <boost/fusion/container/vector.hpp>
@@ -77,8 +76,9 @@ process_option(
 			input+
 			FCPPT_TEXT("\" has an invalid format. See --help to see what that means."));
 
-	FCPPT_ASSERT(
-		!boost::fusion::at_c<0>(result).empty());
+	// FIXME: ASSERT
+//	FCPPT_ASSERT(
+//		!boost::fusion::at_c<0>(result).empty());
 
 	fcppt::string const element =
 		boost::fusion::at_c<0>(result).back();

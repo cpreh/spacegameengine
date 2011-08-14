@@ -33,11 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/string_type.hpp>
 #include <sge/font/exception.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <ostream>
 #include <string>
@@ -72,7 +72,7 @@ sge::freetype::char_metric::char_metric(
 		)
 	);
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		converted_string.size() == 1u
 	);
 

@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../input_context.hpp"
 #include <sge/input/exception.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <X11/extensions/XInput2.h>
 #include <X11/Xlib.h>
@@ -74,7 +74,7 @@ sge::x11input::keyboard::lookup_string(
 		)
 	);
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		xev.type == KeyPress
 	);
 
@@ -92,7 +92,7 @@ sge::x11input::keyboard::lookup_string(
 		)
 	);
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		needed_chars == 0
 		||
 		status == XBufferOverflow
@@ -121,7 +121,7 @@ sge::x11input::keyboard::lookup_string(
 		)
 	);
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		chars_return >= 0
 	);
 
