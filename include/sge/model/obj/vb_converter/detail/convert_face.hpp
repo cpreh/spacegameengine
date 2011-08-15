@@ -5,7 +5,8 @@
 #include <sge/model/obj/instance_fwd.hpp>
 #include <sge/model/obj/face.hpp>
 #include <sge/model/obj/face_point_sequence.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/pre_message.hpp>
+#include <fcppt/text.hpp>
 
 namespace sge
 {
@@ -29,8 +30,9 @@ convert_face(
 	VertexIterator &_current_vertex,
 	obj::face const &_face)
 {
-	FCPPT_ASSERT(
-		_face.points_.size() == 3);
+	FCPPT_ASSERT_PRE_MESSAGE(
+		_face.points_.size() == 3,
+		FCPPT_TEXT("Only triangles are allowed for conversion"));
 
 	for(
 		obj::face_point_sequence::const_iterator vertex_it =

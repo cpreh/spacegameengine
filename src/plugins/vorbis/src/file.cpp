@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/log/headers.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/move.hpp>
@@ -205,8 +206,8 @@ sge::vorbis::file::read(
 			data));
 
 // FIXME: ASSERT
-//	FCPPT_ASSERT(
-//		bytes_read % bytes_per_sample() == 0);
+	FCPPT_ASSERT_ERROR(
+		bytes_read % bytes_per_sample() == 0);
 
 //	std::cout << "got " << (bytes_read/bytes_per_sample()) << " samples, sample rate is " << sample_rate() << "\n";
 

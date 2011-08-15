@@ -5,7 +5,7 @@
 #include <sge/model/obj/face_point.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/assert/error.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/void.hpp>
@@ -54,7 +54,7 @@ convert_normal(
 	>::type
 	normal_type;
 
-	FCPPT_ASSERT(
+	FCPPT_ASSERT_ERROR(
 		_face_point.normal_index_);
 
 	obj::normal const origin =

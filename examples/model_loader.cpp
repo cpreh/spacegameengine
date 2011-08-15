@@ -114,7 +114,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>

@@ -119,6 +119,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -187,9 +188,8 @@ private:
 		sge::line_drawer::scoped_lock lock(
 			line_drawer_);
 
-// FIXME: ASSERT
-//		FCPPT_ASSERT(
-//			!lock.value().empty());
+		FCPPT_ASSERT_ERROR(
+			!lock.value().empty());
 
 		// Then we can freely (!) change everything. When unlock is called
 		// (in the lock's destructor), all the geometry will be updated at

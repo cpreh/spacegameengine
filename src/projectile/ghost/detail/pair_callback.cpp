@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <BulletCollision/BroadphaseCollision/btBroadphaseProxy.h>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/assert/error.hpp>
 
 btBroadphasePair *
 sge::projectile::ghost::detail::pair_callback::addOverlappingPair(
@@ -52,14 +53,14 @@ sge::projectile::ghost::detail::pair_callback::addOverlappingPair(
 	{
 		if(!ghost1)
 		{
-//			FCPPT_ASSERT(
-//				ghost0->getUserPointer());
+			FCPPT_ASSERT_ERROR(
+				ghost0->getUserPointer());
 			void *user_pointer0 =
 				ghost0->getUserPointer();
-//			FCPPT_ASSERT(
-//				col_obj1);
-//			FCPPT_ASSERT(
-//				col_obj1->getUserPointer());
+			FCPPT_ASSERT_ERROR(
+				col_obj1);
+			FCPPT_ASSERT_ERROR(
+				col_obj1->getUserPointer());
 			void *user_pointer1 =
 				col_obj1->getUserPointer();
 
@@ -76,14 +77,14 @@ sge::projectile::ghost::detail::pair_callback::addOverlappingPair(
 	{
 		if(!ghost0)
 		{
-//			FCPPT_ASSERT(
-//				ghost1->getUserPointer());
+			FCPPT_ASSERT_ERROR(
+				ghost1->getUserPointer());
 			void *user_pointer1 =
 				ghost1->getUserPointer();
-//			FCPPT_ASSERT(
-//				col_obj0);
-//			FCPPT_ASSERT(
-//				col_obj0->getUserPointer());
+			FCPPT_ASSERT_ERROR(
+				col_obj0);
+			FCPPT_ASSERT_ERROR(
+				col_obj0->getUserPointer());
 			void *user_pointer0 =
 				col_obj0->getUserPointer();
 
@@ -126,14 +127,14 @@ sge::projectile::ghost::detail::pair_callback::removeOverlappingPair(
 	{
 		if(!ghost1)
 		{
-//			FCPPT_ASSERT(
-//				ghost0->getUserPointer());
+			FCPPT_ASSERT_ERROR(
+				ghost0->getUserPointer());
 			void *user_pointer0 =
 				ghost0->getUserPointer();
-//			FCPPT_ASSERT(
-//				col_obj1);
-//			FCPPT_ASSERT(
-//				col_obj1->getUserPointer());
+			FCPPT_ASSERT_ERROR(
+				col_obj1);
+			FCPPT_ASSERT_ERROR(
+				col_obj1->getUserPointer());
 			void *user_pointer1 =
 				col_obj1->getUserPointer();
 
@@ -151,14 +152,14 @@ sge::projectile::ghost::detail::pair_callback::removeOverlappingPair(
 	{
 		if(!ghost0)
 		{
-//			FCPPT_ASSERT(
-//				ghost1->getUserPointer());
+			FCPPT_ASSERT_ERROR(
+				ghost1->getUserPointer());
 			void *user_pointer1 =
 				ghost1->getUserPointer();
-//			FCPPT_ASSERT(
-//				col_obj0);
-//			FCPPT_ASSERT(
-//				col_obj0->getUserPointer());
+			FCPPT_ASSERT_ERROR(
+				col_obj0);
+			FCPPT_ASSERT_ERROR(
+				col_obj0->getUserPointer());
 			void *user_pointer0 =
 				col_obj0->getUserPointer();
 
