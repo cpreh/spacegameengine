@@ -30,11 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "adapt_vertex.hpp"
 #include "parse_state.hpp"
 #include <sge/model/obj/mesh.hpp>
+#include <sge/model/obj/optional_index.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/include/phoenix_bind.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
 #include <boost/spirit/include/qi_action.hpp>
+#include <boost/spirit/include/qi_attr.hpp>
 #include <boost/spirit/include/qi_core.hpp>
 #include <boost/spirit/include/qi_grammar.hpp>
 #include <boost/spirit/include/qi_lit.hpp>
@@ -98,20 +100,32 @@ sge::model::obj::basic_grammar<
 		;
 
 	face_point_ %=
-		_tokens.int_
-		>>
-		-(
-			boost::spirit::lit(
-				FCPPT_TEXT('/')
-			)
-			>>
-			-_tokens.int_
+		(
+			_tokens.int_
 			>>
 			boost::spirit::lit(
 				FCPPT_TEXT('/')
 			)
 			>>
 			-_tokens.int_
+			>>
+			boost::spirit::lit(
+				FCPPT_TEXT('/')
+			)
+			>>
+			-_tokens.int_
+		)
+		|
+		(
+			_tokens.int_
+			>>
+			boost::spirit::qi::attr(
+				obj::optional_index()
+			)
+			>>
+			boost::spirit::qi::attr(
+				obj::optional_index()
+			)
 		)
 		;
 
