@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 BOOST_FUSION_ADAPT_STRUCT(
 	sge::model::obj::face_point,
-	(sge::model::obj::index, vertex_)
+	(sge::model::obj::index, vertex_index_)
 	(sge::model::obj::optional_index, texcoord_index_)
 	(sge::model::obj::optional_index, normal_index_)
 )

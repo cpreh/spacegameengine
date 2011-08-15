@@ -34,7 +34,7 @@ namespace obj
 
 struct face_point
 {
-	obj::index vertex_;
+	obj::index vertex_index_;
 
 	obj::optional_index texcoord_index_;
 

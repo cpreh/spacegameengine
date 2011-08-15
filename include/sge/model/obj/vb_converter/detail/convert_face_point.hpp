@@ -48,7 +48,7 @@ convert_face_point(
 
 	_current_vertex->template set<position_type>(
 		detail::convert_vertex<typename position_type::packed_type>(
-			_model.vertices()[_face_point.vertex_]));
+			_model.vertices()[_face_point.vertex_index_]));
 
 	typedef typename
 	boost::mpl::at
