@@ -70,6 +70,20 @@ SET(
 	src/model/obj/tokens_fwd.hpp
 )
 
+OPTION(
+	ENABLE_MODELOBJ_DEBUG
+	"Enable parse debugging for model obj"
+	FALSE
+)
+
+IF(
+	ENABLE_MODELOBJ_DEBUG
+)
+	ADD_DEFINITIONS(
+		"-D BOOST_SPIRIT_LEXERTL_DEBUG -D BOOST_SPIRIT_DEBUG"
+	)
+ENDIF()
+
 ADD_SGE_BASE_LIBRARY(
 	modelobj
 	""

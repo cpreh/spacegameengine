@@ -56,7 +56,6 @@ sge::model::obj::parse(
 		std::ios_base::skipws
 	);
 
-
 	obj::base_iterator base_begin(
 		stream
 	);

@@ -257,7 +257,7 @@ sge::model::obj::basic_grammar<
 	file_ =
 		*line_;
 
-#if 0
+#if defined(BOOST_SPIRIT_DEBUG)
 	vertex_.name("vertex");
 	texcoord_.name("texcoord");
 	normal_.name("normal");
@@ -282,6 +282,7 @@ sge::model::obj::basic_grammar<
 	BOOST_SPIRIT_DEBUG_NODE(line_);
 	BOOST_SPIRIT_DEBUG_NODE(file_);
 #endif
+
 	state_.meshes_.push_back(
 		obj::mesh()
 	);
