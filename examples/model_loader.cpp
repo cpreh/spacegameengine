@@ -19,68 +19,81 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/all_extensions.hpp>
-#include <sge/camera/object.hpp>
-#include <sge/parse/json/config/merge_command_line_parameters.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/parse/json/path.hpp>
-#include <sge/parse/json/parse_string_exn.hpp>
-#include <sge/parse/json/config/create_command_line_parameters.hpp>
+#include <sge/camera/duration.hpp>
 #include <sge/camera/movement_speed.hpp>
-#include <sge/camera/rotation_speed.hpp>
+#include <sge/camera/object.hpp>
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
-#include <sge/camera/duration.hpp>
+#include <sge/camera/rotation_speed.hpp>
 #include <sge/exception.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/line_drawer/line.hpp>
+#include <sge/line_drawer/line_sequence.hpp>
+#include <sge/line_drawer/object.hpp>
+#include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/log/global.hpp>
+#include <sge/model/obj/create.hpp>
+#include <sge/model/obj/face.hpp>
+#include <sge/model/obj/face_point.hpp>
+#include <sge/model/obj/face_point_sequence.hpp>
+#include <sge/model/obj/face_sequence.hpp>
+#include <sge/model/obj/instance.hpp>
+#include <sge/model/obj/instance_ptr.hpp>
+#include <sge/model/obj/loader.hpp>
 #include <sge/model/obj/loader_ptr.hpp>
-#include <sge/model/obj/vertex.hpp>
+#include <sge/model/obj/mesh.hpp>
+#include <sge/model/obj/mesh_sequence.hpp>
 #include <sge/model/obj/normal.hpp>
 #include <sge/model/obj/normal_sequence.hpp>
-#include <sge/model/obj/instance_ptr.hpp>
-#include <sge/model/obj/instance.hpp>
-#include <sge/model/obj/loader.hpp>
-#include <sge/model/obj/mesh_sequence.hpp>
-#include <sge/model/obj/mesh.hpp>
-#include <sge/model/obj/face_sequence.hpp>
-#include <sge/model/obj/face.hpp>
-#include <sge/model/obj/face_point_sequence.hpp>
-#include <sge/model/obj/face_point.hpp>
-#include <sge/model/obj/loader.hpp>
-#include <sge/model/obj/create.hpp>
+#include <sge/model/obj/vb_converter/convert.hpp>
+#include <sge/model/obj/vb_converter/roles/normal.hpp>
 #include <sge/model/obj/vb_converter/roles/position.hpp>
 #include <sge/model/obj/vb_converter/roles/texcoord.hpp>
-#include <sge/model/obj/vb_converter/roles/normal.hpp>
-#include <sge/model/obj/vb_converter/convert.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/fov.hpp>
-#include <sge/renderer/projection/near.hpp>
+#include <sge/model/obj/vertex.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/config/create_command_line_parameters.hpp>
+#include <sge/parse/json/config/merge_command_line_parameters.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/parse_string_exn.hpp>
+#include <sge/parse/json/path.hpp>
+#include <sge/renderer/ambient_color.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
-#include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/diffuse_color.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/scalar.hpp>
-#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/light/attenuation.hpp>
+#include <sge/renderer/light/constant_attenuation.hpp>
+#include <sge/renderer/light/linear_attenuation.hpp>
+#include <sge/renderer/light/quadratic_attenuation.hpp>
 #include <sge/renderer/light/index.hpp>
+#include <sge/renderer/light/object.hpp>
+#include <sge/renderer/light/point.hpp>
+#include <sge/renderer/light/position.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/fov.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scoped_transform.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/specular_color.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
@@ -88,23 +101,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/draw_mode.hpp>
 #include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/scoped.hpp>
-#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/normal.hpp>
 #include <sge/renderer/vf/part.hpp>
@@ -112,12 +125,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/visual_depth.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/vsync.hpp>
-#include <sge/timer/basic.hpp>
-#include <sge/timer/elapsed_and_reset.hpp>
-#include <sge/timer/parameters.hpp>
-#include <sge/timer/clocks/standard.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/image_loader.hpp>
@@ -127,41 +135,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
-#include <sge/window/simple_parameters.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/clocks/standard.hpp>
+#include <sge/timer/elapsed_and_reset.hpp>
+#include <sge/timer/parameters.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/line_drawer/object.hpp>
-#include <sge/line_drawer/line_sequence.hpp>
-#include <sge/line_drawer/line.hpp>
-#include <sge/line_drawer/scoped_lock.hpp>
-#include <fcppt/container/bitfield/bitfield.hpp>
+#include <sge/window/simple_parameters.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/chrono/seconds.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/homogenous_pair.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cout.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/log/log.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/length.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/io/cout.hpp>
 #include <fcppt/scoped_ptr.hpp>
-#include <fcppt/assert/pre.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/tr1/unordered_map.hpp>
-#include <fcppt/chrono/seconds.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstdlib>
 #include <exception>
@@ -476,7 +483,13 @@ try
 				"\"normal-scaling\" : 1.0,"
 				"\"lighting\" : true,"
 				"\"model-file\" : \"\","
-				"\"texture\" : \"\""
+				"\"texture\" : \"\","
+				"\"light\" : {"
+					"\"position\" : [0.0,0.0,0.0],"
+					"\"constant-attenuation\" : 10.0,"
+					"\"linear-attenuation\" : 10.0,"
+					"\"quadratic-attenuation\" : 10.0"
+				"}"
 				"}"),
 			sge::parse::json::config::create_command_line_parameters(
 				argc,
@@ -607,14 +620,34 @@ try
 			sge::parse::json::path(
 				FCPPT_TEXT("normal-scaling"))));
 
-	/* TODO
 	sys.renderer().light(
 		sge::renderer::light::index(
 			0),
 		sge::renderer::light::object(
 			sge::renderer::diffuse_color(
-				sge::image::colors::)));
-	*/
+				sge::image::colors::white()),
+			sge::renderer::specular_color(
+				sge::image::colors::white()),
+			sge::renderer::ambient_color(
+				sge::image::colors::white()),
+			sge::renderer::light::point(
+				sge::renderer::light::position(
+					sge::parse::json::find_and_convert_member<sge::renderer::light::position::value_type>(
+						config,
+						sge::parse::json::path(FCPPT_TEXT("light")) / FCPPT_TEXT("position"))),
+				sge::renderer::light::attenuation(
+					sge::renderer::light::constant_attenuation(
+						sge::parse::json::find_and_convert_member<sge::renderer::light::constant_attenuation::value_type>(
+							config,
+							sge::parse::json::path(FCPPT_TEXT("light")) / FCPPT_TEXT("constant-attenuation"))),
+					sge::renderer::light::linear_attenuation(
+						sge::parse::json::find_and_convert_member<sge::renderer::light::linear_attenuation::value_type>(
+							config,
+							sge::parse::json::path(FCPPT_TEXT("light")) / FCPPT_TEXT("linear-attenuation"))),
+					sge::renderer::light::quadratic_attenuation(
+						sge::parse::json::find_and_convert_member<sge::renderer::light::quadratic_attenuation::value_type>(
+							config,
+							sge::parse::json::path(FCPPT_TEXT("light")) / FCPPT_TEXT("quadratic-attenuation")))))));
 
 	sys.renderer().enable_light(
 		sge::renderer::light::index(
