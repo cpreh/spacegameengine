@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/include/qi_core.hpp>
 #include <boost/spirit/include/qi_grammar.hpp>
 #include <boost/spirit/include/qi_lit.hpp>
+#include <boost/spirit/include/qi_omit.hpp>
 #include <boost/spirit/include/qi_optional.hpp>
 #include <boost/spirit/include/qi_repeat.hpp>
 
@@ -80,7 +81,9 @@ sge::model::obj::basic_grammar<
 		;
 
 	texcoord_ %=
-		_tokens.vt_
+		boost::spirit::qi::omit[
+			_tokens.vt_
+		]
 		>>
 		_tokens.float_
 		>>
@@ -90,7 +93,9 @@ sge::model::obj::basic_grammar<
 		;
 
 	normal_ %=
-		_tokens.vn_
+		boost::spirit::qi::omit[
+			_tokens.vn_
+		]
 		>>
 		_tokens.float_
 		>>
@@ -144,13 +149,17 @@ sge::model::obj::basic_grammar<
 		;
 
 	mtllib_ =
-		_tokens.mtllib_
+		boost::spirit::qi::omit[
+			_tokens.mtllib_
+		]
 		>>
 		_tokens.name_
 		;
 
 	usemtl_ =
-		_tokens.usemtl_
+		boost::spirit::qi::omit[
+			_tokens.usemtl_
+		]
 		>>
 		_tokens.name_
 		;
