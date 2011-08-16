@@ -6,6 +6,8 @@
 #include <sge/model/obj/texcoord_sequence.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/void.hpp>
@@ -53,6 +55,13 @@ convert_texcoord(
 		TexcoordIndex
 	>::type
 	texcoord_type;
+
+	FCPPT_ASSERT_PRE(
+		_face_point.texcoord_index_);
+
+	FCPPT_ASSERT_ERROR(
+		static_cast<obj::texcoord_sequence::size_type>(
+			(*_face_point.texcoord_index_) - 1) < _model.texcoords().size());
 
 	obj::texcoord const origin =
 		_model.texcoords()[

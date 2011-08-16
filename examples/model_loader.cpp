@@ -41,10 +41,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/log/global.hpp>
 #include <sge/model/obj/loader_ptr.hpp>
-#include <sge/model/obj/face_sequence.hpp>
+#include <sge/model/obj/vertex.hpp>
+#include <sge/model/obj/normal.hpp>
+#include <sge/model/obj/normal_sequence.hpp>
 #include <sge/model/obj/instance_ptr.hpp>
 #include <sge/model/obj/instance.hpp>
 #include <sge/model/obj/loader.hpp>
+#include <sge/model/obj/mesh_sequence.hpp>
+#include <sge/model/obj/mesh.hpp>
+#include <sge/model/obj/face_sequence.hpp>
+#include <sge/model/obj/face.hpp>
+#include <sge/model/obj/face_point_sequence.hpp>
+#include <sge/model/obj/face_point.hpp>
 #include <sge/model/obj/loader.hpp>
 #include <sge/model/obj/create.hpp>
 #include <sge/model/obj/vb_converter/roles/position.hpp>
@@ -58,6 +66,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/light/index.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -123,6 +133,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/line_drawer/object.hpp>
+#include <sge/line_drawer/line_sequence.hpp>
+#include <sge/line_drawer/line.hpp>
+#include <sge/line_drawer/scoped_lock.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
@@ -133,11 +147,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/dim.hpp>
-#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -206,6 +224,7 @@ public:
 
 	~compiled_model();
 private:
+	sge::renderer::vertex_declaration const &vd_;
 	sge::renderer::vertex_buffer_ptr vb_;
 	sge::renderer::texture::planar_ptr texture_;
 	sge::renderer::device &renderer_;
@@ -317,6 +336,8 @@ compiled_model::compiled_model(
 	sge::renderer::vertex_declaration const &_vd,
 	sge::renderer::texture::planar_ptr const _texture)
 :
+	vd_(
+		_vd),
 	vb_(
 		choose_format_and_convert(
 			_renderer,
@@ -345,6 +366,10 @@ compiled_model::render()
 				sge::renderer::stage(
 					0)));
 
+	sge::renderer::scoped_vertex_declaration scoped_vd(
+		renderer_,
+		vd_);
+
 	sge::renderer::scoped_vertex_buffer scoped_vb(
 		renderer_,
 		*vb_);
@@ -360,6 +385,80 @@ compiled_model::render()
 compiled_model::~compiled_model()
 {
 }
+
+void
+normals_to_line_drawer(
+	sge::model::obj::instance const &model,
+	sge::line_drawer::line_sequence &lines,
+	sge::renderer::scalar const normal_scaling)
+{
+	if(model.normals().empty())
+		return;
+
+	sge::renderer::scalar const epsilon =
+		0.001f;
+
+	for(
+		sge::model::obj::mesh_sequence::const_iterator mesh_it =
+			model.meshes().begin();
+		mesh_it != model.meshes().end();
+		++mesh_it)
+	{
+		for(
+			sge::model::obj::face_sequence::const_iterator face_it =
+				mesh_it->faces_.begin();
+			face_it != mesh_it->faces_.end();
+			++face_it)
+		{
+			for(
+				sge::model::obj::face_point_sequence::const_iterator face_point_it =
+					face_it->points_.begin();
+				face_point_it != face_it->points_.end();
+				++face_point_it)
+			{
+				sge::model::obj::vertex const current_model_vertex(
+					model.vertices()[
+						static_cast<sge::model::obj::vertex_sequence::size_type>(
+							face_point_it->vertex_index_ - 1)]);
+
+				FCPPT_ASSERT_PRE(
+					face_point_it->normal_index_);
+
+				sge::model::obj::normal const current_model_normal(
+					model.normals()[
+						static_cast<sge::model::obj::normal_sequence::size_type>(
+							(*face_point_it->normal_index_)-1)]);
+
+				sge::renderer::vector3 const
+					current_vertex(
+						static_cast<sge::renderer::scalar>(
+							current_model_vertex.v1_),
+						static_cast<sge::renderer::scalar>(
+							current_model_vertex.v2_),
+						static_cast<sge::renderer::scalar>(
+							current_model_vertex.v3_)),
+					current_normal(
+						static_cast<sge::renderer::scalar>(
+							current_model_normal.n1_),
+						static_cast<sge::renderer::scalar>(
+							current_model_normal.n2_),
+						static_cast<sge::renderer::scalar>(
+							current_model_normal.n3_));
+
+				FCPPT_ASSERT_ERROR(
+					fcppt::math::vector::length(
+						current_normal) > epsilon);
+
+				lines.push_back(
+					sge::line_drawer::line(
+						current_vertex,
+						current_vertex + normal_scaling * current_normal,
+						sge::image::colors::red(),
+						sge::image::colors::green()));
+			}
+		}
+	}
+}
 }
 
 int
@@ -373,6 +472,8 @@ try
 			sge::parse::json::parse_string_exn(
 				FCPPT_TEXT("{")
 				"\"wireframe\" : false,"
+				"\"show-normals\" : true,"
+				"\"normal-scaling\" : 1.0,"
 				"\"lighting\" : true,"
 				"\"model-file\" : \"\","
 				"\"texture\" : \"\""
@@ -489,29 +590,31 @@ try
 		*vertex_declaration,
 		texture);
 
-	// Set the important render states
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::bool_::enable_lighting =
-				sge::parse::json::find_and_convert_member<bool>(
-					config,
-					sge::parse::json::path(FCPPT_TEXT("lighting"))))
-			(
-				sge::parse::json::find_and_convert_member<bool>(
-					config,
-					sge::parse::json::path(FCPPT_TEXT("wireframe")))
-				?
-					sge::renderer::state::draw_mode::line
-				:
-					sge::renderer::state::draw_mode::fill)
-			(sge::renderer::state::bool_::clear_depth_buffer = true)
-			(sge::renderer::state::float_::depth_buffer_clear_val = 1.f)
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::bool_::enable_alpha_blending = false)
-			(sge::renderer::state::cull_mode::front)
-			(sge::renderer::state::color::back_buffer_clear_color =
-				sge::image::colors::black()));
+	sge::line_drawer::object line_drawer(
+		sys.renderer());
+
+	if(
+		sge::parse::json::find_and_convert_member<bool>(
+			config,
+			sge::parse::json::path(
+				FCPPT_TEXT("show-normals"))))
+	normals_to_line_drawer(
+		*model,
+		sge::line_drawer::scoped_lock(
+			line_drawer).value(),
+		sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+			config,
+			sge::parse::json::path(
+				FCPPT_TEXT("normal-scaling"))));
+
+	/* TODO
+	sys.renderer().light(
+		sge::renderer::light::index(
+			0),
+		sge::renderer::light::object(
+			sge::renderer::diffuse_color(
+				sge::image::colors::)));
+	*/
 
 	sys.renderer().enable_light(
 		sge::renderer::light::index(
@@ -525,10 +628,15 @@ try
 				fcppt::chrono::seconds(
 					1)));
 
-	// The vertex declaration can be set once in this case
-	sge::renderer::scoped_vertex_declaration scoped_vd(
+	// Set clear status
+	sge::renderer::state::scoped scoped_clear_state(
 		sys.renderer(),
-		*vertex_declaration);
+		sge::renderer::state::list
+			(sge::renderer::state::bool_::clear_depth_buffer = true)
+			(sge::renderer::state::float_::depth_buffer_clear_val = 1.f)
+			(sge::renderer::state::bool_::clear_back_buffer = true)
+			(sge::renderer::state::color::back_buffer_clear_color =
+					sge::image::colors::black()));
 
 	while(running)
 	{
@@ -556,6 +664,27 @@ try
 			sys.renderer(),
 			sge::renderer::matrix_mode::world,
 			camera.world());
+
+		line_drawer.render();
+
+		sge::renderer::state::scoped scoped_state(
+			sys.renderer(),
+			sge::renderer::state::list
+				(sge::renderer::state::bool_::enable_lighting =
+					sge::parse::json::find_and_convert_member<bool>(
+						config,
+						sge::parse::json::path(FCPPT_TEXT("lighting"))))
+				(
+					sge::parse::json::find_and_convert_member<bool>(
+						config,
+						sge::parse::json::path(FCPPT_TEXT("wireframe")))
+					?
+						sge::renderer::state::draw_mode::line
+					:
+						sge::renderer::state::draw_mode::fill)
+				(sge::renderer::state::depth_func::less)
+				(sge::renderer::state::bool_::enable_alpha_blending = false)
+				(sge::renderer::state::cull_mode::front));
 
 		compiled.render();
 	}

@@ -12,6 +12,7 @@
 #include <sge/model/obj/vb_converter/roles/normal.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/iterator.hpp>
+#include <fcppt/assert/error.hpp>
 #include <boost/mpl/at.hpp>
 
 namespace sge
@@ -46,6 +47,10 @@ convert_face_point(
 		position_index_type
 	>::type
 	position_type;
+
+	FCPPT_ASSERT_ERROR(
+		static_cast<obj::vertex_sequence::size_type>(
+			_face_point.vertex_index_ - 1) < _model.vertices().size());
 
 	_current_vertex->template set<position_type>(
 		detail::convert_vertex<typename position_type::packed_type>(

@@ -7,6 +7,7 @@
 #include <sge/renderer/vf/vertex.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/void.hpp>
@@ -55,8 +56,12 @@ convert_normal(
 	>::type
 	normal_type;
 
-	FCPPT_ASSERT_ERROR(
+	FCPPT_ASSERT_PRE(
 		_face_point.normal_index_);
+
+	FCPPT_ASSERT_ERROR(
+		static_cast<obj::normal_sequence::size_type>(
+			(*_face_point.normal_index_) - 1) < _model.normals().size());
 
 	obj::normal const origin =
 		_model.normals()[
