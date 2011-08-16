@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
@@ -84,6 +85,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/vf/format.hpp>
@@ -408,14 +410,13 @@ try
 	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_back_buffer = true)
+			(sge::renderer::state::bool_::enable_lighting = true)
+//			(sge::renderer::state::draw_mode::line)
 			(sge::renderer::state::bool_::clear_depth_buffer = true)
 			(sge::renderer::state::float_::depth_buffer_clear_val = 1.f)
 			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::bool_::enable_alpha_blending = false)
 			(sge::renderer::state::cull_mode::front)
-			(sge::renderer::state::draw_mode::fill)
-			(sge::renderer::state::bool_::enable_lighting = false)
-			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::color::back_buffer_clear_color =
 				sge::image::colors::black()));
 
@@ -453,7 +454,17 @@ try
 		sge::renderer::scoped_block const block_(
 			sys.renderer());
 
-//		compiled.render();
+		sge::renderer::scoped_transform scoped_projection(
+			sys.renderer(),
+			sge::renderer::matrix_mode::projection,
+			camera.projection());
+
+		sge::renderer::scoped_transform scoped_world(
+			sys.renderer(),
+			sge::renderer::matrix_mode::world,
+			camera.world());
+
+		compiled.render();
 	}
 }
 catch(fcppt::exception const &e)

@@ -3,6 +3,7 @@
 
 #include <sge/model/obj/instance.hpp>
 #include <sge/model/obj/face_point.hpp>
+#include <sge/model/obj/texcoord_sequence.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -54,7 +55,9 @@ convert_texcoord(
 	texcoord_type;
 
 	obj::texcoord const origin =
-		_model.texcoords()[*_face_point.texcoord_index_];
+		_model.texcoords()[
+			static_cast<obj::texcoord_sequence::size_type>(
+				(*_face_point.texcoord_index_) - 1)];
 
 	typename texcoord_type::packed_type texcoord_vector;
 	texcoord_vector[0] = origin.t1_;

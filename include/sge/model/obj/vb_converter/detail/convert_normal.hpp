@@ -2,6 +2,7 @@
 #define SGE_MODEL_OBJ_VB_CONVERTER_DETAIL_CONVERT_NORMAL_HPP_INCLUDED
 
 #include <sge/model/obj/instance.hpp>
+#include <sge/model/obj/normal_sequence.hpp>
 #include <sge/model/obj/face_point.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -58,7 +59,9 @@ convert_normal(
 		_face_point.normal_index_);
 
 	obj::normal const origin =
-		_model.normals()[*_face_point.normal_index_];
+		_model.normals()[
+			static_cast<obj::normal_sequence::size_type>(
+				(*_face_point.normal_index_) - 1)];
 
 	_vertex->template set<normal_type>(
 		typename normal_type::packed_type(

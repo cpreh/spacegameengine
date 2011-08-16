@@ -3,6 +3,7 @@
 
 #include <sge/model/obj/face_point.hpp>
 #include <sge/model/obj/instance.hpp>
+#include <sge/model/obj/vertex_sequence.hpp>
 #include <sge/model/obj/vb_converter/roles/position.hpp>
 #include <sge/model/obj/vb_converter/detail/convert_vertex.hpp>
 #include <sge/model/obj/vb_converter/detail/convert_texcoord.hpp>
@@ -48,7 +49,10 @@ convert_face_point(
 
 	_current_vertex->template set<position_type>(
 		detail::convert_vertex<typename position_type::packed_type>(
-			_model.vertices()[_face_point.vertex_index_]));
+			// Attention: indices in obj are 1-based!
+			_model.vertices()[
+				static_cast<obj::vertex_sequence::size_type>(
+					_face_point.vertex_index_ - 1)]));
 
 	typedef typename
 	boost::mpl::at
