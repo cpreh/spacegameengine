@@ -20,6 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/all_extensions.hpp>
 #include <sge/camera/object.hpp>
+#include <sge/parse/json/config/merge_command_line_parameters.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/path.hpp>
+#include <sge/parse/json/parse_string_exn.hpp>
+#include <sge/parse/json/config/create_command_line_parameters.hpp>
 #include <sge/camera/movement_speed.hpp>
 #include <sge/camera/rotation_speed.hpp>
 #include <sge/camera/parameters.hpp>
@@ -119,7 +126,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/homogenous_pair.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/lexical_cast.hpp>
@@ -147,7 +153,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/mpl/map/map10.hpp>
 #include <boost/mpl/pair.hpp>
-#include <boost/mpl/integral_c.hpp>
 #include <fcppt/mpl/index_of.hpp>
 
 namespace
@@ -184,15 +189,6 @@ sge::renderer::vf::format
 format;
 }
 
-// Just a little helper method.
-void
-show_usage(
-	char const * const app_path)
-{
-	std::cerr << "usage: " << app_path << " model-file [texture]\n";
-}
-
-
 class compiled_model
 {
 FCPPT_NONCOPYABLE(
@@ -215,6 +211,106 @@ private:
 	sge::renderer::device &renderer_;
 };
 
+typedef
+boost::mpl::map1
+<
+	boost::mpl::pair
+	<
+		sge::model::obj::vb_converter::roles::position,
+		fcppt::mpl::index_of
+		<
+			vf::format_part::elements,
+			vf::position
+		>
+	>
+>
+base_format;
+
+typedef
+boost::mpl::insert
+<
+	base_format,
+	boost::mpl::pair
+	<
+		sge::model::obj::vb_converter::roles::texcoord,
+		fcppt::mpl::index_of
+		<
+			vf::format_part::elements,
+			vf::texcoord
+		>
+	>
+>::type
+texcoord_format;
+
+typedef
+boost::mpl::insert
+<
+	texcoord_format,
+	boost::mpl::pair
+	<
+		sge::model::obj::vb_converter::roles::normal,
+		fcppt::mpl::index_of
+		<
+			vf::format_part::elements,
+			vf::normal
+		>
+	>
+>::type
+texcoord_normal_format;
+
+typedef
+boost::mpl::insert
+<
+	base_format,
+	boost::mpl::pair
+	<
+		sge::model::obj::vb_converter::roles::normal,
+		fcppt::mpl::index_of
+		<
+			vf::format_part::elements,
+			vf::normal
+		>
+	>
+>::type
+normal_format;
+
+sge::renderer::vertex_buffer_ptr const
+choose_format_and_convert(
+	sge::renderer::device &_renderer,
+	sge::renderer::vertex_declaration const &_vd,
+	sge::model::obj::instance const &_model,
+	sge::renderer::texture::planar_ptr const _texture)
+{
+	if(_texture)
+	{
+		if(_model.normals().empty())
+			return
+				sge::model::obj::vb_converter::convert<vf::format_part,texcoord_format>(
+					_renderer,
+					_vd,
+					_model);
+
+		return
+			sge::model::obj::vb_converter::convert<vf::format_part,texcoord_normal_format>(
+				_renderer,
+				_vd,
+				_model);
+	}
+
+	if(!_model.normals().empty())
+		return
+			sge::model::obj::vb_converter::convert<vf::format_part,normal_format>(
+				_renderer,
+				_vd,
+				_model);
+
+	return
+		sge::model::obj::vb_converter::convert<vf::format_part,base_format>(
+			_renderer,
+			_vd,
+			_model);
+}
+
 compiled_model::compiled_model(
 	sge::model::obj::instance const &_model,
 	sge::renderer::device &_renderer,
@@ -222,45 +318,11 @@ compiled_model::compiled_model(
 	sge::renderer::texture::planar_ptr const _texture)
 :
 	vb_(
-		sge::model::obj::vb_converter::convert
-		<
-			vf::format_part,
-//			boost::mpl::map3
-			boost::mpl::map2
-			<
-				boost::mpl::pair
-				<
-					sge::model::obj::vb_converter::roles::position,
-					fcppt::mpl::index_of
-					<
-						vf::format_part::elements,
-						vf::position
-					>
-				>,
-				/*
-				boost::mpl::pair
-				<
-					sge::model::obj::vb_converter::roles::texcoord,
-					fcppt::mpl::index_of
-					<
-						vf::format_part::elements,
-						vf::texcoord
-					>
-				>,*/
-				boost::mpl::pair
-				<
-					sge::model::obj::vb_converter::roles::normal,
-					fcppt::mpl::index_of
-					<
-						vf::format_part::elements,
-						vf::normal
-					>
-				>
-			>
-		>(
+		choose_format_and_convert(
 			_renderer,
 			_vd,
-			_model)),
+			_model,
+			_texture)),
 	texture_(
 		_texture),
 	renderer_(
@@ -306,11 +368,34 @@ main(
 	char *argv[])
 try
 {
-	if(argc > 3 || argc <= 1)
+	sge::parse::json::object const config(
+		sge::parse::json::config::merge_command_line_parameters(
+			sge::parse::json::parse_string_exn(
+				FCPPT_TEXT("{")
+				"\"wireframe\" : false,"
+				"\"lighting\" : true,"
+				"\"model-file\" : \"\","
+				"\"texture\" : \"\""
+				"}"),
+			sge::parse::json::config::create_command_line_parameters(
+				argc,
+				argv)));
+
+	fcppt::filesystem::path const
+		model_file(
+			sge::parse::json::find_and_convert_member<fcppt::string>(
+				config,
+				sge::parse::json::path(
+					FCPPT_TEXT("model-file")))),
+		texture_file(
+			sge::parse::json::find_and_convert_member<fcppt::string>(
+				config,
+				sge::parse::json::path(
+					FCPPT_TEXT("texture"))));
+
+	if(model_file.empty())
 	{
-		std::cerr << "Error, you provided too many or too few arguments, exiting...\n";
-		show_usage(
-			argv[0]);
+		fcppt::io::cerr << FCPPT_TEXT("Please specify a valid model file path with \"model-file=<path>\"\n");
 		return EXIT_FAILURE;
 	}
 
@@ -384,15 +469,13 @@ try
 
 	sge::model::obj::instance_ptr model(
 		model_loader->load(
-			fcppt::from_std_string(
-				argv[1])));
+			model_file));
 
 	sge::renderer::texture::planar_ptr texture;
-	if(argc == 3)
+	if(!texture_file.empty())
 		texture =
 			sge::renderer::texture::create_planar_from_path(
-				fcppt::from_std_string(
-					argv[2]),
+				texture_file,
 				sys.renderer(),
 				sys.image_loader(),
 				sge::renderer::texture::mipmap::off(),
@@ -410,8 +493,18 @@ try
 	sys.renderer().state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::bool_::enable_lighting = true)
-//			(sge::renderer::state::draw_mode::line)
+			(sge::renderer::state::bool_::enable_lighting =
+				sge::parse::json::find_and_convert_member<bool>(
+					config,
+					sge::parse::json::path(FCPPT_TEXT("lighting"))))
+			(
+				sge::parse::json::find_and_convert_member<bool>(
+					config,
+					sge::parse::json::path(FCPPT_TEXT("wireframe")))
+				?
+					sge::renderer::state::draw_mode::line
+				:
+					sge::renderer::state::draw_mode::fill)
 			(sge::renderer::state::bool_::clear_depth_buffer = true)
 			(sge::renderer::state::float_::depth_buffer_clear_val = 1.f)
 			(sge::renderer::state::depth_func::less)
