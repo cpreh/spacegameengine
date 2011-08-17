@@ -33,9 +33,9 @@ sge::opengl::range_lock_method(
 	)
 	{
 	case renderer::lock_flags::method::read:
-		return GL_MAP_READ_BIT | GL_MAP_INVALIDATE_RANGE_BIT;
+		return GL_MAP_READ_BIT;
 	case renderer::lock_flags::method::write:
-		return GL_MAP_WRITE_BIT;
+		return GL_MAP_WRITE_BIT |GL_MAP_INVALIDATE_RANGE_BIT;
 	case renderer::lock_flags::method::readwrite:
 		return GL_MAP_READ_BIT | GL_MAP_WRITE_BIT;
 	}

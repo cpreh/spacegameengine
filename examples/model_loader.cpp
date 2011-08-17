@@ -63,18 +63,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/parse_string_exn.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/renderer/ambient_color.hpp>
+#include <sge/renderer/const_scoped_vertex_lock.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/diffuse_color.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/light/attenuation.hpp>
 #include <sge/renderer/light/constant_attenuation.hpp>
-#include <sge/renderer/light/linear_attenuation.hpp>
-#include <sge/renderer/light/quadratic_attenuation.hpp>
 #include <sge/renderer/light/index.hpp>
+#include <sge/renderer/light/linear_attenuation.hpp>
 #include <sge/renderer/light/object.hpp>
 #include <sge/renderer/light/point.hpp>
 #include <sge/renderer/light/position.hpp>
+#include <sge/renderer/light/quadratic_attenuation.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -84,7 +85,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_transform.hpp>
@@ -117,12 +118,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vf/const_tag.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/normal.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/texpos.hpp>
+#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
@@ -161,6 +166,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/ref.hpp>
@@ -228,6 +234,9 @@ public:
 
 	void
 	render();
+
+	sge::renderer::vertex_buffer const &
+	vb() const;
 
 	~compiled_model();
 private:
@@ -314,12 +323,14 @@ choose_format_and_convert(
 				sge::model::obj::vb_converter::convert<vf::format_part,texcoord_format>(
 					_renderer,
 					_vd,
+					sge::renderer::resource_flags::readable,
 					_model);
 
 		return
 			sge::model::obj::vb_converter::convert<vf::format_part,texcoord_normal_format>(
 				_renderer,
 				_vd,
+				sge::renderer::resource_flags::readable,
 				_model);
 	}
 
@@ -328,12 +339,14 @@ choose_format_and_convert(
 			sge::model::obj::vb_converter::convert<vf::format_part,normal_format>(
 				_renderer,
 				_vd,
+				sge::renderer::resource_flags::readable,
 				_model);
 
 	return
 		sge::model::obj::vb_converter::convert<vf::format_part,base_format>(
 			_renderer,
 			_vd,
+			sge::renderer::resource_flags::readable,
 			_model);
 }
 
@@ -389,21 +402,73 @@ compiled_model::render()
 		sge::renderer::nonindexed_primitive_type::triangle);
 }
 
+sge::renderer::vertex_buffer const &
+compiled_model::vb() const
+{
+	return
+		*vb_;
+}
+
 compiled_model::~compiled_model()
 {
 }
 
 void
 normals_to_line_drawer(
-	sge::model::obj::instance const &model,
+	//sge::model::obj::instance const &model,
+	sge::renderer::vertex_buffer const &vb,
 	sge::line_drawer::line_sequence &lines,
 	sge::renderer::scalar const normal_scaling)
 {
-	if(model.normals().empty())
-		return;
-
 	sge::renderer::scalar const epsilon =
 		0.001f;
+
+	lines.reserve(
+		static_cast<sge::line_drawer::line_sequence::size_type>(
+			vb.size()));
+
+	sge::renderer::const_scoped_vertex_lock scoped_vl(
+		vb,
+		sge::renderer::lock_mode::readwrite);
+
+	typedef
+	sge::renderer::vf::view<vf::format_part,sge::renderer::vf::const_tag>
+	vertex_part_view;
+
+	typedef
+	vertex_part_view::iterator
+	vertex_iterator;
+
+	vertex_part_view current_vertex_view(
+		scoped_vl.value());
+
+	for(
+		vertex_iterator it =
+			current_vertex_view.begin();
+		it != current_vertex_view.end();
+		++it)
+	{
+		sge::renderer::vector3 const
+			current_vertex =
+				it->get<vf::position>(),
+			current_normal =
+				it->get<vf::normal>();
+
+		FCPPT_ASSERT_ERROR(
+			fcppt::math::vector::length(
+				current_normal) > epsilon);
+
+		lines.push_back(
+			sge::line_drawer::line(
+				current_vertex,
+				current_vertex + normal_scaling * current_normal,
+				sge::image::colors::red(),
+				sge::image::colors::green()));
+	}
+
+#if SGE_MODEL_LOADER_EXAMPLE_READ_NORMALS_FROM_FILE
+	if(model.normals().empty())
+		return;
 
 	for(
 		sge::model::obj::mesh_sequence::const_iterator mesh_it =
@@ -465,6 +530,7 @@ normals_to_line_drawer(
 			}
 		}
 	}
+#endif
 }
 }
 
@@ -611,14 +677,14 @@ try
 			config,
 			sge::parse::json::path(
 				FCPPT_TEXT("show-normals"))))
-	normals_to_line_drawer(
-		*model,
-		sge::line_drawer::scoped_lock(
-			line_drawer).value(),
-		sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-			config,
-			sge::parse::json::path(
-				FCPPT_TEXT("normal-scaling"))));
+		normals_to_line_drawer(
+			compiled.vb(),
+			sge::line_drawer::scoped_lock(
+				line_drawer).value(),
+			sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+				config,
+				sge::parse::json::path(
+					FCPPT_TEXT("normal-scaling"))));
 
 	sys.renderer().light(
 		sge::renderer::light::index(

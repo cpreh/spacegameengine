@@ -16,6 +16,7 @@
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 
 namespace sge
@@ -31,6 +32,7 @@ renderer::vertex_buffer_ptr const
 convert(
 	renderer::device &_renderer,
 	renderer::vertex_declaration const &_vd,
+	renderer::resource_flags_field const &_flags,
 	obj::instance const &_model)
 {
 	renderer::vertex_buffer_ptr const result =
@@ -40,7 +42,7 @@ convert(
 				0u),
 			detail::count_vertices<sge::renderer::size_type>(
 				_model),
-			sge::renderer::resource_flags::none);
+			_flags);
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		*result,
