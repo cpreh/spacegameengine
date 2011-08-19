@@ -544,19 +544,19 @@ try
 		sge::parse::json::config::merge_command_line_parameters(
 			sge::parse::json::parse_string_exn(
 				FCPPT_TEXT("{")
-				"\"wireframe\" : false,"
-				"\"show-normals\" : true,"
-				"\"normal-scaling\" : 1.0,"
-				"\"lighting\" : true,"
-				"\"model-file\" : \"\","
-				"\"texture\" : \"\","
-				"\"light\" : {"
-					"\"position\" : [0.0,0.0,0.0],"
-					"\"constant-attenuation\" : 10.0,"
-					"\"linear-attenuation\" : 10.0,"
-					"\"quadratic-attenuation\" : 10.0"
-				"}"
-				"}"),
+				FCPPT_TEXT("\"wireframe\" : false,")
+				FCPPT_TEXT("\"show-normals\" : true,")
+				FCPPT_TEXT("\"normal-scaling\" : 1.0,")
+				FCPPT_TEXT("\"lighting\" : true,")
+				FCPPT_TEXT("\"model-file\" : \"\",")
+				FCPPT_TEXT("\"texture\" : \"\",")
+				FCPPT_TEXT("\"light\" : {")
+					FCPPT_TEXT("\"position\" : [0.0,0.0,0.0],")
+					FCPPT_TEXT("\"constant-attenuation\" : 10.0,")
+					FCPPT_TEXT("\"linear-attenuation\" : 10.0,")
+					FCPPT_TEXT("\"quadratic-attenuation\" : 10.0")
+				FCPPT_TEXT("}")
+				FCPPT_TEXT("}")),
 			sge::parse::json::config::create_command_line_parameters(
 				argc,
 				argv)));
