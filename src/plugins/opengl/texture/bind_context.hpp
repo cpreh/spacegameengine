@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
-#include <map>
 #include <vector>
 
 namespace sge
@@ -91,11 +90,6 @@ public:
 
 	static context::id const static_id;
 private:
-	void
-	decrement_type_count(
-		texture::type
-	);
-
 	typedef fcppt::container::index_map<
 		opengl::texture::base const *
 	> texture_vector;
@@ -104,18 +98,11 @@ private:
 		texture::optional_type
 	> texture_type_vector;
 
-	typedef std::map<
-		texture::type,
-		renderer::stage::value_type
-	> texture_type_map;
-
 	texture_vector
 		render_textures_,
 		temp_textures_;
 
 	texture_type_vector last_types_;
-
-	texture_type_map texture_type_counts_;
 };
 
 }
