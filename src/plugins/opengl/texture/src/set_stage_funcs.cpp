@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set_stage_funcs.hpp"
-#include "../funcs/envf.hpp"
+#include "../funcs/env.hpp"
 #include "../funcs/set_active_level.hpp"
 #include "../convert/stage_arg.hpp"
 #include "../convert/stage_arg_value.hpp"
@@ -47,7 +47,7 @@ sge::opengl::texture::set_stage_funcs(
 		_stage
 	);
 
-	opengl::texture::funcs::envf(
+	opengl::texture::funcs::env(
 		texture::convert::stage_arg_op(
 			_arg
 		),

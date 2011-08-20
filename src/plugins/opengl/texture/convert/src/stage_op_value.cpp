@@ -34,17 +34,12 @@ sge::opengl::texture::convert::stage_arg_op_value(
 	case renderer::sampler_stage_op_value::arg0:
 		return GL_REPLACE;
 	case renderer::sampler_stage_op_value::modulate:
-	case renderer::sampler_stage_op_value::modulate2x:
-	case renderer::sampler_stage_op_value::modulate4x:
 		return GL_MODULATE;
 	case renderer::sampler_stage_op_value::add:
-	case renderer::sampler_stage_op_value::add2x:
-	case renderer::sampler_stage_op_value::add4x:
 		return GL_ADD;
 	case renderer::sampler_stage_op_value::substract:
 		return GL_SUBTRACT;
 	case renderer::sampler_stage_op_value::add_signed:
-	case renderer::sampler_stage_op_value::add_signed2x:
 		return GL_ADD_SIGNED;
 	case renderer::sampler_stage_op_value::interpolate:
 		return GL_INTERPOLATE;

@@ -32,14 +32,9 @@ enum type
 {
 	arg0,
 	modulate,
-	modulate2x,
-	modulate4x,
 	add,
-	add2x,
-	add4x,
 	substract,
 	add_signed,
-	add_signed2x,
 	interpolate
 };
 }

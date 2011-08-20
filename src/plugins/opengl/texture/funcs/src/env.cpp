@@ -18,29 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_ENVF_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_ENVF_HPP_INCLUDED
+#include "../env.hpp"
+#include "../../../check_state.hpp"
+#include "../../../common.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "../../common.hpp"
-
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
+namespace
 {
 
 void
-envf(
-	GLenum arg,
-	GLenum value
-);
+tex_env_f(
+	GLenum const _type,
+	GLenum const _arg,
+	GLint const _value
+)
+{
+	::glTexEnvi(
+		_type,
+		_arg,
+		_value
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glTexEnvi failed"),
+		sge::renderer::exception
+	)
+}
 
 }
-}
-}
-}
 
-#endif
+void
+sge::opengl::texture::funcs::env(
+	GLenum const _arg,
+	GLenum const _value
+)
+{
+	::tex_env_f(
+		GL_TEXTURE_ENV,
+		_arg,
+		static_cast<
+			GLint
+		>(
+			_value
+		)
+	);
+}

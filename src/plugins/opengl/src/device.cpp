@@ -57,7 +57,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/optional_type.hpp"
 #include "../texture/planar.hpp"
 #include "../texture/set_stage_funcs.hpp"
-#include "../texture/set_stage_scale.hpp"
 #include "../texture/volume.hpp"
 #include "../texture/volume_context.hpp"
 #include "../texture/filter/update.hpp"
@@ -336,10 +335,6 @@ sge::opengl::device::sampler_stage_op(
 		context_,
 		_stage,
 		_op,
-		_value
-	);
-
-	opengl::texture::set_stage_scale(
 		_value
 	);
 }

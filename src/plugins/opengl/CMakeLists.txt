@@ -528,7 +528,7 @@ SET(
 	src/plugins/opengl/texture/filter/visitor.hpp
 	src/plugins/opengl/texture/funcs/bind.hpp
 	src/plugins/opengl/texture/funcs/delete.hpp
-	src/plugins/opengl/texture/funcs/envf.hpp
+	src/plugins/opengl/texture/funcs/env.hpp
 	src/plugins/opengl/texture/funcs/gen.hpp
 	src/plugins/opengl/texture/funcs/get_image.hpp
 	src/plugins/opengl/texture/funcs/get_parameter_int.hpp
@@ -542,7 +542,7 @@ SET(
 	src/plugins/opengl/texture/funcs/set_rect.hpp
 	src/plugins/opengl/texture/funcs/src/bind.cpp
 	src/plugins/opengl/texture/funcs/src/delete.cpp
-	src/plugins/opengl/texture/funcs/src/envf.cpp
+	src/plugins/opengl/texture/funcs/src/env.cpp
 	src/plugins/opengl/texture/funcs/src/gen.cpp
 	src/plugins/opengl/texture/funcs/src/get_image.cpp
 	src/plugins/opengl/texture/funcs/src/get_parameter_int.cpp
@@ -589,7 +589,6 @@ SET(
 	src/plugins/opengl/texture/scoped_work_bind.hpp
 	src/plugins/opengl/texture/scoped_work_bind_fwd.hpp
 	src/plugins/opengl/texture/set_stage_funcs.hpp
-	src/plugins/opengl/texture/set_stage_scale.hpp
 	src/plugins/opengl/texture/src/activate.cpp
 	src/plugins/opengl/texture/src/address_mode.cpp
 	src/plugins/opengl/texture/src/base.cpp
@@ -610,7 +609,6 @@ SET(
 	src/plugins/opengl/texture/src/readwrite_lock.cpp
 	src/plugins/opengl/texture/src/scoped_work_bind.cpp
 	src/plugins/opengl/texture/src/set_stage_funcs.cpp
-	src/plugins/opengl/texture/src/set_stage_scale.cpp
 	src/plugins/opengl/texture/src/surface.cpp
 	src/plugins/opengl/texture/src/surface_base.cpp
 	src/plugins/opengl/texture/src/volume.cpp
