@@ -21,36 +21,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/extension_set.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/first_index.hpp>
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/sampler_stage_arg.hpp>
 #include <sge/renderer/sampler_stage_arg_value.hpp>
 #include <sge/renderer/sampler_stage_op.hpp>
 #include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/scoped_index_lock.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/stage.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/index/format_16.hpp>
+#include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/dynamic/make_format.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/no_color.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
-#include <sge/sprite/render_one.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/texture_level_c.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/index.hpp>
+#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/part.hpp>
+#include <sge/renderer/vf/pos.hpp>
+#include <sge/renderer/vf/texpos.hpp>
+#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/input.hpp>
@@ -61,16 +88,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/texture/part_raw.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <exception>
@@ -161,61 +188,200 @@ try
 		)
 	);
 
-	typedef sge::sprite::type_choices<
-		int,
+	typedef sge::renderer::vf::pos<
 		float,
-		sge::sprite::no_color,
-		sge::sprite::texture_level_c<
-			2
+		3
+	> vf_pos;
+
+	typedef sge::renderer::vf::texpos<
+		float,
+		2,
+		sge::renderer::vf::index<
+			0
 		>
-	> sprite_types;
+	> vf_texpos0;
 
-	typedef sge::sprite::choices<
-		sprite_types,
-		boost::mpl::vector2<
-			sge::sprite::with_dim,
-			sge::sprite::with_texture
+	typedef sge::renderer::vf::texpos<
+		float,
+		2,
+		sge::renderer::vf::index<
+			1
 		>
-	> sprite_choices;
+	> vf_texpos1;
 
-	typedef sge::sprite::parameters<
-		sprite_choices
-	> sprite_parameters;
+	typedef sge::renderer::vf::part<
+		boost::mpl::vector3<
+			vf_pos,
+			vf_texpos0,
+			vf_texpos1
+		>
+	> vf_format_part;
 
-	typedef sge::sprite::object<
-		sprite_choices
-	> sprite_object;
+	typedef sge::renderer::vf::format<
+		boost::mpl::vector1<
+			vf_format_part
+		>
+	> vf_format;
 
-	typedef sge::sprite::system<
-		sprite_choices
-	>::type sprite_system;
-
-	sprite_system sprite_sys(
-		sys.renderer()
+	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+		sys.renderer().create_vertex_declaration(
+			sge::renderer::vf::dynamic::make_format<
+				vf_format
+			>()
+		)
 	);
 
-	sprite_object const sprite(
-		sprite_parameters()
-		.pos(
-			sprite_object::vector::null()
+	sge::renderer::vertex_buffer_ptr const vertex_buffer(
+		sys.renderer().create_vertex_buffer(
+			*vertex_declaration,
+			sge::renderer::vf::dynamic::part_index(
+				0u
+			),
+			4,
+			sge::renderer::resource_flags::none
 		)
-		.texture_level<0>(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw
-			>(
-				texture1
-			)
-		)
-		.texture_level<1>(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw
-			>(
-				texture2
-			)
-		)
-		.texture_size()
-		.elements()
 	);
+
+	{
+		sge::renderer::scoped_vertex_lock const vblock(
+			*vertex_buffer,
+			sge::renderer::lock_mode::writeonly
+		);
+
+		typedef sge::renderer::vf::view<
+			vf_format_part
+		> vertex_view;
+
+		vertex_view const vertices(
+			vblock.value()
+		);
+
+		vertex_view::iterator vb_it(
+			vertices.begin()
+		);
+
+		typedef vf_pos::packed_type pos;
+
+		typedef vf_texpos0::packed_type texpos0;
+
+		typedef vf_texpos1::packed_type texpos1;
+
+		// top left
+		(*vb_it).set<
+			vf_pos
+		>(
+			pos(-1.f, 1.f, 0.f)
+		);
+
+		(*vb_it).set<
+			vf_texpos0
+		>(
+			texpos0(0.f, 0.f)
+		);
+
+		(*vb_it++).set<
+			vf_texpos1
+		>(
+			texpos1(0.f, 0.f)
+		);
+
+		// bottom left
+		(*vb_it).set<
+			vf_pos
+		>(
+			pos(-1.f, -1.f, 0.f)
+		);
+
+		(*vb_it).set<
+			vf_texpos0
+		>(
+			texpos0(0.f, 1.f)
+		);
+
+		(*vb_it++).set<
+			vf_texpos1
+		>(
+			texpos1(0.f, 1.f)
+		);
+
+		// top right
+		(*vb_it).set<
+			vf_pos
+		>(
+			pos(1.f, 1.f, 0.f)
+		);
+
+		(*vb_it).set<
+			vf_texpos0
+		>(
+			texpos0(1.f, 0.f)
+		);
+
+		(*vb_it++).set<
+			vf_texpos1
+		>(
+			texpos1(1.f, 0.f)
+		);
+
+		// bottom right
+		(*vb_it).set<
+			vf_pos
+		>(
+			pos(1.f, -1.f, 0.f)
+		);
+
+		(*vb_it).set<
+			vf_texpos0
+		>(
+			texpos0(1.f, 1.f)
+		);
+
+		(*vb_it++).set<
+			vf_texpos1
+		>(
+			texpos1(1.f, 1.f)
+		);
+	}
+
+	typedef sge::renderer::index::format_16 index_format;
+
+	sge::renderer::index_buffer_ptr const index_buffer(
+		sys.renderer().create_index_buffer(
+			sge::renderer::index::dynamic::make_format<
+				index_format
+			>(),
+			6u,
+			sge::renderer::resource_flags::none
+		)
+	);
+
+	{
+		sge::renderer::scoped_index_lock const iblock(
+			*index_buffer,
+			sge::renderer::lock_mode::writeonly
+		);
+
+		typedef sge::renderer::index::view<
+			index_format
+		> index_view;
+
+		index_view const indices(
+			iblock.value()
+		);
+
+		typedef index_view::iterator index_iterator;
+
+		index_iterator ib_it(
+			indices.begin()
+		);
+
+		(*ib_it++).set(0);
+		(*ib_it++).set(1);
+		(*ib_it++).set(2);
+		(*ib_it++).set(2);
+		(*ib_it++).set(3);
+		(*ib_it++).set(1);
+	}
 
 	bool running = true;
 
@@ -236,61 +402,81 @@ try
 	{
 		sys.window().dispatch();
 
+		sge::renderer::scoped_vertex_declaration const vb_declaration_context(
+			sys.renderer(),
+			*vertex_declaration
+		);
+
+		sge::renderer::scoped_vertex_buffer const vb_context(
+			sys.renderer(),
+			*vertex_buffer
+		);
+
+		sge::renderer::texture::scoped const tex0_context(
+			sys.renderer(),
+			*texture1,
+			sge::renderer::stage(0u)
+		);
+
+		sge::renderer::texture::scoped const tex1_context(
+			sys.renderer(),
+			*texture2,
+			sge::renderer::stage(1u)
+		);
+
+		sge::renderer::state::scoped const scoped_state(
+			sys.renderer(),
+			sge::renderer::state::list(
+				sge::renderer::state::bool_::clear_back_buffer = true
+			)(
+				sge::renderer::state::color::back_buffer_clear_color =
+					sge::image::colors::black()
+			)
+		);
+
+		sys.renderer().sampler_stage_arg(
+			sge::renderer::stage(0u),
+			sge::renderer::sampler_stage_arg::rgb0,
+			sge::renderer::sampler_stage_arg_value::texture
+		);
+
+		sys.renderer().sampler_stage_op(
+			sge::renderer::stage(0u),
+			sge::renderer::sampler_stage_op::color,
+			sge::renderer::sampler_stage_op_value::arg0
+		);
+
+		sys.renderer().sampler_stage_arg(
+			sge::renderer::stage(1u),
+			sge::renderer::sampler_stage_arg::rgb0,
+			sge::renderer::sampler_stage_arg_value::previous
+		);
+
+		sys.renderer().sampler_stage_op(
+			sge::renderer::stage(1u),
+			sge::renderer::sampler_stage_op::color,
+			sge::renderer::sampler_stage_op_value::arg0
+		);
+
 		sge::renderer::scoped_block const block(
 			sys.renderer()
 		);
 
-		sys.renderer().sampler_stage_arg(
-			sge::renderer::stage(0u),
-			sge::renderer::sampler_stage_arg::alpha0,
-			sge::renderer::sampler_stage_arg_value::texture
-		);
-
-		sys.renderer().sampler_stage_arg(
-			sge::renderer::stage(0u),
-			sge::renderer::sampler_stage_arg::rgb0,
-			sge::renderer::sampler_stage_arg_value::texture
-		);
-
-		sys.renderer().sampler_stage_op(
-			sge::renderer::stage(0u),
-			sge::renderer::sampler_stage_op::alpha,
-			sge::renderer::sampler_stage_op_value::arg0
-		);
-
-		sys.renderer().sampler_stage_op(
-			sge::renderer::stage(0u),
-			sge::renderer::sampler_stage_op::color,
-			sge::renderer::sampler_stage_op_value::arg0
-		);
-
-		sys.renderer().sampler_stage_arg(
-			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_arg::alpha0,
-			sge::renderer::sampler_stage_arg_value::previous
-		);
-
-		sys.renderer().sampler_stage_arg(
-			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_arg::rgb0,
-			sge::renderer::sampler_stage_arg_value::previous
-		);
-
-		sys.renderer().sampler_stage_op(
-			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_op::alpha,
-			sge::renderer::sampler_stage_op_value::arg0
-		);
-
-		sys.renderer().sampler_stage_op(
-			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_op::color,
-			sge::renderer::sampler_stage_op_value::arg0
-		);
-
-		sge::sprite::render_one(
-			sprite_sys,
-			sprite
+		sys.renderer().render_indexed(
+			*index_buffer,
+			sge::renderer::first_vertex(
+				0u
+			),
+			sge::renderer::vertex_count(
+				vertex_buffer->size()
+			),
+			sge::renderer::indexed_primitive_type::triangle,
+			sge::renderer::primitive_count(
+				2u
+			),
+			sge::renderer::first_index(
+				0u
+			)
 		);
 	}
 }
