@@ -131,7 +131,7 @@ try
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
-			/ FCPPT_TEXT("cloudsquare.png"),
+			/ FCPPT_TEXT("color_map.png"),
 			sys.renderer(),
 			sys.image_loader(),
 			sge::renderer::texture::mipmap::off(),
@@ -234,6 +234,54 @@ try
 
 		sge::renderer::scoped_block const block(
 			sys.renderer()
+		);
+
+		sys.renderer().sampler_stage_arg(
+			sge::renderer::stage(0u),
+			sge::renderer::sampler_stage_arg::alpha0,
+			sge::renderer::sampler_stage_arg_value::texture
+		);
+
+		sys.renderer().sampler_stage_arg(
+			sge::renderer::stage(0u),
+			sge::renderer::sampler_stage_arg::rgb0,
+			sge::renderer::sampler_stage_arg_value::texture
+		);
+
+		sys.renderer().sampler_stage_op(
+			sge::renderer::stage(0u),
+			sge::renderer::sampler_stage_op::alpha,
+			sge::renderer::sampler_stage_op_value::arg0
+		);
+
+		sys.renderer().sampler_stage_op(
+			sge::renderer::stage(0u),
+			sge::renderer::sampler_stage_op::color,
+			sge::renderer::sampler_stage_op_value::arg0
+		);
+
+		sys.renderer().sampler_stage_arg(
+			sge::renderer::stage(1u),
+			sge::renderer::sampler_stage_arg::alpha0,
+			sge::renderer::sampler_stage_arg_value::previous
+		);
+
+		sys.renderer().sampler_stage_arg(
+			sge::renderer::stage(1u),
+			sge::renderer::sampler_stage_arg::rgb0,
+			sge::renderer::sampler_stage_arg_value::previous
+		);
+
+		sys.renderer().sampler_stage_op(
+			sge::renderer::stage(1u),
+			sge::renderer::sampler_stage_op::alpha,
+			sge::renderer::sampler_stage_op_value::arg0
+		);
+
+		sys.renderer().sampler_stage_op(
+			sge::renderer::stage(1u),
+			sge::renderer::sampler_stage_op::color,
+			sge::renderer::sampler_stage_op_value::arg0
 		);
 
 		sge::sprite::render_one(

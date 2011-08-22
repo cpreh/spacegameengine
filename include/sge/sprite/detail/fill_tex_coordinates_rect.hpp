@@ -43,7 +43,7 @@ template<
 void
 fill_tex_coordinates_rect(
 	Iterator _iterator,
-	typename texture_coordinates<
+	typename sprite::texture_coordinates<
 		typename Choices::type_choices::float_type
 	>::type const &_rt
 )

@@ -30,7 +30,7 @@ namespace sampler_stage_arg_value
 {
 enum type
 {
-	current,
+	previous,
 	texture,
 	constant
 };

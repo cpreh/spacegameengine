@@ -31,8 +31,8 @@ sge::opengl::texture::convert::stage_arg_op_value(
 		_value
 	)
 	{
-	case renderer::sampler_stage_arg_value::current:
-		return GL_PRIMARY_COLOR;
+	case renderer::sampler_stage_arg_value::previous:
+		return GL_PREVIOUS;
 	case renderer::sampler_stage_arg_value::texture:
 		return GL_TEXTURE;
 	case renderer::sampler_stage_arg_value::constant:

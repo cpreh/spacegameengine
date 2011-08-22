@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../initialize.hpp"
 #include "../../common.hpp"
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 void
@@ -29,7 +29,7 @@ sge::opengl::glew::initialize()
 	if(
 		glewInit() != GLEW_OK
 	)
-		throw sge::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("glewInit() failed!")
 		);
 }

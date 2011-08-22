@@ -48,6 +48,11 @@ sge::opengl::texture::set_stage_funcs(
 	);
 
 	opengl::texture::funcs::env(
+		GL_TEXTURE_ENV_MODE,
+		GL_COMBINE
+	);
+
+	opengl::texture::funcs::env(
 		texture::convert::stage_arg_op(
 			_arg
 		),
