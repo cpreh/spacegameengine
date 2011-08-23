@@ -34,7 +34,7 @@ sge::d3d9::convert::sampler_stage_arg_value(
 	{
 	case renderer::sampler_stage_arg_value::constant:
 		return D3DTA_CONSTANT;
-	case renderer::sampler_stage_arg_value::current:
+	case renderer::sampler_stage_arg_value::previous:
 		return D3DTA_CURRENT;
 //		return D3DTA_DIFFUSE;
 //		return D3DTA_SPECULAR;

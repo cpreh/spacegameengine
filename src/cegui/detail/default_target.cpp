@@ -123,7 +123,6 @@ sge::cegui::detail::default_target::unprojectPoint(
 {
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
 		FCPPT_TEXT("default_target::unprojectPoint not implemented yet"));
-	p_out = p_in;
 }
 
 sge::renderer::matrix4 const
