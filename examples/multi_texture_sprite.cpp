@@ -242,20 +242,8 @@ try
 
 		sys.renderer().sampler_stage_arg(
 			sge::renderer::stage(0u),
-			sge::renderer::sampler_stage_arg::alpha0,
-			sge::renderer::sampler_stage_arg_value::texture
-		);
-
-		sys.renderer().sampler_stage_arg(
-			sge::renderer::stage(0u),
 			sge::renderer::sampler_stage_arg::rgb0,
 			sge::renderer::sampler_stage_arg_value::texture
-		);
-
-		sys.renderer().sampler_stage_op(
-			sge::renderer::stage(0u),
-			sge::renderer::sampler_stage_op::alpha,
-			sge::renderer::sampler_stage_op_value::arg0
 		);
 
 		sys.renderer().sampler_stage_op(
@@ -266,26 +254,20 @@ try
 
 		sys.renderer().sampler_stage_arg(
 			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_arg::alpha0,
+			sge::renderer::sampler_stage_arg::rgb0,
 			sge::renderer::sampler_stage_arg_value::previous
 		);
 
 		sys.renderer().sampler_stage_arg(
 			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_arg::rgb0,
-			sge::renderer::sampler_stage_arg_value::previous
-		);
-
-		sys.renderer().sampler_stage_op(
-			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_op::alpha,
-			sge::renderer::sampler_stage_op_value::arg0
+			sge::renderer::sampler_stage_arg::rgb1,
+			sge::renderer::sampler_stage_arg_value::texture
 		);
 
 		sys.renderer().sampler_stage_op(
 			sge::renderer::stage(1u),
 			sge::renderer::sampler_stage_op::color,
-			sge::renderer::sampler_stage_op_value::arg0
+			sge::renderer::sampler_stage_op_value::modulate
 		);
 
 		sge::sprite::render_one(
