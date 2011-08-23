@@ -77,11 +77,13 @@ SET(
 	src/plugins/opengl/device_state_fwd.hpp
 	src/plugins/opengl/device_state_ptr.hpp
 	src/plugins/opengl/disable.hpp
+	src/plugins/opengl/disable_client_state.hpp
 	src/plugins/opengl/draw_arrays.hpp
 	src/plugins/opengl/draw_context.hpp
 	src/plugins/opengl/draw_elements.hpp
 	src/plugins/opengl/enable.hpp
 	src/plugins/opengl/enable_bool.hpp
+	src/plugins/opengl/enable_client_state.hpp
 	src/plugins/opengl/error_string.hpp
 	src/plugins/opengl/extract_bit_depth.hpp
 	src/plugins/opengl/fbo/attach_render_buffer.hpp
@@ -345,11 +347,13 @@ SET(
 	src/plugins/opengl/src/device.cpp
 	src/plugins/opengl/src/device_state.cpp
 	src/plugins/opengl/src/disable.cpp
+	src/plugins/opengl/src/disable_client_state.cpp
 	src/plugins/opengl/src/draw_arrays.cpp
 	src/plugins/opengl/src/draw_context.cpp
 	src/plugins/opengl/src/draw_elements.cpp
 	src/plugins/opengl/src/enable.cpp
 	src/plugins/opengl/src/enable_bool.cpp
+	src/plugins/opengl/src/enable_client_state.cpp
 	src/plugins/opengl/src/error_string.cpp
 	src/plugins/opengl/src/exports.cpp
 	src/plugins/opengl/src/extract_bit_depth.cpp
@@ -659,7 +663,9 @@ SET(
 	src/plugins/opengl/vf/context.hpp
 	src/plugins/opengl/vf/context_fwd.hpp
 	src/plugins/opengl/vf/convert_element_type.hpp
+	src/plugins/opengl/vf/disable_texcoords.hpp
 	src/plugins/opengl/vf/disable_vertex_attrib_array.hpp
+	src/plugins/opengl/vf/enable_texcoords.hpp
 	src/plugins/opengl/vf/enable_vertex_attrib_array.hpp
 	src/plugins/opengl/vf/fp_actor.hpp
 	src/plugins/opengl/vf/normal_actor.hpp
@@ -678,7 +684,9 @@ SET(
 	src/plugins/opengl/vf/src/color_actor.cpp
 	src/plugins/opengl/vf/src/context.cpp
 	src/plugins/opengl/vf/src/convert_element_type.cpp
+	src/plugins/opengl/vf/src/disable_texcoords.cpp
 	src/plugins/opengl/vf/src/disable_vertex_attrib_array.cpp
+	src/plugins/opengl/vf/src/enable_texcoords.cpp
 	src/plugins/opengl/vf/src/enable_vertex_attrib_array.cpp
 	src/plugins/opengl/vf/src/fp_actor.cpp
 	src/plugins/opengl/vf/src/normal_actor.cpp

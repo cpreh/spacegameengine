@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../enable.hpp"
+#include "../enable_client_state.hpp"
 #include "../check_state.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/format.hpp>
 
 void
-sge::opengl::enable(
+sge::opengl::enable_client_state(
 	GLenum const _what
 )
 {
-	::glEnable(
+	::glEnableClientState(
 		_what
 	);
 
 	SGE_OPENGL_CHECK_STATE(
 		(
 			fcppt::format(
-				FCPPT_TEXT("glEnable %1% failed")
+				FCPPT_TEXT("glEnableClientState %1% failed")
 			)
 			% _what
 		).str(),

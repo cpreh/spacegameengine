@@ -30,7 +30,7 @@ sge::opengl::disable(
 	GLenum const _what
 )
 {
-	glDisable(
+	::glDisable(
 		_what
 	);
 

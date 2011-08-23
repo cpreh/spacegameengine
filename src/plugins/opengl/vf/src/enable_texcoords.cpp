@@ -18,28 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../enable.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/format.hpp>
+#include "../enable_texcoords.hpp"
+#include "../../common.hpp"
+#include "../../enable_client_state.hpp"
+#include "../../texture/funcs/set_client_level.hpp"
 
 void
-sge::opengl::enable(
-	GLenum const _what
+sge::opengl::vf::enable_texcoords(
+	opengl::context::object &_object,
+	renderer::stage const _index
 )
 {
-	::glEnable(
-		_what
+	opengl::texture::funcs::set_client_level(
+		_object,
+		_index
 	);
 
-	SGE_OPENGL_CHECK_STATE(
-		(
-			fcppt::format(
-				FCPPT_TEXT("glEnable %1% failed")
-			)
-			% _what
-		).str(),
-		sge::renderer::exception
-	)
+	opengl::enable_client_state(
+		GL_TEXTURE_COORD_ARRAY
+	);
 }

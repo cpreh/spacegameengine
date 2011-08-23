@@ -19,10 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../client_state_combiner.hpp"
-#include "../context.hpp"
 #include "../attribute_context.hpp"
-#include "../enable_vertex_attrib_array.hpp"
+#include "../context.hpp"
+#include "../disable_texcoords.hpp"
 #include "../disable_vertex_attrib_array.hpp"
+#include "../enable_texcoords.hpp"
+#include "../enable_vertex_attrib_array.hpp"
+#include "../../disable_client_state.hpp"
+#include "../../enable_client_state.hpp"
 #include "../../context/use.hpp"
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/ref.hpp>
@@ -52,6 +56,9 @@ sge::opengl::vf::client_state_combiner::client_state_combiner(
 )
 :
 	context_(
+		_context
+	),
+	vf_context_(
 		opengl::context::use<
 			vf::context
 		>(
@@ -66,12 +73,13 @@ sge::opengl::vf::client_state_combiner::client_state_combiner(
 		)
 	),
 	old_states_(
-		context_.state()
+		vf_context_.state()
 	),
 	new_states_(
 		old_states_
 	)
-{}
+{
+}
 
 void
 sge::opengl::vf::client_state_combiner::enable(
@@ -138,24 +146,28 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 	apply_difference(
 		old_states_.normal_states(),
 		new_states_.normal_states(),
-		::glEnableClientState,
-		::glDisableClientState
+		opengl::enable_client_state,
+		opengl::disable_client_state
 	);
 
-	if(
-		old_states_.texture_states().empty()
-		&& !new_states_.texture_states().empty()
-	)
-		::glEnableClientState(
-			GL_TEXTURE_COORD_ARRAY
-		);
-	else if(
-		!old_states_.texture_states().empty()
-		&& new_states_.texture_states().empty()
-	)
-		::glDisableClientState(
-			GL_TEXTURE_COORD_ARRAY
-		);
+	apply_difference(
+		old_states_.texture_states(),
+		new_states_.texture_states(),
+		std::tr1::bind(
+			vf::enable_texcoords,
+			fcppt::ref(
+				context_
+			),
+			std::tr1::placeholders::_1
+		),
+		std::tr1::bind(
+			vf::disable_texcoords,
+			fcppt::ref(
+				context_
+			),
+			std::tr1::placeholders::_1
+		)
+	);
 
 	apply_difference(
 		old_states_.attribute_states(),
@@ -176,7 +188,7 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 		)
 	);
 
-	context_.state(
+	vf_context_.state(
 		new_states_
 	);
 }

@@ -78,7 +78,9 @@ public:
 
 	~client_state_combiner();
 private:
-	vf::context &context_;
+	opengl::context::object &context_;
+
+	vf::context &vf_context_;
 
 	vf::attribute_context &attribute_context_;
 
