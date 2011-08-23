@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/static.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/array.hpp>
+#include <mizuiro/image/dimension.hpp>
 #include <cstddef>
 
 namespace sge
@@ -85,6 +86,16 @@ struct is_array
 			T,
 			N
 		>::type
+	>
+> : boost::true_type {};
+
+template<typename T,mizuiro::size_type N>
+struct is_array
+<
+	mizuiro::image::dimension
+	<
+		N,
+		T
 	>
 > : boost::true_type {};
 }
