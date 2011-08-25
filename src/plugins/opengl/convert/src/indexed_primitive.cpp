@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../indexed_primitive.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../common.hpp"
+#include <sge/renderer/indexed_primitive_type.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::convert::indexed_primitive(
@@ -37,7 +38,5 @@ sge::opengl::convert::indexed_primitive(
 		return GL_TRIANGLES;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid nonindexed_primitive_type!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

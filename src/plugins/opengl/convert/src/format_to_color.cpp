@@ -21,7 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../format_to_color.hpp"
 #include "../format_to_string.hpp"
 #include "../format_type_to_string.hpp"
+#include "../../color_format.hpp"
+#include "../../color_format_type.hpp"
 #include "../../common.hpp"
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 

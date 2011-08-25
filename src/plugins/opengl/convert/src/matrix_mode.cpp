@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../matrix_mode.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../common.hpp"
+#include <sge/renderer/matrix_mode.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::convert::matrix_mode(
@@ -41,7 +42,5 @@ sge::opengl::convert::matrix_mode(
 		break;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid matrix_mode!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

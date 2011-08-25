@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../bit_depth.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/bit_depth.hpp>
+#include <awl/window/bit_depth.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 awl::window::bit_depth::type
 sge::opengl::convert::bit_depth(
@@ -37,7 +38,5 @@ sge::opengl::convert::bit_depth(
 		return awl::window::bit_depth::depth32;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid bit_depth!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

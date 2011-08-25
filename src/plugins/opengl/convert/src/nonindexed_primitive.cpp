@@ -19,15 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../nonindexed_primitive.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../common.hpp"
+#include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::convert::nonindexed_primitive(
 	renderer::nonindexed_primitive_type::type const _type
 )
 {
-	switch(_type)
+	switch(
+		_type
+	)
 	{
 	case renderer::nonindexed_primitive_type::point:
 		return GL_POINTS;
@@ -43,7 +46,5 @@ sge::opengl::convert::nonindexed_primitive(
 		return GL_TRIANGLE_FAN;
 	}
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid indexed_primitive_type!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

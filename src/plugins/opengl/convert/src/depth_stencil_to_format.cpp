@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../depth_stencil_to_format.hpp"
+#include "../../color_format.hpp"
 #include "../../common.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/depth_stencil_format.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 sge::opengl::color_format const
 sge::opengl::convert::depth_stencil_to_format(
@@ -45,7 +46,5 @@ sge::opengl::convert::depth_stencil_to_format(
 			);
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid depth_stencil_format in depth_stencil_to_format!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

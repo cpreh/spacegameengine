@@ -19,8 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../color_to_internal_format.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../common.hpp"
+#include "../../internal_color_format.hpp"
+#include <sge/image/color/format.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 sge::opengl::internal_color_format const
 sge::opengl::convert::color_to_internal_format(
@@ -80,7 +82,5 @@ sge::opengl::convert::color_to_internal_format(
 		break;
 	}
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid color_format in color_to_internal_format()!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../light_index.hpp"
 #include "../../common.hpp"
+#include "../../light/index.hpp"
+#include <sge/renderer/light/index.hpp>
 
 sge::opengl::light::index const
 sge::opengl::convert::light_index(

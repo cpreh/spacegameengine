@@ -19,8 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../color_to_format_type.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../color_format_type.hpp"
+#include "../../common.hpp"
+#include <sge/image/color/format.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 sge::opengl::color_format_type const
 sge::opengl::convert::color_to_format_type(
@@ -56,7 +58,5 @@ sge::opengl::convert::color_to_format_type(
 		break;
 	}
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid color_format in to_format_type()!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

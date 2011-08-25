@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../stencil_buffer.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <awl/window/stencil_buffer.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 awl::window::stencil_buffer::type
 sge::opengl::convert::stencil_buffer(
@@ -40,8 +41,5 @@ sge::opengl::convert::stencil_buffer(
 		return awl::window::stencil_buffer::depth8;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid stencil_buffer!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
-

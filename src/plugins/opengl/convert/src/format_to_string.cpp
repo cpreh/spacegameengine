@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../format_to_string.hpp"
+#include "../../color_format.hpp"
 #include "../../common.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/string.hpp>
 
 fcppt::string const
 sge::opengl::convert::format_to_string(
@@ -56,7 +57,5 @@ sge::opengl::convert::format_to_string(
 		return FCPPT_TEXT("LUMINANCE_ALPHA");
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid format in opengl::convert::format_to_string()!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

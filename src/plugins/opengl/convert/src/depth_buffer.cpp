@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../depth_buffer.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <awl/window/depth_buffer.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 awl::window::depth_buffer::type
 sge::opengl::convert::depth_buffer(
@@ -42,8 +43,5 @@ sge::opengl::convert::depth_buffer(
 		return awl::window::depth_buffer::depth32;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid depth_buffer!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
-

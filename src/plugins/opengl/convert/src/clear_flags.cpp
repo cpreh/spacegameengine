@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../clear_flags.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../common.hpp"
+#include <sge/renderer/clear_flags.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::convert::clear_flags(
@@ -41,7 +42,5 @@ sge::opengl::convert::clear_flags(
 		break;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid clear_flag in convert::clear_flags()!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
