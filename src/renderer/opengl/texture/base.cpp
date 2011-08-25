@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_COMMON_HPP_INCLUDED
-#define SGE_OPENGL_COMMON_HPP_INCLUDED
+#include <sge/renderer/opengl/texture/base.hpp>
 
-#include <GL/glew.h> // GLEW must come first!
-#include <sge/renderer/opengl/glinclude.hpp>
+sge::renderer::opengl::texture::base::base()
+{
+}
 
-#endif
+sge::renderer::opengl::texture::base::~base()
+{
+}

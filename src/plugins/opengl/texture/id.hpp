@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_ID_HPP_INCLUDED
 
 #include "../common.hpp"
-#include <fcppt/strong_typedef.hpp>
+#include <sge/renderer/opengl/texture/id.hpp>
 
 namespace sge
 {
@@ -31,10 +31,7 @@ namespace opengl
 namespace texture
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	GLuint,
-	id
-);
+typedef sge::renderer::opengl::texture::id id;
 
 }
 }

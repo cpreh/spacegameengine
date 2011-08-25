@@ -802,7 +802,9 @@ APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
 	SGE_OPENGL_FILES_ABS
 )
 
-INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
+INCLUDE_DIRECTORIES(
+	${OPENGL_INCLUDE_DIR}
+)
 
 FIND_PACKAGE(
 	X11
@@ -883,7 +885,7 @@ ADD_LIBRARY (
 
 SET(
 	SGE_OPENGL_ADDITIONAL_DEPS
-	"sgeimage2d;sgeimage3d;sgerenderer;sgewindow"
+	"sgeimage2d;sgeimage3d;sgerenderer;sgerendereropengl;sgewindow"
 )
 
 CHECK_LIBRARY_DEPS(

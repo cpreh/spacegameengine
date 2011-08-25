@@ -18,10 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_COMMON_HPP_INCLUDED
-#define SGE_OPENGL_COMMON_HPP_INCLUDED
+#ifndef SGE_RENDERER_OPENGL_GLINCLUDE_HPP_INCLUDED
+#define SGE_RENDERER_OPENGL_GLINCLUDE_HPP_INCLUDED
 
-#include <GL/glew.h> // GLEW must come first!
-#include <sge/renderer/opengl/glinclude.hpp>
+#include <fcppt/platform.hpp>
+#if defined(FCPPT_DARWIN_PLATFORM)
+#include <gl.h>
+#include <glu.h>
+#else
+#include <GL/gl.h>
+#include <GL/glu.h>
+#endif
 
 #endif

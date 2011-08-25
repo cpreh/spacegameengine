@@ -18,64 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_OPENGL_TEXTURE_BASE_HPP_INCLUDED
+#define SGE_RENDERER_OPENGL_TEXTURE_BASE_HPP_INCLUDED
 
-#include "base_fwd.hpp"
-#include "holder.hpp"
-#include "id.hpp"
-#include "type.hpp"
-#include "../context/object_fwd.hpp"
-#include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/texture/mipmap/object_fwd.hpp>
-#include <sge/renderer/opengl/texture/base.hpp>
+#include <sge/renderer/opengl/texture/base_fwd.hpp>
+#include <sge/renderer/opengl/texture/id.hpp>
+#include <sge/renderer/opengl/symbol.hpp>
+#include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
+{
+namespace renderer
 {
 namespace opengl
 {
 namespace texture
 {
 
-class base
-:
-	public sge::renderer::opengl::texture::base
+class SGE_CLASS_SYMBOL base
 {
 	FCPPT_NONCOPYABLE(
 		base
 	);
-public:
-	texture::type const
-	type() const;
-
-	texture::id const
-	id() const;
-
-	bool
-	update_filter(
-		renderer::texture::filter::object const &
-	) const;
-
-	bool
-	has_mipmap() const;
-
-	virtual ~base();
 protected:
-	explicit base(
-		texture::type
-	);
-private:
-	virtual renderer::texture::mipmap::object const
-	mipmap() const = 0;
+	SGE_RENDERER_OPENGL_SYMBOL
+	base();
+public:
+	virtual texture::id const
+	id() const = 0;
 
-	texture::type const type_;
-
-	opengl::texture::holder const holder_;
-
-	mutable sge::renderer::texture::filter::object filter_;
+	SGE_RENDERER_OPENGL_SYMBOL
+	virtual ~base() = 0;
 };
 
+}
 }
 }
 }

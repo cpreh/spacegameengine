@@ -100,7 +100,33 @@ update_sublibrary projectile
 
 update_sublibrary plugin
 
-update_sublibrary renderer
+update_cmake_file \
+	src/renderer/CMakeLists.txt \
+	SGE_RENDERER_FILES \
+	-n \
+	include/sge/renderer \
+	-r \
+	include/sge/renderer/glsl \
+	include/sge/renderer/index \
+	include/sge/renderer/light \
+	include/sge/renderer/lock_flags \
+	include/sge/renderer/projection \
+	include/sge/renderer/state \
+	include/sge/renderer/texture \
+	include/sge/renderer/vf \
+	-n \
+	src/renderer \
+	-r \
+	src/renderer/glsl \
+	src/renderer/index \
+	src/renderer/light \
+	src/renderer/lock_flags \
+	src/renderer/projection \
+	src/renderer/state \
+	src/renderer/texture \
+	src/renderer/vf \
+
+update_sublibrary renderer/opengl
 
 update_sublibrary shader
 

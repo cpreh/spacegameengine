@@ -673,3 +673,39 @@ ADD_SGE_BASE_LIBRARY(
 	renderer
 	"sgeimage2d;sgeimage3d;sgeplugin"
 )
+
+FIND_PACKAGE(
+	OpenGL
+)
+
+FIND_PACKAGE(
+	GLEW
+)
+
+IF(
+	OPENGL_FOUND AND GLEW_FOUND
+)
+	SET(
+		OPENGL_AVAILABLE
+		TRUE
+	)
+ELSE()
+	SET(
+		OPENGL_AVAILABLE
+		FALSE
+	)
+ENDIF()
+
+OPTION(
+	ENABLE_RENDEREROPENGL
+	"Build the opengl renderer frontend"
+	${OPENGL_AVAILABLE}
+)
+
+IF(
+	ENABLE_RENDEREROPENGL
+)
+	ADD_SUBDIRECTORY(
+		opengl
+	)
+ENDIF()

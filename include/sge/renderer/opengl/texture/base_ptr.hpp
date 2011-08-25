@@ -18,10 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_COMMON_HPP_INCLUDED
-#define SGE_OPENGL_COMMON_HPP_INCLUDED
+#ifndef SGE_RENDERER_OPENGL_TEXTURE_BASE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_OPENGL_TEXTURE_BASE_PTR_HPP_INCLUDED
 
-#include <GL/glew.h> // GLEW must come first!
-#include <sge/renderer/opengl/glinclude.hpp>
+#include <sge/renderer/opengl/texture/base_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+namespace opengl
+{
+namespace texture
+{
+
+typedef fcppt::shared_ptr<
+	renderer::opengl::texture::base
+> base_ptr;
+
+}
+}
+}
+}
 
 #endif
