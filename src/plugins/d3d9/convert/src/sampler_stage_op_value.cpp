@@ -38,16 +38,17 @@ sge::d3d9::convert::sampler_stage_op_value(
 	//	return D3DTOP_SELECTARG0; // TODO: maybe we have to use a different arg number here
 	case renderer::sampler_stage_op_value::modulate:
 		return D3DTOP_MODULATE;
+	/*
 	case renderer::sampler_stage_op_value::modulate2x:
 		return D3DTOP_MODULATE2X;
 	case renderer::sampler_stage_op_value::modulate4x:
-		return D3DTOP_MODULATE4X;
+		return D3DTOP_MODULATE4X;*/
 	case renderer::sampler_stage_op_value::add:
 		return D3DTOP_ADD;
 	case renderer::sampler_stage_op_value::add_signed:
 		return D3DTOP_ADDSIGNED;
-	case renderer::sampler_stage_op_value::add_signed2x:
-		return D3DTOP_ADDSIGNED2X;
+	//case renderer::sampler_stage_op_value::add_signed2x:
+		//return D3DTOP_ADDSIGNED2X;
 	case renderer::sampler_stage_op_value::substract:
 		return D3DTOP_SUBTRACT;
 	//	return D3DTOP_ADDSMOOTH;
