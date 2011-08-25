@@ -36,12 +36,12 @@ class SGE_CLASS_SYMBOL vertex_declaration
 	FCPPT_NONCOPYABLE(
 		vertex_declaration
 	);
-public:
+protected:
 	SGE_RENDERER_SYMBOL
 	vertex_declaration();
-
+public:
 	SGE_RENDERER_SYMBOL
-	virtual ~vertex_declaration();
+	virtual ~vertex_declaration() = 0;
 };
 
 }

@@ -45,7 +45,7 @@ public:
 	typedef renderer::dim2 dim;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~depth_stencil_surface();
+	virtual ~depth_stencil_surface() = 0;
 
 	virtual dim const
 	size() const = 0;

@@ -62,7 +62,7 @@ public:
 	) = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~system();
+	virtual ~system() = 0;
 };
 
 }

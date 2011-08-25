@@ -62,7 +62,7 @@ public:
 	size() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~target();
+	virtual ~target() = 0;
 };
 
 }

@@ -60,7 +60,7 @@ public:
 	scissor_area() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~target_base();
+	virtual ~target_base() = 0;
 };
 
 }

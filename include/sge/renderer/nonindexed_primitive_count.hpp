@@ -36,6 +36,7 @@ nonindexed_primitive_count(
 	renderer::vertex_count,
 	nonindexed_primitive_type::type
 );
+
 }
 }
 

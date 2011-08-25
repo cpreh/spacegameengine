@@ -45,7 +45,7 @@ protected:
 	color_surface();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual ~color_surface();
+	virtual ~color_surface() = 0;
 
 	typedef renderer::size_type size_type;
 

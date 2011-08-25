@@ -301,7 +301,7 @@ public:
 	window() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~device();
+	virtual ~device() = 0;
 };
 
 }

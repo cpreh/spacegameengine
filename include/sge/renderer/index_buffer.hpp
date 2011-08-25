@@ -81,7 +81,7 @@ public:
 	format() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~index_buffer();
+	virtual ~index_buffer() = 0;
 };
 
 }

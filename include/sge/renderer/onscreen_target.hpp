@@ -48,7 +48,7 @@ public:
 	surface() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~onscreen_target();
+	virtual ~onscreen_target() = 0;
 };
 
 }
