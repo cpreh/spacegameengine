@@ -19,8 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../translate_event.hpp"
-#include <sge/input/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <X11/extensions/XInput2.h>
 #include <X11/extensions/XI2.h>
 #include <X11/Xlib.h>
@@ -108,9 +107,7 @@ translate_event_type(
 		return KeyRelease;
 	}
 
-	throw sge::input::exception(
-		FCPPT_TEXT("Invalid event in translate_event_type()!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
 
 }

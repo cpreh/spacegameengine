@@ -19,7 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../convert_format.hpp"
+#include <sge/image/color/format.hpp>
 #include <sge/image/exception.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -37,17 +39,17 @@ format_to_string(
 
 sge::image::color::format::type
 sge::devil::convert_format(
-	ILint const bits_per_pixel,
-	ILenum const format
+	ILint const _bits_per_pixel,
+	ILenum const _format
 )
 {
 	switch(
-		format
+		_format
 	)
 	{
 	case IL_RGBA:
 		switch(
-			bits_per_pixel
+			_bits_per_pixel
 		)
 		{
 		case 32:
@@ -58,13 +60,13 @@ sge::devil::convert_format(
 		break;
 	case IL_RGB:
 		if(
-			bits_per_pixel == 24
+			_bits_per_pixel == 24
 		)
 			return image::color::format::rgb8;
 		break;
 	case IL_BGRA:
 		switch(
-			bits_per_pixel
+			_bits_per_pixel
 		)
 		{
 		case 32:
@@ -75,13 +77,13 @@ sge::devil::convert_format(
 		break;
 	case IL_LUMINANCE:
 		if(
-			bits_per_pixel == 8
+			_bits_per_pixel == 8
 		)
 			return image::color::format::gray8;
 		break;
 	case IL_ALPHA:
 		if(
-			bits_per_pixel == 8
+			_bits_per_pixel == 8
 		)
 			return image::color::format::alpha8;
 		break;
@@ -93,10 +95,10 @@ sge::devil::convert_format(
 				FCPPT_TEXT("Invalid il format in devil::convert_format ")
 				FCPPT_TEXT("with bits per pixel %1% and format %2%!")
 			)
-			% bits_per_pixel
+			% _bits_per_pixel
 			%
 			::format_to_string(
-				format
+				_format
 			)
 		).str()
 	);
@@ -132,9 +134,7 @@ format_to_string(
 		return FCPPT_TEXT("LUMINANCE_ALPHA");
 	}
 
-	throw sge::image::exception(
-		FCPPT_TEXT("Unknown il format")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
 
 }

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
-#include <sge/input/exception.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/object_impl.hpp>
@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
 #include <X11/extensions/XInput2.h>
 #include <X11/Xlib.h>
 
@@ -281,7 +280,5 @@ sge::x11input::cursor::object::check_grab()
 		break;
 	}
 
-	throw sge::input::exception(
-		FCPPT_TEXT("Invalid cursor::mode!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

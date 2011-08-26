@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../best_il_format.hpp"
-#include <sge/image/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/image/color/format.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 sge::image::color::format::type
 sge::devil::best_il_format(
@@ -52,7 +52,5 @@ sge::devil::best_il_format(
 		break;
 	}
 
-	throw sge::image::exception(
-		FCPPT_TEXT("Invalid color_format in best_il_format!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

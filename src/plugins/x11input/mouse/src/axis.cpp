@@ -35,7 +35,7 @@ sge::x11input::mouse::axis(
 		return sge::input::mouse::axis::y;
 	case 2:
 		return sge::input::mouse::axis::wheel;
-	default:
-		return sge::input::mouse::axis::unknown;
 	}
+
+	return sge::input::mouse::axis::unknown;
 }

@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../to_il_format.hpp"
-#include <sge/image/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/image/color/format.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <IL/il.h>
 
 ILenum
@@ -55,7 +55,5 @@ sge::devil::to_il_format(
 		break;
 	}
 
-	throw sge::image::exception(
-		FCPPT_TEXT("Invalid color_format in to_il_format!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
