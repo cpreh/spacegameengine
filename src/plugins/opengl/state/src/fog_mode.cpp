@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../fog_mode.hpp"
+#include "../parameters_fwd.hpp"
 #include "../convert/fog_mode.hpp"
 #include "../../check_state.hpp"
 #include "../../common.hpp"

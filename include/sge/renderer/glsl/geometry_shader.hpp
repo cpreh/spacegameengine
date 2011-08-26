@@ -46,7 +46,7 @@ protected:
 	geometry_shader();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual ~geometry_shader();
+	virtual ~geometry_shader() = 0;
 };
 
 }

@@ -48,7 +48,7 @@ protected:
 	depth_stencil();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual ~depth_stencil();
+	virtual ~depth_stencil() = 0;
 
 	typedef renderer::dim2 dim_type;
 

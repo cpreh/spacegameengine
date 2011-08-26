@@ -46,7 +46,7 @@ protected:
 	vertex_shader();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual ~vertex_shader();
+	virtual ~vertex_shader() = 0;
 };
 
 }

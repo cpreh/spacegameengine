@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../depth_func.hpp"
 #include "../../../common.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::state::convert::depth_func(
@@ -52,7 +52,5 @@ sge::opengl::state::convert::depth_func(
 		break;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid depth_func!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

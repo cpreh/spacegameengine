@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../color.hpp"
+#include "../parameters_fwd.hpp"
 #include "../../check_state.hpp"
 #include "../../common.hpp"
 #include <sge/image/color/any/convert.hpp>
@@ -32,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/channel/blue.hpp>
 #include <mizuiro/color/channel/green.hpp>
 #include <mizuiro/color/channel/red.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/text.hpp>
 
 void
@@ -101,7 +103,5 @@ sge::opengl::state::color(
 		return;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid color_state!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

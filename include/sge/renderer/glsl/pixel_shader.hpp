@@ -46,7 +46,7 @@ protected:
 	pixel_shader();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual ~pixel_shader();
+	virtual ~pixel_shader() = 0;
 };
 
 }

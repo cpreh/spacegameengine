@@ -88,7 +88,7 @@ public:
 	info_log() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~program();
+	virtual ~program() = 0;
 };
 
 }

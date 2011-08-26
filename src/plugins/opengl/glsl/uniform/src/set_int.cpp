@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set_int.hpp"
-#include "../type.hpp"
 #include "../contexts.hpp"
+#include "../type.hpp"
 #include "../../instantiate.hpp"
 #include "../../../check_state.hpp"
+#include "../../../common.hpp"
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
@@ -44,7 +45,9 @@ set_int_impl(
 {
 	namespace et = sge::opengl::glsl::uniform::element_type;
 
-	switch(_size)
+	switch(
+		_size
+	)
 	{
 	case 1:
 		_context.uniform_1iv()(

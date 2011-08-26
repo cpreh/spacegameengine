@@ -49,7 +49,7 @@ public:
 	typedef renderer::size_type size_type;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~base();
+	virtual ~base() = 0;
 
 	virtual size_type
 	content() const = 0;

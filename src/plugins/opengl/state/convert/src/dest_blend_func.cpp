@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../dest_blend_func.hpp"
 #include "../../../common.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/state/dest_blend_func.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::state::convert::dest_blend_func(
@@ -50,7 +50,5 @@ sge::opengl::state::convert::dest_blend_func(
 		return GL_ONE_MINUS_DST_ALPHA;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid dest_blend_func!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

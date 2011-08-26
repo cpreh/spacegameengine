@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../convert_element_type.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../common.hpp"
+#include <sge/renderer/vf/element_type.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::vf::convert_element_type(
@@ -49,7 +50,5 @@ sge::opengl::vf::convert_element_type(
 		return GL_UNSIGNED_INT;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid format in ogl::vf::convert_format!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

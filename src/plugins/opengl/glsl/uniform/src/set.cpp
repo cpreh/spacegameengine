@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set.hpp"
-#include "../type.hpp"
 #include "../set_visitor.hpp"
+#include "../type.hpp"
 #include "../../instantiate.hpp"
+#include <sge/renderer/glsl/uniform/value.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 

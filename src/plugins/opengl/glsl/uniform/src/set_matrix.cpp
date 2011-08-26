@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set_matrix.hpp"
-#include "../type.hpp"
+#include "../element_type.hpp"
 #include "../contexts.hpp"
+#include "../type.hpp"
 #include "../../instantiate.hpp"
 #include "../../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
@@ -44,10 +45,14 @@ set_matrix_impl(
 {
 	namespace et = sge::opengl::glsl::uniform::element_type;
 
-	switch(_rows)
+	switch(
+		_rows
+	)
 	{
 	case 2:
-		switch(_columns)
+		switch(
+			_columns
+		)
 		{
 		case 2:
 			_context.uniform_matrix_2fv()(
@@ -91,7 +96,9 @@ set_matrix_impl(
 		}
 		break;
 	case 3:
-		switch(_columns)
+		switch(
+			_columns
+		)
 		{
 		case 2:
 			_context.uniform_matrix_3x2fv()(
@@ -135,7 +142,9 @@ set_matrix_impl(
 		}
 		break;
 	case 4:
-		switch(_columns)
+		switch(
+			_columns
+		)
 		{
 		case 2:
 			_context.uniform_matrix_4x2fv()(

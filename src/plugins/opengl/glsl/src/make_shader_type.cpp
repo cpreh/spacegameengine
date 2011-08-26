@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../make_shader_type.hpp"
 #include "../instantiate.hpp"
 #include "../shader_contexts.hpp"
-#include <sge/renderer/glsl/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../common.hpp"
+#include <fcppt/assert/unreachable.hpp>
 
 template<
 	typename Environment
@@ -50,9 +50,7 @@ sge::opengl::glsl::make_shader_type(
 		break;
 	}
 
-	throw sge::renderer::glsl::exception(
-		FCPPT_TEXT("Invalid shader_type!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
 
 #define SGE_OPENGL_GLSL_INSTANTIATE_MAKE_SHADER_TYPE(\

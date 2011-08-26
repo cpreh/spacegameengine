@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../apply.hpp"
 #include "../alpha_test.hpp"
 #include "../blend_func.hpp"
+#include "../bundle.hpp"
 #include "../color_write.hpp"
+#include "../parameters_fwd.hpp"
 #include "../stencil_func.hpp"
 #include "../stencil_op.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/state/list_fwd.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 void
 sge::opengl::state::deferred::apply(
@@ -75,7 +77,5 @@ sge::opengl::state::deferred::apply(
 		return;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid deferred state!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

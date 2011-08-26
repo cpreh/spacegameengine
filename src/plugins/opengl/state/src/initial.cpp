@@ -19,7 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../initial.hpp"
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/dest_blend_func.hpp>
+#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/int.hpp>
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/source_blend_func.hpp>
+#include <sge/renderer/state/stencil_func.hpp>
+#include <sge/renderer/state/stencil_op.hpp>
+#include <sge/renderer/state/stencil_op_value.hpp>
+#include <sge/renderer/state/uint.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 
 sge::renderer::state::list const

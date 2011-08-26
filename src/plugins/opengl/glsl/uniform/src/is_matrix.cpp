@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../is_matrix.hpp"
-#include <sge/renderer/glsl/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/glsl/uniform/float_value_type.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 bool
 sge::opengl::glsl::uniform::is_matrix(
@@ -50,7 +50,5 @@ sge::opengl::glsl::uniform::is_matrix(
 		return true;
 	}
 
-	throw sge::renderer::glsl::exception(
-		FCPPT_TEXT("Invalid uniform float type!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

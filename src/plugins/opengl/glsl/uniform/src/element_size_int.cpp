@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../element_size_int.hpp"
-#include <sge/renderer/glsl/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../../common.hpp"
+#include <sge/renderer/glsl/uniform/int_value_type.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLsizei
 sge::opengl::glsl::uniform::element_size_int(
@@ -43,7 +44,5 @@ sge::opengl::glsl::uniform::element_size_int(
 		return 4;
 	}
 
-	throw sge::renderer::glsl::exception(
-		FCPPT_TEXT("Invalid uniform int type")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

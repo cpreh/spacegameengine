@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../bool.hpp"
 #include "../../../common.hpp"
+#include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::state::convert::bool_(
@@ -54,7 +54,5 @@ sge::opengl::state::convert::bool_(
 		break;
 	}
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid bool_state!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

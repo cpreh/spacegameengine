@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../anisotropic_mip_filter.hpp"
 #include "../../../common.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/texture/filter/anisotropic/mip.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::texture::convert::anisotropic_mip_filter(
@@ -40,7 +40,5 @@ sge::opengl::texture::convert::anisotropic_mip_filter(
 		return GL_NEAREST_MIPMAP_LINEAR;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid anisotropic mip filter!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

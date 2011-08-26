@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../stencil_func.hpp"
 #include "../../../common.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/state/stencil_func.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::state::convert::stencil_func(
@@ -52,7 +52,5 @@ sge::opengl::state::convert::stencil_func(
 		break;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid stencil_func!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../element_count.hpp"
-#include <sge/renderer/glsl/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../element_type.hpp"
+#include "../size_type.hpp"
+#include <fcppt/assert/unreachable.hpp>
 
 sge::opengl::glsl::uniform::size_type
 sge::opengl::glsl::uniform::element_count(
@@ -29,7 +30,9 @@ sge::opengl::glsl::uniform::element_count(
 {
 	namespace et = sge::opengl::glsl::uniform::element_type;
 
-	switch(_type)
+	switch(
+		_type
+	)
 	{
 	case et::int1:
 		return 1;
@@ -66,7 +69,5 @@ sge::opengl::glsl::uniform::element_count(
 		break;
 	}
 
-	throw sge::renderer::glsl::exception(
-		FCPPT_TEXT("Invalid int type!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

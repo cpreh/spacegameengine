@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../fog_mode.hpp"
 #include "../../../common.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/state/fog_mode.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLint
 sge::opengl::state::convert::fog_mode(
@@ -42,7 +42,5 @@ sge::opengl::state::convert::fog_mode(
 		break;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid fog_mode!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

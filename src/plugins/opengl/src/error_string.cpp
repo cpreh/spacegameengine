@@ -23,10 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 fcppt::string const
 sge::opengl::error_string(
-	GLenum const what
+	GLenum const _what
 )
 {
-	switch(what)
+	switch(
+		_what
+	)
 	{
 	case GL_NO_ERROR:
 		return FCPPT_TEXT("GL_NO_ERROR");

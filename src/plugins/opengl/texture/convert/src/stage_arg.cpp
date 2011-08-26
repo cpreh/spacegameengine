@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../stage_arg.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../../common.hpp"
+#include <sge/renderer/sampler_stage_arg.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::texture::convert::stage_arg_op(
@@ -45,7 +46,5 @@ sge::opengl::texture::convert::stage_arg_op(
 		return GL_SOURCE2_ALPHA;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid sampler_stage_arg!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

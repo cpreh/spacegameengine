@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../address_mode.hpp"
 #include "../../../common.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::texture::convert::address_mode(
@@ -40,7 +40,5 @@ sge::opengl::texture::convert::address_mode(
 		return GL_REPEAT;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid texture::address_mode!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

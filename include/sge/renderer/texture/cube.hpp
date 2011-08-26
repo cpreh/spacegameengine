@@ -101,7 +101,7 @@ public:
 	border_size() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~cube();
+	virtual ~cube() = 0;
 };
 
 }

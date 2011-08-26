@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../element_type.hpp"
 #include "../../instantiate.hpp"
 #include <sge/renderer/glsl/uniform/value.hpp>
+#include <sge/renderer/glsl/string.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 template<
@@ -55,7 +56,15 @@ sge::opengl::glsl::uniform::variable<Environment>::variable(
 		element_type::nothing,
 		0
 	)
-{}
+{
+}
+
+template<
+	typename Environment
+>
+sge::opengl::glsl::uniform::variable<Environment>::~variable()
+{
+}
 
 template<
 	typename Environment

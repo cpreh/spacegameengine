@@ -57,6 +57,8 @@ public:
 		renderer::glsl::string const &name
 	);
 
+	~variable();
+
 	renderer::glsl::uniform::value const
 	get() const;
 

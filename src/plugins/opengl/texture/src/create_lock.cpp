@@ -19,14 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../create_lock.hpp"
+#include "../lock_base.hpp"
+#include "../lock_base_unique_ptr.hpp"
 #include "../readonly_lock.hpp"
-#include "../writeonly_lock.hpp"
 #include "../readwrite_lock.hpp"
+#include "../writeonly_lock.hpp"
 #include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/exception.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
 
 sge::opengl::texture::lock_base_unique_ptr
 sge::opengl::texture::create_lock(
@@ -87,8 +89,6 @@ sge::opengl::texture::create_lock(
 			);
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid lock_method in opengl!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
 

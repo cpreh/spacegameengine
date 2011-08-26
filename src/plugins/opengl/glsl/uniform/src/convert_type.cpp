@@ -19,8 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../convert_type.hpp"
-#include <sge/renderer/glsl/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../element_type.hpp"
+#include <sge/renderer/glsl/uniform/float_value_type.hpp>
+#include <sge/renderer/glsl/uniform/int_value_type.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 template<>
 sge::renderer::glsl::uniform::int_value_type::type
@@ -29,9 +31,12 @@ sge::opengl::glsl::uniform::convert_type(
 )
 {
 	namespace et = sge::opengl::glsl::uniform::element_type;
+
 	namespace ivt = sge::renderer::glsl::uniform::int_value_type;
 
-	switch(_type)
+	switch(
+		_type
+	)
 	{
 	case et::int1:
 		return ivt::int1;
@@ -58,9 +63,7 @@ sge::opengl::glsl::uniform::convert_type(
 		break;
 	}
 
-	throw sge::renderer::glsl::exception(
-		FCPPT_TEXT("Invalid int element!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
 
 template<>
@@ -70,9 +73,12 @@ sge::opengl::glsl::uniform::convert_type(
 )
 {
 	namespace et = sge::opengl::glsl::uniform::element_type;
+
 	namespace fvt = sge::renderer::glsl::uniform::float_value_type;
 
-	switch(_type)
+	switch(
+		_type
+	)
 	{
 	case et::float1:
 		return fvt::float1;
@@ -108,7 +114,5 @@ sge::opengl::glsl::uniform::convert_type(
 		break;
 	}
 
-	throw sge::renderer::glsl::exception(
-		FCPPT_TEXT("Invalid float type!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

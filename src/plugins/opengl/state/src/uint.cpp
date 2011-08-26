@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/uint.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 void
 sge::opengl::state::uint(
@@ -59,7 +59,5 @@ sge::opengl::state::uint(
 		return;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid uint_state!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

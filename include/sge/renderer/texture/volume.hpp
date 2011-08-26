@@ -52,7 +52,7 @@ protected:
 	volume();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual ~volume();
+	virtual ~volume() = 0;
 
 	typedef renderer::dim3 dim;
 

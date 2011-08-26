@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../cube_side.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../cube_side_array.hpp"
+#include <sge/renderer/texture/cube_side.hpp>
+#include <fcppt/assert/pre.hpp>
 
 sge::opengl::texture::type const
 sge::opengl::texture::convert::cube_side(
@@ -36,12 +37,9 @@ sge::opengl::texture::convert::cube_side(
 		)
 	);
 
-	if(
-		pos >= _cube_sides.size()
+	FCPPT_ASSERT_PRE(
+		pos < _cube_sides.size()
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Invalid cube_side!")
-		);
 
 	return
 		_cube_sides[

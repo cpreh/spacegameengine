@@ -20,8 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../depth_stencil_format_to_attachment.hpp"
 #include "../context.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../common.hpp"
+#include <sge/renderer/depth_stencil_format.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::fbo::depth_stencil_format_to_attachment(
@@ -40,7 +41,5 @@ sge::opengl::fbo::depth_stencil_format_to_attachment(
 		return _context.depth_stencil_attachment();
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid depth_stencil_format in depth_stencil_format_to_attachment()!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

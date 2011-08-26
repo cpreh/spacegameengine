@@ -53,7 +53,7 @@ protected:
 	planar();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual ~planar();
+	virtual ~planar() = 0;
 
 	typedef renderer::dim2 dim;
 

@@ -20,8 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../min_filter.hpp"
 #include "../../../common.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/texture/filter/normal/min.hpp>
+#include <sge/renderer/texture/filter/normal/mip.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::texture::convert::min_filter(
@@ -46,9 +47,7 @@ sge::opengl::texture::convert::min_filter(
 			return GL_NEAREST_MIPMAP_LINEAR;
 		}
 
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Invalid mip filter!")
-		);
+		FCPPT_ASSERT_UNREACHABLE
 	case renderer::texture::filter::normal::min::linear:
 		switch(
 			_mip
@@ -62,12 +61,8 @@ sge::opengl::texture::convert::min_filter(
 			return GL_LINEAR_MIPMAP_LINEAR;
 		}
 
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Invalid mip filter!")
-		);
+		FCPPT_ASSERT_UNREACHABLE
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid min filter!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

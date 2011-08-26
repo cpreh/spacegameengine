@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/text.hpp>
 
 void
@@ -133,7 +134,5 @@ sge::opengl::state::bool_(
 		return;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid bool_state!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

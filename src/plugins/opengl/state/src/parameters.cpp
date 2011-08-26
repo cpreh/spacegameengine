@@ -19,9 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../parameters.hpp"
+#include "../deferred/object_fwd.hpp"
+#include "../../context/object_fwd.hpp"
 #include "../../context/use.hpp"
 #include "../../multi_sample_context.hpp"
 #include "../../point_sprite_context.hpp"
+#include <sge/renderer/depth_stencil_buffer.hpp>
 
 sge::opengl::state::parameters::parameters(
 	opengl::context::object &_context,

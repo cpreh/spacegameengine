@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mag_filter.hpp"
 #include "../../../common.hpp"
 #include <sge/renderer/texture/filter/normal/mag.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
 sge::opengl::texture::convert::mag_filter(
@@ -39,7 +38,5 @@ sge::opengl::texture::convert::mag_filter(
 		return GL_LINEAR;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid mag filter!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

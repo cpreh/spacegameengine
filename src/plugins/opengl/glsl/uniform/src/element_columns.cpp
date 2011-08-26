@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../element_columns.hpp"
-#include <sge/renderer/glsl/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../../common.hpp"
+#include <sge/renderer/glsl/uniform/float_value_type.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLsizei
 sge::opengl::glsl::uniform::element_columns(
@@ -52,7 +53,5 @@ sge::opengl::glsl::uniform::element_columns(
 		break;
 	}
 
-	throw sge::renderer::glsl::exception(
-		FCPPT_TEXT("Invalid matrix type in glsl element_columns!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
