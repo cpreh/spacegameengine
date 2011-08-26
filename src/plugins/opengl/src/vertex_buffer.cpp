@@ -41,6 +41,7 @@ sge::opengl::vertex_buffer::vertex_buffer(
 )
 :
 	sge::renderer::vertex_buffer(),
+	opengl::buffer::wrapper(),
 	part_index_(_part_index),
 	format_part_(_format_part),
 	converter_(
@@ -56,12 +57,12 @@ sge::opengl::vertex_buffer::vertex_buffer(
 	),
 	buffer_(
 		context::use<
-			buffer::vbo_context
+			opengl::buffer::vbo_context
 		>(
 			_context
 		).impl(),
 		context::use<
-			buffer::vbo_context
+			opengl::buffer::vbo_context
 		>(
 			_context
 		).vertex_buffer_type(),
@@ -203,4 +204,10 @@ sge::renderer::vf::dynamic::part_index const
 sge::opengl::vertex_buffer::format_part_index() const
 {
 	return part_index_;
+}
+
+sge::opengl::buffer::object const &
+sge::opengl::vertex_buffer::buffer() const
+{
+	return buffer_;
 }

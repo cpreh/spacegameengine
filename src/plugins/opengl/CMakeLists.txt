@@ -9,6 +9,8 @@ SET(
 	src/plugins/opengl/buffer/base_unique_ptr.hpp
 	src/plugins/opengl/buffer/create.hpp
 	src/plugins/opengl/buffer/hardware.hpp
+	src/plugins/opengl/buffer/holder.hpp
+	src/plugins/opengl/buffer/id.hpp
 	src/plugins/opengl/buffer/make_type.hpp
 	src/plugins/opengl/buffer/normal_lock_method.hpp
 	src/plugins/opengl/buffer/object.hpp
@@ -19,6 +21,7 @@ SET(
 	src/plugins/opengl/buffer/src/base.cpp
 	src/plugins/opengl/buffer/src/create.cpp
 	src/plugins/opengl/buffer/src/hardware.cpp
+	src/plugins/opengl/buffer/src/holder.cpp
 	src/plugins/opengl/buffer/src/make_type.cpp
 	src/plugins/opengl/buffer/src/normal_lock_method.cpp
 	src/plugins/opengl/buffer/src/object.cpp
@@ -26,7 +29,9 @@ SET(
 	src/plugins/opengl/buffer/src/range_lock_method.cpp
 	src/plugins/opengl/buffer/src/software.cpp
 	src/plugins/opengl/buffer/src/vbo_context.cpp
+	src/plugins/opengl/buffer/src/wrapper.cpp
 	src/plugins/opengl/buffer/vbo_context.hpp
+	src/plugins/opengl/buffer/wrapper.hpp
 	src/plugins/opengl/caps_unique_ptr.hpp
 	src/plugins/opengl/check_state.hpp
 	src/plugins/opengl/clear.hpp

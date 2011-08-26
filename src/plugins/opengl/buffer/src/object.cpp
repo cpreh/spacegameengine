@@ -56,8 +56,8 @@ sge::opengl::buffer::object::object(
 	dest_(
 		0
 	),
-	id_(
-		base_.gen_buffer()
+	holder_(
+		base_
 	),
 	lock_offset_(
 		0
@@ -103,10 +103,6 @@ sge::opengl::buffer::object::~object()
 		this->unlock();
 
 	this->unbind();
-
-	base_.delete_buffer(
-		id_
-	);
 }
 
 void
@@ -324,7 +320,9 @@ void
 sge::opengl::buffer::object::unbind()
 {
 	this->bind_id(
-		0
+		buffer::id(
+			0
+		)
 	);
 }
 
@@ -332,7 +330,7 @@ void
 sge::opengl::buffer::object::bind() const
 {
 	this->bind_id(
-		id_
+		this->id()
 	);
 }
 
@@ -368,12 +366,27 @@ sge::opengl::buffer::object::buffer_offset(
 sge::opengl::buffer::object::pointer
 sge::opengl::buffer::object::raw_buffer() const
 {
-	return buffer_offset(0);
+	return
+		this->buffer_offset(
+			0
+		);
+}
+
+sge::opengl::buffer::id const
+sge::opengl::buffer::object::id() const
+{
+	return holder_.id();
+}
+
+bool
+sge::opengl::buffer::object::native() const
+{
+	return base_.hardware_supported();
 }
 
 void
 sge::opengl::buffer::object::bind_id(
-	GLuint const _id
+	buffer::id const _id
 ) const
 {
 	base_.bind_buffer(

@@ -121,7 +121,9 @@ try
 
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<format>()
+			sge::renderer::vf::dynamic::make_format<
+				format
+			>()
 		)
 	);
 

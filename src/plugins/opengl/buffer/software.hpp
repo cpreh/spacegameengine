@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BUFFER_SOFTWARE_HPP_INCLUDED
 
 #include "base.hpp"
+#include "id.hpp"
 #include "../common.hpp"
 #include <sge/renderer/raw_pointer.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -46,18 +47,18 @@ public:
 
 	~software();
 private:
-	GLuint
+	buffer::id const
 	gen_buffer();
 
 	void
 	delete_buffer(
-		GLuint
+		buffer::id
 	);
 
 	void
 	bind_buffer(
 		GLenum type,
-		GLuint
+		buffer::id
 	);
 
 	GLvoid *
@@ -108,23 +109,23 @@ private:
 	hardware_supported() const;
 
 	typedef std::map<
-		GLuint,
+		buffer::id,
 		sge::renderer::raw_pointer
 	> buffer_map;
 
-	GLuint
+	buffer::id const
 	bound_buffer(
 		GLenum
 	) const;
 
 	buffer_map::iterator
 	buffer_object(
-		GLuint id
+		buffer::id
 	);
 
 	buffer_map::const_iterator
 	buffer_object(
-		GLuint id
+		buffer::id
 	) const;
 
 	void
@@ -134,12 +135,12 @@ private:
 
 	typedef std::map<
 		GLenum,
-		GLuint
+		buffer::id
 	> bound_buffer_map;
 
 	bound_buffer_map bound_buffers_;
 
-	GLuint nextid_;
+	buffer::id nextid_;
 
 	buffer_map buffers_;
 

@@ -31,7 +31,7 @@ sge::opengl::buffer::software::software()
 :
 	buffer::base(),
 	bound_buffers_(),
-	nextid_(1),
+	nextid_(1u),
 	buffers_()
 {
 }
@@ -40,7 +40,7 @@ sge::opengl::buffer::software::~software()
 {
 }
 
-GLuint
+sge::opengl::buffer::id const
 sge::opengl::buffer::software::gen_buffer()
 {
 	buffers_.insert(
@@ -59,7 +59,7 @@ sge::opengl::buffer::software::gen_buffer()
 
 void
 sge::opengl::buffer::software::delete_buffer(
-	GLuint const _id
+	buffer::id const _id
 )
 {
 	buffer_map::iterator const it(
@@ -78,7 +78,7 @@ sge::opengl::buffer::software::delete_buffer(
 void
 sge::opengl::buffer::software::bind_buffer(
 	GLenum const _type,
-	GLuint const _id
+	buffer::id const _id
 )
 {
 	bound_buffers_[
@@ -231,7 +231,7 @@ sge::opengl::buffer::software::hardware_supported() const
 	return false;
 }
 
-GLuint
+sge::opengl::buffer::id const
 sge::opengl::buffer::software::bound_buffer(
 	GLenum const _type
 ) const
@@ -245,14 +245,16 @@ sge::opengl::buffer::software::bound_buffer(
 	return
 		it == bound_buffers_.end()
 		?
-			0
+			buffer::id(
+				0
+			)
 		:
 			it->second;
 }
 
 sge::opengl::buffer::software::buffer_map::iterator
 sge::opengl::buffer::software::buffer_object(
-	GLuint const _id
+	buffer::id const _id
 )
 {
 	buffer_map::iterator const it(
@@ -273,7 +275,7 @@ sge::opengl::buffer::software::buffer_object(
 
 sge::opengl::buffer::software::buffer_map::const_iterator
 sge::opengl::buffer::software::buffer_object(
-	GLuint const _id
+	buffer::id const _id
 ) const
 {
 	return
@@ -295,7 +297,10 @@ sge::opengl::buffer::software::check_bound(
 		this->bound_buffer(
 			_type
 		)
-		== 0
+		==
+		buffer::id(
+			0
+		)
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl soft buffer: no buffer bound!")

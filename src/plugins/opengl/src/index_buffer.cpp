@@ -36,6 +36,7 @@ sge::opengl::index_buffer::index_buffer(
 )
 :
 	sge::renderer::index_buffer(),
+	opengl::buffer::wrapper(),
 	format_(_format),
 	gl_format_(
 		opengl::convert::index_format(
@@ -163,4 +164,10 @@ sge::renderer::index::dynamic::format::type
 sge::opengl::index_buffer::format() const
 {
 	return format_;
+}
+
+sge::opengl::buffer::object const &
+sge::opengl::index_buffer::buffer() const
+{
+	return buffer_;
 }

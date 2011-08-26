@@ -18,12 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_OPENGL_OPENGL_HPP_INCLUDED
-#define SGE_RENDERER_OPENGL_OPENGL_HPP_INCLUDED
+#include "../holder.hpp"
+#include "../base.hpp"
+#include "../id.hpp"
 
-#include <sge/renderer/opengl/buffer/buffer.hpp>
-#include <sge/renderer/opengl/glinclude.hpp>
-#include <sge/renderer/opengl/symbol.hpp>
-#include <sge/renderer/opengl/texture/texture.hpp>
+sge::opengl::buffer::holder::holder(
+	buffer::base &_base
+)
+:
+	base_(
+		_base
+	),
+	id_(
+		_base.gen_buffer()
+	)
+{
+}
 
-#endif
+sge::opengl::buffer::holder::~holder()
+{
+	base_.delete_buffer(
+		id_
+	);
+}
+
+sge::opengl::buffer::id const
+sge::opengl::buffer::holder::id() const
+{
+	return id_;
+}

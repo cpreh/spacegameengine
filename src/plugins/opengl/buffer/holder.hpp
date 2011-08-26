@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_BUFFER_BASE_HPP_INCLUDED
-#define SGE_OPENGL_BUFFER_BASE_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_HOLDER_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_HOLDER_HPP_INCLUDED
 
 #include "base_fwd.hpp"
 #include "id.hpp"
-#include "../common.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,76 +32,24 @@ namespace opengl
 namespace buffer
 {
 
-class base
+class holder
 {
 	FCPPT_NONCOPYABLE(
-		base
+		holder
 	);
-protected:
-	base();
 public:
-	virtual ~base() = 0;
+	explicit holder(
+		buffer::base &
+	);
 
-	virtual buffer::id const
-	gen_buffer() = 0;
+	~holder();
 
-	virtual void
-	delete_buffer(
-		buffer::id
-	) = 0;
+	buffer::id const
+	id() const;
+private:
+	buffer::base &base_;
 
-	virtual void
-	bind_buffer(
-		GLenum type,
-		buffer::id
-	) = 0;
-
-	virtual GLvoid *
-	map_buffer(
-		GLenum type,
-		GLenum flags
-	) = 0;
-
-	virtual GLvoid *
-	map_buffer_range(
-		GLenum type,
-		GLenum flags,
-		GLsizei first,
-		GLsizei size
-	) = 0;
-
-	virtual bool
-	map_buffer_range_supported() const = 0;
-
-	virtual void
-	unmap_buffer(
-		GLenum type
-	) = 0;
-
-	virtual void
-	buffer_data(
-		GLenum type,
-		GLsizei size,
-		GLvoid const *data,
-		GLenum flags
-	) = 0;
-
-	virtual void
-	buffer_sub_data(
-		GLenum type,
-		GLsizei first,
-		GLsizei size,
-		GLvoid const *data
-	) = 0;
-
-	virtual GLvoid *
-	buffer_offset(
-		GLenum type,
-		GLsizei offset
-	) const = 0;
-
-	virtual bool
-	hardware_supported() const = 0;
+	buffer::id const id_;
 };
 
 }

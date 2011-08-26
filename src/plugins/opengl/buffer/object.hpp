@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "object_fwd.hpp"
 #include "base_fwd.hpp"
+#include "id.hpp"
+#include "holder.hpp"
 #include "../common.hpp"
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -117,10 +119,16 @@ public:
 
 	pointer
 	raw_buffer() const;
+
+	opengl::buffer::id const
+	id() const;
+
+	bool
+	native() const;
 private:
 	void
 	bind_id(
-		GLuint id
+		buffer::id
 	) const;
 
 	buffer::base &base_;
@@ -135,7 +143,7 @@ private:
 
 	pointer dest_;
 
-	GLuint const id_;
+	buffer::holder const holder_;
 
 	size_type
 		lock_offset_,

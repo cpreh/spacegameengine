@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BUFFER_HARDWARE_HPP_INCLUDED
 
 #include "base.hpp"
+#include "id.hpp"
 #include "../common.hpp"
 #include <fcppt/noncopyable.hpp>
 
@@ -44,18 +45,18 @@ public:
 
 	~hardware();
 private:
-	GLuint
+	buffer::id const
 	gen_buffer();
 
 	void
 	delete_buffer(
-		GLuint
+		buffer::id
 	);
 
 	void
 	bind_buffer(
 		GLenum type,
-		GLuint
+		buffer::id
 	);
 
 	GLvoid *

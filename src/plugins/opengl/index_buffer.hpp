@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include "buffer/object.hpp"
+#include "buffer/wrapper.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index_buffer.hpp>
@@ -37,7 +38,8 @@ namespace opengl
 
 class index_buffer
 :
-	public sge::renderer::index_buffer
+	public sge::renderer::index_buffer,
+	public opengl::buffer::wrapper
 {
 	FCPPT_NONCOPYABLE(
 		index_buffer
@@ -87,6 +89,9 @@ private:
 
 	renderer::index::dynamic::format::type
 	format() const;
+
+	opengl::buffer::object const &
+	buffer() const;
 
 	renderer::index::dynamic::format::type const format_;
 

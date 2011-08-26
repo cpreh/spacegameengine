@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_OPENGL_OPENGL_HPP_INCLUDED
-#define SGE_RENDERER_OPENGL_OPENGL_HPP_INCLUDED
+#ifndef SGE_RENDERER_OPENGL_BUFFER_BUFFER_HPP_INCLUDED
+#define SGE_RENDERER_OPENGL_BUFFER_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/opengl/buffer/buffer.hpp>
-#include <sge/renderer/opengl/glinclude.hpp>
-#include <sge/renderer/opengl/symbol.hpp>
-#include <sge/renderer/opengl/texture/texture.hpp>
+#include <sge/renderer/opengl/buffer/base.hpp>
+#include <sge/renderer/opengl/buffer/base_fwd.hpp>
+#include <sge/renderer/opengl/buffer/base_ptr.hpp>
+#include <sge/renderer/opengl/buffer/id.hpp>
 
 #endif

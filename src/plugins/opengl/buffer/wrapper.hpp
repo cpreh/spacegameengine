@@ -18,12 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_OPENGL_OPENGL_HPP_INCLUDED
-#define SGE_RENDERER_OPENGL_OPENGL_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_WRAPPER_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_WRAPPER_HPP_INCLUDED
 
-#include <sge/renderer/opengl/buffer/buffer.hpp>
-#include <sge/renderer/opengl/glinclude.hpp>
-#include <sge/renderer/opengl/symbol.hpp>
-#include <sge/renderer/opengl/texture/texture.hpp>
+#include "object_fwd.hpp"
+#include "../common.hpp" // bring in glew.h
+#include <sge/renderer/opengl/buffer/base.hpp>
+#include <sge/renderer/opengl/buffer/id.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+namespace buffer
+{
+
+class wrapper
+:
+	public sge::renderer::opengl::buffer::base
+{
+	FCPPT_NONCOPYABLE(
+		wrapper
+	);
+protected:
+	wrapper();
+
+	virtual ~wrapper() = 0;
+
+	virtual opengl::buffer::object const &
+	buffer() const = 0;
+private:
+	sge::renderer::opengl::buffer::id const
+	id() const;
+
+	bool
+	native() const;
+};
+
+}
+}
+}
 
 #endif

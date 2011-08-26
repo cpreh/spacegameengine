@@ -102,14 +102,14 @@ sge::opengl::buffer::hardware::~hardware()
 {
 }
 
-GLuint
+sge::opengl::buffer::id const
 sge::opengl::buffer::hardware::gen_buffer()
 {
-	GLuint id;
+	GLuint new_id;
 
 	gl_gen_buffers_(
 		1,
-		&id
+		&new_id
 	);
 
 	SGE_OPENGL_CHECK_STATE(
@@ -117,17 +117,20 @@ sge::opengl::buffer::hardware::gen_buffer()
 		sge::renderer::exception
 	)
 
-	return id;
+	return
+		opengl::buffer::id(
+			new_id
+		);
 }
 
 void
 sge::opengl::buffer::hardware::delete_buffer(
-	GLuint const _id
+	buffer::id const _id
 )
 {
 	gl_delete_buffers_(
 		1,
-		&_id
+		&_id.get()
 	);
 
 	SGE_OPENGL_CHECK_STATE(
@@ -139,12 +142,12 @@ sge::opengl::buffer::hardware::delete_buffer(
 void
 sge::opengl::buffer::hardware::bind_buffer(
 	GLenum const _type,
-	GLuint const _id
+	buffer::id const _id
 )
 {
 	gl_bind_buffer_(
 		_type,
-		_id
+		_id.get()
 	);
 
 	SGE_OPENGL_CHECK_STATE(
