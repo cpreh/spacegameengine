@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_TEXPOS_HPP_INCLUDED
+#define SGE_MODEL_MD3_TEXPOS_HPP_INCLUDED
 
-#include <sge/model/md3/string.hpp>
-#include <vector>
+#include <sge/model/md3/texcoord.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <istream>
 
 namespace sge
 {
@@ -31,12 +32,18 @@ namespace model
 namespace md3
 {
 
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
+class texpos
+{
+public:
+	explicit texpos(
+		std::istream &
+	);
+
+	md3::texcoord const &
+	texcoord() const;
+private:
+	md3::texcoord texcoord_;
+};
 
 }
 }

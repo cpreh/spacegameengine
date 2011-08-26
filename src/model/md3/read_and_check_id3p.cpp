@@ -18,28 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#include "read_and_check_id3p.hpp"
+#include "endian.hpp"
+#include <sge/model/md3/u8.hpp>
+#include <fcppt/container/array.hpp>
+#include <fcppt/io/read.hpp>
+#include <algorithm>
+#include <istream>
 
-#include <sge/model/md3/string.hpp>
-#include <vector>
-
-namespace sge
+bool
+sge::model::md3::read_and_check_id3p(
+	std::istream &_stream
+)
 {
-namespace model
-{
-namespace md3
-{
+	typedef fcppt::container::array<
+		md3::u8,
+		4
+	> id3p_array;
 
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
+	id3p_array const to_check = { { 0x49, 0x44, 0x50, 0x33 } };
 
-}
-}
-}
+	id3p_array id3p;
 
-#endif
+	for(
+		id3p_array::iterator it(
+			id3p.begin()
+		);
+		it != id3p.end();
+		++it
+	)
+		*it =
+			fcppt::io::read<
+				md3::u8
+			>(
+				_stream,
+				md3::endian()
+			);
+
+	return
+		std::equal(
+			id3p.begin(),
+			id3p.end(),
+			to_check.begin()
+		);
+}

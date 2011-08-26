@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_FRAME_HPP_INCLUDED
+#define SGE_MODEL_MD3_FRAME_HPP_INCLUDED
 
+#include "vec3.hpp"
+#include <sge/model/md3/scalar.hpp>
 #include <sge/model/md3/string.hpp>
-#include <vector>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <iosfwd>
 
 namespace sge
 {
@@ -31,12 +34,37 @@ namespace model
 namespace md3
 {
 
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
+class frame
+{
+public:
+	explicit frame(
+		std::istream &
+	);
+
+	md3::vec3 const &
+	min_bounds() const;
+
+	md3::vec3 const &
+	max_bounds() const;
+
+	md3::vec3 const &
+	local_origin() const;
+
+	md3::scalar
+	radius() const;
+
+	md3::string const &
+	name() const;
+private:
+	md3::vec3
+		min_bounds_,
+		max_bounds_,
+		local_origin_;
+
+	md3::scalar radius_;
+
+	md3::string name_;
+};
 
 }
 }

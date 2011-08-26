@@ -18,28 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#include "read_s32.hpp"
+#include "endian.hpp"
+#include "s32.hpp"
+#include <fcppt/io/read.hpp>
 
-#include <sge/model/md3/string.hpp>
-#include <vector>
-
-namespace sge
+sge::model::md3::s32
+sge::model::md3::read_s32(
+	std::istream &_stream
+)
 {
-namespace model
-{
-namespace md3
-{
-
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
-
+	return
+		fcppt::io::read<
+			md3::s32
+		>(
+			_stream,
+			md3::endian()
+		);
 }
-}
-}
-
-#endif

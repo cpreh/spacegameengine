@@ -18,28 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#include "texpos.hpp"
+#include "endian.hpp"
+#include <fcppt/io/read.hpp>
+#include <algorithm>
+#include <iosfwd>
 
-#include <sge/model/md3/string.hpp>
-#include <vector>
-
-namespace sge
+sge::model::md3::texpos::texpos(
+	std::istream &_stream
+)
+:
+	texcoord_(
+		fcppt::io::read<
+			md3::scalar
+		>(
+			_stream,
+			md3::endian()
+		),
+		fcppt::io::read<
+			md3::scalar
+		>(
+			_stream,
+			md3::endian()
+		)
+	)
 {
-namespace model
+	std::swap(
+		texcoord_.x(),
+		texcoord_.y()
+	);
+}
+
+sge::model::md3::texcoord const &
+sge::model::md3::texpos::texcoord() const
 {
-namespace md3
-{
-
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
-
+	return texcoord_;
 }
-}
-}
-
-#endif

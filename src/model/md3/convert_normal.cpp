@@ -18,28 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#include "convert_normal.hpp"
+#include "vec3.hpp"
+#include <sge/model/md3/scalar.hpp>
+#include <fcppt/math/twopi.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <cmath>
 
-#include <sge/model/md3/string.hpp>
-#include <vector>
-
-namespace sge
+sge::model::md3::vec3 const
+sge::model::md3::convert_normal(
+	md3::s16 const _normal
+)
 {
-namespace model
-{
-namespace md3
-{
+	md3::scalar const
+		lat(
+			static_cast<
+				md3::scalar
+			>(
+				(_normal >> 8)
+				& 255
+			)
+			*
+			fcppt::math::twopi<
+				md3::scalar
+			>()
+			/ 255
+		),
+		lng(
+			static_cast<
+				md3::scalar
+			>(
+				_normal & 255
+			)
+			*
+			fcppt::math::twopi<
+				md3::scalar
+			>()
+			/ 255
+		);
 
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
-
+	return
+		md3::vec3(
+			std::cos(lat) * std::sin(lng),
+			std::sin(lat) * std::sin(lng),
+			std::cos(lng)
+		);
 }
-}
-}
-
-#endif

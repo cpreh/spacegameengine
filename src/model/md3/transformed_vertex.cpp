@@ -18,28 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#include "transformed_vertex.hpp"
+#include "convert_normal.hpp"
+#include "vertex.hpp"
+#include "xyz_scale.hpp"
+#include <sge/model/md3/scalar.hpp>
 
-#include <sge/model/md3/string.hpp>
-#include <vector>
-
-namespace sge
+sge::model::md3::transformed_vertex::transformed_vertex(
+	md3::vertex const &_vertex
+)
+:
+	pos_(
+		static_cast<
+			md3::scalar
+		>(
+			_vertex.x()
+		)
+		* md3::xyz_scale()
+		,
+		static_cast<
+			md3::scalar
+		>(
+			_vertex.y()
+		)
+		* md3::xyz_scale()
+		,
+		static_cast<
+			md3::scalar
+		>(
+			_vertex.z()
+		)
+		*
+		md3::xyz_scale()
+	),
+	normal_(
+		md3::convert_normal(
+			_vertex.normal()
+		)
+	)
 {
-namespace model
+}
+
+sge::model::md3::vec3 const &
+sge::model::md3::transformed_vertex::pos() const
 {
-namespace md3
+	return pos_;
+}
+
+sge::model::md3::vec3 const &
+sge::model::md3::transformed_vertex::normal() const
 {
-
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
-
+	return normal_;
 }
-}
-}
-
-#endif

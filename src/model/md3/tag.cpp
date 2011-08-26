@@ -1,5 +1,4 @@
-/*
-spacegameengine is a portable easy to use game engine written in C++.
+/* spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
@@ -18,28 +17,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#include "tag.hpp"
+#include "axis_array.hpp"
+#include "max_qpath.hpp"
+#include "read_string.hpp"
+#include "read_vec3.hpp"
+#include <iosfwd>
 
-#include <sge/model/md3/string.hpp>
-#include <vector>
-
-namespace sge
+sge::model::md3::tag::tag(
+	std::istream &_stream
+)
+:
+	name_(
+		md3::read_string<
+			md3::max_qpath::value
+		>(
+			_stream
+		)
+	),
+	origin_(
+		md3::read_vec3(
+			_stream
+		)
+	)
 {
-namespace model
-{
-namespace md3
-{
-
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
-
+	for(
+		md3::axis_array::iterator it(
+			axis_.begin()
+		);
+		it != axis_.end();
+		++it
+	)
+		*it =
+			md3::read_vec3(
+				_stream
+			);
 }
-}
-}
-
-#endif

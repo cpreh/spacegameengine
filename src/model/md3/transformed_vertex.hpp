@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_TRANSFORMED_VERTEX_HPP_INCLUDED
+#define SGE_MODEL_MD3_TRANSFORMED_VERTEX_HPP_INCLUDED
 
-#include <sge/model/md3/string.hpp>
-#include <vector>
+#include "vec3.hpp"
+#include "vertex_fwd.hpp"
+#include <fcppt/math/vector/basic_impl.hpp>
 
 namespace sge
 {
@@ -31,12 +32,23 @@ namespace model
 namespace md3
 {
 
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
+class transformed_vertex
+{
+public:
+	explicit transformed_vertex(
+		md3::vertex const &
+	);
+
+	md3::vec3 const &
+	pos() const;
+
+	md3::vec3 const &
+	normal() const;
+private:
+	md3::vec3
+		pos_,
+		normal_;
+};
 
 }
 }

@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_S32_HPP_INCLUDED
+#define SGE_MODEL_MD3_S32_HPP_INCLUDED
 
-#include <sge/model/md3/string.hpp>
-#include <vector>
+#include <boost/cstdint.hpp>
 
 namespace sge
 {
@@ -31,12 +30,7 @@ namespace model
 namespace md3
 {
 
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
+typedef boost::int32_t s32;
 
 }
 }

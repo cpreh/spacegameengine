@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_CONVERT_NORMAL_HPP_INCLUDED
+#define SGE_MODEL_MD3_CONVERT_NORMAL_HPP_INCLUDED
 
-#include <sge/model/md3/string.hpp>
-#include <vector>
+#include "s16.hpp"
+#include "vec3.hpp"
 
 namespace sge
 {
@@ -31,12 +31,10 @@ namespace model
 namespace md3
 {
 
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
+md3::vec3 const
+convert_normal(
+	md3::s16
+);
 
 }
 }

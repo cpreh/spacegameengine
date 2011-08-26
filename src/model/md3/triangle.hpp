@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_TRIANGLE_HPP_INCLUDED
+#define SGE_MODEL_MD3_TRIANGLE_HPP_INCLUDED
 
-#include <sge/model/md3/string.hpp>
-#include <vector>
+#include "index_array.hpp"
+#include <fcppt/container/array_impl.hpp>
+#include <iosfwd>
 
 namespace sge
 {
@@ -31,12 +32,18 @@ namespace model
 namespace md3
 {
 
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
+class triangle
+{
+public:
+	explicit triangle(
+		std::istream &
+	);
+
+	md3::index_array const &
+	indices() const;
+private:
+	md3::index_array indices_;
+};
 
 }
 }

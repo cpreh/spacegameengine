@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_VERTEX_HPP_INCLUDED
+#define SGE_MODEL_MD3_VERTEX_HPP_INCLUDED
 
-#include <sge/model/md3/string.hpp>
-#include <vector>
+#include "vertex_fwd.hpp"
+#include "s16.hpp"
+#include <sge/model/md3/load_flags.hpp>
+#include <istream>
 
 namespace sge
 {
@@ -31,12 +33,32 @@ namespace model
 namespace md3
 {
 
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
+class vertex
+{
+public:
+	vertex(
+		std::istream &,
+		md3::load_flags::type
+	);
+
+	md3::s16
+	x() const;
+
+	md3::s16
+	y() const;
+
+	md3::s16
+	z() const;
+
+	md3::s16
+	normal() const;
+private:
+	md3::s16
+		x_,
+		y_,
+		z_,
+		normal_;
+};
 
 }
 }

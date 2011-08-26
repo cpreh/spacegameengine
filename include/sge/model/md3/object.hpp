@@ -23,15 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/model/md3/object_fwd.hpp>
 #include <sge/model/md3/index_sequence.hpp>
-#include <sge/model/md3/vertex_sequence.hpp>
-#include <sge/model/md3/texcoord_sequence.hpp>
 #include <sge/model/md3/normal_sequence.hpp>
+#include <sge/model/md3/optional_normal_sequence.hpp>
+#include <sge/model/md3/optional_texcoord_sequence.hpp>
 #include <sge/model/md3/part_name_sequence.hpp>
+#include <sge/model/md3/string.hpp>
 #include <sge/model/md3/symbol.hpp>
+#include <sge/model/md3/texcoord_sequence.hpp>
+#include <sge/model/md3/vertex_sequence.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional.hpp> // TODO: make _fwd headers!
 
 namespace sge
 {
@@ -51,22 +53,22 @@ protected:
 public:
 	virtual index_sequence const
 	indices(
-		fcppt::string const &name
+		md3::string const &name
 	) const = 0;
 
 	virtual vertex_sequence const
 	vertices(
-		fcppt::string const &name
+		md3::string const &name
 	) const = 0;
 
-	virtual fcppt::optional<texcoord_sequence> const
+	virtual md3::optional_texcoord_sequence const
 	texcoords(
-		fcppt::string const &name
+		md3::string const &name
 	) const = 0;
 
-	virtual fcppt::optional<normal_sequence> const
+	virtual md3::optional_normal_sequence const
 	normals(
-		fcppt::string const &name
+		md3::string const &name
 	) const = 0;
 
 	virtual part_name_sequence const

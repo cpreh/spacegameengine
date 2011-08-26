@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_SHADER_HPP_INCLUDED
+#define SGE_MODEL_MD3_SHADER_HPP_INCLUDED
 
+#include "s32.hpp"
 #include <sge/model/md3/string.hpp>
-#include <vector>
+#include <iosfwd>
 
 namespace sge
 {
@@ -31,12 +32,23 @@ namespace model
 namespace md3
 {
 
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
+class shader
+{
+public:
+	explicit shader(
+		std::istream &
+	);
+
+	md3::string const &
+	name() const;
+
+	md3::s32
+	shader_index() const;
+private:
+	md3::string name_;
+
+	md3::s32 shader_index_;
+};
 
 }
 }

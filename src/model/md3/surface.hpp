@@ -18,11 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_MD3_PART_NAME_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_SURFACE_HPP_INCLUDED
+#define SGE_MODEL_MD3_SURFACE_HPP_INCLUDED
 
+#include "s32.hpp"
+#include "shader_vector.hpp"
+#include "texpos_vector.hpp"
+#include "transformed_vertex_vector.hpp"
+#include "triangle_vector.hpp"
+#include <sge/model/md3/load_flags.hpp>
 #include <sge/model/md3/string.hpp>
-#include <vector>
+#include <istream>
 
 namespace sge
 {
@@ -31,12 +37,40 @@ namespace model
 namespace md3
 {
 
-typedef
-std::vector
-<
-	md3::string
->
-part_name_sequence;
+class surface
+{
+public:
+	surface(
+		std::istream &,
+		md3::load_flags::type,
+		md3::s32 num_frames
+	);
+
+	md3::string const &
+	name() const;
+
+	md3::shader_vector const &
+	shaders() const;
+
+	md3::triangle_vector const &
+	triangles() const;
+
+	md3::texpos_vector const &
+	texpos() const;
+
+	md3::transformed_vertex_vector const &
+	transformed_vertices() const;
+private:
+	md3::string name_;
+
+	md3::shader_vector shaders_;
+
+	md3::triangle_vector triangles_;
+
+	md3::texpos_vector texpos_;
+
+	md3::transformed_vertex_vector transformed_vertices_;
+};
 
 }
 }
