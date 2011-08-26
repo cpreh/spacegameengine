@@ -26,6 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <gl.h>
 #include <glu.h>
 #else
+#if defined(FCPPT_WINDOWS_PLATFORM)
+	#define WIN32_LEAN_AND_MEAN
+	#define NOMINMAX
+	#include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <GL/glu.h>
 #endif
