@@ -159,6 +159,10 @@ MACRO(
 	OUTER_PATH
 	INNER_PATH
 )
+	UNSET(
+		${OUTPUT}
+	)
+
 	IF(
 		${${PATH_DIFFERENCE}}
 	)
