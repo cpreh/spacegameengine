@@ -18,68 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_READONLY_LOCK_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_READONLY_LOCK_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_VBO_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_VBO_CONTEXT_HPP_INCLUDED
 
-#include "lock_base.hpp"
-#include "../buffer/object.hpp"
-#include "../context/object_fwd.hpp"
-#include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
+#include "base_fwd.hpp"
+#include "../context/base.hpp"
+#include "../context/id.hpp"
+#include "../common.hpp"
+#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-namespace texture
+namespace buffer
 {
 
-class readonly_lock
+class vbo_context
 :
-	public opengl::texture::lock_base
+	public context::base
 {
 	FCPPT_NONCOPYABLE(
-		readonly_lock
+		vbo_context
 	);
 public:
-	readonly_lock(
-		opengl::context::object &,
-		size_type whole_size,
-		size_type stride,
-		renderer::resource_flags_field const &
-	);
+	vbo_context();
 
-	~readonly_lock();
+	~vbo_context();
 
-	void
-	lock();
+	buffer::base &
+	impl();
 
-	void
-	unlock();
+	GLenum
+	index_buffer_type() const;
 
-	void
-	pre_unlock();
+	GLenum
+	vertex_buffer_type() const;
 
-	void
-	post_copy();
+	typedef void needs_before;
 
-	pointer
-	read_pointer();
-
-	pointer
-	write_pointer();
-
-	pointer
-	read_view_pointer();
-
-	pointer
-	write_view_pointer();
+	static context::id const static_id;
 private:
-	renderer::lock_flags::method::type
-	method() const;
+	fcppt::scoped_ptr<
+		buffer::base
+	> impl_;
 
-	opengl::buffer::object buffer_;
+	GLenum const
+		index_buffer_type_,
+		vertex_buffer_type_;
 };
 
 }

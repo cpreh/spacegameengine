@@ -18,15 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../hardware_vbo.hpp"
-#include "../check_state.hpp"
-#include "../glew/is_supported.hpp"
+#include "../hardware.hpp"
+#include "../../common.hpp"
+#include "../../check_state.hpp"
+#include "../../glew/is_supported.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::hardware_vbo::hardware_vbo()
+sge::opengl::buffer::hardware::hardware()
 :
+	buffer::base(),
 	have_version_1_5_(
 		sge::opengl::glew::is_supported(
 			"GL_VERSION_1_5"
@@ -90,21 +92,18 @@ sge::opengl::hardware_vbo::hardware_vbo()
 		glMapBufferRange
 	)
 {
-	if(
-		!have_version_1_5_
-		&& !have_arb_
+	FCPPT_ASSERT_ERROR(
+		have_version_1_5_
+		|| have_arb_
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Invalid initialization of hardware_vbo!")
-		);
 }
 
-sge::opengl::hardware_vbo::~hardware_vbo()
+sge::opengl::buffer::hardware::~hardware()
 {
 }
 
 GLuint
-sge::opengl::hardware_vbo::gen_buffer()
+sge::opengl::buffer::hardware::gen_buffer()
 {
 	GLuint id;
 
@@ -122,7 +121,7 @@ sge::opengl::hardware_vbo::gen_buffer()
 }
 
 void
-sge::opengl::hardware_vbo::delete_buffer(
+sge::opengl::buffer::hardware::delete_buffer(
 	GLuint const _id
 )
 {
@@ -138,7 +137,7 @@ sge::opengl::hardware_vbo::delete_buffer(
 }
 
 void
-sge::opengl::hardware_vbo::bind_buffer(
+sge::opengl::buffer::hardware::bind_buffer(
 	GLenum const _type,
 	GLuint const _id
 )
@@ -155,7 +154,7 @@ sge::opengl::hardware_vbo::bind_buffer(
 }
 
 GLvoid *
-sge::opengl::hardware_vbo::map_buffer(
+sge::opengl::buffer::hardware::map_buffer(
 	GLenum const _type,
 	GLenum const _flags
 )
@@ -180,7 +179,7 @@ sge::opengl::hardware_vbo::map_buffer(
 }
 
 GLvoid *
-sge::opengl::hardware_vbo::map_buffer_range(
+sge::opengl::buffer::hardware::map_buffer_range(
 	GLenum const _type,
 	GLenum const _flags,
 	GLsizei const _first,
@@ -209,13 +208,13 @@ sge::opengl::hardware_vbo::map_buffer_range(
 }
 
 bool
-sge::opengl::hardware_vbo::map_buffer_range_supported() const
+sge::opengl::buffer::hardware::map_buffer_range_supported() const
 {
 	return gl_map_buffer_range_ != 0;
 }
 
 void
-sge::opengl::hardware_vbo::unmap_buffer(
+sge::opengl::buffer::hardware::unmap_buffer(
 	GLenum const _type
 )
 {
@@ -230,7 +229,7 @@ sge::opengl::hardware_vbo::unmap_buffer(
 }
 
 void
-sge::opengl::hardware_vbo::buffer_data(
+sge::opengl::buffer::hardware::buffer_data(
 	GLenum const _type,
 	GLsizei const _size,
 	GLvoid const *const _data,
@@ -251,7 +250,7 @@ sge::opengl::hardware_vbo::buffer_data(
 }
 
 void
-sge::opengl::hardware_vbo::buffer_sub_data(
+sge::opengl::buffer::hardware::buffer_sub_data(
 	GLenum const _type,
 	GLsizei const _first,
 	GLsizei const _size,
@@ -272,7 +271,7 @@ sge::opengl::hardware_vbo::buffer_sub_data(
 }
 
 void *
-sge::opengl::hardware_vbo::buffer_offset(
+sge::opengl::buffer::hardware::buffer_offset(
 	GLenum,
 	GLsizei const _offset
 ) const
@@ -286,7 +285,7 @@ sge::opengl::hardware_vbo::buffer_offset(
 }
 
 bool
-sge::opengl::hardware_vbo::hardware_supported() const
+sge::opengl::buffer::hardware::hardware_supported() const
 {
 	return true;
 }

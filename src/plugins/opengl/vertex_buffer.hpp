@@ -22,14 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
 
 #include "vertex_buffer_fwd.hpp"
-#include "buffer.hpp"
 #include "vertex_declaration_fwd.hpp"
+#include "buffer/object.hpp"
 #include "context/object_fwd.hpp"
 #include "vf/part_fwd.hpp"
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -111,7 +112,7 @@ private:
 
 	mutable renderer::vf::dynamic::converter converter_;
 
-	mutable opengl::buffer buffer_;
+	mutable opengl::buffer::object buffer_;
 };
 
 }

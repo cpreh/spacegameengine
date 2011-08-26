@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../readonly_lock.hpp"
-#include "../../pbo_context.hpp"
+#include "../../buffer/pbo_context.hpp"
+#include "../../context/object_fwd.hpp"
 #include "../../context/use.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 sge::opengl::texture::readonly_lock::readonly_lock(
 	opengl::context::object &_context,
@@ -33,12 +34,12 @@ sge::opengl::texture::readonly_lock::readonly_lock(
 :
 	buffer_(
 		context::use<
-			pbo_context
+			buffer::pbo_context
 		>(
 			_context
 		).impl(),
 		context::use<
-			pbo_context
+			buffer::pbo_context
 		>(
 			_context
 		).pixel_pack_buffer_type(),
@@ -87,9 +88,7 @@ sge::opengl::texture::readonly_lock::read_pointer()
 sge::opengl::texture::readonly_lock::pointer
 sge::opengl::texture::readonly_lock::write_pointer()
 {
-	throw sge::renderer::exception(
-		FCPPT_TEXT("No write_pointer in readonly_texture_lock!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
 
 sge::opengl::texture::readonly_lock::pointer
@@ -101,9 +100,7 @@ sge::opengl::texture::readonly_lock::read_view_pointer()
 sge::opengl::texture::readonly_lock::pointer
 sge::opengl::texture::readonly_lock::write_view_pointer()
 {
-	throw sge::renderer::exception(
-		FCPPT_TEXT("No write_view_pointer in readonly_texture_lock!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
 
 sge::renderer::lock_flags::method::type

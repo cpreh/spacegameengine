@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_OBJECT_HPP_INCLUDED
 
-#include "buffer_fwd.hpp"
-#include "common.hpp"
-#include "vbo_base_fwd.hpp"
+#include "object_fwd.hpp"
+#include "base_fwd.hpp"
+#include "../common.hpp"
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -35,11 +35,13 @@ namespace sge
 {
 namespace opengl
 {
+namespace buffer
+{
 
-class buffer
+class object
 {
 	FCPPT_NONCOPYABLE(
-		buffer
+		object
 	);
 public:
 	typedef renderer::size_type size_type;
@@ -54,8 +56,8 @@ public:
 
 	typedef renderer::lock_flags::method::type lock_flag_type;
 
-	buffer(
-		vbo_base &,
+	object(
+		buffer::base &,
 		GLenum type,
 		size_type size,
 		size_type stride,
@@ -63,7 +65,7 @@ public:
 		const_pointer src
 	);
 
-	~buffer();
+	~object();
 
 	static size_type const npos = static_cast<size_type>(-1);
 
@@ -121,7 +123,7 @@ private:
 		GLuint id
 	) const;
 
-	vbo_base &vbo_base_;
+	buffer::base &base_;
 
 	GLenum const type_;
 
@@ -140,6 +142,7 @@ private:
 		lock_size_;
 };
 
+}
 }
 }
 

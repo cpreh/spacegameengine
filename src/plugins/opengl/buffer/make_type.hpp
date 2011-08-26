@@ -18,22 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_RANGE_LOCK_METHOD_HPP_INCLUDED
-#define SGE_OPENGL_RANGE_LOCK_METHOD_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_MAKE_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_MAKE_TYPE_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/lock_flags/method.hpp>
+#include "../common.hpp"
+#include "../glew/string.hpp"
 
 namespace sge
 {
 namespace opengl
 {
+namespace buffer
+{
 
 GLenum
-range_lock_method(
-	renderer::lock_flags::method::type
+make_type(
+	bool hardware_supported,
+	glew::string const &gl_version,
+	GLenum normal_type,
+	glew::string const &extension,
+	GLenum extension_type
 );
 
+}
 }
 }
 

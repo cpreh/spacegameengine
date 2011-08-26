@@ -18,29 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../normal_lock_method.hpp"
-#include <sge/renderer/lock_flags/method.hpp>
+#include "../make_type.hpp"
+#include "../../common.hpp"
+#include "../../glew/is_supported.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 GLenum
-sge::opengl::normal_lock_method(
-	renderer::lock_flags::method::type const _method
+sge::opengl::buffer::make_type(
+	bool const _hardware_supported,
+	glew::string const &_gl_version,
+	GLenum const _normal_type,
+	glew::string const &_extension,
+	GLenum const _extension_type
 )
 {
-	switch(
-		_method
-	)
-	{
-	case renderer::lock_flags::method::read:
-		return GL_READ_ONLY;
-	case renderer::lock_flags::method::write:
-		return GL_WRITE_ONLY;
-	case renderer::lock_flags::method::readwrite:
-		return GL_READ_WRITE;
-	}
-
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid lock_flags!")
-	);
+	return
+		_hardware_supported
+		?
+			glew::is_supported(
+				_gl_version
+			)
+			?
+				_normal_type
+			:
+				glew::is_supported(
+					_extension
+				)
+				?
+					_extension_type
+				:
+					throw sge::renderer::exception(
+						FCPPT_TEXT("Should not happen.")
+					)
+		:
+			_normal_type
+		;
 }

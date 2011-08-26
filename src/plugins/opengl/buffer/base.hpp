@@ -18,112 +18,93 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_HARDWARE_VBO_HPP_INCLUDED
-#define SGE_OPENGL_HARDWARE_VBO_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_BASE_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_BASE_HPP_INCLUDED
 
-#include "common.hpp"
-#include "vbo_base.hpp"
+#include "base_fwd.hpp"
+#include "../common.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace buffer
+{
 
-class hardware_vbo
-:
-	public opengl::vbo_base
+class base
 {
 	FCPPT_NONCOPYABLE(
-		hardware_vbo
+		base
 	);
+protected:
+	base();
 public:
-	hardware_vbo();
+	virtual ~base() = 0;
 
-	~hardware_vbo();
-private:
-	GLuint
-	gen_buffer();
+	virtual GLuint
+	gen_buffer() = 0;
 
-	void
+	virtual void
 	delete_buffer(
 		GLuint
-	);
+	) = 0;
 
-	void
+	virtual void
 	bind_buffer(
 		GLenum type,
 		GLuint
-	);
+	) = 0;
 
-	GLvoid *
+	virtual GLvoid *
 	map_buffer(
 		GLenum type,
 		GLenum flags
-	);
+	) = 0;
 
-	GLvoid *
+	virtual GLvoid *
 	map_buffer_range(
 		GLenum type,
 		GLenum flags,
 		GLsizei first,
 		GLsizei size
-	);
+	) = 0;
 
-	bool
-	map_buffer_range_supported() const;
+	virtual bool
+	map_buffer_range_supported() const = 0;
 
-	void
+	virtual void
 	unmap_buffer(
 		GLenum type
-	);
+	) = 0;
 
-	void
+	virtual void
 	buffer_data(
 		GLenum type,
 		GLsizei size,
 		GLvoid const *data,
 		GLenum flags
-	);
+	) = 0;
 
-	void
+	virtual void
 	buffer_sub_data(
 		GLenum type,
 		GLsizei first,
 		GLsizei size,
 		GLvoid const *data
-	);
+	) = 0;
 
-	void *
+	virtual GLvoid *
 	buffer_offset(
 		GLenum type,
 		GLsizei offset
-	) const;
+	) const = 0;
 
-	bool
-	hardware_supported() const;
-
-	bool const
-		have_version_1_5_,
-		have_arb_;
-
-	PFNGLGENBUFFERSPROC const gl_gen_buffers_;
-
-	PFNGLDELETEBUFFERSPROC const gl_delete_buffers_;
-
-	PFNGLBINDBUFFERPROC const gl_bind_buffer_;
-
-	PFNGLMAPBUFFERPROC const gl_map_buffer_;
-
-	PFNGLUNMAPBUFFERPROC const gl_unmap_buffer_;
-
-	PFNGLBUFFERDATAPROC const gl_buffer_data_;
-
-	PFNGLBUFFERSUBDATAPROC const gl_buffer_sub_data_;
-
-	PFNGLMAPBUFFERRANGEPROC const gl_map_buffer_range_;
+	virtual bool
+	hardware_supported() const = 0;
 };
 
+}
 }
 }
 

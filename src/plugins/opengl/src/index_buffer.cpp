@@ -20,14 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../index_buffer.hpp"
 #include "../common.hpp"
-#include "../vbo_context.hpp"
+#include "../buffer/vbo_context.hpp"
 #include "../context/use.hpp"
+#include "../convert/index_format.hpp"
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
 
 sge::opengl::index_buffer::index_buffer(
 	context::object &_context,
@@ -36,15 +35,21 @@ sge::opengl::index_buffer::index_buffer(
 	renderer::resource_flags_field const &_flags
 )
 :
+	sge::renderer::index_buffer(),
 	format_(_format),
+	gl_format_(
+		opengl::convert::index_format(
+			_format
+		)
+	),
 	buffer_(
 		context::use<
-			opengl::vbo_context
+			opengl::buffer::vbo_context
 		>(
 			_context
 		).impl(),
 		context::use<
-			opengl::vbo_context
+			opengl::buffer::vbo_context
 		>(
 			_context
 		).index_buffer_type(),
@@ -65,19 +70,7 @@ sge::opengl::index_buffer::~index_buffer()
 GLenum
 sge::opengl::index_buffer::gl_format() const
 {
-	switch(
-		format_
-	)
-	{
-	case renderer::index::dynamic::format::i16:
-		return GL_UNSIGNED_SHORT;
-	case renderer::index::dynamic::format::i32:
-		return GL_UNSIGNED_INT;
-	}
-
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid index format in index_buffer!")
-	);
+	return gl_format_;
 }
 
 GLvoid *

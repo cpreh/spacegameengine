@@ -4,8 +4,29 @@ SET(
 	src/plugins/opengl/area_function.hpp
 	src/plugins/opengl/basic_target.hpp
 	src/plugins/opengl/basic_target_impl.hpp
-	src/plugins/opengl/buffer.hpp
-	src/plugins/opengl/buffer_fwd.hpp
+	src/plugins/opengl/buffer/base.hpp
+	src/plugins/opengl/buffer/base_fwd.hpp
+	src/plugins/opengl/buffer/base_unique_ptr.hpp
+	src/plugins/opengl/buffer/create.hpp
+	src/plugins/opengl/buffer/hardware.hpp
+	src/plugins/opengl/buffer/make_type.hpp
+	src/plugins/opengl/buffer/normal_lock_method.hpp
+	src/plugins/opengl/buffer/object.hpp
+	src/plugins/opengl/buffer/object_fwd.hpp
+	src/plugins/opengl/buffer/pbo_context.hpp
+	src/plugins/opengl/buffer/range_lock_method.hpp
+	src/plugins/opengl/buffer/software.hpp
+	src/plugins/opengl/buffer/src/base.cpp
+	src/plugins/opengl/buffer/src/create.cpp
+	src/plugins/opengl/buffer/src/hardware.cpp
+	src/plugins/opengl/buffer/src/make_type.cpp
+	src/plugins/opengl/buffer/src/normal_lock_method.cpp
+	src/plugins/opengl/buffer/src/object.cpp
+	src/plugins/opengl/buffer/src/pbo_context.cpp
+	src/plugins/opengl/buffer/src/range_lock_method.cpp
+	src/plugins/opengl/buffer/src/software.cpp
+	src/plugins/opengl/buffer/src/vbo_context.cpp
+	src/plugins/opengl/buffer/vbo_context.hpp
 	src/plugins/opengl/caps_unique_ptr.hpp
 	src/plugins/opengl/check_state.hpp
 	src/plugins/opengl/clear.hpp
@@ -40,6 +61,7 @@ SET(
 	src/plugins/opengl/convert/format_to_color.hpp
 	src/plugins/opengl/convert/format_to_string.hpp
 	src/plugins/opengl/convert/format_type_to_string.hpp
+	src/plugins/opengl/convert/index_format.hpp
 	src/plugins/opengl/convert/indexed_primitive.hpp
 	src/plugins/opengl/convert/light_index.hpp
 	src/plugins/opengl/convert/matrix_mode.hpp
@@ -59,6 +81,7 @@ SET(
 	src/plugins/opengl/convert/src/format_to_color.cpp
 	src/plugins/opengl/convert/src/format_to_string.cpp
 	src/plugins/opengl/convert/src/format_type_to_string.cpp
+	src/plugins/opengl/convert/src/indexed_format.cpp
 	src/plugins/opengl/convert/src/indexed_primitive.cpp
 	src/plugins/opengl/convert/src/light_index.cpp
 	src/plugins/opengl/convert/src/matrix_mode.cpp
@@ -71,7 +94,6 @@ SET(
 	src/plugins/opengl/convert/visual_depth.hpp
 	src/plugins/opengl/create_caps.hpp
 	src/plugins/opengl/create_device_state.hpp
-	src/plugins/opengl/create_vbo_impl.hpp
 	src/plugins/opengl/device.hpp
 	src/plugins/opengl/device_state.hpp
 	src/plugins/opengl/device_state_fwd.hpp
@@ -282,7 +304,6 @@ SET(
 	src/plugins/opengl/glsl/uniform/variable_arb.hpp
 	src/plugins/opengl/glsl/uniform/variable_native.hpp
 	src/plugins/opengl/glsl/vertex_shader.hpp
-	src/plugins/opengl/hardware_vbo.hpp
 	src/plugins/opengl/index_buffer.hpp
 	src/plugins/opengl/internal_color_format.hpp
 	src/plugins/opengl/light/attenuation.hpp
@@ -314,21 +335,17 @@ SET(
 	src/plugins/opengl/light/src/spot.cpp
 	src/plugins/opengl/light/src/visitor.cpp
 	src/plugins/opengl/light/visitor.hpp
-	src/plugins/opengl/make_buffer_type.hpp
 	src/plugins/opengl/matrix_context.hpp
 	src/plugins/opengl/matrix_mode.hpp
 	src/plugins/opengl/multi_sample_context.hpp
 	src/plugins/opengl/multi_sample_context_fwd.hpp
-	src/plugins/opengl/normal_lock_method.hpp
 	src/plugins/opengl/onscreen_surface.hpp
 	src/plugins/opengl/onscreen_target.hpp
 	src/plugins/opengl/onscreen_target_fwd.hpp
 	src/plugins/opengl/onscreen_target_ptr.hpp
-	src/plugins/opengl/pbo_context.hpp
 	src/plugins/opengl/point_sprite_context.hpp
 	src/plugins/opengl/point_sprite_context_fwd.hpp
 	src/plugins/opengl/range_check.hpp
-	src/plugins/opengl/range_lock_method.hpp
 	src/plugins/opengl/read_pixels.hpp
 	src/plugins/opengl/set_clip_plane.hpp
 	src/plugins/opengl/set_flipped_area.hpp
@@ -338,12 +355,9 @@ SET(
 	src/plugins/opengl/set_scissor_area.hpp
 	src/plugins/opengl/set_vertex_buffer.hpp
 	src/plugins/opengl/set_vertex_declaration.hpp
-	src/plugins/opengl/software_vbo.hpp
-	src/plugins/opengl/src/buffer.cpp
 	src/plugins/opengl/src/clear.cpp
 	src/plugins/opengl/src/create_caps.cpp
 	src/plugins/opengl/src/create_device_state.cpp
-	src/plugins/opengl/src/create_vbo_impl.cpp
 	src/plugins/opengl/src/device.cpp
 	src/plugins/opengl/src/device_state.cpp
 	src/plugins/opengl/src/disable.cpp
@@ -360,18 +374,13 @@ SET(
 	src/plugins/opengl/src/get_int.cpp
 	src/plugins/opengl/src/get_ints.cpp
 	src/plugins/opengl/src/get_string.cpp
-	src/plugins/opengl/src/hardware_vbo.cpp
 	src/plugins/opengl/src/index_buffer.cpp
-	src/plugins/opengl/src/make_buffer_type.cpp
 	src/plugins/opengl/src/matrix_context.cpp
 	src/plugins/opengl/src/matrix_mode.cpp
 	src/plugins/opengl/src/multi_sample_context.cpp
-	src/plugins/opengl/src/normal_lock_method.cpp
 	src/plugins/opengl/src/onscreen_surface.cpp
 	src/plugins/opengl/src/onscreen_target.cpp
-	src/plugins/opengl/src/pbo_context.cpp
 	src/plugins/opengl/src/point_sprite_context.cpp
-	src/plugins/opengl/src/range_lock_method.cpp
 	src/plugins/opengl/src/read_pixels.cpp
 	src/plugins/opengl/src/set_clip_plane.cpp
 	src/plugins/opengl/src/set_flipped_area.cpp
@@ -381,12 +390,9 @@ SET(
 	src/plugins/opengl/src/set_scissor_area.cpp
 	src/plugins/opengl/src/set_vertex_buffer.cpp
 	src/plugins/opengl/src/set_vertex_declaration.cpp
-	src/plugins/opengl/src/software_vbo.cpp
 	src/plugins/opengl/src/system.cpp
 	src/plugins/opengl/src/target_base.cpp
 	src/plugins/opengl/src/unset_vertex_buffer.cpp
-	src/plugins/opengl/src/vbo_base.cpp
-	src/plugins/opengl/src/vbo_context.cpp
 	src/plugins/opengl/src/vertex_buffer.cpp
 	src/plugins/opengl/src/vertex_context.cpp
 	src/plugins/opengl/src/vertex_delcaration.cpp
@@ -635,10 +641,6 @@ SET(
 	src/plugins/opengl/texture/warn_pow2.hpp
 	src/plugins/opengl/texture/writeonly_lock.hpp
 	src/plugins/opengl/unset_vertex_buffer.hpp
-	src/plugins/opengl/vbo_base.hpp
-	src/plugins/opengl/vbo_base_fwd.hpp
-	src/plugins/opengl/vbo_base_unique_ptr.hpp
-	src/plugins/opengl/vbo_context.hpp
 	src/plugins/opengl/vector3f.hpp
 	src/plugins/opengl/vector4f.hpp
 	src/plugins/opengl/vertex_buffer.hpp

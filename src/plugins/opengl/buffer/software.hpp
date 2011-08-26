@@ -18,90 +18,134 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VBO_BASE_HPP_INCLUDED
-#define SGE_OPENGL_VBO_BASE_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_SOFTWARE_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_SOFTWARE_HPP_INCLUDED
 
-#include "vbo_base_fwd.hpp"
-#include "common.hpp"
+#include "base.hpp"
+#include "../common.hpp"
+#include <sge/renderer/raw_pointer.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <map>
 
 namespace sge
 {
 namespace opengl
 {
+namespace buffer
+{
 
-class vbo_base
+class software
+:
+	public buffer::base
 {
 	FCPPT_NONCOPYABLE(
-		vbo_base
+		software
 	);
-protected:
-	vbo_base();
 public:
-	virtual ~vbo_base();
+	software();
 
-	virtual GLuint
-	gen_buffer() = 0;
+	~software();
+private:
+	GLuint
+	gen_buffer();
 
-	virtual void
+	void
 	delete_buffer(
 		GLuint
-	) = 0;
+	);
 
-	virtual void
+	void
 	bind_buffer(
 		GLenum type,
 		GLuint
-	) = 0;
+	);
 
-	virtual GLvoid *
+	GLvoid *
 	map_buffer(
 		GLenum type,
 		GLenum flags
-	) = 0;
+	);
 
-	virtual GLvoid *
+	GLvoid *
 	map_buffer_range(
 		GLenum type,
 		GLenum flags,
 		GLsizei first,
 		GLsizei size
-	) = 0;
+	);
 
-	virtual bool
-	map_buffer_range_supported() const = 0;
+	bool
+	map_buffer_range_supported() const;
 
-	virtual void
+	void
 	unmap_buffer(
 		GLenum type
-	) = 0;
+	);
 
-	virtual void
+	void
 	buffer_data(
 		GLenum type,
 		GLsizei size,
 		GLvoid const *data,
 		GLenum flags
-	) = 0;
+	);
 
-	virtual void
+	void
 	buffer_sub_data(
 		GLenum type,
 		GLsizei first,
 		GLsizei size,
 		GLvoid const *data
-	) = 0;
+	);
 
-	virtual GLvoid *
+	void *
 	buffer_offset(
 		GLenum type,
 		GLsizei offset
-	) const = 0;
+	) const;
 
-	virtual bool
-	hardware_supported() const = 0;
+	bool
+	hardware_supported() const;
+
+	typedef std::map<
+		GLuint,
+		sge::renderer::raw_pointer
+	> buffer_map;
+
+	GLuint
+	bound_buffer(
+		GLenum
+	) const;
+
+	buffer_map::iterator
+	buffer_object(
+		GLuint id
+	);
+
+	buffer_map::const_iterator
+	buffer_object(
+		GLuint id
+	) const;
+
+	void
+	check_bound(
+		GLenum type
+	);
+
+	typedef std::map<
+		GLenum,
+		GLuint
+	> bound_buffer_map;
+
+	bound_buffer_map bound_buffers_;
+
+	GLuint nextid_;
+
+	buffer_map buffers_;
+
 };
 
+}
 }
 }
 

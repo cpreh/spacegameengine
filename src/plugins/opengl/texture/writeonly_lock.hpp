@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_WRITEONLY_LOCK_HPP_INCLUDED
 
 #include "lock_base.hpp"
-#include "../buffer.hpp"
+#include "../buffer/object.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -79,7 +79,7 @@ private:
 	renderer::lock_flags::method::type
 	method() const;
 
-	buffer buffer_;
+	buffer::object buffer_;
 };
 
 }

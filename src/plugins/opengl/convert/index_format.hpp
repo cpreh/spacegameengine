@@ -18,10 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../vbo_base.hpp"
+#ifndef SGE_OPENGL_CONVERT_INDEX_FORMAT_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_INDEX_FORMAT_HPP_INCLUDED
 
-sge::opengl::vbo_base::vbo_base()
-{}
+#include "../common.hpp"
+#include <sge/renderer/index/dynamic/format.hpp>
 
-sge::opengl::vbo_base::~vbo_base()
-{}
+namespace sge
+{
+namespace opengl
+{
+namespace convert
+{
+
+GLenum
+index_format(
+	renderer::index::dynamic::format::type
+);
+
+}
+}
+}
+
+#endif

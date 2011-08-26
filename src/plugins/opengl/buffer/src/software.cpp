@@ -18,7 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../software_vbo.hpp"
+#include "../software.hpp"
+#include "../../common.hpp"
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/exception.hpp>
@@ -26,18 +27,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <cstddef>
 
-sge::opengl::software_vbo::software_vbo()
+sge::opengl::buffer::software::software()
 :
+	buffer::base(),
 	bound_buffers_(),
 	nextid_(1),
 	buffers_()
-{}
+{
+}
 
-sge::opengl::software_vbo::~software_vbo()
-{}
+sge::opengl::buffer::software::~software()
+{
+}
 
 GLuint
-sge::opengl::software_vbo::gen_buffer()
+sge::opengl::buffer::software::gen_buffer()
 {
 	buffers_.insert(
 		buffer_map::value_type(
@@ -54,7 +58,7 @@ sge::opengl::software_vbo::gen_buffer()
 }
 
 void
-sge::opengl::software_vbo::delete_buffer(
+sge::opengl::buffer::software::delete_buffer(
 	GLuint const _id
 )
 {
@@ -72,7 +76,7 @@ sge::opengl::software_vbo::delete_buffer(
 }
 
 void
-sge::opengl::software_vbo::bind_buffer(
+sge::opengl::buffer::software::bind_buffer(
 	GLenum const _type,
 	GLuint const _id
 )
@@ -83,7 +87,7 @@ sge::opengl::software_vbo::bind_buffer(
 }
 
 GLvoid *
-sge::opengl::software_vbo::map_buffer(
+sge::opengl::buffer::software::map_buffer(
 	GLenum const _type,
 	GLenum
 )
@@ -101,7 +105,7 @@ sge::opengl::software_vbo::map_buffer(
 }
 
 GLvoid *
-sge::opengl::software_vbo::map_buffer_range(
+sge::opengl::buffer::software::map_buffer_range(
 	GLenum const _type,
 	GLenum const,
 	GLsizei const _first,
@@ -122,13 +126,13 @@ sge::opengl::software_vbo::map_buffer_range(
 }
 
 bool
-sge::opengl::software_vbo::map_buffer_range_supported() const
+sge::opengl::buffer::software::map_buffer_range_supported() const
 {
 	return true;
 }
 
 void
-sge::opengl::software_vbo::unmap_buffer(
+sge::opengl::buffer::software::unmap_buffer(
 	GLenum const _type
 )
 {
@@ -138,7 +142,7 @@ sge::opengl::software_vbo::unmap_buffer(
 }
 
 void
-sge::opengl::software_vbo::buffer_data(
+sge::opengl::buffer::software::buffer_data(
 	GLenum const _type,
 	GLsizei const _size,
 	void const *const _data,
@@ -176,7 +180,7 @@ sge::opengl::software_vbo::buffer_data(
 }
 
 void
-sge::opengl::software_vbo::buffer_sub_data(
+sge::opengl::buffer::software::buffer_sub_data(
 	GLenum const _type,
 	GLsizei const _first,
 	GLsizei const _size,
@@ -207,7 +211,7 @@ sge::opengl::software_vbo::buffer_sub_data(
 }
 
 void *
-sge::opengl::software_vbo::buffer_offset(
+sge::opengl::buffer::software::buffer_offset(
 	GLenum const _type,
 	GLsizei const _offset
 ) const
@@ -222,13 +226,13 @@ sge::opengl::software_vbo::buffer_offset(
 }
 
 bool
-sge::opengl::software_vbo::hardware_supported() const
+sge::opengl::buffer::software::hardware_supported() const
 {
 	return false;
 }
 
 GLuint
-sge::opengl::software_vbo::bound_buffer(
+sge::opengl::buffer::software::bound_buffer(
 	GLenum const _type
 ) const
 {
@@ -246,8 +250,8 @@ sge::opengl::software_vbo::bound_buffer(
 			it->second;
 }
 
-sge::opengl::software_vbo::buffer_map::iterator
-sge::opengl::software_vbo::buffer_object(
+sge::opengl::buffer::software::buffer_map::iterator
+sge::opengl::buffer::software::buffer_object(
 	GLuint const _id
 )
 {
@@ -267,14 +271,14 @@ sge::opengl::software_vbo::buffer_object(
 	return it;
 }
 
-sge::opengl::software_vbo::buffer_map::const_iterator
-sge::opengl::software_vbo::buffer_object(
+sge::opengl::buffer::software::buffer_map::const_iterator
+sge::opengl::buffer::software::buffer_object(
 	GLuint const _id
 ) const
 {
 	return
 		const_cast<
-			software_vbo &
+			buffer::software &
 		>(
 			*this
 		).buffer_object(
@@ -283,7 +287,7 @@ sge::opengl::software_vbo::buffer_object(
 }
 
 void
-sge::opengl::software_vbo::check_bound(
+sge::opengl::buffer::software::check_bound(
 	GLenum const _type
 )
 {

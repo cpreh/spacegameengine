@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_buffer.hpp"
-#include "../vbo_context.hpp"
+#include "../buffer/vbo_context.hpp"
 #include "../context/use.hpp"
 #include "../vf/part.hpp"
 #include <sge/image/color/format.hpp>
@@ -40,6 +40,7 @@ sge::opengl::vertex_buffer::vertex_buffer(
 	renderer::resource_flags_field const &_flags
 )
 :
+	sge::renderer::vertex_buffer(),
 	part_index_(_part_index),
 	format_part_(_format_part),
 	converter_(
@@ -55,12 +56,12 @@ sge::opengl::vertex_buffer::vertex_buffer(
 	),
 	buffer_(
 		context::use<
-			vbo_context
+			buffer::vbo_context
 		>(
 			_context
 		).impl(),
 		context::use<
-			vbo_context
+			buffer::vbo_context
 		>(
 			_context
 		).vertex_buffer_type(),

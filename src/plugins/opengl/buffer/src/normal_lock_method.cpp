@@ -18,56 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_PBO_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_PBO_CONTEXT_HPP_INCLUDED
+#include "../normal_lock_method.hpp"
+#include "../../common.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-#include "vbo_base_fwd.hpp"
-#include "context/base.hpp"
-#include "context/id.hpp"
-#include "common.hpp"
-#include <fcppt/scoped_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+GLenum
+sge::opengl::buffer::normal_lock_method(
+	renderer::lock_flags::method::type const _method
+)
 {
-namespace opengl
-{
+	switch(
+		_method
+	)
+	{
+	case renderer::lock_flags::method::read:
+		return GL_READ_ONLY;
+	case renderer::lock_flags::method::write:
+		return GL_WRITE_ONLY;
+	case renderer::lock_flags::method::readwrite:
+		return GL_READ_WRITE;
+	}
 
-class pbo_context
-:
-	public context::base
-{
-	FCPPT_NONCOPYABLE(
-		pbo_context
-	);
-public:
-	pbo_context();
-
-	~pbo_context();
-
-	vbo_base &
-	impl();
-
-	GLenum
-	pixel_pack_buffer_type() const;
-
-	GLenum
-	pixel_unpack_buffer_type() const;
-
-	typedef void needs_before;
-
-	static context::id const static_id;
-private:
-	fcppt::scoped_ptr<
-		vbo_base
-	> impl_;
-
-	GLenum const
-		pixel_pack_buffer_type_,
-		pixel_unpack_buffer_type_;
-};
-
+	FCPPT_ASSERT_UNREACHABLE
 }
-}
-
-#endif

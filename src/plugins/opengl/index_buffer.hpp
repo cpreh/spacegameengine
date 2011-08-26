@@ -21,12 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 
-#include "buffer.hpp"
 #include "common.hpp"
+#include "buffer/object.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -88,7 +90,9 @@ private:
 
 	renderer::index::dynamic::format::type const format_;
 
-	mutable buffer buffer_;
+	GLenum const gl_format_;
+
+	mutable opengl::buffer::object buffer_;
 };
 
 }

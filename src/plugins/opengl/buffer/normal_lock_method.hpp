@@ -18,26 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_MAKE_BUFFER_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_MAKE_BUFFER_TYPE_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_NORMAL_LOCK_METHOD_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_NORMAL_LOCK_METHOD_HPP_INCLUDED
 
-#include "common.hpp"
-#include "glew/string.hpp"
+#include "../common.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace buffer
+{
 
 GLenum
-make_buffer_type(
-	bool hardware_supported,
-	glew::string const &gl_version,
-	GLenum normal_type,
-	glew::string const &extension,
-	GLenum extension_type
+normal_lock_method(
+	renderer::lock_flags::method::type
 );
 
+}
 }
 }
 

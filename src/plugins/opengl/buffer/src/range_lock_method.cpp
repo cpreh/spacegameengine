@@ -19,12 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../range_lock_method.hpp"
+#include "../../common.hpp"
 #include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 GLenum
-sge::opengl::range_lock_method(
+sge::opengl::buffer::range_lock_method(
 	renderer::lock_flags::method::type const _method
 )
 {
@@ -40,7 +40,5 @@ sge::opengl::range_lock_method(
 		return GL_MAP_READ_BIT | GL_MAP_WRITE_BIT;
 	}
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid lock_method!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

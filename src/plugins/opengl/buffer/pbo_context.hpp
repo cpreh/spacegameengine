@@ -18,39 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../make_buffer_type.hpp"
-#include "../glew/is_supported.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_BUFFER_PBO_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_PBO_CONTEXT_HPP_INCLUDED
 
-GLenum
-sge::opengl::make_buffer_type(
-	bool const _hardware_supported,
-	glew::string const &_gl_version,
-	GLenum const _normal_type,
-	glew::string const &_extension,
-	GLenum const _extension_type
-)
+#include "base_fwd.hpp"
+#include "../context/base.hpp"
+#include "../context/id.hpp"
+#include "../common.hpp"
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
+
+namespace sge
 {
-	return
-		_hardware_supported
-		?
-			glew::is_supported(
-				_gl_version
-			)
-			?
-				_normal_type
-			:
-				glew::is_supported(
-					_extension
-				)
-				?
-					_extension_type
-				:
-					throw sge::exception(
-						FCPPT_TEXT("Should not happen.")
-					)
-		:
-			_normal_type
-		;
+namespace opengl
+{
+namespace buffer
+{
+
+class pbo_context
+:
+	public context::base
+{
+	FCPPT_NONCOPYABLE(
+		pbo_context
+	);
+public:
+	pbo_context();
+
+	~pbo_context();
+
+	buffer::base &
+	impl();
+
+	GLenum
+	pixel_pack_buffer_type() const;
+
+	GLenum
+	pixel_unpack_buffer_type() const;
+
+	typedef void needs_before;
+
+	static context::id const static_id;
+private:
+	fcppt::scoped_ptr<
+		buffer::base
+	> impl_;
+
+	GLenum const
+		pixel_pack_buffer_type_,
+		pixel_unpack_buffer_type_;
+};
+
 }
+}
+}
+
+#endif

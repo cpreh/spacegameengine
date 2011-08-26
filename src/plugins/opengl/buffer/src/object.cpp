@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../buffer.hpp"
-#include "../common.hpp"
-#include "../vbo_base.hpp"
+#include "../object.hpp"
+#include "../base.hpp"
 #include "../normal_lock_method.hpp"
 #include "../range_lock_method.hpp"
-#include "../convert/resource_flags.hpp"
+#include "../../common.hpp"
+#include "../../convert/resource_flags.hpp"
 #include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::buffer::buffer(
-	vbo_base &_vbo_base,
+sge::opengl::buffer::object::object(
+	buffer::base &_base,
 	GLenum const _type,
 	size_type const _size,
 	size_type const _stride,
@@ -38,8 +38,8 @@ sge::opengl::buffer::buffer(
 	const_pointer const _src
 )
 :
-	vbo_base_(
-		_vbo_base
+	base_(
+		_base
 	),
 	type_(
 		_type
@@ -57,7 +57,7 @@ sge::opengl::buffer::buffer(
 		0
 	),
 	id_(
-		vbo_base_.gen_buffer()
+		base_.gen_buffer()
 	),
 	lock_offset_(
 		0
@@ -81,7 +81,7 @@ sge::opengl::buffer::buffer(
 
 	this->bind();
 
-	vbo_base_.buffer_data(
+	base_.buffer_data(
 		type_,
 		static_cast<
 			GLsizei
@@ -89,13 +89,13 @@ sge::opengl::buffer::buffer(
 			new_size
 		),
 		_src,
-		convert::resource_flags(
+		opengl::convert::resource_flags(
 			this->flags()
 		)
 	);
 }
 
-sge::opengl::buffer::~buffer()
+sge::opengl::buffer::object::~object()
 {
 	if(
 		dest_
@@ -104,13 +104,13 @@ sge::opengl::buffer::~buffer()
 
 	this->unbind();
 
-	vbo_base_.delete_buffer(
+	base_.delete_buffer(
 		id_
 	);
 }
 
 void
-sge::opengl::buffer::lock(
+sge::opengl::buffer::object::lock(
 	lock_flag_type const &_lockflags,
 	size_type const _first,
 	size_type _count
@@ -160,16 +160,16 @@ sge::opengl::buffer::lock(
 
 	if(
 		_count < this->size()
-		&& vbo_base_.map_buffer_range_supported()
+		&& base_.map_buffer_range_supported()
 	)
 	{
 		dest_ =
 			static_cast<
 				pointer
 			>(
-				vbo_base_.map_buffer_range(
+				base_.map_buffer_range(
 					type_,
-					opengl::range_lock_method(
+					opengl::buffer::range_lock_method(
 						_lockflags
 					),
 					static_cast<
@@ -193,9 +193,9 @@ sge::opengl::buffer::lock(
 			static_cast<
 				pointer
 			>(
-				vbo_base_.map_buffer(
+				base_.map_buffer(
 					type_,
-					opengl::normal_lock_method(
+					opengl::buffer::normal_lock_method(
 						_lockflags
 					)
 				)
@@ -208,7 +208,7 @@ sge::opengl::buffer::lock(
 }
 
 void
-sge::opengl::buffer::unlock()
+sge::opengl::buffer::object::unlock()
 {
 	if(
 		!dest_
@@ -219,7 +219,7 @@ sge::opengl::buffer::unlock()
 
 	this->bind();
 
-	vbo_base_.unmap_buffer(
+	base_.unmap_buffer(
 		type_
 	);
 
@@ -230,7 +230,7 @@ sge::opengl::buffer::unlock()
 
 
 void
-sge::opengl::buffer::sub_data(
+sge::opengl::buffer::object::sub_data(
 	const_pointer const _data,
 	size_type const _first,
 	size_type const _count
@@ -252,7 +252,7 @@ sge::opengl::buffer::sub_data(
 
 	this->bind();
 
-	vbo_base_.buffer_sub_data(
+	base_.buffer_sub_data(
 		type_,
 		static_cast<
 			GLsizei
@@ -268,26 +268,26 @@ sge::opengl::buffer::sub_data(
 	);
 }
 
-sge::opengl::buffer::size_type
-sge::opengl::buffer::size() const
+sge::opengl::buffer::object::size_type
+sge::opengl::buffer::object::size() const
 {
 	return size_;
 }
 
-sge::opengl::buffer::size_type
-sge::opengl::buffer::stride() const
+sge::opengl::buffer::object::size_type
+sge::opengl::buffer::object::stride() const
 {
 	return stride_;
 }
 
-sge::opengl::buffer::resource_flag_type
-sge::opengl::buffer::flags() const
+sge::opengl::buffer::object::resource_flag_type
+sge::opengl::buffer::object::flags() const
 {
 	return flags_;
 }
 
-sge::opengl::buffer::pointer
-sge::opengl::buffer::data()
+sge::opengl::buffer::object::pointer
+sge::opengl::buffer::object::data()
 {
 	if(
 		!dest_
@@ -299,29 +299,29 @@ sge::opengl::buffer::data()
 	return dest_ + lock_offset_;
 }
 
-sge::opengl::buffer::const_pointer
-sge::opengl::buffer::data() const
+sge::opengl::buffer::object::const_pointer
+sge::opengl::buffer::object::data() const
 {
 	return
 		const_cast<
 			const_pointer
 		>(
 			const_cast<
-				buffer &
+				buffer::object &
 			>(
 				*this
 			).data()
 		);
 }
 
-sge::opengl::buffer::size_type
-sge::opengl::buffer::lock_size() const
+sge::opengl::buffer::object::size_type
+sge::opengl::buffer::object::lock_size() const
 {
 	return lock_size_;
 }
 
 void
-sge::opengl::buffer::unbind()
+sge::opengl::buffer::object::unbind()
 {
 	this->bind_id(
 		0
@@ -329,15 +329,15 @@ sge::opengl::buffer::unbind()
 }
 
 void
-sge::opengl::buffer::bind() const
+sge::opengl::buffer::object::bind() const
 {
 	this->bind_id(
 		id_
 	);
 }
 
-sge::opengl::buffer::pointer
-sge::opengl::buffer::buffer_offset(
+sge::opengl::buffer::object::pointer
+sge::opengl::buffer::object::buffer_offset(
 	size_type const _sz
 ) const
 {
@@ -354,7 +354,7 @@ sge::opengl::buffer::buffer_offset(
 		static_cast<
 			pointer
 		>(
-			vbo_base_.buffer_offset(
+			base_.buffer_offset(
 				type_,
 				static_cast<
 					GLsizei
@@ -365,18 +365,18 @@ sge::opengl::buffer::buffer_offset(
 		);
 }
 
-sge::opengl::buffer::pointer
-sge::opengl::buffer::raw_buffer() const
+sge::opengl::buffer::object::pointer
+sge::opengl::buffer::object::raw_buffer() const
 {
 	return buffer_offset(0);
 }
 
 void
-sge::opengl::buffer::bind_id(
+sge::opengl::buffer::object::bind_id(
 	GLuint const _id
 ) const
 {
-	vbo_base_.bind_buffer(
+	base_.bind_buffer(
 		type_,
 		_id
 	);

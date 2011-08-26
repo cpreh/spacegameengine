@@ -18,31 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SOFTWARE_VBO_HPP_INCLUDED
-#define SGE_OPENGL_SOFTWARE_VBO_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_HARDWARE_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_HARDWARE_HPP_INCLUDED
 
-#include "common.hpp"
-#include "vbo_base.hpp"
-#include <sge/renderer/raw_pointer.hpp>
+#include "base.hpp"
+#include "../common.hpp"
 #include <fcppt/noncopyable.hpp>
-#include <map>
 
 namespace sge
 {
 namespace opengl
 {
+namespace buffer
+{
 
-class software_vbo
+class hardware
 :
-	public opengl::vbo_base
+	public buffer::base
 {
 	FCPPT_NONCOPYABLE(
-		software_vbo
+		hardware
 	);
 public:
-	software_vbo();
+	hardware();
 
-	~software_vbo();
+	~hardware();
 private:
 	GLuint
 	gen_buffer();
@@ -105,44 +105,28 @@ private:
 	bool
 	hardware_supported() const;
 
-	typedef std::map<
-		GLuint,
-		sge::renderer::raw_pointer
-	> buffer_map;
+	bool const
+		have_version_1_5_,
+		have_arb_;
 
-	GLuint
-	bound_buffer(
-		GLenum
-	) const;
+	PFNGLGENBUFFERSPROC const gl_gen_buffers_;
 
-	buffer_map::iterator
-	buffer_object(
-		GLuint id
-	);
+	PFNGLDELETEBUFFERSPROC const gl_delete_buffers_;
 
-	buffer_map::const_iterator
-	buffer_object(
-		GLuint id
-	) const;
+	PFNGLBINDBUFFERPROC const gl_bind_buffer_;
 
-	void
-	check_bound(
-		GLenum type
-	);
+	PFNGLMAPBUFFERPROC const gl_map_buffer_;
 
-	typedef std::map<
-		GLenum,
-		GLuint
-	> bound_buffer_map;
+	PFNGLUNMAPBUFFERPROC const gl_unmap_buffer_;
 
-	bound_buffer_map bound_buffers_;
+	PFNGLBUFFERDATAPROC const gl_buffer_data_;
 
-	GLuint nextid_;
+	PFNGLBUFFERSUBDATAPROC const gl_buffer_sub_data_;
 
-	buffer_map buffers_;
-
+	PFNGLMAPBUFFERRANGEPROC const gl_map_buffer_range_;
 };
 
+}
 }
 }
 

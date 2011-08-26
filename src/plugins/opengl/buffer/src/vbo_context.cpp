@@ -19,22 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vbo_context.hpp"
-#include "../context/make_id.hpp"
-#include "../create_vbo_impl.hpp"
-#include "../vbo_base.hpp"
-#include "../make_buffer_type.hpp"
-#include "../glew/is_supported.hpp"
+#include "../base.hpp"
+#include "../create.hpp"
+#include "../make_type.hpp"
+#include "../../common.hpp"
+#include "../../context/make_id.hpp"
+#include "../../glew/is_supported.hpp"
 
-sge::opengl::vbo_context::vbo_context()
+sge::opengl::buffer::vbo_context::vbo_context()
 :
 	impl_(
-		opengl::create_vbo_impl(
+		opengl::buffer::create(
 			glew::is_supported("GL_VERSION_1_5")
 			|| glew::is_supported("GL_ARB_vertex_buffer_object")
 		)
 	),
 	index_buffer_type_(
-		opengl::make_buffer_type(
+		opengl::buffer::make_type(
 			impl_->hardware_supported(),
 			"GL_VERSION_1_5",
 			GL_ELEMENT_ARRAY_BUFFER,
@@ -43,7 +44,7 @@ sge::opengl::vbo_context::vbo_context()
 		)
 	),
 	vertex_buffer_type_(
-		opengl::make_buffer_type(
+		opengl::buffer::make_type(
 			impl_->hardware_supported(),
 			"GL_VERSION_1_5",
 			GL_ARRAY_BUFFER,
@@ -54,29 +55,29 @@ sge::opengl::vbo_context::vbo_context()
 {
 }
 
-sge::opengl::vbo_context::~vbo_context()
+sge::opengl::buffer::vbo_context::~vbo_context()
 {
 }
 
-sge::opengl::vbo_base &
-sge::opengl::vbo_context::impl()
+sge::opengl::buffer::base &
+sge::opengl::buffer::vbo_context::impl()
 {
 	return *impl_;
 }
 
 GLenum
-sge::opengl::vbo_context::index_buffer_type() const
+sge::opengl::buffer::vbo_context::index_buffer_type() const
 {
 	return index_buffer_type_;
 }
 
 GLenum
-sge::opengl::vbo_context::vertex_buffer_type() const
+sge::opengl::buffer::vbo_context::vertex_buffer_type() const
 {
 	return vertex_buffer_type_;
 }
 
 sge::opengl::context::id const
-sge::opengl::vbo_context::static_id(
+sge::opengl::buffer::vbo_context::static_id(
 	sge::opengl::context::make_id()
 );

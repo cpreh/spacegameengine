@@ -19,24 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../pbo_context.hpp"
-#include "../context/make_id.hpp"
-#include "../create_vbo_impl.hpp"
-#include "../vbo_base.hpp"
-#include "../make_buffer_type.hpp"
-#include "../glew/is_supported.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../base.hpp"
+#include "../create.hpp"
+#include "../make_type.hpp"
+#include "../../common.hpp"
+#include "../../context/make_id.hpp"
+#include "../../glew/is_supported.hpp"
 
-sge::opengl::pbo_context::pbo_context()
+sge::opengl::buffer::pbo_context::pbo_context()
 :
 	impl_(
-		opengl::create_vbo_impl(
+		opengl::buffer::create(
 			glew::is_supported("GL_VERSION_2_1")
 			|| glew::is_supported("GL_ARB_pixel_buffer_object")
 		)
 	),
 	pixel_pack_buffer_type_(
-		opengl::make_buffer_type(
+		opengl::buffer::make_type(
 			impl_->hardware_supported(),
 			"GL_VERSION_2_1",
 			GL_PIXEL_PACK_BUFFER,
@@ -45,7 +44,7 @@ sge::opengl::pbo_context::pbo_context()
 		)
 	),
 	pixel_unpack_buffer_type_(
-		opengl::make_buffer_type(
+		opengl::buffer::make_type(
 			impl_->hardware_supported(),
 			"GL_VERSION_2_1",
 			GL_PIXEL_UNPACK_BUFFER,
@@ -53,31 +52,32 @@ sge::opengl::pbo_context::pbo_context()
 			GL_PIXEL_UNPACK_BUFFER_ARB
 		)
 	)
-{}
-
-sge::opengl::pbo_context::~pbo_context()
 {
 }
 
-sge::opengl::vbo_base &
-sge::opengl::pbo_context::impl()
+sge::opengl::buffer::pbo_context::~pbo_context()
+{
+}
+
+sge::opengl::buffer::base &
+sge::opengl::buffer::pbo_context::impl()
 {
 	return *impl_;
 }
 
 GLenum
-sge::opengl::pbo_context::pixel_pack_buffer_type() const
+sge::opengl::buffer::pbo_context::pixel_pack_buffer_type() const
 {
 	return pixel_pack_buffer_type_;
 }
 
 GLenum
-sge::opengl::pbo_context::pixel_unpack_buffer_type() const
+sge::opengl::buffer::pbo_context::pixel_unpack_buffer_type() const
 {
 	return pixel_unpack_buffer_type_;
 }
 
 sge::opengl::context::id const
-sge::opengl::pbo_context::static_id(
+sge::opengl::buffer::pbo_context::static_id(
 	sge::opengl::context::make_id()
 );

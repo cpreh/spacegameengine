@@ -18,21 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_VBO_IMPL_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_VBO_IMPL_HPP_INCLUDED
-
-#include "vbo_base_unique_ptr.hpp"
+#ifndef SGE_OPENGL_BUFFER_BASE_FWD_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_BASE_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace opengl
 {
+namespace buffer
+{
 
-vbo_base_unique_ptr
-create_vbo_impl(
-	bool hw_supported
-);
+class base;
 
+}
 }
 }
 

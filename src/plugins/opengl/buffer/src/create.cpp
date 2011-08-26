@@ -18,28 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../create_vbo_impl.hpp"
-#include "../software_vbo.hpp"
-#include "../hardware_vbo.hpp"
+#include "../create.hpp"
+#include "../software.hpp"
+#include "../hardware.hpp"
 #include <fcppt/make_unique_ptr.hpp>
 
-sge::opengl::vbo_base_unique_ptr
-sge::opengl::create_vbo_impl(
-	bool const hw_supported
+sge::opengl::buffer::base_unique_ptr
+sge::opengl::buffer::create(
+	bool const _hw_supported
 )
 {
 	return
-		hw_supported
+		_hw_supported
 		?
-			vbo_base_unique_ptr(
+			buffer::base_unique_ptr(
 				fcppt::make_unique_ptr<
-					hardware_vbo
+					buffer::hardware
 				>()
 			)
 		:
-			vbo_base_unique_ptr(
+			buffer::base_unique_ptr(
 				fcppt::make_unique_ptr<
-					software_vbo
+					buffer::software
 				>()
 			);
 }

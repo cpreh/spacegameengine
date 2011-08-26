@@ -147,6 +147,7 @@ update_cmake_file \
 	-n \
 	src/plugins/opengl \
 	-r \
+	src/plugins/opengl/buffer \
 	src/plugins/opengl/context \
 	src/plugins/opengl/convert \
 	src/plugins/opengl/fbo \

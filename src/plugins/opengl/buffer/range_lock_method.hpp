@@ -18,16 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_BUFFER_FWD_HPP_INCLUDED
-#define SGE_OPENGL_BUFFER_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_RANGE_LOCK_METHOD_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_RANGE_LOCK_METHOD_HPP_INCLUDED
+
+#include "../common.hpp"
+#include <sge/renderer/lock_flags/method.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace buffer
+{
 
-class buffer;
+GLenum
+range_lock_method(
+	renderer::lock_flags::method::type
+);
 
+}
 }
 }
 

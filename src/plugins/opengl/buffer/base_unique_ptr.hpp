@@ -18,55 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VBO_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_VBO_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_BASE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_BASE_UNIQUE_PTR_HPP_INCLUDED
 
-#include "vbo_base_fwd.hpp"
-#include "context/base.hpp"
-#include "context/id.hpp"
-#include "common.hpp"
-#include <fcppt/scoped_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include "base_fwd.hpp"
+#include <fcppt/unique_ptr.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-
-class vbo_context
-:
-	public context::base
+namespace buffer
 {
-	FCPPT_NONCOPYABLE(
-		vbo_context
-	);
-public:
-	vbo_context();
 
-	~vbo_context();
+typedef fcppt::unique_ptr<
+	buffer::base
+> base_unique_ptr;
 
-	vbo_base &
-	impl();
-
-	GLenum
-	index_buffer_type() const;
-
-	GLenum
-	vertex_buffer_type() const;
-
-	typedef void needs_before;
-
-	static context::id const static_id;
-private:
-	fcppt::scoped_ptr<
-		vbo_base
-	> impl_;
-
-	GLenum const
-		index_buffer_type_,
-		vertex_buffer_type_;
-};
-
+}
 }
 }
 
