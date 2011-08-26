@@ -94,7 +94,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/npos.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/onscreen_target_fwd.hpp>
-#include <sge/renderer/opengl/opengl.hpp>
+
 #include <sge/renderer/optional_dim2.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
