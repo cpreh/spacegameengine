@@ -73,7 +73,7 @@ public:
 	part_names() const = 0;
 
 	SGE_MODEL_MD3_SYMBOL
-	virtual ~object();
+	virtual ~object() = 0;
 };
 
 }

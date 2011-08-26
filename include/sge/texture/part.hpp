@@ -46,7 +46,7 @@ protected:
 	part();
 public:
 	SGE_TEXTURE_SYMBOL
-	virtual ~part();
+	virtual ~part() = 0;
 
 	virtual void
 	data(

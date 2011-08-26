@@ -44,7 +44,7 @@ protected:
 	converter();
 public:
 	SGE_CHARCONV_SYMBOL
-	virtual ~converter();
+	virtual ~converter() = 0;
 
 	virtual charconv::conversion_status::type
 	convert(

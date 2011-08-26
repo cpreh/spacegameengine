@@ -63,9 +63,11 @@ public:
 	virtual void
 	end_rendering() = 0;
 
-	SGE_FONT_TEXT_SYMBOL virtual ~drawer();
+	SGE_FONT_TEXT_SYMBOL
+	virtual ~drawer() = 0;
 protected:
-	SGE_FONT_TEXT_SYMBOL drawer();
+	SGE_FONT_TEXT_SYMBOL
+	drawer();
 };
 
 }

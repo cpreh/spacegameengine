@@ -107,7 +107,7 @@ public:
 	window() const = 0;
 
 	SGE_INPUT_SYMBOL
-	virtual ~processor();
+	virtual ~processor() = 0;
 };
 
 }

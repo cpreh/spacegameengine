@@ -53,7 +53,7 @@ public:
 	x_advance() const = 0;
 
 	SGE_FONT_SYMBOL
-	virtual ~char_metric();
+	virtual ~char_metric() = 0;
 };
 
 }

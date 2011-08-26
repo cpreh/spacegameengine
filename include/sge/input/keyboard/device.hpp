@@ -48,7 +48,7 @@ protected:
 	device();
 public:
 	SGE_INPUT_SYMBOL
-	virtual ~device();
+	virtual ~device() = 0;
 
 	virtual fcppt::signal::auto_connection
 	key_callback(

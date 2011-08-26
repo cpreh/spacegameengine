@@ -44,7 +44,7 @@ protected:
 	system();
 public:
 	SGE_CHARCONV_SYMBOL
-	virtual ~system();
+	virtual ~system() = 0;
 
 	virtual charconv::converter_ptr const
 	create_converter(

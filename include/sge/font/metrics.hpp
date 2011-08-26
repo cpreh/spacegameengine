@@ -51,7 +51,7 @@ public:
 	line_height() const = 0;
 
 	SGE_FONT_SYMBOL
-	virtual ~metrics();
+	virtual ~metrics() = 0;
 };
 
 }

@@ -96,7 +96,8 @@ public:
 	virtual player_capabilities_field const
 	capabilities() const = 0;
 
-	SGE_AUDIO_SYMBOL virtual ~player();
+	SGE_AUDIO_SYMBOL
+	virtual ~player() = 0;
 };
 
 }

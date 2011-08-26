@@ -44,7 +44,7 @@ protected:
 	system();
 public:
 	SGE_FONT_SYMBOL
-	virtual ~system();
+	virtual ~system() = 0;
 
 	virtual font::metrics_ptr const
 	create_font(

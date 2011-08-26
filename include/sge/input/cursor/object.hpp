@@ -48,7 +48,7 @@ protected:
 	object();
 public:
 	SGE_INPUT_SYMBOL
-	virtual ~object();
+	virtual ~object() = 0;
 
 	virtual fcppt::signal::auto_connection
 	button_callback(

@@ -72,7 +72,7 @@ public:
 	bytes_per_sample() const;
 
 	SGE_AUDIO_SYMBOL
-	virtual ~file();
+	virtual ~file() = 0;
 };
 
 }

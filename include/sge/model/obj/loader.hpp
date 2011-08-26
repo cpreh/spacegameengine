@@ -49,7 +49,7 @@ public:
 	) = 0;
 
 	SGE_MODEL_OBJ_SYMBOL
-	virtual ~loader();
+	virtual ~loader() = 0;
 };
 
 }

@@ -64,7 +64,7 @@ public:
 		angle const &) = 0;
 
 	SGE_AUDIO_SYMBOL virtual
-	~listener();
+	~listener() = 0;
 };
 
 }

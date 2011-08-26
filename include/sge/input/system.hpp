@@ -43,7 +43,7 @@ protected:
 	system();
 public:
 	SGE_INPUT_SYMBOL
-	virtual ~system();
+	virtual ~system() = 0;
 
 	virtual processor_ptr const
 	create_processor(

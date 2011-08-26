@@ -46,9 +46,11 @@ class SGE_CLASS_SYMBOL fragmented
 		fragmented
 	);
 protected:
-	SGE_TEXTURE_SYMBOL fragmented();
+	SGE_TEXTURE_SYMBOL
+	fragmented();
 public:
-	SGE_TEXTURE_SYMBOL virtual ~fragmented();
+	SGE_TEXTURE_SYMBOL
+	virtual ~fragmented() = 0;
 
 	virtual texture::part_ptr const
 	consume_fragment(

@@ -70,7 +70,7 @@ public:
 	extensions() const = 0;
 
 	SGE_IMAGE2D_SYMBOL
-	virtual ~loader();
+	virtual ~loader() = 0;
 };
 
 }

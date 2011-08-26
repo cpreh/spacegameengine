@@ -66,7 +66,7 @@ public:
 	meshes() const = 0;
 
 	SGE_MODEL_OBJ_SYMBOL
-	virtual ~instance();
+	virtual ~instance() = 0;
 };
 
 }
