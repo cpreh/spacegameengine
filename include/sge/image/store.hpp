@@ -48,8 +48,8 @@ public:
 	typedef typename internal_type::const_pointer const_pointer;
 
 	typedef typename image::dim<
-		Format::dim_type::static_size
-	>::type dim_type;
+		Format::dim::static_size
+	>::type dim;
 
 	typedef typename internal_type::view_type view_type;
 
@@ -60,7 +60,7 @@ public:
 
 	SGE_IMAGE_INSTANTIATE_SYMBOL
 	explicit store(
-		dim_type const &
+		dim const &
 	);
 
 	SGE_IMAGE_INSTANTIATE_SYMBOL
@@ -94,8 +94,8 @@ public:
 	view() const;
 
 	SGE_IMAGE_INSTANTIATE_SYMBOL
-	dim_type const
-	dim() const;
+	dim const
+	size() const;
 private:
 	internal_type internal_;
 };

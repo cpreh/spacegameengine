@@ -41,14 +41,14 @@ template<
 	typename Format
 >
 sge::image::store<Format>::store(
-	dim_type const &_dim
+	dim const &_size
 )
 :
 	internal_(
 		convert_dim<
-			typename internal_type::dim_type
+			typename internal_type::dim
 		>(
-			_dim
+			_size
 		)
 	)
 {}
@@ -122,14 +122,14 @@ sge::image::store<Format>::view() const
 template<
 	typename Format
 >
-typename sge::image::store<Format>::dim_type const
-sge::image::store<Format>::dim() const
+typename sge::image::store<Format>::dim const
+sge::image::store<Format>::size() const
 {
 	return
 		image::convert_dim<
-			dim_type
+			dim
 		>(
-			internal_.dim()
+			internal_.size()
 		);
 }
 

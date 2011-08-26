@@ -66,7 +66,7 @@ test_conversion(
 	> source_store;
 
 	source_store source(
-		typename source_store::dim_type(
+		typename source_store::dim(
 			1,
 			1
 		)
@@ -79,7 +79,7 @@ test_conversion(
 	);
 
 	source_view[
-		typename source_view_type::dim_type(
+		typename source_view_type::dim(
 			0,
 			0
 		)
@@ -95,7 +95,7 @@ test_conversion(
 	> dest_store;
 
 	dest_store dest(
-		source.dim()
+		source.size()
 	);
 
 	typedef typename dest_store::view_type dest_view_type;
@@ -117,7 +117,7 @@ test_conversion(
 
 	BOOST_REQUIRE(
 		dest_view[
-			typename dest_view_type::dim_type(
+			typename dest_view_type::dim(
 				0,
 				0
 			)

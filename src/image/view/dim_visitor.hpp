@@ -49,7 +49,7 @@ struct dim_visitor
 			sge::image::convert_dim<
 				result_type
 			>(
-				_view.dim()
+				_view.size()
 			);
 	}
 };

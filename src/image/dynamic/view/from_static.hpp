@@ -41,7 +41,7 @@ typename sge::image::view::element_base<
 	typename dynamic::color::from_static_format_type<
 		typename View::color_format
 	>::type,
-	View::dim_type::static_size,
+	View::dim::static_size,
 	typename View::constness
 >::type
 from_static(
@@ -52,7 +52,7 @@ from_static(
 		typename dynamic::color::from_static_format_type<
 			typename View::color_format
 		>::type,
-		View::dim_type::static_size,
+		View::dim::static_size,
 		typename View::constness
 	>::type dest_type;
 
@@ -60,7 +60,7 @@ from_static(
 
 	return
 		dest_type(
-			_view.dim(),
+			_view.size(),
 			_view.data(),
 			_view.pitch(),
 			typename dest_type::format_store_type(

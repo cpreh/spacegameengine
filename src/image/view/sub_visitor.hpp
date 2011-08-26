@@ -67,12 +67,12 @@ public:
 					_view,
 					typename T::bound_type(
 						sge::image::convert_dim<
-							typename T::bound_type::dim_type
+							typename T::bound_type::dim
 						>(
 							box_.pos()
 						),
 						sge::image::convert_dim<
-							typename T::bound_type::dim_type
+							typename T::bound_type::dim
 						>(
 							box_.size()
 						)

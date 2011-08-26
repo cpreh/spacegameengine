@@ -208,7 +208,7 @@ try
 	typedef sge::image2d::rgba8 image_type;
 
 	image_type dest(
-		image_type::dim_type(
+		image_type::dim(
 			border_sz,
 			border_sz
 		)

@@ -69,7 +69,7 @@ public:
 			result_type(
 				View(
 					sge::image::convert_dim<
-						typename View::dim_type
+						typename View::dim
 					>(
 						dim_
 					),
