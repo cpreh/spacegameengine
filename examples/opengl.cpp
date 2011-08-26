@@ -91,6 +91,9 @@ try
 				),
 				sge::viewport::dont_manage()
 			)
+			.name(
+				FCPPT_TEXT("opengl")
+			)
 		)
 	);
 

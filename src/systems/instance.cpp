@@ -502,7 +502,40 @@ sge::systems::instance::impl::init_renderer(
 		_param.parameters()
 	);
 
-	renderer_plugin_ = default_plugin<sge::renderer::system>();
+	if(
+		!_param.name()
+	)
+		renderer_plugin_ = default_plugin<sge::renderer::system>();
+	else
+	{
+		for(
+			plugin::iterator<sge::renderer::system> it(
+				plugin_manager_.begin<sge::renderer::system>()
+			);
+			it != plugin_manager_.end<sge::renderer::system>();
+			++it
+		)
+		{
+			if(
+				it->base().info().name()
+				== *_param.name()
+			)
+			{
+				renderer_plugin_ = it->load();
+
+				break;
+			}
+		}
+
+		if(
+			!renderer_plugin_
+		)
+			throw sge::systems::exception(
+				FCPPT_TEXT("Renderer plugin with name \"")
+				+ *_param.name()
+				+ FCPPT_TEXT("\" not found!")
+			);
+	}
 
 	renderer_system_ = renderer_plugin_->get()();
 

@@ -18,44 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/renderer.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#ifndef SGE_SYSTEMS_OPTIONAL_NAME_HPP_INCLUDED
+#define SGE_SYSTEMS_OPTIONAL_NAME_HPP_INCLUDED
 
-sge::systems::renderer::renderer(
-	sge::renderer::parameters const &_parameters,
-	sge::viewport::resize_function const &_resize_function
-)
-:
-	parameters_(_parameters),
-	resize_function_(_resize_function),
-	name_()
+#include <fcppt/optional_fwd.hpp>
+#include <fcppt/string.hpp>
+
+namespace sge
 {
+namespace systems
+{
+
+typedef fcppt::optional<
+	fcppt::string
+> optional_name;
+
+}
 }
 
-sge::systems::renderer &
-sge::systems::renderer::name(
-	fcppt::string const &_name
-)
-{
-	name_ = _name;
-
-	return *this;
-}
-
-sge::renderer::parameters const &
-sge::systems::renderer::parameters() const
-{
-	return parameters_;
-}
-
-sge::viewport::resize_function const &
-sge::systems::renderer::resize_function() const
-{
-	return resize_function_;
-}
-
-sge::systems::optional_name const &
-sge::systems::renderer::name() const
-{
-	return name_;
-}
+#endif
