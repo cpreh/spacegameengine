@@ -60,7 +60,8 @@ copy(
 	)
 		mizuiro::image::algorithm::copy_same_channel_order(
 			_source,
-			_dest
+			_dest,
+			_overlap
 		);
 	else
 		mizuiro::image::algorithm::copy_different_channel_order(
