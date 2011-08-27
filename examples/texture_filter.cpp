@@ -288,7 +288,7 @@ try
 
 		sge::image2d::algorithm::fill(
 			sge::image2d::view::object(
-				white_store.view()
+				white_store.wrapped_view()
 			),
 			sge::image::colors::white()
 		);
@@ -299,7 +299,7 @@ try
 
 		sge::image2d::algorithm::fill(
 			sge::image2d::view::object(
-				black_store.view()
+				black_store.wrapped_view()
 			),
 			sge::image::colors::black()
 		);
@@ -319,14 +319,14 @@ try
 						sge::image2d::view::object(
 							(((x + y) % 2u) == 0u)
 							?
-								white_store.view()
+								white_store.wrapped_view()
 							:
-								black_store.view()
+								black_store.wrapped_view()
 						)
 					),
 					sge::image2d::view::sub(
 						sge::image2d::view::object(
-							whole_store.view()
+							whole_store.wrapped_view()
 						),
 						sge::image2d::rect(
 							sge::image2d::rect::vector(
@@ -476,7 +476,7 @@ try
 					sys.renderer(),
 					sge::image2d::view::to_const(
 						sge::image2d::view::object(
-							whole_store.view()
+							whole_store.wrapped_view()
 						)
 					),
 					sge::renderer::texture::mipmap::all_levels(

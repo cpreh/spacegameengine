@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_STORE_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_STORE_IMPL_HPP_INCLUDED
 
+#include <sge/image/view/wrap.hpp>
 #define SGE_IMAGE_INSTANTIATE_EXPORTS
 #include <sge/image/store.hpp>
 #undef SGE_IMAGE_INSTANTIATE_EXPORTS
@@ -107,10 +108,7 @@ template<
 typename sge::image::store<Format>::view_type const
 sge::image::store<Format>::view()
 {
-	return
-		view_type(
-			internal_.view()
-		);
+	return internal_.view();
 }
 
 template<
@@ -119,8 +117,29 @@ template<
 typename sge::image::store<Format>::const_view_type const
 sge::image::store<Format>::view() const
 {
+	return internal_.view();
+}
+
+template<
+	typename Format
+>
+typename sge::image::store<Format>::wrapped_view_type const
+sge::image::store<Format>::wrapped_view()
+{
 	return
-		const_view_type(
+		sge::image::view::wrap(
+			internal_.view()
+		);
+}
+
+template<
+	typename Format
+>
+typename sge::image::store<Format>::const_wrapped_view_type const
+sge::image::store<Format>::wrapped_view() const
+{
+	return
+		sge::image::view::wrap(
 			internal_.view()
 		);
 }

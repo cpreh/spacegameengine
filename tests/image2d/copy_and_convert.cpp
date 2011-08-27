@@ -73,10 +73,10 @@ test_conversion(
 		)
 	);
 
-	typedef typename source_store::view_type source_view_type;
+	typedef typename source_store::wrapped_view_type source_view_type;
 
 	source_view_type const source_view(
-		source.view()
+		source.wrapped_view()
 	);
 
 	source_view[
@@ -99,15 +99,15 @@ test_conversion(
 		source.size()
 	);
 
-	typedef typename dest_store::view_type dest_view_type;
+	typedef typename dest_store::wrapped_view_type dest_view_type;
 
 	dest_view_type dest_view(
-		dest.view()
+		dest.wrapped_view()
 	);
 
 	sge::image2d::algorithm::copy_and_convert(
 		sge::image2d::view::const_object(
-			typename source_store::const_view_type(
+			typename source_store::const_wrapped_view_type(
 				source_view
 			)
 		),

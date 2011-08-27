@@ -170,7 +170,7 @@ sge::freetype::char_metric::char_metric(
 			)
 		),
 		sge::image2d::view::object(
-			buffer_.view()
+			buffer_.wrapped_view()
 		),
 		sge::image::algorithm::may_overlap::no
 	);
@@ -191,7 +191,7 @@ sge::freetype::char_metric::pixmap() const
 {
 	return
 		sge::font::const_image_view(
-			buffer_.view()
+			buffer_.wrapped_view()
 		);
 }
 

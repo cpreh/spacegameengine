@@ -216,7 +216,7 @@ try
 	);
 
 	sge::image2d::view::object const dest_view(
-		dest.view()
+		dest.wrapped_view()
 	);
 
 	sge::image2d::algorithm::fill(

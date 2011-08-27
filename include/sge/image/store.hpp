@@ -52,13 +52,17 @@ public:
 		Format::dim::static_size
 	>::type dim;
 
-	typedef typename image::view::wrapped_type<
-		typename internal_type::view_type
-	>::type view_type;
+	typedef typename internal_type::view_type view_type;
+
+	typedef typename internal_type::const_view_type const_view_type;
 
 	typedef typename image::view::wrapped_type<
-		typename internal_type::const_view_type
-	>::type const_view_type;
+		view_type
+	>::type wrapped_view_type;
+
+	typedef typename image::view::wrapped_type<
+		const_view_type
+	>::type const_wrapped_view_type;
 
 	SGE_IMAGE_INSTANTIATE_SYMBOL
 	store();
@@ -97,6 +101,14 @@ public:
 	SGE_IMAGE_INSTANTIATE_SYMBOL
 	const_view_type const
 	view() const;
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	wrapped_view_type const
+	wrapped_view();
+
+	SGE_IMAGE_INSTANTIATE_SYMBOL
+	const_wrapped_view_type const
+	wrapped_view() const;
 
 	SGE_IMAGE_INSTANTIATE_SYMBOL
 	dim const

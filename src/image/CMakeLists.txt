@@ -112,6 +112,7 @@ SET(
 	include/sge/image/view/sub_out_of_range.hpp
 	include/sge/image/view/to_const.hpp
 	include/sge/image/view/view.hpp
+	include/sge/image/view/wrap.hpp
 	include/sge/image/view/wrapped_type.hpp
 	include/sge/image/xrgb8_format.hpp
 	src/image/algorithm/copy_and_convert_impl.hpp
@@ -242,7 +243,6 @@ SET(
 	src/image/view/sub_visitor.hpp
 	src/image/view/to_const_impl.hpp
 	src/image/view/to_const_visitor.hpp
-	src/image/view/wrap.hpp
 )
 
 OPTION(

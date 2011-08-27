@@ -451,7 +451,7 @@ create_texture(
 
 	sge::image3d::algorithm::fill(
 		sge::image3d::view::object(
-			white_store.view()
+			white_store.wrapped_view()
 		),
 		sge::image::colors::white()
 	);
@@ -462,7 +462,7 @@ create_texture(
 
 	sge::image3d::algorithm::fill(
 		sge::image3d::view::object(
-			black_store.view()
+			black_store.wrapped_view()
 		),
 		sge::image::colors::black()
 	);
@@ -487,14 +487,14 @@ create_texture(
 						sge::image3d::view::object(
 							(((x + y + z) % 2u) == 0u)
 							?
-								white_store.view()
+								white_store.wrapped_view()
 							:
-								black_store.view()
+								black_store.wrapped_view()
 						)
 					),
 					sge::image3d::view::sub(
 						sge::image3d::view::object(
-							whole_store.view()
+							whole_store.wrapped_view()
 						),
 						sge::image3d::box(
 							sge::image3d::box::vector(
@@ -513,7 +513,7 @@ create_texture(
 			_device,
 			sge::image3d::view::to_const(
 				sge::image3d::view::object(
-					whole_store.view()
+					whole_store.wrapped_view()
 				)
 			),
 			sge::renderer::texture::mipmap::off(),

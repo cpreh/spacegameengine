@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_FLIPPED_VISITOR_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_FLIPPED_VISITOR_HPP_INCLUDED
 
-#include "wrap.hpp"
+#include <sge/image/view/wrap.hpp>
 #include <mizuiro/image/flipped_view.hpp>
 
 namespace sge
@@ -48,7 +48,7 @@ struct flipped_visitor
 	{
 		return
 			result_type(
-				image::view::wrap(
+				sge::image::view::wrap(
 					mizuiro::image::flipped_view(
 						_view
 					)
