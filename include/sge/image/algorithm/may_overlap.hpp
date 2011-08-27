@@ -18,35 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_VIEW_COLOR_LAYOUT_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_VIEW_COLOR_LAYOUT_HPP_INCLUDED
+#ifndef SGE_IMAGE_ALGORITHM_MAY_OVERLAP_HPP_INCLUDED
+#define SGE_IMAGE_ALGORITHM_MAY_OVERLAP_HPP_INCLUDED
 
-#include "image_format.hpp"
+#include <mizuiro/image/algorithm/may_overlap.hpp>
 
 namespace sge
 {
 namespace image
 {
-namespace dynamic
-{
-namespace view
+namespace algorithm
 {
 
-template<
-	typename View
->
-typename View::format::color_format::layout const
-color_layout(
-	View const &_view
-)
-{
-	return
-		view::image_format(
-			_view
-		).color_format_store().get()->order;
-}
+namespace may_overlap = mizuiro::image::algorithm::may_overlap;
 
-}
 }
 }
 }

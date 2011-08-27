@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "cac/visitor.hpp"
 #include "../color/access.hpp"
 #include "../view/from_static_visitor.hpp"
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/dim.hpp>
 #include <sge/image/traits/view.hpp>
@@ -52,7 +53,8 @@ copy_and_convert(
 	>::type const &_source,
 	typename image::traits::view<
 		Tag
-	>::type const &_dest
+	>::type const &_dest,
+	image::algorithm::may_overlap::type const _overlap
 )
 {
 	typedef typename image::traits::dim<
@@ -60,7 +62,9 @@ copy_and_convert(
 	>::type::dim_wrapper dim_wrapper;
 
 	fcppt::variant::apply_binary(
-		dynamic::algorithm::cac::visitor(),
+		dynamic::algorithm::cac::visitor(
+			_overlap
+		),
 		fcppt::variant::apply_unary(
 			dynamic::view::from_static_visitor<
 				dim_wrapper::value,

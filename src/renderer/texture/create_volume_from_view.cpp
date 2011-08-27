@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/algorithm/copy_and_convert.hpp>
 #include <sge/image3d/view/dim.hpp>
 #include <sge/image3d/view/format.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
 sge::renderer::texture::volume_ptr const
@@ -61,7 +62,8 @@ sge::renderer::texture::create_volume_from_view(
 
 	image3d::algorithm::copy_and_convert(
 		_view,
-		lock.value()
+		lock.value(),
+		sge::image::algorithm::may_overlap::no
 	);
 
 	return tex;

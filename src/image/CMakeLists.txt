@@ -3,6 +3,7 @@ SET(
 	include/sge/image/algorithm/algorithm.hpp
 	include/sge/image/algorithm/copy_and_convert.hpp
 	include/sge/image/algorithm/fill.hpp
+	include/sge/image/algorithm/may_overlap.hpp
 	include/sge/image/algorithm/print.hpp
 	include/sge/image/alpha8_format.hpp
 	include/sge/image/argb32f_format.hpp
@@ -111,6 +112,7 @@ SET(
 	include/sge/image/view/sub_out_of_range.hpp
 	include/sge/image/view/to_const.hpp
 	include/sge/image/view/view.hpp
+	include/sge/image/view/wrapped_type.hpp
 	include/sge/image/xrgb8_format.hpp
 	src/image/algorithm/copy_and_convert_impl.hpp
 	src/image/algorithm/copy_and_convert_visitor.hpp
@@ -240,6 +242,7 @@ SET(
 	src/image/view/sub_visitor.hpp
 	src/image/view/to_const_impl.hpp
 	src/image/view/to_const_visitor.hpp
+	src/image/view/wrap.hpp
 )
 
 OPTION(

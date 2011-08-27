@@ -36,16 +36,16 @@ struct format_visitor
 	typedef sge::image::color::format::type result_type;
 
 	template<
-		typename T
+		typename View
 	>
 	result_type
 	operator()(
-		T const &
+		View const &
 	) const
 	{
 		return
 			sge::image::color::format_static<
-				typename T::color_format
+				typename View::format::color_format
 			>::value;
 	}
 };

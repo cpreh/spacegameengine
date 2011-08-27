@@ -18,16 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DYNAMIC_VIEW_COLOR_LAYOUT_HPP_INCLUDED
-#define SGE_IMAGE_DYNAMIC_VIEW_COLOR_LAYOUT_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_WRAP_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_WRAP_HPP_INCLUDED
 
-#include "image_format.hpp"
+#include <sge/image/view/wrapped_type.hpp>
 
 namespace sge
 {
 namespace image
-{
-namespace dynamic
 {
 namespace view
 {
@@ -35,18 +33,22 @@ namespace view
 template<
 	typename View
 >
-typename View::format::color_format::layout const
-color_layout(
+
+typename view::wrapped_type<
+	View
+>::type const
+wrap(
 	View const &_view
 )
 {
 	return
-		view::image_format(
+		typename view::wrapped_type<
+			View
+		>::type(
 			_view
-		).color_format_store().get()->order;
+		);
 }
 
-}
 }
 }
 }

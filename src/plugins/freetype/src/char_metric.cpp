@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
@@ -170,12 +171,14 @@ sge::freetype::char_metric::char_metric(
 		),
 		sge::image2d::view::object(
 			buffer_.view()
-		)
+		),
+		sge::image::algorithm::may_overlap::no
 	);
 }
 
 sge::freetype::char_metric::~char_metric()
-{}
+{
+}
 
 sge::font::pos const
 sge::freetype::char_metric::offset() const

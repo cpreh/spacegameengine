@@ -107,7 +107,10 @@ template<
 typename sge::image::store<Format>::view_type const
 sge::image::store<Format>::view()
 {
-	return internal_.view();
+	return
+		view_type(
+			internal_.view()
+		);
 }
 
 template<
@@ -116,7 +119,10 @@ template<
 typename sge::image::store<Format>::const_view_type const
 sge::image::store<Format>::view() const
 {
-	return internal_.view();
+	return
+		const_view_type(
+			internal_.view()
+		);
 }
 
 template<

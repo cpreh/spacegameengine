@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/algorithm/fill.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/print.hpp>
 
 #endif

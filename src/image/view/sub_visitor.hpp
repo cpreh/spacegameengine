@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_SUB_VISITOR_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_SUB_VISITOR_HPP_INCLUDED
 
+#include "wrap.hpp"
 #include "../convert_dim.hpp"
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -63,18 +64,20 @@ public:
 	{
 		return
 			result_type(
-				mizuiro::image::sub_view(
-					_view,
-					typename T::bound_type(
-						sge::image::convert_dim<
-							typename T::bound_type::dim
-						>(
-							box_.pos()
-						),
-						sge::image::convert_dim<
-							typename T::bound_type::dim
-						>(
-							box_.size()
+				image::view::wrap(
+					mizuiro::image::sub_view(
+						_view,
+						typename T::bound_type(
+							sge::image::convert_dim<
+								typename T::bound_type::dim
+							>(
+								box_.pos()
+							),
+							sge::image::convert_dim<
+								typename T::bound_type::dim
+							>(
+								box_.size()
+							)
 						)
 					)
 				)

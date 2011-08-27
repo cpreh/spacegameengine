@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/const_raw_pointer.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -80,7 +81,10 @@ void sge::libpng::file::data(
 			bytes_.data(),
 			dim_,
 			format_,
-			image2d::view::optional_pitch()));
+			image2d::view::optional_pitch()
+		),
+		sge::image::algorithm::may_overlap::no
+	);
 }
 
 sge::image2d::view::const_object const

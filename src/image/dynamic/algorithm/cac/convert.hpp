@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "choose.hpp"
 #include "convert_visitor.hpp"
 #include "function.hpp"
-#include <mizuiro/image/algorithm/detail/apply_binary_iteration.hpp> // TODO
-#include <mizuiro/detail/variant_apply_binary.hpp> // TODO
+#include <mizuiro/image/algorithm/binary_iteration.hpp>
 
 namespace sge
 {
@@ -49,26 +48,24 @@ convert(
 	Dest const &_dest
 )
 {
-	mizuiro::detail::variant_apply_binary(
-		mizuiro::image::algorithm::detail::apply_binary_iteration(
-			cac::convert_visitor<
-				typename cac::function<
-					typename Source::format,
-					typename Dest::format
-				>::type
-			>(
-				cac::choose(
-					view::image_format(
-						_source
-					),
-					view::image_format(
-						_dest
-					)
+	mizuiro::image::algorithm::binary_iteration(
+		cac::convert_visitor<
+			typename cac::function<
+				typename Source::format,
+				typename Dest::format
+			>::type
+		>(
+			cac::choose(
+				view::image_format(
+					_source
+				),
+				view::image_format(
+					_dest
 				)
 			)
 		),
-		_source.range(),
-		_dest.range()
+		_source,
+		_dest
 	);
 }
 

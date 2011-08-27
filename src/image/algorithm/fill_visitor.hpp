@@ -53,17 +53,17 @@ public:
 	}
 
 	template<
-		typename T
+		typename View
 	>
 	result_type
 	operator()(
-		T const &_view
+		View const &_view
 	) const
 	{
 		mizuiro::image::algorithm::fill_c(
 			_view,
 			sge::image::color::any::convert<
-				typename T::color_format
+				typename View::format::color_format
 			>(
 				color_
 			)

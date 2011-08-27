@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <sge/image2d/view/to_const.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/store.hpp>
@@ -264,7 +265,8 @@ try
 					pos,
 					dim
 				)
-			)
+			),
+			sge::image::algorithm::may_overlap::no
 		);
 
 		pos.x() += dim.w() + 1;

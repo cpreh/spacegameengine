@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../view/color_layout.hpp"
 #include "convert.hpp"
 #include "copy.hpp"
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -39,8 +41,20 @@ namespace algorithm
 namespace cac
 {
 
-struct visitor
+class visitor
 {
+	FCPPT_NONASSIGNABLE(
+		visitor
+	);
+public:
+	explicit visitor(
+		image::algorithm::may_overlap::type const _overlap
+	)
+	:
+		overlap_(_overlap)
+	{
+	}
+
 	typedef void result_type;
 
 	template<
@@ -71,7 +85,8 @@ struct visitor
 		)
 			cac::copy(
 				_source,
-				_dest
+				_dest,
+				overlap_
 			);
 		else
 			cac::convert(
@@ -101,6 +116,8 @@ struct visitor
 			_dest
 		);
 	}
+private:
+	image::algorithm::may_overlap::type const overlap_;
 };
 
 }

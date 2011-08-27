@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_ALGORITHM_INSTANTIATE_COPY_AND_CONVERT_HPP_INCLUDED
 
 #include "copy_and_convert_impl.hpp"
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/view.hpp>
 #include <fcppt/export_symbol.hpp>
@@ -40,7 +41,8 @@ sge::image::algorithm::copy_and_convert< \
 	>::type const &, \
 	sge::image::traits::view<\
 		tag\
-	>::type const & \
+	>::type const &, \
+	sge::image::algorithm::may_overlap::type \
 );
 
 #endif

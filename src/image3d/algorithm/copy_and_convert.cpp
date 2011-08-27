@@ -24,18 +24,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
 #include <sge/image3d/tag.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 
 void
 sge::image3d::algorithm::copy_and_convert(
 	view::const_object const &_src,
-	view::object const &_dest
+	view::object const &_dest,
+	image::algorithm::may_overlap::type const _overlap
 )
 {
 	sge::image::algorithm::copy_and_convert<
 		sge::image3d::tag
 	>(
 		_src,
-		_dest
+		_dest,
+		_overlap
 	);
 }
 

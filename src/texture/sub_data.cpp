@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/dim.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
 void
@@ -46,6 +47,7 @@ sge::texture::sub_data(
 
 	image2d::algorithm::copy_and_convert(
 		_view,
-		lock.value()
+		lock.value(),
+		sge::image::algorithm::may_overlap::no
 	);
 }

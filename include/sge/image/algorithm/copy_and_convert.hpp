@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/view.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/instantiate_symbol.hpp>
 
 namespace sge
@@ -43,7 +44,8 @@ copy_and_convert(
 	>::type const &,
 	typename image::traits::view<
 		Tag
-	>::type const &
+	>::type const &,
+	image::algorithm::may_overlap::type
 );
 
 }

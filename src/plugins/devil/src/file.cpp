@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_integer.hpp"
 #include "../to_il_channel.hpp"
 #include "../to_il_format.hpp"
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/element_count.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/const_raw_pointer.hpp>
@@ -143,7 +144,8 @@ sge::devil::file::data(
 			src_dim,
 			best_il_format,
 			image2d::view::optional_pitch()
-		)
+		),
+		sge::image::algorithm::may_overlap::no
 	);
 
 	image2d::dim const cur_dim(

@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/store.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/gray8.hpp>
@@ -334,7 +335,8 @@ try
 							),
 							block_size
 						)
-					)
+					),
+					sge::image::algorithm::may_overlap::no
 				);
 	}
 

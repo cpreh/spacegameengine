@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_VISITOR_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_VISITOR_HPP_INCLUDED
 
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <mizuiro/image/algorithm/copy_and_convert.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -30,8 +32,20 @@ namespace image
 namespace algorithm
 {
 
-struct copy_and_convert_visitor
+class copy_and_convert_visitor
 {
+	FCPPT_NONASSIGNABLE(
+		copy_and_convert_visitor
+	);
+public:
+	explicit copy_and_convert_visitor(
+		image::algorithm::may_overlap::type const _overlap
+	)
+	:
+		overlap_(_overlap)
+	{
+	}
+
 	typedef void result_type;
 
 	template<
@@ -47,9 +61,12 @@ struct copy_and_convert_visitor
 		return
 			mizuiro::image::algorithm::copy_and_convert(
 				_src,
-				_dest
+				_dest,
+				overlap_
 			);
 	}
+private:
+	image::algorithm::may_overlap::type const overlap_;
 };
 
 }

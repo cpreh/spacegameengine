@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -121,6 +122,7 @@ sge::renderer::vf::dynamic::detail::element_converter::convert(
 			:
 				original_color_,
 			pitch
-		)
+		),
+		sge::image::algorithm::may_overlap::yes
 	);
 }

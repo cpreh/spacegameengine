@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/store_fwd.hpp>
 #include <sge/image/dim.hpp>
 #include <sge/image/instantiate_symbol.hpp>
+#include <sge/image/view/mizuiro_access.hpp>
+#include <sge/image/view/wrapped_type.hpp>
 #include <mizuiro/image/store_decl.hpp>
 #include <mizuiro/image/raw_view.hpp>
-#include <mizuiro/access/raw.hpp>
 
 namespace sge
 {
@@ -40,7 +41,7 @@ class store
 {
 	typedef mizuiro::image::store<
 		Format,
-		::mizuiro::access::raw
+		sge::image::view::mizuiro_access
 	> internal_type;
 public:
 	typedef typename internal_type::pointer pointer;
@@ -51,9 +52,13 @@ public:
 		Format::dim::static_size
 	>::type dim;
 
-	typedef typename internal_type::view_type view_type;
+	typedef typename image::view::wrapped_type<
+		typename internal_type::view_type
+	>::type view_type;
 
-	typedef typename internal_type::const_view_type const_view_type;
+	typedef typename image::view::wrapped_type<
+		typename internal_type::const_view_type
+	>::type const_view_type;
 
 	SGE_IMAGE_INSTANTIATE_SYMBOL
 	store();

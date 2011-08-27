@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/symbol.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 
 namespace sge
 {
@@ -36,7 +37,8 @@ SGE_IMAGE2D_SYMBOL
 void
 copy_and_convert(
 	view::const_object const &src,
-	view::object const &dest
+	view::object const &dest,
+	image::algorithm::may_overlap::type
 );
 
 }

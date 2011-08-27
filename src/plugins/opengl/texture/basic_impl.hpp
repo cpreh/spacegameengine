@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/format_to_color.hpp"
 #include "../range_check.hpp"
 #include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/view/flipped.hpp>
 #include <sge/image/view/make.hpp>
@@ -137,7 +138,8 @@ sge::opengl::texture::basic<Types>::unlock() const
 					this->lock_dim(),
 					color_type_,
 					basic::optional_pitch()
-				)
+				),
+				sge::image::algorithm::may_overlap::no
 			);
 
 			lock_->post_copy();
