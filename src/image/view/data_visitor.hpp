@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
 
-#include <boost/utility/enable_if.hpp>
-
 namespace sge
 {
 namespace image
@@ -45,13 +43,7 @@ struct data_visitor
 		Src const &_src
 	) const
 	{
-		// casting to a byte buffer is ok
-		return
-			reinterpret_cast<
-				Dst
-			>(
-				_src.data()
-			);
+		return _src.data();
 	}
 };
 
