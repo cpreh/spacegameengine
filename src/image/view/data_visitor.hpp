@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
 
-#include <mizuiro/image/is_raw_view.hpp>
 #include <boost/utility/enable_if.hpp>
 
 namespace sge
@@ -38,16 +37,10 @@ struct data_visitor
 {
 	typedef Dst result_type;
 
-	// This overload is currently not needed
 	template<
 		typename Src
 	>
-	typename boost::disable_if<
-		mizuiro::image::is_raw_view<
-			Src
-		>,
-		result_type
-	>::type
+	result_type
 	operator()(
 		Src const &_src
 	) const
@@ -59,22 +52,6 @@ struct data_visitor
 			>(
 				_src.data()
 			);
-	}
-
-	template<
-		typename Src
-	>
-	typename boost::enable_if<
-		mizuiro::image::is_raw_view<
-			Src
-		>,
-		result_type
-	>::type
-	operator()(
-		Src const &_src
-	) const
-	{
-		return _src.data().get();
 	}
 };
 
