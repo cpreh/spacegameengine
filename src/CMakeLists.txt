@@ -312,6 +312,7 @@ INSTALL(
 
 FIND_PACKAGE(CEGUI)
 FIND_PACKAGE(Bullet)
+FIND_PACKAGE(OpenCL)
 
 # core libraries
 OPTION (ENABLE_AUDIO "Build the audio library" ON)
@@ -383,6 +384,7 @@ OPTION (ENABLE_CONSOLE "Build the console" ON)
 OPTION (ENABLE_FONTBITMAP "Build the bitmap font" ON)
 OPTION (ENABLE_FONTTEXT "Build the font text library" ON)
 OPTION (ENABLE_LINE_DRAWER "Build the line drawing library" ON)
+OPTION (ENABLE_OPENCL "Build the opencl subsystem" ${OPENCL_FOUND})
 OPTION (ENABLE_PARSE "Build the parse library" ON)
 OPTION (ENABLE_PROJECTILE "Build the projectile subsystem" ${BULLET_FOUND})
 OPTION (ENABLE_SHADER "Build the shader" ON)
@@ -417,6 +419,10 @@ ENDIF ()
 
 IF (ENABLE_LINE_DRAWER)
 	ADD_SUBDIRECTORY(line_drawer)
+ENDIF ()
+
+IF (ENABLE_OPENCL)
+	ADD_SUBDIRECTORY (opencl)
 ENDIF ()
 
 IF (ENABLE_PARSE)

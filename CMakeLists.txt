@@ -117,6 +117,8 @@ SET(
 
 ADD_SUBDIRECTORY (src)
 
+OPTION(ENABLE_OPENCL "Build the OpenCL examples" OFF)
+
 OPTION(ENABLE_TEST "Build the tests" OFF)
 
 IF(ENABLE_TEST)

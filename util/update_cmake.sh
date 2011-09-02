@@ -94,6 +94,8 @@ update_sublibrary model/md3
 
 update_sublibrary model/obj
 
+update_sublibrary opencl
+
 update_sublibrary parse
 
 update_sublibrary projectile

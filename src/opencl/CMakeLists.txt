@@ -1,0 +1,77 @@
+SET(
+	SGE_OPENCL_FILES
+	include/sge/opencl/binary_error_data.hpp
+	include/sge/opencl/command_queue/execution_mode.hpp
+	include/sge/opencl/command_queue/object.hpp
+	include/sge/opencl/command_queue/object_fwd.hpp
+	include/sge/opencl/command_queue/profiling_mode.hpp
+	include/sge/opencl/context/error_callback.hpp
+	include/sge/opencl/context/error_callback_type.hpp
+	include/sge/opencl/context/object.hpp
+	include/sge/opencl/context/object_fwd.hpp
+	include/sge/opencl/context/parameters.hpp
+	include/sge/opencl/context/parameters_fwd.hpp
+	include/sge/opencl/device/object.hpp
+	include/sge/opencl/device/object_fwd.hpp
+	include/sge/opencl/device/object_ref_sequence.hpp
+	include/sge/opencl/device/object_sequence.hpp
+	include/sge/opencl/error_information_string.hpp
+	include/sge/opencl/extension_sequence.hpp
+	include/sge/opencl/kernel/name.hpp
+	include/sge/opencl/kernel/object.hpp
+	include/sge/opencl/kernel/object_fwd.hpp
+	include/sge/opencl/platform/object.hpp
+	include/sge/opencl/platform/object_fwd.hpp
+	include/sge/opencl/platform/object_sequence.hpp
+	include/sge/opencl/profile_type.hpp
+	include/sge/opencl/program/blob.hpp
+	include/sge/opencl/program/build_options.hpp
+	include/sge/opencl/program/build_parameters.hpp
+	include/sge/opencl/program/build_parameters_fwd.hpp
+	include/sge/opencl/program/device_blob_map.hpp
+	include/sge/opencl/program/notification_callback.hpp
+	include/sge/opencl/program/notification_callback_type.hpp
+	include/sge/opencl/program/object.hpp
+	include/sge/opencl/program/object_fwd.hpp
+	include/sge/opencl/program/source_string.hpp
+	include/sge/opencl/program/source_string_sequence.hpp
+	include/sge/opencl/symbol.hpp
+	include/sge/opencl/system.hpp
+	include/sge/opencl/system_fwd.hpp
+	include/sge/opencl/version.hpp
+	src/opencl/command_queue/object.cpp
+	src/opencl/context/object.cpp
+	src/opencl/context/parameters.cpp
+	src/opencl/device/object.cpp
+	src/opencl/handle_error.cpp
+	src/opencl/handle_error.hpp
+	src/opencl/kernel/object.cpp
+	src/opencl/platform/object.cpp
+	src/opencl/program/build_parameters.cpp
+	src/opencl/program/object.cpp
+	src/opencl/system.cpp
+	src/opencl/version.cpp
+)
+
+INCLUDE_DIRECTORIES(
+	SYSTEM
+	${OPENCL_INCLUDE_DIRS}
+)
+
+ADD_SGE_BASE_LIBRARY(
+	opencl
+	""
+)
+
+FIND_PACKAGE(OpenGL)
+
+INCLUDE_DIRECTORIES(
+	SYSTEM
+	${OPENGL_INCLUDE_DIR}
+)
+
+TARGET_LINK_LIBRARIES (
+	sgeopencl
+	${OPENCL_LIBRARIES}
+	${OPENGL_gl_LIBRARY}
+)
