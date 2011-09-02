@@ -31,9 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/vertex_fwd.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_grammar.hpp>
 #include <boost/spirit/include/qi_rule.hpp>
 #include <boost/spirit/home/lex/qi/in_state.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LIBPNG_BYTE_VECTOR_HPP_INCLUDED
 
 #include <fcppt/container/raw_vector.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <png.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

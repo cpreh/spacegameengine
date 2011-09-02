@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_STACK_HPP_INCLUDED
 
 #include <sge/renderer/state/list.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <stack>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DETAIL_RAW_DATA_HPP_INCLUDED
 
 #include <sge/renderer/const_raw_pointer.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

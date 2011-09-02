@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_C_HPP_INCLUDED
 
 #include <sge/renderer/vf/element_type.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/integral_c.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

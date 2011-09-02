@@ -36,9 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <clocale>
 #include <cstdlib>
+#include <fcppt/config/external_end.hpp>
 
 sge::x11input::system::system()
 {

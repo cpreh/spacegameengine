@@ -30,8 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <climits>
 #include <cstddef>
+#include <fcppt/config/external_end.hpp>
 
 std::size_t const sge::libpng::load_context::header_bytes_ =
 	static_cast<std::size_t>(8);

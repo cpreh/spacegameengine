@@ -21,25 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "error.hpp"
 #include "object.hpp"
 #include <sge/plugin/library/exception.hpp>
+#include <fcppt/config/platform.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/platform.hpp>
-#if defined(FCPPT_WINDOWS_PLATFORM)
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <exception>
-#elif defined(FCPPT_POSIX_PLATFORM)
+#include <fcppt/config/external_end.hpp>
+#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <fcppt/to_std_string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <dlfcn.h>
+#include <fcppt/config/external_end.hpp>
 #else
 #error "Implement me!"
 #endif
 
-#if defined(FCPPT_WINDOWS_PLATFORM)
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 namespace
 {
 
@@ -104,7 +108,7 @@ sge::plugin::library::object::object(
 )
 :
 	name_(_name),
-#if defined(FCPPT_WINDOWS_PLATFORM)
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	destroyer_(
 		fcppt::make_unique_ptr<
 			destroyer
@@ -117,7 +121,7 @@ sge::plugin::library::object::object(
 			).c_str()
 		)
 	)
-#elif defined(FCPPT_POSIX_PLATFORM)
+#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	handle_(
 		::dlopen(
 			fcppt::to_std_string(
@@ -147,7 +151,7 @@ sge::plugin::library::object::~object()
 	)
 		return;
 
-#if defined(FCPPT_WINDOWS_PLATFORM)
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	// NOTE: we can't free the library here,
 	// because an exception might be propagating that
 	// has been risen from a dll
@@ -168,7 +172,7 @@ sge::plugin::library::object::~object()
 		free_library(
 			handle_
 		);
-#elif defined(FCPPT_POSIX_PLATFORM)
+#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	::dlclose(
 		handle_
 	);
@@ -186,7 +190,7 @@ sge::plugin::library::object::load(
 	library::symbol_string const &_fun
 )
 {
-#if defined(FCPPT_WINDOWS_PLATFORM)
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	FARPROC const ret(
 		::GetProcAddress(
 			handle_,
@@ -207,7 +211,7 @@ sge::plugin::library::object::load(
 		);
 
 	return ret;
-#elif defined(FCPPT_POSIX_PLATFORM)
+#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	::dlerror(); // clear last error
 
 	void *const ret(

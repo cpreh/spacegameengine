@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH_HPP_INCLUDED
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH_HPP_INCLUDED
 
-#include <exception>
+#include <fcppt/assert/unreachable.hpp>
 
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH \
-std::terminate();
+FCPPT_ASSERT_UNREACHABLE
 
 #endif

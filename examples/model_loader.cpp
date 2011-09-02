@@ -175,6 +175,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstdlib>
 #include <exception>
@@ -184,6 +185,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/mpl/map/map10.hpp>
 #include <boost/mpl/pair.hpp>
+#include <fcppt/config/external_end.hpp>
 #include <fcppt/mpl/index_of.hpp>
 
 namespace

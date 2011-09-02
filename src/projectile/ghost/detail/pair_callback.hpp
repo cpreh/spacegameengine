@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // The header below isn't self-contained, this is a fix for that
 struct btBroadphaseProxy;
 
+#include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

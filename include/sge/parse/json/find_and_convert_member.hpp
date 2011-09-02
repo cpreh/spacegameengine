@@ -32,7 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/invalid_get.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/range/algorithm/find_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

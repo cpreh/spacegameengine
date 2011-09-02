@@ -21,16 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_OPENGL_GLINCLUDE_HPP_INCLUDED
 #define SGE_RENDERER_OPENGL_GLINCLUDE_HPP_INCLUDED
 
-#include <fcppt/platform.hpp>
-#if defined(FCPPT_DARWIN_PLATFORM)
+#include <fcppt/config/platform.hpp>
+#include <fcppt/config/external_begin.hpp>
+#if defined(FCPPT_CONFIG_DARWIN_PLATFORM)
 #include <gl.h>
 #else
-#if defined(FCPPT_WINDOWS_PLATFORM)
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	#define WIN32_LEAN_AND_MEAN
 	#define NOMINMAX
 	#include <windows.h>
 #endif
 #include <GL/gl.h>
 #endif
+#include <fcppt/config/external_end.hpp>
 
 #endif

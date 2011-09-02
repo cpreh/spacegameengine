@@ -21,16 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_STRUCTURE_CAST_HPP_INCLUDED
 #define SGE_PROJECTILE_STRUCTURE_CAST_HPP_INCLUDED
 
-#include <LinearMath/btVector3.h>
-#include <LinearMath/btMatrix3x3.h>
-#include <LinearMath/btScalar.h>
 #include <fcppt/math/vector/has_dim.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/has_dim.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/matrix/has_dim.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <LinearMath/btVector3.h>
+#include <LinearMath/btMatrix3x3.h>
+#include <LinearMath/btScalar.h>
 #include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

@@ -24,10 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::size_type
 sge::renderer::indices_per_primitive(
-	indexed_primitive_type::type const prim
+	indexed_primitive_type::type const _prim
 )
 {
-	switch(prim)
+	switch(
+		_prim
+	)
 	{
 	case indexed_primitive_type::triangle:
 		return 3;

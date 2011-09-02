@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../to_il_channel.hpp"
 #include <sge/image/color/format.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
+#include <fcppt/config/external_end.hpp>
 
 ILenum
 sge::devil::to_il_channel(

@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../cull_mode.hpp"
 #include "../../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 D3DCULL
 sge::d3d9::state::convert::cull_mode(
@@ -40,7 +39,5 @@ sge::d3d9::state::convert::cull_mode(
 		return D3DCULL_CCW;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid cull_mode!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

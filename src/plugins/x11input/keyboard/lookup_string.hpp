@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "looked_up_string_fwd.hpp"
 #include "../input_context_fwd.hpp"
+#include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

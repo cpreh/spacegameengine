@@ -42,11 +42,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/chrono/seconds.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
 #include <cmath>
 #include <cstdlib>
+#include <fcppt/config/external_end.hpp>
 
 int main()
 try

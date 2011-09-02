@@ -29,8 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <typeinfo>
+#include <fcppt/config/external_end.hpp>
 
 sge::parse::json::object &
 sge::parse::json::find_object_exn(

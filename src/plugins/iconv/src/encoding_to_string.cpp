@@ -19,9 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../encoding_to_string.hpp"
-#include <sge/charconv/exception.hpp>
 #include <fcppt/endianness/is_little_endian.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 sge::iconv::encoding_string const
 sge::iconv::encoding_to_string(
@@ -52,7 +51,5 @@ sge::iconv::encoding_to_string(
 		return "WCHAR_T";
 	}
 
-	throw sge::charconv::exception(
-		FCPPT_TEXT("Invalid encoding!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

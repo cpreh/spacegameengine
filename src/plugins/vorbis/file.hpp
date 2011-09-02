@@ -26,9 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <vorbis/vorbisfile.h>
 #include <cstddef>
 #include <istream>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

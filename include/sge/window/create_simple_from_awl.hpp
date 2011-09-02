@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOW_CREATE_SIMPLE_FROM_AWL_HPP_INCLUDED
 
 #include <sge/window/simple_parameters_fwd.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
 #include <sge/window/symbol.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
 #include <awl/system/object_fwd.hpp>
 
 namespace sge

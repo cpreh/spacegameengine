@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XF86VMODE_RESOLUTION_HPP_INCLUDED
 #define SGE_OPENGL_XF86VMODE_RESOLUTION_HPP_INCLUDED
 
-#include <X11/Xlib.h>
-#include <X11/extensions/xf86vmode.h>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/screen.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/Xlib.h>
+#include <X11/extensions/xf86vmode.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

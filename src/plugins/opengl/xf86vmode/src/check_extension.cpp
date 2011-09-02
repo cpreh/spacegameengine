@@ -19,11 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../check_extension.hpp"
-#include <X11/Xlib.h>
-#include <X11/extensions/xf86vmode.h>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/Xlib.h>
+#include <X11/extensions/xf86vmode.h>
+#include <fcppt/config/external_end.hpp>
 
 void
 sge::opengl::xf86vmode::check_extension(

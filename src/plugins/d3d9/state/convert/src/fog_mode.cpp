@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../fog_mode.hpp"
 #include "../../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 D3DFOGMODE
 sge::d3d9::state::convert::fog_mode(
@@ -42,7 +41,5 @@ sge::d3d9::state::convert::fog_mode(
 		return D3DFOG_EXP2;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid fog_mode!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

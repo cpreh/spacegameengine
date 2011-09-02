@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../bool.hpp"
 #include "../../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 D3DRENDERSTATETYPE
 sge::d3d9::state::convert::bool_(
@@ -49,7 +48,5 @@ sge::d3d9::state::convert::bool_(
 		return D3DRS_ZWRITEENABLE;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid bool state!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

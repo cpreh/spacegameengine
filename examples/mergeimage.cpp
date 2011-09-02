@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <iterator>
 #include <iostream>
@@ -58,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <exception>
 #include <vector>
 #include <cstdlib>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {

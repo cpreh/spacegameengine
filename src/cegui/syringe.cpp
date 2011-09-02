@@ -34,9 +34,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_event.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <CEGUISystem.h>
 #include <CEGUIInputEvent.h>
+#include <fcppt/config/external_end.hpp>
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("syringe"))

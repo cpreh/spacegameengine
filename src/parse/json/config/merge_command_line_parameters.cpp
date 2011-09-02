@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/algorithm/shortest_levenshtein.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/spirit/include/qi.hpp>
@@ -46,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 #include <iostream>
 #include <ostream>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {

@@ -20,14 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/app_path.hpp>
 #include <sge/config/exception.hpp>
-#include <fcppt/platform.hpp>
+#include <fcppt/config/platform.hpp>
 #include <fcppt/text.hpp>
-#if defined(FCPPT_WINDOWS_PLATFORM)
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/char_type.hpp>
-#elif defined(FCPPT_POSIX_PLATFORM)
+#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/filesystem/readlink.hpp>
 #include <fcppt/filesystem/exists.hpp>
@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 fcppt::filesystem::path const
 sge::config::app_path()
 {
-#if defined(FCPPT_WINDOWS_PLATFORM)
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	typedef fcppt::container::raw_vector<
 		fcppt::char_type
 	> buffer_type;
@@ -62,7 +62,7 @@ sge::config::app_path()
 				buf.data()
 			)
 		);
-#elif defined(FCPPT_POSIX_PLATFORM)
+#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	fcppt::filesystem::path const self(
 		"/proc/self/exe"
 	);

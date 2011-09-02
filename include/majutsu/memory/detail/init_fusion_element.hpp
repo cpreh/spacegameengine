@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/memory/detail/index_of.hpp>
 #include <majutsu/is_constant.hpp>
 #include <majutsu/is_role.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/filter_view.hpp>
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -32,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace majutsu
 {

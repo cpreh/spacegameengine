@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../nonindexed_primitive.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../../d3dinclude.hpp"
+#include <fcppt/assert/unreachable.hpp>
 
 D3DPRIMITIVETYPE
 sge::d3d9::convert::nonindexed_primitive(
@@ -45,7 +45,5 @@ sge::d3d9::convert::nonindexed_primitive(
 		return D3DPT_TRIANGLEFAN;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid non indexed primitive type!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

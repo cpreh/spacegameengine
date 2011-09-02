@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // YES, OF COURSE I HAVE TO INCLUDE THAT!
 #include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <elements/CEGUIFrameWindow.h>
 #include <elements/CEGUIEditbox.h>
 #include <falagard/CEGUIFalWidgetLookManager.h>
@@ -49,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUIXMLParser.h>
 #include <CEGUIWindow.h>
 #include <CEGUIAnimationManager.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::cegui::system::system(
 	load_context const &_load_context,

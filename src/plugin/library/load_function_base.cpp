@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "object.hpp"
 #include <sge/plugin/library/function_map.hpp>
 #include <sge/plugin/library/function_base.hpp>
-#include <fcppt/config.hpp>
+#include <fcppt/config/platform.hpp>
 
 sge::plugin::library::function_base
 sge::plugin::library::load_function_base(
@@ -32,7 +32,7 @@ sge::plugin::library::load_function_base(
 {
 	char const *const map_name = "sge_plugin_functions";
 
-#if defined(FCPPT_WINDOWS_PLATFORM)
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	typedef library::function_map const *(*map_function)();
 
 	return
@@ -45,7 +45,7 @@ sge::plugin::library::load_function_base(
 		)()->function(
 			_name
 		);
-#elif defined(FCPPT_POSIX_PLATFORM)
+#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	return
 		static_cast<
 			library::function_map *

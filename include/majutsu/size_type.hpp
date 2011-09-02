@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef MAJUTSU_SIZE_TYPE_HPP_INCLUDED
 #define MAJUTSU_SIZE_TYPE_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
 #include <cstddef>
+#include <fcppt/config/external_end.hpp>
 
 namespace majutsu
 {

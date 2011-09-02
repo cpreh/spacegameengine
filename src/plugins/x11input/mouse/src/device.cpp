@@ -37,7 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::x11input::mouse::device::device(
 	x11input::device::parameters const &_param

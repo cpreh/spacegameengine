@@ -20,9 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../object.hpp"
 #include "../base.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
-#include <utility>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/move.hpp>
 
 sge::opengl::context::object::object()
 :
@@ -53,18 +52,15 @@ sge::opengl::context::object::insert(
 	base *const ret(
 		elements_.insert(
 			_id,
-			move(
+			fcppt::move(
 				_ptr
 			)
 		)
 	);
 
-	if(
-		!ret
-	)
-		throw sge::exception(
-			FCPPT_TEXT("Double insert in opengl::context!")
-		);
+	FCPPT_ASSERT_ERROR(
+		ret
+	);
 
 	return *ret;
 }

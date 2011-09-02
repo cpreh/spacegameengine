@@ -38,12 +38,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <iostream>
 #include <ostream>
 #include <exception>
 #include <typeinfo>
 #include <cstdlib>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {

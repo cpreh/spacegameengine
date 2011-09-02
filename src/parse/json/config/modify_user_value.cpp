@@ -26,12 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/exception.hpp>
-#include <boost/variant/get.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/type_name.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/variant/get.hpp>
 #include <numeric>
 #include <algorithm>
 #include <typeinfo>
+#include <fcppt/config/external_end.hpp>
 
 void
 sge::parse::json::config::modify_user_value(

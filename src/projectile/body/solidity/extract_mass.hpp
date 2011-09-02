@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_BODY_SOLIDITY_EXTRACT_MASS_HPP_INCLUDED
 
 #include <sge/projectile/body/solidity/variant.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btScalar.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

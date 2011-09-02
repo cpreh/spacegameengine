@@ -26,9 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_unsigned.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <typeinfo>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

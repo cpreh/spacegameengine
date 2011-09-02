@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::opengl::glew::is_supported(
-	glew::string const &str
+	glew::string const &_str
 )
 {
 	return
 		glewIsSupported(
-			str.c_str()
+			_str.c_str()
 		)
 		!= GL_FALSE;
 }

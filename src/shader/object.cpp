@@ -45,12 +45,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/range/numeric.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
 #include <streambuf>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {

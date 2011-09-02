@@ -24,8 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/tag.hpp>
 #include <sge/sprite/intrusive/system_fwd.hpp>
 #include <sge/sprite/external_system_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/contains.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

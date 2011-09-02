@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_ITERATOR_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/vf/iterator_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/back.hpp>
+#include <fcppt/config/external_end.hpp>
 
 template<
 	typename Part,

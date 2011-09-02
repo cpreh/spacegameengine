@@ -29,9 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/has_dim.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <CEGUISize.h>
 #include <CEGUIRect.h>
 #include <CEGUIVector.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

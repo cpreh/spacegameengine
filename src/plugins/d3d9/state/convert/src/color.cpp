@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../color.hpp"
 #include "../../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 D3DRENDERSTATETYPE
 sge::d3d9::state::convert::color(
@@ -40,7 +39,5 @@ sge::d3d9::state::convert::color(
 		return D3DRS_FOGCOLOR;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid color state!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

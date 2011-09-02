@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../float.hpp"
 #include "../../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 D3DRENDERSTATETYPE
 sge::d3d9::state::convert::float_(
@@ -44,7 +43,5 @@ sge::d3d9::state::convert::float_(
 		return D3DRS_FOGDENSITY;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid float state!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/encoding.hpp>
 #include <fcppt/text.hpp>
 
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_string.hpp>
 #include <boost/spirit/include/qi_char.hpp>
 #include <boost/spirit/include/qi_operator.hpp>
@@ -38,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/include/qi_nonterminal.hpp>
 #include <boost/spirit/include/qi_directive.hpp>
 #include <boost/spirit/include/qi_eol.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

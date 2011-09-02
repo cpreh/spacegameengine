@@ -65,6 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/parameters.hpp>
+#include <sge/log/global_context.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -78,9 +79,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/location.hpp>
-#include <sge/log/global_context.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <exception>
 #include <iostream>
 #include <set>
@@ -88,6 +89,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUIWindowManager.h>
 #include <elements/CEGUIFrameWindow.h>
 #include <elements/CEGUIEditbox.h>
+#include <fcppt/config/external_end.hpp>
 
 int main(
 	int,

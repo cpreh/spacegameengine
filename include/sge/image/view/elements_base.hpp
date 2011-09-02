@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_VIEW_ELEMENTS_BASE_HPP_INCLUDED
 
 #include <sge/image/color/elements.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

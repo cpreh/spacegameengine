@@ -33,7 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/at.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

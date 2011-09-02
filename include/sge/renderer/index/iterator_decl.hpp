@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/iterator_fwd.hpp>
 #include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/detail/iterator_base.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/iterator/iterator_facade.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

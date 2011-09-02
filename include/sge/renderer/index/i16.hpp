@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_I16_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_I16_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

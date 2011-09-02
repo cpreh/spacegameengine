@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "max_qpath.hpp"
 #include "read_string.hpp"
 #include "read_vec3.hpp"
+#include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 sge::model::md3::tag::tag(
 	std::istream &_stream

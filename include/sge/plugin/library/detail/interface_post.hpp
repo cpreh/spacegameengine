@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST_HPP_INCLUDED
 
-#include <fcppt/platform.hpp>
+#include <fcppt/config/platform.hpp>
 
-#if defined(FCPPT_POSIX_PLATFORM)
+#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
 );\
 }
 
-#elif defined(FCPPT_WINDOWS_PLATFORM)
+#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 
 #include <sge/plugin/library/function_map.hpp>
 #include <fcppt/export_symbol.hpp>

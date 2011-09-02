@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_LIBRARY_LOADED_SYMBOL_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_LOADED_SYMBOL_HPP_INCLUDED
 
-#include <fcppt/platform.hpp>
-#if defined(FCPPT_WINDOWS_PLATFORM)
-#include <awl/backends/windows/windows.hpp>
+#include <fcppt/config/platform.hpp>
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#include <fcppt/config/include_windows.hpp>
 #endif
 
 namespace sge
@@ -33,9 +33,9 @@ namespace plugin
 namespace library
 {
 
-#if defined(FCPPT_POSIX_PLATFORM)
+#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 typedef void *loaded_symbol;
-#elif defined(FCPPT_WINDOWS_PLATFORM)
+#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 typedef FARPROC loaded_symbol;
 #else
 #error "Don't know what a library's symbol is!"

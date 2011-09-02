@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../lock_flags.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/exception.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 sge::d3d9::lock_flags const
 sge::d3d9::convert::lock_flags(
@@ -54,11 +53,7 @@ sge::d3d9::convert::lock_flags(
 			d3d9::lock_flags(
 				0
 			);
-	default:
-		break;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid lock_flags!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

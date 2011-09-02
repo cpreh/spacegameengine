@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_DETAIL_TRIANGLE_SET_HASH_HPP_INCLUDED
 
 #include <sge/projectile/triangle.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/functional/hash/hash.hpp>
 #include <cstddef>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

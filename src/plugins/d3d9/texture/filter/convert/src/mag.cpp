@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mag.hpp"
 #include "../../../../d3dinclude.hpp"
 #include <sge/renderer/texture/filter/normal/mag.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 DWORD
 sge::d3d9::texture::filter::convert::mag(
@@ -39,7 +38,5 @@ sge::d3d9::texture::filter::convert::mag(
 		return D3DTEXF_LINEAR;
 	}
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid normal::mag filter!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

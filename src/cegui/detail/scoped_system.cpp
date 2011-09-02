@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/renderer.hpp>
 #include <sge/cegui/detail/image_codec.hpp>
 #include <sge/cegui/detail/resource_provider.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <CEGUISystem.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::cegui::detail::scoped_system::scoped_system(
 	renderer &_renderer,

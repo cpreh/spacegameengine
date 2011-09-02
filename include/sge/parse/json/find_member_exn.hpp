@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/find_member_value_exn.hpp>
 #include <sge/parse/json/get.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_const.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

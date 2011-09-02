@@ -25,9 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/index.hpp>
 #include <sge/model/obj/scalar.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/lex/lexer/terminals.hpp> // not self contained
 #include <boost/spirit/home/lex/lexer/lexertl/token.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

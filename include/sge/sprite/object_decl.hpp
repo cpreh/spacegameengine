@@ -40,9 +40,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <majutsu/role_return_type.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/empty_base.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

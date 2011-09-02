@@ -37,8 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <X11/Xlib.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::x11input::cursor::object::object(
 	x11input::device::parameters const &_param,

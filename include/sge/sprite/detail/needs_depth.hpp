@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_NEEDS_DEPTH_HPP_INCLUDED
 
 #include <sge/sprite/with_depth.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/contains.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

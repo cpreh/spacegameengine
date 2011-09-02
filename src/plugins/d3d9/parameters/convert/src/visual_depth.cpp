@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../visual_depth.hpp"
 #include "../../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 D3DFORMAT
 sge::d3d9::parameters::convert::visual_depth(
@@ -38,7 +37,5 @@ sge::d3d9::parameters::convert::visual_depth(
 		return D3DFMT_X8R8G8B8;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("You may only pass valid visual_depths!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../key_code_to_key_sym.hpp"
 #include <awl/backends/x11/display.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
+#include <fcppt/config/external_end.hpp>
 
 KeySym
 sge::x11input::keyboard::key_code_to_key_sym(

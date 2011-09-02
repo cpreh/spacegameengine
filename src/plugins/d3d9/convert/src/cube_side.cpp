@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../cube_side.hpp"
 #include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 D3DCUBEMAP_FACES
 sge::d3d9::convert::cube_side(
@@ -48,7 +47,5 @@ sge::d3d9::convert::cube_side(
 		break;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid cube_side!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

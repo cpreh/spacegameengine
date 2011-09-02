@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/system.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <CEGUIWindowManager.h>
 #include <CEGUISystem.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::cegui::toolbox::scoped_layout::scoped_layout(
 	cegui::system &_system,

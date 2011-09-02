@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define MAJUTSU_DETAIL_FIND_ROLE_HPP_INCLUDED
 
 #include <majutsu/detail/unwrap_role.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/find_if.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace majutsu
 {

@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_MD3_MAX_QPATH_HPP_INCLUDED
 #define SGE_MODEL_MD3_MAX_QPATH_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/integral_c.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

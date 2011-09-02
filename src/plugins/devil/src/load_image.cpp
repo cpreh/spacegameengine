@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef UNICODE
 #include <fcppt/to_std_string.hpp>
 #endif
+#include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::devil::optional_error const
 sge::devil::load_image(

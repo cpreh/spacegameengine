@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_MODE_HPP_INCLUDED
 
 #include "mode_fwd.hpp"
+#include <sge/renderer/refresh_rate.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
-#include <sge/renderer/refresh_rate.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

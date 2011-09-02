@@ -20,27 +20,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../face.hpp"
 #include "../glyph.hpp"
-#include <sge/exception.hpp>
+#include "../freetype.hpp"
+#include <sge/font/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::freetype::glyph::glyph(
-	face const &f)
+	face const &_face
+)
 {
-	if(FT_Get_Glyph(f->glyph, &glyph_))
-		throw exception(
-			FCPPT_TEXT("FT_Get_Glyph() failed!"));
+	if(
+		FT_Get_Glyph(
+			_face->glyph,
+			&glyph_
+		)
+	)
+		throw font::exception(
+			FCPPT_TEXT("FT_Get_Glyph() failed!")
+		);
 
-	if(FT_Glyph_To_Bitmap(&glyph_, FT_RENDER_MODE_NORMAL, 0, true))
-		throw exception(
-			FCPPT_TEXT("FT_Glyph_To_Bitmap() failed!"));
+	if(
+		FT_Glyph_To_Bitmap(
+			&glyph_,
+			FT_RENDER_MODE_NORMAL,
+			0,
+			true
+		)
+	)
+		throw font::exception(
+			FCPPT_TEXT("FT_Glyph_To_Bitmap() failed!")
+		);
 }
 
 sge::freetype::glyph::~glyph()
 {
-	FT_Done_Glyph(glyph_);
+	FT_Done_Glyph(
+		glyph_
+	);
 }
 
-FT_BitmapGlyph sge::freetype::glyph::bitmap_glyph() const
+FT_BitmapGlyph
+sge::freetype::glyph::bitmap_glyph() const
 {
-	return reinterpret_cast<FT_BitmapGlyph>(glyph_);
+	return
+		reinterpret_cast<
+			FT_BitmapGlyph
+		>(
+			glyph_
+		);
 }

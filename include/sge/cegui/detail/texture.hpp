@@ -28,10 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <CEGUITexture.h>
 #include <CEGUISize.h>
 #include <CEGUIString.h>
 #include <CEGUIVector.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

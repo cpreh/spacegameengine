@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_INI_DETAIL_ADAPT_SECTION_HPP_INCLUDED
 
 #include <sge/parse/ini/section.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/adapted/struct/adapt_struct.hpp>
+#include <fcppt/config/external_end.hpp>
 
 BOOST_FUSION_ADAPT_STRUCT(
 	sge::parse::ini::section,

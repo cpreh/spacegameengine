@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../color_format.hpp"
 #include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 D3DFORMAT
 sge::d3d9::convert::color_format(
@@ -56,7 +55,5 @@ sge::d3d9::convert::color_format(
 		break;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid color_format!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
