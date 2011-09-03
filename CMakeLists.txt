@@ -36,9 +36,7 @@ INCLUDE_DIRECTORIES(${Fcppt_INCLUDE_DIRS})
 # FIND MIZUIRO
 FIND_PACKAGE(Mizuiro REQUIRED)
 
-# mizuiro currently does not disable boost warnings
 INCLUDE_DIRECTORIES(
-	SYSTEM
 	${Mizuiro_INCLUDE_DIRS}
 )
 
