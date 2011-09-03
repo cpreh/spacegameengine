@@ -65,6 +65,12 @@ unspecified_base<
 >
 {
 	BOOST_STATIC_ASSERT(
+		boost::is_fundamental<
+			Format
+		>::value
+	);
+
+	BOOST_STATIC_ASSERT(
 		NumSubElements >= 1
 		&& NumSubElements <= 4
 	);
