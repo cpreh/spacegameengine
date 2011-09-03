@@ -465,7 +465,6 @@ SET(
 	include/sge/renderer/vf/part_fwd.hpp
 	include/sge/renderer/vf/pointer.hpp
 	include/sge/renderer/vf/pos.hpp
-	include/sge/renderer/vf/single_base.hpp
 	include/sge/renderer/vf/string.hpp
 	include/sge/renderer/vf/texpos.hpp
 	include/sge/renderer/vf/texpos_fwd.hpp

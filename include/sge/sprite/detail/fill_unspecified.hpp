@@ -51,15 +51,19 @@ fill_unspecified(
 	> const &_sprite
 )
 {
+	typedef typename detail::vertex_unspecified_dim<
+		Choices
+	>::type unspec_dim;
+
 	(*_iterator). template set<
-		typename detail::vertex_unspecified_dim<
-			Choices
-		>::type
+		unspec_dim
 	>(
-		static_cast<
-			typename Choices::type_choices::float_type
-		>(
-			_sprite.point_size()
+		typename unspec_dim::packed_type(
+			static_cast<
+				typename Choices::type_choices::float_type
+			>(
+				_sprite.point_size()
+			)
 		)
 	);
 }

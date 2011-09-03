@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_UNSPECIFIED_HPP_INCLUDED
 
 #include <sge/renderer/vf/unspecified_base.hpp>
-#include <sge/renderer/vf/single_base.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/vector_fwd.hpp>
@@ -46,26 +45,6 @@ struct unspecified;
 
 template<
 	typename Format,
-	typename Tag
->
-struct unspecified
-:
-unspecified_base<
-	single_base<
-		Format
-	>,
-	Tag
->
-{
-	BOOST_STATIC_ASSERT(
-		boost::is_fundamental<
-			Format
-		>::value
-	);
-};
-
-template<
-	typename Format,
 	vertex_size NumSubElements,
 	typename Tag
 >
@@ -86,7 +65,7 @@ unspecified_base<
 >
 {
 	BOOST_STATIC_ASSERT(
-		NumSubElements >= 2
+		NumSubElements >= 1
 		&& NumSubElements <= 4
 	);
 };
