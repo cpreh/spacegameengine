@@ -29,8 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/function_map.hpp>
 #include <sge/plugin/info.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <utility>
+#include <fcppt/config/external_end.hpp>
 
 #define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(\
 	plugin_info,\

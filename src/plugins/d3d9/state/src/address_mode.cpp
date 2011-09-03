@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../address_mode.hpp"
 #include "../../d3dinclude.hpp"
-#include <fcppt/assert/unreachable>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/container/array_impl.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 
