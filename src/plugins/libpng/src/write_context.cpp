@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/dim.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -174,6 +177,8 @@ sge::libpng::write_context::write_context(
 		_bytes),
 	format_(
 		_format),
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	write_ptr_(
 		png_create_write_struct(
 			PNG_LIBPNG_VER_STRING,
@@ -181,6 +186,7 @@ sge::libpng::write_context::write_context(
 				this),
 			&write_context::handle_error,
 			&write_context::handle_warning))
+FCPPT_PP_POP_WARNING
 {
 	if (!file_.is_open())
 		throw

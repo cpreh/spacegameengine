@@ -56,6 +56,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/signal/shared_connection.hpp>
@@ -285,6 +288,8 @@ mouse_listener::mouse_listener(
 	sge::input::mouse::device_ptr const _device
 )
 :
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -311,6 +316,7 @@ mouse_listener::mouse_listener(
 			)
 		)
 	)
+FCPPT_PP_POP_WARNING
 {
 }
 
@@ -345,6 +351,8 @@ cursor_listener::cursor_listener(
 	sge::input::cursor::object_ptr const _device
 )
 :
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -371,6 +379,7 @@ cursor_listener::cursor_listener(
 			)
 		)
 	)
+FCPPT_PP_POP_WARNING
 {
 }
 
@@ -403,6 +412,8 @@ keyboard_listener::keyboard_listener(
 	sge::input::keyboard::device_ptr const _device
 )
 :
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -440,6 +451,7 @@ keyboard_listener::keyboard_listener(
 			)
 		)
 	)
+FCPPT_PP_POP_WARNING
 {
 }
 
@@ -485,6 +497,8 @@ device_manager::device_manager(
 	sge::input::processor &_processor
 )
 :
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -532,8 +546,8 @@ device_manager::device_manager(
 				)
 			)
 		)
-
 	),
+FCPPT_PP_POP_WARNING
 	mouse_listeners_(),
 	cursor_listeners_(),
 	keyboard_listeners_()

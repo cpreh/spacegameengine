@@ -31,6 +31,10 @@ sge::console::function::function(
 		_long_description)
 {}
 
+sge::console::function::~function()
+{
+}
+
 sge::console::signal &
 sge::console::function::signal()
 {

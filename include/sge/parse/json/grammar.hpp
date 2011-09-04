@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/encoding.hpp>
 #include <sge/parse/exception.hpp>
 #include <sge/parse/info_to_string.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -72,6 +73,9 @@ class grammar
 		encoding::space_type
 	>
 {
+	FCPPT_NONCOPYABLE(
+		grammar
+	);
 public:
 	typedef encoding::space_type space_type;
 
@@ -214,6 +218,10 @@ public:
 				)
 			)
 		);
+	}
+
+	~grammar()
+	{
 	}
 private:
 	boost::spirit::qi::int_parser<

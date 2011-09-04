@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/signal.hpp>
 #include <sge/console/symbol.hpp>
 #include <sge/font/text/string.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,19 +33,29 @@ namespace console
 
 class function
 {
+	FCPPT_NONCOPYABLE(
+		function
+	);
 public:
-	SGE_CONSOLE_SYMBOL explicit function(
+	SGE_CONSOLE_SYMBOL
+	explicit function(
 		font::text::string const &short_desc,
 		font::text::string const &long_desc
 	);
 
-	SGE_CONSOLE_SYMBOL sge::console::signal &
+	SGE_CONSOLE_SYMBOL
+	~function();
+
+	SGE_CONSOLE_SYMBOL
+	sge::console::signal &
 	signal();
 
-	SGE_CONSOLE_SYMBOL font::text::string const &
+	SGE_CONSOLE_SYMBOL
+	font::text::string const &
 	short_description() const;
 
-	SGE_CONSOLE_SYMBOL font::text::string const &
+	SGE_CONSOLE_SYMBOL
+	font::text::string const &
 	long_description() const;
 private:
 	sge::console::signal signal_;

@@ -32,6 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/processor.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -120,6 +123,8 @@ sge::viewport::manager::impl::impl(
 	resize_function_(
 		_resize_function
 	),
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	resize_connection_(
 		_device.window().awl_window_event_processor()->resize_callback(
 			std::tr1::bind(
@@ -129,6 +134,7 @@ sge::viewport::manager::impl::impl(
 			)
 		)
 	),
+FCPPT_PP_POP_WARNING
 	manage_signal_()
 {
 }

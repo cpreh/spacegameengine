@@ -32,6 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/object.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 // FFFFFFFFFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
@@ -50,6 +53,8 @@ sge::renderer::scalar const epsilon =
 sge::camera::object::object(
 	camera::parameters const &params)
 :
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	keyboard_connection_(
 		params.keyboard().key_callback(
 			std::tr1::bind(
@@ -62,6 +67,7 @@ sge::camera::object::object(
 				&object::mouse_axis_callback,
 				this,
 				std::tr1::placeholders::_1))),
+FCPPT_PP_POP_WARNING
 	projection_(
 		params.projection()),
 	projection_matrix_(

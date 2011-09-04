@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "load_function_base.hpp"
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 namespace sge
 {
@@ -41,6 +44,8 @@ load_function(
 	library::symbol_string const &_symbol
 )
 {
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4191)
 	return
 		reinterpret_cast<
 			Function
@@ -50,6 +55,7 @@ load_function(
 				_symbol
 			)
 		);
+FCPPT_PP_POP_WARNING
 }
 
 }

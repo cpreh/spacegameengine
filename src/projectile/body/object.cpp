@@ -33,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -99,10 +102,13 @@ sge::projectile::body::object::object(
 				p.rotation().get()),
 			vector2_to_bullet(
 				p.position().get()))),
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	motion_state_(
 		fcppt::make_unique_ptr<detail::motion_state>(
 			fcppt::ref(
 				*this))),
+FCPPT_PP_POP_WARNING
 	position_change_(),
 	rotation_change_(),
 	shape_(

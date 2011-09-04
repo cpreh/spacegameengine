@@ -87,8 +87,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/vector/vector.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -209,12 +213,19 @@ public:
 			fcppt::assign::make_container<sge::projectile::group::sequence>(
 				fcppt::ref(
 					_group))),
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 		position_change_connection_(
 			body_.position_change(
 				std::tr1::bind(
 					&sprite_body::position_change,
 					this,
 					std::tr1::placeholders::_1)))
+FCPPT_PP_POP_WARNING
+	{
+	}
+
+	~sprite_body()
 	{
 	}
 
@@ -248,6 +259,9 @@ private:
 
 class body_keyboard_mover
 {
+	FCPPT_NONCOPYABLE(
+		body_keyboard_mover
+	);
 public:
 	explicit
 	body_keyboard_mover(
@@ -257,6 +271,8 @@ public:
 	:
 		body_(
 			_body),
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 		body_collision_connection_(
 			_world.body_collision(
 				std::tr1::bind(
@@ -270,8 +286,13 @@ public:
 					&body_keyboard_mover::key_callback,
 					this,
 					std::tr1::placeholders::_1))),
+FCPPT_PP_POP_WARNING
 		velocity_(
 			sge::projectile::vector2::null())
+	{
+	}
+
+	~body_keyboard_mover()
 	{
 	}
 private:
@@ -349,6 +370,9 @@ body_collision(
 
 class body_following_ghost
 {
+	FCPPT_NONCOPYABLE(
+		body_following_ghost
+	);
 public:
 	explicit
 	body_following_ghost(
@@ -366,6 +390,8 @@ public:
 			_world,
 			ghost_,
 			_groups),
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 		body_position_change_connection_(
 			_body.position_change(
 				std::tr1::bind(
@@ -384,6 +410,11 @@ public:
 					&body_following_ghost::body_exit,
 					this,
 					std::tr1::placeholders::_1)))
+FCPPT_PP_POP_WARNING
+	{
+	}
+
+	~body_following_ghost()
 	{
 	}
 private:

@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/default_keyboard.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 sge::cegui::default_keyboard::default_keyboard(
@@ -29,6 +32,8 @@ sge::cegui::default_keyboard::default_keyboard(
 :
 	syringe_(
 		_syringe),
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	key_callback_(
 		_keyboard.key_callback(
 			std::tr1::bind(
@@ -47,6 +52,7 @@ sge::cegui::default_keyboard::default_keyboard(
 				&default_keyboard::char_callback,
 				this,
 				std::tr1::placeholders::_1)))
+FCPPT_PP_POP_WARNING
 {
 }
 

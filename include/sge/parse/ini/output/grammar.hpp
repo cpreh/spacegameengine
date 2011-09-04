@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/string.hpp>
 #include <sge/parse/encoding.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 
 #include <fcppt/config/external_begin.hpp>
@@ -60,6 +61,9 @@ class grammar
 		section_vector()
 	>
 {
+	FCPPT_NONCOPYABLE(
+		grammar
+	);
 public:
 	grammar()
 	:
@@ -91,6 +95,10 @@ public:
 
 		ini_ %=
 			*section_;
+	}
+
+	~grammar()
+	{
 	}
 private:
 	boost::spirit::karma::rule<

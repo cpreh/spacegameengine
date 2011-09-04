@@ -225,11 +225,15 @@ sge::dinput::keyboard::device::dispatch()
 			states_[
 				*virtual_code
 			] =
-				key_value
-				?
-					0x80
-				:
-					0;
+				static_cast<
+					BYTE
+				>(
+					key_value
+					?
+						0x80
+					:
+						0
+				);
 
 		if(
 			key_value

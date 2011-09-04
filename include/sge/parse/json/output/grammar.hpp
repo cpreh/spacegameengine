@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/encoding.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 
 #include <fcppt/config/external_begin.hpp>
@@ -65,6 +66,9 @@ class grammar
 		object()
 	>
 {
+	FCPPT_NONCOPYABLE(
+		grammar
+	);
 public:
 	grammar()
 	:
@@ -107,6 +111,10 @@ public:
 			lit(FCPPT_TEXT('{'))
 			<< -(member_ % lit(FCPPT_TEXT(", ")))
 			<< lit(FCPPT_TEXT('}'));
+	}
+
+	~grammar()
+	{
 	}
 private:
 	boost::spirit::karma::int_generator<

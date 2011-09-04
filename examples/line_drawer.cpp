@@ -116,6 +116,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/text.hpp>
@@ -160,6 +163,8 @@ public:
 			_line_drawer),
 		// Register a move callback (which uses absolute positions!) and a
 		// button callback
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 		move_connection_(
 			_cursor.move_callback(
 				std::tr1::bind(
@@ -172,8 +177,13 @@ public:
 					&follows_cursor::click_callback,
 					this,
 					std::tr1::placeholders::_1)))
+FCPPT_PP_POP_WARNING
 	{
 
+	}
+
+	~follows_cursor()
+	{
 	}
 private:
 	sge::line_drawer::object &line_drawer_;

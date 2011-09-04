@@ -33,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 // YES, OF COURSE I HAVE TO INCLUDE THAT!
 #include <fcppt/function/object.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <elements/CEGUIFrameWindow.h>
@@ -66,6 +69,8 @@ sge::cegui::system::system(
 		fcppt::filesystem::remove_filename(
 			_load_context.scheme_file())),
 	cegui_logger_(),
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	renderer_(
 		*this,
 		_renderer),
@@ -82,6 +87,7 @@ sge::cegui::system::system(
 			std::tr1::bind(
 				&system::viewport_change,
 				this))),
+FCPPT_PP_POP_WARNING
 	old_viewport_(
 		sge::renderer::pixel_rect::null())
 {

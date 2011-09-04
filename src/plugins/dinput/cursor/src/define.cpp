@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../define.hpp"
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/optional_impl.hpp>
 
@@ -30,6 +33,8 @@ sge::dinput::cursor::define::define(
 :
 	previous_cursor_(),
 	pixmap_(),
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connection_(
 		_processor.register_callback(
 			WM_SETCURSOR,
@@ -40,6 +45,7 @@ sge::dinput::cursor::define::define(
 			)
 		)
 	)
+FCPPT_PP_POP_WARNING
 {
 }
 

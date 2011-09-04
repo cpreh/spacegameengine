@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/relative_move_event.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 sge::input::cursor::relative_movement::relative_movement(
@@ -35,6 +38,8 @@ sge::input::cursor::relative_movement::relative_movement(
 		cursor_.position()
 	),
 	relative_move_signal_(),
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connection_(
 		cursor_.move_callback(
 			std::tr1::bind(
@@ -44,6 +49,7 @@ sge::input::cursor::relative_movement::relative_movement(
 			)
 		)
 	)
+FCPPT_PP_POP_WARNING
 {
 }
 

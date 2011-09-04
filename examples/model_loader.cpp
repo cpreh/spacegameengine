@@ -468,7 +468,7 @@ normals_to_line_drawer(
 				sge::image::colors::green()));
 	}
 
-#if SGE_MODEL_LOADER_EXAMPLE_READ_NORMALS_FROM_FILE
+#if defined(SGE_MODEL_LOADER_EXAMPLE_READ_NORMALS_FROM_FILE)
 	if(model.normals().empty())
 		return;
 
