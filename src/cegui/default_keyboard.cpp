@@ -26,14 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::cegui::default_keyboard::default_keyboard(
 	syringe &_syringe,
 	sge::input::keyboard::device &_keyboard)
 :
 	syringe_(
 		_syringe),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	key_callback_(
 		_keyboard.key_callback(
 			std::tr1::bind(
@@ -52,7 +52,11 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 				&default_keyboard::char_callback,
 				this,
 				std::tr1::placeholders::_1)))
+{
+}
 FCPPT_PP_POP_WARNING
+
+sge::cegui::default_keyboard::~default_keyboard()
 {
 }
 

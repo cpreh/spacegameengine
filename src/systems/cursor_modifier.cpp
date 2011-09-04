@@ -27,14 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::systems::cursor_modifier::cursor_modifier(
 	sge::input::processor_ptr const _processor,
 	systems::cursor_option_field const &_options
 )
 :
 	options_(_options),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connection_(
 		_processor->cursor_discover_callback(
 			std::tr1::bind(
@@ -44,7 +44,6 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		)
 	)
-FCPPT_PP_POP_WARNING
 {
 	input::cursor::object_vector const cursors(
 		_processor->cursors()
@@ -61,6 +60,7 @@ FCPPT_PP_POP_WARNING
 			*it
 		);
 }
+FCPPT_PP_POP_WARNING
 
 sge::systems::cursor_modifier::~cursor_modifier()
 {

@@ -112,6 +112,8 @@ sge::viewport::manager::manage_callback(
 		);
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::viewport::manager::impl::impl(
 	sge::renderer::device &_device,
 	viewport::resize_function const &_resize_function
@@ -123,8 +125,6 @@ sge::viewport::manager::impl::impl(
 	resize_function_(
 		_resize_function
 	),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	resize_connection_(
 		_device.window().awl_window_event_processor()->resize_callback(
 			std::tr1::bind(
@@ -134,10 +134,10 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		)
 	),
-FCPPT_PP_POP_WARNING
 	manage_signal_()
 {
 }
+FCPPT_PP_POP_WARNING
 
 sge::viewport::manager::impl::~impl()
 {

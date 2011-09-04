@@ -50,11 +50,11 @@ sge::renderer::scalar const epsilon =
 	0.1f;
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::camera::object::object(
 	camera::parameters const &params)
 :
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	keyboard_connection_(
 		params.keyboard().key_callback(
 			std::tr1::bind(
@@ -67,7 +67,6 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 				&object::mouse_axis_callback,
 				this,
 				std::tr1::placeholders::_1))),
-FCPPT_PP_POP_WARNING
 	projection_(
 		params.projection()),
 	projection_matrix_(
@@ -85,6 +84,7 @@ FCPPT_PP_POP_WARNING
 		params.active())
 {
 }
+FCPPT_PP_POP_WARNING
 
 sge::camera::object::~object()
 {

@@ -173,6 +173,8 @@ class sprite_body
 FCPPT_NONCOPYABLE(
 	sprite_body);
 public:
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	explicit
 	sprite_body(
 		sge::projectile::world &_world,
@@ -213,17 +215,15 @@ public:
 			fcppt::assign::make_container<sge::projectile::group::sequence>(
 				fcppt::ref(
 					_group))),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 		position_change_connection_(
 			body_.position_change(
 				std::tr1::bind(
 					&sprite_body::position_change,
 					this,
 					std::tr1::placeholders::_1)))
-FCPPT_PP_POP_WARNING
 	{
 	}
+FCPPT_PP_POP_WARNING
 
 	~sprite_body()
 	{
@@ -263,6 +263,8 @@ class body_keyboard_mover
 		body_keyboard_mover
 	);
 public:
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	explicit
 	body_keyboard_mover(
 		sge::projectile::world &_world,
@@ -271,8 +273,6 @@ public:
 	:
 		body_(
 			_body),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 		body_collision_connection_(
 			_world.body_collision(
 				std::tr1::bind(
@@ -286,11 +286,11 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 					&body_keyboard_mover::key_callback,
 					this,
 					std::tr1::placeholders::_1))),
-FCPPT_PP_POP_WARNING
 		velocity_(
 			sge::projectile::vector2::null())
 	{
 	}
+FCPPT_PP_POP_WARNING
 
 	~body_keyboard_mover()
 	{
@@ -374,6 +374,8 @@ class body_following_ghost
 		body_following_ghost
 	);
 public:
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	explicit
 	body_following_ghost(
 		sge::projectile::world &_world,
@@ -390,8 +392,6 @@ public:
 			_world,
 			ghost_,
 			_groups),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 		body_position_change_connection_(
 			_body.position_change(
 				std::tr1::bind(
@@ -410,9 +410,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 					&body_following_ghost::body_exit,
 					this,
 					std::tr1::placeholders::_1)))
-FCPPT_PP_POP_WARNING
 	{
 	}
+FCPPT_PP_POP_WARNING
 
 	~body_following_ghost()
 	{

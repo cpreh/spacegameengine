@@ -95,6 +95,8 @@ wrap(
 }
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::console::gfx::gfx(
 	sge::console::object &_object,
 	renderer::device &_rend,
@@ -118,8 +120,6 @@ sge::console::gfx::gfx(
 	keyboard_(
 		_keyboard
 	),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	key_connection_(
 		keyboard_.key_callback(
 			std::tr1::bind(
@@ -159,7 +159,6 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 				&gfx::print,
 				this,
 				std::tr1::placeholders::_1))),
-FCPPT_PP_POP_WARNING
 	sprite_system_(
 		_rend),
 	background_(
@@ -174,8 +173,11 @@ FCPPT_PP_POP_WARNING
 		_line_limit)
 {
 }
+FCPPT_PP_POP_WARNING
 
-sge::console::gfx::~gfx() {}
+sge::console::gfx::~gfx()
+{
+}
 
 void
 sge::console::gfx::render()

@@ -31,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/mainloop/io_service.hpp>
 #include <awl/mainloop/dispatcher.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::window::instance::instance(
 	awl::system::object_shared_ptr const _system,
 	awl::window::instance_shared_ptr const _instance,
@@ -54,8 +56,6 @@ sge::window::instance::instance(
 	io_service_(
 		_io_service
 	),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	dispatcher_(
 		io_service_
 		?
@@ -69,11 +69,13 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		:
 			awl::mainloop::dispatcher_unique_ptr()
 	)
+{
+}
 FCPPT_PP_POP_WARNING
-{}
 
 sge::window::instance::~instance()
-{}
+{
+}
 
 sge::window::dim const
 sge::window::instance::size() const

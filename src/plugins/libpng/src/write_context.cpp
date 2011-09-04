@@ -163,6 +163,8 @@ int color_type_from_format(
 }
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::libpng::write_context::write_context(
 	fcppt::filesystem::path const &_path,
 	image2d::dim const &_dim,
@@ -177,8 +179,6 @@ sge::libpng::write_context::write_context(
 		_bytes),
 	format_(
 		_format),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	write_ptr_(
 		png_create_write_struct(
 			PNG_LIBPNG_VER_STRING,
@@ -186,7 +186,6 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 				this),
 			&write_context::handle_error,
 			&write_context::handle_warning))
-FCPPT_PP_POP_WARNING
 {
 	if (!file_.is_open())
 		throw
@@ -242,6 +241,7 @@ FCPPT_PP_POP_WARNING
 		write_ptr_.ptr(),
 		write_ptr_.info());
 }
+FCPPT_PP_POP_WARNING
 
 void sge::libpng::write_context::handle_write(
 	png_structp const _ptr,

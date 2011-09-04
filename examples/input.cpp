@@ -284,12 +284,12 @@ catch(
 namespace
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 mouse_listener::mouse_listener(
 	sge::input::mouse::device_ptr const _device
 )
 :
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -316,9 +316,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		)
 	)
-FCPPT_PP_POP_WARNING
 {
 }
+FCPPT_PP_POP_WARNING
 
 void
 mouse_listener::on_button_event(
@@ -347,12 +347,12 @@ mouse_listener::on_axis_event(
 }
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 cursor_listener::cursor_listener(
 	sge::input::cursor::object_ptr const _device
 )
 :
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -379,9 +379,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		)
 	)
-FCPPT_PP_POP_WARNING
 {
 }
+FCPPT_PP_POP_WARNING
 
 void
 cursor_listener::on_button_event(
@@ -408,12 +408,12 @@ cursor_listener::on_move_event(
 }
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 keyboard_listener::keyboard_listener(
 	sge::input::keyboard::device_ptr const _device
 )
 :
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -451,9 +451,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		)
 	)
-FCPPT_PP_POP_WARNING
 {
 }
+FCPPT_PP_POP_WARNING
 
 void
 keyboard_listener::on_key_event(
@@ -493,12 +493,12 @@ keyboard_listener::on_char_event(
 }
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 device_manager::device_manager(
 	sge::input::processor &_processor
 )
 :
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -547,7 +547,6 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		)
 	),
-FCPPT_PP_POP_WARNING
 	mouse_listeners_(),
 	cursor_listeners_(),
 	keyboard_listeners_()
@@ -606,6 +605,7 @@ FCPPT_PP_POP_WARNING
 			);
 	}
 }
+FCPPT_PP_POP_WARNING
 
 void
 device_manager::on_mouse_add(

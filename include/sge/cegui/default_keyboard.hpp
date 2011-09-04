@@ -43,6 +43,9 @@ public:
 	default_keyboard(
 		syringe &,
 		sge::input::keyboard::device &);
+
+	SGE_CEGUI_SYMBOL
+	~default_keyboard();
 private:
 	syringe &syringe_;
 	fcppt::signal::scoped_connection

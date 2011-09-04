@@ -30,12 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::cursor::demuxer::demuxer(
 	input::processor_ptr const _processor
 )
 :
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	processor_connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -62,7 +62,6 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		)
 	),
-FCPPT_PP_POP_WARNING
 	button_signal_(),
 	move_signal_(),
 	cursors_(),
@@ -84,6 +83,7 @@ FCPPT_PP_POP_WARNING
 			*it
 		);
 }
+FCPPT_PP_POP_WARNING
 
 sge::input::cursor::demuxer::~demuxer()
 {

@@ -93,6 +93,8 @@ create_rotation_matrix(
 }
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::projectile::body::object::object(
 	parameters const &p)
 :
@@ -102,13 +104,10 @@ sge::projectile::body::object::object(
 				p.rotation().get()),
 			vector2_to_bullet(
 				p.position().get()))),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	motion_state_(
 		fcppt::make_unique_ptr<detail::motion_state>(
 			fcppt::ref(
 				*this))),
-FCPPT_PP_POP_WARNING
 	position_change_(),
 	rotation_change_(),
 	shape_(
@@ -188,6 +187,7 @@ FCPPT_PP_POP_WARNING
 	angular_velocity(
 		p.angular_velocity().get());
 }
+FCPPT_PP_POP_WARNING
 
 sge::projectile::vector2 const
 sge::projectile::body::object::position() const

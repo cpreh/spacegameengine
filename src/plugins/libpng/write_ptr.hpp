@@ -32,7 +32,7 @@ namespace libpng
 class write_ptr
 {
 public:
-	write_ptr(
+	explicit write_ptr(
 		png_structp);
 	~write_ptr();
 	png_structp ptr() const;

@@ -52,9 +52,9 @@ sge_info_function() \
 \
 }\
 \
-SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 FCPPT_PP_PUSH_WARNING \
 FCPPT_PP_DISABLE_VC_WARNING(4191) \
+SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 	fcppt::assign::make_container<\
 		sge::plugin::library::function_map::container\
 	>(\
@@ -72,7 +72,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4191) \
 		void,\
 		plugin_functions\
 	) \
-	FCPPT_PP_POP_WARNING \
-SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST
+SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
+FCPPT_PP_POP_WARNING
 
 #endif

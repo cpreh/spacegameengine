@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::cursor::relative_movement::relative_movement(
 	cursor::object &_cursor
 )
@@ -38,8 +40,6 @@ sge::input::cursor::relative_movement::relative_movement(
 		cursor_.position()
 	),
 	relative_move_signal_(),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connection_(
 		cursor_.move_callback(
 			std::tr1::bind(
@@ -49,9 +49,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		)
 	)
-FCPPT_PP_POP_WARNING
 {
 }
+FCPPT_PP_POP_WARNING
 
 sge::input::cursor::relative_movement::~relative_movement()
 {

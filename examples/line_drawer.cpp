@@ -149,6 +149,8 @@ cursor_position_to_vector3(
 				0));
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 class follows_cursor
 {
 FCPPT_NONCOPYABLE(
@@ -163,8 +165,6 @@ public:
 			_line_drawer),
 		// Register a move callback (which uses absolute positions!) and a
 		// button callback
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 		move_connection_(
 			_cursor.move_callback(
 				std::tr1::bind(
@@ -177,10 +177,10 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 					&follows_cursor::click_callback,
 					this,
 					std::tr1::placeholders::_1)))
-FCPPT_PP_POP_WARNING
 	{
 
 	}
+FCPPT_PP_POP_WARNING
 
 	~follows_cursor()
 	{

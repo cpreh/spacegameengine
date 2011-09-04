@@ -32,12 +32,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::keyboard::collector::collector(
 	input::processor_ptr const _processor
 )
 :
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -64,7 +64,6 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		)
 	),
-FCPPT_PP_POP_WARNING
 	signal_(),
 	repeat_signal_(),
 	char_signal_(),
@@ -85,6 +84,7 @@ FCPPT_PP_POP_WARNING
 			*it
 		);
 }
+FCPPT_PP_POP_WARNING
 
 sge::input::keyboard::collector::~collector()
 {

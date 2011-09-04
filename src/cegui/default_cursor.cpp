@@ -26,14 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::cegui::default_cursor::default_cursor(
 	syringe &_syringe,
 	sge::input::cursor::object &_cursor)
 :
 	syringe_(
 		_syringe),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	button_connection_(
 		_cursor.button_callback(
 			std::tr1::bind(
@@ -46,10 +46,14 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 				&default_cursor::move_callback,
 				this,
 				std::tr1::placeholders::_1)))
-FCPPT_PP_POP_WARNING
 {
 	syringe_.inject(
 		_cursor.position());
+}
+FCPPT_PP_POP_WARNING
+
+sge::cegui::default_cursor::~default_cursor()
+{
 }
 
 void

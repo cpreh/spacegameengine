@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::console::object::object(
 	font::text::char_type const _prefix
 )
@@ -48,8 +50,6 @@ sge::console::object::object(
 		_prefix),
 	funcs_(),
 	fallback_(),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	help_connection_(
 		insert(
 			SGE_FONT_TEXT_LIT("help"),
@@ -66,9 +66,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 				this,
 				std::tr1::placeholders::_1),
 			SGE_FONT_TEXT_LIT("Display information for a specific function")))
-FCPPT_PP_POP_WARNING
 {
 }
+FCPPT_PP_POP_WARNING
 
 fcppt::signal::auto_connection
 sge::console::object::insert(

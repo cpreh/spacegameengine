@@ -55,6 +55,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUIAnimationManager.h>
 #include <fcppt/config/external_end.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::cegui::system::system(
 	load_context const &_load_context,
 	sge::renderer::device &_renderer,
@@ -69,8 +71,6 @@ sge::cegui::system::system(
 		fcppt::filesystem::remove_filename(
 			_load_context.scheme_file())),
 	cegui_logger_(),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	renderer_(
 		*this,
 		_renderer),
@@ -87,7 +87,6 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			std::tr1::bind(
 				&system::viewport_change,
 				this))),
-FCPPT_PP_POP_WARNING
 	old_viewport_(
 		sge::renderer::pixel_rect::null())
 {
@@ -158,6 +157,7 @@ FCPPT_PP_POP_WARNING
 
 	viewport_change();
 }
+FCPPT_PP_POP_WARNING
 
 void
 sge::cegui::system::update(
