@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/u8.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/io/read.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <istream>
+#include <fcppt/config/external_end.hpp>
 
 bool
 sge::model::md3::read_and_check_id3p(

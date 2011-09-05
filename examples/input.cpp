@@ -56,6 +56,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/signal/shared_connection.hpp>
@@ -64,8 +67,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <cstdlib>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {
@@ -279,6 +284,8 @@ catch(
 namespace
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 mouse_listener::mouse_listener(
 	sge::input::mouse::device_ptr const _device
 )
@@ -311,6 +318,7 @@ mouse_listener::mouse_listener(
 	)
 {
 }
+FCPPT_PP_POP_WARNING
 
 void
 mouse_listener::on_button_event(
@@ -339,6 +347,8 @@ mouse_listener::on_axis_event(
 }
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 cursor_listener::cursor_listener(
 	sge::input::cursor::object_ptr const _device
 )
@@ -371,6 +381,7 @@ cursor_listener::cursor_listener(
 	)
 {
 }
+FCPPT_PP_POP_WARNING
 
 void
 cursor_listener::on_button_event(
@@ -397,6 +408,8 @@ cursor_listener::on_move_event(
 }
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 keyboard_listener::keyboard_listener(
 	sge::input::keyboard::device_ptr const _device
 )
@@ -440,6 +453,7 @@ keyboard_listener::keyboard_listener(
 	)
 {
 }
+FCPPT_PP_POP_WARNING
 
 void
 keyboard_listener::on_key_event(
@@ -479,6 +493,8 @@ keyboard_listener::on_char_event(
 }
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 device_manager::device_manager(
 	sge::input::processor &_processor
 )
@@ -530,7 +546,6 @@ device_manager::device_manager(
 				)
 			)
 		)
-
 	),
 	mouse_listeners_(),
 	cursor_listeners_(),
@@ -590,6 +605,7 @@ device_manager::device_manager(
 			);
 	}
 }
+FCPPT_PP_POP_WARNING
 
 void
 device_manager::on_mouse_add(

@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_DIFFERENCE_TYPE_HPP_INCLUDED
 
 #include <sge/renderer/index/size_type.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/make_signed.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

@@ -25,10 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/dim.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <climits>
 #include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {
@@ -158,6 +163,8 @@ int color_type_from_format(
 }
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::libpng::write_context::write_context(
 	fcppt::filesystem::path const &_path,
 	image2d::dim const &_dim,
@@ -234,6 +241,7 @@ sge::libpng::write_context::write_context(
 		write_ptr_.ptr(),
 		write_ptr_.info());
 }
+FCPPT_PP_POP_WARNING
 
 void sge::libpng::write_context::handle_write(
 	png_structp const _ptr,

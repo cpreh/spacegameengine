@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_WRITE_PTR_HPP_INCLUDED
 #define SGE_LIBPNG_WRITE_PTR_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
 #include <png.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
@@ -30,7 +32,7 @@ namespace libpng
 class write_ptr
 {
 public:
-	write_ptr(
+	explicit write_ptr(
 		png_structp);
 	~write_ptr();
 	png_structp ptr() const;

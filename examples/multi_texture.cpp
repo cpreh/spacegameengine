@@ -99,11 +99,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
 #include <cstdlib>
+#include <fcppt/config/external_end.hpp>
 
 int
 main()

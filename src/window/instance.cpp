@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <awl/system/event/processor.hpp>
 #include <awl/window/event/processor.hpp>
@@ -28,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/mainloop/io_service.hpp>
 #include <awl/mainloop/dispatcher.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::window::instance::instance(
 	awl::system::object_shared_ptr const _system,
 	awl::window::instance_shared_ptr const _instance,
@@ -64,10 +69,13 @@ sge::window::instance::instance(
 		:
 			awl::mainloop::dispatcher_unique_ptr()
 	)
-{}
+{
+}
+FCPPT_PP_POP_WARNING
 
 sge::window::instance::~instance()
-{}
+{
+}
 
 sge::window::dim const
 sge::window::instance::size() const

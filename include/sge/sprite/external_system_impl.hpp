@@ -35,7 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iterator>
+#include <fcppt/config/external_end.hpp>
 
 template<
 	typename Choices

@@ -29,8 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/function_map.hpp>
 #include <sge/plugin/info.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <utility>
+#include <fcppt/config/external_end.hpp>
 
 #define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(\
 	plugin_info,\
@@ -47,6 +52,8 @@ sge_info_function() \
 \
 }\
 \
+FCPPT_PP_PUSH_WARNING \
+FCPPT_PP_DISABLE_VC_WARNING(4191) \
 SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 	fcppt::assign::make_container<\
 		sge::plugin::library::function_map::container\
@@ -65,6 +72,7 @@ SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 		void,\
 		plugin_functions\
 	) \
-SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST
+SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
+FCPPT_PP_POP_WARNING
 
 #endif

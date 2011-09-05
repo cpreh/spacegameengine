@@ -35,9 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/encoding.hpp>
 #include <sge/parse/exception.hpp>
 #include <sge/parse/info_to_string.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_string.hpp>
 #include <boost/spirit/include/qi_char.hpp>
 #include <boost/spirit/include/qi_operator.hpp>
@@ -51,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/spirit/home/phoenix/statement/throw.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
@@ -70,6 +73,9 @@ class grammar
 		encoding::space_type
 	>
 {
+	FCPPT_NONCOPYABLE(
+		grammar
+	);
 public:
 	typedef encoding::space_type space_type;
 
@@ -212,6 +218,10 @@ public:
 				)
 			)
 		);
+	}
+
+	~grammar()
+	{
 	}
 private:
 	boost::spirit::qi::int_parser<

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/listener.hpp>
 #include <sge/audio/angle.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -33,9 +34,14 @@ class listener
 :
 	public sge::audio::listener
 {
+	FCPPT_NONCOPYABLE(
+		listener
+	);
 public:
 	explicit
 	listener();
+
+	~listener();
 
 	void
 	position(

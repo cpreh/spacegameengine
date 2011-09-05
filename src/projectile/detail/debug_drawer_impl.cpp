@@ -32,9 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <iostream>
 #include <ostream>
+#include <fcppt/config/external_end.hpp>
 
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("debug_drawer_impl"))

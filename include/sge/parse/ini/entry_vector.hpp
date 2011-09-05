@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_INI_ENTRY_VECTOR_HPP_INCLUDED
 
 #include <sge/parse/ini/entry_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

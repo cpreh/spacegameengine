@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../apply.hpp"
 #include "../bundle.hpp"
 #include "../color_write.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 void
 sge::d3d9::state::deferred::apply(
@@ -44,7 +43,5 @@ sge::d3d9::state::deferred::apply(
 		return;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid deferred::bundle!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

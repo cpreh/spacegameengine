@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/load_flags.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/io/read.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 sge::model::md3::vertex::vertex(
 	std::istream &_stream,

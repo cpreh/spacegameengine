@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::x11input::device::info::info(
 	awl::backends::x11::display &_display,

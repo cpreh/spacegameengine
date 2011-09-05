@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../source_blend_func.hpp"
 #include "../../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 D3DBLEND
 sge::d3d9::state::convert::source_blend_func(
@@ -52,7 +51,5 @@ sge::d3d9::state::convert::source_blend_func(
 		return D3DBLEND_SRCALPHASAT;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid source_blend_func!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

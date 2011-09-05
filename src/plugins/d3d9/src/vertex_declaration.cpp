@@ -29,7 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <map>
+#include <fcppt/config/external_end.hpp>
 
 sge::d3d9::vertex_declaration::vertex_declaration(
 	IDirect3DDevice9 *const _device,

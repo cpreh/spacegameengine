@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/projectile/triangulation/traits/access_element.hpp>
 #include <sge/projectile/triangulation/traits/scalar.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/identity.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

@@ -19,14 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "error.hpp"
-#include <fcppt/platform.hpp>
-#if defined(FCPPT_WINDOWS_PLATFORM)
+#include <fcppt/config/platform.hpp>
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/format_message.hpp>
-#elif defined(FCPPT_POSIX_PLATFORM)
+#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <dlfcn.h>
+#include <fcppt/config/external_end.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -34,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 fcppt::string const
 sge::plugin::library::error()
 {
-#if defined( FCPPT_POSIX_PLATFORM)
+#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	char const *const err(
 		dlerror()
 	);
@@ -47,10 +49,10 @@ sge::plugin::library::error()
 			)
 		:
 			FCPPT_TEXT("no error");
-#elif defined(FCPPT_WINDOWS_PLATFORM)
+#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	return
-			awl::backends::windows::format_message(
-				::GetLastError()
-			);
+		awl::backends::windows::format_message(
+			::GetLastError()
+		);
 #endif
 }

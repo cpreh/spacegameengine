@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_TEXTURE_LEVEL_C_HPP_INCLUDED
 
 #include <sge/sprite/texture_level.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/integral_c.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

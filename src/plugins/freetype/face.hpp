@@ -51,7 +51,7 @@ public:
 	FT_Face
 	operator->() const;
 private:
-	FT_Face impl;
+	FT_Face impl_;
 };
 
 }

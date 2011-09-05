@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/optional_scalar.hpp>
 #include <sge/model/obj/scalar.hpp>
 #include <sge/model/obj/texcoord.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
+#include <fcppt/config/external_end.hpp>
 
 BOOST_FUSION_ADAPT_STRUCT(
 	sge::model::obj::texcoord,

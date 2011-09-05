@@ -36,9 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/quad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <utility>
+#include <fcppt/config/external_end.hpp>
 
 sge::font::text::drawer_3d::drawer_3d(
 	renderer::device &_rend,

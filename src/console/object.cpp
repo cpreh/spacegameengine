@@ -24,14 +24,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/lit.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <utility>
+#include <fcppt/config/external_end.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::console::object::object(
 	font::text::char_type const _prefix
 )
@@ -60,6 +68,7 @@ sge::console::object::object(
 			SGE_FONT_TEXT_LIT("Display information for a specific function")))
 {
 }
+FCPPT_PP_POP_WARNING
 
 fcppt::signal::auto_connection
 sge::console::object::insert(
@@ -129,6 +138,9 @@ class eval_grammar : public boost::spirit::qi::grammar<
 	Iterator,
 	sge::console::arg_list()>
 {
+	FCPPT_NONCOPYABLE(
+		eval_grammar
+	);
 public:
 	eval_grammar() : eval_grammar::base_type(start)
 	{
@@ -151,6 +163,10 @@ public:
 
 		start %=
 			argument % (+space);
+	}
+
+	~eval_grammar()
+	{
 	}
 
 	boost::spirit::qi::rule<Iterator, sge::font::text::string()> word;

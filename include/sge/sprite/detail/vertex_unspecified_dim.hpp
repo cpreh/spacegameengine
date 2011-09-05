@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/unspecified_dim_tag.hpp>
 #include <sge/renderer/vf/unspecified.hpp>
+#include <sge/renderer/vf/vector.hpp>
 
 namespace sge
 {
@@ -37,7 +38,10 @@ template<
 struct vertex_unspecified_dim
 {
 	typedef renderer::vf::unspecified<
-		typename Choices::type_choices::float_type,
+		renderer::vf::vector<
+			typename Choices::type_choices::float_type,
+			1
+		>,
 		sprite::unspecified_dim_tag
 	> type;
 };

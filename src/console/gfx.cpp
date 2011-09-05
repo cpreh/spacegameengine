@@ -43,8 +43,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/time_point.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <locale>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {
@@ -90,6 +95,8 @@ wrap(
 }
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::console::gfx::gfx(
 	sge::console::object &_object,
 	renderer::device &_rend,
@@ -166,8 +173,11 @@ sge::console::gfx::gfx(
 		_line_limit)
 {
 }
+FCPPT_PP_POP_WARNING
 
-sge::console::gfx::~gfx() {}
+sge::console::gfx::~gfx()
+{
+}
 
 void
 sge::console::gfx::render()

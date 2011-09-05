@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/chrono/steady_clock.hpp>
 #include <fcppt/chrono/high_resolution_clock.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <ostream>
+#include <fcppt/config/external_end.hpp>
 
 sge::renderer::display_mode::display_mode(
 	screen_size const &_size,

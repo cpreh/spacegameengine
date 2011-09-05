@@ -24,8 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/string.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <istream>
+#include <fcppt/config/external_end.hpp>
 
 template<
 	sge::model::md3::string::size_type Max

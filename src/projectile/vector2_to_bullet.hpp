@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_VECTOR2_TO_BULLET_HPP_INCLUDED
 #define SGE_PROJECTILE_VECTOR2_TO_BULLET_HPP_INCLUDED
 
-#include <LinearMath/btVector3.h>
 #include <sge/projectile/vector2.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <LinearMath/btVector3.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

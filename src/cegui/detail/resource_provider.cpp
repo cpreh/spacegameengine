@@ -27,9 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cifstream.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <fstream>
 #include <ios>
 #include <cstddef>
+#include <fcppt/config/external_end.hpp>
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("resource_provider"))

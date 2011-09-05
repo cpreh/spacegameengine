@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #define WIN32_LEAN_AND_MEAN
 #define DIRECTINPUT_VERSION 0x0800
+#include <fcppt/config/external_begin.hpp>
 #include <dinput.h>
+#include <fcppt/config/external_end.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/com_deleter.hpp>
 

@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cstring>
+#include <fcppt/config/external_end.hpp>
 
 sge::renderer::index_buffer_ptr const
 sge::renderer::create_index_buffer_from_view(

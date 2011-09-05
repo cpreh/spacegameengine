@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/config/create_command_line_parameters.hpp>
 #include <sge/parse/json/config/command_line_parameters.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cstddef>
+#include <fcppt/config/external_end.hpp>
 
 sge::parse::json::config::command_line_parameters const
 sge::parse::json::config::create_command_line_parameters(

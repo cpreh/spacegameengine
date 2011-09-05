@@ -20,49 +20,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../library.hpp"
 #include "../face.hpp"
-#include <sge/exception.hpp>
+#include "../freetype.hpp"
+#include <sge/font/exception.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 sge::freetype::face::face(
-	library &lib,
-	fcppt::filesystem::path const &name
+	library &_lib,
+	fcppt::filesystem::path const &_name
 )
 {
 	if(
 		FT_New_Face(
-			lib.lib(),
+			_lib.lib(),
 			fcppt::to_std_string(
 				fcppt::filesystem::path_to_string(
-					name
+					_name
 				)
 			).c_str(),
 			0,
-			&impl
+			&impl_
 		)
 	)
-		throw exception(
+		throw font::exception(
 			FCPPT_TEXT("FT_New_Face() failed for font: ")
 			+
 			fcppt::filesystem::path_to_string(
-				name
+				_name
 			)
 		);
 }
 
 sge::freetype::face::~face()
 {
-	FT_Done_Face(impl);
+	FT_Done_Face(
+		impl_
+	);
 }
 
-FT_Face sge::freetype::face::get() const
+FT_Face
+sge::freetype::face::get() const
 {
-	return impl;
+	return impl_;
 }
 
-FT_Face sge::freetype::face::operator->() const
+FT_Face
+sge::freetype::face::operator->() const
 {
-	return get();
+	return this->get();
 }

@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_POINTED_HISTORY_HPP_INCLUDED
 
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <deque>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

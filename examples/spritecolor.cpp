@@ -54,8 +54,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstdlib>
+#include <fcppt/config/external_end.hpp>
 
 #include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/defaults/defaults.hpp>

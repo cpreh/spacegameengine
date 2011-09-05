@@ -56,11 +56,11 @@ sge::d3d9::onscreen_target::onscreen_target(
 		fcppt::make_unique_ptr<
 			d3d9::surface::color
 		>(
-			this->device(),
+			_device,
 			fcppt::make_unique_ptr<
 				d3d9::surface::color_onscreen_target
 			>(
-				this->device()
+				_device
 			)
 		)
 	),
@@ -71,7 +71,7 @@ sge::d3d9::onscreen_target::onscreen_target(
 			fcppt::make_unique_ptr<
 				d3d9::surface::depth_stencil_onscreen_target
 			>(
-				this->device()
+				_device
 			),
 			d3d9::needs_reset::yes
 		)

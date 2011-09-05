@@ -27,9 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/unsupported_conversion.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iconv.h>
 #include <cstddef>
 #include <cerrno>
+#include <fcppt/config/external_end.hpp>
 
 sge::iconv::converter::converter(
 	sge::iconv::encoding_string const &_source,

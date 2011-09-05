@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/app_path.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <exception>
 #include <cstdlib>
 #include <iostream>
 #include <ostream>
+#include <fcppt/config/external_end.hpp>
 
 int main()
 try

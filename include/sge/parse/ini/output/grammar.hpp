@@ -29,8 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/string.hpp>
 #include <sge/parse/encoding.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/karma_char.hpp>
 #include <boost/spirit/include/karma_grammar.hpp>
 #include <boost/spirit/include/karma_operator.hpp>
@@ -38,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/include/karma_nonterminal.hpp>
 #include <boost/spirit/include/karma_directive.hpp>
 #include <boost/spirit/include/karma_string.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
@@ -58,6 +61,9 @@ class grammar
 		section_vector()
 	>
 {
+	FCPPT_NONCOPYABLE(
+		grammar
+	);
 public:
 	grammar()
 	:
@@ -89,6 +95,10 @@ public:
 
 		ini_ %=
 			*section_;
+	}
+
+	~grammar()
+	{
 	}
 private:
 	boost::spirit::karma::rule<

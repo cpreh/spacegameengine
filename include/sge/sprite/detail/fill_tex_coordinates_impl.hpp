@@ -32,11 +32,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

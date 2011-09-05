@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <GL/glx.h>
 #include "../current.hpp"
 #include "../context.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <GL/glx.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::opengl::glx::current::current(
 	awl::backends::x11::display &_display,

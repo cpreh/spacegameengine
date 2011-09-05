@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/getenv.hpp>
+#include <fcppt/config/platform.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/platform.hpp>
-#if defined(FCPPT_WINDOWS_PLATFORM)
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/char_type.hpp>
@@ -29,7 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #else
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/to_std_string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
+#include <fcppt/config/external_end.hpp>
 #endif
 
 sge::config::optional_string const
@@ -37,7 +39,7 @@ sge::config::getenv(
 	fcppt::string const &_name
 )
 {
-#if defined(FCPPT_WINDOWS_PLATFORM)
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	fcppt::container::raw_vector<
 		fcppt::char_type
 	> buffer(32767);

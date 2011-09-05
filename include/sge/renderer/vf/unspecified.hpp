@@ -22,14 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_UNSPECIFIED_HPP_INCLUDED
 
 #include <sge/renderer/vf/unspecified_base.hpp>
-#include <sge/renderer/vf/single_base.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/vector_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <mizuiro/color/homogenous_static_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
 #include <boost/static_assert.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
@@ -43,26 +44,6 @@ template<
 	typename Tag
 >
 struct unspecified;
-
-template<
-	typename Format,
-	typename Tag
->
-struct unspecified
-:
-unspecified_base<
-	single_base<
-		Format
-	>,
-	Tag
->
-{
-	BOOST_STATIC_ASSERT(
-		boost::is_fundamental<
-			Format
-		>::value
-	);
-};
 
 template<
 	typename Format,
@@ -86,7 +67,13 @@ unspecified_base<
 >
 {
 	BOOST_STATIC_ASSERT(
-		NumSubElements >= 2
+		boost::is_fundamental<
+			Format
+		>::value
+	);
+
+	BOOST_STATIC_ASSERT(
+		NumSubElements >= 1
 		&& NumSubElements <= 4
 	);
 };

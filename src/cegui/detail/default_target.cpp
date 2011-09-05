@@ -36,8 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <CEGUIGeometryBuffer.h>
 #include <CEGUIRenderQueue.h>
+#include <fcppt/config/external_end.hpp>
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("default_target"))

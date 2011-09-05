@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_FORMAT_HAS_SIZE_HPP_INCLUDED
 
 #include <sge/image/size_type.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_X11_STATE_HPP_INCLUDED
 #define SGE_OPENGL_X11_STATE_HPP_INCLUDED
 
-#include <X11/Xlib.h>
 #include "resolution/instance_fwd.hpp"
 #include "../device_state.hpp"
 #include "../context/object_fwd.hpp"

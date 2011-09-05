@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
 
 #include <awl/backends/windows/windows.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <d3d9.h>
+#include <fcppt/config/external_end.hpp>
 
 #endif

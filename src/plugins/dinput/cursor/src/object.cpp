@@ -35,6 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
@@ -59,6 +62,8 @@ sge::dinput::cursor::object::object(
 	mode_(
 		sge::input::cursor::mode::normal
 	),
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -159,6 +164,7 @@ sge::dinput::cursor::object::object(
 			)
 		)
 	)
+FCPPT_PP_POP_WARNING
 {
 	// TODO: this should not be here
 	device::funcs::set_data_format(

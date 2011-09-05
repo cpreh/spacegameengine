@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/extension_set.hpp>
 #include <sge/audio/unsupported_format.hpp>
 #include <sge/audio/file_exception.hpp>
-#include <boost/iostreams/stream.hpp>
 #include <fcppt/io/raw_container_source.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/container/raw_vector.hpp>
@@ -35,8 +34,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/iostreams/stream.hpp>
 #include <fstream>
 #include <ios>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {

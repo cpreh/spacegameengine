@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_ELEMENT_VECTOR_HPP_INCLUDED
 
 #include <sge/parse/json/value.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <vector>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

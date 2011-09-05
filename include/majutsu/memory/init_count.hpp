@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define MAJUTSU_MEMORY_INIT_COUNT_HPP_INCLUDED
 
 #include <majutsu/memory/needs_init.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/filter_view.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace majutsu
 {

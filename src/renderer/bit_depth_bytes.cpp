@@ -21,14 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth_bytes.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
+#include <fcppt/config/external_end.hpp>
 
 sge::renderer::size_type
 sge::renderer::bit_depth_bytes(
 	renderer::bit_depth::type const _type
 )
 {
-	switch(_type)
+	switch(
+		_type
+	)
 	{
 	case renderer::bit_depth::depth16:
 		return sizeof(boost::uint16_t);

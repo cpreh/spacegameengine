@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/detail/fragmented_sort.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_set.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

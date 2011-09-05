@@ -26,11 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_name_equal.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <set>
 #include <algorithm>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {

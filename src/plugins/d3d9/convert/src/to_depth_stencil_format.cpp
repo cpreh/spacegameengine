@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../to_depth_stencil_format.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 sge::renderer::depth_stencil_format::type
 sge::d3d9::convert::to_depth_stencil_format(
@@ -43,7 +42,5 @@ sge::d3d9::convert::to_depth_stencil_format(
 		break;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid D3DFORMAT in to_depth_stencil_format()!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

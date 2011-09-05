@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../context/make_id.hpp"
 #include "../../common.hpp"
 #include "../../glew/is_supported.hpp"
+#include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <fcppt/config/external_end.hpp>
 
 sge::opengl::texture::multi_context::multi_context()
 :

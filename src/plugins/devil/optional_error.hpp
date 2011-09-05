@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DEVIL_OPTIONAL_ERROR_HPP_INCLUDED
 
 #include <fcppt/optional_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

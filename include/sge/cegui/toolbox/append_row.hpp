@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/toolbox/row.hpp>
 #include <sge/cegui/symbol.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <elements/CEGUIMultiColumnList.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/mesh.hpp>
 #include <sge/model/obj/optional_index.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/phoenix_bind.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
@@ -43,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/include/qi_omit.hpp>
 #include <boost/spirit/include/qi_optional.hpp>
 #include <boost/spirit/include/qi_repeat.hpp>
+#include <fcppt/config/external_end.hpp>
 
 template<
 	typename Iterator,

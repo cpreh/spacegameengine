@@ -20,8 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/elements.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/static_assert.hpp>
+#include <fcppt/config/external_end.hpp>
 
 BOOST_STATIC_ASSERT(
 	boost::mpl::size<sge::image::color::elements>::value

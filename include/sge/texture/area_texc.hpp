@@ -25,8 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/vector/static.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

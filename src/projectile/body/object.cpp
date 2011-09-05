@@ -33,12 +33,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btMatrix3x3.h>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 #include <LinearMath/btTransform.h>
+#include <fcppt/config/external_end.hpp>
 
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("body"))
@@ -88,6 +93,8 @@ create_rotation_matrix(
 }
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::projectile::body::object::object(
 	parameters const &p)
 :
@@ -180,6 +187,7 @@ sge::projectile::body::object::object(
 	angular_velocity(
 		p.angular_velocity().get());
 }
+FCPPT_PP_POP_WARNING
 
 sge::projectile::vector2 const
 sge::projectile::body::object::position() const

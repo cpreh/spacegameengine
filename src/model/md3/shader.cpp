@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "read_string.hpp"
 #include "s32.hpp"
 #include <fcppt/io/read.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 sge::model::md3::shader::shader(
 	std::istream &_stream

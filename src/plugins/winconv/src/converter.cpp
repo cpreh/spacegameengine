@@ -28,9 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/cstdint.hpp>
 #include <algorithm>
+#include <fcppt/config/external_end.hpp>
 
 sge::winconv::converter::converter(
 	charconv::source_encoding const &_source,

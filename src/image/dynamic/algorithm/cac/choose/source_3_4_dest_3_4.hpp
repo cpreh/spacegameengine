@@ -25,9 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../function.hpp"
 #include "../source.hpp"
 #include <mizuiro/color/conversion/same_to_same.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

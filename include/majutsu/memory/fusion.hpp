@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/detail/make_iterators.hpp>
 #include <majutsu//role_return_type.hpp>
 #include <majutsu/flatten.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/container/vector.hpp>
@@ -37,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/for_each.hpp>
 
 #include <boost/mpl/transform.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace majutsu
 {

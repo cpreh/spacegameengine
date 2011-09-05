@@ -87,8 +87,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/dim/dim.hpp>
 #include <fcppt/math/vector/vector.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <istream>
@@ -100,6 +105,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <streambuf>
 #include <vector>
 #include <cstdlib>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {
@@ -167,6 +173,8 @@ class sprite_body
 FCPPT_NONCOPYABLE(
 	sprite_body);
 public:
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	explicit
 	sprite_body(
 		sge::projectile::world &_world,
@@ -215,6 +223,11 @@ public:
 					std::tr1::placeholders::_1)))
 	{
 	}
+FCPPT_PP_POP_WARNING
+
+	~sprite_body()
+	{
+	}
 
 	sprite_object const &
 	sprite() const
@@ -246,7 +259,12 @@ private:
 
 class body_keyboard_mover
 {
+	FCPPT_NONCOPYABLE(
+		body_keyboard_mover
+	);
 public:
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	explicit
 	body_keyboard_mover(
 		sge::projectile::world &_world,
@@ -270,6 +288,11 @@ public:
 					std::tr1::placeholders::_1))),
 		velocity_(
 			sge::projectile::vector2::null())
+	{
+	}
+FCPPT_PP_POP_WARNING
+
+	~body_keyboard_mover()
 	{
 	}
 private:
@@ -347,7 +370,12 @@ body_collision(
 
 class body_following_ghost
 {
+	FCPPT_NONCOPYABLE(
+		body_following_ghost
+	);
 public:
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 	explicit
 	body_following_ghost(
 		sge::projectile::world &_world,
@@ -382,6 +410,11 @@ public:
 					&body_following_ghost::body_exit,
 					this,
 					std::tr1::placeholders::_1)))
+	{
+	}
+FCPPT_PP_POP_WARNING
+
+	~body_following_ghost()
 	{
 	}
 private:

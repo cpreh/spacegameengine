@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../to_color_format.hpp"
 #include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 sge::image::color::format::type
 sge::d3d9::convert::to_color_format(
@@ -48,7 +47,5 @@ sge::d3d9::convert::to_color_format(
 		return sge::image::color::format::ag8;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid format in to_color_format()!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

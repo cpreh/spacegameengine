@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/symbol_not_found.hpp>
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/config/platform.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/is_directory.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
@@ -32,17 +33,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/platform.hpp>
 
 namespace
 {
 
 fcppt::char_type const *const plugin_extension =
-#if defined(FCPPT_DARWIN_PLATFORM)
+#if defined(FCPPT_CONFIG_DARWIN_PLATFORM)
 	FCPPT_TEXT("dylib")
-#elif defined(FCPPT_POSIX_PLATFORM)
+#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	FCPPT_TEXT("so")
-#elif defined(FCPPT_WINDOWS_PLATFORM)
+#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	FCPPT_TEXT("dll")
 #else
 #error "Don't know which plugin extension to use!"

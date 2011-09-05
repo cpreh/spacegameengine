@@ -90,6 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/assign/list_of.hpp>
@@ -99,6 +100,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <vector>
 #include <cstdlib>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {

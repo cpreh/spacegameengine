@@ -26,10 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/detail/copy_n.hpp>
 #include <sge/renderer/vf/detail/element_stride.hpp>
 #include <sge/renderer/vf/detail/raw_data.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 template<
 	typename Part,

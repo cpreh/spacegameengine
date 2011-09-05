@@ -54,6 +54,10 @@ sge::openal::listener::listener()
 {
 }
 
+sge::openal::listener::~listener()
+{
+}
+
 void
 sge::openal::listener::linear_velocity(
 	audio::vector const &n)

@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_DETAIL_ALL_PARTS_HPP_INCLUDED
 
 #include <sge/shader/detail/copy_parts.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

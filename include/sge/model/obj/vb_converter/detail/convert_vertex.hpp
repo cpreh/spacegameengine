@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/vertex.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/is_static_size.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/integral_constant.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

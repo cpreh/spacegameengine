@@ -50,8 +50,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 // FFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUU
 #include <fcppt/optional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <CEGUIResourceProvider.h>
 #include <CEGUIImageCodec.h>
+#include <fcppt/config/external_end.hpp>
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("texture"))

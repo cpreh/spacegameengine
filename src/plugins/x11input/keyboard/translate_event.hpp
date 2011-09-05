@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_KEYBOARD_TRANSLATE_EVENT_HPP_INCLUDED
 #define SGE_X11INPUT_KEYBOARD_TRANSLATE_EVENT_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <X11/Xlib.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

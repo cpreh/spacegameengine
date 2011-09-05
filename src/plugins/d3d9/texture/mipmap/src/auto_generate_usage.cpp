@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../auto_generate_usage.hpp"
 #include "../../../d3dinclude.hpp"
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 sge::d3d9::usage const
 sge::d3d9::texture::mipmap::auto_generate_usage(
@@ -45,7 +44,5 @@ sge::d3d9::texture::mipmap::auto_generate_usage(
 			);
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid mipmap::auto_generate!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

@@ -29,9 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

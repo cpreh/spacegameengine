@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/vector.hpp>
-#include <boost/array.hpp>
+#include <fcppt/container/array.hpp>
 
 namespace sge
 {
@@ -44,7 +44,7 @@ public:
 	vector;
 
 	typedef
-	boost::array<vector,3>
+	fcppt::container::array<vector,3>
 	array_type;
 
 	vector const &

@@ -19,28 +19,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../get_string.hpp"
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <sge/exception.hpp>
 
 fcppt::string const
 sge::opengl::get_string(
-	GLenum const what
+	GLenum const _what
 )
 {
 	GLubyte const *const ret(
 		glGetString(
-			what
+			_what
 		)
 	);
-	if(!ret)
-		throw exception(
+
+	if(
+		!ret
+	)
+		throw renderer::exception(
 			FCPPT_TEXT("glGetString() failed!")
 		);
 
-	return fcppt::from_std_string(
-		reinterpret_cast<char const *>(
-			ret
-		)
-	);
+	return
+		fcppt::from_std_string(
+			reinterpret_cast<
+				char const *
+			>(
+				ret
+			)
+		);
 }

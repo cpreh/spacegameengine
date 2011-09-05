@@ -29,7 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/time/sleep_any.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::x11input::cursor::grab::grab(
 	awl::backends::x11::window::instance &_window,

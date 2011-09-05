@@ -21,21 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_DETAIL_FRAGMENTED_SORT_HPP_INCLUDED
 #define SGE_TEXTURE_DETAIL_FRAGMENTED_SORT_HPP_INCLUDED
 
+#include <sge/texture/fragmented_fwd.hpp>
+
 namespace sge
 {
 namespace texture
 {
-
-class fragmented;
-
 namespace detail
 {
 
-class fragmented_sort {
+class fragmented_sort
+{
 public:
 	typedef bool result_type;
 
-	bool operator()(
+	bool
+	operator()(
 		fragmented const &,
 		fragmented const &
 	) const;

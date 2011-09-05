@@ -27,7 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iconv.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

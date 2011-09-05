@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 sge::renderer::size_type
 sge::renderer::index::dynamic::format_stride(
-	dynamic::format::type const f
+	dynamic::format::type const _format
 )
 {
-	switch(f)
+	switch(
+		_format
+	)
 	{
 	case format::i16:
 		return sizeof(index::i16);
@@ -37,7 +38,5 @@ sge::renderer::index::dynamic::format_stride(
 		return sizeof(index::i32);
 	}
 
-	throw exception(
-		FCPPT_TEXT("Invalid index::format in index::format_stride()!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

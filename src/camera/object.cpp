@@ -32,12 +32,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/object.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 // FFFFFFFFFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 //#include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/range/numeric.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {
@@ -45,6 +50,8 @@ sge::renderer::scalar const epsilon =
 	0.1f;
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::camera::object::object(
 	camera::parameters const &params)
 :
@@ -77,6 +84,7 @@ sge::camera::object::object(
 		params.active())
 {
 }
+FCPPT_PP_POP_WARNING
 
 sge::camera::object::~object()
 {

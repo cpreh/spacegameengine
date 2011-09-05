@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "pair_callback.hpp"
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/body/object.hpp>
+#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionDispatch/btCollisionObject.h>
 #include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <BulletCollision/BroadphaseCollision/btBroadphaseProxy.h>
-#include <fcppt/assert/unreachable.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/config/external_end.hpp>
 
 btBroadphasePair *
 sge::projectile::ghost::detail::pair_callback::addOverlappingPair(

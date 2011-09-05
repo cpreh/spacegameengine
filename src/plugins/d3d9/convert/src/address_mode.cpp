@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../address_mode.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 D3DTEXTUREADDRESS
 sge::d3d9::convert::address_mode(
@@ -41,7 +40,5 @@ sge::d3d9::convert::address_mode(
 		return D3DTADDRESS_WRAP;
 	}
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid address_mode!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

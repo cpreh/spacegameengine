@@ -22,8 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/processor.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::systems::cursor_modifier::cursor_modifier(
 	sge::input::processor_ptr const _processor,
 	systems::cursor_option_field const &_options
@@ -55,6 +60,7 @@ sge::systems::cursor_modifier::cursor_modifier(
 			*it
 		);
 }
+FCPPT_PP_POP_WARNING
 
 sge::systems::cursor_modifier::~cursor_modifier()
 {

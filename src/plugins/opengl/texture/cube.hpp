@@ -32,7 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_vector.hpp> // TODO: replace with a ptr_array (if that exists)
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

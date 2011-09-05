@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE_HPP_INCLUDED
 
 #include <sge/plugin/library/function_map.hpp>
-#include <fcppt/platform.hpp>
+#include <fcppt/config/platform.hpp>
 
-#if defined(FCPPT_POSIX_PLATFORM)
+#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <fcppt/export_symbol.hpp>
 
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
@@ -33,7 +33,7 @@ extern "C" \
 FCPPT_EXPORT_SYMBOL \
 sge::plugin::library::function_map sge_plugin_functions(
 
-#elif defined(FCPPT_WINDOWS_PLATFORM)
+#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 namespace \

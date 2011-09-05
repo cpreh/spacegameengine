@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cmath>
+#include <fcppt/config/external_end.hpp>
 
 sge::renderer::matrix4 const
 sge::renderer::projection::perspective_af(

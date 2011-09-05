@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../sampler_stage_arg_value.hpp"
 #include "../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 DWORD
 sge::d3d9::convert::sampler_stage_arg_value(
@@ -43,7 +42,5 @@ sge::d3d9::convert::sampler_stage_arg_value(
 		return D3DTA_TEXTURE;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid sampler_stage_arg_value!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

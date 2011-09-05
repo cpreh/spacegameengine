@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 bool
 sge::renderer::lock_flags::read(
@@ -39,7 +38,5 @@ sge::renderer::lock_flags::read(
 		return false;
 	}
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid lock_flags!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

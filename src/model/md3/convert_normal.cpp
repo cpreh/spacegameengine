@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/scalar.hpp>
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cmath>
+#include <fcppt/config/external_end.hpp>
 
 sge::model::md3::vec3 const
 sge::model::md3::convert_normal(

@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_member_variable.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp>
@@ -39,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <limits>
 #include <vector>
 #include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {

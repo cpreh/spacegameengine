@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cstring>
+#include <fcppt/config/external_end.hpp>
 
 sge::renderer::vertex_buffer_ptr const
 sge::renderer::create_vertex_buffer_from_view(

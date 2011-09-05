@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../library.hpp"
-#include <sge/exception.hpp>
+#include <sge/font/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::freetype::library::library()
@@ -29,7 +29,7 @@ sge::freetype::library::library()
 			&impl_
 		)
 	)
-		throw sge::exception(
+		throw sge::font::exception(
 			FCPPT_TEXT("FT_Init_FreeType() failed!")
 		);
 }

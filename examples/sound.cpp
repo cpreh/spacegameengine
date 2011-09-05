@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <ostream>
 #include <exception>
@@ -61,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ios>
 #include <cstdlib>
 #include <cmath>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {

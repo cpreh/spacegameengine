@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../stencil_op.hpp"
 #include "../../../d3dinclude.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 D3DRENDERSTATETYPE
 sge::d3d9::state::convert::stencil_op(
@@ -40,7 +39,5 @@ sge::d3d9::state::convert::stencil_op(
 		return D3DRS_STENCILPASS;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid stencil_op!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

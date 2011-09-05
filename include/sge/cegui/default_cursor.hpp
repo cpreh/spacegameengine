@@ -42,6 +42,9 @@ public:
 	default_cursor(
 		syringe &,
 		sge::input::cursor::object &);
+
+	SGE_CEGUI_SYMBOL
+	~default_cursor();
 private:
 	syringe &syringe_;
 	fcppt::signal::scoped_connection
