@@ -1,4 +1,4 @@
 FIND_PACKAGE(OpenCL REQUIRED)
 INCLUDE_DIRECTORIES(${OPENCL_INCLUDE_DIRS})
 
-ADD_SGE_EXAMPLE(openclsimple "opencl" "${OPENCL_LIBRARIES}")
+ADD_SGE_EXAMPLE(openclsimple "systems;viewport;renderer;opencl" "${OPENCL_LIBRARIES}")

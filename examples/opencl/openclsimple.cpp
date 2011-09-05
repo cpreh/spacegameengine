@@ -3,15 +3,51 @@
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
-#include <CL/cl.h>
+#include <sge/renderer/vf/make_unspecified_tag.hpp>
+#include <sge/renderer/vf/unspecified.hpp>
+#include <sge/renderer/vf/vector.hpp>
+#include <sge/renderer/vf/part.hpp>
+#include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/opengl/buffer/base_ptr.hpp>
+#include <sge/renderer/opengl/buffer/base.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
+#include <sge/systems/window.hpp>
+#include <sge/window/simple_parameters.hpp>
+#include <sge/window/dim.hpp>
+#include <sge/systems/renderer.hpp>
+#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/visual_depth.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/vsync.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/viewport/center_on_resize.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/io/cin.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <CL/cl.h>
+#include <CL/cl_gl.h>
 #include <iostream>
 #include <ostream>
 #include <string>
@@ -19,6 +55,7 @@
 #include <cstddef>
 #include <cstring>
 #include <limits>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {
@@ -39,6 +76,44 @@ query_value_from_user(
 		std::cerr << "before next iteration\n";
 	}
 	return result;
+}
+
+namespace vf
+{
+namespace tags
+{
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(scalar_quantity)
+}
+
+typedef
+sge::renderer::vf::unspecified
+<
+	sge::renderer::vf::vector<sge::renderer::scalar,2>,
+	tags::scalar_quantity
+>
+scalar_quantity;
+
+typedef
+sge::renderer::vf::part
+<
+	boost::mpl::vector1<vf::scalar_quantity>
+>
+part;
+
+typedef
+sge::renderer::vf::format
+<
+	boost::mpl::vector1<vf::part>
+>
+format;
+}
+
+void
+opencl_error_callback(
+	sge::opencl::error_information_string const &errinfo,
+	sge::opencl::binary_error_data const &)
+{
+	std::cerr << "Got an OpenCL error: " << errinfo << "\n";
 }
 }
 
@@ -171,7 +246,26 @@ try
 		fcppt::io::cout << FCPPT_TEXT("Device listing end\n");
 	}
 
-	fcppt::io::cout << FCPPT_TEXT("Creating a context with all devices on this platform...");
+	fcppt::io::cout << FCPPT_TEXT("Creating sge::systems object...\n");
+
+	sge::window::dim window_dim(1024,768);
+
+	sge::systems::instance sys(
+		sge::systems::list()
+		(sge::systems::window(
+				sge::window::simple_parameters(
+					FCPPT_TEXT("Simple OpenCL example"),
+					window_dim)).dont_show())
+		(sge::systems::renderer(
+				sge::renderer::parameters(
+					sge::renderer::visual_depth::depth32,
+					sge::renderer::depth_stencil_buffer::off,
+					sge::renderer::vsync::on,
+					sge::renderer::no_multi_sampling),
+				sge::viewport::center_on_resize(
+					window_dim))));
+
+	fcppt::io::cout << FCPPT_TEXT("Done. Creating a context with all devices on this platform...\n");
 
 	sge::opencl::device::object_ref_sequence device_refs;
 	for(
@@ -182,172 +276,52 @@ try
 		device_refs.push_back(
 			&(*current_device));
 
-
 	sge::opencl::context::object main_context(
 		sge::opencl::context::parameters(
 			chosen_platform,
-			device_refs));
+			device_refs)
+			.share_with(
+				sys.renderer())
+			.error_callback(
+				&opencl_error_callback));
 
-	
-#if 0
+	fcppt::io::cout << FCPPT_TEXT("Context created, now creating a vertex buffer...\n");
 
+	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+		sys.renderer().create_vertex_declaration(
+			sge::renderer::vf::dynamic::make_format<vf::format>()));
 
-	typedef
-	fcppt::container::raw_vector<cl_platform_id>
-	platform_id_sequence;
+	sge::renderer::vertex_buffer_ptr const vb(
+		sys.renderer().create_vertex_buffer(
+			*vertex_declaration,
+			sge::renderer::vf::dynamic::part_index(
+				0u),
+			static_cast<sge::renderer::size_type>(
+				6),
+			sge::renderer::resource_flags::none));
 
-	platform_id_sequence platform_ids(
-		static_cast<platform_id_sequence::size_type>(
-			number_of_platforms));
+	fcppt::io::cout << FCPPT_TEXT("Vertex buffer created...Finishing up\n");
 
-	fcppt::io::cout << FCPPT_TEXT("Querying platform's information...\n");
+	glFinish();
 
-  // First, query the total number of platforms
-  error_code =
-		clGetPlatformIDs(
-			number_of_platforms,
-			platform_ids.data(),
-			// pointer to the number of platforms
-			0);
+	fcppt::io::cout << FCPPT_TEXT("Done, now creating OpenCL buffer from it\n");
 
-	sge::examples::opencl::handle_error(
-		error_code,
-		FCPPT_TEXT("clGetplatformIDs"));
+	cl_int error_code;
+	cl_mem cl_buffer =
+		clCreateFromGLBuffer(
+			main_context.impl(),
+			CL_MEM_WRITE_ONLY,
+			fcppt::dynamic_pointer_cast<sge::renderer::opengl::buffer::base>(
+				vb)->id().get(),
+			&error_code);
 
-	fcppt::io::cout << FCPPT_TEXT("Done...\n");
+	fcppt::io::cout << FCPPT_TEXT("Done.\n");
 
-	fcppt::io::cout << FCPPT_TEXT("Choose your desired platform: \n");
-	platform_id_sequence::size_type platform_index = 0;
-	for(
-		platform_id_sequence::const_iterator platform_it =
-			platform_ids.begin();
-		platform_it != platform_ids.end();
-		++platform_it)
-	{
-		std::cout << "-----------------------------------------\n";
-		std::cout << "Platform " << platform_index++ << ":\n";
-		std::cout << "-----------------------------------------\n";
+	if(error_code != CL_SUCCESS)
+		return EXIT_FAILURE;
 
-		fcppt::container::array<std::string,5> properties_string =
-			{{
-				"CL_PLATFORM_PROFILE",
-				"CL_PLATFORM_VERSION",
-				"CL_PLATFORM_NAME",
-				"CL_PLATFORM_VENDOR",
-				"CL_PLATFORM_EXTENSIONS"
-			}};
-
-		fcppt::container::array<cl_platform_info,5> properties_value =
-			{{
-				CL_PLATFORM_PROFILE,
-				CL_PLATFORM_VERSION,
-				CL_PLATFORM_NAME,
-				CL_PLATFORM_VENDOR,
-				CL_PLATFORM_EXTENSIONS
-			}};
-
-		for(std::size_t i = 0; i < properties_value.size(); ++i)
-			std::cout
-				<< properties_string[i]
-				<< ": "
-				<<
-					sge::examples::opencl::platform_info(
-						*platform_it,
-						properties_value[i])
-				<<
-					"\n";
-
-		std::cout << "-----------------------------------------\n";
-	}
-
-	fcppt::io::cout << FCPPT_TEXT("Your choice: ");
-	platform_id_sequence::size_type input_platform_index;
-	while(!(fcppt::io::cin >> input_platform_index) || input_platform_index > platform_ids.size())
-	{
-		fcppt::io::cin.clear();
-		fcppt::io::cin.ignore(
-			std::numeric_limits<std::streamsize>::max(),
-			FCPPT_TEXT('\n'));
-	}
-
-	std::cout << "-----------------------------------------\n";
-
-	cl_platform_id const &chosen_platform =
-		platform_ids[
-			input_platform_index];
-
-	std::cout << "Querying the number of devices on that platform...\n";
-
-	cl_uint number_of_devices;
-
-	error_code =
-		clGetDeviceIDs(
-			chosen_platform,
-			CL_DEVICE_TYPE_ALL,
-			// Number of entries
-			0,
-			// Device data
-			0,
-			&number_of_devices);
-
-	FCPPT_ASSERT_PRE(
-		number_of_devices);
-
-	sge::examples::opencl::handle_error(
-		error_code,
-		FCPPT_TEXT("clGetDeviceIDs"));
-
-	std::cout << "Done...\n";
-
-	typedef
-	fcppt::container::raw_vector<cl_device_id>
-	device_id_sequence;
-
-	device_id_sequence device_ids(
-		static_cast<device_id_sequence::size_type>(
-			number_of_devices));
-
-	error_code =
-		clGetDeviceIDs(
-			chosen_platform,
-			CL_DEVICE_TYPE_ALL,
-			// Number of entries
-			number_of_devices,
-			// Device data
-			device_ids.data(),
-			// Pointer to the number of devices
-			0);
-
-	sge::examples::opencl::handle_error(
-		error_code,
-		FCPPT_TEXT("clGetDeviceIDs"));
-
-	fcppt::io::cout << FCPPT_TEXT("Choose your desired device(s): \n");
-	device_id_sequence::size_type device_index = 0;
-
-	for(
-		device_id_sequence::const_iterator device_it =
-			device_ids.begin();
-		device_it != device_ids.end();
-		++device_it)
-	{
-		std::cout << "-----------------------------------------\n";
-		std::cout << "Device " << device_index++ << ":\n";
-		std::cout << "-----------------------------------------\n";
-
-	}
-
-	fcppt::io::cout << FCPPT_TEXT("Your choice: ");
-	device_id_sequence::size_type input_device_index;
-	while(!(fcppt::io::cin >> input_device_index) || input_device_index > device_ids.size())
-	{
-		fcppt::io::cin.clear();
-		fcppt::io::cin.ignore(
-			std::numeric_limits<std::streamsize>::max(),
-			FCPPT_TEXT('\n'));
-	}
-
-#endif
+	clReleaseMemObject(
+		cl_buffer);
 }
 catch(fcppt::exception const &e)
 {
