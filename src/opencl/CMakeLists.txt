@@ -1,6 +1,9 @@
 SET(
 	SGE_OPENCL_FILES
 	include/sge/opencl/binary_error_data.hpp
+	include/sge/opencl/command_queue/dim1.hpp
+	include/sge/opencl/command_queue/dim2.hpp
+	include/sge/opencl/command_queue/dim3.hpp
 	include/sge/opencl/command_queue/execution_mode.hpp
 	include/sge/opencl/command_queue/object.hpp
 	include/sge/opencl/command_queue/object_fwd.hpp
@@ -17,9 +20,16 @@ SET(
 	include/sge/opencl/device/object_sequence.hpp
 	include/sge/opencl/error_information_string.hpp
 	include/sge/opencl/extension_sequence.hpp
+	include/sge/opencl/kernel/argument_index.hpp
 	include/sge/opencl/kernel/name.hpp
 	include/sge/opencl/kernel/object.hpp
 	include/sge/opencl/kernel/object_fwd.hpp
+	include/sge/opencl/memory_object/base.hpp
+	include/sge/opencl/memory_object/base_fwd.hpp
+	include/sge/opencl/memory_object/base_ref_sequence.hpp
+	include/sge/opencl/memory_object/scoped_objects.hpp
+	include/sge/opencl/memory_object/vertex_buffer.hpp
+	include/sge/opencl/memory_object/vertex_buffer_lock_mode.hpp
 	include/sge/opencl/platform/object.hpp
 	include/sge/opencl/platform/object_fwd.hpp
 	include/sge/opencl/platform/object_sequence.hpp
@@ -46,6 +56,9 @@ SET(
 	src/opencl/handle_error.cpp
 	src/opencl/handle_error.hpp
 	src/opencl/kernel/object.cpp
+	src/opencl/memory_object/base.cpp
+	src/opencl/memory_object/scoped_objects.cpp
+	src/opencl/memory_object/vertex_buffer.cpp
 	src/opencl/platform/object.cpp
 	src/opencl/program/build_parameters.cpp
 	src/opencl/program/object.cpp

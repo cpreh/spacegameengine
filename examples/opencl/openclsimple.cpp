@@ -1,21 +1,54 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <sge/opencl/system.hpp>
 #include <sge/opencl/platform/object.hpp>
+#include <sge/opencl/program/object.hpp>
+#include <sge/opencl/program/source_string_sequence.hpp>
+#include <sge/opencl/command_queue/dim1.hpp>
+#include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/kernel/object.hpp>
+#include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
+#include <sge/opencl/memory_object/vertex_buffer.hpp>
+#include <sge/opencl/memory_object/base_ref_sequence.hpp>
+#include <sge/opencl/memory_object/scoped_objects.hpp>
 #include <sge/renderer/vf/make_unspecified_tag.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/unspecified.hpp>
 #include <sge/renderer/vf/vector.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/opengl/buffer/base_ptr.hpp>
 #include <sge/renderer/opengl/buffer/base.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -31,7 +64,6 @@
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/viewport/center_on_resize.hpp>
-#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/exception.hpp>
@@ -43,6 +75,8 @@
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -88,7 +122,7 @@ SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(scalar_quantity)
 typedef
 sge::renderer::vf::unspecified
 <
-	sge::renderer::vf::vector<sge::renderer::scalar,2>,
+	sge::renderer::vf::vector<sge::renderer::scalar,1>,
 	tags::scalar_quantity
 >
 scalar_quantity;
@@ -285,7 +319,32 @@ try
 			.error_callback(
 				&opencl_error_callback));
 
-	fcppt::io::cout << FCPPT_TEXT("Context created, now creating a vertex buffer...\n");
+	fcppt::io::cout << FCPPT_TEXT("Context created, now creating a program...\n");
+
+	sge::opencl::program::object main_program(
+		main_context,
+		fcppt::assign::make_container<sge::opencl::program::source_string_sequence>(
+			std::string(
+				"__kernel void hello_kernel("
+				"__global float *input)"
+				"{"
+				"int gid = get_global_id(0);"
+				"input[gid] = gid;"
+				"}")));
+
+	fcppt::io::cout << FCPPT_TEXT("Program created, building the program...\n");
+
+	main_program.build(
+		sge::opencl::program::build_parameters());
+
+	fcppt::io::cout << FCPPT_TEXT("Program built, now creating a kernel...\n");
+
+	sge::opencl::kernel::object main_kernel(
+		main_program,
+		sge::opencl::kernel::name(
+			"hello_kernel"));
+
+	fcppt::io::cout << FCPPT_TEXT("Kernel created, now creating a vertex buffer...\n");
 
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
@@ -298,30 +357,74 @@ try
 				0u),
 			static_cast<sge::renderer::size_type>(
 				6),
-			sge::renderer::resource_flags::none));
-
-	fcppt::io::cout << FCPPT_TEXT("Vertex buffer created...Finishing up\n");
-
-	glFinish();
+			sge::renderer::resource_flags::readable));
 
 	fcppt::io::cout << FCPPT_TEXT("Done, now creating OpenCL buffer from it\n");
 
-	cl_int error_code;
-	cl_mem cl_buffer =
-		clCreateFromGLBuffer(
-			main_context.impl(),
-			CL_MEM_WRITE_ONLY,
-			fcppt::dynamic_pointer_cast<sge::renderer::opengl::buffer::base>(
-				vb)->id().get(),
-			&error_code);
+	sge::opencl::memory_object::vertex_buffer cl_vb(
+		main_context,
+		*vb,
+		sge::opencl::memory_object::vertex_buffer_lock_mode::write_only);
 
-	fcppt::io::cout << FCPPT_TEXT("Done.\n");
+	main_kernel.argument(
+		sge::opencl::kernel::argument_index(
+			0u),
+		cl_vb);
 
-	if(error_code != CL_SUCCESS)
-		return EXIT_FAILURE;
+	fcppt::io::cout << FCPPT_TEXT("Done, now creating a command queue\n");
 
-	clReleaseMemObject(
-		cl_buffer);
+	sge::opencl::command_queue::object main_queue(
+		*device_refs[0],
+		main_context,
+		sge::opencl::command_queue::execution_mode::in_order,
+		sge::opencl::command_queue::profiling_mode::disabled);
+
+	sge::opencl::memory_object::base_ref_sequence mem_objects;
+	mem_objects.push_back(
+		&cl_vb);
+
+	fcppt::io::cout << FCPPT_TEXT("Done, now enqueueing kernel and running it\n");
+
+	{
+		sge::opencl::memory_object::scoped_objects scoped_vb(
+			main_queue,
+			mem_objects);
+
+		sge::opencl::command_queue::dim1 global_dim;
+		global_dim[0] = vb->size();
+
+		sge::opencl::command_queue::dim1 local_dim;
+		local_dim[0] = 1;
+
+		main_queue.enqueue(
+			main_kernel,
+			global_dim,
+			local_dim);
+	}
+
+	fcppt::io::cout << FCPPT_TEXT("Now locking the vb for reading and printing the values\n");
+
+	{
+		sge::renderer::scoped_vertex_lock scoped_vb(
+			*vb,
+			sge::renderer::lock_mode::readwrite);
+
+		typedef
+		sge::renderer::vf::view<vf::part>
+		vertex_view;
+
+		vertex_view const vertices(
+			scoped_vb.value());
+
+		for(
+			vertex_view::iterator vb_it(
+				vertices.begin());
+			vb_it != vertices.end();
+			vb_it++)
+		{
+			fcppt::io::cout << vb_it->get<vf::scalar_quantity>() << FCPPT_TEXT("\n");
+		}
+	}
 }
 catch(fcppt::exception const &e)
 {
