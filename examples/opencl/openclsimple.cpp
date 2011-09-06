@@ -122,7 +122,7 @@ SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(scalar_quantity)
 typedef
 sge::renderer::vf::unspecified
 <
-	sge::renderer::vf::vector<sge::renderer::scalar,1>,
+	sge::renderer::vf::vector<sge::renderer::scalar,2>,
 	tags::scalar_quantity
 >
 scalar_quantity;
@@ -329,7 +329,8 @@ try
 				"__global float *input)"
 				"{"
 				"int gid = get_global_id(0);"
-				"input[gid] = gid;"
+				"int lid = get_local_id(0);"
+				"input[gid] = lid;"
 				"}")));
 
 	fcppt::io::cout << FCPPT_TEXT("Program created, building the program...\n");
@@ -394,7 +395,7 @@ try
 		global_dim[0] = vb->size();
 
 		sge::opencl::command_queue::dim1 local_dim;
-		local_dim[0] = 1;
+		local_dim[0] = 2;
 
 		main_queue.enqueue(
 			main_kernel,
