@@ -9,8 +9,8 @@ __kernel void hello_kernel(
 			x,
 			y),
 		(float4)(
-			1.0f,
-			1.0f,
-			1.0f,
+			x / 512.0f,
+			y / 512.0f,
+			0.0f,
 			1.0f));
 }

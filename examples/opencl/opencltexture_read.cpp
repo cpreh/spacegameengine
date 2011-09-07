@@ -63,7 +63,7 @@ try
 	image_format.image_channel_order = CL_RGBA;
 	image_format.image_channel_data_type = CL_UNORM_INT8;
 
-	std::size_t image_size = 64;
+	std::size_t image_size = 512;
 
 	sge::opencl::memory_object::image::planar image(
 		opencl_system.context(),
@@ -120,8 +120,6 @@ try
 			(static_cast<std::size_t>(1))(static_cast<std::size_t>(1)).container());
 
 	fcppt::io::cout << FCPPT_TEXT("Done, now creating an image file from the image in memory...\n");
-
-	std::cout << image.size() << "\n";
 
 	sge::opencl::command_queue::scoped_planar_mapping scoped_image(
 		opencl_system.queue(),

@@ -6,6 +6,7 @@
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image/raw_pointer.hpp>
+#include <sge/image/color/format_stride.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -34,9 +35,6 @@ sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
 	// We can't use _rect.pos().data() because OpenCL checks if [2] is equal to 0/1
 	std::size_t pos[] = { _rect.pos()[0],_rect.pos()[1],0 };
 	std::size_t size[] = { _rect.size()[0],_rect.size()[1],1 };
-
-//	std::cerr << "pos: " << pos[0] << ", " << pos[1] << ", " << pos[2] << "\n";
-//	std::cerr << "size: " << size[0] << ", " << size[1] << ", " << size[2] << "\n";
 
 	ptr_ =
 		clEnqueueMapImage(
@@ -87,7 +85,10 @@ sge::opencl::command_queue::scoped_planar_mapping::view()
 			sge_image_format_,
 			image2d::pitch(
 				static_cast<image2d::pitch::value_type>(
-					pitch_)));
+					pitch_ -
+					rect_.w() *
+					sge::image::color::format_stride(
+						sge_image_format_))));
 }
 
 sge::opencl::command_queue::scoped_planar_mapping::~scoped_planar_mapping()
