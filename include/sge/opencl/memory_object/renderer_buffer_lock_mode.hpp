@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_MEMORY_OBJECT_VERTEX_BUFFER_LOCK_MODE_HPP_INCLUDED
-#define SGE_OPENCL_MEMORY_OBJECT_VERTEX_BUFFER_LOCK_MODE_HPP_INCLUDED
+#ifndef SGE_OPENCL_MEMORY_OBJECT_RENDERER_BUFFER_LOCK_MODE_HPP_INCLUDED
+#define SGE_OPENCL_MEMORY_OBJECT_RENDERER_BUFFER_LOCK_MODE_HPP_INCLUDED
 
 namespace sge
 {
@@ -27,7 +27,7 @@ namespace opencl
 {
 namespace memory_object
 {
-namespace vertex_buffer_lock_mode
+namespace renderer_buffer_lock_mode
 {
 enum type
 {

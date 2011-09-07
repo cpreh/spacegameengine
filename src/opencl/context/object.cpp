@@ -102,6 +102,84 @@ sge::opencl::context::object::impl() const
 	return context_;
 }
 
+sge::opencl::image_format_sequence const
+sge::opencl::context::object::supported_planar_image_formats(
+	cl_mem_flags const mem_flags) const
+{
+	cl_uint num_entries;
+
+	cl_int error_code =
+		clGetSupportedImageFormats(
+			context_,
+			mem_flags,
+			CL_MEM_OBJECT_IMAGE2D,
+			0,
+			0,
+			&num_entries);
+
+	opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clGetSupportedImageFormats(number of formats)"));
+
+	opencl::image_format_sequence result(
+		static_cast<opencl::image_format_sequence::size_type>(
+			num_entries));
+
+	error_code =
+		clGetSupportedImageFormats(
+			context_,
+			mem_flags,
+			CL_MEM_OBJECT_IMAGE2D,
+			num_entries,
+			&result[0],
+			0);
+
+	opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clGetSupportedImageFormats(format list)"));
+
+	return result;
+}
+
+sge::opencl::image_format_sequence const
+sge::opencl::context::object::supported_volume_image_formats(
+		cl_mem_flags const mem_flags) const
+{
+	cl_uint num_entries;
+
+	cl_int error_code =
+		clGetSupportedImageFormats(
+			context_,
+			mem_flags,
+			CL_MEM_OBJECT_IMAGE3D,
+			0,
+			0,
+			&num_entries);
+
+	opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clGetSupportedImageFormats(number of formats)"));
+
+	opencl::image_format_sequence result(
+		static_cast<opencl::image_format_sequence::size_type>(
+			num_entries));
+
+	error_code =
+		clGetSupportedImageFormats(
+			context_,
+			mem_flags,
+			CL_MEM_OBJECT_IMAGE3D,
+			num_entries,
+			&result[0],
+			0);
+
+	opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clGetSupportedImageFormats(format list)"));
+
+	return result;
+}
+
 sge::opencl::context::object::~object()
 {
 	if(!context_)

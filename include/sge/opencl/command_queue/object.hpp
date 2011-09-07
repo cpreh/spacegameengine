@@ -28,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/array_decl.hpp>
-#include <cstddef>
 
 namespace sge
 {
@@ -51,13 +49,6 @@ public:
 
 	SGE_OPENCL_SYMBOL cl_command_queue
 	impl() const;
-
-	template<std::size_t N>
-	SGE_OPENCL_SYMBOL void
-	enqueue(
-		opencl::kernel::object &,
-		fcppt::container::array<std::size_t,N> const &global_dim,
-		fcppt::container::array<std::size_t,N> const &work_dim);
 
 	SGE_OPENCL_SYMBOL ~object();
 private:

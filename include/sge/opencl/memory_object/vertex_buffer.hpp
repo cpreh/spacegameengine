@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_MEMORY_OBJECT_VERTEX_BUFFER_HPP_INCLUDED
 
 #include <sge/opencl/memory_object/base.hpp>
-#include <sge/opencl/memory_object/vertex_buffer_lock_mode.hpp>
+#include <sge/opencl/memory_object/renderer_buffer_lock_mode.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/symbol.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
+#include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -34,7 +35,7 @@ namespace opencl
 {
 namespace memory_object
 {
-class vertex_buffer
+class SGE_CLASS_SYMBOL vertex_buffer
 :
 	public memory_object::base
 {
@@ -45,7 +46,7 @@ public:
 	vertex_buffer(
 		context::object &,
 		sge::renderer::vertex_buffer &,
-		memory_object::vertex_buffer_lock_mode::type);
+		memory_object::renderer_buffer_lock_mode::type);
 
 	SGE_OPENCL_SYMBOL cl_mem
 	impl();

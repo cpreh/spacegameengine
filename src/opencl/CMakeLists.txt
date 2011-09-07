@@ -1,38 +1,55 @@
 SET(
 	SGE_OPENCL_FILES
 	include/sge/opencl/binary_error_data.hpp
+	include/sge/opencl/command_queue/command_queue.hpp
 	include/sge/opencl/command_queue/dim1.hpp
 	include/sge/opencl/command_queue/dim2.hpp
 	include/sge/opencl/command_queue/dim3.hpp
+	include/sge/opencl/command_queue/enqueue_kernel.hpp
 	include/sge/opencl/command_queue/execution_mode.hpp
 	include/sge/opencl/command_queue/object.hpp
 	include/sge/opencl/command_queue/object_fwd.hpp
 	include/sge/opencl/command_queue/profiling_mode.hpp
+	include/sge/opencl/command_queue/scoped_planar_mapping.hpp
+	include/sge/opencl/context/context.hpp
 	include/sge/opencl/context/error_callback.hpp
 	include/sge/opencl/context/error_callback_type.hpp
 	include/sge/opencl/context/object.hpp
 	include/sge/opencl/context/object_fwd.hpp
 	include/sge/opencl/context/parameters.hpp
 	include/sge/opencl/context/parameters_fwd.hpp
+	include/sge/opencl/device/device.hpp
 	include/sge/opencl/device/object.hpp
 	include/sge/opencl/device/object_fwd.hpp
 	include/sge/opencl/device/object_ref_sequence.hpp
 	include/sge/opencl/device/object_sequence.hpp
 	include/sge/opencl/error_information_string.hpp
 	include/sge/opencl/extension_sequence.hpp
+	include/sge/opencl/image_format_output.hpp
+	include/sge/opencl/image_format_sequence.hpp
 	include/sge/opencl/kernel/argument_index.hpp
+	include/sge/opencl/kernel/kernel.hpp
 	include/sge/opencl/kernel/name.hpp
 	include/sge/opencl/kernel/object.hpp
 	include/sge/opencl/kernel/object_fwd.hpp
 	include/sge/opencl/memory_object/base.hpp
 	include/sge/opencl/memory_object/base_fwd.hpp
 	include/sge/opencl/memory_object/base_ref_sequence.hpp
+	include/sge/opencl/memory_object/dim2.hpp
+	include/sge/opencl/memory_object/memory_object.hpp
+	include/sge/opencl/memory_object/planar_renderer_texture.hpp
+	include/sge/opencl/memory_object/planar_texture.hpp
+	include/sge/opencl/memory_object/planar_texture_fwd.hpp
+	include/sge/opencl/memory_object/read_planar_texture.hpp
+	include/sge/opencl/memory_object/rect.hpp
+	include/sge/opencl/memory_object/renderer_buffer_lock_mode.hpp
 	include/sge/opencl/memory_object/scoped_objects.hpp
 	include/sge/opencl/memory_object/vertex_buffer.hpp
-	include/sge/opencl/memory_object/vertex_buffer_lock_mode.hpp
+	include/sge/opencl/opencl.hpp
 	include/sge/opencl/platform/object.hpp
 	include/sge/opencl/platform/object_fwd.hpp
 	include/sge/opencl/platform/object_sequence.hpp
+	include/sge/opencl/platform/platform.hpp
 	include/sge/opencl/profile_type.hpp
 	include/sge/opencl/program/blob.hpp
 	include/sge/opencl/program/build_options.hpp
@@ -43,25 +60,39 @@ SET(
 	include/sge/opencl/program/notification_callback_type.hpp
 	include/sge/opencl/program/object.hpp
 	include/sge/opencl/program/object_fwd.hpp
+	include/sge/opencl/program/program.hpp
 	include/sge/opencl/program/source_string.hpp
 	include/sge/opencl/program/source_string_sequence.hpp
+	include/sge/opencl/single_device_system.hpp
 	include/sge/opencl/symbol.hpp
 	include/sge/opencl/system.hpp
 	include/sge/opencl/system_fwd.hpp
 	include/sge/opencl/version.hpp
+	src/opencl/command_queue/enqueue_kernel.cpp
 	src/opencl/command_queue/object.cpp
+	src/opencl/command_queue/scoped_planar_mapping.cpp
 	src/opencl/context/object.cpp
 	src/opencl/context/parameters.cpp
 	src/opencl/device/object.cpp
 	src/opencl/handle_error.cpp
 	src/opencl/handle_error.hpp
+	src/opencl/image_format_output.cpp
 	src/opencl/kernel/object.cpp
 	src/opencl/memory_object/base.cpp
+	src/opencl/memory_object/opencl_color_format_to_sge.cpp
+	src/opencl/memory_object/opencl_color_format_to_sge.hpp
+	src/opencl/memory_object/planar_renderer_texture.cpp
+	src/opencl/memory_object/planar_texture.cpp
+	src/opencl/memory_object/read_planar_texture.cpp
+	src/opencl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp
 	src/opencl/memory_object/scoped_objects.cpp
+	src/opencl/memory_object/sge_color_format_to_opencl.cpp
+	src/opencl/memory_object/sge_color_format_to_opencl.hpp
 	src/opencl/memory_object/vertex_buffer.cpp
 	src/opencl/platform/object.cpp
 	src/opencl/program/build_parameters.cpp
 	src/opencl/program/object.cpp
+	src/opencl/single_device_system.cpp
 	src/opencl/system.cpp
 	src/opencl/version.cpp
 )
@@ -73,7 +104,7 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_BASE_LIBRARY(
 	opencl
-	""
+	"sgerenderer"
 )
 
 FIND_PACKAGE(OpenGL)

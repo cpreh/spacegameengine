@@ -27,9 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
+#include <sge/opencl/image_format_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
@@ -48,6 +51,14 @@ public:
 
 	SGE_OPENCL_SYMBOL cl_context
 	impl() const;
+
+	SGE_OPENCL_SYMBOL opencl::image_format_sequence const
+	supported_planar_image_formats(
+		cl_mem_flags) const;
+
+	SGE_OPENCL_SYMBOL opencl::image_format_sequence const
+	supported_volume_image_formats(
+		cl_mem_flags) const;
 
 	SGE_OPENCL_SYMBOL
 	~object();

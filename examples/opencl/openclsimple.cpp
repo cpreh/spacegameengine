@@ -23,11 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/object.hpp>
 #include <sge/opencl/program/source_string_sequence.hpp>
 #include <sge/opencl/command_queue/dim1.hpp>
+#include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/context/object.hpp>
+#include <sge/opencl/image_format_output.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/memory_object/vertex_buffer.hpp>
 #include <sge/opencl/memory_object/base_ref_sequence.hpp>
@@ -319,7 +321,44 @@ try
 			.error_callback(
 				&opencl_error_callback));
 
-	fcppt::io::cout << FCPPT_TEXT("Context created, now creating a program...\n");
+	fcppt::io::cout << FCPPT_TEXT("Context created, listing available planar image formats (read/write)\n");
+
+	sge::opencl::image_format_sequence const planar_image_formats =
+		main_context.supported_planar_image_formats(
+			CL_MEM_READ_WRITE);
+
+	for(
+		sge::opencl::image_format_sequence::const_iterator it =
+			planar_image_formats.begin();
+		it != planar_image_formats.end();
+		++it)
+	{
+		sge::opencl::image_format_output(
+			std::cout,
+			*it);
+
+		std::cout << "\n";
+	}
+
+	fcppt::io::cout << FCPPT_TEXT("Listing available volume image formats (read/write)...\n");
+
+	sge::opencl::image_format_sequence const volume_image_formats =
+		main_context.supported_volume_image_formats(
+			CL_MEM_READ_WRITE);
+
+	for(
+		sge::opencl::image_format_sequence::const_iterator it =
+			volume_image_formats.begin();
+		it != volume_image_formats.end();
+		++it)
+	{
+		sge::opencl::image_format_output(
+			std::cout,
+			*it);
+		std::cout << "\n";
+	}
+
+	fcppt::io::cout << FCPPT_TEXT("Done, now creating a program...");
 
 	sge::opencl::program::object main_program(
 		main_context,
@@ -365,7 +404,7 @@ try
 	sge::opencl::memory_object::vertex_buffer cl_vb(
 		main_context,
 		*vb,
-		sge::opencl::memory_object::vertex_buffer_lock_mode::write_only);
+		sge::opencl::memory_object::renderer_buffer_lock_mode::write_only);
 
 	main_kernel.argument(
 		sge::opencl::kernel::argument_index(
@@ -392,12 +431,13 @@ try
 			mem_objects);
 
 		sge::opencl::command_queue::dim1 global_dim;
-		global_dim[0] = vb->size();
+		global_dim[0] = vb->size() * 2;
 
 		sge::opencl::command_queue::dim1 local_dim;
 		local_dim[0] = 2;
 
-		main_queue.enqueue(
+		sge::opencl::command_queue::enqueue_kernel(
+			main_queue,
 			main_kernel,
 			global_dim,
 			local_dim);

@@ -19,42 +19,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../handle_error.hpp"
+#include "renderer_buffer_lock_mode_to_cl_mem_flags.hpp"
 #include <sge/opencl/memory_object/vertex_buffer.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/renderer/opengl/buffer/base.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>
 #include <CL/cl_gl.h>
+#include <fcppt/config/external_end.hpp>
 #include <fcppt/text.hpp>
 
 sge::opencl::memory_object::vertex_buffer::vertex_buffer(
 	context::object &_context,
 	sge::renderer::vertex_buffer &_vb,
-	memory_object::vertex_buffer_lock_mode::type const _lock_mode)
+	memory_object::renderer_buffer_lock_mode::type const _lock_mode)
 :
 	impl_(0)
 {
-	cl_mem_flags mem_flags;
-
-	switch(_lock_mode)
-	{
-		case vertex_buffer_lock_mode::read_only:
-			mem_flags =
-				CL_MEM_READ_ONLY;
-		case vertex_buffer_lock_mode::write_only:
-			mem_flags =
-				CL_MEM_WRITE_ONLY;
-		case vertex_buffer_lock_mode::read_write:
-			mem_flags =
-				CL_MEM_READ_WRITE;
-	}
-
 	cl_int error_code;
 
 	impl_ =
 		clCreateFromGLBuffer(
 			_context.impl(),
-			mem_flags,
+			memory_object::renderer_buffer_lock_mode_to_cl_mem_flags(
+				_lock_mode),
 			dynamic_cast<sge::renderer::opengl::buffer::base &>(
 				_vb).id().get(),
 			&error_code);
@@ -72,6 +61,11 @@ sge::opencl::memory_object::vertex_buffer::impl()
 
 sge::opencl::memory_object::vertex_buffer::~vertex_buffer()
 {
-	clReleaseMemObject(
-		impl_);
+	cl_int const error_code =
+		clReleaseMemObject(
+			impl_);
+
+	opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clReleaseMemObject(vertex buffer)"));
 }

@@ -22,10 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/device/object.hpp>
-#include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/command_queue/execution_mode.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/array.hpp>
 
 sge::opencl::command_queue::object::object(
 	opencl::device::object &device,
@@ -64,46 +62,6 @@ sge::opencl::command_queue::object::impl() const
 {
 	return queue_;
 }
-
-template<std::size_t N>
-void
-sge::opencl::command_queue::object::enqueue(
-	kernel::object &_kernel,
-	fcppt::container::array<std::size_t,N> const &global_dim,
-	fcppt::container::array<std::size_t,N> const &work_dim)
-{
-	cl_int const error_code =
-		clEnqueueNDRangeKernel(
-			queue_,
-			_kernel.impl(),
-			static_cast<cl_uint>(
-				N),
-			0, // global work offset (not implemented in 1.1)
-			global_dim.data(),
-			work_dim.data(),
-			0,
-			0,
-			0);
-
-	opencl::handle_error(
-		error_code,
-		FCPPT_TEXT("clEnqueueNDRangeKernel"));
-}
-
-template void sge::opencl::command_queue::object::enqueue<1>(
-	kernel::object &,
-	fcppt::container::array<std::size_t,1> const &,
-	fcppt::container::array<std::size_t,1> const &);
-
-template void sge::opencl::command_queue::object::enqueue<2>(
-	kernel::object &,
-	fcppt::container::array<std::size_t,2> const &,
-	fcppt::container::array<std::size_t,2> const &);
-
-template void sge::opencl::command_queue::object::enqueue<3>(
-	kernel::object &,
-	fcppt::container::array<std::size_t,3> const &,
-	fcppt::container::array<std::size_t,3> const &);
 
 sge::opencl::command_queue::object::~object()
 {
