@@ -102,7 +102,7 @@ sge::opencl::context::object::impl() const
 	return context_;
 }
 
-sge::opencl::image_format_sequence const
+sge::opencl::memory_object::image::format_sequence const
 sge::opencl::context::object::supported_planar_image_formats(
 	cl_mem_flags const mem_flags) const
 {
@@ -121,8 +121,8 @@ sge::opencl::context::object::supported_planar_image_formats(
 		error_code,
 		FCPPT_TEXT("clGetSupportedImageFormats(number of formats)"));
 
-	opencl::image_format_sequence result(
-		static_cast<opencl::image_format_sequence::size_type>(
+	sge::opencl::memory_object::image::format_sequence result(
+		static_cast<sge::opencl::memory_object::image::format_sequence::size_type>(
 			num_entries));
 
 	error_code =
@@ -141,7 +141,7 @@ sge::opencl::context::object::supported_planar_image_formats(
 	return result;
 }
 
-sge::opencl::image_format_sequence const
+sge::opencl::memory_object::image::format_sequence const
 sge::opencl::context::object::supported_volume_image_formats(
 		cl_mem_flags const mem_flags) const
 {
@@ -160,8 +160,8 @@ sge::opencl::context::object::supported_volume_image_formats(
 		error_code,
 		FCPPT_TEXT("clGetSupportedImageFormats(number of formats)"));
 
-	opencl::image_format_sequence result(
-		static_cast<opencl::image_format_sequence::size_type>(
+	sge::opencl::memory_object::image::format_sequence result(
+		static_cast<opencl::memory_object::image::format_sequence::size_type>(
 			num_entries));
 
 	error_code =

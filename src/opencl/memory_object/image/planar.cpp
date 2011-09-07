@@ -1,19 +1,21 @@
-#include "../handle_error.hpp"
-#include <sge/opencl/memory_object/planar_texture.hpp>
+#include "../../handle_error.hpp"
+#include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 
-sge::opencl::memory_object::planar_texture::planar_texture(
+sge::opencl::memory_object::image::planar::planar(
 	context::object &_context,
 	cl_mem_flags const _mem_flags,
 	cl_image_format const &_image_format,
 	memory_object::dim2 const &_size,
-	memory_object::dim2::value_type const _pitch)
+	image::planar_pitch const &_pitch)
 :
 	impl_(),
 	image_format_(
-		_image_format)
+		_image_format),
+	size_(
+		_size)
 {
 	FCPPT_ASSERT_PRE(
 		_mem_flags != CL_MEM_USE_HOST_PTR);
@@ -29,7 +31,7 @@ sge::opencl::memory_object::planar_texture::planar_texture(
   			&_image_format,
 			_size.w(),
 			_size.h(),
-			_pitch,
+			_pitch.get(),
 			0,
 			&error_code);
 
@@ -39,18 +41,24 @@ sge::opencl::memory_object::planar_texture::planar_texture(
 }
 
 cl_mem
-sge::opencl::memory_object::planar_texture::impl()
+sge::opencl::memory_object::image::planar::impl()
 {
 	return impl_;
 }
 
 cl_image_format const &
-sge::opencl::memory_object::planar_texture::image_format() const
+sge::opencl::memory_object::image::planar::image_format() const
 {
 	return image_format_;
 }
 
-sge::opencl::memory_object::planar_texture::~planar_texture()
+sge::opencl::memory_object::dim2 const &
+sge::opencl::memory_object::image::planar::size() const
+{
+	return size_;
+}
+
+sge::opencl::memory_object::image::planar::~planar()
 {
 	cl_int const error_code =
 		clReleaseMemObject(

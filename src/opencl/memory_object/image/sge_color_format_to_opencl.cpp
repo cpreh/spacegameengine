@@ -1,8 +1,8 @@
-#include "sge_color_format_to_opencl.hpp"
+#include <sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 cl_image_format const
-sge::opencl::memory_object::sge_color_format_to_opencl(
+sge::opencl::memory_object::image::sge_color_format_to_opencl(
 	sge::image::color::format::type const f)
 {
 	cl_image_format result;

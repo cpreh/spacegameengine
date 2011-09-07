@@ -1,18 +1,28 @@
 #include "../handle_error.hpp"
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
-#include <sge/opencl/memory_object/planar_texture.hpp>
+#include <sge/opencl/memory_object/image/planar.hpp>
+#include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <sge/opencl/command_queue/object.hpp>
+#include <sge/image2d/view/make.hpp>
+#include <sge/image2d/pitch.hpp>
+#include <sge/image/raw_pointer.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 
 sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
 	command_queue::object &_queue,
-	opencl::memory_object::planar_texture &_image,
+	opencl::memory_object::image::planar &_image,
 	cl_map_flags const _flags,
 	opencl::memory_object::rect const &_rect)
 :
 	queue_(
 		_queue),
+	rect_(
+		_rect),
+	sge_image_format_(
+		opencl::memory_object::image::opencl_color_format_to_sge(
+			_image.image_format())),
 	image_(
 		_image.impl()),
 	ptr_(
@@ -21,6 +31,13 @@ sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
 {
 	cl_int error_code;
 
+	// We can't use _rect.pos().data() because OpenCL checks if [2] is equal to 0/1
+	std::size_t pos[] = { _rect.pos()[0],_rect.pos()[1],0 };
+	std::size_t size[] = { _rect.size()[0],_rect.size()[1],1 };
+
+//	std::cerr << "pos: " << pos[0] << ", " << pos[1] << ", " << pos[2] << "\n";
+//	std::cerr << "size: " << size[0] << ", " << size[1] << ", " << size[2] << "\n";
+
 	ptr_ =
 		clEnqueueMapImage(
 			_queue.impl(),
@@ -28,8 +45,8 @@ sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
 			// Blocking: yes
 			CL_TRUE,
 			_flags,
-			_rect.pos().data(),
-			_rect.size().data(),
+			pos,
+			size,
 			&pitch_,
 			// slice pitch
 			0,
@@ -56,6 +73,21 @@ std::size_t
 sge::opencl::command_queue::scoped_planar_mapping::pitch() const
 {
 	return pitch_;
+}
+
+sge::image2d::view::object const
+sge::opencl::command_queue::scoped_planar_mapping::view()
+{
+	return
+		sge::image2d::view::make(
+			static_cast<sge::image::raw_pointer>(
+				ptr_),
+			fcppt::math::dim::structure_cast<sge::image2d::dim>(
+				rect_.size()),
+			sge_image_format_,
+			image2d::pitch(
+				static_cast<image2d::pitch::value_type>(
+					pitch_)));
 }
 
 sge::opencl::command_queue::scoped_planar_mapping::~scoped_planar_mapping()

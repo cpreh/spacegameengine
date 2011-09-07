@@ -1,4 +1,4 @@
-#ifndef SGE_OPENCL_IMAGE_FORMAT_OUTPUT_HPP_INCLUDED
+#ifndef SGE_OPENCL_MEMORY_OBJECT_IMAGE_FORMAT_OUTPUT_HPP_INCLUDED
 #define SGE_OPENCL_IMAGE_FORMAT_OUTPUT_HPP_INCLUDED
 
 #include <sge/opencl/symbol.hpp>
@@ -11,10 +11,16 @@ namespace sge
 {
 namespace opencl
 {
+namespace memory_object
+{
+namespace image
+{
 SGE_OPENCL_SYMBOL void
-image_format_output(
+format_output(
 	std::ostream &,
 	cl_image_format const &);
+}
+}
 }
 }
 

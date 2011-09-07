@@ -1,8 +1,8 @@
-#include "opencl_color_format_to_sge.hpp"
+#include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 sge::image::color::format::type
-sge::opencl::memory_object::opencl_color_format_to_sge(
+sge::opencl::memory_object::image::opencl_color_format_to_sge(
 	cl_image_format const &f)
 {
 	if(f.image_channel_order == CL_A && f.image_channel_data_type == CL_UNORM_INT8)

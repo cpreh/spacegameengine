@@ -23,7 +23,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_OPENCL_SYMBOL explicit
 	single_device_system(
-		renderer::device &);
+		renderer::device *);
 
 	SGE_OPENCL_SYMBOL opencl::system &
 	system();
@@ -42,6 +42,12 @@ public:
 
 	SGE_OPENCL_SYMBOL device::object const &
 	device() const;
+
+	SGE_OPENCL_SYMBOL context::object &
+	context();
+
+	SGE_OPENCL_SYMBOL context::object const &
+	context() const;
 
 	SGE_OPENCL_SYMBOL command_queue::object &
 	queue();

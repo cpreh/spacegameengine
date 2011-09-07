@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/context/object.hpp>
-#include <sge/opencl/image_format_output.hpp>
+#include <sge/opencl/memory_object/image/format_output.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/memory_object/vertex_buffer.hpp>
 #include <sge/opencl/memory_object/base_ref_sequence.hpp>
@@ -323,17 +323,17 @@ try
 
 	fcppt::io::cout << FCPPT_TEXT("Context created, listing available planar image formats (read/write)\n");
 
-	sge::opencl::image_format_sequence const planar_image_formats =
+	sge::opencl::memory_object::image::format_sequence const planar_image_formats =
 		main_context.supported_planar_image_formats(
 			CL_MEM_READ_WRITE);
 
 	for(
-		sge::opencl::image_format_sequence::const_iterator it =
+		sge::opencl::memory_object::image::format_sequence::const_iterator it =
 			planar_image_formats.begin();
 		it != planar_image_formats.end();
 		++it)
 	{
-		sge::opencl::image_format_output(
+		sge::opencl::memory_object::image::format_output(
 			std::cout,
 			*it);
 
@@ -342,17 +342,17 @@ try
 
 	fcppt::io::cout << FCPPT_TEXT("Listing available volume image formats (read/write)...\n");
 
-	sge::opencl::image_format_sequence const volume_image_formats =
+	sge::opencl::memory_object::image::format_sequence const volume_image_formats =
 		main_context.supported_volume_image_formats(
 			CL_MEM_READ_WRITE);
 
 	for(
-		sge::opencl::image_format_sequence::const_iterator it =
+		sge::opencl::memory_object::image::format_sequence::const_iterator it =
 			volume_image_formats.begin();
 		it != volume_image_formats.end();
 		++it)
 	{
-		sge::opencl::image_format_output(
+		sge::opencl::memory_object::image::format_output(
 			std::cout,
 			*it);
 		std::cout << "\n";

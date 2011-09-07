@@ -25,8 +25,6 @@ SET(
 	include/sge/opencl/device/object_sequence.hpp
 	include/sge/opencl/error_information_string.hpp
 	include/sge/opencl/extension_sequence.hpp
-	include/sge/opencl/image_format_output.hpp
-	include/sge/opencl/image_format_sequence.hpp
 	include/sge/opencl/kernel/argument_index.hpp
 	include/sge/opencl/kernel/kernel.hpp
 	include/sge/opencl/kernel/name.hpp
@@ -36,11 +34,15 @@ SET(
 	include/sge/opencl/memory_object/base_fwd.hpp
 	include/sge/opencl/memory_object/base_ref_sequence.hpp
 	include/sge/opencl/memory_object/dim2.hpp
+	include/sge/opencl/memory_object/image/format_output.hpp
+	include/sge/opencl/memory_object/image/format_sequence.hpp
+	include/sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp
+	include/sge/opencl/memory_object/image/planar.hpp
+	include/sge/opencl/memory_object/image/planar_fwd.hpp
+	include/sge/opencl/memory_object/image/planar_pitch.hpp
+	include/sge/opencl/memory_object/image/read_planar.hpp
+	include/sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp
 	include/sge/opencl/memory_object/memory_object.hpp
-	include/sge/opencl/memory_object/planar_renderer_texture.hpp
-	include/sge/opencl/memory_object/planar_texture.hpp
-	include/sge/opencl/memory_object/planar_texture_fwd.hpp
-	include/sge/opencl/memory_object/read_planar_texture.hpp
 	include/sge/opencl/memory_object/rect.hpp
 	include/sge/opencl/memory_object/renderer_buffer_lock_mode.hpp
 	include/sge/opencl/memory_object/scoped_objects.hpp
@@ -76,18 +78,15 @@ SET(
 	src/opencl/device/object.cpp
 	src/opencl/handle_error.cpp
 	src/opencl/handle_error.hpp
-	src/opencl/image_format_output.cpp
 	src/opencl/kernel/object.cpp
 	src/opencl/memory_object/base.cpp
-	src/opencl/memory_object/opencl_color_format_to_sge.cpp
-	src/opencl/memory_object/opencl_color_format_to_sge.hpp
-	src/opencl/memory_object/planar_renderer_texture.cpp
-	src/opencl/memory_object/planar_texture.cpp
-	src/opencl/memory_object/read_planar_texture.cpp
+	src/opencl/memory_object/image/format_output.cpp
+	src/opencl/memory_object/image/opencl_color_format_to_sge.cpp
+	src/opencl/memory_object/image/planar.cpp
+	src/opencl/memory_object/image/read_planar.cpp
+	src/opencl/memory_object/image/sge_color_format_to_opencl.cpp
 	src/opencl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp
 	src/opencl/memory_object/scoped_objects.cpp
-	src/opencl/memory_object/sge_color_format_to_opencl.cpp
-	src/opencl/memory_object/sge_color_format_to_opencl.hpp
 	src/opencl/memory_object/vertex_buffer.cpp
 	src/opencl/platform/object.cpp
 	src/opencl/program/build_parameters.cpp

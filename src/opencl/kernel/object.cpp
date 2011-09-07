@@ -56,10 +56,6 @@ sge::opencl::kernel::object::argument(
 	kernel::argument_index const &index,
 	memory_object::base &o)
 {
-	FCPPT_ASSERT_PRE(
-		dynamic_cast<memory_object::vertex_buffer*>(
-			&o) != 0);
-
 	cl_mem mem_ptr = o.impl();
 
 	cl_int const error_code =
