@@ -24,8 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/base_fwd.hpp>
 #include <sge/opencl/memory_object/base_ref_sequence.hpp>
+#include <sge/opencl/memory_object/dim2.hpp>
+#include <sge/opencl/memory_object/image/image.hpp>
+#include <sge/opencl/memory_object/rect.hpp>
+#include <sge/opencl/memory_object/renderer_buffer_lock_mode.hpp>
 #include <sge/opencl/memory_object/scoped_objects.hpp>
 #include <sge/opencl/memory_object/vertex_buffer.hpp>
-#include <sge/opencl/memory_object/vertex_buffer_lock_mode.hpp>
 
 #endif

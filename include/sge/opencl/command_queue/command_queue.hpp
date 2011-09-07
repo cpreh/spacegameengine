@@ -24,9 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/dim1.hpp>
 #include <sge/opencl/command_queue/dim2.hpp>
 #include <sge/opencl/command_queue/dim3.hpp>
+#include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/execution_mode.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/opencl/command_queue/profiling_mode.hpp>
+#include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
 
 #endif

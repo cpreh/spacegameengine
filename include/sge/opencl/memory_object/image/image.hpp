@@ -18,25 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_MEMORY_OBJECT_DIM2_HPP_INCLUDED
-#define SGE_OPENCL_MEMORY_OBJECT_DIM2_HPP_INCLUDED
+#ifndef SGE_OPENCL_MEMORY_OBJECT_IMAGE_IMAGE_HPP_INCLUDED
+#define SGE_OPENCL_MEMORY_OBJECT_IMAGE_IMAGE_HPP_INCLUDED
 
-#include <fcppt/math/dim/static.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstddef>
-#include <fcppt/config/external_end.hpp>
-
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
-{
-typedef
-fcppt::math::dim::static_<std::size_t,2>::type
-dim2;
-}
-}
-}
+#include <sge/opencl/memory_object/image/format_output.hpp>
+#include <sge/opencl/memory_object/image/format_sequence.hpp>
+#include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
+#include <sge/opencl/memory_object/image/planar.hpp>
+#include <sge/opencl/memory_object/image/planar_fwd.hpp>
+#include <sge/opencl/memory_object/image/planar_pitch.hpp>
+#include <sge/opencl/memory_object/image/read_planar.hpp>
+#include <sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp>
 
 #endif
