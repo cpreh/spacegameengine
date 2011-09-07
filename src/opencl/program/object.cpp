@@ -302,10 +302,7 @@ sge::opencl::program::object::build(
 			return_status != CL_BUILD_IN_PROGRESS);
 
 		if(return_status == CL_BUILD_SUCCESS)
-		{
-			std::cout << "no error on this device!\n";
 			continue;
-		}
 
 		std::size_t program_build_log_size;
 		cl_int const error_code5 =
