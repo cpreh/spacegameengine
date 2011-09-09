@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
+#include <fcppt/export_symbol.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
 
@@ -51,20 +52,18 @@ sge::opencl::command_queue::enqueue_kernel(
 		FCPPT_TEXT("clEnqueueNDRangeKernel"));
 }
 
-template void sge::opencl::command_queue::enqueue_kernel<1>(
-	command_queue::object &_queue,
-	kernel::object &,
-	fcppt::container::array<std::size_t,1> const &,
-	fcppt::container::array<std::size_t,1> const &);
+#define SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_ENQUEUE_KERNEL(\
+	arity\
+)\
+template FCPPT_EXPORT_SYMBOL \
+void sge::opencl::command_queue::enqueue_kernel<\
+	arity\
+>( \
+	command_queue::object &_queue, \
+	kernel::object &, \
+	fcppt::container::array<std::size_t,arity> const &, \
+	fcppt::container::array<std::size_t,arity> const &);
 
-template void sge::opencl::command_queue::enqueue_kernel<2>(
-	command_queue::object &_queue,
-	kernel::object &,
-	fcppt::container::array<std::size_t,2> const &,
-	fcppt::container::array<std::size_t,2> const &);
-
-template void sge::opencl::command_queue::enqueue_kernel<3>(
-	command_queue::object &_queue,
-	kernel::object &,
-	fcppt::container::array<std::size_t,3> const &,
-	fcppt::container::array<std::size_t,3> const &);
+SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_ENQUEUE_KERNEL(1)
+SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_ENQUEUE_KERNEL(2)
+SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_ENQUEUE_KERNEL(3)

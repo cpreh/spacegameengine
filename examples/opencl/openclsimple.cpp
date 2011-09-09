@@ -185,12 +185,16 @@ try
 		fcppt::io::cout << FCPPT_TEXT("\tPlatform ") << platform_index << FCPPT_TEXT(":\n");
 		fcppt::io::cout
 			<< FCPPT_TEXT("\tName: ")
-			<< current_platform->name()
+			<< fcppt::from_std_string(
+				current_platform->name()
+			)
 			<< FCPPT_TEXT("\n");
 
 		fcppt::io::cout
 			<< FCPPT_TEXT("\tVendor: ")
-			<< current_platform->vendor()
+			<< fcppt::from_std_string(
+				current_platform->vendor()
+			)
 			<< FCPPT_TEXT("\n");
 
 		fcppt::io::cout
