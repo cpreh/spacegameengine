@@ -37,6 +37,8 @@ sge::d3d9::convert::clear_flag(
 		return D3DCLEAR_TARGET;
 	case sge::renderer::clear_flags::stencil_buffer:
 		return D3DCLEAR_STENCIL;
+	case sge::renderer::clear_flags::size:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE

@@ -32,10 +32,9 @@ sge::d3d9::convert::sampler_stage_op_value(
 	)
 	{
 	//	return D3DTOP_DISABLE;
-	//	return D3DTOP_SELECTARG1;
 	//	return D3DTOP_SELECTARG2;
-	//case renderer::sampler_stage_op_value::arg0:
-	//	return D3DTOP_SELECTARG0; // TODO: maybe we have to use a different arg number here
+	case renderer::sampler_stage_op_value::arg0:
+		return D3DTOP_SELECTARG1; // TODO: maybe we have to use a different arg number here
 	case renderer::sampler_stage_op_value::modulate:
 		return D3DTOP_MODULATE;
 	/*

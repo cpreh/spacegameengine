@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/text.hpp>
@@ -40,21 +41,44 @@ sge::config::getenv(
 )
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+	// an environment variable cannot be longer than 32767 characters
 	fcppt::container::raw_vector<
 		fcppt::char_type
-	> buffer(32767);
+	> buffer(
+		32767
+	);
 
-	return
+	DWORD const ret(
 		::GetEnvironmentVariable(
 			_name.c_str(),
 			buffer.data(),
+			static_cast<
+				DWORD
+			>(
+				buffer.size()
+			)
+		)
+	);
+
+	if(
+		ret == 0
+	)
+		return config::optional_string();
+	
+	FCPPT_ASSERT_ERROR(
+		ret <=
+		static_cast<
+			DWORD
+		>(
 			buffer.size()
-		) == 0
-		?
-			optional_string()
-		:
-			optional_string(
-				buffer.data()
+		)
+	);
+
+	return
+			config::optional_string(
+				fcppt::string(
+					buffer.data()
+				)
 			);
 #else
 	char const *const ret(

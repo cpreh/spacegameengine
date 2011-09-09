@@ -102,6 +102,8 @@ index(
 		return 1;
 	case D3DSAMP_ADDRESSW:
 		return 2;
+	default:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE

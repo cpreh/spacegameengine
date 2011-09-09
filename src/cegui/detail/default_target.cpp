@@ -120,8 +120,8 @@ sge::cegui::detail::default_target::deactivate()
 void
 sge::cegui::detail::default_target::unprojectPoint(
 	CEGUI::GeometryBuffer const &,
-	CEGUI::Vector2 const & p_in,
-	CEGUI::Vector2& p_out) const
+	CEGUI::Vector2 const &,
+	CEGUI::Vector2 &) const
 {
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
 		FCPPT_TEXT("default_target::unprojectPoint not implemented yet"));
