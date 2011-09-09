@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -60,6 +63,8 @@ construct_context_parameters(
 }
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::opencl::single_device_system::single_device_system(
 	renderer::device *_renderer)
 :
@@ -90,6 +95,7 @@ sge::opencl::single_device_system::single_device_system(
 			command_queue::profiling_mode::disabled))
 {
 }
+FCPPT_PP_POP_WARNING
 
 sge::opencl::system &
 sge::opencl::single_device_system::system()

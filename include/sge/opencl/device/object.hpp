@@ -27,8 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/object_fwd.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <ostream>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
 #include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
