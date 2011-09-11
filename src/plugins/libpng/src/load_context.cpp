@@ -29,6 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -37,6 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::libpng::load_context::load_context(
 	std::istream &_stream,
 	sge::image::optional_path const &_path
@@ -213,6 +218,7 @@ sge::libpng::load_context::load_context(
 
 	format_ = this->convert_format();
 }
+FCPPT_PP_POP_WARNING
 
 sge::libpng::load_context::~load_context()
 {

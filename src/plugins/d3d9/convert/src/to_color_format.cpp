@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../to_color_format.hpp"
 #include "../../d3dinclude.hpp"
+#include <sge/image/color/format.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 sge::image::color::format::type
@@ -32,19 +33,23 @@ sge::d3d9::convert::to_color_format(
 	)
 	{
 	case D3DFMT_A8:
-		return sge::image::color::format::alpha8;
+		return sge::image::color::format::a8;
 	case D3DFMT_L8:
-		return sge::image::color::format::gray8;
-	case D3DFMT_A8R8G8B8:
-		return sge::image::color::format::argb8;
-	case D3DFMT_X8R8G8B8:
-		return sge::image::color::format::xrgb8;
-	case D3DFMT_R8G8B8:
-		return sge::image::color::format::rgb8;
-	case D3DFMT_A32B32G32R32F:
-		return sge::image::color::format::argb32f;
+		return sge::image::color::format::l8;
 	case D3DFMT_A8L8:
-		return sge::image::color::format::ag8;
+		return sge::image::color::format::la8;
+	case D3DFMT_R8G8B8:
+		return sge::image::color::format::bgr8;
+	case D3DFMT_A8R8G8B8:
+		return sge::image::color::format::bgra8;
+	case D3DFMT_X8R8G8B8:
+		return sge::image::color::format::bgrx8;
+	case D3DFMT_A8B8G8R8:
+		return sge::image::color::format::rgba8;
+	case D3DFMT_X8B8G8R8:
+		return sge::image::color::format::rgbx8;
+	case D3DFMT_A32B32G32R32F:
+		return sge::image::color::format::rgba32f;
 	case D3DFMT_A1:
 	case D3DFMT_A16B16G16R16:
 	case D3DFMT_A16B16G16R16F:
@@ -55,7 +60,6 @@ sge::d3d9::convert::to_color_format(
 	case D3DFMT_A2W10V10U10:
 	case D3DFMT_A4L4:
 	case D3DFMT_A4R4G4B4:
-	case D3DFMT_A8B8G8R8:
 	case D3DFMT_A8P8:
 	case D3DFMT_A8R3G3B2:
 	case D3DFMT_BINARYBUFFER:
@@ -101,7 +105,6 @@ sge::d3d9::convert::to_color_format(
 	case D3DFMT_VERTEXDATA:
 	case D3DFMT_X1R5G5B5:
 	case D3DFMT_X4R4G4B4:
-	case D3DFMT_X8B8G8R8:
 	case D3DFMT_X8L8V8U8:
 	case D3DFMT_YUY2:
 		break;
