@@ -27,8 +27,10 @@ namespace sge
 {
 namespace libpng
 {
+
 fcppt::log::object &
 logger();
+
 }
 }
 

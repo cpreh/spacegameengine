@@ -49,6 +49,46 @@ sge::devil::convert_format(
 		_format
 	)
 	{
+	case IL_ALPHA:
+		if(
+			_bits_per_pixel == 8
+		)
+			return image::color::format::a8;
+		break;
+	case IL_LUMINANCE:
+		if(
+			_bits_per_pixel == 8
+		)
+			return image::color::format::l8;
+		break;
+	case IL_LUMINANCE_ALPHA:
+		if(
+			_bits_per_pixel == 16
+		)
+			return image::color::format::la8;
+		break;
+	case IL_RGB:
+		switch(
+			_bits_per_pixel
+		)
+		{
+		case 24:
+			return image::color::format::rgb8;
+		case 96:
+			return image::color::format::rgb32f;
+		}
+		break;
+	case IL_BGR:
+		switch(
+			_bits_per_pixel
+		)
+		{
+		case 24:
+			return image::color::format::bgr8;
+		case 96:
+			return image::color::format::bgr32f;
+		}
+		break;
 	case IL_RGBA:
 		switch(
 			_bits_per_pixel
@@ -60,12 +100,6 @@ sge::devil::convert_format(
 			return image::color::format::rgba32f;
 		}
 		break;
-	case IL_RGB:
-		if(
-			_bits_per_pixel == 24
-		)
-			return image::color::format::rgb8;
-		break;
 	case IL_BGRA:
 		switch(
 			_bits_per_pixel
@@ -76,18 +110,6 @@ sge::devil::convert_format(
 		case 128:
 			return image::color::format::bgra32f;
 		}
-		break;
-	case IL_LUMINANCE:
-		if(
-			_bits_per_pixel == 8
-		)
-			return image::color::format::gray8;
-		break;
-	case IL_ALPHA:
-		if(
-			_bits_per_pixel == 8
-		)
-			return image::color::format::alpha8;
 		break;
 	}
 

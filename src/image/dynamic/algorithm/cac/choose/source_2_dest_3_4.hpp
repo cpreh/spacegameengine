@@ -73,7 +73,7 @@ choose(
 	DestFormat const &
 )
 {
-	// ag8 or ga8 to rgb
+	// la8 to rgb
 	return
 		&mizuiro::color::conversion::luminance_to_rgb<
 			typename DestFormat::color_format,

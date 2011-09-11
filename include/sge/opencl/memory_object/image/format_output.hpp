@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #ifndef SGE_OPENCL_MEMORY_OBJECT_IMAGE_FORMAT_OUTPUT_HPP_INCLUDED
-#define SGE_OPENCL_IMAGE_FORMAT_OUTPUT_HPP_INCLUDED
+#define SGE_OPENCL_MEMORY_OBJECT_IMAGE_FORMAT_OUTPUT_HPP_INCLUDED
 
 #include <sge/opencl/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>

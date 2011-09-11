@@ -1,20 +1,20 @@
 SET(
 	SGE_IMAGE2D_FILES
+	include/sge/image2d/a8.hpp
+	include/sge/image2d/a8_format.hpp
 	include/sge/image2d/algorithm/algorithm.hpp
 	include/sge/image2d/algorithm/copy_and_convert.hpp
 	include/sge/image2d/algorithm/fill.hpp
 	include/sge/image2d/algorithm/print.hpp
-	include/sge/image2d/alpha8.hpp
-	include/sge/image2d/alpha8_format.hpp
-	include/sge/image2d/argb8.hpp
-	include/sge/image2d/argb8_format.hpp
+	include/sge/image2d/bgra8.hpp
+	include/sge/image2d/bgra8_format.hpp
 	include/sge/image2d/dim.hpp
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_fwd.hpp
 	include/sge/image2d/file_ptr.hpp
-	include/sge/image2d/gray8.hpp
-	include/sge/image2d/gray8_format.hpp
 	include/sge/image2d/image2d.hpp
+	include/sge/image2d/l8.hpp
+	include/sge/image2d/l8_format.hpp
 	include/sge/image2d/loader.hpp
 	include/sge/image2d/loader_fwd.hpp
 	include/sge/image2d/loader_ptr.hpp
@@ -56,13 +56,13 @@ SET(
 	include/sge/image2d/view/sub_out_of_range.hpp
 	include/sge/image2d/view/to_const.hpp
 	include/sge/image2d/view/view.hpp
+	src/image2d/a8.cpp
 	src/image2d/algorithm/copy_and_convert.cpp
 	src/image2d/algorithm/fill.cpp
 	src/image2d/algorithm/print.cpp
-	src/image2d/alpha8.cpp
-	src/image2d/argb8.cpp
+	src/image2d/bgra8.cpp
 	src/image2d/file.cpp
-	src/image2d/gray8.cpp
+	src/image2d/l8.cpp
 	src/image2d/loader.cpp
 	src/image2d/multi_loader.cpp
 	src/image2d/plugin.cpp

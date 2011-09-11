@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_PROGRAM_BLOB_SEQUENCE_HPP_INCLUDED
-#define SGE_OPENCL_PROGRAM_BLOB_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_OPENCL_PROGRAM_DEVICE_BLOB_MAP_HPP_INCLUDED
+#define SGE_OPENCL_PROGRAM_DEVICE_BLOB_MAP_HPP_INCLUDED
 
 #include <sge/opencl/program/blob.hpp>
 #include <sge/opencl/device/object_fwd.hpp>

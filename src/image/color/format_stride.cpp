@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/color/element_count.hpp>
-#include <sge/image/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -40,28 +39,26 @@ base_size(
 		_format
 	)
 	{
-	case format::gray8:
-	case format::alpha8:
-	case format::rgba8:
-	case format::argb8:
-	case format::xrgb8:
-	case format::bgra8:
+	case format::a8:
+	case format::l8:
+	case format::la8:
 	case format::rgb8:
-	case format::ag8:
-	case format::ga8:
+	case format::bgr8:
+	case format::rgba8:
+	case format::rgbx8:
+	case format::bgra8:
+	case format::bgrx8:
 		return sizeof(boost::uint8_t);
-	case format::rgba32f:
-	case format::argb32f:
-	case format::bgra32f:
+	case format::bgr32f:
 	case format::rgb32f:
+	case format::rgba32f:
+	case format::bgra32f:
 		return sizeof(float);
 	case format::size:
 		break;
 	}
 
-	throw sge::image::exception(
-		FCPPT_TEXT("Invalid format in format_stride()!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }
 
 }

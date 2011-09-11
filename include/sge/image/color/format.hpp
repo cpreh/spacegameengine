@@ -32,19 +32,19 @@ namespace format
 {
 enum type
 {
-	alpha8,
-	gray8,
-	rgba8,
-	argb8,
-	xrgb8,
-	bgra8,
+	a8,
+	l8,
+	la8,
 	rgb8,
-	rgba32f,
-	argb32f,
-	bgra32f,
+	bgr8,
+	rgba8,
+	rgbx8,
+	bgra8,
+	bgrx8,
 	rgb32f,
-	ag8,
-	ga8,
+	bgr32f,
+	rgba32f,
+	bgra32f,
 	size
 };
 }

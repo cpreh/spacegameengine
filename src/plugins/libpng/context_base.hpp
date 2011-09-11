@@ -21,18 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_CONTEXT_BASE_HPP_INCLUDED
 #define SGE_LIBPNG_CONTEXT_BASE_HPP_INCLUDED
 
+#include "png.hpp"
 #include <sge/image/optional_path.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <png.h>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
 namespace libpng
 {
+
 class context_base
 {
 	FCPPT_NONCOPYABLE(
@@ -43,21 +42,33 @@ protected:
 		sge::image::optional_path const &
 	);
 
+	~context_base();
+
 	sge::image::optional_path const path_;
 
-	static void handle_warning(
+	static void
+	handle_warning(
 		png_structp,
-		png_const_charp);
-	void handle_warning_impl(
-		png_const_charp);
-	static void handle_error(
-		png_structp,
-		png_const_charp);
-	void handle_error_impl(
-		png_const_charp);
+		png_const_charp
+	);
 
-	virtual ~context_base();
+	void
+	handle_warning_impl(
+		png_const_charp
+	);
+
+	static void
+	handle_error(
+		png_structp,
+		png_const_charp
+	);
+
+	void
+	handle_error_impl(
+		png_const_charp
+	);
 };
+
 }
 }
 

@@ -38,6 +38,46 @@ sge::opengl::convert::format_to_color(
 		_format.get()
 	)
 	{
+	case GL_ALPHA:
+		if(
+			_format_type.get() == GL_UNSIGNED_BYTE
+		)
+			return image::color::format::a8;
+		break;
+	case GL_LUMINANCE:
+		if(
+			_format_type.get() == GL_UNSIGNED_BYTE
+		)
+			return image::color::format::l8;
+		break;
+	case GL_LUMINANCE_ALPHA:
+		if(
+			_format_type.get() == GL_UNSIGNED_BYTE
+		)
+			return image::color::format::la8;
+		break;
+	case GL_RGB:
+		switch(
+			_format_type.get()
+		)
+		{
+		case GL_UNSIGNED_BYTE:
+			return image::color::format::rgb8;
+		case GL_FLOAT:
+			return image::color::format::rgb32f;
+		}
+		break;
+	case GL_BGR:
+		switch(
+			_format_type.get()
+		)
+		{
+		case GL_UNSIGNED_BYTE:
+			return image::color::format::bgr8;
+		case GL_FLOAT:
+			return image::color::format::bgr32f;
+		}
+		break;
 	case GL_RGBA:
 		switch(
 			_format_type.get()
@@ -60,35 +100,6 @@ sge::opengl::convert::format_to_color(
 			return image::color::format::bgra32f;
 		}
 		break;
-	case GL_RGB:
-		switch(
-			_format_type.get()
-		)
-		{
-		case GL_UNSIGNED_BYTE:
-			return image::color::format::rgb8;
-		case GL_FLOAT:
-			return image::color::format::rgb32f;
-		}
-		break;
-	case GL_ALPHA:
-		if(
-			_format_type.get() == GL_UNSIGNED_BYTE
-		)
-			return image::color::format::alpha8;
-		break;
-	case GL_LUMINANCE:
-		if(
-			_format_type.get() == GL_UNSIGNED_BYTE
-		)
-			return image::color::format::gray8;
-		break;
-	case GL_LUMINANCE_ALPHA:
-		if(
-			_format_type.get() == GL_UNSIGNED_BYTE
-		)
-			return image::color::format::ga8;
-		break;
 	}
 
 	throw renderer::exception(
@@ -96,7 +107,7 @@ sge::opengl::convert::format_to_color(
 		+ convert::format_to_string(
 			_format
 		)
-		+ FCPPT_TEXT(" ")
+		+ FCPPT_TEXT(' ')
 		+ convert::format_type_to_string(
 			_format_type
 		)

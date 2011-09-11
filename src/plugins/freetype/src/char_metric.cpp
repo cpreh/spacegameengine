@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
@@ -164,7 +165,7 @@ sge::freetype::char_metric::char_metric(
 				bitmap.buffer
 			),
 			dim,
-			sge::image::color::format::alpha8,
+			sge::image::color::format::a8,
 			static_cast<
 				sge::image2d::pitch
 			>(

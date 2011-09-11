@@ -34,25 +34,26 @@ sge::devil::to_il_format(
 		_format
 	)
 	{
-	case image::color::format::bgra8:
-		return IL_BGRA;
-	case image::color::format::rgba8:
-		return IL_RGBA;
-	case image::color::format::rgb8:
-		return IL_RGB;
-	case image::color::format::alpha8:
+	case image::color::format::a8:
 		return IL_ALPHA;
-	case image::color::format::gray8:
+	case image::color::format::l8:
 		return IL_LUMINANCE;
-	case image::color::format::ga8:
+	case image::color::format::la8:
 		return IL_LUMINANCE_ALPHA;
-	case image::color::format::ag8:
-	case image::color::format::argb8:
-	case image::color::format::xrgb8:
-	case image::color::format::argb32f:
-	case image::color::format::bgra32f:
-	case image::color::format::rgba32f:
+	case image::color::format::rgb8:
 	case image::color::format::rgb32f:
+		return IL_RGB;
+	case image::color::format::rgba8:
+	case image::color::format::rgba32f:
+		return IL_RGBA;
+	case image::color::format::bgr8:
+	case image::color::format::bgr32f:
+		return IL_BGR;
+	case image::color::format::bgra8:
+	case image::color::format::bgra32f:
+		return IL_BGRA;
+	case image::color::format::rgbx8:
+	case image::color::format::bgrx8:
 	case image::color::format::size:
 		break;
 	}

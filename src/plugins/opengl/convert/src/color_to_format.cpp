@@ -33,15 +33,34 @@ sge::opengl::convert::color_to_format(
 		_fmt
 	)
 	{
-	case image::color::format::gray8:
+	case image::color::format::a8:
+		return
+			opengl::color_format(
+				GL_ALPHA
+			);
+	case image::color::format::l8:
 		return
 			opengl::color_format(
 				GL_LUMINANCE
 			);
-	case image::color::format::alpha8:
+	case image::color::format::la8:
 		return
 			opengl::color_format(
-				GL_ALPHA
+				GL_LUMINANCE_ALPHA
+			);
+	case image::color::format::rgb8:
+	case image::color::format::rgbx8:
+	case image::color::format::rgb32f:
+		return
+			opengl::color_format(
+				GL_RGB
+			);
+	case image::color::format::bgr8:
+	case image::color::format::bgrx8:
+	case image::color::format::bgr32f:
+		return
+			opengl::color_format(
+				GL_BGR
 			);
 	case image::color::format::rgba8:
 	case image::color::format::rgba32f:
@@ -49,26 +68,11 @@ sge::opengl::convert::color_to_format(
 			opengl::color_format(
 				GL_RGBA
 			);
-	case image::color::format::rgb8:
-	case image::color::format::rgb32f:
-		return
-			opengl::color_format(
-				GL_RGB
-			);
-	case image::color::format::argb8:
-	case image::color::format::xrgb8:
-	case image::color::format::argb32f:
 	case image::color::format::bgra8:
 	case image::color::format::bgra32f:
 		return
 			opengl::color_format(
 				GL_BGRA
-			);
-	case image::color::format::ag8:
-	case image::color::format::ga8:
-		return
-			opengl::color_format(
-				GL_LUMINANCE_ALPHA
 			);
 	case image::color::format::size:
 		break;

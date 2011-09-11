@@ -21,26 +21,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_READ_PTR_HPP_INCLUDED
 #define SGE_LIBPNG_READ_PTR_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <png.h>
-#include <fcppt/config/external_end.hpp>
+#include "png.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace libpng
 {
+
 class read_ptr
 {
+	FCPPT_NONCOPYABLE(
+		read_ptr
+	);
 public:
-	explicit read_ptr(
-		png_structp);
+	read_ptr(
+		png_const_charp user_png_ver,
+		png_voidp error_ptr,
+		png_error_ptr error_fn,
+		png_error_ptr warn_fn
+	);
+
 	~read_ptr();
-	png_structp ptr() const;
-	png_infop info() const;
+
+	png_structp
+	ptr() const;
 private:
 	png_structp ptr_;
-	png_infop info_;
 };
+
 }
 }
 

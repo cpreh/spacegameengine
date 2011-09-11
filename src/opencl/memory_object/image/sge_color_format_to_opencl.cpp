@@ -19,66 +19,85 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp>
+#include <sge/image/color/format.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
+
+namespace
+{
+
+cl_image_format
+make_cl_image_format(
+	cl_channel_order const _order,
+	cl_channel_type const _type
+)
+{
+	cl_image_format const ret = {
+		_order,
+		_type
+	};
+
+	return ret;
+}
+
+}
 
 cl_image_format const
 sge::opencl::memory_object::image::sge_color_format_to_opencl(
 	sge::image::color::format::type const f)
 {
-	cl_image_format result;
 	switch(f)
 	{
-		case sge::image::color::format::alpha8:
-			result.image_channel_order = CL_A;
-			result.image_channel_data_type = CL_UNORM_INT8;
-			break;
-		case sge::image::color::format::gray8:
-			result.image_channel_order = CL_INTENSITY;
-			result.image_channel_data_type = CL_UNORM_INT8;
-			break;
-		case sge::image::color::format::rgba8:
-			result.image_channel_order = CL_RGBA;
-			result.image_channel_data_type = CL_UNORM_INT8;
-			break;
-		case sge::image::color::format::argb8:
-			result.image_channel_order = CL_ARGB;
-			result.image_channel_data_type = CL_UNORM_INT8;
-			break;
-		case sge::image::color::format::xrgb8:
-			FCPPT_ASSERT_UNREACHABLE;
-		case sge::image::color::format::bgra8:
-			result.image_channel_order = CL_BGRA;
-			result.image_channel_data_type = CL_UNORM_INT8;
-			break;
+		case sge::image::color::format::a8:
+			return
+				make_cl_image_format(
+					CL_A,
+					CL_UNORM_INT8);
+		case sge::image::color::format::l8:
+			return
+				make_cl_image_format(
+					CL_INTENSITY,
+					CL_UNORM_INT8);
+		case sge::image::color::format::la8:
+			return
+				make_cl_image_format(
+					CL_RA,
+					CL_UNORM_INT8);
 		case sge::image::color::format::rgb8:
-			result.image_channel_order = CL_RGB;
-			result.image_channel_data_type = CL_UNORM_INT8;
-			break;
-		case sge::image::color::format::rgba32f:
-			result.image_channel_order = CL_RGB;
-			result.image_channel_data_type = CL_FLOAT;
-			break;
-		case sge::image::color::format::argb32f:
-			result.image_channel_order = CL_ARGB;
-			result.image_channel_data_type = CL_FLOAT;
-			break;
-		case sge::image::color::format::bgra32f:
-			result.image_channel_order = CL_BGRA;
-			result.image_channel_data_type = CL_FLOAT;
-			break;
+		case sge::image::color::format::bgr8:
+			return
+				make_cl_image_format(
+					CL_RGB,
+					CL_UNORM_INT8);
+		case sge::image::color::format::rgba8:
+		case sge::image::color::format::rgbx8: // TODO: map to CL_RGBx?
+			return
+				make_cl_image_format(
+					CL_RGBA,
+					CL_UNORM_INT8);
+		case sge::image::color::format::bgra8:
+		case sge::image::color::format::bgrx8: // TODO: would CL_RGBx be better?
+			return
+				make_cl_image_format(
+					CL_BGRA,
+					CL_UNORM_INT8);
 		case sge::image::color::format::rgb32f:
-			result.image_channel_order = CL_RGB;
-			result.image_channel_data_type = CL_FLOAT;
-			break;
-		case sge::image::color::format::ag8:
-			FCPPT_ASSERT_UNREACHABLE;
-			break;
-		case sge::image::color::format::ga8:
-			result.image_channel_order = CL_RA;
-			result.image_channel_data_type = CL_UNORM_INT8;
-			break;
+		case sge::image::color::format::bgr32f:
+			return
+				make_cl_image_format(
+					CL_RGB,
+					CL_FLOAT);
+		case sge::image::color::format::rgba32f:
+		case sge::image::color::format::bgra32f:
+			return
+				make_cl_image_format(
+					CL_RGBA,
+					CL_FLOAT);
 		case sge::image::color::format::size:
 			break;
 	}
-	return result;
+
+	FCPPT_ASSERT_UNREACHABLE
 }

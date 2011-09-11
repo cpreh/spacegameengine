@@ -20,21 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image/color/ag8_format.hpp>
-#include <sge/image/color/alpha8_format.hpp>
-#include <sge/image/color/argb32f_format.hpp>
-#include <sge/image/color/argb8_format.hpp>
-#include <sge/image/color/xrgb8_format.hpp>
-#include <sge/image/color/bgra32f_format.hpp>
-#include <sge/image/color/bgra8_format.hpp>
 #include <sge/image/color/convert.hpp>
-#include <sge/image/color/ga8_format.hpp>
-#include <sge/image/color/gray8_format.hpp>
-#include <sge/image/color/rgb32f_format.hpp>
+#include <sge/image/color/a8_format.hpp>
+#include <sge/image/color/l8_format.hpp>
+#include <sge/image/color/la8_format.hpp>
 #include <sge/image/color/rgb8_format.hpp>
-#include <sge/image/color/rgba32f_format.hpp>
+#include <sge/image/color/bgr8_format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/color/object_impl.hpp>
+#include <sge/image/color/rgbx8_format.hpp>
+#include <sge/image/color/bgra8_format.hpp>
+#include <sge/image/color/bgrx8_format.hpp>
+#include <sge/image/color/rgb32f_format.hpp>
+#include <sge/image/color/bgr32f_format.hpp>
+#include <sge/image/color/rgba32f_format.hpp>
+#include <sge/image/color/bgra32f_format.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/export_symbol.hpp>
@@ -119,18 +118,18 @@ sge::image::color::any::convert<\
 	sge::image::color::any::object const &\
 );
 
-SGE_INSTANTIATE_COLOR_CONVERT(alpha8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(gray8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(rgba8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(argb8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(xrgb8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(bgra8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(a8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(l8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(la8_format)
 SGE_INSTANTIATE_COLOR_CONVERT(rgb8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(rgba32f_format)
-SGE_INSTANTIATE_COLOR_CONVERT(argb32f_format)
-SGE_INSTANTIATE_COLOR_CONVERT(bgra32f_format)
+SGE_INSTANTIATE_COLOR_CONVERT(bgr8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(rgba8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(rgbx8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(bgra8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(bgrx8_format)
 SGE_INSTANTIATE_COLOR_CONVERT(rgb32f_format)
-SGE_INSTANTIATE_COLOR_CONVERT(ag8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(ga8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(bgr32f_format)
+SGE_INSTANTIATE_COLOR_CONVERT(rgba32f_format)
+SGE_INSTANTIATE_COLOR_CONVERT(bgra32f_format)
 
 #undef SGE_INSTANTIATE_COLOR_CONVERT

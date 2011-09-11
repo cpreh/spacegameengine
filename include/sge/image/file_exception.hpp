@@ -40,7 +40,7 @@ class SGE_CLASS_SYMBOL file_exception
 public:
 	SGE_IMAGE_SYMBOL
 	file_exception(
-		optional_path const &,
+		image::optional_path const &,
 		fcppt::string const &
 	);
 };

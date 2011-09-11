@@ -36,6 +36,7 @@ SET(
 	include/sge/opencl/memory_object/dim2.hpp
 	include/sge/opencl/memory_object/image/format_output.hpp
 	include/sge/opencl/memory_object/image/format_sequence.hpp
+	include/sge/opencl/memory_object/image/image.hpp
 	include/sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp
 	include/sge/opencl/memory_object/image/planar.hpp
 	include/sge/opencl/memory_object/image/planar_fwd.hpp

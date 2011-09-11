@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/object.hpp>
 #include <sge/image/store.hpp>
-#include <sge/image2d/argb8_format.hpp>
+#include <sge/image2d/bgra8_format.hpp>
 #include <sge/image2d/rgb8_format.hpp>
 #include <sge/image2d/rgba8_format.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
@@ -157,12 +157,12 @@ test_conversion(
 }
 
 BOOST_AUTO_TEST_CASE(
-	rgba_to_argb
+	rgba_to_bgra
 )
 {
 	test_conversion<
 		sge::image2d::rgba8_format,
-		sge::image2d::argb8_format
+		sge::image2d::bgra8_format
 	>(
 		(sge::image::color::init::red = channel8(0))
 		(sge::image::color::init::blue = channel8(37))

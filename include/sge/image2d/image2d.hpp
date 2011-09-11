@@ -21,17 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_IMAGE2D_HPP_INCLUDED
 #define SGE_IMAGE2D_IMAGE2D_HPP_INCLUDED
 
+#include <sge/image2d/a8.hpp>
+#include <sge/image2d/a8_format.hpp>
 #include <sge/image2d/algorithm/algorithm.hpp>
-#include <sge/image2d/alpha8.hpp>
-#include <sge/image2d/alpha8_format.hpp>
-#include <sge/image2d/argb8.hpp>
-#include <sge/image2d/argb8_format.hpp>
+#include <sge/image2d/bgra8.hpp>
+#include <sge/image2d/bgra8_format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_fwd.hpp>
 #include <sge/image2d/file_ptr.hpp>
-#include <sge/image2d/gray8.hpp>
-#include <sge/image2d/gray8_format.hpp>
+#include <sge/image2d/l8.hpp>
+#include <sge/image2d/l8_format.hpp>
 #include <sge/image2d/loader.hpp>
 #include <sge/image2d/loader_fwd.hpp>
 #include <sge/image2d/loader_ptr.hpp>
