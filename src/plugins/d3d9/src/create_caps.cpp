@@ -117,6 +117,6 @@ sge::d3d9::create_caps(
 			),
 			false, // FIXME: find out if render to texture is supported
 			false, // no glsl
-			sge::image::color::format::argb8
+			sge::image::color::format::bgra8
 		);
 }

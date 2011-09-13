@@ -106,9 +106,6 @@ sge::vorbis::file::file(
 	sample_rate_ =
 		fcppt::sn_cast<sample_count>(
 			info->rate);
-
-	//std::cerr << "channels: " << channels_ << ", bits per sample: " << bits_per_sample() << ", sampling rate: " << info->rate << "\n";
-	//std::cerr << "bitrate: upper: " << info->bitrate_upper << ", nominal: " << info->bitrate_nominal << ", lower: " << info->bitrate_lower << "\n";
 }
 
 
@@ -207,11 +204,8 @@ sge::vorbis::file::read(
 		std::back_inserter(
 			data));
 
-// FIXME: ASSERT
 	FCPPT_ASSERT_ERROR(
 		bytes_read % bytes_per_sample() == 0);
-
-//	std::cout << "got " << (bytes_read/bytes_per_sample()) << " samples, sample rate is " << sample_rate() << "\n";
 
 	return bytes_read/bytes_per_sample();
 }

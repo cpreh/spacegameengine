@@ -36,6 +36,7 @@ SET(
 	include/sge/opencl/memory_object/dim2.hpp
 	include/sge/opencl/memory_object/image/format_output.hpp
 	include/sge/opencl/memory_object/image/format_sequence.hpp
+	include/sge/opencl/memory_object/image/image.hpp
 	include/sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp
 	include/sge/opencl/memory_object/image/planar.hpp
 	include/sge/opencl/memory_object/image/planar_fwd.hpp
@@ -111,6 +112,37 @@ FIND_PACKAGE(OpenGL)
 INCLUDE_DIRECTORIES(
 	SYSTEM
 	${OPENGL_INCLUDE_DIR}
+)
+
+IF(
+	WIN32
+)
+	SET(
+		SGE_OPENCL_HAVE_WINDOWS TRUE
+	)
+ELSE()
+	FIND_FILE(
+		GLX_HEADER
+		glx.h
+		PATHS "${OPENGL_INCLUDE_DIR}/GL"
+	)
+
+	IF(
+		GLX_HEADER
+	)
+		SET(
+			SGE_OPENCL_HAVE_GLX TRUE
+		)
+	endif()
+ENDIF()
+
+CONFIGURE_FILE(
+	${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
+	${CMAKE_CURRENT_BINARY_DIR}/include/sge/opencl/config.hpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_BINARY_DIR}/include
 )
 
 TARGET_LINK_LIBRARIES (

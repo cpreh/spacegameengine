@@ -72,7 +72,10 @@ sge::libpng::loader::load(
 	fcppt::io::cifstream file_stream(
 		_path,
 		std::ios::binary);
-	if(!file_stream.is_open())
+
+	if(
+		!file_stream.is_open()
+	)
 		throw image::file_exception(
 			_path,
 			FCPPT_TEXT("couldn't open file"));
@@ -80,15 +83,16 @@ sge::libpng::loader::load(
 	{
 		return
 			fcppt::make_shared_ptr<
-				file
+				libpng::file
 			>(
 				fcppt::ref(
 					file_stream),
 				_path
 			);
 	}
-	catch (
-		sge::image::unsupported_format const &)
+	catch(
+		sge::image::unsupported_format const &
+	)
 	{
 		return sge::image2d::file_ptr();
 	}

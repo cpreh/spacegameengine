@@ -1,21 +1,18 @@
 SET(
 	SGE_IMAGE_FILES
+	include/sge/image/a8_format.hpp
 	include/sge/image/algorithm/algorithm.hpp
 	include/sge/image/algorithm/copy_and_convert.hpp
 	include/sge/image/algorithm/fill.hpp
 	include/sge/image/algorithm/may_overlap.hpp
 	include/sge/image/algorithm/print.hpp
-	include/sge/image/alpha8_format.hpp
-	include/sge/image/argb32f_format.hpp
-	include/sge/image/argb8_format.hpp
 	include/sge/image/basic_format.hpp
 	include/sge/image/bgra32f_format.hpp
 	include/sge/image/bgra8_format.hpp
 	include/sge/image/capabilities.hpp
 	include/sge/image/capabilities_field.hpp
-	include/sge/image/color/ag8_format.hpp
-	include/sge/image/color/alpha8.hpp
-	include/sge/image/color/alpha8_format.hpp
+	include/sge/image/color/a8.hpp
+	include/sge/image/color/a8_format.hpp
 	include/sge/image/color/any/any.hpp
 	include/sge/image/color/any/convert.hpp
 	include/sge/image/color/any/detail/make_object.hpp
@@ -23,14 +20,13 @@ SET(
 	include/sge/image/color/any/object.hpp
 	include/sge/image/color/any/object_fwd.hpp
 	include/sge/image/color/any/print.hpp
-	include/sge/image/color/argb32f.hpp
-	include/sge/image/color/argb32f_format.hpp
-	include/sge/image/color/argb8.hpp
-	include/sge/image/color/argb8_format.hpp
+	include/sge/image/color/bgr32f_format.hpp
+	include/sge/image/color/bgr8_format.hpp
 	include/sge/image/color/bgra32f.hpp
 	include/sge/image/color/bgra32f_format.hpp
 	include/sge/image/color/bgra8.hpp
 	include/sge/image/color/bgra8_format.hpp
+	include/sge/image/color/bgrx8_format.hpp
 	include/sge/image/color/channel32f.hpp
 	include/sge/image/color/channel8.hpp
 	include/sge/image/color/color.hpp
@@ -41,11 +37,11 @@ SET(
 	include/sge/image/color/format_static.hpp
 	include/sge/image/color/format_stride.hpp
 	include/sge/image/color/format_to_string.hpp
-	include/sge/image/color/ga8_format.hpp
-	include/sge/image/color/gray8.hpp
-	include/sge/image/color/gray8_format.hpp
 	include/sge/image/color/homogenous_format.hpp
 	include/sge/image/color/init.hpp
+	include/sge/image/color/l8.hpp
+	include/sge/image/color/l8_format.hpp
+	include/sge/image/color/la8_format.hpp
 	include/sge/image/color/object.hpp
 	include/sge/image/color/object_impl.hpp
 	include/sge/image/color/print.hpp
@@ -57,8 +53,8 @@ SET(
 	include/sge/image/color/rgba32f_format.hpp
 	include/sge/image/color/rgba8.hpp
 	include/sge/image/color/rgba8_format.hpp
-	include/sge/image/color/xrgb8.hpp
-	include/sge/image/color/xrgb8_format.hpp
+	include/sge/image/color/rgbx8.hpp
+	include/sge/image/color/rgbx8_format.hpp
 	include/sge/image/colors.hpp
 	include/sge/image/const_raw_pointer.hpp
 	include/sge/image/difference_type.hpp
@@ -66,9 +62,10 @@ SET(
 	include/sge/image/exception.hpp
 	include/sge/image/exception_fwd.hpp
 	include/sge/image/file_exception.hpp
-	include/sge/image/gray8_format.hpp
 	include/sge/image/image.hpp
 	include/sge/image/instantiate_symbol.hpp
+	include/sge/image/l8_format.hpp
+	include/sge/image/la8_format.hpp
 	include/sge/image/optional_path.hpp
 	include/sge/image/pitch.hpp
 	include/sge/image/raw_pointer.hpp
@@ -153,21 +150,21 @@ SET(
 	src/image/dynamic/algorithm/cac/source.hpp
 	src/image/dynamic/algorithm/cac/visitor.hpp
 	src/image/dynamic/algorithm/copy_and_convert.hpp
+	src/image/dynamic/color/a8_format.cpp
+	src/image/dynamic/color/a8_format.hpp
 	src/image/dynamic/color/access.hpp
-	src/image/dynamic/color/ag8_format.cpp
-	src/image/dynamic/color/ag8_format.hpp
-	src/image/dynamic/color/alpha8_format.cpp
-	src/image/dynamic/color/alpha8_format.hpp
-	src/image/dynamic/color/argb32f_format.cpp
-	src/image/dynamic/color/argb32f_format.hpp
-	src/image/dynamic/color/argb8_format.cpp
-	src/image/dynamic/color/argb8_format.hpp
 	src/image/dynamic/color/available_channels.hpp
 	src/image/dynamic/color/basic_format.hpp
+	src/image/dynamic/color/bgr32f_format.cpp
+	src/image/dynamic/color/bgr32f_format.hpp
+	src/image/dynamic/color/bgr8_format.cpp
+	src/image/dynamic/color/bgr8_format.hpp
 	src/image/dynamic/color/bgra32f_format.cpp
 	src/image/dynamic/color/bgra32f_format.hpp
 	src/image/dynamic/color/bgra8_format.cpp
 	src/image/dynamic/color/bgra8_format.hpp
+	src/image/dynamic/color/bgrx8_format.cpp
+	src/image/dynamic/color/bgrx8_format.hpp
 	src/image/dynamic/color/c32f_3_format.hpp
 	src/image/dynamic/color/c32f_4_format.hpp
 	src/image/dynamic/color/c8_1_format.hpp
@@ -179,10 +176,10 @@ SET(
 	src/image/dynamic/color/from_static_format.cpp
 	src/image/dynamic/color/from_static_format.hpp
 	src/image/dynamic/color/from_static_format_type.hpp
-	src/image/dynamic/color/ga8_format.cpp
-	src/image/dynamic/color/ga8_format.hpp
-	src/image/dynamic/color/gray8_format.cpp
-	src/image/dynamic/color/gray8_format.hpp
+	src/image/dynamic/color/l8_format.cpp
+	src/image/dynamic/color/l8_format.hpp
+	src/image/dynamic/color/la8_format.cpp
+	src/image/dynamic/color/la8_format.hpp
 	src/image/dynamic/color/rgb32f_format.cpp
 	src/image/dynamic/color/rgb32f_format.hpp
 	src/image/dynamic/color/rgb8_format.cpp
@@ -191,8 +188,8 @@ SET(
 	src/image/dynamic/color/rgba32f_format.hpp
 	src/image/dynamic/color/rgba8_format.cpp
 	src/image/dynamic/color/rgba8_format.hpp
-	src/image/dynamic/color/xrgb8_format.cpp
-	src/image/dynamic/color/xrgb8_format.hpp
+	src/image/dynamic/color/rgbx8_format.cpp
+	src/image/dynamic/color/rgbx8_format.hpp
 	src/image/dynamic/view/basic_elements.hpp
 	src/image/dynamic/view/basic_variant.hpp
 	src/image/dynamic/view/color_layout.hpp

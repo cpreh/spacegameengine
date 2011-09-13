@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/image3d/box.hpp>
 #include <sge/image3d/dim.hpp>
-#include <sge/image3d/gray8.hpp>
+#include <sge/image3d/l8.hpp>
 #include <sge/image3d/algorithm/copy_and_convert.hpp>
 #include <sge/image3d/algorithm/fill.hpp>
 #include <sge/image3d/view/const_object.hpp>
@@ -427,7 +427,7 @@ create_texture(
 	sge::renderer::device &_device
 )
 {
-	typedef sge::image3d::gray8 store_type;
+	typedef sge::image3d::l8 store_type;
 
 	sge::image::size_type const block_element_size(
 		4u

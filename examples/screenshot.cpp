@@ -72,7 +72,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	fcppt::io::cout << FCPPT_TEXT("Press F12 to take a screenshot...");
+	fcppt::io::cout << FCPPT_TEXT("Press F12 to take a screenshot...\n");
 
 	sge::window::dim const window_dim(
 		1024,

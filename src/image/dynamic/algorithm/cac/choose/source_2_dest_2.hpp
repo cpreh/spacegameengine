@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_SOURCE_2_DEST_2_HPP_INCLUDED
 
 #include "format_has_size.hpp"
+#include "no_match.hpp"
 #include "../function.hpp"
 #include "../source.hpp"
-#include <mizuiro/color/conversion/same_to_same.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -66,14 +66,7 @@ choose(
 	DestFormat const &
 )
 {
-	// ag8 or ga8 to the same
-	return
-		&mizuiro::color::conversion::same_to_same<
-			typename DestFormat::color_format,
-			typename cac::source<
-				SourceFormat
-			>::type
-		>;
+	SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH
 }
 
 }

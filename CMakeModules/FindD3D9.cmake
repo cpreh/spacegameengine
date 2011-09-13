@@ -2,56 +2,58 @@
 # This module defines the following variables
 #
 #	D3D9_FOUND - True when Direct Input was found
-#	D3D9_INCLUDE_DIR - Include directory for Direct Input
+#	D3D9_INCLUDE_DIRS - Include directory for Direct Input
 #	D3D9_LIBRARIES - Libraries to link to
-#	D3D9_LIBRARY_DIR - Library path for all Direct Input libraries
-# Note that only the x86 version will be searched for right now
 
-FIND_PATH(
+find_path(
 	D3D9_INCLUDE_DIR
 	d3d9.h
 	"$ENV{DXSDK_DIR}/Include"
+	PATHS
+	"${D3D9_INCLUDEDIR}"
 )
 
-IF(
-	NOT D3D9_LIBRARY_DIR
+if(
+	NOT D3D9_LIBRARYDIR
 )
-	IF(
+	if(
 		CMAKE_SIZEOF_VOID_P EQUAL 8
 	)
-		SET(D3D9_LIBRARY_DIR "$ENV{DXSDK_DIR}/Lib/x64")
-	ELSEIF(
+		set(D3D9_LIBRARYDIR "$ENV{DXSDK_DIR}/Lib/x64")
+	elseif(
 		CMAKE_SIZEOF_VOID_P EQUAL 4 
 	)
-		SET(D3D9_LIBRARY_DIR "$ENV{DXSDK_DIR}/Lib/x86")
-	ENDIF()
-ENDIF()
+		set(D3D9_LIBRARYDIR "$ENV{DXSDK_DIR}/Lib/x86")
+	endif()
+endif()
 
-FIND_LIBRARY(
+find_library(
 	D3D9_LIBRARY
 	NAMES d3d9
 	PATHS
-	"${D3D9_LIBRARY_DIR}"
+	"${D3D9_LIBRARYDIR}"
 )
 
-INCLUDE(
+include(
 	FindPackageHandleStandardArgs
 )
 
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(
+find_package_handle_standard_args(
 	D3D9
 	DEFAULT_MSG
 	D3D9_INCLUDE_DIR
 	D3D9_LIBRARY
 )
 
-IF(
+if(
 	D3D9_FOUND
 )
-	SET(D3D9_LIBRARIES "${D3D9_LIBRARY}")
-ENDIF()
+	set(D3D9_LIBRARIES "${D3D9_LIBRARY}")
 
-MARK_AS_ADVANCED(
+	set(D3D9_INCLUDE_DIRS "${D3D9_INCLUDE_DIR}")
+endif()
+
+mark_as_advanced(
 	D3D9_INCLUDE_DIR
 	D3D9_LIBRARY
 )

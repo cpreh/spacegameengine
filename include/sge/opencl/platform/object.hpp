@@ -31,8 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/version.hpp>
 #include <sge/opencl/symbol.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <CL/cl.h>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

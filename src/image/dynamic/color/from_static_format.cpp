@@ -19,120 +19,93 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "from_static_format.hpp"
-#include "alpha8_format.hpp"
-#include "gray8_format.hpp"
-#include "ag8_format.hpp"
-#include "ga8_format.hpp"
+#include "a8_format.hpp"
+#include "l8_format.hpp"
+#include "la8_format.hpp"
 #include "rgb8_format.hpp"
+#include "bgr8_format.hpp"
 #include "rgba8_format.hpp"
-#include "argb8_format.hpp"
-#include "xrgb8_format.hpp"
+#include "rgbx8_format.hpp"
 #include "bgra8_format.hpp"
+#include "bgrx8_format.hpp"
 #include "rgb32f_format.hpp"
+#include "bgr32f_format.hpp"
 #include "rgba32f_format.hpp"
-#include "argb32f_format.hpp"
 #include "bgra32f_format.hpp"
 
-sge::image::dynamic::color::c8_1_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::alpha8_format const &
-)
-{
-	return &dynamic::color::alpha8_format;
+#define SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	dformat,\
+	sformat\
+)\
+sge::image::dynamic::color::dformat const * \
+sge::image::dynamic::color::from_static_format(\
+	sge::image::color::sformat const &\
+)\
+{\
+	return &sge::image::dynamic::color::sformat;\
 }
 
-sge::image::dynamic::color::c8_1_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::gray8_format const &
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c8_1_format,
+	a8_format
 )
-{
-	return &dynamic::color::gray8_format;
-}
 
-sge::image::dynamic::color::c8_2_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::ag8_format const &
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c8_1_format,
+	l8_format
 )
-{
-	return &dynamic::color::ag8_format;
-}
 
-sge::image::dynamic::color::c8_2_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::ga8_format const &
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c8_2_format,
+	la8_format
 )
-{
-	return &dynamic::color::ga8_format;
-}
 
-sge::image::dynamic::color::c8_3_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::rgb8_format const &
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c8_3_format,
+	rgb8_format
 )
-{
-	return &dynamic::color::rgb8_format;
-}
 
-sge::image::dynamic::color::c8_4_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::rgba8_format const &
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c8_3_format,
+	bgr8_format
 )
-{
-	return &dynamic::color::rgba8_format;
-}
 
-sge::image::dynamic::color::c8_4_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::argb8_format const &
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c8_4_format,
+	rgba8_format
 )
-{
-	return &dynamic::color::argb8_format;
-}
 
-sge::image::dynamic::color::c8_4_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::xrgb8_format const &
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c8_4_format,
+	rgbx8_format
 )
-{
-	return &dynamic::color::xrgb8_format;
-}
 
-sge::image::dynamic::color::c8_4_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::bgra8_format const &
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c8_4_format,
+	bgra8_format
 )
-{
-	return &dynamic::color::bgra8_format;
-}
 
-sge::image::dynamic::color::c32f_3_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::rgb32f_format const &
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c8_4_format,
+	bgrx8_format
 )
-{
-	return &dynamic::color::rgb32f_format;
-}
 
-sge::image::dynamic::color::c32f_4_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::rgba32f_format const &
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c32f_3_format,
+	rgb32f_format
 )
-{
-	return &dynamic::color::rgba32f_format;
-}
 
-sge::image::dynamic::color::c32f_4_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::argb32f_format const &
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c32f_3_format,
+	bgr32f_format
 )
-{
-	return &dynamic::color::argb32f_format;
-}
 
-sge::image::dynamic::color::c32f_4_format const *
-sge::image::dynamic::color::from_static_format(
-	image::color::bgra32f_format const &
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c32f_4_format,
+	rgba32f_format
 )
-{
-	return &dynamic::color::bgra32f_format;
-}
+
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+	c32f_4_format,
+	bgra32f_format
+)

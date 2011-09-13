@@ -27,19 +27,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "c8_4_format.hpp"
 #include "c32f_3_format.hpp"
 #include "c32f_4_format.hpp"
-#include <sge/image/color/alpha8_format.hpp>
-#include <sge/image/color/gray8_format.hpp>
-#include <sge/image/color/ag8_format.hpp>
-#include <sge/image/color/ga8_format.hpp>
+#include <sge/image/color/a8_format.hpp>
+#include <sge/image/color/l8_format.hpp>
+#include <sge/image/color/la8_format.hpp>
 #include <sge/image/color/rgb8_format.hpp>
+#include <sge/image/color/bgr8_format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/color/argb8_format.hpp>
-#include <sge/image/color/xrgb8_format.hpp>
+#include <sge/image/color/rgbx8_format.hpp>
 #include <sge/image/color/bgra8_format.hpp>
+#include <sge/image/color/bgrx8_format.hpp>
 #include <sge/image/color/rgb32f_format.hpp>
+#include <sge/image/color/bgr32f_format.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/bgra32f_format.hpp>
-#include <sge/image/color/argb32f_format.hpp>
 
 namespace sge
 {
@@ -57,7 +57,7 @@ struct from_static_format_type;
 
 template<>
 struct from_static_format_type<
-	image::color::alpha8_format
+	image::color::a8_format
 >
 {
 	typedef color::c8_1_format type;
@@ -65,7 +65,7 @@ struct from_static_format_type<
 
 template<>
 struct from_static_format_type<
-	image::color::gray8_format
+	image::color::l8_format
 >
 {
 	typedef color::c8_1_format type;
@@ -73,15 +73,7 @@ struct from_static_format_type<
 
 template<>
 struct from_static_format_type<
-	image::color::ag8_format
->
-{
-	typedef color::c8_2_format type;
-};
-
-template<>
-struct from_static_format_type<
-	image::color::ga8_format
+	image::color::la8_format
 >
 {
 	typedef color::c8_2_format type;
@@ -97,6 +89,14 @@ struct from_static_format_type<
 
 template<>
 struct from_static_format_type<
+	image::color::bgr8_format
+>
+{
+	typedef color::c8_3_format type;
+};
+
+template<>
+struct from_static_format_type<
 	image::color::rgba8_format
 >
 {
@@ -105,15 +105,7 @@ struct from_static_format_type<
 
 template<>
 struct from_static_format_type<
-	image::color::argb8_format
->
-{
-	typedef color::c8_4_format type;
-};
-
-template<>
-struct from_static_format_type<
-	image::color::xrgb8_format
+	image::color::rgbx8_format
 >
 {
 	typedef color::c8_4_format type;
@@ -129,6 +121,14 @@ struct from_static_format_type<
 
 template<>
 struct from_static_format_type<
+	image::color::bgrx8_format
+>
+{
+	typedef color::c8_4_format type;
+};
+
+template<>
+struct from_static_format_type<
 	image::color::rgb32f_format
 >
 {
@@ -137,15 +137,15 @@ struct from_static_format_type<
 
 template<>
 struct from_static_format_type<
-	image::color::rgba32f_format
+	image::color::bgr32f_format
 >
 {
-	typedef color::c32f_4_format type;
+	typedef color::c32f_3_format type;
 };
 
 template<>
 struct from_static_format_type<
-	image::color::argb32f_format
+	image::color::rgba32f_format
 >
 {
 	typedef color::c32f_4_format type;

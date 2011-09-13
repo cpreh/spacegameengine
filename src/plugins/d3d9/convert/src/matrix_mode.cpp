@@ -38,6 +38,8 @@ sge::d3d9::convert::matrix_mode(
 		return D3DTS_PROJECTION;
 	case sge::renderer::matrix_mode::texture:
 		return D3DTS_TEXTURE0;
+	case sge::renderer::matrix_mode::size:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE

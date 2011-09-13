@@ -26,37 +26,34 @@ sge::opencl::memory_object::image::opencl_color_format_to_sge(
 	cl_image_format const &f)
 {
 	if(f.image_channel_order == CL_A && f.image_channel_data_type == CL_UNORM_INT8)
-		return sge::image::color::format::alpha8;
+		return sge::image::color::format::a8;
 
 	if(f.image_channel_order == CL_INTENSITY && f.image_channel_data_type == CL_UNORM_INT8)
-		return sge::image::color::format::gray8;
+		return sge::image::color::format::l8;
 
-	if(f.image_channel_order == CL_RGBA && f.image_channel_data_type == CL_UNORM_INT8)
-		return sge::image::color::format::rgba8;
-
-	if(f.image_channel_order == CL_ARGB && f.image_channel_data_type == CL_UNORM_INT8)
-		return sge::image::color::format::argb8;
-
-	if(f.image_channel_order == CL_BGRA && f.image_channel_data_type == CL_UNORM_INT8)
-		return sge::image::color::format::bgra8;
+	// TODO: is this right?
+	if(f.image_channel_order == CL_RA && f.image_channel_data_type == CL_UNORM_INT8)
+		return sge::image::color::format::la8;
 
 	if(f.image_channel_order == CL_RGB && f.image_channel_data_type == CL_UNORM_INT8)
 		return sge::image::color::format::rgb8;
 
-	if(f.image_channel_order == CL_RGBA && f.image_channel_data_type == CL_FLOAT)
-		return sge::image::color::format::rgb32f;
+	if(f.image_channel_order == CL_RGBA && f.image_channel_data_type == CL_UNORM_INT8)
+		return sge::image::color::format::rgba8;
 
-	if(f.image_channel_order == CL_ARGB && f.image_channel_data_type == CL_FLOAT)
-		return sge::image::color::format::argb32f;
+	// TODO: is rgbx == CL_RGBx?
 
-	if(f.image_channel_order == CL_BGRA && f.image_channel_data_type == CL_FLOAT)
-		return sge::image::color::format::bgra32f;
+	if(f.image_channel_order == CL_BGRA && f.image_channel_data_type == CL_UNORM_INT8)
+		return sge::image::color::format::bgra8;
 
 	if(f.image_channel_order == CL_RGB && f.image_channel_data_type == CL_FLOAT)
 		return sge::image::color::format::rgb32f;
 
-	if(f.image_channel_order == CL_RA && f.image_channel_data_type == CL_UNORM_INT8)
-		return sge::image::color::format::ga8;
+	if(f.image_channel_order == CL_RGBA && f.image_channel_data_type == CL_FLOAT)
+		return sge::image::color::format::rgba32f;
+
+	if(f.image_channel_order == CL_BGRA && f.image_channel_data_type == CL_FLOAT)
+		return sge::image::color::format::bgra32f;
 
 	FCPPT_ASSERT_UNREACHABLE;
 }

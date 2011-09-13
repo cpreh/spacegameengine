@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../context_base.hpp"
 #include "../logger.hpp"
+#include "../png.hpp"
 #include <sge/image/file_exception.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -39,16 +40,24 @@ sge::libpng::context_base::context_base(
 {
 }
 
-void sge::libpng::context_base::handle_warning(
+sge::libpng::context_base::~context_base()
+{
+}
+
+void
+sge::libpng::context_base::handle_warning(
 	png_structp read_ptr,
-	png_const_charp data)
+	png_const_charp data
+)
 {
 	static_cast<context_base *>(png_get_io_ptr(read_ptr))->handle_warning_impl(
 		data);
 }
 
-void sge::libpng::context_base::handle_warning_impl(
-	png_const_charp const message)
+void
+sge::libpng::context_base::handle_warning_impl(
+	png_const_charp const message
+)
 {
 	fcppt::string const prelude =
 		path_
@@ -89,5 +98,3 @@ void sge::libpng::context_base::handle_error_impl(
 				)
 			);
 }
-
-sge::libpng::context_base::~context_base() {}

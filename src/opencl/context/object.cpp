@@ -23,10 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/device/object.hpp>
+#include <sge/opencl/config.hpp>
 #include <fcppt/container/raw_vector.hpp>
+#if defined(SGE_OPENCL_HAVE_GLX)
+#include <fcppt/config/external_begin.hpp>
+#include <GL/glx.h>
+#include <fcppt/config/external_end.hpp>
+#elif defined(SGE_OPENCL_HAVE_WINDOWS)
+#include <fcppt/config/include_windows.hpp>
+#else
+#error "Don't know what to include for opencl platform code"
+#endif
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <GL/glx.h>
 #include <CL/cl.h>
 #include <CL/cl_gl.h>
 #include <fcppt/config/external_end.hpp>
@@ -53,9 +62,17 @@ sge::opencl::context::object::object(
 		_params.shared_renderer()
 		?
 			reinterpret_cast<cl_context_properties>(
-				glXGetCurrentContext())
+#if defined(SGE_OPENCL_HAVE_GLX)
+				glXGetCurrentContext()
+#elif defined(SGE_OPENCL_HAVE_WINDOWS)
+				wglGetCurrentContext()
+#else
+#error "Don't know how to get the CL context"
+#endif
+			)
 		:
 			static_cast<cl_context_properties>(0),
+#if defined(SGE_OPENCL_HAVE_GLX)
 		CL_GLX_DISPLAY_KHR,
 		_params.shared_renderer()
 		?
@@ -63,6 +80,17 @@ sge::opencl::context::object::object(
 				glXGetCurrentDisplay())
 		:
 			static_cast<cl_context_properties>(0),
+#elif defined(SGE_OPENCL_HAVE_WINDOWS)
+		CL_WGL_HDC_KHR,
+		_params.shared_renderer()
+		?
+			reinterpret_cast<cl_context_properties>(
+				wglGetCurrentDC())
+		:
+				static_cast<cl_context_properties>(0),
+#else
+#error "Don't know how to get the CL display/hdc"
+#endif
 		0
 	};
 

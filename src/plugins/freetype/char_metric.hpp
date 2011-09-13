@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/char_metric.hpp>
 #include <sge/font/image_view.hpp>
 #include <sge/font/char_type.hpp>
-#include <sge/image2d/alpha8.hpp>
+#include <sge/image2d/a8.hpp>
 #include <sge/image/store.hpp>
 #include <sge/charconv/system_ptr.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
@@ -63,7 +63,7 @@ public:
 	font::unit
 	x_advance() const;
 private:
-	typedef sge::image2d::alpha8 buffer_type;
+	typedef sge::image2d::a8 buffer_type;
 
 	buffer_type buffer_;
 

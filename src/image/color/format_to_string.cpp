@@ -19,49 +19,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/format_to_string.hpp>
-#include <sge/image/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/image/color/format.hpp>
+#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/preprocessor/stringize.hpp>
+#include <fcppt/string.hpp>
 
 fcppt::string const
 sge::image::color::format_to_string(
 	format::type const _format
 )
 {
+#define SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(\
+	fmt \
+) \
+case format::fmt: \
+	return FCPPT_PP_STRINGIZE(fmt)
+
 	switch(
 		_format
 	)
 	{
-	case format::alpha8:
-		return FCPPT_TEXT("alpha8");
-	case format::gray8:
-		return FCPPT_TEXT("gray8");
-	case format::rgba8:
-		return FCPPT_TEXT("rgba8");
-	case format::argb8:
-		return FCPPT_TEXT("argb8");
-	case format::xrgb8:
-		return FCPPT_TEXT("xrgb8");
-	case format::bgra8:
-		return FCPPT_TEXT("bgra8");
-	case format::rgb8:
-		return FCPPT_TEXT("rgb8");
-	case format::rgba32f:
-		return FCPPT_TEXT("rgba32f");
-	case format::argb32f:
-		return FCPPT_TEXT("argb32f");
-	case format::bgra32f:
-		return FCPPT_TEXT("bgra32f");
-	case format::rgb32f:
-		return FCPPT_TEXT("rgb32f");
-	case format::ag8:
-		return FCPPT_TEXT("ag8");
-	case format::ga8:
-		return FCPPT_TEXT("ga8");
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(a8);
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(l8);
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(la8);
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(rgb8);
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(bgr8);
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(rgba8);
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(rgbx8);
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(bgra8);
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(bgrx8);
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(rgb32f);
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(bgr32f);
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(rgba32f);
+	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(bgra32f);
 	case format::size:
 		break;
 	}
 
-	throw sge::image::exception(
-		FCPPT_TEXT("Invalid color format!")
-	);
+	FCPPT_ASSERT_UNREACHABLE
 }

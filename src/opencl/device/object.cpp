@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/config/external_begin.hpp>
 #include <fcppt/lexical_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/next_prior.hpp>
 #include <CL/cl.h>

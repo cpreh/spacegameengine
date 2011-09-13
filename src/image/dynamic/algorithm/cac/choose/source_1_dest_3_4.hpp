@@ -84,7 +84,7 @@ choose(
 		)
 	)
 	{
-	// alpha8 to rgb
+	// a8 to rgb
 	case dynamic::color::available_channels::alpha:
 		return
 			&mizuiro::color::conversion::alpha_to_any<
@@ -93,7 +93,7 @@ choose(
 					SourceFormat
 				>::type
 			>;
-	// gray8 to rgb
+	// l8 to rgb
 	case dynamic::color::available_channels::luminance:
 		return
 			&mizuiro::color::conversion::luminance_to_rgb<

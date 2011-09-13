@@ -112,7 +112,9 @@ sge::audio::sample_count sge::wave::file::read(
 
 	audio::sample_count const bytes_to_read =
 		static_cast<audio::sample_count>(
-			samples_to_read * channels() * bytes_per_sample());
+			samples_to_read
+			* this->channels()
+			* this->bytes_per_sample());
 
 	audio::sample_container::size_type old_size =
 		_array.size();
@@ -127,7 +129,10 @@ sge::audio::sample_count sge::wave::file::read(
 	file_->read(
 		reinterpret_cast<char*>(
 			old_pos),
-		bytes_to_read);
+		static_cast<
+			std::streamsize
+		>(
+			bytes_to_read));
 
 	// TODO: replace this with copy_to_host
 	if (bytes_per_sample() > static_cast<audio::sample_count>(1) && swap_)

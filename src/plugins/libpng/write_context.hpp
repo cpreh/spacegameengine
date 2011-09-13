@@ -21,22 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_WRITE_CONTEXT_HPP_INCLUDED
 #define SGE_LIBPNG_WRITE_CONTEXT_HPP_INCLUDED
 
-#include "write_ptr.hpp"
-#include "context_base.hpp"
 #include "byte_vector.hpp"
+#include "context_base.hpp"
+#include "info.hpp"
+#include "png.hpp"
+#include "write_ptr.hpp"
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/cofstream.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <png.h>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
 namespace libpng
 {
+
 class write_context
 :
 	public context_base
@@ -49,25 +49,43 @@ public:
 		fcppt::filesystem::path const &,
 		image2d::dim const &,
 		byte_vector &,
-		image::color::format::type);
+		image::color::format::type
+	);
+
+	~write_context();
 private:
 	fcppt::io::cofstream file_;
-	byte_vector &bytes_;
-	image::color::format::type const format_;
-	write_ptr const write_ptr_;
 
-	static void handle_write(
+	byte_vector &bytes_;
+
+	image::color::format::type const format_;
+
+	libpng::write_ptr const write_ptr_;
+
+	libpng::info const info_;
+
+	static void
+	handle_write(
 		png_structp,
 		png_bytep,
-		png_size_t);
-	void handle_write_impl(
-		png_bytep,
-		png_size_t);
-	static void handle_flush(
-		png_structp);
-	void handle_flush_impl();
+		png_size_t
+	);
 
+	void
+	handle_write_impl(
+		png_bytep,
+		png_size_t
+	);
+
+	static void
+	handle_flush(
+		png_structp
+	);
+
+	void
+	handle_flush_impl();
 };
+
 }
 }
 

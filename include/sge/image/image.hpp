@@ -21,10 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMAGE_HPP_INCLUDED
 #define SGE_IMAGE_IMAGE_HPP_INCLUDED
 
+#include <sge/image/a8_format.hpp>
 #include <sge/image/algorithm/algorithm.hpp>
-#include <sge/image/alpha8_format.hpp>
-#include <sge/image/argb32f_format.hpp>
-#include <sge/image/argb8_format.hpp>
 #include <sge/image/basic_format.hpp>
 #include <sge/image/bgra32f_format.hpp>
 #include <sge/image/bgra8_format.hpp>
@@ -38,8 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/exception.hpp>
 #include <sge/image/exception_fwd.hpp>
 #include <sge/image/file_exception.hpp>
-#include <sge/image/gray8_format.hpp>
 #include <sge/image/instantiate_symbol.hpp>
+#include <sge/image/l8_format.hpp>
+#include <sge/image/la8_format.hpp>
 #include <sge/image/optional_path.hpp>
 #include <sge/image/pitch.hpp>
 #include <sge/image/raw_pointer.hpp>
