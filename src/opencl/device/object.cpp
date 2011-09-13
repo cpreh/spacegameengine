@@ -38,52 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-template<typename Result>
-Result const
-device_info(
-	cl_device_id const &current_device,
-	cl_device_info const &info)
-{
-	size_t param_value_size;
-
-	cl_int error_code =
-		clGetDeviceInfo(
-			current_device,
-			info,
-			0, // param value size (we don't know that, yet)
-			0, // param value (we don't want that, yet)
-			&param_value_size);
-
-	sge::opencl::handle_error(
-		error_code,
-		FCPPT_TEXT("clGetDeviceInfo(option size)"));
-
-	fcppt::container::raw_vector<char> result_string(
-		static_cast<fcppt::container::raw_vector<char>::size_type>(
-			param_value_size));
-
-	error_code =
-		clGetDeviceInfo(
-			current_device,
-			info,
-			param_value_size,
-			result_string.data(),
-			// param value size
-			0);
-
-	sge::opencl::handle_error(
-		error_code,
-		FCPPT_TEXT("clGetDeviceInfo(option value)"));
-
-	Result result;
-
-	copy_to_result(
-		result_string,
-		result);
-
-	return result;
-}
-
 template<typename Source,typename Dest>
 typename
 boost::enable_if
@@ -130,6 +84,53 @@ copy_to_result(
 		static_cast<std::size_t>(
 			s.size()));
 }
+
+template<typename Result>
+Result const
+device_info(
+	cl_device_id const &current_device,
+	cl_device_info const &info)
+{
+	size_t param_value_size;
+
+	cl_int error_code =
+		clGetDeviceInfo(
+			current_device,
+			info,
+			0, // param value size (we don't know that, yet)
+			0, // param value (we don't want that, yet)
+			&param_value_size);
+
+	sge::opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clGetDeviceInfo(option size)"));
+
+	fcppt::container::raw_vector<char> result_string(
+		static_cast<fcppt::container::raw_vector<char>::size_type>(
+			param_value_size));
+
+	error_code =
+		clGetDeviceInfo(
+			current_device,
+			info,
+			param_value_size,
+			result_string.data(),
+			// param value size
+			0);
+
+	sge::opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clGetDeviceInfo(option value)"));
+
+	Result result;
+
+	copy_to_result(
+		result_string,
+		result);
+
+	return result;
+}
+
 
 #define SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(constant) case constant: return #constant
 
