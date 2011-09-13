@@ -118,7 +118,7 @@ namespace vf
 {
 namespace tags
 {
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(scalar_quantity)
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(scalar_quantity);
 }
 
 typedef

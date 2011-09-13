@@ -38,6 +38,6 @@ struct tag_name \
 	{ \
 		return FCPPT_TEXT(#tag_name); \
 	} \
-};
+}
 
 #endif

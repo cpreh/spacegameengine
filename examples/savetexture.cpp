@@ -127,7 +127,7 @@ namespace screen_vf
 namespace tags
 {
 
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(position)
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(position);
 
 }
 

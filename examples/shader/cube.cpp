@@ -232,7 +232,7 @@ texcoord;
 // b) ...an identifier for the vertex::set method
 namespace tags
 {
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(vertex_normal)
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(vertex_normal);
 }
 
 typedef
@@ -253,7 +253,7 @@ vertex_normal;
 // tangent.
 namespace tags
 {
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(vertex_tangent)
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(vertex_tangent);
 }
 
 typedef
