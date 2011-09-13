@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/caps.hpp>
-#include <sge/image2d/view/dim.hpp>
+#include <sge/image2d/view/size.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/sprite/object_impl.hpp>
@@ -97,7 +97,7 @@ sge::font::text::drawer_3d::draw_char(
 )
 {
 	sge::image2d::dim const dim(
-		sge::image2d::view::dim(
+		sge::image2d::view::size(
 			_data
 		)
 	);

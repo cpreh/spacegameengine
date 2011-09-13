@@ -24,7 +24,6 @@ SET(
 	include/sge/image3d/view/const_object.hpp
 	include/sge/image3d/view/const_object_fwd.hpp
 	include/sge/image3d/view/data.hpp
-	include/sge/image3d/view/dim.hpp
 	include/sge/image3d/view/element.hpp
 	include/sge/image3d/view/element_base.hpp
 	include/sge/image3d/view/elements.hpp
@@ -37,6 +36,7 @@ SET(
 	include/sge/image3d/view/object.hpp
 	include/sge/image3d/view/object_fwd.hpp
 	include/sge/image3d/view/optional_pitch.hpp
+	include/sge/image3d/view/size.hpp
 	include/sge/image3d/view/sub.hpp
 	include/sge/image3d/view/sub_out_of_range.hpp
 	include/sge/image3d/view/to_const.hpp
@@ -50,12 +50,12 @@ SET(
 	src/image3d/view/checked_sub.cpp
 	src/image3d/view/const_object.cpp
 	src/image3d/view/data.cpp
-	src/image3d/view/dim.cpp
 	src/image3d/view/flipped.cpp
 	src/image3d/view/format.cpp
 	src/image3d/view/make.cpp
 	src/image3d/view/make_const.cpp
 	src/image3d/view/object.cpp
+	src/image3d/view/size.cpp
 	src/image3d/view/sub.cpp
 	src/image3d/view/sub_out_of_range.cpp
 	src/image3d/view/to_const.cpp

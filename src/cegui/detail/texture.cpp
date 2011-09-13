@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
-#include <sge/image2d/view/dim.hpp>
+#include <sge/image2d/view/size.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
@@ -222,7 +222,7 @@ sge::cegui::detail::texture::create_from_view(
 {
 	size_ =
 		structure_cast(
-			sge::image2d::view::dim(
+			sge::image2d::view::size(
 				v));
 	texel_scaling_ =
 		CEGUI::Vector2(

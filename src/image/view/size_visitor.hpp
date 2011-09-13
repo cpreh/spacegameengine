@@ -18,37 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_INSTANTIATE_DIM_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_INSTANTIATE_DIM_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_SIZE_VISITOR_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_SIZE_VISITOR_HPP_INCLUDED
 
-#include "dim_impl.hpp"
-#include "instantiate_const_nonconst.hpp"
-#include <sge/image/traits/dim.hpp>
-#include <fcppt/export_symbol.hpp>
+#include "../convert_dim.hpp"
 
-#define SGE_IMAGE_VIEW_INSTANTIATE_DIM_BASE(\
-	tag,\
-	view_type\
-)\
-template \
-FCPPT_EXPORT_SYMBOL \
-sge::image::traits::dim<\
-	tag\
->::type const \
-sge::image::view::dim<\
-	tag\
->(\
-	sge::image::traits::view_type<\
-		tag\
-	>::type const &\
-);
+namespace sge
+{
+namespace image
+{
+namespace view
+{
 
-#define SGE_IMAGE_VIEW_INSTANTIATE_DIM(\
-	tag\
-)\
-SGE_IMAGE_VIEW_INSTANTIATE_CONST_NONCONST(\
-	tag,\
-	SGE_IMAGE_VIEW_INSTANTIATE_DIM_BASE\
-)
+template<
+	typename Dim
+>
+struct size_visitor
+{
+	typedef Dim result_type;
+
+	template<
+		typename View
+	>
+	result_type const
+	operator()(
+		View const &_view
+	) const
+	{
+		return
+			sge::image::convert_dim<
+				result_type
+			>(
+				_view.size()
+			);
+	}
+};
+
+}
+}
+}
 
 #endif

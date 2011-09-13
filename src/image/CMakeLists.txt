@@ -94,7 +94,6 @@ SET(
 	include/sge/image/view/const_object.hpp
 	include/sge/image/view/const_object_fwd.hpp
 	include/sge/image/view/data.hpp
-	include/sge/image/view/dim.hpp
 	include/sge/image/view/element_base.hpp
 	include/sge/image/view/elements_base.hpp
 	include/sge/image/view/flipped.hpp
@@ -105,6 +104,7 @@ SET(
 	include/sge/image/view/mizuiro_type.hpp
 	include/sge/image/view/object.hpp
 	include/sge/image/view/object_fwd.hpp
+	include/sge/image/view/size.hpp
 	include/sge/image/view/sub.hpp
 	include/sge/image/view/sub_out_of_range.hpp
 	include/sge/image/view/to_const.hpp
@@ -208,9 +208,6 @@ SET(
 	src/image/view/data_any.hpp
 	src/image/view/data_impl.hpp
 	src/image/view/data_visitor.hpp
-	src/image/view/dim_any.hpp
-	src/image/view/dim_impl.hpp
-	src/image/view/dim_visitor.hpp
 	src/image/view/flipped_any.hpp
 	src/image/view/flipped_impl.hpp
 	src/image/view/flipped_visitor.hpp
@@ -221,12 +218,12 @@ SET(
 	src/image/view/instantiate_const_nonconst.hpp
 	src/image/view/instantiate_const_object.hpp
 	src/image/view/instantiate_data.hpp
-	src/image/view/instantiate_dim.hpp
 	src/image/view/instantiate_flipped.hpp
 	src/image/view/instantiate_format.hpp
 	src/image/view/instantiate_make.hpp
 	src/image/view/instantiate_make_const.hpp
 	src/image/view/instantiate_object.hpp
+	src/image/view/instantiate_size.hpp
 	src/image/view/instantiate_sub.hpp
 	src/image/view/instantiate_sub_out_of_range.hpp
 	src/image/view/instantiate_to_const.hpp
@@ -234,6 +231,9 @@ SET(
 	src/image/view/make_impl.hpp
 	src/image/view/make_visitor.hpp
 	src/image/view/object_impl.hpp
+	src/image/view/size_any.hpp
+	src/image/view/size_impl.hpp
+	src/image/view/size_visitor.hpp
 	src/image/view/sub_any.hpp
 	src/image/view/sub_impl.hpp
 	src/image/view/sub_out_of_range_impl.hpp

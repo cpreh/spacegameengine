@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/data.hpp>
-#include <sge/image2d/view/dim.hpp>
 #include <sge/image2d/view/element.hpp>
 #include <sge/image2d/view/element_base.hpp>
 #include <sge/image2d/view/elements.hpp>
@@ -42,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
+#include <sge/image2d/view/size.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <sge/image2d/view/sub_out_of_range.hpp>
 #include <sge/image2d/view/to_const.hpp>

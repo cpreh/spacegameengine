@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/traits/box.hpp>
 #include <sge/image/traits/sub_out_of_range.hpp>
-#include <sge/image/view/dim.hpp>
+#include <sge/image/view/size.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/contains.hpp>
 
@@ -52,7 +52,7 @@ checked_sub_condition(
 
 	box const outer(
 		box::vector::null(),
-		sge::image::view::dim<
+		sge::image::view::size<
 			Tag
 		>(
 			_src

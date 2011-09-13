@@ -18,32 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_VIEW_DIM_HPP_INCLUDED
-#define SGE_IMAGE3D_VIEW_DIM_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_SIZE_ANY_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_SIZE_ANY_HPP_INCLUDED
 
-#include <sge/image3d/view/const_object_fwd.hpp>
-#include <sge/image3d/view/object_fwd.hpp>
-#include <sge/image3d/dim.hpp>
-#include <sge/image3d/symbol.hpp>
+#include "size_visitor.hpp"
+#include <sge/image/traits/dim.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 namespace sge
 {
-namespace image3d
+namespace image
 {
 namespace view
 {
 
-SGE_IMAGE3D_SYMBOL
-image3d::dim const
-dim(
-	image3d::view::object const &
-);
-
-SGE_IMAGE3D_SYMBOL
-image3d::dim const
-dim(
-	image3d::view::const_object const &
-);
+template<
+	typename Tag,
+	typename View
+>
+typename sge::image::traits::dim<
+	Tag
+>::type const
+size_any(
+	View const &_view
+)
+{
+	return
+		fcppt::variant::apply_unary(
+			sge::image::view::size_visitor<
+				typename sge::image::traits::dim<
+					Tag
+				>::type
+			>(),
+			_view.get()
+		);
+}
 
 }
 }

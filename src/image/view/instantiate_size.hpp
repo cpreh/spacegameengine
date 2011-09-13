@@ -18,40 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/dim_impl.hpp"
-#include "../../image/view/instantiate_dim.hpp"
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/dim.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <sge/image3d/tag.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#ifndef SGE_IMAGE_VIEW_INSTANTIATE_SIZE_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_INSTANTIATE_SIZE_HPP_INCLUDED
 
-sge::image3d::dim const
-sge::image3d::view::dim(
-	image3d::view::object const &_view
-)
-{
-	return
-		sge::image::view::dim<
-			sge::image3d::tag
-		>(
-			_view
-		);
-}
+#include "size_impl.hpp"
+#include "instantiate_const_nonconst.hpp"
+#include <sge/image/traits/dim.hpp>
+#include <fcppt/export_symbol.hpp>
 
-sge::image3d::dim const
-sge::image3d::view::dim(
-	image3d::view::const_object const &_view
-)
-{
-	return
-		sge::image::view::dim<
-			sge::image3d::tag
-		>(
-			_view
-		);
-}
+#define SGE_IMAGE_VIEW_INSTANTIATE_SIZE_BASE(\
+	tag,\
+	view_type\
+)\
+template \
+FCPPT_EXPORT_SYMBOL \
+sge::image::traits::dim<\
+	tag\
+>::type const \
+sge::image::view::size<\
+	tag\
+>(\
+	sge::image::traits::view_type<\
+		tag\
+	>::type const &\
+);
 
-SGE_IMAGE_VIEW_INSTANTIATE_DIM(
-	sge::image3d::tag
+#define SGE_IMAGE_VIEW_INSTANTIATE_SIZE(\
+	tag\
+)\
+SGE_IMAGE_VIEW_INSTANTIATE_CONST_NONCONST(\
+	tag,\
+	SGE_IMAGE_VIEW_INSTANTIATE_SIZE_BASE\
 )
+
+#endif

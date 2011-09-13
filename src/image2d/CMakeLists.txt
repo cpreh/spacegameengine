@@ -39,7 +39,6 @@ SET(
 	include/sge/image2d/view/const_object.hpp
 	include/sge/image2d/view/const_object_fwd.hpp
 	include/sge/image2d/view/data.hpp
-	include/sge/image2d/view/dim.hpp
 	include/sge/image2d/view/element.hpp
 	include/sge/image2d/view/element_base.hpp
 	include/sge/image2d/view/elements.hpp
@@ -52,6 +51,7 @@ SET(
 	include/sge/image2d/view/object.hpp
 	include/sge/image2d/view/object_fwd.hpp
 	include/sge/image2d/view/optional_pitch.hpp
+	include/sge/image2d/view/size.hpp
 	include/sge/image2d/view/sub.hpp
 	include/sge/image2d/view/sub_out_of_range.hpp
 	include/sge/image2d/view/to_const.hpp
@@ -72,12 +72,12 @@ SET(
 	src/image2d/view/checked_sub.cpp
 	src/image2d/view/const_object.cpp
 	src/image2d/view/data.cpp
-	src/image2d/view/dim.cpp
 	src/image2d/view/flipped.cpp
 	src/image2d/view/format.cpp
 	src/image2d/view/make.cpp
 	src/image2d/view/make_const.cpp
 	src/image2d/view/object.cpp
+	src/image2d/view/size.cpp
 	src/image2d/view/sub.cpp
 	src/image2d/view/sub_out_of_range.cpp
 	src/image2d/view/to_const.cpp

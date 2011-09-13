@@ -18,45 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_DIM_ANY_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_DIM_ANY_HPP_INCLUDED
+#include "../../image/view/instantiate_size.hpp"
+#include "../../image/view/size_impl.hpp"
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/size.hpp>
+#include <sge/image2d/tag.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
-#include "dim_visitor.hpp"
-#include <sge/image/traits/dim.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
-
-namespace sge
-{
-namespace image
-{
-namespace view
-{
-
-template<
-	typename Tag,
-	typename View
->
-typename sge::image::traits::dim<
-	Tag
->::type const
-dim_any(
-	View const &_view
+sge::image2d::dim const
+sge::image2d::view::size(
+	image2d::view::object const &_view
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			sge::image::view::dim_visitor<
-				typename sge::image::traits::dim<
-					Tag
-				>::type
-			>(),
-			_view.get()
+		sge::image::view::size<
+			sge::image2d::tag
+		>(
+			_view
 		);
 }
 
-}
-}
+sge::image2d::dim const
+sge::image2d::view::size(
+	image2d::view::const_object const &_view
+)
+{
+	return
+		sge::image::view::size<
+			sge::image2d::tag
+		>(
+			_view
+		);
 }
 
-#endif
+SGE_IMAGE_VIEW_INSTANTIATE_SIZE(
+	sge::image2d::tag
+)

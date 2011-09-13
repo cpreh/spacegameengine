@@ -38,11 +38,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/exception.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/dim.hpp>
 #include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/size.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/assert/post.hpp>
@@ -117,7 +117,7 @@ sge::devil::file::data(
 	> raw_vector;
 
 	image2d::dim const src_dim(
-		image2d::view::dim(
+		image2d::view::size(
 			_src
 		)
 	);
@@ -151,7 +151,7 @@ sge::devil::file::data(
 	);
 
 	image2d::dim const cur_dim(
-		image2d::view::dim(
+		image2d::view::size(
 			_src
 		)
 	);

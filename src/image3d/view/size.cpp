@@ -18,49 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_DIM_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_DIM_HPP_INCLUDED
+#include "../../image/view/instantiate_size.hpp"
+#include "../../image/view/size_impl.hpp"
+#include <sge/image3d/view/const_object.hpp>
+#include <sge/image3d/view/object.hpp>
+#include <sge/image3d/view/size.hpp>
+#include <sge/image3d/tag.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
-#include <sge/image/traits/dim.hpp>
-#include <sge/image/traits/const_view.hpp>
-#include <sge/image/traits/view.hpp>
-#include <sge/image/instantiate_symbol.hpp>
-
-namespace sge
+sge::image3d::dim const
+sge::image3d::view::size(
+	image3d::view::object const &_view
+)
 {
-namespace image
-{
-namespace view
-{
-
-template<
-	typename Tag
->
-SGE_IMAGE_INSTANTIATE_SYMBOL
-typename image::traits::dim<
-	Tag
->::type const
-dim(
-	typename image::traits::view<
-		Tag
-	>::type const &
-);
-
-template<
-	typename Tag
->
-SGE_IMAGE_INSTANTIATE_SYMBOL
-typename image::traits::dim<
-	Tag
->::type const
-dim(
-	typename image::traits::const_view<
-		Tag
-	>::type const &
-);
-
-}
-}
+	return
+		sge::image::view::size<
+			sge::image3d::tag
+		>(
+			_view
+		);
 }
 
-#endif
+sge::image3d::dim const
+sge::image3d::view::size(
+	image3d::view::const_object const &_view
+)
+{
+	return
+		sge::image::view::size<
+			sge::image3d::tag
+		>(
+			_view
+		);
+}
+
+SGE_IMAGE_VIEW_INSTANTIATE_SIZE(
+	sge::image3d::tag
+)

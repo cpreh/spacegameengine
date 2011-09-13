@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/sub_data.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/dim.hpp>
+#include <sge/image2d/view/size.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -38,7 +38,7 @@ sge::texture::atlasing::border_h(
 )
 {
 	renderer::dim2 const dim(
-		image2d::view::dim(
+		image2d::view::size(
 			_source
 		)
 	);

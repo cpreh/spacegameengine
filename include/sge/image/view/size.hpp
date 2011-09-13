@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_DIM_VISITOR_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_DIM_VISITOR_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_SIZE_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_SIZE_HPP_INCLUDED
 
-#include "../convert_dim.hpp"
+#include <sge/image/traits/dim.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/view.hpp>
+#include <sge/image/instantiate_symbol.hpp>
 
 namespace sge
 {
@@ -31,28 +34,30 @@ namespace view
 {
 
 template<
-	typename Dim
+	typename Tag
 >
-struct dim_visitor
-{
-	typedef Dim result_type;
+SGE_IMAGE_INSTANTIATE_SYMBOL
+typename image::traits::dim<
+	Tag
+>::type const
+size(
+	typename image::traits::view<
+		Tag
+	>::type const &
+);
 
-	template<
-		typename View
-	>
-	result_type const
-	operator()(
-		View const &_view
-	) const
-	{
-		return
-			sge::image::convert_dim<
-				result_type
-			>(
-				_view.size()
-			);
-	}
-};
+template<
+	typename Tag
+>
+SGE_IMAGE_INSTANTIATE_SYMBOL
+typename image::traits::dim<
+	Tag
+>::type const
+size(
+	typename image::traits::const_view<
+		Tag
+	>::type const &
+);
 
 }
 }

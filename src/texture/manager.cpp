@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/image_too_big.hpp>
-#include <sge/image2d/view/dim.hpp>
 #include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/size.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_multiset.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -235,7 +235,7 @@ init_texture(
 {
 	sge::texture::part_ptr const part(
 		_tex.consume_fragment(
-			sge::image2d::view::dim(
+			sge::image2d::view::size(
 				_src
 			)
 		)
