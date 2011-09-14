@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/kernel/argument_index.hpp>
 #include <sge/opencl/kernel/name.hpp>
+#include <sge/opencl/kernel/numeric_type.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/kernel/object_fwd.hpp>
 

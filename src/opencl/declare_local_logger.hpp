@@ -18,20 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_PROGRAM_PROGRAM_HPP_INCLUDED
-#define SGE_OPENCL_PROGRAM_PROGRAM_HPP_INCLUDED
+#ifndef SGE_OPENCL_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
+#define SGE_OPENCL_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
 
-#include <sge/opencl/program/blob.hpp>
-#include <sge/opencl/program/build_options.hpp>
-#include <sge/opencl/program/build_parameters.hpp>
-#include <sge/opencl/program/build_parameters_fwd.hpp>
-#include <sge/opencl/program/device_blob_map.hpp>
-#include <sge/opencl/program/notification_callback.hpp>
-#include <sge/opencl/program/notification_callback_type.hpp>
-#include <sge/opencl/program/object.hpp>
-#include <sge/opencl/program/object_fwd.hpp>
-#include <sge/opencl/program/optional_build_parameters.hpp>
-#include <sge/opencl/program/source_string.hpp>
-#include <sge/opencl/program/source_string_sequence.hpp>
+#include "logger.hpp"
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/macros.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+
+#define SGE_OPENCL_DECLARE_LOCAL_LOGGER(name)\
+	namespace { fcppt::log::object local_log(fcppt::log::parameters::inherited(sge::opencl::logger(),name)); }
 
 #endif

@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CL/cl.h>
 #include <CL/cl_gl.h>
 #include <fcppt/config/external_end.hpp>
+#include <fcppt/assert/pre.hpp>
 
 sge::opencl::memory_object::scoped_objects::scoped_objects(
 	command_queue::object &_queue,
@@ -38,6 +39,9 @@ sge::opencl::memory_object::scoped_objects::scoped_objects(
 	objects_(
 		_objects)
 {
+	FCPPT_ASSERT_PRE(
+		!_objects.empty());
+
 	glFinish();
 
 	typedef

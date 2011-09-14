@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_KERNEL_NAME_HPP_INCLUDED
 #define SGE_OPENCL_KERNEL_NAME_HPP_INCLUDED
 
+#include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -31,9 +32,9 @@ namespace opencl
 {
 namespace kernel
 {
-typedef
-std::string
-name;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	std::string,
+	name);
 }
 }
 }

@@ -67,10 +67,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/log/global_context.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/log/context.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/io/cin.hpp>
@@ -157,6 +163,13 @@ int
 main()
 try
 {
+	sge::log::global_context().apply(
+		fcppt::log::location(
+			FCPPT_TEXT("opencl")),
+		std::tr1::bind(
+			&fcppt::log::activate_levels,
+			std::tr1::placeholders::_1,
+			fcppt::log::level::verbose));
 
 	sge::opencl::system opencl_system;
 
@@ -369,12 +382,14 @@ try
 		fcppt::assign::make_container<sge::opencl::program::source_string_sequence>(
 			std::string(
 				"__kernel void hello_kernel("
+				"float const multiplier,"
 				"__global float *input)"
 				"{"
 				"int gid = get_global_id(0);"
 				"int lid = get_local_id(0);"
-				"input[gid] = lid;"
-				"}")));
+				"input[gid] = lid * multiplier;"
+				"}")),
+		sge::opencl::program::optional_build_parameters());
 
 	fcppt::io::cout << FCPPT_TEXT("Program created, building the program...\n");
 
@@ -412,8 +427,14 @@ try
 
 	main_kernel.argument(
 		sge::opencl::kernel::argument_index(
-			0u),
+			1u),
 		cl_vb);
+
+	main_kernel.argument(
+		sge::opencl::kernel::argument_index(
+			0u),
+		static_cast<cl_float>(
+			2.0));
 
 	fcppt::io::cout << FCPPT_TEXT("Done, now creating a command queue\n");
 
@@ -470,6 +491,8 @@ try
 			fcppt::io::cout << vb_it->get<vf::scalar_quantity>() << FCPPT_TEXT("\n");
 		}
 	}
+
+	fcppt::io::cout << FCPPT_TEXT("Done\n");
 }
 catch(fcppt::exception const &e)
 {

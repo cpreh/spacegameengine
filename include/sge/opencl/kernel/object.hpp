@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/kernel/name.hpp>
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/kernel/argument_index.hpp>
+#include <sge/opencl/kernel/numeric_type.hpp>
 #include <sge/opencl/program/object_fwd.hpp>
 #include <sge/opencl/memory_object/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -51,6 +52,11 @@ public:
 	argument(
 		kernel::argument_index const &,
 		memory_object::base &);
+
+	SGE_OPENCL_SYMBOL void
+	argument(
+		kernel::argument_index const &,
+		kernel::numeric_type const &);
 
 	SGE_OPENCL_SYMBOL cl_kernel
 	impl();

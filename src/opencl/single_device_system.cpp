@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "declare_local_logger.hpp"
 #include <sge/opencl/single_device_system.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/system.hpp>
@@ -28,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -38,6 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cref.hpp>
 #include <fcppt/assign/make_container.hpp>
 
+SGE_OPENCL_DECLARE_LOCAL_LOGGER("single_device_system")
+
 namespace
 {
 sge::opencl::context::parameters const
@@ -45,7 +49,7 @@ construct_context_parameters(
 	sge::opencl::platform::object &_platform,
 	sge::opencl::device::object &_device,
 	sge::opencl::context::error_callback const &_error_callback,
-	sge::renderer::device *_renderer)
+	sge::opencl::optional_renderer const &_renderer)
 {
 	sge::opencl::context::parameters result(
 		_platform,
@@ -66,7 +70,7 @@ construct_context_parameters(
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::opencl::single_device_system::single_device_system(
-	renderer::device *_renderer)
+	opencl::optional_renderer const &_renderer)
 :
 	system_(
 		fcppt::make_unique_ptr<sge::opencl::system>()),
@@ -166,6 +170,13 @@ sge::opencl::single_device_system::error_callback(
 	opencl::error_information_string const &err,
 	opencl::binary_error_data const &)
 {
+	FCPPT_LOG_ERROR(
+		local_log,
+		fcppt::log::_
+			<< FCPPT_TEXT("An error in a context occured: \"")
+			<<
+				fcppt::from_std_string(
+					err));
 	throw
 		sge::exception(
 			FCPPT_TEXT("An error in a context occured: \"")+

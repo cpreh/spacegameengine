@@ -18,20 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_PROGRAM_PROGRAM_HPP_INCLUDED
-#define SGE_OPENCL_PROGRAM_PROGRAM_HPP_INCLUDED
+#include "logger.hpp"
+#include <sge/log/global_context.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/parameters/root.hpp>
+#include <fcppt/log/parameters/all.hpp>
+#include <fcppt/io/clog.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/opencl/program/blob.hpp>
-#include <sge/opencl/program/build_options.hpp>
-#include <sge/opencl/program/build_parameters.hpp>
-#include <sge/opencl/program/build_parameters_fwd.hpp>
-#include <sge/opencl/program/device_blob_map.hpp>
-#include <sge/opencl/program/notification_callback.hpp>
-#include <sge/opencl/program/notification_callback_type.hpp>
-#include <sge/opencl/program/object.hpp>
-#include <sge/opencl/program/object_fwd.hpp>
-#include <sge/opencl/program/optional_build_parameters.hpp>
-#include <sge/opencl/program/source_string.hpp>
-#include <sge/opencl/program/source_string_sequence.hpp>
+fcppt::log::object &
+sge::opencl::logger()
+{
+	static fcppt::log::object global_(
+		fcppt::log::parameters::root(
+			fcppt::io::clog)
+		.prefix(
+			FCPPT_TEXT("opencl"))
+		.enabled(
+			true)
+		.level(
+			fcppt::log::level::warning)
+		.context(
+			sge::log::global_context())
+		.create());
 
-#endif
+	return global_;
+}

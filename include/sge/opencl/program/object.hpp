@@ -25,10 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/kernel/object_fwd.hpp>
 #include <sge/opencl/program/device_blob_map.hpp>
+#include <sge/opencl/program/optional_build_parameters.hpp>
 #include <sge/opencl/program/build_parameters_fwd.hpp>
 #include <sge/opencl/program/notification_callback.hpp>
 #include <sge/opencl/program/source_string_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>
 #include <fcppt/config/external_end.hpp>
@@ -47,12 +49,14 @@ public:
 	SGE_OPENCL_SYMBOL explicit
 	object(
 		context::object &,
-		program::device_blob_map const &);
+		program::device_blob_map const &,
+		program::optional_build_parameters const &);
 
 	SGE_OPENCL_SYMBOL explicit
 	object(
 		context::object &,
-		program::source_string_sequence const &);
+		program::source_string_sequence const &,
+		program::optional_build_parameters const &);
 
 	SGE_OPENCL_SYMBOL cl_program
 	impl() const;

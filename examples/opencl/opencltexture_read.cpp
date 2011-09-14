@@ -74,8 +74,9 @@ try
 
 	fcppt::io::cout << FCPPT_TEXT("Creating opencl system\n");
 
-	sge::opencl::single_device_system opencl_system(
-		0);
+	// Mind the extra parens
+	sge::opencl::single_device_system opencl_system((
+		sge::opencl::optional_renderer()));
 
 	fcppt::io::cout << FCPPT_TEXT("Done, creating planar image\n");
 
@@ -110,7 +111,8 @@ try
 		fcppt::assign::make_container<sge::opencl::program::source_string_sequence>(
 			fcppt::io::stream_to_string(
 				*fcppt::make_unique_ptr<fcppt::io::cifstream>(
-					sge::config::media_path() / FCPPT_TEXT("kernels") / FCPPT_TEXT("texture.cl")))));
+					sge::config::media_path() / FCPPT_TEXT("kernels") / FCPPT_TEXT("texture.cl")))),
+		sge::opencl::program::optional_build_parameters());
 
 	fcppt::io::cout << FCPPT_TEXT("Program created, building the program...\n");
 
