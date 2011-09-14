@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/extension_sequence.hpp>
 #include <sge/opencl/kernel/kernel.hpp>
 #include <sge/opencl/memory_object/memory_object.hpp>
+#include <sge/opencl/optional_renderer.hpp>
 #include <sge/opencl/platform/platform.hpp>
 #include <sge/opencl/profile_type.hpp>
 #include <sge/opencl/program/program.hpp>

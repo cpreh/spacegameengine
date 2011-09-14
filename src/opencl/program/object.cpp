@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../handle_error.hpp"
+#include "../declare_local_logger.hpp"
 #include <sge/opencl/program/object.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
@@ -29,11 +30,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/assert/post.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/assert/error.hpp>
+
+SGE_OPENCL_DECLARE_LOCAL_LOGGER("program::object")
 
 sge::opencl::program::object::object(
 	context::object &_context,
-	program::device_blob_map const &_blobs)
+	program::device_blob_map const &_blobs,
+	program::optional_build_parameters const &_params)
 :
 	program_(0)
 {
@@ -115,11 +120,16 @@ sge::opencl::program::object::object(
 	opencl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateProgramWithBinary"));
+
+	if(_params)
+		this->build(
+			*_params);
 }
 
 sge::opencl::program::object::object(
 	context::object &_context,
-	program::source_string_sequence const &_source_strings)
+	program::source_string_sequence const &_source_strings,
+	program::optional_build_parameters const &_params)
 :
 	program_(0)
 {
@@ -174,6 +184,10 @@ sge::opencl::program::object::object(
 	FCPPT_ASSERT_POST(
 		program_,
 		sge::exception);
+
+	if(_params)
+		this->build(
+			*_params);
 }
 
 cl_program
@@ -269,8 +283,8 @@ sge::opencl::program::object::build(
 		params.notification_callback();
 
 	// One of the rare cases where we explicitly handle the error
-	if(error_code3 == CL_SUCCESS)
-		return;
+//	if(error_code3 == CL_SUCCESS)
+//		return;
 
 	for(
 		device_id_vector::const_iterator it =
@@ -336,14 +350,20 @@ sge::opencl::program::object::build(
 			error_code6,
 			FCPPT_TEXT("clGetProgramBuildInfo(Build log string)"));
 
-		throw
-			sge::exception(
-				FCPPT_TEXT("Building the program failed. The build log was:\n")+
-				fcppt::from_std_string(
-					build_log));
-	}
+		if(!build_log.empty())
+		{
+			FCPPT_LOG_WARNING(
+				local_log,
+				fcppt::log::_ << FCPPT_TEXT("Build log:\n") << fcppt::from_std_string(build_log));
+		}
 
-	FCPPT_ASSERT_UNREACHABLE;
+		if(error_code3 != CL_SUCCESS)
+			throw
+				sge::exception(
+					FCPPT_TEXT("Building the program failed. The build log was:\n")+
+					fcppt::from_std_string(
+						build_log));
+	}
 }
 
 sge::opencl::program::device_blob_map const

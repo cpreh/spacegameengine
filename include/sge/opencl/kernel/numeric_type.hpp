@@ -18,20 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_PROGRAM_PROGRAM_HPP_INCLUDED
-#define SGE_OPENCL_PROGRAM_PROGRAM_HPP_INCLUDED
+#ifndef SGE_OPENCL_KERNEL_NUMERIC_TYPE_HPP_INCLUDED
+#define SGE_OPENCL_KERNEL_NUMERIC_TYPE_HPP_INCLUDED
 
-#include <sge/opencl/program/blob.hpp>
-#include <sge/opencl/program/build_options.hpp>
-#include <sge/opencl/program/build_parameters.hpp>
-#include <sge/opencl/program/build_parameters_fwd.hpp>
-#include <sge/opencl/program/device_blob_map.hpp>
-#include <sge/opencl/program/notification_callback.hpp>
-#include <sge/opencl/program/notification_callback_type.hpp>
-#include <sge/opencl/program/object.hpp>
-#include <sge/opencl/program/object_fwd.hpp>
-#include <sge/opencl/program/optional_build_parameters.hpp>
-#include <sge/opencl/program/source_string.hpp>
-#include <sge/opencl/program/source_string_sequence.hpp>
+// Only _fwd needed here, but that leads to unexpected error messages for the user
+#include <fcppt/variant/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector20.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
+
+namespace sge
+{
+namespace opencl
+{
+namespace kernel
+{
+typedef
+fcppt::variant::object
+<
+	boost::mpl::vector11
+	<
+		cl_char,
+		cl_uchar,
+		cl_short,
+		cl_ushort,
+		cl_int,
+		cl_uint,
+		cl_long,
+		cl_ulong,
+		cl_half,
+		cl_float,
+		cl_double
+	>
+>
+numeric_type;
+}
+}
+}
 
 #endif

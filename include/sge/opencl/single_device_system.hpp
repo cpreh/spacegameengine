@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_SINGLE_DEVICE_SYSTEM_HPP_INCLUDED
 
 #include <sge/opencl/system_fwd.hpp>
+#include <sge/opencl/optional_renderer.hpp>
 #include <sge/opencl/error_information_string.hpp>
 #include <sge/opencl/binary_error_data.hpp>
 #include <sge/opencl/symbol.hpp>
@@ -43,7 +44,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_OPENCL_SYMBOL explicit
 	single_device_system(
-		renderer::device *);
+		opencl::optional_renderer const &);
 
 	SGE_OPENCL_SYMBOL opencl::system &
 	system();

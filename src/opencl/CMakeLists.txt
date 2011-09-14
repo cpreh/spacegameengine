@@ -28,6 +28,7 @@ SET(
 	include/sge/opencl/kernel/argument_index.hpp
 	include/sge/opencl/kernel/kernel.hpp
 	include/sge/opencl/kernel/name.hpp
+	include/sge/opencl/kernel/numeric_type.hpp
 	include/sge/opencl/kernel/object.hpp
 	include/sge/opencl/kernel/object_fwd.hpp
 	include/sge/opencl/memory_object/base.hpp
@@ -49,6 +50,7 @@ SET(
 	include/sge/opencl/memory_object/scoped_objects.hpp
 	include/sge/opencl/memory_object/vertex_buffer.hpp
 	include/sge/opencl/opencl.hpp
+	include/sge/opencl/optional_renderer.hpp
 	include/sge/opencl/platform/object.hpp
 	include/sge/opencl/platform/object_fwd.hpp
 	include/sge/opencl/platform/object_sequence.hpp
@@ -63,6 +65,7 @@ SET(
 	include/sge/opencl/program/notification_callback_type.hpp
 	include/sge/opencl/program/object.hpp
 	include/sge/opencl/program/object_fwd.hpp
+	include/sge/opencl/program/optional_build_parameters.hpp
 	include/sge/opencl/program/program.hpp
 	include/sge/opencl/program/source_string.hpp
 	include/sge/opencl/program/source_string_sequence.hpp
@@ -76,10 +79,13 @@ SET(
 	src/opencl/command_queue/scoped_planar_mapping.cpp
 	src/opencl/context/object.cpp
 	src/opencl/context/parameters.cpp
+	src/opencl/declare_local_logger.hpp
 	src/opencl/device/object.cpp
 	src/opencl/handle_error.cpp
 	src/opencl/handle_error.hpp
 	src/opencl/kernel/object.cpp
+	src/opencl/logger.cpp
+	src/opencl/logger.hpp
 	src/opencl/memory_object/base.cpp
 	src/opencl/memory_object/image/format_output.cpp
 	src/opencl/memory_object/image/opencl_color_format_to_sge.cpp

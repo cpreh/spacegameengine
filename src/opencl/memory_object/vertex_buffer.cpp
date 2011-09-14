@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../handle_error.hpp"
+#include "../declare_local_logger.hpp"
 #include "renderer_buffer_lock_mode_to_cl_mem_flags.hpp"
 #include <sge/opencl/memory_object/vertex_buffer.hpp>
 #include <sge/opencl/context/object.hpp>
@@ -29,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CL/cl.h>
 #include <CL/cl_gl.h>
 #include <fcppt/config/external_end.hpp>
+
+SGE_OPENCL_DECLARE_LOCAL_LOGGER("memory_object::vertex_buffer")
 
 sge::opencl::memory_object::vertex_buffer::vertex_buffer(
 	context::object &_context,
@@ -68,4 +71,8 @@ sge::opencl::memory_object::vertex_buffer::~vertex_buffer()
 	opencl::handle_error(
 		error_code,
 		FCPPT_TEXT("clReleaseMemObject(vertex buffer)"));
+
+	FCPPT_LOG_VERBOSE(
+		local_log,
+		fcppt::log::_ << FCPPT_TEXT("In ~vertex_buffer()"));
 }
