@@ -58,8 +58,8 @@ sge::renderer::projection::orthogonal_wh(
 
 	return
 		renderer::matrix4(
-			2.f / width, zero, zero, one,
-			zero, 2.f / height, zero, one,
+			2.f / width, zero, zero, -one,
+			zero, - 2.f / height, zero, one,
 			zero, zero, 1.f / (far - near), near / (near - far),
 			zero, zero, zero, one
 		);
