@@ -108,7 +108,8 @@ query_value_from_user(
 		stream.clear();
 		stream.ignore(
 			std::numeric_limits<std::streamsize>::max(),
-			stream.widen('\n'));
+			Traits::to_int_type(
+				stream.widen('\n')));
 		std::cerr << "before next iteration\n";
 	}
 	return result;
