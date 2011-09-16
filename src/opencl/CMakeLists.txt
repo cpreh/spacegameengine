@@ -76,10 +76,15 @@ SET(
 	src/opencl/command_queue/scoped_planar_mapping.cpp
 	src/opencl/context/object.cpp
 	src/opencl/context/parameters.cpp
+	src/opencl/declare_local_logger.hpp
 	src/opencl/device/object.cpp
 	src/opencl/handle_error.cpp
 	src/opencl/handle_error.hpp
 	src/opencl/kernel/object.cpp
+	src/opencl/log_location.cpp
+	src/opencl/log_location.hpp
+	src/opencl/logger.cpp
+	src/opencl/logger.hpp
 	src/opencl/memory_object/base.cpp
 	src/opencl/memory_object/image/format_output.cpp
 	src/opencl/memory_object/image/opencl_color_format_to_sge.cpp

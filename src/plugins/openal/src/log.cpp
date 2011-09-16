@@ -19,27 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../log.hpp"
-#include <sge/log/global_context.hpp>
-#include <fcppt/log/parameters/root.hpp>
-#include <fcppt/log/level.hpp>
-#include <fcppt/log/object.hpp>
-#include <fcppt/io/clog.hpp>
+#include <sge/log/declare_lib.hpp>
+#include <sge/log/location.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/text.hpp>
 
-fcppt::log::object &
-sge::openal::log()
-{
-	static fcppt::log::object global_(
-		fcppt::log::parameters::root(
-			fcppt::io::clog)
-		.prefix(
-			FCPPT_TEXT("openal"))
-		.enabled(
-			true)
-		.level(
-			fcppt::log::level::warning)
-		.context(
-			sge::log::global_context())
-		.create());
-	return global_;
-}
+SGE_LOG_DECLARE_LIB(
+	sge::openal::log,
+	sge::log::location()
+	/
+	FCPPT_TEXT("openal")
+)

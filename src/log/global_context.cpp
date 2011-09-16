@@ -19,12 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/global_context.hpp>
-#include <fcppt/log/context.hpp>
+#include <fcppt/log/define_context.hpp>
 
-fcppt::log::context &
-sge::log::global_context()
-{
-	static fcppt::log::context global_;
-
-	return global_;
-}
+FCPPT_LOG_DEFINE_CONTEXT(
+	sge::log::global_context
+)
