@@ -102,6 +102,8 @@ SET(
 	src/projectile/ghost/parameters.cpp
 	src/projectile/ghost/scoped.cpp
 	src/projectile/group/object.cpp
+	src/projectile/log_location.cpp
+	src/projectile/log_location.hpp
 	src/projectile/logger.cpp
 	src/projectile/logger.hpp
 	src/projectile/object_extrusion_depth.cpp

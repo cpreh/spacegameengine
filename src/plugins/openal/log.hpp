@@ -27,7 +27,10 @@ namespace sge
 {
 namespace openal
 {
-fcppt::log::object &log();
+
+fcppt::log::object &
+log();
+
 }
 }
 

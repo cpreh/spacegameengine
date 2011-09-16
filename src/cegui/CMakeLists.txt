@@ -73,6 +73,8 @@ SET(
 	src/cegui/keyboard_code_translation.cpp
 	src/cegui/keyboard_code_translation.hpp
 	src/cegui/load_context.cpp
+	src/cegui/log_location.cpp
+	src/cegui/log_location.hpp
 	src/cegui/logger.cpp
 	src/cegui/syringe.cpp
 	src/cegui/system.cpp

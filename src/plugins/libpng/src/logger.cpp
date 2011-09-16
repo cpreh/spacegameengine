@@ -19,17 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../logger.hpp"
-#include <sge/log/global.hpp>
-#include <fcppt/log/object.hpp>
-#include <fcppt/log/parameters/inherited.hpp>
+#include <sge/log/declare_lib.hpp>
+#include <sge/log/location.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/text.hpp>
 
-fcppt::log::object &
-sge::libpng::logger()
-{
-	static fcppt::log::object local_log(
-		fcppt::log::parameters::inherited(
-			sge::log::global(),
-			FCPPT_TEXT("libpng")));
-	return local_log;
-}
+SGE_LOG_DECLARE_LIB(
+	sge::libpng::logger,
+	sge::log::location()
+	/
+	FCPPT_TEXT("libpng")
+)

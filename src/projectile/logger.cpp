@@ -18,29 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "log_location.hpp"
 #include "logger.hpp"
-#include <sge/log/global_context.hpp>
-#include <fcppt/log/object.hpp>
-#include <fcppt/log/parameters/root.hpp>
-#include <fcppt/log/parameters/all.hpp>
-#include <fcppt/io/clog.hpp>
-#include <fcppt/text.hpp>
+#include <sge/log/declare_lib.hpp>
 
-fcppt::log::object &
-sge::projectile::logger()
-{
-	static fcppt::log::object global_(
-		fcppt::log::parameters::root(
-			fcppt::io::clog)
-		.prefix(
-			FCPPT_TEXT("projectile"))
-		.enabled(
-			true)
-		.level(
-			fcppt::log::level::warning)
-		.context(
-			sge::log::global_context())
-		.create());
-
-	return global_;
-}
+SGE_LOG_DECLARE_LIB(
+	sge::projectile::logger,
+	sge::projectile::log_location()
+)

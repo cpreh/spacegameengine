@@ -84,6 +84,8 @@ SET(
 	src/opencl/handle_error.cpp
 	src/opencl/handle_error.hpp
 	src/opencl/kernel/object.cpp
+	src/opencl/log_location.cpp
+	src/opencl/log_location.hpp
 	src/opencl/logger.cpp
 	src/opencl/logger.hpp
 	src/opencl/memory_object/base.cpp

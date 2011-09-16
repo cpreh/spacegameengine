@@ -21,13 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
 #define SGE_CEGUI_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
 
-#include <sge/cegui/logger.hpp>
-#include <fcppt/log/object.hpp>
-#include <fcppt/log/output.hpp>
-#include <fcppt/log/macros.hpp>
-#include <fcppt/log/parameters/inherited.hpp>
+#include "log_location.hpp"
+#include <sge/log/declare_local.hpp>
 
-#define SGE_CEGUI_DECLARE_LOCAL_LOGGER(name)\
-	namespace { fcppt::log::object local_log(fcppt::log::parameters::inherited(sge::cegui::logger(),name)); }
+#define SGE_CEGUI_DECLARE_LOCAL_LOGGER(\
+	name\
+)\
+SGE_LOG_DECLARE_LOCAL(\
+	name,\
+	sge::cegui::log_location() \
+)
 
 #endif
