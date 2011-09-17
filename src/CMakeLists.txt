@@ -12,6 +12,7 @@ SET(
 	include/sge/instantiate_symbol.hpp
 	include/sge/loaders_exhausted.hpp
 	include/sge/log/declare_lib.hpp
+	include/sge/log/declare_lib_base.hpp
 	include/sge/log/declare_local.hpp
 	include/sge/log/default_parameters.hpp
 	include/sge/log/global.hpp
