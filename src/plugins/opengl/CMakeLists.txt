@@ -53,6 +53,7 @@ SET(
 	src/plugins/opengl/context/src/object.cpp
 	src/plugins/opengl/context/use.hpp
 	src/plugins/opengl/context/use_fwd.hpp
+	src/plugins/opengl/convert/best_color_format.hpp
 	src/plugins/opengl/convert/bit_depth.hpp
 	src/plugins/opengl/convert/clear_flags.hpp
 	src/plugins/opengl/convert/clip_plane_index.hpp
@@ -73,6 +74,7 @@ SET(
 	src/plugins/opengl/convert/nonindexed_primitive.hpp
 	src/plugins/opengl/convert/projection.hpp
 	src/plugins/opengl/convert/resource_flags.hpp
+	src/plugins/opengl/convert/src/best_color_format.cpp
 	src/plugins/opengl/convert/src/bit_depth.cpp
 	src/plugins/opengl/convert/src/clear_flags.cpp
 	src/plugins/opengl/convert/src/clip_plane_index.cpp
