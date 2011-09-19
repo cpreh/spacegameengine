@@ -166,13 +166,13 @@ private:
 
 	dim const dim_;
 
+	sge::image::color::format::type const color_type_;
+
 	opengl::color_format const format_;
 
 	opengl::color_format_type const format_type_;
 
 	opengl::internal_color_format const internal_format_;
-
-	sge::image::color::format::type const color_type_;
 
 	size_type const stride_;
 

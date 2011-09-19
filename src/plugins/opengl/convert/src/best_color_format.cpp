@@ -18,43 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../color_to_format_type.hpp"
-#include "../../color_format_type.hpp"
-#include "../../common.hpp"
+#include "../best_color_format.hpp"
 #include <sge/image/color/format.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
-sge::opengl::color_format_type const
-sge::opengl::convert::color_to_format_type(
-	image::color::format::type const _fmt
+sge::image::color::format::type
+sge::opengl::convert::best_color_format(
+	sge::image::color::format::type const _format
 )
 {
 	switch(
-		_fmt
+		_format
 	)
 	{
-	case image::color::format::a8:
-	case image::color::format::l8:
-	case image::color::format::la8:
-	case image::color::format::rgb8:
-	case image::color::format::bgr8:
-	case image::color::format::rgba8:
-	case image::color::format::bgra8:
-		return
-			opengl::color_format_type(
-				GL_UNSIGNED_BYTE
-			);
-	case image::color::format::rgb32f:
-	case image::color::format::bgr32f:
-	case image::color::format::rgba32f:
-	case image::color::format::bgra32f:
-		return
-			opengl::color_format_type(
-				GL_FLOAT
-			);
-	case image::color::format::size:
-	case image::color::format::rgbx8:
-	case image::color::format::bgrx8:
+	case sge::image::color::format::a8:
+	case sge::image::color::format::l8:
+	case sge::image::color::format::la8:
+	case sge::image::color::format::rgb8:
+	case sge::image::color::format::bgr8:
+	case sge::image::color::format::rgba8:
+	case sge::image::color::format::bgra8:
+	case sge::image::color::format::rgb32f:
+	case sge::image::color::format::bgr32f:
+	case sge::image::color::format::rgba32f:
+	case sge::image::color::format::bgra32f:
+		return _format;
+	case sge::image::color::format::rgbx8:
+		return sge::image::color::format::rgb8;
+	case sge::image::color::format::bgrx8:
+		return sge::image::color::format::bgr8;
+	case sge::image::color::format::size:
 		break;
 	}
 

@@ -53,6 +53,7 @@ SET(
 	src/plugins/opengl/context/src/object.cpp
 	src/plugins/opengl/context/use.hpp
 	src/plugins/opengl/context/use_fwd.hpp
+	src/plugins/opengl/convert/best_color_format.hpp
 	src/plugins/opengl/convert/bit_depth.hpp
 	src/plugins/opengl/convert/clear_flags.hpp
 	src/plugins/opengl/convert/clip_plane_index.hpp
@@ -73,6 +74,7 @@ SET(
 	src/plugins/opengl/convert/nonindexed_primitive.hpp
 	src/plugins/opengl/convert/projection.hpp
 	src/plugins/opengl/convert/resource_flags.hpp
+	src/plugins/opengl/convert/src/best_color_format.cpp
 	src/plugins/opengl/convert/src/bit_depth.cpp
 	src/plugins/opengl/convert/src/clear_flags.cpp
 	src/plugins/opengl/convert/src/clip_plane_index.cpp
@@ -804,7 +806,7 @@ SET(
 	src/plugins/opengl/xrandr/src/set_resolution.cpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
 	"${SGE_OPENGL_FILES}"
 	SGE_OPENGL_FILES_ABS
 )
@@ -822,7 +824,7 @@ IF (X11_FOUND)
 
 	INCLUDE_DIRECTORIES(${X11_X11_INCLUDE})
 
-	APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
 		"${SGE_OPENGL_X11_FILES}"
 		SGE_OPENGL_FILES_ABS
 	)
@@ -839,7 +841,7 @@ IF (X11_FOUND)
 
 		INCLUDE_DIRECTORIES(${X11_xf86vmode_INCLUDE_PATH})
 
-		APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+		FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
 			"${SGE_OPENGL_XF86VMODE_FILES}"
 			SGE_OPENGL_FILES_ABS
 		)
@@ -856,13 +858,13 @@ IF (X11_FOUND)
 
 		INCLUDE_DIRECTORIES(${X11_Xrandr_INCLUDE_PATH})
 
-		APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+		FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
 			"${SGE_OPENGL_XRANDR_FILES}"
 			SGE_OPENGL_FILES_ABS
 		)
 	ENDIF()
 ELSEIF (WIN32)
-	APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
 		"${SGE_OPENGL_WIN32_FILES}"
 		SGE_OPENGL_FILES_ABS
 	)

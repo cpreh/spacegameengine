@@ -29,10 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "funcs/get_image.hpp"
 #include "mipmap/create.hpp"
 #include "mipmap/parameters.hpp"
+#include "../convert/best_color_format.hpp"
 #include "../convert/color_to_format.hpp"
 #include "../convert/color_to_format_type.hpp"
 #include "../convert/color_to_internal_format.hpp"
-#include "../convert/format_to_color.hpp"
 #include "../range_check.hpp"
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
@@ -423,30 +423,29 @@ sge::opengl::texture::basic<Types>::basic(
 	dim_(
 		_parameters.size()
 	),
+	color_type_(
+		opengl::convert::best_color_format(
+			_parameters.color_format()
+		)
+	),
 	format_(
 		opengl::convert::color_to_format(
-			_parameters.color_format()
+			color_type_
 		)
 	),
 	format_type_(
 		opengl::convert::color_to_format_type(
-			_parameters.color_format()
+			color_type_
 		)
 	),
 	internal_format_(
 		opengl::convert::color_to_internal_format(
-			_parameters.color_format()
-		)
-	),
-	color_type_(
-		opengl::convert::format_to_color(
-			format_,
-			format_type_
+			color_type_
 		)
 	),
 	stride_(
 		image::color::format_stride(
-			_parameters.color_format()
+			color_type_
 		)
 	),
 	lock_(),

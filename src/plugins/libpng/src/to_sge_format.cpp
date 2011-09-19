@@ -39,11 +39,13 @@ sge::libpng::to_sge_format(
 			_bit_depth == 8
 		)
 			return sge::image::color::format::l8;
+		break;
 	case PNG_COLOR_TYPE_GRAY_ALPHA:
 		if(
 			_bit_depth == 8
 		)
 			return sge::image::color::format::la8;
+		break;
 	case PNG_COLOR_TYPE_PALETTE:
 		break;
 	case PNG_COLOR_TYPE_RGB:
@@ -51,11 +53,13 @@ sge::libpng::to_sge_format(
 			_bit_depth == 8
 		)
 			return sge::image::color::format::rgb8;
+		break;
 	case PNG_COLOR_TYPE_RGB_ALPHA:
 		if(
 			_bit_depth == 8
 		)
 			return sge::image::color::format::rgba8;
+		break;
 	}
 
 	return sge::image::color::format::size;

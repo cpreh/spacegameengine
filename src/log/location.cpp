@@ -27,6 +27,6 @@ sge::log::location()
 {
 	return
 		fcppt::log::location(
-			FCPPT_TEXT("awl")
+			FCPPT_TEXT("sge")
 		);
 }

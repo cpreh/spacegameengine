@@ -49,14 +49,12 @@ sge::opengl::convert::color_to_format(
 				GL_LUMINANCE_ALPHA
 			);
 	case image::color::format::rgb8:
-	case image::color::format::rgbx8:
 	case image::color::format::rgb32f:
 		return
 			opengl::color_format(
 				GL_RGB
 			);
 	case image::color::format::bgr8:
-	case image::color::format::bgrx8:
 	case image::color::format::bgr32f:
 		return
 			opengl::color_format(
@@ -74,6 +72,8 @@ sge::opengl::convert::color_to_format(
 			opengl::color_format(
 				GL_BGRA
 			);
+	case image::color::format::rgbx8:
+	case image::color::format::bgrx8:
 	case image::color::format::size:
 		break;
 	}

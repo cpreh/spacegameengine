@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/collector.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/log/global.hpp>
+#include <sge/log/location.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/image/capabilities_field.hpp>
@@ -103,7 +104,9 @@ try
 	// Usually too verbose (maybe add a log switcher later?)
 	sge::log::global_context().apply(
 		fcppt::log::location(
-			FCPPT_TEXT("sgegui")),
+			sge::log::location()
+			/
+			FCPPT_TEXT("cegui")),
 		std::tr1::bind(
 			&fcppt::log::object::activate,
 			std::tr1::placeholders::_1,

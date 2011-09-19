@@ -12,6 +12,7 @@ SET(
 	include/sge/instantiate_symbol.hpp
 	include/sge/loaders_exhausted.hpp
 	include/sge/log/declare_lib.hpp
+	include/sge/log/declare_lib_base.hpp
 	include/sge/log/declare_local.hpp
 	include/sge/log/default_parameters.hpp
 	include/sge/log/global.hpp
@@ -72,12 +73,12 @@ SET(
 	src/multi_loader_impl.hpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
 	"${SGE_CORE_INCLUDE_FILES}"
 	SGE_CORE_INCLUDE_FILES_ABS
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
 	"${SGE_CORE_SRC_FILES}"
 	SGE_CORE_SRC_FILES_ABS
 )
@@ -218,7 +219,7 @@ MACRO(
 		UPPER_LIB_NAME
 	)
 
-	APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
 		"${SGE_${UPPER_LIB_NAME}_FILES}"
 		SGE_${UPPER_LIB_NAME}_FILES_ABS
 	)

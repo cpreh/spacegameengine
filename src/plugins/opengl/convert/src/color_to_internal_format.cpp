@@ -49,14 +49,11 @@ sge::opengl::convert::color_to_internal_format(
 				GL_LUMINANCE_ALPHA
 			);
 	case image::color::format::rgb8:
-	// TODO: write a function that converts an sge format to the best opengl format!
-	case image::color::format::rgbx8:
 		return
 			opengl::internal_color_format(
 				GL_RGB8
 			);
 	case image::color::format::bgr8:
-	case image::color::format::bgrx8:
 	case image::color::format::bgr32f:
 		return
 			opengl::internal_color_format(
@@ -79,6 +76,8 @@ sge::opengl::convert::color_to_internal_format(
 			opengl::internal_color_format(
 				GL_RGB32F
 			);
+	case image::color::format::rgbx8:
+	case image::color::format::bgrx8:
 	case image::color::format::size:
 		break;
 	}
