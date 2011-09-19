@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/command_queue/object.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
@@ -39,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <exception>
 
 SGE_OPENCL_DECLARE_LOCAL_LOGGER("single_device_system")
 
@@ -177,10 +177,6 @@ sge::opencl::single_device_system::error_callback(
 			<<
 				fcppt::from_std_string(
 					err));
-	throw
-		sge::exception(
-			FCPPT_TEXT("An error in a context occured: \"")+
-			fcppt::from_std_string(
-				err)+
-			FCPPT_TEXT("\""));
+
+	std::terminate();
 }

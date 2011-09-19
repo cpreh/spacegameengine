@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -53,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <ostream>
@@ -243,7 +243,7 @@ try
 		);
 	}
 }
-catch(sge::exception const &e)
+catch(fcppt::exception const &e)
 {
 	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
