@@ -40,7 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <exception>
 
-SGE_OPENCL_DECLARE_LOCAL_LOGGER("single_device_system")
+SGE_OPENCL_DECLARE_LOCAL_LOGGER(
+	FCPPT_TEXT("single_device_system"))
 
 namespace
 {

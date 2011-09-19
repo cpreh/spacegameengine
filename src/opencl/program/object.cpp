@@ -33,7 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/assert/error.hpp>
 
-SGE_OPENCL_DECLARE_LOCAL_LOGGER("program::object")
+SGE_OPENCL_DECLARE_LOCAL_LOGGER(
+	FCPPT_TEXT("program::object"))
 
 sge::opencl::program::object::object(
 	context::object &_context,
