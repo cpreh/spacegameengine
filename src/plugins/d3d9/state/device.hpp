@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../target_base_fwd.hpp"
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/stack.hpp>
-#include <sge/renderer/target_fwd.hpp>
+#include <sge/renderer/optional_target_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -54,10 +54,10 @@ public:
 
 	void
 	target(
-		renderer::target *
+		renderer::optional_target const &
 	);
 
-	renderer::target *
+	renderer::optional_target const
 	target();
 
 	d3d9::state::address_mode &

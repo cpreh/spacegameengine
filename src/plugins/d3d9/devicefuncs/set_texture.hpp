@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_SET_TEXTURE_HPP_INCLUDED
 
 #include "../d3dinclude.hpp"
-#include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/texture/const_optional_base_fwd.hpp>
 #include <sge/renderer/stage.hpp>
 
 namespace sge
@@ -36,7 +36,7 @@ void
 set_texture(
 	IDirect3DDevice9 *,
 	sge::renderer::stage,
-	sge::renderer::texture::base const *
+	sge::renderer::texture::const_optional_base const &
 );
 
 }

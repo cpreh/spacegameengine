@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../offscreen_target.hpp"
 #include "../../onscreen_target.hpp"
 #include "../../target_base.hpp"
+#include <sge/renderer/optional_target.hpp>
 
 sge::d3d9::state::device::device(
 	d3d9::onscreen_target &_onscreen_target
@@ -30,7 +31,9 @@ sge::d3d9::state::device::device(
 	onscreen_target_(
 		_onscreen_target
 	),
-	offscreen_target_(),
+	offscreen_target_(
+		0
+	),
 	target_(
 		&_onscreen_target
 	),
@@ -48,14 +51,9 @@ sge::d3d9::state::device::~device()
 
 void
 sge::d3d9::state::device::target(
-	renderer::target *const _target
+	renderer::optional_target const &_target
 )
 {
-	if(
-		_target == offscreen_target_
-	)
-		return;
-
 	if(
 		target_
 	)
@@ -64,11 +62,16 @@ sge::d3d9::state::device::target(
 		);
 
 	offscreen_target_ =
-		dynamic_cast<
-			d3d9::offscreen_target *
-		>(
-			_target
-		);
+		_target.has_value()
+		?
+			&dynamic_cast<
+				d3d9::offscreen_target &
+			>(
+				*_target
+			)
+		:
+			0
+		;
 
 	target_ =
 		offscreen_target_
@@ -90,10 +93,17 @@ sge::d3d9::state::device::target(
 	);
 }
 
-sge::renderer::target *
+sge::renderer::optional_target const
 sge::d3d9::state::device::target()
 {
-	return offscreen_target_;
+	return
+		offscreen_target_ != 0
+		?
+			renderer::optional_target(
+				*offscreen_target_
+			)
+		:
+			renderer::optional_target();
 }
 
 sge::d3d9::state::address_mode &

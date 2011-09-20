@@ -60,6 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/filter/set.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/optional_target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -235,7 +236,7 @@ sge::d3d9::device::deactivate_vertex_buffer(
 
 void
 sge::d3d9::device::vertex_declaration(
-	renderer::vertex_declaration const *const _declaration
+	renderer::const_optional_vertex_declaration const &_declaration
 )
 {
 	if(
@@ -381,7 +382,7 @@ sge::d3d9::device::sampler_stage_arg(
 
 void
 sge::d3d9::device::texture(
-	renderer::texture::base const *const _texture,
+	renderer::texture::const_optional_base const &_texture,
 	renderer::stage const _stage
 )
 {
@@ -421,7 +422,7 @@ sge::d3d9::device::transform(
 
 void
 sge::d3d9::device::target(
-	renderer::target *const _target
+	renderer::optional_target const &_target
 )
 {
 	device_state_->target(
@@ -469,7 +470,7 @@ sge::d3d9::device::create_glsl_geometry_shader(
 
 void
 sge::d3d9::device::glsl_program(
-	renderer::glsl::program const *
+	renderer::glsl::const_optional_program const &
 )
 {
 	throw sge::renderer::exception(
@@ -652,7 +653,7 @@ sge::d3d9::device::onscreen_target() const
 	return *onscreen_target_;
 }
 
-sge::renderer::target *
+sge::renderer::optional_target const
 sge::d3d9::device::target() const
 {
 	return device_state_->target();

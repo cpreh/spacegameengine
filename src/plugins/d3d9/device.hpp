@@ -96,7 +96,7 @@ public:
 
 	void
 	vertex_declaration(
-		renderer::vertex_declaration const *
+		renderer::const_optional_vertex_declaration const &
 	);
 
 	void
@@ -157,7 +157,7 @@ public:
 
 	void
 	texture(
-		renderer::texture::base const *,
+		renderer::texture::const_optional_base const &,
 		renderer::stage
 	);
 
@@ -175,7 +175,7 @@ public:
 
 	void
 	target(
-		renderer::target *
+		renderer::optional_target const &
 	);
 
 	renderer::glsl::program_ptr const
@@ -198,7 +198,7 @@ public:
 
 	void
 	glsl_program(
-		renderer::glsl::program const *
+		renderer::glsl::const_optional_program const &
 	);
 
 	renderer::target_ptr const
@@ -254,7 +254,7 @@ public:
 	renderer::onscreen_target &
 	onscreen_target() const;
 
-	renderer::target *
+	renderer::optional_target const
 	target() const;
 
 	renderer::caps const

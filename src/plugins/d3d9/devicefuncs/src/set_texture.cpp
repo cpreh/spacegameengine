@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../d3dinclude.hpp"
 #include "../../texture/base.hpp"
 #include <sge/renderer/texture/base.hpp>
+#include <sge/renderer/texture/const_optional_base.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
@@ -29,7 +30,7 @@ void
 sge::d3d9::devicefuncs::set_texture(
 	IDirect3DDevice9 *const _device,
 	renderer::stage const _stage,
-	sge::renderer::texture::base const *const _texture
+	sge::renderer::texture::const_optional_base const &_texture
 )
 {
 	if(
@@ -39,7 +40,7 @@ sge::d3d9::devicefuncs::set_texture(
 			>(
 				_stage.get()
 			),
-			_texture
+			_texture.has_value()
 			?
 				dynamic_cast<
 					d3d9::texture::base const &
