@@ -18,10 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/glsl/no_program.hpp>
+#ifndef SGE_RENDERER_OPTIONAL_TARGET_FWD_HPP_INCLUDED
+#define SGE_RENDERER_OPTIONAL_TARGET_FWD_HPP_INCLUDED
 
-sge::renderer::glsl::program const *
-sge::renderer::glsl::no_program()
+#include <sge/renderer/target_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
+
+namespace sge
 {
-	return 0;
+namespace renderer
+{
+
+typedef fcppt::optional<
+	renderer::target &
+> optional_target;
+
 }
+}
+
+#endif

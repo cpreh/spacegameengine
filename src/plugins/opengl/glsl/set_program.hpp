@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_SET_PROGRAM_HPP_INCLUDED
 
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/glsl/program_fwd.hpp>
+#include <sge/renderer/glsl/const_optional_program_fwd.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace glsl
 void
 set_program(
 	opengl::context::object &,
-	sge::renderer::glsl::program const *
+	sge::renderer::glsl::const_optional_program const &
 );
 
 }

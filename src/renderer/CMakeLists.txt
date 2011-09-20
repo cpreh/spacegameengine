@@ -23,13 +23,14 @@ SET(
 	include/sge/renderer/color_surface_fwd.hpp
 	include/sge/renderer/color_surface_ptr.hpp
 	include/sge/renderer/const_basic_scoped_buffer_lock.hpp
+	include/sge/renderer/const_optional_vertex_declaration.hpp
+	include/sge/renderer/const_optional_vertex_declaration_fwd.hpp
 	include/sge/renderer/const_raw_pointer.hpp
 	include/sge/renderer/const_scoped_color_surface_lock.hpp
 	include/sge/renderer/const_scoped_index_lock.hpp
 	include/sge/renderer/const_scoped_vertex_lock.hpp
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
-	include/sge/renderer/default_target.hpp
 	include/sge/renderer/depth_stencil_buffer.hpp
 	include/sge/renderer/depth_stencil_format.hpp
 	include/sge/renderer/depth_stencil_surface.hpp
@@ -48,6 +49,8 @@ SET(
 	include/sge/renderer/first_index.hpp
 	include/sge/renderer/first_vertex.hpp
 	include/sge/renderer/glsl/char.hpp
+	include/sge/renderer/glsl/const_optional_program.hpp
+	include/sge/renderer/glsl/const_optional_program_fwd.hpp
 	include/sge/renderer/glsl/create_program.hpp
 	include/sge/renderer/glsl/exception.hpp
 	include/sge/renderer/glsl/from_fcppt_string.hpp
@@ -56,7 +59,6 @@ SET(
 	include/sge/renderer/glsl/geometry_shader_ptr.hpp
 	include/sge/renderer/glsl/glsl.hpp
 	include/sge/renderer/glsl/int_type.hpp
-	include/sge/renderer/glsl/no_program.hpp
 	include/sge/renderer/glsl/pixel_shader.hpp
 	include/sge/renderer/glsl/pixel_shader_fwd.hpp
 	include/sge/renderer/glsl/pixel_shader_ptr.hpp
@@ -186,14 +188,14 @@ SET(
 	include/sge/renderer/matrix_mode.hpp
 	include/sge/renderer/multi_sample_type.hpp
 	include/sge/renderer/no_multi_sampling.hpp
-	include/sge/renderer/no_texture.hpp
-	include/sge/renderer/no_vertex_declaration.hpp
 	include/sge/renderer/nonindexed_primitive_count.hpp
 	include/sge/renderer/nonindexed_primitive_type.hpp
 	include/sge/renderer/npos.hpp
 	include/sge/renderer/onscreen_target.hpp
 	include/sge/renderer/onscreen_target_fwd.hpp
 	include/sge/renderer/optional_dim2.hpp
+	include/sge/renderer/optional_target.hpp
+	include/sge/renderer/optional_target_fwd.hpp
 	include/sge/renderer/parameters.hpp
 	include/sge/renderer/parameters_fwd.hpp
 	include/sge/renderer/pixel_rect.hpp
@@ -307,6 +309,8 @@ SET(
 	include/sge/renderer/texture/capabilities.hpp
 	include/sge/renderer/texture/capabilities_field.hpp
 	include/sge/renderer/texture/const_basic_scoped_lock.hpp
+	include/sge/renderer/texture/const_optional_base.hpp
+	include/sge/renderer/texture/const_optional_base_fwd.hpp
 	include/sge/renderer/texture/const_planar_ptr.hpp
 	include/sge/renderer/texture/const_scoped_planar_lock.hpp
 	include/sge/renderer/texture/const_scoped_volume_lock.hpp
@@ -506,7 +510,6 @@ SET(
 	src/renderer/const_scoped_vertex_lock.cpp
 	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp
-	src/renderer/default_target.cpp
 	src/renderer/depth_stencil_surface.cpp
 	src/renderer/device.cpp
 	src/renderer/display_mode.cpp
@@ -515,7 +518,6 @@ SET(
 	src/renderer/glsl/exception.cpp
 	src/renderer/glsl/from_fcppt_string.cpp
 	src/renderer/glsl/geometry_shader.cpp
-	src/renderer/glsl/no_program.cpp
 	src/renderer/glsl/pixel_shader.cpp
 	src/renderer/glsl/program.cpp
 	src/renderer/glsl/program_parameters.cpp
@@ -547,8 +549,6 @@ SET(
 	src/renderer/lock_flags/write.cpp
 	src/renderer/material.cpp
 	src/renderer/no_multi_sampling.cpp
-	src/renderer/no_texture.cpp
-	src/renderer/no_vertex_declaration.cpp
 	src/renderer/nonindexed_primitive_count.cpp
 	src/renderer/npos.cpp
 	src/renderer/onscreen_target.cpp

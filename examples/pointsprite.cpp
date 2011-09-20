@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/log/global.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/glsl/const_optional_program.hpp>
 #include <sge/renderer/glsl/create_program.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/program_parameters.hpp>
@@ -487,7 +488,7 @@ try
 		/ FCPPT_TEXT("pointsprite")
 		/ FCPPT_TEXT("vertex.glsl"));
 
-	sge::renderer::glsl::program_ptr const p(
+	sge::renderer::glsl::program_ptr const program(
 		sge::renderer::glsl::create_program(
 			sys.renderer(),
 			sge::renderer::glsl::program_parameters()
@@ -504,10 +505,10 @@ try
 						std::istreambuf_iterator<char>()))));
 
 	sys.renderer().glsl_program(
-		p.get());
+		*program);
 
 	sge::renderer::glsl::uniform::variable_ptr const v(
-		p->uniform("tex"));
+		program->uniform("tex"));
 
 	sge::renderer::glsl::uniform::single_value(
 		*v,

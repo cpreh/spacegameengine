@@ -41,10 +41,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
+#include <sge/renderer/glsl/const_optional_program.hpp>
 #include <sge/renderer/glsl/create_program.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/program_parameters.hpp>
-#include <sge/renderer/glsl/no_program.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/log/global.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -467,7 +467,7 @@ try
 		/ FCPPT_TEXT("vertex.glsl")
 	);
 
-	sge::renderer::glsl::program_ptr const p(
+	sge::renderer::glsl::program_ptr const program(
 		sge::renderer::glsl::create_program(
 			sys.renderer(),
 			sge::renderer::glsl::program_parameters()
@@ -486,15 +486,15 @@ try
 	);
 
 	sys.renderer().glsl_program(
-		p.get()
+		*program
 	);
 
-	sge::renderer::glsl::uniform::variable_ptr const v(
-		p->uniform("tex")
+	sge::renderer::glsl::uniform::variable_ptr const tex_var(
+		program->uniform("tex")
 	);
 
 	sge::renderer::glsl::uniform::single_value(
-		*v,
+		*tex_var,
 		static_cast<int>(0)
 	);
 
@@ -505,7 +505,7 @@ try
 		sys.window().dispatch();
 		{
 			sys.renderer().glsl_program(
-				sge::renderer::glsl::no_program()
+				sge::renderer::glsl::const_optional_program()
 			);
 
 			sge::renderer::scoped_target const target_(
@@ -536,7 +536,7 @@ try
 		}
 
 		sys.renderer().glsl_program(
-			p.get()
+			*program
 		);
 
 		sge::renderer::scoped_block const block_(

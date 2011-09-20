@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_GLSL_HPP_INCLUDED
 
 #include <sge/renderer/glsl/char.hpp>
+#include <sge/renderer/glsl/const_optional_program.hpp>
+#include <sge/renderer/glsl/const_optional_program_fwd.hpp>
 #include <sge/renderer/glsl/create_program.hpp>
 #include <sge/renderer/glsl/exception.hpp>
 #include <sge/renderer/glsl/from_fcppt_string.hpp>
@@ -29,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/geometry_shader_fwd.hpp>
 #include <sge/renderer/glsl/geometry_shader_ptr.hpp>
 #include <sge/renderer/glsl/int_type.hpp>
-#include <sge/renderer/glsl/no_program.hpp>
 #include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/pixel_shader_fwd.hpp>
 #include <sge/renderer/glsl/pixel_shader_ptr.hpp>

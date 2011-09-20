@@ -63,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/caps.hpp>
+#include <sge/renderer/optional_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/default.hpp>
@@ -144,7 +145,7 @@ void
 sge::opengl::device::end_rendering()
 {
 	if(
-		!fbo_active()
+		!this->fbo_active()
 	)
 		state_->swap_buffers();
 }
@@ -218,7 +219,7 @@ sge::opengl::device::deactivate_vertex_buffer(
 
 void
 sge::opengl::device::vertex_declaration(
-	renderer::vertex_declaration const *const _vertex_declaration
+	renderer::const_optional_vertex_declaration const &_vertex_declaration
 )
 {
 	opengl::set_vertex_declaration(
@@ -369,7 +370,7 @@ sge::opengl::device::texture_filter(
 
 void
 sge::opengl::device::texture(
-	renderer::texture::base const *const _texture,
+	renderer::texture::const_optional_base const &_texture,
 	renderer::stage const _stage
 )
 {
@@ -395,25 +396,25 @@ sge::opengl::device::transform(
 
 void
 sge::opengl::device::target(
-	renderer::target *const _target
+	renderer::optional_target const &_target
 )
 {
-	if(
-		_target == fbo_target_
-	)
-		return;
-
 	fbo_target_ =
-		dynamic_cast<
-			opengl::fbo::target *
-		>(
-			_target
-		);
+		_target.has_value()
+		?
+			&dynamic_cast<
+				opengl::fbo::target &
+			>(
+				*_target
+			)
+		:
+			0
+		;
 
 	target_->unbind();
 
 	target_ =
-		_target
+		_target.has_value()
 		?
 			static_cast<
 				opengl::target_base *
@@ -477,7 +478,7 @@ sge::opengl::device::create_glsl_geometry_shader(
 
 void
 sge::opengl::device::glsl_program(
-	renderer::glsl::program const *const _program
+	renderer::glsl::const_optional_program const &_program
 )
 {
 	glsl::set_program(
@@ -486,10 +487,18 @@ sge::opengl::device::glsl_program(
 	);
 }
 
-sge::renderer::target *
+sge::renderer::optional_target const
 sge::opengl::device::target() const
 {
-	return fbo_target_;
+	return
+		this->fbo_active()
+		?
+			renderer::optional_target(
+				*fbo_target_
+			)
+		:
+			renderer::optional_target()
+		;
 }
 
 sge::renderer::target_ptr const

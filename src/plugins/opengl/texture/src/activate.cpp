@@ -25,11 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../filter/set.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/texture/base.hpp>
+#include <sge/renderer/texture/const_optional_base.hpp>
 
 void
 sge::opengl::texture::activate(
 	opengl::context::object &_context,
-	sge::renderer::texture::base const *const _texture,
+	sge::renderer::texture::const_optional_base const &_texture,
 	sge::renderer::stage const _stage
 )
 {

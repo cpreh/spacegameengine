@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/const_optional_base.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
@@ -278,7 +279,7 @@ try
 		);
 
 		sys.renderer().texture(
-			sge::renderer::no_texture(),
+			sge::renderer::texture::const_optional_base(),
 			sge::renderer::stage(
 				0u
 			)

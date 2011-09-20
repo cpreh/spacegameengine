@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program_base.hpp"
 #include "../../glew/is_supported.hpp"
 #include "../../context/make_id.hpp"
+#include <sge/renderer/glsl/const_optional_program.hpp>
 #include <sge/renderer/glsl/program.hpp>
 
 sge::opengl::glsl::context::context()
@@ -32,7 +33,7 @@ sge::opengl::glsl::context::context()
 	arb_shader_(
 		glew::is_supported("GL_ARB_vertex_shader GL_ARB_fragment_shader")
 	),
-	last_program_()
+	last_program_(0)
 {
 }
 
@@ -56,7 +57,7 @@ sge::opengl::glsl::context::is_native() const
 
 void
 sge::opengl::glsl::context::use(
-	sge::renderer::glsl::program const *const _prog
+	sge::renderer::glsl::const_optional_program const &_prog
 )
 {
 	if(

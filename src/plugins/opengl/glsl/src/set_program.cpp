@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::glsl::set_program(
 	opengl::context::object &_context,
-	renderer::glsl::program const *const _prog
+	renderer::glsl::const_optional_program const &_prog
 )
 {
 	opengl::context::use<

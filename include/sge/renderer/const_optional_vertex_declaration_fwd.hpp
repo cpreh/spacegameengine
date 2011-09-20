@@ -18,20 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_NO_TEXTURE_HPP_INCLUDED
-#define SGE_RENDERER_NO_TEXTURE_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONST_OPTIONAL_VERTEX_DECLARATION_FWD_HPP_INCLUDED
+#define SGE_RENDERER_CONST_OPTIONAL_VERTEX_DECLARATION_FWD_HPP_INCLUDED
 
-#include <sge/renderer/texture/base_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_RENDERER_SYMBOL
-renderer::texture::base const *
-no_texture();
+typedef fcppt::optional<
+	renderer::vertex_declaration const &
+> const_optional_vertex_declaration;
 
 }
 }

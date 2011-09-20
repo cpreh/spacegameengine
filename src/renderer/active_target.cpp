@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/optional_target.hpp>
 #include <sge/renderer/target.hpp>
 
 sge::renderer::target_base &

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_SET_VERTEX_DECLARATION_HPP_INCLUDED
 
 #include "context/object_fwd.hpp"
-#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/const_optional_vertex_declaration_fwd.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace opengl
 void
 set_vertex_declaration(
 	opengl::context::object &,
-	renderer::vertex_declaration const *
+	renderer::const_optional_vertex_declaration const &
 );
 
 }

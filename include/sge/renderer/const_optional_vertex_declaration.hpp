@@ -18,25 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_NO_PROGRAM_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_NO_PROGRAM_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONST_OPTIONAL_VERTEX_DECLARATION_HPP_INCLUDED
+#define SGE_RENDERER_CONST_OPTIONAL_VERTEX_DECLARATION_HPP_INCLUDED
 
-#include <sge/renderer/glsl/program_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-namespace glsl
-{
-
-SGE_RENDERER_SYMBOL
-renderer::glsl::program const *
-no_program();
-
-}
-}
-}
+#include <sge/renderer/const_optional_vertex_declaration_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
 #endif

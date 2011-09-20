@@ -22,11 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_context.hpp"
 #include "../vertex_declaration.hpp"
 #include "../context/use.hpp"
+#include <sge/renderer/const_optional_vertex_declaration.hpp>
 
 void
 sge::opengl::set_vertex_declaration(
 	opengl::context::object &_context,
-	renderer::vertex_declaration const *const _declaration
+	renderer::const_optional_vertex_declaration const &_declaration
 )
 {
 	opengl::context::use<
@@ -34,10 +35,14 @@ sge::opengl::set_vertex_declaration(
 	>(
 		_context
 	).vertex_declaration(
-		dynamic_cast<
-			opengl::vertex_declaration const *
-		>(
-			_declaration
-		)
+		_declaration.has_value()
+		?
+			&dynamic_cast<
+				opengl::vertex_declaration const &
+			>(
+				*_declaration
+			)
+		:
+			0
 	);
 }

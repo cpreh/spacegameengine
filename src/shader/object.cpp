@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/exception.hpp>
 #include <sge/log/global.hpp>
+#include <sge/renderer/const_optional_vertex_declaration.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/no_vertex_declaration.hpp>
+#include <sge/renderer/glsl/const_optional_program.hpp>
 #include <sge/renderer/glsl/create_program.hpp>
-#include <sge/renderer/glsl/no_program.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/to_cvv.hpp>
 #include <sge/renderer/glsl/program_parameters.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
-#include <sge/renderer/no_texture.hpp>
+#include <sge/renderer/texture/const_optional_base.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/shader/object_parameters.hpp>
 #include <fcppt/filesystem/exists.hpp>
@@ -346,7 +346,7 @@ sge::shader::object::activate(
 	shader::activation_method_field const &t)
 {
 	renderer_.glsl_program(
-		program_.get());
+		*program_);
 
 	if(t & shader::activation_method::textures)
 	{
@@ -358,7 +358,7 @@ sge::shader::object::activate(
 			++it
 		)
 			renderer_.texture(
-				it->texture().get(),
+				*it->texture(),
 				sge::renderer::stage(
 					it->texture_unit()));
 	}
@@ -366,7 +366,7 @@ sge::shader::object::activate(
 	if(t & shader::activation_method::vertex_declaration)
 	{
 		renderer_.vertex_declaration(
-			&vertex_declaration_);
+			vertex_declaration_);
 	}
 }
 
@@ -375,7 +375,7 @@ sge::shader::object::deactivate(
 	shader::activation_method_field const &t)
 {
 	renderer_.glsl_program(
-		sge::renderer::glsl::no_program());
+		sge::renderer::glsl::const_optional_program());
 
 	if(t & shader::activation_method::textures)
 	{
@@ -387,14 +387,14 @@ sge::shader::object::deactivate(
 			++it
 		)
 			renderer_.texture(
-				sge::renderer::no_texture(),
+				sge::renderer::texture::const_optional_base(),
 				sge::renderer::stage(
 					it->texture_unit()));
 	}
 
 	if(t & shader::activation_method::vertex_declaration)
 		renderer_.vertex_declaration(
-			renderer::no_vertex_declaration());
+			renderer::const_optional_vertex_declaration());
 }
 
 sge::shader::object::~object()

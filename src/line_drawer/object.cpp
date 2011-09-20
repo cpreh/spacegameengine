@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/no_texture.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
@@ -45,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/texture/const_optional_base.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -93,7 +93,7 @@ sge::line_drawer::object::render()
 		*vb_);
 
 	renderer_.texture(
-		sge::renderer::no_texture(),
+		sge::renderer::texture::const_optional_base(),
 		sge::renderer::stage(
 			0));
 

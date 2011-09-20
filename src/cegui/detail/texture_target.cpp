@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/stage.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/default_target.hpp>
+#include <sge/renderer/optional_target.hpp>
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
@@ -143,7 +143,7 @@ sge::cegui::detail::texture_target::activate()
 				area_)));
 
 	system_.renderer().target(
-		target_.get());
+		*target_);
 
 	system_.renderer().transform(
 		sge::renderer::matrix_mode::projection,
@@ -185,7 +185,7 @@ sge::cegui::detail::texture_target::deactivate()
 		sge::renderer::matrix_mode::projection,
 		default_projection_);
 	system_.renderer().target(
-		sge::renderer::default_target());
+		sge::renderer::optional_target());
 }
 
 void

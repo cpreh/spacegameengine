@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
+#include <sge/renderer/const_optional_vertex_declaration_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
@@ -46,26 +47,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/onscreen_target_fwd.hpp>
+#include <sge/renderer/optional_target_fwd.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/target_fwd.hpp>
 #include <sge/renderer/target_ptr.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/sampler_stage_arg.hpp>
 #include <sge/renderer/sampler_stage_arg_value.hpp>
 #include <sge/renderer/sampler_stage_op.hpp>
 #include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/stage.hpp>
+#include <sge/renderer/vertex_buffer_fwd.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/glsl/const_optional_program_fwd.hpp>
 #include <sge/renderer/glsl/geometry_shader_ptr.hpp>
 #include <sge/renderer/glsl/pixel_shader_ptr.hpp>
-#include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/vertex_shader_ptr.hpp>
@@ -74,10 +74,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light/object_fwd.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/stack.hpp>
-#include <sge/renderer/texture/base_fwd.hpp>
-#include <sge/renderer/texture/depth_stencil_ptr.hpp>
+#include <sge/renderer/texture/const_optional_base_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_ptr.hpp>
+#include <sge/renderer/texture/depth_stencil_ptr.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
@@ -150,7 +150,7 @@ public:
 
 	void
 	vertex_declaration(
-		renderer::vertex_declaration const *
+		renderer::const_optional_vertex_declaration const &
 	);
 
 	void
@@ -217,7 +217,7 @@ public:
 
 	void
 	texture(
-		renderer::texture::base const *,
+		renderer::texture::const_optional_base const &,
 		renderer::stage
 	);
 
@@ -229,7 +229,7 @@ public:
 
 	void
 	target(
-		renderer::target *
+		renderer::optional_target const &
 	);
 
 	renderer::glsl::program_ptr const
@@ -252,7 +252,7 @@ public:
 
 	void
 	glsl_program(
-		renderer::glsl::program const *
+		renderer::glsl::const_optional_program const &
 	);
 
 	renderer::target_ptr const
@@ -308,7 +308,7 @@ public:
 	renderer::onscreen_target &
 	onscreen_target() const;
 
-	renderer::target *
+	renderer::optional_target const
 	target() const;
 
 	renderer::caps const
