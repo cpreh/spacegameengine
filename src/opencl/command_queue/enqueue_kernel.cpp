@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
@@ -34,6 +35,11 @@ sge::opencl::command_queue::enqueue_kernel(
 	fcppt::container::array<std::size_t,N> const &global_dim,
 	fcppt::container::array<std::size_t,N> const &work_dim)
 {
+	for(std::size_t i = 0; i < N; ++i)
+		if(global_dim[i] == 0 || work_dim[i] == 0)
+			throw sge::exception(
+				FCPPT_TEXT("Neither global nor work dimensions can be zero in any component"));
+
 	cl_int const error_code =
 		clEnqueueNDRangeKernel(
 			_queue.impl(),
