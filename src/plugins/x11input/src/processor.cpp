@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../processor.hpp"
 #include "../input_context.hpp"
 #include "../input_method.hpp"
+#include "../xi_2_1.hpp"
 #include "../cursor/object.hpp"
 #include "../device/hierarchy_event.hpp"
 #include "../device/info.hpp"
@@ -58,7 +59,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::processor::processor(
 	sge::window::instance_ptr const _window,
-	awl::backends::x11::system::event::opcode const _opcode
+	awl::backends::x11::system::event::opcode const _opcode,
+	x11input::xi_2_1 const _supports_xi_2_1
 )
 :
 	window_(_window),
@@ -181,7 +183,11 @@ sge::x11input::processor::processor(
 		(
 			std::make_pair(
 				x11input::device::use(
-					XIMasterPointer
+					_supports_xi_2_1.get()
+					?
+						XISlavePointer
+					:
+						XIMasterPointer
 				),
 				device::make_manager_config(
 					mice_,

@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/device_ptr.hpp>
 #include <sge/input/mouse/device_vector.hpp>
 #include <sge/input/processor.hpp>
+#include <sge/log/global.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -55,6 +56,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/log/level.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -218,6 +221,11 @@ private:
 int main()
 try
 {
+	fcppt::log::activate_levels(
+		sge::log::global(),
+		fcppt::log::level::debug
+	);
+
 	awl::mainloop::io_service_shared_ptr const io_service(
 		awl::mainloop::asio::create_io_service_base()
 	);

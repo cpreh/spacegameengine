@@ -113,6 +113,7 @@ SET(
 	src/plugins/x11input/src/xi_opcode.cpp
 	src/plugins/x11input/src/xi_version.cpp
 	src/plugins/x11input/system.hpp
+	src/plugins/x11input/xi_2_1.hpp
 	src/plugins/x11input/xi_opcode.hpp
 	src/plugins/x11input/xi_version.hpp
 )

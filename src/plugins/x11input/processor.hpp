@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "input_context_fwd.hpp"
 #include "input_method_fwd.hpp"
 #include "pixmap.hpp"
+#include "xi_2_1.hpp"
 #include "cursor/object_ptr.hpp"
 #include "cursor/pixmap.hpp"
 #include "device/id.hpp"
@@ -82,7 +83,8 @@ class processor
 public:
 	processor(
 		sge::window::instance_ptr,
-		awl::backends::x11::system::event::opcode
+		awl::backends::x11::system::event::opcode,
+		x11input::xi_2_1
 	);
 
 	~processor();

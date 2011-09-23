@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../optional_opcode.hpp"
 #include "../processor.hpp"
 #include "../scoped_locale.hpp"
+#include "../xi_2_1.hpp"
 #include "../xi_opcode.hpp"
 #include "../xi_version.hpp"
 #include <sge/input/exception.hpp>
@@ -30,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/window/instance_shared_ptr.hpp>
+#include <fcppt/log/info.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -75,7 +77,18 @@ sge::x11input::system::create_processor(
 			FCPPT_TEXT("X Input extension not available! Please install libXi!")
 		);
 
+	// The first supported version we ask for and that is supported will be used
+	x11input::xi_2_1 const supports_xi_2_1(
+		x11input::xi_version(
+			x11_window->display(),
+			2,
+			1
+		)
+	);
+
 	if(
+		!supports_xi_2_1.get()
+		&&
 		!x11input::xi_version(
 			x11_window->display(),
 			2,
@@ -127,11 +140,26 @@ sge::x11input::system::create_processor(
 		);
 	}
 
+	FCPPT_LOG_INFO(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("Using XI version ")
+			<<
+			(
+				supports_xi_2_1.get()
+				?
+					FCPPT_TEXT("2.1")
+				:
+					FCPPT_TEXT("2.0")
+			)
+	);
+
 	return
 		fcppt::make_shared_ptr<
 			x11input::processor
 		>(
 			_window,
-			*opcode
+			*opcode,
+			supports_xi_2_1
 		);
 }
