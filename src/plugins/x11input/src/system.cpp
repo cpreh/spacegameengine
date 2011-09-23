@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
+#include "../lc_ctype.hpp"
 #include "../optional_opcode.hpp"
 #include "../processor.hpp"
 #include "../scoped_locale.hpp"
@@ -38,8 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
-#include <clocale>
-#include <cstdlib>
 #include <fcppt/config/external_end.hpp>
 
 sge::x11input::system::system()
@@ -88,8 +87,8 @@ sge::x11input::system::create_processor(
 		);
 
 	if(
-		char const *locale_name =
-			std::getenv("LC_ALL")
+		char const *const locale_name =
+			x11input::lc_ctype()
 	)
 	{
 		x11input::scoped_locale const temp_locale(
@@ -123,7 +122,7 @@ sge::x11input::system::create_processor(
 		FCPPT_LOG_WARNING(
 			sge::log::global(),
 			fcppt::log::_
-				<< FCPPT_TEXT("LC_ALL is not set.")
+				<< FCPPT_TEXT("LC_CTYPE is not set.")
 				<< FCPPT_TEXT(" Character conversion of X11 will not work properly!")
 		);
 	}

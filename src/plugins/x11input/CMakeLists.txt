@@ -85,6 +85,7 @@ SET(
 	src/plugins/x11input/keyboard/to_base_event.hpp
 	src/plugins/x11input/keyboard/translate_event.hpp
 	src/plugins/x11input/keyboard/translate_key_code.hpp
+	src/plugins/x11input/lc_ctype.hpp
 	src/plugins/x11input/mouse/axis.hpp
 	src/plugins/x11input/mouse/button_code.hpp
 	src/plugins/x11input/mouse/device.hpp
@@ -103,6 +104,7 @@ SET(
 	src/plugins/x11input/src/exports.cpp
 	src/plugins/x11input/src/input_context.cpp
 	src/plugins/x11input/src/input_method.cpp
+	src/plugins/x11input/src/lc_ctype.cpp
 	src/plugins/x11input/src/pixmap.cpp
 	src/plugins/x11input/src/processor.cpp
 	src/plugins/x11input/src/scoped_locale.cpp
