@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "device/id.hpp"
 #include "device/hierarchy_demuxer.hpp"
 #include "device/hierarchy_event_fwd.hpp"
-#include "device/object_ptr.hpp"
+#include "device/manager.hpp"
 #include "device/parameters_fwd.hpp"
 #include "device/raw_demuxer.hpp"
 #include "device/window_demuxer.hpp"
@@ -129,13 +129,6 @@ private:
 	window::instance_ptr const
 	window() const;
 
-	typedef std::vector<
-		device::object_ptr
-	> device_vector;
-
-	device_vector const
-	devices() const;
-
 	x11input::device::parameters const
 	device_parameters(
 		x11input::device::id
@@ -143,18 +136,18 @@ private:
 
 	x11input::keyboard::device_ptr const
 	create_keyboard(
-		x11input::device::parameters const &
-	) const;
+		x11input::device::id const
+	);
 
 	x11input::mouse::device_ptr const
 	create_mouse(
-		x11input::device::parameters const &
-	) const;
+		x11input::device::id const
+	);
 
 	x11input::cursor::object_ptr const
 	create_cursor(
-		x11input::device::parameters const &
-	) const;
+		x11input::device::id const
+	);
 
 	void
 	on_hierarchy_changed(
@@ -162,26 +155,11 @@ private:
 	);
 
 	template<
-		typename Container,
-		typename Signal,
-		typename DevicePtr
+		typename Function
 	>
 	void
-	add_device(
-		Container &,
-		Signal &,
-		DevicePtr
-	);
-
-	template<
-		typename Container,
-		typename Signal
-	>
-	void
-	remove_device(
-		Container &,
-		Signal &,
-		x11input::device::id const &
+	for_each_device(
+		Function const &
 	);
 
 	void
@@ -255,6 +233,8 @@ private:
 	sge::input::cursor::discover_signal cursor_discover_;
 
 	sge::input::cursor::remove_signal cursor_remove_;
+
+	x11input::device::manager device_manager_;
 
 	fcppt::signal::connection_manager const connections_;
 };

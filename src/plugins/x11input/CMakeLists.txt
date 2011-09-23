@@ -27,6 +27,14 @@ SET(
 	src/plugins/x11input/device/hierarchy_event_fwd.hpp
 	src/plugins/x11input/device/id.hpp
 	src/plugins/x11input/device/info.hpp
+	src/plugins/x11input/device/make_manager_config.hpp
+	src/plugins/x11input/device/manager.hpp
+	src/plugins/x11input/device/manager_config.hpp
+	src/plugins/x11input/device/manager_config_base.hpp
+	src/plugins/x11input/device/manager_config_base_fwd.hpp
+	src/plugins/x11input/device/manager_config_base_ptr.hpp
+	src/plugins/x11input/device/manager_config_impl.hpp
+	src/plugins/x11input/device/manager_config_map.hpp
 	src/plugins/x11input/device/object.hpp
 	src/plugins/x11input/device/object_fwd.hpp
 	src/plugins/x11input/device/object_ptr.hpp
@@ -42,9 +50,13 @@ SET(
 	src/plugins/x11input/device/src/event_data.cpp
 	src/plugins/x11input/device/src/event_demuxer.cpp
 	src/plugins/x11input/device/src/info.cpp
+	src/plugins/x11input/device/src/manager.cpp
+	src/plugins/x11input/device/src/manager_config.cpp
+	src/plugins/x11input/device/src/manager_config_base.cpp
 	src/plugins/x11input/device/src/object.cpp
 	src/plugins/x11input/device/src/parameters.cpp
 	src/plugins/x11input/device/src/select_events.cpp
+	src/plugins/x11input/device/use.hpp
 	src/plugins/x11input/device/window_demuxer.hpp
 	src/plugins/x11input/device/window_demuxer_fwd.hpp
 	src/plugins/x11input/device/window_event.hpp

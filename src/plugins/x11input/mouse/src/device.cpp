@@ -169,7 +169,7 @@ sge::x11input::mouse::device::on_motion(
 	for(
 		int index = 0;
 		index < valuators.mask_len * 8;
-		index++
+		++index, ++valuator
 	)
 	{
 		if(
@@ -178,7 +178,6 @@ sge::x11input::mouse::device::on_motion(
 				index
 			)
 		)
-		{
 			axis_signal_(
 				input::mouse::axis_event(
 					x11input::mouse::axis(
@@ -188,9 +187,6 @@ sge::x11input::mouse::device::on_motion(
 					*valuator
 				)
 			);
-		}
-
-            ++valuator;
 	}
 }
 
@@ -199,7 +195,7 @@ sge::x11input::mouse::device::on_button_down(
 	x11input::device::window_event const &_event
 )
 {
-	button_event(
+	this->button_event(
 		_event,
 		true
 	);
@@ -210,7 +206,7 @@ sge::x11input::mouse::device::on_button_up(
 	x11input::device::window_event const &_event
 )
 {
-	button_event(
+	this->button_event(
 		_event,
 		false
 	);
