@@ -38,6 +38,9 @@ sge::opengl::texture::volume_context::volume_context()
 	),
 	tex_sub_image_3d_(
 		glTexSubImage3D
+	),
+	max_extent_flag_(
+		GL_MAX_3D_TEXTURE_SIZE
 	)
 {
 }
@@ -68,6 +71,12 @@ sge::opengl::texture::volume_context::gl_tex_sub_image_3d
 sge::opengl::texture::volume_context::tex_sub_image_3d() const
 {
 	return tex_sub_image_3d_;
+}
+
+GLenum
+sge::opengl::texture::volume_context::max_extent_flag() const
+{
+	return max_extent_flag_;
 }
 
 sge::opengl::context::id const

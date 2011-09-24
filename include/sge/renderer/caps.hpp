@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/filter/anisotropic/level.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/image/color/format.hpp>
 #include <fcppt/io/ostream.hpp>
@@ -45,6 +46,7 @@ public:
 		fcppt::string const &driver_name,
 		fcppt::string const &description,
 		dim2 const &max_texure_size,
+		renderer::size_type max_volme_texture_extent,
 		texture::filter::anisotropic::level max_anisotropy,
 		bool render_target_supported,
 		bool glsl_supported,
@@ -64,8 +66,12 @@ public:
 	description() const;
 
 	SGE_RENDERER_SYMBOL
-	dim2 const &
+	renderer::dim2 const &
 	max_texture_size() const;
+
+	SGE_RENDERER_SYMBOL
+	renderer::size_type
+	max_volume_texture_extent() const;
 
 	SGE_RENDERER_SYMBOL
 	texture::filter::anisotropic::level const
@@ -89,7 +95,9 @@ private:
 
 	fcppt::string description_;
 
-	dim2 max_texture_size_;
+	renderer::dim2 max_texture_size_;
+
+	renderer::size_type max_volume_texture_extent_;
 
 	texture::filter::anisotropic::level max_anisotropy_;
 

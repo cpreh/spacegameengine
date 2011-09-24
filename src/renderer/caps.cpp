@@ -30,7 +30,8 @@ sge::renderer::caps::caps(
 	renderer::adapter const _adapter,
 	fcppt::string const &_driver_name,
 	fcppt::string const &_description,
-	dim2 const &_max_texture_size,
+	renderer::dim2 const &_max_texture_size,
+	renderer::size_type const _max_volume_texture_extent,
 	texture::filter::anisotropic::level const _max_anisotropy,
 	bool const _render_target_supported,
 	bool const _glsl_supported,
@@ -41,6 +42,7 @@ sge::renderer::caps::caps(
 	driver_name_(_driver_name),
 	description_(_description),
 	max_texture_size_(_max_texture_size),
+	max_volume_texture_extent_(_max_volume_texture_extent),
 	max_anisotropy_(_max_anisotropy),
 	render_target_supported_(_render_target_supported),
 	glsl_supported_(_glsl_supported),
@@ -70,6 +72,12 @@ sge::renderer::dim2 const &
 sge::renderer::caps::max_texture_size() const
 {
 	return max_texture_size_;
+}
+
+sge::renderer::size_type
+sge::renderer::caps::max_volume_texture_extent() const
+{
+	return max_volume_texture_extent_;
 }
 
 sge::renderer::texture::filter::anisotropic::level const
@@ -112,6 +120,8 @@ sge::renderer::operator<<(
 		<< _caps.description()
 		<< FCPPT_TEXT("\", max_texture_size = ")
 		<< _caps.max_texture_size()
+		<< FCPPT_TEXT(", max_volume_texture_extent = ")
+		<< _caps.max_volume_texture_extent()
 		<< FCPPT_TEXT(", max_anisotropy = ")
 		<< _caps.max_anisotropy()
 		<< FCPPT_TEXT(", glsl_supported = ")

@@ -62,9 +62,12 @@ public:
 	gl_tex_sub_image_3d
 	tex_sub_image_3d() const;
 
+	GLenum
+	max_extent_flag() const;
+
 	typedef void needs_before;
 
-	static context::id const static_id;
+	static opengl::context::id const static_id;
 private:
 	bool const volume_texture_normal_;
 
@@ -73,6 +76,8 @@ private:
 	gl_tex_image_3d const tex_image_3d_;
 
 	gl_tex_sub_image_3d const tex_sub_image_3d_;
+
+	GLenum const max_extent_flag_;
 };
 
 }

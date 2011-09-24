@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fbo/context.hpp"
 #include "../glsl/context.hpp"
 #include "../texture/context.hpp"
+#include "../texture/volume_context.hpp"
 #include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/caps.hpp>
@@ -57,6 +58,14 @@ sge::opengl::create_caps(
 		)
 	);
 
+	opengl::texture::volume_context const &volume_texture_context(
+		context::use<
+			texture::volume_context
+		>(
+			_context
+		)
+	);
+
 	return
 		fcppt::make_unique_ptr<
 			renderer::caps
@@ -77,6 +86,17 @@ sge::opengl::create_caps(
 			renderer::dim2(
 				max_texture_size,
 				max_texture_size
+			),
+			static_cast<
+				renderer::size_type
+			>(
+				volume_texture_context.have_volume_texture()
+				?
+					opengl::get_int(
+						volume_texture_context.max_extent_flag()
+					)
+				:
+					0
 			),
 			sge::renderer::texture::filter::anisotropic::level(
 				texture_context.anisotropic_filter_supported()
