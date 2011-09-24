@@ -32,9 +32,9 @@ sge::opengl::state::convert::cull_mode(
 		_mode
 	)
 	{
-	case renderer::state::cull_mode::back:
+	case renderer::state::cull_mode::clockwise:
 		return GL_BACK;
-	case renderer::state::cull_mode::front:
+	case renderer::state::cull_mode::counter_clockwise:
 		return GL_FRONT;
 	case renderer::state::cull_mode::off:
 		break;

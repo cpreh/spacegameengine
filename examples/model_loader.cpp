@@ -785,7 +785,7 @@ try
 						sge::renderer::state::draw_mode::fill)
 				(sge::renderer::state::depth_func::less)
 				(sge::renderer::state::bool_::enable_alpha_blending = false)
-				(sge::renderer::state::cull_mode::front));
+				(sge::renderer::state::cull_mode::counter_clockwise));
 
 		compiled.render();
 	}

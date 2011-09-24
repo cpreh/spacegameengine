@@ -28,12 +28,14 @@ namespace renderer
 namespace state
 {
 
-namespace cull_mode {
-	enum type {
-		off,
-		back,
-		front
-	};
+namespace cull_mode
+{
+enum type
+{
+	off,
+	clockwise,
+	counter_clockwise
+};
 }
 
 }

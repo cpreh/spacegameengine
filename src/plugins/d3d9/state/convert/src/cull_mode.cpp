@@ -33,9 +33,9 @@ sge::d3d9::state::convert::cull_mode(
 	{
 	case sge::renderer::state::cull_mode::off:
 		return D3DCULL_NONE;
-	case sge::renderer::state::cull_mode::back:
+	case sge::renderer::state::cull_mode::clockwise:
 		return D3DCULL_CW;
-	case sge::renderer::state::cull_mode::front:
+	case sge::renderer::state::cull_mode::counter_clockwise:
 		return D3DCULL_CCW;
 	}
 
