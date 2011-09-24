@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_MULTI_INFO_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_MULTI_INFO_HPP_INCLUDED
 
 #include "info_base.hpp"
 #include "id.hpp"
@@ -36,21 +36,28 @@ namespace x11input
 namespace device
 {
 
-class info
+class multi_info
 {
 	FCPPT_NONCOPYABLE(
-		info
+		multi_info
 	);
 public:
-	info(
+	typedef info_base::size_type size_type;
+
+	multi_info(
 		awl::backends::x11::display &,
 		x11input::device::id
 	);
 
-	~info();
+	~multi_info();
 
 	XIDeviceInfo const &
-	get() const;
+	operator[](
+		size_type index
+	) const;
+
+	size_type
+	size() const;
 private:
 	device::info_base info_base_;
 };

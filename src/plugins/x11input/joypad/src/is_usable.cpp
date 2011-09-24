@@ -18,45 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
-
-#include "info_base.hpp"
-#include "id.hpp"
+#include "../is_usable.hpp"
+#include "../../device/id.hpp"
+#include "../../device/info.hpp"
+#include <sge/input/exception.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
 
-namespace sge
+bool
+sge::x11input::joypad::is_usable(
+	awl::backends::x11::display &_display,
+	x11input::device::id const _id
+)
+try
 {
-namespace x11input
-{
-namespace device
-{
-
-class info
-{
-	FCPPT_NONCOPYABLE(
-		info
-	);
-public:
-	info(
-		awl::backends::x11::display &,
-		x11input::device::id
+	// maybe it can happen that this device is already gone
+	x11input::device::info const info(
+		_display,
+		_id
 	);
 
-	~info();
+	// TODO!
 
-	XIDeviceInfo const &
-	get() const;
-private:
-	device::info_base info_base_;
-};
-
+	return true;
 }
+catch(
+	sge::input::exception const &
+)
+{
+	return false;
 }
-}
-
-#endif

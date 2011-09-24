@@ -18,41 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
+#ifndef SGE_INPUT_JOYPAD_AXIS_EVENT_HPP_INCLUDED
+#define SGE_INPUT_JOYPAD_AXIS_EVENT_HPP_INCLUDED
 
-#include "info_base.hpp"
-#include "id.hpp"
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/input/joypad/axis_event_fwd.hpp>
+#include <sge/input/joypad/axis.hpp>
+#include <sge/input/joypad/axis_value.hpp>
+#include <sge/input/symbol.hpp>
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
-namespace device
+namespace joypad
 {
 
-class info
+class axis_event
 {
-	FCPPT_NONCOPYABLE(
-		info
-	);
 public:
-	info(
-		awl::backends::x11::display &,
-		x11input::device::id
+	SGE_INPUT_SYMBOL
+	axis_event(
+		joypad::axis const &,
+		joypad::axis_value
 	);
 
-	~info();
+	SGE_INPUT_SYMBOL
+	joypad::axis const &
+	axis() const;
 
-	XIDeviceInfo const &
-	get() const;
+	SGE_INPUT_SYMBOL
+	joypad::axis_value
+	axis_value() const;
 private:
-	device::info_base info_base_;
+	joypad::axis axis_;
+
+	joypad::axis_value axis_value_;
 };
 
 }

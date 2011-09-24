@@ -24,13 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "manager_config.hpp"
 #include "id.hpp"
 #include "object.hpp"
-#include <fcppt/algorithm/find_if_exn.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 template<
@@ -102,6 +102,11 @@ sge::x11input::device::manager_config<
 		)
 	);
 
+	if(
+		!obj
+	)
+		return;
+
 	objects_.push_back(
 		obj
 	);
@@ -126,7 +131,7 @@ sge::x11input::device::manager_config<
 )
 {
 	typename object_vector::iterator const it(
-		fcppt::algorithm::find_if_exn(
+		std::find_if(
 			objects_.begin(),
 			objects_.end(),
 			boost::phoenix::bind(
@@ -137,6 +142,11 @@ sge::x11input::device::manager_config<
 			_id
 		)
 	);
+
+	if(
+		it == objects_.end()
+	)
+		return;
 
 	X11ObjectPtr const ptr(
 		*it

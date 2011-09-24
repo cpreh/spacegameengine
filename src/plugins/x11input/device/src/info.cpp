@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../info.hpp"
+#include "../id.hpp"
 #include <sge/input/exception.hpp>
-#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -28,42 +29,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::device::info::info(
 	awl::backends::x11::display &_display,
-	int const _type
+	x11input::device::id const _id
 )
 :
-	devices_(
-		::XIQueryDevice(
-			_display.get(),
-			_type,
-			&size_
-		)
+	info_base_(
+		_display,
+		_id
 	)
 {
 	if(
-		devices_ == 0
+		info_base_.size() != 1
 	)
 		throw sge::input::exception(
-			FCPPT_TEXT("XIQueryDevice failed!")
+			FCPPT_TEXT("device::info failed!")
 		);
 }
 
 sge::x11input::device::info::~info()
 {
-	::XIFreeDeviceInfo(
-		devices_
-	);
 }
 
 XIDeviceInfo const &
-sge::x11input::device::info::operator[](
-	size_type const _index
-) const
+sge::x11input::device::info::get() const
 {
-	return devices_[_index];
-}
-
-sge::x11input::device::info::size_type
-sge::x11input::device::info::size() const
-{
-	return size_;
+	return
+		*info_base_.get();
 }

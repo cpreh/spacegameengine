@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_EVENT_DEMUXER_HPP_INCLUDED
 
 #include "event_demuxer_fwd.hpp"
+#include "demuxer_enabled.hpp"
 #include "id.hpp"
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
@@ -59,10 +60,11 @@ class event_demuxer
 		Event const &
 	);
 public:
-	explicit event_demuxer(
+	event_demuxer(
 		awl::backends::x11::system::event::processor &,
 		awl::backends::x11::system::event::opcode const &,
-		awl::backends::x11::window::instance_shared_ptr
+		awl::backends::x11::window::instance_shared_ptr,
+		device::demuxer_enabled
 	);
 
 	~event_demuxer();
@@ -76,6 +78,11 @@ public:
 		awl::backends::x11::system::event::type const &,
 		x11input::device::id const &,
 		callback const &
+	);
+
+	void
+	active(
+		bool
 	);
 private:
 	void
@@ -118,6 +125,8 @@ private:
 	connection_map connections_;
 
 	signal_map signals_;
+
+	bool active_;
 };
 
 }

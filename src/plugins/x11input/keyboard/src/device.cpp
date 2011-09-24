@@ -104,16 +104,6 @@ sge::x11input::keyboard::device::~device()
 {
 }
 
-void
-sge::x11input::keyboard::device::on_enter()
-{
-}
-
-void
-sge::x11input::keyboard::device::on_leave()
-{
-}
-
 fcppt::signal::auto_connection
 sge::x11input::keyboard::device::key_callback(
 	input::keyboard::key_callback const &_callback

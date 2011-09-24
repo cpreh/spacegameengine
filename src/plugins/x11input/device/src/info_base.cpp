@@ -18,45 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
-
-#include "info_base.hpp"
-#include "id.hpp"
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include "../info_base.hpp"
+#include "../id.hpp"
+#include <sge/input/exception.hpp>
+#include <awl/backends/x11/display.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-namespace sge
+sge::x11input::device::info_base::info_base(
+	awl::backends::x11::display &_display,
+	x11input::device::id const _id
+)
+:
+	size_(
+		0
+	),
+	devices_(
+		::XIQueryDevice(
+			_display.get(),
+			_id.get(),
+			&size_
+		)
+	)
 {
-namespace x11input
-{
-namespace device
-{
+	if(
+		devices_ == 0
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("XIQueryDevice failed!")
+		);
+}
 
-class info
+sge::x11input::device::info_base::~info_base()
 {
-	FCPPT_NONCOPYABLE(
-		info
+	::XIFreeDeviceInfo(
+		devices_
 	);
-public:
-	info(
-		awl::backends::x11::display &,
-		x11input::device::id
-	);
-
-	~info();
-
-	XIDeviceInfo const &
-	get() const;
-private:
-	device::info_base info_base_;
-};
-
-}
-}
 }
 
-#endif
+XIDeviceInfo const *
+sge::x11input::device::info_base::get() const
+{
+	return devices_;
+}
+
+sge::x11input::device::info_base::size_type
+sge::x11input::device::info_base::size() const
+{
+	return size_;
+}

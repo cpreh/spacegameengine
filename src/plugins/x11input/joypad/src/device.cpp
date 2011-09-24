@@ -19,18 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../device.hpp"
-#include "../axis.hpp"
-#include "../button.hpp"
+//#include "../axis.hpp"
+//#include "../button.hpp"
 #include "../../device/parameters.hpp"
 #include "../../device/raw_demuxer.hpp"
 #include "../../device/raw_event.hpp"
 #include "../../device/window_demuxer.hpp"
 #include "../../device/window_event.hpp"
 #include "../../mask_is_set.hpp"
-#include <sge/input/mouse/axis.hpp>
-#include <sge/input/mouse/axis_event.hpp>
-#include <sge/input/mouse/button.hpp>
-#include <sge/input/mouse/button_event.hpp>
+#include <sge/input/joypad/axis.hpp>
+#include <sge/input/joypad/axis_event.hpp>
+#include <sge/input/joypad/button_event.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
@@ -42,15 +41,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-sge::x11input::mouse::device::device(
+sge::x11input::joypad::device::device(
 	x11input::device::parameters const &_param
 )
 :
-	sge::input::mouse::device(),
+	sge::input::joypad::device(),
 	sge::x11input::device::object(
 		_param.id()
 	),
-	connections_(
+	connections_()
+	/*
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
 		>(
@@ -98,19 +98,19 @@ sge::x11input::mouse::device::device(
 				)
 			)
 		)
-	),
+	)*/,
 	button_signal_(),
 	axis_signal_()
 {
 }
 
-sge::x11input::mouse::device::~device()
+sge::x11input::joypad::device::~device()
 {
 }
 
 fcppt::signal::auto_connection
-sge::x11input::mouse::device::button_callback(
-	input::mouse::button_callback const &_callback
+sge::x11input::joypad::device::button_callback(
+	input::joypad::button_callback const &_callback
 )
 {
 	return
@@ -120,8 +120,8 @@ sge::x11input::mouse::device::button_callback(
 }
 
 fcppt::signal::auto_connection
-sge::x11input::mouse::device::axis_callback(
-	input::mouse::axis_callback const &_callback
+sge::x11input::joypad::device::axis_callback(
+	input::joypad::axis_callback const &_callback
 )
 {
 	return
@@ -131,10 +131,11 @@ sge::x11input::mouse::device::axis_callback(
 }
 
 void
-sge::x11input::mouse::device::on_motion(
+sge::x11input::joypad::device::on_motion(
 	x11input::device::raw_event const &_event
 )
 {
+#if 0
 	XIValuatorState const &valuators(
 		_event.get().valuators
 	);
@@ -161,8 +162,8 @@ sge::x11input::mouse::device::on_motion(
 			)
 		)
 			axis_signal_(
-				input::mouse::axis_event(
-					x11input::mouse::axis(
+				input::joypad::axis_event(
+					x11input::joypad::axis(
 						index
 					),
 					// TODO: how to scale this?
@@ -170,10 +171,11 @@ sge::x11input::mouse::device::on_motion(
 				)
 			);
 	}
+#endif
 }
 
 void
-sge::x11input::mouse::device::on_button_down(
+sge::x11input::joypad::device::on_button_down(
 	x11input::device::window_event const &_event
 )
 {
@@ -184,7 +186,7 @@ sge::x11input::mouse::device::on_button_down(
 }
 
 void
-sge::x11input::mouse::device::on_button_up(
+sge::x11input::joypad::device::on_button_up(
 	x11input::device::window_event const &_event
 )
 {
@@ -195,19 +197,21 @@ sge::x11input::mouse::device::on_button_up(
 }
 
 void
-sge::x11input::mouse::device::button_event(
+sge::x11input::joypad::device::button_event(
 	x11input::device::window_event const &_event,
 	bool const _pressed
 )
 {
+#if 0
 	button_signal_(
-		input::mouse::button_event(
-			input::mouse::button(
-				x11input::mouse::button(
+		input::joypad::button_event(
+			input::joypad::button(
+				x11input::joypad::button(
 					_event
 				)
 			),
 			_pressed
 		)
 	);
+#endif
 }

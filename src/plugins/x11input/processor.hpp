@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "device/parameters_fwd.hpp"
 #include "device/raw_demuxer.hpp"
 #include "device/window_demuxer.hpp"
+#include "joypad/device_ptr.hpp"
 #include "keyboard/device_ptr.hpp"
 #include "mouse/device_ptr.hpp"
 #include <sge/input/processor.hpp>
@@ -42,6 +43,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_vector.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_signal.hpp>
+#include <sge/input/joypad/device_vector.hpp>
+#include <sge/input/joypad/discover_callback.hpp>
+#include <sge/input/joypad/discover_signal.hpp>
+#include <sge/input/joypad/remove_callback.hpp>
+#include <sge/input/joypad/remove_signal.hpp>
 #include <sge/input/keyboard/device_vector.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/discover_signal.hpp>
@@ -128,6 +134,19 @@ private:
 	input::cursor::object_vector const
 	cursors() const;
 
+	fcppt::signal::auto_connection
+	joypad_discover_callback(
+		input::joypad::discover_callback const &
+	);
+
+	fcppt::signal::auto_connection
+	joypad_remove_callback(
+		input::joypad::remove_callback const &
+	);
+
+	input::joypad::device_vector const
+	joypads() const;
+
 	window::instance_ptr const
 	window() const;
 
@@ -151,6 +170,11 @@ private:
 		x11input::device::id const
 	);
 
+	x11input::joypad::device_ptr const
+	create_joypad(
+		x11input::device::id const
+	);
+
 	void
 	on_hierarchy_changed(
 		sge::x11input::device::hierarchy_event const &
@@ -160,7 +184,7 @@ private:
 		typename Function
 	>
 	void
-	for_each_device(
+	for_each_cursor(
 		Function const &
 	);
 
@@ -218,11 +242,17 @@ private:
 		x11input::cursor::object_ptr
 	> cursor_vector;
 
+	typedef std::vector<
+		x11input::joypad::device_ptr
+	> joypad_vector;
+
 	keyboard_vector keyboards_;
 
 	mouse_vector mice_;
 
 	cursor_vector cursors_;
+
+	joypad_vector joypads_;
 
 	sge::input::keyboard::discover_signal keyboard_discover_;
 
@@ -236,6 +266,10 @@ private:
 
 	sge::input::cursor::remove_signal cursor_remove_;
 
+	sge::input::joypad::discover_signal joypad_discover_;
+
+	sge::input::joypad::remove_signal joypad_remove_;
+
 	x11input::device::manager device_manager_;
 
 	fcppt::signal::connection_manager const connections_;
@@ -245,4 +279,3 @@ private:
 }
 
 #endif
-

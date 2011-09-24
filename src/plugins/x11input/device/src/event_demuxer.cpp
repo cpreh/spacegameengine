@@ -103,13 +103,23 @@ template<
 sge::x11input::device::event_demuxer<Event>::event_demuxer(
 	awl::backends::x11::system::event::processor &_system_processor,
 	awl::backends::x11::system::event::opcode const &_opcode,
-	awl::backends::x11::window::instance_shared_ptr const _window
+	awl::backends::x11::window::instance_shared_ptr const _window,
+	x11input::device::demuxer_enabled const _enabled
 )
 :
-	system_processor_(_system_processor),
-	opcode_(_opcode),
-	window_(_window),
-	signals_()
+	system_processor_(
+		_system_processor
+	),
+	opcode_(
+		_opcode
+	),
+	window_(
+		_window
+	),
+	signals_(),
+	active_(
+		_enabled.get()
+	)
 {
 }
 
@@ -197,10 +207,27 @@ template<
 	typename Event
 >
 void
+sge::x11input::device::event_demuxer<Event>::active(
+	bool const _active
+)
+{
+	active_ = _active;
+}
+
+template<
+	typename Event
+>
+void
 sge::x11input::device::event_demuxer<Event>::on_event(
 	awl::backends::x11::system::event::object const &_event
 )
 {
+	// Ingore everything while not in our window
+	if(
+		!active_
+	)
+		return;
+
 	x11input::device::event_data const cookie(
 		window_->display(),
 		_event

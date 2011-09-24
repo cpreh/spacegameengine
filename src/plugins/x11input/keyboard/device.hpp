@@ -63,12 +63,6 @@ public:
 	);
 
 	~device();
-
-	void
-	on_enter();
-
-	void
-	on_leave();
 private:
 	fcppt::signal::auto_connection
 	key_callback(

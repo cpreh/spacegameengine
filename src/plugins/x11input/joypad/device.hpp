@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_MOUSE_DEVICE_HPP_INCLUDED
-#define SGE_X11INPUT_MOUSE_DEVICE_HPP_INCLUDED
+#ifndef SGE_X11INPUT_JOYPAD_DEVICE_HPP_INCLUDED
+#define SGE_X11INPUT_JOYPAD_DEVICE_HPP_INCLUDED
 
 #include "device_fwd.hpp"
 #include "../device/object.hpp"
 #include "../device/parameters_fwd.hpp"
 #include "../device/raw_event_fwd.hpp"
 #include "../device/window_event_fwd.hpp"
-#include <sge/input/mouse/axis_callback.hpp>
-#include <sge/input/mouse/axis_function.hpp>
-#include <sge/input/mouse/button_callback.hpp>
-#include <sge/input/mouse/button_function.hpp>
-#include <sge/input/mouse/device.hpp>
+#include <sge/input/joypad/axis_callback.hpp>
+#include <sge/input/joypad/axis_function.hpp>
+#include <sge/input/joypad/button_callback.hpp>
+#include <sge/input/joypad/button_function.hpp>
+#include <sge/input/joypad/device.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
@@ -40,12 +40,12 @@ namespace sge
 {
 namespace x11input
 {
-namespace mouse
+namespace joypad
 {
 
 class device
 :
-	public sge::input::mouse::device,
+	public sge::input::joypad::device,
 	public sge::x11input::device::object
 {
 	FCPPT_NONCOPYABLE(
@@ -60,12 +60,12 @@ public:
 private:
 	fcppt::signal::auto_connection
 	button_callback(
-		input::mouse::button_callback const &
+		input::joypad::button_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	axis_callback(
-		input::mouse::axis_callback const &
+		input::joypad::axis_callback const &
 	);
 
 	void
@@ -92,11 +92,11 @@ private:
 	fcppt::signal::connection_manager const connections_;
 
 	fcppt::signal::object<
-		sge::input::mouse::button_function
+		sge::input::joypad::button_function
 	> button_signal_;
 
 	fcppt::signal::object<
-		sge::input::mouse::axis_function
+		sge::input::joypad::axis_function
 	> axis_signal_;
 };
 

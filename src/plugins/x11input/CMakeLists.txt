@@ -16,6 +16,7 @@ SET(
 	src/plugins/x11input/cursor/src/object.cpp
 	src/plugins/x11input/cursor/src/pixmap.cpp
 	src/plugins/x11input/cursor/src/query_pointer.cpp
+	src/plugins/x11input/device/demuxer_enabled.hpp
 	src/plugins/x11input/device/event.hpp
 	src/plugins/x11input/device/event_data.hpp
 	src/plugins/x11input/device/event_demuxer.hpp
@@ -27,6 +28,7 @@ SET(
 	src/plugins/x11input/device/hierarchy_event_fwd.hpp
 	src/plugins/x11input/device/id.hpp
 	src/plugins/x11input/device/info.hpp
+	src/plugins/x11input/device/info_base.hpp
 	src/plugins/x11input/device/make_manager_config.hpp
 	src/plugins/x11input/device/manager.hpp
 	src/plugins/x11input/device/manager_config.hpp
@@ -35,6 +37,7 @@ SET(
 	src/plugins/x11input/device/manager_config_base_ptr.hpp
 	src/plugins/x11input/device/manager_config_impl.hpp
 	src/plugins/x11input/device/manager_config_map.hpp
+	src/plugins/x11input/device/multi_info.hpp
 	src/plugins/x11input/device/object.hpp
 	src/plugins/x11input/device/object_fwd.hpp
 	src/plugins/x11input/device/object_ptr.hpp
@@ -50,9 +53,11 @@ SET(
 	src/plugins/x11input/device/src/event_data.cpp
 	src/plugins/x11input/device/src/event_demuxer.cpp
 	src/plugins/x11input/device/src/info.cpp
+	src/plugins/x11input/device/src/info_base.cpp
 	src/plugins/x11input/device/src/manager.cpp
 	src/plugins/x11input/device/src/manager_config.cpp
 	src/plugins/x11input/device/src/manager_config_base.cpp
+	src/plugins/x11input/device/src/multi_info.cpp
 	src/plugins/x11input/device/src/object.cpp
 	src/plugins/x11input/device/src/parameters.cpp
 	src/plugins/x11input/device/src/select_events.cpp
@@ -65,6 +70,12 @@ SET(
 	src/plugins/x11input/input_context_fwd.hpp
 	src/plugins/x11input/input_method.hpp
 	src/plugins/x11input/input_method_fwd.hpp
+	src/plugins/x11input/joypad/device.hpp
+	src/plugins/x11input/joypad/device_fwd.hpp
+	src/plugins/x11input/joypad/device_ptr.hpp
+	src/plugins/x11input/joypad/is_usable.hpp
+	src/plugins/x11input/joypad/src/device.cpp
+	src/plugins/x11input/joypad/src/is_usable.cpp
 	src/plugins/x11input/keyboard/char_vector.hpp
 	src/plugins/x11input/keyboard/device.hpp
 	src/plugins/x11input/keyboard/device_fwd.hpp

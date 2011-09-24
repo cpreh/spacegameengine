@@ -23,13 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../input_method.hpp"
 #include "../xi_2_1.hpp"
 #include "../cursor/object.hpp"
+#include "../device/id.hpp"
 #include "../device/hierarchy_event.hpp"
-#include "../device/info.hpp"
 #include "../device/make_manager_config.hpp"
+#include "../device/multi_info.hpp"
 #include "../device/object.hpp"
 #include "../device/object_ptr.hpp"
 #include "../device/parameters.hpp"
 #include "../device/use.hpp"
+#include "../joypad/device.hpp"
+#include "../joypad/is_usable.hpp"
 #include "../keyboard/device.hpp"
 #include "../mouse/device.hpp"
 #include <sge/window/instance.hpp>
@@ -40,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/root.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
@@ -89,7 +91,10 @@ sge::x11input::processor::processor(
 	window_demuxer_(
 		system_event_processor_,
 		opcode_,
-		x11_window_
+		x11_window_,
+		device::demuxer_enabled(
+			true
+		)
 	),
 	raw_demuxer_(
 		system_event_processor_,
@@ -99,12 +104,18 @@ sge::x11input::processor::processor(
 				x11_window_->display(),
 				x11_window_->screen()
 			)
+		),
+		device::demuxer_enabled(
+			false
 		)
 	),
 	hierarchy_demuxer_(
 		system_event_processor_,
 		opcode_,
-		x11_window_
+		x11_window_,
+		device::demuxer_enabled(
+			true
+		)
 	),
 	invisible_pixmap_(
 		*x11_window_
@@ -137,12 +148,15 @@ sge::x11input::processor::processor(
 	keyboards_(),
 	mice_(),
 	cursors_(),
+	joypads_(),
 	keyboard_discover_(),
 	keyboard_remove_(),
 	mouse_discover_(),
 	mouse_remove_(),
 	cursor_discover_(),
 	cursor_remove_(),
+	joypad_discover_(),
+	joypad_remove_(),
 	device_manager_(
 		fcppt::assign::make_container<
 			device::manager_config_map
@@ -201,6 +215,23 @@ sge::x11input::processor::processor(
 				)
 			)
 		)
+		(
+			std::make_pair(
+				x11input::device::use(
+					XIFloatingSlave
+				),
+				device::make_manager_config(
+					joypads_,
+					joypad_discover_,
+					joypad_remove_,
+					std::tr1::bind(
+						&x11input::processor::create_joypad,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
 	),
 	connections_(
 		fcppt::assign::make_container<
@@ -211,7 +242,6 @@ sge::x11input::processor::processor(
 					awl::backends::x11::system::event::type(
 						XI_HierarchyChanged
 					),
-					// TODO: this should be simplified a little
 					sge::x11input::device::id(
 						XIAllDevices
 					),
@@ -249,9 +279,11 @@ sge::x11input::processor::processor(
 		)
 	)
 {
-	x11input::device::info const current_devices(
+	x11input::device::multi_info const current_devices(
 		x11_window_->display(),
-		XIAllDevices
+		x11input::device::id(
+			XIAllDevices
+		)
 	);
 
 	for(
@@ -366,6 +398,38 @@ sge::x11input::processor::cursors() const
 		);
 }
 
+fcppt::signal::auto_connection
+sge::x11input::processor::joypad_discover_callback(
+	input::joypad::discover_callback const &_callback
+)
+{
+	return
+		joypad_discover_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::x11input::processor::joypad_remove_callback(
+	input::joypad::remove_callback const &_callback
+)
+{
+	return
+		joypad_remove_.connect(
+			_callback
+		);
+}
+
+sge::input::joypad::device_vector const
+sge::x11input::processor::joypads() const
+{
+	return
+		input::joypad::device_vector(
+			joypads_.begin(),
+			joypads_.end()
+		);
+}
+
 sge::window::instance_ptr const
 sge::x11input::processor::window() const
 {
@@ -436,6 +500,29 @@ sge::x11input::processor::create_cursor(
 		);
 }
 
+sge::x11input::joypad::device_ptr const
+sge::x11input::processor::create_joypad(
+	x11input::device::id const _id
+)
+{
+	return
+		joypad::is_usable(
+			x11_window_->display(),
+			_id
+		)
+		?
+			fcppt::make_shared_ptr<
+				x11input::joypad::device
+			>(
+				this->device_parameters(
+					_id
+				)
+			)
+		:
+			x11input::joypad::device_ptr()
+		;
+}
+
 void
 sge::x11input::processor::on_hierarchy_changed(
 	sge::x11input::device::hierarchy_event const &_event
@@ -458,8 +545,12 @@ sge::x11input::processor::on_enter(
 	awl::backends::x11::window::event::object const &
 )
 {
-	this->for_each_device(
-		&x11input::device::object::on_enter
+	raw_demuxer_.active(
+		true
+	);
+
+	this->for_each_cursor(
+		&x11input::cursor::object::on_enter
 	);
 }
 
@@ -468,8 +559,12 @@ sge::x11input::processor::on_leave(
 	awl::backends::x11::window::event::object const &
 )
 {
-	this->for_each_device(
-		&x11input::device::object::on_leave
+	raw_demuxer_.active(
+		false
+	);
+
+	this->for_each_cursor(
+		&x11input::cursor::object::on_leave
 	);
 }
 
@@ -477,38 +572,16 @@ template<
 	typename Function
 >
 void
-sge::x11input::processor::for_each_device(
+sge::x11input::processor::for_each_cursor(
 	Function const &_function
 )
 {
-	typedef fcppt::function::object<
-		void (
-			device::object_ptr
-		)
-	> wrapped_function_type;
-
-	wrapped_function_type const wrapped_function(
+	std::for_each(
+		cursors_.begin(),
+		cursors_.end(),
 		boost::phoenix::bind(
 			_function,
 			*boost::phoenix::arg_names::_1
 		)
-	);
-
-	std::for_each(
-		cursors_.begin(),
-		cursors_.end(),
-		wrapped_function
-	);
-
-	std::for_each(
-		keyboards_.begin(),
-		keyboards_.end(),
-		wrapped_function
-	);
-
-	std::for_each(
-		mice_.begin(),
-		mice_.end(),
-		wrapped_function
 	);
 }

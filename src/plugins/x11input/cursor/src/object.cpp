@@ -213,7 +213,7 @@ sge::x11input::cursor::object::on_button_down(
 	x11input::device::window_event const &_event
 )
 {
-	button_event(
+	this->button_event(
 		_event,
 		true
 	);
@@ -224,7 +224,7 @@ sge::x11input::cursor::object::on_button_up(
 	x11input::device::window_event const &_event
 )
 {
-	button_event(
+	this->button_event(
 		_event,
 		false
 	);

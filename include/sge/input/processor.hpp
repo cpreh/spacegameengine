@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/object_vector.hpp>
 #include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/joypad/discover_callback.hpp>
+#include <sge/input/joypad/remove_callback.hpp>
+#include <sge/input/joypad/device_vector.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/device_vector.hpp>
@@ -65,7 +68,7 @@ public:
 		input::keyboard::remove_callback const &
 	) = 0;
 
-	virtual keyboard::device_vector const
+	virtual input::keyboard::device_vector const
 	keyboards() const = 0;
 
 	//
@@ -81,7 +84,7 @@ public:
 		input::mouse::remove_callback const &
 	) = 0;
 
-	virtual mouse::device_vector const
+	virtual input::mouse::device_vector const
 	mice() const = 0;
 
 	//
@@ -97,8 +100,24 @@ public:
 		input::cursor::remove_callback const &
 	) = 0;
 
-	virtual cursor::object_vector const
+	virtual input::cursor::object_vector const
 	cursors() const = 0;
+
+	//
+	// joypads
+	//
+	virtual fcppt::signal::auto_connection
+	joypad_discover_callback(
+		input::joypad::discover_callback const &
+	) = 0;
+
+	virtual fcppt::signal::auto_connection
+	joypad_remove_callback(
+		input::joypad::remove_callback const &
+	) = 0;
+
+	virtual input::joypad::device_vector const
+	joypads() const = 0;
 
 	//
 	// other

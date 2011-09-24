@@ -21,11 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../manager_config_impl.hpp"
 #include "../../cursor/object.hpp"
 #include "../../cursor/object_ptr.hpp"
+#include "../../joypad/device.hpp"
+#include "../../joypad/device_ptr.hpp"
 #include "../../keyboard/device.hpp"
 #include "../../keyboard/device_ptr.hpp"
 #include "../../mouse/device.hpp"
 #include "../../mouse/device_ptr.hpp"
 #include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/joypad/device_ptr.hpp>
 #include <sge/input/keyboard/device_ptr.hpp>
 #include <sge/input/mouse/device_ptr.hpp>
 
@@ -45,4 +48,10 @@ template class
 sge::x11input::device::manager_config<
 	sge::x11input::mouse::device_ptr,
 	sge::input::mouse::device_ptr
+>;
+
+template class
+sge::x11input::device::manager_config<
+	sge::x11input::joypad::device_ptr,
+	sge::input::joypad::device_ptr
 >;

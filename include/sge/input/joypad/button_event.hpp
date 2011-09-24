@@ -18,41 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
+#ifndef SGE_INPUT_JOYPAD_BUTTON_EVENT_HPP_INCLUDED
+#define SGE_INPUT_JOYPAD_BUTTON_EVENT_HPP_INCLUDED
 
-#include "info_base.hpp"
-#include "id.hpp"
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/input/joypad/button_event_fwd.hpp>
+#include <sge/input/joypad/button_id.hpp>
+#include <sge/input/symbol.hpp>
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
-namespace device
+namespace joypad
 {
 
-class info
+class button_event
 {
-	FCPPT_NONCOPYABLE(
-		info
-	);
 public:
-	info(
-		awl::backends::x11::display &,
-		x11input::device::id
+	SGE_INPUT_SYMBOL
+	button_event(
+		joypad::button_id,
+		bool pressed
 	);
 
-	~info();
+	SGE_INPUT_SYMBOL
+	joypad::button_id const
+	button_id() const;
 
-	XIDeviceInfo const &
-	get() const;
+	SGE_INPUT_SYMBOL
+	bool
+	pressed() const;
 private:
-	device::info_base info_base_;
+	joypad::button_id button_id_;
+
+	bool pressed_;
 };
 
 }

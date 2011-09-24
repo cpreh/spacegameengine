@@ -18,45 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
-
-#include "info_base.hpp"
-#include "id.hpp"
+#include "../multi_info.hpp"
+#include "../id.hpp"
 #include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-namespace sge
+sge::x11input::device::multi_info::multi_info(
+	awl::backends::x11::display &_display,
+	x11input::device::id const _id
+)
+:
+	info_base_(
+		_display,
+		_id
+	)
 {
-namespace x11input
-{
-namespace device
-{
-
-class info
-{
-	FCPPT_NONCOPYABLE(
-		info
-	);
-public:
-	info(
-		awl::backends::x11::display &,
-		x11input::device::id
-	);
-
-	~info();
-
-	XIDeviceInfo const &
-	get() const;
-private:
-	device::info_base info_base_;
-};
-
-}
-}
 }
 
-#endif
+sge::x11input::device::multi_info::~multi_info()
+{
+}
+
+XIDeviceInfo const &
+sge::x11input::device::multi_info::operator[](
+	size_type const _index
+) const
+{
+	return
+		info_base_.get()[
+			_index
+		];
+}
+
+sge::x11input::device::multi_info::size_type
+sge::x11input::device::multi_info::size() const
+{
+	return
+		info_base_.size();
+}
