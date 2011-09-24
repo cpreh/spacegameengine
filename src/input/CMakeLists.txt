@@ -144,6 +144,7 @@ SET(
 	src/input/cursor/relative_move_event.cpp
 	src/input/cursor/relative_movement.cpp
 	src/input/exception.cpp
+	src/input/joypad/axis.cpp
 	src/input/joypad/axis_event.cpp
 	src/input/joypad/button_event.cpp
 	src/input/joypad/collector.cpp

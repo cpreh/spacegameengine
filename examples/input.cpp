@@ -23,6 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/cursor/object_vector.hpp>
+#include <sge/input/joypad/axis.hpp>
+#include <sge/input/joypad/axis_event.hpp>
+#include <sge/input/joypad/button_event.hpp>
+#include <sge/input/joypad/device.hpp>
+#include <sge/input/joypad/device_ptr.hpp>
+#include <sge/input/joypad/device_vector.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -87,6 +93,8 @@ public:
 	explicit mouse_listener(
 		sge::input::mouse::device_ptr
 	);
+
+	~mouse_listener();
 private:
 	void
 	on_button_event(
@@ -110,6 +118,8 @@ public:
 	explicit cursor_listener(
 		sge::input::cursor::object_ptr
 	);
+
+	~cursor_listener();
 private:
 	void
 	on_button_event(
@@ -133,6 +143,8 @@ public:
 	explicit keyboard_listener(
 		sge::input::keyboard::device_ptr
 	);
+
+	~keyboard_listener();
 private:
 	void
 	on_key_event(
@@ -152,6 +164,31 @@ private:
 	fcppt::signal::connection_manager const connections_;
 };
 
+class joypad_listener
+{
+	FCPPT_NONCOPYABLE(
+		joypad_listener
+	);
+public:
+	explicit joypad_listener(
+		sge::input::joypad::device_ptr
+	);
+
+	~joypad_listener();
+private:
+	void
+	on_button_event(
+		sge::input::joypad::button_event const &
+	);
+
+	void
+	on_axis_event(
+		sge::input::joypad::axis_event const &
+	);
+
+	fcppt::signal::connection_manager const connections_;
+};
+
 class device_manager
 {
 	FCPPT_NONCOPYABLE(
@@ -161,6 +198,8 @@ public:
 	explicit device_manager(
 		sge::input::processor &
 	);
+
+	~device_manager();
 private:
 	void
 	on_mouse_add(
@@ -192,6 +231,16 @@ private:
 		sge::input::keyboard::device_ptr
 	);
 
+	void
+	on_joypad_add(
+		sge::input::joypad::device_ptr
+	);
+
+	void
+	on_joypad_remove(
+		sge::input::joypad::device_ptr
+	);
+
 	typedef boost::ptr_map<
 		sge::input::mouse::device_ptr,
 		mouse_listener
@@ -207,6 +256,11 @@ private:
 		keyboard_listener
 	> keyboard_listener_map;
 
+	typedef boost::ptr_map<
+		sge::input::joypad::device_ptr,
+		joypad_listener
+	> joypad_listener_map;
+
 	fcppt::signal::connection_manager const connections_;
 
 	mouse_listener_map mouse_listeners_;
@@ -214,6 +268,8 @@ private:
 	cursor_listener_map cursor_listeners_;
 
 	keyboard_listener_map keyboard_listeners_;
+
+	joypad_listener_map joypad_listeners_;
 };
 
 }
@@ -328,6 +384,10 @@ mouse_listener::mouse_listener(
 }
 FCPPT_PP_POP_WARNING
 
+mouse_listener::~mouse_listener()
+{
+}
+
 void
 mouse_listener::on_button_event(
 	sge::input::mouse::button_event const &_event
@@ -390,6 +450,10 @@ cursor_listener::cursor_listener(
 {
 }
 FCPPT_PP_POP_WARNING
+
+cursor_listener::~cursor_listener()
+{
+}
 
 void
 cursor_listener::on_button_event(
@@ -463,6 +527,10 @@ keyboard_listener::keyboard_listener(
 }
 FCPPT_PP_POP_WARNING
 
+keyboard_listener::~keyboard_listener()
+{
+}
+
 void
 keyboard_listener::on_key_event(
 	sge::input::keyboard::key_event const &_event
@@ -497,6 +565,73 @@ keyboard_listener::on_char_event(
 		<< _event.character()
 		<< FCPPT_TEXT(' ')
 		<< _event.repeated()
+		<< FCPPT_TEXT('\n');
+}
+
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
+joypad_listener::joypad_listener(
+	sge::input::joypad::device_ptr const _device
+)
+:
+	connections_(
+		fcppt::assign::make_container<
+			fcppt::signal::connection_manager::container
+		>(
+			fcppt::signal::shared_connection(
+				_device->button_callback(
+					std::tr1::bind(
+						&joypad_listener::on_button_event,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_device->axis_callback(
+					std::tr1::bind(
+						&joypad_listener::on_axis_event,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+	)
+{
+}
+FCPPT_PP_POP_WARNING
+
+joypad_listener::~joypad_listener()
+{
+}
+
+void
+joypad_listener::on_button_event(
+	sge::input::joypad::button_event const &_event
+)
+{
+	fcppt::io::cout
+		<< FCPPT_TEXT("joypad_button_event: ")
+		<< _event.button_id()
+		<< FCPPT_TEXT(' ')
+		<< _event.pressed()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+joypad_listener::on_axis_event(
+	sge::input::joypad::axis_event const &_event
+)
+{
+	fcppt::io::cout
+		<< FCPPT_TEXT("joypad_axis_event: ")
+		<< _event.axis().id()
+		<< FCPPT_TEXT(' ')
+		<< _event.axis_value()
 		<< FCPPT_TEXT('\n');
 }
 
@@ -554,16 +689,60 @@ device_manager::device_manager(
 				)
 			)
 		)
+		(
+			fcppt::signal::shared_connection(
+				_processor.keyboard_discover_callback(
+					std::tr1::bind(
+						&device_manager::on_keyboard_add,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_processor.keyboard_remove_callback(
+					std::tr1::bind(
+						&device_manager::on_keyboard_remove,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_processor.joypad_discover_callback(
+					std::tr1::bind(
+						&device_manager::on_joypad_add,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_processor.joypad_remove_callback(
+					std::tr1::bind(
+						&device_manager::on_joypad_remove,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
 	),
 	mouse_listeners_(),
 	cursor_listeners_(),
-	keyboard_listeners_()
+	keyboard_listeners_(),
+	joypad_listeners_()
 {
 	{
 		sge::input::mouse::device_vector const devices(
 			_processor.mice()
 		);
-
 
 		for(
 			sge::input::mouse::device_vector::const_iterator it(
@@ -578,10 +757,26 @@ device_manager::device_manager(
 	}
 
 	{
+		sge::input::cursor::object_vector const objects(
+			_processor.cursors()
+		);
+
+		for(
+			sge::input::cursor::object_vector::const_iterator it(
+				objects.begin()
+			);
+			it != objects.end();
+			++it
+		)
+			this->on_cursor_add(
+				*it
+			);
+	}
+
+	{
 		sge::input::keyboard::device_vector const devices(
 			_processor.keyboards()
 		);
-
 
 		for(
 			sge::input::keyboard::device_vector::const_iterator it(
@@ -596,24 +791,27 @@ device_manager::device_manager(
 	}
 
 	{
-		sge::input::cursor::object_vector const objects(
-			_processor.cursors()
+		sge::input::joypad::device_vector const devices(
+			_processor.joypads()
 		);
 
-
 		for(
-			sge::input::cursor::object_vector::const_iterator it(
-				objects.begin()
+			sge::input::joypad::device_vector::const_iterator it(
+				devices.begin()
 			);
-			it != objects.end();
+			it != devices.end();
 			++it
 		)
-			this->on_cursor_add(
+			this->on_joypad_add(
 				*it
 			);
 	}
 }
 FCPPT_PP_POP_WARNING
+
+device_manager::~device_manager()
+{
+}
 
 void
 device_manager::on_mouse_add(
@@ -734,6 +932,47 @@ device_manager::on_keyboard_remove(
 
 	fcppt::io::cout
 		<< FCPPT_TEXT("keyboard_remove: ")
+		<< _device
+		<< FCPPT_TEXT('\n');
+}
+
+void
+device_manager::on_joypad_add(
+	sge::input::joypad::device_ptr const _device
+)
+{
+	FCPPT_ASSERT_ERROR(
+		fcppt::container::ptr::insert_unique_ptr_map(
+			joypad_listeners_,
+			_device,
+			fcppt::make_unique_ptr<
+				joypad_listener
+			>(
+				_device
+			)
+		).second
+		== true
+	);
+
+	fcppt::io::cout
+		<< FCPPT_TEXT("joypad_add: ")
+		<< _device
+		<< FCPPT_TEXT('\n');
+}
+
+void
+device_manager::on_joypad_remove(
+	sge::input::joypad::device_ptr const _device
+)
+{
+	FCPPT_ASSERT_ERROR(
+		joypad_listeners_.erase(
+			_device
+		) == 1u
+	);
+
+	fcppt::io::cout
+		<< FCPPT_TEXT("joypad_remove: ")
 		<< _device
 		<< FCPPT_TEXT('\n');
 }
