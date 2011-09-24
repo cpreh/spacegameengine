@@ -641,7 +641,9 @@ sge::systems::instance::impl::init_input(
 			fcppt::make_shared_ptr<
 				sge::input::cursor::demuxer
 			>(
-				input_processor_
+				fcppt::ref(
+					*input_processor_
+				)
 			);
 
 	if(
@@ -651,7 +653,9 @@ sge::systems::instance::impl::init_input(
 			fcppt::make_shared_ptr<
 				sge::input::keyboard::collector
 			>(
-				input_processor_
+				fcppt::ref(
+					*input_processor_
+				)
 			);
 
 	if(
@@ -661,7 +665,9 @@ sge::systems::instance::impl::init_input(
 			fcppt::make_shared_ptr<
 				sge::input::mouse::collector
 			>(
-				input_processor_
+				fcppt::ref(
+					*input_processor_
+				)
 			);
 
 	if(
@@ -671,7 +677,9 @@ sge::systems::instance::impl::init_input(
 			fcppt::make_unique_ptr<
 				systems::cursor_modifier
 			>(
-				input_processor_,
+				fcppt::ref(
+					*input_processor_
+				),
 				_param.cursor_options()
 			)
 		);

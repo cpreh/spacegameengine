@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
+#include <sge/x11input/system.hpp>
 #include <sge/input/system_ptr.hpp>
 #include <sge/plugin/library/make_interface.hpp>
 #include <sge/plugin/capabilities.hpp>

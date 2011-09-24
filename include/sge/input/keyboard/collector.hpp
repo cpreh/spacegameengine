@@ -24,25 +24,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/collector_fwd.hpp>
 #include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
-#include <sge/input/keyboard/char_function.hpp>
+#include <sge/input/keyboard/char_signal.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/device_ptr.hpp>
-#include <sge/input/keyboard/key_function.hpp>
-#include <sge/input/keyboard/key_repeat_function.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
+#include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
-#include <sge/input/keyboard/mod_state.hpp>
-#include <sge/input/processor_ptr.hpp>
+#include <sge/input/keyboard/key_repeat_signal.hpp>
+#include <sge/input/keyboard/key_signal.hpp>
+#include <sge/input/keyboard/manager.hpp>
+#include <sge/input/keyboard/mod_state_fwd.hpp>
+#include <sge/input/processor_fwd.hpp>
 #include <sge/input/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
@@ -61,11 +58,17 @@ class collector
 public:
 	SGE_INPUT_SYMBOL
 	explicit collector(
-		input::processor_ptr
+		input::processor &
 	);
 
 	SGE_INPUT_SYMBOL
 	~collector();
+
+	SGE_INPUT_SYMBOL
+	fcppt::signal::auto_connection
+	char_callback(
+		keyboard::char_callback const &
+	);
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
@@ -80,15 +83,14 @@ public:
 	);
 
 	SGE_INPUT_SYMBOL
-	fcppt::signal::auto_connection
-	char_callback(
-		keyboard::char_callback const &
-	);
-
-	SGE_INPUT_SYMBOL
 	keyboard::mod_state const
 	mod_state() const;
 private:
+	void
+	char_callback_internal(
+		keyboard::char_event const &
+	);
+
 	void
 	key_callback_internal(
 		keyboard::key_event const &
@@ -99,47 +101,13 @@ private:
 		keyboard::key_repeat_event const &
 	);
 
-	void
-	char_callback_internal(
-		keyboard::char_event const &
-	);
+	keyboard::manager manager_;
 
-	void
-	discover_callback(
-		keyboard::device_ptr
-	);
+	keyboard::char_signal char_signal_;
 
-	void
-	remove_callback(
-		keyboard::device_ptr
-	);
+	keyboard::key_signal key_signal_;
 
-	typedef fcppt::signal::object<
-		keyboard::key_function
-	> key_signal;
-
-	typedef fcppt::signal::object<
-		keyboard::key_repeat_function
-	> key_repeat_signal;
-
-	typedef fcppt::signal::object<
-		keyboard::char_function
-	> char_signal;
-
-	typedef boost::ptr_map<
-		keyboard::device_ptr,
-		fcppt::signal::connection_manager
-	> keyboard_map;
-
-	fcppt::signal::connection_manager const connections_;
-
-	key_signal signal_;
-
-	key_repeat_signal repeat_signal_;
-
-	char_signal char_signal_;
-
-	keyboard_map devices_;
+	keyboard::key_repeat_signal key_repeat_signal_;
 };
 
 }

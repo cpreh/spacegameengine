@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/joypad/device_fwd.hpp>
 #include <sge/input/joypad/button_callback.hpp>
+#include <sge/input/joypad/button_info_container_fwd.hpp>
 #include <sge/input/joypad/axis_callback.hpp>
+#include <sge/input/joypad/axis_info_container_fwd.hpp>
 #include <sge/input/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -57,6 +59,12 @@ public:
 	axis_callback(
 		joypad::axis_callback const &
 	) = 0;
+
+	virtual input::joypad::button_info_container const
+	buttons() const = 0;
+
+	virtual input::joypad::axis_info_container const
+	axis() const = 0;
 };
 
 }

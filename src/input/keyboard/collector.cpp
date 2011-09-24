@@ -19,97 +19,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/keyboard/collector.hpp>
+#include <sge/input/keyboard/char_callback.hpp>
+#include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/discover_callback.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
+#include <sge/input/keyboard/key_event_fwd.hpp>
+#include <sge/input/keyboard/key_repeat_callback.hpp>
+#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
+#include <sge/input/keyboard/manager.hpp>
+#include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/processor.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/connection_manager.hpp>
-#include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::keyboard::collector::collector(
-	input::processor_ptr const _processor
+	input::processor &_processor
 )
 :
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container
-		>(
-			fcppt::signal::shared_connection(
-				_processor->keyboard_discover_callback(
-					std::tr1::bind(
-						&collector::discover_callback,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				_processor->keyboard_remove_callback(
-					std::tr1::bind(
-						&collector::remove_callback,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
+	manager_(
+		_processor,
+		keyboard::discover_callback(),
+		keyboard::remove_callback(),
+		std::tr1::bind(
+			&keyboard::collector::char_callback_internal,
+			this,
+			std::tr1::placeholders::_1
+		),
+		std::tr1::bind(
+			&keyboard::collector::key_callback_internal,
+			this,
+			std::tr1::placeholders::_1
+		),
+		std::tr1::bind(
+			&keyboard::collector::key_repeat_callback_internal,
+			this,
+			std::tr1::placeholders::_1
 		)
 	),
-	signal_(),
-	repeat_signal_(),
 	char_signal_(),
-	devices_()
+	key_signal_(),
+	key_repeat_signal_()
 {
-	keyboard::device_vector const devices(
-		_processor->keyboards()
-	);
-
-	for(
-		keyboard::device_vector::const_iterator it(
-			devices.begin()
-		);
-		it != devices.end();
-		++it
-	)
-		this->discover_callback(
-			*it
-		);
 }
 FCPPT_PP_POP_WARNING
 
 sge::input::keyboard::collector::~collector()
 {
-}
-
-fcppt::signal::auto_connection
-sge::input::keyboard::collector::key_callback(
-	keyboard::key_callback const &_callback
-)
-{
-	return
-		signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::input::keyboard::collector::key_repeat_callback(
-	keyboard::key_repeat_callback const &_callback
-)
-{
-	return
-		repeat_signal_.connect(
-			_callback
-		);
 }
 
 fcppt::signal::auto_connection
@@ -123,6 +85,28 @@ sge::input::keyboard::collector::char_callback(
 		);
 }
 
+fcppt::signal::auto_connection
+sge::input::keyboard::collector::key_callback(
+	keyboard::key_callback const &_callback
+)
+{
+	return
+		key_signal_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::input::keyboard::collector::key_repeat_callback(
+	keyboard::key_repeat_callback const &_callback
+)
+{
+	return
+		key_repeat_signal_.connect(
+			_callback
+		);
+}
+
 sge::input::keyboard::mod_state const
 sge::input::keyboard::collector::mod_state() const
 {
@@ -131,35 +115,15 @@ sge::input::keyboard::collector::mod_state() const
 	);
 
 	for(
-		keyboard_map::const_iterator it(
-			devices_.begin()
+		manager::keyboard_map::const_iterator it(
+			manager_.devices().begin()
 		);
-		it != devices_.end();
+		it != manager_.devices().end();
 		++it
 	)
 		ret |= it->first->mod_state();
 
 	return ret;
-}
-
-void
-sge::input::keyboard::collector::key_callback_internal(
-	keyboard::key_event const &_event
-)
-{
-	signal_(
-		_event
-	);
-}
-
-void
-sge::input::keyboard::collector::key_repeat_callback_internal(
-	keyboard::key_repeat_event const &_event
-)
-{
-	repeat_signal_(
-		_event
-	);
 }
 
 void
@@ -173,61 +137,21 @@ sge::input::keyboard::collector::char_callback_internal(
 }
 
 void
-sge::input::keyboard::collector::discover_callback(
-	keyboard::device_ptr const _device
+sge::input::keyboard::collector::key_callback_internal(
+	keyboard::key_event const &_event
 )
 {
-	fcppt::container::ptr::insert_unique_ptr_map(
-		devices_,
-		_device,
-		fcppt::make_unique_ptr<
-			fcppt::signal::connection_manager
-		>(
-			fcppt::assign::make_container<
-				fcppt::signal::connection_manager::container
-			>(
-				fcppt::signal::shared_connection(
-					_device->key_callback(
-						std::tr1::bind(
-							&collector::key_callback_internal,
-							this,
-							std::tr1::placeholders::_1
-						)
-					)
-				)
-			)
-			(
-				fcppt::signal::shared_connection(
-					_device->key_repeat_callback(
-						std::tr1::bind(
-							&collector::key_repeat_callback_internal,
-							this,
-							std::tr1::placeholders::_1
-						)
-					)
-				)
-			)
-			(
-				fcppt::signal::shared_connection(
-					_device->char_callback(
-						std::tr1::bind(
-							&collector::char_callback_internal,
-							this,
-							std::tr1::placeholders::_1
-						)
-					)
-				)
-			)
-		)
+	key_signal_(
+		_event
 	);
 }
 
 void
-sge::input::keyboard::collector::remove_callback(
-	keyboard::device_ptr const _device
+sge::input::keyboard::collector::key_repeat_callback_internal(
+	keyboard::key_repeat_event const &_event
 )
 {
-	devices_.erase(
-		_device
+	key_repeat_signal_(
+		_event
 	);
 }

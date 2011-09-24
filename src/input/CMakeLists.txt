@@ -10,6 +10,8 @@ SET(
 	include/sge/input/cursor/demuxer.hpp
 	include/sge/input/cursor/demuxer_fwd.hpp
 	include/sge/input/cursor/discover_callback.hpp
+	include/sge/input/cursor/discover_event.hpp
+	include/sge/input/cursor/discover_event_fwd.hpp
 	include/sge/input/cursor/discover_function.hpp
 	include/sge/input/cursor/discover_signal.hpp
 	include/sge/input/cursor/mode.hpp
@@ -32,9 +34,15 @@ SET(
 	include/sge/input/cursor/relative_movement.hpp
 	include/sge/input/cursor/relative_movement_fwd.hpp
 	include/sge/input/cursor/remove_callback.hpp
+	include/sge/input/cursor/remove_event.hpp
+	include/sge/input/cursor/remove_event_fwd.hpp
 	include/sge/input/cursor/remove_function.hpp
 	include/sge/input/cursor/remove_signal.hpp
 	include/sge/input/exception.hpp
+	include/sge/input/info/container.hpp
+	include/sge/input/info/container_fwd.hpp
+	include/sge/input/info/optional_string.hpp
+	include/sge/input/info/optional_string_fwd.hpp
 	include/sge/input/input.hpp
 	include/sge/input/joypad/axis.hpp
 	include/sge/input/joypad/axis_callback.hpp
@@ -44,23 +52,34 @@ SET(
 	include/sge/input/joypad/axis_function.hpp
 	include/sge/input/joypad/axis_fwd.hpp
 	include/sge/input/joypad/axis_id.hpp
+	include/sge/input/joypad/axis_info.hpp
+	include/sge/input/joypad/axis_info_container.hpp
+	include/sge/input/joypad/axis_info_container_fwd.hpp
+	include/sge/input/joypad/axis_info_fwd.hpp
 	include/sge/input/joypad/axis_value.hpp
 	include/sge/input/joypad/button_callback.hpp
 	include/sge/input/joypad/button_event.hpp
 	include/sge/input/joypad/button_event_fwd.hpp
 	include/sge/input/joypad/button_function.hpp
 	include/sge/input/joypad/button_id.hpp
-	include/sge/input/joypad/collector.hpp
+	include/sge/input/joypad/button_info.hpp
+	include/sge/input/joypad/button_info_container.hpp
+	include/sge/input/joypad/button_info_container_fwd.hpp
+	include/sge/input/joypad/button_info_fwd.hpp
 	include/sge/input/joypad/collector_fwd.hpp
 	include/sge/input/joypad/device.hpp
 	include/sge/input/joypad/device_fwd.hpp
 	include/sge/input/joypad/device_ptr.hpp
 	include/sge/input/joypad/device_vector.hpp
 	include/sge/input/joypad/discover_callback.hpp
+	include/sge/input/joypad/discover_event.hpp
+	include/sge/input/joypad/discover_event_fwd.hpp
 	include/sge/input/joypad/discover_function.hpp
 	include/sge/input/joypad/discover_signal.hpp
 	include/sge/input/joypad/joypad.hpp
 	include/sge/input/joypad/remove_callback.hpp
+	include/sge/input/joypad/remove_event.hpp
+	include/sge/input/joypad/remove_event_fwd.hpp
 	include/sge/input/joypad/remove_function.hpp
 	include/sge/input/joypad/remove_signal.hpp
 	include/sge/input/keyboard/action.hpp
@@ -68,6 +87,7 @@ SET(
 	include/sge/input/keyboard/char_event.hpp
 	include/sge/input/keyboard/char_event_fwd.hpp
 	include/sge/input/keyboard/char_function.hpp
+	include/sge/input/keyboard/char_signal.hpp
 	include/sge/input/keyboard/char_type.hpp
 	include/sge/input/keyboard/collector.hpp
 	include/sge/input/keyboard/collector_fwd.hpp
@@ -77,6 +97,8 @@ SET(
 	include/sge/input/keyboard/device_vector.hpp
 	include/sge/input/keyboard/digit.hpp
 	include/sge/input/keyboard/discover_callback.hpp
+	include/sge/input/keyboard/discover_event.hpp
+	include/sge/input/keyboard/discover_event_fwd.hpp
 	include/sge/input/keyboard/discover_function.hpp
 	include/sge/input/keyboard/discover_signal.hpp
 	include/sge/input/keyboard/is_alt.hpp
@@ -92,12 +114,18 @@ SET(
 	include/sge/input/keyboard/key_repeat_event.hpp
 	include/sge/input/keyboard/key_repeat_event_fwd.hpp
 	include/sge/input/keyboard/key_repeat_function.hpp
+	include/sge/input/keyboard/key_repeat_signal.hpp
+	include/sge/input/keyboard/key_signal.hpp
 	include/sge/input/keyboard/keyboard.hpp
+	include/sge/input/keyboard/manager.hpp
 	include/sge/input/keyboard/mod_state.hpp
+	include/sge/input/keyboard/mod_state_fwd.hpp
 	include/sge/input/keyboard/modifier.hpp
 	include/sge/input/keyboard/optional_digit.hpp
 	include/sge/input/keyboard/optional_modifier.hpp
 	include/sge/input/keyboard/remove_callback.hpp
+	include/sge/input/keyboard/remove_event.hpp
+	include/sge/input/keyboard/remove_event_fwd.hpp
 	include/sge/input/keyboard/remove_function.hpp
 	include/sge/input/keyboard/remove_signal.hpp
 	include/sge/input/keyboard/to_modifier.hpp
@@ -106,6 +134,7 @@ SET(
 	include/sge/input/mouse/axis_event.hpp
 	include/sge/input/mouse/axis_event_fwd.hpp
 	include/sge/input/mouse/axis_function.hpp
+	include/sge/input/mouse/axis_signal.hpp
 	include/sge/input/mouse/axis_value.hpp
 	include/sge/input/mouse/button.hpp
 	include/sge/input/mouse/button_callback.hpp
@@ -115,6 +144,7 @@ SET(
 	include/sge/input/mouse/button_function.hpp
 	include/sge/input/mouse/button_fwd.hpp
 	include/sge/input/mouse/button_id.hpp
+	include/sge/input/mouse/button_signal.hpp
 	include/sge/input/mouse/collector.hpp
 	include/sge/input/mouse/collector_fwd.hpp
 	include/sge/input/mouse/device.hpp
@@ -122,10 +152,17 @@ SET(
 	include/sge/input/mouse/device_ptr.hpp
 	include/sge/input/mouse/device_vector.hpp
 	include/sge/input/mouse/discover_callback.hpp
+	include/sge/input/mouse/discover_event.hpp
+	include/sge/input/mouse/discover_event_fwd.hpp
 	include/sge/input/mouse/discover_function.hpp
 	include/sge/input/mouse/discover_signal.hpp
+	include/sge/input/mouse/info.hpp
+	include/sge/input/mouse/info_fwd.hpp
+	include/sge/input/mouse/manager.hpp
 	include/sge/input/mouse/mouse.hpp
 	include/sge/input/mouse/remove_callback.hpp
+	include/sge/input/mouse/remove_event.hpp
+	include/sge/input/mouse/remove_event_fwd.hpp
 	include/sge/input/mouse/remove_function.hpp
 	include/sge/input/mouse/remove_signal.hpp
 	include/sge/input/nullary_function.hpp
@@ -139,33 +176,48 @@ SET(
 	include/sge/input/system_ptr.hpp
 	src/input/cursor/button_event.cpp
 	src/input/cursor/demuxer.cpp
+	src/input/cursor/discover_event.cpp
 	src/input/cursor/move_event.cpp
 	src/input/cursor/no_object.cpp
 	src/input/cursor/object.cpp
 	src/input/cursor/relative_move_event.cpp
 	src/input/cursor/relative_movement.cpp
+	src/input/cursor/remove_event.cpp
 	src/input/exception.cpp
+	src/input/info/container_impl.hpp
 	src/input/joypad/axis.cpp
 	src/input/joypad/axis_event.cpp
+	src/input/joypad/axis_info.cpp
+	src/input/joypad/axis_info_container.cpp
 	src/input/joypad/button_event.cpp
-	src/input/joypad/collector.cpp
+	src/input/joypad/button_info.cpp
+	src/input/joypad/button_info_container.cpp
 	src/input/joypad/device.cpp
+	src/input/joypad/discover_event.cpp
+	src/input/joypad/remove_event.cpp
 	src/input/keyboard/action.cpp
 	src/input/keyboard/char_event.cpp
 	src/input/keyboard/collector.cpp
 	src/input/keyboard/device.cpp
+	src/input/keyboard/discover_event.cpp
 	src/input/keyboard/is_alt.cpp
 	src/input/keyboard/is_ctrl.cpp
 	src/input/keyboard/is_shift.cpp
 	src/input/keyboard/key_code_to_digit.cpp
 	src/input/keyboard/key_event.cpp
 	src/input/keyboard/key_repeat_event.cpp
+	src/input/keyboard/manager.cpp
+	src/input/keyboard/remove_event.cpp
 	src/input/keyboard/to_modifier.cpp
 	src/input/mouse/axis_event.cpp
 	src/input/mouse/button.cpp
 	src/input/mouse/button_event.cpp
 	src/input/mouse/collector.cpp
 	src/input/mouse/device.cpp
+	src/input/mouse/discover_event.cpp
+	src/input/mouse/info.cpp
+	src/input/mouse/manager.cpp
+	src/input/mouse/remove_event.cpp
 	src/input/plugin.cpp
 	src/input/processor.cpp
 	src/input/system.cpp

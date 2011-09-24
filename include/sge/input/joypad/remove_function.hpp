@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_JOYPAD_REMOVE_FUNCTION_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_REMOVE_FUNCTION_HPP_INCLUDED
 
-#include <sge/input/joypad/device_ptr.hpp>
+#include <sge/input/joypad/remove_event_fwd.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace joypad
 typedef
 void
 remove_function(
-	joypad::device_ptr
+	joypad::remove_event const &
 );
 
 }

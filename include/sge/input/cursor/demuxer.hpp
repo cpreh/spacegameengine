@@ -24,15 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/demuxer_fwd.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
-#include <sge/input/cursor/button_function.hpp>
+#include <sge/input/cursor/button_signal.hpp>
+#include <sge/input/cursor/discover_event_fwd.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
-#include <sge/input/cursor/move_function.hpp>
+#include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <sge/input/processor_ptr.hpp>
+#include <sge/input/cursor/remove_event_fwd.hpp>
+#include <sge/input/processor_fwd.hpp>
 #include <sge/input/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -60,7 +62,7 @@ class SGE_CLASS_SYMBOL demuxer
 public:
 	SGE_INPUT_SYMBOL
 	explicit demuxer(
-		input::processor_ptr
+		input::processor &
 	);
 
 	SGE_INPUT_SYMBOL
@@ -104,12 +106,12 @@ private:
 
 	void
 	discover_callback(
-		cursor::object_ptr
+		cursor::discover_event const &
 	);
 
 	void
 	remove_callback(
-		cursor::object_ptr
+		cursor::remove_event const &
 	);
 
 	void
@@ -117,23 +119,15 @@ private:
 		cursor::object_ptr
 	);
 
-	typedef fcppt::signal::object<
-		cursor::button_function
-	> button_signal;
-
-	typedef fcppt::signal::object<
-		cursor::move_function
-	> move_signal;
-
 	typedef std::set<
 		cursor::object_ptr
 	> cursor_set;
 
 	fcppt::signal::connection_manager const processor_connections_;
 
-	button_signal button_signal_;
+	input::cursor::button_signal button_signal_;
 
-	move_signal move_signal_;
+	input::cursor::move_signal move_signal_;
 
 	cursor_set cursors_;
 

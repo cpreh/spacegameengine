@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../lc_ctype.hpp"
-#include "../optional_opcode.hpp"
-#include "../processor.hpp"
-#include "../scoped_locale.hpp"
-#include "../xi_2_1.hpp"
-#include "../xi_opcode.hpp"
-#include "../xi_version.hpp"
+#include <sge/x11input/system.hpp>
+#include <sge/x11input/lc_ctype.hpp>
+#include <sge/x11input/optional_opcode.hpp>
+#include <sge/x11input/processor.hpp>
+#include <sge/x11input/scoped_locale.hpp>
+#include <sge/x11input/xi_2_1.hpp>
+#include <sge/x11input/xi_opcode.hpp>
+#include <sge/x11input/xi_version.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>

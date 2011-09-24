@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_repeat_callback.hpp>
-#include <sge/input/keyboard/mod_state.hpp>
+#include <sge/input/keyboard/mod_state_fwd.hpp>
 #include <sge/input/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -51,6 +51,11 @@ public:
 	virtual ~device() = 0;
 
 	virtual fcppt::signal::auto_connection
+	char_callback(
+		keyboard::char_callback const &
+	) = 0;
+
+	virtual fcppt::signal::auto_connection
 	key_callback(
 		keyboard::key_callback const &
 	) = 0;
@@ -58,11 +63,6 @@ public:
 	virtual fcppt::signal::auto_connection
 	key_repeat_callback(
 		keyboard::key_repeat_callback const &
-	) = 0;
-
-	virtual fcppt::signal::auto_connection
-	char_callback(
-		keyboard::char_callback const &
 	) = 0;
 
 	virtual keyboard::mod_state const
