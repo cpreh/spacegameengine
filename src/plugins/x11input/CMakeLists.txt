@@ -86,13 +86,18 @@ SET(
 	src/plugins/x11input/keyboard/translate_event.hpp
 	src/plugins/x11input/keyboard/translate_key_code.hpp
 	src/plugins/x11input/lc_ctype.hpp
+	src/plugins/x11input/mask_is_set.hpp
 	src/plugins/x11input/mouse/axis.hpp
+	src/plugins/x11input/mouse/button.hpp
 	src/plugins/x11input/mouse/button_code.hpp
+	src/plugins/x11input/mouse/button_id.hpp
 	src/plugins/x11input/mouse/device.hpp
 	src/plugins/x11input/mouse/device_fwd.hpp
 	src/plugins/x11input/mouse/device_ptr.hpp
 	src/plugins/x11input/mouse/src/axis.cpp
+	src/plugins/x11input/mouse/src/button.cpp
 	src/plugins/x11input/mouse/src/button_code.cpp
+	src/plugins/x11input/mouse/src/button_id.cpp
 	src/plugins/x11input/mouse/src/device.cpp
 	src/plugins/x11input/optional_opcode.hpp
 	src/plugins/x11input/pixmap.hpp
@@ -105,6 +110,7 @@ SET(
 	src/plugins/x11input/src/input_context.cpp
 	src/plugins/x11input/src/input_method.cpp
 	src/plugins/x11input/src/lc_ctype.cpp
+	src/plugins/x11input/src/mask_is_set.cpp
 	src/plugins/x11input/src/pixmap.cpp
 	src/plugins/x11input/src/processor.cpp
 	src/plugins/x11input/src/scoped_locale.cpp

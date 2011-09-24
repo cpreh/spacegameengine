@@ -20,15 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../device.hpp"
 #include "../axis.hpp"
-#include "../button_code.hpp"
+#include "../button.hpp"
 #include "../../device/parameters.hpp"
 #include "../../device/raw_demuxer.hpp"
 #include "../../device/raw_event.hpp"
 #include "../../device/window_demuxer.hpp"
 #include "../../device/window_event.hpp"
-#include <sge/input/mouse/axis_event.hpp>
+#include "../../mask_is_set.hpp"
 #include <sge/input/mouse/axis.hpp>
-#include <sge/input/mouse/button_code.hpp>
+#include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/mouse/button.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
@@ -173,7 +174,7 @@ sge::x11input::mouse::device::on_motion(
 	)
 	{
 		if(
-			XIMaskIsSet(
+			x11input::mask_is_set(
 				valuators.mask,
 				index
 			)
@@ -220,8 +221,10 @@ sge::x11input::mouse::device::button_event(
 {
 	button_signal_(
 		input::mouse::button_event(
-			x11input::mouse::button_code(
-				_event.get().detail
+			input::mouse::button(
+				x11input::mouse::button(
+					_event
+				)
 			),
 			_pressed
 		)

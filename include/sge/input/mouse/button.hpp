@@ -18,25 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../axis.hpp"
-#include <sge/input/mouse/axis.hpp>
+#ifndef SGE_INPUT_MOUSE_BUTTON_HPP_INCLUDED
+#define SGE_INPUT_MOUSE_BUTTON_HPP_INCLUDED
 
-sge::input::mouse::axis::type
-sge::x11input::mouse::axis(
-	int const _index
-)
+#include <sge/input/mouse/button_fwd.hpp>
+#include <sge/input/mouse/button_code.hpp>
+#include <sge/input/mouse/button_id.hpp>
+#include <sge/input/symbol.hpp>
+
+namespace sge
 {
-	switch(
-		_index
-	)
-	{
-	case 0:
-		return sge::input::mouse::axis::x;
-	case 1:
-		return sge::input::mouse::axis::y;
-	case 2:
-		return sge::input::mouse::axis::wheel;
-	}
+namespace input
+{
+namespace mouse
+{
 
-	return sge::input::mouse::axis::unknown;
+class button
+{
+public:
+	SGE_INPUT_SYMBOL
+	button(
+		mouse::button_code::type,
+		mouse::button_id
+	);
+
+	SGE_INPUT_SYMBOL
+	mouse::button_code::type
+	code() const;
+
+	SGE_INPUT_SYMBOL
+	mouse::button_id const
+	id() const;
+private:
+	mouse::button_code::type code_;
+
+	mouse::button_id id_;
+};
+
 }
+}
+}
+
+#endif

@@ -18,25 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../axis.hpp"
-#include <sge/input/mouse/axis.hpp>
+#include "../mask_is_set.hpp"
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
-sge::input::mouse::axis::type
-sge::x11input::mouse::axis(
-	int const _index
+bool
+sge::x11input::mask_is_set(
+	unsigned char const *const _ptr,
+	int const _mask
 )
 {
-	switch(
-		_index
-	)
-	{
-	case 0:
-		return sge::input::mouse::axis::x;
-	case 1:
-		return sge::input::mouse::axis::y;
-	case 2:
-		return sge::input::mouse::axis::wheel;
-	}
-
-	return sge::input::mouse::axis::unknown;
+	// This macro casts the pointer to unsigned char * for whatever reason
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wcast-qual)
+	return
+		XIMaskIsSet(
+			_ptr,
+			_mask
+		);
+FCPPT_PP_POP_WARNING
 }

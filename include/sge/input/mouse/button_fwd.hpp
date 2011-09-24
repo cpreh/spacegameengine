@@ -18,25 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../axis.hpp"
-#include <sge/input/mouse/axis.hpp>
+#ifndef SGE_INPUT_MOUSE_BUTTON_FWD_HPP_INCLUDED
+#define SGE_INPUT_MOUSE_BUTTON_FWD_HPP_INCLUDED
 
-sge::input::mouse::axis::type
-sge::x11input::mouse::axis(
-	int const _index
-)
+namespace sge
 {
-	switch(
-		_index
-	)
-	{
-	case 0:
-		return sge::input::mouse::axis::x;
-	case 1:
-		return sge::input::mouse::axis::y;
-	case 2:
-		return sge::input::mouse::axis::wheel;
-	}
+namespace input
+{
+namespace mouse
+{
 
-	return sge::input::mouse::axis::unknown;
+class button;
+
 }
+}
+}
+
+#endif

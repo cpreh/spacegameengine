@@ -18,25 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../axis.hpp"
-#include <sge/input/mouse/axis.hpp>
+#include "../button.hpp"
+#include "../button_code.hpp"
+#include "../button_id.hpp"
+#include "../../device/window_event.hpp"
+#include <sge/input/mouse/button.hpp>
 
-sge::input::mouse::axis::type
-sge::x11input::mouse::axis(
-	int const _index
+sge::input::mouse::button const
+sge::x11input::mouse::button(
+	x11input::device::window_event const &_event
 )
 {
-	switch(
-		_index
-	)
-	{
-	case 0:
-		return sge::input::mouse::axis::x;
-	case 1:
-		return sge::input::mouse::axis::y;
-	case 2:
-		return sge::input::mouse::axis::wheel;
-	}
-
-	return sge::input::mouse::axis::unknown;
+	return
+		sge::input::mouse::button(
+			x11input::mouse::button_code(
+				_event.get().detail
+			),
+			x11input::mouse::button_id(
+				_event.get().detail
+			)
+		);
 }

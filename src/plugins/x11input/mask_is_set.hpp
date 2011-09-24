@@ -18,25 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../axis.hpp"
-#include <sge/input/mouse/axis.hpp>
+#ifndef SGE_X11INPUT_MASK_IS_SET_HPP_INCLUDED
+#define SGE_X11INPUT_MASK_IS_SET_HPP_INCLUDED
 
-sge::input::mouse::axis::type
-sge::x11input::mouse::axis(
-	int const _index
-)
+namespace sge
 {
-	switch(
-		_index
-	)
-	{
-	case 0:
-		return sge::input::mouse::axis::x;
-	case 1:
-		return sge::input::mouse::axis::y;
-	case 2:
-		return sge::input::mouse::axis::wheel;
-	}
+namespace x11input
+{
 
-	return sge::input::mouse::axis::unknown;
+bool
+mask_is_set(
+	unsigned char const *,
+	int
+);
+
 }
+}
+
+#endif

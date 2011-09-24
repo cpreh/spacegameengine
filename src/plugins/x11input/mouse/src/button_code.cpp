@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../button_code.hpp"
+#include <sge/input/mouse/button_code.hpp>
 
 sge::input::mouse::button_code::type
 sge::x11input::mouse::button_code(
@@ -35,16 +36,6 @@ sge::x11input::mouse::button_code(
 		return sge::input::mouse::button_code::middle;
 	case 3:
 		return sge::input::mouse::button_code::right;
-	case 4:
-		return sge::input::mouse::button_code::_4;
-	case 5:
-		return sge::input::mouse::button_code::_5;
-	case 6:
-		return sge::input::mouse::button_code::_6;
-	case 7:
-		return sge::input::mouse::button_code::_7;
-	case 8:
-		return sge::input::mouse::button_code::_8;
 	}
 
 	return sge::input::mouse::button_code::unknown;

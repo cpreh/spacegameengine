@@ -19,13 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/mouse/button_event.hpp>
+#include <sge/input/mouse/button.hpp>
+#include <sge/input/mouse/button_code.hpp>
 
 sge::input::mouse::button_event::button_event(
-	mouse::button_code::type const _button_code,
+	mouse::button const &_button,
 	bool const _pressed
 )
 :
-	button_code_(_button_code),
+	button_(_button),
 	pressed_(_pressed)
 {
 }
@@ -33,7 +35,13 @@ sge::input::mouse::button_event::button_event(
 sge::input::mouse::button_code::type
 sge::input::mouse::button_event::button_code() const
 {
-	return button_code_;
+	return button_.code();
+}
+
+sge::input::mouse::button const &
+sge::input::mouse::button_event::button() const
+{
+	return button_;
 }
 
 bool

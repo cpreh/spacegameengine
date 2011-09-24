@@ -80,11 +80,14 @@ SET(
 	include/sge/input/mouse/axis_event_fwd.hpp
 	include/sge/input/mouse/axis_function.hpp
 	include/sge/input/mouse/axis_value.hpp
+	include/sge/input/mouse/button.hpp
 	include/sge/input/mouse/button_callback.hpp
 	include/sge/input/mouse/button_code.hpp
 	include/sge/input/mouse/button_event.hpp
 	include/sge/input/mouse/button_event_fwd.hpp
 	include/sge/input/mouse/button_function.hpp
+	include/sge/input/mouse/button_fwd.hpp
+	include/sge/input/mouse/button_id.hpp
 	include/sge/input/mouse/collector.hpp
 	include/sge/input/mouse/collector_fwd.hpp
 	include/sge/input/mouse/device.hpp
@@ -127,6 +130,7 @@ SET(
 	src/input/keyboard/key_repeat_event.cpp
 	src/input/keyboard/to_modifier.cpp
 	src/input/mouse/axis_event.cpp
+	src/input/mouse/button.cpp
 	src/input/mouse/button_event.cpp
 	src/input/mouse/collector.cpp
 	src/input/mouse/device.cpp
