@@ -23,6 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../device/info.hpp"
 #include <sge/input/exception.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <X11/extensions/XI2.h>
+#include <fcppt/config/external_end.hpp>
 
 bool
 sge::x11input::joypad::is_usable(
@@ -37,9 +41,41 @@ try
 		_id
 	);
 
-	// TODO!
+	bool
+		has_valuators(
+			false
+		),
+		has_buttons(
+			false
+		);
 
-	return true;
+	XIAnyClassInfo **classes(
+		info.get().classes
+	);
+
+
+	for(
+		int index(0);
+		index < info.get().num_classes;
+		++index
+	)
+		switch(
+			classes[
+				index
+			]->type
+		)
+		{
+		case XIButtonClass:
+			has_buttons = true;
+			break;
+		case XIValuatorClass:
+			has_valuators = true;
+			break;
+		}
+
+	return
+		has_valuators
+		&& has_buttons;
 }
 catch(
 	sge::input::exception const &

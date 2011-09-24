@@ -77,11 +77,18 @@ sge::x11input::device::manager_config<
 	x11input::device::id const _id
 )
 {
-	objects_.push_back(
+	X11ObjectPtr const obj(
 		create_(
 			_id
 		)
 	);
+
+	if(
+		obj
+	)
+		objects_.push_back(
+			obj
+		);
 }
 
 template<
