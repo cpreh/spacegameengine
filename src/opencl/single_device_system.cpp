@@ -151,13 +151,13 @@ sge::opencl::single_device_system::context() const
 }
 
 sge::opencl::command_queue::object &
-sge::opencl::single_device_system::queue()
+sge::opencl::single_device_system::command_queue()
 {
 	return *queue_;
 }
 
 sge::opencl::command_queue::object const &
-sge::opencl::single_device_system::queue() const
+sge::opencl::single_device_system::command_queue() const
 {
 	return *queue_;
 }

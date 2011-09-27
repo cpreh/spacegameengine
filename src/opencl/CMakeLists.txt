@@ -10,6 +10,7 @@ SET(
 	include/sge/opencl/command_queue/object.hpp
 	include/sge/opencl/command_queue/object_fwd.hpp
 	include/sge/opencl/command_queue/profiling_mode.hpp
+	include/sge/opencl/command_queue/scoped.hpp
 	include/sge/opencl/command_queue/scoped_planar_mapping.hpp
 	include/sge/opencl/context/context.hpp
 	include/sge/opencl/context/error_callback.hpp
@@ -76,6 +77,7 @@ SET(
 	include/sge/opencl/version.hpp
 	src/opencl/command_queue/enqueue_kernel.cpp
 	src/opencl/command_queue/object.cpp
+	src/opencl/command_queue/scoped.cpp
 	src/opencl/command_queue/scoped_planar_mapping.cpp
 	src/opencl/context/object.cpp
 	src/opencl/context/parameters.cpp

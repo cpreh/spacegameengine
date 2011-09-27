@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/object.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
+#include <sge/opencl/command_queue/scoped.hpp>
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image2d/multi_loader.hpp>
@@ -133,8 +134,11 @@ try
 
 	fcppt::io::cout << FCPPT_TEXT("Kernel created, executing it\n");
 
+	sge::opencl::command_queue::scoped scoped_queue(
+		opencl_system.command_queue());
+
 	sge::opencl::command_queue::enqueue_kernel(
-		opencl_system.queue(),
+		opencl_system.command_queue(),
 		main_kernel,
 		fcppt::assign::make_array<sge::opencl::command_queue::dim2::value_type>
 			(image_size)(image_size).container(),
@@ -144,7 +148,7 @@ try
 	fcppt::io::cout << FCPPT_TEXT("Done, now creating an image file from the image in memory...\n");
 
 	sge::opencl::command_queue::scoped_planar_mapping scoped_image(
-		opencl_system.queue(),
+		opencl_system.command_queue(),
 		image,
 		CL_MAP_READ,
 		sge::opencl::memory_object::rect(

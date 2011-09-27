@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/source_string_sequence.hpp>
 #include <sge/opencl/command_queue/dim1.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
+#include <sge/opencl/command_queue/scoped.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
@@ -452,6 +453,9 @@ try
 	fcppt::io::cout << FCPPT_TEXT("Done, now enqueueing kernel and running it\n");
 
 	{
+		sge::opencl::command_queue::scoped scoped_queue(
+			main_queue);
+
 		sge::opencl::memory_object::scoped_objects scoped_vb(
 			main_queue,
 			mem_objects);

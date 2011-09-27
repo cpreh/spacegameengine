@@ -71,10 +71,10 @@ public:
 	context() const;
 
 	SGE_OPENCL_SYMBOL command_queue::object &
-	queue();
+	command_queue();
 
 	SGE_OPENCL_SYMBOL command_queue::object const &
-	queue() const;
+	command_queue() const;
 
 	SGE_OPENCL_SYMBOL
 	~single_device_system();

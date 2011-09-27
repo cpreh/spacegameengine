@@ -59,6 +59,7 @@ SET(
 	include/sge/input/joypad/discover_callback.hpp
 	include/sge/input/joypad/discover_function.hpp
 	include/sge/input/joypad/discover_signal.hpp
+	include/sge/input/joypad/joypad.hpp
 	include/sge/input/joypad/remove_callback.hpp
 	include/sge/input/joypad/remove_function.hpp
 	include/sge/input/joypad/remove_signal.hpp

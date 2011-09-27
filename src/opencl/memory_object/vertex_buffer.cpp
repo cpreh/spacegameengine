@@ -72,8 +72,4 @@ sge::opencl::memory_object::vertex_buffer::~vertex_buffer()
 	opencl::handle_error(
 		error_code,
 		FCPPT_TEXT("clReleaseMemObject(vertex buffer)"));
-
-	FCPPT_LOG_VERBOSE(
-		local_log,
-		fcppt::log::_ << FCPPT_TEXT("In ~vertex_buffer()"));
 }

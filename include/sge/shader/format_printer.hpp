@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/format.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge
@@ -56,7 +57,12 @@ public:
 		typename Tag,
 		renderer::vf::vertex_size N
 	>
-	void
+	typename
+	boost::enable_if_c
+	<
+		N != 1,
+		void
+	>::type
 	operator()(
 		renderer::vf::unspecified
 		<
@@ -66,6 +72,30 @@ public:
 			boost::str(
 				boost::format("in %s %s;\n")
 				% shader::vector_to_string<T,N>()
+				% renderer::glsl::from_fcppt_string(
+					Tag::name()));
+	}
+
+	template
+	<
+		typename T,
+		typename Tag,
+		renderer::vf::vertex_size N
+	>
+	typename
+	boost::enable_if_c
+	<
+		N == 1,
+		void
+	>::type
+	operator()(
+		renderer::vf::unspecified
+		<
+			renderer::vf::vector<T,N>,Tag>)
+	{
+		s +=
+			boost::str(
+				boost::format("in float %s;\n")
 				% renderer::glsl::from_fcppt_string(
 					Tag::name()));
 	}

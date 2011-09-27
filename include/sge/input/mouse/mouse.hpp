@@ -27,11 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/input/mouse/axis_function.hpp>
 #include <sge/input/mouse/axis_value.hpp>
+#include <sge/input/mouse/button.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_code.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
 #include <sge/input/mouse/button_function.hpp>
+#include <sge/input/mouse/button_fwd.hpp>
+#include <sge/input/mouse/button_id.hpp>
 #include <sge/input/mouse/collector.hpp>
 #include <sge/input/mouse/collector_fwd.hpp>
 #include <sge/input/mouse/device.hpp>

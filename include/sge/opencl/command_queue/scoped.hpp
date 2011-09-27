@@ -18,18 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_COMMAND_QUEUE_COMMAND_QUEUE_HPP_INCLUDED
-#define SGE_OPENCL_COMMAND_QUEUE_COMMAND_QUEUE_HPP_INCLUDED
+#ifndef SGE_OPENCL_COMMAND_QUEUE_SCOPED_HPP_INCLUDED
+#define SGE_OPENCL_COMMAND_QUEUE_SCOPED_HPP_INCLUDED
 
-#include <sge/opencl/command_queue/dim1.hpp>
-#include <sge/opencl/command_queue/dim2.hpp>
-#include <sge/opencl/command_queue/dim3.hpp>
-#include <sge/opencl/command_queue/enqueue_kernel.hpp>
-#include <sge/opencl/command_queue/execution_mode.hpp>
-#include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
-#include <sge/opencl/command_queue/profiling_mode.hpp>
-#include <sge/opencl/command_queue/scoped.hpp>
-#include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
+#include <sge/opencl/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
+{
+namespace opencl
+{
+namespace command_queue
+{
+class scoped
+{
+FCPPT_NONCOPYABLE(
+	scoped);
+public:
+	SGE_OPENCL_SYMBOL explicit
+	scoped(
+		command_queue::object &);
+
+	SGE_OPENCL_SYMBOL ~scoped();
+private:
+	command_queue::object &object_;
+};
+}
+}
+}
 
 #endif
