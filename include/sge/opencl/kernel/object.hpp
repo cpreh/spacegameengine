@@ -64,6 +64,7 @@ public:
 	SGE_OPENCL_SYMBOL ~object();
 private:
 	cl_kernel kernel_;
+	cl_uint argument_count_;
 };
 }
 }

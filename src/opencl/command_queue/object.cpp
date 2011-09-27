@@ -63,8 +63,21 @@ sge::opencl::command_queue::object::impl() const
 	return queue_;
 }
 
+void
+sge::opencl::command_queue::object::finish()
+{
+	cl_int const finish_error_code = clFinish(
+		queue_);
+
+	opencl::handle_error(
+		finish_error_code,
+		FCPPT_TEXT("clFinish"));
+}
+
 sge::opencl::command_queue::object::~object()
 {
+	this->finish();
+
 	cl_int const error_code =
 		clReleaseCommandQueue(
 			queue_);

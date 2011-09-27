@@ -50,6 +50,9 @@ public:
 	SGE_OPENCL_SYMBOL cl_command_queue
 	impl() const;
 
+	SGE_OPENCL_SYMBOL void
+	finish();
+
 	SGE_OPENCL_SYMBOL ~object();
 private:
 	cl_command_queue queue_;

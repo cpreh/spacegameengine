@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/vertex_buffer.hpp>
 #include <sge/opencl/program/object.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 sge::opencl::kernel::object::object(
@@ -44,6 +44,19 @@ sge::opencl::kernel::object::object(
 	opencl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateKernel"));
+
+	error_code = 
+		clGetKernelInfo(
+			kernel_,
+			CL_KERNEL_NUM_ARGS,
+			sizeof(cl_uint),
+			&argument_count_,
+			// Pointer to the argument size
+			0);
+
+	opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clGetKernelInfo(number of arguments)"));
 }
 
 cl_kernel
@@ -57,6 +70,10 @@ sge::opencl::kernel::object::argument(
 	kernel::argument_index const &index,
 	memory_object::base &o)
 {
+	FCPPT_ASSERT_PRE_MESSAGE(
+		index.get() < argument_count_,
+		FCPPT_TEXT("Kernel argument index is out of range"));
+
 	cl_mem mem_ptr = o.impl();
 
 	cl_int const error_code =
