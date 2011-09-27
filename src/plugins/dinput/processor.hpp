@@ -32,6 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/object_vector.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/joypad/device_vector.hpp>
+#include <sge/input/joypad/discover_callback.hpp>
+#include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/keyboard/device_vector.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
@@ -110,6 +113,19 @@ public:
 
 	input::cursor::object_vector const
 	cursors() const;
+
+	fcppt::signal::auto_connection
+	joypad_discover_callback(
+		input::joypad::discover_callback const &
+	);
+
+	fcppt::signal::auto_connection
+	joypad_remove_callback(
+		input::joypad::remove_callback const &
+	);
+
+	input::joypad::device_vector const
+	joypads() const;
 
 	sge::window::instance_ptr const
 	window() const;

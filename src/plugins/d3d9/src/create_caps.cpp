@@ -112,6 +112,11 @@ sge::d3d9::create_caps(
 				caps.MaxTextureWidth,
 				caps.MaxTextureHeight
 			),
+			static_cast<
+				sge::renderer::size_type
+			>(
+				caps.MaxVolumeExtent
+			),
 			sge::renderer::texture::filter::anisotropic::level(
 				caps.MaxAnisotropy
 			),

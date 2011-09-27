@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../button_code.hpp"
 #include "../../di.hpp"
 #include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/mouse/button.hpp>
 #include <sge/input/mouse/button_event.hpp>
+#include <sge/input/mouse/button_id.hpp>
 #include <fcppt/signal/object_impl.hpp>
 
 sge::dinput::mouse::device::device(
@@ -128,9 +130,18 @@ sge::dinput::mouse::device::dispatch()
 		else
 			button_signal_(
 				input::mouse::button_event(
-					buttons_[
-						offset
-					],
+					input::mouse::button(
+						buttons_[
+							offset
+						],
+						sge::input::mouse::button_id(
+							static_cast<
+								sge::input::mouse::button_id::value_type
+							>(
+								offset
+							)
+						)
+					),
 					(
 						data_word
 						& 0x80

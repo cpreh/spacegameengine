@@ -39,26 +39,6 @@ sge::dinput::mouse::button_code(
 		_code == dinput::cast_key(DIMOFS_BUTTON2)
 	)
 		return sge::input::mouse::button_code::middle;
-	else if(
-		_code == dinput::cast_key(DIMOFS_BUTTON3)
-	)
-		return sge::input::mouse::button_code::_4;
-	else if(
-		_code == dinput::cast_key(DIMOFS_BUTTON4)
-	)
-		return sge::input::mouse::button_code::_5;
-	else if(
-		_code == dinput::cast_key(DIMOFS_BUTTON5)
-	)
-		return sge::input::mouse::button_code::_6;
-	else if(
-		_code == dinput::cast_key(DIMOFS_BUTTON6)
-	)
-		return sge::input::mouse::button_code::_7;
-	else if(
-		_code == dinput::cast_key(DIMOFS_BUTTON7)
-	)
-		return sge::input::mouse::button_code::_8;
 
 	return sge::input::mouse::button_code::unknown;
 }

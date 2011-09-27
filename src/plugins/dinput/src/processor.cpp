@@ -230,6 +230,29 @@ sge::dinput::processor::cursors() const
 		);
 }
 
+fcppt::signal::auto_connection
+sge::dinput::processor::joypad_discover_callback(
+	input::joypad::discover_callback const &
+)
+{
+	return fcppt::signal::auto_connection();
+}
+
+fcppt::signal::auto_connection
+sge::dinput::processor::joypad_remove_callback(
+	input::joypad::remove_callback const &
+)
+{
+	return fcppt::signal::auto_connection();
+}
+
+sge::input::joypad::device_vector const
+sge::dinput::processor::joypads() const
+{
+	return
+		sge::input::joypad::device_vector();
+}
+
 sge::window::instance_ptr const
 sge::dinput::processor::window() const
 {

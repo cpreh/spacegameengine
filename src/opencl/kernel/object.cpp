@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/opencl/memory_object/vertex_buffer.hpp>
 #include <sge/opencl/program/object.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -94,6 +95,8 @@ namespace
 {
 struct numeric_visitor
 {
+FCPPT_NONASSIGNABLE(
+	numeric_visitor);
 public:
 	typedef
 	void
