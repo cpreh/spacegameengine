@@ -63,7 +63,19 @@ SET(
 	src/plugin/object_impl.hpp
 )
 
+IF(WIN32)
+	SET(
+		SGE_PLUGIN_ADDITIONAL_LIBS
+		"${Awl_LIBRARIES}"
+	)
+ELSE()
+	SET(
+		SGE_PLUGIN_ADDITIONAL_LIBS
+		"}"
+	)
+ENDIF()
+
 ADD_SGE_BASE_LIBRARY(
 	plugin
-	""
+	"${SGE_PLUGIN_ADDITIONAL_LIBS}"
 )
