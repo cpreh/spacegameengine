@@ -79,7 +79,7 @@ fallback(
 	sge::font::text::string const &_arg
 )
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("fallback called with argument:")
 		<< sge::font::text::to_fcppt_string(
 			_arg
@@ -277,13 +277,23 @@ try
 		gfx_.render();
 	}
 }
-catch(sge::exception const &e)
+catch(
+	fcppt::exception const &_error
+)
 {
-	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
+	fcppt::io::cerr()
+		<< _error.string()
+		<< FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
 }
-catch(std::exception const &e)
+catch(
+	std::exception const &_error
+)
 {
-	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
+	std::cerr
+		<< _error.what()
+		<< '\n';
+
 	return EXIT_FAILURE;
 }

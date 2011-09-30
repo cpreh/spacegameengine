@@ -49,7 +49,7 @@ int main()
 		)
 	)
 	{
-		fcppt::io::cerr
+		fcppt::io::cerr()
 			<< FCPPT_TEXT("Parsing failed\n");
 
 		return EXIT_FAILURE;
@@ -57,12 +57,12 @@ int main()
 
 	if(
 		!sge::parse::ini::output::to_stream(
-			fcppt::io::cout,
+			fcppt::io::cout(),
 			result
 		)
 	)
 	{
-		fcppt::io::cerr
+		fcppt::io::cerr()
 			<< FCPPT_TEXT("Output failed\n");
 
 		return EXIT_FAILURE;

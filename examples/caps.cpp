@@ -100,7 +100,7 @@ try
 		)
 	);
 
-	fcppt::io::cout
+	fcppt::io::cout()
 		<<
 		render_sys->create_renderer(
 			render_params,
@@ -115,7 +115,7 @@ catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr
+	fcppt::io::cerr()
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 

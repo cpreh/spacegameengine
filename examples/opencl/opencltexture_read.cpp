@@ -42,13 +42,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cout.hpp>
 #include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/io/cout.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <iostream>
@@ -64,8 +64,11 @@ try
 {
 	if(argc == 1)
 	{
-		fcppt::io::cout << FCPPT_TEXT("This program creates an image in OpenCL and writes it to a png file on disk.\n\n");
-		fcppt::io::cout << FCPPT_TEXT("Usage: ") << fcppt::from_std_string(argv[0]) << FCPPT_TEXT(" <png-image-file-name>\n");
+		fcppt::io::cerr()
+			<< FCPPT_TEXT("This program creates an image in OpenCL and writes it to a png file on disk.\n\n")
+			<< FCPPT_TEXT("Usage: ")
+			<< fcppt::from_std_string(argv[0])
+			<< FCPPT_TEXT(" <png-image-file-name>\n");
 		return EXIT_FAILURE;
 	}
 
@@ -73,13 +76,15 @@ try
 		fcppt::from_std_string(
 			argv[1]));
 
-	fcppt::io::cout << FCPPT_TEXT("Creating opencl system\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Creating opencl system\n");
 
 	// Mind the extra parens
 	sge::opencl::single_device_system opencl_system((
 		sge::opencl::optional_renderer()));
 
-	fcppt::io::cout << FCPPT_TEXT("Done, creating planar image\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Done, creating planar image\n");
 
 	cl_image_format image_format;
 	image_format.image_channel_order = CL_RGBA;
@@ -97,7 +102,8 @@ try
 		sge::opencl::memory_object::image::planar_pitch(
 			0));
 
-	fcppt::io::cout << FCPPT_TEXT("Done, creating systems object\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Done, creating systems object\n");
 
 	sge::systems::instance sys(
 		sge::systems::list()
@@ -105,7 +111,8 @@ try
 				sge::image::capabilities_field::null(),
 				sge::all_extensions)));
 
-	fcppt::io::cout << FCPPT_TEXT("Done, creating program\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Done, creating program\n");
 
 	sge::opencl::program::object main_program(
 		opencl_system.context(),
@@ -115,12 +122,14 @@ try
 					sge::config::media_path() / FCPPT_TEXT("kernels") / FCPPT_TEXT("texture.cl")))),
 		sge::opencl::program::optional_build_parameters());
 
-	fcppt::io::cout << FCPPT_TEXT("Program created, building the program...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Program created, building the program...\n");
 
 	main_program.build(
 		sge::opencl::program::build_parameters());
 
-	fcppt::io::cout << FCPPT_TEXT("Program built, now creating a kernel...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Program built, now creating a kernel...\n");
 
 	sge::opencl::kernel::object main_kernel(
 		main_program,
@@ -132,7 +141,8 @@ try
 			0),
 		image);
 
-	fcppt::io::cout << FCPPT_TEXT("Kernel created, executing it\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Kernel created, executing it\n");
 
 	sge::opencl::command_queue::scoped scoped_queue(
 		opencl_system.command_queue());
@@ -145,7 +155,8 @@ try
 		fcppt::assign::make_array<sge::opencl::command_queue::dim2::value_type>
 			(static_cast<std::size_t>(1))(static_cast<std::size_t>(1)).container());
 
-	fcppt::io::cout << FCPPT_TEXT("Done, now creating an image file from the image in memory...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Done, now creating an image file from the image in memory...\n");
 
 	sge::opencl::command_queue::scoped_planar_mapping scoped_image(
 		opencl_system.command_queue(),
@@ -160,13 +171,23 @@ try
 			scoped_image.view()))->save(
 		target_file_name);
 }
-catch(fcppt::exception const &e)
+catch(
+	fcppt::exception const &_error
+)
 {
-	fcppt::io::cerr << FCPPT_TEXT("fcppt::exception caught: ") << e.string() << FCPPT_TEXT("\n");
+	fcppt::io::cerr()
+		<< _error.string()
+		<< FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
 }
-catch (std::exception const &e)
+catch(
+	std::exception const &_error
+)
 {
-	std::cerr << "std::exception caught: " << e.what() << "\n";
+	std::cerr
+		<< _error.what()
+		<< '\n';
+
 	return EXIT_FAILURE;
 }

@@ -128,10 +128,10 @@ try
 	if(
 		!opengl_texture
 	)
-		fcppt::io::cout
+		fcppt::io::cout()
 			<< FCPPT_TEXT("Not an opengl texture!\n");
 	else
-		fcppt::io::cout
+		fcppt::io::cout()
 			<< FCPPT_TEXT("Opengl texture id is ")
 			<< opengl_texture->id()
 			<< FCPPT_TEXT('\n');
@@ -181,10 +181,10 @@ try
 	if(
 		!opengl_buffer
 	)
-		fcppt::io::cout
+		fcppt::io::cout()
 			<< FCPPT_TEXT("Not an opengl buffer!\n");
 	else
-		fcppt::io::cout
+		fcppt::io::cout()
 			<< FCPPT_TEXT("Opengl buffer id is ")
 			<< opengl_buffer->id()
 			<< FCPPT_TEXT(" and native is ")
@@ -196,7 +196,7 @@ catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr
+	fcppt::io::cerr()
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 

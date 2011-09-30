@@ -38,7 +38,7 @@ print_exception(
 	fcppt::exception const &_exception
 )
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
 

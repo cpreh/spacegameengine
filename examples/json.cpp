@@ -59,7 +59,7 @@ try
 		)
 	)
 	{
-		fcppt::io::cerr
+		fcppt::io::cerr()
 			<< FCPPT_TEXT("failure\n");
 
 		return EXIT_FAILURE;
@@ -89,25 +89,25 @@ try
 
 	if(
 		!sge::parse::json::output::to_stream(
-			fcppt::io::cout,
+			fcppt::io::cout(),
 			result
 		)
 	)
 	{
-		fcppt::io::cerr
+		fcppt::io::cerr()
 			<< FCPPT_TEXT("output failed\n");
 
 		return EXIT_FAILURE;
 	}
 
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT('\n');
 }
 catch(
 	fcppt::exception const &_exception
 )
 {
-	fcppt::io::cerr
+	fcppt::io::cerr()
 		<< FCPPT_TEXT("caugth exception: ")
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');

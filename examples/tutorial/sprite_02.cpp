@@ -312,7 +312,7 @@ try
 }
 catch (sge::exception const &e)
 {
-	fcppt::io::cerr
+	fcppt::io::cerr()
 		<< FCPPT_TEXT("caught sge exception: ")
 		<< e.string()
 		<< FCPPT_TEXT('\n');

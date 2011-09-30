@@ -243,13 +243,23 @@ try
 		);
 	}
 }
-catch(fcppt::exception const &e)
+catch(
+	fcppt::exception const &_error
+)
 {
-	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
+	fcppt::io::cerr()
+		<< _error.string()
+		<< FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
 }
-catch(std::exception const &e)
+catch(
+	std::exception const &_error
+)
 {
-	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
+	std::cerr
+		<< _error.what()
+		<< '\n';
+
 	return EXIT_FAILURE;
 }

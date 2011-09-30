@@ -100,10 +100,11 @@ namespace
 void
 wait_for_input()
 {
-	fcppt::io::cout << FCPPT_TEXT("Please press enter to continue...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Please press enter to continue...\n");
 	fcppt::string input;
 	std::getline(
-		fcppt::io::cin,
+		fcppt::io::cin(),
 		input);
 }
 
@@ -134,7 +135,9 @@ try
 			FCPPT_TEXT("sounds") /
 			FCPPT_TEXT("epoq.ogg");
 
-	fcppt::io::cout << FCPPT_TEXT("This is the sge sound example. We will now try to load the audio loader\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("This is the sge sound example. We will now try to load the audio loader\n");
+
 	wait_for_input();
 
 	sge::systems::instance sys(
@@ -152,10 +155,11 @@ try
 		)
 	);
 
-	fcppt::io::cout << FCPPT_TEXT("Audio loader loaded\n");
-	fcppt::io::cout << FCPPT_TEXT("We will now try to load a sound file\n");
-	wait_for_input();
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Audio loader loaded\n")
+		<< FCPPT_TEXT("We will now try to load a sound file\n");
 
+	wait_for_input();
 
 	sge::audio::file_ptr const soundfile =
 		load_raw(
@@ -167,23 +171,29 @@ try
 			file_name);
 	*/
 
-	fcppt::io::cout << FCPPT_TEXT("Sound file loaded\n");
-	fcppt::io::cout << FCPPT_TEXT("We will now try to create a nonstreaming buffer from it.\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Sound file loaded\n")
+		<< FCPPT_TEXT("We will now try to create a nonstreaming buffer from it.\n");
+
 	wait_for_input();
 
 	sge::audio::buffer_ptr const buf =
 		sys.audio_player().create_buffer(
 			*soundfile);
 
-	fcppt::io::cout << FCPPT_TEXT("Buffer created\n");
-	fcppt::io::cout << FCPPT_TEXT("We will now try to create a nonpositional source from it.\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Buffer created\n")
+		<< FCPPT_TEXT("We will now try to create a nonpositional source from it.\n");
+
 	wait_for_input();
 
 	sge::audio::sound::base_ptr const s =
 		buf->create_nonpositional();
 
-	fcppt::io::cout << FCPPT_TEXT("Nonpositional source loaded\n");
-	fcppt::io::cout << FCPPT_TEXT("You should hear a sound after pressing enter\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Nonpositional source loaded\n")
+		<< FCPPT_TEXT("You should hear a sound after pressing enter\n");
+
 	wait_for_input();
 
 	s->play(
@@ -192,7 +202,9 @@ try
 	wait_for_sound(
 		s);
 
-	fcppt::io::cout << FCPPT_TEXT("Now we use the same sound, but create a positional source from it.\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Now we use the same sound, but create a positional source from it.\n");
+
 	wait_for_input();
 
 	sge::audio::sound::positional_ptr const ps =
@@ -205,7 +217,9 @@ try
 				.rolloff(
 					1));
 
-	fcppt::io::cout << FCPPT_TEXT("Sound created at the origin, now we play it\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Sound created at the origin, now we play it\n");
+
 	wait_for_input();
 
 	s->play(
@@ -214,7 +228,9 @@ try
 	wait_for_sound(
 		s);
 
-	fcppt::io::cout << FCPPT_TEXT("Now we reposition and play again\nYou should hear the sound coming from the _left_ now.\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Now we reposition and play again\nYou should hear the sound coming from the _left_ now.\n");
+
 	wait_for_input();
 
 	ps->position(
@@ -229,7 +245,9 @@ try
 	wait_for_sound(
 		s);
 
-	fcppt::io::cout << FCPPT_TEXT("Back to the nonpositional sound. We now try to lower the volume globally. Playing at 100% volume...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Back to the nonpositional sound. We now try to lower the volume globally. Playing at 100% volume...\n");
+
 	wait_for_input();
 
 	s->play(
@@ -237,7 +255,9 @@ try
 	wait_for_sound(
 		s);
 
-	fcppt::io::cout << FCPPT_TEXT("Now 50% volume...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Now 50% volume...\n");
+
 	wait_for_input();
 
 	sys.audio_player().gain(
@@ -248,7 +268,9 @@ try
 	wait_for_sound(
 		s);
 
-	fcppt::io::cout << FCPPT_TEXT("Now 25% volume...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Now 25% volume...\n");
+
 	wait_for_input();
 
 	sys.audio_player().gain(
@@ -259,7 +281,9 @@ try
 	wait_for_sound(
 		s);
 
-	fcppt::io::cout << FCPPT_TEXT("And finally 0% volume...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("And finally 0% volume...\n");
+
 	wait_for_input();
 
 	sys.audio_player().gain(
@@ -273,7 +297,9 @@ try
 	sys.audio_player().gain(
 		static_cast<sge::audio::scalar>(1.0));
 
-	fcppt::io::cout << FCPPT_TEXT("Let's try changing the sound pitch now...You'll hear the sound with a 50% pitch now.\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Let's try changing the sound pitch now...You'll hear the sound with a 50% pitch now.\n");
+
 	wait_for_input();
 
 	s->pitch(
@@ -285,7 +311,9 @@ try
 	wait_for_sound(
 		s);
 
-	fcppt::io::cout << FCPPT_TEXT("Now with 150% pitch...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Now with 150% pitch...\n");
+
 	wait_for_input();
 
 	s->pitch(
@@ -297,7 +325,9 @@ try
 	wait_for_sound(
 		s);
 
-	fcppt::io::cout << FCPPT_TEXT("On to streaming sounds, we'll now create a positional streaming sound...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("On to streaming sounds, we'll now create a positional streaming sound...\n");
+
 	wait_for_input();
 
 	sge::audio::sound::positional_ptr const sps =
@@ -315,7 +345,9 @@ try
 				.rolloff(
 					1));
 
-	fcppt::io::cout << FCPPT_TEXT("Streaming sound created.\nWe'll now play it for 10 seconds.\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Streaming sound created.\nWe'll now play it for 10 seconds.\n");
+
 	wait_for_input();
 
 	sps->play(
@@ -341,15 +373,28 @@ try
 		sps->update();
 	sps->stop();
 
-	fcppt::io::cout << FCPPT_TEXT("Finished\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Finished\n");
 	wait_for_input();
-} catch (sge::audio::exception const &e) {
-	fcppt::io::cerr << FCPPT_TEXT("audio exception caught: ") << e.string() << FCPPT_TEXT('\n');
+
+}
+catch(
+	fcppt::exception const &_error
+)
+{
+	fcppt::io::cerr()
+		<< _error.string()
+		<< FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
-} catch (fcppt::exception const &e) {
-	fcppt::io::cerr << FCPPT_TEXT("Exception caught: ") << e.string() << FCPPT_TEXT('\n');
-	return EXIT_FAILURE;
-} catch (std::exception const &e) {
-	std::cerr << "Exception caught: " << e.what() << '\n';
+}
+catch(
+	std::exception const &_error
+)
+{
+	std::cerr
+		<< _error.what()
+		<< '\n';
+
 	return EXIT_FAILURE;
 }

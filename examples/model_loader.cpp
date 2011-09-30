@@ -575,9 +575,13 @@ try
 				sge::parse::json::path(
 					FCPPT_TEXT("texture"))));
 
-	if(model_file.empty())
+	if(
+		model_file.empty()
+	)
 	{
-		fcppt::io::cerr << FCPPT_TEXT("Please specify a valid model file path with \"model-file=<path>\"\n");
+		fcppt::io::cerr()
+			<< FCPPT_TEXT("Please specify a valid model file path with \"model-file=<path>\"\n");
+
 		return EXIT_FAILURE;
 	}
 
@@ -790,13 +794,23 @@ try
 		compiled.render();
 	}
 }
-catch(fcppt::exception const &e)
+catch(
+	fcppt::exception const &_error
+)
 {
-	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
+	fcppt::io::cerr()
+		<< _error.string()
+		<< FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
 }
-catch(std::exception const &e)
+catch(
+	std::exception const &_error
+)
 {
-	std::cerr << e.what() << '\n';
+	std::cerr
+		<< _error.what()
+		<< '\n';
+
 	return EXIT_FAILURE;
 }

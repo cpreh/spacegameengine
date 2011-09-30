@@ -140,12 +140,20 @@ sort_paths(
 
 }
 
-int main(int argc, char **argv)
+int
+main(
+	int argc,
+	char **argv
+)
 try
 {
-	if(argc != 2)
+	if(
+		argc != 2
+	)
 	{
-		fcppt::io::cerr << FCPPT_TEXT("please specify a path!\n");
+		fcppt::io::cerr()
+			<< FCPPT_TEXT("please specify a path!\n");
+
 		return EXIT_FAILURE;
 	}
 
@@ -188,9 +196,13 @@ try
 		)
 	);
 
-	if(image_count == 0)
+	if(
+		image_count == 0
+	)
 	{
-		fcppt::io::cerr << FCPPT_TEXT("No files here.\n");
+		fcppt::io::cerr()
+			<< FCPPT_TEXT("No files here.\n");
+
 		return EXIT_SUCCESS;
 	}
 
@@ -254,7 +266,8 @@ try
 			img->size() != dim
 		)
 		{
-			fcppt::io::cerr << FCPPT_TEXT("some dimensions do not match!\n");
+			fcppt::io::cerr()
+				<< FCPPT_TEXT("some dimensions do not match!\n");
 
 			return EXIT_FAILURE;
 		}
@@ -295,7 +308,9 @@ catch(
 	std::exception const &_exception
 )
 {
-	std::cerr << _exception.what() << '\n';
+	std::cerr
+		<< _exception.what()
+		<< '\n';
 
 	return EXIT_FAILURE;
 }

@@ -175,20 +175,23 @@ try
 
 	sge::opencl::system opencl_system;
 
-	fcppt::io::cout << FCPPT_TEXT("Querying the number of available platforms...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Querying the number of available platforms...\n");
 
 	sge::opencl::platform::object_sequence &platforms(
 		opencl_system.platforms());
 
 	if(platforms.empty())
 	{
-		fcppt::io::cerr << FCPPT_TEXT("Couldn't find any OpenCL platforms on your system.\n");
+		fcppt::io::cerr()
+			<< FCPPT_TEXT("Couldn't find any OpenCL platforms on your system.\n");
 		return EXIT_FAILURE;
 	}
 
-	fcppt::io::cout << FCPPT_TEXT("Number of OpenCL platforms: ") << platforms.size() << FCPPT_TEXT("\n");
-	fcppt::io::cout << FCPPT_TEXT("Platform listing begin:\n");
-	fcppt::io::cout << FCPPT_TEXT("-----------------------\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Number of OpenCL platforms: ") << platforms.size() << FCPPT_TEXT("\n")
+		<< FCPPT_TEXT("Platform listing begin:\n")
+		<< FCPPT_TEXT("-----------------------\n");
 
 	sge::opencl::platform::object_sequence::size_type platform_index = 0;
 	for(
@@ -197,22 +200,20 @@ try
 		current_platform != platforms.end();
 		++current_platform)
 	{
-		fcppt::io::cout << FCPPT_TEXT("\tPlatform ") << platform_index << FCPPT_TEXT(":\n");
-		fcppt::io::cout
+		fcppt::io::cout()
+			<< FCPPT_TEXT("\tPlatform ")
+			<< platform_index
+			<< FCPPT_TEXT(":\n")
 			<< FCPPT_TEXT("\tName: ")
 			<< fcppt::from_std_string(
 				current_platform->name()
 			)
-			<< FCPPT_TEXT("\n");
-
-		fcppt::io::cout
+			<< FCPPT_TEXT("\n")
 			<< FCPPT_TEXT("\tVendor: ")
 			<< fcppt::from_std_string(
 				current_platform->vendor()
 			)
-			<< FCPPT_TEXT("\n");
-
-		fcppt::io::cout
+			<< FCPPT_TEXT("\n")
 			<< FCPPT_TEXT("Profile type: ")
 			<<
 				(current_platform->profile() == sge::opencl::profile_type::full
@@ -220,9 +221,7 @@ try
 					fcppt::string(FCPPT_TEXT("full"))
 				:
 					fcppt::string(FCPPT_TEXT("embedded")))
-			<< FCPPT_TEXT("\n");
-
-		fcppt::io::cout
+			<< FCPPT_TEXT("\n")
 			<< FCPPT_TEXT("\tVersion: ")
 			<< current_platform->version().major_part()
 			<< FCPPT_TEXT(".")
@@ -230,25 +229,26 @@ try
 			<< FCPPT_TEXT("\n");
 
 		if(!current_platform->version().platform_specific().empty())
-			fcppt::io::cout
+			fcppt::io::cout()
 				<< FCPPT_TEXT("\tPlatform specific version info: ")
 				<< fcppt::from_std_string(current_platform->version().platform_specific())
 				<< FCPPT_TEXT("\n");
 
-		fcppt::io::cout << FCPPT_TEXT("\tExtension list begin:\n");
-		fcppt::io::cout << FCPPT_TEXT("\t*********************\n");
-		fcppt::io::cout
+		fcppt::io::cout()
+			<< FCPPT_TEXT("\tExtension list begin:\n")
+			<< FCPPT_TEXT("\t*********************\n")
 			<< FCPPT_TEXT("\t\t")
 			<<
 				fcppt::from_std_string(
 					boost::algorithm::join(
 						current_platform->extensions(),
-						std::string("\n\t\t")));
-		fcppt::io::cout << FCPPT_TEXT("\r\t*********************\n");
-		fcppt::io::cout << FCPPT_TEXT("-----------------------\n");
+						std::string("\n\t\t")))
+			<< FCPPT_TEXT("\r\t*********************\n")
+			<< FCPPT_TEXT("-----------------------\n");
 	}
 
-	fcppt::io::cout << FCPPT_TEXT("Platform listing end\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Platform listing end\n");
 
 	sge::opencl::platform::object_sequence::size_type chosen_platform_index;
 	if(platforms.size() == 1)
@@ -257,21 +257,23 @@ try
 	}
 	else
 	{
-		fcppt::io::cout << FCPPT_TEXT("Your choice: ");
+		fcppt::io::cout()
+			<< FCPPT_TEXT("Your choice: ");
 		do
 			chosen_platform_index =
 				query_value_from_user<sge::opencl::platform::object_sequence::size_type>(
-					fcppt::io::cin);
+					fcppt::io::cin());
 		while(chosen_platform_index >= platforms.size());
 	}
 
-	fcppt::io::cout << FCPPT_TEXT("List devices with properties? [y/n] ");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("List devices with properties? [y/n] ");
 
 	fcppt::char_type list_devices;
 	do
 		list_devices =
 			query_value_from_user<fcppt::char_type>(
-				fcppt::io::cin);
+				fcppt::io::cin());
 	while(list_devices != FCPPT_TEXT('y') && list_devices != FCPPT_TEXT('n'));
 
 	sge::opencl::platform::object &chosen_platform =
@@ -279,12 +281,12 @@ try
 
 	if(list_devices == FCPPT_TEXT('y'))
 	{
-		fcppt::io::cout
+		fcppt::io::cout()
 			<< FCPPT_TEXT("Number of devices on this platform: ")
 			<< chosen_platform.devices().size()
-			<< FCPPT_TEXT("\n");
-		fcppt::io::cout << FCPPT_TEXT("Device listing begin:\n");
-		fcppt::io::cout << FCPPT_TEXT("-----------------------\n");
+			<< FCPPT_TEXT('\n')
+			<< FCPPT_TEXT("Device listing begin:\n")
+			<< FCPPT_TEXT("-----------------------\n");
 
 		for(
 			sge::opencl::device::object_sequence::const_iterator current_device =
@@ -294,14 +296,17 @@ try
 		{
 			current_device->output_info(
 				std::cout);
-			fcppt::io::cout << FCPPT_TEXT("-----------------------\n");
+			fcppt::io::cout()
+				<< FCPPT_TEXT("-----------------------\n");
 		}
 
-		fcppt::io::cout << FCPPT_TEXT("-----------------------\n");
-		fcppt::io::cout << FCPPT_TEXT("Device listing end\n");
+		fcppt::io::cout()
+			<< FCPPT_TEXT("-----------------------\n")
+			<< FCPPT_TEXT("Device listing end\n");
 	}
 
-	fcppt::io::cout << FCPPT_TEXT("Creating sge::systems object...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Creating sge::systems object...\n");
 
 	sge::window::dim window_dim(1024,768);
 
@@ -320,7 +325,8 @@ try
 				sge::viewport::center_on_resize(
 					window_dim))));
 
-	fcppt::io::cout << FCPPT_TEXT("Done. Creating a context with all devices on this platform...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Done. Creating a context with all devices on this platform...\n");
 
 	sge::opencl::device::object_ref_sequence device_refs;
 	for(
@@ -340,7 +346,8 @@ try
 			.error_callback(
 				&opencl_error_callback));
 
-	fcppt::io::cout << FCPPT_TEXT("Context created, listing available planar image formats (read/write)\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Context created, listing available planar image formats (read/write)\n");
 
 	sge::opencl::memory_object::image::format_sequence const planar_image_formats =
 		main_context.supported_planar_image_formats(
@@ -356,10 +363,11 @@ try
 			std::cout,
 			*it);
 
-		std::cout << "\n";
+		std::cout << '\n';
 	}
 
-	fcppt::io::cout << FCPPT_TEXT("Listing available volume image formats (read/write)...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Listing available volume image formats (read/write)...\n");
 
 	sge::opencl::memory_object::image::format_sequence const volume_image_formats =
 		main_context.supported_volume_image_formats(
@@ -374,10 +382,11 @@ try
 		sge::opencl::memory_object::image::format_output(
 			std::cout,
 			*it);
-		std::cout << "\n";
+		std::cout << '\n';
 	}
 
-	fcppt::io::cout << FCPPT_TEXT("Done, now creating a program...");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Done, now creating a program...");
 
 	sge::opencl::program::object main_program(
 		main_context,
@@ -393,19 +402,22 @@ try
 				"}")),
 		sge::opencl::program::optional_build_parameters());
 
-	fcppt::io::cout << FCPPT_TEXT("Program created, building the program...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Program created, building the program...\n");
 
 	main_program.build(
 		sge::opencl::program::build_parameters());
 
-	fcppt::io::cout << FCPPT_TEXT("Program built, now creating a kernel...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Program built, now creating a kernel...\n");
 
 	sge::opencl::kernel::object main_kernel(
 		main_program,
 		sge::opencl::kernel::name(
 			"hello_kernel"));
 
-	fcppt::io::cout << FCPPT_TEXT("Kernel created, now creating a vertex buffer...\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Kernel created, now creating a vertex buffer...\n");
 
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
@@ -420,7 +432,8 @@ try
 				6),
 			sge::renderer::resource_flags::readable));
 
-	fcppt::io::cout << FCPPT_TEXT("Done, now creating OpenCL buffer from it\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Done, now creating OpenCL buffer from it\n");
 
 	sge::opencl::memory_object::vertex_buffer cl_vb(
 		main_context,
@@ -438,7 +451,8 @@ try
 		static_cast<cl_float>(
 			2.0));
 
-	fcppt::io::cout << FCPPT_TEXT("Done, now creating a command queue\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Done, now creating a command queue\n");
 
 	sge::opencl::command_queue::object main_queue(
 		*device_refs[0],
@@ -450,7 +464,8 @@ try
 	mem_objects.push_back(
 		&cl_vb);
 
-	fcppt::io::cout << FCPPT_TEXT("Done, now enqueueing kernel and running it\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Done, now enqueueing kernel and running it\n");
 
 	{
 		sge::opencl::command_queue::scoped scoped_queue(
@@ -473,7 +488,8 @@ try
 			local_dim);
 	}
 
-	fcppt::io::cout << FCPPT_TEXT("Now locking the vb for reading and printing the values\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Now locking the vb for reading and printing the values\n");
 
 	{
 		sge::renderer::scoped_vertex_lock scoped_vb(
@@ -493,19 +509,32 @@ try
 			vb_it != vertices.end();
 			vb_it++)
 		{
-			fcppt::io::cout << vb_it->get<vf::scalar_quantity>() << FCPPT_TEXT("\n");
+			fcppt::io::cout()
+				<< vb_it->get<vf::scalar_quantity>()
+				<< FCPPT_TEXT('\n');
 		}
 	}
 
-	fcppt::io::cout << FCPPT_TEXT("Done\n");
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Done\n");
 }
-catch(fcppt::exception const &e)
+catch(
+	fcppt::exception const &_error
+)
 {
-	fcppt::io::cerr << FCPPT_TEXT("fcppt::exception caught: ") << e.string() << FCPPT_TEXT("\n");
+	fcppt::io::cerr()
+		<< _error.string()
+		<< FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
 }
-catch (std::exception const &e)
+catch(
+	std::exception const &_error
+)
 {
-	std::cerr << "std::exception caught: " << e.what() << "\n";
+	std::cerr
+		<< _error.what()
+		<< '\n';
+
 	return EXIT_FAILURE;
 }

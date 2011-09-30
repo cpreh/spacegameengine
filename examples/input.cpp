@@ -338,7 +338,7 @@ catch(
 	fcppt::exception const &_exception
 )
 {
-	fcppt::io::cerr
+	fcppt::io::cerr()
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
 
@@ -393,7 +393,7 @@ mouse_listener::on_button_event(
 	sge::input::mouse::button_event const &_event
 )
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("mouse_button_event: ")
 		<< _event.button_code()
 		<< FCPPT_TEXT(' ')
@@ -406,7 +406,7 @@ mouse_listener::on_axis_event(
 	sge::input::mouse::axis_event const &_event
 )
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("mouse_axis_event: ")
 		<< _event.axis()
 		<< FCPPT_TEXT(' ')
@@ -460,7 +460,7 @@ cursor_listener::on_button_event(
 	sge::input::cursor::button_event const &_event
 )
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("cursor_button_event: ")
 		<< _event.button_code()
 		<< FCPPT_TEXT(' ')
@@ -473,7 +473,7 @@ cursor_listener::on_move_event(
 	sge::input::cursor::move_event const &_event
 )
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("cursor_move_event: ")
 		<< _event.position()
 		<< FCPPT_TEXT('\n');
@@ -536,7 +536,7 @@ keyboard_listener::on_key_event(
 	sge::input::keyboard::key_event const &_event
 )
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("key_event: ")
 		<< _event.key_code()
 		<< FCPPT_TEXT(' ')
@@ -549,7 +549,7 @@ keyboard_listener::on_key_repeat_event(
 	sge::input::keyboard::key_repeat_event const &_event
 )
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("key_repeat_event: ")
 		<< _event.key_code()
 		<< FCPPT_TEXT('\n');
@@ -560,7 +560,7 @@ keyboard_listener::on_char_event(
 	sge::input::keyboard::char_event const &_event
 )
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("char_event: ")
 		<< _event.character()
 		<< FCPPT_TEXT(' ')
@@ -614,7 +614,7 @@ joypad_listener::on_button_event(
 	sge::input::joypad::button_event const &_event
 )
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("joypad_button_event: ")
 		<< _event.button_id()
 		<< FCPPT_TEXT(' ')
@@ -627,7 +627,7 @@ joypad_listener::on_axis_event(
 	sge::input::joypad::axis_event const &_event
 )
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("joypad_axis_event: ")
 		<< _event.axis().id()
 		<< FCPPT_TEXT(' ')
@@ -831,7 +831,7 @@ device_manager::on_mouse_add(
 		== true
 	);
 
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("mouse_add: ")
 		<< _device
 		<< FCPPT_TEXT('\n');
@@ -848,7 +848,7 @@ device_manager::on_mouse_remove(
 		) == 1u
 	);
 
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("mouse_remove: ")
 		<< _device
 		<< FCPPT_TEXT('\n');
@@ -872,7 +872,7 @@ device_manager::on_cursor_add(
 		== true
 	);
 
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("cursor_add: ")
 		<< _device
 		<< FCPPT_TEXT('\n');
@@ -889,7 +889,7 @@ device_manager::on_cursor_remove(
 		) == 1u
 	);
 
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("cursor_remove: ")
 		<< _device
 		<< FCPPT_TEXT('\n');
@@ -913,7 +913,7 @@ device_manager::on_keyboard_add(
 		== true
 	);
 
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("keyboard_add: ")
 		<< _device
 		<< FCPPT_TEXT('\n');
@@ -930,7 +930,7 @@ device_manager::on_keyboard_remove(
 		) == 1u
 	);
 
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("keyboard_remove: ")
 		<< _device
 		<< FCPPT_TEXT('\n');
@@ -954,7 +954,7 @@ device_manager::on_joypad_add(
 		== true
 	);
 
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("joypad_add: ")
 		<< _device
 		<< FCPPT_TEXT('\n');
@@ -971,7 +971,7 @@ device_manager::on_joypad_remove(
 		) == 1u
 	);
 
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< FCPPT_TEXT("joypad_remove: ")
 		<< _device
 		<< FCPPT_TEXT('\n');

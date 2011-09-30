@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< sge::config::config_path(
 			FCPPT_TEXT("sgeconfigtest")
 		)
@@ -40,7 +40,7 @@ catch(
 	fcppt::exception const &_exception
 )
 {
-	fcppt::io::cerr
+	fcppt::io::cerr()
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
 

@@ -204,13 +204,23 @@ try
 		gui_sys.render();
 	}
 }
-catch (fcppt::exception const &e)
+catch(
+	fcppt::exception const &_error
+)
 {
-	fcppt::io::cerr << FCPPT_TEXT("fcppt::exception caught: ") << e.string() << FCPPT_TEXT("\n");
+	fcppt::io::cerr()
+		<< _error.string()
+		<< FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
 }
-catch (std::exception const &e)
+catch(
+	std::exception const &_error
+)
 {
-	std::cerr << "std::exception caught: " << e.what() << "\n";
+	std::cerr
+		<< _error.what()
+		<< '\n';
+
 	return EXIT_FAILURE;
 }

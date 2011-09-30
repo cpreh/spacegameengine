@@ -106,7 +106,7 @@ catch(
 	fcppt::exception const &_exception
 )
 {
-	fcppt::io::cerr
+	fcppt::io::cerr()
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
 
@@ -139,7 +139,7 @@ template<
 void
 print_plugins::operator()() const
 {
-	fcppt::io::cout
+	fcppt::io::cout()
 		<< fcppt::type_name(
 			typeid(T)
 		)
@@ -157,7 +157,7 @@ print_plugins::operator()() const
 			it->base()
 		);
 
-		fcppt::io::cout
+		fcppt::io::cout()
 			<< FCPPT_TEXT("\tname: \"")
 			<< base.info().name()
 			<< FCPPT_TEXT("\", description: \"")

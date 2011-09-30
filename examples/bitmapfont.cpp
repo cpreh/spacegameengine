@@ -75,7 +75,7 @@ try
 		argc > 2
 	)
 	{
-		fcppt::io::cerr
+		fcppt::io::cerr()
 			<< FCPPT_TEXT("Pass exactly one argument to show a given text")
 			FCPPT_TEXT(" or pass nothing to see the default text.\n");
 
@@ -206,7 +206,7 @@ catch(
 	fcppt::exception const &_exception
 )
 {
-	fcppt::io::cerr
+	fcppt::io::cerr()
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
 
