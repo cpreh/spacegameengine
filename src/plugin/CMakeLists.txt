@@ -71,7 +71,7 @@ IF(WIN32)
 ELSE()
 	SET(
 		SGE_PLUGIN_ADDITIONAL_LIBS
-		"}"
+		""
 	)
 ENDIF()
 
