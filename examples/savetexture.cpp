@@ -344,14 +344,6 @@ try
 		sge::shader::object_parameters(
 			sys.renderer(),
 			*vertex_declaration,
-			sge::config::media_path()
-				/ FCPPT_TEXT("shaders")
-				/ FCPPT_TEXT("copy")
-				/ FCPPT_TEXT("vertex.glsl"),
-			sge::config::media_path()
-				/ FCPPT_TEXT("shaders")
-				/ FCPPT_TEXT("copy")
-				/ FCPPT_TEXT("fragment.glsl"),
 			sge::shader::vf_to_string<screen_vf::format>(),
 			fcppt::assign::make_container<sge::shader::variable_sequence>(
 				sge::shader::variable(
@@ -362,7 +354,17 @@ try
 			fcppt::assign::make_container<sge::shader::sampler_sequence>(
 				sge::shader::sampler(
 					"tex",
-					sge::renderer::texture::planar_ptr()))));
+					sge::renderer::texture::planar_ptr())))
+			.vertex_shader(
+				sge::config::media_path()
+					/ FCPPT_TEXT("shaders")
+					/ FCPPT_TEXT("copy")
+					/ FCPPT_TEXT("vertex.glsl"))
+			.fragment_shader(
+				sge::config::media_path()
+					/ FCPPT_TEXT("shaders")
+					/ FCPPT_TEXT("copy")
+					/ FCPPT_TEXT("fragment.glsl")));
 
 	{
 		sge::renderer::scoped_target scoped_target(

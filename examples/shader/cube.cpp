@@ -946,14 +946,6 @@ try
 		sge::shader::object_parameters(
 			sys.renderer(),
 			*vertex_declaration,
-			sge::config::media_path()
-				/ FCPPT_TEXT("shaders")
-				/ FCPPT_TEXT("cube")
-				/ FCPPT_TEXT("vertex.glsl"),
-			sge::config::media_path()
-				/ FCPPT_TEXT("shaders")
-				/ FCPPT_TEXT("cube")
-				/ FCPPT_TEXT("fragment.glsl"),
 			// This turns the vertex format we defined above into a glsl
 			// variable declaration which replaces the '$$$HEADER$$$' magic
 			// string in the glsl files (not completely though, HEADER also
@@ -994,7 +986,21 @@ try
 					normal_texture))
 				(sge::shader::sampler(
 					"color_texture",
-					color_texture))));
+					color_texture)))
+			// We can specify more than one fragment and vertex shader here
+			.vertex_shader(
+				sge::config::media_path()
+					/ FCPPT_TEXT("shaders")
+					/ FCPPT_TEXT("cube")
+					/ FCPPT_TEXT("vertex.glsl"))
+			.fragment_shader(
+				sge::config::media_path()
+					/ FCPPT_TEXT("shaders")
+					/ FCPPT_TEXT("cube")
+					/ FCPPT_TEXT("fragment.glsl"))
+			// The name is displayed in an error or warning message from the shader.
+			.name(
+				FCPPT_TEXT("Main shader")));
 
 	bool enabled =
 		true;

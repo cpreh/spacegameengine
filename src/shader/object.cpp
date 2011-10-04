@@ -23,28 +23,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_optional_vertex_declaration.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/glsl/const_optional_program.hpp>
-//#include <sge/renderer/glsl/create_program.hpp> // FIXME
+#include <sge/renderer/glsl/pixel_shader.hpp>
+#include <sge/renderer/glsl/vertex_shader.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/to_cvv.hpp>
-//#include <sge/renderer/glsl/program_parameters.hpp> // FIXME
 #include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
+#include <sge/renderer/glsl/scoped_attachment.hpp>
 #include <sge/renderer/texture/const_optional_base.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/shader/object_parameters.hpp>
-#include <fcppt/filesystem/exists.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/text.hpp>
-// Minimal includes my ass
 #include <fcppt/log/headers.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/range/numeric.hpp>
@@ -56,21 +57,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-// We have to convert the Shader files to a string so we can replace
-// the header "macros" by the real header.
-sge::renderer::glsl::string const
-file_to_string(
-	fcppt::filesystem::path const &p)
-{
-	fcppt::io::cifstream stream(
-		p);
-	return
-		sge::renderer::glsl::string(
-			std::istreambuf_iterator<sge::renderer::glsl::string::value_type>(
-				stream),
-			std::istreambuf_iterator<sge::renderer::glsl::string::value_type>());
-}
-
 // TODO: Replace by some lambda?
 struct uniform_setter
 {
@@ -142,30 +128,17 @@ sge::shader::object::object(
 		p.renderer()),
 	vertex_declaration_(
 		p.vertex_declaration()),
-	program_(),
+	program_(
+		renderer_.create_glsl_program()),
 	uniforms_(),
 	uniform_matrices_(),
 	samplers_()
 {
-	if (!fcppt::filesystem::exists(p.vertex_file()))
-		throw exception(
-			FCPPT_TEXT("Vertex shader file\n")+
-			fcppt::filesystem::path_to_string(
-				p.vertex_file()
-			)
-			+
-			FCPPT_TEXT("\ndoes not exist!"));
-
-	if (!fcppt::filesystem::exists(p.fragment_file()))
-		throw exception(
-			FCPPT_TEXT("Fragment shader file\n")+
-			fcppt::filesystem::path_to_string(
-				p.fragment_file()
-			)
-			+
-			FCPPT_TEXT("\ndoes not exist!"));
+	program_->vertex_declaration(
+		vertex_declaration_);
 
 	renderer::glsl::string const header =
+		p.vertex_format_string().get() + 
 		boost::accumulate(
 			p.variables(),
 			sge::renderer::glsl::string(),
@@ -181,41 +154,62 @@ sge::shader::object::object(
 					&sampler::declaration,
 					boost::phoenix::arg_names::arg2));
 
+	
 	try
 	{
-		// FIXME!
-#if 0
-		program_ =
-			sge::renderer::glsl::create_program(
-				renderer_,
-				sge::renderer::glsl::program_parameters()
-					.vertex_shader(
-						vertex_declaration_,
-						boost::algorithm::replace_first_copy(
-							::file_to_string(
-								p.vertex_file()),
-							std::string("$$$HEADER$$$"),
-							p.vertex_format_string().get()
-							+ header))
-					.pixel_shader(
-						boost::algorithm::replace_first_copy(
-							::file_to_string(
-								p.fragment_file()),
-							std::string("$$$HEADER$$$"),
-							header)));
-#endif
+		for(
+			shader::object_parameters::shader_sequence::const_iterator it = 
+				p.vertex_shaders().begin(); 
+			it != p.vertex_shaders().end(); 
+			++it)
+		{
+			vertex_shaders_.push_back(
+				renderer_.create_glsl_vertex_shader(
+					boost::algorithm::replace_first_copy(
+						*it,
+						std::string("$$$HEADER$$$"),
+						header)));
+
+			fcppt::container::ptr::push_back_unique_ptr(
+				attachments_,
+				fcppt::make_unique_ptr<renderer::glsl::scoped_attachment>(
+					fcppt::ref(
+						*program_),
+					fcppt::cref(
+						*vertex_shaders_.back())));
+		}
+
+		for(
+			shader::object_parameters::shader_sequence::const_iterator it = 
+				p.fragment_shaders().begin(); 
+			it != p.fragment_shaders().end(); 
+			++it)
+		{
+			pixel_shaders_.push_back(
+				renderer_.create_glsl_pixel_shader(
+					boost::algorithm::replace_first_copy(
+						*it,
+						std::string("$$$HEADER$$$"),
+						header)));
+
+			fcppt::container::ptr::push_back_unique_ptr(
+				attachments_,
+				fcppt::make_unique_ptr<renderer::glsl::scoped_attachment>(
+					fcppt::ref(
+						*program_),
+					fcppt::cref(
+						*pixel_shaders_.back())));
+		}
+
+		program_->link();
 	}
 	catch(sge::exception const &e)
 	{
 		throw
 			sge::exception(
-				FCPPT_TEXT("Shader error for shaders: \n")+
-				fcppt::filesystem::path_to_string(
-					p.vertex_file())+
-				FCPPT_TEXT("\n")+
-				fcppt::filesystem::path_to_string(
-					p.fragment_file())+
-				FCPPT_TEXT("\n")+
+				FCPPT_TEXT("Shader error for shader \"")+
+				p.name()+
+				FCPPT_TEXT("\": \n")+
 				e.string());
 	}
 
@@ -335,14 +329,6 @@ sge::shader::object::update_texture(
 			fcppt::from_std_string(name)+
 			FCPPT_TEXT("\" you tried to update in a shader doesn't exist!"));
 }
-
-/* Deprecated
-sge::renderer::glsl::program &
-sge::shader::object::program()
-{
-	return *program_;
-}
-*/
 
 void
 sge::shader::object::activate(

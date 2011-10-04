@@ -19,12 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/shader/object_parameters.hpp>
+#include <fcppt/io/stream_to_string.hpp>
+#include <fcppt/io/cifstream.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/text.hpp>
 
 sge::shader::object_parameters::object_parameters(
 	renderer::device &_renderer,
 	renderer::vertex_declaration const &_vertex_declaration,
-	fcppt::filesystem::path const &_vertex_file,
-	fcppt::filesystem::path const &_fragment_file,
 	shader::vertex_format_string const &_vertex_format_string,
 	shader::variable_sequence const &_variables,
 	shader::sampler_sequence const &_samplers)
@@ -33,17 +36,66 @@ sge::shader::object_parameters::object_parameters(
 		_renderer),
 	vertex_declaration_(
 		_vertex_declaration),
-	vertex_file_(
-		_vertex_file),
-	fragment_file_(
-		_fragment_file),
+	vertex_shaders_(),
+	fragment_shaders_(),
 	vertex_format_string_(
 		_vertex_format_string),
 	variables_(
 		_variables),
 	samplers_(
-		_samplers)
+		_samplers),
+	name_(
+		FCPPT_TEXT("unnamed"))
 {
+}
+
+sge::shader::object_parameters &
+sge::shader::object_parameters::vertex_shader(
+	std::string const &s)
+{
+	vertex_shaders_.push_back(
+		s);
+	return *this;
+}
+
+sge::shader::object_parameters &
+sge::shader::object_parameters::vertex_shader(
+	fcppt::filesystem::path const &f)
+{
+	vertex_shaders_.push_back(
+		fcppt::io::stream_to_string(
+			*fcppt::make_unique_ptr<fcppt::io::cifstream>(
+				f)));
+	return *this;
+}
+
+sge::shader::object_parameters &
+sge::shader::object_parameters::fragment_shader(
+	std::string const &s)
+{
+	fragment_shaders_.push_back(
+		s);
+	return *this;
+}
+
+sge::shader::object_parameters &
+sge::shader::object_parameters::fragment_shader(
+	fcppt::filesystem::path const &f)
+{
+	fragment_shaders_.push_back(
+		fcppt::io::stream_to_string(
+			*fcppt::make_unique_ptr<fcppt::io::cifstream>(
+				f)));
+	return *this;
+}
+
+sge::shader::object_parameters &
+sge::shader::object_parameters::name(
+	fcppt::string const &_name)
+{
+	name_ = 
+		_name;
+	return *this;
 }
 
 sge::renderer::device &
@@ -58,16 +110,16 @@ sge::shader::object_parameters::vertex_declaration() const
 	return vertex_declaration_;
 }
 
-fcppt::filesystem::path const &
-sge::shader::object_parameters::vertex_file() const
+sge::shader::object_parameters::shader_sequence const &
+sge::shader::object_parameters::vertex_shaders() const
 {
-	return vertex_file_;
+	return vertex_shaders_;
 }
 
-fcppt::filesystem::path const &
-sge::shader::object_parameters::fragment_file() const
+sge::shader::object_parameters::shader_sequence const &
+sge::shader::object_parameters::fragment_shaders() const
 {
-	return fragment_file_;
+	return fragment_shaders_;
 }
 
 sge::shader::vertex_format_string const &
@@ -86,6 +138,12 @@ sge::shader::sampler_sequence const &
 sge::shader::object_parameters::samplers() const
 {
 	return samplers_;
+}
+
+fcppt::string const &
+sge::shader::object_parameters::name() const
+{
+	return name_;
 }
 
 sge::shader::object_parameters::~object_parameters()
