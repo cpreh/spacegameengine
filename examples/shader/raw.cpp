@@ -24,27 +24,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/system.hpp>
-#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/scoped_target.hpp>
+#include <sge/renderer/system.hpp>
+#include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/renderer/target_from_texture.hpp>
-#include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/glsl/uniform/variable.hpp>
-#include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/const_optional_program.hpp>
-//#include <sge/renderer/glsl/create_program.hpp> // FIXME
+#include <sge/renderer/glsl/pixel_shader.hpp>
+#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/program.hpp>
-//#include <sge/renderer/glsl/program_parameters.hpp> // FIXME
+#include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/scoped_attachment.hpp>
+#include <sge/renderer/glsl/vertex_shader.hpp>
+#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <sge/renderer/glsl/uniform/single_value.hpp>
+#include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/log/global.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -467,24 +471,41 @@ try
 		/ FCPPT_TEXT("vertex.glsl")
 	);
 
-#if 0
 	sge::renderer::glsl::program_ptr const program(
-		sge::renderer::glsl::create_program(
-			sys.renderer(),
-			sge::renderer::glsl::program_parameters()
-			.vertex_shader(
-				ss.vertex_declaration(),
-				fcppt::io::stream_to_string(
-					vertex_stream
-				)
-			)
-			.pixel_shader(
-				fcppt::io::stream_to_string(
-					fragment_stream
-				)
+		sys.renderer().create_glsl_program()
+	);
+
+	sge::renderer::glsl::vertex_shader_ptr const vertex_shader(
+		sys.renderer().create_glsl_vertex_shader(
+			fcppt::io::stream_to_string(
+				vertex_stream
 			)
 		)
 	);
+
+	sge::renderer::glsl::pixel_shader_ptr const pixel_shader(
+		sys.renderer().create_glsl_pixel_shader(
+			fcppt::io::stream_to_string(
+				fragment_stream
+			)
+		)
+	);
+
+	program->vertex_declaration(
+		ss.vertex_declaration()
+	);
+
+	sge::renderer::glsl::scoped_attachment const vertex_shader_attachment(
+		*program,
+		*vertex_shader
+	);
+
+	sge::renderer::glsl::scoped_attachment const pixel_shader_attachment(
+		*program,
+		*pixel_shader
+	);
+
+	program->link();
 
 	sys.renderer().glsl_program(
 		*program
@@ -549,7 +570,6 @@ try
 			target_spr
 		);
 	}
-#endif
 }
 catch(
 	fcppt::exception const &_error
