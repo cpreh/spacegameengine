@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/object.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
+#include <sge/opencl/program/build_error.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/container/raw_vector.hpp>
@@ -360,8 +361,7 @@ sge::opencl::program::object::build(
 
 		if(error_code3 != CL_SUCCESS)
 			throw
-				sge::exception(
-					FCPPT_TEXT("Building the program failed. The build log was:\n")+
+				program::build_error(
 					fcppt::from_std_string(
 						build_log));
 	}

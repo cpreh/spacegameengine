@@ -37,6 +37,7 @@ SET(
 	include/sge/opencl/memory_object/base_fwd.hpp
 	include/sge/opencl/memory_object/base_ref_sequence.hpp
 	include/sge/opencl/memory_object/buffer.hpp
+	include/sge/opencl/memory_object/buffer_fwd.hpp
 	include/sge/opencl/memory_object/byte_size.hpp
 	include/sge/opencl/memory_object/dim2.hpp
 	include/sge/opencl/memory_object/flags.hpp
@@ -55,6 +56,7 @@ SET(
 	include/sge/opencl/memory_object/renderer_buffer_lock_mode.hpp
 	include/sge/opencl/memory_object/scoped_objects.hpp
 	include/sge/opencl/memory_object/vertex_buffer.hpp
+	include/sge/opencl/memory_object/vertex_buffer_fwd.hpp
 	include/sge/opencl/opencl.hpp
 	include/sge/opencl/optional_renderer.hpp
 	include/sge/opencl/platform/object.hpp
@@ -63,6 +65,7 @@ SET(
 	include/sge/opencl/platform/platform.hpp
 	include/sge/opencl/profile_type.hpp
 	include/sge/opencl/program/blob.hpp
+	include/sge/opencl/program/build_error.hpp
 	include/sge/opencl/program/build_options.hpp
 	include/sge/opencl/program/build_parameters.hpp
 	include/sge/opencl/program/build_parameters_fwd.hpp
@@ -108,6 +111,7 @@ SET(
 	src/opencl/memory_object/to_opencl_mem_flags.hpp
 	src/opencl/memory_object/vertex_buffer.cpp
 	src/opencl/platform/object.cpp
+	src/opencl/program/build_error.cpp
 	src/opencl/program/build_parameters.cpp
 	src/opencl/program/object.cpp
 	src/opencl/single_device_system.cpp
