@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_optional_vertex_declaration.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/glsl/const_optional_program.hpp>
-#include <sge/renderer/glsl/create_program.hpp>
+//#include <sge/renderer/glsl/create_program.hpp> // FIXME
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/to_cvv.hpp>
-#include <sge/renderer/glsl/program_parameters.hpp>
+//#include <sge/renderer/glsl/program_parameters.hpp> // FIXME
 #include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
@@ -183,6 +183,8 @@ sge::shader::object::object(
 
 	try
 	{
+		// FIXME!
+#if 0
 		program_ =
 			sge::renderer::glsl::create_program(
 				renderer_,
@@ -201,6 +203,7 @@ sge::shader::object::object(
 								p.fragment_file()),
 							std::string("$$$HEADER$$$"),
 							header)));
+#endif
 	}
 	catch(sge::exception const &e)
 	{

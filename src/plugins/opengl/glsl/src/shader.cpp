@@ -60,7 +60,7 @@ sge::opengl::glsl::shader<Type, Environment>::shader(
 		)
 	)
 {
-	compile(
+	this->compile(
 		_source
 	);
 }
@@ -81,9 +81,17 @@ sge::opengl::glsl::shader<Type, Environment>::compile(
 	renderer::glsl::string const &_source
 )
 {
-	const char* const ptr = _source.c_str();
+	char const *const ptr(
+		_source.c_str()
+	);
 
-	const GLint len = static_cast<GLint>(_source.size());
+	GLint const len(
+		static_cast<
+			GLint
+		>(
+			_source.size()
+		)
+	);
 
 	shaderfuncs::source<
 		Environment
@@ -91,7 +99,11 @@ sge::opengl::glsl::shader<Type, Environment>::compile(
 		this->context(),
 		this->id(),
 		1,
-		const_cast<const char**>(&ptr),
+		const_cast<
+			char const **
+		>(
+			&ptr
+		),
 		&len
 	);
 

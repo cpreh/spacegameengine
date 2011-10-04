@@ -21,11 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
 
-#include <sge/renderer/glsl/geometry_shader_ptr.hpp>
-#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/program_fwd.hpp>
+#include <sge/renderer/glsl/shader_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/renderer/stage.hpp>
 #include <sge/renderer/symbol.hpp>
@@ -61,18 +59,13 @@ public:
 	) = 0;
 
 	virtual void
-	vertex_shader(
-		glsl::vertex_shader_ptr
+	attach_shader(
+		glsl::shader const &
 	) = 0;
 
 	virtual void
-	pixel_shader(
-		glsl::pixel_shader_ptr
-	) = 0;
-
-	virtual void
-	geometry_shader(
-		glsl::geometry_shader_ptr
+	detach_shader(
+		glsl::shader const &
 	) = 0;
 
 	virtual void

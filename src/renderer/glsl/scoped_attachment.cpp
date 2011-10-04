@@ -18,20 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_PROGRAM_PARAMETERS_FWD_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_PROGRAM_PARAMETERS_FWD_HPP_INCLUDED
+#include <sge/renderer/glsl/scoped_attachment.hpp>
+#include <sge/renderer/glsl/program.hpp>
+#include <sge/renderer/glsl/shader_fwd.hpp>
 
-namespace sge
+sge::renderer::glsl::scoped_attachment::scoped_attachment(
+	sge::renderer::glsl::program &_program,
+	sge::renderer::glsl::shader const &_shader
+)
+:
+	program_(
+		_program
+	),
+	shader_(
+		_shader
+	)
 {
-namespace renderer
+	program_.attach_shader(
+		shader_
+	);
+}
+
+sge::renderer::glsl::scoped_attachment::~scoped_attachment()
 {
-namespace glsl
-{
-
-class program_parameters;
-
+	program_.detach_shader(
+		shader_
+	);
 }
-}
-}
-
-#endif

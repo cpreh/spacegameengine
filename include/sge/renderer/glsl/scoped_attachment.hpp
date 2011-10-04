@@ -18,56 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_ATTACHMENT_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_ATTACHMENT_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_SCOPED_ATTACHMENT_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_SCOPED_ATTACHMENT_HPP_INCLUDED
 
-#include "attachment_fwd.hpp"
-#include "shader_base_fwd.hpp"
-#include <sge/renderer/glsl/shader_ptr.hpp>
-#include <fcppt/shared_ptr_fwd.hpp>
+#include <sge/renderer/glsl/scoped_attachment_fwd.hpp>
+#include <sge/renderer/glsl/program_fwd.hpp>
+#include <sge/renderer/glsl/shader_fwd.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace glsl
 {
 
-template<
-	typename Environment
->
-class attachment
+class scoped_attachment
 {
 	FCPPT_NONCOPYABLE(
-		attachment
+		scoped_attachment
 	);
 public:
-	typedef typename Environment::handle handle;
-
-	typedef typename Environment::program_context program_context;
-
-	explicit attachment(
-		program_context const &,
-		sge::renderer::glsl::shader_ptr,
-		handle program_
+	SGE_RENDERER_SYMBOL
+	scoped_attachment(
+		sge::renderer::glsl::program &,
+		sge::renderer::glsl::shader const &
 	);
 
-	~attachment();
+	SGE_RENDERER_SYMBOL
+	~scoped_attachment();
 private:
-	typedef glsl::shader_base<
-		Environment
-	> shader_type;
+	sge::renderer::glsl::program &program_;
 
-	typedef fcppt::shared_ptr<
-		shader_type
-	> shader_ptr;
-
-	program_context const &context_;
-
-	shader_ptr const shader_;
-
-	handle const handle_;
+	sge::renderer::glsl::shader const &shader_;
 };
 
 }

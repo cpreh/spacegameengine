@@ -31,9 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/glsl/const_optional_program.hpp>
-#include <sge/renderer/glsl/create_program.hpp>
+//#include <sge/renderer/glsl/create_program.hpp> // FIXME
 #include <sge/renderer/glsl/program.hpp>
-#include <sge/renderer/glsl/program_parameters.hpp>
+//#include <sge/renderer/glsl/program_parameters.hpp> // FIXME
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -488,6 +488,7 @@ try
 		/ FCPPT_TEXT("pointsprite")
 		/ FCPPT_TEXT("vertex.glsl"));
 
+#if 0
 	sge::renderer::glsl::program_ptr const program(
 		sge::renderer::glsl::create_program(
 			sys.renderer(),
@@ -534,6 +535,7 @@ try
 		ps.update();
 		ps.render();
 	}
+#endif
 }
 catch(
 	fcppt::exception const &_error)

@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_CREATE_PROGRAM_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_CREATE_PROGRAM_HPP_INCLUDED
-
-#include <sge/renderer/glsl/program_ptr.hpp>
-#include <sge/renderer/glsl/program_parameters_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#ifndef SGE_RENDERER_GLSL_SCOPED_ATTACHMENT_FWD_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_SCOPED_ATTACHMENT_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -33,12 +28,7 @@ namespace renderer
 namespace glsl
 {
 
-SGE_RENDERER_SYMBOL
-glsl::program_ptr const
-create_program(
-	sge::renderer::device &,
-	glsl::program_parameters const &
-);
+class scoped_attachment;
 
 }
 }
