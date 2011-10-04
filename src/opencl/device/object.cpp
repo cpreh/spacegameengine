@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../handle_error.hpp"
 #include <sge/opencl/device/object.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -27,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/next_prior.hpp>
-#include <CL/cl.h>
 // This is needed to get the CL_DEVICE_HALF_FP_CONFIG macro. However,
 // clGetDeviceInfo still fails when including and using this.
 //#include <CL/cl_ext.h>

@@ -22,10 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_MEMORY_OBJECT_RENDERER_BUFFER_LOCK_MODE_TO_CL_MEM_FLAGS_HPP_INCLUDED
 
 #include <sge/opencl/memory_object/renderer_buffer_lock_mode.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CL/cl.h>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

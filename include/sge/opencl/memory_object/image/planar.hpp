@@ -27,11 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/dim2.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/image/planar_pitch.hpp>
+#include <sge/opencl/memory_object/flags_field.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CL/cl.h>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
@@ -51,7 +50,7 @@ public:
 	SGE_OPENCL_SYMBOL explicit
 	planar(
 		context::object &,
-		cl_mem_flags,
+		memory_object::flags_field const &,
 		cl_image_format const &,
 		memory_object::dim2 const &size,
 		image::planar_pitch const &);

@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/vertex_buffer.hpp>
 #include <sge/opencl/memory_object/base_ref_sequence.hpp>
 #include <sge/opencl/memory_object/scoped_objects.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <sge/renderer/vf/make_unspecified_tag.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/vertex.hpp>
@@ -89,8 +90,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <CL/cl.h>
-#include <CL/cl_gl.h>
 #include <iostream>
 #include <ostream>
 #include <string>

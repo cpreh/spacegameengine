@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/scoped.hpp>
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
+#include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/loader.hpp>
@@ -33,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/opencl/command_queue/dim2.hpp>
 #include <sge/opencl/kernel/object.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/image_loader.hpp>
@@ -94,7 +96,7 @@ try
 
 	sge::opencl::memory_object::image::planar image(
 		opencl_system.context(),
-		CL_MEM_READ_WRITE,
+		sge::opencl::memory_object::flags_field(sge::opencl::memory_object::flags::read) | sge::opencl::memory_object::flags::read,
 		image_format,
 		sge::opencl::memory_object::dim2(
 			image_size,

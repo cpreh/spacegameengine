@@ -21,10 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_HANDLE_ERROR_HPP_INCLUDED
 #define SGE_OPENCL_HANDLE_ERROR_HPP_INCLUDED
 
+#include <sge/opencl/clinclude.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CL/cl.h>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {

@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "renderer_buffer_lock_mode_to_cl_mem_flags.hpp"
 #include <sge/opencl/memory_object/vertex_buffer.hpp>
 #include <sge/opencl/context/object.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <sge/renderer/opengl/buffer/base.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CL/cl.h>
 #include <CL/cl_gl.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -65,6 +65,9 @@ sge::opencl::memory_object::vertex_buffer::impl()
 
 sge::opencl::memory_object::vertex_buffer::~vertex_buffer()
 {
+	if(!impl_)
+		return;
+
 	cl_int const error_code =
 		clReleaseMemObject(
 			impl_);

@@ -19,11 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <sge/image/color/format.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CL/cl.h>
-#include <fcppt/config/external_end.hpp>
 
 namespace
 {

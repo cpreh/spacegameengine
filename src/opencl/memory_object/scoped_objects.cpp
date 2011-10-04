@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/scoped_objects.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/memory_object/base.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CL/cl.h>
 #include <CL/cl_gl.h>
 #include <fcppt/config/external_end.hpp>
 #include <fcppt/assert/pre.hpp>

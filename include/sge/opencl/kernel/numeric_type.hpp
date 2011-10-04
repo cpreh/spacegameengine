@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 // Only _fwd needed here, but that leads to unexpected error messages for the user
 #include <fcppt/variant/object.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector20.hpp>
-#include <CL/cl.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge

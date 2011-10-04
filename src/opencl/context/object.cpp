@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/device/object.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/config.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #if defined(SGE_OPENCL_HAVE_GLX)
@@ -36,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <CL/cl.h>
+// How portable is this include?
 #include <CL/cl_gl.h>
 #include <fcppt/config/external_end.hpp>
 

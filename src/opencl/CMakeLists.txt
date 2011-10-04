@@ -1,6 +1,7 @@
 SET(
 	SGE_OPENCL_FILES
 	include/sge/opencl/binary_error_data.hpp
+	include/sge/opencl/clinclude.hpp
 	include/sge/opencl/command_queue/command_queue.hpp
 	include/sge/opencl/command_queue/dim1.hpp
 	include/sge/opencl/command_queue/dim2.hpp
@@ -35,7 +36,11 @@ SET(
 	include/sge/opencl/memory_object/base.hpp
 	include/sge/opencl/memory_object/base_fwd.hpp
 	include/sge/opencl/memory_object/base_ref_sequence.hpp
+	include/sge/opencl/memory_object/buffer.hpp
+	include/sge/opencl/memory_object/byte_size.hpp
 	include/sge/opencl/memory_object/dim2.hpp
+	include/sge/opencl/memory_object/flags.hpp
+	include/sge/opencl/memory_object/flags_field.hpp
 	include/sge/opencl/memory_object/image/format_output.hpp
 	include/sge/opencl/memory_object/image/format_sequence.hpp
 	include/sge/opencl/memory_object/image/image.hpp
@@ -91,6 +96,7 @@ SET(
 	src/opencl/logger.cpp
 	src/opencl/logger.hpp
 	src/opencl/memory_object/base.cpp
+	src/opencl/memory_object/buffer.cpp
 	src/opencl/memory_object/image/format_output.cpp
 	src/opencl/memory_object/image/opencl_color_format_to_sge.cpp
 	src/opencl/memory_object/image/planar.cpp
@@ -98,6 +104,8 @@ SET(
 	src/opencl/memory_object/image/sge_color_format_to_opencl.cpp
 	src/opencl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp
 	src/opencl/memory_object/scoped_objects.cpp
+	src/opencl/memory_object/to_opencl_mem_flags.cpp
+	src/opencl/memory_object/to_opencl_mem_flags.hpp
 	src/opencl/memory_object/vertex_buffer.cpp
 	src/opencl/platform/object.cpp
 	src/opencl/program/build_parameters.cpp

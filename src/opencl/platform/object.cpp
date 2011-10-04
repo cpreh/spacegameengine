@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../handle_error.hpp"
 #include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/context/object.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -33,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
-#include <CL/cl.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace
