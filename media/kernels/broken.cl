@@ -1,6 +1,3 @@
-
-lol
-
 __kernel void hello_kernel(
 	write_only image2d_t input_image)
 {
