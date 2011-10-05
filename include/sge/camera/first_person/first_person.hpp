@@ -18,35 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
-#define SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
+#ifndef SGE_CAMERA_FIRST_PERSON_FIRST_PERSON_HPP_INCLUDED
+#define SGE_CAMERA_FIRST_PERSON_FIRST_PERSON_HPP_INCLUDED
 
-#include <sge/camera/base_fwd.hpp>
-#include <sge/camera/symbol.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/fov.hpp>
-#include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/device_fwd.hpp>
-
-namespace sge
-{
-namespace camera
-{
-namespace projection
-{
-
-SGE_CAMERA_SYMBOL
-void
-update_perspective_from_viewport(
-	sge::renderer::device &,
-	camera::base &,
-	renderer::projection::fov,
-	renderer::projection::near,
-	renderer::projection::far
-);
-
-}
-}
-}
+#include <sge/camera/first_person/movement_speed.hpp>
+#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
+#include <sge/camera/first_person/parameters.hpp>
+#include <sge/camera/first_person/parameters_fwd.hpp>
+#include <sge/camera/first_person/rotation_speed.hpp>
 
 #endif

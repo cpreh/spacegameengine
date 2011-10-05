@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/object.hpp>
-#include <sge/camera/parameters.hpp>
+#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/gizmo/to_rotation_matrix.hpp>
 #include <sge/camera/projection/to_matrix.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
-#include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/matrix/rotation_axis.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/vector.hpp>
@@ -37,8 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/object.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
-// FFFFFFFFFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
-//#include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/numeric.hpp>
@@ -52,9 +49,12 @@ sge::renderer::scalar const epsilon =
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
-sge::camera::object::object(
-	camera::parameters const &params)
+sge::camera::first_person::object::object(
+	first_person::parameters const &params)
 :
+	camera::base(
+		params.projection(),
+		params.gizmo()),
 	keyboard_connection_(
 		params.keyboard().key_callback(
 			std::tr1::bind(
@@ -67,17 +67,10 @@ sge::camera::object::object(
 				&object::mouse_axis_callback,
 				this,
 				std::tr1::placeholders::_1))),
-	projection_(
-		params.projection()),
-	projection_matrix_(
-		projection::to_matrix(
-			projection_)),
 	movement_speed_(
 		params.movement_speed()),
 	rotation_speed_(
 		params.rotation_speed()),
-	gizmo_(
-		params.gizmo()),
 	dirs_(
 		renderer::vector3::null()),
 	active_(
@@ -86,93 +79,26 @@ sge::camera::object::object(
 }
 FCPPT_PP_POP_WARNING
 
-sge::camera::object::~object()
+sge::camera::first_person::object::~object()
 {
 }
 
 void
-sge::camera::object::update(
+sge::camera::first_person::object::update(
 	camera::duration const &d)
 {
-	gizmo_.position(
-		gizmo_.position() +
+	base::gizmo().position(
+		base::gizmo().position() +
 		movement_speed_ *
 		d.count() *
 		boost::inner_product(
-			gizmo_.array(),
+			base::gizmo().array(),
 			dirs_,
 			renderer::vector3::null()));
 }
 
-sge::renderer::matrix4 const
-sge::camera::object::world() const
-{
-	return
-		rotation() *
-		translation();
-}
-
-sge::renderer::matrix4 const
-sge::camera::object::rotation() const
-{
-	return
-		gizmo::to_rotation_matrix(
-			gizmo_);
-}
-
-sge::renderer::matrix4 const
-sge::camera::object::translation() const
-{
-	return
-		fcppt::math::matrix::translation(
-			-gizmo_.position());
-}
-
-sge::renderer::matrix4 const
-sge::camera::object::projection() const
-{
-	return projection_matrix_;
-}
-
-sge::camera::projection::object const
-sge::camera::object::projection_object() const
-{
-	return projection_;
-}
-
 void
-sge::camera::object::projection_object(
-	projection::object const &_projection)
-{
-	projection_ =
-		_projection;
-	projection_matrix_ =
-		projection::to_matrix(
-			projection_);
-}
-
-
-sge::renderer::matrix4 const
-sge::camera::object::mvp() const
-{
-	return
-		projection() * world();
-}
-
-sge::camera::gizmo_type const &
-sge::camera::object::gizmo() const
-{
-	return gizmo_;
-}
-
-sge::camera::gizmo_type &
-sge::camera::object::gizmo()
-{
-	return gizmo_;
-}
-
-void
-sge::camera::object::active(
+sge::camera::first_person::object::active(
 	bool const _active)
 {
 	active_ =
@@ -180,16 +106,16 @@ sge::camera::object::active(
 }
 
 bool
-sge::camera::object::active() const
+sge::camera::first_person::object::active() const
 {
 	return active_;
 }
 
 void
-sge::camera::object::key_callback(
+sge::camera::first_person::object::key_callback(
 	input::keyboard::key_event const &k)
 {
-	if (!active())
+	if (!this->active())
 		return;
 
 	switch (k.key_code())
@@ -218,10 +144,10 @@ sge::camera::object::key_callback(
 }
 
 void
-sge::camera::object::mouse_axis_callback(
+sge::camera::first_person::object::mouse_axis_callback(
 	input::mouse::axis_event const &k)
 {
-	if (!active())
+	if (!this->active())
 		return;
 
 	renderer::scalar const angle =
@@ -246,7 +172,7 @@ sge::camera::object::mouse_axis_callback(
 						angle,
 						renderer::vector3(0,1,0)) *
 					construct(
-						gizmo_.forward(),
+						base::gizmo().forward(),
 						// Cast neccesary here
 						static_cast<renderer::scalar>(0))),
 			right =
@@ -258,8 +184,8 @@ sge::camera::object::mouse_axis_callback(
 					forward,
 					right);
 
-		gizmo_
-			.position(gizmo_.position())
+		base::gizmo()
+			.position(base::gizmo().position())
 			.forward(normalize(forward))
 			.up(normalize(up))
 			.right(normalize(right));
@@ -277,14 +203,14 @@ sge::camera::object::mouse_axis_callback(
 						0.f,
 						-1.f,
 						0.f) -
-					gizmo_.forward()) < epsilon &&
+					base::gizmo().forward()) < epsilon &&
 					angle > 0.f) ||
 				(fcppt::math::vector::length(
 					renderer::vector3(
 						0.f,
 						1.f,
 						0.f) -
-					gizmo_.forward()) < epsilon &&
+					base::gizmo().forward()) < epsilon &&
 					angle < 0.f))
 				return;
 
@@ -293,17 +219,17 @@ sge::camera::object::mouse_axis_callback(
 					narrow_cast<renderer::vector3>(
 						rotation_axis(
 							angle,
-							gizmo_.right()) *
+							base::gizmo().right()) *
 						construct(
-							gizmo_.forward(),
+							base::gizmo().forward(),
 							static_cast<renderer::scalar>(0))),
 				up =
-					cross(forward,gizmo_.right()),
+					cross(forward,base::gizmo().right()),
 				right =
 					cross(up,forward);
 
-			gizmo_
-				.position(gizmo_.position())
+			base::gizmo()
+				.position(base::gizmo().position())
 				.forward(normalize(forward))
 				.up(normalize(up))
 				.right(normalize(right));

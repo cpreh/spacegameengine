@@ -18,33 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
-#define SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
-
-#include <sge/camera/base_fwd.hpp>
-#include <sge/camera/symbol.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/fov.hpp>
-#include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#ifndef SGE_CAMERA_FIRST_PERSON_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_CAMERA_FIRST_PERSON_PARAMETERS_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace camera
 {
-namespace projection
+namespace first_person
 {
-
-SGE_CAMERA_SYMBOL
-void
-update_perspective_from_viewport(
-	sge::renderer::device &,
-	camera::base &,
-	renderer::projection::fov,
-	renderer::projection::near,
-	renderer::projection::far
-);
-
+class parameters;
 }
 }
 }

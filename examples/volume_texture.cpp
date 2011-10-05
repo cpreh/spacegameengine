@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/duration.hpp>
-#include <sge/camera/movement_speed.hpp>
-#include <sge/camera/object.hpp>
-#include <sge/camera/parameters.hpp>
-#include <sge/camera/rotation_speed.hpp>
+#include <sge/camera/first_person/movement_speed.hpp>
+#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/first_person/parameters.hpp>
+#include <sge/camera/first_person/rotation_speed.hpp>
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/size_type.hpp>
@@ -616,12 +616,12 @@ try
 		)
 	);
 
-	sge::camera::object camera(
-		sge::camera::parameters(
-			sge::camera::movement_speed(
+	sge::camera::first_person::object camera(
+		sge::camera::first_person::parameters(
+			sge::camera::first_person::movement_speed(
 				4.0f
 			),
-			sge::camera::rotation_speed(
+			sge::camera::first_person::rotation_speed(
 				200.0f
 			),
 			sys.keyboard_collector(),

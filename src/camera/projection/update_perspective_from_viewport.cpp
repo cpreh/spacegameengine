@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/camera/projection/perspective.hpp>
-#include <sge/camera/object.hpp>
+#include <sge/camera/base.hpp>
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/aspect_from_viewport.hpp>
 #include <sge/renderer/target_base.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::camera::projection::update_perspective_from_viewport(
 	sge::renderer::device &_device,
-	camera::object &_object,
+	camera::base &_object,
 	renderer::projection::fov const _fov,
 	renderer::projection::near const _near,
 	renderer::projection::far const _far
