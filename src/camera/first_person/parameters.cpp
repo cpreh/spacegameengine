@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/parameters.hpp>
+#include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/identity_gizmo.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
-sge::camera::parameters::parameters(
-	camera::movement_speed const &_movement_speed,
-	camera::rotation_speed const &_rotation_speed,
+sge::camera::first_person::parameters::parameters(
+	first_person::movement_speed const &_movement_speed,
+	first_person::rotation_speed const &_rotation_speed,
 	input::keyboard::device &_keyboard,
 	input::mouse::device &_mouse)
 :
@@ -43,11 +43,10 @@ sge::camera::parameters::parameters(
 	active_(
 		true)
 {
-
 }
 
-sge::camera::parameters &
-sge::camera::parameters::projection(
+sge::camera::first_person::parameters &
+sge::camera::first_person::parameters::projection(
 	projection::object const &_projection)
 {
 	projection_ =
@@ -56,8 +55,8 @@ sge::camera::parameters::projection(
 		*this;
 }
 
-sge::camera::parameters &
-sge::camera::parameters::gizmo(
+sge::camera::first_person::parameters &
+sge::camera::first_person::parameters::gizmo(
 	camera::gizmo_type const &_gizmo)
 {
 	gizmo_ =
@@ -66,8 +65,8 @@ sge::camera::parameters::gizmo(
 		*this;
 }
 
-sge::camera::parameters &
-sge::camera::parameters::active(
+sge::camera::first_person::parameters &
+sge::camera::first_person::parameters::active(
 	bool const _active)
 {
 	active_ =
@@ -77,43 +76,43 @@ sge::camera::parameters::active(
 }
 
 sge::camera::projection::object const &
-sge::camera::parameters::projection() const
+sge::camera::first_person::parameters::projection() const
 {
 	return projection_;
 }
 
 sge::renderer::scalar
-sge::camera::parameters::movement_speed() const
+sge::camera::first_person::parameters::movement_speed() const
 {
 	return movement_speed_;
 }
 
 sge::renderer::scalar
-sge::camera::parameters::rotation_speed() const
+sge::camera::first_person::parameters::rotation_speed() const
 {
 	return rotation_speed_;
 }
 
 sge::camera::gizmo_type const &
-sge::camera::parameters::gizmo() const
+sge::camera::first_person::parameters::gizmo() const
 {
 	return gizmo_;
 }
 
 sge::input::keyboard::device &
-sge::camera::parameters::keyboard() const
+sge::camera::first_person::parameters::keyboard() const
 {
 	return keyboard_;
 }
 
 sge::input::mouse::device &
-sge::camera::parameters::mouse() const
+sge::camera::first_person::parameters::mouse() const
 {
 	return mouse_;
 }
 
 bool
-sge::camera::parameters::active() const
+sge::camera::first_person::parameters::active() const
 {
 	return active_;
 }

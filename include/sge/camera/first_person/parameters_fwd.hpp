@@ -18,18 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_PROGRAM_PARAMETERS_FWD_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_PROGRAM_PARAMETERS_FWD_HPP_INCLUDED
+#ifndef SGE_CAMERA_FIRST_PERSON_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_CAMERA_FIRST_PERSON_PARAMETERS_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace renderer
+namespace camera
 {
-namespace glsl
+namespace first_person
 {
-
-class program_parameters;
-
+class parameters;
 }
 }
 }

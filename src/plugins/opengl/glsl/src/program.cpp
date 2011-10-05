@@ -19,13 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../program.hpp"
-#include "../attachment.hpp"
 #include "../bind_attrib_locations.hpp"
 #include "../format_error.hpp"
 #include "../instantiate.hpp"
 #include "../program_contexts.hpp"
+#include "../shader_base.hpp"
 #include "../uniform/variable.hpp"
+#include "../programfuncs/attach_shader.hpp"
 #include "../programfuncs/bind_frag_data_location.hpp"
+#include "../programfuncs/detach_shader.hpp"
 #include "../programfuncs/info_log.hpp"
 #include "../programfuncs/info_log_length.hpp"
 #include "../programfuncs/link.hpp"
@@ -33,13 +35,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../programfuncs/use.hpp"
 #include "../uniform/contexts.hpp"
 #include "../../context/use.hpp"
+#include "../../common.hpp"
 #include <sge/renderer/glsl/exception.hpp>
-#include <sge/renderer/glsl/geometry_shader.hpp>
-#include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/shader.hpp>
-#include <sge/renderer/glsl/vertex_shader.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
@@ -61,11 +60,9 @@ sge::opengl::glsl::program<Environment>::program(
 		>(
 			_context
 		)
-	),
-	vertex_shader_(),
-	pixel_shader_(),
-	geometry_shader_()
-{}
+	)
+{
+}
 
 template<
 	typename Environment
@@ -80,7 +77,7 @@ template<
 void
 sge::opengl::glsl::program<Environment>::use() const
 {
-	do_use(
+	this->do_use(
 		holder_.id()
 	);
 }
@@ -91,7 +88,7 @@ template<
 void
 sge::opengl::glsl::program<Environment>::unuse() const
 {
-	do_use(
+	this->do_use(
 		0
 	);
 }
@@ -139,14 +136,20 @@ template<
 	typename Environment
 >
 void
-sge::opengl::glsl::program<Environment>::vertex_shader(
-	sge::renderer::glsl::vertex_shader_ptr const _pointer
+sge::opengl::glsl::program<Environment>::attach_shader(
+	sge::renderer::glsl::shader const &_shader
 )
 {
-	vertex_shader_.take(
-		make_attachment(
-			_pointer
-		)
+	programfuncs::attach_shader<
+		Environment
+	>(
+		holder_.context(),
+		holder_.id(),
+		dynamic_cast<
+			shader_type const &
+		>(
+			_shader
+		).id()
 	);
 }
 
@@ -154,29 +157,20 @@ template<
 	typename Environment
 >
 void
-sge::opengl::glsl::program<Environment>::pixel_shader(
-	sge::renderer::glsl::pixel_shader_ptr const _pointer
+sge::opengl::glsl::program<Environment>::detach_shader(
+	sge::renderer::glsl::shader const &_shader
 )
 {
-	pixel_shader_.take(
-		make_attachment(
-			_pointer
-		)
-	);
-}
-
-template<
-	typename Environment
->
-void
-sge::opengl::glsl::program<Environment>::geometry_shader(
-	sge::renderer::glsl::geometry_shader_ptr const _pointer
-)
-{
-	geometry_shader_.take(
-		make_attachment(
-			_pointer
-		)
+	programfuncs::detach_shader<
+		Environment
+	>(
+		holder_.context(),
+		holder_.id(),
+		dynamic_cast<
+			shader_type const &
+		>(
+			_shader
+		).id()
 	);
 }
 
@@ -264,26 +258,6 @@ sge::opengl::glsl::program<Environment>::do_use(
 		holder_.context(),
 		_handle
 	);
-}
-
-template<
-	typename Environment
->
-typename sge::opengl::glsl::program<Environment>::attachment_unique_ptr
-sge::opengl::glsl::program<Environment>::make_attachment(
-	sge::renderer::glsl::shader_ptr const _shader
-)
-{
-	return
-		fcppt::make_unique_ptr<
-			attachment_type
-		>(
-			fcppt::cref(
-				holder_.context()
-			),
-			_shader,
-			holder_.id()
-		);
 }
 
 #define SGE_OPENGL_GLSL_INSTANTIATE_PROGRAM(\

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/object.hpp>
-#include <sge/camera/parameters.hpp>
+#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/config/media_path.hpp>
@@ -563,7 +563,7 @@ show_usage(
 
 void
 move_eye_position(
-	sge::camera::object &camera,
+	sge::camera::first_person::object &camera,
 	sge::renderer::scalar const eye_distance,
 	sge::renderer::scalar const focal_length)
 {
@@ -598,7 +598,7 @@ move_eye_position(
 void
 adapt_perspective(
 	sge::renderer::device &renderer,
-	sge::camera::object const &camera)
+	sge::camera::first_person::object const &camera)
 {
 	renderer.transform(
 		sge::renderer::matrix_mode::projection,
@@ -704,11 +704,11 @@ try
 				sge::systems::running_to_false(
 					running))));
 
-	sge::camera::object camera(
-		sge::camera::parameters(
-			sge::camera::movement_speed(
+	sge::camera::first_person::object camera(
+		sge::camera::first_person::parameters(
+			sge::camera::first_person::movement_speed(
 				4.f),
-			sge::camera::rotation_speed(
+			sge::camera::first_person::rotation_speed(
 				200.f),
 			sys.keyboard_collector(),
 			sys.mouse_collector()));

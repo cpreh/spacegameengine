@@ -18,23 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_ATTACHMENT_FWD_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_ATTACHMENT_FWD_HPP_INCLUDED
+#ifndef SGE_CAMERA_FIRST_PERSON_FIRST_PERSON_HPP_INCLUDED
+#define SGE_CAMERA_FIRST_PERSON_FIRST_PERSON_HPP_INCLUDED
 
-namespace sge
-{
-namespace opengl
-{
-namespace glsl
-{
-
-template<
-	typename Environment
->
-class attachment;
-
-}
-}
-}
+#include <sge/camera/first_person/movement_speed.hpp>
+#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
+#include <sge/camera/first_person/parameters.hpp>
+#include <sge/camera/first_person/parameters_fwd.hpp>
+#include <sge/camera/first_person/rotation_speed.hpp>
 
 #endif

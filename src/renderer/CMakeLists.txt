@@ -51,7 +51,6 @@ SET(
 	include/sge/renderer/glsl/char.hpp
 	include/sge/renderer/glsl/const_optional_program.hpp
 	include/sge/renderer/glsl/const_optional_program_fwd.hpp
-	include/sge/renderer/glsl/create_program.hpp
 	include/sge/renderer/glsl/exception.hpp
 	include/sge/renderer/glsl/from_fcppt_string.hpp
 	include/sge/renderer/glsl/geometry_shader.hpp
@@ -64,9 +63,9 @@ SET(
 	include/sge/renderer/glsl/pixel_shader_ptr.hpp
 	include/sge/renderer/glsl/program.hpp
 	include/sge/renderer/glsl/program_fwd.hpp
-	include/sge/renderer/glsl/program_parameters.hpp
-	include/sge/renderer/glsl/program_parameters_fwd.hpp
 	include/sge/renderer/glsl/program_ptr.hpp
+	include/sge/renderer/glsl/scoped_attachment.hpp
+	include/sge/renderer/glsl/scoped_attachment_fwd.hpp
 	include/sge/renderer/glsl/scoped_program.hpp
 	include/sge/renderer/glsl/shader.hpp
 	include/sge/renderer/glsl/shader_fwd.hpp
@@ -514,13 +513,12 @@ SET(
 	src/renderer/device.cpp
 	src/renderer/display_mode.cpp
 	src/renderer/exception.cpp
-	src/renderer/glsl/create_program.cpp
 	src/renderer/glsl/exception.cpp
 	src/renderer/glsl/from_fcppt_string.cpp
 	src/renderer/glsl/geometry_shader.cpp
 	src/renderer/glsl/pixel_shader.cpp
 	src/renderer/glsl/program.cpp
-	src/renderer/glsl/program_parameters.cpp
+	src/renderer/glsl/scoped_attachment.cpp
 	src/renderer/glsl/scoped_program.cpp
 	src/renderer/glsl/shader.cpp
 	src/renderer/glsl/to_cvv.cpp

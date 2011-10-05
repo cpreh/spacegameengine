@@ -22,13 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_OBJECT_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/shader/sampler_sequence.hpp>
 #include <sge/shader/symbol.hpp>
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/vertex_format_string.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/string.hpp>
+#include <string>
+#include <vector>
 
 namespace sge
 {
@@ -39,15 +41,37 @@ class object_parameters
 FCPPT_NONASSIGNABLE(
 	object_parameters);
 public:
+	typedef
+	std::vector<std::string>
+	shader_sequence;
+
 	SGE_SHADER_SYMBOL explicit
 	object_parameters(
 		renderer::device &,
 		renderer::vertex_declaration const &,
-		fcppt::filesystem::path const &vertex,
-		fcppt::filesystem::path const &fragment,
 		shader::vertex_format_string const &format_declaration,
 		shader::variable_sequence const &variables,
 		shader::sampler_sequence const &samplers);
+
+	SGE_SHADER_SYMBOL object_parameters &
+	vertex_shader(
+		std::string const &);
+
+	SGE_SHADER_SYMBOL object_parameters &
+	vertex_shader(
+		fcppt::filesystem::path const &);
+
+	SGE_SHADER_SYMBOL object_parameters &
+	fragment_shader(
+		std::string const &);
+
+	SGE_SHADER_SYMBOL object_parameters &
+	fragment_shader(
+		fcppt::filesystem::path const &);
+
+	SGE_SHADER_SYMBOL object_parameters &
+	name(
+		fcppt::string const &);
 
 	SGE_SHADER_SYMBOL renderer::device &
 	renderer() const;
@@ -55,11 +79,11 @@ public:
 	SGE_SHADER_SYMBOL renderer::vertex_declaration const &
 	vertex_declaration() const;
 
-	SGE_SHADER_SYMBOL fcppt::filesystem::path const &
-	vertex_file() const;
+	SGE_SHADER_SYMBOL shader_sequence const &
+	vertex_shaders() const;
 
-	SGE_SHADER_SYMBOL fcppt::filesystem::path const &
-	fragment_file() const;
+	SGE_SHADER_SYMBOL shader_sequence const &
+	fragment_shaders() const;
 
 	SGE_SHADER_SYMBOL shader::vertex_format_string const &
 	vertex_format_string() const;
@@ -70,15 +94,19 @@ public:
 	SGE_SHADER_SYMBOL shader::sampler_sequence const &
 	samplers() const;
 
+	SGE_SHADER_SYMBOL fcppt::string const &
+	name() const;
+
 	SGE_SHADER_SYMBOL ~object_parameters();
 private:
 	renderer::device &renderer_;
-	renderer::vertex_declaration const  &vertex_declaration_;
-	fcppt::filesystem::path const vertex_file_;
-	fcppt::filesystem::path const fragment_file_;
+	renderer::vertex_declaration const &vertex_declaration_;
+	shader_sequence vertex_shaders_;
+	shader_sequence fragment_shaders_;
 	shader::vertex_format_string const vertex_format_string_;
 	shader::variable_sequence const variables_;
 	shader::sampler_sequence const samplers_;
+	fcppt::string name_;
 };
 }
 }

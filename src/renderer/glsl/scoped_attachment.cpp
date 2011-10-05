@@ -18,35 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
-#define SGE_CAMERA_PROJECTION_UPDATE_PERSPECTIVE_FROM_VIEWPORT_HPP_INCLUDED
+#include <sge/renderer/glsl/scoped_attachment.hpp>
+#include <sge/renderer/glsl/program.hpp>
+#include <sge/renderer/glsl/shader_fwd.hpp>
 
-#include <sge/camera/base_fwd.hpp>
-#include <sge/camera/symbol.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/fov.hpp>
-#include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/device_fwd.hpp>
-
-namespace sge
+sge::renderer::glsl::scoped_attachment::scoped_attachment(
+	sge::renderer::glsl::program &_program,
+	sge::renderer::glsl::shader const &_shader
+)
+:
+	program_(
+		_program
+	),
+	shader_(
+		_shader
+	)
 {
-namespace camera
-{
-namespace projection
-{
-
-SGE_CAMERA_SYMBOL
-void
-update_perspective_from_viewport(
-	sge::renderer::device &,
-	camera::base &,
-	renderer::projection::fov,
-	renderer::projection::near,
-	renderer::projection::far
-);
-
-}
-}
+	program_.attach_shader(
+		shader_
+	);
 }
 
-#endif
+sge::renderer::glsl::scoped_attachment::~scoped_attachment()
+{
+	program_.detach_shader(
+		shader_
+	);
+}

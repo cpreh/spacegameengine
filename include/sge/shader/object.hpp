@@ -35,8 +35,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
+#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
+#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <sge/renderer/glsl/scoped_attachment_fwd.hpp>
 #include <fcppt/tr1/unordered_map.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
@@ -44,7 +51,8 @@ namespace shader
 {
 class object
 {
-FCPPT_NONCOPYABLE(object);
+FCPPT_NONCOPYABLE(
+	object);
 public:
 	// NOTE: Currently, we restrict ourselves to shaders from
 	// files. There could be stream support, too. It's just laziness
@@ -61,10 +69,6 @@ public:
 	update_texture(
 		renderer::glsl::string const &name,
 		shader::texture_variant const &);
-
-// Deprecated
-//	SGE_SHADER_SYMBOL renderer::glsl::program &
-//	program();
 
 	// This is called by the scoped class, but you may call it manually, too
 	SGE_SHADER_SYMBOL void
@@ -88,11 +92,26 @@ private:
 	>
 	uniform_map;
 
+	typedef
+	std::vector<renderer::glsl::pixel_shader_ptr>
+	pixel_shader_sequence;
+
+	typedef
+	std::vector<renderer::glsl::vertex_shader_ptr>
+	vertex_shader_sequence;
+
+	typedef
+	boost::ptr_vector<renderer::glsl::scoped_attachment>
+	attachment_sequence;
+
 	renderer::device &renderer_;
 	renderer::vertex_declaration const &vertex_declaration_;
 	renderer::glsl::program_ptr program_;
 	uniform_map uniforms_,uniform_matrices_;
 	shader::sampler_sequence samplers_;
+	vertex_shader_sequence vertex_shaders_;
+	pixel_shader_sequence pixel_shaders_;
+	attachment_sequence attachments_;
 };
 }
 }

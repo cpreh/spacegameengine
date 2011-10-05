@@ -23,21 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "program_base.hpp"
 #include "program_holder.hpp"
-#include "attachment_fwd.hpp"
+#include "shader_base_fwd.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
-#include <sge/renderer/glsl/geometry_shader_ptr.hpp>
-#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/program.hpp>
+#include <sge/renderer/glsl/shader_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
-#include <sge/renderer/glsl/shader_ptr.hpp>
 #include <sge/renderer/stage.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <fcppt/unique_ptr.hpp>
-#include <fcppt/scoped_ptr.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -83,18 +78,13 @@ private:
 	);
 
 	void
-	vertex_shader(
-		sge::renderer::glsl::vertex_shader_ptr
+	attach_shader(
+		sge::renderer::glsl::shader const &
 	);
 
 	void
-	pixel_shader(
-		sge::renderer::glsl::pixel_shader_ptr
-	);
-
-	void
-	geometry_shader(
-		sge::renderer::glsl::geometry_shader_ptr
+	detach_shader(
+		sge::renderer::glsl::shader const &
 	);
 
 	void
@@ -110,30 +100,16 @@ private:
 	info_log() const;
 
 	// internal functions
-
 	typedef typename Environment::handle handle;
+
+	typedef glsl::shader_base<
+		Environment
+	> shader_type;
 
 	void
 	do_use(
 		handle
 	) const;
-
-	typedef glsl::attachment<
-		Environment
-	> attachment_type;
-
-	typedef fcppt::unique_ptr<
-		attachment_type
-	> attachment_unique_ptr;
-
-	attachment_unique_ptr
-	make_attachment(
-		sge::renderer::glsl::shader_ptr
-	);
-
-	typedef fcppt::scoped_ptr<
-		attachment_type
-	> attachment_ptr;
 
 	typedef typename Environment::uniform_context uniform_context;
 
@@ -144,11 +120,6 @@ private:
 	holder const holder_;
 
 	uniform_context const &uniform_context_;
-
-	attachment_ptr
-		vertex_shader_,
-		pixel_shader_,
-		geometry_shader_;
 };
 
 }

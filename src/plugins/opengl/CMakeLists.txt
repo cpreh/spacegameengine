@@ -175,8 +175,6 @@ SET(
 	src/plugins/opengl/glsl/arb/src/uniform_context.cpp
 	src/plugins/opengl/glsl/arb/uniform_context.hpp
 	src/plugins/opengl/glsl/arb/uniform_context_fwd.hpp
-	src/plugins/opengl/glsl/attachment.hpp
-	src/plugins/opengl/glsl/attachment_fwd.hpp
 	src/plugins/opengl/glsl/bind_attrib_locations.hpp
 	src/plugins/opengl/glsl/context.hpp
 	src/plugins/opengl/glsl/context_fwd.hpp
@@ -254,7 +252,6 @@ SET(
 	src/plugins/opengl/glsl/shaderfuncs/src/info_log.cpp
 	src/plugins/opengl/glsl/shaderfuncs/src/info_log_length.cpp
 	src/plugins/opengl/glsl/shaderfuncs/src/source.cpp
-	src/plugins/opengl/glsl/src/attachment.cpp
 	src/plugins/opengl/glsl/src/bind_attrib_locations.cpp
 	src/plugins/opengl/glsl/src/context.cpp
 	src/plugins/opengl/glsl/src/create_geometry_shader.cpp

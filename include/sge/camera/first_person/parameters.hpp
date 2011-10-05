@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_PARAMETERS_HPP_INCLUDED
-#define SGE_CAMERA_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_CAMERA_FIRST_PERSON_PARAMETERS_HPP_INCLUDED
+#define SGE_CAMERA_FIRST_PERSON_PARAMETERS_HPP_INCLUDED
 
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/symbol.hpp>
 #include <sge/camera/gizmo_type.hpp>
-#include <sge/camera/movement_speed.hpp>
-#include <sge/camera/rotation_speed.hpp>
+#include <sge/camera/first_person/movement_speed.hpp>
+#include <sge/camera/first_person/rotation_speed.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
@@ -36,29 +36,29 @@ namespace sge
 {
 namespace camera
 {
+namespace first_person
+{
 class parameters
 {
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
+FCPPT_NONASSIGNABLE(
+	parameters);
 public:
-	SGE_CAMERA_SYMBOL
-	explicit
+	SGE_CAMERA_SYMBOL explicit
 	parameters(
-		camera::movement_speed const &,
-		camera::rotation_speed const &,
+		first_person::movement_speed const &,
+		first_person::rotation_speed const &,
 		input::keyboard::device &,
 		input::mouse::device &);
 
-	SGE_CAMERA_SYMBOL camera::parameters &
+	SGE_CAMERA_SYMBOL first_person::parameters &
 	projection(
 		projection::object const &);
 
-	SGE_CAMERA_SYMBOL camera::parameters &
+	SGE_CAMERA_SYMBOL first_person::parameters &
 	gizmo(
 		camera::gizmo_type const &);
 
-	SGE_CAMERA_SYMBOL camera::parameters &
+	SGE_CAMERA_SYMBOL first_person::parameters &
 	active(
 		bool);
 
@@ -97,6 +97,7 @@ private:
 	input::mouse::device &mouse_;
 	bool active_;
 };
+}
 }
 }
 

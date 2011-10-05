@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	- adapting the camera to the current viewport
 	- a vertex format and how to fill it (see fill_vb_with_cube) in general
 	- unspecified and builtin attributes (pos, texcoord)
-	- sge::camera::object
+	- sge::camera
 	- viewport::fill_on_resize
 	- planar texture creation
 	- image loading
@@ -40,10 +40,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	- font::text::draw
  */
 
-#include <sge/camera/object.hpp>
-#include <sge/camera/movement_speed.hpp>
-#include <sge/camera/rotation_speed.hpp>
-#include <sge/camera/parameters.hpp>
+#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/first_person/movement_speed.hpp>
+#include <sge/camera/first_person/rotation_speed.hpp>
+#include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/config/media_path.hpp>
@@ -906,13 +906,13 @@ try
 	// The camera is a good debugging tool. It gives easy access to the
 	// mvp matrix every shader needs. You can move around with 'w', 'a',
 	// 's' and 'd' and you can look around using the mouse.
-	sge::camera::object camera(
-		sge::camera::parameters(
+	sge::camera::first_person::object camera(
+		sge::camera::first_person::parameters(
 			// Movement speed.
-			sge::camera::movement_speed(
+			sge::camera::first_person::movement_speed(
 				4.0f),
 			// Mouse speed
-			sge::camera::rotation_speed(
+			sge::camera::first_person::rotation_speed(
 				200.f),
 			sys.keyboard_collector(),
 			sys.mouse_collector()));
@@ -946,14 +946,6 @@ try
 		sge::shader::object_parameters(
 			sys.renderer(),
 			*vertex_declaration,
-			sge::config::media_path()
-				/ FCPPT_TEXT("shaders")
-				/ FCPPT_TEXT("cube")
-				/ FCPPT_TEXT("vertex.glsl"),
-			sge::config::media_path()
-				/ FCPPT_TEXT("shaders")
-				/ FCPPT_TEXT("cube")
-				/ FCPPT_TEXT("fragment.glsl"),
 			// This turns the vertex format we defined above into a glsl
 			// variable declaration which replaces the '$$$HEADER$$$' magic
 			// string in the glsl files (not completely though, HEADER also
@@ -994,7 +986,21 @@ try
 					normal_texture))
 				(sge::shader::sampler(
 					"color_texture",
-					color_texture))));
+					color_texture)))
+			// We can specify more than one fragment and vertex shader here
+			.vertex_shader(
+				sge::config::media_path()
+					/ FCPPT_TEXT("shaders")
+					/ FCPPT_TEXT("cube")
+					/ FCPPT_TEXT("vertex.glsl"))
+			.fragment_shader(
+				sge::config::media_path()
+					/ FCPPT_TEXT("shaders")
+					/ FCPPT_TEXT("cube")
+					/ FCPPT_TEXT("fragment.glsl"))
+			// The name is displayed in an error or warning message from the shader.
+			.name(
+				FCPPT_TEXT("Main shader")));
 
 	bool enabled =
 		true;

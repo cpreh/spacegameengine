@@ -18,19 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_MOVEMENT_SPEED_HPP_INCLUDED
-#define SGE_CAMERA_MOVEMENT_SPEED_HPP_INCLUDED
+#ifndef SGE_CAMERA_FIRST_PERSON_ROTATION_SPEED_HPP_INCLUDED
+#define SGE_CAMERA_FIRST_PERSON_ROTATION_SPEED_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
 namespace camera
 {
+namespace first_person
+{
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::scalar,
-	movement_speed);
+	rotation_speed);
+}
 }
 }
 
