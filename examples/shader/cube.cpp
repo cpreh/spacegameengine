@@ -40,10 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	- font::text::draw
  */
 
-#include <sge/camera/first_person/object.hpp>
-#include <sge/camera/first_person/movement_speed.hpp>
-#include <sge/camera/first_person/rotation_speed.hpp>
-#include <sge/camera/first_person/parameters.hpp>
+#include <sge/camera/spherical/object.hpp>
+#include <sge/camera/spherical/movement_speed.hpp>
+#include <sge/camera/spherical/parameters.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/config/media_path.hpp>
@@ -906,16 +905,16 @@ try
 	// The camera is a good debugging tool. It gives easy access to the
 	// mvp matrix every shader needs. You can move around with 'w', 'a',
 	// 's' and 'd' and you can look around using the mouse.
-	sge::camera::first_person::object camera(
-		sge::camera::first_person::parameters(
+	sge::camera::spherical::object camera(
+		sge::camera::spherical::parameters(
 			// Movement speed.
-			sge::camera::first_person::movement_speed(
+			sge::camera::spherical::movement_speed(
 				4.0f),
-			// Mouse speed
-			sge::camera::first_person::rotation_speed(
-				200.f),
-			sys.keyboard_collector(),
-			sys.mouse_collector()));
+			//min_radius
+			0.5f,
+			//initial radius
+			3.f,
+			sys.keyboard_collector()));
 
 	// Adapt the camera to the viewport
 	fcppt::signal::scoped_connection const viewport_connection(

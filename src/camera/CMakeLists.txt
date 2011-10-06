@@ -22,6 +22,10 @@ SET(
 	include/sge/camera/projection/projection.hpp
 	include/sge/camera/projection/to_matrix.hpp
 	include/sge/camera/projection/update_perspective_from_viewport.hpp
+	include/sge/camera/spherical/object.hpp
+	include/sge/camera/spherical/object_fwd.hpp
+	include/sge/camera/spherical/parameters.hpp
+	include/sge/camera/spherical/parameters_fwd.hpp
 	include/sge/camera/symbol.hpp
 	src/camera/base.cpp
 	src/camera/first_person/object.cpp
@@ -30,6 +34,8 @@ SET(
 	src/camera/projection/perspective.cpp
 	src/camera/projection/to_matrix.cpp
 	src/camera/projection/update_perspective_from_viewport.cpp
+	src/camera/spherical/object.cpp
+	src/camera/spherical/parameters.cpp
 )
 
 ADD_SGE_BASE_LIBRARY(
