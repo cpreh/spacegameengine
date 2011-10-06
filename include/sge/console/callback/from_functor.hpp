@@ -18,23 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_CALLBACK_TYPE_HPP_INCLUDED
-#define SGE_CONSOLE_CALLBACK_TYPE_HPP_INCLUDED
+#ifndef SGE_CONSOLE_CALLBACK_FROM_FUNCTOR_HPP_INCLUDED
+#define SGE_CONSOLE_CALLBACK_FROM_FUNCTOR_HPP_INCLUDED
 
-#include <sge/console/object_fwd.hpp>
-#include <sge/console/arg_list.hpp>
+#include <sge/console/callback/detail/convenience_wrapper.hpp>
+#include <sge/console/callback/short_description.hpp>
+#include <sge/console/callback/parameters.hpp>
+#include <sge/console/callback/name.hpp>
 
 namespace sge
 {
 namespace console
 {
-
-typedef void
-callback_type(
-	arg_list const &,
-	object &
-);
-
+namespace callback
+{
+template<typename FunctionType,typename Functor>
+callback::parameters
+from_functor(
+	Functor const &_f,
+	callback::name const &_name,
+	callback::short_description const &_short_description)
+{
+	return
+		callback::parameters(
+			detail::convenience_wrapper<FunctionType>(
+				_f,
+				_short_description.get()),
+			_name)
+			.short_description(
+				_short_description.get());
+}
+}
 }
 }
 

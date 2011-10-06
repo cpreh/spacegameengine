@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_OPENCL_HPP_INCLUDED
 
 #include <sge/opencl/binary_error_data.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/command_queue/command_queue.hpp>
 #include <sge/opencl/context/context.hpp>
 #include <sge/opencl/device/device.hpp>

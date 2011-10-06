@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/gizmo/gizmo.hpp>
 #include <sge/camera/gizmo_type.hpp>
 #include <sge/camera/identity_gizmo.hpp>
-#include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/projection.hpp>
 #include <sge/camera/symbol.hpp>
 

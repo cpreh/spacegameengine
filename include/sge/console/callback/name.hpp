@@ -18,25 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opencl/program/build_error.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_CONSOLE_CALLBACK_NAME_HPP_INCLUDED
+#define SGE_CONSOLE_CALLBACK_NAME_HPP_INCLUDED
 
-sge::opencl::program::build_error::build_error(
-	fcppt::string const &_message)
-:
-	sge::exception(
-		FCPPT_TEXT("Error building OpenCL program: ")+_message),
-	message_(
-		_message)
+#include <sge/font/text/string.hpp>
+#include <fcppt/strong_typedef.hpp>
+
+namespace sge
 {
+namespace console
+{
+namespace callback
+{
+FCPPT_MAKE_STRONG_TYPEDEF(
+	font::text::string,
+	name);
+}
+}
 }
 
-fcppt::string const &
-sge::opencl::program::build_error::message() const
-{
-	return message_;
-}
-
-sge::opencl::program::build_error::~build_error() throw()
-{
-}
+#endif
