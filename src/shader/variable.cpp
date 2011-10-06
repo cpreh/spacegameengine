@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/matrix/output.hpp>
-#include <fcppt/lexical_cast.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/format.hpp>

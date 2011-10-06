@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/next_prior.hpp>
@@ -295,7 +295,7 @@ max_work_item_sizes_to_string(
 	for(size_vector::const_iterator it = sizes.begin(); it != sizes.end(); ++it)
 	{
 		result +=
-			fcppt::lexical_cast<std::string>(
+			fcppt::insert_to_std_string(
 				*it);
 
 		if(it != boost::prior(sizes.end()))

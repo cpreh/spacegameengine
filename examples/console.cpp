@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_string.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -106,7 +106,7 @@ increment(
 {
 	_console.emit_message(
 		SGE_FONT_TEXT_LIT("New value is ")+
-		fcppt::lexical_cast<sge::font::text::string>(
+		fcppt::insert_to_string<sge::font::text::string>(
 			f+1.0f));
 }
 

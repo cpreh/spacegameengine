@@ -101,8 +101,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/extract_from_string.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/lexical_cast.hpp>
 #include <fcppt/log/log.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/dim.hpp>
@@ -117,8 +117,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/signal/signal.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/bad_lexical_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -637,37 +637,51 @@ try
 			return EXIT_SUCCESS;
 		}
 
-		try
+		typedef fcppt::optional<
+			sge::renderer::scalar
+		> optional_scalar;
+
 		{
-			eye_distance =
-				fcppt::lexical_cast<sge::renderer::scalar>(
+			optional_scalar const opt_eye_distance(
+				fcppt::extract_from_string<
+					sge::renderer::scalar
+				>(
 					std::string(
-						argv[1]));
-		}
-		catch(fcppt::bad_lexical_cast const &)
-		{
-			std::cerr << "The eye distance argument has to be floating point! Exiting...\n";
-			show_usage(
-				argv[0]);
-			return EXIT_FAILURE;
+						argv[1])));
+
+			if(
+				!opt_eye_distance
+			)
+			{
+				std::cerr << "The eye distance argument has to be floating point! Exiting...\n";
+				show_usage(
+					argv[0]);
+				return EXIT_FAILURE;
+			}
+
+			eye_distance = *opt_eye_distance;
 		}
 
 		if(argc == 3)
 		{
-			try
-			{
-				focal_length =
-					fcppt::lexical_cast<sge::renderer::scalar>(
-						std::string(
-							argv[2]));
-			}
-			catch(fcppt::bad_lexical_cast const &)
+			optional_scalar const opt_focal_length(
+				fcppt::extract_from_string<
+					sge::renderer::scalar
+				>(
+					std::string(
+						argv[2])));
+
+			if(
+				!opt_focal_length
+			)
 			{
 				std::cerr << "The focal length argument has to be floating point! Exiting...\n";
 				show_usage(
 					argv[0]);
 				return EXIT_FAILURE;
 			}
+
+			focal_length = *opt_focal_length;
 		}
 	}
 

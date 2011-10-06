@@ -90,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/extract_from_string_exn.hpp>
 #include <mizuiro/color/operators/scalar_multiply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -477,7 +477,7 @@ try
 				sge::all_extensions)));
 
 	particles ps(
-		fcppt::lexical_cast<unsigned>(
+		fcppt::extract_from_string_exn<unsigned>(
 			std::string(
 				argv[1])),
 		sys);

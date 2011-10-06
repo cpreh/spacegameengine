@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/arg_list.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/font/text/from_fcppt_string.hpp>
-#include <fcppt/lexical_cast.hpp>
-#include <fcppt/bad_lexical_cast.hpp>
+#include <fcppt/extract_from_string.hpp>
+#include <fcppt/insert_to_string.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/remove_reference.hpp>
@@ -78,24 +79,27 @@ public:
 		>::type
 		result_type;
 
-		try
-		{
-			boost::fusion::at_c<Index::value>(parameters_) = 
-				fcppt::lexical_cast<result_type>(
-					args_[Index::value+1]);
-		}
-		catch(fcppt::bad_lexical_cast const &)
-		{
+		typedef fcppt::optional<result_type> opt_result;
+
+		opt_result const converted(
+			fcppt::extract_from_string<result_type>(
+				args_[Index::value+1]));
+
+		if(
+			converted
+		)
+			boost::fusion::at_c<Index::value>(parameters_) =
+				*converted;
+		else
 			console_.emit_error(
 				SGE_FONT_TEXT_LIT("Couldn't convert argument ")+
-				fcppt::lexical_cast<sge::font::text::string>(
+				fcppt::insert_to_string<sge::font::text::string>(
 					Index::value)+
 				SGE_FONT_TEXT_LIT(" to type ")+
 				sge::font::text::from_fcppt_string(
 					fcppt::type_name(
 						typeid(
 							result_type))));
-		}
 	}
 private:
 	console::object &console_;

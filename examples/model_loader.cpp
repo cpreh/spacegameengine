@@ -159,7 +159,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/homogenous_pair.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/lexical_cast.hpp>
 #include <fcppt/log/log.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
