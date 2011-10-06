@@ -18,36 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/char_not_available.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_CONSOLE_CALLBACK_CALLBACK_HPP_INCLUDED
+#define SGE_CONSOLE_CALLBACK_CALLBACK_HPP_INCLUDED
 
-sge::font::char_not_available::char_not_available(
-	font::char_type const _character
-)
-:
-	font::exception(
-		fcppt::string(
-			FCPPT_TEXT("Character '")
-		)
-		+ fcppt::insert_to_fcppt_string(
-			static_cast<
-				unsigned long
-			>(
-				_character
-			)
-		)
-		+ FCPPT_TEXT("' is not available!")
-	),
-	character_(
-		_character
-	)
-{
-}
+#include <sge/console/callback/from_functor.hpp>
+#include <sge/console/callback/function.hpp>
+#include <sge/console/callback/function_type.hpp>
+#include <sge/console/callback/name.hpp>
+#include <sge/console/callback/parameters.hpp>
+#include <sge/console/callback/parameters_fwd.hpp>
+#include <sge/console/callback/short_description.hpp>
 
-sge::font::char_type
-sge::font::char_not_available::character() const
-{
-	return character_;
-}
+#endif

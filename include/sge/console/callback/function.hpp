@@ -18,21 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_CALLBACK_HPP_INCLUDED
-#define SGE_CONSOLE_CALLBACK_HPP_INCLUDED
+#ifndef SGE_CONSOLE_CALLBACK_FUNCTION_HPP_INCLUDED
+#define SGE_CONSOLE_CALLBACK_FUNCTION_HPP_INCLUDED
 
-#include <sge/console/callback_type.hpp>
+#include <sge/console/callback/function_type.hpp>
 #include <fcppt/function/object.hpp>
 
 namespace sge
 {
 namespace console
 {
+namespace callback
+{
 
-typedef fcppt::function::object<
-	callback_type
-> callback;
+typedef 
+fcppt::function::object
+<
+	callback::function_type
+>
+function;
 
+}
 }
 }
 

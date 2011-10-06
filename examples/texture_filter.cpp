@@ -127,7 +127,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
@@ -349,7 +349,7 @@ try
 	sge::font::text::string const anisotropy_string(
 		SGE_FONT_TEXT_LIT(' ')
 		+
-		fcppt::lexical_cast<
+		fcppt::insert_to_string<
 			sge::font::text::string
 		>(
 			anisotropy
@@ -588,7 +588,7 @@ try
 	sge::font::text::string const text_appendix(
 		SGE_FONT_TEXT_LIT(" (Press 1 through ")
 		+
-		fcppt::lexical_cast<
+		fcppt::insert_to_string<
 			sge::font::text::string
 		>(
 			filters.size()

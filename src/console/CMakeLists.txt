@@ -1,8 +1,16 @@
 SET(
 	SGE_CONSOLE_FILES
 	include/sge/console/arg_list.hpp
-	include/sge/console/callback.hpp
-	include/sge/console/callback_type.hpp
+	include/sge/console/callback/callback.hpp
+	include/sge/console/callback/detail/convenience_wrapper.hpp
+	include/sge/console/callback/detail/conversion_visitor.hpp
+	include/sge/console/callback/from_functor.hpp
+	include/sge/console/callback/function.hpp
+	include/sge/console/callback/function_type.hpp
+	include/sge/console/callback/name.hpp
+	include/sge/console/callback/parameters.hpp
+	include/sge/console/callback/parameters_fwd.hpp
+	include/sge/console/callback/short_description.hpp
 	include/sge/console/console.hpp
 	include/sge/console/cursor.hpp
 	include/sge/console/error_callback.hpp
@@ -30,6 +38,7 @@ SET(
 	include/sge/console/sprite_system.hpp
 	include/sge/console/sprite_type_choices.hpp
 	include/sge/console/symbol.hpp
+	src/console/callback/parameters.cpp
 	src/console/cursor.cpp
 	src/console/exception.cpp
 	src/console/function.cpp

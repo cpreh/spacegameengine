@@ -177,7 +177,8 @@ sge::opencl::single_device_system::error_callback(
 			<< FCPPT_TEXT("An error in a context occured: \"")
 			<<
 				fcppt::from_std_string(
-					err));
+					err)
+			<< FCPPT_TEXT("\""));
 
 	std::terminate();
 }

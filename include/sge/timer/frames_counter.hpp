@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/chrono/seconds.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -84,7 +84,7 @@ public:
 	frames_str() const
 	{
 		return
-			fcppt::lexical_cast<fcppt::string>(
+			fcppt::insert_to_fcppt_string(
 				this->frames());
 	}
 

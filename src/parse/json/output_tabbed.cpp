@@ -28,15 +28,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/value.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/io/ostringstream.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/format.hpp>
+#include <fcppt/insert_to_string.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/ostringstream.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/variant/apply_visitor.hpp>
-#include <boost/lexical_cast.hpp>
 #include <fcppt/config/external_end.hpp>
 
 namespace
@@ -159,7 +158,7 @@ public:
 	operator()(
 		sge::parse::json::int_type const o) const
 	{
-		return make_tabs()+boost::lexical_cast<result_type>(o);
+		return make_tabs() + fcppt::insert_to_string<result_type>(o);
 	}
 
 	result_type

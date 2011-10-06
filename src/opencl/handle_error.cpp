@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "handle_error.hpp"
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/string.hpp>
 
 namespace
@@ -88,6 +89,9 @@ sge::opencl::handle_error(
 	fcppt::string const &function_name)
 {
 	if(error_code != CL_SUCCESS)
+	{
+		fcppt::io::cerr() << FCPPT_TEXT("Function ") << function_name << FCPPT_TEXT(" failed\n");
+		/*
 		throw
 			sge::exception(
 				FCPPT_TEXT("Function ")+
@@ -95,4 +99,6 @@ sge::opencl::handle_error(
 				FCPPT_TEXT(": ")+
 				error_code_to_string(
 					error_code));
+					*/
+	}
 }

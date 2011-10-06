@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/lexical_cast.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <typeinfo>

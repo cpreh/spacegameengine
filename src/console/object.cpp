@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/object.hpp>
+#include <sge/console/callback/parameters.hpp>
 #include <sge/console/exception.hpp>
 #include <sge/console/function.hpp>
 #include <sge/font/text/lit.hpp>
@@ -29,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/insert_to_string.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -51,34 +54,37 @@ sge::console::object::object(
 	funcs_(),
 	fallback_(),
 	help_connection_(
-		insert(
-			SGE_FONT_TEXT_LIT("help"),
-			std::tr1::bind(
-				&object::help_callback,
-				this,
-				std::tr1::placeholders::_1),
-			SGE_FONT_TEXT_LIT("Display help message"))),
+		this->insert(
+			callback::parameters(
+				std::tr1::bind(
+					&object::help_callback,
+					this,
+					std::tr1::placeholders::_1),
+				callback::name(
+					SGE_FONT_TEXT_LIT("help")))
+				.short_description(
+					SGE_FONT_TEXT_LIT("Display help message")))),
 	man_connection_(
-		insert(
-			SGE_FONT_TEXT_LIT("man"),
-			std::tr1::bind(
-				&object::man_callback,
-				this,
-				std::tr1::placeholders::_1),
-			SGE_FONT_TEXT_LIT("Display information for a specific function")))
+		this->insert(
+			callback::parameters(
+				std::tr1::bind(
+					&object::man_callback,
+					this,
+					std::tr1::placeholders::_1),
+				callback::name(
+					SGE_FONT_TEXT_LIT("man")))
+				.short_description(
+					SGE_FONT_TEXT_LIT("Display information for a specific function"))))
 {
 }
 FCPPT_PP_POP_WARNING
 
 fcppt::signal::auto_connection
 sge::console::object::insert(
-	font::text::string const &name,
-	callback const &c,
-	font::text::string const &short_description,
-	font::text::string const &long_description
+	callback::parameters const &_params
 )
 {
-	function_map::iterator i = funcs_.find(name);
+	function_map::iterator i = funcs_.find(_params.name());
 
 	if (i == funcs_.end())
 	{
@@ -90,12 +96,12 @@ sge::console::object::insert(
 		ret_type const ret(
 			fcppt::container::ptr::insert_unique_ptr_map(
 				funcs_,
-				name,
+				_params.name(),
 				fcppt::make_unique_ptr<
 					function
 				>(
-					short_description,
-					long_description
+					_params.short_description(),
+					_params.long_description()
 				)
 			)
 		);
@@ -104,7 +110,13 @@ sge::console::object::insert(
 
 		FCPPT_ASSERT_ERROR(ret.second);
 	}
-	return i->second->signal().connect(c);
+	return 
+		i->second->signal().connect(
+			_params.function(),
+			std::tr1::bind(
+				&object::remove_function,
+				this,
+				_params.name()));
 }
 
 fcppt::signal::auto_connection
@@ -278,7 +290,7 @@ sge::console::object::help_callback(
 	arg_list const &)
 {
 	emit_message(
-		fcppt::lexical_cast<font::text::string>(
+		fcppt::insert_to_string<font::text::string>(
 			funcs_.size())
 		+ SGE_FONT_TEXT_LIT(" available functions:"));
 
@@ -334,4 +346,20 @@ sge::console::object::man_callback(
 	else
 		emit_message(
 			i->second->long_description());
+}
+
+void
+sge::console::object::remove_function(
+	font::text::string const &_name)
+{
+	function_map::iterator const it(
+		funcs_.find(
+			_name));
+
+	FCPPT_ASSERT_PRE(
+		it != funcs_.end());
+
+	if(it->second->signal().empty())
+		funcs_.erase(
+			it);
 }

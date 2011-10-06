@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx.hpp>
 #include <sge/console/sprite_parameters.hpp>
 #include <sge/console/sprite_object.hpp>
+#include <sge/console/callback/from_functor.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -57,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/insert_to_string.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -91,11 +93,21 @@ fallback(
 
 void
 quit(
-	bool &_running,
-	sge::console::arg_list const &
+	bool &_running
 )
 {
 	_running = false;
+}
+
+void
+increment(
+	sge::console::object &_console,
+	float const f)
+{
+	_console.emit_message(
+		SGE_FONT_TEXT_LIT("New value is ")+
+		fcppt::insert_to_string<sge::font::text::string>(
+			f+1.0f));
 }
 
 }
@@ -174,23 +186,36 @@ try
 
 	fcppt::signal::scoped_connection const c0(
 		object.insert(
-			SGE_FONT_TEXT_LIT("quit"),
-			std::tr1::bind(
-				&quit,
-				fcppt::ref(
-					running
-				),
-				std::tr1::placeholders::_1
-			),
-			SGE_FONT_TEXT_LIT("quit test")
-		)
-	);
+			sge::console::callback::from_functor<void()>(
+				std::tr1::bind(
+					&quit,
+					fcppt::ref(
+						running)),
+				sge::console::callback::name(
+					SGE_FONT_TEXT_LIT("quit")),
+				sge::console::callback::short_description(
+					SGE_FONT_TEXT_LIT("Usage: /quit")))));
 
 	fcppt::signal::scoped_connection const c1(
 		object.register_fallback(
 			&fallback
 		)
 	);
+
+	fcppt::signal::scoped_connection const c2(
+		object.insert(
+			sge::console::callback::from_functor<void(float)>(
+				std::tr1::bind(
+					&increment,
+					fcppt::ref(
+						object),
+					std::tr1::placeholders::_1),
+				sge::console::callback::name(
+					SGE_FONT_TEXT_LIT("increment")),
+				sge::console::callback::short_description(
+					SGE_FONT_TEXT_LIT("Usage: /increment <float-value>")))
+				.long_description(
+					SGE_FONT_TEXT_LIT("Increments the float value (extremely useful!)"))));
 
 	sge::texture::manager tex_man(
 		boost::phoenix::construct<

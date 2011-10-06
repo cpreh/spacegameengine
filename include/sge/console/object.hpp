@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_OBJECT_HPP_INCLUDED
 #define SGE_CONSOLE_OBJECT_HPP_INCLUDED
 
-#include <sge/console/callback.hpp>
+#include <sge/console/callback/parameters_fwd.hpp>
 #include <sge/console/fallback.hpp>
 #include <sge/console/error_callback.hpp>
 #include <sge/console/message_callback.hpp>
@@ -54,10 +54,7 @@ public:
 
 	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
 	insert(
-		font::text::string const &name,
-		callback const &,
-		font::text::string const &short_description = font::text::string(),
-		font::text::string const &long_description = font::text::string()
+		callback::parameters const &
 	);
 
 	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
@@ -115,6 +112,10 @@ private:
 	void
 	man_callback(
 		arg_list const &);
+
+	void
+	remove_function(
+		font::text::string const &);
 };
 
 }
