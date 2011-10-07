@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/dim2.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/image/planar_pitch.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/opencl/clinclude.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -55,6 +56,12 @@ public:
 		memory_object::dim2 const &size,
 		image::planar_pitch const &);
 
+	SGE_OPENCL_SYMBOL explicit
+	planar(
+		context::object &,
+		memory_object::flags_field const &,
+		renderer::texture::planar &);
+
 	SGE_OPENCL_SYMBOL cl_mem
 	impl();
 
@@ -67,8 +74,8 @@ public:
 	SGE_OPENCL_SYMBOL ~planar();
 private:
 	cl_mem impl_;
-	cl_image_format const image_format_;
-	memory_object::dim2 const size_;
+	cl_image_format image_format_;
+	memory_object::dim2 size_;
 };
 }
 }
