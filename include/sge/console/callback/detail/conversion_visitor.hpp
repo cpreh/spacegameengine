@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/from_fcppt_string.hpp>
 #include <fcppt/extract_from_string.hpp>
 #include <fcppt/insert_to_string.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,6 +48,8 @@ namespace detail
 template<typename ParameterTypes>
 struct conversion_visitor
 {
+FCPPT_NONASSIGNABLE(
+	conversion_visitor);
 public:
 	explicit
 	conversion_visitor(
