@@ -26,6 +26,7 @@ SET(
 	src/plugins/x11input/include/sge/x11input/device/hierarchy_event_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/id.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/base.hpp
+	src/plugins/x11input/include/sge/x11input/device/info/class_type.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/multi.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/name.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/single.hpp
@@ -112,6 +113,7 @@ SET(
 	src/plugins/x11input/src/device/event_data.cpp
 	src/plugins/x11input/src/device/event_demuxer.cpp
 	src/plugins/x11input/src/device/info/base.cpp
+	src/plugins/x11input/src/device/info/class_type.cpp
 	src/plugins/x11input/src/device/info/multi.cpp
 	src/plugins/x11input/src/device/info/name.cpp
 	src/plugins/x11input/src/device/info/single.cpp

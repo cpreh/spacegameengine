@@ -18,54 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/joypad/is_usable.hpp>
-#include <sge/x11input/device/info/class_type.hpp>
+#ifndef SGE_X11INPUT_DEVICE_INFO_CLASS_TYPE_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_INFO_CLASS_TYPE_HPP_INCLUDED
+
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <X11/extensions/XI2.h>
 #include <fcppt/config/external_end.hpp>
 
-bool
-sge::x11input::joypad::is_usable(
-	XIDeviceInfo const &_info
-)
+namespace sge
 {
-	// TODO: can we query if a device is joypad directly?
-	bool
-		has_valuators(
-			false
-		),
-		has_buttons(
-			false
-		);
+namespace x11input
+{
+namespace device
+{
+namespace info
+{
 
-	XIAnyClassInfo **classes(
-		_info.classes
-	);
+int
+class_type(
+	XIAnyClassInfo const &
+);
 
-
-	for(
-		int index(0);
-		index < _info.num_classes;
-		++index
-	)
-		switch(
-			x11input::device::info::class_type(
-				*classes[
-					index
-				]
-			)
-		)
-		{
-		case XIButtonClass:
-			has_buttons = true;
-			break;
-		case XIValuatorClass:
-			has_valuators = true;
-			break;
-		}
-
-	return
-		has_valuators
-		&& has_buttons;
 }
+}
+}
+}
+
+#endif

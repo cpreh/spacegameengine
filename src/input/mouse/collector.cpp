@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/text.hpp>
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
@@ -92,6 +93,10 @@ sge::input::mouse::collector::button_callback(
 sge::input::mouse::info const
 sge::input::mouse::collector::info() const
 {
+	return
+		sge::input::mouse::info(
+			FCPPT_TEXT("mouse collector")
+		);
 }
 
 void
