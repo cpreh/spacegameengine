@@ -18,26 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/joypad/axis_event.hpp>
+#ifndef SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_CALLBACK_HPP_INCLUDED
+#define SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_CALLBACK_HPP_INCLUDED
 
-sge::input::joypad::axis_event::axis_event(
-	joypad::axis const &_axis,
-	joypad::axis_value const _axis_value
-)
-:
-	axis_(_axis),
-	axis_value_(_axis_value)
+#include <sge/input/joypad/absolute_axis_function.hpp>
+#include <fcppt/function/object.hpp>
+
+namespace sge
 {
+namespace input
+{
+namespace joypad
+{
+
+typedef fcppt::function::object<
+	joypad::absolute_axis_function
+> absolute_axis_callback;
+
+}
+}
 }
 
-sge::input::joypad::axis const &
-sge::input::joypad::axis_event::axis() const
-{
-	return axis_;
-}
-
-sge::input::joypad::axis_value
-sge::input::joypad::axis_event::axis_value() const
-{
-	return axis_value_;
-}
+#endif

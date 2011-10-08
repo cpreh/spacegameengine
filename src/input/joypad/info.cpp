@@ -18,30 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_JOYPAD_BUTTON_INFOS_HPP_INCLUDED
-#define SGE_X11INPUT_JOYPAD_BUTTON_INFOS_HPP_INCLUDED
-
+#include <sge/input/joypad/info.hpp>
+#include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/input/joypad/relative_axis_info_container.hpp>
 
-namespace sge
+sge::input::joypad::info::info(
+	input::joypad::absolute_axis_info_container const &_absolute_axis,
+	input::joypad::button_info_container const &_buttons,
+	input::joypad::relative_axis_info_container const &_relative_axis
+)
+:
+	absolute_axis_(
+		_absolute_axis
+	),
+	buttons_(
+		_buttons
+	),
+	relative_axis_(
+		_relative_axis
+	)
 {
-namespace x11input
-{
-namespace joypad
-{
-
-input::joypad::button_info_container::vector const
-button_infos(
-	XIButtonClassInfo const &,
-	awl::backends::x11::display &
-);
-
-}
-}
 }
 
-#endif
+sge::input::joypad::absolute_axis_info_container const &
+sge::input::joypad::info::absolute_axis() const
+{
+	return absolute_axis_;
+}
+
+sge::input::joypad::button_info_container const &
+sge::input::joypad::info::buttons() const
+{
+	return buttons_;
+}
+
+sge::input::joypad::relative_axis_info_container const &
+sge::input::joypad::info::relative_axis() const
+{
+	return relative_axis_;
+}

@@ -18,26 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/joypad/axis.hpp>
+#ifndef SGE_INPUT_JOYPAD_RELATIVE_AXIS_EVENT_FWD_HPP_INCLUDED
+#define SGE_INPUT_JOYPAD_RELATIVE_AXIS_EVENT_FWD_HPP_INCLUDED
 
-sge::input::joypad::axis::axis(
-	joypad::axis_code::type const _code,
-	joypad::axis_id const _id
-)
-:
-	code_(_code),
-	id_(_id)
+namespace sge
 {
+namespace input
+{
+namespace joypad
+{
+
+class relative_axis_event;
+
+}
+}
 }
 
-sge::input::joypad::axis_code::type
-sge::input::joypad::axis::code() const
-{
-	return code_;
-}
-
-sge::input::joypad::axis_id const
-sge::input::joypad::axis::id() const
-{
-	return id_;
-}
+#endif

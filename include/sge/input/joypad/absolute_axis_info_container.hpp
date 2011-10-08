@@ -18,45 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_AXIS_INFO_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_AXIS_INFO_HPP_INCLUDED
+#ifndef SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_INFO_CONTAINER_HPP_INCLUDED
+#define SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_INFO_CONTAINER_HPP_INCLUDED
 
-#include <sge/input/joypad/axis_info_fwd.hpp>
-#include <sge/input/joypad/axis_code.hpp>
-#include <sge/input/info/optional_string.hpp>
-#include <sge/input/symbol.hpp>
-
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-
-class axis_info
-{
-public:
-	SGE_INPUT_SYMBOL
-	axis_info(
-		joypad::axis_code::type,
-		input::info::optional_string const &
-	);
-
-	SGE_INPUT_SYMBOL
-	joypad::axis_code::type
-	code() const;
-
-	SGE_INPUT_SYMBOL
-	input::info::optional_string const &
-	name() const;
-private:
-	joypad::axis_code::type code_;
-
-	input::info::optional_string name_;
-};
-
-}
-}
-}
+#include <sge/input/info/container.hpp>
+#include <sge/input/joypad/absolute_axis_info_container_fwd.hpp>
+#include <sge/input/joypad/absolute_axis_info.hpp>
 
 #endif

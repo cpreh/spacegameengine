@@ -18,66 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/joypad/axis_infos.hpp>
+#include <sge/x11input/joypad/absolute_axis_info.hpp>
 #include <sge/x11input/joypad/axis_code.hpp>
 #include <sge/x11input/device/info/string_from_atom.hpp>
-#include <sge/input/joypad/axis_info.hpp>
-#include <sge/input/joypad/axis_info_container.hpp>
+#include <sge/input/joypad/absolute_axis_info.hpp>
+#include <sge/input/joypad/axis_max.hpp>
+#include <sge/input/joypad/axis_min.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-sge::input::joypad::axis_info_container const
-sge::x11input::joypad::axis_infos(
-	awl::backends::x11::display &_display,
-	XIDeviceInfo const &_info
+sge::input::joypad::absolute_axis_info const
+sge::x11input::joypad::absolute_axis_info(
+	XIValuatorClassInfo const &_info,
+	awl::backends::x11::display &_display
 )
 {
-	sge::input::joypad::axis_info_container::vector ret;
-
-	XIAnyClassInfo **classes(
-		_info.classes
-	);
-
-	for(
-		int index(0);
-		index < _info.num_classes;
-		++index
-	)
-	{
-		XIAnyClassInfo const &any(
-			*classes[index]
-		);
-
-		if(
-			any.type
-			!= XIValuatorClass
-		)
-			continue;
-
-		XIValuatorClassInfo const &valuator_info(
-			reinterpret_cast<
-				XIValuatorClassInfo const &
-			>(
-				any
-			)
-		);
-
-		ret.push_back(
-			sge::input::joypad::axis_info(
-				joypad::axis_code(
-					valuator_info
-				),
-				x11input::device::info::string_from_atom(
-					_display,
-					valuator_info.label
+	return
+		sge::input::joypad::absolute_axis_info(
+			joypad::axis_code(
+				_info
+			),
+			x11input::device::info::string_from_atom(
+				_display,
+				_info.label
+			),
+			sge::input::joypad::axis_min(
+				// FIXME
+				static_cast<
+					long
+				>(
+					_info.min
+				)
+			),
+			sge::input::joypad::axis_max(
+				// FIXME
+				static_cast<
+					long
+				>(
+					_info.max
 				)
 			)
-		);
-	}
-
-	return
-		sge::input::joypad::axis_info_container(
-			ret
 		);
 }

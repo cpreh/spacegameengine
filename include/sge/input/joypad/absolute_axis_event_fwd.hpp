@@ -18,14 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../info/container_impl.hpp"
-#include <sge/input/joypad/axis_id.hpp>
-#include <sge/input/joypad/axis_info.hpp>
-#include <sge/input/joypad/axis_info_container.hpp>
-#include <fcppt/export_symbol.hpp>
+#ifndef SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_EVENT_FWD_HPP_INCLUDED
+#define SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_EVENT_FWD_HPP_INCLUDED
 
-template FCPPT_EXPORT_SYMBOL class
-sge::input::info::container<
-	sge::input::joypad::axis_id,
-	sge::input::joypad::axis_info
->;
+namespace sge
+{
+namespace input
+{
+namespace joypad
+{
+
+class absolute_axis_event;
+
+}
+}
+}
+
+#endif

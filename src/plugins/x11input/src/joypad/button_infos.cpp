@@ -26,61 +26,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-sge::input::joypad::button_info_container const
+sge::input::joypad::button_info_container::vector const
 sge::x11input::joypad::button_infos(
-	awl::backends::x11::display &_display,
-	XIDeviceInfo const &_info
+	XIButtonClassInfo const &_info,
+	awl::backends::x11::display &_display
 )
 {
 	sge::input::joypad::button_info_container::vector ret;
 
-	XIAnyClassInfo **classes(
-		_info.classes
-	);
-
 	for(
-		int index(0);
-		index < _info.num_classes;
-		++index
+		int button_index(0);
+		button_index < _info.num_buttons;
+		++button_index
 	)
-	{
-		XIAnyClassInfo const &any(
-			*classes[index]
-		);
-
-		if(
-			any.type
-			!= XIButtonClass
-		)
-			continue;
-
-		XIButtonClassInfo const &buttons(
-			reinterpret_cast<
-				XIButtonClassInfo const &
-			>(
-				any
+		ret.push_back(
+			sge::input::joypad::button_info(
+				x11input::device::info::string_from_atom(
+					_display,
+					_info.labels[
+						button_index
+					]
+				)
 			)
 		);
 
-		for(
-			int button_index(0);
-			button_index < buttons.num_buttons;
-			++button_index
-		)
-			ret.push_back(
-				sge::input::joypad::button_info(
-					x11input::device::info::string_from_atom(
-						_display,
-						buttons.labels[
-							button_index
-						]
-					)
-				)
-			);
-	}
-
 	return
-		sge::input::joypad::button_info_container(
-			ret
-		);
+		ret;
 }

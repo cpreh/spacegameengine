@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_AXIS_ID_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_AXIS_ID_HPP_INCLUDED
+#ifndef SGE_INPUT_JOYPAD_RELATIVE_AXIS_HPP_INCLUDED
+#define SGE_INPUT_JOYPAD_RELATIVE_AXIS_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
+#include <sge/input/joypad/relative_axis_fwd.hpp>
+#include <sge/input/joypad/relative_axis_id.hpp>
+#include <sge/input/joypad/axis_code.hpp>
+#include <sge/input/symbol.hpp>
 
 namespace sge
 {
@@ -30,10 +33,27 @@ namespace input
 namespace joypad
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	unsigned,
-	axis_id
-);
+class relative_axis
+{
+public:
+	SGE_INPUT_SYMBOL
+	relative_axis(
+		joypad::axis_code::type,
+		joypad::relative_axis_id
+	);
+
+	SGE_INPUT_SYMBOL
+	joypad::axis_code::type
+	code() const;
+
+	SGE_INPUT_SYMBOL
+	joypad::relative_axis_id const
+	id() const;
+private:
+	joypad::axis_code::type code_;
+
+	joypad::relative_axis_id id_;
+};
 
 }
 }

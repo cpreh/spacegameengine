@@ -44,18 +44,21 @@ SET(
 	include/sge/input/info/optional_string.hpp
 	include/sge/input/info/optional_string_fwd.hpp
 	include/sge/input/input.hpp
-	include/sge/input/joypad/axis.hpp
-	include/sge/input/joypad/axis_callback.hpp
+	include/sge/input/joypad/absolute_axis.hpp
+	include/sge/input/joypad/absolute_axis_callback.hpp
+	include/sge/input/joypad/absolute_axis_event.hpp
+	include/sge/input/joypad/absolute_axis_event_fwd.hpp
+	include/sge/input/joypad/absolute_axis_function.hpp
+	include/sge/input/joypad/absolute_axis_fwd.hpp
+	include/sge/input/joypad/absolute_axis_id.hpp
+	include/sge/input/joypad/absolute_axis_info.hpp
+	include/sge/input/joypad/absolute_axis_info_container.hpp
+	include/sge/input/joypad/absolute_axis_info_container_fwd.hpp
+	include/sge/input/joypad/absolute_axis_info_fwd.hpp
+	include/sge/input/joypad/absolute_axis_signal.hpp
 	include/sge/input/joypad/axis_code.hpp
-	include/sge/input/joypad/axis_event.hpp
-	include/sge/input/joypad/axis_event_fwd.hpp
-	include/sge/input/joypad/axis_function.hpp
-	include/sge/input/joypad/axis_fwd.hpp
-	include/sge/input/joypad/axis_id.hpp
-	include/sge/input/joypad/axis_info.hpp
-	include/sge/input/joypad/axis_info_container.hpp
-	include/sge/input/joypad/axis_info_container_fwd.hpp
-	include/sge/input/joypad/axis_info_fwd.hpp
+	include/sge/input/joypad/axis_max.hpp
+	include/sge/input/joypad/axis_min.hpp
 	include/sge/input/joypad/axis_value.hpp
 	include/sge/input/joypad/button_callback.hpp
 	include/sge/input/joypad/button_event.hpp
@@ -66,6 +69,7 @@ SET(
 	include/sge/input/joypad/button_info_container.hpp
 	include/sge/input/joypad/button_info_container_fwd.hpp
 	include/sge/input/joypad/button_info_fwd.hpp
+	include/sge/input/joypad/button_signal.hpp
 	include/sge/input/joypad/collector_fwd.hpp
 	include/sge/input/joypad/device.hpp
 	include/sge/input/joypad/device_fwd.hpp
@@ -76,7 +80,21 @@ SET(
 	include/sge/input/joypad/discover_event_fwd.hpp
 	include/sge/input/joypad/discover_function.hpp
 	include/sge/input/joypad/discover_signal.hpp
+	include/sge/input/joypad/info.hpp
+	include/sge/input/joypad/info_fwd.hpp
 	include/sge/input/joypad/joypad.hpp
+	include/sge/input/joypad/relative_axis.hpp
+	include/sge/input/joypad/relative_axis_callback.hpp
+	include/sge/input/joypad/relative_axis_event.hpp
+	include/sge/input/joypad/relative_axis_event_fwd.hpp
+	include/sge/input/joypad/relative_axis_function.hpp
+	include/sge/input/joypad/relative_axis_fwd.hpp
+	include/sge/input/joypad/relative_axis_id.hpp
+	include/sge/input/joypad/relative_axis_info.hpp
+	include/sge/input/joypad/relative_axis_info_container.hpp
+	include/sge/input/joypad/relative_axis_info_container_fwd.hpp
+	include/sge/input/joypad/relative_axis_info_fwd.hpp
+	include/sge/input/joypad/relative_axis_signal.hpp
 	include/sge/input/joypad/remove_callback.hpp
 	include/sge/input/joypad/remove_event.hpp
 	include/sge/input/joypad/remove_event_fwd.hpp
@@ -185,15 +203,18 @@ SET(
 	src/input/cursor/remove_event.cpp
 	src/input/exception.cpp
 	src/input/info/container_impl.hpp
-	src/input/joypad/axis.cpp
-	src/input/joypad/axis_event.cpp
-	src/input/joypad/axis_info.cpp
-	src/input/joypad/axis_info_container.cpp
+	src/input/joypad/absolute_axis.cpp
+	src/input/joypad/absolute_axis_event.cpp
+	src/input/joypad/absolute_axis_info.cpp
+	src/input/joypad/absolute_axis_info_container.cpp
 	src/input/joypad/button_event.cpp
 	src/input/joypad/button_info.cpp
 	src/input/joypad/button_info_container.cpp
 	src/input/joypad/device.cpp
 	src/input/joypad/discover_event.cpp
+	src/input/joypad/info.cpp
+	src/input/joypad/relative_axis_info.cpp
+	src/input/joypad/relative_axis_info_container.cpp
 	src/input/joypad/remove_event.cpp
 	src/input/keyboard/action.cpp
 	src/input/keyboard/char_event.cpp

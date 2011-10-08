@@ -18,30 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_JOYPAD_BUTTON_INFOS_HPP_INCLUDED
-#define SGE_X11INPUT_JOYPAD_BUTTON_INFOS_HPP_INCLUDED
+#include <sge/input/joypad/relative_axis_info.hpp>
+#include <sge/input/joypad/axis_code.hpp>
+#include <sge/input/info/optional_string.hpp>
 
-#include <sge/input/joypad/button_info_container.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
-
-namespace sge
+sge::input::joypad::relative_axis_info::relative_axis_info(
+	joypad::axis_code::type const _code,
+	input::info::optional_string const &_name
+)
+:
+	code_(
+		_code
+	),
+	name_(
+		_name
+	)
 {
-namespace x11input
-{
-namespace joypad
-{
-
-input::joypad::button_info_container::vector const
-button_infos(
-	XIButtonClassInfo const &,
-	awl::backends::x11::display &
-);
-
-}
-}
 }
 
-#endif
+sge::input::joypad::axis_code::type
+sge::input::joypad::relative_axis_info::code() const
+{
+	return code_;
+}
+
+sge::input::info::optional_string const &
+sge::input::joypad::relative_axis_info::name() const
+{
+	return name_;
+}

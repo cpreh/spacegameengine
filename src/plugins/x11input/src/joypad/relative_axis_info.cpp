@@ -18,27 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_AXIS_INFO_CONTAINER_FWD_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_AXIS_INFO_CONTAINER_FWD_HPP_INCLUDED
+#include <sge/x11input/joypad/relative_axis_info.hpp>
+#include <sge/x11input/joypad/axis_code.hpp>
+#include <sge/x11input/device/info/string_from_atom.hpp>
+#include <sge/input/joypad/relative_axis_info.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/input/info/container_fwd.hpp>
-#include <sge/input/joypad/axis_id.hpp>
-#include <sge/input/joypad/axis_info_fwd.hpp>
-
-namespace sge
+sge::input::joypad::relative_axis_info const
+sge::x11input::joypad::relative_axis_info(
+	XIValuatorClassInfo const &_info,
+	awl::backends::x11::display &_display
+)
 {
-namespace input
-{
-namespace joypad
-{
-
-typedef input::info::container<
-	joypad::axis_id,
-	joypad::axis_info
-> axis_info_container;
-
+	return
+		sge::input::joypad::relative_axis_info(
+			joypad::axis_code(
+				_info
+			),
+			x11input::device::info::string_from_atom(
+				_display,
+				_info.label
+			)
+		);
 }
-}
-}
-
-#endif

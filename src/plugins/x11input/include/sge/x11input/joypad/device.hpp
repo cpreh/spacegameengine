@@ -26,13 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/raw_event_fwd.hpp>
 #include <sge/x11input/device/window_event_fwd.hpp>
-#include <sge/input/joypad/axis_callback.hpp>
-#include <sge/input/joypad/axis_function.hpp>
-#include <sge/input/joypad/axis_info_container.hpp>
+#include <sge/input/joypad/absolute_axis_callback.hpp>
+#include <sge/input/joypad/absolute_axis_signal.hpp>
 #include <sge/input/joypad/button_callback.hpp>
-#include <sge/input/joypad/button_function.hpp>
-#include <sge/input/joypad/button_info_container.hpp>
+#include <sge/input/joypad/button_signal.hpp>
 #include <sge/input/joypad/device.hpp>
+#include <sge/input/joypad/info.hpp>
+#include <sge/input/joypad/relative_axis_callback.hpp>
+#include <sge/input/joypad/relative_axis_signal.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
@@ -61,20 +62,22 @@ public:
 	~device();
 private:
 	fcppt::signal::auto_connection
+	absolute_axis_callback(
+		input::joypad::absolute_axis_callback const &
+	);
+
+	fcppt::signal::auto_connection
 	button_callback(
 		input::joypad::button_callback const &
 	);
 
 	fcppt::signal::auto_connection
-	axis_callback(
-		input::joypad::axis_callback const &
+	relative_axis_callback(
+		input::joypad::relative_axis_callback const &
 	);
 
-	input::joypad::button_info_container const
-	buttons() const;
-
-	input::joypad::axis_info_container const
-	axis() const;
+	input::joypad::info const
+	info() const;
 
 	void
 	on_motion(
@@ -97,19 +100,15 @@ private:
 		bool pressed
 	);
 
-	input::joypad::button_info_container const button_infos_;
-
-	input::joypad::axis_info_container const axis_infos_;
+	input::joypad::info const info_;
 
 	fcppt::signal::connection_manager const connections_;
 
-	fcppt::signal::object<
-		sge::input::joypad::button_function
-	> button_signal_;
+	sge::input::joypad::absolute_axis_signal absolute_axis_signal_;
 
-	fcppt::signal::object<
-		sge::input::joypad::axis_function
-	> axis_signal_;
+	sge::input::joypad::button_signal button_signal_;
+
+	sge::input::joypad::relative_axis_signal relative_axis_signal_;
 };
 
 }

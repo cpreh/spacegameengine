@@ -58,14 +58,16 @@ SET(
 	src/plugins/x11input/include/sge/x11input/input_context_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/input_method.hpp
 	src/plugins/x11input/include/sge/x11input/input_method_fwd.hpp
+	src/plugins/x11input/include/sge/x11input/joypad/absolute_axis_info.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/axis.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/axis_code.hpp
-	src/plugins/x11input/include/sge/x11input/joypad/axis_infos.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/button_infos.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/device.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/device_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/device_ptr.hpp
+	src/plugins/x11input/include/sge/x11input/joypad/info.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/is_usable.hpp
+	src/plugins/x11input/include/sge/x11input/joypad/relative_axis_info.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/char_vector.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device_fwd.hpp
@@ -123,11 +125,13 @@ SET(
 	src/plugins/x11input/src/exports.cpp
 	src/plugins/x11input/src/input_context.cpp
 	src/plugins/x11input/src/input_method.cpp
+	src/plugins/x11input/src/joypad/absolute_axis_info.cpp
 	src/plugins/x11input/src/joypad/axis_code.cpp
-	src/plugins/x11input/src/joypad/axis_infos.cpp
 	src/plugins/x11input/src/joypad/button_infos.cpp
 	src/plugins/x11input/src/joypad/device.cpp
+	src/plugins/x11input/src/joypad/info.cpp
 	src/plugins/x11input/src/joypad/is_usable.cpp
+	src/plugins/x11input/src/joypad/relative_axis_info.cpp
 	src/plugins/x11input/src/keyboard/device.cpp
 	src/plugins/x11input/src/keyboard/fake_core_event.cpp
 	src/plugins/x11input/src/keyboard/key_code_to_key_sym.cpp

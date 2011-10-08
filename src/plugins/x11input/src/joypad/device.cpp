@@ -19,18 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/joypad/device.hpp>
-#include <sge/x11input/joypad/axis_infos.hpp>
-#include <sge/x11input/joypad/button_infos.hpp>
+#include <sge/x11input/joypad/info.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/raw_demuxer.hpp>
 #include <sge/x11input/device/raw_event.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
 #include <sge/x11input/mask_is_set.hpp>
-#include <sge/input/joypad/axis.hpp>
-#include <sge/input/joypad/axis_event.hpp>
+#include <sge/input/joypad/absolute_axis.hpp>
+#include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/button_event.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
+#include <sge/input/joypad/relative_axis.hpp>
+#include <sge/input/joypad/relative_axis_event.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
@@ -50,14 +51,8 @@ sge::x11input::joypad::device::device(
 	sge::x11input::device::object(
 		_param.id()
 	),
-	button_infos_(
-		x11input::joypad::button_infos(
-			_param.window().display(),
-			_param.info()
-		)
-	),
-	axis_infos_(
-		x11input::joypad::axis_infos(
+	info_(
+		x11input::joypad::info(
 			_param.window().display(),
 			_param.info()
 		)
@@ -111,13 +106,25 @@ sge::x11input::joypad::device::device(
 			)
 		)
 	),
+	absolute_axis_signal_(),
 	button_signal_(),
-	axis_signal_()
+	relative_axis_signal_()
 {
 }
 
 sge::x11input::joypad::device::~device()
 {
+}
+
+fcppt::signal::auto_connection
+sge::x11input::joypad::device::absolute_axis_callback(
+	input::joypad::absolute_axis_callback const &_callback
+)
+{
+	return
+		absolute_axis_signal_.connect(
+			_callback
+		);
 }
 
 fcppt::signal::auto_connection
@@ -132,26 +139,20 @@ sge::x11input::joypad::device::button_callback(
 }
 
 fcppt::signal::auto_connection
-sge::x11input::joypad::device::axis_callback(
-	input::joypad::axis_callback const &_callback
+sge::x11input::joypad::device::relative_axis_callback(
+	input::joypad::relative_axis_callback const &_callback
 )
 {
 	return
-		axis_signal_.connect(
+		relative_axis_signal_.connect(
 			_callback
 		);
 }
 
-sge::input::joypad::button_info_container const
-sge::x11input::joypad::device::buttons() const
+sge::input::joypad::info const
+sge::x11input::joypad::device::info() const
 {
-	return button_infos_;
-}
-
-sge::input::joypad::axis_info_container const
-sge::x11input::joypad::device::axis() const
-{
-	return axis_infos_;
+	return info_;
 }
 
 void

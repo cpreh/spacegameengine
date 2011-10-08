@@ -18,22 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_AXIS_CALLBACK_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_AXIS_CALLBACK_HPP_INCLUDED
+#ifndef SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
+#define SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
 
-#include <sge/input/joypad/axis_function.hpp>
-#include <fcppt/function/object.hpp>
+#include <sge/input/joypad/relative_axis_info_container_fwd.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
-namespace input
+namespace x11input
 {
 namespace joypad
 {
 
-typedef fcppt::function::object<
-	joypad::axis_function
-> axis_callback;
+input::joypad::relative_axis_info const
+relative_axis_info(
+	XIValuatorClassInfo const &,
+	awl::backends::x11::display &
+);
 
 }
 }

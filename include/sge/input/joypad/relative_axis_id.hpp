@@ -18,26 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_JOYPAD_BUTTON_INFOS_HPP_INCLUDED
-#define SGE_X11INPUT_JOYPAD_BUTTON_INFOS_HPP_INCLUDED
+#ifndef SGE_INPUT_JOYPAD_RELATIVE_AXIS_ID_HPP_INCLUDED
+#define SGE_INPUT_JOYPAD_RELATIVE_AXIS_ID_HPP_INCLUDED
 
-#include <sge/input/joypad/button_info_container.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
 namespace joypad
 {
 
-input::joypad::button_info_container::vector const
-button_infos(
-	XIButtonClassInfo const &,
-	awl::backends::x11::display &
+FCPPT_MAKE_STRONG_TYPEDEF(
+	unsigned,
+	relative_axis_id
 );
 
 }

@@ -18,26 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_JOYPAD_AXIS_INFOS_HPP_INCLUDED
-#define SGE_X11INPUT_JOYPAD_AXIS_INFOS_HPP_INCLUDED
+#ifndef SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_FUNCTION_HPP_INCLUDED
+#define SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_FUNCTION_HPP_INCLUDED
 
-#include <sge/input/joypad/axis_info_container_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/input/joypad/absolute_axis_event_fwd.hpp>
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
 namespace joypad
 {
 
-input::joypad::axis_info_container const
-axis_infos(
-	awl::backends::x11::display &,
-	XIDeviceInfo const &
+typedef
+void
+absolute_axis_function(
+	joypad::absolute_axis_event const &
 );
 
 }
