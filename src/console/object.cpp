@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/insert_to_string.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -289,7 +290,7 @@ sge::console::object::help_callback(
 	arg_list const &)
 {
 	emit_message(
-		fcppt::lexical_cast<font::text::string>(
+		fcppt::insert_to_string<font::text::string>(
 			funcs_.size())
 		+ SGE_FONT_TEXT_LIT(" available functions:"));
 

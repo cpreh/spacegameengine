@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/invalid_get.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -70,9 +70,7 @@ get_unsigned(
 				typeid(T)
 			)
 			+ FCPPT_TEXT("> failed! Value is negative: ")
-			+ fcppt::lexical_cast<
-				fcppt::string
-			>(
+			+ fcppt::insert_to_fcppt_string(
 				result
 			)
 		);

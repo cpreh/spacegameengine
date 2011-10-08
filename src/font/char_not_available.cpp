@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/char_not_available.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -27,19 +27,24 @@ sge::font::char_not_available::char_not_available(
 	font::char_type const _character
 )
 :
-	exception(
+	font::exception(
 		fcppt::string(
 			FCPPT_TEXT("Character '")
 		)
-		+ fcppt::lexical_cast<
-			fcppt::string
-		>(
-			_character
+		+ fcppt::insert_to_fcppt_string(
+			static_cast<
+				unsigned long
+			>(
+				_character
+			)
 		)
 		+ FCPPT_TEXT("' is not available!")
 	),
-	character_(_character)
-{}
+	character_(
+		_character
+	)
+{
+}
 
 sge::font::char_type
 sge::font::char_not_available::character() const

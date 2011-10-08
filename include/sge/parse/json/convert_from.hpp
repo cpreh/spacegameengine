@@ -34,9 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/type_traits/is_iterable.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/lexical_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
@@ -338,10 +338,10 @@ sge::parse::json::convert_from(
 		throw
 			sge::parse::json::exception(
 				FCPPT_TEXT("Tried to convert into an array, but the dimensions did not match. Target array has dimension ")+
-				fcppt::lexical_cast<fcppt::string>(
+				fcppt::insert_to_fcppt_string(
 					result.size())+
 				FCPPT_TEXT(", source array has dimension ")+
-				fcppt::lexical_cast<fcppt::string>(
+				fcppt::insert_to_fcppt_string(
 					a.elements.size()));
 
 	for(
@@ -378,10 +378,10 @@ sge::parse::json::convert_from(
 		throw
 			sge::parse::json::exception(
 				FCPPT_TEXT("Tried to convert into an array, but the dimensions did not match. Target array has dimension ")+
-				fcppt::lexical_cast<fcppt::string>(
+				fcppt::insert_to_fcppt_string(
 					result.size())+
 				FCPPT_TEXT(", source array has dimension ")+
-				fcppt::lexical_cast<fcppt::string>(
+				fcppt::insert_to_fcppt_string(
 					a.elements.size()));
 
 	typename T::iterator result_it =

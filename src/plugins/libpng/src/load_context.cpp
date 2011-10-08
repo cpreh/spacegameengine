@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -311,9 +311,7 @@ sge::libpng::load_context::convert_format() const
 	)
 		throw image::unsupported_format(
 			path_,
-			fcppt::lexical_cast<
-				fcppt::string
-			>(
+			fcppt::insert_to_fcppt_string(
 				static_cast<
 					unsigned
 				>(

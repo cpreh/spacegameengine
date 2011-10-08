@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/string.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/input/cursor/demuxer.hpp>
+#include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -108,7 +108,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/lexical_cast.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/construct.hpp>

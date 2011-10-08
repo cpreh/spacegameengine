@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <fcppt/lexical_cast.hpp>
+#include <fcppt/insert_to_string.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ template<typename T,renderer::vf::vertex_size N>
 renderer::glsl::string const
 vector_to_string()
 {
-	return "vec"+fcppt::lexical_cast<renderer::glsl::string>(N);
+	return "vec"+fcppt::insert_to_string<renderer::glsl::string>(N);
 }
 }
 }
