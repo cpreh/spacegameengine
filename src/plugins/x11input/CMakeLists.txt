@@ -62,6 +62,7 @@ SET(
 	src/plugins/x11input/include/sge/x11input/joypad/absolute_axis_info.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/axis.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/axis_code.hpp
+	src/plugins/x11input/include/sge/x11input/joypad/axis_value.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/button_infos.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/device.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/device_fwd.hpp
@@ -129,6 +130,7 @@ SET(
 	src/plugins/x11input/src/input_method.cpp
 	src/plugins/x11input/src/joypad/absolute_axis_info.cpp
 	src/plugins/x11input/src/joypad/axis_code.cpp
+	src/plugins/x11input/src/joypad/axis_value.cpp
 	src/plugins/x11input/src/joypad/button_infos.cpp
 	src/plugins/x11input/src/joypad/device.cpp
 	src/plugins/x11input/src/joypad/info.cpp

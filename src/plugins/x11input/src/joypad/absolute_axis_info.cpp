@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/joypad/absolute_axis_info.hpp>
 #include <sge/x11input/joypad/axis_code.hpp>
+#include <sge/x11input/joypad/axis_value.hpp>
 #include <sge/x11input/device/info/string_from_atom.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/axis_max.hpp>
@@ -45,18 +46,12 @@ sge::x11input::joypad::absolute_axis_info(
 				_info.label
 			),
 			sge::input::joypad::axis_min(
-				// FIXME
-				static_cast<
-					long
-				>(
+				x11input::joypad::axis_value(
 					_info.min
 				)
 			),
 			sge::input::joypad::axis_max(
-				// FIXME
-				static_cast<
-					long
-				>(
+				x11input::joypad::axis_value(
 					_info.max
 				)
 			)
