@@ -18,7 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/absolute_axis_event.hpp>
+#include <sge/input/joypad/absolute_axis_info.hpp>
+#include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/button_event.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/device_ptr.hpp>
@@ -65,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
@@ -250,6 +254,52 @@ joypad_discover(
 		<< FCPPT_TEXT(", ")
 		<< info.name()
 		<< FCPPT_TEXT('\n');
+
+	sge::input::joypad::absolute_axis_info_container::vector const &absolute_axis(
+		info.absolute_axis().get()
+	);
+
+	fcppt::io::cout()
+		<< FCPPT_TEXT("axis: ")
+		<< absolute_axis.size()
+		<< FCPPT_TEXT('\n');
+
+	for(
+		sge::input::joypad::absolute_axis_info_container::vector::const_iterator it(
+			absolute_axis.begin()
+		);
+		it != absolute_axis.end();
+		++it
+	)
+	{
+		sge::input::joypad::absolute_axis_info const &axis_info(
+			*it
+		);
+
+		sge::input::info::optional_string const name(
+			axis_info.name()
+		);
+
+		fcppt::io::cout()
+			<< FCPPT_TEXT("name: ")
+			<<
+			(
+				name
+				?
+					*name
+				:
+					fcppt::string(
+						FCPPT_TEXT("unnamed")
+					)
+			)
+			<< FCPPT_TEXT("\n\tcode: ")
+			<< axis_info.code()
+			<< FCPPT_TEXT("\n\tmin: ")
+			<< axis_info.min()
+			<< FCPPT_TEXT("\n\tmax: ")
+			<< axis_info.max()
+			<< FCPPT_TEXT('\n');
+	}
 }
 
 void
