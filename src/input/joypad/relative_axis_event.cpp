@@ -18,26 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_JOYPAD_AXIS_CODE_HPP_INCLUDED
-#define SGE_X11INPUT_JOYPAD_AXIS_CODE_HPP_INCLUDED
+#include <sge/input/joypad/relative_axis_event.hpp>
+#include <sge/input/joypad/relative_axis.hpp>
+#include <sge/input/joypad/axis_value.hpp>
 
-#include <sge/input/joypad/axis_code.hpp>
-#include <sge/input/info/optional_string_fwd.hpp>
-
-namespace sge
+sge::input::joypad::relative_axis_event::relative_axis_event(
+	joypad::relative_axis const &_axis,
+	joypad::axis_value const _axis_value
+)
+:
+	axis_(_axis),
+	axis_value_(_axis_value)
 {
-namespace x11input
-{
-namespace joypad
-{
-
-input::joypad::axis_code::type
-axis_code(
-	sge::input::info::optional_string const &
-);
-
-}
-}
 }
 
-#endif
+sge::input::joypad::relative_axis const &
+sge::input::joypad::relative_axis_event::axis() const
+{
+	return axis_;
+}
+
+sge::input::joypad::axis_value
+sge::input::joypad::relative_axis_event::value() const
+{
+	return axis_value_;
+}

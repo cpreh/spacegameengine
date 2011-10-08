@@ -19,27 +19,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/joypad/axis_code.hpp>
+#include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/axis_code.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 
 sge::input::joypad::axis_code::type
 sge::x11input::joypad::axis_code(
-	XIValuatorClassInfo const &_info
+	sge::input::info::optional_string const &_info
 )
 {
-	switch(
-		_info.number
+	if(
+		!_info
 	)
-	{
-	case 0:
-		return sge::input::joypad::axis_code::x;
-	case 1:
-		return sge::input::joypad::axis_code::x;
-	case 2:
-		return sge::input::joypad::axis_code::z;
-	default:
 		return sge::input::joypad::axis_code::unknown;
-	}
+
+	fcppt::string const name(
+		*_info
+	);
+
+	if(
+		name == FCPPT_TEXT("Rel X")
+		|| name == FCPPT_TEXT("Abs X")
+	)
+		return sge::input::joypad::axis_code::x;
+	if(
+		name == FCPPT_TEXT("Rel Y")
+		|| name == FCPPT_TEXT("Abs Y")
+	)
+		return sge::input::joypad::axis_code::y;
+
+	if(
+		name == FCPPT_TEXT("Rel Z")
+		|| name == FCPPT_TEXT("Abs Z")
+	)
+		return sge::input::joypad::axis_code::z;
+
+	// TODO: add more
+	return sge::input::joypad::axis_code::unknown;
 }

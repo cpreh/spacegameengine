@@ -18,21 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/joypad/absolute_axis_event.hpp>
+#include <sge/input/joypad/button_event.hpp>
+#include <sge/input/joypad/device.hpp>
+#include <sge/input/joypad/device_ptr.hpp>
+#include <sge/input/joypad/discover_callback.hpp>
+#include <sge/input/joypad/discover_event.hpp>
+#include <sge/input/joypad/info.hpp>
+#include <sge/input/joypad/manager.hpp>
+#include <sge/input/joypad/relative_axis_event.hpp>
+#include <sge/input/joypad/remove_callback.hpp>
+#include <sge/input/joypad/remove_event.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_event.hpp>
-#include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/device_ptr.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/discover_event.hpp>
 #include <sge/input/mouse/info.hpp>
+#include <sge/input/mouse/manager.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event.hpp>
-#include <sge/input/mouse/manager.hpp>
 #include <sge/log/global.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
@@ -64,6 +73,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+
+void
+joypad_discover(
+	sge::input::joypad::discover_event const &
+);
+
+void
+joypad_remove(
+	sge::input::joypad::remove_event const &
+);
+
+void
+joypad_absolute_axis(
+	sge::input::joypad::device_ptr,
+	sge::input::joypad::absolute_axis_event const &
+);
+
+void
+joypad_button(
+	sge::input::joypad::device_ptr,
+	sge::input::joypad::button_event const &
+);
+
+void
+joypad_relative_axis(
+	sge::input::joypad::device_ptr,
+	sge::input::joypad::relative_axis_event const &
+);
 
 void
 mouse_discover(
@@ -135,6 +172,25 @@ try
 	fcppt::io::cout()
 		<< std::boolalpha;
 
+	sge::input::joypad::manager const joypad_manager(
+		sys.input_processor(),
+		sge::input::joypad::discover_callback(
+			::joypad_discover
+		),
+		sge::input::joypad::remove_callback(
+			::joypad_remove
+		),
+		sge::input::joypad::manager::absolute_axis_callback(
+			::joypad_absolute_axis
+		),
+		sge::input::joypad::manager::button_callback(
+			::joypad_button
+		),
+		sge::input::joypad::manager::relative_axis_callback(
+			::joypad_relative_axis
+		)
+	);
+
 	sge::input::mouse::manager const mouse_manager(
 		sys.input_processor(),
 		sge::input::mouse::discover_callback(
@@ -178,6 +234,58 @@ catch(
 
 namespace
 {
+
+void
+joypad_discover(
+	sge::input::joypad::discover_event const &_event
+)
+{
+	sge::input::joypad::info const info(
+		_event.device()->info()
+	);
+
+	fcppt::io::cout()
+		<< FCPPT_TEXT("joypad_discover: ")
+		<< _event.device()
+		<< FCPPT_TEXT(", ")
+		<< info.name()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+joypad_remove(
+	sge::input::joypad::remove_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("joypad_discover: ")
+		<< _event.device()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+joypad_absolute_axis(
+	sge::input::joypad::device_ptr const _device,
+	sge::input::joypad::absolute_axis_event const &_event
+)
+{
+}
+
+void
+joypad_button(
+	sge::input::joypad::device_ptr const _device,
+	sge::input::joypad::button_event const &_event
+)
+{
+}
+
+void
+joypad_relative_axis(
+	sge::input::joypad::device_ptr const _device,
+	sge::input::joypad::relative_axis_event const &_event
+)
+{
+}
 
 void
 mouse_discover(

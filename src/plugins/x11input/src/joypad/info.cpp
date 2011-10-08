@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/joypad/button_infos.hpp>
 #include <sge/x11input/joypad/relative_axis_info.hpp>
 #include <sge/x11input/device/info/class_type.hpp>
+#include <sge/x11input/device/info/name.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/info.hpp>
@@ -125,6 +126,9 @@ sge::x11input::joypad::info(
 			),
 			sge::input::joypad::relative_axis_info_container(
 				relative_axis
+			),
+			x11input::device::info::name(
+				_info
 			)
 		);
 }

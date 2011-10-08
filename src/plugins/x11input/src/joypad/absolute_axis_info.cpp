@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/joypad/axis_code.hpp>
 #include <sge/x11input/joypad/axis_value.hpp>
 #include <sge/x11input/device/info/string_from_atom.hpp>
+#include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/axis_max.hpp>
 #include <sge/input/joypad/axis_min.hpp>
@@ -36,15 +37,19 @@ sge::x11input::joypad::absolute_axis_info(
 	awl::backends::x11::display &_display
 )
 {
+	sge::input::info::optional_string const name(
+		x11input::device::info::string_from_atom(
+			_display,
+			_info.label
+		)
+	);
+
 	return
 		sge::input::joypad::absolute_axis_info(
 			joypad::axis_code(
-				_info
+				name
 			),
-			x11input::device::info::string_from_atom(
-				_display,
-				_info.label
-			),
+			name,
 			sge::input::joypad::axis_min(
 				x11input::joypad::axis_value(
 					_info.min

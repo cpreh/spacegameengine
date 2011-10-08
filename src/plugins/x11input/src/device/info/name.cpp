@@ -19,19 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/device/info/name.hpp>
+#include <sge/input/info/name.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-fcppt::string const
+sge::input::info::name const
 sge::x11input::device::info::name(
 	XIDeviceInfo const &_info
 )
 {
 	return
-		fcppt::from_std_string(
-			_info.name
+		sge::input::info::name(
+			fcppt::from_std_string(
+				_info.name
+			)
 		);
 }

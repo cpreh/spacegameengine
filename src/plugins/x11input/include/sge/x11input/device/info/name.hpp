@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_INFO_NAME_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_INFO_NAME_HPP_INCLUDED
 
-#include <fcppt/string.hpp>
+#include <sge/input/info/name.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -35,7 +35,7 @@ namespace device
 namespace info
 {
 
-fcppt::string const
+sge::input::info::name const
 name(
 	XIDeviceInfo const &
 );

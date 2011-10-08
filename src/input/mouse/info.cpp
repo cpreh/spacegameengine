@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 
 sge::input::mouse::info::info(
-	fcppt::string const &_name
+	input::info::name const &_name
 )
 :
 	name_(
@@ -31,7 +31,7 @@ sge::input::mouse::info::info(
 {
 }
 
-fcppt::string const
+sge::input::info::name const &
 sge::input::mouse::info::name() const
 {
 	return name_;

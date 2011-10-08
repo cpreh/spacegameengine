@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/joypad/relative_axis_info.hpp>
 #include <sge/x11input/joypad/axis_code.hpp>
 #include <sge/x11input/device/info/string_from_atom.hpp>
+#include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/relative_axis_info.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -33,14 +34,18 @@ sge::x11input::joypad::relative_axis_info(
 	awl::backends::x11::display &_display
 )
 {
+	sge::input::info::optional_string const name(
+		x11input::device::info::string_from_atom(
+			_display,
+			_info.label
+		)
+	);
+
 	return
 		sge::input::joypad::relative_axis_info(
 			joypad::axis_code(
-				_info
+				name
 			),
-			x11input::device::info::string_from_atom(
-				_display,
-				_info.label
-			)
+			name
 		);
 }

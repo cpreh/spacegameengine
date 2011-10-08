@@ -41,6 +41,7 @@ SET(
 	include/sge/input/exception.hpp
 	include/sge/input/info/container.hpp
 	include/sge/input/info/container_fwd.hpp
+	include/sge/input/info/name.hpp
 	include/sge/input/info/optional_string.hpp
 	include/sge/input/info/optional_string_fwd.hpp
 	include/sge/input/input.hpp
@@ -83,6 +84,7 @@ SET(
 	include/sge/input/joypad/info.hpp
 	include/sge/input/joypad/info_fwd.hpp
 	include/sge/input/joypad/joypad.hpp
+	include/sge/input/joypad/manager.hpp
 	include/sge/input/joypad/relative_axis.hpp
 	include/sge/input/joypad/relative_axis_callback.hpp
 	include/sge/input/joypad/relative_axis_event.hpp
@@ -213,6 +215,8 @@ SET(
 	src/input/joypad/device.cpp
 	src/input/joypad/discover_event.cpp
 	src/input/joypad/info.cpp
+	src/input/joypad/manager.cpp
+	src/input/joypad/relative_axis_event.cpp
 	src/input/joypad/relative_axis_info.cpp
 	src/input/joypad/relative_axis_info_container.cpp
 	src/input/joypad/remove_event.cpp

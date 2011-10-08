@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::input::joypad::info::info(
 	input::joypad::absolute_axis_info_container const &_absolute_axis,
 	input::joypad::button_info_container const &_buttons,
-	input::joypad::relative_axis_info_container const &_relative_axis
+	input::joypad::relative_axis_info_container const &_relative_axis,
+	input::info::name const &_name
 )
 :
 	absolute_axis_(
@@ -37,6 +38,9 @@ sge::input::joypad::info::info(
 	),
 	relative_axis_(
 		_relative_axis
+	),
+	name_(
+		_name
 	)
 {
 }
@@ -57,4 +61,10 @@ sge::input::joypad::relative_axis_info_container const &
 sge::input::joypad::info::relative_axis() const
 {
 	return relative_axis_;
+}
+
+sge::input::info::name const &
+sge::input::joypad::info::name() const
+{
+	return name_;
 }

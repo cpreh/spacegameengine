@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/info.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
+#include <sge/input/info/name.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -95,7 +96,9 @@ sge::input::mouse::collector::info() const
 {
 	return
 		sge::input::mouse::info(
-			FCPPT_TEXT("mouse collector")
+			sge::input::info::name(
+				FCPPT_TEXT("mouse collector")
+			)
 		);
 }
 

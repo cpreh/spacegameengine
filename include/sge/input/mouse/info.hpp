@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_MOUSE_INFO_HPP_INCLUDED
 
 #include <sge/input/mouse/info_fwd.hpp>
+#include <sge/input/info/name.hpp>
 #include <sge/input/symbol.hpp>
-#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -37,14 +37,14 @@ class info
 public:
 	SGE_INPUT_SYMBOL
 	explicit info(
-		fcppt::string const &
+		input::info::name const &
 	);
 
 	SGE_INPUT_SYMBOL
-	fcppt::string const
+	input::info::name const &
 	name() const;
 private:
-	fcppt::string name_;
+	input::info::name name_;
 };
 
 }
