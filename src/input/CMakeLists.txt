@@ -129,6 +129,7 @@ SET(
 	include/sge/input/keyboard/key_callback.hpp
 	include/sge/input/keyboard/key_code.hpp
 	include/sge/input/keyboard/key_code_to_digit.hpp
+	include/sge/input/keyboard/key_code_to_string.hpp
 	include/sge/input/keyboard/key_event.hpp
 	include/sge/input/keyboard/key_event_fwd.hpp
 	include/sge/input/keyboard/key_function.hpp
@@ -232,6 +233,7 @@ SET(
 	src/input/joypad/discover_event.cpp
 	src/input/joypad/info.cpp
 	src/input/joypad/manager.cpp
+	src/input/joypad/relative_axis.cpp
 	src/input/joypad/relative_axis_event.cpp
 	src/input/joypad/relative_axis_info.cpp
 	src/input/joypad/relative_axis_info_container.cpp
@@ -245,6 +247,7 @@ SET(
 	src/input/keyboard/is_ctrl.cpp
 	src/input/keyboard/is_shift.cpp
 	src/input/keyboard/key_code_to_digit.cpp
+	src/input/keyboard/key_code_to_string.cpp
 	src/input/keyboard/key_event.cpp
 	src/input/keyboard/key_repeat_event.cpp
 	src/input/keyboard/manager.cpp

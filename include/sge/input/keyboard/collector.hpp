@@ -88,16 +88,19 @@ public:
 private:
 	void
 	char_callback_internal(
+		keyboard::device_ptr,
 		keyboard::char_event const &
 	);
 
 	void
 	key_callback_internal(
+		keyboard::device_ptr,
 		keyboard::key_event const &
 	);
 
 	void
 	key_repeat_callback_internal(
+		keyboard::device_ptr,
 		keyboard::key_repeat_event const &
 	);
 

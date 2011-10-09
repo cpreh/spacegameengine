@@ -38,8 +38,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/joypad/remove_event.hpp>
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/discover_callback.hpp>
+#include <sge/input/keyboard/discover_event.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/key_code_to_string.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_repeat_event.hpp>
+#include <sge/input/keyboard/manager.hpp>
+#include <sge/input/keyboard/remove_callback.hpp>
+#include <sge/input/keyboard/remove_event.hpp>
 #include <sge/input/mouse/axis_code_to_string.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/axis_info.hpp>
@@ -79,10 +88,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/from_std_wstring.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
+#include <string>
 #include <cstdlib>
 #include <fcppt/config/external_end.hpp>
 
@@ -120,6 +131,34 @@ void
 joypad_relative_axis(
 	sge::input::joypad::device_ptr,
 	sge::input::joypad::relative_axis_event const &
+);
+
+void
+keyboard_discover(
+	sge::input::keyboard::discover_event const &
+);
+
+void
+keyboard_remove(
+	sge::input::keyboard::remove_event const &
+);
+
+void
+keyboard_char(
+	sge::input::keyboard::device_ptr,
+	sge::input::keyboard::char_event const &
+);
+
+void
+keyboard_key(
+	sge::input::keyboard::device_ptr,
+	sge::input::keyboard::key_event const &
+);
+
+void
+keyboard_key_repeat(
+	sge::input::keyboard::device_ptr,
+	sge::input::keyboard::key_repeat_event const &
 );
 
 void
@@ -208,6 +247,25 @@ try
 		),
 		sge::input::joypad::manager::relative_axis_callback(
 			::joypad_relative_axis
+		)
+	);
+
+	sge::input::keyboard::manager const keyboard_manager(
+		sys.input_processor(),
+		sge::input::keyboard::discover_callback(
+			::keyboard_discover
+		),
+		sge::input::keyboard::remove_callback(
+			::keyboard_remove
+		),
+		sge::input::keyboard::manager::char_callback(
+			::keyboard_char
+		),
+		sge::input::keyboard::manager::key_callback(
+			::keyboard_key
+		),
+		sge::input::keyboard::manager::key_repeat_callback(
+			::keyboard_key_repeat
 		)
 	);
 
@@ -411,6 +469,18 @@ joypad_absolute_axis(
 	sge::input::joypad::absolute_axis_event const &_event
 )
 {
+	fcppt::io::cout()
+		<< FCPPT_TEXT("joypad_absolute_axis: ")
+		<< _device
+		<< FCPPT_TEXT("\n\tcode: ")
+		<< sge::input::joypad::axis_code_to_string(
+			_event.axis().code()
+		)
+		<< FCPPT_TEXT("\n\tid: ")
+		<< _event.axis().id()
+		<< FCPPT_TEXT("\n\tvalue: ")
+		<< _event.value()
+		<< FCPPT_TEXT('\n');
 }
 
 void
@@ -419,6 +489,14 @@ joypad_button(
 	sge::input::joypad::button_event const &_event
 )
 {
+	fcppt::io::cout()
+		<< FCPPT_TEXT("joypad_button: ")
+		<< _device
+		<< FCPPT_TEXT("\n\tid: ")
+		<< _event.button_id()
+		<< FCPPT_TEXT("\n\tpressed: ")
+		<< _event.pressed()
+		<< FCPPT_TEXT('\n');
 }
 
 void
@@ -427,6 +505,101 @@ joypad_relative_axis(
 	sge::input::joypad::relative_axis_event const &_event
 )
 {
+	fcppt::io::cout()
+		<< FCPPT_TEXT("joypad_relative_axis: ")
+		<< _device
+		<< FCPPT_TEXT("\n\tcode: ")
+		<< sge::input::joypad::axis_code_to_string(
+			_event.axis().code()
+		)
+		<< FCPPT_TEXT("\n\tid: ")
+		<< _event.axis().id()
+		<< FCPPT_TEXT("\n\tvalue: ")
+		<< _event.value()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+keyboard_discover(
+	sge::input::keyboard::discover_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("keyboard_discover: ")
+		<< _event.device()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+keyboard_remove(
+	sge::input::keyboard::remove_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("keyboard_remove: ")
+		<< _event.device()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+keyboard_char(
+	sge::input::keyboard::device_ptr const _device,
+	sge::input::keyboard::char_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("keyboard_char: ")
+		<< _device
+		<< FCPPT_TEXT("\n\tcharacter_value: ")
+		<< static_cast<
+			unsigned long
+		>(
+			_event.character()
+		)
+		<< FCPPT_TEXT("\n\tchar: ")
+		<< fcppt::from_std_wstring(
+			std::wstring(
+				1u,
+				_event.character()
+			)
+		)
+		<< FCPPT_TEXT("\n\trepeated: ")
+		<< _event.repeated()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+keyboard_key(
+	sge::input::keyboard::device_ptr const _device,
+	sge::input::keyboard::key_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("keyboard_key: ")
+		<< _device
+		<< FCPPT_TEXT("\n\tkey: ")
+		<< sge::input::keyboard::key_code_to_string(
+			_event.key_code()
+		)
+		<< FCPPT_TEXT("\n\tpressed: ")
+		<< _event.pressed()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+keyboard_key_repeat(
+	sge::input::keyboard::device_ptr const _device,
+	sge::input::keyboard::key_repeat_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("keyboard_key_repeat: ")
+		<< _device
+		<< FCPPT_TEXT("\n\tkey: ")
+		<< sge::input::keyboard::key_code_to_string(
+			_event.key_code()
+		)
+		<< FCPPT_TEXT('\n');
 }
 
 void

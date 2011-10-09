@@ -46,9 +46,9 @@ sge::input::keyboard::manager::manager(
 	input::processor &_processor,
 	input::keyboard::discover_callback const &_discover_callback,
 	input::keyboard::remove_callback const &_remove_callback,
-	input::keyboard::char_callback const &_char_callback,
-	input::keyboard::key_callback const &_key_callback,
-	input::keyboard::key_repeat_callback const &_key_repeat_callback
+	char_callback const &_char_callback,
+	key_callback const &_key_callback,
+	key_repeat_callback const &_key_repeat_callback
 )
 :
 	devices_(),
@@ -140,21 +140,33 @@ sge::input::keyboard::manager::discover(
 				>(
 					fcppt::signal::shared_connection(
 						_event.device()->char_callback(
-							char_callback_
+							std::tr1::bind(
+								char_callback_,
+								_event.device(),
+								std::tr1::placeholders::_1
+							)
 						)
 					)
 				)
 				(
 					fcppt::signal::shared_connection(
 						_event.device()->key_callback(
-							key_callback_
+							std::tr1::bind(
+								key_callback_,
+								_event.device(),
+								std::tr1::placeholders::_1
+							)
 						)
 					)
 				)
 				(
 					fcppt::signal::shared_connection(
 						_event.device()->key_repeat_callback(
-							key_repeat_callback_
+							std::tr1::bind(
+								key_repeat_callback_,
+								_event.device(),
+								std::tr1::placeholders::_1
+							)
 						)
 					)
 				)

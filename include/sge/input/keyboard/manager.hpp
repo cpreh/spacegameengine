@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_KEYBOARD_MANAGER_HPP_INCLUDED
 #define SGE_INPUT_KEYBOARD_MANAGER_HPP_INCLUDED
 
-#include <sge/input/keyboard/char_callback.hpp>
+#include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device_ptr.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/discover_event_fwd.hpp>
-#include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_repeat_callback.hpp>
+#include <sge/input/keyboard/key_event_fwd.hpp>
+#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/remove_event_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
@@ -50,14 +50,35 @@ class manager
 		manager
 	);
 public:
+	typedef fcppt::function::object<
+		void (
+			keyboard::device_ptr,
+			keyboard::char_event const &
+		)
+	> char_callback;
+
+	typedef fcppt::function::object<
+		void (
+			keyboard::device_ptr,
+			keyboard::key_event const &
+		)
+	> key_callback;
+
+	typedef fcppt::function::object<
+		void (
+			keyboard::device_ptr,
+			keyboard::key_repeat_event const &
+		)
+	> key_repeat_callback;
+
 	SGE_INPUT_SYMBOL
 	manager(
 		input::processor &,
 		input::keyboard::discover_callback const &,
 		input::keyboard::remove_callback const &,
-		input::keyboard::char_callback const &,
-		input::keyboard::key_callback const &,
-		input::keyboard::key_repeat_callback const &
+		char_callback const &,
+		key_callback const &,
+		key_repeat_callback const &
 	);
 
 	SGE_INPUT_SYMBOL
@@ -88,11 +109,11 @@ private:
 
 	input::keyboard::remove_callback const remove_callback_;
 
-	input::keyboard::char_callback const char_callback_;
+	char_callback const char_callback_;
 
-	input::keyboard::key_callback const key_callback_;
+	key_callback const key_callback_;
 
-	input::keyboard::key_repeat_callback const key_repeat_callback_;
+	key_repeat_callback const key_repeat_callback_;
 
 	fcppt::signal::connection_manager const connections_;
 };

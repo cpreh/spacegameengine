@@ -50,17 +50,20 @@ sge::input::keyboard::collector::collector(
 		std::tr1::bind(
 			&keyboard::collector::char_callback_internal,
 			this,
-			std::tr1::placeholders::_1
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
 		),
 		std::tr1::bind(
 			&keyboard::collector::key_callback_internal,
 			this,
-			std::tr1::placeholders::_1
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
 		),
 		std::tr1::bind(
 			&keyboard::collector::key_repeat_callback_internal,
 			this,
-			std::tr1::placeholders::_1
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
 		)
 	),
 	char_signal_(),
@@ -128,6 +131,7 @@ sge::input::keyboard::collector::mod_state() const
 
 void
 sge::input::keyboard::collector::char_callback_internal(
+	keyboard::device_ptr,
 	keyboard::char_event const &_event
 )
 {
@@ -138,6 +142,7 @@ sge::input::keyboard::collector::char_callback_internal(
 
 void
 sge::input::keyboard::collector::key_callback_internal(
+	keyboard::device_ptr,
 	keyboard::key_event const &_event
 )
 {
@@ -148,6 +153,7 @@ sge::input::keyboard::collector::key_callback_internal(
 
 void
 sge::input::keyboard::collector::key_repeat_callback_internal(
+	keyboard::device_ptr,
 	keyboard::key_repeat_event const &_event
 )
 {
