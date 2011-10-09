@@ -19,23 +19,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/mouse/button.hpp>
-#include <sge/x11input/mouse/button_code.hpp>
-#include <sge/x11input/mouse/button_id.hpp>
 #include <sge/x11input/device/window_event.hpp>
 #include <sge/input/mouse/button.hpp>
+#include <sge/input/mouse/button_id.hpp>
+#include <sge/input/mouse/button_info_container.hpp>
+#include <fcppt/assert/pre.hpp>
 
 sge::input::mouse::button const
 sge::x11input::mouse::button(
-	x11input::device::window_event const &_event
+	x11input::device::window_event const &_event,
+	input::mouse::button_info_container const &_info
 )
 {
+	sge::input::mouse::button_id const id(
+		static_cast<
+			sge::input::mouse::button_id::value_type
+		>(
+			_event.get().detail
+		)
+	);
+
+	FCPPT_ASSERT_PRE(
+		id < _info.size()
+	);
+
 	return
 		sge::input::mouse::button(
-			x11input::mouse::button_code(
-				_event.get().detail
-			),
-			x11input::mouse::button_id(
-				_event.get().detail
-			)
+			_info[
+				id
+			].code(),
+			id
 		);
 }

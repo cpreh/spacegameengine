@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_MOUSE_INFO_HPP_INCLUDED
 
 #include <sge/input/mouse/info_fwd.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -35,6 +36,7 @@ namespace mouse
 
 sge::input::mouse::info const
 info(
+	awl::backends::x11::display &,
 	XIDeviceInfo const &
 );
 

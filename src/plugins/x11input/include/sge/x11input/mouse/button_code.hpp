@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_MOUSE_BUTTON_CODE_HPP_INCLUDED
 
 #include <sge/input/mouse/button_code.hpp>
+#include <sge/input/info/optional_string_fwd.hpp>
 
 namespace sge
 {
@@ -32,7 +33,7 @@ namespace mouse
 
 sge::input::mouse::button_code::type
 button_code(
-	int detail
+	sge::input::info::optional_string const &
 );
 
 }

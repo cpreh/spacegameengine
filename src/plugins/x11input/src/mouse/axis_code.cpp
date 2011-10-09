@@ -18,30 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
+#include <sge/x11input/mouse/axis_code.hpp>
+#include <sge/input/info/optional_string.hpp>
+#include <sge/input/mouse/axis_code.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/input/joypad/relative_axis_info_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
-
-namespace sge
+sge::input::mouse::axis_code::type
+sge::x11input::mouse::axis_code(
+	sge::input::info::optional_string const &_info
+)
 {
-namespace x11input
-{
-namespace joypad
-{
+	if(
+		!_info
+	)
+		return sge::input::mouse::axis_code::unknown;
 
-input::joypad::relative_axis_info const
-relative_axis_info(
-	XIValuatorClassInfo const &,
-	awl::backends::x11::display &
-);
+	fcppt::string const name(
+		*_info
+	);
 
-}
-}
-}
+	if(
+		name == FCPPT_TEXT("Rel X")
+	)
+		return sge::input::mouse::axis_code::x;
 
-#endif
+	if(
+		name == FCPPT_TEXT("Rel Y")
+	)
+		return sge::input::mouse::axis_code::y;
+
+	if(
+		name == FCPPT_TEXT("Rel Z")
+	)
+		return sge::input::mouse::axis_code::wheel;
+
+	return sge::input::mouse::axis_code::unknown;
+}

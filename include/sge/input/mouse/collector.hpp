@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button_signal.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/device_ptr.hpp>
-#include <sge/input/mouse/info_fwd.hpp>
+#include <sge/input/mouse/info.hpp>
 #include <sge/input/mouse/manager.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/symbol.hpp>
@@ -74,7 +74,7 @@ public:
 	);
 
 	SGE_INPUT_SYMBOL
-	input::mouse::info const
+	input::mouse::info const &
 	info() const;
 private:
 	void
@@ -90,6 +90,8 @@ private:
 	);
 
 	mouse::manager manager_;
+
+	mouse::info info_;
 
 	mouse::axis_signal axis_signal_;
 

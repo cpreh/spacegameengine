@@ -18,30 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
-
-#include <sge/input/joypad/relative_axis_info_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <sge/x11input/mouse/button_infos.hpp>
+#include <sge/x11input/mouse/button_code.hpp>
+#include <sge/x11input/device/info/string_from_atom.hpp>
+#include <sge/input/mouse/button_info.hpp>
+#include <sge/input/mouse/button_info_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-namespace sge
+sge::input::mouse::button_info_container::vector const
+sge::x11input::mouse::button_infos(
+	XIButtonClassInfo const &_info,
+	awl::backends::x11::display &_display
+)
 {
-namespace x11input
-{
-namespace joypad
-{
+	sge::input::mouse::button_info_container::vector ret;
 
-input::joypad::relative_axis_info const
-relative_axis_info(
-	XIValuatorClassInfo const &,
-	awl::backends::x11::display &
-);
+	for(
+		int button_index(0);
+		button_index < _info.num_buttons;
+		++button_index
+	)
+	{
+		sge::input::info::optional_string const name(
+			x11input::device::info::string_from_atom(
+				_display,
+				_info.labels[
+					button_index
+				]
+			)
+		);
+	
+		ret.push_back(
+			sge::input::mouse::button_info(
+				x11input::mouse::button_code(
+					name
+				),
+				name
+			)
+		);
+	}
 
+	return
+		ret;
 }
-}
-}
-
-#endif

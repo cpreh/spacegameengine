@@ -59,7 +59,7 @@ public:
 		input::mouse::button_callback const &
 	) = 0;
 
-	virtual input::mouse::info const
+	virtual input::mouse::info const &
 	info() const = 0;
 };
 

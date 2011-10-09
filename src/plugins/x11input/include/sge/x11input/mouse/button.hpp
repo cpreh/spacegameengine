@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/input/mouse/button_fwd.hpp>
+#include <sge/input/mouse/button_info_container_fwd.hpp>
 
 namespace sge
 {
@@ -33,7 +34,8 @@ namespace mouse
 
 input::mouse::button const
 button(
-	x11input::device::window_event const &
+	x11input::device::window_event const &,
+	input::mouse::button_info_container const &
 );
 
 }

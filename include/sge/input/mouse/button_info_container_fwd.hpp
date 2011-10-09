@@ -18,22 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_MOUSE_BUTTON_ID_HPP_INCLUDED
-#define SGE_X11INPUT_MOUSE_BUTTON_ID_HPP_INCLUDED
+#ifndef SGE_INPUT_MOUSE_BUTTON_INFO_CONTAINER_FWD_HPP_INCLUDED
+#define SGE_INPUT_MOUSE_BUTTON_INFO_CONTAINER_FWD_HPP_INCLUDED
 
+#include <sge/input/info/container_fwd.hpp>
 #include <sge/input/mouse/button_id.hpp>
+#include <sge/input/mouse/button_info_fwd.hpp>
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
 namespace mouse
 {
 
-sge::input::mouse::button_id const
-button_id(
-	int detail
-);
+typedef input::info::container<
+	mouse::button_id,
+	mouse::button_info
+> button_info_container;
 
 }
 }

@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_MOUSE_INFO_HPP_INCLUDED
 
 #include <sge/input/mouse/info_fwd.hpp>
+#include <sge/input/mouse/axis_info_container.hpp>
+#include <sge/input/mouse/button_info_container.hpp>
 #include <sge/input/info/name.hpp>
 #include <sge/input/symbol.hpp>
 
@@ -36,14 +38,28 @@ class info
 {
 public:
 	SGE_INPUT_SYMBOL
-	explicit info(
+	info(
+		input::mouse::axis_info_container const &,
+		input::mouse::button_info_container const &,
 		input::info::name const &
 	);
+
+	SGE_INPUT_SYMBOL
+	input::mouse::axis_info_container const &
+	axis() const;
+
+	SGE_INPUT_SYMBOL
+	input::mouse::button_info_container const &
+	buttons() const;
 
 	SGE_INPUT_SYMBOL
 	input::info::name const &
 	name() const;
 private:
+	input::mouse::axis_info_container axis_;
+
+	input::mouse::button_info_container buttons_;
+
 	input::info::name name_;
 };
 

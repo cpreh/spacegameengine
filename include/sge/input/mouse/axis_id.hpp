@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,26 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
+#ifndef SGE_INPUT_MOUSE_AXIS_ID_HPP_INCLUDED
+#define SGE_INPUT_MOUSE_AXIS_ID_HPP_INCLUDED
 
-#include <sge/input/joypad/relative_axis_info_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
-namespace joypad
+namespace mouse
 {
 
-input::joypad::relative_axis_info const
-relative_axis_info(
-	XIValuatorClassInfo const &,
-	awl::backends::x11::display &
+FCPPT_MAKE_STRONG_TYPEDEF(
+	unsigned,
+	axis_id
 );
 
 }

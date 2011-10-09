@@ -41,6 +41,7 @@ SET(
 	include/sge/input/exception.hpp
 	include/sge/input/info/container.hpp
 	include/sge/input/info/container_fwd.hpp
+	include/sge/input/info/info.hpp
 	include/sge/input/info/name.hpp
 	include/sge/input/info/optional_string.hpp
 	include/sge/input/info/optional_string_fwd.hpp
@@ -152,19 +153,32 @@ SET(
 	include/sge/input/keyboard/to_modifier.hpp
 	include/sge/input/mouse/axis.hpp
 	include/sge/input/mouse/axis_callback.hpp
+	include/sge/input/mouse/axis_code.hpp
+	include/sge/input/mouse/axis_code_to_string.hpp
 	include/sge/input/mouse/axis_event.hpp
 	include/sge/input/mouse/axis_event_fwd.hpp
 	include/sge/input/mouse/axis_function.hpp
+	include/sge/input/mouse/axis_fwd.hpp
+	include/sge/input/mouse/axis_id.hpp
+	include/sge/input/mouse/axis_info.hpp
+	include/sge/input/mouse/axis_info_container.hpp
+	include/sge/input/mouse/axis_info_container_fwd.hpp
+	include/sge/input/mouse/axis_info_fwd.hpp
 	include/sge/input/mouse/axis_signal.hpp
 	include/sge/input/mouse/axis_value.hpp
 	include/sge/input/mouse/button.hpp
 	include/sge/input/mouse/button_callback.hpp
 	include/sge/input/mouse/button_code.hpp
+	include/sge/input/mouse/button_code_to_string.hpp
 	include/sge/input/mouse/button_event.hpp
 	include/sge/input/mouse/button_event_fwd.hpp
 	include/sge/input/mouse/button_function.hpp
 	include/sge/input/mouse/button_fwd.hpp
 	include/sge/input/mouse/button_id.hpp
+	include/sge/input/mouse/button_info.hpp
+	include/sge/input/mouse/button_info_container.hpp
+	include/sge/input/mouse/button_info_container_fwd.hpp
+	include/sge/input/mouse/button_info_fwd.hpp
 	include/sge/input/mouse/button_signal.hpp
 	include/sge/input/mouse/collector.hpp
 	include/sge/input/mouse/collector_fwd.hpp
@@ -236,9 +250,16 @@ SET(
 	src/input/keyboard/manager.cpp
 	src/input/keyboard/remove_event.cpp
 	src/input/keyboard/to_modifier.cpp
+	src/input/mouse/axis.cpp
+	src/input/mouse/axis_code_to_string.cpp
 	src/input/mouse/axis_event.cpp
+	src/input/mouse/axis_info.cpp
+	src/input/mouse/axis_info_container.cpp
 	src/input/mouse/button.cpp
+	src/input/mouse/button_code_to_string.cpp
 	src/input/mouse/button_event.cpp
+	src/input/mouse/button_info.cpp
+	src/input/mouse/button_info_container.cpp
 	src/input/mouse/collector.cpp
 	src/input/mouse/device.cpp
 	src/input/mouse/discover_event.cpp

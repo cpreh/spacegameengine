@@ -53,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/image/color/rgba8.hpp>
@@ -147,17 +148,17 @@ public:
 		sge::input::mouse::axis_event const &_event
 	) const
 	{
-		switch (_event.axis())
+		switch (_event.code())
 		{
-		case sge::input::mouse::axis::x:
+		case sge::input::mouse::axis_code::x:
 			sprite_.x(
 				static_cast<sprite_object::unit>(
-					sprite_.x() + _event.axis_value()));
+					sprite_.x() + _event.value()));
 			break;
-		case sge::input::mouse::axis::y:
+		case sge::input::mouse::axis_code::y:
 			sprite_.y(
 				static_cast<sprite_object::unit>(
-					sprite_.y() + _event.axis_value()));
+					sprite_.y() + _event.value()));
 			break;
 		default:
 			break;

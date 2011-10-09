@@ -18,30 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
+#include "../info/container_impl.hpp"
+#include <sge/input/mouse/button_id.hpp>
+#include <sge/input/mouse/button_info.hpp>
+#include <sge/input/mouse/button_info_container.hpp>
+#include <fcppt/export_symbol.hpp>
 
-#include <sge/input/joypad/relative_axis_info_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
-
-namespace sge
-{
-namespace x11input
-{
-namespace joypad
-{
-
-input::joypad::relative_axis_info const
-relative_axis_info(
-	XIValuatorClassInfo const &,
-	awl::backends::x11::display &
-);
-
-}
-}
-}
-
-#endif
+template FCPPT_EXPORT_SYMBOL class
+sge::input::info::container<
+	sge::input::mouse::button_id,
+	sge::input::mouse::button_info
+>;

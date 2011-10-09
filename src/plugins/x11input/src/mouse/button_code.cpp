@@ -19,24 +19,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/mouse/button_code.hpp>
+#include <sge/input/info/optional_string.hpp>
 #include <sge/input/mouse/button_code.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 
 sge::input::mouse::button_code::type
 sge::x11input::mouse::button_code(
-	int const _detail
+	sge::input::info::optional_string const &_info
 )
 {
-	switch(
-		_detail
+	if(
+		!_info
 	)
-	{
-	case 1:
+		return sge::input::mouse::button_code::unknown;
+
+	fcppt::string const name(
+		*_info
+	);
+
+	if(
+		name == FCPPT_TEXT("Button Left")
+	)
 		return sge::input::mouse::button_code::left;
-	case 2:
-		return sge::input::mouse::button_code::middle;
-	case 3:
+
+	if(
+		name == FCPPT_TEXT("Button Right")
+	)
 		return sge::input::mouse::button_code::right;
-	}
+
+	if(
+		name == FCPPT_TEXT("Button Middle")
+	)
+		return sge::input::mouse::button_code::middle;
 
 	return sge::input::mouse::button_code::unknown;
 }

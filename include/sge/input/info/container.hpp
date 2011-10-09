@@ -57,6 +57,10 @@ public:
 	) const;
 
 	SGE_INPUT_SYMBOL
+	Id const
+	size() const;
+
+	SGE_INPUT_SYMBOL
 	vector const &
 	get() const;
 private:

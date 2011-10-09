@@ -22,13 +22,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 
 sge::input::mouse::info::info(
+	input::mouse::axis_info_container const &_axis,
+	input::mouse::button_info_container const &_buttons,
 	input::info::name const &_name
 )
 :
+	axis_(
+		_axis
+	),
+	buttons_(
+		_buttons
+	),
 	name_(
 		_name
 	)
 {
+}
+
+sge::input::mouse::axis_info_container const &
+sge::input::mouse::info::axis() const
+{
+	return axis_;
+}
+
+sge::input::mouse::button_info_container const &
+sge::input::mouse::info::buttons() const
+{
+	return buttons_;
 }
 
 sge::input::info::name const &

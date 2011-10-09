@@ -149,7 +149,7 @@ sge::x11input::joypad::device::relative_axis_callback(
 		);
 }
 
-sge::input::joypad::info const
+sge::input::joypad::info const &
 sge::x11input::joypad::device::info() const
 {
 	return info_;

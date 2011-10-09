@@ -85,9 +85,12 @@ SET(
 	src/plugins/x11input/include/sge/x11input/lc_ctype.hpp
 	src/plugins/x11input/include/sge/x11input/mask_is_set.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/axis.hpp
+	src/plugins/x11input/include/sge/x11input/mouse/axis_code.hpp
+	src/plugins/x11input/include/sge/x11input/mouse/axis_info.hpp
+	src/plugins/x11input/include/sge/x11input/mouse/axis_value.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/button.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/button_code.hpp
-	src/plugins/x11input/include/sge/x11input/mouse/button_id.hpp
+	src/plugins/x11input/include/sge/x11input/mouse/button_infos.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/device.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/device_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/device_ptr.hpp
@@ -147,9 +150,12 @@ SET(
 	src/plugins/x11input/src/lc_ctype.cpp
 	src/plugins/x11input/src/mask_is_set.cpp
 	src/plugins/x11input/src/mouse/axis.cpp
+	src/plugins/x11input/src/mouse/axis_code.cpp
+	src/plugins/x11input/src/mouse/axis_info.cpp
+	src/plugins/x11input/src/mouse/axis_value.cpp
 	src/plugins/x11input/src/mouse/button.cpp
 	src/plugins/x11input/src/mouse/button_code.cpp
-	src/plugins/x11input/src/mouse/button_id.cpp
+	src/plugins/x11input/src/mouse/button_infos.cpp
 	src/plugins/x11input/src/mouse/device.cpp
 	src/plugins/x11input/src/mouse/info.cpp
 	src/plugins/x11input/src/pixmap.cpp

@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_MOUSE_AXIS_HPP_INCLUDED
 #define SGE_X11INPUT_MOUSE_AXIS_HPP_INCLUDED
 
-#include <sge/input/mouse/axis.hpp>
+#include <sge/input/mouse/axis_fwd.hpp>
+#include <sge/input/mouse/axis_info_container_fwd.hpp>
 
 namespace sge
 {
@@ -30,9 +31,10 @@ namespace x11input
 namespace mouse
 {
 
-sge::input::mouse::axis::type
+input::mouse::axis const
 axis(
-	int index
+	int code,
+	input::mouse::axis_info_container const &
 );
 
 }

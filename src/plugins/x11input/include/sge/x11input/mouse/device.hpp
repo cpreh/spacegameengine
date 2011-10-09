@@ -70,7 +70,7 @@ private:
 		input::mouse::button_callback const &
 	);
 
-	input::mouse::info const
+	input::mouse::info const &
 	info() const;
 
 	void

@@ -76,7 +76,7 @@ private:
 		input::joypad::relative_axis_callback const &
 	);
 
-	input::joypad::info const
+	input::joypad::info const &
 	info() const;
 
 	void

@@ -18,30 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
+#include <sge/input/mouse/axis_code_to_string.hpp>
+#include <sge/input/mouse/axis_code.hpp>
+#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/string.hpp>
 
-#include <sge/input/joypad/relative_axis_info_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
-
-namespace sge
+fcppt::string const
+sge::input::mouse::axis_code_to_string(
+	mouse::axis_code::type const _code
+)
 {
-namespace x11input
-{
-namespace joypad
-{
+#define MAKE_CASE(\
+	name\
+)\
+case sge::input::mouse::axis_code::name:\
+	return FCPPT_TEXT(#name);
 
-input::joypad::relative_axis_info const
-relative_axis_info(
-	XIValuatorClassInfo const &,
-	awl::backends::x11::display &
-);
+	switch(
+		_code
+	)
+	{
+	MAKE_CASE(x)
+	MAKE_CASE(y)
+	MAKE_CASE(wheel)
+	MAKE_CASE(unknown)
+	}
 
+	FCPPT_ASSERT_UNREACHABLE
 }
-}
-}
-
-#endif

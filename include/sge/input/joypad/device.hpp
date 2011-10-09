@@ -65,7 +65,7 @@ public:
 		joypad::relative_axis_callback const &
 	) = 0;
 
-	virtual input::joypad::info const
+	virtual input::joypad::info const &
 	info() const = 0;
 };
 

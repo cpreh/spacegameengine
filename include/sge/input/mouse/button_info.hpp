@@ -18,27 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
+#ifndef SGE_INPUT_MOUSE_BUTTON_INFO_HPP_INCLUDED
+#define SGE_INPUT_MOUSE_BUTTON_INFO_HPP_INCLUDED
 
-#include <sge/input/joypad/relative_axis_info_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/input/mouse/button_info_fwd.hpp>
+#include <sge/input/mouse/button_code.hpp>
+#include <sge/input/info/optional_string.hpp>
+#include <sge/input/symbol.hpp>
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
-namespace joypad
+namespace mouse
 {
 
-input::joypad::relative_axis_info const
-relative_axis_info(
-	XIValuatorClassInfo const &,
-	awl::backends::x11::display &
-);
+class button_info
+{
+public:
+	SGE_INPUT_SYMBOL
+	button_info(
+		input::mouse::button_code::type,
+		input::info::optional_string const &
+	);
+
+	SGE_INPUT_SYMBOL
+	input::mouse::button_code::type
+	code() const;
+
+	SGE_INPUT_SYMBOL
+	input::info::optional_string const &
+	name() const;
+private:
+	input::mouse::button_code::type code_;
+
+	input::info::optional_string name_;
+};
 
 }
 }

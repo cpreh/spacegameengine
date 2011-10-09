@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/collector.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
+#include <sge/input/mouse/axis_info_container.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
+#include <sge/input/mouse/button_info_container.hpp>
 #include <sge/input/mouse/device_ptr.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/info.hpp>
@@ -59,6 +61,17 @@ sge::input::mouse::collector::collector(
 			std::tr1::placeholders::_2
 		)
 	),
+	info_(
+		mouse::axis_info_container(
+			mouse::axis_info_container::vector()
+		),
+		mouse::button_info_container(
+			mouse::button_info_container::vector()
+		),
+		sge::input::info::name(
+			FCPPT_TEXT("mouse collector")
+		)
+	),
 	axis_signal_(),
 	button_signal_()
 {
@@ -91,15 +104,11 @@ sge::input::mouse::collector::button_callback(
 		);
 }
 
-sge::input::mouse::info const
+sge::input::mouse::info const &
 sge::input::mouse::collector::info() const
 {
 	return
-		sge::input::mouse::info(
-			sge::input::info::name(
-				FCPPT_TEXT("mouse collector")
-			)
-		);
+		info_;
 }
 
 void

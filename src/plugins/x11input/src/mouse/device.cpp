@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/mouse/device.hpp>
 #include <sge/x11input/mouse/axis.hpp>
+#include <sge/x11input/mouse/axis_value.hpp>
 #include <sge/x11input/mouse/button.hpp>
 #include <sge/x11input/mouse/info.hpp>
 #include <sge/x11input/device/parameters.hpp>
@@ -103,6 +104,7 @@ sge::x11input::mouse::device::device(
 	),
 	info_(
 		x11input::mouse::info(
+			_param.window().display(),
 			_param.info()
 		)
 	),
@@ -137,7 +139,7 @@ sge::x11input::mouse::device::button_callback(
 		);
 }
 
-sge::input::mouse::info const
+sge::input::mouse::info const &
 sge::x11input::mouse::device::info() const
 {
 	return info_;
@@ -176,10 +178,12 @@ sge::x11input::mouse::device::on_motion(
 			axis_signal_(
 				input::mouse::axis_event(
 					x11input::mouse::axis(
-						index
+						index,
+						info_.axis()
 					),
-					// TODO: how to scale this?
-					*valuator
+					x11input::mouse::axis_value(
+						*valuator
+					)
 				)
 			);
 	}
@@ -217,7 +221,8 @@ sge::x11input::mouse::device::button_event(
 		input::mouse::button_event(
 			input::mouse::button(
 				x11input::mouse::button(
-					_event
+					_event,
+					info_.buttons()
 				)
 			),
 			_pressed

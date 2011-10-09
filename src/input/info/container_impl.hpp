@@ -62,6 +62,26 @@ template<
 	typename Id,
 	typename Obj
 >
+Id const
+sge::input::info::container<
+	Id,
+	Obj
+>::size() const
+{
+	return
+		Id(
+			static_cast<
+				typename Id::value_type
+			>(
+				vector_.size()
+			)
+		);
+}
+
+template<
+	typename Id,
+	typename Obj
+>
 typename sge::input::info::container<
 	Id,
 	Obj
