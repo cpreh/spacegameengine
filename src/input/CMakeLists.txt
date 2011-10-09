@@ -58,6 +58,7 @@ SET(
 	include/sge/input/joypad/absolute_axis_info_fwd.hpp
 	include/sge/input/joypad/absolute_axis_signal.hpp
 	include/sge/input/joypad/axis_code.hpp
+	include/sge/input/joypad/axis_code_to_string.hpp
 	include/sge/input/joypad/axis_max.hpp
 	include/sge/input/joypad/axis_min.hpp
 	include/sge/input/joypad/axis_value.hpp
@@ -209,6 +210,7 @@ SET(
 	src/input/joypad/absolute_axis_event.cpp
 	src/input/joypad/absolute_axis_info.cpp
 	src/input/joypad/absolute_axis_info_container.cpp
+	src/input/joypad/axis_code_to_string.cpp
 	src/input/joypad/button_event.cpp
 	src/input/joypad/button_info.cpp
 	src/input/joypad/button_info_container.cpp

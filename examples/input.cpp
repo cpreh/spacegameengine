@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
+#include <sge/input/joypad/axis_code_to_string.hpp>
 #include <sge/input/joypad/button_event.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/device_ptr.hpp>
@@ -77,6 +78,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+
+fcppt::string const
+output_optional_string(
+	sge::input::info::optional_string const &
+);
 
 void
 joypad_discover(
@@ -239,6 +245,22 @@ catch(
 namespace
 {
 
+fcppt::string const
+output_optional_string(
+	sge::input::info::optional_string const &_name
+)
+{
+	return
+		_name
+		?
+			*_name
+		:
+			fcppt::string(
+				FCPPT_TEXT("unnamed")
+			)
+		;
+}
+
 void
 joypad_discover(
 	sge::input::joypad::discover_event const &_event
@@ -276,24 +298,15 @@ joypad_discover(
 			*it
 		);
 
-		sge::input::info::optional_string const name(
-			axis_info.name()
-		);
-
 		fcppt::io::cout()
 			<< FCPPT_TEXT("name: ")
-			<<
-			(
-				name
-				?
-					*name
-				:
-					fcppt::string(
-						FCPPT_TEXT("unnamed")
-					)
+			<< output_optional_string(
+				axis_info.name()
 			)
 			<< FCPPT_TEXT("\n\tcode: ")
-			<< axis_info.code()
+			<< sge::input::joypad::axis_code_to_string(
+				axis_info.code()
+			)
 			<< FCPPT_TEXT("\n\tmin: ")
 			<< axis_info.min()
 			<< FCPPT_TEXT("\n\tmax: ")
