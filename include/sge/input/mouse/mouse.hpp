@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/input/mouse/axis_function.hpp>
+#include <sge/input/mouse/axis_signal.hpp>
 #include <sge/input/mouse/axis_value.hpp>
 #include <sge/input/mouse/button.hpp>
 #include <sge/input/mouse/button_callback.hpp>
@@ -35,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button_function.hpp>
 #include <sge/input/mouse/button_fwd.hpp>
 #include <sge/input/mouse/button_id.hpp>
+#include <sge/input/mouse/button_signal.hpp>
 #include <sge/input/mouse/collector.hpp>
 #include <sge/input/mouse/collector_fwd.hpp>
 #include <sge/input/mouse/device.hpp>
@@ -42,9 +44,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/device_ptr.hpp>
 #include <sge/input/mouse/device_vector.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
+#include <sge/input/mouse/discover_event.hpp>
+#include <sge/input/mouse/discover_event_fwd.hpp>
 #include <sge/input/mouse/discover_function.hpp>
 #include <sge/input/mouse/discover_signal.hpp>
+#include <sge/input/mouse/info.hpp>
+#include <sge/input/mouse/info_fwd.hpp>
+#include <sge/input/mouse/manager.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
+#include <sge/input/mouse/remove_event.hpp>
+#include <sge/input/mouse/remove_event_fwd.hpp>
 #include <sge/input/mouse/remove_function.hpp>
 #include <sge/input/mouse/remove_signal.hpp>
 

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/char_function.hpp>
+#include <sge/input/keyboard/char_signal.hpp>
 #include <sge/input/keyboard/char_type.hpp>
 #include <sge/input/keyboard/collector.hpp>
 #include <sge/input/keyboard/collector_fwd.hpp>
@@ -35,6 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_vector.hpp>
 #include <sge/input/keyboard/digit.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
+#include <sge/input/keyboard/discover_event.hpp>
+#include <sge/input/keyboard/discover_event_fwd.hpp>
 #include <sge/input/keyboard/discover_function.hpp>
 #include <sge/input/keyboard/discover_signal.hpp>
 #include <sge/input/keyboard/is_alt.hpp>
@@ -50,11 +53,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
+#include <sge/input/keyboard/key_repeat_signal.hpp>
+#include <sge/input/keyboard/key_signal.hpp>
+#include <sge/input/keyboard/manager.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
+#include <sge/input/keyboard/mod_state_fwd.hpp>
 #include <sge/input/keyboard/modifier.hpp>
 #include <sge/input/keyboard/optional_digit.hpp>
 #include <sge/input/keyboard/optional_modifier.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
+#include <sge/input/keyboard/remove_event.hpp>
+#include <sge/input/keyboard/remove_event_fwd.hpp>
 #include <sge/input/keyboard/remove_function.hpp>
 #include <sge/input/keyboard/remove_signal.hpp>
 #include <sge/input/keyboard/to_modifier.hpp>
