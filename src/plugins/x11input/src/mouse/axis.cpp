@@ -30,6 +30,10 @@ sge::x11input::mouse::axis(
 	input::mouse::axis_info_container const &_info
 )
 {
+	FCPPT_ASSERT_PRE(
+		_code >= 0
+	);
+
 	sge::input::mouse::axis_id const id(
 		static_cast<
 			sge::input::mouse::axis_id::value_type

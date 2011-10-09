@@ -31,11 +31,19 @@ sge::x11input::mouse::button(
 	input::mouse::button_info_container const &_info
 )
 {
+	int const detail(
+		_event.get().detail
+	);
+
+	FCPPT_ASSERT_PRE(
+		detail > 0
+	);
+
 	sge::input::mouse::button_id const id(
 		static_cast<
 			sge::input::mouse::button_id::value_type
 		>(
-			_event.get().detail
+			detail - 1 // TODO: why?
 		)
 	);
 

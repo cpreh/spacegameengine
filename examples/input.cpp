@@ -400,7 +400,7 @@ joypad_remove(
 )
 {
 	fcppt::io::cout()
-		<< FCPPT_TEXT("joypad_discover: ")
+		<< FCPPT_TEXT("joypad_remove: ")
 		<< _event.device()
 		<< FCPPT_TEXT('\n');
 }
@@ -522,7 +522,7 @@ mouse_remove(
 )
 {
 	fcppt::io::cout()
-		<< FCPPT_TEXT("mouse_discover: ")
+		<< FCPPT_TEXT("mouse_remove: ")
 		<< _event.device()
 		<< FCPPT_TEXT('\n');
 }
@@ -533,6 +533,18 @@ mouse_axis(
 	sge::input::mouse::axis_event const &_event
 )
 {
+	fcppt::io::cout()
+		<< FCPPT_TEXT("mouse_axis: ")
+		<< _device
+		<< FCPPT_TEXT("\n\tcode: ")
+		<< sge::input::mouse::axis_code_to_string(
+			_event.axis().code()
+		)
+		<< FCPPT_TEXT("\n\tid: ")
+		<< _event.axis().id()
+		<< FCPPT_TEXT("\n\tvalue: ")
+		<< _event.value()
+		<< FCPPT_TEXT('\n');
 }
 
 void
@@ -541,6 +553,18 @@ mouse_button(
 	sge::input::mouse::button_event const &_event
 )
 {
+	fcppt::io::cout()
+		<< FCPPT_TEXT("mouse_button: ")
+		<< _device
+		<< FCPPT_TEXT("\n\tcode: ")
+		<< sge::input::mouse::button_code_to_string(
+			_event.button().code()
+		)
+		<< FCPPT_TEXT("\n\tid: ")
+		<< _event.button().id()
+		<< FCPPT_TEXT("\n\tpressed: ")
+		<< _event.pressed()
+		<< FCPPT_TEXT('\n');
 }
 
 }
