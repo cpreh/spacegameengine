@@ -18,6 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/cursor/button_code_to_string.hpp>
+#include <sge/input/cursor/button_event.hpp>
+#include <sge/input/cursor/discover_callback.hpp>
+#include <sge/input/cursor/discover_event.hpp>
+#include <sge/input/cursor/manager.hpp>
+#include <sge/input/cursor/move_event.hpp>
+#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
@@ -85,6 +94,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/exception.hpp>
@@ -103,6 +113,28 @@ namespace
 fcppt::string const
 output_optional_string(
 	sge::input::info::optional_string const &
+);
+
+void
+cursor_discover(
+	sge::input::cursor::discover_event const &
+);
+
+void
+cursor_remove(
+	sge::input::cursor::remove_event const &
+);
+
+void
+cursor_button(
+	sge::input::cursor::object_ptr,
+	sge::input::cursor::button_event const &
+);
+
+void
+cursor_move(
+	sge::input::cursor::object_ptr,
+	sge::input::cursor::move_event const &
 );
 
 void
@@ -231,6 +263,22 @@ try
 	fcppt::io::cout()
 		<< std::boolalpha;
 
+	sge::input::cursor::manager const cursor_manager(
+		sys.input_processor(),
+		sge::input::cursor::discover_callback(
+			::cursor_discover
+		),
+		sge::input::cursor::remove_callback(
+			::cursor_remove
+		),
+		sge::input::cursor::manager::button_callback(
+			::cursor_button
+		),
+		sge::input::cursor::manager::move_callback(
+			::cursor_move
+		)
+	);
+
 	sge::input::joypad::manager const joypad_manager(
 		sys.input_processor(),
 		sge::input::joypad::discover_callback(
@@ -327,6 +375,60 @@ output_optional_string(
 				FCPPT_TEXT("unnamed")
 			)
 		;
+}
+
+void
+cursor_discover(
+	sge::input::cursor::discover_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("cursor_discover: ")
+		<< _event.object()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+cursor_remove(
+	sge::input::cursor::remove_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("cursor_remove: ")
+		<< _event.object()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+cursor_button(
+	sge::input::cursor::object_ptr const _object,
+	sge::input::cursor::button_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("cursor_button: ")
+		<< _object
+		<< FCPPT_TEXT("\n\tcode: ")
+		<< sge::input::cursor::button_code_to_string(
+			_event.button_code()
+		)
+		<< FCPPT_TEXT("\n\tpressed: ")
+		<< _event.pressed()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+cursor_move(
+	sge::input::cursor::object_ptr const _object,
+	sge::input::cursor::move_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("cursor_move: ")
+		<< _object
+		<< FCPPT_TEXT("\n\tposition: ")
+		<< _event.position()
+		<< FCPPT_TEXT('\n');
 }
 
 void

@@ -2,6 +2,7 @@ SET(
 	SGE_INPUT_FILES
 	include/sge/input/cursor/button_callback.hpp
 	include/sge/input/cursor/button_code.hpp
+	include/sge/input/cursor/button_code_to_string.hpp
 	include/sge/input/cursor/button_event.hpp
 	include/sge/input/cursor/button_event_fwd.hpp
 	include/sge/input/cursor/button_function.hpp
@@ -14,6 +15,7 @@ SET(
 	include/sge/input/cursor/discover_event_fwd.hpp
 	include/sge/input/cursor/discover_function.hpp
 	include/sge/input/cursor/discover_signal.hpp
+	include/sge/input/cursor/manager.hpp
 	include/sge/input/cursor/mode.hpp
 	include/sge/input/cursor/move_callback.hpp
 	include/sge/input/cursor/move_event.hpp
@@ -210,9 +212,11 @@ SET(
 	include/sge/input/system.hpp
 	include/sge/input/system_fwd.hpp
 	include/sge/input/system_ptr.hpp
+	src/input/cursor/button_code_to_string.cpp
 	src/input/cursor/button_event.cpp
 	src/input/cursor/demuxer.cpp
 	src/input/cursor/discover_event.cpp
+	src/input/cursor/manager.cpp
 	src/input/cursor/move_event.cpp
 	src/input/cursor/no_object.cpp
 	src/input/cursor/object.cpp

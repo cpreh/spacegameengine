@@ -18,17 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEYBOARD_MANAGER_HPP_INCLUDED
-#define SGE_INPUT_KEYBOARD_MANAGER_HPP_INCLUDED
+#ifndef SGE_INPUT_CURSOR_MANAGER_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_MANAGER_HPP_INCLUDED
 
-#include <sge/input/keyboard/char_event_fwd.hpp>
-#include <sge/input/keyboard/device_ptr.hpp>
-#include <sge/input/keyboard/discover_callback.hpp>
-#include <sge/input/keyboard/discover_event_fwd.hpp>
-#include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
-#include <sge/input/keyboard/remove_callback.hpp>
-#include <sge/input/keyboard/remove_event_fwd.hpp>
+#include <sge/input/cursor/button_event_fwd.hpp>
+#include <sge/input/cursor/discover_callback.hpp>
+#include <sge/input/cursor/discover_event_fwd.hpp>
+#include <sge/input/cursor/move_event_fwd.hpp>
+#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/cursor/remove_event_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/symbol.hpp>
 #include <fcppt/function/object.hpp>
@@ -42,7 +41,7 @@ namespace sge
 {
 namespace input
 {
-namespace keyboard
+namespace cursor
 {
 
 class manager
@@ -53,68 +52,58 @@ class manager
 public:
 	typedef fcppt::function::object<
 		void (
-			keyboard::device_ptr,
-			keyboard::char_event const &
+			cursor::object_ptr,
+			cursor::button_event const &
 		)
-	> char_callback;
+	> button_callback;
 
 	typedef fcppt::function::object<
 		void (
-			keyboard::device_ptr,
-			keyboard::key_event const &
+			cursor::object_ptr,
+			cursor::move_event const &
 		)
-	> key_callback;
-
-	typedef fcppt::function::object<
-		void (
-			keyboard::device_ptr,
-			keyboard::key_repeat_event const &
-		)
-	> key_repeat_callback;
+	> move_callback;
 
 	SGE_INPUT_SYMBOL
 	manager(
 		input::processor &,
-		input::keyboard::discover_callback const &,
-		input::keyboard::remove_callback const &,
-		char_callback const &,
-		key_callback const &,
-		key_repeat_callback const &
+		input::cursor::discover_callback const &,
+		input::cursor::remove_callback const &,
+		button_callback const &,
+		move_callback const &
 	);
 
 	SGE_INPUT_SYMBOL
 	~manager();
 
 	typedef boost::ptr_map<
-		keyboard::device_ptr,
+		cursor::object_ptr,
 		fcppt::signal::connection_manager
-	> keyboard_map;
+	> object_map;
 
 	SGE_INPUT_SYMBOL
-	keyboard_map const &
+	object_map const &
 	devices() const;
 private:
 	void
 	discover(
-		input::keyboard::discover_event const &
+		input::cursor::discover_event const &
 	);
 
 	void
 	remove(
-		input::keyboard::remove_event const &
+		input::cursor::remove_event const &
 	);
 
-	keyboard_map devices_;
+	object_map objects_;
 
-	input::keyboard::discover_callback const discover_callback_;
+	input::cursor::discover_callback const discover_callback_;
 
-	input::keyboard::remove_callback const remove_callback_;
+	input::cursor::remove_callback const remove_callback_;
 
-	char_callback const char_callback_;
+	button_callback const button_callback_;
 
-	key_callback const key_callback_;
-
-	key_repeat_callback const key_repeat_callback_;
+	move_callback const move_callback_;
 
 	fcppt::signal::connection_manager const connections_;
 };
