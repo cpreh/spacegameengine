@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/axis_code_to_string.hpp>
 #include <sge/input/joypad/button_event.hpp>
+#include <sge/input/joypad/button_info.hpp>
+#include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/device_ptr.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
@@ -31,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/info.hpp>
 #include <sge/input/joypad/manager.hpp>
 #include <sge/input/joypad/relative_axis_event.hpp>
+#include <sge/input/joypad/relative_axis_info.hpp>
+#include <sge/input/joypad/relative_axis_info_container.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/joypad/remove_event.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -277,42 +281,111 @@ joypad_discover(
 		<< info.name()
 		<< FCPPT_TEXT('\n');
 
-	sge::input::joypad::absolute_axis_info_container::vector const &absolute_axis(
-		info.absolute_axis().get()
-	);
-
-	fcppt::io::cout()
-		<< FCPPT_TEXT("axis: ")
-		<< absolute_axis.size()
-		<< FCPPT_TEXT('\n');
-
-	for(
-		sge::input::joypad::absolute_axis_info_container::vector::const_iterator it(
-			absolute_axis.begin()
-		);
-		it != absolute_axis.end();
-		++it
-	)
 	{
-		sge::input::joypad::absolute_axis_info const &axis_info(
-			*it
+		sge::input::joypad::absolute_axis_info_container::vector const &absolute_axis(
+			info.absolute_axis().get()
 		);
 
 		fcppt::io::cout()
-			<< FCPPT_TEXT("name: ")
-			<< output_optional_string(
-				axis_info.name()
-			)
-			<< FCPPT_TEXT("\n\tcode: ")
-			<< sge::input::joypad::axis_code_to_string(
-				axis_info.code()
-			)
-			<< FCPPT_TEXT("\n\tmin: ")
-			<< axis_info.min()
-			<< FCPPT_TEXT("\n\tmax: ")
-			<< axis_info.max()
+			<< FCPPT_TEXT("absolute axis: ")
+			<< absolute_axis.size()
 			<< FCPPT_TEXT('\n');
+
+		for(
+			sge::input::joypad::absolute_axis_info_container::vector::const_iterator it(
+				absolute_axis.begin()
+			);
+			it != absolute_axis.end();
+			++it
+		)
+		{
+			sge::input::joypad::absolute_axis_info const &axis_info(
+				*it
+			);
+
+			fcppt::io::cout()
+				<< FCPPT_TEXT("name: ")
+				<< output_optional_string(
+					axis_info.name()
+				)
+				<< FCPPT_TEXT("\n\tcode: ")
+				<< sge::input::joypad::axis_code_to_string(
+					axis_info.code()
+				)
+				<< FCPPT_TEXT("\n\tmin: ")
+				<< axis_info.min()
+				<< FCPPT_TEXT("\n\tmax: ")
+				<< axis_info.max()
+				<< FCPPT_TEXT('\n');
+		}
 	}
+
+	{
+		sge::input::joypad::relative_axis_info_container::vector const &relative_axis(
+			info.relative_axis().get()
+		);
+
+		fcppt::io::cout()
+			<< FCPPT_TEXT("relative axis: ")
+			<< relative_axis.size()
+			<< FCPPT_TEXT('\n');
+
+		for(
+			sge::input::joypad::relative_axis_info_container::vector::const_iterator it(
+				relative_axis.begin()
+			);
+			it != relative_axis.end();
+			++it
+		)
+		{
+			sge::input::joypad::relative_axis_info const &axis_info(
+				*it
+			);
+
+			fcppt::io::cout()
+				<< FCPPT_TEXT("name: ")
+				<< output_optional_string(
+					axis_info.name()
+				)
+				<< FCPPT_TEXT("\n\tcode: ")
+				<< sge::input::joypad::axis_code_to_string(
+					axis_info.code()
+				)
+				<< FCPPT_TEXT('\n');
+		}
+	}
+
+	{
+		sge::input::joypad::button_info_container::vector const &buttons(
+			info.buttons().get()
+		);
+
+		fcppt::io::cout()
+			<< FCPPT_TEXT("buttons: ")
+			<< buttons.size()
+			<< FCPPT_TEXT('\n');
+
+		for(
+			sge::input::joypad::button_info_container::vector::const_iterator it(
+				buttons.begin()
+			);
+			it != buttons.end();
+			++it
+		)
+		{
+			sge::input::joypad::button_info const &button_info(
+				*it
+			);
+
+			fcppt::io::cout()
+				<< FCPPT_TEXT("name: ")
+				<< output_optional_string(
+					button_info.name()
+				)
+				<< FCPPT_TEXT('\n');
+		}
+	}
+
 }
 
 void
