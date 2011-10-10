@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_JOYPAD_RELATIVE_AXIS_ID_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_RELATIVE_AXIS_ID_HPP_INCLUDED
 
+#include <sge/input/info/id.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace sge
@@ -31,7 +32,7 @@ namespace joypad
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	unsigned,
+	input::info::id,
 	relative_axis_id
 );
 

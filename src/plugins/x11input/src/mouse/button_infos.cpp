@@ -49,7 +49,7 @@ sge::x11input::mouse::button_infos(
 				]
 			)
 		);
-	
+
 		ret.push_back(
 			sge::input::mouse::button_info(
 				x11input::mouse::button_code(

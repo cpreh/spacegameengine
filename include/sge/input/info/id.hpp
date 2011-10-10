@@ -18,39 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/mouse/axis.hpp>
-#include <sge/input/mouse/axis.hpp>
-#include <sge/input/mouse/axis_id.hpp>
-#include <sge/input/mouse/axis_info_container.hpp>
-#include <fcppt/assert/pre.hpp>
+#ifndef SGE_INPUT_INFO_ID_HPP_INCLUDED
+#define SGE_INPUT_INFO_ID_HPP_INCLUDED
 
-sge::input::mouse::axis const
-sge::x11input::mouse::axis(
-	int const _code,
-	input::mouse::axis_info_container const &_info
-)
+namespace sge
 {
-	FCPPT_ASSERT_PRE(
-		_code >= 0
-	)
+namespace input
+{
+namespace info
+{
 
-	sge::input::mouse::axis_id const id(
-		static_cast<
-			sge::input::mouse::axis_id::value_type
-		>(
-			_code
-		)
-	);
+typedef unsigned id;
 
-	FCPPT_ASSERT_PRE(
-		id < _info.size()
-	)
-
-	return
-		sge::input::mouse::axis(
-			_info[
-				id
-			].code(),
-			id
-		);
 }
+}
+}
+
+#endif

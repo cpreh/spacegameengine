@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/base_ref_sequence.hpp>
 #include <sge/opencl/memory_object/buffer.hpp>
 #include <sge/opencl/memory_object/buffer_fwd.hpp>
+#include <sge/opencl/memory_object/byte_offset.hpp>
 #include <sge/opencl/memory_object/byte_size.hpp>
 #include <sge/opencl/memory_object/dim2.hpp>
 #include <sge/opencl/memory_object/flags.hpp>

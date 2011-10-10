@@ -18,39 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/mouse/axis.hpp>
-#include <sge/input/mouse/axis.hpp>
-#include <sge/input/mouse/axis_id.hpp>
-#include <sge/input/mouse/axis_info_container.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <sge/x11input/joypad/absolute_axis.hpp>
+#include <sge/x11input/joypad/axis.hpp>
+#include <sge/input/joypad/absolute_axis.hpp>
+#include <sge/input/joypad/absolute_axis_info_container.hpp>
+#include <sge/input/info/id.hpp>
 
-sge::input::mouse::axis const
-sge::x11input::mouse::axis(
-	int const _code,
-	input::mouse::axis_info_container const &_info
+sge::input::joypad::absolute_axis const
+sge::x11input::joypad::absolute_axis(
+	input::info::id const _id,
+	input::joypad::absolute_axis_info_container const &_info
 )
 {
-	FCPPT_ASSERT_PRE(
-		_code >= 0
-	)
-
-	sge::input::mouse::axis_id const id(
-		static_cast<
-			sge::input::mouse::axis_id::value_type
-		>(
-			_code
-		)
-	);
-
-	FCPPT_ASSERT_PRE(
-		id < _info.size()
-	)
-
 	return
-		sge::input::mouse::axis(
-			_info[
-				id
-			].code(),
-			id
+		joypad::axis<
+			sge::input::joypad::absolute_axis
+		>(
+			_id,
+			_info
 		);
 }

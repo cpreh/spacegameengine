@@ -37,7 +37,7 @@ sge::x11input::mouse::button(
 
 	FCPPT_ASSERT_PRE(
 		detail > 0
-	);
+	)
 
 	sge::input::mouse::button_id const id(
 		static_cast<
@@ -49,7 +49,7 @@ sge::x11input::mouse::button(
 
 	FCPPT_ASSERT_PRE(
 		id < _info.size()
-	);
+	)
 
 	return
 		sge::input::mouse::button(

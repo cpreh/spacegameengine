@@ -19,7 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/joypad/device.hpp>
+#include <sge/x11input/joypad/absolute_axis.hpp>
+#include <sge/x11input/joypad/axis_value.hpp>
+#include <sge/x11input/joypad/button_id.hpp>
 #include <sge/x11input/joypad/info.hpp>
+#include <sge/x11input/joypad/make_valuator_infos.hpp>
+#include <sge/x11input/joypad/relative_axis.hpp>
+#include <sge/x11input/joypad/valuator_info.hpp>
+#include <sge/x11input/joypad/valuator_info_vector.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/raw_demuxer.hpp>
 #include <sge/x11input/device/raw_event.hpp>
@@ -28,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/mask_is_set.hpp>
 #include <sge/input/joypad/absolute_axis.hpp>
 #include <sge/input/joypad/absolute_axis_event.hpp>
+#include <sge/input/joypad/axis_value.hpp>
 #include <sge/input/joypad/button_event.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/relative_axis.hpp>
@@ -36,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/object.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -54,6 +63,11 @@ sge::x11input::joypad::device::device(
 	info_(
 		x11input::joypad::info(
 			_param.window().display(),
+			_param.info()
+		)
+	),
+	valuator_infos_(
+		x11input::joypad::make_valuator_infos(
 			_param.info()
 		)
 	),
@@ -160,7 +174,6 @@ sge::x11input::joypad::device::on_motion(
 	x11input::device::raw_event const &_event
 )
 {
-#if 0
 	XIValuatorState const &valuators(
 		_event.get().valuators
 	);
@@ -181,22 +194,61 @@ sge::x11input::joypad::device::on_motion(
 	)
 	{
 		if(
-			x11input::mask_is_set(
+			!x11input::mask_is_set(
 				valuators.mask,
 				index
 			)
 		)
-			axis_signal_(
-				input::joypad::axis_event(
-					x11input::joypad::axis(
-						index
+			continue;
+
+		x11input::joypad::valuator_info_vector::size_type const valuator_index(
+			static_cast<
+				x11input::joypad::valuator_info_vector::size_type
+			>(
+				index
+			)
+		);
+
+		FCPPT_ASSERT_ERROR(
+			valuator_index
+			< valuator_infos_.size()
+		)
+
+		x11input::joypad::valuator_info const &val_info(
+			valuator_infos_[
+				valuator_index
+			]
+		);
+
+		input::joypad::axis_value const value(
+			x11input::joypad::axis_value(
+				*valuator
+			)
+		);
+
+		if(
+			val_info.absolute()
+		)
+			absolute_axis_signal_(
+				input::joypad::absolute_axis_event(
+					x11input::joypad::absolute_axis(
+						val_info.id(),
+						info_.absolute_axis()
 					),
-					// TODO: how to scale this?
-					*valuator
+					value
+				)
+			);
+		else
+			relative_axis_signal_(
+				input::joypad::relative_axis_event(
+					x11input::joypad::relative_axis(
+						val_info.id(),
+						info_.relative_axis()
+					),
+					value
 				)
 			);
 	}
-#endif
 }
 
 void
@@ -227,16 +279,12 @@ sge::x11input::joypad::device::button_event(
 	bool const _pressed
 )
 {
-#if 0
 	button_signal_(
 		input::joypad::button_event(
-			input::joypad::button(
-				x11input::joypad::button_code(
-					_event
-				)
+			x11input::joypad::button_id(
+				_event
 			),
 			_pressed
 		)
 	);
-#endif
 }

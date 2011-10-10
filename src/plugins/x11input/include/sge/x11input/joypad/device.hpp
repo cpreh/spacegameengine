@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_JOYPAD_DEVICE_HPP_INCLUDED
 
 #include <sge/x11input/joypad/device_fwd.hpp>
+#include <sge/x11input/joypad/valuator_info_vector.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/raw_event_fwd.hpp>
@@ -101,6 +102,8 @@ private:
 	);
 
 	input::joypad::info const info_;
+
+	x11input::joypad::valuator_info_vector const valuator_infos_;
 
 	fcppt::signal::connection_manager const connections_;
 

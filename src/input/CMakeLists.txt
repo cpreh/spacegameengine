@@ -43,6 +43,7 @@ SET(
 	include/sge/input/exception.hpp
 	include/sge/input/info/container.hpp
 	include/sge/input/info/container_fwd.hpp
+	include/sge/input/info/id.hpp
 	include/sge/input/info/info.hpp
 	include/sge/input/info/name.hpp
 	include/sge/input/info/optional_string.hpp

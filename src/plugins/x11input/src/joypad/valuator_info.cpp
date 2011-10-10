@@ -18,39 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/mouse/axis.hpp>
-#include <sge/input/mouse/axis.hpp>
-#include <sge/input/mouse/axis_id.hpp>
-#include <sge/input/mouse/axis_info_container.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <sge/x11input/joypad/valuator_info.hpp>
+#include <sge/input/info/id.hpp>
 
-sge::input::mouse::axis const
-sge::x11input::mouse::axis(
-	int const _code,
-	input::mouse::axis_info_container const &_info
+sge::x11input::joypad::valuator_info::valuator_info(
+	input::info::id const _id,
+	bool const _absolute
 )
+:
+	id_(
+		_id
+	),
+	absolute_(
+		_absolute
+	)
 {
-	FCPPT_ASSERT_PRE(
-		_code >= 0
-	)
+}
 
-	sge::input::mouse::axis_id const id(
-		static_cast<
-			sge::input::mouse::axis_id::value_type
-		>(
-			_code
-		)
-	);
+sge::input::info::id
+sge::x11input::joypad::valuator_info::id() const
+{
+	return id_;
+}
 
-	FCPPT_ASSERT_PRE(
-		id < _info.size()
-	)
-
-	return
-		sge::input::mouse::axis(
-			_info[
-				id
-			].code(),
-			id
-		);
+bool
+sge::x11input::joypad::valuator_info::absolute() const
+{
+	return absolute_;
 }

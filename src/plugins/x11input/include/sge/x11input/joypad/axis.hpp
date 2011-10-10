@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_JOYPAD_AXIS_HPP_INCLUDED
 #define SGE_X11INPUT_JOYPAD_AXIS_HPP_INCLUDED
 
-#include <sge/input/joypad/axis_fwd.hpp>
+#include <sge/input/info/id.hpp>
+#include <fcppt/assert/pre.hpp>
 
 namespace sge
 {
@@ -30,10 +31,33 @@ namespace x11input
 namespace joypad
 {
 
-input::joypad::axis const
+template<
+	typename Ret,
+	typename InfoContainer
+>
+Ret const
 axis(
-	int
-);
+	input::info::id const _id,
+	InfoContainer const &_info
+)
+{
+	typename InfoContainer::id const id(
+		_id
+	);
+
+	FCPPT_ASSERT_PRE(
+		id
+		< _info.size()
+	)
+
+	return
+		Ret(
+			_info[
+				id
+			].code(),
+			id
+		);
+}
 
 }
 }

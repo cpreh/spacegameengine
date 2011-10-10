@@ -41,6 +41,10 @@ template<
 class container
 {
 public:
+	typedef Id id;
+
+	typedef Obj object;
+
 	typedef std::vector<
 		Obj
 	> vector;
