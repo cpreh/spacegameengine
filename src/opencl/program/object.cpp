@@ -356,7 +356,11 @@ sge::opencl::program::object::build(
 		{
 			FCPPT_LOG_WARNING(
 				local_log,
-				fcppt::log::_ << FCPPT_TEXT("Build log:\n") << fcppt::from_std_string(build_log));
+				fcppt::log::_ 
+					<< FCPPT_TEXT("Program build failed with error code ") 
+					<< error_code3
+					<< FCPPT_TEXT(", build log:\n") 
+					<< fcppt::from_std_string(build_log));
 		}
 
 		if(error_code3 != CL_SUCCESS)
