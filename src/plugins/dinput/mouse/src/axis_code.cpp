@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../axis_code.hpp"
 #include "../../cast_key.hpp"
 #include "../../di.hpp"
+#include <sge/input/mouse/axis_code.hpp>
 
-sge::input::mouse::axis::type
+sge::input::mouse::axis_code::type
 sge::dinput::mouse::axis_code(
 	DWORD const _code
 )
@@ -30,15 +31,15 @@ sge::dinput::mouse::axis_code(
 	if(
 		_code == dinput::cast_key(DIMOFS_X)
 	)
-		return sge::input::mouse::axis::x;
+		return sge::input::mouse::axis_code::x;
 	else if(
 		_code == dinput::cast_key(DIMOFS_Y)
 	)
-		return sge::input::mouse::axis::y;
+		return sge::input::mouse::axis_code::y;
 	else if(
 		_code == dinput::cast_key(DIMOFS_Z)
 	)
-		return sge::input::mouse::axis::wheel;
+		return sge::input::mouse::axis_code::wheel;
 
-	return sge::input::mouse::axis::unknown;
+	return sge::input::mouse::axis_code::unknown;
 }

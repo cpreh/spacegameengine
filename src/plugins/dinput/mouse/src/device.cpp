@@ -23,11 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../axis_code.hpp"
 #include "../button_code.hpp"
 #include "../../di.hpp"
+#include <sge/input/info/name.hpp>
+#include <sge/input/mouse/axis.hpp>
 #include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/mouse/axis_info_container.hpp>
 #include <sge/input/mouse/button.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/button_id.hpp>
+#include <sge/input/mouse/button_info_container.hpp>
+#include <sge/input/mouse/info.hpp>
 #include <fcppt/signal/object_impl.hpp>
+#include <fcppt/text.hpp>
 
 sge::dinput::mouse::device::device(
 	dinput::device::parameters const &_param
@@ -36,6 +42,20 @@ sge::dinput::mouse::device::device(
 	sge::input::mouse::device(),
 	dinput::device::object(
 		_param
+	),
+	// FIXME
+	info_(
+		sge::input::mouse::info(
+			sge::input::mouse::axis_info_container(
+				sge::input::mouse::axis_info_container::vector()
+			),
+			sge::input::mouse::button_info_container(
+				sge::input::mouse::button_info_container::vector()
+			),
+			sge::input::info::name(
+				FCPPT_TEXT("mouse")
+			)
+		)
 	),
 	axis_signal_(),
 	button_signal_(),
@@ -56,6 +76,17 @@ sge::dinput::mouse::device::~device()
 }
 
 fcppt::signal::auto_connection
+sge::dinput::mouse::device::axis_callback(
+	input::mouse::axis_callback const &_callback
+)
+{
+	return
+		axis_signal_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
 sge::dinput::mouse::device::button_callback(
 	input::mouse::button_callback const &_callback
 )
@@ -66,15 +97,10 @@ sge::dinput::mouse::device::button_callback(
 		);
 }
 
-fcppt::signal::auto_connection
-sge::dinput::mouse::device::axis_callback(
-	input::mouse::axis_callback const &_callback
-)
+sge::input::mouse::info const &
+sge::dinput::mouse::device::info() const
 {
-	return
-		axis_signal_.connect(
-			_callback
-		);
+	return info_;
 }
 
 void
@@ -117,9 +143,18 @@ sge::dinput::mouse::device::dispatch()
 		)
 			axis_signal_(
 				input::mouse::axis_event(
-					axis_[
-						offset
-					],
+					input::mouse::axis(
+						axis_[
+							offset
+						],
+						input::mouse::axis_id(
+							static_cast<
+								sge::input::mouse::axis_id::value_type
+							>(
+								offset
+							)
+						)
+					),
 					static_cast<
 						sge::input::mouse::axis_value
 					>(
