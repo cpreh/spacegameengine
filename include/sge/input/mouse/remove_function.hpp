@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_REMOVE_FUNCTION_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_REMOVE_FUNCTION_HPP_INCLUDED
 
-#include <sge/input/mouse/device_ptr.hpp>
+#include <sge/input/mouse/remove_event_fwd.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace mouse
 typedef
 void
 remove_function(
-	mouse::device_ptr
+	mouse::remove_event const &
 );
 
 }

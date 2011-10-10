@@ -18,23 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../processor.hpp"
-#include "../input_context.hpp"
-#include "../input_method.hpp"
-#include "../xi_2_1.hpp"
-#include "../cursor/object.hpp"
-#include "../device/id.hpp"
-#include "../device/hierarchy_event.hpp"
-#include "../device/make_manager_config.hpp"
-#include "../device/multi_info.hpp"
-#include "../device/object.hpp"
-#include "../device/object_ptr.hpp"
-#include "../device/parameters.hpp"
-#include "../device/use.hpp"
-#include "../joypad/device.hpp"
-#include "../joypad/is_usable.hpp"
-#include "../keyboard/device.hpp"
-#include "../mouse/device.hpp"
+#include <sge/x11input/processor.hpp>
+#include <sge/x11input/create_parameters.hpp>
+#include <sge/x11input/input_context.hpp>
+#include <sge/x11input/input_method.hpp>
+#include <sge/x11input/xi_2_1.hpp>
+#include <sge/x11input/cursor/object.hpp>
+#include <sge/x11input/device/id.hpp>
+#include <sge/x11input/device/hierarchy_event.hpp>
+#include <sge/x11input/device/object.hpp>
+#include <sge/x11input/device/object_ptr.hpp>
+#include <sge/x11input/device/parameters.hpp>
+#include <sge/x11input/device/use.hpp>
+#include <sge/x11input/device/info/multi.hpp>
+#include <sge/x11input/device/manager/config_map.hpp>
+#include <sge/x11input/device/manager/make_config.hpp>
+#include <sge/x11input/joypad/device.hpp>
+#include <sge/x11input/joypad/is_usable.hpp>
+#include <sge/x11input/keyboard/device.hpp>
+#include <sge/x11input/mouse/device.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
@@ -158,14 +160,15 @@ sge::x11input::processor::processor(
 	joypad_discover_(),
 	joypad_remove_(),
 	device_manager_(
+		x11_window_->display(),
 		fcppt::assign::make_container<
-			device::manager_config_map
+			device::manager::config_map
 		>(
 			std::make_pair(
 				x11input::device::use(
 					XIMasterKeyboard
 				),
-				device::make_manager_config(
+				device::manager::make_config(
 					keyboards_,
 					keyboard_discover_,
 					keyboard_remove_,
@@ -182,7 +185,7 @@ sge::x11input::processor::processor(
 				x11input::device::use(
 					XIMasterPointer
 				),
-				device::make_manager_config(
+				device::manager::make_config(
 					cursors_,
 					cursor_discover_,
 					cursor_remove_,
@@ -203,7 +206,7 @@ sge::x11input::processor::processor(
 					:
 						XIMasterPointer
 				),
-				device::make_manager_config(
+				device::manager::make_config(
 					mice_,
 					mouse_discover_,
 					mouse_remove_,
@@ -220,7 +223,7 @@ sge::x11input::processor::processor(
 				x11input::device::use(
 					XIFloatingSlave
 				),
-				device::make_manager_config(
+				device::manager::make_config(
 					joypads_,
 					joypad_discover_,
 					joypad_remove_,
@@ -279,7 +282,7 @@ sge::x11input::processor::processor(
 		)
 	)
 {
-	x11input::device::multi_info const current_devices(
+	x11input::device::info::multi const current_devices(
 		x11_window_->display(),
 		x11input::device::id(
 			XIAllDevices
@@ -438,12 +441,12 @@ sge::x11input::processor::window() const
 
 sge::x11input::device::parameters const
 sge::x11input::processor::device_parameters(
-	x11input::device::id const _id
+	x11input::create_parameters const &_param
 )
 {
 	return
 		x11input::device::parameters(
-			_id,
+			_param,
 			opcode_,
 			*x11_window_,
 			window_demuxer_,
@@ -453,7 +456,7 @@ sge::x11input::processor::device_parameters(
 
 sge::x11input::keyboard::device_ptr const
 sge::x11input::processor::create_keyboard(
-	x11input::device::id const _id
+	x11input::create_parameters const &_param
 )
 {
 	return
@@ -461,7 +464,7 @@ sge::x11input::processor::create_keyboard(
 			x11input::keyboard::device
 		>(
 			this->device_parameters(
-				_id
+				_param
 			),
 			fcppt::ref(
 				*input_context_
@@ -471,7 +474,7 @@ sge::x11input::processor::create_keyboard(
 
 sge::x11input::mouse::device_ptr const
 sge::x11input::processor::create_mouse(
-	x11input::device::id const _id
+	x11input::create_parameters const &_param
 )
 {
 	return
@@ -479,14 +482,14 @@ sge::x11input::processor::create_mouse(
 			x11input::mouse::device
 		>(
 			this->device_parameters(
-				_id
+				_param
 			)
 		);
 }
 
 sge::x11input::cursor::object_ptr const
 sge::x11input::processor::create_cursor(
-	x11input::device::id const _id
+	x11input::create_parameters const &_param
 )
 {
 	return
@@ -494,7 +497,7 @@ sge::x11input::processor::create_cursor(
 			x11input::cursor::object
 		>(
 			this->device_parameters(
-				_id
+				_param
 			),
 			invisible_cursor_.get()
 		);
@@ -502,20 +505,19 @@ sge::x11input::processor::create_cursor(
 
 sge::x11input::joypad::device_ptr const
 sge::x11input::processor::create_joypad(
-	x11input::device::id const _id
+	x11input::create_parameters const &_param
 )
 {
 	return
 		joypad::is_usable(
-			x11_window_->display(),
-			_id
+			_param.info()
 		)
 		?
 			fcppt::make_shared_ptr<
 				x11input::joypad::device
 			>(
 				this->device_parameters(
-					_id
+					_param
 				)
 			)
 		:

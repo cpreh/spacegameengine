@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
+#include <sge/input/cursor/button_code_to_string.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/button_function.hpp>
@@ -30,8 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/demuxer_fwd.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
+#include <sge/input/cursor/discover_event.hpp>
+#include <sge/input/cursor/discover_event_fwd.hpp>
 #include <sge/input/cursor/discover_function.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
+#include <sge/input/cursor/manager.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event.hpp>
@@ -52,6 +56,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/relative_movement.hpp>
 #include <sge/input/cursor/relative_movement_fwd.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/cursor/remove_event.hpp>
+#include <sge/input/cursor/remove_event_fwd.hpp>
 #include <sge/input/cursor/remove_function.hpp>
 #include <sge/input/cursor/remove_signal.hpp>
 

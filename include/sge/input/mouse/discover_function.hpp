@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_DISCOVER_FUNCTION_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_DISCOVER_FUNCTION_HPP_INCLUDED
 
-#include <sge/input/mouse/device_ptr.hpp>
+#include <sge/input/mouse/discover_event_fwd.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace mouse
 typedef
 void
 discover_function(
-	mouse::device_ptr
+	mouse::discover_event const &
 );
 
 }

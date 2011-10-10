@@ -19,68 +19,62 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/mouse/collector.hpp>
-#include <sge/input/mouse/device.hpp>
-#include <sge/input/processor.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
+#include <sge/input/mouse/axis_callback.hpp>
+#include <sge/input/mouse/axis_event_fwd.hpp>
+#include <sge/input/mouse/axis_info_container.hpp>
+#include <sge/input/mouse/button_callback.hpp>
+#include <sge/input/mouse/button_event_fwd.hpp>
+#include <sge/input/mouse/button_info_container.hpp>
+#include <sge/input/mouse/device_ptr.hpp>
+#include <sge/input/mouse/discover_callback.hpp>
+#include <sge/input/mouse/info.hpp>
+#include <sge/input/mouse/remove_callback.hpp>
+#include <sge/input/info/name.hpp>
+#include <sge/input/processor_fwd.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/connection_manager.hpp>
-#include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::mouse::collector::collector(
-	input::processor_ptr const _processor
+	input::processor &_processor
 )
 :
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container
-		>(
-			fcppt::signal::shared_connection(
-				_processor->mouse_discover_callback(
-					std::tr1::bind(
-						&collector::discover_callback,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
+	manager_(
+		_processor,
+		mouse::discover_callback(),
+		mouse::remove_callback(),
+		std::tr1::bind(
+			&mouse::collector::axis_callback_internal,
+			this,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
+		),
+		std::tr1::bind(
+			&mouse::collector::button_callback_internal,
+			this,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
 		)
-		(
-			fcppt::signal::shared_connection(
-				_processor->mouse_remove_callback(
-					std::tr1::bind(
-						&collector::remove_callback,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
+	),
+	info_(
+		mouse::axis_info_container(
+			mouse::axis_info_container::vector()
+		),
+		mouse::button_info_container(
+			mouse::button_info_container::vector()
+		),
+		sge::input::info::name(
+			FCPPT_TEXT("mouse collector")
 		)
 	),
 	axis_signal_(),
-	button_signal_(),
-	devices_()
+	button_signal_()
 {
-	mouse::device_vector const devices(
-		_processor->mice()
-	);
-
-	for(
-		mouse::device_vector::const_iterator it(
-			devices.begin()
-		);
-		it != devices.end();
-		++it
-	)
-		discover_callback(
-			*it
-		);
 }
 FCPPT_PP_POP_WARNING
 
@@ -110,8 +104,16 @@ sge::input::mouse::collector::button_callback(
 		);
 }
 
+sge::input::mouse::info const &
+sge::input::mouse::collector::info() const
+{
+	return
+		info_;
+}
+
 void
 sge::input::mouse::collector::axis_callback_internal(
+	mouse::device_ptr,
 	mouse::axis_event const &_event
 )
 {
@@ -122,59 +124,11 @@ sge::input::mouse::collector::axis_callback_internal(
 
 void
 sge::input::mouse::collector::button_callback_internal(
+	mouse::device_ptr,
 	mouse::button_event const &_event
 )
 {
 	button_signal_(
 		_event
-	);
-}
-
-void
-sge::input::mouse::collector::discover_callback(
-	mouse::device_ptr const _device
-)
-{
-	fcppt::container::ptr::insert_unique_ptr_map(
-		devices_,
-		_device,
-		fcppt::make_unique_ptr<
-			fcppt::signal::connection_manager
-		>(
-			fcppt::assign::make_container<
-				fcppt::signal::connection_manager::container
-			>(
-				fcppt::signal::shared_connection(
-					_device->axis_callback(
-						std::tr1::bind(
-							&collector::axis_callback_internal,
-							this,
-							std::tr1::placeholders::_1
-						)
-					)
-				)
-			)
-			(
-				fcppt::signal::shared_connection(
-					_device->button_callback(
-						std::tr1::bind(
-							&collector::button_callback_internal,
-							this,
-							std::tr1::placeholders::_1
-						)
-					)
-				)
-			)
-		)
-	);
-}
-
-void
-sge::input::mouse::collector::remove_callback(
-	mouse::device_ptr const _device
-)
-{
-	devices_.erase(
-		_device
 	);
 }

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_CURSOR_MODIFIER_HPP_INCLUDED
 #define SGE_SYSTEMS_CURSOR_MODIFIER_HPP_INCLUDED
 
-#include <sge/input/cursor/object_ptr.hpp>
-#include <sge/input/processor_ptr.hpp>
+#include <sge/input/cursor/discover_event_fwd.hpp>
+#include <sge/input/processor_fwd.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -40,7 +40,7 @@ class cursor_modifier
 	);
 public:
 	explicit cursor_modifier(
-		sge::input::processor_ptr,
+		sge::input::processor &,
 		systems::cursor_option_field const &
 	);
 
@@ -48,7 +48,7 @@ public:
 private:
 	void
 	cursor_discover(
-		sge::input::cursor::object_ptr
+		sge::input::cursor::discover_event const &
 	);
 
 	systems::cursor_option_field const options_;

@@ -19,8 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/cursor/demuxer.hpp>
+#include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/no_object.hpp>
 #include <sge/input/cursor/object_vector.hpp>
+#include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/processor.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -33,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::cursor::demuxer::demuxer(
-	input::processor_ptr const _processor
+	input::processor &_processor
 )
 :
 	processor_connections_(
@@ -41,7 +43,7 @@ sge::input::cursor::demuxer::demuxer(
 			fcppt::signal::connection_manager::container
 		>(
 			fcppt::signal::shared_connection(
-				_processor->cursor_discover_callback(
+				_processor.cursor_discover_callback(
 					std::tr1::bind(
 						&cursor::demuxer::discover_callback,
 						this,
@@ -52,7 +54,7 @@ sge::input::cursor::demuxer::demuxer(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_processor->cursor_remove_callback(
+				_processor.cursor_remove_callback(
 					std::tr1::bind(
 						&cursor::demuxer::remove_callback,
 						this,
@@ -69,7 +71,7 @@ sge::input::cursor::demuxer::demuxer(
 	current_cursor_()
 {
 	cursor::object_vector const cursors(
-		_processor->cursors()
+		_processor.cursors()
 	);
 
 	for(
@@ -80,7 +82,9 @@ sge::input::cursor::demuxer::demuxer(
 		++it
 	)
 		this->discover_callback(
-			*it
+			cursor::discover_event(
+				*it
+			)
 		);
 }
 FCPPT_PP_POP_WARNING
@@ -115,9 +119,9 @@ sge::input::cursor::position const
 sge::input::cursor::demuxer::position() const
 {
 	return
-		current_cursor()
+		this->current_cursor()
 		?
-			current_cursor()->position()
+			this->current_cursor()->position()
 		:
 			throw sge::input::cursor::no_object();
 }
@@ -128,10 +132,10 @@ sge::input::cursor::demuxer::mode(
 )
 {
 	if(
-		current_cursor()
+		this->current_cursor()
 	)
 
-		current_cursor()->mode(
+		this->current_cursor()->mode(
 			_mode
 		);
 	else
@@ -166,28 +170,28 @@ sge::input::cursor::demuxer::move_callback_internal(
 
 void
 sge::input::cursor::demuxer::discover_callback(
-	cursor::object_ptr const _object
+	cursor::discover_event const &_event
 )
 {
 	cursors_.insert(
-		_object
+		_event.object()
 	);
 
 	if(
 		!current_cursor_
 	)
 		this->assign_cursor(
-			_object
+			_event.object()
 		);
 }
 
 void
 sge::input::cursor::demuxer::remove_callback(
-	cursor::object_ptr const _object
+	cursor::remove_event const &_event
 )
 {
 	if(
-		current_cursor_ != _object
+		current_cursor_ != _event.object()
 	)
 		return;
 

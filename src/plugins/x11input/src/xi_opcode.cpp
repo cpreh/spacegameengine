@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../xi_opcode.hpp"
+#include <sge/x11input/xi_opcode.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/optional_impl.hpp>

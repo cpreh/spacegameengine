@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../scoped_locale.hpp"
-#include "../setlocale.hpp"
+#include <sge/x11input/scoped_locale.hpp>
+#include <sge/x11input/setlocale.hpp>
 
 sge::x11input::scoped_locale::scoped_locale(
 	std::string const &_name

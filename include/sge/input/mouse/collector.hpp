@@ -22,23 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_MOUSE_COLLECTOR_HPP_INCLUDED
 
 #include <sge/input/mouse/collector_fwd.hpp>
+#include <sge/input/mouse/axis_callback.hpp>
+#include <sge/input/mouse/axis_event_fwd.hpp>
+#include <sge/input/mouse/axis_signal.hpp>
+#include <sge/input/mouse/button_callback.hpp>
+#include <sge/input/mouse/button_event_fwd.hpp>
+#include <sge/input/mouse/button_signal.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/device_ptr.hpp>
-#include <sge/input/mouse/axis_function.hpp>
-#include <sge/input/mouse/button_function.hpp>
-#include <sge/input/mouse/axis_callback.hpp>
-#include <sge/input/mouse/button_callback.hpp>
-#include <sge/input/mouse/axis_event_fwd.hpp>
-#include <sge/input/mouse/button_event_fwd.hpp>
-#include <sge/input/processor_ptr.hpp>
+#include <sge/input/mouse/info.hpp>
+#include <sge/input/mouse/manager.hpp>
+#include <sge/input/processor_fwd.hpp>
 #include <sge/input/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
@@ -57,7 +55,7 @@ class collector
 public:
 	SGE_INPUT_SYMBOL
 	explicit collector(
-		input::processor_ptr
+		input::processor &
 	);
 
 	SGE_INPUT_SYMBOL
@@ -74,47 +72,30 @@ public:
 	button_callback(
 		mouse::button_callback const &
 	);
+
+	SGE_INPUT_SYMBOL
+	input::mouse::info const &
+	info() const;
 private:
 	void
 	axis_callback_internal(
+		mouse::device_ptr,
 		mouse::axis_event const &
 	);
 
 	void
 	button_callback_internal(
+		mouse::device_ptr,
 		mouse::button_event const &
 	);
 
-	void
-	discover_callback(
-		mouse::device_ptr
-	);
+	mouse::manager manager_;
 
-	void
-	remove_callback(
-		mouse::device_ptr
-	);
+	mouse::info info_;
 
-	typedef fcppt::signal::object<
-		mouse::axis_function
-	> axis_signal;
+	mouse::axis_signal axis_signal_;
 
-	typedef fcppt::signal::object<
-		mouse::button_function
-	> button_signal;
-
-	typedef boost::ptr_map<
-		mouse::device_ptr,
-		fcppt::signal::connection_manager
-	> mouse_map;
-
-	fcppt::signal::connection_manager const connections_;
-
-	axis_signal axis_signal_;
-
-	button_signal button_signal_;
-
-	mouse_map devices_;
+	mouse::button_signal button_signal_;
 };
 
 }

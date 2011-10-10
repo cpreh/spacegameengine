@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_DISCOVER_FUNCTION_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_DISCOVER_FUNCTION_HPP_INCLUDED
 
-#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/discover_event_fwd.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace cursor
 typedef
 void
 discover_function(
-	cursor::object_ptr
+	cursor::discover_event const &
 );
 
 }
