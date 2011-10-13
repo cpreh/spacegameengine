@@ -29,9 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/opencl/device/object_fwd.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
+#include <sge/opencl/context/optional_error_callback.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/thread/mutex.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
@@ -44,13 +48,17 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_OPENCL_SYMBOL explicit
 	single_device_system(
-		opencl::optional_renderer const &);
+		opencl::optional_renderer const &,
+		opencl::context::optional_error_callback const &);
 
 	SGE_OPENCL_SYMBOL opencl::system &
 	system();
 
 	SGE_OPENCL_SYMBOL opencl::system const &
 	system() const;
+
+	SGE_OPENCL_SYMBOL void
+	update();
 
 	SGE_OPENCL_SYMBOL platform::object &
 	platform();
@@ -84,6 +92,11 @@ private:
 	device::object *device_;
 	fcppt::scoped_ptr<context::object> context_;
 	fcppt::scoped_ptr<command_queue::object> queue_;
+	boost::mutex error_mutex_;
+	bool error_occured_;
+	opencl::error_information_string error_information_;
+	opencl::binary_error_data error_data_;
+	context::optional_error_callback const error_callback_;
 
 	void
 	error_callback(
