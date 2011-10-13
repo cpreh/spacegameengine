@@ -90,8 +90,6 @@ sge::opencl::handle_error(
 {
 	if(error_code != CL_SUCCESS)
 	{
-		fcppt::io::cerr() << FCPPT_TEXT("Function ") << function_name << FCPPT_TEXT(" failed\n");
-		/*
 		throw
 			sge::exception(
 				FCPPT_TEXT("Function ")+
@@ -99,6 +97,5 @@ sge::opencl::handle_error(
 				FCPPT_TEXT(": ")+
 				error_code_to_string(
 					error_code));
-					*/
 	}
 }

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../pixmap.hpp"
+#include <sge/x11input/pixmap.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <sge/input/exception.hpp>

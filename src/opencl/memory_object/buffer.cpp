@@ -20,16 +20,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "to_opencl_mem_flags.hpp"
 #include "../handle_error.hpp"
+#include "renderer_buffer_lock_mode_to_cl_mem_flags.hpp"
 #include <sge/opencl/memory_object/buffer.hpp>
 #include <sge/opencl/context/object.hpp>
+#include <sge/renderer/opengl/buffer/base.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl_gl.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::opencl::memory_object::buffer::buffer(
 	opencl::context::object &_context,
 	memory_object::flags_field const &_flags,
 	memory_object::byte_size const &_byte_size)
 :
-	impl_(0)
+	impl_(0),
+	byte_size_(
+		_byte_size.get())
 {
 	cl_int error_code;
 	impl_ = 
@@ -46,10 +55,42 @@ sge::opencl::memory_object::buffer::buffer(
 		FCPPT_TEXT("clCreateBuffer"));
 }
 
+sge::opencl::memory_object::buffer::buffer(
+	context::object &_context,
+	sge::renderer::vertex_buffer &_vb,
+	memory_object::renderer_buffer_lock_mode::type const _lock_mode)
+:
+	impl_(0),
+	byte_size_(
+		static_cast<byte_size::value_type>(
+			_vb.size() * _vb.format_part().stride()))
+{
+	cl_int error_code;
+
+	impl_ =
+		clCreateFromGLBuffer(
+			_context.impl(),
+			memory_object::renderer_buffer_lock_mode_to_cl_mem_flags(
+				_lock_mode),
+			dynamic_cast<sge::renderer::opengl::buffer::base &>(
+				_vb).id().get(),
+			&error_code);
+
+	opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clCreateFromGLBuffer"));
+}
+
 cl_mem
 sge::opencl::memory_object::buffer::impl()
 {
 	return impl_;
+}
+
+sge::opencl::memory_object::byte_size::value_type
+sge::opencl::memory_object::buffer::byte_size() const
+{
+	return byte_size_;
 }
 
 sge::opencl::memory_object::buffer::~buffer()

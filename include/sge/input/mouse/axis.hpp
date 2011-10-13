@@ -21,6 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_AXIS_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_AXIS_HPP_INCLUDED
 
+#include <sge/input/mouse/axis_fwd.hpp>
+#include <sge/input/mouse/axis_id.hpp>
+#include <sge/input/mouse/axis_code.hpp>
+#include <sge/input/symbol.hpp>
+
 namespace sge
 {
 namespace input
@@ -28,16 +33,27 @@ namespace input
 namespace mouse
 {
 
-namespace axis
+class axis
 {
-enum type
-{
-	x,
-	y,
-	wheel,
-	unknown
+public:
+	SGE_INPUT_SYMBOL
+	axis(
+		mouse::axis_code::type,
+		mouse::axis_id
+	);
+
+	SGE_INPUT_SYMBOL
+	mouse::axis_code::type
+	code() const;
+
+	SGE_INPUT_SYMBOL
+	mouse::axis_id const
+	id() const;
+private:
+	mouse::axis_code::type code_;
+
+	mouse::axis_id id_;
 };
-}
 
 }
 }

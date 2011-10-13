@@ -81,8 +81,9 @@ try
 		<< FCPPT_TEXT("Creating opencl system\n");
 
 	// Mind the extra parens
-	sge::opencl::single_device_system opencl_system((
-		sge::opencl::optional_renderer()));
+	sge::opencl::single_device_system opencl_system(
+		(sge::opencl::optional_renderer()),
+		(sge::opencl::context::optional_error_callback()));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, creating planar image\n");
@@ -95,7 +96,7 @@ try
 
 	sge::opencl::memory_object::image::planar image(
 		opencl_system.context(),
-		sge::opencl::memory_object::flags_field(sge::opencl::memory_object::flags::read) | sge::opencl::memory_object::flags::read,
+		sge::opencl::memory_object::flags_field(sge::opencl::memory_object::flags::read) | sge::opencl::memory_object::flags::write,
 		image_format,
 		sge::opencl::memory_object::dim2(
 			image_size,
@@ -171,6 +172,8 @@ try
 		sge::image2d::view::to_const(
 			scoped_image.view()))->save(
 		target_file_name);
+
+	opencl_system.update();
 }
 catch(
 	fcppt::exception const &_error

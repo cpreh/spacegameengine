@@ -19,25 +19,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/mouse/axis.hpp>
+#include <sge/input/mouse/axis_code.hpp>
+#include <sge/input/mouse/axis_value.hpp>
 
 sge::input::mouse::axis_event::axis_event(
-	mouse::axis::type const _axis,
-	mouse::axis_value const _axis_value
+	mouse::axis const &_axis,
+	mouse::axis_value const _value
 )
 :
 	axis_(_axis),
-	axis_value_(_axis_value)
+	value_(_value)
 {
 }
 
-sge::input::mouse::axis::type
+sge::input::mouse::axis const &
 sge::input::mouse::axis_event::axis() const
 {
 	return axis_;
 }
 
-sge::input::mouse::axis_value
-sge::input::mouse::axis_event::axis_value() const
+sge::input::mouse::axis_code::type
+sge::input::mouse::axis_event::code() const
 {
-	return axis_value_;
+	return axis_.code();
+}
+
+sge::input::mouse::axis_value
+sge::input::mouse::axis_event::value() const
+{
+	return value_;
 }

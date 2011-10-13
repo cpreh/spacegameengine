@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_MOUSE_AXIS_CODE_HPP_INCLUDED
 
 #include "../di.hpp"
-#include <sge/input/mouse/axis.hpp>
+#include <sge/input/mouse/axis_code.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace dinput
 namespace mouse
 {
 
-sge::input::mouse::axis::type
+sge::input::mouse::axis_code::type
 axis_code(
 	DWORD
 );

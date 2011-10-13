@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "cursor_modifier.hpp"
+#include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/processor.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -30,13 +31,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::systems::cursor_modifier::cursor_modifier(
-	sge::input::processor_ptr const _processor,
+	sge::input::processor &_processor,
 	systems::cursor_option_field const &_options
 )
 :
 	options_(_options),
 	connection_(
-		_processor->cursor_discover_callback(
+		_processor.cursor_discover_callback(
 			std::tr1::bind(
 				&systems::cursor_modifier::cursor_discover,
 				this,
@@ -45,8 +46,9 @@ sge::systems::cursor_modifier::cursor_modifier(
 		)
 	)
 {
+	// TODO: simplify this!
 	input::cursor::object_vector const cursors(
-		_processor->cursors()
+		_processor.cursors()
 	);
 
 	for(
@@ -57,7 +59,9 @@ sge::systems::cursor_modifier::cursor_modifier(
 		++it
 	)
 		this->cursor_discover(
-			*it
+			input::cursor::discover_event(
+				*it
+			)
 		);
 }
 FCPPT_PP_POP_WARNING
@@ -68,13 +72,13 @@ sge::systems::cursor_modifier::~cursor_modifier()
 
 void
 sge::systems::cursor_modifier::cursor_discover(
-	sge::input::cursor::object_ptr const _cursor
+	sge::input::cursor::discover_event const &_event
 )
 {
 	if(
 		options_ & systems::cursor_option::exclusive
 	)
-		_cursor->mode(
+		_event.object()->mode(
 			sge::input::cursor::mode::exclusive
 		);
 }

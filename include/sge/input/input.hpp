@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/cursor.hpp>
 #include <sge/input/exception.hpp>
+#include <sge/input/info/info.hpp>
 #include <sge/input/joypad/joypad.hpp>
 #include <sge/input/keyboard/keyboard.hpp>
 #include <sge/input/mouse/mouse.hpp>

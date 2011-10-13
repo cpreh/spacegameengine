@@ -6,14 +6,14 @@ varying vec2 varying_texcoord;
 varying vec3 varying_vertex_position;
 varying vec3 varying_light_position;
 
-void 
+void
 main()
 {
-	vec3 normal_coord = 
+	vec3 normal_coord =
 		vec3(0.0,0.0,1.0);
 
 	if (enabled == 1)
-		normal_coord = 
+		normal_coord =
 			normalize(
 			vec3(
 				texture2D(
@@ -24,21 +24,21 @@ main()
 		normalize(
 			camera - varying_vertex_position);
 
-	vec3 pos_to_light = 
+	vec3 pos_to_light =
 		normalize(
 			varying_vertex_position - varying_light_position);
 
-	float angle = 
+	float angle =
 		clamp(
 			dot(
 				normalize(
-					normal_coord), 
+					normal_coord),
 				pos_to_light
 				),
 			0.0,
 			1.0);
 
-	float diffuse_term = 
+	float diffuse_term =
 		angle;
 
 	float spec_exponent = 50;
@@ -50,10 +50,10 @@ main()
 			pow(max(0.0, dot(reflect(eye_to_pos, normal_coord), pos_to_light)), spec_exponent));
 
 	// Calculating The Final Color
-	gl_FragColor = 
+	gl_FragColor =
 		texture2D(
 			color_texture,
 			varying_texcoord)
-			* max(0.02,diffuse_term)
+			* max(0.1,diffuse_term)
 		+ specular_term;
 }

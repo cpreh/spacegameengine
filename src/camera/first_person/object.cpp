@@ -151,14 +151,14 @@ sge::camera::first_person::object::mouse_axis_callback(
 		return;
 
 	renderer::scalar const angle =
-		static_cast<renderer::scalar>(k.axis_value())/rotation_speed_;
+		static_cast<renderer::scalar>(k.value())/rotation_speed_;
 
-	switch (k.axis())
+	switch (k.code())
 	{
 		// What's the use...
-		case input::mouse::axis::unknown:
+		case input::mouse::axis_code::unknown:
 			break;
-		case input::mouse::axis::x:
+		case input::mouse::axis_code::x:
 		{
 		using fcppt::math::matrix::rotation_axis;
 		using fcppt::math::vector::narrow_cast;
@@ -191,7 +191,7 @@ sge::camera::first_person::object::mouse_axis_callback(
 			.right(normalize(right));
 		}
 		break;
-		case input::mouse::axis::y:
+		case input::mouse::axis_code::y:
 		{
 			using fcppt::math::matrix::rotation_axis;
 			using fcppt::math::vector::narrow_cast;
@@ -235,7 +235,7 @@ sge::camera::first_person::object::mouse_axis_callback(
 				.right(normalize(right));
 		}
 		break;
-		case input::mouse::axis::wheel:
+		case input::mouse::axis_code::wheel:
 		break;
 	}
 }

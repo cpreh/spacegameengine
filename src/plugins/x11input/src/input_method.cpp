@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../input_method.hpp"
+#include <sge/x11input/input_method.hpp>
 #include <sge/input/exception.hpp>
 #include <awl/backends/x11/window/class_hint.hpp>
 #include <awl/backends/x11/display.hpp>

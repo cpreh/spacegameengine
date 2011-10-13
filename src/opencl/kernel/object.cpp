@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../handle_error.hpp"
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/exception.hpp>
-#include <sge/opencl/memory_object/vertex_buffer.hpp>
 #include <sge/opencl/program/object.hpp>
+#include <sge/opencl/memory_object/base.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
@@ -88,7 +88,7 @@ sge::opencl::kernel::object::argument(
 
 	opencl::handle_error(
 		error_code,
-		FCPPT_TEXT("clSetKernelArg"));
+		FCPPT_TEXT("clSetKernelArg(memory object)"));
 }
 
 namespace
@@ -135,7 +135,7 @@ public:
 			throw sge::exception(FCPPT_TEXT("clSetKernelArg returned CL_INVALID_ARG_SIZE. This could mean that you mixed up the ordering of the kernel's arguments."));
 		sge::opencl::handle_error(
 			error_code,
-			FCPPT_TEXT("clSetKernelArg"));
+			FCPPT_TEXT("clSetKernelArg(numeric type)"));
 	}
 private:
 	cl_kernel const &kernel_;
@@ -153,6 +153,25 @@ sge::opencl::kernel::object::argument(
 			kernel_,
 			index),
 		o);
+}
+
+void
+sge::opencl::kernel::object::argument(
+	kernel::argument_index const &index,
+	unsigned char const * const _data,
+	memory_object::byte_size const &_bytes)
+{
+	cl_int const error_code =
+		clSetKernelArg(
+			kernel_,
+			static_cast<cl_uint>(
+				index.get()),
+			_bytes.get(),
+			_data);
+
+	opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clSetKernelArg(arbitrary data)"));
 }
 
 sge::opencl::kernel::object::~object()

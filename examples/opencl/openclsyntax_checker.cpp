@@ -83,8 +83,9 @@ try
 			argv[1]));
 
 	// Mind the extra parens
-	sge::opencl::single_device_system opencl_system((
-		sge::opencl::optional_renderer()));
+	sge::opencl::single_device_system opencl_system(
+		(sge::opencl::optional_renderer()),
+		(sge::opencl::context::optional_error_callback()));
 
 	sge::opencl::program::object main_program(
 		opencl_system.context(),
@@ -112,19 +113,19 @@ try
 			boost::is_any_of(FCPPT_TEXT("\n")));
 
 		boost::xpressive::basic_regex<fcppt::string::const_iterator> broken_error_indicator_regex =
-			boost::xpressive::bos >> 
-			FCPPT_TEXT(':') >> 
-			+boost::xpressive::_d >> 
-			FCPPT_TEXT(':') >> 
-			+boost::xpressive::_d >> 
+			boost::xpressive::bos >>
+			FCPPT_TEXT(':') >>
+			+boost::xpressive::_d >>
+			FCPPT_TEXT(':') >>
+			+boost::xpressive::_d >>
 			FCPPT_TEXT(':');
 
 		boost::xpressive::basic_regex<fcppt::string::const_iterator> builtin_error_string =
-			boost::xpressive::bos >> 
-			FCPPT_TEXT("<built-in>:") >> 
-			+boost::xpressive::_d >> 
-			FCPPT_TEXT(':') >> 
-			+boost::xpressive::_d >> 
+			boost::xpressive::bos >>
+			FCPPT_TEXT("<built-in>:") >>
+			+boost::xpressive::_d >>
+			FCPPT_TEXT(':') >>
+			+boost::xpressive::_d >>
 			FCPPT_TEXT(':');
 
 		for(line_sequence::const_iterator it = lines.begin(); it != lines.end(); ++it)
@@ -136,8 +137,8 @@ try
 			}
 			else if(boost::xpressive::regex_search(*it,what,builtin_error_string))
 			{
-				fcppt::io::cerr() 
-					<<  
+				fcppt::io::cerr()
+					<<
 						boost::xpressive::regex_replace(
 							*it,
 							builtin_error_string,
@@ -151,6 +152,8 @@ try
 		}
 		return EXIT_FAILURE;
 	}
+
+	opencl_system.update();
 }
 catch(
 	fcppt::exception const &_error)

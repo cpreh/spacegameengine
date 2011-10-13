@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/memory_object/image/format_output.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
-#include <sge/opencl/memory_object/vertex_buffer.hpp>
+#include <sge/opencl/memory_object/buffer.hpp>
 #include <sge/opencl/memory_object/base_ref_sequence.hpp>
 #include <sge/opencl/memory_object/scoped_objects.hpp>
 #include <sge/opencl/clinclude.hpp>
@@ -434,7 +434,7 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, now creating OpenCL buffer from it\n");
 
-	sge::opencl::memory_object::vertex_buffer cl_vb(
+	sge::opencl::memory_object::buffer cl_vb(
 		main_context,
 		*vb,
 		sge::opencl::memory_object::renderer_buffer_lock_mode::write_only);
