@@ -17,6 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/pi.hpp>

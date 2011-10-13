@@ -18,15 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_CONTEXT_CONTEXT_HPP_INCLUDED
-#define SGE_OPENCL_CONTEXT_CONTEXT_HPP_INCLUDED
+#ifndef SGE_CAMERA_SPHERICAL_SPHERICAL_HPP_INCLUDED
+#define SGE_CAMERA_SPHERICAL_SPHERICAL_HPP_INCLUDED
 
-#include <sge/opencl/context/error_callback.hpp>
-#include <sge/opencl/context/error_callback_type.hpp>
-#include <sge/opencl/context/object.hpp>
-#include <sge/opencl/context/object_fwd.hpp>
-#include <sge/opencl/context/optional_error_callback.hpp>
-#include <sge/opencl/context/parameters.hpp>
-#include <sge/opencl/context/parameters_fwd.hpp>
+#include <sge/camera/spherical/movement_speed.hpp>
+#include <sge/camera/spherical/object.hpp>
+#include <sge/camera/spherical/object_fwd.hpp>
+#include <sge/camera/spherical/parameters.hpp>
+#include <sge/camera/spherical/parameters_fwd.hpp>
 
 #endif
