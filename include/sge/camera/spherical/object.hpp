@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_SPHERICAL_OBJECT_HPP_INCLUDED
 #define SGE_CAMERA_SPHERICAL_OBJECT_HPP_INCLUDED
 
-#include <sge/camera/spherical/movement_speed.hpp>
-#include <sge/camera/spherical/parameters_fwd.hpp>
 #include <sge/camera/base.hpp>
-#include <sge/camera/projection/object.hpp>
-#include <sge/camera/gizmo_type.hpp>
-#include <sge/camera/symbol.hpp>
 #include <sge/camera/duration.hpp>
+#include <sge/camera/spherical/movement_speed.hpp>
+#include <sge/camera/spherical/object_fwd.hpp>
+#include <sge/camera/spherical/parameters_fwd.hpp>
+#include <sge/camera/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -80,7 +79,10 @@ private:
 	fcppt::signal::scoped_connection keyboard_connection_;
 	sge::renderer::scalar const movement_speed_;
 	sge::renderer::scalar const min_radius_;
+	sge::renderer::scalar const acceleration_factor_;
+	sge::renderer::scalar const damping_;
 	sge::renderer::vector3 dirs_;
+	sge::renderer::vector3 acc_;
 	sge::renderer::scalar radius_;
 	// radius, elevation theta in [-pi,pi], azimuth phi in [0,2pi)
 	sge::renderer::vector2 angles_;

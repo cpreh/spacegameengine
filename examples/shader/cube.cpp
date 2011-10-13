@@ -910,11 +910,13 @@ try
 			// Movement speed.
 			sge::camera::spherical::movement_speed(
 				2.0f),
-			//min_radius
+			// min_radius
 			0.5f,
-			//initial radius
-			3.f,
-			sys.keyboard_collector()));
+			sys.keyboard_collector())
+			.radius(
+				3.f)
+			.damping(
+				0.97f));
 
 	// Adapt the camera to the viewport
 	fcppt::signal::scoped_connection const viewport_connection(

@@ -17,20 +17,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include <fcppt/math/vector/output.hpp>
-
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/math/clamp.hpp>
-#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/pi.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/cross.hpp>
-#include <fcppt/math/vector/normalize.hpp>
-#include <fcppt/math/matrix/vector.hpp>
-#include <fcppt/math/matrix/rotation_x.hpp>
-#include <fcppt/math/matrix/rotation_y.hpp>
-#include <fcppt/math/matrix/transpose.hpp>
-#include <fcppt/math/pi.hpp>
 #include <fcppt/math/vector/hypersphere_to_cartesian.hpp>
+#include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -40,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
@@ -72,7 +64,13 @@ sge::camera::spherical::object::object(
 		params.movement_speed()),
 	min_radius_(
 		params.min_radius()),
+	acceleration_factor_(
+		params.acceleration_factor()),
+	damping_(
+		params.damping()),
 	dirs_(
+		sge::renderer::vector3::null()),
+	acc_(
 		sge::renderer::vector3::null()),
 	radius_(
 		params.radius()),
@@ -94,6 +92,8 @@ void
 sge::camera::spherical::object::update(
 	sge::camera::duration const &d)
 {
+	dirs_ += acceleration_factor_ * acc_;
+	dirs_ *= damping_;
 	sge::renderer::scalar pi = fcppt::math::pi<sge::renderer::scalar>();
 	radius_ = std::max(
 		radius_ + dirs_[0] * movement_speed_ * d.count(),
@@ -107,9 +107,6 @@ sge::camera::spherical::object::update(
 				angles_[1] + dirs_[2] * movement_speed_ * d.count()
 	);
 
-	using fcppt::math::matrix::rotation_y;
-	using fcppt::math::matrix::rotation_x;
-	using fcppt::math::vector::narrow_cast;
 	using fcppt::math::vector::normalize;
 	using fcppt::math::vector::cross;
 
@@ -157,24 +154,24 @@ sge::camera::spherical::object::key_callback(
 	{
 		// radius
 		case input::keyboard::key_code::space:
-			dirs_[0] = !k.pressed() ? 0.f : 1.f;
+			acc_[0] = !k.pressed() ? 0.f : 1.f;
 			break;
 		case input::keyboard::key_code::lctrl:
-			dirs_[0] = !k.pressed() ? 0.f : -1.f;
+			acc_[0] = !k.pressed() ? 0.f : -1.f;
 			break;
 		// theta
 		case input::keyboard::key_code::w:
-			dirs_[1] = !k.pressed() ? 0.f : -1.f;
+			acc_[1] = !k.pressed() ? 0.f : -1.f;
 			break;
 		case input::keyboard::key_code::s:
-			dirs_[1] = !k.pressed() ? 0.f : 1.f;
+			acc_[1] = !k.pressed() ? 0.f : 1.f;
 			break;
 		// phi
 		case input::keyboard::key_code::a:
-			dirs_[2] = !k.pressed() ? 0.f : 1.f;
+			acc_[2] = !k.pressed() ? 0.f : 1.f;
 			break;
 		case input::keyboard::key_code::d:
-			dirs_[2] = !k.pressed() ? 0.f : -1.f;
+			acc_[2] = !k.pressed() ? 0.f : -1.f;
 			break;
 		default:
 			break;

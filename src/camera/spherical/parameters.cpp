@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::camera::spherical::parameters::parameters(
 	spherical::movement_speed const &_movement_speed,
 	renderer::scalar const _min_radius,
-	renderer::scalar _radius,
 	input::keyboard::device &_keyboard)
 :
 	projection_(
@@ -38,8 +37,12 @@ sge::camera::spherical::parameters::parameters(
 		_movement_speed.get()),
 	min_radius_(
 		_min_radius),
+	acceleration_factor_(
+		0.1f),
+	damping_(
+		0.95f),
 	radius_(
-		_radius),
+		1.f),
 	gizmo_(
 		camera::identity_gizmo()),
 	keyboard_(
@@ -79,6 +82,36 @@ sge::camera::spherical::parameters::active(
 		*this;
 }
 
+sge::camera::spherical::parameters &
+sge::camera::spherical::parameters::radius(
+	sge::renderer::scalar const _radius)
+{
+	radius_ =
+		_radius;
+	return
+		*this;
+}
+
+sge::camera::spherical::parameters &
+sge::camera::spherical::parameters::acceleration_factor(
+	sge::renderer::scalar const _acceleration_factor)
+{
+	acceleration_factor_ =
+		_acceleration_factor;
+	return
+		*this;
+}
+
+sge::camera::spherical::parameters &
+sge::camera::spherical::parameters::damping(
+	sge::renderer::scalar const _damping)
+{
+	damping_ =
+		_damping;
+	return
+		*this;
+}
+
 sge::camera::projection::object const &
 sge::camera::spherical::parameters::projection() const
 {
@@ -101,6 +134,18 @@ sge::renderer::scalar
 sge::camera::spherical::parameters::radius() const
 {
 	return radius_;
+}
+
+sge::renderer::scalar
+sge::camera::spherical::parameters::acceleration_factor() const
+{
+	return acceleration_factor_;
+}
+
+sge::renderer::scalar
+sge::camera::spherical::parameters::damping() const
+{
+	return damping_;
 }
 
 sge::camera::gizmo_type const &

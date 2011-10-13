@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/spherical/movement_speed.hpp>
 #include <sge/camera/gizmo_type.hpp>
 #include <sge/camera/projection/object.hpp>
-#include <sge/input/keyboard/device.hpp>
+#include <sge/camera/spherical/parameters_fwd.hpp>
+#include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 
 namespace sge
@@ -42,7 +43,6 @@ public:
 	parameters(
 		sge::camera::spherical::movement_speed const &,
 		sge::renderer::scalar const,
-		sge::renderer::scalar,
 		sge::input::keyboard::device &);
 
 	SGE_CAMERA_SYMBOL spherical::parameters &
@@ -56,6 +56,18 @@ public:
 	SGE_CAMERA_SYMBOL spherical::parameters &
 	active(
 		bool);
+
+	SGE_CAMERA_SYMBOL spherical::parameters &
+	radius(
+		sge::renderer::scalar);
+
+	SGE_CAMERA_SYMBOL spherical::parameters &
+	acceleration_factor(
+		sge::renderer::scalar);
+
+	SGE_CAMERA_SYMBOL spherical::parameters &
+	damping(
+		sge::renderer::scalar);
 
 	SGE_CAMERA_SYMBOL
 	sge::camera::projection::object const &
@@ -74,6 +86,14 @@ public:
 	radius() const;
 
 	SGE_CAMERA_SYMBOL
+	sge::renderer::scalar
+	acceleration_factor() const;
+
+	SGE_CAMERA_SYMBOL
+	sge::renderer::scalar
+	damping() const;
+
+	SGE_CAMERA_SYMBOL
 	sge::camera::gizmo_type const &
 	gizmo() const;
 
@@ -87,6 +107,8 @@ private:
 	sge::camera::projection::object projection_;
 	sge::renderer::scalar const movement_speed_;
 	sge::renderer::scalar const min_radius_;
+	sge::renderer::scalar acceleration_factor_;
+	sge::renderer::scalar damping_;
 	sge::renderer::scalar radius_;
 	sge::camera::gizmo_type gizmo_;
 	sge::input::keyboard::device &keyboard_;
