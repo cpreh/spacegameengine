@@ -32,8 +32,12 @@ sge::d3d9::state::set_render_state_bool(
 	d3d9::devicefuncs::set_render_state(
 		_device,
 		_state,
-		d3d9::convert::bool_(
-			_value
+		static_cast<
+			DWORD
+		>(
+			d3d9::convert::bool_(
+				_value
+			)
 		)
 	);
 }

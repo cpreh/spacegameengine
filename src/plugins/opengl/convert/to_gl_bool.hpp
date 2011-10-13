@@ -18,55 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../multi_sample_context.hpp"
-#include "../context/make_id.hpp"
-#include "../glew/is_supported.hpp"
+#ifndef SGE_OPENGL_CONVERT_TO_GL_BOOL_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_TO_GL_BOOL_HPP_INCLUDED
 
-sge::opengl::multi_sample_context::multi_sample_context()
-:
-	is_native_(
-		sge::opengl::glew::is_supported("GL_VERSION_1_3")
-	),
-	is_arb_(
-		sge::opengl::glew::is_supported("GL_ARB_multisample")
-	),
-	flag_(
-		static_cast<
-			GLenum
-		>(
-			is_native_
-			?
-				GL_MULTISAMPLE
-			:
-				is_arb_
-				?
-					GL_MULTISAMPLE_ARB
-				:
-					0
-		)
-	)
+#include "../common.hpp"
+
+namespace sge
 {
-}
-
-sge::opengl::multi_sample_context::~multi_sample_context()
+namespace opengl
 {
-}
-
-bool
-sge::opengl::multi_sample_context::is_supported() const
+namespace convert
 {
-	return
-		is_native_
-		|| is_arb_;
-}
 
-GLenum
-sge::opengl::multi_sample_context::flag() const
-{
-	return flag_;
-}
-
-sge::opengl::context::id const
-sge::opengl::multi_sample_context::static_id(
-	sge::opengl::context::make_id()
+GLboolean
+to_gl_bool(
+	bool
 );
+
+}
+}
+}
+
+#endif

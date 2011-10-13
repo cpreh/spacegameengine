@@ -19,6 +19,7 @@ SET(
 	include/sge/opencl/context/error_callback_type.hpp
 	include/sge/opencl/context/object.hpp
 	include/sge/opencl/context/object_fwd.hpp
+	include/sge/opencl/context/optional_error_callback.hpp
 	include/sge/opencl/context/parameters.hpp
 	include/sge/opencl/context/parameters_fwd.hpp
 	include/sge/opencl/device/device.hpp

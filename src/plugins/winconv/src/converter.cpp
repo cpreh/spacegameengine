@@ -54,10 +54,10 @@ sge::winconv::converter::convert(
 	charconv::output_range &_output)
 {
 	// Let the system resize the output until we've got double the input size
-	if(_output.size() < static_cast<charconv::output_range::size_type>(2*_input.size()))
+	if(_output.size() < (static_cast<charconv::output_range::difference_type>(2)*_input.size()))
 		return sge::charconv::conversion_status::output_too_small;
 
-	if (_input.size() % static_cast<charconv::output_range::size_type>(2) != 0)
+	if (_input.size() % static_cast<charconv::output_range::difference_type>(2) != 0)
 		return sge::charconv::conversion_status::invalid_input;
 
 	while(_input.begin() != _input.end())

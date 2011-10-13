@@ -32,26 +32,34 @@ sge::opengl::point_sprite_context::point_sprite_context()
 		glew::is_supported("GL_ARB_point_sprite")
 	),
 	point_sprite_flag_(
-		is_native_
-		?
-			GL_POINT_SPRITE
-		:
-			is_arb_
+		static_cast<
+			GLenum
+		>(
+			is_native_
 			?
-				GL_POINT_SPRITE_ARB
+				GL_POINT_SPRITE
 			:
-				0
+				is_arb_
+				?
+					GL_POINT_SPRITE_ARB
+				:
+					0
+		)
 	),
 	vertex_shader_size_flag_(
-		is_native_
-		?
-			GL_VERTEX_PROGRAM_POINT_SIZE
-		:
-			is_arb_
+		static_cast<
+			GLenum
+		>(
+			is_native_
 			?
-				GL_VERTEX_PROGRAM_POINT_SIZE_ARB
+				GL_VERTEX_PROGRAM_POINT_SIZE
 			:
-				0
+				is_arb_
+				?
+					GL_VERTEX_PROGRAM_POINT_SIZE_ARB
+				:
+					0
+		)
 	)
 {
 }

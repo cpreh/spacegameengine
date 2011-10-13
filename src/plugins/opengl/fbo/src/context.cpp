@@ -142,66 +142,90 @@ sge::opengl::fbo::context::context()
 				0
 	),
 	framebuffer_target_(
-		has_native_
-		?
-			GL_FRAMEBUFFER
-		:
-			has_ext_
+		static_cast<
+			GLenum
+		>(
+			has_native_
 			?
-				GL_FRAMEBUFFER_EXT
+				GL_FRAMEBUFFER
 			:
-				0
+				has_ext_
+				?
+					GL_FRAMEBUFFER_EXT
+				:
+					0
+		)
 	),
 	color_attachment_(
-		has_native_
-		?
-			GL_COLOR_ATTACHMENT0
-		:
-			has_ext_
+		static_cast<
+			GLenum
+		>(
+			has_native_
 			?
-				GL_COLOR_ATTACHMENT0_EXT
+				GL_COLOR_ATTACHMENT0
 			:
-				0
+				has_ext_
+				?
+					GL_COLOR_ATTACHMENT0_EXT
+				:
+					0
+		)
 	),
 	framebuffer_complete_(
-		has_native_
-		?
-			GL_FRAMEBUFFER_COMPLETE
-		:
-			has_ext_
+		static_cast<
+			GLenum
+		>(
+			has_native_
 			?
-				GL_FRAMEBUFFER_COMPLETE_EXT
+				GL_FRAMEBUFFER_COMPLETE
 			:
-				0
+				has_ext_
+				?
+					GL_FRAMEBUFFER_COMPLETE_EXT
+				:
+					0
+		)
 	),
 	renderbuffer_target_(
-		has_native_
-		?
-			GL_RENDERBUFFER
-		:
-			has_ext_
+		static_cast<
+			GLenum
+		>(
+			has_native_
 			?
-				GL_RENDERBUFFER_EXT
+				GL_RENDERBUFFER
 			:
-				0
+				has_ext_
+				?
+					GL_RENDERBUFFER_EXT
+				:
+					0
+		)
 	),
 	depth_attachment_(
-		has_native_
-		?
-			GL_DEPTH_ATTACHMENT
-		:
-			has_ext_
+		static_cast<
+			GLenum
+		>(
+			has_native_
 			?
-				GL_DEPTH_ATTACHMENT_EXT
+				GL_DEPTH_ATTACHMENT
 			:
-				0
+				has_ext_
+				?
+					GL_DEPTH_ATTACHMENT_EXT
+				:
+					0
+		)
 	),
 	depth_stencil_attachment_(
-		has_native_
-		?
-			GL_DEPTH_STENCIL_ATTACHMENT
-		:
-			0
+		static_cast<
+			GLenum
+		>(
+			has_native_
+			?
+				GL_DEPTH_STENCIL_ATTACHMENT
+			:
+				0
+		)
 	),
 	last_buffer_(0)
 {

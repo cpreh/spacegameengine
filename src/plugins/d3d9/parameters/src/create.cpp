@@ -86,7 +86,7 @@ sge::d3d9::parameters::create(
 		?
 			D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL
 		:
-			0, // Flags
+			0u, // Flags
 		is_windowed
 		?
 			0u

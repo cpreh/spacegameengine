@@ -22,6 +22,7 @@ SET(
 	include/sge/camera/projection/projection.hpp
 	include/sge/camera/projection/to_matrix.hpp
 	include/sge/camera/projection/update_perspective_from_viewport.hpp
+	include/sge/camera/spherical/movement_speed.hpp
 	include/sge/camera/spherical/object.hpp
 	include/sge/camera/spherical/object_fwd.hpp
 	include/sge/camera/spherical/parameters.hpp

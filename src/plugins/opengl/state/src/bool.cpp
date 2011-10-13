@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../enable_bool.hpp"
 #include "../../multi_sample_context.hpp"
 #include "../../point_sprite_context.hpp"
+#include "../../convert/to_gl_bool.hpp"
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/exception.hpp>
@@ -117,7 +118,9 @@ sge::opengl::state::bool_(
 		return;
 	case rs::write_to_depth_buffer:
 		::glDepthMask(
-			_state.value()
+			opengl::convert::to_gl_bool(
+				_state.value()
+			)
 		);
 
 		SGE_OPENGL_CHECK_STATE(

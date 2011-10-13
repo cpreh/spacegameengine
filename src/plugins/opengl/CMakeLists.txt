@@ -96,8 +96,10 @@ SET(
 	src/plugins/opengl/convert/src/projection.cpp
 	src/plugins/opengl/convert/src/resource_flags.cpp
 	src/plugins/opengl/convert/src/stencil_buffer.cpp
+	src/plugins/opengl/convert/src/to_gl_bool.cpp
 	src/plugins/opengl/convert/src/visual_depth.cpp
 	src/plugins/opengl/convert/stencil_buffer.hpp
+	src/plugins/opengl/convert/to_gl_bool.hpp
 	src/plugins/opengl/convert/visual_depth.hpp
 	src/plugins/opengl/create_caps.hpp
 	src/plugins/opengl/create_device_state.hpp

@@ -30,9 +30,13 @@ sge::opengl::convert::resource_flags(
 )
 {
 	return
-		(_flags & renderer::resource_flags::dynamic)
-		?
-			GL_DYNAMIC_DRAW
-		:
-			GL_STATIC_DRAW;
+		static_cast<
+			GLuint
+		>(
+			(_flags & renderer::resource_flags::dynamic)
+			?
+				GL_DYNAMIC_DRAW
+			:
+				GL_STATIC_DRAW
+		);
 }

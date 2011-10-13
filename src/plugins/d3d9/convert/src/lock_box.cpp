@@ -30,32 +30,32 @@ sge::d3d9::convert::lock_box(
 	D3DBOX const ret =
 	{
 		static_cast<
-			LONG
+			UINT
 		>(
 			_box.left()
 		),
 		static_cast<
-			LONG
+			UINT
 		>(
 			_box.top()
 		),
 		static_cast<
-			LONG
+			UINT
 		>(
 			_box.right()
 		),
 		static_cast<
-			LONG
+			UINT
 		>(
 			_box.bottom()
 		),
 		static_cast<
-			LONG
+			UINT
 		>(
 			_box.front()
 		),
 		static_cast<
-			LONG
+			UINT
 		>(
 			_box.back()
 		)

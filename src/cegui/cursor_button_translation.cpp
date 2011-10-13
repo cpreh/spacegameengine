@@ -19,25 +19,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "cursor_button_translation.hpp"
+#include "cursor_button_map.hpp"
 #include <sge/input/cursor/button_code.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <utility>
 #include <CEGUIInputEvent.h>
 #include <fcppt/config/external_end.hpp>
+
+namespace
+{
+
+sge::cegui::cursor_button_map const buttons(
+	fcppt::assign::make_container<
+		sge::cegui::cursor_button_map::map_type
+	>(
+		std::make_pair(
+			sge::input::cursor::button_code::left,
+			CEGUI::LeftButton
+		)
+	)(
+		std::make_pair(
+			sge::input::cursor::button_code::right,
+			CEGUI::RightButton
+		)
+	)(
+		std::make_pair(
+			sge::input::cursor::button_code::middle,
+			CEGUI::MiddleButton
+		)
+	)
+);
+
+}
 
 sge::cegui::cursor_button_map const &
 sge::cegui::cursor_button_translation()
 {
-	static cursor_button_map buttons;
-	if (!buttons.empty())
-		return buttons;
-	buttons.insert(
-		sge::input::cursor::button_code::left,
-		CEGUI::LeftButton);
-	buttons.insert(
-		sge::input::cursor::button_code::right,
-		CEGUI::RightButton);
-	buttons.insert(
-		sge::input::cursor::button_code::middle,
-		CEGUI::MiddleButton);
 	return buttons;
 }

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../color_write.hpp"
 #include "../../../check_state.hpp"
 #include "../../../common.hpp"
+#include "../../../convert/to_gl_bool.hpp"
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/exception.hpp>
@@ -33,17 +34,25 @@ sge::opengl::state::deferred::color_write(
 )
 {
 	::glColorMask(
-		_list.get(
-			sge::renderer::state::bool_::write_red
+		opengl::convert::to_gl_bool(
+			_list.get(
+				sge::renderer::state::bool_::write_red
+			)
 		),
-		_list.get(
-			sge::renderer::state::bool_::write_blue
+		opengl::convert::to_gl_bool(
+			_list.get(
+				sge::renderer::state::bool_::write_blue
+			)
 		),
-		_list.get(
-			sge::renderer::state::bool_::write_green
+		opengl::convert::to_gl_bool(
+			_list.get(
+				sge::renderer::state::bool_::write_green
+			)
 		),
-		_list.get(
-			sge::renderer::state::bool_::write_alpha
+		opengl::convert::to_gl_bool(
+			_list.get(
+				sge::renderer::state::bool_::write_alpha
+			)
 		)
 	);
 

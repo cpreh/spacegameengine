@@ -59,11 +59,12 @@ sge::d3d9::devicefuncs::set_transform(
 		)
 	);
 
-	switch(
+	if(
 		d3d_mode
+		==
+		D3DTS_TEXTURE0
 	)
 	{
-	case D3DTS_TEXTURE0:
 		// TODO: make a macro in this for fcppt!
 		for(
 			unsigned index = d3d_mode;
