@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/cross.hpp>
+#include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/matrix/rotation_x.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
@@ -44,13 +46,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
-#include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 namespace
 {
 sge::renderer::scalar const epsilon =
-	0.1f;
+	0.01f;
 }
 
 FCPPT_PP_PUSH_WARNING
@@ -103,30 +104,32 @@ sge::camera::spherical::object::update(
 				angles_[0] + dirs_[1] * movement_speed_ * d.count(),
 					epsilon,
 				  pi - epsilon),
-			fcppt::math::clamp(
-				angles_[1] + dirs_[2] * movement_speed_ * d.count(),
-				0.f,
-				static_cast<sge::renderer::scalar>(2.f * pi))
+				angles_[1] + dirs_[2] * movement_speed_ * d.count()
 	);
 
 	using fcppt::math::matrix::rotation_y;
 	using fcppt::math::matrix::rotation_x;
 	using fcppt::math::vector::narrow_cast;
+	using fcppt::math::vector::normalize;
+	using fcppt::math::vector::cross;
 
-	sge::renderer::matrix4 rot = rotation_x(-angles_[0]) * rotation_y(-angles_[1]);
-	sge::renderer::vector3 pos = narrow_cast<renderer::vector3>(rot * fcppt::math::vector::construct(sge::renderer::vector3(0.f,0.f,radius_), 1.f));
-	rot = fcppt::math::matrix::transpose(rot);
+	sge::renderer::vector3 pos =
+		sge::renderer::vector3(
+			radius_ * std::sin(angles_[0]) * std::cos(angles_[1]),
+			radius_ * std::cos(angles_[0]),
+			radius_ * std::sin(angles_[0]) * std::sin(angles_[1]));
+
+	sge::renderer::vector3 t0 = -pos;
+	sge::renderer::vector3 t1 = cross(
+		t0,
+		sge::renderer::vector3(0.f,1.f,0.f));
+	sge::renderer::vector3 t2 = cross(t1,t0);
+
 	base::gizmo()
 		.position(pos)
-		.forward(narrow_cast<renderer::vector3>(-rot[2]))
-		.right(narrow_cast<renderer::vector3>(-rot[0]))
-		.up(narrow_cast<renderer::vector3>(rot[1]));
-	std::cout << base::gizmo().position() << std::endl;
-	/*
-	std::cout << base::gizmo().forward() << std::endl;
-	std::cout << base::gizmo().up() << std::endl;
-	std::cout << base::gizmo().right() << std::endl;
-	*/
+		.forward(normalize(t0))
+		.right(normalize(t1))
+		.up(normalize(t2));
 }
 
 void
@@ -152,13 +155,6 @@ sge::camera::spherical::object::key_callback(
 
 	switch (k.key_code())
 	{
-		// theta
-		case input::keyboard::key_code::w:
-			dirs_[1] = !k.pressed() ? 0.f : 1.f;
-			break;
-		case input::keyboard::key_code::s:
-			dirs_[1] = !k.pressed() ? 0.f : -1.f;
-			break;
 		// radius
 		case input::keyboard::key_code::space:
 			dirs_[0] = !k.pressed() ? 0.f : 1.f;
@@ -166,12 +162,19 @@ sge::camera::spherical::object::key_callback(
 		case input::keyboard::key_code::lctrl:
 			dirs_[0] = !k.pressed() ? 0.f : -1.f;
 			break;
+		// theta
+		case input::keyboard::key_code::w:
+			dirs_[1] = !k.pressed() ? 0.f : -1.f;
+			break;
+		case input::keyboard::key_code::s:
+			dirs_[1] = !k.pressed() ? 0.f : 1.f;
+			break;
 		// phi
 		case input::keyboard::key_code::a:
-			dirs_[2] = !k.pressed() ? 0.f : -1.f;
+			dirs_[2] = !k.pressed() ? 0.f : 1.f;
 			break;
 		case input::keyboard::key_code::d:
-			dirs_[2] = !k.pressed() ? 0.f : 1.f;
+			dirs_[2] = !k.pressed() ? 0.f : -1.f;
 			break;
 		default:
 			break;

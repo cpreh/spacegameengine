@@ -909,7 +909,7 @@ try
 		sge::camera::spherical::parameters(
 			// Movement speed.
 			sge::camera::spherical::movement_speed(
-				4.0f),
+				2.0f),
 			//min_radius
 			0.5f,
 			//initial radius
