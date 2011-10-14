@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/joypad/is_usable.hpp>
 #include <sge/x11input/keyboard/device.hpp>
 #include <sge/x11input/mouse/device.hpp>
+#include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
@@ -45,6 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/root.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
@@ -52,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind/bind_member_function.hpp>
 #include <boost/phoenix/core/argument.hpp>
@@ -547,6 +551,12 @@ sge::x11input::processor::on_enter(
 	awl::backends::x11::window::event::object const &
 )
 {
+	FCPPT_LOG_DEBUG(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("x11input: FocusIn")
+	);
+
 	raw_demuxer_.active(
 		true
 	);
@@ -561,6 +571,12 @@ sge::x11input::processor::on_leave(
 	awl::backends::x11::window::event::object const &
 )
 {
+	FCPPT_LOG_DEBUG(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("x11input: FocusOut")
+	);
+
 	raw_demuxer_.active(
 		false
 	);

@@ -27,13 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/function/object.hpp>
-#include <fcppt/log/error.hpp>
+#include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/time/sleep_any.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <X11/X.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -75,12 +76,12 @@ sge::x11input::cursor::grab::grab(
 			ret
 		)
 		{
-		case Success:
+		case GrabSuccess:
 			return;
-		case BadMatch:
-		case BadWindow:
-		case BadRequest:
-			FCPPT_LOG_ERROR(
+		case AlreadyGrabbed:
+		case GrabNotViewable:
+		case GrabFrozen:
+			FCPPT_LOG_DEBUG(
 				sge::log::global(),
 				fcppt::log::_
 					<< FCPPT_TEXT("XIGrabDevice failed with code ")
@@ -94,6 +95,7 @@ sge::x11input::cursor::grab::grab(
 				)
 			);
 			break;
+		case GrabInvalidTime:
 		default:
 			throw sge::input::exception(
 				FCPPT_TEXT("X11 grab failed with code ")
