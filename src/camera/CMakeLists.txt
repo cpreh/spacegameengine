@@ -27,6 +27,7 @@ SET(
 	include/sge/camera/spherical/object_fwd.hpp
 	include/sge/camera/spherical/parameters.hpp
 	include/sge/camera/spherical/parameters_fwd.hpp
+	include/sge/camera/spherical/spherical.hpp
 	include/sge/camera/symbol.hpp
 	src/camera/base.cpp
 	src/camera/first_person/object.cpp

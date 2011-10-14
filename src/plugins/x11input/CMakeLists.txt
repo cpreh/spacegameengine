@@ -11,6 +11,8 @@ SET(
 	src/plugins/x11input/include/sge/x11input/cursor/object.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/object_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/object_ptr.hpp
+	src/plugins/x11input/include/sge/x11input/cursor/passive_grab.hpp
+	src/plugins/x11input/include/sge/x11input/cursor/passive_grab_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/pixmap.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/pixmap_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/query_pointer.hpp
@@ -117,6 +119,7 @@ SET(
 	src/plugins/x11input/src/cursor/button_code.cpp
 	src/plugins/x11input/src/cursor/grab.cpp
 	src/plugins/x11input/src/cursor/object.cpp
+	src/plugins/x11input/src/cursor/passive_grab.cpp
 	src/plugins/x11input/src/cursor/pixmap.cpp
 	src/plugins/x11input/src/cursor/query_pointer.cpp
 	src/plugins/x11input/src/device/event.cpp

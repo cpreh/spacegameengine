@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/cursor/grab.hpp>
+#include <sge/x11input/cursor/image.hpp>
+#include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <sge/input/exception.hpp>
