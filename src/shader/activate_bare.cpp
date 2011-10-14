@@ -24,5 +24,5 @@ sge::shader::activation_method_field const
 sge::shader::activate_bare()
 {
 	return
-		sge::shader::activation_method_field();
+		sge::shader::activation_method_field::null();
 }
