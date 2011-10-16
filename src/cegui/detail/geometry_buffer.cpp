@@ -349,10 +349,10 @@ sge::cegui::detail::geometry_buffer::appendGeometry(
 				it->tex_coords.d_x,
 				it->tex_coords.d_y));
 		vb_it->set<vf::color>(
-			(sge::image::color::init::red %= it->colour_val.getRed())
-			(sge::image::color::init::green %= it->colour_val.getGreen())
-			(sge::image::color::init::blue %= it->colour_val.getBlue())
-			(sge::image::color::init::alpha %= it->colour_val.getAlpha()));
+			(sge::image::color::init::red() %= it->colour_val.getRed())
+			(sge::image::color::init::green() %= it->colour_val.getGreen())
+			(sge::image::color::init::blue() %= it->colour_val.getBlue())
+			(sge::image::color::init::alpha() %= it->colour_val.getAlpha()));
 
 		vb_it++;
 	}

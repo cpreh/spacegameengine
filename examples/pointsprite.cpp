@@ -398,10 +398,10 @@ particles::update()
 						.color(
 							sge::image::color::rgba8
 							(
-								(sge::image::color::init::red %= color_rng_())
-								(sge::image::color::init::green %= color_rng_())
-								(sge::image::color::init::blue %= color_rng_())
-								(sge::image::color::init::alpha %= 1.))),
+								(sge::image::color::init::red() %= color_rng_())
+								(sge::image::color::init::green() %= color_rng_())
+								(sge::image::color::init::blue() %= color_rng_())
+								(sge::image::color::init::alpha() %= 1.))),
 					vel,
 					-(static_cast<sge::renderer::scalar>(0.5) * vel) + sge::renderer::vector2(0,200)));
 		}

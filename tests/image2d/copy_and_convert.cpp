@@ -164,10 +164,10 @@ BOOST_AUTO_TEST_CASE(
 		sge::image2d::rgba8_format,
 		sge::image2d::bgra8_format
 	>(
-		(sge::image::color::init::red = channel8(0))
-		(sge::image::color::init::blue = channel8(37))
-		(sge::image::color::init::green = channel8(255))
-		(sge::image::color::init::alpha = channel8(128))
+		(sge::image::color::init::red() = channel8(0))
+		(sge::image::color::init::blue() = channel8(37))
+		(sge::image::color::init::green() = channel8(255))
+		(sge::image::color::init::alpha() = channel8(128))
 	);
 }
 
@@ -179,13 +179,13 @@ BOOST_AUTO_TEST_CASE(
 		sge::image2d::rgb8_format,
 		sge::image2d::rgba8_format
 	>(
-		(sge::image::color::init::red = channel8(0))
-		(sge::image::color::init::blue = channel8(37))
-		(sge::image::color::init::green = channel8(255))
+		(sge::image::color::init::red() = channel8(0))
+		(sge::image::color::init::blue() = channel8(37))
+		(sge::image::color::init::green() = channel8(255))
 		,
-		(sge::image::color::init::red = channel8(0))
-		(sge::image::color::init::blue = channel8(37))
-		(sge::image::color::init::green = channel8(255))
-		(sge::image::color::init::alpha = channel8(255))
+		(sge::image::color::init::red() = channel8(0))
+		(sge::image::color::init::blue() = channel8(37))
+		(sge::image::color::init::green() = channel8(255))
+		(sge::image::color::init::alpha() = channel8(255))
 	);
 }

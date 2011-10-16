@@ -37,10 +37,10 @@ sge::image::colors::name()\
 	return \
 		sge::image::color::any::object(\
 			sge::image::color::rgba8(\
-				(mizuiro::color::init::red = static_cast<value_type>(r))\
-				(mizuiro::color::init::green = static_cast<value_type>(g))\
-				(mizuiro::color::init::blue = static_cast<value_type>(b))\
-				(mizuiro::color::init::alpha = static_cast<value_type>(a))\
+				(mizuiro::color::init::red() = static_cast<value_type>(r))\
+				(mizuiro::color::init::green() = static_cast<value_type>(g))\
+				(mizuiro::color::init::blue() = static_cast<value_type>(b))\
+				(mizuiro::color::init::alpha() = static_cast<value_type>(a))\
 			)\
 		);\
 }

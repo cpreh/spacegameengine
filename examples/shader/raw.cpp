@@ -374,10 +374,10 @@ try
 
 	tux.color(
 		sge::image::color::rgba8(
-			(sge::image::color::init::red %= 1.0)
-			(sge::image::color::init::green %= 1.0)
-			(sge::image::color::init::blue %= 1.0)
-			(sge::image::color::init::alpha %= 0.25)
+			(sge::image::color::init::red() %= 1.0)
+			(sge::image::color::init::green() %= 1.0)
+			(sge::image::color::init::blue() %= 1.0)
+			(sge::image::color::init::alpha() %= 0.25)
 		)
 	);
 
