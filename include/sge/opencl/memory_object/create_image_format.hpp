@@ -18,51 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
-#define SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
+#ifndef SGE_OPENCL_MEMORY_OBJECT_CREATE_IMAGE_FORMAT_HPP_INCLUDED
+#define SGE_OPENCL_MEMORY_OBJECT_CREATE_IMAGE_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/target_base_fwd.hpp>
-#include <sge/renderer/scissor_area.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/renderer/symbol.hpp>
-#include <sge/class_symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/clinclude.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace opencl
 {
-
-class SGE_CLASS_SYMBOL target_base
+namespace memory_object
 {
-	FCPPT_NONCOPYABLE(
-		target_base
-	);
-protected:
-	SGE_RENDERER_SYMBOL
-	target_base();
-public:
-	virtual void
-	viewport(
-		renderer::viewport const &
-	) = 0;
-
-	virtual
-	renderer::viewport const
-	viewport() const = 0;
-
-	virtual void
-	scissor_area(
-		renderer::scissor_area const &
-	) = 0;
-
-	virtual renderer::scissor_area const
-	scissor_area() const = 0;
-
-	SGE_RENDERER_SYMBOL
-	virtual ~target_base() = 0;
-};
-
+SGE_OPENCL_SYMBOL
+cl_image_format
+create_image_format(
+	cl_channel_order,
+	cl_channel_type);
+}
 }
 }
 

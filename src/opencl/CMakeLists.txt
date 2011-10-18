@@ -42,6 +42,7 @@ SET(
 	include/sge/opencl/memory_object/buffer_fwd.hpp
 	include/sge/opencl/memory_object/byte_offset.hpp
 	include/sge/opencl/memory_object/byte_size.hpp
+	include/sge/opencl/memory_object/create_image_format.hpp
 	include/sge/opencl/memory_object/dim2.hpp
 	include/sge/opencl/memory_object/flags.hpp
 	include/sge/opencl/memory_object/flags_field.hpp
@@ -102,6 +103,7 @@ SET(
 	src/opencl/logger.hpp
 	src/opencl/memory_object/base.cpp
 	src/opencl/memory_object/buffer.cpp
+	src/opencl/memory_object/create_image_format.cpp
 	src/opencl/memory_object/image/format_output.cpp
 	src/opencl/memory_object/image/opencl_color_format_to_sge.cpp
 	src/opencl/memory_object/image/planar.cpp

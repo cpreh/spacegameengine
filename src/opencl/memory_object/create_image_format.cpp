@@ -18,23 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_MEMORY_OBJECT_MEMORY_OBJECT_HPP_INCLUDED
-#define SGE_OPENCL_MEMORY_OBJECT_MEMORY_OBJECT_HPP_INCLUDED
-
-#include <sge/opencl/memory_object/base.hpp>
-#include <sge/opencl/memory_object/base_fwd.hpp>
-#include <sge/opencl/memory_object/base_ref_sequence.hpp>
-#include <sge/opencl/memory_object/buffer.hpp>
-#include <sge/opencl/memory_object/buffer_fwd.hpp>
-#include <sge/opencl/memory_object/byte_offset.hpp>
-#include <sge/opencl/memory_object/byte_size.hpp>
 #include <sge/opencl/memory_object/create_image_format.hpp>
-#include <sge/opencl/memory_object/dim2.hpp>
-#include <sge/opencl/memory_object/flags.hpp>
-#include <sge/opencl/memory_object/flags_field.hpp>
-#include <sge/opencl/memory_object/image/image.hpp>
-#include <sge/opencl/memory_object/rect.hpp>
-#include <sge/opencl/memory_object/renderer_buffer_lock_mode.hpp>
-#include <sge/opencl/memory_object/scoped_objects.hpp>
 
-#endif
+cl_image_format
+sge::opencl::memory_object::create_image_format(
+	cl_channel_order const co,
+	cl_channel_type const ct)
+{
+	cl_image_format result;
+	result.image_channel_order = co;
+	result.image_channel_data_type = ct;
+	return result;
+}
