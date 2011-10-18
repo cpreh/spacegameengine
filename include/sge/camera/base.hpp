@@ -50,13 +50,13 @@ public:
 		camera::duration const &) = 0;
 
 	SGE_CAMERA_SYMBOL
-	bool
-	active() const;
+	virtual bool
+	active() const = 0;
 
 	SGE_CAMERA_SYMBOL
-	void
+	virtual void
 	active(
-		bool);
+		bool) = 0;
 
 	SGE_CAMERA_SYMBOL
 	renderer::matrix4 const

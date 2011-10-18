@@ -36,24 +36,8 @@ sge::camera::base::base(
 		projection::to_matrix(
 			projection_object_)),
 	gizmo_(
-		_gizmo),
-	active_(
-		true)
+		_gizmo)
 {
-}
-
-void
-sge::camera::base::active(
-	bool const _active)
-{
-	active_ =
-		_active;
-}
-
-bool
-sge::camera::base::active() const
-{
-	return active_;
 }
 
 sge::renderer::matrix4 const

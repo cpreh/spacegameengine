@@ -67,6 +67,15 @@ public:
 
 	SGE_CAMERA_SYMBOL
 	void
+	active(
+		bool);
+
+	SGE_CAMERA_SYMBOL
+	bool
+	active() const;
+
+	SGE_CAMERA_SYMBOL
+	void
 	update(
 		camera::duration const &);
 
@@ -80,6 +89,7 @@ private:
 	// Those are the directions the camera currently moves in
 	// (corresponds to the movement keys currently pressed)
 	renderer::vector3 dirs_;
+	bool active_;
 
 	void
 	key_callback(
