@@ -70,14 +70,6 @@ public:
 	update(
 		camera::duration const &);
 
-	SGE_CAMERA_SYMBOL
-	void
-	active(
-		bool);
-
-	SGE_CAMERA_SYMBOL
-	bool
-	active() const;
 private:
 	fcppt::signal::scoped_connection keyboard_connection_;
 	fcppt::signal::scoped_connection mouse_axis_connection_;
@@ -88,7 +80,6 @@ private:
 	// Those are the directions the camera currently moves in
 	// (corresponds to the movement keys currently pressed)
 	renderer::vector3 dirs_;
-	bool active_;
 
 	void
 	key_callback(

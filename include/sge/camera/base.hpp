@@ -50,6 +50,15 @@ public:
 		camera::duration const &) = 0;
 
 	SGE_CAMERA_SYMBOL
+	bool
+	active() const;
+
+	SGE_CAMERA_SYMBOL
+	void
+	active(
+		bool);
+
+	SGE_CAMERA_SYMBOL
 	renderer::matrix4 const
 	world() const;
 
@@ -92,6 +101,7 @@ private:
 	renderer::matrix4 projection_matrix_;
 	// The camera's position and orientation
 	camera::gizmo_type gizmo_;
+	bool active_;
 };
 }
 }

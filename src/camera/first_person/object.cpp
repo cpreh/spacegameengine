@@ -72,10 +72,10 @@ sge::camera::first_person::object::object(
 	rotation_speed_(
 		params.rotation_speed()),
 	dirs_(
-		renderer::vector3::null()),
-	active_(
-		params.active())
+		renderer::vector3::null())
 {
+	this->active(
+		params.active());
 }
 FCPPT_PP_POP_WARNING
 
@@ -95,20 +95,6 @@ sge::camera::first_person::object::update(
 			base::gizmo().array(),
 			dirs_,
 			renderer::vector3::null()));
-}
-
-void
-sge::camera::first_person::object::active(
-	bool const _active)
-{
-	active_ =
-		_active;
-}
-
-bool
-sge::camera::first_person::object::active() const
-{
-	return active_;
 }
 
 void
