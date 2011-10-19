@@ -18,14 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_ARB_ENVIRONMENT_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_ARB_ENVIRONMENT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_GET_SHADER_SOURCE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_GET_SHADER_SOURCE_HPP_INCLUDED
 
-#include "program_context_fwd.hpp"
-#include "shader_context_fwd.hpp"
-#include "uniform_context_fwd.hpp"
-#include "char.hpp"
-#include "handle.hpp"
+#include <sge/renderer/glsl/string.hpp>
 
 namespace sge
 {
@@ -33,23 +29,16 @@ namespace opengl
 {
 namespace glsl
 {
-namespace arb
-{
 
-struct environment
-{
-	typedef arb::handle handle;
+template<
+	typename Environment
+>
+renderer::glsl::string const
+get_shader_source(
+	typename Environment::shader_context const &,
+	typename Environment::handle
+);
 
-	typedef arb::char_ char_;
-
-	typedef arb::program_context program_context;
-
-	typedef arb::shader_context shader_context;
-
-	typedef arb::uniform_context uniform_context;
-};
-
-}
 }
 }
 }

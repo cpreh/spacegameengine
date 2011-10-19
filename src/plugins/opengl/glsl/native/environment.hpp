@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "program_context_fwd.hpp"
 #include "shader_context_fwd.hpp"
 #include "uniform_context_fwd.hpp"
+#include "char.hpp"
 #include "handle.hpp"
 
 namespace sge
@@ -38,6 +39,8 @@ namespace native
 struct environment
 {
 	typedef native::handle handle;
+
+	typedef native::char_ char_;
 
 	typedef native::program_context program_context;
 

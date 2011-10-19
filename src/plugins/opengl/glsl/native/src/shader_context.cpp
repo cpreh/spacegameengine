@@ -42,6 +42,9 @@ sge::opengl::glsl::native::shader_context::shader_context()
 	shader_info_log_(
 		glGetShaderInfoLog
 	),
+	get_shader_source_(
+		glGetShaderSource
+	),
 	vertex_shader_type_(
 		GL_VERTEX_SHADER
 	),
@@ -56,11 +59,16 @@ sge::opengl::glsl::native::shader_context::shader_context()
 	),
 	info_log_length_type_(
 		GL_INFO_LOG_LENGTH
+	),
+	source_length_type_(
+		GL_SHADER_SOURCE_LENGTH
 	)
-{}
+{
+}
 
 sge::opengl::glsl::native::shader_context::~shader_context()
-{}
+{
+}
 
 sge::opengl::glsl::native::shader_context::gl_create_shader
 sge::opengl::glsl::native::shader_context::create_shader() const
@@ -98,6 +106,12 @@ sge::opengl::glsl::native::shader_context::shader_info_log() const
 	return shader_info_log_;
 }
 
+sge::opengl::glsl::native::shader_context::gl_get_shader_source
+sge::opengl::glsl::native::shader_context::get_shader_source() const
+{
+	return get_shader_source_;
+}
+
 GLenum
 sge::opengl::glsl::native::shader_context::vertex_shader_type() const
 {
@@ -126,6 +140,12 @@ GLenum
 sge::opengl::glsl::native::shader_context::info_log_length_type() const
 {
 	return info_log_length_type_;
+}
+
+GLenum
+sge::opengl::glsl::native::shader_context::source_length_type() const
+{
+	return source_length_type_;
 }
 
 sge::opengl::context::id const

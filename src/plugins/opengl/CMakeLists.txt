@@ -166,6 +166,7 @@ SET(
 	src/plugins/opengl/glew/src/initialize.cpp
 	src/plugins/opengl/glew/src/is_supported.cpp
 	src/plugins/opengl/glew/string.hpp
+	src/plugins/opengl/glsl/arb/char.hpp
 	src/plugins/opengl/glsl/arb/environment.hpp
 	src/plugins/opengl/glsl/arb/handle.hpp
 	src/plugins/opengl/glsl/arb/program_context.hpp
@@ -187,9 +188,11 @@ SET(
 	src/plugins/opengl/glsl/create_vertex_shader.hpp
 	src/plugins/opengl/glsl/format_error.hpp
 	src/plugins/opengl/glsl/geometry_shader.hpp
+	src/plugins/opengl/glsl/get_shader_source.hpp
 	src/plugins/opengl/glsl/handle.hpp
 	src/plugins/opengl/glsl/instantiate.hpp
 	src/plugins/opengl/glsl/make_shader_type.hpp
+	src/plugins/opengl/glsl/native/char.hpp
 	src/plugins/opengl/glsl/native/environment.hpp
 	src/plugins/opengl/glsl/native/handle.hpp
 	src/plugins/opengl/glsl/native/program_context.hpp
@@ -243,6 +246,7 @@ SET(
 	src/plugins/opengl/glsl/shaderfuncs/create.hpp
 	src/plugins/opengl/glsl/shaderfuncs/delete.hpp
 	src/plugins/opengl/glsl/shaderfuncs/get_integer.hpp
+	src/plugins/opengl/glsl/shaderfuncs/get_source.hpp
 	src/plugins/opengl/glsl/shaderfuncs/info_log.hpp
 	src/plugins/opengl/glsl/shaderfuncs/info_log_length.hpp
 	src/plugins/opengl/glsl/shaderfuncs/source.hpp
@@ -251,6 +255,7 @@ SET(
 	src/plugins/opengl/glsl/shaderfuncs/src/create.cpp
 	src/plugins/opengl/glsl/shaderfuncs/src/delete.cpp
 	src/plugins/opengl/glsl/shaderfuncs/src/get_integer.cpp
+	src/plugins/opengl/glsl/shaderfuncs/src/get_source.cpp
 	src/plugins/opengl/glsl/shaderfuncs/src/info_log.cpp
 	src/plugins/opengl/glsl/shaderfuncs/src/info_log_length.cpp
 	src/plugins/opengl/glsl/shaderfuncs/src/source.cpp
@@ -262,6 +267,7 @@ SET(
 	src/plugins/opengl/glsl/src/create_shader.cpp
 	src/plugins/opengl/glsl/src/create_vertex_shader.cpp
 	src/plugins/opengl/glsl/src/geometry_shader.cpp
+	src/plugins/opengl/glsl/src/get_shader_source.cpp
 	src/plugins/opengl/glsl/src/make_shader_type.cpp
 	src/plugins/opengl/glsl/src/pixel_shader.cpp
 	src/plugins/opengl/glsl/src/program.cpp

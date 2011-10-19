@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../source.hpp"
+#include "../get_source.hpp"
 #include "../../shader_contexts.hpp"
 #include "../../instantiate.hpp"
 #include "../../../check_state.hpp"
+#include "../../../common.hpp"
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>
 
@@ -29,42 +30,42 @@ template<
 	typename Environment
 >
 void
-sge::opengl::glsl::shaderfuncs::source(
+sge::opengl::glsl::shaderfuncs::get_source(
 	typename Environment::shader_context const &_context,
-	typename Environment::handle const _handle,
-	GLint const _num_strings,
-	typename Environment::char_ const **const _strings,
-	GLint const *const _len_of_strings
+	typename Environment::handle const _id,
+	GLsizei const _buf_size,
+	GLsizei *const _length,
+	typename Environment::char_ *const _source
 )
 {
-	_context.shader_source()(
-		_handle,
-		_num_strings,
-		_strings,
-		_len_of_strings
+	_context.get_shader_source()(
+		_id,
+		_buf_size,
+		_length,
+		_source
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Setting a glsl shader source failed"),
+		FCPPT_TEXT("Getting a shader source failed"),
 		sge::renderer::glsl::exception
 	)
 }
 
-#define SGE_OPENGL_GLSL_SHADERFUNCS_INSTANTIATE_SOURCE(\
+#define SGE_OPENGL_GLSL_SHADERFUNCS_INSTANTIATE_GET_SOURCE(\
 	env\
 )\
 template \
 void \
-sge::opengl::glsl::shaderfuncs::source<\
+sge::opengl::glsl::shaderfuncs::get_source<\
 	env\
 >(\
 	env::shader_context const &,\
-	env::handle,\
-	GLint,\
-	env::char_ const **,\
-	GLint const *\
+	env::handle, \
+	GLsizei, \
+	GLsizei *, \
+	env::char_ * \
 );
 
 SGE_OPENGL_GLSL_INSTANTIATE(
-	SGE_OPENGL_GLSL_SHADERFUNCS_INSTANTIATE_SOURCE
+	SGE_OPENGL_GLSL_SHADERFUNCS_INSTANTIATE_GET_SOURCE
 )

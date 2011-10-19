@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shaderfuncs/info_log.hpp"
 #include "../shaderfuncs/info_log_length.hpp"
 #include "../format_error.hpp"
+#include "../get_shader_source.hpp"
 #include "../geometry_shader.hpp"
 #include "../instantiate.hpp"
 #include "../make_shader_type.hpp"
@@ -34,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_shader.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/glsl/exception.hpp>
+#include <sge/renderer/glsl/string.hpp>
 #include <fcppt/text.hpp>
 
 template<
@@ -148,6 +150,22 @@ sge::opengl::glsl::shader<Type, Environment>::info_log() const
 			>,
 			this->id(),
 			this->context()
+		);
+}
+
+template<
+	typename Type,
+	typename Environment
+>
+sge::renderer::glsl::string const
+sge::opengl::glsl::shader<Type, Environment>::source() const
+{
+	return
+		glsl::get_shader_source<
+			Environment
+		>(
+			this->context(),
+			this->id()
 		);
 }
 

@@ -40,7 +40,7 @@ source(
 	typename Environment::shader_context const &,
 	typename Environment::handle,
 	GLint num_strings,
-	char const **strings,
+	typename Environment::char_ const **strings,
 	GLint const *len_of_strings
 );
 

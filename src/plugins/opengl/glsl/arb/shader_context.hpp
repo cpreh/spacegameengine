@@ -63,6 +63,8 @@ public:
 
 	typedef PFNGLGETINFOLOGARBPROC gl_shader_info_log;
 
+	typedef PFNGLGETSHADERSOURCEARBPROC gl_get_shader_source;
+
 	gl_create_shader
 	create_shader() const;
 
@@ -81,6 +83,9 @@ public:
 	gl_shader_info_log
 	shader_info_log() const;
 
+	gl_get_shader_source
+	get_shader_source() const;
+
 	GLenum
 	vertex_shader_type() const;
 
@@ -95,6 +100,9 @@ public:
 
 	GLenum
 	info_log_length_type() const;
+
+	GLenum
+	source_length_type() const;
 
 	typedef void needs_before;
 
@@ -112,12 +120,15 @@ private:
 
 	gl_shader_info_log const shader_info_log_;
 
+	gl_get_shader_source const get_shader_source_;
+
 	GLenum const
 		vertex_shader_type_,
 		pixel_shader_type_,
 		geometry_shader_type_,
 		compile_status_type_,
-		info_log_length_type_;
+		info_log_length_type_,
+		source_length_type_;
 };
 
 }

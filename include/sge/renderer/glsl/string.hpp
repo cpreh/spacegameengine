@@ -34,7 +34,7 @@ namespace glsl
 {
 
 typedef std::basic_string<
-	char_type
+	glsl::char_
 > string;
 
 }

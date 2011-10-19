@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_SHADER_HPP_INCLUDED
 
 #include <sge/renderer/glsl/shader_fwd.hpp>
+#include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -48,6 +49,9 @@ public:
 
 	virtual fcppt::string const
 	info_log() const = 0;
+
+	virtual renderer::glsl::string const
+	source() const = 0;
 };
 
 }

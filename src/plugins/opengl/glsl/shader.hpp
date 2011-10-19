@@ -71,6 +71,9 @@ private:
 
 	fcppt::string const
 	info_log() const;
+
+	renderer::glsl::string const
+	source() const;
 };
 
 }

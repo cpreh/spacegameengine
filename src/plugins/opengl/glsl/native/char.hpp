@@ -18,14 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_ARB_ENVIRONMENT_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_ARB_ENVIRONMENT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_NATIVE_CHAR_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_NATIVE_CHAR_HPP_INCLUDED
 
-#include "program_context_fwd.hpp"
-#include "shader_context_fwd.hpp"
-#include "uniform_context_fwd.hpp"
-#include "char.hpp"
-#include "handle.hpp"
+#include "../../common.hpp"
 
 namespace sge
 {
@@ -33,21 +29,10 @@ namespace opengl
 {
 namespace glsl
 {
-namespace arb
+namespace native
 {
 
-struct environment
-{
-	typedef arb::handle handle;
-
-	typedef arb::char_ char_;
-
-	typedef arb::program_context program_context;
-
-	typedef arb::shader_context shader_context;
-
-	typedef arb::uniform_context uniform_context;
-};
+typedef GLchar char_;
 
 }
 }

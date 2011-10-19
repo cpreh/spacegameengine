@@ -41,7 +41,7 @@ info_log(
 	typename Environment::handle,
 	GLint maxlen,
 	GLint *len,
-	char *data
+	typename Environment::char_ *data
 );
 
 }

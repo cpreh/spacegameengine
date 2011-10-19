@@ -44,10 +44,10 @@ lexical_cast(
 	Source const &s)
 {
 	// NOTE: Strictly speaking, this has to be a stringstream with
-	// char_type == glsl::string::value_type, which I assume to be
+	// char_ == glsl::string::value_type, which I assume to be
 	// std::string and char, respectively.
 	std::basic_ostringstream<
-		sge::renderer::glsl::char_type
+		sge::renderer::glsl::char_
 	> ss;
 	ss << std::showpoint << s;
 	return ss.str();

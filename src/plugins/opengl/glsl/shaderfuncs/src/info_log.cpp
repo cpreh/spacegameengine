@@ -34,7 +34,7 @@ sge::opengl::glsl::shaderfuncs::info_log(
 	typename Environment::handle const _handle,
 	GLint const _maxlen,
 	GLint *const _len,
-	char *const _data
+	typename Environment::char_ *const _data
 )
 {
 	_context.shader_info_log()(
@@ -62,7 +62,7 @@ sge::opengl::glsl::shaderfuncs::info_log<\
 	env::handle,\
 	GLint,\
 	GLint *,\
-	char *\
+	env::char_ *\
 );
 
 SGE_OPENGL_GLSL_INSTANTIATE(

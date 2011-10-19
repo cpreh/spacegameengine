@@ -28,7 +28,7 @@ namespace renderer
 namespace glsl
 {
 
-typedef char char_type;
+typedef char char_;
 
 }
 }
