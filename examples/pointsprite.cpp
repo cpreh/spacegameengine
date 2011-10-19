@@ -506,6 +506,8 @@ try
 		)
 	);
 
+	vertex_shader->compile();
+
 	sge::renderer::glsl::pixel_shader_ptr const pixel_shader(
 		sys.renderer().create_glsl_pixel_shader(
 			fcppt::io::stream_to_string(
@@ -513,6 +515,8 @@ try
 			)
 		)
 	);
+
+	pixel_shader->compile();
 
 	program->vertex_declaration(
 		ps.vertex_declaration()

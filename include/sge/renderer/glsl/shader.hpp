@@ -47,6 +47,9 @@ public:
 	SGE_RENDERER_SYMBOL
 	virtual ~shader() = 0;
 
+	virtual void
+	compile() = 0;
+
 	virtual fcppt::string const
 	info_log() const = 0;
 

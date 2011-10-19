@@ -65,9 +65,7 @@ public:
 	~shader();
 private:
 	void
-	compile(
-		renderer::glsl::string const &source
-	);
+	compile();
 
 	fcppt::string const
 	info_log() const;

@@ -62,28 +62,7 @@ sge::opengl::glsl::shader<Type, Environment>::shader(
 		)
 	)
 {
-	this->compile(
-		_source
-	);
-}
-
-template<
-	typename Type,
-	typename Environment
->
-sge::opengl::glsl::shader<Type, Environment>::~shader()
-{}
-
-template<
-	typename Type,
-	typename Environment
->
-void
-sge::opengl::glsl::shader<Type, Environment>::compile(
-	renderer::glsl::string const &_source
-)
-{
-	char const *const ptr(
+	renderer::glsl::char_ const *const ptr(
 		_source.c_str()
 	);
 
@@ -108,7 +87,23 @@ sge::opengl::glsl::shader<Type, Environment>::compile(
 		),
 		&len
 	);
+}
 
+template<
+	typename Type,
+	typename Environment
+>
+sge::opengl::glsl::shader<Type, Environment>::~shader()
+{
+}
+
+template<
+	typename Type,
+	typename Environment
+>
+void
+sge::opengl::glsl::shader<Type, Environment>::compile()
+{
 	shaderfuncs::compile<
 		Environment
 	>(
@@ -129,7 +124,7 @@ sge::opengl::glsl::shader<Type, Environment>::compile(
 			FCPPT_TEXT("Compiling a ")
 			+ Type::shader_name()
 			+ FCPPT_TEXT(" shader failed:\n")
-			+ info_log()
+			+ this->info_log()
 		);
 }
 
