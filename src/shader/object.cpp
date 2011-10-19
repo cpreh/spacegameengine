@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/cref.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/range/numeric.hpp>
@@ -138,7 +139,7 @@ sge::shader::object::object(
 		vertex_declaration_);
 
 	renderer::glsl::string const header =
-		p.vertex_format_string().get() + 
+		p.vertex_format_string().get() +
 		boost::accumulate(
 			p.variables(),
 			sge::renderer::glsl::string(),
@@ -154,13 +155,16 @@ sge::shader::object::object(
 					&sampler::declaration,
 					boost::phoenix::arg_names::arg2));
 
-	
+
+	sge::renderer::glsl::shader *current_shader =
+		0;
+
 	try
 	{
 		for(
-			shader::object_parameters::shader_sequence::const_iterator it = 
-				p.vertex_shaders().begin(); 
-			it != p.vertex_shaders().end(); 
+			shader::object_parameters::shader_sequence::const_iterator it =
+				p.vertex_shaders().begin();
+			it != p.vertex_shaders().end();
 			++it)
 		{
 			vertex_shaders_.push_back(
@@ -169,6 +173,11 @@ sge::shader::object::object(
 						*it,
 						std::string("$$$HEADER$$$"),
 						header)));
+
+			current_shader =
+				vertex_shaders_.back().get();
+
+			vertex_shaders_.back()->compile();
 
 			fcppt::container::ptr::push_back_unique_ptr(
 				attachments_,
@@ -180,9 +189,9 @@ sge::shader::object::object(
 		}
 
 		for(
-			shader::object_parameters::shader_sequence::const_iterator it = 
-				p.fragment_shaders().begin(); 
-			it != p.fragment_shaders().end(); 
+			shader::object_parameters::shader_sequence::const_iterator it =
+				p.fragment_shaders().begin();
+			it != p.fragment_shaders().end();
 			++it)
 		{
 			pixel_shaders_.push_back(
@@ -191,6 +200,11 @@ sge::shader::object::object(
 						*it,
 						std::string("$$$HEADER$$$"),
 						header)));
+
+			current_shader =
+				pixel_shaders_.back().get();
+
+			vertex_shaders_.back()->compile();
 
 			fcppt::container::ptr::push_back_unique_ptr(
 				attachments_,
@@ -210,7 +224,10 @@ sge::shader::object::object(
 				FCPPT_TEXT("Shader error for shader \"")+
 				p.name()+
 				FCPPT_TEXT("\": \n")+
-				e.string());
+				e.string()+
+				FCPPT_TEXT("\nShader source:\n")+
+				fcppt::from_std_string(
+					current_shader->source()));
 	}
 
 	sge::renderer::glsl::scoped_program scoped_shader_(
