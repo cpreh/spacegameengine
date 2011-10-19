@@ -45,15 +45,13 @@ protected:
 		camera::gizmo_type const &);
 
 public:
-	SGE_CAMERA_SYMBOL virtual void
+	virtual void
 	update(
 		camera::duration const &) = 0;
 
-	SGE_CAMERA_SYMBOL
 	virtual bool
 	active() const = 0;
 
-	SGE_CAMERA_SYMBOL
 	virtual void
 	active(
 		bool) = 0;
@@ -95,7 +93,7 @@ public:
 	camera::gizmo_type &
 	gizmo();
 
-	SGE_CAMERA_SYMBOL virtual ~base();
+	SGE_CAMERA_SYMBOL virtual ~base() = 0;
 private:
 	projection::object projection_object_;
 	renderer::matrix4 projection_matrix_;
