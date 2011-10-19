@@ -235,6 +235,7 @@ SET(
 	src/plugins/opengl/glsl/programfuncs/src/use.cpp
 	src/plugins/opengl/glsl/programfuncs/use.hpp
 	src/plugins/opengl/glsl/set_program.hpp
+	src/plugins/opengl/glsl/set_shader_source.hpp
 	src/plugins/opengl/glsl/shader.hpp
 	src/plugins/opengl/glsl/shader_base.hpp
 	src/plugins/opengl/glsl/shader_base_fwd.hpp
@@ -274,6 +275,7 @@ SET(
 	src/plugins/opengl/glsl/src/program_base.cpp
 	src/plugins/opengl/glsl/src/program_holder.cpp
 	src/plugins/opengl/glsl/src/set_program.cpp
+	src/plugins/opengl/glsl/src/set_shader_source.cpp
 	src/plugins/opengl/glsl/src/shader.cpp
 	src/plugins/opengl/glsl/src/shader_base.cpp
 	src/plugins/opengl/glsl/src/vertex_shader.cpp

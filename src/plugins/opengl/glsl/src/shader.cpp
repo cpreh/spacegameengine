@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../shader.hpp"
-#include "../shaderfuncs/source.hpp"
 #include "../shaderfuncs/compile.hpp"
 #include "../shaderfuncs/get_integer.hpp"
 #include "../shaderfuncs/compile_status.hpp"
@@ -31,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../instantiate.hpp"
 #include "../make_shader_type.hpp"
 #include "../pixel_shader.hpp"
+#include "../set_shader_source.hpp"
 #include "../shader_contexts.hpp"
 #include "../vertex_shader.hpp"
 #include "../../context/use.hpp"
@@ -62,30 +62,12 @@ sge::opengl::glsl::shader<Type, Environment>::shader(
 		)
 	)
 {
-	renderer::glsl::char_ const *const ptr(
-		_source.c_str()
-	);
-
-	GLint const len(
-		static_cast<
-			GLint
-		>(
-			_source.size()
-		)
-	);
-
-	shaderfuncs::source<
+	glsl::set_shader_source<
 		Environment
 	>(
 		this->context(),
 		this->id(),
-		1,
-		const_cast<
-			char const **
-		>(
-			&ptr
-		),
-		&len
+		_source
 	);
 }
 
