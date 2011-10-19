@@ -109,7 +109,7 @@ translate_event_type(
 		return KeyRelease;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 }

@@ -46,5 +46,5 @@ sge::opengl::texture::convert::stage_arg_op(
 		return GL_SOURCE2_ALPHA;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

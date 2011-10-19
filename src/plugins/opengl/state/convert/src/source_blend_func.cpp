@@ -52,5 +52,5 @@ sge::opengl::state::convert::source_blend_func(
 		return GL_SRC_ALPHA_SATURATE;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

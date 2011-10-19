@@ -43,5 +43,5 @@ sge::d3d9::parameters::convert::depth_stencil_buffer(
 		return D3DFMT_D24S8;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

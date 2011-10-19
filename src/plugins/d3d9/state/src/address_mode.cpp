@@ -106,7 +106,7 @@ index(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 }

@@ -183,5 +183,5 @@ sge::projectile::ghost::detail::pair_callback::removeOverlappingPairsContainingP
 	btBroadphaseProxy*,
 	btDispatcher*)
 {
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

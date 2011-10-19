@@ -32,7 +32,7 @@ sge::x11input::mouse::axis(
 {
 	FCPPT_ASSERT_PRE(
 		_code >= 0
-	)
+	);
 
 	sge::input::mouse::axis_id const id(
 		static_cast<
@@ -44,7 +44,7 @@ sge::x11input::mouse::axis(
 
 	FCPPT_ASSERT_PRE(
 		id < _info.size()
-	)
+	);
 
 	return
 		sge::input::mouse::axis(

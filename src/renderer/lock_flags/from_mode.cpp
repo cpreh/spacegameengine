@@ -38,5 +38,5 @@ sge::renderer::lock_flags::from_mode(
 		return lock_flags::method::readwrite;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

@@ -109,7 +109,7 @@ sge::model::md3::vertex::vertex(
 		return;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 sge::model::md3::s16

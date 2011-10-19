@@ -38,5 +38,5 @@ sge::opengl::texture::convert::mag_filter(
 		return GL_LINEAR;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

@@ -47,7 +47,7 @@ is_absolute(
 		return false;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 }

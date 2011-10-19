@@ -43,5 +43,5 @@ sge::opengl::convert::depth_buffer(
 		return awl::window::depth_buffer::depth32;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

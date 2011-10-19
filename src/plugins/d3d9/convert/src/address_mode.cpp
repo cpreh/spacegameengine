@@ -40,5 +40,5 @@ sge::d3d9::convert::address_mode(
 		return D3DTADDRESS_WRAP;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

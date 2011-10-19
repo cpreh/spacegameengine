@@ -54,5 +54,5 @@ sge::opengl::state::convert::bool_(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

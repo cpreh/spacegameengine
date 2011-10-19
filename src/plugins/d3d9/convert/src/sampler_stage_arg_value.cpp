@@ -42,5 +42,5 @@ sge::d3d9::convert::sampler_stage_arg_value(
 		return D3DTA_TEXTURE;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

@@ -37,5 +37,5 @@ sge::d3d9::state::convert::int_(
 		return D3DRS_STENCILREF;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

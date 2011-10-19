@@ -37,5 +37,5 @@ sge::d3d9::convert::sampler_stage_op(
 		return D3DTSS_ALPHAOP;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

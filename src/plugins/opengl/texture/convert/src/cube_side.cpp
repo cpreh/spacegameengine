@@ -39,7 +39,7 @@ sge::opengl::texture::convert::cube_side(
 
 	FCPPT_ASSERT_PRE(
 		pos < _cube_sides.size()
-	)
+	);
 
 	return
 		_cube_sides[

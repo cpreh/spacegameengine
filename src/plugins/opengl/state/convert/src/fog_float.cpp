@@ -46,5 +46,5 @@ sge::opengl::state::convert::fog_float(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

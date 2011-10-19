@@ -55,5 +55,5 @@ sge::d3d9::convert::lock_flags(
 			);
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

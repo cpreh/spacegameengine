@@ -282,5 +282,5 @@ sge::x11input::cursor::object::check_grab()
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

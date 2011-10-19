@@ -68,5 +68,5 @@ sge::d3d9::convert::sampler_stage_op_value(
 //		return D3DTOP_LERP;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

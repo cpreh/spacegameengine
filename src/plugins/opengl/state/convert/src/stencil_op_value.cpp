@@ -50,5 +50,5 @@ sge::opengl::state::convert::stencil_op_value(
 		return GL_INVERT;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

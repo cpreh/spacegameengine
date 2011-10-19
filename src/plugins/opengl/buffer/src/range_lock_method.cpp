@@ -40,5 +40,5 @@ sge::opengl::buffer::range_lock_method(
 		return GL_MAP_READ_BIT | GL_MAP_WRITE_BIT;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

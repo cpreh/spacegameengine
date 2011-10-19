@@ -50,5 +50,5 @@ sge::opengl::vf::convert_element_type(
 		return GL_UNSIGNED_INT;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

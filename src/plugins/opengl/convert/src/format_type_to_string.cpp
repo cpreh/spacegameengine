@@ -52,5 +52,5 @@ sge::opengl::convert::format_type_to_string(
 		return FCPPT_TEXT("FLOAT");
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

@@ -70,5 +70,5 @@ sge::libpng::transforms_from_format(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

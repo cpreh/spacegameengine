@@ -95,7 +95,7 @@ sge::opengl::buffer::hardware::hardware()
 	FCPPT_ASSERT_ERROR(
 		have_version_1_5_
 		|| have_arb_
-	)
+	);
 }
 
 sge::opengl::buffer::hardware::~hardware()

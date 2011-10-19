@@ -40,5 +40,5 @@ sge::opengl::state::convert::draw_mode(
 		return GL_FILL;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

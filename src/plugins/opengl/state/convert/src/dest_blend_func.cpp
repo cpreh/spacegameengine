@@ -50,5 +50,5 @@ sge::opengl::state::convert::dest_blend_func(
 		return GL_ONE_MINUS_DST_ALPHA;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

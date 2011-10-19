@@ -82,5 +82,5 @@ sge::opengl::convert::color_to_internal_format(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

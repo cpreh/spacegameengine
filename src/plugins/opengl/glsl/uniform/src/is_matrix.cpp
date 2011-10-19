@@ -50,5 +50,5 @@ sge::opengl::glsl::uniform::is_matrix(
 		return true;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

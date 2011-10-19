@@ -78,5 +78,5 @@ sge::opengl::convert::color_to_format(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

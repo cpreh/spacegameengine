@@ -40,5 +40,5 @@ sge::opengl::texture::convert::stage_arg_op_value(
 		return GL_CONSTANT;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

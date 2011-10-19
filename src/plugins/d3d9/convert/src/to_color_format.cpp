@@ -110,5 +110,5 @@ sge::d3d9::convert::to_color_format(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

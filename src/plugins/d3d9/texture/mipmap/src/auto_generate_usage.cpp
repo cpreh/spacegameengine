@@ -44,5 +44,5 @@ sge::d3d9::texture::mipmap::auto_generate_usage(
 			);
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

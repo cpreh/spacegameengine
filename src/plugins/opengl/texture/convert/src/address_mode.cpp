@@ -40,5 +40,5 @@ sge::opengl::texture::convert::address_mode(
 		return GL_REPEAT;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

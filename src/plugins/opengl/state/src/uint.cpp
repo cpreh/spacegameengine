@@ -59,5 +59,5 @@ sge::opengl::state::uint(
 		return;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

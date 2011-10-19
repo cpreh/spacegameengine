@@ -34,7 +34,7 @@ sge::x11input::joypad::button_id(
 
 	FCPPT_ASSERT_PRE(
 		detail >= 0
-	)
+	);
 
 	return
 		sge::input::joypad::button_id(

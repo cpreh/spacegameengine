@@ -77,5 +77,5 @@ sge::opengl::state::deferred::apply(
 		return;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

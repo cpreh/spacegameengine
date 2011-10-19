@@ -63,7 +63,7 @@ sge::opengl::glsl::uniform::convert_type(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 template<>
@@ -114,5 +114,5 @@ sge::opengl::glsl::uniform::convert_type(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

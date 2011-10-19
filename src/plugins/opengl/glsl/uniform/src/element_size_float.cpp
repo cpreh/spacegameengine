@@ -54,5 +54,5 @@ sge::opengl::glsl::uniform::element_size_float(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

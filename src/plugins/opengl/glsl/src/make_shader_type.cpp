@@ -50,7 +50,7 @@ sge::opengl::glsl::make_shader_type(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 #define SGE_OPENGL_GLSL_INSTANTIATE_MAKE_SHADER_TYPE(\

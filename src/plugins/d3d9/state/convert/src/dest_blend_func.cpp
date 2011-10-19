@@ -49,5 +49,5 @@ sge::d3d9::state::convert::dest_blend_func(
 		return D3DBLEND_INVDESTALPHA;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

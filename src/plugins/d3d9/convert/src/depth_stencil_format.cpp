@@ -39,5 +39,5 @@ sge::d3d9::convert::depth_stencil_format(
 		return D3DFMT_D32;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

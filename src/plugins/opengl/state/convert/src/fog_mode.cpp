@@ -42,5 +42,5 @@ sge::opengl::state::convert::fog_mode(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

@@ -40,5 +40,5 @@ sge::opengl::texture::convert::anisotropic_mip_filter(
 		return GL_NEAREST_MIPMAP_LINEAR;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

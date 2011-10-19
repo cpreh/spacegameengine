@@ -41,5 +41,5 @@ sge::d3d9::state::convert::fog_mode(
 		return D3DFOG_EXP2;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

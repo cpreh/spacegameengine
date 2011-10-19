@@ -43,5 +43,5 @@ sge::d3d9::state::deferred::apply(
 		return;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

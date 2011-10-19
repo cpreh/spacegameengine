@@ -69,5 +69,5 @@ sge::opengl::glsl::uniform::element_count(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

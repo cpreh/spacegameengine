@@ -41,5 +41,5 @@ sge::opengl::fbo::depth_stencil_format_to_attachment(
 		return _context.depth_stencil_attachment();
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

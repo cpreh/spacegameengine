@@ -68,5 +68,5 @@ sge::libpng::color_type_from_format(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

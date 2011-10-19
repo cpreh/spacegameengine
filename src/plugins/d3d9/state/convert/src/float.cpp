@@ -43,5 +43,5 @@ sge::d3d9::state::convert::float_(
 		return D3DRS_FOGDENSITY;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

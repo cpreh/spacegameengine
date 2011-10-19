@@ -38,5 +38,5 @@ sge::opengl::convert::index_format(
 		return GL_UNSIGNED_INT;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

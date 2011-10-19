@@ -40,5 +40,5 @@ sge::opengl::buffer::normal_lock_method(
 		return GL_READ_WRITE;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

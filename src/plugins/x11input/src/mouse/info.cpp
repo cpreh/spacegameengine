@@ -63,7 +63,7 @@ sge::x11input::mouse::info(
 		case XIButtonClass:
 			FCPPT_ASSERT_ERROR(
 				buttons.empty()
-			)
+			);
 
 			buttons =
 				sge::x11input::mouse::button_infos(

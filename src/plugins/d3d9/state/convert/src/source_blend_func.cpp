@@ -51,5 +51,5 @@ sge::d3d9::state::convert::source_blend_func(
 		return D3DBLEND_SRCALPHASAT;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

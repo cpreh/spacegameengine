@@ -49,5 +49,5 @@ sge::d3d9::state::convert::stencil_op_value(
 		return D3DSTENCILOP_INVERT;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

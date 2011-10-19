@@ -37,5 +37,5 @@ sge::d3d9::convert::indexed_primitive(
 		return D3DPT_TRIANGLELIST;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

@@ -162,7 +162,7 @@ sge::opengl::glsl::uniform::get(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 #define SGE_OPENGL_GLSL_INSTANTIATE_UNIFORM_GET(\

@@ -39,5 +39,5 @@ sge::d3d9::state::convert::color(
 		return D3DRS_FOGCOLOR;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

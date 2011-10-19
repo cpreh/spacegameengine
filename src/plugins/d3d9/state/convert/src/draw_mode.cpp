@@ -39,5 +39,5 @@ sge::d3d9::state::convert::draw_mode(
 		return D3DFILL_SOLID;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

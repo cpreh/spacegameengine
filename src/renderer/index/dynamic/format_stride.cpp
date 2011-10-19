@@ -38,5 +38,5 @@ sge::renderer::index::dynamic::format_stride(
 		return sizeof(index::i32);
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

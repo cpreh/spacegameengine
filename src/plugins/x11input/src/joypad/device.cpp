@@ -212,7 +212,7 @@ sge::x11input::joypad::device::on_motion(
 		FCPPT_ASSERT_ERROR(
 			valuator_index
 			< valuator_infos_.size()
-		)
+		);
 
 		x11input::joypad::valuator_info const &val_info(
 			valuator_infos_[

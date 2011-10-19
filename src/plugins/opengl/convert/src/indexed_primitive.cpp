@@ -38,5 +38,5 @@ sge::opengl::convert::indexed_primitive(
 		return GL_TRIANGLES;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

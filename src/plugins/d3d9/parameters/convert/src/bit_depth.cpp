@@ -37,5 +37,5 @@ sge::d3d9::parameters::convert::bit_depth(
 		return D3DFMT_X8R8G8B8;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

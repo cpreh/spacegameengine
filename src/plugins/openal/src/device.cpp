@@ -39,7 +39,7 @@ sge::openal::device::device(
 	FCPPT_ASSERT_POST(
 		device_,
 		sge::audio::exception
-	)
+	);
 }
 
 ALCdevice *

@@ -48,7 +48,7 @@ axis(
 	FCPPT_ASSERT_PRE(
 		id
 		< _info.size()
-	)
+	);
 
 	return
 		Ret(

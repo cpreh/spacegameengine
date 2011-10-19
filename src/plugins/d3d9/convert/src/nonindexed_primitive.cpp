@@ -45,5 +45,5 @@ sge::d3d9::convert::nonindexed_primitive(
 		return D3DPT_TRIANGLEFAN;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

@@ -82,7 +82,7 @@ sge::opengl::texture::writeonly_lock::post_copy()
 sge::opengl::texture::writeonly_lock::pointer
 sge::opengl::texture::writeonly_lock::read_pointer()
 {
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 sge::opengl::texture::writeonly_lock::pointer
@@ -94,7 +94,7 @@ sge::opengl::texture::writeonly_lock::write_pointer()
 sge::opengl::texture::writeonly_lock::pointer
 sge::opengl::texture::writeonly_lock::read_view_pointer()
 {
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 sge::opengl::texture::writeonly_lock::pointer

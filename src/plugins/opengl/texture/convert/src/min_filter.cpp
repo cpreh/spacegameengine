@@ -47,7 +47,7 @@ sge::opengl::texture::convert::min_filter(
 			return GL_NEAREST_MIPMAP_LINEAR;
 		}
 
-		FCPPT_ASSERT_UNREACHABLE
+		FCPPT_ASSERT_UNREACHABLE;
 	case renderer::texture::filter::normal::min::linear:
 		switch(
 			_mip
@@ -61,8 +61,8 @@ sge::opengl::texture::convert::min_filter(
 			return GL_LINEAR_MIPMAP_LINEAR;
 		}
 
-		FCPPT_ASSERT_UNREACHABLE
+		FCPPT_ASSERT_UNREACHABLE;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

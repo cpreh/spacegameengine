@@ -57,5 +57,5 @@ sge::opengl::convert::format_to_string(
 		return FCPPT_TEXT("LUMINANCE_ALPHA");
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

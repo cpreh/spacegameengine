@@ -103,5 +103,5 @@ sge::opengl::state::color(
 		return;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

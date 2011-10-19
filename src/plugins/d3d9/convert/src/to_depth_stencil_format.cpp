@@ -42,5 +42,5 @@ sge::d3d9::convert::to_depth_stencil_format(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

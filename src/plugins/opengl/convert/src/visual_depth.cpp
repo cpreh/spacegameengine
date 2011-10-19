@@ -38,5 +38,5 @@ sge::opengl::convert::visual_depth(
 		return awl::window::bit_depth::depth32;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

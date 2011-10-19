@@ -39,5 +39,5 @@ sge::d3d9::state::convert::stencil_op(
 		return D3DRS_STENCILPASS;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

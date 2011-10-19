@@ -97,5 +97,5 @@ sge::opencl::memory_object::image::sge_color_format_to_opencl(
 			break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

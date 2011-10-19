@@ -59,5 +59,5 @@ sge::libpng::bit_depth_from_format(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

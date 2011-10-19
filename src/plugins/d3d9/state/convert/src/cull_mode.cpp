@@ -39,5 +39,5 @@ sge::d3d9::state::convert::cull_mode(
 		return D3DCULL_CCW;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

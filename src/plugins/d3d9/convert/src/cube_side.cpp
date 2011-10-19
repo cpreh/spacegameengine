@@ -47,5 +47,5 @@ sge::d3d9::convert::cube_side(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

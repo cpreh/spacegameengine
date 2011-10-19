@@ -53,5 +53,5 @@ sge::d3d9::state::convert::bool_(
 		break;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

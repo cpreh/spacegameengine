@@ -46,5 +46,5 @@ sge::opengl::convert::nonindexed_primitive(
 		return GL_TRIANGLE_FAN;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

@@ -88,7 +88,7 @@ sge::opengl::texture::readonly_lock::read_pointer()
 sge::opengl::texture::readonly_lock::pointer
 sge::opengl::texture::readonly_lock::write_pointer()
 {
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 sge::opengl::texture::readonly_lock::pointer
@@ -100,7 +100,7 @@ sge::opengl::texture::readonly_lock::read_view_pointer()
 sge::opengl::texture::readonly_lock::pointer
 sge::opengl::texture::readonly_lock::write_view_pointer()
 {
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 sge::renderer::lock_flags::method::type

@@ -89,6 +89,6 @@ sge::opengl::texture::create_lock(
 			);
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
 

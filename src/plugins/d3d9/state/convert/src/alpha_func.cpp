@@ -51,5 +51,5 @@ sge::d3d9::state::convert::alpha_func(
 		return D3DCMP_ALWAYS;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

@@ -68,7 +68,7 @@ sge::x11input::joypad::info(
 		case XIButtonClass:
 			FCPPT_ASSERT_ERROR(
 				buttons.empty()
-			)
+			);
 
 			buttons =
 				sge::x11input::joypad::button_infos(

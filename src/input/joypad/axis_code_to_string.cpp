@@ -44,5 +44,5 @@ case sge::input::joypad::axis_code::name:\
 	MAKE_CASE(unknown)
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

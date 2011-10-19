@@ -51,5 +51,5 @@ sge::iconv::encoding_to_string(
 		return "WCHAR_T";
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

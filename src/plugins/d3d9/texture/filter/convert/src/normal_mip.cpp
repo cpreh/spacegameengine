@@ -40,5 +40,5 @@ sge::d3d9::texture::filter::convert::normal_mip(
 		return D3DTEXF_LINEAR;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }

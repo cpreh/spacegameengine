@@ -41,5 +41,5 @@ sge::opengl::convert::stencil_buffer(
 		return awl::window::stencil_buffer::depth8;
 	}
 
-	FCPPT_ASSERT_UNREACHABLE
+	FCPPT_ASSERT_UNREACHABLE;
 }
