@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/string.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/next_prior.hpp>
+#include <fcppt/config/external_end.hpp>
 
 template<
 	typename Environment
@@ -82,7 +85,9 @@ sge::opengl::glsl::get_shader_source(
 	return
 		renderer::glsl::string(
 			buffer.begin(),
-			buffer.end()
+			boost::prior(
+				buffer.end()
+			)
 		);
 }
 
