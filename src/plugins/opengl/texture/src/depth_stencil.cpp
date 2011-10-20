@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../convert/depth_stencil_to_internal_format.hpp"
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/depth_stencil_parameters.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/stage.hpp>
@@ -36,11 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
-// TODO: this should inherit from basic_texture as well!
+// FIXME: this should inherit from basic_texture as well!
 sge::opengl::texture::depth_stencil::depth_stencil(
 	opengl::context::object &_context,
-	dim const &_size,
-	renderer::depth_stencil_format::type const _format
+	renderer::texture::depth_stencil_parameters const &_params
 )
 :
 	renderer::texture::depth_stencil(),
@@ -49,10 +49,14 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 			GL_TEXTURE_2D
 		)
 	),
-	context_(_context),
-	size_(_size),
+	context_(
+		_context
+	),
+	size_(
+		_params.size()
+	),
 	format_(
-		_format
+		_params.format()
 	)
 {
 	opengl::texture::scoped_work_bind const binding(
@@ -69,13 +73,13 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		_context,
 		this->type(),
 		convert::depth_stencil_to_format(
-			_format
+			format_
 		),
 		convert::depth_stencil_to_format_type(
-			_format
+			format_
 		),
 		convert::depth_stencil_to_internal_format(
-			_format
+			format_
 		),
 		renderer::stage(
 			0u

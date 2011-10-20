@@ -537,8 +537,7 @@ sge::opengl::device::create_planar_texture(
 
 sge::renderer::texture::depth_stencil_ptr const
 sge::opengl::device::create_depth_stencil_texture(
-	renderer::dim2 const &_dim,
-	renderer::depth_stencil_format::type const _format
+	renderer::texture::depth_stencil_parameters const &_params
 )
 {
 	return
@@ -549,8 +548,9 @@ sge::opengl::device::create_depth_stencil_texture(
 				fcppt::ref(
 					context_
 				),
-				_dim,
-				_format
+				fcppt::cref(
+					_params
+				)
 			)
 		);
 }

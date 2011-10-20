@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
+#include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 
@@ -46,10 +47,9 @@ class depth_stencil
 		depth_stencil
 	);
 public:
-	explicit depth_stencil(
+	depth_stencil(
 		opengl::context::object &,
-		dim const &,
-		renderer::depth_stencil_format::type
+		renderer::texture::depth_stencil_parameters const &
 	);
 
 	~depth_stencil();

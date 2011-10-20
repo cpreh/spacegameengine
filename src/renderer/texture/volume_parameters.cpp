@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "basic_parameters_impl.hpp"
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/texture/volume_parameters.hpp>
 #include <sge/renderer/texture/address_mode3.hpp>
 #include <sge/renderer/dim3.hpp>
@@ -28,5 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template FCPPT_EXPORT_SYMBOL class
 sge::renderer::texture::basic_parameters<
 	sge::renderer::dim3,
-	sge::renderer::texture::address_mode3
+	sge::renderer::texture::address_mode3,
+	sge::image::color::format::type
 >;

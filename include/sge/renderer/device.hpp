@@ -69,6 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/const_optional_base_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_ptr.hpp>
+#include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_ptr.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
@@ -250,8 +251,7 @@ public:
 
 	virtual renderer::texture::depth_stencil_ptr const
 	create_depth_stencil_texture(
-		renderer::dim2 const &,
-		renderer::depth_stencil_format::type
+		renderer::texture::depth_stencil_parameters const &
 	) = 0;
 
 	virtual renderer::depth_stencil_surface_ptr const

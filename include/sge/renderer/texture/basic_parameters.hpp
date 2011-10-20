@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/image/color/format.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
 namespace sge
@@ -38,7 +37,8 @@ namespace texture
 
 template<
 	typename Dim,
-	typename AddressMode
+	typename AddressMode,
+	typename Format
 >
 class basic_parameters
 {
@@ -46,7 +46,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	basic_parameters(
 		Dim const &,
-		sge::image::color::format::type,
+		Format,
 		texture::mipmap::object const &,
 		AddressMode const &,
 		renderer::resource_flags_field const &,
@@ -58,8 +58,8 @@ public:
 	size() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::image::color::format::type
-	color_format() const;
+	Format
+	format() const;
 
 	SGE_RENDERER_SYMBOL
 	texture::mipmap::object const &
@@ -79,7 +79,7 @@ public:
 private:
 	Dim dim_;
 
-	sge::image::color::format::type color_format_;
+	Format format_;
 
 	texture::mipmap::object mipmap_;
 

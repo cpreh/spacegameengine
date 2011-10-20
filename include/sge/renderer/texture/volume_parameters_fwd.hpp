@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_VOLUME_PARAMETERS_FWD_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_VOLUME_PARAMETERS_FWD_HPP_INCLUDED
 
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/texture/basic_parameters_fwd.hpp>
 #include <sge/renderer/texture/address_mode3_fwd.hpp>
 #include <sge/renderer/dim3.hpp>
@@ -34,7 +35,8 @@ namespace texture
 
 typedef texture::basic_parameters<
 	renderer::dim3,
-	texture::address_mode3
+	texture::address_mode3,
+	image::color::format::type
 > volume_parameters;
 
 }

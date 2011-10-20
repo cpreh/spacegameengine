@@ -425,7 +425,7 @@ sge::opengl::texture::basic<Types>::basic(
 	),
 	color_type_(
 		opengl::convert::best_color_format(
-			_parameters.color_format()
+			_parameters.format()
 		)
 	),
 	format_(

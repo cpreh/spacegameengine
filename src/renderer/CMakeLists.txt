@@ -327,6 +327,8 @@ SET(
 	include/sge/renderer/texture/cube_side.hpp
 	include/sge/renderer/texture/depth_stencil.hpp
 	include/sge/renderer/texture/depth_stencil_fwd.hpp
+	include/sge/renderer/texture/depth_stencil_parameters.hpp
+	include/sge/renderer/texture/depth_stencil_parameters_fwd.hpp
 	include/sge/renderer/texture/depth_stencil_ptr.hpp
 	include/sge/renderer/texture/filter/anisotropic/anisotropic.hpp
 	include/sge/renderer/texture/filter/anisotropic/level.hpp
@@ -609,6 +611,7 @@ SET(
 	src/renderer/texture/cube.cpp
 	src/renderer/texture/cube_parameters.cpp
 	src/renderer/texture/depth_stencil.cpp
+	src/renderer/texture/depth_stencil_parameters.cpp
 	src/renderer/texture/filter/anisotropic/make.cpp
 	src/renderer/texture/filter/anisotropic/object.cpp
 	src/renderer/texture/filter/default.cpp
