@@ -64,7 +64,7 @@ sge::d3d9::texture::basic<Types>::basic(
 	parameters_(_parameters),
 	d3d_color_format_(
 		d3d9::convert::color_format(
-			_parameters.color_format()
+			_parameters.format()
 		)
 	),
 	color_format_(

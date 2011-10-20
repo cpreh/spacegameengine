@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -211,8 +212,7 @@ public:
 
 	renderer::texture::depth_stencil_ptr const
 	create_depth_stencil_texture(
-		renderer::dim2 const &,
-		renderer::depth_stencil_format::type
+		renderer::texture::depth_stencil_parameters const &
 	);
 
 	renderer::depth_stencil_surface_ptr const

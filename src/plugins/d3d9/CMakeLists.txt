@@ -352,6 +352,9 @@ SET(
 	src/plugins/d3d9/texture/d3d_cube_texture_unique_ptr.hpp
 	src/plugins/d3d9/texture/d3d_texture_unique_ptr.hpp
 	src/plugins/d3d9/texture/d3d_volume_texture_unique_ptr.hpp
+	src/plugins/d3d9/texture/depth_stencil.hpp
+	src/plugins/d3d9/texture/depth_stencil_basic.hpp
+	src/plugins/d3d9/texture/depth_stencil_types.hpp
 	src/plugins/d3d9/texture/filter/anisotropic.hpp
 	src/plugins/d3d9/texture/filter/anisotropic_level.hpp
 	src/plugins/d3d9/texture/filter/convert/anisotropic_mip.hpp
@@ -398,6 +401,8 @@ SET(
 	src/plugins/d3d9/texture/src/create_volume.cpp
 	src/plugins/d3d9/texture/src/cube.cpp
 	src/plugins/d3d9/texture/src/cube_types.cpp
+	src/plugins/d3d9/texture/src/depth_stencil.cpp
+	src/plugins/d3d9/texture/src/depth_stencil_types.cpp
 	src/plugins/d3d9/texture/src/lock_cube.cpp
 	src/plugins/d3d9/texture/src/lock_planar.cpp
 	src/plugins/d3d9/texture/src/lock_volume.cpp

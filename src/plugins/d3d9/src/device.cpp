@@ -54,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../surface/depth_stencil.hpp"
 #include "../surface/depth_stencil_native.hpp"
 #include "../texture/cube.hpp"
+#include "../texture/depth_stencil.hpp"
 #include "../texture/planar.hpp"
 #include "../texture/set.hpp"
 #include "../texture/volume.hpp"
@@ -509,11 +510,24 @@ sge::d3d9::device::create_planar_texture(
 
 sge::renderer::texture::depth_stencil_ptr const
 sge::d3d9::device::create_depth_stencil_texture(
-	renderer::dim2 const &_dim,
-	renderer::depth_stencil_format::type const _format
+	renderer::texture::depth_stencil_parameters const &_params
 )
 {
-	return renderer::texture::depth_stencil_ptr();
+	return
+		sge::renderer::texture::depth_stencil_ptr();
+#if 0
+	return
+		this->add_resource<
+			d3d9::texture::depth_stencil
+		>(
+			fcppt::make_shared_ptr<
+				d3d9::texture::depth_stencil
+			>(
+				device_.get(),
+				_params
+			)
+		);
+#endif
 }
 
 sge::renderer::depth_stencil_surface_ptr const
