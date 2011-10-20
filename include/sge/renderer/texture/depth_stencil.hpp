@@ -50,16 +50,17 @@ public:
 	SGE_RENDERER_SYMBOL
 	virtual ~depth_stencil() = 0;
 
-	typedef renderer::dim2 dim_type;
+	typedef renderer::dim2 dim;
 
-	virtual dim2 const
-	dim() const = 0;
+	virtual dim const
+	size() const = 0;
 
 	SGE_RENDERER_SYMBOL
 	virtual renderer::depth_stencil_surface_ptr const
 	surface() const = 0;
 
-	SGE_RENDERER_SYMBOL size_type
+	SGE_RENDERER_SYMBOL
+	size_type
 	content() const;
 };
 

@@ -48,14 +48,14 @@ class depth_stencil
 public:
 	explicit depth_stencil(
 		opengl::context::object &,
-		dim_type const &,
+		dim const &,
 		renderer::depth_stencil_format::type
 	);
 
 	~depth_stencil();
 
-	dim_type const
-	dim() const;
+	dim const
+	size() const;
 
 	renderer::depth_stencil_surface_ptr const
 	surface() const;
@@ -71,7 +71,7 @@ private:
 
 	opengl::context::object &context_;
 
-	dim_type const dim_;
+	dim const size_;
 
 	renderer::depth_stencil_format::type const format_;
 };

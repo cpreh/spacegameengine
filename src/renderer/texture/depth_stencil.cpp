@@ -33,5 +33,5 @@ sge::renderer::texture::depth_stencil::size_type
 sge::renderer::texture::depth_stencil::content() const
 {
 	return
-		this->dim().content();
+		this->size().content();
 }

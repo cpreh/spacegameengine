@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // TODO: this should inherit from basic_texture as well!
 sge::opengl::texture::depth_stencil::depth_stencil(
 	opengl::context::object &_context,
-	dim_type const &_dim,
+	dim const &_size,
 	renderer::depth_stencil_format::type const _format
 )
 :
@@ -50,7 +50,7 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		)
 	),
 	context_(_context),
-	dim_(_dim),
+	size_(_size),
 	format_(
 		_format
 	)
@@ -80,7 +80,7 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		renderer::stage(
 			0u
 		),
-		this->dim(),
+		this->size(),
 		0
 	);
 }
@@ -89,10 +89,10 @@ sge::opengl::texture::depth_stencil::~depth_stencil()
 {
 }
 
-sge::opengl::texture::depth_stencil::dim_type const
-sge::opengl::texture::depth_stencil::dim() const
+sge::opengl::texture::depth_stencil::dim const
+sge::opengl::texture::depth_stencil::size() const
 {
-	return dim_;
+	return size_;
 }
 
 sge::renderer::depth_stencil_surface_ptr const
