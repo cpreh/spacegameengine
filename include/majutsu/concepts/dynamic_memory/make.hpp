@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef MAJUTSU_CONCEPTS_DYNAMIC_MEMORY_MAKE_HPP_INCLUDED
 #define MAJUTSU_CONCEPTS_DYNAMIC_MEMORY_MAKE_HPP_INCLUDED
 
+#include <majutsu/concepts/dynamic_memory/tag.hpp>
 #include <majutsu/const_raw_pointer.hpp>
 
 namespace majutsu
@@ -41,7 +42,7 @@ make(
 	return
 		make(
 			static_cast<
-				tag const *
+				dynamic_memory::tag const *
 			>(0),
 			static_cast<
 				Element const *
