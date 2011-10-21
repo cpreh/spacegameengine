@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/axis_code.hpp>
 #include <sge/input/joypad/axis_max.hpp>
 #include <sge/input/joypad/axis_min.hpp>
-#include <sge/input/info/optional_string.hpp>
+
 
 sge::input::joypad::absolute_axis_info::absolute_axis_info(
 	joypad::axis_code::type const _code,

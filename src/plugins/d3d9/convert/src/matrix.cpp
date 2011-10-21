@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
 
+
 D3DMATRIX const
 sge::d3d9::convert::matrix(
 	sge::renderer::matrix4 const _matrix

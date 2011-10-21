@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "align_pos_v.hpp"
 #include "align_pos_h.hpp"
+#include <sge/font/char_metric.hpp>
+#include <sge/font/metrics.hpp>
 #include <sge/font/text/char_space.hpp>
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/drawer.hpp>
@@ -27,12 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/line_width.hpp>
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/size.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/font/char_metric.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+
 
 sge::font::text::part const
 sge::font::text::draw(

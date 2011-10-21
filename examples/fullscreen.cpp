@@ -18,32 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/exception.hpp>
+#include <sge/image/colors.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/viewport/dont_manage.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/renderer/parameters.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/io/cerr.hpp>
-#include <fcppt/chrono/seconds.hpp>
+#include <sge/viewport/dont_manage.hpp>
+#include <sge/window/instance.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/chrono/seconds.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <ostream>
-#include <exception>
 #include <cstdlib>
+#include <exception>
+#include <ostream>
 #include <fcppt/config/external_end.hpp>
+
 
 int main()
 try

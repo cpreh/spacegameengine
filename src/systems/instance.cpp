@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "wrap_window.hpp"
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
-#include <sge/audio/player_ptr.hpp>
 #include <sge/audio/player_plugin.hpp>
+#include <sge/audio/player_ptr.hpp>
 #include <sge/charconv/plugin.hpp>
 #include <sge/charconv/system.hpp>
 #include <sge/charconv/system_ptr.hpp>
@@ -60,24 +60,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/object_shared_ptr.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/log/output.hpp>
-#include <fcppt/log/warning.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_info.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/holds_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
+
 
 class sge::systems::instance::impl
 {

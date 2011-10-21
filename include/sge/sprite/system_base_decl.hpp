@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_SYSTEM_BASE_DECL_HPP_INCLUDED
 #define SGE_SPRITE_SYSTEM_BASE_DECL_HPP_INCLUDED
 
-#include <sge/sprite/system_base_fwd.hpp>
-#include <sge/sprite/detail/buffers.hpp>
-#include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vf/dynamic/format.hpp>
+#include <sge/sprite/system_base_fwd.hpp>
+#include <sge/sprite/detail/buffers.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

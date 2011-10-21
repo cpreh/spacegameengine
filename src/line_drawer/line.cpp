@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/line_drawer/line.hpp>
 #include <sge/image/color/any/convert.hpp>
+#include <sge/line_drawer/line.hpp>
+
 
 sge::line_drawer::line::line(
 	sge::renderer::vector3 const &_begin,

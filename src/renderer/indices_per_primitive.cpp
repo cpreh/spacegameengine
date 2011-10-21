@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/indices_per_primitive.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::renderer::size_type
 sge::renderer::indices_per_primitive(

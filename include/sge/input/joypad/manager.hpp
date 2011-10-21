@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_JOYPAD_MANAGER_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_MANAGER_HPP_INCLUDED
 
+#include <sge/input/processor_fwd.hpp>
+#include <sge/input/symbol.hpp>
 #include <sge/input/joypad/absolute_axis_event_fwd.hpp>
 #include <sge/input/joypad/button_event_fwd.hpp>
 #include <sge/input/joypad/device_ptr.hpp>
@@ -29,14 +31,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/relative_axis_event_fwd.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/joypad/remove_event_fwd.hpp>
-#include <sge/input/processor_fwd.hpp>
-#include <sge/input/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/connection_manager.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/shader/update_single_uniform.hpp>
-#include <sge/shader/scoped.hpp>
 #include <sge/shader/activate_bare.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/shader/scoped.hpp>
+#include <sge/shader/update_single_uniform.hpp>
+
 
 void
 sge::shader::update_single_uniform(

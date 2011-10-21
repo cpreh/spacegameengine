@@ -18,42 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/system.hpp>
-#include <sge/cegui/load_context.hpp>
-#include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
+#include <sge/cegui/load_context.hpp>
 #include <sge/cegui/structure_cast.hpp>
-#include <sge/viewport/manager.hpp>
-#include <sge/renderer/onscreen_target.hpp>
+#include <sge/cegui/system.hpp>
+#include <sge/cegui/to_cegui_string.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <sge/viewport/manager.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-// YES, OF COURSE I HAVE TO INCLUDE THAT!
+#include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/function/object.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <elements/CEGUIFrameWindow.h>
 #include <elements/CEGUIEditbox.h>
+#include <elements/CEGUIFrameWindow.h>
 #include <falagard/CEGUIFalWidgetLookManager.h>
-#include <CEGUISystem.h>
+#include <CEGUIAnimationManager.h>
 #include <CEGUIDefaultResourceProvider.h>
-#include <CEGUIImageset.h>
 #include <CEGUIFont.h>
 #include <CEGUIFontManager.h>
+#include <CEGUIImageset.h>
 #include <CEGUIScheme.h>
-#include <CEGUISystem.h>
-#include <CEGUIWindowManager.h>
 #include <CEGUIScriptModule.h>
-#include <CEGUIXMLParser.h>
+#include <CEGUISystem.h>
 #include <CEGUIWindow.h>
-#include <CEGUIAnimationManager.h>
+#include <CEGUIWindowManager.h>
+#include <CEGUIXMLParser.h>
 #include <fcppt/config/external_end.hpp>
+
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)

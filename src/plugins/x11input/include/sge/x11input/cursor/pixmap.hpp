@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_CURSOR_PIXMAP_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_PIXMAP_HPP_INCLUDED
 
-#include <sge/x11input/cursor/pixmap_fwd.hpp>
-#include <sge/x11input/cursor/image.hpp>
 #include <sge/x11input/pixmap_fwd.hpp>
+#include <sge/x11input/cursor/image.hpp>
+#include <sge/x11input/cursor/pixmap_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

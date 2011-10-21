@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/duration_cast.hpp>
 #include <fcppt/chrono/time_point_arithmetic.hpp>
 
+
 namespace sge
 {
 namespace timer

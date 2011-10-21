@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/entry_name_equal.hpp>
 #include <sge/parse/ini/entry.hpp>
+#include <sge/parse/ini/entry_name_equal.hpp>
+
 
 sge::parse::ini::entry_name_equal::entry_name_equal(
 	string const &_name

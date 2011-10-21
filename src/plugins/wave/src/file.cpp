@@ -23,21 +23,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/unsupported_format.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/endianness/is_little_endian.hpp>
+#include <fcppt/format.hpp>
+#include <fcppt/move.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/endianness/copy_swapped.hpp>
+#include <fcppt/endianness/is_little_endian.hpp>
 #include <fcppt/endianness/swap.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/io/ostringstream.hpp>
-#include <fcppt/format.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/move.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::wave::file::file(
 	stream_ptr _file,

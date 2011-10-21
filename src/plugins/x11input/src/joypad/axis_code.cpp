@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/joypad/axis_code.hpp>
 #include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/axis_code.hpp>
+#include <sge/x11input/joypad/axis_code.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::input::joypad::axis_code::type
 sge::x11input::joypad::axis_code(

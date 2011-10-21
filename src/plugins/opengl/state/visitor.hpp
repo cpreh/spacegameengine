@@ -22,21 +22,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_VISITOR_HPP_INCLUDED
 
 #include "parameters.hpp"
-#include <sge/renderer/state/int.hpp>
-#include <sge/renderer/state/uint.hpp>
-#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/alpha_func.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/stencil_op.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
-#include <sge/renderer/state/alpha_func.hpp>
-#include <sge/renderer/state/fog_mode.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
-#include <sge/renderer/state/source_blend_func.hpp>
 #include <sge/renderer/state/dest_blend_func.hpp>
+#include <sge/renderer/state/draw_mode.hpp>
+#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/fog_mode.hpp>
+#include <sge/renderer/state/int.hpp>
+#include <sge/renderer/state/source_blend_func.hpp>
+#include <sge/renderer/state/stencil_func.hpp>
+#include <sge/renderer/state/stencil_op.hpp>
+#include <sge/renderer/state/uint.hpp>
 #include <fcppt/nonassignable.hpp>
+
 
 namespace sge
 {

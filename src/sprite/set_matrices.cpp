@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/set_matrices.hpp>
-#include <sge/sprite/projection_matrix.hpp>
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/target_base.hpp>
+#include <sge/sprite/projection_matrix.hpp>
+#include <sge/sprite/set_matrices.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+
 
 void
 sge::sprite::set_matrices(

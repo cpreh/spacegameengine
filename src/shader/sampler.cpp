@@ -18,27 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/shader/sampler.hpp>
+#include <sge/exception.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/base_ptr.hpp>
+#include <sge/renderer/texture/cube.hpp>
+#include <sge/renderer/texture/cube_ptr.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/texture/volume_ptr.hpp>
 #include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/cube_ptr.hpp>
-#include <sge/renderer/texture/cube.hpp>
-#include <sge/exception.hpp>
+#include <sge/renderer/texture/volume_ptr.hpp>
+#include <sge/shader/sampler.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/type_name.hpp>
+#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <typeinfo>
 #include <limits>
+#include <typeinfo>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

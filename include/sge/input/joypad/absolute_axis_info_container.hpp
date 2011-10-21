@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_INFO_CONTAINER_HPP_INCLUDED
 
 #include <sge/input/info/container.hpp>
-#include <sge/input/joypad/absolute_axis_info_container_fwd.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
+#include <sge/input/joypad/absolute_axis_info_container_fwd.hpp>
+
 
 #endif

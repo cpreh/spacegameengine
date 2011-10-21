@@ -21,23 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_EXTERNAL_SYSTEM_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_EXTERNAL_SYSTEM_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/external_system_decl.hpp>
-#include <sge/sprite/system_base_impl.hpp>
-#include <sge/sprite/render_states.hpp>
-#include <sge/sprite/set_matrices.hpp>
-#include <sge/sprite/detail/fill_geometry.hpp>
-#include <sge/sprite/detail/optional_size.hpp>
-#include <sge/sprite/detail/render.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/state/scoped.hpp>
+#include <sge/sprite/external_system_decl.hpp>
+#include <sge/sprite/render_states.hpp>
+#include <sge/sprite/set_matrices.hpp>
+#include <sge/sprite/system_base_impl.hpp>
+#include <sge/sprite/detail/fill_geometry.hpp>
+#include <sge/sprite/detail/optional_size.hpp>
+#include <sge/sprite/detail/render.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
+
 
 template<
 	typename Choices

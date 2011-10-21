@@ -22,18 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CEGUI_STRUCTURE_CAST_HPP_INCLUDED
 
 #include <sge/cegui/unit.hpp>
-#include <fcppt/math/vector/has_dim.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/dim/has_dim.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/box/has_dim.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/has_dim.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/has_dim.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/has_dim.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUISize.h>
 #include <CEGUIRect.h>
+#include <CEGUISize.h>
 #include <CEGUIVector.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

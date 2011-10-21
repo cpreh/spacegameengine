@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/plugin/library/function_map.hpp>
 #include <sge/plugin/library/exception.hpp>
+#include <sge/plugin/library/function_map.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::plugin::library::function_map::function_map(
 	container const &_functions

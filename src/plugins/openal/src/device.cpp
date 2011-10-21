@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_alc_state.hpp"
 #include "../openal.hpp"
 #include <sge/audio/exception.hpp>
-#include <fcppt/assert/post.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/post.hpp>
+
 
 sge::openal::device::device(
 	ALCchar const * const specifier)

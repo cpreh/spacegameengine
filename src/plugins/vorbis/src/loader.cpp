@@ -21,22 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file.hpp"
 #include "../loader.hpp"
 #include "../stream_ptr.hpp"
+#include <sge/extension_set.hpp>
+#include <sge/audio/file_exception.hpp>
 #include <sge/audio/optional_path.hpp>
 #include <sge/audio/unsupported_format.hpp>
-#include <sge/audio/file_exception.hpp>
-#include <sge/extension_set.hpp>
-#include <fcppt/io/cifstream.hpp>
-#include <fcppt/io/raw_container_source.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/container/raw_vector.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/move.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/io/cifstream.hpp>
+#include <fcppt/io/raw_container_source.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iostreams/stream.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

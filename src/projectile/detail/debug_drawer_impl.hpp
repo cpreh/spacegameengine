@@ -21,19 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_DETAIL_DEBUG_DRAWER_IMPL_HPP_INCLUDED
 #define SGE_PROJECTILE_DETAIL_DEBUG_DRAWER_IMPL_HPP_INCLUDED
 
-#include <sge/projectile/world_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
+#include <sge/projectile/world_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

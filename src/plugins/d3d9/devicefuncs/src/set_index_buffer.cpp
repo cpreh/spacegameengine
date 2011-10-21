@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer.hpp>
 #include <fcppt/text.hpp>
 
+
 void
 sge::d3d9::devicefuncs::set_index_buffer(
 	IDirect3DDevice9 *const _device,

@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_REMOVE_EVENT_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_REMOVE_EVENT_HPP_INCLUDED
 
-#include <sge/input/mouse/remove_event_fwd.hpp>
-#include <sge/input/mouse/device_ptr.hpp>
 #include <sge/input/symbol.hpp>
+#include <sge/input/mouse/device_ptr.hpp>
+#include <sge/input/mouse/remove_event_fwd.hpp>
+
 
 namespace sge
 {

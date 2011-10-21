@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/normal/mag.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 DWORD
 sge::d3d9::texture::filter::convert::mag(
 	renderer::texture::filter::normal::mag::type const _type

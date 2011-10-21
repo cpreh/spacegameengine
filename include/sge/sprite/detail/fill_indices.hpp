@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_INDICES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_INDICES_HPP_INCLUDED
 
-#include <sge/sprite/detail/indices_per_sprite.hpp>
-#include <sge/sprite/detail/index_generator.hpp>
-#include <sge/renderer/index/any/generate.hpp>
-#include <sge/renderer/index/any/make_view.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/index/any/generate.hpp>
+#include <sge/renderer/index/any/make_view.hpp>
+#include <sge/sprite/detail/index_generator.hpp>
+#include <sge/sprite/detail/indices_per_sprite.hpp>
+
 
 namespace sge
 {

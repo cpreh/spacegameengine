@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../set_flipped_area.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+
 
 void
 sge::opengl::set_scissor_area(

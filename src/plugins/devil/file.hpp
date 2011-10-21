@@ -24,16 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "file_fwd.hpp"
 #include "image_holder.hpp"
 #include "optional_error.hpp"
-#include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/dim.hpp>
 #include <sge/const_raw_range.hpp>
 #include <sge/optional_extension.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/view/const_object_fwd.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/function/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

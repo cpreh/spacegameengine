@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_BASIC_DECL_HPP_INCLUDED
 #define SGE_TIMER_BASIC_DECL_HPP_INCLUDED
 
-#include <sge/timer/clocks/detail/wrapper.hpp>
 #include <sge/timer/basic_fwd.hpp>
 #include <sge/timer/parameters_decl.hpp>
+#include <sge/timer/clocks/detail/wrapper.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ERROR_CHECK_STATE_HPP_INCLUDED
 #define SGE_ERROR_CHECK_STATE_HPP_INCLUDED
 
-#include <fcppt/preprocessor/stringize.hpp>
-#include <fcppt/preprocessor/file.hpp>
 #include <fcppt/format.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/preprocessor/file.hpp>
+#include <fcppt/preprocessor/stringize.hpp>
+
 
 #define SGE_ERROR_CHECK_STATE(\
 	exception,\

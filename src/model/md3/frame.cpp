@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
+
 sge::model::md3::frame::frame(
 	std::istream &_stream
 )

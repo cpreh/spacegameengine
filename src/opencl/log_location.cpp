@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "log_location.hpp"
-#include <fcppt/log/location.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/log/location.hpp>
+
 
 fcppt::log::location const
 sge::opencl::log_location()

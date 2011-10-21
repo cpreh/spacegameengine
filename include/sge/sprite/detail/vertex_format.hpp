@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_VERTEX_FORMAT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VERTEX_FORMAT_HPP_INCLUDED
 
-#include <sge/sprite/detail/vertex_format_part.hpp>
 #include <sge/renderer/vf/format.hpp>
+#include <sge/sprite/detail/vertex_format_part.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

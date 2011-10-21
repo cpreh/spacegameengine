@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/part_fragmented.hpp>
 #include <sge/texture/fragmented.hpp>
+#include <sge/texture/part_fragmented.hpp>
 #include <sge/texture/sub_data.hpp>
-#include <sge/texture/atlasing/border_w.hpp>
 #include <sge/texture/atlasing/border_h.hpp>
+#include <sge/texture/atlasing/border_w.hpp>
 #include <sge/texture/atlasing/inner_rect.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+
 
 sge::texture::part_fragmented::part_fragmented(
 	renderer::lock_rect const &_outer_area,

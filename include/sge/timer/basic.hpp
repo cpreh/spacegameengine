@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_BASIC_HPP_INCLUDED
 #define SGE_TIMER_BASIC_HPP_INCLUDED
 
-#include <sge/timer/basic_fwd.hpp>
 #include <sge/timer/basic_decl.hpp>
+#include <sge/timer/basic_fwd.hpp>
 #include <sge/timer/basic_impl.hpp>
+
 
 #endif

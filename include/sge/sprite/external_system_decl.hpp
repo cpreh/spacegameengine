@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_EXTERNAL_SYSTEM_DECL_HPP_INCLUDED
 #define SGE_SPRITE_EXTERNAL_SYSTEM_DECL_HPP_INCLUDED
 
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/external_system_fwd.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/system_base_decl.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

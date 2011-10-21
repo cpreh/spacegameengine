@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_X11_RESOLUTION_CREATE_HPP_INCLUDED
 
 #include "unique_ptr.hpp"
-#include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
+
 
 namespace sge
 {

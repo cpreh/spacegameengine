@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 
+
 ALenum
 sge::openal::file_format(
 	audio::file const &file)

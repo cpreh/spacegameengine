@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 
 #include "context_fwd.hpp"
-#include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/gdi_device_fwd.hpp>
+#include <awl/backends/windows/windows.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

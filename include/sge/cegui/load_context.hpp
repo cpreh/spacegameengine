@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/default_font.hpp>
 #include <sge/cegui/symbol.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/optional.hpp>
+#include <fcppt/filesystem/path.hpp>
+
 
 namespace sge
 {

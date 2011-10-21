@@ -18,19 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/device/manager/object.hpp>
-#include <sge/x11input/device/manager/config_base.hpp>
-#include <sge/x11input/device/manager/config_map.hpp>
-#include <sge/x11input/device/info/single.hpp>
+#include <sge/x11input/create_parameters.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/use.hpp>
-#include <sge/x11input/create_parameters.hpp>
+#include <sge/x11input/device/info/single.hpp>
+#include <sge/x11input/device/manager/config_base.hpp>
+#include <sge/x11input/device/manager/config_map.hpp>
+#include <sge/x11input/device/manager/object.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <utility>
 #include <X11/extensions/XInput2.h>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::x11input::device::manager::object::object(
 	awl::backends::x11::display &_display,

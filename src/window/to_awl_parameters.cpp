@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/window/to_awl_parameters.hpp>
 #include <sge/window/convert_size_hints.hpp>
-#include <awl/window/dim.hpp>
 #include <sge/window/simple_parameters.hpp>
+#include <sge/window/to_awl_parameters.hpp>
+#include <awl/window/dim.hpp>
 #include <awl/window/parameters.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+
 
 awl::window::parameters
 sge::window::to_awl_parameters(

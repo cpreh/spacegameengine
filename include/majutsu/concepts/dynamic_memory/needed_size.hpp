@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef MAJUTSU_CONCEPTS_DYNAMIC_MEMORY_NEEDED_SIZE_HPP_INCLUDED
 #define MAJUTSU_CONCEPTS_DYNAMIC_MEMORY_NEEDED_SIZE_HPP_INCLUDED
 
-#include <majutsu/concepts/static_size.hpp>
 #include <majutsu/size_type.hpp>
+#include <majutsu/concepts/static_size.hpp>
+
 
 namespace majutsu
 {

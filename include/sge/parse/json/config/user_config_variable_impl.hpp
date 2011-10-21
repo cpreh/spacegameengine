@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_CONFIG_USER_CONFIG_VARIABLE_IMPL_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONFIG_USER_CONFIG_VARIABLE_IMPL_HPP_INCLUDED
 
-#include <sge/parse/json/config/user_config_variable_decl.hpp>
-#include <sge/parse/json/config/modify_user_value.hpp>
-#include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/convert_to.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/config/modify_user_value.hpp>
+#include <sge/parse/json/config/user_config_variable_decl.hpp>
+
 
 template<typename T>
 sge::parse::json::config::user_config_variable<T>::user_config_variable(

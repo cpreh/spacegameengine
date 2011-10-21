@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_INPUT_METHOD_HPP_INCLUDED
 
 #include <sge/x11input/input_method_fwd.hpp>
-#include <awl/backends/x11/window/class_hint_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/window/class_hint_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

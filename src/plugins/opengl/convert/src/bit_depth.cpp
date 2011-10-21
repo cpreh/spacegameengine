@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/bit_depth.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 awl::window::bit_depth::type
 sge::opengl::convert::bit_depth(
 	sge::renderer::bit_depth::type const _mode

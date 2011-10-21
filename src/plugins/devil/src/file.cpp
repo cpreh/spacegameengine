@@ -31,11 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_integer.hpp"
 #include "../to_il_channel.hpp"
 #include "../to_il_format.hpp"
+#include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/exception.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/element_count.hpp>
 #include <sge/image/color/format_stride.hpp>
-#include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/exception.hpp>
+#include <sge/image2d/dim.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/format.hpp>
@@ -43,22 +44,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/size.hpp>
-#include <sge/image2d/dim.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/assert/post.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/function/object.hpp>
-#include <fcppt/log/warning.hpp>
-#include <fcppt/log/output.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
+#include <fcppt/assert/post.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/function/object.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::devil::file::file()
 :

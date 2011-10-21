@@ -21,24 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef MAJUTSU_MEMORY_FUSION_HPP_INCLUDED
 #define MAJUTSU_MEMORY_FUSION_HPP_INCLUDED
 
-#include <majutsu/memory/detail/index_of.hpp>
-#include <majutsu/memory/detail/expand_fusion_initlist.hpp>
-#include <majutsu/memory/detail/init_constants.hpp>
+#include <majutsu/flatten.hpp>
+#include <majutsu//role_return_type.hpp>
 #include <majutsu/detail/find_role.hpp>
 #include <majutsu/detail/make_iterators.hpp>
-#include <majutsu//role_return_type.hpp>
-#include <majutsu/flatten.hpp>
+#include <majutsu/memory/detail/expand_fusion_initlist.hpp>
+#include <majutsu/memory/detail/index_of.hpp>
+#include <majutsu/memory/detail/init_constants.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
-#include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/container/generation/make_vector.hpp>
-#include <boost/mpl/placeholders.hpp>
-//#include <boost/mpl/transform_view.hpp>
+#include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/mpl/for_each.hpp>
-
+#include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform.hpp>
+#include <boost/mpl/transform_view.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace majutsu
 {

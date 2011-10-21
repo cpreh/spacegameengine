@@ -29,12 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../multi_sample_context.hpp"
 #include "../../point_sprite_context.hpp"
 #include "../../convert/to_gl_bool.hpp"
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
+
 
 void
 sge::opengl::state::bool_(

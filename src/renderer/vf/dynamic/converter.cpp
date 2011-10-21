@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "detail/converter_impl.hpp"
 #include "detail/lock_interval.hpp"
 #include "detail/locked_part_interval.hpp"
-#include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/lock_flags/write.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <sge/renderer/vf/dynamic/converter.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/assert/pre.hpp>
+
 
 sge::renderer::vf::dynamic::converter::converter(
 	dynamic::part const &_part,

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/unsupported.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::renderer::unsupported::unsupported(
 	fcppt::string const &_feature,
 	fcppt::string const &_minimum_version_required,

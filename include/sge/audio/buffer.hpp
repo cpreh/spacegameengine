@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_BUFFER_HPP_INCLUDED
 #define SGE_AUDIO_BUFFER_HPP_INCLUDED
 
-#include <sge/audio/sound/positional_ptr.hpp>
-#include <sge/audio/sound/positional_parameters_fwd.hpp>
-#include <sge/audio/sound/base_ptr.hpp>
-#include <sge/audio/symbol.hpp>
 #include <sge/class_symbol.hpp>
+#include <sge/audio/symbol.hpp>
+#include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
+#include <sge/audio/sound/positional_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_MD3_OBJECT_HPP_INCLUDED
 #define SGE_MODEL_MD3_OBJECT_HPP_INCLUDED
 
-#include <sge/model/md3/object_fwd.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/model/md3/index_sequence.hpp>
 #include <sge/model/md3/normal_sequence.hpp>
+#include <sge/model/md3/object_fwd.hpp>
 #include <sge/model/md3/optional_normal_sequence.hpp>
 #include <sge/model/md3/optional_texcoord_sequence.hpp>
 #include <sge/model/md3/part_name_sequence.hpp>
@@ -31,9 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/symbol.hpp>
 #include <sge/model/md3/texcoord_sequence.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
-#include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp> // TODO: make _fwd headers!
+#include <fcppt/optional.hpp>
+
 
 namespace sge
 {

@@ -18,29 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/cursor/object.hpp>
-#include <sge/x11input/cursor/button_code.hpp>
-#include <sge/x11input/cursor/grab.hpp>
-#include <sge/x11input/cursor/query_pointer.hpp>
-#include <sge/x11input/device/parameters.hpp>
-#include <sge/x11input/device/window_demuxer.hpp>
-#include <sge/x11input/device/window_event.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
+#include <sge/x11input/cursor/button_code.hpp>
+#include <sge/x11input/cursor/grab.hpp>
+#include <sge/x11input/cursor/object.hpp>
+#include <sge/x11input/cursor/query_pointer.hpp>
+#include <sge/x11input/device/parameters.hpp>
+#include <sge/x11input/device/window_demuxer.hpp>
+#include <sge/x11input/device/window_event.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
 #include <X11/Xlib.h>
+#include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::x11input::cursor::object::object(
 	x11input::device::parameters const &_param,

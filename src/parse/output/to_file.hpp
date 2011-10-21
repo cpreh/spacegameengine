@@ -22,11 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_OUTPUT_TO_FILE_HPP_INCLUDED
 
 #include <sge/parse/exception.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/ofstream.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
+
 
 namespace sge
 {

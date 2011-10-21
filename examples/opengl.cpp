@@ -37,8 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
-#include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
@@ -53,18 +53,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/dont_manage.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/simple_parameters.hpp>
-#include <fcppt/exception.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
-#include <cstdlib>
 #include <fcppt/config/external_end.hpp>
+
 
 int
 main()

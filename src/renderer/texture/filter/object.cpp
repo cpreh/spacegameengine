@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/object.hpp>
 #include <fcppt/variant/equal.hpp>
 
+
 sge::renderer::texture::filter::object::object(
 	filter::variant const &_variant
 )

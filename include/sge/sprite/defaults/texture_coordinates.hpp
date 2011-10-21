@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DEFAULTS_TEXTURE_COORDINATES_HPP_INCLUDED
 #define SGE_SPRITE_DEFAULTS_TEXTURE_COORDINATES_HPP_INCLUDED
 
-#include <sge/sprite/defaults/fwd.hpp>
-#include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/texture_coordinates.hpp>
 #include <sge/sprite/texture_level.hpp>
+#include <sge/sprite/defaults/fwd.hpp>
+#include <sge/sprite/roles/texture_coordinates.hpp>
+
 
 namespace sge
 {

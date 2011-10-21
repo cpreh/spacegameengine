@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/mouse/discover_event.hpp>
 #include <sge/input/mouse/device_ptr.hpp>
+#include <sge/input/mouse/discover_event.hpp>
+
 
 sge::input::mouse::discover_event::discover_event(
 	mouse::device_ptr const _device

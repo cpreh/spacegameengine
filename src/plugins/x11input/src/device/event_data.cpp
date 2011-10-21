@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/device/event_data.hpp>
 #include <sge/input/exception.hpp>
-#include <awl/backends/x11/system/event/object.hpp>
+#include <sge/x11input/device/event_data.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/system/event/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::x11input::device::event_data::event_data(
 	awl::backends::x11::display &_display,

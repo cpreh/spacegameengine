@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_CONST_PROXY_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_CONST_PROXY_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/index/const_proxy_decl.hpp>
 #include <sge/renderer/index/const_format_16.hpp>
 #include <sge/renderer/index/const_format_32.hpp>
+#include <sge/renderer/index/const_proxy_decl.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
+
 
 template<
 	typename Format

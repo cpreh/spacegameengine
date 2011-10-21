@@ -19,28 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "next_or_last.hpp"
-#include <sge/console/gfx.hpp>
 #include <sge/console/exception.hpp>
+#include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
+#include <sge/font/dim.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/rect.hpp>
+#include <sge/font/text/draw.hpp>
 #include <sge/font/text/drawer_3d.hpp>
-#include <sge/font/text/line_width.hpp>
 #include <sge/font/text/flags_none.hpp>
 #include <sge/font/text/height.hpp>
-#include <sge/font/text/draw.hpp>
-#include <sge/font/text/part.hpp>
+#include <sge/font/text/line_width.hpp>
 #include <sge/font/text/lit.hpp>
-#include <sge/font/pos.hpp>
-#include <sge/font/dim.hpp>
-#include <sge/font/rect.hpp>
+#include <sge/font/text/part.hpp>
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/container/map_impl.hpp>
 #include <fcppt/chrono/time_point.hpp>
+#include <fcppt/container/map_impl.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <locale>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

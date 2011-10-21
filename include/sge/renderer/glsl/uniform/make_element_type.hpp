@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/detail/float_arity.hpp>
 #include <sge/renderer/glsl/uniform/detail/int_arity.hpp>
 #include <sge/renderer/glsl/uniform/detail/matrix_arity.hpp>
-#include <fcppt/math/vector/basic_fwd.hpp>
 #include <fcppt/math/matrix/basic_fwd.hpp>
+#include <fcppt/math/vector/basic_fwd.hpp>
+
 
 namespace sge
 {

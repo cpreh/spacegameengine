@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/fog_mode.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 GLint
 sge::opengl::state::convert::fog_mode(
 	renderer::state::fog_mode::type const _mode

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/activation_method.hpp>
 #include <fcppt/container/bitfield/bitfield.hpp>
 
+
 namespace sge
 {
 namespace shader

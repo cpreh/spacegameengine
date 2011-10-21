@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../convert_dim.hpp"
 #include <sge/image/view/wrap.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <mizuiro/image/sub_view.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+
 
 namespace sge
 {

@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_BITMAP_CHAR_MAP_HPP_INCLUDED
 #define SGE_FONT_BITMAP_CHAR_MAP_HPP_INCLUDED
 
-#include <sge/font/char_type.hpp>
 #include <sge/font/char_metric_ptr.hpp>
+#include <sge/font/char_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

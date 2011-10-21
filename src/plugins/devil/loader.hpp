@@ -22,15 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DEVIL_LOADER_HPP_INCLUDED
 
 #include "library.hpp"
-#include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/image2d/file_ptr.hpp>
-#include <sge/image2d/loader.hpp>
-#include <sge/image/capabilities_field.hpp>
 #include <sge/const_raw_range.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/optional_extension.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <sge/image/capabilities_field.hpp>
+#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/loader.hpp>
+#include <sge/image2d/view/const_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
+
 
 namespace sge
 {

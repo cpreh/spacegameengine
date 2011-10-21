@@ -21,19 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MULTI_LOADER_HPP_INCLUDED
 #define SGE_MULTI_LOADER_HPP_INCLUDED
 
-#include <sge/multi_loader_fwd.hpp>
-#include <sge/plugin/manager_fwd.hpp>
-#include <sge/plugin/context.hpp>
 #include <sge/const_raw_range.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/instantiate_symbol.hpp>
+#include <sge/multi_loader_fwd.hpp>
 #include <sge/optional_extension.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <sge/plugin/context.hpp>
+#include <sge/plugin/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/shared_ptr.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

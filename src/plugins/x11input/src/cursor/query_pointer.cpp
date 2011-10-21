@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/cursor/query_pointer.hpp>
 #include <sge/input/cursor/position_unit.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <sge/x11input/cursor/query_pointer.hpp>
 #include <awl/backends/x11/deleter.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::input::cursor::position const
 sge::x11input::cursor::query_pointer(

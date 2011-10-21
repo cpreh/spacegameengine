@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/info.hpp>
 #include <fcppt/string.hpp>
 
+
 sge::input::mouse::info::info(
 	input::mouse::axis_info_container const &_axis,
 	input::mouse::button_info_container const &_buttons,

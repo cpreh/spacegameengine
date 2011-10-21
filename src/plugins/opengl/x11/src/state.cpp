@@ -24,15 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../resolution/instance.hpp"
 #include "../../glx/context.hpp"
 #include <sge/renderer/parameters.hpp>
+#include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/visual.hpp>
 #include <awl/backends/x11/window/instance.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::opengl::x11::state::state(
 	opengl::context::object &_context,

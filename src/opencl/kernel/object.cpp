@@ -19,14 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../handle_error.hpp"
-#include <sge/opencl/kernel/object.hpp>
 #include <sge/exception.hpp>
-#include <sge/opencl/program/object.hpp>
+#include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/memory_object/base.hpp>
+#include <sge/opencl/program/object.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+
 
 sge::opencl::kernel::object::object(
 	program::object &_program,
@@ -46,7 +47,7 @@ sge::opencl::kernel::object::object(
 		error_code,
 		FCPPT_TEXT("clCreateKernel"));
 
-	error_code = 
+	error_code =
 		clGetKernelInfo(
 			kernel_,
 			CL_KERNEL_NUM_ARGS,

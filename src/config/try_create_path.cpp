@@ -20,12 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "try_create_path.hpp"
 #include <sge/config/exception.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/filesystem/create_directories_recursive_exn.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/is_directory.hpp>
-#include <fcppt/filesystem/create_directories_recursive_exn.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/text.hpp>
+
 
 fcppt::filesystem::path const
 sge::config::try_create_path(

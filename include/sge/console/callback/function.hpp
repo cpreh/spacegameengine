@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/callback/function_type.hpp>
 #include <fcppt/function/object.hpp>
 
+
 namespace sge
 {
 namespace console
@@ -31,7 +32,7 @@ namespace console
 namespace callback
 {
 
-typedef 
+typedef
 fcppt::function::object
 <
 	callback::function_type

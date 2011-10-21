@@ -21,25 +21,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_INPUT_PROCESSOR_HPP_INCLUDED
 
+#include <sge/class_symbol.hpp>
 #include <sge/input/processor_fwd.hpp>
+#include <sge/input/symbol.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
-#include <sge/input/cursor/remove_callback.hpp>
-#include <sge/input/cursor/object_vector.hpp>
 #include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/object_vector.hpp>
+#include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/joypad/device_vector.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
-#include <sge/input/joypad/device_vector.hpp>
+#include <sge/input/keyboard/device_vector.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
-#include <sge/input/keyboard/device_vector.hpp>
+#include <sge/input/mouse/device_vector.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
-#include <sge/input/mouse/device_vector.hpp>
-#include <sge/input/symbol.hpp>
 #include <sge/window/instance_ptr.hpp>
-#include <sge/class_symbol.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+
 
 namespace sge
 {

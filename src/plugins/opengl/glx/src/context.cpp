@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../context.hpp"
-#include <awl/backends/x11/display.hpp>
 #include <sge/renderer/exception.hpp>
+#include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::opengl::glx::context::context(
 	awl::backends::x11::display &_display,

@@ -18,31 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/keyboard/char_event.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_repeat_event.hpp>
+#include <sge/input/keyboard/to_modifier.hpp>
+#include <sge/x11input/device/parameters.hpp>
+#include <sge/x11input/device/window_demuxer.hpp>
+#include <sge/x11input/device/window_event.hpp>
 #include <sge/x11input/keyboard/device.hpp>
 #include <sge/x11input/keyboard/fake_core_event.hpp>
 #include <sge/x11input/keyboard/key_code_to_key_sym.hpp>
 #include <sge/x11input/keyboard/looked_up_string.hpp>
 #include <sge/x11input/keyboard/lookup_string.hpp>
 #include <sge/x11input/keyboard/translate_key_code.hpp>
-#include <sge/x11input/device/window_demuxer.hpp>
-#include <sge/x11input/device/window_event.hpp>
-#include <sge/x11input/device/parameters.hpp>
-#include <sge/input/keyboard/char_event.hpp>
-#include <sge/input/keyboard/key_event.hpp>
-#include <sge/input/keyboard/key_repeat_event.hpp>
-#include <sge/input/keyboard/to_modifier.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
-#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::x11input::keyboard::device::device(
 	x11input::device::parameters const &_param,

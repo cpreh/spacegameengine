@@ -24,12 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/box/rect.hpp>
-#include <fcppt/math/dim/static.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/static.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+
 
 namespace sge
 {

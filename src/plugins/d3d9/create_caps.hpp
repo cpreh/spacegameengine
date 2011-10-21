@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_CREATE_CAPS_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
-#include <sge/renderer/caps_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
+#include <sge/renderer/caps_fwd.hpp>
+
 
 namespace sge
 {

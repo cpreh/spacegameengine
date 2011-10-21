@@ -19,11 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../handle_error.hpp"
+#include <sge/opencl/command_queue/execution_mode.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/device/object.hpp>
-#include <sge/opencl/command_queue/execution_mode.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::opencl::command_queue::object::object(
 	opencl::device::object &device,

@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_KERNEL_OBJECT_HPP_INCLUDED
 #define SGE_OPENCL_KERNEL_OBJECT_HPP_INCLUDED
 
-#include <sge/opencl/kernel/name.hpp>
-#include <sge/opencl/symbol.hpp>
 #include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/symbol.hpp>
 #include <sge/opencl/kernel/argument_index.hpp>
+#include <sge/opencl/kernel/name.hpp>
 #include <sge/opencl/kernel/numeric_type.hpp>
-#include <sge/opencl/program/object_fwd.hpp>
 #include <sge/opencl/memory_object/base_fwd.hpp>
 #include <sge/opencl/memory_object/byte_size.hpp>
+#include <sge/opencl/program/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

@@ -20,23 +20,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../file.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/audio/unsupported_format.hpp>
 #include <sge/audio/file_exception.hpp>
+#include <sge/audio/unsupported_format.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/endianness/is_little_endian.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/io/cifstream.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/sn_cast.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/endianness/is_little_endian.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/io/cifstream.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

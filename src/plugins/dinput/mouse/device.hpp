@@ -25,20 +25,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device/object.hpp"
 #include "../device/parameters_fwd.hpp"
 #include "../di.hpp"
-#include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
+#include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/mouse/axis_signal.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_code.hpp>
 #include <sge/input/mouse/button_signal.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/info.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/element_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 GLenum
 sge::opengl::vf::convert_element_type(
 	sge::renderer::vf::element_type::type const _type

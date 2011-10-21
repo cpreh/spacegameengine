@@ -22,15 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../log.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/audio/sound/positional_parameters.hpp>
-#include <sge/audio/sound/play_status.hpp>
-#include <sge/audio/sound/base.hpp>
-#include <sge/audio/sound/repeat.hpp>
-#include <sge/audio/vector.hpp>
 #include <sge/audio/scalar.hpp>
+#include <sge/audio/vector.hpp>
+#include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/play_status.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/repeat.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
+
 
 sge::openal::source::source(
 	ALuint const _buffer)

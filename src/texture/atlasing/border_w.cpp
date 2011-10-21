@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/atlasing/border_w.hpp>
-#include <sge/texture/sub_data.hpp>
-#include <sge/renderer/dim2.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/image2d/view/sub.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/texture/sub_data.hpp>
+#include <sge/texture/atlasing/border_w.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+
 
 void
 sge::texture::atlasing::border_w(

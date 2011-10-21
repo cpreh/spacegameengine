@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
 
 #include "context/object_fwd.hpp"
-#include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/vertex_count.hpp>
+
 
 namespace sge
 {

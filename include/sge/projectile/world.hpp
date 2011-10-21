@@ -21,24 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_WORLD_HPP_INCLUDED
 #define SGE_PROJECTILE_WORLD_HPP_INCLUDED
 
-#include <sge/projectile/scalar.hpp>
-#include <sge/projectile/maximum_substeps.hpp>
-#include <sge/projectile/time_increment.hpp>
 #include <sge/projectile/fixed_timestep.hpp>
+#include <sge/projectile/maximum_substeps.hpp>
+#include <sge/projectile/scalar.hpp>
+#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/time_increment.hpp>
 #include <sge/projectile/body/collision.hpp>
 #include <sge/projectile/body/collision_fn.hpp>
 #include <sge/projectile/body/object_fwd.hpp>
+#include <sge/projectile/detail/debug_drawer_impl_fwd.hpp>
 #include <sge/projectile/ghost/object_fwd.hpp>
 #include <sge/projectile/ghost/detail/pair_callback_fwd.hpp>
 #include <sge/projectile/group/id.hpp>
 #include <sge/projectile/group/object_fwd.hpp>
 #include <sge/projectile/group/sequence.hpp>
-#include <sge/projectile/detail/debug_drawer_impl_fwd.hpp>
-#include <sge/projectile/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
+
 
 class btCollisionConfiguration;
 class btCollisionDispatcher;

@@ -18,17 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/string_to_value.hpp>
+#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/member_name_equal.hpp>
-#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/parse_stream.hpp>
-#include <fcppt/io/istringstream.hpp>
-#include <fcppt/text.hpp>
+#include <sge/parse/json/string_to_value.hpp>
+#include <sge/parse/json/value.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/istringstream.hpp>
+
 
 sge::parse::json::value const
 sge::parse::json::string_to_value(

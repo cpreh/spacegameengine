@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_DETAIL_MATRIX_ARITY_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_DETAIL_MATRIX_ARITY_HPP_INCLUDED
 
-#include <sge/renderer/glsl/uniform/float_value_type.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/glsl/uniform/float_value_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

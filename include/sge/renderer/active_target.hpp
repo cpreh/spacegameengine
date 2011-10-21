@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_ACTIVE_TARGET_HPP_INCLUDED
 
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/target_base_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/target_base_fwd.hpp>
+
 
 namespace sge
 {

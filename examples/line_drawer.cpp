@@ -44,18 +44,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
 #include <sge/config/media_path.hpp>
-#include <sge/line_drawer/object.hpp>
-#include <sge/line_drawer/render_to_screen.hpp>
-#include <sge/line_drawer/scoped_lock.hpp>
-#include <sge/line_drawer/line.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text/align_h.hpp>
 #include <sge/font/text/align_v.hpp>
-#include <sge/font/text/drawer_3d.hpp>
 #include <sge/font/text/draw.hpp>
+#include <sge/font/text/drawer_3d.hpp>
 #include <sge/font/text/flags_none.hpp>
 #include <sge/font/text/from_fcppt_string.hpp>
 #include <sge/font/text/lit.hpp>
@@ -63,13 +59,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/string.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/input/cursor/object.hpp>
-#include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/button_event.hpp>
+#include <sge/input/cursor/move_event.hpp>
+#include <sge/input/cursor/object.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/line_drawer/line.hpp>
+#include <sge/line_drawer/object.hpp>
+#include <sge/line_drawer/render_to_screen.hpp>
+#include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
@@ -78,20 +78,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/target_base.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/visual_depth.hpp>
+#include <sge/renderer/vsync.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/target_base.hpp>
-#include <sge/renderer/visual_depth.hpp>
-#include <sge/renderer/vsync.hpp>
-#include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/cursor_option.hpp>
-#include <sge/systems/input_helper_field.hpp>
-#include <sge/systems/input_helper.hpp>
+#include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
+#include <sge/systems/input_helper.hpp>
+#include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/parameterless.hpp>
@@ -104,30 +104,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/construct.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
-#include <cstdlib>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

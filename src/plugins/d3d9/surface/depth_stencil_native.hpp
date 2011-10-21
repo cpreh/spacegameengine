@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../multi_sample_quality.hpp"
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
+
 
 namespace sge
 {

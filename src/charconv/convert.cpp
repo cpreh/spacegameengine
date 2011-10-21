@@ -18,22 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/convert.hpp>
 #include <sge/charconv/const_raw_pointer.hpp>
 #include <sge/charconv/conversion_failed.hpp>
 #include <sge/charconv/conversion_status.hpp>
+#include <sge/charconv/convert.hpp>
 #include <sge/charconv/converter.hpp>
 #include <sge/charconv/dest_encoding.hpp>
-#include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/raw_pointer.hpp>
+#include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/system.hpp>
-#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/export_symbol.hpp>
+#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
+
 
 template<
 	sge::charconv::encoding::type DestEncoding,

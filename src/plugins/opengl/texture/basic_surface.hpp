@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "surface_base.hpp"
 #include "type.hpp"
 #include <sge/renderer/stage.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 namespace sge
 {

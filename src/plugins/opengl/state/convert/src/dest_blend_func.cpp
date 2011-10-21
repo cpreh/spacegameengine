@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/dest_blend_func.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 GLenum
 sge::opengl::state::convert::dest_blend_func(
 	renderer::state::dest_blend_func::type const _func

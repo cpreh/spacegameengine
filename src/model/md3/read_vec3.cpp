@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "endian.hpp"
 #include "vec3.hpp"
 #include <sge/model/md3/scalar.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/io/read.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+
 
 sge::model::md3::vec3 const
 sge::model::md3::read_vec3(

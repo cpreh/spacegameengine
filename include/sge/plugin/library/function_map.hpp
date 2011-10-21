@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_LIBRARY_FUNCTION_MAP_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_FUNCTION_MAP_HPP_INCLUDED
 
+#include <sge/plugin/symbol.hpp>
 #include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
-#include <sge/plugin/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

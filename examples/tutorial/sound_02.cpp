@@ -18,37 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/extension_set.hpp>
+#include <sge/audio/exception.hpp>
+#include <sge/audio/file.hpp>
+#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/player.hpp>
+#include <sge/audio/sound/positional.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/audio/sound/positional.hpp>
-#include <sge/audio/sound/positional_parameters.hpp>
-#include <sge/audio/player.hpp>
-#include <sge/audio/file.hpp>
-#include <sge/audio/file_ptr.hpp>
-#include <sge/audio/exception.hpp>
-#include <sge/audio/multi_loader.hpp>
 #include <sge/timer/basic.hpp>
-#include <sge/timer/clocks/standard.hpp>
-#include <sge/timer/parameters.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
-#include <sge/config/media_path.hpp>
-#include <sge/extension_set.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/math/twopi.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/chrono/seconds.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/math/twopi.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <cmath>
+#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
-#include <cmath>
-#include <cstdlib>
 #include <fcppt/config/external_end.hpp>
+
 
 int main()
 try

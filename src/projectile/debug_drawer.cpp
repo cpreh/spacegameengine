@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 
+
 sge::projectile::debug_drawer::debug_drawer(
 	world &_world,
 	sge::renderer::device &_renderer)

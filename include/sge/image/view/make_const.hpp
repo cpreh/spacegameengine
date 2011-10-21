@@ -22,11 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_VIEW_MAKE_CONST_HPP_INCLUDED
 
 #include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/instantiate_symbol.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/dim.hpp>
 #include <sge/image/traits/optional_pitch.hpp>
-#include <sge/image/instantiate_symbol.hpp>
+
 
 namespace sge
 {

@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_SAMPLER_HPP_INCLUDED
 #define SGE_SHADER_SAMPLER_HPP_INCLUDED
 
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/texture/base_ptr.hpp>
 #include <sge/shader/symbol.hpp>
 #include <sge/shader/texture_variant.hpp>
-#include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/texture/base_ptr.hpp>
+
 
 namespace sge
 {

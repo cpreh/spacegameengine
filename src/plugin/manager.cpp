@@ -18,21 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/plugin/manager.hpp>
+#include <sge/exception.hpp>
+#include <sge/log/global.hpp>
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/info.hpp>
+#include <sge/plugin/manager.hpp>
 #include <sge/plugin/library/symbol_not_found.hpp>
-#include <sge/log/global.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/config/platform.hpp>
-#include <fcppt/filesystem/directory_iterator.hpp>
-#include <fcppt/filesystem/is_directory.hpp>
-#include <fcppt/filesystem/extension_without_dot.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/platform.hpp>
+#include <fcppt/filesystem/directory_iterator.hpp>
+#include <fcppt/filesystem/extension_without_dot.hpp>
+#include <fcppt/filesystem/is_directory.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/log/headers.hpp>
+
 
 namespace
 {

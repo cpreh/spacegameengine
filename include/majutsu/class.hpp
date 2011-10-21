@@ -24,14 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/role_return_type.hpp>
 #include <majutsu/memory/init_count.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/fusion/container/generation/make_vector.hpp>
+#include <boost/fusion/support/is_sequence.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/fusion/support/is_sequence.hpp>
-#include <boost/fusion/container/generation/make_vector.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/static_assert.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 #ifndef MAJUTSU_MAX_CTOR_ARGS
 #define MAJUTSU_MAX_CTOR_ARGS 20

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/manager.hpp>
 #include <fcppt/assert/error.hpp>
 
+
 sge::texture::fragmented::fragmented()
 :
 	manager_(0),

@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../unlock_cube.hpp"
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
+
 
 sge::d3d9::texture::cube::cube(
 	IDirect3DDevice9 *const _device,

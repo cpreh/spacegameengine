@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../handle_error.hpp"
+#include <sge/exception.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
+
 
 template<std::size_t N>
 void

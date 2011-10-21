@@ -29,13 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "transformed_vertex.hpp"
 #include "triangle.hpp"
 #include "vertex.hpp"
-#include <sge/model/md3/load_flags.hpp>
 #include <sge/model/md3/exception.hpp>
-#include <fcppt/io/read.hpp>
+#include <sge/model/md3/load_flags.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::model::md3::surface::surface(
 	std::istream &_stream,

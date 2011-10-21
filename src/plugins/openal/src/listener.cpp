@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../log.hpp"
 #include "../openal.hpp"
 #include <sge/audio/exception.hpp>
-#include <fcppt/math/vector/output.hpp>
-#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/math/vector/output.hpp>
+
 
 namespace
 {

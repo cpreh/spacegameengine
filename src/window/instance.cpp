@@ -19,17 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/window/instance.hpp>
+#include <awl/mainloop/dispatcher.hpp>
+#include <awl/mainloop/io_service.hpp>
+#include <awl/system/event/processor.hpp>
+#include <awl/window/instance.hpp>
+#include <awl/window/event/processor.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <awl/system/event/processor.hpp>
-#include <awl/window/event/processor.hpp>
-#include <awl/window/instance.hpp>
-#include <awl/mainloop/io_service.hpp>
-#include <awl/mainloop/dispatcher.hpp>
+
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)

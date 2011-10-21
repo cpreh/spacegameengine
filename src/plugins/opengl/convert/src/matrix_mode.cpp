@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix_mode.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 GLenum
 sge::opengl::convert::matrix_mode(
 	renderer::matrix_mode::type const _mode

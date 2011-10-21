@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_FIRST_PERSON_PARAMETERS_HPP_INCLUDED
 #define SGE_CAMERA_FIRST_PERSON_PARAMETERS_HPP_INCLUDED
 
-#include <sge/camera/projection/object.hpp>
-#include <sge/camera/symbol.hpp>
 #include <sge/camera/gizmo_type.hpp>
+#include <sge/camera/symbol.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/rotation_speed.hpp>
-#include <sge/renderer/scalar.hpp>
+#include <sge/camera/projection/object.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+
 
 namespace sge
 {

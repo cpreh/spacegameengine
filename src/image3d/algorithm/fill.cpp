@@ -20,9 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../image/algorithm/fill_impl.hpp"
 #include "../../image/algorithm/instantiate_fill.hpp"
+#include <sge/image3d/tag.hpp>
 #include <sge/image3d/algorithm/fill.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/image3d/tag.hpp>
+
 
 void
 sge::image3d::algorithm::fill(

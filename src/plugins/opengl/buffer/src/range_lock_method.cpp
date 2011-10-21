@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 GLenum
 sge::opengl::buffer::range_lock_method(
 	renderer::lock_flags::method::type const _method

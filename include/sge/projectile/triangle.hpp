@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/array.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
+
 namespace sge
 {
 namespace projectile

@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::renderer::vf::dynamic::part::part(
 	element_list const &_elements,

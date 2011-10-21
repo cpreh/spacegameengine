@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/line_drawer/object.hpp>
-#include <sge/renderer/matrix_mode.hpp>
+#include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/projection/far.hpp>
@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+
 
 void
 sge::line_drawer::render_to_screen(

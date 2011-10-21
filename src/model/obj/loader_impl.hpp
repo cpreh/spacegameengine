@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJ_LOADER_IMPL_HPP_INCLUDED
 
 #include "tokens.hpp"
-#include <sge/model/obj/loader.hpp>
 #include <sge/model/obj/instance_ptr.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <sge/model/obj/loader.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
+
 
 namespace sge
 {

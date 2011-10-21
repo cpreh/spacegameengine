@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_MD3_LOADER_IMPL_HPP_INCLUDED
 #define SGE_MODEL_MD3_LOADER_IMPL_HPP_INCLUDED
 
-#include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/loader.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

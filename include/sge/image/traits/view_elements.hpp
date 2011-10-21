@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_TRAITS_VIEW_ELEMENTS_HPP_INCLUDED
 #define SGE_IMAGE_TRAITS_VIEW_ELEMENTS_HPP_INCLUDED
 
-#include <sge/image2d/view/elements.hpp>
 #include <sge/image2d/tag.hpp>
-#include <sge/image3d/view/elements.hpp>
+#include <sge/image2d/view/elements.hpp>
 #include <sge/image3d/tag.hpp>
+#include <sge/image3d/view/elements.hpp>
+
 
 namespace sge
 {

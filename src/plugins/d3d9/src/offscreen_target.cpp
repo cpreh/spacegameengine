@@ -26,10 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../surface/color.hpp"
 #include "../surface/depth_stencil.hpp"
 #include <sge/renderer/surface_index.hpp>
-#include <fcppt/container/index_map_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/container/index_map_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 sge::d3d9::offscreen_target::offscreen_target(
 	IDirect3DDevice9 *const _device

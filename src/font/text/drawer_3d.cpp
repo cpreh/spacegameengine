@@ -19,28 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/text/drawer_3d.hpp>
-#include <sge/texture/rect_fragmented.hpp>
-#include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/caps.hpp>
-#include <sge/image2d/view/size.hpp>
-#include <sge/image2d/dim.hpp>
 #include <sge/image/color/any/convert.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/view/size.hpp>
+#include <sge/renderer/caps.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/sprite/default_equal.hpp>
+#include <sge/sprite/default_sort.hpp>
+#include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/default_sort.hpp>
-#include <sge/sprite/default_equal.hpp>
-#include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_states.hpp>
+#include <sge/texture/rect_fragmented.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/quad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
+#include <boost/spirit/home/phoenix/object/new.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::font::text::drawer_3d::drawer_3d(
 	renderer::device &_rend,

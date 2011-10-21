@@ -25,10 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/stage_arg_value.hpp"
 #include "../convert/stage_op.hpp"
 #include "../convert/stage_op_value.hpp"
-#include <sge/renderer/sampler_stage_op.hpp>
-#include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/sampler_stage_arg.hpp>
 #include <sge/renderer/sampler_stage_arg_value.hpp>
+#include <sge/renderer/sampler_stage_op.hpp>
+#include <sge/renderer/sampler_stage_op_value.hpp>
+
 
 template<
 	typename Arg,

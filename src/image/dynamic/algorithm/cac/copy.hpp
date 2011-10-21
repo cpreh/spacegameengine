@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/image/algorithm/copy_same_channel_order.hpp>
 #include <fcppt/container/array_comparison.hpp>
 
+
 namespace sge
 {
 namespace image

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 bool
 sge::opengl::glsl::uniform::is_matrix(
 	sge::renderer::glsl::uniform::float_value_type::type const _type

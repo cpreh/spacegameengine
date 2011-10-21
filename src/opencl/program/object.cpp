@@ -20,19 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../handle_error.hpp"
 #include "../declare_local_logger.hpp"
-#include <sge/opencl/program/object.hpp>
-#include <sge/opencl/context/object.hpp>
-#include <sge/opencl/program/build_parameters.hpp>
-#include <sge/opencl/program/build_error.hpp>
-#include <sge/opencl/device/object.hpp>
 #include <sge/exception.hpp>
-#include <fcppt/container/raw_vector.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opencl/context/object.hpp>
+#include <sge/opencl/device/object.hpp>
+#include <sge/opencl/program/build_error.hpp>
+#include <sge/opencl/program/build_parameters.hpp>
+#include <sge/opencl/program/object.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/post.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/container/raw_vector.hpp>
+
 
 SGE_OPENCL_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("program::object"))
@@ -356,10 +356,10 @@ sge::opencl::program::object::build(
 		{
 			FCPPT_LOG_WARNING(
 				local_log,
-				fcppt::log::_ 
-					<< FCPPT_TEXT("Program build failed with error code ") 
+				fcppt::log::_
+					<< FCPPT_TEXT("Program build failed with error code ")
 					<< error_code3
-					<< FCPPT_TEXT(", build log:\n") 
+					<< FCPPT_TEXT(", build log:\n")
 					<< fcppt::from_std_string(build_log));
 		}
 

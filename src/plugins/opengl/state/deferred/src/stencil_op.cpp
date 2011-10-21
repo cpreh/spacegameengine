@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../convert/stencil_op_value.hpp"
 #include "../../../check_state.hpp"
 #include "../../../common.hpp"
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/stencil_op.hpp>
-#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
+
 
 void
 sge::opengl::state::deferred::stencil_op(

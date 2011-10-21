@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DETAIL_BATCH_HPP_INCLUDED
 #define SGE_CEGUI_DETAIL_BATCH_HPP_INCLUDED
 
-#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
+
 
 namespace sge
 {

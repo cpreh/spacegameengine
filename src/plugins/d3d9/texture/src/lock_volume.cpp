@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../convert/lock_box.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+
 
 D3DLOCKED_BOX const
 sge::d3d9::texture::lock_volume(

@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_BASIC_FORMAT_HPP_INCLUDED
 
 #include <sge/image/size_type.hpp>
-#include <mizuiro/image/format.hpp>
 #include <mizuiro/image/dimension_impl.hpp>
+#include <mizuiro/image/format.hpp>
 #include <mizuiro/image/interleaved.hpp>
+
 
 namespace sge
 {

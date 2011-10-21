@@ -23,22 +23,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../color_type_from_format.hpp"
 #include "../png.hpp"
 #include "../transforms_from_format.hpp"
-#include <sge/image/color/element_count.hpp>
-#include <sge/image/file_exception.hpp>
-#include <sge/image/unsupported_format.hpp>
 #include <sge/image/exception.hpp>
+#include <sge/image/file_exception.hpp>
 #include <sge/image/size_type.hpp>
+#include <sge/image/unsupported_format.hpp>
+#include <sge/image/color/element_count.hpp>
 #include <sge/image2d/dim.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iosfwd>
 #include <climits>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
+
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)

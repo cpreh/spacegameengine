@@ -21,28 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_SYSTEM_HPP_INCLUDED
 #define SGE_CEGUI_SYSTEM_HPP_INCLUDED
 
-#include <sge/cegui/symbol.hpp>
-#include <sge/cegui/load_context_fwd.hpp>
-#include <sge/cegui/duration.hpp>
-#include <sge/cegui/detail/renderer.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
+#include <sge/cegui/duration.hpp>
+#include <sge/cegui/load_context_fwd.hpp>
+#include <sge/cegui/symbol.hpp>
 #include <sge/cegui/detail/cegui_logger.hpp>
-#include <sge/cegui/detail/scoped_system.hpp>
-#include <sge/cegui/detail/resource_provider.hpp>
 #include <sge/cegui/detail/image_codec.hpp>
+#include <sge/cegui/detail/renderer.hpp>
+#include <sge/cegui/detail/resource_provider.hpp>
+#include <sge/cegui/detail/scoped_system.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUIString.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace CEGUI
 {

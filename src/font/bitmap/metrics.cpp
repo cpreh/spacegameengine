@@ -20,16 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "load_one_file.hpp"
 #include "metrics.hpp"
-#include <sge/parse/json/parse_file.hpp>
-#include <sge/parse/json/object.hpp>
+#include <sge/font/char_not_available.hpp>
+#include <sge/font/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/get.hpp>
-#include <sge/font/char_not_available.hpp>
-#include <sge/font/exception.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/parse_file.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/filesystem/remove_filename.hpp>
-#include <fcppt/text.hpp>
+
 
 sge::font::bitmap::metrics::metrics(
 	fcppt::filesystem::path const &_path,

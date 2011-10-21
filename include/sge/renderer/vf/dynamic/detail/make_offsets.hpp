@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_OFFSETS_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_OFFSETS_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic/offset_list.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/dynamic/offset_list.hpp>
 #include <fcppt/nonassignable.hpp>
+
 
 namespace sge
 {

@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_STATES_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_STATES_HPP_INCLUDED
 
-#include <sge/sprite/detail/render_states.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
+#include <sge/sprite/detail/render_states.hpp>
+
 
 namespace sge
 {

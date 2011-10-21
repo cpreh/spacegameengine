@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_ONE_ADVANCED_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_ONE_ADVANCED_HPP_INCLUDED
 
+#include <sge/sprite/default_equal.hpp>
+#include <sge/sprite/dont_sort.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/dont_sort.hpp>
-#include <sge/sprite/default_equal.hpp>
+
 
 namespace sge
 {

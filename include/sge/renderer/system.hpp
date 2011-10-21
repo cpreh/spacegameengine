@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SYSTEM_HPP_INCLUDED
 #define SGE_RENDERER_SYSTEM_HPP_INCLUDED
 
-#include <sge/renderer/system_fwd.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/system_fwd.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <sge/window/simple_parameters_fwd.hpp>
-#include <sge/class_symbol.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
 #include <awl/system/object_fwd.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

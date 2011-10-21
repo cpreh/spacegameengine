@@ -21,22 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "debug_drawer_impl.hpp"
 #include "../declare_local_logger.hpp"
 #include "../structure_cast.hpp"
-#include <sge/projectile/world.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/color/rgb8.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
+#include <sge/projectile/world.hpp>
 #include <sge/renderer/scoped_transform.hpp>
-#include <sge/image/color/rgb8.hpp>
-#include <sge/image/color/init.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/output.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
+
 
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("debug_drawer_impl"))

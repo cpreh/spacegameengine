@@ -22,16 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DEFAULT_EQUAL_HPP_INCLUDED
 
 #include <sge/sprite/compare_depth.hpp>
-#include <sge/sprite/with_texture.hpp>
-#include <sge/sprite/with_depth.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/with_depth.hpp>
+#include <sge/sprite/with_texture.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
 #include <boost/mpl/and.hpp>
-#include <boost/mpl/or.hpp>
+#include <boost/mpl/contains.hpp>
 #include <boost/mpl/not.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

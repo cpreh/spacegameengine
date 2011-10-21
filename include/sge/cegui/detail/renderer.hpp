@@ -21,23 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DETAIL_RENDERER_HPP_INCLUDED
 #define SGE_CEGUI_DETAIL_RENDERER_HPP_INCLUDED
 
+#include <sge/cegui/system_fwd.hpp>
 #include <sge/cegui/detail/default_target.hpp>
 #include <sge/cegui/detail/geometry_buffer.hpp>
-#include <sge/cegui/detail/texture_target.hpp>
 #include <sge/cegui/detail/texture.hpp>
-#include <sge/cegui/system_fwd.hpp>
+#include <sge/cegui/detail/texture_target.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-#include <vector>
 #include <CEGUIBase.h>
 #include <CEGUIRenderer.h>
-#include <CEGUIString.h>
 #include <CEGUIRenderingRoot.h>
+#include <CEGUIString.h>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "device_state_ptr.hpp"
 #include "context/object_fwd.hpp"
-#include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
 #include <sge/window/instance_fwd.hpp>
+
 
 namespace sge
 {

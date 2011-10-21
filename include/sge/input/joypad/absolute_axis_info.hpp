@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_INFO_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_INFO_HPP_INCLUDED
 
+#include <sge/input/symbol.hpp>
+#include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/absolute_axis_info_fwd.hpp>
 #include <sge/input/joypad/axis_code.hpp>
 #include <sge/input/joypad/axis_max.hpp>
 #include <sge/input/joypad/axis_min.hpp>
-#include <sge/input/info/optional_string.hpp>
-#include <sge/input/symbol.hpp>
+
 
 namespace sge
 {

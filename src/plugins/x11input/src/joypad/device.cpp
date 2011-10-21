@@ -18,21 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/joypad/device.hpp>
-#include <sge/x11input/joypad/absolute_axis.hpp>
-#include <sge/x11input/joypad/axis_value.hpp>
-#include <sge/x11input/joypad/button_id.hpp>
-#include <sge/x11input/joypad/info.hpp>
-#include <sge/x11input/joypad/make_valuator_infos.hpp>
-#include <sge/x11input/joypad/relative_axis.hpp>
-#include <sge/x11input/joypad/valuator_info.hpp>
-#include <sge/x11input/joypad/valuator_info_vector.hpp>
-#include <sge/x11input/device/parameters.hpp>
-#include <sge/x11input/device/raw_demuxer.hpp>
-#include <sge/x11input/device/raw_event.hpp>
-#include <sge/x11input/device/window_demuxer.hpp>
-#include <sge/x11input/device/window_event.hpp>
-#include <sge/x11input/mask_is_set.hpp>
 #include <sge/input/joypad/absolute_axis.hpp>
 #include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/axis_value.hpp>
@@ -40,6 +25,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/relative_axis.hpp>
 #include <sge/input/joypad/relative_axis_event.hpp>
+#include <sge/x11input/mask_is_set.hpp>
+#include <sge/x11input/device/parameters.hpp>
+#include <sge/x11input/device/raw_demuxer.hpp>
+#include <sge/x11input/device/raw_event.hpp>
+#include <sge/x11input/device/window_demuxer.hpp>
+#include <sge/x11input/device/window_event.hpp>
+#include <sge/x11input/joypad/absolute_axis.hpp>
+#include <sge/x11input/joypad/axis_value.hpp>
+#include <sge/x11input/joypad/button_id.hpp>
+#include <sge/x11input/joypad/device.hpp>
+#include <sge/x11input/joypad/info.hpp>
+#include <sge/x11input/joypad/make_valuator_infos.hpp>
+#include <sge/x11input/joypad/relative_axis.hpp>
+#include <sge/x11input/joypad/valuator_info.hpp>
+#include <sge/x11input/joypad/valuator_info_vector.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::x11input::joypad::device::device(
 	x11input::device::parameters const &_param

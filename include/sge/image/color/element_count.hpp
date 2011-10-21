@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_ELEMENT_COUNT_HPP_INCLUDED
 
 #include <sge/image/size_type.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/image/symbol.hpp>
+#include <sge/image/color/format.hpp>
+
 
 namespace sge
 {

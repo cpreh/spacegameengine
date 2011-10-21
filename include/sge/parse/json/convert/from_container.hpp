@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_CONVERT_FROM_CONTAINER_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONVERT_FROM_CONTAINER_HPP_INCLUDED
 
-#include <sge/parse/json/convert/choose_fundamental.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/convert/choose_fundamental.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/object/static_cast.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

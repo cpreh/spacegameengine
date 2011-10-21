@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_ARRAY_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_ARRAY_VALUE_HPP_INCLUDED
 
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/glsl/uniform/basic_value.hpp>
 #include <sge/renderer/glsl/uniform/make_basic_value.hpp>
 #include <sge/renderer/glsl/uniform/make_element_type.hpp>
-#include <sge/renderer/glsl/uniform/basic_value.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_APPLY_HPP_INCLUDED
 
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/state/list_fwd.hpp>
+
 
 namespace sge
 {

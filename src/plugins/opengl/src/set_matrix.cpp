@@ -24,10 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context/use.hpp"
 #include "../common.hpp"
 #include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
-#include <fcppt/text.hpp>
+
 
 void
 sge::opengl::set_matrix(

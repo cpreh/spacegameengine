@@ -19,15 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../declare_local_logger.hpp"
+#include <sge/cegui/structure_cast.hpp>
 #include <sge/cegui/detail/geometry_buffer.hpp>
 #include <sge/cegui/detail/renderer.hpp>
 #include <sge/cegui/detail/texture.hpp>
 #include <sge/cegui/detail/texture_target.hpp>
-#include <sge/cegui/structure_cast.hpp>
 #include <sge/cegui/vf/format.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
@@ -38,7 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/viewport.hpp>
+#include <fcppt/foreach_enumerator.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/assert/error_message.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -47,12 +51,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
 #include <CEGUISystem.h>
+#include <algorithm>
 #include <fcppt/config/external_end.hpp>
+
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("renderer"))
@@ -281,9 +284,6 @@ sge::cegui::detail::renderer::beginRendering()
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::draw_mode::fill));
 }
-
-#include <sge/renderer/matrix_mode.hpp>
-#include <fcppt/foreach_enumerator.hpp>
 
 void
 sge::cegui::detail::renderer::endRendering()

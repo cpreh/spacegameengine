@@ -30,18 +30,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../color_format_type.hpp"
 #include "../internal_color_format.hpp"
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/texture/mipmap/object.hpp>
-#include <sge/renderer/texture/capabilities_field.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/traits/optional_pitch.hpp>
-#include <fcppt/container/bitfield/basic_decl.hpp>
-#include <fcppt/math/box/basic_decl.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/mipmap/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/container/bitfield/basic_decl.hpp>
+#include <fcppt/math/box/basic_decl.hpp>
+
 
 namespace sge
 {

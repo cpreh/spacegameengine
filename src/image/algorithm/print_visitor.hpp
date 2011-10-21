@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_ALGORITHM_PRINT_VISITOR_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_PRINT_VISITOR_HPP_INCLUDED
 
-#include <fcppt/io/ostream.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <mizuiro/image/algorithm/print.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/io/ostream.hpp>
+
 
 namespace sge
 {

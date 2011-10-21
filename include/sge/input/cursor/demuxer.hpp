@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_DEMUXER_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_DEMUXER_HPP_INCLUDED
 
-#include <sge/input/cursor/demuxer_fwd.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/input/processor_fwd.hpp>
+#include <sge/input/symbol.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/button_signal.hpp>
+#include <sge/input/cursor/demuxer_fwd.hpp>
 #include <sge/input/cursor/discover_event_fwd.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_callback.hpp>
@@ -34,16 +37,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/remove_event_fwd.hpp>
-#include <sge/input/processor_fwd.hpp>
-#include <sge/input/symbol.hpp>
-#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <set>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

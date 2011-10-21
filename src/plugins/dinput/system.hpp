@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
+
 namespace sge
 {
 namespace dinput

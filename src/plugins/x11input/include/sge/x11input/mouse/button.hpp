@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_MOUSE_BUTTON_HPP_INCLUDED
 #define SGE_X11INPUT_MOUSE_BUTTON_HPP_INCLUDED
 
-#include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/input/mouse/button_fwd.hpp>
 #include <sge/input/mouse/button_info_container_fwd.hpp>
+#include <sge/x11input/device/window_event_fwd.hpp>
+
 
 namespace sge
 {

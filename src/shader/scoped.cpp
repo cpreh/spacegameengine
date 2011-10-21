@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/shader/scoped.hpp>
 #include <sge/shader/object.hpp>
+#include <sge/shader/scoped.hpp>
+
 
 sge::shader::scoped::scoped(
 	shader::object &_object,

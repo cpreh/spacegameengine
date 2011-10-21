@@ -20,11 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../declare_local_logger.hpp"
 #include <sge/cegui/detail/cegui_logger.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/io/color/set.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/io/color/reset.hpp>
+#include <fcppt/io/color/set.hpp>
+
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("cegui"))

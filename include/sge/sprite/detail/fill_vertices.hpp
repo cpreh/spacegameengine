@@ -21,24 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_VERTICES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_VERTICES_HPP_INCLUDED
 
-#include <sge/sprite/detail/vertex_format_part_from_object.hpp>
-#include <sge/sprite/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/fill_color.hpp>
-#include <sge/sprite/detail/fill_position.hpp>
-#include <sge/sprite/detail/fill_unspecified.hpp>
-#include <sge/sprite/detail/fill_tex_coordinates.hpp>
-#include <sge/sprite/detail/visible.hpp>
-#include <sge/sprite/detail/optional_size.hpp>
 #include <sge/renderer/npos.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/sprite/detail/fill_color.hpp>
+#include <sge/sprite/detail/fill_position.hpp>
+#include <sge/sprite/detail/fill_tex_coordinates.hpp>
+#include <sge/sprite/detail/fill_unspecified.hpp>
+#include <sge/sprite/detail/optional_size.hpp>
+#include <sge/sprite/detail/vertex_format_part_from_object.hpp>
+#include <sge/sprite/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/detail/visible.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

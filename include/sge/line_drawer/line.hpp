@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LINE_DRAWER_LINE_HPP_INCLUDED
 #define SGE_LINE_DRAWER_LINE_HPP_INCLUDED
 
-#include <sge/image/color/any/object.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <sge/line_drawer/color.hpp>
 #include <sge/line_drawer/color_format.hpp>
 #include <sge/line_drawer/symbol.hpp>
-#include <sge/line_drawer/color.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/variant/object.hpp>
+
 
 namespace sge
 {

@@ -21,39 +21,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_GRAMMAR_HPP_INCLUDED
 #define SGE_PARSE_JSON_GRAMMAR_HPP_INCLUDED
 
-#include <sge/parse/json/detail/adapt_array.hpp>
-#include <sge/parse/json/detail/adapt_member.hpp>
-#include <sge/parse/json/detail/adapt_object.hpp>
-#include <sge/parse/json/null.hpp>
-#include <sge/parse/json/string.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/value.hpp>
-#include <sge/parse/json/member.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/float_type.hpp>
-#include <sge/parse/json/int_type.hpp>
 #include <sge/parse/encoding.hpp>
 #include <sge/parse/exception.hpp>
 #include <sge/parse/info_to_string.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/null.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/string.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/detail/adapt_array.hpp>
+#include <sge/parse/json/detail/adapt_member.hpp>
+#include <sge/parse/json/detail/adapt_object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/include/qi_string.hpp>
-#include <boost/spirit/include/qi_char.hpp>
-#include <boost/spirit/include/qi_operator.hpp>
-#include <boost/spirit/include/qi_action.hpp>
-#include <boost/spirit/include/qi_nonterminal.hpp>
-#include <boost/spirit/include/qi_directive.hpp>
-#include <boost/spirit/include/qi_numeric.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_function.hpp>
 #include <boost/spirit/home/phoenix/core/value.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/spirit/home/phoenix/statement/throw.hpp>
+#include <boost/spirit/include/qi_action.hpp>
+#include <boost/spirit/include/qi_char.hpp>
+#include <boost/spirit/include/qi_directive.hpp>
+#include <boost/spirit/include/qi_nonterminal.hpp>
+#include <boost/spirit/include/qi_numeric.hpp>
+#include <boost/spirit/include/qi_operator.hpp>
+#include <boost/spirit/include/qi_string.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

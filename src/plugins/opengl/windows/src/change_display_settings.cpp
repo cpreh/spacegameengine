@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 void
 sge::opengl::windows::change_display_settings(

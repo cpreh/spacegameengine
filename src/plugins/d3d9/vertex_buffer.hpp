@@ -23,18 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "d3dinclude.hpp"
 #include "resource.hpp"
-#include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/vf/dynamic/converter.hpp>
-#include <sge/renderer/vf/dynamic/part.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <fcppt/container/bitfield/basic_decl.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/vf/dynamic/converter.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/container/bitfield/basic_decl.hpp>
+
 
 namespace sge
 {

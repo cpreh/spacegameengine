@@ -22,19 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../parameters_fwd.hpp"
 #include "../../check_state.hpp"
 #include "../../common.hpp"
+#include <sge/image/color/rgba32f.hpp>
+#include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image/color/rgba32f_format.hpp>
-#include <sge/image/color/rgba32f.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/exception.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <mizuiro/color/channel/blue.hpp>
 #include <mizuiro/color/channel/green.hpp>
 #include <mizuiro/color/channel/red.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
+
 
 void
 sge::opengl::state::color(

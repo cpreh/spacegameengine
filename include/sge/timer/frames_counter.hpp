@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/basic.hpp>
 #include <sge/timer/parameters.hpp>
-#include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <fcppt/chrono/seconds.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/chrono/seconds.hpp>
+
 
 namespace sge
 {

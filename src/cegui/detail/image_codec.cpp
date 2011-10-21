@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/const_raw_range.hpp>
+#include <sge/optional_extension.hpp>
 #include <sge/cegui/detail/image_codec.hpp>
 #include <sge/cegui/detail/texture.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/image2d/file_ptr.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/optional_extension.hpp>
-#include <sge/const_raw_range.hpp>
 #include <sge/image2d/file.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/assert/pre.hpp>
+
 
 sge::cegui::detail::image_codec::image_codec(
 	sge::image2d::multi_loader &_image_loader)

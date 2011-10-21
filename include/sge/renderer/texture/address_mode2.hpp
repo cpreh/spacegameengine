@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_ADDRESS_MODE2_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_ADDRESS_MODE2_HPP_INCLUDED
 
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2_fwd.hpp>
 #include <sge/renderer/texture/address_mode_s.hpp>
 #include <sge/renderer/texture/address_mode_t.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/symbol.hpp>
+
 
 namespace sge
 {

@@ -18,20 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/device/select_events.hpp>
 #include <sge/input/exception.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <sge/x11input/device/select_events.hpp>
 #include <awl/backends/x11/deleter.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/window/instance.hpp>
+#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/container/data.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/math/ceil_div.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/scoped_ptr.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
 #include <boost/spirit/home/phoenix/bind/bind_member_variable.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp>
@@ -39,8 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 #include <limits>
 #include <vector>
-#include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

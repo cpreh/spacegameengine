@@ -20,9 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/create_simple_from_awl.hpp>
 #include <sge/window/to_awl_parameters.hpp>
-#include <awl/window/parameters.hpp>
-#include <awl/window/instance.hpp>
 #include <awl/system/object.hpp>
+#include <awl/window/instance.hpp>
+#include <awl/window/parameters.hpp>
+
 
 awl::window::instance_shared_ptr const
 sge::window::create_simple_from_awl(

@@ -21,12 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_JOYPAD_DEVICE_HPP_INCLUDED
 #define SGE_X11INPUT_JOYPAD_DEVICE_HPP_INCLUDED
 
-#include <sge/x11input/joypad/device_fwd.hpp>
-#include <sge/x11input/joypad/valuator_info_vector.hpp>
-#include <sge/x11input/device/object.hpp>
-#include <sge/x11input/device/parameters_fwd.hpp>
-#include <sge/x11input/device/raw_event_fwd.hpp>
-#include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/input/joypad/absolute_axis_callback.hpp>
 #include <sge/input/joypad/absolute_axis_signal.hpp>
 #include <sge/input/joypad/button_callback.hpp>
@@ -35,10 +29,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/info.hpp>
 #include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/relative_axis_signal.hpp>
+#include <sge/x11input/device/object.hpp>
+#include <sge/x11input/device/parameters_fwd.hpp>
+#include <sge/x11input/device/raw_event_fwd.hpp>
+#include <sge/x11input/device/window_event_fwd.hpp>
+#include <sge/x11input/joypad/device_fwd.hpp>
+#include <sge/x11input/joypad/valuator_info_vector.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

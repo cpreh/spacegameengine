@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/line_drawer/object.hpp>
+#include <sge/line_drawer/scoped_lock.hpp>
+
 
 sge::line_drawer::scoped_lock::scoped_lock(
 	object &_object)

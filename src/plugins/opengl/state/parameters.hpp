@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <fcppt/nonassignable.hpp>
 
+
 namespace sge
 {
 namespace opengl

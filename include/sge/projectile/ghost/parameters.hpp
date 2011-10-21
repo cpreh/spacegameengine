@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/symbol.hpp>
 #include <sge/projectile/ghost/position.hpp>
 #include <sge/projectile/ghost/size.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+
 
 namespace sge
 {

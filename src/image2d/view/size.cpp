@@ -20,11 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../image/view/instantiate_size.hpp"
 #include "../../image/view/size_impl.hpp"
+#include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/size.hpp>
-#include <sge/image2d/tag.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+
 
 sge::image2d::dim const
 sge::image2d::view::size(

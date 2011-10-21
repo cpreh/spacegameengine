@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_ANY_ELEMENTS_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_ANY_ELEMENTS_HPP_INCLUDED
 
-#include <sge/image/color/any/detail/make_object.hpp>
 #include <sge/image/color/elements.hpp>
+#include <sge/image/color/any/detail/make_object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/transform.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/transform.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

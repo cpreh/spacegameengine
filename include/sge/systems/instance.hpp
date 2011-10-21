@@ -25,12 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player_fwd.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/font/system_fwd.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
@@ -38,8 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/symbol.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/instance_fwd.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
+
 
 namespace sge
 {

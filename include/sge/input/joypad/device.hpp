@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_JOYPAD_DEVICE_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_DEVICE_HPP_INCLUDED
 
-#include <sge/input/joypad/device_fwd.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/input/symbol.hpp>
 #include <sge/input/joypad/absolute_axis_callback.hpp>
 #include <sge/input/joypad/button_callback.hpp>
+#include <sge/input/joypad/device_fwd.hpp>
 #include <sge/input/joypad/info_fwd.hpp>
 #include <sge/input/joypad/relative_axis_callback.hpp>
-#include <sge/input/symbol.hpp>
-#include <sge/class_symbol.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+
 
 namespace sge
 {

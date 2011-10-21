@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_RAW_EVENT_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_RAW_EVENT_HPP_INCLUDED
 
-#include <sge/x11input/device/raw_event_fwd.hpp>
 #include <sge/x11input/device/event.hpp>
+#include <sge/x11input/device/raw_event_fwd.hpp>
+
 
 #endif

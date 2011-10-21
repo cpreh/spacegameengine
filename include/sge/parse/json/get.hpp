@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_GET_HPP_INCLUDED
 #define SGE_PARSE_JSON_GET_HPP_INCLUDED
 
-#include <sge/parse/json/detail/get_return_type.hpp>
 #include <sge/parse/json/invalid_get.hpp>
-#include <fcppt/type_name.hpp>
+#include <sge/parse/json/detail/get_return_type.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/type_name.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/variant/get.hpp>
-#include <typeinfo>
 #include <exception>
+#include <typeinfo>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

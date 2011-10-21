@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../common.hpp"
 #include "../../../context/use.hpp"
 #include <sge/renderer/texture/creation_failed.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/text.hpp>
+
 
 void
 sge::opengl::texture::funcs::set_3d(

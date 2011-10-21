@@ -111,10 +111,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <fcppt/container/array.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -125,11 +125,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
-#include <cstdlib>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

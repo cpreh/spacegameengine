@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_VIEW_MAKE_CONST_HPP_INCLUDED
 #define SGE_IMAGE3D_VIEW_MAKE_CONST_HPP_INCLUDED
 
-#include <sge/image3d/view/const_object_fwd.hpp>
-#include <sge/image3d/view/optional_pitch.hpp>
+#include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image3d/dim.hpp>
 #include <sge/image3d/symbol.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image/const_raw_pointer.hpp>
+#include <sge/image3d/view/const_object_fwd.hpp>
+#include <sge/image3d/view/optional_pitch.hpp>
+
 
 namespace sge
 {

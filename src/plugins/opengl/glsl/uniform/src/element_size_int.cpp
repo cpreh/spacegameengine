@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/int_value_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 GLsizei
 sge::opengl::glsl::uniform::element_size_int(
 	sge::renderer::glsl::uniform::int_value_type::type const _type

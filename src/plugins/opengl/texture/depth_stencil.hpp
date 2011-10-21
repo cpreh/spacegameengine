@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 
+
 namespace sge
 {
 namespace opengl

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/index_map_impl.hpp>
 #include <fcppt/variant/equal.hpp>
 
+
 sge::opengl::texture::filter::context::context()
 :
 	opengl::context::base(),

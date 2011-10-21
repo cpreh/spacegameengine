@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_MANAGER_CONFIG_MAP_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_MANAGER_CONFIG_MAP_HPP_INCLUDED
 
-#include <sge/x11input/device/manager/config_base_ptr.hpp>
 #include <sge/x11input/device/use.hpp>
+#include <sge/x11input/device/manager/config_base_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

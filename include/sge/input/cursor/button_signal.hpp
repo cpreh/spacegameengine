@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_function.hpp>
 #include <fcppt/signal/object_fwd.hpp>
 
+
 namespace sge
 {
 namespace input

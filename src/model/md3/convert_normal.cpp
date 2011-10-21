@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cmath>
 #include <fcppt/config/external_end.hpp>
 
+
 sge::model::md3::vec3 const
 sge::model::md3::convert_normal(
 	md3::s16 const _normal

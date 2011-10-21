@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
+
 void
 sge::opengl::vf::enable_vertex_attrib_array(
 	vf::attribute_context const &_context,

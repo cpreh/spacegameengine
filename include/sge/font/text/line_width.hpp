@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_TEXT_LINE_WIDTH_HPP_INCLUDED
 #define SGE_FONT_TEXT_LINE_WIDTH_HPP_INCLUDED
 
+#include <sge/font/metrics_fwd.hpp>
+#include <sge/font/unit.hpp>
 #include <sge/font/text/flags_field.hpp>
 #include <sge/font/text/part_fwd.hpp>
 #include <sge/font/text/string.hpp>
 #include <sge/font/text/symbol.hpp>
-#include <sge/font/metrics_fwd.hpp>
-#include <sge/font/unit.hpp>
+
 
 namespace sge
 {

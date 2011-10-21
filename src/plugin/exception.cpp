@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/plugin/exception.hpp>
 #include <sge/exception.hpp>
+#include <sge/plugin/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::plugin::exception::exception(
 	fcppt::string const &_error

@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_CONVERTER_HPP_INCLUDED
 #define SGE_CHARCONV_CONVERTER_HPP_INCLUDED
 
-#include <sge/charconv/converter_fwd.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/charconv/conversion_status.hpp>
+#include <sge/charconv/converter_fwd.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
 #include <sge/charconv/symbol.hpp>
-#include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

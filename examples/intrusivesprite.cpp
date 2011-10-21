@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -39,38 +39,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/system.hpp>
+#include <sge/sprite/type_choices.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/with_repetition.hpp>
 #include <sge/sprite/with_rotation.hpp>
 #include <sge/sprite/with_texture.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
 #include <sge/sprite/intrusive/tag.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/parameterless.hpp>
 #include <sge/systems/running_to_false.hpp>
-#include <sge/viewport/center_on_resize.hpp>
 #include <sge/texture/add_image.hpp>
-#include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/manager.hpp>
+#include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/part_fwd.hpp>
+#include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/instance.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/exception.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
+#include <cstdlib>
 #include <exception>
 #include <ostream>
-#include <cstdlib>
 #include <fcppt/config/external_end.hpp>
+
 
 int main()
 try

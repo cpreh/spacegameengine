@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/area_texc.hpp>
-#include <sge/texture/atlasing/atlasing.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/consume_and_set_fragment.hpp>
 #include <sge/texture/fragmented.hpp>
@@ -45,5 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/sub_data.hpp>
 #include <sge/texture/symbol.hpp>
+#include <sge/texture/atlasing/atlasing.hpp>
+
 
 #endif

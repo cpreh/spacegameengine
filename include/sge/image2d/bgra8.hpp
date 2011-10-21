@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_BGRA8_HPP_INCLUDED
 #define SGE_IMAGE2D_BGRA8_HPP_INCLUDED
 
-#include <sge/image2d/bgra8_format.hpp>
 #include <sge/image/store_fwd.hpp>
+#include <sge/image2d/bgra8_format.hpp>
+
 
 namespace sge
 {

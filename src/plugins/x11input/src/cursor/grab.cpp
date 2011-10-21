@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/exception.hpp>
+#include <sge/log/global.hpp>
 #include <sge/x11input/cursor/grab.hpp>
 #include <sge/x11input/cursor/image.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/instance.hpp>
-#include <sge/input/exception.hpp>
-#include <sge/log/global.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
@@ -33,12 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/output.hpp>
 #include <fcppt/time/sleep_any.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/X.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::x11input::cursor::grab::grab(
 	awl::backends::x11::window::instance &_window,

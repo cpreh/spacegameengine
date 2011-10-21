@@ -19,27 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../declare_local_logger.hpp"
-#include <sge/cegui/detail/default_target.hpp>
 #include <sge/cegui/structure_cast.hpp>
+#include <sge/cegui/detail/default_target.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/target.hpp>
 #include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUIGeometryBuffer.h>
 #include <CEGUIRenderQueue.h>
 #include <fcppt/config/external_end.hpp>
+
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("default_target"))

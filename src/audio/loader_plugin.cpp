@@ -20,8 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #define SGE_PLUGIN_INSTANTIATE_EXPORTS
 
-#include <sge/audio/loader_plugin.hpp>
 #include <sge/audio/loader.hpp>
+#include <sge/audio/loader_plugin.hpp>
+
+
 #include "../plugin/address_name.hpp"
 #include "../plugin/instantiate_types.hpp"
 

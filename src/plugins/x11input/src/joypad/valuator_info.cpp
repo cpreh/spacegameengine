@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/joypad/valuator_info.hpp>
 #include <sge/input/info/id.hpp>
+#include <sge/x11input/joypad/valuator_info.hpp>
+
 
 sge::x11input::joypad::valuator_info::valuator_info(
 	input::info::id const _id,

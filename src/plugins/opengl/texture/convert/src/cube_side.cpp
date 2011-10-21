@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/cube_side.hpp>
 #include <fcppt/assert/pre.hpp>
 
+
 sge::opengl::texture::type const
 sge::opengl::texture::convert::cube_side(
 	texture::cube_side_array const &_cube_sides,

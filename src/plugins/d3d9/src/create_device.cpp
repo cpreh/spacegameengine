@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::d3d9::d3d_device_unique_ptr
 sge::d3d9::create_device(
 	IDirect3D9 *const _system,

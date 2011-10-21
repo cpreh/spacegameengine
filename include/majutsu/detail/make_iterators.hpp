@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/iter_fold.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <boost/mpl/push_back.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/push_back.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace majutsu
 {

@@ -19,15 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../convert_format.hpp"
-#include <sge/image/color/format.hpp>
 #include <sge/image/exception.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/image/color/format.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

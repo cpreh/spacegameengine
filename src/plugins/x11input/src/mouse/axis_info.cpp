@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/mouse/axis_info.hpp>
-#include <sge/x11input/mouse/axis_code.hpp>
-#include <sge/x11input/mouse/axis_value.hpp>
-#include <sge/x11input/device/info/string_from_atom.hpp>
 #include <sge/input/info/optional_string.hpp>
 #include <sge/input/mouse/axis_info.hpp>
+#include <sge/x11input/device/info/string_from_atom.hpp>
+#include <sge/x11input/mouse/axis_code.hpp>
+#include <sge/x11input/mouse/axis_info.hpp>
+#include <sge/x11input/mouse/axis_value.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::input::mouse::axis_info const
 sge::x11input::mouse::axis_info(

@@ -19,22 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../handle_error.hpp"
-#include <sge/opencl/platform/object.hpp>
-#include <sge/opencl/context/object.hpp>
 #include <sge/opencl/clinclude.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/container/raw_vector.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <sge/opencl/context/object.hpp>
+#include <sge/opencl/platform/object.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/unique_ptr.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/assert/pre_message.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/algorithm/contains.hpp>
+#include <fcppt/assert/pre_message.hpp>
+#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

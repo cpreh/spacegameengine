@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_VIEW_ELEMENTS_WRAPPER_HPP_INCLUDED
 #define SGE_IMAGE3D_VIEW_ELEMENTS_WRAPPER_HPP_INCLUDED
 
-#include <sge/image3d/view/elements_wrapper_fwd.hpp>
 #include <sge/image3d/view/elements.hpp>
+#include <sge/image3d/view/elements_wrapper_fwd.hpp>
+
 
 namespace sge
 {

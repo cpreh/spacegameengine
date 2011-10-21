@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_vertex_declaration.hpp"
 #include "../../d3dinclude.hpp"
 #include "../../vertex_declaration.hpp"
-#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
 #include <fcppt/text.hpp>
+
 
 void
 sge::d3d9::devicefuncs::set_vertex_declaration(

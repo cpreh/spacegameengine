@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/variant/object_impl.hpp>
 #include <sge/camera/gizmo_type.hpp>
 #include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/spherical/parameters.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <fcppt/variant/object_impl.hpp>
+
 
 sge::camera::spherical::parameters::parameters(
 	spherical::movement_speed const &_movement_speed,

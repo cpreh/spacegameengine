@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <IL/il.h>
 #include <fcppt/config/external_end.hpp>
 
+
 ILenum
 sge::devil::to_il_format(
 	image::color::format::type const _format

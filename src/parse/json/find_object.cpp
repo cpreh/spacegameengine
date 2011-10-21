@@ -18,20 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/find_object.hpp>
-#include <sge/parse/json/path_to_string.hpp>
-#include <sge/parse/json/path.hpp>
-#include <sge/parse/json/member_name_equal.hpp>
-#include <sge/parse/json/exception.hpp>
-#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/exception.hpp>
+#include <sge/parse/json/find_object.hpp>
 #include <sge/parse/json/get.hpp>
-#include <fcppt/type_name.hpp>
+#include <sge/parse/json/member_name_equal.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/path.hpp>
+#include <sge/parse/json/path_to_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/type_name.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::parse::json::object *
 sge::parse::json::find_object(

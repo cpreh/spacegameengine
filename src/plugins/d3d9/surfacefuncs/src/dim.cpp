@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
+
 sge::renderer::dim2 const
 sge::d3d9::surfacefuncs::dim(
 	IDirect3DSurface9 *const _surface

@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_KEYBOARD_LOOKED_UP_STRING_HPP_INCLUDED
 #define SGE_X11INPUT_KEYBOARD_LOOKED_UP_STRING_HPP_INCLUDED
 
-#include <sge/x11input/keyboard/looked_up_string_fwd.hpp>
-#include <sge/x11input/keyboard/char_vector.hpp>
 #include <sge/input/keyboard/key_code.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <sge/x11input/keyboard/char_vector.hpp>
+#include <sge/x11input/keyboard/looked_up_string_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+
 
 namespace sge
 {

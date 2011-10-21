@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../normal_actor.hpp"
 #include "../convert_element_type.hpp"
 #include "../../check_state.hpp"
-#include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/vf/dynamic/normal.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::opengl::vf::normal_actor::normal_actor(
 	actor_parameters const &_param,

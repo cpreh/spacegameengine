@@ -24,11 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../deferred/object.hpp"
 #include <sge/renderer/state/any.hpp>
 #include <sge/renderer/state/apply.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/cref.hpp>
+
 
 void
 sge::d3d9::state::apply(

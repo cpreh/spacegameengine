@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/bool.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 DWORD
 sge::d3d9::state::convert::color_write(
 	renderer::state::bool_::available_states::type const _state

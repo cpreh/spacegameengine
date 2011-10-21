@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_CALLBACK_FROM_FUNCTOR_HPP_INCLUDED
 #define SGE_CONSOLE_CALLBACK_FROM_FUNCTOR_HPP_INCLUDED
 
-#include <sge/console/callback/detail/convenience_wrapper.hpp>
-#include <sge/console/callback/short_description.hpp>
-#include <sge/console/callback/parameters.hpp>
 #include <sge/console/callback/name.hpp>
+#include <sge/console/callback/parameters.hpp>
+#include <sge/console/callback/short_description.hpp>
+#include <sge/console/callback/detail/convenience_wrapper.hpp>
+
 
 namespace sge
 {

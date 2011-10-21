@@ -20,12 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "check_near_far.hpp"
 #include "check_near.hpp"
-#include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/projection/perspective_af.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::renderer::matrix4 const
 sge::renderer::projection::perspective_af(

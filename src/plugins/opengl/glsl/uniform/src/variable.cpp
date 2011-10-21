@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../get.hpp"
 #include "../element_type.hpp"
 #include "../../instantiate.hpp"
-#include <sge/renderer/glsl/uniform/value.hpp>
 #include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/uniform/value.hpp>
 #include <fcppt/variant/object_impl.hpp>
+
 
 template<
 	typename Environment

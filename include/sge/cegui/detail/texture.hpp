@@ -22,18 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CEGUI_DETAIL_TEXTURE_HPP_INCLUDED
 
 #include <sge/cegui/system_fwd.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUITexture.h>
 #include <CEGUISize.h>
 #include <CEGUIString.h>
+#include <CEGUITexture.h>
 #include <CEGUIVector.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

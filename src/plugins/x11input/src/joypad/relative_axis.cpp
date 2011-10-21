@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/joypad/relative_axis.hpp>
-#include <sge/x11input/joypad/axis.hpp>
+#include <sge/input/info/id.hpp>
 #include <sge/input/joypad/relative_axis.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>
-#include <sge/input/info/id.hpp>
+#include <sge/x11input/joypad/axis.hpp>
+#include <sge/x11input/joypad/relative_axis.hpp>
+
 
 sge::input::joypad::relative_axis const
 sge::x11input::joypad::relative_axis(

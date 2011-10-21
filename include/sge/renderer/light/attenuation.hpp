@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LIGHT_ATTENUATION_HPP_INCLUDED
 #define SGE_RENDERER_LIGHT_ATTENUATION_HPP_INCLUDED
 
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/light/attenuation_fwd.hpp>
 #include <sge/renderer/light/constant_attenuation.hpp>
 #include <sge/renderer/light/linear_attenuation.hpp>
 #include <sge/renderer/light/quadratic_attenuation.hpp>
-#include <sge/renderer/symbol.hpp>
+
 
 namespace sge
 {

@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/caps.hpp>
 #include <sge/image/color/format_to_string.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <sge/renderer/caps.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/dim/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::renderer::caps::caps(
 	renderer::adapter const _adapter,

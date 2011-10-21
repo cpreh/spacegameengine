@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index/any/make_view.hpp>
-#include <sge/renderer/index/any/view.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/index/format_16.hpp>
 #include <sge/renderer/index/format_32.hpp>
 #include <sge/renderer/index/view.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/renderer/index/any/make_view.hpp>
+#include <sge/renderer/index/any/view.hpp>
+#include <sge/renderer/index/dynamic/view.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/variant/object_impl.hpp>
+
 
 sge::renderer::index::any::view const
 sge::renderer::index::any::make_view(

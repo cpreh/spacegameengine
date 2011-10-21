@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "available_channels.hpp"
 #include "channel_index.hpp"
-#include <mizuiro/color/access/dynamic_index.hpp>
-#include <mizuiro/color/format_store.hpp>
 #include <mizuiro/size_type.hpp>
+#include <mizuiro/color/format_store.hpp>
+#include <mizuiro/color/access/dynamic_index.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace mizuiro
 {

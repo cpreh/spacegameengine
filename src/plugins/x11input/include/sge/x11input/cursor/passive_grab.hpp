@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_CURSOR_PASSIVE_GRAB_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_PASSIVE_GRAB_HPP_INCLUDED
 
-#include <sge/x11input/cursor/passive_grab_fwd.hpp>
 #include <sge/x11input/cursor/image.hpp>
+#include <sge/x11input/cursor/passive_grab_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

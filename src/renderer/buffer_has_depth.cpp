@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
+
 bool
 sge::renderer::buffer_has_depth(
 	renderer::depth_stencil_buffer::type const _buffer

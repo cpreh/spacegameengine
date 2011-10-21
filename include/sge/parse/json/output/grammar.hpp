@@ -21,31 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_OUTPUT_GRAMMAR_HPP_INCLUDED
 #define SGE_PARSE_JSON_OUTPUT_GRAMMAR_HPP_INCLUDED
 
+#include <sge/parse/encoding.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/null.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/string.hpp>
+#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/adapt_array.hpp>
 #include <sge/parse/json/detail/adapt_member.hpp>
 #include <sge/parse/json/detail/adapt_object.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/value.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/null.hpp>
-#include <sge/parse/json/string.hpp>
-#include <sge/parse/json/member.hpp>
-#include <sge/parse/json/float_type.hpp>
-#include <sge/parse/json/int_type.hpp>
-#include <sge/parse/encoding.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
-
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/karma_char.hpp>
+#include <boost/spirit/include/karma_directive.hpp>
 #include <boost/spirit/include/karma_grammar.hpp>
+#include <boost/spirit/include/karma_nonterminal.hpp>
+#include <boost/spirit/include/karma_numeric.hpp>
 #include <boost/spirit/include/karma_operator.hpp>
 #include <boost/spirit/include/karma_rule.hpp>
-#include <boost/spirit/include/karma_nonterminal.hpp>
-#include <boost/spirit/include/karma_directive.hpp>
 #include <boost/spirit/include/karma_string.hpp>
-#include <boost/spirit/include/karma_numeric.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/from_fcppt_string.hpp>
 #include <fcppt/to_std_string.hpp>
 
+
 sge::renderer::glsl::string const
 sge::renderer::glsl::from_fcppt_string(
 	fcppt::string const &_string

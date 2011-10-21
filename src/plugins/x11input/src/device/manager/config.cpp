@@ -18,15 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/device/manager/config_impl.hpp>
-#include <sge/x11input/cursor/object.hpp>
-#include <sge/x11input/cursor/object_ptr.hpp>
-#include <sge/x11input/joypad/device.hpp>
-#include <sge/x11input/joypad/device_ptr.hpp>
-#include <sge/x11input/keyboard/device.hpp>
-#include <sge/x11input/keyboard/device_ptr.hpp>
-#include <sge/x11input/mouse/device.hpp>
-#include <sge/x11input/mouse/device_ptr.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/joypad/discover_event.hpp>
@@ -35,6 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/remove_event.hpp>
 #include <sge/input/mouse/discover_event.hpp>
 #include <sge/input/mouse/remove_event.hpp>
+#include <sge/x11input/cursor/object.hpp>
+#include <sge/x11input/cursor/object_ptr.hpp>
+#include <sge/x11input/device/manager/config_impl.hpp>
+#include <sge/x11input/joypad/device.hpp>
+#include <sge/x11input/joypad/device_ptr.hpp>
+#include <sge/x11input/keyboard/device.hpp>
+#include <sge/x11input/keyboard/device_ptr.hpp>
+#include <sge/x11input/mouse/device.hpp>
+#include <sge/x11input/mouse/device_ptr.hpp>
+
 
 template class
 sge::x11input::device::manager::config<

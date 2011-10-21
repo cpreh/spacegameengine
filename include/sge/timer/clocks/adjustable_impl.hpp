@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_CLOCKS_ADJUSTABLE_IMPL_HPP_INCLUDED
 
 #include <sge/timer/clocks/adjustable_decl.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/time_point_arithmetic.hpp>
 #include <fcppt/chrono/time_point_impl.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
+
 
 template<typename ClockImpl>
 sge::timer::clocks::adjustable<ClockImpl>::adjustable()

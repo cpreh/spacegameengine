@@ -21,19 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_TRANSFORM_PARAMETERS_ARGUMENTS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_TRANSFORM_PARAMETERS_ARGUMENTS_HPP_INCLUDED
 
-#include <sge/sprite/detail/transform_init_arguments.hpp>
-#include <sge/sprite/roles/pos.hpp>
-#include <sge/sprite/detail/roles/use_center.hpp>
 #include <sge/sprite/with_dim.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <sge/sprite/detail/transform_init_arguments.hpp>
+#include <sge/sprite/detail/roles/use_center.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <majutsu/subelements.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/dim.hpp>
-#include <majutsu/subelements.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

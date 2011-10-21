@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../format_type_to_string.hpp"
 #include "../../color_format_type.hpp"
 #include "../../common.hpp"
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
+
 
 fcppt::string const
 sge::opengl::convert::format_type_to_string(

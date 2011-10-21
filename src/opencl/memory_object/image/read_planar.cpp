@@ -18,21 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
-#include <sge/opencl/memory_object/image/read_planar.hpp>
-#include <sge/opencl/memory_object/image/planar.hpp>
-#include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/raw_pointer.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/view/make.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/make.hpp>
+#include <sge/image2d/view/make_const.hpp>
+#include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
+#include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
+#include <sge/opencl/memory_object/image/planar.hpp>
+#include <sge/opencl/memory_object/image/read_planar.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+
 
 void
 sge::opencl::memory_object::image::read_planar(

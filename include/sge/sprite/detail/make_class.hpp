@@ -23,22 +23,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/with_rotation.hpp>
 #include <sge/sprite/with_rotation_center.hpp>
-#include <sge/sprite/primitives/vector.hpp>
 #include <sge/sprite/primitives/dim.hpp>
+#include <sge/sprite/primitives/vector.hpp>
 #include <sge/sprite/roles/pos.hpp>
-#include <fcppt/mpl/implication.hpp>
-#include <majutsu/memory/fusion.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/role.hpp>
+#include <majutsu/memory/fusion.hpp>
+#include <fcppt/mpl/implication.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <boost/static_assert.hpp>
 #include <boost/mpl/apply.hpp>
-#include <boost/mpl/transform.hpp>
-#include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/joint_view.hpp>
-#include <boost/static_assert.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/transform.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

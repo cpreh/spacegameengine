@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 GLsizei
 sge::opengl::glsl::uniform::element_columns(
 	sge::renderer::glsl::uniform::float_value_type::type const _type

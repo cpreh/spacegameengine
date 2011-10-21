@@ -21,22 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_COLLECTOR_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_COLLECTOR_HPP_INCLUDED
 
-#include <sge/input/mouse/collector_fwd.hpp>
+#include <sge/input/processor_fwd.hpp>
+#include <sge/input/symbol.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/input/mouse/axis_signal.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
 #include <sge/input/mouse/button_signal.hpp>
+#include <sge/input/mouse/collector_fwd.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/device_ptr.hpp>
 #include <sge/input/mouse/info.hpp>
 #include <sge/input/mouse/manager.hpp>
-#include <sge/input/processor_fwd.hpp>
-#include <sge/input/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

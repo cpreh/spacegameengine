@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/format_to_string.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/color/format_to_string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/preprocessor/stringize.hpp>
-#include <fcppt/string.hpp>
+
 
 fcppt::string const
 sge::image::color::format_to_string(

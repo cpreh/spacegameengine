@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opencl/command_queue/scoped.hpp>
 #include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/command_queue/scoped.hpp>
+
 
 sge::opencl::command_queue::scoped::scoped(
 	command_queue::object &_object)

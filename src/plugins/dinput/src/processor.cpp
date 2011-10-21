@@ -31,9 +31,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
 #include <awl/backends/windows/system/event/processor.hpp>
+#include <awl/backends/windows/window/instance.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
-#include <awl/backends/windows/window/instance.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/dynamic_pointer_cast.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/append.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -41,13 +47,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/dynamic_pointer_cast.hpp>
-#include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/foreach.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::dinput::processor::processor(
 	sge::window::instance_ptr const _window

@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_CONVERT_SIZE_HINTS_HPP_INCLUDED
 #define SGE_WINDOW_CONVERT_SIZE_HINTS_HPP_INCLUDED
 
-#include <awl/window/parameters_fwd.hpp>
 #include <sge/window/size_hints_fwd.hpp>
 #include <sge/window/symbol.hpp>
+#include <awl/window/parameters_fwd.hpp>
+
 
 namespace sge
 {

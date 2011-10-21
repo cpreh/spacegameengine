@@ -20,11 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../create_caps.hpp"
 #include "../systemfuncs/get_caps.hpp"
-#include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+
 
 namespace
 {

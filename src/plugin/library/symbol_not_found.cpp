@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::plugin::library::symbol_not_found::symbol_not_found(
 	fcppt::string const &_library_name,
 	std::string const &_symbol

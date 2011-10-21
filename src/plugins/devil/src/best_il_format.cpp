@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 sge::image::color::format::type
 sge::devil::best_il_format(
 	image::color::format::type const _format

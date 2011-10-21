@@ -25,13 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/deleter.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/screen.hpp>
-#include <fcppt/shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstddef>
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
+#include <cstddef>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

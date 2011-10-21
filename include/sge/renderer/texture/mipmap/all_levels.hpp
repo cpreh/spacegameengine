@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_MIPMAP_ALL_LEVELS_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_MIPMAP_ALL_LEVELS_HPP_INCLUDED
 
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
-#include <sge/renderer/symbol.hpp>
+
 
 namespace sge
 {

@@ -18,18 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/viewport/manager.hpp>
-#include <sge/viewport/manage_callback.hpp>
-#include <sge/viewport/manage_function.hpp>
-#include <sge/viewport/resize_function.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/target_base.hpp>
+#include <sge/viewport/manage_callback.hpp>
+#include <sge/viewport/manage_function.hpp>
+#include <sge/viewport/manager.hpp>
+#include <sge/viewport/resize_function.hpp>
 #include <sge/window/instance.hpp>
-#include <awl/window/event/resize_fwd.hpp>
-#include <awl/window/event/resize.hpp>
 #include <awl/window/event/processor.hpp>
+#include <awl/window/event/resize.hpp>
+#include <awl/window/event/resize_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -39,9 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/ref.hpp>
+
 
 class sge::viewport::manager::impl
 {

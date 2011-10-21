@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 sge::opengl::color_format_type const
 sge::opengl::convert::depth_stencil_to_format_type(
 	renderer::depth_stencil_format::type const _type

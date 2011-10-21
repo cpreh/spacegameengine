@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_MEMORY_OBJECT_IMAGE_READ_PLANAR_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_READ_PLANAR_HPP_INCLUDED
 
-#include <sge/opencl/command_queue/object_fwd.hpp>
-#include <sge/opencl/memory_object/image/planar_fwd.hpp>
-#include <sge/opencl/memory_object/rect.hpp>
-#include <sge/opencl/symbol.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
+#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/command_queue/object_fwd.hpp>
+#include <sge/opencl/memory_object/rect.hpp>
+#include <sge/opencl/memory_object/image/planar_fwd.hpp>
+
 
 namespace sge
 {

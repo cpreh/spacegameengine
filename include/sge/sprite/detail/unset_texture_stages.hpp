@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_UNSET_TEXTURE_STAGES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_UNSET_TEXTURE_STAGES_HPP_INCLUDED
 
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/detail/apply_texture_levels.hpp>
 #include <sge/sprite/detail/unset_texture_stage.hpp>
-#include <sge/renderer/device_fwd.hpp>
+
 
 namespace sge
 {

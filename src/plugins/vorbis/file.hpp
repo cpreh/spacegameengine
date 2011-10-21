@@ -22,16 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_VORBIS_FILE_HPP_INCLUDED
 
 #include "stream_ptr.hpp"
-#include <sge/audio/optional_path.hpp>
 #include <sge/audio/file.hpp>
-#include <fcppt/io/cifstream.hpp>
+#include <sge/audio/optional_path.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vorbis/vorbisfile.h>
 #include <cstddef>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
+
 sge::freetype::metrics::metrics(
 	library &_lib,
 	sge::charconv::system_ptr const _conv_system,

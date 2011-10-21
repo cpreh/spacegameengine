@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../convert/color_to_format_type.hpp"
 #include "../../check_state.hpp"
 #include <sge/image/color/element_count.hpp>
-#include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/vf/dynamic/color.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::opengl::vf::color_actor::color_actor(
 	actor_parameters const &_param,

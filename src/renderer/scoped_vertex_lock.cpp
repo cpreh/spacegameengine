@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <fcppt/export_symbol.hpp>
 
+
 template FCPPT_EXPORT_SYMBOL class
 sge::renderer::basic_scoped_buffer_lock<
 	sge::renderer::vertex_buffer,

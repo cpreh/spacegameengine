@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DEFAULTS_ORDER_HPP_INCLUDED
 
 #include <sge/sprite/defaults/fwd.hpp>
-#include <sge/sprite/roles/order.hpp>
 #include <sge/sprite/intrusive/order.hpp>
+#include <sge/sprite/roles/order.hpp>
+
 
 namespace sge
 {

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/module_handle.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::dinput::dinput_unique_ptr
 sge::dinput::create_dinput()
 {

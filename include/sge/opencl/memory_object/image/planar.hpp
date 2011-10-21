@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_MEMORY_OBJECT_IMAGE_PLANAR_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_PLANAR_HPP_INCLUDED
 
-#include <sge/opencl/context/object_fwd.hpp>
-#include <sge/opencl/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/opencl/memory_object/dim2.hpp>
+#include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/memory_object/base.hpp>
+#include <sge/opencl/memory_object/dim2.hpp>
+#include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/opencl/memory_object/image/planar_pitch.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/opencl/memory_object/flags_field.hpp>
-#include <sge/opencl/clinclude.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+
 
 namespace sge
 {

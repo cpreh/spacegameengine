@@ -21,22 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_POSITION_ROTATED_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_POSITION_ROTATED_HPP_INCLUDED
 
+#include <sge/sprite/bounding_rect.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/detail/make_position.hpp>
 #include <sge/sprite/detail/rect_float.hpp>
 #include <sge/sprite/detail/vector_float.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/bounding_rect.hpp>
-#include <fcppt/math/matrix/static.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/matrix/vector.hpp>
-#include <fcppt/math/box/structure_cast.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/container/array.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/static.hpp>
+#include <fcppt/math/matrix/vector.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

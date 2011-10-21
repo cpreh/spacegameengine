@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_FILTER_NORMAL_OBJECT_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_FILTER_NORMAL_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/texture/filter/normal/object_fwd.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/texture/filter/normal/mag.hpp>
 #include <sge/renderer/texture/filter/normal/min.hpp>
 #include <sge/renderer/texture/filter/normal/mip.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/texture/filter/normal/object_fwd.hpp>
+
 
 namespace sge
 {

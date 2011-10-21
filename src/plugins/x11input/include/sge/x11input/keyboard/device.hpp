@@ -21,25 +21,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_KEYBOARD_DEVICE_HPP_INCLUDED
 #define SGE_X11INPUT_KEYBOARD_DEVICE_HPP_INCLUDED
 
-#include <sge/x11input/keyboard/device_fwd.hpp>
-#include <sge/x11input/input_context_fwd.hpp>
-#include <sge/x11input/device/object.hpp>
-#include <sge/x11input/device/parameters_fwd.hpp>
-#include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/char_function.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_function.hpp>
+#include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
+#include <sge/x11input/input_context_fwd.hpp>
+#include <sge/x11input/device/object.hpp>
+#include <sge/x11input/device/parameters_fwd.hpp>
+#include <sge/x11input/device/window_event_fwd.hpp>
+#include <sge/x11input/keyboard/device_fwd.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

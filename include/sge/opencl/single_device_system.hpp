@@ -21,21 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_SINGLE_DEVICE_SYSTEM_HPP_INCLUDED
 #define SGE_OPENCL_SINGLE_DEVICE_SYSTEM_HPP_INCLUDED
 
-#include <sge/opencl/system_fwd.hpp>
-#include <sge/opencl/optional_renderer.hpp>
-#include <sge/opencl/error_information_string.hpp>
 #include <sge/opencl/binary_error_data.hpp>
+#include <sge/opencl/error_information_string.hpp>
+#include <sge/opencl/optional_renderer.hpp>
 #include <sge/opencl/symbol.hpp>
-#include <sge/opencl/platform/object_fwd.hpp>
-#include <sge/opencl/device/object_fwd.hpp>
+#include <sge/opencl/system_fwd.hpp>
+#include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/context/optional_error_callback.hpp>
-#include <sge/opencl/command_queue/object_fwd.hpp>
+#include <sge/opencl/device/object_fwd.hpp>
+#include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/thread/mutex.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -26,14 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "resource_manager.hpp"
 #include "state/device_fwd.hpp"
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/caps.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/shared_ptr.hpp>
+
 
 namespace sge
 {

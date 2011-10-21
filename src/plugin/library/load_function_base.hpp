@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_LIBRARY_LOAD_FUNCTION_BASE_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_LOAD_FUNCTION_BASE_HPP_INCLUDED
 
+#include <sge/plugin/symbol.hpp>
+#include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
-#include <sge/plugin/library/function_base.hpp>
-#include <sge/plugin/symbol.hpp>
+
 
 namespace sge
 {

@@ -18,30 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/system.hpp>
+#include <sge/input/exception.hpp>
+#include <sge/log/global.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/x11input/lc_ctype.hpp>
 #include <sge/x11input/optional_opcode.hpp>
 #include <sge/x11input/processor.hpp>
 #include <sge/x11input/scoped_locale.hpp>
+#include <sge/x11input/system.hpp>
 #include <sge/x11input/xi_2_1.hpp>
 #include <sge/x11input/xi_opcode.hpp>
 #include <sge/x11input/xi_version.hpp>
-#include <sge/input/exception.hpp>
-#include <sge/log/global.hpp>
-#include <sge/window/instance.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/window/instance_shared_ptr.hpp>
-#include <fcppt/log/info.hpp>
-#include <fcppt/log/output.hpp>
-#include <fcppt/log/warning.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/log/info.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::x11input::system::system()
 {

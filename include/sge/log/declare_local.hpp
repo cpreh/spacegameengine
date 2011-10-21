@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LOG_DECLARE_LOCAL_HPP_INCLUDED
 
 #include <sge/log/default_parameters.hpp>
-#include <fcppt/log/parameters/all.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/log/parameters/all.hpp>
+
 
 #define SGE_LOG_DECLARE_LOCAL(\
 	name,\

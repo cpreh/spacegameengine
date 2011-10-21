@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LOADER_HPP_INCLUDED
 #define SGE_AUDIO_LOADER_HPP_INCLUDED
 
-#include <sge/audio/loader_fwd.hpp>
-#include <sge/audio/file_ptr.hpp>
-#include <sge/audio/loader_capabilities_field.hpp>
-#include <sge/audio/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/const_raw_range.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/optional_extension.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/loader_capabilities_field.hpp>
+#include <sge/audio/loader_fwd.hpp>
+#include <sge/audio/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
+
 
 namespace sge
 {

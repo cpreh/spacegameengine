@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJ_VB_CONVERTER_ROLES_POSITION_HPP_INCLUDED
 
 #include <sge/model/obj/vb_converter/roles/detail/type.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/integral_c.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

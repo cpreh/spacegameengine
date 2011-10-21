@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_DEVICE_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_DEVICE_HPP_INCLUDED
 
-#include <sge/input/mouse/device_fwd.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/input/symbol.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/button_callback.hpp>
+#include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/info_fwd.hpp>
-#include <sge/input/symbol.hpp>
-#include <sge/class_symbol.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+
 
 namespace sge
 {

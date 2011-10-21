@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/info/id.hpp>
+#include <sge/x11input/device/info/class_type.hpp>
 #include <sge/x11input/joypad/make_valuator_infos.hpp>
 #include <sge/x11input/joypad/valuator_info.hpp>
 #include <sge/x11input/joypad/valuator_info_vector.hpp>
-#include <sge/x11input/device/info/class_type.hpp>
-#include <sge/input/info/id.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

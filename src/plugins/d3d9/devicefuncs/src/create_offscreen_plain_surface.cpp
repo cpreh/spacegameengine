@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../convert/color_format.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::devicefuncs::create_offscreen_plain_surface(

@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_PARSE_STREAM_HPP_INCLUDED
 #define SGE_PARSE_PARSE_STREAM_HPP_INCLUDED
 
-#include <fcppt/io/istream.hpp>
 #include <fcppt/char_type.hpp>
+#include <fcppt/io/istream.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/support/iterators/istream_iterator.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

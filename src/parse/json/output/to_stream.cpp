@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/output/to_stream.hpp>
 #include <sge/parse/json/output/to_range.hpp>
+#include <sge/parse/json/output/to_stream.hpp>
+
+
 #define SGE_PARSE_DETAIL_TO_RANGE_NAMESPACE ::sge::parse::json::output
 #include "../../output/to_stream.hpp"
 

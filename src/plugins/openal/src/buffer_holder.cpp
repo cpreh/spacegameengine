@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../log.hpp"
 #include "../openal.hpp"
 #include <sge/audio/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
-#include <fcppt/text.hpp>
+
 
 sge::openal::buffer_holder::buffer_holder()
 {

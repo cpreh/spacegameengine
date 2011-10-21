@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/draw_mode.hpp"
 #include "../../check_state.hpp"
 #include "../../common.hpp"
-#include <sge/renderer/state/draw_mode.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/state/draw_mode.hpp>
 #include <fcppt/text.hpp>
+
 
 void
 sge::opengl::state::draw_mode(

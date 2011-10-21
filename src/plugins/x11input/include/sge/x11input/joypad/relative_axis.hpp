@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_HPP_INCLUDED
 #define SGE_X11INPUT_JOYPAD_RELATIVE_AXIS_HPP_INCLUDED
 
+#include <sge/input/info/id.hpp>
 #include <sge/input/joypad/relative_axis_fwd.hpp>
 #include <sge/input/joypad/relative_axis_info_container_fwd.hpp>
-#include <sge/input/info/id.hpp>
+
 
 namespace sge
 {

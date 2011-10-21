@@ -21,29 +21,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_GFX_HPP_INCLUDED
 #define SGE_CONSOLE_GFX_HPP_INCLUDED
 
-#include <sge/console/output_line_limit.hpp>
-#include <sge/console/object_fwd.hpp>
 #include <sge/console/cursor.hpp>
-#include <sge/console/sprite_system.hpp>
+#include <sge/console/object_fwd.hpp>
+#include <sge/console/output_line_limit.hpp>
 #include <sge/console/sprite_object.hpp>
+#include <sge/console/sprite_system.hpp>
 #include <sge/console/symbol.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
 #include <sge/font/metrics_fwd.hpp>
-#include <sge/font/text/string.hpp>
 #include <sge/font/text/drawer_3d.hpp>
+#include <sge/font/text/string.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
-#include <sge/sprite/object_decl.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/external_system_decl.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
+#include <sge/sprite/object_decl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <list>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

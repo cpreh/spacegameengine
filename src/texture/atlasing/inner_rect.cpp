@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing/inner_rect.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
+
 sge::renderer::lock_rect const
 sge::texture::atlasing::inner_rect(
 	renderer::lock_rect outer,

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::opengl::xf86vmode::resolution::resolution(
 	awl::backends::x11::display &_display,
 	awl::backends::x11::screen const _screen,

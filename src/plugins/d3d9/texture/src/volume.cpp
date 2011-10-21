@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 
+
 sge::d3d9::texture::volume::volume(
 	IDirect3DDevice9 *const _device,
 	renderer::texture::volume_parameters const &_params

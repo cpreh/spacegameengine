@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_UNLOCK_CUBE_HPP_INCLUDED
 
 #include "../d3dinclude.hpp"
-#include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/cube_side.hpp>
+
 
 namespace sge
 {

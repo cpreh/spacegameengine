@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
+
 D3DSURFACE_DESC const
 sge::d3d9::surfacefuncs::get_desc(
 	IDirect3DSurface9 *const _surface

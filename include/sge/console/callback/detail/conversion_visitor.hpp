@@ -21,21 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_CALLBACK_DETAIL_CONVERSION_VISITOR_HPP_INCLUDED
 #define SGE_CONSOLE_CALLBACK_DETAIL_CONVERSION_VISITOR_HPP_INCLUDED
 
-#include <sge/console/object.hpp>
 #include <sge/console/arg_list.hpp>
-#include <sge/font/text/lit.hpp>
+#include <sge/console/object.hpp>
 #include <sge/font/text/from_fcppt_string.hpp>
+#include <sge/font/text/lit.hpp>
 #include <fcppt/extract_from_string.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/remove_reference.hpp>
-#include <boost/fusion/sequence/intrinsic/at_c.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
+#include <boost/fusion/sequence/intrinsic/at_c.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

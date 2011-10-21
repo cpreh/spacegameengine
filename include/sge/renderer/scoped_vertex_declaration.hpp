@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

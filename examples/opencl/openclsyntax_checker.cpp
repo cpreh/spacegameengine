@@ -18,18 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opencl/single_device_system.hpp>
-#include <sge/opencl/program/object.hpp>
-#include <sge/opencl/program/build_parameters.hpp>
-#include <sge/opencl/program/optional_build_parameters.hpp>
-#include <sge/opencl/program/build_error.hpp>
-#include <sge/opencl/kernel/object.hpp>
-#include <sge/log/global_context.hpp>
 #include <sge/exception.hpp>
+#include <sge/log/global_context.hpp>
+#include <sge/opencl/single_device_system.hpp>
+#include <sge/opencl/kernel/object.hpp>
+#include <sge/opencl/program/build_error.hpp>
+#include <sge/opencl/program/build_parameters.hpp>
+#include <sge/opencl/program/object.hpp>
+#include <sge/opencl/program/optional_build_parameters.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/io/cout.hpp>
@@ -38,19 +41,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/deactivate_levels.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
 #include <boost/xpressive/xpressive.hpp>
 #include <cstdlib>
+#include <exception>
 #include <iostream>
 #include <ostream>
 #include <string>
-#include <exception>
 #include <fcppt/config/external_end.hpp>
 
 

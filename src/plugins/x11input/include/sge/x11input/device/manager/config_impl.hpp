@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_MANAGER_CONFIG_IMPL_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_MANAGER_CONFIG_IMPL_HPP_INCLUDED
 
-#include <sge/x11input/device/manager/config.hpp>
+#include <sge/x11input/create_parameters_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/object.hpp>
-#include <sge/x11input/create_parameters_fwd.hpp>
+#include <sge/x11input/device/manager/config.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
+
 
 template<
 	typename X11ObjectPtr,

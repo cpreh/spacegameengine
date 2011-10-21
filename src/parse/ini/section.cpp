@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/entry.hpp>
+#include <sge/parse/ini/section.hpp>
+
 
 sge::parse::ini::section::section()
 :

@@ -25,17 +25,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/unregister/base.hpp>
 
+
 namespace sge
 {
 namespace console
 {
 
-typedef 
+typedef
 fcppt::signal::object
 <
 	callback::function_type,
 	fcppt::signal::unregister::base
-> 
+>
 signal;
 
 }

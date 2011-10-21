@@ -25,25 +25,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "solidity/extract_mass.hpp"
 #include "solidity/is_solid.hpp"
 #include "detail/motion_state.hpp"
-#include <sge/projectile/body/object.hpp>
-#include <sge/projectile/shape/base.hpp>
-#include <sge/projectile/body/parameters.hpp>
 #include <sge/projectile/vector2.hpp>
 #include <sge/projectile/vector3.hpp>
+#include <sge/projectile/body/object.hpp>
+#include <sge/projectile/body/parameters.hpp>
+#include <sge/projectile/shape/base.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btMatrix3x3.h>
+#include <LinearMath/btTransform.h>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
-#include <LinearMath/btTransform.h>
 #include <fcppt/config/external_end.hpp>
+
 
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("body"))

@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_POSITION_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_POSITION_HPP_INCLUDED
 
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/with_dim.hpp>
+#include <sge/sprite/with_rotation.hpp>
 #include <sge/sprite/detail/fill_position_points.hpp>
 #include <sge/sprite/detail/fill_position_rotated.hpp>
 #include <sge/sprite/detail/fill_position_unrotated.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_rotation.hpp>
-#include <sge/sprite/object_impl.hpp>
 #include <fcppt/math/almost_zero.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/not.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

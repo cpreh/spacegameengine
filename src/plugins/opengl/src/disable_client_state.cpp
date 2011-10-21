@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../common.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/format.hpp>
+#include <fcppt/text.hpp>
+
 
 void
 sge::opengl::disable_client_state(

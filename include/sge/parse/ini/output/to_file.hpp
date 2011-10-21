@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_OUTPUT_TO_FILE_HPP_INCLUDED
 #define SGE_PARSE_INI_OUTPUT_TO_FILE_HPP_INCLUDED
 
-#include <sge/parse/ini/section_vector.hpp>
 #include <sge/parse/symbol.hpp>
+#include <sge/parse/ini/section_vector.hpp>
 #include <fcppt/filesystem/path.hpp>
+
 
 namespace sge
 {

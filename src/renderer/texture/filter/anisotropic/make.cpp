@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/texture/filter/anisotropic/make.hpp>
 #include <sge/renderer/texture/filter/anisotropic/object.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
+
 
 sge::renderer::texture::filter::object const
 sge::renderer::texture::filter::anisotropic::make(

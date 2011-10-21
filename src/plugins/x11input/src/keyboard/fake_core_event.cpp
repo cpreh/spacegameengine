@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/keyboard/fake_core_event.hpp>
-#include <sge/x11input/keyboard/translate_event.hpp>
-#include <sge/x11input/keyboard/to_base_event.hpp>
 #include <sge/x11input/device/window_event.hpp>
+#include <sge/x11input/keyboard/fake_core_event.hpp>
+#include <sge/x11input/keyboard/to_base_event.hpp>
+#include <sge/x11input/keyboard/translate_event.hpp>
 #include <awl/backends/x11/window/event/filter.hpp>
 #include <awl/backends/x11/window/event/object.hpp>
+
 
 void
 sge::x11input::keyboard::fake_core_event(

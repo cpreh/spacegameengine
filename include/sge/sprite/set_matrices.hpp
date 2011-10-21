@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_SET_MATRICES_HPP_INCLUDED
 #define SGE_SPRITE_SET_MATRICES_HPP_INCLUDED
 
-#include <sge/sprite/symbol.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/sprite/symbol.hpp>
+
 
 namespace sge
 {

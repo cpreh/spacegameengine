@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light/directional.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
+
 void
 sge::opengl::light::directional(
 	light::index const _index,

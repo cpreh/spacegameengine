@@ -21,27 +21,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MULTI_LOADER_IMPL_HPP_INCLUDED
 #define SGE_MULTI_LOADER_IMPL_HPP_INCLUDED
 
+#include <sge/all_extensions.hpp>
+#include <sge/extension.hpp>
+#include <sge/loaders_exhausted.hpp>
+#include <sge/multi_loader.hpp>
+#include <sge/log/global.hpp>
+#include <sge/plugin/context_base.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/plugin/context_base.hpp>
-#include <sge/loaders_exhausted.hpp>
-#include <sge/log/global.hpp>
-#include <sge/all_extensions.hpp>
-#include <sge/extension.hpp>
-#include <sge/multi_loader.hpp>
-#include <fcppt/algorithm/contains.hpp>
-#include <fcppt/algorithm/set_intersection.hpp>
-#include <fcppt/filesystem/exists.hpp>
-#include <fcppt/filesystem/is_regular.hpp>
-#include <fcppt/filesystem/extension_without_dot.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/container/bitfield/is_subset_eq.hpp>
-#include <fcppt/log/headers.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
+#include <fcppt/algorithm/contains.hpp>
+#include <fcppt/algorithm/set_intersection.hpp>
+#include <fcppt/container/bitfield/is_subset_eq.hpp>
+#include <fcppt/filesystem/exists.hpp>
+#include <fcppt/filesystem/extension_without_dot.hpp>
+#include <fcppt/filesystem/is_regular.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
+#include <fcppt/config/external_end.hpp>
+
 
 template<
 	typename Loader,

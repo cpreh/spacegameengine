@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LINE_DRAWER_RENDER_TO_SCREEN_HPP_INCLUDED
 #define SGE_LINE_DRAWER_RENDER_TO_SCREEN_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/line_drawer/object_fwd.hpp>
 #include <sge/line_drawer/symbol.hpp>
+#include <sge/renderer/device_fwd.hpp>
+
 
 namespace sge
 {

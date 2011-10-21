@@ -19,20 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../converter.hpp"
+#include <sge/exception.hpp>
 #include <sge/charconv/const_raw_pointer.hpp>
 #include <sge/charconv/exception.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
 #include <sge/charconv/raw_pointer.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
 #include <boost/cstdint.hpp>
+#include <boost/next_prior.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::winconv::converter::converter(
 	charconv::source_encoding const &_source,

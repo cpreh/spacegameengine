@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_DYNAMIC_ALGORITHM_CAC_SOURCE_HPP_INCLUDED
 
 #include <sge/image/view/mizuiro_access.hpp>
-#include <mizuiro/image/types/reference.hpp>
 #include <mizuiro/const_tag.hpp>
+#include <mizuiro/image/types/reference.hpp>
+
 
 namespace sge
 {

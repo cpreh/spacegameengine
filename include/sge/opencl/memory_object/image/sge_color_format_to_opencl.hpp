@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_SGE_COLOR_FORMAT_TO_OPENCL_HPP_INCLUDED
 
 #include <sge/image/color/format.hpp>
-#include <sge/opencl/symbol.hpp>
 #include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/symbol.hpp>
+
 
 namespace sge
 {

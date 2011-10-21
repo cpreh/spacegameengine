@@ -23,11 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <mizuiro/color/object_impl.hpp>
-#include <mizuiro/image/algorithm/fill_c.hpp>
 #include <mizuiro/image/view_impl.hpp>
+#include <mizuiro/image/algorithm/fill_c.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/variant/object_impl.hpp>
+
 
 namespace sge
 {

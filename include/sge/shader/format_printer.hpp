@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_FORMAT_PRINTER_HPP_INCLUDED
 #define SGE_SHADER_FORMAT_PRINTER_HPP_INCLUDED
 
-#include <sge/shader/vector_to_string.hpp>
-#include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/from_fcppt_string.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/vf/unspecified.hpp>
 #include <sge/renderer/vf/vector.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/shader/vector_to_string.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/format.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_SYSTEM_HPP_INCLUDED
 #define SGE_SPRITE_SYSTEM_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/tag.hpp>
-#include <sge/sprite/intrusive/system_fwd.hpp>
 #include <sge/sprite/external_system_fwd.hpp>
+#include <sge/sprite/intrusive/system_fwd.hpp>
+#include <sge/sprite/intrusive/tag.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
 #include <boost/mpl/contains.hpp>
+#include <boost/mpl/if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

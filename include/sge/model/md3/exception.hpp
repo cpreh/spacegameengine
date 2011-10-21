@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_MD3_EXCEPTION_HPP_INCLUDED
 #define SGE_MODEL_MD3_EXCEPTION_HPP_INCLUDED
 
-#include <sge/model/md3/symbol.hpp>
-#include <sge/exception.hpp>
 #include <sge/class_symbol.hpp>
+#include <sge/exception.hpp>
+#include <sge/model/md3/symbol.hpp>
 #include <fcppt/string.hpp>
+
 
 namespace sge
 {

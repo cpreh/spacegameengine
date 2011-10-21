@@ -24,14 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/resource_flags_to_pool.hpp"
 #include "../convert/resource_flags.hpp"
 #include <sge/image/color/format.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
+#include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assign/make_container.hpp>
+
 
 sge::d3d9::vertex_buffer::vertex_buffer(
 	IDirect3DDevice9 *const _device,

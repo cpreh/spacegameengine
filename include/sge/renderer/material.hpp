@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_MATERIAL_HPP_INCLUDED
 #define SGE_RENDERER_MATERIAL_HPP_INCLUDED
 
-#include <sge/renderer/material_fwd.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/renderer/ambient_color.hpp>
 #include <sge/renderer/diffuse_color.hpp>
 #include <sge/renderer/emissive_color.hpp>
-#include <sge/renderer/specular_color.hpp>
+#include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/shininess.hpp>
+#include <sge/renderer/specular_color.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <fcppt/variant/object_impl.hpp>
+
 
 namespace sge
 {

@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_LIST_HPP_INCLUDED
 #define SGE_RENDERER_STATE_LIST_HPP_INCLUDED
 
-#include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/state/any_sort_functor.hpp>
-#include <sge/renderer/state/trampoline_fwd.hpp>
-#include <sge/renderer/state/any.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/state/any.hpp>
+#include <sge/renderer/state/any_sort_functor.hpp>
+#include <sge/renderer/state/list_fwd.hpp>
+#include <sge/renderer/state/trampoline_fwd.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <set>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

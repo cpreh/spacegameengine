@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/no_object.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::input::cursor::no_object::no_object()
 :
 	sge::input::exception(

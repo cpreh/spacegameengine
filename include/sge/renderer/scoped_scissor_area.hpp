@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_SCISSOR_AREA_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_SCISSOR_AREA_HPP_INCLUDED
 
-#include <sge/renderer/target_base_fwd.hpp>
 #include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <sge/renderer/target_base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+
 
 namespace sge
 {

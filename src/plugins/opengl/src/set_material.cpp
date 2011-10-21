@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_material.hpp"
 #include "../common.hpp"
 #include "../check_state.hpp"
-#include <sge/renderer/material.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/renderer/exception.hpp>
+#include <sge/renderer/material.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
+
 
 namespace
 {

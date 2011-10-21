@@ -23,20 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../load_context.hpp"
 #include "../png.hpp"
 #include "../write_context.hpp"
+#include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/unsupported_format.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/format_stride.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/size.hpp>
-#include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/color/format_stride.hpp>
-#include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/unsupported_format.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 sge::libpng::file::file(
 	std::istream &_stream,

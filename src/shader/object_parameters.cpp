@@ -19,11 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/shader/object_parameters.hpp>
-#include <fcppt/io/stream_to_string.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/io/cifstream.hpp>
+#include <fcppt/io/stream_to_string.hpp>
+
 
 sge::shader::object_parameters::object_parameters(
 	renderer::device &_renderer,
@@ -93,7 +94,7 @@ sge::shader::object_parameters &
 sge::shader::object_parameters::name(
 	fcppt::string const &_name)
 {
-	name_ = 
+	name_ =
 		_name;
 	return *this;
 }

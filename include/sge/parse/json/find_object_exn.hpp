@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_FIND_OBJECT_EXN_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_OBJECT_EXN_HPP_INCLUDED
 
-#include <sge/parse/json/path_fwd.hpp>
-#include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/symbol.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+#include <sge/parse/json/path_fwd.hpp>
+
 
 namespace sge
 {

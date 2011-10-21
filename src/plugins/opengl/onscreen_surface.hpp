@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/window/instance_fwd.hpp>
-#include <fcppt/container/raw_vector_decl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/container/raw_vector_decl.hpp>
+
 
 namespace sge
 {

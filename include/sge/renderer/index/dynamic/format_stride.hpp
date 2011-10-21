@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_DYNAMIC_FORMAT_STRIDE_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_DYNAMIC_FORMAT_STRIDE_HPP_INCLUDED
 
-#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
+
 
 namespace sge
 {

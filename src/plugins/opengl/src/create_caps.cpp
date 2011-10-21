@@ -27,13 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glsl/context.hpp"
 #include "../texture/context.hpp"
 #include "../texture/volume_context.hpp"
-#include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 sge::opengl::caps_unique_ptr
 sge::opengl::create_caps(

@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../check_state.hpp"
 #include "../../glew/is_supported.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
+
 
 sge::opengl::buffer::hardware::hardware()
 :

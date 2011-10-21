@@ -28,9 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
-#include <fcppt/text.hpp>
+
 
 void
 sge::opengl::draw_elements(

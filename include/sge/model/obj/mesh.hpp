@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_MESH_HPP_INCLUDED
 #define SGE_MODEL_OBJ_MESH_HPP_INCLUDED
 
-#include <sge/model/obj/mesh_fwd.hpp>
 #include <sge/model/obj/face_sequence.hpp>
+#include <sge/model/obj/mesh_fwd.hpp>
 #include <sge/model/obj/mesh_name.hpp>
+
 
 namespace sge
 {

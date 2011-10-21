@@ -22,23 +22,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "keyboard_code_translation.hpp"
 #include "cursor_button_translation.hpp"
 #include <sge/cegui/syringe.hpp>
-#include <sge/cegui/unit.hpp>
 #include <sge/cegui/system.hpp>
-#include <sge/charconv/string_type.hpp>
-#include <sge/charconv/encoding.hpp>
+#include <sge/cegui/unit.hpp>
 #include <sge/charconv/convert.hpp>
+#include <sge/charconv/encoding.hpp>
+#include <sge/charconv/string_type.hpp>
+#include <sge/input/cursor/button_event.hpp>
+#include <sge/input/cursor/move_event.hpp>
+#include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
-#include <sge/input/keyboard/char_event.hpp>
-#include <sge/input/cursor/move_event.hpp>
-#include <sge/input/cursor/button_event.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <string>
-#include <CEGUISystem.h>
 #include <CEGUIInputEvent.h>
+#include <CEGUISystem.h>
+#include <string>
 #include <fcppt/config/external_end.hpp>
+
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("syringe"))

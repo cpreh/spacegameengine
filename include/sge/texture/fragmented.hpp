@@ -21,19 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 #define SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 
-#include <sge/texture/fragmented_fwd.hpp>
-#include <sge/texture/manager_fwd.hpp>
-#include <sge/texture/part_ptr.hpp>
-#include <sge/texture/free_type.hpp>
-#include <sge/texture/symbol.hpp>
-#include <sge/texture/detail/optional_container_position.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/const_planar_ptr.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/class_symbol.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/texture/fragmented_fwd.hpp>
+#include <sge/texture/free_type.hpp>
+#include <sge/texture/manager_fwd.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/optional_container_position.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
+
 
 namespace sge
 {

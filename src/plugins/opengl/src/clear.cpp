@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/clear_flags.hpp"
 #include <sge/renderer/clear_flags.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+
 
 namespace
 {

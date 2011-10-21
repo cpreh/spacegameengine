@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/axis.hpp>
 #include <sge/input/mouse/axis_code.hpp>
+#include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/axis_value.hpp>
+
 
 sge::input::mouse::axis_event::axis_event(
 	mouse::axis const &_axis,

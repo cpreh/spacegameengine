@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "lock_base.hpp"
 #include "../buffer/object.hpp"
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

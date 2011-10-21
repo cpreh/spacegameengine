@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_PLANAR_PARAMETERS_FWD_HPP_INCLUDED
 
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/texture/basic_parameters_fwd.hpp>
-#include <sge/renderer/texture/address_mode2_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/texture/address_mode2_fwd.hpp>
+#include <sge/renderer/texture/basic_parameters_fwd.hpp>
+
 
 namespace sge
 {

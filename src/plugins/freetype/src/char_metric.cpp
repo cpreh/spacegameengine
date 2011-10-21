@@ -22,29 +22,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../face.hpp"
 #include "../char_metric.hpp"
 #include "../glyph.hpp"
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/view/object.hpp>
-#include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/pitch.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
 #include <sge/font/exception.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/pitch.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/log/headers.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::freetype::char_metric::char_metric(
 	freetype::face &_face,

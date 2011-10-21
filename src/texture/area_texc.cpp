@@ -18,11 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/area_texc.hpp>
-#include <sge/texture/part.hpp>
+#include <sge/log/global.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/log/global.hpp>
+#include <sge/texture/area_texc.hpp>
+#include <sge/texture/part.hpp>
+#include <fcppt/export_symbol.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/math/compare.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -32,15 +36,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/math/compare.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/export_symbol.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
+
 
 template<
 	typename T

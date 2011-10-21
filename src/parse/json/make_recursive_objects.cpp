@@ -18,25 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/make_recursive_objects.hpp>
-#include <sge/parse/json/path_to_string.hpp>
-#include <sge/parse/json/path.hpp>
-#include <sge/parse/json/get.hpp>
-#include <sge/parse/json/member_vector.hpp>
-#include <sge/parse/json/member.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/member_name_equal.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/exception.hpp>
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/make_recursive_objects.hpp>
+#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/member_name_equal.hpp>
+#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/path.hpp>
+#include <sge/parse/json/path_to_string.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/type_name.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <numeric>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

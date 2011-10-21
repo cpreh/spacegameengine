@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/base_fwd.hpp>
 #include <sge/camera/symbol.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/device_fwd.hpp>
+
 
 namespace sge
 {

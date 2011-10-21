@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_CHECK_DIM_HPP_INCLUDED
 
 #include <sge/renderer/basic_dim.hpp>
-#include <fcppt/math/size_type.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/math/size_type.hpp>
+
 
 namespace sge
 {

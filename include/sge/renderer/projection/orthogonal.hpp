@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_PROJECTION_ORTHOGONAL_HPP_INCLUDED
 #define SGE_RENDERER_PROJECTION_ORTHOGONAL_HPP_INCLUDED
 
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/rect.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/symbol.hpp>
+
 
 namespace sge
 {

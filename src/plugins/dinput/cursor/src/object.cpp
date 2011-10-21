@@ -22,17 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../device/funcs/acquire.hpp"
 #include "../../device/funcs/set_cooperative_level.hpp"
 #include "../../device/funcs/set_data_format.hpp"
+#include <sge/input/exception.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
-#include <sge/input/exception.hpp>
-#include <awl/backends/windows/window/event/processor.hpp>
-#include <awl/backends/windows/window/event/object.hpp>
-#include <awl/backends/windows/window/screen_to_client.hpp>
 #include <awl/backends/windows/windows.hpp>
+#include <awl/backends/windows/window/screen_to_client.hpp>
+#include <awl/backends/windows/window/event/object.hpp>
+#include <awl/backends/windows/window/event/processor.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -42,10 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
+
 
 sge::dinput::cursor::object::object(
 	awl::backends::windows::window::event::processor &_event_processor,

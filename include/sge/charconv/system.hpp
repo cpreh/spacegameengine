@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_SYSTEM_HPP_INCLUDED
 #define SGE_CHARCONV_SYSTEM_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/charconv/converter_ptr.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/symbol.hpp>
-#include <sge/class_symbol.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

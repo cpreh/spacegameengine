@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_SHAPE_CIRCLE_HPP_INCLUDED
 #define SGE_PROJECTILE_SHAPE_CIRCLE_HPP_INCLUDED
 
+#include <sge/class_symbol.hpp>
+#include <sge/projectile/scalar.hpp>
 #include <sge/projectile/symbol.hpp>
 #include <sge/projectile/shape/base.hpp>
-#include <sge/projectile/scalar.hpp>
-#include <sge/class_symbol.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
+
 
 class btCollisionShape;
 

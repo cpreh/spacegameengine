@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/collector.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
+#include <sge/input/keyboard/collector.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
@@ -29,13 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/manager.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
-#include <sge/input/processor.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)

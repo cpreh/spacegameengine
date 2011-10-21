@@ -21,17 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/detail/fill_tex_coordinates_rect.hpp>
-#include <sge/sprite/detail/convert_texture_rect.hpp>
+#include <sge/renderer/lock_rect_to_coords.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/with_repetition.hpp>
 #include <sge/sprite/with_texture_coordinates.hpp>
-#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/detail/convert_texture_rect.hpp>
+#include <sge/sprite/detail/fill_tex_coordinates_rect.hpp>
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/lock_rect_to_coords.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/contains.hpp>
@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -25,9 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../check_state.hpp"
 #include <sge/log/global.hpp>
 #include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
-#include <fcppt/text.hpp>
+
 
 void
 sge::opengl::x11::vsync(

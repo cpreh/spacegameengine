@@ -26,16 +26,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../convert/depth_stencil_to_format.hpp"
 #include "../../convert/depth_stencil_to_format_type.hpp"
 #include "../../convert/depth_stencil_to_internal_format.hpp"
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/stage.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 // FIXME: this should inherit from basic_texture as well!
 sge::opengl::texture::depth_stencil::depth_stencil(

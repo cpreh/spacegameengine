@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_PROJECTION_TO_MATRIX_HPP_INCLUDED
 #define SGE_CAMERA_PROJECTION_TO_MATRIX_HPP_INCLUDED
 
-#include <sge/camera/projection/object.hpp>
 #include <sge/camera/symbol.hpp>
+#include <sge/camera/projection/object.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+
 
 namespace sge
 {

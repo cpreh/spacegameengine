@@ -18,28 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/console/object.hpp>
-#include <sge/console/callback/parameters.hpp>
 #include <sge/console/exception.hpp>
 #include <sge/console/function.hpp>
+#include <sge/console/object.hpp>
+#include <sge/console/callback/parameters.hpp>
 #include <sge/font/text/lit.hpp>
+#include <fcppt/insert_to_string.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/assert/pre.hpp>
-#include <fcppt/insert_to_string.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
+#include <boost/spirit/include/qi.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
+
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
@@ -110,7 +111,7 @@ sge::console::object::insert(
 
 		FCPPT_ASSERT_ERROR(ret.second);
 	}
-	return 
+	return
 		i->second->signal().connect(
 			_params.function(),
 			std::tr1::bind(

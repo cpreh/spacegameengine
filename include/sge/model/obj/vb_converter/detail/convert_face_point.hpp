@@ -24,18 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/face_point.hpp>
 #include <sge/model/obj/instance.hpp>
 #include <sge/model/obj/vertex_sequence.hpp>
-#include <sge/model/obj/vb_converter/roles/position.hpp>
-#include <sge/model/obj/vb_converter/detail/convert_vertex.hpp>
-#include <sge/model/obj/vb_converter/detail/convert_texcoord.hpp>
 #include <sge/model/obj/vb_converter/detail/convert_normal.hpp>
-#include <sge/model/obj/vb_converter/roles/texcoord.hpp>
+#include <sge/model/obj/vb_converter/detail/convert_texcoord.hpp>
+#include <sge/model/obj/vb_converter/detail/convert_vertex.hpp>
 #include <sge/model/obj/vb_converter/roles/normal.hpp>
-#include <sge/renderer/vf/vertex.hpp>
+#include <sge/model/obj/vb_converter/roles/position.hpp>
+#include <sge/model/obj/vb_converter/roles/texcoord.hpp>
 #include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/vertex.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/at.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

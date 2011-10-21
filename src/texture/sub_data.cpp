@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/sub_data.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/scoped_planar_lock.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/size.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/scoped_planar_lock.hpp>
+#include <sge/texture/sub_data.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+
 
 void
 sge::texture::sub_data(

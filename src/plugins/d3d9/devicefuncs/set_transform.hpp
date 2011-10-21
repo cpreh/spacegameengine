@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_SET_TRANSFORM_HPP_INCLUDED
 
 #include "../d3dinclude.hpp"
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix_mode.hpp>
+
 
 namespace sge
 {

@@ -18,34 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/plugin_path.hpp>
-#include <sge/plugin/manager.hpp>
-#include <sge/plugin/iterator.hpp>
-#include <sge/plugin/context.hpp>
-#include <sge/plugin/context_base.hpp>
-#include <sge/plugin/info.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
+#include <sge/config/plugin_path.hpp>
 #include <sge/font/system.hpp>
 #include <sge/image2d/loader.hpp>
 #include <sge/input/system.hpp>
-#include <sge/renderer/system.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/mpl/for_each.hpp>
-#include <fcppt/log/activate_levels.hpp>
+#include <sge/plugin/context.hpp>
+#include <sge/plugin/context_base.hpp>
+#include <sge/plugin/info.hpp>
+#include <sge/plugin/iterator.hpp>
+#include <sge/plugin/manager.hpp>
+#include <sge/renderer/system.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/type_name.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/type_name.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/mpl/for_each.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <cstdlib>
+#include <exception>
 #include <iostream>
 #include <ostream>
-#include <exception>
 #include <typeinfo>
-#include <cstdlib>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

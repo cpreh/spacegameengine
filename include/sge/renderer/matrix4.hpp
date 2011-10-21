@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/matrix/static.hpp>
 
+
 namespace sge
 {
 namespace renderer

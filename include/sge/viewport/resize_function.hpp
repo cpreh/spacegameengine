@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/viewport.hpp>
 #include <sge/window/dim.hpp>
-#include <fcppt/function/object.hpp>
-#include <fcppt/math/box/basic_decl.hpp> // gcc needs this here
 #include <awl/window/event/resize_fwd.hpp>
+#include <fcppt/function/object.hpp>
+#include <fcppt/math/box/basic_decl.hpp>
+
 
 namespace sge
 {

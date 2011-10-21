@@ -18,47 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
-#include <sge/viewport/center_on_resize.hpp>
-#include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/no_color.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_texture.hpp>
-#include <sge/sprite/render_one.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/exception.hpp>
+#include <sge/extension_set.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/view/const_object.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/sprite/choices.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/render_one.hpp>
+#include <sge/sprite/system.hpp>
+#include <sge/sprite/type_choices.hpp>
+#include <sge/sprite/with_dim.hpp>
+#include <sge/sprite/with_texture.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
 #include <sge/texture/part_raw.hpp>
+#include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/config/media_path.hpp>
-#include <sge/exception.hpp>
-#include <sge/extension_set.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
-#include <cstdlib>
 #include <fcppt/config/external_end.hpp>
+
 
 int main()
 try

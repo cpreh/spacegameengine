@@ -24,15 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file_format.hpp"
 #include "../log.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/audio/sample_container.hpp>
 #include <sge/audio/file.hpp>
+#include <sge/audio/sample_container.hpp>
 #include <sge/audio/sound/base.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/log/debug.hpp>
-#include <fcppt/log/output.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/output.hpp>
+
 
 sge::openal::buffer::buffer(
 	audio::file &_file

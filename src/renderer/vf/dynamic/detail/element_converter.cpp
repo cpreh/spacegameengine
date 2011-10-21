@@ -19,19 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "element_converter.hpp"
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/format_stride.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/pitch.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/pitch.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/color/format_stride.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/optional_impl.hpp>
+
 
 sge::renderer::vf::dynamic::detail::element_converter::element_converter(
 	sge::image::color::format::type const _original_color,

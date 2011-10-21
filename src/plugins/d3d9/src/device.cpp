@@ -60,13 +60,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/volume.hpp"
 #include "../texture/filter/set.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/optional_target.hpp>
+#include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/to_clear_flags_field.hpp>
 #include <sge/window/instance.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -74,9 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/time/sleep_any.hpp>
-#include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
+
 
 sge::d3d9::device::device(
 	IDirect3D9 *const _system,

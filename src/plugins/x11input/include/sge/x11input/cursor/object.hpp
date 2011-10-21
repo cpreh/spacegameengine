@@ -21,26 +21,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_CURSOR_OBJECT_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_OBJECT_HPP_INCLUDED
 
-#include <sge/x11input/cursor/object_fwd.hpp>
+#include <sge/input/cursor/button_callback.hpp>
+#include <sge/input/cursor/button_signal.hpp>
+#include <sge/input/cursor/mode.hpp>
+#include <sge/input/cursor/move_callback.hpp>
+#include <sge/input/cursor/move_signal.hpp>
+#include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/position.hpp>
 #include <sge/x11input/cursor/grab_fwd.hpp>
 #include <sge/x11input/cursor/image.hpp>
+#include <sge/x11input/cursor/object_fwd.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/window_event_fwd.hpp>
-#include <sge/input/cursor/object.hpp>
-#include <sge/input/cursor/button_callback.hpp>
-#include <sge/input/cursor/button_signal.hpp>
-#include <sge/input/cursor/move_callback.hpp>
-#include <sge/input/cursor/move_signal.hpp>
-#include <sge/input/cursor/position.hpp>
-#include <sge/input/cursor/mode.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
+
 
 namespace sge
 {

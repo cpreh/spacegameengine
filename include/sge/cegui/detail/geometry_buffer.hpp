@@ -21,22 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DETAIL_GEOMETRY_BUFFER_HPP_INCLUDED
 #define SGE_CEGUI_DETAIL_GEOMETRY_BUFFER_HPP_INCLUDED
 
-#include <sge/cegui/detail/texture_fwd.hpp>
 #include <sge/cegui/detail/batch.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vector3.hpp>
+#include <sge/cegui/detail/texture_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scissor_area.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <CEGUIBase.h>
 #include <CEGUIGeometryBuffer.h>
 #include <CEGUITexture.h>
-#include <CEGUIBase.h>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace CEGUI
 {

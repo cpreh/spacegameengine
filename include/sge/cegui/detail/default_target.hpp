@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIRenderTarget.h>
 #include <CEGUIRect.h>
+#include <CEGUIRenderTarget.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace CEGUI
 {

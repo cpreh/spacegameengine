@@ -18,14 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/processor.hpp>
+#include <sge/log/global.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/x11input/create_parameters.hpp>
 #include <sge/x11input/input_context.hpp>
 #include <sge/x11input/input_method.hpp>
+#include <sge/x11input/processor.hpp>
 #include <sge/x11input/xi_2_1.hpp>
 #include <sge/x11input/cursor/object.hpp>
-#include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/hierarchy_event.hpp>
+#include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/object_ptr.hpp>
 #include <sge/x11input/device/parameters.hpp>
@@ -37,14 +39,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/joypad/is_usable.hpp>
 #include <sge/x11input/keyboard/device.hpp>
 #include <sge/x11input/mouse/device.hpp>
-#include <sge/log/global.hpp>
-#include <sge/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/window/instance_shared_ptr.hpp>
 #include <awl/backends/x11/window/root.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
@@ -52,18 +56,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
 #include <boost/phoenix/bind/bind_member_function.hpp>
 #include <boost/phoenix/core/argument.hpp>
 #include <boost/phoenix/operator/self.hpp>
 #include <algorithm>
 #include <utility>
-#include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::x11input::processor::processor(
 	sge::window::instance_ptr const _window,

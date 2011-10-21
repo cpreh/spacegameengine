@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_UNSPECIFIED_ELEMENTS_VISITOR_HPP_INCLUDED
 
 #include "../common.hpp"
-#include <sge/renderer/vf/dynamic/vector_fwd.hpp>
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
+#include <sge/renderer/vf/dynamic/vector_fwd.hpp>
+
 
 namespace sge
 {

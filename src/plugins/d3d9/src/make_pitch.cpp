@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../make_pitch.hpp"
 #include "../make_pitch_2d.hpp"
 #include "../make_pitch_3d.hpp"
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 sge::image2d::view::optional_pitch const
 sge::d3d9::make_pitch(

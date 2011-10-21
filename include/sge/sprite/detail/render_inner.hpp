@@ -21,10 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_INNER_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_INNER_HPP_INCLUDED
 
-#include <sge/sprite/detail/roles/index_buffer.hpp>
-#include <sge/sprite/detail/indices_per_sprite.hpp>
-#include <sge/sprite/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/with_dim.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -32,6 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/sprite/with_dim.hpp>
+#include <sge/sprite/detail/indices_per_sprite.hpp>
+#include <sge/sprite/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/detail/roles/index_buffer.hpp>
+
 
 namespace sge
 {

@@ -18,33 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/input_helper_field.hpp>
-#include <sge/systems/input_helper.hpp>
-#include <sge/systems/window.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/systems/input.hpp>
+#include <sge/systems/input_helper.hpp>
+#include <sge/systems/input_helper_field.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
+#include <sge/systems/window.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
 #include <awl/mainloop/dispatcher.hpp>
-#include <awl/mainloop/io_service_shared_ptr.hpp>
 #include <awl/mainloop/io_service.hpp>
+#include <awl/mainloop/io_service_shared_ptr.hpp>
 #include <awl/mainloop/asio/create_io_service_base.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
-#include <cstdlib>
 #include <fcppt/config/external_end.hpp>
+
 
 int main()
 try

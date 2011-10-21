@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/text/char_space.hpp>
-#include <sge/font/metrics.hpp>
 #include <sge/font/char_metric.hpp>
+#include <sge/font/metrics.hpp>
+#include <sge/font/text/char_space.hpp>
+
 
 sge::font::unit
 sge::font::text::char_space(

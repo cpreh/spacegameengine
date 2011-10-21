@@ -19,41 +19,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../declare_local_logger.hpp"
-#include <sge/cegui/detail/texture_target.hpp>
+#include <sge/cegui/structure_cast.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/detail/texture.hpp>
-#include <sge/cegui/structure_cast.hpp>
-#include <sge/renderer/pixel_rect.hpp>
+#include <sge/cegui/detail/texture_target.hpp>
+#include <sge/image/colors.hpp>
+#include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/target.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/optional_target.hpp>
+#include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/stage.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/optional_target.hpp>
-#include <sge/renderer/color_surface_ptr.hpp>
+#include <sge/renderer/target.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/assert/unimplemented_message.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("texture_target"))

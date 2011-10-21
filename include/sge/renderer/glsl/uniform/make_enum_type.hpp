@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_MAKE_ENUM_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_MAKE_ENUM_TYPE_HPP_INCLUDED
 
-#include <sge/renderer/glsl/uniform/int_value_type.hpp>
-#include <sge/renderer/glsl/uniform/float_value_type.hpp>
-#include <sge/renderer/glsl/int_type.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/glsl/int_type.hpp>
+#include <sge/renderer/glsl/uniform/float_value_type.hpp>
+#include <sge/renderer/glsl/uniform/int_value_type.hpp>
+
 
 namespace sge
 {

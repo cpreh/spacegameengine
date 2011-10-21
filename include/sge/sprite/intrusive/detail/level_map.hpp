@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_DETAIL_LEVEL_MAP_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_DETAIL_LEVEL_MAP_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/detail/list.hpp>
 #include <sge/sprite/intrusive/order.hpp>
+#include <sge/sprite/intrusive/detail/list.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_FIND_MEMBER_VALUE_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_MEMBER_VALUE_HPP_INCLUDED
 
-#include <sge/parse/json/detail/find_member_return_type.hpp>
-#include <sge/parse/json/member_vector.hpp>
-#include <sge/parse/json/member_name_equal.hpp>
 #include <sge/parse/json/member.hpp>
+#include <sge/parse/json/member_name_equal.hpp>
+#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/detail/find_member_return_type.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/type_traits/is_const.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

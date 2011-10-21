@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/texture/sub_data.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/comparison.hpp>
+
 
 sge::texture::part_raw::part_raw(
 	renderer::texture::planar_ptr const _tex,

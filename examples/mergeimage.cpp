@@ -18,6 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/exception.hpp>
+#include <sge/extension_set.hpp>
+#include <sge/image/colors.hpp>
+#include <sge/image/store.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_ptr.hpp>
@@ -30,36 +36,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <sge/image2d/view/to_const.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/color/any/object.hpp>
-#include <sge/image/colors.hpp>
-#include <sge/image/store.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/exception.hpp>
-#include <sge/extension_set.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/from_std_string.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
-#include <iterator>
-#include <iostream>
-#include <ostream>
-#include <exception>
-#include <vector>
 #include <cstdlib>
+#include <exception>
+#include <iostream>
+#include <iterator>
+#include <ostream>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

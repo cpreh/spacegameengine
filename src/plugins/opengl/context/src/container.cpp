@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../container.hpp"
 #include "../base.hpp"
 #include <sge/log/global.hpp>
-#include <fcppt/log/output.hpp>
-#include <fcppt/log/error.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/log/error.hpp>
+#include <fcppt/log/output.hpp>
+
 
 sge::opengl::context::container::container()
 :

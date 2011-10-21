@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_FORMAT_IS_32_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_FORMAT_IS_32_HPP_INCLUDED
 
-#include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/index/format.hpp>
+#include <sge/renderer/index/i32.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

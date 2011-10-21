@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "init_function.hpp"
 #include "sub_function.hpp"
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/texture/volume_fwd.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <fcppt/string.hpp>
+
 
 namespace sge
 {

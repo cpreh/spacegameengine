@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::dinput::dinput_device_unique_ptr
 sge::dinput::create_device(
 	IDirectInput8 *const _dinput,

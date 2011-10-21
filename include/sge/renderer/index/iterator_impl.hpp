@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_ITERATOR_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_ITERATOR_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/index/iterator_decl.hpp>
 #include <sge/renderer/index/const_proxy_impl.hpp>
+#include <sge/renderer/index/iterator_decl.hpp>
 #include <sge/renderer/index/proxy_impl.hpp>
+
 
 template<
 	typename Format

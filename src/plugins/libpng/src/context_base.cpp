@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../png.hpp"
 #include <sge/image/file_exception.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
+
 
 sge::libpng::context_base::context_base(
 	sge::image::optional_path const &_path

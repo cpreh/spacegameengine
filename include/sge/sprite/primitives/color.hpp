@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/simple.hpp>
 #include <mizuiro/color/object_impl.hpp>
 
+
 namespace sge
 {
 namespace sprite

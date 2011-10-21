@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_FILE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_FILE_HPP_INCLUDED
 
-#include <sge/renderer/texture/mipmap/object_fwd.hpp>
-#include <sge/renderer/texture/address_mode2_fwd.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/image2d/file_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/image2d/file_fwd.hpp>
+#include <sge/renderer/texture/address_mode2_fwd.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
+
 
 namespace sge
 {

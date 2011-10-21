@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_JOYPAD_AXIS_CODE_HPP_INCLUDED
 #define SGE_X11INPUT_JOYPAD_AXIS_CODE_HPP_INCLUDED
 
-#include <sge/input/joypad/axis_code.hpp>
 #include <sge/input/info/optional_string_fwd.hpp>
+#include <sge/input/joypad/axis_code.hpp>
+
 
 namespace sge
 {

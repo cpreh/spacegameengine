@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/initialize_default_parameters.hpp>
 #include <fcppt/mpl/for_each.hpp>
 
+
 namespace sge
 {
 namespace sprite

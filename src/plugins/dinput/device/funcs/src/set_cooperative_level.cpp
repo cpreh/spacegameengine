@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/instance.hpp>
 #include <fcppt/text.hpp>
 
+
 void
 sge::dinput::device::funcs::set_cooperative_level(
 	IDirectInputDevice8 *const _device,

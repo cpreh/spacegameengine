@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_MANAGER_MAKE_CONFIG_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_MANAGER_MAKE_CONFIG_HPP_INCLUDED
 
-#include <sge/x11input/device/manager/config_base_ptr.hpp>
 #include <sge/x11input/device/manager/config.hpp>
-#include <fcppt/signal/object_fwd.hpp>
+#include <sge/x11input/device/manager/config_base_ptr.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/signal/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

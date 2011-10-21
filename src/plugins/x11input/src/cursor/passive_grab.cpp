@@ -18,18 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/cursor/passive_grab.hpp>
-#include <sge/x11input/cursor/image.hpp>
-#include <sge/x11input/device/id.hpp>
 #include <sge/input/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/x11input/cursor/image.hpp>
+#include <sge/x11input/cursor/passive_grab.hpp>
+#include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/instance.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
+#include <iostream>
 #include <fcppt/config/external_end.hpp>
 
-#include <iostream>
 
 namespace
 {

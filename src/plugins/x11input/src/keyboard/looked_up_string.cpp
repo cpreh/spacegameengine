@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/keyboard/looked_up_string.hpp>
-#include <sge/x11input/keyboard/char_vector.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/x11input/keyboard/char_vector.hpp>
+#include <sge/x11input/keyboard/looked_up_string.hpp>
+
 
 sge::x11input::keyboard::looked_up_string::looked_up_string(
 	x11input::keyboard::char_vector const &_char_codes,

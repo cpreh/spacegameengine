@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/mouse/axis_info.hpp>
-#include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/info/optional_string.hpp>
+#include <sge/input/mouse/axis_code.hpp>
+#include <sge/input/mouse/axis_info.hpp>
+
 
 sge::input::mouse::axis_info::axis_info(
 	input::mouse::axis_code::type const _code,

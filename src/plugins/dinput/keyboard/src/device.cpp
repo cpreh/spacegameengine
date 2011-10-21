@@ -24,25 +24,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keycode_to_chars.hpp"
 #include "../map_virtual_key.hpp"
 #include "../repeat.hpp"
+#include <sge/input/exception.hpp>
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/keyboard/modifier.hpp>
-#include <sge/input/exception.hpp>
 #include <sge/timer/basic_impl.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/container/array.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
+#include <fcppt/container/array.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::dinput::keyboard::device::device(
 	dinput::device::parameters const &_parameters,

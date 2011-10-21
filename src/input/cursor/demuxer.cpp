@@ -18,19 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/processor.hpp>
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/no_object.hpp>
 #include <sge/input/cursor/object_vector.hpp>
 #include <sge/input/cursor/remove_event.hpp>
-#include <sge/input/processor.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
+
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)

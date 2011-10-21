@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_HPP_INCLUDED
 
-#include <sge/sprite/detail/render_inner.hpp>
-#include <sge/sprite/detail/set_textures_pre.hpp>
-#include <sge/sprite/detail/set_textures_post.hpp>
-#include <sge/sprite/detail/set_textures.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/sprite/detail/render_inner.hpp>
+#include <sge/sprite/detail/set_textures.hpp>
+#include <sge/sprite/detail/set_textures_post.hpp>
+#include <sge/sprite/detail/set_textures_pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

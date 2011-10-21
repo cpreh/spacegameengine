@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DETAIL_SCOPED_SYSTEM_HPP_INCLUDED
 #define SGE_CEGUI_DETAIL_SCOPED_SYSTEM_HPP_INCLUDED
 
-#include <sge/cegui/detail/renderer_fwd.hpp>
 #include <sge/cegui/detail/image_codec_fwd.hpp>
+#include <sge/cegui/detail/renderer_fwd.hpp>
 #include <sge/cegui/detail/resource_provider_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

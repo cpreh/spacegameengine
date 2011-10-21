@@ -22,16 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../d3dinclude.hpp"
 #include "../convert/vertex_role.hpp"
 #include "../convert/vertex_type.hpp"
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <sge/renderer/vf/dynamic/part_list.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::d3d9::vertex_declaration::vertex_declaration(
 	IDirect3DDevice9 *const _device,

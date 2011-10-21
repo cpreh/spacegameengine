@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <fcppt/export_symbol.hpp>
 
+
 template FCPPT_EXPORT_SYMBOL class
 sge::input::info::container<
 	sge::input::joypad::absolute_axis_id,

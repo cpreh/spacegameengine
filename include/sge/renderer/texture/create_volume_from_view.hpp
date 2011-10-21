@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_CREATE_VOLUME_FROM_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CREATE_VOLUME_FROM_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/texture/volume_ptr.hpp>
-#include <sge/renderer/texture/address_mode3_fwd.hpp>
-#include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/image3d/view/const_object_fwd.hpp>
+#include <sge/renderer/texture/address_mode3_fwd.hpp>
+#include <sge/renderer/texture/volume_ptr.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
+
 
 namespace sge
 {

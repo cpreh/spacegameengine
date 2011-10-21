@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/detail/parameters_base_decl.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
 
+
 template<typename Clock>
 template<typename Duration>
 sge::timer::detail::parameters_base<Clock>::parameters_base(

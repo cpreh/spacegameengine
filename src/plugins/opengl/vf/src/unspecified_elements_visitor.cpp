@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../unspecified_elements_visitor.hpp"
-#include <sge/renderer/vf/dynamic/vector.hpp>
-#include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/image/color/element_count.hpp>
+#include <sge/renderer/vf/dynamic/color.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
+
 
 GLint
 sge::opengl::vf::unspecified_elements_visitor::operator()(

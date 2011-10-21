@@ -18,44 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/all_extensions.hpp>
+#include <sge/config/media_path.hpp>
+#include <sge/image/capabilities_field.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/loader.hpp>
+#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/to_const.hpp>
+#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/single_device_system.hpp>
-#include <sge/opencl/memory_object/image/planar.hpp>
-#include <sge/opencl/program/object.hpp>
-#include <sge/opencl/program/build_parameters.hpp>
+#include <sge/opencl/command_queue/dim2.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/scoped.hpp>
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
-#include <sge/opencl/memory_object/flags_field.hpp>
-#include <sge/config/media_path.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/image2d/loader.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/view/to_const.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/opencl/command_queue/dim2.hpp>
 #include <sge/opencl/kernel/object.hpp>
-#include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/memory_object/flags_field.hpp>
+#include <sge/opencl/memory_object/image/planar.hpp>
+#include <sge/opencl/program/build_parameters.hpp>
+#include <sge/opencl/program/object.hpp>
+#include <sge/systems/image_loader.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/image_loader.hpp>
-#include <sge/image/capabilities_field.hpp>
-#include <sge/all_extensions.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assign/make_array.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/stream_to_string.hpp>
-#include <fcppt/io/cifstream.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/assign/make_array.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <cstddef>
 #include <iostream>
 #include <ostream>
-#include <cstddef>
 #include <fcppt/config/external_end.hpp>
+
 
 int
 main(

@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pos_actor.hpp"
 #include "../convert_element_type.hpp"
 #include "../../check_state.hpp"
-#include <sge/renderer/vf/dynamic/vector.hpp>
-#include <sge/renderer/vf/dynamic/pos.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/vf/dynamic/pos.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::opengl::vf::pos_actor::pos_actor(
 	actor_parameters const &_param,

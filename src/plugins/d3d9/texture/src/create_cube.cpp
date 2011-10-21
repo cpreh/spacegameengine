@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../create_cube.hpp"
 #include "../mipmap/level_count.hpp"
 #include "../mipmap/usage.hpp"
-#include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/texture/cube_parameters.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::d3d9::texture::d3d_cube_texture_unique_ptr
 sge::d3d9::texture::create_cube(

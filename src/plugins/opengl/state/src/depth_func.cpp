@@ -26,9 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../disable.hpp"
 #include "../../enable.hpp"
 #include <sge/renderer/buffer_has_depth.hpp>
-#include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/state/depth_func.hpp>
 #include <fcppt/text.hpp>
+
 
 void
 sge::opengl::state::depth_func(

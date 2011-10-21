@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/window/create.hpp>
-#include <sge/window/parameters.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/window/parameters.hpp>
 #include <awl/system/event/create_processor.hpp>
 #include <awl/system/event/processor.hpp>
 #include <awl/system/event/processor_shared_ptr.hpp>
@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/processor.hpp>
 #include <awl/window/event/processor_shared_ptr.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+
 
 sge::window::instance_ptr const
 sge::window::create(

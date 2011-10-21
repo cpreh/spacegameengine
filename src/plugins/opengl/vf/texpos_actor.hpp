@@ -26,9 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "actor_parameters_fwd.hpp"
 #include "../context/object_fwd.hpp"
 #include "../common.hpp"
-#include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <sge/renderer/stage.hpp>
+#include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

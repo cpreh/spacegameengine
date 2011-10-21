@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/glsl/to_cvv.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/glsl/to_cvv.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/math/matrix/translation.hpp>
+
 
 sge::renderer::matrix4 const
 sge::renderer::glsl::to_cvv(

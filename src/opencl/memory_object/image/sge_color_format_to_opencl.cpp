@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp>
-#include <sge/opencl/clinclude.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp>
 #include <fcppt/assert/unreachable.hpp>
+
 
 namespace
 {

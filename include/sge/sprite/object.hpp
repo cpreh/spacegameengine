@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_OBJECT_HPP_INCLUDED
 
-#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/bounding_rect.hpp>
+#include <sge/sprite/object_impl.hpp>
+
 
 #endif

@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../software.hpp"
 #include "../../common.hpp"
 #include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/algorithm/copy_n.hpp>
+#include <sge/renderer/raw_value.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::opengl::buffer::software::software()
 :

@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/discover_event.hpp>
 #include <sge/input/keyboard/device_ptr.hpp>
+#include <sge/input/keyboard/discover_event.hpp>
+
 
 sge::input::keyboard::discover_event::discover_event(
 	keyboard::device_ptr const _device

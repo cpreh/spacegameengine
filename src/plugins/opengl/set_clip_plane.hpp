@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_SET_CLIP_PLANE_HPP_INCLUDED
 #define SGE_OPENGL_SET_CLIP_PLANE_HPP_INCLUDED
 
-#include <sge/renderer/clip_plane_index.hpp>
 #include <sge/renderer/clip_plane.hpp>
+#include <sge/renderer/clip_plane_index.hpp>
+
 
 namespace sge
 {

@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/texture/create_planar_from_path.hpp>
-#include <sge/renderer/texture/create_planar_from_file.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
+#include <sge/renderer/texture/create_planar_from_file.hpp>
+#include <sge/renderer/texture/create_planar_from_path.hpp>
+
 
 sge::renderer::texture::planar_ptr const
 sge::renderer::texture::create_planar_from_path(

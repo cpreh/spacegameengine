@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/detail/triangle_set_hash.hpp>
 #include <fcppt/tr1/unordered_set.hpp>
 
+
 namespace sge
 {
 namespace projectile

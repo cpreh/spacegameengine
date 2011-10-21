@@ -24,37 +24,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/glsl/const_optional_program.hpp>
 #include <sge/renderer/glsl/pixel_shader.hpp>
-#include <sge/renderer/glsl/vertex_shader.hpp>
 #include <sge/renderer/glsl/program.hpp>
-#include <sge/renderer/glsl/to_cvv.hpp>
+#include <sge/renderer/glsl/scoped_attachment.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
 #include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/to_cvv.hpp>
+#include <sge/renderer/glsl/vertex_shader.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
-#include <sge/renderer/glsl/scoped_attachment.hpp>
 #include <sge/renderer/texture/const_optional_base.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/shader/object_parameters.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/optional.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/unique_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/range/numeric.hpp>
+#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
-#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
 #include <streambuf>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

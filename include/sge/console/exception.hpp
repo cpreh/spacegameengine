@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_EXCEPTION_HPP_INCLUDED
 #define SGE_CONSOLE_EXCEPTION_HPP_INCLUDED
 
+#include <sge/class_symbol.hpp>
+#include <sge/exception.hpp>
 #include <sge/console/symbol.hpp>
 #include <sge/font/text/string.hpp>
-#include <sge/exception.hpp>
-#include <sge/class_symbol.hpp>
+
 
 namespace sge
 {

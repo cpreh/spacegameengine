@@ -19,16 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "load_rect.hpp"
-#include <sge/parse/json/get.hpp>
-#include <sge/parse/json/find_member_exn.hpp>
-#include <sge/parse/json/member.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/object.hpp>
 #include <sge/font/exception.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/find_member_exn.hpp>
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/object.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+
 
 sge::image2d::rect const
 sge::font::bitmap::load_rect(

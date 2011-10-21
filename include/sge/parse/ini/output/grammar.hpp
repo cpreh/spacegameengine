@@ -21,26 +21,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_OUTPUT_GRAMMAR_HPP_INCLUDED
 #define SGE_PARSE_INI_OUTPUT_GRAMMAR_HPP_INCLUDED
 
+#include <sge/parse/encoding.hpp>
+#include <sge/parse/ini/entry.hpp>
+#include <sge/parse/ini/entry_vector.hpp>
+#include <sge/parse/ini/section.hpp>
+#include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/string.hpp>
 #include <sge/parse/ini/detail/adapt_entry.hpp>
 #include <sge/parse/ini/detail/adapt_section.hpp>
-#include <sge/parse/ini/section_vector.hpp>
-#include <sge/parse/ini/section.hpp>
-#include <sge/parse/ini/entry_vector.hpp>
-#include <sge/parse/ini/entry.hpp>
-#include <sge/parse/ini/string.hpp>
-#include <sge/parse/encoding.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
-
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/karma_char.hpp>
+#include <boost/spirit/include/karma_directive.hpp>
 #include <boost/spirit/include/karma_grammar.hpp>
+#include <boost/spirit/include/karma_nonterminal.hpp>
 #include <boost/spirit/include/karma_operator.hpp>
 #include <boost/spirit/include/karma_rule.hpp>
-#include <boost/spirit/include/karma_nonterminal.hpp>
-#include <boost/spirit/include/karma_directive.hpp>
 #include <boost/spirit/include/karma_string.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

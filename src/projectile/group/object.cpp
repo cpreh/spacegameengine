@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/projectile/group/object.hpp>
-#include <sge/projectile/group/id.hpp>
 #include <sge/projectile/world.hpp>
+#include <sge/projectile/group/id.hpp>
+#include <sge/projectile/group/object.hpp>
+
 
 sge::projectile::group::object::object(
 	world &_world)

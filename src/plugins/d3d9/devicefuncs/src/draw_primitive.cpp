@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../draw_primitive.hpp"
 #include "../../convert/nonindexed_primitive.hpp"
 #include "../../d3dinclude.hpp"
-#include <sge/renderer/nonindexed_primitive_count.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/nonindexed_primitive_count.hpp>
 #include <fcppt/text.hpp>
+
 
 void
 sge::d3d9::devicefuncs::draw_primitive(

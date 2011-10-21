@@ -27,12 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../context/use.hpp"
 #include "../../texture/multi_context.hpp"
 #include "../../texture/funcs/set_client_level.hpp"
+#include <sge/renderer/exception.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/exception.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::opengl::vf::texpos_actor::texpos_actor(
 	vf::actor_parameters const &_param,

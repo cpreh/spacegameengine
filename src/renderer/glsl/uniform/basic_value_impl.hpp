@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/basic_value.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 
+
 template<
 	typename Value,
 	typename Type

@@ -21,19 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef MAJUTSU_MEMORY_DETAIL_INIT_FUSION_ELEMENT_HPP_INCLUDED
 #define MAJUTSU_MEMORY_DETAIL_INIT_FUSION_ELEMENT_HPP_INCLUDED
 
-#include <majutsu/memory/detail/index_of.hpp>
 #include <majutsu/is_constant.hpp>
 #include <majutsu/is_role.hpp>
+#include <majutsu/memory/detail/index_of.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/mpl/filter_view.hpp>
 #include <boost/mpl/find.hpp>
-#include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/or.hpp>
-#include <boost/fusion/sequence/intrinsic/at.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace majutsu
 {

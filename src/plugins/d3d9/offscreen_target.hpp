@@ -31,8 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/optional_dim2.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/target.hpp>
-#include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/container/index_map_decl.hpp>
+
 
 namespace sge
 {

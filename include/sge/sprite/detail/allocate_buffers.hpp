@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_ALLOCATE_BUFFERS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_ALLOCATE_BUFFERS_HPP_INCLUDED
 
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/detail/allocate_index_buffer.hpp>
 #include <sge/sprite/detail/allocate_vertex_buffer.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

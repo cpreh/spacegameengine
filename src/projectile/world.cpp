@@ -21,30 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "declare_local_logger.hpp"
 #include "ghost/detail/pair_callback.hpp"
 #include <sge/projectile/world.hpp>
-#include <sge/projectile/group/object.hpp>
-#include <sge/projectile/group/id.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/ghost/object.hpp>
+#include <sge/projectile/group/id.hpp>
+#include <sge/projectile/group/object.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/duration_output.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <limits>
-#include <LinearMath/btVector3.h>
-#include <LinearMath/btScalar.h>
-#include <BulletCollision/CollisionDispatch/btCollisionObject.h>
-#include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
-#include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
-#include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
-#include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
-#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
-#include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <LinearMath/btScalar.h>
+#include <LinearMath/btVector3.h>
+#include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
+#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
+#include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
+#include <BulletCollision/CollisionDispatch/btCollisionObject.h>
+#include <BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
+#include <limits>
 #include <fcppt/config/external_end.hpp>
+
 
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("world"))

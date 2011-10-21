@@ -24,13 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "iterator.hpp"
 #include "tokens.hpp"
 #include <sge/model/obj/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/ifstream.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/lex/qi/in_state.hpp>
 #include <boost/spirit/home/qi/parse.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 void
 sge::model::obj::parse(

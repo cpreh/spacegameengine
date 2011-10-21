@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_TEXT_CHAR_TO_FCPPT_STRING_HPP_INCLUDED
 #define SGE_FONT_TEXT_CHAR_TO_FCPPT_STRING_HPP_INCLUDED
 
-#include <sge/font/text/symbol.hpp>
 #include <sge/font/text/char_type.hpp>
+#include <sge/font/text/symbol.hpp>
 #include <fcppt/string.hpp>
+
 
 namespace sge
 {

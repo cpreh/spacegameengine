@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/colors.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/image/color/rgba8.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <mizuiro/color/init/red.hpp>
-#include <mizuiro/color/init/green.hpp>
-#include <mizuiro/color/init/blue.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <mizuiro/color/init/alpha.hpp>
+#include <mizuiro/color/init/blue.hpp>
+#include <mizuiro/color/init/green.hpp>
+#include <mizuiro/color/init/red.hpp>
+#include <fcppt/variant/object_impl.hpp>
+
 
 #define SGE_DEFINE_COLOR_A(name, r, g, b, a)\
 sge::image::color::any::object const \

@@ -41,20 +41,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/to_const.hpp>
+#include <sge/renderer/exception.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/lock_flags/write.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/stage.hpp>
+#include <fcppt/format.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/format.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
+
 
 template<
 	typename Types

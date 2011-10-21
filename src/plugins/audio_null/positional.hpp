@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_NULL_POSITIONAL_HPP_INCLUDED
 #define SGE_AUDIO_NULL_POSITIONAL_HPP_INCLUDED
 
-#include <sge/audio/sound/positional.hpp>
-#include <sge/audio/sound/play_status.hpp>
-#include <sge/audio/sound/repeat.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
+#include <sge/audio/sound/play_status.hpp>
+#include <sge/audio/sound/positional.hpp>
+#include <sge/audio/sound/repeat.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

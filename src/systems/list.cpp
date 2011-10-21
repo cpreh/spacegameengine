@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "any_compare.hpp"
-#include <sge/systems/list.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <sge/systems/list.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/text.hpp>
+
 
 namespace
 {

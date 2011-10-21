@@ -25,13 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../common.hpp"
 #include "../../../enable.hpp"
 #include "../../../disable.hpp"
+#include <sge/renderer/buffer_has_stencil.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/int.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/uint.hpp>
-#include <sge/renderer/buffer_has_stencil.hpp>
-#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
+
 
 void
 sge::opengl::state::deferred::stencil_func(

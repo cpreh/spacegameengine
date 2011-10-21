@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/string_to_path.hpp>
 #include <sge/parse/json/path.hpp>
-#include <fcppt/text.hpp>
+#include <sge/parse/json/string_to_path.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::parse::json::path const
 sge::parse::json::string_to_path(

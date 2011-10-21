@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_VERTEX_DECLARATION_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
-#include <sge/renderer/vf/dynamic/format.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/vf/dynamic/format.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
+
 
 namespace sge
 {

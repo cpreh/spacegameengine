@@ -20,8 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../unspecified_format.hpp"
 #include "../unspecified_format_visitor.hpp"
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+
 
 GLenum
 sge::opengl::vf::unspecified_format(

@@ -24,13 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic.hpp"
 #include "cube_basic.hpp"
 #include "../d3dinclude.hpp"
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/lock_rect.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
+
 
 namespace sge
 {

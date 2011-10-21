@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/build_error.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::opencl::program::build_error::build_error(
 	fcppt::string const &_message)
 :

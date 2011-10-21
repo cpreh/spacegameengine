@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef MAJUTSU_FUNDAMENTAL_HPP_INCLUDED
 #define MAJUTSU_FUNDAMENTAL_HPP_INCLUDED
 
-#include <majutsu/detail/copy_n.hpp>
-#include <majutsu/concepts/static_memory/tag.hpp>
-#include <majutsu/concepts/static_size.hpp>
 #include <majutsu/const_raw_pointer.hpp>
-#include <majutsu/size_type.hpp>
-#include <majutsu/raw_pointer.hpp>
 #include <majutsu/integral_size.hpp>
+#include <majutsu/raw_pointer.hpp>
+#include <majutsu/size_type.hpp>
+#include <majutsu/concepts/static_size.hpp>
+#include <majutsu/concepts/static_memory/tag.hpp>
+#include <majutsu/detail/copy_n.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_fundamental.hpp>
 #include <boost/static_assert.hpp>
+#include <boost/type_traits/is_fundamental.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace majutsu
 {

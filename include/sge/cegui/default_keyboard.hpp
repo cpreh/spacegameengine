@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DEFAULT_KEYBOARD_HPP_INCLUDED
 #define SGE_CEGUI_DEFAULT_KEYBOARD_HPP_INCLUDED
 
-#include <sge/cegui/syringe_fwd.hpp>
 #include <sge/cegui/symbol.hpp>
+#include <sge/cegui/syringe_fwd.hpp>
+#include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
-#include <sge/input/keyboard/char_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+
 
 namespace sge
 {

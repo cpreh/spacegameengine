@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_ANY_GENERATE_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_ANY_GENERATE_HPP_INCLUDED
 
-#include <sge/renderer/index/any/detail/generate_visitor.hpp>
-#include <sge/renderer/index/any/view.hpp>
 #include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/any/view.hpp>
+#include <sge/renderer/index/any/detail/generate_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+
 
 namespace sge
 {

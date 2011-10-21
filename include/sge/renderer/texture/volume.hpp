@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_VOLUME_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_VOLUME_HPP_INCLUDED
 
-#include <sge/renderer/texture/volume_fwd.hpp>
-#include <sge/renderer/texture/base.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/image3d/tag.hpp>
+#include <sge/image3d/view/const_object_fwd.hpp>
+#include <sge/image3d/view/object_fwd.hpp>
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/lock_box.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/image3d/view/const_object_fwd.hpp>
-#include <sge/image3d/view/object_fwd.hpp>
-#include <sge/image3d/tag.hpp>
-#include <sge/class_symbol.hpp>
+#include <sge/renderer/texture/base.hpp>
+#include <sge/renderer/texture/volume_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_UNIFORM_CONVERT_TYPE_HPP_INCLUDED
 
 #include "element_type.hpp"
-#include <sge/renderer/glsl/uniform/int_value_type.hpp>
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
+#include <sge/renderer/glsl/uniform/int_value_type.hpp>
+
 
 namespace sge
 {

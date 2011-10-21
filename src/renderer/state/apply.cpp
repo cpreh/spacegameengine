@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/apply.hpp>
 #include <sge/renderer/state/any.hpp>
+#include <sge/renderer/state/apply.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/math/compare.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/nonassignable.hpp>
+
 
 namespace
 {

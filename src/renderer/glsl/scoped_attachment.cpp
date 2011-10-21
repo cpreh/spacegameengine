@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/glsl/scoped_attachment.hpp>
 #include <sge/renderer/glsl/program.hpp>
+#include <sge/renderer/glsl/scoped_attachment.hpp>
 #include <sge/renderer/glsl/shader_fwd.hpp>
+
 
 sge::renderer::glsl::scoped_attachment::scoped_attachment(
 	sge::renderer::glsl::program &_program,

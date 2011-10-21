@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_IMAGE3D_HPP_INCLUDED
 #define SGE_IMAGE3D_IMAGE3D_HPP_INCLUDED
 
-#include <sge/image3d/algorithm/algorithm.hpp>
 #include <sge/image3d/box.hpp>
 #include <sge/image3d/dim.hpp>
 #include <sge/image3d/l8.hpp>
@@ -33,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/rgba8_format.hpp>
 #include <sge/image3d/symbol.hpp>
 #include <sge/image3d/tag.hpp>
+#include <sge/image3d/algorithm/algorithm.hpp>
 #include <sge/image3d/view/view.hpp>
+
 
 #endif

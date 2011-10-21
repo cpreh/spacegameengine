@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
 
+#include <sge/image/instantiate_symbol.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/view.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/instantiate_symbol.hpp>
+
 
 namespace sge
 {

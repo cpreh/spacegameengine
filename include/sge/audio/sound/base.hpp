@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/audio/sound/repeat.hpp>
-#include <sge/audio/sound/play_status.hpp>
 #include <sge/audio/symbol.hpp>
+#include <sge/audio/sound/play_status.hpp>
+#include <sge/audio/sound/repeat.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

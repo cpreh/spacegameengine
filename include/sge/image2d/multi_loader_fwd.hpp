@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_MULTI_LOADER_FWD_HPP_INCLUDED
 
 #include <sge/multi_loader_fwd.hpp>
+#include <sge/image/capabilities_field.hpp>
+#include <sge/image/exception_fwd.hpp>
 #include <sge/image2d/file_fwd.hpp>
 #include <sge/image2d/loader_fwd.hpp>
-#include <sge/image/exception_fwd.hpp>
-#include <sge/image/capabilities_field.hpp>
+
 
 namespace sge
 {

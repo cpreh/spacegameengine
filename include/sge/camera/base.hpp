@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_BASE_HPP_INCLUDED
 #define SGE_CAMERA_BASE_HPP_INCLUDED
 
-#include <sge/renderer/matrix4.hpp>
-#include <sge/camera/gizmo_type.hpp>
-#include <sge/camera/projection/object.hpp>
-#include <sge/camera/duration.hpp>
-#include <sge/camera/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#include <sge/camera/duration.hpp>
+#include <sge/camera/gizmo_type.hpp>
+#include <sge/camera/symbol.hpp>
+#include <sge/camera/projection/object.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+
 
 namespace sge
 {

@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONFIG_CACHE_PATH_HPP_INCLUDED
 
 #include <sge/config/symbol.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/filesystem/path.hpp>
+
 
 namespace sge
 {

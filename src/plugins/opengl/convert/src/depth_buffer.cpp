@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/depth_buffer.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 awl::window::depth_buffer::type
 sge::opengl::convert::depth_buffer(
 	sge::renderer::depth_stencil_buffer::type const _mode

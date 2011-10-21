@@ -21,21 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_BUFFERS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_BUFFERS_HPP_INCLUDED
 
-#include <sge/sprite/detail/roles/vertex_buffer.hpp>
-#include <sge/sprite/detail/roles/index_buffer.hpp>
-#include <sge/sprite/with_dim.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
-#include <majutsu/memory/fusion.hpp>
+#include <sge/sprite/with_dim.hpp>
+#include <sge/sprite/detail/roles/index_buffer.hpp>
+#include <sge/sprite/detail/roles/vertex_buffer.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
+#include <majutsu/memory/fusion.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -19,29 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "declare_local_logger.hpp"
-#include <sge/opencl/single_device_system.hpp>
-#include <sge/opencl/platform/object.hpp>
-#include <sge/opencl/system.hpp>
-#include <sge/opencl/context/parameters.hpp>
-#include <sge/opencl/context/object.hpp>
-#include <sge/opencl/device/object_ref_sequence.hpp>
-#include <sge/opencl/command_queue/object.hpp>
 #include <sge/exception.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <sge/opencl/single_device_system.hpp>
+#include <sge/opencl/system.hpp>
+#include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/context/object.hpp>
+#include <sge/opencl/context/parameters.hpp>
+#include <sge/opencl/device/object_ref_sequence.hpp>
+#include <sge/opencl/platform/object.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/unique_ptr.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/thread/locks.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 SGE_OPENCL_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("single_device_system"))

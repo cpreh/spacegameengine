@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::renderer::glsl::program_ptr const
 sge::opengl::glsl::create_program(
 	opengl::context::object &_context

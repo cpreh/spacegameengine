@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/flags_none.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
+
 sge::font::text::flags_field const
 sge::font::text::flags::none
 	= sge::font::text::flags_field::null();

@@ -20,16 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../vertex_role.hpp"
 #include "../../d3dinclude.hpp"
+#include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/vf/dynamic/pos.hpp>
-#include <sge/renderer/vf/dynamic/unspecified.hpp>
 #include <sge/renderer/vf/dynamic/texpos.hpp>
-#include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/vf/dynamic/unspecified.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/text.hpp>
+
 
 namespace
 {

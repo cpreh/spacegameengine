@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/identity_gizmo.hpp>
+#include <sge/camera/first_person/parameters.hpp>
 #include <fcppt/variant/object_impl.hpp>
+
 
 sge::camera::first_person::parameters::parameters(
 	first_person::movement_speed const &_movement_speed,

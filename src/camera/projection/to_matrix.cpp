@@ -19,12 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/projection/to_matrix.hpp>
-#include <sge/renderer/projection/perspective_af.hpp>
-#include <sge/renderer/projection/orthogonal_xy.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/projection/orthogonal_xy.hpp>
+#include <sge/renderer/projection/perspective_af.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+
 
 namespace
 {

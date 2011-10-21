@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PARAMETERS_DECL_HPP_INCLUDED
 #define SGE_SPRITE_PARAMETERS_DECL_HPP_INCLUDED
 
+#include <sge/image/color/any/object_fwd.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/texture_level.hpp>
-#include <sge/sprite/detail/roles/use_center.hpp>
 #include <sge/sprite/detail/make_class.hpp>
+#include <sge/sprite/detail/roles/use_center.hpp>
 #include <sge/sprite/roles/adder.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/depth.hpp>
@@ -33,19 +34,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/repetition.hpp>
-#include <sge/sprite/roles/rotation.hpp>
 #include <sge/sprite/roles/rotate_around.hpp>
+#include <sge/sprite/roles/rotation.hpp>
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/roles/visible.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
-#include <majutsu/role_return_type.hpp>
-#include <majutsu/role.hpp>
 #include <majutsu/fundamental.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/role_return_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

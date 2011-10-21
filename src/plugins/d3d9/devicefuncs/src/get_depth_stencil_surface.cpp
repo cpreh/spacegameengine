@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::devicefuncs::get_depth_stencil_surface(
 	IDirect3DDevice9 *const _device

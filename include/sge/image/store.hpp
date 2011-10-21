@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_STORE_HPP_INCLUDED
 #define SGE_IMAGE_STORE_HPP_INCLUDED
 
-#include <sge/image/store_fwd.hpp>
 #include <sge/image/dim.hpp>
 #include <sge/image/instantiate_symbol.hpp>
+#include <sge/image/store_fwd.hpp>
 #include <sge/image/view/mizuiro_access.hpp>
 #include <sge/image/view/wrapped_type.hpp>
-#include <mizuiro/image/store_decl.hpp>
 #include <mizuiro/image/raw_view.hpp>
+#include <mizuiro/image/store_decl.hpp>
+
 
 namespace sge
 {

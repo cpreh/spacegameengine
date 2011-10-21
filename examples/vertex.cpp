@@ -18,48 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
-#include <sge/systems/running_to_false.hpp>
-#include <sge/viewport/fill_on_resize.hpp>
-#include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/format.hpp>
-#include <sge/renderer/vf/pos.hpp>
-#include <sge/renderer/vf/part.hpp>
-#include <sge/renderer/vf/color.hpp>
-#include <sge/renderer/vf/view.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/var.hpp>
+#include <sge/image/colors.hpp>
+#include <sge/image/color/bgra8_format.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/image/color/bgra8_format.hpp>
-#include <sge/image/colors.hpp>
-#include <sge/image/color/any/convert.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/vf/color.hpp>
+#include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/part.hpp>
+#include <sge/renderer/vf/pos.hpp>
+#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
+#include <sge/systems/running_to_false.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/instance.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/exception.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
-#include <cstdlib>
 #include <fcppt/config/external_end.hpp>
+
 
 int main()
 try

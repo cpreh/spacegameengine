@@ -26,12 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "id.hpp"
 #include "holder.hpp"
 #include "../common.hpp"
-#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/raw_value.hpp>
-#include <fcppt/container/bitfield/basic_decl.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/container/bitfield/basic_decl.hpp>
+
 
 namespace sge
 {

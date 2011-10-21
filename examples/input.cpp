@@ -86,10 +86,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
-#include <awl/mainloop/asio/create_io_service_base.hpp>
 #include <awl/mainloop/dispatcher.hpp>
 #include <awl/mainloop/io_service.hpp>
 #include <awl/mainloop/io_service_shared_ptr.hpp>
+#include <awl/mainloop/asio/create_io_service_base.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/from_std_wstring.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/activate_levels.hpp>
@@ -97,15 +101,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/exception.hpp>
-#include <fcppt/from_std_wstring.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <cstdlib>
 #include <ostream>
 #include <string>
-#include <cstdlib>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

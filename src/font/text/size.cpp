@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/text/size.hpp>
+#include <sge/font/dim.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/text/height.hpp>
 #include <sge/font/text/line_width.hpp>
 #include <sge/font/text/part.hpp>
-#include <sge/font/text/height.hpp>
-#include <sge/font/unit.hpp>
-#include <sge/font/dim.hpp>
+#include <sge/font/text/size.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+
 
 sge::font::text::part const
 sge::font::text::size(

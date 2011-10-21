@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/string.hpp>
 
+
 namespace sge
 {
 namespace dinput

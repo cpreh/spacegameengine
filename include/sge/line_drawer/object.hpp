@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/line_drawer/line_sequence.hpp>
 #include <sge/line_drawer/symbol.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

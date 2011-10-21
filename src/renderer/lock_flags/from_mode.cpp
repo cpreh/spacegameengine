@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/lock_mode.hpp>
 #include <fcppt/assert/unreachable.hpp>
+
 
 sge::renderer::lock_flags::method::type
 sge::renderer::lock_flags::from_mode(

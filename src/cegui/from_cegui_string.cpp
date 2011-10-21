@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUIBase.h>
 #include <fcppt/config/external_end.hpp>
 
+
 fcppt::string const
 sge::cegui::from_cegui_string(
 	CEGUI::String const &_string,

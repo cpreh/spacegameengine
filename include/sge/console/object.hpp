@@ -21,20 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_OBJECT_HPP_INCLUDED
 #define SGE_CONSOLE_OBJECT_HPP_INCLUDED
 
-#include <sge/console/callback/parameters_fwd.hpp>
-#include <sge/console/fallback.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/console/arg_list.hpp>
 #include <sge/console/error_callback.hpp>
-#include <sge/console/message_callback.hpp>
+#include <sge/console/fallback.hpp>
 #include <sge/console/fallback_signal.hpp>
 #include <sge/console/function_map.hpp>
-#include <sge/console/arg_list.hpp>
+#include <sge/console/message_callback.hpp>
 #include <sge/console/symbol.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/console/callback/parameters_fwd.hpp>
 #include <sge/font/text/char_type.hpp>
-#include <sge/class_symbol.hpp>
+#include <sge/font/text/string.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

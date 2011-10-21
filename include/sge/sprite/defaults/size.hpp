@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DEFAULTS_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_DEFAULTS_SIZE_HPP_INCLUDED
 
+#include <sge/sprite/dim.hpp>
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/roles/size.hpp>
-#include <sge/sprite/dim.hpp>
+
 
 namespace sge
 {

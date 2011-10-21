@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_clip_plane.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+
 
 void
 sge::d3d9::devicefuncs::set_clip_plane(

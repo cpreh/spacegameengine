@@ -28,10 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../offscreen_target_fwd.hpp"
 #include "../onscreen_target_fwd.hpp"
 #include "../target_base_fwd.hpp"
+#include <sge/renderer/optional_target_fwd.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/stack.hpp>
-#include <sge/renderer/optional_target_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

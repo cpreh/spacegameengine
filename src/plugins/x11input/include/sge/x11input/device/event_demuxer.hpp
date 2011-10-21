@@ -21,23 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_EVENT_DEMUXER_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_EVENT_DEMUXER_HPP_INCLUDED
 
-#include <sge/x11input/device/event_demuxer_fwd.hpp>
 #include <sge/x11input/device/demuxer_enabled.hpp>
+#include <sge/x11input/device/event_demuxer_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
+#include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
 #include <awl/backends/x11/system/event/type.hpp>
-#include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/window/instance_shared_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/unregister/base_decl.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

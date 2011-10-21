@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_CURSOR_QUERY_POINTER_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_QUERY_POINTER_HPP_INCLUDED
 
-#include <sge/x11input/device/id.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
+
 
 namespace sge
 {

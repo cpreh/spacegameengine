@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_TO_CONST_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_TO_CONST_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/index/format.hpp>
 #include <sge/renderer/index/const_tag.hpp>
+#include <sge/renderer/index/format.hpp>
+
 
 namespace sge
 {

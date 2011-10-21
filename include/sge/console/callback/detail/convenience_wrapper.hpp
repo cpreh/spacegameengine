@@ -21,23 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_CALLBACK_DETAIL_CONVENIENCE_WRAPPER_HPP_INCLUDED
 #define SGE_CONSOLE_CALLBACK_DETAIL_CONVENIENCE_WRAPPER_HPP_INCLUDED
 
-#include <sge/console/callback/detail/conversion_visitor.hpp>
-#include <sge/font/text/string.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/console/object.hpp>
 #include <sge/console/arg_list.hpp>
-#include <fcppt/function/object.hpp>
+#include <sge/console/object.hpp>
+#include <sge/console/callback/detail/conversion_visitor.hpp>
+#include <sge/font/text/lit.hpp>
+#include <sge/font/text/string.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/function_types/function_arity.hpp>
 #include <boost/function_types/parameter_types.hpp>
-#include <boost/fusion/container/vector/convert.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
-#include <boost/fusion/include/mpl.hpp>
+#include <boost/fusion/container/vector/convert.hpp>
 #include <boost/fusion/functional/invocation/invoke.hpp>
+#include <boost/fusion/include/mpl.hpp>
 #include <boost/mpl/range_c.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -73,7 +74,7 @@ public:
 		console::arg_list const &_args,
 		console::object &_console) const
 	{
-		unsigned const arity = 
+		unsigned const arity =
 			static_cast<unsigned>(
 				boost::function_types::function_arity<function_type>::value);
 
@@ -102,7 +103,7 @@ public:
 			<
 				console::arg_list::size_type,
 				0,
-				boost::function_types::function_arity<function_type>::value 
+				boost::function_types::function_arity<function_type>::value
 			>
 		>(
 			detail::conversion_visitor<argument_tuple>(

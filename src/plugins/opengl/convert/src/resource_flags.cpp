@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
+
 GLuint
 sge::opengl::convert::resource_flags(
 	renderer::resource_flags_field const &_flags

@@ -29,10 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../d3dinclude.hpp"
 #include "../needs_reset.hpp"
 #include "../resource.hpp"
-#include <sge/renderer/depth_stencil_surface.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
-#include <fcppt/scoped_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
+
 
 namespace sge
 {

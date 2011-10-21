@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/gdi_device.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::opengl::wgl::current::current(
 	awl::backends::windows::gdi_device const &_device,
 	wgl::context const &_context

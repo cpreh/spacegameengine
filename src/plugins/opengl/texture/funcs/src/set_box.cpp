@@ -26,12 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../buffer/base.hpp"
 #include "../../../context/use.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/output.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/box/output.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/output.hpp>
+
 
 void
 sge::opengl::texture::funcs::set_box(

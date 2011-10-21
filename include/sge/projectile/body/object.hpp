@@ -21,22 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_BODY_OBJECT_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_OBJECT_HPP_INCLUDED
 
-#include <sge/projectile/body/detail/motion_state_fwd.hpp>
+#include <sge/projectile/scalar.hpp>
+#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/body/parameters_fwd.hpp>
-#include <sge/projectile/body/position_change_fn.hpp>
 #include <sge/projectile/body/position_change.hpp>
+#include <sge/projectile/body/position_change_fn.hpp>
 #include <sge/projectile/body/rotation_change.hpp>
 #include <sge/projectile/body/user_data.hpp>
+#include <sge/projectile/body/detail/motion_state_fwd.hpp>
 #include <sge/projectile/group/object_fwd.hpp>
-#include <sge/projectile/scalar.hpp>
-#include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
-#include <sge/projectile/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/scoped_ptr.hpp>
+
 
 class btRigidBody;
 class btTransform;

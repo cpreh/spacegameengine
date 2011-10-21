@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/parse_string_exn.hpp>
-#include <sge/parse/json/parse_range.hpp>
-#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/parse_range.hpp>
+#include <sge/parse/json/parse_string_exn.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+
 
 sge::parse::json::object const
 sge::parse::json::parse_string_exn(

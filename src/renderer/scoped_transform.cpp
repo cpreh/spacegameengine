@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/scoped_transform.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+
 
 sge::renderer::scoped_transform::scoped_transform(
 	renderer::device &_device,

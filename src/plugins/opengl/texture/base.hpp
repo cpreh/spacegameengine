@@ -26,10 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "id.hpp"
 #include "type.hpp"
 #include "../context/object_fwd.hpp"
+#include <sge/renderer/opengl/texture/base.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
-#include <sge/renderer/opengl/texture/base.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

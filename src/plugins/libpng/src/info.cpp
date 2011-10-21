@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/exception.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::libpng::info::info(
 	png_structp const _ptr
 )

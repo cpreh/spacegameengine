@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_CREATE_VERTEX_SHADER_HPP_INCLUDED
 
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+
 
 namespace sge
 {

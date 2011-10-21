@@ -18,25 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/any/object.hpp>
-#include <sge/image/color/convert.hpp>
 #include <sge/image/color/a8_format.hpp>
-#include <sge/image/color/l8_format.hpp>
-#include <sge/image/color/la8_format.hpp>
-#include <sge/image/color/rgb8_format.hpp>
+#include <sge/image/color/bgr32f_format.hpp>
 #include <sge/image/color/bgr8_format.hpp>
-#include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/color/rgbx8_format.hpp>
+#include <sge/image/color/bgra32f_format.hpp>
 #include <sge/image/color/bgra8_format.hpp>
 #include <sge/image/color/bgrx8_format.hpp>
+#include <sge/image/color/convert.hpp>
+#include <sge/image/color/l8_format.hpp>
+#include <sge/image/color/la8_format.hpp>
 #include <sge/image/color/rgb32f_format.hpp>
-#include <sge/image/color/bgr32f_format.hpp>
+#include <sge/image/color/rgb8_format.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
-#include <sge/image/color/bgra32f_format.hpp>
+#include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/color/rgbx8_format.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <fcppt/export_symbol.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/export_symbol.hpp>
+
 
 namespace
 {

@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/x11input/device/parameters_fwd.hpp>
+#include <sge/x11input/create_parameters_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
+#include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/raw_demuxer_fwd.hpp>
 #include <sge/x11input/device/window_demuxer_fwd.hpp>
-#include <sge/x11input/create_parameters_fwd.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

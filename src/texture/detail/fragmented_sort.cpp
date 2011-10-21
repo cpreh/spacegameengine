@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/detail/fragmented_sort.hpp>
 #include <sge/texture/fragmented.hpp>
+#include <sge/texture/detail/fragmented_sort.hpp>
+
 
 bool
 sge::texture::detail::fragmented_sort::operator()(

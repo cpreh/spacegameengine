@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/projectile/ghost/scoped.hpp>
 #include <sge/projectile/world.hpp>
+#include <sge/projectile/ghost/scoped.hpp>
+
 
 sge::projectile::ghost::scoped::scoped(
 	world &_world,

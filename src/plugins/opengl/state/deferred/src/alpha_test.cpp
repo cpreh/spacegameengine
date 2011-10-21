@@ -24,11 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../common.hpp"
 #include "../../../disable.hpp"
 #include "../../../enable.hpp"
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/alpha_func.hpp>
 #include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
+
 
 void
 sge::opengl::state::deferred::alpha_test(

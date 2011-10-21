@@ -21,30 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_CONVERT_FROM_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONVERT_FROM_HPP_INCLUDED
 
-#include <sge/parse/json/detail/is_array.hpp>
-#include <sge/parse/json/exception.hpp>
-#include <sge/parse/json/value.hpp>
-#include <sge/parse/json/get.hpp>
-#include <sge/parse/json/float_type.hpp>
-#include <sge/parse/json/int_type.hpp>
-#include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/convert_from.hpp>
-#include <fcppt/math/matrix/is_matrix.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/type_traits/is_iterable.hpp>
+#include <sge/parse/json/element_vector.hpp>
+#include <sge/parse/json/exception.hpp>
+#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/detail/is_array.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/is_matrix.hpp>
+#include <fcppt/type_traits/is_iterable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

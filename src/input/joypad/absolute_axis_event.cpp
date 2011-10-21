@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/absolute_axis.hpp>
+#include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/axis_value.hpp>
+
 
 sge::input::joypad::absolute_axis_event::absolute_axis_event(
 	joypad::absolute_axis const &_axis,

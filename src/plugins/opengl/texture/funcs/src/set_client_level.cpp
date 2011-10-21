@@ -24,12 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../check_state.hpp"
 #include "../../../common.hpp"
 #include "../../../context/use.hpp"
-#include <sge/renderer/exception.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/log/output.hpp>
-#include <fcppt/log/error.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/log/error.hpp>
+#include <fcppt/log/output.hpp>
+
 
 void
 sge::opengl::texture::funcs::set_client_level(

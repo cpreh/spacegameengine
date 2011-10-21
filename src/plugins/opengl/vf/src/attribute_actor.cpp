@@ -27,9 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../client_state_combiner.hpp"
 #include "../../glsl/context.hpp"
 #include "../../context/use.hpp"
-#include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <fcppt/to_std_string.hpp>
+
 
 sge::opengl::vf::attribute_actor::attribute_actor(
 	opengl::vf::actor_parameters const &_param,

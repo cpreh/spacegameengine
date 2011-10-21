@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/aspect.hpp>
-#include <fcppt/assert/pre.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/almost_zero.hpp>
 #include <fcppt/export_symbol.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/math/almost_zero.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 sge::renderer::scalar
 sge::renderer::aspect(

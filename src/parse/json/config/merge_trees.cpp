@@ -18,21 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/config/merge_trees.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/member.hpp>
-#include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/json/member_name_equal.hpp>
+#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/config/merge_trees.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/variant/apply_visitor.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
-#include <set>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/variant/apply_visitor.hpp>
 #include <algorithm>
+#include <set>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/object.hpp>
+
 
 sge::parse::json::member::member()
 :

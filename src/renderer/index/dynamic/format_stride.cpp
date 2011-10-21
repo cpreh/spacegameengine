@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
+#include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <fcppt/assert/unreachable.hpp>
+
 
 sge::renderer::size_type
 sge::renderer::index::dynamic::format_stride(

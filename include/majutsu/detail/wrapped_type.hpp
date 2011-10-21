@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef MAJUTSU_DETAIL_WRAPPED_TYPE_HPP_INCLUDED
 #define MAJUTSU_DETAIL_WRAPPED_TYPE_HPP_INCLUDED
 
-#include <majutsu/role.hpp>
 #include <majutsu/access_role.hpp>
+#include <majutsu/role.hpp>
+
 
 namespace majutsu
 {

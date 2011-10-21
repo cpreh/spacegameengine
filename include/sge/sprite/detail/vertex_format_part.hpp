@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_VERTEX_FORMAT_PART_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VERTEX_FORMAT_PART_HPP_INCLUDED
 
-#include <sge/sprite/detail/vertex_pos.hpp>
-#include <sge/sprite/detail/vertex_texpos.hpp>
-#include <sge/sprite/detail/vertex_color.hpp>
-#include <sge/sprite/detail/vertex_unspecified_dim.hpp>
+#include <sge/renderer/vf/part.hpp>
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_unspecified_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
-#include <sge/renderer/vf/part.hpp>
+#include <sge/sprite/with_unspecified_dim.hpp>
+#include <sge/sprite/detail/vertex_color.hpp>
+#include <sge/sprite/detail/vertex_pos.hpp>
+#include <sge/sprite/detail/vertex_texpos.hpp>
+#include <sge/sprite/detail/vertex_unspecified_dim.hpp>
 #include <fcppt/mpl/append.hpp>
 #include <fcppt/mpl/inner.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

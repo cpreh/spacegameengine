@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/screen.hpp>
 #include <fcppt/noncopyable.hpp>
 
+
 namespace sge
 {
 namespace opengl

@@ -18,51 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/player.hpp>
+#include <sge/exception.hpp>
+#include <sge/extension_set.hpp>
+#include <sge/audio/buffer.hpp>
 #include <sge/audio/exception.hpp>
+#include <sge/audio/file_ptr.hpp>
 #include <sge/audio/listener.hpp>
+#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
-#include <sge/audio/buffer.hpp>
-#include <sge/audio/multi_loader.hpp>
-#include <sge/audio/file_ptr.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/log/global.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/exception.hpp>
-#include <sge/extension_set.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/log/activate_levels.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/pi.hpp>
-#include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/io/cin.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/container/raw_vector.hpp>
-#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/chrono/seconds.hpp>
+#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cifstream.hpp>
+#include <fcppt/io/cin.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/math/pi.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <ostream>
-#include <exception>
 #include <algorithm>
-#include <iostream>
-#include <string>
-#include <iterator>
-#include <ios>
-#include <cstdlib>
 #include <cmath>
+#include <cstdlib>
+#include <exception>
+#include <ios>
+#include <iostream>
+#include <iterator>
+#include <ostream>
+#include <string>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

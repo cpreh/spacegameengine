@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../program_contexts.hpp"
 #include "../../instantiate.hpp"
 #include "../../../check_state.hpp"
-#include <sge/renderer/glsl/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>
+
 
 template<
 	typename Environment

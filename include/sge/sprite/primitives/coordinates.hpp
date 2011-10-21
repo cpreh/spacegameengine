@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_PRIMITIVES_COORDINATES_HPP_INCLUDED
 
 #include <sge/sprite/primitives/vector.hpp>
-#include <fcppt/homogenous_pair.hpp>
 #include <majutsu/simple.hpp>
+#include <fcppt/homogenous_pair.hpp>
+
 
 namespace sge
 {

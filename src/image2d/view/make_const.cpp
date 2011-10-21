@@ -20,11 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../image/view/make_const_impl.hpp"
 #include "../../image/view/instantiate_make_const.hpp"
+#include <sge/image/raw_pointer.hpp>
+#include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/view/object.hpp> // needed for the implementation
-#include <sge/image2d/tag.hpp>
-#include <sge/image/raw_pointer.hpp>
+#include <sge/image2d/view/object.hpp>
+
 
 sge::image2d::view::const_object const
 sge::image2d::view::make_const(

@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/size_type.hpp>
 #include <sge/image/color/element_count.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/size_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
+
 
 sge::image::size_type
 sge::image::color::element_count(

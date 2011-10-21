@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_SPRITE_CHOICES_HPP_INCLUDED
 #define SGE_CONSOLE_SPRITE_CHOICES_HPP_INCLUDED
 
-#include <sge/console/sprite_type_choices.hpp>
 #include <sge/console/sprite_elements.hpp>
+#include <sge/console/sprite_type_choices.hpp>
 #include <sge/sprite/choices.hpp>
+
 
 namespace sge
 {

@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/optional_dim2.hpp>
 #include <sge/renderer/target.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 void
 sge::renderer::add_depth_stencil_surface_to_target(

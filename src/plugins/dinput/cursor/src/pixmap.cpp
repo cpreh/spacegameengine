@@ -23,14 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/module_handle.hpp>
 #include <awl/backends/windows/system_metrics.hpp>
 #include <awl/backends/windows/windows.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/round_div_int.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_unsigned.hpp>
 #include <boost/static_assert.hpp>
+#include <boost/type_traits/is_unsigned.hpp>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::dinput::cursor::pixmap::pixmap()
 :

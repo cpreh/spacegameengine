@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/unsupported_conversion.hpp>
 #include <sge/charconv/exception.hpp>
+#include <sge/charconv/unsupported_conversion.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::charconv::unsupported_conversion::unsupported_conversion(
 	fcppt::string const &_source,

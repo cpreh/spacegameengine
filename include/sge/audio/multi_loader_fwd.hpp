@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_MULTI_LOADER_FWD_HPP_INCLUDED
 
 #include <sge/multi_loader_fwd.hpp>
-#include <sge/audio/loader_fwd.hpp>
-#include <sge/audio/file_fwd.hpp>
 #include <sge/audio/exception_fwd.hpp>
+#include <sge/audio/file_fwd.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
+#include <sge/audio/loader_fwd.hpp>
+
 
 namespace sge
 {

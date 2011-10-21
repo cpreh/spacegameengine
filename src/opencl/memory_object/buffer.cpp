@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "to_opencl_mem_flags.hpp"
 #include "../handle_error.hpp"
 #include "renderer_buffer_lock_mode_to_cl_mem_flags.hpp"
-#include <sge/opencl/memory_object/buffer.hpp>
 #include <sge/opencl/context/object.hpp>
-#include <sge/renderer/opengl/buffer/base.hpp>
+#include <sge/opencl/memory_object/buffer.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/opengl/buffer/base.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl_gl.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::opencl::memory_object::buffer::buffer(
 	opencl::context::object &_context,
@@ -41,7 +42,7 @@ sge::opencl::memory_object::buffer::buffer(
 		_byte_size.get())
 {
 	cl_int error_code;
-	impl_ = 
+	impl_ =
 		clCreateBuffer(
 			_context.impl(),
 			memory_object::to_opencl_mem_flags(

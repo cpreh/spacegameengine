@@ -23,14 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "openal.hpp"
 #include "source_wrapper.hpp"
-#include <sge/audio/sound/positional_parameters_fwd.hpp>
-#include <sge/audio/sound/play_status.hpp>
-#include <sge/audio/sound/repeat.hpp>
-#include <sge/audio/sound/positional.hpp>
-#include <sge/audio/vector.hpp>
 #include <sge/audio/scalar.hpp>
-#include <fcppt/math/vector/basic_decl.hpp>
+#include <sge/audio/vector.hpp>
+#include <sge/audio/sound/play_status.hpp>
+#include <sge/audio/sound/positional.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
+#include <sge/audio/sound/repeat.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
+
 
 namespace sge
 {

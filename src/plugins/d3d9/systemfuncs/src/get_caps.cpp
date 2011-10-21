@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
+
 D3DCAPS9 const
 sge::d3d9::systemfuncs::get_caps(
 	IDirect3D9 *const _system,

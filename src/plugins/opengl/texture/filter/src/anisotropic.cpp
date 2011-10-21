@@ -24,12 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../context.hpp"
 #include "../../../context/use.hpp"
 #include "../../../common.hpp"
-#include <sge/renderer/texture/filter/anisotropic/object.hpp>
-#include <sge/log/global.hpp>
 #include <sge/exception.hpp>
+#include <sge/log/global.hpp>
+#include <sge/renderer/texture/filter/anisotropic/object.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
-#include <fcppt/text.hpp>
+
 
 void
 sge::opengl::texture::filter::anisotropic(

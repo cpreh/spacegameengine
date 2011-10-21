@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LINE_DRAWER_SCOPED_LOCK_HPP_INCLUDED
 
 #include <sge/line_drawer/line_sequence.hpp>
-#include <sge/line_drawer/symbol.hpp>
 #include <sge/line_drawer/object_fwd.hpp>
+#include <sge/line_drawer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

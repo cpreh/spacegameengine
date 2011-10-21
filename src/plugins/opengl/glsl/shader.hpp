@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "shader_type.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/glsl/string.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
+
 
 namespace sge
 {

@@ -21,21 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_MANAGER_HPP_INCLUDED
 #define SGE_PLUGIN_MANAGER_HPP_INCLUDED
 
-#include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/category_array.hpp>
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/context_fwd.hpp>
-#include <sge/plugin/iterator_fwd.hpp>
 #include <sge/plugin/instantiate_symbol.hpp>
+#include <sge/plugin/iterator_fwd.hpp>
+#include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/symbol.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <cstddef>
 #include <map>
 #include <vector>
-#include <cstddef>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

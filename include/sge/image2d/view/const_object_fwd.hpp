@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_VIEW_CONST_OBJECT_FWD_HPP_INCLUDED
 #define SGE_IMAGE2D_VIEW_CONST_OBJECT_FWD_HPP_INCLUDED
 
+#include <sge/image/view/const_object_fwd.hpp>
 #include <sge/image2d/view/const_elements_wrapper_fwd.hpp>
 #include <sge/image2d/view/elements_wrapper_fwd.hpp>
-#include <sge/image/view/const_object_fwd.hpp>
+
 
 namespace sge
 {

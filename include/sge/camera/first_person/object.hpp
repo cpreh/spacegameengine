@@ -21,22 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_FIRST_PERSON_OBJECT_HPP_INCLUDED
 #define SGE_CAMERA_FIRST_PERSON_OBJECT_HPP_INCLUDED
 
-#include <sge/camera/first_person/parameters_fwd.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/camera/base.hpp>
-#include <sge/camera/projection/object.hpp>
+#include <sge/camera/duration.hpp>
 #include <sge/camera/gizmo_type.hpp>
 #include <sge/camera/symbol.hpp>
-#include <sge/camera/duration.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/vector3.hpp>
-#include <sge/renderer/scalar.hpp>
+#include <sge/camera/first_person/parameters_fwd.hpp>
+#include <sge/camera/projection/object.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+
 
 namespace sge
 {

@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../visitor.hpp"
 #include "../../base.hpp"
 #include "../../scoped_work_bind.hpp"
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/filter/need_mipmap.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/text.hpp>
+
 
 void
 sge::opengl::texture::filter::set(

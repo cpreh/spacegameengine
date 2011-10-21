@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/scoped_scissor_area.hpp>
 #include <sge/renderer/target_base.hpp>
-#include <sge/renderer/scissor_area.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+
 
 sge::renderer::scoped_scissor_area::scoped_scissor_area(
 	renderer::target_base &_target,

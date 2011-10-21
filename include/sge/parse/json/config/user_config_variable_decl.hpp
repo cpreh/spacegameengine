@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_CONFIG_USER_CONFIG_VARIABLE_DECL_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONFIG_USER_CONFIG_VARIABLE_DECL_HPP_INCLUDED
 
-#include <sge/parse/json/config/user_config_variable_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/path.hpp>
+#include <sge/parse/json/config/user_config_variable_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/object.hpp>
+
 
 namespace sge
 {

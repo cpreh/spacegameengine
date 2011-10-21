@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_SET_MATRIX_AND_MODE_HPP_INCLUDED
 
 #include "context/object_fwd.hpp"
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix_mode.hpp>
+
 
 namespace sge
 {

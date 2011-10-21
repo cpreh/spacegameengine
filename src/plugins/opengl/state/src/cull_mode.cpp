@@ -25,9 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../common.hpp"
 #include "../../enable.hpp"
 #include "../../disable.hpp"
-#include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/state/cull_mode.hpp>
 #include <fcppt/text.hpp>
+
 
 void
 sge::opengl::state::cull_mode(

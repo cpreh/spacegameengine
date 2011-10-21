@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/cstdint.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 sge::renderer::size_type
 sge::renderer::bit_depth_bytes(
 	renderer::bit_depth::type const _type

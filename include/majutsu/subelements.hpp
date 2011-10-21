@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef MAJUTSU_SUBELEMENTS_HPP_INCLUDED
 #define MAJUTSU_SUBELEMENTS_HPP_INCLUDED
 
-#include <majutsu/detail/copy_subelements.hpp>
 #include <majutsu/is_role.hpp>
+#include <majutsu/detail/copy_subelements.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/for_each.hpp>
-#include <boost/mpl/remove_if.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/remove_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace majutsu
 {

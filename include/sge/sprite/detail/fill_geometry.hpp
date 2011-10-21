@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_GEOMETRY_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_GEOMETRY_HPP_INCLUDED
 
-#include <sge/sprite/detail/roles/index_buffer.hpp>
-#include <sge/sprite/detail/roles/vertex_buffer.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/detail/fill_indices.hpp>
 #include <sge/sprite/detail/fill_vertices.hpp>
 #include <sge/sprite/detail/optional_size.hpp>
-#include <sge/sprite/with_dim.hpp>
+#include <sge/sprite/detail/roles/index_buffer.hpp>
+#include <sge/sprite/detail/roles/vertex_buffer.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

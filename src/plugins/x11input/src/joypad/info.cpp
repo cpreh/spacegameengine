@@ -18,22 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/joypad/info.hpp>
-#include <sge/x11input/joypad/absolute_axis_info.hpp>
-#include <sge/x11input/joypad/button_infos.hpp>
-#include <sge/x11input/joypad/relative_axis_info.hpp>
-#include <sge/x11input/device/info/class_type.hpp>
-#include <sge/x11input/device/info/name.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/info.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>
+#include <sge/x11input/device/info/class_type.hpp>
+#include <sge/x11input/device/info/name.hpp>
+#include <sge/x11input/joypad/absolute_axis_info.hpp>
+#include <sge/x11input/joypad/button_infos.hpp>
+#include <sge/x11input/joypad/info.hpp>
+#include <sge/x11input/joypad/relative_axis_info.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::input::joypad::info const
 sge::x11input::joypad::info(

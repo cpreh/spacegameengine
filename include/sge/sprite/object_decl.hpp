@@ -21,30 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_OBJECT_DECL_HPP_INCLUDED
 #define SGE_SPRITE_OBJECT_DECL_HPP_INCLUDED
 
-#include <sge/sprite/detail/make_class.hpp>
-#include <sge/sprite/intrusive/detail/object_base_hook.hpp>
-#include <sge/sprite/intrusive/tag.hpp>
-#include <sge/sprite/intrusive/order.hpp>
-#include <sge/sprite/intrusive/system_fwd.hpp>
 #include <sge/sprite/color.hpp>
 #include <sge/sprite/depth_type.hpp>
 #include <sge/sprite/dim.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/point_size.hpp>
-#include <sge/sprite/rotation_type.hpp>
 #include <sge/sprite/repetition_type.hpp>
+#include <sge/sprite/rotation_type.hpp>
 #include <sge/sprite/texture_coordinates.hpp>
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/vector.hpp>
+#include <sge/sprite/detail/make_class.hpp>
+#include <sge/sprite/intrusive/order.hpp>
+#include <sge/sprite/intrusive/system_fwd.hpp>
+#include <sge/sprite/intrusive/tag.hpp>
+#include <sge/sprite/intrusive/detail/object_base_hook.hpp>
 #include <sge/texture/const_part_ptr.hpp>
+#include <majutsu/role_return_type.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
-#include <majutsu/role_return_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/empty_base.hpp>
+#include <boost/mpl/if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

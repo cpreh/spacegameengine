@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_BUFFER_HPP_INCLUDED
 
+#include <sge/class_symbol.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/class_symbol.hpp>
+#include <sge/renderer/index/dynamic/const_view.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/dynamic/view.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

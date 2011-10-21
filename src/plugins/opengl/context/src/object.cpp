@@ -20,8 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../object.hpp"
 #include "../base.hpp"
-#include <fcppt/assert/error.hpp>
 #include <fcppt/move.hpp>
+#include <fcppt/assert/error.hpp>
+
 
 sge::opengl::context::object::object()
 :

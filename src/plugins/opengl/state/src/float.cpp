@@ -25,11 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../deferred/object.hpp"
 #include "../../check_state.hpp"
 #include "../../common.hpp"
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
+
 
 void
 sge::opengl::state::float_(

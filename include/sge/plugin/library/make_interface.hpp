@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_LIBRARY_MAKE_INTERFACE_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE_HPP_INCLUDED
 
-#include <sge/plugin/library/detail/interface_pre.hpp>
-#include <sge/plugin/library/detail/interface_post.hpp>
-#include <sge/plugin/library/detail/iterate_functions.hpp>
-#include <sge/plugin/library/detail/version_function_name.hpp>
+#include <sge/plugin/info.hpp>
 #include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/function_map.hpp>
-#include <sge/plugin/info.hpp>
+#include <sge/plugin/library/detail/interface_post.hpp>
+#include <sge/plugin/library/detail/interface_pre.hpp>
+#include <sge/plugin/library/detail/iterate_functions.hpp>
+#include <sge/plugin/library/detail/version_function_name.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
+
 
 #define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(\
 	plugin_info,\

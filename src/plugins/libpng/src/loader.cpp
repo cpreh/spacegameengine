@@ -23,20 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/extension_set.hpp>
 #include <sge/image/file_exception.hpp>
 #include <sge/image/unsupported_format.hpp>
-#include <fcppt/io/cifstream.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/iostreams/device/array.hpp>
 #include <boost/iostreams/stream.hpp>
-#include <iterator>
+#include <boost/iostreams/device/array.hpp>
 #include <ios>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

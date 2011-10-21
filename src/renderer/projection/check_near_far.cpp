@@ -20,8 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "check_near_far.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/math/compare.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/compare.hpp>
+
 
 void
 sge::renderer::projection::check_near_far(

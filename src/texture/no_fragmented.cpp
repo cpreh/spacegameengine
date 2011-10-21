@@ -18,29 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/no_fragmented.hpp>
-#include <sge/texture/guaranteed_free.hpp>
-#include <sge/texture/part_fragmented.hpp>
-#include <sge/texture/atlasing/bounds.hpp>
-#include <sge/texture/atlasing/need.hpp>
-#include <sge/texture/atlasing/size.hpp>
+#include <sge/log/global.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/log/global.hpp>
+#include <sge/texture/guaranteed_free.hpp>
+#include <sge/texture/no_fragmented.hpp>
+#include <sge/texture/part_fragmented.hpp>
+#include <sge/texture/atlasing/bounds.hpp>
+#include <sge/texture/atlasing/need.hpp>
+#include <sge/texture/atlasing/size.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::texture::no_fragmented::no_fragmented(
 	renderer::device &_rend,

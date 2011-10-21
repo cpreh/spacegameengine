@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../surfacefuncs/color_format.hpp"
 #include "../../surfacefuncs/dim.hpp"
 #include "../../surfacefuncs/is_render_target.hpp"
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/move.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 sge::d3d9::surface::color_holder::color_holder(
 	surface::d3d_unique_ptr _surface

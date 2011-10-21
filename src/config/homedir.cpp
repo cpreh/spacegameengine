@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/homedir.hpp>
 #include <sge/config/getenv_exn.hpp>
-#include <fcppt/config/platform.hpp>
+#include <sge/config/homedir.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/platform.hpp>
+
 
 fcppt::filesystem::path const
 sge::config::homedir()

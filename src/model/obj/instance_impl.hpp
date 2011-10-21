@@ -25,12 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "parse_state.hpp"
 #include "tokens_fwd.hpp"
 #include <sge/model/obj/instance.hpp>
-#include <sge/model/obj/vertex_sequence.hpp>
-#include <sge/model/obj/texcoord_sequence.hpp>
-#include <sge/model/obj/normal_sequence.hpp>
 #include <sge/model/obj/mesh_sequence.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <sge/model/obj/normal_sequence.hpp>
+#include <sge/model/obj/texcoord_sequence.hpp>
+#include <sge/model/obj/vertex_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
+
 
 namespace sge
 {

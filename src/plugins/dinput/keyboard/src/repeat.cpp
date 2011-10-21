@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../repeat.hpp"
 #include <sge/input/exception.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
+
 
 sge::dinput::keyboard::repeat_duration const
 sge::dinput::keyboard::repeat()

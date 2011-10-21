@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context.hpp"
 #include "../depth_stencil_surface.hpp"
 #include "../../context/use.hpp"
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/cref.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 sge::renderer::depth_stencil_surface_ptr const
 sge::opengl::fbo::create_depth_stencil_surface(

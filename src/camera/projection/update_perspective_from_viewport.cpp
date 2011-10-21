@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/projection/update_perspective_from_viewport.hpp>
-#include <sge/camera/projection/perspective.hpp>
 #include <sge/camera/base.hpp>
+#include <sge/camera/projection/perspective.hpp>
+#include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/aspect_from_viewport.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
+
 
 void
 sge::camera::projection::update_perspective_from_viewport(

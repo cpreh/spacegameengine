@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
+
 sge::model::md3::vertex::vertex(
 	std::istream &_stream,
 	md3::load_flags::type const _flags

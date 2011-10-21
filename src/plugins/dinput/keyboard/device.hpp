@@ -39,16 +39,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/mod_state.hpp>
 #include <sge/timer/basic_decl.hpp>
 #include <sge/timer/clocks/standard.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/chrono/duration_decl.hpp>
 #include <fcppt/chrono/time_point_decl.hpp>
 #include <fcppt/container/array_decl.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
 
-#include <sge/image/view/to_const.hpp>
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/view.hpp>
+#include <sge/image/view/to_const.hpp>
 #include <fcppt/export_symbol.hpp>
+
 
 #define SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST(\
 	Tag\

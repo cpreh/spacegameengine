@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_CONST_SCOPED_PLANAR_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CONST_SCOPED_PLANAR_LOCK_HPP_INCLUDED
 
+#include <sge/symbol.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/const_basic_scoped_lock.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
+
 
 namespace sge
 {

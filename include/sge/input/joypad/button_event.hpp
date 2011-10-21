@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_JOYPAD_BUTTON_EVENT_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_BUTTON_EVENT_HPP_INCLUDED
 
+#include <sge/input/symbol.hpp>
 #include <sge/input/joypad/button_event_fwd.hpp>
 #include <sge/input/joypad/button_id.hpp>
-#include <sge/input/symbol.hpp>
+
 
 namespace sge
 {

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/config.hpp>
 #include <fcppt/text.hpp>
 
+
 fcppt::filesystem::path const
 sge::systems::plugin_path(
 	sge::systems::any_set const &_param

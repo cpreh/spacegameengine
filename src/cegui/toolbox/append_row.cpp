@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/toolbox/append_row.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIBase.h>
 #include <elements/CEGUIListboxTextItem.h>
+#include <CEGUIBase.h>
 #include <fcppt/config/external_end.hpp>
+
 
 void
 sge::cegui::toolbox::append_row(

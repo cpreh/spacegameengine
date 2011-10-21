@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::opengl::xf86vmode::resolution_ptr const
 sge::opengl::xf86vmode::choose_mode(
 	renderer::display_mode const &_display_mode,

@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_ITERATOR_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_ITERATOR_HPP_INCLUDED
 
-#include <sge/renderer/index/iterator_fwd.hpp>
 #include <sge/renderer/index/iterator_decl.hpp>
+#include <sge/renderer/index/iterator_fwd.hpp>
 #include <sge/renderer/index/iterator_impl.hpp>
+
 
 #endif

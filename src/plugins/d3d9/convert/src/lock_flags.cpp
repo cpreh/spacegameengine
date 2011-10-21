@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../lock_flags.hpp"
 #include "../../d3dinclude.hpp"
 #include <sge/renderer/lock_flags/method.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+
 
 sge::d3d9::lock_flags const
 sge::d3d9::convert::lock_flags(

@@ -23,15 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "char_map.hpp"
 #include <sge/font/char_metric_ptr.hpp>
-#include <sge/font/metrics.hpp>
 #include <sge/font/char_type.hpp>
+#include <sge/font/metrics.hpp>
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

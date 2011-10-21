@@ -27,10 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../d3dinclude.hpp"
 #include "../lock_flags.hpp"
 #include "../usage.hpp"
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/texture/volume_fwd.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
-#include <sge/renderer/stage.hpp>
 #include <fcppt/function/object_fwd.hpp>
+
 
 namespace sge
 {

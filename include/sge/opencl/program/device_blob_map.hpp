@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_PROGRAM_DEVICE_BLOB_MAP_HPP_INCLUDED
 #define SGE_OPENCL_PROGRAM_DEVICE_BLOB_MAP_HPP_INCLUDED
 
-#include <sge/opencl/program/blob.hpp>
 #include <sge/opencl/device/object_fwd.hpp>
+#include <sge/opencl/program/blob.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
 #include <utility>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

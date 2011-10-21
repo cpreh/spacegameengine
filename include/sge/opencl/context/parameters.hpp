@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_CONTEXT_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENCL_CONTEXT_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opencl/device/object_ref_sequence.hpp>
-#include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/context/error_callback.hpp>
+#include <sge/opencl/device/object_ref_sequence.hpp>
+#include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
+
 
 namespace sge
 {

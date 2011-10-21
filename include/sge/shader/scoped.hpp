@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_SCOPED_HPP_INCLUDED
 #define SGE_SHADER_SCOPED_HPP_INCLUDED
 
-#include <sge/shader/symbol.hpp>
 #include <sge/shader/activation_method_field.hpp>
 #include <sge/shader/object_fwd.hpp>
+#include <sge/shader/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

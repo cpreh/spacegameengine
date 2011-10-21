@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TARGET_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_HPP_INCLUDED
 
-#include <sge/renderer/target_fwd.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/optional_dim2.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/target_base.hpp>
-#include <sge/class_symbol.hpp>
+#include <sge/renderer/target_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

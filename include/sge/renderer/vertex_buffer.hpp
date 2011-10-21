@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/vf/dynamic/view_fwd.hpp>
-#include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
-#include <sge/renderer/vf/dynamic/part_fwd.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/class_symbol.hpp>
+#include <sge/renderer/vertex_buffer_fwd.hpp>
+#include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
+#include <sge/renderer/vf/dynamic/part_fwd.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/dynamic/view_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

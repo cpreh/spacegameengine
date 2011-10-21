@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_INSTANCE_HPP_INCLUDED
 #define SGE_MODEL_OBJ_INSTANCE_HPP_INCLUDED
 
-#include <sge/model/obj/instance_fwd.hpp>
-#include <sge/model/obj/vertex_sequence.hpp>
-#include <sge/model/obj/texcoord_sequence.hpp>
-#include <sge/model/obj/normal_sequence.hpp>
-#include <sge/model/obj/mesh_sequence.hpp>
-#include <sge/model/obj/symbol.hpp>
 #include <sge/class_symbol.hpp>
+#include <sge/model/obj/instance_fwd.hpp>
+#include <sge/model/obj/mesh_sequence.hpp>
+#include <sge/model/obj/normal_sequence.hpp>
+#include <sge/model/obj/symbol.hpp>
+#include <sge/model/obj/texcoord_sequence.hpp>
+#include <sge/model/obj/vertex_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

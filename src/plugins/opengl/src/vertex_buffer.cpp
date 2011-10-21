@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
+
 sge::opengl::vertex_buffer::vertex_buffer(
 	context::object &_context,
 	renderer::vf::dynamic::part_index const _part_index,

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/position_unit.hpp>
 #include <fcppt/math/vector/static.hpp>
 
+
 namespace sge
 {
 namespace input

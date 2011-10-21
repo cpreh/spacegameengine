@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/text/height.hpp>
 #include <sge/font/metrics.hpp>
+#include <sge/font/text/height.hpp>
+
 
 sge::font::unit
 sge::font::text::height(

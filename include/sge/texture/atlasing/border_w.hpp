@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_ATLASING_BORDER_W_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_BORDER_W_HPP_INCLUDED
 
-#include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/renderer/lock_rect.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
+
 
 namespace sge
 {

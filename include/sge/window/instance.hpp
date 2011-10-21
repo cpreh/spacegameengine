@@ -23,14 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/dim.hpp>
 #include <sge/window/symbol.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
-#include <awl/window/event/processor_shared_ptr.hpp>
+#include <awl/mainloop/dispatcher_fwd.hpp>
+#include <awl/mainloop/io_service_shared_ptr.hpp>
 #include <awl/system/object_shared_ptr.hpp>
 #include <awl/system/event/processor_shared_ptr.hpp>
-#include <awl/mainloop/io_service_shared_ptr.hpp>
-#include <awl/mainloop/dispatcher_fwd.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/window/event/processor_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
+
 
 namespace sge
 {

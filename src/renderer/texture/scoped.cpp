@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/texture/scoped.hpp>
-#include <sge/renderer/texture/base_fwd.hpp>
-#include <sge/renderer/texture/const_optional_base.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/texture/const_optional_base.hpp>
+#include <sge/renderer/texture/scoped.hpp>
+
 
 sge::renderer::texture::scoped::scoped(
 	renderer::device &_device,

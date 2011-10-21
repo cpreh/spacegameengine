@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 
+
 bool
 sge::model::md3::read_and_check_id3p(
 	std::istream &_stream

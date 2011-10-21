@@ -20,11 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "fill_on_resize_function.hpp"
 #include <sge/renderer/viewport.hpp>
+#include <awl/window/event/resize.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <awl/window/event/resize.hpp>
+
 
 sge::renderer::viewport const
 sge::viewport::fill_on_resize_function(

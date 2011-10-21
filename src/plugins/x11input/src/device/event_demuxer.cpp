@@ -18,25 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/device/event_demuxer.hpp>
 #include <sge/x11input/device/event_data.hpp>
-#include <sge/x11input/device/id.hpp>
+#include <sge/x11input/device/event_demuxer.hpp>
 #include <sge/x11input/device/hierarchy_event.hpp>
-#include <sge/x11input/device/select_events.hpp>
+#include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/raw_event.hpp>
+#include <sge/x11input/device/select_events.hpp>
 #include <sge/x11input/device/window_event.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
-#include <fcppt/signal/unregister/base_impl.hpp>
-#include <fcppt/signal/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
-#include <fcppt/type_traits/generate_has_member_function.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
+#include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/unregister/base_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/type_traits/generate_has_member_function.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <X11/extensions/XInput2.h>
+#include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

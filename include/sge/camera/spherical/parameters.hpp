@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_SPHERICAL_PARAMETERS_HPP_INCLUDED
 #define SGE_CAMERA_SPHERICAL_PARAMETERS_HPP_INCLUDED
 
-#include <sge/camera/spherical/movement_speed.hpp>
 #include <sge/camera/gizmo_type.hpp>
 #include <sge/camera/projection/object.hpp>
+#include <sge/camera/spherical/movement_speed.hpp>
 #include <sge/camera/spherical/parameters_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/nonassignable.hpp>
+
 
 namespace sge
 {

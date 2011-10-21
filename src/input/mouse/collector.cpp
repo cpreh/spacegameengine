@@ -18,25 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/mouse/collector.hpp>
+#include <sge/input/processor_fwd.hpp>
+#include <sge/input/info/name.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/input/mouse/axis_info_container.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
 #include <sge/input/mouse/button_info_container.hpp>
+#include <sge/input/mouse/collector.hpp>
 #include <sge/input/mouse/device_ptr.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/info.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
-#include <sge/input/info/name.hpp>
-#include <sge/input/processor_fwd.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/text.hpp>
+
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)

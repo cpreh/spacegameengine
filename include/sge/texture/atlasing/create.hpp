@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_ATLASING_CREATE_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_CREATE_HPP_INCLUDED
 
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
-#include <sge/image/color/format.hpp>
+
 
 namespace sge
 {

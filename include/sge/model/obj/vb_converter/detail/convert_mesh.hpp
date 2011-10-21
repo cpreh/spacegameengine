@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_VB_CONVERTER_DETAIL_CONVERT_MESH_HPP_INCLUDED
 #define SGE_MODEL_OBJ_VB_CONVERTER_DETAIL_CONVERT_MESH_HPP_INCLUDED
 
-#include <sge/model/obj/vb_converter/detail/convert_face.hpp>
-#include <sge/model/obj/mesh.hpp>
+#include <sge/model/obj/face.hpp>
 #include <sge/model/obj/face_sequence.hpp>
 #include <sge/model/obj/instance_fwd.hpp>
-#include <sge/model/obj/face.hpp>
+#include <sge/model/obj/mesh.hpp>
+#include <sge/model/obj/vb_converter/detail/convert_face.hpp>
+
 
 namespace sge
 {

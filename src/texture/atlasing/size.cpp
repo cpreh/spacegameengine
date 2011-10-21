@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/atlasing/size.hpp>
-#include <sge/texture/atlasing/need.hpp>
 #include <sge/texture/atlasing/gap.hpp>
+#include <sge/texture/atlasing/need.hpp>
+#include <sge/texture/atlasing/size.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+
 
 sge::renderer::size_type
 sge::texture::atlasing::size(

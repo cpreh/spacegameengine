@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
+
 sge::opengl::vf::actor_ptr
 sge::opengl::vf::to_actor(
 	renderer::vf::dynamic::ordered_element const &_element,

@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_VISIBLE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VISIBLE_HPP_INCLUDED
 
-#include <sge/sprite/with_visibility.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/with_visibility.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

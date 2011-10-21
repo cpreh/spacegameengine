@@ -25,11 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/symbol.hpp>
 #include <sge/projectile/shape/base.hpp>
 #include <sge/projectile/shape/triangle_set.hpp>
-#include <sge/projectile/symbol.hpp>
-#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/container/raw_vector.hpp>
+
 
 class btCollisionShape;
 class btTriangleIndexVertexArray;

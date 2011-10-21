@@ -24,11 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../readonly_lock.hpp"
 #include "../readwrite_lock.hpp"
 #include "../writeonly_lock.hpp"
-#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/assert/unreachable.hpp>
+
 
 sge::opengl::texture::lock_base_unique_ptr
 sge::opengl::texture::create_lock(

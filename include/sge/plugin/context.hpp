@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_CONTEXT_HPP_INCLUDED
 #define SGE_PLUGIN_CONTEXT_HPP_INCLUDED
 
-#include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/context_base_fwd.hpp>
+#include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/instantiate_symbol.hpp>
 #include <sge/plugin/object_fwd.hpp>
 #include <fcppt/shared_ptr.hpp>
+
 
 namespace sge
 {

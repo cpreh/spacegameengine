@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_WINDOW_HPP_INCLUDED
 #define SGE_SYSTEMS_WINDOW_HPP_INCLUDED
 
-#include <sge/window/simple_parameters.hpp>
 #include <sge/systems/symbol.hpp>
 #include <sge/systems/wrapped_window.hpp>
+#include <sge/window/simple_parameters.hpp>
 #include <awl/mainloop/io_service_shared_ptr.hpp>
 #include <awl/window/event/processor_shared_ptr.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

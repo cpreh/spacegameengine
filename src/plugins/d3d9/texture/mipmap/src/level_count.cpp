@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
+
 UINT
 sge::d3d9::texture::mipmap::level_count(
 	sge::renderer::texture::mipmap::object const &_object

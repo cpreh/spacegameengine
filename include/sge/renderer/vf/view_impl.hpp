@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_VIEW_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_VF_VIEW_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/vf/view_decl.hpp>
 #include <sge/renderer/vf/iterator_impl.hpp>
+#include <sge/renderer/vf/view_decl.hpp>
 #include <sge/renderer/vf/dynamic/basic_view.hpp>
+
 
 template<
 	typename Part,

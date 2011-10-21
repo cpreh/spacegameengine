@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_LOCK_BASE_HPP_INCLUDED
 
 #include "lock_base_fwd.hpp"
-#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

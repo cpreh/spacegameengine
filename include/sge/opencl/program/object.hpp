@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_PROGRAM_OBJECT_HPP_INCLUDED
 #define SGE_OPENCL_PROGRAM_OBJECT_HPP_INCLUDED
 
-#include <sge/opencl/context/object_fwd.hpp>
-#include <sge/opencl/symbol.hpp>
-#include <sge/opencl/kernel/object_fwd.hpp>
-#include <sge/opencl/program/device_blob_map.hpp>
-#include <sge/opencl/program/optional_build_parameters.hpp>
-#include <sge/opencl/program/build_parameters_fwd.hpp>
-#include <sge/opencl/program/notification_callback.hpp>
-#include <sge/opencl/program/source_string_sequence.hpp>
 #include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/context/object_fwd.hpp>
+#include <sge/opencl/kernel/object_fwd.hpp>
+#include <sge/opencl/program/build_parameters_fwd.hpp>
+#include <sge/opencl/program/device_blob_map.hpp>
+#include <sge/opencl/program/notification_callback.hpp>
+#include <sge/opencl/program/optional_build_parameters.hpp>
+#include <sge/opencl/program/source_string_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
+
 
 namespace sge
 {

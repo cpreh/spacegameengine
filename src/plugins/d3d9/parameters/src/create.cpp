@@ -32,9 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vsync.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/backends/windows/window/instance.hpp>
+#include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/dynamic_pointer_cast.hpp>
+
 
 D3DPRESENT_PARAMETERS const
 sge::d3d9::parameters::create(

@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_SUB_DATA_HPP_INCLUDED
 #define SGE_TEXTURE_SUB_DATA_HPP_INCLUDED
 
+#include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/pos_type.hpp>
 #include <sge/texture/symbol.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/image2d/view/const_object_fwd.hpp>
+
 
 namespace sge
 {

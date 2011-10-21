@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_DYNAMIC_COLOR_CHANNEL_INDEX_HPP_INCLUDED
 #define SGE_IMAGE_DYNAMIC_COLOR_CHANNEL_INDEX_HPP_INCLUDED
 
+#include <mizuiro/size_type.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <mizuiro/color/channel/blue.hpp>
 #include <mizuiro/color/channel/green.hpp>
 #include <mizuiro/color/channel/luminance.hpp>
 #include <mizuiro/color/channel/red.hpp>
-#include <mizuiro/size_type.hpp>
+
 
 namespace sge
 {

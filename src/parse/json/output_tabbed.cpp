@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/output_tabbed.hpp>
-#include <sge/parse/json/exception.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/string.hpp>
-#include <sge/parse/json/null.hpp>
-#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/null.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/output_tabbed.hpp>
+#include <sge/parse/json/string.hpp>
 #include <sge/parse/json/value.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/insert_to_string.hpp>
@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_code.hpp>
 #include <fcppt/container/map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <map>
 #include <CEGUIBase.h>
+#include <map>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

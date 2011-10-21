@@ -21,22 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_X11INPUT_PROCESSOR_HPP_INCLUDED
 
-#include <sge/x11input/create_parameters_fwd.hpp>
-#include <sge/x11input/input_context_fwd.hpp>
-#include <sge/x11input/input_method_fwd.hpp>
-#include <sge/x11input/pixmap.hpp>
-#include <sge/x11input/xi_2_1.hpp>
-#include <sge/x11input/cursor/object_ptr.hpp>
-#include <sge/x11input/cursor/pixmap.hpp>
-#include <sge/x11input/device/hierarchy_demuxer.hpp>
-#include <sge/x11input/device/hierarchy_event_fwd.hpp>
-#include <sge/x11input/device/parameters_fwd.hpp>
-#include <sge/x11input/device/raw_demuxer.hpp>
-#include <sge/x11input/device/window_demuxer.hpp>
-#include <sge/x11input/device/manager/object.hpp>
-#include <sge/x11input/joypad/device_ptr.hpp>
-#include <sge/x11input/keyboard/device_ptr.hpp>
-#include <sge/x11input/mouse/device_ptr.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
@@ -59,20 +43,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_signal.hpp>
 #include <sge/window/instance_ptr.hpp>
+#include <sge/x11input/create_parameters_fwd.hpp>
+#include <sge/x11input/input_context_fwd.hpp>
+#include <sge/x11input/input_method_fwd.hpp>
+#include <sge/x11input/pixmap.hpp>
+#include <sge/x11input/xi_2_1.hpp>
+#include <sge/x11input/cursor/object_ptr.hpp>
+#include <sge/x11input/cursor/pixmap.hpp>
+#include <sge/x11input/device/hierarchy_demuxer.hpp>
+#include <sge/x11input/device/hierarchy_event_fwd.hpp>
+#include <sge/x11input/device/parameters_fwd.hpp>
+#include <sge/x11input/device/raw_demuxer.hpp>
+#include <sge/x11input/device/window_demuxer.hpp>
+#include <sge/x11input/device/manager/object.hpp>
+#include <sge/x11input/joypad/device_ptr.hpp>
+#include <sge/x11input/keyboard/device_ptr.hpp>
+#include <sge/x11input/mouse/device_ptr.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
+#include <awl/backends/x11/window/instance_shared_ptr.hpp>
 #include <awl/backends/x11/window/event/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
-#include <awl/backends/x11/window/instance_shared_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

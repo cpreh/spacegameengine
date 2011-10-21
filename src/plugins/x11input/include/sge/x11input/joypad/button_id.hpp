@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_JOYPAD_BUTTON_ID_HPP_INCLUDED
 #define SGE_X11INPUT_JOYPAD_BUTTON_ID_HPP_INCLUDED
 
-#include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/input/joypad/button_id.hpp>
+#include <sge/x11input/device/window_event_fwd.hpp>
+
 
 namespace sge
 {

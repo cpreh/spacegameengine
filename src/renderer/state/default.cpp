@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/colors.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/renderer/state/var.hpp>
+
 
 sge::renderer::state::list const
 sge::renderer::state::default_()

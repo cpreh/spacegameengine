@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_AXIS_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_AXIS_HPP_INCLUDED
 
+#include <sge/input/symbol.hpp>
+#include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/mouse/axis_fwd.hpp>
 #include <sge/input/mouse/axis_id.hpp>
-#include <sge/input/mouse/axis_code.hpp>
-#include <sge/input/symbol.hpp>
+
 
 namespace sge
 {

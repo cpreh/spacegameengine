@@ -26,15 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../instantiate.hpp"
 #include "../../../check_state.hpp"
 #include "../../../common.hpp"
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/glsl/exception.hpp>
 #include <sge/renderer/glsl/uniform/float_value.hpp>
 #include <sge/renderer/glsl/uniform/int_value.hpp>
 #include <sge/renderer/glsl/uniform/value.hpp>
-#include <sge/renderer/glsl/exception.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/text.hpp>
+
 
 namespace
 {

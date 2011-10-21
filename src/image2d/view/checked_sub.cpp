@@ -20,10 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../image/view/checked_sub_impl.hpp"
 #include "../../image/view/instantiate_checked_sub.hpp"
+#include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/checked_sub.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/image2d/tag.hpp>
+
 
 sge::image2d::view::object const
 sge::image2d::view::checked_sub(

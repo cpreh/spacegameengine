@@ -18,36 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/config/merge_command_line_parameters.hpp>
-#include <sge/parse/json/config/help_needed_exception.hpp>
-#include <sge/parse/json/config/command_line_parameters.hpp>
-#include <sge/parse/json/string_to_value.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/member_vector.hpp>
-#include <sge/parse/json/find_member_exn.hpp>
-#include <sge/parse/json/member_name_equal.hpp>
-#include <sge/parse/json/string_to_value.hpp>
-#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/parse/json/find_member_exn.hpp>
+#include <sge/parse/json/member_name_equal.hpp>
+#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/string_to_value.hpp>
+#include <sge/parse/json/config/command_line_parameters.hpp>
+#include <sge/parse/json/config/help_needed_exception.hpp>
+#include <sge/parse/json/config/merge_command_line_parameters.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/algorithm/shortest_levenshtein.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/algorithm/shortest_levenshtein.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
-#include <boost/spirit/include/qi.hpp>
 #include <boost/range/numeric.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
-#include <vector>
+#include <boost/spirit/include/qi.hpp>
 #include <algorithm>
 #include <iostream>
 #include <ostream>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

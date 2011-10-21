@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_GIZMO_TO_ROTATION_MATRIX_HPP_INCLUDED
 
 #include <sge/camera/gizmo/basic.hpp>
-#include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/static.hpp>
+
 
 namespace sge
 {

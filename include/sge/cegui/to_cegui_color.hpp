@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_TO_CEGUI_COLOR_HPP_INCLUDED
 #define SGE_CEGUI_TO_CEGUI_COLOR_HPP_INCLUDED
 
-#include <sge/image/color/any/object_fwd.hpp>
 #include <sge/cegui/symbol.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUIcolour.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

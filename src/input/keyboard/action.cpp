@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/key_event.hpp>
 #include <fcppt/nonassignable.hpp>
+
 
 namespace
 {

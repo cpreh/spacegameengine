@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_BAD_SOUND_ALLOC_HPP_INCLUDED
 #define SGE_AUDIO_BAD_SOUND_ALLOC_HPP_INCLUDED
 
+#include <sge/class_symbol.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/symbol.hpp>
-#include <sge/class_symbol.hpp>
 #include <fcppt/string.hpp>
+
 
 namespace sge
 {

@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_VF_TO_STRING_HPP_INCLUDED
 #define SGE_SHADER_VF_TO_STRING_HPP_INCLUDED
 
-#include <sge/shader/detail/all_parts.hpp>
 #include <sge/shader/format_printer.hpp>
 #include <sge/shader/vertex_format_string.hpp>
+#include <sge/shader/detail/all_parts.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

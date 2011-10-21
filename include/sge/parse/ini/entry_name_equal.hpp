@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_ENTRY_NAME_EQUAL_HPP_INCLUDED
 #define SGE_PARSE_INI_ENTRY_NAME_EQUAL_HPP_INCLUDED
 
+#include <sge/parse/symbol.hpp>
 #include <sge/parse/ini/entry_fwd.hpp>
 #include <sge/parse/ini/string.hpp>
-#include <sge/parse/symbol.hpp>
+
 
 namespace sge
 {

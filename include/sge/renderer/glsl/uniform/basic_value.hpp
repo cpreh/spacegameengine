@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_BASIC_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_BASIC_VALUE_HPP_INCLUDED
 
-#include <sge/renderer/glsl/uniform/basic_value_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/glsl/uniform/basic_value_fwd.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
+
 
 namespace sge
 {

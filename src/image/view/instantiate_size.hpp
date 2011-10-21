@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/dim.hpp>
 #include <fcppt/export_symbol.hpp>
 
+
 #define SGE_IMAGE_VIEW_INSTANTIATE_SIZE_BASE(\
 	tag,\
 	view_type\

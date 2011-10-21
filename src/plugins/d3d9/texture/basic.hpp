@@ -28,16 +28,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../resource.hpp"
 #include "../state/address_mode_fwd.hpp"
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/texture/capabilities_field.hpp>
-#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/stage.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr.hpp>
+
 
 namespace sge
 {

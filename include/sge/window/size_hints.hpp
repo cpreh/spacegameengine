@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_SIZE_HINTS_HPP_INCLUDED
 #define SGE_WINDOW_SIZE_HINTS_HPP_INCLUDED
 
-#include <sge/window/size_hints_fwd.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/optional_dim.hpp>
+#include <sge/window/size_hints_fwd.hpp>
 #include <sge/window/symbol.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 namespace sge
 {

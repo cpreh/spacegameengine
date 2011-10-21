@@ -25,9 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "device_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
 #include <utility>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VORBIS_LOADER_HPP_INCLUDED
 #define SGE_VORBIS_LOADER_HPP_INCLUDED
 
-#include <sge/audio/loader.hpp>
-#include <sge/audio/file_ptr.hpp>
-#include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/const_raw_range.hpp>
 #include <sge/optional_extension.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/loader.hpp>
+#include <sge/audio/loader_capabilities_field.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
+
 
 namespace sge
 {

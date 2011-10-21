@@ -20,17 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../handle_error.hpp"
 #include "../to_opencl_mem_flags.hpp"
+#include <sge/opencl/context/object.hpp>
+#include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/opencl/memory_object/image/planar.hpp>
-#include <sge/opencl/context/object.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl_gl.h>
 #include <fcppt/config/external_end.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/text.hpp>
+
 
 sge::opencl::memory_object::image::planar::planar(
 	context::object &_context,
@@ -91,7 +92,7 @@ sge::opencl::memory_object::image::planar::planar(
 		error_code,
 		FCPPT_TEXT("clCreateFromGLTexture2D()"));
 
-	error_code = 
+	error_code =
 		clGetImageInfo(
 			impl_,
 			CL_IMAGE_FORMAT,

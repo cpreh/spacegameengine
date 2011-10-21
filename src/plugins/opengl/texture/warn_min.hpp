@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_WARN_MIN_HPP_INCLUDED
 
 #include <sge/log/global.hpp>
-#include <fcppt/log/warning.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
+
 
 namespace sge
 {

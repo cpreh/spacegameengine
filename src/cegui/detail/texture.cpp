@@ -19,41 +19,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../declare_local_logger.hpp"
-#include <sge/cegui/detail/texture.hpp>
-#include <sge/cegui/system.hpp>
-#include <sge/cegui/unit.hpp>
 #include <sge/cegui/exception.hpp>
 #include <sge/cegui/structure_cast.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/capabilities_field.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/cegui/system.hpp>
+#include <sge/cegui/unit.hpp>
+#include <sge/cegui/detail/texture.hpp>
+#include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/image2d/view/size.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image/const_raw_pointer.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/from_std_string.hpp>
-// FFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUU
-#include <fcppt/optional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIResourceProvider.h>
 #include <CEGUIImageCodec.h>
+#include <CEGUIResourceProvider.h>
 #include <fcppt/config/external_end.hpp>
+
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("texture"))

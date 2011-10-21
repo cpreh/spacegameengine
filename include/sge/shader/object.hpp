@@ -21,29 +21,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_OBJECT_HPP_INCLUDED
 #define SGE_SHADER_OBJECT_HPP_INCLUDED
 
-#include <sge/shader/symbol.hpp>
-#include <sge/shader/matrix_flags.hpp>
-#include <sge/shader/activation_method_field.hpp>
-#include <sge/shader/value_variant.hpp>
-#include <sge/shader/sampler_sequence.hpp>
-#include <sge/shader/object_parameters_fwd.hpp>
-#include <sge/shader/texture_variant.hpp>
-#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
-#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
-#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
-#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
 #include <sge/renderer/glsl/scoped_attachment_fwd.hpp>
-#include <fcppt/tr1/unordered_map.hpp>
+#include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
+#include <sge/shader/activation_method_field.hpp>
+#include <sge/shader/matrix_flags.hpp>
+#include <sge/shader/object_parameters_fwd.hpp>
+#include <sge/shader/sampler_sequence.hpp>
+#include <sge/shader/symbol.hpp>
+#include <sge/shader/texture_variant.hpp>
+#include <sge/shader/value_variant.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/tr1/unordered_map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

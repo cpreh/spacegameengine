@@ -18,6 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/camera/duration.hpp>
+#include <sge/camera/spherical/object.hpp>
+#include <sge/camera/spherical/parameters.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/pi.hpp>
@@ -28,18 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <sge/camera/duration.hpp>
-#include <sge/camera/spherical/object.hpp>
-#include <sge/camera/spherical/parameters.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/keyboard/key_event.hpp>
-#include <sge/renderer/scalar.hpp>
-#include <sge/renderer/vector2.hpp>
-#include <sge/renderer/vector3.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

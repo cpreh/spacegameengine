@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../d3dinclude.hpp"
 #include "../lock_flags.hpp"
 #include "../optional_lock_rect.hpp"
-#include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/cube_side.hpp>
+
 
 namespace sge
 {

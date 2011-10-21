@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/mouse/button_code_to_string.hpp>
 #include <sge/input/mouse/button_code.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/input/mouse/button_code_to_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/assert/unreachable.hpp>
+
 
 fcppt::string const
 sge::input::mouse::button_code_to_string(

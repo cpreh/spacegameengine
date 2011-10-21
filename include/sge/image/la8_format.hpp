@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_LA8_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_LA8_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/la8_format.hpp>
 #include <sge/image/basic_format.hpp>
 #include <sge/image/size_type.hpp>
+#include <sge/image/color/la8_format.hpp>
+
 
 namespace sge
 {

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
+
 sge::opengl::vf::part::part(
 	sge::opengl::context::object &_context,
 	renderer::vf::dynamic::part const &_part,

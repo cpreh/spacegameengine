@@ -25,14 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "program_holder.hpp"
 #include "shader_base_fwd.hpp"
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
+#include <sge/renderer/stage.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/shader_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/stage.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
+
 
 namespace sge
 {
