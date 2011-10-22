@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_REMAINING_HPP_INCLUDED
 
 #include <sge/timer/basic.hpp>
+#include <sge/timer/elapsed.hpp>
 #include <fcppt/chrono/duration_arithmetic.hpp>
 
 

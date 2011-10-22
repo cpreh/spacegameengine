@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_SET_TEXTURES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_SET_TEXTURES_HPP_INCLUDED
 
+#include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/detail/apply_texture_levels.hpp>
 #include <sge/sprite/detail/set_texture_level.hpp>

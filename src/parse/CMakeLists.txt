@@ -2,7 +2,6 @@ SET(
 	SGE_PARSE_FILES
 	include/sge/parse/encoding.hpp
 	include/sge/parse/exception.hpp
-	include/sge/parse/failure.hpp
 	include/sge/parse/info_to_string.hpp
 	include/sge/parse/ini/detail/adapt_entry.hpp
 	include/sge/parse/ini/detail/adapt_section.hpp

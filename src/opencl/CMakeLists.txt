@@ -59,6 +59,7 @@ SET(
 	include/sge/opencl/memory_object/rect.hpp
 	include/sge/opencl/memory_object/renderer_buffer_lock_mode.hpp
 	include/sge/opencl/memory_object/scoped_objects.hpp
+	include/sge/opencl/memory_object/size_type.hpp
 	include/sge/opencl/opencl.hpp
 	include/sge/opencl/optional_renderer.hpp
 	include/sge/opencl/platform/object.hpp

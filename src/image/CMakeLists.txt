@@ -111,7 +111,6 @@ SET(
 	include/sge/image/view/view.hpp
 	include/sge/image/view/wrap.hpp
 	include/sge/image/view/wrapped_type.hpp
-	include/sge/image/xrgb8_format.hpp
 	src/image/algorithm/copy_and_convert_impl.hpp
 	src/image/algorithm/copy_and_convert_visitor.hpp
 	src/image/algorithm/fill_impl.hpp

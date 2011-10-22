@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <majutsu/size_type.hpp>
 #include <majutsu/concepts/static_size.hpp>
+#include <majutsu/concepts/dynamic_memory/tag.hpp>
 
 
 namespace majutsu
@@ -43,7 +44,7 @@ needed_size(
 	return
 		needed_size(
 			static_cast<
-				tag const *
+				dynamic_memory::tag const *
 			>(0),
 			static_cast<
 				Element const *

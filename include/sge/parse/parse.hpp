@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/encoding.hpp>
 #include <sge/parse/exception.hpp>
-#include <sge/parse/failure.hpp>
 #include <sge/parse/info_to_string.hpp>
 #include <sge/parse/symbol.hpp>
 #include <sge/parse/ini/ini.hpp>

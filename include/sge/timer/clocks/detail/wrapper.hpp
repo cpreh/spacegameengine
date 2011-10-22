@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/clocks/is_stateful.hpp>
 #include <sge/timer/clocks/detail/stateful_base.hpp>
 #include <sge/timer/clocks/detail/stateless_base.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge

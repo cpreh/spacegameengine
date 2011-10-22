@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_FILL_UNSPECIFIED_HPP_INCLUDED
 
 #include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/with_unspecified_dim.hpp>
 #include <sge/sprite/detail/vertex_unspecified_dim.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/contains.hpp>
