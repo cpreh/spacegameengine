@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "la8_format.hpp"
-#include "available_channels.hpp"
-#include "c8_2_format.hpp"
+#include <sge/src/image/dynamic/color/available_channels.hpp>
+#include <sge/src/image/dynamic/color/c8_2_format.hpp>
+#include <sge/src/image/dynamic/color/la8_format.hpp>
 #include <fcppt/assign/make_array.hpp>
+
 
 sge::image::dynamic::color::c8_2_format const
 sge::image::dynamic::color::la8_format(

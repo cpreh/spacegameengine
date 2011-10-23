@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/to_const_impl.hpp"
-#include "../../image/view/instantiate_to_const.hpp"
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/to_const.hpp>
+#include <sge/src/image/view/to_const_impl.hpp>
+#include <sge/src/image/view/instantiate_to_const.hpp>
 
 
 sge::image2d::view::const_object const
@@ -39,6 +39,6 @@ sge::image2d::view::to_const(
 		);
 }
 
-SGE_IMAGE_VIEW_INSTANTIATE_TO_CONST(
+SGE_SRC_IMAGE_VIEW_INSTANTIATE_TO_CONST(
 	sge::image2d::tag
 )

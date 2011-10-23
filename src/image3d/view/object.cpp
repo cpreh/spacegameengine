@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/instantiate_object.hpp"
+#define SGE_IMAGE_INSTANTIATE_EXPORTS
+
 #include <sge/image3d/view/elements_wrapper.hpp>
 #include <sge/image3d/view/object.hpp>
+#include <sge/src/image/view/instantiate_object.hpp>
 
-SGE_IMAGE_VIEW_INSTANTIATE_OBJECT(
+
+SGE_SRC_IMAGE_VIEW_INSTANTIATE_OBJECT(
 	sge::image3d::view::elements_wrapper
 )

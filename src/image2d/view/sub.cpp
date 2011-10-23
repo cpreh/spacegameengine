@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/sub_impl.hpp"
-#include "../../image/view/instantiate_sub.hpp"
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
+#include <sge/src/image/view/sub_impl.hpp>
+#include <sge/src/image/view/instantiate_sub.hpp>
 
 
 sge::image2d::view::object const
@@ -56,6 +56,6 @@ sge::image2d::view::sub(
 		);
 }
 
-SGE_IMAGE_VIEW_INSTANTIATE_SUB(
+SGE_SRC_IMAGE_VIEW_INSTANTIATE_SUB(
 	sge::image2d::tag
 )

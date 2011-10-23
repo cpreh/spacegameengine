@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "bgr32f_format.hpp"
-#include "available_channels.hpp"
-#include "c32f_3_format.hpp"
+#include <sge/src/image/dynamic/color/available_channels.hpp>
+#include <sge/src/image/dynamic/color/bgr32f_format.hpp>
+#include <sge/src/image/dynamic/color/c32f_3_format.hpp>
 #include <fcppt/assign/make_array.hpp>
+
 
 sge::image::dynamic::color::c32f_3_format const
 sge::image::dynamic::color::bgr32f_format(

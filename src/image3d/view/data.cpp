@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/data_impl.hpp"
-#include "../../image/view/instantiate_data.hpp"
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/data.hpp>
 #include <sge/image3d/view/object.hpp>
+#include <sge/src/image/view/data_impl.hpp>
+#include <sge/src/image/view/instantiate_data.hpp>
 
 
 sge::image::raw_pointer
@@ -52,6 +52,6 @@ sge::image3d::view::data(
 		);
 }
 
-SGE_IMAGE_VIEW_INSTANTIATE_DATA(
+SGE_SRC_IMAGE_VIEW_INSTANTIATE_DATA(
 	sge::image3d::tag
 )

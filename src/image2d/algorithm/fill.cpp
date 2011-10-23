@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/algorithm/fill_impl.hpp"
-#include "../../image/algorithm/instantiate_fill.hpp"
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <sge/src/image/algorithm/fill_impl.hpp>
+#include <sge/src/image/algorithm/instantiate_fill.hpp>
 
 
 void
@@ -39,6 +39,6 @@ sge::image2d::algorithm::fill(
 	);
 }
 
-SGE_IMAGE_ALGORITHM_INSTANTIATE_FILL(
+SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_FILL(
 	sge::image2d::tag
 )

@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/flipped_impl.hpp"
-#include "../../image/view/instantiate_flipped.hpp"
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/flipped.hpp>
 #include <sge/image3d/view/object.hpp>
+#include <sge/src/image/view/flipped_impl.hpp>
+#include <sge/src/image/view/instantiate_flipped.hpp>
 
 
 sge::image3d::view::object const
@@ -52,6 +52,6 @@ sge::image3d::view::flipped(
 		);
 }
 
-SGE_IMAGE_VIEW_INSTANTIATE_FLIPPED(
+SGE_SRC_IMAGE_VIEW_INSTANTIATE_FLIPPED(
 	sge::image3d::tag
 )

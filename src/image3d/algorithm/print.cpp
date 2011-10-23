@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/algorithm/print_impl.hpp"
-#include "../../image/algorithm/instantiate_print.hpp"
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/algorithm/print.hpp>
 #include <sge/image3d/view/const_object.hpp>
+#include <sge/src/image/algorithm/print_impl.hpp>
+#include <sge/src/image/algorithm/instantiate_print.hpp>
 
 
 void
@@ -39,6 +39,6 @@ sge::image3d::algorithm::print(
 	);
 }
 
-SGE_IMAGE_ALGORITHM_INSTANTIATE_PRINT(
+SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_PRINT(
 	sge::image3d::tag
 )

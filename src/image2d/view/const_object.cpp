@@ -18,12 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/instantiate_const_object.hpp"
+#define SGE_IMAGE_INSTANTIATE_EXPORTS
+
 #include <sge/image2d/view/const_elements_wrapper.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/elements_wrapper_fwd.hpp>
+#include <sge/src/image/view/instantiate_const_object.hpp>
 
-SGE_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT(
+
+SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT(
 	sge::image2d::view::const_elements_wrapper,
 	sge::image2d::view::elements_wrapper
 )

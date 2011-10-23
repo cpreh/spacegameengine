@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/instantiate_sub_out_of_range.hpp"
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/sub_out_of_range.hpp>
+#include <sge/src/image/view/instantiate_sub_out_of_range.hpp>
 
 
-SGE_IMAGE_VIEW_INSTANTIATE_SUB_OUT_OF_RANGE(
+SGE_SRC_IMAGE_VIEW_INSTANTIATE_SUB_OUT_OF_RANGE(
 	sge::image2d::tag
 )

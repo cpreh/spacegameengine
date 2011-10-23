@@ -61,7 +61,13 @@ SET(
 	src/image3d/view/to_const.cpp
 )
 
-INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/include)
+INCLUDE_DIRECTORIES(
+	${CMAKE_SOURCE_DIR}/src/image/include
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_BINARY_DIR}/src/image/include
+)
 
 ADD_SGE_BASE_LIBRARY(
 	image3d
