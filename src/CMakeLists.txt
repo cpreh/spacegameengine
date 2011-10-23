@@ -64,13 +64,15 @@ SET(
 	SGE_CORE_SRC_FILES
 	src/all_extensions.cpp
 	src/exception.cpp
-	src/instantiate_multi_loader.hpp
 	src/loaders_exhausted.cpp
 	src/log/default_parameters.cpp
 	src/log/global.cpp
 	src/log/global_context.cpp
 	src/log/location.cpp
-	src/multi_loader_impl.hpp
+)
+
+INCLUDE_DIRECTORIES(
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
 FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(

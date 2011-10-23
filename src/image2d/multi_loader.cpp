@@ -24,9 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/loader.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/plugin.hpp>
-
-
-#include "../instantiate_multi_loader.hpp"
+#include <sge/src/instantiate_multi_loader.hpp>
 
 SGE_INSTANTIATE_MULTI_LOADER(
 	sge::image2d::loader,

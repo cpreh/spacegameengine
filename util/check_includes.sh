@@ -4,7 +4,7 @@ INCLUDE_BINARY="check_includes"
 
 "${INCLUDE_BINARY}" include || exit
 
-"${INCLUDE_BINARY}" src SGE_ | grep -v plugins || exit
+"${INCLUDE_BINARY}" src/include || exit
 
 "${INCLUDE_BINARY}" src/plugins SGE_  | grep -v X11INPUT || exit
 
