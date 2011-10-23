@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_OBJECT_HPP_INCLUDED
 
-#include <sge/image/instantiate_symbol.hpp>
+#include <sge/image/detail/instantiate_symbol.hpp>
 #include <sge/image/view/object_fwd.hpp>
 #include <fcppt/variant/object_decl.hpp>
 
@@ -43,26 +43,26 @@ public:
 		typename ElementsWrapper::type
 	> variant;
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	explicit object(
 		variant const &
 	);
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	object(
 		object const &
 	);
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	object &
 	operator=(
 		object const &
 	);
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	~object();
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	variant const &
 	get() const;
 private:

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_STORE_HPP_INCLUDED
 
 #include <sge/image/dim.hpp>
-#include <sge/image/instantiate_symbol.hpp>
 #include <sge/image/store_fwd.hpp>
+#include <sge/image/detail/instantiate_symbol.hpp>
 #include <sge/image/view/mizuiro_access.hpp>
 #include <sge/image/view/wrapped_type.hpp>
 #include <mizuiro/image/raw_view.hpp>
@@ -65,53 +65,53 @@ public:
 		const_view_type
 	>::type const_wrapped_view_type;
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	store();
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	explicit store(
 		dim const &
 	);
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	store(
 		store const &
 	);
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	store &
 	operator=(
 		store const &
 	);
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	~store();
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	pointer
 	data();
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	const_pointer
 	data() const;
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	view_type const
 	view();
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	const_view_type const
 	view() const;
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	wrapped_view_type const
 	wrapped_view();
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	const_wrapped_view_type const
 	wrapped_view() const;
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	dim const
 	size() const;
 private:

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/image/exception.hpp>
-#include <sge/image/instantiate_symbol.hpp>
+#include <sge/image/detail/instantiate_symbol.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
 
@@ -42,21 +42,21 @@ class SGE_CLASS_SYMBOL sub_out_of_range
 	public sge::image::exception
 {
 public:
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	sub_out_of_range(
 		Box const &outer,
 		Box const &inner
 	);
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	Box const &
 	outer() const;
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	Box const &
 	inner() const;
 
-	SGE_IMAGE_INSTANTIATE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	virtual ~sub_out_of_range() throw();
 private:
 	Box

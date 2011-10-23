@@ -83,6 +83,10 @@ SET(
 	src/image2d/view/to_const.cpp
 )
 
+ADD_DEFINITIONS(
+	"-D SGE_IMAGE_INSTANTIATE_EXPORTS"
+)
+
 INCLUDE_DIRECTORIES(
 	${CMAKE_SOURCE_DIR}/src/image/include
 )

@@ -57,13 +57,13 @@ SET(
 	include/sge/image/color/rgbx8_format.hpp
 	include/sge/image/colors.hpp
 	include/sge/image/const_raw_pointer.hpp
+	include/sge/image/detail/instantiate_symbol.hpp
 	include/sge/image/difference_type.hpp
 	include/sge/image/dim.hpp
 	include/sge/image/exception.hpp
 	include/sge/image/exception_fwd.hpp
 	include/sge/image/file_exception.hpp
 	include/sge/image/image.hpp
-	include/sge/image/instantiate_symbol.hpp
 	include/sge/image/l8_format.hpp
 	include/sge/image/la8_format.hpp
 	include/sge/image/optional_path.hpp

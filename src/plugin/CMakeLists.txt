@@ -9,12 +9,12 @@ SET(
 	include/sge/plugin/context_base_fwd.hpp
 	include/sge/plugin/context_fwd.hpp
 	include/sge/plugin/detail/address_name.hpp
+	include/sge/plugin/detail/instantiate_symbol.hpp
 	include/sge/plugin/detail/iterator_base_type.hpp
 	include/sge/plugin/detail/traits.hpp
 	include/sge/plugin/exception.hpp
 	include/sge/plugin/info.hpp
 	include/sge/plugin/info_fwd.hpp
-	include/sge/plugin/instantiate_symbol.hpp
 	include/sge/plugin/iterator.hpp
 	include/sge/plugin/iterator_fwd.hpp
 	include/sge/plugin/library/detail/interface_post.hpp

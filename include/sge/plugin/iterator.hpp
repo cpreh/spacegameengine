@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_ITERATOR_HPP_INCLUDED
 
 #include <sge/plugin/category_array.hpp>
-#include <sge/plugin/instantiate_symbol.hpp>
 #include <sge/plugin/iterator_fwd.hpp>
+#include <sge/plugin/detail/instantiate_symbol.hpp>
 #include <sge/plugin/detail/iterator_base_type.hpp>
 
 
@@ -55,36 +55,36 @@ public:
 
 	typedef typename base_type::iterator_category iterator_category;
 
-	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit iterator(
 		category_array::iterator
 	);
 
-	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	void
 	advance(
 		difference_type
 	);
 
-	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	void
 	increment();
 
-	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	void
 	decrement();
 
-	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	bool
 	equal(
 		iterator const &
 	) const;
 
-	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	reference
 	dereference() const;
 
-	SGE_PLUGIN_INSTANTIATE_SYMBOL
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	difference_type
 	distance_to(
 		iterator const &

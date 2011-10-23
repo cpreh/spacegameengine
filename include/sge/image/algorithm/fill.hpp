@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_ALGORITHM_FILL_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_FILL_HPP_INCLUDED
 
-#include <sge/image/instantiate_symbol.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image/detail/instantiate_symbol.hpp>
 #include <sge/image/traits/view.hpp>
 
 
@@ -36,7 +36,7 @@ namespace algorithm
 template<
 	typename Tag
 >
-SGE_IMAGE_INSTANTIATE_SYMBOL
+SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 void
 fill(
 	typename image::traits::view<
