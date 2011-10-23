@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_VISITOR_HPP_INCLUDED
 #define SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_VISITOR_HPP_INCLUDED
 
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/src/image/dynamic/algorithm/cac/convert.hpp>
 #include <sge/src/image/dynamic/algorithm/cac/copy.hpp>
 #include <sge/src/image/dynamic/algorithm/cac/permutate_compare.hpp>
 #include <sge/src/image/dynamic/view/color_layout.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_same.hpp>

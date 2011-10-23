@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/view/make.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/src/image/view/make_impl.hpp>
 #include <sge/src/image/view/instantiate_make.hpp>
+#include <sge/src/image/view/make_impl.hpp>
 
 
 sge::image3d::view::object const

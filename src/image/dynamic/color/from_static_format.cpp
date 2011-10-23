@@ -33,15 +33,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgbx8_format.hpp>
 #include <sge/src/image/dynamic/color/a8_format.hpp>
 #include <sge/src/image/dynamic/color/bgr32f_format.hpp>
-#include <sge/src/image/dynamic/color/bgra32f_format.hpp>
 #include <sge/src/image/dynamic/color/bgr8_format.hpp>
+#include <sge/src/image/dynamic/color/bgra32f_format.hpp>
 #include <sge/src/image/dynamic/color/bgra8_format.hpp>
 #include <sge/src/image/dynamic/color/bgrx8_format.hpp>
 #include <sge/src/image/dynamic/color/from_static_format.hpp>
 #include <sge/src/image/dynamic/color/l8_format.hpp>
 #include <sge/src/image/dynamic/color/la8_format.hpp>
-#include <sge/src/image/dynamic/color/rgb8_format.hpp>
 #include <sge/src/image/dynamic/color/rgb32f_format.hpp>
+#include <sge/src/image/dynamic/color/rgb8_format.hpp>
 #include <sge/src/image/dynamic/color/rgba32f_format.hpp>
 #include <sge/src/image/dynamic/color/rgba8_format.hpp>
 #include <sge/src/image/dynamic/color/rgbx8_format.hpp>

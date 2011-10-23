@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/algorithm/print.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/src/image/algorithm/print_impl.hpp>
 #include <sge/src/image/algorithm/instantiate_print.hpp>
+#include <sge/src/image/algorithm/print_impl.hpp>
 
 
 void

@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
 #include <sge/image3d/view/size.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/src/image/view/instantiate_size.hpp>
 #include <sge/src/image/view/size_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 
 sge::image3d::dim const

@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/store.hpp>
 #include <sge/image/view/wrap.hpp>
 #include <sge/src/image/convert_dim.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <mizuiro/image/dimension_impl.hpp>
 #include <mizuiro/image/store_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+
 
 template<
 	typename Format

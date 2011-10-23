@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_SOURCE_1_DEST_1_HPP_INCLUDED
 #define SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_SOURCE_1_DEST_1_HPP_INCLUDED
 
-#include <sge/src/image/dynamic/algorithm/cac/choose/format_has_size.hpp>
-#include <sge/src/image/dynamic/algorithm/cac/choose/no_match.hpp>
 #include <sge/src/image/dynamic/algorithm/cac/function.hpp>
 #include <sge/src/image/dynamic/algorithm/cac/source.hpp>
+#include <sge/src/image/dynamic/algorithm/cac/choose/format_has_size.hpp>
+#include <sge/src/image/dynamic/algorithm/cac/choose/no_match.hpp>
 #include <sge/src/image/dynamic/color/available_channels.hpp>
 #include <sge/src/image/dynamic/view/format_channel.hpp>
 #include <mizuiro/color/conversion/alpha_to_any.hpp>

@@ -24,20 +24,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/view/make.hpp>
-#include <sge/image/traits/view_elements.hpp>
-#include <sge/image/traits/view.hpp>
 #include <sge/image/traits/dim.hpp>
 #include <sge/image/traits/optional_pitch.hpp>
+#include <sge/image/traits/view.hpp>
+#include <sge/image/traits/view_elements.hpp>
+#include <sge/image/view/make.hpp>
 #include <sge/src/image/view/make_visitor.hpp>
-#include <fcppt/mpl/invoke_on.hpp>
 #include <mizuiro/image/is_raw_view.hpp>
+#include <fcppt/mpl/invoke_on.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/bind.hpp>
 #include <boost/mpl/filter_view.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/bind.hpp>
 #include <boost/mpl/quote.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 template<
 	typename Tag

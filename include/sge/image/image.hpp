@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/exception.hpp>
 #include <sge/image/exception_fwd.hpp>
 #include <sge/image/file_exception.hpp>
-#include <sge/image/instantiate_symbol.hpp>
 #include <sge/image/l8_format.hpp>
 #include <sge/image/la8_format.hpp>
 #include <sge/image/optional_path.hpp>

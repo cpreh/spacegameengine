@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_DYNAMIC_VIEW_FROM_STATIC_VISITOR_HPP_INCLUDED
 #define SGE_SRC_IMAGE_DYNAMIC_VIEW_FROM_STATIC_VISITOR_HPP_INCLUDED
 
+#include <sge/image/size_type.hpp>
 #include <sge/src/image/dynamic/view/basic_variant.hpp>
 #include <sge/src/image/dynamic/view/from_static.hpp>
-#include <sge/image/size_type.hpp>
 
 
 namespace sge
