@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/context/parameters.hpp>
 
+
 sge::opencl::context::parameters::parameters(
 	platform::object &_platform,
 	device::object_ref_sequence const &_device_refs)

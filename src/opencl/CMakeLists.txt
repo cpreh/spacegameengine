@@ -93,15 +93,17 @@ SET(
 	src/opencl/command_queue/scoped_planar_mapping.cpp
 	src/opencl/context/object.cpp
 	src/opencl/context/parameters.cpp
-	src/opencl/declare_local_logger.hpp
 	src/opencl/device/object.cpp
 	src/opencl/handle_error.cpp
-	src/opencl/handle_error.hpp
+	src/opencl/include/sge/src/opencl/declare_local_logger.hpp
+	src/opencl/include/sge/src/opencl/handle_error.hpp
+	src/opencl/include/sge/src/opencl/log_location.hpp
+	src/opencl/include/sge/src/opencl/logger.hpp
+	src/opencl/include/sge/src/opencl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp
+	src/opencl/include/sge/src/opencl/memory_object/to_opencl_mem_flags.hpp
 	src/opencl/kernel/object.cpp
 	src/opencl/log_location.cpp
-	src/opencl/log_location.hpp
 	src/opencl/logger.cpp
-	src/opencl/logger.hpp
 	src/opencl/memory_object/base.cpp
 	src/opencl/memory_object/buffer.cpp
 	src/opencl/memory_object/create_image_format.cpp
@@ -110,10 +112,8 @@ SET(
 	src/opencl/memory_object/image/planar.cpp
 	src/opencl/memory_object/image/read_planar.cpp
 	src/opencl/memory_object/image/sge_color_format_to_opencl.cpp
-	src/opencl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp
 	src/opencl/memory_object/scoped_objects.cpp
 	src/opencl/memory_object/to_opencl_mem_flags.cpp
-	src/opencl/memory_object/to_opencl_mem_flags.hpp
 	src/opencl/platform/object.cpp
 	src/opencl/program/build_error.cpp
 	src/opencl/program/build_parameters.cpp
@@ -121,6 +121,10 @@ SET(
 	src/opencl/single_device_system.cpp
 	src/opencl/system.cpp
 	src/opencl/version.cpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 INCLUDE_DIRECTORIES(

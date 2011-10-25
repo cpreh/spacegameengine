@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "declare_local_logger.hpp"
 #include <sge/exception.hpp>
 #include <sge/opencl/single_device_system.hpp>
 #include <sge/opencl/system.hpp>
@@ -27,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/platform/object.hpp>
+#include <sge/src/opencl/declare_local_logger.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>

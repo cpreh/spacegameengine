@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/memory_object/create_image_format.hpp>
 
+
 cl_image_format
 sge::opencl::memory_object::create_image_format(
 	cl_channel_order const co,

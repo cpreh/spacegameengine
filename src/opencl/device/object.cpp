@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../handle_error.hpp"
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/clinclude.hpp>
+#include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>

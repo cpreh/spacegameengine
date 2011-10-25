@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../handle_error.hpp"
 #include <sge/exception.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/program/object.hpp>
+#include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>

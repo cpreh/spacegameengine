@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../handle_error.hpp"
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image2d/pitch.hpp>
@@ -27,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
+#include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>

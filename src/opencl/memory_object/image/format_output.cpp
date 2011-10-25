@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
+
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_FORMAT_OUTPUT_HELPER(constant) case constant: s << #constant; break
 
 void

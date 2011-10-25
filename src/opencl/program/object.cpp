@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../handle_error.hpp"
-#include "../declare_local_logger.hpp"
 #include <sge/exception.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/program/build_error.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/program/object.hpp>
+#include <sge/src/opencl/declare_local_logger.hpp>
+#include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
