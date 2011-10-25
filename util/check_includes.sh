@@ -12,6 +12,7 @@ check_src() {
 
 check_src cegui
 check_src config
+check_src console
 check_src image
 check_src plugin
 

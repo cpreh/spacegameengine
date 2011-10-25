@@ -43,8 +43,12 @@ SET(
 	src/console/exception.cpp
 	src/console/function.cpp
 	src/console/gfx.cpp
-	src/console/next_or_last.hpp
+	src/console/include/sge/src/console/next_or_last.hpp
 	src/console/object.cpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 ADD_SGE_BASE_LIBRARY(

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "next_or_last.hpp"
 #include <sge/console/exception.hpp>
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
@@ -38,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
+#include <sge/src/console/next_or_last.hpp>
 #include <fcppt/chrono/time_point.hpp>
 #include <fcppt/container/map_impl.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>

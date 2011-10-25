@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_NEXT_OR_LAST_HPP_INCLUDED
-#define SGE_CONSOLE_NEXT_OR_LAST_HPP_INCLUDED
+#ifndef SGE_SRC_CONSOLE_NEXT_OR_LAST_HPP_INCLUDED
+#define SGE_SRC_CONSOLE_NEXT_OR_LAST_HPP_INCLUDED
 
 #include <fcppt/assert/error.hpp>
 #include <fcppt/math/is_negative.hpp>
