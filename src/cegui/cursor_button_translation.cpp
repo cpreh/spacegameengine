@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "cursor_button_translation.hpp"
-#include "cursor_button_map.hpp"
 #include <sge/input/cursor/button_code.hpp>
+#include <sge/src/cegui/cursor_button_map.hpp>
+#include <sge/src/cegui/cursor_button_translation.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUIInputEvent.h>

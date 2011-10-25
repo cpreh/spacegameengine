@@ -50,10 +50,7 @@ SET(
 	include/sge/cegui/vf/texcoord.hpp
 	include/sge/cegui/vf/vertex_view.hpp
 	include/sge/cegui/vf/vf.hpp
-	src/cegui/cursor_button_map.hpp
 	src/cegui/cursor_button_translation.cpp
-	src/cegui/cursor_button_translation.hpp
-	src/cegui/declare_local_logger.hpp
 	src/cegui/default_cursor.cpp
 	src/cegui/default_font.cpp
 	src/cegui/default_keyboard.cpp
@@ -69,12 +66,15 @@ SET(
 	src/cegui/detail/texture_target.cpp
 	src/cegui/exception.cpp
 	src/cegui/from_cegui_string.cpp
-	src/cegui/keyboard_code_map.hpp
+	src/cegui/include/sge/src/cegui/cursor_button_map.hpp
+	src/cegui/include/sge/src/cegui/cursor_button_translation.hpp
+	src/cegui/include/sge/src/cegui/declare_local_logger.hpp
+	src/cegui/include/sge/src/cegui/keyboard_code_map.hpp
+	src/cegui/include/sge/src/cegui/keyboard_code_translation.hpp
+	src/cegui/include/sge/src/cegui/log_location.hpp
 	src/cegui/keyboard_code_translation.cpp
-	src/cegui/keyboard_code_translation.hpp
 	src/cegui/load_context.cpp
 	src/cegui/log_location.cpp
-	src/cegui/log_location.hpp
 	src/cegui/logger.cpp
 	src/cegui/syringe.cpp
 	src/cegui/system.cpp
@@ -83,6 +83,10 @@ SET(
 	src/cegui/toolbox/append_row.cpp
 	src/cegui/toolbox/scoped_gui_sheet.cpp
 	src/cegui/toolbox/scoped_layout.cpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_SOURCE_DIR}/src/cegui/include
 )
 
 ADD_SGE_BASE_LIBRARY(

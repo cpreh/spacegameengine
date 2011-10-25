@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../declare_local_logger.hpp"
 #include <sge/cegui/detail/cegui_logger.hpp>
+#include <sge/src/cegui/declare_local_logger.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>

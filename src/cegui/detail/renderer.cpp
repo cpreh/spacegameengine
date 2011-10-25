@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../declare_local_logger.hpp"
 #include <sge/cegui/structure_cast.hpp>
 #include <sge/cegui/detail/geometry_buffer.hpp>
 #include <sge/cegui/detail/renderer.hpp>
@@ -40,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/src/cegui/declare_local_logger.hpp>
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>

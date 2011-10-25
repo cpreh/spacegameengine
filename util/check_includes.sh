@@ -10,6 +10,7 @@ check_src() {
 	"${INCLUDE_BINARY}" src/"$1"/include || exit
 }
 
+check_src cegui
 check_src image
 check_src plugin
 

@@ -18,17 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CEGUI_KEYBOARD_CODE_TRANSLATION_HPP_INCLUDED
-#define SGE_CEGUI_KEYBOARD_CODE_TRANSLATION_HPP_INCLUDED
+#ifndef SGE_SRC_CEGUI_LOG_LOCATION_HPP_INCLUDED
+#define SGE_SRC_CEGUI_LOG_LOCATION_HPP_INCLUDED
 
-#include "keyboard_code_map.hpp"
+#include <fcppt/log/location.hpp>
+
 
 namespace sge
 {
 namespace cegui
 {
-keyboard_code_map const &
-keyboard_code_translation();
+
+fcppt::log::location const
+log_location();
+
 }
 }
 

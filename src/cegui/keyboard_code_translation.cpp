@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "keyboard_code_translation.hpp"
-#include "keyboard_code_map.hpp"
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/src/cegui/keyboard_code_map.hpp>
+#include <sge/src/cegui/keyboard_code_translation.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUIInputEvent.h>

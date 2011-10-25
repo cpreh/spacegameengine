@@ -18,9 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "declare_local_logger.hpp"
-#include "keyboard_code_translation.hpp"
-#include "cursor_button_translation.hpp"
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/unit.hpp>
@@ -32,6 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
+#include <sge/src/cegui/cursor_button_translation.hpp>
+#include <sge/src/cegui/declare_local_logger.hpp>
+#include <sge/src/cegui/keyboard_code_translation.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>

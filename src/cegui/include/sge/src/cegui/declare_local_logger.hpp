@@ -18,18 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CEGUI_CURSOR_BUTTON_TRANSLATION_HPP_INCLUDED
-#define SGE_CEGUI_CURSOR_BUTTON_TRANSLATION_HPP_INCLUDED
+#ifndef SGE_SRC_CEGUI_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
+#define SGE_SRC_CEGUI_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
 
-#include "cursor_button_map.hpp"
+#include <sge/log/declare_local.hpp>
+#include <sge/src/cegui/log_location.hpp>
 
-namespace sge
-{
-namespace cegui
-{
-cursor_button_map const &
-cursor_button_translation();
-}
-}
+
+#define SGE_CEGUI_DECLARE_LOCAL_LOGGER(\
+	name\
+)\
+SGE_LOG_DECLARE_LOCAL(\
+	name,\
+	sge::cegui::log_location() \
+)
 
 #endif
