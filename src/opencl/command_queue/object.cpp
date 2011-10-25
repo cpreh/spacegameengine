@@ -27,19 +27,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opencl::command_queue::object::object(
-	opencl::device::object &device,
-	opencl::context::object &context,
+	opencl::device::object &_device,
+	opencl::context::object &_context,
 	command_queue::execution_mode::type const execution_mode,
 	command_queue::profiling_mode::type const profiling_mode)
 :
+	context_(
+		_context),
+	device_(
+		_device),
 	queue_()
 {
 	cl_int error_code;
 
 	queue_ =
 		clCreateCommandQueue(
-			context.context_,
-			device.device_id_,
+			context_.context_,
+			device_.device_id_,
 			(execution_mode == command_queue::execution_mode::out_of_order
 			?
 				CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE
@@ -56,6 +60,18 @@ sge::opencl::command_queue::object::object(
 	opencl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateCommandQueue"));
+}
+
+sge::opencl::context::object &
+sge::opencl::command_queue::object::context() const
+{
+	return context_;
+}
+
+sge::opencl::device::object &
+sge::opencl::command_queue::object::device() const
+{
+	return device_;
 }
 
 cl_command_queue

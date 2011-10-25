@@ -49,6 +49,12 @@ public:
 		command_queue::execution_mode::type,
 		command_queue::profiling_mode::type);
 
+	SGE_OPENCL_SYMBOL opencl::context::object &
+	context() const;
+
+	SGE_OPENCL_SYMBOL opencl::device::object &
+	device() const;
+
 	SGE_OPENCL_SYMBOL cl_command_queue
 	impl() const;
 
@@ -57,6 +63,8 @@ public:
 
 	SGE_OPENCL_SYMBOL ~object();
 private:
+	opencl::context::object &context_;
+	opencl::device::object &device_;
 	cl_command_queue queue_;
 };
 }
