@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LINE_DRAWER_VF_COLOR_HPP_INCLUDED
-#define SGE_LINE_DRAWER_VF_COLOR_HPP_INCLUDED
+#ifndef SGE_SRC_LINE_DRAWER_VF_COLOR_HPP_INCLUDED
+#define SGE_SRC_LINE_DRAWER_VF_COLOR_HPP_INCLUDED
 
 #include <sge/line_drawer/color_format.hpp>
 #include <sge/renderer/vf/color.hpp>

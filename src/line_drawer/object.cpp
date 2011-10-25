@@ -18,10 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "vf/format.hpp"
-#include "vf/position.hpp"
-#include "vf/vertex_view.hpp"
-#include "vf/color.hpp"
 #include <sge/line_drawer/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -52,6 +48,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/src/line_drawer/vf/color.hpp>
+#include <sge/src/line_drawer/vf/format.hpp>
+#include <sge/src/line_drawer/vf/position.hpp>
+#include <sge/src/line_drawer/vf/vertex_view.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 
 
