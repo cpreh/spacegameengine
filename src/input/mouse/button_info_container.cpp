@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../info/container_impl.hpp"
 #include <sge/input/mouse/button_id.hpp>
 #include <sge/input/mouse/button_info.hpp>
 #include <sge/input/mouse/button_info_container.hpp>
+#include <sge/src/input/info/container_impl.hpp>
 #include <fcppt/export_symbol.hpp>
 
 

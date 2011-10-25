@@ -16,6 +16,7 @@ check_src console
 check_src font/bitmap
 check_src font/text
 check_src image
+check_src input
 check_src plugin
 
 "${INCLUDE_BINARY}" src/plugins SGE_  | grep -v X11INPUT || exit

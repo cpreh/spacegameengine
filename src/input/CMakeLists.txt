@@ -225,7 +225,7 @@ SET(
 	src/input/cursor/relative_movement.cpp
 	src/input/cursor/remove_event.cpp
 	src/input/exception.cpp
-	src/input/info/container_impl.hpp
+	src/input/include/sge/src/input/info/container_impl.hpp
 	src/input/joypad/absolute_axis.cpp
 	src/input/joypad/absolute_axis_event.cpp
 	src/input/joypad/absolute_axis_info.cpp
@@ -277,6 +277,10 @@ SET(
 	src/input/plugin.cpp
 	src/input/processor.cpp
 	src/input/system.cpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 INCLUDE_DIRECTORIES(
