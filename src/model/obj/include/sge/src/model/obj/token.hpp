@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_BASIC_TOKENS_DECL_HPP_INCLUDED
-#define SGE_MODEL_OBJ_BASIC_TOKENS_DECL_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_TOKEN_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_TOKEN_HPP_INCLUDED
 
-#include "basic_tokens_fwd.hpp"
 #include <sge/model/obj/index.hpp>
 #include <sge/model/obj/scalar.hpp>
-#include <fcppt/char_type.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/src/model/obj/base_iterator.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/include/lex_lexertl.hpp>
-#include <boost/spirit/home/support/unused.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <boost/spirit/home/lex/lexer/terminals.hpp> // not self contained
+#include <boost/spirit/home/lex/lexer/lexertl/token.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -39,58 +39,14 @@ namespace model
 namespace obj
 {
 
-template<
-	typename Lexer
->
-struct basic_tokens
-:
-	boost::spirit::lex::lexer<
-		Lexer
-	>
-{
-	FCPPT_NONCOPYABLE(
-		basic_tokens
-	);
-public:
-	basic_tokens();
-
-	~basic_tokens();
-
-	boost::spirit::lex::token_def<
-		boost::spirit::unused_type,
-		fcppt::char_type
-	> vt_;
-
-	boost::spirit::lex::token_def<
-		boost::spirit::unused_type,
-		fcppt::char_type
-	> vn_;
-
-	boost::spirit::lex::token_def<
-		boost::spirit::unused_type,
-		fcppt::char_type
-	> mtllib_;
-
-	boost::spirit::lex::token_def<
-		boost::spirit::unused_type,
-		fcppt::char_type
-	> usemtl_;
-
-	boost::spirit::lex::token_def<
-		obj::index,
-		fcppt::char_type
-	> int_;
-
-	boost::spirit::lex::token_def<
+typedef boost::spirit::lex::lexertl::token<
+	obj::base_iterator,
+	boost::mpl::vector3<
 		obj::scalar,
-		fcppt::char_type
-	> float_;
-
-	boost::spirit::lex::token_def<
-		fcppt::string,
-		fcppt::char_type
-	> name_;
-};
+		obj::index,
+		fcppt::string
+	>
+> token;
 
 }
 }

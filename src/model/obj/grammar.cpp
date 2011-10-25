@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "grammar.hpp"
-#include "basic_grammar_impl.hpp"
-#include "iterator.hpp"
-#include "parse_state_fwd.hpp"
-#include "tokens.hpp"
+#include <sge/src/model/obj/basic_grammar_impl.hpp>
+#include <sge/src/model/obj/grammar.hpp>
+#include <sge/src/model/obj/iterator.hpp>
+#include <sge/src/model/obj/parse_state_fwd.hpp>
+#include <sge/src/model/obj/tokens.hpp>
+
 
 template class
 sge::model::obj::basic_grammar<

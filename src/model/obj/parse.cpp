@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "parse.hpp"
-#include "base_iterator.hpp"
-#include "grammar.hpp"
-#include "iterator.hpp"
-#include "tokens.hpp"
 #include <sge/model/obj/exception.hpp>
+#include <sge/src/model/obj/base_iterator.hpp>
+#include <sge/src/model/obj/grammar.hpp>
+#include <sge/src/model/obj/iterator.hpp>
+#include <sge/src/model/obj/parse.hpp>
+#include <sge/src/model/obj/parse_state_fwd.hpp>
+#include <sge/src/model/obj/tokens.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/ifstream.hpp>
 #include <fcppt/config/external_begin.hpp>

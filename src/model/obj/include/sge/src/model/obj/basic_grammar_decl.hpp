@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_BASIC_GRAMMAR_DECL_HPP_INCLUDED
-#define SGE_MODEL_OBJ_BASIC_GRAMMAR_DECL_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_BASIC_GRAMMAR_DECL_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_BASIC_GRAMMAR_DECL_HPP_INCLUDED
 
-#include "basic_grammar_fwd.hpp"
-#include "parse_state_fwd.hpp"
 #include <sge/model/obj/face_fwd.hpp>
 #include <sge/model/obj/face_point_fwd.hpp>
 #include <sge/model/obj/mesh_fwd.hpp>
 #include <sge/model/obj/normal_fwd.hpp>
 #include <sge/model/obj/texcoord_fwd.hpp>
 #include <sge/model/obj/vertex_fwd.hpp>
+#include <sge/src/model/obj/basic_grammar_fwd.hpp>
+#include <sge/src/model/obj/parse_state_fwd.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>

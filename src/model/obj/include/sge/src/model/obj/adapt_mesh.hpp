@@ -18,25 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_TOKENS_FWD_HPP_INCLUDED
-#define SGE_MODEL_OBJ_TOKENS_FWD_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_ADAPT_MESH_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_ADAPT_MESH_HPP_INCLUDED
 
-#include "basic_tokens_fwd.hpp"
-#include "lexer.hpp"
+#include <sge/model/obj/mesh.hpp>
+#include <sge/model/obj/mesh_name.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/fusion/include/adapt_struct.hpp>
+#include <fcppt/config/external_end.hpp>
 
-namespace sge
-{
-namespace model
-{
-namespace obj
-{
 
-typedef obj::basic_tokens<
-	obj::lexer
-> tokens;
-
-}
-}
-}
+BOOST_FUSION_ADAPT_STRUCT(
+	sge::model::obj::mesh,
+	(sge::model::obj::mesh_name, name_)
+)
 
 #endif

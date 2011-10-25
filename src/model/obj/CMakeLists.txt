@@ -49,39 +49,43 @@ SET(
 	include/sge/model/obj/vertex.hpp
 	include/sge/model/obj/vertex_fwd.hpp
 	include/sge/model/obj/vertex_sequence.hpp
-	src/model/obj/adapt_face.hpp
-	src/model/obj/adapt_face_point.hpp
-	src/model/obj/adapt_mesh.hpp
-	src/model/obj/adapt_normal.hpp
-	src/model/obj/adapt_texcoord.hpp
-	src/model/obj/adapt_vertex.hpp
-	src/model/obj/base_iterator.hpp
-	src/model/obj/basic_grammar_decl.hpp
-	src/model/obj/basic_grammar_fwd.hpp
-	src/model/obj/basic_grammar_impl.hpp
-	src/model/obj/basic_tokens_decl.hpp
-	src/model/obj/basic_tokens_fwd.hpp
-	src/model/obj/basic_tokens_impl.hpp
 	src/model/obj/create.cpp
 	src/model/obj/exception.cpp
 	src/model/obj/grammar.cpp
-	src/model/obj/grammar.hpp
+	src/model/obj/include/sge/src/model/obj/adapt_face.hpp
+	src/model/obj/include/sge/src/model/obj/adapt_face_point.hpp
+	src/model/obj/include/sge/src/model/obj/adapt_mesh.hpp
+	src/model/obj/include/sge/src/model/obj/adapt_normal.hpp
+	src/model/obj/include/sge/src/model/obj/adapt_texcoord.hpp
+	src/model/obj/include/sge/src/model/obj/adapt_vertex.hpp
+	src/model/obj/include/sge/src/model/obj/base_iterator.hpp
+	src/model/obj/include/sge/src/model/obj/basic_grammar_decl.hpp
+	src/model/obj/include/sge/src/model/obj/basic_grammar_fwd.hpp
+	src/model/obj/include/sge/src/model/obj/basic_grammar_impl.hpp
+	src/model/obj/include/sge/src/model/obj/basic_tokens_decl.hpp
+	src/model/obj/include/sge/src/model/obj/basic_tokens_fwd.hpp
+	src/model/obj/include/sge/src/model/obj/basic_tokens_impl.hpp
+	src/model/obj/include/sge/src/model/obj/grammar.hpp
+	src/model/obj/include/sge/src/model/obj/instance_impl.hpp
+	src/model/obj/include/sge/src/model/obj/iterator.hpp
+	src/model/obj/include/sge/src/model/obj/lexer.hpp
+	src/model/obj/include/sge/src/model/obj/loader_impl.hpp
+	src/model/obj/include/sge/src/model/obj/parse.hpp
+	src/model/obj/include/sge/src/model/obj/parse_state.hpp
+	src/model/obj/include/sge/src/model/obj/parse_state_fwd.hpp
+	src/model/obj/include/sge/src/model/obj/token.hpp
+	src/model/obj/include/sge/src/model/obj/tokens.hpp
+	src/model/obj/include/sge/src/model/obj/tokens_fwd.hpp
 	src/model/obj/instance.cpp
 	src/model/obj/instance_impl.cpp
-	src/model/obj/instance_impl.hpp
-	src/model/obj/iterator.hpp
-	src/model/obj/lexer.hpp
 	src/model/obj/loader.cpp
 	src/model/obj/loader_impl.cpp
-	src/model/obj/loader_impl.hpp
 	src/model/obj/parse.cpp
-	src/model/obj/parse.hpp
-	src/model/obj/parse_state.hpp
-	src/model/obj/parse_state_fwd.hpp
-	src/model/obj/token.hpp
 	src/model/obj/tokens.cpp
-	src/model/obj/tokens.hpp
-	src/model/obj/tokens_fwd.hpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 OPTION(

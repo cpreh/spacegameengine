@@ -18,22 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_ADAPT_VERTEX_HPP_INCLUDED
-#define SGE_MODEL_OBJ_ADAPT_VERTEX_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_GRAMMAR_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_GRAMMAR_HPP_INCLUDED
 
-#include <sge/model/obj/optional_scalar.hpp>
-#include <sge/model/obj/scalar.hpp>
-#include <sge/model/obj/vertex.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/include/adapt_struct.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/src/model/obj/basic_grammar_decl.hpp>
+#include <sge/src/model/obj/iterator.hpp>
+#include <sge/src/model/obj/tokens.hpp>
 
-BOOST_FUSION_ADAPT_STRUCT(
-	sge::model::obj::vertex,
-	(sge::model::obj::scalar, v1_)
-	(sge::model::obj::scalar, v2_)
-	(sge::model::obj::scalar, v3_)
-	(sge::model::obj::optional_scalar, v4_)
-)
+
+namespace sge
+{
+namespace model
+{
+namespace obj
+{
+
+typedef
+obj::basic_grammar<
+	obj::iterator,
+	obj::tokens::lexer_def
+> grammar;
+
+}
+}
+}
 
 #endif

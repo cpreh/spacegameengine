@@ -18,24 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_BASIC_GRAMMAR_FWD_HPP_INCLUDED
-#define SGE_MODEL_OBJ_BASIC_GRAMMAR_FWD_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_TOKENS_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_TOKENS_HPP_INCLUDED
 
-namespace sge
-{
-namespace model
-{
-namespace obj
-{
+#include <sge/src/model/obj/basic_tokens_decl.hpp>
+#include <sge/src/model/obj/tokens_fwd.hpp>
 
-template<
-	typename Iterator,
-	typename Lexer
->
-class basic_grammar;
-
-}
-}
-}
 
 #endif

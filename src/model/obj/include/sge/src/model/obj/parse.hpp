@@ -18,21 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_ADAPT_TEXCOORD_HPP_INCLUDED
-#define SGE_MODEL_OBJ_ADAPT_TEXCOORD_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_PARSE_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_PARSE_HPP_INCLUDED
 
-#include <sge/model/obj/optional_scalar.hpp>
-#include <sge/model/obj/scalar.hpp>
-#include <sge/model/obj/texcoord.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/include/adapt_struct.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/src/model/obj/parse_state_fwd.hpp>
+#include <sge/src/model/obj/tokens_fwd.hpp>
+#include <fcppt/filesystem/path.hpp>
 
-BOOST_FUSION_ADAPT_STRUCT(
-	sge::model::obj::texcoord,
-	(sge::model::obj::scalar, t1_)
-	(sge::model::obj::scalar, t2_)
-	(sge::model::obj::optional_scalar, t3_)
-)
+
+namespace sge
+{
+namespace model
+{
+namespace obj
+{
+
+void
+parse(
+	obj::tokens const &,
+	fcppt::filesystem::path const &,
+	obj::parse_state &
+);
+
+}
+}
+}
 
 #endif

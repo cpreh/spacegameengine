@@ -18,8 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "instance_impl.hpp"
-#include "parse.hpp"
+#include <sge/model/obj/mesh_sequence.hpp>
+#include <sge/model/obj/normal_sequence.hpp>
+#include <sge/model/obj/texcoord_sequence.hpp>
+#include <sge/model/obj/vertex_sequence.hpp>
+#include <sge/src/model/obj/instance_impl.hpp>
+#include <sge/src/model/obj/parse.hpp>
+#include <sge/src/model/obj/tokens_fwd.hpp>
+#include <fcppt/filesystem/path.hpp>
+
 
 sge::model::obj::instance_impl::instance_impl(
 	obj::tokens const &_tokens,

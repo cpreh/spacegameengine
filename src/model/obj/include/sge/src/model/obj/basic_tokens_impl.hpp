@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_BASIC_TOKENS_IMPL_HPP_INCLUDED
-#define SGE_MODEL_OBJ_BASIC_TOKENS_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_BASIC_TOKENS_IMPL_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_BASIC_TOKENS_IMPL_HPP_INCLUDED
 
-#include "basic_tokens_decl.hpp"
+#include <sge/src/model/obj/basic_tokens_decl.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/support/unused.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 template<
 	typename Lexer

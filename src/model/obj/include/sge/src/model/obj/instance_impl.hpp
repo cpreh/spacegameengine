@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_INSTANCE_IMPL_HPP_INCLUDED
-#define SGE_MODEL_OBJ_INSTANCE_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_INSTANCE_IMPL_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_INSTANCE_IMPL_HPP_INCLUDED
 
-#include "lexer.hpp"
-#include "parse_state.hpp"
-#include "tokens_fwd.hpp"
 #include <sge/model/obj/instance.hpp>
 #include <sge/model/obj/mesh_sequence.hpp>
 #include <sge/model/obj/normal_sequence.hpp>
 #include <sge/model/obj/texcoord_sequence.hpp>
 #include <sge/model/obj/vertex_sequence.hpp>
+#include <sge/src/model/obj/lexer.hpp>
+#include <sge/src/model/obj/parse_state.hpp>
+#include <sge/src/model/obj/tokens_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
 

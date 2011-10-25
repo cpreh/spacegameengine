@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "tokens.hpp"
-#include "basic_tokens_impl.hpp"
-#include "lexer.hpp"
+#include <sge/src/model/obj/basic_tokens_impl.hpp>
+#include <sge/src/model/obj/lexer.hpp>
+#include <sge/src/model/obj/tokens.hpp>
+
 
 template struct
 sge::model::obj::basic_tokens<

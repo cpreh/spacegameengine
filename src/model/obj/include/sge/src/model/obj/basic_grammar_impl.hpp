@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_BASIC_GRAMMAR_IMPL_HPP_INCLUDED
-#define SGE_MODEL_OBJ_BASIC_GRAMMAR_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_BASIC_GRAMMAR_IMPL_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_BASIC_GRAMMAR_IMPL_HPP_INCLUDED
 
-#include "basic_grammar_decl.hpp"
-#include "adapt_face.hpp"
-#include "adapt_face_point.hpp"
-#include "adapt_mesh.hpp"
-#include "adapt_normal.hpp"
-#include "adapt_texcoord.hpp"
-#include "adapt_vertex.hpp"
-#include "parse_state.hpp"
 #include <sge/model/obj/mesh.hpp>
 #include <sge/model/obj/optional_index.hpp>
+#include <sge/src/model/obj/adapt_face.hpp>
+#include <sge/src/model/obj/adapt_face_point.hpp>
+#include <sge/src/model/obj/adapt_mesh.hpp>
+#include <sge/src/model/obj/adapt_normal.hpp>
+#include <sge/src/model/obj/adapt_texcoord.hpp>
+#include <sge/src/model/obj/adapt_vertex.hpp>
+#include <sge/src/model/obj/basic_grammar_decl.hpp>
+#include <sge/src/model/obj/parse_state.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/phoenix_bind.hpp>

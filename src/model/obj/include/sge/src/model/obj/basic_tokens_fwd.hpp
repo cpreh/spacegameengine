@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_GRAMMAR_HPP_INCLUDED
-#define SGE_MODEL_OBJ_GRAMMAR_HPP_INCLUDED
-
-#include "basic_grammar_decl.hpp"
-#include "iterator.hpp"
-#include "tokens.hpp"
+#ifndef SGE_SRC_MODEL_OBJ_BASIC_TOKENS_FWD_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_BASIC_TOKENS_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -32,11 +28,10 @@ namespace model
 namespace obj
 {
 
-typedef
-obj::basic_grammar<
-	obj::iterator,
-	obj::tokens::lexer_def
-> grammar;
+template<
+	typename Lexer
+>
+struct basic_tokens;
 
 }
 }

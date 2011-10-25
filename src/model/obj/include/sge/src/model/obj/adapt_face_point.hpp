@@ -18,22 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_ITERATOR_HPP_INCLUDED
-#define SGE_MODEL_OBJ_ITERATOR_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_ADAPT_FACE_POINT_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_ADAPT_FACE_POINT_HPP_INCLUDED
 
-#include "tokens.hpp"
+#include <sge/model/obj/face_point.hpp>
+#include <sge/model/obj/index.hpp>
+#include <sge/model/obj/optional_index.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/fusion/include/adapt_struct.hpp>
+#include <fcppt/config/external_end.hpp>
 
-namespace sge
-{
-namespace model
-{
-namespace obj
-{
 
-typedef obj::tokens::iterator_type iterator;
-
-}
-}
-}
+BOOST_FUSION_ADAPT_STRUCT(
+	sge::model::obj::face_point,
+	(sge::model::obj::index, vertex_index_)
+	(sge::model::obj::optional_index, texcoord_index_)
+	(sge::model::obj::optional_index, normal_index_)
+)
 
 #endif

@@ -18,27 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_BASE_ITERATOR_HPP_INCLUDED
-#define SGE_MODEL_OBJ_BASE_ITERATOR_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_ADAPT_NORMAL_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_ADAPT_NORMAL_HPP_INCLUDED
 
-#include <fcppt/char_type.hpp>
+#include <sge/model/obj/normal.hpp>
+#include <sge/model/obj/scalar.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/home/support/iterators/istream_iterator.hpp>
+#include <boost/fusion/include/adapt_struct.hpp>
 #include <fcppt/config/external_end.hpp>
 
-namespace sge
-{
-namespace model
-{
-namespace obj
-{
 
-typedef boost::spirit::basic_istream_iterator<
-	fcppt::char_type
-> base_iterator;
-
-}
-}
-}
+BOOST_FUSION_ADAPT_STRUCT(
+	sge::model::obj::normal,
+	(sge::model::obj::scalar, n1_)
+	(sge::model::obj::scalar, n2_)
+	(sge::model::obj::scalar, n3_)
+)
 
 #endif

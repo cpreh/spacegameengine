@@ -18,20 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_ADAPT_NORMAL_HPP_INCLUDED
-#define SGE_MODEL_OBJ_ADAPT_NORMAL_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_LEXER_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_LEXER_HPP_INCLUDED
 
-#include <sge/model/obj/normal.hpp>
-#include <sge/model/obj/scalar.hpp>
+#include <sge/src/model/obj/token.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/include/adapt_struct.hpp>
+#include <boost/spirit/include/lex_lexertl.hpp>
 #include <fcppt/config/external_end.hpp>
 
-BOOST_FUSION_ADAPT_STRUCT(
-	sge::model::obj::normal,
-	(sge::model::obj::scalar, n1_)
-	(sge::model::obj::scalar, n2_)
-	(sge::model::obj::scalar, n3_)
-)
+
+namespace sge
+{
+namespace model
+{
+namespace obj
+{
+
+typedef boost::spirit::lex::lexertl::lexer<
+	obj::token
+> lexer;
+
+}
+}
+}
 
 #endif

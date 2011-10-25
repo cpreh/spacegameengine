@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_PARSE_STATE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_PARSE_STATE_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_LOADER_IMPL_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_LOADER_IMPL_HPP_INCLUDED
 
-#include "parse_state_fwd.hpp"
-#include <sge/model/obj/mesh_sequence.hpp>
-#include <sge/model/obj/normal_sequence.hpp>
-#include <sge/model/obj/texcoord_sequence.hpp>
-#include <sge/model/obj/vertex_sequence.hpp>
+#include <sge/model/obj/instance_ptr.hpp>
+#include <sge/model/obj/loader.hpp>
+#include <sge/src/model/obj/tokens.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
+
 
 namespace sge
 {
@@ -34,15 +35,24 @@ namespace model
 namespace obj
 {
 
-struct parse_state
+class loader_impl
+:
+	public obj::loader
 {
-	obj::vertex_sequence vertices_;
+	FCPPT_NONCOPYABLE(
+		loader_impl
+	);
+public:
+	loader_impl();
 
-	obj::texcoord_sequence texcoords_;
+	~loader_impl();
+private:
+	obj::instance_ptr const
+	load(
+		fcppt::filesystem::path const &
+	);
 
-	obj::normal_sequence normals_;
-
-	obj::mesh_sequence meshes_;
+	obj::tokens tokens_;
 };
 
 }

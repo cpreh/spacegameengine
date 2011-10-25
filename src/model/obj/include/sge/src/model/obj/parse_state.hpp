@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_LEXER_HPP_INCLUDED
-#define SGE_MODEL_OBJ_LEXER_HPP_INCLUDED
+#ifndef SGE_SRC_MODEL_OBJ_PARSE_STATE_HPP_INCLUDED
+#define SGE_SRC_MODEL_OBJ_PARSE_STATE_HPP_INCLUDED
 
-#include "token.hpp"
-#include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/include/lex_lexertl.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/model/obj/mesh_sequence.hpp>
+#include <sge/model/obj/normal_sequence.hpp>
+#include <sge/model/obj/texcoord_sequence.hpp>
+#include <sge/model/obj/vertex_sequence.hpp>
+#include <sge/src/model/obj/parse_state_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,9 +35,16 @@ namespace model
 namespace obj
 {
 
-typedef boost::spirit::lex::lexertl::lexer<
-	obj::token
-> lexer;
+struct parse_state
+{
+	obj::vertex_sequence vertices_;
+
+	obj::texcoord_sequence texcoords_;
+
+	obj::normal_sequence normals_;
+
+	obj::mesh_sequence meshes_;
+};
 
 }
 }
