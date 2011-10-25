@@ -25,56 +25,60 @@ SET(
 	include/sge/model/md3/texcoord_sequence.hpp
 	include/sge/model/md3/u8.hpp
 	include/sge/model/md3/vertex_sequence.hpp
-	src/model/md3/axis_array.hpp
 	src/model/md3/convert_normal.cpp
-	src/model/md3/convert_normal.hpp
 	src/model/md3/create.cpp
-	src/model/md3/endian.hpp
 	src/model/md3/exception.cpp
 	src/model/md3/frame.cpp
-	src/model/md3/frame.hpp
-	src/model/md3/frame_vector.hpp
-	src/model/md3/index_array.hpp
+	src/model/md3/include/sge/src/model/md3/axis_array.hpp
+	src/model/md3/include/sge/src/model/md3/convert_normal.hpp
+	src/model/md3/include/sge/src/model/md3/endian.hpp
+	src/model/md3/include/sge/src/model/md3/frame.hpp
+	src/model/md3/include/sge/src/model/md3/frame_vector.hpp
+	src/model/md3/include/sge/src/model/md3/index_array.hpp
+	src/model/md3/include/sge/src/model/md3/loader_impl.hpp
+	src/model/md3/include/sge/src/model/md3/max_qpath.hpp
+	src/model/md3/include/sge/src/model/md3/object_impl.hpp
+	src/model/md3/include/sge/src/model/md3/read_and_check_id3p.hpp
+	src/model/md3/include/sge/src/model/md3/read_s32.hpp
+	src/model/md3/include/sge/src/model/md3/read_string.hpp
+	src/model/md3/include/sge/src/model/md3/read_vec3.hpp
+	src/model/md3/include/sge/src/model/md3/s16.hpp
+	src/model/md3/include/sge/src/model/md3/s32.hpp
+	src/model/md3/include/sge/src/model/md3/shader.hpp
+	src/model/md3/include/sge/src/model/md3/shader_vector.hpp
+	src/model/md3/include/sge/src/model/md3/surface.hpp
+	src/model/md3/include/sge/src/model/md3/surface_vector.hpp
+	src/model/md3/include/sge/src/model/md3/tag.hpp
+	src/model/md3/include/sge/src/model/md3/tag_vector.hpp
+	src/model/md3/include/sge/src/model/md3/texpos.hpp
+	src/model/md3/include/sge/src/model/md3/texpos_vector.hpp
+	src/model/md3/include/sge/src/model/md3/transformed_vertex.hpp
+	src/model/md3/include/sge/src/model/md3/transformed_vertex_vector.hpp
+	src/model/md3/include/sge/src/model/md3/triangle.hpp
+	src/model/md3/include/sge/src/model/md3/triangle_vector.hpp
+	src/model/md3/include/sge/src/model/md3/vec3.hpp
+	src/model/md3/include/sge/src/model/md3/vertex.hpp
+	src/model/md3/include/sge/src/model/md3/vertex_fwd.hpp
+	src/model/md3/include/sge/src/model/md3/xyz_scale.hpp
 	src/model/md3/loader.cpp
 	src/model/md3/loader_impl.cpp
-	src/model/md3/loader_impl.hpp
-	src/model/md3/max_qpath.hpp
 	src/model/md3/object.cpp
 	src/model/md3/object_impl.cpp
-	src/model/md3/object_impl.hpp
 	src/model/md3/read_and_check_id3p.cpp
-	src/model/md3/read_and_check_id3p.hpp
 	src/model/md3/read_s32.cpp
-	src/model/md3/read_s32.hpp
 	src/model/md3/read_string.cpp
-	src/model/md3/read_string.hpp
 	src/model/md3/read_vec3.cpp
-	src/model/md3/read_vec3.hpp
-	src/model/md3/s16.hpp
-	src/model/md3/s32.hpp
 	src/model/md3/shader.cpp
-	src/model/md3/shader.hpp
-	src/model/md3/shader_vector.hpp
 	src/model/md3/surface.cpp
-	src/model/md3/surface.hpp
-	src/model/md3/surface_vector.hpp
 	src/model/md3/tag.cpp
-	src/model/md3/tag.hpp
-	src/model/md3/tag_vector.hpp
 	src/model/md3/texpos.cpp
-	src/model/md3/texpos.hpp
-	src/model/md3/texpos_vector.hpp
 	src/model/md3/transformed_vertex.cpp
-	src/model/md3/transformed_vertex.hpp
-	src/model/md3/transformed_vertex_vector.hpp
 	src/model/md3/triangle.cpp
-	src/model/md3/triangle.hpp
-	src/model/md3/triangle_vector.hpp
-	src/model/md3/vec3.hpp
 	src/model/md3/vertex.cpp
-	src/model/md3/vertex.hpp
-	src/model/md3/vertex_fwd.hpp
-	src/model/md3/xyz_scale.hpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 ADD_SGE_BASE_LIBRARY(

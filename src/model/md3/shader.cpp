@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "shader.hpp"
-#include "endian.hpp"
-#include "max_qpath.hpp"
-#include "read_string.hpp"
-#include "s32.hpp"
+#include <sge/src/model/md3/endian.hpp>
+#include <sge/src/model/md3/max_qpath.hpp>
+#include <sge/src/model/md3/read_string.hpp>
+#include <sge/src/model/md3/s32.hpp>
+#include <sge/src/model/md3/shader.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::model::md3::shader::shader(
 	std::istream &_stream

@@ -18,53 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/model/md3/scalar.hpp>
-#include <sge/src/model/md3/convert_normal.hpp>
-#include <sge/src/model/md3/s16.hpp>
-#include <sge/src/model/md3/vec3.hpp>
-#include <fcppt/math/twopi.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#ifndef SGE_SRC_MODEL_MD3_SHADER_VECTOR_HPP_INCLUDED
+#define SGE_SRC_MODEL_MD3_SHADER_VECTOR_HPP_INCLUDED
+
+#include <sge/src/model/md3/shader.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cmath>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::model::md3::vec3 const
-sge::model::md3::convert_normal(
-	md3::s16 const _normal
-)
+namespace sge
 {
-	md3::scalar const
-		lat(
-			static_cast<
-				md3::scalar
-			>(
-				(_normal >> 8)
-				& 255
-			)
-			*
-			fcppt::math::twopi<
-				md3::scalar
-			>()
-			/ 255
-		),
-		lng(
-			static_cast<
-				md3::scalar
-			>(
-				_normal & 255
-			)
-			*
-			fcppt::math::twopi<
-				md3::scalar
-			>()
-			/ 255
-		);
+namespace model
+{
+namespace md3
+{
 
-	return
-		md3::vec3(
-			std::cos(lat) * std::sin(lng),
-			std::sin(lat) * std::sin(lng),
-			std::cos(lng)
-		);
+typedef std::vector<
+	md3::shader
+> shader_vector;
+
 }
+}
+}
+
+#endif

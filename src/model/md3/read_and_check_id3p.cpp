@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "read_and_check_id3p.hpp"
-#include "endian.hpp"
 #include <sge/model/md3/u8.hpp>
+#include <sge/src/model/md3/endian.hpp>
+#include <sge/src/model/md3/read_and_check_id3p.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>

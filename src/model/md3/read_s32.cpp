@@ -18,10 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "read_s32.hpp"
-#include "endian.hpp"
-#include "s32.hpp"
+#include <sge/src/model/md3/endian.hpp>
+#include <sge/src/model/md3/read_s32.hpp>
+#include <sge/src/model/md3/s32.hpp>
 #include <fcppt/io/read.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::model::md3::s32
 sge::model::md3::read_s32(

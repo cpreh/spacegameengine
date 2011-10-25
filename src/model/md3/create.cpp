@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "loader_impl.hpp"
 #include <sge/model/md3/create.hpp>
+#include <sge/model/md3/loader_ptr.hpp>
+#include <sge/src/model/md3/loader_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
 

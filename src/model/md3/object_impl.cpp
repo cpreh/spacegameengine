@@ -18,17 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "object_impl.hpp"
-#include "endian.hpp"
-#include "frame.hpp"
-#include "max_qpath.hpp"
-#include "read_and_check_id3p.hpp"
-#include "read_s32.hpp"
-#include "read_string.hpp"
-#include "surface.hpp"
-#include "tag.hpp"
 #include <sge/log/global.hpp>
 #include <sge/model/md3/exception.hpp>
+#include <sge/model/md3/index_sequence.hpp>
+#include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/optional_normal_sequence.hpp>
+#include <sge/model/md3/optional_texcoord_sequence.hpp>
+#include <sge/model/md3/part_name_sequence.hpp>
+#include <sge/model/md3/string.hpp>
+#include <sge/model/md3/vertex_sequence.hpp>
+#include <sge/src/model/md3/endian.hpp>
+#include <sge/src/model/md3/frame.hpp>
+#include <sge/src/model/md3/max_qpath.hpp>
+#include <sge/src/model/md3/object_impl.hpp>
+#include <sge/src/model/md3/read_and_check_id3p.hpp>
+#include <sge/src/model/md3/read_s32.hpp>
+#include <sge/src/model/md3/read_string.hpp>
+#include <sge/src/model/md3/surface.hpp>
+#include <sge/src/model/md3/surface_vector.hpp>
+#include <sge/src/model/md3/tag.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/log/output.hpp>

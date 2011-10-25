@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "tag.hpp"
-#include "axis_array.hpp"
-#include "max_qpath.hpp"
-#include "read_string.hpp"
-#include "read_vec3.hpp"
+#include <sge/src/model/md3/axis_array.hpp>
+#include <sge/src/model/md3/max_qpath.hpp>
+#include <sge/src/model/md3/read_string.hpp>
+#include <sge/src/model/md3/read_vec3.hpp>
+#include <sge/src/model/md3/tag.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>

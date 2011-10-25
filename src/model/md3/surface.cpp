@@ -18,19 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "surface.hpp"
-#include "endian.hpp"
-#include "max_qpath.hpp"
-#include "read_and_check_id3p.hpp"
-#include "read_string.hpp"
-#include "s32.hpp"
-#include "shader.hpp"
-#include "texpos.hpp"
-#include "transformed_vertex.hpp"
-#include "triangle.hpp"
-#include "vertex.hpp"
 #include <sge/model/md3/exception.hpp>
 #include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/string.hpp>
+#include <sge/src/model/md3/endian.hpp>
+#include <sge/src/model/md3/max_qpath.hpp>
+#include <sge/src/model/md3/read_and_check_id3p.hpp>
+#include <sge/src/model/md3/read_string.hpp>
+#include <sge/src/model/md3/s32.hpp>
+#include <sge/src/model/md3/shader.hpp>
+#include <sge/src/model/md3/shader_vector.hpp>
+#include <sge/src/model/md3/surface.hpp>
+#include <sge/src/model/md3/texpos.hpp>
+#include <sge/src/model/md3/texpos_vector.hpp>
+#include <sge/src/model/md3/transformed_vertex.hpp>
+#include <sge/src/model/md3/transformed_vertex_vector.hpp>
+#include <sge/src/model/md3/triangle.hpp>
+#include <sge/src/model/md3/triangle_vector.hpp>
+#include <sge/src/model/md3/vertex.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "texpos.hpp"
-#include "endian.hpp"
+#include <sge/model/md3/texcoord.hpp>
+#include <sge/src/model/md3/endian.hpp>
+#include <sge/src/model/md3/texpos.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::model::md3::texpos::texpos(
 	std::istream &_stream

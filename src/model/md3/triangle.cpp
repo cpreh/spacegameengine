@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "triangle.hpp"
-#include "index_array.hpp"
-#include "endian.hpp"
-#include "s32.hpp"
+#include <sge/src/model/md3/endian.hpp>
+#include <sge/src/model/md3/index_array.hpp>
+#include <sge/src/model/md3/s32.hpp>
+#include <sge/src/model/md3/triangle.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::model::md3::triangle::triangle(
 	std::istream &_stream

@@ -18,53 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/model/md3/scalar.hpp>
-#include <sge/src/model/md3/convert_normal.hpp>
-#include <sge/src/model/md3/s16.hpp>
+#ifndef SGE_SRC_MODEL_MD3_TAG_HPP_INCLUDED
+#define SGE_SRC_MODEL_MD3_TAG_HPP_INCLUDED
+
+#include <sge/model/md3/string.hpp>
+#include <sge/src/model/md3/axis_array.hpp>
 #include <sge/src/model/md3/vec3.hpp>
-#include <fcppt/math/twopi.hpp>
+#include <fcppt/container/array_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cmath>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::model::md3::vec3 const
-sge::model::md3::convert_normal(
-	md3::s16 const _normal
-)
+namespace sge
 {
-	md3::scalar const
-		lat(
-			static_cast<
-				md3::scalar
-			>(
-				(_normal >> 8)
-				& 255
-			)
-			*
-			fcppt::math::twopi<
-				md3::scalar
-			>()
-			/ 255
-		),
-		lng(
-			static_cast<
-				md3::scalar
-			>(
-				_normal & 255
-			)
-			*
-			fcppt::math::twopi<
-				md3::scalar
-			>()
-			/ 255
-		);
+namespace model
+{
+namespace md3
+{
 
-	return
-		md3::vec3(
-			std::cos(lat) * std::sin(lng),
-			std::sin(lat) * std::sin(lng),
-			std::cos(lng)
-		);
+class tag
+{
+public:
+	explicit tag(
+		std::istream &
+	);
+
+	md3::string const &
+	name() const;
+
+	md3::vec3 const &
+	origin() const;
+
+	md3::axis_array const &
+	axis() const;
+private:
+	md3::string name_;
+
+	md3::vec3 origin_;
+
+	md3::axis_array axis_;
+};
+
 }
+}
+}
+
+#endif

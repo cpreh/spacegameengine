@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "transformed_vertex.hpp"
-#include "convert_normal.hpp"
-#include "vertex.hpp"
-#include "xyz_scale.hpp"
 #include <sge/model/md3/scalar.hpp>
+#include <sge/src/model/md3/convert_normal.hpp>
+#include <sge/src/model/md3/transformed_vertex.hpp>
+#include <sge/src/model/md3/vec3.hpp>
+#include <sge/src/model/md3/vertex.hpp>
+#include <sge/src/model/md3/xyz_scale.hpp>
+
 
 sge::model::md3::transformed_vertex::transformed_vertex(
 	md3::vertex const &_vertex

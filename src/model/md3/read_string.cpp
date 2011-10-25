@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "read_string.hpp"
-#include "max_qpath.hpp"
 #include <sge/model/md3/exception.hpp>
 #include <sge/model/md3/string.hpp>
+#include <sge/src/model/md3/max_qpath.hpp>
+#include <sge/src/model/md3/read_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>

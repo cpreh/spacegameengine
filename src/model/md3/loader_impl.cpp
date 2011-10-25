@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "loader_impl.hpp"
-#include "object_impl.hpp"
+#include <sge/model/md3/load_flags.hpp>
+#include <sge/src/model/md3/loader_impl.hpp>
+#include <sge/src/model/md3/object_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/cifstream.hpp>
+
 
 sge::model::md3::loader_impl::loader_impl()
 {
