@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_BITMAP_LOAD_RECT_HPP_INCLUDED
-#define SGE_FONT_BITMAP_LOAD_RECT_HPP_INCLUDED
+#ifndef SGE_SRC_FONT_BITMAP_LOAD_RECT_HPP_INCLUDED
+#define SGE_SRC_FONT_BITMAP_LOAD_RECT_HPP_INCLUDED
 
 #include <sge/image2d/rect.hpp>
 #include <sge/parse/json/member_vector.hpp>
+
 
 namespace sge
 {

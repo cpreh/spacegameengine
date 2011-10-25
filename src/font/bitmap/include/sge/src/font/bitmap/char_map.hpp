@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_BITMAP_LOAD_ONE_FILE_HPP_INCLUDED
-#define SGE_FONT_BITMAP_LOAD_ONE_FILE_HPP_INCLUDED
+#ifndef SGE_SRC_FONT_BITMAP_CHAR_MAP_HPP_INCLUDED
+#define SGE_SRC_FONT_BITMAP_CHAR_MAP_HPP_INCLUDED
 
-#include "char_map.hpp"
-#include <sge/image2d/file_ptr.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
-#include <sge/parse/json/object_fwd.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <sge/font/char_metric_ptr.hpp>
+#include <sge/font/char_type.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <map>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -35,13 +35,10 @@ namespace font
 namespace bitmap
 {
 
-sge::image2d::file_ptr const
-load_one_file(
-	fcppt::filesystem::path const &stem,
-	sge::parse::json::object const &,
-	sge::image2d::multi_loader &,
-	bitmap::char_map &
-);
+typedef std::map<
+	font::char_type,
+	font::char_metric_ptr
+> char_map;
 
 }
 }

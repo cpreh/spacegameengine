@@ -18,22 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "load_one_file.hpp"
-#include "load_rect.hpp"
-#include "load_offset.hpp"
-#include "char_metric.hpp"
 #include <sge/exception.hpp>
 #include <sge/image2d/file.hpp>
+#include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/view/checked_sub.hpp>
 #include <sge/log/global.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/get.hpp>
+#include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/src/font/bitmap/char_map.hpp>
+#include <sge/src/font/bitmap/char_metric.hpp>
+#include <sge/src/font/bitmap/load_offset.hpp>
+#include <sge/src/font/bitmap/load_one_file.hpp>
+#include <sge/src/font/bitmap/load_rect.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/math/box/basic_impl.hpp>

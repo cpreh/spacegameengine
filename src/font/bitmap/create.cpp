@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "metrics.hpp"
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/font/bitmap/create.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/src/font/bitmap/metrics.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 
 sge::font::metrics_ptr const

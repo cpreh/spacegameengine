@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_BITMAP_METRICS_HPP_INCLUDED
-#define SGE_FONT_BITMAP_METRICS_HPP_INCLUDED
+#ifndef SGE_SRC_FONT_BITMAP_METRICS_HPP_INCLUDED
+#define SGE_SRC_FONT_BITMAP_METRICS_HPP_INCLUDED
 
-#include "char_map.hpp"
 #include <sge/font/char_metric_ptr.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/src/font/bitmap/char_map.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>

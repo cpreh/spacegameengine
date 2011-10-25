@@ -18,8 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "char_metric.hpp"
+#include <sge/font/const_image_view.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/src/font/bitmap/char_metric.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+
 
 sge::font::bitmap::char_metric::char_metric(
 	font::const_image_view const &_pixmap,

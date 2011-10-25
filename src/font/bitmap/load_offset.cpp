@@ -18,13 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "load_offset.hpp"
 #include <sge/font/exception.hpp>
+#include <sge/font/pos.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/member.hpp>
+#include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/src/font/bitmap/load_offset.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
@@ -43,21 +46,24 @@ sge::font::bitmap::load_offset(
 		).elements
 	);
 
-	if(elements.size() != 2)
+	if(
+		elements.size() != 2
+	)
 		throw sge::font::exception(
 			FCPPT_TEXT("Bogus offset detected")
 		);
 
-	return font::pos(
-		parse::json::get<
-			int
-		>(
-			elements[0]
-		),
-		parse::json::get<
-			int
-		>(
-			elements[1]
-		)
-	);
+	return
+		font::pos(
+			parse::json::get<
+				int
+			>(
+				elements[0]
+			),
+			parse::json::get<
+				int
+			>(
+				elements[1]
+			)
+		);
 }
