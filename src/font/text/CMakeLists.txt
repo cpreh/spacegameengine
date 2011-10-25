@@ -23,8 +23,6 @@ SET(
 	include/sge/font/text/symbol.hpp
 	include/sge/font/text/text.hpp
 	include/sge/font/text/to_fcppt_string.hpp
-	src/font/text/align_pos_h.hpp
-	src/font/text/align_pos_v.hpp
 	src/font/text/char_space.cpp
 	src/font/text/char_to_fcppt_string.cpp
 	src/font/text/draw.cpp
@@ -33,10 +31,16 @@ SET(
 	src/font/text/flags_none.cpp
 	src/font/text/from_fcppt_string.cpp
 	src/font/text/height.cpp
+	src/font/text/include/sge/src/font/text/align_pos_h.hpp
+	src/font/text/include/sge/src/font/text/align_pos_v.hpp
 	src/font/text/line_width.cpp
 	src/font/text/part.cpp
 	src/font/text/size.cpp
 	src/font/text/to_fcppt_string.cpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 ADD_SGE_BASE_LIBRARY(

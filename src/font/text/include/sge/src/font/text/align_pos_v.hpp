@@ -18,15 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_TEXT_ALIGN_POS_V_HPP_INCLUDED
-#define SGE_FONT_TEXT_ALIGN_POS_V_HPP_INCLUDED
+#ifndef SGE_SRC_FONT_TEXT_ALIGN_POS_V_HPP_INCLUDED
+#define SGE_SRC_FONT_TEXT_ALIGN_POS_V_HPP_INCLUDED
 
 #include <sge/font/dim.hpp>
-#include <sge/font/exception.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/text/align_v.hpp>
 #include <sge/font/text/part.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
@@ -47,7 +46,9 @@ align_pos_v(
 	text::align_v::type const _align_v
 )
 {
-	switch(_align_v)
+	switch(
+		_align_v
+	)
 	{
 	case align_v::center:
 		_pos.y() += (_max_sz.h() - _total_size.size().h()) / 2;
@@ -59,9 +60,7 @@ align_pos_v(
 		return;
 	}
 
-	throw font::exception(
-		FCPPT_TEXT("Invalid font::align_v!")
-	);
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 }
