@@ -18,50 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_PARSE_FILE_HPP_INCLUDED
-#define SGE_PARSE_PARSE_FILE_HPP_INCLUDED
+#ifndef SGE_SRC_PARSE_OUTPUT_TO_FILE_HPP_INCLUDED
+#define SGE_SRC_PARSE_OUTPUT_TO_FILE_HPP_INCLUDED
 
-#include "parse_stream.hpp"
+#include <sge/parse/exception.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/io/ifstream.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iosfwd>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/io/ofstream.hpp>
+
 
 namespace sge
 {
 namespace parse
 {
+namespace output
+{
 
 template<
-	typename Result
+	typename Data
 >
 bool
-parse_file(
-	fcppt::filesystem::path const &_path,
-	Result &_result
+to_file(
+	fcppt::filesystem::path const &path,
+	Data const &data
 )
 {
-	fcppt::io::ifstream ifs(
-		_path,
+	fcppt::io::ofstream ofs(
+		path,
 		std::ios_base::binary
 	);
 
-	ifs.unsetf(
-		std::ios_base::skipws
-	);
+	if(
+		!ofs.is_open()
+	)
+		throw parse::exception(
+			FCPPT_TEXT("Opening ")
+			+ fcppt::filesystem::path_to_string(
+				path
+			)
+			+ FCPPT_TEXT(" failed!")
+		);
 
 	return
-		ifs.is_open()
-		&&
-		// use ADL
-		parse_stream(
-			ifs,
-			_result
-		)
-		&& ifs.eof();
+		SGE_PARSE_DETAIL_TO_STREAM_NAMESPACE :: to_stream(
+			ofs,
+			data
+		);
+#undef SGE_PARSE_DETAIL_TO_STREAM_NAMESPACE
 }
 
+}
 }
 }
 

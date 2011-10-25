@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_PARSE_FILE_EXN_HPP_INCLUDED
-#define SGE_PARSE_PARSE_FILE_EXN_HPP_INCLUDED
+#ifndef SGE_SRC_PARSE_PARSE_FILE_HPP_INCLUDED
+#define SGE_SRC_PARSE_PARSE_FILE_HPP_INCLUDED
 
-#include "parse_file.hpp"
-#include <sge/parse/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/src/parse/parse_stream.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/io/ifstream.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -36,28 +37,30 @@ namespace parse
 template<
 	typename Result
 >
-Result const
-parse_file_exn(
-	fcppt::filesystem::path const &_path
+bool
+parse_file(
+	fcppt::filesystem::path const &_path,
+	Result &_result
 )
 {
-	Result result;
+	fcppt::io::ifstream ifs(
+		_path,
+		std::ios_base::binary
+	);
 
-	if(
-		!parse::parse_file(
-			_path,
-			result
+	ifs.unsetf(
+		std::ios_base::skipws
+	);
+
+	return
+		ifs.is_open()
+		&&
+		// use ADL
+		parse_stream(
+			ifs,
+			_result
 		)
-	)
-		throw sge::parse::exception(
-			FCPPT_TEXT("Unable to parse file \"")
-			+
-			fcppt::filesystem::path_to_string(
-				_path
-			)
-		);
-
-	return result;
+		&& ifs.eof();
 }
 
 }

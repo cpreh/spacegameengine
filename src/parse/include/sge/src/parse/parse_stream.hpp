@@ -18,58 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_OUTPUT_TO_FILE_HPP_INCLUDED
-#define SGE_PARSE_OUTPUT_TO_FILE_HPP_INCLUDED
+#ifndef SGE_SRC_PARSE_PARSE_STREAM_HPP_INCLUDED
+#define SGE_SRC_PARSE_PARSE_STREAM_HPP_INCLUDED
 
-#include <sge/parse/exception.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/io/ofstream.hpp>
+#include <fcppt/char_type.hpp>
+#include <fcppt/io/istream.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/spirit/home/support/iterators/istream_iterator.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace parse
 {
-namespace output
-{
 
 template<
-	typename Data
+	typename Result
 >
 bool
-to_file(
-	fcppt::filesystem::path const &path,
-	Data const &data
+parse_stream(
+	fcppt::io::istream &ifs,
+	Result &result
 )
 {
-	fcppt::io::ofstream ofs(
-		path,
-		std::ios_base::binary
+	typedef boost::spirit::basic_istream_iterator<
+		fcppt::char_type
+	> istream_iterator;
+
+	istream_iterator begin(
+		ifs
 	);
 
-	if(
-		!ofs.is_open()
-	)
-		throw parse::exception(
-			FCPPT_TEXT("Opening ")
-			+ fcppt::filesystem::path_to_string(
-				path
-			)
-			+ FCPPT_TEXT(" failed!")
-		);
-
 	return
-		SGE_PARSE_DETAIL_TO_STREAM_NAMESPACE :: to_stream(
-			ofs,
-			data
+		parse_range(
+			begin,
+			istream_iterator(),
+			result
 		);
-#undef SGE_PARSE_DETAIL_TO_STREAM_NAMESPACE
 }
 
-}
 }
 }
 

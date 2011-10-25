@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_PARSE_STREAM_HPP_INCLUDED
-#define SGE_PARSE_PARSE_STREAM_HPP_INCLUDED
+#ifndef SGE_SRC_PARSE_PARSE_FILE_EXN_HPP_INCLUDED
+#define SGE_SRC_PARSE_PARSE_FILE_EXN_HPP_INCLUDED
 
-#include <fcppt/char_type.hpp>
-#include <fcppt/io/istream.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/home/support/iterators/istream_iterator.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/parse/exception.hpp>
+#include <sge/src/parse/parse_file.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 
 
 namespace sge
@@ -36,26 +36,28 @@ namespace parse
 template<
 	typename Result
 >
-bool
-parse_stream(
-	fcppt::io::istream &ifs,
-	Result &result
+Result const
+parse_file_exn(
+	fcppt::filesystem::path const &_path
 )
 {
-	typedef boost::spirit::basic_istream_iterator<
-		fcppt::char_type
-	> istream_iterator;
+	Result result;
 
-	istream_iterator begin(
-		ifs
-	);
-
-	return
-		parse_range(
-			begin,
-			istream_iterator(),
+	if(
+		!parse::parse_file(
+			_path,
 			result
+		)
+	)
+		throw sge::parse::exception(
+			FCPPT_TEXT("Unable to parse file \"")
+			+
+			fcppt::filesystem::path_to_string(
+				_path
+			)
 		);
+
+	return result;
 }
 
 }

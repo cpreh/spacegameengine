@@ -100,6 +100,11 @@ SET(
 	include/sge/parse/parse.hpp
 	include/sge/parse/symbol.hpp
 	src/parse/exception.cpp
+	src/parse/include/sge/src/parse/output/to_file.hpp
+	src/parse/include/sge/src/parse/output/to_stream.hpp
+	src/parse/include/sge/src/parse/parse_file.hpp
+	src/parse/include/sge/src/parse/parse_file_exn.hpp
+	src/parse/include/sge/src/parse/parse_stream.hpp
 	src/parse/info_to_string.cpp
 	src/parse/ini/entry.cpp
 	src/parse/ini/entry_name_equal.cpp
@@ -136,11 +141,10 @@ SET(
 	src/parse/json/path_to_string.cpp
 	src/parse/json/string_to_path.cpp
 	src/parse/json/string_to_value.cpp
-	src/parse/output/to_file.hpp
-	src/parse/output/to_stream.hpp
-	src/parse/parse_file.hpp
-	src/parse/parse_file_exn.hpp
-	src/parse/parse_stream.hpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 ADD_SGE_BASE_LIBRARY(

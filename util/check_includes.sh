@@ -21,6 +21,7 @@ check_src line_drawer
 check_src model/md3
 check_src model/obj
 check_src opencl
+check_src parse
 check_src plugin
 
 "${INCLUDE_BINARY}" src/plugins SGE_  | grep -v X11INPUT || exit

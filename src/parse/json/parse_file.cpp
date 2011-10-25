@@ -18,18 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/parse_file.hpp>
 #include <sge/parse/json/parse_stream.hpp>
-#include "../parse_file.hpp"
+#include <sge/src/parse/parse_file.hpp>
+#include <fcppt/filesystem/path.hpp>
+
 
 bool
 sge::parse::json::parse_file(
-	fcppt::filesystem::path const &path,
-	object &result
+	fcppt::filesystem::path const &_path,
+	json::object &_result
 )
 {
-	return parse::parse_file(
-		path,
-		result
-	);
+	return
+		parse::parse_file(
+			_path,
+			_result
+		);
 }

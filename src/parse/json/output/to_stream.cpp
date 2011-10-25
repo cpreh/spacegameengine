@@ -18,22 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/output/to_range.hpp>
 #include <sge/parse/json/output/to_stream.hpp>
-
-
+#include <fcppt/io/ostream.hpp>
 #define SGE_PARSE_DETAIL_TO_RANGE_NAMESPACE ::sge::parse::json::output
-#include "../../output/to_stream.hpp"
+#include <sge/src/parse/output/to_stream.hpp>
 
 bool
 sge::parse::json::output::to_stream(
-	fcppt::io::ostream &stream,
-	object const &data
+	fcppt::io::ostream &_stream,
+	json::object const &_data
 )
 {
 	return
 		parse::output::to_stream(
-			stream,
-			data
+			_stream,
+			_data
 		);
 }
