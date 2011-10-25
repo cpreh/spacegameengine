@@ -18,49 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_LIBRARY_LOAD_FUNCTION_HPP_INCLUDED
-#define SGE_PLUGIN_LIBRARY_LOAD_FUNCTION_HPP_INCLUDED
+#ifndef SGE_SRC_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
+#define SGE_SRC_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
 
-#include "load_function_base.hpp"
-#include <sge/plugin/library/object_fwd.hpp>
-#include <sge/plugin/library/symbol_string.hpp>
-#include <fcppt/preprocessor/disable_vc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/plugin/object.hpp>
+#include <sge/plugin/detail/traits.hpp>
+#include <sge/src/plugin/library/load_function.hpp>
+#include <sge/src/plugin/library/object.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/filesystem/path.hpp>
 
-
-namespace sge
-{
-namespace plugin
-{
-namespace library
-{
 
 template<
-	typename Function
+	typename T
 >
-Function
-load_function(
-	library::object &_object,
-	library::symbol_string const &_symbol
+sge::plugin::object<T>::object(
+	fcppt::filesystem::path const &_path
 )
-{
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4191)
-	return
-		reinterpret_cast<
-			Function
+:
+	lib_(
+		fcppt::make_unique_ptr<
+			library::object
 		>(
-			library::load_function_base(
-				_object,
-				_symbol
-			)
-		);
-FCPPT_PP_POP_WARNING
+			_path
+		)
+	),
+	loader_(
+		library::load_function<
+			loader_fun
+		>(
+			*lib_,
+			detail::traits<T>::plugin_loader_name()
+		)
+	)
+{
 }
 
+template<
+	typename T
+>
+sge::plugin::object<T>::~object()
+{
 }
-}
+
+template<
+	typename T
+>
+typename sge::plugin::object<T>::loader_fun
+sge::plugin::object<T>::get() const
+{
+	return loader_;
 }
 
 #endif

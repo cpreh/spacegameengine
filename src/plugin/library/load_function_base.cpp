@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "load_function_base.hpp"
-#include "object.hpp"
 #include <sge/plugin/library/function_map.hpp>
 #include <sge/plugin/library/function_base.hpp>
+#include <sge/src/plugin/library/load_function_base.hpp>
+#include <sge/src/plugin/library/object.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <fcppt/preprocessor/disable_vc_warning.hpp>

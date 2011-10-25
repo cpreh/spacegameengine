@@ -37,30 +37,34 @@ SET(
 	include/sge/plugin/plugin.hpp
 	include/sge/plugin/symbol.hpp
 	include/sge/plugin/version.hpp
-	src/plugin/address_name.hpp
 	src/plugin/base.cpp
 	src/plugin/context_base.cpp
-	src/plugin/context_impl.hpp
 	src/plugin/exception.cpp
+	src/plugin/include/sge/src/plugin/address_name.hpp
+	src/plugin/include/sge/src/plugin/context_impl.hpp
+	src/plugin/include/sge/src/plugin/instantiate_types.hpp
+	src/plugin/include/sge/src/plugin/iterator_impl.hpp
+	src/plugin/include/sge/src/plugin/library/error.hpp
+	src/plugin/include/sge/src/plugin/library/load_function.hpp
+	src/plugin/include/sge/src/plugin/library/load_function_base.hpp
+	src/plugin/include/sge/src/plugin/library/loaded_symbol.hpp
+	src/plugin/include/sge/src/plugin/library/object.hpp
+	src/plugin/include/sge/src/plugin/load_info.hpp
+	src/plugin/include/sge/src/plugin/manager_impl.hpp
+	src/plugin/include/sge/src/plugin/object_impl.hpp
 	src/plugin/info.cpp
-	src/plugin/instantiate_types.hpp
-	src/plugin/iterator_impl.hpp
 	src/plugin/library/error.cpp
-	src/plugin/library/error.hpp
 	src/plugin/library/exception.cpp
 	src/plugin/library/function_map.cpp
-	src/plugin/library/load_function.hpp
 	src/plugin/library/load_function_base.cpp
-	src/plugin/library/load_function_base.hpp
-	src/plugin/library/loaded_symbol.hpp
 	src/plugin/library/object.cpp
-	src/plugin/library/object.hpp
 	src/plugin/library/symbol_not_found.cpp
 	src/plugin/load_info.cpp
-	src/plugin/load_info.hpp
 	src/plugin/manager.cpp
-	src/plugin/manager_impl.hpp
-	src/plugin/object_impl.hpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 IF(WIN32)

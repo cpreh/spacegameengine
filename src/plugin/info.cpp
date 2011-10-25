@@ -18,7 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/info.hpp>
+#include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/version.hpp>
+#include <fcppt/string.hpp>
 
 sge::plugin::info::info(
 	fcppt::string const &_name,

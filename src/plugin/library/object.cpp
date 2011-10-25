@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "error.hpp"
-#include "object.hpp"
 #include <sge/plugin/library/exception.hpp>
+#include <sge/src/plugin/library/error.hpp>
+#include <sge/src/plugin/library/object.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/from_std_string.hpp>

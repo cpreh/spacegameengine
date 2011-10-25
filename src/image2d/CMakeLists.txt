@@ -88,6 +88,10 @@ ADD_DEFINITIONS(
 )
 
 INCLUDE_DIRECTORIES(
+	${CMAKE_SOURCE_DIR}/src/plugin/include
+)
+
+INCLUDE_DIRECTORIES(
 	${CMAKE_SOURCE_DIR}/src/image/include
 )
 

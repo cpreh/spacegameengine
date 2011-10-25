@@ -32,6 +32,10 @@ SET(
 	src/charconv/unsupported_conversion.cpp
 )
 
+INCLUDE_DIRECTORIES(
+	${CMAKE_SOURCE_DIR}/src/plugin/include
+)
+
 ADD_SGE_BASE_LIBRARY(
 	charconv
 	"sgeplugin"

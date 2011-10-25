@@ -669,6 +669,10 @@ SET(
 	src/renderer/viewport_size.cpp
 )
 
+INCLUDE_DIRECTORIES(
+	${CMAKE_SOURCE_DIR}/src/plugin/include
+)
+
 ADD_SGE_BASE_LIBRARY(
 	renderer
 	"sgeimage2d;sgeimage3d;sgeplugin"

@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_LIBRARY_OBJECT_HPP_INCLUDED
-#define SGE_PLUGIN_LIBRARY_OBJECT_HPP_INCLUDED
+#ifndef SGE_SRC_PLUGIN_LIBRARY_OBJECT_HPP_INCLUDED
+#define SGE_SRC_PLUGIN_LIBRARY_OBJECT_HPP_INCLUDED
 
-#include "loaded_symbol.hpp"
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
 #include <sge/plugin/symbol.hpp>
+#include <sge/src/plugin/library/loaded_symbol.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>

@@ -18,12 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_ADDRESS_NAME_HPP_INCLUDED
-#define SGE_PLUGIN_ADDRESS_NAME_HPP_INCLUDED
+#ifndef SGE_SRC_PLUGIN_LIBRARY_ERROR_HPP_INCLUDED
+#define SGE_SRC_PLUGIN_LIBRARY_ERROR_HPP_INCLUDED
 
-#define SGE_PLUGIN_ADDRESS_NAME(\
-	address\
-)\
-address
+#include <fcppt/string.hpp>
+
+namespace sge
+{
+namespace plugin
+{
+namespace library
+{
+
+fcppt::string const
+error();
+
+}
+}
+}
 
 #endif

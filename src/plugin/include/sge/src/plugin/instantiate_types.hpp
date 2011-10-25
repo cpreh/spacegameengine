@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_INSTANTIATE_TYPES_HPP_INCLUDED
-#define SGE_PLUGIN_INSTANTIATE_TYPES_HPP_INCLUDED
+#ifndef SGE_SRC_PLUGIN_INSTANTIATE_TYPES_HPP_INCLUDED
+#define SGE_SRC_PLUGIN_INSTANTIATE_TYPES_HPP_INCLUDED
 
-#include "manager_impl.hpp"
-#include "iterator_impl.hpp"
-#include "object_impl.hpp"
-#include "context_impl.hpp"
+#include <sge/src/plugin/context_impl.hpp>
+#include <sge/src/plugin/iterator_impl.hpp>
+#include <sge/src/plugin/manager_impl.hpp>
+#include <sge/src/plugin/object_impl.hpp>
 #include <fcppt/export_symbol.hpp>
+
 
 #define SGE_PLUGIN_INSTANTIATE_TYPES(\
 	plugin_type\

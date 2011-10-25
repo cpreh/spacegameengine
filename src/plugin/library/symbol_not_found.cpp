@@ -18,15 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "error.hpp"
 #include <sge/plugin/library/symbol_not_found.hpp>
+#include <sge/plugin/library/symbol_string.hpp>
+#include <sge/src/plugin/library/error.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::plugin::library::symbol_not_found::symbol_not_found(
 	fcppt::string const &_library_name,
-	std::string const &_symbol
+	library::symbol_string const &_symbol
 )
 :
 	sge::plugin::library::exception(

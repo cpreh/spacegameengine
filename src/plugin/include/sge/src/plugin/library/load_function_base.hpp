@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_LIBRARY_LOADED_SYMBOL_HPP_INCLUDED
-#define SGE_PLUGIN_LIBRARY_LOADED_SYMBOL_HPP_INCLUDED
+#ifndef SGE_SRC_PLUGIN_LIBRARY_LOAD_FUNCTION_BASE_HPP_INCLUDED
+#define SGE_SRC_PLUGIN_LIBRARY_LOAD_FUNCTION_BASE_HPP_INCLUDED
 
-#include <fcppt/config/platform.hpp>
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <fcppt/config/include_windows.hpp>
-#endif
+#include <sge/plugin/symbol.hpp>
+#include <sge/plugin/library/function_base.hpp>
+#include <sge/plugin/library/object_fwd.hpp>
+#include <sge/plugin/library/symbol_string.hpp>
+
 
 namespace sge
 {
@@ -33,13 +34,12 @@ namespace plugin
 namespace library
 {
 
-#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
-typedef void *loaded_symbol;
-#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-typedef FARPROC loaded_symbol;
-#else
-#error "Don't know what a library's symbol is!"
-#endif
+SGE_PLUGIN_SYMBOL
+sge::plugin::library::function_base
+load_function_base(
+	library::object &,
+	library::symbol_string const &
+);
 
 }
 }

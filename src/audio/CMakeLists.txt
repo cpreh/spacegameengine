@@ -66,6 +66,10 @@ SET(
 	src/audio/unsupported_format.cpp
 )
 
+INCLUDE_DIRECTORIES(
+	${CMAKE_SOURCE_DIR}/src/plugin/include
+)
+
 ADD_SGE_BASE_LIBRARY(
 	audio
 	"sgeplugin"

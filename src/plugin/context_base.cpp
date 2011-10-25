@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "load_info.hpp"
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/info.hpp>
+#include <sge/src/plugin/load_info.hpp>
 
 sge::plugin::context_base::context_base(
 	fcppt::filesystem::path const &_path

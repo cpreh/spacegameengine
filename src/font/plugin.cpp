@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/plugin.hpp>
 #include <sge/font/system.hpp>
-#include "../plugin/address_name.hpp"
-#include "../plugin/instantiate_types.hpp"
+#include <sge/src/plugin/address_name.hpp>
+#include <sge/src/plugin/instantiate_types.hpp>
+
 
 sge::plugin::detail::address_name
 sge::plugin::detail::traits<sge::font::system>::plugin_loader_name()
