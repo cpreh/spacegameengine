@@ -42,11 +42,15 @@ SET(
 	src/config/getenv.cpp
 	src/config/getenv_exn.cpp
 	src/config/homedir.cpp
+	src/config/include/sge/src/config/try_create_path.hpp
 	src/config/media_path.cpp
 	src/config/no_such_env_var.cpp
 	src/config/plugin_path.cpp
 	src/config/try_create_path.cpp
-	src/config/try_create_path.hpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_SOURCE_DIR}/src/config/include
 )
 
 ADD_SGE_BASE_LIBRARY(

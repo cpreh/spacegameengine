@@ -18,19 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONFIG_TRY_CREATE_PATH_HPP_INCLUDED
-#define SGE_CONFIG_TRY_CREATE_PATH_HPP_INCLUDED
+#ifndef SGE_SRC_CONFIG_TRY_CREATE_PATH_HPP_INCLUDED
+#define SGE_SRC_CONFIG_TRY_CREATE_PATH_HPP_INCLUDED
 
 #include <fcppt/filesystem/path.hpp>
+
 
 namespace sge
 {
 namespace config
 {
+
 fcppt::filesystem::path const
 try_create_path(
-	fcppt::filesystem::path const &_path
+	fcppt::filesystem::path const &
 );
+
 }
 }
 

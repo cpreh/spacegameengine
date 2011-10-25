@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "try_create_path.hpp"
 #include <sge/config/cache_path.hpp>
 #include <sge/config/optional_string.hpp>
+#include <sge/src/config/try_create_path.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/text.hpp>
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)

@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "try_create_path.hpp"
 #include <sge/config/config_path.hpp>
 #include <sge/config/optional_string.hpp>
 #include <sge/config/exception.hpp>
+#include <sge/src/config/try_create_path.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/is_directory.hpp>
