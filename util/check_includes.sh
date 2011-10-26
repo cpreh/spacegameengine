@@ -26,6 +26,7 @@ check_src plugin
 check_src projectile
 check_src renderer
 check_src systems
+check_src viewport
 
 "${INCLUDE_BINARY}" src/plugins SGE_  | grep -v X11INPUT || exit
 

@@ -11,15 +11,19 @@ SET(
 	include/sge/viewport/symbol.hpp
 	include/sge/viewport/viewport.hpp
 	src/viewport/center.cpp
-	src/viewport/center.hpp
 	src/viewport/center_on_resize.cpp
 	src/viewport/center_on_resize_function.cpp
-	src/viewport/center_on_resize_function.hpp
 	src/viewport/dont_manage.cpp
 	src/viewport/fill_on_resize.cpp
 	src/viewport/fill_on_resize_function.cpp
-	src/viewport/fill_on_resize_function.hpp
+	src/viewport/include/sge/src/viewport/center.hpp
+	src/viewport/include/sge/src/viewport/center_on_resize_function.hpp
+	src/viewport/include/sge/src/viewport/fill_on_resize_function.hpp
 	src/viewport/manager.cpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 ADD_SGE_BASE_LIBRARY(
