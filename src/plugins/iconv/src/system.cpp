@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../converter.hpp"
-#include "../encoding_to_string.hpp"
+#include <sge/iconv/system.hpp>
+#include <sge/iconv/converter.hpp>
+#include <sge/iconv/encoding_to_string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
 sge::iconv::system::system()

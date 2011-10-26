@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#include <sge/opengl/target_base.hpp>
 
 sge::opengl::target_base::target_base()
 {

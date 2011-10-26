@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../buffer.hpp"
-#include "../positional.hpp"
+#include <sge/audio_null/buffer.hpp>
+#include <sge/audio_null/positional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
 sge::audio_null::buffer::buffer()

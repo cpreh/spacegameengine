@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../cast_key.hpp"
+#include <sge/dinput/cast_key.hpp>
 
 DWORD
 sge::dinput::cast_key(

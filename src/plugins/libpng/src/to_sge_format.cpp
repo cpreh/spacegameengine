@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../to_sge_format.hpp"
-#include "../png.hpp"
+#include <sge/libpng/to_sge_format.hpp>
+#include <sge/libpng/png.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/color/format.hpp>
 #include <fcppt/text.hpp>

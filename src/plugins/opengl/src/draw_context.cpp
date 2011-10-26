@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../draw_context.hpp"
-#include "../context/make_id.hpp"
-#include "../glew/is_supported.hpp"
+#include <sge/opengl/draw_context.hpp>
+#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/glew/is_supported.hpp>
 
 sge::opengl::draw_context::draw_context()
 :

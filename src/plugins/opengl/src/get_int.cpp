@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../get_int.hpp"
-#include "../get_ints.hpp"
+#include <sge/opengl/get_int.hpp>
+#include <sge/opengl/get_ints.hpp>
 
 GLint
 sge::opengl::get_int(

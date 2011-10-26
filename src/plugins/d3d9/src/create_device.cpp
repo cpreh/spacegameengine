@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../create_device.hpp"
-#include "../d3dinclude.hpp"
-#include "../parameters/tnl_caps.hpp"
+#include <sge/d3d9/create_device.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/parameters/tnl_caps.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 

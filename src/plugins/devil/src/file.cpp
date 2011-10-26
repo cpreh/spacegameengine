@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../file.hpp"
-#include "../best_il_format.hpp"
-#include "../check_error_exn.hpp"
-#include "../convert_format.hpp"
-#include "../enable.hpp"
-#include "../disable.hpp"
-#include "../get_data.hpp"
-#include "../get_integer.hpp"
-#include "../load_image.hpp"
-#include "../load_memory.hpp"
-#include "../set_integer.hpp"
-#include "../to_il_channel.hpp"
-#include "../to_il_format.hpp"
+#include <sge/devil/file.hpp>
+#include <sge/devil/best_il_format.hpp>
+#include <sge/devil/check_error_exn.hpp>
+#include <sge/devil/convert_format.hpp>
+#include <sge/devil/enable.hpp>
+#include <sge/devil/disable.hpp>
+#include <sge/devil/get_data.hpp>
+#include <sge/devil/get_integer.hpp>
+#include <sge/devil/load_image.hpp>
+#include <sge/devil/load_memory.hpp>
+#include <sge/devil/set_integer.hpp>
+#include <sge/devil/to_il_channel.hpp>
+#include <sge/devil/to_il_format.hpp>
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>

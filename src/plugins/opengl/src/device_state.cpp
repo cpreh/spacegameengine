@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device_state.hpp"
+#include <sge/opengl/device_state.hpp>
 
 sge::opengl::device_state::device_state()
 {

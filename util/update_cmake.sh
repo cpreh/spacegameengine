@@ -120,6 +120,7 @@ update_cmake_file \
 	src/renderer \
 	-r \
 	src/renderer/glsl \
+	src/renderer/include \
 	src/renderer/index \
 	src/renderer/light \
 	src/renderer/lock_flags \
@@ -142,46 +143,49 @@ update_sublibrary viewport
 
 update_sublibrary window
 
+function opengl_inc_src() {
+	echo "src/plugins/opengl/include/sge/opengl/$1" "src/plugins/opengl/src/$1"
+}
+
 # plugins
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_FILES \
-	-n \
-	src/plugins/opengl \
+	-n src/plugins/opengl/src \
 	-r \
-	src/plugins/opengl/buffer \
-	src/plugins/opengl/context \
-	src/plugins/opengl/convert \
-	src/plugins/opengl/fbo \
-	src/plugins/opengl/glew \
-	src/plugins/opengl/glsl \
-	src/plugins/opengl/light \
-	src/plugins/opengl/src \
-	src/plugins/opengl/state \
-	src/plugins/opengl/texture \
-	src/plugins/opengl/vf
+	$(opengl_inc_src buffer) \
+	$(opengl_inc_src context) \
+	$(opengl_inc_src convert) \
+	$(opengl_inc_src fbo) \
+	$(opengl_inc_src glew) \
+	$(opengl_inc_src glsl) \
+	$(opengl_inc_src light) \
+	$(opengl_inc_src state) \
+	$(opengl_inc_src texture) \
+	$(opengl_inc_src vf)
 
+# opengl
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_WIN32_FILES \
-	src/plugins/opengl/wgl \
-	src/plugins/opengl/windows
+	$(opengl_inc_src wgl) \
+	$(opengl_inc_src windows)
 
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_X11_FILES \
-	src/plugins/opengl/glx \
-	src/plugins/opengl/x11
+	$(opengl_inc_src glx) \
+	$(opengl_inc_src x11)
 
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_XF86VMODE_FILES \
-	src/plugins/opengl/xf86vmode
+	$(opengl_inc_src xf86vmode)
 
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_XRANDR_FILES \
-	src/plugins/opengl/xrandr
+	$(opengl_inc_src xrandr)
 
 update_plugin audio_null
 

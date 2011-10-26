@@ -526,6 +526,26 @@ SET(
 	src/renderer/glsl/uniform/int_value.cpp
 	src/renderer/glsl/uniform/variable.cpp
 	src/renderer/glsl/vertex_shader.cpp
+	src/renderer/include/sge/src/renderer/basic_scoped_buffer_lock_impl.hpp
+	src/renderer/include/sge/src/renderer/const_basic_scoped_buffer_lock_impl.hpp
+	src/renderer/include/sge/src/renderer/glsl/uniform/basic_value_impl.hpp
+	src/renderer/include/sge/src/renderer/index/dynamic/format_enum_static.hpp
+	src/renderer/include/sge/src/renderer/index/instantiate_all.hpp
+	src/renderer/include/sge/src/renderer/projection/check_near.hpp
+	src/renderer/include/sge/src/renderer/projection/check_near_far.hpp
+	src/renderer/include/sge/src/renderer/state/instantiate.hpp
+	src/renderer/include/sge/src/renderer/state/trampoline_impl.hpp
+	src/renderer/include/sge/src/renderer/state/var_impl.hpp
+	src/renderer/include/sge/src/renderer/texture/basic_parameters_impl.hpp
+	src/renderer/include/sge/src/renderer/texture/basic_scoped_lock_impl.hpp
+	src/renderer/include/sge/src/renderer/texture/const_basic_scoped_lock_impl.hpp
+	src/renderer/include/sge/src/renderer/texture/filter/need_mipmap_visitor.hpp
+	src/renderer/include/sge/src/renderer/vf/dynamic/basic_view_impl.hpp
+	src/renderer/include/sge/src/renderer/vf/dynamic/detail/converter_impl.hpp
+	src/renderer/include/sge/src/renderer/vf/dynamic/detail/element_converter.hpp
+	src/renderer/include/sge/src/renderer/vf/dynamic/detail/element_converter_fwd.hpp
+	src/renderer/include/sge/src/renderer/vf/dynamic/detail/lock_interval.hpp
+	src/renderer/include/sge/src/renderer/vf/dynamic/detail/locked_part_interval.hpp
 	src/renderer/index/any/make_view.cpp
 	src/renderer/index/dynamic/basic_view.cpp
 	src/renderer/index/dynamic/format_stride.cpp

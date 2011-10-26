@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
+#include <sge/devil/library.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
 #include <IL/ilu.h>

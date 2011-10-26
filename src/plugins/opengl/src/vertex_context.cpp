@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../vertex_context.hpp"
-#include "../context/make_id.hpp"
+#include <sge/opengl/vertex_context.hpp>
+#include <sge/opengl/context/make_id.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 
 sge::opengl::vertex_context::vertex_context()

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../best_il_format.hpp"
+#include <sge/devil/best_il_format.hpp>
 #include <sge/image/color/format.hpp>
 #include <fcppt/assert/unreachable.hpp>
 

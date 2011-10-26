@@ -28,10 +28,8 @@ check_src renderer
 check_src systems
 check_src viewport
 
-"${INCLUDE_BINARY}" src/plugins SGE_  | grep -v X11INPUT || exit
-
-check_plugin() {
-	"${INCLUDE_BINARY}" src/plugins/"$1"/include || exit
-}
-
-check_plugin x11input
+for i in src/plugins/* ; do
+	if [[ -d "${i}" ]] ; then
+		"${INCLUDE_BINARY}" "$i"/include || exit
+	fi
+done

@@ -1,18 +1,22 @@
 SET(
 	SGE_LIBPNG_FILES
-	src/plugins/libpng/bit_depth_from_format.hpp
-	src/plugins/libpng/byte_vector.hpp
-	src/plugins/libpng/color_type_from_format.hpp
-	src/plugins/libpng/context_base.hpp
-	src/plugins/libpng/file.hpp
-	src/plugins/libpng/header_bytes.hpp
-	src/plugins/libpng/info.hpp
-	src/plugins/libpng/is_png.hpp
-	src/plugins/libpng/load_context.hpp
-	src/plugins/libpng/loader.hpp
-	src/plugins/libpng/logger.hpp
-	src/plugins/libpng/png.hpp
-	src/plugins/libpng/read_ptr.hpp
+	src/plugins/libpng/include/sge/libpng/bit_depth_from_format.hpp
+	src/plugins/libpng/include/sge/libpng/byte_vector.hpp
+	src/plugins/libpng/include/sge/libpng/color_type_from_format.hpp
+	src/plugins/libpng/include/sge/libpng/context_base.hpp
+	src/plugins/libpng/include/sge/libpng/file.hpp
+	src/plugins/libpng/include/sge/libpng/header_bytes.hpp
+	src/plugins/libpng/include/sge/libpng/info.hpp
+	src/plugins/libpng/include/sge/libpng/is_png.hpp
+	src/plugins/libpng/include/sge/libpng/load_context.hpp
+	src/plugins/libpng/include/sge/libpng/loader.hpp
+	src/plugins/libpng/include/sge/libpng/logger.hpp
+	src/plugins/libpng/include/sge/libpng/png.hpp
+	src/plugins/libpng/include/sge/libpng/read_ptr.hpp
+	src/plugins/libpng/include/sge/libpng/to_sge_format.hpp
+	src/plugins/libpng/include/sge/libpng/transforms_from_format.hpp
+	src/plugins/libpng/include/sge/libpng/write_context.hpp
+	src/plugins/libpng/include/sge/libpng/write_ptr.hpp
 	src/plugins/libpng/src/bit_depth_from_format.cpp
 	src/plugins/libpng/src/color_type_from_format.cpp
 	src/plugins/libpng/src/context_base.cpp
@@ -28,10 +32,10 @@ SET(
 	src/plugins/libpng/src/transforms_from_format.cpp
 	src/plugins/libpng/src/write_context.cpp
 	src/plugins/libpng/src/write_ptr.cpp
-	src/plugins/libpng/to_sge_format.hpp
-	src/plugins/libpng/transforms_from_format.hpp
-	src/plugins/libpng/write_context.hpp
-	src/plugins/libpng/write_ptr.hpp
+)
+
+INCLUDE_DIRECTORIES(
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
 INCLUDE_DIRECTORIES(

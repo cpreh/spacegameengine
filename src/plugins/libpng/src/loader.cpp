@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../loader.hpp"
-#include "../file.hpp"
+#include <sge/libpng/loader.hpp>
+#include <sge/libpng/file.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/image/file_exception.hpp>
 #include <sge/image/unsupported_format.hpp>

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../positional.hpp"
+#include <sge/audio_null/positional.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
 sge::audio_null::positional::positional()

@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../create_caps.hpp"
-#include "../common.hpp"
-#include "../get_string.hpp"
-#include "../get_int.hpp"
-#include "../context/use.hpp"
-#include "../fbo/context.hpp"
-#include "../glsl/context.hpp"
-#include "../texture/context.hpp"
-#include "../texture/volume_context.hpp"
+#include <sge/opengl/create_caps.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/get_string.hpp>
+#include <sge/opengl/get_int.hpp>
+#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/glsl/context.hpp>
+#include <sge/opengl/texture/context.hpp>
+#include <sge/opengl/texture/volume_context.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/size_type.hpp>

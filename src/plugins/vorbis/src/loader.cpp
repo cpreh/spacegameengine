@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../file.hpp"
-#include "../loader.hpp"
-#include "../stream_ptr.hpp"
+#include <sge/vorbis/file.hpp>
+#include <sge/vorbis/loader.hpp>
+#include <sge/vorbis/stream_ptr.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/optional_path.hpp>

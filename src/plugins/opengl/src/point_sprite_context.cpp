@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../point_sprite_context.hpp"
-#include "../common.hpp"
-#include "../glew/is_supported.hpp"
-#include "../context/make_id.hpp"
+#include <sge/opengl/point_sprite_context.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/glew/is_supported.hpp>
+#include <sge/opengl/context/make_id.hpp>
 
 sge::opengl::point_sprite_context::point_sprite_context()
 :

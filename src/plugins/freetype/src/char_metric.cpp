@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../freetype.hpp"
-#include "../face.hpp"
-#include "../char_metric.hpp"
-#include "../glyph.hpp"
+#include <sge/freetype/freetype.hpp>
+#include <sge/freetype/face.hpp>
+#include <sge/freetype/char_metric.hpp>
+#include <sge/freetype/glyph.hpp>
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>

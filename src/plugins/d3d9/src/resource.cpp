@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../resource.hpp"
-#include "../d3dinclude.hpp"
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/resource.hpp>
+
 
 sge::d3d9::resource::resource(
 	D3DPOOL const _pool

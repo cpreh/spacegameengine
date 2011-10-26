@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../create_device.hpp"
-#include "../dinput_device_unique_ptr.hpp"
+#include <sge/dinput/create_device.hpp>
+#include <sge/dinput/dinput_device_unique_ptr.hpp>
 #include <sge/input/exception.hpp>
 #include <fcppt/text.hpp>
 

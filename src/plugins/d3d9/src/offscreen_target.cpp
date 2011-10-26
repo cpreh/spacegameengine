@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../offscreen_target.hpp"
-#include "../basic_target_impl.hpp"
-#include "../devicefuncs/set_depth_stencil_surface.hpp"
-#include "../devicefuncs/set_render_target.hpp"
-#include "../surface/color_ptr.hpp"
-#include "../surface/color.hpp"
-#include "../surface/depth_stencil.hpp"
+#include <sge/d3d9/offscreen_target.hpp>
+#include <sge/d3d9/basic_target_impl.hpp>
+#include <sge/d3d9/devicefuncs/set_depth_stencil_surface.hpp>
+#include <sge/d3d9/devicefuncs/set_render_target.hpp>
+#include <sge/d3d9/surface/color_ptr.hpp>
+#include <sge/d3d9/surface/color.hpp>
+#include <sge/d3d9/surface/depth_stencil.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/optional_impl.hpp>

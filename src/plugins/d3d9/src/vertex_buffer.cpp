@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../vertex_buffer.hpp"
-#include "../d3dinclude.hpp"
-#include "../convert/lock_flags.hpp"
-#include "../convert/resource_flags_to_pool.hpp"
-#include "../convert/resource_flags.hpp"
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/vertex_buffer.hpp>
+#include <sge/d3d9/convert/lock_flags.hpp>
+#include <sge/d3d9/convert/resource_flags.hpp>
+#include <sge/d3d9/convert/resource_flags_to_pool.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>

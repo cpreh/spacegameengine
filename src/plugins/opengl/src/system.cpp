@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../device.hpp"
-#include "../extract_bit_depth.hpp"
-#include "../convert/depth_buffer.hpp"
-#include "../convert/stencil_buffer.hpp"
+#include <sge/opengl/system.hpp>
+#include <sge/opengl/device.hpp>
+#include <sge/opengl/extract_bit_depth.hpp>
+#include <sge/opengl/convert/depth_buffer.hpp>
+#include <sge/opengl/convert/stencil_buffer.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/window/to_awl_parameters.hpp>
 #include <awl/system/object.hpp>

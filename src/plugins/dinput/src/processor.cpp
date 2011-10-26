@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../processor.hpp"
-#include "../cursor/object.hpp"
-#include "../device/parameters.hpp"
-#include "../device/object.hpp"
-#include "../keyboard/device.hpp"
-#include "../mouse/device.hpp"
-#include "../create_device.hpp"
-#include "../create_dinput.hpp"
-#include "../di.hpp"
+#include <sge/dinput/processor.hpp>
+#include <sge/dinput/cursor/object.hpp>
+#include <sge/dinput/device/parameters.hpp>
+#include <sge/dinput/device/object.hpp>
+#include <sge/dinput/keyboard/device.hpp>
+#include <sge/dinput/mouse/device.hpp>
+#include <sge/dinput/create_device.hpp>
+#include <sge/dinput/create_dinput.hpp>
+#include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>

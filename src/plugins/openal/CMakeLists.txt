@@ -1,22 +1,23 @@
 SET(
 	SGE_OPENAL_FILES
-	src/plugins/openal/alc_error_string.hpp
-	src/plugins/openal/buffer.hpp
-	src/plugins/openal/buffer_holder.hpp
-	src/plugins/openal/buffer_wrapper.hpp
-	src/plugins/openal/check_alc_state.hpp
-	src/plugins/openal/check_state.hpp
-	src/plugins/openal/context.hpp
-	src/plugins/openal/device.hpp
-	src/plugins/openal/device_fwd.hpp
-	src/plugins/openal/error_string.hpp
-	src/plugins/openal/file_format.hpp
-	src/plugins/openal/listener.hpp
-	src/plugins/openal/log.hpp
-	src/plugins/openal/openal.hpp
-	src/plugins/openal/player.hpp
-	src/plugins/openal/source.hpp
-	src/plugins/openal/source_wrapper.hpp
+	src/plugins/openal/include/sge/openal/alc_error_string.hpp
+	src/plugins/openal/include/sge/openal/buffer.hpp
+	src/plugins/openal/include/sge/openal/buffer_holder.hpp
+	src/plugins/openal/include/sge/openal/buffer_wrapper.hpp
+	src/plugins/openal/include/sge/openal/check_alc_state.hpp
+	src/plugins/openal/include/sge/openal/check_state.hpp
+	src/plugins/openal/include/sge/openal/context.hpp
+	src/plugins/openal/include/sge/openal/device.hpp
+	src/plugins/openal/include/sge/openal/device_fwd.hpp
+	src/plugins/openal/include/sge/openal/error_string.hpp
+	src/plugins/openal/include/sge/openal/file_format.hpp
+	src/plugins/openal/include/sge/openal/listener.hpp
+	src/plugins/openal/include/sge/openal/log.hpp
+	src/plugins/openal/include/sge/openal/openal.hpp
+	src/plugins/openal/include/sge/openal/player.hpp
+	src/plugins/openal/include/sge/openal/source.hpp
+	src/plugins/openal/include/sge/openal/source_wrapper.hpp
+	src/plugins/openal/include/sge/openal/stream_sound.hpp
 	src/plugins/openal/src/alc_error_string.cpp
 	src/plugins/openal/src/buffer.cpp
 	src/plugins/openal/src/buffer_holder.cpp
@@ -32,7 +33,10 @@ SET(
 	src/plugins/openal/src/source.cpp
 	src/plugins/openal/src/source_wrapper.cpp
 	src/plugins/openal/src/stream_sound.cpp
-	src/plugins/openal/stream_sound.hpp
+)
+
+INCLUDE_DIRECTORIES(
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
 INCLUDE_DIRECTORIES(

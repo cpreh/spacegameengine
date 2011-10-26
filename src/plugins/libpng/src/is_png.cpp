@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../is_png.hpp"
-#include "../header_bytes.hpp"
-#include "../png.hpp"
+#include <sge/libpng/is_png.hpp>
+#include <sge/libpng/header_bytes.hpp>
+#include <sge/libpng/png.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>

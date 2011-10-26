@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_vertex_declaration.hpp"
-#include "../vertex_context.hpp"
-#include "../vertex_declaration.hpp"
-#include "../context/use.hpp"
+#include <sge/opengl/set_vertex_declaration.hpp>
+#include <sge/opengl/vertex_context.hpp>
+#include <sge/opengl/vertex_declaration.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/renderer/const_optional_vertex_declaration.hpp>
 
 void

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../file.hpp"
-#include "../is_png.hpp"
-#include "../load_context.hpp"
-#include "../png.hpp"
-#include "../write_context.hpp"
+#include <sge/libpng/file.hpp>
+#include <sge/libpng/is_png.hpp>
+#include <sge/libpng/load_context.hpp>
+#include <sge/libpng/png.hpp>
+#include <sge/libpng/write_context.hpp>
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>

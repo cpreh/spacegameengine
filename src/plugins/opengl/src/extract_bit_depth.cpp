@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../extract_bit_depth.hpp"
-#include "../convert/bit_depth.hpp"
-#include "../convert/visual_depth.hpp"
+#include <sge/opengl/extract_bit_depth.hpp>
+#include <sge/opengl/convert/bit_depth.hpp>
+#include <sge/opengl/convert/visual_depth.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/screen_mode.hpp>
 #include <sge/renderer/visual_depth.hpp>

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../converter.hpp"
+#include <sge/winconv/converter.hpp>
 #include <sge/exception.hpp>
 #include <sge/charconv/const_raw_pointer.hpp>
 #include <sge/charconv/exception.hpp>

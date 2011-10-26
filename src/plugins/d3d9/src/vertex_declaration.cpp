@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../vertex_declaration.hpp"
-#include "../d3dinclude.hpp"
-#include "../convert/vertex_role.hpp"
-#include "../convert/vertex_type.hpp"
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/vertex_declaration.hpp>
+#include <sge/d3d9/convert/vertex_role.hpp>
+#include <sge/d3d9/convert/vertex_type.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>

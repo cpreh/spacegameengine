@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../matrix_mode.hpp"
-#include "../common.hpp"
-#include "../check_state.hpp"
+#include <sge/opengl/matrix_mode.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/check_state.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 

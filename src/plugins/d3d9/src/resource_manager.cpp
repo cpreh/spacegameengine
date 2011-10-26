@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../resource_manager.hpp"
-#include "../resource.hpp"
+#include <sge/d3d9/resource.hpp>
+#include <sge/d3d9/resource_manager.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::d3d9::resource_manager::resource_manager()
 :

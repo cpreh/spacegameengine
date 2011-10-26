@@ -1,25 +1,28 @@
 SET(
 	SGE_DEVIL_FILES
-	src/plugins/devil/best_il_format.hpp
-	src/plugins/devil/check_error.hpp
-	src/plugins/devil/check_error_exn.hpp
-	src/plugins/devil/convert_extension.hpp
-	src/plugins/devil/convert_format.hpp
-	src/plugins/devil/disable.hpp
-	src/plugins/devil/enable.hpp
-	src/plugins/devil/error_string.hpp
-	src/plugins/devil/file.hpp
-	src/plugins/devil/file_fwd.hpp
-	src/plugins/devil/file_ptr.hpp
-	src/plugins/devil/get_data.hpp
-	src/plugins/devil/get_integer.hpp
-	src/plugins/devil/image_holder.hpp
-	src/plugins/devil/library.hpp
-	src/plugins/devil/load_image.hpp
-	src/plugins/devil/load_memory.hpp
-	src/plugins/devil/loader.hpp
-	src/plugins/devil/optional_error.hpp
-	src/plugins/devil/set_integer.hpp
+	src/plugins/devil/include/sge/devil/best_il_format.hpp
+	src/plugins/devil/include/sge/devil/check_error.hpp
+	src/plugins/devil/include/sge/devil/check_error_exn.hpp
+	src/plugins/devil/include/sge/devil/convert_extension.hpp
+	src/plugins/devil/include/sge/devil/convert_format.hpp
+	src/plugins/devil/include/sge/devil/disable.hpp
+	src/plugins/devil/include/sge/devil/enable.hpp
+	src/plugins/devil/include/sge/devil/error_string.hpp
+	src/plugins/devil/include/sge/devil/file.hpp
+	src/plugins/devil/include/sge/devil/file_fwd.hpp
+	src/plugins/devil/include/sge/devil/file_ptr.hpp
+	src/plugins/devil/include/sge/devil/get_data.hpp
+	src/plugins/devil/include/sge/devil/get_integer.hpp
+	src/plugins/devil/include/sge/devil/image_holder.hpp
+	src/plugins/devil/include/sge/devil/library.hpp
+	src/plugins/devil/include/sge/devil/load_image.hpp
+	src/plugins/devil/include/sge/devil/load_memory.hpp
+	src/plugins/devil/include/sge/devil/loader.hpp
+	src/plugins/devil/include/sge/devil/optional_error.hpp
+	src/plugins/devil/include/sge/devil/set_integer.hpp
+	src/plugins/devil/include/sge/devil/supported_extensions.hpp
+	src/plugins/devil/include/sge/devil/to_il_channel.hpp
+	src/plugins/devil/include/sge/devil/to_il_format.hpp
 	src/plugins/devil/src/best_il_format.cpp
 	src/plugins/devil/src/check_error.cpp
 	src/plugins/devil/src/check_error_exn.cpp
@@ -41,9 +44,10 @@ SET(
 	src/plugins/devil/src/supported_extensions.cpp
 	src/plugins/devil/src/to_il_channel.cpp
 	src/plugins/devil/src/to_il_format.cpp
-	src/plugins/devil/supported_extensions.hpp
-	src/plugins/devil/to_il_channel.hpp
-	src/plugins/devil/to_il_format.hpp
+)
+
+INCLUDE_DIRECTORIES(
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
 INCLUDE_DIRECTORIES(

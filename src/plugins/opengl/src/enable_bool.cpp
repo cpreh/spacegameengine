@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../enable_bool.hpp"
-#include "../enable.hpp"
-#include "../disable.hpp"
+#include <sge/opengl/enable_bool.hpp>
+#include <sge/opengl/enable.hpp>
+#include <sge/opengl/disable.hpp>
 
 void
 sge::opengl::enable_bool(

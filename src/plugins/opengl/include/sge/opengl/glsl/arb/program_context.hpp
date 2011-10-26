@@ -1,0 +1,143 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
+#ifndef SGE_OPENGL_GLSL_ARB_PROGRAM_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_ARB_PROGRAM_CONTEXT_HPP_INCLUDED
+
+#include <sge/opengl/glsl/arb/program_context_fwd.hpp>
+#include <sge/opengl/glsl/arb/handle.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+namespace glsl
+{
+namespace arb
+{
+
+class program_context
+:
+	public opengl::context::base
+{
+	FCPPT_NONCOPYABLE(
+		program_context
+	);
+public:
+	program_context();
+
+	~program_context();
+
+	typedef arb::handle handle;
+
+	typedef PFNGLCREATEPROGRAMOBJECTARBPROC gl_create_program;
+
+	typedef PFNGLDELETEOBJECTARBPROC gl_delete_program;
+
+	typedef PFNGLATTACHOBJECTARBPROC gl_attach_shader;
+
+	typedef PFNGLDETACHOBJECTARBPROC gl_detach_shader;
+
+	typedef PFNGLLINKPROGRAMARBPROC gl_link_program;
+
+	typedef PFNGLGETOBJECTPARAMETERIVARBPROC gl_program_integer;
+
+	typedef PFNGLUSEPROGRAMOBJECTARBPROC gl_use_program;
+
+	typedef PFNGLGETINFOLOGARBPROC gl_program_info_log;
+
+	typedef PFNGLBINDATTRIBLOCATIONARBPROC gl_bind_attrib_location;
+
+	// note: this is not supported by ARB
+	typedef PFNGLBINDFRAGDATALOCATIONPROC gl_bind_frag_data_location;
+
+	gl_create_program
+	create_program() const;
+
+	gl_delete_program
+	delete_program() const;
+
+	gl_attach_shader
+	attach_shader() const;
+
+	gl_detach_shader
+	detach_shader() const;
+
+	gl_link_program
+	link_program() const;
+
+	gl_program_integer
+	program_integer() const;
+
+	gl_use_program
+	use_program() const;
+
+	gl_program_info_log
+	program_info_log() const;
+
+	gl_bind_attrib_location
+	bind_attrib_location() const;
+
+	gl_bind_frag_data_location
+	bind_frag_data_location() const;
+
+	GLenum
+	link_status_type() const;
+
+	GLenum
+	info_log_length_type() const;
+
+	typedef void needs_before;
+
+	static opengl::context::id const static_id;
+private:
+	gl_create_program const create_program_;
+
+	gl_delete_program const delete_program_;
+
+	gl_attach_shader const attach_shader_;
+
+	gl_detach_shader const detach_shader_;
+
+	gl_link_program const link_program_;
+
+	gl_program_integer const program_integer_;
+
+	gl_use_program const use_program_;
+
+	gl_program_info_log const program_info_log_;
+
+	gl_bind_attrib_location const bind_attrib_location_;
+
+	GLenum const
+		link_status_type_,
+		info_log_length_type_;
+};
+
+}
+}
+}
+}
+
+#endif

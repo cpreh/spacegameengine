@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../d3dinclude.hpp"
-#include "../device.hpp"
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/device.hpp>
+#include <sge/d3d9/system.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/window/to_awl_parameters.hpp>
 #include <awl/system/object.hpp>

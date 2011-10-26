@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../metrics.hpp"
-#include "../glyph.hpp"
-#include "../char_metric.hpp"
+#include <sge/freetype/metrics.hpp>
+#include <sge/freetype/glyph.hpp>
+#include <sge/freetype/char_metric.hpp>
 #include <sge/font/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../loader.hpp"
+#include <sge/devil/loader.hpp>
 #include <sge/image2d/loader_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/info.hpp>

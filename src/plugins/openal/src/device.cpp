@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device.hpp"
-#include "../check_alc_state.hpp"
-#include "../openal.hpp"
+#include <sge/openal/device.hpp>
+#include <sge/openal/check_alc_state.hpp>
+#include <sge/openal/openal.hpp>
 #include <sge/audio/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/post.hpp>

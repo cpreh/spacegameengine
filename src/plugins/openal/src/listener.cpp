@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../listener.hpp"
-#include "../check_state.hpp"
-#include "../log.hpp"
-#include "../openal.hpp"
+#include <sge/openal/listener.hpp>
+#include <sge/openal/check_state.hpp>
+#include <sge/openal/log.hpp>
+#include <sge/openal/openal.hpp>
 #include <sge/audio/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/headers.hpp>

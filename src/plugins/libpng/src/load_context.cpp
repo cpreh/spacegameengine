@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../load_context.hpp"
-#include "../header_bytes.hpp"
-#include "../logger.hpp"
-#include "../png.hpp"
-#include "../to_sge_format.hpp"
+#include <sge/libpng/load_context.hpp>
+#include <sge/libpng/header_bytes.hpp>
+#include <sge/libpng/logger.hpp>
+#include <sge/libpng/png.hpp>
+#include <sge/libpng/to_sge_format.hpp>
 #include <sge/image/file_exception.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/log/global.hpp>

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_matrix_and_mode.hpp"
-#include "../set_matrix.hpp"
-#include "../matrix_mode.hpp"
-#include "../convert/matrix_mode.hpp"
-#include "../convert/projection.hpp"
+#include <sge/opengl/set_matrix_and_mode.hpp>
+#include <sge/opengl/set_matrix.hpp>
+#include <sge/opengl/matrix_mode.hpp>
+#include <sge/opengl/convert/matrix_mode.hpp>
+#include <sge/opengl/convert/projection.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 
 void

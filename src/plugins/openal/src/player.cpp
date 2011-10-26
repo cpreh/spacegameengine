@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../player.hpp"
-#include "../stream_sound.hpp"
-#include "../check_state.hpp"
-#include "../file_format.hpp"
-#include "../log.hpp"
-#include "../buffer.hpp"
+#include <sge/openal/player.hpp>
+#include <sge/openal/stream_sound.hpp>
+#include <sge/openal/check_state.hpp>
+#include <sge/openal/file_format.hpp>
+#include <sge/openal/log.hpp>
+#include <sge/openal/buffer.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/sample_container.hpp>

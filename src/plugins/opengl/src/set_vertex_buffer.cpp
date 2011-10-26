@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_vertex_buffer.hpp"
-#include "../unset_vertex_buffer.hpp"
-#include "../vertex_buffer.hpp"
-#include "../vertex_context.hpp"
-#include "../vertex_declaration.hpp"
-#include "../context/use.hpp"
+#include <sge/opengl/set_vertex_buffer.hpp>
+#include <sge/opengl/unset_vertex_buffer.hpp>
+#include <sge/opengl/vertex_buffer.hpp>
+#include <sge/opengl/vertex_context.hpp>
+#include <sge/opengl/vertex_declaration.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>

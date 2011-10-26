@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../context.hpp"
-#include "../device.hpp"
-#include "../check_state.hpp"
-#include "../check_alc_state.hpp"
-#include "../openal.hpp"
-#include "../log.hpp"
+#include <sge/openal/context.hpp>
+#include <sge/openal/device.hpp>
+#include <sge/openal/check_state.hpp>
+#include <sge/openal/check_alc_state.hpp>
+#include <sge/openal/openal.hpp>
+#include <sge/openal/log.hpp>
 #include <sge/audio/exception.hpp>
 #include <fcppt/assert/post.hpp>
 #include <fcppt/log/headers.hpp>

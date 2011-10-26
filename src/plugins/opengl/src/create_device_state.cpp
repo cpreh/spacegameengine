@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../create_device_state.hpp"
+#include <sge/opengl/create_device_state.hpp>
 #include <sge/opengl/config.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(SGE_OPENGL_HAVE_X11)
-#include "../x11/state.hpp"
+#include <sge/opengl/x11/state.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include "../windows/state.hpp"
+#include <sge/opengl/windows/state.hpp>
 #include <awl/backends/windows/window/instance.hpp>
 #else
 #error "Implement me!"

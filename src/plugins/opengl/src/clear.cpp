@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../clear.hpp"
-#include "../check_state.hpp"
-#include "../common.hpp"
-#include "../convert/clear_flags.hpp"
+#include <sge/opengl/clear.hpp>
+#include <sge/opengl/check_state.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/convert/clear_flags.hpp>
 #include <sge/renderer/clear_flags.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>

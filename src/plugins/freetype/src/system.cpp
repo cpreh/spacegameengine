@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../metrics.hpp"
+#include <sge/freetype/system.hpp>
+#include <sge/freetype/metrics.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 

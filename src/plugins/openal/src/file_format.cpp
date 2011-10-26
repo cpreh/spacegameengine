@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../file_format.hpp"
-#include "../openal.hpp"
+#include <sge/openal/file_format.hpp>
+#include <sge/openal/openal.hpp>
 #include <sge/audio/channel_type.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>

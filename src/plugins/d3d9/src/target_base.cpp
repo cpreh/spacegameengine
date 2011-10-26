@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target_base.hpp"
+#include <sge/d3d9/target_base.hpp>
 
 sge::d3d9::target_base::target_base()
 {

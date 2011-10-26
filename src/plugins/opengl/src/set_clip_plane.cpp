@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_clip_plane.hpp"
-#include "../convert/clip_plane_index.hpp"
-#include "../check_state.hpp"
+#include <sge/opengl/set_clip_plane.hpp>
+#include <sge/opengl/convert/clip_plane_index.hpp>
+#include <sge/opengl/check_state.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
