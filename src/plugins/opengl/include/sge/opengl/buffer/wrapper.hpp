@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BUFFER_WRAPPER_HPP_INCLUDED
 
 #include <sge/opengl/buffer/object_fwd.hpp>
-#include "../common.hpp" // bring in glew.h
+#include <sge/opengl/common.hpp> // bring in glew.h for renderer/opengl includes
 #include <sge/renderer/opengl/buffer/base.hpp>
 #include <sge/renderer/opengl/buffer/id.hpp>
 #include <fcppt/noncopyable.hpp>
