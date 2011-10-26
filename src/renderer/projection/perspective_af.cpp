@@ -18,10 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "check_near_far.hpp"
-#include "check_near.hpp"
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/projection/aspect.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/fov.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/perspective_af.hpp>
+#include <sge/src/renderer/projection/check_near.hpp>
+#include <sge/src/renderer/projection/check_near_far.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
