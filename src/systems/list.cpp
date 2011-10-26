@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "any_compare.hpp"
 #include <sge/log/global.hpp>
+#include <sge/src/systems/any_compare.hpp>
+#include <sge/systems/any.hpp>
+#include <sge/systems/any_set.hpp>
 #include <sge/systems/list.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>

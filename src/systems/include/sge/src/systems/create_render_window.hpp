@@ -18,39 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_BASIC_LOADER_IMPL_HPP_INCLUDED
-#define SGE_SYSTEMS_BASIC_LOADER_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_CREATE_RENDER_WINDOW_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_CREATE_RENDER_WINDOW_HPP_INCLUDED
 
-#include <sge/systems/basic_loader.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/system_ptr.hpp>
+#include <sge/systems/window_fwd.hpp>
+#include <sge/window/instance_ptr.hpp>
+#include <awl/system/object_shared_ptr.hpp>
 
-template<
-	typename Capabilities
->
-sge::systems::basic_loader<Capabilities>::basic_loader(
-	capabilities_type const &_capabilities,
-	sge::extension_set const &_extensions
-)
-:
-	extensions_(_extensions),
-	capabilities_(_capabilities)
-{}
 
-template<
-	typename Capabilities
->
-sge::extension_set const &
-sge::systems::basic_loader<Capabilities>::extensions() const
+namespace sge
 {
-	return extensions_;
+namespace systems
+{
+
+sge::window::instance_ptr const
+create_render_window(
+	awl::system::object_shared_ptr,
+	sge::renderer::system_ptr,
+	sge::systems::window const &,
+	sge::renderer::parameters const &
+);
+
 }
-
-template<
-	typename Capabilities
->
-typename sge::systems::basic_loader<Capabilities>::capabilities_type const &
-sge::systems::basic_loader<Capabilities>::capabilities() const
-{
-	return capabilities_;
 }
 
 #endif

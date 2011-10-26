@@ -18,15 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_CURSOR_MODIFIER_HPP_INCLUDED
-#define SGE_SYSTEMS_CURSOR_MODIFIER_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_WRAP_WINDOW_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_WRAP_WINDOW_HPP_INCLUDED
 
-#include <sge/input/processor_fwd.hpp>
-#include <sge/input/cursor/discover_event_fwd.hpp>
-#include <sge/systems/cursor_option_field.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/container/bitfield/basic_decl.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <sge/systems/window_fwd.hpp>
+#include <sge/window/instance_ptr.hpp>
 
 
 namespace sge
@@ -34,28 +30,10 @@ namespace sge
 namespace systems
 {
 
-class cursor_modifier
-{
-	FCPPT_NONCOPYABLE(
-		cursor_modifier
-	);
-public:
-	explicit cursor_modifier(
-		sge::input::processor &,
-		systems::cursor_option_field const &
-	);
-
-	~cursor_modifier();
-private:
-	void
-	cursor_discover(
-		sge::input::cursor::discover_event const &
-	);
-
-	systems::cursor_option_field const options_;
-
-	fcppt::signal::scoped_connection const connection_;
-};
+sge::window::instance_ptr const
+wrap_window(
+	sge::systems::window const &
+);
 
 }
 }

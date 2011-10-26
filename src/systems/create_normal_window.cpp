@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "create_normal_window.hpp"
+#include <sge/src/systems/create_normal_window.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/window/create.hpp>
 #include <sge/window/create_simple_from_awl.hpp>
+#include <sge/window/instance_ptr.hpp>
 #include <sge/window/parameters.hpp>
+#include <awl/system/object_shared_ptr.hpp>
+
 
 sge::window::instance_ptr const
 sge::systems::create_normal_window(

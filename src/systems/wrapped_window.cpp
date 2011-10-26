@@ -19,6 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/systems/wrapped_window.hpp>
+#include <awl/system/object_shared_ptr.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
+
 
 sge::systems::wrapped_window::wrapped_window(
 	awl::system::object_shared_ptr const _system,

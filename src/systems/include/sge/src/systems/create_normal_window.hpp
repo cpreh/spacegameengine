@@ -18,20 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_COMPARE_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_COMPARE_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_CREATE_NORMAL_WINDOW_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_CREATE_NORMAL_WINDOW_HPP_INCLUDED
 
-#include <sge/systems/any.hpp>
+#include <sge/systems/window_fwd.hpp>
+#include <sge/window/instance_ptr.hpp>
+#include <awl/system/object_shared_ptr.hpp>
+
 
 namespace sge
 {
 namespace systems
 {
 
-bool
-any_compare(
-	any const &a,
-	any const &b
+sge::window::instance_ptr const
+create_normal_window(
+	awl::system::object_shared_ptr,
+	sge::systems::window const &
 );
 
 }

@@ -18,7 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "basic_loader_impl.hpp"
+#include <sge/image/capabilities_field.hpp>
+#include <sge/src/systems/basic_loader_impl.hpp>
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/symbol.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>

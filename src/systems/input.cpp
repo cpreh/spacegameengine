@@ -18,7 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
+#include <sge/systems/input_helper_field.hpp>
+
 
 sge::systems::input::input(
 	systems::input_helper_field const &_input_helpers,
@@ -27,7 +30,8 @@ sge::systems::input::input(
 :
 	input_helpers_(_input_helpers),
 	cursor_options_(_cursor_options)
-{}
+{
+}
 
 sge::systems::input_helper_field const &
 sge::systems::input::input_helpers() const

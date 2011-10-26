@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "plugin_path.hpp"
 #include <sge/config/plugin_path.hpp>
+#include <sge/src/systems/plugin_path.hpp>
+#include <sge/systems/any_set.hpp>
 #include <sge/systems/config.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 
 fcppt::filesystem::path const

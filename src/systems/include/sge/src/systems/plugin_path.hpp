@@ -18,20 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_WRAP_WINDOW_HPP_INCLUDED
-#define SGE_SYSTEMS_WRAP_WINDOW_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_PLUGIN_PATH_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_PLUGIN_PATH_HPP_INCLUDED
 
-#include <sge/systems/window_fwd.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/systems/any_set.hpp>
+#include <fcppt/filesystem/path.hpp>
+
 
 namespace sge
 {
 namespace systems
 {
 
-sge::window::instance_ptr const
-wrap_window(
-	sge::systems::window const &
+fcppt::filesystem::path const
+plugin_path(
+	systems::any_set const &
 );
 
 }

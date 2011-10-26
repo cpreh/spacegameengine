@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "wrap_window.hpp"
+#include <sge/src/systems/wrap_window.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/wrapped_window.hpp>
 #include <sge/window/create.hpp>
+#include <sge/window/instance_ptr.hpp>
 #include <sge/window/parameters.hpp>
+
 
 sge::window::instance_ptr const
 sge::systems::wrap_window(

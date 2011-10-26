@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "any_compare.hpp"
+#include <sge/src/systems/any_compare.hpp>
 #include <sge/systems/any.hpp>
 #include <sge/systems/audio_loader.hpp>
+#include <sge/systems/audio_player.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/image_loader.hpp>
+#include <sge/systems/input.hpp>
 #include <sge/systems/parameterless.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>

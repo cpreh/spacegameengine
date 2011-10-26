@@ -29,31 +29,35 @@ SET(
 	include/sge/systems/window_fwd.hpp
 	include/sge/systems/wrapped_window.hpp
 	src/systems/any_compare.cpp
-	src/systems/any_compare.hpp
 	src/systems/audio_loader.cpp
 	src/systems/audio_player.cpp
 	src/systems/audio_player_default.cpp
-	src/systems/basic_loader_impl.hpp
 	src/systems/config.cpp
 	src/systems/create_normal_window.cpp
-	src/systems/create_normal_window.hpp
 	src/systems/create_render_window.cpp
-	src/systems/create_render_window.hpp
 	src/systems/cursor_modifier.cpp
-	src/systems/cursor_modifier.hpp
 	src/systems/exception.cpp
 	src/systems/image_loader.cpp
+	src/systems/include/sge/src/systems/any_compare.hpp
+	src/systems/include/sge/src/systems/basic_loader_impl.hpp
+	src/systems/include/sge/src/systems/create_normal_window.hpp
+	src/systems/include/sge/src/systems/create_render_window.hpp
+	src/systems/include/sge/src/systems/cursor_modifier.hpp
+	src/systems/include/sge/src/systems/plugin_path.hpp
+	src/systems/include/sge/src/systems/wrap_window.hpp
 	src/systems/input.cpp
 	src/systems/instance.cpp
 	src/systems/list.cpp
 	src/systems/plugin_path.cpp
-	src/systems/plugin_path.hpp
 	src/systems/renderer.cpp
 	src/systems/running_to_false.cpp
 	src/systems/window.cpp
 	src/systems/wrap_window.cpp
-	src/systems/wrap_window.hpp
 	src/systems/wrapped_window.cpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 ADD_SGE_BASE_LIBRARY(

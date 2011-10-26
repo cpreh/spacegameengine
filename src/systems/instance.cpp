@@ -18,11 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "create_normal_window.hpp"
-#include "create_render_window.hpp"
-#include "cursor_modifier.hpp"
-#include "plugin_path.hpp"
-#include "wrap_window.hpp"
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin.hpp>
@@ -52,6 +47,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/plugin.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/system_ptr.hpp>
+#include <sge/src/systems/create_normal_window.hpp>
+#include <sge/src/systems/create_render_window.hpp>
+#include <sge/src/systems/cursor_modifier.hpp>
+#include <sge/src/systems/plugin_path.hpp>
+#include <sge/src/systems/wrap_window.hpp>
 #include <sge/systems/exception.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
