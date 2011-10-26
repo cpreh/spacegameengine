@@ -18,48 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
-#define SGE_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_INDEX_INSTANTIATE_ALL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_INDEX_INSTANTIATE_ALL_HPP_INCLUDED
 
-#include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
+#include <sge/renderer/index/const_format_16.hpp>
+#include <sge/renderer/index/const_format_32.hpp>
+#include <sge/renderer/index/format_16.hpp>
+#include <sge/renderer/index/format_32.hpp>
 
-template<
-	typename Buffer,
-	typename View
->
-sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::const_basic_scoped_buffer_lock(
-	Buffer const &_buffer,
-	size_type const _first,
-	size_type const _count
+
+#define SGE_RENDERER_INDEX_INSTANTIATE_ALL(\
+	macro\
+)\
+macro(\
+	sge::renderer::index::format_16\
+)\
+macro(\
+	sge::renderer::index::format_32\
+)\
+macro(\
+	sge::renderer::index::const_format_16\
+)\
+macro(\
+	sge::renderer::index::const_format_32\
 )
-:
-	buffer_(_buffer),
-	view_(
-		buffer_.lock(
-			_first,
-			_count
-		)
-	)
-{
-}
-
-template<
-	typename Buffer,
-	typename View
->
-View const
-sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::value() const
-{
-	return view_;
-}
-
-template<
-	typename Buffer,
-	typename View
->
-sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::~const_basic_scoped_buffer_lock()
-{
-	buffer_.unlock();
-}
 
 #endif

@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "instantiate.hpp"
 #include <sge/renderer/state/uint.hpp>
+#include <sge/src/renderer/state/instantiate.hpp>
+
 
 SGE_RENDERER_STATE_INSTANTIATE_VAR_AND_TRAMPOLINE(uint)
 SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(uint, stencil_mask)

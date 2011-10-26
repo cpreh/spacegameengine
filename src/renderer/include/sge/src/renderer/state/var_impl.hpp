@@ -18,26 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_FWD_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_FWD_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_STATE_VAR_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_STATE_VAR_IMPL_HPP_INCLUDED
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
-{
-namespace detail
-{
+#include <sge/renderer/state/var.hpp>
 
-class element_converter;
 
+template<
+	typename T,
+	typename States
+>
+sge::renderer::state::var<T, States> &
+sge::renderer::state::var<T, States>::operator=(
+	value_type const &_val
+)
+{
+	val_ = _val;
+	return *this;
 }
+
+template<
+	typename T,
+	typename States
+>
+typename sge::renderer::state::var<T, States>::state_type
+sge::renderer::state::var<T, States>::state() const
+{
+	return state_;
 }
+
+template<
+	typename T,
+	typename States
+>
+T
+sge::renderer::state::var<T, States>::value() const
+{
+	return val_;
 }
-}
-}
+
+template<
+	typename T,
+	typename States
+>
+sge::renderer::state::var<T, States>::var(
+	state_type const _state,
+	value_type const &_val)
+:
+	state_(_state),
+	val_(_val)
+{}
 
 #endif

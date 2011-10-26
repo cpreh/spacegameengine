@@ -24,6 +24,7 @@ check_src opencl
 check_src parse
 check_src plugin
 check_src projectile
+check_src renderer
 
 "${INCLUDE_BINARY}" src/plugins SGE_  | grep -v X11INPUT || exit
 

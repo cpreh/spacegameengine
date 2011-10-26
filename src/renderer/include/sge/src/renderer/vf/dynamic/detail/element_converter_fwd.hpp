@@ -18,28 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_INSTANTIATE_ALL_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_INSTANTIATE_ALL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_FWD_HPP_INCLUDED
+#define SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_FWD_HPP_INCLUDED
 
-#include <sge/renderer/index/const_format_16.hpp>
-#include <sge/renderer/index/const_format_32.hpp>
-#include <sge/renderer/index/format_16.hpp>
-#include <sge/renderer/index/format_32.hpp>
+namespace sge
+{
+namespace renderer
+{
+namespace vf
+{
+namespace dynamic
+{
+namespace detail
+{
 
-#define SGE_RENDERER_INDEX_INSTANTIATE_ALL(\
-	macro\
-)\
-macro(\
-	sge::renderer::index::format_16\
-)\
-macro(\
-	sge::renderer::index::format_32\
-)\
-macro(\
-	sge::renderer::index::const_format_16\
-)\
-macro(\
-	sge::renderer::index::const_format_32\
-)
+class element_converter;
+
+}
+}
+}
+}
+}
 
 #endif

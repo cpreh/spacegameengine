@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "basic_value_impl.hpp"
+#include <sge/renderer/glsl/int_type.hpp>
 #include <sge/renderer/glsl/uniform/int_value.hpp>
+#include <sge/renderer/glsl/uniform/int_value_type.hpp>
+#include <sge/src/renderer/glsl/uniform/basic_value_impl.hpp>
 #include <fcppt/export_symbol.hpp>
 
 

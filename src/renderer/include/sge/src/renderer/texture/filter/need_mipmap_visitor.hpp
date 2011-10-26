@@ -18,47 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_TRAMPOLINE_IMPL_HPP_INCLUDED
-#define SGE_RENDERER_STATE_TRAMPOLINE_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_TEXTURE_FILTER_NEED_MIPMAP_VISITOR_HPP_INCLUDED
+#define SGE_SRC_RENDERER_TEXTURE_FILTER_NEED_MIPMAP_VISITOR_HPP_INCLUDED
 
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/texture/filter/anisotropic/object_fwd.hpp>
+#include <sge/renderer/texture/filter/normal/object_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
-template<
-	typename T,
-	typename States
->
-sge::renderer::state::trampoline<T, States>::trampoline(
-	state_type const _state
-)
-:
-	state_(_state)
-{}
 
-template<
-	typename T,
-	typename States
->
-typename sge::renderer::state::trampoline<T, States>::var_type const
-sge::renderer::state::trampoline<T, States>::operator=(
-	T const &_value
-) const
+namespace sge
 {
-	return
-		var_type(
-			state_,
-			_value
-		);
+namespace renderer
+{
+namespace texture
+{
+namespace filter
+{
+
+class need_mipmap_visitor
+{
+	FCPPT_NONASSIGNABLE(
+		need_mipmap_visitor
+	);
+public:
+	typedef bool result_type;
+
+	result_type
+	operator()(
+		filter::anisotropic::object const &
+	) const;
+
+	result_type
+	operator()(
+		filter::normal::object const &
+	) const;
+};
+
 }
-
-template<
-	typename T,
-	typename States
->
-typename sge::renderer::state::trampoline<T, States>::state_type
-sge::renderer::state::trampoline<T, States>::state() const
-{
-	return state_;
+}
+}
 }
 
 #endif

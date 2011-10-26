@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_LOCK_INTERVAL_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_DETAIL_LOCK_INTERVAL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_LOCKED_PART_INTERVAL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_LOCKED_PART_INTERVAL_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/icl/interval.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/vf/dynamic/locked_part_fwd.hpp>
+#include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
+
 
 namespace sge
 {
@@ -37,9 +36,10 @@ namespace dynamic
 namespace detail
 {
 
-typedef boost::icl::interval<
-	renderer::size_type
->::type lock_interval;
+detail::lock_interval const
+locked_part_interval(
+	dynamic::locked_part const &
+);
 
 }
 }

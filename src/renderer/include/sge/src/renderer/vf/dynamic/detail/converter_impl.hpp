@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_CONVERTER_IMPL_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_DETAIL_CONVERTER_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_CONVERTER_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_CONVERTER_IMPL_HPP_INCLUDED
 
-#include "element_converter_fwd.hpp"
-#include "lock_interval.hpp"
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/detail/converter_impl_fwd.hpp>
 #include <sge/renderer/vf/dynamic/detail/lock_interval_set.hpp>
+#include <sge/src/renderer/vf/dynamic/detail/element_converter_fwd.hpp>
+#include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>

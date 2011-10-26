@@ -18,54 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_VAR_IMPL_HPP_INCLUDED
-#define SGE_RENDERER_STATE_VAR_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_STATE_TRAMPOLINE_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_STATE_TRAMPOLINE_IMPL_HPP_INCLUDED
 
+#include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
+
 
 template<
 	typename T,
 	typename States
 >
-sge::renderer::state::var<T, States> &
-sge::renderer::state::var<T, States>::operator=(
-	value_type const &_val
+sge::renderer::state::trampoline<T, States>::trampoline(
+	state_type const _state
 )
+:
+	state_(_state)
+{}
+
+template<
+	typename T,
+	typename States
+>
+typename sge::renderer::state::trampoline<T, States>::var_type const
+sge::renderer::state::trampoline<T, States>::operator=(
+	T const &_value
+) const
 {
-	val_ = _val;
-	return *this;
+	return
+		var_type(
+			state_,
+			_value
+		);
 }
 
 template<
 	typename T,
 	typename States
 >
-typename sge::renderer::state::var<T, States>::state_type
-sge::renderer::state::var<T, States>::state() const
+typename sge::renderer::state::trampoline<T, States>::state_type
+sge::renderer::state::trampoline<T, States>::state() const
 {
 	return state_;
 }
-
-template<
-	typename T,
-	typename States
->
-T
-sge::renderer::state::var<T, States>::value() const
-{
-	return val_;
-}
-
-template<
-	typename T,
-	typename States
->
-sge::renderer::state::var<T, States>::var(
-	state_type const _state,
-	value_type const &_val)
-:
-	state_(_state),
-	val_(_val)
-{}
 
 #endif

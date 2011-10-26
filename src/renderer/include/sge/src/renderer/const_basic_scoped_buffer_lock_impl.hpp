@@ -18,45 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_FILTER_NEED_MIPMAP_VISITOR_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_FILTER_NEED_MIPMAP_VISITOR_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/texture/filter/anisotropic/object_fwd.hpp>
-#include <sge/renderer/texture/filter/normal/object_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
 
-
-namespace sge
+template<
+	typename Buffer,
+	typename View
+>
+sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::const_basic_scoped_buffer_lock(
+	Buffer const &_buffer,
+	size_type const _first,
+	size_type const _count
+)
+:
+	buffer_(_buffer),
+	view_(
+		buffer_.lock(
+			_first,
+			_count
+		)
+	)
 {
-namespace renderer
-{
-namespace texture
-{
-namespace filter
-{
-
-class need_mipmap_visitor
-{
-	FCPPT_NONASSIGNABLE(
-		need_mipmap_visitor
-	);
-public:
-	typedef bool result_type;
-
-	result_type
-	operator()(
-		filter::anisotropic::object const &
-	) const;
-
-	result_type
-	operator()(
-		filter::normal::object const &
-	) const;
-};
-
 }
+
+template<
+	typename Buffer,
+	typename View
+>
+View const
+sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::value() const
+{
+	return view_;
 }
-}
+
+template<
+	typename Buffer,
+	typename View
+>
+sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::~const_basic_scoped_buffer_lock()
+{
+	buffer_.unlock();
 }
 
 #endif

@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_HPP_INCLUDED
+#define SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_HPP_INCLUDED
 
-#include "element_converter_fwd.hpp"
-#include "lock_interval.hpp"
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/src/renderer/vf/dynamic/detail/element_converter_fwd.hpp>
+#include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

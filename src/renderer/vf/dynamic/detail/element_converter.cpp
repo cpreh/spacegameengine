@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "element_converter.hpp"
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
@@ -29,6 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/src/renderer/vf/dynamic/detail/element_converter.hpp>
+#include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>

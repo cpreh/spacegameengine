@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "basic_scoped_lock_impl.hpp"
 #include <sge/image3d/view/object.hpp>
 #include <sge/renderer/lock_box.hpp>
 #include <sge/renderer/texture/scoped_volume_lock.hpp>
 #include <sge/renderer/texture/volume.hpp>
+#include <sge/src/renderer/texture/basic_scoped_lock_impl.hpp>
 #include <fcppt/export_symbol.hpp>
 
 

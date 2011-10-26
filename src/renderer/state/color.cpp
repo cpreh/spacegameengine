@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "instantiate.hpp"
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/state/color.hpp>
+#include <sge/src/renderer/state/instantiate.hpp>
 
 
 SGE_RENDERER_STATE_INSTANTIATE_VAR_AND_TRAMPOLINE(color)

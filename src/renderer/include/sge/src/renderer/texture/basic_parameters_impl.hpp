@@ -18,10 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_BASIC_PARAMETERS_IMPL_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_BASIC_PARAMETERS_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_TEXTURE_BASIC_PARAMETERS_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_TEXTURE_BASIC_PARAMETERS_IMPL_HPP_INCLUDED
 
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/basic_parameters.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/mipmap/object.hpp>
+
 
 template<
 	typename Dim,

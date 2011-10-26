@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "need_mipmap_visitor.hpp"
 #include <sge/renderer/texture/filter/anisotropic/mip.hpp>
 #include <sge/renderer/texture/filter/anisotropic/object.hpp>
 #include <sge/renderer/texture/filter/normal/mip.hpp>
 #include <sge/renderer/texture/filter/normal/object.hpp>
+#include <sge/src/renderer/texture/filter/need_mipmap_visitor.hpp>
+
 
 sge::renderer::texture::filter::need_mipmap_visitor::result_type
 sge::renderer::texture::filter::need_mipmap_visitor::operator()(

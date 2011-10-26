@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "instantiate_all.hpp"
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/dynamic/basic_view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
+#include <sge/src/renderer/index/instantiate_all.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/assert/pre.hpp>
 

@@ -499,13 +499,11 @@ SET(
 	src/renderer/add_depth_stencil_surface_to_target.cpp
 	src/renderer/aspect.cpp
 	src/renderer/aspect_from_viewport.cpp
-	src/renderer/basic_scoped_buffer_lock_impl.hpp
 	src/renderer/bit_depth_bytes.cpp
 	src/renderer/buffer_has_depth.cpp
 	src/renderer/buffer_has_stencil.cpp
 	src/renderer/caps.cpp
 	src/renderer/color_surface.cpp
-	src/renderer/const_basic_scoped_buffer_lock_impl.hpp
 	src/renderer/const_scoped_color_surface_lock.cpp
 	src/renderer/const_scoped_index_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
@@ -524,18 +522,15 @@ SET(
 	src/renderer/glsl/scoped_program.cpp
 	src/renderer/glsl/shader.cpp
 	src/renderer/glsl/to_cvv.cpp
-	src/renderer/glsl/uniform/basic_value_impl.hpp
 	src/renderer/glsl/uniform/float_value.cpp
 	src/renderer/glsl/uniform/int_value.cpp
 	src/renderer/glsl/uniform/variable.cpp
 	src/renderer/glsl/vertex_shader.cpp
 	src/renderer/index/any/make_view.cpp
 	src/renderer/index/dynamic/basic_view.cpp
-	src/renderer/index/dynamic/format_enum_static.hpp
 	src/renderer/index/dynamic/format_stride.cpp
 	src/renderer/index/dynamic/make_const_view.cpp
 	src/renderer/index/dynamic/make_format.cpp
-	src/renderer/index/instantiate_all.hpp
 	src/renderer/index/view.cpp
 	src/renderer/index_buffer.cpp
 	src/renderer/indices_per_primitive.cpp
@@ -582,15 +577,12 @@ SET(
 	src/renderer/state/combine.cpp
 	src/renderer/state/default.cpp
 	src/renderer/state/float.cpp
-	src/renderer/state/instantiate.hpp
 	src/renderer/state/int.cpp
 	src/renderer/state/list.cpp
 	src/renderer/state/scoped.cpp
 	src/renderer/state/stencil_op.cpp
 	src/renderer/state/to_clear_flags_field.cpp
-	src/renderer/state/trampoline_impl.hpp
 	src/renderer/state/uint.cpp
-	src/renderer/state/var_impl.hpp
 	src/renderer/system.cpp
 	src/renderer/target.cpp
 	src/renderer/target_base.cpp
@@ -598,9 +590,6 @@ SET(
 	src/renderer/texture/address_mode2.cpp
 	src/renderer/texture/address_mode3.cpp
 	src/renderer/texture/base.cpp
-	src/renderer/texture/basic_parameters_impl.hpp
-	src/renderer/texture/basic_scoped_lock_impl.hpp
-	src/renderer/texture/const_basic_scoped_lock_impl.hpp
 	src/renderer/texture/const_scoped_planar_lock.cpp
 	src/renderer/texture/const_scoped_volume_lock.cpp
 	src/renderer/texture/create_planar_from_file.cpp
@@ -619,7 +608,6 @@ SET(
 	src/renderer/texture/filter/mipmap.cpp
 	src/renderer/texture/filter/need_mipmap.cpp
 	src/renderer/texture/filter/need_mipmap_visitor.cpp
-	src/renderer/texture/filter/need_mipmap_visitor.hpp
 	src/renderer/texture/filter/normal/make.cpp
 	src/renderer/texture/filter/normal/object.cpp
 	src/renderer/texture/filter/object.cpp
@@ -643,18 +631,12 @@ SET(
 	src/renderer/unsupported.cpp
 	src/renderer/vertex_buffer.cpp
 	src/renderer/vertex_declaration.cpp
-	src/renderer/vf/dynamic/basic_view_impl.hpp
 	src/renderer/vf/dynamic/color.cpp
 	src/renderer/vf/dynamic/const_view.cpp
 	src/renderer/vf/dynamic/converter.cpp
 	src/renderer/vf/dynamic/detail/converter_impl.cpp
-	src/renderer/vf/dynamic/detail/converter_impl.hpp
 	src/renderer/vf/dynamic/detail/element_converter.cpp
-	src/renderer/vf/dynamic/detail/element_converter.hpp
-	src/renderer/vf/dynamic/detail/element_converter_fwd.hpp
-	src/renderer/vf/dynamic/detail/lock_interval.hpp
 	src/renderer/vf/dynamic/detail/locked_part_interval.cpp
-	src/renderer/vf/dynamic/detail/locked_part_interval.hpp
 	src/renderer/vf/dynamic/element.cpp
 	src/renderer/vf/dynamic/format.cpp
 	src/renderer/vf/dynamic/locked_part.cpp
@@ -667,6 +649,10 @@ SET(
 	src/renderer/vf/dynamic/vector.cpp
 	src/renderer/vf/dynamic/view.cpp
 	src/renderer/viewport_size.cpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 INCLUDE_DIRECTORIES(

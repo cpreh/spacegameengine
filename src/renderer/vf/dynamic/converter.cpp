@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "detail/converter_impl.hpp"
-#include "detail/lock_interval.hpp"
-#include "detail/locked_part_interval.hpp"
 #include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/lock_flags/write.hpp>
+#include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/converter.hpp>
+#include <sge/renderer/vf/dynamic/locked_part.hpp>
+#include <sge/src/renderer/vf/dynamic/detail/converter_impl.hpp>
+#include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
+#include <sge/src/renderer/vf/dynamic/detail/locked_part_interval.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>

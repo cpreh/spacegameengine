@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "format_enum_static.hpp"
-#include "../instantiate_all.hpp"
+#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
+#include <sge/src/renderer/index/instantiate_all.hpp>
+#include <sge/src/renderer/index/dynamic/format_enum_static.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/remove_const.hpp>

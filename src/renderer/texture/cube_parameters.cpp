@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "basic_parameters_impl.hpp"
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
+#include <sge/src/renderer/texture/basic_parameters_impl.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
