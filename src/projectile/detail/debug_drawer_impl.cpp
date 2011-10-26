@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "debug_drawer_impl.hpp"
-#include "../declare_local_logger.hpp"
-#include "../structure_cast.hpp"
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgb8.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/projectile/world.hpp>
 #include <sge/renderer/scoped_transform.hpp>
+#include <sge/src/projectile/declare_local_logger.hpp>
+#include <sge/src/projectile/structure_cast.hpp>
+#include <sge/src/projectile/detail/debug_drawer_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assert/pre.hpp>

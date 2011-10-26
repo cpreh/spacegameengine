@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "declare_local_logger.hpp"
-#include "ghost/detail/pair_callback.hpp"
 #include <sge/projectile/world.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/group/id.hpp>
 #include <sge/projectile/group/object.hpp>
+#include <sge/src/projectile/declare_local_logger.hpp>
+#include <sge/src/projectile/ghost/detail/pair_callback.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>

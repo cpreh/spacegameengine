@@ -18,18 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
-#define SGE_PROJECTILE_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
+#ifndef SGE_SRC_PROJECTILE_GHOST_DETAIL_PAIR_CALLBACK_HPP_INCLUDED
+#define SGE_SRC_PROJECTILE_GHOST_DETAIL_PAIR_CALLBACK_HPP_INCLUDED
 
-#include "log_location.hpp"
-#include <sge/log/declare_local.hpp>
+// The header below isn't self-contained, this is a fix for that
+struct btBroadphaseProxy;
 
-#define SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(\
-	name\
-)\
-SGE_LOG_DECLARE_LOCAL(\
-	name,\
-	sge::projectile::log_location() \
-)
+#include <fcppt/config/external_begin.hpp>
+#include <BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h>
+#include <fcppt/config/external_end.hpp>
+
+namespace sge
+{
+namespace projectile
+{
+namespace ghost
+{
+namespace detail
+{
+class pair_callback
+:
+	public btOverlappingPairCallback
+{
+public:
+	btBroadphasePair *
+	addOverlappingPair(
+		btBroadphaseProxy*,
+		btBroadphaseProxy*);
+
+	void*
+	removeOverlappingPair(
+		btBroadphaseProxy*,
+		btBroadphaseProxy*,
+		btDispatcher*);
+
+	void
+	removeOverlappingPairsContainingProxy(
+		btBroadphaseProxy*,
+		btDispatcher*);
+};
+}
+}
+}
+}
 
 #endif

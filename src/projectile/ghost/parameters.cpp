@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/projectile/ghost/parameters.hpp>
 
+
 sge::projectile::ghost::parameters::parameters(
 	sge::projectile::ghost::position const &_position,
 	sge::projectile::ghost::size const &_size)

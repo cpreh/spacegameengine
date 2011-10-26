@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_PROJECTILE_STRUCTURE_CAST_HPP_INCLUDED
+#ifndef SGE_SRC_PROJECTILE_STRUCTURE_CAST_HPP_INCLUDED
+#define SGE_SRC_PROJECTILE_STRUCTURE_CAST_HPP_INCLUDED
 
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/has_dim.hpp>

@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "motion_state.hpp"
 #include <sge/projectile/body/object.hpp>
+#include <sge/src/projectile/body/detail/motion_state.hpp>
+
 
 sge::projectile::body::detail::motion_state::motion_state(
 	object &_body)

@@ -18,7 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "object_extrusion_depth.hpp"
+#include <sge/src/projectile/object_extrusion_depth.hpp>
+
 
 btScalar
 sge::projectile::object_extrusion_depth()

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_DETAIL_DEBUG_DRAWER_IMPL_HPP_INCLUDED
-#define SGE_PROJECTILE_DETAIL_DEBUG_DRAWER_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_PROJECTILE_DETAIL_DEBUG_DRAWER_IMPL_HPP_INCLUDED
+#define SGE_SRC_PROJECTILE_DETAIL_DEBUG_DRAWER_IMPL_HPP_INCLUDED
 
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>

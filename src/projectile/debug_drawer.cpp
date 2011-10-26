@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "detail/debug_drawer_impl.hpp"
 #include <sge/projectile/debug_drawer.hpp>
+#include <sge/src/projectile/detail/debug_drawer_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 

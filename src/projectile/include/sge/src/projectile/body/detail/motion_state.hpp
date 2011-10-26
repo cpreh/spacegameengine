@@ -18,44 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_GHOST_DETAIL_PAIR_CALLBACK_HPP_INCLUDED
-#define SGE_PROJECTILE_GHOST_DETAIL_PAIR_CALLBACK_HPP_INCLUDED
+#ifndef SGE_SRC_PROJECTILE_BODY_DETAIL_MOTION_STATE_HPP_INCLUDED
+#define SGE_SRC_PROJECTILE_BODY_DETAIL_MOTION_STATE_HPP_INCLUDED
 
-// The header below isn't self-contained, this is a fix for that
-struct btBroadphaseProxy;
-
+#include <sge/projectile/body/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h>
+#include <LinearMath/btMotionState.h>
+#include <LinearMath/btTransform.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace projectile
 {
-namespace ghost
+namespace body
 {
 namespace detail
 {
-class pair_callback
+// This is just a trampoline class because I couldn't derive
+// body::object itself from btMotionState (since then I would break
+// the pimpl stuff).
+class motion_state
 :
-	public btOverlappingPairCallback
+	public btMotionState
 {
+FCPPT_NONCOPYABLE(
+	motion_state);
 public:
-	btBroadphasePair *
-	addOverlappingPair(
-		btBroadphaseProxy*,
-		btBroadphaseProxy*);
+	explicit
+	motion_state(
+		object &);
 
-	void*
-	removeOverlappingPair(
-		btBroadphaseProxy*,
-		btBroadphaseProxy*,
-		btDispatcher*);
+	~motion_state();
+private:
+	object &body_;
 
+	// @override
 	void
-	removeOverlappingPairsContainingProxy(
-		btBroadphaseProxy*,
-		btDispatcher*);
+	getWorldTransform(
+		btTransform &) const;
+
+	// @override
+	void
+	setWorldTransform(
+		btTransform const &);
 };
 }
 }

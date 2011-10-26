@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "extract_mass.hpp"
+#include <sge/src/projectile/body/solidity/extract_mass.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+
 
 namespace
 {

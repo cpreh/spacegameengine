@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/projectile/body/parameters.hpp>
 
+
 sge::projectile::body::parameters::parameters(
 	sge::projectile::body::position const &_position,
 	sge::projectile::body::linear_velocity const &_linear_velocity,

@@ -18,24 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_BULLET_TO_VECTOR2_HPP_INCLUDED
-#define SGE_PROJECTILE_BULLET_TO_VECTOR2_HPP_INCLUDED
+#ifndef SGE_SRC_PROJECTILE_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
+#define SGE_SRC_PROJECTILE_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
 
-#include <sge/projectile/vector2.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <LinearMath/btVector3.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/log/declare_local.hpp>
+#include <sge/src/projectile/log_location.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-vector2 const
-bullet_to_vector2(
-	btVector3 const &);
-}
-}
+#define SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(\
+	name\
+)\
+SGE_LOG_DECLARE_LOCAL(\
+	name,\
+	sge::projectile::log_location() \
+)
 
 #endif

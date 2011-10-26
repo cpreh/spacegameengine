@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "is_solid.hpp"
 #include <sge/projectile/body/solidity/nonsolid.hpp>
+#include <sge/src/projectile/body/solidity/is_solid.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 

@@ -81,40 +81,44 @@ SET(
 	include/sge/projectile/world.hpp
 	include/sge/projectile/world_fwd.hpp
 	src/projectile/body/detail/motion_state.cpp
-	src/projectile/body/detail/motion_state.hpp
 	src/projectile/body/object.cpp
 	src/projectile/body/parameters.cpp
 	src/projectile/body/scoped.cpp
 	src/projectile/body/solidity/extract_mass.cpp
-	src/projectile/body/solidity/extract_mass.hpp
 	src/projectile/body/solidity/is_solid.cpp
-	src/projectile/body/solidity/is_solid.hpp
 	src/projectile/body/solidity/solid.cpp
 	src/projectile/bullet_to_vector2.cpp
-	src/projectile/bullet_to_vector2.hpp
 	src/projectile/debug_drawer.cpp
-	src/projectile/declare_local_logger.hpp
 	src/projectile/detail/debug_drawer_impl.cpp
-	src/projectile/detail/debug_drawer_impl.hpp
 	src/projectile/ghost/detail/pair_callback.cpp
-	src/projectile/ghost/detail/pair_callback.hpp
 	src/projectile/ghost/object.cpp
 	src/projectile/ghost/parameters.cpp
 	src/projectile/ghost/scoped.cpp
 	src/projectile/group/object.cpp
+	src/projectile/include/sge/src/projectile/body/detail/motion_state.hpp
+	src/projectile/include/sge/src/projectile/body/solidity/extract_mass.hpp
+	src/projectile/include/sge/src/projectile/body/solidity/is_solid.hpp
+	src/projectile/include/sge/src/projectile/bullet_to_vector2.hpp
+	src/projectile/include/sge/src/projectile/declare_local_logger.hpp
+	src/projectile/include/sge/src/projectile/detail/debug_drawer_impl.hpp
+	src/projectile/include/sge/src/projectile/ghost/detail/pair_callback.hpp
+	src/projectile/include/sge/src/projectile/log_location.hpp
+	src/projectile/include/sge/src/projectile/logger.hpp
+	src/projectile/include/sge/src/projectile/object_extrusion_depth.hpp
+	src/projectile/include/sge/src/projectile/structure_cast.hpp
+	src/projectile/include/sge/src/projectile/vector2_to_bullet.hpp
 	src/projectile/log_location.cpp
-	src/projectile/log_location.hpp
 	src/projectile/logger.cpp
-	src/projectile/logger.hpp
 	src/projectile/object_extrusion_depth.cpp
-	src/projectile/object_extrusion_depth.hpp
 	src/projectile/shape/base.cpp
 	src/projectile/shape/circle.cpp
 	src/projectile/shape/triangle_mesh.cpp
-	src/projectile/structure_cast.hpp
 	src/projectile/vector2_to_bullet.cpp
-	src/projectile/vector2_to_bullet.hpp
 	src/projectile/world.cpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 INCLUDE_DIRECTORIES(

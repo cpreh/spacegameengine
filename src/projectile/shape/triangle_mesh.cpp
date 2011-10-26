@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../declare_local_logger.hpp"
-#include "../object_extrusion_depth.hpp"
 #include <sge/projectile/shape/triangle_mesh.hpp>
+#include <sge/src/projectile/declare_local_logger.hpp>
+#include <sge/src/projectile/object_extrusion_depth.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_array.hpp>

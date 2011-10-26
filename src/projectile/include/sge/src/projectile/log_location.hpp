@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_OBJECT_EXTRUSION_DEPTH_HPP_INCLUDED
-#define SGE_PROJECTILE_OBJECT_EXTRUSION_DEPTH_HPP_INCLUDED
+#ifndef SGE_SRC_PROJECTILE_LOG_LOCATION_HPP_INCLUDED
+#define SGE_SRC_PROJECTILE_LOG_LOCATION_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <LinearMath/btScalar.h>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/log/location.hpp>
 
 namespace sge
 {
 namespace projectile
 {
-btScalar
-object_extrusion_depth();
+
+fcppt::log::location const
+log_location();
+
 }
 }
 

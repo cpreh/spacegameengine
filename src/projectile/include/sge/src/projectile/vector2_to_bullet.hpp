@@ -18,27 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_BODY_SOLIDITY_EXTRACT_MASS_HPP_INCLUDED
-#define SGE_PROJECTILE_BODY_SOLIDITY_EXTRACT_MASS_HPP_INCLUDED
+#ifndef SGE_SRC_PROJECTILE_VECTOR2_TO_BULLET_HPP_INCLUDED
+#define SGE_SRC_PROJECTILE_VECTOR2_TO_BULLET_HPP_INCLUDED
 
-#include <sge/projectile/body/solidity/variant.hpp>
+#include <sge/projectile/vector2.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <LinearMath/btScalar.h>
+#include <LinearMath/btVector3.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
 namespace projectile
 {
-namespace body
-{
-namespace solidity
-{
-btScalar
-extract_mass(
-	variant const &);
-}
-}
+btVector3 const
+vector2_to_bullet(
+	vector2 const &);
 }
 }
 

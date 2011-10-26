@@ -18,18 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../declare_local_logger.hpp"
-#include "../bullet_to_vector2.hpp"
-#include "../vector2_to_bullet.hpp"
-#include "../bullet_to_vector2.hpp"
-#include "solidity/extract_mass.hpp"
-#include "solidity/is_solid.hpp"
-#include "detail/motion_state.hpp"
 #include <sge/projectile/vector2.hpp>
 #include <sge/projectile/vector3.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/body/parameters.hpp>
 #include <sge/projectile/shape/base.hpp>
+#include <sge/src/projectile/bullet_to_vector2.hpp>
+#include <sge/src/projectile/declare_local_logger.hpp>
+#include <sge/src/projectile/vector2_to_bullet.hpp>
+#include <sge/src/projectile/body/detail/motion_state.hpp>
+#include <sge/src/projectile/body/solidity/extract_mass.hpp>
+#include <sge/src/projectile/body/solidity/is_solid.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>

@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "vector2_to_bullet.hpp"
+#include <sge/src/projectile/vector2_to_bullet.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+
 
 btVector3 const
 sge::projectile::vector2_to_bullet(
