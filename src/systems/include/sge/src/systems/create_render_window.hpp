@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_CREATE_RENDER_WINDOW_HPP_INCLUDED
 
 #include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/system_ptr.hpp>
+#include <sge/renderer/system_fwd.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <awl/system/object_shared_ptr.hpp>
@@ -36,7 +36,7 @@ namespace systems
 sge::window::instance_ptr const
 create_render_window(
 	awl::system::object_shared_ptr,
-	sge::renderer::system_ptr,
+	sge::renderer::system &,
 	sge::systems::window const &,
 	sge::renderer::parameters const &
 );

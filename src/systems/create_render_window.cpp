@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/system.hpp>
-#include <sge/renderer/system_ptr.hpp>
 #include <sge/src/systems/create_render_window.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/window/create.hpp>
@@ -31,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::window::instance_ptr const
 sge::systems::create_render_window(
 	awl::system::object_shared_ptr const _awl_sys,
-	sge::renderer::system_ptr const _render_sys,
+	sge::renderer::system &_render_sys,
 	sge::systems::window const &_window_param,
 	sge::renderer::parameters const &_render_param
 )
@@ -40,7 +39,7 @@ sge::systems::create_render_window(
 		sge::window::create(
 			sge::window::parameters(
 				_awl_sys,
-				_render_sys->create_window(
+				_render_sys.create_window(
 					*_awl_sys,
 					_window_param.parameter().get<
 						sge::window::simple_parameters

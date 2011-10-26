@@ -556,7 +556,7 @@ sge::systems::instance::impl::init_renderer(
 		window_ =
 			systems::create_render_window(
 				window_system_,
-				renderer_system_,
+				*renderer_system_,
 				*window_param_,
 				renderer_param
 			);
