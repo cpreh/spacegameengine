@@ -73,6 +73,7 @@ SET(
 	include/sge/opencl/program/build_parameters.hpp
 	include/sge/opencl/program/build_parameters_fwd.hpp
 	include/sge/opencl/program/device_blob_map.hpp
+	include/sge/opencl/program/file_to_source_string_sequence.hpp
 	include/sge/opencl/program/notification_callback.hpp
 	include/sge/opencl/program/notification_callback_type.hpp
 	include/sge/opencl/program/object.hpp
@@ -117,6 +118,7 @@ SET(
 	src/opencl/platform/object.cpp
 	src/opencl/program/build_error.cpp
 	src/opencl/program/build_parameters.cpp
+	src/opencl/program/file_to_source_string_sequence.cpp
 	src/opencl/program/object.cpp
 	src/opencl/single_device_system.cpp
 	src/opencl/system.cpp
