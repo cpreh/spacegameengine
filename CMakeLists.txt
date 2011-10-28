@@ -74,7 +74,11 @@ SET(
 
 ADD_SUBDIRECTORY (src)
 
-OPTION(ENABLE_OPENCL "Build the OpenCL examples" OFF)
+OPTION(ENABLE_DOC "Build the documentation" OFF)
+
+IF(ENABLE_DOC)
+	ADD_SUBDIRECTORY(doc)
+ENDIF()
 
 OPTION(ENABLE_TEST "Build the tests" OFF)
 
