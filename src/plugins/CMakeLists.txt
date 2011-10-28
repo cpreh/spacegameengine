@@ -11,14 +11,13 @@ FIND_PACKAGE(OpenAL)
 FIND_PACKAGE(PNG 1.4.1)
 FIND_PACKAGE(Vorbis)
 
-# These plugins have no dependencies and are enabled by default
+# These plugins have no dependencies
 OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
 
 OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 
 
-#OPTION (ENABLE_D3D9 "Build the d3d9 render plugin" ${D3D9_FOUND})
-OPTION (ENABLE_D3D9 "Build the d3d9 render plugin" OFF)
+OPTION (ENABLE_D3D9 "Build the d3d9 render plugin" ${D3D9_FOUND})
 
 OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ${IL_FOUND})
 
@@ -125,10 +124,6 @@ IF (ENABLE_ICONV)
 	ADD_SUBDIRECTORY (iconv)
 ENDIF ()
 
-IF (ENABLE_WINCONV)
-	ADD_SUBDIRECTORY (winconv)
-ENDIF ()
-
 IF (ENABLE_OPENAL)
 	ADD_SUBDIRECTORY (openal)
 ENDIF ()
@@ -147,6 +142,10 @@ ENDIF ()
 
 IF (ENABLE_WAVE)
 	ADD_SUBDIRECTORY (wave)
+ENDIF ()
+
+IF (ENABLE_WINCONV)
+	ADD_SUBDIRECTORY (winconv)
 ENDIF ()
 
 IF (ENABLE_X11INPUT)

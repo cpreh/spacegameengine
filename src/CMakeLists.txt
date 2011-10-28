@@ -310,8 +310,8 @@ INSTALL(
 	${INSTALL_LIBRARY_DIR}
 )
 
-FIND_PACKAGE(CEGUI)
 FIND_PACKAGE(Bullet)
+FIND_PACKAGE(CEGUI)
 FIND_PACKAGE(OpenCL)
 
 # core libraries
@@ -377,8 +377,8 @@ IF (ENABLE_WINDOW)
 ENDIF ()
 
 # more advanced libraries
-OPTION (ENABLE_CEGUI "Build the cegui subsystem" ${CEGUI_FOUND})
 OPTION (ENABLE_CAMERA "Build the camera" ON)
+OPTION (ENABLE_CEGUI "Build the cegui subsystem" ${CEGUI_FOUND})
 OPTION (ENABLE_CONFIG "Build the config library" ON)
 OPTION (ENABLE_CONSOLE "Build the console" ON)
 OPTION (ENABLE_FONTBITMAP "Build the bitmap font" ON)
