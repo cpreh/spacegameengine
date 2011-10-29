@@ -1,6 +1,17 @@
 /**
 \page renderer
 
-\em sge::renderer
+\em sge::renderer provides an abstraction for 3D APIs,
+which currently is mainly focused on the fixed function pipline
+to guarantee maximum portability.
+A glsl interface is also provided but can only be used with OpenGL.
+
+The renderer has to manage different types of resources
+and allow drawing of them under certain state.
+
+\li Vertices
+\li Indices
+\li Textures
+
 
 */

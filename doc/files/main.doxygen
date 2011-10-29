@@ -17,6 +17,11 @@ for example D3D9, OpenGL, Direct Input and XI2 Input.
 Fundamental libraries:
 <table>
 <tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+
+<tr>
 <td>\ref renderer</td>
 <td>abstraction of triangles, textures, state, etc.</td>
 </tr>
@@ -59,6 +64,11 @@ Fundamental libraries:
 
 Support libraries:
 <table>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+
 <tr>
 <td>systems</td>
 <td>simplifies initialization of sge</td>
