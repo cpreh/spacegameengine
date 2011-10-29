@@ -6,12 +6,36 @@ which currently is mainly focused on the fixed function pipline
 to guarantee maximum portability.
 A glsl interface is also provided but can only be used with OpenGL.
 
-The renderer has to manage different types of resources
-and allow drawing of them under certain state.
+\section Vertices
+The basic resource of a renderer are so called \em vertices,
+which are 3d points with additional attributes like
+normals, texture coordinates, or even user defined types.
 
-\li Vertices
-\li Indices
-\li Textures
+sge implements an almost compile time safe abstraction over
+them. Instead of predefining which data is attached to a vertex,
+templates are used to create new vertex types.
+
+These types can be used to create an
+\em sge::renderer::vertex_declaration which knows about
+the layout of the vertex.
+
+To actually store vertices, an \em sge::renderer::vertex_buffer
+must be created.
+
+The distinction between these two classes is necessary
+because different vertex attributes can be stored in different
+vertex_buffers (for example the positions could go into
+one buffer and the texture coordinates into another).
+
+\subsection Vertex declarations
+
+sge offers certain classes that have to be used
+to declare the attributes of a vertex.
+
+The first attribute we delcare is a position that is
+always necessary to have if you use the fixed function pipeline.
+
+\snippet vertex.cpp positiondeclaration
 
 
 */

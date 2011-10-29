@@ -98,10 +98,12 @@ try
 		)
 	);
 
+//! [positiondeclaration]
 	typedef sge::renderer::vf::pos<
 		float,
 		3
 	> pos3_type;
+//! [positiondeclaration]
 
 	typedef sge::image::color::bgra8_format bgra8_format;
 
