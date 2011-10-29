@@ -10,20 +10,29 @@ A glsl interface is also provided but can only be used with OpenGL.
 The basic resource of a renderer are so called \em vertices,
 which are 3d points with additional attributes like
 normals, texture coordinates, or even user defined types.
+These vertices are used to define triangles,
+lines or points, which are called \em primitives.
+The additional attributes can change the way how
+primitives are rendered (for example, with texture coordinates,
+texturing will be taken into account).
 
+To actually store vertices on the graphics card,
+an sge::renderer::vertex_buffer must be created.
+Internally, however, this buffer is simply that,
+an array of bytes.
+To make filling data into the buffer easy,
 sge implements an almost compile time safe abstraction over
-them. Instead of predefining which data is attached to a vertex,
+them.
+So, instead of predefining which data is attached to a vertex,
 templates are used to create new vertex types,
-called a vertex format.
+called a \em vertex \em format.
 
-These types can be used to create an
-sge::renderer::vertex_declaration which knows about
-the layout of the vertex.
+The vertex format can be used to create an
+sge::renderer::vertex_declaration which is a runtime
+representation of it.
 
-To actually store vertices, an sge::renderer::vertex_buffer
-must be created.
-
-The distinction between these two classes is necessary
+The distinction between the vertex_buffer
+and vertex_declaration classes is necessary
 because different vertex attributes can be stored in different
 vertex_buffers (for example the positions could go into
 one buffer and the texture coordinates into another).
@@ -33,12 +42,16 @@ one buffer and the texture coordinates into another).
 sge offers certain classes that have to be used
 to declare the attributes of a vertex.
 
-The first attribute we delcare is a position.
+In the following examples, the goal
+is to create a triangle with three different colors for
+every vertex.
+
+The first vertex attribute we delcare is a position.
 This is always needed if you use the fixed function pipeline.
 
 \snippet vertex.cpp positiondeclaration
 
-This indicates that a vertex position should consist of
+This indicates that the vertex position should consist of
 three floats, which are x, y and z, respectively.
 Anything else is not really portable.
 You can, however, use double element types or
