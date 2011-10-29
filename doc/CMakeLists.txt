@@ -13,6 +13,33 @@ configure_file(
 	"${DOC_OUTPUT}/Doxyfile"
 )
 
+# For now, use COPYONLY (since I don't know which escape sequences are in the
+# html/css files that cmake might accidentally replace. Could be changed in
+# the future.
+configure_file(
+	header.html
+	"${DOC_OUTPUT}/header.html"
+	COPYONLY
+)
+
+configure_file(
+	footer.html
+	"${DOC_OUTPUT}/footer.html"
+	COPYONLY
+)
+
+configure_file(
+	stylesheet.css
+	"${DOC_OUTPUT}/stylesheet.css"
+	COPYONLY
+)
+
+configure_file(
+	layout.xml
+	"${DOC_OUTPUT}/layout.xml"
+	COPYONLY
+)
+
 add_custom_target(
 	doc
 )
