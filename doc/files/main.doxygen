@@ -1,7 +1,7 @@
 /**
-\mainpage sge
+\mainpage Overview
 
-sge, which is short for <em>spacegameengine</em>, is a multimedia engine written in C++.
+sge, which is short for \em spacegameengine, is a multimedia engine written in C++.
 
 It uses clean and modern C++, which employs RAII, especially smart pointers,
 optionals, strong tyepedefs, interfaces for abstraction and
@@ -14,11 +14,10 @@ or through a support library like camera, shader, etc.
 The backends are abstracted as plugins where this makes sense,
 for example D3D9, OpenGL, Direct Input and XI2 Input.
 
-\htmlonly
 Fundamental libraries:
 <table>
 <tr>
-<td>renderer</td>
+<td>\ref renderer</td>
 <td>abstraction of triangles, textures, state, etc.</td>
 </tr>
 
@@ -136,5 +135,4 @@ Support libraries:
 </tr>
 </table>
 
-\endhtmlonly
 */
