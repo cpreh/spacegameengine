@@ -6,20 +6,21 @@ which currently is mainly focused on the fixed function pipline
 to guarantee maximum portability.
 A glsl interface is also provided but can only be used with OpenGL.
 
-\section Vertices
+\section vertices Vertices
 The basic resource of a renderer are so called \em vertices,
 which are 3d points with additional attributes like
 normals, texture coordinates, or even user defined types.
 
 sge implements an almost compile time safe abstraction over
 them. Instead of predefining which data is attached to a vertex,
-templates are used to create new vertex types.
+templates are used to create new vertex types,
+called a vertex format.
 
 These types can be used to create an
-\em sge::renderer::vertex_declaration which knows about
+sge::renderer::vertex_declaration which knows about
 the layout of the vertex.
 
-To actually store vertices, an \em sge::renderer::vertex_buffer
+To actually store vertices, an sge::renderer::vertex_buffer
 must be created.
 
 The distinction between these two classes is necessary
@@ -27,15 +28,40 @@ because different vertex attributes can be stored in different
 vertex_buffers (for example the positions could go into
 one buffer and the texture coordinates into another).
 
-\subsection Vertex declarations
+\subsection vertex_declarations Vertex declarations
 
 sge offers certain classes that have to be used
 to declare the attributes of a vertex.
 
-The first attribute we delcare is a position that is
-always necessary to have if you use the fixed function pipeline.
+The first attribute we delcare is a position.
+This is always needed if you use the fixed function pipeline.
 
 \snippet vertex.cpp positiondeclaration
 
+This indicates that a vertex position should consist of
+three floats, which are x, y and z, respectively.
+Anything else is not really portable.
+You can, however, use double element types or
+positions with 2 or 4 coordinates with OpenGL.
+
+The next code snippet shows how to declare a color attribute.
+
+\snippet vertex.cpp colordeclaration
+
+Here, a bgra8 color format is used that consists of 8 bits
+per color channel.
+
+An sge::renderer::vf::part is a collection of vertex attributes
+that are to be stored in a single vertex buffer.
+Only one part is used in this example, so both the position
+and the color go into it.
+
+\snippet vertex.cpp formatpartdeclaration
+
+The final thing to complete the vertex format is the
+format declaration that tells of which parts the format
+will be made.
+
+\snippet vertex.cpp formatdeclaration
 
 */

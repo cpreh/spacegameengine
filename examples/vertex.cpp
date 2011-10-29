@@ -105,24 +105,30 @@ try
 	> pos3_type;
 //! [positiondeclaration]
 
+//! [colordeclaration]
 	typedef sge::image::color::bgra8_format bgra8_format;
 
 	typedef sge::renderer::vf::color<
 		bgra8_format
 	> color_type;
+//! [colordeclaration]
 
+//! [formatpartdeclaration]
 	typedef sge::renderer::vf::part<
 		boost::mpl::vector2<
 			pos3_type,
 			color_type
 		>
 	> format_part;
+//! [formatpartdeclaration]
 
+//! [formatdeclaration]
 	typedef sge::renderer::vf::format<
 		boost::mpl::vector1<
 			format_part
 		>
 	> format;
+//! [formatdeclaration]
 
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
