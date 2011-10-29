@@ -1,0 +1,140 @@
+/**
+\mainpage sge
+
+sge, which is short for <em>spacegameengine</em>, is a multimedia engine written in C++.
+
+It uses clean and modern C++, which employs RAII, especially smart pointers,
+optionals, strong tyepedefs, interfaces for abstraction and
+template meta configuration.
+
+sge is modular, which means each functionality is available either through a
+fundamental library like renderer, input, etc.
+or through a support library like camera, shader, etc.
+
+The backends are abstracted as plugins where this makes sense,
+for example D3D9, OpenGL, Direct Input and XI2 Input.
+
+\htmlonly
+Fundamental libraries:
+<table>
+<tr>
+<td>renderer</td>
+<td>abstraction of triangles, textures, state, etc.</td>
+</tr>
+
+<tr>
+<td>input</td>
+<td>mouse, keyboard, cursor and joystick/gamepad input</td>
+</tr>
+
+<tr>
+<td>audio</td>
+<td>loading of audio files and playback</td>
+</tr>
+
+<tr>
+<td>image</td>
+<td>loading of 2d images, operations on 2d and 3d images</td>
+</tr>
+
+<tr>
+<td>font</td>
+<td>loading of true type or bitmap fonts and font rendering</td>
+</tr>
+
+<tr>
+<td>window</td>
+<td>window integration and handling of window events</td>
+</tr>
+
+<tr>
+<td>plugin</td>
+<td>layer for loading of plugins and implementing addtionals plugins</td>
+</tr>
+
+<tr>
+<td>charconv</td>
+<td>character encoding conversions</td>
+</tr>
+</table>
+
+Support libraries:
+<table>
+<tr>
+<td>systems</td>
+<td>simplifies initialization of sge</td>
+</tr>
+
+<tr>
+<td>camera</td>
+<td>TODO: Phillemann</td>
+</tr>
+
+<tr>
+<td>sprite</td>
+<td>assembly of sprite types via templates, sprite management and rendering</td>
+</tr>
+
+<tr>
+<td>shader</td>
+<td>TODO: Phillemann</td>
+</tr>
+
+<tr>
+<td>console</td>
+<td>TODO: Phillemann</td>
+</tr>
+
+<tr>
+<td>timer</td>
+<td>TODO: Phillemann</td>
+</tr>
+
+<tr>
+<td>model</td>
+<td>loading of md3 and obj models and conversions into renderer resources</td>
+</tr>
+
+<tr>
+<td>texture</td>
+<td>virtual texture portions and atlasing</td>
+</tr>
+
+<tr>
+<td>viewport</td>
+<td>automatic management of viewports in case of window resizing</td>
+</tr>
+
+<tr>
+<td>opencl</td>
+<td>TODO: Phillemann</td>
+</tr>
+
+<tr>
+<td>parse</td>
+<td>loading of ini and json files, extensive json conversion support</td>
+</tr>
+
+<tr>
+<td>cegui</td>
+<td>bindings for the CEGUI library</td>
+</tr>
+
+<tr>
+<td>config</td>
+<td>querying of paths related to configuration and savegames</td>
+</tr>
+
+<tr>
+<td>projectile</td>
+<td>TODO: Phillemann</td>
+</tr>
+
+<tr>
+<td>linedrawer</td>
+<td>TODO: Phillemann</td>
+</tr>
+</table>
+
+\endhtmlonly
+*/
