@@ -38,7 +38,7 @@ sge::d3d9::vertex_buffer::vertex_buffer(
 	IDirect3DDevice9 *const _device,
 	renderer::vf::dynamic::part const &_format_part,
 	renderer::vf::dynamic::part_index const _format_part_index,
-	size_type const _size,
+	count_type const _size,
 	renderer::resource_flags_field const &_resource_flags
 )
 :
@@ -74,8 +74,8 @@ sge::d3d9::vertex_buffer::~vertex_buffer()
 sge::d3d9::vertex_buffer::view_type const
 sge::d3d9::vertex_buffer::lock(
 	renderer::lock_mode::type const _lock_mode,
-	size_type const _first,
-	size_type const _count
+	first_type const _first,
+	count_type const _count
 )
 {
 	return
@@ -92,8 +92,8 @@ sge::d3d9::vertex_buffer::lock(
 
 sge::d3d9::vertex_buffer::const_view_type const
 sge::d3d9::vertex_buffer::lock(
-	size_type const _first,
-	size_type const _count
+	first_type const _first,
+	count_type const _count
 ) const
 {
 	return
@@ -129,7 +129,7 @@ sge::d3d9::vertex_buffer::unlock() const
 	lock_dest_ = 0;
 }
 
-sge::d3d9::vertex_buffer::size_type
+sge::d3d9::vertex_buffer::count_type const
 sge::d3d9::vertex_buffer::size() const
 {
 	return size_;
@@ -170,7 +170,7 @@ sge::d3d9::vertex_buffer::init()
 				UINT
 			>(
 				this->stride()
-				* this->size()
+				* this->size().get()
 			),
 			convert::resource_flags(
 				this->resource_flags()
@@ -210,8 +210,8 @@ template<
 >
 View const
 sge::d3d9::vertex_buffer::do_lock(
-	size_type const _first,
-	size_type const _count,
+	first_type const _first,
+	count_type const _count,
 	renderer::lock_flags::method::type const _method
 ) const
 {
@@ -224,7 +224,7 @@ sge::d3d9::vertex_buffer::do_lock(
 
 	void *data = 0;
 
-	size_type const lock_count(
+	count_type const lock_count(
 		_count == npos
 		?
 			this->size()
@@ -237,13 +237,13 @@ sge::d3d9::vertex_buffer::do_lock(
 			static_cast<
 				UINT
 			>(
-				_first
+				_first.get()
 				* this->stride()
 			),
 			static_cast<
 				UINT
 			>(
-				lock_count
+				lock_count.get()
 				* this->stride()
 			),
 			&data,

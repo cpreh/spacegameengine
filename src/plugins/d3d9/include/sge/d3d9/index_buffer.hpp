@@ -51,7 +51,7 @@ public:
 	index_buffer(
 		IDirect3DDevice9 *,
 		renderer::index::dynamic::format::type,
-		size_type size,
+		count_type,
 		renderer::resource_flags_field const &
 	);
 
@@ -60,20 +60,20 @@ public:
 	view_type const
 	lock(
 		renderer::lock_mode::type,
-		size_type offset,
-		size_type range
+		first_type,
+		count_type
 	);
 
 	const_view_type const
 	lock(
-		size_type offse,
-		size_type range
+		first_type,
+		count_type
 	) const;
 
 	void
 	unlock() const;
 
-	size_type
+	count_type const
 	size() const;
 
 	renderer::resource_flags_field const
@@ -99,8 +99,8 @@ private:
 	>
 	View const
 	do_lock(
-		size_type first,
-		size_type count,
+		first_type,
+		count_type,
 		renderer::lock_flags::method::type
 	) const;
 
@@ -117,9 +117,9 @@ private:
 
 	renderer::index::dynamic::format::type const format_;
 
-	size_type const
-		size_,
-		stride_;
+	count_type const size_;
+	
+	size_type const stride_;
 
 	mutable renderer::raw_pointer lock_dest_;
 };

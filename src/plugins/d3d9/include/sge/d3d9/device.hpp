@@ -241,14 +241,14 @@ public:
 	create_vertex_buffer(
 		renderer::vertex_declaration const &,
 		renderer::vf::dynamic::part_index,
-		renderer::size_type size,
+		renderer::vertex_count,
 		renderer::resource_flags_field const &
 	);
 
 	renderer::index_buffer_ptr const
 	create_index_buffer(
 		renderer::index::dynamic::format::type,
-		renderer::size_type size,
+		renderer::index_count,
 		renderer::resource_flags_field const &
 	);
 

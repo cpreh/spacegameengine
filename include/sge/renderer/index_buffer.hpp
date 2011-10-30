@@ -57,7 +57,8 @@ public:
 	typedef renderer::size_type size_type;
 
 	SGE_RENDERER_SYMBOL
-	static size_type const npos;
+	static
+	count_type const npos;
 
 	virtual view_type const
 	lock(

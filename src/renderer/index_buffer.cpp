@@ -25,7 +25,7 @@ sge::renderer::index_buffer::index_buffer()
 {
 }
 
-sge::renderer::size_type const
+sge::renderer::index_buffer::count_type const
 sge::renderer::index_buffer::npos(
 	sge::renderer::npos()
 );

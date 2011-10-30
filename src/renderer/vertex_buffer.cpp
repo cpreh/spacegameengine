@@ -26,7 +26,7 @@ sge::renderer::vertex_buffer::vertex_buffer()
 {
 }
 
-sge::renderer::vertex_count const
+sge::renderer::vertex_buffer::count_type const
 sge::renderer::vertex_buffer::npos(
 	sge::renderer::npos()
 );

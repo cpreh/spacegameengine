@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/resource_flags_to_pool.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
+#include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/text.hpp>
@@ -35,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::d3d9::index_buffer::index_buffer(
 	IDirect3DDevice9 *const _device,
 	renderer::index::dynamic::format::type const _format,
-	size_type const _size,
+	count_type const _size,
 	renderer::resource_flags_field const &_resource_flags
 )
 :
@@ -67,8 +69,8 @@ sge::d3d9::index_buffer::~index_buffer()
 sge::d3d9::index_buffer::view_type const
 sge::d3d9::index_buffer::lock(
 	renderer::lock_mode::type const _mode,
-	size_type const _first,
-	size_type const _count
+	first_type const _first,
+	count_type const _count
 )
 {
 	return
@@ -85,8 +87,8 @@ sge::d3d9::index_buffer::lock(
 
 sge::d3d9::index_buffer::const_view_type const
 sge::d3d9::index_buffer::lock(
-	size_type const _first,
-	size_type const _count
+	first_type const _first,
+	count_type const _count
 ) const
 {
 	return
@@ -120,7 +122,7 @@ sge::d3d9::index_buffer::unlock() const
 	lock_dest_ = 0;
 }
 
-sge::d3d9::index_buffer::size_type
+sge::d3d9::index_buffer::count_type const
 sge::d3d9::index_buffer::size() const
 {
 	return size_;
@@ -154,7 +156,7 @@ sge::d3d9::index_buffer::init()
 			static_cast<
 				UINT
 			>(
-				size_
+				size_.get()
 				*
 				stride_
 			),
@@ -196,8 +198,8 @@ template<
 >
 View const
 sge::d3d9::index_buffer::do_lock(
-	size_type const _first,
-	size_type const _count,
+	first_type const _first,
+	count_type const _count,
 	renderer::lock_flags::method::type const _method
 ) const
 {
@@ -215,7 +217,7 @@ sge::d3d9::index_buffer::do_lock(
 			static_cast<
 				UINT
 			>(
-				_first
+				_first.get()
 				*
 				stride_
 			),
@@ -228,7 +230,7 @@ sge::d3d9::index_buffer::do_lock(
 						this->size()
 					:
 						_count
-				)
+				).get()
 				*
 				stride_
 			),
@@ -254,7 +256,7 @@ sge::d3d9::index_buffer::do_lock(
 	return
 		View(
 			lock_dest_,
-			_count,
+			_count.get(),
 			format_
 		);
 }

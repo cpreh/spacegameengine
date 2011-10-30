@@ -55,7 +55,7 @@ public:
 		IDirect3DDevice9 *,
 		renderer::vf::dynamic::part const &,
 		renderer::vf::dynamic::part_index,
-		size_type size,
+		count_type,
 		renderer::resource_flags_field const &
 	);
 
@@ -64,20 +64,20 @@ public:
 	view_type const
 	lock(
 		renderer::lock_mode::type,
-		size_type offset,
-		size_type range
+		first_type,
+		count_type
 	);
 
 	const_view_type const
 	lock(
-		size_type offset,
-		size_type range
+		first_type,
+		count_type
 	) const;
 
 	void
 	unlock() const;
 
-	size_type
+	count_type const
 	size() const;
 
 	renderer::resource_flags_field const
@@ -106,8 +106,8 @@ private:
 	>
 	View const
 	do_lock(
-		size_type offset,
-		size_type range,
+		first_type,
+		count_type,
 		renderer::lock_flags::method::type
 	) const;
 
@@ -120,7 +120,7 @@ private:
 
 	renderer::vf::dynamic::part_index const format_part_index_;
 
-	size_type const size_;
+	count_type const size_;
 
 	renderer::resource_flags_field const resource_flags_;
 
