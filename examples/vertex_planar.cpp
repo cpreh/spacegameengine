@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
@@ -69,7 +70,7 @@ try
 		(
 			sge::systems::window(
 				sge::window::simple_parameters(
-					FCPPT_TEXT("sge vertex example"),
+					FCPPT_TEXT("sge vertex planar example"),
 					sge::window::dim(
 						1024,
 						768
@@ -98,39 +99,37 @@ try
 		)
 	);
 
-//! [positiondeclaration]
 	typedef sge::renderer::vf::pos<
 		float,
 		3
 	> pos3_type;
-//! [positiondeclaration]
 
-//! [colordeclaration]
 	typedef sge::image::color::bgra8_format bgra8_format;
 
 	typedef sge::renderer::vf::color<
 		bgra8_format
 	> color_type;
-//! [colordeclaration]
 
-//! [formatpartdeclaration]
 	typedef sge::renderer::vf::part<
-		boost::mpl::vector2<
-			pos3_type,
+		boost::mpl::vector1<
+			pos3_type
+		>
+	> pos_format_part;
+
+	typedef sge::renderer::vf::part<
+		boost::mpl::vector1<
 			color_type
 		>
-	> format_part;
-//! [formatpartdeclaration]
+	> color_format_part;
 
-//! [formatdeclaration]
+
 	typedef sge::renderer::vf::format<
-		boost::mpl::vector1<
-			format_part
+		boost::mpl::vector2<
+			pos_format_part,
+			color_format_part
 		>
 	> format;
-//! [formatdeclaration]
 
-//! [vertexdeclaration]
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
@@ -138,27 +137,41 @@ try
 			>()
 		)
 	);
-//! [vertexdeclaration]
 
-//! [vertexbuffer]
-	sge::renderer::vertex_buffer_ptr const vertex_buffer(
+	sge::renderer::size_type const num_vertices(
+		3u
+	);
+
+	sge::renderer::vertex_buffer_ptr const vertex_buffer1(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
-			sge::renderer::vf::dynamic::part_index(0u),
-			3,
+			sge::renderer::vf::dynamic::part_index(
+				0u
+			),
+			num_vertices,
 			sge::renderer::resource_flags::none
 		)
 	);
-//! [vertexbuffer]
+
+	sge::renderer::vertex_buffer_ptr const vertex_buffer2(
+		sys.renderer().create_vertex_buffer(
+			*vertex_declaration,
+			sge::renderer::vf::dynamic::part_index(
+				1u
+			),
+			num_vertices,
+			sge::renderer::resource_flags::none
+		)
+	);
 
 	{
 		sge::renderer::scoped_vertex_lock const vblock(
-			*vertex_buffer,
+			*vertex_buffer1,
 			sge::renderer::lock_mode::writeonly
 		);
 
 		typedef sge::renderer::vf::view<
-			format_part
+			pos_format_part
 		> vertex_view;
 
 		vertex_view const vertices(
@@ -171,8 +184,35 @@ try
 
 		typedef pos3_type::packed_type vec3;
 
-		(*vb_it).set<pos3_type>(
+		(*vb_it++).set<pos3_type>(
 			vec3(-1.f, 1.f, 0.f)
+		);
+
+		(*vb_it++).set<pos3_type>(
+			vec3(-1.f, -1.f, 0.f)
+		);
+
+		(*vb_it++).set<pos3_type>(
+			vec3(1.f, 1.f, 0.f)
+		);
+	}
+
+	{
+		sge::renderer::scoped_vertex_lock const vblock(
+			*vertex_buffer2,
+			sge::renderer::lock_mode::writeonly
+		);
+
+		typedef sge::renderer::vf::view<
+			color_format_part
+		> vertex_view;
+
+		vertex_view const vertices(
+			vblock.value()
+		);
+
+		vertex_view::iterator vb_it(
+			vertices.begin()
 		);
 
 		(*vb_it++).set<color_type>(
@@ -183,20 +223,12 @@ try
 			)
 		);
 
-		(*vb_it).set<pos3_type>(
-			vec3(-1.f, -1.f, 0.f)
-		);
-
 		(*vb_it++).set<color_type>(
 			sge::image::color::any::convert<
 				bgra8_format
 			>(
 				sge::image::colors::yellow()
 			)
-		);
-
-		(*vb_it).set<pos3_type>(
-			vec3(1.f, 1.f, 0.f)
 		);
 
 		(*vb_it++).set<color_type>(
@@ -207,6 +239,7 @@ try
 			)
 		);
 	}
+
 
 	bool running = true;
 
@@ -240,9 +273,14 @@ try
 			*vertex_declaration
 		);
 
-		sge::renderer::scoped_vertex_buffer const vb_context(
+		sge::renderer::scoped_vertex_buffer const vb_context1(
 			sys.renderer(),
-			*vertex_buffer
+			*vertex_buffer1
+		);
+
+		sge::renderer::scoped_vertex_buffer const vb_context2(
+			sys.renderer(),
+			*vertex_buffer2
 		);
 
 		sge::renderer::scoped_block const block(
@@ -250,8 +288,12 @@ try
 		);
 
 		sys.renderer().render_nonindexed(
-			sge::renderer::first_vertex(0),
-			sge::renderer::vertex_count(3),
+			sge::renderer::first_vertex(
+				0
+			),
+			sge::renderer::vertex_count(
+				num_vertices
+			),
 			sge::renderer::nonindexed_primitive_type::triangle
 		);
 	}
