@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="791.23047"
+   height="247.03627"
+   id="svg5298">
+  <defs
+     id="defs5300">
+    <marker
+       refX="0"
+       refY="0"
+       orient="auto"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         id="path3939"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none" />
+    </marker>
+    <marker
+       refX="0"
+       refY="0"
+       orient="auto"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         id="path3942"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none" />
+    </marker>
+  </defs>
+  <metadata
+     id="metadata5303">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-93.39644,-37.788828)"
+     id="layer1">
+    <text
+       x="434.52972"
+       y="142.3642"
+       id="text5310"
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"><tspan
+         x="434.52972"
+         y="142.3642"
+         id="tspan5312">Audio API</tspan></text>
+    <text
+       x="613.54236"
+       y="171.58194"
+       id="text5314"
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"><tspan
+         x="613.54236"
+         y="171.58194"
+         id="tspan5316">Sound card</tspan></text>
+    <text
+       x="797.75439"
+       y="170.38054"
+       id="text5318"
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"><tspan
+         x="797.75439"
+         y="170.38054"
+         id="tspan5320">Speaker</tspan></text>
+    <text
+       x="104.89307"
+       y="57.240112"
+       id="text5322"
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"><tspan
+         x="104.89307"
+         y="57.240112"
+         id="tspan5324">Studio</tspan></text>
+    <text
+       x="254.73355"
+       y="56.50737"
+       id="text5326"
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"><tspan
+         x="254.73355"
+         y="56.50737"
+         id="tspan5328">Audio file</tspan></text>
+    <text
+       x="99.485413"
+       y="211.82503"
+       id="text5330"
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"><tspan
+         x="99.485413"
+         y="211.82503"
+         id="tspan5332">Procedure f()</tspan></text>
+    <rect
+       width="81.601036"
+       height="86.811897"
+       x="101.08996"
+       y="40.057346"
+       id="rect5334"
+       style="fill:none;stroke:#000000;stroke-width:4.18085146;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       width="101.38219"
+       height="84.320633"
+       x="250.61229"
+       y="40.016827"
+       id="rect5336"
+       style="fill:none;stroke:#000000;stroke-width:4.45599747;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       width="138.34811"
+       height="86.64521"
+       x="95.821213"
+       y="195.75511"
+       id="rect5338"
+       style="fill:none;stroke:#000000;stroke-width:4.84954596;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       width="103.70956"
+       height="93.363281"
+       x="429.73053"
+       y="123.66366"
+       id="rect5340"
+       style="fill:none;stroke:#000000;stroke-width:4.89342785;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       width="117.41872"
+       height="37.090755"
+       x="605.4425"
+       y="147.81755"
+       id="rect5342"
+       style="fill:none;stroke:#000000;stroke-width:5.02661419;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       width="96.636063"
+       height="35.196888"
+       x="785.58051"
+       y="148.01764"
+       id="rect5344"
+       style="fill:none;stroke:#000000;stroke-width:4.82069826;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <path
+       d="m 180.56966,80.678476 66.51854,1.565743"
+       id="path5346"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)" />
+    <path
+       d="m 354.26539,83.052342 72.62997,85.307368"
+       id="path6040"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)" />
+    <path
+       d="M 236.63312,241.04019 426.74383,169.72342"
+       id="path6224"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow1Lend)" />
+    <path
+       d="m 535.83235,165.07314 68.35145,0.44739"
+       id="path6780"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)" />
+    <path
+       d="m 723.88119,165.72307 59.92236,-0.20203"
+       id="path6966"
+       style="fill:none;stroke:#000000;stroke-width:0.97249997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)" />
+    <text
+       x="104.10112"
+       y="70.421654"
+       id="text7152"
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="104.10112"
+         y="70.421654"
+         id="tspan7154">Synthesizer</tspan><tspan
+         x="104.10112"
+         y="85.421654"
+         id="tspan7156">Drum set</tspan><tspan
+         x="104.10112"
+         y="100.42165"
+         id="tspan7158">Guitar</tspan><tspan
+         x="104.10112"
+         y="115.42165"
+         id="tspan7160">...</tspan></text>
+    <text
+       x="100.28741"
+       y="227.42065"
+       id="text7162"
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="100.28741"
+         y="227.42065"
+         id="tspan7164">sin</tspan><tspan
+         x="100.28741"
+         y="242.42065"
+         id="tspan7166">cos</tspan><tspan
+         x="100.28741"
+         y="257.42065"
+         id="tspan7168">...</tspan></text>
+    <text
+       x="254.74155"
+       y="71.381287"
+       id="text7170"
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="254.74155"
+         y="71.381287"
+         id="tspan7172">chunk1,</tspan><tspan
+         x="254.74155"
+         y="86.381287"
+         id="tspan7174">sample1,</tspan><tspan
+         x="254.74155"
+         y="101.38129"
+         id="tspan7176">sample2,</tspan><tspan
+         x="254.74155"
+         y="116.38129"
+         id="tspan7178">sample3,...</tspan></text>
+    <text
+       x="434.63336"
+       y="156.11743"
+       id="text7180"
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="434.63336"
+         y="156.11743"
+         id="tspan7182">OpenAL</tspan><tspan
+         x="434.63336"
+         y="171.11743"
+         id="tspan7184">DirectSound</tspan><tspan
+         x="434.63336"
+         y="186.11743"
+         id="tspan7186">PortAudio</tspan><tspan
+         x="434.63336"
+         y="201.11743"
+         id="tspan7188">...</tspan></text>
+  </g>
+</svg>

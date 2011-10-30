@@ -33,7 +33,7 @@ Fundamental libraries:
 </tr>
 
 <tr>
-<td>audio</td>
+<td>\ref audio</td>
 <td>loading of audio files and playback</td>
 </tr>
 

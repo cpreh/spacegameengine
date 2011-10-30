@@ -77,11 +77,11 @@ SHOW_DIRECTORIES       = NO
 SHOW_FILES             = NO
 SHOW_NAMESPACES        = YES
 FILE_VERSION_FILTER    =
-LAYOUT_FILE            = 
+LAYOUT_FILE            =
 #---------------------------------------------------------------------------
 # configuration options related to warning and progress messages
 #---------------------------------------------------------------------------
-QUIET                  = NO
+QUIET                  = YES
 WARNINGS               = YES
 WARN_IF_UNDOCUMENTED   = YES
 WARN_IF_DOC_ERROR      = YES
@@ -102,7 +102,7 @@ EXCLUDE_SYMBOLS        =
 EXAMPLE_PATH           = @CMAKE_SOURCE_DIR@/examples
 EXAMPLE_PATTERNS       = *.cpp
 EXAMPLE_RECURSIVE      = YES
-IMAGE_PATH             =
+IMAGE_PATH             = @CMAKE_SOURCE_DIR@/doc/images
 INPUT_FILTER           =
 FILTER_PATTERNS        =
 FILTER_SOURCE_FILES    = NO
