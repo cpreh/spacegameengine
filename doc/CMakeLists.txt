@@ -34,12 +34,6 @@ configure_file(
 	COPYONLY
 )
 
-configure_file(
-	layout.xml
-	"${DOC_OUTPUT}/layout.xml"
-	COPYONLY
-)
-
 add_custom_target(
 	doc
 )
