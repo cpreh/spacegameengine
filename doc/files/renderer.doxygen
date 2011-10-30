@@ -1,92 +1,79 @@
 /**
 \page renderer
 
-\em sge::renderer provides an abstraction for 3D APIs,
-which currently is mainly focused on the fixed function pipline
-to guarantee maximum portability.
+\em sge::renderer provides an abstraction for 3D APIs, which currently is
+mainly focused on the fixed function pipline to guarantee maximum portability.
 A glsl interface is also provided but can only be used with OpenGL.
 
 \section vertices Vertices
-The basic resource of a renderer are so called \em vertices,
-which are 3d points with additional attributes like
-normals, texture coordinates, or even user defined types.
-These vertices are used to define triangles,
-lines or points, which are called \em primitives.
-The additional attributes can change the way how
-primitives are rendered (for example, with texture coordinates,
+The basic resource of a renderer are so called \em vertices, which are 3d
+points with additional attributes like normals, texture coordinates, or even
+user defined types.  These vertices are used to define triangles, lines or
+points, which are called \em primitives.  The additional attributes can change
+the way how primitives are rendered (for example, with texture coordinates,
 texturing will be taken into account).
 
-To actually store vertices on the graphics card,
-an sge::renderer::vertex_buffer must be created.
-Internally, however, this buffer is simply that,
-an array of bytes.
-To make filling data into the buffer easy,
-sge implements an almost compile time safe abstraction
-So, instead of predefining which data is attached to a vertex,
-templates are used to create new vertex types,
-called a \em vertex \em format.
+To actually store vertices on the graphics card, an
+sge::renderer::vertex_buffer must be created.  Internally, however, this buffer
+is simply that, an array of bytes.  To make filling data into the buffer easy,
+sge implements an almost compile time safe abstraction So, instead of
+predefining which data is attached to a vertex, templates are used to create
+new vertex types, called a \em vertex \em format.
 
-The vertex format can be used to create an
-sge::renderer::vertex_declaration which is a runtime
-representation of it.
+The vertex format can be used to create an sge::renderer::vertex_declaration
+which is a runtime representation of it.
 
-The distinction between the vertex_buffer
-and vertex_declaration classes is necessary
-because different vertex attributes can be stored in different
-vertex_buffers (for example the positions could go into
-one buffer and the texture coordinates into another).
+The distinction between the vertex_buffer and vertex_declaration classes is
+necessary because different vertex attributes can be stored in different
+vertex_buffers (for example the positions could go into one buffer and the
+texture coordinates into another).
 
 \subsection vertex_declarations Vertex declarations
 
-sge offers certain classes that have to be used
-to declare the attributes of a vertex.
+sge offers certain classes that have to be used to declare the attributes of a
+vertex.
 
-In the following examples, the goal
-is to create a triangle with three different colors for
-every vertex.
+In the following examples, the goal is to create a triangle with three
+different colors for every vertex.
 
-The first vertex attribute we delcare is a position.
-This is always needed if you use the fixed function pipeline.
+The first vertex attribute we delcare is a position.  This is always needed if
+you use the fixed function pipeline.
 
 \snippet vertex.cpp positiondeclaration
 
-This indicates that the vertex position should consist of
-three floats, which are x, y and z, respectively.
-Anything else is not really portable.
-You can, however, use double element types or
-positions with 2 or 4 coordinates with OpenGL.
+This indicates that the vertex position should consist of three floats, which
+are x, y and z, respectively.  Anything else is not really portable.  You can,
+however, use double element types or positions with 2 or 4 coordinates with
+OpenGL.
 
 The next code snippet shows how to declare a color attribute.
 
 \snippet vertex.cpp colordeclaration
 
-Here, a bgra8 color format is used that consists of 8 bits
-per color channel.
+Here, a bgra8 color format is used that consists of 8 bits per color channel.
 
-An sge::renderer::vf::part is a collection of vertex attributes
-that are to be stored in a single vertex buffer.
-Only one part is used in this example, so both the position
-and the color go into it.
+An sge::renderer::vf::part is a collection of vertex attributes that are to be
+stored in a single vertex buffer.  Only one part is used in this example, so
+both the position and the color go into it.
 
 \snippet vertex.cpp formatpartdeclaration
 
-The final thing to complete the vertex format is the
-format declaration that tells of which parts the format
-will be made.
+The final thing to complete the vertex format is the format declaration that
+tells of which parts the format will be made.
 
 \snippet vertex.cpp formatdeclaration
 
-The vertex_declaration is created from an sge::renderer::device,
-which is available though sys.renderer() in this example.
+The vertex_declaration is created from an sge::renderer::device, which is
+available though sys.renderer() in this example.
 
 \snippet vertex.cpp vertexdeclaration
 
-Finally, the vertex_buffer is created from the vertex_declaration
-and the part that it is going to represent (here, we only have one part,
-so the index is zero).
+Finally, the vertex_buffer is created from the vertex_declaration and the part
+that it is going to represent (here, we only have one part, so the index is
+zero).
 
 \snippet vertex.cpp vertexbuffer
 
-The vertex buffer consists of three elements, which are enough to
-create a triangle from.
+The vertex buffer consists of three elements, which are enough to create a
+triangle from.
 */
