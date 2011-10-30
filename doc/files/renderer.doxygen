@@ -21,8 +21,7 @@ an sge::renderer::vertex_buffer must be created.
 Internally, however, this buffer is simply that,
 an array of bytes.
 To make filling data into the buffer easy,
-sge implements an almost compile time safe abstraction over
-them.
+sge implements an almost compile time safe abstraction
 So, instead of predefining which data is attached to a vertex,
 templates are used to create new vertex types,
 called a \em vertex \em format.
@@ -77,4 +76,17 @@ will be made.
 
 \snippet vertex.cpp formatdeclaration
 
+The vertex_declaration is created from an sge::renderer::device,
+which is available though sys.renderer() in this example.
+
+\snippet vertex.cpp vertexdeclaration
+
+Finally, the vertex_buffer is created from the vertex_declaration
+and the part that it is going to represent (here, we only have one part,
+so the index is zero).
+
+\snippet vertex.cpp vertexbuffer
+
+The vertex buffer consists of three elements, which are enough to
+create a triangle from.
 */

@@ -130,6 +130,7 @@ try
 	> format;
 //! [formatdeclaration]
 
+//! [vertexdeclaration]
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
@@ -137,8 +138,10 @@ try
 			>()
 		)
 	);
+//! [vertexdeclaration]
 
-	sge::renderer::vertex_buffer_ptr const vb(
+//! [vertexbuffer]
+	sge::renderer::vertex_buffer_ptr const vertex_buffer(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
 			sge::renderer::vf::dynamic::part_index(0u),
@@ -146,10 +149,11 @@ try
 			sge::renderer::resource_flags::none
 		)
 	);
+//! [vertexbuffer]
 
 	{
 		sge::renderer::scoped_vertex_lock const vblock(
-			*vb,
+			*vertex_buffer,
 			sge::renderer::lock_mode::writeonly
 		);
 
@@ -217,29 +221,29 @@ try
 		)
 	);
 
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color
-				= sge::image::colors::black()
-		)
-	);
-
-	sge::renderer::scoped_vertex_declaration const vb_declaration_context(
-		sys.renderer(),
-		*vertex_declaration
-	);
-
-	sge::renderer::scoped_vertex_buffer const vb_context(
-		sys.renderer(),
-		*vb
-	);
-
 	while(
 		running
 	)
 	{
 		sys.window().dispatch();
+
+		sys.renderer().state(
+			sge::renderer::state::list
+				(sge::renderer::state::bool_::clear_back_buffer = true)
+				(sge::renderer::state::color::back_buffer_clear_color
+					= sge::image::colors::black()
+			)
+		);
+
+		sge::renderer::scoped_vertex_declaration const vb_declaration_context(
+			sys.renderer(),
+			*vertex_declaration
+		);
+
+		sge::renderer::scoped_vertex_buffer const vb_context(
+			sys.renderer(),
+			*vertex_buffer
+		);
 
 		sge::renderer::scoped_block const block(
 			sys.renderer()
