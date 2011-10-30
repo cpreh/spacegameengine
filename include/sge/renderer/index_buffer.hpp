@@ -23,13 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
+#include <sge/renderer/index_buffer_types.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -47,11 +46,15 @@ protected:
 	SGE_RENDERER_SYMBOL
 	index_buffer();
 public:
+	typedef renderer::index_buffer_types::first_type first_type;
+
+	typedef renderer::index_buffer_types::count_type count_type;
+
+	typedef renderer::index_buffer_types::view_type view_type;
+
+	typedef renderer::index_buffer_types::const_view_type const_view_type;
+
 	typedef renderer::size_type size_type;
-
-	typedef index::dynamic::view view_type;
-
-	typedef index::dynamic::const_view const_view_type;
 
 	SGE_RENDERER_SYMBOL
 	static size_type const npos;
@@ -59,20 +62,24 @@ public:
 	virtual view_type const
 	lock(
 		lock_mode::type,
-		size_type offset = 0,
-		size_type range = npos
+		first_type =
+			first_type(0),
+		count_type
+			= npos
 	) = 0;
 
 	virtual const_view_type const
 	lock(
-		size_type offset = 0,
-		size_type range = npos
+		first_type
+			= first_type(0),
+		count_type
+			= npos
 	) const = 0;
 
 	virtual void
 	unlock() const = 0;
 
-	virtual size_type
+	virtual count_type const
 	size() const = 0;
 
 	virtual resource_flags_field const

@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
@@ -93,8 +94,8 @@ convert_if_color(
 	Vector &_converters,
 	Type const &_type,
 	sge::renderer::vf::dynamic::color_format_vector const &_formats,
-	sge::renderer::size_type const _vertex_stride,
-	sge::renderer::size_type const _offset
+	sge::renderer::vf::vertex_size const _vertex_stride,
+	sge::renderer::vf::vertex_size const _offset
 )
 {
 	if(
@@ -188,7 +189,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::~converter_impl()
 void
 sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 	renderer::raw_pointer const _data,
-	renderer::size_type const _pos,
+	renderer::first_vertex const _pos,
 	detail::lock_interval_set const &_intervals,
 	detail::lock_interval const &_current_lock
 )
@@ -215,7 +216,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 void
 sge::renderer::vf::dynamic::detail::converter_impl::convert_unlock(
 	renderer::raw_pointer const _data,
-	renderer::size_type const _pos,
+	renderer::first_vertex const _pos,
 	detail::lock_interval const &_current_lock
 )
 {
@@ -230,7 +231,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_unlock(
 void
 sge::renderer::vf::dynamic::detail::converter_impl::do_convert(
 	renderer::raw_pointer const _data,
-	renderer::size_type const _pos,
+	renderer::first_vertex const _pos,
 	detail::lock_interval const &_interval,
 	bool const _unlock
 )

@@ -64,7 +64,7 @@ sge::opencl::memory_object::buffer::buffer(
 	impl_(0),
 	byte_size_(
 		static_cast<byte_size::value_type>(
-			_vb.size() * _vb.format_part().stride()))
+			_vb.size().get() * _vb.format_part().stride()))
 {
 	cl_int error_code;
 

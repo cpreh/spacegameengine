@@ -30,7 +30,7 @@ namespace renderer
 {
 
 SGE_RENDERER_SYMBOL
-size_type
+renderer::size_type
 npos();
 
 }

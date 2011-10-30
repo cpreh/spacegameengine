@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_CONVERTER_IMPL_HPP_INCLUDED
 #define SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_CONVERTER_IMPL_HPP_INCLUDED
 
+#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/detail/converter_impl_fwd.hpp>
@@ -62,7 +62,7 @@ public:
 	void
 	convert_lock(
 		renderer::raw_pointer data,
-		renderer::size_type pos,
+		renderer::first_vertex,
 		detail::lock_interval_set const &,
 		detail::lock_interval const &
 	);
@@ -70,14 +70,14 @@ public:
 	void
 	convert_unlock(
 		renderer::raw_pointer data,
-		renderer::size_type pos,
+		renderer::first_vertex,
 		detail::lock_interval const &
 	);
 private:
 	void
 	do_convert(
 		renderer::raw_pointer data,
-		renderer::size_type pos,
+		renderer::first_vertex,
 		detail::lock_interval const &,
 		bool unlock
 	);

@@ -99,7 +99,7 @@ sge::opengl::draw_elements(
 
 	GLvoid *const offset(
 		gl_ib.buffer_offset(
-			_first_index.get()
+			_first_index
 		)
 	);
 

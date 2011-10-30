@@ -649,7 +649,7 @@ sge::renderer::vertex_buffer_ptr const
 sge::opengl::device::create_vertex_buffer(
 	renderer::vertex_declaration const &_declaration,
 	renderer::vf::dynamic::part_index const _part,
-	renderer::size_type const _size,
+	renderer::vertex_count const _size,
 	renderer::resource_flags_field const &_flags
 )
 {
@@ -678,7 +678,7 @@ sge::opengl::device::create_vertex_buffer(
 sge::renderer::index_buffer_ptr const
 sge::opengl::device::create_index_buffer(
 	renderer::index::dynamic::format::type const _format,
-	renderer::size_type const _size,
+	renderer::index_count const _size,
 	renderer::resource_flags_field const &_flags
 )
 {

@@ -82,7 +82,7 @@ sge::sprite::system_base<Choices>::allocate_buffers(
 {
 	if(
 		this->vertex_buffer()
-		&& this->vertex_buffer()->size()
+		&& this->vertex_buffer()->size().get()
 		>= _num_sprites
 		*
 		detail::vertices_per_sprite<

@@ -68,7 +68,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/diffuse_color.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
@@ -425,11 +424,10 @@ normals_to_line_drawer(
 
 	lines.reserve(
 		static_cast<sge::line_drawer::line_sequence::size_type>(
-			vb.size()));
+			vb.size().get()));
 
 	sge::renderer::const_scoped_vertex_lock scoped_vl(
-		vb,
-		sge::renderer::lock_mode::readwrite);
+		vb);
 
 	typedef
 	sge::renderer::vf::view<vf::format_part,sge::renderer::vf::const_tag>

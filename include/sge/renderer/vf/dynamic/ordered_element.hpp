@@ -42,7 +42,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	ordered_element(
 		dynamic::element const &,
-		vertex_size offset
+		vf::vertex_size offset
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -50,12 +50,12 @@ public:
 	element() const;
 
 	SGE_RENDERER_SYMBOL
-	vertex_size
+	vf::vertex_size
 	offset() const;
 private:
 	dynamic::element element_;
 
-	vertex_size offset_;
+	vf::vertex_size offset_;
 };
 
 }

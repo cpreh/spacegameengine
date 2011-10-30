@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
@@ -62,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/renderer.hpp>
@@ -426,9 +427,11 @@ try
 	sge::renderer::vertex_buffer_ptr const vb(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
-			sge::renderer::vf::dynamic::part_index(
-				0u),
-			static_cast<sge::renderer::size_type>(
+			sge::renderer::vf::dynamic::make_part_index<
+				vf::format,
+				vf::part
+			>(),
+			sge::renderer::vertex_count(
 				6),
 			sge::renderer::resource_flags::readable));
 
@@ -476,7 +479,7 @@ try
 			mem_objects);
 
 		sge::opencl::command_queue::dim1 global_dim;
-		global_dim[0] = vb->size() * 2;
+		global_dim[0] = vb->size().get() * 2;
 
 		sge::opencl::command_queue::dim1 local_dim;
 		local_dim[0] = 2;

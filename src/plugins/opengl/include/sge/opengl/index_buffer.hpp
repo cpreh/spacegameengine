@@ -49,7 +49,7 @@ public:
 	index_buffer(
 		context::object &,
 		renderer::index::dynamic::format::type,
-		size_type,
+		count_type,
 		renderer::resource_flags_field const &
 	);
 
@@ -60,7 +60,7 @@ public:
 
 	GLvoid *
 	buffer_offset(
-		size_type
+		first_type
 	) const;
 
 	void
@@ -69,20 +69,30 @@ private:
 	view_type const
 	lock(
 		renderer::lock_mode::type,
-		size_type offset,
-		size_type range
+		first_type,
+		count_type
 	);
 
 	const_view_type const
 	lock(
-		size_type offset,
-		size_type range
+		first_type,
+		count_type
+	) const;
+
+	template<
+		typename View
+	>
+	View const
+	do_lock(
+		renderer::lock_flags::method::type,
+		first_type,
+		count_type
 	) const;
 
 	void
 	unlock() const;
 
-	size_type
+	count_type const
 	size() const;
 
 	renderer::resource_flags_field const

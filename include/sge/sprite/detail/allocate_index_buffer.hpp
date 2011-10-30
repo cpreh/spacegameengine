@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_ALLOCATE_INDEX_BUFFER_HPP_INCLUDED
 
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
@@ -53,11 +54,13 @@ allocate_index_buffer(
 	>(
 		_renderer.create_index_buffer(
 			renderer::index::dynamic::format::i16,
-			_num_sprites
-			*
-			detail::indices_per_sprite<
-				Elements
-			>(),
+			renderer::index_count(
+				_num_sprites
+				*
+				detail::indices_per_sprite<
+					Elements
+				>()
+			),
 			renderer::resource_flags::dynamic
 		)
 	);

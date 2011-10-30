@@ -151,6 +151,8 @@ SET(
 	include/sge/renderer/index_buffer.hpp
 	include/sge/renderer/index_buffer_fwd.hpp
 	include/sge/renderer/index_buffer_ptr.hpp
+	include/sge/renderer/index_buffer_types.hpp
+	include/sge/renderer/index_count.hpp
 	include/sge/renderer/indexed_primitive_type.hpp
 	include/sge/renderer/indices_per_primitive.hpp
 	include/sge/renderer/light/attenuation.hpp
@@ -390,6 +392,7 @@ SET(
 	include/sge/renderer/vertex_buffer.hpp
 	include/sge/renderer/vertex_buffer_fwd.hpp
 	include/sge/renderer/vertex_buffer_ptr.hpp
+	include/sge/renderer/vertex_buffer_types.hpp
 	include/sge/renderer/vertex_count.hpp
 	include/sge/renderer/vertex_declaration.hpp
 	include/sge/renderer/vertex_declaration_fwd.hpp

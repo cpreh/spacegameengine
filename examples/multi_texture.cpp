@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -77,7 +78,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/input.hpp>
@@ -237,10 +238,13 @@ try
 	sge::renderer::vertex_buffer_ptr const vertex_buffer(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
-			sge::renderer::vf::dynamic::part_index(
-				0u
+			sge::renderer::vf::dynamic::make_part_index<
+				vf_format,
+				vf_format_part
+			>(),
+			sge::renderer::vertex_count(
+				4u
 			),
-			4,
 			sge::renderer::resource_flags::none
 		)
 	);
@@ -353,7 +357,9 @@ try
 			sge::renderer::index::dynamic::make_format<
 				index_format
 			>(),
-			6u,
+			sge::renderer::index_count(
+				6u
+			),
 			sge::renderer::resource_flags::none
 		)
 	);

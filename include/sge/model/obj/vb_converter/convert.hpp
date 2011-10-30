@@ -30,9 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
@@ -61,8 +61,11 @@ convert(
 			_vd,
 			renderer::vf::dynamic::part_index(
 				0u),
-			detail::count_vertices<sge::renderer::size_type>(
-				_model),
+			sge::renderer::vertex_count(
+				detail::count_vertices<
+					sge::renderer::vertex_count::value_type
+				>(
+					_model)),
 			_flags);
 
 	sge::renderer::scoped_vertex_lock const vblock(

@@ -55,7 +55,7 @@ public:
 		context::object &,
 		renderer::vf::dynamic::part_index,
 		renderer::vf::dynamic::part const &,
-		size_type,
+		count_type,
 		renderer::resource_flags_field const &
 	);
 
@@ -74,14 +74,14 @@ private:
 	view_type const
 	lock(
 		renderer::lock_mode::type,
-		size_type offset,
-		size_type range
+		first_type,
+		count_type
 	);
 
 	const_view_type const
 	lock(
-		size_type offset,
-		size_type range
+		first_type,
+		count_type
 	) const;
 
 	template<
@@ -90,14 +90,14 @@ private:
 	View const
 	do_lock(
 		renderer::lock_flags::method::type,
-		size_type offset,
-		size_type range
+		first_type,
+		count_type
 	) const;
 
 	void
 	unlock() const;
 
-	size_type
+	count_type const
 	size() const;
 
 	renderer::resource_flags_field const

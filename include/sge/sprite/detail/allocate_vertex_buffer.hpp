@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/detail/vf_part_index.hpp>
@@ -56,11 +57,13 @@ allocate_vertex_buffer(
 		_renderer.create_vertex_buffer(
 			_vertex_declaration,
 			detail::vf_part_index(),
-			_num_sprites
-			*
-			detail::vertices_per_sprite<
-				Elements
-			>::value,
+			renderer::vertex_count(
+				_num_sprites
+				*
+				detail::vertices_per_sprite<
+					Elements
+				>::value
+			),
 			renderer::resource_flags::dynamic
 		)
 	);

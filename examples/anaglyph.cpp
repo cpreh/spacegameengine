@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
@@ -76,7 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
@@ -232,9 +233,11 @@ compiled_model::compiled_model(
 	vb_(
 		renderer_.create_vertex_buffer(
 			_vd,
-			sge::renderer::vf::dynamic::part_index(
-				0u),
-			static_cast<sge::renderer::size_type>(
+			sge::renderer::vf::dynamic::make_part_index<
+				vf::format,
+				vf::format_part
+			>(),
+			sge::renderer::vertex_count(
 				_model.vertices(
 					_model.part_names().front()).size()),
 			sge::renderer::resource_flags::none)),
@@ -245,7 +248,7 @@ compiled_model::compiled_model(
 	ib_(
 		renderer_.create_index_buffer(
 			sge::renderer::index::dynamic::format::i16,
-			static_cast<sge::renderer::size_type>(
+			sge::renderer::index_count(
 				_model.indices(
 					_model.part_names().front()).size()),
 		sge::renderer::resource_flags::none))
@@ -343,11 +346,10 @@ compiled_model::render() const
 	renderer_.render_indexed(
 		*ib_,
 		sge::renderer::first_vertex(0),
-		sge::renderer::vertex_count(
-			vb_->size()),
+		vb_->size(),
 		sge::renderer::indexed_primitive_type::triangle,
 		sge::renderer::primitive_count(
-			ib_->size()/3),
+			ib_->size().get()/3),
 		sge::renderer::first_index(
 			0));
 }

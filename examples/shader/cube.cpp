@@ -120,7 +120,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/shader/activate_everything.hpp>
 #include <sge/shader/activation_method.hpp>
 #include <sge/shader/matrix.hpp>
@@ -1020,10 +1020,15 @@ try
 	sge::renderer::vertex_buffer_ptr const vb(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
-			sge::renderer::vf::dynamic::part_index(0u),
+			sge::renderer::vf::dynamic::make_part_index<
+				vf::format,
+				vf::format_part
+			>(),
 			// 6 sides, 2 triangles per side, 3 vertices (we don't use an
 			// index buffer - overkill)
-			6 * 2 * 3,
+			sge::renderer::vertex_count(
+				6u * 2u * 3u
+			),
 			sge::renderer::resource_flags::none));
 
 	fill_vb_with_cube(

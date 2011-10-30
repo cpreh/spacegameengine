@@ -300,8 +300,9 @@ sge::cegui::detail::geometry_buffer::appendGeometry(
 				vertex_declaration_,
 				sge::renderer::vf::dynamic::part_index(
 					0u),
-				static_cast<sge::renderer::size_type>(
-					vertex_count),
+				sge::renderer::vertex_count(
+					static_cast<sge::renderer::vertex_count::value_type>(
+						vertex_count)),
 				sge::renderer::resource_flags::none)));
 
 	sge::renderer::scoped_vertex_lock const vblock(

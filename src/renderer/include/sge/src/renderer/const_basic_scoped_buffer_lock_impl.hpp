@@ -25,15 +25,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<
 	typename Buffer,
-	typename View
+	typename Types
 >
-sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::const_basic_scoped_buffer_lock(
+sge::renderer::const_basic_scoped_buffer_lock<
+	Buffer,
+	Types
+>::const_basic_scoped_buffer_lock(
 	Buffer const &_buffer,
-	size_type const _first,
-	size_type const _count
+	first_type const _first,
+	count_type const _count
 )
 :
-	buffer_(_buffer),
+	buffer_(
+		_buffer
+	),
 	view_(
 		buffer_.lock(
 			_first,
@@ -45,19 +50,28 @@ sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::const_basic_scoped_
 
 template<
 	typename Buffer,
-	typename View
+	typename Types
 >
-View const
-sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::value() const
+typename sge::renderer::const_basic_scoped_buffer_lock<
+	Buffer,
+	Types
+>::view_type const
+sge::renderer::const_basic_scoped_buffer_lock<
+	Buffer,
+	Types
+>::value() const
 {
 	return view_;
 }
 
 template<
 	typename Buffer,
-	typename View
+	typename Types
 >
-sge::renderer::const_basic_scoped_buffer_lock<Buffer, View>::~const_basic_scoped_buffer_lock()
+sge::renderer::const_basic_scoped_buffer_lock<
+	Buffer,
+	Types
+>::~const_basic_scoped_buffer_lock()
 {
 	buffer_.unlock();
 }

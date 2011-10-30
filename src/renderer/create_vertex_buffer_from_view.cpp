@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -40,7 +41,9 @@ sge::renderer::create_vertex_buffer_from_view(
 		_device.create_vertex_buffer(
 			_vertex_declaration,
 			_view.part_index(),
-			_view.size(),
+			sge::renderer::vertex_count(
+				_view.size()
+			),
 			_resource_flags
 		)
 	);
@@ -54,7 +57,7 @@ sge::renderer::create_vertex_buffer_from_view(
 		lock.value().data(),
 		_view.data(),
 		_view.part().stride()
-		* _view.size()
+		* _view.size().get()
 	);
 
 	return buffer;

@@ -121,13 +121,13 @@ sge::line_drawer::object::unlock()
 	if (lines_.empty())
 		return;
 
-	if (!vb_ || vb_->size() < static_cast<sge::renderer::size_type>(lines_.size()*2))
+	if (!vb_ || vb_->size().get() < static_cast<sge::renderer::size_type>(lines_.size()*2))
 		vb_ =
 			renderer_.create_vertex_buffer(
 				*vertex_declaration_,
 				sge::renderer::vf::dynamic::part_index(
 					0u),
-				static_cast<sge::renderer::size_type>(
+				sge::renderer::vertex_count(
 					lines_.size()*2),
 				sge::renderer::resource_flags::none);
 

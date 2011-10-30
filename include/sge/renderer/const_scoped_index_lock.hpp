@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
+#include <sge/renderer/index_buffer_types.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -34,7 +35,7 @@ namespace renderer
 
 typedef renderer::const_basic_scoped_buffer_lock<
 	renderer::index_buffer,
-	index::dynamic::const_view
+	renderer::index_buffer_types
 > const_scoped_index_lock;
 
 }

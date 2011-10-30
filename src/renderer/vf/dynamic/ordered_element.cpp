@@ -18,16 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
+
 
 sge::renderer::vf::dynamic::ordered_element::ordered_element(
 	dynamic::element const &_element,
-	vertex_size const _offset
+	vf::vertex_size const _offset
 )
 :
 	element_(_element),
 	offset_(_offset)
-{}
+{
+}
 
 sge::renderer::vf::dynamic::element const &
 sge::renderer::vf::dynamic::ordered_element::element() const

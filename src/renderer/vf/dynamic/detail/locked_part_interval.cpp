@@ -30,7 +30,7 @@ sge::renderer::vf::dynamic::detail::locked_part_interval(
 {
 	return
 		detail::lock_interval(
-			_locked_part.pos(),
-			_locked_part.pos() + _locked_part.count()
+			_locked_part.pos().get(),
+			_locked_part.pos().get() + _locked_part.count().get()
 		);
 }

@@ -72,6 +72,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/index_buffer_types.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/lock_box.hpp>
@@ -146,6 +148,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_types.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>

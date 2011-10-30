@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::index_buffer::index_buffer(
 	context::object &_context,
 	renderer::index::dynamic::format::type const _format,
-	size_type const _size,
+	count_type const _size,
 	renderer::resource_flags_field const &_flags
 )
 :
@@ -55,7 +55,7 @@ sge::opengl::index_buffer::index_buffer(
 		>(
 			_context
 		).index_buffer_type(),
-		_size,
+		_size.get(),
 		renderer::index::dynamic::format_stride(
 			_format
 		),
@@ -77,12 +77,12 @@ sge::opengl::index_buffer::gl_format() const
 
 GLvoid *
 sge::opengl::index_buffer::buffer_offset(
-	size_type const _size
+	first_type const _size
 ) const
 {
 	return
 		buffer_.buffer_offset(
-			_size
+			_size.get()
 		);
 }
 
@@ -95,44 +95,56 @@ sge::opengl::index_buffer::bind() const
 sge::opengl::index_buffer::view_type const
 sge::opengl::index_buffer::lock(
 	renderer::lock_mode::type const _flags,
-	size_type const _offset,
-	size_type const _range
+	first_type const _offset,
+	count_type const _range
 )
 {
-	buffer_.lock(
-		renderer::lock_flags::from_mode(
-			_flags
-		),
-		_offset,
-		_range
-	);
-
 	return
-		view_type(
-			buffer_.data(),
-			buffer_.lock_size()
-			/
-			renderer::index::dynamic::format_stride(
-				format_
+		this->do_lock<
+			view_type
+		>(
+			renderer::lock_flags::from_mode(
+				_flags
 			),
-			format_
+			_offset,
+			_range
 		);
 }
 
 sge::opengl::index_buffer::const_view_type const
 sge::opengl::index_buffer::lock(
-	size_type const _offset,
-	size_type const _range
+	first_type const _offset,
+	count_type const _range
+) const
+{
+	return
+		this->do_lock<
+			const_view_type
+		>(
+			renderer::lock_flags::method::read,
+			_offset,
+			_range
+		);
+}
+
+template<
+	typename View
+>
+View const
+sge::opengl::index_buffer::do_lock(
+	renderer::lock_flags::method::type const _method,
+	first_type const _offset,
+	count_type const _range
 ) const
 {
 	buffer_.lock(
-		renderer::lock_flags::method::read,
-		_offset,
-		_range
+		_method,
+		_offset.get(),
+		_range.get()
 	);
 
 	return
-		const_view_type(
+		View(
 			buffer_.data(),
 			buffer_.lock_size()
 			/
@@ -149,10 +161,13 @@ sge::opengl::index_buffer::unlock() const
 	buffer_.unlock();
 }
 
-sge::opengl::index_buffer::size_type
+sge::opengl::index_buffer::count_type const
 sge::opengl::index_buffer::size() const
 {
-	return buffer_.size();
+	return
+		count_type(
+			buffer_.size()
+		);
 }
 
 sge::renderer::resource_flags_field const

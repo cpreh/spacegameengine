@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_HPP_INCLUDED
 
 #include <sge/image/color/format.hpp>
+#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/element_converter_fwd.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
@@ -60,7 +60,7 @@ public:
 	convert(
 		detail::lock_interval const &,
 		sge::renderer::raw_pointer data,
-		sge::renderer::size_type pos,
+		sge::renderer::first_vertex,
 		bool unlock
 	);
 private:
@@ -68,9 +68,9 @@ private:
 		original_color_,
 		backend_color_;
 
-	sge::renderer::vf::vertex_size const
-		stride_,
-		offset_;
+	sge::renderer::vf::vertex_size const stride_;
+
+	sge::renderer::vf::vertex_size const offset_;
 };
 
 }

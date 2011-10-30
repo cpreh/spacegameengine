@@ -21,9 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_VERTEX_SIZE_HPP_INCLUDED
 #define SGE_RENDERER_VF_VERTEX_SIZE_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <cstddef>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/size_type.hpp>
 
 namespace sge
 {
@@ -32,7 +30,7 @@ namespace renderer
 namespace vf
 {
 
-typedef std::size_t vertex_size;
+typedef renderer::size_type vertex_size;
 
 }
 }

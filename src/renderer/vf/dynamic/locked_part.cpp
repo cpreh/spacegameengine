@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::vf::dynamic::locked_part::locked_part(
 	renderer::raw_pointer const _data,
-	renderer::size_type const _pos,
-	renderer::size_type const _count,
+	renderer::first_vertex const _pos,
+	renderer::vertex_count const _count,
 	renderer::lock_flags::method::type const _lock_flags
 )
 :
@@ -40,13 +40,13 @@ sge::renderer::vf::dynamic::locked_part::data() const
 	return data_;
 }
 
-sge::renderer::size_type
+sge::renderer::first_vertex const
 sge::renderer::vf::dynamic::locked_part::pos() const
 {
 	return pos_;
 }
 
-sge::renderer::size_type
+sge::renderer::vertex_count const
 sge::renderer::vf::dynamic::locked_part::count() const
 {
 	return count_;

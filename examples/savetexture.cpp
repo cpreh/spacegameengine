@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
@@ -68,6 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/shader/activation_method.hpp>
 #include <sge/shader/activation_method_field.hpp>
 #include <sge/shader/object.hpp>
@@ -177,11 +179,13 @@ create_quad(
 	sge::renderer::vertex_buffer_ptr const vb(
 		renderer.create_vertex_buffer(
 			_declaration,
-			sge::renderer::vf::dynamic::part_index(
-				0u
+			sge::renderer::vf::dynamic::make_part_index<
+				screen_vf::format,
+				screen_vf::part
+			>(),
+			sge::renderer::vertex_count(
+				6u
 			),
-			static_cast<sge::renderer::size_type>(
-				6),
 			sge::renderer::resource_flags::none));
 
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
@@ -387,8 +391,7 @@ try
 		sys.renderer().render_nonindexed(
 			sge::renderer::first_vertex(
 				0),
-			sge::renderer::vertex_count(
-				quad_->size()),
+			quad_->size(),
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}
 

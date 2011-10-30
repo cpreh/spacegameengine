@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
@@ -45,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -163,10 +165,13 @@ try
 	sge::renderer::vertex_buffer_ptr const vertex_buffer(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
-			sge::renderer::vf::dynamic::part_index(
-				0u
+			sge::renderer::vf::dynamic::make_part_index<
+				vf_format,
+				vf_part
+			>(),
+			sge::renderer::vertex_count(
+				3u
 			),
-			3,
 			sge::renderer::resource_flags::none
 		)
 	);

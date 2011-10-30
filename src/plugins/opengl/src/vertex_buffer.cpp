@@ -37,7 +37,7 @@ sge::opengl::vertex_buffer::vertex_buffer(
 	context::object &_context,
 	renderer::vf::dynamic::part_index const _part_index,
 	renderer::vf::dynamic::part const &_format_part,
-	size_type const _size,
+	count_type const _size,
 	renderer::resource_flags_field const &_flags
 )
 :
@@ -67,7 +67,7 @@ sge::opengl::vertex_buffer::vertex_buffer(
 		>(
 			_context
 		).vertex_buffer_type(),
-		_size,
+		_size.get(),
 		_format_part.stride(),
 		_flags,
 		0
@@ -104,8 +104,8 @@ sge::opengl::vertex_buffer::unuse(
 sge::opengl::vertex_buffer::view_type const
 sge::opengl::vertex_buffer::lock(
 	renderer::lock_mode::type const _flags,
-	size_type const _offset,
-	size_type const _range
+	first_type const _offset,
+	count_type const _range
 )
 {
 	return
@@ -122,8 +122,8 @@ sge::opengl::vertex_buffer::lock(
 
 sge::opengl::vertex_buffer::const_view_type const
 sge::opengl::vertex_buffer::lock(
-	size_type const _offset,
-	size_type const _range
+	first_type const _offset,
+	count_type const _range
 ) const
 {
 	return
@@ -142,14 +142,14 @@ template<
 View const
 sge::opengl::vertex_buffer::do_lock(
 	renderer::lock_flags::method::type const _method,
-	size_type const _offset,
-	size_type const _range
+	first_type const _offset,
+	count_type const _range
 ) const
 {
 	buffer_.lock(
 		_method,
-		_offset,
-		_range
+		_offset.get(),
+		_range.get()
 	);
 
 	converter_.lock(
@@ -169,7 +169,9 @@ sge::opengl::vertex_buffer::do_lock(
 	return
 		View(
 			buffer_.data(),
-			buffer_.lock_size(),
+			count_type(
+				buffer_.lock_size()
+			),
 			this->format_part(),
 			part_index_
 		);
@@ -183,10 +185,13 @@ sge::opengl::vertex_buffer::unlock() const
 	buffer_.unlock();
 }
 
-sge::opengl::vertex_buffer::size_type
+sge::opengl::vertex_buffer::count_type const
 sge::opengl::vertex_buffer::size() const
 {
-	return buffer_.size();
+	return
+		count_type(
+			buffer_.size()
+		);
 }
 
 sge::renderer::resource_flags_field const

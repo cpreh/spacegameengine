@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/index_buffer_types.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/src/renderer/basic_scoped_buffer_lock_impl.hpp>
 #include <fcppt/export_symbol.hpp>
 
@@ -28,5 +28,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template FCPPT_EXPORT_SYMBOL class
 sge::renderer::basic_scoped_buffer_lock<
 	sge::renderer::index_buffer,
-	sge::renderer::index::dynamic::view
+	sge::renderer::index_buffer_types
 >;

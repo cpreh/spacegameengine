@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_VERTICES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_VERTICES_HPP_INCLUDED
 
+#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/npos.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
@@ -76,9 +78,13 @@ fill_vertices(
 	renderer::scoped_vertex_lock const vblock(
 		_vb,
 		renderer::lock_mode::writeonly,
-		0,
-		sprites_to_lock
-		* detail::vertices_per_sprite<elements>::value
+		renderer::first_vertex(
+			0
+		),
+		renderer::vertex_count(
+			sprites_to_lock
+			* detail::vertices_per_sprite<elements>::value
+		)
 	);
 
 	typedef renderer::vf::view<

@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_HPP_INCLUDED
 
 #include <sge/renderer/npos.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -34,7 +33,7 @@ namespace renderer
 
 template<
 	typename Buffer,
-	typename View
+	typename Types
 >
 class const_basic_scoped_buffer_lock
 {
@@ -42,15 +41,25 @@ class const_basic_scoped_buffer_lock
 		const_basic_scoped_buffer_lock
 	);
 public:
+	typedef typename Types::first_type first_type;
+
+	typedef typename Types::count_type count_type;
+
+	typedef typename Types::const_view_type view_type;
+
 	SGE_RENDERER_SYMBOL
 	explicit const_basic_scoped_buffer_lock(
 		Buffer const &,
-		size_type first = 0,
-		size_type count = renderer::npos()
+		first_type =
+			first_type(0),
+		count_type =
+			count_type(
+				renderer::npos()
+			)
 	);
 
 	SGE_RENDERER_SYMBOL
-	View const
+	view_type const
 	value() const;
 
 	SGE_RENDERER_SYMBOL
@@ -58,7 +67,7 @@ public:
 private:
 	Buffer const &buffer_;
 
-	View const view_;
+	view_type const view_;
 };
 
 }

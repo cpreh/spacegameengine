@@ -88,7 +88,7 @@ sge::renderer::vf::view<Part, Constness>::end() const
 	return
 		iterator(
 			data_
-			+ size_
+			+ size_.get()
 		);
 }
 

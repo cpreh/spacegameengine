@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/create_index_buffer_from_view.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
@@ -39,7 +40,9 @@ sge::renderer::create_index_buffer_from_view(
 	renderer::index_buffer_ptr const buffer(
 		_device.create_index_buffer(
 			_view.format(),
-			_view.size(),
+			sge::renderer::index_count(
+				_view.size()
+			),
 			_resource_flags
 		)
 	);

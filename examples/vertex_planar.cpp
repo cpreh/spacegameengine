@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -139,7 +140,7 @@ try
 		)
 	);
 
-	sge::renderer::size_type const num_vertices(
+	sge::renderer::vertex_count const num_vertices(
 		3u
 	);
 
@@ -294,9 +295,7 @@ try
 			sge::renderer::first_vertex(
 				0
 			),
-			sge::renderer::vertex_count(
-				num_vertices
-			),
+			num_vertices,
 			sge::renderer::nonindexed_primitive_type::triangle
 		);
 	}

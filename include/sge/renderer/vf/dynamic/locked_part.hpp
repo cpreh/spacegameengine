@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
 
+#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 
 
@@ -42,8 +43,8 @@ public:
 	SGE_RENDERER_SYMBOL
 	locked_part(
 		renderer::raw_pointer,
-		renderer::size_type pos,
-		renderer::size_type count,
+		renderer::first_vertex,
+		renderer::vertex_count,
 		renderer::lock_flags::method::type
 	);
 
@@ -52,11 +53,11 @@ public:
 	data() const;
 
 	SGE_RENDERER_SYMBOL
-	renderer::size_type
+	renderer::first_vertex const
 	pos() const;
 
 	SGE_RENDERER_SYMBOL
-	renderer::size_type
+	renderer::vertex_count const
 	count() const;
 
 	SGE_RENDERER_SYMBOL
@@ -65,9 +66,9 @@ public:
 private:
 	renderer::raw_pointer data_;
 
-	renderer::size_type
-		pos_,
-		count_;
+	renderer::first_vertex pos_;
+
+	renderer::vertex_count count_;
 
 	renderer::lock_flags::method::type lock_flags_;
 };

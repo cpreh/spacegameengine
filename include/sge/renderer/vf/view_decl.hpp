@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_VIEW_DECL_HPP_INCLUDED
 #define SGE_RENDERER_VF_VIEW_DECL_HPP_INCLUDED
 
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vf/iterator_fwd.hpp>
 #include <sge/renderer/vf/pointer.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -59,7 +59,7 @@ public:
 		pointer
 	> dynamic_view_type;
 
-	typedef vertex_size size_type;
+	typedef renderer::vertex_count size_type;
 
 	explicit view(
 		dynamic_view_type const &

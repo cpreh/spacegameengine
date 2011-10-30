@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/element_converter.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
@@ -69,7 +69,7 @@ void
 sge::renderer::vf::dynamic::detail::element_converter::convert(
 	detail::lock_interval const &_interval,
 	sge::renderer::raw_pointer const _data,
-	renderer::size_type const _pos,
+	renderer::first_vertex const _pos,
 	bool const _unlock
 )
 {
@@ -81,12 +81,12 @@ sge::renderer::vf::dynamic::detail::element_converter::convert(
 	// pos refers to the beginning of the lock
 	FCPPT_ASSERT_PRE(
 		_interval.lower()
-		>= _pos
+		>= _pos.get()
 	);
 
 	sge::renderer::raw_pointer const begin(
 		_data
-		+ (_interval.lower() - _pos) * stride_
+		+ (_interval.lower() - _pos.get()) * stride_
 		+ offset_
 	);
 

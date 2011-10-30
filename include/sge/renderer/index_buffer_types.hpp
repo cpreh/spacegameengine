@@ -18,25 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_INDEX_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_INDEX_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_BUFFER_TYPES_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_BUFFER_TYPES_HPP_INCLUDED
 
-#include <sge/renderer/basic_scoped_buffer_lock.hpp>
-#include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/index_buffer_types.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
-#include <fcppt/variant/object_impl.hpp>
-
+#include <sge/renderer/first_index.hpp>
+#include <sge/renderer/index_count.hpp>
+#include <sge/renderer/index/dynamic/const_view_fwd.hpp>
+#include <sge/renderer/index/dynamic/view_fwd.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef renderer::basic_scoped_buffer_lock<
-	renderer::index_buffer,
-	renderer::index_buffer_types
-> scoped_index_lock;
+struct index_buffer_types
+{
+	typedef index::dynamic::const_view const_view_type;
+
+	typedef index::dynamic::view view_type;
+
+	typedef renderer::first_index first_type;
+
+	typedef renderer::index_count count_type;
+};
 
 }
 }

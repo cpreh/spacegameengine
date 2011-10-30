@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_INDICES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_INDICES_HPP_INCLUDED
 
+#include <sge/renderer/first_index.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -50,12 +52,16 @@ fill_indices(
 	renderer::scoped_index_lock const lock(
 		_ib,
 		renderer::lock_mode::writeonly,
-		0,
-		_count
-		*
-		detail::indices_per_sprite<
-			typename Choices::elements
-		>::value
+		renderer::first_index(
+			0
+		),
+		renderer::index_count(
+			_count
+			*
+			detail::indices_per_sprite<
+				typename Choices::elements
+			>::value
+		)
 	);
 
 	renderer::index::any::generate(

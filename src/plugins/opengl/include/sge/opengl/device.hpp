@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -55,7 +56,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/sampler_stage_arg_value.hpp>
 #include <sge/renderer/sampler_stage_op.hpp>
 #include <sge/renderer/sampler_stage_op_value.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/stage.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
@@ -295,14 +295,14 @@ public:
 	create_vertex_buffer(
 		renderer::vertex_declaration const &,
 		renderer::vf::dynamic::part_index,
-		renderer::size_type,
+		renderer::vertex_count,
 		renderer::resource_flags_field const &
 	);
 
 	renderer::index_buffer_ptr const
 	create_index_buffer(
 		renderer::index::dynamic::format::type,
-		renderer::size_type,
+		renderer::index_count,
 		renderer::resource_flags_field const &
 	);
 
