@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -145,9 +146,10 @@ try
 	sge::renderer::vertex_buffer_ptr const vertex_buffer1(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
-			sge::renderer::vf::dynamic::part_index(
-				0u
-			),
+			sge::renderer::vf::dynamic::make_part_index<
+				format,
+				pos_format_part
+			>(),
 			num_vertices,
 			sge::renderer::resource_flags::none
 		)
@@ -156,9 +158,10 @@ try
 	sge::renderer::vertex_buffer_ptr const vertex_buffer2(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
-			sge::renderer::vf::dynamic::part_index(
-				1u
-			),
+			sge::renderer::vf::dynamic::make_part_index<
+				format,
+				color_format_part
+			>(),
 			num_vertices,
 			sge::renderer::resource_flags::none
 		)

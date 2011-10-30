@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/locked_part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
 #include <sge/renderer/vf/dynamic/offset_list.hpp>

@@ -18,22 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_PROGRAM_PROGRAM_HPP_INCLUDED
-#define SGE_OPENCL_PROGRAM_PROGRAM_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_MAKE_PART_INDEX_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_MAKE_PART_INDEX_HPP_INCLUDED
 
-#include <sge/opencl/program/blob.hpp>
-#include <sge/opencl/program/build_error.hpp>
-#include <sge/opencl/program/build_options.hpp>
-#include <sge/opencl/program/build_parameters.hpp>
-#include <sge/opencl/program/build_parameters_fwd.hpp>
-#include <sge/opencl/program/device_blob_map.hpp>
-#include <sge/opencl/program/file_to_source_string_sequence.hpp>
-#include <sge/opencl/program/notification_callback.hpp>
-#include <sge/opencl/program/notification_callback_type.hpp>
-#include <sge/opencl/program/object.hpp>
-#include <sge/opencl/program/object_fwd.hpp>
-#include <sge/opencl/program/optional_build_parameters.hpp>
-#include <sge/opencl/program/source_string.hpp>
-#include <sge/opencl/program/source_string_sequence.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <fcppt/mpl/index_of.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+namespace vf
+{
+namespace dynamic
+{
+
+template<
+	typename Format,
+	typename Part
+>
+dynamic::part_index const
+make_part_index()
+{
+	return
+		dynamic::part_index(
+			static_cast<
+				dynamic::part_index::value_type
+			>(
+				fcppt::mpl::index_of<
+					typename Format::parts,
+					Part
+				>::value
+			)
+		);
+}
+
+}
+}
+}
+}
 
 #endif
