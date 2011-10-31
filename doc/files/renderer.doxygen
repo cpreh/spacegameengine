@@ -16,11 +16,13 @@ the way how primitives are rendered (for example, with texture coordinates,
 texturing will be taken into account).
 
 To actually store vertices on the graphics card, an
-sge::renderer::vertex_buffer must be created.  Internally, however, this buffer
-is simply that, an array of bytes.  To make filling data into the buffer easy,
-sge implements an almost compile time safe abstraction. So, instead of
-predefining which data is attached to a vertex, templates are used to create
-new vertex types, called a \em vertex \em format.
+sge::renderer::vertex_buffer must be created.  Internally, however, this
+buffer is simply that, an array of bytes.  To make filling data into the
+buffer easy, sge implements an almost compile time safe layer on top of the
+buffers, so that it is nearly as easy to use as an std::vector of structs.
+The structure of this additional layer tells how the buffer is to be used
+(which attributes the vertices have) and is therefore called a \em vertex \em
+format.
 
 The vertex format can be used to create an sge::renderer::vertex_declaration
 which is a runtime representation of it.
@@ -41,7 +43,7 @@ different colors for every vertex.
 The first vertex attribute we declare is a position.  This is always needed if
 you use the fixed function pipeline.
 
-\snippet vertex.cpp positiondeclaration
+\snippet vertex.cpp position_declaration
 
 This indicates that the vertex position should consist of three floats, which
 are x, y and z, respectively.  Anything else is not really portable.  You can,
@@ -50,7 +52,7 @@ OpenGL.
 
 The next code snippet shows how to declare a color attribute.
 
-\snippet vertex.cpp colordeclaration
+\snippet vertex.cpp color_declaration
 
 Here, a bgra8 color format is used that consists of 8 bits per color channel.
 
@@ -58,23 +60,78 @@ An sge::renderer::vf::part is a collection of vertex attributes that are to be
 stored in a single vertex buffer.  Only one part is used in this example, so
 both the position and the color go into it.
 
-\snippet vertex.cpp formatpartdeclaration
+\snippet vertex.cpp format_part_declaration
 
 The final thing to complete the vertex format is the format declaration that
 tells of which parts the format will be made.
 
-\snippet vertex.cpp formatdeclaration
+\snippet vertex.cpp format_declaration
 
 The vertex_declaration is created from an sge::renderer::device, which is
 available through sys.renderer() in this example.
 
-\snippet vertex.cpp vertexdeclaration
+\snippet vertex.cpp vertex_declaration
 
-Finally, the vertex_buffer is created from the vertex_declaration and the part
-that it is going to represent.
+\subsection writing_vertices Writing Vertices
 
-\snippet vertex.cpp vertexbuffer
+In order to fill a vertex_buffer, we first have to create one.  The
+vertex_buffer has to be told which part of the vertex format it is going to
+hold and which vertex declaration it belongs to.
+
+\snippet vertex.cpp vertex_buffer
 
 The vertex buffer consists of three elements, which are enough to create a
 triangle from.
+
+The next step is to get the vertex data into the buffer.
+
+A renderer resource, such as a vertex buffer, cannot be read or written under
+normal circumstances. To actually access its data, the resource must be \em
+locked. Depending on the lock mode, the resource can be either read or
+written, or both.  If you are done with reading or writing, the resource must
+be \em unlocked again for the updates to actually take place.
+
+In this example, we want to lock the whole vertex buffer for writing.  This is
+done through an sge::renderer::scoped_vertex_lock that locks the vertex buffer
+in its constructor and unlocks it in its destructor. We also put this into a
+new block, so the destructor gets called when we desire (close the block).
+
+\snippet vertex.cpp vblock_declaration
+
+The final step is to connect the lock of the buffer with our vertex format
+part.  Therefore, we create an sge::renderer::vf::view on top of the buffer
+lock.
+
+\snippet vertex.cpp vertex_view_declaration
+
+Here is why the extra layer is not completely compile time safe: If you mix a
+vertex_buffer and a vertex format part that don't correspond to each other,
+you will get an exception in the constructor of the vertex view.
+
+The view provides begin and end methods which return iterators.
+
+\snippet vertex.cpp vertex_iterator_declaration
+
+Referencing these iterators yields a vertex structure whose attributes can be
+accessed via the special classes that we typedeffed earlier.
+
+\snippet vertex.cpp vertex_write_pos_1
+
+In this example, the pos3_type that we typedeffed earlier, is used to access the
+position of the vertex the iterator is pointing to.  The type that has to be
+used to write to the position is its packed_type. In this case, the
+packed_type is a vector of three float elements.
+
+The color is accessed in a similar fashion. The packed_type of the color is an
+sge::image::color::bgra8. Here we use sge's predefined color cyan and convert
+it to a bgra8 color.
+
+\snippet vertex.cpp vertex_write_color_1
+
+The rest of the vertices get written in a similar fashion.
+
+\snippet vertex.cpp vertex_write_rest
+
+We are done with the vertex lock and the scope is closed, so the buffer will
+be unlocked.
 */

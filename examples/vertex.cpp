@@ -100,39 +100,39 @@ try
 		)
 	);
 
-//! [positiondeclaration]
+//! [position_declaration]
 	typedef sge::renderer::vf::pos<
 		float,
 		3
 	> pos3_type;
-//! [positiondeclaration]
+//! [position_declaration]
 
-//! [colordeclaration]
+//! [color_declaration]
 	typedef sge::image::color::bgra8_format bgra8_format;
 
 	typedef sge::renderer::vf::color<
 		bgra8_format
 	> color_type;
-//! [colordeclaration]
+//! [color_declaration]
 
-//! [formatpartdeclaration]
+//! [format_part_declaration]
 	typedef sge::renderer::vf::part<
 		boost::mpl::vector2<
 			pos3_type,
 			color_type
 		>
 	> format_part;
-//! [formatpartdeclaration]
+//! [format_part_declaration]
 
-//! [formatdeclaration]
+//! [format_declaration]
 	typedef sge::renderer::vf::format<
 		boost::mpl::vector1<
 			format_part
 		>
 	> format;
-//! [formatdeclaration]
+//! [format_declaration]
 
-//! [vertexdeclaration]
+//! [vertex_declaration]
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
@@ -140,9 +140,9 @@ try
 			>()
 		)
 	);
-//! [vertexdeclaration]
+//! [vertex_declaration]
 
-//! [vertexbuffer]
+//! [vertex_buffer]
 	sge::renderer::vertex_buffer_ptr const vertex_buffer(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
@@ -156,14 +156,17 @@ try
 			sge::renderer::resource_flags::none
 		)
 	);
-//! [vertexbuffer]
+//! [vertex_buffer]
 
+//! [vblock_declaration]
 	{
 		sge::renderer::scoped_vertex_lock const vblock(
 			*vertex_buffer,
 			sge::renderer::lock_mode::writeonly
 		);
+//! [vblock_declaration]
 
+//! [vertex_view_declaration]
 		typedef sge::renderer::vf::view<
 			format_part
 		> vertex_view;
@@ -171,30 +174,48 @@ try
 		vertex_view const vertices(
 			vblock.value()
 		);
+//! [vertex_view_declaration]
 
+//! [vertex_iterator_declaration]
 		vertex_view::iterator vb_it(
 			vertices.begin()
 		);
+//! [vertex_iterator_declaration]
 
+//! [vertex_write_pos_1]
 		typedef pos3_type::packed_type vec3;
 
-		(*vb_it).set<pos3_type>(
+		(*vb_it).set<
+			pos3_type
+		>(
 			vec3(-1.f, 1.f, 0.f)
 		);
+//! [vertex_write_pos_1]
 
-		(*vb_it++).set<color_type>(
+//! [vertex_write_color_1]
+		(*vb_it).set<
+			color_type
+		>(
 			sge::image::color::any::convert<
 				bgra8_format
 			>(
 				sge::image::colors::cyan()
 			)
 		);
+//! [vertex_write_color_1]
 
-		(*vb_it).set<pos3_type>(
+//! [vertex_write_rest]
+		++vb_it;
+
+		(*vb_it).set<
+			pos3_type
+		>(
 			vec3(-1.f, -1.f, 0.f)
 		);
 
-		(*vb_it++).set<color_type>(
+		(*vb_it).set<
+			color_type
+		>(
 			sge::image::color::any::convert<
 				bgra8_format
 			>(
@@ -202,11 +223,17 @@ try
 			)
 		);
 
-		(*vb_it).set<pos3_type>(
+		++vb_it;
+
+		(*vb_it).set<
+			pos3_type
+		>(
 			vec3(1.f, 1.f, 0.f)
 		);
 
-		(*vb_it++).set<color_type>(
+		(*vb_it).set<
+			color_type
+		>(
 			sge::image::color::any::convert<
 				bgra8_format
 			>(
@@ -214,6 +241,7 @@ try
 			)
 		);
 	}
+//! [vertex_write_rest]
 
 	bool running = true;
 
