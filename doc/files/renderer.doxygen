@@ -4,7 +4,7 @@
 \section abstract Abstract
 
 \em sge::renderer provides an abstraction for 3D APIs, which currently is
-mainly focused on the fixed function pipline to guarantee maximum portability.
+mainly focused on the fixed function pipeline to guarantee maximum portability.
 A glsl interface is also provided but can only be used with OpenGL.
 
 \section vertices Vertices
@@ -18,7 +18,7 @@ texturing will be taken into account).
 To actually store vertices on the graphics card, an
 sge::renderer::vertex_buffer must be created.  Internally, however, this buffer
 is simply that, an array of bytes.  To make filling data into the buffer easy,
-sge implements an almost compile time safe abstraction So, instead of
+sge implements an almost compile time safe abstraction. So, instead of
 predefining which data is attached to a vertex, templates are used to create
 new vertex types, called a \em vertex \em format.
 
@@ -38,7 +38,7 @@ vertex.
 In the following examples, the goal is to create a triangle with three
 different colors for every vertex.
 
-The first vertex attribute we delcare is a position.  This is always needed if
+The first vertex attribute we declare is a position.  This is always needed if
 you use the fixed function pipeline.
 
 \snippet vertex.cpp positiondeclaration
@@ -66,13 +66,12 @@ tells of which parts the format will be made.
 \snippet vertex.cpp formatdeclaration
 
 The vertex_declaration is created from an sge::renderer::device, which is
-available though sys.renderer() in this example.
+available through sys.renderer() in this example.
 
 \snippet vertex.cpp vertexdeclaration
 
 Finally, the vertex_buffer is created from the vertex_declaration and the part
-that it is going to represent (here, we only have one part, so the index is
-zero).
+that it is going to represent.
 
 \snippet vertex.cpp vertexbuffer
 
