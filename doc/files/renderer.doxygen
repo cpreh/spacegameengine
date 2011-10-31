@@ -10,19 +10,18 @@ A glsl interface is also provided but can only be used with OpenGL.
 \section vertices Vertices
 The basic resource of a renderer are so called \em vertices, which are 3d
 points with additional attributes like normals, texture coordinates, or even
-user defined types.  These vertices are used to define triangles, lines or
-points, which are called \em primitives.  The additional attributes can change
+user defined types. These vertices are used to define triangles, lines or
+points, which are called \em primitives. The additional attributes can change
 the way how primitives are rendered (for example, with texture coordinates,
 texturing will be taken into account).
 
 To actually store vertices on the graphics card, an
-sge::renderer::vertex_buffer must be created.  Internally, however, this
-buffer is simply that, an array of bytes.  To make filling data into the
-buffer easy, sge implements an almost compile time safe layer on top of the
-buffers, so that it is nearly as easy to use as an std::vector of structs.
-The structure of this additional layer tells how the buffer is to be used
-(which attributes the vertices have) and is therefore called a \em vertex \em
-format.
+sge::renderer::vertex_buffer must be created. Internally, however, this buffer
+is simply that, an array of bytes. To make filling data into the buffer easy,
+sge implements an almost compile time safe layer on top of the buffers, so that
+it is nearly as easy to use as an std::vector of structs. The structure of this
+additional layer tells how the buffer is to be used (which attributes the
+vertices have) and is therefore called a \em vertex \em format.
 
 The vertex format can be used to create an sge::renderer::vertex_declaration
 which is a runtime representation of it.
@@ -87,9 +86,9 @@ The next step is to get the vertex data into the buffer.
 
 A renderer resource, such as a vertex buffer, cannot be read or written under
 normal circumstances. To actually access its data, the resource must be \em
-locked. Depending on the lock mode, the resource can be either read or
-written, or both.  If you are done with reading or writing, the resource must
-be \em unlocked again for the updates to actually take place.
+locked. Depending on the lock mode, the resource can be either read or written,
+or both.  If you are done with reading or writing, the resource must be \em
+unlocked again for the updates to actually take place.
 
 In this example, we want to lock the whole vertex buffer for writing.  This is
 done through an sge::renderer::scoped_vertex_lock that locks the vertex buffer
@@ -99,28 +98,28 @@ new block, so the destructor gets called when we desire (close the block).
 \snippet vertex.cpp vblock_declaration
 
 The final step is to connect the lock of the buffer with our vertex format
-part.  Therefore, we create an sge::renderer::vf::view on top of the buffer
+part. Therefore, we create an sge::renderer::vf::view on top of the buffer
 lock.
 
 \snippet vertex.cpp vertex_view_declaration
 
 Here is why the extra layer is not completely compile time safe: If you mix a
-vertex_buffer and a vertex format part that don't correspond to each other,
-you will get an exception in the constructor of the vertex view.
+vertex_buffer and a vertex format part that don't correspond to each other, you
+will get an exception in the constructor of the vertex view.
 
 The view provides begin and end methods which return iterators.
 
 \snippet vertex.cpp vertex_iterator_declaration
 
-Referencing these iterators yields a vertex structure whose attributes can be
+Dereferencing these iterators yields a vertex structure whose attributes can be
 accessed via the special classes that we typedeffed earlier.
 
 \snippet vertex.cpp vertex_write_pos_1
 
-In this example, the pos3_type that we typedeffed earlier, is used to access the
-position of the vertex the iterator is pointing to.  The type that has to be
-used to write to the position is its packed_type. In this case, the
-packed_type is a vector of three float elements.
+In this example the pos3_type, that we typedeffed earlier, is used to access
+the position of the vertex the iterator is pointing to. The type that has to be
+used to write to the position is its packed_type. In this case, the packed_type
+is a vector of three float elements.
 
 The color is accessed in a similar fashion. The packed_type of the color is an
 sge::image::color::bgra8. Here we use sge's predefined color cyan and convert
@@ -132,6 +131,6 @@ The rest of the vertices get written in a similar fashion.
 
 \snippet vertex.cpp vertex_write_rest
 
-We are done with the vertex lock and the scope is closed, so the buffer will
-be unlocked.
+We are done with the vertex lock and the scope is closed, so the buffer will be
+unlocked.
 */
