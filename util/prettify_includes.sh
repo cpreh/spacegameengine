@@ -9,5 +9,6 @@ else
 	-a ! -path "${SGE_MODEL_OBJ_INCLUDES}/basic_tokens_decl.hpp" \
 	-a ! -path "${SGE_MODEL_OBJ_INCLUDES}/basic_grammar_decl.hpp" \
 	-a ! -path "${SGE_MODEL_OBJ_INCLUDES}/token.hpp" \
-	-a ! -path 'src/plugins/opengl/common.hpp' \) | xargs $0 run
+	-a ! -path 'src/plugins/opengl/include/sge/opengl/common.hpp' \) \
+	| xargs $0 run
 fi
