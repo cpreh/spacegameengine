@@ -3,7 +3,7 @@
 
 \section abstract Abstract
 
-\em sge::renderer provides an abstraction for 3D APIs, which currently is
+sge::renderer provides an abstraction for 3D APIs, which currently is
 mainly focused on the fixed function pipeline to guarantee maximum portability.
 A glsl interface is also provided but can only be used with OpenGL.
 
@@ -38,6 +38,8 @@ vertex.
 
 In the following examples, the goal is to create a triangle with three
 different colors for every vertex.
+
+\image html renderer_colored_triangle.png "A triangle with three different vertex colors"
 
 The first vertex attribute we declare is a position.  This is always needed if
 you use the fixed function pipeline.
