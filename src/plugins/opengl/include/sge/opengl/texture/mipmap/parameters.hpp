@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_MIPMAP_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_MIPMAP_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opengl/texture/mipmap/parameters_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/init_function.hpp>
 #include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/texture/mipmap/parameters_fwd.hpp>
 #include <sge/renderer/basic_dim.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/math/size_type.hpp>

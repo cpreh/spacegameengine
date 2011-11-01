@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/buffer/pbo_context.hpp>
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/create.hpp>
 #include <sge/opengl/buffer/make_type.hpp>
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/buffer/pbo_context.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
+
 
 sge::opengl::buffer::pbo_context::pbo_context()
 :

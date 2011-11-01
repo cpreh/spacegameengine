@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BIND_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BIND_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/texture/bind_context_fwd.hpp>
-#include <sge/opengl/texture/base_fwd.hpp>
-#include <sge/opengl/texture/id.hpp>
-#include <sge/opengl/texture/optional_type.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/texture/base_fwd.hpp>
+#include <sge/opengl/texture/bind_context_fwd.hpp>
+#include <sge/opengl/texture/id.hpp>
+#include <sge/opengl/texture/optional_type.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>

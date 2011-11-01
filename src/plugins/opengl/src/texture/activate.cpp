@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/activate.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/bind_context.hpp>
 #include <sge/opengl/texture/filter/context.hpp>
 #include <sge/opengl/texture/filter/set.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/const_optional_base.hpp>
+
 
 void
 sge::opengl::texture::activate(

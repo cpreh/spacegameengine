@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/vector3.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/vector3.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+
 
 D3DVECTOR const
 sge::d3d9::convert::vector3(

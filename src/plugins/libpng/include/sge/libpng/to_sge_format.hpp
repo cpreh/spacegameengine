@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_TO_SGE_FORMAT_HPP_INCLUDED
 #define SGE_LIBPNG_TO_SGE_FORMAT_HPP_INCLUDED
 
-#include <sge/libpng/png.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/libpng/png.hpp>
+
 
 namespace sge
 {

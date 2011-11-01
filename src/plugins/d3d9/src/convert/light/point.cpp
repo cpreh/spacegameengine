@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/light/point.hpp>
-#include <sge/d3d9/convert/light/attenuation.hpp>
-#include <sge/d3d9/convert/light/position.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/light/attenuation.hpp>
+#include <sge/d3d9/convert/light/point.hpp>
+#include <sge/d3d9/convert/light/position.hpp>
 #include <sge/renderer/light/point.hpp>
+
 
 void
 sge::d3d9::convert::light::point(

@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/glsl/arb/shader_context.hpp>
-#include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/glsl/arb/shader_context.hpp>
+
 
 sge::opengl::glsl::arb::shader_context::shader_context()
 :

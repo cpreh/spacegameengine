@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/convert/stencil_op_value.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/state/convert/stencil_op_value.hpp>
 #include <sge/renderer/state/stencil_op_value.hpp>
 #include <fcppt/assert/unreachable.hpp>
 

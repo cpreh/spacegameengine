@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/onscreen_surface.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/read_pixels.hpp>
-#include <sge/opengl/convert/format_to_color.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/flipped.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/onscreen_surface.hpp>
+#include <sge/opengl/read_pixels.hpp>
+#include <sge/opengl/convert/format_to_color.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/window/instance.hpp>

@@ -21,17 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic_fwd.hpp>
-#include <sge/opengl/texture/base.hpp>
-#include <sge/opengl/texture/lock_base.hpp>
-#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image/traits/optional_pitch.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image/traits/optional_pitch.hpp>
+#include <sge/opengl/texture/base.hpp>
+#include <sge/opengl/texture/basic_fwd.hpp>
+#include <sge/opengl/texture/lock_base.hpp>
+#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method.hpp>

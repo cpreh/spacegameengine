@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/xrandr/configuration.hpp>
 #include <sge/opengl/xrandr/current_resolution.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
-#include <sge/opengl/xrandr/configuration.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::opengl::xrandr::mode const
 sge::opengl::xrandr::current_resolution(

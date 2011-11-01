@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/glsl/program_base.hpp>
 #include <sge/opengl/glsl/program_holder.hpp>
 #include <sge/opengl/glsl/shader_base_fwd.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/stage.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/glsl/program.hpp>

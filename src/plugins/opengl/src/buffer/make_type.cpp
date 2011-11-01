@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/buffer/make_type.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/buffer/make_type.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>

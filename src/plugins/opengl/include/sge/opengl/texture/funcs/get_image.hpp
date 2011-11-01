@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_FUNCS_GET_IMAGE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_FUNCS_GET_IMAGE_HPP_INCLUDED
 
-#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/stage.hpp>
+
 
 namespace sge
 {

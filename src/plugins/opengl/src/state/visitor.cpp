@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/visitor.hpp>
 #include <sge/opengl/state/alpha_func.hpp>
 #include <sge/opengl/state/bool.hpp>
 #include <sge/opengl/state/color.hpp>
@@ -34,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/stencil_func.hpp>
 #include <sge/opengl/state/stencil_op.hpp>
 #include <sge/opengl/state/uint.hpp>
+#include <sge/opengl/state/visitor.hpp>
 #include <sge/renderer/state/alpha_func.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>

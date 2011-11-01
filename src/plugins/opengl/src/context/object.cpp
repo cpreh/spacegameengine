@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/object.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/assert/error.hpp>
 

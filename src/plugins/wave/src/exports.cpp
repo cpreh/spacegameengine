@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/wave/loader.hpp>
 #include <sge/audio/loader_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
+#include <sge/wave/loader.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 

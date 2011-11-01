@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/vf/texpos_actor.hpp>
-#include <sge/opengl/vf/actor_parameters.hpp>
-#include <sge/opengl/vf/client_state_combiner.hpp>
-#include <sge/opengl/vf/convert_element_type.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/funcs/set_client_level.hpp>
+#include <sge/opengl/vf/actor_parameters.hpp>
+#include <sge/opengl/vf/client_state_combiner.hpp>
+#include <sge/opengl/vf/convert_element_type.hpp>
+#include <sge/opengl/vf/texpos_actor.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>

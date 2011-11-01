@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/bool.hpp>
-#include <sge/opengl/state/parameters.hpp>
-#include <sge/opengl/state/convert/bool.hpp>
-#include <sge/opengl/state/deferred/bundle.hpp>
-#include <sge/opengl/state/deferred/object.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
 #include <sge/opengl/multi_sample_context.hpp>
 #include <sge/opengl/point_sprite_context.hpp>
 #include <sge/opengl/convert/to_gl_bool.hpp>
+#include <sge/opengl/state/bool.hpp>
+#include <sge/opengl/state/parameters.hpp>
+#include <sge/opengl/state/convert/bool.hpp>
+#include <sge/opengl/state/deferred/bundle.hpp>
+#include <sge/opengl/state/deferred/object.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/bool.hpp>

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/devil/supported_extensions.hpp>
 #include <sge/extension_set.hpp>
+#include <sge/devil/supported_extensions.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 

@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_LIGHT_COLOR_HPP_INCLUDED
 #define SGE_OPENGL_LIGHT_COLOR_HPP_INCLUDED
 
-#include <sge/opengl/light/index.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/light/index.hpp>
+
 
 namespace sge
 {

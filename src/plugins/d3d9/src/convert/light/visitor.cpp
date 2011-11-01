@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/light/visitor.hpp>
 #include <sge/d3d9/convert/light/directional.hpp>
 #include <sge/d3d9/convert/light/point.hpp>
 #include <sge/d3d9/convert/light/spot.hpp>
+#include <sge/d3d9/convert/light/visitor.hpp>
+
 
 sge::d3d9::convert::light::visitor::visitor(
 	D3DLIGHT9 &_object

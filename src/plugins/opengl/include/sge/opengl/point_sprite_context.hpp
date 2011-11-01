@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_POINT_SPRITE_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_POINT_SPRITE_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/point_sprite_context_fwd.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/point_sprite_context_fwd.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/vf/color_actor.hpp>
-#include <sge/opengl/convert/color_to_format_type.hpp>
-#include <sge/opengl/check_state.hpp>
 #include <sge/image/color/element_count.hpp>
+#include <sge/opengl/check_state.hpp>
+#include <sge/opengl/convert/color_to_format_type.hpp>
+#include <sge/opengl/vf/color_actor.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <fcppt/text.hpp>

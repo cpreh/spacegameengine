@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/deferred/object.hpp>
 #include <sge/opengl/state/deferred/apply.hpp>
+#include <sge/opengl/state/deferred/object.hpp>
+
 
 sge::opengl::state::deferred::object::object(
 	deferred::parameters const &_parameters

@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/convert/clip_plane_index.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/convert/clip_plane_index.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
+
 
 GLenum
 sge::opengl::convert::clip_plane_index(

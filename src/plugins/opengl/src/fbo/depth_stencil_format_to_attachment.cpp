@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
-#include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <fcppt/assert/unreachable.hpp>
 

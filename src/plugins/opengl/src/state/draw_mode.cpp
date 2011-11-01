@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/check_state.hpp>
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/draw_mode.hpp>
 #include <sge/opengl/state/parameters_fwd.hpp>
 #include <sge/opengl/state/convert/draw_mode.hpp>
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/draw_mode.hpp>
 #include <fcppt/text.hpp>

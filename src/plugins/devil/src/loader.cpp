@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/devil/loader.hpp>
 #include <sge/devil/enable.hpp>
 #include <sge/devil/file.hpp>
 #include <sge/devil/file_ptr.hpp>
+#include <sge/devil/loader.hpp>
 #include <sge/devil/supported_extensions.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>

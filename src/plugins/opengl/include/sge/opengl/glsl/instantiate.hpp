@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_INSTANTIATE_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_INSTANTIATE_HPP_INCLUDED
 
-#include <sge/opengl/glsl/native/environment.hpp>
 #include <sge/opengl/glsl/arb/environment.hpp>
+#include <sge/opengl/glsl/native/environment.hpp>
+
 
 #define SGE_OPENGL_GLSL_INSTANTIATE(\
 	macro\

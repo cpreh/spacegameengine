@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_ARB_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_ARB_HPP_INCLUDED
 
-#include <sge/opengl/glsl/uniform/variable_functions.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/glsl/traits.hpp>
+#include <sge/opengl/glsl/uniform/variable_functions.hpp>
+
 
 namespace sge
 {

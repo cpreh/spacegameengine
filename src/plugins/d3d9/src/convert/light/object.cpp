@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/to_color_value.hpp>
 #include <sge/d3d9/convert/light/object.hpp>
 #include <sge/d3d9/convert/light/visitor.hpp>
-#include <sge/d3d9/convert/to_color_value.hpp>
-#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/light/object.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>

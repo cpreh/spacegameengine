@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/glsl/instantiate.hpp>
+#include <sge/opengl/glsl/program_contexts.hpp>
 #include <sge/opengl/glsl/program_holder.hpp>
 #include <sge/opengl/glsl/programfuncs/create.hpp>
 #include <sge/opengl/glsl/programfuncs/delete.hpp>
-#include <sge/opengl/glsl/program_contexts.hpp>
-#include <sge/opengl/glsl/instantiate.hpp>
-#include <sge/opengl/context/use.hpp>
+
 
 template<
 	typename Environment

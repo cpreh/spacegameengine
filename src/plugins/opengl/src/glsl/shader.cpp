@@ -18,22 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/glsl/shader.hpp>
-#include <sge/opengl/glsl/shaderfuncs/compile.hpp>
-#include <sge/opengl/glsl/shaderfuncs/get_integer.hpp>
-#include <sge/opengl/glsl/shaderfuncs/compile_status.hpp>
-#include <sge/opengl/glsl/shaderfuncs/info_log.hpp>
-#include <sge/opengl/glsl/shaderfuncs/info_log_length.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/glsl/format_error.hpp>
-#include <sge/opengl/glsl/get_shader_source.hpp>
 #include <sge/opengl/glsl/geometry_shader.hpp>
+#include <sge/opengl/glsl/get_shader_source.hpp>
 #include <sge/opengl/glsl/instantiate.hpp>
 #include <sge/opengl/glsl/make_shader_type.hpp>
 #include <sge/opengl/glsl/pixel_shader.hpp>
 #include <sge/opengl/glsl/set_shader_source.hpp>
+#include <sge/opengl/glsl/shader.hpp>
 #include <sge/opengl/glsl/shader_contexts.hpp>
 #include <sge/opengl/glsl/vertex_shader.hpp>
-#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/glsl/shaderfuncs/compile.hpp>
+#include <sge/opengl/glsl/shaderfuncs/compile_status.hpp>
+#include <sge/opengl/glsl/shaderfuncs/get_integer.hpp>
+#include <sge/opengl/glsl/shaderfuncs/info_log.hpp>
+#include <sge/opengl/glsl/shaderfuncs/info_log_length.hpp>
 #include <sge/renderer/glsl/exception.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <fcppt/text.hpp>

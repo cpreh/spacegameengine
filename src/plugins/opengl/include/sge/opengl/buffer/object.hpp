@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BUFFER_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/buffer/object_fwd.hpp>
-#include <sge/opengl/buffer/base_fwd.hpp>
-#include <sge/opengl/buffer/id.hpp>
-#include <sge/opengl/buffer/holder.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/buffer/base_fwd.hpp>
+#include <sge/opengl/buffer/holder.hpp>
+#include <sge/opengl/buffer/id.hpp>
+#include <sge/opengl/buffer/object_fwd.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>

@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/devil/enable.hpp>
 #include <sge/devil/check_error_exn.hpp>
+#include <sge/devil/enable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
 #include <fcppt/config/external_end.hpp>
+
 
 void
 sge::devil::enable(

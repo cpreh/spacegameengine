@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_LOADER_HPP_INCLUDED
 #define SGE_DEVIL_LOADER_HPP_INCLUDED
 
-#include <sge/devil/library.hpp>
 #include <sge/const_raw_range.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/optional_extension.hpp>
+#include <sge/devil/library.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/loader.hpp>

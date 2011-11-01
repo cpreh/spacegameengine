@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/buffer/wrapper.hpp>
 #include <sge/opengl/buffer/object.hpp>
+#include <sge/opengl/buffer/wrapper.hpp>
 #include <sge/renderer/opengl/buffer/id.hpp>
+
 
 sge::opengl::buffer::wrapper::wrapper()
 {

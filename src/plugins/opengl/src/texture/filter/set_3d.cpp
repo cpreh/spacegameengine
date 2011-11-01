@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/funcs/set_3d.hpp>
-#include <sge/opengl/texture/volume_context.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/texture/volume_context.hpp>
+#include <sge/opengl/texture/funcs/set_3d.hpp>
 #include <sge/renderer/texture/creation_failed.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>

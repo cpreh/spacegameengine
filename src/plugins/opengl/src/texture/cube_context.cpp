@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/cube_context.hpp>
-#include <sge/opengl/texture/cube_side_array.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
+#include <sge/opengl/texture/cube_context.hpp>
+#include <sge/opengl/texture/cube_side_array.hpp>
 #include <fcppt/assign/make_array.hpp>
+
 
 sge::opengl::texture::cube_context::cube_context()
 :

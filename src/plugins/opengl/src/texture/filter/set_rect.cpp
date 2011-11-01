@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/funcs/set_rect.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/range_check.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/pbo_context.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/texture/funcs/set_rect.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>

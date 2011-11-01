@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_SURFACE_BASE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_SURFACE_BASE_HPP_INCLUDED
 
-#include <sge/opengl/texture/surface_base_fwd.hpp>
 #include <sge/opengl/texture/id.hpp>
+#include <sge/opengl/texture/surface_base_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/stage.hpp>
 #include <fcppt/noncopyable.hpp>

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_FILTER_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_FILTER_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/texture/filter/context_fwd.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
+#include <sge/opengl/texture/filter/context_fwd.hpp>
 #include <sge/renderer/stage.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <fcppt/noncopyable.hpp>

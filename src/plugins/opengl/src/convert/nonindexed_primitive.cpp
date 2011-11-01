@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/convert/nonindexed_primitive.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/convert/nonindexed_primitive.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 

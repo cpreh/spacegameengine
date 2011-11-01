@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENGL_STATE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/opengl/state/deferred/object_fwd.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/multi_sample_context_fwd.hpp>
 #include <sge/opengl/point_sprite_context_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/state/parameters_fwd.hpp>
+#include <sge/opengl/state/deferred/object_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <fcppt/nonassignable.hpp>
 

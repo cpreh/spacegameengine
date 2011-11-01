@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/cube_side.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/cube_side.hpp>
 #include <fcppt/assert/unreachable.hpp>
+
 
 D3DCUBEMAP_FACES
 sge::d3d9::convert::cube_side(

@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_LOAD_MEMORY_HPP_INCLUDED
 #define SGE_DEVIL_LOAD_MEMORY_HPP_INCLUDED
 
-#include <sge/devil/optional_error.hpp>
 #include <sge/const_raw_range.hpp>
 #include <sge/optional_extension.hpp>
+#include <sge/devil/optional_error.hpp>
+
 
 namespace sge
 {

@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/vf/pointer_actor.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
+#include <sge/opengl/vf/pointer_actor.hpp>
+
 
 sge::opengl::vf::pointer_actor::~pointer_actor()
 {

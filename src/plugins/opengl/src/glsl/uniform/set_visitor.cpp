@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/glsl/uniform/set_visitor.hpp>
-#include <sge/opengl/glsl/uniform/set_int.hpp>
-#include <sge/opengl/glsl/uniform/set_float.hpp>
-#include <sge/opengl/glsl/uniform/set_matrix.hpp>
-#include <sge/opengl/glsl/uniform/is_matrix.hpp>
-#include <sge/opengl/glsl/uniform/element_size_int.hpp>
-#include <sge/opengl/glsl/uniform/element_size_float.hpp>
+#include <sge/opengl/glsl/instantiate.hpp>
 #include <sge/opengl/glsl/uniform/element_columns.hpp>
 #include <sge/opengl/glsl/uniform/element_rows.hpp>
-#include <sge/opengl/glsl/instantiate.hpp>
+#include <sge/opengl/glsl/uniform/element_size_float.hpp>
+#include <sge/opengl/glsl/uniform/element_size_int.hpp>
+#include <sge/opengl/glsl/uniform/is_matrix.hpp>
+#include <sge/opengl/glsl/uniform/set_float.hpp>
+#include <sge/opengl/glsl/uniform/set_int.hpp>
+#include <sge/opengl/glsl/uniform/set_matrix.hpp>
+#include <sge/opengl/glsl/uniform/set_visitor.hpp>
+
 
 template<
 	typename Environment

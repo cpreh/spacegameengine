@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/libpng/write_context.hpp>
-#include <sge/libpng/bit_depth_from_format.hpp>
-#include <sge/libpng/color_type_from_format.hpp>
-#include <sge/libpng/png.hpp>
-#include <sge/libpng/transforms_from_format.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/file_exception.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/image/color/element_count.hpp>
 #include <sge/image2d/dim.hpp>
+#include <sge/libpng/bit_depth_from_format.hpp>
+#include <sge/libpng/color_type_from_format.hpp>
+#include <sge/libpng/png.hpp>
+#include <sge/libpng/transforms_from_format.hpp>
+#include <sge/libpng/write_context.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>

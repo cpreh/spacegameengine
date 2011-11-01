@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/color/format.hpp>
 #include <sge/opengl/vertex_buffer.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/vf/part.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>

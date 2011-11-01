@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/light/directional.hpp>
+#include <sge/opengl/vector4f.hpp>
 #include <sge/opengl/light/cutoff_angle.hpp>
 #include <sge/opengl/light/direction.hpp>
+#include <sge/opengl/light/directional.hpp>
 #include <sge/opengl/light/position_impl.hpp>
-#include <sge/opengl/vector4f.hpp>
 #include <sge/renderer/light/directional.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 

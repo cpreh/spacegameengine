@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/set_material.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/check_state.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
+#include <sge/opengl/check_state.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/set_material.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/material.hpp>
 #include <fcppt/nonassignable.hpp>

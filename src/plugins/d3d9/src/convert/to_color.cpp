@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/to_color.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/to_color.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/convert.hpp>

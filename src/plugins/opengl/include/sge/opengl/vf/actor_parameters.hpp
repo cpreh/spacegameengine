@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_ACTOR_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENGL_VF_ACTOR_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/nonassignable.hpp>
 

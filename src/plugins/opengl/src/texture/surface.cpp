@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/surface.hpp>
-#include <sge/opengl/texture/basic_surface_impl.hpp>
-#include <sge/opengl/texture/readonly_lock.hpp>
-#include <sge/opengl/texture/scoped_work_bind.hpp>
-#include <sge/opengl/texture/funcs/get_image.hpp>
-#include <sge/opengl/convert/format_to_color.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/image2d/view/sub.hpp>
+#include <sge/opengl/convert/format_to_color.hpp>
+#include <sge/opengl/texture/basic_surface_impl.hpp>
+#include <sge/opengl/texture/readonly_lock.hpp>
+#include <sge/opengl/texture/scoped_work_bind.hpp>
+#include <sge/opengl/texture/surface.hpp>
+#include <sge/opengl/texture/funcs/get_image.hpp>
 #include <sge/renderer/color_surface.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>

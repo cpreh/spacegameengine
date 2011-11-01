@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/buffer/software.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/buffer/software.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_value.hpp>

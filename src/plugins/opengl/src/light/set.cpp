@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/light/set.hpp>
+#include <sge/opengl/convert/light_index.hpp>
 #include <sge/opengl/light/color.hpp>
 #include <sge/opengl/light/index.hpp>
+#include <sge/opengl/light/set.hpp>
 #include <sge/opengl/light/visitor.hpp>
-#include <sge/opengl/convert/light_index.hpp>
 #include <sge/renderer/light/object.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>

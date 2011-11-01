@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/vertex_role.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/vertex_role.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>

@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/depth_stencil.hpp>
-#include <sge/opengl/texture/depth_stencil_surface.hpp>
-#include <sge/opengl/texture/scoped_work_bind.hpp>
-#include <sge/opengl/texture/funcs/set_2d.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/depth_stencil_to_format.hpp>
 #include <sge/opengl/convert/depth_stencil_to_format_type.hpp>
 #include <sge/opengl/convert/depth_stencil_to_internal_format.hpp>
+#include <sge/opengl/texture/depth_stencil.hpp>
+#include <sge/opengl/texture/depth_stencil_surface.hpp>
+#include <sge/opengl/texture/scoped_work_bind.hpp>
+#include <sge/opengl/texture/funcs/set_2d.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/stage.hpp>
 #include <sge/renderer/texture/capabilities.hpp>

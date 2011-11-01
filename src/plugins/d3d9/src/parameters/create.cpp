@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/parameters/create.hpp>
 #include <sge/d3d9/parameters/extract_back_buffer_format.hpp>
 #include <sge/d3d9/parameters/extract_size.hpp>
 #include <sge/d3d9/parameters/convert/depth_stencil_buffer.hpp>
 #include <sge/d3d9/parameters/convert/multi_sample.hpp>
 #include <sge/d3d9/parameters/convert/multi_sample_quality.hpp>
-#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/parameters.hpp>

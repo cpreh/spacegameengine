@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/libpng/loader.hpp>
-#include <sge/libpng/file.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/image/file_exception.hpp>
 #include <sge/image/unsupported_format.hpp>
+#include <sge/libpng/file.hpp>
+#include <sge/libpng/loader.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>

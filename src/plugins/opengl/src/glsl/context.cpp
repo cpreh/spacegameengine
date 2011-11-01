@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/glsl/context.hpp>
 #include <sge/opengl/glsl/program_base.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
-#include <sge/opengl/context/make_id.hpp>
 #include <sge/renderer/glsl/const_optional_program.hpp>
 #include <sge/renderer/glsl/program.hpp>
+
 
 sge::opengl::glsl::context::context()
 :

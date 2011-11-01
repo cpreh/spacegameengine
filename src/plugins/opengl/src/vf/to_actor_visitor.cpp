@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/vf/to_actor_visitor.hpp>
 #include <sge/opengl/vf/actor.hpp>
-#include <sge/opengl/vf/pos_actor.hpp>
-#include <sge/opengl/vf/normal_actor.hpp>
-#include <sge/opengl/vf/color_actor.hpp>
-#include <sge/opengl/vf/texpos_actor.hpp>
 #include <sge/opengl/vf/attribute_actor.hpp>
+#include <sge/opengl/vf/color_actor.hpp>
+#include <sge/opengl/vf/normal_actor.hpp>
+#include <sge/opengl/vf/pos_actor.hpp>
+#include <sge/opengl/vf/texpos_actor.hpp>
+#include <sge/opengl/vf/to_actor_visitor.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+
 
 sge::opengl::vf::to_actor_visitor::to_actor_visitor(
 	actor_parameters const &_parameters,

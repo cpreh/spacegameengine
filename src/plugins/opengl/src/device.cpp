@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/device.hpp>
 #include <sge/opengl/clear.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/create_caps.hpp>
 #include <sge/opengl/create_device_state.hpp>
+#include <sge/opengl/device.hpp>
 #include <sge/opengl/device_state.hpp>
 #include <sge/opengl/draw_arrays.hpp>
 #include <sge/opengl/draw_elements.hpp>
@@ -42,11 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/target.hpp>
 #include <sge/opengl/glew/initialize.hpp>
-#include <sge/opengl/glsl/set_program.hpp>
 #include <sge/opengl/glsl/create_geometry_shader.hpp>
 #include <sge/opengl/glsl/create_pixel_shader.hpp>
 #include <sge/opengl/glsl/create_program.hpp>
 #include <sge/opengl/glsl/create_vertex_shader.hpp>
+#include <sge/opengl/glsl/set_program.hpp>
 #include <sge/opengl/light/enable.hpp>
 #include <sge/opengl/light/set.hpp>
 #include <sge/opengl/state/apply.hpp>

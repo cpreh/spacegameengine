@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/convert/format_to_string.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/convert/format_to_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/unreachable.hpp>
 

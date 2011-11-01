@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/convert/anisotropic_mip_filter.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/texture/convert/anisotropic_mip_filter.hpp>
 #include <sge/renderer/texture/filter/anisotropic/mip.hpp>
 #include <fcppt/assert/unreachable.hpp>
 

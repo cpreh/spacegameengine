@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/light/spot.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/light/attenuation.hpp>
 #include <sge/d3d9/convert/light/cutoff_angle.hpp>
 #include <sge/d3d9/convert/light/direction.hpp>
 #include <sge/d3d9/convert/light/position.hpp>
-#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/light/spot.hpp>
 #include <sge/renderer/light/spot.hpp>
+
 
 void
 sge::d3d9::convert::light::spot(

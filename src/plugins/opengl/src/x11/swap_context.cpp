@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/x11/swap_context.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glx/proc_address.hpp>
+#include <sge/opengl/x11/swap_context.hpp>
+
 
 sge::opengl::x11::swap_context::swap_context(
 	opengl::glx::proc_context const &_context

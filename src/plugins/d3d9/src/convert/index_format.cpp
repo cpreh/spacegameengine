@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/index_format.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/index_format.hpp>
 #include <fcppt/assert/unreachable.hpp>
+
 
 D3DFORMAT
 sge::d3d9::convert::index_format(

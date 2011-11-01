@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/filter/visitor.hpp>
 #include <sge/opengl/texture/filter/anisotropic.hpp>
 #include <sge/opengl/texture/filter/normal.hpp>
+#include <sge/opengl/texture/filter/visitor.hpp>
+
 
 sge::opengl::texture::filter::visitor::visitor(
 	opengl::context::object &_context,

@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_ARB_ENVIRONMENT_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_ARB_ENVIRONMENT_HPP_INCLUDED
 
+#include <sge/opengl/glsl/arb/char.hpp>
+#include <sge/opengl/glsl/arb/handle.hpp>
 #include <sge/opengl/glsl/arb/program_context_fwd.hpp>
 #include <sge/opengl/glsl/arb/shader_context_fwd.hpp>
 #include <sge/opengl/glsl/arb/uniform_context_fwd.hpp>
-#include <sge/opengl/glsl/arb/char.hpp>
-#include <sge/opengl/glsl/arb/handle.hpp>
+
 
 namespace sge
 {

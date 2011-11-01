@@ -19,12 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/texture/set_stage_funcs.hpp>
-#include <sge/opengl/texture/funcs/env.hpp>
-#include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/opengl/texture/convert/stage_arg.hpp>
 #include <sge/opengl/texture/convert/stage_arg_value.hpp>
 #include <sge/opengl/texture/convert/stage_op.hpp>
 #include <sge/opengl/texture/convert/stage_op_value.hpp>
+#include <sge/opengl/texture/funcs/env.hpp>
+#include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/sampler_stage_arg.hpp>
 #include <sge/renderer/sampler_stage_arg_value.hpp>
 #include <sge/renderer/sampler_stage_op.hpp>

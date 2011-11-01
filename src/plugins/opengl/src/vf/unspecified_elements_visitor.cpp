@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/vf/unspecified_elements_visitor.hpp>
 #include <sge/image/color/element_count.hpp>
+#include <sge/opengl/vf/unspecified_elements_visitor.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 

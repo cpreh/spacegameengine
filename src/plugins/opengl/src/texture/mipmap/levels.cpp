@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/mipmap/levels.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/texture/instantiate_dim.hpp>
+#include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
 #include <sge/opengl/texture/mipmap/generate_levels.hpp>
+#include <sge/opengl/texture/mipmap/levels.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
-#include <sge/opengl/texture/funcs/parameter_int.hpp>
-#include <sge/opengl/texture/instantiate_dim.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
 #include <sge/renderer/texture/mipmap/levels_rep.hpp>
+
 
 template<
 	fcppt::math::size_type Size

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/convert/bool.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/state/convert/bool.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <fcppt/assert/unreachable.hpp>

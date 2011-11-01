@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/resource_flags.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/resource_flags.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+
 
 sge::d3d9::usage const
 sge::d3d9::convert::resource_flags(

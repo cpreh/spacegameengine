@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/filter/normal.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/texture/context.hpp>
 #include <sge/opengl/texture/convert/mag_filter.hpp>
 #include <sge/opengl/texture/convert/min_filter.hpp>
+#include <sge/opengl/texture/filter/normal.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
-#include <sge/opengl/texture/context.hpp>
-#include <sge/opengl/context/use.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/renderer/texture/filter/normal/object.hpp>
+
 
 void
 sge::opengl::texture::filter::normal(

@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_TO_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_VF_TO_ACTOR_HPP_INCLUDED
 
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor_ptr.hpp>
 #include <sge/opengl/vf/attribute_location_container.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
+
 
 namespace sge
 {

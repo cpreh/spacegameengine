@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/lock_flags.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/lock_flags.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>

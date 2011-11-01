@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XRANDR_RESOLUTION_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_RESOLUTION_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/resolution_fwd.hpp>
-#include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/configuration_ptr.hpp>
+#include <sge/opengl/xrandr/mode.hpp>
+#include <sge/opengl/xrandr/resolution_fwd.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 

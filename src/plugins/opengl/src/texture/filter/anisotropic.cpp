@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/filter/anisotropic.hpp>
-#include <sge/opengl/texture/convert/anisotropic_mip_filter.hpp>
-#include <sge/opengl/texture/funcs/parameter_int.hpp>
-#include <sge/opengl/texture/context.hpp>
-#include <sge/opengl/context/use.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/exception.hpp>
 #include <sge/log/global.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/texture/context.hpp>
+#include <sge/opengl/texture/convert/anisotropic_mip_filter.hpp>
+#include <sge/opengl/texture/filter/anisotropic.hpp>
+#include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/texture/filter/anisotropic/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>

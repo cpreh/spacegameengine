@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/viewport.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/viewport.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+
 
 D3DVIEWPORT9 const
 sge::d3d9::convert::viewport(

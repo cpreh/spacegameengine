@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/glsl/bind_attrib_locations.hpp>
-#include <sge/opengl/glsl/programfuncs/bind_attrib_location.hpp>
-#include <sge/opengl/glsl/instantiate.hpp>
 #include <sge/opengl/vertex_declaration.hpp>
+#include <sge/opengl/glsl/bind_attrib_locations.hpp>
+#include <sge/opengl/glsl/instantiate.hpp>
+#include <sge/opengl/glsl/programfuncs/bind_attrib_location.hpp>
 #include <sge/opengl/vf/attribute_location_container.hpp>
+
 
 template<
 	typename Environment

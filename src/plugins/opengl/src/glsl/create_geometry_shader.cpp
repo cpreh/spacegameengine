@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/glsl/create_geometry_shader.hpp>
-#include <sge/opengl/glsl/geometry_shader.hpp>
 #include <sge/opengl/glsl/create_shader.hpp>
+#include <sge/opengl/glsl/geometry_shader.hpp>
+
 
 sge::renderer::glsl::geometry_shader_ptr const
 sge::opengl::glsl::create_geometry_shader(

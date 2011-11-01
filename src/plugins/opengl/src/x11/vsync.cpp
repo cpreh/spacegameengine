@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/x11/vsync.hpp>
-#include <sge/opengl/x11/swap_context.hpp>
-#include <sge/opengl/glx/proc_context.hpp>
-#include <sge/opengl/context/use.hpp>
-#include <sge/opengl/check_state.hpp>
 #include <sge/log/global.hpp>
+#include <sge/opengl/check_state.hpp>
+#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/glx/proc_context.hpp>
+#include <sge/opengl/x11/swap_context.hpp>
+#include <sge/opengl/x11/vsync.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>

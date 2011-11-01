@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/wave/file.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/unsupported_format.hpp>
 #include <sge/log/global.hpp>
+#include <sge/wave/file.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/text.hpp>

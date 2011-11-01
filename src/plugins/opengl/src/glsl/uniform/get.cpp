@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/glsl/uniform/get.hpp>
-#include <sge/opengl/glsl/uniform/type.hpp>
-#include <sge/opengl/glsl/uniform/convert_type.hpp>
-#include <sge/opengl/glsl/uniform/element_count.hpp>
-#include <sge/opengl/glsl/uniform/contexts.hpp>
-#include <sge/opengl/glsl/instantiate.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/glsl/instantiate.hpp>
+#include <sge/opengl/glsl/uniform/contexts.hpp>
+#include <sge/opengl/glsl/uniform/convert_type.hpp>
+#include <sge/opengl/glsl/uniform/element_count.hpp>
+#include <sge/opengl/glsl/uniform/get.hpp>
+#include <sge/opengl/glsl/uniform/type.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/glsl/exception.hpp>
 #include <sge/renderer/glsl/uniform/float_value.hpp>

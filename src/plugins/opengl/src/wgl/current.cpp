@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/current.hpp>
 #include <sge/opengl/wgl/context.hpp>
+#include <sge/opengl/wgl/current.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/windows/gdi_device.hpp>
 #include <fcppt/text.hpp>

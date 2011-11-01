@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/xf86vmode/modes.hpp>
 #include <sge/opengl/xf86vmode/check_extension.hpp>
+#include <sge/opengl/xf86vmode/modes.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>

@@ -76,7 +76,7 @@ implies conversions to some "internal" optimized format)!
 
 \image html audio_buffers.svg "The buffer layer"
 
-So there's a layer between the audio file and the sound (or "source", was
+So there's a layer between the audio file and the sound (or "source", as
 OpenAL terms it), called sge::audio::buffer. You'll see below on how to use it
 exactly.
 
@@ -89,6 +89,41 @@ playback buffer empties.
 
 \section example A first real example
 
+\subsection Initialization
 
+We have to initialize the loader(s) and the player plugins first. This can be
+done manually or using the sge::systems::instance helper class.
 
+\subsubsection systems_init sge::systems::instance initialization
+
+Using sge::systems::instance, initialization of the player and the loaders is
+very simple:
+
+\snippet audio_minimal.cpp systems_initialization
+
+You create an instance of the sge::systems::instance class and pass it a list
+of things to initialize. To initialize the player, we pass it
+sge::systems::audio_player_default. The player doesn't take any initialization
+parameters.
+
+Initializing the loader is slightly more complicated. That's because we have to
+specify which file types we want to load. A loader indicates which file types
+it is able to load by specifying a set of <em>file extensions</em>.
+
+So the argument to sge::systems::instance is really a <em>request</em> for a
+loader satisfying the constraints "can load .wav files".
+
+\note
+Don't be confused here: We're talking about <em>file</em> extensions and
+loading wave <em>files</em>, but a loader can process raw bytes from a
+different source, too (like a zip archive or from the internet). However, what
+the sge::systems::instance class really creates is a sge::audio::multi_loader,
+which is a <em>collection</em> of loaders. A multi loader takes a file name
+and tries to figure out which loader is best for loading the file.  This is
+where actual file extensions come into play. More on that later.
+
+Notice that aside from the file extension, we pass an empty
+sge::audio::loader_capabilities <a
+href="http://fcppt.net/fcppt/documentation/container/bitfield/rationale.html">bitfield</a>,
+too.
 */

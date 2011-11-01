@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_FILE_HPP_INCLUDED
 #define SGE_LIBPNG_FILE_HPP_INCLUDED
 
-#include <sge/libpng/byte_vector.hpp>
 #include <sge/image/optional_path.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/libpng/byte_vector.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>

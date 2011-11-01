@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/glsl/make_shader_type.hpp>
-#include <sge/opengl/glsl/instantiate.hpp>
-#include <sge/opengl/glsl/shader_contexts.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/glsl/instantiate.hpp>
+#include <sge/opengl/glsl/make_shader_type.hpp>
+#include <sge/opengl/glsl/shader_contexts.hpp>
 #include <fcppt/assert/unreachable.hpp>
+
 
 template<
 	typename Environment

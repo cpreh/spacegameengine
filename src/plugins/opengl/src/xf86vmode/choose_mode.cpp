@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/xf86vmode/calc_refresh_rate.hpp>
 #include <sge/opengl/xf86vmode/choose_mode.hpp>
 #include <sge/opengl/xf86vmode/modes.hpp>
-#include <sge/opengl/xf86vmode/calc_refresh_rate.hpp>
 #include <sge/opengl/xf86vmode/resolution.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/exception.hpp>

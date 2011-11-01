@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/light/point.hpp>
 #include <sge/opengl/light/attenuation.hpp>
 #include <sge/opengl/light/cutoff_angle.hpp>
+#include <sge/opengl/light/point.hpp>
 #include <sge/opengl/light/position.hpp>
 #include <sge/renderer/light/cutoff_angle.hpp>
 #include <sge/renderer/light/point.hpp>
+
 
 void
 sge::opengl::light::point(

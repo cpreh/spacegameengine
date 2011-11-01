@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/libpng/load_context.hpp>
+#include <sge/image/file_exception.hpp>
+#include <sge/image/unsupported_format.hpp>
 #include <sge/libpng/header_bytes.hpp>
+#include <sge/libpng/load_context.hpp>
 #include <sge/libpng/logger.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/to_sge_format.hpp>
-#include <sge/image/file_exception.hpp>
-#include <sge/image/unsupported_format.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>

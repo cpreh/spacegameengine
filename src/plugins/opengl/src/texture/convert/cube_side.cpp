@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/convert/cube_side.hpp>
 #include <sge/opengl/texture/cube_side_array.hpp>
+#include <sge/opengl/texture/convert/cube_side.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
 #include <fcppt/assert/pre.hpp>
 

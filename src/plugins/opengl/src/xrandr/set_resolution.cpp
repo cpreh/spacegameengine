@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/xrandr/set_resolution.hpp>
-#include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/configuration.hpp>
+#include <sge/opengl/xrandr/mode.hpp>
+#include <sge/opengl/xrandr/set_resolution.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <awl/backends/x11/display.hpp>

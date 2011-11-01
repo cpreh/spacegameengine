@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/devil/load_memory.hpp>
 #include <sge/devil/check_error.hpp>
 #include <sge/devil/convert_extension.hpp>
+#include <sge/devil/load_memory.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/truncation_check_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::devil::optional_error const
 sge::devil::load_memory(

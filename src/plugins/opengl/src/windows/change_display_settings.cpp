@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/windows/change_display_settings.hpp>
 #include <sge/log/global.hpp>
+#include <sge/opengl/windows/change_display_settings.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/text.hpp>

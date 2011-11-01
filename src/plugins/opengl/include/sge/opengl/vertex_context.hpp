@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VERTEX_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_VERTEX_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/vertex_buffer_fwd.hpp>
 #include <sge/opengl/vertex_declaration_fwd.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/index_map_decl.hpp>

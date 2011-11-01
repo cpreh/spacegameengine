@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/glsl/vertex_shader.hpp>
 #include <sge/opengl/glsl/shader_type.hpp>
+#include <sge/opengl/glsl/vertex_shader.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::opengl::glsl::shader_type::type
 sge::opengl::glsl::vertex_shader::shader_type()

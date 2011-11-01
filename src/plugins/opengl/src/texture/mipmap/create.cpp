@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/texture/instantiate_dim.hpp>
 #include <sge/opengl/texture/mipmap/create.hpp>
 #include <sge/opengl/texture/mipmap/visitor.hpp>
-#include <sge/opengl/texture/instantiate_dim.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>

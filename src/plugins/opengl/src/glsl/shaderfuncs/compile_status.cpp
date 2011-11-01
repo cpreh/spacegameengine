@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/glsl/instantiate.hpp>
+#include <sge/opengl/glsl/shader_contexts.hpp>
 #include <sge/opengl/glsl/shaderfuncs/compile_status.hpp>
 #include <sge/opengl/glsl/shaderfuncs/get_integer.hpp>
-#include <sge/opengl/glsl/shader_contexts.hpp>
-#include <sge/opengl/glsl/instantiate.hpp>
+
 
 template<
 	typename Environment

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/convert/source_blend_func.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/state/convert/source_blend_func.hpp>
 #include <sge/renderer/state/source_blend_func.hpp>
 #include <fcppt/assert/unreachable.hpp>
 

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/glsl/context_fwd.hpp>
-#include <sge/opengl/glsl/program_base_fwd.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
+#include <sge/opengl/glsl/context_fwd.hpp>
+#include <sge/opengl/glsl/program_base_fwd.hpp>
 #include <sge/renderer/glsl/const_optional_program_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 

@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/light/attenuation.hpp>
 #include <sge/opengl/light/float.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/renderer/light/attenuation.hpp>
+
 
 void
 sge::opengl::light::attenuation(

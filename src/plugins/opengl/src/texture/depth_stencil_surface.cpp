@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/depth_stencil_surface.hpp>
 #include <sge/opengl/texture/basic_surface_impl.hpp>
+#include <sge/opengl/texture/depth_stencil_surface.hpp>
 #include <sge/renderer/depth_stencil_surface.hpp>
 #include <sge/renderer/stage.hpp>
+
 
 sge::opengl::texture::depth_stencil_surface::depth_stencil_surface(
 	texture::scoped_work_bind const &_binding,

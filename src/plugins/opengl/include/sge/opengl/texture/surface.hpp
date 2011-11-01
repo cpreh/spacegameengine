@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
 
-#include <sge/opengl/texture/surface_fwd.hpp>
+#include <sge/opengl/color_format.hpp>
+#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/basic_surface.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/lock_base_fwd.hpp>
 #include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
+#include <sge/opengl/texture/surface_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
 #include <sge/renderer/color_surface.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/stage.hpp>

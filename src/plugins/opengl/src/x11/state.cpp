@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/glx/context.hpp>
 #include <sge/opengl/x11/state.hpp>
 #include <sge/opengl/x11/vsync.hpp>
 #include <sge/opengl/x11/resolution/create.hpp>
 #include <sge/opengl/x11/resolution/instance.hpp>
-#include <sge/opengl/glx/context.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/visual.hpp>

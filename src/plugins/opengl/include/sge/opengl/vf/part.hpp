@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_PART_HPP_INCLUDED
 #define SGE_OPENGL_VF_PART_HPP_INCLUDED
 
-#include <sge/opengl/vf/part_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor_fwd.hpp>
 #include <sge/opengl/vf/attribute_location_container.hpp>
+#include <sge/opengl/vf/part_fwd.hpp>
 #include <sge/opengl/vf/pointer.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>

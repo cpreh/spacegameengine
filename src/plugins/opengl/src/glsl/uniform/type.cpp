@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/glsl/uniform/type.hpp>
 #include <sge/opengl/glsl/uniform/element_type.hpp>
 #include <sge/opengl/glsl/uniform/size_type.hpp>
+#include <sge/opengl/glsl/uniform/type.hpp>
+
 
 sge::opengl::glsl::uniform::type::type(
 	uniform::element_type::type const _type,

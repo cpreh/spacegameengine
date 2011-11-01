@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/light/direction.hpp>
 #include <sge/d3d9/convert/vector3.hpp>
+#include <sge/d3d9/convert/light/direction.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+
 
 void
 sge::d3d9::convert::light::direction(

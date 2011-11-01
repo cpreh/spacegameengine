@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/filter/set.hpp>
-#include <sge/opengl/texture/filter/visitor.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/scoped_work_bind.hpp>
+#include <sge/opengl/texture/filter/set.hpp>
+#include <sge/opengl/texture/filter/visitor.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/filter/need_mipmap.hpp>
 #include <sge/renderer/texture/filter/object.hpp>

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_CUBE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CUBE_HPP_INCLUDED
 
-#include <sge/opengl/texture/base.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/texture/base.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/cube.hpp>

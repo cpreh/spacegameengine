@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XF86VMODE_CHOOSE_MODE_HPP_INCLUDED
 #define SGE_OPENGL_XF86VMODE_CHOOSE_MODE_HPP_INCLUDED
 
-#include <sge/opengl/xf86vmode/resolution_ptr.hpp>
 #include <sge/opengl/xf86vmode/modes_fwd.hpp>
+#include <sge/opengl/xf86vmode/resolution_ptr.hpp>
 #include <sge/renderer/display_mode_fwd.hpp>
+
 
 namespace sge
 {

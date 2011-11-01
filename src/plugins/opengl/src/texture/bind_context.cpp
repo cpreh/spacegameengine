@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/bind_context.hpp>
+#include <sge/opengl/disable.hpp>
+#include <sge/opengl/enable.hpp>
+#include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/texture/base.hpp>
+#include <sge/opengl/texture/bind_context.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/funcs/bind.hpp>
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
-#include <sge/opengl/context/make_id.hpp>
-#include <sge/opengl/disable.hpp>
-#include <sge/opengl/enable.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/weak_ptr_impl.hpp>
 #include <fcppt/assert/error.hpp>

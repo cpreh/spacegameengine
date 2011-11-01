@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/glsl/get_shader_source.hpp>
 #include <sge/opengl/glsl/instantiate.hpp>
 #include <sge/opengl/glsl/shader_contexts.hpp>
 #include <sge/opengl/glsl/shaderfuncs/get_integer.hpp>
 #include <sge/opengl/glsl/shaderfuncs/get_source.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/renderer/glsl/char.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <fcppt/assert/error.hpp>

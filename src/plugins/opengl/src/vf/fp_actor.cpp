@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/vf/fp_actor.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
+#include <sge/opengl/vf/fp_actor.hpp>
+
 
 sge::opengl::vf::fp_actor::~fp_actor()
 {

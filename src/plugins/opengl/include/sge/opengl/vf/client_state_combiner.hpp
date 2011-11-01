@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_CLIENT_STATE_COMBINER_HPP_INCLUDED
 #define SGE_OPENGL_VF_CLIENT_STATE_COMBINER_HPP_INCLUDED
 
-#include <sge/opengl/vf/client_state_combiner_fwd.hpp>
-#include <sge/opengl/vf/context_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/attribute_context_fwd.hpp>
 #include <sge/opengl/vf/client_state.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/vf/client_state_combiner_fwd.hpp>
+#include <sge/opengl/vf/context_fwd.hpp>
 #include <sge/renderer/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/vf/part.hpp>
-#include <sge/opengl/vf/to_actor.hpp>
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/actor.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/vf/part.hpp>
+#include <sge/opengl/vf/to_actor.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 

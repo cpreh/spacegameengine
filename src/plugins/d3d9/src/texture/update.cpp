@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/texture/update.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/texture/update.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 

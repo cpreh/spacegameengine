@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_SCOPED_WORK_BIND_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_SCOPED_WORK_BIND_HPP_INCLUDED
 
-#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/bind_context_fwd.hpp>
 #include <sge/opengl/texture/id.hpp>
+#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 

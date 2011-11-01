@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/set_flipped_area.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/set_flipped_area.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/pixel_unit.hpp>

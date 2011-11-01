@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
 
-#include <sge/opengl/glsl/uniform/type_fwd.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/glsl/uniform/type_fwd.hpp>
 #include <sge/renderer/glsl/uniform/value.hpp>
+
 
 namespace sge
 {

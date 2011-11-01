@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/glsl/create_shader.hpp>
 #include <sge/opengl/glsl/create_vertex_shader.hpp>
 #include <sge/opengl/glsl/vertex_shader.hpp>
-#include <sge/opengl/glsl/create_shader.hpp>
+
 
 sge::renderer::glsl::vertex_shader_ptr const
 sge::opengl::glsl::create_vertex_shader(

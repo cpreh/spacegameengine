@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/glsl/program.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/glsl/bind_attrib_locations.hpp>
 #include <sge/opengl/glsl/format_error.hpp>
 #include <sge/opengl/glsl/instantiate.hpp>
+#include <sge/opengl/glsl/program.hpp>
 #include <sge/opengl/glsl/program_contexts.hpp>
 #include <sge/opengl/glsl/shader_base.hpp>
-#include <sge/opengl/glsl/uniform/variable.hpp>
 #include <sge/opengl/glsl/programfuncs/attach_shader.hpp>
 #include <sge/opengl/glsl/programfuncs/bind_frag_data_location.hpp>
 #include <sge/opengl/glsl/programfuncs/detach_shader.hpp>
@@ -34,8 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glsl/programfuncs/link_status.hpp>
 #include <sge/opengl/glsl/programfuncs/use.hpp>
 #include <sge/opengl/glsl/uniform/contexts.hpp>
-#include <sge/opengl/context/use.hpp>
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/exception.hpp>
 #include <sge/renderer/glsl/shader.hpp>
 #include <fcppt/cref.hpp>

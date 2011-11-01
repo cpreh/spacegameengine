@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/deferred/stencil_func.hpp>
-#include <sge/opengl/state/deferred/parameters.hpp>
-#include <sge/opengl/state/convert/stencil_func.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/enable.hpp>
 #include <sge/opengl/disable.hpp>
+#include <sge/opengl/enable.hpp>
+#include <sge/opengl/state/convert/stencil_func.hpp>
+#include <sge/opengl/state/deferred/parameters.hpp>
+#include <sge/opengl/state/deferred/stencil_func.hpp>
 #include <sge/renderer/buffer_has_stencil.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/int.hpp>

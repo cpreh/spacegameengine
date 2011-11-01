@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/windows/state.hpp>
 #include <sge/opengl/windows/change_display_settings.hpp>
+#include <sge/opengl/windows/state.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/parameters.hpp>

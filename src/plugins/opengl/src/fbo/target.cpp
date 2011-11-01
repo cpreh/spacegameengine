@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/fbo/target.hpp>
+#include <sge/opengl/basic_target_impl.hpp>
+#include <sge/opengl/check_state.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/fbo/attachment.hpp>
 #include <sge/opengl/fbo/bind.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
-#include <sge/opengl/fbo/depth_stencil_surface_ptr.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface.hpp>
+#include <sge/opengl/fbo/depth_stencil_surface_ptr.hpp>
 #include <sge/opengl/fbo/render_buffer_binding.hpp>
+#include <sge/opengl/fbo/target.hpp>
 #include <sge/opengl/fbo/temporary_bind.hpp>
 #include <sge/opengl/fbo/texture_binding.hpp>
-#include <sge/opengl/basic_target_impl.hpp>
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/surface.hpp>
 #include <sge/opengl/texture/surface_ptr.hpp>
 #include <sge/renderer/exception.hpp>

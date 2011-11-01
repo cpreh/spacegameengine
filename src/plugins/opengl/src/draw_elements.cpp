@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/draw_elements.hpp>
+#include <sge/log/global.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/draw_context.hpp>
+#include <sge/opengl/draw_elements.hpp>
 #include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/convert/indexed_primitive.hpp>
-#include <sge/log/global.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <fcppt/text.hpp>

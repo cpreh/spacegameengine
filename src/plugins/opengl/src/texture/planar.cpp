@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/texture/basic_impl.hpp>
 #include <sge/opengl/texture/planar.hpp>
 #include <sge/opengl/texture/planar_types.hpp>
-#include <sge/opengl/texture/basic_impl.hpp>
 #include <sge/opengl/texture/scoped_work_bind.hpp>
 #include <sge/opengl/texture/surface.hpp>
 #include <sge/opengl/texture/funcs/get_parameter_int.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/object.hpp>
 #include <sge/renderer/stage.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>

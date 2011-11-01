@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/texture/cube.hpp>
 #include <sge/d3d9/texture/basic_impl.hpp>
+#include <sge/d3d9/texture/cube.hpp>
 #include <sge/d3d9/texture/cube_types.hpp>
 #include <sge/d3d9/texture/lock_cube.hpp>
 #include <sge/d3d9/texture/unlock_cube.hpp>

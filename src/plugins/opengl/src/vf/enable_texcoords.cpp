@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/vf/enable_texcoords.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_client_state.hpp>
 #include <sge/opengl/texture/funcs/set_client_level.hpp>
+#include <sge/opengl/vf/enable_texcoords.hpp>
+
 
 void
 sge::opengl::vf::enable_texcoords(

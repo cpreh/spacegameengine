@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/glsl/set_program.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/glsl/context.hpp>
 #include <sge/opengl/glsl/program.hpp>
-#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/glsl/set_program.hpp>
+
 
 void
 sge::opengl::glsl::set_program(

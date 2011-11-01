@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/light/visitor.hpp>
 #include <sge/opengl/light/directional.hpp>
 #include <sge/opengl/light/point.hpp>
 #include <sge/opengl/light/spot.hpp>
+#include <sge/opengl/light/visitor.hpp>
+
 
 sge::opengl::light::visitor::visitor(
 	light::index const _index

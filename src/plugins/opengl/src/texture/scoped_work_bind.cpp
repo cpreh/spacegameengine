@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/scoped_work_bind.hpp>
-#include <sge/opengl/texture/bind_context.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/texture/bind_context.hpp>
+#include <sge/opengl/texture/scoped_work_bind.hpp>
+
 
 sge::opengl::texture::scoped_work_bind::scoped_work_bind(
 	opengl::context::object &_context,

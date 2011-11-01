@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/glsl/context.hpp>
+#include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/attribute_actor.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
 #include <sge/opengl/vf/attribute_location.hpp>
-#include <sge/opengl/vf/actor_parameters.hpp>
+#include <sge/opengl/vf/client_state_combiner.hpp>
 #include <sge/opengl/vf/unspecified_elements.hpp>
 #include <sge/opengl/vf/unspecified_format.hpp>
-#include <sge/opengl/vf/client_state_combiner.hpp>
-#include <sge/opengl/glsl/context.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <fcppt/to_std_string.hpp>

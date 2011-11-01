@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_AREA_FUNCTION_HPP_INCLUDED
 #define SGE_OPENGL_AREA_FUNCTION_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/apientry.hpp>
+#include <sge/opengl/common.hpp>
+
 
 namespace sge
 {

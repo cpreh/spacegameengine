@@ -18,18 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/glsl/create_shader.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/glsl/context.hpp>
+#include <sge/opengl/glsl/create_shader.hpp>
 #include <sge/opengl/glsl/geometry_shader.hpp>
 #include <sge/opengl/glsl/pixel_shader.hpp>
 #include <sge/opengl/glsl/shader.hpp>
 #include <sge/opengl/glsl/vertex_shader.hpp>
-#include <sge/opengl/glsl/native/environment.hpp>
 #include <sge/opengl/glsl/arb/environment.hpp>
-#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/glsl/native/environment.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/shared_ptr.hpp>
+
 
 template<
 	typename Shader

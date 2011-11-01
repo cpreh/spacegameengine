@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_DEFERRED_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_DEFERRED_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/state/deferred/object_fwd.hpp>
 #include <sge/opengl/state/deferred/bundle.hpp>
+#include <sge/opengl/state/deferred/object_fwd.hpp>
 #include <sge/opengl/state/deferred/parameters.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

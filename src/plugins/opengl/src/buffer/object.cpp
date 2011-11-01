@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/buffer/object.hpp>
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/normal_lock_method.hpp>
+#include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/range_lock_method.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/resource_flags.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_flags/read.hpp>

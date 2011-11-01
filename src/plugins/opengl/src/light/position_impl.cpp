@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/light/position_impl.hpp>
-#include <sge/opengl/light/float_ptr.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/light/float_ptr.hpp>
+#include <sge/opengl/light/position_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+
 
 void
 sge::opengl::light::position_impl(

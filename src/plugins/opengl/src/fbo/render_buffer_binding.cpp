@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/fbo/render_buffer_binding.hpp>
 #include <sge/opengl/fbo/attach_render_buffer.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>
+#include <sge/opengl/fbo/render_buffer_binding.hpp>
+
 
 sge::opengl::fbo::render_buffer_binding::render_buffer_binding(
 	fbo::context const &_context,

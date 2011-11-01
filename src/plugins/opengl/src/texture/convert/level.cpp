@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/convert/level.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/texture/convert/level.hpp>
 #include <sge/renderer/stage.hpp>
+
 
 GLenum
 sge::opengl::texture::convert::level(

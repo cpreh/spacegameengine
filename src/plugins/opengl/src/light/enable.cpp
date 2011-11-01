@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/light/enable.hpp>
-#include <sge/opengl/convert/light_index.hpp>
 #include <sge/opengl/enable_bool.hpp>
+#include <sge/opengl/convert/light_index.hpp>
+#include <sge/opengl/light/enable.hpp>
+
 
 void
 sge::opengl::light::enable(

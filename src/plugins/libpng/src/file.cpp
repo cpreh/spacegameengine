@@ -18,11 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/libpng/file.hpp>
-#include <sge/libpng/is_png.hpp>
-#include <sge/libpng/load_context.hpp>
-#include <sge/libpng/png.hpp>
-#include <sge/libpng/write_context.hpp>
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
@@ -34,6 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/size.hpp>
+#include <sge/libpng/file.hpp>
+#include <sge/libpng/is_png.hpp>
+#include <sge/libpng/load_context.hpp>
+#include <sge/libpng/png.hpp>
+#include <sge/libpng/write_context.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
