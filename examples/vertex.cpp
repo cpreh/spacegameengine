@@ -23,15 +23,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/visual_depth.hpp>
+#include <sge/renderer/vsync.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -44,14 +55,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/input.hpp>
+#include <sge/systems/input_helper.hpp>
+#include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
+#include <sge/systems/window.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
+#include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/window/simple_parameters.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -63,7 +83,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-int main()
+int
+main()
 try
 {
 	sge::systems::instance const sys(
@@ -108,10 +129,8 @@ try
 //! [position_declaration]
 
 //! [color_declaration]
-	typedef sge::image::color::bgra8_format bgra8_format;
-
 	typedef sge::renderer::vf::color<
-		bgra8_format
+		sge::image::color::bgra8_format
 	> color_type;
 //! [color_declaration]
 
@@ -197,7 +216,7 @@ try
 			color_type
 		>(
 			sge::image::color::any::convert<
-				bgra8_format
+				sge::image::color::bgra8_format
 			>(
 				sge::image::colors::cyan()
 			)
@@ -217,7 +236,7 @@ try
 			color_type
 		>(
 			sge::image::color::any::convert<
-				bgra8_format
+				sge::image::color::bgra8_format
 			>(
 				sge::image::colors::yellow()
 			)
@@ -235,7 +254,7 @@ try
 			color_type
 		>(
 			sge::image::color::any::convert<
-				bgra8_format
+				sge::image::color::bgra8_format
 			>(
 				sge::image::colors::magenta()
 			)
@@ -245,7 +264,7 @@ try
 
 	bool running = true;
 
-	fcppt::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const scoped_esc_connection(
 		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
@@ -256,10 +275,12 @@ try
 		)
 	);
 
+//! [running_block]
 	while(
 		running
 	)
 	{
+//! [running_block]
 		sys.window().dispatch();
 
 		sys.renderer().state(
@@ -270,6 +291,7 @@ try
 			)
 		);
 
+//! [scoped_declaration]
 		sge::renderer::scoped_vertex_declaration const vb_declaration_context(
 			sys.renderer(),
 			*vertex_declaration
@@ -279,7 +301,9 @@ try
 			sys.renderer(),
 			*vertex_buffer
 		);
+//! [scoped_declaration]
 
+//! [scoped_block]
 		sge::renderer::scoped_block const block(
 			sys.renderer()
 		);
@@ -290,6 +314,7 @@ try
 			sge::renderer::nonindexed_primitive_type::triangle
 		);
 	}
+//! [scoped_block]
 }
 catch(
 	fcppt::exception const &_error

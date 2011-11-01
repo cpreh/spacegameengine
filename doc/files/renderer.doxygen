@@ -133,4 +133,28 @@ The rest of the vertices get written in a similar fashion.
 
 We are done with the vertex lock and the scope is closed, so the buffer will be
 unlocked.
+
+\subsubsection drawing_vertices Drawing Vertices
+
+To draw some of the vertices from the vertex buffer, we have to enable both the
+vertex declaration and the vertex buffer using the renderer.  Therefore, we
+create a new block that runs in a loop.
+
+\snippet vertex.cpp running_block
+
+sge::renderer::scoped_vertex_declaration sets the vertex declaration in its
+constructor and unsets it in the destructor.
+sge::renderer::scoped_vertex_buffer does the same but to a vertex buffer.
+
+\snippet vertex.cpp scoped_declaration
+
+Drawing can only be done between calls to
+sge::renderer::device::begin_rendering and
+sge::renderer::device::end_rendering.  An sge::renderer::scoped_block does this
+in its constructor and destructor, respectively.
+
+\snippet vertex.cpp scoped_block
+
+We tell the renderer to draw the vertices 0 through 2 from the vertex buffer,
+interpreting them as a list of triangles.
 */
