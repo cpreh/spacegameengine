@@ -166,12 +166,60 @@ Recall that the supported primitive types are points, lines and triangles. If
 we want to draw more complex, solid geometry, we have no choice but to build it
 from triangles.
 In the next example, the goal is to create a quad instead of a triangle
-with four different colors for each vertex.
+with four different colors for each corner.
 Now, there are two ways to do that:
 
 \li Create two separate triangles that don't share any vertices, resulting in
 six vertices in total, duplicating two of the vertices.
 \li Create only four vertices, one for each corner, and somehow tell the
 renderer which combinations of them should become triangles.
+
+For the latter to work, we can use \em indices. An index is a number that
+refers to a vertex in a vertex buffer. It can go from 0 to vertex_count - 1.
+
+\subsection index_format Index format
+
+Like the vertex format, there also exists an \em index \em format. However, the
+index format is much easier, because there currently are only two
+possibilities: sge::renderer::index::format_16 and
+sge::renderer::index::format_32. The number says how many bits of storage an
+index will take.  So, for example with format_16 the limits the size of a
+vertex buffer to 65535 elements.
+
+In this example, we choose 16 bit indices.
+
+\snippet vertex_index.cpp index_format_declaration
+
+\subsection writing_indices Writing Indices
+
+As with the vertex buffer, we have to create an index buffer to store the indices.
+
+\snippet vertex_index.cpp index_buffer_declaration
+
+The index buffer is locked in way similar to the vertex buffer.
+
+\snippet vertex_index.cpp index_buffer_lock
+
+Filling the indices into the buffer is also done via an iterator. Its value
+type is sge::renderer::index::proxy which has a set member function. For the 16
+bit format, the type accepted by the proxy is boost::uint16_t. In order to
+assure that no implicit type conversions are done, only objects of this type
+are accepted. In the example below, the static_cast is necessary to convert the
+literals (which are of type int) into the expected value type.
+
+\snippet vertex_index.cpp index_buffer_fill
+
+\subsection rendering_indices Rendering indices
+
+Instead of calling sge::renderer::device::render_nonindexed, the indexed
+version will be used, which is sge::renderer::device::render_indexed.
+
+\snippet vertex_index.cpp render_indexed
+
+Here, we say that we want to draw two triangles, indicated by the primitive
+count and we need the first four vertices for this. Basically, first_vertex and
+vertex_count set the limitations which values the indices can hold. To be most
+conservative, 0 and vertex_buffer::size() should be used.  first_index tells
+where we start in the index buffer.
 
 */

@@ -265,8 +265,11 @@ try
 		);
 	}
 
+//! [index_format_declaration]
 	typedef sge::renderer::index::format_16 index_format;
+//! [index_format_declaration]
 
+//! [index_buffer_declaration]
 	sge::renderer::index_buffer_ptr const index_buffer(
 		sys.renderer().create_index_buffer(
 			sge::renderer::index::dynamic::make_format<
@@ -278,7 +281,9 @@ try
 			sge::renderer::resource_flags::none
 		)
 	);
+//! [index_buffer_declaration]
 
+//! [index_buffer_lock]
 	{
 		sge::renderer::scoped_index_lock const iblock(
 			*index_buffer,
@@ -292,7 +297,8 @@ try
 		index_view const view(
 			iblock.value()
 		);
-
+//! [index_buffer_lock]
+//! [index_buffer_fill]
 		index_view::iterator it(
 			view.begin()
 		);
@@ -306,6 +312,7 @@ try
 		(*it++).set(static_cast<index_value_type>(3));
 		(*it++).set(static_cast<index_value_type>(2));
 	}
+//! [index_buffer_fill]
 
 	bool running = true;
 
@@ -348,6 +355,7 @@ try
 			sys.renderer()
 		);
 
+//! [render_indexed]
 		sys.renderer().render_indexed(
 			*index_buffer,
 			sge::renderer::first_vertex(
@@ -364,6 +372,7 @@ try
 				0u
 			)
 		);
+//! [render_indexed]
 	}
 }
 catch(
