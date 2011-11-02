@@ -159,4 +159,19 @@ in its constructor and destructor, respectively.
 
 We tell the renderer to draw the vertices 0 through 2 from the vertex buffer,
 interpreting them as a list of triangles.
+
+\section indices Indices
+
+Recall that the supported primitive types are points, lines and triangles. If
+we want to draw more complex, solid geometry, we have no choice but to build it
+from triangles.
+In the next example, the goal is to create a quad instead of a triangle
+with four different colors for each vertex.
+Now, there are two ways to do that:
+
+\li Create two separate triangles that don't share any vertices, resulting in
+six vertices in total, duplicating two of the vertices.
+\li Create only four vertices, one for each corner, and somehow tell the
+renderer which combinations of them should become triangles.
+
 */
