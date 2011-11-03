@@ -7,9 +7,11 @@ body, table, div, p, dl {
 
 /* @group Heading Levels */
 
+/*
 h1 {
 	font-size: 150%;
 }
+*/
 
 .title {
 	font-size: 150%;
@@ -17,6 +19,7 @@ h1 {
 	margin: 10px 2px;
 }
 
+/*
 h2 {
 	font-size: 120%;
 }
@@ -24,6 +27,7 @@ h2 {
 h3 {
 	font-size: 100%;
 }
+*/
 
 dt {
 	font-weight: bold;

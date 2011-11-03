@@ -125,5 +125,49 @@ where actual file extensions come into play. More on that later.
 Notice that aside from the file extension, we pass an empty
 sge::audio::loader_capabilities <a
 href="http://fcppt.net/fcppt/documentation/container/bitfield/rationale.html">bitfield</a>,
-too.
+too. In the future, this might contain flags such as "is threadsafe", but for
+now, it's a dummy.
+
+\subsubsection manual_init Manual initialization
+
+To initialize the player and loader manually, we first need a plugin manager.
+That's the class that can resolve plugin types like sge::audio::player and
+sge::audio::loader to dynamic libraries (dlls in Windows, .so in Linux)
+implementing these interfaces.
+
+The plugin manager needs a path to search for the libraries. You might use your
+own path here, or you can use the sge::config subsystem to retrieve the path
+from sge's configuration. This is what we're going to do here:
+
+\snippet audio_minimal.cpp manual_initialization_pm
+
+After that, you can use the <code>plugin_manager</code> object to iterate over
+all plugins of a given type. Let's start with the player. Our goal will be to
+create two objects: the plugin object (which keeps the plugin alive) and the
+actual player object (which needs the loaded plugin, of course).
+
+\image html audio_plugins.svg "Loading a plugin"
+
+To make this as simple as possible, let's assume that we have a player plugin
+available. We don't have to iterate over anything, we just take the first
+plugin of type player.
+
+A plugin iterator allows us to load a plugin via the load method which returns
+a smart pointer to the freshly loaded plugin.
+
+Using this pointer, we can retrieve our player object using the get method.
+
+\snippet audio_minimal.cpp manual_initialization_player
+
+Initializing the loader is simpler, because there's already a class doing all
+the work. It's the aforementioned sge::audio::multi_loader, which takes a
+plugin manager and the pair of loader capabilities and extensions.
+
+\snippet audio_minimal.cpp manual_initialization_loader
+
+And that's it!
+
+\subsection buffer_creation Creating a buffer
+
+
 */
