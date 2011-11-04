@@ -1,0 +1,21 @@
+/**
+\page audio_main audio
+
+\section audio_abstract Abstract
+
+<em>sge::audio provides an abstraction for 3D audio APIs like <a href="http://connect.creativelabs.com/openal/default.aspx">OpenAL</a> or
+<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/bb318665(v=vs.85).aspx">DirectSound</a>. It handles positional (and directional) sound sources, as well as
+streaming sounds (for background music, for example). sge::audio also contains
+audio file loaders.</em>
+
+\section audio_subsections Subsections
+
+<ul>
+<li>\subpage audio_overview</li>
+<li>\subpage audio_example</li>
+<li>\subpage audio_positional</li>
+</ul>
+
+<hr>
+<strong>Up:</strong> \ref index
+*/

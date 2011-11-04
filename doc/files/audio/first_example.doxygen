@@ -1,0 +1,128 @@
+/**
+\page audio_example A first example
+
+\section Initialization
+
+We have to initialize the loader(s) and the player plugins first. This can be
+done manually or using the sge::systems::instance helper class.
+
+\subsection systems_init sge::systems::instance initialization
+
+Using sge::systems::instance, initialization of the player and the loaders is
+very simple:
+
+\snippet audio_minimal.cpp systems_initialization
+
+You create an instance of the sge::systems::instance class and pass it a list
+of things to initialize. To initialize the player, we pass it
+sge::systems::audio_player_default. The player doesn't take any initialization
+parameters.
+
+Initializing the loader is slightly more complicated. That's because we have to
+specify which file types we want to load. A loader indicates which file types
+it is able to load by specifying a set of <em>file extensions</em>.
+
+So the argument to sge::systems::instance is really a <em>request</em> for a
+loader satisfying the constraints "can load .wav files".
+
+\note
+Don't be confused here: We're talking about <em>file</em> extensions and
+loading wave <em>files</em>, but a loader can process raw bytes from a
+different source, too (like a zip archive or from the internet). However, what
+the sge::systems::instance class really creates is a sge::audio::multi_loader,
+which is a <em>collection</em> of loaders. A multi loader takes a file name
+and tries to figure out which loader is best for loading the file.  This is
+where actual file extensions come into play. More on that later.
+
+Notice that aside from the file extension, we pass an empty
+sge::audio::loader_capabilities <a
+href="http://fcppt.net/fcppt/documentation/container/bitfield/rationale.html">bitfield</a>,
+too. In the future, this might contain flags such as "is threadsafe", but for
+now, it's a dummy.
+
+\subsection manual_init Manual initialization
+
+To initialize the player and loader manually, we first need a plugin manager.
+That's the class that can resolve plugin types like sge::audio::player and
+sge::audio::loader to dynamic libraries (dlls in Windows, .so in Linux)
+implementing these interfaces.
+
+The plugin manager needs a path to search for the libraries. You might use your
+own path here, or you can use the sge::config subsystem to retrieve the path
+from sge's configuration. This is what we're going to do here:
+
+\snippet audio_minimal.cpp manual_initialization_pm
+
+After that, you can use the <code>plugin_manager</code> object to iterate over
+all plugins of a given type. Let's start with the player. Our goal will be to
+create two objects: the plugin object (which keeps the plugin alive) and the
+actual player object (which needs the loaded plugin, of course).
+
+\image html audio_plugins.svg "Loading a plugin"
+
+To make this as simple as possible, let's assume that we have a player plugin
+available. We don't have to iterate over anything, we just take the first
+plugin of type player.
+
+A plugin iterator allows us to load a plugin via the load method which returns
+a smart pointer to the freshly loaded plugin.
+
+Using this pointer, we can retrieve our player object using the get method.
+
+\snippet audio_minimal.cpp manual_initialization_player
+
+Initializing the loader is simpler, because there's already a class doing all
+the work. It's the aforementioned sge::audio::multi_loader, which takes a
+plugin manager and the pair of loader capabilities and extensions.
+
+\snippet audio_minimal.cpp manual_initialization_loader
+
+And that's it!
+
+\section buffer_creation Playing a file
+
+Let's play a sound now! We have to decide which type of sound it will be
+(streaming/nonstreaming, positional/nonpositional). Since streaming sounds are
+a bit too simple, let's create a <em>nonstreaming sound</em> which is
+<em>nonpositional</em> (we'll learn about 3D sound later).
+
+To do that, we first need an <em>audio file</em> and then a <em>buffer</em>, as
+mentioned in the overview. Using the buffer (the internal audio file
+representation), we can create an actual sound.
+
+\snippet audio_minimal.cpp create_file_buffer_and_sound
+
+Easy enough, isn't it? First we load the file (from sge's media path in this
+case), then we create a buffer, passing the source file (which can be discarded
+after that), and then we use the buffer to create a nonpositional sound. Using
+a parameter class you can specify additional parameters for the sound: gain
+(which is another word for volume) and pitch.
+
+\note
+sge::audio::scalar is a typedef to a floating point type.
+
+Creating a sound doesn't play it automatically. We have to call the
+sge::audio::sound::play method, indicating if we want to play it once or in a
+loop. Let's play it once until it's finished.
+
+\note
+Due to technical difficulties, you cannot play a sound a specific number of
+times. At least not yet.
+
+\snippet audio_minimal.cpp play
+
+Note that we call the sge::audio::sound::update function. This is mainly useful
+for <em>streaming</em> sounds which have to have their buffers updated from
+disk. But there might be plugins that need to update nonstreaming sounds, too.
+So it is advised to call this function regularly, no matter what kind of
+sound.
+
+Just to complete this introduction, here's how you create and play a
+nonpositional streaming sound:
+
+\snippet audio_minimal.cpp create_and_play_streaming
+
+<hr>
+
+<strong>Previous:</strong> \ref audio_overview, <strong>Up:</strong> \ref audio_main, <strong>Next:</strong> \ref audio_positional
+*/

@@ -1,0 +1,86 @@
+/**
+\page audio_positional 3D sounds
+
+\section audio_positional_intro Introduction
+
+sge::audio supports sounds with a three-dimensional position and a direction.
+For this to even make sense, we need a single <em>listener</em>. This listener
+has a position, given by a single 3D vector. It also has a direction, given by
+two direction vectors (see image).
+
+\image html audio_coordinates.svg "The audio coordinate system. The dashed arrow indicates that this vector isn't specified explicitly."
+
+A sound with a position will fade out if you increase the distance from the
+listener to the sound. A sound with a direction and a "hearing cone" attached
+to it will only be heard if you are inside the cone (and not too far away).
+
+\section audio_listener The listener
+
+The sge::audio::player has a function sge::audio::player::listener that returns
+a sge::audio::listener. This listener has functions for setting and retrieving...
+
+<ul>
+<li>...the position</li>
+<li>...the (linear) velocity</li>
+<li>...the direction</li>
+</ul>
+
+What about the velocity, you say? Well, sounds as well as the listener have a
+velocity. which is used in Doppler calculations (see below).
+
+The direction is represented by the sge::audio::direction::object class, which
+is a container for two vectors: up and forward. The third vector ("right") is
+calculated by taking the cross product of the two vectors. Here's how you set the listener's attributes:
+
+\snippet audio_minimal.cpp listener_direction
+
+\section audio_positional_sounds Positional sounds
+
+As you recall from \ref audio_example, sounds may be created as streaming
+sounds or from a buffer. In any case, you can specify the following positional
+attributes when creating a sound:
+
+<ul>
+<li>Position</li>
+<li>Velocity</li>
+<li>Gain</li>
+<li>Pitch</li>
+<li>Direction</li>
+<li>Inner cone angle</li>
+<li>Outer cone angle</li>
+<li>Outer cone gain</li>
+</ul>
+
+Note that the direction is a vector, not a sge::audio::direction::object.
+Sounds don't need an up vector. They work differently. Also note that if the
+direction vector is the null vector, the source is nondirectional (relying on a
+zero floating point vector is, of course, unsafe, so this is likely to change
+in the future).
+
+\section audio_directional_sounds Directional sounds
+A directional sound is a sound that emits "sound waves" inside a cone. If the
+listener is inside the cone, the sound's volume won't be changed. If the
+listener is on the "edge" of the cone, the so called "transitional zone", the
+volume will be changed according to where in the transitional zone the listener
+is in. Take a look at the following image which illustrates it pretty good:
+
+\image html audio_sound_cones.gif "The two sound cones and corresponding angles"
+
+As you can see, a directional sound needs two angles (...of the two cones), an
+inner gain and an outer gain. All of these quantities can be set using the
+sge::audio::sound::positional_parameters class when constructing a sound.
+
+\section audio_distance_attenuation Distance attenuation
+
+As said before, a sound's volume decreases with increasing distance to the
+listener. But in what way does it decrease?
+
+Multiple models exist to implement distance attenuation. sge::audio currently
+supports only the <em>inverse clamped distance</em> model (which is supported
+by DirectSound as well as OpenAL).
+
+<hr>
+
+<strong>Previous:</strong> \ref audio_example, <strong>Up:</strong> \ref audio_main
+
+*/

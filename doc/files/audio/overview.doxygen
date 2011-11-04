@@ -1,0 +1,85 @@
+/**
+\page audio_overview Overview
+
+\section audio_file_loading File loading
+
+\image html audio_pipeline.svg "The audio graph"
+
+To play a sound, you have to create it first. Sounds may be procedurally
+generated, meaning you have an algorithm producing waves which are then sent to
+the sound card to process. In most cases, however, sounds are recorded, edited
+and then saved to a <em>file</em>.
+
+So to start, you need an audio file loader. sge has loaders for different
+formats (wave, ogg, ...). Each loader is a plugin that can be loaded and then
+used. Using the sge::audio::loader::load member function (or
+sge::audio::loader::load_raw to load raw bytes), you get an sge::audio::file.
+
+\section audio_files Audio files
+
+The sge::audio::file class has some information about the sound, like its bit
+rate and number of channels. It also has functions to extract actual audio data
+from the file. In most cases, however, we won't be needing these functions
+directly. The audio API (OpenAL, Direct Sound etc.) will use them to extract
+samples and, ultimately, send them to the sound card.
+
+\section playback Playback
+
+To actually <em>play</em> a sge::audio::file, you have to create a
+<em>sound</em> from it. A sound object has functions like <code>gain</code> to
+control its volume, <code>play</code>, <code>stop</code> and so on (see
+sge::audio::sound::base).
+
+Until now, we only needed audio <em>loader</em> plugins. From this point on, we also
+need an audio <em>player</em> plugin. An audio player can turn an
+sge::audio::file into a sound. It also manages the global volume, speed of
+sound (used for Doppler calculations) and so on.
+
+\section audio_sounds Sounds
+
+We want to create a sound, but not all sounds are created in the same way.
+There are four different types of sounds:
+
+<ol>
+	<li><em>Positional, nonstreaming sounds</em>: Probably the most common
+	type of sound. It has a position in the 3D space and it's loaded
+	completely into memory. Think of short sound effects for your game (a
+	pistol firing, an explosion). Background music is a <em>bad</em>
+	example for this type of sound.</li>
+	<li><em>Nonpositional, nonstreaming sounds</em>: These sounds have no
+	position, but they are loaded into memory. A button click or a
+	notification sound are good examples for this category.</li>
+	<li><em>Nonpositional, streaming sounds</em>: The sound isn't read in
+	completely, but in chunks. Background music.</li>
+	<li><em>Positional, streaming sounds</em>: Should be pretty rare. A
+	radio standing around playing music would be a good example for
+	this.</li>
+</ol>
+
+\subsection audio_nonstreaming_sounds Nonstreaming sounds
+
+Let's focus on nonstreaming sounds, first. Say we want to spawn a
+sound each time an explosion is displayed in a game. We have our
+sge::audio::file object ready, which contains the samples of the explosion
+sound. But we don't want to read this file each time an explosion occurs - the
+nonstreaming sounds are supposed to be loaded <em>once</em> (loading also
+implies conversions to some "internal" optimized format)!
+
+\image html audio_buffers.svg "The buffer layer"
+
+So there's a layer between the audio file and the sound (or "source", as
+OpenAL terms it), called sge::audio::buffer. See, for example, the \ref
+audio_example on how to use buffers.
+
+\subsection audio_streaming_sounds Streaming sounds
+
+Streaming sounds, on the other hand, don't need an intermediate layer. You can
+directly create streaming sounds from your sge::audio::file. The audio
+subsystem will keep the file pointer and extract samples from it when the
+playback buffer empties.
+
+<hr>
+
+<strong>Up:</strong> \ref audio_main, <strong>Next:</strong> \ref audio_example
+
+*/
