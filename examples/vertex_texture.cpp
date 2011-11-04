@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/colors.hpp>
-#include <sge/image/color/bgra8_format.hpp>
-#include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/any/object.hpp>
+#include <sge/extension_set.hpp>
+#include <sge/config/media_path.hpp>
+#include <sge/image/capabilities_field.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -42,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/stage.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
@@ -51,16 +51,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
-#include <sge/renderer/vf/color.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
+#include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/image_loader.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -76,6 +84,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -117,6 +126,17 @@ try
 			)
 		)
 		(
+			sge::systems::image_loader(
+				sge::image::capabilities_field::null(),
+				fcppt::assign::make_container<
+					sge::extension_set
+				>
+				(
+					FCPPT_TEXT("png")
+				)
+			)
+		)
+		(
 			sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector
@@ -131,14 +151,15 @@ try
 		3
 	> pos3_type;
 
-	typedef sge::renderer::vf::color<
-		sge::image::color::bgra8_format
-	> color_type;
+	typedef sge::renderer::vf::texpos<
+		float,
+		2
+	> texpos2_type;
 
 	typedef sge::renderer::vf::part<
 		boost::mpl::vector2<
 			pos3_type,
-			color_type
+			texpos2_type
 		>
 	> format_part;
 
@@ -190,6 +211,8 @@ try
 
 		typedef pos3_type::packed_type vec3;
 
+		typedef texpos2_type::packed_type vec2;
+
 		(*vb_it).set<
 			pos3_type
 		>(
@@ -197,13 +220,9 @@ try
 		);
 
 		(*vb_it).set<
-			color_type
+			texpos2_type
 		>(
-			sge::image::color::any::convert<
-				sge::image::color::bgra8_format
-			>(
-				sge::image::colors::cyan()
-			)
+			vec2(0.f, 0.f)
 		);
 
 		++vb_it;
@@ -215,13 +234,9 @@ try
 		);
 
 		(*vb_it).set<
-			color_type
+			texpos2_type
 		>(
-			sge::image::color::any::convert<
-				sge::image::color::bgra8_format
-			>(
-				sge::image::colors::yellow()
-			)
+			vec2(0.f, 1.f)
 		);
 
 		++vb_it;
@@ -233,13 +248,9 @@ try
 		);
 
 		(*vb_it).set<
-			color_type
+			texpos2_type
 		>(
-			sge::image::color::any::convert<
-				sge::image::color::bgra8_format
-			>(
-				sge::image::colors::magenta()
-			)
+			vec2(1.f, 0.f)
 		);
 
 		++vb_it;
@@ -251,21 +262,14 @@ try
 		);
 
 		(*vb_it).set<
-			color_type
+			texpos2_type
 		>(
-			sge::image::color::any::convert<
-				sge::image::color::bgra8_format
-			>(
-				sge::image::colors::red()
-			)
+			vec2(1.f, 1.f)
 		);
 	}
 
-//! [index_format_declaration]
 	typedef sge::renderer::index::format_16 index_format;
-//! [index_format_declaration]
 
-//! [index_buffer_declaration]
 	sge::renderer::index_buffer_ptr const index_buffer(
 		sys.renderer().create_index_buffer(
 			sge::renderer::index::dynamic::make_format<
@@ -277,9 +281,7 @@ try
 			sge::renderer::resource_flags::none
 		)
 	);
-//! [index_buffer_declaration]
 
-//! [index_buffer_lock]
 	{
 		sge::renderer::scoped_index_lock const iblock(
 			*index_buffer,
@@ -293,8 +295,7 @@ try
 		index_view const view(
 			iblock.value()
 		);
-//! [index_buffer_lock]
-//! [index_buffer_fill]
+
 		index_view::iterator it(
 			view.begin()
 		);
@@ -308,7 +309,21 @@ try
 		(*it++).set(static_cast<index_value_type>(3));
 		(*it++).set(static_cast<index_value_type>(2));
 	}
-//! [index_buffer_fill]
+
+	sge::renderer::texture::planar_ptr const texture(
+		sge::renderer::texture::create_planar_from_path(
+			sge::config::media_path()
+			/ FCPPT_TEXT("images")
+			/ FCPPT_TEXT("grass.png"),
+			sys.renderer(),
+			sys.image_loader(),
+			sge::renderer::texture::mipmap::off(),
+			sge::renderer::texture::address_mode2(
+				sge::renderer::texture::address_mode::clamp
+			),
+			sge::renderer::resource_flags::none
+		)
+	);
 
 	bool running = true;
 
@@ -339,11 +354,18 @@ try
 			*vertex_buffer
 		);
 
+		sge::renderer::texture::scoped const tex_context(
+			sys.renderer(),
+			*texture,
+			sge::renderer::stage(
+				0u
+			)
+		);
+
 		sge::renderer::scoped_block const block(
 			sys.renderer()
 		);
 
-//! [render_indexed]
 		sys.renderer().render_indexed(
 			*index_buffer,
 			sge::renderer::first_vertex(
@@ -360,7 +382,6 @@ try
 				0u
 			)
 		);
-//! [render_indexed]
 	}
 }
 catch(

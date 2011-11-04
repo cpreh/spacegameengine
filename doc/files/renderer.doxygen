@@ -41,6 +41,9 @@ different colors for every vertex.
 
 \image html renderer_colored_triangle.png "A triangle with three different vertex colors"
 
+The colors are only defined for each vertex. The colors in between are
+interpolated.
+
 The first vertex attribute we declare is a position.  This is always needed if
 you use the fixed function pipeline.
 
@@ -182,8 +185,8 @@ refers to a vertex in a vertex buffer. It can go from 0 to vertex_count - 1.
 Like the vertex format, there also exists an \em index \em format. However, the
 index format is much easier, because there currently are only two
 possibilities: sge::renderer::index::format_16 and
-sge::renderer::index::format_32. The number says how many bits of storage an
-index will take.  So, for example with format_16 the limits the size of a
+sge::renderer::index::format_32. The number tells how many bits of storage an
+index will take. So for example, with format_16 this limits the size of a
 vertex buffer to 65535 elements.
 
 In this example, we choose 16 bit indices.
@@ -217,9 +220,23 @@ version will be used, which is sge::renderer::device::render_indexed.
 \snippet vertex_index.cpp render_indexed
 
 Here, we say that we want to draw two triangles, indicated by the primitive
-count and we need the first four vertices for this. Basically, first_vertex and
+count, and we need the first four vertices for this. Basically, first_vertex and
 vertex_count set the limitations which values the indices can hold. To be most
-conservative, 0 and vertex_buffer::size() should be used.  first_index tells
+conservative, 0 and vertex_buffer::size() should be used. first_index tells
 where we start in the index buffer.
 
+\section textures Textures
+
+Instead of defining one color per vertex, which are then interpolated, we can
+map an image onto a triangle. A resource that stores such an image is called a
+\em texture.
+
+Which portion of the texture is shown is determined by the \em texture \em
+coordinates of each vertex. These are simply positions into a texture starting
+from (0,0) at the top left to (1,1) at the bottom right.
+
+\subsection vertex_format_for_textures Vertex Format for Textures
+
+In the following example, a texture should be mapped onto our quad. Therefore,
+we have to replace the vertex colors by texture coordinates.
 */
