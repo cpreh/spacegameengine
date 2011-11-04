@@ -44,6 +44,7 @@ class stream_sound
 public:
 	explicit
 	stream_sound(
+		audio::sound::nonpositional_parameters const &,
 		audio::file_ptr);
 
 	explicit

@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/play_status.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
+#include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
@@ -47,6 +48,7 @@ class source
 public:
 	explicit
 	source(
+		audio::sound::nonpositional_parameters const &,
 		ALuint buffer);
 
 	explicit
@@ -55,7 +57,8 @@ public:
 		ALuint buffer);
 
 	explicit
-	source();
+	source(
+		audio::sound::nonpositional_parameters const &);
 
 	explicit
 	source(
@@ -137,6 +140,13 @@ public:
 	void
 	outer_cone_angle(
 		audio::scalar);
+
+	audio::scalar
+	outer_cone_gain() const;
+
+	void
+	outer_cone_gain(
+		audio::scalar);
 protected:
 	virtual void
 	do_play();
@@ -162,6 +172,10 @@ private:
 	void
 	init(
 		audio::sound::positional_parameters const &);
+
+	void
+	init(
+		audio::sound::nonpositional_parameters const &);
 
 	void
 	positional(

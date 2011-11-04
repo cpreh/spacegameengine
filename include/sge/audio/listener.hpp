@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_LISTENER_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/audio/angle_fwd.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/symbol.hpp>
 #include <sge/audio/vector.hpp>
+#include <sge/audio/direction/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -43,26 +43,26 @@ protected:
 	SGE_AUDIO_SYMBOL explicit
 	listener();
 public:
-	virtual vector const
+	virtual audio::vector const
 	position() const = 0;
 
 	virtual void
 	position(
-		vector const &) = 0;
+		audio::vector const &) = 0;
 
-	virtual vector const
+	virtual audio::vector const
 	linear_velocity() const = 0;
 
 	virtual void
 	linear_velocity(
-		vector const &) = 0;
+		audio::vector const &) = 0;
 
-	virtual angle const
+	virtual direction::object const
 	direction() const = 0;
 
 	virtual void
 	direction(
-		angle const &) = 0;
+		direction::object const &) = 0;
 
 	SGE_AUDIO_SYMBOL virtual
 	~listener() = 0;

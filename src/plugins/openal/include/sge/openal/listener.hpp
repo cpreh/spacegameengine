@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_LISTENER_HPP_INCLUDED
 #define SGE_OPENAL_LISTENER_HPP_INCLUDED
 
-#include <sge/audio/angle.hpp>
+#include <sge/audio/direction/object.hpp>
 #include <sge/audio/listener.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -60,14 +60,14 @@ public:
 
 	void
 	direction(
-		audio::angle const &);
+		audio::direction::object const &);
 
-	audio::angle const
+	audio::direction::object const
 	direction() const;
 private:
 	audio::vector position_;
 	audio::vector linear_velocity_;
-	audio::angle angle_;
+	audio::direction::object angle_;
 };
 }
 }

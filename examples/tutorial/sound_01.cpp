@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
@@ -70,7 +71,8 @@ try
 
 	sge::audio::sound::base_ptr const sound(
 		sys.audio_player().create_nonpositional_stream(
-			file
+			file,
+			sge::audio::sound::nonpositional_parameters()
 		)
 	);
 

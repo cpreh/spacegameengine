@@ -111,13 +111,16 @@ sge::openal::buffer::create_positional(
 }
 
 sge::audio::sound::base_ptr const
-sge::openal::buffer::create_nonpositional()
+sge::openal::buffer::create_nonpositional(
+	sge::audio::sound::nonpositional_parameters const &_param)
 {
 	return
 		audio::sound::base_ptr(
 			fcppt::make_shared_ptr<
 				openal::source
 			>(
+				fcppt::cref(
+					_param),
 				holder_.get()
 			)
 		);

@@ -56,15 +56,17 @@ sge::openal::player::player()
 	listener().linear_velocity(
 		audio::vector::null());
 	listener().direction(
-		audio::angle(
-			audio::vector(
-				static_cast<audio::scalar>(0),
-				static_cast<audio::scalar>(0),
-				static_cast<audio::scalar>(1)),
-			audio::vector(
-				static_cast<audio::scalar>(0),
-				static_cast<audio::scalar>(1),
-				static_cast<audio::scalar>(0))));
+		audio::direction::object(
+			audio::direction::forward(
+				audio::vector(
+					static_cast<audio::scalar>(0),
+					static_cast<audio::scalar>(0),
+					static_cast<audio::scalar>(1))),
+			audio::direction::up(
+				audio::vector(
+					static_cast<audio::scalar>(0),
+					static_cast<audio::scalar>(1),
+					static_cast<audio::scalar>(0)))));
 }
 
 sge::openal::player::~player()
@@ -178,7 +180,8 @@ sge::openal::player::create_positional_stream(
 
 sge::audio::sound::base_ptr const
 sge::openal::player::create_nonpositional_stream(
-	audio::file_ptr const _file
+	audio::file_ptr const _file,
+	audio::sound::nonpositional_parameters const &_parameters
 )
 {
 	return
@@ -186,6 +189,8 @@ sge::openal::player::create_nonpositional_stream(
 			fcppt::make_shared_ptr<
 				openal::stream_sound
 			>(
+				fcppt::cref(
+					_parameters),
 				_file
 			)
 		);

@@ -37,9 +37,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::openal::stream_sound::stream_sound(
+	audio::sound::nonpositional_parameters const &p,
 	audio::file_ptr const _audio_file)
 :
-	source(),
+	source(
+		p),
 	audio_file_(
 		_audio_file),
 	buffer_samples_(

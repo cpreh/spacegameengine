@@ -30,12 +30,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/default_sort.hpp>
+#include <sge/sprite/defaults/defaults.hpp>
 #include <sge/sprite/depth_type.hpp>
 #include <sge/sprite/dim.hpp>
 #include <sge/sprite/dont_sort.hpp>
 #include <sge/sprite/external_system_decl.hpp>
 #include <sge/sprite/external_system_fwd.hpp>
 #include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/intrusive/intrusive.hpp>
 #include <sge/sprite/matrix.hpp>
 #include <sge/sprite/no_color.hpp>
 #include <sge/sprite/object.hpp>
@@ -47,12 +49,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/point_size.hpp>
+#include <sge/sprite/primitives/primitives.hpp>
 #include <sge/sprite/projection_matrix.hpp>
 #include <sge/sprite/rect.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <sge/sprite/render_one_advanced.hpp>
 #include <sge/sprite/render_states.hpp>
 #include <sge/sprite/repetition_type.hpp>
+#include <sge/sprite/roles/roles.hpp>
 #include <sge/sprite/rotation_type.hpp>
 #include <sge/sprite/set_matrices.hpp>
 #include <sge/sprite/symbol.hpp>
@@ -77,10 +81,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_texture_coordinates.hpp>
 #include <sge/sprite/with_unspecified_dim.hpp>
 #include <sge/sprite/with_visibility.hpp>
-#include <sge/sprite/defaults/defaults.hpp>
-#include <sge/sprite/intrusive/intrusive.hpp>
-#include <sge/sprite/primitives/primitives.hpp>
-#include <sge/sprite/roles/roles.hpp>
-
 
 #endif

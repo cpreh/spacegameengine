@@ -40,62 +40,78 @@ public:
 	SGE_AUDIO_SYMBOL explicit
 	positional_parameters();
 
-	SGE_AUDIO_SYMBOL vector const &
+	SGE_AUDIO_SYMBOL audio::vector const &
 	position() const;
 
 	SGE_AUDIO_SYMBOL positional_parameters &
 	position(
-		vector const &);
+		audio::vector const &);
 
-	SGE_AUDIO_SYMBOL vector const &
+	SGE_AUDIO_SYMBOL audio::vector const &
 	linear_velocity() const;
 
 	SGE_AUDIO_SYMBOL positional_parameters &
 	linear_velocity(
-		vector const &);
+		audio::vector const &);
 
-	SGE_AUDIO_SYMBOL scalar const &
+	SGE_AUDIO_SYMBOL audio::scalar const &
 	gain() const;
 
 	SGE_AUDIO_SYMBOL positional_parameters &
 	gain(
-		scalar const &);
+		audio::scalar const &);
 
-	SGE_AUDIO_SYMBOL scalar const &
+	SGE_AUDIO_SYMBOL audio::scalar const &
+	pitch() const;
+
+	SGE_AUDIO_SYMBOL positional_parameters &
+	pitch(
+		audio::scalar const &);
+
+	SGE_AUDIO_SYMBOL audio::scalar const &
 	rolloff() const;
 
 	SGE_AUDIO_SYMBOL positional_parameters &
 	rolloff(
-		scalar const &);
+		audio::scalar const &);
 
-	SGE_AUDIO_SYMBOL vector const &
+	SGE_AUDIO_SYMBOL audio::vector const &
 	direction() const;
 
 	SGE_AUDIO_SYMBOL positional_parameters &
 	direction(
-		vector const &);
+		audio::vector const &);
 
-	SGE_AUDIO_SYMBOL scalar const &
+	SGE_AUDIO_SYMBOL audio::scalar const &
 	inner_cone_angle() const;
 
 	SGE_AUDIO_SYMBOL positional_parameters &
 	inner_cone_angle(
-		scalar const &);
+		audio::scalar const &);
 
-	SGE_AUDIO_SYMBOL scalar const &
+	SGE_AUDIO_SYMBOL audio::scalar const &
 	outer_cone_angle() const;
 
 	SGE_AUDIO_SYMBOL positional_parameters &
 	outer_cone_angle(
-		scalar const &);
+		audio::scalar const &);
+
+	SGE_AUDIO_SYMBOL audio::scalar const &
+	outer_cone_gain() const;
+
+	SGE_AUDIO_SYMBOL positional_parameters &
+	outer_cone_gain(
+		audio::scalar const &);
 private:
-	vector position_;
-	vector linear_velocity_;
-	scalar gain_;
-	scalar rolloff_;
-	vector direction_;
-	scalar inner_cone_angle_;
-	scalar outer_cone_angle_;
+	audio::vector position_;
+	audio::vector linear_velocity_;
+	audio::scalar gain_;
+	audio::scalar pitch_;
+	audio::scalar rolloff_;
+	audio::vector direction_;
+	audio::scalar inner_cone_angle_;
+	audio::scalar outer_cone_angle_;
+	audio::scalar outer_cone_gain_;
 };
 }
 }

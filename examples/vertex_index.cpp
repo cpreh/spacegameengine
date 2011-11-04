@@ -29,11 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_none.hpp>

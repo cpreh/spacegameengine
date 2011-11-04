@@ -52,10 +52,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/texcoord.hpp>
 #include <sge/model/obj/texcoord_fwd.hpp>
 #include <sge/model/obj/texcoord_sequence.hpp>
+#include <sge/model/obj/vb_converter/vb_converter.hpp>
 #include <sge/model/obj/vertex.hpp>
 #include <sge/model/obj/vertex_fwd.hpp>
 #include <sge/model/obj/vertex_sequence.hpp>
-#include <sge/model/obj/vb_converter/vb_converter.hpp>
-
 
 #endif

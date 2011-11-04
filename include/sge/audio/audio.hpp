@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_AUDIO_HPP_INCLUDED
 #define SGE_AUDIO_AUDIO_HPP_INCLUDED
 
-#include <sge/audio/angle.hpp>
-#include <sge/audio/angle_fwd.hpp>
 #include <sge/audio/bad_sound_alloc.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_fwd.hpp>
 #include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/channel_type.hpp>
+#include <sge/audio/direction/direction.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/exception_fwd.hpp>
 #include <sge/audio/file.hpp>
@@ -54,10 +53,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sample_container.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/scalar.hpp>
+#include <sge/audio/sound/sound.hpp>
 #include <sge/audio/symbol.hpp>
 #include <sge/audio/unsupported_format.hpp>
 #include <sge/audio/vector.hpp>
-#include <sge/audio/sound/sound.hpp>
-
 
 #endif

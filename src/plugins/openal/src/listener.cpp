@@ -121,7 +121,7 @@ sge::openal::listener::position() const
 
 void
 sge::openal::listener::direction(
-	audio::angle const &n)
+	audio::direction::object const &n)
 {
 	ALfloat const vec[6] =
 		{
@@ -140,7 +140,7 @@ sge::openal::listener::direction(
 }
 
 
-sge::audio::angle const
+sge::audio::direction::object const
 sge::openal::listener::direction() const
 {
 	return angle_;

@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/array_fwd.hpp>
+#include <sge/parse/json/config/config.hpp>
+#include <sge/parse/json/convert/convert.hpp>
 #include <sge/parse/json/convert_from.hpp>
 #include <sge/parse/json/convert_to.hpp>
 #include <sge/parse/json/element_vector.hpp>
@@ -52,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/optional_element_vector.hpp>
 #include <sge/parse/json/optional_member_vector.hpp>
+#include <sge/parse/json/output/output.hpp>
 #include <sge/parse/json/output_tabbed.hpp>
 #include <sge/parse/json/parse_file.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
@@ -65,9 +68,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/string_to_path.hpp>
 #include <sge/parse/json/string_to_value.hpp>
 #include <sge/parse/json/value.hpp>
-#include <sge/parse/json/config/config.hpp>
-#include <sge/parse/json/convert/convert.hpp>
-#include <sge/parse/json/output/output.hpp>
-
 
 #endif

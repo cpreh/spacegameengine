@@ -49,47 +49,54 @@ public:
 	SGE_AUDIO_SYMBOL
 	virtual ~positional();
 
-	virtual vector const
+	virtual audio::vector const
 	position() const = 0;
 
 	virtual void
 	position(
-		vector const &) = 0;
+		audio::vector const &) = 0;
 
-	virtual vector const
+	virtual audio::vector const
 	linear_velocity() const = 0;
 
 	virtual void
 	linear_velocity(
-		vector const &) = 0;
+		audio::vector const &) = 0;
 
 	virtual void
 	rolloff(
-		scalar) = 0;
+		audio::scalar) = 0;
 
-	virtual scalar
+	virtual audio::scalar
 	rolloff() const = 0;
 
 	virtual void
 	direction(
-		vector const &) = 0;
+		audio::vector const &) = 0;
 
-	virtual vector const
+	virtual audio::vector const
 	direction() const = 0;
 
 	virtual void
 	inner_cone_angle(
-		scalar) = 0;
+		audio::scalar) = 0;
 
-	virtual scalar
+	virtual audio::scalar
 	inner_cone_angle() const = 0;
 
 	virtual void
 	outer_cone_angle(
-		scalar) = 0;
+		audio::scalar) = 0;
 
-	virtual scalar
+	virtual audio::scalar
 	outer_cone_angle() const = 0;
+
+	virtual void
+	outer_cone_gain(
+		audio::scalar) = 0;
+
+	virtual audio::scalar
+	outer_cone_gain() const = 0;
 };
 }
 }

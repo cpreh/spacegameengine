@@ -1,8 +1,31 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <sge/extension_set.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
+#include <sge/audio/listener.hpp>
+#include <sge/audio/direction/object.hpp>
 #include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/config/media_path.hpp>
 #ifdef SGE_EXAMPLES_AUDIO_MINIMAL_USE_SYSTEMS_INIT
 #include <sge/systems/audio_player_default.hpp>
@@ -22,6 +45,7 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -109,7 +133,12 @@ try
 			*soundfile);
 
 	sge::audio::sound::base_ptr const s =
-		buf->create_nonpositional();
+		buf->create_nonpositional(
+			sge::audio::sound::nonpositional_parameters()
+				.gain(
+					static_cast<sge::audio::scalar>(1.0f))
+				.pitch(
+					static_cast<sge::audio::scalar>(1.0f)));
 //! [create_file_buffer_and_sound]
 
 //! [play]
@@ -120,10 +149,38 @@ try
 		s->update();
 //! [play]
 
+//! [listener_direction]
+	player.listener().position(
+		sge::audio::vector(
+			0.0f,
+			0.0f,
+			0.0f));
+
+	player.listener().linear_velocity(
+		sge::audio::vector(
+			0.0f,
+			0.0f,
+			0.0f));
+
+	player.listener().direction(
+		sge::audio::direction::object(
+			sge::audio::direction::forward(
+				sge::audio::vector(
+					0.0f,
+					0.0f,
+					1.0f)),
+			sge::audio::direction::up(
+				sge::audio::vector(
+					0.0f,
+					1.0f,
+					0.0f))));
+//! [listener_direction]
+
 //! [create_and_play_streaming]
 	sge::audio::sound::base_ptr const streaming =
 		player.create_nonpositional_stream(
-			soundfile);
+			soundfile,
+			sge::audio::sound::nonpositional_parameters());
 
 	while (streaming->status() != sge::audio::sound::play_status::stopped)
 		streaming->update();

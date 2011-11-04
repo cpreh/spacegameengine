@@ -39,8 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/body/rotation_change_fn.hpp>
 #include <sge/projectile/body/scoped.hpp>
 #include <sge/projectile/body/scoped_fwd.hpp>
-#include <sge/projectile/body/user_data.hpp>
 #include <sge/projectile/body/solidity/solidity.hpp>
-
+#include <sge/projectile/body/user_data.hpp>
 
 #endif

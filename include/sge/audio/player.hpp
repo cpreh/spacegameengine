@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/symbol.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -91,7 +92,8 @@ public:
 
 	virtual sound::base_ptr const
 	create_nonpositional_stream(
-		audio::file_ptr
+		audio::file_ptr,
+		sound::nonpositional_parameters const &
 	) = 0;
 
 	virtual player_capabilities_field const

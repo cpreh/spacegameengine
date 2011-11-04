@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/const_tag.hpp>
+#include <sge/renderer/vf/dynamic/dynamic.hpp>
 #include <sge/renderer/vf/element_type.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/format_fwd.hpp>
@@ -61,7 +62,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view_decl.hpp>
 #include <sge/renderer/vf/view_fwd.hpp>
 #include <sge/renderer/vf/view_impl.hpp>
-#include <sge/renderer/vf/dynamic/dynamic.hpp>
-
 
 #endif

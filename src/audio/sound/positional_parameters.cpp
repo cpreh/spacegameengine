@@ -23,26 +23,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::audio::sound::positional_parameters::positional_parameters()
 :
 	position_(
-		vector::null()),
+		audio::vector::null()),
 	linear_velocity_(
-		vector::null()),
+		audio::vector::null()),
 	gain_(
-		static_cast<scalar>(
+		static_cast<audio::scalar>(
+			1)),
+	pitch_(
+		static_cast<audio::scalar>(
 			1)),
 	rolloff_(
-		static_cast<scalar>(
+		static_cast<audio::scalar>(
 			1)),
 	// setting the direction vector to zero creates a non-directional source.
 	// this, of course, assumes that the zero vector is uniquely identified by
 	// (0.0f,0.0f,0.0f) which is not really guaranteed
 	direction_(
-		vector::null()),
+		audio::vector::null()),
 	inner_cone_angle_(
-		static_cast<scalar>(
+		static_cast<audio::scalar>(
 			360)),
 	outer_cone_angle_(
-		static_cast<scalar>(
-			360))
+		static_cast<audio::scalar>(
+			360)),
+	outer_cone_gain_(
+		static_cast<audio::scalar>(
+			1))
 {
 }
 
@@ -71,6 +77,20 @@ sge::audio::sound::positional_parameters::linear_velocity(
 	sge::audio::vector const &_linear_velocity)
 {
 	linear_velocity_ = _linear_velocity;
+	return *this;
+}
+
+sge::audio::scalar const &
+sge::audio::sound::positional_parameters::pitch() const
+{
+	return pitch_;
+}
+
+sge::audio::sound::positional_parameters &
+sge::audio::sound::positional_parameters::pitch(
+	sge::audio::scalar const &_pitch)
+{
+	pitch_ = _pitch;
 	return *this;
 }
 
@@ -141,5 +161,19 @@ sge::audio::sound::positional_parameters::outer_cone_angle(
 	sge::audio::scalar const &_outer_cone_angle)
 {
 	outer_cone_angle_ = _outer_cone_angle;
+	return *this;
+}
+
+sge::audio::scalar const &
+sge::audio::sound::positional_parameters::outer_cone_gain() const
+{
+	return outer_cone_gain_;
+}
+
+sge::audio::sound::positional_parameters &
+sge::audio::sound::positional_parameters::outer_cone_gain(
+	sge::audio::scalar const &_outer_cone_gain)
+{
+	outer_cone_gain_ = _outer_cone_gain;
 	return *this;
 }

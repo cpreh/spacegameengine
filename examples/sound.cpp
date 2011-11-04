@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/log/global.hpp>
 #include <sge/systems/audio_player_default.hpp>
@@ -189,7 +190,8 @@ try
 	wait_for_input();
 
 	sge::audio::sound::base_ptr const s =
-		buf->create_nonpositional();
+		buf->create_nonpositional(
+			sge::audio::sound::nonpositional_parameters());
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Nonpositional source loaded\n")

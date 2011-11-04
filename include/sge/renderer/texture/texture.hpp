@@ -60,6 +60,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/depth_stencil_parameters.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_ptr.hpp>
+#include <sge/renderer/texture/filter/filter.hpp>
+#include <sge/renderer/texture/mipmap/mipmap.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -73,8 +75,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/volume_parameters.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_ptr.hpp>
-#include <sge/renderer/texture/filter/filter.hpp>
-#include <sge/renderer/texture/mipmap/mipmap.hpp>
-
 
 #endif

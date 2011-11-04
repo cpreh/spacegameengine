@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/play_status.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -34,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::openal::source::source(
+	sge::audio::sound::nonpositional_parameters const &p,
 	ALuint const _buffer)
 :
 	source_()
@@ -53,7 +55,7 @@ sge::openal::source::source(
 		audio::exception)
 
 	init(
-		audio::sound::positional_parameters());
+		p);
 
 	positional(
 		false);
@@ -87,12 +89,13 @@ sge::openal::source::source(
 		true);
 }
 
-sge::openal::source::source()
+sge::openal::source::source(
+	sge::audio::sound::nonpositional_parameters const &p)
 :
 	source_()
 {
 	init(
-		audio::sound::positional_parameters());
+		p);
 
 	positional(
 		false);
@@ -423,6 +426,32 @@ sge::openal::source::outer_cone_angle(
 	)
 }
 
+sge::audio::scalar
+sge::openal::source::outer_cone_gain() const
+{
+	return outer_cone_gain_;
+}
+
+void
+sge::openal::source::outer_cone_gain(
+	audio::scalar const n)
+{
+	outer_cone_gain_ =
+		n;
+
+	alSourcef(
+		source_id(),
+		AL_CONE_OUTER_GAIN,
+		static_cast<ALfloat>(
+			outer_cone_gain_)
+	);
+
+	SGE_OPENAL_CHECK_STATE(
+		FCPPT_TEXT("alSourcef failed"),
+		audio::exception
+	)
+}
+
 void
 sge::openal::source::do_play()
 {
@@ -490,6 +519,9 @@ sge::openal::source::init(
 	linear_velocity(
 		p.linear_velocity());
 
+	pitch(
+		p.pitch());
+
 	gain(
 		p.gain());
 
@@ -504,6 +536,18 @@ sge::openal::source::init(
 
 	direction(
 		p.direction());
+}
+// that's a hack because we have two constructors
+void
+sge::openal::source::init(
+	audio::sound::nonpositional_parameters const &p)
+{
+	this->init(
+		audio::sound::positional_parameters()
+			.gain(
+				p.gain())
+			.pitch(
+				p.pitch()));
 }
 
 void

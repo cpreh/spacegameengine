@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_CONSOLE_HPP_INCLUDED
 
 #include <sge/console/arg_list.hpp>
+#include <sge/console/callback/callback.hpp>
 #include <sge/console/cursor.hpp>
 #include <sge/console/error_callback.hpp>
 #include <sge/console/error_callback_fn.hpp>
@@ -48,7 +49,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/sprite_system.hpp>
 #include <sge/console/sprite_type_choices.hpp>
 #include <sge/console/symbol.hpp>
-#include <sge/console/callback/callback.hpp>
-
 
 #endif

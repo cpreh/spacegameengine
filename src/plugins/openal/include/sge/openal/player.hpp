@@ -89,7 +89,8 @@ public:
 
 	audio::sound::base_ptr const
 	create_nonpositional_stream(
-		audio::file_ptr);
+		audio::file_ptr,
+		audio::sound::nonpositional_parameters const &);
 
 	audio::player_capabilities_field const
 	capabilities() const;
