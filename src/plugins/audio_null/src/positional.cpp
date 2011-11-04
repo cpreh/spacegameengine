@@ -166,3 +166,16 @@ sge::audio_null::positional::outer_cone_angle() const
 {
 	return audio::scalar();
 }
+
+void
+sge::audio_null::positional::outer_cone_gain(
+	audio::scalar
+)
+{
+}
+
+sge::audio::scalar
+sge::audio_null::positional::outer_cone_gain() const
+{
+	return audio::scalar();
+}

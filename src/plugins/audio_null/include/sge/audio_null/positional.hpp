@@ -129,6 +129,14 @@ public:
 
 	audio::scalar
 	outer_cone_angle() const;
+
+	void
+	outer_cone_gain(
+		audio::scalar
+	);
+
+	audio::scalar
+	outer_cone_gain() const;
 };
 
 }

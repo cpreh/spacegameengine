@@ -65,7 +65,7 @@ sge::audio_null::listener::linear_velocity(
 	linear_velocity_ = _linear_velocity;
 }
 
-sge::audio::angle const
+sge::audio::direction::object const
 sge::audio_null::listener::direction() const
 {
 	return direction_;
@@ -73,7 +73,7 @@ sge::audio_null::listener::direction() const
 
 void
 sge::audio_null::listener::direction(
-	audio::angle const &_direction
+	audio::direction::object const &_direction
 )
 {
 	direction_ = _direction;

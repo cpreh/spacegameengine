@@ -168,6 +168,7 @@ private:
 	audio::scalar rolloff_;
 	audio::scalar inner_cone_angle_;
 	audio::scalar outer_cone_angle_;
+	audio::scalar outer_cone_gain_;
 
 	void
 	init(

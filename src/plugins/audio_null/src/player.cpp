@@ -109,7 +109,8 @@ sge::audio_null::player::create_positional_stream(
 
 sge::audio::sound::base_ptr const
 sge::audio_null::player::create_nonpositional_stream(
-	audio::file_ptr
+	audio::file_ptr,
+	audio::sound::nonpositional_parameters const &
 )
 {
 	return

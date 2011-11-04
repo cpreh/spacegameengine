@@ -44,7 +44,8 @@ sge::audio_null::buffer::create_positional(
 }
 
 sge::audio::sound::base_ptr const
-sge::audio_null::buffer::create_nonpositional()
+sge::audio_null::buffer::create_nonpositional(
+	audio::sound::nonpositional_parameters const &)
 {
 	return
 		audio::sound::base_ptr(
