@@ -1,12 +1,19 @@
 /**
 \page audio audio
 
+
 \section abstract Abstract
 
-\em sge::audio provides an abstraction for 3D audio APIs like OpenAL or
+<em>sge::audio provides an abstraction for 3D audio APIs like OpenAL or
 DirectSound. It handles positional (and directional) sound sources, as well as
 streaming sounds (for background music, for example). sge::audio also contains
-audio file loaders.
+audio file loaders.</em>
+
+\section Subsections
+
+<ul>
+<li>\subpage audio_example</li>
+</ul>
 
 \section overview Overview
 
@@ -87,14 +94,14 @@ directly create streaming sounds from your sge::audio::file. The audio
 subsystem will keep the file pointer and extract samples from it when the
 playback buffer empties.
 
-\section example A first real example
+\page audio_example A first real example
 
-\subsection Initialization
+\section Initialization
 
 We have to initialize the loader(s) and the player plugins first. This can be
 done manually or using the sge::systems::instance helper class.
 
-\subsubsection systems_init sge::systems::instance initialization
+\subsection systems_init sge::systems::instance initialization
 
 Using sge::systems::instance, initialization of the player and the loaders is
 very simple:
@@ -128,7 +135,7 @@ href="http://fcppt.net/fcppt/documentation/container/bitfield/rationale.html">bi
 too. In the future, this might contain flags such as "is threadsafe", but for
 now, it's a dummy.
 
-\subsubsection manual_init Manual initialization
+\subsection manual_init Manual initialization
 
 To initialize the player and loader manually, we first need a plugin manager.
 That's the class that can resolve plugin types like sge::audio::player and
@@ -167,7 +174,43 @@ plugin manager and the pair of loader capabilities and extensions.
 
 And that's it!
 
-\subsection buffer_creation Creating a buffer
+\section buffer_creation Playing a file
 
+Let's play a sound now! We have to decide which type of sound it will be
+(streaming/nonstreaming, positional/nonpositional). Since streaming sounds are
+a bit too simple, let's create a <em>nonstreaming sound</em> which is
+<em>nonpositional</em> (we'll learn about 3D sound later).
+
+To do that, we first need an <em>audio file</em> and then a <em>buffer</em>, as
+mentioned in the overview. Using the buffer (the internal audio file
+representation), we can create an actual sound.
+
+\snippet audio_minimal.cpp create_file_buffer_and_sound
+
+Easy enough, isn't it? First we load the file (from sge's media path in this
+case), then we create a buffer, passing the source file (which can be discarded
+after that), and then we use the buffer to create a nonpositional sound (which
+takes no arguments on construction).
+
+Creating a sound doesn't play it automatically. We have to call the
+sge::audio::sound::play method, indicating if we want to play it once or in a
+loop. Let's play it once until it's finished.
+
+\note
+Due to technical difficulties, you cannot play a sound a specific number of
+times. At least not yet.
+
+\snippet audio_minimal.cpp play
+
+Note that we call the sge::audio::sound::update function. This is mainly useful
+for <em>streaming</em> sounds which have to have their buffers updated from
+disk. But there might be plugins that need to update nonstreaming sounds, too.
+So it is advised to call this function regularly, no matter what kind of
+sound.
+
+Just to complete this introduction, here's how you create and play a
+nonpositional streaming sound:
+
+\snippet audio_minimal.cpp create_and_play_streaming
 
 */

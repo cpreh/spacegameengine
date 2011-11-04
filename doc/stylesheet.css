@@ -14,9 +14,13 @@ h1 {
 */
 
 .title {
-	font-size: 150%;
+	font-size: 300%;
 	font-weight: bold;
-	margin: 10px 2px;
+	text-shadow: 0px 2px 3px #555;
+/*	margin: 10px 2px; */
+	margin-left: 2em;
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
 
 /*

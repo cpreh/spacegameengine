@@ -97,6 +97,7 @@ try
 //! [manual_initialization_loader]
 #endif
 
+//! [create_file_buffer_and_sound]
 	sge::audio::file_ptr const soundfile =
 		loader.load(
 			sge::config::media_path()
@@ -109,12 +110,24 @@ try
 
 	sge::audio::sound::base_ptr const s =
 		buf->create_nonpositional();
+//! [create_file_buffer_and_sound]
 
+//! [play]
 	s->play(
 		sge::audio::sound::repeat::once);
 
 	while (s->status() != sge::audio::sound::play_status::stopped)
 		s->update();
+//! [play]
+
+//! [create_and_play_streaming]
+	sge::audio::sound::base_ptr const streaming =
+		player.create_nonpositional_stream(
+			soundfile);
+
+	while (streaming->status() != sge::audio::sound::play_status::stopped)
+		streaming->update();
+//! [create_and_play_streaming]
 }
 catch(
 	fcppt::exception const &_error)
