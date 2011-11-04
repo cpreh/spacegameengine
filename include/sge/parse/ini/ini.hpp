@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/grammar.hpp>
 #include <sge/parse/ini/header_name_equal.hpp>
-#include <sge/parse/ini/output/output.hpp>
 #include <sge/parse/ini/parse_file.hpp>
 #include <sge/parse/ini/parse_range.hpp>
 #include <sge/parse/ini/parse_stream.hpp>
@@ -35,5 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/section_fwd.hpp>
 #include <sge/parse/ini/section_vector.hpp>
 #include <sge/parse/ini/string.hpp>
+#include <sge/parse/ini/output/output.hpp>
+
 
 #endif

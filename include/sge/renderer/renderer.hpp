@@ -69,8 +69,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/glsl/glsl.hpp>
-#include <sge/renderer/index/index.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
@@ -78,9 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_count.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
-#include <sge/renderer/light/light.hpp>
 #include <sge/renderer/lock_box.hpp>
-#include <sge/renderer/lock_flags/lock_flags.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
@@ -104,7 +100,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/plugin.hpp>
 #include <sge/renderer/primitive_count.hpp>
-#include <sge/renderer/projection/projection.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/refresh_rate.hpp>
@@ -134,7 +129,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/specular_color.hpp>
 #include <sge/renderer/stage.hpp>
-#include <sge/renderer/state/state.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/system.hpp>
@@ -147,7 +141,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/target_fwd.hpp>
 #include <sge/renderer/target_ptr.hpp>
-#include <sge/renderer/texture/texture.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
@@ -160,10 +153,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
-#include <sge/renderer/vf/vf.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/glsl/glsl.hpp>
+#include <sge/renderer/index/index.hpp>
+#include <sge/renderer/light/light.hpp>
+#include <sge/renderer/lock_flags/lock_flags.hpp>
+#include <sge/renderer/projection/projection.hpp>
+#include <sge/renderer/state/state.hpp>
+#include <sge/renderer/texture/texture.hpp>
+#include <sge/renderer/vf/vf.hpp>
+
 
 #endif
