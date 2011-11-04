@@ -55,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/symbol.hpp>
 #include <sge/audio/unsupported_format.hpp>
 #include <sge/audio/vector.hpp>
+#include <sge/audio/direction/direction.hpp>
 #include <sge/audio/sound/sound.hpp>
 
 

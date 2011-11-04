@@ -6,6 +6,11 @@ SET(
 	include/sge/audio/buffer_fwd.hpp
 	include/sge/audio/buffer_ptr.hpp
 	include/sge/audio/channel_type.hpp
+	include/sge/audio/direction/direction.hpp
+	include/sge/audio/direction/forward.hpp
+	include/sge/audio/direction/object.hpp
+	include/sge/audio/direction/object_fwd.hpp
+	include/sge/audio/direction/up.hpp
 	include/sge/audio/exception.hpp
 	include/sge/audio/exception_fwd.hpp
 	include/sge/audio/file.hpp
@@ -35,6 +40,8 @@ SET(
 	include/sge/audio/sound/base.hpp
 	include/sge/audio/sound/base_fwd.hpp
 	include/sge/audio/sound/base_ptr.hpp
+	include/sge/audio/sound/nonpositional_parameters.hpp
+	include/sge/audio/sound/nonpositional_parameters_fwd.hpp
 	include/sge/audio/sound/play_status.hpp
 	include/sge/audio/sound/positional.hpp
 	include/sge/audio/sound/positional_fwd.hpp
@@ -48,6 +55,7 @@ SET(
 	include/sge/audio/vector.hpp
 	src/audio/bad_sound_alloc.cpp
 	src/audio/buffer.cpp
+	src/audio/direction/object.cpp
 	src/audio/exception.cpp
 	src/audio/file.cpp
 	src/audio/file_exception.cpp
@@ -58,6 +66,7 @@ SET(
 	src/audio/player.cpp
 	src/audio/player_plugin.cpp
 	src/audio/sound/base.cpp
+	src/audio/sound/nonpositional_parameters.cpp
 	src/audio/sound/positional.cpp
 	src/audio/sound/positional_parameters.cpp
 	src/audio/unsupported_format.cpp
