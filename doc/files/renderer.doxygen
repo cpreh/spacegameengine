@@ -195,7 +195,9 @@ In this example, we choose 16 bit indices.
 
 \subsection writing_indices Writing Indices
 
-As with the vertex buffer, we have to create an index buffer to store the indices.
+As with the vertex buffer, we have to create an index buffer to store the
+indices. Six indices are needed because we want to draw two triangles, where
+each of them requires three vertices.
 
 \snippet vertex_index.cpp index_buffer_declaration
 
