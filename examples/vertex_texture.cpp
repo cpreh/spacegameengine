@@ -146,6 +146,7 @@ try
 		)
 	);
 
+//! [texture_vf_declaration]
 	typedef sge::renderer::vf::pos<
 		float,
 		3
@@ -168,6 +169,7 @@ try
 			format_part
 		>
 	> format;
+//! [texture_vf_declaration]
 
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
@@ -205,6 +207,7 @@ try
 			vblock.value()
 		);
 
+// ![write_vertices]
 		vertex_view::iterator vb_it(
 			vertices.begin()
 		);
@@ -266,6 +269,7 @@ try
 		>(
 			vec2(1.f, 1.f)
 		);
+// ![write_vertices]
 	}
 
 	typedef sge::renderer::index::format_16 index_format;
@@ -310,6 +314,7 @@ try
 		(*it++).set(static_cast<index_value_type>(2));
 	}
 
+// ![load_texture]
 	sge::renderer::texture::planar_ptr const texture(
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
@@ -324,6 +329,7 @@ try
 			sge::renderer::resource_flags::none
 		)
 	);
+// ![load_texture]
 
 	bool running = true;
 
@@ -354,6 +360,7 @@ try
 			*vertex_buffer
 		);
 
+//! [render_block]
 		sge::renderer::texture::scoped const tex_context(
 			sys.renderer(),
 			*texture,
@@ -382,6 +389,7 @@ try
 				0u
 			)
 		);
+//! [render_block]
 	}
 }
 catch(
