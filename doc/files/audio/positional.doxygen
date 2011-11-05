@@ -26,13 +26,17 @@ a sge::audio::listener. This listener has functions for setting and retrieving..
 </ul>
 
 What about the velocity, you say? Well, sounds as well as the listener have a
-velocity. which is used in Doppler calculations (see below).
+velocity, which is used in Doppler calculations (see below).
 
 The direction is represented by the sge::audio::direction::object class, which
 is a container for two vectors: up and forward. The third vector ("right") is
-calculated by taking the cross product of the two vectors. Here's how you set the listener's attributes:
+calculated by taking the cross product of the two vectors. Here's how you set
+the listener's attributes:
 
 \snippet audio_minimal.cpp listener_direction
+
+By default, the listener sits on the origin, looks at the positive z axis and
+has zero velocity.
 
 \section audio_positional_sounds Positional sounds
 
@@ -54,8 +58,8 @@ attributes when creating a sound:
 <li>Maximum distance</li>
 </ul>
 
-Note that the direction is a vector, not a sge::audio::direction::object.
-Sounds don't need an up vector. They work differently. Also note that the
+Note that the direction is a vector, not an sge::audio::direction::object.
+Sounds don't need an up vector -- they work differently. Also note that the
 direction vector is actually wrapped inside an fcppt::optional, since the
 source may be nondirectional.
 
@@ -75,20 +79,21 @@ image which illustrates it pretty well:
 
 \image html audio_sound_cones.gif "The two sound cones and corresponding angles"
 
-As you can see, a directional sound needs a direction vector, two angles (...of
+As you can see, a directional sound needs a direction vector, two angles (...for
 the two cones), as well as an inner gain and an outer gain. All of these
 quantities can be set using the sge::audio::sound::positional_parameters class
-when constructing a sound.  As everywhere else, <em>radians</em> are used to
-denote angles (not degrees like OpenAL does).
+when constructing a sound. <em>radians</em> are used to denote angles (not
+degrees like OpenAL does).
 
 The sge::audio::sound::positional_parameters sets sensible defaults so you
-don't have to specify anything. By default, a sound is
+don't have to specify anything if you're fine with what's provided. By default,
+a sound is...
 
 <ul>
-<li>nondirectional</li>
-<li>has a gain and pitch of 1.0</li>
-<li>is at the origin</li>
-<li>has velocity zero ("stands still")</li>
+<li>...nondirectional</li>
+<li>...has a gain and pitch of 1.0</li>
+<li>...is at the origin</li>
+<li>...has velocity zero ("stands still")</li>
 </ul>
 
 \section audio_distance_attenuation Distance attenuation
@@ -121,24 +126,29 @@ The gain is then adapted using the following formula:
 \textrm{attenuated gain} = \frac{\textrm{reference distance}}{\textrm{reference distance} + \textrm{rolloff factor} \cdot (\textrm{clamped distance} - \textrm{reference distance})}
 \f]
 
-Let's go through each parameter in this formula an analyze it's meaning. The following graph might help:
+Let's go through each parameter in this formula an analyze its meaning. The
+following graph might help:
 
 \image html audio_distance_attenuation_model.png "Playing around with the distance attenuation model"
 
 If the listener is in the <em>reference distance</em> from the sound, the gain
-will be 1.0 (or unchanged). The default value for the reference distance is 1.
+will be 1.0 (or unchanged). The default value for the reference distance is 1.0.
 
 If the listener is further away than the <em>maximum distance</em> from the
 sound, the gain will be 0.0. The default value is
 
 <code>std::numeric_limits<sge::audio::scalar>::max()</code>
 
-Everything inbetween depends on the <em>rolloff factor</em>. If the rolloff
+Everything in between depends on the <em>rolloff factor</em>. If the rolloff
 factor is large, the sound will fade very quickly.  If it's small, it will fade
 slowly (= can still be heard from far away).  The default value is 1.0.
 
+\section audio_doppler The doppler effect
+
+Coming soon...
+
 <hr>
 
-<strong>Previous:</strong> \ref audio_example, <strong>Up:</strong> \ref audio_main
+<strong>Previous:</strong> \ref audio_example, <strong>Up:</strong> \ref audio_main, <strong>Next:</strong> \ref audio_null
 
 */

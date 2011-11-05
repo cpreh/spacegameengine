@@ -6,10 +6,31 @@ It's a plugin that has no dependencies and that "nullifies" all operations. It
 doesn't use any audio drivers or backends. sge::audio::file objects are
 discarded, no sounds are created or played.
 
-This can be useful for lots of reasons:
+This can be useful for lots of reasons, two of them are:
 
 <ul>
-<li>Some backends such as OpenAL start threads, which complicates debugging. The audio_null plugin doesn't create threads.</li>
-<li></li>
+<li>Some backends such as OpenAL start threads, which complicates debugging.
+The audio_null plugin doesn't create threads (this was the plugin's original
+intention)</li>
+<li>You can write your code under the assumption that a sound card and a sound
+plugin is present, because there always is: the null plugin. Users without a
+sound card or sound driver will get no sound, but at least the audio code is the
+same -- no conditions.</li>
 </ul>
+
+Recall that when introducing sge::systems together with sge::audio, we
+initialized the audio player (and loader) as follows:
+
+\snippet audio_minimal.cpp systems_initialization
+
+This way, the null plugin will only be chosen if no other audio plugins exist
+(which is a sensible default behavior). If you want to enable audio_null for
+debugging purposes, you have to set the according flag explicitly:
+
+\snippet audio_minimal.cpp systems_null_initialization
+
+The sge::systems::audio_player class takes a bitfield indicating which "player
+flags" you would like to have. Currently, there's only one flag in existence:
+sge::audio::player_capabilities::null, indicating that you want the null
+plugin.
 */

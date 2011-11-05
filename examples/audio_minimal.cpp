@@ -88,6 +88,16 @@ try
 	sge::audio::multi_loader &loader =
 		sys.audio_loader();
 //! [systems_initialization]
+
+	/*
+//! [systems_null_initialization]
+	sge::systems::instance sys(
+		sge::systems::list()
+			// Player initialization begin
+			(sge::systems::audio_player(
+				sge::audio::player_capabilities::null)));
+//! [systems_null_initialization]
+	*/
 #else
 
 //! [manual_initialization_pm]
