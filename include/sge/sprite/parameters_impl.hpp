@@ -25,8 +25,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/sprite/parameters_decl.hpp>
 #include <sge/sprite/texture_dim.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/defaults/color.hpp>
+#include <sge/sprite/detail/unset_use_center.hpp>
+#include <sge/sprite/detail/roles/use_center.hpp>
+#include <sge/sprite/roles/adder.hpp>
+#include <sge/sprite/roles/color.hpp>
+#include <sge/sprite/roles/depth.hpp>
+#include <sge/sprite/roles/order.hpp>
+#include <sge/sprite/roles/point_size.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/repetition.hpp>
+#include <sge/sprite/roles/rotate_around.hpp>
+#include <sge/sprite/roles/rotation.hpp>
+#include <sge/sprite/roles/size.hpp>
+#include <sge/sprite/roles/texture.hpp>
+#include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
+#include <sge/sprite/roles/visible.hpp>
+#include <majutsu/role_return_type.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/mpl/contains.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -35,7 +56,8 @@ template<
 sge::sprite::parameters<Choices>::parameters()
 :
 	elements_()
-{}
+{
+}
 
 template<
 	typename Choices
@@ -49,15 +71,12 @@ sge::sprite::parameters<Choices>::pos(
 )
 {
 	return
-		this->set<
-			roles::pos
-		>(
-			_pos
-		)
-		.set<
-			detail::roles::use_center
-		>(
-			false
+		detail::unset_use_center(
+			this->set<
+				roles::pos
+			>(
+				_pos
+			)
 		);
 }
 
@@ -72,6 +91,13 @@ sge::sprite::parameters<Choices>::center(
 	>::type const &_pos
 )
 {
+	BOOST_STATIC_ASSERT((
+		boost::mpl::contains<
+			typename choices::elements,
+			sge::sprite::with_dim
+		>::value
+	));
+
 	return
 		this->set<
 			roles::pos
@@ -441,14 +467,14 @@ sge::sprite::parameters<Choices> &
 sge::sprite::parameters<Choices>::system(
 	typename sprite::system<
 		Choices
-	>::type *const _system
+	>::type &_system
 )
 {
 	return
 		this->set<
 			roles::adder
 		>(
-			_system->adder()
+			_system.adder()
 		);
 }
 

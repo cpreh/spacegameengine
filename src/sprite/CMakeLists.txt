@@ -57,6 +57,7 @@ SET(
 	include/sge/sprite/detail/make_position.hpp
 	include/sge/sprite/detail/make_texture_levels.hpp
 	include/sge/sprite/detail/needs_depth.hpp
+	include/sge/sprite/detail/needs_use_center.hpp
 	include/sge/sprite/detail/normal_render_states.hpp
 	include/sge/sprite/detail/optional_size.hpp
 	include/sge/sprite/detail/pos_packed_type.hpp
@@ -77,6 +78,7 @@ SET(
 	include/sge/sprite/detail/transform_parameters_arguments.hpp
 	include/sge/sprite/detail/unset_texture_stage.hpp
 	include/sge/sprite/detail/unset_texture_stages.hpp
+	include/sge/sprite/detail/unset_use_center.hpp
 	include/sge/sprite/detail/vector_float.hpp
 	include/sge/sprite/detail/vertex_color.hpp
 	include/sge/sprite/detail/vertex_format.hpp

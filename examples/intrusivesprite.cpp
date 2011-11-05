@@ -215,7 +215,7 @@ try
 			1.5f
 		)
 		.system(
-			&system
+			system
 		)
 		.repetition(
 			sprite_object::repetition_type(
