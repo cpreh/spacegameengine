@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/symbol.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
+#include <sge/audio/sound/optional_direction.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -69,13 +71,27 @@ public:
 		audio::scalar const &);
 
 	SGE_AUDIO_SYMBOL audio::scalar const &
-	rolloff() const;
+	rolloff_factor() const;
 
 	SGE_AUDIO_SYMBOL positional_parameters &
-	rolloff(
+	rolloff_factor(
 		audio::scalar const &);
 
-	SGE_AUDIO_SYMBOL audio::vector const &
+	SGE_AUDIO_SYMBOL audio::scalar const &
+	reference_distance() const;
+
+	SGE_AUDIO_SYMBOL positional_parameters &
+	reference_distance(
+		audio::scalar const &);
+
+	SGE_AUDIO_SYMBOL audio::scalar const &
+	max_distance() const;
+
+	SGE_AUDIO_SYMBOL positional_parameters &
+	max_distance(
+		audio::scalar const &);
+
+	SGE_AUDIO_SYMBOL sound::optional_direction const &
 	direction() const;
 
 	SGE_AUDIO_SYMBOL positional_parameters &
@@ -107,8 +123,10 @@ private:
 	audio::vector linear_velocity_;
 	audio::scalar gain_;
 	audio::scalar pitch_;
-	audio::scalar rolloff_;
-	audio::vector direction_;
+	audio::scalar rolloff_factor_;
+	audio::scalar reference_distance_;
+	audio::scalar max_distance_;
+	sound::optional_direction direction_;
 	audio::scalar inner_cone_angle_;
 	audio::scalar outer_cone_angle_;
 	audio::scalar outer_cone_gain_;

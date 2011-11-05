@@ -55,29 +55,20 @@ public:
 	virtual audio::listener &
 	listener() = 0;
 
-	virtual scalar
-	speed_of_sound() const = 0;
-
-	virtual scalar
-	doppler_factor() const = 0;
-
 	virtual void
 	speed_of_sound(
-		scalar
+		audio::scalar
 	) = 0;
 
 	virtual void
 	doppler_factor(
-		scalar
+		audio::scalar
 	) = 0;
 
 	virtual void
 	gain(
-		scalar
+		audio::scalar
 	) = 0;
-
-	virtual scalar
-	gain() const = 0;
 
 	virtual buffer_ptr const
 	create_buffer(
@@ -96,7 +87,7 @@ public:
 		sound::nonpositional_parameters const &
 	) = 0;
 
-	virtual player_capabilities_field const
+	virtual audio::player_capabilities_field const
 	capabilities() const = 0;
 
 	SGE_AUDIO_SYMBOL

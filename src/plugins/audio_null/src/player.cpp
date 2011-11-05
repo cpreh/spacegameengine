@@ -41,18 +41,6 @@ sge::audio_null::player::listener()
 	return listener_;
 }
 
-sge::audio::scalar
-sge::audio_null::player::speed_of_sound() const
-{
-	return audio::scalar();
-}
-
-sge::audio::scalar
-sge::audio_null::player::doppler_factor() const
-{
-	return audio::scalar();
-}
-
 void
 sge::audio_null::player::speed_of_sound(
 	audio::scalar
@@ -65,12 +53,6 @@ sge::audio_null::player::doppler_factor(
 	audio::scalar
 )
 {
-}
-
-sge::audio::scalar
-sge::audio_null::player::gain() const
-{
-	return audio::scalar();
 }
 
 void

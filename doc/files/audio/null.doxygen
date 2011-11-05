@@ -1,0 +1,15 @@
+/**
+\page audio_null audio_null
+
+There is a special audio plugin you might find handy sometimes: audio_null.
+It's a plugin that has no dependencies and that "nullifies" all operations. It
+doesn't use any audio drivers or backends. sge::audio::file objects are
+discarded, no sounds are created or played.
+
+This can be useful for lots of reasons:
+
+<ul>
+<li>Some backends such as OpenAL start threads, which complicates debugging. The audio_null plugin doesn't create threads.</li>
+<li></li>
+</ul>
+*/

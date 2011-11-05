@@ -45,24 +45,15 @@ public:
 
 	~listener();
 
-	audio::vector const
-	position() const;
-
 	void
 	position(
 		audio::vector const &
 	);
 
-	audio::vector const
-	linear_velocity() const;
-
 	void
 	linear_velocity(
 		audio::vector const &
 	);
-
-	audio::direction::object const
-	direction() const;
 
 	void
 	direction(

@@ -42,20 +42,21 @@ sge::openal::player::player()
 :
 	device_(),
 	context_(
-		device_)
+		device_),
+	listener_()
 {
 	context_.make_current();
 
 	// set our own speed of sound standard rather than relying on OpenAL
-	speed_of_sound(
+	this->speed_of_sound(
 		static_cast<audio::scalar>(
 			343));
 
-	listener().position(
+	this->listener().position(
 		audio::vector::null());
-	listener().linear_velocity(
+	this->listener().linear_velocity(
 		audio::vector::null());
-	listener().direction(
+	this->listener().direction(
 		audio::direction::object(
 			audio::direction::forward(
 				audio::vector(
@@ -78,31 +79,6 @@ sge::openal::player::listener()
 	return listener_;
 }
 
-
-sge::audio::scalar
-sge::openal::player::speed_of_sound() const
-{
-	ALfloat dest;
-	alGetFloatv(
-		AL_SPEED_OF_SOUND,
-		&dest);
-	return
-		static_cast<audio::scalar>(
-			dest);
-}
-
-sge::audio::scalar
-sge::openal::player::doppler_factor() const
-{
-	ALfloat dest;
-	alGetFloatv(
-		AL_DOPPLER_FACTOR,
-		&dest);
-	return
-		static_cast<audio::scalar>(
-			dest);
-}
-
 void
 sge::openal::player::speed_of_sound(
 	audio::scalar const dest)
@@ -121,21 +97,9 @@ sge::openal::player::doppler_factor(
 			dest));
 }
 
-sge::audio::scalar
-sge::openal::player::gain() const
-{
-	ALfloat dest;
-	alGetListenerfv(
-		AL_GAIN,
-		&dest);
-	return
-		static_cast<audio::scalar>(
-			dest);
-}
-
 void
 sge::openal::player::gain(
-	audio::scalar g)
+	audio::scalar const g)
 {
 	alListenerf(
 		AL_GAIN,

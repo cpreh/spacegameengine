@@ -43,22 +43,13 @@ protected:
 	SGE_AUDIO_SYMBOL explicit
 	listener();
 public:
-	virtual audio::vector const
-	position() const = 0;
-
 	virtual void
 	position(
 		audio::vector const &) = 0;
 
-	virtual audio::vector const
-	linear_velocity() const = 0;
-
 	virtual void
 	linear_velocity(
 		audio::vector const &) = 0;
-
-	virtual direction::object const
-	direction() const = 0;
 
 	virtual void
 	direction(

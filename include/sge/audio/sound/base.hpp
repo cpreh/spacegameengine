@@ -48,12 +48,12 @@ public:
 	play(
 		sge::audio::sound::repeat::type) = 0;
 
-	virtual sge::audio::sound::repeat::type
-	repeat() const = 0;
-
 	virtual void
 	toggle_pause() = 0;
 
+	/// Usually, we don't have getters for attributes, but in this case
+	/// it's neccessary since the status of this variable changes without the
+	/// user interfering
 	virtual play_status::type
 	status() const = 0;
 
@@ -61,15 +61,9 @@ public:
 	gain(
 		scalar) = 0;
 
-	virtual scalar
-	gain() const = 0;
-
 	virtual void
 	pitch(
 		scalar) = 0;
-
-	virtual scalar
-	pitch() const = 0;
 
 	virtual void
 	stop() = 0;

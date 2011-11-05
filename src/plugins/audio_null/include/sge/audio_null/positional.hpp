@@ -66,16 +66,10 @@ public:
 	void
 	update();
 
-	audio::vector const
-	position() const;
-
 	void
 	position(
 		audio::vector const &
 	);
-
-	audio::vector const
-	linear_velocity() const;
 
 	void
 	linear_velocity(
@@ -87,56 +81,45 @@ public:
 		audio::scalar
 	);
 
-	audio::scalar
-	gain() const;
-
 	void
 	pitch(
 		audio::scalar
 	);
 
-	audio::scalar
-	pitch() const;
-
 	void
-	rolloff(
+	rolloff_factor(
 		audio::scalar
 	);
 
-	audio::scalar
-	rolloff() const;
+	void
+	reference_distance(
+		audio::scalar
+	);
+
+	void
+	max_distance(
+		audio::scalar
+	);
 
 	void
 	direction(
-		audio::vector const &
+		audio::sound::optional_direction const &
 	);
-
-	audio::vector const
-	direction() const;
 
 	void
 	inner_cone_angle(
 		audio::scalar
 	);
 
-	audio::scalar
-	inner_cone_angle() const;
-
 	void
 	outer_cone_angle(
 		audio::scalar
 	);
 
-	audio::scalar
-	outer_cone_angle() const;
-
 	void
 	outer_cone_gain(
 		audio::scalar
 	);
-
-	audio::scalar
-	outer_cone_gain() const;
 };
 
 }

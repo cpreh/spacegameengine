@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/sound/positional_parameters.hpp>
+#include <fcppt/math/twopi.hpp>
+#include <limits>
 
 sge::audio::sound::positional_parameters::positional_parameters()
 :
@@ -32,23 +34,23 @@ sge::audio::sound::positional_parameters::positional_parameters()
 	pitch_(
 		static_cast<audio::scalar>(
 			1)),
-	rolloff_(
+	rolloff_factor_(
 		static_cast<audio::scalar>(
 			1)),
-	// setting the direction vector to zero creates a non-directional source.
-	// this, of course, assumes that the zero vector is uniquely identified by
-	// (0.0f,0.0f,0.0f) which is not really guaranteed
-	direction_(
-		audio::vector::null()),
+	reference_distance_(
+		static_cast<audio::scalar>(
+			1)),
+	max_distance_(
+		std::numeric_limits<audio::scalar>::max()),
+	direction_(),
+	// These values have been taken from the OpenAL spec's defaults
 	inner_cone_angle_(
-		static_cast<audio::scalar>(
-			360)),
+		fcppt::math::twopi<audio::scalar>()),
 	outer_cone_angle_(
-		static_cast<audio::scalar>(
-			360)),
+		fcppt::math::twopi<audio::scalar>()),
 	outer_cone_gain_(
 		static_cast<audio::scalar>(
-			1))
+			0))
 {
 }
 
@@ -109,20 +111,48 @@ sge::audio::sound::positional_parameters::gain(
 }
 
 sge::audio::scalar const &
-sge::audio::sound::positional_parameters::rolloff() const
+sge::audio::sound::positional_parameters::rolloff_factor() const
 {
-	return rolloff_;
+	return rolloff_factor_;
 }
 
 sge::audio::sound::positional_parameters &
-sge::audio::sound::positional_parameters::rolloff(
-	sge::audio::scalar const &_rolloff)
+sge::audio::sound::positional_parameters::rolloff_factor(
+	sge::audio::scalar const &_rolloff_factor)
 {
-	rolloff_ = _rolloff;
+	rolloff_factor_ = _rolloff_factor;
 	return *this;
 }
 
-sge::audio::vector const &
+sge::audio::scalar const &
+sge::audio::sound::positional_parameters::reference_distance() const
+{
+	return reference_distance_;
+}
+
+sge::audio::sound::positional_parameters &
+sge::audio::sound::positional_parameters::reference_distance(
+	sge::audio::scalar const &_reference_distance)
+{
+	reference_distance_ = _reference_distance;
+	return *this;
+}
+
+sge::audio::scalar const &
+sge::audio::sound::positional_parameters::max_distance() const
+{
+	return max_distance_;
+}
+
+sge::audio::sound::positional_parameters &
+sge::audio::sound::positional_parameters::max_distance(
+	sge::audio::scalar const &_max_distance)
+{
+	max_distance_ = _max_distance;
+	return *this;
+}
+
+sge::audio::sound::optional_direction const &
 sge::audio::sound::positional_parameters::direction() const
 {
 	return direction_;

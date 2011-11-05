@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/symbol.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/optional_direction.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -49,54 +50,41 @@ public:
 	SGE_AUDIO_SYMBOL
 	virtual ~positional();
 
-	virtual audio::vector const
-	position() const = 0;
-
 	virtual void
 	position(
 		audio::vector const &) = 0;
-
-	virtual audio::vector const
-	linear_velocity() const = 0;
 
 	virtual void
 	linear_velocity(
 		audio::vector const &) = 0;
 
 	virtual void
-	rolloff(
+	rolloff_factor(
 		audio::scalar) = 0;
 
-	virtual audio::scalar
-	rolloff() const = 0;
+	virtual void
+	reference_distance(
+		audio::scalar) = 0;
+
+	virtual void
+	max_distance(
+		audio::scalar) = 0;
 
 	virtual void
 	direction(
-		audio::vector const &) = 0;
-
-	virtual audio::vector const
-	direction() const = 0;
+		sound::optional_direction const &) = 0;
 
 	virtual void
 	inner_cone_angle(
 		audio::scalar) = 0;
 
-	virtual audio::scalar
-	inner_cone_angle() const = 0;
-
 	virtual void
 	outer_cone_angle(
 		audio::scalar) = 0;
 
-	virtual audio::scalar
-	outer_cone_angle() const = 0;
-
 	virtual void
 	outer_cone_gain(
 		audio::scalar) = 0;
-
-	virtual audio::scalar
-	outer_cone_gain() const = 0;
 };
 }
 }

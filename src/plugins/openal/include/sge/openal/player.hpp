@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/context.hpp>
 #include <sge/openal/openal.hpp>
 #include <sge/openal/listener.hpp>
-
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/listener_fwd.hpp>
@@ -57,12 +56,6 @@ public:
 	audio::listener &
 	listener();
 
-	audio::scalar
-	speed_of_sound() const;
-
-	audio::scalar
-	doppler_factor() const;
-
 	void
 	speed_of_sound(
 		audio::scalar);
@@ -70,9 +63,6 @@ public:
 	void
 	doppler_factor(
 		audio::scalar);
-
-	audio::scalar
-	gain() const;
 
 	void
 	gain(
@@ -95,9 +85,9 @@ public:
 	audio::player_capabilities_field const
 	capabilities() const;
 private:
-	device                    device_;
-	context                   context_;
-	sge::openal::listener     listener_;
+	openal::device device_;
+	openal::context context_;
+	openal::listener listener_;
 };
 
 }

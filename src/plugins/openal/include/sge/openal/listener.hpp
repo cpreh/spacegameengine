@@ -48,22 +48,13 @@ public:
 	position(
 		audio::vector const &);
 
-	audio::vector const
-	position() const;
-
 	void
 	linear_velocity(
 		audio::vector const &);
 
-	audio::vector const
-	linear_velocity() const;
-
 	void
 	direction(
 		audio::direction::object const &);
-
-	audio::direction::object const
-	direction() const;
 private:
 	audio::vector position_;
 	audio::vector linear_velocity_;

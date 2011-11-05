@@ -84,12 +84,6 @@ sge::openal::listener::linear_velocity(
 		vec);
 }
 
-sge::audio::vector const
-sge::openal::listener::linear_velocity() const
-{
-	return linear_velocity_;
-}
-
 void
 sge::openal::listener::position(
 	audio::vector const &n)
@@ -113,12 +107,6 @@ sge::openal::listener::position(
 	);
 }
 
-sge::audio::vector const
-sge::openal::listener::position() const
-{
-	return position_;
-}
-
 void
 sge::openal::listener::direction(
 	audio::direction::object const &n)
@@ -137,11 +125,4 @@ sge::openal::listener::direction(
 		AL_POSITION,
 		vec
 	);
-}
-
-
-sge::audio::direction::object const
-sge::openal::listener::direction() const
-{
-	return angle_;
 }

@@ -63,23 +63,11 @@ sge::audio_null::positional::update()
 {
 }
 
-sge::audio::vector const
-sge::audio_null::positional::position() const
-{
-	return audio::vector();
-}
-
 void
 sge::audio_null::positional::position(
 	audio::vector const &
 )
 {
-}
-
-sge::audio::vector const
-sge::audio_null::positional::linear_velocity() const
-{
-	return audio::vector();
 }
 
 void
@@ -96,12 +84,6 @@ sge::audio_null::positional::gain(
 {
 }
 
-sge::audio::scalar
-sge::audio_null::positional::gain() const
-{
-	return audio::scalar();
-}
-
 void
 sge::audio_null::positional::pitch(
 	audio::scalar
@@ -109,36 +91,32 @@ sge::audio_null::positional::pitch(
 {
 }
 
-sge::audio::scalar
-sge::audio_null::positional::pitch() const
-{
-	return audio::scalar();
-}
-
 void
-sge::audio_null::positional::rolloff(
+sge::audio_null::positional::rolloff_factor(
 	audio::scalar
 )
 {
 }
 
-sge::audio::scalar
-sge::audio_null::positional::rolloff() const
-{
-	return audio::scalar();
-}
-
 void
-sge::audio_null::positional::direction(
-	audio::vector const &
+sge::audio_null::positional::reference_distance(
+	audio::scalar
 )
 {
 }
 
-sge::audio::vector const
-sge::audio_null::positional::direction() const
+void
+sge::audio_null::positional::max_distance(
+	audio::scalar
+)
 {
-	return audio::vector();
+}
+
+void
+sge::audio_null::positional::direction(
+	audio::sound::optional_direction const &
+)
+{
 }
 
 void
@@ -148,12 +126,6 @@ sge::audio_null::positional::inner_cone_angle(
 {
 }
 
-sge::audio::scalar
-sge::audio_null::positional::inner_cone_angle() const
-{
-	return audio::scalar();
-}
-
 void
 sge::audio_null::positional::outer_cone_angle(
 	audio::scalar
@@ -161,21 +133,9 @@ sge::audio_null::positional::outer_cone_angle(
 {
 }
 
-sge::audio::scalar
-sge::audio_null::positional::outer_cone_angle() const
-{
-	return audio::scalar();
-}
-
 void
 sge::audio_null::positional::outer_cone_gain(
 	audio::scalar
 )
 {
-}
-
-sge::audio::scalar
-sge::audio_null::positional::outer_cone_gain() const
-{
-	return audio::scalar();
 }

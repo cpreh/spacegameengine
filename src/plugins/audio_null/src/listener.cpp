@@ -37,12 +37,6 @@ sge::audio_null::listener::~listener()
 {
 }
 
-sge::audio::vector const
-sge::audio_null::listener::position() const
-{
-	return position_;
-}
-
 void
 sge::audio_null::listener::position(
 	audio::vector const &_position
@@ -51,24 +45,12 @@ sge::audio_null::listener::position(
 	position_ = _position;
 }
 
-sge::audio::vector const
-sge::audio_null::listener::linear_velocity() const
-{
-	return linear_velocity_;
-}
-
 void
 sge::audio_null::listener::linear_velocity(
 	audio::vector const &_linear_velocity
 )
 {
 	linear_velocity_ = _linear_velocity;
-}
-
-sge::audio::direction::object const
-sge::audio_null::listener::direction() const
-{
-	return direction_;
 }
 
 void

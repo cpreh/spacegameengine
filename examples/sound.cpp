@@ -216,9 +216,7 @@ try
 				.linear_velocity(
 					sge::audio::vector::null())
 				.position(
-					sge::audio::vector::null())
-				.rolloff(
-					1));
+					sge::audio::vector::null()));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Sound created at the origin, now we play it\n");
@@ -344,9 +342,7 @@ try
 					sge::audio::vector(
 						-2000,
 						0,
-						0))
-				.rolloff(
-					1));
+						0)));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Streaming sound created.\nWe'll now play it for 10 seconds.\n");

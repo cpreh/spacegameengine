@@ -201,7 +201,7 @@ public:
 				>(
 					_event.position().x()
 				),
-				sound_->linear_velocity().y(),
+				0.0f,
 				static_cast<
 					sge::audio::scalar
 				>(
@@ -290,22 +290,6 @@ try
 		sys.cursor_demuxer()
 	);
 
-	sge::image2d::file_ptr const
-		image_bg(
-			sys.image_loader().load(
-				sge::config::media_path()
-				/ FCPPT_TEXT("images")
-				/ FCPPT_TEXT("grass.png")
-			)
-		),
-		image_tux(
-			sys.image_loader().load(
-				sge::config::media_path()
-				/ FCPPT_TEXT("images")
-				/ FCPPT_TEXT("tux.png")
-			)
-		);
-
 	sge::texture::manager tex_man(
 		boost::phoenix::construct<
 			sge::texture::fragmented_unique_ptr
@@ -329,13 +313,21 @@ try
 		tex_bg(
 			sge::texture::add_image(
 				tex_man,
-				*image_bg
+				*sys.image_loader().load(
+					sge::config::media_path()
+					/ FCPPT_TEXT("images")
+					/ FCPPT_TEXT("grass.png")
+				)
 			)
 		),
 		tex_tux(
 			sge::texture::add_image(
 				tex_man,
-				*image_tux
+				*sys.image_loader().load(
+					sge::config::media_path()
+					/ FCPPT_TEXT("images")
+					/ FCPPT_TEXT("tux.png")
+				)
 			)
 		);
 
@@ -425,7 +417,7 @@ try
 		sys.audio_player().create_positional_stream(
 			af_siren,
 			sge::audio::sound::positional_parameters()
-			.rolloff(
+			.rolloff_factor(
 				static_cast<sge::audio::scalar>(1)
 				/ static_cast<sge::audio::scalar>(window_dim.h())
 			)

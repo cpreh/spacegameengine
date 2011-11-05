@@ -56,12 +56,6 @@ public:
 	audio::listener &
 	listener();
 
-	audio::scalar
-	speed_of_sound() const;
-
-	audio::scalar
-	doppler_factor() const;
-
 	void
 	speed_of_sound(
 		audio::scalar
@@ -71,9 +65,6 @@ public:
 	doppler_factor(
 		audio::scalar
 	);
-
-	audio::scalar
-	gain() const;
 
 	void
 	gain(

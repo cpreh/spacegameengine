@@ -265,7 +265,7 @@ sge::openal::stream_sound::fill_buffer(
 
 		// there's nothing more to load, but the sound should be looped? then reset
 		// and start from the beginning
-		if (repeat() != audio::sound::repeat::loop)
+		if (this->repeat() != audio::sound::repeat::loop)
 			return false;
 
 		audio_file_->reset();

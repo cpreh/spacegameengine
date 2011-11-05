@@ -76,73 +76,51 @@ public:
 	audio::sound::play_status::type
 	status() const;
 
-	audio::sound::repeat::type
-	repeat() const;
-
 	void
 	stop();
 
 	void
 	update();
 
-	audio::vector const
-	position() const;
-
 	void
 	position(
 		audio::vector const &);
-
-	audio::vector const
-	linear_velocity() const;
 
 	void
 	linear_velocity(
 		audio::vector const &);
 
-	audio::scalar
-	gain() const;
-
 	void
 	gain(
 		audio::scalar);
-
-	audio::scalar
-	pitch() const;
 
 	void
 	pitch(
 		audio::scalar);
 
-	audio::scalar
-	rolloff() const;
-
 	void
-	rolloff(
+	rolloff_factor(
 		audio::scalar);
 
-	audio::vector const
-	direction() const;
+	void
+	reference_distance(
+		audio::scalar);
+
+	void
+	max_distance(
+		audio::scalar);
 
 	void
 	direction(
-		audio::vector const &);
-
-	audio::scalar
-	inner_cone_angle() const;
+		audio::sound::optional_direction const &);
 
 	void
 	inner_cone_angle(
 		audio::scalar);
 
-	audio::scalar
-	outer_cone_angle() const;
-
 	void
 	outer_cone_angle(
 		audio::scalar);
-
-	audio::scalar
-	outer_cone_gain() const;
 
 	void
 	outer_cone_gain(
@@ -151,24 +129,15 @@ protected:
 	virtual void
 	do_play();
 
-	void
-	sync() const;
-
 	ALuint
 	source_id() const;
+
+	audio::sound::repeat::type
+	repeat() const;
 private:
 	source_wrapper source_;
 	audio::sound::repeat::type repeat_;
 	mutable audio::sound::play_status::type status_;
-	audio::vector position_;
-	audio::vector direction_;
-	audio::vector linear_velocity_;
-	audio::scalar gain_;
-	audio::scalar pitch_;
-	audio::scalar rolloff_;
-	audio::scalar inner_cone_angle_;
-	audio::scalar outer_cone_angle_;
-	audio::scalar outer_cone_gain_;
 
 	void
 	init(
@@ -177,10 +146,6 @@ private:
 	void
 	init(
 		audio::sound::nonpositional_parameters const &);
-
-	void
-	positional(
-		bool);
 };
 }
 }
