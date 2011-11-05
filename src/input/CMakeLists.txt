@@ -7,7 +7,9 @@ SET(
 	include/sge/input/cursor/button_event_fwd.hpp
 	include/sge/input/cursor/button_function.hpp
 	include/sge/input/cursor/button_signal.hpp
+	include/sge/input/cursor/choose_callback.hpp
 	include/sge/input/cursor/cursor.hpp
+	include/sge/input/cursor/default_choose.hpp
 	include/sge/input/cursor/demuxer.hpp
 	include/sge/input/cursor/demuxer_fwd.hpp
 	include/sge/input/cursor/discover_callback.hpp
@@ -26,6 +28,7 @@ SET(
 	include/sge/input/cursor/object.hpp
 	include/sge/input/cursor/object_fwd.hpp
 	include/sge/input/cursor/object_ptr.hpp
+	include/sge/input/cursor/object_set.hpp
 	include/sge/input/cursor/object_vector.hpp
 	include/sge/input/cursor/optional_position.hpp
 	include/sge/input/cursor/optional_position_fwd.hpp
@@ -217,6 +220,7 @@ SET(
 	include/sge/input/system_ptr.hpp
 	src/input/cursor/button_code_to_string.cpp
 	src/input/cursor/button_event.cpp
+	src/input/cursor/default_choose.cpp
 	src/input/cursor/demuxer.cpp
 	src/input/cursor/discover_event.cpp
 	src/input/cursor/manager.cpp

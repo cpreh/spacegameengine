@@ -83,7 +83,7 @@ public:
 
 	SGE_CONSOLE_SYMBOL void
 	complete_word(
-		function_map const &
+		console::function_map const &
 	);
 private:
 	font::text::string line_;

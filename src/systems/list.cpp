@@ -102,7 +102,6 @@ sge::systems::list::append(
 		*this
 	);
 
-	// TODO: this could be optimized
 	systems::any_set const &set(
 		_other.get()
 	);

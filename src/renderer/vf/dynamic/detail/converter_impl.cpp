@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
+#include <sge/image/color/format_to_string.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
@@ -81,7 +82,10 @@ matching_format(
 	}
 
 	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid vertex color!") // TODO: error message!
+		FCPPT_TEXT("Unsupported vertex color ")
+		+ sge::image::color::format_to_string(
+			_format
+		)
 	);
 }
 

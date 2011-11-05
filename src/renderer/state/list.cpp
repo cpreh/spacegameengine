@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/log/headers.hpp>
+#include <fcppt/preprocessor/todo.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 
@@ -155,7 +156,7 @@ sge::renderer::state::list::values() const
 	return set_;
 }
 
-// TODO: move this out of this file! Make the functions free functions instead!
+FCPPT_PP_TODO("Move this out of this file! Make the functions free functions instead!")
 
 #define SGE_INSTANTIATE_STATE_LIST_GET(\
 	_state\

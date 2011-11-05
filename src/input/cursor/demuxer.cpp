@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/processor.hpp>
+#include <sge/input/cursor/choose_callback.hpp>
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/no_object.hpp>
@@ -37,9 +38,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::cursor::demuxer::demuxer(
-	input::processor &_processor
+	input::processor &_processor,
+	cursor::choose_callback const &_choose
 )
 :
+	choose_(
+		_choose
+	),
 	processor_connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -207,7 +212,9 @@ sge::input::cursor::demuxer::remove_callback(
 	}
 	else
 		this->assign_cursor(
-			*cursors_.begin() // TODO: which one to use here?
+			choose_(
+				cursors_
+			)
 		);
 }
 

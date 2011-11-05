@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_INDEX_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_INDEX_HPP_INCLUDED
 
-#include <sge/renderer/index/any/any.hpp>
 #include <sge/renderer/index/const_format_16.hpp>
 #include <sge/renderer/index/const_format_32.hpp>
 #include <sge/renderer/index/const_proxy.hpp>
@@ -30,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/const_proxy_impl.hpp>
 #include <sge/renderer/index/const_tag.hpp>
 #include <sge/renderer/index/difference_type.hpp>
-#include <sge/renderer/index/dynamic/dynamic.hpp>
 #include <sge/renderer/index/format.hpp>
 #include <sge/renderer/index/format_16.hpp>
 #include <sge/renderer/index/format_32.hpp>
@@ -54,5 +52,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/view_fwd.hpp>
+#include <sge/renderer/index/any/any.hpp>
+#include <sge/renderer/index/dynamic/dynamic.hpp>
+
 
 #endif
