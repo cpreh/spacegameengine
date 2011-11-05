@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/detail/make_class.hpp>
+#include <sge/sprite/detail/needs_use_center.hpp>
 #include <sge/sprite/detail/roles/use_center.hpp>
 #include <sge/sprite/roles/adder.hpp>
 #include <sge/sprite/roles/color.hpp>
@@ -44,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/role.hpp>
 #include <majutsu/role_return_type.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -60,15 +62,20 @@ class parameters
 {
 	typedef typename detail::make_class<
 		Choices,
-		// TODO: only add this when needed!
-		boost::mpl::vector1<
-			majutsu::role<
-				majutsu::fundamental<
-					bool
-				>,
-				detail::roles::use_center
-			>
-		>
+		typename boost::mpl::if_<
+			detail::needs_use_center<
+				Choices
+			>,
+			boost::mpl::vector1<
+				majutsu::role<
+					majutsu::fundamental<
+						bool
+					>,
+					detail::roles::use_center
+				>
+			>,
+			boost::mpl::vector0<>
+		>::type
 	>::type elements_type;
 public:
 	typedef Choices choices;
@@ -237,7 +244,7 @@ public:
 	system(
 		typename sprite::system<
 			Choices
-		>::type *
+		>::type &
 	);
 
 	template<
