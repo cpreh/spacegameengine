@@ -30,7 +30,7 @@ namespace font
 namespace text
 {
 
-typedef font::char_type char_type; // TODO: is this ok?
+typedef font::char_type char_type;
 
 }
 }
