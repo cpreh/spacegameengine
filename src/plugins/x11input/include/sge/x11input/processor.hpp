@@ -190,7 +190,12 @@ private:
 	);
 
 	void
-	on_enter(
+	on_focus_in(
+		awl::backends::x11::window::event::object const &
+	);
+
+	void
+	on_focus_out(
 		awl::backends::x11::window::event::object const &
 	);
 

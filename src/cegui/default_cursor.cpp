@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/optional_position.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -48,8 +49,14 @@ sge::cegui::default_cursor::default_cursor(
 				this,
 				std::tr1::placeholders::_1)))
 {
-	syringe_.inject(
+	sge::input::cursor::optional_position const pos(
 		_cursor.position());
+
+	if(
+		pos
+	)
+		syringe_.inject(
+			*pos);
 }
 FCPPT_PP_POP_WARNING
 

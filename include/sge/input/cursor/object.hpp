@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/optional_position_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
@@ -61,7 +61,7 @@ public:
 		cursor::move_callback const &
 	) = 0;
 
-	virtual cursor::position const
+	virtual cursor::optional_position const
 	position() const = 0;
 
 	virtual void

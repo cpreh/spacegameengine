@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -167,10 +168,12 @@ sge::freetype::char_metric::char_metric(
 			),
 			dim,
 			sge::image::color::format::a8,
-			static_cast<
-				sge::image2d::pitch
-			>(
-				bitmap.pitch - bitmap.width
+			sge::image2d::view::optional_pitch(
+				static_cast<
+					sge::image2d::pitch
+				>(
+					bitmap.pitch - bitmap.width
+				)
 			)
 		),
 		sge::image2d::view::object(

@@ -144,7 +144,8 @@ sge::cegui::detail::texture_target::activate()
 				area_)));
 
 	system_.renderer().target(
-		*target_);
+		sge::renderer::optional_target(
+			*target_));
 
 	system_.renderer().transform(
 		sge::renderer::matrix_mode::projection,

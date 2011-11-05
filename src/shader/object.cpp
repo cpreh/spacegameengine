@@ -352,7 +352,8 @@ sge::shader::object::activate(
 	shader::activation_method_field const &t)
 {
 	renderer_.glsl_program(
-		*program_);
+		sge::renderer::glsl::const_optional_program(
+			*program_));
 
 	if(t & shader::activation_method::textures)
 	{
@@ -364,7 +365,8 @@ sge::shader::object::activate(
 			++it
 		)
 			renderer_.texture(
-				*it->texture(),
+				sge::renderer::texture::const_optional_base(
+					*it->texture()),
 				sge::renderer::stage(
 					it->texture_unit()));
 	}
@@ -372,7 +374,8 @@ sge::shader::object::activate(
 	if(t & shader::activation_method::vertex_declaration)
 	{
 		renderer_.vertex_declaration(
-			vertex_declaration_);
+			sge::renderer::const_optional_vertex_declaration(
+				vertex_declaration_));
 	}
 }
 

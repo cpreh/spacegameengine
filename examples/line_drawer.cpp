@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -107,7 +108,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -163,6 +163,8 @@ public:
 	:
 		line_drawer_(
 			_line_drawer),
+		cursor_(
+			_cursor),
 		// Register a move callback (which uses absolute positions!) and a
 		// button callback
 		move_connection_(
@@ -187,6 +189,9 @@ FCPPT_PP_POP_WARNING
 	}
 private:
 	sge::line_drawer::object &line_drawer_;
+
+	sge::input::cursor::object &cursor_;
+
 	fcppt::signal::scoped_connection
 		move_connection_,
 		click_connection_;
@@ -195,13 +200,15 @@ private:
 	move_callback(
 		sge::input::cursor::move_event const &e)
 	{
+		if(!e.position())
+			return;
 		// To change the line drawer's geometry, we have to create a lock,
 		// there's no other way
 		sge::line_drawer::scoped_lock lock(
 			line_drawer_);
 
-		FCPPT_ASSERT_ERROR(
-			!lock.value().empty());
+		if(lock.value().empty())
+			return;
 
 		// Then we can freely (!) change everything. When unlock is called
 		// (in the lock's destructor), all the geometry will be updated at
@@ -210,7 +217,7 @@ private:
 			sge::line_drawer::line(
 				lock.value().back().begin(),
 				cursor_position_to_vector3(
-					e.position()),
+					*e.position()),
 				sge::image::color::any::object(
 					lock.value().back().begin_color()),
 				sge::image::color::any::object(
@@ -228,18 +235,34 @@ private:
 		sge::line_drawer::scoped_lock lock(
 			line_drawer_);
 
-// FIXME: ASSERT
-//		FCPPT_ASSERT(
-//			!lock.value().empty());
+		if(lock.value().empty())
+		{
+			sge::input::cursor::optional_position const pos(
+				cursor_.position());
 
-		lock.value().push_back(
-			sge::line_drawer::line(
-				lock.value().back().end(),
-				lock.value().back().end(),
-				sge::image::color::any::object(
-					lock.value().back().end_color()),
-				sge::image::color::any::object(
-					lock.value().back().begin_color())));
+			if(!pos)
+				return;
+
+			sge::renderer::vector3 const pos3(
+				cursor_position_to_vector3(
+					*pos));
+
+			lock.value().push_back(
+				sge::line_drawer::line(
+					pos3,
+					pos3,
+					sge::image::colors::red(),
+					sge::image::colors::blue()));
+		}
+		else
+			lock.value().push_back(
+				sge::line_drawer::line(
+					lock.value().back().end(),
+					lock.value().back().end(),
+					sge::image::color::any::object(
+						lock.value().back().end_color()),
+					sge::image::color::any::object(
+						lock.value().back().begin_color())));
 	}
 };
 }
@@ -303,21 +326,6 @@ try
 
 	sge::line_drawer::object line_drawer(
 		sys.renderer());
-
-	// Create an initial line
-	{
-		sge::line_drawer::scoped_lock lock(
-			line_drawer);
-
-		lock.value().push_back(
-			sge::line_drawer::line(
-				cursor_position_to_vector3(
-					sys.cursor_demuxer().position()),
-				cursor_position_to_vector3(
-					sys.cursor_demuxer().position()),
-				sge::image::colors::red(),
-				sge::image::colors::blue()));
-	}
 
 	::follows_cursor follows_cursor(
 		line_drawer,

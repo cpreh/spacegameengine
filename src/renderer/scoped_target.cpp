@@ -29,10 +29,14 @@ sge::renderer::scoped_target::scoped_target(
 	renderer::target &_target
 )
 :
-	rend_(_rend)
+	rend_(
+		_rend
+	)
 {
 	rend_.target(
-		_target
+		renderer::optional_target(
+			_target
+		)
 	);
 }
 

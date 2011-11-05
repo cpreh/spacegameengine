@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/extension_set.hpp>
 #include <sge/audio/file_exception.hpp>
+#include <sge/audio/optional_path.hpp>
 #include <sge/audio/unsupported_format.hpp>
 #include <sge/wave/file.hpp>
 #include <sge/wave/loader.hpp>
@@ -72,17 +73,19 @@ sge::wave::loader::load(
 			std::ios::binary));
 	if(!static_cast<fcppt::io::cifstream &>(*file_stream).is_open())
 		throw audio::file_exception(
-			filename,
+			sge::audio::optional_path(
+				filename),
 			FCPPT_TEXT("couldn't open file"));
 	try
 	{
 		return
 			// Can't use make_shared here because of unique_ptr
 			sge::audio::file_ptr(
-				new file(
+				new wave::file(
 					fcppt::move(
 						file_stream),
-					filename));
+					sge::audio::optional_path(
+						filename)));
 	}
 	catch (audio::unsupported_format const &)
 	{

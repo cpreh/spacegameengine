@@ -18,31 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/glsl/const_optional_program.hpp>
-#include <sge/renderer/glsl/program_fwd.hpp>
-#include <sge/renderer/glsl/scoped_program.hpp>
+#ifndef SGE_INPUT_OPTIONAL_POSITION_HPP_INCLUDED
+#define SGE_INPUT_OPTIONAL_POSITION_HPP_INCLUDED
 
 
-sge::renderer::glsl::scoped_program::scoped_program(
-	renderer::device &_rend,
-	glsl::program const &_program
-)
-:
-	rend_(
-		_rend
-	)
-{
-	rend_.glsl_program(
-		sge::renderer::glsl::const_optional_program(
-			_program
-		)
-	);
-}
+#include <sge/input/cursor/optional_position_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-sge::renderer::glsl::scoped_program::~scoped_program()
-{
-	rend_.glsl_program(
-		renderer::glsl::const_optional_program()
-	);
-}
+#endif

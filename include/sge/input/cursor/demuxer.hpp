@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/object_ptr.hpp>
-#include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/remove_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -82,7 +82,7 @@ public:
 	);
 
 	SGE_INPUT_SYMBOL
-	cursor::position const
+	cursor::optional_position const
 	position() const;
 
 	SGE_INPUT_SYMBOL

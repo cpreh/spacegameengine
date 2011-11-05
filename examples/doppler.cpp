@@ -172,18 +172,23 @@ public:
 		sge::input::cursor::move_event const &_event
 	) const
 	{
+		if(
+			!_event.position()
+		)
+			return;
+
 		sound_->position(
 			sge::audio::vector(
 				static_cast<
 					sge::audio::scalar
 				>(
-					_event.position().x()
+					_event.position()->x()
 				),
 				static_cast<sge::audio::scalar>(0),
 				static_cast<
 					sge::audio::scalar
 				>(
-					_event.position().y()
+					_event.position()->y()
 				)
 			)
 		);

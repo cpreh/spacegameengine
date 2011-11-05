@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/no_object.hpp>
 #include <sge/input/cursor/object_vector.hpp>
+#include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/remove_event.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -116,7 +117,7 @@ sge::input::cursor::demuxer::move_callback(
 		);
 }
 
-sge::input::cursor::position const
+sge::input::cursor::optional_position const
 sge::input::cursor::demuxer::position() const
 {
 	return
@@ -124,7 +125,7 @@ sge::input::cursor::demuxer::position() const
 		?
 			this->current_cursor()->position()
 		:
-			throw sge::input::cursor::no_object();
+			sge::input::cursor::optional_position();
 }
 
 void

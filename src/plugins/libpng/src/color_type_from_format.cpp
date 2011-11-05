@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/optional_path.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/libpng/color_type_from_format.hpp>
@@ -41,7 +42,9 @@ sge::libpng::color_type_from_format(
 	case sge::image::color::format::a8:
 		throw
 			sge::image::unsupported_format(
-				_path,
+				sge::image::optional_path(
+					_path
+				),
 				FCPPT_TEXT("alpha8")
 			);
 	case sge::image::color::format::l8:
@@ -62,7 +65,9 @@ sge::libpng::color_type_from_format(
 	case sge::image::color::format::bgra32f:
 		throw
 			sge::image::unsupported_format(
-				_path,
+				sge::image::optional_path(
+					_path
+				),
 				FCPPT_TEXT("{r,g,b,a}32f")
 			);
 	case sge::image::color::format::size:

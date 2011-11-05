@@ -48,7 +48,7 @@ sge::devil::load_memory(
 		)
 		== IL_FALSE
 	)
-		return false;
+		return devil::optional_error();
 
 	return devil::check_error();
 }

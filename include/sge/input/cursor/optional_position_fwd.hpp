@@ -18,31 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/glsl/const_optional_program.hpp>
-#include <sge/renderer/glsl/program_fwd.hpp>
-#include <sge/renderer/glsl/scoped_program.hpp>
+#ifndef SGE_INPUT_OPTIONAL_POSITION_FWD_HPP_INCLUDED
+#define SGE_INPUT_OPTIONAL_POSITION_FWD_HPP_INCLUDED
 
 
-sge::renderer::glsl::scoped_program::scoped_program(
-	renderer::device &_rend,
-	glsl::program const &_program
-)
-:
-	rend_(
-		_rend
-	)
+#include <sge/input/cursor/position.hpp>
+#include <fcppt/optional_fwd.hpp>
+
+namespace sge
 {
-	rend_.glsl_program(
-		sge::renderer::glsl::const_optional_program(
-			_program
-		)
-	);
+namespace input
+{
+namespace cursor
+{
+
+typedef fcppt::optional<
+	sge::input::cursor::position
+> optional_position;
+
+}
+}
 }
 
-sge::renderer::glsl::scoped_program::~scoped_program()
-{
-	rend_.glsl_program(
-		renderer::glsl::const_optional_program()
-	);
-}
+#endif

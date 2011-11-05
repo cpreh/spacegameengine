@@ -28,7 +28,7 @@ namespace audio
 
 typedef
 float
-scalar; // TODO: is float ok here?
+scalar;
 
 }
 }

@@ -18,7 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/keyboard/digit.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_code_to_digit.hpp>
+#include <sge/input/keyboard/optional_digit.hpp>
 #include <fcppt/optional_impl.hpp>
 
 
@@ -27,30 +30,31 @@ sge::input::keyboard::key_code_to_digit(
 	key_code::type const _key_code
 )
 {
+#define CONVERT_KEYCODE_TO_DIGIT(\
+	num\
+) \
+case sge::input::keyboard::key_code::_ ## num: \
+	return \
+		sge::input::keyboard::optional_digit(\
+			sge::input::keyboard::digit(\
+				num ## u \
+			) \
+		)
+
 	switch(
 		_key_code
 	)
 	{
-	case sge::input::keyboard::key_code::_0:
-		return keyboard::digit(0u);
-	case sge::input::keyboard::key_code::_1:
-		return keyboard::digit(1u);
-	case sge::input::keyboard::key_code::_2:
-		return keyboard::digit(2u);
-	case sge::input::keyboard::key_code::_3:
-		return keyboard::digit(3u);
-	case sge::input::keyboard::key_code::_4:
-		return keyboard::digit(4u);
-	case sge::input::keyboard::key_code::_5:
-		return keyboard::digit(5u);
-	case sge::input::keyboard::key_code::_6:
-		return keyboard::digit(6u);
-	case sge::input::keyboard::key_code::_7:
-		return keyboard::digit(7u);
-	case sge::input::keyboard::key_code::_8:
-		return keyboard::digit(8u);
-	case sge::input::keyboard::key_code::_9:
-		return keyboard::digit(9u);
+	CONVERT_KEYCODE_TO_DIGIT(0);
+	CONVERT_KEYCODE_TO_DIGIT(1);
+	CONVERT_KEYCODE_TO_DIGIT(2);
+	CONVERT_KEYCODE_TO_DIGIT(3);
+	CONVERT_KEYCODE_TO_DIGIT(4);
+	CONVERT_KEYCODE_TO_DIGIT(5);
+	CONVERT_KEYCODE_TO_DIGIT(6);
+	CONVERT_KEYCODE_TO_DIGIT(7);
+	CONVERT_KEYCODE_TO_DIGIT(8);
+	CONVERT_KEYCODE_TO_DIGIT(9);
 	default:
 		return keyboard::optional_digit();
 	}

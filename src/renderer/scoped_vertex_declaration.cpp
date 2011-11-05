@@ -29,10 +29,14 @@ sge::renderer::scoped_vertex_declaration::scoped_vertex_declaration(
 	renderer::vertex_declaration const &_declaration
 )
 :
-	device_(_device)
+	device_(
+		_device
+	)
 {
 	device_.vertex_declaration(
-		_declaration
+		renderer::const_optional_vertex_declaration(
+			_declaration
+		)
 	);
 }
 

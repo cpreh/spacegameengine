@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/x11input/cursor/query_pointer.hpp>
+#include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/deleter.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/instance.hpp>
@@ -30,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::cursor::position const
+sge::input::cursor::optional_position const
 sge::x11input::cursor::query_pointer(
 	awl::backends::x11::window::instance &_window,
 	device::id const &_id
@@ -69,8 +71,7 @@ sge::x11input::cursor::query_pointer(
 		)
 		== False
 	)
-		// TODO: what to do here?
-		return input::cursor::position::null();
+		return sge::input::cursor::optional_position();
 
 	typedef fcppt::scoped_ptr<
 		unsigned char,
@@ -82,16 +83,18 @@ sge::x11input::cursor::query_pointer(
 	);
 
 	return
-		input::cursor::position(
-			static_cast<
-				input::cursor::position_unit
-			>(
-				win_x_return
-			),
-			static_cast<
-				input::cursor::position_unit
-			>(
-				win_y_return
+		sge::input::cursor::optional_position(
+			input::cursor::position(
+				static_cast<
+					input::cursor::position_unit
+				>(
+					win_x_return
+				),
+				static_cast<
+					input::cursor::position_unit
+				>(
+					win_y_return
+				)
 			)
 		);
 }
