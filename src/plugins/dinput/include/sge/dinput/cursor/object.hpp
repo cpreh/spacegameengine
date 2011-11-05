@@ -75,7 +75,7 @@ public:
 		input::cursor::move_callback const &
 	);
 
-	input::cursor::position const
+	input::cursor::optional_position const
 	position() const;
 
 	void
