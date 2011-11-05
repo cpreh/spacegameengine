@@ -49,26 +49,47 @@ attributes when creating a sound:
 <li>Inner cone angle</li>
 <li>Outer cone angle</li>
 <li>Outer cone gain</li>
+<li>Rolloff factor</li>
+<li>Reference distance</li>
+<li>Maximum distance</li>
 </ul>
 
 Note that the direction is a vector, not a sge::audio::direction::object.
-Sounds don't need an up vector. They work differently. Also note that if the
-direction vector is the null vector, the source is nondirectional (relying on a
-zero floating point vector is, of course, unsafe, so this is likely to change
-in the future).
+Sounds don't need an up vector. They work differently. Also note that the
+direction vector is actually wrapped inside an fcppt::optional, since the
+source may be nondirectional.
+
+Also note that a gain is always a floating point number from the unit interval
+(the implementation might clamp values outside that interval)
+
+The rolloff factor, reference distance and maximum distance are explained in
+the section about distance attenuation.
 
 \section audio_directional_sounds Directional sounds
 A directional sound is a sound that emits "sound waves" inside a cone. If the
-listener is inside the cone, the sound's volume won't be changed. If the
-listener is on the "edge" of the cone, the so called "transitional zone", the
-volume will be changed according to where in the transitional zone the listener
-is in. Take a look at the following image which illustrates it pretty good:
+listener is inside the cone, the sound's volume will only be changed due to
+distance attenuation (see below). If the listener is on the "edge" of the cone,
+the so called "transitional zone", the volume will be changed according to
+where in the transitional zone the listener is in. Take a look at the following
+image which illustrates it pretty well:
 
 \image html audio_sound_cones.gif "The two sound cones and corresponding angles"
 
-As you can see, a directional sound needs two angles (...of the two cones), an
-inner gain and an outer gain. All of these quantities can be set using the
-sge::audio::sound::positional_parameters class when constructing a sound.
+As you can see, a directional sound needs a direction vector, two angles (...of
+the two cones), as well as an inner gain and an outer gain. All of these
+quantities can be set using the sge::audio::sound::positional_parameters class
+when constructing a sound.  As everywhere else, <em>radians</em> are used to
+denote angles (not degrees like OpenAL does).
+
+The sge::audio::sound::positional_parameters sets sensible defaults so you
+don't have to specify anything. By default, a sound is
+
+<ul>
+<li>nondirectional</li>
+<li>has a gain and pitch of 1.0</li>
+<li>is at the origin</li>
+<li>has velocity zero ("stands still")</li>
+</ul>
 
 \section audio_distance_attenuation Distance attenuation
 
@@ -78,6 +99,43 @@ listener. But in what way does it decrease?
 Multiple models exist to implement distance attenuation. sge::audio currently
 supports only the <em>inverse clamped distance</em> model (which is supported
 by DirectSound as well as OpenAL).
+
+Four parameters contribute to the model:
+
+<ol>
+<li>The distance from the listener to the sound</li>
+<li>The sound's rolloff factor</li>
+<li>The sound's reference distance</li>
+<li>The sound's maximum distance</li>
+</ol>
+
+For every sound, the distance to the listener is first clamped:
+
+\f[
+\textrm{clamped distance} = \textrm{clamp}(\textrm{distance},\textrm{reference distance},\textrm{max distance})
+\f]
+
+The gain is then adapted using the following formula:
+
+\f[
+\textrm{attenuated gain} = \frac{\textrm{reference distance}}{\textrm{reference distance} + \textrm{rolloff factor} \cdot (\textrm{clamped distance} - \textrm{reference distance})}
+\f]
+
+Let's go through each parameter in this formula an analyze it's meaning. The following graph might help:
+
+\image html audio_distance_attenuation_model.png "Playing around with the distance attenuation model"
+
+If the listener is in the <em>reference distance</em> from the sound, the gain
+will be 1.0 (or unchanged). The default value for the reference distance is 1.
+
+If the listener is further away than the <em>maximum distance</em> from the
+sound, the gain will be 0.0. The default value is
+
+<code>std::numeric_limits<sge::audio::scalar>::max()</code>
+
+Everything inbetween depends on the <em>rolloff factor</em>. If the rolloff
+factor is large, the sound will fade very quickly.  If it's small, it will fade
+slowly (= can still be heard from far away).  The default value is 1.0.
 
 <hr>
 

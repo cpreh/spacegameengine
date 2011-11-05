@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/repeat.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
@@ -367,7 +368,8 @@ sge::openal::source::inner_cone_angle(
 		this->source_id(),
 		AL_CONE_INNER_ANGLE,
 		static_cast<ALfloat>(
-			n)
+			fcppt::math::rad_to_deg(
+				n))
 	);
 
 	SGE_OPENAL_CHECK_STATE(
@@ -384,7 +386,8 @@ sge::openal::source::outer_cone_angle(
 		this->source_id(),
 		AL_CONE_OUTER_ANGLE,
 		static_cast<ALfloat>(
-			n)
+			fcppt::math::rad_to_deg(
+				n))
 	);
 
 	SGE_OPENAL_CHECK_STATE(
