@@ -33,11 +33,22 @@ namespace sge
 {
 namespace audio
 {
+/// Exception thrown when file-related operations fail.
+/**
+ * This exception might be thrown if a file is corrupted or there's no loader for
+ * it available.
+ */
 class SGE_CLASS_SYMBOL file_exception
 :
 	public audio::exception
 {
 public:
+	/// Initialize exception with an error string and an optional file path.
+	/**
+	 * The path is optional because there might be a file error but the
+	 * path to the file is "lost" during the decoding process. It's still a
+	 * file error, though.
+	 */
 	SGE_AUDIO_SYMBOL
 	file_exception(
 		optional_path const &,

@@ -34,27 +34,55 @@ namespace sge
 namespace audio
 {
 
+/// The player's listener
+/**
+ * The listener class is an interface class, you cannot instantiate it. Audio
+ * plugins (OpenAL, DirectSound) must derive from this class and create
+ * one listener instance per player instance. It's then accessible via the
+ * sge::audio::player::listener function.
+ *
+ * For an introduction to the listener, see \ref audio_positional.
+ */
 class SGE_CLASS_SYMBOL listener
 {
 	FCPPT_NONCOPYABLE(
 		listener
 	);
 protected:
+	/// Dummy constructor so no instances of this base class can be created
 	SGE_AUDIO_SYMBOL explicit
 	listener();
 public:
+	/// Set the position
 	virtual void
 	position(
 		audio::vector const &) = 0;
 
+	/// Set the linear velocity
 	virtual void
 	linear_velocity(
 		audio::vector const &) = 0;
 
+	/// Set the direction
+	/**
+	 * \note
+	 * The direction object might or might not check if it's
+	 * actually "correct" in the sense that the vectors are linearly
+	 * independent and normalized. Some plugins don't even need linearly
+	 * independent/normalized vectors, so they won't correct or check this
+	 * either. Be careful.
+	 */
 	virtual void
 	direction(
 		direction::object const &) = 0;
 
+	/// Virtual dummy destructor to make it a class to safely derive from.
+	/**
+	 * Note that this destructor is pure virtual, but has an
+	 * implementation. Strictly speaking, that's redundant. But it's safer
+	 * for classes which otherwise don't have any pure virtual functions,
+	 * yet should be abstract.
+	 */
 	SGE_AUDIO_SYMBOL virtual
 	~listener() = 0;
 };

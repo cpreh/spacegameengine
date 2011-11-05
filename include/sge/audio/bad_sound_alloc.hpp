@@ -32,11 +32,18 @@ namespace sge
 namespace audio
 {
 
+/// Exception thrown when sound resource limits are reached.
+/**
+ * This exception is thrown if an audio player plugin isn't able to allocate
+ * enough resources for a sound. This happens, for example, when OpenAL cannot
+ * create another sound source (because the internal limit is reached).
+ */
 class SGE_CLASS_SYMBOL bad_sound_alloc
 :
 	public audio::exception
 {
 public:
+	/// Initialize exception with an error string
 	SGE_AUDIO_SYMBOL
 	explicit bad_sound_alloc(
 		fcppt::string const &

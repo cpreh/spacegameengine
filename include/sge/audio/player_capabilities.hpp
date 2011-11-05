@@ -26,6 +26,7 @@ namespace sge
 namespace audio
 {
 
+/// Holds the capabilities of a player (see sge::audio::player::capabilities)
 namespace player_capabilities
 {
 enum type

@@ -30,6 +30,7 @@ namespace sge
 namespace audio
 {
 
+/// An unsigned integral value which is used in all calculations involving samples
 typedef std::size_t sample_count;
 
 }

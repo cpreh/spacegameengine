@@ -38,32 +38,56 @@ namespace sge
 namespace audio
 {
 
+/// Interface class for loaders
+/**
+ * The loader class is an interface class, you cannot instantiate it. Audio
+ * loaders (wave, ogg) must derive from this class.
+ *
+ * For a short introduction to loading an audio file, see \ref audio_example.
+ */
 class SGE_CLASS_SYMBOL loader
 {
 	FCPPT_NONCOPYABLE(
 		loader
 	);
 protected:
+	/// Dummy constructor so no instances of this base class can be created
 	SGE_AUDIO_SYMBOL
+	explicit
 	loader();
 public:
-	virtual file_ptr const
+	/// Load a file
+	virtual audio::file_ptr const
 	load(
 		fcppt::filesystem::path const &
 	) = 0;
 
+	/// Load raw bytes
+	/**
+	 * \param r A range of bytes (can be discarded after this function completes)
+	 * \param extension An optional extension indicating what (sub) type of file is inside
+	 */
 	virtual audio::file_ptr const
 	load_raw(
-		sge::const_raw_range const &,
-		sge::optional_extension const &
+		sge::const_raw_range const &r,
+		sge::optional_extension const &extension
 	) = 0;
 
-	virtual loader_capabilities_field const
+	/// What capabilities this loader has. Is used in the sge::audio::multi_loader and in sge::systems to select a loader.
+	virtual audio::loader_capabilities_field const
 	capabilities() const = 0;
 
-	virtual extension_set const
+	/// What extensions this loader supports. Is used in the sge::audio::multi_loader and in sge::systems to select a loader.
+	virtual audio::extension_set const
 	extensions() const = 0;
 
+	/// Virtual dummy destructor to make it a class to safely derive from.
+	/**
+	 * Note that this destructor is pure virtual, but has an
+	 * implementation. Strictly speaking, that's redundant. But it's safer
+	 * for classes which otherwise don't have any pure virtual functions,
+	 * yet should be abstract.
+	 */
 	SGE_AUDIO_SYMBOL
 	virtual ~loader() = 0;
 };

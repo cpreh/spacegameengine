@@ -34,26 +34,51 @@ namespace sge
 {
 namespace audio
 {
+/// Interface class for buffers (nonstreaming sound factories)
+/**
+ * The buffer class is an interface class, you cannot instantiate it. Audio
+ * plugins (OpenAL, DirectSound) must derive from this class and create
+ * instances when a buffer is created via sge::audio::player::create_buffer.
+ *
+ * For a short introduction to buffers, see \ref audio_overview and
+ * \ref audio_example.
+ */
 class SGE_CLASS_SYMBOL buffer
 {
 	FCPPT_NONCOPYABLE(
 		buffer
 	);
 public:
-	SGE_AUDIO_SYMBOL explicit
-	buffer();
-
+	/// Create a positional sound
+	/**
+	 * For an introduction to positional (3D) sounds, see \ref audio_positional
+	 */
 	virtual sound::positional_ptr const
 	create_positional(
 		sound::positional_parameters const &
 	) = 0;
 
+	/// Create a nonpositional sound
+	/**
+	 * For an introduction to nonpositional sounds, see \ref audio_example
+	 */
 	virtual sound::base_ptr const
 	create_nonpositional(
 		sound::nonpositional_parameters const &) = 0;
 
+	/// Virtual dummy destructor to make it a class to safely derive from.
+	/**
+	 * Note that this destructor is pure virtual, but has an
+	 * implementation. Strictly speaking, that's redundant. But it's safer
+	 * for classes which otherwise don't have any pure virtual functions,
+	 * yet should be abstract.
+	 */
 	SGE_AUDIO_SYMBOL virtual
-	~buffer();
+	~buffer() = 0;
+protected:
+	/// Dummy constructor so no instances of this base class can be created
+	SGE_AUDIO_SYMBOL explicit
+	buffer();
 };
 }
 }

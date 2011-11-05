@@ -76,7 +76,7 @@ audio_example on how to use buffers.
 Streaming sounds, on the other hand, don't need an intermediate layer. You can
 directly create streaming sounds from your sge::audio::file. The audio
 subsystem will keep the file pointer and extract samples from it when the
-playback buffer empties.
+playback buffer runs out.
 
 <hr>
 

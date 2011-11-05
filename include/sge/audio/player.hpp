@@ -42,6 +42,13 @@ namespace sge
 namespace audio
 {
 
+/// The "main" class for outputting audio
+/**
+ * The player class is an interface class, you cannot instantiate it. Audio
+ * plugins (OpenAL, DirectSound) must derive from this class.
+ *
+ * For an introduction to the player, see \ref audio_overview and \ref audio_example.
+ */
 class SGE_CLASS_SYMBOL player
 {
 public:
@@ -49,47 +56,77 @@ public:
 		player
 	);
 protected:
+	/// Dummy constructor so no instances of this base class can be created
 	SGE_AUDIO_SYMBOL explicit
 	player();
 public:
+	/// The listener object
 	virtual audio::listener &
 	listener() = 0;
 
+	/// Set the speed of sound
+	/**
+	 * The default is 343, the speed of sound in dry air, 20 degrees
+	 * celsius, normal pressure.
+	 *
+	 * This is used in Doppler calculations. For an introduction to the
+	 * Doppler effect, see \ref audio_positional.
+	 */
 	virtual void
 	speed_of_sound(
 		audio::scalar
 	) = 0;
 
+	/// Set the doppler factor
+	/**
+	 * The default is 1.0. For an introduction to the Doppler effect, see \ref audio_positional.
+	 */
 	virtual void
 	doppler_factor(
 		audio::scalar
 	) = 0;
 
+	/// Set the global gain (volume)
+	/**
+	 * The default is 1.0. This will (immediately) affect all sources
+	 * created by this player.
+	 */
 	virtual void
 	gain(
 		audio::scalar
 	) = 0;
 
-	virtual buffer_ptr const
+	/// Create a buffer from a file
+	virtual audio::buffer_ptr const
 	create_buffer(
 		audio::file &
 	) = 0;
 
+	/// Create a positional stream from a file
 	virtual sound::positional_ptr const
 	create_positional_stream(
 		audio::file_ptr,
 		sound::positional_parameters const &
 	) = 0;
 
+	/// Create a nonpositional stream from a file
 	virtual sound::base_ptr const
 	create_nonpositional_stream(
 		audio::file_ptr,
 		sound::nonpositional_parameters const &
 	) = 0;
 
+	/// What capabilities this player has. Is used in sge::systems to select a player.
 	virtual audio::player_capabilities_field const
 	capabilities() const = 0;
 
+	/// Virtual dummy destructor to make it a class to safely derive from.
+	/**
+	 * Note that this destructor is pure virtual, but has an
+	 * implementation. Strictly speaking, that's redundant. But it's safer
+	 * for classes which otherwise don't have any pure virtual functions,
+	 * yet should be abstract.
+	 */
 	SGE_AUDIO_SYMBOL
 	virtual ~player() = 0;
 };

@@ -33,11 +33,18 @@ namespace sge
 {
 namespace audio
 {
+/// Exception thrown when a loader can't load a file.
 class SGE_CLASS_SYMBOL unsupported_format
 :
 	public audio::file_exception
 {
 public:
+	/// Initialize exception with an error string and an optional file path.
+	/**
+	 * The path is optional because there might be a file error but the
+	 * path to the file is "lost" during the decoding process. It's still a
+	 * file error, though.
+	 */
 	SGE_AUDIO_SYMBOL
 	unsupported_format(
 		optional_path const &,

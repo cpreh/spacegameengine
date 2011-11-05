@@ -28,6 +28,7 @@ namespace sge
 namespace audio
 {
 
+/// A container holding raw bytes that represent samples
 typedef
 fcppt::container::raw_vector<unsigned char>
 sample_container;

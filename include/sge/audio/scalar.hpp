@@ -26,6 +26,7 @@ namespace sge
 namespace audio
 {
 
+/// A floating point type that's used almost everywhere (positions, gain, ...)
 typedef
 float
 scalar;

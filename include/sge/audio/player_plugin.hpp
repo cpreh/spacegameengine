@@ -35,6 +35,10 @@ namespace plugin
 namespace detail
 {
 
+/// The player plugin
+/**
+ * For more information, see \ref plugin_main.
+ */
 template<>
 struct traits<
 	audio::player

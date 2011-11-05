@@ -30,6 +30,7 @@ namespace sge
 namespace audio
 {
 
+/// Holds player capabilities (if it's the null plugin or not, for example), see sge::audio::player_capabilities
 typedef fcppt::container::bitfield::basic<
 	player_capabilities::type,
 	player_capabilities::size

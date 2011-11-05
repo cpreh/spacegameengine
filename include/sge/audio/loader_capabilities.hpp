@@ -26,6 +26,7 @@ namespace sge
 namespace audio
 {
 
+/// Holds the capabilities of a loader (see sge::audio::loader::capabilities)
 namespace loader_capabilities
 {
 enum type

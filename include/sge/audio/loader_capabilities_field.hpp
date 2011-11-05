@@ -30,6 +30,7 @@ namespace sge
 namespace audio
 {
 
+/// Holds loader capabilities (if it's threadsafe or not, for example), see sge::audio::loader_capabilities
 typedef fcppt::container::bitfield::basic<
 	loader_capabilities::type,
 	loader_capabilities::size
