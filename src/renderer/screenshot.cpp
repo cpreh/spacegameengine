@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/screenshot.hpp>
+#include <fcppt/preprocessor/fixme.hpp>
 
 
 void
@@ -38,7 +39,8 @@ sge::renderer::screenshot(
 		_renderer.onscreen_target().surface()
 	);
 
-	// FIXME
+	FCPPT_PP_FIXME("We need a multi_saver for images as well!")
+
 	_loader.loaders().at(0)->create(
 		lock.value()
 	)->save(

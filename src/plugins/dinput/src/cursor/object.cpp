@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/device/funcs/acquire.hpp>
 #include <sge/dinput/device/funcs/set_cooperative_level.hpp>
 #include <sge/dinput/device/funcs/set_data_format.hpp>
-#include <sge/input/exception.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_event.hpp>
+#include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <awl/backends/windows/windows.hpp>
@@ -36,12 +36,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/preprocessor/todo.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
@@ -200,9 +200,11 @@ sge::dinput::cursor::object::move_callback(
 		);
 }
 
-sge::input::cursor::position const
+sge::input::cursor::optional_position const
 sge::dinput::cursor::object::position() const
 {
+	FCPPT_PP_TODO("When should this return an empty optional?")
+
 	POINT ret;
 
 	if(
@@ -211,9 +213,7 @@ sge::dinput::cursor::object::position() const
 		)
 		== 0
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("GetCursorPos() failed!")
-		);
+		return sge::input::cursor::optional_position();
 
 	ret =
 		awl::backends::windows::window::screen_to_client(
@@ -222,16 +222,18 @@ sge::dinput::cursor::object::position() const
 		);
 
 	return
-		sge::input::cursor::position(
-			static_cast<
-				sge::input::cursor::position_unit
-			>(
-				ret.x
-			),
-			static_cast<
-				sge::input::cursor::position_unit
-			>(
-				ret.y
+		sge::input::cursor::optional_position(
+			sge::input::cursor::position(
+				static_cast<
+					sge::input::cursor::position_unit
+				>(
+					ret.x
+				),
+				static_cast<
+					sge::input::cursor::position_unit
+				>(
+					ret.y
+				)
 			)
 		);
 }
@@ -269,12 +271,14 @@ sge::dinput::cursor::object::on_move(
 {
 	move_signal_(
 		sge::input::cursor::move_event(
-			sge::input::cursor::position(
-				LOWORD(
-					_event.lparam()
-				),
-				HIWORD(
-					_event.lparam()
+			sge::input::cursor::optional_position(
+				sge::input::cursor::position(
+					LOWORD(
+						_event.lparam()
+					),
+					HIWORD(
+						_event.lparam()
+					)
 				)
 			)
 		)

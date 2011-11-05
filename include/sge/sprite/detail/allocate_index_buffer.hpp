@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/index_count.hpp>
 #include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/sprite/detail/indices_per_sprite.hpp>
@@ -61,7 +62,9 @@ allocate_index_buffer(
 					Elements
 				>()
 			),
-			renderer::resource_flags::dynamic
+			renderer::resource_flags_field(
+				renderer::resource_flags::dynamic
+			)
 		)
 	);
 }

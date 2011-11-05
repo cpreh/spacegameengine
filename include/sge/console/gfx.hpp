@@ -67,7 +67,6 @@ public:
 		output_line_limit
 	);
 
-	/// If destructor doesn't exist: undefined reference to `sge::sprite::system_base ...
 	SGE_CONSOLE_SYMBOL ~gfx();
 
 	SGE_CONSOLE_SYMBOL void

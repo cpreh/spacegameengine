@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -257,7 +258,8 @@ sge::cegui::detail::texture_target::declareRenderSize(
 		fcppt::make_unique_ptr<texture>(
 			fcppt::ref(
 				system_),
-			sge::renderer::texture::capabilities::render_target));
+			sge::renderer::texture::capabilities_field(
+				sge::renderer::texture::capabilities::render_target)));
 
 	texture_->resize(
 		_size);

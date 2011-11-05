@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/winconv/system.hpp>
 #include <sge/charconv/system_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
+#include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/version.hpp>
@@ -37,7 +38,9 @@ sge::plugin::info const info(
 	FCPPT_TEXT("Does wchar_t (UTF-16) to UTF-32 conversions on Windows."),
 	sge::plugin::version(0x1),
 	sge::plugin::min_core_version(0x1),
-	sge::plugin::capabilities::char_conv
+	sge::plugin::capabilities_field(
+		sge::plugin::capabilities::char_conv
+	)
 );
 
 sge::charconv::system_ptr const

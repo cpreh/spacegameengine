@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/system_ptr.hpp>
 #include <sge/font/system_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
+#include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/version.hpp>
@@ -38,7 +39,9 @@ sge::plugin::info const info(
 	FCPPT_TEXT("Provides loading of truetype fonts."),
 	sge::plugin::version(0x1),
 	sge::plugin::min_core_version(0x1),
-	sge::plugin::capabilities::font
+	sge::plugin::capabilities_field(
+		sge::plugin::capabilities::font
+	)
 );
 
 sge::font::system_ptr const

@@ -37,18 +37,26 @@ sge::opengl::texture::context::context()
 		)
 	),
 	anisotropy_flag_(
-		anisotropic_filter_supported_
-		?
-			GL_TEXTURE_MAX_ANISOTROPY_EXT
-		:
-			0
+		static_cast<
+			GLenum
+		>(
+			anisotropic_filter_supported_
+			?
+				GL_TEXTURE_MAX_ANISOTROPY_EXT
+			:
+				0
+		)
 	),
 	max_anisotropy_flag_(
-		anisotropic_filter_supported_
-		?
-			GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
-		:
-			0
+		static_cast<
+			GLenum
+		>(
+			anisotropic_filter_supported_
+			?
+				GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+			:
+				0
+		)
 	)
 {
 }

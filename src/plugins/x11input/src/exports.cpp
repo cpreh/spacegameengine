@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/system_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
+#include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/version.hpp>
@@ -37,7 +38,9 @@ sge::plugin::info const info(
 	FCPPT_TEXT("Uses XI2 to handle keyboards and mice."),
 	sge::plugin::version(0x1),
 	sge::plugin::min_core_version(0x1),
-	sge::plugin::capabilities::input
+	sge::plugin::capabilities_field(
+		sge::plugin::capabilities::input
+	)
 );
 
 sge::input::system_ptr const

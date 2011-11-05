@@ -500,7 +500,7 @@ template<
 >
 void
 sge::sprite::object<Choices>::texture(
-	::sge::texture::const_part_ptr const _texture
+	sge::texture::const_part_ptr const _texture
 )
 {
 	this->texture_level<
@@ -518,7 +518,7 @@ template<
 >
 void
 sge::sprite::object<Choices>::texture_level(
-	::sge::texture::const_part_ptr const _texture
+	sge::texture::const_part_ptr const _texture
 )
 {
 	elements_. template set<

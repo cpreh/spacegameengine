@@ -1,13 +1,8 @@
 /**
-\page renderer renderer
+\page renderer_vertices Vertices
 
-\section abstract Abstract
+\section vertex_introduction Introduction
 
-sge::renderer provides an abstraction for 3D APIs, which currently is
-mainly focused on the fixed function pipeline to guarantee maximum portability.
-A glsl interface is also provided but can only be used with OpenGL.
-
-\section vertices Vertices
 The basic resource of a renderer are so called \em vertices, which are 3d
 points with additional attributes like normals, texture coordinates, or even
 user defined types. These vertices are used to define triangles, lines or
@@ -31,7 +26,7 @@ necessary because different vertex attributes can be stored in different
 vertex_buffers (for example the positions could go into one buffer and the
 texture coordinates into another).
 
-\subsection vertex_declarations Vertex declarations
+\section vertex_declarations Vertex declarations
 
 sge offers certain classes that have to be used to declare the attributes of a
 vertex.
@@ -76,7 +71,7 @@ available through sys.renderer() in this example.
 
 \snippet vertex.cpp vertex_declaration
 
-\subsection writing_vertices Writing Vertices
+\section writing_vertices Writing Vertices
 
 In order to fill a vertex_buffer, we first have to create one.  The
 vertex_buffer has to be told which part of the vertex format it is going to
@@ -139,7 +134,7 @@ The rest of the vertices get written in a similar fashion.
 We are done with the vertex lock and the scope is closed, so the buffer will be
 unlocked.
 
-\subsubsection drawing_vertices Drawing Vertices
+\section drawing_vertices Drawing Vertices
 
 To draw some of the vertices from the vertex buffer, we have to enable both the
 vertex declaration and the vertex buffer using the renderer.  Therefore, we
@@ -163,113 +158,8 @@ in its constructor and destructor, respectively.
 We tell the renderer to draw the vertices 0 through 2 from the vertex buffer,
 interpreting them as a list of triangles.
 
-\section indices Indices
+<hr>
 
-Recall that the supported primitive types are points, lines and triangles. If
-we want to draw more complex, solid geometry, we have no choice but to build it
-from triangles.
-In the next example, the goal is to create a quad instead of a triangle
-with four different colors for each corner.
-Now, there are two ways to do that:
+<strong>Up:</strong> \ref renderer_main, <strong>Next:</strong> \ref renderer_indices
 
-\li Create two separate triangles that don't share any vertices, resulting in
-six vertices in total, duplicating two of the vertices.
-\li Create only four vertices, one for each corner, and somehow tell the
-renderer which combinations of them should become triangles.
-
-For the latter to work, we can use \em indices. An index is a number that
-refers to a vertex in a vertex buffer. It can go from 0 to vertex_count - 1.
-
-\subsection index_format Index format
-
-Like the vertex format, there also exists an \em index \em format. However, the
-index format is much easier, because there currently are only two
-possibilities: sge::renderer::index::format_16 and
-sge::renderer::index::format_32. The number tells how many bits of storage an
-index will take. So for example, with format_16 this limits the size of a
-vertex buffer to 65535 elements.
-
-In this example, we choose 16 bit indices.
-
-\snippet vertex_index.cpp index_format_declaration
-
-\subsection writing_indices Writing Indices
-
-As with the vertex buffer, we have to create an index buffer to store the
-indices. Six indices are needed because we want to draw two triangles, where
-each of them requires three vertices.
-
-\snippet vertex_index.cpp index_buffer_declaration
-
-The index buffer is locked in way similar to the vertex buffer.
-
-\snippet vertex_index.cpp index_buffer_lock
-
-Filling the indices into the buffer is also done via an iterator. Its value
-type is sge::renderer::index::proxy which has a set member function. For the 16
-bit format, the type accepted by the proxy is boost::uint16_t. In order to
-assure that no implicit type conversions are done, only objects of this type
-are accepted. In the example below, the static_cast is necessary to convert the
-literals (which are of type int) into the expected value type.
-
-\snippet vertex_index.cpp index_buffer_fill
-
-\subsection rendering_indices Rendering indices
-
-Instead of calling sge::renderer::device::render_nonindexed, the indexed
-version will be used, which is sge::renderer::device::render_indexed.
-
-\snippet vertex_index.cpp render_indexed
-
-Here, we say that we want to draw two triangles, indicated by the primitive
-count, and we need the first four vertices for this. Basically, first_vertex and
-vertex_count set the limitations which values the indices can hold. To be most
-conservative, 0 and vertex_buffer::size() should be used. first_index tells
-where we start in the index buffer.
-
-\section textures Textures
-
-Instead of defining one color per vertex, which are then interpolated, we can
-map an image onto a triangle. A resource that stores such an image is called a
-\em texture.
-
-Which portion of the texture is shown is determined by the \em texture \em
-coordinates of each vertex. These are simply positions into a texture starting
-from (0,0) at the top left to (1,1) at the bottom right.
-
-Such a flat texture is called a \em planar \em texture.
-
-There are two other texture types as well:
-
-\li Volume Textures (3D textures)
-\li Cube Textures (textures consisting of six planar textures, one for each side)
-
-In the following example, a texture should be mapped onto our quad. Therefore,
-we have to replace the vertex colors by texture coordinates.
-
-\snippet vertex_texture.cpp texture_vf_declaration
-
-sge::renderer::vf::texpos specifies the element type of a texture coordinate
-(float is again most portable) and how many elements a texture coordinate
-should have. We use two elements per coordinate here, as we have a flat image.
-
-The next thing to change is how the vertices are written. We will specify
-texture coordinates instead of vertex colors.
-
-\snippet vertex_texture.cpp write_vertices
-
-A texture is also needed. For this example, a grass texture is used.
-
-\snippet vertex_texture.cpp load_texture
-
-sge::renderer::texture::create_planar_from_path creates a planar texture
-directly from an image file, using an image loader that is available through
-sys.image_loader in this example.
-
-To use our texture, we have to activate it. There are several texture stages,
-which can be useful to blend different textures together. In this example,
-however, we only need one texture, and therefore the 0th texture stage will be
-used. Rendering will then use the activated texture.
-
-\snippet vertex_texture.cpp render_block
 */
