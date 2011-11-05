@@ -132,6 +132,7 @@ try
 	sge::image2d::file_ptr const image(
 		sys.image_loader().load(
 			sge::config::media_path()
+			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("tux.png")
 		)
 	);
