@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/object.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
 #include <sge/renderer/clear_flags.hpp>
+#include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -855,7 +856,8 @@ try
 
 		// Clear depth buffer
 		sys.renderer().clear(
-			sge::renderer::clear_flags::depth_buffer);
+			sge::renderer::clear_flags_field(
+				sge::renderer::clear_flags::depth_buffer));
 
 		// Set the color mask to cyan
 		sys.renderer().state(

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/devil/loader.hpp>
 #include <sge/image2d/loader_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
+#include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/version.hpp>
@@ -37,7 +38,9 @@ sge::plugin::info const info(
 	FCPPT_TEXT("Provides loading and saving of bmp, jpeg, png and tga."),
 	sge::plugin::version(0x1),
 	sge::plugin::min_core_version(0x1),
-	sge::plugin::capabilities::image2d_loader
+	sge::plugin::capabilities_field(
+		sge::plugin::capabilities::image2d_loader
+	)
 );
 
 sge::image2d::loader_ptr const

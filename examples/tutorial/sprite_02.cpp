@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
@@ -216,7 +217,9 @@ try
 				)
 				|
 				sge::systems::input_helper::mouse_collector,
-				sge::systems::cursor_option::exclusive
+				sge::systems::cursor_option_field(
+					sge::systems::cursor_option::exclusive
+				)
 			)
 		)
 	);
@@ -245,7 +248,7 @@ try
 			sge::renderer::texture::address_mode2(
 				sge::renderer::texture::address_mode::clamp
 			),
-			sge::renderer::resource_flags::readable
+			sge::renderer::resource_flags::none
 		)
 	);
 

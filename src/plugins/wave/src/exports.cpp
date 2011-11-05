@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/loader_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
+#include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/version.hpp>
@@ -37,7 +38,9 @@ sge::plugin::info const info(
 	FCPPT_TEXT("Loads wave files."),
 	sge::plugin::version(0x1),
 	sge::plugin::min_core_version(0x1),
-	sge::plugin::capabilities::audio_loader
+	sge::plugin::capabilities_field(
+		sge::plugin::capabilities::audio_loader
+	)
 );
 
 

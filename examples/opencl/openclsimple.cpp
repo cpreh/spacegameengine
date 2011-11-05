@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -433,7 +434,8 @@ try
 			>(),
 			sge::renderer::vertex_count(
 				6),
-			sge::renderer::resource_flags::readable));
+			sge::renderer::resource_flags_field(
+				sge::renderer::resource_flags::readable)));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, now creating OpenCL buffer from it\n");

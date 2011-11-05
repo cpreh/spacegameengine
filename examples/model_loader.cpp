@@ -73,6 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -322,14 +323,16 @@ choose_format_and_convert(
 				sge::model::obj::vb_converter::convert<vf::format_part,texcoord_format>(
 					_renderer,
 					_vd,
-					sge::renderer::resource_flags::readable,
+					sge::renderer::resource_flags_field(
+						sge::renderer::resource_flags::readable),
 					_model);
 
 		return
 			sge::model::obj::vb_converter::convert<vf::format_part,texcoord_normal_format>(
 				_renderer,
 				_vd,
-				sge::renderer::resource_flags::readable,
+				sge::renderer::resource_flags_field(
+					sge::renderer::resource_flags::readable),
 				_model);
 	}
 
@@ -338,14 +341,16 @@ choose_format_and_convert(
 			sge::model::obj::vb_converter::convert<vf::format_part,normal_format>(
 				_renderer,
 				_vd,
-				sge::renderer::resource_flags::readable,
+				sge::renderer::resource_flags_field(
+					sge::renderer::resource_flags::readable),
 				_model);
 
 	return
 		sge::model::obj::vb_converter::convert<vf::format_part,base_format>(
 			_renderer,
 			_vd,
-			sge::renderer::resource_flags::readable,
+			sge::renderer::resource_flags_field(
+				sge::renderer::resource_flags::readable),
 			_model);
 }
 

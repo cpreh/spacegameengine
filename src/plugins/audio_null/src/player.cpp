@@ -124,5 +124,8 @@ sge::audio_null::player::create_nonpositional_stream(
 sge::audio::player_capabilities_field const
 sge::audio_null::player::capabilities() const
 {
-	return sge::audio::player_capabilities::null;
+	return
+		sge::audio::player_capabilities_field(
+			sge::audio::player_capabilities::null
+		);
 }

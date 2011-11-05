@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/config/media_path.hpp>
+#include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_ptr.hpp>
@@ -143,7 +144,9 @@ try
 			sge::renderer::texture::address_mode2(
 				sge::renderer::texture::address_mode::clamp
 			),
-			sge::renderer::resource_flags::readable
+			sge::renderer::resource_flags_field(
+				sge::renderer::resource_flags::readable
+			)
 		)
 	);
 
@@ -187,7 +190,7 @@ try
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp
 				),
-				sge::renderer::resource_flags::readable, // TODO
+				sge::renderer::resource_flags::none,
 				sge::renderer::texture::capabilities_field(
 					sge::renderer::texture::capabilities::render_target
 				)
