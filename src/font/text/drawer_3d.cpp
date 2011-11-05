@@ -48,7 +48,13 @@ sge::font::text::drawer_3d::drawer_3d(
 	sge::image::color::any::object const &_col
 )
 :
-	col_(_col),
+	col_(
+		sge::image::color::any::convert<
+			color_format
+		>(
+			_col
+		)
+	),
 	texman_(
 		boost::phoenix::construct<
 			texture::fragmented_unique_ptr
@@ -69,12 +75,16 @@ sge::font::text::drawer_3d::drawer_3d(
 			)
 		)
 	),
-	sys_(_rend),
+	sys_(
+		_rend
+	),
 	sprites_()
-{}
+{
+}
 
 sge::font::text::drawer_3d::~drawer_3d()
-{}
+{
+}
 
 void
 sge::font::text::drawer_3d::begin_rendering(
@@ -116,7 +126,7 @@ sge::font::text::drawer_3d::draw_char(
 			.texture(
 				dim.content()
 				?
-					cached_texture(
+					this->cached_texture(
 						_char,
 						_data
 					)
@@ -131,12 +141,7 @@ sge::font::text::drawer_3d::draw_char(
 				)
 			)
 			.color(
-				// TODO:
-				image::color::any::convert<
-					sprite_object::color_format
-				>(
-					col_
-				)
+				col_
 			)
 			.elements()
 		)
@@ -159,7 +164,12 @@ sge::font::text::drawer_3d::color(
 	sge::image::color::any::object const &_col
 )
 {
-	col_ = _col;
+	col_ =
+		sge::image::color::any::convert<
+			color_format
+		>(
+			_col
+		);
 }
 
 sge::texture::const_part_ptr const

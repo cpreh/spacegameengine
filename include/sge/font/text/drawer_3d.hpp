@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/char_type.hpp>
 #include <sge/font/text/drawer.hpp>
 #include <sge/font/text/symbol.hpp>
-#include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/color/bgra8_format.hpp>
+#include <sge/image/color/object_impl.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/choices.hpp>
@@ -105,7 +106,13 @@ private:
 		font::const_image_view const &
 	);
 
-	image::color::any::object col_;
+	typedef image::color::bgra8_format color_format;
+
+	typedef typename sge::image::color::object<
+		color_format
+	>::type color_object;
+
+	color_object col_;
 
 	texture::manager texman_;
 
@@ -120,7 +127,7 @@ private:
 		sge::sprite::type_choices<
 			int,
 			float,
-			image::color::rgba8_format
+			color_format
 		>,
 		boost::mpl::vector3<
 			sge::sprite::with_color,
