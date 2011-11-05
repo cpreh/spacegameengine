@@ -45,7 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/system.hpp>
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vertex_count.hpp>
