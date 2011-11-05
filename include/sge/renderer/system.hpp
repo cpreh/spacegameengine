@@ -43,7 +43,7 @@ namespace renderer
  * \brief Creates sge::renderer::device objects and renderable windows
  *
  * The core class returned by a renderer plugin. In order to render anything,
- * you have to create a sge::renderer::device through this class. If you don't
+ * you have to create an sge::renderer::device through this class. If you don't
  * have a renderable window to pass, you can also create one.
 */
 class SGE_CLASS_SYMBOL system
@@ -62,7 +62,7 @@ public:
 	 * a renderer plugin.
 	 *
 	 * \param params The renderer configuration like resolution and buffers
-	 * \param adapeter A number that tells which interface to load, you should currently pass 0
+	 * \param adapter A number that tells which interface to load, you should currently pass 0
 	 * \param window The window used for rendering to. This window must satisfy the requirements imposed by \a params
 	 * \throw sge::renderer::exception if anything goes wrong
 	 * \return An sge::renderer::device_ptr that may not be null
@@ -75,9 +75,10 @@ public:
 	) = 0;
 
 	/**
-	 * \brief Creates a renderable window that satisfied the requirements of \a params
+	 * \brief Creates a renderable window that satisfies the requirements of \a params
 	 *
-	 * Creates a renderable window to use with sge::renderer::system::create_renderer.
+	 * Creates a renderable window that satisfies the requirements of \a
+	 * params and can be used with sge::renderer::system::create_renderer.
 	 *
 	 * \param awl_system The awl system that is used to create windows
 	 * \param window_params Basic window parameters like title, dim, size hints, etc.
