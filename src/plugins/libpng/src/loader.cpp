@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/extension_set.hpp>
 #include <sge/image/file_exception.hpp>
+#include <sge/image/optional_path.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/libpng/file.hpp>
 #include <sge/libpng/loader.hpp>
@@ -78,7 +79,9 @@ sge::libpng::loader::load(
 		!file_stream.is_open()
 	)
 		throw image::file_exception(
-			_path,
+			sge::image::optional_path(
+				_path
+			),
 			FCPPT_TEXT("couldn't open file"));
 	try
 	{
@@ -88,7 +91,8 @@ sge::libpng::loader::load(
 			>(
 				fcppt::ref(
 					file_stream),
-				_path
+				sge::image::optional_path(
+					_path)
 			);
 	}
 	catch(

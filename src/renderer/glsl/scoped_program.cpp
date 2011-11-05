@@ -29,10 +29,14 @@ sge::renderer::glsl::scoped_program::scoped_program(
 	glsl::program const &_program
 )
 :
-	rend_(_rend)
+	rend_(
+		_rend
+	)
 {
 	rend_.glsl_program(
-		_program
+		sge::renderer::glsl::const_optional_program(
+			_program
+		)
 	);
 }
 

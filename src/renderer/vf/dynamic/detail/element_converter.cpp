@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
@@ -115,8 +116,11 @@ sge::renderer::vf::dynamic::detail::element_converter::convert(
 			?
 				original_color_
 			:
-				backend_color_,
-			pitch
+				backend_color_
+			,
+			sge::image2d::view::optional_pitch(
+				pitch
+			)
 		),
 		sge::image2d::view::make(
 			begin,
@@ -125,8 +129,11 @@ sge::renderer::vf::dynamic::detail::element_converter::convert(
 			?
 				backend_color_
 			:
-				original_color_,
-			pitch
+				original_color_
+			,
+			sge::image2d::view::optional_pitch(
+				pitch
+			)
 		),
 		sge::image::algorithm::may_overlap::yes
 	);

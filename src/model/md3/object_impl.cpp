@@ -326,7 +326,10 @@ sge::model::md3::object_impl::texcoords(
 			).texcoord()
 		);
 
-	return result;
+	return
+		sge::model::md3::optional_texcoord_sequence(
+			result
+		);
 }
 
 sge::model::md3::optional_normal_sequence const
@@ -353,7 +356,10 @@ sge::model::md3::object_impl::normals(
 			it->normal()
 		);
 
-	return result;
+	return
+		sge::model::md3::optional_normal_sequence(
+			result
+		);
 }
 
 sge::model::md3::part_name_sequence const

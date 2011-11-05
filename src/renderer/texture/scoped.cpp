@@ -31,11 +31,17 @@ sge::renderer::texture::scoped::scoped(
 	renderer::stage const _stage
 )
 :
-	device_(_device),
-	stage_(_stage)
+	device_(
+		_device
+	),
+	stage_(
+		_stage
+	)
 {
 	device_.texture(
-		_texture,
+		renderer::texture::const_optional_base(
+			_texture
+		),
 		stage_
 	);
 }

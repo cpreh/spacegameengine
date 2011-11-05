@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/cube.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
+#include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/planar.hpp>
 #include <sge/opengl/texture/convert/cube_side.hpp>
 #include <sge/renderer/exception.hpp>
@@ -100,9 +101,11 @@ sge::opengl::texture::cube::cube(
 					_context
 				),
 				planar_param,
-				convert::cube_side(
-					context.cube_sides(),
-					index
+				opengl::texture::optional_type(
+					convert::cube_side(
+						context.cube_sides(),
+						index
+					)
 				)
 			)
 		);

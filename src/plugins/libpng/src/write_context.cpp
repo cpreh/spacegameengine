@@ -20,8 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/exception.hpp>
 #include <sge/image/file_exception.hpp>
-#include <sge/image/size_type.hpp>
+#include <sge/image/optional_path.hpp>
 #include <sge/image/unsupported_format.hpp>
+#include <sge/image/size_type.hpp>
 #include <sge/image/color/element_count.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/libpng/bit_depth_from_format.hpp>
@@ -51,7 +52,9 @@ sge::libpng::write_context::write_context(
 )
 :
 	context_base(
-		_path
+		sge::image::optional_path(
+			_path
+		)
 	),
 	file_(
 		_path
@@ -81,7 +84,9 @@ sge::libpng::write_context::write_context(
 	)
 		throw
 			image::file_exception(
-				_path,
+				image::optional_path(
+					_path
+				),
 				FCPPT_TEXT("couldn't open file")
 			);
 

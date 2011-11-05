@@ -65,17 +65,19 @@ sge::vorbis::loader::load(
 			std::ios::binary));
 	if(!static_cast<fcppt::io::cifstream &>(*file_stream).is_open())
 		throw audio::file_exception(
-			filename,
+			sge::audio::optional_path(
+				filename),
 			FCPPT_TEXT("couldn't open file"));
 	try
 	{
 		return
 			// Can't use make_shared here because of the unique_ptr
 			sge::audio::file_ptr(
-				new file(
+				new vorbis::file(
 					fcppt::move(
 						file_stream),
-					filename));
+					sge::audio::optional_path(
+						filename)));
 	}
 	catch (audio::unsupported_format const &)
 	{

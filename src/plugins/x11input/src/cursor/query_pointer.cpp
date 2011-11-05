@@ -83,16 +83,18 @@ sge::x11input::cursor::query_pointer(
 	);
 
 	return
-		input::cursor::position(
-			static_cast<
-				input::cursor::position_unit
-			>(
-				win_x_return
-			),
-			static_cast<
-				input::cursor::position_unit
-			>(
-				win_y_return
+		sge::input::cursor::optional_position(
+			input::cursor::position(
+				static_cast<
+					input::cursor::position_unit
+				>(
+					win_x_return
+				),
+				static_cast<
+					input::cursor::position_unit
+				>(
+					win_y_return
+				)
 			)
 		);
 }

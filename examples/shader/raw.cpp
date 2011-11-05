@@ -514,7 +514,9 @@ try
 	program->link();
 
 	sys.renderer().glsl_program(
-		*program
+		sge::renderer::glsl::const_optional_program(
+			*program
+		)
 	);
 
 	sge::renderer::glsl::uniform::variable_ptr const tex_var(
@@ -564,7 +566,9 @@ try
 		}
 
 		sys.renderer().glsl_program(
-			*program
+			sge::renderer::glsl::const_optional_program(
+				*program
+			)
 		);
 
 		sge::renderer::scoped_block const block_(
