@@ -23,7 +23,7 @@ Fundamental libraries:
 </tr>
 
 <tr>
-<td>\ref renderer</td>
+<td>\ref renderer_main</td>
 <td>abstraction of triangles, textures, state, etc.</td>
 </tr>
 

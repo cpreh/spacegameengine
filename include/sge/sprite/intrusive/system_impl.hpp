@@ -83,7 +83,7 @@ sge::sprite::intrusive::system<Choices>::render_all(
 		>()
 	);
 
-	render_all_advanced(
+	this->render_all_advanced(
 		_equal
 	);
 }
@@ -135,7 +135,7 @@ sge::sprite::intrusive::system<Choices>::render(
 		>()
 	);
 
-	render_advanced(
+	this->render_advanced(
 		_order,
 		_equal
 	);
@@ -153,7 +153,7 @@ sge::sprite::intrusive::system<Choices>::render_advanced(
 	EqualFunction const &_equal
 )
 {
-	render_list(
+	this->render_list(
 		sprite_levels_[
 			_order
 		],

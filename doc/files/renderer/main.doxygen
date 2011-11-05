@@ -1,0 +1,20 @@
+/**
+\page renderer_main renderer
+
+\section abstract Abstract
+
+sge::renderer provides an abstraction for 3D APIs, which currently is
+mainly focused on the fixed function pipeline to guarantee maximum portability.
+A glsl interface is also provided but can only be used with OpenGL.
+
+\section renderer_subsections Subsections
+
+<ul>
+<li>\subpage renderer_vertices</li>
+<li>\subpage renderer_indices</li>
+<li>\subpage renderer_textures</li>
+</ul>
+
+<hr>
+<strong>Up:</strong> \ref index
+*/

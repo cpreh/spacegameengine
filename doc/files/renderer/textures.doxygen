@@ -1,0 +1,50 @@
+/**
+\page renderer_textures Textures
+
+Instead of defining one color per vertex, which are then interpolated, we can
+map an image onto a triangle. A resource that stores such an image is called a
+\em texture.
+
+Which portion of the texture is shown is determined by the \em texture \em
+coordinates of each vertex. These are simply positions into a texture starting
+from (0,0) at the top left to (1,1) at the bottom right.
+
+Such a flat texture is called a \em planar \em texture.
+
+There are two other texture types as well:
+
+\li Volume Textures (3D textures)
+\li Cube Textures (textures consisting of six planar textures, one for each side)
+
+In the following example, a texture should be mapped onto our quad. Therefore,
+we have to replace the vertex colors by texture coordinates.
+
+\snippet vertex_texture.cpp texture_vf_declaration
+
+sge::renderer::vf::texpos specifies the element type of a texture coordinate
+(float is again most portable) and how many elements a texture coordinate
+should have. We use two elements per coordinate here, as we have a flat image.
+
+The next thing to change is how the vertices are written. We will specify
+texture coordinates instead of vertex colors.
+
+\snippet vertex_texture.cpp write_vertices
+
+A texture is also needed. For this example, a grass texture is used.
+
+\snippet vertex_texture.cpp load_texture
+
+sge::renderer::texture::create_planar_from_path creates a planar texture
+directly from an image file, using an image loader that is available through
+sys.image_loader in this example.
+
+To use our texture, we have to activate it. There are several texture stages,
+which can be useful to blend different textures together. In this example,
+however, we only need one texture, and therefore the 0th texture stage will be
+used. Rendering will then use the activated texture.
+
+\snippet vertex_texture.cpp render_block
+
+<strong>Previous:</strong> \ref renderer_indices, <strong>Up:</strong> \ref renderer_main
+
+*/

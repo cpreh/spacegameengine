@@ -296,7 +296,6 @@ try
 		}
 	}
 
-	// FIXME!
 	il.loaders().at(0)->create(
 		sge::image2d::view::to_const(
 			dest_view
