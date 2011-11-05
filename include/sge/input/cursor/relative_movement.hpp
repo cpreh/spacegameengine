@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/symbol.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/relative_move_callback.hpp>
 #include <sge/input/cursor/relative_move_function.hpp>
 #include <sge/input/cursor/relative_movement_fwd.hpp>
@@ -73,7 +73,7 @@ private:
 
 	cursor::object &cursor_;
 
-	cursor::position last_position_;
+	cursor::optional_position last_position_;
 
 	relative_move_signal relative_move_signal_;
 

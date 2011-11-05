@@ -36,7 +36,9 @@ sge::input::cursor::relative_movement::relative_movement(
 	cursor::object &_cursor
 )
 :
-	cursor_(_cursor),
+	cursor_(
+		_cursor
+	),
 	last_position_(
 		cursor_.position()
 	),
@@ -74,10 +76,20 @@ sge::input::cursor::relative_movement::move_callback_internal(
 	cursor::move_event const &_event
 )
 {
+	if(
+		!last_position_
+		|| !_event.position()
+	)
+	{
+		last_position_ = _event.position();
+
+		return;
+	}
+
 	relative_move_signal_(
 		cursor::relative_move_event(
-			_event.position()
-			- last_position_
+			*_event.position()
+			- *last_position_
 		)
 	);
 

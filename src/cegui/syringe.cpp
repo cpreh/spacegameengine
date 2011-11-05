@@ -153,8 +153,11 @@ void
 sge::cegui::syringe::inject(
 	sge::input::cursor::move_event const &e)
 {
-	inject(
-		e.position());
+	if(
+		e.position()
+	)
+		inject(
+			*e.position());
 }
 
 void

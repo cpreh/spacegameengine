@@ -266,7 +266,7 @@ sge::x11input::processor::processor(
 				window_event_processor_.register_callback(
 					FocusIn,
 					std::tr1::bind(
-						&processor::on_enter,
+						&processor::on_focus_in,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -277,6 +277,18 @@ sge::x11input::processor::processor(
 			fcppt::signal::shared_connection(
 				window_event_processor_.register_callback(
 					FocusOut,
+					std::tr1::bind(
+						&processor::on_focus_out,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				window_event_processor_.register_callback(
+					LeaveNotify,
 					std::tr1::bind(
 						&processor::on_leave,
 						this,
@@ -548,7 +560,7 @@ sge::x11input::processor::on_hierarchy_changed(
 }
 
 void
-sge::x11input::processor::on_enter(
+sge::x11input::processor::on_focus_in(
 	awl::backends::x11::window::event::object const &
 )
 {
@@ -563,12 +575,12 @@ sge::x11input::processor::on_enter(
 	);
 
 	this->for_each_cursor(
-		&x11input::cursor::object::on_enter
+		&x11input::cursor::object::on_focus_in
 	);
 }
 
 void
-sge::x11input::processor::on_leave(
+sge::x11input::processor::on_focus_out(
 	awl::backends::x11::window::event::object const &
 )
 {
@@ -580,6 +592,22 @@ sge::x11input::processor::on_leave(
 
 	raw_demuxer_.active(
 		false
+	);
+
+	this->for_each_cursor(
+		&x11input::cursor::object::on_focus_out
+	);
+}
+
+void
+sge::x11input::processor::on_leave(
+	awl::backends::x11::window::event::object const &
+)
+{
+	FCPPT_LOG_DEBUG(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("x11input: LeaveNotify")
 	);
 
 	this->for_each_cursor(

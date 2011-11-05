@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
-#include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/optional_position.hpp>
 #include <sge/x11input/cursor/grab_fwd.hpp>
 #include <sge/x11input/cursor/image.hpp>
 #include <sge/x11input/cursor/object_fwd.hpp>
@@ -67,7 +67,10 @@ public:
 	~object();
 
 	void
-	on_enter();
+	on_focus_in();
+
+	void
+	on_focus_out();
 
 	void
 	on_leave();
@@ -82,7 +85,7 @@ private:
 		input::cursor::move_callback const &
 	);
 
-	input::cursor::position const
+	input::cursor::optional_position const
 	position() const;
 
 	void
@@ -112,6 +115,9 @@ private:
 	);
 
 	void
+	move_event();
+
+	void
 	check_grab();
 
 	awl::backends::x11::window::instance &window_;
@@ -124,7 +130,7 @@ private:
 
 	bool entered_;
 
-	sge::input::cursor::position position_;
+	sge::input::cursor::optional_position position_;
 
 	sge::input::cursor::button_signal button_signal_;
 

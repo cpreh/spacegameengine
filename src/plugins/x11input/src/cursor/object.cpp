@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
+#include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/x11input/cursor/button_code.hpp>
@@ -130,7 +131,7 @@ sge::x11input::cursor::object::~object()
 }
 
 void
-sge::x11input::cursor::object::on_enter()
+sge::x11input::cursor::object::on_focus_in()
 {
 	entered_ = true;
 
@@ -138,11 +139,19 @@ sge::x11input::cursor::object::on_enter()
 }
 
 void
-sge::x11input::cursor::object::on_leave()
+sge::x11input::cursor::object::on_focus_out()
 {
 	entered_ = false;
 
 	this->check_grab();
+}
+
+void
+sge::x11input::cursor::object::on_leave()
+{
+	position_.reset();
+
+	this->move_event();
 }
 
 fcppt::signal::auto_connection
@@ -167,7 +176,7 @@ sge::x11input::cursor::object::move_callback(
 		);
 }
 
-sge::input::cursor::position const
+sge::input::cursor::optional_position const
 sge::x11input::cursor::object::position() const
 {
 	return position_;
@@ -202,11 +211,7 @@ sge::x11input::cursor::object::on_motion(
 			)
 		);
 
-	move_signal_(
-		input::cursor::move_event(
-			position_
-		)
-	);
+	this->move_event();
 }
 
 void
@@ -243,6 +248,16 @@ sge::x11input::cursor::object::button_event(
 				_event.get().detail
 			),
 			_pressed
+		)
+	);
+}
+
+void
+sge::x11input::cursor::object::move_event()
+{
+	move_signal_(
+		input::cursor::move_event(
+			position_
 		)
 	);
 }
