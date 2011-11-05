@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/button_signal.hpp>
+#include <sge/input/cursor/choose_callback.hpp>
+#include <sge/input/cursor/default_choose.hpp>
 #include <sge/input/cursor/demuxer_fwd.hpp>
 #include <sge/input/cursor/discover_event_fwd.hpp>
 #include <sge/input/cursor/mode.hpp>
@@ -35,15 +37,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/object_set.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/remove_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <set>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -63,7 +64,9 @@ class SGE_CLASS_SYMBOL demuxer
 public:
 	SGE_INPUT_SYMBOL
 	explicit demuxer(
-		input::processor &
+		input::processor &,
+		cursor::choose_callback const &
+			= cursor::default_choose()
 	);
 
 	SGE_INPUT_SYMBOL
@@ -120,9 +123,7 @@ private:
 		cursor::object_ptr
 	);
 
-	typedef std::set<
-		cursor::object_ptr
-	> cursor_set;
+	cursor::choose_callback const choose_;
 
 	fcppt::signal::connection_manager const processor_connections_;
 
@@ -130,7 +131,7 @@ private:
 
 	input::cursor::move_signal move_signal_;
 
-	cursor_set cursors_;
+	cursor::object_set cursors_;
 
 	fcppt::signal::connection_manager cursor_connections_;
 

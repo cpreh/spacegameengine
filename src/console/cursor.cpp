@@ -19,7 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/cursor.hpp>
+#include <sge/console/function_map.hpp>
 #include <sge/font/text/lit.hpp>
+#include <sge/font/text/string.hpp>
 
 sge::console::cursor::cursor()
 :
@@ -174,8 +176,7 @@ sge::console::cursor::at_start() const
 
 void
 sge::console::cursor::complete_word(
-	function_map const &
+	console::function_map const &_map
 )
 {
-	// TODO
 }

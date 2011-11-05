@@ -29,13 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::context::container::container()
 :
 	elements_(
-		50 // TODO
+		50u
 	)
-{}
+{
+}
 
 sge::opengl::context::container::~container()
 {
-	destroy();
+	this->destroy();
 }
 
 sge::opengl::context::base *

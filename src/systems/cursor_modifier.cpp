@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/preprocessor/todo.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 
@@ -48,7 +49,8 @@ sge::systems::cursor_modifier::cursor_modifier(
 		)
 	)
 {
-	// TODO: simplify this!
+	FCPPT_PP_TODO("Simplify cursor::object discovery")
+
 	input::cursor::object_vector const cursors(
 		_processor.cursors()
 	);
