@@ -57,8 +57,6 @@ sge::image::view::make(
 	>::type const &_pitch
 )
 {
-	// TODO: gcc-4.5: Check if this is a gcc bug
-
 	return
 		fcppt::mpl::invoke_on<
 			boost::mpl::filter_view<

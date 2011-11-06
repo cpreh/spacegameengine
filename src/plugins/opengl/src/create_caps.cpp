@@ -72,7 +72,7 @@ sge::opengl::create_caps(
 			renderer::caps
 		>(
 			sge::renderer::adapter(
-				0 // FIXME!
+				0
 			),
 			opengl::get_string(
 				GL_VENDOR
@@ -118,6 +118,6 @@ sge::opengl::create_caps(
 			>(
 				_context
 			).is_supported(),
-			sge::image::color::format::rgba8 // TODO: use bgra8 for nvidia instead!
+			sge::image::color::format::bgra8
 		);
 }

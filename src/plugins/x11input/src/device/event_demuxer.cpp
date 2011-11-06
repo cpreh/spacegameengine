@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/unregister/base_impl.hpp>
@@ -36,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <boost/utility/enable_if.hpp>
+#include <limits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -129,6 +131,13 @@ template<
 >
 sge::x11input::device::event_demuxer<Event>::~event_demuxer()
 {
+	FCPPT_ASSERT_ERROR(
+		signals_.empty()
+	);
+
+	FCPPT_ASSERT_ERROR(
+		connections_.empty()
+	);
 }
 
 template<
@@ -142,9 +151,10 @@ sge::x11input::device::event_demuxer<Event>::register_callback(
 )
 {
 	if(
-		connections_.count(
+		connections_.find(
 			_type
-		) == 0u
+		)
+		== connections_.end()
 	)
 		fcppt::container::ptr::insert_unique_ptr_map(
 			connections_,
@@ -278,7 +288,7 @@ sge::x11input::device::event_demuxer<Event>::unregister(
 		)
 	);
 
-	assert(
+	FCPPT_ASSERT_ERROR(
 		it
 		!= signals_.end()
 	);
@@ -298,8 +308,49 @@ sge::x11input::device::event_demuxer<Event>::unregister(
 			false
 		);
 
-		// TODO: remove a connection if there is no signal for the event left!
+		if(
+			!this->signal_remains(
+				_type
+			)
+		)
+			FCPPT_ASSERT_ERROR(
+				connections_.erase(
+					_type
+				)
+				== 1u
+			);
 	}
+}
+
+template<
+	typename Event
+>
+bool
+sge::x11input::device::event_demuxer<Event>::signal_remains(
+	awl::backends::x11::system::event::type const _type
+) const
+{
+	return
+		signals_.lower_bound(
+			event_pair(
+				_type,
+				x11input::device::id(
+					std::numeric_limits<
+						x11input::device::id::value_type
+					>::min()
+				)
+			)
+		)
+		!= signals_.upper_bound(
+			event_pair(
+				_type,
+				x11input::device::id(
+					std::numeric_limits<
+						x11input::device::id::value_type
+					>::max()
+				)
+			)
+		);
 }
 
 template class
