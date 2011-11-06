@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/joypad/axis_code.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/preprocessor/todo.hpp>
 
 
 sge::input::joypad::axis_code::type
@@ -56,6 +57,7 @@ sge::x11input::joypad::axis_code(
 	)
 		return sge::input::joypad::axis_code::z;
 
-	// TODO: add more
+	FCPPT_PP_TODO("Add the other axis codes as well")
+
 	return sge::input::joypad::axis_code::unknown;
 }

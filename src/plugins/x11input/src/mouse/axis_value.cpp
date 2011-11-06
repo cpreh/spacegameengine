@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/mouse/axis_value.hpp>
 #include <sge/x11input/mouse/axis_value.hpp>
+#include <fcppt/preprocessor/todo.hpp>
 
 
 sge::input::mouse::axis_value
@@ -27,6 +28,7 @@ sge::x11input::mouse::axis_value(
 	double const _value
 )
 {
-	// TODO:!
+	FCPPT_PP_TODO("Should we translate doubles differently?")
+
 	return _value;
 }
