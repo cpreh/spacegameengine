@@ -88,6 +88,15 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Renders primitives and creates renderer ressources
+ *
+ * sge::renderer::device is the most important class that a renderer plugin
+ * implements. It can render indexed and nonindexed primitives and create
+ * various ressources like textures and vertex and index buffers. It also
+ * manages all state that a renderer might have. A window is always associated
+ * with the device.
+ */
 class SGE_CLASS_SYMBOL device
 {
 	FCPPT_NONCOPYABLE(
@@ -97,32 +106,92 @@ protected:
 	SGE_RENDERER_SYMBOL
 	device();
 public:
+	/**
+	 * \brief Begins the rendering operation
+	 *
+	 * To be able to call device::render_indexed or
+	 * device::render_nonindexed, this function must be called first. It
+	 * will also call clear() which will clear various buffers depending on
+	 * the sge::renderer::state::bool_ flags set.  To end the rendering
+	 * process and present it, use device::end_rendering.
+	*/
 	virtual void
 	begin_rendering() = 0;
 
+	/**
+	 * \brief Ends the rendering operation
+	 *
+	 * After a call to device::begin_rendering this function must
+	 * be called to present the rendered things in between.
+	*/
 	virtual void
 	end_rendering() = 0;
 
+	/**
+	 * \brief Clears various buffers
+	 *
+	 * Clears the back buffer, depth buffer or stencil buffer depending on
+	 * \a flags
+	 *
+	 * \param flags The buffers to clear
+	*/
 	virtual void
 	clear(
-		renderer::clear_flags_field const &
+		renderer::clear_flags_field const &flags
 	) = 0;
 
+	/**
+	 * \brief Renders indexed geometry
+	 *
+	 * Renders indexed geometry using \a index_buffer and the currently set
+	 * vertex buffers. \a primitive_count primitives are rendered. The
+	 * indices necessary for this are extracted from \a index_buffer from
+	 * position \a first_index to \a first_index +
+	 * renderer::indices_per_primitive(primitive_type) * primitive_count.
+	 * The possible values for the indices range from \a first_vertex to \a
+	 * first_vertex + \a vertex_count. \a first_vertex and \a vertex_count
+	 * should be considered as a possibility for optimization, in case only
+	 * a portion of the vertex buffers is referenced by the call. The most
+	 * conservative use is to pass 0 and vertex_buffer::size.
+	 *
+	 * \param index_buffer The index buffer to use
+	 * \param first_vertex The minimum value for all used indices
+	 * \param vertex_count The maximum value for all used indices
+	 * \param primitive_type The type of primitive to render
+	 * \param primitive_count The number of primitives to render
+	 * \param first_index The offset into the index buffer
+	 */
 	virtual void
 	render_indexed(
-		renderer::index_buffer const &,
-		renderer::first_vertex,
-		renderer::vertex_count,
-		renderer::indexed_primitive_type::type,
-		renderer::primitive_count,
-		renderer::first_index
+		renderer::index_buffer const &index_buffer,
+		renderer::first_vertex first_vertex,
+		renderer::vertex_count vertex_count,
+		renderer::indexed_primitive_type::type primitive_type,
+		renderer::primitive_count primitive_count,
+		renderer::first_index first_index
 	) = 0;
 
+	/**
+	 * \brief Renders non indexed geometry
+	 *
+	 * Renders non indexed geometry using the currently set vertex buffers.
+	 * It uses renderer::nonindexed_primitive_count(\a vertex_count, \a
+	 * primitive_type) vertices starting at \a first_vertex.
+	 * For lines or a line strip, \a vertex_count must be at least 2, for
+	 * triangles, a triangle strip or a triangle, \a vertex_count must be
+	 * at least 3.
+	 * For lines, vertex_count must be a multiple of 2, for triangles,
+	 * vertex_count must be a multiple of 3.
+	 *
+	 * \param first_vertex The offset into the vertex buffer
+	 * \param vertex_count The number of vertices to use
+	 * \param primitive_type The type of primitive to render
+	*/
 	virtual void
 	render_nonindexed(
-		renderer::first_vertex,
-		renderer::vertex_count,
-		renderer::nonindexed_primitive_type::type
+		renderer::first_vertex first_vertex,
+		renderer::vertex_count vertex_count,
+		renderer::nonindexed_primitive_type::type primitive_type
 	) = 0;
 
 	virtual void

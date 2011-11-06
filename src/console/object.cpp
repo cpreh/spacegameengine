@@ -157,7 +157,7 @@ class eval_grammar : public boost::spirit::qi::grammar<
 public:
 	eval_grammar() : eval_grammar::base_type(start)
 	{
-		namespace encoding = boost::spirit::standard_wide; // TODO
+		namespace encoding = boost::spirit::standard_wide;
 
 		using encoding::char_;
 		using encoding::space;

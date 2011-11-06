@@ -32,10 +32,10 @@ namespace renderer
 {
 
 SGE_RENDERER_SYMBOL
-size_type
+renderer::size_type
 nonindexed_primitive_count(
 	renderer::vertex_count,
-	nonindexed_primitive_type::type
+	renderer::nonindexed_primitive_type::type
 );
 
 }

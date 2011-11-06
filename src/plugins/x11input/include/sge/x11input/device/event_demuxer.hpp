@@ -97,6 +97,11 @@ private:
 		awl::backends::x11::system::event::type
 	);
 
+	bool
+	signal_remains(
+		awl::backends::x11::system::event::type
+	) const;
+
 	typedef fcppt::signal::object<
 		signature,
 		fcppt::signal::unregister::base
