@@ -235,9 +235,10 @@ EXPAND_ONLY_PREDEF     = YES
 SEARCH_INCLUDES        = YES
 INCLUDE_PATH           =
 INCLUDE_FILE_PATTERNS  =
-PREDEFINED             = "SGE_AUDIO_SYMBOL="
-EXPAND_AS_DEFINED      = "FCPPT_NONCOPYABLE"\
-			 "FCPPT_NONASSIGNABLE"
+PREDEFINED             = "SGE_AUDIO_SYMBOL="\
+			  "FCPPT_NONCOPYABLE(a)="\
+			  "FCPPT_NONASSIGNABLE(a)="\
+			  "FCPPT_MAKE_STRONG_TYPEDEF(a,b)=typedef a b;"
 SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------
 # Configuration::additions related to external references
