@@ -114,6 +114,11 @@ public:
 	 * will also call clear() which will clear various buffers depending on
 	 * the sge::renderer::state::bool_ flags set.  To end the rendering
 	 * process and present it, use device::end_rendering.
+	 *
+	 * \see sge::renderer::scoped_block
+	 *
+	 * \warning The behaviour is undefined if this function is called more
+	 * than once without a call to device::end_rendering
 	*/
 	virtual void
 	begin_rendering() = 0;
@@ -123,6 +128,8 @@ public:
 	 *
 	 * After a call to device::begin_rendering this function must
 	 * be called to present the rendered things in between.
+	 *
+	 * \warning The behaviour is undefined if begin_rendering wasn't called
 	*/
 	virtual void
 	end_rendering() = 0;
@@ -149,10 +156,11 @@ public:
 	 * position \a first_index to \a first_index +
 	 * renderer::indices_per_primitive(primitive_type) * primitive_count.
 	 * The possible values for the indices range from \a first_vertex to \a
-	 * first_vertex + \a vertex_count. \a first_vertex and \a vertex_count
-	 * should be considered as a possibility for optimization, in case only
-	 * a portion of the vertex buffers is referenced by the call. The most
-	 * conservative use is to pass 0 and vertex_buffer::size.
+	 * first_vertex + \a vertex_count - 1. \a first_vertex and \a
+	 * vertex_count should be considered as a possibility for optimization,
+	 * in case only a portion of the vertex buffers is referenced by the
+	 * call. The most conservative use is to pass 0 and
+	 * vertex_buffer::size.
 	 *
 	 * \param index_buffer The index buffer to use
 	 * \param first_vertex The minimum value for all used indices
@@ -160,6 +168,19 @@ public:
 	 * \param primitive_type The type of primitive to render
 	 * \param primitive_count The number of primitives to render
 	 * \param first_index The offset into the index buffer
+	 *
+	 * \see sge::renderer::device::activate_vertex_buffer
+	 * \see sge::renderer::device::vertex_declaration
+	 *
+	 * \warning The behaviour is undefined if there is not exactly one
+	 * activated vertex buffer per sge::renderer::vf::part.
+	 * \warning The behaviour is undefined if extracted indices are out of
+	 * bounds.
+	 * \warning The behaviour is undefined if vertices are referenced that
+	 * one of the vertex buffer doesn't have.
+	 * \warning The behaviour is undefined if vertices are referenced that
+	 * are outside of the constraints from \a first_vertex and \a
+	 * vertex_count.
 	 */
 	virtual void
 	render_indexed(
@@ -186,6 +207,16 @@ public:
 	 * \param first_vertex The offset into the vertex buffer
 	 * \param vertex_count The number of vertices to use
 	 * \param primitive_type The type of primitive to render
+	 *
+	 * \see sge::renderer::device::activate_vertex_buffer
+	 * \see sge::renderer::device::vertex_declaration
+	 *
+	 * \warning The behaviour is undefined if there is not exactly one
+	 * activated vertex buffer per sge::renderer::vf::part.
+	 * \warning The behaviour is undefined if one of the constraints for \a
+	 * vertex_count is unmet.
+	 * \warning The behaviour is undefined if vertices are referenced that
+	 * one of the vertex buffer doesn't have.
 	*/
 	virtual void
 	render_nonindexed(
@@ -194,49 +225,161 @@ public:
 		renderer::nonindexed_primitive_type::type primitive_type
 	) = 0;
 
+	/**
+	 * \brief Activates a vertex buffer
+	 *
+	 * A vertex buffer is activated, which means that it will supply vertex
+	 * data for the renderer::vf::part it represents.
+	 * It is important the corresponding vertex declaration is already set!
+	 * Initially no vertex buffers are activated.
+	 *
+	 * \param vertex_buffer The vertex buffer to activate
+	 *
+	 * \see sge::renderer::device::vertex_declaration
+	 * \see sge::renderer::scoped_vertex_declaration
+	 *
+	 * \warning The behaviour is undefined if the vertex declaration of \a
+	 * vertex_buffer is not set.
+	*/
 	virtual void
 	activate_vertex_buffer(
-		renderer::vertex_buffer const &
+		renderer::vertex_buffer const &vertex_buffer
 	) = 0;
 
+	/**
+	 * \brief Deactives a vertex buffer
+	 *
+	 * After activating a vertex buffer with device::activate_vertex_buffer,
+	 * it should be deactivated again when it is no longer needed.
+	 *
+	 * \param vertex_buffer The vertex buffer to deactivate
+	 *
+	 * \warning The behaviour is undefined if \a vertex_buffer isn't
+	 * activated.
+	*/
 	virtual void
 	deactivate_vertex_buffer(
-		renderer::vertex_buffer const &
+		renderer::vertex_buffer const &vertex_buffer
 	) = 0;
 
+	/**
+	 * \brief Sets or unsets the current vertex declaration
+	 *
+	 * Sets or unsets the current vertex declaration depending on whether
+	 * \a vertex_declaration is empty. Initially there is no vertex
+	 * declaration set.
+	 *
+	 * \param vertex_declaration The vertex declaration to set or renderer::const_optional_vertex_declaration()
+	 *
+	 * \see sge::renderer::device::deactivate_vertex_buffer
+	 * \see sge::renderer::scoped_vertex_declaration
+	 *
+	 * \warning The behaviour is undefined if vertex buffers are still
+	 * active.
+	 */
 	virtual void
 	vertex_declaration(
-		renderer::const_optional_vertex_declaration const &
+		renderer::const_optional_vertex_declaration const &vertex_declaration
 	) = 0;
 
+	/**
+	 * \brief Sets the current state
+	 *
+	 * Overwrites a portion of the current state with whatever is present
+	 * in \a list. The initial state is determined by
+	 * sge::renderer:;state::default_()
+	 *
+	 * \param list The part of the current state to replace
+	 * \see sge::renderer::state::default_
+	*/
 	virtual void
 	state(
-		renderer::state::list const &
+		renderer::state::list const &list
 	) = 0;
 
+	/**
+	 * \brief Pushes the current state on a stack and activates a new portion of state
+	 *
+	 * Pushes the current state on a stack which can later be restored with
+	 * device::pop_state. The current state is then updated with the portion of state
+	 * from \a list. Initially, nothing is on the state stack.
+	 *
+	 * \param list The part of the current state to replace
+	 * \see sge::renderer::device::state
+	 * \see sge::renderer::state::scoped
+	*/
 	virtual void
 	push_state(
-		renderer::state::list const &
+		renderer::state::list const &list
 	) = 0;
 
+	/**
+	 * \brief Restores previously pushed state
+	 *
+	 * Takes the previously pushed state and makes it the new active state.
+	 * Then the previously pushed state is removed from the stack.
+	 * Initially, nothing is on the state stack.
+	 *
+	 * \warning The behaviour is undefined if nothing is on the stack.
+	*/
 	virtual void
 	pop_state() = 0;
 
+	/**
+	 * \brief Sets the current material
+	 *
+	 * Sets the current material to \a material. Initially, the material
+	 * is unspecified. It will only come into play if
+	 * renderer::state::bool_::enable_lighting is activated and the fixed
+	 * function pipeline is used.
+	 *
+	 * \param material The material to set
+	*/
 	virtual void
 	material(
-		renderer::material const &
+		renderer::material const &material
 	) = 0;
 
+	/**
+	 * \brief Enables or disables a light
+	 *
+	 * Enables or disable a light given by \a index, depending on whether
+	 * \a enabled is true or false. Initially, all lights are disabled.
+	 *
+	 * \param index The index of the light to enable or disable
+	 * \param enable Enable or disable the light
+	 *
+	 * \todo Add the maximum number of lights to renderer::caps
+	 *
+	 * \warning The behaviour is undefined if \a index exceeds the maximum
+	 * number of lights.
+	 */
 	virtual void
 	enable_light(
-		renderer::light::index,
+		renderer::light::index index,
 		bool enable
 	) = 0;
 
+	/**
+	 * \brief Sets a light
+	 *
+	 * Sets the light given by \a index to \a light. Initially, the lights
+	 * are unspecified. It will only come into play if
+	 * renderer::state::bool_::enable_lighting is activated and the fixed
+	 * function pipeline is used.
+	 *
+	 * \param index The index of the light to set
+	 * \param light Description of the light
+	 *
+	 * \todo Add the maximum number of lights to renderer::caps
+	 *
+	 * \warning The behaviour is undefined if \a index exceeds the maximum
+	 * number of lights.
+	*/
 	virtual void
 	light(
-		renderer::light::index,
-		renderer::light::object const &
+		renderer::light::index index,
+		renderer::light::object const &light
 	) = 0;
 
 	virtual void
