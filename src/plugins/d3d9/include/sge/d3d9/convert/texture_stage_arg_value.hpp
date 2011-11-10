@@ -18,34 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_D3D9_CONVERT_TEXTURE_STAGE_ARG_VALUE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_TEXTURE_STAGE_ARG_VALUE_HPP_INCLUDED
+
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/sampler_stage_arg.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/renderer/texture/stage_arg_value.hpp>
 
-
-D3DTEXTURESTAGESTATETYPE
-sge::d3d9::convert::sampler_stage_arg(
-	renderer::sampler_stage_arg::type const _arg
-)
+namespace sge
 {
-	// TODO: maybe we have to swap numbers here
-	switch(
-		_arg
-	)
-	{
-	case renderer::sampler_stage_arg::rgb0:
-		return D3DTSS_COLORARG0;
-	case renderer::sampler_stage_arg::rgb1:
-		return D3DTSS_COLORARG1;
-	case renderer::sampler_stage_arg::rgb2:
-		return D3DTSS_COLORARG2;
-	case renderer::sampler_stage_arg::alpha0:
-		return D3DTSS_ALPHAARG0;
-	case renderer::sampler_stage_arg::alpha1:
-		return D3DTSS_ALPHAARG1;
-	case renderer::sampler_stage_arg::alpha2:
-		return D3DTSS_ALPHAARG2;
-	}
+namespace d3d9
+{
+namespace convert
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+DWORD
+texture_stage_arg_value(
+	renderer::texture::stage_arg_value::type
+);
+
 }
+}
+}
+
+#endif

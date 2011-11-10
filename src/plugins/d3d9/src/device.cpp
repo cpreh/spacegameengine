@@ -38,8 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/light_enable.hpp>
 #include <sge/d3d9/devicefuncs/present.hpp>
 #include <sge/d3d9/devicefuncs/reset.hpp>
-#include <sge/d3d9/devicefuncs/sampler_stage_arg.hpp>
-#include <sge/d3d9/devicefuncs/sampler_stage_op.hpp>
 #include <sge/d3d9/devicefuncs/set_clip_plane.hpp>
 #include <sge/d3d9/devicefuncs/set_index_buffer.hpp>
 #include <sge/d3d9/devicefuncs/set_light.hpp>
@@ -48,6 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/set_stream_source.hpp>
 #include <sge/d3d9/devicefuncs/set_transform.hpp>
 #include <sge/d3d9/devicefuncs/set_vertex_declaration.hpp>
+#include <sge/d3d9/devicefuncs/texture_stage_arg.hpp>
+#include <sge/d3d9/devicefuncs/texture_stage_op.hpp>
 #include <sge/d3d9/parameters/create.hpp>
 #include <sge/d3d9/state/apply.hpp>
 #include <sge/d3d9/state/device.hpp>
@@ -63,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/optional_target.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/to_clear_flags_field.hpp>
@@ -353,13 +354,13 @@ sge::d3d9::device::clip_plane(
 }
 
 void
-sge::d3d9::device::sampler_stage_op(
+sge::d3d9::device::texture_stage_op(
 	renderer::texture::stage const _stage,
-	renderer::sampler_stage_op::type const _type,
-	renderer::sampler_stage_op_value::type const _arg
+	renderer::texture::stage_op::type const _type,
+	renderer::texture::stage_op_value::type const _arg
 )
 {
-	devicefuncs::sampler_stage_op(
+	devicefuncs::texture_stage_op(
 		device_.get(),
 		_stage,
 		_type,
@@ -368,13 +369,13 @@ sge::d3d9::device::sampler_stage_op(
 }
 
 void
-sge::d3d9::device::sampler_stage_arg(
+sge::d3d9::device::texture_stage_arg(
 	renderer::texture::stage const _stage,
-	renderer::sampler_stage_arg::type const _type,
-	renderer::sampler_stage_arg_value::type const _arg
+	renderer::texture::stage_arg::type const _type,
+	renderer::texture::stage_arg_value::type const _arg
 )
 {
-	devicefuncs::sampler_stage_arg(
+	devicefuncs::texture_stage_arg(
 		device_.get(),
 		_stage,
 		_type,
@@ -674,10 +675,10 @@ sge::d3d9::device::target() const
 	return device_state_->target();
 }
 
-sge::renderer::caps const
+sge::renderer::caps::object const &
 sge::d3d9::device::caps() const
 {
-	return caps_;
+	return *caps_;
 }
 
 sge::window::instance &

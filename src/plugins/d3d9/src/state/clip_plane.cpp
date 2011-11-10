@@ -40,9 +40,9 @@ sge::d3d9::state::clip_plane::set(
 	if(
 		_value
 	)
-		dword_ |= (1u << _index);
+		dword_ |= (1u << _index.get());
 	else
-		dword_ &= ~(1u << _index);
+		dword_ &= ~(1u << _index.get());
 }
 
 DWORD

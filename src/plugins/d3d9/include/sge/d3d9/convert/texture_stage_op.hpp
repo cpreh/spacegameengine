@@ -18,28 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/sampler_stage_arg.hpp>
-#include <sge/d3d9/convert/sampler_stage_arg_value.hpp>
-#include <sge/d3d9/devicefuncs/sampler_stage_arg.hpp>
-#include <sge/d3d9/devicefuncs/set_texture_stage_state.hpp>
+#ifndef SGE_D3D9_CONVERT_TEXTURE_STAGE_OP_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_TEXTURE_STAGE_OP_HPP_INCLUDED
 
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/renderer/texture/stage_op.hpp>
 
-void
-sge::d3d9::devicefuncs::sampler_stage_arg(
-	IDirect3DDevice9 *const _device,
-	renderer::texture::stage const _stage,
-	renderer::sampler_stage_arg::type const _arg,
-	renderer::sampler_stage_arg_value::type const _value
-)
+namespace sge
 {
-	devicefuncs::set_texture_stage_state(
-		_device,
-		_stage,
-		d3d9::convert::sampler_stage_arg(
-			_arg
-		),
-		d3d9::convert::sampler_stage_arg_value(
-			_value
-		)
-	);
+namespace d3d9
+{
+namespace convert
+{
+
+D3DTEXTURESTAGESTATETYPE
+texture_stage_op(
+	renderer::texture::stage_op::type
+);
+
 }
+}
+}
+
+#endif

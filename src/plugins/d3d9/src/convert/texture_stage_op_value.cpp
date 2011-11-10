@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/sampler_stage_op_value.hpp>
+#include <sge/d3d9/convert/texture_stage_op_value.hpp>
+#include <sge/renderer/texture/stage_op_value.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 DWORD
-sge::d3d9::convert::sampler_stage_op_value(
-	renderer::sampler_stage_op_value::type const _value
+sge::d3d9::convert::texture_stage_op_value(
+	renderer::texture::stage_op_value::type const _value
 )
 {
 	switch(
@@ -34,22 +35,22 @@ sge::d3d9::convert::sampler_stage_op_value(
 	{
 	//	return D3DTOP_DISABLE;
 	//	return D3DTOP_SELECTARG2;
-	case renderer::sampler_stage_op_value::arg0:
+	case renderer::texture::stage_op_value::arg0:
 		return D3DTOP_SELECTARG1; // TODO: maybe we have to use a different arg number here
-	case renderer::sampler_stage_op_value::modulate:
+	case renderer::texture::stage_op_value::modulate:
 		return D3DTOP_MODULATE;
 	/*
-	case renderer::sampler_stage_op_value::modulate2x:
+	case renderer::texture::stage_op_value::modulate2x:
 		return D3DTOP_MODULATE2X;
-	case renderer::sampler_stage_op_value::modulate4x:
+	case renderer::texture::stage_op_value::modulate4x:
 		return D3DTOP_MODULATE4X;*/
-	case renderer::sampler_stage_op_value::add:
+	case renderer::texture::stage_op_value::add:
 		return D3DTOP_ADD;
-	case renderer::sampler_stage_op_value::add_signed:
+	case renderer::texture::stage_op_value::add_signed:
 		return D3DTOP_ADDSIGNED;
-	//case renderer::sampler_stage_op_value::add_signed2x:
+	//case renderer::texture::stage_op_value::add_signed2x:
 		//return D3DTOP_ADDSIGNED2X;
-	case renderer::sampler_stage_op_value::substract:
+	case renderer::texture::stage_op_value::substract:
 		return D3DTOP_SUBTRACT;
 	//	return D3DTOP_ADDSMOOTH;
 	//	return D3DTOP_BLENDDIFFUSEALPHA;

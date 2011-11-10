@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_SAMPLER_STAGE_ARG_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_SAMPLER_STAGE_ARG_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_TEXTURE_STAGE_OP_VALUE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_TEXTURE_STAGE_OP_VALUE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/sampler_stage_arg.hpp>
+#include <sge/renderer/texture/stage_op_value.hpp>
 
 namespace sge
 {
@@ -31,9 +31,9 @@ namespace d3d9
 namespace convert
 {
 
-D3DTEXTURESTAGESTATETYPE
-sampler_stage_arg(
-	renderer::sampler_stage_arg::type
+DWORD
+texture_stage_op_value(
+	renderer::texture::stage_op_value::type
 );
 
 }

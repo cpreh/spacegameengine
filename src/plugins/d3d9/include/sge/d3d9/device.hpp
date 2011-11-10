@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/resource_manager.hpp>
 #include <sge/d3d9/state/device_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/caps.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
@@ -144,17 +143,17 @@ public:
 	);
 
 	void
-	sampler_stage_op(
+	texture_stage_op(
 		renderer::texture::stage,
-		renderer::sampler_stage_op::type,
-		renderer::sampler_stage_op_value::type
+		renderer::texture::stage_op::type,
+		renderer::texture::stage_op_value::type
 	);
 
 	void
-	sampler_stage_arg(
+	texture_stage_arg(
 		renderer::texture::stage,
-		renderer::sampler_stage_arg::type,
-		renderer::sampler_stage_arg_value::type
+		renderer::texture::stage_arg::type,
+		renderer::texture::stage_arg_value::type
 	);
 
 	void
@@ -258,7 +257,7 @@ public:
 	renderer::optional_target const
 	target() const;
 
-	renderer::caps const
+	renderer::caps::object const &
 	caps() const;
 
 	sge::window::instance &
@@ -299,7 +298,11 @@ private:
 
 	sge::window::instance &window_;
 
-	renderer::caps const caps_;
+	typedef fcppt::scoped_ptr<
+		renderer::caps::object
+	> caps_scoped_ptr;
+
+	caps_scoped_ptr const caps_;
 
 	d3d9::resource_manager resources_;
 

@@ -20,10 +20,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/create_caps.hpp>
 #include <sge/d3d9/systemfuncs/get_caps.hpp>
-#include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/caps/clip_plane_indices.hpp>
+#include <sge/renderer/caps/description.hpp>
+#include <sge/renderer/caps/driver_name.hpp>
+#include <sge/renderer/caps/glsl_supported.hpp>
+#include <sge/renderer/caps/light_indices.hpp>
+#include <sge/renderer/caps/max_anisotropy.hpp>
+#include <sge/renderer/caps/max_texture_size.hpp>
+#include <sge/renderer/caps/max_volume_texture_extent.hpp>
+#include <sge/renderer/caps/object.hpp>
+#include <sge/renderer/caps/object_unique_ptr.hpp>
+#include <sge/renderer/caps/preferred_texture_format.hpp>
+#include <sge/renderer/caps/render_target_supported.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -66,7 +79,7 @@ add_display_modes(
 */
 }
 
-sge::renderer::caps const
+sge::renderer::caps::object_unique_ptr
 sge::d3d9::create_caps(
 	IDirect3D9 *const _system,
 	renderer::adapter const _adapter
@@ -101,28 +114,51 @@ sge::d3d9::create_caps(
 	add_display_modes(display_modes, adapter, bit_depth::depth32, D3DFMT_X8R8G8B8, sys);*/
 
 	return
-		renderer::caps(
+		fcppt::make_unique_ptr<
+			renderer::caps::object
+		>(
 			_adapter,
-			fcppt::from_std_string(
-				identifier.Driver
+			sge::renderer::caps::driver_name(
+				fcppt::from_std_string(
+					identifier.Driver
+				)
 			),
-			fcppt::from_std_string(
-				identifier.Description
+			sge::renderer::caps::description(
+				fcppt::from_std_string(
+					identifier.Description
+				)
 			),
-			sge::renderer::dim2(
-				caps.MaxTextureWidth,
-				caps.MaxTextureHeight
+			sge::renderer::caps::max_texture_size(
+				sge::renderer::dim2(
+					caps.MaxTextureWidth,
+					caps.MaxTextureHeight
+				)
 			),
-			static_cast<
-				sge::renderer::size_type
-			>(
+			sge::renderer::caps::max_volume_texture_extent(
 				caps.MaxVolumeExtent
 			),
-			sge::renderer::texture::filter::anisotropic::level(
-				caps.MaxAnisotropy
+			sge::renderer::caps::max_anisotropy(
+				sge::renderer::texture::filter::anisotropic::level(
+					caps.MaxAnisotropy
+				)
 			),
-			false, // FIXME: find out if render to texture is supported
-			false, // no glsl
-			sge::image::color::format::bgra8
+			sge::renderer::caps::render_target_supported(
+				true
+			),
+			sge::renderer::caps::glsl_supported(
+				false
+			),
+			sge::renderer::caps::preferred_texture_format(
+				sge::image::color::format::bgra8
+			),
+			sge::renderer::caps::clip_plane_indices(
+				caps.MaxUserClipPlanes
+			),
+			sge::renderer::caps::light_indices(
+				caps.MaxActiveLights
+			),
+			sge::renderer::caps::texture_stages(
+				caps.MaxTextureBlendStages
+			)
 		);
 }

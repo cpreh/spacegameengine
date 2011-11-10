@@ -18,30 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_D3D9_DEVICEFUNCS_TEXTURE_STAGE_ARG_HPP_INCLUDED
+#define SGE_D3D9_DEVICEFUNCS_TEXTURE_STAGE_ARG_HPP_INCLUDED
+
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/sampler_stage_arg_value.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/stage_arg.hpp>
+#include <sge/renderer/texture/stage_arg_value.hpp>
 
-
-DWORD
-sge::d3d9::convert::sampler_stage_arg_value(
-	renderer::sampler_stage_arg_value::type const _value
-)
+namespace sge
 {
-	switch(
-		_value
-	)
-	{
-	case renderer::sampler_stage_arg_value::constant:
-		return D3DTA_CONSTANT;
-	case renderer::sampler_stage_arg_value::previous:
-		return D3DTA_CURRENT;
-//		return D3DTA_DIFFUSE;
-//		return D3DTA_SPECULAR;
-//		return D3DTA_TEMP;
-	case renderer::sampler_stage_arg_value::texture:
-		return D3DTA_TEXTURE;
-	}
+namespace d3d9
+{
+namespace devicefuncs
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+void
+texture_stage_arg(
+	IDirect3DDevice9 *,
+	renderer::texture::stage,
+	renderer::texture::stage_arg::type,
+	renderer::texture::stage_arg_value::type
+);
+
 }
+}
+}
+
+#endif

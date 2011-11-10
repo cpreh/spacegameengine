@@ -18,26 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_SAMPLER_STAGE_ARG_VALUE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_SAMPLER_STAGE_ARG_VALUE_HPP_INCLUDED
+#include <sge/d3d9/convert/texture_stage_arg.hpp>
+#include <sge/d3d9/convert/texture_stage_arg_value.hpp>
+#include <sge/d3d9/devicefuncs/set_texture_stage_state.hpp>
+#include <sge/d3d9/devicefuncs/texture_stage_arg.hpp>
+#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/stage_arg.hpp>
+#include <sge/renderer/texture/stage_arg_value.hpp>
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/sampler_stage_arg_value.hpp>
 
-namespace sge
+void
+sge::d3d9::devicefuncs::texture_stage_arg(
+	IDirect3DDevice9 *const _device,
+	renderer::texture::stage const _stage,
+	renderer::texture::stage_arg::type const _arg,
+	renderer::texture::stage_arg_value::type const _value
+)
 {
-namespace d3d9
-{
-namespace convert
-{
-
-DWORD
-sampler_stage_arg_value(
-	renderer::sampler_stage_arg_value::type
-);
-
+	devicefuncs::set_texture_stage_state(
+		_device,
+		_stage,
+		d3d9::convert::texture_stage_arg(
+			_arg
+		),
+		d3d9::convert::texture_stage_arg_value(
+			_value
+		)
+	);
 }
-}
-}
-
-#endif
