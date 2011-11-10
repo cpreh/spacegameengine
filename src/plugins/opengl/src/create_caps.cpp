@@ -28,8 +28,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/context.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/caps.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/caps/description.hpp>
+#include <sge/renderer/caps/driver_name.hpp>
+#include <sge/renderer/caps/glsl_supported.hpp>
+#include <sge/renderer/caps/max_anisotropy.hpp>
+#include <sge/renderer/caps/max_texture_size.hpp>
+#include <sge/renderer/caps/max_volume_texture_extent.hpp>
+#include <sge/renderer/caps/object.hpp>
+#include <sge/renderer/caps/preferred_texture_format.hpp>
+#include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -69,55 +77,71 @@ sge::opengl::create_caps(
 
 	return
 		fcppt::make_unique_ptr<
-			renderer::caps
+			renderer::caps::object
 		>(
 			sge::renderer::adapter(
 				0
 			),
-			opengl::get_string(
-				GL_VENDOR
+			sge::renderer::caps::driver_name(
+				opengl::get_string(
+					GL_VENDOR
+				)
 			),
-			opengl::get_string(
-				GL_RENDERER
+			sge::renderer::caps::description(
+				opengl::get_string(
+					GL_RENDERER
+				)
+				+ FCPPT_TEXT(' ')
+				+ opengl::get_string(
+					GL_VERSION
+				)
+			),
+			sge::renderer::caps::max_texture_size(
+				renderer::dim2(
+					max_texture_size,
+					max_texture_size
+				)
+			),
+			sge::renderer::caps::max_volume_texture_extent(
+				static_cast<
+					sge::renderer::size_type
+				>(
+					volume_texture_context.have_volume_texture()
+					?
+						opengl::get_int(
+							volume_texture_context.max_extent_flag()
+						)
+					:
+						0
+				)
+			),
+			sge::renderer::caps::max_anisotropy(
+				sge::renderer::texture::filter::anisotropic::level(
+					texture_context.anisotropic_filter_supported()
+					?
+						opengl::get_int(
+							texture_context.max_anisotropy_flag()
+						)
+					:
+						0
+				)
+			),
+			sge::renderer::caps::render_target_supported(
+				context::use<
+					fbo::context
+				>(
+					_context
+				).is_supported()
+			),
+			sge::renderer::caps::glsl_supported(
+				context::use<
+					glsl::context
+				>(
+					_context
+				).is_supported()
+			),
+			sge::renderer::caps::preferred_texture_format(
+				sge::image::color::format::bgra8
 			)
-			+ FCPPT_TEXT(' ')
-			+ opengl::get_string(
-				GL_VERSION
-			),
-			renderer::dim2(
-				max_texture_size,
-				max_texture_size
-			),
-			static_cast<
-				renderer::size_type
-			>(
-				volume_texture_context.have_volume_texture()
-				?
-					opengl::get_int(
-						volume_texture_context.max_extent_flag()
-					)
-				:
-					0
-			),
-			sge::renderer::texture::filter::anisotropic::level(
-				texture_context.anisotropic_filter_supported()
-				?
-					opengl::get_int(
-						texture_context.max_anisotropy_flag()
-					)
-				:
-					0
-			),
-			context::use<
-				fbo::context
-			>(
-				_context
-			).is_supported(),
-			context::use<
-				glsl::context
-			>(
-				_context
-			).is_supported(),
-			sge::image::color::format::bgra8
 		);
 }

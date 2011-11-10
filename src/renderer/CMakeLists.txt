@@ -13,8 +13,18 @@ SET(
 	include/sge/renderer/bit_depth_bytes.hpp
 	include/sge/renderer/buffer_has_depth.hpp
 	include/sge/renderer/buffer_has_stencil.hpp
-	include/sge/renderer/caps.hpp
-	include/sge/renderer/caps_fwd.hpp
+	include/sge/renderer/caps/caps.hpp
+	include/sge/renderer/caps/description.hpp
+	include/sge/renderer/caps/driver_name.hpp
+	include/sge/renderer/caps/glsl_supported.hpp
+	include/sge/renderer/caps/max_anisotropy.hpp
+	include/sge/renderer/caps/max_texture_size.hpp
+	include/sge/renderer/caps/max_volume_texture_extent.hpp
+	include/sge/renderer/caps/object.hpp
+	include/sge/renderer/caps/object_fwd.hpp
+	include/sge/renderer/caps/object_output.hpp
+	include/sge/renderer/caps/preferred_texture_format.hpp
+	include/sge/renderer/caps/render_target_supported.hpp
 	include/sge/renderer/clear_flags.hpp
 	include/sge/renderer/clear_flags_field.hpp
 	include/sge/renderer/clip_plane.hpp
@@ -506,7 +516,8 @@ SET(
 	src/renderer/bit_depth_bytes.cpp
 	src/renderer/buffer_has_depth.cpp
 	src/renderer/buffer_has_stencil.cpp
-	src/renderer/caps.cpp
+	src/renderer/caps/object.cpp
+	src/renderer/caps/object_output.cpp
 	src/renderer/color_surface.cpp
 	src/renderer/const_scoped_color_surface_lock.cpp
 	src/renderer/const_scoped_index_lock.cpp

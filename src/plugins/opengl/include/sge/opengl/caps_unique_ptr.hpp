@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CAPS_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_OPENGL_CAPS_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/renderer/caps_fwd.hpp>
+#include <sge/renderer/caps/object_fwd.hpp>
 #include <fcppt/unique_ptr.hpp>
 
 
@@ -31,7 +31,7 @@ namespace opengl
 {
 
 typedef fcppt::unique_ptr<
-	renderer::caps
+	renderer::caps::object
 > caps_unique_ptr;
 
 }

@@ -108,6 +108,7 @@ update_cmake_file \
 	-n \
 	include/sge/renderer \
 	-r \
+	include/sge/renderer/caps \
 	include/sge/renderer/glsl \
 	include/sge/renderer/index \
 	include/sge/renderer/light \
@@ -119,6 +120,7 @@ update_cmake_file \
 	-n \
 	src/renderer \
 	-r \
+	src/renderer/caps \
 	src/renderer/glsl \
 	src/renderer/include \
 	src/renderer/index \

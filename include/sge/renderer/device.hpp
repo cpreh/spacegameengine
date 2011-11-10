@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/caps_fwd.hpp>
 #include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
@@ -52,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/caps/object_fwd.hpp>
 #include <sge/renderer/glsl/const_optional_program_fwd.hpp>
 #include <sge/renderer/glsl/geometry_shader_ptr.hpp>
 #include <sge/renderer/glsl/pixel_shader_ptr.hpp>
@@ -555,7 +555,7 @@ public:
 	virtual renderer::optional_target const
 	target() const = 0;
 
-	virtual renderer::caps const
+	virtual renderer::caps::object const &
 	caps() const = 0;
 
 	virtual sge::window::instance &

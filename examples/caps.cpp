@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/renderer/caps.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -32,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_ptr.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/caps/object_output.hpp>
 #include <sge/window/create.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>

@@ -18,16 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CAPS_FWD_HPP_INCLUDED
-#define SGE_RENDERER_CAPS_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_CAPS_PREFERRED_TEXTURE_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_CAPS_PREFERRED_TEXTURE_FORMAT_HPP_INCLUDED
+
+#include <sge/image/color/format.hpp>
+#include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
 namespace renderer
 {
+namespace caps
+{
 
-class caps;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::image::color::format::type,
+	preferred_texture_format
+);
 
+}
 }
 }
 

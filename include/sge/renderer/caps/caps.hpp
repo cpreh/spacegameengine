@@ -18,23 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_CAPS_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_CAPS_HPP_INCLUDED
+#ifndef SGE_RENDERER_CAPS_CAPS_HPP_INCLUDED
+#define SGE_RENDERER_CAPS_CAPS_HPP_INCLUDED
 
-#include <sge/opengl/caps_unique_ptr.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-
-opengl::caps_unique_ptr
-create_caps(
-	context::object &
-);
-
-}
-}
+#include <sge/renderer/caps/description.hpp>
+#include <sge/renderer/caps/driver_name.hpp>
+#include <sge/renderer/caps/glsl_supported.hpp>
+#include <sge/renderer/caps/max_anisotropy.hpp>
+#include <sge/renderer/caps/max_texture_size.hpp>
+#include <sge/renderer/caps/max_volume_texture_extent.hpp>
+#include <sge/renderer/caps/object.hpp>
+#include <sge/renderer/caps/object_fwd.hpp>
+#include <sge/renderer/caps/object_output.hpp>
+#include <sge/renderer/caps/preferred_texture_format.hpp>
+#include <sge/renderer/caps/render_target_supported.hpp>
 
 #endif

@@ -18,40 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CAPS_HPP_INCLUDED
-#define SGE_RENDERER_CAPS_HPP_INCLUDED
+#ifndef SGE_RENDERER_CAPS_OBJECT_HPP_INCLUDED
+#define SGE_RENDERER_CAPS_OBJECT_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/caps_fwd.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/texture/filter/anisotropic/level.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/io/ostream.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <sge/renderer/caps/description.hpp>
+#include <sge/renderer/caps/driver_name.hpp>
+#include <sge/renderer/caps/glsl_supported.hpp>
+#include <sge/renderer/caps/max_anisotropy.hpp>
+#include <sge/renderer/caps/max_texture_size.hpp>
+#include <sge/renderer/caps/max_volume_texture_extent.hpp>
+#include <sge/renderer/caps/object_fwd.hpp>
+#include <sge/renderer/caps/preferred_texture_format.hpp>
+#include <sge/renderer/caps/render_target_supported.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
+namespace caps
+{
 
-class caps
+class object
 {
 public:
 	SGE_RENDERER_SYMBOL
-	caps(
+	object(
 		renderer::adapter,
-		fcppt::string const &driver_name,
-		fcppt::string const &description,
-		dim2 const &max_texure_size,
-		renderer::size_type max_volme_texture_extent,
-		texture::filter::anisotropic::level max_anisotropy,
-		bool render_target_supported,
-		bool glsl_supported,
-		image::color::format::type preferred_texture_format
+		caps::driver_name const &,
+		caps::description const &,
+		caps::max_texture_size const &,
+		caps::max_volume_texture_extent,
+		caps::max_anisotropy,
+		caps::render_target_supported,
+		caps::glsl_supported,
+		caps::preferred_texture_format
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -59,63 +62,57 @@ public:
 	adapter() const;
 
 	SGE_RENDERER_SYMBOL
-	fcppt::string const &
+	caps::driver_name const &
 	driver_name() const;
 
 	SGE_RENDERER_SYMBOL
-	fcppt::string const &
+	caps::description const &
 	description() const;
 
 	SGE_RENDERER_SYMBOL
-	renderer::dim2 const &
+	caps::max_texture_size const &
 	max_texture_size() const;
 
 	SGE_RENDERER_SYMBOL
-	renderer::size_type
+	caps::max_volume_texture_extent const
 	max_volume_texture_extent() const;
 
 	SGE_RENDERER_SYMBOL
-	texture::filter::anisotropic::level const
+	caps::max_anisotropy const
 	max_anisotropy() const;
 
 	SGE_RENDERER_SYMBOL
-	bool
+	caps::render_target_supported const
 	render_target_supported() const;
 
 	SGE_RENDERER_SYMBOL
-	bool
+	caps::glsl_supported const
 	glsl_supported() const;
 
 	SGE_RENDERER_SYMBOL
-	image::color::format::type
+	caps::preferred_texture_format const
 	preferred_texture_format() const;
 private:
 	renderer::adapter adapter_;
 
-	fcppt::string driver_name_;
+	caps::driver_name driver_name_;
 
-	fcppt::string description_;
+	caps::description description_;
 
-	renderer::dim2 max_texture_size_;
+	caps::max_texture_size max_texture_size_;
 
-	renderer::size_type max_volume_texture_extent_;
+	caps::max_volume_texture_extent max_volume_texture_extent_;
 
-	texture::filter::anisotropic::level max_anisotropy_;
+	caps::max_anisotropy max_anisotropy_;
 
-	bool render_target_supported_;
+	caps::render_target_supported render_target_supported_;
 
-	bool glsl_supported_;
+	caps::glsl_supported glsl_supported_;
 
-	image::color::format::type preferred_texture_format_;
+	caps::preferred_texture_format preferred_texture_format_;
 };
 
-SGE_RENDERER_SYMBOL
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	caps const &
-);
-
+}
 }
 }
 

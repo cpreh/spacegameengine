@@ -60,10 +60,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/volume.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/opengl/texture/filter/update.hpp>
-#include <sge/renderer/caps.hpp>
 #include <sge/renderer/optional_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/state/default.hpp>
@@ -703,7 +703,7 @@ sge::opengl::device::onscreen_target() const
 	return *onscreen_target_;
 }
 
-sge::renderer::caps const
+sge::renderer::caps::object const &
 sge::opengl::device::caps() const
 {
 	if(

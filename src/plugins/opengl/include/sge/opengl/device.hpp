@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object.hpp>
 #include <sge/opengl/fbo/target_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/caps_fwd.hpp>
 #include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
@@ -58,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/caps/object_fwd.hpp>
 #include <sge/renderer/glsl/const_optional_program_fwd.hpp>
 #include <sge/renderer/glsl/geometry_shader_ptr.hpp>
 #include <sge/renderer/glsl/pixel_shader_ptr.hpp>
@@ -312,7 +312,7 @@ public:
 	renderer::optional_target const
 	target() const;
 
-	renderer::caps const
+	renderer::caps::object const &
 	caps() const;
 
 	window::instance &
@@ -346,7 +346,7 @@ private:
 	opengl::target_base *target_;
 
 	mutable fcppt::scoped_ptr<
-		renderer::caps
+		renderer::caps::object
 	> caps_;
 
 	sge::renderer::state::stack state_levels_;
