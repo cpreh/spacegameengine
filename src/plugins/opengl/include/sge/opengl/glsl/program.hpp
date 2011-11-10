@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glsl/program_base.hpp>
 #include <sge/opengl/glsl/program_holder.hpp>
 #include <sge/opengl/glsl/shader_base_fwd.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/shader_fwd.hpp>
@@ -90,7 +90,7 @@ private:
 
 	void
 	color_surface_location(
-		renderer::stage,
+		renderer::texture::stage,
 		renderer::glsl::string const &
 	);
 

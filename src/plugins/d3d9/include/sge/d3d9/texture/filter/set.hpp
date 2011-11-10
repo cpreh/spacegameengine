@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_FILTER_SET_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 
 
@@ -38,7 +38,7 @@ namespace filter
 void
 set(
 	IDirect3DDevice9 *,
-	renderer::stage,
+	renderer::texture::stage,
 	renderer::texture::filter::object const &
 );
 

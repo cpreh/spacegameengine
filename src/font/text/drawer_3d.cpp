@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/view/size.hpp>
-#include <sge/renderer/caps.hpp>
+#include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/default_equal.hpp>
@@ -65,7 +65,7 @@ sge::font::text::drawer_3d::drawer_3d(
 				fcppt::ref(
 					_rend
 				),
-				_rend.caps().preferred_texture_format(),
+				_rend.caps().preferred_texture_format().get(),
 				renderer::texture::mipmap::off(),
 				fcppt::math::dim::quad<
 					renderer::dim2

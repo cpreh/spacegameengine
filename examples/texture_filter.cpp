@@ -60,7 +60,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/optional_digit.hpp>
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/aspect.hpp>
-#include <sge/renderer/caps.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix_mode.hpp>
@@ -69,10 +68,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
@@ -82,6 +81,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/filter/mipmap.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
@@ -344,7 +344,7 @@ try
 	}
 
 	sge::renderer::texture::filter::anisotropic::level const anisotropy(
-		sys.renderer().caps().max_anisotropy()
+		sys.renderer().caps().max_anisotropy().get()
 	);
 
 	sge::font::text::string const anisotropy_string(
@@ -630,7 +630,7 @@ try
 		{
 			sge::renderer::texture::filter::scoped const scoped_filter(
 				sys.renderer(),
-				sge::renderer::stage(0u),
+				sge::renderer::texture::stage(0u),
 				current_filter->second
 			);
 

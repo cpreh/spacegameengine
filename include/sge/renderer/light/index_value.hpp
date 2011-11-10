@@ -18,23 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_SAMPLER_STAGE_OP_VALUE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_SAMPLER_STAGE_OP_VALUE_HPP_INCLUDED
+#ifndef SGE_RENDERER_LIGHT_INDEX_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_LIGHT_INDEX_VALUE_HPP_INCLUDED
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/sampler_stage_op_value.hpp>
 
 namespace sge
 {
-namespace d3d9
+namespace renderer
 {
-namespace convert
+namespace light
 {
 
-DWORD
-sampler_stage_op_value(
-	renderer::sampler_stage_op_value::type
-);
+typedef unsigned index_value;
 
 }
 }

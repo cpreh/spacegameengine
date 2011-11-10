@@ -83,7 +83,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/specular_color.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -119,6 +118,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/const_tag.hpp>
@@ -387,7 +387,7 @@ compiled_model::render()
 					renderer_),
 				fcppt::cref(
 					*texture_),
-				sge::renderer::stage(
+				sge::renderer::texture::stage(
 					0)));
 
 	sge::renderer::scoped_vertex_declaration scoped_vd(

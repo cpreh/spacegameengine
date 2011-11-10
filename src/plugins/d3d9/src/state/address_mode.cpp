@@ -47,7 +47,7 @@ sge::d3d9::state::address_mode::~address_mode()
 
 bool
 sge::d3d9::state::address_mode::update(
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	D3DSAMPLERSTATETYPE const _type,
 	D3DTEXTUREADDRESS const _value
 )

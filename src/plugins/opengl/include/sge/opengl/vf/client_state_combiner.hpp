@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/client_state.hpp>
 #include <sge/opengl/vf/client_state_combiner_fwd.hpp>
 #include <sge/opengl/vf/context_fwd.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -59,12 +59,12 @@ public:
 
 	void
 	enable_texture(
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	void
 	disable_texture(
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	void

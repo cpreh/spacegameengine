@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/texture/filter/context_fwd.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/index_map_decl.hpp>
@@ -53,12 +53,12 @@ public:
 
 	renderer::texture::filter::object const &
 	get(
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	bool
 	set(
-		renderer::stage,
+		renderer::texture::stage,
 		renderer::texture::filter::object const &
 	);
 
@@ -68,7 +68,7 @@ public:
 private:
 	renderer::texture::filter::object &
 	get_mutable(
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	typedef fcppt::container::index_map<

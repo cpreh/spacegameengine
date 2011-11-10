@@ -40,7 +40,7 @@ sge::opengl::texture::surface::surface(
 	opengl::context::object &_context,
 	texture::type const _type,
 	texture::id const _id,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::resource_flags_field const &_resource_flags,
 	opengl::color_format const _color_format,
 	opengl::color_format_type const _color_format_type,

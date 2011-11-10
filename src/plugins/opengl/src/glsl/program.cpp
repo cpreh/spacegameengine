@@ -180,7 +180,7 @@ template<
 >
 void
 sge::opengl::glsl::program<Environment>::color_surface_location(
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::glsl::string const &_name
 )
 {

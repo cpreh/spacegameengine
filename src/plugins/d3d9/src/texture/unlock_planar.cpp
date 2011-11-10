@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::d3d9::texture::unlock_planar(
 	IDirect3DTexture9 *const _texture,
-	sge::renderer::stage const _stage
+	sge::renderer::texture::stage const _stage
 )
 {
 	if(

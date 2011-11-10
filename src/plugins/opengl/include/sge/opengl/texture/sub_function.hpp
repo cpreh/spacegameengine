@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/basic_lock_box.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/math/size_type.hpp>
 
 
@@ -53,7 +53,7 @@ struct sub_function
 		texture::type,
 		opengl::color_format,
 		opengl::color_format_type,
-		renderer::stage,
+		renderer::texture::stage,
 		typename renderer::basic_dim<
 			Size
 		>::type const &,

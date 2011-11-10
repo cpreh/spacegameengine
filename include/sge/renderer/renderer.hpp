@@ -34,12 +34,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth_bytes.hpp>
 #include <sge/renderer/buffer_has_depth.hpp>
 #include <sge/renderer/buffer_has_stencil.hpp>
-#include <sge/renderer/caps.hpp>
-#include <sge/renderer/caps_fwd.hpp>
 #include <sge/renderer/clear_flags.hpp>
 #include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
+#include <sge/renderer/clip_plane_index_value.hpp>
 #include <sge/renderer/color_surface.hpp>
 #include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/color_surface_ptr.hpp>
@@ -107,10 +106,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/sampler_stage_arg.hpp>
-#include <sge/renderer/sampler_stage_arg_value.hpp>
-#include <sge/renderer/sampler_stage_op.hpp>
-#include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -128,7 +123,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/shininess.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/specular_color.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/system.hpp>
@@ -157,6 +151,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/caps/caps.hpp>
 #include <sge/renderer/glsl/glsl.hpp>
 #include <sge/renderer/index/index.hpp>
 #include <sge/renderer/light/light.hpp>

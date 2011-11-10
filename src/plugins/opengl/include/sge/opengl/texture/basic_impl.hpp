@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/mipmap/create.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
@@ -152,7 +152,7 @@ sge::opengl::texture::basic<Types>::unlock() const
 			context_,
 			this->type(),
 			this->id(),
-			renderer::stage(0u)
+			renderer::texture::stage(0u)
 		);
 
 		Types::sub_function()(
@@ -161,7 +161,7 @@ sge::opengl::texture::basic<Types>::unlock() const
 			this->type(),
 			format_,
 			format_type_,
-			renderer::stage(0u),
+			renderer::texture::stage(0u),
 			this->size(),
 			lock_area_
 			?
@@ -225,7 +225,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 			context_,
 			this->type(),
 			this->id(),
-			renderer::stage(0u)
+			renderer::texture::stage(0u)
 		);
 
 		opengl::texture::funcs::get_image(
@@ -234,7 +234,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 			this->format(),
 			this->format_type(),
 			lock_->read_pointer(),
-			renderer::stage(0u)
+			renderer::texture::stage(0u)
 		);
 	}
 
@@ -464,7 +464,7 @@ sge::opengl::texture::basic<Types>::basic(
 		context_,
 		this->type(),
 		this->id(),
-		renderer::stage(0u)
+		renderer::texture::stage(0u)
 	);
 
 	opengl::texture::address_mode(
@@ -480,7 +480,7 @@ sge::opengl::texture::basic<Types>::basic(
 		this->format(),
 		this->format_type(),
 		this->internal_format(),
-		renderer::stage(0u),
+		renderer::texture::stage(0u),
 		this->size(),
 		0
 	);

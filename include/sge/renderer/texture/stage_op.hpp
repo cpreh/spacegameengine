@@ -18,34 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/sampler_stage_arg.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_RENDERER_TEXTURE_STAGE_OP_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_STAGE_OP_HPP_INCLUDED
 
-
-D3DTEXTURESTAGESTATETYPE
-sge::d3d9::convert::sampler_stage_arg(
-	renderer::sampler_stage_arg::type const _arg
-)
+namespace sge
 {
-	// TODO: maybe we have to swap numbers here
-	switch(
-		_arg
-	)
-	{
-	case renderer::sampler_stage_arg::rgb0:
-		return D3DTSS_COLORARG0;
-	case renderer::sampler_stage_arg::rgb1:
-		return D3DTSS_COLORARG1;
-	case renderer::sampler_stage_arg::rgb2:
-		return D3DTSS_COLORARG2;
-	case renderer::sampler_stage_arg::alpha0:
-		return D3DTSS_ALPHAARG0;
-	case renderer::sampler_stage_arg::alpha1:
-		return D3DTSS_ALPHAARG1;
-	case renderer::sampler_stage_arg::alpha2:
-		return D3DTSS_ALPHAARG2;
-	}
+namespace renderer
+{
+namespace texture
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+namespace stage_op
+{
+enum type
+{
+	color,
+	alpha
+};
 }
+
+}
+}
+}
+
+#endif

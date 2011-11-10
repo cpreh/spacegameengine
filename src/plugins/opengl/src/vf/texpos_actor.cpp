@@ -59,9 +59,9 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		)
 	),
 	index_(
-		renderer::stage(
+		renderer::texture::stage(
 			static_cast<
-				renderer::stage::value_type
+				renderer::texture::stage::value_type
 			>(
 				_element.index()
 			)
@@ -86,9 +86,9 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 	else if(
 		index_
 		>=
-		renderer::stage(
+		renderer::texture::stage(
 			static_cast<
-				renderer::stage::value_type
+				renderer::texture::stage::value_type
 			>(
 				texture_context.max_level()
 			)
@@ -120,7 +120,7 @@ sge::opengl::vf::texpos_actor::operator()(
 
 	opengl::texture::funcs::set_client_level(
 		context_,
-		sge::renderer::stage(
+		sge::renderer::texture::stage(
 			index_
 		)
 	);

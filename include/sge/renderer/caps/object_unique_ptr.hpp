@@ -18,27 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SAMPLER_STAGE_ARG_HPP_INCLUDED
-#define SGE_RENDERER_SAMPLER_STAGE_ARG_HPP_INCLUDED
+#ifndef SGE_RENDERER_CAPS_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_CAPS_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+
+#include <sge/renderer/caps/object_fwd.hpp>
+#include <fcppt/unique_ptr.hpp>
+
 
 namespace sge
 {
 namespace renderer
 {
+namespace caps
+{
 
-namespace sampler_stage_arg
-{
-enum type
-{
-	rgb0,
-	rgb1,
-	rgb2,
-	alpha0,
-	alpha1,
-	alpha2
-};
+typedef fcppt::unique_ptr<
+	renderer::caps::object
+> object_unique_ptr;
+
 }
-
 }
 }
 

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/projection/far.hpp>
@@ -272,7 +272,7 @@ sge::cegui::detail::texture_target::declareRenderSize(
 			sge::renderer::color_surface_ptr()
 		:
 			texture_->impl().surface(
-				sge::renderer::stage(0u)),
+				sge::renderer::texture::stage(0u)),
 		sge::renderer::surface_index(0u));
 
 	clear();

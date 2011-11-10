@@ -19,16 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/texture/const_optional_base.hpp>
 #include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 sge::renderer::texture::scoped::scoped(
 	renderer::device &_device,
 	renderer::texture::base const &_texture,
-	renderer::stage const _stage
+	renderer::texture::stage const _stage
 )
 :
 	device_(

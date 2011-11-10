@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::vf::disable_texcoords(
 	opengl::context::object &_context,
-	renderer::stage const _index
+	renderer::texture::stage const _index
 )
 {
 	opengl::texture::funcs::set_client_level(

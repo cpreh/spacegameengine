@@ -18,28 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/sampler_stage_arg.hpp>
-#include <sge/d3d9/convert/sampler_stage_arg_value.hpp>
-#include <sge/d3d9/devicefuncs/sampler_stage_arg.hpp>
-#include <sge/d3d9/devicefuncs/set_texture_stage_state.hpp>
+#ifndef SGE_RENDERER_CAPS_TEXTURE_STAGES_HPP_INCLUDED
+#define SGE_RENDERER_CAPS_TEXTURE_STAGES_HPP_INCLUDED
+
+#include <sge/renderer/texture/stage_value.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
-void
-sge::d3d9::devicefuncs::sampler_stage_arg(
-	IDirect3DDevice9 *const _device,
-	renderer::stage const _stage,
-	renderer::sampler_stage_arg::type const _arg,
-	renderer::sampler_stage_arg_value::type const _value
-)
+namespace sge
 {
-	devicefuncs::set_texture_stage_state(
-		_device,
-		_stage,
-		d3d9::convert::sampler_stage_arg(
-			_arg
-		),
-		d3d9::convert::sampler_stage_arg_value(
-			_value
-		)
-	);
+namespace renderer
+{
+namespace caps
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	renderer::texture::stage_value,
+	texture_stages
+);
+
 }
+}
+}
+
+#endif

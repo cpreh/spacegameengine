@@ -31,10 +31,10 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/convert/rect_base.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/resource_flags.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/resource_flags_to_pool.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/sampler_stage_arg.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/sampler_stage_arg_value.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/sampler_stage_op.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/sampler_stage_op_value.hpp
+	src/plugins/d3d9/include/sge/d3d9/convert/texture_stage_arg.hpp
+	src/plugins/d3d9/include/sge/d3d9/convert/texture_stage_arg_value.hpp
+	src/plugins/d3d9/include/sge/d3d9/convert/texture_stage_op.hpp
+	src/plugins/d3d9/include/sge/d3d9/convert/texture_stage_op_value.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/to_color.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/to_color_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/to_color_value.hpp
@@ -61,8 +61,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/light_enable.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/present.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/reset.hpp
-	src/plugins/d3d9/include/sge/d3d9/devicefuncs/sampler_stage_arg.hpp
-	src/plugins/d3d9/include/sge/d3d9/devicefuncs/sampler_stage_op.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/set_clip_plane.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/set_depth_stencil_surface.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/set_index_buffer.hpp
@@ -78,6 +76,8 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/set_transform.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/set_vertex_declaration.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/set_viewport.hpp
+	src/plugins/d3d9/include/sge/d3d9/devicefuncs/texture_stage_arg.hpp
+	src/plugins/d3d9/include/sge/d3d9/devicefuncs/texture_stage_op.hpp
 	src/plugins/d3d9/include/sge/d3d9/index_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/lock_flags.hpp
 	src/plugins/d3d9/include/sge/d3d9/make_pitch.hpp
@@ -266,10 +266,10 @@ SET(
 	src/plugins/d3d9/src/convert/pixel_rect.cpp
 	src/plugins/d3d9/src/convert/resource_flags.cpp
 	src/plugins/d3d9/src/convert/resource_flags_to_pool.cpp
-	src/plugins/d3d9/src/convert/sampler_stage_arg.cpp
-	src/plugins/d3d9/src/convert/sampler_stage_arg_value.cpp
-	src/plugins/d3d9/src/convert/sampler_stage_op.cpp
-	src/plugins/d3d9/src/convert/sampler_stage_op_value.cpp
+	src/plugins/d3d9/src/convert/texture_stage_arg.cpp
+	src/plugins/d3d9/src/convert/texture_stage_arg_value.cpp
+	src/plugins/d3d9/src/convert/texture_stage_op.cpp
+	src/plugins/d3d9/src/convert/texture_stage_op_value.cpp
 	src/plugins/d3d9/src/convert/to_color.cpp
 	src/plugins/d3d9/src/convert/to_color_format.cpp
 	src/plugins/d3d9/src/convert/to_color_value.cpp
@@ -294,8 +294,6 @@ SET(
 	src/plugins/d3d9/src/devicefuncs/light_enable.cpp
 	src/plugins/d3d9/src/devicefuncs/present.cpp
 	src/plugins/d3d9/src/devicefuncs/reset.cpp
-	src/plugins/d3d9/src/devicefuncs/sampler_stage_arg.cpp
-	src/plugins/d3d9/src/devicefuncs/sampler_stage_op.cpp
 	src/plugins/d3d9/src/devicefuncs/set_clip_plane.cpp
 	src/plugins/d3d9/src/devicefuncs/set_depth_stencil_surface.cpp
 	src/plugins/d3d9/src/devicefuncs/set_index_buffer.cpp
@@ -311,6 +309,8 @@ SET(
 	src/plugins/d3d9/src/devicefuncs/set_transform.cpp
 	src/plugins/d3d9/src/devicefuncs/set_vertex_declaration.cpp
 	src/plugins/d3d9/src/devicefuncs/set_viewport.cpp
+	src/plugins/d3d9/src/devicefuncs/texture_stage_arg.cpp
+	src/plugins/d3d9/src/devicefuncs/texture_stage_op.cpp
 	src/plugins/d3d9/src/exports.cpp
 	src/plugins/d3d9/src/index_buffer.cpp
 	src/plugins/d3d9/src/make_pitch.cpp

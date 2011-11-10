@@ -18,25 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SAMPLER_STAGE_ARG_VALUE_HPP_INCLUDED
-#define SGE_RENDERER_SAMPLER_STAGE_ARG_VALUE_HPP_INCLUDED
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/texture_stage_op.hpp>
+#include <sge/renderer/texture/stage_op.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-namespace sge
-{
-namespace renderer
-{
 
-namespace sampler_stage_arg_value
+D3DTEXTURESTAGESTATETYPE
+sge::d3d9::convert::texture_stage_op(
+	renderer::texture::stage_op::type const _type
+)
 {
-enum type
-{
-	previous,
-	texture,
-	constant
-};
+	switch(
+		_type
+	)
+	{
+	case renderer::texture::stage_op::color:
+		return D3DTSS_COLOROP;
+	case renderer::texture::stage_op::alpha:
+		return D3DTSS_ALPHAOP;
+	}
+
+	FCPPT_ASSERT_UNREACHABLE;
 }
-
-}
-}
-
-#endif

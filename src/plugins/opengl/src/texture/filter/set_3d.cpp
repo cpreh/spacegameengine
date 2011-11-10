@@ -37,7 +37,7 @@ sge::opengl::texture::funcs::set_3d(
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
 	opengl::internal_color_format const _internal_format,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::dim3 const &_dim,
 	renderer::const_raw_pointer const _src
 )

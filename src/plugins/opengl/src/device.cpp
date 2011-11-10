@@ -60,10 +60,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/volume.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/opengl/texture/filter/update.hpp>
-#include <sge/renderer/caps.hpp>
 #include <sge/renderer/optional_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/state/default.hpp>
@@ -116,7 +116,11 @@ sge::opengl::device::device(
 	target_(
 		onscreen_target_.get()
 	),
-	caps_(),
+	caps_(
+		opengl::create_caps(
+			context_
+		)
+	),
 	state_levels_()
 {
 	glew::initialize();
@@ -327,10 +331,10 @@ sge::opengl::device::clip_plane(
 }
 
 void
-sge::opengl::device::sampler_stage_op(
-	renderer::stage const _stage,
-	renderer::sampler_stage_op::type const _op,
-	renderer::sampler_stage_op_value::type const _value
+sge::opengl::device::texture_stage_op(
+	renderer::texture::stage const _stage,
+	renderer::texture::stage_op::type const _op,
+	renderer::texture::stage_op_value::type const _value
 )
 {
 	opengl::texture::set_stage_funcs(
@@ -342,10 +346,10 @@ sge::opengl::device::sampler_stage_op(
 }
 
 void
-sge::opengl::device::sampler_stage_arg(
-	renderer::stage const _stage,
-	renderer::sampler_stage_arg::type const _arg,
-	renderer::sampler_stage_arg_value::type const _value
+sge::opengl::device::texture_stage_arg(
+	renderer::texture::stage const _stage,
+	renderer::texture::stage_arg::type const _arg,
+	renderer::texture::stage_arg_value::type const _value
 )
 {
 	opengl::texture::set_stage_funcs(
@@ -359,7 +363,7 @@ sge::opengl::device::sampler_stage_arg(
 void
 sge::opengl::device::texture_filter(
 	renderer::texture::filter::object const &_filter,
-	renderer::stage const _stage
+	renderer::texture::stage const _stage
 )
 {
 	opengl::texture::filter::update(
@@ -372,7 +376,7 @@ sge::opengl::device::texture_filter(
 void
 sge::opengl::device::texture(
 	renderer::texture::const_optional_base const &_texture,
-	renderer::stage const _stage
+	renderer::texture::stage const _stage
 )
 {
 	opengl::texture::activate(
@@ -703,20 +707,9 @@ sge::opengl::device::onscreen_target() const
 	return *onscreen_target_;
 }
 
-sge::renderer::caps const
+sge::renderer::caps::object const &
 sge::opengl::device::caps() const
 {
-	if(
-		!caps_
-	)
-	{
-		caps_.take(
-			opengl::create_caps(
-				context_
-			)
-		);
-	}
-
 	return *caps_;
 }
 

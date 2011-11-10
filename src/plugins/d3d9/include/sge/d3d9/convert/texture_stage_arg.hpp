@@ -18,23 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SAMPLER_STAGE_OP_HPP_INCLUDED
-#define SGE_RENDERER_SAMPLER_STAGE_OP_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_TEXTURE_STAGE_ARG_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_TEXTURE_STAGE_ARG_HPP_INCLUDED
+
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/renderer/texture/stage_arg.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace d3d9
+{
+namespace convert
 {
 
-namespace sampler_stage_op
-{
-enum type
-{
-	color,
-	alpha
-};
+D3DTEXTURESTAGESTATETYPE
+texture_stage_arg(
+	renderer::texture::stage_arg::type
+);
+
 }
-
 }
 }
 

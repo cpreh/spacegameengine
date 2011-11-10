@@ -18,27 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_DEVICEFUNCS_SAMPLER_STAGE_ARG_HPP_INCLUDED
-#define SGE_D3D9_DEVICEFUNCS_SAMPLER_STAGE_ARG_HPP_INCLUDED
+#ifndef SGE_RENDERER_CAPS_MAX_ANISOTROPY_HPP_INCLUDED
+#define SGE_RENDERER_CAPS_MAX_ANISOTROPY_HPP_INCLUDED
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/sampler_stage_arg.hpp>
-#include <sge/renderer/sampler_stage_arg_value.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/filter/anisotropic/level.hpp>
+#include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
-namespace d3d9
+namespace renderer
 {
-namespace devicefuncs
+namespace caps
 {
 
-void
-sampler_stage_arg(
-	IDirect3DDevice9 *,
-	renderer::stage,
-	renderer::sampler_stage_arg::type,
-	renderer::sampler_stage_arg_value::type
+FCPPT_MAKE_STRONG_TYPEDEF(
+	texture::filter::anisotropic::level,
+	max_anisotropy
 );
 
 }

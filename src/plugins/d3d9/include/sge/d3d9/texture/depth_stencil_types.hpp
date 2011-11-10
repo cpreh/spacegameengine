@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/lock_flags.hpp>
 #include <sge/d3d9/optional_lock_rect.hpp>
 #include <sge/d3d9/usage.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/depth_stencil_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <fcppt/function/object_fwd.hpp>
@@ -57,7 +57,7 @@ struct depth_stencil_types
 	typedef fcppt::function::object<
 		D3DLOCKED_RECT(
 			d3d_type *,
-			sge::renderer::stage,
+			sge::renderer::texture::stage,
 			lock_dest const &,
 			d3d9::lock_flags
 		)
@@ -66,7 +66,7 @@ struct depth_stencil_types
 	typedef fcppt::function::object<
 		void (
 			d3d_type *,
-			sge::renderer::stage
+			sge::renderer::texture::stage
 		)
 	> unlock_function;
 

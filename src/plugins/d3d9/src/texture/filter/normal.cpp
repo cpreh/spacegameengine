@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::d3d9::texture::filter::normal(
 	IDirect3DDevice9 *const _device,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::texture::filter::normal::object const &_object
 )
 {

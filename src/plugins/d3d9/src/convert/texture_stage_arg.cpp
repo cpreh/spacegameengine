@@ -18,31 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_DEVICEFUNCS_SAMPLER_STAGE_OP_HPP_INCLUDED
-#define SGE_D3D9_DEVICEFUNCS_SAMPLER_STAGE_OP_HPP_INCLUDED
-
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/sampler_stage_op.hpp>
-#include <sge/renderer/sampler_stage_op_value.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/d3d9/convert/texture_stage_arg.hpp>
+#include <sge/renderer/texture/stage_arg.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-namespace sge
+
+D3DTEXTURESTAGESTATETYPE
+sge::d3d9::convert::texture_stage_arg(
+	renderer::texture::stage_arg::type const _arg
+)
 {
-namespace d3d9
-{
-namespace devicefuncs
-{
+	// TODO: maybe we have to swap numbers here
+	switch(
+		_arg
+	)
+	{
+	case renderer::texture::stage_arg::rgb0:
+		return D3DTSS_COLORARG0;
+	case renderer::texture::stage_arg::rgb1:
+		return D3DTSS_COLORARG1;
+	case renderer::texture::stage_arg::rgb2:
+		return D3DTSS_COLORARG2;
+	case renderer::texture::stage_arg::alpha0:
+		return D3DTSS_ALPHAARG0;
+	case renderer::texture::stage_arg::alpha1:
+		return D3DTSS_ALPHAARG1;
+	case renderer::texture::stage_arg::alpha2:
+		return D3DTSS_ALPHAARG2;
+	}
 
-void
-sampler_stage_op(
-	IDirect3DDevice9 *,
-	renderer::stage,
-	renderer::sampler_stage_op::type,
-	renderer::sampler_stage_op_value::type
-);
-
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-}
-
-#endif

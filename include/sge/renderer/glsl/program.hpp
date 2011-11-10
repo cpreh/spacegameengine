@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/shader_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 
@@ -71,7 +71,7 @@ public:
 
 	virtual void
 	color_surface_location(
-		renderer::stage,
+		renderer::texture::stage,
 		glsl::string const &
 	) = 0;
 

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_UNSET_TEXTURE_STAGE_HPP_INCLUDED
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/texture/const_optional_base.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -58,7 +58,7 @@ public:
 	{
 		device_.texture(
 			renderer::texture::const_optional_base(),
-			sge::renderer::stage(
+			sge::renderer::texture::stage(
 				Level::value
 			)
 		);

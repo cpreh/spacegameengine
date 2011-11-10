@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_UNSET_USE_CENTER_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_UNSET_USE_CENTER_HPP_INCLUDED
 
+#include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/detail/needs_use_center.hpp>
 #include <sge/sprite/detail/roles/use_center.hpp>
-#include <sge/sprite/parameters_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>

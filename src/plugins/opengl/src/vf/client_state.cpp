@@ -76,7 +76,7 @@ sge::opengl::vf::client_state::disable(
 
 void
 sge::opengl::vf::client_state::enable_texture(
-	renderer::stage const _value
+	renderer::texture::stage const _value
 )
 {
 	::insert_checked(
@@ -87,7 +87,7 @@ sge::opengl::vf::client_state::enable_texture(
 
 void
 sge::opengl::vf::client_state::disable_texture(
-	renderer::stage const _value
+	renderer::texture::stage const _value
 )
 {
 	::erase_checked(

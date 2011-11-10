@@ -366,7 +366,7 @@ sge::shader::object::activate(
 			renderer_.texture(
 				sge::renderer::texture::const_optional_base(
 					*it->texture()),
-				sge::renderer::stage(
+				sge::renderer::texture::stage(
 					it->texture_unit()));
 	}
 
@@ -396,7 +396,7 @@ sge::shader::object::deactivate(
 		)
 			renderer_.texture(
 				sge::renderer::texture::const_optional_base(),
-				sge::renderer::stage(
+				sge::renderer::texture::stage(
 					it->texture_unit()));
 	}
 

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::filter::update(
 	opengl::context::object &_context,
-	sge::renderer::stage const _stage,
+	sge::renderer::texture::stage const _stage,
 	sge::renderer::texture::filter::object const &_filter
 )
 {

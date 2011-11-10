@@ -34,7 +34,7 @@ void
 update_level(
 	IDirect3DDevice9 *,
 	sge::d3d9::state::address_mode &,
-	sge::renderer::stage,
+	sge::renderer::texture::stage,
 	D3DSAMPLERSTATETYPE,
 	D3DTEXTUREADDRESS
 );
@@ -45,7 +45,7 @@ void
 sge::d3d9::texture::address_mode(
 	IDirect3DDevice9 *const _device,
 	state::address_mode &_state,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::texture::address_mode2 const &_mode
 )
 {
@@ -74,7 +74,7 @@ void
 sge::d3d9::texture::address_mode(
 	IDirect3DDevice9 *const _device,
 	state::address_mode &_state,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::texture::address_mode3 const &_mode
 )
 {
@@ -106,7 +106,7 @@ void
 update_level(
 	IDirect3DDevice9 *const _device,
 	sge::d3d9::state::address_mode &_state,
-	sge::renderer::stage const _stage,
+	sge::renderer::texture::stage const _stage,
 	D3DSAMPLERSTATETYPE const _level,
 	D3DTEXTUREADDRESS const _value
 )

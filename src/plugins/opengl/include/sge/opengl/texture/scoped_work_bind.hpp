@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -47,7 +47,7 @@ public:
 		opengl::context::object &,
 		opengl::texture::type,
 		opengl::texture::id,
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	~scoped_work_bind();
@@ -56,7 +56,7 @@ private:
 
 	texture::bind_context &bind_context_;
 
-	renderer::stage const stage_;
+	renderer::texture::stage const stage_;
 };
 
 }

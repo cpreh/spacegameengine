@@ -29,7 +29,7 @@ GLint
 sge::opengl::texture::funcs::level_parameter(
 	texture::scoped_work_bind const &,
 	texture::type const _type,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	GLenum const _what
 )
 {

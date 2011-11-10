@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::d3d9::texture::filter::anisotropic_level(
 	IDirect3DDevice9 *const _device,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::texture::filter::anisotropic::level const _level
 )
 {

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/container/index_map_decl.hpp>
@@ -61,13 +61,13 @@ public:
 	bind_for_rendering(
 		opengl::context::object &,
 		opengl::texture::base const &,
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	void
 	unbind_for_rendering(
 		opengl::context::object &,
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	void
@@ -75,18 +75,18 @@ public:
 		opengl::context::object &,
 		texture::type,
 		texture::id,
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	void
 	unbind_for_work(
 		opengl::context::object &,
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	opengl::texture::base const *
 	render_texture(
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	typedef void needs_before;

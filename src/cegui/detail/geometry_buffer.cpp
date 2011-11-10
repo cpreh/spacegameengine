@@ -203,7 +203,7 @@ sge::cegui::detail::geometry_buffer::draw() const
 		sge::renderer::texture::scoped scoped_texture(
 			renderer_,
 			it->texture(),
-			sge::renderer::stage(
+			sge::renderer::texture::stage(
 				0u));
 
 		renderer_.render_nonindexed(

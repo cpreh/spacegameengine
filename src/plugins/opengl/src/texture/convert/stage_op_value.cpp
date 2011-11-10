@@ -20,30 +20,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/convert/stage_op_value.hpp>
-#include <sge/renderer/sampler_stage_op_value.hpp>
+#include <sge/renderer/texture/stage_op_value.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
 sge::opengl::texture::convert::stage_arg_op_value(
-	renderer::sampler_stage_op_value::type const _value
+	renderer::texture::stage_op_value::type const _value
 )
 {
 	switch(
 		_value
 	)
 	{
-	case renderer::sampler_stage_op_value::arg0:
+	case renderer::texture::stage_op_value::arg0:
 		return GL_REPLACE;
-	case renderer::sampler_stage_op_value::modulate:
+	case renderer::texture::stage_op_value::modulate:
 		return GL_MODULATE;
-	case renderer::sampler_stage_op_value::add:
+	case renderer::texture::stage_op_value::add:
 		return GL_ADD;
-	case renderer::sampler_stage_op_value::substract:
+	case renderer::texture::stage_op_value::substract:
 		return GL_SUBTRACT;
-	case renderer::sampler_stage_op_value::add_signed:
+	case renderer::texture::stage_op_value::add_signed:
 		return GL_ADD_SIGNED;
-	case renderer::sampler_stage_op_value::interpolate:
+	case renderer::texture::stage_op_value::interpolate:
 		return GL_INTERPOLATE;
 	}
 

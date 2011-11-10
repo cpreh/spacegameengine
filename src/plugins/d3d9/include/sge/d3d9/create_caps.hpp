@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/caps_fwd.hpp>
+#include <sge/renderer/caps/object_unique_ptr.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ namespace sge
 namespace d3d9
 {
 
-renderer::caps const
+renderer::caps::object_unique_ptr
 create_caps(
 	IDirect3D9 *,
 	renderer::adapter

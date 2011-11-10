@@ -28,10 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/sampler_stage_arg.hpp>
-#include <sge/renderer/sampler_stage_arg_value.hpp>
-#include <sge/renderer/sampler_stage_op.hpp>
-#include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
@@ -39,6 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/stage_arg.hpp>
+#include <sge/renderer/texture/stage_arg_value.hpp>
+#include <sge/renderer/texture/stage_op.hpp>
+#include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/external_system_impl.hpp>
@@ -243,34 +244,34 @@ try
 			sys.renderer()
 		);
 
-		sys.renderer().sampler_stage_arg(
-			sge::renderer::stage(0u),
-			sge::renderer::sampler_stage_arg::rgb0,
-			sge::renderer::sampler_stage_arg_value::texture
+		sys.renderer().texture_stage_arg(
+			sge::renderer::texture::stage(0u),
+			sge::renderer::texture::stage_arg::rgb0,
+			sge::renderer::texture::stage_arg_value::texture
 		);
 
-		sys.renderer().sampler_stage_op(
-			sge::renderer::stage(0u),
-			sge::renderer::sampler_stage_op::color,
-			sge::renderer::sampler_stage_op_value::arg0
+		sys.renderer().texture_stage_op(
+			sge::renderer::texture::stage(0u),
+			sge::renderer::texture::stage_op::color,
+			sge::renderer::texture::stage_op_value::arg0
 		);
 
-		sys.renderer().sampler_stage_arg(
-			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_arg::rgb0,
-			sge::renderer::sampler_stage_arg_value::previous
+		sys.renderer().texture_stage_arg(
+			sge::renderer::texture::stage(1u),
+			sge::renderer::texture::stage_arg::rgb0,
+			sge::renderer::texture::stage_arg_value::previous
 		);
 
-		sys.renderer().sampler_stage_arg(
-			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_arg::rgb1,
-			sge::renderer::sampler_stage_arg_value::texture
+		sys.renderer().texture_stage_arg(
+			sge::renderer::texture::stage(1u),
+			sge::renderer::texture::stage_arg::rgb1,
+			sge::renderer::texture::stage_arg_value::texture
 		);
 
-		sys.renderer().sampler_stage_op(
-			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_op::color,
-			sge::renderer::sampler_stage_op_value::modulate
+		sys.renderer().texture_stage_op(
+			sge::renderer::texture::stage(1u),
+			sge::renderer::texture::stage_op::color,
+			sge::renderer::texture::stage_op_value::modulate
 		);
 
 		sge::sprite::render_one(

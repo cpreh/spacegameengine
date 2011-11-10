@@ -18,30 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/sampler_stage_arg_value.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_RENDERER_TEXTURE_STAGE_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_STAGE_HPP_INCLUDED
+
+#include <sge/renderer/texture/stage_value.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
-DWORD
-sge::d3d9::convert::sampler_stage_arg_value(
-	renderer::sampler_stage_arg_value::type const _value
-)
+namespace sge
 {
-	switch(
-		_value
-	)
-	{
-	case renderer::sampler_stage_arg_value::constant:
-		return D3DTA_CONSTANT;
-	case renderer::sampler_stage_arg_value::previous:
-		return D3DTA_CURRENT;
-//		return D3DTA_DIFFUSE;
-//		return D3DTA_SPECULAR;
-//		return D3DTA_TEMP;
-	case renderer::sampler_stage_arg_value::texture:
-		return D3DTA_TEXTURE;
-	}
+namespace renderer
+{
+namespace texture
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	texture::stage_value,
+	stage
+);
+
 }
+}
+}
+
+#endif

@@ -29,7 +29,7 @@ void
 sge::d3d9::texture::unlock_cube(
 	IDirect3DCubeTexture9 *const _texture,
 	sge::renderer::texture::cube_side::type const _side,
-	sge::renderer::stage const _stage
+	sge::renderer::texture::stage const _stage
 )
 {
 	if(

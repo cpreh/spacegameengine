@@ -28,5 +28,5 @@ sge::opengl::convert::clip_plane_index(
 	renderer::clip_plane_index const _index
 )
 {
-	return GL_CLIP_PLANE0 + _index;
+	return GL_CLIP_PLANE0 + _index.get();
 }

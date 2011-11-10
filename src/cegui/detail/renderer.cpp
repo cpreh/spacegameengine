@@ -24,11 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/texture.hpp>
 #include <sge/cegui/detail/texture_target.hpp>
 #include <sge/cegui/vf/format.hpp>
-#include <sge/renderer/caps.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
@@ -342,8 +342,8 @@ sge::cegui::detail::renderer::getMaxTextureSize() const
 	return
 		static_cast<CEGUI::uint>(
 			std::min(
-				renderer_.caps().max_texture_size().w(),
-				renderer_.caps().max_texture_size().h()));
+				renderer_.caps().max_texture_size().get().w(),
+				renderer_.caps().max_texture_size().get().h()));
 }
 
 CEGUI::String const &

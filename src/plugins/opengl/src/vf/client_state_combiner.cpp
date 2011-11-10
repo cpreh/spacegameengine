@@ -106,7 +106,7 @@ sge::opengl::vf::client_state_combiner::disable(
 
 void
 sge::opengl::vf::client_state_combiner::enable_texture(
-	renderer::stage const _texture
+	renderer::texture::stage const _texture
 )
 {
 	new_states_.enable_texture(
@@ -116,7 +116,7 @@ sge::opengl::vf::client_state_combiner::enable_texture(
 
 void
 sge::opengl::vf::client_state_combiner::disable_texture(
-	renderer::stage const _texture
+	renderer::texture::stage const _texture
 )
 {
 	new_states_.disable_texture(

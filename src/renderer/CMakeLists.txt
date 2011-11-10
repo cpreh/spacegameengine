@@ -13,12 +13,27 @@ SET(
 	include/sge/renderer/bit_depth_bytes.hpp
 	include/sge/renderer/buffer_has_depth.hpp
 	include/sge/renderer/buffer_has_stencil.hpp
-	include/sge/renderer/caps.hpp
-	include/sge/renderer/caps_fwd.hpp
+	include/sge/renderer/caps/caps.hpp
+	include/sge/renderer/caps/clip_plane_indices.hpp
+	include/sge/renderer/caps/description.hpp
+	include/sge/renderer/caps/driver_name.hpp
+	include/sge/renderer/caps/glsl_supported.hpp
+	include/sge/renderer/caps/light_indices.hpp
+	include/sge/renderer/caps/max_anisotropy.hpp
+	include/sge/renderer/caps/max_texture_size.hpp
+	include/sge/renderer/caps/max_volume_texture_extent.hpp
+	include/sge/renderer/caps/object.hpp
+	include/sge/renderer/caps/object_fwd.hpp
+	include/sge/renderer/caps/object_output.hpp
+	include/sge/renderer/caps/object_unique_ptr.hpp
+	include/sge/renderer/caps/preferred_texture_format.hpp
+	include/sge/renderer/caps/render_target_supported.hpp
+	include/sge/renderer/caps/texture_stages.hpp
 	include/sge/renderer/clear_flags.hpp
 	include/sge/renderer/clear_flags_field.hpp
 	include/sge/renderer/clip_plane.hpp
 	include/sge/renderer/clip_plane_index.hpp
+	include/sge/renderer/clip_plane_index_value.hpp
 	include/sge/renderer/color_surface.hpp
 	include/sge/renderer/color_surface_fwd.hpp
 	include/sge/renderer/color_surface_ptr.hpp
@@ -163,6 +178,7 @@ SET(
 	include/sge/renderer/light/directional.hpp
 	include/sge/renderer/light/directional_fwd.hpp
 	include/sge/renderer/light/index.hpp
+	include/sge/renderer/light/index_value.hpp
 	include/sge/renderer/light/light.hpp
 	include/sge/renderer/light/linear_attenuation.hpp
 	include/sge/renderer/light/object.hpp
@@ -223,10 +239,6 @@ SET(
 	include/sge/renderer/resource_flags.hpp
 	include/sge/renderer/resource_flags_field.hpp
 	include/sge/renderer/resource_flags_none.hpp
-	include/sge/renderer/sampler_stage_arg.hpp
-	include/sge/renderer/sampler_stage_arg_value.hpp
-	include/sge/renderer/sampler_stage_op.hpp
-	include/sge/renderer/sampler_stage_op_value.hpp
 	include/sge/renderer/scalar.hpp
 	include/sge/renderer/scissor_area.hpp
 	include/sge/renderer/scoped_block.hpp
@@ -244,7 +256,6 @@ SET(
 	include/sge/renderer/shininess.hpp
 	include/sge/renderer/size_type.hpp
 	include/sge/renderer/specular_color.hpp
-	include/sge/renderer/stage.hpp
 	include/sge/renderer/state/alpha_func.hpp
 	include/sge/renderer/state/any.hpp
 	include/sge/renderer/state/any_sort.hpp
@@ -379,6 +390,12 @@ SET(
 	include/sge/renderer/texture/scoped.hpp
 	include/sge/renderer/texture/scoped_planar_lock.hpp
 	include/sge/renderer/texture/scoped_volume_lock.hpp
+	include/sge/renderer/texture/stage.hpp
+	include/sge/renderer/texture/stage_arg.hpp
+	include/sge/renderer/texture/stage_arg_value.hpp
+	include/sge/renderer/texture/stage_op.hpp
+	include/sge/renderer/texture/stage_op_value.hpp
+	include/sge/renderer/texture/stage_value.hpp
 	include/sge/renderer/texture/texture.hpp
 	include/sge/renderer/texture/volume.hpp
 	include/sge/renderer/texture/volume_fwd.hpp
@@ -506,7 +523,8 @@ SET(
 	src/renderer/bit_depth_bytes.cpp
 	src/renderer/buffer_has_depth.cpp
 	src/renderer/buffer_has_stencil.cpp
-	src/renderer/caps.cpp
+	src/renderer/caps/object.cpp
+	src/renderer/caps/object_output.cpp
 	src/renderer/color_surface.cpp
 	src/renderer/const_scoped_color_surface_lock.cpp
 	src/renderer/const_scoped_index_lock.cpp

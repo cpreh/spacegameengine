@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_SET_TEXTURE_LEVEL_HPP_INCLUDED
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/texture/const_optional_base.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part.hpp>
@@ -83,7 +83,7 @@ public:
 			:
 				renderer::texture::const_optional_base()
 			,
-			sge::renderer::stage(
+			sge::renderer::texture::stage(
 				Level::value
 			)
 		);

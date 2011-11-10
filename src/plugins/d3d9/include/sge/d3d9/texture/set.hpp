@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/address_mode_fwd.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/const_optional_base_fwd.hpp>
 
 
@@ -38,7 +38,7 @@ void
 set(
 	IDirect3DDevice9 *,
 	state::address_mode &,
-	renderer::stage,
+	renderer::texture::stage,
 	renderer::texture::const_optional_base const &
 );
 
