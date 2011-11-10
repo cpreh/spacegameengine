@@ -69,7 +69,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
@@ -82,6 +81,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/filter/mipmap.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
@@ -630,7 +630,7 @@ try
 		{
 			sge::renderer::texture::filter::scoped const scoped_filter(
 				sys.renderer(),
-				sge::renderer::stage(0u),
+				sge::renderer::texture::stage(0u),
 				current_filter->second
 			);
 

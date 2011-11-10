@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_DISABLE_TEXCOORDS_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace vf
 void
 disable_texcoords(
 	opengl::context::object &,
-	renderer::stage
+	renderer::texture::stage
 );
 
 }

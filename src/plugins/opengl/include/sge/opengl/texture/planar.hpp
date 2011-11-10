@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/planar_basic.hpp>
 #include <sge/opengl/texture/planar_fwd.hpp>
 #include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -58,10 +58,10 @@ public:
 private:
 	renderer::color_surface_ptr const
 	surface(
-		renderer::stage
+		renderer::texture::stage
 	);
 
-	sge::renderer::stage const
+	sge::renderer::texture::stage const
 	stages() const;
 };
 

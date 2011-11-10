@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_CONVERT_STAGE_ARG_VALUE_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/sampler_stage_arg_value.hpp>
+#include <sge/renderer/texture/stage_arg_value.hpp>
 
 namespace sge
 {
@@ -35,7 +35,7 @@ namespace convert
 
 GLenum
 stage_arg_op_value(
-	renderer::sampler_stage_arg_value::type
+	renderer::texture::stage_arg_value::type
 );
 
 }

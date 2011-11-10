@@ -145,14 +145,14 @@ public:
 
 	void
 	sampler_stage_op(
-		renderer::stage,
+		renderer::texture::stage,
 		renderer::sampler_stage_op::type,
 		renderer::sampler_stage_op_value::type
 	);
 
 	void
 	sampler_stage_arg(
-		renderer::stage,
+		renderer::texture::stage,
 		renderer::sampler_stage_arg::type,
 		renderer::sampler_stage_arg_value::type
 	);
@@ -160,13 +160,13 @@ public:
 	void
 	texture(
 		renderer::texture::const_optional_base const &,
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	void
 	texture_filter(
 		renderer::texture::filter::object const &,
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	void

@@ -20,24 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/convert/stage_arg_value.hpp>
-#include <sge/renderer/sampler_stage_arg_value.hpp>
+#include <sge/renderer/texture/stage_arg_value.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
 sge::opengl::texture::convert::stage_arg_op_value(
-	renderer::sampler_stage_arg_value::type const _value
+	renderer::texture::stage_arg_value::type const _value
 )
 {
 	switch(
 		_value
 	)
 	{
-	case renderer::sampler_stage_arg_value::previous:
+	case renderer::texture::stage_arg_value::previous:
 		return GL_PREVIOUS;
-	case renderer::sampler_stage_arg_value::texture:
+	case renderer::texture::stage_arg_value::texture:
 		return GL_TEXTURE;
-	case renderer::sampler_stage_arg_value::constant:
+	case renderer::texture::stage_arg_value::constant:
 		return GL_CONSTANT;
 	}
 

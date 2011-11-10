@@ -32,7 +32,7 @@ void
 sge::opengl::texture::activate(
 	opengl::context::object &_context,
 	sge::renderer::texture::const_optional_base const &_texture,
-	sge::renderer::stage const _stage
+	sge::renderer::texture::stage const _stage
 )
 {
 	opengl::texture::bind_context &context(

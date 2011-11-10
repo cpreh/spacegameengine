@@ -52,11 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/sampler_stage_arg.hpp>
-#include <sge/renderer/sampler_stage_arg_value.hpp>
-#include <sge/renderer/sampler_stage_op.hpp>
-#include <sge/renderer/sampler_stage_op_value.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
@@ -81,6 +76,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/depth_stencil_ptr.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/stage_arg.hpp>
+#include <sge/renderer/texture/stage_arg_value.hpp>
+#include <sge/renderer/texture/stage_op.hpp>
+#include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_ptr.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
@@ -198,29 +198,29 @@ public:
 	);
 
 	void
-	sampler_stage_op(
-		renderer::stage stage,
-		renderer::sampler_stage_op::type,
-		renderer::sampler_stage_op_value::type
+	texture_stage_op(
+		renderer::texture::stage,
+		renderer::texture::stage_op::type,
+		renderer::texture::stage_op_value::type
 	);
 
 	void
-	sampler_stage_arg(
-		renderer::stage stage,
-		renderer::sampler_stage_arg::type,
-		renderer::sampler_stage_arg_value::type
+	texture_stage_arg(
+		renderer::texture::stage,
+		renderer::texture::stage_arg::type,
+		renderer::texture::stage_arg_value::type
 	);
 
 	void
 	texture_filter(
 		renderer::texture::filter::object const &,
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	void
 	texture(
 		renderer::texture::const_optional_base const &,
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	void

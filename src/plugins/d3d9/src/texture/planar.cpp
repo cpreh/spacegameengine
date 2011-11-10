@@ -91,16 +91,16 @@ sge::d3d9::texture::planar::unlock() const
 
 sge::renderer::color_surface_ptr const
 sge::d3d9::texture::planar::surface(
-	renderer::stage const _stage
+	renderer::texture::stage const _stage
 )
 {
 	return renderer::color_surface_ptr();
 }
 
-sge::renderer::stage const
+sge::renderer::texture::stage const
 sge::d3d9::texture::planar::stages() const
 {
-	return renderer::stage(0u);
+	return renderer::texture::stage(0u);
 }
 
 sge::d3d9::texture::planar_basic::lock_function const

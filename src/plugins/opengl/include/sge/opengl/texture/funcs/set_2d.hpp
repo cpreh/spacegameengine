@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 namespace sge
@@ -49,7 +49,7 @@ set_2d(
 	opengl::color_format,
 	opengl::color_format_type,
 	opengl::internal_color_format,
-	renderer::stage,
+	renderer::texture::stage,
 	renderer::dim2 const &,
 	renderer::const_raw_pointer src
 );

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/sampler_stage_arg.hpp>
 #include <sge/renderer/sampler_stage_arg_value.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 namespace sge
 {
@@ -36,7 +36,7 @@ namespace devicefuncs
 void
 sampler_stage_arg(
 	IDirect3DDevice9 *,
-	renderer::stage,
+	renderer::texture::stage,
 	renderer::sampler_stage_arg::type,
 	renderer::sampler_stage_arg_value::type
 );

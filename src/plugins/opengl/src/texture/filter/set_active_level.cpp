@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/convert/level.hpp>
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::funcs::set_active_level(
 	opengl::context::object &_context,
-	renderer::stage const _stage
+	renderer::texture::stage const _stage
 )
 {
 	opengl::texture::multi_context &context(
@@ -71,7 +71,7 @@ sge::opengl::texture::funcs::set_active_level(
 	if(
 		_stage.get() >=
 		static_cast<
-			sge::renderer::stage::value_type
+			sge::renderer::texture::stage::value_type
 		>(
 			context.max_level()
 		)

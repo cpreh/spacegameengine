@@ -285,7 +285,7 @@ try
 
 		sys.renderer().texture(
 			sge::renderer::texture::const_optional_base(),
-			sge::renderer::stage(
+			sge::renderer::texture::stage(
 				0u
 			)
 		);

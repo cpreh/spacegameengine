@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/scoped_work_bind.hpp>
 #include <sge/opengl/texture/funcs/set_2d.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters.hpp>
@@ -64,7 +64,7 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		_context,
 		this->type(),
 		this->id(),
-		renderer::stage(
+		renderer::texture::stage(
 			0u
 		)
 	);
@@ -82,7 +82,7 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		convert::depth_stencil_to_internal_format(
 			format_
 		),
-		renderer::stage(
+		renderer::texture::stage(
 			0u
 		),
 		this->size(),
@@ -107,7 +107,7 @@ sge::opengl::texture::depth_stencil::surface() const
 		context_,
 		this->type(),
 		this->id(),
-		renderer::stage(
+		renderer::texture::stage(
 			0u
 		)
 	);

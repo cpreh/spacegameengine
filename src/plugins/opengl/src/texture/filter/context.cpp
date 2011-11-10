@@ -38,7 +38,7 @@ sge::opengl::texture::filter::context::~context()
 
 sge::renderer::texture::filter::object const &
 sge::opengl::texture::filter::context::get(
-	renderer::stage const _stage
+	renderer::texture::stage const _stage
 )
 {
 	return
@@ -49,7 +49,7 @@ sge::opengl::texture::filter::context::get(
 
 bool
 sge::opengl::texture::filter::context::set(
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::texture::filter::object const &_filter
 )
 {
@@ -73,7 +73,7 @@ sge::opengl::texture::filter::context::set(
 
 sge::renderer::texture::filter::object &
 sge::opengl::texture::filter::context::get_mutable(
-	renderer::stage const _stage
+	renderer::texture::stage const _stage
 )
 {
 	return

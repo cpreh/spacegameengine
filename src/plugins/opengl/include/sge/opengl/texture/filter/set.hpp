@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/base_fwd.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 
 
@@ -40,7 +40,7 @@ void
 set(
 	opengl::context::object &,
 	opengl::texture::base const &,
-	renderer::stage,
+	renderer::texture::stage,
 	renderer::texture::filter::object const &
 );
 

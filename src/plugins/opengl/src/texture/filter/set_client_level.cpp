@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::funcs::set_client_level(
 	context::object &_context,
-	renderer::stage const _stage
+	renderer::texture::stage const _stage
 )
 {
 	texture::multi_context &context(

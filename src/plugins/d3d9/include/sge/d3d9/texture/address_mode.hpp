@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/address_mode_fwd.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/address_mode2_fwd.hpp>
 #include <sge/renderer/texture/address_mode3_fwd.hpp>
 
@@ -39,7 +39,7 @@ void
 address_mode(
 	IDirect3DDevice9 *const _device,
 	state::address_mode &_state,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::texture::address_mode2 const &
 );
 
@@ -47,7 +47,7 @@ void
 address_mode(
 	IDirect3DDevice9 *const _device,
 	state::address_mode &_state,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::texture::address_mode3 const &
 );
 

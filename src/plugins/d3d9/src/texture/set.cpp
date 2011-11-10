@@ -29,7 +29,7 @@ void
 sge::d3d9::texture::set(
 	IDirect3DDevice9 *const _device,
 	state::address_mode &_address_mode,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::texture::const_optional_base const &_base
 )
 {

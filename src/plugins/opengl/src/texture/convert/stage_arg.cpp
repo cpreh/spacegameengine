@@ -20,30 +20,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/convert/stage_arg.hpp>
-#include <sge/renderer/sampler_stage_arg.hpp>
+#include <sge/renderer/texture/stage_arg.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
 sge::opengl::texture::convert::stage_arg_op(
-	renderer::sampler_stage_arg::type const _arg
+	renderer::texture::stage_arg::type const _arg
 )
 {
 	switch(
 		_arg
 	)
 	{
-	case renderer::sampler_stage_arg::rgb0:
+	case renderer::texture::stage_arg::rgb0:
 		return GL_SOURCE0_RGB;
-	case renderer::sampler_stage_arg::rgb1:
+	case renderer::texture::stage_arg::rgb1:
 		return GL_SOURCE1_RGB;
-	case renderer::sampler_stage_arg::rgb2:
+	case renderer::texture::stage_arg::rgb2:
 		return GL_SOURCE2_RGB;
-	case renderer::sampler_stage_arg::alpha0:
+	case renderer::texture::stage_arg::alpha0:
 		return GL_SOURCE0_ALPHA;
-	case renderer::sampler_stage_arg::alpha1:
+	case renderer::texture::stage_arg::alpha1:
 		return GL_SOURCE1_ALPHA;
-	case renderer::sampler_stage_arg::alpha2:
+	case renderer::texture::stage_arg::alpha2:
 		return GL_SOURCE2_ALPHA;
 	}
 

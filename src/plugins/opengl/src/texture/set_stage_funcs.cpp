@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/set_stage_funcs.hpp>
 #include <sge/opengl/texture/convert/stage_arg.hpp>
 #include <sge/opengl/texture/convert/stage_arg_value.hpp>
@@ -25,10 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/convert/stage_op_value.hpp>
 #include <sge/opengl/texture/funcs/env.hpp>
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
-#include <sge/renderer/sampler_stage_arg.hpp>
-#include <sge/renderer/sampler_stage_arg_value.hpp>
-#include <sge/renderer/sampler_stage_op.hpp>
-#include <sge/renderer/sampler_stage_op_value.hpp>
+#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/stage_arg.hpp>
+#include <sge/renderer/texture/stage_arg_value.hpp>
+#include <sge/renderer/texture/stage_op.hpp>
+#include <sge/renderer/texture/stage_op_value.hpp>
 
 
 template<
@@ -38,7 +40,7 @@ template<
 void
 sge::opengl::texture::set_stage_funcs(
 	context::object &_context,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	Arg const _arg,
 	Value const _value
 )
@@ -71,19 +73,19 @@ template \
 void \
 sge::opengl::texture::set_stage_funcs(\
 	sge::opengl::context::object &,\
-	sge::renderer::stage,\
+	sge::renderer::texture::stage,\
 	arg,\
 	value\
 );
 
 SGE_OPENGL_INSTANTIATE_TEXTURE_SET_STAGE_FUNCS(
-	sge::renderer::sampler_stage_op::type,
-	sge::renderer::sampler_stage_op_value::type
+	sge::renderer::texture::stage_op::type,
+	sge::renderer::texture::stage_op_value::type
 )
 
 SGE_OPENGL_INSTANTIATE_TEXTURE_SET_STAGE_FUNCS(
-	sge::renderer::sampler_stage_arg::type,
-	sge::renderer::sampler_stage_arg_value::type
+	sge::renderer::texture::stage_arg::type,
+	sge::renderer::texture::stage_arg_value::type
 )
 
 #undef SGE_OPENGL_INSTANTIATE_TEXTURE_SET_STAGE_FUNCS

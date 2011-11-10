@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_SCOPED_HPP_INCLUDED
 
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -45,7 +45,7 @@ public:
 	scoped(
 		renderer::device &,
 		texture::base const &,
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -53,7 +53,7 @@ public:
 private:
 	renderer::device &device_;
 
-	renderer::stage const stage_;
+	renderer::texture::stage const stage_;
 };
 
 }

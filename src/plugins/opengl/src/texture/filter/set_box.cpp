@@ -41,7 +41,7 @@ sge::opengl::texture::funcs::set_box(
 	texture::type const _type,
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::dim3 const &_dim,
 	renderer::lock_box const &_lock_box,
 	renderer::const_raw_pointer const _src

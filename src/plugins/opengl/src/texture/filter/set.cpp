@@ -34,7 +34,7 @@ void
 sge::opengl::texture::filter::set(
 	opengl::context::object &_context,
 	opengl::texture::base const &_texture,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::texture::filter::object const &_filter
 )
 {

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/optional_lock_box.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/lock_flags.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 namespace sge
 {
@@ -36,7 +36,7 @@ namespace texture
 D3DLOCKED_BOX const
 lock_volume(
 	IDirect3DVolumeTexture9 *,
-	sge::renderer::stage,
+	sge::renderer::texture::stage,
 	d3d9::texture::optional_lock_box const &,
 	d3d9::lock_flags
 );

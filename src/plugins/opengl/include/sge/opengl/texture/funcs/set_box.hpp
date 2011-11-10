@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/lock_box.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 namespace sge
@@ -48,7 +48,7 @@ set_box(
 	texture::type,
 	opengl::color_format,
 	opengl::color_format_type,
-	renderer::stage,
+	renderer::texture::stage,
 	renderer::dim3 const &,
 	renderer::lock_box const &,
 	renderer::const_raw_pointer src

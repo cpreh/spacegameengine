@@ -37,16 +37,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/sampler_stage_arg.hpp>
-#include <sge/renderer/sampler_stage_arg_value.hpp>
-#include <sge/renderer/sampler_stage_op.hpp>
-#include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -68,6 +63,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/stage_arg.hpp>
+#include <sge/renderer/texture/stage_arg_value.hpp>
+#include <sge/renderer/texture/stage_op.hpp>
+#include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/index.hpp>
@@ -424,13 +424,13 @@ try
 		sge::renderer::texture::scoped const tex0_context(
 			sys.renderer(),
 			*texture1,
-			sge::renderer::stage(0u)
+			sge::renderer::texture::stage(0u)
 		);
 
 		sge::renderer::texture::scoped const tex1_context(
 			sys.renderer(),
 			*texture2,
-			sge::renderer::stage(1u)
+			sge::renderer::texture::stage(1u)
 		);
 
 		sge::renderer::state::scoped const scoped_state(
@@ -443,34 +443,34 @@ try
 			)
 		);
 
-		sys.renderer().sampler_stage_arg(
-			sge::renderer::stage(0u),
-			sge::renderer::sampler_stage_arg::rgb0,
-			sge::renderer::sampler_stage_arg_value::texture
+		sys.renderer().texture_stage_arg(
+			sge::renderer::texture::stage(0u),
+			sge::renderer::texture::stage_arg::rgb0,
+			sge::renderer::texture::stage_arg_value::texture
 		);
 
-		sys.renderer().sampler_stage_op(
-			sge::renderer::stage(0u),
-			sge::renderer::sampler_stage_op::color,
-			sge::renderer::sampler_stage_op_value::arg0
+		sys.renderer().texture_stage_op(
+			sge::renderer::texture::stage(0u),
+			sge::renderer::texture::stage_op::color,
+			sge::renderer::texture::stage_op_value::arg0
 		);
 
-		sys.renderer().sampler_stage_arg(
-			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_arg::rgb0,
-			sge::renderer::sampler_stage_arg_value::previous
+		sys.renderer().texture_stage_arg(
+			sge::renderer::texture::stage(1u),
+			sge::renderer::texture::stage_arg::rgb0,
+			sge::renderer::texture::stage_arg_value::previous
 		);
 
-		sys.renderer().sampler_stage_arg(
-			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_arg::rgb1,
-			sge::renderer::sampler_stage_arg_value::texture
+		sys.renderer().texture_stage_arg(
+			sge::renderer::texture::stage(1u),
+			sge::renderer::texture::stage_arg::rgb1,
+			sge::renderer::texture::stage_arg_value::texture
 		);
 
-		sys.renderer().sampler_stage_op(
-			sge::renderer::stage(1u),
-			sge::renderer::sampler_stage_op::color,
-			sge::renderer::sampler_stage_op_value::modulate
+		sys.renderer().texture_stage_op(
+			sge::renderer::texture::stage(1u),
+			sge::renderer::texture::stage_op::color,
+			sge::renderer::texture::stage_op_value::modulate
 		);
 
 		sge::renderer::scoped_block const block(

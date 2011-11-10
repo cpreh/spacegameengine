@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
@@ -136,7 +136,7 @@ void
 sge::d3d9::texture::basic<Types>::address_mode(
 	IDirect3DDevice9 *const _device,
 	d3d9::state::address_mode &_address_mode,
-	renderer::stage const _stage
+	renderer::texture::stage const _stage
 ) const
 {
 	texture::address_mode(
@@ -217,7 +217,7 @@ sge::d3d9::texture::basic<Types>::unlock_impl(
 	{
 		_unlock(
 			temp_texture_.get(),
-			renderer::stage(
+			renderer::texture::stage(
 				0u
 			)
 		);
@@ -230,7 +230,7 @@ sge::d3d9::texture::basic<Types>::unlock_impl(
 	}
 		_unlock(
 			main_texture_.get(),
-			renderer::stage(
+			renderer::texture::stage(
 				0u
 			)
 		);
@@ -289,7 +289,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 		locked_dest_ =
 			_lock(
 				temp_texture_.get(),
-				renderer::stage(
+				renderer::texture::stage(
 					0u
 				),
 				dest_rect,
@@ -300,7 +300,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 		locked_dest_ =
 			_lock(
 				main_texture_.get(),
-				renderer::stage(
+				renderer::texture::stage(
 					0u
 				),
 				dest_rect,

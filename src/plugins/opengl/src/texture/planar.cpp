@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/scoped_work_bind.hpp>
 #include <sge/opengl/texture/surface.hpp>
 #include <sge/opengl/texture/funcs/get_parameter_int.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <fcppt/cref.hpp>
@@ -68,14 +68,14 @@ sge::opengl::texture::planar::~planar()
 
 sge::renderer::color_surface_ptr const
 sge::opengl::texture::planar::surface(
-	renderer::stage const _stage
+	renderer::texture::stage const _stage
 )
 {
 	opengl::texture::scoped_work_bind const binding(
 		this->context(),
 		this->type(),
 		this->id(),
-		renderer::stage(0u)
+		renderer::texture::stage(0u)
 	);
 
 	return
@@ -99,20 +99,20 @@ sge::opengl::texture::planar::surface(
 		);
 }
 
-sge::renderer::stage const
+sge::renderer::texture::stage const
 sge::opengl::texture::planar::stages() const
 {
 	opengl::texture::scoped_work_bind const binding(
 		this->context(),
 		this->type(),
 		this->id(),
-		renderer::stage(
+		renderer::texture::stage(
 			0u
 		)
 	);
 
 	return
-		renderer::stage(
+		renderer::texture::stage(
 			funcs::get_parameter_int(
 				binding,
 				this->type(),

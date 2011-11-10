@@ -327,10 +327,10 @@ sge::opengl::device::clip_plane(
 }
 
 void
-sge::opengl::device::sampler_stage_op(
-	renderer::stage const _stage,
-	renderer::sampler_stage_op::type const _op,
-	renderer::sampler_stage_op_value::type const _value
+sge::opengl::device::texture_stage_op(
+	renderer::texture::stage const _stage,
+	renderer::texture::stage_op::type const _op,
+	renderer::texture::stage_op_value::type const _value
 )
 {
 	opengl::texture::set_stage_funcs(
@@ -342,10 +342,10 @@ sge::opengl::device::sampler_stage_op(
 }
 
 void
-sge::opengl::device::sampler_stage_arg(
-	renderer::stage const _stage,
-	renderer::sampler_stage_arg::type const _arg,
-	renderer::sampler_stage_arg_value::type const _value
+sge::opengl::device::texture_stage_arg(
+	renderer::texture::stage const _stage,
+	renderer::texture::stage_arg::type const _arg,
+	renderer::texture::stage_arg_value::type const _value
 )
 {
 	opengl::texture::set_stage_funcs(
@@ -359,7 +359,7 @@ sge::opengl::device::sampler_stage_arg(
 void
 sge::opengl::device::texture_filter(
 	renderer::texture::filter::object const &_filter,
-	renderer::stage const _stage
+	renderer::texture::stage const _stage
 )
 {
 	opengl::texture::filter::update(
@@ -372,7 +372,7 @@ sge::opengl::device::texture_filter(
 void
 sge::opengl::device::texture(
 	renderer::texture::const_optional_base const &_texture,
-	renderer::stage const _stage
+	renderer::texture::stage const _stage
 )
 {
 	opengl::texture::activate(

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::texture::surface_base::surface_base(
 	texture::type const _type,
 	texture::id const _id,
-	sge::renderer::stage const _stage
+	sge::renderer::texture::stage const _stage
 )
 :
 	type_(_type),
@@ -48,7 +48,7 @@ sge::opengl::texture::surface_base::id() const
 	return id_;
 }
 
-sge::renderer::stage const
+sge::renderer::texture::stage const
 sge::opengl::texture::surface_base::stage() const
 {
 	return stage_;

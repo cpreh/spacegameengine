@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::d3d9::devicefuncs::sampler_stage_op(
 	IDirect3DDevice9 *const _device,
-	renderer::stage const _stage,
+	renderer::texture::stage const _stage,
 	renderer::sampler_stage_op::type const _op,
 	renderer::sampler_stage_op_value::type const _value
 )

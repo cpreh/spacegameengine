@@ -20,22 +20,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/convert/stage_op.hpp>
-#include <sge/renderer/sampler_stage_op.hpp>
+#include <sge/renderer/texture/stage_op.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
 sge::opengl::texture::convert::stage_arg_op(
-	renderer::sampler_stage_op::type const _op
+	renderer::texture::stage_op::type const _op
 )
 {
 	switch(
 		_op
 	)
 	{
-	case renderer::sampler_stage_op::color:
+	case renderer::texture::stage_op::color:
 		return GL_COMBINE_RGB;
-	case renderer::sampler_stage_op::alpha:
+	case renderer::texture::stage_op::alpha:
 		return GL_COMBINE_ALPHA;
 	}
 

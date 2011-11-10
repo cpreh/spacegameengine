@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/stage.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/container/index_map.hpp>
 #include <fcppt/tr1/unordered_set.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -46,7 +46,7 @@ public:
 
 	// use until we have a good way to define hashes
 	typedef std::set<
-		renderer::stage
+		renderer::texture::stage
 	> texture_state_set;
 
 	typedef std::tr1::unordered_set<
@@ -65,12 +65,12 @@ public:
 
 	void
 	enable_texture(
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	void
 	disable_texture(
-		renderer::stage
+		renderer::texture::stage
 	);
 
 	void
