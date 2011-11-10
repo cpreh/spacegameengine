@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STAGE_HPP_INCLUDED
-#define SGE_RENDERER_STAGE_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_STAGE_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_STAGE_HPP_INCLUDED
 
 #include <fcppt/strong_typedef.hpp>
 
@@ -27,12 +27,15 @@ namespace sge
 {
 namespace renderer
 {
+namespace texture
+{
 
 FCPPT_MAKE_STRONG_TYPEDEF(
 	unsigned,
 	stage
 );
 
+}
 }
 }
 

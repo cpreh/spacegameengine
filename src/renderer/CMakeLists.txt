@@ -223,10 +223,6 @@ SET(
 	include/sge/renderer/resource_flags.hpp
 	include/sge/renderer/resource_flags_field.hpp
 	include/sge/renderer/resource_flags_none.hpp
-	include/sge/renderer/sampler_stage_arg.hpp
-	include/sge/renderer/sampler_stage_arg_value.hpp
-	include/sge/renderer/sampler_stage_op.hpp
-	include/sge/renderer/sampler_stage_op_value.hpp
 	include/sge/renderer/scalar.hpp
 	include/sge/renderer/scissor_area.hpp
 	include/sge/renderer/scoped_block.hpp
@@ -244,7 +240,6 @@ SET(
 	include/sge/renderer/shininess.hpp
 	include/sge/renderer/size_type.hpp
 	include/sge/renderer/specular_color.hpp
-	include/sge/renderer/stage.hpp
 	include/sge/renderer/state/alpha_func.hpp
 	include/sge/renderer/state/any.hpp
 	include/sge/renderer/state/any_sort.hpp
@@ -379,6 +374,11 @@ SET(
 	include/sge/renderer/texture/scoped.hpp
 	include/sge/renderer/texture/scoped_planar_lock.hpp
 	include/sge/renderer/texture/scoped_volume_lock.hpp
+	include/sge/renderer/texture/stage.hpp
+	include/sge/renderer/texture/stage_arg.hpp
+	include/sge/renderer/texture/stage_arg_value.hpp
+	include/sge/renderer/texture/stage_op.hpp
+	include/sge/renderer/texture/stage_op_value.hpp
 	include/sge/renderer/texture/texture.hpp
 	include/sge/renderer/texture/volume.hpp
 	include/sge/renderer/texture/volume_fwd.hpp

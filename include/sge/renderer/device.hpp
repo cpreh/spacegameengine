@@ -45,11 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/optional_target_fwd.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/sampler_stage_arg.hpp>
-#include <sge/renderer/sampler_stage_arg_value.hpp>
-#include <sge/renderer/sampler_stage_op.hpp>
-#include <sge/renderer/sampler_stage_op_value.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
@@ -74,6 +69,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/depth_stencil_ptr.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/stage_arg.hpp>
+#include <sge/renderer/texture/stage_arg_value.hpp>
+#include <sge/renderer/texture/stage_op.hpp>
+#include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_ptr.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
@@ -343,7 +343,7 @@ public:
 	/**
 	 * \brief Enables or disables a light
 	 *
-	 * Enables or disable a light given by \a index, depending on whether
+	 * Enables or disables a light given by \a index, depending on whether
 	 * \a enabled is true or false. Initially, all lights are disabled.
 	 *
 	 * \param index The index of the light to enable or disable
@@ -382,42 +382,88 @@ public:
 		renderer::light::object const &light
 	) = 0;
 
+	/**
+	 * \brief Enables or disables a clip plane
+	 *
+	 * Enables or disables a clip plane given by \a index, depending on
+	 * whether \a enabled is true or false. Initially, all clip planes are
+	 * disabled.
+	 *
+	 * \param index The index of the clip plane to enable or disable
+	 * \param enable Enable or disable the clip plane
+	 *
+	 * \todo Add the maximum number of clip planes to renderer::caps
+	 *
+	 * \warning The behaviour is undefined if \a index exceeds the maximum
+	 * number of clip planes.
+	*/
 	virtual void
 	enable_clip_plane(
-		renderer::clip_plane_index,
+		renderer::clip_plane_index index,
 		bool enable
 	) = 0;
 
+	/**
+	 * \brief Sets a clip plane
+	 *
+	 * Sets the clip plane given by \a index to \a plane. Initially, the
+	 * clip planes are unspecified.
+	 *
+	 * \param index The index of the clip plane to set
+	 * \param plane The clip plane
+	 *
+	 * \todo Add the maximum number of clip planes to renderer::caps
+	 *
+	 * \warning The behaviour is undefined if \a index exceeds the maximum
+	 * number of clip planes.
+	*/
 	virtual void
 	clip_plane(
 		renderer::clip_plane_index,
 		renderer::clip_plane const &
 	) = 0;
 
+	/**
+	 * \brief Sets a texture operation for a texture stage
+	 *
+	 * Sets the texture operation for \a stage and \a what to \a value.
+	 * \a what specifies if the operation should be changed for color
+	 * values or for alpha values.
+	 * Initially, the values of the 0th stage are
+	 * sge::renderer::texture::stage_op_value::arg0. For all other stages
+	 * they are unspecified.
+	 *
+	 * \param stage The texture stage to set the value for
+	 * \param what Set the color or alpha operation
+	 * \param value The value to set
+	 *
+	 * \warning The behaviour is undefined if \a index exceeds the maximum
+	 * number of texture stages.
+	*/
 	virtual void
-	sampler_stage_op(
-		renderer::stage,
-		renderer::sampler_stage_op::type,
-		renderer::sampler_stage_op_value::type
+	texture_stage_op(
+		renderer::texture::stage stage,
+		renderer::texture::stage_op::type what,
+		renderer::texture::stage_op_value::type value
 	) = 0;
 
 	virtual void
-	sampler_stage_arg(
-		renderer::stage,
-		renderer::sampler_stage_arg::type,
-		renderer::sampler_stage_arg_value::type
+	texture_stage_arg(
+		renderer::texture::stage,
+		renderer::texture::stage_arg::type,
+		renderer::texture::stage_arg_value::type
 	) = 0;
 
 	virtual void
 	texture_filter(
 		renderer::texture::filter::object const &,
-		renderer::stage
+		renderer::texture::stage
 	) = 0;
 
 	virtual void
 	texture(
 		renderer::texture::const_optional_base const &,
-		renderer::stage
+		renderer::texture::stage
 	) = 0;
 
 	virtual void

@@ -107,10 +107,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/sampler_stage_arg.hpp>
-#include <sge/renderer/sampler_stage_arg_value.hpp>
-#include <sge/renderer/sampler_stage_op.hpp>
-#include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -128,7 +124,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/shininess.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/specular_color.hpp>
-#include <sge/renderer/stage.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/system.hpp>

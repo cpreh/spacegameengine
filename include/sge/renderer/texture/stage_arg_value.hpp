@@ -18,23 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SAMPLER_STAGE_OP_HPP_INCLUDED
-#define SGE_RENDERER_SAMPLER_STAGE_OP_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_STAGE_ARG_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_STAGE_ARG_VALUE_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
+namespace texture
+{
 
-namespace sampler_stage_op
+namespace stage_arg_value
 {
 enum type
 {
-	color,
-	alpha
+	previous,
+	texture,
+	constant
 };
 }
 
+}
 }
 }
 
