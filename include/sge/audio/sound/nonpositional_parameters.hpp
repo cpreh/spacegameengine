@@ -31,22 +31,31 @@ namespace audio
 {
 namespace sound
 {
+/// Holds all the data necessary to construct a nonpositional sound
 class nonpositional_parameters
 {
 public:
 	SGE_AUDIO_SYMBOL explicit
 	nonpositional_parameters();
 
+	/// Get the gain
+	/** \see sge::audio::sound::base::gain */
 	SGE_AUDIO_SYMBOL audio::scalar const &
 	gain() const;
 
+	/// Set the gain
+	/** \see sge::audio::sound::base::gain */
 	SGE_AUDIO_SYMBOL nonpositional_parameters &
 	gain(
 		audio::scalar const &);
 
+	/// Get the pitch
+	/** \see sge::audio::sound::base::pitch */
 	SGE_AUDIO_SYMBOL audio::scalar const &
 	pitch() const;
 
+	/// Set the pitch
+	/** \see sge::audio::sound::base::pitch */
 	SGE_AUDIO_SYMBOL nonpositional_parameters &
 	pitch(
 		audio::scalar const &);

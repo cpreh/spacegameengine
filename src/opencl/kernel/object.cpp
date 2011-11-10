@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/program/object.hpp>
+#include <sge/opencl/device/object.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
@@ -173,6 +174,24 @@ sge::opencl::kernel::object::argument(
 	opencl::handle_error(
 		error_code,
 		FCPPT_TEXT("clSetKernelArg(arbitrary data)"));
+}
+
+std::size_t
+sge::opencl::kernel::object::work_group_size(
+	opencl::device::object &_device) const
+{
+	std::size_t result;
+
+	cl_int const error_code =
+		clGetKernelWorkGroupInfo(
+			kernel_,
+			_device.impl(),
+			CL_KERNEL_WORK_GROUP_SIZE,
+			sizeof(std::size_t),
+			&result,
+			0);
+
+	return result;
 }
 
 sge::opencl::kernel::object::~object()

@@ -27,6 +27,7 @@ namespace audio
 {
 namespace sound
 {
+/** \enum_policy{repeat,sge::audio::sound::repeat::type} */
 namespace repeat
 {
 enum type

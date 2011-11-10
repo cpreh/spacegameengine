@@ -1,6 +1,6 @@
 namespace sge
 {
-/// Contains the audio subsystem, \see audio_main
+/// Contains the audio subsystem, see \ref audio_main
 namespace audio
 {
 /// Contains the direction object used in the sge::audio::listener

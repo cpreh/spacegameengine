@@ -49,7 +49,7 @@ class SGE_CLASS_SYMBOL listener
 		listener
 	);
 protected:
-	/// Dummy constructor so no instances of this base class can be created
+	/** \protectedctor */
 	SGE_AUDIO_SYMBOL explicit
 	listener();
 public:
@@ -76,13 +76,7 @@ public:
 	direction(
 		direction::object const &) = 0;
 
-	/// Virtual dummy destructor to make it a class to safely derive from.
-	/**
-	 * Note that this destructor is pure virtual, but has an
-	 * implementation. Strictly speaking, that's redundant. But it's safer
-	 * for classes which otherwise don't have any pure virtual functions,
-	 * yet should be abstract.
-	 */
+	/** \virtualdtor */
 	SGE_AUDIO_SYMBOL virtual
 	~listener() = 0;
 };

@@ -51,9 +51,8 @@ class SGE_CLASS_SYMBOL loader
 		loader
 	);
 protected:
-	/// Dummy constructor so no instances of this base class can be created
-	SGE_AUDIO_SYMBOL
-	explicit
+	/** \protectedctor */
+	SGE_AUDIO_SYMBOL explicit
 	loader();
 public:
 	/// Load a file
@@ -78,16 +77,10 @@ public:
 	capabilities() const = 0;
 
 	/// What extensions this loader supports. Is used in the sge::audio::multi_loader and in sge::systems to select a loader.
-	virtual audio::extension_set const
+	virtual sge::extension_set const
 	extensions() const = 0;
 
-	/// Virtual dummy destructor to make it a class to safely derive from.
-	/**
-	 * Note that this destructor is pure virtual, but has an
-	 * implementation. Strictly speaking, that's redundant. But it's safer
-	 * for classes which otherwise don't have any pure virtual functions,
-	 * yet should be abstract.
-	 */
+	/** \virtualdtor */
 	SGE_AUDIO_SYMBOL
 	virtual ~loader() = 0;
 };

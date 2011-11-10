@@ -39,7 +39,9 @@ sge::openal::source::source(
 	sge::audio::sound::nonpositional_parameters const &p,
 	ALuint const _buffer)
 :
-	source_()
+	source_(),
+	repeat_(
+		sge::audio::sound::repeat::once)
 {
 	alSourcei(
 		source_id(),

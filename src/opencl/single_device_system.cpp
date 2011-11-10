@@ -85,7 +85,7 @@ sge::opencl::single_device_system::single_device_system(
 		&platform_->devices().front()),
 	context_(
 		fcppt::make_unique_ptr<context::object>(
-			construct_context_parameters(
+			::construct_context_parameters(
 				*platform_,
 				*device_,
 				std::tr1::bind(

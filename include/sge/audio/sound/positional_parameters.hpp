@@ -36,85 +36,134 @@ namespace audio
 {
 namespace sound
 {
+/// Holds all the data necessary to construct a positional sound
+/**
+ * The set of positional parameters is a superset of the set of nonpositional
+ * parameters.
+ */
 class positional_parameters
 {
 public:
 	SGE_AUDIO_SYMBOL explicit
 	positional_parameters();
 
+	/// Get the position
+	/** \see sge::audio::sound::positional::position */
 	SGE_AUDIO_SYMBOL audio::vector const &
 	position() const;
 
+	/// Set the position
+	/** \see sge::audio::sound::positional::position */
 	SGE_AUDIO_SYMBOL positional_parameters &
 	position(
 		audio::vector const &);
 
+	/// Get the linear velocity
+	/** \see sge::audio::sound::positional::linear_velocity */
 	SGE_AUDIO_SYMBOL audio::vector const &
 	linear_velocity() const;
 
+	/// Set the linear velocity
+	/** \see sge::audio::sound::positional::linear_velocity */
 	SGE_AUDIO_SYMBOL positional_parameters &
 	linear_velocity(
 		audio::vector const &);
 
+	/// Get the gain
+	/** \see sge::audio::sound::base::gain */
 	SGE_AUDIO_SYMBOL audio::scalar const &
 	gain() const;
 
+	/// Set the gain
+	/** \see sge::audio::sound::base::gain */
 	SGE_AUDIO_SYMBOL positional_parameters &
 	gain(
 		audio::scalar const &);
 
+	/// Get the pitch
+	/** \see sge::audio::sound::base::pitch */
 	SGE_AUDIO_SYMBOL audio::scalar const &
 	pitch() const;
 
+	/// Set the pitch
+	/** \see sge::audio::sound::base::pitch */
 	SGE_AUDIO_SYMBOL positional_parameters &
 	pitch(
 		audio::scalar const &);
 
+	/// Get the rolloff factor
+	/** \see sge::audio::sound::positional::rolloff_factor */
 	SGE_AUDIO_SYMBOL audio::scalar const &
 	rolloff_factor() const;
 
+	/// Set the rolloff factor
+	/** \see sge::audio::sound::positional::rolloff_factor */
 	SGE_AUDIO_SYMBOL positional_parameters &
 	rolloff_factor(
 		audio::scalar const &);
 
+	/// Get the reference distance
+	/** \see sge::audio::sound::positional::reference_distance */
 	SGE_AUDIO_SYMBOL audio::scalar const &
 	reference_distance() const;
 
+	/// Set the reference distance
+	/** \see sge::audio::sound::positional::reference_distance */
 	SGE_AUDIO_SYMBOL positional_parameters &
 	reference_distance(
 		audio::scalar const &);
 
+	/// Get the maximum distance
+	/** \see sge::audio::sound::positional::max_distance */
 	SGE_AUDIO_SYMBOL audio::scalar const &
 	max_distance() const;
 
+	/// Set the maximum distance
+	/** \see sge::audio::sound::positional::max_distance */
 	SGE_AUDIO_SYMBOL positional_parameters &
 	max_distance(
 		audio::scalar const &);
 
+	/// Get the direction
+	/** \see sge::audio::sound::positional::direction */
 	SGE_AUDIO_SYMBOL sound::optional_direction const &
 	direction() const;
 
+	/// Set the direction
+	/** \see sge::audio::sound::positional::direction */
 	SGE_AUDIO_SYMBOL positional_parameters &
 	direction(
 		audio::vector const &);
 
+	/// Get the inner cone angle
+	/** \see sge::audio::sound::positional::inner_cone_angle */
 	SGE_AUDIO_SYMBOL audio::scalar const &
 	inner_cone_angle() const;
 
+	/// Set the inner cone angle
+	/** \see sge::audio::sound::positional::inner_cone_angle */
 	SGE_AUDIO_SYMBOL positional_parameters &
 	inner_cone_angle(
 		audio::scalar const &);
 
+	/// Get the outer cone angle
+	/** \see sge::audio::sound::positional::outer_cone_angle */
 	SGE_AUDIO_SYMBOL audio::scalar const &
 	outer_cone_angle() const;
 
+	/// Set the outer cone angle
+	/** \see sge::audio::sound::positional::outer_cone_angle */
 	SGE_AUDIO_SYMBOL positional_parameters &
 	outer_cone_angle(
 		audio::scalar const &);
 
+	/// Get the outer cone gain
+	/** \see sge::audio::sound::positional::outer_cone_gain */
 	SGE_AUDIO_SYMBOL audio::scalar const &
 	outer_cone_gain() const;
 
+	/// Set the outer cone gain
+	/** \see sge::audio::sound::positional::outer_cone_gain */
 	SGE_AUDIO_SYMBOL positional_parameters &
 	outer_cone_gain(
 		audio::scalar const &);

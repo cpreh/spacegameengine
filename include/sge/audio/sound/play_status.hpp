@@ -27,6 +27,7 @@ namespace audio
 {
 namespace sound
 {
+/** \enum_policy{play_status,sge::audio::sound::play_status::type} */
 namespace play_status
 {
 enum type
