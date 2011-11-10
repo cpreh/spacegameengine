@@ -116,7 +116,11 @@ sge::opengl::device::device(
 	target_(
 		onscreen_target_.get()
 	),
-	caps_(),
+	caps_(
+		opengl::create_caps(
+			context_
+		)
+	),
 	state_levels_()
 {
 	glew::initialize();
@@ -706,17 +710,6 @@ sge::opengl::device::onscreen_target() const
 sge::renderer::caps::object const &
 sge::opengl::device::caps() const
 {
-	if(
-		!caps_
-	)
-	{
-		caps_.take(
-			opengl::create_caps(
-				context_
-			)
-		);
-	}
-
 	return *caps_;
 }
 

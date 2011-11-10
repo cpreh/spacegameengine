@@ -21,12 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CLIP_PLANE_INDEX_HPP_INCLUDED
 #define SGE_RENDERER_CLIP_PLANE_INDEX_HPP_INCLUDED
 
+#include <sge/renderer/clip_plane_index_value.hpp>
+#include <fcppt/strong_typedef.hpp>
+
+
 namespace sge
 {
 namespace renderer
 {
 
-typedef unsigned clip_plane_index;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	renderer::clip_plane_index_value,
+	clip_plane_index
+);
 
 }
 }

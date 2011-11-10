@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_STAGE_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_STAGE_HPP_INCLUDED
+#ifndef SGE_RENDERER_CAPS_LIGHT_INDICES_HPP_INCLUDED
+#define SGE_RENDERER_CAPS_LIGHT_INDICES_HPP_INCLUDED
 
-#include <sge/renderer/texture/stage_value.hpp>
+#include <sge/renderer/light/index_value.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -29,12 +29,12 @@ namespace sge
 {
 namespace renderer
 {
-namespace texture
+namespace caps
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	texture::stage_value,
-	stage
+	renderer::light::index_value,
+	light_indices
 );
 
 }

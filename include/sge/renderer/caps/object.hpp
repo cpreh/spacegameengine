@@ -23,15 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/driver_name.hpp>
 #include <sge/renderer/caps/glsl_supported.hpp>
+#include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
 #include <sge/renderer/caps/object_fwd.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -43,6 +47,9 @@ namespace caps
 
 class object
 {
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
 	SGE_RENDERER_SYMBOL
 	object(
@@ -54,8 +61,14 @@ public:
 		caps::max_anisotropy,
 		caps::render_target_supported,
 		caps::glsl_supported,
-		caps::preferred_texture_format
+		caps::preferred_texture_format,
+		caps::clip_plane_indices,
+		caps::light_indices,
+		caps::texture_stages
 	);
+
+	SGE_RENDERER_SYMBOL
+	~object();
 
 	SGE_RENDERER_SYMBOL
 	renderer::adapter const
@@ -92,24 +105,42 @@ public:
 	SGE_RENDERER_SYMBOL
 	caps::preferred_texture_format const
 	preferred_texture_format() const;
+
+	SGE_RENDERER_SYMBOL
+	caps::clip_plane_indices const
+	clip_plane_indices() const;
+
+	SGE_RENDERER_SYMBOL
+	caps::light_indices const
+	light_indices() const;
+
+	SGE_RENDERER_SYMBOL
+	caps::texture_stages const
+	texture_stages() const;
 private:
-	renderer::adapter adapter_;
+	renderer::adapter const adapter_;
 
-	caps::driver_name driver_name_;
+	caps::driver_name const driver_name_;
 
-	caps::description description_;
+	caps::description const description_;
 
-	caps::max_texture_size max_texture_size_;
+	caps::max_texture_size const max_texture_size_;
 
-	caps::max_volume_texture_extent max_volume_texture_extent_;
+	caps::max_volume_texture_extent const max_volume_texture_extent_;
 
-	caps::max_anisotropy max_anisotropy_;
+	caps::max_anisotropy const max_anisotropy_;
 
-	caps::render_target_supported render_target_supported_;
+	caps::render_target_supported const render_target_supported_;
 
-	caps::glsl_supported glsl_supported_;
+	caps::glsl_supported const glsl_supported_;
 
-	caps::preferred_texture_format preferred_texture_format_;
+	caps::preferred_texture_format const preferred_texture_format_;
+
+	caps::clip_plane_indices const clip_plane_indices_;
+
+	caps::light_indices const light_indices_;
+
+	caps::texture_stages const texture_stages_;
 };
 
 }

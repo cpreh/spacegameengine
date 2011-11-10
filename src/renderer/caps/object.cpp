@@ -18,15 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/driver_name.hpp>
 #include <sge/renderer/caps/glsl_supported.hpp>
+#include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
 #include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
 
 
 sge::renderer::caps::object::object(
@@ -38,7 +41,10 @@ sge::renderer::caps::object::object(
 	caps::max_anisotropy const _max_anisotropy,
 	caps::render_target_supported const _render_target_supported,
 	caps::glsl_supported const _glsl_supported,
-	caps::preferred_texture_format const _preferred_texture_format
+	caps::preferred_texture_format const _preferred_texture_format,
+	caps::clip_plane_indices const _clip_plane_indices,
+	caps::light_indices const _light_indices,
+	caps::texture_stages const _texture_stages
 )
 :
 	adapter_(
@@ -67,7 +73,20 @@ sge::renderer::caps::object::object(
 	),
 	preferred_texture_format_(
 		_preferred_texture_format
+	),
+	clip_plane_indices_(
+		_clip_plane_indices
+	),
+	light_indices_(
+		_light_indices
+	),
+	texture_stages_(
+		_texture_stages
 	)
+{
+}
+
+sge::renderer::caps::object::~object()
 {
 }
 
@@ -119,9 +138,26 @@ sge::renderer::caps::object::glsl_supported() const
 	return glsl_supported_;
 }
 
-
 sge::renderer::caps::preferred_texture_format const
 sge::renderer::caps::object::preferred_texture_format() const
 {
 	return preferred_texture_format_;
+}
+
+sge::renderer::caps::clip_plane_indices const
+sge::renderer::caps::object::clip_plane_indices() const
+{
+	return clip_plane_indices_;
+}
+
+sge::renderer::caps::light_indices const
+sge::renderer::caps::object::light_indices() const
+{
+	return light_indices_;
+}
+
+sge::renderer::caps::texture_stages const
+sge::renderer::caps::object::texture_stages() const
+{
+	return texture_stages_;
 }

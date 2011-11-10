@@ -54,5 +54,11 @@ sge::renderer::caps::operator<<(
 		<< FCPPT_TEXT(", preferred_texture_format = ")
 		<< sge::image::color::format_to_string(
 			_caps.preferred_texture_format().get()
-		);
+		)
+		<< FCPPT_TEXT(", clip_plane_indices = ")
+		<< _caps.clip_plane_indices()
+		<< FCPPT_TEXT(", light_indices = ")
+		<< _caps.light_indices()
+		<< FCPPT_TEXT(", texture_stages = ")
+		<< _caps.texture_stages();
 }

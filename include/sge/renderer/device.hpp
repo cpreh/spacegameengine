@@ -349,10 +349,10 @@ public:
 	 * \param index The index of the light to enable or disable
 	 * \param enable Enable or disable the light
 	 *
-	 * \todo Add the maximum number of lights to renderer::caps
+	 * \see sge::renderer::caps::object::light_indices
 	 *
-	 * \warning The behaviour is undefined if \a index exceeds the maximum
-	 * number of lights.
+	 * \warning The behaviour is undefined if \a index is greater or equal
+	 * to sge::renderer::caps::object::light_indices
 	 */
 	virtual void
 	enable_light(
@@ -371,10 +371,10 @@ public:
 	 * \param index The index of the light to set
 	 * \param light Description of the light
 	 *
-	 * \todo Add the maximum number of lights to renderer::caps
+	 * \see sge::renderer::caps::object::light_indices
 	 *
-	 * \warning The behaviour is undefined if \a index exceeds the maximum
-	 * number of lights.
+	 * \warning The behaviour is undefined if \a index is greater or equal
+	 * to sge::renderer::caps::object::light_indices
 	*/
 	virtual void
 	light(
@@ -392,10 +392,10 @@ public:
 	 * \param index The index of the clip plane to enable or disable
 	 * \param enable Enable or disable the clip plane
 	 *
-	 * \todo Add the maximum number of clip planes to renderer::caps
+	 * \see sge::renderer::caps::object::clip_plane_indices
 	 *
-	 * \warning The behaviour is undefined if \a index exceeds the maximum
-	 * number of clip planes.
+	 * \warning The behaviour is undefined if \a index is greater or equal
+	 * to sge::renderer::caps::object::clip_plane_indices
 	*/
 	virtual void
 	enable_clip_plane(
@@ -412,15 +412,15 @@ public:
 	 * \param index The index of the clip plane to set
 	 * \param plane The clip plane
 	 *
-	 * \todo Add the maximum number of clip planes to renderer::caps
+	 * \see sge::renderer::caps::object::clip_plane_indices
 	 *
-	 * \warning The behaviour is undefined if \a index exceeds the maximum
-	 * number of clip planes.
+	 * \warning The behaviour is undefined if \a index is greater or equal
+	 * to sge::renderer::caps::object::clip_plane_indices
 	*/
 	virtual void
 	clip_plane(
-		renderer::clip_plane_index,
-		renderer::clip_plane const &
+		renderer::clip_plane_index index,
+		renderer::clip_plane const &plane
 	) = 0;
 
 	/**
@@ -437,8 +437,10 @@ public:
 	 * \param what Set the color or alpha operation
 	 * \param value The value to set
 	 *
-	 * \warning The behaviour is undefined if \a index exceeds the maximum
-	 * number of texture stages.
+	 * \see sge::renderer::caps::object::texture_stages
+	 *
+	 * \warning The behaviour is undefined if \a stage is greater or equal
+	 * to sge::renderer::caps::object::texture_stages
 	*/
 	virtual void
 	texture_stage_op(

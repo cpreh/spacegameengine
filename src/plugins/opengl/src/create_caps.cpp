@@ -29,15 +29,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/driver_name.hpp>
 #include <sge/renderer/caps/glsl_supported.hpp>
+#include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
 #include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -142,6 +145,21 @@ sge::opengl::create_caps(
 			),
 			sge::renderer::caps::preferred_texture_format(
 				sge::image::color::format::bgra8
+			),
+			sge::renderer::caps::clip_plane_indices(
+				opengl::get_int(
+					GL_MAX_CLIP_PLANES
+				)
+			),
+			sge::renderer::caps::light_indices(
+				opengl::get_int(
+					GL_MAX_LIGHTS
+				)
+			),
+			sge::renderer::caps::texture_stages(
+				opengl::get_int(
+					GL_MAX_TEXTURE_UNITS
+				)
 			)
 		);
 }

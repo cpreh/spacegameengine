@@ -73,6 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage_arg_value.hpp>
 #include <sge/renderer/texture/stage_op.hpp>
 #include <sge/renderer/texture/stage_op_value.hpp>
+#include <sge/renderer/texture/stage_value.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_fwd.hpp>
 #include <sge/renderer/texture/volume_parameters.hpp>

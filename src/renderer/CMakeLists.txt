@@ -14,9 +14,11 @@ SET(
 	include/sge/renderer/buffer_has_depth.hpp
 	include/sge/renderer/buffer_has_stencil.hpp
 	include/sge/renderer/caps/caps.hpp
+	include/sge/renderer/caps/clip_plane_indices.hpp
 	include/sge/renderer/caps/description.hpp
 	include/sge/renderer/caps/driver_name.hpp
 	include/sge/renderer/caps/glsl_supported.hpp
+	include/sge/renderer/caps/light_indices.hpp
 	include/sge/renderer/caps/max_anisotropy.hpp
 	include/sge/renderer/caps/max_texture_size.hpp
 	include/sge/renderer/caps/max_volume_texture_extent.hpp
@@ -25,10 +27,12 @@ SET(
 	include/sge/renderer/caps/object_output.hpp
 	include/sge/renderer/caps/preferred_texture_format.hpp
 	include/sge/renderer/caps/render_target_supported.hpp
+	include/sge/renderer/caps/texture_stages.hpp
 	include/sge/renderer/clear_flags.hpp
 	include/sge/renderer/clear_flags_field.hpp
 	include/sge/renderer/clip_plane.hpp
 	include/sge/renderer/clip_plane_index.hpp
+	include/sge/renderer/clip_plane_index_value.hpp
 	include/sge/renderer/color_surface.hpp
 	include/sge/renderer/color_surface_fwd.hpp
 	include/sge/renderer/color_surface_ptr.hpp
@@ -173,6 +177,7 @@ SET(
 	include/sge/renderer/light/directional.hpp
 	include/sge/renderer/light/directional_fwd.hpp
 	include/sge/renderer/light/index.hpp
+	include/sge/renderer/light/index_value.hpp
 	include/sge/renderer/light/light.hpp
 	include/sge/renderer/light/linear_attenuation.hpp
 	include/sge/renderer/light/object.hpp
@@ -389,6 +394,7 @@ SET(
 	include/sge/renderer/texture/stage_arg_value.hpp
 	include/sge/renderer/texture/stage_op.hpp
 	include/sge/renderer/texture/stage_op_value.hpp
+	include/sge/renderer/texture/stage_value.hpp
 	include/sge/renderer/texture/texture.hpp
 	include/sge/renderer/texture/volume.hpp
 	include/sge/renderer/texture/volume_fwd.hpp

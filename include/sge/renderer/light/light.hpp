@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light/directional.hpp>
 #include <sge/renderer/light/directional_fwd.hpp>
 #include <sge/renderer/light/index.hpp>
+#include <sge/renderer/light/index_value.hpp>
 #include <sge/renderer/light/linear_attenuation.hpp>
 #include <sge/renderer/light/object.hpp>
 #include <sge/renderer/light/object_fwd.hpp>

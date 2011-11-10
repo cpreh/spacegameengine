@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LIGHT_INDEX_HPP_INCLUDED
 #define SGE_RENDERER_LIGHT_INDEX_HPP_INCLUDED
 
+#include <sge/renderer/light/index_value.hpp>
 #include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
@@ -31,7 +33,7 @@ namespace light
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	unsigned,
+	light::index_value,
 	index
 );
 
