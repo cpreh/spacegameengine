@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CAPS_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_OPENGL_CAPS_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_RENDERER_CAPS_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_CAPS_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/renderer/caps/object_fwd.hpp>
 #include <fcppt/unique_ptr.hpp>
@@ -27,13 +27,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace caps
 {
 
 typedef fcppt::unique_ptr<
 	renderer::caps::object
-> caps_unique_ptr;
+> object_unique_ptr;
 
+}
 }
 }
 

@@ -25,6 +25,7 @@ SET(
 	include/sge/renderer/caps/object.hpp
 	include/sge/renderer/caps/object_fwd.hpp
 	include/sge/renderer/caps/object_output.hpp
+	include/sge/renderer/caps/object_unique_ptr.hpp
 	include/sge/renderer/caps/preferred_texture_format.hpp
 	include/sge/renderer/caps/render_target_supported.hpp
 	include/sge/renderer/caps/texture_stages.hpp

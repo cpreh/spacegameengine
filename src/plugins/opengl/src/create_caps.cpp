@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/create_caps.hpp>
 #include <sge/opengl/get_int.hpp>
 #include <sge/opengl/get_string.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/glsl/context.hpp>
@@ -38,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
 #include <sge/renderer/caps/object.hpp>
+#include <sge/renderer/caps/object_unique_ptr.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
@@ -47,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 
 
-sge::opengl::caps_unique_ptr
+sge::renderer::caps::object_unique_ptr
 sge::opengl::create_caps(
 	context::object &_context
 )
