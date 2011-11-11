@@ -246,7 +246,7 @@ try
 
 		sys.renderer().texture_stage_arg(
 			sge::renderer::texture::stage(0u),
-			sge::renderer::texture::stage_arg::rgb0,
+			sge::renderer::texture::stage_arg::color0,
 			sge::renderer::texture::stage_arg_value::texture
 		);
 
@@ -258,13 +258,13 @@ try
 
 		sys.renderer().texture_stage_arg(
 			sge::renderer::texture::stage(1u),
-			sge::renderer::texture::stage_arg::rgb0,
+			sge::renderer::texture::stage_arg::color0,
 			sge::renderer::texture::stage_arg_value::previous
 		);
 
 		sys.renderer().texture_stage_arg(
 			sge::renderer::texture::stage(1u),
-			sge::renderer::texture::stage_arg::rgb1,
+			sge::renderer::texture::stage_arg::color1,
 			sge::renderer::texture::stage_arg_value::texture
 		);
 

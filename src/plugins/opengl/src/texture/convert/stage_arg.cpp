@@ -33,11 +33,11 @@ sge::opengl::texture::convert::stage_arg_op(
 		_arg
 	)
 	{
-	case renderer::texture::stage_arg::rgb0:
+	case renderer::texture::stage_arg::color0:
 		return GL_SOURCE0_RGB;
-	case renderer::texture::stage_arg::rgb1:
+	case renderer::texture::stage_arg::color1:
 		return GL_SOURCE1_RGB;
-	case renderer::texture::stage_arg::rgb2:
+	case renderer::texture::stage_arg::color2:
 		return GL_SOURCE2_RGB;
 	case renderer::texture::stage_arg::alpha0:
 		return GL_SOURCE0_ALPHA;

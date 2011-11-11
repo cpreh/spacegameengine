@@ -34,11 +34,11 @@ sge::d3d9::convert::texture_stage_arg(
 		_arg
 	)
 	{
-	case renderer::texture::stage_arg::rgb0:
+	case renderer::texture::stage_arg::color0:
 		return D3DTSS_COLORARG0;
-	case renderer::texture::stage_arg::rgb1:
+	case renderer::texture::stage_arg::color1:
 		return D3DTSS_COLORARG1;
-	case renderer::texture::stage_arg::rgb2:
+	case renderer::texture::stage_arg::color2:
 		return D3DTSS_COLORARG2;
 	case renderer::texture::stage_arg::alpha0:
 		return D3DTSS_ALPHAARG0;

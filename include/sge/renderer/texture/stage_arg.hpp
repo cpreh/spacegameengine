@@ -32,9 +32,9 @@ namespace stage_arg
 {
 enum type
 {
-	rgb0,
-	rgb1,
-	rgb2,
+	color0,
+	color1,
+	color2,
 	alpha0,
 	alpha1,
 	alpha2

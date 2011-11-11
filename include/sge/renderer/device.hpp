@@ -197,10 +197,9 @@ public:
 	 *
 	 * Renders non indexed geometry using the currently set vertex buffers.
 	 * It uses renderer::nonindexed_primitive_count(\a vertex_count, \a
-	 * primitive_type) vertices starting at \a first_vertex.
-	 * For lines or a line strip, \a vertex_count must be at least 2, for
-	 * triangles, a triangle strip or a triangle, \a vertex_count must be
-	 * at least 3.
+	 * primitive_type) vertices starting at \a first_vertex. For lines or
+	 * a line strip, \a vertex_count must be at least 2, for triangles, a
+	 * triangle strip or a triangle, \a vertex_count must be at least 3.
 	 * For lines, vertex_count must be a multiple of 2, for triangles,
 	 * vertex_count must be a multiple of 3.
 	 *
@@ -229,9 +228,9 @@ public:
 	 * \brief Activates a vertex buffer
 	 *
 	 * A vertex buffer is activated, which means that it will supply vertex
-	 * data for the renderer::vf::part it represents.
-	 * It is important the corresponding vertex declaration is already set!
-	 * Initially no vertex buffers are activated.
+	 * data for the renderer::vf::part it represents. It is important the
+	 * corresponding vertex declaration is already set! Initially no
+	 * vertex buffers are activated.
 	 *
 	 * \param vertex_buffer The vertex buffer to activate
 	 *
@@ -269,7 +268,8 @@ public:
 	 * \a vertex_declaration is empty. Initially there is no vertex
 	 * declaration set.
 	 *
-	 * \param vertex_declaration The vertex declaration to set or renderer::const_optional_vertex_declaration()
+	 * \param vertex_declaration The vertex declaration to set or
+	 * renderer::const_optional_vertex_declaration()
 	 *
 	 * \see sge::renderer::device::deactivate_vertex_buffer
 	 * \see sge::renderer::scoped_vertex_declaration
@@ -286,8 +286,7 @@ public:
 	 * \brief Sets the current state
 	 *
 	 * Overwrites a portion of the current state with whatever is present
-	 * in \a list. The initial state is determined by
-	 * sge::renderer:;state::default_()
+	 * in \a list. Initially, the state is sge::renderer::state::default_()
 	 *
 	 * \param list The part of the current state to replace
 	 * \see sge::renderer::state::default_
@@ -426,10 +425,9 @@ public:
 	/**
 	 * \brief Sets a texture operation for a texture stage
 	 *
-	 * Sets the texture operation for \a stage and \a what to \a value.
-	 * \a what specifies if the operation should be changed for color
-	 * values or for alpha values.
-	 * Initially, the values of the 0th stage are
+	 * Sets the texture operation for \a stage and \a what to \a value.  \a
+	 * what specifies if the operation should be changed for color values
+	 * or for alpha values. Initially, the values of the 0th stage are
 	 * sge::renderer::texture::stage_op_value::arg0. For all other stages
 	 * they are unspecified.
 	 *
@@ -449,34 +447,102 @@ public:
 		renderer::texture::stage_op_value::type value
 	) = 0;
 
+	/**
+	 * \brief Sets which texture argument to use for a texture stage
+	 *
+	 * Sets the texture argument to use for \a stage and \a what to \a
+	 * value. \a what specifies which argument to change. There are three
+	 * different arguments in total. It depends on the
+	 * sge::renderer::texture::stage_op_value being active how many
+	 * arguments are needed. Arguments for color and alpha can be changed
+	 * separately. Initially, the values for
+	 * sge::renderer::texture::stage_arg::color0 and
+	 * sge::renderer::texture::stage_arg::alpha0 for the 0th stage are
+	 * sge::renderer::texture::stage_arg_value::texture, all other values
+	 * are unspecified.
+	 *
+	 * \param stage The texture stage to set the value for
+	 * \param what Set the color or alpha operation for argument 0, 1 or 2
+	 * \param value The value to set
+	 *
+	 * \see sge::renderer::caps::object::texture_stages
+	 *
+	 * \warning The behaviour is undefined if \a stage is greater or equal
+	 * to sge::renderer::caps::object::texture_stages
+	 */
 	virtual void
 	texture_stage_arg(
-		renderer::texture::stage,
-		renderer::texture::stage_arg::type,
-		renderer::texture::stage_arg_value::type
+		renderer::texture::stage stage,
+		renderer::texture::stage_arg::type what,
+		renderer::texture::stage_arg_value::type value
 	) = 0;
 
+	/**
+	 * \brief Sets the texture filter for a texture stage
+	 *
+	 * Sets the texture filter for \a stage to \a filter. There are two
+	 * different texture filters: normal and anisotropic. Initially, the
+	 * filters for every texture stage are unspecified.
+	 *
+	 * \param filter The filter to set
+	 * \param stage The texture stage to set the filter for
+	 *
+	 * \see sge::renderer::caps::object::texture_stages
+	 *
+	 * \warning The behaviour is undefined if \a stage is greater or equal
+	 * to sge::renderer::caps::object::texture_stages
+	 */
 	virtual void
 	texture_filter(
-		renderer::texture::filter::object const &,
-		renderer::texture::stage
+		renderer::texture::filter::object const &filter,
+		renderer::texture::stage stage
 	) = 0;
 
+	/**
+	 * \brief Sets a texture for a texture stage
+	 *
+	 * Sets the texture for \a stage to \a texture.
+	 * Initially, the textures for every stage are none.
+	 *
+	 * \param texture The texture to set or
+	 * sge::renderer::texture::const_optional_base to disable texturing.
+	 * \param stage The stage to set the texture for
+	 *
+	 * \see sge::renderer::caps::object::texture_stages
+	 *
+	 * \warning The behaviour is undefined if \a stage is greater or equal
+	 * to sge::renderer::caps::object::texture_stages
+	 */
 	virtual void
 	texture(
-		renderer::texture::const_optional_base const &,
-		renderer::texture::stage
+		renderer::texture::const_optional_base const &texture,
+		renderer::texture::stage stage
 	) = 0;
 
+	/**
+	 * \brief Sets the matrix for a matrix mode
+	 *
+	 * Sets the matrix mode of \a mode to \a matrix. Initially, the matrix
+	 * for every matrix mode is the identity.
+	*/
 	virtual void
 	transform(
-		renderer::matrix_mode::type,
-		renderer::matrix4 const &
+		renderer::matrix_mode::type mode,
+		renderer::matrix4 const &matrix
 	) = 0;
 
+	/**
+	 * \brief Sets a new render target or the default one
+	 *
+	 * Sets the new render target to \a target. Initially, the target is
+	 * the onscreen target.
+	 *
+	 * \param target The target to set or sge::renderer::optional_target()
+	 * to set the current target to the onscreen target.
+	 */
 	virtual void
 	target(
-		renderer::optional_target const &
+		renderer::optional_target const &target
 	) = 0;
 
 	virtual renderer::glsl::program_ptr const
