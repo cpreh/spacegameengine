@@ -18,31 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/texture_stage_op.hpp>
-#include <sge/d3d9/convert/texture_stage_op_value.hpp>
-#include <sge/d3d9/devicefuncs/set_texture_stage_state.hpp>
-#include <sge/d3d9/devicefuncs/texture_stage_op.hpp>
-#include <sge/renderer/texture/stage.hpp>
-#include <sge/renderer/texture/stage_op.hpp>
-#include <sge/renderer/texture/stage_op_value.hpp>
+#ifndef SGE_OPENGL_GLEW_SCOPED_INIT_HPP_INCLUDED
+#define SGE_OPENGL_GLEW_SCOPED_INIT_HPP_INCLUDED
+
+#include <fcppt/noncopyable.hpp>
 
 
-void
-sge::d3d9::devicefuncs::texture_stage_op(
-	IDirect3DDevice9 *const _device,
-	renderer::texture::stage const _stage,
-	renderer::texture::stage_op::type const _op,
-	renderer::texture::stage_op_value::type const _value
-)
+namespace sge
 {
-	devicefuncs::set_texture_stage_state(
-		_device,
-		_stage,
-		d3d9::convert::texture_stage_op(
-			_op
-		),
-		d3d9::convert::texture_stage_op_value(
-			_value
-		)
+namespace opengl
+{
+namespace glew
+{
+
+class scoped_init
+{
+	FCPPT_NONCOPYABLE(
+		scoped_init
 	);
+public:
+	scoped_init();
+
+	~scoped_init();
+};
+
 }
+}
+}
+
+#endif

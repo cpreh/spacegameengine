@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/onscreen_target_fwd.hpp>
 #include <sge/opengl/target_base_fwd.hpp>
 #include <sge/opengl/context/object.hpp>
+#include <sge/opengl/glew/scoped_init.hpp>
 #include <sge/opengl/fbo/target_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/clear_flags_field.hpp>
@@ -344,6 +345,8 @@ private:
 	opengl::fbo::target *fbo_target_;
 
 	opengl::target_base *target_;
+
+	glew::scoped_init const glew_init_;
 
 	mutable fcppt::scoped_ptr<
 		renderer::caps::object

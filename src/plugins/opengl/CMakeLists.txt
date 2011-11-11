@@ -79,6 +79,7 @@ SET(
 	src/plugins/opengl/include/sge/opengl/fbo/texture_binding_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glew/initialize.hpp
 	src/plugins/opengl/include/sge/opengl/glew/is_supported.hpp
+	src/plugins/opengl/include/sge/opengl/glew/scoped_init.hpp
 	src/plugins/opengl/include/sge/opengl/glew/string.hpp
 	src/plugins/opengl/include/sge/opengl/glsl/arb/char.hpp
 	src/plugins/opengl/include/sge/opengl/glsl/arb/environment.hpp
@@ -435,6 +436,7 @@ SET(
 	src/plugins/opengl/src/get_string.cpp
 	src/plugins/opengl/src/glew/initialize.cpp
 	src/plugins/opengl/src/glew/is_supported.cpp
+	src/plugins/opengl/src/glew/scoped_init.cpp
 	src/plugins/opengl/src/glsl/arb/program_context.cpp
 	src/plugins/opengl/src/glsl/arb/shader_context.cpp
 	src/plugins/opengl/src/glsl/arb/uniform_context.cpp

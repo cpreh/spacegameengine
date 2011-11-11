@@ -18,31 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/texture_stage_op.hpp>
-#include <sge/d3d9/convert/texture_stage_op_value.hpp>
-#include <sge/d3d9/devicefuncs/set_texture_stage_state.hpp>
-#include <sge/d3d9/devicefuncs/texture_stage_op.hpp>
-#include <sge/renderer/texture/stage.hpp>
-#include <sge/renderer/texture/stage_op.hpp>
-#include <sge/renderer/texture/stage_op_value.hpp>
+#include <sge/opengl/glew/initialize.hpp>
+#include <sge/opengl/glew/scoped_init.hpp>
 
 
-void
-sge::d3d9::devicefuncs::texture_stage_op(
-	IDirect3DDevice9 *const _device,
-	renderer::texture::stage const _stage,
-	renderer::texture::stage_op::type const _op,
-	renderer::texture::stage_op_value::type const _value
-)
+sge::opengl::glew::scoped_init::scoped_init()
 {
-	devicefuncs::set_texture_stage_state(
-		_device,
-		_stage,
-		d3d9::convert::texture_stage_op(
-			_op
-		),
-		d3d9::convert::texture_stage_op_value(
-			_value
-		)
-	);
+	glew::initialize();
+}
+
+sge::opengl::glew::scoped_init::~scoped_init()
+{
 }

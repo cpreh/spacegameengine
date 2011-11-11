@@ -42,6 +42,7 @@ SET(
 	include/sge/audio/sound/base_ptr.hpp
 	include/sge/audio/sound/nonpositional_parameters.hpp
 	include/sge/audio/sound/nonpositional_parameters_fwd.hpp
+	include/sge/audio/sound/optional_direction.hpp
 	include/sge/audio/sound/play_status.hpp
 	include/sge/audio/sound/positional.hpp
 	include/sge/audio/sound/positional_fwd.hpp

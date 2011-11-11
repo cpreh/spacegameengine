@@ -41,7 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/clip_plane_index.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/target.hpp>
-#include <sge/opengl/glew/initialize.hpp>
 #include <sge/opengl/glsl/create_geometry_shader.hpp>
 #include <sge/opengl/glsl/create_pixel_shader.hpp>
 #include <sge/opengl/glsl/create_program.hpp>
@@ -116,6 +115,7 @@ sge::opengl::device::device(
 	target_(
 		onscreen_target_.get()
 	),
+	glew_init_(),
 	caps_(
 		opengl::create_caps(
 			context_
@@ -123,8 +123,6 @@ sge::opengl::device::device(
 	),
 	state_levels_()
 {
-	glew::initialize();
-
 	this->state(
 		sge::renderer::state::default_()
 	);

@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/symbol.hpp>
 #include <sge/audio/vector.hpp>
-#include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/optional_direction.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 
 
 namespace sge
