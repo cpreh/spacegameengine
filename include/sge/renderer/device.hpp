@@ -539,93 +539,332 @@ public:
 	 *
 	 * \param target The target to set or sge::renderer::optional_target()
 	 * to set the current target to the onscreen target.
+	 *
+	 * \see sge::renderer::caps::object::render_target_supported
+	 *
+	 * \warning The behaviour is undefined if
+	 * sge::renderer::caps::object::render_target_supported is false
 	 */
 	virtual void
 	target(
 		renderer::optional_target const &target
 	) = 0;
 
+	/**
+	 * \brief Creates a glsl program
+	 *
+	 * Creates an empty glsl program.
+	 *
+	 * \return A shared pointer to the created glsl program
+	 *
+	 * \see sge::renderer::caps::object::glsl_supported
+	 *
+	 * \warning The behaviour is undefined if
+	 * sge::renderer::caps::object::glsl_supported is false
+	 */
 	virtual renderer::glsl::program_ptr const
 	create_glsl_program() = 0;
 
+	/**
+	 * \brief Creates a glsl vertex shader
+	 *
+	 * Creates a glsl vertex shader from \a source
+	 *
+	 * \param source The source for the shader
+	 *
+	 * \return A shared pointer to the created vertex shader
+	 *
+	 * \see sge::renderer::caps::object::glsl_supported
+	 *
+	 * \warning The behaviour is undefined if
+	 * sge::renderer::caps::object::glsl_supported is false
+	 */
 	virtual renderer::glsl::vertex_shader_ptr const
 	create_glsl_vertex_shader(
-		renderer::glsl::string const &
+		renderer::glsl::string const &source
 	) = 0;
 
+	/**
+	 * \brief Creates a glsl pixel shader
+	 *
+	 * Creates a glsl pixel shader from \a source
+	 *
+	 * \param source The source for the shader
+	 *
+	 * \return A shared pointer to the created pixel shader
+	 *
+	 * \see sge::renderer::caps::object::glsl_supported
+	 *
+	 * \warning The behaviour is undefined if
+	 * sge::renderer::caps::object::glsl_supported is false
+	 */
 	virtual renderer::glsl::pixel_shader_ptr const
 	create_glsl_pixel_shader(
-		renderer::glsl::string const &
+		renderer::glsl::string const &source
 	) = 0;
 
+	/**
+	 * \brief Creates a glsl geometry shader
+	 *
+	 * Creates a glsl geometry shader from \a source
+	 *
+	 * \param source The source for the shader
+	 *
+	 * \return A shared pointer to the created geometry shader
+	 *
+	 * \see sge::renderer::caps::object::glsl_supported
+	 *
+	 * \warning The behaviour is undefined if
+	 * sge::renderer::caps::object::glsl_supported is false
+	 */
 	virtual renderer::glsl::geometry_shader_ptr const
 	create_glsl_geometry_shader(
-		renderer::glsl::string const &
+		renderer::glsl::string const &source
 	) = 0;
 
+	/**
+	 * \brief Sets the current glsl program
+	 *
+	 * Sets the current glsl program to \a program or deactivates glsl if
+	 * \a program is sge::renderer::glsl::const_optional_program().  If a
+	 * glsl program is set, the fixed function pipeline is mostly disabled.
+	 * This includes lights, materials, texture stage states, fog states.
+	 * Initially, the glsl program is disabled.
+	 *
+	 * \param program The program to set or
+	 * sge::renderer::glsl::const_optional_program to disable glsl.
+	 *
+	 * \see sge::renderer::caps::object::glsl_supported
+	 *
+	 * \warning The behaviour is undefined if
+	 * sge::renderer::caps::object::glsl_supported is false
+	 */
 	virtual void
 	glsl_program(
-		renderer::glsl::const_optional_program const &
+		renderer::glsl::const_optional_program const &program
 	) = 0;
 
+	/**
+	 * \brief Creates a render target
+	 *
+	 * Creates an empty render target.
+	 *
+	 * \return A shared pointer to the created target
+	 *
+	 * \see sge::renderer::caps::object::render_target_supported
+	 *
+	 * \warning The behaviour is undefined if
+	 * sge::renderer::caps::object::render_target_supported is false
+	 */
 	virtual renderer::target_ptr const
 	create_target() = 0;
 
+	/**
+	 * \brief Creates a planar texture
+	 *
+	 * Creates a planar texture from \a parameters
+	 *
+	 * \param parameters The parameters class for the planar texture, using
+	 * sge::renderer::dim2 as its dimensions,
+	 * sge::renderer::texture::address_mode2 as its address mode and
+	 * sge::image::color::format::type as its format
+	 *
+	 * \return A shared pointer to the created planar texture
+	 *
+	 * \see sge::renderer::caps::object::max_texture_size
+	 *
+	 * \throw sge::renderer::exception if anything goes wrong
+	*/
 	virtual renderer::texture::planar_ptr const
 	create_planar_texture(
-		renderer::texture::planar_parameters const &
+		renderer::texture::planar_parameters const &parameters
 	) = 0;
 
+	/**
+	 * \brief Creates a depth stencil texture
+	 *
+	 * Creates a depth stencil texture from \a parameters
+	 *
+	 * \param parameters The parameters class for the depth stencil
+	 * texture, using sge::renderer::dim2 as its dimensions,
+	 * sge::renderer::texture::address_mode2 as its address mode and
+	 * sge::renderer::depth_stencil_format::type as its format
+	 *
+	 * \return A shared pointer to the created depth stencil texture
+	 *
+	 * \see sge::renderer::caps::object::max_texture_size
+	 *
+	 * \throw sge::renderer::exception if anything goes wrong
+	 */
 	virtual renderer::texture::depth_stencil_ptr const
 	create_depth_stencil_texture(
-		renderer::texture::depth_stencil_parameters const &
+		renderer::texture::depth_stencil_parameters const &parameters
 	) = 0;
 
+	/**
+	 * \brief Creates a depth stencil surface
+	 *
+	 * Creates a depth stencil surface with dimension \a size and format \a
+	 * format.
+	 *
+	 * \param size The size of the surface
+	 * \param format The format of the surface
+	 *
+	 * \return A shared pointer to the created depth stencil surface
+	 *
+	 * \throw sge::renderer::exception if anything goes wrong
+	 */
 	virtual renderer::depth_stencil_surface_ptr const
 	create_depth_stencil_surface(
-		renderer::dim2 const &,
-		renderer::depth_stencil_format::type
+		renderer::dim2 const &size,
+		renderer::depth_stencil_format::type format
 	) = 0;
 
+	/**
+	 * \brief Creates a volume texture
+	 *
+	 * Creates a volume texture from \a parameters
+	 *
+	 * \param parameters The parameters class for the depth stencil
+	 * texture, using sge::renderer::dim3 as its dimensions,
+	 * sge::renderer::texture::address_mode3 as its address mode and
+	 * sge::image::color::format::type as its format
+	 *
+	 * \return A shared pointer to the created volume texture
+	 *
+	 * \see sge::renderer::caps::object::max_volume_texture_extent
+	 *
+	 * \throw sge::renderer::exception if anything goes wrong
+	 */
 	virtual renderer::texture::volume_ptr const
 	create_volume_texture(
-		renderer::texture::volume_parameters const &
+		renderer::texture::volume_parameters const &parameters
 	) = 0;
 
+	/**
+	 * \brief Creates a cube texture
+	 *
+	 * Creates a cube texture from \a parameters
+	 *
+	 * \param parameters The parameters class for the depth stencil
+	 * texture, using sge::renderer::size_type as its dimensions,
+	 * sge::renderer::texture::address_mode2 as its address mode and
+	 * sge::image::color::format::type as its format
+	 *
+	 * \return A shared pointer to the created cube texture
+	 *
+	 * \throw sge::renderer::exception if anything goes wrong
+	 */
 	virtual renderer::texture::cube_ptr const
 	create_cube_texture(
-		renderer::texture::cube_parameters const &
+		renderer::texture::cube_parameters const &parameters
 	) = 0;
 
+	/**
+	 * \brief Creates a vertex declaration
+	 *
+	 * Creates a vertex declaration from \a format
+	 *
+	 * \param format The dynamic vertex format to use
+	 *
+	 * \return A shared pointer to the created vertex declaration
+	 *
+	 * \throw sge::renderer::exception if anything goes wrong
+	 */
 	virtual renderer::vertex_declaration_ptr const
 	create_vertex_declaration(
-		renderer::vf::dynamic::format const &
+		renderer::vf::dynamic::format const &format
 	) = 0;
 
+	/**
+	 * \brief Creates a vertex buffer
+	 *
+	 * Creates a vertex buffer that is going to hold data described by \a
+	 * part of \a vertex_declaration. It will be able to hold \a
+	 * vertex_count vertices. \a flags describes the capabilities
+	 * of the buffer.
+	 *
+	 * \param vertex_declaration The vertex declaration the buffer belongs
+	 * to
+	 *
+	 * \param part The part of the vertex declaration the buffer will be
+	 * holding vertices for
+	 *
+	 * \param vertex_count The number of vertices the buffer will hold
+	 *
+	 * \param flags The capabilitiies of the buffer
+	 *
+	 * \return A shared pointer to the created vertex buffer
+	 *
+	 * \throw sge::renderer::exception if anything goes wrong
+	 */
 	virtual renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
-		renderer::vertex_declaration const &,
-		renderer::vf::dynamic::part_index,
-		renderer::vertex_count,
-		renderer::resource_flags_field const &
+		renderer::vertex_declaration const &vertex_declaration,
+		renderer::vf::dynamic::part_index part,
+		renderer::vertex_count vertex_count,
+		renderer::resource_flags_field const &flags
 	) = 0;
 
+	/**
+	 * \brief Creates an index buffer
+	 *
+	 * Creates an index buffer that is going to hold data described by \a
+	 * format. It will be able to hold \a index_count indices. \a flags
+	 * describes the capabilities of the buffer.
+	 *
+	 * \param format The format of the indices
+	 * \param index_count The number of indices the buffer will hold
+	 * \param flags The capabilitiies of the buffer
+	 *
+	 * \return A shared pointer to the created index buffer
+	 *
+	 * \throw sge::renderer::exception if anything goes wrong
+	 */
 	virtual renderer::index_buffer_ptr const
 	create_index_buffer(
-		renderer::index::dynamic::format::type,
-		renderer::index_count,
-		renderer::resource_flags_field const &
+		renderer::index::dynamic::format::type format,
+		renderer::index_count index_count,
+		renderer::resource_flags_field const &flags
 	) = 0;
 
+	/**
+	 * \brief Returns the onscreen target
+	 *
+	 * A device always has an onscreen target even though another render
+	 * target has been set.
+	 *
+	 * \return The onscreen target
+	*/
 	virtual renderer::onscreen_target &
 	onscreen_target() const = 0;
 
+	/**
+	 * \brief Returns the currently set target
+	 *
+	 * If a target has been set by device::target, then this will return
+	 * the previously set target, otherwise
+	 * sge::renderer::optional_target() is returned.
+	 *
+	 * \return The previously set target or
+	 * sge::renderer::optional_target()
+	*/
 	virtual renderer::optional_target const
 	target() const = 0;
 
+	/**
+	 * \brief Returns the capabilities of the device
+	 *
+	 * \return The capabilities
+	*/
 	virtual renderer::caps::object const &
 	caps() const = 0;
 
+	/**
+	 * \brief Returns the associated window
+	 *
+	 * \return The associated window
+	*/
 	virtual sge::window::instance &
 	window() const = 0;
 

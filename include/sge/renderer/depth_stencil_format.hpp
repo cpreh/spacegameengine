@@ -26,12 +26,27 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The namespace for the depth stencil format enum
+*/
 namespace depth_stencil_format
 {
+/**
+ * The enum type for depth stencil formats
+*/
 enum type
 {
+	/**
+	 * \brief 16 bits for depth, no stencil
+	*/
 	d16,
+	/**
+	 * \brief 32 bits for depth, no stencil
+	*/
 	d32,
+	/**
+	 * \brief 24 bits for depth, 8 bits for stencil
+	*/
 	d24s8
 };
 }

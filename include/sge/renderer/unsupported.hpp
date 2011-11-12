@@ -38,7 +38,7 @@ class SGE_CLASS_SYMBOL unsupported
 {
 public:
 	SGE_RENDERER_SYMBOL
-	explicit unsupported(
+	unsupported(
 		fcppt::string const &feature,
 		fcppt::string const &minimum_version_required,
 		fcppt::string const &possible_extensions

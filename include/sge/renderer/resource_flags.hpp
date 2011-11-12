@@ -26,11 +26,36 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The namespace for the resource_flags enum
+*/
 namespace resource_flags
 {
+/**
+ * \brief The enum type for resource flags
+*/
 enum type
 {
+	/**
+	 * \brief Makes the resource dynamic
+	 *
+	 * A driver shall try to make a compromise, so that dynamic resources
+	 * are faster to lock/unlock but also slower to render. A dynamic
+	 * resource must be completely updated for every render block,
+	 * otherwise its contents will be undefined. This is to ensure that sge
+	 * doesn't have to make a copy of the internal data. dynamic resources
+	 * are most useful if the contents change every frame anyway, e.g. in
+	 * a sprite system.
+	*/
 	dynamic,
+	/**
+	 * \brief Makes a resource readable
+	 *
+	 * By default, a resource is not readable which means it cannot be
+	 * locked so that data can be read from it. A readable resource might
+	 * be slower to render. It might be better to retain a copy of the data
+	 * yourself instead of locking the resource.
+	*/
 	readable,
 	size
 };
