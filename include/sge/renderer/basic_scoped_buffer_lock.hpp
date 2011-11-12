@@ -32,6 +32,15 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A buffer lock that is not readonly.
+ *
+ * Used for locking renderer::vertex_buffer and renderer::index_buffer. It
+ * locks the buffer in the constructor and unlocks it in the destructor.
+ *
+ * \see sge::renderer::scoped_vertex_lock
+ * \see sge::renderer::scoped_index_lock
+*/
 template<
 	typename Buffer,
 	typename Types
@@ -42,28 +51,72 @@ class basic_scoped_buffer_lock
 		basic_scoped_buffer_lock
 	);
 public:
+	/**
+	 * \brief The offset type
+	 *
+	 * Used to tell at which element the lock will start.
+	*/
 	typedef typename Types::first_type first_type;
 
+	/**
+	 * \brief The count type
+	 *
+	 * Used to tell how many elements will be locked.
+	*/
 	typedef typename Types::count_type count_type;
 
+	/**
+	 * \brief The view type of the lock.
+	*/
 	typedef typename Types::view_type view_type;
 
+	/**
+	 * \brief Locks the buffer
+	 *
+	 * Locks \a buffer, using the lock method \a method. The buffer will
+	 * be locked starting from \a first to \a first + \a count, or the
+	 * entire will be locked if \a first is 0 and \a count is
+	 * renderer::npos, which is the default.
+	 *
+	 * \param buffer The buffer to lock
+	 *
+	 * \param method The lock method to use, either writeonly or readwrite
+	 *
+	 * \param first The offset to lock the buffer from
+	 *
+	 * \param count The number of elements to lock, or npos for all
+	 * elements
+	 *
+	 * \warning The behaviour is undefined if the buffer is already locked
+	 * or if the region is out of range
+	*/
 	SGE_RENDERER_SYMBOL
 	basic_scoped_buffer_lock(
-		Buffer &,
-		renderer::lock_mode::type,
-		first_type =
+		Buffer &buffer,
+		renderer::lock_mode::type method,
+		first_type first =
 			first_type(0),
-		count_type =
+		count_type count =
 			count_type(
 				renderer::npos()
 			)
 	);
 
+	/**
+	 * \brief Obtain the view of the locked region
+	 *
+	 * \return The view of the locked region
+	*/
 	SGE_RENDERER_SYMBOL
 	view_type const
 	value() const;
 
+	/**
+	 * \brief Unlocks the buffer
+	 *
+	 * \warning The behaviour is undefined if the buffer has been locked
+	 * again or unlocked in between the constructor and destructor
+	*/
 	SGE_RENDERER_SYMBOL
 	~basic_scoped_buffer_lock();
 private:

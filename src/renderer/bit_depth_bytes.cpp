@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/bit_depth_bytes.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -41,7 +42,5 @@ sge::renderer::bit_depth_bytes(
 		return sizeof(boost::uint32_t);
 	}
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid bit_depth in ogl::default_target!")
-	);
+	FCPPT_ASSERT_UNREACHABLE;
 }

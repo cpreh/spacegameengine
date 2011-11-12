@@ -26,15 +26,25 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The namespace for the bit_depth enum
+*/
 namespace bit_depth
 {
-
+/**
+ * \brief The enum type for bit depths
+*/
 enum type
 {
+	/**
+	 * \brief A bit depth of 16 bits
+	*/
 	depth16 = 16,
+	/**
+	 * \brief A bit depth of 32 bits
+	*/
 	depth32 = 32
 };
-
 }
 
 }

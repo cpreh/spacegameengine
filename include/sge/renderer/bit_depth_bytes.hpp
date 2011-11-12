@@ -30,10 +30,20 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Calculates how many bytes are needed for one pixel
+ *
+ * Calculates how many bytes are needed for a pixel
+ * from \a bit_depth
+ *
+ * \param bit_depth The bit_depth to calculate the size from
+ *
+ * \return <code> sizeof(uint16_t) or sizeof(uint32_t) </code>
+*/
 SGE_RENDERER_SYMBOL
 renderer::size_type
 bit_depth_bytes(
-	renderer::bit_depth::type
+	renderer::bit_depth::type bit_depth
 );
 
 }

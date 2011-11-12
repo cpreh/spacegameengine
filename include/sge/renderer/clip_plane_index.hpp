@@ -30,6 +30,14 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Describes a clip plane
+ *
+ * The index can be between 0 and
+ * sge::renderer::caps::object::clip_plane_indices - 1
+ *
+ * \see sge::renderer::caps::object::clip_plane_indices
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::clip_plane_index_value,
 	clip_plane_index

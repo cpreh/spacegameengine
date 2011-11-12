@@ -29,10 +29,17 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Tells if a depth_stencil_buffer::type has a depth part
+ *
+ * \param type The type to check for a depth part
+ *
+ * \return True if the type has a depth part
+*/
 SGE_RENDERER_SYMBOL
 bool
 buffer_has_depth(
-	renderer::depth_stencil_buffer::type
+	renderer::depth_stencil_buffer::type type
 );
 
 }

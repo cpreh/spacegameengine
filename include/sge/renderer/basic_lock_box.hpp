@@ -31,6 +31,13 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Typedef helper for renderer::lock_rect and renderer::lock_box
+ *
+ * Creates a box with value type renderer::size_type.
+ *
+ * \tparam Size The dimension to use
+*/
 template<
 	fcppt::math::size_type Size
 >

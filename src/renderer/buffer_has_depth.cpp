@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/buffer_has_depth.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 
 bool
@@ -41,7 +41,5 @@ sge::renderer::buffer_has_depth(
 		return true;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid depth_stencil_buffer!")
-	);
+	FCPPT_ASSERT_UNREACHABLE;
 }

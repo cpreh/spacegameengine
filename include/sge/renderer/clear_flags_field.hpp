@@ -30,6 +30,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Container for clear flags
+*/
 typedef fcppt::container::bitfield::basic<
 	renderer::clear_flags::type,
 	renderer::clear_flags::size

@@ -27,6 +27,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The underlying value of a renderer::clip_plane_index
+*/
 typedef unsigned clip_plane_index_value;
 
 }

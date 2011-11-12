@@ -30,6 +30,12 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Describes a clip plane
+ *
+ * A clip plane is a vector of four components, interpreted as a plane
+ * equation.
+ */
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::vector4,
 	clip_plane

@@ -30,10 +30,25 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Calculates the aspect from a viewport
+ *
+ * Calculates the aspect from \a viewport as it would be calculated by
+ * sge::renderer::aspect.
+ *
+ * \param viewport The viewport to calculate the aspect from
+ *
+ * \return The aspect
+ *
+ * \see sge::renderer::aspect
+ *
+ * \warning The behaviour is undefined if the viewport's width or height is
+ * zero.
+*/
 SGE_RENDERER_SYMBOL
 renderer::scalar
 aspect_from_viewport(
-	renderer::viewport const &
+	renderer::viewport const &viewport
 );
 
 }

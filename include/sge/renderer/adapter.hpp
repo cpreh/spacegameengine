@@ -28,6 +28,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Identifies a renderer::device
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	unsigned,
 	adapter

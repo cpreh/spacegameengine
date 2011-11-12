@@ -26,12 +26,40 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The namespace for the clear_flags enum
+*/
 namespace clear_flags
 {
+/**
+ * \brief The enum type for clear flags
+*/
 enum type
 {
+	/**
+	 * \brief Clear the back buffer
+	 *
+	 * The back buffer will be cleared with the value set via
+	 * sge::renderer::state::color::back_buffer_clear_color
+	*/
 	back_buffer,
+	/**
+	 * \brief Clear the depth buffer
+	 *
+	 * The depth buffer will be cleared with the value set via
+	 * sge::renderer::state::float_::depth_buffer_clear_val
+	 *
+	 * \warning The behaviour is undefined if the depth buffer is absent
+	*/
 	depth_buffer,
+	/**
+	 * \brief Clear the stencil buffer
+	 *
+	 * The stencil buffer will be cleared with the value set via
+	 * sge::renderer::state::int_::stencil_buffer_clear_val.
+	 *
+	 * \warning The behaviour is undefined if the stencil buffer is absent
+	*/
 	stencil_buffer,
 	size
 };

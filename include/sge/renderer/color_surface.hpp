@@ -36,6 +36,14 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Describes an abstraction of a color store
+ *
+ * A color surface describes an abstraction of a color store. For example,
+ * every mipmap level of a renderer::texture::planar is a color surface. A
+ * renderer::target (including the renderer::onscreen_target) also have a color
+ * surface.
+*/
 class SGE_CLASS_SYMBOL color_surface
 {
 	FCPPT_NONCOPYABLE(
@@ -62,7 +70,7 @@ public:
 
 	virtual const_view const
 	lock(
-		lock_rect const &
+		rect const &
 	) const = 0;
 
 	virtual void

@@ -31,6 +31,13 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Typedef helper for renderer::dim2 and renderer::dim3
+ *
+ * Creates a dimension with value type renderer::size_type.
+ *
+ * \tparam Size The dimension to use
+*/
 template<
 	fcppt::math::size_type Size
 >

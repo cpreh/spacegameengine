@@ -31,12 +31,24 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Adds a depth stencil surface to a target
+ *
+ * Adds a depth stencil surface with format \a format to \a target, which will
+ * have the same size as the target's color surface.
+ *
+ * \param device The device used to create the depth stencil surface
+ * \param target The target to add the depth stencil surface to
+ * \param format The format to use
+ *
+ * \throw sge::renderer::exception if \a target has no color surface
+*/
 SGE_RENDERER_SYMBOL
 void
 add_depth_stencil_surface_to_target(
-	renderer::device &,
-	renderer::target &,
-	renderer::depth_stencil_format::type
+	renderer::device &device,
+	renderer::target &target,
+	renderer::depth_stencil_format::type format
 );
 
 }

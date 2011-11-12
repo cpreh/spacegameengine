@@ -31,10 +31,19 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Returns the active target of a device
+ *
+ * \param device The device to return the target for
+ *
+ * \return If \c device.target() is renderer::optional_target() then \c
+ * device.onscreen_target() is returned. Otherwise, \c *device.target() is
+ * returned.
+*/
 SGE_RENDERER_SYMBOL
 renderer::target_base &
 active_target(
-	renderer::device &
+	renderer::device &device
 );
 
 }
