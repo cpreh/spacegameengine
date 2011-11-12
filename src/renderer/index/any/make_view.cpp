@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/exception.hpp>
 #include <sge/renderer/index/format_16.hpp>
 #include <sge/renderer/index/format_32.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/any/make_view.hpp>
 #include <sge/renderer/index/any/view.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 
@@ -56,7 +56,5 @@ sge::renderer::index::any::make_view(
 			);
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid format in index::any::make_view!")
-	);
+	FCPPT_ASSERT_UNREACHABLE;
 }

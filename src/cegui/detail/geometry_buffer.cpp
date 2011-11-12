@@ -163,7 +163,7 @@ sge::cegui::detail::geometry_buffer::draw() const
 			dbf = sge::renderer::state::dest_blend_func::inv_src_alpha;
 			break;
 		case CEGUI::BM_INVALID:
-			throw exception(FCPPT_TEXT("We got an invalid blend mode o_O"));
+			throw cegui::exception(FCPPT_TEXT("We got an invalid blend mode o_O"));
 		case CEGUI::BM_NORMAL:
 			sbf = sge::renderer::state::source_blend_func::src_alpha;
 			dbf = sge::renderer::state::dest_blend_func::inv_src_alpha;

@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/exception.hpp>
+#include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 
 sge::renderer::size_type
 sge::renderer::indices_per_primitive(
-	indexed_primitive_type::type const _prim
+	renderer::indexed_primitive_type::type const _prim
 )
 {
 	switch(
@@ -33,12 +34,10 @@ sge::renderer::indices_per_primitive(
 	)
 	{
 	case indexed_primitive_type::triangle:
-		return 3;
+		return 3u;
 	case indexed_primitive_type::line:
-		return 2;
+		return 2u;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("indices_per_primitive: Invalid indexed_primitive_format!")
-	);
+	FCPPT_ASSERT_UNREACHABLE;
 }

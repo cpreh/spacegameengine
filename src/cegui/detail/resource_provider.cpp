@@ -86,7 +86,7 @@ sge::cegui::detail::resource_provider::loadRawDataContainer(
 		load_path);
 
 	if(!file_stream.is_open())
-		throw exception(
+		throw cegui::exception(
 			FCPPT_TEXT("Coudn't open file \"")+
 			fcppt::filesystem::path_to_string(
 				load_path)+

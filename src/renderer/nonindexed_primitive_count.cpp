@@ -20,7 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/nonindexed_primitive_count.hpp>
+#include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 
 sge::renderer::size_type
@@ -75,7 +79,5 @@ sge::renderer::nonindexed_primitive_count(
 		return _vertex_count.get() / 3;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid nonindexed_primitive_type!")
-	);
+	FCPPT_ASSERT_UNREACHABLE;
 }

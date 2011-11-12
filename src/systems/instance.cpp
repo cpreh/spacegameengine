@@ -69,6 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_info.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
@@ -475,9 +476,7 @@ visitor::operator()(
 		return;
 	}
 
-	throw sge::systems::exception(
-		FCPPT_TEXT("Invalid systems::parameterless!")
-	);
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 }
