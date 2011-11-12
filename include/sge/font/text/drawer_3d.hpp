@@ -108,7 +108,7 @@ private:
 
 	typedef image::color::bgra8_format color_format;
 
-	typedef typename sge::image::color::object<
+	typedef sge::image::color::object<
 		color_format
 	>::type color_object;
 

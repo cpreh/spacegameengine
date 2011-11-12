@@ -129,8 +129,6 @@ sge::openal::stream_sound::~stream_sound()
 void
 sge::openal::stream_sound::update()
 {
-	sync();
-
 	// We store this here to prevent multithreading issues (what if the
 	// source stops playing while we're processing suff further down?
 	audio::sound::play_status::type const current_play_status =
