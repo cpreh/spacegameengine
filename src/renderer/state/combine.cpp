@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/combine.hpp>
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/set.hpp>
 
 sge::renderer::state::list const
 sge::renderer::state::combine(
@@ -31,12 +32,12 @@ sge::renderer::state::combine(
 		_left
 	);
 
-	state::list::set_type const &right_set(
+	state::set const &right_set(
 		_right.values()
 	);
 
 	for(
-		state::list::set_type::const_iterator it(
+		state::set::const_iterator it(
 			right_set.begin()
 		);
 		it != right_set.end();

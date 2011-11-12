@@ -18,44 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/convert/dest_blend_func.hpp>
-#include <sge/opengl/state/convert/source_blend_func.hpp>
-#include <sge/opengl/state/deferred/blend_func.hpp>
+#ifndef SGE_SRC_RENDERER_STATE_EXTRACT_TRAMPOLINE_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_STATE_EXTRACT_TRAMPOLINE_IMPL_HPP_INCLUDED
+
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/state/dest_blend_func.hpp>
-#include <sge/renderer/state/extract.hpp>
-#include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/state/source_blend_func.hpp>
+#include <sge/renderer/state/extract_trampoline.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/set.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <fcppt/text.hpp>
 
 
-void
-sge::opengl::state::deferred::blend_func(
-	deferred::parameters const &,
-	sge::renderer::state::list const &_list
+template<
+	typename T,
+	typename States
+>
+T
+sge::renderer::state::extract_trampoline(
+	sge::renderer::state::list const &_list,
+	state::trampoline<T, States> const &_trampoline
 )
 {
-	::glBlendFunc(
-		state::convert::source_blend_func(
-			sge::renderer::state::extract<
-				renderer::state::source_blend_func::type
-			>(
-				_list
-			)
-		),
-		state::convert::dest_blend_func(
-			sge::renderer::state::extract<
-				renderer::state::dest_blend_func::type
-			>(
-				_list
-			)
+	state::set const &set(
+		_list.values()
+	);
+
+	state::set::const_iterator const it(
+		set.find(
+			_trampoline = T()
 		)
 	);
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glBlendFunc failed"),
-		sge::renderer::exception
+	if(
+		it == set.end()
 	)
+		throw renderer::exception(
+			FCPPT_TEXT("renderer::list::get(): state not found!")
+		);
+
+	return
+		it->get<
+			typename renderer::state::trampoline<
+				T,
+				States
+			>::var_type
+		>().value();
 }
+
+#endif

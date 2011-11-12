@@ -18,44 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/convert/dest_blend_func.hpp>
-#include <sge/opengl/state/convert/source_blend_func.hpp>
-#include <sge/opengl/state/deferred/blend_func.hpp>
+#ifndef SGE_SRC_RENDERER_STATE_EXTRACT_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_STATE_EXTRACT_IMPL_HPP_INCLUDED
+
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/state/dest_blend_func.hpp>
 #include <sge/renderer/state/extract.hpp>
-#include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/state/source_blend_func.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/set.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/type_name.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <typeinfo>
+#include <fcppt/config/external_end.hpp>
 
 
-void
-sge::opengl::state::deferred::blend_func(
-	deferred::parameters const &,
+template<
+	typename T
+>
+T
+sge::renderer::state::extract(
 	sge::renderer::state::list const &_list
 )
 {
-	::glBlendFunc(
-		state::convert::source_blend_func(
-			sge::renderer::state::extract<
-				renderer::state::source_blend_func::type
-			>(
-				_list
-			)
-		),
-		state::convert::dest_blend_func(
-			sge::renderer::state::extract<
-				renderer::state::dest_blend_func::type
-			>(
-				_list
-			)
+	state::set const &set(
+		_list.values()
+	);
+
+	state::set::const_iterator const it(
+		set.find(
+			T()
 		)
 	);
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glBlendFunc failed"),
-		sge::renderer::exception
+	if(
+		it == set.end()
 	)
+		throw renderer::exception(
+			FCPPT_TEXT("renderer::list::get<")
+			+ fcppt::type_name(
+				typeid(T)
+			)
+			+ FCPPT_TEXT(">(): state not found!")
+		);
+
+	return it->get<T>();
 }
+
+#endif

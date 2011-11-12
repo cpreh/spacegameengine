@@ -23,13 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/state/any.hpp>
-#include <sge/renderer/state/any_sort_functor.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/state/trampoline_fwd.hpp>
+#include <sge/renderer/state/set.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <set>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -42,17 +38,12 @@ namespace state
 class list
 {
 public:
-	typedef std::set<
-		any,
-		any_sort_functor
-	> set_type;
-
 	SGE_RENDERER_SYMBOL
 	list();
 
 	SGE_RENDERER_SYMBOL
 	explicit list(
-		any const &
+		state::any const &
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -61,37 +52,20 @@ public:
 	SGE_RENDERER_SYMBOL
 	list const
 	operator()(
-		any const &
+		state::any const &
 	) const;
 
 	SGE_RENDERER_SYMBOL
 	void
 	overwrite(
-		any const &
+		state::any const &
 	);
 
-	template<
-		typename T
-	>
 	SGE_RENDERER_SYMBOL
-	T
-	get() const;
-
-	template<
-		typename T,
-		typename States
-	>
-	SGE_RENDERER_SYMBOL
-	T
-	get(
-		state::trampoline<T, States> const &
-	) const;
-
-	SGE_RENDERER_SYMBOL
-	set_type const &
+	state::set const &
 	values() const;
 private:
-	set_type set_;
+	state::set set_;
 };
 
 }

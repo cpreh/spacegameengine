@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/any.hpp>
 #include <sge/renderer/state/apply.hpp>
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/set.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/function/object.hpp>
@@ -82,12 +83,12 @@ sge::renderer::state::apply(
 	state::apply_callback const &_callback
 )
 {
-	sge::renderer::state::list::set_type const &set(
+	sge::renderer::state::set const &set(
 		_new_states.values()
 	);
 
 	for(
-		sge::renderer::state::list::set_type::const_iterator it(
+		sge::renderer::state::set::const_iterator it(
 			set.begin()
 		);
 		it != set.end();
@@ -122,11 +123,11 @@ state_unchanged(
 	sge::renderer::state::list const &_list
 )
 {
-	sge::renderer::state::list::set_type const &state_list(
+	sge::renderer::state::set const &state_list(
 		_list.values()
 	);
 
-	sge::renderer::state::list::set_type::const_iterator const it(
+	sge::renderer::state::set::const_iterator const it(
 		state_list.find(
 			_state
 		)

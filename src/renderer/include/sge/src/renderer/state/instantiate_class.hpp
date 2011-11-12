@@ -18,28 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_STATE_INSTANTIATE_HPP_INCLUDED
-#define SGE_SRC_RENDERER_STATE_INSTANTIATE_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_STATE_INSTANTIATE_CLASS_HPP_INCLUDED
+#define SGE_SRC_RENDERER_STATE_INSTANTIATE_CLASS_HPP_INCLUDED
 
-#include <sge/src/renderer/state/trampoline_impl.hpp>
-#include <sge/src/renderer/state/var_impl.hpp>
 #include <fcppt/export_symbol.hpp>
 
 
-#define SGE_RENDERER_STATE_INSTANTIATE_CLASS(class_, type_)\
-template FCPPT_EXPORT_SYMBOL class class_<\
-	sge::renderer::state::type_::base_type,\
-	sge::renderer::state::type_::available_states::type\
+#define SGE_RENDERER_STATE_INSTANTIATE_CLASS(\
+	class_name,\
+	type_name \
+)\
+template FCPPT_EXPORT_SYMBOL class \
+class_name<\
+	sge::renderer::state::type_name::base_type,\
+	sge::renderer::state::type_name::available_states::type\
 >;
-
-#define SGE_RENDERER_STATE_INSTANTIATE_VAR_AND_TRAMPOLINE(x)\
-SGE_RENDERER_STATE_INSTANTIATE_CLASS(sge::renderer::state::var, x)\
-SGE_RENDERER_STATE_INSTANTIATE_CLASS(sge::renderer::state::trampoline, x)\
-
-#define SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(type_, name)\
-sge::renderer::state::type_::trampoline_type const \
-sge::renderer::state::type_::name(\
-	sge::renderer::state::type_::available_states::name\
-);
 
 #endif

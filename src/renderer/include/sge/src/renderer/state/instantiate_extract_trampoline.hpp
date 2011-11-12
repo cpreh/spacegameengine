@@ -18,11 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/uint.hpp>
-#include <sge/src/renderer/state/define_trampoline_object.hpp>
-#include <sge/src/renderer/state/instantiate_with_trampoline.hpp>
+#ifndef SGE_SRC_RENDERER_STATE_INSTANTIATE_EXTRACT_TRAMPOLINE_HPP_INCLUDED
+#define SGE_SRC_RENDERER_STATE_INSTANTIATE_EXTRACT_TRAMPOLINE_HPP_INCLUDED
+
+#include <sge/renderer/state/list_fwd.hpp>
+#include <sge/renderer/state/trampoline_fwd.hpp>
+#include <sge/src/renderer/state/extract_trampoline_impl.hpp>
+#include <fcppt/export_symbol.hpp>
 
 
-SGE_RENDERER_STATE_INSTANTIATE_WITH_TRAMPOLINE(uint)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(uint, stencil_mask)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(uint, stencil_write_mask)
+#define SGE_RENDERER_STATE_INSTANTIATE_EXTRACT_TRAMPOLINE(\
+	_state\
+)\
+template FCPPT_EXPORT_SYMBOL \
+sge::renderer::state::_state::base_type \
+sge::renderer::state::extract_trampoline(\
+	sge::renderer::state::list const &,\
+	sge::renderer::state::trampoline<\
+		_state::base_type,\
+		_state::available_states::type\
+	> const &\
+);
+
+#endif

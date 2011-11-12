@@ -18,11 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/uint.hpp>
-#include <sge/src/renderer/state/define_trampoline_object.hpp>
-#include <sge/src/renderer/state/instantiate_with_trampoline.hpp>
+#ifndef SGE_SRC_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT_HPP_INCLUDED
+#define SGE_SRC_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT_HPP_INCLUDED
 
+#define SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(\
+	type_name,\
+	name\
+)\
+sge::renderer::state::type_name::trampoline_type const \
+sge::renderer::state::type_name::name(\
+	sge::renderer::state::type_name::available_states::name\
+);
 
-SGE_RENDERER_STATE_INSTANTIATE_WITH_TRAMPOLINE(uint)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(uint, stencil_mask)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(uint, stencil_write_mask)
+#endif

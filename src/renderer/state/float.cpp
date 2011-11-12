@@ -19,12 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/state/float.hpp>
-#include <sge/src/renderer/state/instantiate.hpp>
+#include <sge/src/renderer/state/define_trampoline_object.hpp>
+#include <sge/src/renderer/state/instantiate_with_trampoline.hpp>
 
 
-SGE_RENDERER_STATE_INSTANTIATE_VAR_AND_TRAMPOLINE(float_)
-SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(float_, depth_buffer_clear_val)
-SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(float_, alpha_test_ref)
-SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(float_, fog_start)
-SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(float_, fog_end)
-SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(float_, fog_density)
+SGE_RENDERER_STATE_INSTANTIATE_WITH_TRAMPOLINE(float_)
+SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(float_, depth_buffer_clear_val)
+SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(float_, alpha_test_ref)
+SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(float_, fog_start)
+SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(float_, fog_end)
+SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(float_, fog_density)

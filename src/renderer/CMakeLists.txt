@@ -272,6 +272,8 @@ SET(
 	include/sge/renderer/state/depth_func.hpp
 	include/sge/renderer/state/dest_blend_func.hpp
 	include/sge/renderer/state/draw_mode.hpp
+	include/sge/renderer/state/extract.hpp
+	include/sge/renderer/state/extract_trampoline.hpp
 	include/sge/renderer/state/float.hpp
 	include/sge/renderer/state/fog_mode.hpp
 	include/sge/renderer/state/int.hpp
@@ -279,6 +281,7 @@ SET(
 	include/sge/renderer/state/list.hpp
 	include/sge/renderer/state/list_fwd.hpp
 	include/sge/renderer/state/scoped.hpp
+	include/sge/renderer/state/set.hpp
 	include/sge/renderer/state/source_blend_func.hpp
 	include/sge/renderer/state/stack.hpp
 	include/sge/renderer/state/state.hpp
@@ -555,7 +558,14 @@ SET(
 	src/renderer/include/sge/src/renderer/index/instantiate_all.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near_far.hpp
-	src/renderer/include/sge/src/renderer/state/instantiate.hpp
+	src/renderer/include/sge/src/renderer/state/define_trampoline_object.hpp
+	src/renderer/include/sge/src/renderer/state/extract_impl.hpp
+	src/renderer/include/sge/src/renderer/state/extract_trampoline_impl.hpp
+	src/renderer/include/sge/src/renderer/state/instantiate_class.hpp
+	src/renderer/include/sge/src/renderer/state/instantiate_extract.hpp
+	src/renderer/include/sge/src/renderer/state/instantiate_extract_trampoline.hpp
+	src/renderer/include/sge/src/renderer/state/instantiate_with_trampoline.hpp
+	src/renderer/include/sge/src/renderer/state/instantiate_without_trampoline.hpp
 	src/renderer/include/sge/src/renderer/state/trampoline_impl.hpp
 	src/renderer/include/sge/src/renderer/state/var_impl.hpp
 	src/renderer/include/sge/src/renderer/texture/basic_parameters_impl.hpp
@@ -609,17 +619,25 @@ SET(
 	src/renderer/scoped_vertex_declaration.cpp
 	src/renderer/scoped_vertex_lock.cpp
 	src/renderer/screenshot.cpp
+	src/renderer/state/alpha_func.cpp
 	src/renderer/state/any_sort.cpp
 	src/renderer/state/any_sort_functor.cpp
 	src/renderer/state/apply.cpp
 	src/renderer/state/bool.cpp
 	src/renderer/state/color.cpp
 	src/renderer/state/combine.cpp
+	src/renderer/state/cull_mode.cpp
 	src/renderer/state/default.cpp
+	src/renderer/state/depth_func.cpp
+	src/renderer/state/dest_blend_func.cpp
+	src/renderer/state/draw_mode.cpp
 	src/renderer/state/float.cpp
+	src/renderer/state/fog_mode.cpp
 	src/renderer/state/int.cpp
 	src/renderer/state/list.cpp
 	src/renderer/state/scoped.cpp
+	src/renderer/state/source_blend_func.cpp
+	src/renderer/state/stencil_func.cpp
 	src/renderer/state/stencil_op.cpp
 	src/renderer/state/to_clear_flags_field.cpp
 	src/renderer/state/uint.cpp

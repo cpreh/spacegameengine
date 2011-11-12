@@ -37,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/dest_blend_func.hpp>
 #include <sge/renderer/state/draw_mode.hpp>
+#include <sge/renderer/state/extract.hpp>
+#include <sge/renderer/state/extract_trampoline.hpp>
 #include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/fog_mode.hpp>
 #include <sge/renderer/state/int.hpp>
@@ -44,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/set.hpp>
 #include <sge/renderer/state/source_blend_func.hpp>
 #include <sge/renderer/state/stack.hpp>
 #include <sge/renderer/state/stencil_func.hpp>

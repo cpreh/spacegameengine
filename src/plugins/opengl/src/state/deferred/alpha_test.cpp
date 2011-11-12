@@ -26,8 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/deferred/alpha_test.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/alpha_func.hpp>
+#include <sge/renderer/state/extract.hpp>
+#include <sge/renderer/state/extract_trampoline.hpp>
 #include <sge/renderer/state/float.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/list_fwd.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -38,9 +40,11 @@ sge::opengl::state::deferred::alpha_test(
 )
 {
 	renderer::state::alpha_func::type const func(
-		_list.get<
+		sge::renderer::state::extract<
 			renderer::state::alpha_func::type
-		>()
+		>(
+			_list
+		)
 	);
 
 	if(
@@ -65,7 +69,8 @@ sge::opengl::state::deferred::alpha_test(
 		static_cast<
 			GLfloat
 		>(
-			_list.get(
+			sge::renderer::state::extract_trampoline(
+				_list,
 				renderer::state::float_::alpha_test_ref
 			)
 		)

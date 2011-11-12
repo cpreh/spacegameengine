@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/convert/stencil_op_value.hpp>
 #include <sge/opengl/state/deferred/stencil_op.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/extract_trampoline.hpp>
+#include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/state/stencil_op.hpp>
 #include <fcppt/text.hpp>
 
@@ -36,17 +37,20 @@ sge::opengl::state::deferred::stencil_op(
 {
 	::glStencilOp(
 		state::convert::stencil_op_value(
-			_list.get(
+			sge::renderer::state::extract_trampoline(
+				_list,
 				renderer::state::stencil_op::stencil_fail
 			)
 		),
 		state::convert::stencil_op_value(
-			_list.get(
+			sge::renderer::state::extract_trampoline(
+				_list,
 				renderer::state::stencil_op::depth_fail
 			)
 		),
 		state::convert::stencil_op_value(
-			_list.get(
+			sge::renderer::state::extract_trampoline(
+				_list,
 				renderer::state::stencil_op::pass
 			)
 		)

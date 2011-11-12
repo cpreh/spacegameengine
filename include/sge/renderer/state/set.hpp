@@ -18,11 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/uint.hpp>
-#include <sge/src/renderer/state/define_trampoline_object.hpp>
-#include <sge/src/renderer/state/instantiate_with_trampoline.hpp>
+#ifndef SGE_RENDERER_STATE_SET_HPP_INCLUDED
+#define SGE_RENDERER_STATE_SET_HPP_INCLUDED
+
+#include <sge/renderer/state/any.hpp>
+#include <sge/renderer/state/any_sort_functor.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <set>
+#include <fcppt/config/external_end.hpp>
 
 
-SGE_RENDERER_STATE_INSTANTIATE_WITH_TRAMPOLINE(uint)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(uint, stencil_mask)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(uint, stencil_write_mask)
+namespace sge
+{
+namespace renderer
+{
+namespace state
+{
+
+typedef std::set<
+	state::any,
+	state::any_sort_functor
+> set;
+
+}
+}
+}
+
+#endif

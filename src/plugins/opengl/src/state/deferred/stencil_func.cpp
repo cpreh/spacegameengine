@@ -27,8 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/deferred/stencil_func.hpp>
 #include <sge/renderer/buffer_has_stencil.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/state/extract.hpp>
+#include <sge/renderer/state/extract_trampoline.hpp>
 #include <sge/renderer/state/int.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/uint.hpp>
 #include <fcppt/text.hpp>
@@ -41,9 +43,11 @@ sge::opengl::state::deferred::stencil_func(
 )
 {
 	renderer::state::stencil_func::type const method(
-		_list.get<
+		sge::renderer::state::extract<
 			renderer::state::stencil_func::type
-		>()
+		>(
+			_list
+		)
 	);
 
 	if(
@@ -78,14 +82,16 @@ sge::opengl::state::deferred::stencil_func(
 		static_cast<
 			GLint
 		>(
-			_list.get(
+			sge::renderer::state::extract_trampoline(
+				_list,
 				renderer::state::int_::stencil_ref
 			)
 		),
 		static_cast<
 			GLuint
 		>(
-			_list.get(
+			sge::renderer::state::extract_trampoline(
+				_list,
 				renderer::state::uint::stencil_mask
 			)
 		)
