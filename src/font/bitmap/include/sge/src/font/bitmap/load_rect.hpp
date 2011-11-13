@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_FONT_BITMAP_LOAD_RECT_HPP_INCLUDED
 
 #include <sge/image2d/rect.hpp>
-#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/member_map.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace bitmap
 
 sge::image2d::rect const
 load_rect(
-	sge::parse::json::member_vector const &
+	sge::parse::json::member_map const &
 );
 
 }

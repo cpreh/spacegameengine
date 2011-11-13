@@ -39,7 +39,7 @@ SGE_PARSE_SYMBOL
 bool
 to_file(
 	fcppt::filesystem::path const &,
-	object const &
+	json::object const &
 );
 
 }

@@ -41,20 +41,21 @@ template<
 >
 bool
 parse_range(
-	In &beg,
-	In const end,
-	object &result
+	In &_beg,
+	In const _end,
+	object &_result
 )
 {
 	grammar<In> parser;
 
-	return boost::spirit::qi::phrase_parse(
-		beg,
-		end,
-		parser,
-		encoding::space,
-		result
-	);
+	return
+		boost::spirit::qi::phrase_parse(
+			_beg,
+			_end,
+			parser,
+			encoding::space,
+			_result
+		);
 }
 
 }

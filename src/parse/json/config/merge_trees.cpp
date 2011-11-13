@@ -19,19 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/member.hpp>
-#include <sge/parse/json/member_name_equal.hpp>
-#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/find_member_value.hpp>
+#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/algorithm/map.hpp>
+#include <fcppt/algorithm/key_set.hpp>
+#include <fcppt/algorithm/set_union.hpp>
+#include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/home/phoenix/bind.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/variant/apply_visitor.hpp>
-#include <algorithm>
 #include <set>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -66,70 +65,31 @@ public:
 };
 }
 
-namespace sge
-{
-namespace parse
-{
-namespace stdlib
-{
-template<typename T>
-std::set<T> const
-union_(
-	std::set<T> result,
-	std::set<T> const &t)
-{
-	std::copy(
-		t.begin(),
-		t.end(),
-		std::inserter(
-			result,
-			result.end()));
-	return result;
-}
-}
-}
-}
-
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-std::set<fcppt::string> const
-key_set(
-	sge::parse::json::object const &o)
-{
-	return
-		fcppt::algorithm::map<std::set<fcppt::string> >(
-			o.members,
-			boost::phoenix::bind(
-				&sge::parse::json::member::name,
-				boost::phoenix::arg_names::arg1));
-}
-}
-}
-}
-
 sge::parse::json::object const
 sge::parse::json::config::merge_trees(
 	sge::parse::json::object const &original,
 	sge::parse::json::object const &update)
 {
-	using namespace sge::parse::json;
-
 	sge::parse::json::object result;
 
 	typedef
 	std::set<fcppt::string>
 	string_set;
 
-	string_set const union_set =
-		sge::parse::stdlib::union_(
-			key_set(
-				original),
-			key_set(
-				update));
+	string_set const union_set(
+		fcppt::algorithm::set_union(
+			fcppt::algorithm::key_set<
+				string_set
+			>(
+				original.members
+			),
+			fcppt::algorithm::key_set<
+				string_set
+			>(
+				update.members
+			)
+		)
+	);
 
 	for(
 		string_set::const_iterator key =
@@ -137,44 +97,61 @@ sge::parse::json::config::merge_trees(
 		key != union_set.end();
 		++key)
 	{
-		member_vector::const_iterator
-			original_it =
-				std::find_if(
-					original.members.begin(),
-					original.members.end(),
-					member_name_equal(
-						*key)),
-			update_it =
-				std::find_if(
-					update.members.begin(),
-					update.members.end(),
-					member_name_equal(
-						*key));
+		typedef fcppt::optional<
+			sge::parse::json::value const &
+		> optional_value;
+
+		optional_value const
+			original_value(
+				sge::parse::json::find_member_value(
+					original.members,
+					*key
+				)
+			),
+			update_value(
+				sge::parse::json::find_member_value(
+					update.members,
+					*key
+				)
+			);
 
 		// Object exists only in the update? Then copy
-		if (original_it == original.members.end())
+		if (!original_value)
 		{
-			result.members.push_back(
-				*update_it);
+			result.members.insert(
+				std::make_pair(
+					*key,
+					*update_value
+				)
+			);
+
 			continue;
 		}
 
 		// Object exists only in the original? Then copy
-		if (update_it == update.members.end())
+		if (!update_value)
 		{
-			result.members.push_back(
-				*original_it);
+			result.members.insert(
+				std::make_pair(
+					*key,
+					*original_value
+				)
+			);
+
 			continue;
 		}
 
 		// Both objects have the key, then merge!
-		result.members.push_back(
-			member(
+		result.members.insert(
+			std::make_pair(
 				*key,
-				boost::apply_visitor(
+				fcppt::variant::apply_binary(
 					visitor(),
-					original_it->value,
-					update_it->value)));
+					*original_value,
+					*update_value
+				)
+			)
+		);
 	}
 
 	return result;

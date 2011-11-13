@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_FIND_OBJECT_HPP_INCLUDED
 
 #include <sge/parse/symbol.hpp>
+#include <sge/parse/json/const_optional_object_ref_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <sge/parse/json/optional_object_ref_fwd.hpp>
 #include <sge/parse/json/path_fwd.hpp>
 
 
@@ -32,12 +34,15 @@ namespace parse
 {
 namespace json
 {
-SGE_PARSE_SYMBOL sge::parse::json::object *
+
+SGE_PARSE_SYMBOL
+sge::parse::json::optional_object_ref const
 find_object(
 	sge::parse::json::object &,
 	json::path const &);
 
-SGE_PARSE_SYMBOL sge::parse::json::object const *
+SGE_PARSE_SYMBOL
+sge::parse::json::const_optional_object_ref const
 find_object(
 	sge::parse::json::object const &,
 	json::path const &);

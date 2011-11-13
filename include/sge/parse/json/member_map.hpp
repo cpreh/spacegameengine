@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_MEMBER_VECTOR_HPP_INCLUDED
-#define SGE_PARSE_JSON_MEMBER_VECTOR_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_MEMBER_MAP_HPP_INCLUDED
+#define SGE_PARSE_JSON_MEMBER_MAP_HPP_INCLUDED
 
-#include <sge/parse/json/member_fwd.hpp>
+#include <sge/parse/json/string.hpp>
+#include <sge/parse/json/value.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <boost/unordered_map.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -33,9 +35,10 @@ namespace parse
 namespace json
 {
 
-typedef std::vector<
-	member
-> member_vector;
+typedef boost::unordered_map<
+	json::string,
+	json::value
+> member_map;
 
 }
 }

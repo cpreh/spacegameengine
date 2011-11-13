@@ -18,24 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/object.hpp>
+#ifndef SGE_PARSE_JSON_SPIRIT_TRAITS_VARIANT_BASIC_HPP_INCLUDED
+#define SGE_PARSE_JSON_SPIRIT_TRAITS_VARIANT_BASIC_HPP_INCLUDED
+
+#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/spirit/home/support/attributes.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::parse::json::object::object()
+namespace boost
+{
+namespace spirit
+{
+namespace traits
+{
+
+template<
+	typename Elements,
+	typename Domain
+>
+struct not_is_variant<
+	fcppt::variant::object<
+		Elements
+	>,
+	Domain
+>
 :
-	members()
-{}
+boost::mpl::false_
+{
+};
 
-sge::parse::json::object::object(
-	optional_member_vector const &nmembers
-)
-:
-	members(
-		nmembers
-		?
-			*nmembers
-		:
-			member_vector()
-	)
-{}
+}
+}
+}
+
+#endif

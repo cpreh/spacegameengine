@@ -18,84 +18,73 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/exception.hpp>
+#include <sge/parse/json/find_object.hpp>
 #include <sge/parse/json/find_object_exn.hpp>
-#include <sge/parse/json/get.hpp>
-#include <sge/parse/json/member_name_equal.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/type_name.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <typeinfo>
-#include <fcppt/config/external_end.hpp>
 
+namespace
+{
+
+template<
+	typename Ret,
+	typename Object
+>
+typename Ret::reference
+find_object_exn_impl(
+	Object &_input_object,
+	sge::parse::json::path const &_path)
+{
+	Ret const ref(
+		sge::parse::json::find_object(
+			_input_object,
+			_path
+		)
+	);
+
+	if(
+		!ref
+	)
+		throw
+			sge::parse::json::exception(
+				FCPPT_TEXT("Couldn't navigate to \"")+
+				sge::parse::json::path_to_string(
+					_path)+
+				FCPPT_TEXT("\" because we couldn't find the object here!"));
+	return *ref;
+}
+
+}
 
 sge::parse::json::object &
 sge::parse::json::find_object_exn(
-	sge::parse::json::object &input_object,
-	json::path const &p)
+	sge::parse::json::object &_input_object,
+	json::path const &_path)
 {
-	sge::parse::json::object *current_object =
-		&input_object;
-
-	for(
-		json::path::const_iterator current_member =
-			p.begin();
-		current_member != p.end();
-		++current_member)
-	{
-		sge::parse::json::member_vector::iterator it =
-			std::find_if(
-				current_object->members.begin(),
-				current_object->members.end(),
-				sge::parse::json::member_name_equal(
-					*current_member));
-
-		if(it == current_object->members.end())
-			throw
-				sge::parse::json::exception(
-					FCPPT_TEXT("Couldn't navigate to \"")+
-					json::path_to_string(
-						p)+
-					FCPPT_TEXT("\", stopped at \"")+
-					(*current_member)+
-					FCPPT_TEXT("\" because we couldn't find the object here!"));
-
-		if(it->value.type() != typeid(sge::parse::json::object))
-			throw
-				sge::parse::json::exception(
-					FCPPT_TEXT("Couldn't navigate to \"")+
-					json::path_to_string(
-						p)+
-					FCPPT_TEXT("\", stopped at \"")+
-					(*current_member)+
-					FCPPT_TEXT("\" because this member has type \"")+
-					fcppt::type_name(
-						it->value.type())+
-					FCPPT_TEXT("\" instead of type sge::parse::json::object!"));
-
-		current_object =
-			&sge::parse::json::get<sge::parse::json::object>(
-				it->value);
-	}
-
 	return
-		*current_object;
+		find_object_exn_impl<
+			sge::parse::json::optional_object_ref
+		>(
+			_input_object,
+			_path
+		);
 }
 
 sge::parse::json::object const &
 sge::parse::json::find_object_exn(
-	sge::parse::json::object const &input_object,
-	json::path const &p)
+	sge::parse::json::object const &_input_object,
+	json::path const &_path)
 {
 	return
-			json::find_object_exn(
-				const_cast<sge::parse::json::object &>(
-					input_object),
-				p);
+		find_object_exn_impl<
+			sge::parse::json::const_optional_object_ref
+		>(
+			_input_object,
+			_path
+		);
 }

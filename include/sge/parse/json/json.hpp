@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/array_fwd.hpp>
+#include <sge/parse/json/const_optional_object_ref.hpp>
+#include <sge/parse/json/const_optional_object_ref_fwd.hpp>
 #include <sge/parse/json/convert_from.hpp>
 #include <sge/parse/json/convert_to.hpp>
 #include <sge/parse/json/element_vector.hpp>
@@ -30,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/find_member.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
+#include <sge/parse/json/find_member_return_type.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/find_member_value_exn.hpp>
 #include <sge/parse/json/find_object.hpp>
@@ -42,17 +45,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/is_null.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
-#include <sge/parse/json/member.hpp>
-#include <sge/parse/json/member_fwd.hpp>
-#include <sge/parse/json/member_name_equal.hpp>
+#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/member_not_found.hpp>
-#include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/optional_element_vector.hpp>
-#include <sge/parse/json/optional_member_vector.hpp>
-#include <sge/parse/json/output_tabbed.hpp>
+#include <sge/parse/json/optional_object_ref.hpp>
+#include <sge/parse/json/optional_object_ref_fwd.hpp>
 #include <sge/parse/json/parse_file.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/parse_range.hpp>
@@ -68,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/config/config.hpp>
 #include <sge/parse/json/convert/convert.hpp>
 #include <sge/parse/json/output/output.hpp>
+#include <sge/parse/json/spirit_traits/spirit_traits.hpp>
 
 
 #endif

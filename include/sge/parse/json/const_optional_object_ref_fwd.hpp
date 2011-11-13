@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_OUTPUT_TABBED_HPP_INCLUDED
-#define SGE_PARSE_JSON_OUTPUT_TABBED_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_CONST_OPTIONAL_OBJECT_REF_FWD_HPP_INCLUDED
+#define SGE_PARSE_JSON_CONST_OPTIONAL_OBJECT_REF_FWD_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
@@ -32,9 +31,11 @@ namespace parse
 {
 namespace json
 {
-SGE_PARSE_SYMBOL fcppt::string const
-output_tabbed(
-	sge::parse::json::object const &);
+
+typedef fcppt::optional<
+	json::object const &
+> const_optional_object_ref;
+
 }
 }
 }

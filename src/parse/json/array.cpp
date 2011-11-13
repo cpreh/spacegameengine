@@ -27,14 +27,15 @@ sge::parse::json::array::array()
 {}
 
 sge::parse::json::array::array(
-	optional_element_vector const &nelements
+	optional_element_vector const &_elements
 )
 :
 	elements(
-		nelements
+		_elements
 		?
-			*nelements
+			*_elements
 		:
-			element_vector()
+			json::element_vector()
 	)
-{}
+{
+}

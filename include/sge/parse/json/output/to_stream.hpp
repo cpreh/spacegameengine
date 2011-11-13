@@ -39,7 +39,7 @@ SGE_PARSE_SYMBOL
 bool
 to_stream(
 	fcppt::io::ostream &,
-	object const &
+	json::object const &
 );
 
 }

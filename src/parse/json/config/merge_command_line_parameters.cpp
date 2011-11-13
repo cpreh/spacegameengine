@@ -21,27 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
-#include <sge/parse/json/member_name_equal.hpp>
-#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/find_member_value.hpp>
+#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/string_to_value.hpp>
 #include <sge/parse/json/config/command_line_parameters.hpp>
 #include <sge/parse/json/config/help_needed_exception.hpp>
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/shortest_levenshtein.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/range/numeric.hpp>
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
-#include <boost/range/numeric.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <boost/spirit/home/support/common_terminals.hpp>
 #include <boost/spirit/include/qi.hpp>
-#include <algorithm>
 #include <iostream>
 #include <ostream>
 #include <vector>
@@ -97,21 +98,27 @@ process_option(
 				&sge::parse::json::find_member_exn
 				<
 					sge::parse::json::object,
-					sge::parse::json::member_vector
+					sge::parse::json::member_map
 				>,
 				boost::phoenix::bind(
 					&sge::parse::json::object::members,
 					boost::phoenix::arg_names::arg1),
 				boost::phoenix::arg_names::arg2));
 
-	sge::parse::json::member_vector::iterator it =
-		std::find_if(
-			target->members.begin(),
-			target->members.end(),
-			sge::parse::json::member_name_equal(
-				element));
+	typedef fcppt::optional<
+		sge::parse::json::value &
+	> optional_value;
 
-	if (it == target->members.end())
+	optional_value const pos(
+		sge::parse::json::find_member_value(
+			target->members,
+			element
+		)
+	);
+
+	if(
+		!pos
+	)
 		throw sge::parse::json::exception(
 			FCPPT_TEXT("Couldn't find member \"")+
 			element+
@@ -120,11 +127,11 @@ process_option(
 				fcppt::algorithm::map<std::vector<fcppt::string> >(
 					target->members,
 					boost::phoenix::bind(
-						&sge::parse::json::member::name,
+						&sge::parse::json::member_map::value_type::first,
 						boost::phoenix::arg_names::arg1)),
 				element));
 
-	it->value =
+	*pos =
 		sge::parse::json::string_to_value(
 			boost::fusion::at_c<1>(
 				result));

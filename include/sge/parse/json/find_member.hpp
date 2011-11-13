@@ -21,15 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
 
+#include <sge/parse/json/find_member_return_type.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/get.hpp>
-#include <sge/parse/json/detail/find_member_return_type.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_const.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -48,7 +43,7 @@ template<
 	typename T,
 	typename Arg
 >
-typename detail::find_member_return_type<
+typename json::find_member_return_type<
 	T,
 	Arg
 >::type
@@ -57,28 +52,35 @@ find_member(
 	fcppt::string const &_name
 )
 {
-	typedef typename detail::find_member_return_type<
+	typedef typename json::find_member_return_type<
 		json::value,
 		Arg
-	>::type return_type;
+	>::type value_return_type;
 
-	return_type const ret(
+	value_return_type const ret(
 		json::find_member_value(
 			_members,
 			_name
 		)
 	);
 
+	typedef typename json::find_member_return_type<
+		T,
+		Arg
+	>::type return_type;
+
 	return
 		ret
 		?
-			&json::get<
-				T
-			>(
-				*ret
+			return_type(
+				json::get<
+					T
+				>(
+					*ret
+				)
 			)
 		:
-			0
+			return_type()
 		;
 }
 

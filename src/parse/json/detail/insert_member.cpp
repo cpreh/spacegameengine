@@ -19,21 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/detail/insert_member.hpp>
 
 
-sge::parse::json::member::member()
-:
-	name(),
-	value()
-{}
-
-sge::parse::json::member::member(
-	json::string const &_name,
-	json::value const &_value
+void
+sge::parse::json::detail::insert_member(
+	json::object &_result,
+	json::detail::pair const &_syn,
+	bool &_failed
 )
-:
-	name(_name),
-	value(_value)
-{}
+{
+	_failed =
+		_result.members.insert(
+			_syn
+		).second;
+}

@@ -24,8 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/get.hpp>
-#include <sge/parse/json/member.hpp>
-#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/src/font/bitmap/load_rect.hpp>
 #include <fcppt/text.hpp>
@@ -36,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image2d::rect const
 sge::font::bitmap::load_rect(
-	sge::parse::json::member_vector const &_members
+	sge::parse::json::member_map const &_members
 )
 {
 	parse::json::element_vector const &elements(

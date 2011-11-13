@@ -18,7 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/member_not_found.hpp>
+#include <fcppt/string.hpp>
+
 
 sge::parse::json::member_not_found::member_not_found(
 	fcppt::string const &_string
@@ -27,4 +30,5 @@ sge::parse::json::member_not_found::member_not_found(
 	sge::parse::json::exception(
 		_string
 	)
-{}
+{
+}

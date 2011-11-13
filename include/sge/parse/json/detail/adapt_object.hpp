@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_DETAIL_ADAPT_OBJECT_HPP_INCLUDED
 #define SGE_PARSE_JSON_DETAIL_ADAPT_OBJECT_HPP_INCLUDED
 
+#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/adapted/struct/adapt_struct.hpp>
@@ -28,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 BOOST_FUSION_ADAPT_STRUCT(
 	sge::parse::json::object,
-	(sge::parse::json::member_vector, members)
+	(sge::parse::json::member_map, members)
 )
 
 #endif

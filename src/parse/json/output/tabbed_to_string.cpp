@@ -22,20 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
-#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/output_tabbed.hpp>
 #include <sge/parse/json/string.hpp>
 #include <sge/parse/json/value.hpp>
+#include <sge/parse/json/output/tabbed_to_string.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/ostringstream.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <boost/next_prior.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -70,28 +71,28 @@ public:
 		fcppt::io::ostringstream stream;
 
 		stream
-			<< (fcppt::format(FCPPT_TEXT("%s{\n")) % make_tabs()).str();
+			<< (fcppt::format(FCPPT_TEXT("%s{\n")) % this->make_tabs()).str();
 
 		for(
-			sge::parse::json::member_vector::const_iterator i =
+			sge::parse::json::member_map::const_iterator i =
 				o.members.begin();
 			i != o.members.end();
 			++i)
 		{
 			stream <<
-				(fcppt::format(FCPPT_TEXT("%s\"%s\" : \n")) % make_more_tabs() % i->name).str();
+				(fcppt::format(FCPPT_TEXT("%s\"%s\" : \n")) % this->make_more_tabs() % i->first).str();
 
 			stream <<
-				boost::apply_visitor(
+				fcppt::variant::apply_unary(
 					output_visitor(
 						tabs_+2),
-					i->value);
+					i->second);
 
-			if(i != --o.members.end())
+			if(boost::next(i) != o.members.end())
 				stream << FCPPT_TEXT(",");
 			stream << FCPPT_TEXT("\n");
 		}
-		stream << make_tabs() << FCPPT_TEXT("}");
+		stream << this->make_tabs() << FCPPT_TEXT("}");
 
 		return stream.str();
 	}
@@ -103,7 +104,7 @@ public:
 		fcppt::io::ostringstream stream;
 
 		stream
-			<< (fcppt::format(FCPPT_TEXT("%s[\n")) % make_tabs()).str();
+			<< (fcppt::format(FCPPT_TEXT("%s[\n")) % this->make_tabs()).str();
 
 		for(
 			sge::parse::json::element_vector::const_iterator i =
@@ -112,16 +113,16 @@ public:
 			++i)
 		{
 			stream <<
-				boost::apply_visitor(
+				fcppt::variant::apply_unary(
 					output_visitor(
 						tabs_+1),
 					*i);
 
-			if(i != --o.elements.end())
+			if(boost::next(i) != o.elements.end())
 				stream << FCPPT_TEXT(",");
 			stream << FCPPT_TEXT("\n");
 		}
-		stream << make_tabs() << FCPPT_TEXT("]");
+		stream << this->make_tabs() << FCPPT_TEXT("]");
 
 		return stream.str();
 	}
@@ -132,7 +133,7 @@ public:
 	{
 		if(o.find(FCPPT_TEXT('\"')) != sge::parse::json::string::npos)
 			throw sge::parse::json::exception(FCPPT_TEXT("quoted strings are unsupported"));
-		return make_tabs()+FCPPT_TEXT("\"")+o+FCPPT_TEXT("\"");
+		return this->make_tabs()+FCPPT_TEXT("\"")+o+FCPPT_TEXT("\"");
 	}
 
 	result_type
@@ -140,7 +141,7 @@ public:
 		bool const o) const
 	{
 		return
-			make_tabs()+(
+			this->make_tabs()+(
 			o
 			?
 				fcppt::string(FCPPT_TEXT("true"))
@@ -152,21 +153,21 @@ public:
 	operator()(
 		sge::parse::json::null const &) const
 	{
-		return make_tabs()+FCPPT_TEXT("null");
+		return this->make_tabs()+FCPPT_TEXT("null");
 	}
 
 	result_type
 	operator()(
 		sge::parse::json::int_type const o) const
 	{
-		return make_tabs() + fcppt::insert_to_string<result_type>(o);
+		return this->make_tabs() + fcppt::insert_to_string<result_type>(o);
 	}
 
 	result_type
 	operator()(
 		sge::parse::json::float_type const o) const
 	{
-		return make_tabs()+(fcppt::format(FCPPT_TEXT("%1$.2f")) % o).str();
+		return this->make_tabs()+(fcppt::format(FCPPT_TEXT("%1$.2f")) % o).str();
 	}
 private:
 	tab_count const tabs_;
@@ -192,14 +193,14 @@ private:
 }
 
 fcppt::string const
-sge::parse::json::output_tabbed(
+sge::parse::json::output::tabbed_to_string(
 	sge::parse::json::object const &o)
 {
 	sge::parse::json::value v(
 		o);
 
 	return
-		boost::apply_visitor(
+		fcppt::variant::apply_unary(
 			output_visitor(
 				0),
 			v);

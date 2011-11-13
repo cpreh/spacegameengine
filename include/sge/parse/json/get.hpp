@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/detail/get_return_type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
+#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/variant/get.hpp>
-#include <exception>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
 
@@ -51,19 +51,13 @@ get(
 	Arg &_val
 )
 {
-	try
-	{
-		return
-			boost::get<
-				T
-			>(
-				_val
-			);
-	}
-	catch(
-		std::exception const &
+	if(
+		!fcppt::variant::holds_type<
+			T
+		>(
+			_val
+		)
 	)
-	{
 		throw json::invalid_get(
 			FCPPT_TEXT("json::get<")
 			+ fcppt::type_name(
@@ -75,7 +69,11 @@ get(
 			)
 			+ FCPPT_TEXT("\" instead!")
 		);
-	}
+
+	return
+		_val.get<
+			T
+		>();
 }
 
 }

@@ -27,18 +27,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
-#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/string.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/adapt_array.hpp>
-#include <sge/parse/json/detail/adapt_member.hpp>
 #include <sge/parse/json/detail/adapt_object.hpp>
+#include <sge/parse/json/detail/insert_member.hpp>
+#include <sge/parse/json/detail/pair.hpp>
+#include <sge/parse/json/spirit_traits/variant_basic.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/fusion/adapted/std_pair.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_function.hpp>
 #include <boost/spirit/home/phoenix/core/value.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
@@ -46,8 +48,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/spirit/home/phoenix/statement/throw.hpp>
 #include <boost/spirit/include/qi_action.hpp>
+#include <boost/spirit/include/qi_attr.hpp>
 #include <boost/spirit/include/qi_char.hpp>
 #include <boost/spirit/include/qi_directive.hpp>
+#include <boost/spirit/include/qi_grammar.hpp>
+#include <boost/spirit/include/qi_int.hpp>
 #include <boost/spirit/include/qi_nonterminal.hpp>
 #include <boost/spirit/include/qi_numeric.hpp>
 #include <boost/spirit/include/qi_operator.hpp>
@@ -69,7 +74,7 @@ class grammar
 :
 	public boost::spirit::qi::grammar<
 		In,
-		object(),
+		json::object(),
 		encoding::space_type
 	>
 {
@@ -85,55 +90,57 @@ public:
 			object_
 		)
 	{
-		using encoding::char_;
-		using boost::spirit::lit;
-		using boost::spirit::lexeme;
-		using boost::spirit::labels::_val;
-		using boost::spirit::labels::_1;
+		namespace encoding = parse::encoding;
+
+		namespace qi = boost::spirit::qi;
 
 		null_ =
-			lit(
+			qi::lit(
 				FCPPT_TEXT("null")
 			)[
-				_val = boost::phoenix::construct<null>()
+				qi::_val
+				= boost::phoenix::construct<
+					json::null
+				>()
 			];
 
 		bool_ =
-			lit(
+			qi::lit(
 				FCPPT_TEXT("true")
 			)[
-				_val = true
+				qi::_val = true
 			]
-			| lit(
+			|
+			qi::lit(
 				FCPPT_TEXT("false")
 			)[
-				_val = false
+				qi::_val = false
 			];
 
 		quoted_string_ %=
-			lexeme[
-				lit(FCPPT_TEXT('"'))
+			boost::spirit::qi::lexeme[
+				qi::lit(FCPPT_TEXT('"'))
 				> *(
 					(
-						~char_(FCPPT_TEXT("\\\""))
+						~encoding::char_(FCPPT_TEXT("\\\""))
 					)
 					|
 					(
-						lit(FCPPT_TEXT('\\'))
-						>> char_
+						qi::lit(FCPPT_TEXT('\\'))
+						>> encoding::char_
 					)
 				)
-				> lit(FCPPT_TEXT('"'))
+				> qi::lit(FCPPT_TEXT('"'))
 			];
 
 		array_ %=
 			(
-				lit(FCPPT_TEXT('['))
+				qi::lit(FCPPT_TEXT('['))
 				> -(
 					value_
-					% lit(FCPPT_TEXT(','))
+					% qi::lit(FCPPT_TEXT(','))
 				)
-				> lit(FCPPT_TEXT(']'))
+				> qi::lit(FCPPT_TEXT(']'))
 			);
 
 		value_ %=
@@ -147,17 +154,24 @@ public:
 
 		member_ %=
 			quoted_string_
-			> lit(FCPPT_TEXT(':'))
+			> qi::lit(FCPPT_TEXT(':'))
 			> value_;
 
 		object_ %=
 			(
-				lit(FCPPT_TEXT('{'))
+				qi::lit(FCPPT_TEXT('{'))
 				> -(
-					member_
-					% lit(FCPPT_TEXT(','))
+					member_[
+						boost::phoenix::bind(
+							json::detail::insert_member,
+							boost::spirit::qi::_val,
+							boost::spirit::qi::_1,
+							boost::spirit::qi::_pass
+						)
+					]
+					% qi::lit(FCPPT_TEXT(','))
 				)
-				> lit(FCPPT_TEXT('}'))
+				> qi::lit(FCPPT_TEXT('}'))
 			);
 
 		null_.name(
@@ -225,19 +239,19 @@ public:
 	}
 private:
 	boost::spirit::qi::int_parser<
-		int_type
+		json::int_type
 	> int_;
 
 	boost::spirit::qi::real_parser<
-		float_type,
+		json::float_type,
 		boost::spirit::qi::strict_real_policies<
-			float_type
+			json::float_type
 		>
 	> strict_float;
 
 	boost::spirit::qi::rule<
 		In,
-		null(),
+		json::null(),
 		space_type
 	> null_;
 
@@ -249,31 +263,31 @@ private:
 
 	boost::spirit::qi::rule<
 		In,
-		string(),
+		json::string(),
 		space_type
 	> quoted_string_;
 
 	boost::spirit::qi::rule<
 		In,
-		array(),
+		json::array(),
 		space_type
 	> array_;
 
 	boost::spirit::qi::rule<
 		In,
-		value(),
+		json::value(),
 		space_type
 	> value_;
 
 	boost::spirit::qi::rule<
 		In,
-		member(),
+		detail::pair(),
 		space_type
 	> member_;
 
 	boost::spirit::qi::rule<
 		In,
-		object(),
+		json::object(),
 		space_type
 	> object_;
 };

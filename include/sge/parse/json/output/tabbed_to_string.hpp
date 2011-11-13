@@ -18,18 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_DETAIL_ADAPT_MEMBER_HPP_INCLUDED
-#define SGE_PARSE_JSON_DETAIL_ADAPT_MEMBER_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_OUTPUT_TABBED_TO_STRING_HPP_INCLUDED
+#define SGE_PARSE_JSON_OUTPUT_TABBED_TO_STRING_HPP_INCLUDED
 
-#include <sge/parse/json/member.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/adapted/struct/adapt_struct.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/parse/symbol.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+#include <fcppt/string.hpp>
 
-BOOST_FUSION_ADAPT_STRUCT(
-	sge::parse::json::member,
-	(sge::parse::json::string, name)
-	(sge::parse::json::value, value)
-)
+
+namespace sge
+{
+namespace parse
+{
+namespace json
+{
+namespace output
+{
+
+SGE_PARSE_SYMBOL
+fcppt::string const
+tabbed_to_string(
+	sge::parse::json::object const &);
+
+}
+}
+}
+}
 
 #endif

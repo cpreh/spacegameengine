@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/get.hpp>
-#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <sge/src/font/bitmap/char_metric.hpp>
@@ -56,7 +56,7 @@ sge::font::bitmap::load_one_file(
 	bitmap::char_map &_char_map
 )
 {
-	sge::parse::json::member_vector const &top_members(
+	sge::parse::json::member_map const &top_members(
 		_object.members
 	);
 
@@ -91,7 +91,7 @@ sge::font::bitmap::load_one_file(
 	)
 	try
 	{
-		sge::parse::json::member_vector const &members(
+		sge::parse::json::member_map const &members(
 			parse::json::get<
 				parse::json::object
 			>(

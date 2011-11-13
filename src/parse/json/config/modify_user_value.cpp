@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/exception.hpp>
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
-#include <sge/parse/json/member.hpp>
-#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <sge/parse/json/config/modify_user_value.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/variant/get.hpp>
-#include <algorithm>
-#include <numeric>
-#include <typeinfo>
+#include <boost/next_prior.hpp>
+#include <iterator>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,7 +51,7 @@ sge::parse::json::config::modify_user_value(
 			structure_json,
 			input_path);
 
-	if(old_value.which() != new_value.which())
+	if(old_value.type_index() != new_value.type_index())
 		throw
 			sge::parse::json::exception(
 				FCPPT_TEXT("Error trying to update the user configuration node \"")+
@@ -73,21 +73,19 @@ sge::parse::json::config::modify_user_value(
 				user_json,
 				json::path(
 					input_path.begin(),
-					--input_path.end()))
+					boost::prior(input_path.end())))
 		:
 			user_json;
 
-	sge::parse::json::member_vector::iterator it =
-		boost::find_if(
-			target.members,
-			sge::parse::json::member_name_equal(
-				input_path.back()));
+	sge::parse::json::member_map::iterator const it =
+		target.members.find(
+			input_path.back());
 
 	if(it == target.members.end())
-		target.members.push_back(
-			sge::parse::json::member(
+		target.members.insert(
+			std::make_pair(
 				input_path.back(),
 				new_value));
 	else
-		it->value = new_value;
+		it->second = new_value;
 }

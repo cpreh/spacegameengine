@@ -18,23 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/is_null.hpp>
-#include <sge/parse/json/null.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/value.hpp>
-#include <fcppt/variant/holds_type.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_PARSE_JSON_OPTIONAL_OBJECT_REF_FWD_HPP_INCLUDED
+#define SGE_PARSE_JSON_OPTIONAL_OBJECT_REF_FWD_HPP_INCLUDED
+
+#include <sge/parse/json/object_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
-bool
-sge::parse::json::is_null(
-	sge::parse::json::value const &_value)
+namespace sge
 {
-	return
-		fcppt::variant::holds_type<
-			sge::parse::json::null
-		>(
-			_value
-		);
+namespace parse
+{
+namespace json
+{
+
+typedef fcppt::optional<
+	json::object &
+> optional_object_ref;
+
 }
+}
+}
+
+#endif

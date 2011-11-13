@@ -21,16 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_FIND_MEMBER_VALUE_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_MEMBER_VALUE_HPP_INCLUDED
 
-#include <sge/parse/json/member.hpp>
-#include <sge/parse/json/member_name_equal.hpp>
-#include <sge/parse/json/member_vector.hpp>
-#include <sge/parse/json/detail/find_member_return_type.hpp>
+#include <sge/parse/json/find_member_return_type.hpp>
+#include <sge/parse/json/member_map.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_const.hpp>
-#include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,7 +44,7 @@ namespace json
 template<
 	typename Arg
 >
-typename detail::find_member_return_type<
+typename json::find_member_return_type<
 	json::value,
 	Arg
 >::type
@@ -61,26 +57,29 @@ find_member_value(
 		boost::is_const<
 			Arg
 		>,
-		member_vector::const_iterator,
-		member_vector::iterator
+		member_map::const_iterator,
+		member_map::iterator
 	>::type iterator;
 
 	iterator const it(
-		std::find_if(
-			_members.begin(),
-			_members.end(),
-			json::member_name_equal(
-				_name
-			)
+		_members.find(
+			_name
 		)
 	);
+
+	typedef typename json::find_member_return_type<
+		json::value,
+		Arg
+	>::type result_type;
 
 	return
 		it == _members.end()
 		?
-			0
+			result_type()
 		:
-			&it->value;
+			result_type(
+				it->second
+			);
 }
 
 }

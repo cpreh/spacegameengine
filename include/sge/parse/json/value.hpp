@@ -27,11 +27,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/string.hpp>
+#include <fcppt/variant/object.hpp>
+#include <fcppt/variant/recursive.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/variant/recursive_wrapper.hpp>
-#include <boost/variant/variant.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
+#if 0
+namespace boost
+{
+namespace spirit
+{
+namespace traits
+{
+
+template<
+	typename Elements,
+	typename Domain
+>
+struct variant_which<
+	fcppt::variant::object<
+		Elements
+	>,
+	Domain
+>{
+	static int
+	call(
+		fcppt::variant::object<
+			Elements
+		> const &_variant
+	)
+	{
+		return
+			static_cast<
+				int
+			>(
+				_variant.type_index()
+			);
+	}
+};
+
+}
+}
+}
+#endif
 
 namespace sge
 {
@@ -40,18 +80,20 @@ namespace parse
 namespace json
 {
 
-typedef boost::variant<
-	boost::recursive_wrapper<
-		object
-	>,
-	boost::recursive_wrapper<
-		array
-	>,
-	bool,
-	string,
-	float_type,
-	int_type,
-	null
+typedef fcppt::variant::object<
+	boost::mpl::vector7<
+		fcppt::variant::recursive<
+			json::object
+		>,
+		fcppt::variant::recursive<
+			json::array
+		>,
+		bool,
+		json::string,
+		json::float_type,
+		json::int_type,
+		json::null
+	>
 > value;
 
 }

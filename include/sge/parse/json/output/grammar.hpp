@@ -21,21 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_OUTPUT_GRAMMAR_HPP_INCLUDED
 #define SGE_PARSE_JSON_OUTPUT_GRAMMAR_HPP_INCLUDED
 
+#if 0
 #include <sge/parse/encoding.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
-#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/string.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/adapt_array.hpp>
-#include <sge/parse/json/detail/adapt_member.hpp>
 #include <sge/parse/json/detail/adapt_object.hpp>
+#include <sge/parse/json/detail/pair.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/variant/get.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/fusion/adapted/std_pair.hpp>
 #include <boost/spirit/include/karma_char.hpp>
 #include <boost/spirit/include/karma_directive.hpp>
 #include <boost/spirit/include/karma_grammar.hpp>
@@ -107,10 +109,12 @@ public:
 			<< lit(FCPPT_TEXT(':'))
 			<< value_;
 
+#if 0
 		object_ %=
 			lit(FCPPT_TEXT('{'))
 			<< -(member_ % lit(FCPPT_TEXT(", ")))
 			<< lit(FCPPT_TEXT('}'));
+#endif
 	}
 
 	~grammar()
@@ -118,41 +122,41 @@ public:
 	}
 private:
 	boost::spirit::karma::int_generator<
-		int_type
+		json::int_type
 	> int_;
 
 	boost::spirit::karma::real_generator<
-		float_type
+		json::float_type
 	> float_;
 
 	boost::spirit::karma::rule<
 		Out,
-		null
+		json::null
 	> null_;
 
 	boost::spirit::karma::rule<
 		Out,
-		string()
+		json::string()
 	> quoted_string_;
 
 	boost::spirit::karma::rule<
 		Out,
-		array()
+		json::array()
 	> array_;
 
 	boost::spirit::karma::rule<
 		Out,
-		value()
+		json::value()
 	> value_;
 
 	boost::spirit::karma::rule<
 		Out,
-		member()
+		detail::pair()
 	> member_;
 
 	boost::spirit::karma::rule<
 		Out,
-		object()
+		json::object()
 	> object_;
 };
 
@@ -160,5 +164,6 @@ private:
 }
 }
 }
+#endif
 
 #endif

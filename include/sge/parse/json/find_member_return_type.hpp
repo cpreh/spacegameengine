@@ -18,10 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_DETAIL_FIND_MEMBER_RETURN_TYPE_HPP_INCLUDED
-#define SGE_PARSE_JSON_DETAIL_FIND_MEMBER_RETURN_TYPE_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_FIND_MEMBER_RETURN_TYPE_HPP_INCLUDED
+#define SGE_PARSE_JSON_FIND_MEMBER_RETURN_TYPE_HPP_INCLUDED
 
-#include <sge/parse/json/member_vector.hpp>
+#include <fcppt/optional_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/add_const.hpp>
+#include <boost/type_traits/add_reference.hpp>
+#include <boost/type_traits/is_const.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -29,38 +36,29 @@ namespace parse
 {
 namespace json
 {
-namespace detail
-{
 
 template<
 	typename T,
 	typename Arg
 >
-struct find_member_return_type;
-
-template<
-	typename T
->
-struct find_member_return_type<
-	T,
-	json::member_vector
->
+struct find_member_return_type
 {
-	typedef T *type;
+	typedef
+	fcppt::optional<
+		typename boost::add_reference<
+			typename boost::mpl::if_<
+				boost::is_const<
+					Arg
+				>,
+				typename boost::add_const<
+					T
+				>::type,
+				T
+			>::type
+		>::type
+	> type;
 };
 
-template<
-	typename T
->
-struct find_member_return_type<
-	T,
-	json::member_vector const
->
-{
-	typedef T const *type;
-};
-
-}
 }
 }
 }
