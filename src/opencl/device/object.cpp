@@ -28,9 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/next_prior.hpp>
-// This is needed to get the CL_DEVICE_HALF_FP_CONFIG macro. However,
-// clGetDeviceInfo still fails when including and using this.
-//#include <CL/cl_ext.h>
 #include <cstring>
 #include <cstddef>
 #include <algorithm>

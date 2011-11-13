@@ -37,8 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
-// How portable is this include?
-#include <CL/cl_gl.h>
 #include <fcppt/config/external_end.hpp>
 
 

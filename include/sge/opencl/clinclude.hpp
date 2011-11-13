@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_CLINCLUDE_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <CL/cl.h>
+#include <CL/opencl.h>
 #include <fcppt/config/external_end.hpp>
 
 #endif

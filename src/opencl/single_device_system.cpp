@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/thread/locks.hpp>
+#include <boost/algorithm/string/trim.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -196,6 +197,14 @@ sge::opencl::single_device_system::command_queue() const
 
 sge::opencl::single_device_system::~single_device_system()
 {
+	// Consider the following scenario: An OpenCL function in thread A
+	// fails. The error callback is triggered from thread B, which acquires
+	// the error_mutex. At the same time, the failed function in thread A
+	// triggers an exception. This causes single_device_system to be
+	// destroyed. But the mutex might still be locked in thread B! So we
+	// have to wait here.
+	boost::lock_guard<boost::mutex> l(
+		error_mutex_);
 }
 
 void
@@ -217,7 +226,8 @@ sge::opencl::single_device_system::error_callback(
 		fcppt::log::_
 			<< FCPPT_TEXT("An error in a context occured: \"")
 			<<
-				fcppt::from_std_string(
-					_error_information)
+				boost::algorithm::trim_copy(
+					fcppt::from_std_string(
+						_error_information))
 			<< FCPPT_TEXT("\""));
 }

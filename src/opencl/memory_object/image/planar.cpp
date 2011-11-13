@@ -27,11 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CL/cl_gl.h>
-#include <fcppt/config/external_end.hpp>
-
 
 sge::opencl::memory_object::image::planar::planar(
 	context::object &_context,
@@ -46,13 +43,50 @@ sge::opencl::memory_object::image::planar::planar(
 	size_(
 		_size)
 {
+	FCPPT_ASSERT_PRE(
+		_image_format.image_channel_order != CL_RGB ||
+		(
+			_image_format.image_channel_data_type != CL_UNORM_SHORT_565 &&
+			_image_format.image_channel_data_type != CL_UNORM_SHORT_555
+			// Nvidia doesn't define this constant
+			/* && _image_format.image_channel_data_type != CL_UNORM_INT101010*/));
+
+	FCPPT_ASSERT_PRE(
+		_image_format.image_channel_order != CL_INTENSITY ||
+		(
+			_image_format.image_channel_data_type == CL_UNORM_INT8 ||
+			_image_format.image_channel_data_type == CL_UNORM_INT16 ||
+			_image_format.image_channel_data_type == CL_SNORM_INT8 ||
+			_image_format.image_channel_data_type == CL_SNORM_INT16 ||
+			_image_format.image_channel_data_type == CL_HALF_FLOAT ||
+			_image_format.image_channel_data_type == CL_FLOAT));
+
+	FCPPT_ASSERT_PRE(
+		_image_format.image_channel_order != CL_LUMINANCE ||
+		(
+			_image_format.image_channel_data_type == CL_UNORM_INT8 ||
+			_image_format.image_channel_data_type == CL_UNORM_INT16 ||
+			_image_format.image_channel_data_type == CL_SNORM_INT8 ||
+			_image_format.image_channel_data_type == CL_SNORM_INT16 ||
+			_image_format.image_channel_data_type == CL_HALF_FLOAT ||
+			_image_format.image_channel_data_type == CL_FLOAT));
+
+	FCPPT_ASSERT_PRE(
+		(_image_format.image_channel_order != CL_ARGB && _image_format.image_channel_order != CL_BGRA) ||
+		(
+			_image_format.image_channel_data_type == CL_UNORM_INT8 ||
+			_image_format.image_channel_data_type == CL_SNORM_INT8 ||
+			_image_format.image_channel_data_type == CL_SIGNED_INT8 ||
+			_image_format.image_channel_data_type == CL_UNSIGNED_INT8));
+
+
 	cl_int error_code;
 	impl_ =
 		clCreateImage2D(
 			_context.impl(),
 			memory_object::to_opencl_mem_flags(
 				_mem_flags),
-  			&_image_format,
+			&_image_format,
 			_size.w(),
 			_size.h(),
 			_pitch.get(),
