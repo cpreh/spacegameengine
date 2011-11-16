@@ -94,12 +94,14 @@ SET(
 	include/sge/parse/json/path.hpp
 	include/sge/parse/json/path_fwd.hpp
 	include/sge/parse/json/path_to_string.hpp
-	include/sge/parse/json/spirit_traits/variant_basic.hpp
 	include/sge/parse/json/string.hpp
 	include/sge/parse/json/string_to_path.hpp
 	include/sge/parse/json/string_to_value.hpp
 	include/sge/parse/json/value.hpp
 	include/sge/parse/parse.hpp
+	include/sge/parse/spirit_traits/optional_basic.hpp
+	include/sge/parse/spirit_traits/spirit_traits.hpp
+	include/sge/parse/spirit_traits/variant_basic.hpp
 	include/sge/parse/symbol.hpp
 	src/parse/exception.cpp
 	src/parse/include/sge/src/parse/output/to_file.hpp

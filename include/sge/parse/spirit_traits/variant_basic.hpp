@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_SPIRIT_TRAITS_VARIANT_BASIC_HPP_INCLUDED
-#define SGE_PARSE_JSON_SPIRIT_TRAITS_VARIANT_BASIC_HPP_INCLUDED
+#ifndef SGE_PARSE_SPIRIT_TRAITS_VARIANT_BASIC_HPP_INCLUDED
+#define SGE_PARSE_SPIRIT_TRAITS_VARIANT_BASIC_HPP_INCLUDED
 
 #include <fcppt/variant/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>

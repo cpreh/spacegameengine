@@ -18,34 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_ARRAY_HPP_INCLUDED
-#define SGE_PARSE_JSON_ARRAY_HPP_INCLUDED
+#ifndef SGE_PARSE_SPIRIT_TRAITS_OPTIONAL_BASIC_HPP_INCLUDED
+#define SGE_PARSE_SPIRIT_TRAITS_OPTIONAL_BASIC_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
-#include <sge/parse/json/array_fwd.hpp>
-#include <sge/parse/json/element_vector.hpp>
-#include <sge/parse/json/optional_element_vector.hpp>
-#include <sge/parse/json/value.hpp>
+#include <fcppt/optional_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/spirit/home/support/attributes.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+namespace boost
 {
-namespace parse
+namespace spirit
 {
-namespace json
+namespace traits
 {
 
-struct array
+template<
+	typename Type,
+	typename Domain
+>
+struct not_is_optional<
+	fcppt::optional<
+		Type
+	>,
+	Domain
+>
+:
+boost::mpl::false_
 {
-	SGE_PARSE_SYMBOL
-	array();
-
-	SGE_PARSE_SYMBOL
-	explicit array(
-		json::optional_element_vector const &
-	);
-
-	json::element_vector elements;
 };
 
 }

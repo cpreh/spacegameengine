@@ -35,7 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/detail/adapt_object.hpp>
 #include <sge/parse/json/detail/insert_member.hpp>
 #include <sge/parse/json/detail/pair.hpp>
-#include <sge/parse/json/spirit_traits/variant_basic.hpp>
+#include <sge/parse/spirit_traits/optional_basic.hpp>
+#include <sge/parse/spirit_traits/variant_basic.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
