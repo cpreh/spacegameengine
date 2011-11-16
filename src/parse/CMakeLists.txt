@@ -52,7 +52,6 @@ SET(
 	include/sge/parse/json/detail/get_return_type.hpp
 	include/sge/parse/json/detail/insert_member.hpp
 	include/sge/parse/json/detail/is_array.hpp
-	include/sge/parse/json/detail/pair.hpp
 	include/sge/parse/json/element_vector.hpp
 	include/sge/parse/json/exception.hpp
 	include/sge/parse/json/find_and_convert_member.hpp
@@ -72,6 +71,7 @@ SET(
 	include/sge/parse/json/is_null.hpp
 	include/sge/parse/json/json.hpp
 	include/sge/parse/json/make_recursive_objects.hpp
+	include/sge/parse/json/member.hpp
 	include/sge/parse/json/member_map.hpp
 	include/sge/parse/json/member_not_found.hpp
 	include/sge/parse/json/null.hpp
@@ -132,6 +132,7 @@ SET(
 	src/parse/json/is_null.cpp
 	src/parse/json/make_recursive_objects.cpp
 	src/parse/json/member_not_found.cpp
+	src/parse/json/object.cpp
 	src/parse/json/output/tabbed_to_string.cpp
 	src/parse/json/output/to_file.cpp
 	src/parse/json/output/to_stream.cpp

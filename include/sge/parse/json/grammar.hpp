@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/string.hpp>
@@ -34,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/detail/adapt_array.hpp>
 #include <sge/parse/json/detail/adapt_object.hpp>
 #include <sge/parse/json/detail/insert_member.hpp>
-#include <sge/parse/json/detail/pair.hpp>
 #include <sge/parse/spirit_traits/optional_basic.hpp>
 #include <sge/parse/spirit_traits/variant_basic.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -282,7 +282,7 @@ private:
 
 	boost::spirit::qi::rule<
 		In,
-		detail::pair(),
+		json::member(),
 		space_type
 	> member_;
 

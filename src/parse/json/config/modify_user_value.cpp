@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
+#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path_to_string.hpp>
@@ -32,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <iterator>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -83,7 +83,7 @@ sge::parse::json::config::modify_user_value(
 
 	if(it == target.members.end())
 		target.members.insert(
-			std::make_pair(
+			json::member(
 				input_path.back(),
 				new_value));
 	else

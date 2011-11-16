@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_value.hpp>
+#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
@@ -30,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <set>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -119,7 +119,7 @@ sge::parse::json::config::merge_trees(
 		if (!original_value)
 		{
 			result.members.insert(
-				std::make_pair(
+				json::member(
 					*key,
 					*update_value
 				)
@@ -132,7 +132,7 @@ sge::parse::json::config::merge_trees(
 		if (!update_value)
 		{
 			result.members.insert(
-				std::make_pair(
+				json::member(
 					*key,
 					*original_value
 				)
@@ -143,7 +143,7 @@ sge::parse::json::config::merge_trees(
 
 		// Both objects have the key, then merge!
 		result.members.insert(
-			std::make_pair(
+			json::member(
 				*key,
 				fcppt::variant::apply_binary(
 					visitor(),

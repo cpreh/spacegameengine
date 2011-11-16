@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
+#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path.hpp>
@@ -69,7 +70,7 @@ create_or_navigate_path(
 
 		insert_pair const insert_ret(
 			_old->members.insert(
-				std::make_pair(
+				sge::parse::json::member(
 					_new_member,
 					sge::parse::json::object())));
 

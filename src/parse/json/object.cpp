@@ -18,33 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_DETAIL_PAIR_HPP_INCLUDED
-#define SGE_PARSE_JSON_DETAIL_PAIR_HPP_INCLUDED
-
-#include <sge/parse/json/string.hpp>
-#include <sge/parse/json/value.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/member_map.hpp>
+#include <sge/parse/json/object.hpp>
 
 
-namespace sge
+sge::parse::json::object::object()
+:
+	members()
 {
-namespace parse
-{
-namespace json
-{
-namespace detail
-{
-
-typedef std::pair<
-	json::string,
-	json::value
-> pair;
-
-}
-}
-}
 }
 
-#endif
+sge::parse::json::object::object(
+	json::member_map const &_members
+)
+:
+	members(
+		_members
+	)
+{
+}

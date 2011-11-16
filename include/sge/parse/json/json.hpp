@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/is_null.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
+#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/member_not_found.hpp>
 #include <sge/parse/json/null.hpp>

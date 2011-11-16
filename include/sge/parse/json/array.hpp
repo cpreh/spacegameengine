@@ -42,6 +42,11 @@ struct array
 
 	SGE_PARSE_SYMBOL
 	explicit array(
+		json::element_vector const &
+	);
+
+	SGE_PARSE_SYMBOL
+	explicit array(
 		json::optional_element_vector const &
 	);
 
