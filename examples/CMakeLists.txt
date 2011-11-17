@@ -69,6 +69,7 @@ ADD_SGE_EXAMPLE(model_loader "config;systems;texture;modelobj;camera;parse;line_
 ADD_SGE_EXAMPLE(multi_texture "config;systems" "")
 ADD_SGE_EXAMPLE(multi_texture_sprite "config;sprite;systems;texture" "")
 ADD_SGE_EXAMPLE(opengl "renderer;rendereropengl;viewport;systems" "")
+ADD_SGE_EXAMPLE(ortho_view "sprite;systems;texture;camera" "")
 ADD_SGE_EXAMPLE(plugin "audio;config;font;image2d;input;renderer" "")
 ADD_SGE_EXAMPLE(pointsprite "systems;sprite;texture" "")
 ADD_SGE_EXAMPLE(savetexture "systems;sprite;texture;shader" "")

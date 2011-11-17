@@ -18,20 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_CAMERA_HPP_INCLUDED
-#define SGE_CAMERA_CAMERA_HPP_INCLUDED
+#include <sge/camera/projection/orthogonal.hpp>
 
-#include <sge/camera/base.hpp>
-#include <sge/camera/base_fwd.hpp>
-#include <sge/camera/duration.hpp>
-#include <sge/camera/gizmo_type.hpp>
-#include <sge/camera/identity_gizmo.hpp>
-#include <sge/camera/symbol.hpp>
-#include <sge/camera/first_person/first_person.hpp>
-#include <sge/camera/gizmo/gizmo.hpp>
-#include <sge/camera/ortho_freelook/ortho_freelook.hpp>
-#include <sge/camera/projection/projection.hpp>
-#include <sge/camera/spherical/spherical.hpp>
+sge::camera::projection::orthogonal::orthogonal(
+	renderer::projection::rect const &_rect,
+	renderer::projection::near const &_near,
+	renderer::projection::far const &_far)
+:
+	rect_(
+		_rect),
+	near_(
+		_near.get()),
+	far_(
+		_far.get())
+{
 
+}
 
-#endif
+sge::renderer::projection::rect const
+sge::camera::projection::orthogonal::rect() const
+{
+	return rect_;
+}
+
+sge::renderer::scalar
+sge::camera::projection::orthogonal::near() const
+{
+	return near_;
+}
+
+sge::renderer::scalar
+sge::camera::projection::orthogonal::far() const
+{
+	return far_;
+}

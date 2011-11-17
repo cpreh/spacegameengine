@@ -42,11 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/mipmap/create.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/lock_flags/write.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>

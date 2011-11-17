@@ -21,13 +21,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_PROJECTION_ORTHOGONAL_HPP_INCLUDED
 #define SGE_CAMERA_PROJECTION_ORTHOGONAL_HPP_INCLUDED
 
+#include <sge/renderer/projection/rect.hpp>
+#include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/camera/symbol.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+
 namespace sge
 {
 namespace camera
 {
 namespace projection
 {
-class orthogonal {};
+class orthogonal
+{
+public:
+	SGE_CAMERA_SYMBOL explicit
+	orthogonal(
+		renderer::projection::rect const &,
+		renderer::projection::near const &,
+		renderer::projection::far const &);
+
+	SGE_CAMERA_SYMBOL renderer::projection::rect const
+	rect() const;
+
+	SGE_CAMERA_SYMBOL renderer::scalar
+	near() const;
+
+	SGE_CAMERA_SYMBOL renderer::scalar
+	far() const;
+private:
+	renderer::projection::rect rect_;
+	renderer::scalar near_;
+	renderer::scalar far_;
+};
 }
 }
 }

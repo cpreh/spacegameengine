@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/scoped_work_bind.hpp>
 #include <sge/opengl/texture/surface.hpp>
 #include <sge/opengl/texture/funcs/get_parameter_int.hpp>
-#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>

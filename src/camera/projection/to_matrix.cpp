@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/projection/to_matrix.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/projection/orthogonal_xy.hpp>
+#include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -37,9 +37,15 @@ public:
 	result_type;
 
 	sge::renderer::matrix4 const
-	operator()(sge::camera::projection::orthogonal const &) const
+	operator()(sge::camera::projection::orthogonal const &ortho) const
 	{
-		return sge::renderer::projection::orthogonal_xy();
+		return
+			sge::renderer::projection::orthogonal(
+				ortho.rect(),
+				sge::renderer::projection::near(
+					ortho.near()),
+				sge::renderer::projection::far(
+					ortho.far()));
 	}
 
 	sge::renderer::matrix4 const

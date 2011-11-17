@@ -18,20 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_CAMERA_HPP_INCLUDED
-#define SGE_CAMERA_CAMERA_HPP_INCLUDED
+#ifndef SGE_CAMERA_ORTHO_FREELOOK_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_CAMERA_ORTHO_FREELOOK_PARAMETERS_FWD_HPP_INCLUDED
 
-#include <sge/camera/base.hpp>
-#include <sge/camera/base_fwd.hpp>
-#include <sge/camera/duration.hpp>
-#include <sge/camera/gizmo_type.hpp>
-#include <sge/camera/identity_gizmo.hpp>
-#include <sge/camera/symbol.hpp>
-#include <sge/camera/first_person/first_person.hpp>
-#include <sge/camera/gizmo/gizmo.hpp>
-#include <sge/camera/ortho_freelook/ortho_freelook.hpp>
-#include <sge/camera/projection/projection.hpp>
-#include <sge/camera/spherical/spherical.hpp>
-
+namespace sge
+{
+namespace camera
+{
+namespace ortho_freelook
+{
+class parameters;
+}
+}
+}
 
 #endif

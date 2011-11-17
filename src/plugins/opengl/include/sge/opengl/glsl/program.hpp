@@ -25,12 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glsl/program_base.hpp>
 #include <sge/opengl/glsl/program_holder.hpp>
 #include <sge/opengl/glsl/shader_base_fwd.hpp>
-#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/shader_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 

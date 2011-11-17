@@ -16,6 +16,11 @@ SET(
 	include/sge/camera/gizmo/to_rotation_matrix.hpp
 	include/sge/camera/gizmo_type.hpp
 	include/sge/camera/identity_gizmo.hpp
+	include/sge/camera/ortho_freelook/object.hpp
+	include/sge/camera/ortho_freelook/object_fwd.hpp
+	include/sge/camera/ortho_freelook/ortho_freelook.hpp
+	include/sge/camera/ortho_freelook/parameters.hpp
+	include/sge/camera/ortho_freelook/parameters_fwd.hpp
 	include/sge/camera/projection/object.hpp
 	include/sge/camera/projection/orthogonal.hpp
 	include/sge/camera/projection/perspective.hpp
@@ -33,6 +38,9 @@ SET(
 	src/camera/first_person/object.cpp
 	src/camera/first_person/parameters.cpp
 	src/camera/identity_gizmo.cpp
+	src/camera/ortho_freelook/object.cpp
+	src/camera/ortho_freelook/parameters.cpp
+	src/camera/projection/orthogonal.cpp
 	src/camera/projection/perspective.cpp
 	src/camera/projection/to_matrix.cpp
 	src/camera/projection/update_perspective_from_viewport.cpp
