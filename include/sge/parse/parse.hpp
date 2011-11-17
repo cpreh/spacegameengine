@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/symbol.hpp>
 #include <sge/parse/ini/ini.hpp>
 #include <sge/parse/json/json.hpp>
-#include <sge/parse/spirit_traits/spirit_traits.hpp>
 
 
 #endif
