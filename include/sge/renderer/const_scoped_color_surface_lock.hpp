@@ -34,27 +34,66 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Locks a color surface readonly.
+ *
+ * Used for locking renderer::color_surface. It locks the color surface in the
+ * constructor and unlocks it in the destructor.
+*/
+
 class const_scoped_color_surface_lock
 {
 	FCPPT_NONCOPYABLE(
 		const_scoped_color_surface_lock
 	);
 public:
+	/**
+	 * \brief Locks an entire color surface
+	 *
+	 * \param surface The surface to lock
+	 *
+	 * \warning The behaviour is undefined if the color surface is already
+	 * locked
+	*/
 	SGE_RENDERER_SYMBOL
 	explicit const_scoped_color_surface_lock(
-		renderer::color_surface const &
+		renderer::color_surface const &surface
 	);
 
+	/**
+	 * \brief Locks a portion of a color surface
+	 *
+	 * Locks the portion of \a surface described by \a area
+	 *
+	 * \param surface The color surface to lock
+	 *
+	 * \param area The area to lock
+	 *
+	 * \warning The behaviour is undefined if the color surface is already
+	 * locked
+	 * \warning The behaviour is undefined if \a area is out of range
+	*/
 	SGE_RENDERER_SYMBOL
 	const_scoped_color_surface_lock(
-		renderer::color_surface const &,
-		renderer::lock_rect const &
+		renderer::color_surface const &surface,
+		renderer::lock_rect const &area
 	);
 
+	/**
+	 * \brief Obtain the view of the locked region
+	 *
+	 * \return The view of the locked region
+	*/
 	SGE_RENDERER_SYMBOL
 	image2d::view::const_object const
 	value() const;
 
+	/**
+	 * \brief Unlocks the color surface
+	 *
+	 * \warning The behaviour is undefined if the color surface has been
+	 * locked again or unlocked in between the constructor and destructor
+	*/
 	SGE_RENDERER_SYMBOL
 	~const_scoped_color_surface_lock();
 private:

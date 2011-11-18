@@ -71,7 +71,7 @@ public:
 	typedef typename Types::view_type view_type;
 
 	/**
-	 * \brief Locks the buffer
+	 * \brief Locks a buffer
 	 *
 	 * Locks \a buffer, using the lock method \a method. The buffer will
 	 * be locked starting from \a first to \a first + \a count, or the

@@ -28,7 +28,12 @@ namespace sge
 namespace renderer
 {
 
-typedef raw_value const *const_raw_pointer;
+/**
+ * \brief A pointer to const raw data
+ *
+ * \see renderer::raw_value
+*/
+typedef renderer::raw_value const *const_raw_pointer;
 
 }
 }

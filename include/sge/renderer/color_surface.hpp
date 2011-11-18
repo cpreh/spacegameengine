@@ -56,33 +56,101 @@ public:
 	SGE_RENDERER_SYMBOL
 	virtual ~color_surface() = 0;
 
+	/**
+	 * \brief The size type
+	 *
+	 * Specifies a size in pixels
+	*/
 	typedef renderer::size_type size_type;
 
+	/**
+	 * \brief The dimension type
+	 *
+	 * Specifies a two dimensional size in pixels
+	*/
 	typedef renderer::dim2 dim;
 
+	/**
+	 * \brief The rect type
+	 *
+	 * Specifies a rectangle in pixels
+	*/
 	typedef renderer::lock_rect rect;
 
+	/**
+	 * \brief The view type
+	 *
+	 * The view type of the lock
+	*/
 	typedef sge::image2d::view::const_object const_view;
 
+	/**
+	 * \brief Locks the whole buffer readonly
+	 *
+	 * Locks the whole buffer readonly
+	 *
+	 * \return The view of the locked region
+	 *
+	 * \warning The behaviour is undefined if the buffer is already locked
+	*/
 	SGE_RENDERER_SYMBOL
 	const_view const
 	lock() const;
 
+	/**
+	 * \brief Locks a portion of the buffer readonly
+	 *
+	 * Reads the portion of the buffer specified by \a area readonly.
+	 *
+	 * \return The view of the locked region
+	 *
+	 * \warning The behaviour is undefined if the buffer is already locked
+	 * \warning The behaviour is undefined if \a area is out of range
+	*/
 	virtual const_view const
 	lock(
-		rect const &
+		rect const &area
 	) const = 0;
 
+	/**
+	 * \brief Unlocks the buffer
+	 *
+	 * Unlocks the currently locked buffer region.
+	 *
+	 * \warning The behaviour is undefined if the buffer is not locked
+	*/
 	virtual void
 	unlock() const = 0;
 
+	/**
+	 * \brief The size of the buffer
+	 *
+	 * Returns the size of the buffer as a two dimensional size of pixels
+	 *
+	 * \return The size of the buffer
+	*/
 	virtual dim const
 	size() const = 0;
 
+	/**
+	 * \brief A rectangle describing the size of the buffer
+	 *
+	 * Returns a rectangle describing the size of the buffer that has its
+	 * position set to zero.
+	 *
+	 * \return \c rect(rect::null(), this->dim())
+	*/
 	SGE_RENDERER_SYMBOL
 	rect const
 	area() const;
 
+	/**
+	 * \brief The number of pixels stored in the buffer
+	 *
+	 * Returns the number of pixels stored in the buffer as a size_type
+	 *
+	 * \return \c this->dim().content()
+	*/
 	SGE_RENDERER_SYMBOL
 	size_type
 	content() const;

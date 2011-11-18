@@ -30,6 +30,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief An optional renderer::vertex_declaration reference
+ *
+ * \see renderer::device::vertex_declaration
+*/
 typedef fcppt::optional<
 	renderer::vertex_declaration const &
 > const_optional_vertex_declaration;

@@ -26,14 +26,35 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The namespace for the depth stencil buffer enum
+*/
 namespace depth_stencil_buffer
 {
+/**
+ * The enum type for depth stencil buffer types
+*/
 enum type
 {
+	/**
+	 * \brief No depth buffer and no stencil buffer
+	*/
 	off,
+	/**
+	 * \brief 16 bit depth buffer, no stencil buffer
+	*/
 	d16,
+	/**
+	 * \brief 24 bit depth buffer, no stencil buffer
+	*/
 	d24,
+	/**
+	 * \brief 32 bit depth buffer, no stencil buffer
+	*/
 	d32,
+	/**
+	 * \brief 24 bit depth buffer, 8 bit stencil buffer
+	*/
 	d24s8
 };
 }

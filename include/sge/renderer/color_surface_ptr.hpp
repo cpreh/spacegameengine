@@ -30,6 +30,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A shared pointer to a renderer::color_surface
+*/
 typedef fcppt::shared_ptr<
 	renderer::color_surface
 > color_surface_ptr;
