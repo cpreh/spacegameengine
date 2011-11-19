@@ -8,6 +8,7 @@
 find_path(
 	D3D9_INCLUDE_DIR
 	d3d9.h
+	HINTS
 	"$ENV{DXSDK_DIR}/Include"
 	PATHS
 	"${D3D9_INCLUDEDIR}"

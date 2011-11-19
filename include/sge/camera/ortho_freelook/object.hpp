@@ -44,21 +44,26 @@ class SGE_CLASS_SYMBOL object
 FCPPT_NONCOPYABLE(
 	object);
 public:
+	SGE_CAMERA_SYMBOL
 	explicit
 	object(
 		ortho_freelook::parameters const &);
 
+	SGE_CAMERA_SYMBOL
 	void
 	update(
 		camera::duration const &);
 
+	SGE_CAMERA_SYMBOL
 	bool
 	active() const;
 
+	SGE_CAMERA_SYMBOL
 	void
 	active(
 		bool);
 
+	SGE_CAMERA_SYMBOL
 	~object();
 private:
 	fcppt::signal::scoped_connection mouse_axis_connection_;

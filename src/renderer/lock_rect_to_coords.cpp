@@ -45,8 +45,8 @@ typename boost::enable_if<
 	>,
 	typename fcppt::math::box::rect<
 		Ret
-	>::type const
->::type
+	>::type
+>::type const
 sge::renderer::lock_rect_to_coords(
 	renderer::lock_rect const &_rect,
 	renderer::dim2 const &_dim
@@ -98,8 +98,8 @@ boost::enable_if< \
 	>, \
 	fcppt::math::box::rect< \
 		floattype \
-	>::type const \
->::type \
+	>::type \
+>::type const \
 sge::renderer::lock_rect_to_coords<\
 	floattype \
 >(\
