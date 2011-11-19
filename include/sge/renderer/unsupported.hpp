@@ -48,7 +48,7 @@ public:
 	 *
 	 * \param feature The name of the feature
 	 *
-	 * \param minimum_required_version The minimum required version of the
+	 * \param minimum_version_required The minimum required version of the
 	 * renderer system that the plugin implements so that the feature is
 	 * available
 	 *

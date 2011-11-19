@@ -31,7 +31,8 @@ namespace renderer
 {
 
 /**
- * \brief A typedef used to describe the number of indices in an index buffer
+ * \brief A strong typedef used to describe the number of indices in an index
+ * buffer
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::size_type,

@@ -51,7 +51,7 @@ namespace renderer
  * which will return a view for accessing the data. Unlocking the buffer will
  * make the update actually take place.
  * If you want to render indexed geometry, an index buffer must be used.
-
+ *
  * \see renderer::device::create_index_buffer
  * \see renderer::device::render_indexed
  * \see renderer::const_scoped_index_lock

@@ -30,6 +30,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A strong typedef to a pixel rect describing a viewport
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::pixel_rect,
 	viewport

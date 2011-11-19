@@ -30,6 +30,10 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A strong typedef used to describe the number of vertices in a vertex
+ * buffer
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::size_type,
 	vertex_count

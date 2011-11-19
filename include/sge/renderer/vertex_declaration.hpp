@@ -32,6 +32,15 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A dynamic representation of a vertex format
+ *
+ * In order to activate vertex buffers, the corresponding vertex declaration
+ * needs to be set first.
+ *
+ * \see renderer::device::create_vertex_declaration
+ * \see renderer::device::vertex_declaration
+*/
 class SGE_CLASS_SYMBOL vertex_declaration
 {
 	FCPPT_NONCOPYABLE(

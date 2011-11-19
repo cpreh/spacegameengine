@@ -26,12 +26,23 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The namespace for the visial_depth enum
+*/
 namespace visual_depth
 {
-
+/**
+ * \brief The enum type for visual depths
+*/
 enum type
 {
+	/**
+	 * \brief A visual depth of 16 bits
+	*/
 	depth16 = 16,
+	/**
+	 * \brief A visual depth of 32 bits
+	*/
 	depth32 = 32
 };
 

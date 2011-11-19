@@ -26,11 +26,27 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The namespace for the vsync enum
+*/
 namespace vsync
 {
+/**
+ * \brief The enum type for vsync
+*/
 enum type
 {
+	/**
+	 * \brief vsync will be off
+	*/
 	off,
+	/**
+	 * \brief vsync will be on
+	 *
+	 * Activated vsync means that no more frames are rendered than the
+	 * monitor can show, indicated by the refresh rate of the current
+	 * display mode.
+	*/
 	on
 };
 }

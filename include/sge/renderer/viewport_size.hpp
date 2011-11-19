@@ -30,10 +30,17 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Returns the size of the viewport of the onscreen target
+ *
+ * \param device The device to use
+ *
+ * \return Returns the size of the viewport of the onscreen target of \a device
+*/
 SGE_RENDERER_SYMBOL
 renderer::screen_size const
 viewport_size(
-	renderer::device const &
+	renderer::device const &device
 );
 
 }

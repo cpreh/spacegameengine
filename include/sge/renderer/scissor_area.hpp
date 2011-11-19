@@ -31,7 +31,7 @@ namespace renderer
 {
 
 /**
- * \brief A typedef to a pixel rect describing a scissor area
+ * \brief A strong typedef to a pixel rect describing a scissor area
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::pixel_rect,

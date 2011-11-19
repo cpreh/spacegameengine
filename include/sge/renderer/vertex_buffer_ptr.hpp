@@ -30,6 +30,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A shared pointer to a renderer::vertex_buffer
+*/
 typedef fcppt::shared_ptr<
 	renderer::vertex_buffer
 > vertex_buffer_ptr;

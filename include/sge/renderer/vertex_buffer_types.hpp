@@ -31,14 +31,33 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Typedef helper for types used by a vertex buffer
+*/
 struct vertex_buffer_types
 {
+	/**
+	 * \brief The view type returned when locking the buffer readonly
+	*/
 	typedef vf::dynamic::const_view const_view_type;
 
+	/**
+	 * \brief The view type returned when locking the buffer
+	*/
 	typedef vf::dynamic::view view_type;
 
+	/**
+	 * \brief The offset type
+	 *
+	 * Describes a starting position in the buffer
+	*/
 	typedef renderer::first_vertex first_type;
 
+	/**
+	 * \brief The count type
+	 *
+	 * Describes a number of vertices
+	*/
 	typedef renderer::vertex_count count_type;
 };
 
