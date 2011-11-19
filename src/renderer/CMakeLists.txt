@@ -45,6 +45,8 @@ SET(
 	include/sge/renderer/const_scoped_color_surface_lock.hpp
 	include/sge/renderer/const_scoped_index_lock.hpp
 	include/sge/renderer/const_scoped_vertex_lock.hpp
+	include/sge/renderer/const_vertex_buffer_ref.hpp
+	include/sge/renderer/const_vertex_buffer_ref_container.hpp
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
 	include/sge/renderer/depth_stencil_buffer.hpp
@@ -250,7 +252,9 @@ SET(
 	include/sge/renderer/scoped_target.hpp
 	include/sge/renderer/scoped_transform.hpp
 	include/sge/renderer/scoped_vertex_buffer.hpp
+	include/sge/renderer/scoped_vertex_buffer_fwd.hpp
 	include/sge/renderer/scoped_vertex_declaration.hpp
+	include/sge/renderer/scoped_vertex_declaration_and_buffers.hpp
 	include/sge/renderer/scoped_vertex_lock.hpp
 	include/sge/renderer/screen_mode.hpp
 	include/sge/renderer/screen_size.hpp
@@ -625,6 +629,7 @@ SET(
 	src/renderer/scoped_transform.cpp
 	src/renderer/scoped_vertex_buffer.cpp
 	src/renderer/scoped_vertex_declaration.cpp
+	src/renderer/scoped_vertex_declaration_and_buffers.cpp
 	src/renderer/scoped_vertex_lock.cpp
 	src/renderer/screenshot.cpp
 	src/renderer/state/alpha_func.cpp

@@ -142,9 +142,9 @@ create a new block that runs in a loop.
 
 \snippet vertex.cpp running_block
 
-sge::renderer::scoped_vertex_declaration sets the vertex declaration in its
-constructor and unsets it in the destructor.
-sge::renderer::scoped_vertex_buffer does the same but to a vertex buffer.
+sge::renderer::scoped_vertex_declaration_and_buffers sets the vertex
+declaration and the vertex buffers in its constructor and unsets them in the
+destructor.
 
 \snippet vertex.cpp scoped_declaration
 

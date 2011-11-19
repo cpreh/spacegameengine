@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/renderer/const_vertex_buffer_ref_container.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/scoped_vertex_declaration_and_buffers.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
@@ -50,8 +50,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/running_to_false.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/instance.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -272,19 +274,20 @@ try
 			)
 		);
 
-		sge::renderer::scoped_vertex_declaration const vb_declaration_context(
+		sge::renderer::scoped_vertex_declaration_and_buffers const vb_context(
 			sys.renderer(),
-			*vertex_declaration
-		);
-
-		sge::renderer::scoped_vertex_buffer const vb_context1(
-			sys.renderer(),
-			*vertex_buffer1
-		);
-
-		sge::renderer::scoped_vertex_buffer const vb_context2(
-			sys.renderer(),
-			*vertex_buffer2
+			*vertex_declaration,
+			fcppt::assign::make_container<
+				sge::renderer::const_vertex_buffer_ref_container
+			>(
+				fcppt::cref(
+					*vertex_buffer1
+				)
+			)(
+				fcppt::cref(
+					*vertex_buffer2
+				)
+			)
 		);
 
 		sge::renderer::scoped_block const block(
