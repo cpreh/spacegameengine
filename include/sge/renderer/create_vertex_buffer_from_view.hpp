@@ -34,13 +34,28 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Creates a vertex buffer copied from a view
+ *
+ * Creates a vertex buffer copied from \a view with vertex declaration \a
+ * vertex_declaration and resource flags \a flags.
+ *
+ * \param device The device to create the vertex buffer from
+ * \param vertex_declaration The vertex declaration the buffer will be created for
+ * \param view The view to copy into the vertex buffer
+ * \param flags The resource flags for the vertex buffer
+ * \return A shared ptr to the created vertex buffer
+ * \throw Anything that renderer::device::create_vertex_buffer throws
+ * \warning The behaviour is undefined if \a view doesn't belong to \a
+ * vertex_declaration
+*/
 SGE_RENDERER_SYMBOL
 renderer::vertex_buffer_ptr const
 create_vertex_buffer_from_view(
-	renderer::device &,
-	renderer::vertex_declaration &,
-	renderer::vf::dynamic::const_view const &,
-	renderer::resource_flags_field const &
+	renderer::device &device,
+	renderer::vertex_declaration &vertex_declaration,
+	renderer::vf::dynamic::const_view const &view,
+	renderer::resource_flags_field const &flags
 );
 
 }

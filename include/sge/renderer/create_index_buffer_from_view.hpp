@@ -33,12 +33,23 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Creates an index buffer copied from a view
+ *
+ * Creates an index buffer copied from \a view with resource flags \a flags.
+ *
+ * \param device The device to create the index buffer from
+ * \param view The view to copy into the index buffer
+ * \param flags The resource flags for the index buffer
+ * \return A shared ptr to the created index buffer
+ * \throw Anything that renderer::device::create_index_buffer throws
+*/
 SGE_RENDERER_SYMBOL
 renderer::index_buffer_ptr const
 create_index_buffer_from_view(
-	renderer::device &,
-	index::dynamic::const_view const &,
-	renderer::resource_flags_field const &
+	renderer::device &device,
+	index::dynamic::const_view const &view,
+	renderer::resource_flags_field const &flags
 );
 
 }

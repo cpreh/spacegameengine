@@ -18,27 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DIM2_HPP_INCLUDED
-#define SGE_RENDERER_DIM2_HPP_INCLUDED
+#include <sge/renderer/bit_depth_bits.hpp>
+#include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/display_mode_output.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <ostream>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/renderer/basic_dim.hpp>
 
-namespace sge
+fcppt::io::ostream &
+sge::renderer::operator<<(
+	fcppt::io::ostream &_stream,
+	renderer::display_mode const &_mode
+)
 {
-namespace renderer
-{
-
-/**
- * \brief A typedef for a dimension of 2
-*/
-typedef
-renderer::basic_dim
-<
-	2
->::type
-dim2;
-
+	return
+		_stream
+		<< FCPPT_TEXT('(')
+		<< _mode.size().w()
+		<< FCPPT_TEXT('x')
+		<< _mode.size().h()
+		<< FCPPT_TEXT('x')
+		<< renderer::bit_depth_bits(
+			_mode.bit_depth()
+		)
+		<< FCPPT_TEXT('@')
+		<< _mode.refresh_rate()
+		<< FCPPT_TEXT(')');
 }
-}
-
-#endif

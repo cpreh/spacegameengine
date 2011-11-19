@@ -28,6 +28,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A typedef for a dimension of 3
+*/
 typedef
 renderer::basic_dim
 <

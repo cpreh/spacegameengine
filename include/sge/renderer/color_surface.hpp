@@ -125,9 +125,7 @@ public:
 	/**
 	 * \brief The size of the buffer
 	 *
-	 * Returns the size of the buffer as a two dimensional size of pixels
-	 *
-	 * \return The size of the buffer
+	 * \return The size of the buffer as a two dimensional size of pixels
 	*/
 	virtual dim const
 	size() const = 0;

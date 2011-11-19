@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DIM2_HPP_INCLUDED
-#define SGE_RENDERER_DIM2_HPP_INCLUDED
+#ifndef SGE_RENDERER_DISPLAY_MODE_COMPARISON_HPP_INCLUDED
+#define SGE_RENDERER_DISPLAY_MODE_COMPARISON_HPP_INCLUDED
 
-#include <sge/renderer/basic_dim.hpp>
+#include <sge/renderer/display_mode_fwd.hpp>
+#include <sge/renderer/symbol.hpp>
+
 
 namespace sge
 {
@@ -29,14 +31,32 @@ namespace renderer
 {
 
 /**
- * \brief A typedef for a dimension of 2
+ * \brief Compares every member of a display mode using ==
+ *
+ * Compares \a mode1 to \a mode2 using == on every member.
+ *
+ * \return Whether \a mode1 and \a mode2 are equal
 */
-typedef
-renderer::basic_dim
-<
-	2
->::type
-dim2;
+SGE_RENDERER_SYMBOL
+bool
+operator==(
+	renderer::display_mode const &mode1,
+	renderer::display_mode const &mode2
+);
+
+/**
+ * \brief Compares every member of a display mode using !=
+ *
+ * Compares \a mode1 to \a mode2 using != on every member.
+ *
+ * \return Whether \a mode1 and \a mode2 are equal
+*/
+SGE_RENDERER_SYMBOL
+bool
+operator!=(
+	renderer::display_mode const &mode1,
+	renderer::display_mode const &mode2
+);
 
 }
 }

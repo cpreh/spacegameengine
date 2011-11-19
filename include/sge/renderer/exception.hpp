@@ -33,19 +33,32 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The base class for every renderer exception
+*/
 class SGE_CLASS_SYMBOL exception
 :
 	public sge::exception
 {
 public:
+	/**
+	 * \brief Constructs the exception from a string
+	 *
+	 * Constructs the exception from \a what
+	*/
 	SGE_RENDERER_SYMBOL
 	explicit exception(
-		fcppt::string const &
+		fcppt::string const &what
 	);
 
+	/**
+	 * \brief Constructs the exception from an assert info
+	 *
+	 * Constructs the exception from \a info
+	*/
 	SGE_RENDERER_SYMBOL
 	explicit exception(
-		fcppt::assert_::information const &
+		fcppt::assert_::information const &info
 	);
 };
 

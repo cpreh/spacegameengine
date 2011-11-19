@@ -30,8 +30,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A shared pointer to a renderer::device
+*/
 typedef fcppt::shared_ptr<
-	device
+	renderer::device
 > device_ptr;
 
 }

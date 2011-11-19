@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DIM2_HPP_INCLUDED
-#define SGE_RENDERER_DIM2_HPP_INCLUDED
+#ifndef SGE_RENDERER_DISPLAY_MODE_OUTPUT_HPP_INCLUDED
+#define SGE_RENDERER_DISPLAY_MODE_OUTPUT_HPP_INCLUDED
 
-#include <sge/renderer/basic_dim.hpp>
+#include <sge/renderer/display_mode_fwd.hpp>
+#include <sge/renderer/symbol.hpp>
+#include <fcppt/io/ostream.hpp>
+
 
 namespace sge
 {
@@ -29,14 +32,18 @@ namespace renderer
 {
 
 /**
- * \brief A typedef for a dimension of 2
+ * \brief Outputs a display mode
+ *
+ * Outputs \a mode to \a stream
+ *
+ * \return \a stream
 */
-typedef
-renderer::basic_dim
-<
-	2
->::type
-dim2;
+SGE_RENDERER_SYMBOL
+fcppt::io::ostream &
+operator<<(
+	fcppt::io::ostream &stream,
+	renderer::display_mode const &mode
+);
 
 }
 }

@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DIM2_HPP_INCLUDED
-#define SGE_RENDERER_DIM2_HPP_INCLUDED
+#include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/bit_depth_bits.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-#include <sge/renderer/basic_dim.hpp>
 
-namespace sge
+sge::renderer::size_type
+sge::renderer::bit_depth_bits(
+	renderer::bit_depth::type const _bit_depth
+)
 {
-namespace renderer
-{
+	switch(
+		_bit_depth
+	)
+	{
+	case renderer::bit_depth::depth16:
+		return 16;
+	case renderer::bit_depth::depth32:
+		return 32;
+	}
 
-/**
- * \brief A typedef for a dimension of 2
-*/
-typedef
-renderer::basic_dim
-<
-	2
->::type
-dim2;
-
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-
-#endif

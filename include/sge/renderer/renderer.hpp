@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_lock_box.hpp>
 #include <sge/renderer/basic_scoped_buffer_lock.hpp>
 #include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/bit_depth_bits.hpp>
 #include <sge/renderer/bit_depth_bytes.hpp>
 #include <sge/renderer/buffer_has_depth.hpp>
 #include <sge/renderer/buffer_has_stencil.hpp>
@@ -63,7 +64,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/display_mode_comparison.hpp>
 #include <sge/renderer/display_mode_fwd.hpp>
+#include <sge/renderer/display_mode_output.hpp>
 #include <sge/renderer/emissive_color.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/first_index.hpp>

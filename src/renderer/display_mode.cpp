@@ -18,24 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/display_mode.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/math/dim/comparison.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <ostream>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/refresh_rate.hpp>
+#include <sge/renderer/screen_size.hpp>
 
 
 sge::renderer::display_mode::display_mode(
-	screen_size const &_size,
+	renderer::screen_size const &_size,
 	renderer::bit_depth::type const _bit_depth,
 	renderer::refresh_rate const _refresh_rate
 )
 :
-	size_(_size),
-	bit_depth_(_bit_depth),
-	refresh_rate_(_refresh_rate)
-{}
+	size_(
+		_size
+	),
+	bit_depth_(
+		_bit_depth
+	),
+	refresh_rate_(
+		_refresh_rate
+	)
+{
+}
 
 sge::renderer::screen_size const &
 sge::renderer::display_mode::size() const
@@ -49,49 +54,8 @@ sge::renderer::display_mode::bit_depth() const
 	return bit_depth_;
 }
 
-sge::renderer::refresh_rate
+sge::renderer::refresh_rate const
 sge::renderer::display_mode::refresh_rate() const
 {
 	return refresh_rate_;
-}
-
-bool
-sge::renderer::operator==(
-	display_mode const &_l,
-	display_mode const &_r
-)
-{
-	return
-		_l.bit_depth() == _r.bit_depth()
-		&& _l.size() == _r.size()
-		&& _l.refresh_rate() == _r.refresh_rate();
-}
-
-bool
-sge::renderer::operator!=(
-	display_mode const &_l,
-	display_mode const &_r
-)
-{
-	return !(_l == _r);
-}
-
-fcppt::io::ostream &
-sge::renderer::operator<<(
-	fcppt::io::ostream &_stream,
-	display_mode const &_mode
-)
-{
-	return _stream
-		<< FCPPT_TEXT('(')
-		<< _mode.size().w()
-		<< FCPPT_TEXT('x')
-		<< _mode.size().h()
-		<< FCPPT_TEXT('x')
-		<< static_cast<unsigned>(
-			_mode.bit_depth()
-		)
-		<< FCPPT_TEXT('@')
-		<< _mode.refresh_rate()
-		<< FCPPT_TEXT(')');
 }

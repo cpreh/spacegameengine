@@ -18,27 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DIM2_HPP_INCLUDED
-#define SGE_RENDERER_DIM2_HPP_INCLUDED
+#include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/display_mode_comparison.hpp>
+#include <fcppt/math/dim/comparison.hpp>
 
-#include <sge/renderer/basic_dim.hpp>
 
-namespace sge
+bool
+sge::renderer::operator==(
+	renderer::display_mode const &_l,
+	renderer::display_mode const &_r
+)
 {
-namespace renderer
-{
-
-/**
- * \brief A typedef for a dimension of 2
-*/
-typedef
-renderer::basic_dim
-<
-	2
->::type
-dim2;
-
-}
+	return
+		_l.bit_depth() == _r.bit_depth()
+		&& _l.size() == _r.size()
+		&& _l.refresh_rate() == _r.refresh_rate();
 }
 
-#endif
+bool
+sge::renderer::operator!=(
+	renderer::display_mode const &_l,
+	renderer::display_mode const &_r
+)
+{
+	return !(_l == _r);
+}

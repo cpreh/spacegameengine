@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/symbol.hpp>
 #include <sge/camera/projection/object.hpp>
-#include <sge/renderer/projection/rect.hpp>
-#include <sge/renderer/vector2.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/projection/rect.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>

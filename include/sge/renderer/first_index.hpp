@@ -30,8 +30,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A typedef used to describe the first index in an index buffer
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
-	size_type,
+	renderer::size_type,
 	first_index
 );
 

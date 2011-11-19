@@ -30,6 +30,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A shared pointer to a renderer::depth_stencil_surface
+*/
 typedef fcppt::shared_ptr<
 	renderer::depth_stencil_surface
 > depth_stencil_surface_ptr;

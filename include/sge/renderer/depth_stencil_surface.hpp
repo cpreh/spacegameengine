@@ -34,6 +34,14 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Describes an abstraction of a depth stencil store
+ *
+ * A depth stencil surface describes an abstraction of a depth stencil store.
+ * For example, the every mipmap level of a renderer::texture::depth_stencil is
+ * a depth stencil surface. A renderer::target (including the
+ * renderer::onscreen_target) can have a depth stencil surface as well.
+*/
 class SGE_CLASS_SYMBOL depth_stencil_surface
 {
 	FCPPT_NONCOPYABLE(
@@ -43,14 +51,29 @@ protected:
 	SGE_RENDERER_SYMBOL
 	depth_stencil_surface();
 public:
+	/**
+	 * \brief The dimension type
+	 *
+	 * Specifies a two dimensional size in pixels
+	*/
 	typedef renderer::dim2 dim;
 
 	SGE_RENDERER_SYMBOL
 	virtual ~depth_stencil_surface() = 0;
 
+	/**
+	 * \brief The size of the buffer
+	 *
+	 * \return The size of the buffer as a two dimensional size of pixels
+	*/
 	virtual dim const
 	size() const = 0;
 
+	/**
+	 * \brief The format of the surface
+	 *
+	 * \return The format of the surface
+	*/
 	virtual renderer::depth_stencil_format::type
 	format() const = 0;
 

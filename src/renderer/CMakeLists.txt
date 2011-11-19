@@ -10,6 +10,7 @@ SET(
 	include/sge/renderer/basic_lock_box.hpp
 	include/sge/renderer/basic_scoped_buffer_lock.hpp
 	include/sge/renderer/bit_depth.hpp
+	include/sge/renderer/bit_depth_bits.hpp
 	include/sge/renderer/bit_depth_bytes.hpp
 	include/sge/renderer/buffer_has_depth.hpp
 	include/sge/renderer/buffer_has_stencil.hpp
@@ -58,7 +59,9 @@ SET(
 	include/sge/renderer/dim2.hpp
 	include/sge/renderer/dim3.hpp
 	include/sge/renderer/display_mode.hpp
+	include/sge/renderer/display_mode_comparison.hpp
 	include/sge/renderer/display_mode_fwd.hpp
+	include/sge/renderer/display_mode_output.hpp
 	include/sge/renderer/emissive_color.hpp
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/first_index.hpp
@@ -523,6 +526,7 @@ SET(
 	src/renderer/add_depth_stencil_surface_to_target.cpp
 	src/renderer/aspect.cpp
 	src/renderer/aspect_from_viewport.cpp
+	src/renderer/bit_depth_bits.cpp
 	src/renderer/bit_depth_bytes.cpp
 	src/renderer/buffer_has_depth.cpp
 	src/renderer/buffer_has_stencil.cpp
@@ -537,6 +541,8 @@ SET(
 	src/renderer/depth_stencil_surface.cpp
 	src/renderer/device.cpp
 	src/renderer/display_mode.cpp
+	src/renderer/display_mode_comparison.cpp
+	src/renderer/display_mode_output.cpp
 	src/renderer/exception.cpp
 	src/renderer/glsl/exception.cpp
 	src/renderer/glsl/from_fcppt_string.cpp

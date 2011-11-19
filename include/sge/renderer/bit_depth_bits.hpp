@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DIM2_HPP_INCLUDED
-#define SGE_RENDERER_DIM2_HPP_INCLUDED
+#ifndef SGE_RENDERER_BIT_DEPTH_BITS_HPP_INCLUDED
+#define SGE_RENDERER_BIT_DEPTH_BITS_HPP_INCLUDED
 
-#include <sge/renderer/basic_dim.hpp>
+#include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/symbol.hpp>
 
 namespace sge
 {
@@ -29,14 +31,20 @@ namespace renderer
 {
 
 /**
- * \brief A typedef for a dimension of 2
+ * \brief Calculates how many bits are needed for one pixel
+ *
+ * Calculates how many bits are needed for a pixel
+ * from \a bit_depth
+ *
+ * \param bit_depth The bit_depth to calculate the size from
+ *
+ * \return 16 or 32
 */
-typedef
-renderer::basic_dim
-<
-	2
->::type
-dim2;
+SGE_RENDERER_SYMBOL
+renderer::size_type
+bit_depth_bits(
+	renderer::bit_depth::type bit_depth
+);
 
 }
 }
