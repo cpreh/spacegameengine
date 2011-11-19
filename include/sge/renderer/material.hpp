@@ -37,34 +37,72 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Describes how light affects geometry
+ *
+ * A material describes how light affects geometry if lighting and fixed
+ * function pipeline are enabled. The closer a color is to white the more a
+ * specific component of a light affects the geometry.
+ *
+ * \see renderer::light
+ * \see renderer::state::bool_::enable_lighting
+*/
 class material
 {
 public:
+	/**
+	 * \brief Constructs a material
+	 *
+	 * \param diffuse Describes how much diffuse light affects geometry
+	 *
+	 * \param ambient Describes how much ambient light affects geometry
+	 *
+	 * \param specular Describes how much specular light affects geometry
+	 *
+	 * \param emissive Describes how much geometry shines in the absence of light
+	 *
+	 * \param shininess Describes how strong specular light is
+	*/
 	SGE_RENDERER_SYMBOL
 	material(
-		renderer::diffuse_color const &,
-		renderer::ambient_color const &,
-		renderer::specular_color const &,
-		renderer::emissive_color const &,
-		renderer::shininess
+		renderer::diffuse_color const &diffuse,
+		renderer::ambient_color const &ambient,
+		renderer::specular_color const &specular,
+		renderer::emissive_color const &emissive,
+		renderer::shininess shininess
 	);
 
+	/**
+	 * \brief Returns the diffuse part
+	*/
 	SGE_RENDERER_SYMBOL
 	renderer::diffuse_color const &
 	diffuse() const;
 
+	/**
+	 * \brief Returns the ambient part
+	*/
 	SGE_RENDERER_SYMBOL
 	renderer::ambient_color const &
 	ambient() const;
 
+	/**
+	 * \brief Returns the specular part
+	*/
 	SGE_RENDERER_SYMBOL
 	renderer::specular_color const &
 	specular() const;
 
+	/**
+	 * \brief Returns the emissive part
+	*/
 	SGE_RENDERER_SYMBOL
 	renderer::emissive_color const &
 	emissive() const;
 
+	/**
+	 * \brief Returns the shininess
+	*/
 	SGE_RENDERER_SYMBOL
 	renderer::shininess const
 	shininess() const;

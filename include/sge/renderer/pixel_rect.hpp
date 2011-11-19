@@ -30,8 +30,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A typedef for a rect in pixel coordinates
+*/
 typedef fcppt::math::box::rect<
-	pixel_unit
+	renderer::pixel_unit
 >::type pixel_rect;
 
 }

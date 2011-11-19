@@ -31,17 +31,39 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A scoped rendering block
+ *
+ * This class calls device::begin_rendering in the constructor an
+ * device::end_rendering in the destructor.
+*/
 class scoped_block
 {
 	FCPPT_NONCOPYABLE(
 		scoped_block
 	);
 public:
+	/**
+	 * \brief Calls device::begin_rendering
+	 *
+	 * Calls \c device.begin_rendering()
+	 *
+	 * \param device The device to begin rendering for
+	 *
+	 * \warning The behaviour is undefined if device::begin_rendering has
+	 * already been called before a call to device::end_rendering.
+	*/
 	SGE_RENDERER_SYMBOL
 	explicit scoped_block(
-		renderer::device &
+		renderer::device &device
 	);
 
+	/**
+	 * \brief Calls device::end_rendering
+	 *
+	 * \warning The behaviour is undefined if device::end_rending was
+	 * already called.
+	*/
 	SGE_RENDERER_SYMBOL
 	~scoped_block();
 private:

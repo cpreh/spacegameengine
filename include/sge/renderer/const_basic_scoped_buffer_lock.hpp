@@ -85,6 +85,9 @@ public:
 	 *
 	 * \warning The behaviour is undefined if the buffer is already locked
 	 * or if the region is out of range
+	 *
+	 * \warning The behaviour is undefined if the buffer hasn't been
+	 * created with resource_flags::readable
 	*/
 	SGE_RENDERER_SYMBOL
 	explicit const_basic_scoped_buffer_lock(

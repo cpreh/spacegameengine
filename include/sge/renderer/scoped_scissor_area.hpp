@@ -32,21 +32,47 @@ namespace sge
 {
 namespace renderer
 {
+
+/**
+ * \brief A scoped scissor block
+ *
+ * This class sets a new scissor area for a target in the constructor, saving
+ * the old scissor area. In the destructor the old scissor area is restored.
+*/
 class scoped_scissor_area
 {
-FCPPT_NONCOPYABLE(
-	scoped_scissor_area);
+	FCPPT_NONCOPYABLE(
+		scoped_scissor_area
+	);
 public:
-	SGE_RENDERER_SYMBOL explicit
+	/**
+	 * \brief Sets a new scissor area
+	 *
+	 * Sets the scissor area of \a target to \a area. It also saves the
+	 * old scissor area of \a target which will be restored in the
+	 * destructor.
+	 *
+	 * \param target The target to set the scissor area for
+	 *
+	 * \param area The new scissor area
+	*/
+	SGE_RENDERER_SYMBOL
 	scoped_scissor_area(
-		renderer::target_base &,
-		renderer::scissor_area const &);
+		renderer::target_base &target,
+		renderer::scissor_area const &area
+	);
 
-	SGE_RENDERER_SYMBOL ~scoped_scissor_area();
+	/**
+	 * \brief Resets to the old scissor area
+	*/
+	SGE_RENDERER_SYMBOL
+	~scoped_scissor_area();
 private:
 	renderer::target_base &target_;
+
 	renderer::scissor_area old_area_;
 };
+
 }
 }
 

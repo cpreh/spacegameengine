@@ -30,6 +30,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A shared pointer to a renderer::target_base
+*/
 typedef fcppt::shared_ptr<
 	renderer::target_base
 > target_base_ptr;

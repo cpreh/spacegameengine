@@ -30,8 +30,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A typedef for a two dimensional renderer::screen_unit
+*/
 typedef fcppt::math::dim::static_<
-	screen_unit,
+	renderer::screen_unit,
 	2
 >::type screen_size;
 

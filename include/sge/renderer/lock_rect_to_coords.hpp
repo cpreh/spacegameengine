@@ -23,13 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
-#include <fcppt/math/box/structure_cast.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/static.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -37,51 +36,38 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Transforms a lock rect into texture coordinates
+ *
+ * Calculates the texture coordinates for \a area using the texture size \a
+ * size.
+ *
+ * \param area The portion of the texture to calculate the coordinates for
+ *
+ * \param size The size of the texture
+ *
+ * \tparam Ret The floating point type for the resulting rect to use
+ *
+ * \return The texture coordinates in [(0,0),(1,1)]
+ *
+ * \warning The behaviour is undefined if \a area lies outside of \a size
+*/
 template<
 	typename Ret
 >
-typename fcppt::math::box::rect<
-	Ret
->::type const
-lock_rect_to_coords(
-	renderer::lock_rect const &_rect,
-	renderer::dim2 const &_dim
-)
-{
-	typedef typename fcppt::math::box::rect<
+SGE_RENDERER_SYMBOL
+typename boost::enable_if<
+	boost::is_floating_point<
 		Ret
-	>::type ret_type;
-
-	ret_type const srect(
-		fcppt::math::box::structure_cast<
-			ret_type
-		>(
-			_rect
-		)
-	);
-
-	typedef typename fcppt::math::dim::static_<
-		Ret,
-		2
-	>::type sdim_type;
-
-	sdim_type const sdim(
-		fcppt::math::dim::structure_cast<
-			sdim_type
-		>(
-			_dim
-		)
-	);
-
-	return
-		ret_type(
-			typename ret_type::vector(
-				srect.left() / sdim.w(),
-				srect.top() / sdim.h()
-			),
-			srect.size() / sdim
-		);
-}
+	>,
+	typename fcppt::math::box::rect<
+		Ret
+	>::type const
+>::type
+lock_rect_to_coords(
+	renderer::lock_rect const &area,
+	renderer::dim2 const &size
+);
 
 }
 }

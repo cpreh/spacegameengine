@@ -30,6 +30,10 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A strong typedef to a floating point type describing the shininess of
+ * a material
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::scalar,
 	shininess

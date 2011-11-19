@@ -30,9 +30,12 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A bitfield that can hold flags from renderer::resource_flags
+*/
 typedef fcppt::container::bitfield::basic<
-	resource_flags::type,
-	resource_flags::size
+	renderer::resource_flags::type,
+	renderer::resource_flags::size
 > resource_flags_field;
 
 }

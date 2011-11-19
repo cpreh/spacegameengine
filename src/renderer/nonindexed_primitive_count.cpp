@@ -41,10 +41,10 @@ sge::renderer::nonindexed_primitive_count(
 		return _vertex_count.get();
 	case nonindexed_primitive_type::line:
 		if(
-			_vertex_count.get() <= 1
+			_vertex_count.get() % 2
 		)
 			throw sge::renderer::exception(
-				FCPPT_TEXT("nonindexed_primitive_count(): line needs at least two vertices!")
+				FCPPT_TEXT("nonindexed_primitive_count(): line needs a multiple of two vertices!")
 			);
 
 		return _vertex_count.get() / 2;

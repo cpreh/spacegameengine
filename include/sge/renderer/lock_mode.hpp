@@ -26,11 +26,31 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The namespace for the lock mode enum
+*/
 namespace lock_mode
 {
+/**
+ * The enum type for lock modes
+*/
 enum type
 {
+	/**
+	 * \brief Locks a resource for writing only
+	 *
+	 * This is always safe to use and is the most efficient way to update a
+	 * buffer.
+	*/
 	writeonly,
+	/**
+	 * \brief Locks a resource for reading and writing
+	 *
+	 * The contents of the resource can be read and written at the same
+	 * time. This can only be used if the resource has been created with
+	 * renderer::resource_flags::readable. Reading a resource can slow
+	 * locking and unlock down by a lot.
+	*/
 	readwrite
 };
 }

@@ -562,6 +562,7 @@ SET(
 	src/renderer/include/sge/src/renderer/glsl/uniform/basic_value_impl.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/format_enum_static.hpp
 	src/renderer/include/sge/src/renderer/index/instantiate_all.hpp
+	src/renderer/include/sge/src/renderer/instantiate_float.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near_far.hpp
 	src/renderer/include/sge/src/renderer/state/define_trampoline_object.hpp
@@ -600,6 +601,7 @@ SET(
 	src/renderer/lock_flags/from_mode.cpp
 	src/renderer/lock_flags/read.cpp
 	src/renderer/lock_flags/write.cpp
+	src/renderer/lock_rect_to_coords.cpp
 	src/renderer/material.cpp
 	src/renderer/no_multi_sampling.cpp
 	src/renderer/nonindexed_primitive_count.cpp

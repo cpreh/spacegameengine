@@ -29,6 +29,12 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A constant that describes the end of a buffer
+ *
+ * \see renderer::index_buffer::npos
+ * \see renderer::vertex_buffer::npos
+*/
 SGE_RENDERER_SYMBOL
 renderer::size_type
 npos();

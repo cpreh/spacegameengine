@@ -29,6 +29,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A constant for disabling multi sampling
+*/
 SGE_RENDERER_SYMBOL
 extern multi_sample_type const no_multi_sampling;
 

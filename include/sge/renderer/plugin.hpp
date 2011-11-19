@@ -41,11 +41,11 @@ struct traits<
 >
 {
 	SGE_RENDERER_SYMBOL
-	static address_name
+	static plugin::detail::address_name
 	plugin_loader_name();
 
 	SGE_RENDERER_SYMBOL
-	static capabilities::type
+	static plugin::capabilities::type
 	plugin_type();
 
 	typedef renderer::system_ptr const (*loader_fun)();

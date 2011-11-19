@@ -29,7 +29,7 @@ namespace renderer
 {
 
 /**
- * \brief A typedef for a dimension of 3
+ * \brief A typedef for a three dimensional renderer::size_type
 */
 typedef
 renderer::basic_dim

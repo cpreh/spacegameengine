@@ -662,7 +662,8 @@ public:
 	/**
 	 * \brief Creates a planar texture
 	 *
-	 * Creates a planar texture from \a parameters
+	 * Creates a planar texture from \a parameters.
+	 * Initially, the contents of the texture are undefined.
 	 *
 	 * \param parameters The parameters class for the planar texture, using
 	 * sge::renderer::dim2 as its dimensions,
@@ -683,7 +684,8 @@ public:
 	/**
 	 * \brief Creates a depth stencil texture
 	 *
-	 * Creates a depth stencil texture from \a parameters
+	 * Creates a depth stencil texture from \a parameters.
+	 * Initially, the contents of the texture are undefined.
 	 *
 	 * \param parameters The parameters class for the depth stencil
 	 * texture, using sge::renderer::dim2 as its dimensions,
@@ -705,7 +707,7 @@ public:
 	 * \brief Creates a depth stencil surface
 	 *
 	 * Creates a depth stencil surface with dimension \a size and format \a
-	 * format.
+	 * format. Initially, the contents of the surface are undefined.
 	 *
 	 * \param size The size of the surface
 	 * \param format The format of the surface
@@ -723,7 +725,8 @@ public:
 	/**
 	 * \brief Creates a volume texture
 	 *
-	 * Creates a volume texture from \a parameters
+	 * Creates a volume texture from \a parameters.
+	 * Initially, the contents of the texture are undefined.
 	 *
 	 * \param parameters The parameters class for the depth stencil
 	 * texture, using sge::renderer::dim3 as its dimensions,
@@ -744,7 +747,8 @@ public:
 	/**
 	 * \brief Creates a cube texture
 	 *
-	 * Creates a cube texture from \a parameters
+	 * Creates a cube texture from \a parameters.
+	 * Initially, the contents of the texture are undefined.
 	 *
 	 * \param parameters The parameters class for the depth stencil
 	 * texture, using sge::renderer::size_type as its dimensions,
@@ -781,8 +785,8 @@ public:
 	 *
 	 * Creates a vertex buffer that is going to hold data described by \a
 	 * part of \a vertex_declaration. It will be able to hold \a
-	 * vertex_count vertices. \a flags describes the capabilities
-	 * of the buffer.
+	 * vertex_count vertices. \a flags describes the capabilities of the
+	 * buffer. Initially, the contents of the buffer are undefined.
 	 *
 	 * \param vertex_declaration The vertex declaration the buffer belongs
 	 * to
@@ -811,7 +815,8 @@ public:
 	 *
 	 * Creates an index buffer that is going to hold data described by \a
 	 * format. It will be able to hold \a index_count indices. \a flags
-	 * describes the capabilities of the buffer.
+	 * describes the capabilities of the buffer. Initially, the contents
+	 * of the buffer are undefined.
 	 *
 	 * \param format The format of the indices
 	 * \param index_count The number of indices the buffer will hold

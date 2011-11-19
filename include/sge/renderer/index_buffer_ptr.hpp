@@ -30,6 +30,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A shared pointer to a renderer::index_buffer
+*/
 typedef fcppt::shared_ptr<
 	renderer::index_buffer
 > index_buffer_ptr;

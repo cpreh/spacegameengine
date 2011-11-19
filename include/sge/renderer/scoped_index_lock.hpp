@@ -33,6 +33,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A scoped lock that locks a renderer::index_buffer
+ *
+ * \see renderer::basic_scoped_buffer_lock
+*/
 typedef renderer::basic_scoped_buffer_lock<
 	renderer::index_buffer,
 	renderer::index_buffer_types

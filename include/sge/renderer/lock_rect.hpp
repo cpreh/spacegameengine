@@ -28,6 +28,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A typedef for a rect used for locking textures
+*/
 typedef renderer::basic_lock_box<
 	2
 >::type lock_rect;

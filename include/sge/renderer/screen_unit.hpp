@@ -26,6 +26,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A type used to measure screen resolutions
+*/
 typedef unsigned screen_unit;
 
 }

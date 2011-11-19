@@ -64,6 +64,10 @@ SET(
 	src/texture/sub_data.cpp
 )
 
+INCLUDE_DIRECTORIES(
+	${CMAKE_SOURCE_DIR}/src/renderer/include
+)
+
 ADD_SGE_BASE_LIBRARY(
 	texture
 	"sgeimage2d;sgerenderer"

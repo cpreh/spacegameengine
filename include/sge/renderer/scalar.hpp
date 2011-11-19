@@ -26,6 +26,12 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The basic floating point type for renderer
+ *
+ * Although double can be used in some places like the vertex format, float is
+ * used everywhere else.
+*/
 typedef
 float
 scalar;

@@ -34,6 +34,13 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A variant over two possible screen modes
+ *
+ * A screen mode is either windowed, which is represented by a
+ * renderer::visual_depth parameter, or it is fullscreen, which is represented
+ * by a renderer::display_mode.
+*/
 typedef fcppt::variant::object<
 	boost::mpl::vector2<
 		renderer::display_mode,

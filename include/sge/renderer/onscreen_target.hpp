@@ -34,6 +34,16 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The target used to render on screen
+ *
+ * Every renderer::device will have an onscreen target by default. It is used
+ * to render anything on screen (instead of rendering to, for example, a
+ * texture).
+ *
+ * \see renderer::target_base
+ * \see renderer::device::onscreen_target
+*/
 class SGE_CLASS_SYMBOL onscreen_target
 :
 	public sge::renderer::target_base
@@ -45,6 +55,9 @@ protected:
 	SGE_RENDERER_SYMBOL
 	onscreen_target();
 public:
+	/**
+	 * \brief Returns the associated color surface
+	*/
 	virtual renderer::color_surface const &
 	surface() const = 0;
 

@@ -28,6 +28,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A strong typedef describing the index of a surface
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	unsigned,
 	surface_index

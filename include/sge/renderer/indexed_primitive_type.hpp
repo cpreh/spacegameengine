@@ -26,11 +26,27 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The namespace for the indexed primitive type enum
+*/
 namespace indexed_primitive_type
 {
+/**
+ * The enum type for indexed primitive types
+*/
 enum type
 {
+	/**
+	 * \brief Indices describe lines
+	 *
+	 * Every two adjacent indices will be used to describe one line.
+	*/
 	line,
+	/**
+	 * \brief Indices describe triangles
+	 *
+	 * Every three adjacent indices will be used to describe one triangle.
+	*/
 	triangle
 };
 }

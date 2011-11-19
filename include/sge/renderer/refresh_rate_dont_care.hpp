@@ -29,6 +29,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A constant that tells that the refresh rate is not important
+*/
 SGE_RENDERER_SYMBOL
 extern refresh_rate const refresh_rate_dont_care;
 

@@ -26,15 +26,56 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The namespace for the non indexed primitive type enum
+*/
 namespace nonindexed_primitive_type
 {
+/**
+ * The enum type for non indexed primitive types
+*/
 enum type
 {
+	/**
+	 * \brief Vertices describe points
+	 *
+	 * Each vertex describes one point.
+	*/
 	point,
+	/**
+	 * \brief Vertices describe lines
+	 *
+	 * Every two adjacent vertices form one line.
+	*/
 	line,
+	/**
+	 * \brief Vertices describe a line strip
+	 *
+	 * The first two vertices form a line. For every other vertex,
+	 * it is combined with the current one to form another line.
+	*/
 	line_strip,
+	/**
+	 * \brief Vertices describe triangles
+	 *
+	 * Every three adjacent vertices form one triangle.
+	*/
 	triangle,
+	/**
+	 * \brief Vertices describe a triangle strip
+	 *
+	 * The first three vertices form a triangle. For every other vertex, it
+	 * is combined with the current and the previous one to form another
+	 * triangle.
+	*/
 	triangle_strip,
+	/**
+	 * \brief Vertices describe a triangle fan
+	 *
+	 * The first three vertices form a triangle. For every other vertex, it
+	 * is combined with the previous and the first vertex to form another
+	 * triangle.
+	*/
 	triangle_fan
 };
 }

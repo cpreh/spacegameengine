@@ -18,120 +18,95 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
-#include <sge/renderer/texture/planar.hpp>
 #include <sge/src/renderer/instantiate_float.hpp>
-#include <sge/texture/area_texc.hpp>
-#include <sge/texture/part.hpp>
 #include <fcppt/export_symbol.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/math/compare.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/rect.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/comparison.hpp>
-#include <fcppt/math/vector/dim.hpp>
-#include <fcppt/math/vector/output.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/dim/static.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
 template<
-	typename T
+	typename Ret
 >
 typename boost::enable_if<
 	boost::is_floating_point<
-		T
+		Ret
 	>,
 	typename fcppt::math::box::rect<
-		T
-	>::type
->::type const
-sge::texture::area_texc(
-	texture::part const &_part,
-	typename fcppt::math::vector::static_<
-		T,
-		2
-	>::type const &_repeat
+		Ret
+	>::type const
+>::type
+sge::renderer::lock_rect_to_coords(
+	renderer::lock_rect const &_rect,
+	renderer::dim2 const &_dim
 )
 {
-	typedef typename fcppt::math::vector::static_<
-		T,
-		2
-	>::type vector_type;
-
-	if(
-		_repeat
-		!=
-		vector_type(
-			1.f,
-			1.f
-		)
-		&& !_part.repeatable()
-	)
-		FCPPT_LOG_WARNING(
-			log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("texture not repeatable but repetition is ")
-				<< _repeat
-				<< FCPPT_TEXT('!')
-		);
-
 	typedef typename fcppt::math::box::rect<
-		T
+		Ret
 	>::type ret_type;
 
-	ret_type ret(
-		renderer::lock_rect_to_coords<
-			T
+	ret_type const srect(
+		fcppt::math::box::structure_cast<
+			ret_type
 		>(
-			_part.area(),
-			_part.texture()->size()
+			_rect
 		)
 	);
 
-	ret.size(
-		fcppt::math::vector::structure_cast<
-			typename ret_type::dim
+	typedef typename fcppt::math::dim::static_<
+		Ret,
+		2
+	>::type sdim_type;
+
+	sdim_type const sdim(
+		fcppt::math::dim::structure_cast<
+			sdim_type
 		>(
-			_repeat * ret.size()
+			_dim
 		)
 	);
 
-	return ret;
+	return
+		ret_type(
+			typename ret_type::vector(
+				srect.left() / sdim.w(),
+				srect.top() / sdim.h()
+			),
+			srect.size() / sdim
+		);
 }
 
-#define SGE_TEXTURE_INSTANTIATE_AREA_TEXC(\
-	ftype\
-)\
+#define SGE_RENDERER_INSTANTIATE_LOCK_RECT_TO_COORDS(\
+	floattype\
+) \
 template \
 FCPPT_EXPORT_SYMBOL \
 boost::enable_if< \
 	boost::is_floating_point< \
-		ftype \
+		floattype \
 	>, \
-	fcppt::math::box::rect<\
-		ftype\
-	>::type \
->::type const \
-sge::texture::area_texc<\
-	ftype\
->( \
-	sge::texture::part const &,\
-	fcppt::math::vector::static_<\
-		ftype,\
-		2\
-	>::type const &\
+	fcppt::math::box::rect< \
+		floattype \
+	>::type const \
+>::type \
+sge::renderer::lock_rect_to_coords<\
+	floattype \
+>(\
+	renderer::lock_rect const &, \
+	renderer::dim2 const &\
 )
 
 SGE_RENDERER_INSTANTIATE_FLOAT(
-	SGE_TEXTURE_INSTANTIATE_AREA_TEXC
+	SGE_RENDERER_INSTANTIATE_LOCK_RECT_TO_COORDS
 )

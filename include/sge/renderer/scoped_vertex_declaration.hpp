@@ -32,18 +32,36 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A scoped vertex declaration block
+ *
+ * Sets a vertex declaration in the constructor and unsets it in the
+ * destructor.
+*/
 class scoped_vertex_declaration
 {
 	FCPPT_NONCOPYABLE(
 		scoped_vertex_declaration
 	);
 public:
+	/**
+	 * \brief Sets a vertex declaration
+	 *
+	 * Sets \a vertex_declaration for \a device
+	 *
+	 * \param device The device to set the vertex declaration for
+	 *
+	 * \param vertex_declaration The vertex declaration to set
+	*/
 	SGE_RENDERER_SYMBOL
 	scoped_vertex_declaration(
-		renderer::device &,
-		renderer::vertex_declaration const &
+		renderer::device &device,
+		renderer::vertex_declaration const &vertex_declaration
 	);
 
+	/**
+	 * \brief Unsets the vertex declaration
+	*/
 	SGE_RENDERER_SYMBOL
 	~scoped_vertex_declaration();
 private:

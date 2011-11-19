@@ -32,11 +32,29 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief An exception that is thrown when unsupported features are used
+*/
 class SGE_CLASS_SYMBOL unsupported
 :
 	public sge::renderer::exception
 {
 public:
+	/**
+	 * \brief Constructs the exception
+	 *
+	 * Constructs the exception with three strings describing the missing
+	 * feature.
+	 *
+	 * \param feature The name of the feature
+	 *
+	 * \param minimum_required_version The minimum required version of the
+	 * renderer system that the plugin implements so that the feature is
+	 * available
+	 *
+	 * \param possible_extensions Possible extensions that could also be
+	 * used to provide the feature
+	*/
 	SGE_RENDERER_SYMBOL
 	unsupported(
 		fcppt::string const &feature,
@@ -44,14 +62,24 @@ public:
 		fcppt::string const &possible_extensions
 	);
 
+	/**
+	 * \brief Returns the name of the missing feature
+	*/
 	SGE_RENDERER_SYMBOL
 	fcppt::string const &
 	feature() const;
 
+	/**
+	 * \brief Returns the minimum version that is required to get the
+	 * feature
+	*/
 	SGE_RENDERER_SYMBOL
 	fcppt::string const &
 	minimum_version_required() const;
 
+	/**
+	 * \brief Returns possible extensions that could provide the feature
+	*/
 	SGE_RENDERER_SYMBOL
 	fcppt::string const &
 	possible_extensions() const;

@@ -36,29 +36,64 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief General parameters for a renderer::device
+ *
+ * Used to create a renderer::device or a renderable window. The settings
+ * described by this class are immutable and (currently) cannot be changed
+ * after a device has been created. Settings include resolution, bit depth,
+ * depth buffer, stencil buffer, vsync and multi sampling.
+ *
+ * \see renderer::system::create_device
+ * \see renderer::system::create_window
+*/
 class parameters
 {
 public:
+	/**
+	 * \brief Constructs renderer parameters
+	 *
+	 * \param screen_mode The screen mode to use
+	 *
+	 * \param depth_stencil The depth stencil setting
+	 *
+	 * \param vsync Switches vsync on or off
+	 *
+	 * \param multi_samples Specifies how many samples should be rendered,
+	 * which must be >=1, or renderer::no_multi_sampling
+	*/
 	SGE_RENDERER_SYMBOL
 	parameters(
-		renderer::screen_mode const &,
-		renderer::depth_stencil_buffer::type,
-		renderer::vsync::type,
-		renderer::multi_sample_type
+		renderer::screen_mode const &screen_mode,
+		renderer::depth_stencil_buffer::type depth_stencil,
+		renderer::vsync::type vsync,
+		renderer::multi_sample_type multi_samples
 	);
 
+	/**
+	 * \brief Returns the screen mode
+	*/
 	SGE_RENDERER_SYMBOL
 	renderer::screen_mode const &
 	screen_mode() const;
 
+	/**
+	 * \brief Returns the depth stencil buffer settings
+	*/
 	SGE_RENDERER_SYMBOL
 	renderer::depth_stencil_buffer::type
 	depth_stencil_buffer() const;
 
+	/**
+	 * \brief Returns whether vsync should be used
+	*/
 	SGE_RENDERER_SYMBOL
 	renderer::vsync::type
 	vsync() const;
 
+	/**
+	 * \brief Returns the number of multi samples
+	*/
 	SGE_RENDERER_SYMBOL
 	renderer::multi_sample_type
 	samples() const;

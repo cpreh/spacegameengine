@@ -30,8 +30,14 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A four dimensional vector of renderer::scalars
+*/
 typedef
-fcppt::math::vector::static_<scalar,4>::type
+fcppt::math::vector::static_<
+	renderer::scalar,
+	4
+>::type
 vector4;
 
 }

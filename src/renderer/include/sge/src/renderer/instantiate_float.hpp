@@ -18,25 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_REFRESH_RATE_HPP_INCLUDED
-#define SGE_RENDERER_REFRESH_RATE_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_INSTANTIATE_FLOAT_HPP_INCLUDED
+#define SGE_SRC_RENDERER_INSTANTIATE_FLOAT_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief A typedef used to describe refresh rates in Hz
-*/
-FCPPT_MAKE_STRONG_TYPEDEF(
-	unsigned,
-	refresh_rate
+#define SGE_RENDERER_INSTANTIATE_FLOAT(\
+	macro\
+)\
+macro(\
+	float\
+);\
+macro(\
+	double\
 );
-
-}
-}
 
 #endif

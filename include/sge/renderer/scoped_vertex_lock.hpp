@@ -32,6 +32,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A scoped lock that locks a renderer::vertex_buffer
+ *
+ * \see renderer::basic_scoped_buffer_lock
+*/
 typedef renderer::basic_scoped_buffer_lock<
 	renderer::vertex_buffer,
 	renderer::vertex_buffer_types

@@ -53,8 +53,8 @@ enum type
 	 *
 	 * By default, a resource is not readable which means it cannot be
 	 * locked so that data can be read from it. A readable resource might
-	 * be slower to render. It might be better to retain a copy of the data
-	 * yourself instead of locking the resource.
+	 * be slower to render, slower to lock or unlock or might require more
+	 * memory.
 	*/
 	readable,
 	size

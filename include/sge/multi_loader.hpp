@@ -63,9 +63,9 @@ public:
 	> loader_container;
 
 	SGE_INSTANTIATE_SYMBOL
-	explicit multi_loader(
+	multi_loader(
 		plugin::manager &,
-		extension_set const &,
+		sge::extension_set const &,
 		capabilities const &
 	);
 

@@ -30,6 +30,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A strong typedef to an anycolor
+ *
+ * Used to describe specular light colors
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	image::color::any::object,
 	specular_color

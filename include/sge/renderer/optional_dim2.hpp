@@ -30,6 +30,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief An optional renderer::dim2
+*/
 typedef fcppt::optional<
 	renderer::dim2
 > optional_dim2;

@@ -75,7 +75,7 @@ public:
 	 *
 	 * Locks \a buffer, using the lock method \a method. The buffer will
 	 * be locked starting from \a first to \a first + \a count, or the
-	 * entire will be locked if \a first is 0 and \a count is
+	 * entire buffer will be locked if \a first is 0 and \a count is
 	 * renderer::npos, which is the default.
 	 *
 	 * \param buffer The buffer to lock
@@ -89,6 +89,9 @@ public:
 	 *
 	 * \warning The behaviour is undefined if the buffer is already locked
 	 * or if the region is out of range
+	 *
+	 * \warning The behaviour is undefined if \a method is readwrite
+	 * and the buffer hasn't been created with resource_flags::readable
 	*/
 	SGE_RENDERER_SYMBOL
 	basic_scoped_buffer_lock(

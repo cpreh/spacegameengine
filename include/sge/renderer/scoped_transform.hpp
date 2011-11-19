@@ -33,19 +33,39 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A scoped transform block
+ *
+ * This class sets a new matrix for a given matrix mode in the constructor and
+ * resets the matrix to the identity in the destructor.
+*/
 class scoped_transform
 {
 	FCPPT_NONCOPYABLE(
 		scoped_transform
 	);
 public:
+	/**
+	 * \brief Sets a new matrix
+	 *
+	 * Sets \a matrix for \a mode and \a device.
+	 *
+	 * \param device The device to set the matrix for
+	 *
+	 * \param mode The matrix mode to set the matrix for
+	 *
+	 * \param matrix The matrix to set
+	*/
 	SGE_RENDERER_SYMBOL
 	scoped_transform(
-		renderer::device &,
-		renderer::matrix_mode::type,
-		renderer::matrix4 const &
+		renderer::device &device,
+		renderer::matrix_mode::type mode,
+		renderer::matrix4 const &matrix
 	);
 
+	/**
+	 * \brief Resets the matrix of the given matrix mode to the identity
+	*/
 	SGE_RENDERER_SYMBOL
 	~scoped_transform();
 private:

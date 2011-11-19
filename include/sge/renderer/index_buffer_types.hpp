@@ -31,14 +31,33 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief Typedef helper for types used by an index buffer
+*/
 struct index_buffer_types
 {
+	/**
+	 * \brief The view type returned when locking the buffer readonly
+	*/
 	typedef index::dynamic::const_view const_view_type;
 
+	/**
+	 * \brief The view type returned when locking the buffer
+	*/
 	typedef index::dynamic::view view_type;
 
+	/**
+	 * \brief The offset type
+	 *
+	 * Describes a starting position in the buffer
+	*/
 	typedef renderer::first_index first_type;
 
+	/**
+	 * \brief The count type
+	 *
+	 * Describes a number of indices
+	*/
 	typedef renderer::index_count count_type;
 };
 

@@ -32,8 +32,11 @@ namespace renderer
 namespace resource_flags
 {
 
+/**
+ * \brief A constant alias for renderer::resource_flags_field::null()
+*/
 SGE_RENDERER_SYMBOL
-extern resource_flags_field const none;
+extern renderer::resource_flags_field const none;
 
 }
 

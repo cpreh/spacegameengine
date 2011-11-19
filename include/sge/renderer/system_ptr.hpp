@@ -30,8 +30,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A shared pointer to a renderer::system
+*/
 typedef fcppt::shared_ptr<
-	system
+	renderer::system
 > system_ptr;
 
 }

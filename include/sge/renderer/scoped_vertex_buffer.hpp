@@ -32,18 +32,44 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A scoped vertex buffer block
+ *
+ * Sets a vertex buffer in the constructor and unsets it in the destructor.
+*/
 class scoped_vertex_buffer
 {
 	FCPPT_NONCOPYABLE(
 		scoped_vertex_buffer
 	);
 public:
+	/**
+	 * \brief Sets a vertex buffer
+	 *
+	 * Sets \a vertex_buffer for \a device
+	 *
+	 * \param device The device to set the vertex buffer for
+	 *
+	 * \param vertex_buffer The vertex buffer to set
+	 *
+	 * \warning The behaviour is undefined if the vertex buffer is already
+	 * set
+	 *
+	 * \warning The behaviour is undefined if the corresponding vertex
+	 * declaration is not set
+	*/
 	SGE_RENDERER_SYMBOL
 	scoped_vertex_buffer(
-		renderer::device &,
-		renderer::vertex_buffer const &
+		renderer::device &device,
+		renderer::vertex_buffer const &vertex_buffer
 	);
 
+	/**
+	 * \brief Unsets the vertex buffer
+	 *
+	 * \warning The behaviour is undefined if the vertex buffer was already
+	 * unset
+	*/
 	SGE_RENDERER_SYMBOL
 	~scoped_vertex_buffer();
 private:

@@ -26,13 +26,38 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief The namespace for the matrix_mode enum
+*/
 namespace matrix_mode
 {
+/**
+ * \brief The enum type for matrix modes
+*/
 enum type
 {
+	/**
+	 * \brief The world matrix
+	 *
+	 * The world matrix describes the transformation of the scene
+	*/
 	world,
+	/**
+	 * \brief The projection matrix
+	 *
+	 * The projection matrix describes how the transformated scene is
+	 * mapped onto the screen
+	*/
 	projection,
+	/**
+	 * \brief The texture matrix
+	 *
+	 * The texture matrix describes how texture coordinates are transformed
+	*/
 	texture,
+	/**
+	 * \brief The number of elements in this enum
+	*/
 	size
 };
 }

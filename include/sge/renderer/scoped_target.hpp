@@ -32,18 +32,36 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A scoped target block
+ *
+ * This class sets a new target in the constructor and resets to the onscreen
+ * target in the destructor.
+*/
 class scoped_target
 {
 	FCPPT_NONCOPYABLE(
 		scoped_target
 	);
 public:
+	/**
+	 * \brief Sets a new render target
+	 *
+	 * Sets \a target for \a device
+	 *
+	 * \param device The device to set the target for
+	 *
+	 * \param target The target to set
+	*/
 	SGE_RENDERER_SYMBOL
 	scoped_target(
-		renderer::device &,
-		renderer::target &
+		renderer::device &device,
+		renderer::target &target
 	);
 
+	/**
+	 * \brief Resets to the onscreen target
+	*/
 	SGE_RENDERER_SYMBOL
 	~scoped_target();
 private:

@@ -30,6 +30,13 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief An optional reference to a renderer::target
+ *
+ * This is used to set or unset render targets.
+ *
+ * \see renderer::device::target
+*/
 typedef fcppt::optional<
 	renderer::target &
 > optional_target;

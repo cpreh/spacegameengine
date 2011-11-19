@@ -30,6 +30,9 @@ namespace sge
 namespace renderer
 {
 
+/**
+ * \brief A type used to count bytes
+*/
 typedef std::size_t size_type;
 
 }
