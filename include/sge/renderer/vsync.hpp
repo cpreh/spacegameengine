@@ -27,7 +27,7 @@ namespace renderer
 {
 
 /**
- * \brief The namespace for the vsync enum
+ * \brief The namespace for the \link sge::renderer::vsync::type vsync \endlink enum
 */
 namespace vsync
 {

@@ -32,7 +32,7 @@ sge::camera::ortho_freelook::parameters::parameters(
 	rect_(
 		_rect),
 	near_(
-		1.0f),
+		0.0f),
 	far_(
 		10.0f),
 	zoom_to_zooming_speed_factor_(

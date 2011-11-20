@@ -27,21 +27,21 @@ namespace renderer
 {
 
 /**
- * \brief The namespace for the visial_depth enum
+\brief The namespace for the \link sge::renderer::visual_depth::type visual_depth \endlink enum
 */
 namespace visual_depth
 {
 /**
- * \brief The enum type for visual depths
+\brief The enum type for visual depths
 */
 enum type
 {
 	/**
-	 * \brief A visual depth of 16 bits
+	\brief A visual depth of 16 bits
 	*/
 	depth16 = 16,
 	/**
-	 * \brief A visual depth of 32 bits
+	\brief A visual depth of 32 bits
 	*/
 	depth32 = 32
 };

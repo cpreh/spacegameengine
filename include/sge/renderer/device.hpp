@@ -228,8 +228,8 @@ public:
 	 * \brief Activates a vertex buffer
 	 *
 	 * A vertex buffer is activated, which means that it will supply vertex
-	 * data for the renderer::vf::part it represents. It is important the
-	 * corresponding vertex declaration is already set! Initially no
+	 * data for the renderer::vf::part it represents. It is important that
+	 * the corresponding vertex declaration is already set! Initially, no
 	 * vertex buffers are activated.
 	 *
 	 * \param vertex_buffer The vertex buffer to activate
