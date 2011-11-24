@@ -19,12 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
-#include <sge/extension_set.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/listener.hpp>
-#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
@@ -32,6 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/log/global.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -71,7 +73,7 @@ namespace
 sge::audio::file_ptr const
 load_raw(
 	fcppt::filesystem::path const &path,
-	sge::audio::multi_loader &audio_loader)
+	sge::audio::loader &audio_loader)
 {
 	fcppt::io::cifstream raw_stream(
 		path,
@@ -93,7 +95,7 @@ load_raw(
 					&(*raw_bytes.cbegin())),
 				reinterpret_cast<unsigned char const *>(
 					&(*raw_bytes.cend()))),
-			sge::optional_extension());
+			sge::media::optional_extension());
 }
 }
 
@@ -150,9 +152,9 @@ try
 		(
 			sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
-				fcppt::assign::make_container<sge::extension_set>
-					(FCPPT_TEXT("wav"))
-					(FCPPT_TEXT("ogg"))
+				fcppt::assign::make_container<sge::media::extension_set>
+					(sge::media::extension(FCPPT_TEXT("wav")))
+					(sge::media::extension(FCPPT_TEXT("ogg")))
 			)
 		)
 	);

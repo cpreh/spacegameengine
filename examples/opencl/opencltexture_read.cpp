@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/all_extensions.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/loader.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/save_from_view.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/to_const.hpp>
+#include <sge/media/all_extensions.hpp>
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/single_device_system.hpp>
 #include <sge/opencl/command_queue/dim2.hpp>
@@ -38,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/program/file_to_source_string_sequence.hpp>
 #include <sge/opencl/program/object.hpp>
-#include <sge/systems/image_loader.hpp>
+#include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <fcppt/exception.hpp>
@@ -105,11 +104,11 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, creating systems object\n");
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
-			(sge::systems::image_loader(
+			(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
-				sge::all_extensions)));
+				sge::media::all_extensions)));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, creating program\n");
@@ -164,9 +163,10 @@ try
 			sge::opencl::memory_object::rect::vector::null(),
 			image.size()));
 
-	sys.image_loader().loaders().at(0)->create(
+	sge::image2d::save_from_view(
+		sys.image_system(),
 		sge::image2d::view::to_const(
-			scoped_image.view()))->save(
+			scoped_image.view()),
 		target_file_name);
 
 	opencl_system.update();

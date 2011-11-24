@@ -18,39 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/extension_set.hpp>
-#include <sge/config/media_path.hpp>
-#include <sge/image/capabilities.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image2d/multi_loader.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <sge/log/global.hpp>
 #include <sge/log/global_context.hpp>
 #include <sge/projectile/debug_drawer.hpp>
 #include <sge/projectile/dim2.hpp>
 #include <sge/projectile/duration.hpp>
 #include <sge/projectile/rect.hpp>
 #include <sge/projectile/scalar.hpp>
+#include <sge/projectile/time_increment.hpp>
+#include <sge/projectile/vector2.hpp>
 #include <sge/projectile/world.hpp>
+#include <sge/projectile/body/angular_velocity.hpp>
+#include <sge/projectile/body/linear_velocity.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/body/parameters.hpp>
+#include <sge/projectile/body/position.hpp>
+#include <sge/projectile/body/rotation.hpp>
 #include <sge/projectile/body/scoped.hpp>
+#include <sge/projectile/body/user_data.hpp>
+#include <sge/projectile/body/solidity/solid.hpp>
+#include <sge/projectile/body/solidity/static.hpp>
+#include <sge/projectile/body/solidity/variant.hpp>
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/ghost/parameters.hpp>
 #include <sge/projectile/ghost/position.hpp>
 #include <sge/projectile/ghost/scoped.hpp>
+#include <sge/projectile/ghost/size.hpp>
 #include <sge/projectile/group/object.hpp>
+#include <sge/projectile/group/sequence.hpp>
 #include <sge/projectile/shape/circle.hpp>
+#include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <sge/projectile/shape/triangle_mesh.hpp>
 #include <sge/projectile/triangulation/default_tag.hpp>
 #include <sge/projectile/triangulation/triangulate.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/visual_depth.hpp>
+#include <sge/renderer/vsync.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -65,23 +79,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/with_dim.hpp>
+#include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/input.hpp>
+#include <sge/systems/input_helper.hpp>
+#include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
+#include <sge/systems/window.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/center_on_resize.hpp>
+#include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/window/simple_parameters.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/log/log.hpp>
 #include <fcppt/math/box/box.hpp>
 #include <fcppt/math/dim/dim.hpp>
@@ -93,7 +114,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <cstdlib>
 #include <exception>
 #include <ios>
@@ -101,7 +121,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <istream>
 #include <ostream>
 #include <sstream>
-#include <streambuf>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -296,8 +315,8 @@ FCPPT_PP_POP_WARNING
 	}
 private:
 	sge::projectile::body::object &body_;
-	fcppt::signal::scoped_connection body_collision_connection_;
-	fcppt::signal::scoped_connection key_callback_connection_;
+	fcppt::signal::scoped_connection const body_collision_connection_;
+	fcppt::signal::scoped_connection const key_callback_connection_;
 	sge::projectile::vector2 velocity_;
 
 	void
@@ -419,7 +438,7 @@ FCPPT_PP_POP_WARNING
 private:
 	sge::projectile::ghost::object ghost_;
 	sge::projectile::ghost::scoped ghost_scope_;
-	fcppt::signal::scoped_connection
+	fcppt::signal::scoped_connection const
 		body_position_change_connection_,
 		body_enter_connection_,
 		body_exit_connection_;
@@ -459,7 +478,7 @@ try
 			std::tr1::placeholders::_1,
 			fcppt::log::level::debug));
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::systems::window(
 				sge::window::simple_parameters(
@@ -483,7 +502,7 @@ try
 
 	sge::projectile::world world;
 
-	fcppt::signal::scoped_connection body_collision_world(
+	fcppt::signal::scoped_connection const body_collision_world(
 		world.body_collision(
 			&body_collision));
 

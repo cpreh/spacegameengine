@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_FILE_HPP_INCLUDED
 #define SGE_DEVIL_FILE_HPP_INCLUDED
 
-#include <sge/const_raw_range.hpp>
-#include <sge/optional_extension.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
 #include <sge/devil/file_fwd.hpp>
 #include <sge/devil/image_holder.hpp>
 #include <sge/devil/optional_error.hpp>
@@ -60,18 +60,13 @@ public:
 	image2d::view::const_object const
 	view() const;
 
-	void
-	data(
-		image2d::view::const_object const &
-	);
-
 	image2d::dim const
 	size() const;
 
 	void
 	save(
 		fcppt::filesystem::path const &
-	);
+	) const;
 
 	devil::optional_error const
 	load(
@@ -80,8 +75,8 @@ public:
 
 	devil::optional_error const
 	load(
-		sge::const_raw_range const &,
-		sge::optional_extension const &
+		sge::media::const_raw_range const &,
+		sge::media::optional_extension const &
 	);
 private:
 	typedef fcppt::function::object<

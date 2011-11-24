@@ -27,6 +27,8 @@ SET(
 	include/sge/audio/loader_ptr.hpp
 	include/sge/audio/multi_loader.hpp
 	include/sge/audio/multi_loader_fwd.hpp
+	include/sge/audio/multi_loader_parameters.hpp
+	include/sge/audio/multi_loader_parameters_fwd.hpp
 	include/sge/audio/optional_path.hpp
 	include/sge/audio/player.hpp
 	include/sge/audio/player_capabilities.hpp
@@ -64,6 +66,7 @@ SET(
 	src/audio/loader.cpp
 	src/audio/loader_plugin.cpp
 	src/audio/multi_loader.cpp
+	src/audio/multi_loader_parameters.cpp
 	src/audio/player.cpp
 	src/audio/player_plugin.cpp
 	src/audio/sound/base.cpp
@@ -73,8 +76,16 @@ SET(
 	src/audio/unsupported_format.cpp
 )
 
+ADD_DEFINITIONS(
+	"-D SGE_MEDIA_INSTANTIATE_EXPORTS"
+)
+
 INCLUDE_DIRECTORIES(
 	${CMAKE_SOURCE_DIR}/src/plugin/include
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_SOURCE_DIR}/src/media/include
 )
 
 ADD_SGE_BASE_LIBRARY(

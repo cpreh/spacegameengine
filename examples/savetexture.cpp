@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
-#include <sge/extension_set.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/init.hpp>
@@ -27,13 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/loader.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/save_from_view.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/log/global.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -92,6 +93,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_depth.hpp>
 #include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
+#include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -255,7 +257,7 @@ try
 		1024,
 		768);
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(
 			sge::systems::window(
@@ -285,10 +287,18 @@ try
 					sge::systems::input_helper::mouse_collector,
 				sge::systems::cursor_option_field::null()))
 		(
-			sge::systems::image_loader(
+			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
-				fcppt::assign::make_container<sge::extension_set>(
-					FCPPT_TEXT("png")))));
+				fcppt::assign::make_container<
+					sge::media::extension_set
+				>(
+					sge::media::extension(
+						FCPPT_TEXT("png")
+					)
+				)
+			)
+		)
+	);
 
 	sge::renderer::texture::planar_ptr target_texture(
 		sys.renderer().create_planar_texture(
@@ -397,9 +407,9 @@ try
 	sge::renderer::texture::const_scoped_planar_lock slock(
 		*target_texture);
 
-	sys.image_loader().loaders().at(0)->create(
-		slock.value()
-	)->save(
+	sge::image2d::save_from_view(
+		sys.image_system(),
+		slock.value(),
 		fcppt::from_std_string(
 			argv[1]));
 }

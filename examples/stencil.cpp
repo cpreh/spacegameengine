@@ -37,13 +37,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	same effect as if the two sprites were rendered in reverse order.
 */
 
-#include <sge/extension_set.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -73,7 +74,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/systems/cursor_option_field.hpp>
-#include <sge/systems/image_loader.hpp>
+#include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -155,12 +156,14 @@ try
 		)
 		(
 			// Request an image loader that can load png files.
-			sge::systems::image_loader(
+			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<
-					sge::extension_set
+					sge::media::extension_set
 				>(
-					FCPPT_TEXT("png")
+					sge::media::extension(
+						FCPPT_TEXT("png")
+					)
 				)
 			)
 		)
@@ -230,7 +233,7 @@ try
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("grass.png"),
 					sys.renderer(),
-					sys.image_loader(),
+					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::texture::address_mode2(
 						sge::renderer::texture::address_mode::clamp
@@ -262,7 +265,7 @@ try
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("cloudsquare.png"),
 					sys.renderer(),
-					sys.image_loader(),
+					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::texture::address_mode2(
 						sge::renderer::texture::address_mode::clamp

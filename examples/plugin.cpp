@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player.hpp>
 #include <sge/config/plugin_path.hpp>
 #include <sge/font/system.hpp>
-#include <sge/image2d/loader.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/input/system.hpp>
 #include <sge/log/global.hpp>
 #include <sge/plugin/context.hpp>
@@ -90,7 +90,7 @@ try
 		sge::audio::loader,
 		sge::audio::player,
 		sge::font::system,
-		sge::image2d::loader,
+		sge::image2d::system,
 		sge::input::system,
 		sge::renderer::system
 	> plugins;

@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 #define SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 
-#include <sge/audio/multi_loader_fwd.hpp>
+#include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/font/system_fwd.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
@@ -94,15 +94,15 @@ public:
 	mouse_collector() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::image2d::multi_loader &
-	image_loader() const;
+	sge::image2d::system &
+	image_system() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::audio::multi_loader &
+	sge::audio::loader &
 	audio_loader() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::audio::player  &
+	sge::audio::player &
 	audio_player() const;
 
 	SGE_SYSTEMS_SYMBOL

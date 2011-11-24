@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_LOADER_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/const_raw_range.hpp>
-#include <sge/extension_set.hpp>
-#include <sge/optional_extension.hpp>
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/symbol.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/filesystem/path.hpp>
 
@@ -63,13 +63,13 @@ public:
 
 	/// Load raw bytes
 	/**
-	 * \param r A range of bytes (can be discarded after this function completes)
+	 * \param range A range of bytes (can be discarded after this function completes)
 	 * \param extension An optional extension indicating what (sub) type of file is inside
 	 */
 	virtual audio::file_ptr const
 	load_raw(
-		sge::const_raw_range const &r,
-		sge::optional_extension const &extension
+		sge::media::const_raw_range const &range,
+		sge::media::optional_extension const &extension
 	) = 0;
 
 	/// What capabilities this loader has. Is used in the sge::audio::multi_loader and in sge::systems to select a loader.
@@ -77,7 +77,7 @@ public:
 	capabilities() const = 0;
 
 	/// What extensions this loader supports. Is used in the sge::audio::multi_loader and in sge::systems to select a loader.
-	virtual sge::extension_set const
+	virtual sge::media::extension_set const
 	extensions() const = 0;
 
 	/** \virtualdtor */

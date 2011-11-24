@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
-#include <sge/extension_set.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/console/gfx.hpp>
@@ -32,10 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/lit.hpp>
 #include <sge/font/text/to_fcppt_string.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -47,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
-#include <sge/systems/image_loader.hpp>
+#include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -157,12 +158,14 @@ try
 			sge::systems::parameterless::font
 		)
 		(
-			sge::systems::image_loader(
+			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<
-					sge::extension_set
+					sge::media::extension_set
 				>(
-					FCPPT_TEXT("png")
+					sge::media::extension(
+						FCPPT_TEXT("png")
+					)
 				)
 			)
 		)
@@ -242,7 +245,7 @@ try
 		tex_bg(
 			sge::texture::add_image(
 				tex_man,
-				*sys.image_loader().load(
+				*sys.image_system().load(
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("grass.png")

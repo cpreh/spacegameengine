@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/all_extensions.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/log/global.hpp>
+#include <sge/media/all_extensions.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -344,7 +344,7 @@ particles::particles(
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("smooth_particle.png"),
 				sys.renderer(),
-				sys.image_loader(),
+				sys.image_system(),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
@@ -473,9 +473,9 @@ try
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector),
 				sge::systems::cursor_option_field::null()))
-		(sge::systems::image_loader(
+		(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
-				sge::all_extensions)));
+				sge::media::all_extensions)));
 
 	particles ps(
 		fcppt::extract_from_string_exn<unsigned>(

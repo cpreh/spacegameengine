@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/multi_loader.hpp>
+#include <sge/audio/multi_loader_parameters.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin.hpp>
 #include <sge/audio/player_ptr.hpp>
@@ -28,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/plugin.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/system_ptr.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/multi_system.hpp>
+#include <sge/image2d/multi_system_parameters.hpp>
 #include <sge/image2d/plugin.hpp>
 #include <sge/input/plugin.hpp>
 #include <sge/input/processor_ptr.hpp>
@@ -52,9 +54,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/cursor_modifier.hpp>
 #include <sge/src/systems/plugin_path.hpp>
 #include <sge/src/systems/wrap_window.hpp>
+#include <sge/systems/audio_loader.hpp>
+#include <sge/systems/audio_player.hpp>
 #include <sge/systems/exception.hpp>
+#include <sge/systems/image2d.hpp>
+#include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/renderer.hpp>
+#include <sge/systems/window.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/system/create.hpp>
@@ -121,10 +129,10 @@ public:
 	cursor_modifier                                 cursor_modifier_;
 
 	typedef fcppt::scoped_ptr<
-		sge::image2d::multi_loader
-	> image_multi_loader_ptr;
+		sge::image2d::multi_system
+	> image_multi_system_ptr;
 
-	image_multi_loader_ptr                          image_multi_loader_;
+	image_multi_system_ptr                          image_multi_system_;
 
 	typedef fcppt::scoped_ptr<
 		sge::audio::multi_loader
@@ -161,7 +169,7 @@ public:
 
 	void
 	init_image(
-		sge::systems::image_loader const &
+		sge::systems::image2d const &
 	);
 
 	void
@@ -225,7 +233,7 @@ public:
 
 	result_type
 	operator()(
-		sge::systems::image_loader const &
+		sge::systems::image2d const &
 	) const;
 
 	result_type
@@ -340,13 +348,13 @@ sge::systems::instance::mouse_collector() const
 	return *impl_->mouse_collector_;
 }
 
-sge::image2d::multi_loader &
-sge::systems::instance::image_loader() const
+sge::image2d::system &
+sge::systems::instance::image_system() const
 {
-	return *impl_->image_multi_loader_;
+	return *impl_->image_multi_system_;
 }
 
-sge::audio::multi_loader &
+sge::audio::loader &
 sge::systems::instance::audio_loader() const
 {
 	return *impl_->audio_multi_loader_;
@@ -421,7 +429,7 @@ visitor::operator()(
 
 visitor::result_type
 visitor::operator()(
-	sge::systems::image_loader const &_param
+	sge::systems::image2d const &_param
 ) const
 {
 	impl_.init_image(
@@ -687,18 +695,20 @@ sge::systems::instance::impl::init_input(
 
 void
 sge::systems::instance::impl::init_image(
-	sge::systems::image_loader const &_params
+	sge::systems::image2d const &_params
 )
 {
-	image_multi_loader_.take(
+	image_multi_system_.take(
 		fcppt::make_unique_ptr<
-			sge::image2d::multi_loader
+			sge::image2d::multi_system
 		>(
-			fcppt::ref(
-				plugin_manager_
-			),
-			_params.extensions(),
-			_params.capabilities()
+			sge::image2d::multi_system_parameters(
+				fcppt::ref(
+					plugin_manager_
+				),
+				_params.extensions(),
+				_params.capabilities()
+			)
 		)
 	);
 }
@@ -712,11 +722,13 @@ sge::systems::instance::impl::init_audio_loader(
 		fcppt::make_unique_ptr<
 			sge::audio::multi_loader
 		>(
-			fcppt::ref(
-				plugin_manager_
-			),
-			_params.extensions(),
-			_params.capabilities()
+			sge::audio::multi_loader_parameters(
+				fcppt::ref(
+					plugin_manager_
+				),
+				_params.extensions(),
+				_params.capabilities()
+			)
 		)
 	);
 }

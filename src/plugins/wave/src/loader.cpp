@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/extension_set.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/optional_path.hpp>
 #include <sge/audio/unsupported_format.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension.hpp>
 #include <sge/wave/file.hpp>
 #include <sge/wave/loader.hpp>
 #include <sge/wave/stream_ptr.hpp>
@@ -32,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/io/raw_container_source.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -44,11 +47,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::extension_set const extensions_(
+sge::media::extension_set const extensions_(
 	fcppt::assign::make_container<
-		sge::extension_set
+		sge::media::extension_set
 	>(
-		FCPPT_TEXT("wav")
+		sge::media::extension(
+			FCPPT_TEXT("wav")
+		)
 	)
 );
 
@@ -95,8 +100,8 @@ sge::wave::loader::load(
 
 sge::audio::file_ptr const
 sge::wave::loader::load_raw(
-	sge::const_raw_range const &_range,
-	sge::optional_extension const &_extension
+	sge::media::const_raw_range const &_range,
+	sge::media::optional_extension const &_extension
 )
 {
 	if(_extension && extensions_.find(*_extension) == extensions_.end())
@@ -141,7 +146,7 @@ sge::wave::loader::capabilities() const
 	return audio::loader_capabilities_field::null();
 }
 
-sge::extension_set const
+sge::media::extension_set const
 sge::wave::loader::extensions() const
 {
 	return extensions_;

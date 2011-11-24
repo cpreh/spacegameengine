@@ -47,7 +47,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::libpng::write_context::write_context(
 	fcppt::filesystem::path const &_path,
 	image2d::dim const &_dim,
-	byte_vector &_bytes,
+	byte_vector const &_bytes,
 	image::color::format::type const _format
 )
 :
@@ -152,7 +152,12 @@ sge::libpng::write_context::write_context(
 	);
 
 	for (row_ptr_vector::size_type i = 0; i < row_ptrs.size(); ++i)
-		row_ptrs[i] = bytes_.data() + i * stride;
+		row_ptrs[i] =
+			const_cast<
+				png_bytep
+			>(
+				bytes_.data() + i * stride
+			);
 
 	png_write_image(
 		write_ptr_.ptr(),

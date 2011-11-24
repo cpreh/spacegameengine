@@ -21,9 +21,73 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
 #define SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
 
-#include <sge/multi_loader.hpp>
-#include <sge/audio/exception.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/loader.hpp>
+#include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/multi_loader_fwd.hpp>
+#include <sge/audio/multi_loader_parameters_fwd.hpp>
+#include <sge/audio/symbol.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/extension_set.hpp>
+#include <sge/media/muxer.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
 
+
+namespace sge
+{
+namespace audio
+{
+
+class SGE_CLASS_SYMBOL multi_loader
+:
+	public sge::audio::loader
+{
+	FCPPT_NONCOPYABLE(
+		multi_loader
+	);
+public:
+	SGE_AUDIO_SYMBOL
+	explicit
+	multi_loader(
+		sge::audio::multi_loader_parameters const &
+	);
+
+	SGE_AUDIO_SYMBOL
+	audio::file_ptr const
+	load(
+		fcppt::filesystem::path const &
+	);
+
+	SGE_AUDIO_SYMBOL
+	audio::file_ptr const
+	load_raw(
+		sge::media::const_raw_range const &,
+		sge::media::optional_extension const &
+	);
+
+	SGE_AUDIO_SYMBOL
+	audio::loader_capabilities_field const
+	capabilities() const;
+
+	SGE_AUDIO_SYMBOL
+	sge::media::extension_set const
+	extensions() const;
+
+	SGE_AUDIO_SYMBOL
+	~multi_loader();
+private:
+	typedef sge::media::muxer<
+		audio::loader,
+		audio::loader_capabilities_field
+	> muxer;
+
+	muxer muxer_;
+};
+
+}
+}
 
 #endif

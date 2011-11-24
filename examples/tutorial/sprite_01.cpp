@@ -19,12 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
-#include <sge/extension_set.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_ptr.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -93,12 +94,14 @@ try
 			)
 		)
 		(
-			sge::systems::image_loader(
+			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<
-					sge::extension_set
+					sge::media::extension_set
 				>(
-					FCPPT_TEXT("png")
+					sge::media::extension(
+						FCPPT_TEXT("png")
+					)
 				)
 			)
 		)
@@ -133,7 +136,7 @@ try
 	);
 
 	sge::image2d::file_ptr const image(
-		sys.image_loader().load(
+		sys.image_system().load(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("tux.png")

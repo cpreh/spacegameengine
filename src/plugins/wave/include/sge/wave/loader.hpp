@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WAVE_LOADER_HPP_INCLUDED
 #define SGE_WAVE_LOADER_HPP_INCLUDED
 
-#include <sge/const_raw_range.hpp>
-#include <sge/optional_extension.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
@@ -54,14 +55,14 @@ public:
 
 	audio::file_ptr const
 	load_raw(
-		sge::const_raw_range const &,
-		sge::optional_extension const &
+		sge::media::const_raw_range const &,
+		sge::media::optional_extension const &
 	);
 
 	audio::loader_capabilities_field const
 	capabilities() const;
 
-	extension_set const
+	sge::media::extension_set const
 	extensions() const;
 };
 

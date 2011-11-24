@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/extension_set.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
@@ -27,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/config/media_path.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #ifdef SGE_EXAMPLES_AUDIO_MINIMAL_USE_SYSTEMS_INIT
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
@@ -42,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif // SGE_EXAMPLES_AUDIO_MINIMAL_USE_SYSTEMS_INIT
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/multi_loader.hpp>
+#include <sge/audio/multi_loader_parameters.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -59,9 +61,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main(int, char *[])
 try
 {
-	sge::extension_set extensions;
+	sge::media::extension_set extensions;
 	extensions.insert(
-		FCPPT_TEXT("wav"));
+		sge::media::extension(
+			FCPPT_TEXT("wav")));
 #ifdef SGE_EXAMPLES_AUDIO_MINIMAL_USE_SYSTEMS_INIT
 //! [systems_initialization]
 	// Which file types do we want to load (see below)?
@@ -125,9 +128,10 @@ try
 
 //! [manual_initialization_loader]
 	sge::audio::multi_loader loader(
-		plugin_manager,
-		extensions,
-		sge::audio::loader_capabilities_field::null());
+		sge::audio::multi_loader_parameters(
+			plugin_manager,
+			extensions,
+			sge::audio::loader_capabilities_field::null()));
 //! [manual_initialization_loader]
 #endif
 

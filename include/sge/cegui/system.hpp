@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/resource_provider.hpp>
 #include <sge/cegui/detail/scoped_system.hpp>
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/viewport/manager_fwd.hpp>
@@ -63,7 +63,7 @@ public:
 	system(
 		load_context const &,
 		sge::renderer::device &,
-		sge::image2d::multi_loader &,
+		sge::image2d::system &,
 		sge::charconv::system &,
 		sge::viewport::manager &,
 		sge::cegui::cursor_visibility::type);
@@ -87,7 +87,7 @@ public:
 	~system();
 private:
 	// To keep the user interface clean, we permit access to the image
-	// loader and the renderer only to friend classes (see the accessor
+	// system and the renderer only to friend classes (see the accessor
 	// functions below)
 	friend class detail::texture;
 	friend class detail::texture_target;
@@ -111,8 +111,8 @@ private:
 	sge::charconv::system &
 	charconv_system() const;
 
-	sge::image2d::multi_loader &
-	image_loader() const;
+	sge::image2d::system &
+	image_system() const;
 
 	sge::renderer::device &
 	renderer() const;

@@ -27,6 +27,7 @@ update_cmake_file \
 	-r \
 	include/sge/error \
 	include/sge/log \
+	include/sge/media \
 	include/sge/timer
 
 update_cmake_file \
@@ -35,7 +36,8 @@ update_cmake_file \
 	-n \
 	src \
 	-r \
-	src/log
+	src/log \
+	src/media
 
 function update_sublibrary()
 {

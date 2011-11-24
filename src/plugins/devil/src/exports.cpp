@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/devil/loader.hpp>
-#include <sge/image2d/loader_ptr.hpp>
+#include <sge/devil/system.hpp>
+#include <sge/image2d/system_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/info.hpp>
@@ -39,16 +39,16 @@ sge::plugin::info const info(
 	sge::plugin::version(0x1),
 	sge::plugin::min_core_version(0x1),
 	sge::plugin::capabilities_field(
-		sge::plugin::capabilities::image2d_loader
+		sge::plugin::capabilities::image2d_system
 	)
 );
 
-sge::image2d::loader_ptr const
-create_image2d_loader()
+sge::image2d::system_ptr const
+create_image2d_system()
 {
 	return
 		fcppt::make_shared_ptr<
-			sge::devil::loader
+			sge::devil::system
 		>();
 }
 
@@ -56,5 +56,5 @@ create_image2d_loader()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
-	(create_image2d_loader)
+	(create_image2d_system)
 )

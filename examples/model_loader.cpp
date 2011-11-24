@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/all_extensions.hpp>
 #include <sge/exception.hpp>
 #include <sge/camera/duration.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
@@ -37,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/log/global.hpp>
+#include <sge/media/all_extensions.hpp>
 #include <sge/model/obj/create.hpp>
 #include <sge/model/obj/face.hpp>
 #include <sge/model/obj/face_point.hpp>
@@ -133,7 +133,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
-#include <sge/systems/image_loader.hpp>
+#include <sge/systems/image2d.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
@@ -603,9 +603,9 @@ try
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
 				sge::viewport::fill_on_resize()))
-			(sge::systems::image_loader(
+			(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
-				sge::all_extensions))
+				sge::media::all_extensions))
 			(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
@@ -664,7 +664,7 @@ try
 			sge::renderer::texture::create_planar_from_path(
 				texture_file,
 				sys.renderer(),
-				sys.image_loader(),
+				sys.image_system(),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),

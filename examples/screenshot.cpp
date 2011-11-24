@@ -20,9 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -113,12 +115,14 @@ try
 			)
 		)
 		(
-			sge::systems::image_loader(
+			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<
-					sge::extension_set
+					sge::media::extension_set
 				>(
-					FCPPT_TEXT("png")
+					sge::media::extension(
+						FCPPT_TEXT("png")
+					)
 				)
 			)
 		)
@@ -150,7 +154,7 @@ try
 	sge::texture::const_part_ptr const tex(
 		sge::texture::add_image(
 			tex_man,
-			*sys.image_loader().load(
+			*sys.image_system().load(
 				sge::config::media_path() / FCPPT_TEXT("images") / FCPPT_TEXT("tux.png")
 			)
 		)
@@ -227,7 +231,7 @@ try
 						device
 					),
 					fcppt::ref(
-						sys.image_loader()
+						sys.image_system()
 					),
 					fcppt::filesystem::path(
 						FCPPT_TEXT("output.png")

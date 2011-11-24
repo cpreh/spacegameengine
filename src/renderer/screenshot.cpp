@@ -18,32 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/loader.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/save_from_view.hpp>
 #include <sge/renderer/const_scoped_color_surface_lock.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/screenshot.hpp>
-#include <fcppt/preprocessor/fixme.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 
 void
 sge::renderer::screenshot(
 	renderer::device const &_renderer,
-	image2d::multi_loader const &_loader,
-	fcppt::filesystem::path const &_file
+	image2d::system &_system,
+	fcppt::filesystem::path const &_path
 )
 {
 	renderer::const_scoped_color_surface_lock const lock(
 		_renderer.onscreen_target().surface()
 	);
 
-	FCPPT_PP_FIXME("We need a multi_saver for images as well!")
-
-	_loader.loaders().at(0)->create(
-		lock.value()
-	)->save(
-		_file
+	sge::image2d::save_from_view(
+		_system,
+		lock.value(),
+		_path
 	);
 }

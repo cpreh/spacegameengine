@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DETAIL_IMAGE_CODEC_HPP_INCLUDED
 #define SGE_CEGUI_DETAIL_IMAGE_CODEC_HPP_INCLUDED
 
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUIImageCodec.h>
@@ -50,7 +50,7 @@ class image_codec
 public:
 	explicit
 	image_codec(
-		sge::image2d::multi_loader &);
+		sge::image2d::system &);
 
 	~image_codec();
 
@@ -59,10 +59,10 @@ public:
 		CEGUI::RawDataContainer const &,
 		CEGUI::Texture *);
 
-	sge::image2d::multi_loader &
-	loader() const;
+	sge::image2d::system &
+	image_system() const;
 private:
-	sge::image2d::multi_loader &image_loader_;
+	sge::image2d::system &image_system_;
 };
 }
 }

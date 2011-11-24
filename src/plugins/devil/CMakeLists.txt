@@ -17,10 +17,10 @@ SET(
 	src/plugins/devil/include/sge/devil/library.hpp
 	src/plugins/devil/include/sge/devil/load_image.hpp
 	src/plugins/devil/include/sge/devil/load_memory.hpp
-	src/plugins/devil/include/sge/devil/loader.hpp
 	src/plugins/devil/include/sge/devil/optional_error.hpp
 	src/plugins/devil/include/sge/devil/set_integer.hpp
 	src/plugins/devil/include/sge/devil/supported_extensions.hpp
+	src/plugins/devil/include/sge/devil/system.hpp
 	src/plugins/devil/include/sge/devil/to_il_channel.hpp
 	src/plugins/devil/include/sge/devil/to_il_format.hpp
 	src/plugins/devil/src/best_il_format.cpp
@@ -39,9 +39,9 @@ SET(
 	src/plugins/devil/src/library.cpp
 	src/plugins/devil/src/load_image.cpp
 	src/plugins/devil/src/load_memory.cpp
-	src/plugins/devil/src/loader.cpp
 	src/plugins/devil/src/set_integer.cpp
 	src/plugins/devil/src/supported_extensions.cpp
+	src/plugins/devil/src/system.cpp
 	src/plugins/devil/src/to_il_channel.cpp
 	src/plugins/devil/src/to_il_format.cpp
 )

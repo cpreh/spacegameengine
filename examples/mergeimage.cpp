@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
-#include <sge/extension_set.hpp>
+#include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/store.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
@@ -27,18 +27,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_ptr.hpp>
-#include <sge/image2d/loader.hpp>
-#include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/rgba8.hpp>
+#include <sge/image2d/save_from_view.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <sge/image2d/view/to_const.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -97,7 +100,7 @@ calc_size(
 sge::renderer::dim2 const
 first_dim(
 	fcppt::filesystem::path const &_path,
-	sge::image2d::multi_loader &_loader
+	sge::image2d::system &_system
 )
 {
 	fcppt::filesystem::directory_iterator const it(
@@ -105,7 +108,7 @@ first_dim(
 	);
 
 	return
-		_loader.load(
+		_system.load(
 			*it
 		)->size();
 }
@@ -162,20 +165,22 @@ try
 		(
 			sge::systems::list
 			(
-				sge::systems::image_loader(
+				sge::systems::image2d(
 					sge::image::capabilities_field::null(),
 					fcppt::assign::make_container<
-						sge::extension_set
+						sge::media::extension_set
 					>(
-						FCPPT_TEXT("png")
+						sge::media::extension(
+							FCPPT_TEXT("png")
+						)
 					)
 				)
 			)
 		)
 	);
 
-	sge::image2d::multi_loader &il(
-		sys.image_loader()
+	sge::image2d::system &il(
+		sys.image_system()
 	);
 
 	fcppt::filesystem::path const path(
@@ -296,11 +301,11 @@ try
 		}
 	}
 
-	il.loaders().at(0)->create(
+	sge::image2d::save_from_view(
+		il,
 		sge::image2d::view::to_const(
 			dest_view
-		)
-	)->save(
+		),
 		FCPPT_TEXT("out.png")
 	);
 }

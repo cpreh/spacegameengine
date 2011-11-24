@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_PLUGIN_HPP_INCLUDED
 #define SGE_IMAGE2D_PLUGIN_HPP_INCLUDED
 
-#include <sge/image2d/loader_ptr.hpp>
 #include <sge/image2d/symbol.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/detail/traits.hpp>
@@ -37,18 +38,18 @@ namespace detail
 
 template<>
 struct traits<
-	image2d::loader
+	image2d::system
 >
 {
 	SGE_IMAGE2D_SYMBOL
-	static address_name
+	static sge::plugin::detail::address_name
 	plugin_loader_name();
 
 	SGE_IMAGE2D_SYMBOL
-	static capabilities::type
+	static sge::plugin::capabilities::type
 	plugin_type();
 
-	typedef image2d::loader_ptr const (*loader_fun)();
+	typedef sge::image2d::system_ptr const (*loader_fun)();
 };
 
 }

@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	- font::text::draw
  */
 
-#include <sge/extension_set.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/camera/spherical/movement_speed.hpp>
@@ -61,13 +60,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/string.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/image2d/view/const_object.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/collector.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/log/global.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
@@ -106,7 +104,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
@@ -135,7 +133,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/variable_type.hpp>
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/systems/cursor_option_field.hpp>
-#include <sge/systems/image_loader.hpp>
+#include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -851,10 +849,11 @@ try
 				// on it! It's important.
 				sge::viewport::fill_on_resize()))
 			(sge::systems::parameterless::font)
-			(sge::systems::image_loader(
+			(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
-				fcppt::assign::make_container<sge::extension_set>(
-					FCPPT_TEXT("png"))))
+				fcppt::assign::make_container<sge::media::extension_set>(
+					sge::media::extension(
+						FCPPT_TEXT("png")))))
 			(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
@@ -868,20 +867,20 @@ try
 	// Load two images and create two textures from them.
 	sge::renderer::texture::planar_ptr const
 		normal_texture =
-			sge::renderer::texture::create_planar_from_view(
+			sge::renderer::texture::create_planar_from_path(
+				sge::config::media_path()/FCPPT_TEXT("images")/FCPPT_TEXT("normal_map.png"),
 				sys.renderer(),
-				sys.image_loader().load(
-					sge::config::media_path()/FCPPT_TEXT("images")/FCPPT_TEXT("normal_map.png"))->view(),
+				sys.image_system(),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
 				// Here, you could specify "readable", for example
 				sge::renderer::resource_flags::none),
 		color_texture =
-			sge::renderer::texture::create_planar_from_view(
+			sge::renderer::texture::create_planar_from_path(
+				sge::config::media_path()/FCPPT_TEXT("images")/FCPPT_TEXT("color_map.png"),
 				sys.renderer(),
-				sys.image_loader().load(
-					sge::config::media_path()/FCPPT_TEXT("images")/FCPPT_TEXT("color_map.png"))->view(),
+				sys.image_system(),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),

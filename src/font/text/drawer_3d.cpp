@@ -75,6 +75,7 @@ sge::font::text::drawer_3d::drawer_3d(
 			)
 		)
 	),
+	textures_(),
 	sys_(
 		_rend
 	),

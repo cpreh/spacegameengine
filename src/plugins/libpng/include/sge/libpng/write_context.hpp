@@ -49,7 +49,7 @@ public:
 	write_context(
 		fcppt::filesystem::path const &,
 		image2d::dim const &,
-		byte_vector &,
+		byte_vector const &,
 		image::color::format::type
 	);
 
@@ -57,7 +57,7 @@ public:
 private:
 	fcppt::io::cofstream file_;
 
-	byte_vector &bytes_;
+	byte_vector const &bytes_;
 
 	image::color::format::type const format_;
 

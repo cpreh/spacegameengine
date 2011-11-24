@@ -4,8 +4,6 @@ INCLUDE_BINARY="check_includes"
 
 "${INCLUDE_BINARY}" include || exit
 
-"${INCLUDE_BINARY}" src/include || exit
-
 check_src() {
 	"${INCLUDE_BINARY}" src/"$1"/include || exit
 }
@@ -18,6 +16,7 @@ check_src font/text
 check_src image
 check_src input
 check_src line_drawer
+check_src media
 check_src model/md3
 check_src model/obj
 check_src opencl

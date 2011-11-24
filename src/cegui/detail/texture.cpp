@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
@@ -175,7 +175,7 @@ sge::cegui::detail::texture::loadFromFile(
 			<< FCPPT_TEXT(")"));
 
 	create_from_view(
-		system_.image_loader().load(
+		system_.image_system().load(
 			system_.to_absolute_path(
 				filename,
 				resource_group))->view());

@@ -15,11 +15,10 @@ SET(
 	include/sge/image2d/image2d.hpp
 	include/sge/image2d/l8.hpp
 	include/sge/image2d/l8_format.hpp
-	include/sge/image2d/loader.hpp
-	include/sge/image2d/loader_fwd.hpp
-	include/sge/image2d/loader_ptr.hpp
-	include/sge/image2d/multi_loader.hpp
-	include/sge/image2d/multi_loader_fwd.hpp
+	include/sge/image2d/multi_system.hpp
+	include/sge/image2d/multi_system_fwd.hpp
+	include/sge/image2d/multi_system_parameters.hpp
+	include/sge/image2d/multi_system_parameters_fwd.hpp
 	include/sge/image2d/pitch.hpp
 	include/sge/image2d/plugin.hpp
 	include/sge/image2d/rect.hpp
@@ -29,7 +28,11 @@ SET(
 	include/sge/image2d/rgba32f_format.hpp
 	include/sge/image2d/rgba8.hpp
 	include/sge/image2d/rgba8_format.hpp
+	include/sge/image2d/save_from_view.hpp
 	include/sge/image2d/symbol.hpp
+	include/sge/image2d/system.hpp
+	include/sge/image2d/system_fwd.hpp
+	include/sge/image2d/system_ptr.hpp
 	include/sge/image2d/tag.hpp
 	include/sge/image2d/view/checked_sub.hpp
 	include/sge/image2d/view/const_element.hpp
@@ -63,12 +66,14 @@ SET(
 	src/image2d/bgra8.cpp
 	src/image2d/file.cpp
 	src/image2d/l8.cpp
-	src/image2d/loader.cpp
-	src/image2d/multi_loader.cpp
+	src/image2d/multi_system.cpp
+	src/image2d/multi_system_parameters.cpp
 	src/image2d/plugin.cpp
 	src/image2d/rgb8.cpp
 	src/image2d/rgba32f.cpp
 	src/image2d/rgba8.cpp
+	src/image2d/save_from_view.cpp
+	src/image2d/system.cpp
 	src/image2d/view/checked_sub.cpp
 	src/image2d/view/const_object.cpp
 	src/image2d/view/data.cpp
@@ -85,6 +90,7 @@ SET(
 
 ADD_DEFINITIONS(
 	"-D SGE_IMAGE_INSTANTIATE_EXPORTS"
+	"-D SGE_MEDIA_INSTANTIATE_EXPORTS"
 )
 
 INCLUDE_DIRECTORIES(
@@ -97,6 +103,10 @@ INCLUDE_DIRECTORIES(
 
 INCLUDE_DIRECTORIES(
 	${CMAKE_BINARY_DIR}/src/image/include
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_SOURCE_DIR}/src/media/include
 )
 
 ADD_SGE_BASE_LIBRARY(

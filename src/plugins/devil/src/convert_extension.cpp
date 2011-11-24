@@ -18,7 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/extension.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/optional_extension.hpp>
 #include <sge/devil/convert_extension.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -29,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 ILenum
 sge::devil::convert_extension(
-	sge::optional_extension const &_extension
+	sge::media::optional_extension const &_extension
 )
 {
 	if(
@@ -37,28 +38,28 @@ sge::devil::convert_extension(
 	)
 		return IL_TYPE_UNKNOWN;
 
-	sge::extension const &extension(
+	sge::media::extension const &extension(
 		*_extension
 	);
 
 	// this should be kept in sync with supported_extensions
 	if(
-		extension == FCPPT_TEXT("bmp")
+		extension.get() == FCPPT_TEXT("bmp")
 	)
 		return IL_BMP;
 	if(
-		extension == FCPPT_TEXT("png")
+		extension.get() == FCPPT_TEXT("png")
 	)
 		return IL_PNG;
 
 	if(
-		extension == FCPPT_TEXT("jpg")
-		|| extension == FCPPT_TEXT("jpeg")
+		extension.get() == FCPPT_TEXT("jpg")
+		|| extension.get() == FCPPT_TEXT("jpeg")
 	)
 		return IL_JPG;
 
 	if(
-		extension == FCPPT_TEXT("tga")
+		extension.get() == FCPPT_TEXT("tga")
 	)
 		return IL_TGA;
 

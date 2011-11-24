@@ -31,11 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/l8.hpp>
 #include <sge/image2d/l8_format.hpp>
-#include <sge/image2d/loader.hpp>
-#include <sge/image2d/loader_fwd.hpp>
-#include <sge/image2d/loader_ptr.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/multi_system.hpp>
+#include <sge/image2d/multi_system_fwd.hpp>
+#include <sge/image2d/multi_system_parameters.hpp>
+#include <sge/image2d/multi_system_parameters_fwd.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image2d/plugin.hpp>
 #include <sge/image2d/rect.hpp>
@@ -45,7 +44,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/rgba32f_format.hpp>
 #include <sge/image2d/rgba8.hpp>
 #include <sge/image2d/rgba8_format.hpp>
+#include <sge/image2d/save_from_view.hpp>
 #include <sge/image2d/symbol.hpp>
+#include <sge/image2d/system.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_ptr.hpp>
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/algorithm/algorithm.hpp>
 #include <sge/image2d/view/view.hpp>

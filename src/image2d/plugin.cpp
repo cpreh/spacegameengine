@@ -20,28 +20,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #define SGE_PLUGIN_INSTANTIATE_EXPORTS
 
-#include <sge/image2d/loader.hpp>
 #include <sge/image2d/plugin.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/src/plugin/address_name.hpp>
 #include <sge/src/plugin/instantiate_types.hpp>
 
 
 sge::plugin::detail::address_name
 sge::plugin::detail::traits<
-	sge::image2d::loader
+	sge::image2d::system
 >::plugin_loader_name()
 {
-	return SGE_PLUGIN_ADDRESS_NAME("create_image2d_loader");
+	return SGE_PLUGIN_ADDRESS_NAME("create_image2d_system");
 }
 
 sge::plugin::capabilities::type
 sge::plugin::detail::traits<
-	sge::image2d::loader
+	sge::image2d::system
 >::plugin_type()
 {
-	return capabilities::image2d_loader;
+	return capabilities::image2d_system;
 }
 
 SGE_PLUGIN_INSTANTIATE_TYPES(
-	sge::image2d::loader
+	sge::image2d::system
 )

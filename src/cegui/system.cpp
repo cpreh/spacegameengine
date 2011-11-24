@@ -59,7 +59,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::cegui::system::system(
 	load_context const &_load_context,
 	sge::renderer::device &_renderer,
-	sge::image2d::multi_loader &_image_loader,
+	sge::image2d::system &_image_system,
 	sge::charconv::system &_charconv_system,
 	sge::viewport::manager &_viewport,
 	cursor_visibility::type const _cursor_visibility)
@@ -74,7 +74,7 @@ sge::cegui::system::system(
 		*this,
 		_renderer),
 	image_codec_(
-		_image_loader),
+		_image_system),
 	resource_provider_(
 		_charconv_system),
 	system_(
@@ -215,10 +215,10 @@ sge::cegui::system::charconv_system() const
 	return charconv_system_;
 }
 
-sge::image2d::multi_loader &
-sge::cegui::system::image_loader() const
+sge::image2d::system &
+sge::cegui::system::image_system() const
 {
-	return image_codec_.loader();
+	return image_codec_.image_system();
 }
 
 sge::renderer::device &

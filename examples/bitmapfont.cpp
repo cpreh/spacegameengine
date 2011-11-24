@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/extension_set.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/font/text/draw.hpp>
@@ -32,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/onscreen_target.hpp>
@@ -41,9 +42,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/image2d.hpp>
+#include <sge/systems/input_helper.hpp>
+#include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
+#include <sge/systems/window.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/instance.hpp>
 #include <fcppt/exception.hpp>
@@ -120,12 +127,14 @@ try
 			)
 		)
 		(
-			sge::systems::image_loader(
+			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<
-					sge::extension_set
+					sge::media::extension_set
 				>(
-					FCPPT_TEXT("png")
+					sge::media::extension(
+						FCPPT_TEXT("png")
+					)
 				)
 			)
 		)
@@ -137,7 +146,7 @@ try
 			/ FCPPT_TEXT("fonts")
 			/ FCPPT_TEXT("bitmap")
 			/ FCPPT_TEXT("font.json"),
-			sys.image_loader()
+			sys.image_system()
 		)
 	);
 

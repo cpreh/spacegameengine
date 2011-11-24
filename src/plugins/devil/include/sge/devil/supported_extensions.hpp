@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_SUPPORTED_EXTENSIONS_HPP_INCLUDED
 #define SGE_DEVIL_SUPPORTED_EXTENSIONS_HPP_INCLUDED
 
-#include <sge/extension_set.hpp>
+#include <sge/media/extension_set.hpp>
+
 
 namespace sge
 {
 namespace devil
 {
 
-sge::extension_set const
+sge::media::extension_set const &
 supported_extensions();
 
 }

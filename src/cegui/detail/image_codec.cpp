@@ -18,25 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/const_raw_range.hpp>
-#include <sge/optional_extension.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/optional_extension.hpp>
 #include <sge/cegui/detail/image_codec.hpp>
 #include <sge/cegui/detail/texture.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/file_ptr.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 
 
 sge::cegui::detail::image_codec::image_codec(
-	sge::image2d::multi_loader &_image_loader)
+	sge::image2d::system &_image_system)
 :
 	CEGUI::ImageCodec(
 		"sge image codec"),
-	image_loader_(
-		_image_loader)
+	image_system_(
+		_image_system)
 {
 }
 
@@ -52,18 +51,26 @@ sge::cegui::detail::image_codec::load(
 	FCPPT_ASSERT_PRE(
 		result_texture);
 
-	dynamic_cast<texture &>(*result_texture).create_from_view(
-		image_loader_.load_raw(
-			sge::const_raw_range(
+	dynamic_cast<
+		sge::cegui::detail::texture &
+	>(
+		*result_texture
+	).create_from_view(
+		image_system_.load_raw(
+			sge::media::const_raw_range(
 				data.getDataPtr(),
-				data.getDataPtr() + data.getSize()),
-			sge::optional_extension())->view());
+				data.getDataPtr() + data.getSize()
+			),
+			sge::media::optional_extension()
+		)
+		->view()
+	);
 
 	return result_texture;
 }
 
-sge::image2d::multi_loader &
-sge::cegui::detail::image_codec::loader() const
+sge::image2d::system &
+sge::cegui::detail::image_codec::image_system() const
 {
-	return image_loader_;
+	return image_system_;
 }

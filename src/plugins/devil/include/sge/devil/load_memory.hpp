@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_LOAD_MEMORY_HPP_INCLUDED
 #define SGE_DEVIL_LOAD_MEMORY_HPP_INCLUDED
 
-#include <sge/const_raw_range.hpp>
-#include <sge/optional_extension.hpp>
 #include <sge/devil/optional_error.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/optional_extension.hpp>
 
 
 namespace sge
@@ -33,8 +33,8 @@ namespace devil
 
 devil::optional_error const
 load_memory(
-	sge::const_raw_range const &,
-	sge::optional_extension const &
+	sge::media::const_raw_range const &,
+	sge::media::optional_extension const &
 );
 
 }

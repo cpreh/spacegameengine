@@ -43,6 +43,10 @@ sge::libpng::file::file(
 	std::istream &_stream,
 	sge::image::optional_path const &_path
 )
+:
+	dim_(),
+	format_(),
+	bytes_()
 {
 	if(
 		!libpng::is_png(
@@ -72,38 +76,24 @@ sge::libpng::file::file(
 sge::libpng::file::file(
 	image2d::view::const_object const &_view
 )
-{
-	data(
-		_view
-	);
-}
-
-sge::libpng::file::~file()
-{
-}
-
-void
-sge::libpng::file::data(
-	image2d::view::const_object const &_view
-)
-{
-	dim_ =
+:
+	dim_(
 		image2d::view::size(
 			_view
-		);
-
-	format_ =
+		)
+	),
+	format_(
 		image2d::view::format(
 			_view
-		);
-
-	bytes_.resize(
+		)
+	),
+	bytes_(
 		dim_.content() *
 		image::color::format_stride(
 			format_
 		)
-	);
-
+	)
+{
 	image2d::algorithm::copy_and_convert(
 		_view,
 		image2d::view::make(
@@ -114,6 +104,10 @@ sge::libpng::file::data(
 		),
 		sge::image::algorithm::may_overlap::no
 	);
+}
+
+sge::libpng::file::~file()
+{
 }
 
 sge::image2d::view::const_object const
@@ -141,9 +135,9 @@ sge::libpng::file::size() const
 void
 sge::libpng::file::save(
 	fcppt::filesystem::path const &_path
-)
+) const
 {
-	write_context context(
+	libpng::write_context context(
 		_path,
 		this->size(),
 		bytes_,

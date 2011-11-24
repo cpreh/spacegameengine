@@ -19,12 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
-#include <sge/extension_set.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/listener.hpp>
-#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/positional.hpp>
@@ -36,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image2d/file_ptr.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/relative_move_event.hpp>
@@ -44,6 +43,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/log/global.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
@@ -104,7 +106,7 @@ namespace
 sge::audio::file_ptr const
 load_raw(
 	fcppt::filesystem::path const &path,
-	sge::audio::multi_loader &audio_loader)
+	sge::audio::loader &audio_loader)
 {
 	fcppt::io::cifstream raw_stream(
 		path,
@@ -126,7 +128,7 @@ load_raw(
 					&(*raw_bytes.cbegin())),
 				reinterpret_cast<unsigned char const *>(
 					&(*raw_bytes.cend()))),
-			sge::optional_extension());
+			sge::media::optional_extension());
 }
 }
 
@@ -269,12 +271,14 @@ try
 			sge::systems::audio_player_default()
 		)
 		(
-			sge::systems::image_loader(
+			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<
-					sge::extension_set
+					sge::media::extension_set
 				>(
-					FCPPT_TEXT("png")
+					sge::media::extension(
+						FCPPT_TEXT("png")
+					)
 				)
 			)
 		)
@@ -282,9 +286,11 @@ try
 			sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
 				fcppt::assign::make_container<
-					sge::extension_set
+					sge::media::extension_set
 				>(
-					FCPPT_TEXT("ogg")
+					sge::media::extension(
+						FCPPT_TEXT("ogg")
+					)
 				)
 			)
 		)
@@ -317,7 +323,7 @@ try
 		tex_bg(
 			sge::texture::add_image(
 				tex_man,
-				*sys.image_loader().load(
+				*sys.image_system().load(
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("grass.png")
@@ -327,7 +333,7 @@ try
 		tex_tux(
 			sge::texture::add_image(
 				tex_man,
-				*sys.image_loader().load(
+				*sys.image_system().load(
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("tux.png")

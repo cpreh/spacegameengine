@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
-#include <sge/extension_set.hpp>
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
 #include <sge/config/media_path.hpp>
@@ -29,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image2d/file_ptr.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/relative_move_event.hpp>
@@ -37,6 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/log/global.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
@@ -143,7 +144,7 @@ try
 		1024,
 		768);
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::systems::window(
 				sge::window::simple_parameters(
@@ -162,14 +163,16 @@ try
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
 				sge::systems::cursor_option_field(
 					sge::systems::cursor_option::exclusive)))
-		(sge::systems::image_loader(
+		(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
-				fcppt::assign::make_container<sge::extension_set>(
-					FCPPT_TEXT("png"))))
+				fcppt::assign::make_container<sge::media::extension_set>(
+					sge::media::extension(
+						FCPPT_TEXT("png")))))
 		(sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
-				fcppt::assign::make_container<sge::extension_set>(
-					FCPPT_TEXT("ogg")))));
+				fcppt::assign::make_container<sge::media::extension_set>(
+					sge::media::extension(
+						FCPPT_TEXT("ogg"))))));
 
 	sge::camera::ortho_freelook::object camera(
 		sge::camera::ortho_freelook::parameters(
@@ -197,14 +200,14 @@ try
 		tex_bg(
 			sge::texture::add_image(
 				tex_man,
-				*sys.image_loader().load(
+				*sys.image_system().load(
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("grass.png")))),
 		tex_tux(
 			sge::texture::add_image(
 				tex_man,
-				*sys.image_loader().load(
+				*sys.image_system().load(
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("tux.png"))));

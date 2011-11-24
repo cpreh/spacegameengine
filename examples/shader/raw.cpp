@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/extension_set.hpp>
-#include <sge/multi_loader.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/init.hpp>
@@ -27,12 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/log/global.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
@@ -217,15 +218,19 @@ try
 			)
 		)
 		(
-			sge::systems::image_loader(
+			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<
-					sge::extension_set
+					sge::media::extension_set
 				>(
-					FCPPT_TEXT("png")
+					sge::media::extension(
+						FCPPT_TEXT("png")
+					)
 				)
 				(
-					FCPPT_TEXT("jpg")
+					sge::media::extension(
+						FCPPT_TEXT("jpg")
+					)
 				)
 			)
 		)
@@ -233,21 +238,21 @@ try
 
 	sge::image2d::file_ptr const
 		image_bg(
-			sys.image_loader().load(
+			sys.image_system().load(
 				sge::config::media_path()
 				/ FCPPT_TEXT("images")
 				/ FCPPT_TEXT("shadertest.jpg")
 			)
 		),
 		image_pointer(
-			sys.image_loader().load(
+			sys.image_system().load(
 				sge::config::media_path()
 				/ FCPPT_TEXT("images")
 				/ FCPPT_TEXT("cursor.png")
 			)
 		),
 		image_tux(
-			sys.image_loader().load(
+			sys.image_system().load(
 				sge::config::media_path()
 				/ FCPPT_TEXT("images")
 				/ FCPPT_TEXT("tux.png")

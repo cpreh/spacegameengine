@@ -45,6 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/log/global.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/optional_extension.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -72,44 +74,6 @@ sge::devil::file::file(
 )
 :
 	impl_()
-{
-	this->data(
-		_src
-	);
-}
-
-sge::devil::file::~file()
-{
-}
-
-sge::image2d::dim const
-sge::devil::file::size() const
-{
-	this->bind();
-
-	return
-		image2d::dim(
-			static_cast<
-				image2d::dim::value_type
-			>(
-				devil::get_integer(
-					IL_IMAGE_WIDTH
-				)
-			),
-			static_cast<
-				image2d::dim::value_type
-			>(
-				devil::get_integer(
-					IL_IMAGE_HEIGHT
-				)
-			)
-		);
-}
-
-void
-sge::devil::file::data(
-	image2d::view::const_object const &_src
-)
 {
 	this->bind();
 
@@ -192,6 +156,34 @@ sge::devil::file::data(
 	devil::check_error_exn();
 }
 
+sge::devil::file::~file()
+{
+}
+
+sge::image2d::dim const
+sge::devil::file::size() const
+{
+	this->bind();
+
+	return
+		image2d::dim(
+			static_cast<
+				image2d::dim::value_type
+			>(
+				devil::get_integer(
+					IL_IMAGE_WIDTH
+				)
+			),
+			static_cast<
+				image2d::dim::value_type
+			>(
+				devil::get_integer(
+					IL_IMAGE_HEIGHT
+				)
+			)
+		);
+}
+
 sge::image2d::view::const_object const
 sge::devil::file::view() const
 {
@@ -218,7 +210,7 @@ sge::devil::file::view() const
 void
 sge::devil::file::save(
 	fcppt::filesystem::path const &_file
-)
+) const
 {
 	this->bind();
 
@@ -287,8 +279,8 @@ sge::devil::file::load(
 
 sge::devil::optional_error const
 sge::devil::file::load(
-	sge::const_raw_range const &_range,
-	sge::optional_extension const &_extension
+	sge::media::const_raw_range const &_range,
+	sge::media::optional_extension const &_extension
 )
 {
 	return

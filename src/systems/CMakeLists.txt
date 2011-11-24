@@ -11,7 +11,7 @@ SET(
 	include/sge/systems/cursor_option.hpp
 	include/sge/systems/cursor_option_field.hpp
 	include/sge/systems/exception.hpp
-	include/sge/systems/image_loader.hpp
+	include/sge/systems/image2d.hpp
 	include/sge/systems/input.hpp
 	include/sge/systems/input_helper.hpp
 	include/sge/systems/input_helper_field.hpp
@@ -37,7 +37,7 @@ SET(
 	src/systems/create_render_window.cpp
 	src/systems/cursor_modifier.cpp
 	src/systems/exception.cpp
-	src/systems/image_loader.cpp
+	src/systems/image2d.cpp
 	src/systems/include/sge/src/systems/any_compare.hpp
 	src/systems/include/sge/src/systems/basic_loader_impl.hpp
 	src/systems/include/sge/src/systems/create_normal_window.hpp

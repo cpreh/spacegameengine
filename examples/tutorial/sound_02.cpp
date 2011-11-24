@@ -18,15 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/extension_set.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/file_ptr.hpp>
-#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/loader.hpp>
+#include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/config/media_path.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
+#include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -54,7 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(
 			sge::systems::audio_player_default()
@@ -63,9 +66,11 @@ try
 			sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
 				fcppt::assign::make_container<
-					sge::extension_set
+					sge::media::extension_set
 				>(
-					FCPPT_TEXT("wav")
+					sge::media::extension(
+						FCPPT_TEXT("wav")
+					)
 				)
 			)
 		)

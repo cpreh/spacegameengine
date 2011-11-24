@@ -18,17 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/texture/address_mode2_fwd.hpp>
 #include <sge/renderer/texture/create_planar_from_file.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 
 sge::renderer::texture::planar_ptr const
 sge::renderer::texture::create_planar_from_path(
 	fcppt::filesystem::path const &_file,
 	renderer::device &_renderer,
-	image2d::multi_loader &_loader,
+	image2d::system &_system,
 	renderer::texture::mipmap::object const &_mipmap,
 	renderer::texture::address_mode2 const &_address_mode,
 	renderer::resource_flags_field const &_flags
@@ -37,7 +42,7 @@ sge::renderer::texture::create_planar_from_path(
 	return
 		renderer::texture::create_planar_from_file(
 			_renderer,
-			*_loader.load(
+			*_system.load(
 				_file
 			),
 			_mipmap,

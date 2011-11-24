@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_FONT_BITMAP_LOAD_ONE_FILE_HPP_INCLUDED
 
 #include <sge/image2d/file_ptr.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <fcppt/filesystem/path.hpp>
@@ -39,7 +39,7 @@ sge::image2d::file_ptr const
 load_one_file(
 	fcppt::filesystem::path const &stem,
 	sge::parse::json::object const &,
-	sge::image2d::multi_loader &,
+	sge::image2d::system &,
 	bitmap::char_map &
 );
 

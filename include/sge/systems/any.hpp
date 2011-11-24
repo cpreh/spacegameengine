@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_player.hpp>
 #include <sge/systems/basic_loader.hpp>
 #include <sge/systems/config.hpp>
-#include <sge/systems/image_loader.hpp>
+#include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/parameterless.hpp>
 #include <sge/systems/renderer.hpp>
@@ -46,7 +46,7 @@ typedef fcppt::variant::object<
 		systems::config,
 		systems::window,
 		systems::renderer,
-		systems::image_loader,
+		systems::image2d,
 		systems::audio_loader,
 		systems::audio_player,
 		systems::input,

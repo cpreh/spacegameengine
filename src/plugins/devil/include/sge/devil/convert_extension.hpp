@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_CONVERT_EXTENSION_HPP_INCLUDED
 #define SGE_DEVIL_CONVERT_EXTENSION_HPP_INCLUDED
 
-#include <sge/optional_extension.hpp>
+#include <sge/media/optional_extension.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
 #include <fcppt/config/external_end.hpp>
@@ -33,7 +33,7 @@ namespace devil
 
 ILenum
 convert_extension(
-	sge::optional_extension const &
+	sge::media::optional_extension const &
 );
 
 }

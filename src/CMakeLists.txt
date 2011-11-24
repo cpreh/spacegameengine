@@ -1,16 +1,9 @@
 SET(
 	SGE_CORE_INCLUDE_FILES
-	include/sge/all_extensions.hpp
 	include/sge/class_symbol.hpp
-	include/sge/const_raw_pointer.hpp
-	include/sge/const_raw_range.hpp
 	include/sge/error/check_state.hpp
 	include/sge/error/error.hpp
 	include/sge/exception.hpp
-	include/sge/extension.hpp
-	include/sge/extension_set.hpp
-	include/sge/instantiate_symbol.hpp
-	include/sge/loaders_exhausted.hpp
 	include/sge/log/declare_lib.hpp
 	include/sge/log/declare_lib_base.hpp
 	include/sge/log/declare_local.hpp
@@ -19,9 +12,21 @@ SET(
 	include/sge/log/global_context.hpp
 	include/sge/log/location.hpp
 	include/sge/log/log.hpp
-	include/sge/multi_loader.hpp
-	include/sge/multi_loader_fwd.hpp
-	include/sge/optional_extension.hpp
+	include/sge/media/all_extensions.hpp
+	include/sge/media/const_raw_pointer.hpp
+	include/sge/media/const_raw_range.hpp
+	include/sge/media/detail/instantiate_symbol.hpp
+	include/sge/media/extension.hpp
+	include/sge/media/extension_set.hpp
+	include/sge/media/loaders_exhausted.hpp
+	include/sge/media/media.hpp
+	include/sge/media/muxer.hpp
+	include/sge/media/muxer_fwd.hpp
+	include/sge/media/muxer_parameters.hpp
+	include/sge/media/muxer_parameters_fwd.hpp
+	include/sge/media/optional_extension.hpp
+	include/sge/media/optional_extension_fwd.hpp
+	include/sge/media/path_to_extension.hpp
 	include/sge/symbol.hpp
 	include/sge/timer/basic.hpp
 	include/sge/timer/basic_decl.hpp
@@ -62,17 +67,17 @@ SET(
 
 SET(
 	SGE_CORE_SRC_FILES
-	src/all_extensions.cpp
 	src/exception.cpp
-	src/loaders_exhausted.cpp
 	src/log/default_parameters.cpp
 	src/log/global.cpp
 	src/log/global_context.cpp
 	src/log/location.cpp
-)
-
-INCLUDE_DIRECTORIES(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
+	src/media/all_extensions.cpp
+	src/media/include/sge/src/media/instantiate_muxer_parameters.hpp
+	src/media/include/sge/src/media/muxer_impl.hpp
+	src/media/include/sge/src/media/muxer_parameters_impl.hpp
+	src/media/loaders_exhausted.cpp
+	src/media/path_to_extension.cpp
 )
 
 FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(

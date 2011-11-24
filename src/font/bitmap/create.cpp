@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/bitmap/create.hpp>
-#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/src/font/bitmap/metrics.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::font::metrics_ptr const
 sge::font::bitmap::create(
 	fcppt::filesystem::path const &_path,
-	sge::image2d::multi_loader &_loader
+	sge::image2d::system &_system
 )
 {
 	return
@@ -39,7 +39,7 @@ sge::font::bitmap::create(
 		>(
 			_path,
 			fcppt::ref(
-				_loader
+				_system
 			)
 		);
 }

@@ -18,7 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/extension_set.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/devil/supported_extensions.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -28,31 +29,41 @@ namespace
 {
 
 // FIXME: add more extensions, see: http://openil.sourceforge.net/features.php
-sge::extension_set const extensions_(
+sge::media::extension_set const extensions(
 	fcppt::assign::make_container<
-		sge::extension_set
+		sge::media::extension_set
 	>
 	(
-		FCPPT_TEXT("bmp")
+		sge::media::extension(
+			FCPPT_TEXT("bmp")
+		)
 	)
 	(
-		FCPPT_TEXT("png")
+		sge::media::extension(
+			FCPPT_TEXT("png")
+		)
 	)
 	(
-		FCPPT_TEXT("jpg")
+		sge::media::extension(
+			FCPPT_TEXT("jpg")
+		)
 	)
 	(
-		FCPPT_TEXT("jpeg")
+		sge::media::extension(
+			FCPPT_TEXT("jpeg")
+		)
 	)
 	(
-		FCPPT_TEXT("tga")
+		sge::media::extension(
+			FCPPT_TEXT("tga")
+		)
 	)
 );
 
 }
 
-sge::extension_set const
+sge::media::extension_set const &
 sge::devil::supported_extensions()
 {
-	return extensions_;
+	return extensions;
 }

@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_buffer_fwd.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

@@ -59,11 +59,6 @@ public:
 
 	~file();
 
-	void
-	data(
-		image2d::view::const_object const &
-	);
-
 	image2d::view::const_object const
 	view() const;
 
@@ -73,13 +68,13 @@ public:
 	void
 	save(
 		fcppt::filesystem::path const &
-	);
+	) const;
 private:
 	image2d::dim dim_;
 
-	libpng::byte_vector bytes_;
-
 	image::color::format::type format_;
+
+	libpng::byte_vector bytes_;
 };
 
 }

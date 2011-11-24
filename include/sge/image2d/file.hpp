@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/symbol.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
 
 
 namespace sge
@@ -44,21 +43,11 @@ protected:
 	SGE_IMAGE2D_SYMBOL
 	file();
 public:
-	virtual void
-	data(
-		image2d::view::const_object const &
-	) = 0;
-
 	virtual image2d::view::const_object const
 	view() const = 0;
 
 	virtual image2d::dim const
 	size() const = 0;
-
-	virtual void
-	save(
-		fcppt::filesystem::path const &
-	) = 0;
 
 	SGE_IMAGE2D_SYMBOL
 	virtual ~file() = 0;

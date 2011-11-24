@@ -32,7 +32,7 @@ enum type
 {
 	renderer,
 	input,
-	image2d_loader,
+	image2d_system,
 	audio_player,
 	font,
 	audio_loader,

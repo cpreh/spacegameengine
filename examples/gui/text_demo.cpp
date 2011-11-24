@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/extension_set.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
@@ -38,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/log/global_context.hpp>
 #include <sge/log/location.hpp>
+#include <sge/media/extension.hpp>
+#include <sge/media/extension_set.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -52,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/systems/cursor_option_field.hpp>
-#include <sge/systems/image_loader.hpp>
+#include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -113,7 +114,7 @@ try
 			std::tr1::placeholders::_1,
 			fcppt::log::level::debug));
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::systems::window(
 			sge::window::simple_parameters(
@@ -127,10 +128,11 @@ try
 				sge::renderer::no_multi_sampling),
 			sge::viewport::fill_on_resize()))
 		(sge::systems::parameterless::charconv)
-			(sge::systems::image_loader(
+			(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
-				fcppt::assign::make_container<sge::extension_set>(
-					FCPPT_TEXT("png"))))
+				fcppt::assign::make_container<sge::media::extension_set>(
+					sge::media::extension(
+						FCPPT_TEXT("png")))))
 		(sge::systems::input(
 			sge::systems::input_helper_field(
 				sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector | sge::systems::input_helper::cursor_demuxer,
@@ -151,7 +153,7 @@ try
 			.font_directory(
 				sge::config::media_path()/FCPPT_TEXT("fonts")),
 		sys.renderer(),
-		sys.image_loader(),
+		sys.image_system(),
 		sys.charconv_system(),
 		sys.viewport_manager(),
 		sge::cegui::cursor_visibility::visible);

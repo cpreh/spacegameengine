@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_ptr.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/image2d/view/checked_sub.hpp>
 #include <sge/log/global.hpp>
 #include <sge/parse/json/array.hpp>
@@ -52,7 +52,7 @@ sge::image2d::file_ptr const
 sge::font::bitmap::load_one_file(
 	fcppt::filesystem::path const &_stem,
 	sge::parse::json::object const &_object,
-	sge::image2d::multi_loader &_loader,
+	sge::image2d::system &_image_system,
 	bitmap::char_map &_char_map
 )
 {
@@ -61,7 +61,7 @@ sge::font::bitmap::load_one_file(
 	);
 
 	sge::image2d::file_ptr const return_file(
-		_loader.load(
+		_image_system.load(
 			_stem
 			/
 			parse::json::find_member_exn<

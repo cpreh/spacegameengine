@@ -9,10 +9,10 @@ SET(
 	src/plugins/libpng/include/sge/libpng/info.hpp
 	src/plugins/libpng/include/sge/libpng/is_png.hpp
 	src/plugins/libpng/include/sge/libpng/load_context.hpp
-	src/plugins/libpng/include/sge/libpng/loader.hpp
 	src/plugins/libpng/include/sge/libpng/logger.hpp
 	src/plugins/libpng/include/sge/libpng/png.hpp
 	src/plugins/libpng/include/sge/libpng/read_ptr.hpp
+	src/plugins/libpng/include/sge/libpng/system.hpp
 	src/plugins/libpng/include/sge/libpng/to_sge_format.hpp
 	src/plugins/libpng/include/sge/libpng/transforms_from_format.hpp
 	src/plugins/libpng/include/sge/libpng/write_context.hpp
@@ -25,9 +25,9 @@ SET(
 	src/plugins/libpng/src/info.cpp
 	src/plugins/libpng/src/is_png.cpp
 	src/plugins/libpng/src/load_context.cpp
-	src/plugins/libpng/src/loader.cpp
 	src/plugins/libpng/src/logger.cpp
 	src/plugins/libpng/src/read_ptr.cpp
+	src/plugins/libpng/src/system.cpp
 	src/plugins/libpng/src/to_sge_format.cpp
 	src/plugins/libpng/src/transforms_from_format.cpp
 	src/plugins/libpng/src/write_context.cpp

@@ -18,17 +18,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#define SGE_INSTANTIATE_EXPORTS
-#define SGE_PLUGIN_INSTANTIATE_EXPORTS
-
+#include <sge/audio/file_ptr.hpp>
 #include <sge/audio/loader.hpp>
+#include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/loader_plugin.hpp>
 #include <sge/audio/multi_loader.hpp>
-#include <sge/src/instantiate_multi_loader.hpp>
+#include <sge/audio/multi_loader_parameters_fwd.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
+#include <sge/src/media/muxer_impl.hpp>
+#include <fcppt/filesystem/path.hpp>
 
-SGE_INSTANTIATE_MULTI_LOADER(
-	sge::audio::loader,
-	sge::audio::file,
-	sge::audio::exception,
-	sge::audio::loader_capabilities_field
+
+sge::audio::multi_loader::multi_loader(
+	sge::audio::multi_loader_parameters const &_param
 )
+:
+	sge::audio::loader(),
+	muxer_(
+		_param
+	)
+{
+}
+
+sge::audio::file_ptr const
+sge::audio::multi_loader::load(
+	fcppt::filesystem::path const &_path
+)
+{
+	return
+		muxer_.mux_path(
+			_path
+		).load(
+			_path
+		);
+}
+
+sge::audio::file_ptr const
+sge::audio::multi_loader::load_raw(
+	sge::media::const_raw_range const &_range,
+	sge::media::optional_extension const &_extension
+)
+{
+	return
+		muxer_.mux_extension(
+			_extension
+		).load_raw(
+			_range,
+			_extension
+		);
+}
+
+sge::audio::loader_capabilities_field const
+sge::audio::multi_loader::capabilities() const
+{
+	return muxer_.capabilities();
+}
+
+sge::media::extension_set const
+sge::audio::multi_loader::extensions() const
+{
+	return muxer_.extensions();
+}
+
+sge::audio::multi_loader::~multi_loader()
+{
+}
