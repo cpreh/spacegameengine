@@ -722,6 +722,10 @@ SET(
 	src/renderer/viewport_size.cpp
 )
 
+ADD_DEFINITIONS(
+	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
+)
+
 INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )

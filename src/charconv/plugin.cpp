@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#define SGE_PLUGIN_INSTANTIATE_EXPORTS
-
 #include <sge/charconv/plugin.hpp>
 #include <sge/charconv/system.hpp>
 #include <sge/src/plugin/address_name.hpp>

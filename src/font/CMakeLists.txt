@@ -30,6 +30,10 @@ SET(
 	src/font/system.cpp
 )
 
+ADD_DEFINITIONS(
+	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
+)
+
 INCLUDE_DIRECTORIES(
 	${CMAKE_SOURCE_DIR}/src/plugin/include
 )
