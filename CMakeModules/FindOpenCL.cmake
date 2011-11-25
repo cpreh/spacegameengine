@@ -105,7 +105,7 @@ include(
 )
 
 find_package_handle_standard_args(
-	OPENCL	
+	OPENCL
 	DEFAULT_MSG
 	OPENCL_LIBRARY
 	OPENCL_INCLUDE_DIR

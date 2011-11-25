@@ -22,7 +22,7 @@ if(
 	)
 		set(D3D9_LIBRARYDIR "$ENV{DXSDK_DIR}/Lib/x64")
 	elseif(
-		CMAKE_SIZEOF_VOID_P EQUAL 4 
+		CMAKE_SIZEOF_VOID_P EQUAL 4
 	)
 		set(D3D9_LIBRARYDIR "$ENV{DXSDK_DIR}/Lib/x86")
 	endif()
