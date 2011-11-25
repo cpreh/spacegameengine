@@ -44,7 +44,7 @@ sge::console::callback::parameters &
 sge::console::callback::parameters::long_description(
 	font::text::string const &_long_description)
 {
-	long_description_ = 
+	long_description_ =
 		_long_description;
 	return *this;
 }

@@ -118,7 +118,7 @@ private:
 	renderer::index::dynamic::format::type const format_;
 
 	count_type const size_;
-	
+
 	size_type const stride_;
 
 	mutable renderer::raw_pointer lock_dest_;

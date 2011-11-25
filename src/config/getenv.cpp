@@ -64,7 +64,7 @@ sge::config::getenv(
 		ret == 0
 	)
 		return config::optional_string();
-	
+
 	FCPPT_ASSERT_ERROR(
 		ret <=
 		static_cast<
