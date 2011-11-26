@@ -46,7 +46,6 @@ sge::d3d9::state::convert::color_write(
 	case sge::renderer::state::bool_::available_states::clear_stencil_buffer:
 	case sge::renderer::state::bool_::available_states::enable_alpha_blending:
 	case sge::renderer::state::bool_::available_states::enable_lighting:
-	case sge::renderer::state::bool_::available_states::enable_multi_sampling:
 	case sge::renderer::state::bool_::available_states::enable_point_sprites:
 	case sge::renderer::state::bool_::available_states::enable_scissor_test:
 	case sge::renderer::state::bool_::available_states::write_to_depth_buffer:

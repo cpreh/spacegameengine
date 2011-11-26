@@ -49,9 +49,11 @@ sge::d3d9::state::bool_(
 			deferred::bundle::color_write
 		);
 		return;
-	case sge::renderer::state::bool_::available_states::enable_multi_sampling:
-		return; // FIXME
-	default:
+	case sge::renderer::state::bool_::available_states::enable_alpha_blending:
+	case sge::renderer::state::bool_::available_states::enable_lighting:
+	case sge::renderer::state::bool_::available_states::enable_point_sprites:
+	case sge::renderer::state::bool_::available_states::enable_scissor_test:
+	case sge::renderer::state::bool_::available_states::write_to_depth_buffer:
 		break;
 	}
 
