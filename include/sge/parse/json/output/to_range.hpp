@@ -21,13 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_OUTPUT_TO_RANGE_HPP_INCLUDED
 #define SGE_PARSE_JSON_OUTPUT_TO_RANGE_HPP_INCLUDED
 
-#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/output/grammar.hpp>
-#include <sge/parse/json/output/tabbed_to_string.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/karma_generate.hpp>
-#include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,30 +46,16 @@ to_range(
 	json::object const &_data
 )
 {
-	fcppt::string const result(
-		sge::parse::json::output::tabbed_to_string(
-			_data
-		)
-	);
-
-	std::copy(
-		result.begin(),
-		result.end(),
-		_beg
-	);
-
-	return true;
-/*
 	output::grammar<
 		Out
 	> parser;
 
 	return
 		boost::spirit::karma::generate(
-			beg,
+			_beg,
 			parser,
-			data
-		);*/
+			_data
+		);
 }
 
 }

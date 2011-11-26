@@ -21,18 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_OUTPUT_GRAMMAR_HPP_INCLUDED
 #define SGE_PARSE_JSON_OUTPUT_GRAMMAR_HPP_INCLUDED
 
-#if 0
 #include <sge/parse/encoding.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/string.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/adapt_array.hpp>
 #include <sge/parse/json/detail/adapt_object.hpp>
-#include <sge/parse/json/detail/pair.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/variant/get.hpp>
@@ -65,7 +64,7 @@ class grammar
 :
 	public boost::spirit::karma::grammar<
 		Out,
-		object()
+		json::object()
 	>
 {
 	FCPPT_NONCOPYABLE(
@@ -78,27 +77,27 @@ public:
 			object_
 		)
 	{
-		using encoding::char_;
-		using boost::spirit::lit;
-		using boost::spirit::karma::bool_;
+		namespace encoding = parse::encoding;
+
+		namespace karma = boost::spirit::karma;
 
 		null_ %=
-			lit(FCPPT_TEXT("null"));
+			karma::lit(FCPPT_TEXT("null"));
 
 		quoted_string_ %=
-			lit(FCPPT_TEXT('"'))
-			<< *char_
-			<< lit(FCPPT_TEXT('"'));
+			karma::lit(FCPPT_TEXT('"'))
+			<< *encoding::char_
+			<< karma::lit(FCPPT_TEXT('"'));
 
 		array_ %=
-			lit(FCPPT_TEXT('['))
-			<< -(value_ % lit(FCPPT_TEXT(", ")))
-			<< lit(FCPPT_TEXT(']'));
+			karma::lit(FCPPT_TEXT('['))
+			<< -(value_ % karma::lit(FCPPT_TEXT(", ")))
+			<< karma::lit(FCPPT_TEXT(']'));
 
 		value_ %=
 			object_
 			| array_
-			| bool_
+			| karma::bool_
 			| quoted_string_
 			| float_
 			| int_
@@ -106,15 +105,13 @@ public:
 
 		member_ %=
 			quoted_string_
-			<< lit(FCPPT_TEXT(':'))
+			<< karma::lit(FCPPT_TEXT(':'))
 			<< value_;
 
-#if 0
 		object_ %=
-			lit(FCPPT_TEXT('{'))
-			<< -(member_ % lit(FCPPT_TEXT(", ")))
-			<< lit(FCPPT_TEXT('}'));
-#endif
+			karma::lit(FCPPT_TEXT('{'))
+			<< -(member_ % karma::lit(FCPPT_TEXT(", ")))
+			<< karma::lit(FCPPT_TEXT('}'));
 	}
 
 	~grammar()
@@ -151,7 +148,7 @@ private:
 
 	boost::spirit::karma::rule<
 		Out,
-		detail::pair()
+		json::member()
 	> member_;
 
 	boost::spirit::karma::rule<
@@ -164,6 +161,5 @@ private:
 }
 }
 }
-#endif
 
 #endif
