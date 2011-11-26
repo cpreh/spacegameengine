@@ -41,6 +41,21 @@ namespace glsl
 namespace uniform
 {
 
+/**
+ * \brief Sets an array value for a uniform variable from a range
+ *
+ * Sets an array value of vectors or matrices for \a _var from the range from
+ * \a _beg to \a _end.
+ *
+ * \tparam In An input iterator to fcppt::math::vector::static_ or
+ * fcppt::math::matrix::static_
+ *
+ * \param _var The variable to set the value for
+ *
+ * \param _beg The beginning of the range
+ *
+ * \param _end One past the end of the range
+*/
 template<
 	typename In
 >
@@ -87,6 +102,18 @@ array_value(
 	);
 }
 
+/**
+ * \brief Sets an array value for a uniform variable from a container
+ *
+ * Sets an array value of vectors or matrices for \a _var from \a _cont.
+ *
+ * \tparam Container A container of fcppt::math::vector::static_ or
+ * fcppt::math::matrix::static_
+ *
+ * \param _var The variable to set the value for
+ *
+ * \param _cont The container to store the data from
+*/
 template<
 	typename Container
 >

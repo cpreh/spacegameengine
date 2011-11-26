@@ -32,8 +32,11 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief A shared pointer to a glsl::pixel_shader
+*/
 typedef fcppt::shared_ptr<
-	pixel_shader
+	glsl::pixel_shader
 > pixel_shader_ptr;
 
 }

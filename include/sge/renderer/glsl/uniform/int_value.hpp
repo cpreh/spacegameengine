@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_INT_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_INT_VALUE_HPP_INCLUDED
 
-#include <sge/renderer/glsl/int_type.hpp>
 #include <sge/renderer/glsl/uniform/basic_value.hpp>
+#include <sge/renderer/glsl/uniform/int_type.hpp>
 #include <sge/renderer/glsl/uniform/int_value_type.hpp>
 
 
@@ -36,8 +36,8 @@ namespace uniform
 {
 
 typedef uniform::basic_value<
-	int_type,
-	int_value_type::type
+	uniform::int_type,
+	uniform::int_value_type::type
 > int_value;
 
 }

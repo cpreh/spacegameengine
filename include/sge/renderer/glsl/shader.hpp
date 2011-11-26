@@ -36,6 +36,14 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief The base class for shaders
+ *
+ * A shader is piece of code that influences how a glsl::program replaces parts
+ * of the fixed function pipeline.
+ *
+ * \see renderer::glsl::program
+*/
 class SGE_CLASS_SYMBOL shader
 {
 	FCPPT_NONCOPYABLE(
@@ -48,12 +56,29 @@ public:
 	SGE_RENDERER_SYMBOL
 	virtual ~shader() = 0;
 
+	/**
+	 * \brief Compiles the shader
+	 *
+	 * A shader must be compiled before it can be used by a glsl::program.
+	 *
+	 * \throw sge::renderer::glsl::exception if anything goes wrong
+	*/
 	virtual void
 	compile() = 0;
 
+	/**
+	 * \brief Returns the info log
+	 *
+	 * The info log contains information about errors that might have
+	 * occured while construction the shader, especially if a call to
+	 * compile failed.
+	*/
 	virtual fcppt::string const
 	info_log() const = 0;
 
+	/**
+	 * \brief Returns the source of the shader
+	*/
 	virtual renderer::glsl::string const
 	source() const = 0;
 };

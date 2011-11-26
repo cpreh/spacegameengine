@@ -35,18 +35,41 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief A scoped attachment of a shader to a program
+ *
+ * Attaches the shader to a program in the constructor and detaches it in the
+ * destructor.
+*/
 class scoped_attachment
 {
 	FCPPT_NONCOPYABLE(
 		scoped_attachment
 	);
 public:
+	/**
+	 * \brief Attaches a shader to a program
+	 *
+	 * Attaches \a shader to \a program.
+	 *
+	 * \param program The program to attach the shader to
+	 *
+	 * \param shader The shader to attach
+	 *
+	 * \warning The behaviour is undefined if the shader is already attached
+	*/
 	SGE_RENDERER_SYMBOL
 	scoped_attachment(
-		sge::renderer::glsl::program &,
-		sge::renderer::glsl::shader const &
+		sge::renderer::glsl::program &program,
+		sge::renderer::glsl::shader const &shader
 	);
 
+	/**
+	 * \brief Detaches the shader from the program
+	 *
+	 * \warning The behaviour is undefined if the shader was already
+	 * detached
+	*/
 	SGE_RENDERER_SYMBOL
 	~scoped_attachment();
 private:

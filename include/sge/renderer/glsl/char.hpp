@@ -28,6 +28,9 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief The character type used for glsl source code
+*/
 typedef char char_;
 
 }

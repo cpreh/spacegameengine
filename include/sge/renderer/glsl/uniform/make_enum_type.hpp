@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_UNIFORM_MAKE_ENUM_TYPE_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/glsl/int_type.hpp>
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
+#include <sge/renderer/glsl/uniform/int_type.hpp>
 #include <sge/renderer/glsl/uniform/int_value_type.hpp>
 
 
@@ -43,18 +43,18 @@ struct make_enum_type;
 
 template<>
 struct make_enum_type<
-	glsl::int_type
+	glsl::uniform::int_type
 >
 {
-	typedef int_value_type::type type;
+	typedef uniform::int_value_type::type type;
 };
 
 template<>
 struct make_enum_type<
-	scalar
+	renderer::scalar
 >
 {
-	typedef float_value_type::type type;
+	typedef uniform::float_value_type::type type;
 };
 
 }

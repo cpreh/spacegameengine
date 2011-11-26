@@ -77,7 +77,6 @@ SET(
 	include/sge/renderer/glsl/geometry_shader_fwd.hpp
 	include/sge/renderer/glsl/geometry_shader_ptr.hpp
 	include/sge/renderer/glsl/glsl.hpp
-	include/sge/renderer/glsl/int_type.hpp
 	include/sge/renderer/glsl/pixel_shader.hpp
 	include/sge/renderer/glsl/pixel_shader_fwd.hpp
 	include/sge/renderer/glsl/pixel_shader_ptr.hpp
@@ -100,6 +99,7 @@ SET(
 	include/sge/renderer/glsl/uniform/detail/matrix_arity.hpp
 	include/sge/renderer/glsl/uniform/float_value.hpp
 	include/sge/renderer/glsl/uniform/float_value_type.hpp
+	include/sge/renderer/glsl/uniform/int_type.hpp
 	include/sge/renderer/glsl/uniform/int_value.hpp
 	include/sge/renderer/glsl/uniform/int_value_type.hpp
 	include/sge/renderer/glsl/uniform/make_basic_value.hpp

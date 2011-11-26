@@ -34,14 +34,22 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief The base class for every glsl exception
+*/
 class SGE_CLASS_SYMBOL exception
 :
 	public renderer::exception
 {
 public:
+	/**
+	 * \brief Constructs the exception from a string
+	 *
+	 * Constructs the exception from \a what
+	*/
 	SGE_RENDERER_SYMBOL
 	explicit exception(
-		fcppt::string const &
+		fcppt::string const &what
 	);
 };
 

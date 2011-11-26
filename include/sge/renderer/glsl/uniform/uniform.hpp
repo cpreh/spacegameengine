@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/basic_value_fwd.hpp>
 #include <sge/renderer/glsl/uniform/float_value.hpp>
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
+#include <sge/renderer/glsl/uniform/int_type.hpp>
 #include <sge/renderer/glsl/uniform/int_value.hpp>
 #include <sge/renderer/glsl/uniform/int_value_type.hpp>
 #include <sge/renderer/glsl/uniform/make_basic_value.hpp>

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/to_cvv.hpp>
 #include <sge/renderer/glsl/vertex_shader.hpp>
+#include <sge/renderer/glsl/uniform/int_type.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/renderer/texture/const_optional_base.hpp>
@@ -90,7 +91,7 @@ public:
 	{
 		sge::renderer::glsl::uniform::single_value(
 			*variable_,
-			static_cast<sge::renderer::glsl::int_type>(
+			static_cast<sge::renderer::glsl::uniform::int_type>(
 				_value));
 	}
 

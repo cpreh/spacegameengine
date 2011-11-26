@@ -34,18 +34,35 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief A scoped glsl program block
+ *
+ * Sets a glsl program in the constructor and unsets it in the destructor.
+*/
 class scoped_program
 {
 	FCPPT_NONCOPYABLE(
 		scoped_program
 	);
 public:
+	/**
+	 * \brief Sets a glsl program
+	 *
+	 * Sets \a program for \a device
+	 *
+	 * \param device The device to set the program for
+	 *
+	 * \param program The program to set
+	*/
 	SGE_RENDERER_SYMBOL
-	explicit scoped_program(
-		renderer::device &,
-		glsl::program const &
+	scoped_program(
+		renderer::device &device,
+		glsl::program const &program
 	);
 
+	/**
+	 * \brief Unsets the program
+	*/
 	SGE_RENDERER_SYMBOL
 	~scoped_program();
 private:

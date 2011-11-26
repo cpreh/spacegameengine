@@ -35,6 +35,12 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief A geometry shader used to produce geometry
+ *
+ * Geometry shaders can be used to produce more vertices on the graphics
+ * hardware.
+*/
 class SGE_CLASS_SYMBOL geometry_shader
 :
 	public glsl::shader

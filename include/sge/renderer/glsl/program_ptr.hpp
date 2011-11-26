@@ -32,8 +32,11 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief A shared pointer to a glsl::program
+*/
 typedef fcppt::shared_ptr<
-	program
+	glsl::program
 > program_ptr;
 
 }

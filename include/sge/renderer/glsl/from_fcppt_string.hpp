@@ -33,10 +33,22 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief Converts an fcppt::string to a glsl::string
+ *
+ * This function tries to convert \a string to a glsl::string. It is possible
+ * that the string cannot be converted.
+ *
+ * \param string The string to convert
+ *
+ * \return The converted string
+ *
+ * \throws fcppt::exception if the conversion cannot be done
+*/
 SGE_RENDERER_SYMBOL
 glsl::string const
 from_fcppt_string(
-	fcppt::string const &
+	fcppt::string const &string
 );
 
 }

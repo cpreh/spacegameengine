@@ -32,8 +32,11 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief A shared pointer to a glsl::vertex_shader
+*/
 typedef fcppt::shared_ptr<
-	vertex_shader
+	glsl::vertex_shader
 > vertex_shader_ptr;
 
 }

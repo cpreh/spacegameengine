@@ -35,6 +35,11 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief A pixel shader used to transform pixels
+ *
+ * Pixel shaders can be used to transform pixels when they are rendered.
+*/
 class SGE_CLASS_SYMBOL pixel_shader
 :
 	public glsl::shader

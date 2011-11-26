@@ -31,10 +31,22 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief Transforms a matrix to the canonical view volume
+ *
+ * sge's canonical view volume is defined from (-1,-1,0) at the lower left
+ * front to (1,1,1) at the upper right back. opengl uses a different ccv, which
+ * this function transform to. The ccv mainly affects the mapping of the depth
+ * buffer.
+ *
+ * \param matrix The projection matrix to transform
+ *
+ * \return The transformed matrix suitable for glsl
+*/
 SGE_RENDERER_SYMBOL
 sge::renderer::matrix4 const
 to_cvv(
-	sge::renderer::matrix4 const &
+	sge::renderer::matrix4 const &matrix
 );
 
 }

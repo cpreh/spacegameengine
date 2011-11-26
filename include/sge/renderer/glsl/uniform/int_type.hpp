@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_INT_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_INT_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_UNIFORM_INT_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_INT_TYPE_HPP_INCLUDED
 
 namespace sge
 {
@@ -27,9 +27,15 @@ namespace renderer
 {
 namespace glsl
 {
+namespace uniform
+{
 
+/**
+ * \brief The int type used for uniforms of ints
+*/
 typedef int int_type;
 
+}
 }
 }
 }

@@ -35,6 +35,11 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief A vertex shader used to transform vertices
+ *
+ * Vertex shaders can be used to transform vertices when they are rendered.
+*/
 class SGE_CLASS_SYMBOL vertex_shader
 :
 	public glsl::shader

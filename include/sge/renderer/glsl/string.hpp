@@ -33,6 +33,9 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief The string type used for glsl source code
+*/
 typedef std::basic_string<
 	glsl::char_
 > string;

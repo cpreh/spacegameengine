@@ -39,7 +39,8 @@ sge::renderer::glsl::to_cvv(
 			0.5f
 		),
 		zero(
-			0.0f);
+			0.0f
+		);
 
 	return
 		fcppt::math::matrix::translation(

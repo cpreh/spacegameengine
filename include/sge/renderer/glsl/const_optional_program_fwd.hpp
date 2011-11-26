@@ -32,6 +32,13 @@ namespace renderer
 namespace glsl
 {
 
+/**
+ * \brief An optional reference to a const glsl::program
+ *
+ * This is used to set or unset glsl programs.
+ *
+ * \see renderer::device::glsl_program
+*/
 typedef fcppt::optional<
 	renderer::glsl::program const &
 > const_optional_program;

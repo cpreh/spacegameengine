@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <sge/renderer/glsl/int_type.hpp>
+#include <sge/renderer/glsl/uniform/int_type.hpp>
 #include <sge/shader/matrix.hpp>
 #include <fcppt/variant/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -45,7 +45,7 @@ fcppt::variant::object
 		renderer::vector3,
 		renderer::vector4,
 		renderer::scalar,
-		renderer::glsl::int_type,
+		renderer::glsl::uniform::int_type,
 		shader::matrix,
 		bool
 	>

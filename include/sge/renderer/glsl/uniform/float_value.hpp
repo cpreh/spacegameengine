@@ -35,9 +35,14 @@ namespace glsl
 namespace uniform
 {
 
+/**
+ * \brief A float value
+ *
+ * \see uniform::basic_value
+*/
 typedef uniform::basic_value<
-	scalar,
-	float_value_type::type
+	renderer::scalar,
+	uniform::float_value_type::type
 > float_value;
 
 }
