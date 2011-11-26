@@ -82,6 +82,7 @@ SET(
 	include/sge/parse/json/optional_object_ref_fwd.hpp
 	include/sge/parse/json/output/grammar.hpp
 	include/sge/parse/json/output/output.hpp
+	include/sge/parse/json/output/tabbed_to_stream.hpp
 	include/sge/parse/json/output/tabbed_to_string.hpp
 	include/sge/parse/json/output/to_file.hpp
 	include/sge/parse/json/output/to_range.hpp
@@ -130,6 +131,7 @@ SET(
 	src/parse/json/make_recursive_objects.cpp
 	src/parse/json/member_not_found.cpp
 	src/parse/json/object.cpp
+	src/parse/json/output/tabbed_to_stream.cpp
 	src/parse/json/output/tabbed_to_string.cpp
 	src/parse/json/output/to_file.cpp
 	src/parse/json/output/to_stream.cpp

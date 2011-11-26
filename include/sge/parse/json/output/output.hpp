@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_OUTPUT_OUTPUT_HPP_INCLUDED
 
 #include <sge/parse/json/output/grammar.hpp>
+#include <sge/parse/json/output/tabbed_to_stream.hpp>
 #include <sge/parse/json/output/tabbed_to_string.hpp>
 #include <sge/parse/json/output/to_file.hpp>
 #include <sge/parse/json/output/to_range.hpp>
