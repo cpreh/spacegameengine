@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/forward_discover.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/object.hpp>
@@ -27,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/preprocessor/todo.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 
@@ -49,24 +49,13 @@ sge::systems::cursor_modifier::cursor_modifier(
 		)
 	)
 {
-	FCPPT_PP_TODO("Simplify cursor::object discovery")
-
-	input::cursor::object_vector const cursors(
-		_processor.cursors()
+	sge::input::forward_discover<
+		sge::input::cursor::discover_event
+	>(
+		_processor.cursors(),
+		&sge::systems::cursor_modifier::cursor_discover,
+		*this
 	);
-
-	for(
-		input::cursor::object_vector::const_iterator it(
-			cursors.begin()
-		);
-		it != cursors.end();
-		++it
-	)
-		this->cursor_discover(
-			input::cursor::discover_event(
-				*it
-			)
-		);
 }
 FCPPT_PP_POP_WARNING
 

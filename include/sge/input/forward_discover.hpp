@@ -18,25 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_INPUT_HPP_INCLUDED
-#define SGE_INPUT_INPUT_HPP_INCLUDED
+#ifndef SGE_INPUT_FORWARD_DISCOVER_HPP_INCLUDED
+#define SGE_INPUT_FORWARD_DISCOVER_HPP_INCLUDED
 
-#include <sge/input/exception.hpp>
-#include <sge/input/forward_discover.hpp>
-#include <sge/input/nullary_function.hpp>
-#include <sge/input/plugin.hpp>
-#include <sge/input/processor.hpp>
-#include <sge/input/processor_fwd.hpp>
-#include <sge/input/processor_ptr.hpp>
-#include <sge/input/symbol.hpp>
-#include <sge/input/system.hpp>
-#include <sge/input/system_fwd.hpp>
-#include <sge/input/system_ptr.hpp>
-#include <sge/input/cursor/cursor.hpp>
-#include <sge/input/info/info.hpp>
-#include <sge/input/joypad/joypad.hpp>
-#include <sge/input/keyboard/keyboard.hpp>
-#include <sge/input/mouse/mouse.hpp>
 
+namespace sge
+{
+namespace input
+{
+
+template<
+	typename Event,
+	typename Container,
+	typename Function,
+	typename Object
+>
+void
+forward_discover(
+	Container const &_container,
+	Function const &_function,
+	Object &_object
+)
+{
+	for(
+		typename Container::const_iterator it(
+			_container.begin()
+		);
+		it != _container.end();
+		++it
+	)
+		(
+			_object.*_function
+		)
+		(
+			Event(
+				*it
+			)
+		);
+}
+
+}
+}
 
 #endif

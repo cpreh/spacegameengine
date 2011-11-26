@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/forward_discover.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/mouse/device.hpp>
-#include <sge/input/mouse/device_vector.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/discover_event.hpp>
 #include <sge/input/mouse/manager.hpp>
@@ -88,22 +88,13 @@ sge::input::mouse::manager::manager(
 		)
 	)
 {
-	mouse::device_vector const devices(
-		_processor.mice()
+	sge::input::forward_discover<
+		sge::input::mouse::discover_event
+	>(
+		_processor.mice(),
+		&sge::input::mouse::manager::discover,
+		*this
 	);
-
-	for(
-		mouse::device_vector::const_iterator it(
-			devices.begin()
-		);
-		it != devices.end();
-		++it
-	)
-		this->discover(
-			input::mouse::discover_event(
-				*it
-			)
-		);
 }
 FCPPT_PP_POP_WARNING
 

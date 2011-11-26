@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/forward_discover.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/device_vector.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/discover_event.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
@@ -95,22 +95,13 @@ sge::input::keyboard::manager::manager(
 		)
 	)
 {
-	keyboard::device_vector const current_devices(
-		_processor.keyboards()
+	sge::input::forward_discover<
+		sge::input::keyboard::discover_event
+	>(
+		_processor.keyboards(),
+		&sge::input::keyboard::manager::discover,
+		*this
 	);
-
-	for(
-		keyboard::device_vector::const_iterator it(
-			current_devices.begin()
-		);
-		it != current_devices.end();
-		++it
-	)
-		this->discover(
-			input::keyboard::discover_event(
-				*it
-			)
-		);
 }
 FCPPT_PP_POP_WARNING
 

@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/forward_discover.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/manager.hpp>
 #include <sge/input/cursor/object.hpp>
-#include <sge/input/cursor/object_vector.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -88,22 +88,13 @@ sge::input::cursor::manager::manager(
 		)
 	)
 {
-	cursor::object_vector const objects(
-		_processor.cursors()
+	sge::input::forward_discover<
+		sge::input::cursor::discover_event
+	>(
+		_processor.cursors(),
+		&sge::input::cursor::manager::discover,
+		*this
 	);
-
-	for(
-		cursor::object_vector::const_iterator it(
-			objects.begin()
-		);
-		it != objects.end();
-		++it
-	)
-		this->discover(
-			input::cursor::discover_event(
-				*it
-			)
-		);
 }
 FCPPT_PP_POP_WARNING
 

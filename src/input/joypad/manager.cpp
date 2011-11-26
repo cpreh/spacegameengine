@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/forward_discover.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/joypad/device.hpp>
-#include <sge/input/joypad/device_vector.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/discover_event.hpp>
 #include <sge/input/joypad/manager.hpp>
@@ -92,22 +92,13 @@ sge::input::joypad::manager::manager(
 		)
 	)
 {
-	joypad::device_vector const devices(
-		_processor.joypads()
+	sge::input::forward_discover<
+		sge::input::joypad::discover_event
+	>(
+		_processor.joypads(),
+		&sge::input::joypad::manager::discover,
+		*this
 	);
-
-	for(
-		joypad::device_vector::const_iterator it(
-			devices.begin()
-		);
-		it != devices.end();
-		++it
-	)
-		this->discover(
-			input::joypad::discover_event(
-				*it
-			)
-		);
 }
 FCPPT_PP_POP_WARNING
 
