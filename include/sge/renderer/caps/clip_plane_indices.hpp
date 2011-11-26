@@ -32,6 +32,9 @@ namespace renderer
 namespace caps
 {
 
+/**
+ * \brief A strong typedef for the maximum number of clip planes
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::clip_plane_index_value,
 	clip_plane_indices

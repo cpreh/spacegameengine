@@ -32,6 +32,9 @@ namespace renderer
 namespace caps
 {
 
+/**
+ * \brief A unique pointer to a renderer::caps::object
+*/
 typedef fcppt::unique_ptr<
 	renderer::caps::object
 > object_unique_ptr;

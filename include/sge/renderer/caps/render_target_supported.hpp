@@ -31,6 +31,9 @@ namespace renderer
 namespace caps
 {
 
+/**
+ * \brief A strong typedef for a bool telling if render targets are supported
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	bool,
 	render_target_supported

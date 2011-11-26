@@ -32,6 +32,9 @@ namespace renderer
 namespace caps
 {
 
+/**
+ * \brief A strong typedef for a string describing the driver
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	fcppt::string,
 	description

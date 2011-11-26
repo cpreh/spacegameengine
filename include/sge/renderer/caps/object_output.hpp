@@ -33,11 +33,22 @@ namespace renderer
 namespace caps
 {
 
+/**
+ * \brief Prints a caps object to a stream
+ *
+ * Prints \a caps to \a stream.
+ *
+ * \param stream The stream to print to
+ *
+ * \param caps The caps to print
+ *
+ * \return \a stream
+*/
 SGE_RENDERER_SYMBOL
 fcppt::io::ostream &
 operator<<(
-	fcppt::io::ostream &,
-	caps::object const &
+	fcppt::io::ostream &stream,
+	caps::object const &caps
 );
 
 }

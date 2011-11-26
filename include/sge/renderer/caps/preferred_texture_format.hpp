@@ -32,6 +32,9 @@ namespace renderer
 namespace caps
 {
 
+/**
+ * \brief A strong typedef for driver's preferred texture format
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::image::color::format::type,
 	preferred_texture_format

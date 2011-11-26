@@ -33,6 +33,9 @@ namespace renderer
 namespace caps
 {
 
+/**
+ * \brief A strong typedef for the maximum 2D texture size
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::dim2,
 	max_texture_size

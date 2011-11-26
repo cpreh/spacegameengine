@@ -32,6 +32,9 @@ namespace renderer
 namespace caps
 {
 
+/**
+ * \brief A strong typedef for the maximum size of a volume texture's side
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::size_type,
 	max_volume_texture_extent

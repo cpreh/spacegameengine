@@ -32,6 +32,9 @@ namespace renderer
 namespace caps
 {
 
+/**
+ * \brief A strong typedef for the maximum number of lights
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::light::index_value,
 	light_indices

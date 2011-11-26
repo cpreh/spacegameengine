@@ -32,6 +32,9 @@ namespace renderer
 namespace caps
 {
 
+/**
+ * \brief A strong typedef for the maximum anisotropy level
+*/
 FCPPT_MAKE_STRONG_TYPEDEF(
 	texture::filter::anisotropic::level,
 	max_anisotropy
