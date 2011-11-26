@@ -46,6 +46,7 @@ SET(
 	include/sge/input/cursor/remove_function.hpp
 	include/sge/input/cursor/remove_signal.hpp
 	include/sge/input/exception.hpp
+	include/sge/input/forward_discover.hpp
 	include/sge/input/info/container.hpp
 	include/sge/input/info/container_fwd.hpp
 	include/sge/input/info/id.hpp

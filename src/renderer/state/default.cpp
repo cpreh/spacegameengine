@@ -19,8 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/colors.hpp>
+#include <sge/renderer/state/alpha_func.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/default.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/dest_blend_func.hpp>
+#include <sge/renderer/state/draw_mode.hpp>
+#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/fog_mode.hpp>
+#include <sge/renderer/state/int.hpp>
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/source_blend_func.hpp>
+#include <sge/renderer/state/stencil_op.hpp>
+#include <sge/renderer/state/uint.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
 
@@ -45,7 +58,6 @@ sge::renderer::state::default_()
 			(bool_::enable_alpha_blending = false)
 			(bool_::enable_scissor_test = false)
 			(bool_::enable_lighting = false)
-			(bool_::enable_multi_sampling = false)
 			(bool_::enable_point_sprites = false)
 			(bool_::write_to_depth_buffer = true)
 			(bool_::write_alpha = true)

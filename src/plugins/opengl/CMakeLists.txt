@@ -500,6 +500,7 @@ SET(
 	src/plugins/opengl/src/glsl/uniform/variable.cpp
 	src/plugins/opengl/src/glsl/vertex_shader.cpp
 	src/plugins/opengl/src/index_buffer.cpp
+	src/plugins/opengl/src/init_multi_sampling.cpp
 	src/plugins/opengl/src/light/attenuation.cpp
 	src/plugins/opengl/src/light/color.cpp
 	src/plugins/opengl/src/light/cutoff_angle.cpp

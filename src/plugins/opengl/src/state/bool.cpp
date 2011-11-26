@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
-#include <sge/opengl/multi_sample_context.hpp>
 #include <sge/opengl/point_sprite_context.hpp>
 #include <sge/opengl/convert/to_gl_bool.hpp>
 #include <sge/opengl/state/bool.hpp>
@@ -90,29 +89,6 @@ sge::opengl::state::bool_(
 
 		opengl::enable_bool(
 			_parameters.point_sprite_context().vertex_shader_size_flag(),
-			_state.value()
-		);
-
-		return;
-	case rs::enable_multi_sampling:
-		if(
-			!_parameters.multi_sample_context().is_supported()
-		)
-		{
-			if(
-				!_state.value()
-			)
-				return;
-
-			throw sge::renderer::unsupported(
-				FCPPT_TEXT("multi sampling"),
-				FCPPT_TEXT("GL_VERSION_1_3"),
-				FCPPT_TEXT("GL_ARB_multisample")
-			);
-		}
-
-		opengl::enable_bool(
-			_parameters.multi_sample_context().flag(),
 			_state.value()
 		);
 

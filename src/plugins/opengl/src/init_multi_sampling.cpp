@@ -18,50 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/point_sprite_context.hpp>
+#include <sge/opengl/enable.hpp>
+#include <sge/opengl/init_multi_sampling.hpp>
+#include <sge/opengl/multi_sample_context.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/state/parameters.hpp>
-#include <sge/opengl/state/deferred/object_fwd.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/multi_sample_type.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/unsupported.hpp>
+#include <fcppt/text.hpp>
 
 
-sge::opengl::state::parameters::parameters(
+void
+sge::opengl::init_multi_sampling(
 	opengl::context::object &_context,
-	state::deferred::object &_deferred,
-	renderer::depth_stencil_buffer::type const _depth_stencil_buffer
+	renderer::multi_sample_type const _samples
 )
-:
-	point_sprite_context_(
-		context::use<
-			opengl::point_sprite_context
+{
+	if(
+		_samples
+		==
+		sge::renderer::no_multi_sampling
+	)
+		return;
+
+	sge::opengl::multi_sample_context const &multi_sample_context(
+		sge::opengl::context::use<
+			sge::opengl::multi_sample_context
 		>(
 			_context
 		)
-	),
-	deferred_(
-		_deferred
-	),
-	depth_stencil_buffer_(
-		_depth_stencil_buffer
+	);
+
+	if(
+		!multi_sample_context.is_supported()
 	)
-{
-}
+		throw sge::renderer::unsupported(
+			FCPPT_TEXT("multi sampling"),
+			FCPPT_TEXT("GL_VERSION_1_3"),
+			FCPPT_TEXT("GL_ARB_multisample")
+		);
 
-sge::opengl::point_sprite_context &
-sge::opengl::state::parameters::point_sprite_context() const
-{
-	return point_sprite_context_;
-}
-
-sge::opengl::state::deferred::object &
-sge::opengl::state::parameters::deferred() const
-{
-	return deferred_;
-}
-
-sge::renderer::depth_stencil_buffer::type
-sge::opengl::state::parameters::depth_stencil_buffer() const
-{
-	return depth_stencil_buffer_;
+	opengl::enable(
+		multi_sample_context.flag()
+	);
 }

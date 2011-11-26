@@ -18,42 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/parameters.hpp>
+#ifndef SGE_OPENGL_INIT_MULTI_SAMPLING_HPP_INCLUDED
+#define SGE_OPENGL_INIT_MULTI_SAMPLING_HPP_INCLUDED
 
-sge::renderer::parameters::parameters(
-	renderer::screen_mode const &_screen_mode,
-	renderer::depth_stencil_buffer::type const _depth_stencil_buffer,
-	renderer::vsync::type const _vsync,
-	renderer::multi_sample_type const _samples
-)
-:
-	screen_mode_(_screen_mode),
-	depth_stencil_buffer_(_depth_stencil_buffer),
-	vsync_(_vsync),
-	samples_(_samples)
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/renderer/multi_sample_type.hpp>
+
+
+namespace sge
 {
+namespace opengl
+{
+
+void
+init_multi_sampling(
+	opengl::context::object &,
+	renderer::multi_sample_type
+);
+
+}
 }
 
-sge::renderer::screen_mode const &
-sge::renderer::parameters::screen_mode() const
-{
-	return screen_mode_;
-}
-
-sge::renderer::depth_stencil_buffer::type
-sge::renderer::parameters::depth_stencil_buffer() const
-{
-	return depth_stencil_buffer_;
-}
-
-sge::renderer::vsync::type
-sge::renderer::parameters::vsync() const
-{
-	return vsync_;
-}
-
-sge::renderer::multi_sample_type const
-sge::renderer::parameters::samples() const
-{
-	return samples_;
-}
+#endif

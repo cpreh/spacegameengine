@@ -95,7 +95,7 @@ public:
 	 * \brief Returns the number of multi samples
 	*/
 	SGE_RENDERER_SYMBOL
-	renderer::multi_sample_type
+	renderer::multi_sample_type const
 	samples() const;
 private:
 	renderer::screen_mode screen_mode_;

@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/draw_elements.hpp>
 #include <sge/opengl/enable_bool.hpp>
 #include <sge/opengl/index_buffer.hpp>
+#include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/onscreen_target.hpp>
 #include <sge/opengl/set_clip_plane.hpp>
 #include <sge/opengl/set_material.hpp>
@@ -128,6 +129,11 @@ sge::opengl::device::device(
 	);
 
 	target_->bind();
+
+	opengl::init_multi_sampling(
+		context_,
+		_parameters.samples()
+	);
 }
 
 sge::opengl::device::~device()
