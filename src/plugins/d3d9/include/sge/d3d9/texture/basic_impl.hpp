@@ -319,7 +319,9 @@ sge::d3d9::texture::basic<Types>::do_lock(
 				_area.size(),
 				color_format_,
 				d3d9::make_pitch(
-					*locked_dest_
+					*locked_dest_,
+					_area.size(),
+					color_format_
 				)
 			)
 		);

@@ -119,7 +119,9 @@ sge::d3d9::surface::color::lock(
 				_rect.size(),
 				color_holder_->format(),
 				sge::d3d9::make_pitch_2d(
-					locked_rect
+					locked_rect,
+					_rect.size(),
+					color_holder_->format()
 				)
 			)
 		);

@@ -78,6 +78,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/set_viewport.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/texture_stage_arg.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/texture_stage_op.hpp
+	src/plugins/d3d9/include/sge/d3d9/from_d3d_pitch.hpp
 	src/plugins/d3d9/include/sge/d3d9/index_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/lock_flags.hpp
 	src/plugins/d3d9/include/sge/d3d9/make_pitch.hpp
