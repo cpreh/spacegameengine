@@ -92,6 +92,7 @@ SET(
 	include/sge/sprite/detail/visible.hpp
 	include/sge/sprite/dim.hpp
 	include/sge/sprite/dont_sort.hpp
+	include/sge/sprite/epsilon.hpp
 	include/sge/sprite/external_system_decl.hpp
 	include/sge/sprite/external_system_fwd.hpp
 	include/sge/sprite/external_system_impl.hpp
@@ -107,6 +108,7 @@ SET(
 	include/sge/sprite/intrusive/system_fwd.hpp
 	include/sge/sprite/intrusive/system_impl.hpp
 	include/sge/sprite/intrusive/tag.hpp
+	include/sge/sprite/is_epsilon_equal.hpp
 	include/sge/sprite/matrix.hpp
 	include/sge/sprite/no_color.hpp
 	include/sge/sprite/object.hpp

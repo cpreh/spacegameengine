@@ -18,27 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/is_epsilon_equal.hpp>
-#include <sge/renderer/projection/near.hpp>
-#include <sge/src/renderer/projection/check_near_far.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_RENDERER_EPSILON_HPP_INCLUDED
+#define SGE_RENDERER_EPSILON_HPP_INCLUDED
 
+#include <sge/renderer/scalar.hpp>
 
-void
-sge::renderer::projection::check_near_far(
-	projection::near const _near,
-	projection::far const _far
-)
+namespace sge
 {
-	if(
-		renderer::is_epsilon_equal(
-			_far.get(),
-			_near.get())
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("projection: far may not be near!")
-		);
-
+namespace renderer
+{
+inline renderer::scalar
+epsilon()
+{
+	return static_cast<renderer::scalar>(0.001f);
 }
+}
+}
+
+#endif

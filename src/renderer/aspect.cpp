@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/aspect.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/math/almost_zero.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
 
@@ -30,6 +29,10 @@ sge::renderer::aspect(
 	screen_size const &_size
 )
 {
+	FCPPT_ASSERT_PRE(
+		_size.w() != 0 && _size.h() != 0
+	);
+
 	sge::renderer::scalar const
 		width(
 			static_cast<
@@ -45,16 +48,6 @@ sge::renderer::aspect(
 				_size.h()
 			)
 		);
-
-	FCPPT_ASSERT_PRE(
-		!fcppt::math::almost_zero(
-			width
-		)
-		&&
-		!fcppt::math::almost_zero(
-			height
-		)
-	);
 
 	return
 		width > height

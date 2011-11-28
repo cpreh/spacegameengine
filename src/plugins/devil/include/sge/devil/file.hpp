@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_FILE_HPP_INCLUDED
 #define SGE_DEVIL_FILE_HPP_INCLUDED
 
-#include <sge/media/const_raw_range.hpp>
-#include <sge/media/optional_extension_fwd.hpp>
 #include <sge/devil/file_fwd.hpp>
 #include <sge/devil/image_holder.hpp>
 #include <sge/devil/optional_error.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/function/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>

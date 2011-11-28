@@ -65,6 +65,7 @@ SET(
 	include/sge/renderer/display_mode_fwd.hpp
 	include/sge/renderer/display_mode_output.hpp
 	include/sge/renderer/emissive_color.hpp
+	include/sge/renderer/epsilon.hpp
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/first_index.hpp
 	include/sge/renderer/first_vertex.hpp
@@ -175,6 +176,7 @@ SET(
 	include/sge/renderer/index_count.hpp
 	include/sge/renderer/indexed_primitive_type.hpp
 	include/sge/renderer/indices_per_primitive.hpp
+	include/sge/renderer/is_epsilon_equal.hpp
 	include/sge/renderer/light/attenuation.hpp
 	include/sge/renderer/light/attenuation_fwd.hpp
 	include/sge/renderer/light/constant_attenuation.hpp

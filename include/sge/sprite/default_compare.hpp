@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DEFAULT_COMPARE_HPP_INCLUDED
 #define SGE_SPRITE_DEFAULT_COMPARE_HPP_INCLUDED
 
+#include <sge/renderer/is_epsilon_equal.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/with_depth.hpp>
 #include <sge/sprite/with_texture.hpp>
-#include <fcppt/math/compare.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/contains.hpp>
@@ -64,7 +64,7 @@ struct default_compare
 	) const
 	{
 		return
-			fcppt::math::compare(
+			sge::renderer::is_epsilon_equal(
 				a.z(),
 				b.z()
 			)

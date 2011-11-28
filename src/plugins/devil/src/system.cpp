@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/devil/enable.hpp>
 #include <sge/devil/file.hpp>
 #include <sge/devil/file_ptr.hpp>
-#include <sge/devil/system.hpp>
 #include <sge/devil/supported_extensions.hpp>
+#include <sge/devil/system.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>

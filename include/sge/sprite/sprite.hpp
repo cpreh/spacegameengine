@@ -33,9 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/depth_type.hpp>
 #include <sge/sprite/dim.hpp>
 #include <sge/sprite/dont_sort.hpp>
+#include <sge/sprite/epsilon.hpp>
 #include <sge/sprite/external_system_decl.hpp>
 #include <sge/sprite/external_system_fwd.hpp>
 #include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/is_epsilon_equal.hpp>
 #include <sge/sprite/matrix.hpp>
 #include <sge/sprite/no_color.hpp>
 #include <sge/sprite/object.hpp>

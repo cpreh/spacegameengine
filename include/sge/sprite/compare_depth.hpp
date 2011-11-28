@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_COMPARE_DEPTH_HPP_INCLUDED
 #define SGE_SPRITE_COMPARE_DEPTH_HPP_INCLUDED
 
+#include <sge/sprite/is_epsilon_equal.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <fcppt/math/compare.hpp>
 
 
 namespace sge
@@ -40,10 +40,9 @@ compare_depth(
 )
 {
 	return
-		fcppt::math::compare(
+		sprite::is_epsilon_equal(
 			a.z(),
-			b.z()
-		);
+			b.z());
 }
 
 }
