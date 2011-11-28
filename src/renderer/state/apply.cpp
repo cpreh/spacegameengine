@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/is_epsilon_equal.hpp>
 #include <sge/renderer/state/any.hpp>
 #include <sge/renderer/state/apply.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/set.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/is_epsilon_equal.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/variant/apply_unary.hpp>

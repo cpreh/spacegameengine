@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/info_fwd.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/iterator_fwd.hpp>
-#include <sge/plugin/library/library.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/min_core_version.hpp>
@@ -42,5 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object_fwd.hpp>
 #include <sge/plugin/symbol.hpp>
 #include <sge/plugin/version.hpp>
+#include <sge/plugin/library/library.hpp>
+
 
 #endif
