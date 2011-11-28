@@ -23,15 +23,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/set.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/is_epsilon_equal.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/function/object.hpp>
-#include <fcppt/math/compare.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 
 namespace
 {
+
+template<typename T>
+typename
+boost::disable_if
+<
+	boost::is_floating_point<T>,
+	bool
+>::type
+compare_maybe_with_epsilon(
+	T const a,
+	T const b)
+{
+	return a == b;
+}
+
+template<typename T>
+typename
+boost::enable_if
+<
+	boost::is_floating_point<T>,
+	bool
+>::type
+compare_maybe_with_epsilon(
+	T const a,
+	T const b)
+{
+	return sge::renderer::is_epsilon_equal(a,b);
+}
 
 bool
 state_unchanged(
@@ -168,7 +196,7 @@ compare_state_visitor::operator()(
 ) const
 {
 	return
-		fcppt::math::compare(
+		::compare_maybe_with_epsilon(
 			state_.get<
 				sge::renderer::state::var<
 					Type,
