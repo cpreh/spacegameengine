@@ -40,8 +40,8 @@ fcppt::variant::object
 <
 	boost::mpl::vector2
 	<
-		orthogonal,
-		perspective
+		projection::orthogonal,
+		projection::perspective
 	>
 >
 object;

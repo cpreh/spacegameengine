@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_PROJECTION_PERSPECTIVE_HPP_INCLUDED
 
 #include <sge/camera/symbol.hpp>
+#include <sge/camera/projection/perspective_fwd.hpp>
 #include <sge/renderer/projection/aspect.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
