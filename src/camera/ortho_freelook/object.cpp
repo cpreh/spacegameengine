@@ -22,15 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
 #include <sge/camera/projection/orthogonal.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/mouse/device.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/mouse/device.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::camera::ortho_freelook::object::object(
 	ortho_freelook::parameters const &_params)
 :
@@ -61,6 +66,7 @@ sge::camera::ortho_freelook::object::object(
 		_params.active())
 {
 }
+FCPPT_PP_POP_WARNING
 
 void
 sge::camera::ortho_freelook::object::update(
