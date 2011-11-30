@@ -87,8 +87,9 @@ find_object_impl(
 					FCPPT_TEXT("\" instead of type sge::parse::json::object!"));
 
 		current_object =
-			sge::parse::json::get<sge::parse::json::object>(
-				*val);
+			Ret(
+				sge::parse::json::get<sge::parse::json::object>(
+					*val));
 	}
 
 	return
@@ -117,10 +118,12 @@ sge::parse::json::find_object(
 	json::path const &_path)
 {
 	return
-		find_object_impl<
-			sge::parse::json::const_optional_object_ref
-		>(
-			_input_object,
-			_path
+		sge::parse::json::const_optional_object_ref(
+			find_object_impl<
+				sge::parse::json::const_optional_object_ref
+			>(
+				_input_object,
+				_path
+			)
 		);
 }
