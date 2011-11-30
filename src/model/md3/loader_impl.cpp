@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/cifstream.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <ios>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::model::md3::loader_impl::loader_impl()
@@ -43,6 +46,11 @@ sge::model::md3::loader_impl::load(
 {
 	fcppt::io::cifstream file(
 		_path
+	);
+
+	file.exceptions(
+		std::ios_base::failbit
+		| std::ios_base::badbit
 	);
 
 	return
