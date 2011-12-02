@@ -117,10 +117,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/algorithm/array_map.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/transform.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -403,7 +403,7 @@ fill_geometry(
 		);
 
 		pos_vector const texpos(
-			fcppt::math::vector::transform(
+			fcppt::algorithm::array_map<pos_vector>(
 				*it,
 				coord_to_texcoord
 			)
