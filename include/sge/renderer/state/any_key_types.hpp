@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_ANY_KEY_TYPES_HPP_INCLUDED
 #define SGE_RENDERER_STATE_ANY_KEY_TYPES_HPP_INCLUDED
 
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/enum_key.hpp>
-#include <sge/renderer/state/float.hpp>
-#include <sge/renderer/state/int.hpp>
-#include <sge/renderer/state/stencil_op.hpp>
-#include <sge/renderer/state/uint.hpp>
+#include <sge/renderer/state/bool/available_states.hpp>
+#include <sge/renderer/state/color/available_states.hpp>
+#include <sge/renderer/state/float/available_states.hpp>
+#include <sge/renderer/state/int/available_states.hpp>
+#include <sge/renderer/state/stencil_op/available_states.hpp>
+#include <sge/renderer/state/uint/available_states.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>

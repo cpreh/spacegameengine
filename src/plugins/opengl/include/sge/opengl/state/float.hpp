@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_FLOAT_HPP_INCLUDED
 
 #include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/float/type.hpp>
 
 namespace sge
 {

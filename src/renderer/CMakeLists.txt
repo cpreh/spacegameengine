@@ -274,8 +274,17 @@ SET(
 	include/sge/renderer/state/apply.hpp
 	include/sge/renderer/state/apply_callback.hpp
 	include/sge/renderer/state/bool.hpp
-	include/sge/renderer/state/bool_type.hpp
+	include/sge/renderer/state/bool/available_states.hpp
+	include/sge/renderer/state/bool/base_type.hpp
+	include/sge/renderer/state/bool/bool.hpp
+	include/sge/renderer/state/bool/trampoline.hpp
+	include/sge/renderer/state/bool/type.hpp
 	include/sge/renderer/state/color.hpp
+	include/sge/renderer/state/color/available_states.hpp
+	include/sge/renderer/state/color/base_type.hpp
+	include/sge/renderer/state/color/color.hpp
+	include/sge/renderer/state/color/trampoline.hpp
+	include/sge/renderer/state/color/type.hpp
 	include/sge/renderer/state/color_type.hpp
 	include/sge/renderer/state/combine.hpp
 	include/sge/renderer/state/cull_mode.hpp
@@ -287,9 +296,18 @@ SET(
 	include/sge/renderer/state/extract.hpp
 	include/sge/renderer/state/extract_trampoline.hpp
 	include/sge/renderer/state/float.hpp
+	include/sge/renderer/state/float/available_states.hpp
+	include/sge/renderer/state/float/base_type.hpp
+	include/sge/renderer/state/float/float.hpp
+	include/sge/renderer/state/float/trampoline.hpp
+	include/sge/renderer/state/float/type.hpp
 	include/sge/renderer/state/fog_mode.hpp
 	include/sge/renderer/state/int.hpp
-	include/sge/renderer/state/int_type.hpp
+	include/sge/renderer/state/int/available_states.hpp
+	include/sge/renderer/state/int/base_type.hpp
+	include/sge/renderer/state/int/int.hpp
+	include/sge/renderer/state/int/trampoline.hpp
+	include/sge/renderer/state/int/type.hpp
 	include/sge/renderer/state/list.hpp
 	include/sge/renderer/state/list_fwd.hpp
 	include/sge/renderer/state/map.hpp
@@ -299,12 +317,21 @@ SET(
 	include/sge/renderer/state/state.hpp
 	include/sge/renderer/state/stencil_func.hpp
 	include/sge/renderer/state/stencil_op.hpp
+	include/sge/renderer/state/stencil_op/available_states.hpp
+	include/sge/renderer/state/stencil_op/base_type.hpp
+	include/sge/renderer/state/stencil_op/stencil_op.hpp
+	include/sge/renderer/state/stencil_op/trampoline.hpp
+	include/sge/renderer/state/stencil_op/type.hpp
 	include/sge/renderer/state/stencil_op_value.hpp
 	include/sge/renderer/state/to_clear_flags_field.hpp
 	include/sge/renderer/state/trampoline.hpp
 	include/sge/renderer/state/trampoline_fwd.hpp
 	include/sge/renderer/state/uint.hpp
-	include/sge/renderer/state/uint_type.hpp
+	include/sge/renderer/state/uint/available_states.hpp
+	include/sge/renderer/state/uint/base_type.hpp
+	include/sge/renderer/state/uint/trampoline.hpp
+	include/sge/renderer/state/uint/type.hpp
+	include/sge/renderer/state/uint/uint.hpp
 	include/sge/renderer/state/var.hpp
 	include/sge/renderer/state/var_fwd.hpp
 	include/sge/renderer/surface_index.hpp

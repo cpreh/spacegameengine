@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_BOOL_HPP_INCLUDED
 
 #include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/bool/type.hpp>
 
 namespace sge
 {

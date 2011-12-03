@@ -30,8 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/deferred/object.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
-#include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/bool/available_states.hpp>
+#include <sge/renderer/state/bool/type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
@@ -60,7 +61,7 @@ sge::opengl::state::bool_(
 	case rs::enable_scissor_test:
 		opengl::enable_bool(
 			state::convert::bool_(
-				_state
+				_state.state()
 			),
 			_state.value()
 		);

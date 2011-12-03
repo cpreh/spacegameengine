@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_BOOL_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/bool_type.hpp>
-#include <sge/renderer/state/trampoline_fwd.hpp>
-#include <sge/renderer/state/var_fwd.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/bool/trampoline.hpp>
 
 
 namespace sge
@@ -33,56 +33,24 @@ namespace renderer
 {
 namespace state
 {
-
 namespace bool_
 {
-	typedef state::bool_type base_type;
 
-	namespace available_states
-	{
-		enum type
-		{
-			clear_depth_buffer,
-			clear_back_buffer,
-			clear_stencil_buffer,
-			enable_alpha_blending,
-			enable_lighting,
-			enable_point_sprites,
-			enable_scissor_test,
-			write_to_depth_buffer,
-			write_alpha,
-			write_blue,
-			write_green,
-			write_red
-		};
-	}
-
-	typedef state::trampoline<
-		base_type,
-		available_states::type
-	> trampoline_type;
-
-	typedef state::var<
-		base_type,
-		available_states::type
-	> type;
-
-	SGE_RENDERER_SYMBOL
-	extern trampoline_type const
-		clear_depth_buffer,
-		clear_back_buffer,
-		clear_stencil_buffer,
-		enable_alpha_blending,
-		enable_lighting,
-		enable_point_sprites,
-		enable_scissor_test,
-		write_to_depth_buffer,
-		write_alpha,
-		write_blue,
-		write_green,
-		write_red;
+SGE_RENDERER_SYMBOL
+extern bool_::trampoline const
+	clear_depth_buffer,
+	clear_back_buffer,
+	clear_stencil_buffer,
+	enable_alpha_blending,
+	enable_lighting,
+	enable_point_sprites,
+	enable_scissor_test,
+	write_to_depth_buffer,
+	write_alpha,
+	write_blue,
+	write_green,
+	write_red;
 }
-
 }
 }
 }

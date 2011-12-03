@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_COLOR_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/color_type.hpp>
-#include <sge/renderer/state/trampoline_fwd.hpp>
-#include <sge/renderer/state/var_fwd.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/color/trampoline.hpp>
 
 
 namespace sge
@@ -33,36 +33,15 @@ namespace renderer
 {
 namespace state
 {
-
 namespace color
 {
-	typedef color_type base_type;
 
-	namespace available_states
-	{
-		enum type
-		{
-			back_buffer_clear_color,
-			ambient_light_color,
-			fog_color
-		};
-	}
+SGE_RENDERER_SYMBOL
+extern color::trampoline const
+	back_buffer_clear_color,
+	ambient_light_color,
+	fog_color;
 
-	typedef state::var<
-		base_type,
-		available_states::type
-	> type;
-
-	typedef state::trampoline<
-		base_type,
-		available_states::type
-	> trampoline_type;
-
-	SGE_RENDERER_SYMBOL
-	extern trampoline_type const
-		back_buffer_clear_color,
-		ambient_light_color,
-		fog_color;
 }
 
 }

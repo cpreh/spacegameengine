@@ -18,8 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_INT_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_STATE_INT_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_COLOR_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_STATE_COLOR_TYPE_HPP_INCLUDED
+
+#include <sge/renderer/state/var_fwd.hpp>
+#include <sge/renderer/state/color/available_states.hpp>
+#include <sge/renderer/state/color/base_type.hpp>
+
 
 namespace sge
 {
@@ -27,9 +32,15 @@ namespace renderer
 {
 namespace state
 {
+namespace color
+{
 
-typedef int int_type;
+typedef state::var<
+	color::base_type,
+	color::available_states::type
+> type;
 
+}
 }
 }
 }

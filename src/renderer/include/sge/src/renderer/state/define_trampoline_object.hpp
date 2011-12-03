@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	type_name,\
 	name\
 )\
-sge::renderer::state::type_name::trampoline_type const \
+sge::renderer::state::type_name::trampoline const \
 sge::renderer::state::type_name::name(\
 	sge::renderer::state::type_name::available_states::name\
 );

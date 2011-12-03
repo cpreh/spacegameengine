@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CONVERT_FOG_FLOAT_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/float/available_states.hpp>
 
 namespace sge
 {
@@ -35,7 +35,7 @@ namespace convert
 
 GLenum
 fog_float(
-	renderer::state::float_::type const &
+	renderer::state::float_::available_states::type
 );
 
 }

@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/deferred/bundle.hpp>
 #include <sge/opengl/state/deferred/object.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/float/available_states.hpp>
+#include <sge/renderer/state/float/type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
@@ -69,7 +70,7 @@ sge::opengl::state::float_(
 	case rs::fog_density:
 		::glFogf(
 			state::convert::fog_float(
-				_state
+				_state.state()
 			),
 			static_cast<
 				GLfloat

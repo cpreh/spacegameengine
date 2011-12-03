@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/deferred/bundle.hpp>
 #include <sge/opengl/state/deferred/object.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/state/uint.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/uint/available_states.hpp>
+#include <sge/renderer/state/uint/type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 

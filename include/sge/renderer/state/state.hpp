@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/apply.hpp>
 #include <sge/renderer/state/apply_callback.hpp>
 #include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/bool_type.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/color_type.hpp>
 #include <sge/renderer/state/combine.hpp>
@@ -45,7 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/fog_mode.hpp>
 #include <sge/renderer/state/int.hpp>
-#include <sge/renderer/state/int_type.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/state/map.hpp>
@@ -59,8 +57,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/trampoline_fwd.hpp>
 #include <sge/renderer/state/uint.hpp>
-#include <sge/renderer/state/uint_type.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/var_fwd.hpp>
+#include <sge/renderer/state/bool/bool.hpp>
+#include <sge/renderer/state/color/color.hpp>
+#include <sge/renderer/state/float/float.hpp>
+#include <sge/renderer/state/int/int.hpp>
+#include <sge/renderer/state/stencil_op/stencil_op.hpp>
+#include <sge/renderer/state/uint/uint.hpp>
+
 
 #endif

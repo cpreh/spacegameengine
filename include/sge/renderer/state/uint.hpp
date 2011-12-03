@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_UINT_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/trampoline_fwd.hpp>
-#include <sge/renderer/state/uint_type.hpp>
-#include <sge/renderer/state/var_fwd.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/uint/trampoline.hpp>
 
 
 namespace sge
@@ -33,34 +33,14 @@ namespace renderer
 {
 namespace state
 {
-
 namespace uint
 {
-	typedef state::uint_type base_type;
 
-	namespace available_states
-	{
-		enum type
-		{
-			stencil_mask,
-			stencil_write_mask
-		};
-	}
+SGE_RENDERER_SYMBOL
+extern uint::trampoline const
+	stencil_mask,
+	stencil_write_mask;
 
-	typedef state::trampoline<
-		base_type,
-		available_states::type
-	> trampoline_type;
-
-	typedef state::var<
-		base_type,
-		available_states::type
-	> type;
-
-	SGE_RENDERER_SYMBOL
-	extern trampoline_type const
-		stencil_mask,
-		stencil_write_mask;
 }
 
 }

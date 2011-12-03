@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/color.hpp>
 #include <sge/opengl/state/parameters_fwd.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/color/available_states.hpp>
+#include <sge/renderer/state/color/type.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <mizuiro/color/channel/blue.hpp>
 #include <mizuiro/color/channel/green.hpp>

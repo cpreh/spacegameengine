@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CONVERT_BOOL_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/bool/available_states.hpp>
 
 namespace sge
 {
@@ -35,7 +35,7 @@ namespace convert
 
 GLenum
 bool_(
-	renderer::state::bool_::type
+	renderer::state::bool_::available_states::type
 );
 
 }

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FLOAT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FLOAT_HPP_INCLUDED
 
-#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/trampoline_fwd.hpp>
-#include <sge/renderer/state/var_fwd.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/float/trampoline.hpp>
 
 
 namespace sge
@@ -33,40 +33,17 @@ namespace renderer
 {
 namespace state
 {
-
 namespace float_
 {
-	typedef renderer::scalar base_type;
 
-	namespace available_states
-	{
-		enum type
-		{
-			depth_buffer_clear_val,
-			alpha_test_ref,
-			fog_start,
-			fog_end,
-			fog_density
-		};
-	}
+SGE_RENDERER_SYMBOL
+extern float_::trampoline const
+	depth_buffer_clear_val,
+	alpha_test_ref,
+	fog_start,
+	fog_end,
+	fog_density;
 
-	typedef state::trampoline<
-		base_type,
-		available_states::type
-	> trampoline_type;
-
-	typedef state::var<
-		base_type,
-		available_states::type
-	> type;
-
-	SGE_RENDERER_SYMBOL
-	extern trampoline_type const
-		depth_buffer_clear_val,
-		alpha_test_ref,
-		fog_start,
-		fog_end,
-		fog_density;
 }
 
 }

@@ -37,7 +37,7 @@ namespace
 
 typedef std::pair<
 	sge::renderer::clear_flags::type,
-	sge::renderer::state::bool_::trampoline_type const *
+	sge::renderer::state::bool_::trampoline const *
 > translation_pair;
 
 typedef fcppt::container::array<

@@ -20,20 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/bool.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/bool/available_states.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
 sge::opengl::state::convert::bool_(
-	renderer::state::bool_::type const _state
+	renderer::state::bool_::available_states::type const _state
 )
 {
 	namespace rs = renderer::state::bool_::available_states;
 
 	switch(
-		_state.state()
+		_state
 	)
 	{
 	case rs::enable_alpha_blending:

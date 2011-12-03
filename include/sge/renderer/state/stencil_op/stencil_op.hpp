@@ -18,20 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_UINT_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_STATE_UINT_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_STENCIL_OP_STENCIL_OP_HPP_INCLUDED
+#define SGE_RENDERER_STATE_STENCIL_OP_STENCIL_OP_HPP_INCLUDED
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-
-typedef unsigned uint_type;
-
-}
-}
-}
+#include <sge/renderer/state/stencil_op/available_states.hpp>
+#include <sge/renderer/state/stencil_op/base_type.hpp>
+#include <sge/renderer/state/stencil_op/trampoline.hpp>
+#include <sge/renderer/state/stencil_op/type.hpp>
 
 #endif

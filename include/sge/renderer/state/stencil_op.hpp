@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_STENCIL_OP_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/stencil_op_value.hpp>
-#include <sge/renderer/state/trampoline_fwd.hpp>
-#include <sge/renderer/state/var_fwd.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/stencil_op/trampoline.hpp>
 
 
 namespace sge
@@ -33,36 +33,15 @@ namespace renderer
 {
 namespace state
 {
-
 namespace stencil_op
 {
-	typedef state::stencil_op_value::type base_type;
 
-	namespace available_states
-	{
-		enum type
-		{
-			stencil_fail,
-			depth_fail,
-			pass
-		};
-	}
+SGE_RENDERER_SYMBOL
+extern stencil_op::trampoline const
+	stencil_fail,
+	depth_fail,
+	pass;
 
-	typedef state::trampoline<
-		base_type,
-		available_states::type
-	> trampoline_type;
-
-	typedef state::var<
-		base_type,
-		available_states::type
-	> type;
-
-	SGE_RENDERER_SYMBOL
-	extern trampoline_type const
-		stencil_fail,
-		depth_fail,
-		pass;
 }
 
 }

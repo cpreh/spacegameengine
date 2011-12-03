@@ -20,20 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/fog_float.hpp>
-#include <sge/renderer/state/float.hpp>
-#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/float/available_states.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
 sge::opengl::state::convert::fog_float(
-	renderer::state::float_::type const &_state
+	renderer::state::float_::available_states::type const _state
 )
 {
 	namespace rs = renderer::state::float_::available_states;
 
 	switch(
-		_state.state()
+		_state
 	)
 	{
 	case rs::fog_start:

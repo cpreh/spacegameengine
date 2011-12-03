@@ -37,9 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/target_from_texture.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
@@ -226,17 +226,6 @@ try
 	);
 
 	{
-		sys.renderer().state(
-			sge::renderer::state::list
-			(
-				sge::renderer::state::bool_::clear_back_buffer = true
-			)
-			(
-				sge::renderer::state::color::back_buffer_clear_color
-					= sge::image::colors::red()
-			)
-		);
-
 		sprite_object my_object(
 			sprite_parameters()
 			.pos(

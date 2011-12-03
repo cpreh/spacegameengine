@@ -21,15 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_BOOL_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_BOOL_TYPE_HPP_INCLUDED
 
+#include <sge/renderer/state/var_fwd.hpp>
+#include <sge/renderer/state/bool/available_states.hpp>
+#include <sge/renderer/state/bool/base_type.hpp>
+
 namespace sge
 {
 namespace renderer
 {
 namespace state
 {
+namespace bool_
+{
 
-typedef bool bool_type;
+typedef state::var<
+	bool_::base_type,
+	bool_::available_states::type
+> type;
 
+}
 }
 }
 }
