@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/any_key.hpp>
 #include <sge/renderer/state/any_key_types.hpp>
 #include <sge/renderer/state/any_sort.hpp>
-#include <sge/renderer/state/enum_key.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>

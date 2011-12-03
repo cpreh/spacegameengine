@@ -60,7 +60,7 @@ sge::opengl::state::apply(
 		std::tr1::bind(
 			&fcppt::variant::apply_unary<
 				opengl::state::visitor,
-				sge::renderer::state::any
+				sge::renderer::state::any::types
 			>,
 			fcppt::cref(
 				visitor
