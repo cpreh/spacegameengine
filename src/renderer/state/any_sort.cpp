@@ -36,13 +36,12 @@ public:
 	typedef bool result_type;
 
 	template<
-		typename T,
-		typename States
+		typename T
 	>
 	result_type
 	operator()(
-		sge::renderer::state::enum_key::type,
-		sge::renderer::state::enum_key::type
+		T,
+		T
 	) const;
 
 	template<
@@ -51,8 +50,8 @@ public:
 	>
 	result_type
 	operator()(
-		T const &,
-		U const &
+		T,
+		U
 	) const;
 };
 
@@ -76,13 +75,12 @@ namespace
 {
 
 template<
-	typename T,
-	typename States
+	typename T
 >
 bool
 compare::operator()(
-	sge::renderer::state::enum_key::type const _key1,
-	sge::renderer::state::enum_key::type const _key2
+	T const _key1,
+	T const _key2
 ) const
 {
 	return
@@ -96,8 +94,8 @@ template<
 >
 bool
 compare::operator()(
-	T const &,
-	U const &
+	T,
+	U
 ) const
 {
 	return
