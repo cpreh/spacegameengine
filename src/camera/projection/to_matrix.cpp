@@ -59,6 +59,13 @@ public:
 				o.far()
 			);
 	}
+
+	sge::renderer::matrix4 const
+	operator()(sge::camera::projection::invalid const &) const
+	{
+		return
+			fcppt::math::matrix::scaling<sge::renderer::scalar>(0, 0, 0);
+	}
 };
 }
 
@@ -66,8 +73,6 @@ sge::renderer::matrix4 const
 sge::camera::projection::to_matrix(
 	object const &o)
 {
-	if (o.empty())
-		return fcppt::math::matrix::scaling<renderer::scalar>(0, 0, 0);
 	return
 		fcppt::variant::apply_unary(
 			conversion_operator(),

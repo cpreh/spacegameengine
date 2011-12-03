@@ -30,7 +30,8 @@ sge::camera::first_person::parameters::parameters(
 	input::mouse::device &_mouse)
 :
 	projection_(
-		camera::projection::object()),
+		camera::projection::object(
+			camera::projection::invalid())),
 	movement_speed_(
 		_movement_speed.get()),
 	rotation_speed_(

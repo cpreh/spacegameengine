@@ -33,7 +33,8 @@ sge::camera::spherical::parameters::parameters(
 	input::keyboard::device &_keyboard)
 :
 	projection_(
-		camera::projection::object()),
+		camera::projection::object(
+			projection::invalid())),
 	movement_speed_(
 		_movement_speed.get()),
 	min_radius_(

@@ -191,6 +191,10 @@ sge::opencl::kernel::object::work_group_size(
 			&result,
 			0);
 
+	opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clGetKernelWorkGroupInfo()"));
+
 	return result;
 }
 
