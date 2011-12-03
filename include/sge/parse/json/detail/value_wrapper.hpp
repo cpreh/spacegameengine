@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/value_wrapper_fwd.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/optional_impl.hpp>
-
 
 namespace sge
 {
@@ -62,6 +62,10 @@ public:
 	json::value const &
 	get() const
 	{
+		FCPPT_ASSERT_ERROR(
+			value_.has_value()
+		);
+
 		return *value_;
 	}
 private:
