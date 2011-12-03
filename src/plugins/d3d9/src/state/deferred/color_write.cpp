@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/convert/color_write.hpp>
 #include <sge/d3d9/state/deferred/color_write.hpp>
 #include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/bool/trampoline.hpp>
 #include <sge/renderer/state/extract_trampoline.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/state/trampoline.hpp>
@@ -34,7 +35,7 @@ namespace
 DWORD
 make_flag(
 	sge::renderer::state::list const &,
-	sge::renderer::state::bool_::trampoline_type const &
+	sge::renderer::state::bool_::trampoline const &
 );
 
 }
@@ -76,7 +77,7 @@ namespace
 DWORD
 make_flag(
 	sge::renderer::state::list const &_list,
-	sge::renderer::state::bool_::trampoline_type const &_state
+	sge::renderer::state::bool_::trampoline const &_state
 )
 {
 	return

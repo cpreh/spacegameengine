@@ -18,7 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/clip_plane.hpp>
+#include <sge/renderer/clip_plane_index.hpp>
 
 sge::d3d9::state::clip_plane::clip_plane()
 :

@@ -33,6 +33,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/stencil_op.hpp>
 #include <sge/d3d9/state/uint.hpp>
 #include <sge/d3d9/state/visitor.hpp>
+#include <sge/renderer/state/alpha_func.hpp>
+#include <sge/renderer/state/cull_mode.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/dest_blend_func.hpp>
+#include <sge/renderer/state/draw_mode.hpp>
+#include <sge/renderer/state/fog_mode.hpp>
+#include <sge/renderer/state/source_blend_func.hpp>
+#include <sge/renderer/state/stencil_func.hpp>
+#include <sge/renderer/state/bool/type.hpp>
+#include <sge/renderer/state/color/type.hpp>
+#include <sge/renderer/state/float/type.hpp>
+#include <sge/renderer/state/int/type.hpp>
+#include <sge/renderer/state/stencil_op/type.hpp>
+#include <sge/renderer/state/uint/type.hpp>
 
 
 sge::d3d9::state::visitor::visitor(

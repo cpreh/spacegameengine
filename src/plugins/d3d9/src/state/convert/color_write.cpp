@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/convert/color_write.hpp>
-#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/bool/available_states.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 

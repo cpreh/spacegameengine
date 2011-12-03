@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/int.hpp>
 #include <sge/d3d9/state/parameters.hpp>
 #include <sge/d3d9/state/convert/int.hpp>
-#include <sge/renderer/state/int.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/int/available_states.hpp>
+#include <sge/renderer/state/int/type.hpp>
 
 
 void

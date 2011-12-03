@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_STATE_COLOR_HPP_INCLUDED
 
 #include <sge/d3d9/state/parameters_fwd.hpp>
-#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/color/type.hpp>
 
 namespace sge
 {

@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/convert/bool.hpp>
 #include <sge/d3d9/state/deferred/bundle.hpp>
 #include <sge/d3d9/state/deferred/object.hpp>
-#include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/bool/available_states.hpp>
+#include <sge/renderer/state/bool/type.hpp>
 
 void
 sge::d3d9::state::bool_(

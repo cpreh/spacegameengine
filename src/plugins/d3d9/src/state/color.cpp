@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/parameters.hpp>
 #include <sge/d3d9/state/convert/color.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/color/available_states.hpp>
+#include <sge/renderer/state/color/type.hpp>
 
 
 void

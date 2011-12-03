@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/stencil_op.hpp>
 #include <sge/d3d9/state/convert/stencil_op.hpp>
 #include <sge/d3d9/state/convert/stencil_op_value.hpp>
-#include <sge/renderer/state/stencil_op.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/stencil_op/type.hpp>
 
 
 void

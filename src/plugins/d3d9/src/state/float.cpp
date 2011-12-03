@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/parameters.hpp>
 #include <sge/d3d9/state/set_render_state_float.hpp>
 #include <sge/d3d9/state/convert/float.hpp>
-#include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/float/available_states.hpp>
+#include <sge/renderer/state/float/type.hpp>
 
 
 void
