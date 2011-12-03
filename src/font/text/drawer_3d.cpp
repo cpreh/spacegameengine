@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/quad.hpp>
+#include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
@@ -67,8 +67,9 @@ sge::font::text::drawer_3d::drawer_3d(
 				),
 				_rend.caps().preferred_texture_format().get(),
 				renderer::texture::mipmap::off(),
-				fcppt::math::dim::quad<
-					renderer::dim2
+				fcppt::math::dim::fill<
+					2,
+					renderer::dim2::value_type
 				>(
 					256
 				)
