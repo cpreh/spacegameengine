@@ -22,18 +22,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/any.hpp>
 #include <sge/renderer/state/apply.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/set.hpp>
+#include <sge/renderer/state/map.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/src/renderer/state/make_key.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
 
-template<typename T>
+template<
+	typename T
+>
 typename
 boost::disable_if
 <
@@ -41,13 +48,17 @@ boost::disable_if
 	bool
 >::type
 compare_maybe_with_epsilon(
-	T const a,
-	T const b)
+	T const &_left,
+	T const &_right
+)
 {
-	return a == b;
+	return
+		_left == _right;
 }
 
-template<typename T>
+template<
+	typename T
+>
 typename
 boost::enable_if
 <
@@ -55,10 +66,15 @@ boost::enable_if
 	bool
 >::type
 compare_maybe_with_epsilon(
-	T const a,
-	T const b)
+	T const &_left,
+	T const &_right
+)
 {
-	return sge::renderer::is_epsilon_equal(a,b);
+	return
+		sge::renderer::is_epsilon_equal(
+			_left,
+			_right
+		);
 }
 
 bool
@@ -111,32 +127,32 @@ sge::renderer::state::apply(
 	state::apply_callback const &_callback
 )
 {
-	sge::renderer::state::set const &set(
+	sge::renderer::state::map const &map(
 		_new_states.values()
 	);
 
 	for(
-		sge::renderer::state::set::const_iterator it(
-			set.begin()
+		sge::renderer::state::map::const_iterator it(
+			map.begin()
 		);
-		it != set.end();
+		it != map.end();
 		++it
 	)
 	{
 		if(
 			::state_unchanged(
-				*it,
+				it->second,
 				_current_states
 			)
 		)
 			continue;
 
 		_current_states.overwrite(
-			*it
+			it->second
 		);
 
 		_callback(
-			*it
+			it->second
 		);
 	}
 }
@@ -151,13 +167,15 @@ state_unchanged(
 	sge::renderer::state::list const &_list
 )
 {
-	sge::renderer::state::set const &state_list(
+	sge::renderer::state::map const &state_list(
 		_list.values()
 	);
 
-	sge::renderer::state::set::const_iterator const it(
+	sge::renderer::state::map::const_iterator const it(
 		state_list.find(
-			_state
+			sge::renderer::state::make_key(
+				_state
+			)
 		)
 	);
 
@@ -171,7 +189,7 @@ state_unchanged(
 			::compare_state_visitor(
 				_state
 			),
-			*it
+			it->second
 		);
 }
 
@@ -179,7 +197,9 @@ compare_state_visitor::compare_state_visitor(
 	sge::renderer::state::any const &_state
 )
 :
-	state_(_state)
+	state_(
+		_state
+	)
 {
 }
 

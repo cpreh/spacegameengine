@@ -44,9 +44,6 @@ public:
 	> variant;
 
 	SGE_IMAGE_SYMBOL
-	object();
-
-	SGE_IMAGE_SYMBOL
 	explicit object(
 		variant const &
 	);

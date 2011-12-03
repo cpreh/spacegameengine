@@ -18,11 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_ANY_SORT_FUNCTOR_HPP_INCLUDED
-#define SGE_RENDERER_STATE_ANY_SORT_FUNCTOR_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_MAP_HPP_INCLUDED
+#define SGE_RENDERER_STATE_MAP_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/state/any.hpp>
 #include <sge/renderer/state/any_key.hpp>
+#include <sge/renderer/state/any_sort_functor.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <map>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,17 +36,11 @@ namespace renderer
 namespace state
 {
 
-struct any_sort_functor
-{
-	typedef bool result_type;
-
-	SGE_RENDERER_SYMBOL
-	result_type
-	operator()(
-		state::any_key const &,
-		state::any_key const &
-	) const;
-};
+typedef std::map<
+	state::any_key,
+	state::any,
+	state::any_sort_functor
+> map;
 
 }
 }

@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/extract.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/set.hpp>
+#include <sge/renderer/state/map.hpp>
+#include <sge/src/renderer/state/make_enum_key.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -40,18 +41,20 @@ sge::renderer::state::extract(
 	sge::renderer::state::list const &_list
 )
 {
-	state::set const &set(
+	state::map const &map(
 		_list.values()
 	);
 
-	state::set::const_iterator const it(
-		set.find(
-			T()
+	state::map::const_iterator const it(
+		map.find(
+			state::make_enum_key<
+				T
+			>::execute()
 		)
 	);
 
 	if(
-		it == set.end()
+		it == map.end()
 	)
 		throw renderer::exception(
 			FCPPT_TEXT("renderer::list::get<")
@@ -61,7 +64,7 @@ sge::renderer::state::extract(
 			+ FCPPT_TEXT(">(): state not found!")
 		);
 
-	return it->get<T>();
+	return it->second.get<T>();
 }
 
 #endif

@@ -18,15 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_SET_HPP_INCLUDED
-#define SGE_RENDERER_STATE_SET_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_ANY_KEY_TYPES_HPP_INCLUDED
+#define SGE_RENDERER_STATE_ANY_KEY_TYPES_HPP_INCLUDED
 
-#include <sge/renderer/state/any.hpp>
-#include <sge/renderer/state/any_sort_functor.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/enum_key.hpp>
+#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/int.hpp>
+#include <sge/renderer/state/stencil_op.hpp>
+#include <sge/renderer/state/uint.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <set>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
-
 
 namespace sge
 {
@@ -35,10 +39,16 @@ namespace renderer
 namespace state
 {
 
-typedef std::set<
-	state::any,
-	state::any_sort_functor
-> set;
+typedef
+boost::mpl::vector7<
+	state::int_::available_states::type,
+	state::uint::available_states::type,
+	state::float_::available_states::type,
+	state::bool_::available_states::type,
+	state::color::available_states::type,
+	stencil_op::available_states::type,
+	state::enum_key::type
+> any_key_types;
 
 }
 }

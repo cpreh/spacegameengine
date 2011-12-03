@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/state/any.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/state/set.hpp>
+#include <sge/renderer/state/map.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 
@@ -50,7 +50,7 @@ public:
 	~list();
 
 	SGE_RENDERER_SYMBOL
-	list const
+	state::list const
 	operator()(
 		state::any const &
 	) const;
@@ -62,10 +62,10 @@ public:
 	);
 
 	SGE_RENDERER_SYMBOL
-	state::set const &
+	state::map const &
 	values() const;
 private:
-	state::set set_;
+	state::map map_;
 };
 
 }

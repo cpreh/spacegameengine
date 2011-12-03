@@ -18,21 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/member.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/detail/insert_member.hpp>
+#ifndef SGE_PARSE_JSON_DETAIL_VALUE_WRAPPER_FWD_HPP_INCLUDED
+#define SGE_PARSE_JSON_DETAIL_VALUE_WRAPPER_FWD_HPP_INCLUDED
 
-
-void
-sge::parse::json::detail::insert_member(
-	json::object &_result,
-	json::member const &_syn,
-	bool &_failed
-)
+namespace sge
 {
-	_failed =
-		_result.members.insert(
-			_syn
-		).second;
+namespace parse
+{
+namespace json
+{
+namespace detail
+{
+
+class value_wrapper;
+
 }
+}
+}
+}
+
+#endif

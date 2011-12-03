@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/state/any_key.hpp>
 #include <sge/renderer/state/any_sort.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <fcppt/type_info.hpp>
+#include <sge/renderer/state/enum_key.hpp>
+#include <fcppt/mpl/index_of.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <typeinfo>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -42,8 +40,8 @@ public:
 	>
 	result_type
 	operator()(
-		sge::renderer::state::var<T, States> const &,
-		sge::renderer::state::var<T, States> const &
+		sge::renderer::state::enum_key::type,
+		sge::renderer::state::enum_key::type
 	) const;
 
 	template<
@@ -61,8 +59,8 @@ public:
 
 bool
 sge::renderer::state::any_sort(
-	state::any const &_left,
-	state::any const &_right
+	state::any_key const &_left,
+	state::any_key const &_right
 )
 {
 	return
@@ -82,13 +80,13 @@ template<
 >
 bool
 compare::operator()(
-	sge::renderer::state::var<T, States> const &_left,
-	sge::renderer::state::var<T, States> const &_right
+	sge::renderer::state::enum_key::type const _key1,
+	sge::renderer::state::enum_key::type const _key2
 ) const
 {
 	return
-		_left.state()
-		< _right.state();
+		_key1
+		< _key2;
 }
 
 template<
@@ -102,13 +100,15 @@ compare::operator()(
 ) const
 {
 	return
-		fcppt::type_info(
-			typeid(T)
-		)
+		fcppt::mpl::index_of<
+			sge::renderer::state::any_key_types,
+			T
+		>::value
 		<
-		fcppt::type_info(
-			typeid(U)
-		);
+		fcppt::mpl::index_of<
+			sge::renderer::state::any_key_types,
+			U
+		>::value;
 }
 
 }

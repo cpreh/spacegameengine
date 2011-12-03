@@ -22,10 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_RENDERER_STATE_EXTRACT_TRAMPOLINE_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/state/any_key.hpp>
 #include <sge/renderer/state/extract_trampoline.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/set.hpp>
+#include <sge/renderer/state/map.hpp>
 #include <sge/renderer/state/trampoline.hpp>
+#include <sge/src/renderer/state/make_state_key.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -39,25 +41,29 @@ sge::renderer::state::extract_trampoline(
 	state::trampoline<T, States> const &_trampoline
 )
 {
-	state::set const &set(
+	state::map const &map(
 		_list.values()
 	);
 
-	state::set::const_iterator const it(
-		set.find(
-			_trampoline = T()
+	state::map::const_iterator const it(
+		map.find(
+			state::any_key(
+				state::make_state_key(
+					_trampoline.state()
+				)
+			)
 		)
 	);
 
 	if(
-		it == set.end()
+		it == map.end()
 	)
 		throw renderer::exception(
 			FCPPT_TEXT("renderer::list::get(): state not found!")
 		);
 
 	return
-		it->get<
+		it->second.get<
 			typename renderer::state::trampoline<
 				T,
 				States

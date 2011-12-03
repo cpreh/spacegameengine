@@ -21,9 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_DETAIL_INSERT_MEMBER_HPP_INCLUDED
 #define SGE_PARSE_JSON_DETAIL_INSERT_MEMBER_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
+#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/member.hpp>
-#include <sge/parse/json/object_fwd.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/detail/insert_member.hpp>
+#include <sge/parse/json/detail/member_wrapper.hpp>
+#include <sge/parse/json/detail/value_wrapper.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -35,13 +41,23 @@ namespace json
 namespace detail
 {
 
-SGE_PARSE_SYMBOL
+inline
 void
 insert_member(
-	json::object &,
-	json::member const &,
-	bool &
-);
+	json::member_map &_members,
+	json::detail::member_wrapper const &_syn,
+	bool &_failed
+)
+{
+	_failed =
+		_members.insert(
+			std::make_pair(
+				_syn.first,
+				_syn.second.get()
+			)
+		).second;
+
+}
 
 }
 }

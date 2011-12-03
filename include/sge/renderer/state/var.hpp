@@ -57,7 +57,7 @@ public:
 	value() const;
 
 	SGE_RENDERER_SYMBOL
-	explicit var(
+	var(
 		state_type state,
 		value_type const &defval
 	);

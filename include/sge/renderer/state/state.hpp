@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/alpha_func.hpp>
 #include <sge/renderer/state/any.hpp>
+#include <sge/renderer/state/any_key.hpp>
+#include <sge/renderer/state/any_key_types.hpp>
 #include <sge/renderer/state/any_sort.hpp>
 #include <sge/renderer/state/any_sort_functor.hpp>
 #include <sge/renderer/state/apply.hpp>
@@ -37,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/dest_blend_func.hpp>
 #include <sge/renderer/state/draw_mode.hpp>
+#include <sge/renderer/state/enum_key.hpp>
 #include <sge/renderer/state/extract.hpp>
 #include <sge/renderer/state/extract_trampoline.hpp>
 #include <sge/renderer/state/float.hpp>
@@ -45,8 +48,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/int_type.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
+#include <sge/renderer/state/map.hpp>
 #include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/set.hpp>
 #include <sge/renderer/state/source_blend_func.hpp>
 #include <sge/renderer/state/stack.hpp>
 #include <sge/renderer/state/stencil_func.hpp>

@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_ANY_SORT_FUNCTOR_HPP_INCLUDED
-#define SGE_RENDERER_STATE_ANY_SORT_FUNCTOR_HPP_INCLUDED
-
-#include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/any_key.hpp>
-
+#ifndef SGE_RENDERER_STATE_ENUM_KEY_HPP_INCLUDED
+#define SGE_RENDERER_STATE_ENUM_KEY_HPP_INCLUDED
 
 namespace sge
 {
@@ -32,18 +28,21 @@ namespace renderer
 namespace state
 {
 
-struct any_sort_functor
+namespace enum_key
 {
-	typedef bool result_type;
-
-	SGE_RENDERER_SYMBOL
-	result_type
-	operator()(
-		state::any_key const &,
-		state::any_key const &
-	) const;
+enum type
+{
+	cull_mode,
+	depth_func,
+	stencil_func,
+	alpha_func,
+	fog_mode,
+	draw_mode,
+	source_blend_func,
+	dest_blend_func
 };
 
+}
 }
 }
 }

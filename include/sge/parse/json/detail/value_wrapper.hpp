@@ -18,32 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_ANY_SORT_FUNCTOR_HPP_INCLUDED
-#define SGE_RENDERER_STATE_ANY_SORT_FUNCTOR_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_DETAIL_VALUE_WRAPPER_HPP_INCLUDED
+#define SGE_PARSE_JSON_DETAIL_VALUE_WRAPPER_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/any_key.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/detail/value_wrapper_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace parse
 {
-namespace state
+namespace json
+{
+namespace detail
 {
 
-struct any_sort_functor
+class value_wrapper
 {
-	typedef bool result_type;
+public:
+	value_wrapper()
+	:
+		value_()
+	{
+	}
 
-	SGE_RENDERER_SYMBOL
-	result_type
-	operator()(
-		state::any_key const &,
-		state::any_key const &
-	) const;
+	template<
+		typename T
+	>
+	value_wrapper(
+		T const &_arg
+	)
+	:
+		value_(
+			json::value(
+				_arg
+			)
+		)
+	{
+	}
+
+	json::value const &
+	get() const
+	{
+		return *value_;
+	}
+private:
+	typedef fcppt::optional<
+		json::value
+	> optional_value;
+
+	optional_value value_;
 };
 
+}
 }
 }
 }

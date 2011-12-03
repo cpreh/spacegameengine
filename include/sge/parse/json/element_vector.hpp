@@ -34,7 +34,7 @@ namespace json
 {
 
 typedef std::vector<
-	value
+	json::value
 > element_vector;
 
 }

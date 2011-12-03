@@ -52,6 +52,9 @@ SET(
 	include/sge/parse/json/detail/get_return_type.hpp
 	include/sge/parse/json/detail/insert_member.hpp
 	include/sge/parse/json/detail/is_array.hpp
+	include/sge/parse/json/detail/member_wrapper.hpp
+	include/sge/parse/json/detail/value_wrapper.hpp
+	include/sge/parse/json/detail/value_wrapper_fwd.hpp
 	include/sge/parse/json/element_vector.hpp
 	include/sge/parse/json/exception.hpp
 	include/sge/parse/json/find_and_convert_member.hpp
@@ -122,7 +125,6 @@ SET(
 	src/parse/json/config/merge_command_line_parameters.cpp
 	src/parse/json/config/merge_trees.cpp
 	src/parse/json/config/modify_user_value.cpp
-	src/parse/json/detail/insert_member.cpp
 	src/parse/json/exception.cpp
 	src/parse/json/find_object.cpp
 	src/parse/json/find_object_exn.cpp

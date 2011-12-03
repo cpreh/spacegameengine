@@ -24,12 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/object_impl.hpp>
 
 
-sge::image::color::any::object::object()
-:
-	variant_()
-{
-}
-
 sge::image::color::any::object::object(
 	variant const &_variant
 )

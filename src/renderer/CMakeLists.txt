@@ -267,6 +267,8 @@ SET(
 	include/sge/renderer/specular_color.hpp
 	include/sge/renderer/state/alpha_func.hpp
 	include/sge/renderer/state/any.hpp
+	include/sge/renderer/state/any_key.hpp
+	include/sge/renderer/state/any_key_types.hpp
 	include/sge/renderer/state/any_sort.hpp
 	include/sge/renderer/state/any_sort_functor.hpp
 	include/sge/renderer/state/apply.hpp
@@ -281,6 +283,7 @@ SET(
 	include/sge/renderer/state/depth_func.hpp
 	include/sge/renderer/state/dest_blend_func.hpp
 	include/sge/renderer/state/draw_mode.hpp
+	include/sge/renderer/state/enum_key.hpp
 	include/sge/renderer/state/extract.hpp
 	include/sge/renderer/state/extract_trampoline.hpp
 	include/sge/renderer/state/float.hpp
@@ -289,8 +292,8 @@ SET(
 	include/sge/renderer/state/int_type.hpp
 	include/sge/renderer/state/list.hpp
 	include/sge/renderer/state/list_fwd.hpp
+	include/sge/renderer/state/map.hpp
 	include/sge/renderer/state/scoped.hpp
-	include/sge/renderer/state/set.hpp
 	include/sge/renderer/state/source_blend_func.hpp
 	include/sge/renderer/state/stack.hpp
 	include/sge/renderer/state/state.hpp
@@ -579,6 +582,9 @@ SET(
 	src/renderer/include/sge/src/renderer/state/instantiate_extract_trampoline.hpp
 	src/renderer/include/sge/src/renderer/state/instantiate_with_trampoline.hpp
 	src/renderer/include/sge/src/renderer/state/instantiate_without_trampoline.hpp
+	src/renderer/include/sge/src/renderer/state/make_enum_key.hpp
+	src/renderer/include/sge/src/renderer/state/make_key.hpp
+	src/renderer/include/sge/src/renderer/state/make_state_key.hpp
 	src/renderer/include/sge/src/renderer/state/trampoline_impl.hpp
 	src/renderer/include/sge/src/renderer/state/var_impl.hpp
 	src/renderer/include/sge/src/renderer/texture/basic_parameters_impl.hpp
@@ -650,6 +656,7 @@ SET(
 	src/renderer/state/fog_mode.cpp
 	src/renderer/state/int.cpp
 	src/renderer/state/list.cpp
+	src/renderer/state/make_key.cpp
 	src/renderer/state/scoped.cpp
 	src/renderer/state/source_blend_func.cpp
 	src/renderer/state/stencil_func.cpp

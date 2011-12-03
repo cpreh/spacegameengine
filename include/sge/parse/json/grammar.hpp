@@ -25,16 +25,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/exception.hpp>
 #include <sge/parse/info_to_string.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
-#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/string.hpp>
-#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/adapt_array.hpp>
 #include <sge/parse/json/detail/adapt_object.hpp>
 #include <sge/parse/json/detail/insert_member.hpp>
+#include <sge/parse/json/detail/member_wrapper.hpp>
+#include <sge/parse/json/detail/value_wrapper.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -43,11 +45,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/adapted/std_pair.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_function.hpp>
+#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
 #include <boost/spirit/home/phoenix/core/value.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/spirit/home/phoenix/statement/throw.hpp>
+#include <boost/spirit/home/phoenix/stl/container.hpp>
 #include <boost/spirit/include/qi_action.hpp>
 #include <boost/spirit/include/qi_attr.hpp>
 #include <boost/spirit/include/qi_char.hpp>
@@ -134,17 +138,26 @@ public:
 				> qi::lit(FCPPT_TEXT('"'))
 			];
 
+		element_vector_ =
+			value_wrapper_[
+				boost::phoenix::push_back(
+					boost::spirit::qi::_val,
+					boost::phoenix::bind(
+						&json::detail::value_wrapper::get,
+						boost::spirit::qi::_1
+					)
+				)
+			]
+			% qi::lit(FCPPT_TEXT(','));
+
 		array_ %=
 			(
 				qi::lit(FCPPT_TEXT('['))
-				> -(
-					value_
-					% qi::lit(FCPPT_TEXT(','))
-				)
+				> -element_vector_
 				> qi::lit(FCPPT_TEXT(']'))
 			);
 
-		value_ %=
+		value_wrapper_ %=
 			object_
 			| array_
 			| bool_
@@ -153,55 +166,28 @@ public:
 			| int_
 			| null_;
 
-		member_ %=
+		member_wrapper_ %=
 			quoted_string_
 			> qi::lit(FCPPT_TEXT(':'))
-			> value_;
+			> value_wrapper_;
+
+		member_map_ =
+			member_wrapper_[
+				boost::phoenix::bind(
+					json::detail::insert_member,
+					boost::spirit::qi::_val,
+					boost::spirit::qi::_1,
+					boost::spirit::qi::_pass
+				)
+			]
+			% qi::lit(FCPPT_TEXT(','));
 
 		object_ %=
 			(
 				qi::lit(FCPPT_TEXT('{'))
-				> -(
-					member_[
-						boost::phoenix::bind(
-							json::detail::insert_member,
-							boost::spirit::qi::_val,
-							boost::spirit::qi::_1,
-							boost::spirit::qi::_pass
-						)
-					]
-					% qi::lit(FCPPT_TEXT(','))
-				)
+				> -member_map_
 				> qi::lit(FCPPT_TEXT('}'))
 			);
-
-		null_.name(
-			"null"
-		);
-
-		bool_.name(
-			"bool"
-		);
-
-		quoted_string_.name(
-			"string"
-		);
-
-		array_.name(
-			"array"
-		);
-
-		value_.name(
-			"value"
-		);
-
-		member_.name(
-			"member"
-		);
-
-		object_.name(
-			"object"
-		);
 
 		boost::spirit::qi::on_error<
 			boost::spirit::qi::fail
@@ -270,21 +256,33 @@ private:
 
 	boost::spirit::qi::rule<
 		In,
+		json::element_vector(),
+		space_type
+	> element_vector_;
+
+	boost::spirit::qi::rule<
+		In,
 		json::array(),
 		space_type
 	> array_;
 
 	boost::spirit::qi::rule<
 		In,
-		json::value(),
+		json::detail::value_wrapper(),
 		space_type
-	> value_;
+	> value_wrapper_;
 
 	boost::spirit::qi::rule<
 		In,
-		json::member(),
+		json::detail::member_wrapper(),
 		space_type
-	> member_;
+	> member_wrapper_;
+
+	boost::spirit::qi::rule<
+		In,
+		json::member_map(),
+		space_type
+	> member_map_;
 
 	boost::spirit::qi::rule<
 		In,

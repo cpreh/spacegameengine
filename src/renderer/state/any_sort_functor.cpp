@@ -18,19 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/state/any_key.hpp>
 #include <sge/renderer/state/any_sort.hpp>
 #include <sge/renderer/state/any_sort_functor.hpp>
 
 
 sge::renderer::state::any_sort_functor::result_type
 sge::renderer::state::any_sort_functor::operator()(
-	state::any const &_a,
-	state::any const &_b
+	state::any_key const &_left,
+	state::any_key const &_right
 ) const
 {
 	return
 		state::any_sort(
-			_a,
-			_b
+			_left,
+			_right
 		);
 }
