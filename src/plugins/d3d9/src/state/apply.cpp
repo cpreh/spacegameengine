@@ -57,7 +57,7 @@ sge::d3d9::state::apply(
 		std::tr1::bind(
 			&fcppt::variant::apply_unary<
 				d3d9::state::visitor,
-				sge::renderer::state::any::types
+				sge::renderer::state::any
 			>,
 			fcppt::cref(
 				visitor
