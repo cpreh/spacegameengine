@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_CONSOLE_NEXT_OR_LAST_HPP_INCLUDED
 
 #include <fcppt/assert/error.hpp>
-#include <fcppt/math/is_negative.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <algorithm>
@@ -56,8 +55,7 @@ next_or_last(
 			last);
 
 	FCPPT_ASSERT_ERROR(
-		!fcppt::math::is_negative(
-			d));
+		d > static_cast<difference_type>(0));
 
 	return
 		boost::next(
