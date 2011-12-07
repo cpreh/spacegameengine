@@ -55,7 +55,7 @@ next_or_last(
 			last);
 
 	FCPPT_ASSERT_ERROR(
-		d > static_cast<difference_type>(0));
+		d >= static_cast<difference_type>(0));
 
 	return
 		boost::next(

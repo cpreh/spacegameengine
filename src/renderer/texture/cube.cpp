@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/renderer/texture/cube.hpp>
-#include <fcppt/math/quad.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
 
@@ -59,9 +58,7 @@ sge::renderer::texture::cube::size_type
 sge::renderer::texture::cube::content() const
 {
 	return
-		fcppt::math::quad(
-			this->border_size()
-		);
+		this->border_size() * this->border_size();
 }
 
 sge::renderer::texture::cube::rect const
