@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/xf86vmode/calc_refresh_rate.hpp>
-#include <fcppt/math/round_div_int.hpp>
+#include <fcppt/math/ceil_div.hpp>
 
 unsigned
 sge::opengl::xf86vmode::calc_refresh_rate(
@@ -27,7 +27,7 @@ sge::opengl::xf86vmode::calc_refresh_rate(
 )
 {
 	return
-		fcppt::math::round_div_int(
+		fcppt::math::ceil_div(
 			static_cast<
 				unsigned
 			>(

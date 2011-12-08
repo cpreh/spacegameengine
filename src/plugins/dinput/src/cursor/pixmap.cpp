@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/math/round_div_int.hpp>
+#include <fcppt/math/ceil_div.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_unsigned.hpp>
@@ -60,7 +60,7 @@ sge::dinput::cursor::pixmap::pixmap()
 	);
 
 	byte_vector::size_type const size(
-		fcppt::math::round_div_int(
+		fcppt::math::ceil_div(
 			static_cast<
 				byte_vector::size_type
 			>(
