@@ -32,13 +32,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/comparison.hpp>
+#include <fcppt/math/vector/componentwise_equal.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <limits>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -68,11 +69,15 @@ sge::texture::area_texc(
 	>::type vector_type;
 
 	if(
-		_repeat
-		!=
-		vector_type(
-			1.f,
-			1.f
+		!fcppt::math::vector::componentwise_equal(
+			_repeat,
+			vector_type(
+				1.f,
+				1.f
+			),
+			std::numeric_limits<
+				T
+			>::epsilon()
 		)
 		&& !_part.repeatable()
 	)
