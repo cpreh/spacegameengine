@@ -35,7 +35,7 @@ SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("triangle_mesh"))
 
 sge::projectile::shape::triangle_mesh::triangle_mesh(
-	triangle_set const &_triangles)
+	shape::triangle_sequence const &_triangles)
 :
 	scalars_(
 		static_cast<index_vector::size_type>(
@@ -61,7 +61,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 		scalars_.begin();
 
 	for(
-		triangle_set::const_iterator triangle_it(
+		shape::triangle_sequence::const_iterator triangle_it(
 			_triangles.begin()
 		);
 		triangle_it != _triangles.end();

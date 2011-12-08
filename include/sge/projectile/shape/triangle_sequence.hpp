@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_SHAPE_TRIANGLE_SET_HPP_INCLUDED
-#define SGE_PROJECTILE_SHAPE_TRIANGLE_SET_HPP_INCLUDED
+#ifndef SGE_PROJECTILE_SHAPE_TRIANGLE_SEQUENCE_HPP_INCLUDED
+#define SGE_PROJECTILE_SHAPE_TRIANGLE_SEQUENCE_HPP_INCLUDED
 
 #include <sge/projectile/triangle.hpp>
-#include <sge/projectile/detail/triangle_set_hash.hpp>
-#include <fcppt/tr1/unordered_set.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -33,12 +34,11 @@ namespace projectile
 namespace shape
 {
 typedef
-std::tr1::unordered_set
+std::vector
 <
-	triangle,
-	detail::triangle_set_hash
+	projectile::triangle
 >
-triangle_set;
+triangle_sequence;
 }
 }
 }

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/debug_drawer.hpp>
 #include <sge/projectile/dim2.hpp>
 #include <sge/projectile/duration.hpp>
+#include <sge/projectile/log_location.hpp>
 #include <sge/projectile/rect.hpp>
 #include <sge/projectile/scalar.hpp>
 #include <sge/projectile/time_increment.hpp>
@@ -53,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/shape/circle.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <sge/projectile/shape/triangle_mesh.hpp>
+#include <sge/projectile/shape/triangle_sequence.hpp>
 #include <sge/projectile/triangulation/default_tag.hpp>
 #include <sge/projectile/triangulation/triangulate.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
@@ -469,8 +471,7 @@ int main()
 try
 {
 	sge::log::global_context().apply(
-		fcppt::log::location(
-			FCPPT_TEXT("projectile")),
+		sge::projectile::log_location(),
 		std::tr1::bind(
 			&fcppt::log::activate_levels,
 			std::tr1::placeholders::_1,
@@ -544,7 +545,7 @@ try
 		fcppt::make_shared_ptr<sge::projectile::shape::triangle_mesh>(
 			sge::projectile::triangulation::triangulate<
 				sge::projectile::triangulation::default_tag,
-				sge::projectile::shape::triangle_set
+				sge::projectile::shape::triangle_sequence
 			>(
 				container_from_stream< std::vector< sge::projectile::vector2 > >(
 					polygon_stream),

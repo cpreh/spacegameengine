@@ -26,6 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/shape/circle.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <sge/projectile/shape/triangle_mesh.hpp>
-#include <sge/projectile/shape/triangle_set.hpp>
+#include <sge/projectile/shape/triangle_sequence.hpp>
 
 #endif

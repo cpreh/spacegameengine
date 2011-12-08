@@ -21,6 +21,7 @@ SET(
 	include/sge/camera/ortho_freelook/ortho_freelook.hpp
 	include/sge/camera/ortho_freelook/parameters.hpp
 	include/sge/camera/ortho_freelook/parameters_fwd.hpp
+	include/sge/camera/projection/invalid.hpp
 	include/sge/camera/projection/object.hpp
 	include/sge/camera/projection/orthogonal.hpp
 	include/sge/camera/projection/orthogonal_fwd.hpp

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_PROJECTION_PROJECTION_HPP_INCLUDED
 #define SGE_CAMERA_PROJECTION_PROJECTION_HPP_INCLUDED
 
+#include <sge/camera/projection/invalid.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/orthogonal.hpp>
 #include <sge/camera/projection/orthogonal_fwd.hpp>

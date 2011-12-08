@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/scalar.hpp>
 #include <sge/projectile/symbol.hpp>
 #include <sge/projectile/shape/base.hpp>
-#include <sge/projectile/shape/triangle_set.hpp>
+#include <sge/projectile/shape/triangle_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/container/raw_vector.hpp>
@@ -42,14 +42,14 @@ namespace shape
 {
 class triangle_mesh
 :
-	public base
+	public shape::base
 {
 FCPPT_NONCOPYABLE(
 	triangle_mesh);
 public:
 	SGE_PROJECTILE_SYMBOL explicit
 	triangle_mesh(
-		triangle_set const &);
+		shape::triangle_sequence const &);
 
 	// No symbol needed here
 	btCollisionShape &

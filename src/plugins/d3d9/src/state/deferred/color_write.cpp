@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/convert/color_write.hpp>
 #include <sge/d3d9/state/deferred/color_write.hpp>
 #include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/bool/trampoline.hpp>
 #include <sge/renderer/state/extract_trampoline.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/bool/trampoline.hpp>
 
 
 namespace

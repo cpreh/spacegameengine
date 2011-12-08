@@ -29,7 +29,6 @@ SET(
 	include/sge/projectile/debug_drawer.hpp
 	include/sge/projectile/debug_drawer_fwd.hpp
 	include/sge/projectile/detail/debug_drawer_impl_fwd.hpp
-	include/sge/projectile/detail/triangle_set_hash.hpp
 	include/sge/projectile/dim2.hpp
 	include/sge/projectile/duration.hpp
 	include/sge/projectile/fixed_timestep.hpp
@@ -52,6 +51,7 @@ SET(
 	include/sge/projectile/group/object.hpp
 	include/sge/projectile/group/object_fwd.hpp
 	include/sge/projectile/group/sequence.hpp
+	include/sge/projectile/log_location.hpp
 	include/sge/projectile/maximum_substeps.hpp
 	include/sge/projectile/projectile.hpp
 	include/sge/projectile/rect.hpp
@@ -62,7 +62,7 @@ SET(
 	include/sge/projectile/shape/shape.hpp
 	include/sge/projectile/shape/shared_base_ptr.hpp
 	include/sge/projectile/shape/triangle_mesh.hpp
-	include/sge/projectile/shape/triangle_set.hpp
+	include/sge/projectile/shape/triangle_sequence.hpp
 	include/sge/projectile/symbol.hpp
 	include/sge/projectile/time_increment.hpp
 	include/sge/projectile/triangle.hpp
@@ -102,7 +102,6 @@ SET(
 	src/projectile/include/sge/src/projectile/declare_local_logger.hpp
 	src/projectile/include/sge/src/projectile/detail/debug_drawer_impl.hpp
 	src/projectile/include/sge/src/projectile/ghost/detail/pair_callback.hpp
-	src/projectile/include/sge/src/projectile/log_location.hpp
 	src/projectile/include/sge/src/projectile/logger.hpp
 	src/projectile/include/sge/src/projectile/object_extrusion_depth.hpp
 	src/projectile/include/sge/src/projectile/structure_cast.hpp

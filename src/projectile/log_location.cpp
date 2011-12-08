@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/location.hpp>
-#include <sge/src/projectile/log_location.hpp>
+#include <sge/projectile/log_location.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/location.hpp>
 
