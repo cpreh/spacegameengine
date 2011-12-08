@@ -594,7 +594,7 @@ try
 				vf_part
 			>(),
 			sge::renderer::vertex_count(
-				pos_array::static_size
+				pos_array::dim_wrapper::value
 			),
 			sge::renderer::resource_flags::none
 		)
