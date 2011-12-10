@@ -206,6 +206,40 @@ change_filter(
 		];
 }
 
+class change_filter_functor
+{
+public:
+	change_filter_functor(
+		filter_array const &_filters,
+		filter_array::const_pointer &_result
+	)
+	:
+		filters_(
+			_filters
+		),
+		result_(
+			_result
+		)
+	{
+	}
+
+	void
+	operator()(
+		sge::input::keyboard::key_event const &_event
+	) const
+	{
+		::change_filter(
+			_event,
+			filters_,
+			result_
+		);
+	}
+private:
+	filter_array const &filters_;
+
+	filter_array::const_pointer &result_;
+};
+
 }
 
 int
@@ -515,13 +549,9 @@ try
 
 	fcppt::signal::scoped_connection const texture_connection(
 		sys.keyboard_collector().key_callback(
-			std::tr1::bind(
-				::change_filter,
-				std::tr1::placeholders::_1,
+			change_filter_functor(
 				filters,
-				fcppt::ref(
-					current_filter
-				)
+				current_filter
 			)
 		)
 	);
