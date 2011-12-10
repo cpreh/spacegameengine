@@ -227,7 +227,7 @@ try
 		.depth(
 			static_cast<sprite_object::depth_type>(0))
 		.default_color()
-		.elements());
+	);
 
 	sprite_object tux(
 		sprite_parameters()
@@ -244,7 +244,7 @@ try
 		.default_color()
 		.depth(
 			static_cast<sprite_object::depth_type>(1))
-		.elements());
+	);
 
 	bool running =
 		true;

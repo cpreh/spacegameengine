@@ -197,7 +197,6 @@ try
 			tex
 		)
 		.texture_size()
-		.elements()
 	);
 
 	device.state(

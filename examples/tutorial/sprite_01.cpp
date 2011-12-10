@@ -168,7 +168,6 @@ try
 			)
 		)
 		.texture_size()
-		.elements()
 	);
 
 	for (;;)

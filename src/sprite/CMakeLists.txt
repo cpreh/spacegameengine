@@ -54,10 +54,13 @@ SET(
 	include/sge/sprite/detail/indices_per_sprite.hpp
 	include/sge/sprite/detail/initialize_default_parameters.hpp
 	include/sge/sprite/detail/make_class.hpp
+	include/sge/sprite/detail/make_parameters_class.hpp
+	include/sge/sprite/detail/make_parameters_extra_elements.hpp
 	include/sge/sprite/detail/make_position.hpp
 	include/sge/sprite/detail/make_texture_levels.hpp
 	include/sge/sprite/detail/needs_depth.hpp
 	include/sge/sprite/detail/needs_use_center.hpp
+	include/sge/sprite/detail/needs_use_texture_size.hpp
 	include/sge/sprite/detail/normal_render_states.hpp
 	include/sge/sprite/detail/optional_size.hpp
 	include/sge/sprite/detail/pos_packed_type.hpp
@@ -68,14 +71,16 @@ SET(
 	include/sge/sprite/detail/roles/index_buffer.hpp
 	include/sge/sprite/detail/roles/roles.hpp
 	include/sge/sprite/detail/roles/use_center.hpp
+	include/sge/sprite/detail/roles/use_texture_size.hpp
 	include/sge/sprite/detail/roles/vertex_buffer.hpp
 	include/sge/sprite/detail/rotation_center.hpp
 	include/sge/sprite/detail/set_texture_level.hpp
 	include/sge/sprite/detail/set_textures.hpp
 	include/sge/sprite/detail/set_textures_post.hpp
 	include/sge/sprite/detail/set_textures_pre.hpp
-	include/sge/sprite/detail/transform_init_arguments.hpp
-	include/sge/sprite/detail/transform_parameters_arguments.hpp
+	include/sge/sprite/detail/transform_parameters.hpp
+	include/sge/sprite/detail/transform_use_center.hpp
+	include/sge/sprite/detail/transform_use_texture_size.hpp
 	include/sge/sprite/detail/unset_texture_stage.hpp
 	include/sge/sprite/detail/unset_texture_stages.hpp
 	include/sge/sprite/detail/unset_use_center.hpp
@@ -161,7 +166,6 @@ SET(
 	include/sge/sprite/system_base_fwd.hpp
 	include/sge/sprite/system_base_impl.hpp
 	include/sge/sprite/texture_coordinates.hpp
-	include/sge/sprite/texture_dim.hpp
 	include/sge/sprite/texture_level.hpp
 	include/sge/sprite/texture_level_c.hpp
 	include/sge/sprite/type_choices.hpp

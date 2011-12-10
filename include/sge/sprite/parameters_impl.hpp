@@ -24,11 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/object.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/sprite/parameters_decl.hpp>
-#include <sge/sprite/texture_dim.hpp>
 #include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/defaults/color.hpp>
 #include <sge/sprite/detail/unset_use_center.hpp>
 #include <sge/sprite/detail/roles/use_center.hpp>
+#include <sge/sprite/detail/roles/use_texture_size.hpp>
 #include <sge/sprite/roles/adder.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/depth.hpp>
@@ -205,10 +205,10 @@ sge::sprite::parameters<Choices> &
 sge::sprite::parameters<Choices>::texture_size()
 {
 	return
-		this->size(
-			sprite::texture_dim<
-				typename Choices::type_choices::unit_type
-			>()
+		this->set<
+			detail::roles::use_texture_size
+		>(
+			true
 		);
 }
 
@@ -499,6 +499,26 @@ sge::sprite::parameters<Choices>::set(
 	);
 
 	return *this;
+}
+
+template<
+	typename Choices
+>
+template<
+	typename Role
+>
+typename majutsu::role_return_type<
+	typename sge::sprite::parameters<
+		Choices
+	>::flattened_types,
+	Role
+>::type const
+sge::sprite::parameters<Choices>::get() const
+{
+	return
+		elements_. template get<
+			Role
+		>();
 }
 
 template<

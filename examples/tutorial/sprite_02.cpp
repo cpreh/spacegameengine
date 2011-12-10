@@ -272,7 +272,6 @@ try
 			)
 		)
 		.texture_size()
-		.elements()
 	);
 
 	bool running = true;

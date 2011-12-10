@@ -374,7 +374,6 @@ try
 			>(0)
 		)
 		.default_color()
-		.elements()
 	);
 
 	sprite_object tux(
@@ -411,7 +410,6 @@ try
 				sprite_object::depth_type
 			>(1)
 		)
-		.elements()
 	);
 
 	sge::audio::file_ptr const af_siren(

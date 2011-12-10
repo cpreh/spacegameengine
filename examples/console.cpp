@@ -279,7 +279,6 @@ try
 			.size(
 				sge::console::sprite_object::dim(400,300)
 			)
-			.elements()
 		),
 		static_cast<
 			sge::console::output_line_limit

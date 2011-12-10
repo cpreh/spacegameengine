@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/depth_type.hpp>
 #include <sge/sprite/dim.hpp>
 #include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/point_size.hpp>
 #include <sge/sprite/repetition_type.hpp>
 #include <sge/sprite/rotation_type.hpp>
@@ -44,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/empty_base.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -68,7 +70,8 @@ class object
 		>::type
 {
 	typedef typename detail::make_class<
-		Choices
+		Choices,
+		boost::mpl::vector0<>
 	>::type element_type;
 
 	typedef typename element_type::memory_type::types flattened_types;
@@ -123,17 +126,18 @@ public:
 		Choices
 	> system;
 
+	typedef sprite::parameters<
+		Choices
+	> parameters_type;
+
 	object();
 
 	explicit object(
 		element_type const &
 	);
 
-	template<
-		typename Parameters
-	>
 	explicit object(
-		Parameters const &
+		parameters_type const &
 	);
 
 	object(

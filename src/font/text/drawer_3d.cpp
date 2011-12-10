@@ -145,7 +145,6 @@ sge::font::text::drawer_3d::draw_char(
 			.color(
 				col_
 			)
-			.elements()
 		)
 	);
 }

@@ -18,20 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_TRANSFORM_PARAMETERS_ARGUMENTS_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_TRANSFORM_PARAMETERS_ARGUMENTS_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_TRANSFORM_USE_TEXTURE_SIZE_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_TRANSFORM_USE_TEXTURE_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/detail/transform_init_arguments.hpp>
-#include <sge/sprite/detail/roles/use_center.hpp>
-#include <sge/sprite/roles/pos.hpp>
-#include <majutsu/subelements.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
+#include <sge/sprite/detail/needs_use_texture_size.hpp>
+#include <sge/sprite/detail/roles/use_texture_size.hpp>
+#include <sge/sprite/roles/size.hpp>
+#include <sge/sprite/roles/texture.hpp>
+#include <sge/texture/part.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/dim.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -44,81 +42,64 @@ namespace detail
 {
 
 template<
-	typename ElementType,
 	typename Choices,
 	typename Parameters
 >
 typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		sprite::with_dim
+	sprite::detail::needs_use_texture_size<
+		Choices
 	>,
-	ElementType
+	Parameters
 >::type const
-transform_parameters_arguments(
-	Parameters const &_parameters
+transform_use_texture_size(
+	Parameters _parameters
 )
 {
-	ElementType ret(
-		detail::transform_init_arguments<
-			Choices
-		>(
-			majutsu::subelements<
-				ElementType
-			>(
-				_parameters
-			)
-		)
-	);
-
 	if(
 		_parameters. template get<
-			detail::roles::use_center
+			sge::sprite::detail::roles::use_texture_size
+		>()
+		&&
+		_parameters. template get<
+			sge::sprite::roles::texture<
+				0
+			>
 		>()
 	)
-		ret. template set<
-			sprite::roles::pos
+		_parameters. template set<
+			sge::sprite::roles::size
 		>(
-			ret. template get<
-				sprite::roles::pos
-			>()
-			- ret. template get<
-				sprite::roles::size
-			>()
-			/ static_cast<
-				typename Choices::type_choices::unit_type
-			>(2u)
+			fcppt::math::dim::structure_cast<
+				typename sprite::dim<
+					typename Choices::type_choices::unit_type
+				>::type
+			>(
+				_parameters. template get<
+					sge::sprite::roles::texture<
+						0
+					>
+				>()->area().size()
+			)
 		);
 
-	return ret;
+	return _parameters;
 }
 
 template<
-	typename ElementType,
 	typename Choices,
 	typename Parameters
 >
 typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		sprite::with_dim
+	sprite::detail::needs_use_texture_size<
+		Choices
 	>,
-	ElementType
+	Parameters
 >::type const
-transform_parameters_arguments(
+transform_use_texture_size(
 	Parameters const &_parameters
 )
 {
-	return
-		detail::transform_init_arguments<
-			Choices
-		>(
-			majutsu::subelements<
-				ElementType
-			>(
-				_parameters
-			)
-		);
+	return _parameters;
 }
 
 }

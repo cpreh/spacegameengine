@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/assign_post.hpp>
 #include <sge/sprite/detail/assign_pre.hpp>
 #include <sge/sprite/detail/rotation_center.hpp>
-#include <sge/sprite/detail/transform_init_arguments.hpp>
-#include <sge/sprite/detail/transform_parameters_arguments.hpp>
+#include <sge/sprite/detail/transform_parameters.hpp>
 #include <sge/sprite/roles/adder.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/depth.hpp>
@@ -41,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
 #include <sge/sprite/roles/visible.hpp>
+#include <majutsu/subelements.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
@@ -61,11 +61,7 @@ sge::sprite::object<Choices>::object(
 )
 :
 	elements_(
-		detail::transform_init_arguments<
-			Choices
-		>(
-			_elements
-		)
+		_elements
 	)
 {
 	detail::assign_post(
@@ -76,19 +72,20 @@ sge::sprite::object<Choices>::object(
 template<
 	typename Choices
 >
-template<
-	typename Parameters
->
 sge::sprite::object<Choices>::object(
-	Parameters const &_parameters
+	parameters_type const &_parameters
 )
 :
 	elements_(
-		detail::transform_parameters_arguments<
-			element_type,
-			Choices
+		majutsu::subelements<
+			element_type
 		>(
-			_parameters
+			detail::transform_parameters<
+				Choices
+			>(
+				_parameters
+			)
+			.elements()
 		)
 	)
 {

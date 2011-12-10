@@ -18,12 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_ROLES_ROLES_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_ROLES_ROLES_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_TRANSFORM_PARAMETERS_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_TRANSFORM_PARAMETERS_HPP_INCLUDED
 
-#include <sge/sprite/detail/roles/index_buffer.hpp>
-#include <sge/sprite/detail/roles/use_center.hpp>
-#include <sge/sprite/detail/roles/use_texture_size.hpp>
-#include <sge/sprite/detail/roles/vertex_buffer.hpp>
+#include <sge/sprite/detail/transform_use_center.hpp>
+
+
+namespace sge
+{
+namespace sprite
+{
+namespace detail
+{
+
+template<
+	typename Choices,
+	typename Parameters
+>
+inline
+Parameters const
+transform_parameters(
+	Parameters const &_parameters
+)
+{
+	return
+		detail::transform_use_center<
+			Choices
+		>(
+			_parameters
+		);
+}
+
+}
+}
+}
 
 #endif

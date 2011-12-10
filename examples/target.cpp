@@ -222,7 +222,6 @@ try
 			)
 		)
 		.texture_size()
-		.elements()
 	);
 
 	{
@@ -242,7 +241,6 @@ try
 				)
 			)
 			.texture_size()
-			.elements()
 		);
 
 		sprite_object my_object_2(
@@ -261,7 +259,6 @@ try
 				)
 			)
 			.texture_size()
-			.elements()
 		);
 
 		sys.renderer().state(

@@ -492,7 +492,6 @@ try
 				)
 			)
 		)
-		.elements()
 	);
 
 	bool running(

@@ -332,7 +332,6 @@ try
 				>(0)
 			)
 			.default_color()
-			.elements()
 		);
 
 	sprite_object pointer(
@@ -350,7 +349,6 @@ try
 				sprite_object::depth_type
 			>(2)
 		)
-		.elements()
 	);
 
 	sprite_object tux(
@@ -375,7 +373,6 @@ try
 				sprite_object::depth_type
 			>(1)
 		)
-		.elements()
 	);
 
 	tux.color(
@@ -461,7 +458,6 @@ try
 				sprite_object::depth_type
 			>(1)
 		)
-		.elements()
 	);
 
 	fcppt::io::cifstream fragment_stream(

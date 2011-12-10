@@ -50,7 +50,7 @@ namespace detail
 
 template<
 	typename Choices,
-	typename ExtraElements = boost::mpl::vector0<>
+	typename ExtraElements
 >
 struct make_class
 {
@@ -91,7 +91,7 @@ struct make_class
 					Choices
 				>
 			>::type,
-			typename boost::mpl::joint_view<
+			boost::mpl::joint_view<
 				boost::mpl::vector1<
 					majutsu::role<
 						typename primitives::vector<
@@ -101,7 +101,7 @@ struct make_class
 					>
 				>,
 				ExtraElements
-			>::type
+			>
 		>::type,
 		majutsu::memory::fusion
 	> type;

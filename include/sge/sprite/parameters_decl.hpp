@@ -25,9 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/texture_level.hpp>
-#include <sge/sprite/detail/make_class.hpp>
-#include <sge/sprite/detail/needs_use_center.hpp>
-#include <sge/sprite/detail/roles/use_center.hpp>
+#include <sge/sprite/detail/make_parameters_class.hpp>
 #include <sge/sprite/roles/adder.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/depth.hpp>
@@ -41,13 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/roles/visible.hpp>
-#include <majutsu/fundamental.hpp>
-#include <majutsu/role.hpp>
 #include <majutsu/role_return_type.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -60,22 +52,8 @@ template<
 >
 class parameters
 {
-	typedef typename detail::make_class<
-		Choices,
-		typename boost::mpl::if_<
-			detail::needs_use_center<
-				Choices
-			>,
-			boost::mpl::vector1<
-				majutsu::role<
-					majutsu::fundamental<
-						bool
-					>,
-					detail::roles::use_center
-				>
-			>,
-			boost::mpl::vector0<>
-		>::type
+	typedef typename detail::make_parameters_class<
+		Choices
 	>::type elements_type;
 public:
 	typedef Choices choices;
@@ -257,6 +235,15 @@ public:
 			Role
 		>::type const &
 	);
+
+	template<
+		typename Role
+	>
+	typename majutsu::role_return_type<
+		flattened_types,
+		Role
+	>::type const
+	get() const;
 
 	elements_type const &
 	elements() const;

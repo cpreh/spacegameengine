@@ -209,7 +209,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 				.size(
 					fcppt::math::dim::structure_cast<sprite_object::dim>(
 						r.size()))
-				.elements()),
+		),
 		body_(
 			sge::projectile::body::parameters(
 				sge::projectile::body::position(

@@ -227,7 +227,6 @@ try
 				2.f
 			)
 		)
-		.elements()
 	);
 
 	sprite_object test2;

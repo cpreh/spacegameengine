@@ -244,7 +244,6 @@ try
 		)
 		// The sprite will get the texture's size.
 		.texture_size()
-		.elements()
 	);
 
 	// This is our bigger sprite.
@@ -275,7 +274,6 @@ try
 			)
 		)
 		.texture_size()
-		.elements()
 	);
 
 	// Declare which states should be always active.

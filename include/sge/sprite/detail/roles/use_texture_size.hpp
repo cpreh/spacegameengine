@@ -18,44 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TEXTURE_DIM_HPP_INCLUDED
-#define SGE_SPRITE_TEXTURE_DIM_HPP_INCLUDED
-
-#include <sge/sprite/dim.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <limits>
-#include <fcppt/config/external_end.hpp>
-
+#ifndef SGE_SPRITE_DETAIL_ROLES_USE_TEXTURE_SIZE_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_ROLES_USE_TEXTURE_SIZE_HPP_INCLUDED
 
 namespace sge
 {
 namespace sprite
 {
-
-template<
-	typename UnitType
->
-typename dim<
-	UnitType
->::type const
-texture_dim()
+namespace detail
 {
-	UnitType const max(
-		std::numeric_limits<
-			UnitType
-		>::max()
-	);
+namespace roles
+{
 
-	return
-		typename dim<
-			UnitType
-		>::type(
-			max,
-			max
-		);
+struct use_texture_size
+{};
+
 }
-
+}
 }
 }
 

@@ -154,7 +154,6 @@ try
 		.any_color(
 			sge::image::colors::red()
 		)
-		.elements()
 	);
 
 	bool running = true;
