@@ -25,6 +25,13 @@ SET(
 	include/sge/console/gfx_fwd.hpp
 	include/sge/console/message_callback.hpp
 	include/sge/console/message_callback_fn.hpp
+	include/sge/console/muxing.hpp
+	include/sge/console/muxing_fcppt_streambuf.hpp
+	include/sge/console/muxing_narrow_streambuf.hpp
+	include/sge/console/muxing_streambuf_decl.hpp
+	include/sge/console/muxing_streambuf_fwd.hpp
+	include/sge/console/muxing_streambuf_impl.hpp
+	include/sge/console/muxing_wide_streambuf.hpp
 	include/sge/console/object.hpp
 	include/sge/console/object_fwd.hpp
 	include/sge/console/output_line_limit.hpp
@@ -44,6 +51,7 @@ SET(
 	src/console/function.cpp
 	src/console/gfx.cpp
 	src/console/include/sge/src/console/next_or_last.hpp
+	src/console/muxing_streambuf.cpp
 	src/console/object.cpp
 )
 

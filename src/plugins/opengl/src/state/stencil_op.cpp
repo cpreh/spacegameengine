@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/stencil_op.hpp>
 #include <sge/opengl/state/deferred/bundle.hpp>
 #include <sge/opengl/state/deferred/object.hpp>
-#include <sge/renderer/state/stencil_op/type.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/stencil_op/type.hpp>
 
 
 void

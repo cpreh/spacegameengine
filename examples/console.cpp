@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/console/gfx.hpp>
+#include <sge/console/muxing_narrow_streambuf.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/sprite_parameters.hpp>
@@ -285,6 +286,22 @@ try
 			100
 		)
 	);
+
+	sge::console::muxing_narrow_streambuf stdout_streambuf(
+		std::cout,
+		object,
+		sge::console::muxing::enabled);
+
+	std::cout << "Test for console muxer (cout).\n";
+	std::cout << "You should see this message in the console and in the terminal (if available)\n";
+
+	sge::console::muxing_narrow_streambuf stderr_streambuf(
+		std::cerr,
+		object,
+		sge::console::muxing::disabled);
+
+	std::cerr << "Test for console muxer (cerr).\n";
+	std::cerr << "You should see this message _only_ in the console and _not_ in the terminal (if available)\n";
 
 	sys.renderer().state(
 		sge::renderer::state::list
