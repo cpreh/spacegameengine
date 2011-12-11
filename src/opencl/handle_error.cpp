@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 
@@ -79,7 +80,10 @@ error_code_to_string(
 		case CL_INVALID_GL_OBJECT: return FCPPT_TEXT("CL_INVALID_GL_OBJECT: Invalid OpenGL object");
 		case CL_INVALID_BUFFER_SIZE: return FCPPT_TEXT("CL_INVALID_BUFFER_SIZE: Invalid buffer size");
 		case CL_INVALID_MIP_LEVEL: return FCPPT_TEXT("CL_INVALID_MIP_LEVEL: Invalid mip-map level");
-		default: return FCPPT_TEXT("Unknown");
+#ifdef CL_PLATFORM_NOT_FOUND_KHR
+		case CL_PLATFORM_NOT_FOUND_KHR: return FCPPT_TEXT("CL_PLATFORM_NOT_FOUND_KHR");
+#endif
+		default: return FCPPT_TEXT("Unknown (code: ")+fcppt::insert_to_fcppt_string(code)+FCPPT_TEXT(")");
 	}
 }
 }

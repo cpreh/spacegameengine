@@ -35,7 +35,7 @@ sge::opencl::system::system()
 {
 	cl_uint number_of_platforms;
 
-  // First, query the total number of platforms
+	// First, query the total number of platforms
 	cl_int error_code =
 		clGetPlatformIDs(
 			// maximum number of entries
@@ -59,8 +59,8 @@ sge::opencl::system::system()
 		static_cast<platform_id_sequence::size_type>(
 			number_of_platforms));
 
-  // First, query the total number of platforms
-  error_code =
+	// First, query the total number of platforms
+	error_code =
 		clGetPlatformIDs(
 			number_of_platforms,
 			platform_ids.data(),
