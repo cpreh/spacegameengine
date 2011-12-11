@@ -208,6 +208,8 @@ change_filter(
 
 class change_filter_functor
 {
+FCPPT_NONASSIGNABLE(
+	change_filter_functor);
 public:
 	change_filter_functor(
 		filter_array const &_filters,
@@ -228,7 +230,7 @@ public:
 		sge::input::keyboard::key_event const &_event
 	) const
 	{
-		::change_filter(
+		change_filter(
 			_event,
 			filters_,
 			result_
