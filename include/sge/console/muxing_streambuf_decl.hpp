@@ -42,6 +42,12 @@ public:
 	std::basic_streambuf<Char,Traits>
 	streambuf_base;
 
+	// This is just here to help MSVC++ resolve the int_type (crappy
+	// compiler)
+	typedef typename
+	streambuf_base::int_type
+	int_type;
+
 	SGE_CONSOLE_SYMBOL explicit
 	muxing_streambuf(
 		std::basic_ostream<Char,Traits> &,
@@ -57,9 +63,9 @@ private:
 	console::muxing::type does_muxing_;
 	std::basic_string<Char,Traits> buffer_;
 
-	typename streambuf_base::int_type
+	int_type
 	overflow(
-		typename streambuf_base::int_type);
+		int_type);
 
 	static fcppt::string
 	from_string(

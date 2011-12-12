@@ -6,11 +6,16 @@
 #include <sge/font/text/from_fcppt_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/from_std_wstring.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 template<typename Char,typename Traits>
 sge::console::muxing_streambuf<Char,Traits>::muxing_streambuf(
 	std::basic_ostream<Char,Traits> &_stream,
@@ -31,6 +36,7 @@ sge::console::muxing_streambuf<Char,Traits>::muxing_streambuf(
 	buffer_()
 {
 }
+FCPPT_PP_POP_WARNING
 
 template<typename Char,typename Traits>
 sge::console::muxing_streambuf<Char,Traits>::~muxing_streambuf()
@@ -40,9 +46,9 @@ sge::console::muxing_streambuf<Char,Traits>::~muxing_streambuf()
 }
 
 template<typename Char,typename Traits>
-typename sge::console::muxing_streambuf<Char,Traits>::streambuf_base::int_type
+typename sge::console::muxing_streambuf<Char,Traits>::int_type
 sge::console::muxing_streambuf<Char,Traits>::overflow(
-	typename streambuf_base::int_type const c)
+	int_type c)
 {
 	if(in_progress_)
 		return
