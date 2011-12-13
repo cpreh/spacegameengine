@@ -30,7 +30,13 @@ fcppt::filesystem::path const
 build_@SGE_CONFIG_PATH_NAME@_path()
 {
 	return
-#if defined(SGE_CONFIG_LOCAL_BUILD)
+#if defined(SGE_CONFIG_WINDOWS_LOCAL_PACKAGE)
+		sge::config::app_path()
+		/
+		\"@SGE_CONFIG_LIBRARY_NAME@\"
+		/
+		\"@SGE_CONFIG_PATH_NAME@\"
+#elif defined(SGE_CONFIG_LOCAL_BUILD)
 		SGE_CONFIG_TEXT_WRAPPER(
 			\"@SGE_CONFIG_BUILD_PATH@\"
 		)
@@ -38,12 +44,6 @@ build_@SGE_CONFIG_PATH_NAME@_path()
 		SGE_CONFIG_TEXT_WRAPPER(
 			\"@SGE_CONFIG_INSTALL_PATH@\"
 		)
-#elif defined(SGE_CONFIG_WINDOWS_LOCAL_PACKAGE)
-		sge::config::app_path()
-		/
-		\"@SGE_CONFIG_LIBRARY_NAME@\"
-		/
-		\"@SGE_CONFIG_PATH_NAME@\"
 #else
 #error \"Invalid path configuration, how did this happen?\"
 #endif
