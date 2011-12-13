@@ -68,16 +68,21 @@ if(
 	)
 endif()
 
+# Fallback if optional setting is off
 if(
-	CMAKE_INSTALL_PREFIX STREQUAL ""
+	NOT SGE_CONFIG_WINDOWS_LOCAL_PACKAGE
 )
-	set(
-		SGE_CONFIG_LOCAL_BUILD TRUE
+	if(
+		CMAKE_INSTALL_PREFIX STREQUAL ""
 	)
-else()
-	set(
-		SGE_CONFIG_INSTALL_BUILD TRUE
-	)
+		set(
+			SGE_CONFIG_LOCAL_BUILD TRUE
+		)
+	else()
+		set(
+			SGE_CONFIG_INSTALL_BUILD TRUE
+		)
+	endif()
 endif()
 
 function(
