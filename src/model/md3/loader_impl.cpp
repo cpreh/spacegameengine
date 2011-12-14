@@ -45,7 +45,8 @@ sge::model::md3::loader_impl::load(
 )
 {
 	fcppt::io::cifstream file(
-		_path
+		_path,
+		std::ios_base::binary
 	);
 
 	file.exceptions(
