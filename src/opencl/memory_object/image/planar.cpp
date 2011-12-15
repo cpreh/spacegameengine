@@ -81,6 +81,29 @@ sge::opencl::memory_object::image::planar::planar(
 
 
 	cl_int error_code;
+
+#ifndef CL_USE_DEPRECATED_OPENCL_1_1_APIS
+	cl_image_desc image_description;
+	image_description.image_width = _size.w();
+	image_description.image_height = _size.h();
+	image_description.image_row_pitch = _pitch.get();
+	image_description.num_mip_levels = 0;
+	image_description.num_samples = 0;
+
+	impl_ =
+		clCreateImage(
+			_context.impl(),
+			memory_object::to_opencl_mem_flags(
+				_mem_flags),
+			&_image_format,
+			&image_description,
+			0,
+			&error_code);
+
+	opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clCreateImage(planar texture)"));
+#else
 	impl_ =
 		clCreateImage2D(
 			_context.impl(),
@@ -95,7 +118,8 @@ sge::opencl::memory_object::image::planar::planar(
 
 	opencl::handle_error(
 		error_code,
-		FCPPT_TEXT("clCreateImage2D(planar texture)"));
+		FCPPT_TEXT("clCreateImage(planar texture)"));
+#endif
 }
 
 sge::opencl::memory_object::image::planar::planar(
