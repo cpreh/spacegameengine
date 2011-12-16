@@ -109,10 +109,10 @@ sge::window::instance::dispatch()
 	)
 	{
 		more_messages =
-			system_processor_->dispatch();
+			system_processor_->poll();
 
 		more_messages =
-			window_processor_->dispatch()
+			window_processor_->poll()
 			||
 			more_messages;
 

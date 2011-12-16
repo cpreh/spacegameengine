@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <awl/backends/windows/windows.hpp>
+#include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/screen_to_client.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
@@ -71,7 +72,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		>(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					WM_MOUSEMOVE,
+					awl::backends::windows::event::type(
+						WM_MOUSEMOVE
+					),
 					std::tr1::bind(
 						&dinput::cursor::object::on_move,
 						this,
@@ -83,7 +86,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					WM_LBUTTONDOWN,
+					awl::backends::windows::event::type(
+						WM_LBUTTONDOWN
+					),
 					std::tr1::bind(
 						&dinput::cursor::object::on_button,
 						this,
@@ -97,7 +102,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					WM_LBUTTONUP,
+					awl::backends::windows::event::type(
+						WM_LBUTTONUP
+					),
 					std::tr1::bind(
 						&dinput::cursor::object::on_button,
 						this,
@@ -111,7 +118,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					WM_MBUTTONDOWN,
+					awl::backends::windows::event::type(
+						WM_MBUTTONDOWN
+					),
 					std::tr1::bind(
 						&dinput::cursor::object::on_button,
 						this,
@@ -125,7 +134,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					WM_MBUTTONUP,
+					awl::backends::windows::event::type(
+						WM_MBUTTONUP
+					),
 					std::tr1::bind(
 						&dinput::cursor::object::on_button,
 						this,
@@ -139,7 +150,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					WM_RBUTTONDOWN,
+					awl::backends::windows::event::type(
+						WM_RBUTTONDOWN
+					),
 					std::tr1::bind(
 						&dinput::cursor::object::on_button,
 						this,
@@ -153,7 +166,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					WM_RBUTTONUP,
+					awl::backends::windows::event::type(
+						WM_RBUTTONUP
+					),
 					std::tr1::bind(
 						&dinput::cursor::object::on_button,
 						this,
@@ -274,10 +289,10 @@ sge::dinput::cursor::object::on_move(
 			sge::input::cursor::optional_position(
 				sge::input::cursor::position(
 					LOWORD(
-						_event.lparam()
+						_event.lparam().get()
 					),
 					HIWORD(
-						_event.lparam()
+						_event.lparam().get()
 					)
 				)
 			)

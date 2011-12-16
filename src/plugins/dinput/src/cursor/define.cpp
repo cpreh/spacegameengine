@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/cursor/define.hpp>
 #include <awl/backends/windows/windows.hpp>
+#include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -38,7 +39,9 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connection_(
 		_processor.register_callback(
-			WM_SETCURSOR,
+			awl::backends::windows::event::type(
+				WM_SETCURSOR
+			),
 			std::tr1::bind(
 				&dinput::cursor::define::on_cursor,
 				this,

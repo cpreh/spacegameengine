@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/window/instance.hpp>
+#include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
 #include <awl/backends/windows/system/event/processor.hpp>
 #include <awl/backends/windows/window/instance.hpp>
@@ -115,7 +116,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		>(
 			fcppt::signal::shared_connection(
 				event_processor_.register_callback(
-					WM_ACTIVATE,
+					awl::backends::windows::event::type(
+						WM_ACTIVATE
+					),
 					std::tr1::bind(
 						&dinput::processor::on_activate,
 						this,
@@ -267,7 +270,7 @@ sge::dinput::processor::on_activate(
 	awl::backends::windows::window::event::object const &_event
 )
 {
-	acquired_ = (_event.wparam() != 0);
+	acquired_ = (_event.wparam().get() != 0);
 
 	if(
 		acquired_
