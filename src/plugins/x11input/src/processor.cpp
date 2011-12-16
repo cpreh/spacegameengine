@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/instance_shared_ptr.hpp>
 #include <awl/backends/x11/window/root.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
+#include <awl/backends/x11/window/event/type.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -264,7 +265,9 @@ sge::x11input::processor::processor(
 		(
 			fcppt::signal::shared_connection(
 				window_event_processor_.register_callback(
-					FocusIn,
+					awl::backends::x11::window::event::type(
+						FocusIn
+					),
 					std::tr1::bind(
 						&processor::on_focus_in,
 						this,
@@ -276,7 +279,9 @@ sge::x11input::processor::processor(
 		(
 			fcppt::signal::shared_connection(
 				window_event_processor_.register_callback(
-					FocusOut,
+					awl::backends::x11::window::event::type(
+						FocusOut
+					),
 					std::tr1::bind(
 						&processor::on_focus_out,
 						this,
@@ -288,7 +293,9 @@ sge::x11input::processor::processor(
 		(
 			fcppt::signal::shared_connection(
 				window_event_processor_.register_callback(
-					LeaveNotify,
+					awl::backends::x11::window::event::type(
+						LeaveNotify
+					),
 					std::tr1::bind(
 						&processor::on_leave,
 						this,
