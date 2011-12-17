@@ -91,8 +91,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -122,8 +123,10 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge multi texture sprite example"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge multi texture sprite example")
+					),
 					window_dim
 				)
 			)
@@ -411,7 +414,7 @@ try
 		running
 	)
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		sge::renderer::scoped_vertex_declaration const vb_declaration_context(
 			sys.renderer(),

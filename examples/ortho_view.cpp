@@ -74,7 +74,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/reset_when_expired.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/center_on_resize.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/dim.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -147,8 +150,9 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge orthographic camera test"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge orthographic camera test")),
 					window_dim)))
 		(sge::systems::renderer(
 				sge::renderer::parameters(
@@ -268,7 +272,7 @@ try
 
 	while(running)
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		camera.update(
 			sge::timer::elapsed<sge::camera::duration>(

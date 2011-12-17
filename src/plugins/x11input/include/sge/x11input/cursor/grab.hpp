@@ -42,14 +42,14 @@ class grab
 	);
 public:
 	grab(
-		awl::backends::x11::window::instance &,
+		awl::backends::x11::window::instance const &,
 		x11input::device::id,
 		cursor::image
 	);
 
 	~grab();
 private:
-	awl::backends::x11::window::instance &window_;
+	awl::backends::x11::window::instance const &window_;
 
 	x11input::device::id const id_;
 };

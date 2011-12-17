@@ -22,8 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_WRAPPED_WINDOW_HPP_INCLUDED
 
 #include <sge/systems/symbol.hpp>
-#include <awl/system/object_shared_ptr.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
+#include <sge/systems/wrapped_window_fwd.hpp>
+#include <awl/event/processor_fwd.hpp>
+#include <awl/system/object_fwd.hpp>
+#include <awl/system/event/processor_fwd.hpp>
+#include <awl/window/instance_fwd.hpp>
+#include <awl/window/event/processor_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
+
 
 namespace sge
 {
@@ -32,24 +38,48 @@ namespace systems
 
 class wrapped_window
 {
+	FCPPT_NONASSIGNABLE(
+		wrapped_window
+	);
 public:
 	SGE_SYSTEMS_SYMBOL
 	wrapped_window(
-		awl::system::object_shared_ptr,
-		awl::window::instance_shared_ptr
+		awl::system::object &,
+		awl::system::event::processor &,
+		awl::event::processor &,
+		awl::window::instance &,
+		awl::window::event::processor &
 	);
 
 	SGE_SYSTEMS_SYMBOL
-	awl::system::object_shared_ptr const
-	system() const;
+	awl::system::object &
+	awl_system() const;
 
 	SGE_SYSTEMS_SYMBOL
-	awl::window::instance_shared_ptr const
-	window() const;
-private:
-	awl::system::object_shared_ptr system_;
+	awl::system::event::processor &
+	awl_system_event_processor() const;
 
-	awl::window::instance_shared_ptr window_;
+	SGE_SYSTEMS_SYMBOL
+	awl::event::processor &
+	awl_event_processor() const;
+
+	SGE_SYSTEMS_SYMBOL
+	awl::window::instance &
+	awl_window() const;
+
+	SGE_SYSTEMS_SYMBOL
+	awl::window::event::processor &
+	awl_window_event_processor() const;
+private:
+	awl::system::object &awl_system_;
+
+	awl::system::event::processor &awl_system_event_processor_;
+
+	awl::event::processor &awl_event_processor_;
+
+	awl::window::instance &awl_window_;
+
+	awl::window::event::processor &awl_window_event_processor_;
 };
 
 }

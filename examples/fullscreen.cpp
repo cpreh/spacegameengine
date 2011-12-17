@@ -30,11 +30,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/renderer.hpp>
+#include <sge/systems/window.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/dont_manage.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -58,8 +62,10 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge fullscreen test"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge fullscreen test")
+					),
 					window_dim
 				)
 			)
@@ -105,7 +111,7 @@ try
 	while(
 		!tm.expired())
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		sge::renderer::scoped_block const block_(rend);
 	}

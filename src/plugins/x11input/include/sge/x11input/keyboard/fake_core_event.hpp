@@ -33,7 +33,7 @@ namespace keyboard
 
 void
 fake_core_event(
-	awl::backends::x11::window::instance &,
+	awl::backends::x11::window::instance const &,
 	x11input::device::window_event const &
 );
 

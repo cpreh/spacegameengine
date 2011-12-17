@@ -50,14 +50,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/tag.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/parameterless.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/viewport/center_on_resize.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -83,12 +84,14 @@ try
 		768
 	);
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge intrusive sprite test"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge intrusive sprite test")
+					),
 					window_dim
 				)
 			)
@@ -269,7 +272,7 @@ try
 		running
 	)
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		sys.renderer().state(
 			sge::renderer::state::list

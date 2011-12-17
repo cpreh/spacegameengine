@@ -71,7 +71,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -310,13 +311,14 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Creating sge::systems object...\n");
 
-	sge::window::dim window_dim(1024,768);
+	sge::window::dim const window_dim(1024,768);
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("Simple OpenCL example"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("Simple OpenCL example")),
 					window_dim)).dont_show())
 		(sge::systems::renderer(
 				sge::renderer::parameters(
@@ -497,7 +499,7 @@ try
 		<< FCPPT_TEXT("Now locking the vb for reading and printing the values\n");
 
 	{
-		sge::renderer::scoped_vertex_lock scoped_vb(
+		sge::renderer::scoped_vertex_lock const scoped_vb(
 			*vb,
 			sge::renderer::lock_mode::readwrite);
 

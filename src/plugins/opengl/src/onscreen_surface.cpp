@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/format_to_color.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_unit.hpp>
-#include <sge/window/instance.hpp>
+#include <awl/window/instance.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
@@ -39,11 +39,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::onscreen_surface::onscreen_surface(
-	sge::window::instance &_window
+	awl::window::instance &_window
 )
 :
 	sge::renderer::color_surface(),
-	window_(_window),
+	window_(
+		_window
+	),
 	buffer_(),
 	stride_(
 		4u

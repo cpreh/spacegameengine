@@ -81,7 +81,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/viewport/center_on_resize.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/dim.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -188,8 +191,10 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge raw glsl shader test"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge raw glsl shader test")
+					),
 					window_dim
 				)
 			)
@@ -533,7 +538,7 @@ try
 		running
 	)
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 		{
 			sys.renderer().glsl_program(
 				sge::renderer::glsl::const_optional_program()

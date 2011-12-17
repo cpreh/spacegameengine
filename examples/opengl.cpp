@@ -54,7 +54,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window.hpp>
 #include <sge/viewport/dont_manage.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
@@ -77,8 +78,10 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge opengl example"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge opengl example")
+					),
 					sge::window::dim(
 						1024,
 						768

@@ -18,77 +18,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/window/default_class_name.hpp>
+#include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
+#include <sge/window/size_hints.hpp>
+#include <sge/window/title.hpp>
+#include <fcppt/string.hpp>
+
 
 sge::window::parameters::parameters(
-	awl::system::object_shared_ptr const _system,
-	awl::window::instance_shared_ptr const _window
+	sge::window::title const &_title,
+	sge::window::dim const &_dim
 )
 :
-	system_(_system),
-	window_(_window),
-	window_event_processor_(),
-	system_event_processor_(),
-	io_service_()
+	title_(_title),
+	dim_(_dim),
+	class_name_(
+		sge::window::default_class_name()
+	),
+	size_hints_()
 {
 }
 
 sge::window::parameters &
-sge::window::parameters::window_event_processor(
-	awl::window::event::processor_shared_ptr const _window_event_processor
+sge::window::parameters::class_name(
+	fcppt::string const &_class_name
 )
 {
-	window_event_processor_ = _window_event_processor;
+	class_name_ = _class_name;
 
 	return *this;
 }
 
 sge::window::parameters &
-sge::window::parameters::system_event_processor(
-	awl::system::event::processor_shared_ptr const _system_event_processor
+sge::window::parameters::size_hints(
+	window::size_hints const &_size_hints
 )
 {
-	system_event_processor_ = _system_event_processor;
+	size_hints_ = _size_hints;
 
 	return *this;
 }
 
-sge::window::parameters &
-sge::window::parameters::io_service(
-	awl::mainloop::io_service_shared_ptr const _io_service
-)
+sge::window::title const &
+sge::window::parameters::title() const
 {
-	io_service_ = _io_service;
-
-	return *this;
+	return title_;
 }
 
-awl::system::object_shared_ptr const
-sge::window::parameters::system() const
+sge::window::dim const &
+sge::window::parameters::dim() const
 {
-	return system_;
+	return dim_;
 }
 
-awl::window::instance_shared_ptr const
-sge::window::parameters::window() const
+fcppt::string const &
+sge::window::parameters::class_name() const
 {
-	return window_;
+	return class_name_;
 }
 
-awl::window::event::processor_shared_ptr const
-sge::window::parameters::window_event_processor() const
-{
-	return window_event_processor_;
-}
 
-awl::system::event::processor_shared_ptr const
-sge::window::parameters::system_event_processor() const
+sge::window::size_hints const &
+sge::window::parameters::size_hints() const
 {
-	return system_event_processor_;
-}
-
-awl::mainloop::io_service_shared_ptr const
-sge::window::parameters::io_service() const
-{
-	return io_service_;
+	return size_hints_;
 }

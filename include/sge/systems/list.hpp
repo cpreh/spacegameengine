@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_LIST_HPP_INCLUDED
 
 #include <sge/systems/any.hpp>
-#include <sge/systems/any_set.hpp>
+#include <sge/systems/any_map.hpp>
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/symbol.hpp>
 
@@ -50,16 +50,10 @@ public:
 	) const;
 
 	SGE_SYSTEMS_SYMBOL
-	systems::list const
-	append(
-		systems::list const &
-	) const;
-
-	SGE_SYSTEMS_SYMBOL
-	systems::any_set const &
+	systems::any_map const &
 	get() const;
 private:
-	systems::any_set states_;
+	systems::any_map states_;
 };
 
 }

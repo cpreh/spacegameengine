@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/system_fwd.hpp>
-#include <sge/window/instance_fwd.hpp>
-#include <sge/window/simple_parameters_fwd.hpp>
+#include <sge/window/parameters_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
+#include <awl/window/instance_fwd.hpp>
 #include <awl/window/instance_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -71,7 +71,7 @@ public:
 	create_renderer(
 		sge::renderer::parameters const &params,
 		sge::renderer::adapter adapter,
-		sge::window::instance &window
+		awl::window::instance &window
 	) = 0;
 
 	/**
@@ -89,7 +89,7 @@ public:
 	virtual awl::window::instance_shared_ptr const
 	create_window(
 		awl::system::object &awl_system,
-		sge::window::simple_parameters const &window_params,
+		sge::window::parameters const &window_params,
 		sge::renderer::parameters const &params
 	) = 0;
 

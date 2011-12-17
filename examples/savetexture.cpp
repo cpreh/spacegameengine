@@ -101,7 +101,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/manager.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/viewport/center_on_resize.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/dim.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -261,8 +263,10 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge save texture example"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge save texture example")
+					),
 					window_dim
 				)
 			)

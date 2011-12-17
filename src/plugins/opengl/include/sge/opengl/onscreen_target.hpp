@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/onscreen_target_fwd.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/screen_unit.hpp>
-#include <sge/window/instance_fwd.hpp>
+#include <awl/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
@@ -50,7 +50,7 @@ public:
 	> base;
 
 	explicit onscreen_target(
-		sge::window::instance &
+		awl::window::instance &
 	);
 
 	~onscreen_target();

@@ -42,7 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_signal.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_signal.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
 #include <sge/x11input/create_parameters_fwd.hpp>
 #include <sge/x11input/input_context_fwd.hpp>
 #include <sge/x11input/input_method_fwd.hpp>
@@ -62,7 +63,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
-#include <awl/backends/x11/window/instance_shared_ptr.hpp>
+#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/instance_scoped_ptr.hpp>
 #include <awl/backends/x11/window/event/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -89,7 +91,8 @@ class processor
 	);
 public:
 	processor(
-		sge::window::instance_ptr,
+		sge::window::object const &,
+		sge::window::system const &,
 		awl::backends::x11::system::event::opcode,
 		x11input::xi_2_1
 	);
@@ -148,9 +151,6 @@ private:
 	input::joypad::device_vector const
 	joypads() const;
 
-	window::instance_ptr const
-	window() const;
-
 	x11input::device::parameters const
 	device_parameters(
 		x11input::create_parameters const &
@@ -204,17 +204,17 @@ private:
 		awl::backends::x11::window::event::object const &
 	);
 
-	sge::window::instance_ptr const window_;
-
 	awl::backends::x11::system::event::opcode const opcode_;
 
-	awl::backends::x11::window::instance_shared_ptr const x11_window_;
+	awl::backends::x11::window::instance const &x11_window_;
 
 	awl::backends::x11::window::event::processor &window_event_processor_;
 
 	awl::backends::x11::system::event::processor &system_event_processor_;
 
 	x11input::device::window_demuxer window_demuxer_;
+
+	awl::backends::x11::window::instance_scoped_ptr const root_window_;
 
 	x11input::device::raw_demuxer raw_demuxer_;
 

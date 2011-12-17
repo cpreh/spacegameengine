@@ -50,7 +50,7 @@ public:
 	parameters(
 		x11input::create_parameters const &,
 		awl::backends::x11::system::event::opcode,
-		awl::backends::x11::window::instance &,
+		awl::backends::x11::window::instance const &,
 		x11input::device::window_demuxer &,
 		x11input::device::raw_demuxer &
 	);
@@ -64,7 +64,7 @@ public:
 	awl::backends::x11::system::event::opcode const
 	opcode() const;
 
-	awl::backends::x11::window::instance &
+	awl::backends::x11::window::instance const &
 	window() const;
 
 	x11input::device::window_demuxer &
@@ -79,7 +79,7 @@ private:
 
 	awl::backends::x11::system::event::opcode const opcode_;
 
-	awl::backends::x11::window::instance &window_;
+	awl::backends::x11::window::instance const &window_;
 
 	x11input::device::window_demuxer &window_demuxer_;
 

@@ -99,7 +99,7 @@ private:
 		bool pressed
 	);
 
-	awl::backends::x11::window::instance &window_;
+	awl::backends::x11::window::instance const &window_;
 
 	x11input::input_context const &input_context_;
 

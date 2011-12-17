@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/window/convert_size_hints.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/parameters.hpp>
 #include <sge/window/to_awl_parameters.hpp>
 #include <awl/window/dim.hpp>
 #include <awl/window/parameters.hpp>
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 awl::window::parameters
 sge::window::to_awl_parameters(
-	sge::window::simple_parameters const &_param
+	sge::window::parameters const &_param
 )
 {
 	return
@@ -38,7 +38,7 @@ sge::window::to_awl_parameters(
 			_param.size_hints()
 		)
 		.title(
-			_param.title()
+			_param.title().get()
 		)
 		.class_name(
 			_param.class_name()

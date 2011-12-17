@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_BASE_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
+#include <sge/plugin/base_fwd.hpp>
 #include <sge/plugin/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -42,7 +43,7 @@ protected:
 	base();
 public:
 	SGE_PLUGIN_SYMBOL
-	virtual ~base();
+	virtual ~base() =0;
 };
 
 }

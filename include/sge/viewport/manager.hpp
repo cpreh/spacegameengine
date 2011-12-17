@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/viewport/resize_function.hpp>
 #include <sge/viewport/symbol.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -45,8 +46,9 @@ class SGE_CLASS_SYMBOL manager
 public:
 	SGE_VIEWPORT_SYMBOL
 	manager(
-		renderer::device &,
-		viewport::resize_function const &
+		sge::renderer::device &,
+		sge::window::object &,
+		sge::viewport::resize_function const &
 	);
 
 	SGE_VIEWPORT_SYMBOL

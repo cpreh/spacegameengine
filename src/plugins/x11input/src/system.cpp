@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/exception.hpp>
 #include <sge/log/global.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/object.hpp>
+#include <sge/window/system_fwd.hpp>
 #include <sge/x11input/lc_ctype.hpp>
 #include <sge/x11input/optional_opcode.hpp>
 #include <sge/x11input/processor.hpp>
@@ -30,11 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/xi_opcode.hpp>
 #include <sge/x11input/xi_version.hpp>
 #include <awl/backends/x11/window/instance.hpp>
-#include <awl/backends/x11/window/instance_shared_ptr.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/output.hpp>
@@ -54,20 +54,21 @@ sge::x11input::system::~system()
 
 sge::input::processor_ptr const
 sge::x11input::system::create_processor(
-	sge::window::instance_ptr const _window
+	sge::window::object const &_window,
+	sge::window::system const &_window_system
 )
 {
-	awl::backends::x11::window::instance_shared_ptr const x11_window(
-		fcppt::polymorphic_pointer_cast<
-			awl::backends::x11::window::instance
+	awl::backends::x11::window::instance const &x11_window(
+		dynamic_cast<
+			awl::backends::x11::window::instance const &
 		>(
-			_window->awl_instance()
+			_window.awl_instance()
 		)
 	);
 
 	x11input::optional_opcode const opcode(
 		x11input::xi_opcode(
-			x11_window->display()
+			x11_window.display()
 		)
 	);
 
@@ -81,7 +82,7 @@ sge::x11input::system::create_processor(
 	// The first supported version we ask for and that is supported will be used
 	x11input::xi_2_1 const supports_xi_2_1(
 		x11input::xi_version(
-			x11_window->display(),
+			x11_window.display(),
 			2,
 			1
 		)
@@ -91,7 +92,7 @@ sge::x11input::system::create_processor(
 		!supports_xi_2_1.get()
 		&&
 		!x11input::xi_version(
-			x11_window->display(),
+			x11_window.display(),
 			2,
 			0
 		)
@@ -159,7 +160,12 @@ sge::x11input::system::create_processor(
 		fcppt::make_shared_ptr<
 			x11input::processor
 		>(
-			_window,
+			fcppt::cref(
+				_window
+			),
+			fcppt::cref(
+				_window_system
+			),
 			*opcode,
 			supports_xi_2_1
 		);

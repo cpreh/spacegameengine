@@ -62,7 +62,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_unspecified_dim.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/parameterless.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -71,7 +70,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/remaining_fractional.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/center_on_resize.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/dim.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <mizuiro/color/operators/scalar_multiply.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string_exn.hpp>
@@ -458,8 +460,9 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge point sprite example"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge point sprite example")),
 					window_dim)))
 		(sge::systems::renderer(
 				sge::renderer::parameters(
@@ -561,7 +564,7 @@ try
 		running
 	)
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		sge::renderer::scoped_block const block(
 			sys.renderer()

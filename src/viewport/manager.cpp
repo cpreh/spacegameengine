@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manage_function.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/viewport/resize_function.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/object.hpp>
 #include <awl/window/event/processor.hpp>
 #include <awl/window/event/resize.hpp>
 #include <awl/window/event/resize_fwd.hpp>
@@ -50,9 +50,10 @@ class sge::viewport::manager::impl
 		impl
 	);
 public:
-	explicit impl(
+	impl(
 		sge::renderer::device &,
-		viewport::resize_function const &
+		sge::window::object &,
+		sge::viewport::resize_function const &
 	);
 
 	~impl();
@@ -82,6 +83,7 @@ private:
 
 sge::viewport::manager::manager(
 	renderer::device &_device,
+	sge::window::object &_window,
 	viewport::resize_function const &_resize_function
 )
 :
@@ -91,6 +93,9 @@ sge::viewport::manager::manager(
 		>(
 			fcppt::ref(
 				_device
+			),
+			fcppt::ref(
+				_window
 			),
 			_resize_function
 		)
@@ -117,6 +122,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::viewport::manager::impl::impl(
 	sge::renderer::device &_device,
+	sge::window::object &_window,
 	viewport::resize_function const &_resize_function
 )
 :
@@ -127,7 +133,7 @@ sge::viewport::manager::impl::impl(
 		_resize_function
 	),
 	resize_connection_(
-		_device.window().awl_window_event_processor()->resize_callback(
+		_window.awl_window_event_processor().resize_callback(
 			std::tr1::bind(
 				&impl::on_resize,
 				this,

@@ -19,72 +19,77 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/global.hpp>
-#include <sge/src/systems/any_compare.hpp>
+#include <sge/src/systems/make_any_key.hpp>
 #include <sge/systems/any.hpp>
-#include <sge/systems/any_set.hpp>
+#include <sge/systems/any_map.hpp>
 #include <sge/systems/list.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
 
-sge::systems::any_set const
-init_states()
+bool
+insert_to_map(
+	sge::systems::any_map &_map,
+	sge::systems::any const &_any
+)
 {
 	return
-		sge::systems::any_set(
-			std::tr1::bind(
-				sge::systems::any_compare,
-				std::tr1::placeholders::_1,
-				std::tr1::placeholders::_2
+		_map.insert(
+			std::make_pair(
+				sge::systems::make_any_key(
+					_any
+				),
+				_any
 			)
-		);
+		).second;
+
 }
 
 }
 
 sge::systems::list::list()
 :
-	states_(
-		init_states()
-	)
-{}
+	states_()
+{
+}
 
 sge::systems::list::list(
-	systems::any const &_any
+	sge::systems::any const &_any
 )
 :
-	states_(
-		init_states()
-	)
+	states_()
 {
-	states_.insert(
+	::insert_to_map(
+		states_,
 		_any
 	);
 }
 
 sge::systems::list const
 sge::systems::list::operator()(
-	systems::any const &_any
+	sge::systems::any const &_any
 ) const
 {
-	list ret(
+	sge::systems::list ret(
 		*this
 	);
 
 	if(
-		!ret.states_.insert(
+		!::insert_to_map(
+			ret.states_,
 			_any
-		).second
+		)
 	)
 	{
 		FCPPT_LOG_WARNING(
-			log::global(),
+			sge::log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Duplicate system state given!")
 		);
@@ -93,35 +98,7 @@ sge::systems::list::operator()(
 	return ret;
 }
 
-sge::systems::list const
-sge::systems::list::append(
-	systems::list const &_other
-) const
-{
-	systems::list ret(
-		*this
-	);
-
-	systems::any_set const &set(
-		_other.get()
-	);
-
-	for(
-		any_set::const_iterator it(
-			set.begin()
-		);
-		it != set.end();
-		++it
-	)
-		ret =
-			ret(
-				*it
-			);
-
-	return ret;
-}
-
-sge::systems::any_set const &
+sge::systems::any_map const &
 sge::systems::list::get() const
 {
 	return states_;

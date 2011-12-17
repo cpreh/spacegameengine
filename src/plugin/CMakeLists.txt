@@ -1,6 +1,8 @@
 SET(
 	SGE_PLUGIN_FILES
 	include/sge/plugin/base.hpp
+	include/sge/plugin/base_fwd.hpp
+	include/sge/plugin/base_ptr.hpp
 	include/sge/plugin/capabilities.hpp
 	include/sge/plugin/capabilities_field.hpp
 	include/sge/plugin/category_array.hpp
@@ -34,6 +36,7 @@ SET(
 	include/sge/plugin/min_core_version.hpp
 	include/sge/plugin/object.hpp
 	include/sge/plugin/object_fwd.hpp
+	include/sge/plugin/object_shared_ptr.hpp
 	include/sge/plugin/plugin.hpp
 	include/sge/plugin/symbol.hpp
 	include/sge/plugin/version.hpp

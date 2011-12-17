@@ -106,7 +106,7 @@ template<
 sge::x11input::device::event_demuxer<Event>::event_demuxer(
 	awl::backends::x11::system::event::processor &_system_processor,
 	awl::backends::x11::system::event::opcode const &_opcode,
-	awl::backends::x11::window::instance_shared_ptr const _window,
+	awl::backends::x11::window::instance const &_window,
 	x11input::device::demuxer_enabled const _enabled
 )
 :
@@ -195,7 +195,7 @@ sge::x11input::device::event_demuxer<Event>::register_callback(
 			).first;
 
 		x11input::device::select_events(
-			*window_,
+			window_,
 			_id,
 			_type,
 			true
@@ -240,7 +240,7 @@ sge::x11input::device::event_demuxer<Event>::on_event(
 		return;
 
 	x11input::device::event_data const cookie(
-		window_->display(),
+		window_.display(),
 		_event
 	);
 
@@ -302,7 +302,7 @@ sge::x11input::device::event_demuxer<Event>::unregister(
 		);
 
 		x11input::device::select_events(
-			*window_,
+			window_,
 			_id,
 			_type,
 			false

@@ -120,7 +120,7 @@ private:
 	void
 	check_grab();
 
-	awl::backends::x11::window::instance &window_;
+	awl::backends::x11::window::instance const &window_;
 
 	cursor::image const invisible_image_;
 

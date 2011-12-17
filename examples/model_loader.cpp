@@ -146,8 +146,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/homogenous_pair.hpp>
@@ -588,11 +589,12 @@ try
 		sge::log::global(),
 		fcppt::log::level::debug);
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 			(sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge obj model loader"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge obj model loader")),
 					sge::window::dim(1024,768))))
 			(sge::systems::renderer(
 				sge::renderer::parameters(
@@ -744,7 +746,7 @@ try
 
 	while(running)
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		// If we have no viewport (yet), don't do anything (this is just a
 		// precaution, we _might_ divide by zero somewhere below, otherwise)

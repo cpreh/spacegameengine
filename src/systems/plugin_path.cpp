@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/plugin_path.hpp>
 #include <sge/src/systems/plugin_path.hpp>
-#include <sge/systems/any_set.hpp>
+#include <sge/systems/any_key.hpp>
+#include <sge/systems/any_map.hpp>
 #include <sge/systems/config.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path.hpp>
@@ -28,21 +29,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 fcppt::filesystem::path const
 sge::systems::plugin_path(
-	sge::systems::any_set const &_param
+	sge::systems::any_map const &_param
 )
 {
-	sge::systems::any_set::iterator const it(
+	sge::systems::any_map::const_iterator const it(
 		_param.find(
-			sge::systems::config(
-				FCPPT_TEXT("")
-			)
+			sge::systems::any_key::config
 		)
 	);
 
 	return
 		it != _param.end()
 		?
-			it->get<
+			it->second.get<
 				sge::systems::config
 			>()
 			.plugin_path()

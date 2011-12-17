@@ -19,37 +19,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/systems/window.hpp>
-#include <awl/mainloop/io_service_shared_ptr.hpp>
-#include <awl/window/event/processor_shared_ptr.hpp>
+#include <awl/mainloop/io_service_fwd.hpp>
+#include <awl/mainloop/optional_io_service_ref.hpp>
 
 
 sge::systems::window::window(
-	window::parameter_variant const &_parameter
+	sge::systems::window::parameter_variant const &_parameter
 )
 :
-	parameter_(_parameter),
-	window_processor_(),
+	parameter_(
+		_parameter
+	),
 	io_service_(),
 	show_(true)
 {
 }
 
 sge::systems::window &
-sge::systems::window::event_processor(
-	awl::window::event::processor_shared_ptr const _window_processor
-)
-{
-	window_processor_ = _window_processor;
-
-	return *this;
-}
-
-sge::systems::window &
 sge::systems::window::io_service(
-	awl::mainloop::io_service_shared_ptr const _io_service
+	awl::mainloop::io_service &_io_service
 )
 {
-	io_service_ = _io_service;
+	io_service_ =
+		awl::mainloop::optional_io_service_ref(
+			_io_service
+		);
 
 	return *this;
 }
@@ -68,13 +62,7 @@ sge::systems::window::parameter() const
 	return parameter_;
 }
 
-awl::window::event::processor_shared_ptr const
-sge::systems::window::window_event_processor() const
-{
-	return window_processor_;
-}
-
-awl::mainloop::io_service_shared_ptr const
+awl::mainloop::optional_io_service_ref const
 sge::systems::window::io_service() const
 {
 	return io_service_;

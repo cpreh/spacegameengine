@@ -105,12 +105,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_texture.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/font.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/parameterless.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
@@ -124,8 +124,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -252,8 +253,10 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge texture filter example"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge texture filter example")
+					),
 					sge::window::dim(
 						1024,
 						768
@@ -284,7 +287,7 @@ try
 			)
 		)
 		(
-			sge::systems::parameterless::font
+			sge::systems::font()
 		)
 	);
 
@@ -632,7 +635,7 @@ try
 		running
 	)
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		camera.update(
 			sge::timer::elapsed_and_reset<

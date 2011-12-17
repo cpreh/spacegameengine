@@ -22,10 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_WINDOW_HPP_INCLUDED
 
 #include <sge/systems/symbol.hpp>
+#include <sge/systems/window_fwd.hpp>
 #include <sge/systems/wrapped_window.hpp>
-#include <sge/window/simple_parameters.hpp>
-#include <awl/mainloop/io_service_shared_ptr.hpp>
-#include <awl/window/event/processor_shared_ptr.hpp>
+#include <sge/window/parameters.hpp>
+#include <awl/mainloop/io_service_fwd.hpp>
+#include <awl/mainloop/optional_io_service_ref.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -42,7 +44,7 @@ class window
 public:
 	typedef fcppt::variant::object<
 		boost::mpl::vector2<
-			sge::window::simple_parameters,
+			sge::window::parameters,
 			sge::systems::wrapped_window
 		>
 	> parameter_variant;
@@ -54,14 +56,8 @@ public:
 
 	SGE_SYSTEMS_SYMBOL
 	window &
-	event_processor(
-		awl::window::event::processor_shared_ptr
-	);
-
-	SGE_SYSTEMS_SYMBOL
-	window &
 	io_service(
-		awl::mainloop::io_service_shared_ptr
+		awl::mainloop::io_service &
 	);
 
 	SGE_SYSTEMS_SYMBOL
@@ -73,11 +69,7 @@ public:
 	parameter() const;
 
 	SGE_SYSTEMS_SYMBOL
-	awl::window::event::processor_shared_ptr const
-	window_event_processor() const;
-
-	SGE_SYSTEMS_SYMBOL
-	awl::mainloop::io_service_shared_ptr const
+	awl::mainloop::optional_io_service_ref const
 	io_service() const;
 
 	SGE_SYSTEMS_SYMBOL
@@ -86,9 +78,7 @@ public:
 private:
 	parameter_variant parameter_;
 
-	awl::window::event::processor_shared_ptr window_processor_;
-
-	awl::mainloop::io_service_shared_ptr io_service_;
+	awl::mainloop::optional_io_service_ref io_service_;
 
 	bool show_;
 };

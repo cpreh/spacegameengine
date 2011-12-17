@@ -71,7 +71,7 @@ make_mask(
 
 void
 sge::x11input::device::select_events(
-	awl::backends::x11::window::instance &_window,
+	awl::backends::x11::window::instance const &_window,
 	x11input::device::id const _device,
 	awl::backends::x11::system::event::type const _type,
 	bool const _add

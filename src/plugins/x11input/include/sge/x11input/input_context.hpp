@@ -44,7 +44,7 @@ public:
 	input_context(
 		XIM,
 		awl::backends::x11::window::class_hint const *,
-		awl::backends::x11::window::instance &
+		awl::backends::x11::window::instance const &
 	);
 
 	~input_context();

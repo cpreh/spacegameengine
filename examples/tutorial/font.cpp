@@ -40,11 +40,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
+#include <sge/systems/font.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/viewport/center_on_resize.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/dim.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -76,8 +80,10 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge fonttest"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge fonttest")
+					),
 					window_dim
 				)
 			)
@@ -96,7 +102,7 @@ try
 			)
 		)
 		(
-			sge::systems::parameterless::font
+			sge::systems::font()
 		)
 		(
 			sge::systems::input(
@@ -161,7 +167,7 @@ try
 		running
 	)
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		sge::renderer::scoped_block const block(sys.renderer());
 

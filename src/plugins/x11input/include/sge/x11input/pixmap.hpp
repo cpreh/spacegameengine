@@ -42,7 +42,7 @@ class pixmap
 	);
 public:
 	explicit pixmap(
-		awl::backends::x11::window::instance &
+		awl::backends::x11::window::instance const &
 	);
 
 	~pixmap();

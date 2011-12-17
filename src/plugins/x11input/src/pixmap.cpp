@@ -36,7 +36,7 @@ char const bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
 }
 
 sge::x11input::pixmap::pixmap(
-	awl::backends::x11::window::instance &_window
+	awl::backends::x11::window::instance const &_window
 )
 :
  	display_(

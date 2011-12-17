@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::x11input::cursor::grab::grab(
-	awl::backends::x11::window::instance &_window,
+	awl::backends::x11::window::instance const &_window,
 	device::id const _id,
 	cursor::image const _image
 )

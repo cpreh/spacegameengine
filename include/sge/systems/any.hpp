@@ -21,19 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
 #define SGE_SYSTEMS_ANY_HPP_INCLUDED
 
-#include <sge/systems/audio_loader.hpp>
-#include <sge/systems/audio_player.hpp>
-#include <sge/systems/basic_loader.hpp>
-#include <sge/systems/config.hpp>
-#include <sge/systems/image2d.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/parameterless.hpp>
-#include <sge/systems/renderer.hpp>
-#include <sge/systems/window.hpp>
+#include <sge/systems/any_types.hpp>
 #include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -42,16 +31,7 @@ namespace systems
 {
 
 typedef fcppt::variant::object<
-	boost::mpl::vector8<
-		systems::config,
-		systems::window,
-		systems::renderer,
-		systems::image2d,
-		systems::audio_loader,
-		systems::audio_player,
-		systems::input,
-		systems::parameterless::type
-	>
+	sge::systems::any_types
 > any;
 
 }

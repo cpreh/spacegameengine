@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/global.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/object.hpp>
+#include <sge/window/system.hpp>
 #include <sge/x11input/create_parameters.hpp>
 #include <sge/x11input/input_context.hpp>
 #include <sge/x11input/input_method.hpp>
@@ -42,10 +43,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
-#include <awl/backends/x11/window/instance_shared_ptr.hpp>
 #include <awl/backends/x11/window/root.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -68,32 +69,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::x11input::processor::processor(
-	sge::window::instance_ptr const _window,
+	sge::window::object const &_window,
+	sge::window::system const &_window_system,
 	awl::backends::x11::system::event::opcode const _opcode,
 	x11input::xi_2_1 const _supports_xi_2_1
 )
 :
-	window_(_window),
-	opcode_(_opcode),
+	opcode_(
+		_opcode
+	),
 	x11_window_(
-		fcppt::dynamic_pointer_cast<
-			awl::backends::x11::window::instance
+		dynamic_cast<
+			awl::backends::x11::window::instance const &
 		>(
-			_window->awl_instance()
+			_window.awl_instance()
 		)
 	),
 	window_event_processor_(
 		dynamic_cast<
 			awl::backends::x11::window::event::processor &
 		>(
-			*_window->awl_window_event_processor()
+			_window.awl_window_event_processor()
 		)
 	),
 	system_event_processor_(
 		dynamic_cast<
 			awl::backends::x11::system::event::processor &
 		>(
-			*_window->awl_system_event_processor()
+			_window_system.awl_system_event_processor()
 		)
 	),
 	window_demuxer_(
@@ -104,15 +107,16 @@ sge::x11input::processor::processor(
 			true
 		)
 	),
+	root_window_(
+		awl::backends::x11::window::root(
+			x11_window_.display(),
+			x11_window_.screen()
+		)
+	),
 	raw_demuxer_(
 		system_event_processor_,
 		opcode_,
-		awl::backends::x11::window::instance_shared_ptr(
-			awl::backends::x11::window::root(
-				x11_window_->display(),
-				x11_window_->screen()
-			)
-		),
+		*root_window_,
 		device::demuxer_enabled(
 			false
 		)
@@ -126,10 +130,10 @@ sge::x11input::processor::processor(
 		)
 	),
 	invisible_pixmap_(
-		*x11_window_
+		x11_window_
 	),
 	invisible_cursor_(
-		x11_window_->display(),
+		x11_window_.display(),
 		invisible_pixmap_
 	),
 	input_method_(
@@ -137,9 +141,9 @@ sge::x11input::processor::processor(
 			x11input::input_method
 		>(
 			fcppt::ref(
-				x11_window_->display()
+				x11_window_.display()
 			),
-			x11_window_->class_hint()
+			x11_window_.class_hint()
 		)
 	),
 	input_context_(
@@ -148,8 +152,8 @@ sge::x11input::processor::processor(
 		>(
 			input_method_->get(),
 			input_method_->class_hint(),
-			fcppt::ref(
-				*x11_window_
+			fcppt::cref(
+				x11_window_
 			)
 		)
 	),
@@ -166,7 +170,7 @@ sge::x11input::processor::processor(
 	joypad_discover_(),
 	joypad_remove_(),
 	device_manager_(
-		x11_window_->display(),
+		x11_window_.display(),
 		fcppt::assign::make_container<
 			device::manager::config_map
 		>(
@@ -307,7 +311,7 @@ sge::x11input::processor::processor(
 	)
 {
 	x11input::device::info::multi const current_devices(
-		x11_window_->display(),
+		x11_window_.display(),
 		x11input::device::id(
 			XIAllDevices
 		)
@@ -457,12 +461,6 @@ sge::x11input::processor::joypads() const
 		);
 }
 
-sge::window::instance_ptr const
-sge::x11input::processor::window() const
-{
-	return window_;
-}
-
 sge::x11input::device::parameters const
 sge::x11input::processor::device_parameters(
 	x11input::create_parameters const &_param
@@ -472,7 +470,7 @@ sge::x11input::processor::device_parameters(
 		x11input::device::parameters(
 			_param,
 			opcode_,
-			*x11_window_,
+			x11_window_,
 			window_demuxer_,
 			raw_demuxer_
 		);

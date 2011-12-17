@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/symbol.hpp>
 #include <sge/plugin/base.hpp>
 #include <sge/plugin/object_fwd.hpp>
+#include <sge/plugin/object_shared_ptr.hpp>
 #include <sge/plugin/detail/instantiate_symbol.hpp>
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
-#include <fcppt/shared_ptr.hpp>
 #include <fcppt/filesystem/path.hpp>
 
 
@@ -53,11 +53,9 @@ public:
 		T
 	>::loader_fun loader_fun;
 
-	typedef fcppt::shared_ptr<
-		plugin::object<
-			T
-		>
-	> ptr_type;
+	typedef typename sge::plugin::object_shared_ptr<
+		T
+	>::type ptr_type;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit object(

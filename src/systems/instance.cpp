@@ -49,14 +49,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/plugin.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/system_ptr.hpp>
-#include <sge/src/systems/create_normal_window.hpp>
-#include <sge/src/systems/create_render_window.hpp>
 #include <sge/src/systems/cursor_modifier.hpp>
+#include <sge/src/systems/plugin_cache.hpp>
 #include <sge/src/systems/plugin_path.hpp>
-#include <sge/src/systems/wrap_window.hpp>
+#include <sge/src/systems/modules/renderer/device.hpp>
+#include <sge/src/systems/modules/renderer/device_scoped_ptr.hpp>
+#include <sge/src/systems/modules/renderer/system.hpp>
+#include <sge/src/systems/modules/renderer/system_scoped_ptr.hpp>
+#include <sge/src/systems/modules/window/object.hpp>
+#include <sge/src/systems/modules/window/object_scoped_ptr.hpp>
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player.hpp>
-#include <sge/systems/exception.hpp>
+#include <sge/systems/charconv.hpp>
+#include <sge/systems/font.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
@@ -64,10 +69,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/viewport/manager.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/mainloop/dispatcher_fwd.hpp>
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/object_shared_ptr.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -77,7 +84,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_info.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
@@ -88,6 +95,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
 
+#include <sge/renderer/plugin_ptr.hpp>
 
 class sge::systems::instance::impl
 {
@@ -97,25 +105,21 @@ class sge::systems::instance::impl
 public:
 	plugin::manager                                 plugin_manager_;
 
-	// unload the plugins last so that any code that still needs them can run
-	plugin::object<sge::renderer::system>::ptr_type renderer_plugin_;
+	// Almost all plugins need to be unloaded last.
+	// If, for example, libGL.so is unloaded before the X window
+	// will be destroyed, then the unloading will crash.
+	sge::systems::plugin_cache plugin_cache_;
+
 	plugin::object<sge::input::system>::ptr_type    input_plugin_;
-	plugin::object<audio::player>::ptr_type         audio_player_plugin_;
-	plugin::object<charconv::system>::ptr_type      charconv_plugin_;
-	plugin::object<font::system>::ptr_type          font_plugin_;
+	plugin::object<sge::audio::player>::ptr_type         audio_player_plugin_;
+	plugin::object<sge::charconv::system>::ptr_type      charconv_plugin_;
+	plugin::object<sge::font::system>::ptr_type          font_plugin_;
 
-	fcppt::optional<sge::systems::window>           window_param_;
-	awl::system::object_shared_ptr                  window_system_;
-	sge::window::instance_ptr                       window_;
+	sge::systems::modules::window::object_scoped_ptr window_;
 
-	sge::renderer::system_ptr                       renderer_system_;
-	sge::renderer::device_ptr                       renderer_;
+	sge::systems::modules::renderer::system_scoped_ptr renderer_system_;
 
-	typedef fcppt::scoped_ptr<
-		sge::viewport::manager
-	> viewport_manager_ptr;
-
-	viewport_manager_ptr                            viewport_manager_;
+	sge::systems::modules::renderer::device_scoped_ptr renderer_device_;
 
 	typedef fcppt::scoped_ptr<
 		sge::systems::cursor_modifier
@@ -140,17 +144,22 @@ public:
 
 	audio_multi_loader_ptr                          audio_multi_loader_;
 
-	audio::player_ptr                               audio_player_;
+	sge::audio::player_ptr                               audio_player_;
 
-	font::system_ptr                                font_system_;
+	sge::font::system_ptr                                font_system_;
 
-	charconv::system_ptr                            charconv_system_;
+	sge::charconv::system_ptr                            charconv_system_;
 
 	explicit impl(
 		fcppt::filesystem::path const &plugin_path
 	);
 
 	~impl();
+
+	void
+	init_renderer_system(
+		sge::systems::renderer const &
+	);
 
 	void
 	init_renderer(
@@ -191,9 +200,6 @@ public:
 	void
 	post_init();
 private:
-	void
-	create_window();
-
 	template<
 		typename T
 	>
@@ -253,7 +259,12 @@ public:
 
 	result_type
 	operator()(
-		sge::systems::parameterless::type
+		sge::systems::charconv const &
+	) const;
+
+	result_type
+	operator()(
+		sge::systems::font const &
 	) const;
 private:
 	sge::systems::instance::impl &impl_;
@@ -262,7 +273,7 @@ private:
 }
 
 sge::systems::instance::instance(
-	systems::list const &_list
+	sge::systems::list const &_list
 )
 :
 	impl_(
@@ -275,22 +286,42 @@ sge::systems::instance::instance(
 		)
 	)
 {
-	systems::any_set const &set(
+	sge::systems::any_map const &map(
 		_list.get()
 	);
 
-	for(
-		systems::any_set::const_iterator it(
-			set.begin()
+	// Special case:
+	// The renderer system must be initialized before the window,
+	// but the window must be initialized before a renderer device
+	{
+		sge::systems::any_map::const_iterator const it(
+			map.find(
+				sge::systems::any_key::renderer
+			)
 		);
-		it != set.end();
+
+		if(
+			it != map.end()
+		)
+			impl_->init_renderer_system(
+				it->second.get<
+					sge::systems::renderer
+				>()
+			);
+	}
+
+	for(
+		sge::systems::any_map::const_iterator it(
+			map.begin()
+		);
+		it != map.end();
 		++it
 	)
 		fcppt::variant::apply_unary(
 			::visitor(
 				*impl_
 			),
-			*it
+			it->second
 		);
 
 	impl_->post_init();
@@ -309,13 +340,13 @@ sge::systems::instance::plugin_manager()
 sge::renderer::system &
 sge::systems::instance::renderer_system() const
 {
-	return *impl_->renderer_system_;
+	return impl_->renderer_system_->get();
 }
 
 sge::renderer::device &
 sge::systems::instance::renderer() const
 {
-	return *impl_->renderer_;
+	return impl_->renderer_device_->get();
 }
 
 sge::input::system &
@@ -378,16 +409,28 @@ sge::systems::instance::font_system() const
 	return *impl_->font_system_;
 }
 
-sge::window::instance &
+sge::window::object &
 sge::systems::instance::window() const
 {
-	return *impl_->window_;
+	return impl_->window_->window();
+}
+
+sge::window::system &
+sge::systems::instance::window_system() const
+{
+	return impl_->window_->system();
 }
 
 sge::viewport::manager &
 sge::systems::instance::viewport_manager() const
 {
-	return *impl_->viewport_manager_;
+	return impl_->renderer_device_->viewport_manager();
+}
+
+awl::mainloop::dispatcher &
+sge::systems::instance::awl_dispatcher() const
+{
+	return impl_->window_->awl_dispatcher();
 }
 
 namespace
@@ -469,22 +512,18 @@ visitor::operator()(
 
 visitor::result_type
 visitor::operator()(
-	sge::systems::parameterless::type const _type
+	sge::systems::charconv const &
 ) const
 {
-	switch(
-		_type
-	)
-	{
-	case sge::systems::parameterless::charconv:
-		impl_.init_charconv();
-		return;
-	case sge::systems::parameterless::font:
-		impl_.init_font();
-		return;
-	}
+	impl_.init_charconv();
+}
 
-	FCPPT_ASSERT_UNREACHABLE;
+visitor::result_type
+visitor::operator()(
+	sge::systems::font const &
+) const
+{
+	impl_.init_font();
 }
 
 }
@@ -504,88 +543,49 @@ sge::systems::instance::impl::~impl()
 }
 
 void
+sge::systems::instance::impl::init_renderer_system(
+	sge::systems::renderer const &_param
+)
+{
+	renderer_system_.take(
+		fcppt::make_unique_ptr<
+			sge::systems::modules::renderer::system
+		>(
+			fcppt::ref(
+				plugin_cache_
+			),
+			fcppt::cref(
+				_param
+			),
+			fcppt::ref(
+				plugin_manager_
+			)
+		)
+	);
+}
+
+void
 sge::systems::instance::impl::init_renderer(
 	sge::systems::renderer const &_param
 )
 {
-	sge::renderer::parameters const &renderer_param(
-		_param.parameters()
+	FCPPT_ASSERT_PRE(
+		window_
 	);
 
-	if(
-		!_param.name()
-	)
-		renderer_plugin_ = default_plugin<sge::renderer::system>();
-	else
-	{
-		for(
-			plugin::iterator<sge::renderer::system> it(
-				plugin_manager_.begin<sge::renderer::system>()
-			);
-			it != plugin_manager_.end<sge::renderer::system>();
-			++it
-		)
-		{
-			if(
-				it->base().info().name()
-				== *_param.name()
-			)
-			{
-				renderer_plugin_ = it->load();
-
-				break;
-			}
-		}
-
-		if(
-			!renderer_plugin_
-		)
-			throw sge::systems::exception(
-				FCPPT_TEXT("Renderer plugin with name \"")
-				+ *_param.name()
-				+ FCPPT_TEXT("\" not found!")
-			);
-	}
-
-	renderer_system_ = renderer_plugin_->get()();
-
-	if(
-		!window_
-	)
-	{
-		if(
-			!window_param_
-		)
-			throw sge::systems::exception(
-				FCPPT_TEXT("systems: renderer device requested, but no window parameter given!")
-			);
-
-		window_ =
-			systems::create_render_window(
-				window_system_,
-				*renderer_system_,
-				*window_param_,
-				renderer_param
-			);
-	}
-
-	renderer_ =
-		renderer_system_->create_renderer(
-			renderer_param,
-			sge::renderer::adapter(
-				0
-			),
-			*window_
-		);
-
-	viewport_manager_.take(
+	renderer_device_.take(
 		fcppt::make_unique_ptr<
-			sge::viewport::manager
+			sge::systems::modules::renderer::device
 		>(
-			fcppt::ref(
-				*renderer_
+			fcppt::cref(
+				_param
 			),
-			_param.resize_function()
+			fcppt::ref(
+				*renderer_system_
+			),
+			fcppt::ref(
+				*window_
+			)
 		)
 	);
 }
@@ -595,23 +595,22 @@ sge::systems::instance::impl::init_window(
 	sge::systems::window const &_window_param
 )
 {
-	if(
-		fcppt::variant::holds_type<
-			sge::systems::wrapped_window
+	window_.take(
+		fcppt::make_unique_ptr<
+			sge::systems::modules::window::object
 		>(
-			_window_param.parameter()
-		)
-	)
-		window_ =
-			sge::systems::wrap_window(
+			fcppt::cref(
 				_window_param
-			);
-	else
-	{
-		window_system_ = awl::system::create();
-
-		window_param_ = _window_param;
-	}
+			),
+			renderer_system_
+			?
+				sge::systems::modules::renderer::optional_system_ref(
+					*renderer_system_
+				)
+			:
+				sge::systems::modules::renderer::optional_system_ref()
+		)
+	);
 }
 
 void
@@ -619,19 +618,9 @@ sge::systems::instance::impl::init_input(
 	systems::input const &_param
 )
 {
-	if(
-		!window_
-	)
-	{
-		if(
-			!window_param_
-		)
-			throw sge::systems::exception(
-				FCPPT_TEXT("systems: input system requested, but no window parameter given!")
-			);
-
-		this->create_window();
-	}
+	FCPPT_ASSERT_PRE(
+		window_
+	);
 
 	input_plugin_ = default_plugin<sge::input::system>();
 
@@ -639,7 +628,8 @@ sge::systems::instance::impl::init_input(
 
 	input_processor_ =
 		input_system_->create_processor(
-			window_
+			window_->window(),
+			window_->system()
 		);
 
 	if(
@@ -812,29 +802,9 @@ void
 sge::systems::instance::impl::post_init()
 {
 	if(
-		!window_param_
+		window_
 	)
-		return;
-
-	if(
-		!window_
-	)
-		this->create_window();
-
-	if(
-		window_param_->show()
-	)
-		window_->show();
-}
-
-void
-sge::systems::instance::impl::create_window()
-{
-	window_ =
-		sge::systems::create_normal_window(
-			window_system_,
-			*window_param_
-		);
+		window_->post_init();
 }
 
 template<

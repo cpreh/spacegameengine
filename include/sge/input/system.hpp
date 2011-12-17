@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor_ptr.hpp>
 #include <sge/input/symbol.hpp>
 #include <sge/input/system_fwd.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -44,11 +45,14 @@ protected:
 	system();
 public:
 	SGE_INPUT_SYMBOL
-	virtual ~system() = 0;
+	virtual
+	~system() = 0;
 
-	virtual processor_ptr const
+	virtual
+	sge::input::processor_ptr const
 	create_processor(
-		sge::window::instance_ptr
+		sge::window::object const &,
+		sge::window::system const &
 	) = 0;
 };
 

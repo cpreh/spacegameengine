@@ -37,7 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/symbol.hpp>
 #include <sge/viewport/manager_fwd.hpp>
-#include <sge/window/instance_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
+#include <awl/mainloop/dispatcher_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
@@ -106,20 +108,28 @@ public:
 	audio_player() const;
 
 	SGE_SYSTEMS_SYMBOL
-	charconv::system &
+	sge::charconv::system &
 	charconv_system() const;
 
 	SGE_SYSTEMS_SYMBOL
-	font::system &
+	sge::font::system &
 	font_system() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::window::instance &
+	sge::window::system &
+	window_system() const;
+
+	SGE_SYSTEMS_SYMBOL
+	sge::window::object &
 	window() const;
 
 	SGE_SYSTEMS_SYMBOL
 	sge::viewport::manager &
 	viewport_manager() const;
+
+	SGE_SYSTEMS_SYMBOL
+	awl::mainloop::dispatcher &
+	awl_dispatcher() const;
 
 	class impl;
 private:

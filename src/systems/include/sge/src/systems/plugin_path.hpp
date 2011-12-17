@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_PLUGIN_PATH_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_PLUGIN_PATH_HPP_INCLUDED
 
-#include <sge/systems/any_set.hpp>
+#include <sge/systems/any_map.hpp>
 #include <fcppt/filesystem/path.hpp>
 
 
@@ -32,7 +32,7 @@ namespace systems
 
 fcppt::filesystem::path const
 plugin_path(
-	systems::any_set const &
+	sge::systems::any_map const &
 );
 
 }

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::input::cursor::optional_position const
 sge::x11input::cursor::query_pointer(
-	awl::backends::x11::window::instance &_window,
+	awl::backends::x11::window::instance const &_window,
 	device::id const &_id
 )
 {

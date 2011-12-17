@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::x11input::keyboard::fake_core_event(
-	awl::backends::x11::window::instance &_window,
+	awl::backends::x11::window::instance const &_window,
 	x11input::device::window_event const &_event
 )
 {

@@ -86,7 +86,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/parameterless.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
@@ -97,8 +96,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string.hpp>
@@ -694,8 +694,9 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 			(sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge test for anaglyph 3D"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge test for anaglyph 3D")),
 					sge::window::dim(1024,768))))
 			(sge::systems::renderer(
 				sge::renderer::parameters(
@@ -808,7 +809,7 @@ try
 
 	while(running)
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		// If we have no viewport (yet), don't do anything (this is just a
 		// precaution, we _might_ divide by zero somewhere below, otherwise)

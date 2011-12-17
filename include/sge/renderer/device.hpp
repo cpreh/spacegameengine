@@ -79,7 +79,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -864,14 +863,6 @@ public:
 	*/
 	virtual renderer::caps::object const &
 	caps() const = 0;
-
-	/**
-	 * \brief Returns the associated window
-	 *
-	 * \return The associated window
-	*/
-	virtual sge::window::instance &
-	window() const = 0;
 
 	SGE_RENDERER_SYMBOL
 	virtual ~device() = 0;

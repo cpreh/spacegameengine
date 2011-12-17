@@ -225,6 +225,7 @@ SET(
 	include/sge/renderer/pixel_rect.hpp
 	include/sge/renderer/pixel_unit.hpp
 	include/sge/renderer/plugin.hpp
+	include/sge/renderer/plugin_ptr.hpp
 	include/sge/renderer/primitive_count.hpp
 	include/sge/renderer/projection/aspect.hpp
 	include/sge/renderer/projection/dim.hpp

@@ -87,7 +87,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/window/instance_fwd.hpp>
+#include <awl/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
@@ -108,7 +108,7 @@ public:
 	device(
 		renderer::parameters const &,
 		renderer::adapter,
-		window::instance &
+		awl::window::instance &
 	);
 
 	~device();
@@ -315,16 +315,11 @@ public:
 
 	renderer::caps::object const &
 	caps() const;
-
-	window::instance &
-	window() const;
 private:
 	bool
 	fbo_active() const;
 
 	renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
-
-	window::instance &window_;
 
 	renderer::state::list current_states_;
 

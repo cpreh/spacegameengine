@@ -35,7 +35,7 @@ namespace cursor
 
 sge::input::cursor::optional_position const
 query_pointer(
-	awl::backends::x11::window::instance &,
+	awl::backends::x11::window::instance const &,
 	device::id const &
 );
 

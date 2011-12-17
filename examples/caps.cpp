@@ -32,13 +32,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/caps/object_output.hpp>
-#include <sge/window/create.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/title.hpp>
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
-#include <awl/system/object_shared_ptr.hpp>
+#include <awl/system/object_scoped_ptr.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -71,7 +71,7 @@ try
 		plugin->get()()
 	);
 
-	awl::system::object_shared_ptr const window_sys(
+	awl::system::object_scoped_ptr const window_sys(
 		awl::system::create()
 	);
 
@@ -82,22 +82,19 @@ try
 		sge::renderer::no_multi_sampling
 	);
 
-	sge::window::instance_ptr const window(
-		sge::window::create(
+	awl::window::instance_shared_ptr const window(
+		render_sys->create_window(
+			*window_sys,
 			sge::window::parameters(
-				window_sys,
-				render_sys->create_window(
-					*window_sys,
-					sge::window::simple_parameters(
-						FCPPT_TEXT("sge caps"),
-						sge::window::dim(
-							1024,
-							768
-						)
-					),
-					render_params
+				sge::window::title(
+					FCPPT_TEXT("sge caps")
+				),
+				sge::window::dim(
+					1024,
+					768
 				)
-			)
+			),
+			render_params
 		)
 	);
 

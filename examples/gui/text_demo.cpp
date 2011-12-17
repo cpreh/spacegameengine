@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
+#include <sge/systems/charconv.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
@@ -58,7 +59,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/parameterless.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/timer/basic.hpp>
@@ -66,7 +66,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/dim.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
@@ -116,8 +119,9 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::systems::window(
-			sge::window::simple_parameters(
-				FCPPT_TEXT("simple gui test"),
+			sge::window::parameters(
+				sge::window::title(
+					FCPPT_TEXT("simple gui test")),
 				sge::window::dim(1024,768))))
 		(sge::systems::renderer(
 			sge::renderer::parameters(
@@ -126,7 +130,7 @@ try
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling),
 			sge::viewport::fill_on_resize()))
-		(sge::systems::parameterless::charconv)
+		(sge::systems::charconv())
 			(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<sge::media::extension_set>(
@@ -186,7 +190,7 @@ try
 
 	while (running)
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		gui_sys.update(
 			sge::timer::elapsed<sge::cegui::duration>(

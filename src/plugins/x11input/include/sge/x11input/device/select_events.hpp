@@ -34,7 +34,7 @@ namespace device
 
 void
 select_events(
-	awl::backends::x11::window::instance &,
+	awl::backends::x11::window::instance const &,
 	x11input::device::id,
 	awl::backends::x11::system::event::type,
 	bool add

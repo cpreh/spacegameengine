@@ -68,7 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/to_clear_flags_field.hpp>
-#include <sge/window/instance.hpp>
+#include <awl/window/instance_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -84,13 +84,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::device::device(
 	renderer::parameters const &_parameters,
 	renderer::adapter const _adapter,
-	window::instance &_window
+	awl::window::instance &_window
 )
 :
 	depth_stencil_buffer_(
 		_parameters.depth_stencil_buffer()
 	),
-	window_(_window),
 	current_states_(
 		opengl::state::initial()
 	),
@@ -715,12 +714,6 @@ sge::renderer::caps::object const &
 sge::opengl::device::caps() const
 {
 	return *caps_;
-}
-
-sge::window::instance &
-sge::opengl::device::window() const
-{
-	return window_;
 }
 
 bool

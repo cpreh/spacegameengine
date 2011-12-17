@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 #define SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 
+#include <sge/window/dim.hpp>
 #include <sge/window/parameters_fwd.hpp>
+#include <sge/window/size_hints.hpp>
 #include <sge/window/symbol.hpp>
-#include <awl/mainloop/io_service_shared_ptr.hpp>
-#include <awl/system/object_shared_ptr.hpp>
-#include <awl/system/event/processor_shared_ptr.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
-#include <awl/window/event/processor_shared_ptr.hpp>
+#include <sge/window/title.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 
 namespace sge
@@ -40,57 +40,45 @@ class parameters
 public:
 	SGE_WINDOW_SYMBOL
 	parameters(
-		awl::system::object_shared_ptr,
-		awl::window::instance_shared_ptr
+		sge::window::title const &,
+		sge::window::dim const &
 	);
 
 	SGE_WINDOW_SYMBOL
 	parameters &
-	window_event_processor(
-		awl::window::event::processor_shared_ptr
+	class_name(
+		fcppt::string const &
 	);
 
 	SGE_WINDOW_SYMBOL
 	parameters &
-	system_event_processor(
-		awl::system::event::processor_shared_ptr
+	size_hints(
+		window::size_hints const &
 	);
 
 	SGE_WINDOW_SYMBOL
-	parameters &
-	io_service(
-		awl::mainloop::io_service_shared_ptr
-	);
+	sge::window::title const &
+	title() const;
 
 	SGE_WINDOW_SYMBOL
-	awl::system::object_shared_ptr const
-	system() const;
+	sge::window::dim const &
+	dim() const;
 
 	SGE_WINDOW_SYMBOL
-	awl::window::instance_shared_ptr const
-	window() const;
+	fcppt::string const &
+	class_name() const;
 
 	SGE_WINDOW_SYMBOL
-	awl::window::event::processor_shared_ptr const
-	window_event_processor() const;
-
-	SGE_WINDOW_SYMBOL
-	awl::system::event::processor_shared_ptr const
-	system_event_processor() const;
-
-	SGE_WINDOW_SYMBOL
-	awl::mainloop::io_service_shared_ptr const
-	io_service() const;
+	window::size_hints const &
+	size_hints() const;
 private:
-	awl::system::object_shared_ptr system_;
+	sge::window::title title_;
 
-	awl::window::instance_shared_ptr window_;
+	sge::window::dim dim_;
 
-	awl::window::event::processor_shared_ptr window_event_processor_;
+	fcppt::string class_name_;
 
-	awl::system::event::processor_shared_ptr system_event_processor_;
-
-	awl::mainloop::io_service_shared_ptr io_service_;
+	sge::window::size_hints size_hints_;
 };
 
 }

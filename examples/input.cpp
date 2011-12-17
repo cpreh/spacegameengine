@@ -84,11 +84,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/title.hpp>
 #include <awl/mainloop/dispatcher.hpp>
 #include <awl/mainloop/io_service.hpp>
-#include <awl/mainloop/io_service_shared_ptr.hpp>
+#include <awl/mainloop/io_service_scoped_ptr.hpp>
 #include <awl/mainloop/asio/create_io_service_base.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_wstring.hpp>
@@ -227,7 +227,7 @@ try
 		fcppt::log::level::debug
 	);
 
-	awl::mainloop::io_service_shared_ptr const io_service(
+	awl::mainloop::io_service_scoped_ptr const io_service(
 		awl::mainloop::asio::create_io_service_base()
 	);
 
@@ -235,8 +235,10 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge input example"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge input example")
+					),
 					sge::window::dim(
 						1024,
 						768
@@ -244,7 +246,7 @@ try
 				)
 			)
 			.io_service(
-				io_service
+				*io_service
 			)
 		)
 		(
@@ -258,8 +260,6 @@ try
 			)
 		)
 	);
-
-	sys.window().show();
 
 	fcppt::io::cout()
 		<< std::boolalpha;
@@ -340,7 +340,7 @@ try
 				sge::input::keyboard::key_code::escape,
 				std::tr1::bind(
 					&awl::mainloop::dispatcher::stop,
-					sys.window().awl_dispatcher()
+					&sys.awl_dispatcher()
 				)
 			)
 		)

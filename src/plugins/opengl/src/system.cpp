@@ -45,12 +45,12 @@ sge::renderer::device_ptr const
 sge::opengl::system::create_renderer(
 	renderer::parameters const &_param,
 	renderer::adapter const _adapter,
-	window::instance &_wnd
+	awl::window::instance &_wnd
 )
 {
 	return
 		fcppt::make_shared_ptr<
-			device
+			sge::opengl::device
 		>(
 			_param,
 			_adapter,
@@ -63,7 +63,7 @@ sge::opengl::system::create_renderer(
 awl::window::instance_shared_ptr const
 sge::opengl::system::create_window(
 	awl::system::object &_system,
-	sge::window::simple_parameters const &_wparam,
+	sge::window::parameters const &_wparam,
 	sge::renderer::parameters const &_rparam
 )
 {

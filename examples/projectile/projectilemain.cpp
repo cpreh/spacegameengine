@@ -94,8 +94,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -480,8 +481,9 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("projectile"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("projectile")),
 					sge::window::dim(1024,768))))
 		(sge::systems::renderer(
 				sge::renderer::parameters(
@@ -596,7 +598,7 @@ try
 
 	while(running)
 	{
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		world.update_continuous(
 			sge::projectile::time_increment(

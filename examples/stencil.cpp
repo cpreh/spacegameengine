@@ -86,8 +86,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -114,13 +115,15 @@ try
 		768
 	);
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(
 			// Request a window with the desired size.
 			sge::systems::window(
-				sge::window::simple_parameters(
-					FCPPT_TEXT("sge stencil example"),
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge stencil example")
+					),
 					window_dim
 				)
 			)
@@ -315,7 +318,7 @@ try
 	)
 	{
 		// Process window messages which will also process input.
-		sys.window().dispatch();
+		sys.window_system().poll();
 
 		// Declare a render block.
 		// This will clear the buffers in the constructor and

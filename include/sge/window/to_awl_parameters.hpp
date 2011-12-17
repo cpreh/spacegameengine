@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_TO_AWL_PARAMETERS_HPP_INCLUDED
 #define SGE_WINDOW_TO_AWL_PARAMETERS_HPP_INCLUDED
 
-#include <sge/window/simple_parameters_fwd.hpp>
+#include <sge/window/parameters_fwd.hpp>
 #include <sge/window/symbol.hpp>
 #include <awl/window/parameters_fwd.hpp>
 
@@ -33,7 +33,7 @@ namespace window
 SGE_WINDOW_SYMBOL
 awl::window::parameters
 to_awl_parameters(
-	sge::window::simple_parameters const &
+	sge::window::parameters const &
 );
 
 }

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_surface.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/window/instance_fwd.hpp>
+#include <awl/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
 
@@ -45,7 +45,7 @@ class onscreen_surface
 	);
 public:
 	explicit onscreen_surface(
-		sge::window::instance &
+		awl::window::instance &
 	);
 
 	~onscreen_surface();
@@ -71,7 +71,7 @@ private:
 		renderer::raw_value
 	> buffer_type;
 
-	sge::window::instance &window_;
+	awl::window::instance &window_;
 
 	mutable buffer_type buffer_;
 

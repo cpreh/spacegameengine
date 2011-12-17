@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -278,7 +278,7 @@ sge::x11input::cursor::object::check_grab()
 				fcppt::make_unique_ptr<
 					cursor::grab
 				>(
-					fcppt::ref(
+					fcppt::cref(
 						window_
 					),
 					this->id(),

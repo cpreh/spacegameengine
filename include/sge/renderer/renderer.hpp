@@ -105,6 +105,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/plugin.hpp>
+#include <sge/renderer/plugin_ptr.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
