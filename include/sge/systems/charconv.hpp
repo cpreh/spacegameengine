@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_CHARCONV_HPP_INCLUDED
 #define SGE_SYSTEMS_CHARCONV_HPP_INCLUDED
 
+#include <sge/systems/charconv_fwd.hpp>
+
+
 namespace sge
 {
 namespace systems

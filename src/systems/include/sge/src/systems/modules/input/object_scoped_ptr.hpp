@@ -18,45 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_CURSOR_MODIFIER_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_CURSOR_MODIFIER_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_INPUT_OBJECT_SCOPED_PTR_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_INPUT_OBJECT_SCOPED_PTR_HPP_INCLUDED
 
-#include <sge/input/processor_fwd.hpp>
-#include <sge/input/cursor/discover_event_fwd.hpp>
-#include <sge/systems/cursor_option_field.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/container/bitfield/basic_decl.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <sge/src/systems/modules/input/object_fwd.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 
 namespace sge
 {
 namespace systems
 {
-
-class cursor_modifier
+namespace modules
 {
-	FCPPT_NONCOPYABLE(
-		cursor_modifier
-	);
-public:
-	explicit cursor_modifier(
-		sge::input::processor &,
-		systems::cursor_option_field const &
-	);
+namespace input
+{
 
-	~cursor_modifier();
-private:
-	void
-	cursor_discover(
-		sge::input::cursor::discover_event const &
-	);
+typedef fcppt::scoped_ptr<
+	sge::systems::modules::input::object
+> object_scoped_ptr;
 
-	systems::cursor_option_field const options_;
-
-	fcppt::signal::scoped_connection const connection_;
-};
-
+}
+}
 }
 }
 

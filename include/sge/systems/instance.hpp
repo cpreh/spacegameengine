@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/instance_impl_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
@@ -64,7 +65,7 @@ public:
 	~instance();
 
 	SGE_SYSTEMS_SYMBOL
-	plugin::manager &
+	sge::plugin::manager &
 	plugin_manager();
 
 	SGE_SYSTEMS_SYMBOL
@@ -130,12 +131,13 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	awl::mainloop::dispatcher &
 	awl_dispatcher() const;
-
-	class impl;
 private:
+	typedef
 	fcppt::scoped_ptr<
-		impl
-	> impl_;
+		sge::systems::detail::instance_impl
+	> impl_ptr;
+
+	impl_ptr const impl_;
 };
 
 }

@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_CONFIG_HPP_INCLUDED
 #define SGE_SYSTEMS_CONFIG_HPP_INCLUDED
 
+#include <sge/systems/config_fwd.hpp>
+#include <sge/systems/plugin_path.hpp>
 #include <sge/systems/symbol.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -32,17 +34,21 @@ namespace systems
 
 class config
 {
+	FCPPT_NONASSIGNABLE(
+		config
+	);
 public:
 	SGE_SYSTEMS_SYMBOL
-	explicit config(
-		fcppt::filesystem::path const &plugin_path
+	explicit
+	config(
+		sge::systems::plugin_path const &
 	);
 
 	SGE_SYSTEMS_SYMBOL
-	fcppt::filesystem::path const &
+	sge::systems::plugin_path const &
 	plugin_path() const;
 private:
-	fcppt::filesystem::path plugin_path_;
+	sge::systems::plugin_path const plugin_path_;
 };
 
 }

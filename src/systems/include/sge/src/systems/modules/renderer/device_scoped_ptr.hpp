@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_RENDERER_DEVICE_SCOPED_PTR_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_RENDERER_DEVICE_SCOPED_PTR_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/src/systems/modules/renderer/device_fwd.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
 

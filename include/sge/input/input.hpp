@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/forward_discover.hpp>
 #include <sge/input/nullary_function.hpp>
 #include <sge/input/plugin.hpp>
+#include <sge/input/plugin_ptr.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/processor_ptr.hpp>

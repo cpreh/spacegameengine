@@ -52,8 +52,8 @@ class system
 public:
 	system(
 		sge::systems::plugin_cache &,
-		sge::systems::renderer const &,
-		sge::plugin::manager &
+		sge::plugin::manager &,
+		sge::systems::renderer const &
 	);
 
 	awl::window::instance_shared_ptr const

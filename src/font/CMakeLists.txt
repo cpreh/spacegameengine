@@ -14,6 +14,7 @@ SET(
 	include/sge/font/metrics_fwd.hpp
 	include/sge/font/metrics_ptr.hpp
 	include/sge/font/plugin.hpp
+	include/sge/font/plugin_ptr.hpp
 	include/sge/font/pos.hpp
 	include/sge/font/rect.hpp
 	include/sge/font/size_type.hpp

@@ -18,14 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/convert.hpp>
+#include <sge/charconv/encoding.hpp>
+#include <sge/charconv/string_type.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/font/char_type.hpp>
+#include <sge/font/const_image_view.hpp>
+#include <sge/font/exception.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/unit.hpp>
 #include <sge/freetype/freetype.hpp>
 #include <sge/freetype/face.hpp>
 #include <sge/freetype/char_metric.hpp>
 #include <sge/freetype/glyph.hpp>
-#include <sge/charconv/convert.hpp>
-#include <sge/charconv/encoding.hpp>
-#include <sge/charconv/string_type.hpp>
-#include <sge/font/exception.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/dim.hpp>
@@ -50,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::freetype::char_metric::char_metric(
 	freetype::face &_face,
-	sge::charconv::system_ptr const _conv_system,
+	sge::charconv::system &_conv_system,
 	font::char_type const _ch
 )
 :
@@ -68,7 +73,7 @@ sge::freetype::char_metric::char_metric(
 			sge::charconv::encoding::utf32,
 			sge::charconv::encoding::wchar
 		>(
-			*_conv_system,
+			_conv_system,
 			std::basic_string<
 				font::char_type
 			>(

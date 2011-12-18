@@ -18,23 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/freetype/metrics.hpp>
-#include <sge/freetype/glyph.hpp>
-#include <sge/freetype/char_metric.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/font/char_metric_ptr.hpp>
+#include <sge/font/char_type.hpp>
 #include <sge/font/exception.hpp>
+#include <sge/font/size_type.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/freetype/char_metric.hpp>
+#include <sge/freetype/glyph.hpp>
+#include <sge/freetype/library_fwd.hpp>
+#include <sge/freetype/metrics.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::freetype::metrics::metrics(
-	library &_lib,
-	sge::charconv::system_ptr const _conv_system,
+	sge::freetype::library &_lib,
+	sge::charconv::system &_conv_system,
 	fcppt::filesystem::path const &_font_path,
-	font::size_type const _font_height
+	sge::font::size_type const _font_height
 )
 :
 	face_(
@@ -77,7 +84,8 @@ sge::freetype::metrics::metrics(
 }
 
 sge::freetype::metrics::~metrics()
-{}
+{
+}
 
 sge::font::char_metric_ptr const
 sge::freetype::metrics::load_char(
@@ -104,7 +112,9 @@ sge::freetype::metrics::load_char(
 			fcppt::ref(
 				face_
 			),
-			conv_system_,
+			fcppt::ref(
+				conv_system_
+			),
 			_ch
 		)
 	);

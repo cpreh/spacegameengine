@@ -34,8 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::modules::renderer::system::system(
 	sge::systems::plugin_cache &_plugin_cache,
-	sge::systems::renderer const &_parameters,
-	sge::plugin::manager &_plugin_manager
+	sge::plugin::manager &_plugin_manager,
+	sge::systems::renderer const &_parameters
 )
 :
 	plugin_(

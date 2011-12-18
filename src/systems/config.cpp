@@ -19,18 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/systems/config.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <sge/systems/plugin_path.hpp>
 
 
 sge::systems::config::config(
-	fcppt::filesystem::path const &_plugin_path
+	sge::systems::plugin_path const &_plugin_path
 )
 :
-	plugin_path_(_plugin_path)
+	plugin_path_(
+		_plugin_path
+	)
 {
 }
 
-fcppt::filesystem::path const &
+sge::systems::plugin_path const &
 sge::systems::config::plugin_path() const
 {
 	return plugin_path_;

@@ -5,18 +5,26 @@ SET(
 	include/sge/systems/any_map.hpp
 	include/sge/systems/any_types.hpp
 	include/sge/systems/audio_loader.hpp
+	include/sge/systems/audio_loader_fwd.hpp
 	include/sge/systems/audio_player.hpp
 	include/sge/systems/audio_player_default.hpp
+	include/sge/systems/audio_player_fwd.hpp
 	include/sge/systems/basic_loader.hpp
 	include/sge/systems/basic_loader_fwd.hpp
 	include/sge/systems/charconv.hpp
+	include/sge/systems/charconv_fwd.hpp
 	include/sge/systems/config.hpp
+	include/sge/systems/config_fwd.hpp
 	include/sge/systems/cursor_option.hpp
 	include/sge/systems/cursor_option_field.hpp
+	include/sge/systems/detail/instance_impl_fwd.hpp
 	include/sge/systems/exception.hpp
 	include/sge/systems/font.hpp
+	include/sge/systems/font_fwd.hpp
 	include/sge/systems/image2d.hpp
+	include/sge/systems/image2d_fwd.hpp
 	include/sge/systems/input.hpp
+	include/sge/systems/input_fwd.hpp
 	include/sge/systems/input_helper.hpp
 	include/sge/systems/input_helper_field.hpp
 	include/sge/systems/instance.hpp
@@ -24,6 +32,7 @@ SET(
 	include/sge/systems/list.hpp
 	include/sge/systems/list_fwd.hpp
 	include/sge/systems/optional_name.hpp
+	include/sge/systems/plugin_path.hpp
 	include/sge/systems/renderer.hpp
 	include/sge/systems/renderer_fwd.hpp
 	include/sge/systems/running_to_false.hpp
@@ -34,17 +43,45 @@ SET(
 	include/sge/systems/wrapped_window.hpp
 	include/sge/systems/wrapped_window_fwd.hpp
 	src/systems/any_key.cpp
+	src/systems/any_visitor.cpp
 	src/systems/audio_loader.cpp
 	src/systems/audio_player.cpp
 	src/systems/audio_player_default.cpp
 	src/systems/config.cpp
-	src/systems/cursor_modifier.cpp
+	src/systems/detail/instance_impl.cpp
 	src/systems/exception.cpp
+	src/systems/extract_plugin_path.cpp
 	src/systems/image2d.cpp
 	src/systems/include/sge/src/systems/add_plugin.hpp
+	src/systems/include/sge/src/systems/any_visitor.hpp
 	src/systems/include/sge/src/systems/basic_loader_impl.hpp
-	src/systems/include/sge/src/systems/cursor_modifier.hpp
+	src/systems/include/sge/src/systems/detail/instance_impl.hpp
+	src/systems/include/sge/src/systems/extract_plugin_path.hpp
 	src/systems/include/sge/src/systems/make_any_key.hpp
+	src/systems/include/sge/src/systems/modules/audio/find_player_plugin.hpp
+	src/systems/include/sge/src/systems/modules/audio/loader.hpp
+	src/systems/include/sge/src/systems/modules/audio/loader_fwd.hpp
+	src/systems/include/sge/src/systems/modules/audio/loader_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/audio/player.hpp
+	src/systems/include/sge/src/systems/modules/audio/player_fwd.hpp
+	src/systems/include/sge/src/systems/modules/audio/player_pair.hpp
+	src/systems/include/sge/src/systems/modules/audio/player_pair_fwd.hpp
+	src/systems/include/sge/src/systems/modules/audio/player_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/charconv/object.hpp
+	src/systems/include/sge/src/systems/modules/charconv/object_fwd.hpp
+	src/systems/include/sge/src/systems/modules/charconv/object_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/font/object.hpp
+	src/systems/include/sge/src/systems/modules/font/object_fwd.hpp
+	src/systems/include/sge/src/systems/modules/font/object_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/image2d/object.hpp
+	src/systems/include/sge/src/systems/modules/image2d/object_fwd.hpp
+	src/systems/include/sge/src/systems/modules/image2d/object_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/input/cursor_modifier.hpp
+	src/systems/include/sge/src/systems/modules/input/cursor_modifier_fwd.hpp
+	src/systems/include/sge/src/systems/modules/input/cursor_modifier_unique_ptr.hpp
+	src/systems/include/sge/src/systems/modules/input/object.hpp
+	src/systems/include/sge/src/systems/modules/input/object_fwd.hpp
+	src/systems/include/sge/src/systems/modules/input/object_scoped_ptr.hpp
 	src/systems/include/sge/src/systems/modules/renderer/device.hpp
 	src/systems/include/sge/src/systems/modules/renderer/device_fwd.hpp
 	src/systems/include/sge/src/systems/modules/renderer/device_scoped_ptr.hpp
@@ -65,11 +102,19 @@ SET(
 	src/systems/include/sge/src/systems/plugin_by_name.hpp
 	src/systems/include/sge/src/systems/plugin_cache.hpp
 	src/systems/include/sge/src/systems/plugin_cache_fwd.hpp
-	src/systems/include/sge/src/systems/plugin_path.hpp
 	src/systems/input.cpp
 	src/systems/instance.cpp
 	src/systems/list.cpp
 	src/systems/make_any_key.cpp
+	src/systems/modules/audio/find_player_plugin.cpp
+	src/systems/modules/audio/loader.cpp
+	src/systems/modules/audio/player.cpp
+	src/systems/modules/audio/player_pair.cpp
+	src/systems/modules/charconv/object.cpp
+	src/systems/modules/font/object.cpp
+	src/systems/modules/image2d/object.cpp
+	src/systems/modules/input/cursor_modifier.cpp
+	src/systems/modules/input/object.cpp
 	src/systems/modules/renderer/device.cpp
 	src/systems/modules/renderer/system.cpp
 	src/systems/modules/window/base.cpp
@@ -78,7 +123,6 @@ SET(
 	src/systems/modules/window/original.cpp
 	src/systems/modules/window/wrapped.cpp
 	src/systems/plugin_cache.cpp
-	src/systems/plugin_path.cpp
 	src/systems/renderer.cpp
 	src/systems/running_to_false.cpp
 	src/systems/window.cpp

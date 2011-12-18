@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FREETYPE_SYSTEM_HPP_INCLUDED
 
 #include <sge/freetype/library.hpp>
-#include <sge/charconv/system_ptr.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
@@ -43,8 +43,9 @@ class system
 		system
 	);
 public:
-	explicit system(
-		sge::charconv::system_ptr
+	explicit
+	system(
+		sge::charconv::system &
 	);
 
 	~system();
@@ -57,7 +58,7 @@ public:
 private:
 	freetype::library library_;
 
-	sge::charconv::system_ptr const conv_system_;
+	sge::charconv::system &conv_system_;
 };
 
 }

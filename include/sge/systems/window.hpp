@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <awl/mainloop/io_service_fwd.hpp>
 #include <awl/mainloop/optional_io_service_ref.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,6 +42,9 @@ namespace systems
 
 class window
 {
+	FCPPT_NONASSIGNABLE(
+		window
+	);
 public:
 	typedef fcppt::variant::object<
 		boost::mpl::vector2<
@@ -76,7 +80,7 @@ public:
 	bool
 	show() const;
 private:
-	parameter_variant parameter_;
+	parameter_variant const parameter_;
 
 	awl::mainloop::optional_io_service_ref io_service_;
 

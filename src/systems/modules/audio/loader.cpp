@@ -18,33 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/plugin_path.hpp>
-#include <sge/src/systems/plugin_path.hpp>
-#include <sge/systems/any_key.hpp>
-#include <sge/systems/any_map.hpp>
-#include <sge/systems/config.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <sge/audio/loader_fwd.hpp>
+#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/multi_loader_parameters.hpp>
+#include <sge/plugin/manager_fwd.hpp>
+#include <sge/src/systems/modules/audio/loader.hpp>
+#include <sge/systems/audio_loader.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
 
-fcppt::filesystem::path const
-sge::systems::plugin_path(
-	sge::systems::any_map const &_param
+sge::systems::modules::audio::loader::loader(
+	sge::plugin::manager &_manager,
+	sge::systems::audio_loader const &_parameters
 )
-{
-	sge::systems::any_map::const_iterator const it(
-		_param.find(
-			sge::systems::any_key::config
+:
+	audio_multi_loader_(
+		fcppt::make_unique_ptr<
+			sge::audio::multi_loader
+		>(
+			sge::audio::multi_loader_parameters(
+				fcppt::ref(
+					_manager
+				),
+				_parameters.extensions(),
+				_parameters.capabilities()
+			)
 		)
-	);
+	)
+{
+}
 
-	return
-		it != _param.end()
-		?
-			it->second.get<
-				sge::systems::config
-			>()
-			.plugin_path()
-		:
-			sge::config::plugin_path();
+sge::systems::modules::audio::loader::~loader()
+{
+}
+
+sge::audio::loader &
+sge::systems::modules::audio::loader::get() const
+{
+	return *audio_multi_loader_;
 }

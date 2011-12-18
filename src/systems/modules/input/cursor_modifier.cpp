@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/object.hpp>
-#include <sge/src/systems/cursor_modifier.hpp>
+#include <sge/src/systems/modules/input/cursor_modifier.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
-sge::systems::cursor_modifier::cursor_modifier(
+sge::systems::modules::input::cursor_modifier::cursor_modifier(
 	sge::input::processor &_processor,
 	systems::cursor_option_field const &_options
 )
@@ -42,7 +42,7 @@ sge::systems::cursor_modifier::cursor_modifier(
 	connection_(
 		_processor.cursor_discover_callback(
 			std::tr1::bind(
-				&systems::cursor_modifier::cursor_discover,
+				&sge::systems::modules::input::cursor_modifier::cursor_discover,
 				this,
 				std::tr1::placeholders::_1
 			)
@@ -53,18 +53,18 @@ sge::systems::cursor_modifier::cursor_modifier(
 		sge::input::cursor::discover_event
 	>(
 		_processor.cursors(),
-		&sge::systems::cursor_modifier::cursor_discover,
+		&sge::systems::modules::input::cursor_modifier::cursor_discover,
 		*this
 	);
 }
 FCPPT_PP_POP_WARNING
 
-sge::systems::cursor_modifier::~cursor_modifier()
+sge::systems::modules::input::cursor_modifier::~cursor_modifier()
 {
 }
 
 void
-sge::systems::cursor_modifier::cursor_discover(
+sge::systems::modules::input::cursor_modifier::cursor_discover(
 	sge::input::cursor::discover_event const &_event
 )
 {

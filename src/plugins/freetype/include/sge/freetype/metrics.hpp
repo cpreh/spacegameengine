@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/freetype/library_fwd.hpp>
 #include <sge/freetype/face.hpp>
 #include <sge/freetype/freetype.hpp>
-#include <sge/charconv/system_ptr.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/size_type.hpp>
@@ -50,8 +50,8 @@ class metrics
 	);
 public:
 	metrics(
-		library &,
-		sge::charconv::system_ptr,
+		sge::freetype::library &,
+		sge::charconv::system &,
 		fcppt::filesystem::path const &,
 		font::size_type font_height
 	);
@@ -68,7 +68,7 @@ public:
 private:
 	freetype::face face_;
 
-	sge::charconv::system_ptr const conv_system_;
+	sge::charconv::system &conv_system_;
 
 	font::size_type pixel_size_;
 

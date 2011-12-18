@@ -21,21 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_IMAGE2D_HPP_INCLUDED
 #define SGE_SYSTEMS_IMAGE2D_HPP_INCLUDED
 
-#include <sge/image/capabilities_field.hpp>
 #include <sge/systems/basic_loader.hpp>
+#include <sge/systems/image2d_fwd.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
-
-namespace sge
-{
-namespace systems
-{
-
-typedef systems::basic_loader<
-	image::capabilities_field
-> image2d;
-
-}
-}
 
 #endif

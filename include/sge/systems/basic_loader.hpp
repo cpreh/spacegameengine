@@ -43,7 +43,9 @@ class basic_loader
 public:
 	typedef Capabilities capabilities_type;
 
-	SGE_SYSTEMS_SYMBOL explicit basic_loader(
+	SGE_SYSTEMS_SYMBOL
+	explicit
+	basic_loader(
 		capabilities_type const &,
 		sge::media::extension_set const &
 	);
