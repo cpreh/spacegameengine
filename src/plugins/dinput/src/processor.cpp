@@ -28,7 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/create_dinput.hpp>
 #include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/window/object.hpp>
+#include <sge/window/system.hpp>
 #include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
 #include <awl/backends/windows/system/event/processor.hpp>
@@ -54,32 +55,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::dinput::processor::processor(
-	sge::window::instance_ptr const _window
+	sge::window::object const &_window,
+	sge::window::system const &_window_system
 )
 :
 	dinput_(
 		dinput::create_dinput()
 	),
-	window_(_window),
 	windows_window_(
 		dynamic_cast<
 			awl::backends::windows::window::instance &
 		>(
-			*_window->awl_instance()
+			_window.awl_instance()
 		)
 	),
 	event_processor_(
 		dynamic_cast<
 			awl::backends::windows::window::event::processor &
 		>(
-			*_window->awl_window_event_processor()
+			_window.awl_window_event_processor()
 		)
 	),
 	system_processor_(
 		dynamic_cast<
 			awl::backends::windows::system::event::processor &
 		>(
-			*_window->awl_system_event_processor()
+			_window_system.awl_system_event_processor()
 		)
 	),
 	keyboards_(),
@@ -257,12 +258,6 @@ sge::dinput::processor::joypads() const
 {
 	return
 		sge::input::joypad::device_vector();
-}
-
-sge::window::instance_ptr const
-sge::dinput::processor::window() const
-{
-	return window_;
 }
 
 awl::backends::windows::window::event::return_type

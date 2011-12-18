@@ -42,7 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/device_vector.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
 #include <awl/backends/windows/system/event/handle_fwd.hpp>
 #include <awl/backends/windows/system/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/instance_fwd.hpp>
@@ -70,8 +71,9 @@ class processor
 		processor
 	);
 public:
-	explicit processor(
-		sge::window::instance_ptr
+	processor(
+		sge::window::object const &,
+		sge::window::system const &
 	);
 
 	~processor();
@@ -127,9 +129,6 @@ public:
 
 	input::joypad::device_vector const
 	joypads() const;
-
-	sge::window::instance_ptr const
-	window() const;
 private:
 	awl::backends::windows::window::event::return_type
 	on_activate(
@@ -166,8 +165,6 @@ private:
 	> dinput_scoped_ptr;
 
 	dinput_scoped_ptr const dinput_;
-
-	sge::window::instance_ptr const window_;
 
 	awl::backends::windows::window::instance &windows_window_;
 

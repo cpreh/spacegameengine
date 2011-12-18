@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/to_clear_flags_field.hpp>
-#include <sge/window/instance.hpp>
+#include <awl/window/instance.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -84,7 +84,7 @@ sge::d3d9::device::device(
 	IDirect3D9 *const _system,
 	renderer::adapter const _adapter,
 	renderer::parameters const &_parameters,
-	window::instance &_window
+	awl::window::instance &_window
 )
 :
 	present_parameters_(
@@ -100,7 +100,6 @@ sge::d3d9::device::device(
 			present_parameters_
 		)
 	),
-	window_(_window),
 	caps_(
 		d3d9::create_caps(
 			_system,
@@ -679,12 +678,6 @@ sge::renderer::caps::object const &
 sge::d3d9::device::caps() const
 {
 	return *caps_;
-}
-
-sge::window::instance &
-sge::d3d9::device::window() const
-{
-	return window_;
 }
 
 template<

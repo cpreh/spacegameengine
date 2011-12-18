@@ -21,7 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/device.hpp>
 #include <sge/d3d9/system.hpp>
+#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/window/parameters_fwd.hpp>
 #include <sge/window/to_awl_parameters.hpp>
 #include <awl/system/object.hpp>
 #include <awl/window/instance.hpp>
@@ -57,7 +61,7 @@ sge::renderer::device_ptr const
 sge::d3d9::system::create_renderer(
 	renderer::parameters const &_param,
 	renderer::adapter const _adapter,
-	sge::window::instance &_window
+	awl::window::instance &_window
 )
 {
 	return
@@ -78,7 +82,7 @@ sge::d3d9::system::create_renderer(
 awl::window::instance_shared_ptr const
 sge::d3d9::system::create_window(
 	awl::system::object &_awl_system,
-	sge::window::simple_parameters const &_window_params,
+	sge::window::parameters const &_window_params,
 	sge::renderer::parameters const &
 )
 {

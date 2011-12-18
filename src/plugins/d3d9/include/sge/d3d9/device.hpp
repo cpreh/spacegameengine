@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
-#include <sge/window/instance_fwd.hpp>
+#include <awl/window/instance_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/shared_ptr.hpp>
@@ -52,7 +52,7 @@ public:
 		IDirect3D9 *,
 		renderer::adapter,
 		renderer::parameters const &,
-		sge::window::instance &
+		awl::window::instance &
 	);
 
 	~device();
@@ -259,9 +259,6 @@ public:
 
 	renderer::caps::object const &
 	caps() const;
-
-	sge::window::instance &
-	window() const;
 private:
 	template<
 		typename Ptr
@@ -295,8 +292,6 @@ private:
 	> d3d_device_scoped_ptr;
 
 	d3d_device_scoped_ptr const device_;
-
-	sge::window::instance &window_;
 
 	typedef fcppt::scoped_ptr<
 		renderer::caps::object

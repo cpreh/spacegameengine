@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/parameters/extract_size.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/screen_mode.hpp>
-#include <sge/window/instance.hpp>
+#include <sge/renderer/screen_size.hpp>
+#include <awl/window/instance.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -30,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::screen_size const
 sge::d3d9::parameters::extract_size(
 	renderer::screen_mode const &_screen_mode,
-	sge::window::instance &_window
+	awl::window::instance &_window
 )
 {
 	return
@@ -44,5 +46,10 @@ sge::d3d9::parameters::extract_size(
 				sge::renderer::display_mode
 			>().size()
 		:
-			_window.size();
+			fcppt::math::dim::structure_cast<
+				sge::renderer::screen_size
+			>(
+				_window.size()
+			)
+		;
 }
