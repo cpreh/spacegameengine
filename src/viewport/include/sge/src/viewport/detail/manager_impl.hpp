@@ -18,56 +18,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VIEWPORT_MANAGER_HPP_INCLUDED
-#define SGE_VIEWPORT_MANAGER_HPP_INCLUDED
+#ifndef SGE_SRC_VIEWPORT_DETAIL_MANAGER_IMPL_HPP_INCLUDED
+#define SGE_SRC_VIEWPORT_DETAIL_MANAGER_IMPL_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/target_base_fwd.hpp>
 #include <sge/viewport/manage_callback.hpp>
-#include <sge/viewport/manager_fwd.hpp>
 #include <sge/viewport/resize_function.hpp>
-#include <sge/viewport/symbol.hpp>
 #include <sge/viewport/detail/manager_impl_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <awl/window/event/resize_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 
 
 namespace sge
 {
 namespace viewport
 {
+namespace detail
+{
 
-class SGE_CLASS_SYMBOL manager
+class manager_impl
 {
 	FCPPT_NONCOPYABLE(
-		manager
+		manager_impl
 	);
 public:
-	SGE_VIEWPORT_SYMBOL
-	manager(
+	manager_impl(
 		sge::renderer::device &,
 		sge::window::object &,
 		sge::viewport::resize_function const &
 	);
 
-	SGE_VIEWPORT_SYMBOL
-	~manager();
+	~manager_impl();
 
-	SGE_VIEWPORT_SYMBOL
 	fcppt::signal::auto_connection
 	manage_callback(
 		viewport::manage_callback const &
 	);
 private:
-	typedef fcppt::scoped_ptr<
-		sge::viewport::detail::manager_impl
-	> impl_ptr;
+	void
+	on_resize(
+		awl::window::event::resize const &
+	);
 
-	impl_ptr impl_;
+	sge::renderer::target_base &target_;
+
+	viewport::resize_function const resize_function_;
+
+	fcppt::signal::scoped_connection const resize_connection_;
+
+	typedef fcppt::signal::object<
+		viewport::manage_function
+	> manage_signal;
+
+	manage_signal manage_signal_;
 };
 
+}
 }
 }
 

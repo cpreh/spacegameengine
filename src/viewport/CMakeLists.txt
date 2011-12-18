@@ -1,6 +1,7 @@
 SET(
 	SGE_VIEWPORT_FILES
 	include/sge/viewport/center_on_resize.hpp
+	include/sge/viewport/detail/manager_impl_fwd.hpp
 	include/sge/viewport/dont_manage.hpp
 	include/sge/viewport/fill_on_resize.hpp
 	include/sge/viewport/manage_callback.hpp
@@ -13,11 +14,13 @@ SET(
 	src/viewport/center.cpp
 	src/viewport/center_on_resize.cpp
 	src/viewport/center_on_resize_function.cpp
+	src/viewport/detail/manager_impl.cpp
 	src/viewport/dont_manage.cpp
 	src/viewport/fill_on_resize.cpp
 	src/viewport/fill_on_resize_function.cpp
 	src/viewport/include/sge/src/viewport/center.hpp
 	src/viewport/include/sge/src/viewport/center_on_resize_function.hpp
+	src/viewport/include/sge/src/viewport/detail/manager_impl.hpp
 	src/viewport/include/sge/src/viewport/fill_on_resize_function.hpp
 	src/viewport/manager.cpp
 )
