@@ -37,6 +37,8 @@ sge::d3d9::convert::color_format(
 		return D3DFMT_A8;
 	case sge::image::color::format::l8:
 		return D3DFMT_L8;
+	case sge::image::color::format::r32f:
+		return D3DFMT_R32F;
 	case sge::image::color::format::la8:
 		return D3DFMT_A8L8;
 	case sge::image::color::format::bgr8:
