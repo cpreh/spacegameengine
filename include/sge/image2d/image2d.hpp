@@ -37,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/multi_system_parameters_fwd.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image2d/plugin.hpp>
+#include <sge/image2d/r32f.hpp>
+#include <sge/image2d/r32f_format.hpp>
 #include <sge/image2d/rect.hpp>
 #include <sge/image2d/rgb8.hpp>
 #include <sge/image2d/rgb8_format.hpp>

@@ -45,6 +45,7 @@ sge::devil::to_il_channel(
 	case image::color::format::bgra8:
 	case image::color::format::bgrx8:
 		return IL_UNSIGNED_BYTE;
+	case image::color::format::r32f:
 	case image::color::format::rgb32f:
 	case image::color::format::bgr32f:
 	case image::color::format::rgba32f:

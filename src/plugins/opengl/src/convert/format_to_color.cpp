@@ -45,6 +45,12 @@ sge::opengl::convert::format_to_color(
 		)
 			return image::color::format::a8;
 		break;
+	case GL_RED:
+		if(
+			_format_type.get() == GL_FLOAT
+		)
+			return image::color::format::r32f;
+		break;
 	case GL_LUMINANCE:
 		if(
 			_format_type.get() == GL_UNSIGNED_BYTE

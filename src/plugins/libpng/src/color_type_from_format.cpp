@@ -59,6 +59,7 @@ sge::libpng::color_type_from_format(
 	case sge::image::color::format::bgrx8:
 	case sge::image::color::format::bgr8:
 		return PNG_COLOR_TYPE_RGB;
+	case sge::image::color::format::r32f:
 	case sge::image::color::format::rgb32f:
 	case sge::image::color::format::bgr32f:
 	case sge::image::color::format::rgba32f:

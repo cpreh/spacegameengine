@@ -18,25 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_A8_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_A8_FORMAT_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_C32F_1_FORMAT_HPP_INCLUDED
+#define SGE_SRC_IMAGE_DYNAMIC_COLOR_C32F_1_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/channel8.hpp>
-#include <sge/image/color/homogenous_format.hpp>
-#include <mizuiro/color/layout/alpha.hpp>
+#include <sge/image/color/channel32f.hpp>
+#include <sge/src/image/dynamic/color/basic_format.hpp>
+
 
 namespace sge
 {
 namespace image
 {
+namespace dynamic
+{
 namespace color
 {
 
-typedef color::homogenous_format<
-	color::channel8,
-	mizuiro::color::layout::alpha
->::type a8_format;
+typedef dynamic::color::basic_format<
+	image::color::channel32f,
+	1
+>::type c32f_1_format;
 
+}
 }
 }
 }

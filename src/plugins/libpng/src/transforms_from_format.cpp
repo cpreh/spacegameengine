@@ -61,6 +61,7 @@ sge::libpng::transforms_from_format(
 		return
 			PNG_TRANSFORM_STRIP_FILLER_AFTER
 			| PNG_TRANSFORM_BGR;
+	case sge::image::color::format::r32f:
 	case sge::image::color::format::rgb32f:
 	case sge::image::color::format::bgr32f:
 	case sge::image::color::format::rgba32f:

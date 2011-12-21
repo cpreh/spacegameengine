@@ -48,6 +48,7 @@ sge::libpng::bit_depth_from_format(
 	case sge::image::color::format::bgra8:
 	case sge::image::color::format::bgrx8:
 		return 8;
+	case sge::image::color::format::r32f:
 	case sge::image::color::format::rgb32f:
 	case sge::image::color::format::bgr32f:
 	case sge::image::color::format::rgba32f:

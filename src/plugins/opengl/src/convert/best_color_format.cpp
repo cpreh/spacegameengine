@@ -34,6 +34,7 @@ sge::opengl::convert::best_color_format(
 	{
 	case sge::image::color::format::a8:
 	case sge::image::color::format::l8:
+	case sge::image::color::format::r32f:
 	case sge::image::color::format::la8:
 	case sge::image::color::format::rgb8:
 	case sge::image::color::format::bgr8:

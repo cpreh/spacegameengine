@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_FORMATS_HPP_INCLUDED
 #define SGE_SRC_IMAGE_DYNAMIC_COLOR_FORMATS_HPP_INCLUDED
 
+#include <sge/src/image/dynamic/color/c32f_1_format.hpp>
 #include <sge/src/image/dynamic/color/c32f_3_format.hpp>
 #include <sge/src/image/dynamic/color/c32f_4_format.hpp>
 #include <sge/src/image/dynamic/color/c8_1_format.hpp>
@@ -41,11 +42,12 @@ namespace dynamic
 namespace color
 {
 
-typedef boost::mpl::vector6<
+typedef boost::mpl::vector7<
 	dynamic::color::c8_1_format,
 	dynamic::color::c8_2_format,
 	dynamic::color::c8_3_format,
 	dynamic::color::c8_4_format,
+	dynamic::color::c32f_1_format,
 	dynamic::color::c32f_3_format,
 	dynamic::color::c32f_4_format
 > formats;

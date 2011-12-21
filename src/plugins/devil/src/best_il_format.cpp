@@ -48,6 +48,8 @@ sge::devil::best_il_format(
 		return image::color::format::rgb8;
 	case image::color::format::bgrx8:
 		return image::color::format::bgr8;
+	case image::color::format::r32f:
+		return image::color::format::rgb32f;
 	case image::color::format::size:
 		break;
 	}

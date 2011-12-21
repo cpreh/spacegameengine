@@ -44,6 +44,11 @@ sge::opengl::convert::color_to_internal_format(
 			opengl::internal_color_format(
 				GL_LUMINANCE8
 			);
+	case image::color::format::r32f:
+		return
+			opengl::internal_color_format(
+				1
+			);
 	case image::color::format::la8:
 		return
 			opengl::internal_color_format(

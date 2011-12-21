@@ -50,6 +50,7 @@ base_size(
 	case format::bgra8:
 	case format::bgrx8:
 		return sizeof(boost::uint8_t);
+	case format::r32f:
 	case format::bgr32f:
 	case format::rgb32f:
 	case format::rgba32f:

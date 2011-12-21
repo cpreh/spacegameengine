@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/view.hpp>
 #include <sge/src/image/config.hpp>
 
-#if defined(SGE_SRC_IMAGE_STATIC_COPY_AND_CONVERT)
+#if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
 #include <sge/src/image/algorithm/copy_and_convert_visitor.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -49,7 +49,7 @@ sge::image::algorithm::copy_and_convert(
 	image::algorithm::may_overlap::type const _overlap
 )
 {
-#if defined(SGE_SRC_IMAGE_STATIC_COPY_AND_CONVERT)
+#if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
 	fcppt::variant::apply_binary(
 		algorithm::copy_and_convert_visitor(
 			_overlap

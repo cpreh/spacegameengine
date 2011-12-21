@@ -45,6 +45,7 @@ sge::opengl::convert::color_to_format_type(
 			opengl::color_format_type(
 				GL_UNSIGNED_BYTE
 			);
+	case image::color::format::r32f:
 	case image::color::format::rgb32f:
 	case image::color::format::bgr32f:
 	case image::color::format::rgba32f:

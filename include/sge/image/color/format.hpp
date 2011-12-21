@@ -34,6 +34,7 @@ enum type
 {
 	a8,
 	l8,
+	r32f,
 	la8,
 	rgb8,
 	bgr8,

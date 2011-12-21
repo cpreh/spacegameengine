@@ -35,6 +35,7 @@ sge::image::color::element_count(
 	{
 	case format::a8:
 	case format::l8:
+	case format::r32f:
 		return 1;
 	case format::la8:
 		return 2;

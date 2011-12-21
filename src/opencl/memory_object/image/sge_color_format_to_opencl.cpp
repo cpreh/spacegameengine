@@ -59,6 +59,11 @@ sge::opencl::memory_object::image::sge_color_format_to_opencl(
 				make_cl_image_format(
 					CL_INTENSITY,
 					CL_UNORM_INT8);
+		case sge::image::color::format::r32f:
+			return
+				make_cl_image_format(
+					CL_R,
+					CL_FLOAT);
 		case sge::image::color::format::la8:
 			return
 				make_cl_image_format(

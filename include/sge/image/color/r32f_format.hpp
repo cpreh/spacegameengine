@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_A8_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_A8_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_R32F_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_R32F_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/channel8.hpp>
+#include <sge/image/color/channel32f.hpp>
 #include <sge/image/color/homogenous_format.hpp>
-#include <mizuiro/color/layout/alpha.hpp>
+#include <mizuiro/color/layout/red.hpp>
 
 namespace sge
 {
@@ -33,9 +33,9 @@ namespace color
 {
 
 typedef color::homogenous_format<
-	color::channel8,
-	mizuiro::color::layout::alpha
->::type a8_format;
+	color::channel32f,
+	mizuiro::color::layout::red
+>::type r32f_format;
 
 }
 }

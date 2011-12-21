@@ -53,6 +53,7 @@ sge::devil::to_il_format(
 	case image::color::format::bgra8:
 	case image::color::format::bgra32f:
 		return IL_BGRA;
+	case image::color::format::r32f:
 	case image::color::format::rgbx8:
 	case image::color::format::bgrx8:
 	case image::color::format::size:

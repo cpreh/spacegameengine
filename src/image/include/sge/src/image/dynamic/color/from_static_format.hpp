@@ -30,11 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/bgrx8_format.hpp>
 #include <sge/image/color/l8_format.hpp>
 #include <sge/image/color/la8_format.hpp>
+#include <sge/image/color/r32f_format.hpp>
 #include <sge/image/color/rgb32f_format.hpp>
 #include <sge/image/color/rgb8_format.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/rgbx8_format.hpp>
+#include <sge/src/image/dynamic/color/c32f_1_format.hpp>
 #include <sge/src/image/dynamic/color/c32f_3_format.hpp>
 #include <sge/src/image/dynamic/color/c32f_4_format.hpp>
 #include <sge/src/image/dynamic/color/c8_1_format.hpp>
@@ -62,6 +64,12 @@ SGE_IMAGE_SYMBOL
 color::c8_1_format const *
 from_static_format(
 	image::color::l8_format const &
+);
+
+SGE_IMAGE_SYMBOL
+color::c32f_1_format const *
+from_static_format(
+	image::color::r32f_format const &
 );
 
 SGE_IMAGE_SYMBOL

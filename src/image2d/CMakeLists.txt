@@ -21,6 +21,8 @@ SET(
 	include/sge/image2d/multi_system_parameters_fwd.hpp
 	include/sge/image2d/pitch.hpp
 	include/sge/image2d/plugin.hpp
+	include/sge/image2d/r32f.hpp
+	include/sge/image2d/r32f_format.hpp
 	include/sge/image2d/rect.hpp
 	include/sge/image2d/rgb8.hpp
 	include/sge/image2d/rgb8_format.hpp
@@ -69,6 +71,7 @@ SET(
 	src/image2d/multi_system.cpp
 	src/image2d/multi_system_parameters.cpp
 	src/image2d/plugin.cpp
+	src/image2d/r32f.cpp
 	src/image2d/rgb8.cpp
 	src/image2d/rgba32f.cpp
 	src/image2d/rgba8.cpp

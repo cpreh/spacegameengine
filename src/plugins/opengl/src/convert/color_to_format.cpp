@@ -44,6 +44,11 @@ sge::opengl::convert::color_to_format(
 			opengl::color_format(
 				GL_LUMINANCE
 			);
+	case image::color::format::r32f:
+		return
+			opengl::color_format(
+				GL_RED
+			);
 	case image::color::format::la8:
 		return
 			opengl::color_format(
