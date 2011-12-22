@@ -34,8 +34,11 @@ namespace glsl
 namespace uniform
 {
 
+/**
+ * \brief A shared pointer to a uniform::variable
+*/
 typedef fcppt::shared_ptr<
-	variable
+	uniform::variable
 > variable_ptr;
 
 }

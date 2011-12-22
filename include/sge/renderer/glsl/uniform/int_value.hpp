@@ -35,6 +35,11 @@ namespace glsl
 namespace uniform
 {
 
+/**
+ * \brief An int value
+ *
+ * \see uniform::basic_value
+*/
 typedef uniform::basic_value<
 	uniform::int_type,
 	uniform::int_value_type::type

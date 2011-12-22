@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_MAKE_ELEMENT_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_MAKE_ELEMENT_TYPE_HPP_INCLUDED
 
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/glsl/uniform/int_type.hpp>
 #include <sge/renderer/glsl/uniform/detail/float_arity.hpp>
 #include <sge/renderer/glsl/uniform/detail/int_arity.hpp>
 #include <sge/renderer/glsl/uniform/detail/matrix_arity.hpp>
@@ -42,13 +44,17 @@ template<
 >
 struct make_element_type;
 
+/**
+\brief Metafunction that maps a static fcppt math vector to its corresponding
+uniform::float_value_type
+*/
 template<
 	typename N,
 	typename S
 >
 struct make_element_type<
 	fcppt::math::vector::basic<
-		float,
+		sge::renderer::scalar,
 		N,
 		S
 	>
@@ -59,13 +65,17 @@ detail::float_arity<
 >
 {};
 
+/**
+\brief Metafunction that maps a static fcppt math vector to its corresponding
+uniform::int_value_type
+*/
 template<
 	typename N,
 	typename S
 >
 struct make_element_type<
 	fcppt::math::vector::basic<
-		int,
+		sge::renderer::glsl::uniform::int_type,
 		N,
 		S
 	>
@@ -76,6 +86,10 @@ detail::int_arity<
 >
 {};
 
+/**
+\brief Metafunction that maps a static fcppt math matrix to its corresponding
+uniform::float_value_type
+*/
 template<
 	typename N,
 	typename M,

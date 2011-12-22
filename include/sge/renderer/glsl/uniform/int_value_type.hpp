@@ -30,13 +30,31 @@ namespace glsl
 namespace uniform
 {
 
+/**
+\brief The namespace for the int_value_type enum
+*/
 namespace int_value_type
 {
+/**
+\brief The enum type for int value types
+*/
 enum type
 {
+	/**
+	\brief Each array element consists of 1 int
+	*/
 	int1,
+	/**
+	\brief Each array element consists of 2 ints
+	*/
 	int2,
+	/**
+	\brief Each array element consists of 3 ints
+	*/
 	int3,
+	/**
+	\brief Each array element consists of 4 ints
+	*/
 	int4
 };
 }

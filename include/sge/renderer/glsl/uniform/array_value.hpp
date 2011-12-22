@@ -55,6 +55,8 @@ namespace uniform
  * \param _beg The beginning of the range
  *
  * \param _end One past the end of the range
+ *
+ * \see uniform::make_element_type
 */
 template<
 	typename In
@@ -113,6 +115,8 @@ array_value(
  * \param _var The variable to set the value for
  *
  * \param _cont The container to store the data from
+ *
+ * \see uniform::make_element_type
 */
 template<
 	typename Container

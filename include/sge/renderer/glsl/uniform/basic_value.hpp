@@ -39,18 +39,22 @@ namespace uniform
 /**
  * \brief A container for a uniform value
  *
- * Uniform values are arrays of glsl::int_type or renderer::scalar. These
- * arrays can be interpreted as vectors, matrices or even arrays of vectors or
- * matrices. For example, 16 float values could be a 4x4 float matrix, 4
- * vectors consisting of 4 floats each, or even 16 single float values.
- *
- * This class stores such a value. It has a raw data store, containing the int
- * or float elements, an enum which tells how the elements are to be
- * interpreted, and a size element that says how many individual elements there
- * are.
+ * Basic uniform values are used to send uniform data to or retrieve uniform
+ * data from GLSL. GLSL differentiates between arrays and non arrays, which
+ * this class models with its size, which can be either 1, indicating a non
+ * array, or >= 1, indicating an array. The fundamental type that is stored is
+ * determined by \a Type. Such a type describes how many basic elements,
+ * denoted by \a Value, are needed to store one element of the array. For
+ * example, a 4x4 matrix would need 16 basic elements of scalar type, a float4
+ * would need 4, and so on.
  *
  * \tparam Value The underlying element type
  * \tparam Type An enum type describing the type of the elements
+ *
+ * \see uniform::float_value
+ * \see uniform::int_value
+ * \see uniform::value
+ * \see uniform::variable
 */
 template<
 	typename Value,
@@ -90,7 +94,9 @@ public:
 	 * \brief Constructs a uniform value
 	 *
 	 * Constructs the uniform value from \a store, containing \a elements
-	 * of \a type.
+	 * of \a type. For example, to construct an array of two 4x4 matrices,
+	 * \a store should consist of 32 scalar elements, \a elements should be
+	 * 2 and type should be <code>glsl::float_value_type::matrix4x4</code>
 	 *
 	 * \param store The store to use
 	 * \param elements The number of individual elements
@@ -121,7 +127,7 @@ public:
 	data();
 
 	/**
-	 * \brief Returns the number of individual elements
+	 * \brief Returns the number of array elements
 	*/
 	SGE_RENDERER_SYMBOL
 	renderer::size_type

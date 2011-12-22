@@ -38,10 +38,13 @@ namespace glsl
 namespace uniform
 {
 
+/**
+\brief A variant over uniform::int_value and uniform::float_value
+*/
 typedef fcppt::variant::object<
 	boost::mpl::vector2<
-		int_value,
-		float_value
+		uniform::int_value,
+		uniform::float_value
 	>
 > value;
 

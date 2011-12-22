@@ -41,6 +41,10 @@ template<
 >
 struct make_enum_type;
 
+/**
+\brief Metafunction that maps glsl::uniform::int_type to
+uniform::int_value_type
+*/
 template<>
 struct make_enum_type<
 	glsl::uniform::int_type
@@ -49,6 +53,9 @@ struct make_enum_type<
 	typedef uniform::int_value_type::type type;
 };
 
+/**
+\brief Metafunction that maps renderer::scalar to uniform::float_value_type
+*/
 template<>
 struct make_enum_type<
 	renderer::scalar

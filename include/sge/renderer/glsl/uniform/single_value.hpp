@@ -43,6 +43,17 @@ namespace glsl
 namespace uniform
 {
 
+/**
+\brief Sets a single vector/matrix value for a uniform variable
+
+Sets a single value of a vector or a matrix for \a _var from \a _arg.
+
+\param _var The variable to set the value for
+
+\param _arg The value to set
+
+\see uniform::make_element_type
+*/
 template<
 	typename Value
 >
@@ -78,6 +89,15 @@ single_value(
 
 }
 
+/**
+\brief Sets a single fundamental value for a uniform variable
+
+Sets a single value of a fundamental type for \a _var from \a _arg.
+
+\param _var The variable to set the value for
+
+\param _arg The value to set
+*/
 template<
 	typename Value
 >

@@ -30,22 +30,67 @@ namespace glsl
 namespace uniform
 {
 
+/**
+\brief The namespace for the float_value_type enum
+*/
 namespace float_value_type
 {
+/**
+\brief The enum type for float value types
+*/
 enum type
 {
+	/**
+	\brief Each array element consists of 1 float
+	*/
 	float1,
+	/**
+	\brief Each array element consists of 2 floats
+	*/
 	float2,
+	/**
+	\brief Each array element consists of 3 floats
+	*/
 	float3,
+	/**
+	\brief Each array element consists of 4 floats
+	*/
 	float4,
+	/**
+	\brief Each array element consists of 2x2 matrix of floats
+	*/
 	matrix2x2,
+	/**
+	\brief Each array element consists of 3x3 matrix of floats
+	*/
 	matrix3x3,
+	/**
+	\brief Each array element consists of 4x4 matrix of floats
+	*/
 	matrix4x4,
+	/**
+	\brief Each array element consists of 2x3 matrix of floats
+	*/
 	matrix2x3,
+	/**
+	\brief Each array element consists of 3x2 matrix of floats
+	*/
 	matrix3x2,
+	/**
+	\brief Each array element consists of 2x4 matrix of floats
+	*/
 	matrix2x4,
+	/**
+	\brief Each array element consists of 4x2 matrix of floats
+	*/
 	matrix4x2,
+	/**
+	\brief Each array element consists of 3x4 matrix of floats
+	*/
 	matrix3x4,
+	/**
+	\brief Each array element consists of 4x3 matrix of floats
+	*/
 	matrix4x3
 };
 }

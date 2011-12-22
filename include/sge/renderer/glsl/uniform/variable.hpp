@@ -37,6 +37,15 @@ namespace glsl
 namespace uniform
 {
 
+/**
+\brief A dynamic representation of a uniform variable
+
+This class is a dynamic representation of a uniform variable and is retrieved
+from a glsl::program. It can be used to set or get a uniform value from GLSL.
+
+\see uniform::value
+\see glsl::program
+*/
 class SGE_CLASS_SYMBOL variable
 {
 	FCPPT_NONCOPYABLE(
@@ -46,16 +55,26 @@ protected:
 	SGE_RENDERER_SYMBOL
 	variable();
 public:
+	/**
+	\brief Get the uniform value
+
+	\return A copy of the uniform value
+	*/
 	virtual uniform::value const
 	get() const = 0;
 
+	/**
+	\brief Set the uniform value
+
+	Sets the uniform value to \a value
+	*/
 	virtual void
 	set(
-		uniform::value const &
+		uniform::value const &value
 	) = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~variable();
+	virtual ~variable() = 0;
 };
 
 }

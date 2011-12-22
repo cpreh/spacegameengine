@@ -33,14 +33,21 @@ namespace glsl
 namespace uniform
 {
 
+/**
+\brief Metafunction which maps a value type to its corresponding
+glsl::basic_value type
+
+\tparam T The value type, which can be either glsl::int_type or
+renderer::scalar
+*/
 template<
 	typename T
 >
 struct make_basic_value
 {
-	typedef basic_value<
+	typedef sge::renderer::glsl::uniform::basic_value<
 		T,
-		typename make_enum_type<
+		typename sge::renderer::glsl::uniform::make_enum_type<
 			T
 		>::type
 	> type;
