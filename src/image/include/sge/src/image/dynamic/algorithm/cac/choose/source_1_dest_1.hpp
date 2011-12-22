@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/dynamic/view/format_channel.hpp>
 #include <mizuiro/color/conversion/alpha_to_any.hpp>
 #include <mizuiro/color/conversion/any_to_alpha.hpp>
+#include <mizuiro/color/conversion/luminance_to_rgb.hpp>
+#include <mizuiro/color/conversion/rgb_to_luminance.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -68,7 +70,7 @@ typename boost::enable_if<
 >::type
 choose(
 	SourceFormat const &_source_format,
-	DestFormat const &
+	DestFormat const &_dest_format
 )
 {
 	switch(
@@ -78,7 +80,7 @@ choose(
 		)
 	)
 	{
-	// a8 to l8
+	// a8 to l8 or a8 to r32f
 	case dynamic::color::available_channels::alpha:
 		return
 			&mizuiro::color::conversion::alpha_to_any<
@@ -87,16 +89,70 @@ choose(
 					SourceFormat
 				>::type
 			>;
-	// l8 to a8
+	// l8 to a8 or l8 to r32f
 	case dynamic::color::available_channels::luminance:
-		return
-			&mizuiro::color::conversion::any_to_alpha<
-				typename DestFormat::color_format,
-				typename cac::source<
-					SourceFormat
-				>::type
-			>;
+		switch(
+			dynamic::view::format_channel(
+				_dest_format,
+				0
+			)
+		)
+		{
+		case dynamic::color::available_channels::alpha:
+			return
+				&mizuiro::color::conversion::any_to_alpha<
+					typename DestFormat::color_format,
+					typename cac::source<
+						SourceFormat
+					>::type
+				>;
+		case dynamic::color::available_channels::red:
+			return
+				&mizuiro::color::conversion::luminance_to_rgb<
+					typename DestFormat::color_format,
+					typename cac::source<
+						SourceFormat
+					>::type
+				>;
+		case dynamic::color::available_channels::luminance:
+		case dynamic::color::available_channels::green:
+		case dynamic::color::available_channels::blue:
+		case dynamic::color::available_channels::undefined:
+		case dynamic::color::available_channels::size:
+			break;
+		}
+	// r32f to a8 ot r32f to l8
 	case dynamic::color::available_channels::red:
+		switch(
+			dynamic::view::format_channel(
+				_dest_format,
+				0
+			)
+		)
+		{
+		case dynamic::color::available_channels::alpha:
+			return
+				&mizuiro::color::conversion::any_to_alpha<
+					typename DestFormat::color_format,
+					typename cac::source<
+						SourceFormat
+					>::type
+				>;
+		case dynamic::color::available_channels::luminance:
+			return
+				&mizuiro::color::conversion::rgb_to_luminance<
+					typename DestFormat::color_format,
+					typename cac::source<
+						SourceFormat
+					>::type
+				>;
+		case dynamic::color::available_channels::red:
+		case dynamic::color::available_channels::green:
+		case dynamic::color::available_channels::blue:
+		case dynamic::color::available_channels::undefined:
+		case dynamic::color::available_channels::size:
+			break;
+		}
 	case dynamic::color::available_channels::green:
 	case dynamic::color::available_channels::blue:
 	case dynamic::color::available_channels::undefined:

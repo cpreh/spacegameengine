@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/dynamic/view/format_channel.hpp>
 #include <mizuiro/color/conversion/any_to_alpha.hpp>
 #include <mizuiro/color/conversion/rgb_to_luminance.hpp>
+#include <mizuiro/color/conversion/same_to_same.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/or.hpp>
@@ -103,7 +104,15 @@ choose(
 					SourceFormat
 				>::type
 			>;
+	// rgb to r32f
 	case dynamic::color::available_channels::red:
+		return
+			&mizuiro::color::conversion::same_to_same<
+				typename DestFormat::color_format,
+				typename cac::source<
+					SourceFormat
+				>::type
+			>;
 	case dynamic::color::available_channels::green:
 	case dynamic::color::available_channels::blue:
 	case dynamic::color::available_channels::undefined:
