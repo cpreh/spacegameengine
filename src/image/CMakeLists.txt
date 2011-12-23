@@ -7,8 +7,11 @@ SET(
 	include/sge/image/algorithm/may_overlap.hpp
 	include/sge/image/algorithm/print.hpp
 	include/sge/image/basic_format.hpp
+	include/sge/image/bgr32f_format.hpp
+	include/sge/image/bgr8_format.hpp
 	include/sge/image/bgra32f_format.hpp
 	include/sge/image/bgra8_format.hpp
+	include/sge/image/bgrx8_format.hpp
 	include/sge/image/capabilities.hpp
 	include/sge/image/capabilities_field.hpp
 	include/sge/image/color/a8.hpp
@@ -20,12 +23,15 @@ SET(
 	include/sge/image/color/any/object.hpp
 	include/sge/image/color/any/object_fwd.hpp
 	include/sge/image/color/any/print.hpp
+	include/sge/image/color/bgr32f.hpp
 	include/sge/image/color/bgr32f_format.hpp
+	include/sge/image/color/bgr8.hpp
 	include/sge/image/color/bgr8_format.hpp
 	include/sge/image/color/bgra32f.hpp
 	include/sge/image/color/bgra32f_format.hpp
 	include/sge/image/color/bgra8.hpp
 	include/sge/image/color/bgra8_format.hpp
+	include/sge/image/color/bgrx8.hpp
 	include/sge/image/color/bgrx8_format.hpp
 	include/sge/image/color/channel32f.hpp
 	include/sge/image/color/channel8.hpp
@@ -41,6 +47,7 @@ SET(
 	include/sge/image/color/init.hpp
 	include/sge/image/color/l8.hpp
 	include/sge/image/color/l8_format.hpp
+	include/sge/image/color/la8.hpp
 	include/sge/image/color/la8_format.hpp
 	include/sge/image/color/object.hpp
 	include/sge/image/color/object_impl.hpp
@@ -77,6 +84,7 @@ SET(
 	include/sge/image/rgb8_format.hpp
 	include/sge/image/rgba32f_format.hpp
 	include/sge/image/rgba8_format.hpp
+	include/sge/image/rgbx8_format.hpp
 	include/sge/image/size_type.hpp
 	include/sge/image/store.hpp
 	include/sge/image/store_fwd.hpp
@@ -185,7 +193,7 @@ SET(
 	src/image/include/sge/src/image/dynamic/color/c8_2_format.hpp
 	src/image/include/sge/src/image/dynamic/color/c8_3_format.hpp
 	src/image/include/sge/src/image/dynamic/color/c8_4_format.hpp
-	src/image/include/sge/src/image/dynamic/color/channel_index.hpp
+	src/image/include/sge/src/image/dynamic/color/convert_channel.hpp
 	src/image/include/sge/src/image/dynamic/color/formats.hpp
 	src/image/include/sge/src/image/dynamic/color/from_static_format.hpp
 	src/image/include/sge/src/image/dynamic/color/from_static_format_type.hpp

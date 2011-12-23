@@ -6,6 +6,7 @@ SET(
 	include/sge/image2d/algorithm/copy_and_convert.hpp
 	include/sge/image2d/algorithm/fill.hpp
 	include/sge/image2d/algorithm/print.hpp
+	include/sge/image2d/bgr32f_format.hpp
 	include/sge/image2d/bgra8.hpp
 	include/sge/image2d/bgra8_format.hpp
 	include/sge/image2d/dim.hpp

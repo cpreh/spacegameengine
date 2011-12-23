@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_ACCESS_HPP_INCLUDED
-#define SGE_SRC_IMAGE_DYNAMIC_COLOR_ACCESS_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_DYNAMIC_CHANNEL_ACCESS_HPP_INCLUDED
+#define SGE_SRC_IMAGE_DYNAMIC_CHANNEL_ACCESS_HPP_INCLUDED
 
 #include <sge/src/image/dynamic/color/available_channels.hpp>
-#include <sge/src/image/dynamic/color/channel_index.hpp>
-#include <mizuiro/size_type.hpp>
+#include <sge/src/image/dynamic/color/convert_channel.hpp>
 #include <mizuiro/color/format_store.hpp>
-#include <mizuiro/color/access/dynamic_index.hpp>
+#include <mizuiro/color/access/dynamic_channel.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -43,7 +42,7 @@ template<
 	typename Format,
 	typename Channel
 >
-struct dynamic_index<
+struct dynamic_channel<
 	Format,
 	Channel,
 	typename boost::enable_if<
@@ -55,14 +54,14 @@ struct dynamic_index<
 >
 {
 	static
-	mizuiro::size_type
+	sge::image::dynamic::color::available_channels::type
 	execute(
 		mizuiro::color::format_store<Format> const &,
 		Channel const &
 	)
 	{
 		return
-			sge::image::dynamic::color::channel_index(
+			sge::image::dynamic::color::convert_channel(
 				Channel()
 			);
 	}

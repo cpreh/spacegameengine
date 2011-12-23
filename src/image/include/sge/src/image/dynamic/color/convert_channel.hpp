@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_CHANNEL_INDEX_HPP_INCLUDED
-#define SGE_SRC_IMAGE_DYNAMIC_COLOR_CHANNEL_INDEX_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_CONVERT_CHANNEL_HPP_INCLUDED
+#define SGE_SRC_IMAGE_DYNAMIC_COLOR_CONVERT_CHANNEL_HPP_INCLUDED
 
-#include <mizuiro/size_type.hpp>
+#include <sge/src/image/dynamic/color/available_channels.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <mizuiro/color/channel/blue.hpp>
 #include <mizuiro/color/channel/green.hpp>
@@ -38,50 +38,44 @@ namespace dynamic
 namespace color
 {
 
-#define SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CHANNEL_INDEX(\
-	Channel,\
-	index\
+#define SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CONVERT_CHANNEL(\
+	channel_name\
 )\
 inline \
-mizuiro::size_type \
-channel_index( \
-	Channel const &\
+sge::image::dynamic::color::available_channels::type \
+convert_channel( \
+	mizuiro::color::channel::channel_name const &\
 )\
 {\
-	return index;\
+	return \
+		sge::image::dynamic::color::available_channels::channel_name;\
 }
 
-SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CHANNEL_INDEX(
-	mizuiro::color::channel::alpha,
-	0
+SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CONVERT_CHANNEL(
+	alpha
 )
 
-SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CHANNEL_INDEX(
-	mizuiro::color::channel::blue,
-	1
+SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CONVERT_CHANNEL(
+	blue
 )
 
-SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CHANNEL_INDEX(
-	mizuiro::color::channel::green,
-	2
+SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CONVERT_CHANNEL(
+	green
 )
 
-SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CHANNEL_INDEX(
-	mizuiro::color::channel::luminance,
-	3
+SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CONVERT_CHANNEL(
+	luminance
 )
 
-SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CHANNEL_INDEX(
-	mizuiro::color::channel::red,
-	4
+SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CONVERT_CHANNEL(
+	red
 )
 
-SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CHANNEL_INDEX(
-	mizuiro::color::channel::undefined,
-	5
+SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CONVERT_CHANNEL(
+	undefined
 )
 
-#undef SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CHANNEL_INDEX
+#undef SGE_SRC_IMAGE_DYNAMIC_COLOR_MAKE_CONVERT_CHANNEL
 
 }
 }
