@@ -592,25 +592,25 @@ SET(
 	src/plugins/opengl/src/texture/depth_stencil.cpp
 	src/plugins/opengl/src/texture/depth_stencil_surface.cpp
 	src/plugins/opengl/src/texture/filter/anisotropic.cpp
-	src/plugins/opengl/src/texture/filter/bind.cpp
 	src/plugins/opengl/src/texture/filter/context.cpp
-	src/plugins/opengl/src/texture/filter/delete.cpp
-	src/plugins/opengl/src/texture/filter/env.cpp
-	src/plugins/opengl/src/texture/filter/gen.cpp
-	src/plugins/opengl/src/texture/filter/get_image.cpp
-	src/plugins/opengl/src/texture/filter/get_parameter_int.cpp
-	src/plugins/opengl/src/texture/filter/level_parameter.cpp
 	src/plugins/opengl/src/texture/filter/normal.cpp
-	src/plugins/opengl/src/texture/filter/parameter_int.cpp
-	src/plugins/opengl/src/texture/filter/set.cpp
-	src/plugins/opengl/src/texture/filter/set_2d.cpp
-	src/plugins/opengl/src/texture/filter/set_3d.cpp
-	src/plugins/opengl/src/texture/filter/set_active_level.cpp
-	src/plugins/opengl/src/texture/filter/set_box.cpp
-	src/plugins/opengl/src/texture/filter/set_client_level.cpp
-	src/plugins/opengl/src/texture/filter/set_rect.cpp
 	src/plugins/opengl/src/texture/filter/update.cpp
 	src/plugins/opengl/src/texture/filter/visitor.cpp
+	src/plugins/opengl/src/texture/funcs/bind.cpp
+	src/plugins/opengl/src/texture/funcs/delete.cpp
+	src/plugins/opengl/src/texture/funcs/env.cpp
+	src/plugins/opengl/src/texture/funcs/gen.cpp
+	src/plugins/opengl/src/texture/funcs/get_image.cpp
+	src/plugins/opengl/src/texture/funcs/get_parameter_int.cpp
+	src/plugins/opengl/src/texture/funcs/level_parameter.cpp
+	src/plugins/opengl/src/texture/funcs/parameter_int.cpp
+	src/plugins/opengl/src/texture/funcs/set.cpp
+	src/plugins/opengl/src/texture/funcs/set_2d.cpp
+	src/plugins/opengl/src/texture/funcs/set_3d.cpp
+	src/plugins/opengl/src/texture/funcs/set_active_level.cpp
+	src/plugins/opengl/src/texture/funcs/set_box.cpp
+	src/plugins/opengl/src/texture/funcs/set_client_level.cpp
+	src/plugins/opengl/src/texture/funcs/set_rect.cpp
 	src/plugins/opengl/src/texture/holder.cpp
 	src/plugins/opengl/src/texture/lock_base.cpp
 	src/plugins/opengl/src/texture/mipmap/all_levels.cpp
