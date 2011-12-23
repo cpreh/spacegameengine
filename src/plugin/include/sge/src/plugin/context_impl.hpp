@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/object.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/shared_ptr.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/static_pointer_cast.hpp>
 
 
 template<
@@ -57,7 +58,7 @@ sge::plugin::context<T>::load()
 		ptr
 	)
 		return
-			fcppt::polymorphic_pointer_cast<
+			fcppt::static_pointer_cast<
 				plugin::object<T>
 			>(
 				ptr
