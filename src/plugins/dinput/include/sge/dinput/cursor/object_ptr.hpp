@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_CURSOR_OBJECT_PTR_HPP_INCLUDED
 
 #include <sge/dinput/cursor/object_fwd.hpp>
-#include <fcppt/shared_ptr.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
 
 namespace sge
 {

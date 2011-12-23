@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_DEPTH_STENCIL_PTR_HPP_INCLUDED
 
 #include <sge/renderer/texture/depth_stencil_fwd.hpp>
-#include <fcppt/shared_ptr.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
 
 
 namespace sge

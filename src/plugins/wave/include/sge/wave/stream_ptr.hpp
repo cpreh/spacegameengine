@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WAVE_STREAM_PTR_HPP_INCLUDED
 #define SGE_WAVE_STREAM_PTR_HPP_INCLUDED
 
-#include <fcppt/unique_ptr.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
 #include <fcppt/config/external_end.hpp>

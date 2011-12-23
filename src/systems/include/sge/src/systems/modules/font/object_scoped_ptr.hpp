@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_MODULES_FONT_OBJECT_SCOPED_PTR_HPP_INCLUDED
 
 #include <sge/src/systems/modules/font/object_fwd.hpp>
-#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge

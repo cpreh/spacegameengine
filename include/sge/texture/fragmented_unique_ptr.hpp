@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_FRAGMENTED_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/texture/fragmented_fwd.hpp>
-#include <fcppt/unique_ptr.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
