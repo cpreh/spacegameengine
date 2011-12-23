@@ -23,12 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/a8.hpp>
 #include <sge/image/color/a8_format.hpp>
+#include <sge/image/color/bgr32f.hpp>
 #include <sge/image/color/bgr32f_format.hpp>
+#include <sge/image/color/bgr8.hpp>
 #include <sge/image/color/bgr8_format.hpp>
 #include <sge/image/color/bgra32f.hpp>
 #include <sge/image/color/bgra32f_format.hpp>
 #include <sge/image/color/bgra8.hpp>
 #include <sge/image/color/bgra8_format.hpp>
+#include <sge/image/color/bgrx8.hpp>
 #include <sge/image/color/bgrx8_format.hpp>
 #include <sge/image/color/channel32f.hpp>
 #include <sge/image/color/channel8.hpp>
@@ -43,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/l8.hpp>
 #include <sge/image/color/l8_format.hpp>
+#include <sge/image/color/la8.hpp>
 #include <sge/image/color/la8_format.hpp>
 #include <sge/image/color/object.hpp>
 #include <sge/image/color/object_impl.hpp>

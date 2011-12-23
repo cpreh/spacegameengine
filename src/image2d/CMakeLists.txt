@@ -6,9 +6,16 @@ SET(
 	include/sge/image2d/algorithm/copy_and_convert.hpp
 	include/sge/image2d/algorithm/fill.hpp
 	include/sge/image2d/algorithm/print.hpp
+	include/sge/image2d/bgr32f.hpp
 	include/sge/image2d/bgr32f_format.hpp
+	include/sge/image2d/bgr8.hpp
+	include/sge/image2d/bgr8_format.hpp
+	include/sge/image2d/bgra32f.hpp
+	include/sge/image2d/bgra32f_format.hpp
 	include/sge/image2d/bgra8.hpp
 	include/sge/image2d/bgra8_format.hpp
+	include/sge/image2d/bgrx8.hpp
+	include/sge/image2d/bgrx8_format.hpp
 	include/sge/image2d/dim.hpp
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_fwd.hpp
@@ -16,6 +23,8 @@ SET(
 	include/sge/image2d/image2d.hpp
 	include/sge/image2d/l8.hpp
 	include/sge/image2d/l8_format.hpp
+	include/sge/image2d/la8.hpp
+	include/sge/image2d/la8_format.hpp
 	include/sge/image2d/multi_system.hpp
 	include/sge/image2d/multi_system_fwd.hpp
 	include/sge/image2d/multi_system_parameters.hpp
@@ -25,12 +34,16 @@ SET(
 	include/sge/image2d/r32f.hpp
 	include/sge/image2d/r32f_format.hpp
 	include/sge/image2d/rect.hpp
+	include/sge/image2d/rgb32f.hpp
+	include/sge/image2d/rgb32f_format.hpp
 	include/sge/image2d/rgb8.hpp
 	include/sge/image2d/rgb8_format.hpp
 	include/sge/image2d/rgba32f.hpp
 	include/sge/image2d/rgba32f_format.hpp
 	include/sge/image2d/rgba8.hpp
 	include/sge/image2d/rgba8_format.hpp
+	include/sge/image2d/rgbx8.hpp
+	include/sge/image2d/rgbx8_format.hpp
 	include/sge/image2d/save_from_view.hpp
 	include/sge/image2d/symbol.hpp
 	include/sge/image2d/system.hpp
@@ -66,16 +79,23 @@ SET(
 	src/image2d/algorithm/copy_and_convert.cpp
 	src/image2d/algorithm/fill.cpp
 	src/image2d/algorithm/print.cpp
+	src/image2d/bgr32f.cpp
+	src/image2d/bgr8.cpp
+	src/image2d/bgra32f.cpp
 	src/image2d/bgra8.cpp
+	src/image2d/bgrx8.cpp
 	src/image2d/file.cpp
 	src/image2d/l8.cpp
+	src/image2d/la8.cpp
 	src/image2d/multi_system.cpp
 	src/image2d/multi_system_parameters.cpp
 	src/image2d/plugin.cpp
 	src/image2d/r32f.cpp
+	src/image2d/rgb32.cpp
 	src/image2d/rgb8.cpp
 	src/image2d/rgba32f.cpp
 	src/image2d/rgba8.cpp
+	src/image2d/rgbx8.cpp
 	src/image2d/save_from_view.cpp
 	src/image2d/system.cpp
 	src/image2d/view/checked_sub.cpp

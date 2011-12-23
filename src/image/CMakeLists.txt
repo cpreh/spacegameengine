@@ -212,6 +212,7 @@ SET(
 	src/image/include/sge/src/image/dynamic/view/from_static.hpp
 	src/image/include/sge/src/image/dynamic/view/from_static_visitor.hpp
 	src/image/include/sge/src/image/dynamic/view/image_format.hpp
+	src/image/include/sge/src/image/instantiate_store.hpp
 	src/image/include/sge/src/image/store_impl.hpp
 	src/image/include/sge/src/image/view/checked_sub_any.hpp
 	src/image/include/sge/src/image/view/checked_sub_condition.hpp

@@ -29,7 +29,7 @@ namespace image3d
 {
 
 typedef image::r32f_format<
-	2
+	3
 >::type r32f_format;
 
 }

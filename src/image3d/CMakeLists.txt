@@ -1,21 +1,41 @@
 SET(
 	SGE_IMAGE3D_FILES
+	include/sge/image3d/a8.hpp
+	include/sge/image3d/a8_format.hpp
 	include/sge/image3d/algorithm/algorithm.hpp
 	include/sge/image3d/algorithm/copy_and_convert.hpp
 	include/sge/image3d/algorithm/fill.hpp
 	include/sge/image3d/algorithm/print.hpp
+	include/sge/image3d/bgr32f.hpp
+	include/sge/image3d/bgr32f_format.hpp
+	include/sge/image3d/bgr8.hpp
+	include/sge/image3d/bgr8_format.hpp
+	include/sge/image3d/bgra32f.hpp
+	include/sge/image3d/bgra32f_format.hpp
+	include/sge/image3d/bgra8.hpp
+	include/sge/image3d/bgra8_format.hpp
+	include/sge/image3d/bgrx8.hpp
+	include/sge/image3d/bgrx8_format.hpp
 	include/sge/image3d/box.hpp
 	include/sge/image3d/dim.hpp
 	include/sge/image3d/image3d.hpp
 	include/sge/image3d/l8.hpp
 	include/sge/image3d/l8_format.hpp
+	include/sge/image3d/la8.hpp
+	include/sge/image3d/la8_format.hpp
 	include/sge/image3d/pitch.hpp
 	include/sge/image3d/r32f.hpp
 	include/sge/image3d/r32f_format.hpp
+	include/sge/image3d/rgb32f.hpp
+	include/sge/image3d/rgb32f_format.hpp
+	include/sge/image3d/rgb8.hpp
+	include/sge/image3d/rgb8_format.hpp
 	include/sge/image3d/rgba32f.hpp
 	include/sge/image3d/rgba32f_format.hpp
 	include/sge/image3d/rgba8.hpp
 	include/sge/image3d/rgba8_format.hpp
+	include/sge/image3d/rgbx8.hpp
+	include/sge/image3d/rgbx8_format.hpp
 	include/sge/image3d/symbol.hpp
 	include/sge/image3d/tag.hpp
 	include/sge/image3d/view/checked_sub.hpp
@@ -43,13 +63,23 @@ SET(
 	include/sge/image3d/view/sub_out_of_range.hpp
 	include/sge/image3d/view/to_const.hpp
 	include/sge/image3d/view/view.hpp
+	src/image3d/a8.cpp
 	src/image3d/algorithm/copy_and_convert.cpp
 	src/image3d/algorithm/fill.cpp
 	src/image3d/algorithm/print.cpp
+	src/image3d/bgr32f.cpp
+	src/image3d/bgr8.cpp
+	src/image3d/bgra32f.cpp
+	src/image3d/bgra8.cpp
+	src/image3d/bgrx8.cpp
 	src/image3d/l8.cpp
+	src/image3d/la8.cpp
 	src/image3d/r32f.cpp
+	src/image3d/rgb32.cpp
+	src/image3d/rgb8.cpp
 	src/image3d/rgba32f.cpp
 	src/image3d/rgba8.cpp
+	src/image3d/rgbx8.cpp
 	src/image3d/view/checked_sub.cpp
 	src/image3d/view/const_object.cpp
 	src/image3d/view/data.cpp

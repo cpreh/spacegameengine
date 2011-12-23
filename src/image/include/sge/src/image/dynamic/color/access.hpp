@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_DYNAMIC_CHANNEL_ACCESS_HPP_INCLUDED
-#define SGE_SRC_IMAGE_DYNAMIC_CHANNEL_ACCESS_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_ACCESS_HPP_INCLUDED
+#define SGE_SRC_IMAGE_DYNAMIC_COLOR_ACCESS_HPP_INCLUDED
 
 #include <sge/src/image/dynamic/color/available_channels.hpp>
 #include <sge/src/image/dynamic/color/convert_channel.hpp>
