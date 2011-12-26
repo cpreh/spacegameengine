@@ -66,6 +66,12 @@ sge::opencl::kernel::object::object(
 		FCPPT_TEXT("clGetKernelInfo(number of arguments)"));
 }
 
+sge::opencl::kernel::name::value_type
+sge::opencl::kernel::object::name() const
+{
+	return name_;
+}
+
 cl_kernel
 sge::opencl::kernel::object::impl()
 {

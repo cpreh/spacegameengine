@@ -72,6 +72,9 @@ public:
 	work_group_size(
 		opencl::device::object &) const;
 
+	SGE_OPENCL_SYMBOL kernel::name::value_type
+	name() const;
+
 	SGE_OPENCL_SYMBOL cl_kernel
 	impl();
 

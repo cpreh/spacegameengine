@@ -24,9 +24,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/export_symbol.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/io/ostringstream.hpp>
 #include <fcppt/container/array.hpp>
 
+namespace
+{
+template<std::size_t N>
+fcppt::string
+output_dimension(
+	fcppt::container::array<std::size_t,N> const &a)
+{
+	fcppt::io::ostringstream ss;
+
+	ss << FCPPT_TEXT("[");
+
+	for(std::size_t i = 0; i < a.size(); ++i)
+		if(i == static_cast<std::size_t>(a.size()-1))
+			ss << a[i];
+		else
+			ss << a[i] << FCPPT_TEXT(",");
+
+	ss << FCPPT_TEXT("]");
+
+	return ss.str();
+}
+}
 
 template<std::size_t N>
 void
@@ -53,6 +77,21 @@ sge::opencl::command_queue::enqueue_kernel(
 			0,
 			0,
 			0);
+
+	if(error_code == CL_INVALID_WORK_GROUP_SIZE)
+	{
+		throw
+			sge::exception(
+				FCPPT_TEXT("Error enqueuing kernel \"")+
+				fcppt::from_std_string(
+					_kernel.name())+
+				FCPPT_TEXT("\": workgroup size invalid. The global dimension is ")+
+				output_dimension(
+					global_dim)+
+				FCPPT_TEXT(", the workgroup dimension is ")+
+				output_dimension(
+					work_dim));
+	}
 
 	opencl::handle_error(
 		error_code,
