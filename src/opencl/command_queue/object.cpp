@@ -93,7 +93,9 @@ sge::opencl::command_queue::object::finish()
 
 sge::opencl::command_queue::object::~object()
 {
+	/*
 	this->finish();
+	*/
 
 	cl_int const error_code =
 		clReleaseCommandQueue(

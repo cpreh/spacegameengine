@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/to_const.hpp>
 #include <sge/media/all_extensions.hpp>
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/single_device_system.hpp>
+#include <sge/opencl/single_device_system/object.hpp>
+#include <sge/opencl/single_device_system/parameters.hpp>
 #include <sge/opencl/command_queue/dim2.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/scoped.hpp>
@@ -78,9 +79,8 @@ try
 		<< FCPPT_TEXT("Creating opencl system\n");
 
 	// Mind the extra parens
-	sge::opencl::single_device_system opencl_system(
-		(sge::opencl::optional_renderer()),
-		(sge::opencl::context::optional_error_callback()));
+	sge::opencl::single_device_system::object opencl_system(
+		(sge::opencl::single_device_system::parameters()));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, creating planar image\n");

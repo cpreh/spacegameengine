@@ -443,6 +443,26 @@ sge::opencl::device::object::output_info(
 	SGE_OPENCL_DEVICE_OUTPUT_SINGLE_INFO(CL_DEVICE_HOST_UNIFIED_MEMORY,cl_bool);
 }
 
+bool
+sge::opencl::device::object::is_gpu() const
+{
+	cl_device_type type;
+
+	cl_int const error_code =
+		clGetDeviceInfo(
+			device_id_,
+			CL_DEVICE_TYPE,
+			sizeof(cl_device_type),
+			&type,
+			0);
+
+	sge::opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clGetDeviceInfo(option value)"));
+
+	return type == CL_DEVICE_TYPE_GPU;
+}
+
 sge::opencl::device::object::~object()
 {
 }

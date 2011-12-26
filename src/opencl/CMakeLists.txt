@@ -82,7 +82,9 @@ SET(
 	include/sge/opencl/program/program.hpp
 	include/sge/opencl/program/source_string.hpp
 	include/sge/opencl/program/source_string_sequence.hpp
-	include/sge/opencl/single_device_system.hpp
+	include/sge/opencl/single_device_system/object.hpp
+	include/sge/opencl/single_device_system/parameters.hpp
+	include/sge/opencl/single_device_system/parameters_fwd.hpp
 	include/sge/opencl/symbol.hpp
 	include/sge/opencl/system.hpp
 	include/sge/opencl/system_fwd.hpp
@@ -120,7 +122,8 @@ SET(
 	src/opencl/program/build_parameters.cpp
 	src/opencl/program/file_to_source_string_sequence.cpp
 	src/opencl/program/object.cpp
-	src/opencl/single_device_system.cpp
+	src/opencl/single_device_system/object.cpp
+	src/opencl/single_device_system/parameters.cpp
 	src/opencl/system.cpp
 	src/opencl/version.cpp
 )

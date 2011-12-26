@@ -155,6 +155,16 @@ sge::opencl::platform::object::supports_memory_sharing_with(
 			"cl_khr_gl_sharing");
 }
 
+bool
+sge::opencl::platform::object::has_gpu() const
+{
+	for(opencl::device::object_sequence::const_iterator it = devices_.begin(); it != devices_.end(); ++it)
+		if (it->is_gpu())
+			return true;
+
+	return false;
+}
+
 std::string const
 sge::opencl::platform::object::vendor() const
 {

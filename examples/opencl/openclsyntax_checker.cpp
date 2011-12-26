@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/exception.hpp>
 #include <sge/log/global_context.hpp>
-#include <sge/opencl/single_device_system.hpp>
+#include <sge/opencl/single_device_system/object.hpp>
+#include <sge/opencl/single_device_system/parameters.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/program/build_error.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
@@ -83,9 +84,8 @@ try
 			argv[1]));
 
 	// Mind the extra parens
-	sge::opencl::single_device_system opencl_system(
-		(sge::opencl::optional_renderer()),
-		(sge::opencl::context::optional_error_callback()));
+	sge::opencl::single_device_system::object opencl_system(
+		(sge::opencl::single_device_system::parameters()));
 
 	sge::opencl::program::object main_program(
 		opencl_system.context(),

@@ -51,6 +51,9 @@ public:
 	output_info(
 		std::ostream &) const;
 
+	SGE_OPENCL_SYMBOL bool
+	is_gpu() const;
+
 	SGE_OPENCL_SYMBOL
 	~object();
 private:

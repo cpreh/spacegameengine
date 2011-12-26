@@ -74,6 +74,9 @@ public:
 	supports_memory_sharing_with(
 		renderer::device const &) const;
 
+	SGE_OPENCL_SYMBOL bool
+	has_gpu() const;
+
 	SGE_OPENCL_SYMBOL
 	~object();
 private:

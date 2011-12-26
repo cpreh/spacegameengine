@@ -77,6 +77,7 @@ public:
 
 	SGE_OPENCL_SYMBOL ~object();
 private:
+	kernel::name::value_type name_;
 	cl_kernel kernel_;
 	cl_uint argument_count_;
 };
