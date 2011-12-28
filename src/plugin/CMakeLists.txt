@@ -74,7 +74,7 @@ if(
 	WIN32
 )
 	add_definitions(
-		Awl_DEFINITIONS
+		${Awl_DEFINITIONS}
 	)
 
 	set(

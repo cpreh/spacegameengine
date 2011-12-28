@@ -29,7 +29,11 @@ INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
+ADD_DEFINITIONS(
+	${Awl_DEFINITIONS}
+)
+
 ADD_SGE_BASE_LIBRARY(
 	viewport
-	"sgewindow"
+	"${Awl_LIBRARIES};sgewindow"
 )

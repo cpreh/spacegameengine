@@ -49,12 +49,16 @@ FUNCTION(
 	)
 ENDFUNCTION()
 
+ADD_DEFINITIONS(
+	${Awl_DEFINITIONS}
+)
+
 ADD_SGE_EXAMPLE(anaglyph "config;systems;texture;modelmd3;shader;camera" "")
 ADD_SGE_EXAMPLE(app_path "config" "")
-ADD_SGE_EXAMPLE(asio_window "systems" "")
+ADD_SGE_EXAMPLE(asio_window "systems" "${Awl_LIBRARIES}")
 ADD_SGE_EXAMPLE(audio_minimal "config;systems;audio" "")
 ADD_SGE_EXAMPLE(bitmapfont "fontbitmap;fonttext;systems" "")
-ADD_SGE_EXAMPLE(caps "config;plugin;renderer;window" "")
+ADD_SGE_EXAMPLE(caps "config;plugin;renderer;window" "${Awl_LIBRARIES}")
 ADD_SGE_EXAMPLE(console "console;systems" "")
 ADD_SGE_EXAMPLE(config_path "config" "")
 ADD_SGE_EXAMPLE(doppler "sprite;systems;texture" "")

@@ -76,7 +76,11 @@ INCLUDE_DIRECTORIES(
 	${DINPUT_INCLUDE_DIR}
 )
 
+ADD_DEFINITIONS(
+	${Awl_DEFINITIONS}
+)
+
 ADD_SGE_PLUGIN(
 	"dinput"
-	"sgeinput;sgewindow;${DINPUT_LIBRARIES}"
+	"${Awl_LIBRARIES};sgeinput;sgewindow;${DINPUT_LIBRARIES}"
 )

@@ -439,7 +439,11 @@ INCLUDE_DIRECTORIES(
 	${D3D9_INCLUDE_DIRS}
 )
 
+ADD_DEFINITIONS(
+	${Awl_DEFINITIONS}
+)
+
 ADD_SGE_PLUGIN(
 	"d3d9"
-	"sgeimage2d;sgeimage3d;sgerenderer;sgewindow;${D3D9_LIBRARIES}"
+	"${Awl_LIBRARIES};sgeimage2d;sgeimage3d;sgerenderer;sgewindow;${D3D9_LIBRARIES}"
 )
