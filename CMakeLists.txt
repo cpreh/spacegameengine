@@ -1,71 +1,103 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+cmake_minimum_required(
+	VERSION 2.6
+)
 
-PROJECT (spacegameengine)
+project(
+	spacegameengine
+)
 
-SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMakeModules;${CMAKE_MODULE_PATH}")
+set(
+	CMAKE_MODULE_PATH
+	"${CMAKE_SOURCE_DIR}/CMakeModules;${CMAKE_MODULE_PATH}"
+)
 
-INCLUDE(FcpptCMakeUtils)
+include(
+	FcpptCMakeUtils
+)
 
 # Put libraries and exe files in the same directory
 # because Windows lacks 'rpath'
-IF(MSVC)
-	SET(LIBRARY_OUTPUT_PATH ${EXECUTABLE_OUTPUT_PATH})
-ENDIF()
+if(
+	MSVC
+)
+	set(
+		LIBRARY_OUTPUT_PATH
+		${EXECUTABLE_OUTPUT_PATH}
+	)
+endif()
 
-INCLUDE_DIRECTORIES (${CMAKE_SOURCE_DIR}/include)
+include_directories(
+	${CMAKE_SOURCE_DIR}/include
+)
 
-FIND_PACKAGE(
+find_package(
 	Boost 1.47.0 REQUIRED
 )
 
-INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+include_directories(
+	${Boost_INCLUDE_DIRS}
+)
 
-LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+link_directories(
+	${Boost_LIBRARY_DIRS}
+)
 
-IF(
+# Workaround Boost-1.48 bug, remove this as soon as this is fixed in a boost
+# release
+if(
 	MSVC AND ${Boost_VERSION} STREQUAL "104800"
 )
-	ADD_DEFINITIONS(
+	add_definitions(
 		-D BOOST_FUSION_DONT_USE_PREPROCESSED_FILES
 	)
-ENDIF()
+endif()
 
 
 # FIND FCPPT
-FIND_PACKAGE(Fcppt REQUIRED)
+find_package(
+	Fcppt
+	REQUIRED
+)
 
-ADD_DEFINITIONS(${Fcppt_DEFINITIONS})
+add_definitions(
+	${Fcppt_DEFINITIONS}
+)
 
-INCLUDE_DIRECTORIES(${Fcppt_INCLUDE_DIRS})
+include_directories(
+	${Fcppt_INCLUDE_DIRS}
+)
 
 # FIND MIZUIRO
-FIND_PACKAGE(Mizuiro REQUIRED)
+find_package(
+	Mizuiro
+	REQUIRED
+)
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${Mizuiro_INCLUDE_DIRS}
 )
 
 # FIND AWL
-FIND_PACKAGE(
+find_package(
 	Awl
 	REQUIRED
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${Awl_INCLUDE_DIRS}
 )
 
 # TODO: Check if this is needed (or move it to fcppt/awl)
-IF(MSVC)
-	ADD_DEFINITIONS(-DUNICODE=1 -D_UNICODE=1)
-ENDIF()
+if(MSVC)
+	add_definitions(-DUNICODE=1 -D_UNICODE=1)
+endif()
 
-SET(
+set(
 	MEDIA_INSTALL_DIR
 	"${INSTALL_DATA_DIR}/media"
 )
 
-SET(
+set(
 	INSTALL_PLUGIN_DIR_BASE
 	"${INSTALL_LIBRARY_DIR}"
 	CACHE
@@ -73,40 +105,67 @@ SET(
 	"Custom plugin base installation directory"
 )
 
-SET(
+set(
 	PLUGIN_INSTALL_DIR
 	"${INSTALL_PLUGIN_DIR_BASE}/${CMAKE_PROJECT_NAME}"
 )
 
-ADD_SUBDIRECTORY (src)
+add_subdirectory(
+	src
+)
 
-OPTION(ENABLE_DOC "Build the documentation" OFF)
+option(
+	ENABLE_DOC
+	"Build the documentation"
+	OFF
+)
 
-IF(ENABLE_DOC)
-	ADD_SUBDIRECTORY(doc)
-ENDIF()
+if(
+	ENABLE_DOC
+)
+	add_subdirectory(
+		doc
+	)
+endif()
 
-OPTION(ENABLE_EXAMPLES "Build the examples" OFF)
+option(
+	ENABLE_EXAMPLES
+	"Build the examples"
+	OFF
+)
 
-IF(ENABLE_EXAMPLES)
-	ADD_SUBDIRECTORY (examples)
-ENDIF ()
+if(
+	ENABLE_EXAMPLES
+)
+	add_subdirectory(
+		examples
+	)
+endif()
 
-OPTION(ENABLE_TEST "Build the tests" OFF)
+option(
+	ENABLE_TEST
+	"Build the tests"
+	OFF
+)
 
-IF(ENABLE_TEST)
-	ENABLE_TESTING()
-	ADD_SUBDIRECTORY (tests)
-ENDIF ()
+if(
+	ENABLE_TEST
+)
+	enable_testing()
 
-INSTALL(
+	add_subdirectory(
+		tests
+	)
+endif()
+
+install(
 	DIRECTORY
 	media/
 	DESTINATION
 	${MEDIA_INSTALL_DIR}
 )
 
-INSTALL(
+install(
 	FILES
 	${CMAKE_SOURCE_DIR}/CMakeModules/FindSGE.cmake
 	${CMAKE_SOURCE_DIR}/CMakeModules/FindCEGUI.cmake

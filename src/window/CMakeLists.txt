@@ -28,6 +28,10 @@ SET(
 	src/window/to_awl_parameters.cpp
 )
 
+add_definitions(
+	"${Awl_DEFINITIONS}"
+)
+
 ADD_SGE_BASE_LIBRARY(
 	window
 	"${Awl_LIBRARIES}"

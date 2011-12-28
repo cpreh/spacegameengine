@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_CORE_INCLUDE_FILES
 	include/sge/class_symbol.hpp
 	include/sge/error/check_state.hpp
@@ -65,7 +65,7 @@ SET(
 	include/sge/timer/timer.hpp
 )
 
-SET(
+set(
 	SGE_CORE_SRC_FILES
 	src/exception.cpp
 	src/log/default_parameters.cpp
@@ -90,17 +90,17 @@ FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
 	SGE_CORE_SRC_FILES_ABS
 )
 
-FOREACH(
+foreach(
 	CUR_FILE
 	${SGE_CORE_INCLUDE_FILES}
 )
-	GET_FILENAME_COMPONENT(
+	get_filename_component(
 		REL_PATH
 		${CUR_FILE}
 		PATH
 	)
 
-	STRING(
+	string(
 		REPLACE
 		"include/"
 		""
@@ -108,31 +108,31 @@ FOREACH(
 		"${REL_PATH}"
 	)
 
-	INSTALL(
+	install(
 		FILES
 		${CMAKE_SOURCE_DIR}/${CUR_FILE}
 		DESTINATION
 		${INSTALL_INCLUDE_DIR}/${TRIMMED_PATH}
 	)
-ENDFOREACH()
+endforeach()
 
-INSTALL(
+install(
 	DIRECTORY
 	${CMAKE_SOURCE_DIR}/include/majutsu
 	DESTINATION
 	${INSTALL_INCLUDE_DIR}
 )
 
-MACRO(
+function(
 	CHECK_LIBRARY_DEPS
 	LIB_NAME
 	ADDITONAL_DEPS
 )
-	FOREACH(
+	foreach(
 		DEPENDENCY
 		${ADDITONAL_DEPS}
 	)
-		STRING(
+		string(
 			SUBSTRING
 			${DEPENDENCY}
 			0
@@ -140,10 +140,10 @@ MACRO(
 			PREFIX
 		)
 
-		IF(
+		if(
 			PREFIX STREQUAL "sge"
 		)
-			STRING(
+			string(
 				REPLACE
 				"sge"
 				""
@@ -151,76 +151,80 @@ MACRO(
 				${DEPENDENCY}
 			)
 
-			STRING(
+			string(
 				TOUPPER
 				${SUFFIX}
 				UPPER_SUFFIX
 			)
 
-			IF(NOT ENABLE_${UPPER_SUFFIX})
-				MESSAGE(
+			if(
+				NOT ENABLE_${UPPER_SUFFIX}
+			)
+				message(
 					FATAL_ERROR
 					"For ${LIB_NAME} to work you need to -D ENABLE_${UPPER_SUFFIX}=ON!"
 				)
-			ENDIF()
-		ENDIF()
-	ENDFOREACH()
-ENDMACRO()
+			endif()
+		endif()
+	endforeach()
+endfunction()
 
-MACRO(
+macro(
 	PATH_DIFFERENCE
 	OUTPUT
 	OUTER_PATH
 	INNER_PATH
 )
-	UNSET(
+	unset(
 		${OUTPUT}
 	)
 
-	IF(
+	if(
 		${${PATH_DIFFERENCE}}
 	)
-		UNSET(${PATH_DIFFERENCE})
-	ENDIF()
+		unset(
+			${PATH_DIFFERENCE}
+		)
+	endif()
 
-	SET(
+	set(
 		TEMP_INNER_PATH
 		${INNER_PATH}
 	)
 
-	WHILE(
+	while(
 		NOT ${TEMP_INNER_PATH} STREQUAL ${OUTER_PATH}
 	)
-		GET_FILENAME_COMPONENT(
+		get_filename_component(
 			PATH_COMPONENT
 			${TEMP_INNER_PATH}
 			NAME
 		)
 
-		SET(
+		set(
 			${OUTPUT}
 			"${PATH_COMPONENT}/${${OUTPUT}}"
 		)
 
-		GET_FILENAME_COMPONENT(
+		get_filename_component(
 			TEMP_INNER_PATH
 			${TEMP_INNER_PATH}
 			PATH
 		)
-	ENDWHILE()
-ENDMACRO()
+	endwhile()
+endmacro()
 
-MACRO(
+macro(
 	ADD_SGE_BASE_LIBRARY
 	LIB_NAME
 	ADDITONAL_DEPS
 )
-	SET(
+	set(
 		SGE_LIB_NAME
 		sge${LIB_NAME}
 	)
 
-	STRING(
+	string(
 		TOUPPER
 		${LIB_NAME}
 		UPPER_LIB_NAME
@@ -231,7 +235,7 @@ MACRO(
 		SGE_${UPPER_LIB_NAME}_FILES_ABS
 	)
 
-	ADD_LIBRARY(
+	add_library(
 		${SGE_LIB_NAME}
 		SHARED
 		${SGE_${UPPER_LIB_NAME}_FILES_ABS}
@@ -242,13 +246,16 @@ MACRO(
 		"${ADDITONAL_DEPS}"
 	)
 
-	TARGET_LINK_LIBRARIES(
+	# sgecore and Fcppt_core might not be needed by everything
+	# Maybe this should be changed some time
+	target_link_libraries(
 		${SGE_LIB_NAME}
 		sgecore
+		${Fcppt_core_LIBRARIES}
 		${ADDITONAL_DEPS}
 	)
 
-	INSTALL(
+	install(
 		TARGETS
 		${SGE_LIB_NAME}
 		DESTINATION
@@ -261,63 +268,54 @@ MACRO(
 		${CMAKE_CURRENT_SOURCE_DIR}
 	)
 
-	INSTALL(
+	install(
 		DIRECTORY
 		${CMAKE_SOURCE_DIR}/include/sge/${LIB_INCLUDE_PATH}
 		DESTINATION
 		${INSTALL_INCLUDE_DIR}/sge/${LIB_INCLUDE_PATH}
 	)
-ENDMACRO()
+endmacro()
 
 # configure some resource paths
-SET(
+set(
 	SGE_PLUGIN_BUILD_PATH
 	"${LIBRARY_OUTPUT_PATH}/plugins"
 )
 
-SET(
+set(
 	SGE_PLUGIN_INSTALL_PATH
 	"${PLUGIN_INSTALL_DIR}"
 )
 
-SET(
+set(
 	SGE_MEDIA_BUILD_PATH
 	"${CMAKE_SOURCE_DIR}/media"
 )
 
-SET(
+set(
 	SGE_MEDIA_INSTALL_PATH
 	"${MEDIA_INSTALL_DIR}"
 )
 
-ADD_LIBRARY(
+add_library(
 	sgecore
 	SHARED
 	${SGE_CORE_INCLUDE_FILES_ABS}
 	${SGE_CORE_SRC_FILES_ABS}
 )
 
-TARGET_LINK_LIBRARIES(
+target_link_libraries(
 	sgecore
-	${Fcppt_LIBRARIES}
+	${Fcppt_core_LIBRARIES}
+	${Fcppt_filesystem_LIBRARIES}
 )
 
-IF (UNIX)
-	TARGET_LINK_LIBRARIES (sgecore dl)
-ELSEIF (WIN32)
-	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32)
-ENDIF ()
-
-INSTALL(
+install(
 	TARGETS
 	sgecore
 	DESTINATION
 	${INSTALL_LIBRARY_DIR}
 )
-
-FIND_PACKAGE(Bullet)
-FIND_PACKAGE(CEGUI)
-FIND_PACKAGE(OpenCL)
 
 # core libraries
 OPTION (ENABLE_AUDIO "Build the audio library" ON)
@@ -382,6 +380,19 @@ IF (ENABLE_WINDOW)
 ENDIF ()
 
 # more advanced libraries
+
+find_package(
+	Bullet
+)
+
+find_package(
+	CEGUI
+)
+
+find_package(
+	OpenCL
+)
+
 OPTION (ENABLE_CAMERA "Build the camera" ON)
 OPTION (ENABLE_CEGUI "Build the cegui subsystem" ${CEGUI_FOUND})
 OPTION (ENABLE_CONFIG "Build the config library" ON)
@@ -458,4 +469,4 @@ IF (ENABLE_VIEWPORT)
 	ADD_SUBDIRECTORY(viewport)
 ENDIF ()
 
-ADD_SUBDIRECTORY (plugins)
+add_subdirectory (plugins)

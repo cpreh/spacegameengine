@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_PLUGIN_FILES
 	include/sge/plugin/base.hpp
 	include/sge/plugin/base_fwd.hpp
@@ -66,23 +66,34 @@ SET(
 	src/plugin/manager.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-IF(WIN32)
-	SET(
+if(
+	WIN32
+)
+	add_definitions(
+		Awl_DEFINITIONS
+	)
+
+	set(
 		SGE_PLUGIN_ADDITIONAL_LIBS
 		"${Awl_LIBRARIES}"
 	)
-ELSE()
-	SET(
-		SGE_PLUGIN_ADDITIONAL_LIBS
-		""
+else()
+	find_library(
+		POSIX_DL_LIBRARY
+		NAMES dl
 	)
-ENDIF()
 
-ADD_SGE_BASE_LIBRARY(
+	set(
+		SGE_PLUGIN_ADDITIONAL_LIBS
+		"${POSIX_DL_LIBRARY}"
+	)
+endif()
+
+add_sge_base_library(
 	plugin
-	"${SGE_PLUGIN_ADDITIONAL_LIBS}"
+	"${Fcppt_filesystem_LIBRARIES};${SGE_PLUGIN_ADDITIONAL_LIBS}"
 )
