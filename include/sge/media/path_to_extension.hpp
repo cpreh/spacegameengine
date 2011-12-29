@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MEDIA_PATH_TO_EXTENSION_HPP_INCLUDED
 #define SGE_MEDIA_PATH_TO_EXTENSION_HPP_INCLUDED
 
-#include <sge/symbol.hpp>
 #include <sge/media/optional_extension.hpp>
+#include <sge/media/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 
 
@@ -31,7 +31,7 @@ namespace sge
 namespace media
 {
 
-SGE_SYMBOL
+SGE_MEDIA_SYMBOL
 sge::media::optional_extension const
 path_to_extension(
 	fcppt::filesystem::path const &

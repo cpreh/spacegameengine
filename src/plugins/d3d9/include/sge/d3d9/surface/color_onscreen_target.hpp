@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_SURFACE_COLOR_ONSCREEN_TARGET_HPP_INCLUDED
 #define SGE_D3D9_SURFACE_COLOR_ONSCREEN_TARGET_HPP_INCLUDED
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/surface/color_create.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
-#include <sge/d3d9/d3dinclude.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_MUXER_PARAMETERS_IMPL_HPP_INCLUDED
 #define SGE_SRC_MEDIA_MUXER_PARAMETERS_IMPL_HPP_INCLUDED
 
-#include <sge/media/extension_set.hpp>
 #include <sge/media/muxer_parameters.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 
 
@@ -33,7 +33,7 @@ sge::media::muxer_parameters<
 	Capabilities
 >::muxer_parameters(
 	plugin::manager &_manager,
-	media::extension_set const &_extensions,
+	sge::media::optional_extension_set const &_extensions,
 	capabilities_type const &_capabilities
 )
 :
@@ -63,7 +63,7 @@ sge::media::muxer_parameters<
 template<
 	typename Capabilities
 >
-sge::media::extension_set const &
+sge::media::optional_extension_set const &
 sge::media::muxer_parameters<
 	Capabilities
 >::extensions() const

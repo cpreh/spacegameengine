@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_VOLUME_TYPES_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_VOLUME_TYPES_HPP_INCLUDED
 
-#include <sge/d3d9/texture/d3d_volume_texture_unique_ptr.hpp>
-#include <sge/d3d9/texture/optional_lock_box.hpp>
-#include <sge/d3d9/texture/optional_locked_box.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/lock_flags.hpp>
 #include <sge/d3d9/usage.hpp>
+#include <sge/d3d9/texture/d3d_volume_texture_unique_ptr.hpp>
+#include <sge/d3d9/texture/optional_lock_box.hpp>
+#include <sge/d3d9/texture/optional_locked_box.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/volume_fwd.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>

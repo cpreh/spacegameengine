@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_STATE_DEVICE_HPP_INCLUDED
 #define SGE_D3D9_STATE_DEVICE_HPP_INCLUDED
 
-#include <sge/d3d9/state/device_fwd.hpp>
-#include <sge/d3d9/state/address_mode.hpp>
-#include <sge/d3d9/state/clear.hpp>
-#include <sge/d3d9/state/clip_plane.hpp>
 #include <sge/d3d9/offscreen_target_fwd.hpp>
 #include <sge/d3d9/onscreen_target_fwd.hpp>
 #include <sge/d3d9/target_base_fwd.hpp>
+#include <sge/d3d9/state/address_mode.hpp>
+#include <sge/d3d9/state/clear.hpp>
+#include <sge/d3d9/state/clip_plane.hpp>
+#include <sge/d3d9/state/device_fwd.hpp>
 #include <sge/renderer/optional_target_fwd.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/stack.hpp>

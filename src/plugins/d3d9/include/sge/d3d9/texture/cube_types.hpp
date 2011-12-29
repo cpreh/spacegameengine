@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_CUBE_TYPES_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_CUBE_TYPES_HPP_INCLUDED
 
-#include <sge/d3d9/texture/d3d_cube_texture_unique_ptr.hpp>
-#include <sge/d3d9/texture/optional_locked_rect.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/lock_flags.hpp>
 #include <sge/d3d9/optional_lock_rect.hpp>
 #include <sge/d3d9/usage.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/d3d9/texture/d3d_cube_texture_unique_ptr.hpp>
+#include <sge/d3d9/texture/optional_locked_rect.hpp>
 #include <sge/renderer/texture/cube_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/function/object_fwd.hpp>
 
 

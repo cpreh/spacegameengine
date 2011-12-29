@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_ONSCREEN_TARGET_HPP_INCLUDED
 #define SGE_D3D9_ONSCREEN_TARGET_HPP_INCLUDED
 
-#include <sge/d3d9/onscreen_target_fwd.hpp>
 #include <sge/d3d9/basic_target.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/onscreen_target_fwd.hpp>
 #include <sge/d3d9/resource_manager_fwd.hpp>
 #include <sge/d3d9/surface/color_fwd.hpp>
 #include <sge/d3d9/surface/depth_stencil_fwd.hpp>

@@ -104,5 +104,5 @@ ENDIF()
 
 ADD_SGE_BASE_LIBRARY(
 	modelobj
-	""
+	"${Fcppt_filesystem_LIBRARIES}"
 )

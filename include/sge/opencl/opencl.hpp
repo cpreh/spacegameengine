@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/extension_sequence.hpp>
 #include <sge/opencl/optional_renderer.hpp>
 #include <sge/opencl/profile_type.hpp>
-#include <sge/opencl/single_device_system.hpp>
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/system.hpp>
 #include <sge/opencl/system_fwd.hpp>
@@ -39,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/memory_object.hpp>
 #include <sge/opencl/platform/platform.hpp>
 #include <sge/opencl/program/program.hpp>
+#include <sge/opencl/single_device_system/single_device_system.hpp>
 
 
 #endif

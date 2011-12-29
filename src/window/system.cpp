@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/event/processor_fwd.hpp>
 #include <awl/window/instance_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 
 
 sge::window::system::system(

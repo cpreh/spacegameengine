@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_CREATE_PLANAR_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_CREATE_PLANAR_HPP_INCLUDED
 
-#include <sge/d3d9/texture/d3d_texture_unique_ptr.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/usage.hpp>
+#include <sge/d3d9/texture/d3d_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
+
 
 namespace sge
 {

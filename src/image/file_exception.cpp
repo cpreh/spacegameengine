@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::image::file_exception::file_exception(
-	optional_path const &_path,
+	sge::image::optional_path const &_path,
 	fcppt::string const &_message
 )
 :
-	image::exception(
+	sge::image::exception(
 		_path
 		?
 			FCPPT_TEXT("\"")

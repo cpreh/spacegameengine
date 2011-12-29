@@ -153,5 +153,5 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_BASE_LIBRARY(
 	parse
-	""
+	"${Fcppt_filesystem_LIBRARIES}"
 )

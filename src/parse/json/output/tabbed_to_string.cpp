@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/output/tabbed_to_stream.hpp>
 #include <sge/parse/json/output/tabbed_to_string.hpp>
-#include <fcppt/io/ostringstream.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/io/ostringstream.hpp>
 
 
 fcppt::string const

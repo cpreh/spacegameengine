@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_RESOURCE_HPP_INCLUDED
 #define SGE_D3D9_RESOURCE_HPP_INCLUDED
 
-#include <sge/d3d9/resource_fwd.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/needs_reset.hpp>
+#include <sge/d3d9/resource_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/intrusive/list_hook.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

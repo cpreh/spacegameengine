@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #ifdef SGE_EXAMPLES_AUDIO_MINIMAL_USE_SYSTEMS_INIT
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
@@ -130,7 +131,8 @@ try
 	sge::audio::multi_loader loader(
 		sge::audio::multi_loader_parameters(
 			plugin_manager,
-			extensions,
+			sge::media::optional_extension_set(
+				extensions),
 			sge::audio::loader_capabilities_field::null()));
 //! [manual_initialization_loader]
 #endif

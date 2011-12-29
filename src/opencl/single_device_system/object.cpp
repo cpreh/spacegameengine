@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opencl/single_device_system/object.hpp>
 #include <sge/exception.hpp>
 #include <sge/opencl/system.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
-#include <sge/opencl/single_device_system/parameters.hpp>
 #include <sge/opencl/platform/object.hpp>
+#include <sge/opencl/single_device_system/object.hpp>
+#include <sge/opencl/single_device_system/parameters.hpp>
 #include <sge/src/opencl/declare_local_logger.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -40,9 +40,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/thread/locks.hpp>
 #include <boost/algorithm/string/trim.hpp>
+#include <boost/thread/locks.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 SGE_OPENCL_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("single_device_system"))

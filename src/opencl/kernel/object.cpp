@@ -19,15 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
+#include <sge/opencl/device/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/program/object.hpp>
-#include <sge/opencl/device/object.hpp>
 #include <sge/src/opencl/handle_error.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 

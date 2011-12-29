@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_BASIC_LOADER_IMPL_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_BASIC_LOADER_IMPL_HPP_INCLUDED
 
-#include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #include <sge/systems/basic_loader.hpp>
 
 
@@ -30,7 +30,7 @@ template<
 >
 sge::systems::basic_loader<Capabilities>::basic_loader(
 	capabilities_type const &_capabilities,
-	sge::media::extension_set const &_extensions
+	sge::media::optional_extension_set const &_extensions
 )
 :
 	extensions_(_extensions),
@@ -41,7 +41,7 @@ sge::systems::basic_loader<Capabilities>::basic_loader(
 template<
 	typename Capabilities
 >
-sge::media::extension_set const &
+sge::media::optional_extension_set const &
 sge::systems::basic_loader<Capabilities>::extensions() const
 {
 	return extensions_;

@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/to_const.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -167,11 +168,13 @@ try
 			(
 				sge::systems::image2d(
 					sge::image::capabilities_field::null(),
-					fcppt::assign::make_container<
-						sge::media::extension_set
-					>(
-						sge::media::extension(
-							FCPPT_TEXT("png")
+					sge::media::optional_extension_set(
+						fcppt::assign::make_container<
+							sge::media::extension_set
+						>(
+							sge::media::extension(
+								FCPPT_TEXT("png")
+							)
 						)
 					)
 				)

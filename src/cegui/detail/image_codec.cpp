@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/media/const_raw_range.hpp>
-#include <sge/media/optional_extension.hpp>
 #include <sge/cegui/detail/image_codec.hpp>
 #include <sge/cegui/detail/texture.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/optional_extension.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 

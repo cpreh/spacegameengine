@@ -27,7 +27,6 @@ update_cmake_file \
 	-r \
 	include/sge/error \
 	include/sge/log \
-	include/sge/media \
 	include/sge/timer
 
 update_cmake_file \
@@ -36,8 +35,7 @@ update_cmake_file \
 	-n \
 	src \
 	-r \
-	src/log \
-	src/media
+	src/log
 
 function update_sublibrary()
 {
@@ -91,6 +89,8 @@ update_sublibrary image3d
 update_sublibrary input
 
 update_sublibrary line_drawer
+
+update_sublibrary media
 
 update_sublibrary model/md3
 

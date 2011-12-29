@@ -18,20 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opencl/device/object.hpp>
 #include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/device/object.hpp>
 #include <sge/src/opencl/handle_error.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/insert_to_std_string.hpp>
+#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <boost/next_prior.hpp>
-#include <cstring>
-#include <cstddef>
+#include <boost/utility/enable_if.hpp>
 #include <algorithm>
+#include <cstddef>
+#include <cstring>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

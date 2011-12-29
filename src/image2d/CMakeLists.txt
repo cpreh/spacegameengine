@@ -136,5 +136,5 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_BASE_LIBRARY(
 	image2d
-	"sgeimage;sgeplugin"
+	"sgeimage;sgemedia;sgeplugin"
 )

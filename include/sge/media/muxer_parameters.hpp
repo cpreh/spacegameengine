@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MEDIA_MUXER_PARAMETERS_HPP_INCLUDED
 #define SGE_MEDIA_MUXER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/media/extension_set.hpp>
 #include <sge/media/muxer_parameters_fwd.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #include <sge/media/detail/instantiate_symbol.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -48,7 +48,7 @@ public:
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	muxer_parameters(
 		plugin::manager &,
-		media::extension_set const &,
+		sge::media::optional_extension_set const &,
 		capabilities_type const &
 	);
 
@@ -57,7 +57,7 @@ public:
 	manager() const;
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	media::extension_set const &
+	media::optional_extension_set const &
 	extensions() const;
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
@@ -66,7 +66,7 @@ public:
 private:
 	plugin::manager &manager_;
 
-	media::extension_set const extensions_;
+	sge::media::optional_extension_set const extensions_;
 
 	capabilities_type const capabilities_;
 };

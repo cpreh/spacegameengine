@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_MAKE_PITCH_2D_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/image2d/dim.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image2d/dim.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
+
 
 namespace sge
 {

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MEDIA_ALL_EXTENSIONS_HPP_INCLUDED
 #define SGE_MEDIA_ALL_EXTENSIONS_HPP_INCLUDED
 
-#include <sge/symbol.hpp>
-#include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension_set_fwd.hpp>
+#include <sge/media/symbol.hpp>
 
 
 namespace sge
@@ -30,8 +30,8 @@ namespace sge
 namespace media
 {
 
-SGE_SYMBOL
-extern sge::media::extension_set const
+SGE_MEDIA_SYMBOL
+extern sge::media::optional_extension_set const
 all_extensions;
 
 }

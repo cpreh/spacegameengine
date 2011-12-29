@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_STATE_APPLY_HPP_INCLUDED
 #define SGE_D3D9_STATE_APPLY_HPP_INCLUDED
 
-#include <sge/d3d9/state/clear_fwd.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/state/clear_fwd.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
+
 
 namespace sge
 {

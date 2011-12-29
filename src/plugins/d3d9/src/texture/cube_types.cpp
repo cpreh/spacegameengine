@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/texture/cube_types.hpp>
 #include <sge/d3d9/texture/create_cube.hpp>
+#include <sge/d3d9/texture/cube_types.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
+
 
 sge::d3d9::texture::cube_types::create_function const
 sge::d3d9::texture::cube_types::create()

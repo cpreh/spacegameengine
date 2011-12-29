@@ -20,7 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <fcppt/math/twopi.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <limits>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::audio::sound::positional_parameters::positional_parameters()
 :

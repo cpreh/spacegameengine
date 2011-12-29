@@ -21,18 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_BASIC_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_BASIC_HPP_INCLUDED
 
-#include <sge/d3d9/texture/basic_fwd.hpp>
-#include <sge/d3d9/texture/base.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/usage.hpp>
 #include <sge/d3d9/resource.hpp>
+#include <sge/d3d9/usage.hpp>
 #include <sge/d3d9/state/address_mode_fwd.hpp>
+#include <sge/d3d9/texture/base.hpp>
+#include <sge/d3d9/texture/basic_fwd.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>

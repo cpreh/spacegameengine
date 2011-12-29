@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_index.hpp>
@@ -147,12 +148,14 @@ try
 		(
 			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
-				fcppt::assign::make_container<
-					sge::media::extension_set
-				>
-				(
-					sge::media::extension(
-						FCPPT_TEXT("png")
+				sge::media::optional_extension_set(
+					fcppt::assign::make_container<
+						sge::media::extension_set
+					>
+					(
+						sge::media::extension(
+							FCPPT_TEXT("png")
+						)
 					)
 				)
 			)

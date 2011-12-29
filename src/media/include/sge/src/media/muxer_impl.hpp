@@ -21,14 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_MUXER_IMPL_HPP_INCLUDED
 #define SGE_SRC_MEDIA_MUXER_IMPL_HPP_INCLUDED
 
-#include <sge/media/all_extensions.hpp>
+#include <sge/log/global.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/loaders_exhausted.hpp>
 #include <sge/media/muxer.hpp>
 #include <sge/media/muxer_parameters.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/path_to_extension.hpp>
-#include <sge/log/global.hpp>
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
@@ -91,10 +90,10 @@ sge::media::muxer<
 			)
 			&&
 			(
-				_parameters.extensions() == sge::media::all_extensions
+				!_parameters.extensions().has_value()
 				||
 				!fcppt::algorithm::set_intersection(
-					_parameters.extensions(),
+					*_parameters.extensions(),
 					system_instance->extensions()
 				).empty()
 			)

@@ -25,10 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/opencl/handle_error.hpp>
 #include <sge/src/opencl/memory_object/to_opencl_mem_flags.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+
 
 sge::opencl::memory_object::image::planar::planar(
 	context::object &_context,

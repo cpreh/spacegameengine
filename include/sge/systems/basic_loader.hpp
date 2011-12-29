@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_BASIC_LOADER_HPP_INCLUDED
 #define SGE_SYSTEMS_BASIC_LOADER_HPP_INCLUDED
 
-#include <sge/media/extension_set.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #include <sge/systems/basic_loader_fwd.hpp>
 #include <sge/systems/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -47,18 +47,18 @@ public:
 	explicit
 	basic_loader(
 		capabilities_type const &,
-		sge::media::extension_set const &
+		sge::media::optional_extension_set const &
 	);
 
 	SGE_SYSTEMS_SYMBOL
-	sge::media::extension_set const &
+	sge::media::optional_extension_set const &
 	extensions() const;
 
 	SGE_SYSTEMS_SYMBOL
 	capabilities_type const &
 	capabilities() const;
 private:
-	sge::media::extension_set const extensions_;
+	sge::media::optional_extension_set const extensions_;
 
 	capabilities_type const capabilities_;
 };

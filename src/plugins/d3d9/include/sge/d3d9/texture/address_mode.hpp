@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/address_mode_fwd.hpp>
-#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/address_mode2_fwd.hpp>
 #include <sge/renderer/texture/address_mode3_fwd.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 namespace sge
