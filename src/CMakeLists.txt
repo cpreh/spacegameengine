@@ -59,16 +59,6 @@ set(
 	src/log/location.cpp
 )
 
-FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_CORE_INCLUDE_FILES}"
-	SGE_CORE_INCLUDE_FILES_ABS
-)
-
-FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_CORE_SRC_FILES}"
-	SGE_CORE_SRC_FILES_ABS
-)
-
 foreach(
 	CUR_FILE
 	${SGE_CORE_INCLUDE_FILES}
@@ -103,7 +93,7 @@ install(
 )
 
 function(
-	CHECK_LIBRARY_DEPS
+	check_library_deps
 	LIB_NAME
 	ADDITONAL_DEPS
 )
@@ -112,44 +102,33 @@ function(
 		${ADDITONAL_DEPS}
 	)
 		string(
-			SUBSTRING
+			REPLACE
+			"sge"
+			""
+			SUFFIX
 			${DEPENDENCY}
-			0
-			3
-			PREFIX
+		)
+
+		string(
+			TOUPPER
+			${SUFFIX}
+			UPPER_SUFFIX
 		)
 
 		if(
-			PREFIX STREQUAL "sge"
+			NOT ${UPPER_SUFFIX} STREQUAL "CORE"
+			AND NOT ENABLE_${UPPER_SUFFIX}
 		)
-			string(
-				REPLACE
-				"sge"
-				""
-				SUFFIX
-				${DEPENDENCY}
+			message(
+				FATAL_ERROR
+				"For ${LIB_NAME} to work you need to -D ENABLE_${UPPER_SUFFIX}=ON!"
 			)
-
-			string(
-				TOUPPER
-				${SUFFIX}
-				UPPER_SUFFIX
-			)
-
-			if(
-				NOT ENABLE_${UPPER_SUFFIX}
-			)
-				message(
-					FATAL_ERROR
-					"For ${LIB_NAME} to work you need to -D ENABLE_${UPPER_SUFFIX}=ON!"
-				)
-			endif()
 		endif()
 	endforeach()
 endfunction()
 
 macro(
-	PATH_DIFFERENCE
+	path_difference
 	OUTPUT
 	OUTER_PATH
 	INNER_PATH
@@ -193,10 +172,52 @@ macro(
 	endwhile()
 endmacro()
 
-macro(
-	ADD_SGE_BASE_LIBRARY
+function(
+	add_sge_base_library_variant
+	SGE_LIB_NAME
+	SGE_LIB_FILES
+	SGE_DEPS
+	ADDITIONAL_DEPS
+	VARIANT
+)
+	if(
+		${VARIANT} STREQUAL "STATIC"
+	)
+		set(
+			SGE_LIB_NAME
+			"${SGE_LIB_NAME}_static"
+		)
+	endif()
+
+	add_library(
+		${SGE_LIB_NAME}
+		${VARIANT}
+		${SGE_LIB_FILES}
+	)
+
+	transform_sge_link_targets(
+		"${SGE_DEPS}"
+	)
+
+	target_link_libraries(
+		${SGE_LIB_NAME}
+		${ADDITIONAL_DEPS}
+		${SGELIBS_TARGETS_RESULT}
+	)
+
+	install(
+		TARGETS
+		${SGE_LIB_NAME}
+		DESTINATION
+		${INSTALL_LIBRARY_DIR}
+	)
+endfunction()
+
+function(
+	add_sge_base_library
 	LIB_NAME
-	ADDITONAL_DEPS
+	SGE_DEPS
+	ADDITIONAL_DEPS
 )
 	set(
 		SGE_LIB_NAME
@@ -214,33 +235,41 @@ macro(
 		SGE_${UPPER_LIB_NAME}_FILES_ABS
 	)
 
-	add_library(
-		${SGE_LIB_NAME}
-		SHARED
+	set(
+		SGE_LIB_FILES
 		${SGE_${UPPER_LIB_NAME}_FILES_ABS}
 	)
 
-	CHECK_LIBRARY_DEPS(
+	if(
+		ENABLE_SHARED
+	)
+		add_sge_base_library_variant(
+			${SGE_LIB_NAME}
+			"${SGE_LIB_FILES}"
+			"${SGE_DEPS}"
+			"${ADDITIONAL_DEPS}"
+			SHARED
+		)
+	endif()
+
+	if(
+		ENABLE_STATIC
+	)
+		add_sge_base_library_variant(
+			${SGE_LIB_NAME}
+			"${SGE_LIB_FILES}"
+			"${SGE_DEPS}"
+			"${ADDITIONAL_DEPS}"
+			STATIC
+		)
+	endif()
+
+	check_library_deps(
 		"${LIB_NAME}"
-		"${ADDITONAL_DEPS}"
+		"${SGE_DEPS}"
 	)
 
-	# sgecore and Fcppt_core might not be needed by everything
-	# Maybe this should be changed some time
-	target_link_libraries(
-		${SGE_LIB_NAME}
-		sgecore
-		${ADDITONAL_DEPS}
-	)
-
-	install(
-		TARGETS
-		${SGE_LIB_NAME}
-		DESTINATION
-		${INSTALL_LIBRARY_DIR}
-	)
-
-	PATH_DIFFERENCE(
+	path_difference(
 		LIB_INCLUDE_PATH
 		${CMAKE_SOURCE_DIR}/src
 		${CMAKE_CURRENT_SOURCE_DIR}
@@ -252,7 +281,7 @@ macro(
 		DESTINATION
 		${INSTALL_INCLUDE_DIR}/sge/${LIB_INCLUDE_PATH}
 	)
-endmacro()
+endfunction()
 
 # configure some resource paths
 set(
@@ -275,24 +304,49 @@ set(
 	"${MEDIA_INSTALL_DIR}"
 )
 
-add_library(
-	sgecore
-	SHARED
-	${SGE_CORE_INCLUDE_FILES_ABS}
-	${SGE_CORE_SRC_FILES_ABS}
+function(
+	add_sge_core_lib
+	VARIANT
+)
+	set(
+		SGE_CORE_FILES
+		"${SGE_CORE_INCLUDE_FILES_ABS};${SGE_CORE_SRC_FILES_ABS}"
+	)
+
+	add_sge_base_library_variant(
+		sgecore
+		"${SGE_CORE_FILES}"
+		""
+		"${Fcppt_core_LIBRARIES}"
+		${VARIANT}
+	)
+endfunction()
+
+FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_CORE_INCLUDE_FILES}"
+	SGE_CORE_INCLUDE_FILES_ABS
 )
 
-target_link_libraries(
-	sgecore
-	${Fcppt_core_LIBRARIES}
+FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_CORE_SRC_FILES}"
+	SGE_CORE_SRC_FILES_ABS
 )
 
-install(
-	TARGETS
-	sgecore
-	DESTINATION
-	${INSTALL_LIBRARY_DIR}
+if(
+	ENABLE_STATIC
 )
+	add_sge_core_lib(
+		"STATIC"
+	)
+endif()
+
+if(
+	ENABLE_SHARED
+)
+	add_sge_core_lib(
+		"SHARED"
+	)
+endif()
 
 # core libraries
 OPTION (ENABLE_AUDIO "Build the audio library" ON)

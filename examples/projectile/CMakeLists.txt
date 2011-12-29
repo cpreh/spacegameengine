@@ -1,3 +1,10 @@
-FIND_PACKAGE(Bullet)
+FIND_PACKAGE(
+	Bullet
+	REQUIRED
+)
 
-ADD_SGE_EXAMPLE(projectilemain "input;projectile;renderer;systems;sprite" "${BULLET_LIBRARIES}")
+add_sge_example(
+	projectilemain
+	"sgeinput;sgeprojectile;sgerenderer;sgesystems;sgesprite"
+	"${BULLET_LIBRARIES}"
+)

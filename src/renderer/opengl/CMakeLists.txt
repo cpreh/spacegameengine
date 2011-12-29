@@ -1,12 +1,12 @@
-REMOVE_DEFINITIONS(
+remove_definitions(
 	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${OPENGL_INCLUDE_DIR}
 )
 
-SET(
+set(
 	SGE_RENDEREROPENGL_FILES
 	include/sge/renderer/opengl/buffer/base.hpp
 	include/sge/renderer/opengl/buffer/base_fwd.hpp
@@ -25,12 +25,8 @@ SET(
 	src/renderer/opengl/texture/base.cpp
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	rendereropengl
 	""
-)
-
-TARGET_LINK_LIBRARIES(
-	sgerendereropengl
-	${OPENGL_gl_LIBRARY}
+	"${OPENGL_gl_LIBRARY}"
 )

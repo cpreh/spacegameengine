@@ -24,4 +24,5 @@ INCLUDE_DIRECTORIES(
 ADD_SGE_BASE_LIBRARY(
 	fontbitmap
 	"sgefont;sgeimage2d;sgeparse"
+	""
 )

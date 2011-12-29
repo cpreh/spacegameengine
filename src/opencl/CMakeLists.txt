@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_OPENCL_FILES
 	include/sge/opencl/binary_error_data.hpp
 	include/sge/opencl/clinclude.hpp
@@ -85,6 +85,7 @@ SET(
 	include/sge/opencl/single_device_system/object.hpp
 	include/sge/opencl/single_device_system/parameters.hpp
 	include/sge/opencl/single_device_system/parameters_fwd.hpp
+	include/sge/opencl/single_device_system/single_device_system.hpp
 	include/sge/opencl/symbol.hpp
 	include/sge/opencl/system.hpp
 	include/sge/opencl/system_fwd.hpp
@@ -128,7 +129,7 @@ SET(
 	src/opencl/version.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
@@ -136,56 +137,53 @@ add_definitions(
 	-D CL_USE_DEPRECATED_OPENCL_1_1_APIS
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	SYSTEM
 	${OPENCL_INCLUDE_DIRS}
 )
 
-ADD_SGE_BASE_LIBRARY(
-	opencl
-	"sgerenderer"
+find_package(
+	OpenGL
 )
 
-FIND_PACKAGE(OpenGL)
-
-INCLUDE_DIRECTORIES(
+include_directories(
 	SYSTEM
 	${OPENGL_INCLUDE_DIR}
 )
 
-IF(
+if(
 	WIN32
 )
-	SET(
+	set(
 		SGE_OPENCL_HAVE_WINDOWS TRUE
 	)
-ELSE()
-	FIND_FILE(
+else()
+	find_file(
 		GLX_HEADER
 		glx.h
 		PATHS "${OPENGL_INCLUDE_DIR}/GL"
 	)
 
-	IF(
+	if(
 		GLX_HEADER
 	)
-		SET(
+		set(
 			SGE_OPENCL_HAVE_GLX TRUE
 		)
 	endif()
-ENDIF()
+endif()
 
-CONFIGURE_FILE(
+configure_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
 	${CMAKE_CURRENT_BINARY_DIR}/include/sge/opencl/config.hpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_BINARY_DIR}/include
 )
 
-TARGET_LINK_LIBRARIES (
-	sgeopencl
-	${OPENCL_LIBRARIES}
-	${OPENGL_gl_LIBRARY}
+add_sge_base_library(
+	opencl
+	"sgerenderer"
+	"${OPENCL_LIBRARIES};${OPENGL_gl_LIBRARY}"
 )

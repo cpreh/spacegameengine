@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_FREETYPE_FILES
 	src/plugins/freetype/include/sge/freetype/char_metric.hpp
 	src/plugins/freetype/include/sge/freetype/face.hpp
@@ -18,15 +18,16 @@ SET(
 	src/plugins/freetype/src/system.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${FREETYPE_INCLUDE_DIRS}
 )
 
-ADD_SGE_PLUGIN(
+add_sge_plugin(
 	freetype
-	"sgecharconv;sgefont;sgeimage2d;${FREETYPE_LIBRARY}"
+	"sgecharconv;sgefont;sgeimage2d"
+	"${FREETYPE_LIBRARY}"
 )

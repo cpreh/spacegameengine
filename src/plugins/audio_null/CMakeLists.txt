@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_AUDIO_NULL_FILES
 	src/plugins/audio_null/include/sge/audio_null/buffer.hpp
 	src/plugins/audio_null/include/sge/audio_null/listener.hpp
@@ -11,11 +11,12 @@ SET(
 	src/plugins/audio_null/src/positional.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-ADD_SGE_PLUGIN(
+add_sge_plugin(
 	audio_null
 	"sgeaudio"
+	""
 )

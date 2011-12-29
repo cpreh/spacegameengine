@@ -34,5 +34,6 @@ add_definitions(
 
 ADD_SGE_BASE_LIBRARY(
 	window
+	""
 	"${Awl_LIBRARIES}"
 )

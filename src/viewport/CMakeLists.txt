@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_VIEWPORT_FILES
 	include/sge/viewport/center_on_resize.hpp
 	include/sge/viewport/detail/manager_impl_fwd.hpp
@@ -25,15 +25,16 @@ SET(
 	src/viewport/manager.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-ADD_DEFINITIONS(
+add_definitions(
 	${Awl_DEFINITIONS}
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	viewport
-	"${Awl_LIBRARIES};sgewindow"
+	"sgewindow"
+	"${Awl_LIBRARIES}"
 )

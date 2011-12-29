@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_WINCONV_FILES
 	src/plugins/winconv/include/sge/winconv/converter.hpp
 	src/plugins/winconv/include/sge/winconv/system.hpp
@@ -7,11 +7,11 @@ SET(
 	src/plugins/winconv/src/system.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-ADD_SGE_PLUGIN(
+add_sge_plugin(
 	winconv
 	"sgecharconv"
 )

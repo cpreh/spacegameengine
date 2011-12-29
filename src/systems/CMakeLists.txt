@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_SYSTEMS_FILES
 	include/sge/systems/any.hpp
 	include/sge/systems/any_key.hpp
@@ -137,7 +137,8 @@ include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	systems
-	"${Awl_LIBRARIES};sgeaudio;sgecharconv;sgeconfig;sgefont;sgeimage2d;sgeinput;sgerenderer;sgeviewport;sgewindow"
+	"sgeaudio;sgecharconv;sgeconfig;sgefont;sgeimage2d;sgeinput;sgerenderer;sgeviewport;sgewindow"
+	"${Awl_LIBRARIES}"
 )

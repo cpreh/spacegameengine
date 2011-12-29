@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_PROJECTILE_FILES
 	include/sge/projectile/body/angular_velocity.hpp
 	include/sge/projectile/body/body.hpp
@@ -116,20 +116,16 @@ SET(
 	src/projectile/world.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${BULLET_INCLUDE_DIRS}
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	projectile
 	"sgeline_drawer"
-)
-
-TARGET_LINK_LIBRARIES (
-	sgeprojectile
-	${BULLET_LIBRARIES}
+	"${BULLET_LIBRARIES}"
 )

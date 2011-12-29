@@ -83,5 +83,6 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_BASE_LIBRARY(
 	modelmd3
+	"sgecore"
 	"${Fcppt_filesystem_LIBRARIES}"
 )

@@ -54,17 +54,18 @@ OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" ${VORBIS_FOUND})
 OPTION (ENABLE_X11INPUT "Build the x11 input plugin" ${X11_Xinput_FOUND})
 
 
-MACRO(
+function(
 	ADD_SGE_PLUGIN
 	PLUGIN_NAME
+	SGE_DEPS
 	ADDITONAL_DEPS
 )
-	SET(
+	set(
 		SGE_PLUGIN_NAME
 		sge${PLUGIN_NAME}
 	)
 
-	STRING(
+	string(
 		TOUPPER
 		${PLUGIN_NAME}
 		UPPER_PLUGIN_NAME
@@ -75,30 +76,34 @@ MACRO(
 		SGE_${UPPER_PLUGIN_NAME}_FILES_ABS
 	)
 
-	ADD_LIBRARY(
+	add_library(
 		${SGE_PLUGIN_NAME}
 		SHARED
 		${SGE_${UPPER_PLUGIN_NAME}_FILES_ABS}
 	)
 
-	CHECK_LIBRARY_DEPS(
+	transform_sge_link_targets(
+		"${SGE_DEPS}"
+	)
+
+	check_library_deps(
 		"${PLUGIN_NAME}"
-		"${ADDITONAL_DEPS}"
+		"${SGE_DEPS}"
 	)
 
-	TARGET_LINK_LIBRARIES(
+	target_link_libraries(
 		${SGE_PLUGIN_NAME}
-		sgecore
 		${ADDITONAL_DEPS}
+		${SGELIBS_TARGETS_RESULT}
 	)
 
-	INSTALL(
+	install(
 		TARGETS
 		${SGE_PLUGIN_NAME}
 		DESTINATION
 		${PLUGIN_INSTALL_DIR}
 	)
-ENDMACRO()
+endfunction()
 
 IF(ENABLE_AUDIO_NULL)
 	ADD_SUBDIRECTORY (audio_null)

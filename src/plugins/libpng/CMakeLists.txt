@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_LIBPNG_FILES
 	src/plugins/libpng/include/sge/libpng/bit_depth_from_format.hpp
 	src/plugins/libpng/include/sge/libpng/byte_vector.hpp
@@ -34,19 +34,20 @@ SET(
 	src/plugins/libpng/src/write_ptr.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${PNG_INCLUDE_DIR}
 )
 
-ADD_DEFINITIONS(
+add_definitions(
 	${PNG_DEFINITIONS}
 )
 
-ADD_SGE_PLUGIN(
+add_sge_plugin(
 	libpng
-	"sgeimage2d;${PNG_LIBRARIES}"
+	"sgeimage2d"
+	"${PNG_LIBRARIES}"
 )

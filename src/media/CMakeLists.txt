@@ -32,5 +32,6 @@ include_directories(
 
 add_sge_base_library(
 	media
+	"sgecore"
 	"${Fcppt_filesystem_LIBRARIES}"
 )

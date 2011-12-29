@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_TEXTURE_FILES
 	include/sge/texture/add_image.hpp
 	include/sge/texture/area_texc.hpp
@@ -64,11 +64,12 @@ SET(
 	src/texture/sub_data.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_SOURCE_DIR}/src/renderer/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	texture
 	"sgeimage2d;sgerenderer"
+	""
 )

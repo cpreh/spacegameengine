@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_CONSOLE_FILES
 	include/sge/console/arg_list.hpp
 	include/sge/console/callback/callback.hpp
@@ -55,11 +55,12 @@ SET(
 	src/console/object.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	console
 	"sgefonttext;sgeinput"
+	""
 )

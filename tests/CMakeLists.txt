@@ -1,55 +1,77 @@
-FIND_PACKAGE(
+find_package(
 	Boost 1.45.0 REQUIRED COMPONENTS
 	unit_test_framework
 )
 
-MACRO(
+function(
 	ADD_SGE_TEST
 	PATHNAME
-	ADDITONAL_LIBS
+	SGELIBS
 )
-	STRING(REGEX REPLACE "\\/" "_" TESTNAME ${PATHNAME})
+	string(
+		REPLACE
+		"/"
+		"_"
+		TESTNAME
+		${PATHNAME}
+	)
 
-	SET(TESTNAME test_${TESTNAME})
+	set(
+		TESTNAME
+		test_${TESTNAME}
+	)
 
-	ADD_EXECUTABLE (${TESTNAME} ${PATHNAME}.cpp)
+	add_executable(
+		${TESTNAME}
+		${PATHNAME}.cpp
+	)
 
-	IF(MSVC)
-		SET_PROPERTY(
+	if(
+		Boost_USE_STATIC_LIBS
+	)
+		set_property(
 			TARGET ${TESTNAME}
 			PROPERTY COMPILE_FLAGS
 			"-DBOOST_TEST_NO_LIB -DBOOST_TEST_MODULE=${TESTNAME}"
 		)
-	ELSE()
-		SET_PROPERTY(
+	else()
+		set_property(
 			TARGET ${TESTNAME}
 			PROPERTY COMPILE_FLAGS
 			"-DBOOST_TEST_DYN_LINK -DBOOST_TEST_MODULE=${TESTNAME}"
 		)
-	ENDIF()
+	endif()
 
-	TARGET_LINK_LIBRARIES (
-		${TESTNAME}
-		sgecore
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-		${ADDITONAL_LIBS}
+	transform_sge_link_targets(
+		"${SGELIBS}"
 	)
 
-	ADD_TEST(NAME ${TESTNAME} COMMAND ${TESTNAME})
-ENDMACRO()
+	target_link_libraries(
+		${TESTNAME}
+		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+		${SGELIBS_TARGETS_RESULT}
+	)
 
-IF(ENABLE_CONFIG)
+	add_test(
+		NAME
+		${TESTNAME}
+		COMMAND
+		${TESTNAME}
+	)
+endfunction()
+
+if(ENABLE_CONFIG)
 	ADD_SGE_TEST(charconv/main "sgecharconv;sgeconfig")
-ENDIF()
+endif()
 
-IF(ENABLE_CONSOLE)
+if(ENABLE_CONSOLE)
 	ADD_SGE_TEST(console/cursor "sgeconsole")
-ENDIF()
+endif()
 
-IF(ENABLE_IMAGE2D)
+if(ENABLE_IMAGE2D)
 	ADD_SGE_TEST(image2d/copy_and_convert "sgeimage2d")
-ENDIF()
+endif()
 
-IF(ENABLE_PARSE)
+if(ENABLE_PARSE)
 	ADD_SGE_TEST(parse/json "sgeparse")
-ENDIF()
+endif()

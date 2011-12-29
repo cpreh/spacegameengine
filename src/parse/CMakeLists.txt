@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_PARSE_FILES
 	include/sge/parse/encoding.hpp
 	include/sge/parse/exception.hpp
@@ -147,11 +147,12 @@ SET(
 	src/parse/json/string_to_value.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	parse
+	"sgecore"
 	"${Fcppt_filesystem_LIBRARIES}"
 )

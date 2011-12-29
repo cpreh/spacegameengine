@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_X11INPUT_FILES
 	src/plugins/x11input/include/sge/x11input/atom_name.hpp
 	src/plugins/x11input/include/sge/x11input/color.hpp
@@ -181,23 +181,24 @@ SET(
 	src/plugins/x11input/src/xi_version.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${X11_X11_INCLUDE_PATH}
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_BINARY_DIR}/include
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${X11_Xinput_INCLUDE_PATH}
 )
 
-ADD_SGE_PLUGIN(
+add_sge_plugin(
 	x11input
-	"${Fcppt_LIBRARIES};sgeinput;sgewindow;${X11_X11_LIB};${X11_Xinput_LIB}"
+	"sgeinput;sgewindow"
+	"${Fcppt_LIBRARIES};${X11_X11_LIB};${X11_Xinput_LIB}"
 )

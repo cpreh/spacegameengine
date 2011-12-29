@@ -92,5 +92,6 @@ INCLUDE_DIRECTORIES(
 
 ADD_SGE_BASE_LIBRARY(
 	audio
-	"sgemedia;sgeplugin"
+	"sgecore;sgemedia;sgeplugin"
+	""
 )

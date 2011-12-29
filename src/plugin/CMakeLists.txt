@@ -95,5 +95,6 @@ endif()
 
 add_sge_base_library(
 	plugin
+	"sgecore"
 	"${Fcppt_filesystem_LIBRARIES};${SGE_PLUGIN_ADDITIONAL_LIBS}"
 )

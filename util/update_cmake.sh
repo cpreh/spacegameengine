@@ -154,7 +154,7 @@ function opengl_inc_src() {
 # plugins
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \
-	SGE_OPENGL_FILES \
+	SGE_OPENGL_BASE_FILES \
 	-n src/plugins/opengl/src \
 	-r \
 	$(opengl_inc_src buffer) \

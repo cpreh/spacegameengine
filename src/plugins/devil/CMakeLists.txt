@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_DEVIL_FILES
 	src/plugins/devil/include/sge/devil/best_il_format.hpp
 	src/plugins/devil/include/sge/devil/check_error.hpp
@@ -46,15 +46,16 @@ SET(
 	src/plugins/devil/src/to_il_format.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${IL_INCLUDE_DIR}
 )
 
-ADD_SGE_PLUGIN(
+add_sge_plugin(
 	"devil"
-	"sgeimage2d;${IL_LIBRARIES};${ILU_LIBRARIES}"
+	"sgeimage2d"
+	"${IL_LIBRARIES};${ILU_LIBRARIES}"
 )

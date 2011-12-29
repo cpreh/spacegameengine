@@ -431,19 +431,20 @@ SET(
 	src/plugins/d3d9/src/vertex_declaration.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${D3D9_INCLUDE_DIRS}
 )
 
-ADD_DEFINITIONS(
+add_definitions(
 	${Awl_DEFINITIONS}
 )
 
-ADD_SGE_PLUGIN(
+add_sge_plugin(
 	"d3d9"
-	"${Awl_LIBRARIES};sgeimage2d;sgeimage3d;sgerenderer;sgewindow;${D3D9_LIBRARIES}"
+	"sgeimage2d;sgeimage3d;sgerenderer;sgewindow"
+	"${Awl_LIBRARIES};${D3D9_LIBRARIES}"
 )

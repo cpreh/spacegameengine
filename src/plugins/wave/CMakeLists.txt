@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_WAVE_FILES
 	src/plugins/wave/include/sge/wave/file.hpp
 	src/plugins/wave/include/sge/wave/loader.hpp
@@ -8,11 +8,12 @@ SET(
 	src/plugins/wave/src/loader.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-ADD_SGE_PLUGIN(
+add_sge_plugin(
 	wave
 	"sgeaudio"
+	""
 )

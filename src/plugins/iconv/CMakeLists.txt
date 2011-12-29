@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_ICONV_FILES
 	src/plugins/iconv/include/sge/iconv/converter.hpp
 	src/plugins/iconv/include/sge/iconv/encoding_string.hpp
@@ -10,24 +10,25 @@ SET(
 	src/plugins/iconv/src/system.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${ICONV_INCLUDE_DIR}
 )
 
-IF(
+if(
 	NOT ICONV_HAVE_POSIX
 )
-	SET(
+	set(
 		ICONV_LINK_LIBRARY
 		${ICONV_LIBRARY}
 	)
-ENDIF()
+endif()
 
-ADD_SGE_PLUGIN(
+add_sge_plugin(
 	iconv
-	"sgecharconv;${ICONV_LINK_LIBRARY}"
+	"sgecharconv"
+	"${ICONV_LINK_LIBRARY}"
 )

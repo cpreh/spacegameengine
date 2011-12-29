@@ -1,100 +1,121 @@
-FIND_PACKAGE(
-	Boost 1.45.0 REQUIRED
-	COMPONENTS
-	program_options
-)
-
-FUNCTION(
+function(
 	ADD_SGE_EXAMPLE
 	EXAMPLE_NAME
 	SGE_LIBRARIES
 	ADDITIONAL_LIBRARIES
 )
-	FOREACH(
+	foreach(
 		SGELIB
 		${SGE_LIBRARIES}
 	)
-		STRING(TOUPPER ${SGELIB} SGELIB_UPPER)
+		string(
+			REPLACE
+			"sge"
+			""
+			SGELIB_SUFFIX
+			${SGELIB}
+		)
 
-		IF(NOT ENABLE_${SGELIB_UPPER})
-			MESSAGE(
+		string(
+			TOUPPER
+			${SGELIB_SUFFIX}
+			SGELIB_UPPER
+		)
+
+		IF(
+			NOT ENABLE_${SGELIB_UPPER}
+		)
+			message(
 				STATUS
 				"${EXAMPLE_NAME} example will not be built because ${SGELIB} is not enabled!"
 			)
 
 			RETURN()
-		ENDIF()
+		endif()
+	endforeach()
 
-		SET(SGE_LIBRARIES_FULL "${SGE_LIBRARIES_FULL};sge${SGELIB}")
-	ENDFOREACH()
-
-	STRING(REPLACE "/" "" FULL_NAME ${EXAMPLE_NAME})
-
-	SET(FULL_NAME sge${FULL_NAME}example)
-
-	ADD_EXECUTABLE (${FULL_NAME} ${EXAMPLE_NAME}.cpp)
-
-	TARGET_LINK_LIBRARIES (
-		${FULL_NAME}
-		sgecore
-		${ADDITIONAL_LIBRARIES}
-		${SGE_LIBRARIES_FULL}
+	string(
+		REPLACE
+		"/"
+		""
+		FULL_NAME
+		${EXAMPLE_NAME}
 	)
 
-	INSTALL(
+	set(
+		FULL_NAME
+		sge${FULL_NAME}example
+	)
+
+	add_executable(
+		${FULL_NAME}
+		${EXAMPLE_NAME}.cpp
+	)
+
+	transform_sge_link_targets(
+		"${SGE_LIBRARIES}"
+	)
+
+	target_link_libraries(
+		${FULL_NAME}
+		${ADDITIONAL_LIBRARIES}
+		${SGELIBS_TARGETS_RESULT}
+	)
+
+	install(
 		TARGETS
 		${FULL_NAME}
 		DESTINATION
 		${INSTALL_BINARY_DIR}
 	)
-ENDFUNCTION()
+endfunction()
 
-ADD_DEFINITIONS(
+add_definitions(
 	${Awl_DEFINITIONS}
 )
 
-ADD_SGE_EXAMPLE(anaglyph "config;systems;texture;modelmd3;shader;camera" "")
-ADD_SGE_EXAMPLE(app_path "config" "")
-ADD_SGE_EXAMPLE(asio_window "systems" "${Awl_LIBRARIES}")
-ADD_SGE_EXAMPLE(audio_minimal "config;systems;audio" "")
-ADD_SGE_EXAMPLE(bitmapfont "fontbitmap;fonttext;systems" "")
-ADD_SGE_EXAMPLE(caps "config;plugin;renderer;window" "${Awl_LIBRARIES}")
-ADD_SGE_EXAMPLE(console "console;systems" "")
-ADD_SGE_EXAMPLE(config_path "config" "")
-ADD_SGE_EXAMPLE(doppler "sprite;systems;texture" "")
-ADD_SGE_EXAMPLE(fullscreen "systems" "")
-ADD_SGE_EXAMPLE(ini "parse" "")
-ADD_SGE_EXAMPLE(input "systems" "")
-ADD_SGE_EXAMPLE(intrusivesprite "sprite;systems;texture" "")
-ADD_SGE_EXAMPLE(json "parse" "")
-ADD_SGE_EXAMPLE(line_drawer "line_drawer;config;fonttext;systems" "")
-ADD_SGE_EXAMPLE(mergeimage "systems" "")
-ADD_SGE_EXAMPLE(model_loader "config;systems;texture;modelobj;camera;parse;line_drawer" "")
-ADD_SGE_EXAMPLE(multi_texture "config;systems" "")
-ADD_SGE_EXAMPLE(multi_texture_sprite "config;sprite;systems;texture" "")
-ADD_SGE_EXAMPLE(opengl "renderer;rendereropengl;viewport;systems" "")
-ADD_SGE_EXAMPLE(ortho_view "sprite;systems;texture;camera" "")
-ADD_SGE_EXAMPLE(plugin "audio;config;font;image2d;input;renderer" "")
-ADD_SGE_EXAMPLE(pointsprite "systems;sprite;texture" "")
-ADD_SGE_EXAMPLE(savetexture "systems;sprite;texture;shader" "")
-ADD_SGE_EXAMPLE(screenshot "sprite;systems;texture" "")
-ADD_SGE_EXAMPLE(shader/cube "shader;camera;systems;fonttext;config;" "")
-ADD_SGE_EXAMPLE(shader/raw "sprite;systems;texture" "")
-ADD_SGE_EXAMPLE(spritecolor "sprite;systems" "")
-ADD_SGE_EXAMPLE(sound "systems" "${Boost_PROGRAM_OPTIONS_LIBRARY}")
-ADD_SGE_EXAMPLE(stencil "config;sprite;systems;texture;viewport" "")
-ADD_SGE_EXAMPLE(target "sprite;systems;texture" "")
-ADD_SGE_EXAMPLE(texture_filter "camera;config;fonttext;sprite;systems;texture" "")
-ADD_SGE_EXAMPLE(vertex "image;input;renderer;systems;viewport;window" "")
-ADD_SGE_EXAMPLE(vertex_index "image;input;renderer;systems;viewport;window" "")
-ADD_SGE_EXAMPLE(vertex_planar "image;input;renderer;systems;viewport;window" "")
-ADD_SGE_EXAMPLE(vertex_texture "image;input;renderer;systems;viewport;window" "")
-ADD_SGE_EXAMPLE(volume_texture "camera;image3d;systems" "")
-ADD_SGE_EXAMPLE(tutorial/font "fonttext;sprite;systems" "")
-ADD_SGE_EXAMPLE(tutorial/sound_01 "config;systems" "")
-ADD_SGE_EXAMPLE(tutorial/sound_02 "config;systems" "")
-ADD_SGE_EXAMPLE(tutorial/sprite_01 "sprite;systems;texture" "")
-ADD_SGE_EXAMPLE(tutorial/sprite_02 "sprite;systems;texture" "")
+ADD_SGE_EXAMPLE(anaglyph "sgeconfig;sgesystems;sgetexture;sgemodelmd3;sgeshader;sgecamera" "")
+ADD_SGE_EXAMPLE(app_path "sgeconfig" "")
+ADD_SGE_EXAMPLE(asio_window "sgesystems" "${Awl_LIBRARIES}")
+ADD_SGE_EXAMPLE(audio_minimal "sgeconfig;sgesystems;sgeaudio" "")
+ADD_SGE_EXAMPLE(bitmapfont "sgefontbitmap;sgefonttext;sgesystems" "")
+ADD_SGE_EXAMPLE(caps "sgeconfig;sgeplugin;sgerenderer;sgewindow" "${Awl_LIBRARIES}")
+ADD_SGE_EXAMPLE(console "sgeconsole;sgefonttext;sgeinput;sgesystems" "")
+ADD_SGE_EXAMPLE(config_path "sgeconfig" "")
+ADD_SGE_EXAMPLE(doppler "sgesprite;sgesystems;sgetexture" "")
+ADD_SGE_EXAMPLE(fullscreen "sgesystems" "")
+ADD_SGE_EXAMPLE(ini "sgeparse" "")
+ADD_SGE_EXAMPLE(input "sgesystems" "")
+ADD_SGE_EXAMPLE(intrusivesprite "sgesprite;sgesystems;sgetexture" "")
+ADD_SGE_EXAMPLE(json "sgeparse" "")
+ADD_SGE_EXAMPLE(line_drawer "sgeline_drawer;sgeconfig;sgefonttext;sgesystems" "")
+ADD_SGE_EXAMPLE(mergeimage "sgesystems" "")
+ADD_SGE_EXAMPLE(model_loader "sgeconfig;sgesystems;sgetexture;sgemodelobj;sgecamera;sgeparse;sgeline_drawer" "")
+ADD_SGE_EXAMPLE(multi_texture "sgeconfig;sgesystems" "")
+ADD_SGE_EXAMPLE(multi_texture_sprite "sgeconfig;sgesprite;sgesystems;sgetexture" "")
+ADD_SGE_EXAMPLE(opengl "sgerenderer;sgerendereropengl;sgeviewport;sgesystems" "")
+ADD_SGE_EXAMPLE(ortho_view "sgesprite;sgesystems;sgetexture;sgecamera" "")
+ADD_SGE_EXAMPLE(plugin "sgeaudio;sgeconfig;sgefont;sgeimage2d;sgeinput;sgerenderer" "")
+ADD_SGE_EXAMPLE(pointsprite "sgesystems;sgesprite;sgetexture" "")
+ADD_SGE_EXAMPLE(savetexture "sgesystems;sgesprite;sgetexture;sgeshader" "")
+ADD_SGE_EXAMPLE(screenshot "sgesprite;sgesystems;sgetexture" "")
+ADD_SGE_EXAMPLE(shader/cube "sgeshader;sgecamera;sgesystems;sgefonttext;sgeconfig;" "")
+ADD_SGE_EXAMPLE(shader/raw "sgesprite;sgesystems;sgetexture" "")
+ADD_SGE_EXAMPLE(spritecolor "sgesprite;sgesystems" "")
+ADD_SGE_EXAMPLE(sound "sgesystems" "")
+ADD_SGE_EXAMPLE(stencil "sgeconfig;sgesprite;sgesystems;sgetexture;sgeviewport" "")
+ADD_SGE_EXAMPLE(target "sgesprite;sgesystems;sgetexture" "")
+ADD_SGE_EXAMPLE(texture_filter "sgecamera;sgeconfig;sgefonttext;sgesprite;sgesystems;sgetexture" "")
+ADD_SGE_EXAMPLE(vertex "sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow" "")
+ADD_SGE_EXAMPLE(vertex_index "sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow" "")
+ADD_SGE_EXAMPLE(vertex_planar "sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow" "")
+ADD_SGE_EXAMPLE(vertex_texture "sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow" "")
+ADD_SGE_EXAMPLE(volume_texture "sgecamera;sgeimage3d;sgesystems" "")
+ADD_SGE_EXAMPLE(tutorial/font "sgefonttext;sgesprite;sgesystems" "")
+ADD_SGE_EXAMPLE(tutorial/sound_01 "sgeconfig;sgesystems" "")
+ADD_SGE_EXAMPLE(tutorial/sound_02 "sgeconfig;sgesystems" "")
+ADD_SGE_EXAMPLE(tutorial/sprite_01 "sgesprite;sgesystems;sgetexture" "")
+ADD_SGE_EXAMPLE(tutorial/sprite_02 "sgesprite;sgesystems;sgetexture" "")
 
 IF(ENABLE_CEGUI)
 	ADD_SUBDIRECTORY(gui)

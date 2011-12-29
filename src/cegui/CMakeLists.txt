@@ -1,8 +1,8 @@
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CEGUI_INCLUDE_DIRS}"
 )
 
-SET(
+set(
 	SGE_CEGUI_FILES
 	include/sge/cegui/cegui.hpp
 	include/sge/cegui/cursor_visibility.hpp
@@ -85,16 +85,12 @@ SET(
 	src/cegui/toolbox/scoped_layout.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	cegui
 	"sgecharconv;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgeviewport"
-)
-
-TARGET_LINK_LIBRARIES (
-	sgecegui
 	"${CEGUI_LIBRARIES}"
 )

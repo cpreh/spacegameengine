@@ -26,6 +26,70 @@ if(
 	)
 endif()
 
+option(
+	ENABLE_SHARED
+	"Build sge as shared libraries"
+	TRUE
+)
+
+option(
+	ENABLE_STATIC
+	"Build sge as as static libraries"
+	FALSE
+)
+
+if(
+	NOT ENABLE_SHARED AND NOT ENABLE_STATIC
+)
+	message(
+		FATAL_ERROR
+		"You disabled both STATIC and SHARED"
+	)
+endif()
+
+macro(
+	sge_link_target
+	LIBNAME
+)
+	if(
+		ENABLE_STATIC
+		AND NOT ENABLE_SHARED
+	)
+		set(
+			${LIBNAME}_TARGET
+			${LIBNAME}_static
+		)
+	else()
+		set(
+			${LIBNAME}_TARGET
+			${LIBNAME}
+		)
+	endif()
+endmacro()
+
+macro(
+	transform_sge_link_targets
+	SGELIBS
+)
+	unset(
+		SGELIBS_TARGETS_RESULT
+	)
+
+	foreach(
+		CURLIB
+		${SGELIBS}
+	)
+		sge_link_target(
+			${CURLIB}
+		)
+
+		set(
+			SGELIBS_TARGETS_RESULT
+			"${SGELIBS_TARGETS_RESULT};${${CURLIB}_TARGET}"
+		)
+	endforeach()
+endmacro()
+
 include_directories(
 	${CMAKE_SOURCE_DIR}/include
 )

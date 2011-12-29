@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_SPRITE_FILES
 	include/sge/sprite/bounding_rect.hpp
 	include/sge/sprite/center.hpp
@@ -187,7 +187,8 @@ SET(
 	src/sprite/set_matrices.cpp
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	sprite
 	"sgerenderer"
+	""
 )

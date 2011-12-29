@@ -68,19 +68,20 @@ SET(
 	src/plugins/dinput/src/system.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${DINPUT_INCLUDE_DIR}
 )
 
-ADD_DEFINITIONS(
+add_definitions(
 	${Awl_DEFINITIONS}
 )
 
-ADD_SGE_PLUGIN(
+add_sge_plugin(
 	"dinput"
-	"${Awl_LIBRARIES};sgeinput;sgewindow;${DINPUT_LIBRARIES}"
+	"sgeinput;sgewindow"
+	"${Awl_LIBRARIES};${DINPUT_LIBRARIES}"
 )

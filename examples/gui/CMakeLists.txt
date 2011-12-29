@@ -1,10 +1,14 @@
-FIND_PACKAGE(
+find_package(
 	CEGUI
 	REQUIRED
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CEGUI_INCLUDE_DIRS}"
 )
 
-ADD_SGE_EXAMPLE(text_demo "cegui;systems;config" "${CEGUI_LIBRARIES}")
+add_sge_example(
+	text_demo
+	"sgecegui;sgesystems;sgeconfig"
+	"${CEGUI_LIBRARIES}"
+)

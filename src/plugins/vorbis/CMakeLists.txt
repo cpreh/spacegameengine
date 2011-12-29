@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_VORBIS_FILES
 	src/plugins/vorbis/include/sge/vorbis/file.hpp
 	src/plugins/vorbis/include/sge/vorbis/loader.hpp
@@ -8,19 +8,20 @@ SET(
 	src/plugins/vorbis/src/loader.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${VORBIS_INCLUDE_DIR}
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${OGG_INCLUDE_DIR}
 )
 
-ADD_SGE_PLUGIN(
+add_sge_plugin(
 	vorbis
-	"sgeaudio;${OGG_LIBRARY};${VORBIS_LIBRARY};${VORBIS_FILE_LIBRARY}"
+	"sgeaudio"
+	"${OGG_LIBRARY};${VORBIS_LIBRARY};${VORBIS_FILE_LIBRARY}"
 )

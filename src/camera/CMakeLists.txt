@@ -54,4 +54,5 @@ SET(
 ADD_SGE_BASE_LIBRARY(
 	camera
 	"sgeinput;sgerenderer"
+	""
 )

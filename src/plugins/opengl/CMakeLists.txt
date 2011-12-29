@@ -1,5 +1,5 @@
-SET(
-	SGE_OPENGL_FILES
+set(
+	SGE_OPENGL_BASE_FILES
 	src/plugins/opengl/include/sge/opengl/buffer/base.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/base_unique_ptr.hpp
@@ -667,7 +667,7 @@ SET(
 	src/plugins/opengl/src/viewport.cpp
 )
 
-SET(
+set(
 	SGE_OPENGL_WIN32_FILES
 	src/plugins/opengl/include/sge/opengl/wgl/context.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/context_fwd.hpp
@@ -680,7 +680,7 @@ SET(
 	src/plugins/opengl/src/windows/state.cpp
 )
 
-SET(
+set(
 	SGE_OPENGL_X11_FILES
 	src/plugins/opengl/include/sge/opengl/glx/context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/context_fwd.hpp
@@ -712,7 +712,7 @@ SET(
 	src/plugins/opengl/src/x11/vsync.cpp
 )
 
-SET(
+set(
 	SGE_OPENGL_XF86VMODE_FILES
 	src/plugins/opengl/include/sge/opengl/xf86vmode/calc_refresh_rate.hpp
 	src/plugins/opengl/include/sge/opengl/xf86vmode/check_extension.hpp
@@ -729,7 +729,7 @@ SET(
 	src/plugins/opengl/src/xf86vmode/resolution.cpp
 )
 
-SET(
+set(
 	SGE_OPENGL_XRANDR_FILES
 	src/plugins/opengl/include/sge/opengl/xrandr/check_extension.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/choose_resolution.hpp
@@ -752,145 +752,150 @@ SET(
 	src/plugins/opengl/src/xrandr/set_resolution.cpp
 )
 
-FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_OPENGL_FILES}"
-	SGE_OPENGL_FILES_ABS
+set(
+	SGE_OPENGL_FILES
+	"${SGE_OPENGL_BASE_FILES}"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${OPENGL_INCLUDE_DIR}
 )
 
-FIND_PACKAGE(
-	X11
+set(
+	SGE_OPENGL_ADDITIONAL_DEPS
+	"${OPENGL_gl_LIBRARY};${GLEW_LIBRARIES};${Awl_LIBRARIES}"
 )
 
-IF (X11_FOUND)
-	SET (SGE_OPENGL_HAVE_X11 TRUE)
-
-	INCLUDE_DIRECTORIES(${X11_X11_INCLUDE})
-
-	FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-		"${SGE_OPENGL_X11_FILES}"
-		SGE_OPENGL_FILES_ABS
+if(
+	UNIX
+)
+	find_package(
+		X11
+		REQUIRED
 	)
 
-	OPTION(
+	set(
+		SGE_OPENGL_HAVE_X11
+		TRUE
+	)
+
+	include_directories(
+		${X11_X11_INCLUDE}
+	)
+
+	set(
+		SGE_OPENGL_FILES
+		"${SGE_OPENGL_FILES};${SGE_OPENGL_X11_FILES}"
+	)
+
+	option(
 		ENABLE_XF86VMODE
 		"Enables screen mode switching via xf86vmode"
 		${X11_xf86vmode_FOUND}
 	)
 
 
-	IF(ENABLE_XF86VMODE)
-		SET (SGE_OPENGL_HAVE_XF86VMODE TRUE)
-
-		INCLUDE_DIRECTORIES(${X11_xf86vmode_INCLUDE_PATH})
-
-		FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-			"${SGE_OPENGL_XF86VMODE_FILES}"
-			SGE_OPENGL_FILES_ABS
+	if(
+		ENABLE_XF86VMODE
+	)
+		set(
+			SGE_OPENGL_HAVE_XF86VMODE
+			TRUE
 		)
-	ENDIF()
 
-	OPTION(
+		include_directories(
+			${X11_xf86vmode_INCLUDE_PATH}
+		)
+
+		set(
+			SGE_OPENGL_FILES
+			"${SGE_OPENGL_FILES};${SGE_OPENGL_XF86VMODE_FILES}"
+		)
+
+		# somehow this is not handled by FindX11
+		find_library(
+			X11_xf86vmode_LIB
+			NAMES Xxf86vm
+		)
+
+		set(
+			SGE_OPENGL_ADDITIONAL_DEPS
+			"${SGE_OPENGL_ADDITIONAL_DEPS};${X11_xf86vmode_LIB}"
+		)
+	endif()
+
+	option(
 		ENABLE_XRANDR
 		"Enables screen mode switching via xrandr"
 		${X11_Xrandr_FOUND}
 	)
 
-	IF(ENABLE_XRANDR)
-		SET (SGE_OPENGL_HAVE_XRANDR TRUE)
-
-		INCLUDE_DIRECTORIES(${X11_Xrandr_INCLUDE_PATH})
-
-		FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-			"${SGE_OPENGL_XRANDR_FILES}"
-			SGE_OPENGL_FILES_ABS
-		)
-	ENDIF()
-ELSEIF (WIN32)
-	FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-		"${SGE_OPENGL_WIN32_FILES}"
-		SGE_OPENGL_FILES_ABS
+	if(
+		ENABLE_XRANDR
 	)
-ENDIF ()
+		set(
+			SGE_OPENGL_HAVE_XRANDR
+			TRUE
+		)
 
-CONFIGURE_FILE(
+		include_directories(
+			${X11_Xrandr_INCLUDE_PATH}
+		)
+
+		set(
+			SGE_OPENGL_FILES
+			"${SGE_OPENGL_FILES};${SGE_OPENGL_XRANDR_FILES}"
+		)
+
+		set(
+			SGE_OPENGL_ADDITIONAL_DEPS
+			"${SGE_OPENGL_ADDITIONAL_DEPS};${X11_Xrandr_LIB}"
+		)
+	endif()
+elseif(
+	WIN32
+)
+	set(
+		SGE_OPENGL_FILES
+		"${SGE_OPENGL_FILES};${SGE_OPENGL_WIN32_FILES}"
+	)
+endif()
+
+configure_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
 	${CMAKE_CURRENT_BINARY_DIR}/include/sge/opengl/config.hpp
 )
 
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/include)
-
-INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
-
-INCLUDE_DIRECTORIES(${GLEW_INCLUDE_DIRS})
-
-INCLUDE_DIRECTORIES(${AWL_INCLUDE_DIRS})
-
-ADD_DEFINITIONS(${GLEW_DEFINITIONS})
-
-ADD_LIBRARY (
-	sgeopengl
-	SHARED
-	${SGE_OPENGL_FILES_ABS}
+include_directories(
+	${CMAKE_CURRENT_BINARY_DIR}/include
 )
 
-SET(
-	SGE_OPENGL_ADDITIONAL_DEPS
-	"sgeimage2d;sgeimage3d;sgerenderer;sgerendereropengl;sgewindow"
+include_directories(
+	${OPENGL_INCLUDE_DIR}
 )
 
-CHECK_LIBRARY_DEPS(
-	"sgeopengl"
-	"${SGE_OPENGL_ADDITIONAL_DEPS}"
+include_directories(
+	${GLEW_INCLUDE_DIRS}
 )
 
-ADD_DEFINITIONS(
+include_directories(
+	${Awl_INCLUDE_DIRS}
+)
+
+add_definitions(
+	${GLEW_DEFINITIONS}
+)
+
+add_definitions(
 	${Awl_DEFINITIONS}
 )
 
-TARGET_LINK_LIBRARIES(
-	sgeopengl
-	sgecore
-	${SGE_OPENGL_ADDITIONAL_DEPS}
-	${OPENGL_gl_LIBRARY}
-	${GLEW_LIBRARIES}
-	${Awl_LIBRARIES}
-)
-
-IF (X11_FOUND)
-	INCLUDE_DIRECTORIES(${X11_Xinput_INCLUDE_PATH})
-
-	IF(ENABLE_XF86VMODE)
-		# somehow this is not handled by FindX11
-		FIND_LIBRARY(
-			X11_xf86vmode_LIB
-			NAMES Xxf86vm
-		)
-
-		TARGET_LINK_LIBRARIES(
-			sgeopengl
-			${X11_xf86vmode_LIB}
-		)
-	ENDIF()
-
-	IF(ENABLE_XRANDR)
-		TARGET_LINK_LIBRARIES(
-			sgeopengl
-			${X11_Xrandr_LIB}
-		)
-	ENDIF()
-ENDIF ()
-
-INSTALL(
-	TARGETS
-	sgeopengl
-	DESTINATION
-	${PLUGIN_INSTALL_DIR}
+add_sge_plugin(
+	opengl
+	"sgeimage2d;sgeimage3d;sgerenderer;sgerendereropengl;sgewindow"
+	"${SGE_OPENGL_ADDITIONAL_DEPS}"
 )

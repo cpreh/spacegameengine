@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_SHADER_FILES
 	include/sge/shader/activate_bare.hpp
 	include/sge/shader/activate_everything.hpp
@@ -39,7 +39,8 @@ SET(
 	src/shader/variable.cpp
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	shader
 	"sgerenderer"
+	""
 )

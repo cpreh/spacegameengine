@@ -46,4 +46,5 @@ INCLUDE_DIRECTORIES(
 ADD_SGE_BASE_LIBRARY(
 	fonttext
 	"sgefont;sgesprite;sgetexture"
+	""
 )

@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_OPENAL_FILES
 	src/plugins/openal/include/sge/openal/alc_error_string.hpp
 	src/plugins/openal/include/sge/openal/buffer.hpp
@@ -35,15 +35,16 @@ SET(
 	src/plugins/openal/src/stream_sound.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${OPENAL_INCLUDE_DIR}
 )
 
-ADD_SGE_PLUGIN(
+add_sge_plugin(
 	openal
-	"sgeaudio;${OPENAL_LIBRARY}"
+	"sgeaudio"
+	"${OPENAL_LIBRARY}"
 )

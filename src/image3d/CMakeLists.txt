@@ -109,4 +109,5 @@ INCLUDE_DIRECTORIES(
 ADD_SGE_BASE_LIBRARY(
 	image3d
 	"sgeimage"
+	""
 )

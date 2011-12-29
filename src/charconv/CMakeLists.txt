@@ -45,4 +45,5 @@ INCLUDE_DIRECTORIES(
 ADD_SGE_BASE_LIBRARY(
 	charconv
 	"sgeplugin"
+	""
 )
