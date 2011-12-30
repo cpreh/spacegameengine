@@ -484,7 +484,8 @@ public:
 	 *
 	 * Sets the texture filter for \a stage to \a filter. There are two
 	 * different texture filters: normal and anisotropic. Initially, the
-	 * filters for every texture stage are unspecified.
+	 * filters for every texture stage are the same as
+	 * \link sge::renderer::texture::filter::default_ \endlink
 	 *
 	 * \param filter The filter to set
 	 * \param stage The texture stage to set the filter for
@@ -504,6 +505,8 @@ public:
 	 * \brief Sets the texture address mode for horizontal borders
 	 *
 	 * Sets the horizontal texture address mode for \a stage to \a mode.
+	 * Initially, the address modes for every texture stage are the same as
+	 * \link sge::renderer::texture::address_mode_default \endlink
 	 *
 	 * \param mode The horizontal address mode to set
 	 * \param stage The texture stage to set the address mode for
@@ -521,6 +524,8 @@ public:
 	 * \brief Sets the texture address mode for vertical borders
 	 *
 	 * Sets the vertical texture address mode for \a stage to \a mode.
+	 * Initially, the address modes for every texture stage are the same as
+	 * \link sge::renderer::texture::address_mode_default \endlink
 	 *
 	 * \param mode The vertical address mode to set
 	 * \param stage The texture stage to set the address mode for
@@ -538,6 +543,8 @@ public:
 	 * \brief Sets the texture address mode for depth borders
 	 *
 	 * Sets the depth texture address mode for \a stage to \a mode.
+	 * Initially, the address modes for every texture stage are the same as
+	 * \link sge::renderer::texture::address_mode_default \endlink
 	 *
 	 * \param mode The depth address mode to set
 	 * \param stage The texture stage to set the address mode for
