@@ -33,8 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/stage.hpp>
@@ -152,9 +150,6 @@ try
 			sys.renderer(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::texture::address_mode2(
-				sge::renderer::texture::address_mode::clamp
-			),
 			sge::renderer::resource_flags::none
 		)
 	);
@@ -167,9 +162,6 @@ try
 			sys.renderer(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::texture::address_mode2(
-				sge::renderer::texture::address_mode::clamp
-			),
 			sge::renderer::resource_flags::none
 		)
 	);

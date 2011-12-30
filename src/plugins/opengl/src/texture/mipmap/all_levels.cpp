@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/all_levels_rep.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
@@ -47,7 +48,7 @@ sge::opengl::texture::mipmap::all_levels(
 		== renderer::texture::mipmap::auto_generate::yes
 	)
 		mipmap::auto_generate(
-			_parameters.scoped_work(),
+			_parameters.binding(),
 			_parameters.context(),
 			_parameters.type()
 		);

@@ -18,44 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/use.hpp>
-#include <sge/opengl/texture/bind_context.hpp>
-#include <sge/opengl/texture/scoped_work_bind.hpp>
+#ifndef SGE_RENDERER_TEXTURE_ADDRESS_MODE_DEFAULT_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_ADDRESS_MODE_DEFAULT_HPP_INCLUDED
+
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
 
 
-sge::opengl::texture::scoped_work_bind::scoped_work_bind(
-	opengl::context::object &_context,
-	opengl::texture::type const _type,
-	opengl::texture::id const _id,
-	renderer::texture::stage const _stage
-)
-:
-	context_(
-		_context
-	),
-	bind_context_(
-		opengl::context::use<
-			texture::bind_context
-		>(
-			_context
-		)
-	),
-	stage_(
-		_stage
-	)
+namespace sge
 {
-	bind_context_.bind_for_work(
-		_context,
-		_type,
-		_id,
-		_stage
-	);
+namespace renderer
+{
+namespace texture
+{
+
+SGE_RENDERER_SYMBOL
+sge::renderer::texture::address_mode::type
+address_mode_default();
+
+}
+}
 }
 
-sge::opengl::texture::scoped_work_bind::~scoped_work_bind()
-{
-	bind_context_.unbind_for_work(
-		context_,
-		stage_
-	);
-}
+#endif

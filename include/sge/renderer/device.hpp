@@ -62,6 +62,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light/index.hpp>
 #include <sge/renderer/light/object_fwd.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
+#include <sge/renderer/texture/address_mode_s.hpp>
+#include <sge/renderer/texture/address_mode_t.hpp>
+#include <sge/renderer/texture/address_mode_u.hpp>
 #include <sge/renderer/texture/const_optional_base_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_ptr.hpp>
@@ -494,6 +497,57 @@ public:
 	virtual void
 	texture_filter(
 		renderer::texture::filter::object const &filter,
+		renderer::texture::stage stage
+	) = 0;
+
+	/**
+	 * \brief Sets the texture address mode for horizontal borders
+	 *
+	 * Sets the horizontal texture address mode for \a stage to \a mode.
+	 *
+	 * \param mode The horizontal address mode to set
+	 * \param stage The texture stage to set the address mode for
+	 *
+	 * \warning The behaviour is undefined if \a stage is greater or equal
+	 * to sge::renderer::caps::object::texture_stages
+	*/
+	virtual void
+	texture_address_mode_s(
+		renderer::texture::address_mode_s mode,
+		renderer::texture::stage stage
+	) = 0;
+
+	/**
+	 * \brief Sets the texture address mode for vertical borders
+	 *
+	 * Sets the vertical texture address mode for \a stage to \a mode.
+	 *
+	 * \param mode The vertical address mode to set
+	 * \param stage The texture stage to set the address mode for
+	 *
+	 * \warning The behaviour is undefined if \a stage is greater or equal
+	 * to sge::renderer::caps::object::texture_stages
+	*/
+	virtual void
+	texture_address_mode_t(
+		renderer::texture::address_mode_t mode,
+		renderer::texture::stage stage
+	) = 0;
+
+	/**
+	 * \brief Sets the texture address mode for depth borders
+	 *
+	 * Sets the depth texture address mode for \a stage to \a mode.
+	 *
+	 * \param mode The depth address mode to set
+	 * \param stage The texture stage to set the address mode for
+	 *
+	 * \warning The behaviour is undefined if \a stage is greater or equal
+	 * to sge::renderer::caps::object::texture_stages
+	*/
+	virtual void
+	texture_address_mode_u(
+		renderer::texture::address_mode_u mode,
 		renderer::texture::stage stage
 	) = 0;
 

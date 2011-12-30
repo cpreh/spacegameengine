@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
-#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/texture/stage.hpp>
@@ -40,7 +40,7 @@ namespace funcs
 
 void
 get_image(
-	texture::scoped_work_bind const &,
+	texture::binding const &,
 	texture::type,
 	opengl::color_format,
 	opengl::color_format_type,

@@ -199,9 +199,7 @@ try
 				fcppt::ref(
 					sys.renderer()),
 				sge::image::color::format::rgba8,
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::repeat))));
+				sge::renderer::texture::mipmap::off())));
 
 	sge::texture::const_part_ptr const
 		tex_bg(

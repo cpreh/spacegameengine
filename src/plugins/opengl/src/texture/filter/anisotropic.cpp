@@ -21,8 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/log/global.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/context.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/convert/anisotropic_mip_filter.hpp>
 #include <sge/opengl/texture/filter/anisotropic.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
@@ -35,20 +38,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::filter::anisotropic(
 	opengl::context::object &_context,
-	texture::scoped_work_bind const &_scoped_work,
+	texture::binding const &_binding,
 	texture::type const _type,
 	renderer::texture::filter::anisotropic::object const &_filter
 )
 {
 	funcs::parameter_int(
-		_scoped_work,
+		_binding,
 		_type,
 		GL_TEXTURE_MAG_FILTER,
 		GL_NEAREST
 	);
 
 	funcs::parameter_int(
-		_scoped_work,
+		_binding,
 		_type,
 		GL_TEXTURE_MIN_FILTER,
 		static_cast<
@@ -84,7 +87,7 @@ sge::opengl::texture::filter::anisotropic(
 	try
 	{
 		funcs::parameter_int(
-			_scoped_work,
+			_binding,
 			_type,
 			texture_context.anisotropy_flag(),
 			static_cast<

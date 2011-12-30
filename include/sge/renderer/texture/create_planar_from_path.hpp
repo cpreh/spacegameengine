@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/texture/address_mode2_fwd.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/filesystem/path.hpp>
@@ -45,7 +44,6 @@ create_planar_from_path(
 	renderer::device &,
 	image2d::system &,
 	renderer::texture::mipmap::object const &,
-	renderer::texture::address_mode2 const &,
 	renderer::resource_flags_field const &
 );
 

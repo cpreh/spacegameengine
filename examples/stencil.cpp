@@ -61,8 +61,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/stencil_op.hpp>
 #include <sge/renderer/state/stencil_op_value.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/choices.hpp>
@@ -241,9 +239,6 @@ try
 					sys.renderer(),
 					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
-					sge::renderer::texture::address_mode2(
-						sge::renderer::texture::address_mode::clamp
-					),
 					sge::renderer::resource_flags::none
 				)
 			)
@@ -272,9 +267,6 @@ try
 					sys.renderer(),
 					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
-					sge::renderer::texture::address_mode2(
-						sge::renderer::texture::address_mode::clamp
-					),
 					sge::renderer::resource_flags::none
 				)
 			)

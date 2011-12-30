@@ -38,7 +38,6 @@ namespace texture
 
 template<
 	typename Dim,
-	typename AddressMode,
 	typename Format
 >
 class basic_parameters
@@ -49,7 +48,6 @@ public:
 		Dim const &,
 		Format,
 		texture::mipmap::object const &,
-		AddressMode const &,
 		renderer::resource_flags_field const &,
 		texture::capabilities_field const &
 	);
@@ -67,10 +65,6 @@ public:
 	mipmap() const;
 
 	SGE_RENDERER_SYMBOL
-	AddressMode const &
-	address_mode() const;
-
-	SGE_RENDERER_SYMBOL
 	renderer::resource_flags_field const &
 	resource_flags() const;
 
@@ -83,8 +77,6 @@ private:
 	Format format_;
 
 	texture::mipmap::object mipmap_;
-
-	AddressMode address_mode_;
 
 	renderer::resource_flags_field resource_flags_;
 

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/texture/address_mode2_fwd.hpp>
 #include <sge/renderer/texture/basic_parameters_fwd.hpp>
 
 
@@ -36,7 +35,6 @@ namespace texture
 
 typedef texture::basic_parameters<
 	renderer::dim2,
-	texture::address_mode2,
 	image::color::format::type
 > planar_parameters;
 

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/funcs/delete.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>

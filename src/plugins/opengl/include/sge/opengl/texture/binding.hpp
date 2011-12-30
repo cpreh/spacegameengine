@@ -18,15 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_SCOPED_WORK_BIND_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_SCOPED_WORK_BIND_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_BINDING_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_BINDING_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/bind_context_fwd.hpp>
-#include <sge/opengl/texture/id.hpp>
-#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -37,26 +32,16 @@ namespace opengl
 namespace texture
 {
 
-class scoped_work_bind
+class binding
 {
 	FCPPT_NONCOPYABLE(
-		scoped_work_bind
+		binding
 	);
-public:
-	scoped_work_bind(
-		opengl::context::object &,
-		opengl::texture::type,
-		opengl::texture::id,
-		renderer::texture::stage
-	);
+protected:
+	binding();
 
-	~scoped_work_bind();
-private:
-	opengl::context::object &context_;
-
-	texture::bind_context &bind_context_;
-
-	renderer::texture::stage const stage_;
+	virtual
+	~binding() = 0;
 };
 
 }

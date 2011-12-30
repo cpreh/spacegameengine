@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_FUNCS_LEVEL_PARAMETER_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
@@ -38,7 +38,7 @@ namespace funcs
 
 GLint
 level_parameter(
-	texture::scoped_work_bind const &,
+	texture::binding const &,
 	texture::type,
 	renderer::texture::stage,
 	GLenum what

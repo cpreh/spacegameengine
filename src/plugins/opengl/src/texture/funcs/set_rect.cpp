@@ -19,12 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/check_state.hpp>
+#include <sge/opengl/color_format.hpp>
+#include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/range_check.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/pbo_context.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/set_rect.hpp>
+#include <sge/renderer/const_raw_pointer.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -35,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::funcs::set_rect(
-	texture::scoped_work_bind const &,
+	texture::binding const &,
 	context::object &_context,
 	texture::type const _type,
 	opengl::color_format const _format,

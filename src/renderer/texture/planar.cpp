@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
@@ -34,7 +35,7 @@ sge::renderer::texture::planar::~planar()
 
 sge::renderer::texture::planar::view const
 sge::renderer::texture::planar::lock(
-	lock_mode::type const _flags
+	renderer::lock_mode::type const _flags
 )
 {
 	return

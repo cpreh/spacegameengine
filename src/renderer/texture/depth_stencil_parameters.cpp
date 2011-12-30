@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters.hpp>
 #include <sge/src/renderer/texture/basic_parameters_impl.hpp>
 #include <fcppt/export_symbol.hpp>
@@ -30,6 +29,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template FCPPT_EXPORT_SYMBOL class
 sge::renderer::texture::basic_parameters<
 	sge::renderer::dim2,
-	sge::renderer::texture::address_mode2,
 	sge::renderer::depth_stencil_format::type
 >;

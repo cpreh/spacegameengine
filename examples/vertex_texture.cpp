@@ -52,8 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
@@ -333,9 +331,6 @@ try
 			sys.renderer(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::texture::address_mode2(
-				sge::renderer::texture::address_mode::clamp
-			),
 			sge::renderer::resource_flags::none
 		)
 	);

@@ -20,14 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/level_parameter.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/text.hpp>
 
 
 GLint
 sge::opengl::texture::funcs::level_parameter(
-	texture::scoped_work_bind const &,
+	texture::binding const &,
 	texture::type const _type,
 	renderer::texture::stage const _stage,
 	GLenum const _what

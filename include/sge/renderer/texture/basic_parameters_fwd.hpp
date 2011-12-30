@@ -30,7 +30,6 @@ namespace texture
 
 template<
 	typename Dim,
-	typename AddressMode,
 	typename Format
 >
 class basic_parameters;

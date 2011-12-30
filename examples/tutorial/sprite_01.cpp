@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
@@ -156,9 +155,6 @@ try
 			sys.renderer(),
 			image->view(),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::texture::address_mode2(
-				sge::renderer::texture::address_mode::clamp
-			),
 			sge::renderer::resource_flags::none
 		)
 	);

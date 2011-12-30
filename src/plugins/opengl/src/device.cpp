@@ -59,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/set_stage_funcs.hpp>
 #include <sge/opengl/texture/volume.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
+#include <sge/opengl/texture/address_mode/update.hpp>
 #include <sge/opengl/texture/filter/update.hpp>
 #include <sge/renderer/optional_target.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -373,6 +374,45 @@ sge::opengl::device::texture_filter(
 		context_,
 		_stage,
 		_filter
+	);
+}
+
+void
+sge::opengl::device::texture_address_mode_s(
+	renderer::texture::address_mode_s const _mode,
+	renderer::texture::stage const _stage
+)
+{
+	opengl::texture::address_mode::update(
+		context_,
+		_mode,
+		_stage
+	);
+}
+
+void
+sge::opengl::device::texture_address_mode_t(
+	renderer::texture::address_mode_t const _mode,
+	renderer::texture::stage const _stage
+)
+{
+	opengl::texture::address_mode::update(
+		context_,
+		_mode,
+		_stage
+	);
+}
+
+void
+sge::opengl::device::texture_address_mode_u(
+	renderer::texture::address_mode_u const _mode,
+	renderer::texture::stage const _stage
+)
+{
+	opengl::texture::address_mode::update(
+		context_,
+		_mode,
+		_stage
 	);
 }
 

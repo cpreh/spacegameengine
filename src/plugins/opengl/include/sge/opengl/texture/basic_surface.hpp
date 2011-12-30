@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_BASIC_SURFACE_HPP_INCLUDED
 
 #include <sge/opengl/texture/id.hpp>
-#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/surface_base.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
@@ -52,7 +52,7 @@ public:
 	typedef typename Base::dim dim;
 
 	basic_surface(
-		texture::scoped_work_bind const &,
+		texture::binding const &,
 		texture::type,
 		texture::id,
 		renderer::texture::stage

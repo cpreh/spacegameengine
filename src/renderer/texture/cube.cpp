@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/texture/cube.hpp>
+#include <sge/renderer/texture/cube_side.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
 
@@ -30,8 +32,8 @@ sge::renderer::texture::cube::cube()
 
 sge::renderer::texture::cube::view const
 sge::renderer::texture::cube::lock(
-	cube_side::type const _side,
-	lock_mode::type const _flags
+	texture::cube_side::type const _side,
+	renderer::lock_mode::type const _flags
 )
 {
 	return
@@ -44,7 +46,7 @@ sge::renderer::texture::cube::lock(
 
 sge::renderer::texture::cube::const_view const
 sge::renderer::texture::cube::lock(
-	cube_side::type const _side
+	texture::cube_side::type const _side
 ) const
 {
 	return

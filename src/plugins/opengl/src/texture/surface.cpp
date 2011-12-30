@@ -23,20 +23,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/image2d/view/sub.hpp>
+#include <sge/opengl/color_format.hpp>
+#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/convert/format_to_color.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/basic_surface_impl.hpp>
+#include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/readonly_lock.hpp>
-#include <sge/opengl/texture/scoped_work_bind.hpp>
+#include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/surface.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/get_image.hpp>
 #include <sge/renderer/color_surface.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 
 
 sge::opengl::texture::surface::surface(
-	texture::scoped_work_bind const &_binding,
+	texture::binding const &_binding,
 	opengl::context::object &_context,
 	texture::type const _type,
 	texture::id const _id,
@@ -53,16 +61,24 @@ sge::opengl::texture::surface::surface(
 		_id,
 		_stage
 	),
-	context_(_context),
-	stage_(_stage),
-	resource_flags_(_resource_flags),
+	context_(
+		_context
+	),
+	stage_(
+		_stage
+	),
+	resource_flags_(
+		_resource_flags
+	),
 	color_format_(
 		_color_format
 	),
 	color_format_type_(
 		_color_format_type
 	),
-	is_render_target_(_is_render_target),
+	is_render_target_(
+		_is_render_target
+	),
 	lock_()
 {
 }
@@ -105,7 +121,7 @@ sge::opengl::texture::surface::lock(
 	);
 
 	{
-		opengl::texture::scoped_work_bind const binding(
+		opengl::texture::scoped_work_binding const binding(
 			context_,
 			this->type(),
 			this->id(),

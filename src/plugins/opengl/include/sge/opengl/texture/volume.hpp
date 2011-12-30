@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/volume_basic.hpp>
+#include <sge/renderer/texture/address_mode_u.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -50,6 +51,13 @@ public:
 	);
 
 	~volume();
+private:
+	bool
+	update_address_mode_u(
+		renderer::texture::address_mode_u
+	) const;
+
+	mutable sge::renderer::texture::address_mode_u address_mode_u_;
 };
 
 }

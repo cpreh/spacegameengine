@@ -20,11 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/basic_impl.hpp>
+#include <sge/opengl/texture/check_and_set.hpp>
 #include <sge/opengl/texture/volume.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/opengl/texture/volume_types.hpp>
+#include <sge/opengl/texture/address_mode/default.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters.hpp>
 
@@ -47,10 +50,25 @@ sge::opengl::texture::volume::volume(
 			_context
 		).volume_texture_type(),
 		_param
+	),
+	address_mode_u_(
+		sge::renderer::texture::address_mode::repeat
 	)
 {
 }
 
 sge::opengl::texture::volume::~volume()
 {
+}
+
+bool
+sge::opengl::texture::volume::update_address_mode_u(
+	renderer::texture::address_mode_u const _address_mode
+) const
+{
+	return
+		opengl::texture::check_and_set(
+			address_mode_u_,
+			_address_mode
+		);
 }

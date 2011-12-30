@@ -70,6 +70,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light/object_fwd.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/stack.hpp>
+#include <sge/renderer/texture/address_mode_s.hpp>
+#include <sge/renderer/texture/address_mode_t.hpp>
+#include <sge/renderer/texture/address_mode_u.hpp>
 #include <sge/renderer/texture/const_optional_base_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_ptr.hpp>
@@ -216,6 +219,24 @@ public:
 	texture_filter(
 		renderer::texture::filter::object const &,
 		renderer::texture::stage
+	);
+
+	void
+	texture_address_mode_s(
+		renderer::texture::address_mode_s mode,
+		renderer::texture::stage stage
+	);
+
+	void
+	texture_address_mode_t(
+		renderer::texture::address_mode_t mode,
+		renderer::texture::stage stage
+	);
+
+	void
+	texture_address_mode_u(
+		renderer::texture::address_mode_u mode,
+		renderer::texture::stage stage
 	);
 
 	void

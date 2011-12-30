@@ -82,7 +82,6 @@ sge::opengl::texture::cube::cube(
 		),
 		_param.format(),
 		_param.mipmap(),
-		_param.address_mode(),
 		_param.resource_flags(),
 		_param.capabilities()
 

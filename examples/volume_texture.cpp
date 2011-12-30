@@ -74,6 +74,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode3.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
 #include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/set_address_mode3.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_ptr.hpp>
@@ -520,9 +521,6 @@ create_texture(
 				)
 			),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::texture::address_mode3(
-				sge::renderer::texture::address_mode::clamp
-			),
 			sge::renderer::resource_flags::none
 		);
 }
@@ -726,6 +724,26 @@ try
 					1.0f
 			)(
 				sge::renderer::state::depth_func::less
+			)
+		);
+
+		sge::renderer::texture::set_address_mode3(
+			sys.renderer(),
+			sge::renderer::texture::stage(
+				0u
+			),
+			sge::renderer::texture::address_mode3(
+				sge::renderer::texture::address_mode::clamp
+			)
+		);
+
+		sge::renderer::texture::set_address_mode3(
+			sys.renderer(),
+			sge::renderer::texture::stage(
+				1u
+			),
+			sge::renderer::texture::address_mode3(
+				sge::renderer::texture::address_mode::clamp
 			)
 		);
 

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/basic_impl.hpp>
 #include <sge/opengl/texture/planar.hpp>
 #include <sge/opengl/texture/planar_types.hpp>
-#include <sge/opengl/texture/scoped_work_bind.hpp>
+#include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/surface.hpp>
 #include <sge/opengl/texture/funcs/get_parameter_int.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -71,7 +71,7 @@ sge::opengl::texture::planar::surface(
 	renderer::texture::stage const _stage
 )
 {
-	opengl::texture::scoped_work_bind const binding(
+	opengl::texture::scoped_work_binding const binding(
 		this->context(),
 		this->type(),
 		this->id(),
@@ -102,7 +102,7 @@ sge::opengl::texture::planar::surface(
 sge::renderer::texture::stage const
 sge::opengl::texture::planar::stages() const
 {
-	opengl::texture::scoped_work_bind const binding(
+	opengl::texture::scoped_work_binding const binding(
 		this->context(),
 		this->type(),
 		this->id(),

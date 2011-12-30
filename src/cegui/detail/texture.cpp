@@ -35,8 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -152,8 +150,6 @@ sge::cegui::detail::texture::resize(
 					_size),
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none,
 				caps_));
 }
@@ -233,8 +229,6 @@ sge::cegui::detail::texture::create_from_view(
 			system_.renderer(),
 			v,
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::texture::address_mode2(
-				sge::renderer::texture::address_mode::clamp),
 			sge::renderer::resource_flags::none);
 }
 

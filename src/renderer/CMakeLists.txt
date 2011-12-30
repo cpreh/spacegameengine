@@ -352,6 +352,7 @@ SET(
 	include/sge/renderer/texture/address_mode2_fwd.hpp
 	include/sge/renderer/texture/address_mode3.hpp
 	include/sge/renderer/texture/address_mode3_fwd.hpp
+	include/sge/renderer/texture/address_mode_default.hpp
 	include/sge/renderer/texture/address_mode_s.hpp
 	include/sge/renderer/texture/address_mode_t.hpp
 	include/sge/renderer/texture/address_mode_u.hpp
@@ -433,6 +434,8 @@ SET(
 	include/sge/renderer/texture/scoped.hpp
 	include/sge/renderer/texture/scoped_planar_lock.hpp
 	include/sge/renderer/texture/scoped_volume_lock.hpp
+	include/sge/renderer/texture/set_address_mode2.hpp
+	include/sge/renderer/texture/set_address_mode3.hpp
 	include/sge/renderer/texture/stage.hpp
 	include/sge/renderer/texture/stage_arg.hpp
 	include/sge/renderer/texture/stage_arg_value.hpp
@@ -697,6 +700,7 @@ SET(
 	src/renderer/target_from_texture.cpp
 	src/renderer/texture/address_mode2.cpp
 	src/renderer/texture/address_mode3.cpp
+	src/renderer/texture/address_mode_default.cpp
 	src/renderer/texture/base.cpp
 	src/renderer/texture/const_scoped_planar_lock.cpp
 	src/renderer/texture/const_scoped_volume_lock.cpp
@@ -734,6 +738,8 @@ SET(
 	src/renderer/texture/scoped.cpp
 	src/renderer/texture/scoped_planar_lock.cpp
 	src/renderer/texture/scoped_volume_lock.cpp
+	src/renderer/texture/set_address_mode2.cpp
+	src/renderer/texture/set_address_mode3.cpp
 	src/renderer/texture/volume.cpp
 	src/renderer/texture/volume_parameters.cpp
 	src/renderer/unsupported.cpp

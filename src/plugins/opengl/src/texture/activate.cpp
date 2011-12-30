@@ -18,14 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/activate.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/bind_context.hpp>
-#include <sge/opengl/texture/filter/context.hpp>
+#include <sge/opengl/texture/render_binding.hpp>
+#include <sge/opengl/texture/address_mode/set.hpp>
 #include <sge/opengl/texture/filter/set.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/const_optional_base.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 void
@@ -43,6 +46,7 @@ sge::opengl::texture::activate(
 		)
 	);
 
+	// TODO: Should we activate this code?
 #if 0
 	if(
 		dynamic_cast<
@@ -77,21 +81,27 @@ sge::opengl::texture::activate(
 		)
 	);
 
-	filter::set(
-		_context,
-		texture_base,
-		_stage,
-		opengl::context::use<
-			opengl::texture::filter::context
-		>(
-			_context
-		).get(
-			_stage
-		)
-	);
-
 	context.bind_for_rendering(
 		_context,
+		texture_base,
+		_stage
+	);
+
+	opengl::texture::render_binding const binding(
+		_context,
+		_stage
+	);
+
+	sge::opengl::texture::filter::set(
+		_context,
+		binding,
+		texture_base,
+		_stage
+	);
+
+	sge::opengl::texture::address_mode::set(
+		_context,
+		binding,
 		texture_base,
 		_stage
 	);

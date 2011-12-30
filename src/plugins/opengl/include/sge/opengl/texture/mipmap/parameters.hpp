@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_MIPMAP_PARAMETERS_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/init_function.hpp>
-#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/mipmap/parameters_fwd.hpp>
 #include <sge/renderer/basic_dim.hpp>
@@ -59,7 +59,7 @@ public:
 	>::type init_function_type;
 
 	parameters(
-		texture::scoped_work_bind const &,
+		texture::binding const &,
 		opengl::context::object &,
 		texture::type,
 		opengl::color_format,
@@ -69,8 +69,8 @@ public:
 		init_function_type const &
 	);
 
-	texture::scoped_work_bind const &
-	scoped_work() const;
+	texture::binding const &
+	binding() const;
 
 	opengl::context::object &
 	context() const;
@@ -93,7 +93,7 @@ public:
 	init_function_type const &
 	init_function() const;
 private:
-	texture::scoped_work_bind const &scoped_work_;
+	texture::binding const &binding_;
 
 	opengl::context::object &context_;
 

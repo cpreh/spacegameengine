@@ -29,18 +29,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<
 	typename Dim,
-	typename AddressMode,
 	typename Format
 >
 sge::renderer::texture::basic_parameters<
 	Dim,
-	AddressMode,
 	Format
 >::basic_parameters(
 	Dim const &_dim,
 	Format const _format,
 	texture::mipmap::object const &_mipmap,
-	AddressMode const &_address_mode,
 	renderer::resource_flags_field const &_resource_flags,
 	texture::capabilities_field const &_capabilities
 )
@@ -48,7 +45,6 @@ sge::renderer::texture::basic_parameters<
 	dim_(_dim),
 	format_(_format),
 	mipmap_(_mipmap),
-	address_mode_(_address_mode),
 	resource_flags_(_resource_flags),
 	capabilities_(_capabilities)
 {
@@ -56,13 +52,11 @@ sge::renderer::texture::basic_parameters<
 
 template<
 	typename Dim,
-	typename AddressMode,
 	typename Format
 >
 Dim const &
 sge::renderer::texture::basic_parameters<
 	Dim,
-	AddressMode,
 	Format
 >::size() const
 {
@@ -71,13 +65,11 @@ sge::renderer::texture::basic_parameters<
 
 template<
 	typename Dim,
-	typename AddressMode,
 	typename Format
 >
 Format
 sge::renderer::texture::basic_parameters<
 	Dim,
-	AddressMode,
 	Format
 >::format() const
 {
@@ -86,13 +78,11 @@ sge::renderer::texture::basic_parameters<
 
 template<
 	typename Dim,
-	typename AddressMode,
 	typename Format
 >
 sge::renderer::texture::mipmap::object const &
 sge::renderer::texture::basic_parameters<
 	Dim,
-	AddressMode,
 	Format
 >::mipmap() const
 {
@@ -101,28 +91,11 @@ sge::renderer::texture::basic_parameters<
 
 template<
 	typename Dim,
-	typename AddressMode,
-	typename Format
->
-AddressMode const &
-sge::renderer::texture::basic_parameters<
-	Dim,
-	AddressMode,
-	Format
->::address_mode() const
-{
-	return address_mode_;
-}
-
-template<
-	typename Dim,
-	typename AddressMode,
 	typename Format
 >
 sge::renderer::resource_flags_field const &
 sge::renderer::texture::basic_parameters<
 	Dim,
-	AddressMode,
 	Format
 >::resource_flags() const
 {
@@ -131,13 +104,11 @@ sge::renderer::texture::basic_parameters<
 
 template<
 	typename Dim,
-	typename AddressMode,
 	typename Format
 >
 sge::renderer::texture::capabilities_field const &
 sge::renderer::texture::basic_parameters<
 	Dim,
-	AddressMode,
 	Format
 >::capabilities() const
 {

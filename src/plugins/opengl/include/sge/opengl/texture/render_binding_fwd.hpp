@@ -18,11 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_ADDRESS_MODE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_ADDRESS_MODE_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_RENDER_BINDING_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_RENDER_BINDING_FWD_HPP_INCLUDED
 
-#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
 
 namespace sge
 {
@@ -31,15 +29,7 @@ namespace opengl
 namespace texture
 {
 
-template<
-	typename Mode
->
-void
-address_mode(
-	texture::scoped_work_bind const &,
-	texture::type,
-	Mode const &
-);
+class render_binding;
 
 }
 }

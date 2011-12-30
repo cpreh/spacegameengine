@@ -116,6 +116,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/set_address_mode2.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
@@ -666,8 +667,6 @@ try
 				sys.renderer(),
 				sys.image_system(),
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::texture::address_mode2(
-					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none);
 
 	compiled_model compiled(
@@ -770,6 +769,12 @@ try
 			sys.renderer(),
 			sge::renderer::matrix_mode::world,
 			camera.world());
+
+		sge::renderer::texture::set_address_mode2(
+			sys.renderer(),
+			sge::renderer::texture::stage(0u),
+			sge::renderer::texture::address_mode2(
+				sge::renderer::texture::address_mode::clamp));
 
 		line_drawer.render();
 

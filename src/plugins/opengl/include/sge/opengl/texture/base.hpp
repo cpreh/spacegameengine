@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
+#include <sge/renderer/texture/address_mode_s.hpp>
+#include <sge/renderer/texture/address_mode_t.hpp>
+#include <sge/renderer/texture/address_mode_u.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -61,9 +64,26 @@ public:
 	bool
 	has_mipmap() const;
 
+	bool
+	update_address_mode_s(
+		renderer::texture::address_mode_s
+	) const;
+
+	bool
+	update_address_mode_t(
+		renderer::texture::address_mode_t
+	) const;
+
+	virtual
+	bool
+	update_address_mode_u(
+		renderer::texture::address_mode_u
+	) const;
+
 	virtual ~base();
 protected:
-	explicit base(
+	explicit
+	base(
 		texture::type
 	);
 private:
@@ -74,7 +94,12 @@ private:
 
 	opengl::texture::holder const holder_;
 
+	// These are mutable because renderer::device::texture passes in a const texture
 	mutable sge::renderer::texture::filter::object filter_;
+
+	mutable sge::renderer::texture::address_mode_s address_mode_s_;
+
+	mutable sge::renderer::texture::address_mode_t address_mode_t_;
 };
 
 }

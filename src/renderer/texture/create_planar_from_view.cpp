@@ -20,13 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
 
@@ -35,7 +39,6 @@ sge::renderer::texture::create_planar_from_view(
 	renderer::device &_renderer,
 	sge::image2d::view::const_object const &_view,
 	texture::mipmap::object const &_mipmap,
-	texture::address_mode2 const &_address_mode,
 	renderer::resource_flags_field const &_resource_flags
 )
 {
@@ -49,7 +52,6 @@ sge::renderer::texture::create_planar_from_view(
 					_view
 				),
 				_mipmap,
-				_address_mode,
 				_resource_flags,
 				renderer::texture::capabilities_field::null()
 			)

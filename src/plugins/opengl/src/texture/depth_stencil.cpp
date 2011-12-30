@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/depth_stencil_to_internal_format.hpp>
 #include <sge/opengl/texture/depth_stencil.hpp>
 #include <sge/opengl/texture/depth_stencil_surface.hpp>
-#include <sge/opengl/texture/scoped_work_bind.hpp>
+#include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/funcs/set_2d.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
@@ -60,7 +60,7 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		_params.format()
 	)
 {
-	opengl::texture::scoped_work_bind const binding(
+	opengl::texture::scoped_work_binding const binding(
 		_context,
 		this->type(),
 		this->id(),
@@ -103,7 +103,7 @@ sge::opengl::texture::depth_stencil::size() const
 sge::renderer::depth_stencil_surface_ptr const
 sge::opengl::texture::depth_stencil::surface() const
 {
-	opengl::texture::scoped_work_bind const binding(
+	opengl::texture::scoped_work_binding const binding(
 		context_,
 		this->type(),
 		this->id(),

@@ -228,7 +228,11 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/uint.hpp
 	src/plugins/opengl/include/sge/opengl/state/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/texture/activate.hpp
-	src/plugins/opengl/include/sge/opengl/texture/address_mode.hpp
+	src/plugins/opengl/include/sge/opengl/texture/address_mode/context.hpp
+	src/plugins/opengl/include/sge/opengl/texture/address_mode/context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/address_mode/default.hpp
+	src/plugins/opengl/include/sge/opengl/texture/address_mode/set.hpp
+	src/plugins/opengl/include/sge/opengl/texture/address_mode/update.hpp
 	src/plugins/opengl/include/sge/opengl/texture/base.hpp
 	src/plugins/opengl/include/sge/opengl/texture/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/base_ptr.hpp
@@ -239,6 +243,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/basic_surface_impl.hpp
 	src/plugins/opengl/include/sge/opengl/texture/bind_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/bind_context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/binding.hpp
+	src/plugins/opengl/include/sge/opengl/texture/binding_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/check_and_set.hpp
 	src/plugins/opengl/include/sge/opengl/texture/check_dim.hpp
 	src/plugins/opengl/include/sge/opengl/texture/context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/address_mode.hpp
@@ -306,8 +313,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/planar_types.hpp
 	src/plugins/opengl/include/sge/opengl/texture/readonly_lock.hpp
 	src/plugins/opengl/include/sge/opengl/texture/readwrite_lock.hpp
-	src/plugins/opengl/include/sge/opengl/texture/scoped_work_bind.hpp
-	src/plugins/opengl/include/sge/opengl/texture/scoped_work_bind_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/render_binding.hpp
+	src/plugins/opengl/include/sge/opengl/texture/render_binding_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/scoped_work_binding.hpp
+	src/plugins/opengl/include/sge/opengl/texture/scoped_work_binding_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/set_stage_funcs.hpp
 	src/plugins/opengl/include/sge/opengl/texture/sub_function.hpp
 	src/plugins/opengl/include/sge/opengl/texture/surface.hpp
@@ -570,9 +579,13 @@ set(
 	src/plugins/opengl/src/system.cpp
 	src/plugins/opengl/src/target_base.cpp
 	src/plugins/opengl/src/texture/activate.cpp
-	src/plugins/opengl/src/texture/address_mode.cpp
+	src/plugins/opengl/src/texture/address_mode/context.cpp
+	src/plugins/opengl/src/texture/address_mode/default.cpp
+	src/plugins/opengl/src/texture/address_mode/set.cpp
+	src/plugins/opengl/src/texture/address_mode/update.cpp
 	src/plugins/opengl/src/texture/base.cpp
 	src/plugins/opengl/src/texture/bind_context.cpp
+	src/plugins/opengl/src/texture/binding.cpp
 	src/plugins/opengl/src/texture/check_dim.cpp
 	src/plugins/opengl/src/texture/context.cpp
 	src/plugins/opengl/src/texture/convert/address_mode.cpp
@@ -594,6 +607,7 @@ set(
 	src/plugins/opengl/src/texture/filter/anisotropic.cpp
 	src/plugins/opengl/src/texture/filter/context.cpp
 	src/plugins/opengl/src/texture/filter/normal.cpp
+	src/plugins/opengl/src/texture/filter/set.cpp
 	src/plugins/opengl/src/texture/filter/update.cpp
 	src/plugins/opengl/src/texture/filter/visitor.cpp
 	src/plugins/opengl/src/texture/funcs/bind.cpp
@@ -604,7 +618,6 @@ set(
 	src/plugins/opengl/src/texture/funcs/get_parameter_int.cpp
 	src/plugins/opengl/src/texture/funcs/level_parameter.cpp
 	src/plugins/opengl/src/texture/funcs/parameter_int.cpp
-	src/plugins/opengl/src/texture/funcs/set.cpp
 	src/plugins/opengl/src/texture/funcs/set_2d.cpp
 	src/plugins/opengl/src/texture/funcs/set_3d.cpp
 	src/plugins/opengl/src/texture/funcs/set_active_level.cpp
@@ -625,7 +638,8 @@ set(
 	src/plugins/opengl/src/texture/planar_types.cpp
 	src/plugins/opengl/src/texture/readonly_lock.cpp
 	src/plugins/opengl/src/texture/readwrite_lock.cpp
-	src/plugins/opengl/src/texture/scoped_work_bind.cpp
+	src/plugins/opengl/src/texture/render_binding.cpp
+	src/plugins/opengl/src/texture/scoped_work_binding.cpp
 	src/plugins/opengl/src/texture/set_stage_funcs.cpp
 	src/plugins/opengl/src/texture/surface.cpp
 	src/plugins/opengl/src/texture/surface_base.cpp

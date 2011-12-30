@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/basic_surface.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/lock_base_fwd.hpp>
-#include <sge/opengl/texture/scoped_work_bind_fwd.hpp>
 #include <sge/opengl/texture/surface_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/color_surface.hpp>
@@ -60,7 +60,7 @@ public:
 	> base;
 
 	surface(
-		texture::scoped_work_bind const &,
+		texture::binding const &,
 		opengl::context::object &,
 		texture::type,
 		texture::id,

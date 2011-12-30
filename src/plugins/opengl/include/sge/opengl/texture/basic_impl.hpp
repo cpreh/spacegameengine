@@ -33,11 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/color_to_format.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
 #include <sge/opengl/convert/color_to_internal_format.hpp>
-#include <sge/opengl/texture/address_mode.hpp>
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/check_dim.hpp>
 #include <sge/opengl/texture/create_lock.hpp>
-#include <sge/opengl/texture/scoped_work_bind.hpp>
+#include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/funcs/get_image.hpp>
 #include <sge/opengl/texture/mipmap/create.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
@@ -148,7 +147,7 @@ sge::opengl::texture::basic<Types>::unlock() const
 
 		lock_->unlock();
 
-		opengl::texture::scoped_work_bind const binding(
+		opengl::texture::scoped_work_binding const binding(
 			context_,
 			this->type(),
 			this->id(),
@@ -221,7 +220,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 		)
 	)
 	{
-		opengl::texture::scoped_work_bind const binding(
+		opengl::texture::scoped_work_binding const binding(
 			context_,
 			this->type(),
 			this->id(),
@@ -460,17 +459,11 @@ sge::opengl::texture::basic<Types>::basic(
 		Types::name()
 	);
 
-	opengl::texture::scoped_work_bind const binding(
+	opengl::texture::scoped_work_binding const binding(
 		context_,
 		this->type(),
 		this->id(),
 		renderer::texture::stage(0u)
-	);
-
-	opengl::texture::address_mode(
-		binding,
-		this->type(),
-		_parameters.address_mode()
 	);
 
 	Types::init_function()(
