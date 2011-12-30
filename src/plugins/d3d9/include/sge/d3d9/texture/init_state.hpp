@@ -18,21 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/devicefuncs/set_texture.hpp>
-#include <sge/d3d9/texture/set.hpp>
-#include <sge/renderer/texture/const_optional_base_fwd.hpp>
+#ifndef SGE_D3D9_TEXTURE_INIT_STATE_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_INIT_STATE_HPP_INCLUDED
 
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
+
+
+namespace sge
+{
+namespace d3d9
+{
+namespace texture
+{
 
 void
-sge::d3d9::texture::set(
-	IDirect3DDevice9 *const _device,
-	renderer::texture::stage const _stage,
-	renderer::texture::const_optional_base const &_base
-)
-{
-	devicefuncs::set_texture(
-		_device,
-		_stage,
-		_base
-	);
+init_state(
+	IDirect3DDevice9 *,
+	sge::renderer::caps::texture_stages
+);
+
 }
+}
+}
+
+#endif

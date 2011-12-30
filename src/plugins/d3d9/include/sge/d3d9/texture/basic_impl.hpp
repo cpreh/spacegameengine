@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/color_format.hpp>
 #include <sge/d3d9/convert/lock_flags.hpp>
 #include <sge/d3d9/convert/to_color_format.hpp>
-#include <sge/d3d9/texture/address_mode.hpp>
 #include <sge/d3d9/texture/basic.hpp>
 #include <sge/d3d9/texture/pool.hpp>
 #include <sge/d3d9/texture/update.hpp>
@@ -127,24 +126,6 @@ typename sge::d3d9::texture::basic<Types>::d3d_type *
 sge::d3d9::texture::basic<Types>::get() const
 {
 	return main_texture_.get();
-}
-
-template<
-	typename Types
->
-void
-sge::d3d9::texture::basic<Types>::address_mode(
-	IDirect3DDevice9 *const _device,
-	d3d9::state::address_mode &_address_mode,
-	renderer::texture::stage const _stage
-) const
-{
-	texture::address_mode(
-		_device,
-		_address_mode,
-		_stage,
-		parameters_.address_mode()
-	);
 }
 
 template<

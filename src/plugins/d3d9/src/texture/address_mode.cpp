@@ -20,110 +20,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/address_mode.hpp>
+#include <sge/d3d9/convert/address_mode_type.hpp>
 #include <sge/d3d9/devicefuncs/set_sampler_state.hpp>
-#include <sge/d3d9/state/address_mode.hpp>
 #include <sge/d3d9/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/address_mode3.hpp>
+#include <sge/renderer/texture/address_mode_s.hpp>
+#include <sge/renderer/texture/address_mode_t.hpp>
+#include <sge/renderer/texture/address_mode_u.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
-namespace
-{
-
+template<
+	typename Mode
+>
 void
-update_level(
-	IDirect3DDevice9 *,
-	sge::d3d9::state::address_mode &,
-	sge::renderer::texture::stage,
-	D3DSAMPLERSTATETYPE,
-	D3DTEXTUREADDRESS
+sge::d3d9::texture::address_mode(
+	IDirect3DDevice9 *const _device,
+	renderer::texture::stage const _stage,
+	Mode const _mode
+)
+{
+	sge::d3d9::devicefuncs::set_sampler_state(
+		_device,
+		_stage,
+		d3d9::convert::address_mode_type<
+			Mode
+		>::get(),
+		d3d9::convert::address_mode(
+			_mode.get()
+		)
+	);
+}
+
+#define SGE_D3D9_TEXTURE_INSTANTIATE_ADDRESS_MODE( \
+	mode_type \
+) \
+template \
+void \
+sge::d3d9::texture::address_mode<\
+	mode_type \
+>( \
+	IDirect3DDevice9 *const, \
+	sge::renderer::texture::stage const, \
+	mode_type const \
+)
+
+SGE_D3D9_TEXTURE_INSTANTIATE_ADDRESS_MODE(
+	sge::renderer::texture::address_mode_s
 );
 
-}
+SGE_D3D9_TEXTURE_INSTANTIATE_ADDRESS_MODE(
+	sge::renderer::texture::address_mode_t
+);
 
-void
-sge::d3d9::texture::address_mode(
-	IDirect3DDevice9 *const _device,
-	state::address_mode &_state,
-	renderer::texture::stage const _stage,
-	renderer::texture::address_mode2 const &_mode
-)
-{
-	::update_level(
-		_device,
-		_state,
-		_stage,
-		D3DSAMP_ADDRESSU,
-		d3d9::convert::address_mode(
-			_mode.address_mode_s().get()
-		)
-	);
-
-	::update_level(
-		_device,
-		_state,
-		_stage,
-		D3DSAMP_ADDRESSV,
-		d3d9::convert::address_mode(
-			_mode.address_mode_t().get()
-		)
-	);
-}
-
-void
-sge::d3d9::texture::address_mode(
-	IDirect3DDevice9 *const _device,
-	state::address_mode &_state,
-	renderer::texture::stage const _stage,
-	renderer::texture::address_mode3 const &_mode
-)
-{
-	texture::address_mode(
-		_device,
-		_state,
-		_stage,
-		renderer::texture::address_mode2(
-			_mode.address_mode_s(),
-			_mode.address_mode_t()
-		)
-	);
-
-	::update_level(
-		_device,
-		_state,
-		_stage,
-		D3DSAMP_ADDRESSW,
-		d3d9::convert::address_mode(
-			_mode.address_mode_u().get()
-		)
-	);
-}
-
-namespace
-{
-
-void
-update_level(
-	IDirect3DDevice9 *const _device,
-	sge::d3d9::state::address_mode &_state,
-	sge::renderer::texture::stage const _stage,
-	D3DSAMPLERSTATETYPE const _level,
-	D3DTEXTUREADDRESS const _value
-)
-{
-	if(
-		_state.update(
-			_stage,
-			_level,
-			_value
-		)
-	)
-		sge::d3d9::devicefuncs::set_sampler_state(
-			_device,
-			_stage,
-			_level,
-			_value
-		);
-}
-
-}
+SGE_D3D9_TEXTURE_INSTANTIATE_ADDRESS_MODE(
+	sge::renderer::texture::address_mode_u
+);

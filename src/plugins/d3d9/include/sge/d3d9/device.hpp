@@ -169,6 +169,24 @@ public:
 	);
 
 	void
+	texture_address_mode_s(
+		renderer::texture::address_mode_s,
+		renderer::texture::stage
+	);
+
+	void
+	texture_address_mode_t(
+		renderer::texture::address_mode_t,
+		renderer::texture::stage
+	);
+
+	void
+	texture_address_mode_u(
+		renderer::texture::address_mode_u,
+		renderer::texture::stage
+	);
+
+	void
 	transform(
 		renderer::matrix_mode::type,
 		renderer::matrix4 const &

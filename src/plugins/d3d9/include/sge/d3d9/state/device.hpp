@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/offscreen_target_fwd.hpp>
 #include <sge/d3d9/onscreen_target_fwd.hpp>
 #include <sge/d3d9/target_base_fwd.hpp>
-#include <sge/d3d9/state/address_mode.hpp>
 #include <sge/d3d9/state/clear.hpp>
 #include <sge/d3d9/state/clip_plane.hpp>
 #include <sge/d3d9/state/device_fwd.hpp>
@@ -61,9 +60,6 @@ public:
 	renderer::optional_target const
 	target();
 
-	d3d9::state::address_mode &
-	address_mode();
-
 	d3d9::state::clear &
 	clear();
 
@@ -84,8 +80,6 @@ private:
 	d3d9::offscreen_target *offscreen_target_;
 
 	d3d9::target_base *target_;
-
-	d3d9::state::address_mode address_mode_;
 
 	d3d9::state::clear clear_;
 

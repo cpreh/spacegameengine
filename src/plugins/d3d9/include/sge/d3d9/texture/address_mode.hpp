@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_ADDRESS_MODE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/address_mode_fwd.hpp>
-#include <sge/renderer/texture/address_mode2_fwd.hpp>
-#include <sge/renderer/texture/address_mode3_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
 
@@ -35,20 +32,14 @@ namespace d3d9
 namespace texture
 {
 
+template<
+	typename Mode
+>
 void
 address_mode(
 	IDirect3DDevice9 *const _device,
-	state::address_mode &_state,
 	renderer::texture::stage const _stage,
-	renderer::texture::address_mode2 const &
-);
-
-void
-address_mode(
-	IDirect3DDevice9 *const _device,
-	state::address_mode &_state,
-	renderer::texture::stage const _stage,
-	renderer::texture::address_mode3 const &
+	Mode
 );
 
 }

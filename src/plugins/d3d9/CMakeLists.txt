@@ -3,6 +3,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/basic_target.hpp
 	src/plugins/d3d9/include/sge/d3d9/basic_target_impl.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/address_mode.hpp
+	src/plugins/d3d9/include/sge/d3d9/convert/address_mode_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/bool.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/clear_flag.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/color_format.hpp
@@ -107,8 +108,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/resource_list.hpp
 	src/plugins/d3d9/include/sge/d3d9/resource_manager.hpp
 	src/plugins/d3d9/include/sge/d3d9/resource_manager_fwd.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/address_mode.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/address_mode_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/alpha_func.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/apply.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/bool.hpp
@@ -212,6 +211,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/texture/filter/normal.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/filter/set.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/filter/visitor.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/init_state.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/lock_cube.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/lock_planar.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/lock_volume.hpp
@@ -240,6 +240,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/vertex_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/vertex_declaration.hpp
 	src/plugins/d3d9/src/convert/address_mode.cpp
+	src/plugins/d3d9/src/convert/address_mode_type.cpp
 	src/plugins/d3d9/src/convert/bool.cpp
 	src/plugins/d3d9/src/convert/clear_flag.cpp
 	src/plugins/d3d9/src/convert/color_format.cpp
@@ -330,7 +331,6 @@ SET(
 	src/plugins/d3d9/src/parameters/tnl_caps.cpp
 	src/plugins/d3d9/src/resource.cpp
 	src/plugins/d3d9/src/resource_manager.cpp
-	src/plugins/d3d9/src/state/address_mode.cpp
 	src/plugins/d3d9/src/state/alpha_func.cpp
 	src/plugins/d3d9/src/state/apply.cpp
 	src/plugins/d3d9/src/state/bool.cpp
@@ -408,6 +408,7 @@ SET(
 	src/plugins/d3d9/src/texture/filter/normal.cpp
 	src/plugins/d3d9/src/texture/filter/set.cpp
 	src/plugins/d3d9/src/texture/filter/visitor.cpp
+	src/plugins/d3d9/src/texture/init_state.cpp
 	src/plugins/d3d9/src/texture/lock_cube.cpp
 	src/plugins/d3d9/src/texture/lock_planar.cpp
 	src/plugins/d3d9/src/texture/lock_volume.cpp

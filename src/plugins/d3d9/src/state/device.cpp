@@ -38,7 +38,6 @@ sge::d3d9::state::device::device(
 	target_(
 		&_onscreen_target
 	),
-	address_mode_(),
 	clear_(),
 	clip_plane_(),
 	current_(),
@@ -105,12 +104,6 @@ sge::d3d9::state::device::target()
 			)
 		:
 			renderer::optional_target();
-}
-
-sge::d3d9::state::address_mode &
-sge::d3d9::state::device::address_mode()
-{
-	return address_mode_;
 }
 
 sge::d3d9::state::clear &

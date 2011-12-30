@@ -18,17 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_ADDRESS_MODE_FWD_HPP_INCLUDED
-#define SGE_D3D9_STATE_ADDRESS_MODE_FWD_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_ADDRESS_MODE_TYPE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_ADDRESS_MODE_TYPE_HPP_INCLUDED
+
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/renderer/texture/address_mode_s.hpp>
+#include <sge/renderer/texture/address_mode_t.hpp>
+#include <sge/renderer/texture/address_mode_u.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
-namespace state
+namespace convert
 {
 
-class address_mode;
+template<
+	typename Mode
+>
+struct address_mode_type;
+
+template<>
+struct address_mode_type<
+	sge::renderer::texture::address_mode_s
+>
+{
+	static
+	D3DSAMPLERSTATETYPE
+	get();
+};
+
+template<>
+struct address_mode_type<
+	sge::renderer::texture::address_mode_t
+>
+{
+	static
+	D3DSAMPLERSTATETYPE
+	get();
+};
+
+template<>
+struct address_mode_type<
+	sge::renderer::texture::address_mode_u
+>
+{
+	static
+	D3DSAMPLERSTATETYPE
+	get();
+};
 
 }
 }

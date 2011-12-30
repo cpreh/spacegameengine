@@ -53,8 +53,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/device.hpp>
 #include <sge/d3d9/surface/depth_stencil.hpp>
 #include <sge/d3d9/surface/depth_stencil_native.hpp>
+#include <sge/d3d9/texture/address_mode.hpp>
 #include <sge/d3d9/texture/cube.hpp>
 #include <sge/d3d9/texture/depth_stencil.hpp>
+#include <sge/d3d9/texture/init_state.hpp>
 #include <sge/d3d9/texture/planar.hpp>
 #include <sge/d3d9/texture/set.hpp>
 #include <sge/d3d9/texture/volume.hpp>
@@ -390,7 +392,6 @@ sge::d3d9::device::texture(
 {
 	texture::set(
 		device_.get(),
-		device_state_->address_mode(),
 		_stage,
 		_texture
 	);
@@ -406,6 +407,45 @@ sge::d3d9::device::texture_filter(
 		device_.get(),
 		_stage,
 		_filter
+	);
+}
+
+void
+sge::d3d9::device::texture_address_mode_s(
+	renderer::texture::address_mode_s const _mode,
+	renderer::texture::stage const _stage
+)
+{
+	texture::address_mode(
+		device_.get(),
+		_stage,
+		_mode
+	);
+}
+
+void
+sge::d3d9::device::texture_address_mode_t(
+	renderer::texture::address_mode_t const _mode,
+	renderer::texture::stage const _stage
+)
+{
+	texture::address_mode(
+		device_.get(),
+		_stage,
+		_mode
+	);
+}
+
+void
+sge::d3d9::device::texture_address_mode_u(
+	renderer::texture::address_mode_u const _mode,
+	renderer::texture::stage const _stage
+)
+{
+	texture::address_mode(
+		device_.get(),
+		_stage,
+		_mode
 	);
 }
 
@@ -714,6 +754,11 @@ sge::d3d9::device::init()
 
 	this->state(
 		sge::renderer::state::default_()
+	);
+
+	sge::d3d9::texture::init_state(
+		device_.get(),
+		caps_->texture_stages()
 	);
 }
 
