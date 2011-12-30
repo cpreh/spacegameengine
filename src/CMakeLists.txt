@@ -4,14 +4,6 @@ set(
 	include/sge/error/check_state.hpp
 	include/sge/error/error.hpp
 	include/sge/exception.hpp
-	include/sge/log/declare_lib.hpp
-	include/sge/log/declare_lib_base.hpp
-	include/sge/log/declare_local.hpp
-	include/sge/log/default_parameters.hpp
-	include/sge/log/global.hpp
-	include/sge/log/global_context.hpp
-	include/sge/log/location.hpp
-	include/sge/log/log.hpp
 	include/sge/symbol.hpp
 	include/sge/timer/basic.hpp
 	include/sge/timer/basic_decl.hpp
@@ -53,10 +45,6 @@ set(
 set(
 	SGE_CORE_SRC_FILES
 	src/exception.cpp
-	src/log/default_parameters.cpp
-	src/log/global.cpp
-	src/log/global_context.cpp
-	src/log/location.cpp
 )
 
 foreach(
@@ -356,6 +344,7 @@ OPTION (ENABLE_IMAGE "Build the image library" ON)
 OPTION (ENABLE_IMAGE2D "Build the image2d library" ON)
 OPTION (ENABLE_IMAGE3D "Build the image3d library" ON)
 OPTION (ENABLE_INPUT "Build the input library" ON)
+OPTION (ENABLE_LOG "Build the log base library" ON)
 OPTION (ENABLE_MEDIA "Build the media base library" ON)
 OPTION (ENABLE_MODELMD3 "Build the md3 model library" ON)
 OPTION (ENABLE_MODELOBJ "Build the md3 model library" ON)
@@ -389,6 +378,10 @@ ENDIF ()
 
 IF (ENABLE_INPUT)
 	ADD_SUBDIRECTORY(input)
+ENDIF ()
+
+IF (ENABLE_LOG)
+	ADD_SUBDIRECTORY(log)
 ENDIF ()
 
 IF (ENABLE_MEDIA)

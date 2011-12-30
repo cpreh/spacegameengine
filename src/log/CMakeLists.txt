@@ -1,0 +1,22 @@
+set(
+	SGE_LOG_FILES
+	include/sge/log/declare_lib.hpp
+	include/sge/log/declare_lib_base.hpp
+	include/sge/log/declare_local.hpp
+	include/sge/log/default_parameters.hpp
+	include/sge/log/global.hpp
+	include/sge/log/global_context.hpp
+	include/sge/log/location.hpp
+	include/sge/log/log.hpp
+	include/sge/log/symbol.hpp
+	src/log/default_parameters.cpp
+	src/log/global.cpp
+	src/log/global_context.cpp
+	src/log/location.cpp
+)
+
+add_sge_base_library(
+	log
+	""
+	"${Fcppt_core_LIBRARIES}"
+)

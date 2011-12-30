@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_DEFAULT_PARAMETERS_HPP_INCLUDED
 #define SGE_LOG_DEFAULT_PARAMETERS_HPP_INCLUDED
 
-#include <sge/symbol.hpp>
+#include <sge/log/symbol.hpp>
 #include <fcppt/log/location_fwd.hpp>
 #include <fcppt/log/parameters/all_fwd.hpp>
 
@@ -31,7 +31,7 @@ namespace sge
 namespace log
 {
 
-SGE_SYMBOL
+SGE_LOG_SYMBOL
 fcppt::log::parameters::all const
 default_parameters(
 	fcppt::log::location const &
