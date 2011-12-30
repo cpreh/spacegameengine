@@ -14,4 +14,5 @@ include_directories(
 add_sge_plugin(
 	winconv
 	"sgecharconv"
+	""
 )

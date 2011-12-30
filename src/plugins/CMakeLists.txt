@@ -86,6 +86,14 @@ function(
 		"${SGE_DEPS}"
 	)
 
+	if(
+		SGE_DEFAULT_LINK_STATIC
+	)
+		sge_set_static_flags(
+			${SGE_PLUGIN_NAME}
+		)
+	endif()
+
 	check_library_deps(
 		"${PLUGIN_NAME}"
 		"${SGE_DEPS}"

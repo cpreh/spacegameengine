@@ -47,13 +47,33 @@ if(
 	)
 endif()
 
+if(
+	ENABLE_STATIC
+	AND NOT ENABLE_SHARED
+)
+	set(
+		SGE_DEFAULT_LINK_STATIC
+	)
+endif()
+
+function(
+	sge_set_static_flags
+	TARGETNAME
+)
+	set_target_properties(
+		${TARGETNAME}
+		PROPERTIES
+		COMPILE_DEFINITIONS
+		"SGE_STATIC_LINK"
+	)
+endfunction()
+
 macro(
 	sge_link_target
 	LIBNAME
 )
 	if(
-		ENABLE_STATIC
-		AND NOT ENABLE_SHARED
+		SGE_DEFAULT_LINK_STATIC
 	)
 		set(
 			${LIBNAME}_TARGET

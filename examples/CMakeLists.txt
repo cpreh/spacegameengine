@@ -22,7 +22,7 @@ function(
 			SGELIB_UPPER
 		)
 
-		IF(
+		if(
 			NOT ENABLE_${SGELIB_UPPER}
 		)
 			message(
@@ -30,7 +30,7 @@ function(
 				"${EXAMPLE_NAME} example will not be built because ${SGELIB} is not enabled!"
 			)
 
-			RETURN()
+			return()
 		endif()
 	endforeach()
 
@@ -55,6 +55,14 @@ function(
 	transform_sge_link_targets(
 		"${SGE_LIBRARIES}"
 	)
+
+	if(
+		SGE_DEFAULT_LINK_STATIC
+	)
+		sge_set_static_flags(
+			${FULL_NAME}
+		)
+	endif()
 
 	target_link_libraries(
 		${FULL_NAME}

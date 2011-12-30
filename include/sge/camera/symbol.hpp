@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_SYMBOL_HPP_INCLUDED
 #define SGE_CAMERA_SYMBOL_HPP_INCLUDED
 
-#ifdef sgecamera_EXPORTS
+#if defined(SGE_STATIC_LINK)
+#define SGE_CAMERA_SYMBOL
+#elif defined(sgecamera_EXPORTS)
 #include <fcppt/export_symbol.hpp>
 #define SGE_CAMERA_SYMBOL FCPPT_EXPORT_SYMBOL
 #else

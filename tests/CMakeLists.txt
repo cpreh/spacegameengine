@@ -46,6 +46,14 @@ function(
 		"${SGELIBS}"
 	)
 
+	if(
+		SGE_DEFAULT_LINK_STATIC
+	)
+		sge_set_static_flags(
+			${TESTNAME}
+		)
+	endif()
+
 	target_link_libraries(
 		${TESTNAME}
 		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}

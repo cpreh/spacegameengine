@@ -195,6 +195,14 @@ function(
 		${SGE_LIB_FILES}
 	)
 
+	if(
+		${VARIANT} STREQUAL "STATIC"
+	)
+		sge_set_static_flags(
+			${SGE_LIB_NAME}
+		)
+	endif()
+
 	transform_sge_link_targets(
 		"${SGE_DEPS}"
 	)
