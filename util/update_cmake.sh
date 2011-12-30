@@ -26,16 +26,13 @@ update_cmake_file \
 	include/sge \
 	-r \
 	include/sge/error \
-	include/sge/log \
 	include/sge/timer
 
 update_cmake_file \
 	src/CMakeLists.txt \
 	SGE_CORE_SRC_FILES \
 	-n \
-	src \
-	-r \
-	src/log
+	src
 
 function update_sublibrary()
 {
@@ -89,6 +86,8 @@ update_sublibrary image3d
 update_sublibrary input
 
 update_sublibrary line_drawer
+
+update_sublibrary log
 
 update_sublibrary media
 

@@ -18,23 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_GLOBAL_HPP_INCLUDED
-#define SGE_LOG_GLOBAL_HPP_INCLUDED
+#ifndef SGE_LOG_SYMBOL_HPP_INCLUDED
+#define SGE_LOG_SYMBOL_HPP_INCLUDED
 
-#include <sge/log/symbol.hpp>
-#include <fcppt/log/object_fwd.hpp>
-
-
-namespace sge
-{
-namespace log
-{
-
-SGE_LOG_SYMBOL
-fcppt::log::object &
-global();
-
-}
-}
+#if defined(SGE_STATIC_LINK)
+#define SGE_LOG_SYMBOL
+#elif defined(sgelog_EXPORTS)
+#include <fcppt/export_symbol.hpp>
+#define SGE_LOG_SYMBOL FCPPT_EXPORT_SYMBOL
+#else
+#include <fcppt/import_symbol.hpp>
+#define SGE_LOG_SYMBOL FCPPT_IMPORT_SYMBOL
+#endif
 
 #endif

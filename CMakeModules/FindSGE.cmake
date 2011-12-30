@@ -4,6 +4,7 @@
 #
 #	SGE_FOUND                - True if SGE was found.
 #	SGE_INCLUDE_DIRS         - All includes required for SGE to work.
+#	SGE_DEFINITIONS          - Additional compiler flags required
 #	SGE_CORE_LIBRARY         - The core library.
 #	SGE_${COMPONENT}_FOUND   - True if the component was found.
 #	SGE_${COMPONENT}_LIBRARY - The library for each component requested.
@@ -11,8 +12,9 @@
 #
 # This module accepts the following variables as input
 #
-#	SGE_INCLUDEDIR - Hint where sge's includes might be.
-#	SGE_LIBRARYDIR - Hint where sge's libraries might be.
+#	SGE_USE_STATIC_LIBS  - Use static linking.
+#	SGE_INCLUDEDIR       - Hint where sge's includes might be.
+#	SGE_LIBRARYDIR       - Hint where sge's libraries might be.
 #
 
 # Find all required packages for SGE.
@@ -34,6 +36,16 @@ if(
 	)
 endif()
 
+
+#Set SGE_DEFINITIONS for static linking
+if(
+	SGE_USE_STATIC_LIBS
+)
+	set(
+		SGE_DEFINITIONS
+		"-D SGE_STATIC_LINK"
+	)
+endif()
 
 find_package(
 	Boost
@@ -63,32 +75,10 @@ find_path(
 	HINTS ${SGE_INCLUDEDIR}
 )
 
-# Find sgecore, take SGE_LIBRARYDIR as a HINT.
-find_library(
-	SGE_CORE_LIBRARY
-	NAMES sgecore
-	PATHS "${SGE_LIBRARYDIR}"
-)
-
-set(
-	SGE_FOUND
-	FALSE
-)
-
+# If the include dir was found, set SGE_FOUND to TRUE. It can later be set to
+# FALSE again if a COMPONENT is missing.
 if(
-	SGE_CORE_LIBRARY
-)
-	set(
-		SGE_LIBRARIES
-		${SGE_CORE_LIBRARY}
-	)
-endif()
-
-# If the include dir and the core library were found,
-# set SGE_FOUND to TRUE.
-# It can later be set to FALSE again if a COMPONENT is missing.
-if(
-	SGE_INCLUDE_DIR AND SGE_CORE_LIBRARY
+	SGE_INCLUDE_DIR
 )
 	set(
 		SGE_FOUND
@@ -113,10 +103,24 @@ foreach(
 		SGE_${UPPERCOMPONENT}_LIBRARY
 	)
 
+	if(
+		SGE_USE_STATIC_LIBS
+	)
+		set(
+			SGE_CURRENT_LIB_NAME
+			sge${COMPONENT}_static
+		)
+	else()
+		set(
+			SGE_CURRENT_LIB_NAME
+			sge${COMPONENT}
+		)
+	endif()
+
 	# Find the current library.
 	find_library(
 		${SGE_CURRENT_LIB}
-		NAMES sge${COMPONENT}
+		NAMES ${SGE_CURRENT_LIB_NAME}
 		HINTS "${SGE_LIBRARYDIR}"
 	)
 
