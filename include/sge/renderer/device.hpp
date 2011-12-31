@@ -726,8 +726,7 @@ public:
 	 * Initially, the contents of the texture are undefined.
 	 *
 	 * \param parameters The parameters class for the planar texture, using
-	 * sge::renderer::dim2 as its dimensions,
-	 * sge::renderer::texture::address_mode2 as its address mode and
+	 * sge::renderer::dim2 as its dimensions and
 	 * sge::image::color::format::type as its format
 	 *
 	 * \return A shared pointer to the created planar texture
@@ -748,8 +747,7 @@ public:
 	 * Initially, the contents of the texture are undefined.
 	 *
 	 * \param parameters The parameters class for the depth stencil
-	 * texture, using sge::renderer::dim2 as its dimensions,
-	 * sge::renderer::texture::address_mode2 as its address mode and
+	 * texture, using sge::renderer::dim2 as its dimensions and
 	 * sge::renderer::depth_stencil_format::type as its format
 	 *
 	 * \return A shared pointer to the created depth stencil texture
@@ -789,8 +787,7 @@ public:
 	 * Initially, the contents of the texture are undefined.
 	 *
 	 * \param parameters The parameters class for the depth stencil
-	 * texture, using sge::renderer::dim3 as its dimensions,
-	 * sge::renderer::texture::address_mode3 as its address mode and
+	 * texture, using sge::renderer::dim3 as its dimensions and
 	 * sge::image::color::format::type as its format
 	 *
 	 * \return A shared pointer to the created volume texture
@@ -811,8 +808,7 @@ public:
 	 * Initially, the contents of the texture are undefined.
 	 *
 	 * \param parameters The parameters class for the depth stencil
-	 * texture, using sge::renderer::size_type as its dimensions,
-	 * sge::renderer::texture::address_mode2 as its address mode and
+	 * texture, using sge::renderer::size_type as its dimensions and
 	 * sge::image::color::format::type as its format
 	 *
 	 * \return A shared pointer to the created cube texture
