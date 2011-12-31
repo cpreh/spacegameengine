@@ -31,6 +31,8 @@ set(
 	include/sge/opencl/extension_sequence.hpp
 	include/sge/opencl/kernel/argument_index.hpp
 	include/sge/opencl/kernel/kernel.hpp
+	include/sge/opencl/kernel/local_buffer.hpp
+	include/sge/opencl/kernel/local_buffer_fwd.hpp
 	include/sge/opencl/kernel/name.hpp
 	include/sge/opencl/kernel/numeric_type.hpp
 	include/sge/opencl/kernel/object.hpp
@@ -105,6 +107,7 @@ set(
 	src/opencl/include/sge/src/opencl/logger.hpp
 	src/opencl/include/sge/src/opencl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp
 	src/opencl/include/sge/src/opencl/memory_object/to_opencl_mem_flags.hpp
+	src/opencl/kernel/local_buffer.cpp
 	src/opencl/kernel/object.cpp
 	src/opencl/log_location.cpp
 	src/opencl/logger.cpp

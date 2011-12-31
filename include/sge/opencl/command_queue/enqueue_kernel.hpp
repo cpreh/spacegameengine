@@ -43,6 +43,13 @@ enqueue_kernel(
 	opencl::kernel::object &,
 	fcppt::container::array<std::size_t,N> const &global_dim,
 	fcppt::container::array<std::size_t,N> const &work_dim);
+
+template<std::size_t N>
+SGE_OPENCL_SYMBOL void
+enqueue_kernel(
+	opencl::command_queue::object &,
+	opencl::kernel::object &,
+	fcppt::container::array<std::size_t,N> const &global_dim);
 }
 }
 }

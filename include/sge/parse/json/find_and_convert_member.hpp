@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_object_exn.hpp>
 #include <sge/parse/json/invalid_get.hpp>
-#include <sge/parse/json/is_null.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path.hpp>
@@ -77,18 +76,6 @@ find_and_convert_member(
 				json::path_to_string(
 					shortened_path)+
 				FCPPT_TEXT("\""));
-
-	if(
-		json::is_null(
-			it->second))
-		throw
-			sge::parse::json::exception(
-				FCPPT_TEXT("The member \"")+
-				it->first +
-				FCPPT_TEXT("\" of object \"")+
-				json::path_to_string(
-					shortened_path)+
-				FCPPT_TEXT("\" is null. Don't know what to return here..."));
 
 	try
 	{

@@ -96,6 +96,49 @@ sge::opencl::command_queue::enqueue_kernel(
 
 	opencl::handle_error(
 		error_code,
+		FCPPT_TEXT("clEnqueueNDRangeKernel(work)"));
+}
+
+template<std::size_t N>
+void
+sge::opencl::command_queue::enqueue_kernel(
+	command_queue::object &_queue,
+	kernel::object &_kernel,
+	fcppt::container::array<std::size_t,N> const &global_dim)
+{
+	for(std::size_t i = 0; i < N; ++i)
+		if(global_dim[i] == 0)
+			throw sge::exception(
+				FCPPT_TEXT("Global work dimensions cannot be zero in any component"));
+
+	cl_int const error_code =
+		clEnqueueNDRangeKernel(
+			_queue.impl(),
+			_kernel.impl(),
+			static_cast<cl_uint>(
+				N),
+			0, // global work offset (not implemented in 1.1)
+			global_dim.data(),
+			0, // local dim
+			0,
+			0,
+			0);
+
+	if(error_code == CL_INVALID_WORK_GROUP_SIZE)
+	{
+		throw
+			sge::exception(
+				FCPPT_TEXT("Error enqueuing kernel \"")+
+				fcppt::from_std_string(
+					_kernel.name())+
+				FCPPT_TEXT("\": workgroup size invalid. The global dimension is ")+
+				output_dimension(
+					global_dim)+
+				FCPPT_TEXT(", the workgroup dimension is not specified"));
+	}
+
+	opencl::handle_error(
+		error_code,
 		FCPPT_TEXT("clEnqueueNDRangeKernel"));
 }
 
@@ -114,3 +157,18 @@ void sge::opencl::command_queue::enqueue_kernel<\
 SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_ENQUEUE_KERNEL(1)
 SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_ENQUEUE_KERNEL(2)
 SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_ENQUEUE_KERNEL(3)
+
+#define SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_OTHER_ENQUEUE_KERNEL(\
+	arity\
+)\
+template FCPPT_EXPORT_SYMBOL \
+void sge::opencl::command_queue::enqueue_kernel<\
+	arity\
+>( \
+	command_queue::object &_queue, \
+	kernel::object &, \
+	fcppt::container::array<std::size_t,arity> const &);
+
+SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_OTHER_ENQUEUE_KERNEL(1)
+SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_OTHER_ENQUEUE_KERNEL(2)
+SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_OTHER_ENQUEUE_KERNEL(3)

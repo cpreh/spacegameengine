@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
+#include <sge/opencl/kernel/local_buffer.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/program/object.hpp>
 #include <sge/src/opencl/handle_error.hpp>
@@ -198,6 +199,24 @@ sge::opencl::kernel::object::argument(
 	opencl::handle_error(
 		error_code,
 		FCPPT_TEXT("clSetKernelArg(arbitrary data)"));
+}
+
+void
+sge::opencl::kernel::object::argument(
+	kernel::argument_index const &index,
+	kernel::local_buffer const &_local_buffer)
+{
+	cl_int const error_code =
+		clSetKernelArg(
+			kernel_,
+			static_cast<cl_uint>(
+				index.get()),
+			_local_buffer.byte_size(),
+			0);
+
+	opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clSetKernelArg(local buffer)"));
 }
 
 std::size_t

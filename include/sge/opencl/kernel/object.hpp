@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/kernel/argument_index.hpp>
 #include <sge/opencl/kernel/name.hpp>
 #include <sge/opencl/kernel/numeric_type.hpp>
+#include <sge/opencl/kernel/local_buffer_fwd.hpp>
 #include <sge/opencl/memory_object/base_fwd.hpp>
 #include <sge/opencl/memory_object/byte_size.hpp>
 #include <sge/opencl/program/object_fwd.hpp>
@@ -67,6 +68,11 @@ public:
 		kernel::argument_index const &,
 		unsigned char const *,
 		memory_object::byte_size const &);
+
+	SGE_OPENCL_SYMBOL void
+	argument(
+		kernel::argument_index const &,
+		kernel::local_buffer const &);
 
 	SGE_OPENCL_SYMBOL std::size_t
 	work_group_size(
