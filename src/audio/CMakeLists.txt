@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_AUDIO_FILES
 	include/sge/audio/audio.hpp
 	include/sge/audio/bad_sound_alloc.hpp
@@ -77,20 +77,20 @@ SET(
 	src/audio/unsupported_format.cpp
 )
 
-ADD_DEFINITIONS(
+add_definitions(
 	"-D SGE_MEDIA_INSTANTIATE_EXPORTS"
 	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_SOURCE_DIR}/src/plugin/include
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_SOURCE_DIR}/src/media/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	audio
 	"sgecore;sgemedia;sgeplugin"
 	""

@@ -55,7 +55,7 @@ OPTION (ENABLE_X11INPUT "Build the x11 input plugin" ${X11_Xinput_FOUND})
 
 
 function(
-	ADD_SGE_PLUGIN
+	add_sge_plugin
 	PLUGIN_NAME
 	SGE_DEPS
 	ADDITONAL_DEPS

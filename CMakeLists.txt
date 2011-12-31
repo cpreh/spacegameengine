@@ -53,6 +53,7 @@ if(
 )
 	set(
 		SGE_DEFAULT_LINK_STATIC
+		TRUE
 	)
 endif()
 
