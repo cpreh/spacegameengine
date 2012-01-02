@@ -54,7 +54,7 @@ set(
 add_sge_base_library(
 	camera
 	"sgeinput;sgerenderer"
-	""
+	"${Fcppt_core_LIBRARIES}"
 	""
 	""
 )
