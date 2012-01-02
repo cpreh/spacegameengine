@@ -8,7 +8,7 @@ include_directories(
 )
 
 add_sge_example(
-	text_demo
+	gui_text_demo
 	"sgecegui;sgeconfig;sgeimage;sgeinput;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES}"
 )

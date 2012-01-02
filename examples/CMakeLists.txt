@@ -172,6 +172,23 @@ add_sge_example(
 )
 
 add_sge_example(
+	opencl/simple
+	"sgelog;sgeopencl;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	opencl/syntax_checker
+	"sgelog;sgeopencl"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+)
+
+add_sge_example(
+	opencl/texture_read
+	"sgeconfig;sgeimage2d;sgemedia;sgeopencl;sgesystems"
+	"${Fcppt_core_LIBRARIES}"
+)
+add_sge_example(
 	opengl
 	"sgerenderer;sgerendereropengl;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES}"
@@ -192,6 +209,12 @@ add_sge_example(
 add_sge_example(
 	pointsprite
 	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgemedia;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	projectile/main
+	"sgeimage;sgeinput;sgelog;sgeprojectile;sgerenderer;sgesprite;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES}"
 )
 
@@ -314,21 +337,5 @@ if(
 )
 	add_subdirectory(
 		gui
-	)
-endif()
-
-if(
-	ENABLE_PROJECTILE
-)
-	add_subdirectory(
-		projectile
-	)
-endif()
-
-if(
-	ENABLE_OPENCL
-)
-	add_subdirectory(
-		opencl
 	)
 endif()
