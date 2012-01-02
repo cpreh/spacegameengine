@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_RENDERER_FILES
 	include/sge/renderer/active_target.hpp
 	include/sge/renderer/adapter.hpp
@@ -765,56 +765,58 @@ SET(
 	src/renderer/viewport_size.cpp
 )
 
-ADD_DEFINITIONS(
+add_definitions(
 	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_SOURCE_DIR}/src/plugin/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	renderer
-	"sgeimage2d;sgeimage3d;sgeplugin"
+	"sgecore;sgeimage;sgeimage2d;sgeimage3d;sgelog;sgeplugin"
+	""
+	"sgecore"
 	""
 )
 
-FIND_PACKAGE(
+find_package(
 	OpenGL
 )
 
-FIND_PACKAGE(
+find_package(
 	GLEW
 )
 
-IF(
+if(
 	OPENGL_FOUND AND GLEW_FOUND
 )
-	SET(
+	set(
 		OPENGL_AVAILABLE
 		TRUE
 	)
-ELSE()
-	SET(
+else()
+	set(
 		OPENGL_AVAILABLE
 		FALSE
 	)
-ENDIF()
+endif()
 
-OPTION(
+option(
 	ENABLE_RENDEREROPENGL
 	"Build the opengl renderer frontend"
 	${OPENGL_AVAILABLE}
 )
 
-IF(
+if(
 	ENABLE_RENDEREROPENGL
 )
-	ADD_SUBDIRECTORY(
+	add_subdirectory(
 		opengl
 	)
-ENDIF()
+endif()

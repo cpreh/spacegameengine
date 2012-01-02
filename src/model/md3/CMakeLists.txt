@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_MODELMD3_FILES
 	include/sge/model/md3/create.hpp
 	include/sge/model/md3/exception.hpp
@@ -77,12 +77,14 @@ SET(
 	src/model/md3/vertex.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	modelmd3
 	"sgecore;sgelog"
 	"${Fcppt_filesystem_LIBRARIES}"
+	""
+	""
 )

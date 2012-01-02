@@ -19,4 +19,6 @@ add_sge_base_library(
 	log
 	""
 	"${Fcppt_core_LIBRARIES}"
+	""
+	""
 )

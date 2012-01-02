@@ -41,6 +41,8 @@ set(
 
 add_sge_base_library(
 	shader
-	"sgerenderer"
+	"sgecore;sgelog;sgerenderer"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+	""
 	""
 )

@@ -14,6 +14,6 @@ include_directories(
 
 add_sge_plugin(
 	wave
-	"sgeaudio"
-	""
+	"sgeaudio;sgelog;sgeplugin"
+	"${Fcppt_filesystem_LIBRARIES}"
 )

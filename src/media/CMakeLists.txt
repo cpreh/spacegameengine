@@ -34,4 +34,6 @@ add_sge_base_library(
 	media
 	"sgecore"
 	"${Fcppt_filesystem_LIBRARIES}"
+	"sgelog"
+	"${Fcppt_filesystem_LIBRARIES}"
 )

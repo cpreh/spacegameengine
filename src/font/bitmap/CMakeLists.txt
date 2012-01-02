@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_FONTBITMAP_FILES
 	include/sge/font/bitmap/bitmap.hpp
 	include/sge/font/bitmap/create.hpp
@@ -17,12 +17,14 @@ SET(
 	src/font/bitmap/metrics.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	fontbitmap
-	"sgefont;sgeimage2d;sgeparse"
+	"sgecore;sgefont;sgeimage2d;sgelog;sgeparse"
+	"${Fcppt_filesystem_LIBRARIES}"
+	""
 	""
 )

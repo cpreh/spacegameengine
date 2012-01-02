@@ -91,6 +91,8 @@ include_directories(
 
 add_sge_base_library(
 	cegui
-	"sgecharconv;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgeviewport"
+	"sgecharconv;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgeviewport"
+	"${Fcppt_filesystem_LIBRARIES};${CEGUI_LIBRARIES}"
+	""
 	"${CEGUI_LIBRARIES}"
 )

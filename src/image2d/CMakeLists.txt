@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_IMAGE2D_FILES
 	include/sge/image2d/a8.hpp
 	include/sge/image2d/a8_format.hpp
@@ -112,30 +112,32 @@ SET(
 	src/image2d/view/to_const.cpp
 )
 
-ADD_DEFINITIONS(
+add_definitions(
 	"-D SGE_IMAGE_INSTANTIATE_EXPORTS"
 	"-D SGE_MEDIA_INSTANTIATE_EXPORTS"
 	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_SOURCE_DIR}/src/plugin/include
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_SOURCE_DIR}/src/image/include
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_BINARY_DIR}/src/image/include
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_SOURCE_DIR}/src/media/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	image2d
 	"sgeimage;sgemedia;sgeplugin"
+	""
+	""
 	""
 )

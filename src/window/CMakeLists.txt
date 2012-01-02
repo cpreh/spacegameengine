@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_WINDOW_FILES
 	include/sge/window/convert_size_hints.hpp
 	include/sge/window/create_from_awl.hpp
@@ -32,8 +32,10 @@ add_definitions(
 	"${Awl_DEFINITIONS}"
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	window
 	""
 	"${Awl_LIBRARIES}"
+	""
+	""
 )

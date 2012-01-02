@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_INPUT_FILES
 	include/sge/input/cursor/button_callback.hpp
 	include/sge/input/cursor/button_code.hpp
@@ -287,20 +287,22 @@ SET(
 	src/input/system.cpp
 )
 
-ADD_DEFINITIONS(
+add_definitions(
 	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_SOURCE_DIR}/src/plugin/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	input
-	"sgeplugin"
+	"sgecore;sgeplugin"
+	""
+	"sgecore"
 	""
 )

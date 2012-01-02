@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_FONT_FILES
 	include/sge/font/char_metric.hpp
 	include/sge/font/char_metric_fwd.hpp
@@ -31,16 +31,18 @@ SET(
 	src/font/system.cpp
 )
 
-ADD_DEFINITIONS(
+add_definitions(
 	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_SOURCE_DIR}/src/plugin/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	font
-	"sgeplugin"
+	"sgecore;sgeplugin"
+	""
+	"sgecore"
 	""
 )

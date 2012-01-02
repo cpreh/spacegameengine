@@ -22,6 +22,6 @@ include_directories(
 
 add_sge_plugin(
 	vorbis
-	"sgeaudio"
-	"${OGG_LIBRARY};${VORBIS_LIBRARY};${VORBIS_FILE_LIBRARY}"
+	"sgeaudio;sgelog;sgeplugin"
+	"${Fcppt_filesystem_LIBRARIES};${OGG_LIBRARY};${VORBIS_LIBRARY};${VORBIS_FILE_LIBRARY}"
 )

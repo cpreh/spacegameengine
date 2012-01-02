@@ -9,6 +9,6 @@ include_directories(
 
 add_sge_example(
 	text_demo
-	"sgecegui;sgesystems;sgeconfig"
-	"${CEGUI_LIBRARIES}"
+	"sgecegui;sgeconfig;sgeimage;sgeinput;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
 )

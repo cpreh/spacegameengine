@@ -29,4 +29,6 @@ add_sge_base_library(
 	rendereropengl
 	""
 	"${OPENGL_gl_LIBRARY}"
+	""
+	""
 )

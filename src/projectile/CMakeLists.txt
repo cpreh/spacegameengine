@@ -126,6 +126,8 @@ include_directories(
 
 add_sge_base_library(
 	projectile
-	"sgeline_drawer"
-	"${BULLET_LIBRARIES}"
+	"sgeimage;sgelog;sgeline_drawer;sgerenderer"
+	"${Fcppt_core_LIBRARIES};${BULLET_LIBRARIES}"
+	""
+	""
 )

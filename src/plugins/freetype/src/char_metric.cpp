@@ -143,7 +143,7 @@ sge::freetype::char_metric::char_metric(
 	if(
 		bitmap.pitch < 0
 	)
-		throw sge::exception(
+		throw sge::font::exception(
 			FCPPT_TEXT("FIXME: bitmap pitch < 0, case not handled!")
 		);
 

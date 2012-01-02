@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/rect.hpp>
@@ -49,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -189,7 +189,7 @@ try
 		);
 	}
 }
-catch (sge::exception const &e)
+catch (fcppt::exception const &e)
 {
 	fcppt::io::cerr()
 		<< FCPPT_TEXT("caught sge exception: ")

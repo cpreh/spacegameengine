@@ -57,4 +57,6 @@ ADD_SGE_BASE_LIBRARY(
 	config
 	"sgecore"
 	"${Fcppt_filesystem_LIBRARIES}"
+	""
+	""
 )

@@ -97,4 +97,6 @@ add_sge_base_library(
 	plugin
 	"sgecore;sgelog"
 	"${Fcppt_filesystem_LIBRARIES};${SGE_PLUGIN_ADDITIONAL_LIBS}"
+	""
+	"${Fcppt_core_LIBRARIES};${Boost_SYSTEM_LIBRARIES}"
 )

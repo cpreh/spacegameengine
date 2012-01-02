@@ -28,6 +28,6 @@ include_directories(
 
 add_sge_plugin(
 	freetype
-	"sgecharconv;sgefont;sgeimage2d"
-	"${FREETYPE_LIBRARY}"
+	"sgecharconv;sgefont;sgeimage2d;sgelog;sgeplugin"
+	"${Fcppt_filesystem_LIBRARIES};${FREETYPE_LIBRARY}"
 )

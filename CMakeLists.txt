@@ -219,6 +219,43 @@ option(
 	OFF
 )
 
+macro(
+	sge_check_optional_deps
+	COMPONENT
+	SGE_LIBRARIES
+)
+	foreach(
+		SGELIB
+		${SGE_LIBRARIES}
+	)
+		string(
+			REPLACE
+			"sge"
+			""
+			SGELIB_SUFFIX
+			${SGELIB}
+		)
+
+		string(
+			TOUPPER
+			${SGELIB_SUFFIX}
+			SGELIB_UPPER
+		)
+
+		if(
+			NOT ${SGELIB_UPPER} STREQUAL "CORE"
+			AND NOT ENABLE_${SGELIB_UPPER}
+		)
+			message(
+				STATUS
+				"${COMPONENT} will not be built because ${SGELIB} is not enabled!"
+			)
+
+			return()
+		endif()
+	endforeach()
+endmacro()
+
 if(
 	ENABLE_EXAMPLES
 )

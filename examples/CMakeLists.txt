@@ -4,35 +4,10 @@ function(
 	SGE_LIBRARIES
 	ADDITIONAL_LIBRARIES
 )
-	foreach(
-		SGELIB
-		${SGE_LIBRARIES}
+	sge_check_optional_deps(
+		"${EXAMPLE_NAME}"
+		"${SGE_LIBRARIES}"
 	)
-		string(
-			REPLACE
-			"sge"
-			""
-			SGELIB_SUFFIX
-			${SGELIB}
-		)
-
-		string(
-			TOUPPER
-			${SGELIB_SUFFIX}
-			SGELIB_UPPER
-		)
-
-		if(
-			NOT ENABLE_${SGELIB_UPPER}
-		)
-			message(
-				STATUS
-				"${EXAMPLE_NAME} example will not be built because ${SGELIB} is not enabled!"
-			)
-
-			return()
-		endif()
-	endforeach()
 
 	string(
 		REPLACE
@@ -82,57 +57,278 @@ add_definitions(
 	${Awl_DEFINITIONS}
 )
 
-ADD_SGE_EXAMPLE(anaglyph "sgeconfig;sgesystems;sgetexture;sgemodelmd3;sgeshader;sgecamera" "")
-ADD_SGE_EXAMPLE(app_path "sgeconfig" "")
-ADD_SGE_EXAMPLE(asio_window "sgesystems" "${Awl_LIBRARIES}")
-ADD_SGE_EXAMPLE(audio_minimal "sgeconfig;sgesystems;sgeaudio" "")
-ADD_SGE_EXAMPLE(bitmapfont "sgefontbitmap;sgefonttext;sgesystems" "")
-ADD_SGE_EXAMPLE(caps "sgeconfig;sgeplugin;sgerenderer;sgewindow" "${Awl_LIBRARIES}")
-ADD_SGE_EXAMPLE(console "sgeconsole;sgefonttext;sgeinput;sgesystems" "")
-ADD_SGE_EXAMPLE(config_path "sgeconfig" "")
-ADD_SGE_EXAMPLE(doppler "sgesprite;sgesystems;sgetexture" "")
-ADD_SGE_EXAMPLE(fullscreen "sgesystems" "")
-ADD_SGE_EXAMPLE(ini "sgeparse" "")
-ADD_SGE_EXAMPLE(input "sgesystems" "")
-ADD_SGE_EXAMPLE(intrusivesprite "sgesprite;sgesystems;sgetexture" "")
-ADD_SGE_EXAMPLE(json "sgeparse" "")
-ADD_SGE_EXAMPLE(line_drawer "sgeline_drawer;sgeconfig;sgefonttext;sgesystems" "")
-ADD_SGE_EXAMPLE(mergeimage "sgesystems" "")
-ADD_SGE_EXAMPLE(model_loader "sgeconfig;sgesystems;sgetexture;sgemodelobj;sgecamera;sgeparse;sgeline_drawer" "")
-ADD_SGE_EXAMPLE(multi_texture "sgeconfig;sgesystems" "")
-ADD_SGE_EXAMPLE(multi_texture_sprite "sgeconfig;sgesprite;sgesystems;sgetexture" "")
-ADD_SGE_EXAMPLE(opengl "sgerenderer;sgerendereropengl;sgeviewport;sgesystems" "")
-ADD_SGE_EXAMPLE(ortho_view "sgesprite;sgesystems;sgetexture;sgecamera" "")
-ADD_SGE_EXAMPLE(plugin "sgeaudio;sgeconfig;sgefont;sgeimage2d;sgeinput;sgerenderer" "")
-ADD_SGE_EXAMPLE(pointsprite "sgesystems;sgesprite;sgetexture" "")
-ADD_SGE_EXAMPLE(savetexture "sgesystems;sgesprite;sgetexture;sgeshader" "")
-ADD_SGE_EXAMPLE(screenshot "sgesprite;sgesystems;sgetexture" "")
-ADD_SGE_EXAMPLE(shader/cube "sgeshader;sgecamera;sgesystems;sgefonttext;sgeconfig;" "")
-ADD_SGE_EXAMPLE(shader/raw "sgesprite;sgesystems;sgetexture" "")
-ADD_SGE_EXAMPLE(spritecolor "sgesprite;sgesystems" "")
-ADD_SGE_EXAMPLE(sound "sgesystems" "")
-ADD_SGE_EXAMPLE(stencil "sgeconfig;sgesprite;sgesystems;sgetexture;sgeviewport" "")
-ADD_SGE_EXAMPLE(target "sgesprite;sgesystems;sgetexture" "")
-ADD_SGE_EXAMPLE(texture_filter "sgecamera;sgeconfig;sgefonttext;sgesprite;sgesystems;sgetexture" "")
-ADD_SGE_EXAMPLE(vertex "sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow" "")
-ADD_SGE_EXAMPLE(vertex_index "sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow" "")
-ADD_SGE_EXAMPLE(vertex_planar "sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow" "")
-ADD_SGE_EXAMPLE(vertex_texture "sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow" "")
-ADD_SGE_EXAMPLE(volume_texture "sgecamera;sgeimage3d;sgesystems" "")
-ADD_SGE_EXAMPLE(tutorial/font "sgefonttext;sgesprite;sgesystems" "")
-ADD_SGE_EXAMPLE(tutorial/sound_01 "sgeconfig;sgesystems" "")
-ADD_SGE_EXAMPLE(tutorial/sound_02 "sgeconfig;sgesystems" "")
-ADD_SGE_EXAMPLE(tutorial/sprite_01 "sgesprite;sgesystems;sgetexture" "")
-ADD_SGE_EXAMPLE(tutorial/sprite_02 "sgesprite;sgesystems;sgetexture" "")
+add_sge_example(
+	anaglyph
+	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemodelmd3;sgerenderer;sgeshader;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
 
-IF(ENABLE_CEGUI)
-	ADD_SUBDIRECTORY(gui)
-ENDIF()
+add_sge_example(
+	app_path
+	"sgeconfig"
+	"${Fcppt_core_LIBRARIES}"
+)
 
-IF(ENABLE_PROJECTILE)
-	ADD_SUBDIRECTORY(projectile)
-ENDIF()
+add_sge_example(
+	asio_window
+	"sgeinput;sgesystems;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES}"
+)
 
-IF(ENABLE_OPENCL)
-	ADD_SUBDIRECTORY(opencl)
-ENDIF()
+add_sge_example(
+	audio_minimal
+	"sgeaudio;sgeconfig;sgeplugin"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	bitmapfont
+	"sgeconfig;sgefontbitmap;sgefonttext;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	caps
+	"sgeconfig;sgeplugin;sgerenderer;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES}"
+)
+
+add_sge_example(
+	config_path
+	"sgeconfig"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	console
+	"sgeconfig;sgeconsole;sgefonttext;sgeimage;sgeinput;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	doppler
+	"sgeaudio;sgeconfig;sgeinput;sgelog;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	fullscreen
+	"sgeimage;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	ini
+	"sgeparse"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	input
+	"sgeinput;sgelog;sgesystems;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	intrusivesprite
+	"sgeconfig;sgeinput;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	json
+	"sgeparse"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	line_drawer
+	"sgeconfig;sgefonttext;sgeimage;sgeinput;sgeline_drawer;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	mergeimage
+	"sgecore;sgeimage;sgeimage2d;sgesystems"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	model_loader
+	"sgecamera;sgeconfig;sgeimage;sgeinput;sgeline_drawer;sgelog;sgemedia;sgemodelobj;sgeparse;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	multi_texture
+	"sgeconfig;sgeimage;sgeinput;sgemedia;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	multi_texture_sprite
+	"sgeconfig;sgeinput;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	opengl
+	"sgerenderer;sgerendereropengl;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	ortho_view
+	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	plugin
+	"sgeaudio;sgeconfig;sgefont;sgeimage2d;sgeinput;sgelog;sgeplugin;sgerenderer"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	pointsprite
+	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgemedia;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	savetexture
+	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgemedia;sgerenderer;sgeshader;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	screenshot
+	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	shader/cube
+	"sgecamera;sgeconfig;sgefonttext;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgeshader;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	shader/raw
+	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	sound
+	"sgeaudio;sgeconfig;sgelog;sgesystems"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	spritecolor
+	"sgeimage;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	stencil
+	"sgeconfig;sgeimage;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	target
+	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	texture_filter
+	"sgecamera;sgeconfig;sgefonttext;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	tutorial/font
+	"sgeconfig;sgefonttext;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	tutorial/sound_01
+	"sgeaudio;sgeconfig;sgesystems"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	tutorial/sound_02
+	"sgeaudio;sgeconfig;sgesystems"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	tutorial/sprite_01
+	"sgeconfig;sgeimage2d;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	tutorial/sprite_02
+	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	vertex
+	"sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	vertex_index
+	"sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	vertex_planar
+	"sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	vertex_texture
+	"sgeconfig;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
+	volume_texture
+	"sgecamera;sgeimage;sgeimage3d;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+if(
+	ENABLE_CEGUI
+)
+	add_subdirectory(
+		gui
+	)
+endif()
+
+if(
+	ENABLE_PROJECTILE
+)
+	add_subdirectory(
+		projectile
+	)
+endif()
+
+if(
+	ENABLE_OPENCL
+)
+	add_subdirectory(
+		opencl
+	)
+endif()

@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_MODELOBJ_FILES
 	include/sge/model/obj/create.hpp
 	include/sge/model/obj/exception.hpp
@@ -84,26 +84,28 @@ SET(
 	src/model/obj/tokens.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-OPTION(
+option(
 	ENABLE_MODELOBJ_DEBUG
 	"Enable parse debugging for model obj"
 	FALSE
 )
 
-IF(
+if(
 	ENABLE_MODELOBJ_DEBUG
 )
-	ADD_DEFINITIONS(
+	add_definitions(
 		"-D BOOST_SPIRIT_LEXERTL_DEBUG -D BOOST_SPIRIT_DEBUG"
 	)
-ENDIF()
+endif()
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	modelobj
 	"sgecore"
 	"${Fcppt_filesystem_LIBRARIES}"
+	""
+	""
 )

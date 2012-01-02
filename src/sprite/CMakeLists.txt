@@ -189,6 +189,8 @@ set(
 
 add_sge_base_library(
 	sprite
-	"sgerenderer"
+	"sgeimage;sgerenderer"
+	""
+	"sgeimage;sgerenderer"
 	""
 )

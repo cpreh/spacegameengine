@@ -17,6 +17,6 @@ include_directories(
 
 add_sge_plugin(
 	audio_null
-	"sgeaudio"
+	"sgeaudio;sgeplugin"
 	""
 )

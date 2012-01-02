@@ -6,8 +6,14 @@ find_package(
 function(
 	ADD_SGE_TEST
 	PATHNAME
-	SGELIBS
+	SGE_LIBRARIES
+	ADDITIONAL_LIBRARIES
 )
+	sge_check_optional_deps(
+		"${PATHNAME}"
+		"${SGE_LIBRARIES}"
+	)
+
 	string(
 		REPLACE
 		"/"
@@ -43,7 +49,7 @@ function(
 	endif()
 
 	transform_sge_link_targets(
-		"${SGELIBS}"
+		"${SGE_LIBRARIES}"
 	)
 
 	if(
@@ -58,6 +64,7 @@ function(
 		${TESTNAME}
 		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
 		${SGELIBS_TARGETS_RESULT}
+		${ADDITIONAL_LIBRARIES}
 	)
 
 	add_test(
@@ -68,18 +75,26 @@ function(
 	)
 endfunction()
 
-if(ENABLE_CONFIG)
-	ADD_SGE_TEST(charconv/main "sgecharconv;sgeconfig")
-endif()
+add_sge_test(
+	charconv/main
+	"sgecharconv;sgeconfig;sgeplugin"
+	""
+)
 
-if(ENABLE_CONSOLE)
-	ADD_SGE_TEST(console/cursor "sgeconsole")
-endif()
+add_sge_test(
+	console/cursor
+	"sgeconsole"
+	""
+)
 
-if(ENABLE_IMAGE2D)
-	ADD_SGE_TEST(image2d/copy_and_convert "sgeimage2d")
-endif()
+add_sge_test(
+	image2d/copy_and_convert
+	"sgeimage2d"
+	""
+)
 
-if(ENABLE_PARSE)
-	ADD_SGE_TEST(parse/json "sgeparse")
-endif()
+add_sge_test(
+	parse/json
+	"sgeparse"
+	"${Fcppt_core_LIBRARIES}"
+)

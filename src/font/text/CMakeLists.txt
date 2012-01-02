@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_FONTTEXT_FILES
 	include/sge/font/text/align_h.hpp
 	include/sge/font/text/align_v.hpp
@@ -39,12 +39,14 @@ SET(
 	src/font/text/to_fcppt_string.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	fonttext
-	"sgefont;sgesprite;sgetexture"
+	"sgefont;sgeimage;sgeimage2d;sgerenderer;sgesprite;sgetexture"
+	"${Fcppt_core_LIBRARIES}"
+	""
 	""
 )

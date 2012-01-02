@@ -139,6 +139,8 @@ include_directories(
 
 add_sge_base_library(
 	systems
-	"sgeaudio;sgecharconv;sgeconfig;sgefont;sgeimage2d;sgeinput;sgerenderer;sgeviewport;sgewindow"
-	"${Awl_LIBRARIES}"
+	"sgeaudio;sgecharconv;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeplugin;sgerenderer;sgeviewport;sgewindow"
+	"${Fcppt_filesystem_LIBRARIES};${Awl_LIBRARIES}"
+	""
+	""
 )

@@ -29,6 +29,6 @@ endif()
 
 add_sge_plugin(
 	iconv
-	"sgecharconv"
-	"${ICONV_LINK_LIBRARY}"
+	"sgecharconv;sgeplugin"
+	"${Fcppt_core_LIBRARIES};${ICONV_LINK_LIBRARY}"
 )

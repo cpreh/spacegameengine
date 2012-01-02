@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_IMAGE_FILES
 	include/sge/image/a8_format.hpp
 	include/sge/image/algorithm/algorithm.hpp
@@ -256,36 +256,38 @@ SET(
 	src/image/unsupported_format.cpp
 )
 
-OPTION(
+option(
 	ENABLE_STATIC_COPY_AND_CONVERT
 	"Use static copy and convert which will produce bigger but probably faster code"
 	OFF
 )
 
-IF(
+if(
 	ENABLE_STATIC_COPY_AND_CONVERT
 )
 	SET(
 		SGE_IMAGE_STATIC_COPY_AND_CONVERT
 		TRUE
 	)
-ENDIF()
+endif()
 
-CONFIGURE_FILE(
+configure_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
 	${CMAKE_CURRENT_BINARY_DIR}/include/sge/src/image/config.hpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_BINARY_DIR}/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	image
 	"sgecore"
 	"${Fcppt_filesystem_LIBRARIES}"
+	"sgecore"
+	"${Fcppt_core_LIBRARIES}"
 )

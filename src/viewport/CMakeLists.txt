@@ -37,4 +37,6 @@ add_sge_base_library(
 	viewport
 	"sgewindow"
 	"${Awl_LIBRARIES}"
+	""
+	""
 )

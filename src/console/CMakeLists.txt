@@ -61,6 +61,8 @@ include_directories(
 
 add_sge_base_library(
 	console
-	"sgefonttext;sgeinput"
+	"sgecore;sgefonttext;sgeinput;sgesprite"
+	"${Fcppt_core_LIBRARIES}"
+	""
 	""
 )

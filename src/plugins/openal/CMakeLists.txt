@@ -45,6 +45,6 @@ include_directories(
 
 add_sge_plugin(
 	openal
-	"sgeaudio"
-	"${OPENAL_LIBRARY}"
+	"sgeaudio;sgelog;sgeplugin"
+	"${Fcppt_core_LIBRARIES};${OPENAL_LIBRARY}"
 )

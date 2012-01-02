@@ -166,6 +166,8 @@ function(
 	SGE_LIB_FILES
 	SGE_DEPS
 	ADDITIONAL_DEPS
+	TRANSITIVE_SGE_DEPS
+	TRANSITIVE_ADDITIONAL_DEPS
 	VARIANT
 )
 	if(
@@ -201,6 +203,20 @@ function(
 		${SGELIBS_TARGETS_RESULT}
 	)
 
+	set_target_properties(
+		${SGE_LIB_NAME}
+		PROPERTIES
+		LINK_INTERFACE_LIBRARIES
+		""
+	)
+
+	target_link_libraries(
+		${SGE_LIB_NAME}
+		LINK_INTERFACE_LIBRARIES
+		${TRANSITIVE_SGE_DEPS}
+		${TRANSITIVE_ADDITIONAL_DEPS}
+	)
+
 	install(
 		TARGETS
 		${SGE_LIB_NAME}
@@ -214,6 +230,8 @@ function(
 	LIB_NAME
 	SGE_DEPS
 	ADDITIONAL_DEPS
+	TRANSITIVE_SGE_DEPS
+	TRANSITIVE_ADDITIONAL_DEPS
 )
 	set(
 		SGE_LIB_NAME
@@ -244,6 +262,8 @@ function(
 			"${SGE_LIB_FILES}"
 			"${SGE_DEPS}"
 			"${ADDITIONAL_DEPS}"
+			"${TRANSITIVE_SGE_DEPS}"
+			"${TRANSITIVE_ADDITIONAL_DEPS}"
 			SHARED
 		)
 	endif()
@@ -256,6 +276,8 @@ function(
 			"${SGE_LIB_FILES}"
 			"${SGE_DEPS}"
 			"${ADDITIONAL_DEPS}"
+			"${TRANSITIVE_SGE_DEPS}"
+			"${TRANSITIVE_ADDITIONAL_DEPS}"
 			STATIC
 		)
 	endif()
@@ -263,6 +285,11 @@ function(
 	check_library_deps(
 		"${LIB_NAME}"
 		"${SGE_DEPS}"
+	)
+
+	check_library_deps(
+		"${LIB_NAME}"
+		"${TRANSITIVE_SGE_DEPS}"
 	)
 
 	path_difference(
@@ -314,6 +341,8 @@ function(
 		"${SGE_CORE_FILES}"
 		""
 		"${Fcppt_core_LIBRARIES}"
+		""
+		""
 		${VARIANT}
 	)
 endfunction()

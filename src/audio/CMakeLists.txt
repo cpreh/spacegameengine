@@ -92,6 +92,8 @@ include_directories(
 
 add_sge_base_library(
 	audio
-	"sgecore;sgemedia;sgeplugin"
+	"sgecore;sgelog;sgemedia;sgeplugin"
+	"${Fcppt_filesystem_LIBRARIES}"
+	"sgecore"
 	""
 )

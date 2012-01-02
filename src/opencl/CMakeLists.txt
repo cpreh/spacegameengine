@@ -187,6 +187,8 @@ include_directories(
 
 add_sge_base_library(
 	opencl
-	"sgerenderer"
-	"${OPENCL_LIBRARIES};${OPENGL_gl_LIBRARY}"
+	"sgecore;sgeimage;sgeimage2d;sgelog;sgerenderer"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES};${OPENCL_LIBRARIES};${OPENGL_gl_LIBRARY}"
+	""
+	""
 )

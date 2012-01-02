@@ -910,6 +910,6 @@ add_definitions(
 
 add_sge_plugin(
 	opengl
-	"sgeimage2d;sgeimage3d;sgerenderer;sgerendereropengl;sgewindow"
+	"sgeimage;sgeimage2d;sgeimage3d;sgelog;sgeplugin;sgerenderer;sgerendereropengl;sgewindow"
 	"${SGE_OPENGL_ADDITIONAL_DEPS}"
 )

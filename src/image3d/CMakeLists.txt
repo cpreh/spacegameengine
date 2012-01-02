@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_IMAGE3D_FILES
 	include/sge/image3d/a8.hpp
 	include/sge/image3d/a8_format.hpp
@@ -94,20 +94,22 @@ SET(
 	src/image3d/view/to_const.cpp
 )
 
-ADD_DEFINITIONS(
+add_definitions(
 	"-D SGE_IMAGE_INSTANTIATE_EXPORTS"
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_SOURCE_DIR}/src/image/include
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_BINARY_DIR}/src/image/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	image3d
 	"sgeimage"
+	""
+	""
 	""
 )

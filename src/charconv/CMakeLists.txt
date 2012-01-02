@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_CHARCONV_FILES
 	include/sge/charconv/charconv.hpp
 	include/sge/charconv/const_raw_pointer.hpp
@@ -33,17 +33,19 @@ SET(
 	src/charconv/unsupported_conversion.cpp
 )
 
-ADD_DEFINITIONS(
+add_definitions(
 	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
 )
 
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_SOURCE_DIR}/src/plugin/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	charconv
-	"sgeplugin"
+	"sgecore;sgeplugin"
+	""
+	"sgecore"
 	""
 )

@@ -56,6 +56,6 @@ include_directories(
 
 add_sge_plugin(
 	"devil"
-	"sgeimage2d"
-	"${IL_LIBRARIES};${ILU_LIBRARIES}"
+	"sgeimage;sgeimage2d;sgelog;sgeplugin"
+	"${Fcppt_filesystem_LIBRARIES};${IL_LIBRARIES};${ILU_LIBRARIES}"
 )

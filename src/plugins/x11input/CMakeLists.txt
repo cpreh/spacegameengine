@@ -197,8 +197,12 @@ include_directories(
 	${X11_Xinput_INCLUDE_PATH}
 )
 
+add_definitions(
+	"${Awl_DEFINITIONS}"
+)
+
 add_sge_plugin(
 	x11input
-	"sgeinput;sgewindow"
-	"${Fcppt_LIBRARIES};${X11_X11_LIB};${X11_Xinput_LIB}"
+	"sgeinput;sgelog;sgeplugin;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES};${X11_X11_LIB};${X11_Xinput_LIB}"
 )

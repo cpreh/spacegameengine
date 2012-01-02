@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_CAMERA_FILES
 	include/sge/camera/base.hpp
 	include/sge/camera/base_fwd.hpp
@@ -51,8 +51,10 @@ SET(
 	src/camera/spherical/parameters.cpp
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	camera
 	"sgeinput;sgerenderer"
+	""
+	""
 	""
 )
