@@ -32,6 +32,20 @@ sge::systems::config::config(
 {
 }
 
+sge::systems::config::config(
+	sge::systems::config const &_other
+)
+:
+	plugin_path_(
+		_other.plugin_path_
+	)
+{
+}
+
+sge::systems::config::~config()
+{
+}
+
 sge::systems::plugin_path const &
 sge::systems::config::plugin_path() const
 {

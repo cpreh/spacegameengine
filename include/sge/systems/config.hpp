@@ -45,6 +45,14 @@ public:
 	);
 
 	SGE_SYSTEMS_SYMBOL
+	config(
+		sge::systems::config const &
+	);
+
+	SGE_SYSTEMS_SYMBOL
+	~config();
+
+	SGE_SYSTEMS_SYMBOL
 	sge::systems::plugin_path const &
 	plugin_path() const;
 private:
