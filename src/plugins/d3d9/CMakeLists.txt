@@ -446,6 +446,6 @@ add_definitions(
 
 add_sge_plugin(
 	"d3d9"
-	"sgeimage2d;sgeimage3d;sgerenderer;sgewindow"
+	"sgeimage;sgeimage2d;sgeimage3d;sgeplugin;sgerenderer;sgewindow"
 	"${Awl_LIBRARIES};${D3D9_LIBRARIES}"
 )

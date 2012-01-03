@@ -141,7 +141,6 @@ add_definitions(
 )
 
 include_directories(
-	SYSTEM
 	${OPENCL_INCLUDE_DIRS}
 )
 
@@ -150,7 +149,6 @@ find_package(
 )
 
 include_directories(
-	SYSTEM
 	${OPENGL_INCLUDE_DIR}
 )
 

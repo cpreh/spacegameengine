@@ -172,23 +172,6 @@ add_sge_example(
 )
 
 add_sge_example(
-	opencl/simple
-	"sgelog;sgeopencl;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES}"
-)
-
-add_sge_example(
-	opencl/syntax_checker
-	"sgelog;sgeopencl"
-	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
-)
-
-add_sge_example(
-	opencl/texture_read
-	"sgeconfig;sgeimage2d;sgemedia;sgeopencl;sgesystems"
-	"${Fcppt_core_LIBRARIES}"
-)
-add_sge_example(
 	opengl
 	"sgerenderer;sgerendereropengl;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES}"
@@ -337,5 +320,13 @@ if(
 )
 	add_subdirectory(
 		gui
+	)
+endif()
+
+if(
+	ENABLE_OPENCL
+)
+	add_subdirectory(
+		opencl
 	)
 endif()
