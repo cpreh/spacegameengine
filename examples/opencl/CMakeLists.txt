@@ -9,7 +9,7 @@ include_directories(
 add_sge_example(
 	opencl_simple
 	"sgelog;sgeopencl;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES}"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
 )
 
 add_sge_example(
