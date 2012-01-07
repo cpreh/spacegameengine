@@ -78,6 +78,6 @@ add_definitions(
 
 add_sge_plugin(
 	"dinput"
-	"sgeinput;sgeplugin;sgewindow"
+	"sgeinput;sgelog;sgeplugin;sgewindow"
 	"${Awl_LIBRARIES};${DINPUT_LIBRARIES}"
 )

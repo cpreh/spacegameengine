@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/input/cursor/discover_event.hpp>
+#include <sge/log/global.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <awl/backends/windows/event/lparam.hpp>
@@ -49,6 +50,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/append.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -271,6 +274,13 @@ sge::dinput::processor::on_activate(
 {
 	acquired_ = (_event.wparam().get() != 0);
 
+	FCPPT_LOG_DEBUG(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("DirectInput: Acquire: ")
+			<< acquired_
+	);
+
 	if(
 		acquired_
 	)
@@ -330,6 +340,7 @@ sge::dinput::processor::on_init(
 			FCPPT_TEXT("DirectInput Enumeration failed!")
 		);
 
+	
 	return
 		awl::backends::windows::window::event::return_type(
 			0u
@@ -380,6 +391,11 @@ sge::dinput::processor::add_device(
 			_ptr
 		)
 	);
+
+	if(
+		acquired_
+	)
+		devices_.back().acquire();
 }
 
 BOOL
