@@ -20,15 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/choose_callback.hpp>
 #include <sge/input/cursor/default_choose.hpp>
-#include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/cursor/object_set.hpp>
+#include <sge/input/cursor/optional_object_ref.hpp>
 #include <fcppt/function/object.hpp>
 
 
 namespace
 {
 
-sge::input::cursor::object_ptr const
+sge::input::cursor::optional_object_ref const
 function(
 	sge::input::cursor::object_set const &_objects
 )
@@ -36,9 +36,11 @@ function(
 	return
 		_objects.empty()
 		?
-			sge::input::cursor::object_ptr()
+			sge::input::cursor::optional_object_ref()
 		:
-			*_objects.begin()
+			sge::input::cursor::optional_object_ref(
+				**_objects.begin()
+			)
 		;
 }
 

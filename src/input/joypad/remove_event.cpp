@@ -18,22 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/joypad/device_ptr.hpp>
+#include <sge/input/joypad/device_fwd.hpp>
 #include <sge/input/joypad/remove_event.hpp>
+#include <sge/src/input/event/instantiate_remove.hpp>
 
 
-sge::input::joypad::remove_event::remove_event(
-	joypad::device_ptr const _device
-)
-:
-	device_(
-		_device
-	)
-{
-}
-
-sge::input::joypad::device_ptr const
-sge::input::joypad::remove_event::device() const
-{
-	return device_;
-}
+SGE_INPUT_EVENT_INSTANTIATE_REMOVE(
+	sge::input::joypad::device
+);

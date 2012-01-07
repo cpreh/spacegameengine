@@ -117,6 +117,19 @@ sge::x11input::device::manager::object::change(
 		);
 }
 
+void
+sge::x11input::device::manager::object::dispatch_initial()
+{
+	for(
+		device::manager::config_map::const_iterator it(
+			config_.begin()
+		);
+		it != config_.end();
+		++it
+	)
+		it->second->dispatch_initial();
+}
+
 template<
 	typename Function
 >

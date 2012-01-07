@@ -44,7 +44,7 @@ protected:
 	);
 public:
 	virtual
-	~object();
+	~object() = 0;
 
 	device::id const
 	id() const;

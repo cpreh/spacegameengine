@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_DISCOVER_EVENT_FWD_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_DISCOVER_EVENT_FWD_HPP_INCLUDED
 
+#include <sge/input/event/discover_fwd.hpp>
+#include <sge/input/mouse/device_fwd.hpp>
+
+
 namespace sge
 {
 namespace input
@@ -28,7 +32,9 @@ namespace input
 namespace mouse
 {
 
-class discover_event;
+typedef sge::input::event::discover<
+	sge::input::mouse::device
+> discover_event;
 
 }
 }

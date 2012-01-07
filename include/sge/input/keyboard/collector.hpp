@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/char_signal.hpp>
 #include <sge/input/keyboard/collector_fwd.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/device_ptr.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_callback.hpp>
@@ -89,19 +88,19 @@ public:
 private:
 	void
 	char_callback_internal(
-		keyboard::device_ptr,
+		keyboard::device &,
 		keyboard::char_event const &
 	);
 
 	void
 	key_callback_internal(
-		keyboard::device_ptr,
+		keyboard::device &,
 		keyboard::key_event const &
 	);
 
 	void
 	key_repeat_callback_internal(
-		keyboard::device_ptr,
+		keyboard::device &,
 		keyboard::key_repeat_event const &
 	);
 

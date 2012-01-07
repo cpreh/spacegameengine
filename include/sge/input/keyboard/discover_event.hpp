@@ -21,35 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_KEYBOARD_DISCOVER_EVENT_HPP_INCLUDED
 #define SGE_INPUT_KEYBOARD_DISCOVER_EVENT_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
-#include <sge/input/keyboard/device_ptr.hpp>
+#include <sge/input/event/discover.hpp>
 #include <sge/input/keyboard/discover_event_fwd.hpp>
 
-
-namespace sge
-{
-namespace input
-{
-namespace keyboard
-{
-
-class discover_event
-{
-public:
-	SGE_INPUT_SYMBOL
-	explicit discover_event(
-		keyboard::device_ptr
-	);
-
-	SGE_INPUT_SYMBOL
-	keyboard::device_ptr const
-	device() const;
-private:
-	keyboard::device_ptr device_;
-};
-
-}
-}
-}
 
 #endif

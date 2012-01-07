@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_CURSOR_OBJECT_PTR_HPP_INCLUDED
-#define SGE_X11INPUT_CURSOR_OBJECT_PTR_HPP_INCLUDED
+#ifndef SGE_INPUT_CURSOR_OPTIONAL_OBJECT_REF_FWD_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_OPTIONAL_OBJECT_REF_FWD_HPP_INCLUDED
 
-#include <sge/x11input/cursor/object_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/input/cursor/object_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
 namespace cursor
 {
 
-typedef fcppt::shared_ptr<
-	cursor::object
-> object_ptr;
+typedef fcppt::optional<
+	sge::input::cursor::object &
+> optional_object_ref;
 
 }
 }

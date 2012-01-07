@@ -47,9 +47,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/no_object.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/object_scoped_ptr.hpp>
 #include <sge/input/cursor/object_set.hpp>
-#include <sge/input/cursor/object_vector.hpp>
+#include <sge/input/cursor/object_unique_ptr.hpp>
+#include <sge/input/cursor/optional_object_ref.hpp>
+#include <sge/input/cursor/optional_object_ref_fwd.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/optional_position_fwd.hpp>
 #include <sge/input/cursor/position.hpp>

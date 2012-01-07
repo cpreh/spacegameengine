@@ -18,22 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/remove_event.hpp>
+#include <sge/src/input/event/instantiate_remove.hpp>
 
 
-sge::input::cursor::remove_event::remove_event(
-	cursor::object_ptr const _object
-)
-:
-	object_(
-		_object
-	)
-{
-}
-
-sge::input::cursor::object_ptr const
-sge::input::cursor::remove_event::object() const
-{
-	return object_;
-}
+SGE_INPUT_EVENT_INSTANTIATE_REMOVE(
+	sge::input::cursor::object
+);

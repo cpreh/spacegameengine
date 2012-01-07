@@ -54,8 +54,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/collector_fwd.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
-#include <sge/input/mouse/device_ptr.hpp>
-#include <sge/input/mouse/device_vector.hpp>
+#include <sge/input/mouse/device_scoped_ptr.hpp>
+#include <sge/input/mouse/device_unique_ptr.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/discover_event.hpp>
 #include <sge/input/mouse/discover_event_fwd.hpp>

@@ -18,26 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEYBOARD_DEVICE_PTR_HPP_INCLUDED
-#define SGE_INPUT_KEYBOARD_DEVICE_PTR_HPP_INCLUDED
-
-#include <sge/input/keyboard/device_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#ifndef SGE_SRC_INPUT_EVENT_INSTANTIATE_DISCOVER_HPP_INCLUDED
+#define SGE_SRC_INPUT_EVENT_INSTANTIATE_DISCOVER_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace keyboard
-{
+#include <sge/src/input/event/discover_impl.hpp>
+#include <fcppt/export_symbol.hpp>
 
-typedef fcppt::shared_ptr<
-	keyboard::device
-> device_ptr;
-
-}
-}
-}
+#define SGE_INPUT_EVENT_INSTANTIATE_DISCOVER(\
+	type\
+)\
+template \
+FCPPT_EXPORT_SYMBOL \
+class \
+sge::input::event::discover<\
+	type\
+>
 
 #endif

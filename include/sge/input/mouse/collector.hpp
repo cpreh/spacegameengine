@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button_signal.hpp>
 #include <sge/input/mouse/collector_fwd.hpp>
 #include <sge/input/mouse/device.hpp>
-#include <sge/input/mouse/device_ptr.hpp>
 #include <sge/input/mouse/info.hpp>
 #include <sge/input/mouse/manager.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -80,13 +79,13 @@ public:
 private:
 	void
 	axis_callback_internal(
-		mouse::device_ptr,
+		mouse::device &,
 		mouse::axis_event const &
 	);
 
 	void
 	button_callback_internal(
-		mouse::device_ptr,
+		mouse::device &,
 		mouse::button_event const &
 	);
 

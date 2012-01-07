@@ -46,20 +46,27 @@ protected:
 
 	virtual ~config_base() = 0;
 public:
-	virtual void
+	virtual
+	void
 	initial(
 		x11input::create_parameters const &
 	) = 0;
 
-	virtual void
+	virtual
+	void
 	add(
 		x11input::create_parameters const &
 	) = 0;
 
-	virtual void
+	virtual
+	void
 	remove(
 		x11input::device::id
 	) = 0;
+
+	virtual
+	void
+	dispatch_initial() = 0;
 };
 
 }

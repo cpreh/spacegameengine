@@ -18,24 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_DEVICE_VECTOR_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_DEVICE_VECTOR_HPP_INCLUDED
+#ifndef SGE_INPUT_MOUSE_DEVICE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_INPUT_MOUSE_DEVICE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/input/joypad/device_ptr.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
+#include <sge/input/mouse/device_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+
 
 namespace sge
 {
 namespace input
 {
-namespace joypad
+namespace mouse
 {
 
-typedef std::vector<
-	joypad::device_ptr
-> device_vector;
+typedef fcppt::unique_ptr<
+	sge::input::mouse::device
+> device_unique_ptr;
 
 }
 }

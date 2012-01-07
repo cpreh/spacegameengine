@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/forward_discover.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -30,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/remove_event.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
@@ -95,13 +95,6 @@ sge::input::keyboard::manager::manager(
 		)
 	)
 {
-	sge::input::forward_discover<
-		sge::input::keyboard::discover_event
-	>(
-		_processor.keyboards(),
-		&sge::input::keyboard::manager::discover,
-		*this
-	);
 }
 FCPPT_PP_POP_WARNING
 
@@ -123,7 +116,7 @@ sge::input::keyboard::manager::discover(
 	FCPPT_ASSERT_ERROR(
 		fcppt::container::ptr::insert_unique_ptr_map(
 			devices_,
-			_event.device(),
+			&_event.get(),
 			fcppt::make_unique_ptr<
 				fcppt::signal::connection_manager
 			>(
@@ -131,10 +124,12 @@ sge::input::keyboard::manager::discover(
 					fcppt::signal::connection_manager::container
 				>(
 					fcppt::signal::shared_connection(
-						_event.device()->char_callback(
+						_event.get().char_callback(
 							std::tr1::bind(
 								char_callback_,
-								_event.device(),
+								fcppt::ref(
+									_event.get()
+								),
 								std::tr1::placeholders::_1
 							)
 						)
@@ -142,10 +137,12 @@ sge::input::keyboard::manager::discover(
 				)
 				(
 					fcppt::signal::shared_connection(
-						_event.device()->key_callback(
+						_event.get().key_callback(
 							std::tr1::bind(
 								key_callback_,
-								_event.device(),
+								fcppt::ref(
+									_event.get()
+								),
 								std::tr1::placeholders::_1
 							)
 						)
@@ -153,10 +150,12 @@ sge::input::keyboard::manager::discover(
 				)
 				(
 					fcppt::signal::shared_connection(
-						_event.device()->key_repeat_callback(
+						_event.get().key_repeat_callback(
 							std::tr1::bind(
 								key_repeat_callback_,
-								_event.device(),
+								fcppt::ref(
+									_event.get()
+								),
 								std::tr1::placeholders::_1
 							)
 						)
@@ -182,7 +181,7 @@ sge::input::keyboard::manager::remove(
 {
 	FCPPT_ASSERT_ERROR(
 		devices_.erase(
-			_event.device()
+			&_event.get()
 		)
 		== 1u
 	);

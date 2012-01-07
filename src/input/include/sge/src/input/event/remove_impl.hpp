@@ -18,26 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_KEYBOARD_DEVICE_PTR_HPP_INCLUDED
-#define SGE_X11INPUT_KEYBOARD_DEVICE_PTR_HPP_INCLUDED
+#ifndef SGE_SRC_INPUT_EVENT_REMOVE_IMPL_HPP_INCLUDED
+#define SGE_SRC_INPUT_EVENT_REMOVE_IMPL_HPP_INCLUDED
 
-#include <sge/x11input/keyboard/device_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/input/event/remove.hpp>
 
 
-namespace sge
+template<
+	typename Object
+>
+sge::input::event::remove<
+	Object
+>::remove(
+	Object &_object
+)
+:
+	object_(
+		_object
+	)
 {
-namespace x11input
-{
-namespace keyboard
-{
-
-typedef fcppt::shared_ptr<
-	keyboard::device
-> device_ptr;
-
 }
-}
+
+template<
+	typename Object
+>
+Object &
+sge::input::event::remove<
+	Object
+>::get() const
+{
+	return object_;
 }
 
 #endif

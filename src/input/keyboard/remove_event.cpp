@@ -18,22 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/device_ptr.hpp>
+#include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/remove_event.hpp>
+#include <sge/src/input/event/instantiate_remove.hpp>
 
 
-sge::input::keyboard::remove_event::remove_event(
-	keyboard::device_ptr const _device
-)
-:
-	device_(
-		_device
-	)
-{
-}
-
-sge::input::keyboard::device_ptr const
-sge::input::keyboard::remove_event::device() const
-{
-	return device_;
-}
+SGE_INPUT_EVENT_INSTANTIATE_REMOVE(
+	sge::input::keyboard::device
+);

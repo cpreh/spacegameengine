@@ -25,46 +25,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/manager/config.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/operator/comparison.hpp>
-#include <boost/spirit/home/phoenix/operator/self.hpp>
-#include <algorithm>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 template<
-	typename X11ObjectPtr,
+	typename X11Object,
 	typename DiscoverEvent,
 	typename RemoveEvent
 >
 sge::x11input::device::manager::config<
-	X11ObjectPtr,
+	X11Object,
 	DiscoverEvent,
 	RemoveEvent
 >::config(
-	object_vector &_objects,
 	discover_signal &_discover,
 	remove_signal &_remove,
 	create_function const &_create
 )
 :
-	objects_(_objects),
-	discover_(_discover),
-	remove_(_remove),
-	create_(_create)
+	objects_(),
+	initial_objects_(),
+	discover_(
+		_discover
+	),
+	remove_(
+		_remove
+	),
+	create_(
+		_create
+	)
 {
 }
 
 template<
-	typename X11ObjectPtr,
+	typename X11Object,
 	typename DiscoverEvent,
 	typename RemoveEvent
 >
 sge::x11input::device::manager::config<
-	X11ObjectPtr,
+	X11Object,
 	DiscoverEvent,
 	RemoveEvent
 >::~config()
@@ -72,114 +77,160 @@ sge::x11input::device::manager::config<
 }
 
 template<
-	typename X11ObjectPtr,
+	typename X11Object,
 	typename DiscoverEvent,
 	typename RemoveEvent
 >
 void
 sge::x11input::device::manager::config<
-	X11ObjectPtr,
+	X11Object,
 	DiscoverEvent,
 	RemoveEvent
 >::initial(
 	x11input::create_parameters const &_param
 )
 {
-	X11ObjectPtr const obj(
-		create_(
-			_param
-		)
+	this->insert_into_map(
+		initial_objects_,
+		_param
 	);
-
-	if(
-		obj
-	)
-		objects_.push_back(
-			obj
-		);
 }
 
 template<
-	typename X11ObjectPtr,
+	typename X11Object,
 	typename DiscoverEvent,
 	typename RemoveEvent
 >
 void
 sge::x11input::device::manager::config<
-	X11ObjectPtr,
+	X11Object,
 	DiscoverEvent,
 	RemoveEvent
 >::add(
 	x11input::create_parameters const &_param
 )
 {
-	X11ObjectPtr const obj(
-		create_(
-			_param
-		)
-	);
-
-	if(
-		!obj
-	)
-		return;
-
-	objects_.push_back(
-		obj
-	);
-
 	discover_(
 		DiscoverEvent(
-			obj
+			this->insert_into_map(
+				objects_,
+				_param
+			)
 		)
 	);
 }
 
 template<
-	typename X11ObjectPtr,
+	typename X11Object,
 	typename DiscoverEvent,
 	typename RemoveEvent
 >
 void
 sge::x11input::device::manager::config<
-	X11ObjectPtr,
+	X11Object,
 	DiscoverEvent,
 	RemoveEvent
 >::remove(
 	x11input::device::id const _id
 )
 {
-	typename object_vector::iterator const it(
-		std::find_if(
-			objects_.begin(),
-			objects_.end(),
-			boost::phoenix::bind(
-				&x11input::device::object::id,
-				*boost::phoenix::arg_names::arg1
-			)
-			==
+	typename object_map::iterator const it(
+		objects_.find(
 			_id
 		)
 	);
 
-	if(
-		it == objects_.end()
-	)
-		return;
+	FCPPT_ASSERT_ERROR(
+		it != objects_.end()
+	);
 
-	X11ObjectPtr const ptr(
-		*it
+	remove_(
+		RemoveEvent(
+			*it->second
+		)
 	);
 
 	objects_.erase(
 		it
 	);
+}
 
-	remove_(
-		RemoveEvent(
-			ptr
+template<
+	typename X11Object,
+	typename DiscoverEvent,
+	typename RemoveEvent
+>
+void
+sge::x11input::device::manager::config<
+	X11Object,
+	DiscoverEvent,
+	RemoveEvent
+>::dispatch_initial()
+{
+	for(
+		typename object_map::iterator it(
+			initial_objects_.begin()
+		);
+		it != initial_objects_.end();
+		++it
+	)
+		discover_(
+			DiscoverEvent(
+				*it->second
+			)
+		);
+
+	initial_objects_.transfer(
+		objects_
+	);
+}
+
+template<
+	typename X11Object,
+	typename DiscoverEvent,
+	typename RemoveEvent
+>
+X11Object &
+sge::x11input::device::manager::config<
+	X11Object,
+	DiscoverEvent,
+	RemoveEvent
+>::insert_into_map(
+	object_map &_map,
+	x11input::create_parameters const &_param
+)
+{
+	object_unique_ptr object(
+		create_(
+			_param
 		)
 	);
+
+	x11input::device::id const id(
+		object->id()
+	);
+
+	typedef std::pair<
+		typename object_map::iterator,
+		bool
+	> insert_result;
+
+	insert_result const it(
+		fcppt::container::ptr::insert_unique_ptr_map(
+			_map,
+			id,
+			fcppt::move(
+				object
+			)
+		)
+	);
+
+	FCPPT_ASSERT_ERROR(
+		it.second
+	);
+
+	return
+		*it.first->second;
 }
 
 #endif

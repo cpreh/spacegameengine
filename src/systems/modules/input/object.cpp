@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/object_unique_ptr.hpp>
 #include <sge/input/keyboard/collector.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/keyboard/device_ptr.hpp>
+#include <sge/input/keyboard/device_unique_ptr.hpp>
 #include <sge/input/mouse/collector.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
-#include <sge/input/mouse/device_ptr.hpp>
+#include <sge/input/mouse/device_unique_ptr.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
@@ -41,9 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/object.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/unique_ptr.hpp>
 
 
 sge::systems::modules::input::object::object(
@@ -77,15 +77,17 @@ sge::systems::modules::input::object::object(
 			sge::systems::input_helper::cursor_demuxer
 		)
 		?
-			fcppt::make_shared_ptr<
-				sge::input::cursor::demuxer
-			>(
-				fcppt::ref(
-					*input_processor_
+			sge::input::cursor::object_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::input::cursor::demuxer
+				>(
+					fcppt::ref(
+						*input_processor_
+					)
 				)
 			)
 		:
-			sge::input::cursor::object_ptr()
+			sge::input::cursor::object_unique_ptr()
 	),
 	keyboard_collector_(
 		(
@@ -94,15 +96,17 @@ sge::systems::modules::input::object::object(
 			systems::input_helper::keyboard_collector
 		)
 		?
-			fcppt::make_shared_ptr<
-				sge::input::keyboard::collector
-			>(
-				fcppt::ref(
-					*input_processor_
+			sge::input::keyboard::device_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::input::keyboard::collector
+				>(
+					fcppt::ref(
+						*input_processor_
+					)
 				)
 			)
 		:
-			sge::input::keyboard::device_ptr()
+			sge::input::keyboard::device_unique_ptr()
 	),
 	mouse_collector_(
 		(
@@ -111,15 +115,17 @@ sge::systems::modules::input::object::object(
 			systems::input_helper::mouse_collector
 		)
 		?
-			fcppt::make_shared_ptr<
-				sge::input::mouse::collector
-			>(
-				fcppt::ref(
-					*input_processor_
+			sge::input::mouse::device_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::input::mouse::collector
+				>(
+					fcppt::ref(
+						*input_processor_
+					)
 				)
 			)
 		:
-			sge::input::mouse::device_ptr()
+			sge::input::mouse::device_unique_ptr()
 	),
 	cursor_modifier_(
 		_parameters.cursor_options()

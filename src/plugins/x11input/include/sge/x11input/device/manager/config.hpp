@@ -25,11 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/manager/config_base.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_fwd.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <vector>
+#include <boost/ptr_container/ptr_map.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -43,7 +44,7 @@ namespace manager
 {
 
 template<
-	typename X11ObjectPtr,
+	typename X11Object,
 	typename DiscoverEvent,
 	typename RemoveEvent
 >
@@ -55,10 +56,6 @@ class config
 		config
 	);
 public:
-	typedef std::vector<
-		X11ObjectPtr
-	> object_vector;
-
 	typedef fcppt::signal::object<
 		void (DiscoverEvent const &)
 	> discover_signal;
@@ -67,14 +64,17 @@ public:
 		void (RemoveEvent const &)
 	> remove_signal;
 
+	typedef fcppt::unique_ptr<
+		X11Object
+	> object_unique_ptr;
+
 	typedef fcppt::function::object<
-		X11ObjectPtr const (
+		object_unique_ptr (
 			x11input::create_parameters const &
 		)
 	> create_function;
 
 	config(
-		object_vector &,
 		discover_signal &,
 		remove_signal &,
 		create_function const &
@@ -96,8 +96,24 @@ public:
 	remove(
 		x11input::device::id
 	);
+
+	void
+	dispatch_initial();
 private:
-	object_vector &objects_;
+	typedef boost::ptr_map<
+		sge::x11input::device::id,
+		X11Object
+	> object_map;
+
+	X11Object &
+	insert_into_map(
+		object_map &,
+		x11input::create_parameters const &
+	);
+
+	object_map objects_;
+
+	object_map initial_objects_;
 
 	discover_signal &discover_;
 

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button_event_fwd.hpp>
 #include <sge/input/mouse/button_info_container.hpp>
 #include <sge/input/mouse/collector.hpp>
-#include <sge/input/mouse/device_ptr.hpp>
+#include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/info.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
@@ -114,7 +114,7 @@ sge::input::mouse::collector::info() const
 
 void
 sge::input::mouse::collector::axis_callback_internal(
-	mouse::device_ptr,
+	mouse::device &,
 	mouse::axis_event const &_event
 )
 {
@@ -125,7 +125,7 @@ sge::input::mouse::collector::axis_callback_internal(
 
 void
 sge::input::mouse::collector::button_callback_internal(
-	mouse::device_ptr,
+	mouse::device &,
 	mouse::button_event const &_event
 )
 {

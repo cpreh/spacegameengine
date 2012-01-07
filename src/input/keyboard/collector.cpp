@@ -132,7 +132,7 @@ sge::input::keyboard::collector::mod_state() const
 
 void
 sge::input::keyboard::collector::char_callback_internal(
-	keyboard::device_ptr,
+	keyboard::device &,
 	keyboard::char_event const &_event
 )
 {
@@ -143,7 +143,7 @@ sge::input::keyboard::collector::char_callback_internal(
 
 void
 sge::input::keyboard::collector::key_callback_internal(
-	keyboard::device_ptr,
+	keyboard::device &,
 	keyboard::key_event const &_event
 )
 {
@@ -154,7 +154,7 @@ sge::input::keyboard::collector::key_callback_internal(
 
 void
 sge::input::keyboard::collector::key_repeat_callback_internal(
-	keyboard::device_ptr,
+	keyboard::device &,
 	keyboard::key_repeat_event const &_event
 )
 {

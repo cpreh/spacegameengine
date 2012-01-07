@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_REMOVE_EVENT_FWD_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_REMOVE_EVENT_FWD_HPP_INCLUDED
 
+#include <sge/input/cursor/object_fwd.hpp>
+#include <sge/input/event/remove_fwd.hpp>
+
+
 namespace sge
 {
 namespace input
@@ -28,7 +32,9 @@ namespace input
 namespace cursor
 {
 
-class remove_event;
+typedef sge::input::event::remove<
+	sge::input::cursor::object
+> remove_event;
 
 }
 }

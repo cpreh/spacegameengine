@@ -27,9 +27,11 @@ set(
 	include/sge/input/cursor/no_object.hpp
 	include/sge/input/cursor/object.hpp
 	include/sge/input/cursor/object_fwd.hpp
-	include/sge/input/cursor/object_ptr.hpp
+	include/sge/input/cursor/object_scoped_ptr.hpp
 	include/sge/input/cursor/object_set.hpp
-	include/sge/input/cursor/object_vector.hpp
+	include/sge/input/cursor/object_unique_ptr.hpp
+	include/sge/input/cursor/optional_object_ref.hpp
+	include/sge/input/cursor/optional_object_ref_fwd.hpp
 	include/sge/input/cursor/optional_position.hpp
 	include/sge/input/cursor/optional_position_fwd.hpp
 	include/sge/input/cursor/position.hpp
@@ -45,8 +47,12 @@ set(
 	include/sge/input/cursor/remove_event_fwd.hpp
 	include/sge/input/cursor/remove_function.hpp
 	include/sge/input/cursor/remove_signal.hpp
+	include/sge/input/event/discover.hpp
+	include/sge/input/event/discover_fwd.hpp
+	include/sge/input/event/event.hpp
+	include/sge/input/event/remove.hpp
+	include/sge/input/event/remove_fwd.hpp
 	include/sge/input/exception.hpp
-	include/sge/input/forward_discover.hpp
 	include/sge/input/info/container.hpp
 	include/sge/input/info/container_fwd.hpp
 	include/sge/input/info/id.hpp
@@ -85,8 +91,6 @@ set(
 	include/sge/input/joypad/collector_fwd.hpp
 	include/sge/input/joypad/device.hpp
 	include/sge/input/joypad/device_fwd.hpp
-	include/sge/input/joypad/device_ptr.hpp
-	include/sge/input/joypad/device_vector.hpp
 	include/sge/input/joypad/discover_callback.hpp
 	include/sge/input/joypad/discover_event.hpp
 	include/sge/input/joypad/discover_event_fwd.hpp
@@ -124,8 +128,8 @@ set(
 	include/sge/input/keyboard/collector_fwd.hpp
 	include/sge/input/keyboard/device.hpp
 	include/sge/input/keyboard/device_fwd.hpp
-	include/sge/input/keyboard/device_ptr.hpp
-	include/sge/input/keyboard/device_vector.hpp
+	include/sge/input/keyboard/device_scoped_ptr.hpp
+	include/sge/input/keyboard/device_unique_ptr.hpp
 	include/sge/input/keyboard/digit.hpp
 	include/sge/input/keyboard/discover_callback.hpp
 	include/sge/input/keyboard/discover_event.hpp
@@ -194,8 +198,8 @@ set(
 	include/sge/input/mouse/collector_fwd.hpp
 	include/sge/input/mouse/device.hpp
 	include/sge/input/mouse/device_fwd.hpp
-	include/sge/input/mouse/device_ptr.hpp
-	include/sge/input/mouse/device_vector.hpp
+	include/sge/input/mouse/device_scoped_ptr.hpp
+	include/sge/input/mouse/device_unique_ptr.hpp
 	include/sge/input/mouse/discover_callback.hpp
 	include/sge/input/mouse/discover_event.hpp
 	include/sge/input/mouse/discover_event_fwd.hpp
@@ -233,6 +237,10 @@ set(
 	src/input/cursor/relative_movement.cpp
 	src/input/cursor/remove_event.cpp
 	src/input/exception.cpp
+	src/input/include/sge/src/input/event/discover_impl.hpp
+	src/input/include/sge/src/input/event/instantiate_discover.hpp
+	src/input/include/sge/src/input/event/instantiate_remove.hpp
+	src/input/include/sge/src/input/event/remove_impl.hpp
 	src/input/include/sge/src/input/info/container_impl.hpp
 	src/input/joypad/absolute_axis.cpp
 	src/input/joypad/absolute_axis_event.cpp

@@ -31,14 +31,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
+#include <sge/src/systems/any_visitor.hpp>
+#include <sge/src/systems/extract_plugin_path.hpp>
+#include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/systems/any_key.hpp>
 #include <sge/systems/any_map.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/src/systems/any_visitor.hpp>
-#include <sge/src/systems/extract_plugin_path.hpp>
-#include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>

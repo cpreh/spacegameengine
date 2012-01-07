@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/symbol.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
-#include <sge/input/mouse/device_ptr.hpp>
+#include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/discover_event_fwd.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
@@ -53,14 +53,14 @@ class manager
 public:
 	typedef fcppt::function::object<
 		void (
-			mouse::device_ptr,
+			mouse::device &,
 			mouse::axis_event const &
 		)
 	> axis_callback;
 
 	typedef fcppt::function::object<
 		void (
-			mouse::device_ptr,
+			mouse::device &,
 			mouse::button_event const &
 		)
 	> button_callback;
@@ -88,7 +88,7 @@ private:
 	);
 
 	typedef boost::ptr_map<
-		mouse::device_ptr,
+		mouse::device *,
 		fcppt::signal::connection_manager
 	> mouse_map;
 

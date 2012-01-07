@@ -18,26 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_MOUSE_DEVICE_PTR_HPP_INCLUDED
-#define SGE_INPUT_MOUSE_DEVICE_PTR_HPP_INCLUDED
+#include <sge/input/mouse/discover_event.hpp>
+#include <sge/input/mouse/remove_event.hpp>
+#include <sge/x11input/device/manager/config_impl.hpp>
+#include <sge/x11input/mouse/device.hpp>
 
-#include <sge/input/mouse/device_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
 
+template class
+sge::x11input::device::manager::config<
+	sge::x11input::mouse::device,
+	sge::input::mouse::discover_event,
+	sge::input::mouse::remove_event
+>;
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
-{
-
-typedef fcppt::shared_ptr<
-	mouse::device
-> device_ptr;
-
-}
-}
-}
-
-#endif

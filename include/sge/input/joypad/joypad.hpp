@@ -51,8 +51,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/collector_fwd.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/device_fwd.hpp>
-#include <sge/input/joypad/device_ptr.hpp>
-#include <sge/input/joypad/device_vector.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/discover_event.hpp>
 #include <sge/input/joypad/discover_event_fwd.hpp>
