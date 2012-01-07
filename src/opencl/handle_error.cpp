@@ -83,6 +83,9 @@ error_code_to_string(
 #ifdef CL_PLATFORM_NOT_FOUND_KHR
 		case CL_PLATFORM_NOT_FOUND_KHR: return FCPPT_TEXT("CL_PLATFORM_NOT_FOUND_KHR");
 #endif
+#ifdef CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR
+		case CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR: return FCPPT_TEXT("CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR");
+#endif
 		default: return FCPPT_TEXT("Unknown (code: ")+fcppt::insert_to_fcppt_string(code)+FCPPT_TEXT(")");
 	}
 }
