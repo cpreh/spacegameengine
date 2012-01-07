@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/joypad/device_unique_ptr.hpp>
 #include <sge/x11input/keyboard/device_unique_ptr.hpp>
 #include <sge/x11input/mouse/device_unique_ptr.hpp>
+#include <awl/backends/x11/atom.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
@@ -186,6 +187,11 @@ private:
 		awl::backends::x11::window::event::object const &
 	);
 
+	void
+	on_client_message(
+		awl::backends::x11::window::event::object const &
+	);
+
 	awl::backends::x11::system::event::opcode const opcode_;
 
 	awl::backends::x11::window::instance const &x11_window_;
@@ -237,6 +243,8 @@ private:
 	sge::x11input::device::manager::object device_manager_;
 
 	sge::x11input::cursor::manager cursor_manager_;
+
+	awl::backends::x11::atom const init_atom_;
 
 	fcppt::signal::connection_manager const connections_;
 };

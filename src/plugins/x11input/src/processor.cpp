@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/input_context.hpp>
 #include <sge/x11input/input_method.hpp>
 #include <sge/x11input/processor.hpp>
+#include <sge/x11input/send_init_event.hpp>
 #include <sge/x11input/xi_2_1.hpp>
 #include <sge/x11input/cursor/object.hpp>
 #include <sge/x11input/device/hierarchy_event.hpp>
@@ -40,9 +41,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/keyboard/device.hpp>
 #include <sge/x11input/mouse/device.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/intern_atom.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/window/root.hpp>
+#include <awl/backends/x11/window/event/object.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
 #include <fcppt/cref.hpp>
@@ -241,6 +244,12 @@ sge::x11input::processor::processor(
 		)
 	),
 	cursor_manager_(),
+	init_atom_(
+		awl::backends::x11::intern_atom(
+			x11_window_.display(),
+			"SGE start atom"
+		)
+	),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -305,6 +314,20 @@ sge::x11input::processor::processor(
 		)
 		(
 			fcppt::signal::shared_connection(
+				window_event_processor_.register_callback(
+					awl::backends::x11::window::event::type(
+						ClientMessage
+					),
+					std::tr1::bind(
+						&processor::on_client_message,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
 				cursor_discover_.connect(
 					std::tr1::bind(
 						&x11input::cursor::manager::discover,
@@ -344,6 +367,11 @@ sge::x11input::processor::processor(
 				index
 			]
 		);
+
+	sge::x11input::send_init_event(
+		x11_window_,
+		init_atom_
+	);
 }
 
 sge::x11input::processor::~processor()
@@ -589,4 +617,24 @@ sge::x11input::processor::on_leave(
 	);
 
 	cursor_manager_.leave();
+}
+
+void
+sge::x11input::processor::on_client_message(
+	awl::backends::x11::window::event::object const &_object
+)
+{
+	FCPPT_LOG_DEBUG(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("x11input: ClientMessage")
+	);
+
+	if(
+		_object.get().xclient.message_type
+		!= init_atom_.get()
+	)
+		return;
+
+	device_manager_.dispatch_initial();
 }

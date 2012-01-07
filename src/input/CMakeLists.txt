@@ -49,6 +49,7 @@ set(
 	include/sge/input/cursor/remove_signal.hpp
 	include/sge/input/event/discover.hpp
 	include/sge/input/event/discover_fwd.hpp
+	include/sge/input/event/event.hpp
 	include/sge/input/event/remove.hpp
 	include/sge/input/event/remove_fwd.hpp
 	include/sge/input/exception.hpp

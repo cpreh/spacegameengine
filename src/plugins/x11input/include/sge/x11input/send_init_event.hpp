@@ -18,59 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_MANAGER_CONFIG_BASE_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_MANAGER_CONFIG_BASE_HPP_INCLUDED
+#ifndef SGE_X11INPUT_SEND_INIT_EVENT_HPP_INCLUDED
+#define SGE_X11INPUT_SEND_INIT_EVENT_HPP_INCLUDED
 
-#include <sge/x11input/create_parameters_fwd.hpp>
-#include <sge/x11input/device/id.hpp>
-#include <sge/x11input/device/manager/config_base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/x11/atom.hpp>
+#include <awl/backends/x11/window/instance_fwd.hpp>
 
 
 namespace sge
 {
 namespace x11input
 {
-namespace device
-{
-namespace manager
-{
 
-class config_base
-{
-	FCPPT_NONCOPYABLE(
-		config_base
-	);
-protected:
-	config_base();
+void
+send_init_event(
+	awl::backends::x11::window::instance const &,
+	awl::backends::x11::atom
+);
 
-	virtual ~config_base() = 0;
-public:
-	virtual
-	void
-	initial(
-		x11input::create_parameters const &
-	) = 0;
-
-	virtual
-	void
-	add(
-		x11input::create_parameters const &
-	) = 0;
-
-	virtual
-	void
-	remove(
-		x11input::device::id
-	) = 0;
-
-	virtual
-	void
-	dispatch_initial() = 0;
-};
-
-}
-}
 }
 }
 

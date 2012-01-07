@@ -108,6 +108,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/pixmap_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/processor.hpp
 	src/plugins/x11input/include/sge/x11input/scoped_locale.hpp
+	src/plugins/x11input/include/sge/x11input/send_init_event.hpp
 	src/plugins/x11input/include/sge/x11input/setlocale.hpp
 	src/plugins/x11input/include/sge/x11input/system.hpp
 	src/plugins/x11input/include/sge/x11input/xi_2_1.hpp
@@ -179,6 +180,7 @@ set(
 	src/plugins/x11input/src/pixmap.cpp
 	src/plugins/x11input/src/processor.cpp
 	src/plugins/x11input/src/scoped_locale.cpp
+	src/plugins/x11input/src/send_init_event.cpp
 	src/plugins/x11input/src/setlocale.cpp
 	src/plugins/x11input/src/system.cpp
 	src/plugins/x11input/src/xi_opcode.cpp

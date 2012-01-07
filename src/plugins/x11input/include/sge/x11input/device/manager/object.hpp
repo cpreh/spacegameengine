@@ -61,6 +61,9 @@ public:
 	change(
 		XIHierarchyInfo const &
 	);
+
+	void
+	dispatch_initial();
 private:
 	template<
 		typename Function
