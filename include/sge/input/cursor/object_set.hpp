@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_OBJECT_SET_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_OBJECT_SET_HPP_INCLUDED
 
-#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <set>
 #include <fcppt/config/external_end.hpp>
@@ -35,7 +35,7 @@ namespace cursor
 {
 
 typedef std::set<
-	cursor::object_ptr
+	cursor::object *
 > object_set;
 
 }

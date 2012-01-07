@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/manager.hpp>
 #include <sge/input/cursor/move_event.hpp>
-#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/info/optional_string.hpp>
@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/button_info.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/device.hpp>
-#include <sge/input/joypad/device_ptr.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/discover_event.hpp>
 #include <sge/input/joypad/info.hpp>
@@ -67,7 +66,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button_info.hpp>
 #include <sge/input/mouse/button_info_container.hpp>
 #include <sge/input/mouse/device.hpp>
-#include <sge/input/mouse/device_ptr.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/discover_event.hpp>
 #include <sge/input/mouse/info.hpp>
@@ -125,13 +123,13 @@ cursor_remove(
 
 void
 cursor_button(
-	sge::input::cursor::object_ptr,
+	sge::input::cursor::object &,
 	sge::input::cursor::button_event const &
 );
 
 void
 cursor_move(
-	sge::input::cursor::object_ptr,
+	sge::input::cursor::object &,
 	sge::input::cursor::move_event const &
 );
 
@@ -147,19 +145,19 @@ joypad_remove(
 
 void
 joypad_absolute_axis(
-	sge::input::joypad::device_ptr,
+	sge::input::joypad::device &,
 	sge::input::joypad::absolute_axis_event const &
 );
 
 void
 joypad_button(
-	sge::input::joypad::device_ptr,
+	sge::input::joypad::device &,
 	sge::input::joypad::button_event const &
 );
 
 void
 joypad_relative_axis(
-	sge::input::joypad::device_ptr,
+	sge::input::joypad::device &,
 	sge::input::joypad::relative_axis_event const &
 );
 
@@ -175,19 +173,19 @@ keyboard_remove(
 
 void
 keyboard_char(
-	sge::input::keyboard::device_ptr,
+	sge::input::keyboard::device &,
 	sge::input::keyboard::char_event const &
 );
 
 void
 keyboard_key(
-	sge::input::keyboard::device_ptr,
+	sge::input::keyboard::device &,
 	sge::input::keyboard::key_event const &
 );
 
 void
 keyboard_key_repeat(
-	sge::input::keyboard::device_ptr,
+	sge::input::keyboard::device &,
 	sge::input::keyboard::key_repeat_event const &
 );
 
@@ -203,13 +201,13 @@ mouse_remove(
 
 void
 mouse_axis(
-	sge::input::mouse::device_ptr,
+	sge::input::mouse::device &,
 	sge::input::mouse::axis_event const &
 );
 
 void
 mouse_button(
-	sge::input::mouse::device_ptr,
+	sge::input::mouse::device &,
 	sge::input::mouse::button_event const &
 );
 
@@ -381,7 +379,7 @@ cursor_discover(
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("cursor_discover: ")
-		<< _event.object()
+		<< &_event.get()
 		<< FCPPT_TEXT('\n');
 }
 
@@ -392,19 +390,19 @@ cursor_remove(
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("cursor_remove: ")
-		<< _event.object()
+		<< &_event.get()
 		<< FCPPT_TEXT('\n');
 }
 
 void
 cursor_button(
-	sge::input::cursor::object_ptr const _object,
+	sge::input::cursor::object &_object,
 	sge::input::cursor::button_event const &_event
 )
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("cursor_button: ")
-		<< _object
+		<< &_object
 		<< FCPPT_TEXT("\n\tcode: ")
 		<< sge::input::cursor::button_code_to_string(
 			_event.button_code()
@@ -416,13 +414,13 @@ cursor_button(
 
 void
 cursor_move(
-	sge::input::cursor::object_ptr const _object,
+	sge::input::cursor::object &_object,
 	sge::input::cursor::move_event const &_event
 )
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("cursor_move: ")
-		<< _object
+		<< &_object
 		<< FCPPT_TEXT("\n\tposition: ")
 		<< _event.position()
 		<< FCPPT_TEXT('\n');
@@ -434,12 +432,12 @@ joypad_discover(
 )
 {
 	sge::input::joypad::info const info(
-		_event.device()->info()
+		_event.get().info()
 	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("joypad_discover: ")
-		<< _event.device()
+		<< &_event.get()
 		<< FCPPT_TEXT(", ")
 		<< info.name()
 		<< FCPPT_TEXT('\n');
@@ -558,19 +556,19 @@ joypad_remove(
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("joypad_remove: ")
-		<< _event.device()
+		<< &_event.get()
 		<< FCPPT_TEXT('\n');
 }
 
 void
 joypad_absolute_axis(
-	sge::input::joypad::device_ptr const _device,
+	sge::input::joypad::device &_device,
 	sge::input::joypad::absolute_axis_event const &_event
 )
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("joypad_absolute_axis: ")
-		<< _device
+		<< &_device
 		<< FCPPT_TEXT("\n\tcode: ")
 		<< sge::input::joypad::axis_code_to_string(
 			_event.axis().code()
@@ -584,13 +582,13 @@ joypad_absolute_axis(
 
 void
 joypad_button(
-	sge::input::joypad::device_ptr const _device,
+	sge::input::joypad::device &_device,
 	sge::input::joypad::button_event const &_event
 )
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("joypad_button: ")
-		<< _device
+		<< &_device
 		<< FCPPT_TEXT("\n\tid: ")
 		<< _event.button_id()
 		<< FCPPT_TEXT("\n\tpressed: ")
@@ -600,13 +598,13 @@ joypad_button(
 
 void
 joypad_relative_axis(
-	sge::input::joypad::device_ptr const _device,
+	sge::input::joypad::device &_device,
 	sge::input::joypad::relative_axis_event const &_event
 )
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("joypad_relative_axis: ")
-		<< _device
+		<< &_device
 		<< FCPPT_TEXT("\n\tcode: ")
 		<< sge::input::joypad::axis_code_to_string(
 			_event.axis().code()
@@ -625,7 +623,7 @@ keyboard_discover(
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("keyboard_discover: ")
-		<< _event.device()
+		<< &_event.get()
 		<< FCPPT_TEXT('\n');
 }
 
@@ -636,19 +634,19 @@ keyboard_remove(
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("keyboard_remove: ")
-		<< _event.device()
+		<< &_event.get()
 		<< FCPPT_TEXT('\n');
 }
 
 void
 keyboard_char(
-	sge::input::keyboard::device_ptr const _device,
+	sge::input::keyboard::device &_device,
 	sge::input::keyboard::char_event const &_event
 )
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("keyboard_char: ")
-		<< _device
+		<< &_device
 		<< FCPPT_TEXT("\n\tcharacter_value: ")
 		<< static_cast<
 			unsigned long
@@ -669,13 +667,13 @@ keyboard_char(
 
 void
 keyboard_key(
-	sge::input::keyboard::device_ptr const _device,
+	sge::input::keyboard::device &_device,
 	sge::input::keyboard::key_event const &_event
 )
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("keyboard_key: ")
-		<< _device
+		<< &_device
 		<< FCPPT_TEXT("\n\tkey: ")
 		<< sge::input::keyboard::key_code_to_string(
 			_event.key_code()
@@ -687,13 +685,13 @@ keyboard_key(
 
 void
 keyboard_key_repeat(
-	sge::input::keyboard::device_ptr const _device,
+	sge::input::keyboard::device &_device,
 	sge::input::keyboard::key_repeat_event const &_event
 )
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("keyboard_key_repeat: ")
-		<< _device
+		<< &_device
 		<< FCPPT_TEXT("\n\tkey: ")
 		<< sge::input::keyboard::key_code_to_string(
 			_event.key_code()
@@ -707,12 +705,12 @@ mouse_discover(
 )
 {
 	sge::input::mouse::info const info(
-		_event.device()->info()
+		_event.get().info()
 	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("mouse_discover: ")
-		<< _event.device()
+		<< &_event.get()
 		<< FCPPT_TEXT(", ")
 		<< info.name()
 		<< FCPPT_TEXT('\n');
@@ -795,19 +793,19 @@ mouse_remove(
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("mouse_remove: ")
-		<< _event.device()
+		<< &_event.get()
 		<< FCPPT_TEXT('\n');
 }
 
 void
 mouse_axis(
-	sge::input::mouse::device_ptr const _device,
+	sge::input::mouse::device &_device,
 	sge::input::mouse::axis_event const &_event
 )
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("mouse_axis: ")
-		<< _device
+		<< &_device
 		<< FCPPT_TEXT("\n\tcode: ")
 		<< sge::input::mouse::axis_code_to_string(
 			_event.axis().code()
@@ -821,13 +819,13 @@ mouse_axis(
 
 void
 mouse_button(
-	sge::input::mouse::device_ptr const _device,
+	sge::input::mouse::device &_device,
 	sge::input::mouse::button_event const &_event
 )
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("mouse_button: ")
-		<< _device
+		<< &_device
 		<< FCPPT_TEXT("\n\tcode: ")
 		<< sge::input::mouse::button_code_to_string(
 			_event.button().code()

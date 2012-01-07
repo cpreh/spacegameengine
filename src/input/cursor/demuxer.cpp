@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/no_object.hpp>
-#include <sge/input/cursor/object_vector.hpp>
+#include <sge/input/cursor/optional_object_ref.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/remove_event.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -38,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::cursor::demuxer::demuxer(
-	input::processor &_processor,
-	cursor::choose_callback const &_choose
+	sge::input::processor &_processor,
+	sge::input::cursor::choose_callback const &_choose
 )
 :
 	choose_(
@@ -77,22 +78,6 @@ sge::input::cursor::demuxer::demuxer(
 	cursor_connections_(),
 	current_cursor_()
 {
-	cursor::object_vector const cursors(
-		_processor.cursors()
-	);
-
-	for(
-		cursor::object_vector::const_iterator it(
-			cursors.begin()
-		);
-		it != cursors.end();
-		++it
-	)
-		this->discover_callback(
-			cursor::discover_event(
-				*it
-			)
-		);
 }
 FCPPT_PP_POP_WARNING
 
@@ -135,13 +120,12 @@ sge::input::cursor::demuxer::position() const
 
 void
 sge::input::cursor::demuxer::mode(
-	cursor::mode::type const _mode
+	sge::input::cursor::mode::type const _mode
 )
 {
 	if(
 		this->current_cursor()
 	)
-
 		this->current_cursor()->mode(
 			_mode
 		);
@@ -149,7 +133,7 @@ sge::input::cursor::demuxer::mode(
 		throw sge::input::cursor::no_object();
 }
 
-sge::input::cursor::object_ptr const
+sge::input::cursor::optional_object_ref const
 sge::input::cursor::demuxer::current_cursor() const
 {
 	return current_cursor_;
@@ -180,16 +164,13 @@ sge::input::cursor::demuxer::discover_callback(
 	cursor::discover_event const &_event
 )
 {
-	cursors_.insert(
-		_event.object()
+	FCPPT_ASSERT_ERROR(
+		cursors_.insert(
+			&_event.get()
+		).second
 	);
 
-	if(
-		!current_cursor_
-	)
-		this->assign_cursor(
-			_event.object()
-		);
+	this->assign_cursor();
 }
 
 void
@@ -197,33 +178,29 @@ sge::input::cursor::demuxer::remove_callback(
 	cursor::remove_event const &_event
 )
 {
-	if(
-		current_cursor_ != _event.object()
-	)
-		return;
+	cursors_.erase(
+		&_event.get()
+	);
 
-	if(
-		cursors_.empty()
-	)
-	{
-		current_cursor_.reset();
-
-		cursor_connections_.clear();
-	}
-	else
-		this->assign_cursor(
-			choose_(
-				cursors_
-			)
-		);
+	this->assign_cursor();
 }
 
 void
-sge::input::cursor::demuxer::assign_cursor(
-	cursor::object_ptr const _object
-)
+sge::input::cursor::demuxer::assign_cursor()
 {
-	current_cursor_ = _object;
+	current_cursor_ =
+		choose_(
+			cursors_
+		);
+
+	if(
+		!current_cursor_
+	)
+	{
+		cursor_connections_.clear();
+
+		return;
+	}
 
 	cursor_connections_.assign(
 		fcppt::assign::make_container<

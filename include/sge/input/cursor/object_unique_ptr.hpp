@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_JOYPAD_DEVICE_PTR_HPP_INCLUDED
-#define SGE_X11INPUT_JOYPAD_DEVICE_PTR_HPP_INCLUDED
+#ifndef SGE_INPUT_CURSOR_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/x11input/joypad/device_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/input/cursor/object_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
-namespace joypad
+namespace cursor
 {
 
-typedef fcppt::shared_ptr<
-	joypad::device
-> device_ptr;
+typedef fcppt::unique_ptr<
+	sge::input::cursor::object
+> object_unique_ptr;
 
 }
 }

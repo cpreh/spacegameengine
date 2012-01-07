@@ -18,42 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_OBJECT_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_OBJECT_HPP_INCLUDED
+#ifndef SGE_SRC_INPUT_EVENT_DISCOVER_IMPL_HPP_INCLUDED
+#define SGE_SRC_INPUT_EVENT_DISCOVER_IMPL_HPP_INCLUDED
 
-#include <sge/x11input/device/id.hpp>
-#include <sge/x11input/device/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/input/event/discover.hpp>
 
 
-namespace sge
+template<
+	typename Object
+>
+sge::input::event::discover<
+	Object
+>::discover(
+	Object &_object
+)
+:
+	object_(
+		_object
+	)
 {
-namespace x11input
-{
-namespace device
-{
-
-class object
-{
-	FCPPT_NONCOPYABLE(
-		object
-	);
-protected:
-	explicit object(
-		device::id
-	);
-public:
-	virtual
-	~object() = 0;
-
-	device::id const
-	id() const;
-private:
-	device::id const id_;
-};
-
 }
-}
+
+template<
+	typename Object
+>
+Object &
+sge::input::event::discover<
+	Object
+>::get() const
+{
+	return object_;
 }
 
 #endif

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/symbol.hpp>
 #include <sge/input/joypad/absolute_axis_event_fwd.hpp>
 #include <sge/input/joypad/button_event_fwd.hpp>
-#include <sge/input/joypad/device_ptr.hpp>
+#include <sge/input/joypad/device_fwd.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/discover_event_fwd.hpp>
 #include <sge/input/joypad/relative_axis_event_fwd.hpp>
@@ -54,21 +54,21 @@ class manager
 public:
 	typedef fcppt::function::object<
 		void (
-			joypad::device_ptr,
+			joypad::device &,
 			joypad::absolute_axis_event const &
 		)
 	> absolute_axis_callback;
 
 	typedef fcppt::function::object<
 		void (
-			joypad::device_ptr,
+			joypad::device &,
 			joypad::button_event const &
 		)
 	> button_callback;
 
 	typedef fcppt::function::object<
 		void (
-			joypad::device_ptr,
+			joypad::device &,
 			joypad::relative_axis_event const &
 		)
 	> relative_axis_callback;
@@ -97,7 +97,7 @@ private:
 	);
 
 	typedef boost::ptr_map<
-		joypad::device_ptr,
+		joypad::device *,
 		fcppt::signal::connection_manager
 	> joypad_map;
 

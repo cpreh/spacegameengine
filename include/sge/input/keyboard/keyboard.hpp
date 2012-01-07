@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/collector_fwd.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/keyboard/device_ptr.hpp>
-#include <sge/input/keyboard/device_vector.hpp>
+#include <sge/input/keyboard/device_scoped_ptr.hpp>
+#include <sge/input/keyboard/device_unique_ptr.hpp>
 #include <sge/input/keyboard/digit.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/discover_event.hpp>

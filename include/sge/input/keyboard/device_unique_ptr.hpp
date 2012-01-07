@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_OBJECT_PTR_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_OBJECT_PTR_HPP_INCLUDED
+#ifndef SGE_INPUT_KEYBOARD_DEVICE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_DEVICE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/x11input/device/object_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/input/keyboard/device_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
-namespace device
+namespace keyboard
 {
 
-typedef fcppt::shared_ptr<
-	device::object
-> object_ptr;
+typedef fcppt::unique_ptr<
+	sge::input::keyboard::device
+> device_unique_ptr;
 
 }
 }

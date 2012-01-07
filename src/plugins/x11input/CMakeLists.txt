@@ -8,9 +8,10 @@ set(
 	src/plugins/x11input/include/sge/x11input/cursor/grab.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/grab_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/image.hpp
+	src/plugins/x11input/include/sge/x11input/cursor/manager.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/object.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/object_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/cursor/object_ptr.hpp
+	src/plugins/x11input/include/sge/x11input/cursor/object_unique_ptr.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/passive_grab.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/passive_grab_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/pixmap.hpp
@@ -43,7 +44,6 @@ set(
 	src/plugins/x11input/include/sge/x11input/device/manager/object.hpp
 	src/plugins/x11input/include/sge/x11input/device/object.hpp
 	src/plugins/x11input/include/sge/x11input/device/object_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/device/object_ptr.hpp
 	src/plugins/x11input/include/sge/x11input/device/optional_id.hpp
 	src/plugins/x11input/include/sge/x11input/device/parameters.hpp
 	src/plugins/x11input/include/sge/x11input/device/parameters_fwd.hpp
@@ -70,7 +70,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/joypad/button_infos.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/device.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/device_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/joypad/device_ptr.hpp
+	src/plugins/x11input/include/sge/x11input/joypad/device_unique_ptr.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/info.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/is_usable.hpp
 	src/plugins/x11input/include/sge/x11input/joypad/make_valuator_infos.hpp
@@ -81,7 +81,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/keyboard/char_vector.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/keyboard/device_ptr.hpp
+	src/plugins/x11input/include/sge/x11input/keyboard/device_unique_ptr.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/fake_core_event.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/key_code_to_key_sym.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/looked_up_string.hpp
@@ -101,7 +101,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/mouse/button_infos.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/device.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/device_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/mouse/device_ptr.hpp
+	src/plugins/x11input/include/sge/x11input/mouse/device_unique_ptr.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/info.hpp
 	src/plugins/x11input/include/sge/x11input/optional_opcode.hpp
 	src/plugins/x11input/include/sge/x11input/pixmap.hpp
@@ -117,7 +117,9 @@ set(
 	src/plugins/x11input/src/color.cpp
 	src/plugins/x11input/src/create_parameters.cpp
 	src/plugins/x11input/src/cursor/button_code.cpp
+	src/plugins/x11input/src/cursor/config.cpp
 	src/plugins/x11input/src/cursor/grab.cpp
+	src/plugins/x11input/src/cursor/manager.cpp
 	src/plugins/x11input/src/cursor/object.cpp
 	src/plugins/x11input/src/cursor/passive_grab.cpp
 	src/plugins/x11input/src/cursor/pixmap.cpp
@@ -131,7 +133,6 @@ set(
 	src/plugins/x11input/src/device/info/name.cpp
 	src/plugins/x11input/src/device/info/single.cpp
 	src/plugins/x11input/src/device/info/string_from_atom.cpp
-	src/plugins/x11input/src/device/manager/config.cpp
 	src/plugins/x11input/src/device/manager/config_base.cpp
 	src/plugins/x11input/src/device/manager/object.cpp
 	src/plugins/x11input/src/device/object.cpp
@@ -146,6 +147,7 @@ set(
 	src/plugins/x11input/src/joypad/axis_value.cpp
 	src/plugins/x11input/src/joypad/button_id.cpp
 	src/plugins/x11input/src/joypad/button_infos.cpp
+	src/plugins/x11input/src/joypad/config.cpp
 	src/plugins/x11input/src/joypad/device.cpp
 	src/plugins/x11input/src/joypad/info.cpp
 	src/plugins/x11input/src/joypad/is_usable.cpp
@@ -153,6 +155,7 @@ set(
 	src/plugins/x11input/src/joypad/relative_axis.cpp
 	src/plugins/x11input/src/joypad/relative_axis_info.cpp
 	src/plugins/x11input/src/joypad/valuator_info.cpp
+	src/plugins/x11input/src/keyboard/config.cpp
 	src/plugins/x11input/src/keyboard/device.cpp
 	src/plugins/x11input/src/keyboard/fake_core_event.cpp
 	src/plugins/x11input/src/keyboard/key_code_to_key_sym.cpp
@@ -170,6 +173,7 @@ set(
 	src/plugins/x11input/src/mouse/button.cpp
 	src/plugins/x11input/src/mouse/button_code.cpp
 	src/plugins/x11input/src/mouse/button_infos.cpp
+	src/plugins/x11input/src/mouse/config.cpp
 	src/plugins/x11input/src/mouse/device.cpp
 	src/plugins/x11input/src/mouse/info.cpp
 	src/plugins/x11input/src/pixmap.cpp

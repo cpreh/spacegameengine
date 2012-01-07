@@ -18,38 +18,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_OBJECT_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_OBJECT_HPP_INCLUDED
+#ifndef SGE_X11INPUT_CURSOR_MANAGER_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_MANAGER_HPP_INCLUDED
 
-#include <sge/x11input/device/id.hpp>
-#include <sge/x11input/device/object_fwd.hpp>
+
+#include <sge/input/cursor/discover_event_fwd.hpp>
+#include <sge/input/cursor/remove_event_fwd.hpp>
+#include <sge/x11input/cursor/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <set>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace x11input
 {
-namespace device
+namespace cursor
 {
 
-class object
+class manager
 {
 	FCPPT_NONCOPYABLE(
-		object
-	);
-protected:
-	explicit object(
-		device::id
+		manager
 	);
 public:
-	virtual
-	~object() = 0;
+	manager();
 
-	device::id const
-	id() const;
+	~manager();
+
+	void
+	discover(
+		sge::input::cursor::discover_event const &
+	);
+
+	void
+	remove(
+		sge::input::cursor::remove_event const &
+	);
+
+	void
+	focus_in();
+
+	void
+	focus_out();
+
+	void
+	leave();
 private:
-	device::id const id_;
+	template<
+		typename Function
+	>
+	void
+	for_each_cursor(
+		Function const &
+	);
+
+	typedef std::set<
+		x11input::cursor::object *
+	> object_set;
+
+	object_set objects_;
 };
 
 }

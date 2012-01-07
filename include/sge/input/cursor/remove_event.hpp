@@ -21,35 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_REMOVE_EVENT_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_REMOVE_EVENT_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
-#include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/cursor/remove_event_fwd.hpp>
+#include <sge/input/event/remove.hpp>
 
-
-namespace sge
-{
-namespace input
-{
-namespace cursor
-{
-
-class remove_event
-{
-public:
-	SGE_INPUT_SYMBOL
-	explicit remove_event(
-		cursor::object_ptr
-	);
-
-	SGE_INPUT_SYMBOL
-	cursor::object_ptr const
-	object() const;
-private:
-	cursor::object_ptr object_;
-};
-
-}
-}
-}
 
 #endif

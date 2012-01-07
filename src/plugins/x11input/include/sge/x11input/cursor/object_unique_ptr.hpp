@@ -18,24 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEYBOARD_DEVICE_VECTOR_HPP_INCLUDED
-#define SGE_INPUT_KEYBOARD_DEVICE_VECTOR_HPP_INCLUDED
+#ifndef SGE_X11INPUT_CURSOR_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/input/keyboard/device_ptr.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
+#include <sge/x11input/cursor/object_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+
 
 namespace sge
 {
-namespace input
+namespace x11input
 {
-namespace keyboard
+namespace cursor
 {
 
-typedef std::vector<
-	keyboard::device_ptr
-> device_vector;
+typedef fcppt::unique_ptr<
+	cursor::object
+> object_unique_ptr;
 
 }
 }

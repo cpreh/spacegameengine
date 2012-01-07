@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/forward_discover.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/object.hpp>
@@ -38,7 +37,9 @@ sge::systems::modules::input::cursor_modifier::cursor_modifier(
 	systems::cursor_option_field const &_options
 )
 :
-	options_(_options),
+	options_(
+		_options
+	),
 	connection_(
 		_processor.cursor_discover_callback(
 			std::tr1::bind(
@@ -49,13 +50,6 @@ sge::systems::modules::input::cursor_modifier::cursor_modifier(
 		)
 	)
 {
-	sge::input::forward_discover<
-		sge::input::cursor::discover_event
-	>(
-		_processor.cursors(),
-		&sge::systems::modules::input::cursor_modifier::cursor_discover,
-		*this
-	);
 }
 FCPPT_PP_POP_WARNING
 
@@ -71,7 +65,7 @@ sge::systems::modules::input::cursor_modifier::cursor_discover(
 	if(
 		options_ & systems::cursor_option::exclusive
 	)
-		_event.object()->mode(
+		_event.get().mode(
 			sge::input::cursor::mode::exclusive
 		);
 }

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/forward_discover.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event.hpp>
@@ -27,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
@@ -88,13 +88,6 @@ sge::input::cursor::manager::manager(
 		)
 	)
 {
-	sge::input::forward_discover<
-		sge::input::cursor::discover_event
-	>(
-		_processor.cursors(),
-		&sge::input::cursor::manager::discover,
-		*this
-	);
 }
 FCPPT_PP_POP_WARNING
 
@@ -110,7 +103,7 @@ sge::input::cursor::manager::discover(
 	FCPPT_ASSERT_ERROR(
 		fcppt::container::ptr::insert_unique_ptr_map(
 			objects_,
-			_event.object(),
+			&_event.get(),
 			fcppt::make_unique_ptr<
 				fcppt::signal::connection_manager
 			>(
@@ -118,10 +111,12 @@ sge::input::cursor::manager::discover(
 					fcppt::signal::connection_manager::container
 				>(
 					fcppt::signal::shared_connection(
-						_event.object()->button_callback(
+						_event.get().button_callback(
 							std::tr1::bind(
 								button_callback_,
-								_event.object(),
+								fcppt::ref(
+									_event.get()
+								),
 								std::tr1::placeholders::_1
 							)
 						)
@@ -129,10 +124,12 @@ sge::input::cursor::manager::discover(
 				)
 				(
 					fcppt::signal::shared_connection(
-						_event.object()->move_callback(
+						_event.get().move_callback(
 							std::tr1::bind(
 								move_callback_,
-								_event.object(),
+								fcppt::ref(
+									_event.get()
+								),
 								std::tr1::placeholders::_1
 							)
 						)
@@ -158,7 +155,7 @@ sge::input::cursor::manager::remove(
 {
 	FCPPT_ASSERT_ERROR(
 		objects_.erase(
-			_event.object()
+			&_event.get()
 		)
 		== 1u
 	);

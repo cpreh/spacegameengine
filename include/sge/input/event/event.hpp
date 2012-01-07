@@ -18,46 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_FORWARD_DISCOVER_HPP_INCLUDED
-#define SGE_INPUT_FORWARD_DISCOVER_HPP_INCLUDED
+#ifndef SGE_INPUT_EVENT_EVENT_HPP_INCLUDED
+#define SGE_INPUT_EVENT_EVENT_HPP_INCLUDED
 
-
-namespace sge
-{
-namespace input
-{
-
-template<
-	typename Event,
-	typename Container,
-	typename Function,
-	typename Object
->
-void
-forward_discover(
-	Container const &_container,
-	Function const &_function,
-	Object &_object
-)
-{
-	for(
-		typename Container::const_iterator it(
-			_container.begin()
-		);
-		it != _container.end();
-		++it
-	)
-		(
-			_object.*_function
-		)
-		(
-			Event(
-				*it
-			)
-		);
-}
-
-}
-}
+#include <sge/input/event/discover.hpp>
+#include <sge/input/event/discover_fwd.hpp>
+#include <sge/input/event/remove.hpp>
+#include <sge/input/event/remove_fwd.hpp>
 
 #endif

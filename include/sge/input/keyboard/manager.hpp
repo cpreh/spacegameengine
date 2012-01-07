@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/symbol.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
-#include <sge/input/keyboard/device_ptr.hpp>
+#include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/discover_event_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
@@ -54,21 +54,21 @@ class manager
 public:
 	typedef fcppt::function::object<
 		void (
-			keyboard::device_ptr,
+			keyboard::device &,
 			keyboard::char_event const &
 		)
 	> char_callback;
 
 	typedef fcppt::function::object<
 		void (
-			keyboard::device_ptr,
+			keyboard::device &,
 			keyboard::key_event const &
 		)
 	> key_callback;
 
 	typedef fcppt::function::object<
 		void (
-			keyboard::device_ptr,
+			keyboard::device &,
 			keyboard::key_repeat_event const &
 		)
 	> key_repeat_callback;
@@ -87,7 +87,7 @@ public:
 	~manager();
 
 	typedef boost::ptr_map<
-		keyboard::device_ptr,
+		keyboard::device *,
 		fcppt::signal::connection_manager
 	> keyboard_map;
 

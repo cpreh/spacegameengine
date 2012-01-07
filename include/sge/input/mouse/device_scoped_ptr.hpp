@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_CURSOR_OBJECT_PTR_HPP_INCLUDED
-#define SGE_INPUT_CURSOR_OBJECT_PTR_HPP_INCLUDED
+#ifndef SGE_INPUT_MOUSE_DEVICE_SCOPED_PTR_HPP_INCLUDED
+#define SGE_INPUT_MOUSE_DEVICE_SCOPED_PTR_HPP_INCLUDED
 
-#include <sge/input/cursor/object_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/input/mouse/device_fwd.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
 {
 namespace input
 {
-namespace cursor
+namespace mouse
 {
 
-typedef fcppt::shared_ptr<
-	cursor::object
-> object_ptr;
+typedef fcppt::scoped_ptr<
+	sge::input::mouse::device
+> device_scoped_ptr;
 
 }
 }

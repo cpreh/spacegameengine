@@ -18,42 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_OBJECT_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_OBJECT_HPP_INCLUDED
-
-#include <sge/x11input/device/id.hpp>
-#include <sge/x11input/device/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_SRC_INPUT_EVENT_INSTANTIATE_REMOVE_HPP_INCLUDED
+#define SGE_SRC_INPUT_EVENT_INSTANTIATE_REMOVE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
+#include <sge/src/input/event/remove_impl.hpp>
+#include <fcppt/export_symbol.hpp>
 
-class object
-{
-	FCPPT_NONCOPYABLE(
-		object
-	);
-protected:
-	explicit object(
-		device::id
-	);
-public:
-	virtual
-	~object() = 0;
-
-	device::id const
-	id() const;
-private:
-	device::id const id_;
-};
-
-}
-}
-}
+#define SGE_INPUT_EVENT_INSTANTIATE_REMOVE(\
+	type\
+)\
+template \
+FCPPT_EXPORT_SYMBOL \
+class \
+sge::input::event::remove<\
+	type\
+>
 
 #endif

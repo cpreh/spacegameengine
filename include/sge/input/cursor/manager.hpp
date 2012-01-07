@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event_fwd.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
-#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -53,14 +53,14 @@ class manager
 public:
 	typedef fcppt::function::object<
 		void (
-			cursor::object_ptr,
+			cursor::object &,
 			cursor::button_event const &
 		)
 	> button_callback;
 
 	typedef fcppt::function::object<
 		void (
-			cursor::object_ptr,
+			cursor::object &,
 			cursor::move_event const &
 		)
 	> move_callback;
@@ -78,7 +78,7 @@ public:
 	~manager();
 
 	typedef boost::ptr_map<
-		cursor::object_ptr,
+		sge::input::cursor::object *,
 		fcppt::signal::connection_manager
 	> object_map;
 

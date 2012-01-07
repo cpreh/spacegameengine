@@ -41,16 +41,13 @@ namespace manager
 {
 
 template<
-	typename X11ObjectPtr,
+	typename X11Object,
 	typename DiscoverEvent,
 	typename RemoveEvent,
 	typename CreateFunction
 >
 device::manager::config_base_ptr const
 make_config(
-	std::vector<
-		X11ObjectPtr
-	> &_devices,
 	fcppt::signal::object<
 		void (DiscoverEvent const &)
 	> &_discover,
@@ -61,7 +58,7 @@ make_config(
 )
 {
 	typedef device::manager::config<
-		X11ObjectPtr,
+		X11Object,
 		DiscoverEvent,
 		RemoveEvent
 	> result_type;
@@ -70,9 +67,6 @@ make_config(
 		fcppt::make_shared_ptr<
 			result_type
 		>(
-			fcppt::ref(
-				_devices
-			),
 			fcppt::ref(
 				_discover
 			),

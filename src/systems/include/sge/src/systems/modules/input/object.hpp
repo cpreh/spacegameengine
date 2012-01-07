@@ -28,11 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/system_ptr.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/object_scoped_ptr.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/keyboard/device_ptr.hpp>
+#include <sge/input/keyboard/device_scoped_ptr.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
-#include <sge/input/mouse/device_ptr.hpp>
+#include <sge/input/mouse/device_scoped_ptr.hpp>
 #include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier_fwd.hpp>
 #include <sge/src/systems/modules/input/object_fwd.hpp>
@@ -87,11 +87,11 @@ private:
 
 	sge::input::processor_ptr const input_processor_;
 
-	sge::input::cursor::object_ptr const cursor_demuxer_;
+	sge::input::cursor::object_scoped_ptr const cursor_demuxer_;
 
-	sge::input::keyboard::device_ptr const keyboard_collector_;
+	sge::input::keyboard::device_scoped_ptr const keyboard_collector_;
 
-	sge::input::mouse::device_ptr const mouse_collector_;
+	sge::input::mouse::device_scoped_ptr const mouse_collector_;
 
 	typedef fcppt::scoped_ptr<
 		sge::systems::modules::input::cursor_modifier

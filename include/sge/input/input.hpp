@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_INPUT_HPP_INCLUDED
 
 #include <sge/input/exception.hpp>
-#include <sge/input/forward_discover.hpp>
 #include <sge/input/nullary_function.hpp>
 #include <sge/input/plugin.hpp>
 #include <sge/input/plugin_ptr.hpp>
@@ -34,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/system_ptr.hpp>
 #include <sge/input/cursor/cursor.hpp>
+#include <sge/input/event/event.hpp>
 #include <sge/input/info/info.hpp>
 #include <sge/input/joypad/joypad.hpp>
 #include <sge/input/keyboard/keyboard.hpp>

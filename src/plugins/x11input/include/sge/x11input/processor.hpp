@@ -24,20 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
-#include <sge/input/cursor/object_vector.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_signal.hpp>
-#include <sge/input/joypad/device_vector.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/discover_signal.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/joypad/remove_signal.hpp>
-#include <sge/input/keyboard/device_vector.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/discover_signal.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/remove_signal.hpp>
-#include <sge/input/mouse/device_vector.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/discover_signal.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
@@ -49,7 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/input_method_fwd.hpp>
 #include <sge/x11input/pixmap.hpp>
 #include <sge/x11input/xi_2_1.hpp>
-#include <sge/x11input/cursor/object_ptr.hpp>
+#include <sge/x11input/cursor/manager.hpp>
+#include <sge/x11input/cursor/object_unique_ptr.hpp>
 #include <sge/x11input/cursor/pixmap.hpp>
 #include <sge/x11input/device/hierarchy_demuxer.hpp>
 #include <sge/x11input/device/hierarchy_event_fwd.hpp>
@@ -57,9 +54,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/raw_demuxer.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/manager/object.hpp>
-#include <sge/x11input/joypad/device_ptr.hpp>
-#include <sge/x11input/keyboard/device_ptr.hpp>
-#include <sge/x11input/mouse/device_ptr.hpp>
+#include <sge/x11input/joypad/device_unique_ptr.hpp>
+#include <sge/x11input/keyboard/device_unique_ptr.hpp>
+#include <sge/x11input/mouse/device_unique_ptr.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
@@ -72,9 +69,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -109,9 +103,6 @@ private:
 		input::keyboard::remove_callback const &
 	);
 
-	input::keyboard::device_vector const
-	keyboards() const;
-
 	fcppt::signal::auto_connection
 	mouse_discover_callback(
 		input::mouse::discover_callback const &
@@ -121,9 +112,6 @@ private:
 	mouse_remove_callback(
 		input::mouse::remove_callback const &
 	);
-
-	input::mouse::device_vector const
-	mice() const;
 
 	fcppt::signal::auto_connection
 	cursor_discover_callback(
@@ -135,9 +123,6 @@ private:
 		input::cursor::remove_callback const &
 	);
 
-	input::cursor::object_vector const
-	cursors() const;
-
 	fcppt::signal::auto_connection
 	joypad_discover_callback(
 		input::joypad::discover_callback const &
@@ -148,30 +133,27 @@ private:
 		input::joypad::remove_callback const &
 	);
 
-	input::joypad::device_vector const
-	joypads() const;
-
 	x11input::device::parameters const
 	device_parameters(
 		x11input::create_parameters const &
 	);
 
-	x11input::keyboard::device_ptr const
+	x11input::keyboard::device_unique_ptr
 	create_keyboard(
 		x11input::create_parameters const &
 	);
 
-	x11input::mouse::device_ptr const
+	x11input::mouse::device_unique_ptr
 	create_mouse(
 		x11input::create_parameters const &
 	);
 
-	x11input::cursor::object_ptr const
+	sge::x11input::cursor::object_unique_ptr
 	create_cursor(
 		x11input::create_parameters const &
 	);
 
-	x11input::joypad::device_ptr const
+	sge::x11input::joypad::device_unique_ptr
 	create_joypad(
 		x11input::create_parameters const &
 	);
@@ -212,53 +194,29 @@ private:
 
 	awl::backends::x11::system::event::processor &system_event_processor_;
 
-	x11input::device::window_demuxer window_demuxer_;
+	sge::x11input::device::window_demuxer window_demuxer_;
 
 	awl::backends::x11::window::instance_scoped_ptr const root_window_;
 
-	x11input::device::raw_demuxer raw_demuxer_;
+	sge::x11input::device::raw_demuxer raw_demuxer_;
 
-	x11input::device::hierarchy_demuxer hierarchy_demuxer_;
+	sge::x11input::device::hierarchy_demuxer hierarchy_demuxer_;
 
-	x11input::pixmap const invisible_pixmap_;
+	sge::x11input::pixmap const invisible_pixmap_;
 
-	x11input::cursor::pixmap const invisible_cursor_;
+	sge::x11input::cursor::pixmap const invisible_cursor_;
 
 	typedef fcppt::scoped_ptr<
-		x11input::input_method
+		sge::x11input::input_method
 	> input_method_ptr;
 
 	input_method_ptr input_method_;
 
 	typedef fcppt::scoped_ptr<
-		x11input::input_context
+		sge::x11input::input_context
 	> input_context_ptr;
 
 	input_context_ptr input_context_;
-
-	typedef std::vector<
-		x11input::keyboard::device_ptr
-	> keyboard_vector;
-
-	typedef std::vector<
-		x11input::mouse::device_ptr
-	> mouse_vector;
-
-	typedef std::vector<
-		x11input::cursor::object_ptr
-	> cursor_vector;
-
-	typedef std::vector<
-		x11input::joypad::device_ptr
-	> joypad_vector;
-
-	keyboard_vector keyboards_;
-
-	mouse_vector mice_;
-
-	cursor_vector cursors_;
-
-	joypad_vector joypads_;
 
 	sge::input::keyboard::discover_signal keyboard_discover_;
 
@@ -276,7 +234,9 @@ private:
 
 	sge::input::joypad::remove_signal joypad_remove_;
 
-	x11input::device::manager::object device_manager_;
+	sge::x11input::device::manager::object device_manager_;
+
+	sge::x11input::cursor::manager cursor_manager_;
 
 	fcppt::signal::connection_manager const connections_;
 };

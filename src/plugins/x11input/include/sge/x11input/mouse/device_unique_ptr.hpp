@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_MOUSE_DEVICE_PTR_HPP_INCLUDED
-#define SGE_X11INPUT_MOUSE_DEVICE_PTR_HPP_INCLUDED
+#ifndef SGE_X11INPUT_MOUSE_DEVICE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_X11INPUT_MOUSE_DEVICE_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/x11input/mouse/device_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -32,9 +32,9 @@ namespace x11input
 namespace mouse
 {
 
-typedef fcppt::shared_ptr<
+typedef fcppt::unique_ptr<
 	mouse::device
-> device_ptr;
+> device_unique_ptr;
 
 }
 }

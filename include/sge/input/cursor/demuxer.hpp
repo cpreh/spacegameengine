@@ -36,8 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
-#include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/cursor/object_set.hpp>
+#include <sge/input/cursor/optional_object_ref.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/remove_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -95,7 +95,7 @@ public:
 	);
 
 	SGE_INPUT_SYMBOL
-	cursor::object_ptr const
+	cursor::optional_object_ref const
 	current_cursor() const;
 private:
 	void
@@ -119,23 +119,21 @@ private:
 	);
 
 	void
-	assign_cursor(
-		cursor::object_ptr
-	);
+	assign_cursor();
 
-	cursor::choose_callback const choose_;
+	sge::input::cursor::choose_callback const choose_;
 
 	fcppt::signal::connection_manager const processor_connections_;
 
-	input::cursor::button_signal button_signal_;
+	sge::input::cursor::button_signal button_signal_;
 
-	input::cursor::move_signal move_signal_;
+	sge::input::cursor::move_signal move_signal_;
 
-	cursor::object_set cursors_;
+	sge::input::cursor::object_set cursors_;
 
 	fcppt::signal::connection_manager cursor_connections_;
 
-	cursor::object_ptr current_cursor_;
+	sge::input::cursor::optional_object_ref current_cursor_;
 };
 
 }
