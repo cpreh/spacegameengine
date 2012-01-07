@@ -23,24 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/dinput_device_scoped_ptr.hpp>
-#include <sge/dinput/cursor/object_ptr.hpp>
+#include <sge/dinput/cursor/object_fwd.hpp>
 #include <sge/dinput/device/object_fwd.hpp>
-#include <sge/dinput/device/object_ptr.hpp>
 #include <sge/dinput/keyboard/key_converter.hpp>
-#include <sge/dinput/keyboard/device_ptr.hpp>
-#include <sge/dinput/mouse/device_ptr.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
-#include <sge/input/cursor/object_vector.hpp>
+#include <sge/input/cursor/discover_signal.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
-#include <sge/input/joypad/device_vector.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
-#include <sge/input/keyboard/device_vector.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
+#include <sge/input/keyboard/discover_signal.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
-#include <sge/input/mouse/device_vector.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
+#include <sge/input/mouse/discover_signal.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
@@ -53,8 +49,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -88,9 +85,6 @@ public:
 		input::keyboard::remove_callback const &
 	);
 
-	input::keyboard::device_vector const
-	keyboards() const;
-
 	fcppt::signal::auto_connection
 	mouse_discover_callback(
 		input::mouse::discover_callback const &
@@ -100,9 +94,6 @@ public:
 	mouse_remove_callback(
 		input::mouse::remove_callback const &
 	);
-
-	input::mouse::device_vector const
-	mice() const;
 
 	fcppt::signal::auto_connection
 	cursor_discover_callback(
@@ -114,9 +105,6 @@ public:
 		input::cursor::remove_callback const &
 	);
 
-	input::cursor::object_vector const
-	cursors() const;
-
 	fcppt::signal::auto_connection
 	joypad_discover_callback(
 		input::joypad::discover_callback const &
@@ -126,9 +114,6 @@ public:
 	joypad_remove_callback(
 		input::joypad::remove_callback const &
 	);
-
-	input::joypad::device_vector const
-	joypads() const;
 private:
 	awl::backends::windows::window::event::return_type
 	on_activate(
@@ -138,12 +123,32 @@ private:
 	void
 	on_handle_ready();
 
-	typedef std::vector<
-		dinput::device::object_ptr
-	> device_vector;
+	awl::backends::windows::window::event::return_type
+	on_init(
+		awl::backends::windows::window::event::object const &
+	);
 
-	device_vector const
-	all_devices() const;
+	template<
+		typename Function
+	>
+	void
+	for_each_device(
+		Function const &
+	);
+
+	template<
+		typename DiscoverEvent,
+		typename Ptr
+	>
+	void
+	add_device(
+		fcppt::signal::object<
+			void (
+				DiscoverEvent const &
+			)
+		> &,
+		Ptr
+	);
 
 	static BOOL CALLBACK
 	enum_devices_callback(
@@ -151,13 +156,9 @@ private:
 		LPVOID
 	);
 
-	typedef std::vector<
-		dinput::keyboard::device_ptr
-	> keyboard_vector;
-
-	typedef std::vector<
-		dinput::mouse::device_ptr
-	> mouse_vector;
+	typedef boost::ptr_vector<
+		dinput::device::object
+	> device_vector;
 
 	typedef fcppt::scoped_ptr<
 		IDirectInput8,
@@ -172,13 +173,15 @@ private:
 
 	awl::backends::windows::system::event::processor &system_processor_;
 
-	keyboard_vector keyboards_;
-
-	mouse_vector mice_;
-
 	dinput::dinput_device_scoped_ptr const system_mouse_;
 
-	dinput::cursor::object_ptr const cursor_;
+	device_vector devices_;
+
+	typedef fcppt::scoped_ptr<
+		dinput::cursor::object
+	> cursor_scoped_ptr;
+	
+	cursor_scoped_ptr const cursor_;
 
 	dinput::keyboard::key_converter key_conv_;
 
@@ -189,6 +192,12 @@ private:
 	event_handle_scoped_ptr const event_handle_;
 
 	bool acquired_;
+
+	sge::input::cursor::discover_signal cursor_discover_;
+
+	sge::input::keyboard::discover_signal keyboard_discover_;
+
+	sge::input::mouse::discover_signal mouse_discover_;
 
 	fcppt::signal::connection_manager const connections_;
 };

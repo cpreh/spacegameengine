@@ -7,14 +7,12 @@ SET(
 	src/plugins/dinput/include/sge/dinput/cursor/define_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/object.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/object_fwd.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/object_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/pixmap.hpp
 	src/plugins/dinput/include/sge/dinput/device/funcs/acquire.hpp
 	src/plugins/dinput/include/sge/dinput/device/funcs/set_cooperative_level.hpp
 	src/plugins/dinput/include/sge/dinput/device/funcs/set_data_format.hpp
 	src/plugins/dinput/include/sge/dinput/device/object.hpp
 	src/plugins/dinput/include/sge/dinput/device/object_fwd.hpp
-	src/plugins/dinput/include/sge/dinput/device/object_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/device/parameters.hpp
 	src/plugins/dinput/include/sge/dinput/device/parameters_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/di.hpp
@@ -24,7 +22,6 @@ SET(
 	src/plugins/dinput/include/sge/dinput/keyboard/char_vector.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/device.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/device_fwd.hpp
-	src/plugins/dinput/include/sge/dinput/keyboard/device_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/key_converter.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/key_converter_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/key_is_down.hpp
@@ -37,7 +34,6 @@ SET(
 	src/plugins/dinput/include/sge/dinput/mouse/button_code.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/device.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/device_fwd.hpp
-	src/plugins/dinput/include/sge/dinput/mouse/device_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/is_axis.hpp
 	src/plugins/dinput/include/sge/dinput/processor.hpp
 	src/plugins/dinput/include/sge/dinput/state_array.hpp
