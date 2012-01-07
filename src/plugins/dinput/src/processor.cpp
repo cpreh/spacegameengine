@@ -64,17 +64,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-namespace
-{
-
-// FIXME: let awl choose this type
-awl::backends::windows::event::type const init_message(
-	WM_USER + 100u
-);
-
-}
-
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::dinput::processor::processor(
@@ -136,6 +125,9 @@ sge::dinput::processor::processor(
 	cursor_discover_(),
 	keyboard_discover_(),
 	mouse_discover_(),
+	init_message_(
+		event_processor_
+	),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -156,7 +148,7 @@ sge::dinput::processor::processor(
 		(
 			fcppt::signal::shared_connection(
 				event_processor_.register_callback(
-					init_message,
+					init_message_.type(),
 					std::tr1::bind(
 						&dinput::processor::on_init,
 						this,
@@ -179,7 +171,7 @@ sge::dinput::processor::processor(
 {
 	awl::backends::windows::event::post_message(
 		windows_window_.hwnd(),
-		init_message,
+		init_message_.type(),
 		awl::backends::windows::event::wparam(
 			0
 		),

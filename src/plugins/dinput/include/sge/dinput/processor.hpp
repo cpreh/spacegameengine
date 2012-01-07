@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
+#include <awl/backends/windows/window/event/scoped_user_message.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
@@ -198,6 +199,8 @@ private:
 	sge::input::keyboard::discover_signal keyboard_discover_;
 
 	sge::input::mouse::discover_signal mouse_discover_;
+
+	awl::backends::windows::window::event::scoped_user_message const init_message_;
 
 	fcppt::signal::connection_manager const connections_;
 };
