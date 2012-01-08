@@ -46,7 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::cursor::object::object(
 	x11input::device::parameters const &_param,
-	cursor::image const _invisible_image
+	cursor::image const _invisible_image,
+	bool const _entered
 )
 :
 	sge::input::cursor::object(),
@@ -112,7 +113,7 @@ sge::x11input::cursor::object::object(
 		sge::input::cursor::mode::normal
 	),
 	entered_(
-		false
+		_entered
 	),
 	position_(
 		x11input::cursor::query_pointer(

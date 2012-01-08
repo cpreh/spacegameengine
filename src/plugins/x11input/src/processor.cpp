@@ -526,7 +526,8 @@ sge::x11input::processor::create_cursor(
 			this->device_parameters(
 				_param
 			),
-			invisible_cursor_.get()
+			invisible_cursor_.get(),
+			cursor_manager_.entered()
 		);
 }
 
