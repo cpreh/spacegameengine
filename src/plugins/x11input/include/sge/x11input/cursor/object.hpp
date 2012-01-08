@@ -61,7 +61,8 @@ class object
 public:
 	object(
 		x11input::device::parameters const &,
-		cursor::image invisible_pixmap
+		cursor::image invisible_pixmap,
+		bool entered
 	);
 
 	~object();

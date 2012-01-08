@@ -33,7 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::cursor::manager::manager()
 :
-	objects_()
+	objects_(),
+	entered_(
+		false
+	)
 {
 }
 
@@ -78,6 +81,8 @@ sge::x11input::cursor::manager::remove(
 void
 sge::x11input::cursor::manager::focus_in()
 {
+	entered_ = true;
+
 	this->for_each_cursor(
 		&x11input::cursor::object::on_focus_in
 	);
@@ -86,6 +91,8 @@ sge::x11input::cursor::manager::focus_in()
 void
 sge::x11input::cursor::manager::focus_out()
 {
+	entered_ = false;
+
 	this->for_each_cursor(
 		&x11input::cursor::object::on_focus_out
 	);
@@ -97,6 +104,12 @@ sge::x11input::cursor::manager::leave()
 	this->for_each_cursor(
 		&x11input::cursor::object::on_leave
 	);
+}
+
+bool
+sge::x11input::cursor::manager::entered() const
+{
+	return entered_;
 }
 
 template<

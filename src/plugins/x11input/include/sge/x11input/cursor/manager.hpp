@@ -66,6 +66,9 @@ public:
 
 	void
 	leave();
+
+	bool
+	entered() const;
 private:
 	template<
 		typename Function
@@ -80,6 +83,8 @@ private:
 	> object_set;
 
 	object_set objects_;
+
+	bool entered_;
 };
 
 }
