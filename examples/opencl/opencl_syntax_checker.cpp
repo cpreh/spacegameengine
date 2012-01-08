@@ -43,6 +43,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/to_std_string.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -98,7 +101,18 @@ try
 	try
 	{
 		main_program.build(
-			sge::opencl::program::build_parameters());
+			sge::opencl::program::build_parameters()
+				.options(
+					std::string("-Werror -I")+
+					fcppt::to_std_string(
+						fcppt::filesystem::path_to_string(
+							fcppt::filesystem::remove_filename(
+								target_file_name)))
+					// Depending on the implementation,
+					// this might throw an error. TODO:
+					// Find a way to abstract this away.
+					+" -cl-nv-verbose")
+				);
 	}
 	catch(sge::opencl::program::build_error const &e)
 	{
@@ -133,7 +147,7 @@ try
 			boost::xpressive::match_results<fcppt::string::const_iterator> what;
 			if(boost::xpressive::regex_search(*it,what,broken_error_indicator_regex))
 			{
-				fcppt::io::cerr() << fcppt::filesystem::path_to_string(target_file_name) << *it << FCPPT_TEXT("\n");
+				fcppt::io::cerr() << fcppt::filesystem::path_to_string(target_file_name) <<  *it << FCPPT_TEXT("\n");
 			}
 			else if(boost::xpressive::regex_search(*it,what,builtin_error_string))
 			{
