@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/phoenix/core/argument.hpp>
 #include <boost/phoenix/operator/self.hpp>
 #include <algorithm>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,7 +50,12 @@ sge::x11input::cursor::manager::discover(
 	sge::input::cursor::discover_event const &_discover
 )
 {
-	FCPPT_ASSERT_ERROR(
+	typedef std::pair<
+		object_set::iterator,
+		bool
+	> insert_return_type;
+
+	insert_return_type const ret(
 		objects_.insert(
 			static_cast<
 				sge::x11input::cursor::object *
@@ -57,8 +63,16 @@ sge::x11input::cursor::manager::discover(
 				&_discover.get()
 			)
 		)
-		.second
 	);
+
+	FCPPT_ASSERT_ERROR(
+		ret.second
+	);
+
+	if(
+		entered_
+	)
+		(*ret.first)->on_focus_in();
 }
 
 void
