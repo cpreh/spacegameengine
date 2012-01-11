@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DEFAULT_PARAMETERS_HPP_INCLUDED
 
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/detail/initialize_default_parameters.hpp>
+#include <sge/sprite/detail/parameters/initialize_defaults.hpp>
 #include <fcppt/mpl/for_each.hpp>
 
 
@@ -34,12 +34,12 @@ namespace sprite
 template<
 	typename Choices
 >
-sprite::parameters<
+sge::sprite::parameters<
 	Choices
 >
 default_parameters()
 {
-	typedef sprite::parameters<
+	typedef sge::sprite::parameters<
 		Choices
 	> parameters;
 
@@ -48,7 +48,7 @@ default_parameters()
 	fcppt::mpl::for_each<
 		typename parameters::flattened_types
 	>(
-		detail::initialize_default_parameters<
+		sge::sprite::detail::parameters::initialize_defaults<
 			parameters
 		>(
 			ret

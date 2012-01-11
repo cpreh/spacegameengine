@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/vector.hpp>
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/roles/pos.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/bool.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -36,11 +39,13 @@ template<
 >
 struct defaults<
 	Choices,
-	roles::pos
+	sge::sprite::roles::pos
 >
 {
+	typedef boost::mpl::true_ use;
+
 	typedef typename sge::sprite::vector<
-		typename Choices::type_choices::unit_type
+		Choices
 	>::type type;
 
 	static type const

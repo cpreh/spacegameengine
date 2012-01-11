@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/texture/const_part_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/bool.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -34,16 +37,18 @@ namespace sprite
 
 template<
 	typename Choices,
-	sprite::texture_level Level
+	sge::sprite::texture_level Level
 >
 struct defaults<
 	Choices,
-	roles::texture<
+	sge::sprite::roles::texture<
 		Level
 	>
 >
 {
-	typedef texture::const_part_ptr type;
+	typedef boost::mpl::true_ use;
+
+	typedef sge::texture::const_part_ptr type;
 
 	static type
 	get()

@@ -23,6 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/roles/visible.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/bool.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -34,9 +38,11 @@ template<
 >
 struct defaults<
 	Choices,
-	roles::visible
+	sge::sprite::roles::visible
 >
 {
+	typedef boost::mpl::true_ use;
+
 	typedef bool type;
 
 	static type

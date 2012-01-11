@@ -31,7 +31,7 @@ namespace roles
 {
 
 template<
-	sprite::texture_level
+	sge::sprite::texture_level
 >
 struct texture_coordinates
 {};

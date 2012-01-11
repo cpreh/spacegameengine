@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/color.hpp>
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/roles/color.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/bool.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -37,11 +40,13 @@ template<
 >
 struct defaults<
 	Choices,
-	roles::color
+	sge::sprite::roles::color
 >
 {
-	typedef typename sprite::color<
-		typename Choices::type_choices::color_type
+	typedef boost::mpl::true_ use;
+
+	typedef typename sge::sprite::color<
+		Choices
 	>::type type;
 
 	static type const

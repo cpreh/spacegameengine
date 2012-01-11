@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_ASSIGN_POST_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_ASSIGN_POST_HPP_INCLUDED
 
-#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/detail/config/is_intrusive.hpp>
+#include <sge/sprite/roles/connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -38,23 +39,21 @@ template<
 	typename Choices
 >
 typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		intrusive::tag
+	sge::sprite::detail::config::is_intrusive<
+		Choices
 	>,
 	void
 >::type
 assign_post(
-	object<
+	sge::sprite::object<
 		Choices
 	> &_this
 )
 {
 	_this.template get<
-		sge::sprite::roles::adder
+		sge::sprite::roles::connection
 	>()->add(
-		_this,
-		_this.order()
+		_this
 	);
 }
 
@@ -62,18 +61,18 @@ template<
 	typename Choices
 >
 typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		intrusive::tag
+	sge::sprite::detail::config::is_intrusive<
+		Choices
 	>,
 	void
 >::type
 assign_post(
-	object<
+	sge::sprite::object<
 		Choices
 	> &
 )
-{}
+{
+}
 
 }
 }

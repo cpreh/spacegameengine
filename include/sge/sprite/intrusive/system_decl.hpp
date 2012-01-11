@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_DECL_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_SYSTEM_DECL_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/sprite/count.hpp>
 #include <sge/sprite/object_decl.hpp>
-#include <sge/sprite/system_base_decl.hpp>
-#include <sge/sprite/intrusive/adder_decl.hpp>
-#include <sge/sprite/intrusive/order.hpp>
+#include <sge/sprite/intrusive/connection_base_fwd.hpp>
+#include <sge/sprite/intrusive/connection_decl.hpp>
+#include <sge/sprite/intrusive/range_fwd.hpp>
 #include <sge/sprite/intrusive/system_fwd.hpp>
-#include <sge/sprite/intrusive/detail/level_map.hpp>
 #include <sge/sprite/intrusive/detail/list.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -43,94 +42,55 @@ template<
 	typename Choices
 >
 class system
-:
-	public system_base<
-		Choices
-	>
 {
 	FCPPT_NONCOPYABLE(
 		system
 	);
 public:
-	typedef system_base<
-		Choices
-	> base;
-
-	typedef sprite::object<
+	typedef sge::sprite::object<
 		Choices
 	> object;
 
-	typedef intrusive::adder_base<
+	typedef sge::sprite::intrusive::connection_base<
 		Choices
-	> adder_base;
+	> connection_base;
 
-	explicit system(
-		renderer::device &
-	);
+	system();
 
 	~system();
 
-	template<
-		typename EqualFunction
-	>
-	void
-	render_all(
-		EqualFunction const &
-	);
+	connection_base &
+	connection();
 
-	template<
-		typename EqualFunction
-	>
-	void
-	render_all_advanced(
-		EqualFunction const &
-	);
+	typedef sge::sprite::intrusive::range<
+		Choices,
+		false
+	> range_type;
 
-	template<
-		typename EqualFunction
-	>
-	void
-	render(
-		order,
-		EqualFunction const &
-	);
+	typedef sge::sprite::intrusive::range<
+		Choices,
+		true
+	> const_range_type;
 
-	template<
-		typename EqualFunction
-	>
-	void
-	render_advanced(
-		order,
-		EqualFunction const &
-	);
+	range_type const
+	range();
 
-	adder_base *
-	adder();
+	const_range_type const
+	range() const;
 private:
-	typedef typename detail::list<
+	typedef typename sge::sprite::intrusive::detail::list<
 		Choices
 	>::type list;
 
-	template<
-		typename EqualFunction
-	>
-	void
-	render_list(
-		list const &,
-		EqualFunction const &
-	);
+	list sprites_;
 
-	typedef typename detail::level_map<
+	sge::sprite::count count_;
+
+	typedef sge::sprite::intrusive::connection<
 		Choices
-	>::type level_map;
+	> connection_type;
 
-	level_map sprite_levels_;
-
-	typedef intrusive::adder<
-		Choices
-	> adder_type;
-
-	adder_type adder_;
+	connection_type connection_;
 };
 
 }

@@ -43,7 +43,7 @@ apply_texture_levels(
 )
 {
 	boost::mpl::for_each<
-		typename detail::make_texture_levels<
+		typename sge::sprite::detail::make_texture_levels<
 			Levels
 		>::type
 	>(

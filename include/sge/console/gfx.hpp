@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/output_line_limit.hpp>
 #include <sge/console/sprite_object.hpp>
-#include <sge/console/sprite_system.hpp>
 #include <sge/console/symbol.hpp>
 #include <sge/font/metrics_fwd.hpp>
 #include <sge/font/text/drawer_3d.hpp>
@@ -36,8 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/sprite/external_system_decl.hpp>
 #include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/system_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -63,7 +62,7 @@ public:
 		image::color::any::object const &font_color,
 		font::metrics &,
 		input::keyboard::device &,
-		sprite_object const &,
+		sge::console::sprite_object const &,
 		output_line_limit
 	);
 
@@ -91,10 +90,12 @@ public:
 	SGE_CONSOLE_SYMBOL sge::console::object const &
 	object() const;
 
-	SGE_CONSOLE_SYMBOL sprite_object &
+	SGE_CONSOLE_SYMBOL
+	sge::console::sprite_object &
 	background_sprite();
 
-	SGE_CONSOLE_SYMBOL sprite_object const &
+	SGE_CONSOLE_SYMBOL
+	sge::console::sprite_object const &
 	background_sprite() const;
 private:
 	typedef
@@ -116,8 +117,14 @@ private:
 		error_conn_,
 		message_conn_;
 
+	typedef sge::sprite::system<
+		sge::console::sprite_choices
+	> sprite_system;
+
 	sprite_system sprite_system_;
-	sprite_object background_;
+
+	sge::console::sprite_object background_;
+
 	bool active_;
 
 	cursor input_line_;

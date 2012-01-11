@@ -22,15 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/view/size.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/default_equal.hpp>
-#include <sge/sprite/default_sort.hpp>
-#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/buffers_option.hpp>
+#include <sge/sprite/default_compare.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/render_states.hpp>
+#include <sge/sprite/system_impl.hpp>
+#include <sge/sprite/geometry/make_random_access_range.hpp>
+#include <sge/sprite/render/all.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -44,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::font::text::drawer_3d::drawer_3d(
-	renderer::device &_rend,
+	renderer::device &_renderer,
 	sge::image::color::any::object const &_col
 )
 :
@@ -63,9 +65,9 @@ sge::font::text::drawer_3d::drawer_3d(
 				texture::rect_fragmented
 			>(
 				fcppt::ref(
-					_rend
+					_renderer
 				),
-				_rend.caps().preferred_texture_format().get(),
+				_renderer.caps().preferred_texture_format().get(),
 				renderer::texture::mipmap::off(),
 				fcppt::math::dim::fill<
 					2,
@@ -77,8 +79,9 @@ sge::font::text::drawer_3d::drawer_3d(
 		)
 	),
 	textures_(),
-	sys_(
-		_rend
+	sprite_system_(
+		_renderer,
+		sge::sprite::buffers_option::dynamic
 	),
 	sprites_()
 {
@@ -152,11 +155,13 @@ sge::font::text::drawer_3d::draw_char(
 void
 sge::font::text::drawer_3d::end_rendering()
 {
-	sys_.render(
-		sprites_.begin(),
-		sprites_.end(),
-		sprite::default_sort(),
-		sprite::default_equal()
+	sge::sprite::render::all(
+		sge::sprite::geometry::make_random_access_range(
+			sprites_.begin(),
+			sprites_.end()
+		),
+		sprite_system_.buffers(),
+		sge::sprite::default_compare()
 	);
 }
 

@@ -95,7 +95,7 @@ public:
 	size_type
 	stride() const;
 
-	resource_flag_type
+	resource_flag_type const
 	flags() const;
 
 	pointer

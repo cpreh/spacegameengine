@@ -31,14 +31,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/object_impl.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/external_system_decl.hpp>
 #include <sge/sprite/object_decl.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_color.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/system_decl.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
+#include <sge/sprite/config/with_color.hpp>
+#include <sge/sprite/config/with_texture.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/manager.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -123,22 +126,28 @@ private:
 
 	texture_map textures_;
 
-	typedef sge::sprite::choices<
-		sge::sprite::type_choices<
-			int,
-			float,
-			color_format
+	typedef sge::sprite::config::choices<
+		sge::sprite::config::type_choices<
+			sge::sprite::config::unit_type<
+				int
+			>,
+			sge::sprite::config::float_type<
+				float
+			>
 		>,
-		boost::mpl::vector3<
-			sge::sprite::with_color,
-			sge::sprite::with_dim,
-			sge::sprite::with_texture
+		sge::sprite::config::normal_size,
+		boost::mpl::vector2<
+			sge::sprite::config::with_color<
+				color_format
+			>,
+			sge::sprite::config::with_texture<
+				sge::sprite::config::texture_level_count<
+					1u
+				>,
+				sge::sprite::config::texture_coordinates::normal
+			>
 		>
 	> sprite_choices;
-
-	typedef sge::sprite::system<
-		sprite_choices
-	>::type sprite_system;
 
 	typedef sge::sprite::object<
 		sprite_choices
@@ -148,7 +157,11 @@ private:
 		sprite_object
 	> sprite_container;
 
-	sprite_system sys_;
+	typedef sge::sprite::system<
+		sprite_choices
+	> sprite_system;
+
+	sprite_system sprite_system_;
 
 	sprite_container sprites_;
 };

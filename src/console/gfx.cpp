@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/exception.hpp>
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
+#include <sge/console/sprite_object.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/rect.hpp>
@@ -35,8 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/render_one.hpp>
+#include <sge/sprite/buffers_option.hpp>
+#include <sge/sprite/system_impl.hpp>
+#include <sge/sprite/render/one.hpp>
 #include <sge/src/console/next_or_last.hpp>
 #include <fcppt/chrono/time_point.hpp>
 #include <fcppt/container/map_impl.hpp>
@@ -104,7 +106,7 @@ sge::console::gfx::gfx(
 	image::color::any::object const &_font_color,
 	font::metrics &_metrics,
 	input::keyboard::device &_keyboard,
-	sprite_object const &_background,
+	sge::console::sprite_object const &_background,
 	output_line_limit const _line_limit
 )
 :
@@ -161,7 +163,9 @@ sge::console::gfx::gfx(
 				this,
 				std::tr1::placeholders::_1))),
 	sprite_system_(
-		_rend),
+		_rend,
+		sge::sprite::buffers_option::dynamic
+	),
 	background_(
 		_background),
 	active_(
@@ -183,11 +187,10 @@ sge::console::gfx::~gfx()
 void
 sge::console::gfx::render()
 {
-	sprite::render_one(
-		sprite_system_,
-		background_
+	sge::sprite::render::one(
+		background_,
+		sprite_system_.buffers()
 	);
-
 
 	output_line_sequence::size_type const line_count =
 		background_.h() < font::text::height(font_metrics_)

@@ -68,17 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/sprite/center.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/no_color.hpp>
-#include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/projection_matrix.hpp>
-#include <sge/sprite/render_one.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_dim.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
@@ -164,53 +154,21 @@ container_from_stream(
 	return result;
 }
 
-typedef
-sge::sprite::choices
-<
-	sge::sprite::type_choices<int,float,sge::sprite::no_color>,
-	boost::mpl::vector1
-	<
-		sge::sprite::with_dim
-	>
->
-sprite_choices;
-
-typedef
-sge::sprite::system<sprite_choices>::type
-sprite_system;
-
-typedef
-sge::sprite::object<sprite_choices>
-sprite_object;
-
-typedef
-sge::sprite::parameters<sprite_choices>
-sprite_parameters;
-
-class sprite_body
+class body
 {
 FCPPT_NONCOPYABLE(
-	sprite_body);
+	body);
 public:
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 	explicit
-	sprite_body(
+	body(
 		sge::projectile::world &_world,
 		sge::projectile::group::object &_group,
 		sge::projectile::shape::shared_base_ptr const shape,
 		sge::projectile::body::solidity::variant const &solidity,
 		sge::projectile::rect const &r)
 	:
-		sprite_(
-			sprite_parameters()
-				.pos(
-					fcppt::math::vector::structure_cast<sprite_object::vector>(
-						r.pos()))
-				.size(
-					fcppt::math::dim::structure_cast<sprite_object::dim>(
-						r.size()))
-		),
 		body_(
 			sge::projectile::body::parameters(
 				sge::projectile::body::position(
@@ -233,47 +191,23 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			body_,
 			fcppt::assign::make_container<sge::projectile::group::sequence>(
 				fcppt::ref(
-					_group))),
-		position_change_connection_(
-			body_.position_change(
-				std::tr1::bind(
-					&sprite_body::position_change,
-					this,
-					std::tr1::placeholders::_1)))
+					_group)))
 	{
 	}
 FCPPT_PP_POP_WARNING
 
-	~sprite_body()
+	~body()
 	{
-	}
-
-	sprite_object const &
-	sprite() const
-	{
-		return sprite_;
 	}
 
 	sge::projectile::body::object &
-	body()
+	get()
 	{
 		return body_;
 	}
 private:
-	sprite_object sprite_;
 	sge::projectile::body::object body_;
 	sge::projectile::body::scoped body_scope_;
-	fcppt::signal::scoped_connection position_change_connection_;
-
-	void
-	position_change(
-		sge::projectile::body::position const &p)
-	{
-		sge::sprite::center(
-			sprite_,
-			fcppt::math::vector::structure_cast<sprite_object::vector>(
-				p.get()));
-	}
 };
 
 class body_keyboard_mover
@@ -498,9 +432,6 @@ try
 					sge::systems::input_helper::keyboard_collector),
 				sge::systems::cursor_option_field::null())));
 
-	sprite_system ss(
-		sys.renderer());
-
 	sge::projectile::world world;
 
 	fcppt::signal::scoped_connection const body_collision_world(
@@ -522,7 +453,7 @@ try
 	debug_drawer.active(
 		true);
 
-	sprite_body first_sprite(
+	body first_body(
 		world,
 		first_group,
 		fcppt::make_shared_ptr<sge::projectile::shape::circle>(
@@ -541,7 +472,7 @@ try
 	std::istringstream polygon_stream(
 		"((42,296),(253,162),(12,23),(420,22),(420,310))");
 
-	sprite_body second_sprite(
+	body second_body(
 		world,
 		second_group,
 		fcppt::make_shared_ptr<sge::projectile::shape::triangle_mesh>(
@@ -562,7 +493,7 @@ try
 
 	body_following_ghost first_ghost(
 		world,
-		first_sprite.body(),
+		first_body.get(),
 		sge::projectile::ghost::size(
 			sge::projectile::dim2(
 				100,
@@ -573,7 +504,7 @@ try
 
 	body_keyboard_mover keyboard_mover(
 		world,
-		first_sprite.body(),
+		first_body.get(),
 		sys.keyboard_collector());
 
 	bool running =
@@ -611,12 +542,6 @@ try
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer());
-
-		/*
-		sge::sprite::render_one(
-			ss,
-			first_sprite.sprite());
-		*/
 
 		debug_drawer.render(
 			sge::sprite::projection_matrix(

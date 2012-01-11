@@ -22,29 +22,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_OBJECT_DECL_HPP_INCLUDED
 
 #include <sge/sprite/color.hpp>
-#include <sge/sprite/depth_type.hpp>
+#include <sge/sprite/depth.hpp>
 #include <sge/sprite/dim.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/point_size.hpp>
-#include <sge/sprite/repetition_type.hpp>
-#include <sge/sprite/rotation_type.hpp>
+#include <sge/sprite/repetition.hpp>
+#include <sge/sprite/rotation.hpp>
+#include <sge/sprite/rotation_center.hpp>
+#include <sge/sprite/texture.hpp>
 #include <sge/sprite/texture_coordinates.hpp>
 #include <sge/sprite/texture_level.hpp>
+#include <sge/sprite/texture_point_pos.hpp>
+#include <sge/sprite/texture_point_size.hpp>
 #include <sge/sprite/vector.hpp>
 #include <sge/sprite/detail/make_class.hpp>
-#include <sge/sprite/intrusive/order.hpp>
-#include <sge/sprite/intrusive/system_fwd.hpp>
-#include <sge/sprite/intrusive/tag.hpp>
-#include <sge/sprite/intrusive/detail/object_base_hook.hpp>
-#include <sge/texture/const_part_ptr.hpp>
+#include <sge/sprite/detail/object_base.hpp>
+#include <sge/sprite/intrusive/connection_base_fwd.hpp>
 #include <majutsu/role_return_type.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/mpl/empty_base.hpp>
-#include <boost/mpl/if.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -60,16 +58,11 @@ template<
 class object
 :
 	public
-		boost::mpl::if_<
-			boost::mpl::contains<
-				typename Choices::elements,
-				intrusive::tag
-			>,
-			intrusive::detail::object_base_hook,
-			boost::mpl::empty_base
+		sge::sprite::detail::object_base<
+			Choices
 		>::type
 {
-	typedef typename detail::make_class<
+	typedef typename sge::sprite::detail::make_class<
 		Choices,
 		boost::mpl::vector0<>
 	>::type element_type;
@@ -78,65 +71,75 @@ class object
 public:
 	typedef Choices choices;
 
-	typedef typename Choices::elements elements;
-
 	typedef typename Choices::type_choices type_choices;
 
 	typedef typename type_choices::unit_type unit;
 
 	typedef typename type_choices::float_type float_type;
 
-	typedef typename sprite::depth_type<
-		float_type
+	typedef typename sge::sprite::depth<
+		choices
 	>::type depth_type;
 
-	typedef typename sprite::rotation_type<
-		float_type
+	typedef typename sge::sprite::rotation<
+		choices
 	>::type rotation_type;
 
-	typedef typename sprite::repetition_type<
-		float_type
+	typedef typename sge::sprite::rotation_center<
+		choices
+	>::type rotation_center_type;
+
+	typedef typename sge::sprite::repetition<
+		choices
 	>::type repetition_type;
 
-	typedef typename sprite::texture_coordinates<
-		float_type
+	typedef typename sge::sprite::texture_coordinates<
+		choices
 	>::type texture_coordinates_type;
 
-	typedef typename sprite::vector<
-		unit
+	typedef typename sge::sprite::vector<
+		choices
 	>::type vector;
 
-	typedef typename sprite::dim<
-		unit
+	typedef typename sge::sprite::dim<
+		choices
 	>::type dim;
 
-	typedef typename sprite::point_size<
-		unit
+	typedef typename sge::sprite::point_size<
+		choices
 	>::type point_size_type;
 
-	typedef typename type_choices::color_type color_format;
+	typedef typename sge::sprite::texture_point_pos<
+		choices
+	>::type texture_point_pos_type;
 
-	typedef typename sprite::color<
-		color_format
+	typedef typename sge::sprite::texture_point_size<
+		choices
+	>::type texture_point_size_type;
+
+	typedef typename sge::sprite::color<
+		choices
 	>::type color_type;
 
-	typedef intrusive::order order_type;
+	typedef typename sge::sprite::texture<
+		choices
+	>::type texture_type;
 
-	typedef intrusive::system<
-		Choices
-	> system;
-
-	typedef sprite::parameters<
-		Choices
+	typedef sge::sprite::parameters<
+		choices
 	> parameters_type;
 
-	object();
+	typedef sge::sprite::intrusive::connection_base<
+		choices
+	> connection_base;
 
-	explicit object(
+	explicit
+	object(
 		element_type const &
 	);
 
-	explicit object(
+	explicit
+	object(
 		parameters_type const &
 	);
 
@@ -172,6 +175,24 @@ public:
 	point_size_type
 	point_size() const;
 
+	texture_point_pos_type
+	texture_point_pos() const;
+
+	template<
+		sge::sprite::texture_level
+	>
+	texture_point_pos_type
+	texture_point_pos_level() const;
+
+	texture_point_size_type
+	texture_point_size() const;
+
+	template<
+		sge::sprite::texture_level
+	>
+	texture_point_size_type
+	texture_point_size_level() const;
+
 	depth_type
 	z() const;
 
@@ -181,7 +202,7 @@ public:
 	rotation_type
 	rotation() const;
 
-	vector const
+	rotation_center_type const
 	rotation_center() const;
 
 	repetition_type
@@ -191,7 +212,7 @@ public:
 	texture_coordinates() const;
 
 	template<
-		sprite::texture_level Level
+		sge::sprite::texture_level
 	>
 	texture_coordinates_type const
 	texture_coordinates_level() const;
@@ -199,17 +220,14 @@ public:
 	color_type const
 	color() const;
 
-	texture::const_part_ptr const
+	texture_type const
 	texture() const;
 
 	template<
-		sprite::texture_level Level
+		sge::sprite::texture_level
 	>
-	texture::const_part_ptr const
+	texture_type const
 	texture_level() const;
-
-	order_type
-	order() const;
 
 	void
 	x(
@@ -252,21 +270,47 @@ public:
 	);
 
 	void
+	texture_point_pos(
+		texture_point_pos_type
+	);
+
+	template<
+		sge::sprite::texture_level
+	>
+	void
+	texture_point_pos_level(
+		texture_point_pos_type
+	);
+
+	void
+	texture_point_size(
+		texture_point_size_type
+	);
+
+	template<
+		sge::sprite::texture_level
+	>
+	void
+	texture_point_size_level(
+		texture_point_size_type
+	);
+
+	void
 	visible(
 		bool
 	);
 
 	void
 	texture(
-		sge::texture::const_part_ptr
+		texture_type
 	);
 
 	template<
-		sprite::texture_level
+		sge::sprite::texture_level
 	>
 	void
 	texture_level(
-		sge::texture::const_part_ptr
+		texture_type
 	);
 
 	void
@@ -276,7 +320,7 @@ public:
 
 	void
 	rotate_around(
-		vector const &
+		rotation_center_type const &
 	);
 
 	void
@@ -306,13 +350,16 @@ public:
 	);
 
 	void
-	order(
-		order_type
+	transfer(
+		typename majutsu::role_return_type<
+			flattened_types,
+			sge::sprite::roles::connection
+		>::type const &
 	);
 
 	void
 	transfer(
-		system &
+		connection_base &
 	);
 
 	template<

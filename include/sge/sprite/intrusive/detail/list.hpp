@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/intrusive/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace sprite
@@ -41,7 +42,7 @@ template<
 struct list
 {
 	typedef boost::intrusive::list<
-		object<
+		sge::sprite::object<
 			Choices
 		>,
 		boost::intrusive::constant_time_size<

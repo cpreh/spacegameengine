@@ -41,17 +41,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage_op.hpp>
 #include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/render_one.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/texture_level_c.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
+#include <sge/sprite/config/with_texture.hpp>
+#include <sge/sprite/render/one.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
@@ -166,20 +168,23 @@ try
 		)
 	);
 
-	typedef sge::sprite::type_choices<
-		int,
-		float,
-		sge::sprite::no_color,
-		sge::sprite::texture_level_c<
-			2
-		>
-	> sprite_types;
-
-	typedef sge::sprite::choices<
-		sprite_types,
-		boost::mpl::vector2<
-			sge::sprite::with_dim,
-			sge::sprite::with_texture
+	typedef sge::sprite::config::choices<
+		sge::sprite::config::type_choices<
+			sge::sprite::config::unit_type<
+				int
+			>,
+			sge::sprite::config::float_type<
+				float
+			>
+		>,
+		sge::sprite::config::normal_size,
+		boost::mpl::vector1<
+			sge::sprite::config::with_texture<
+				sge::sprite::config::texture_level_count<
+					2u
+				>,
+				sge::sprite::config::texture_coordinates::normal
+			>
 		>
 	> sprite_choices;
 
@@ -193,10 +198,11 @@ try
 
 	typedef sge::sprite::system<
 		sprite_choices
-	>::type sprite_system;
+	> sprite_system;
 
 	sprite_system sprite_sys(
-		sys.renderer()
+		sys.renderer(),
+		sge::sprite::buffers_option::dynamic
 	);
 
 	sprite_object const sprite(
@@ -274,9 +280,9 @@ try
 			sge::renderer::texture::stage_op_value::modulate
 		);
 
-		sge::sprite::render_one(
-			sprite_sys,
-			sprite
+		sge::sprite::render::one(
+			sprite,
+			sprite_sys.buffers()
 		);
 	}
 }

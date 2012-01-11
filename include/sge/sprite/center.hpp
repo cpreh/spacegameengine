@@ -36,16 +36,27 @@ namespace sprite
 template<
 	typename Choices
 >
-typename object<Choices>::vector
+typename
+sge::sprite::object<
+	Choices
+>::vector const
 center(
-	object<
+	sge::sprite::object<
 		Choices
 	> const &_spr
 )
 {
 	return
 		_spr.pos()
-		+ _spr.size() / static_cast<typename object<Choices>::unit>(2);
+		+ _spr.size()
+		/
+		static_cast<
+			typename sge::sprite::object<
+				Choices
+			>::unit
+		>(
+			2
+		);
 }
 
 template<
@@ -53,17 +64,25 @@ template<
 >
 void
 center(
-	object<
+	sge::sprite::object<
 		Choices
 	> &_spr,
-	typename object<
+	typename sge::sprite::object<
 		Choices
 	>::vector const &_center
 )
 {
 	_spr.pos(
 		_center
-		- _spr.size() / static_cast<typename object<Choices>::unit>(2)
+		- _spr.size()
+		/
+		static_cast<
+			typename sge::sprite::object<
+				Choices
+			>::unit
+		>(
+			2
+		)
 	);
 }
 

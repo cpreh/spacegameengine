@@ -36,19 +36,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/default_equal.hpp>
-#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/buffers_option.hpp>
+#include <sge/sprite/default_compare.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_repetition.hpp>
-#include <sge/sprite/with_rotation.hpp>
-#include <sge/sprite/with_texture.hpp>
-#include <sge/sprite/intrusive/system_impl.hpp>
-#include <sge/sprite/intrusive/tag.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/custom_center.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/intrusive.hpp>
+#include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
+#include <sge/sprite/config/with_rotation.hpp>
+#include <sge/sprite/config/with_texture.hpp>
+#include <sge/sprite/intrusive/ordered_system.hpp>
+#include <sge/sprite/intrusive/render/ordered.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -175,24 +180,35 @@ try
 		);
 
 
-	typedef sge::sprite::choices<
-		sge::sprite::type_choices<
-			int,
-			float,
-			sge::sprite::no_color
+	typedef sge::sprite::config::choices<
+		sge::sprite::config::type_choices<
+			sge::sprite::config::unit_type<
+				int
+			>,
+			sge::sprite::config::float_type<
+				float
+			>
 		>,
-		boost::mpl::vector5<
-			sge::sprite::with_texture,
-			sge::sprite::with_rotation,
-			sge::sprite::with_repetition,
-			sge::sprite::with_dim,
-			sge::sprite::intrusive::tag
+		sge::sprite::config::normal_size,
+		boost::mpl::vector3<
+			sge::sprite::config::with_texture<
+				sge::sprite::config::texture_level_count<
+					1u
+				>,
+				sge::sprite::config::texture_coordinates::repetition
+			>,
+			sge::sprite::config::with_rotation<
+				sge::sprite::config::custom_center<
+					false
+				>
+			>,
+			sge::sprite::config::intrusive
 		>
 	> sprite_choices;
 
 	typedef sge::sprite::system<
 		sprite_choices
-	>::type sprite_system;
+	> sprite_system_type;
 
 	typedef sge::sprite::object<
 		sprite_choices
@@ -202,9 +218,19 @@ try
 		sprite_choices
 	> sprite_parameters;
 
-	sprite_system system(
-		sys.renderer()
+	typedef unsigned order;
+
+	typedef sge::sprite::intrusive::ordered_system<
+		sprite_choices,
+		order
+	> ordered_system_type;
+
+	sprite_system_type sprite_system(
+		sys.renderer(),
+		sge::sprite::buffers_option::dynamic
 	);
+
+	ordered_system_type ordered_system;
 
 	sprite_object test(
 		sprite_parameters()
@@ -215,14 +241,17 @@ try
 			tex1
 		)
 		.texture_size()
-		.order(
-			3u
-		)
 		.rotation(
 			1.5f
 		)
-		.system(
-			system
+		.connection(
+			ordered_system.connection(
+				static_cast<
+					order
+				>(
+					2u
+				)
+			)
 		)
 		.repetition(
 			sprite_object::repetition_type(
@@ -232,7 +261,10 @@ try
 		)
 	);
 
-	sprite_object test2;
+	// Test copy construction and assignment
+	sprite_object test2(
+		test
+	);
 
 	test2 = test;
 
@@ -247,8 +279,14 @@ try
 		-0.5f
 	);
 
-	test2.order(
-		2u
+	test2.transfer(
+		ordered_system.connection(
+			static_cast<
+				order
+			>(
+				2u
+			)
+		)
 	);
 
 	test2.texture(
@@ -289,8 +327,10 @@ try
 			sys.renderer()
 		);
 
-		system.render_all(
-			sge::sprite::default_equal()
+		sge::sprite::intrusive::render::ordered(
+			ordered_system,
+			sprite_system.buffers(),
+			sge::sprite::default_compare()
 		);
 	}
 }

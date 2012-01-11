@@ -42,7 +42,6 @@ set(
 	include/sge/console/sprite_elements.hpp
 	include/sge/console/sprite_object.hpp
 	include/sge/console/sprite_parameters.hpp
-	include/sge/console/sprite_system.hpp
 	include/sge/console/sprite_type_choices.hpp
 	include/sge/console/symbol.hpp
 	src/console/callback/parameters.cpp

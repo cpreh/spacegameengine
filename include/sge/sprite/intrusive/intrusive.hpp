@@ -21,13 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_INTRUSIVE_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_INTRUSIVE_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/adder_base.hpp>
-#include <sge/sprite/intrusive/adder_decl.hpp>
-#include <sge/sprite/intrusive/adder_impl.hpp>
-#include <sge/sprite/intrusive/order.hpp>
+#include <sge/sprite/intrusive/connection_base_decl.hpp>
+#include <sge/sprite/intrusive/connection_base_fwd.hpp>
+#include <sge/sprite/intrusive/connection_decl.hpp>
+#include <sge/sprite/intrusive/connection_impl.hpp>
+#include <sge/sprite/intrusive/is_range.hpp>
+#include <sge/sprite/intrusive/ordered_system.hpp>
+#include <sge/sprite/intrusive/ordered_system_decl.hpp>
+#include <sge/sprite/intrusive/ordered_system_fwd.hpp>
+#include <sge/sprite/intrusive/ordered_system_impl.hpp>
+#include <sge/sprite/intrusive/range_decl.hpp>
+#include <sge/sprite/intrusive/range_fwd.hpp>
+#include <sge/sprite/intrusive/range_impl.hpp>
+#include <sge/sprite/intrusive/system.hpp>
 #include <sge/sprite/intrusive/system_decl.hpp>
 #include <sge/sprite/intrusive/system_fwd.hpp>
 #include <sge/sprite/intrusive/system_impl.hpp>
-#include <sge/sprite/intrusive/tag.hpp>
+#include <sge/sprite/intrusive/render/render.hpp>
+
 
 #endif

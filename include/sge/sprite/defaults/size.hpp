@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/dim.hpp>
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/roles/size.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/bool.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -36,11 +39,13 @@ template<
 >
 struct defaults<
 	Choices,
-	roles::size
+	sge::sprite::roles::size
 >
 {
-	typedef typename sprite::dim<
-		typename Choices::type_choices::unit_type
+	typedef boost::mpl::true_ use;
+
+	typedef typename sge::sprite::dim<
+		Choices
 	>::type type;
 
 	static type const

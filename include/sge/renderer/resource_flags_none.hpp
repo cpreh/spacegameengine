@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_RESOURCE_FLAGS_NONE_HPP_INCLUDED
 #define SGE_RENDERER_RESOURCE_FLAGS_NONE_HPP_INCLUDED
 
-#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 
 namespace sge

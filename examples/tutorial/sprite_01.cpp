@@ -32,16 +32,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/no_color.hpp>
-#include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/render_one.hpp>
+#include <sge/sprite/buffers_option.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
+#include <sge/sprite/config/with_texture.hpp>
+#include <sge/sprite/render/one.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -114,21 +117,29 @@ try
 		)
 	);
 
-	typedef sge::sprite::choices<
-		sge::sprite::type_choices<
-			int,
-			float,
-			sge::sprite::no_color
+	typedef sge::sprite::config::choices<
+		sge::sprite::config::type_choices<
+			sge::sprite::config::unit_type<
+				int
+			>,
+			sge::sprite::config::float_type<
+				float
+			>
 		>,
-		boost::mpl::vector2<
-			sge::sprite::with_dim,
-			sge::sprite::with_texture
+		sge::sprite::config::normal_size,
+		boost::mpl::vector1<
+			sge::sprite::config::with_texture<
+				sge::sprite::config::texture_level_count<
+					1u
+				>,
+				sge::sprite::config::texture_coordinates::normal
+			>
 		>
 	> sprite_choices;
 
 	typedef sge::sprite::system<
 		sprite_choices
-	>::type sprite_system;
+	> sprite_system;
 
 	typedef sge::sprite::object<
 		sprite_choices
@@ -138,8 +149,9 @@ try
 		sprite_choices
 	> sprite_parameters;
 
-	sprite_system ss(
-		sys.renderer()
+	sprite_system sprite_sys(
+		sys.renderer(),
+		sge::sprite::buffers_option::dynamic
 	);
 
 	sge::image2d::file_ptr const image(
@@ -182,9 +194,9 @@ try
 			sys.renderer()
 		);
 
-		sge::sprite::render_one(
-			ss,
-			my_object
+		sge::sprite::render::one(
+			my_object,
+			sprite_sys.buffers()
 		);
 	}
 }

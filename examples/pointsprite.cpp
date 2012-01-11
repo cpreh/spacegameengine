@@ -47,18 +47,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/default_equal.hpp>
-#include <sge/sprite/dont_sort.hpp>
-#include <sge/sprite/external_system_impl.hpp>
+#include <sge/renderer/vf/make_unspecified_tag.hpp>
+#include <sge/sprite/buffers_option.hpp>
+#include <sge/sprite/dont_compare.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/render_one.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_color.hpp>
-#include <sge/sprite/with_texture.hpp>
-#include <sge/sprite/with_unspecified_dim.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/custom_texture_point_pos.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/no_texture_point_size.hpp>
+#include <sge/sprite/config/point_size.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
+#include <sge/sprite/config/with_color.hpp>
+#include <sge/sprite/config/with_texture_point_size.hpp>
+#include <sge/sprite/geometry/make_random_access_range.hpp>
+#include <sge/sprite/render/all.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -113,20 +119,51 @@ typedef
 fcppt::chrono::duration<sge::renderer::scalar>
 float_duration;
 
+namespace tags
+{
+
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(
+	dim
+);
+
+}
+
 typedef
-sge::sprite::choices
+sge::sprite::config::choices
 <
-	sge::sprite::type_choices
+	sge::sprite::config::type_choices
 	<
-		int,
-		float,
-		sge::image::color::rgba8_format
+		sge::sprite::config::unit_type
+		<
+			int
+		>,
+		sge::sprite::config::float_type
+		<
+			float
+		>
 	>,
-	boost::mpl::vector3
+	sge::sprite::config::point_size
 	<
-		sge::sprite::with_color,
-		sge::sprite::with_texture,
-		sge::sprite::with_unspecified_dim
+		tags::dim
+	>,
+	boost::mpl::vector2
+	<
+		sge::sprite::config::with_color
+		<
+			sge::image::color::rgba8_format
+		>,
+		sge::sprite::config::with_texture_point_size
+		<
+			sge::sprite::config::texture_level_count
+			<
+				1u
+			>,
+			sge::sprite::config::custom_texture_point_pos
+			<
+				false
+			>,
+			sge::sprite::config::no_texture_point_size
+		>
 	>
 >
 sprite_choices;
@@ -135,7 +172,7 @@ typedef
 sge::sprite::system
 <
 	sprite_choices
->::type
+>
 sprite_system;
 
 typedef
@@ -261,7 +298,7 @@ private:
 	sprite_sequence;
 
 	unsigned const particle_count_;
-	sprite_system ss_;
+	sprite_system sprite_system_;
 	sprite_sequence sprites_;
 	particle_sequence particles_;
 	time_rng explosion_rng_;
@@ -282,8 +319,9 @@ particles::particles(
 :
 	particle_count_(
 		_particle_count),
-	ss_(
-		sys.renderer()),
+	sprite_system_(
+		sys.renderer(),
+		sge::sprite::buffers_option::dynamic),
 	particles_(),
 	explosion_rng_(
 		fcppt::random::make_inclusive_range(
@@ -425,17 +463,20 @@ particles::update()
 void
 particles::render()
 {
-	ss_.render(
-		sprites_.begin(),
-		sprites_.end(),
-		sge::sprite::dont_sort(),
-		sge::sprite::default_equal());
+	sge::sprite::render::all(
+		sge::sprite::geometry::make_random_access_range(
+			sprites_.begin(),
+			sprites_.end()
+		),
+		sprite_system_.buffers(),
+		sge::sprite::dont_compare()
+	);
 }
 
 sge::renderer::vertex_declaration const &
 particles::vertex_declaration() const
 {
-	return ss_.vertex_declaration();
+	return sprite_system_.buffers().vertex_declaration();
 }
 }
 
@@ -477,7 +518,7 @@ try
 				sge::image::capabilities_field::null(),
 				sge::media::all_extensions)));
 
-	particles ps(
+	particles particle_system(
 		fcppt::extract_from_string_exn<unsigned>(
 			std::string(
 				argv[1])),
@@ -520,7 +561,7 @@ try
 	pixel_shader->compile();
 
 	program->vertex_declaration(
-		ps.vertex_declaration()
+		particle_system.vertex_declaration()
 	);
 
 	sge::renderer::glsl::scoped_attachment const vertex_shader_attachment(
@@ -567,8 +608,8 @@ try
 			sys.renderer()
 		);
 
-		ps.update();
-		ps.render();
+		particle_system.update();
+		particle_system.render();
 	}
 }
 catch(
