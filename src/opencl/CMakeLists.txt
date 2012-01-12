@@ -58,6 +58,8 @@ set(
 	include/sge/opencl/memory_object/image/planar_pitch.hpp
 	include/sge/opencl/memory_object/image/read_planar.hpp
 	include/sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp
+	include/sge/opencl/memory_object/image/volume.hpp
+	include/sge/opencl/memory_object/image/volume_fwd.hpp
 	include/sge/opencl/memory_object/memory_object.hpp
 	include/sge/opencl/memory_object/rect.hpp
 	include/sge/opencl/memory_object/renderer_buffer_lock_mode.hpp
@@ -120,6 +122,7 @@ set(
 	src/opencl/memory_object/image/planar.cpp
 	src/opencl/memory_object/image/read_planar.cpp
 	src/opencl/memory_object/image/sge_color_format_to_opencl.cpp
+	src/opencl/memory_object/image/volume.cpp
 	src/opencl/memory_object/scoped_objects.cpp
 	src/opencl/memory_object/to_opencl_mem_flags.cpp
 	src/opencl/platform/object.cpp

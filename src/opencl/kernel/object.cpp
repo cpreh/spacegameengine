@@ -49,6 +49,14 @@ sge::opencl::kernel::object::object(
 			_name.get().c_str(),
 			&error_code);
 
+	if(error_code == CL_INVALID_KERNEL_NAME)
+		throw
+			sge::exception(
+				FCPPT_TEXT("The kernel name \"")+
+				fcppt::from_std_string(
+					_name.get())+
+				FCPPT_TEXT("\" is invalid."));
+
 	opencl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateKernel"));
