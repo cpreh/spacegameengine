@@ -197,7 +197,8 @@ set(
 	include/sge/sprite/geometry/random_access_range_decl.hpp
 	include/sge/sprite/geometry/random_access_range_fwd.hpp
 	include/sge/sprite/geometry/random_access_range_impl.hpp
-	include/sge/sprite/geometry/sort_options.hpp
+	include/sge/sprite/geometry/sort.hpp
+	include/sge/sprite/geometry/sort_and_update.hpp
 	include/sge/sprite/geometry/update.hpp
 	include/sge/sprite/intrusive/connection_base_decl.hpp
 	include/sge/sprite/intrusive/connection_base_fwd.hpp

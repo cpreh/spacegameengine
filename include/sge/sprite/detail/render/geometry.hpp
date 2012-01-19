@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_GEOMETRY_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_GEOMETRY_HPP_INCLUDED
 
-#include <sge/sprite/geometry/sort_options.hpp>
+#include <sge/sprite/geometry/sort_and_update.hpp>
 #include <sge/sprite/geometry/update.hpp>
 #include <sge/sprite/render/geometry_options.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -54,9 +54,7 @@ geometry(
 	Compare const &_compare
 )
 {
-	sge::sprite::geometry::update<
-		sge::sprite::geometry::sort_options::sort
-	>(
+	sge::sprite::geometry::sort_and_update(
 		_range,
 		_buffers,
 		_compare
@@ -79,9 +77,7 @@ geometry(
 	Compare const &
 )
 {
-	sge::sprite::geometry::update<
-		sge::sprite::geometry::sort_options::dont_sort
-	>(
+	sge::sprite::geometry::update(
 		_range,
 		_buffers
 	);

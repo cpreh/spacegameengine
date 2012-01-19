@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_GEOMETRY_UPDATE_HPP_INCLUDED
-#define SGE_SPRITE_GEOMETRY_UPDATE_HPP_INCLUDED
+#ifndef SGE_SPRITE_GEOMETRY_SORT_AND_UPDATE_HPP_INCLUDED
+#define SGE_SPRITE_GEOMETRY_SORT_AND_UPDATE_HPP_INCLUDED
 
-#include <sge/sprite/geometry/fill.hpp>
+#include <sge/sprite/geometry/sort.hpp>
+#include <sge/sprite/geometry/update.hpp>
 
 
 namespace sge
@@ -33,28 +34,24 @@ namespace geometry
 
 template<
 	typename Range,
-	typename Buffers
+	typename Buffers,
+	typename Compare
 >
 void
-update(
+sort_and_update(
 	Range const &_range,
-	Buffers &_buffers
+	Buffers &_buffers,
+	Compare const &_compare
 )
 {
-	if(
-		_range.empty()
-	)
-		return;
-
-	_buffers.allocate(
-		_range.size()
+	sge::sprite::geometry::sort(
+		_range,
+		_compare
 	);
 
-	sge::sprite::geometry::fill(
-		_range.begin(),
-		_range.end(),
-		_buffers,
-		_range.size()
+	sge::sprite::geometry::update(
+		_range,
+		_buffers
 	);
 }
 

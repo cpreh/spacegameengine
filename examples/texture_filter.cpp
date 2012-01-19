@@ -103,7 +103,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <sge/sprite/geometry/make_single_range.hpp>
-#include <sge/sprite/geometry/sort_options.hpp>
 #include <sge/sprite/geometry/update.hpp>
 #include <sge/sprite/render/geometry_options.hpp>
 #include <sge/sprite/render/matrix_options.hpp>
@@ -546,9 +545,7 @@ try
 		)
 	);
 
-	sge::sprite::geometry::update<
-		sge::sprite::geometry::sort_options::dont_sort
-	>(
+	sge::sprite::geometry::update(
 		sge::sprite::geometry::make_single_range(
 			sprite
 		),

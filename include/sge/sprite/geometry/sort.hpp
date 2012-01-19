@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_GEOMETRY_SORT_OPTIONS_HPP_INCLUDED
-#define SGE_SPRITE_GEOMETRY_SORT_OPTIONS_HPP_INCLUDED
+#ifndef SGE_SPRITE_GEOMETRY_SORT_HPP_INCLUDED
+#define SGE_SPRITE_GEOMETRY_SORT_HPP_INCLUDED
+
+#include <sge/sprite/detail/geometry/sort.hpp>
+
 
 namespace sge
 {
@@ -28,13 +31,20 @@ namespace sprite
 namespace geometry
 {
 
-namespace sort_options
+template<
+	typename Range,
+	typename Compare
+>
+void
+sort(
+	Range const &_range,
+	Compare const &_compare
+)
 {
-enum type
-{
-	sort,
-	dont_sort
-};
+	sge::sprite::detail::geometry::sort(
+		_range,
+		_compare
+	);
 }
 
 }

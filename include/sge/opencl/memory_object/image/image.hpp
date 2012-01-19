@@ -29,5 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/image/planar_pitch.hpp>
 #include <sge/opencl/memory_object/image/read_planar.hpp>
 #include <sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp>
+#include <sge/opencl/memory_object/image/volume.hpp>
+#include <sge/opencl/memory_object/image/volume_fwd.hpp>
 
 #endif
