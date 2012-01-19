@@ -30,7 +30,7 @@ namespace config
 {
 
 template<
-	typename SizeOptions
+	typename AttributeNames
 >
 struct custom_texture_point_size;
 

@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/equal.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -97,7 +98,7 @@ private:
 	};
 
 	BOOST_STATIC_ASSERT((
-		boost::mpl::equal<
+		boost::mpl::equal_to<
 			typename boost::mpl::size<
 				AttributeNames
 			>::type,

@@ -39,9 +39,7 @@ namespace config
 template<
 	typename AttributeNames
 >
-struct custom_texture_point_size<
-	AttributeNames
->
+struct custom_texture_point_size
 {
 	typedef boost::mpl::true_ is_texture_point_size;
 
