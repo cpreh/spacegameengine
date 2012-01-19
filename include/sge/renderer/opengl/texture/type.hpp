@@ -18,21 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_OPENGL_TEXTURE_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_OPENGL_TEXTURE_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/opengl/texture/type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
+#include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
+{
+namespace renderer
 {
 namespace opengl
 {
 namespace texture
 {
 
-typedef sge::renderer::opengl::texture::type type;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	GLenum,
+	type
+);
 
+}
 }
 }
 }

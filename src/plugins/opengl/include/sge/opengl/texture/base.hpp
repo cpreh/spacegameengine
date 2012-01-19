@@ -50,15 +50,15 @@ class base
 		base
 	);
 public:
-	texture::type const
+	sge::opengl::texture::type const
 	type() const;
 
-	texture::id const
+	sge::opengl::texture::id const
 	id() const;
 
 	bool
 	update_filter(
-		renderer::texture::filter::object const &
+		sge::renderer::texture::filter::object const &
 	) const;
 
 	bool
@@ -66,33 +66,34 @@ public:
 
 	bool
 	update_address_mode_s(
-		renderer::texture::address_mode_s
+		sge::renderer::texture::address_mode_s
 	) const;
 
 	bool
 	update_address_mode_t(
-		renderer::texture::address_mode_t
+		sge::renderer::texture::address_mode_t
 	) const;
 
 	virtual
 	bool
 	update_address_mode_u(
-		renderer::texture::address_mode_u
+		sge::renderer::texture::address_mode_u
 	) const;
 
 	virtual ~base();
 protected:
 	explicit
 	base(
-		texture::type
+		sge::opengl::texture::type
 	);
 private:
-	virtual renderer::texture::mipmap::object const
+	virtual
+	sge::renderer::texture::mipmap::object const
 	mipmap() const = 0;
 
-	texture::type const type_;
+	sge::opengl::texture::type const type_;
 
-	opengl::texture::holder const holder_;
+	sge::opengl::texture::holder const holder_;
 
 	// These are mutable because renderer::device::texture passes in a const texture
 	mutable sge::renderer::texture::filter::object filter_;

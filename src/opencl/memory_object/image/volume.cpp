@@ -48,7 +48,8 @@ sge::opencl::memory_object::image::volume::volume(
 			_context.impl(),
 			memory_object::to_opencl_mem_flags(
 				_mem_flags),
-			GL_TEXTURE_3D,
+			dynamic_cast<renderer::opengl::texture::base &>(
+				_renderer_texture).type().get(),
 			// mip level
 			0,
 			dynamic_cast<renderer::opengl::texture::base &>(

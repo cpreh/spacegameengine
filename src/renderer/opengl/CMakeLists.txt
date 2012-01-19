@@ -21,6 +21,7 @@ set(
 	include/sge/renderer/opengl/texture/base_ptr.hpp
 	include/sge/renderer/opengl/texture/id.hpp
 	include/sge/renderer/opengl/texture/texture.hpp
+	include/sge/renderer/opengl/texture/type.hpp
 	src/renderer/opengl/buffer/base.cpp
 	src/renderer/opengl/texture/base.cpp
 )

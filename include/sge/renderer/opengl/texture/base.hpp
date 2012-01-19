@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/opengl/symbol.hpp>
 #include <sge/renderer/opengl/texture/base_fwd.hpp>
 #include <sge/renderer/opengl/texture/id.hpp>
+#include <sge/renderer/opengl/texture/type.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -46,8 +47,13 @@ protected:
 	SGE_RENDERER_OPENGL_SYMBOL
 	base();
 public:
-	virtual texture::id const
+	virtual
+	sge::renderer::opengl::texture::id const
 	id() const = 0;
+
+	virtual
+	sge::renderer::opengl::texture::type const
+	type() const = 0;
 
 	SGE_RENDERER_OPENGL_SYMBOL
 	virtual ~base() = 0;

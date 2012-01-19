@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_GEOMETRY_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_GEOMETRY_HPP_INCLUDED
 
+#include <sge/sprite/detail/render/is_same_geometry_options.hpp>
 #include <sge/sprite/geometry/sort_and_update.hpp>
 #include <sge/sprite/geometry/update.hpp>
-#include <sge/sprite/detail/render/is_same_geometry_options.hpp>
 #include <sge/sprite/render/geometry_options.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
