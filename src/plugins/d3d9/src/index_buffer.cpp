@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/resource_flags_to_pool.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
