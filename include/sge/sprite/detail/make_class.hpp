@@ -21,19 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 
-#include <sge/sprite/with_rotation.hpp>
-#include <sge/sprite/with_rotation_center.hpp>
-#include <sge/sprite/primitives/dim.hpp>
-#include <sge/sprite/primitives/vector.hpp>
+#include <sge/sprite/vector.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/role.hpp>
+#include <majutsu/simple.hpp>
 #include <majutsu/memory/fusion.hpp>
-#include <fcppt/mpl/implication.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/mpl/apply.hpp>
-#include <boost/mpl/contains.hpp>
 #include <boost/mpl/joint_view.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform.hpp>
@@ -54,21 +49,7 @@ template<
 >
 struct make_class
 {
-	typedef typename Choices::elements elements;
-
-	BOOST_STATIC_ASSERT((
-		fcppt::mpl::implication<
-			boost::mpl::contains<
-				elements,
-				with_rotation_center
-			>,
-			boost::mpl::contains<
-				elements,
-				with_rotation
-			>
-		>::value
-	));
-
+private:
 	// TODO: why do we need this?
 	template<
 		typename F,
@@ -81,24 +62,30 @@ struct make_class
 		T1
 	>
 	{};
-
+public:
 	typedef majutsu::class_<
 		typename boost::mpl::joint_view<
 			typename boost::mpl::transform<
-				elements,
+				typename Choices::optional_elements,
 				application<
 					boost::mpl::_1,
 					Choices
 				>
 			>::type,
 			boost::mpl::joint_view<
-				boost::mpl::vector1<
+				boost::mpl::vector2<
 					majutsu::role<
-						typename primitives::vector<
-							typename Choices::type_choices::unit_type
-						>::type,
+						majutsu::simple<
+							typename sge::sprite::vector<
+								Choices
+							>::type
+						>,
 						sge::sprite::roles::pos
-					>
+					>,
+					typename boost::mpl::apply<
+						typename Choices::size_choice,
+						typename Choices::type_choices
+					>::type
 				>,
 				ExtraElements
 			>

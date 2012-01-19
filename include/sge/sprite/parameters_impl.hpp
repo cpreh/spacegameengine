@@ -24,15 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/object.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/sprite/parameters_decl.hpp>
-#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/defaults/color.hpp>
-#include <sge/sprite/detail/unset_use_center.hpp>
+#include <sge/sprite/detail/config/color_format.hpp>
+#include <sge/sprite/detail/config/has_normal_size.hpp>
+#include <sge/sprite/detail/parameters/unset_use_center.hpp>
 #include <sge/sprite/detail/roles/use_center.hpp>
 #include <sge/sprite/detail/roles/use_texture_size.hpp>
-#include <sge/sprite/roles/adder.hpp>
 #include <sge/sprite/roles/color.hpp>
+#include <sge/sprite/roles/connection.hpp>
 #include <sge/sprite/roles/depth.hpp>
-#include <sge/sprite/roles/order.hpp>
 #include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/repetition.hpp>
@@ -46,7 +46,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/role_return_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/static_assert.hpp>
-#include <boost/mpl/contains.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -71,7 +70,7 @@ sge::sprite::parameters<Choices>::pos(
 )
 {
 	return
-		detail::unset_use_center(
+		sge::sprite::detail::parameters::unset_use_center(
 			this->set<
 				roles::pos
 			>(
@@ -91,12 +90,11 @@ sge::sprite::parameters<Choices>::center(
 	>::type const &_pos
 )
 {
-	BOOST_STATIC_ASSERT((
-		boost::mpl::contains<
-			typename choices::elements,
-			sge::sprite::with_dim
+	BOOST_STATIC_ASSERT(
+		sge::sprite::detail::config::has_normal_size<
+			Choices
 		>::value
-	));
+	);
 
 	return
 		this->set<
@@ -242,7 +240,9 @@ sge::sprite::parameters<Choices>::any_color(
 	return
 		this->color(
 			sge::image::color::any::convert<
-				typename Choices::type_choices::color_type
+				typename sge::sprite::detail::config::color_format<
+					Choices
+				>::type
 			>(
 				_color
 			)
@@ -426,55 +426,18 @@ template<
 	typename Choices
 >
 sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::order(
+sge::sprite::parameters<Choices>::connection(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::order
-	>::type const &_order
+		roles::connection
+	>::type const &_connection
 )
 {
 	return
 		this->set<
-			roles::order
+			roles::connection
 		>(
-			_order
-		);
-}
-
-template<
-	typename Choices
->
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::adder(
-	typename majutsu::role_return_type<
-		flattened_types,
-		roles::adder
-	>::type const &_adder
-)
-{
-	return
-		this->set<
-			roles::adder
-		>(
-			_adder
-		);
-}
-
-template<
-	typename Choices
->
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::system(
-	typename sprite::system<
-		Choices
-	>::type &_system
-)
-{
-	return
-		this->set<
-			roles::adder
-		>(
-			_system.adder()
+			_connection
 		);
 }
 

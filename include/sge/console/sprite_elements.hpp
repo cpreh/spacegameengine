@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_SPRITE_ELEMENTS_HPP_INCLUDED
 #define SGE_CONSOLE_SPRITE_ELEMENTS_HPP_INCLUDED
 
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/with_texture.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -32,9 +33,13 @@ namespace sge
 namespace console
 {
 
-typedef boost::mpl::vector2<
-	sprite::with_dim,
-	sprite::with_texture
+typedef boost::mpl::vector1<
+	sge::sprite::config::with_texture<
+		sge::sprite::config::texture_level_count<
+			1u
+		>,
+		sge::sprite::config::texture_coordinates::normal
+	>
 > sprite_elements;
 
 }

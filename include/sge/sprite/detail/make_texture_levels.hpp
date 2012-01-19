@@ -43,7 +43,7 @@ struct make_texture_levels
 :
 boost::mpl::copy<
 	boost::mpl::range_c<
-		sprite::texture_level,
+		sge::sprite::texture_level,
 		0u,
 		Levels::value
 	>,

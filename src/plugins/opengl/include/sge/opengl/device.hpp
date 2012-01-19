@@ -51,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/optional_target_fwd.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/primitive_count.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>

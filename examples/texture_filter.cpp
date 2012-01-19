@@ -91,16 +91,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/anisotropic/mip.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/render_one_advanced.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_repetition.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
+#include <sge/sprite/config/with_texture.hpp>
+#include <sge/sprite/geometry/make_single_range.hpp>
+#include <sge/sprite/geometry/sort_options.hpp>
+#include <sge/sprite/geometry/update.hpp>
+#include <sge/sprite/render/geometry_options.hpp>
+#include <sge/sprite/render/matrix_options.hpp>
+#include <sge/sprite/render/one_with_options.hpp>
+#include <sge/sprite/render/options.hpp>
+#include <sge/sprite/render/state_options.hpp>
+#include <sge/sprite/render/vertex_options.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/font.hpp>
@@ -447,22 +457,29 @@ try
 		)
 	}};
 
-	typedef sge::sprite::choices<
-		sge::sprite::type_choices<
-			int,
-			float,
-			sge::sprite::no_color
+	typedef sge::sprite::config::choices<
+		sge::sprite::config::type_choices<
+			sge::sprite::config::unit_type<
+				int
+			>,
+			sge::sprite::config::float_type<
+				float
+			>
 		>,
-		boost::mpl::vector3<
-			sge::sprite::with_dim,
-			sge::sprite::with_texture,
-			sge::sprite::with_repetition
+		sge::sprite::config::normal_size,
+		boost::mpl::vector1<
+			sge::sprite::config::with_texture<
+				sge::sprite::config::texture_level_count<
+					1u
+				>,
+				sge::sprite::config::texture_coordinates::repetition
+			>
 		>
 	> sprite_choices;
 
 	typedef sge::sprite::system<
 		sprite_choices
-	>::type sprite_system;
+	> sprite_system;
 
 	typedef sge::sprite::object<
 		sprite_choices
@@ -473,7 +490,8 @@ try
 	> sprite_parameters;
 
 	sprite_system sprite_sys(
-		sys.renderer()
+		sys.renderer(),
+		sge::sprite::buffers_option::static_
 	);
 
 	sprite_object::unit const sprite_size(
@@ -488,7 +506,7 @@ try
 		)
 	);
 
-	sprite_object sprite(
+	sprite_object const sprite(
 		sprite_parameters()
 		.pos(
 			sprite_object::vector(
@@ -526,6 +544,15 @@ try
 				)
 			)
 		)
+	);
+
+	sge::sprite::geometry::update<
+		sge::sprite::geometry::sort_options::dont_sort
+	>(
+		sge::sprite::geometry::make_single_range(
+			sprite
+		),
+		sprite_sys.buffers()
 	);
 
 	bool running(
@@ -663,9 +690,16 @@ try
 				current_filter->second
 			);
 
-			sge::sprite::render_one_advanced(
-				sprite_sys,
-				sprite
+			sge::sprite::render::one_with_options<
+				sge::sprite::render::options<
+					sge::sprite::render::geometry_options::nothing,
+					sge::sprite::render::matrix_options::nothing,
+					sge::sprite::render::state_options::nothing,
+					sge::sprite::render::vertex_options::declaration_and_buffer
+				>
+			>(
+				sprite,
+				sprite_sys.buffers()
 			);
 		}
 

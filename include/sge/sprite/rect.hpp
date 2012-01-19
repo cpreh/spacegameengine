@@ -23,18 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/math/box/rect.hpp>
 
+
 namespace sge
 {
 namespace sprite
 {
 
 template<
-	typename UnitType
+	typename Choices
 >
 struct rect
 :
 fcppt::math::box::rect<
-	UnitType
+	typename Choices::type_choices::unit_type
 >
 {
 };

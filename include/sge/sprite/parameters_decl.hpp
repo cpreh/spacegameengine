@@ -23,13 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
-#include <sge/sprite/system.hpp>
 #include <sge/sprite/texture_level.hpp>
-#include <sge/sprite/detail/make_parameters_class.hpp>
-#include <sge/sprite/roles/adder.hpp>
+#include <sge/sprite/detail/parameters/make_class.hpp>
 #include <sge/sprite/roles/color.hpp>
+#include <sge/sprite/roles/connection.hpp>
 #include <sge/sprite/roles/depth.hpp>
-#include <sge/sprite/roles/order.hpp>
 #include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/repetition.hpp>
@@ -52,7 +50,7 @@ template<
 >
 class parameters
 {
-	typedef typename detail::make_parameters_class<
+	typedef typename sge::sprite::detail::parameters::make_class<
 		Choices
 	>::type elements_type;
 public:
@@ -203,26 +201,11 @@ public:
 	);
 
 	parameters &
-	order(
+	connection(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::order
+			sge::sprite::roles::connection
 		>::type const &
-	);
-
-	parameters &
-	adder(
-		typename majutsu::role_return_type<
-			flattened_types,
-			roles::adder
-		>::type const &
-	);
-
-	parameters &
-	system(
-		typename sprite::system<
-			Choices
-		>::type &
 	);
 
 	template<

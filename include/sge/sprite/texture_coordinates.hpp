@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_TEXTURE_COORDINATES_HPP_INCLUDED
 #define SGE_SPRITE_TEXTURE_COORDINATES_HPP_INCLUDED
 
-#include <sge/sprite/primitives/coordinates.hpp>
+#include <fcppt/homogenous_pair_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
+
 
 namespace sge
 {
@@ -29,13 +31,16 @@ namespace sprite
 {
 
 template<
-	typename FloatType
+	typename Choices
 >
 struct texture_coordinates
 {
-	typedef typename primitives::coordinates<
-		FloatType
-	>::type::type type;
+	typedef fcppt::homogenous_pair<
+		typename fcppt::math::vector::static_<
+			typename Choices::type_choices::float_type,
+			2
+		>::type
+	> type;
 };
 
 }

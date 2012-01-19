@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/center.hpp>
 #include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/with_rotation_center.hpp>
+#include <sge/sprite/detail/config/has_rotation_center.hpp>
 #include <sge/sprite/roles/rotate_around.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -43,16 +43,15 @@ template<
 	typename Choices
 >
 typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		with_rotation_center
+	sge::sprite::detail::config::has_rotation_center<
+		Choices
 	>,
-	typename object<
+	typename sge::sprite::object<
 		Choices
 	>::vector
 >::type
 rotation_center(
-	object<
+	sge::sprite::object<
 		Choices
 	> const &_sprite
 )
@@ -66,31 +65,31 @@ rotation_center(
 				sge::sprite::roles::rotate_around
 			>()
 		:
-			sprite::center(
+			sge::sprite::center(
 				_sprite
-			);
+			)
+		;
 }
 
 template<
 	typename Choices
 >
 typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		with_rotation_center
+	sge::sprite::detail::config::has_rotation_center<
+		Choices
 	>,
-	typename object<
+	typename sge::sprite::object<
 		Choices
 	>::vector
 >::type
 rotation_center(
-	object<
+	sge::sprite::object<
 		Choices
 	> const &_sprite
 )
 {
 	return
-		sprite::center(
+		sge::sprite::center(
 			_sprite
 		);
 }

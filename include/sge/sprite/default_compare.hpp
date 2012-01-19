@@ -21,14 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DEFAULT_COMPARE_HPP_INCLUDED
 #define SGE_SPRITE_DEFAULT_COMPARE_HPP_INCLUDED
 
-#include <sge/renderer/is_epsilon_equal.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/with_depth.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/detail/config/has_texture.hpp>
+#include <sge/texture/part.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/mpl/not.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,88 +39,39 @@ struct default_compare
 {
 	typedef bool result_type;
 
+	typedef boost::mpl::false_ is_trivial;
+
 	template<
-		typename Object
+		typename Choices
 	>
 	typename boost::enable_if<
-		boost::mpl::and_<
-			boost::mpl::contains<
-				typename Object::elements,
-				with_texture
-			>,
-			boost::mpl::contains<
-				typename Object::elements,
-				with_depth
-			>
+		sge::sprite::detail::config::has_texture<
+			Choices
 		>,
 		result_type
 	>::type
 	operator()(
-		Object const &a,
-		Object const &b
+		sge::sprite::object<
+			Choices
+		> const &_left,
+		sge::sprite::object<
+			Choices
+		> const &_right
 	) const
 	{
+		// FIXME: compare all texture levels!
 		return
-			sge::renderer::is_epsilon_equal(
-				a.z(),
-				b.z()
-			)
+			!_left.texture()
+			||
+			!_right.texture()
 			?
-				a.texture() < b.texture()
+				_left.texture()
+				< _right.texture()
 			:
-				a.z() < b.z();
-	}
-
-	template<
-		typename Object
-	>
-	typename boost::enable_if<
-		boost::mpl::and_<
-			boost::mpl::contains<
-				typename Object::elements,
-				with_depth
-			>,
-			boost::mpl::not_<
-				boost::mpl::contains<
-					typename Object::elements,
-					with_texture
-				>
-			>
-		>,
-		result_type
-	>::type
-	operator()(
-		Object const &a,
-		Object const &b
-	) const
-	{
-		return a.z() < b.z();
-	}
-
-	template<
-		typename Object
-	>
-	typename boost::enable_if<
-		boost::mpl::and_<
-			boost::mpl::contains<
-				typename Object::elements,
-				with_texture
-			>,
-			boost::mpl::not_<
-				boost::mpl::contains<
-					typename Object::elements,
-					with_depth
-				>
-			>
-		>,
-		result_type
-	>::type
-	operator()(
-		Object const &a,
-		Object const &b
-	) const
-	{
-		return a.texture() < b.texture();
+				_left.texture()->texture()
+				<
+				_right.texture()->texture()
+			;
 	}
 };
 

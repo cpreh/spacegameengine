@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
@@ -55,7 +55,7 @@ namespace renderer
  * \see renderer::device::activate_vertex_buffer
  * \see renderer::device::craete_vertex_buffer
  * \see renderer::device::deactivate_vertex_buffer
- * \see renderer;:vf::part
+ * \see renderer::vf::part
 */
 class SGE_CLASS_SYMBOL vertex_buffer
 {

@@ -60,19 +60,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/default_equal.hpp>
-#include <sge/sprite/default_sort.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/render_one.hpp>
+#include <sge/sprite/buffers_option.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_color.hpp>
-#include <sge/sprite/with_depth.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
+#include <sge/sprite/config/with_color.hpp>
+#include <sge/sprite/config/with_texture.hpp>
+#include <sge/sprite/render/one.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -115,19 +116,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef sge::image::color::rgba8_format sprite_color;
+typedef sge::image::color::rgba8_format sprite_color_format;
 
-typedef sge::sprite::choices<
-	sge::sprite::type_choices<
-		int,
-		float,
-		sprite_color
+typedef sge::sprite::config::choices<
+	sge::sprite::config::type_choices<
+		sge::sprite::config::unit_type<
+			int
+		>,
+		sge::sprite::config::float_type<
+			float
+		>
 	>,
-	boost::mpl::vector4<
-		sge::sprite::with_color,
-		sge::sprite::with_texture,
-		sge::sprite::with_depth,
-		sge::sprite::with_dim
+	sge::sprite::config::normal_size,
+	boost::mpl::vector2<
+		sge::sprite::config::with_color<
+			sprite_color_format
+		>,
+		sge::sprite::config::with_texture<
+			sge::sprite::config::texture_level_count<
+				1u
+			>,
+			sge::sprite::config::texture_coordinates::normal
+		>
 	>
 > sprite_choices;
 
@@ -305,17 +315,18 @@ try
 
 	typedef sge::sprite::system<
 		sprite_choices
-	>::type sprite_system;
+	> sprite_system;
 
 	typedef sge::sprite::parameters<
 		sprite_choices
 	> sprite_parameters;
 
-	sprite_system ss(
-		sys.renderer()
+	sprite_system sprite_sys(
+		sys.renderer(),
+		sge::sprite::buffers_option::dynamic
 	);
 
-	sprite_object bg(
+	sprite_object const background(
 		sprite_parameters()
 			.pos(
 				sprite_object::vector::null()
@@ -330,11 +341,6 @@ try
 					window_dim
 				)
 			)
-			.depth(
-				static_cast<
-					sprite_object::depth_type
-				>(0)
-			)
 			.default_color()
 		);
 
@@ -348,11 +354,6 @@ try
 		)
 		.texture_size()
 		.default_color()
-		.depth(
-			static_cast<
-				sprite_object::depth_type
-			>(2)
-		)
 	);
 
 	sprite_object tux(
@@ -371,20 +372,13 @@ try
 		.size(
 			sprite_object::dim(32,32)
 		)
-		.default_color()
-		.depth(
-			static_cast<
-				sprite_object::depth_type
-			>(1)
-		)
-	);
-
-	tux.color(
-		sge::image::color::rgba8(
-			(sge::image::color::init::red() %= 1.0)
-			(sge::image::color::init::green() %= 1.0)
-			(sge::image::color::init::blue() %= 1.0)
-			(sge::image::color::init::alpha() %= 0.25)
+		.color(
+			sge::image::color::rgba8(
+				(sge::image::color::init::red() %= 1.0)
+				(sge::image::color::init::green() %= 1.0)
+				(sge::image::color::init::blue() %= 1.0)
+				(sge::image::color::init::alpha() %= 0.25)
+			)
 		)
 	);
 
@@ -454,11 +448,6 @@ try
 		)
 		.texture_size()
 		.default_color()
-		.depth(
-			static_cast<
-				sprite_object::depth_type
-			>(1)
-		)
 	);
 
 	fcppt::io::cifstream fragment_stream(
@@ -500,7 +489,7 @@ try
 	pixel_shader->compile();
 
 	program->vertex_declaration(
-		ss.vertex_declaration()
+		sprite_sys.buffers().vertex_declaration()
 	);
 
 	sge::renderer::glsl::scoped_attachment const vertex_shader_attachment(
@@ -549,21 +538,19 @@ try
 				sys.renderer()
 			);
 
-			typedef std::vector<
-				sprite_object
-			> sprite_container;
+			sge::sprite::render::one(
+				background,
+				sprite_sys.buffers()
+			);
 
-			sprite_container sprites;
+			sge::sprite::render::one(
+				tux,
+				sprite_sys.buffers()
+			);
 
-			sprites.push_back(bg);
-			sprites.push_back(pointer);
-			sprites.push_back(tux);
-
-			ss.render(
-				sprites.begin(),
-				sprites.end(),
-				sge::sprite::default_sort(),
-				sge::sprite::default_equal()
+			sge::sprite::render::one(
+				pointer,
+				sprite_sys.buffers()
 			);
 		}
 
@@ -577,9 +564,9 @@ try
 			sys.renderer()
 		);
 
-		sge::sprite::render_one(
-			ss,
-			target_spr
+		sge::sprite::render::one(
+			target_spr,
+			sprite_sys.buffers()
 		);
 	}
 }

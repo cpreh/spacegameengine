@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_VISIBLE_HPP_INCLUDED
 
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/with_visibility.hpp>
+#include <sge/sprite/detail/config/has_visibility.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -40,14 +39,13 @@ template<
 	typename Choices
 >
 typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		sprite::with_visibility
+	sge::sprite::detail::config::has_visibility<
+		Choices
 	>,
 	bool
 >::type
 visible(
-	object<
+	sge::sprite::object<
 		Choices
 	> const &_object
 )
@@ -59,14 +57,13 @@ template<
 	typename Choices
 >
 typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		sprite::with_visibility
+	sge::sprite::detail::config::has_visibility<
+		Choices
 	>,
 	bool
 >::type
 visible(
-	object<
+	sge::sprite::object<
 		Choices
 	> const &
 )

@@ -40,7 +40,7 @@ template<
 struct fold_texture_levels
 :
 boost::mpl::transform<
-	typename detail::make_texture_levels<
+	typename sge::sprite::detail::make_texture_levels<
 		Levels
 	>::type,
 	Function

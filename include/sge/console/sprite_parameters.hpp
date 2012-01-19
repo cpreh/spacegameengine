@@ -31,7 +31,7 @@ namespace console
 {
 
 typedef sprite::parameters<
-	sprite_choices
+	sge::console::sprite_choices
 > sprite_parameters;
 
 }

@@ -21,18 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_SPRITE_TYPE_CHOICES_HPP_INCLUDED
 #define SGE_CONSOLE_SPRITE_TYPE_CHOICES_HPP_INCLUDED
 
-#include <sge/sprite/no_color.hpp>
-#include <sge/sprite/type_choices.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
+
 
 namespace sge
 {
 namespace console
 {
 
-typedef sge::sprite::type_choices<
-	int,
-	float,
-	sprite::no_color
+typedef sge::sprite::config::type_choices<
+	sge::sprite::config::unit_type<
+		int
+	>,
+	sge::sprite::config::float_type<
+		float
+	>
 > sprite_type_choices;
 
 }

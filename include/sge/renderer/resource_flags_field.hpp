@@ -21,24 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_RESOURCE_FLAGS_FIELD_HPP_INCLUDED
 #define SGE_RENDERER_RESOURCE_FLAGS_FIELD_HPP_INCLUDED
 
-#include <sge/renderer/resource_flags.hpp>
-#include <fcppt/container/bitfield/basic_fwd.hpp>
-
-
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief A bitfield that can hold flags from renderer::resource_flags
-*/
-typedef fcppt::container::bitfield::basic<
-	renderer::resource_flags::type,
-	renderer::resource_flags::size
-> resource_flags_field;
-
-}
-}
+#include <sge/renderer/resource_flags_field_fwd.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
 #endif

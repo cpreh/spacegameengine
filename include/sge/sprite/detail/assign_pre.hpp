@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_ASSIGN_PRE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_ASSIGN_PRE_HPP_INCLUDED
 
-#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/detail/unlink.hpp>
+#include <sge/sprite/detail/config/is_intrusive.hpp>
 #include <sge/sprite/intrusive/detail/object_base_hook.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -40,45 +41,43 @@ template<
 	typename Choices
 >
 typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		intrusive::tag
+	sge::sprite::detail::config::is_intrusive<
+		Choices
 	>,
 	void
 >::type
 assign_pre(
-	object<
+	sge::sprite::object<
 		Choices
 	> &_this,
-	object<
+	sge::sprite::object<
 		Choices
 	> const &_other
 )
 {
-	_this.unlink();
-
-	static_cast<
-		intrusive::detail::object_base_hook &
-	>(
+	sge::sprite::detail::unlink(
 		_this
-	) = _other;
+	);
+
+	_this.sge::sprite::intrusive::detail::object_base_hook::operator=(
+		_other
+	);
 }
 
 template<
 	typename Choices
 >
 typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		intrusive::tag
+	sge::sprite::detail::config::is_intrusive<
+		Choices
 	>,
 	void
 >::type
 assign_pre(
-	object<
+	sge::sprite::object<
 		Choices
 	> &,
-	object<
+	sge::sprite::object<
 		Choices
 	> const &
 )

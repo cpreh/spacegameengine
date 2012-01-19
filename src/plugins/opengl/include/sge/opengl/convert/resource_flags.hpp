@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/resource_flags_field_fwd.hpp>
 
 namespace sge
 {

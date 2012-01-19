@@ -63,15 +63,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/stencil_op_value.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/render_one.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
+#include <sge/sprite/config/with_texture.hpp>
+#include <sge/sprite/render/one.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
@@ -173,29 +177,35 @@ try
 		)
 	);
 
-	// Declare which sprites we want.
-	// The sprite should use int as its position and size,
-	// float as its depth, rotation, etc (which we don't use),
-	// and no color.
-	// Also request that the sprite has a dimension
-	// (meaning it is a rectangle and consists of two triangles)
-	// and that the sprite needs textures.
-	typedef sge::sprite::choices<
-		sge::sprite::type_choices<
-			int,
-			float,
-			sge::sprite::no_color
+	// Declare which sprites we want. The sprite should use int as its
+	// position and size, and float as its depth, rotation, etc (which we
+	// don't use). Also request that the sprite has a normal size (meaning
+	// it is a rectangle and consists of two triangles) and that the sprite
+	// needs one texture with automatically computed texture coordinates.
+	typedef sge::sprite::config::choices<
+		sge::sprite::config::type_choices<
+			sge::sprite::config::unit_type<
+				int
+			>,
+			sge::sprite::config::float_type<
+				float
+			>
 		>,
-		boost::mpl::vector2<
-			sge::sprite::with_dim,
-			sge::sprite::with_texture
+		sge::sprite::config::normal_size,
+		boost::mpl::vector1<
+			sge::sprite::config::with_texture<
+				sge::sprite::config::texture_level_count<
+					1u
+				>,
+				sge::sprite::config::texture_coordinates::normal
+			>
 		>
 	> sprite_choices;
 
 	// Declare the sprite system type, object type and parameters type.
 	typedef sge::sprite::system<
 		sprite_choices
-	>::type sprite_system;
+	> sprite_system;
 
 	typedef sge::sprite::object<
 		sprite_choices
@@ -205,14 +215,17 @@ try
 		sprite_choices
 	> sprite_parameters;
 
+	// Allocate a sprite system. This sprite system uses dynamic buffers,
+	// which means that they are updated every frame.
 	sprite_system sprite_sys(
-		sys.renderer()
+		sys.renderer(),
+		sge::sprite::buffers_option::dynamic
 	);
 
 	// This is our smaller sprite.
 	// It will be placed at position (200, 200) and have the size
 	// of its texture "grass.png" which is (256, 256).
-	sprite_object small_sprite(
+	sprite_object const small_sprite(
 		sprite_parameters()
 		.pos(
 			sprite_object::vector(
@@ -251,7 +264,7 @@ try
 	// It will be placed at position (0, 0) and have the size
 	// of its texture "cloudsquare.png" which is (512, 512).
 	// Everything else is pretty much the same to small_sprite.
-	sprite_object big_sprite(
+	sprite_object const big_sprite(
 		sprite_parameters()
 		.pos(
 			sprite_object::vector::null()
@@ -341,9 +354,9 @@ try
 			);
 
 			// Render small sprite.
-			sge::sprite::render_one(
-				sprite_sys,
-				small_sprite
+			sge::sprite::render::one(
+				small_sprite,
+				sprite_sys.buffers()
 			);
 		}
 
@@ -363,9 +376,9 @@ try
 			);
 
 			// Render big sprite.
-			sge::sprite::render_one(
-				sprite_sys,
-				big_sprite
+			sge::sprite::render::one(
+				big_sprite,
+				sprite_sys.buffers()
 			);
 		}
 	}

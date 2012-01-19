@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_VECTOR_HPP_INCLUDED
 #define SGE_SPRITE_VECTOR_HPP_INCLUDED
 
-#include <sge/sprite/primitives/vector.hpp>
+#include <fcppt/math/vector/static.hpp>
+
 
 namespace sge
 {
@@ -29,13 +30,15 @@ namespace sprite
 {
 
 template<
-	typename UnitType
+	typename Choices
 >
 struct vector
+:
+fcppt::math::vector::static_<
+	typename Choices::type_choices::unit_type,
+	2
+>
 {
-	typedef typename primitives::vector<
-		UnitType
-	>::type::type type;
 };
 
 }

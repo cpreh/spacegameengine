@@ -22,16 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/ortho_freelook/parameters.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image/color/init.hpp>
-#include <sge/image/color/object_impl.hpp>
-#include <sge/image/color/rgba8.hpp>
-#include <sge/image/color/rgba8_format.hpp>
-#include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/system.hpp>
-#include <sge/input/cursor/move_event.hpp>
-#include <sge/input/cursor/object.hpp>
-#include <sge/input/cursor/relative_move_event.hpp>
-#include <sge/input/cursor/relative_movement.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/log/global.hpp>
@@ -48,19 +39,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/default_equal.hpp>
-#include <sge/sprite/default_sort.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/render_states.hpp>
+#include <sge/sprite/buffers_option.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/with_color.hpp>
-#include <sge/sprite/with_depth.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
+#include <sge/sprite/config/with_texture.hpp>
+#include <sge/sprite/render/geometry_options.hpp>
+#include <sge/sprite/render/matrix_options.hpp>
+#include <sge/sprite/render/one_with_options.hpp>
+#include <sge/sprite/render/options.hpp>
+#include <sge/sprite/render/state_options.hpp>
+#include <sge/sprite/render/states.hpp>
+#include <sge/sprite/render/vertex_options.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -69,9 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed.hpp>
-#include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/parameters.hpp>
-#include <sge/timer/reset_when_expired.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
@@ -79,62 +74,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/raw_vector.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/assign/list_of.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <cstdlib>
 #include <exception>
-#include <ios>
-#include <iostream>
 #include <ostream>
-#include <streambuf>
-#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
 
-typedef sge::image::color::rgba8_format sprite_color;
-
-typedef sge::sprite::choices<
-	sge::sprite::type_choices<
-		int,
-		float,
-		sprite_color
-	>,
-	boost::mpl::vector4<
-		sge::sprite::with_color,
-		sge::sprite::with_texture,
-		sge::sprite::with_depth,
-		sge::sprite::with_dim
-	>
-> sprite_choices;
-
-typedef sge::sprite::object<
-	sprite_choices
-> sprite_object;
-
-typedef sge::sprite::system<
-	sprite_choices
->::type sprite_system;
-
-typedef sge::sprite::parameters<
-	sprite_choices
-> sprite_parameters;
 }
 
 int main()
@@ -217,10 +176,44 @@ try
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("tux.png"))));
 
-	sprite_system ss(
-		sys.renderer());
+	typedef sge::sprite::config::choices<
+		sge::sprite::config::type_choices<
+			sge::sprite::config::unit_type<
+				int
+			>,
+			sge::sprite::config::float_type<
+				float
+			>
+		>,
+		sge::sprite::config::normal_size,
+		boost::mpl::vector1<
+			sge::sprite::config::with_texture<
+				sge::sprite::config::texture_level_count<
+					1u
+				>,
+				sge::sprite::config::texture_coordinates::normal
+			>
+		>
+	> sprite_choices;
 
-	sprite_object bg(
+	typedef sge::sprite::object<
+		sprite_choices
+	> sprite_object;
+
+	typedef sge::sprite::system<
+		sprite_choices
+	> sprite_system;
+
+	typedef sge::sprite::parameters<
+		sprite_choices
+	> sprite_parameters;
+
+	sprite_system sprite_sys(
+		sys.renderer(),
+		sge::sprite::buffers_option::dynamic
+	);
+
+	sprite_object const background(
 		sprite_parameters()
 		.texture(
 			tex_bg)
@@ -229,12 +222,9 @@ try
 		.size(
 			fcppt::math::dim::structure_cast<sprite_object::dim>(
 				window_dim))
-		.depth(
-			static_cast<sprite_object::depth_type>(0))
-		.default_color()
 	);
 
-	sprite_object tux(
+	sprite_object const tux(
 		sprite_parameters()
 		.pos(
 			sprite_object::vector(
@@ -246,9 +236,6 @@ try
 			tex_tux)
 		.size(
 			sprite_object::dim(32,32))
-		.default_color()
-		.depth(
-			static_cast<sprite_object::depth_type>(1))
 	);
 
 	bool running =
@@ -282,11 +269,6 @@ try
 		sge::renderer::scoped_block const block_(
 			sys.renderer());
 
-		std::vector<sprite_object> sprites;
-
-		sprites.push_back(bg);
-		sprites.push_back(tux);
-
 		sge::renderer::scoped_transform projection_transform(
 			sys.renderer(),
 			sge::renderer::matrix_mode::projection,
@@ -299,13 +281,31 @@ try
 
 		sge::renderer::state::scoped scoped_state(
 			sys.renderer(),
-			sge::sprite::render_states<sprite_choices>());
+			sge::sprite::render::states<
+				sprite_choices
+			>()
+		);
 
-		ss.render_advanced(
-			sprites.begin(),
-			sprites.end(),
-			sge::sprite::default_sort(),
-			sge::sprite::default_equal());
+		typedef sge::sprite::render::options<
+			sge::sprite::render::geometry_options::fill,
+			sge::sprite::render::matrix_options::nothing,
+			sge::sprite::render::state_options::nothing,
+			sge::sprite::render::vertex_options::declaration_and_buffer
+		> sprite_options;
+
+		sge::sprite::render::one_with_options<
+			sprite_options
+		>(
+			background,
+			sprite_sys.buffers()
+		);
+
+		sge::sprite::render::one_with_options<
+			sprite_options
+		>(
+			tux,
+			sprite_sys.buffers()
+		);
 	}
 }
 catch(

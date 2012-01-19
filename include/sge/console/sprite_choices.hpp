@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/sprite_elements.hpp>
 #include <sge/console/sprite_type_choices.hpp>
-#include <sge/sprite/choices.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/normal_size.hpp>
 
 
 namespace sge
@@ -31,9 +32,10 @@ namespace sge
 namespace console
 {
 
-typedef sge::sprite::choices<
-	sprite_type_choices,
-	sprite_elements
+typedef sge::sprite::config::choices<
+	sge::console::sprite_type_choices,
+	sge::sprite::config::normal_size,
+	sge::console::sprite_elements
 > sprite_choices;
 
 }

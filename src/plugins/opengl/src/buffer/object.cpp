@@ -277,7 +277,7 @@ sge::opengl::buffer::object::stride() const
 	return stride_;
 }
 
-sge::opengl::buffer::object::resource_flag_type
+sge::opengl::buffer::object::resource_flag_type const
 sge::opengl::buffer::object::flags() const
 {
 	return flags_;

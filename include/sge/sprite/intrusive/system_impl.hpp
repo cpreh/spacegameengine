@@ -21,35 +21,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_SYSTEM_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/state/scoped.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/render_states.hpp>
-#include <sge/sprite/set_matrices.hpp>
-#include <sge/sprite/system_base_impl.hpp>
-#include <sge/sprite/detail/fill_geometry.hpp>
-#include <sge/sprite/detail/optional_size.hpp>
-#include <sge/sprite/detail/render.hpp>
-#include <sge/sprite/intrusive/adder_impl.hpp>
+#include <sge/sprite/intrusive/connection_impl.hpp>
+#include <sge/sprite/intrusive/range_impl.hpp>
 #include <sge/sprite/intrusive/system_decl.hpp>
-#include <fcppt/optional_impl.hpp>
 
 
 template<
 	typename Choices
 >
-sge::sprite::intrusive::system<Choices>::system(
-	renderer::device &_rend
-)
+sge::sprite::intrusive::system<
+	Choices
+>::system()
 :
-	base(
-		_rend
+	sprites_(),
+	count_(
+		0u
 	),
-	sprite_levels_(),
-	adder_(
-		sprite_levels_
+	connection_(
+		sprites_,
+		count_
 	)
 {
 }
@@ -57,171 +48,57 @@ sge::sprite::intrusive::system<Choices>::system(
 template<
 	typename Choices
 >
-sge::sprite::intrusive::system<Choices>::~system()
+sge::sprite::intrusive::system<
+	Choices
+>::~system()
 {
 }
 
 template<
 	typename Choices
 >
-template<
-	typename EqualFunction
->
-void
-sge::sprite::intrusive::system<Choices>::render_all(
-	EqualFunction const &_equal
-)
+typename sge::sprite::intrusive::system<
+	Choices
+>::connection_base &
+sge::sprite::intrusive::system<
+	Choices
+>::connection()
 {
-	sprite::set_matrices(
-		base::renderer()
-	);
-
-	sge::renderer::state::scoped const state(
-		base::renderer(),
-		sprite::render_states<
-			Choices
-		>()
-	);
-
-	this->render_all_advanced(
-		_equal
-	);
+	return connection_;
 }
 
 template<
 	typename Choices
 >
-template<
-	typename EqualFunction
->
-void
-sge::sprite::intrusive::system<Choices>::render_all_advanced(
-	EqualFunction const &_equal
-)
+typename sge::sprite::intrusive::system<
+	Choices
+>::range_type const
+sge::sprite::intrusive::system<
+	Choices
+>::range()
 {
-	for(
-		typename level_map::const_iterator level_it(
-			sprite_levels_.begin()
-		);
-		level_it != sprite_levels_.end();
-		++level_it
-	)
-		this->render_list(
-			*level_it->second,
-			_equal
+	return
+		range_type(
+			sprites_,
+			count_
 		);
 }
 
 template<
 	typename Choices
 >
-template<
-	typename EqualFunction
->
-void
-sge::sprite::intrusive::system<Choices>::render(
-	order const _order,
-	EqualFunction const &_equal
-)
+typename sge::sprite::intrusive::system<
+	Choices
+>::const_range_type const
+sge::sprite::intrusive::system<
+	Choices
+>::range() const
 {
-	sprite::set_matrices(
-		base::renderer()
-	);
-
-	sge::renderer::state::scoped const state(
-		base::renderer(),
-		sprite::render_states<
-			Choices
-		>()
-	);
-
-	this->render_advanced(
-		_order,
-		_equal
-	);
-}
-
-template<
-	typename Choices
->
-template<
-	typename EqualFunction
->
-void
-sge::sprite::intrusive::system<Choices>::render_advanced(
-	order const _order,
-	EqualFunction const &_equal
-)
-{
-	this->render_list(
-		sprite_levels_[
-			_order
-		],
-		_equal
-	);
-}
-
-template<
-	typename Choices
->
-template<
-	typename EqualFunction
->
-void
-sge::sprite::intrusive::system<Choices>::render_list(
-	list const &_sprites,
-	EqualFunction const &_equal
-)
-{
-	if(
-		_sprites.empty()
-	)
-		return;
-
-	// TODO: better track the sprites size
-	renderer::size_type const sprite_count(
-		_sprites.size()
-	);
-
-	base::allocate_buffers(
-		sprite_count
-	);
-
-	sprite::detail::fill_geometry(
-		_sprites.begin(),
-		_sprites.end(),
-		base::buffers(),
-		sprite::detail::optional_size(
-			sprite_count
-		)
-	);
-
-	renderer::scoped_vertex_declaration const vb_declaration(
-		base::renderer(),
-		base::vertex_declaration()
-	);
-
-	renderer::scoped_vertex_buffer const vb_context(
-		base::renderer(),
-		*base::vertex_buffer()
-	);
-
-	sprite::detail::render(
-		_sprites.begin(),
-		_sprites.end(),
-		_equal,
-		base::renderer(),
-		base::buffers()
-	);
-}
-
-template<
-	typename Choices
->
-typename sge::sprite::intrusive::system<Choices>::adder_base *
-sge::sprite::intrusive::system<Choices>::adder()
-{
-	return &adder_;
+	return
+		const_range_type(
+			sprites_,
+			count_
+		);
 }
 
 #endif
