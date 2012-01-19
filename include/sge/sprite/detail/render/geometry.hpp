@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/geometry/sort_and_update.hpp>
 #include <sge/sprite/geometry/update.hpp>
+#include <sge/sprite/detail/render/is_same_geometry_options.hpp>
 #include <sge/sprite/render/geometry_options.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -44,8 +45,11 @@ template<
 	typename Buffers,
 	typename Compare
 >
-typename boost::enable_if_c<
-	Options == sge::sprite::render::geometry_options::sort_and_fill,
+typename boost::enable_if<
+	sge::sprite::detail::render::is_same_geometry_options<
+		Options,
+		sge::sprite::render::geometry_options::sort_and_fill
+	>,
 	void
 >::type
 geometry(
@@ -67,8 +71,11 @@ template<
 	typename Buffers,
 	typename Compare
 >
-typename boost::enable_if_c<
-	Options == sge::sprite::render::geometry_options::fill,
+typename boost::enable_if<
+	sge::sprite::detail::render::is_same_geometry_options<
+		Options,
+		sge::sprite::render::geometry_options::fill
+	>,
 	void
 >::type
 geometry(
@@ -89,8 +96,11 @@ template<
 	typename Buffers,
 	typename Compare
 >
-typename boost::enable_if_c<
-	Options == sge::sprite::render::geometry_options::nothing,
+typename boost::enable_if<
+	sge::sprite::detail::render::is_same_geometry_options<
+		Options,
+		sge::sprite::render::geometry_options::nothing
+	>,
 	void
 >::type
 geometry(

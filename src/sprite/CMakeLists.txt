@@ -157,6 +157,8 @@ set(
 	include/sge/sprite/detail/render/do_default_sort.hpp
 	include/sge/sprite/detail/render/geometry.hpp
 	include/sge/sprite/detail/render/inner.hpp
+	include/sge/sprite/detail/render/is_same_geometry_options.hpp
+	include/sge/sprite/detail/render/is_same_matrix_options.hpp
 	include/sge/sprite/detail/render/matrices.hpp
 	include/sge/sprite/detail/render/normal_states.hpp
 	include/sge/sprite/detail/render/range.hpp

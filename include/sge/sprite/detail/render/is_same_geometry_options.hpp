@@ -18,15 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_RENDER_MATRICES_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_RENDER_MATRICES_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_RENDER_IS_SAME_GEOMETRY_OPTIONS_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_RENDER_IS_SAME_GEOMETRY_OPTIONS_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/sprite/set_matrices.hpp>
-#include <sge/sprite/detail/render/is_same_matrix_options.hpp>
-#include <sge/sprite/render/matrix_options.hpp>
+#include <sge/sprite/render/geometry_options.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <boost/mpl/bool.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,39 +37,18 @@ namespace render
 {
 
 template<
-	sge::sprite::render::matrix_options::type Options
+	sge::sprite::render::geometry_options::type Options1,
+	sge::sprite::render::geometry_options::type Options2
 >
-typename boost::enable_if<
-	sge::sprite::detail::render::is_same_matrix_options<
-		Options,
-		sge::sprite::render::matrix_options::set
-	>,
-	void
->::type
-matrices(
-	sge::renderer::device &_device
-)
-{
-	sge::sprite::set_matrices(
-		_device
-	);
-}
-
-template<
-	sge::sprite::render::matrix_options::type Options
+struct is_same_geometry_options
+:
+boost::mpl::bool_<
+	Options1
+	==
+	Options2
 >
-typename boost::enable_if<
-	sge::sprite::detail::render::is_same_matrix_options<
-		Options,
-		sge::sprite::render::matrix_options::nothing
-	>,
-	void
->::type
-matrices(
-	sge::renderer::device &
-)
 {
-}
+};
 
 }
 }

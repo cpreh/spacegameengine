@@ -87,6 +87,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <cstdlib>
 #include <exception>
+#include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 

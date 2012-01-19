@@ -55,8 +55,6 @@ public:
 
 	typedef value_type const *const_pointer;
 
-	typedef renderer::resource_flags_field resource_flag_type;
-
 	typedef renderer::lock_flags::method::type lock_flag_type;
 
 	object(
@@ -64,7 +62,7 @@ public:
 		GLenum type,
 		size_type size,
 		size_type stride,
-		resource_flag_type,
+		sge::renderer::resource_flags_field const &,
 		const_pointer src
 	);
 
@@ -95,7 +93,7 @@ public:
 	size_type
 	stride() const;
 
-	resource_flag_type const
+	sge::renderer::resource_flags_field const &
 	flags() const;
 
 	pointer
@@ -140,7 +138,7 @@ private:
 		size_,
 		stride_;
 
-	resource_flag_type const flags_;
+	sge::renderer::resource_flags_field const flags_;
 
 	pointer dest_;
 

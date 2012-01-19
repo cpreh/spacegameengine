@@ -53,10 +53,8 @@ fill_texture_coordinates_rect(
 	>::type const &_rt
 )
 {
-	typedef typename Choices::type_choices type_choices;
-
 	typedef typename sge::sprite::detail::geometry::vector_float<
-		type_choices
+		Choices
 	>::type tex_pos;
 
 	typedef typename boost::mpl::at<

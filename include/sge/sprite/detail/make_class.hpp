@@ -84,7 +84,7 @@ public:
 					>,
 					typename boost::mpl::apply<
 						typename Choices::size_choice,
-						typename Choices::type_choices
+						Choices
 					>::type
 				>,
 				ExtraElements

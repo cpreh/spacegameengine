@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/range_lock_method.hpp>
 #include <sge/opengl/convert/resource_flags.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -35,7 +36,7 @@ sge::opengl::buffer::object::object(
 	GLenum const _type,
 	size_type const _size,
 	size_type const _stride,
-	resource_flag_type const _flags,
+	sge::renderer::resource_flags_field const &_flags,
 	const_pointer const _src
 )
 :
@@ -277,7 +278,7 @@ sge::opengl::buffer::object::stride() const
 	return stride_;
 }
 
-sge::opengl::buffer::object::resource_flag_type const
+sge::renderer::resource_flags_field const &
 sge::opengl::buffer::object::flags() const
 {
 	return flags_;

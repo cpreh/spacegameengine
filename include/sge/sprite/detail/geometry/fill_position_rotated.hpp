@@ -61,12 +61,10 @@ fill_position_rotated(
 	> const &_sprite
 )
 {
-	typedef typename Choices::type_choices type_choices;
-
-	typedef typename type_choices::float_type funit;
+	typedef typename Choices::type_choices::float_type funit;
 
 	typedef typename sge::sprite::detail::geometry::vector_float<
-		type_choices
+		Choices
 	>::type pos2;
 
 	pos2 const centerf(
@@ -78,7 +76,7 @@ fill_position_rotated(
 	);
 
 	typedef typename sge::sprite::detail::geometry::rect_float<
-		type_choices
+		Choices
 	>::type float_rect;
 
 	float_rect const rbs(
