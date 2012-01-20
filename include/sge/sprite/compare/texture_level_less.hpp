@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_COMPARE_TEXTURE_LEVEL_LESS_HPP_INCLUDED
 #define SGE_SPRITE_COMPARE_TEXTURE_LEVEL_LESS_HPP_INCLUDED
 
-#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/compare/detail/texture_level_functor.hpp>
 #include <sge/sprite/detail/config/has_texture.hpp>
-#include <sge/texture/const_part_ptr.hpp>
-#include <sge/texture/part.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -56,31 +56,14 @@ texture_level_less(
 	> const &_right
 )
 {
-	sge::texture::const_part_ptr const
-		left_tex(
-			_left. template texture_level<
-				Level::value
-			>()
-		),
-		right_tex(
-			_right. template texture_level<
-				Level::value
-			>()
-		);
-
 	return
-		left_tex
-		&&
-		right_tex
-		?
-			left_tex->texture()
-			<
-			right_tex->texture()
-		:
-			left_tex
-			<
-			right_tex
-		;
+		sge::sprite::compare::detail::texture_level_functor<
+			std::less,
+			Level
+		>::execute(
+			_left,
+			_right
+		);
 }
 
 }

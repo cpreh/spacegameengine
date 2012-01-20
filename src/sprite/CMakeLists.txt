@@ -9,7 +9,9 @@ set(
 	include/sge/sprite/buffers_option_to_resource_flags.hpp
 	include/sge/sprite/center.hpp
 	include/sge/sprite/color.hpp
+	include/sge/sprite/compare/compare.hpp
 	include/sge/sprite/compare/default.hpp
+	include/sge/sprite/compare/detail/texture_level_functor.hpp
 	include/sge/sprite/compare/detail/textures.hpp
 	include/sge/sprite/compare/nothing.hpp
 	include/sge/sprite/compare/texture_level_equal.hpp
