@@ -37,10 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/buffers_option.hpp>
-#include <sge/sprite/default_compare.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/system.hpp>
+#include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/custom_center.hpp>
 #include <sge/sprite/config/float_type.hpp>
@@ -330,7 +330,7 @@ try
 		sge::sprite::intrusive::render::ordered(
 			ordered_system,
 			sprite_system.buffers(),
-			sge::sprite::default_compare()
+			sge::sprite::compare::default_()
 		);
 	}
 }

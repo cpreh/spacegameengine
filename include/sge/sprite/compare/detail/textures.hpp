@@ -18,43 +18,98 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DONT_COMPARE_HPP_INCLUDED
-#define SGE_SPRITE_DONT_COMPARE_HPP_INCLUDED
+#ifndef SGE_SPRITE_COMPARE_DETAIL_TEXTURES_HPP_INCLUDED
+#define SGE_SPRITE_COMPARE_DETAIL_TEXTURES_HPP_INCLUDED
 
 #include <sge/sprite/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/sprite/texture_level.hpp>
+#include <sge/sprite/compare/texture_level_equal.hpp>
+#include <sge/sprite/compare/texture_level_less.hpp>
+#include <sge/sprite/config/texture_level_count.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-
-struct dont_compare
+namespace compare
 {
-	typedef bool result_type;
+namespace detail
+{
 
-	typedef boost::mpl::true_ is_trivial;
-
+template<
+	sge::sprite::texture_level Level
+>
+struct textures
+{
 	template<
 		typename Choices
 	>
-	result_type
-	operator()(
+	static
+	bool
+	execute(
+		sge::sprite::object<
+			Choices
+		> const &_left,
+		sge::sprite::object<
+			Choices
+		> const &_right
+	)
+	{
+		typedef sge::sprite::config::texture_level_count<
+			Level - 1u
+		> current_level;
+
+		return
+			!sge::sprite::compare::texture_level_equal<
+				current_level
+			>(
+				_left,
+				_right
+			)
+			?
+				sge::sprite::compare::texture_level_less<
+					current_level
+				>(
+					_left,
+					_right
+				)
+			:
+				sge::sprite::compare::detail::textures<
+					Level - 1u
+				>::execute(
+					_left,
+					_right
+				)
+			;
+	}
+};
+
+template<>
+struct textures<
+	0u
+>
+{
+	template<
+		typename Choices
+	>
+	static
+	bool
+	execute(
 		sge::sprite::object<
 			Choices
 		> const &,
 		sge::sprite::object<
 			Choices
 		> const &
-	) const
+	)
 	{
 		return false;
 	}
 };
 
+}
+}
 }
 }
 

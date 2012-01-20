@@ -31,7 +31,7 @@ namespace texture
 {
 
 typedef fcppt::shared_ptr<
-	part const
+	sge::texture::part const
 > const_part_ptr;
 
 }

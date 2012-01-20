@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/texture_point_size.hpp>
 #include <sge/sprite/config/custom_texture_point_size_fwd.hpp>
 #include <sge/sprite/config/no_texture_point_size_fwd.hpp>
-#include <sge/sprite/detail/fold_texture_levels.hpp>
+#include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/roles/texture_point_size.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
@@ -106,7 +106,7 @@ private:
 		>::value
 	));
 public:
-	typedef typename sge::sprite::detail::fold_texture_levels<
+	typedef typename sge::sprite::detail::transform_texture_levels_static<
 		make_role<
 			boost::mpl::_1
 		>,

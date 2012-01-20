@@ -18,16 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_COORDINATES_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_COORDINATES_HPP_INCLUDED
+#ifndef SGE_SPRITE_COMPARE_TEXTURES_HPP_INCLUDED
+#define SGE_SPRITE_COMPARE_TEXTURES_HPP_INCLUDED
 
-#include <sge/sprite/texture_coordinates.hpp>
-#include <sge/sprite/detail/transform_texture_levels_static.hpp>
-#include <sge/sprite/roles/texture_coordinates.hpp>
-#include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/compare/detail/textures.hpp>
+#include <sge/sprite/detail/config/has_texture.hpp>
+#include <sge/sprite/detail/config/texture_levels.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,44 +35,45 @@ namespace sge
 {
 namespace sprite
 {
-namespace detail
-{
-namespace primitives
+namespace compare
 {
 
-template<
-	typename Choices,
-	typename Levels
->
-struct texture_coordinates
+struct textures
 {
-private:
+	typedef boost::mpl::false_ is_trivial;
+
+	typedef bool result_type;
+
 	template<
-		typename Level
+		typename Choices
 	>
-	struct make_role
-	{
-		typedef majutsu::role<
-			majutsu::simple<
-				typename sge::sprite::texture_coordinates<
-					Choices
-				>::type
-			>,
-			sge::sprite::roles::texture_coordinates<
-				Level::value
-			>
-		> type;
-	};
-public:
-	typename sge::sprite::detail::transform_texture_levels_static<
-		make_role<
-			boost::mpl::_1
+	typename boost::enable_if<
+		sge::sprite::detail::config::has_texture<
+			Choices
 		>,
-		Levels
-	>::type type;
+		result_type
+	>::type
+	operator()(
+		sge::sprite::object<
+			Choices
+		> const &_left,
+		sge::sprite::object<
+			Choices
+		> const &_right
+	) const
+	{
+		return
+			sge::sprite::compare::detail::textures<
+				sge::sprite::detail::config::texture_levels<
+					Choices
+				>::type::value
+			>::execute(
+				_left,
+				_right
+			);
+	}
 };
 
-}
 }
 }
 }

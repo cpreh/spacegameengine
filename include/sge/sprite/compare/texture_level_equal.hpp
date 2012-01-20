@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DEFAULT_COMPARE_HPP_INCLUDED
-#define SGE_SPRITE_DEFAULT_COMPARE_HPP_INCLUDED
+#ifndef SGE_SPRITE_COMPARE_TEXTURE_LEVEL_EQUAL_HPP_INCLUDED
+#define SGE_SPRITE_COMPARE_TEXTURE_LEVEL_EQUAL_HPP_INCLUDED
 
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/detail/config/has_texture.hpp>
+#include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -34,47 +34,56 @@ namespace sge
 {
 namespace sprite
 {
-
-struct default_compare
+namespace compare
 {
-	typedef bool result_type;
 
-	typedef boost::mpl::false_ is_trivial;
+template<
+	typename Level,
+	typename Choices
+>
+typename boost::enable_if<
+	sge::sprite::detail::config::has_texture<
+		Choices
+	>,
+	bool
+>::type
+texture_level_equal(
+	sge::sprite::object<
+		Choices
+	> const &_left,
+	sge::sprite::object<
+		Choices
+	> const &_right
+)
+{
+	sge::texture::const_part_ptr const
+		left_tex(
+			_left. template texture_level<
+				Level::value
+			>()
+		),
+		right_tex(
+			_right. template texture_level<
+				Level::value
+			>()
+		);
 
-	template<
-		typename Choices
-	>
-	typename boost::enable_if<
-		sge::sprite::detail::config::has_texture<
-			Choices
-		>,
-		result_type
-	>::type
-	operator()(
-		sge::sprite::object<
-			Choices
-		> const &_left,
-		sge::sprite::object<
-			Choices
-		> const &_right
-	) const
-	{
-		// FIXME: compare all texture levels!
-		return
-			!_left.texture()
-			||
-			!_right.texture()
-			?
-				_left.texture()
-				< _right.texture()
-			:
-				_left.texture()->texture()
-				<
-				_right.texture()->texture()
-			;
-	}
-};
+	return
+		left_tex
+		&&
+		right_tex
+		?
+			left_tex->texture()
+			==
+			right_tex->texture()
+		:
+			left_tex
+			==
+			right_tex
+		;
+}
 
+}
 }
 }
 

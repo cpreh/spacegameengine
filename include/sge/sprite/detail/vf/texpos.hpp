@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/index.hpp>
 #include <sge/renderer/vf/texpos.hpp>
-#include <sge/sprite/detail/fold_texture_levels.hpp>
+#include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -58,7 +58,7 @@ private:
 		> type;
 	};
 public:
-	typedef typename sge::sprite::detail::fold_texture_levels<
+	typedef typename sge::sprite::detail::transform_texture_levels_static<
 		make_pos<
 			boost::mpl::_1
 		>,

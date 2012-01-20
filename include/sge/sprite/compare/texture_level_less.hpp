@@ -18,16 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_COORDINATES_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_COORDINATES_HPP_INCLUDED
+#ifndef SGE_SPRITE_COMPARE_TEXTURE_LEVEL_LESS_HPP_INCLUDED
+#define SGE_SPRITE_COMPARE_TEXTURE_LEVEL_LESS_HPP_INCLUDED
 
-#include <sge/sprite/texture_coordinates.hpp>
-#include <sge/sprite/detail/transform_texture_levels_static.hpp>
-#include <sge/sprite/roles/texture_coordinates.hpp>
-#include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/detail/config/has_texture.hpp>
+#include <sge/texture/const_part_ptr.hpp>
+#include <sge/texture/part.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,44 +34,55 @@ namespace sge
 {
 namespace sprite
 {
-namespace detail
-{
-namespace primitives
+namespace compare
 {
 
 template<
-	typename Choices,
-	typename Levels
+	typename Level,
+	typename Choices
 >
-struct texture_coordinates
+typename boost::enable_if<
+	sge::sprite::detail::config::has_texture<
+		Choices
+	>,
+	bool
+>::type
+texture_level_less(
+	sge::sprite::object<
+		Choices
+	> const &_left,
+	sge::sprite::object<
+		Choices
+	> const &_right
+)
 {
-private:
-	template<
-		typename Level
-	>
-	struct make_role
-	{
-		typedef majutsu::role<
-			majutsu::simple<
-				typename sge::sprite::texture_coordinates<
-					Choices
-				>::type
-			>,
-			sge::sprite::roles::texture_coordinates<
+	sge::texture::const_part_ptr const
+		left_tex(
+			_left. template texture_level<
 				Level::value
-			>
-		> type;
-	};
-public:
-	typename sge::sprite::detail::transform_texture_levels_static<
-		make_role<
-			boost::mpl::_1
-		>,
-		Levels
-	>::type type;
-};
+			>()
+		),
+		right_tex(
+			_right. template texture_level<
+				Level::value
+			>()
+		);
 
+	return
+		left_tex
+		&&
+		right_tex
+		?
+			left_tex->texture()
+			<
+			right_tex->texture()
+		:
+			left_tex
+			<
+			right_tex
+		;
 }
+
 }
 }
 }

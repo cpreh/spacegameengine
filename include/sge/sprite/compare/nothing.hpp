@@ -18,23 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_CONFIG_TEXTURE_LEVEL_COUNT_FWD_HPP_INCLUDED
-#define SGE_SPRITE_CONFIG_TEXTURE_LEVEL_COUNT_FWD_HPP_INCLUDED
+#ifndef SGE_SPRITE_COMPARE_NOTHING_HPP_INCLUDED
+#define SGE_SPRITE_COMPARE_NOTHING_HPP_INCLUDED
 
-#include <sge/sprite/texture_level.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/bool.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace config
+namespace compare
 {
 
-template<
-	sge::sprite::texture_level Count
->
-struct texture_level_count;
+struct nothing
+{
+	typedef bool result_type;
+
+	typedef boost::mpl::true_ is_trivial;
+
+	template<
+		typename Choices
+	>
+	result_type
+	operator()(
+		sge::sprite::object<
+			Choices
+		> const &,
+		sge::sprite::object<
+			Choices
+		> const &
+	) const
+	{
+		return false;
+	}
+};
 
 }
 }

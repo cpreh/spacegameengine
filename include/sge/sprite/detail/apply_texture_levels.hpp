@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_APPLY_TEXTURE_LEVELS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_APPLY_TEXTURE_LEVELS_HPP_INCLUDED
 
+#include <sge/sprite/config/is_texture_level_count.hpp>
 #include <sge/sprite/detail/make_texture_levels.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/for_each.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -37,7 +40,12 @@ template<
 	typename Levels,
 	typename Function
 >
-void
+typename boost::enable_if<
+	sge::sprite::config::is_texture_level_count<
+		Levels
+	>,
+	void
+>::type
 apply_texture_levels(
 	Function const &_function
 )

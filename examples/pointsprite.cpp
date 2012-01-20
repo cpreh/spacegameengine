@@ -49,10 +49,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/make_unspecified_tag.hpp>
 #include <sge/sprite/buffers_option.hpp>
-#include <sge/sprite/dont_compare.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/sprite/system.hpp>
+#include <sge/sprite/compare/nothing.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/custom_texture_point_pos.hpp>
 #include <sge/sprite/config/float_type.hpp>
@@ -469,7 +469,7 @@ particles::render()
 			sprites_.end()
 		),
 		sprite_system_.buffers(),
-		sge::sprite::dont_compare()
+		sge::sprite::compare::nothing()
 	);
 }
 

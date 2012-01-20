@@ -9,6 +9,12 @@ set(
 	include/sge/sprite/buffers_option_to_resource_flags.hpp
 	include/sge/sprite/center.hpp
 	include/sge/sprite/color.hpp
+	include/sge/sprite/compare/default.hpp
+	include/sge/sprite/compare/detail/textures.hpp
+	include/sge/sprite/compare/nothing.hpp
+	include/sge/sprite/compare/texture_level_equal.hpp
+	include/sge/sprite/compare/texture_level_less.hpp
+	include/sge/sprite/compare/textures.hpp
 	include/sge/sprite/config/choices.hpp
 	include/sge/sprite/config/choices_fwd.hpp
 	include/sge/sprite/config/config.hpp
@@ -25,6 +31,7 @@ set(
 	include/sge/sprite/config/is_custom_texture_point_size.hpp
 	include/sge/sprite/config/is_point_size.hpp
 	include/sge/sprite/config/is_size_choice.hpp
+	include/sge/sprite/config/is_texture_level_count.hpp
 	include/sge/sprite/config/is_type_choices.hpp
 	include/sge/sprite/config/is_with_color.hpp
 	include/sge/sprite/config/is_with_rotation.hpp
@@ -55,7 +62,6 @@ set(
 	include/sge/sprite/config/with_texture_point_size_fwd.hpp
 	include/sge/sprite/config/with_visibility.hpp
 	include/sge/sprite/count.hpp
-	include/sge/sprite/default_compare.hpp
 	include/sge/sprite/default_parameters.hpp
 	include/sge/sprite/defaults/color.hpp
 	include/sge/sprite/defaults/connection.hpp
@@ -103,7 +109,6 @@ set(
 	include/sge/sprite/detail/config/needs_use_texture_size.hpp
 	include/sge/sprite/detail/config/texture_levels.hpp
 	include/sge/sprite/detail/destroy.hpp
-	include/sge/sprite/detail/fold_texture_levels.hpp
 	include/sge/sprite/detail/geometry/convert_texture_rect.hpp
 	include/sge/sprite/detail/geometry/count.hpp
 	include/sge/sprite/detail/geometry/count_constant.hpp
@@ -176,6 +181,7 @@ set(
 	include/sge/sprite/detail/roles/use_texture_size.hpp
 	include/sge/sprite/detail/roles/vertex_buffer.hpp
 	include/sge/sprite/detail/rotation_center.hpp
+	include/sge/sprite/detail/transform_texture_levels_static.hpp
 	include/sge/sprite/detail/unlink.hpp
 	include/sge/sprite/detail/vf/color.hpp
 	include/sge/sprite/detail/vf/format_part.hpp
@@ -190,7 +196,6 @@ set(
 	include/sge/sprite/detail/visible.hpp
 	include/sge/sprite/detail/wrapped_connection.hpp
 	include/sge/sprite/dim.hpp
-	include/sge/sprite/dont_compare.hpp
 	include/sge/sprite/geometry/fill.hpp
 	include/sge/sprite/geometry/geometry.hpp
 	include/sge/sprite/geometry/is_random_access_range.hpp

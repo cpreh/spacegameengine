@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/is_custom_texture_point_size.hpp>
 #include <sge/sprite/config/is_point_size.hpp>
 #include <sge/sprite/config/is_size_choice.hpp>
+#include <sge/sprite/config/is_texture_level_count.hpp>
 #include <sge/sprite/config/is_type_choices.hpp>
 #include <sge/sprite/config/is_with_color.hpp>
 #include <sge/sprite/config/is_with_rotation.hpp>

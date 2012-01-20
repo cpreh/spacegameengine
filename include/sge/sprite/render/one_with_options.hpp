@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_ONE_WITH_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_ONE_WITH_OPTIONS_HPP_INCLUDED
 
-#include <sge/sprite/dont_compare.hpp>
 #include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/compare/nothing.hpp>
 #include <sge/sprite/geometry/make_single_range.hpp>
 #include <sge/sprite/render/geometry_options.hpp>
 #include <sge/sprite/render/is_options.hpp>
@@ -70,7 +70,7 @@ one_with_options(
 			_sprite
 		),
 		_buffers,
-		sge::sprite::dont_compare()
+		sge::sprite::compare::nothing()
 	);
 }
 

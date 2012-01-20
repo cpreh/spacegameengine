@@ -18,33 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_FOLD_TEXTURE_LEVELS_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_FOLD_TEXTURE_LEVELS_HPP_INCLUDED
+#ifndef SGE_SPRITE_CONFIG_IS_TEXTURE_LEVEL_COUNT_HPP_INCLUDED
+#define SGE_SPRITE_CONFIG_IS_TEXTURE_LEVEL_COUNT_HPP_INCLUDED
 
-#include <sge/sprite/detail/make_texture_levels.hpp>
+#include <sge/sprite/texture_level.hpp>
+#include <sge/sprite/config/texture_level_count_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/transform.hpp>
+#include <boost/mpl/bool.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace sprite
 {
-namespace detail
+namespace config
 {
 
 template<
-	typename Function,
-	typename Levels
+	typename T
 >
-struct fold_texture_levels
+struct is_texture_level_count
 :
-boost::mpl::transform<
-	typename sge::sprite::detail::make_texture_levels<
-		Levels
-	>::type,
-	Function
+boost::mpl::false_
+{
+};
+
+template<
+	sge::sprite::texture_level Count
 >
+struct is_texture_level_count<
+	sge::sprite::config::texture_level_count<
+		Count
+	>
+>
+:
+boost::mpl::true_
 {
 };
 

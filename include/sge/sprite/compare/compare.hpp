@@ -18,26 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_CONFIG_TEXTURE_LEVEL_COUNT_FWD_HPP_INCLUDED
-#define SGE_SPRITE_CONFIG_TEXTURE_LEVEL_COUNT_FWD_HPP_INCLUDED
+#ifndef SGE_SPRITE_COMPARE_COMPARE_HPP_INCLUDED
+#define SGE_SPRITE_COMPARE_COMPARE_HPP_INCLUDED
 
-#include <sge/sprite/texture_level.hpp>
-
-
-namespace sge
-{
-namespace sprite
-{
-namespace config
-{
-
-template<
-	sge::sprite::texture_level Count
->
-struct texture_level_count;
-
-}
-}
-}
+#include <sge/sprite/compare/default.hpp>
+#include <sge/sprite/compare/nothing.hpp>
+#include <sge/sprite/compare/texture_level_equal.hpp>
+#include <sge/sprite/compare/texture_level_less.hpp>
+#include <sge/sprite/compare/textures.hpp>
 
 #endif

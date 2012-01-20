@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/buffers_option.hpp>
-#include <sge/sprite/default_compare.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/system_impl.hpp>
+#include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/render/all.hpp>
 #include <sge/texture/rect_fragmented.hpp>
@@ -161,7 +161,7 @@ sge::font::text::drawer_3d::end_rendering()
 			sprites_.end()
 		),
 		sprite_system_.buffers(),
-		sge::sprite::default_compare()
+		sge::sprite::compare::default_()
 	);
 }
 
