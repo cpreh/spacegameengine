@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_DECL_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/collection_fwd.hpp>
+#include <sge/sprite/intrusive/connection_fwd.hpp>
 #include <sge/sprite/intrusive/ordered_collection_fwd.hpp>
 #include <sge/sprite/intrusive/detail/order_map.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -52,7 +53,9 @@ public:
 
 	typedef Choices choices;
 
-	typedef typename collection::connection_base connection_base;
+	typedef sge::sprite::intrusive::connection<
+		Choices
+	> connection_type;
 
 	ordered_collection();
 
@@ -63,7 +66,7 @@ public:
 		order const &
 	);
 
-	connection_base &
+	connection_type &
 	connection(
 		order const &
 	);

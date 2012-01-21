@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/vector.hpp>
 #include <sge/sprite/detail/make_class.hpp>
 #include <sge/sprite/detail/object_base.hpp>
-#include <sge/sprite/intrusive/connection_base_fwd.hpp>
+#include <sge/sprite/intrusive/connection_fwd.hpp>
 #include <majutsu/role_return_type.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
@@ -129,9 +129,9 @@ public:
 		choices
 	> parameters_type;
 
-	typedef sge::sprite::intrusive::connection_base<
+	typedef sge::sprite::intrusive::connection<
 		choices
-	> connection_base;
+	> connection_type;
 
 	explicit
 	object(
@@ -359,7 +359,7 @@ public:
 
 	void
 	transfer(
-		connection_base &
+		connection_type &
 	);
 
 	template<

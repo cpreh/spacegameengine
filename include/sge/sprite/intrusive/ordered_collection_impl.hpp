@@ -77,7 +77,7 @@ template<
 typename sge::sprite::intrusive::ordered_collection<
 	Choices,
 	Order
->::connection_base &
+>::connection_type &
 sge::sprite::intrusive::ordered_collection<
 	Choices,
 	Order

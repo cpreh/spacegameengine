@@ -213,10 +213,11 @@ set(
 	include/sge/sprite/intrusive/collection_decl.hpp
 	include/sge/sprite/intrusive/collection_fwd.hpp
 	include/sge/sprite/intrusive/collection_impl.hpp
-	include/sge/sprite/intrusive/connection_base_decl.hpp
-	include/sge/sprite/intrusive/connection_base_fwd.hpp
+	include/sge/sprite/intrusive/connection.hpp
 	include/sge/sprite/intrusive/connection_decl.hpp
-	include/sge/sprite/intrusive/connection_impl.hpp
+	include/sge/sprite/intrusive/connection_fwd.hpp
+	include/sge/sprite/intrusive/detail/connection_decl.hpp
+	include/sge/sprite/intrusive/detail/connection_impl.hpp
 	include/sge/sprite/intrusive/detail/list.hpp
 	include/sge/sprite/intrusive/detail/object_base_hook.hpp
 	include/sge/sprite/intrusive/detail/order_map.hpp

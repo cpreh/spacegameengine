@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/intrusive/collection_fwd.hpp>
-#include <sge/sprite/intrusive/connection_base_fwd.hpp>
-#include <sge/sprite/intrusive/connection_decl.hpp>
+#include <sge/sprite/intrusive/connection_fwd.hpp>
 #include <sge/sprite/intrusive/range_fwd.hpp>
+#include <sge/sprite/intrusive/detail/connection_decl.hpp>
 #include <sge/sprite/intrusive/detail/list.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -51,15 +51,15 @@ public:
 		Choices
 	> object;
 
-	typedef sge::sprite::intrusive::connection_base<
+	typedef sge::sprite::intrusive::connection<
 		Choices
-	> connection_base;
+	> connection_type;
 
 	collection();
 
 	~collection();
 
-	connection_base &
+	connection_type &
 	connection();
 
 	typedef sge::sprite::intrusive::range<
@@ -86,11 +86,11 @@ private:
 
 	sge::sprite::count count_;
 
-	typedef sge::sprite::intrusive::connection<
+	typedef sge::sprite::intrusive::detail::connection<
 		Choices
-	> connection_type;
+	> connection_impl;
 
-	connection_type connection_;
+	connection_impl connection_;
 };
 
 }

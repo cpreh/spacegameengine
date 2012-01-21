@@ -761,7 +761,7 @@ template<
 >
 void
 sge::sprite::object<Choices>::transfer(
-	connection_base &_connection
+	connection_type &_connection
 )
 {
 	sge::sprite::detail::unlink(

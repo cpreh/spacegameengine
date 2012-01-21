@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_COLLECTION_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/intrusive/connection_impl.hpp>
-#include <sge/sprite/intrusive/range_impl.hpp>
 #include <sge/sprite/intrusive/collection_decl.hpp>
+#include <sge/sprite/intrusive/range_impl.hpp>
+#include <sge/sprite/intrusive/detail/connection_impl.hpp>
 
 
 template<
@@ -59,7 +59,7 @@ template<
 >
 typename sge::sprite::intrusive::collection<
 	Choices
->::connection_base &
+>::connection_type &
 sge::sprite::intrusive::collection<
 	Choices
 >::connection()

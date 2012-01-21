@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_CONNECTION_DECL_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_CONNECTION_DECL_HPP_INCLUDED
-
-#include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/intrusive/connection_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-
+#ifndef SGE_SPRITE_INTRUSIVE_CONNECTION_FWD_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_CONNECTION_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -36,35 +31,7 @@ namespace intrusive
 template<
 	typename Choices
 >
-class connection
-{
-	FCPPT_NONCOPYABLE(
-		connection
-	);
-protected:
-	connection()
-	{
-	}
-public:
-	typedef sge::sprite::object<
-		Choices
-	> object;
-
-	virtual
-	void
-	add(
-		object &
-	) = 0;
-
-	virtual
-	void
-	remove() = 0;
-
-	virtual
-	~connection()
-	{
-	}
-};
+class connection;
 
 }
 }

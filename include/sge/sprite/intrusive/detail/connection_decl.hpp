@@ -18,68 +18,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_CONNECTION_IMPL_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_CONNECTION_IMPL_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_DETAIL_CONNECTION_DECL_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_DETAIL_CONNECTION_DECL_HPP_INCLUDED
 
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/intrusive/connection_decl.hpp>
+#include <sge/sprite/intrusive/detail/list.hpp>
+#include <fcppt/noncopyable.hpp>
 
+
+namespace sge
+{
+namespace sprite
+{
+namespace intrusive
+{
+namespace detail
+{
 
 template<
 	typename Choices
 >
-sge::sprite::intrusive::connection<
-	Choices
->::connection(
-	list &_list,
-	sge::sprite::count &_count
-)
+class connection
 :
-	list_(
-		_list
-	),
-	count_(
-		_count
-	)
+	public sge::sprite::intrusive::connection<
+		Choices
+	>
 {
-}
+	FCPPT_NONCOPYABLE(
+		connection
+	);
+public:
+	typedef typename sge::sprite::intrusive::detail::list<
+		Choices
+	>::type list;
 
-template<
-	typename Choices
->
-sge::sprite::intrusive::connection<
-	Choices
->::~connection()
-{
-}
-
-template<
-	typename Choices
->
-void
-sge::sprite::intrusive::connection<
-	Choices
->::add(
-	object &_sprite
-)
-{
-	list_.push_back(
-		_sprite
+	connection(
+		list &,
+		sge::sprite::count &
 	);
 
-	++count_;
-}
+	~connection();
 
-template<
-	typename Choices
->
-void
-sge::sprite::intrusive::connection<
-	Choices
->::remove()
-{
-	--count_;
+	typedef sge::sprite::intrusive::connection<
+		Choices
+	> base;
+
+	typedef typename base::object object;
+
+	void
+	add(
+		object &
+	);
+
+	void
+	remove();
+private:
+	list &list_;
+
+	sge::sprite::count &count_;
+};
+
+}
+}
+}
 }
 
 #endif

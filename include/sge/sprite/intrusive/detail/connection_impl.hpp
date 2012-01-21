@@ -18,23 +18,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_CONNECTION_BASE_FWD_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_CONNECTION_BASE_FWD_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_DETAIL_CONNECTION_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_DETAIL_CONNECTION_IMPL_HPP_INCLUDED
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
+#include <sge/sprite/count.hpp>
+#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/intrusive/detail/connection_decl.hpp>
+
 
 template<
 	typename Choices
 >
-class connection_base;
+sge::sprite::intrusive::detail::connection<
+	Choices
+>::connection(
+	list &_list,
+	sge::sprite::count &_count
+)
+:
+	base(),
+	list_(
+		_list
+	),
+	count_(
+		_count
+	)
+{
+}
 
+template<
+	typename Choices
+>
+sge::sprite::intrusive::detail::connection<
+	Choices
+>::~connection()
+{
 }
+
+template<
+	typename Choices
+>
+void
+sge::sprite::intrusive::detail::connection<
+	Choices
+>::add(
+	object &_sprite
+)
+{
+	list_.push_back(
+		_sprite
+	);
+
+	++count_;
 }
+
+template<
+	typename Choices
+>
+void
+sge::sprite::intrusive::detail::connection<
+	Choices
+>::remove()
+{
+	--count_;
 }
 
 #endif

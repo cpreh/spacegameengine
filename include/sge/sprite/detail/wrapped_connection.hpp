@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_WRAPPED_CONNECTION_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_WRAPPED_CONNECTION_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/connection_base_fwd.hpp>
+#include <sge/sprite/intrusive/connection_fwd.hpp>
 
 
 namespace sge
@@ -37,7 +37,7 @@ template<
 class wrapped_connection
 {
 public:
-	typedef sge::sprite::intrusive::connection_base<
+	typedef sge::sprite::intrusive::connection<
 		Choices
 	> connection;
 
