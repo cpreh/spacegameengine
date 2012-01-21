@@ -22,6 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CONFIG_UNIT_TYPE_HPP_INCLUDED
 
 #include <sge/sprite/config/unit_type_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_arithmetic.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -37,6 +41,12 @@ template<
 struct unit_type
 {
 	typedef Type type;
+
+	BOOST_STATIC_ASSERT(
+		boost::is_arithmetic<
+			typename unit_type::type
+		>::value
+	);
 };
 
 }

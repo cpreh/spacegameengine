@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_POINT_SIZE_HPP_INCLUDED
 
+#include <sge/sprite/types/point_size.hpp>
+
+
 namespace sge
 {
 namespace sprite
@@ -30,8 +33,11 @@ template<
 	typename Choices
 >
 struct point_size
+:
+sge::sprite::types::point_size<
+	typename Choices::type_choices
+>
 {
-	typedef typename Choices::type_choices::unit_type type;
 };
 
 }

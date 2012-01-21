@@ -24,11 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/float_type_fwd.hpp>
 #include <sge/sprite/config/type_choices_fwd.hpp>
 #include <sge/sprite/config/unit_type_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_arithmetic.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -58,18 +53,6 @@ struct type_choices<
 	typedef typename sge::sprite::config::float_type<
 		Float
 	>::type float_type;
-
-	BOOST_STATIC_ASSERT(
-		boost::is_arithmetic<
-			unit_type
-		>::value
-	);
-
-	BOOST_STATIC_ASSERT(
-		boost::is_floating_point<
-			float_type
-		>::value
-	);
 };
 
 }

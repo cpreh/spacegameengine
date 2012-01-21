@@ -18,28 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_VECTOR_HPP_INCLUDED
-#define SGE_SPRITE_VECTOR_HPP_INCLUDED
+#ifndef SGE_SPRITE_TYPES_TEXTURE_COORDINATES_HPP_INCLUDED
+#define SGE_SPRITE_TYPES_TEXTURE_COORDINATES_HPP_INCLUDED
 
-#include <sge/sprite/types/vector.hpp>
+#include <sge/sprite/config/type_choices_fwd.hpp>
+#include <fcppt/homogenous_pair_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
+namespace types
+{
 
 template<
-	typename Choices
+	typename TypeChoices
 >
-struct vector
-:
-sge::sprite::types::vector<
-	typename Choices::type_choices
+struct texture_coordinates;
+
+template<
+	typename UnitType,
+	typename FloatType
+>
+struct texture_coordinates<
+	sge::sprite::config::type_choices<
+		UnitType,
+		FloatType
+	>
 >
 {
+	typedef fcppt::homogenous_pair<
+		typename fcppt::math::vector::static_<
+			typename FloatType::type,
+			2
+		>::type
+	> type;
 };
 
+}
 }
 }
 

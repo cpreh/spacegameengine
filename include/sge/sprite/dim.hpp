@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DIM_HPP_INCLUDED
 #define SGE_SPRITE_DIM_HPP_INCLUDED
 
-#include <fcppt/math/dim/static.hpp>
+#include <sge/sprite/types/dim.hpp>
 
 
 namespace sge
@@ -34,9 +34,8 @@ template<
 >
 struct dim
 :
-fcppt::math::dim::static_<
-	typename Choices::type_choices::unit_type,
-	2
+sge::sprite::types::dim<
+	typename Choices::type_choices
 >
 {
 };

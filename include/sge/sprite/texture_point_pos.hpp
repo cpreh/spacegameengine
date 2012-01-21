@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_TEXTURE_POINT_POS_HPP_INCLUDED
 #define SGE_SPRITE_TEXTURE_POINT_POS_HPP_INCLUDED
 
-#include <fcppt/math/vector/static.hpp>
+#include <sge/sprite/types/texture_point_pos.hpp>
 
 
 namespace sge
@@ -34,9 +34,8 @@ template<
 >
 struct texture_point_pos
 :
-fcppt::math::vector::static_<
-	typename Choices::type_choices::float_type,
-	2
+sge::sprite::types::texture_point_pos<
+	typename Choices::type_choices
 >
 {
 };

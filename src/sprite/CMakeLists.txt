@@ -292,6 +292,15 @@ set(
 	include/sge/sprite/texture_level.hpp
 	include/sge/sprite/texture_point_pos.hpp
 	include/sge/sprite/texture_point_size.hpp
+	include/sge/sprite/types/depth.hpp
+	include/sge/sprite/types/dim.hpp
+	include/sge/sprite/types/point_size.hpp
+	include/sge/sprite/types/repetition.hpp
+	include/sge/sprite/types/rotation.hpp
+	include/sge/sprite/types/texture_coordinates.hpp
+	include/sge/sprite/types/texture_point_pos.hpp
+	include/sge/sprite/types/texture_point_size.hpp
+	include/sge/sprite/types/vector.hpp
 	include/sge/sprite/vector.hpp
 	include/sge/sprite/vertex_format.hpp
 	src/sprite/buffers_option_to_resource_flags.cpp

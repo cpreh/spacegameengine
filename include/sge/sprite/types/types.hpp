@@ -18,29 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_VECTOR_HPP_INCLUDED
-#define SGE_SPRITE_VECTOR_HPP_INCLUDED
+#ifndef SGE_SPRITE_TYPES_TYPES_HPP_INCLUDED
+#define SGE_SPRITE_TYPES_TYPES_HPP_INCLUDED
 
+#include <sge/sprite/types/depth.hpp>
+#include <sge/sprite/types/dim.hpp>
+#include <sge/sprite/types/point_size.hpp>
+#include <sge/sprite/types/repetition.hpp>
+#include <sge/sprite/types/rotation.hpp>
+#include <sge/sprite/types/texture_coordinates.hpp>
+#include <sge/sprite/types/texture_point_pos.hpp>
+#include <sge/sprite/types/texture_point_size.hpp>
 #include <sge/sprite/types/vector.hpp>
-
-
-namespace sge
-{
-namespace sprite
-{
-
-template<
-	typename Choices
->
-struct vector
-:
-sge::sprite::types::vector<
-	typename Choices::type_choices
->
-{
-};
-
-}
-}
 
 #endif
