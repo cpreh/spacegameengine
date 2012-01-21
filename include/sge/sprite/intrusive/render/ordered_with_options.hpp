@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/render/matrices.hpp>
 #include <sge/sprite/detail/render/scoped_states.hpp>
 #include <sge/sprite/detail/render/scoped_vertex.hpp>
-#include <sge/sprite/intrusive/ordered_system_impl.hpp>
+#include <sge/sprite/intrusive/ordered_collection_impl.hpp>
 #include <sge/sprite/intrusive/detail/render_one.hpp>
 #include <sge/sprite/render/geometry_options.hpp>
 #include <sge/sprite/render/is_options.hpp>
@@ -61,10 +61,10 @@ typename boost::enable_if<
 	void
 >::type
 ordered_with_options(
-	sge::sprite::intrusive::ordered_system<
+	sge::sprite::intrusive::ordered_collection<
 		Choices,
 		Order
-	> &_system,
+	> &_collection,
 	Buffers &_buffers,
 	Compare const &_compare
 )
@@ -82,10 +82,10 @@ ordered_with_options(
 		!= sge::sprite::render::geometry_options::nothing
 	);
 
-	typedef typename sge::sprite::intrusive::ordered_system<
+	typedef typename sge::sprite::intrusive::ordered_collection<
 		Choices,
 		Order
-	>::system system;
+	>::collection collection;
 
 	sge::sprite::detail::render::matrices<
 		Options::matrix_options
@@ -108,13 +108,13 @@ ordered_with_options(
 		_buffers.vertex_buffer()
 	);
 
-	_system.for_each(
+	_collection.for_each(
 		std::tr1::bind(
 			sge::sprite::intrusive::detail::render_one<
 				Options,
 				Buffers,
 				Compare,
-				typename system::range_type
+				typename collection::range_type
 			>,
 			fcppt::ref(
 				_buffers

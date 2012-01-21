@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_DECL_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_SYSTEM_DECL_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_COLLECTION_DECL_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_COLLECTION_DECL_HPP_INCLUDED
 
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/intrusive/collection_fwd.hpp>
 #include <sge/sprite/intrusive/connection_base_fwd.hpp>
 #include <sge/sprite/intrusive/connection_decl.hpp>
 #include <sge/sprite/intrusive/range_fwd.hpp>
-#include <sge/sprite/intrusive/system_fwd.hpp>
 #include <sge/sprite/intrusive/detail/list.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -41,10 +41,10 @@ namespace intrusive
 template<
 	typename Choices
 >
-class system
+class collection
 {
 	FCPPT_NONCOPYABLE(
-		system
+		collection
 	);
 public:
 	typedef sge::sprite::object<
@@ -55,9 +55,9 @@ public:
 		Choices
 	> connection_base;
 
-	system();
+	collection();
 
-	~system();
+	~collection();
 
 	connection_base &
 	connection();

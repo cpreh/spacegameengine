@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_RENDER_ORDERED_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_RENDER_ORDERED_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/ordered_system_fwd.hpp>
+#include <sge/sprite/intrusive/ordered_collection_fwd.hpp>
 #include <sge/sprite/intrusive/render/ordered_with_options.hpp>
 #include <sge/sprite/render/default_geometry_options.hpp>
 #include <sge/sprite/render/matrix_options.hpp>
@@ -47,10 +47,10 @@ template<
 >
 void
 ordered(
-	sge::sprite::intrusive::ordered_system<
+	sge::sprite::intrusive::ordered_collection<
 		Choices,
 		Order
-	> &_system,
+	> &_collection,
 	Buffers &_buffers,
 	Compare const &_compare
 )
@@ -66,7 +66,7 @@ ordered(
 			sge::sprite::render::vertex_options::declaration
 		>
 	>(
-		_system,
+		_collection,
 		_buffers,
 		_compare
 	);

@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_IMPL_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_SYSTEM_IMPL_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_COLLECTION_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_COLLECTION_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/intrusive/connection_impl.hpp>
 #include <sge/sprite/intrusive/range_impl.hpp>
-#include <sge/sprite/intrusive/system_decl.hpp>
+#include <sge/sprite/intrusive/collection_decl.hpp>
 
 
 template<
 	typename Choices
 >
-sge::sprite::intrusive::system<
+sge::sprite::intrusive::collection<
 	Choices
->::system()
+>::collection()
 :
 	sprites_(),
 	count_(
@@ -48,19 +48,19 @@ sge::sprite::intrusive::system<
 template<
 	typename Choices
 >
-sge::sprite::intrusive::system<
+sge::sprite::intrusive::collection<
 	Choices
->::~system()
+>::~collection()
 {
 }
 
 template<
 	typename Choices
 >
-typename sge::sprite::intrusive::system<
+typename sge::sprite::intrusive::collection<
 	Choices
 >::connection_base &
-sge::sprite::intrusive::system<
+sge::sprite::intrusive::collection<
 	Choices
 >::connection()
 {
@@ -70,10 +70,10 @@ sge::sprite::intrusive::system<
 template<
 	typename Choices
 >
-typename sge::sprite::intrusive::system<
+typename sge::sprite::intrusive::collection<
 	Choices
 >::range_type const
-sge::sprite::intrusive::system<
+sge::sprite::intrusive::collection<
 	Choices
 >::range()
 {
@@ -87,10 +87,10 @@ sge::sprite::intrusive::system<
 template<
 	typename Choices
 >
-typename sge::sprite::intrusive::system<
+typename sge::sprite::intrusive::collection<
 	Choices
 >::const_range_type const
-sge::sprite::intrusive::system<
+sge::sprite::intrusive::collection<
 	Choices
 >::range() const
 {

@@ -209,6 +209,10 @@ set(
 	include/sge/sprite/geometry/sort.hpp
 	include/sge/sprite/geometry/sort_and_update.hpp
 	include/sge/sprite/geometry/update.hpp
+	include/sge/sprite/intrusive/collection.hpp
+	include/sge/sprite/intrusive/collection_decl.hpp
+	include/sge/sprite/intrusive/collection_fwd.hpp
+	include/sge/sprite/intrusive/collection_impl.hpp
 	include/sge/sprite/intrusive/connection_base_decl.hpp
 	include/sge/sprite/intrusive/connection_base_fwd.hpp
 	include/sge/sprite/intrusive/connection_decl.hpp
@@ -219,20 +223,16 @@ set(
 	include/sge/sprite/intrusive/detail/render_one.hpp
 	include/sge/sprite/intrusive/intrusive.hpp
 	include/sge/sprite/intrusive/is_range.hpp
-	include/sge/sprite/intrusive/ordered_system.hpp
-	include/sge/sprite/intrusive/ordered_system_decl.hpp
-	include/sge/sprite/intrusive/ordered_system_fwd.hpp
-	include/sge/sprite/intrusive/ordered_system_impl.hpp
+	include/sge/sprite/intrusive/ordered_collection.hpp
+	include/sge/sprite/intrusive/ordered_collection_decl.hpp
+	include/sge/sprite/intrusive/ordered_collection_fwd.hpp
+	include/sge/sprite/intrusive/ordered_collection_impl.hpp
 	include/sge/sprite/intrusive/range_decl.hpp
 	include/sge/sprite/intrusive/range_fwd.hpp
 	include/sge/sprite/intrusive/range_impl.hpp
 	include/sge/sprite/intrusive/render/ordered.hpp
 	include/sge/sprite/intrusive/render/ordered_with_options.hpp
 	include/sge/sprite/intrusive/render/render.hpp
-	include/sge/sprite/intrusive/system.hpp
-	include/sge/sprite/intrusive/system_decl.hpp
-	include/sge/sprite/intrusive/system_fwd.hpp
-	include/sge/sprite/intrusive/system_impl.hpp
 	include/sge/sprite/make_vertex_format.hpp
 	include/sge/sprite/matrix.hpp
 	include/sge/sprite/object.hpp
@@ -300,6 +300,7 @@ set(
 	include/sge/sprite/types/texture_coordinates.hpp
 	include/sge/sprite/types/texture_point_pos.hpp
 	include/sge/sprite/types/texture_point_size.hpp
+	include/sge/sprite/types/types.hpp
 	include/sge/sprite/types/vector.hpp
 	include/sge/sprite/vector.hpp
 	include/sge/sprite/vertex_format.hpp

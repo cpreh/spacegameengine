@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_rotation.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <sge/sprite/intrusive/ordered_system.hpp>
+#include <sge/sprite/intrusive/ordered_collection.hpp>
 #include <sge/sprite/intrusive/render/ordered.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -220,17 +220,17 @@ try
 
 	typedef unsigned order;
 
-	typedef sge::sprite::intrusive::ordered_system<
+	typedef sge::sprite::intrusive::ordered_collection<
 		sprite_choices,
 		order
-	> ordered_system_type;
+	> ordered_collection_type;
 
 	sprite_system_type sprite_system(
 		sys.renderer(),
 		sge::sprite::buffers_option::dynamic
 	);
 
-	ordered_system_type ordered_system;
+	ordered_collection_type ordered_collection;
 
 	sprite_object test(
 		sprite_parameters()
@@ -245,7 +245,7 @@ try
 			1.5f
 		)
 		.connection(
-			ordered_system.connection(
+			ordered_collection.connection(
 				static_cast<
 					order
 				>(
@@ -280,7 +280,7 @@ try
 	);
 
 	test2.transfer(
-		ordered_system.connection(
+		ordered_collection.connection(
 			static_cast<
 				order
 			>(
@@ -328,7 +328,7 @@ try
 		);
 
 		sge::sprite::intrusive::render::ordered(
-			ordered_system,
+			ordered_collection,
 			sprite_system.buffers(),
 			sge::sprite::compare::default_()
 		);

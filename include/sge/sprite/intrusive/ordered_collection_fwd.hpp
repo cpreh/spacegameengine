@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_FWD_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_SYSTEM_FWD_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_FWD_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -29,9 +29,10 @@ namespace intrusive
 {
 
 template<
-	typename Choices
+	typename Choices,
+	typename Order
 >
-class system;
+class ordered_collection;
 
 }
 }

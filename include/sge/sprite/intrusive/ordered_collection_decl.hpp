@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_SYSTEM_DECL_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_ORDERED_SYSTEM_DECL_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_DECL_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_DECL_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/ordered_system_fwd.hpp>
-#include <sge/sprite/intrusive/system_fwd.hpp>
+#include <sge/sprite/intrusive/collection_fwd.hpp>
+#include <sge/sprite/intrusive/ordered_collection_fwd.hpp>
 #include <sge/sprite/intrusive/detail/order_map.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -38,27 +38,27 @@ template<
 	typename Choices,
 	typename Order
 >
-class ordered_system
+class ordered_collection
 {
 	FCPPT_NONCOPYABLE(
-		ordered_system
+		ordered_collection
 	);
 public:
 	typedef Order order;
 
-	typedef sge::sprite::intrusive::system<
+	typedef sge::sprite::intrusive::collection<
 		Choices
-	> system;
+	> collection;
 
 	typedef Choices choices;
 
-	typedef typename system::connection_base connection_base;
+	typedef typename collection::connection_base connection_base;
 
-	ordered_system();
+	ordered_collection();
 
-	~ordered_system();
+	~ordered_collection();
 
-	system &
+	collection &
 	get(
 		order const &
 	);
@@ -78,10 +78,10 @@ public:
 private:
 	typedef typename sge::sprite::intrusive::detail::order_map<
 		order,
-		system
+		collection
 	>::type order_map;
 
-	order_map systems_;
+	order_map collections_;
 };
 
 }

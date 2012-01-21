@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_SYSTEM_IMPL_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_ORDERED_SYSTEM_IMPL_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/ordered_system_decl.hpp>
-#include <sge/sprite/intrusive/system_impl.hpp>
+#include <sge/sprite/intrusive/collection_impl.hpp>
+#include <sge/sprite/intrusive/ordered_collection_decl.hpp>
 
 
 template<
 	typename Choices,
 	typename Order
 >
-sge::sprite::intrusive::ordered_system<
+sge::sprite::intrusive::ordered_collection<
 	Choices,
 	Order
->::ordered_system()
+>::ordered_collection()
 :
-	systems_()
+	collections_()
 {
 }
 
@@ -42,10 +42,10 @@ template<
 	typename Choices,
 	typename Order
 >
-sge::sprite::intrusive::ordered_system<
+sge::sprite::intrusive::ordered_collection<
 	Choices,
 	Order
->::~ordered_system()
+>::~ordered_collection()
 {
 }
 
@@ -53,11 +53,11 @@ template<
 	typename Choices,
 	typename Order
 >
-typename sge::sprite::intrusive::ordered_system<
+typename sge::sprite::intrusive::ordered_collection<
 	Choices,
 	Order
->::system &
-sge::sprite::intrusive::ordered_system<
+>::collection &
+sge::sprite::intrusive::ordered_collection<
 	Choices,
 	Order
 >::get(
@@ -65,7 +65,7 @@ sge::sprite::intrusive::ordered_system<
 )
 {
 	return
-		systems_[
+		collections_[
 			_order
 		];
 }
@@ -74,11 +74,11 @@ template<
 	typename Choices,
 	typename Order
 >
-typename sge::sprite::intrusive::ordered_system<
+typename sge::sprite::intrusive::ordered_collection<
 	Choices,
 	Order
 >::connection_base &
-sge::sprite::intrusive::ordered_system<
+sge::sprite::intrusive::ordered_collection<
 	Choices,
 	Order
 >::connection(
@@ -99,7 +99,7 @@ template<
 	typename Function
 >
 void
-sge::sprite::intrusive::ordered_system<
+sge::sprite::intrusive::ordered_collection<
 	Choices,
 	Order
 >::for_each(
@@ -108,9 +108,9 @@ sge::sprite::intrusive::ordered_system<
 {
 	for(
 		typename order_map::iterator it(
-			systems_.begin()
+			collections_.begin()
 		);
-		it != systems_.end();
+		it != collections_.end();
 		++it
 	)
 		_function(
