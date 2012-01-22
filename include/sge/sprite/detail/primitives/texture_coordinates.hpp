@@ -64,7 +64,7 @@ private:
 		> type;
 	};
 public:
-	typename sge::sprite::detail::transform_texture_levels_static<
+	typedef typename sge::sprite::detail::transform_texture_levels_static<
 		make_role<
 			boost::mpl::_1
 		>,

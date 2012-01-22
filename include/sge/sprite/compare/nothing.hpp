@@ -38,7 +38,14 @@ struct nothing
 {
 	typedef bool result_type;
 
-	typedef boost::mpl::true_ is_trivial;
+	template<
+		typename Choices
+	>
+	struct is_trivial
+	:
+	boost::mpl::true_
+	{
+	};
 
 	template<
 		typename Choices

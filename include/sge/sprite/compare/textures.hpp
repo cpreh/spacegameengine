@@ -40,7 +40,14 @@ namespace compare
 
 struct textures
 {
-	typedef boost::mpl::false_ is_trivial;
+	template<
+		typename Choices
+	>
+	struct is_trivial
+	:
+	boost::mpl::false_
+	{
+	};
 
 	typedef bool result_type;
 

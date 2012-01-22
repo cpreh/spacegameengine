@@ -48,7 +48,9 @@ boost::mpl::and_<
 		Choices
 	>,
 	boost::mpl::not_<
-		typename Compare::is_trivial
+		typename Compare:: template is_trivial<
+			Choices
+		>::type
 	>
 >
 {

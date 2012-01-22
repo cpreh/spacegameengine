@@ -21,7 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_COMPARE_DEFAULT_HPP_INCLUDED
 #define SGE_SPRITE_COMPARE_DEFAULT_HPP_INCLUDED
 
+#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/compare/nothing.hpp>
 #include <sge/sprite/compare/textures.hpp>
+#include <sge/sprite/detail/config/has_texture.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -31,7 +38,73 @@ namespace sprite
 namespace compare
 {
 
-typedef sge::sprite::compare::textures default_;
+struct default_
+{
+	typedef bool result_type;
+
+	template<
+		typename Choices
+	>
+	struct is_trivial
+	:
+	boost::mpl::not_<
+		typename sge::sprite::detail::config::has_texture<
+			Choices
+		>::type
+	>
+	{
+	};
+
+	template<
+		typename Choices
+	>
+	typename boost::enable_if<
+		sge::sprite::detail::config::has_texture<
+			Choices
+		>,
+		result_type
+	>::type
+	operator()(
+		sge::sprite::object<
+			Choices
+		> const &_left,
+		sge::sprite::object<
+			Choices
+		> const &_right
+	) const
+	{
+		return
+			sge::sprite::compare::textures()(
+				_left,
+				_right
+			);
+	}
+
+	template<
+		typename Choices
+	>
+	typename boost::disable_if<
+		sge::sprite::detail::config::has_texture<
+			Choices
+		>,
+		result_type
+	>::type
+	operator()(
+		sge::sprite::object<
+			Choices
+		> const &_left,
+		sge::sprite::object<
+			Choices
+		> const &_right
+	) const
+	{
+		return
+			sge::sprite::compare::nothing()(
+				_left,
+				_right
+			);
+	}
+};
 
 }
 }
