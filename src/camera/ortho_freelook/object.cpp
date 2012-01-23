@@ -109,15 +109,15 @@ sge::camera::ortho_freelook::object::update(
 	projection_rect.pos(
 		projection_rect.pos() +
 		sign *
-		current_zoom);
+		current_zoom_speed);
 
 	projection_rect.size(
 		projection_rect.size() +
 		(static_cast<renderer::scalar>(-1.0f) * sign) *
 		static_cast<renderer::scalar>(2.0f) *
 		renderer::projection::rect::dim(
-			current_zoom.x(),
-			current_zoom.y()));
+			current_zoom_speed.x(),
+			current_zoom_speed.y()));
 
 	camera::base::projection_object(
 		camera::projection::orthogonal(
