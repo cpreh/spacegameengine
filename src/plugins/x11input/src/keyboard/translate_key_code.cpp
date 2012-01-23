@@ -349,9 +349,13 @@ x11_to_sge_map const x11_to_sge = boost::assign::map_list_of
 #define XK_parenleft                     0x0028  /* U+0028 LEFT PARENTHESIS */
 #define XK_parenright                    0x0029  /* U+0029 RIGHT PARENTHESIS */
 #define XK_asterisk                      0x002a  /* U+002A ASTERISK */
-#define XK_plus                          0x002b  /* U+002B PLUS SIGN */
+#endif
+	(XK_plus, sge::input::keyboard::key_code::add)
+#if 0
 #define XK_comma                         0x002c  /* U+002C COMMA */
-#define XK_minus                         0x002d  /* U+002D HYPHEN-MINUS */
+#endif
+	(XK_minus, sge::input::keyboard::key_code::minus)
+#if 0
 #define XK_period                        0x002e  /* U+002E FULL STOP */
 #define XK_slash                         0x002f  /* U+002F SOLIDUS */
 #endif
