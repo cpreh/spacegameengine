@@ -1,42 +1,52 @@
 /**
 \page renderer_textures Textures
 
+\section texture_introduction Texture Introduction
+
 Instead of defining one color per vertex, which are then interpolated, we can
 map an image onto a triangle. A resource that stores such an image is called a
 \em texture.
 
-Which portion of the texture is shown is determined by the \em texture \em
-coordinates of each vertex. These are simply positions into a texture starting
-from (0,0) at the top left to (1,1) at the bottom right.
+There are three different types of textures
 
-Such a flat texture is called a \em planar \em texture.
-
-There are two other texture types as well:
-
+\li Planar textures (2D textures)
 \li Volume Textures (3D textures)
 \li Cube Textures (textures consisting of six planar textures, one for each side)
 
-In the following example, a texture should be mapped onto our quad. Therefore,
-we have to replace the vertex colors by texture coordinates.
+\section planar_textures Planar Textures
+
+How a part of the texture is mapped onto a triangle is determined by the
+<em>texture coordinates</em> of each vertex. A planar texture uses two
+dimensional texture coordinates, which are mapped from <code>(0,0)</code> at
+the top left to <code>(1,1)</code> at the bottom right.
+
+In the following example, we are going to map the whole texture onto our quad.
+The first thing to do is to change our vertex format to include texture
+coordinates.
 
 \snippet vertex_texture.cpp texture_vf_declaration
 
-sge::renderer::vf::texpos specifies the element type of a texture coordinate
-(float is again most portable) and how many elements a texture coordinate
-should have. We use two elements per coordinate here, as we have a flat image.
+\link sge::renderer::vf::texpos \endlink specifies the element type of a
+texture coordinate (float is again most portable) and how many elements a
+texture coordinate should have. Because we have a planar texture, we use two
+elements per coordinate here.
 
-The next thing to change is how the vertices are written. We will specify
-texture coordinates instead of vertex colors.
+The four vertices defined in the previous example will get the texture
+coordinates <code>(0,0), (1,0), (1,1), (0,1)</code>, so that the whole texture
+will be mapped onto the quad.
+
+TODO: image
 
 \snippet vertex_texture.cpp write_vertices
 
-A texture is also needed. For this example, a grass texture is used.
+To actually render a texture, we need to load one. In this example a grass
+texture will be used.
 
 \snippet vertex_texture.cpp load_texture
 
-sge::renderer::texture::create_planar_from_path creates a planar texture
-directly from an image file, using an image loader that is available through
-sys.image_loader in this example.
+\link sge::renderer::texture::create_planar_from_path \endlink creates a planar
+texture directly from an image file, using an image loader that is available
+through <code>sys.image_loader</code> in this example.
 
 To use our texture, we have to activate it. There are several texture stages,
 which can be useful to blend different textures together. In this example,
@@ -44,6 +54,105 @@ however, we only need one texture, and therefore the 0th texture stage will be
 used. Rendering will then use the activated texture.
 
 \snippet vertex_texture.cpp render_block
+
+\section texture_coordinates Texture coordinates
+
+As mentioned in \ref planar_textures the texture coordinates of a planar
+texture are mapped from <code>(0,0)</code> at the top left to
+<code>(1,1)</code> at the bottom right. Values that fall outside of this range
+can also be specified. The behaviour is then determined by the so called
+<em>texture address mode</em>.
+
+The default address mode is to repeat the texture. For example, a quad ranging
+from <code>(0,0)</code> to <code>(2,1)</code> will behave as if the texture
+was horizontally copied to the right.
+
+TODO: image
+
+Another useful mode is to clamp at the borders. For example, the same
+quad ranging from <code>(0,0)</code> to <code>(2,1)</code> will behave as if
+the right border of the texture was extended to the right.
+
+TODO: image
+
+For each dimension, there is a separate texture address mode setting, which
+allows to fine tune the behaviour.
+
+\li \link sge::renderer::texture::address_mode_s \endlink for horinzontal coordinates
+\li \link sge::renderer::texture::address_mode_t \endlink for vertical coordinates
+\li \link sge::renderer::texture::address_mode_u \endlink for depth coordinates
+
+The horizontal mode can be set using \link
+sge::renderer::device::texture_address_mode_s \endlink. For the vertical and
+depth modes, corresponding functions exist.
+
+
+\section texture_filters Texture Filters
+
+When a texture is mapped on geometry, the texture coordinates specify which
+part of the texture is used. However, the mapping between texture pixels
+(called <em>texels</em>) and the rasterized pixels on screen usually isn't a
+<code>1:1</code> mapping.
+
+Image a small texture is mapped onto a huge triangle, which means that the
+texture lacks sufficient detail. Not much can be done about that. How this case
+is handled is called <em>magnification</em>.
+
+Now, imagine a huge texture mapped onto a small triangle, in which case the
+details of the texture are usually lost, although they are available. This
+might not seem so bad at first, but which texels are taken can change rapidly
+depending on very small changes in the scene, which will lead to a very strange
+flickering effect. How this case is handled is called <em>minification</em>.
+
+TODO: image
+
+To better solve the minification problem, a technique called
+<em>mipmapping</em> can be used, which doesn't replace minification but merely
+enhances the process. The idea is to resursively generate smaller versions of
+the texture, until a minimum of a size of <code>(1,1)</code> is reached. For
+example, a texture of the size of <code>(32,32)</code> will have smaller
+versions of the sizes <code>(16,16),(8,8),(4,4),(2,2)</code> and
+<code>(1,1)</code> generated. The graphics card must then choose a texture of
+appropriate size depending on the mapping from texels to pixels, which will
+greatly reduce the effect of minification.
+
+TODO: image
+
+The outcome of both the magnification and the minification handling can be
+improved by using a so called <em>anisotropic filter</em> which is a special
+filter available on modern graphics cards.
+
+sge provides two different filter settings
+
+\li <em>normal</em>, which uses a magnification, a minification and a mip
+filter
+
+\li <em>anisotropic</em>, which uses a mip filter and an anisotropic filter
+
+A magnification and a minification can be either <em>point</em> or
+<em>linear</em>.
+
+A point filter only takes the closest texel into account, while a linear
+filter takes the four closest texels and interpolates them.
+
+A mip filter can be <em>off</em>, <em>point</em> or <em>linear</em>. If the
+filter is not off, the texture used must have been created with mipmapping
+enabled. A point mip filter chooses the closest mipmap, while a linear mip
+filter interpolates between the two closest mipmaps.
+
+TODO image
+
+TODO Explain anisotropic filters further
+
+TODO examples
+
+\section cube_textures Cube Textures
+
+TODO
+
+\section volume_textures Volume Textures
+
+TODO
 
 <strong>Previous:</strong> \ref renderer_indices, <strong>Up:</strong> \ref renderer_main
 
