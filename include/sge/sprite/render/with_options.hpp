@@ -58,6 +58,11 @@ with_options(
 	Compare const &_compare
 )
 {
+	if(
+		_range.empty()
+	)
+		return;
+
 	sge::sprite::detail::render::geometry<
 		Options::geometry_options
 	>(

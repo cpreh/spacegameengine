@@ -48,6 +48,11 @@ render_one(
 	Range const &_range
 )
 {
+	if(
+		_range.empty()
+	)
+		return;
+
 	sge::sprite::detail::render::geometry<
 		Options::geometry_options
 	>(
