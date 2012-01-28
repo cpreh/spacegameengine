@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_DETAIL_RENDER_ONE_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_DETAIL_RENDER_ONE_HPP_INCLUDED
 
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/sprite/detail/render/geometry.hpp>
+#include <sge/sprite/detail/process/geometry.hpp>
 #include <sge/sprite/detail/render/range.hpp>
+#include <sge/sprite/render/range_impl.hpp>
 
 
 namespace sge
@@ -53,24 +55,32 @@ render_one(
 	)
 		return;
 
-	sge::sprite::detail::render::geometry<
-		Options::geometry_options
-	>(
-		_range,
-		_buffers,
-		_compare
+	typedef sge::sprite::render::range<
+		typename Buffers::choices
+	> range_type;
+
+	range_type const range(
+		sge::sprite::detail::process::geometry<
+			Options::geometry_options
+		>(
+			_range,
+			_buffers,
+			_compare
+		)
+	);
+
+	sge::renderer::device &renderer(
+		_buffers.parameters().renderer()
 	);
 
 	sge::renderer::scoped_vertex_buffer const scoped_buffer(
-		_buffers.renderer(),
-		_buffers.vertex_buffer()
+		renderer,
+		range.vertex_buffer()
 	);
 
 	sge::sprite::detail::render::range(
-		_range.begin(),
-		_range.end(),
-		_compare,
-		_buffers
+		renderer,
+		range
 	);
 }
 

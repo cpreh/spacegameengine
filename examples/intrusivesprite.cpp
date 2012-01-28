@@ -36,10 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/system.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single.hpp>
+#include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/custom_center.hpp>
@@ -53,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/with_rotation.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <sge/sprite/intrusive/ordered_collection.hpp>
-#include <sge/sprite/intrusive/render/ordered.hpp>
+#include <sge/sprite/intrusive/process/ordered.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -206,9 +207,11 @@ try
 		>
 	> sprite_choices;
 
-	typedef sge::sprite::system<
-		sprite_choices
-	> sprite_system_type;
+	typedef sge::sprite::buffers::with_declaration<
+		sge::sprite::buffers::single<
+			sprite_choices
+		>
+	> sprite_buffers_type;
 
 	typedef sge::sprite::object<
 		sprite_choices
@@ -225,9 +228,9 @@ try
 		order
 	> ordered_collection_type;
 
-	sprite_system_type sprite_system(
+	sprite_buffers_type sprite_buffers(
 		sys.renderer(),
-		sge::sprite::buffers_option::dynamic
+		sge::sprite::buffers::option::dynamic
 	);
 
 	ordered_collection_type ordered_collection;
@@ -284,7 +287,7 @@ try
 			static_cast<
 				order
 			>(
-				2u
+				1u
 			)
 		)
 	);
@@ -327,9 +330,9 @@ try
 			sys.renderer()
 		);
 
-		sge::sprite::intrusive::render::ordered(
+		sge::sprite::intrusive::process::ordered(
 			ordered_collection,
-			sprite_system.buffers(),
+			sprite_buffers.buffers(),
 			sge::sprite::compare::default_()
 		);
 	}

@@ -43,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture_point_pos.hpp>
 #include <sge/sprite/roles/texture_point_size.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
-#include <sge/sprite/roles/visible.hpp>
 #include <majutsu/subelements.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -277,18 +276,6 @@ sge::sprite::object<Choices>::z() const
 	return
 		elements_. template get<
 			sge::sprite::roles::depth
-		>();
-}
-
-template<
-	typename Choices
->
-bool
-sge::sprite::object<Choices>::visible() const
-{
-	return
-		elements_. template get<
-			sge::sprite::roles::visible
 		>();
 }
 
@@ -589,21 +576,6 @@ sge::sprite::object<Choices>::texture_point_size_level(
 		>
 	>(
 		_point_size
-	);
-}
-
-template<
-	typename Choices
->
-void
-sge::sprite::object<Choices>::visible(
-	bool const _visible
-)
-{
-	elements_. template set<
-		sge::sprite::roles::visible
-	>(
-		_visible
 	);
 }
 

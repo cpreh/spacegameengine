@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_IS_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_IS_OPTIONS_HPP_INCLUDED
 
-#include <sge/sprite/render/geometry_options.hpp>
 #include <sge/sprite/render/matrix_options.hpp>
 #include <sge/sprite/render/options_fwd.hpp>
 #include <sge/sprite/render/state_options.hpp>
@@ -48,14 +47,12 @@ boost::mpl::false_
 };
 
 template<
-	sge::sprite::render::geometry_options::type GeometryOptions,
 	sge::sprite::render::matrix_options::type MatrixOptions,
 	sge::sprite::render::state_options::type StateOptions,
 	sge::sprite::render::vertex_options::type VertexOptions
 >
 struct is_options<
 	sge::sprite::render::options<
-		GeometryOptions,
 		MatrixOptions,
 		StateOptions,
 		VertexOptions

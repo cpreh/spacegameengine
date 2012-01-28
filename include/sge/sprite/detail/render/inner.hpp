@@ -22,16 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_RENDER_INNER_HPP_INCLUDED
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/first_index.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
-#include <sge/renderer/primitive_count.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/sprite/count.hpp>
+#include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
-#include <sge/sprite/detail/geometry/indices_per_sprite.hpp>
-#include <sge/sprite/detail/geometry/vertices_per_sprite.hpp>
+#include <sge/sprite/render/range_impl.hpp>
+#include <sge/sprite/render/range_part_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -47,8 +42,7 @@ namespace render
 {
 
 template<
-	typename Choices,
-	typename Buffers
+	typename Choices
 >
 typename boost::enable_if<
 	sge::sprite::detail::config::needs_index_buffer<
@@ -58,44 +52,26 @@ typename boost::enable_if<
 >::type
 inner(
 	sge::renderer::device &_renderer,
-	sge::renderer::size_type const _offset,
-	sge::sprite::count const _num_objects,
-	Buffers const &_buffers
+	sge::sprite::render::range<
+		Choices
+	> const &_range,
+	sge::sprite::render::range_part<
+		Choices
+	> const &_range_part
 )
 {
 	_renderer.render_indexed(
-		_buffers.index_buffer(),
-		sge::renderer::first_vertex(
-			_offset
-			*
-			sge::sprite::detail::geometry::vertices_per_sprite<
-				Choices
-			>::value
-		),
-		sge::renderer::vertex_count(
-			_num_objects.get()
-			*
-			sge::sprite::detail::geometry::vertices_per_sprite<
-				Choices
-			>::value
-		),
+		_range.index_buffer(),
+		_range_part.first_vertex(),
+		_range_part.vertex_count(),
 		sge::renderer::indexed_primitive_type::triangle,
-		sge::renderer::primitive_count(
-			_num_objects.get() * 2u
-		),
-		sge::renderer::first_index(
-			_offset
-			*
-			sge::sprite::detail::geometry::indices_per_sprite<
-				Choices
-			>::value
-		)
+		_range_part.primitive_count(),
+		_range_part.first_index()
 	);
 }
 
 template<
-	typename Choices,
-	typename Buffers
+	typename Choices
 >
 typename boost::disable_if<
 	sge::sprite::detail::config::needs_index_buffer<
@@ -105,26 +81,17 @@ typename boost::disable_if<
 >::type
 inner(
 	sge::renderer::device &_renderer,
-	sge::renderer::size_type const _offset,
-	sge::sprite::count const _num_objects,
-	Buffers const &
+	sge::sprite::render::range<
+		Choices
+	> const &,
+	sge::sprite::render::range_part<
+		Choices
+	> const &_range_part
 )
 {
 	_renderer.render_nonindexed(
-		sge::renderer::first_vertex(
-			_offset
-			*
-			sge::sprite::detail::geometry::vertices_per_sprite<
-				Choices
-			>::value
-		),
-		sge::renderer::vertex_count(
-			_num_objects.get()
-			*
-			sge::sprite::detail::geometry::vertices_per_sprite<
-				Choices
-			>::value
-		),
+		_range_part.first_vertex(),
+		_range_part.vertex_count(),
 		sge::renderer::nonindexed_primitive_type::point
 	);
 }

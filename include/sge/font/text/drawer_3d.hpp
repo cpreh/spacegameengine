@@ -32,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
-#include <sge/sprite/system_decl.hpp>
+#include <sge/sprite/buffers/single_decl.hpp>
+#include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
@@ -157,11 +158,13 @@ private:
 		sprite_object
 	> sprite_container;
 
-	typedef sge::sprite::system<
-		sprite_choices
-	> sprite_system;
+	typedef sge::sprite::buffers::with_declaration<
+		sge::sprite::buffers::single<
+			sprite_choices
+		>
+	> sprite_buffers;
 
-	sprite_system sprite_system_;
+	sprite_buffers sprite_buffers_;
 
 	sprite_container sprites_;
 };

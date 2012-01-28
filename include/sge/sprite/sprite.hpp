@@ -22,12 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_SPRITE_HPP_INCLUDED
 
 #include <sge/sprite/bounding_rect.hpp>
-#include <sge/sprite/buffers.hpp>
-#include <sge/sprite/buffers_decl.hpp>
-#include <sge/sprite/buffers_fwd.hpp>
-#include <sge/sprite/buffers_impl.hpp>
-#include <sge/sprite/buffers_option.hpp>
-#include <sge/sprite/buffers_option_to_resource_flags.hpp>
 #include <sge/sprite/center.hpp>
 #include <sge/sprite/color.hpp>
 #include <sge/sprite/count.hpp>
@@ -52,10 +46,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/rotation_center.hpp>
 #include <sge/sprite/set_matrices.hpp>
 #include <sge/sprite/symbol.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/system_decl.hpp>
-#include <sge/sprite/system_fwd.hpp>
-#include <sge/sprite/system_impl.hpp>
 #include <sge/sprite/texture.hpp>
 #include <sge/sprite/texture_coordinates.hpp>
 #include <sge/sprite/texture_level.hpp>
@@ -63,11 +53,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/texture_point_size.hpp>
 #include <sge/sprite/vector.hpp>
 #include <sge/sprite/vertex_format.hpp>
+#include <sge/sprite/buffers/buffers.hpp>
 #include <sge/sprite/compare/compare.hpp>
 #include <sge/sprite/config/config.hpp>
 #include <sge/sprite/defaults/defaults.hpp>
 #include <sge/sprite/geometry/geometry.hpp>
 #include <sge/sprite/intrusive/intrusive.hpp>
+#include <sge/sprite/process/process.hpp>
 #include <sge/sprite/render/render.hpp>
 #include <sge/sprite/roles/roles.hpp>
 #include <sge/sprite/types/types.hpp>

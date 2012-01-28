@@ -63,10 +63,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/stencil_op_value.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/system.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single.hpp>
+#include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
@@ -75,7 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <sge/sprite/render/one.hpp>
+#include <sge/sprite/process/one.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
@@ -202,10 +203,12 @@ try
 		>
 	> sprite_choices;
 
-	// Declare the sprite system type, object type and parameters type.
-	typedef sge::sprite::system<
-		sprite_choices
-	> sprite_system;
+	// Declare the sprite buffers type, object type and parameters type.
+	typedef sge::sprite::buffers::with_declaration<
+		sge::sprite::buffers::single<
+			sprite_choices
+		>
+	> sprite_buffers_type;
 
 	typedef sge::sprite::object<
 		sprite_choices
@@ -215,11 +218,11 @@ try
 		sprite_choices
 	> sprite_parameters;
 
-	// Allocate a sprite system. This sprite system uses dynamic buffers,
-	// which means that they are updated every frame.
-	sprite_system sprite_sys(
+	// Allocate a sprite buffers object. This uses dynamic buffers, which
+	// means that they are updated every frame.
+	sprite_buffers_type sprite_buffers(
 		sys.renderer(),
-		sge::sprite::buffers_option::dynamic
+		sge::sprite::buffers::option::dynamic
 	);
 
 	// This is our smaller sprite.
@@ -354,9 +357,9 @@ try
 			);
 
 			// Render small sprite.
-			sge::sprite::render::one(
+			sge::sprite::process::one(
 				small_sprite,
-				sprite_sys.buffers()
+				sprite_buffers.buffers()
 			);
 		}
 
@@ -376,9 +379,9 @@ try
 			);
 
 			// Render big sprite.
-			sge::sprite::render::one(
+			sge::sprite::process::one(
 				big_sprite,
-				sprite_sys.buffers()
+				sprite_buffers.buffers()
 			);
 		}
 	}

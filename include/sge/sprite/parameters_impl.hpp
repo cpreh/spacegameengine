@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
-#include <sge/sprite/roles/visible.hpp>
 #include <majutsu/role_return_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/static_assert.hpp>
@@ -280,25 +279,6 @@ sge::sprite::parameters<Choices>::depth(
 			roles::depth
 		>(
 			_depth
-		);
-}
-
-template<
-	typename Choices
->
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::visible(
-	typename majutsu::role_return_type<
-		flattened_types,
-		roles::visible
-	>::type const &_visible
-)
-{
-	return
-		this->set<
-			roles::visible
-		>(
-			_visible
 		);
 }
 

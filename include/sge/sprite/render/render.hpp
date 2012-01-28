@@ -21,19 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_RENDER_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_RENDER_HPP_INCLUDED
 
-#include <sge/sprite/render/all.hpp>
-#include <sge/sprite/render/default_geometry_options.hpp>
 #include <sge/sprite/render/default_options.hpp>
-#include <sge/sprite/render/geometry_options.hpp>
 #include <sge/sprite/render/is_options.hpp>
 #include <sge/sprite/render/matrix_options.hpp>
-#include <sge/sprite/render/one.hpp>
-#include <sge/sprite/render/one_with_options.hpp>
 #include <sge/sprite/render/options.hpp>
 #include <sge/sprite/render/options_fwd.hpp>
+#include <sge/sprite/render/range_decl.hpp>
+#include <sge/sprite/render/range_fwd.hpp>
+#include <sge/sprite/render/range_impl.hpp>
+#include <sge/sprite/render/range_part_decl.hpp>
+#include <sge/sprite/render/range_part_fwd.hpp>
+#include <sge/sprite/render/range_part_impl.hpp>
+#include <sge/sprite/render/range_part_vector.hpp>
+#include <sge/sprite/render/range_with_options.hpp>
 #include <sge/sprite/render/state_options.hpp>
 #include <sge/sprite/render/states.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
-#include <sge/sprite/render/with_options.hpp>
 
 #endif

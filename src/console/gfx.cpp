@@ -36,9 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
-#include <sge/sprite/buffers_option.hpp>
-#include <sge/sprite/system_impl.hpp>
-#include <sge/sprite/render/one.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single_impl.hpp>
+#include <sge/sprite/buffers/with_declaration_impl.hpp>
+#include <sge/sprite/process/one.hpp>
 #include <sge/src/console/next_or_last.hpp>
 #include <fcppt/chrono/time_point.hpp>
 #include <fcppt/container/map_impl.hpp>
@@ -162,9 +163,9 @@ sge::console::gfx::gfx(
 				&gfx::print,
 				this,
 				std::tr1::placeholders::_1))),
-	sprite_system_(
+	sprite_buffers_(
 		_rend,
-		sge::sprite::buffers_option::dynamic
+		sge::sprite::buffers::option::dynamic
 	),
 	background_(
 		_background),
@@ -187,9 +188,9 @@ sge::console::gfx::~gfx()
 void
 sge::console::gfx::render()
 {
-	sge::sprite::render::one(
+	sge::sprite::process::one(
 		background_,
-		sprite_system_.buffers()
+		sprite_buffers_.buffers()
 	);
 
 	output_line_sequence::size_type const line_count =

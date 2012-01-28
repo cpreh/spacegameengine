@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_SET_TEXTURES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SET_TEXTURES_HPP_INCLUDED
 
-#include <sge/sprite/object_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/detail/apply_texture_levels.hpp>
 #include <sge/sprite/detail/config/has_texture_levels.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <sge/sprite/detail/render/set_texture_level.hpp>
+#include <sge/sprite/render/range_part_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -50,10 +51,10 @@ typename boost::enable_if<
 	void
 >::type
 set_textures(
-	sge::sprite::object<
+	sge::renderer::device &_renderer,
+	sge::sprite::render::range_part<
 		Choices
-	> const &_obj,
-	sge::renderer::device &_rend
+	> const &_range
 )
 {
 	sge::sprite::detail::apply_texture_levels<
@@ -64,8 +65,8 @@ set_textures(
 		sge::sprite::detail::render::set_texture_level<
 			Choices
 		>(
-			_obj,
-			_rend
+			_renderer,
+			_range
 		)
 	);
 }
@@ -80,10 +81,10 @@ typename boost::disable_if<
 	void
 >::type
 set_textures(
-	sge::sprite::object<
+	sge::renderer::device &,
+	sge::sprite::render::range_part<
 		Choices
-	> const &,
-	sge::renderer::device &
+	> const &
 )
 {
 }

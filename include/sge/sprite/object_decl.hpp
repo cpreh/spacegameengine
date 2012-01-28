@@ -196,9 +196,6 @@ public:
 	depth_type
 	z() const;
 
-	bool
-	visible() const;
-
 	rotation_type
 	rotation() const;
 
@@ -293,11 +290,6 @@ public:
 	void
 	texture_point_size_level(
 		texture_point_size_type
-	);
-
-	void
-	visible(
-		bool
 	);
 
 	void

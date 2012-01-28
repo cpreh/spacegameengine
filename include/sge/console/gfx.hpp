@@ -36,7 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
-#include <sge/sprite/system_decl.hpp>
+#include <sge/sprite/buffers/single_decl.hpp>
+#include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -117,11 +118,13 @@ private:
 		error_conn_,
 		message_conn_;
 
-	typedef sge::sprite::system<
-		sge::console::sprite_choices
-	> sprite_system;
+	typedef sge::sprite::buffers::with_declaration<
+		sge::sprite::buffers::single<
+			sprite_choices
+		>
+	> sprite_buffers;
 
-	sprite_system sprite_system_;
+	sprite_buffers sprite_buffers_;
 
 	sge::console::sprite_object background_;
 

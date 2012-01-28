@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_GEOMETRY_FILL_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_GEOMETRY_FILL_HPP_INCLUDED
 
-#include <sge/sprite/count.hpp>
+#include <sge/sprite/buffers/slice_fwd.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
 #include <sge/sprite/detail/geometry/fill_indices.hpp>
 #include <sge/sprite/detail/geometry/fill_vertices.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -41,64 +40,68 @@ namespace geometry
 {
 
 template<
-	typename It,
-	typename Buffers
+	typename Range,
+	typename Compare,
+	typename Choices
 >
 typename boost::enable_if<
 	sge::sprite::detail::config::needs_index_buffer<
-		typename std::iterator_traits<
-			It
-		>::value_type::choices
+		Choices
 	>,
-	void
->::type
+	sge::sprite::render::range<
+		Choices
+	>
+>::type const
 fill(
-	It const _begin,
-	It const _end,
-	Buffers &_buffers,
-	sge::sprite::count const _num_sprites
+	Range const &_range,
+	Compare const &_compare,
+	sge::sprite::buffers::slice<
+		Choices
+	> &_slice
 )
 {
 	sge::sprite::detail::geometry::fill_indices<
-		typename std::iterator_traits<
-			It
-		>::value_type::choices
+		Choices
 	>(
-		_buffers.index_buffer(),
-		sge::sprite::detail::geometry::fill_vertices(
-			_begin,
-			_end,
-			_buffers.vertex_buffer(),
-			_num_sprites
-		)
+		_range.size(),
+		_slice
 	);
+
+	return
+		sge::sprite::detail::geometry::fill_vertices(
+			_range,
+			_compare,
+			_slice
+		);
 }
 
 template<
-	typename It,
-	typename Buffers
+	typename Range,
+	typename Compare,
+	typename Choices
 >
 typename boost::disable_if<
 	sge::sprite::detail::config::needs_index_buffer<
-		typename std::iterator_traits<
-			It
-		>::value_type::choices
+		Choices
 	>,
-	void
->::type
+	sge::sprite::render::range<
+		Choices
+	>
+>::type const
 fill(
-	It const _begin,
-	It const _end,
-	Buffers &_buffers,
-	sge::sprite::count const _num_sprites
+	Range const &_range,
+	Compare const &_compare,
+	sge::sprite::buffers::slice<
+		Choices
+	> &_slice
 )
 {
-	sge::sprite::detail::geometry::fill_vertices(
-		_begin,
-		_end,
-		_buffers.vertex_buffer(),
-		_num_sprites
-	);
+	return
+		sge::sprite::detail::geometry::fill_vertices(
+			_range,
+			_compare,
+			_slice
+		);
 }
 
 }

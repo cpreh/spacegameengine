@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/geometry/sort.hpp>
 #include <sge/sprite/geometry/update.hpp>
+#include <sge/sprite/render/range_impl.hpp>
 
 
 namespace sge
@@ -37,11 +38,13 @@ template<
 	typename Buffers,
 	typename Compare
 >
-void
+sge::sprite::render::range<
+	typename Buffers::choices
+> const
 sort_and_update(
 	Range const &_range,
-	Buffers &_buffers,
-	Compare const &_compare
+	Compare const &_compare,
+	Buffers &_buffers
 )
 {
 	sge::sprite::geometry::sort(
@@ -49,10 +52,12 @@ sort_and_update(
 		_compare
 	);
 
-	sge::sprite::geometry::update(
-		_range,
-		_buffers
-	);
+	return
+		sge::sprite::geometry::update(
+			_range,
+			_compare,
+			_buffers
+		);
 }
 
 }

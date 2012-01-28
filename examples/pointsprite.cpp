@@ -48,10 +48,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/make_unspecified_tag.hpp>
-#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/system.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single.hpp>
+#include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/compare/nothing.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/custom_texture_point_pos.hpp>
@@ -64,7 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/config/with_texture_point_size.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
-#include <sge/sprite/render/all.hpp>
+#include <sge/sprite/process/all.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -169,11 +170,14 @@ sge::sprite::config::choices
 sprite_choices;
 
 typedef
-sge::sprite::system
+sge::sprite::buffers::with_declaration
 <
-	sprite_choices
+	sge::sprite::buffers::single
+	<
+		sprite_choices
+	>
 >
-sprite_system;
+sprite_buffers_type;
 
 typedef
 sge::sprite::object
@@ -298,7 +302,7 @@ private:
 	sprite_sequence;
 
 	unsigned const particle_count_;
-	sprite_system sprite_system_;
+	sprite_buffers_type sprite_buffers_;
 	sprite_sequence sprites_;
 	particle_sequence particles_;
 	time_rng explosion_rng_;
@@ -319,9 +323,9 @@ particles::particles(
 :
 	particle_count_(
 		_particle_count),
-	sprite_system_(
+	sprite_buffers_(
 		sys.renderer(),
-		sge::sprite::buffers_option::dynamic),
+		sge::sprite::buffers::option::dynamic),
 	particles_(),
 	explosion_rng_(
 		fcppt::random::make_inclusive_range(
@@ -463,12 +467,11 @@ particles::update()
 void
 particles::render()
 {
-	sge::sprite::render::all(
+	sge::sprite::process::all(
 		sge::sprite::geometry::make_random_access_range(
-			sprites_.begin(),
-			sprites_.end()
+			sprites_
 		),
-		sprite_system_.buffers(),
+		sprite_buffers_.buffers(),
 		sge::sprite::compare::nothing()
 	);
 }
@@ -476,7 +479,7 @@ particles::render()
 sge::renderer::vertex_declaration const &
 particles::vertex_declaration() const
 {
-	return sprite_system_.buffers().vertex_declaration();
+	return sprite_buffers_.vertex_declaration();
 }
 }
 

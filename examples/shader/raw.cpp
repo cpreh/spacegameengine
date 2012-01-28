@@ -60,10 +60,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/system.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single.hpp>
+#include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
@@ -73,7 +74,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <sge/sprite/render/one.hpp>
+#include <sge/sprite/process/one.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -313,17 +314,19 @@ try
 			)
 		);
 
-	typedef sge::sprite::system<
-		sprite_choices
-	> sprite_system;
+	typedef sge::sprite::buffers::with_declaration<
+		sge::sprite::buffers::single<
+			sprite_choices
+		>
+	> sprite_buffers_type;
 
 	typedef sge::sprite::parameters<
 		sprite_choices
 	> sprite_parameters;
 
-	sprite_system sprite_sys(
+	sprite_buffers_type sprite_buffers(
 		sys.renderer(),
-		sge::sprite::buffers_option::dynamic
+		sge::sprite::buffers::option::dynamic
 	);
 
 	sprite_object const background(
@@ -489,7 +492,7 @@ try
 	pixel_shader->compile();
 
 	program->vertex_declaration(
-		sprite_sys.buffers().vertex_declaration()
+		sprite_buffers.vertex_declaration()
 	);
 
 	sge::renderer::glsl::scoped_attachment const vertex_shader_attachment(
@@ -529,28 +532,28 @@ try
 				sge::renderer::glsl::const_optional_program()
 			);
 
-			sge::renderer::scoped_target const target_(
+			sge::renderer::scoped_target const scoped_target(
 				sys.renderer(),
 				*target
 			);
 
-			sge::renderer::scoped_block const block_(
+			sge::renderer::scoped_block const block(
 				sys.renderer()
 			);
 
-			sge::sprite::render::one(
+			sge::sprite::process::one(
 				background,
-				sprite_sys.buffers()
+				sprite_buffers.buffers()
 			);
 
-			sge::sprite::render::one(
+			sge::sprite::process::one(
 				tux,
-				sprite_sys.buffers()
+				sprite_buffers.buffers()
 			);
 
-			sge::sprite::render::one(
+			sge::sprite::process::one(
 				pointer,
-				sprite_sys.buffers()
+				sprite_buffers.buffers()
 			);
 		}
 
@@ -560,13 +563,13 @@ try
 			)
 		);
 
-		sge::renderer::scoped_block const block_(
+		sge::renderer::scoped_block const block(
 			sys.renderer()
 		);
 
-		sge::sprite::render::one(
+		sge::sprite::process::one(
 			target_spr,
-			sprite_sys.buffers()
+			sprite_buffers.buffers()
 		);
 	}
 }

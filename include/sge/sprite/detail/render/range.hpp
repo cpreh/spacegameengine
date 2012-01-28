@@ -21,16 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_RANGE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_RANGE_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
-#include <sge/sprite/count.hpp>
-#include <sge/sprite/detail/visible.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/sprite/detail/render/inner.hpp>
 #include <sge/sprite/detail/render/set_textures.hpp>
 #include <sge/sprite/detail/render/unset_textures.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <exception>
-#include <iterator>
-#include <fcppt/config/external_end.hpp>
+#include <sge/sprite/render/range_impl.hpp>
 
 
 namespace sge
@@ -43,103 +38,44 @@ namespace render
 {
 
 template<
-	typename In,
-	typename Comp,
-	typename Buffers
+	typename Choices
 >
 void
 range(
-	In const _beg,
-	In const _end,
-	Comp const _comp,
-	Buffers const &_buffers
+	sge::renderer::device &_renderer,
+	sge::sprite::render::range<
+		Choices
+	> const &_range
 )
 {
-	if(
-		_beg == _end
-	)
-		std::terminate();
-
-	typedef typename std::iterator_traits<
-		In
-	>::value_type object_type;
-
-	sge::renderer::size_type offset(
-		0
-	);
-
-	sge::sprite::detail::render::unset_textures<
-		typename object_type::choices
-	>(
-		_buffers.renderer()
-	);
+	typedef sge::sprite::render::range<
+		Choices
+	> range_type;
 
 	for(
-		In
-			cur(
-				_beg
-			),
-			next(
-				cur
-			);
-		cur != _end;
-		cur = next
+		typename range_type::const_iterator it(
+			_range.begin()
+		);
+		it != _range.end();
+		++it
 	)
 	{
-		sge::sprite::count num_objects(
-			0u
-		);
-
-		while(
-			next != _end
-			&&
-			!_comp(
-				*cur,
-				*next
-			)
-			&&
-			!_comp(
-				*next,
-				*cur
-			)
-		)
-		{
-			++next;
-
-			if(
-				sge::sprite::detail::visible(
-					*cur
-				)
-			)
-				++num_objects;
-		}
-
 		sge::sprite::detail::render::set_textures(
-			*cur,
-			_buffers.renderer()
+			_renderer,
+			*it
 		);
 
-		if(
-			num_objects.get() == 0
-		)
-			continue;
-
-		sge::sprite::detail::render::inner<
-			typename object_type::choices
-		>(
-			_buffers.renderer(),
-			offset,
-			num_objects,
-			_buffers
+		sge::sprite::detail::render::inner(
+			_renderer,
+			_range,
+			*it
 		);
-
-		offset += num_objects.get();
 	}
 
 	sge::sprite::detail::render::unset_textures<
-		typename object_type::choices
+		Choices
 	>(
-		_buffers.renderer()
+		_renderer
 	);
 }
 

@@ -21,10 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_BUFFERS_ALLOCATE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_BUFFERS_ALLOCATE_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/sprite/count.hpp>
+#include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/detail/buffers/allocate_indices.hpp>
 #include <sge/sprite/detail/buffers/allocate_vertices.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
@@ -53,8 +52,7 @@ typename boost::enable_if<
 	void
 >::type
 allocate(
-	sge::renderer::device &_renderer,
-	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::sprite::buffers::parameters const &_parameters,
 	sge::sprite::count const _num_sprites,
 	Buffers &_buffers,
 	sge::renderer::resource_flags_field const &_resource_flags
@@ -63,8 +61,7 @@ allocate(
 	sge::sprite::detail::buffers::allocate_vertices<
 		Choices
 	>(
-		_renderer,
-		_vertex_declaration,
+		_parameters,
 		_num_sprites,
 		_buffers,
 		_resource_flags
@@ -73,7 +70,7 @@ allocate(
 	sge::sprite::detail::buffers::allocate_indices<
 		Choices
 	>(
-		_renderer,
+		_parameters.renderer(),
 		_num_sprites,
 		_buffers,
 		_resource_flags
@@ -91,8 +88,7 @@ typename boost::disable_if<
 	void
 >::type
 allocate(
-	sge::renderer::device &_renderer,
-	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::sprite::buffers::parameters const &_parameters,
 	sge::sprite::count const _num_sprites,
 	Buffers &_buffers,
 	sge::renderer::resource_flags_field const &_resource_flags
@@ -101,8 +97,7 @@ allocate(
 	sge::sprite::detail::buffers::allocate_vertices<
 		Choices
 	>(
-		_renderer,
-		_vertex_declaration,
+		_parameters,
 		_num_sprites,
 		_buffers,
 		_resource_flags
