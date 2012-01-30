@@ -71,11 +71,19 @@ sge::parse::json::path::empty() const
 	return sequence_.empty();
 }
 
-sge::parse::json::path &
+sge::parse::json::path
 sge::parse::json::path::operator/(
-	fcppt::string const &s)
+	fcppt::string const &s) const
 {
-	sequence_.push_back(
+	sequence_type new_sequence(
+		sequence_.begin(),
+		sequence_.end());
+
+	new_sequence.push_back(
 		s);
-	return *this;
+
+	return
+		path(
+			new_sequence.begin(),
+			new_sequence.end());
 }

@@ -77,9 +77,9 @@ public:
 	SGE_PARSE_SYMBOL bool
 	empty() const;
 
-	SGE_PARSE_SYMBOL path &
+	SGE_PARSE_SYMBOL path
 	operator/(
-		fcppt::string const &);
+		fcppt::string const &) const;
 private:
 	sequence_type sequence_;
 };
