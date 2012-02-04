@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 
 #include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/sprite/buffers/parameters_fwd.hpp>
 #include <sge/sprite/symbol.hpp>
+#include <sge/sprite/buffers/parameters_fwd.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
 #include <fcppt/noncopyable.hpp>
 

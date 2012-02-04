@@ -1,6 +1,7 @@
 set(
 	SGE_SPRITE_FILES
 	include/sge/sprite/bounding_rect.hpp
+	include/sge/sprite/buffers/buffers.hpp
 	include/sge/sprite/buffers/object.hpp
 	include/sge/sprite/buffers/offset_object.hpp
 	include/sge/sprite/buffers/option.hpp
@@ -10,6 +11,7 @@ set(
 	include/sge/sprite/buffers/roles/first_index.hpp
 	include/sge/sprite/buffers/roles/first_vertex.hpp
 	include/sge/sprite/buffers/roles/index_buffer.hpp
+	include/sge/sprite/buffers/roles/roles.hpp
 	include/sge/sprite/buffers/roles/vertex_buffer.hpp
 	include/sge/sprite/buffers/single.hpp
 	include/sge/sprite/buffers/single_decl.hpp
@@ -118,7 +120,6 @@ set(
 	include/sge/sprite/detail/config/has_texture_coordinates.hpp
 	include/sge/sprite/detail/config/has_texture_levels.hpp
 	include/sge/sprite/detail/config/has_texture_point_size.hpp
-	include/sge/sprite/detail/config/has_visibility.hpp
 	include/sge/sprite/detail/config/is_intrusive.hpp
 	include/sge/sprite/detail/config/needs_index_buffer.hpp
 	include/sge/sprite/detail/config/needs_use_center.hpp
@@ -200,7 +201,6 @@ set(
 	include/sge/sprite/detail/render/unset_texture_stages.hpp
 	include/sge/sprite/detail/render/unset_textures.hpp
 	include/sge/sprite/detail/roles/primitive_count.hpp
-	include/sge/sprite/detail/roles/roles.hpp
 	include/sge/sprite/detail/roles/texture.hpp
 	include/sge/sprite/detail/roles/use_center.hpp
 	include/sge/sprite/detail/roles/use_texture_size.hpp
@@ -253,6 +253,7 @@ set(
 	include/sge/sprite/intrusive/ordered_collection_impl.hpp
 	include/sge/sprite/intrusive/process/ordered.hpp
 	include/sge/sprite/intrusive/process/ordered_with_options.hpp
+	include/sge/sprite/intrusive/process/process.hpp
 	include/sge/sprite/intrusive/range_decl.hpp
 	include/sge/sprite/intrusive/range_fwd.hpp
 	include/sge/sprite/intrusive/range_impl.hpp
@@ -276,6 +277,7 @@ set(
 	include/sge/sprite/process/one_with_options.hpp
 	include/sge/sprite/process/options.hpp
 	include/sge/sprite/process/options_fwd.hpp
+	include/sge/sprite/process/process.hpp
 	include/sge/sprite/process/with_options.hpp
 	include/sge/sprite/projection_matrix.hpp
 	include/sge/sprite/rect.hpp

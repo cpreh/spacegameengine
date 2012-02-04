@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/render/range_part_impl.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part.hpp>
 #include <fcppt/nonassignable.hpp>
