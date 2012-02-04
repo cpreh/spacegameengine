@@ -61,7 +61,8 @@ render_one(
 
 	range_type const range(
 		sge::sprite::detail::process::geometry<
-			Options::geometry_options
+			Options::geometry_options,
+			typename Buffers::choices
 		>(
 			_range,
 			_buffers,

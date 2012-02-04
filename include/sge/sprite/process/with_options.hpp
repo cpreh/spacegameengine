@@ -59,7 +59,8 @@ with_options(
 	>(
 		_buffers.parameters(),
 		sge::sprite::detail::process::geometry<
-			Options::geometry_options
+			Options::geometry_options,
+			typename Buffers::choices
 		>(
 			_range,
 			_buffers,

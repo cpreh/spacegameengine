@@ -42,6 +42,7 @@ namespace process
 
 template<
 	sge::sprite::process::geometry_options::type Options,
+	typename Choices,
 	typename Range,
 	typename Buffers,
 	typename Compare
@@ -52,7 +53,7 @@ typename boost::enable_if<
 		sge::sprite::process::geometry_options::sort_and_fill
 	>,
 	sge::sprite::render::range<
-		typename Buffers::choices
+		Choices
 	>
 >::type const
 geometry(
@@ -71,6 +72,7 @@ geometry(
 
 template<
 	sge::sprite::process::geometry_options::type Options,
+	typename Choices,
 	typename Range,
 	typename Buffers,
 	typename Compare
@@ -81,7 +83,7 @@ typename boost::enable_if<
 		sge::sprite::process::geometry_options::fill
 	>,
 	sge::sprite::render::range<
-		typename Buffers::choices
+		Choices
 	>
 >::type const
 geometry(
