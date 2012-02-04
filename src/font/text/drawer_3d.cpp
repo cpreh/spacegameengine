@@ -26,13 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/system_impl.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single_impl.hpp>
+#include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
-#include <sge/sprite/render/all.hpp>
+#include <sge/sprite/process/all.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -79,9 +80,9 @@ sge::font::text::drawer_3d::drawer_3d(
 		)
 	),
 	textures_(),
-	sprite_system_(
+	sprite_buffers_(
 		_renderer,
-		sge::sprite::buffers_option::dynamic
+		sge::sprite::buffers::option::dynamic
 	),
 	sprites_()
 {
@@ -155,12 +156,12 @@ sge::font::text::drawer_3d::draw_char(
 void
 sge::font::text::drawer_3d::end_rendering()
 {
-	sge::sprite::render::all(
+	sge::sprite::process::all(
 		sge::sprite::geometry::make_random_access_range(
 			sprites_.begin(),
 			sprites_.end()
 		),
-		sprite_system_.buffers(),
+		sprite_buffers_.buffers(),
 		sge::sprite::compare::default_()
 	);
 }

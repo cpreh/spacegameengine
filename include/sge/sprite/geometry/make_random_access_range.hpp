@@ -51,6 +51,40 @@ make_random_access_range(
 		);
 }
 
+template<
+	typename Container
+>
+sge::sprite::geometry::random_access_range<
+	typename Container::iterator
+> const
+make_random_access_range(
+	Container &_container
+)
+{
+	return
+		sge::sprite::geometry::make_random_access_range(
+			_container.begin(),
+			_container.end()
+		);
+}
+
+template<
+	typename Container
+>
+sge::sprite::geometry::random_access_range<
+	typename Container::const_iterator
+> const
+make_random_access_range(
+	Container const &_container
+)
+{
+	return
+		sge::sprite::geometry::make_random_access_range(
+			_container.begin(),
+			_container.end()
+		);
+}
+
 }
 }
 }

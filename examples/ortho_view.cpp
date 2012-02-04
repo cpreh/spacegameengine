@@ -39,10 +39,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/system.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single.hpp>
+#include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
@@ -51,9 +52,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <sge/sprite/render/geometry_options.hpp>
+#include <sge/sprite/process/geometry_options.hpp>
+#include <sge/sprite/process/one_with_options.hpp>
+#include <sge/sprite/process/options.hpp>
 #include <sge/sprite/render/matrix_options.hpp>
-#include <sge/sprite/render/one_with_options.hpp>
 #include <sge/sprite/render/options.hpp>
 #include <sge/sprite/render/state_options.hpp>
 #include <sge/sprite/render/states.hpp>
@@ -91,11 +93,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-
-}
 
 int main()
 try
@@ -201,17 +198,19 @@ try
 		sprite_choices
 	> sprite_object;
 
-	typedef sge::sprite::system<
-		sprite_choices
-	> sprite_system;
+	typedef sge::sprite::buffers::with_declaration<
+		sge::sprite::buffers::single<
+			sprite_choices
+		>
+	> sprite_buffers_type;
 
 	typedef sge::sprite::parameters<
 		sprite_choices
 	> sprite_parameters;
 
-	sprite_system sprite_sys(
+	sprite_buffers_type sprite_buffers(
 		sys.renderer(),
-		sge::sprite::buffers_option::dynamic
+		sge::sprite::buffers::option::dynamic
 	);
 
 	sprite_object const background(
@@ -287,25 +286,27 @@ try
 			>()
 		);
 
-		typedef sge::sprite::render::options<
-			sge::sprite::render::geometry_options::fill,
-			sge::sprite::render::matrix_options::nothing,
-			sge::sprite::render::state_options::nothing,
-			sge::sprite::render::vertex_options::declaration_and_buffer
+		typedef sge::sprite::process::options<
+			sge::sprite::process::geometry_options::fill,
+			sge::sprite::render::options<
+				sge::sprite::render::matrix_options::nothing,
+				sge::sprite::render::state_options::nothing,
+				sge::sprite::render::vertex_options::declaration_and_buffer
+			>
 		> sprite_options;
 
-		sge::sprite::render::one_with_options<
+		sge::sprite::process::one_with_options<
 			sprite_options
 		>(
 			background,
-			sprite_sys.buffers()
+			sprite_buffers.buffers()
 		);
 
-		sge::sprite::render::one_with_options<
+		sge::sprite::process::one_with_options<
 			sprite_options
 		>(
 			tux,
-			sprite_sys.buffers()
+			sprite_buffers.buffers()
 		);
 	}
 }

@@ -21,21 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_GEOMETRY_FILL_VERTICES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_GEOMETRY_FILL_VERTICES_HPP_INCLUDED
 
-#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/detail/visible.hpp>
+#include <sge/sprite/buffers/slice_impl.hpp>
+#include <sge/sprite/detail/buffers/vertex_count.hpp>
 #include <sge/sprite/detail/geometry/fill_color.hpp>
 #include <sge/sprite/detail/geometry/fill_point_size.hpp>
 #include <sge/sprite/detail/geometry/fill_position.hpp>
 #include <sge/sprite/detail/geometry/fill_texture_levels.hpp>
+#include <sge/sprite/detail/geometry/make_render_part.hpp>
 #include <sge/sprite/detail/geometry/vertices_per_sprite.hpp>
 #include <sge/sprite/detail/vf/format_part_from_object.hpp>
+#include <sge/sprite/render/range_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/next_prior.hpp>
+#include <exception>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -50,34 +54,50 @@ namespace geometry
 {
 
 template<
-	typename It
+	typename Range,
+	typename Compare,
+	typename Choices
 >
-sge::sprite::count const
+sge::sprite::render::range<
+	Choices
+> const
 fill_vertices(
-	It _begin,
-	It const _end,
-	sge::renderer::vertex_buffer &_vb,
-	sge::sprite::count const &_num_sprites
+	Range const &_range,
+	Compare const &_compare,
+	sge::sprite::buffers::slice<
+		Choices
+	> &_slice
 )
 {
+	if(
+		_range.empty()
+	)
+		std::terminate();
+
+	typedef typename Range::iterator iterator;
+
+	iterator const
+		begin(
+			_range.begin()
+		),
+		end(
+			_range.end()
+		);
+
 	typedef typename std::iterator_traits<
-		It
+		iterator
 	>::value_type object_type;
 
 	typedef typename object_type::choices choices;
 
 	sge::renderer::scoped_vertex_lock const vblock(
-		_vb,
+		_slice.vertex_buffer(),
 		sge::renderer::lock_mode::writeonly,
-		sge::renderer::first_vertex(
-			0
-		),
-		sge::renderer::vertex_count(
-			_num_sprites.get()
-			*
-			sge::sprite::detail::geometry::vertices_per_sprite<
-				choices
-			>::value
+		_slice.first_vertex(),
+		sge::sprite::detail::buffers::vertex_count<
+			Choices
+		>(
+			_range.size()
 		)
 	);
 
@@ -95,58 +115,103 @@ fill_vertices(
 		vertices.begin()
 	);
 
-	sge::sprite::count filled_sprites(
+	typedef sge::sprite::render::range<
+		Choices
+	> result_type;
+
+	result_type result(
+		_slice.part_vector(),
+		_slice.buffer_object()
+	);
+
+	sge::sprite::count offset(
+		0u
+	);
+
+	sge::sprite::count cur_count(
 		0u
 	);
 
 	for(
-		It it(
-			_begin
+		iterator cur(
+			begin
 		);
-		it != _end;
-		++it
+		cur != end;
+		++cur
 	)
 	{
-		object_type const &spr(
-			*it
+		iterator const next(
+			boost::next(
+				cur
+			)
+		);
+
+		++cur_count;
+
+		object_type const &cur_sprite(
+			*cur
 		);
 
 		if(
-			!sge::sprite::detail::visible(
-				spr
+			next
+			==
+			end
+			||
+			_compare(
+				cur_sprite,
+				*next
+			)
+			||
+			_compare(
+				*next,
+				cur_sprite
 			)
 		)
-			continue;
+		{
+			result.add(
+				sge::sprite::detail::geometry::make_render_part(
+					_slice,
+					offset,
+					cur_count,
+					cur_sprite
+				)
+			);
+
+			offset += cur_count;
+
+			cur_count =
+				sge::sprite::count(
+					0u
+				);
+		}
 
 		sge::sprite::detail::geometry::fill_position(
 			vb_it,
-			spr
+			cur_sprite
 		);
 
 		sge::sprite::detail::geometry::fill_texture_levels(
 			vb_it,
-			spr
+			cur_sprite
 		);
 
 		sge::sprite::detail::geometry::fill_color(
 			vb_it,
-			spr
+			cur_sprite
 		);
 
 		sge::sprite::detail::geometry::fill_point_size(
 			vb_it,
-			spr
+			cur_sprite
 		);
 
 		vb_it +=
 			sge::sprite::detail::geometry::vertices_per_sprite<
 				choices
 			>::value;
-
-		++filled_sprites;
 	}
 
-	return filled_sprites;
+	return result;
 }
 
 }

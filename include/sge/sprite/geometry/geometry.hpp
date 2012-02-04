@@ -31,5 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/geometry/sort.hpp>
 #include <sge/sprite/geometry/sort_and_update.hpp>
 #include <sge/sprite/geometry/update.hpp>
+#include <sge/sprite/geometry/update_one.hpp>
 
 #endif

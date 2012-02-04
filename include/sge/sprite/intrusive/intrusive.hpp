@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/range_decl.hpp>
 #include <sge/sprite/intrusive/range_fwd.hpp>
 #include <sge/sprite/intrusive/range_impl.hpp>
-#include <sge/sprite/intrusive/render/render.hpp>
+#include <sge/sprite/intrusive/process/process.hpp>
+
 
 #endif

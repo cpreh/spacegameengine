@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture/const_optional_base.hpp>
+#include <sge/renderer/texture/const_planar_ptr.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/texture/const_part_ptr.hpp>
@@ -48,20 +50,20 @@ class set_texture_level
 		set_texture_level
 	);
 public:
-	typedef sge::sprite::object<
+	typedef sge::sprite::render::range_part<
 		Choices
-	> object;
+	> range_part;
 
 	set_texture_level(
-		object const &_object,
-		sge::renderer::device &_renderer
+		sge::renderer::device &_renderer,
+		range_part const &_range_part
 	)
 	:
-		object_(
-			_object
-		),
 		renderer_(
 			_renderer
+		),
+		range_part_(
+			_range_part
 		)
 	{
 	}
@@ -74,17 +76,17 @@ public:
 		Level const &
 	) const
 	{
-		sge::texture::const_part_ptr const vtex(
-			object_. template texture_level<
+		sge::renderer::texture::const_planar_ptr const texture(
+			range_part_. template texture_level<
 				Level::value
 			>()
 		);
 
 		renderer_.texture(
-			vtex
+			texture
 			?
 				sge::renderer::texture::const_optional_base(
-					*vtex->texture()
+					*texture
 				)
 			:
 				sge::renderer::texture::const_optional_base()
@@ -95,9 +97,9 @@ public:
 		);
 	}
 private:
-	object const &object_;
-
 	sge::renderer::device &renderer_;
+
+	range_part const &range_part_;
 };
 
 }

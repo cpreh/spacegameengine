@@ -47,10 +47,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/system.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single.hpp>
+#include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
@@ -59,7 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <sge/sprite/render/one.hpp>
+#include <sge/sprite/process/one.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -181,9 +182,11 @@ try
 		>
 	> sprite_choices;
 
-	typedef sge::sprite::system<
-		sprite_choices
-	> sprite_system;
+	typedef sge::sprite::buffers::with_declaration<
+		sge::sprite::buffers::single<
+			sprite_choices
+		>
+	> sprite_buffers_type;
 
 	typedef sge::sprite::object<
 		sprite_choices
@@ -193,9 +196,9 @@ try
 		sprite_choices
 	> sprite_parameters;
 
-	sprite_system sprite_sys(
+	sprite_buffers_type sprite_buffers(
 		sys.renderer(),
-		sge::sprite::buffers_option::dynamic
+		sge::sprite::buffers::option::dynamic
 	);
 
 	sge::renderer::texture::planar_ptr const target_texture(
@@ -301,14 +304,14 @@ try
 			sys.renderer()
 		);
 
-		sge::sprite::render::one(
+		sge::sprite::process::one(
 			my_object,
-			sprite_sys.buffers()
+			sprite_buffers.buffers()
 		);
 
-		sge::sprite::render::one(
+		sge::sprite::process::one(
 			my_object_2,
-			sprite_sys.buffers()
+			sprite_buffers.buffers()
 		);
 	}
 
@@ -344,9 +347,9 @@ try
 			sys.renderer()
 		);
 
-		sge::sprite::render::one(
+		sge::sprite::process::one(
 			rendered_stuff,
-			sprite_sys.buffers()
+			sprite_buffers.buffers()
 		);
 	}
 }

@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_GEOMETRY_FILL_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_FILL_HPP_INCLUDED
 
-#include <sge/sprite/count.hpp>
+#include <sge/sprite/buffers/slice_fwd.hpp>
 #include <sge/sprite/detail/geometry/fill.hpp>
+#include <sge/sprite/render/range_impl.hpp>
 
 
 namespace sge
@@ -33,23 +34,27 @@ namespace geometry
 {
 
 template<
-	typename Iterator,
-	typename Buffers
+	typename Range,
+	typename Compare,
+	typename Choices
 >
-void
+sge::sprite::render::range<
+	Choices
+> const
 fill(
-	Iterator const _begin,
-	Iterator const _end,
-	Buffers &_buffers,
-	sge::sprite::count const _count
+	Range const &_range,
+	Compare const &_compare,
+	sge::sprite::buffers::slice<
+		Choices
+	> &_slice
 )
 {
-	sge::sprite::detail::geometry::fill(
-		_begin,
-		_end,
-		_buffers,
-		_count
-	);
+	return
+		sge::sprite::detail::geometry::fill(
+			_range,
+			_compare,
+			_slice
+		);
 }
 
 }

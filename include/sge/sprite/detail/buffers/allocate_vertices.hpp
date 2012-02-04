@@ -24,12 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/detail/geometry/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/roles/vertex_buffer.hpp>
+#include <sge/sprite/buffers/parameters.hpp>
+#include <sge/sprite/buffers/roles/vertex_buffer.hpp>
+#include <sge/sprite/detail/buffers/vertex_count.hpp>
 #include <sge/sprite/detail/vf/part_index.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
 
 
 namespace sge
@@ -43,29 +42,26 @@ namespace buffers
 
 template<
 	typename Choices,
-	typename Buffers
+	typename BufferObject
 >
 void
 allocate_vertices(
-	sge::renderer::device &_renderer,
-	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::sprite::buffers::parameters const &_parameters,
 	sge::sprite::count const _num_sprites,
-	Buffers &_buffers,
+	BufferObject &_buffers,
 	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
 	_buffers. template set<
-		sge::sprite::detail::roles::vertex_buffer
+		sge::sprite::buffers::roles::vertex_buffer
 	>(
-		_renderer.create_vertex_buffer(
-			_vertex_declaration,
+		_parameters.renderer().create_vertex_buffer(
+			_parameters.vertex_declaration(),
 			sge::sprite::detail::vf::part_index(),
-			sge::renderer::vertex_count(
-				_num_sprites.get()
-				*
-				sge::sprite::detail::geometry::vertices_per_sprite<
-					Choices
-				>::value
+			sge::sprite::detail::buffers::vertex_count<
+				Choices
+			>(
+				_num_sprites
 			),
 			_resource_flags
 		)

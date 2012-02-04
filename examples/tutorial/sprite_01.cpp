@@ -32,10 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/buffers_option.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/system.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single.hpp>
+#include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
@@ -44,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <sge/sprite/render/one.hpp>
+#include <sge/sprite/process/one.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -137,9 +138,11 @@ try
 		>
 	> sprite_choices;
 
-	typedef sge::sprite::system<
-		sprite_choices
-	> sprite_system;
+	typedef sge::sprite::buffers::with_declaration<
+		sge::sprite::buffers::single<
+			sprite_choices
+		>
+	> sprite_buffers_type;
 
 	typedef sge::sprite::object<
 		sprite_choices
@@ -149,9 +152,9 @@ try
 		sprite_choices
 	> sprite_parameters;
 
-	sprite_system sprite_sys(
+	sprite_buffers_type sprite_buffers(
 		sys.renderer(),
-		sge::sprite::buffers_option::dynamic
+		sge::sprite::buffers::option::dynamic
 	);
 
 	sge::image2d::file_ptr const image(
@@ -190,34 +193,34 @@ try
 	{
 		sys.window_system().poll();
 
-		sge::renderer::scoped_block const block_(
+		sge::renderer::scoped_block const block(
 			sys.renderer()
 		);
 
-		sge::sprite::render::one(
+		sge::sprite::process::one(
 			my_object,
-			sprite_sys.buffers()
+			sprite_buffers.buffers()
 		);
 	}
 }
 catch(
-	fcppt::exception const &e
+	fcppt::exception const &_exception
 )
 {
 	fcppt::io::cerr()
 		<< FCPPT_TEXT("caught sge exception: ")
-		<< e.string()
+		<< _exception.string()
 		<< FCPPT_TEXT('\n');
 
 	return EXIT_FAILURE;
 }
 catch(
-	std::exception const &e
+	std::exception const &_exception
 )
 {
 	std::cerr
 		<< "caught std exception: "
-		<< e.what()
+		<< _exception.what()
 		<< '\n';
 	return EXIT_FAILURE;
 }
