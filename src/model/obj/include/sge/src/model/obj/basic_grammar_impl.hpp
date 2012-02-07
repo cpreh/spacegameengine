@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
 #include <boost/spirit/include/qi_action.hpp>
+#include <boost/spirit/include/qi_as.hpp>
 #include <boost/spirit/include/qi_attr.hpp>
 #include <boost/spirit/include/qi_core.hpp>
 #include <boost/spirit/include/qi_grammar.hpp>
@@ -107,6 +108,9 @@ sge::model::obj::basic_grammar<
 		_tokens.float_
 		;
 
+	index_ %=
+		_tokens.int_;
+
 	face_point_ %=
 		(
 			_tokens.int_
@@ -121,7 +125,29 @@ sge::model::obj::basic_grammar<
 				FCPPT_TEXT('/')
 			)
 			>>
-			-_tokens.int_
+			boost::spirit::qi::as<
+				obj::optional_index
+			>()[
+				index_
+			]
+		)
+		|
+		(
+			_tokens.int_
+			>>
+			boost::spirit::lit(
+				FCPPT_TEXT('/')
+			)
+			>>
+			boost::spirit::qi::as<
+				obj::optional_index
+			>()[
+				index_
+			]
+			>>
+			boost::spirit::qi::attr(
+				obj::optional_index()
+			)
 		)
 		|
 		(
@@ -273,6 +299,7 @@ sge::model::obj::basic_grammar<
 	vertex_.name("vertex");
 	texcoord_.name("texcoord");
 	normal_.name("normal");
+	index_.name("index");
 	face_point_.name("face_point");
 	face_.name("face");
 	mtllib_.name("mtllib");

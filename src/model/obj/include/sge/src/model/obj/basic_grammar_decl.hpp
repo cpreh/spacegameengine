@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/model/obj/face_fwd.hpp>
 #include <sge/model/obj/face_point_fwd.hpp>
+#include <sge/model/obj/index.hpp>
 #include <sge/model/obj/mesh_fwd.hpp>
 #include <sge/model/obj/normal_fwd.hpp>
 #include <sge/model/obj/texcoord_fwd.hpp>
@@ -95,6 +96,12 @@ private:
 		obj::normal(),
 		skipper
 	> normal_;
+
+	boost::spirit::qi::rule<
+		Iterator,
+		obj::index(),
+		skipper
+	> index_;
 
 	boost::spirit::qi::rule<
 		Iterator,
