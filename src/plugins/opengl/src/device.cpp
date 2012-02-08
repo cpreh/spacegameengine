@@ -143,6 +143,8 @@ sge::opengl::device::~device()
 void
 sge::opengl::device::begin_rendering()
 {
+	state_->begin_rendering();
+
 	this->clear(
 		renderer::state::to_clear_flags_field(
 			current_states_

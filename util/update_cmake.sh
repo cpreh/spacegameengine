@@ -38,7 +38,7 @@ function update_sublibrary()
 {
 	local sublibrary="$1"
 
-	local upperpath="${sublibrary^^}"
+	local upperpath=$(tr 'a-z' 'A-Z' <<< "${sublibrary}")
 
 	update_cmake_file \
 		src/"${sublibrary}"/CMakeLists.txt \
@@ -51,10 +51,11 @@ function update_sublibrary()
 function update_plugin()
 {
 	local plugin="$1"
+	local upperplugin=$(tr 'a-z' 'A-Z' <<< "${plugin}")
 
 	update_cmake_file \
 		src/plugins/"${plugin}"/CMakeLists.txt \
-		SGE_"${plugin^^}"_FILES \
+		SGE_"${upperplugin}"_FILES \
 		src/plugins/"${plugin}"
 }
 
@@ -173,6 +174,12 @@ update_cmake_file \
 	SGE_OPENGL_WIN32_FILES \
 	$(opengl_inc_src wgl) \
 	$(opengl_inc_src windows)
+
+update_cmake_file \
+	src/plugins/opengl/CMakeLists.txt \
+	SGE_OPENGL_COCOA_FILES \
+	-e '.*\.(mm|cpp)?' \
+	$(opengl_inc_src cocoa)
 
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \

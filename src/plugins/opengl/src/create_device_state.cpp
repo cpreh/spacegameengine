@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/opengl/windows/state.hpp>
 #include <awl/backends/windows/window/instance.hpp>
+#elif defined(FCPPT_CONFIG_DARWIN_PLATFORM)
+#include <sge/opengl/cocoa/create_device_state.hpp>
+#include <sge/opengl/device_state.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -87,6 +90,13 @@ sge::opengl::create_device_state(
 				)
 			)
 		);
+#elif defined(FCPPT_CONFIG_DARWIN_PLATFORM)
+	return
+		opengl::cocoa::create_device_state(
+			_context,
+			_parameters,
+			_adapter,
+			_window);
 #else
 #error "Implement me!"
 #endif

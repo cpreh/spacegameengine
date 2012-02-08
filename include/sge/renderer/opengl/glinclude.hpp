@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/platform.hpp>
 #include <fcppt/config/external_begin.hpp>
 #if defined(FCPPT_CONFIG_DARWIN_PLATFORM)
-#include <gl.h>
+#include <OpenGL/gl.h>
 #else
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	#define WIN32_LEAN_AND_MEAN

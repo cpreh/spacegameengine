@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
+#include <boost/bind.hpp>
 
 
 namespace
@@ -156,19 +157,25 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 	apply_difference(
 		old_states_.texture_states(),
 		new_states_.texture_states(),
-		std::tr1::bind(
+	//	std::tr1::bind(
+		boost::bind(
 			vf::enable_texcoords,
-			fcppt::ref(
+			//fcppt::ref(
+			boost::ref(
 				context_
 			),
-			std::tr1::placeholders::_1
+			//std::tr1::placeholders::_1
+			_1
 		),
-		std::tr1::bind(
+		//std::tr1::bind(
+		boost::bind(
 			vf::disable_texcoords,
-			fcppt::ref(
+			//fcppt::ref(
+			boost::ref(
 				context_
 			),
-			std::tr1::placeholders::_1
+			//std::tr1::placeholders::_1
+			_1
 		)
 	);
 

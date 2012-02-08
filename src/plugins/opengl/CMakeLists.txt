@@ -695,6 +695,13 @@ set(
 )
 
 set(
+	SGE_OPENGL_COCOA_FILES
+	src/plugins/opengl/src/cocoa/SGECocoaOpenGLView.mm
+	src/plugins/opengl/src/cocoa/create_device_state.mm
+	src/plugins/opengl/src/cocoa/state.mm
+)
+
+set(
 	SGE_OPENGL_X11_FILES
 	src/plugins/opengl/include/sge/opengl/glx/context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/context_fwd.hpp
@@ -785,7 +792,7 @@ set(
 )
 
 if(
-	UNIX
+	UNIX AND NOT APPLE
 )
 	find_package(
 		X11
@@ -876,6 +883,19 @@ elseif(
 	set(
 		SGE_OPENGL_FILES
 		"${SGE_OPENGL_FILES};${SGE_OPENGL_WIN32_FILES}"
+	)
+elseif(
+		APPLE)
+	set(
+		SGE_OPENGL_FILES
+		"${SGE_OPENGL_FILES};${SGE_OPENGL_COCOA_FILES}"
+	)
+
+	add_definitions(-fobjc-arc)
+
+	set(
+		SGE_OPENGL_ADDITIONAL_DEPS
+		"${SGE_OPENGL_ADDITIONAL_DEPS};-framework Cocoa"
 	)
 endif()
 

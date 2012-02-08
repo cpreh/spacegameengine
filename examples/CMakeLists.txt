@@ -315,6 +315,12 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
 )
 
+add_sge_example(
+	window_without_input
+	"sgeimage;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+)
+
 if(
 	ENABLE_CEGUI
 )

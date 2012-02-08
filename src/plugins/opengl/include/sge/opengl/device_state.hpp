@@ -38,6 +38,9 @@ protected:
 	device_state();
 public:
 	virtual void
+	begin_rendering() = 0;
+
+	virtual void
 	swap_buffers() = 0;
 
 	virtual ~device_state();
