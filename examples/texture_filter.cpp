@@ -554,7 +554,7 @@ try
 	sprite_range_type const sprite_range(
 		sge::sprite::geometry::update_one(
 			sprite,
-			sprite_buffers.buffers()
+			sprite_buffers
 		)
 	);
 

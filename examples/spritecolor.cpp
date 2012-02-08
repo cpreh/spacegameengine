@@ -202,7 +202,7 @@ try
 
 		sge::sprite::process::one(
 			spr,
-			sprite_buffers.buffers()
+			sprite_buffers
 		);
 	}
 }

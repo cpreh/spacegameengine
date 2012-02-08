@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_BUFFERS_WITH_DECLARATION_DECL_HPP_INCLUDED
 
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/parameters_fwd.hpp>
 #include <sge/sprite/buffers/with_declaration_fwd.hpp>
@@ -51,21 +51,27 @@ public:
 		sge::sprite::buffers::option::type
 	);
 
-	typedef Buffers buffers_type;
-
 	~with_declaration();
 
-	buffers_type &
-	buffers();
+	typedef Buffers buffers_type;
 
-	buffers_type const &
-	buffers() const;
+	typedef typename buffers_type::choices choices;
+
+	typedef typename Buffers::slice_type slice_type;
+
+	slice_type &
+	allocate(
+		sge::sprite::count
+	);
 
 	sge::sprite::buffers::parameters const &
 	parameters() const;
 
-	sge::renderer::vertex_declaration const &
-	vertex_declaration() const;
+	buffers_type &
+	impl();
+
+	buffers_type const &
+	impl() const;
 private:
 	sge::renderer::vertex_declaration_ptr const vertex_declaration_;
 

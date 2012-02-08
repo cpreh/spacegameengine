@@ -189,7 +189,7 @@ try
 				sge::sprite::config::texture_level_count<
 					1u
 				>,
-				sge::sprite::config::texture_coordinates::normal
+				sge::sprite::config::texture_coordinates::automatic
 			>
 		>
 	> sprite_choices;
@@ -299,14 +299,14 @@ try
 			sprite_options
 		>(
 			background,
-			sprite_buffers.buffers()
+			sprite_buffers
 		);
 
 		sge::sprite::process::one_with_options<
 			sprite_options
 		>(
 			tux,
-			sprite_buffers.buffers()
+			sprite_buffers
 		);
 	}
 }

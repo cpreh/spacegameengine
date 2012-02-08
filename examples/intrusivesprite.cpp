@@ -332,7 +332,7 @@ try
 
 		sge::sprite::intrusive::process::ordered(
 			ordered_collection,
-			sprite_buffers.buffers(),
+			sprite_buffers,
 			sge::sprite::compare::default_()
 		);
 	}

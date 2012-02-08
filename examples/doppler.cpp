@@ -152,7 +152,7 @@ typedef sge::sprite::config::choices<
 			sge::sprite::config::texture_level_count<
 				1u
 			>,
-			sge::sprite::config::texture_coordinates::normal
+			sge::sprite::config::texture_coordinates::automatic
 		>
 	>
 > sprite_choices;
@@ -506,12 +506,12 @@ try
 
 		sge::sprite::process::one(
 			background,
-			sprite_buf.buffers()
+			sprite_buf
 		);
 
 		sge::sprite::process::one(
 			tux,
-			sprite_buf.buffers()
+			sprite_buf
 		);
 
 		sound_siren->update();

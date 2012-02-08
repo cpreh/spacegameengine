@@ -38,7 +38,7 @@ typedef boost::mpl::vector1<
 		sge::sprite::config::texture_level_count<
 			1u
 		>,
-		sge::sprite::config::texture_coordinates::normal
+		sge::sprite::config::texture_coordinates::automatic
 	>
 > sprite_elements;
 

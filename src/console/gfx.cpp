@@ -190,7 +190,7 @@ sge::console::gfx::render()
 {
 	sge::sprite::process::one(
 		background_,
-		sprite_buffers_.buffers()
+		sprite_buffers_
 	);
 
 	output_line_sequence::size_type const line_count =

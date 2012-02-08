@@ -137,7 +137,7 @@ typedef sge::sprite::config::choices<
 			sge::sprite::config::texture_level_count<
 				1u
 			>,
-			sge::sprite::config::texture_coordinates::normal
+			sge::sprite::config::texture_coordinates::automatic
 		>
 	>
 > sprite_choices;
@@ -492,7 +492,7 @@ try
 	pixel_shader->compile();
 
 	program->vertex_declaration(
-		sprite_buffers.vertex_declaration()
+		sprite_buffers.parameters().vertex_declaration()
 	);
 
 	sge::renderer::glsl::scoped_attachment const vertex_shader_attachment(
@@ -543,17 +543,17 @@ try
 
 			sge::sprite::process::one(
 				background,
-				sprite_buffers.buffers()
+				sprite_buffers
 			);
 
 			sge::sprite::process::one(
 				tux,
-				sprite_buffers.buffers()
+				sprite_buffers
 			);
 
 			sge::sprite::process::one(
 				pointer,
-				sprite_buffers.buffers()
+				sprite_buffers
 			);
 		}
 
@@ -569,7 +569,7 @@ try
 
 		sge::sprite::process::one(
 			target_spr,
-			sprite_buffers.buffers()
+			sprite_buffers
 		);
 	}
 }

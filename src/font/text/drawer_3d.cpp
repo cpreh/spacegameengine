@@ -161,7 +161,7 @@ sge::font::text::drawer_3d::end_rendering()
 			sprites_.begin(),
 			sprites_.end()
 		),
-		sprite_buffers_.buffers(),
+		sprite_buffers_,
 		sge::sprite::compare::default_()
 	);
 }

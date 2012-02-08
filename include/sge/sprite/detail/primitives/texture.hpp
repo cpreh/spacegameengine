@@ -99,7 +99,7 @@ template<
 struct texture<
 	Choices,
 	TextureLevels,
-	sge::sprite::config::texture_coordinates::normal
+	sge::sprite::config::texture_coordinates::automatic
 >
 {
 	typedef majutsu::composite<

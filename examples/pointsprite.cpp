@@ -471,7 +471,7 @@ particles::render()
 		sge::sprite::geometry::make_random_access_range(
 			sprites_
 		),
-		sprite_buffers_.buffers(),
+		sprite_buffers_,
 		sge::sprite::compare::nothing()
 	);
 }
@@ -479,7 +479,7 @@ particles::render()
 sge::renderer::vertex_declaration const &
 particles::vertex_declaration() const
 {
-	return sprite_buffers_.vertex_declaration();
+	return sprite_buffers_.parameters().vertex_declaration();
 }
 }
 

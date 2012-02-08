@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_BUFFERS_WITH_DECLARATION_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/sprite/count.hpp>
 #include <sge/sprite/make_vertex_format.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
@@ -70,25 +70,17 @@ template<
 >
 typename sge::sprite::buffers::with_declaration<
 	Buffers
->::buffers_type &
+>::slice_type &
 sge::sprite::buffers::with_declaration<
 	Buffers
->::buffers()
+>::allocate(
+	sge::sprite::count const _count
+)
 {
-	return buffers_;
-}
-
-template<
-	typename Buffers
->
-typename sge::sprite::buffers::with_declaration<
-	Buffers
->::buffers_type const &
-sge::sprite::buffers::with_declaration<
-	Buffers
->::buffers() const
-{
-	return buffers_;
+	return
+		buffers_.allocate(
+			_count
+		);
 }
 
 template<
@@ -105,12 +97,27 @@ sge::sprite::buffers::with_declaration<
 template<
 	typename Buffers
 >
-sge::renderer::vertex_declaration const &
+typename sge::sprite::buffers::with_declaration<
+	Buffers
+>::buffers_type &
 sge::sprite::buffers::with_declaration<
 	Buffers
->::vertex_declaration() const
+>::impl()
 {
-	return *vertex_declaration_;
+	return buffers_;
+}
+
+template<
+	typename Buffers
+>
+typename sge::sprite::buffers::with_declaration<
+	Buffers
+>::buffers_type const &
+sge::sprite::buffers::with_declaration<
+	Buffers
+>::impl() const
+{
+	return buffers_;
 }
 
 #endif

@@ -177,7 +177,7 @@ try
 				sge::sprite::config::texture_level_count<
 					1u
 				>,
-				sge::sprite::config::texture_coordinates::normal
+				sge::sprite::config::texture_coordinates::automatic
 			>
 		>
 	> sprite_choices;
@@ -295,23 +295,23 @@ try
 			)
 		);
 
-		sge::renderer::scoped_target const target_(
+		sge::renderer::scoped_target const scoped_target(
 			sys.renderer(),
 			*target
 		);
 
-		sge::renderer::scoped_block const block_(
+		sge::renderer::scoped_block const block(
 			sys.renderer()
 		);
 
 		sge::sprite::process::one(
 			my_object,
-			sprite_buffers.buffers()
+			sprite_buffers
 		);
 
 		sge::sprite::process::one(
 			my_object_2,
-			sprite_buffers.buffers()
+			sprite_buffers
 		);
 	}
 
@@ -349,7 +349,7 @@ try
 
 		sge::sprite::process::one(
 			rendered_stuff,
-			sprite_buffers.buffers()
+			sprite_buffers
 		);
 	}
 }

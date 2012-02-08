@@ -169,6 +169,7 @@ try
 		)
 	);
 
+//! [choices_declaration]
 	typedef sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -184,18 +185,23 @@ try
 				sge::sprite::config::texture_level_count<
 					2u
 				>,
-				sge::sprite::config::texture_coordinates::normal
+				sge::sprite::config::texture_coordinates::automatic
 			>
 		>
 	> sprite_choices;
+//! [choices_declaration]
 
+//! [parameters_declaration]
 	typedef sge::sprite::parameters<
 		sprite_choices
 	> sprite_parameters;
+//! [parameters_declaration]
 
+//! [object_declaration]
 	typedef sge::sprite::object<
 		sprite_choices
 	> sprite_object;
+//! [object_declaration]
 
 	typedef sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
@@ -208,6 +214,7 @@ try
 		sge::sprite::buffers::option::dynamic
 	);
 
+//! [object_initialization]
 	sprite_object const sprite(
 		sprite_parameters()
 		.pos(
@@ -229,6 +236,7 @@ try
 		)
 		.texture_size()
 	);
+//! [object_initialization]
 
 	bool running = true;
 
@@ -285,7 +293,7 @@ try
 
 		sge::sprite::process::one(
 			sprite,
-			sprite_buffers.buffers()
+			sprite_buffers
 		);
 	}
 }

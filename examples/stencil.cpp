@@ -198,7 +198,7 @@ try
 				sge::sprite::config::texture_level_count<
 					1u
 				>,
-				sge::sprite::config::texture_coordinates::normal
+				sge::sprite::config::texture_coordinates::automatic
 			>
 		>
 	> sprite_choices;
@@ -359,7 +359,7 @@ try
 			// Render small sprite.
 			sge::sprite::process::one(
 				small_sprite,
-				sprite_buffers.buffers()
+				sprite_buffers
 			);
 		}
 
@@ -381,7 +381,7 @@ try
 			// Render big sprite.
 			sge::sprite::process::one(
 				big_sprite,
-				sprite_buffers.buffers()
+				sprite_buffers
 			);
 		}
 	}

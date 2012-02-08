@@ -32,7 +32,7 @@ namespace texture_coordinates
 {
 enum type
 {
-	normal,
+	automatic,
 	repetition,
 	custom
 };
