@@ -81,6 +81,11 @@ sge::opengl::x11::state::state(
 		);
 }
 
+void
+sge::opengl::x11::state::begin_rendering()
+{
+}
+
 sge::opengl::x11::state::~state()
 {
 }

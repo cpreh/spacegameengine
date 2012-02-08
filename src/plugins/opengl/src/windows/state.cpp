@@ -71,6 +71,11 @@ sge::opengl::windows::state::~state()
 }
 
 void
+sge::opengl::windows::state::begin_rendering()
+{
+}
+
+void
 sge::opengl::windows::state::swap_buffers()
 {
 	if(

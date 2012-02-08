@@ -59,6 +59,9 @@ public:
 	~state();
 
 	void
+	begin_rendering();
+
+	void
 	swap_buffers();
 private:
 	awl::backends::x11::window::instance &window_;
