@@ -782,10 +782,6 @@ include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-include_directories(
-	${OPENGL_INCLUDE_DIR}
-)
-
 set(
 	SGE_OPENGL_ADDITIONAL_DEPS
 	"${OPENGL_gl_LIBRARY};${GLEW_LIBRARIES};${Awl_LIBRARIES}"

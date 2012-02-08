@@ -15,15 +15,15 @@ include_directories(
 )
 
 include_directories(
-	${ICONV_INCLUDE_DIR}
+	${ICONV_INCLUDE_DIRS}
 )
 
 if(
-	NOT ICONV_HAVE_POSIX
+	NOT ICONV_IN_LIBC
 )
 	set(
 		ICONV_LINK_LIBRARY
-		${ICONV_LIBRARY}
+		${ICONV_LIBRARIES}
 	)
 endif()
 
