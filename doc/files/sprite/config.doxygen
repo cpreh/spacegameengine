@@ -1,0 +1,81 @@
+/**
+\page sprite_config Sprite Config
+
+The sprite config class \link sge::sprite::config::choices \endlink
+consists of three different parts:
+
+<ul>
+<li>\ref sprite_type_choices</li>
+<li>\ref sprite_size_choice</li>
+<li>\ref sprite_optional_attributes</li>
+</ul>
+
+\section sprite_type_choices Type choices
+
+The \link sge::sprite::config::type_choices \endlink class specifies two
+arithmetic types:
+
+<dl>
+<dt>\link sge::sprite::config::unit_type \endlink</dt>
+<dd>It is used to specify the sprite's position and size. Most of the time,
+this type will be an integer, but it also can be floating point type.</dd>
+
+<dt>\link sge::sprite::config::float_type \endlink</dt>
+<dd>It is used for everything else, including texture coordinates, rotation,
+depth, and so on.</dd>
+</dl>
+
+\section sprite_size_choice Size choice
+
+The two possible size choices are:
+<dl>
+<dt>\link sge::sprite::config::normal_size \endlink</dt>
+<dd>A normal size tells that the sprite should be a rectangle, which essentially
+consists of four points.</dd>
+
+<dt>\link sge::sprite::config::point_size \endlink</dt>
+<dd> A point size tells that the sprite is a point sprite that only has a
+center, so it only consists of one point.</dd>
+</dl>
+
+\section sprite_optional_attributes Optional attributes
+
+By default, a sprite only has a position and a size as specified by the size
+choice. All additional attributes can be specified by the optional attributes.
+
+<dl>
+<dt>\link sge::sprite::config::with_color \endlink</dt>
+<dd>Adds a color attribute to a sprite. The color will be blended over the
+entire sprite.</dd>
+
+<dt>\link sge::sprite::config::with_depth \endlink</dt>
+<dd>Adds a depth attribute to a sprite. This determines which z coordinate the
+sprite will have in all of its points.</dd>
+
+<dt>\link sge::sprite::config::with_rotation \endlink</dt>
+<dd>Adds a rotation to a sprite. A rotated sprite will be more complex to
+calculate the vertices for.</dd>
+
+<dt>\link sge::sprite::config::with_texture \endlink</dt>
+<dd>Adds textures to a sprite with a \link sge::sprite::config::normal_size
+\endlink</dd>
+
+<dt>\link sge::sprite::config::with_texture_point_size \endlink</dt>
+<dd>Adds textures to a sprite with a \link sge::sprite::config::point_size
+\endlink</dd>
+
+</dl>
+
+\section sprite_choices_example Sprite Choices example
+
+The following example declares sprite choices, using int for the unit type,
+float for the float type, a normal size, and two textures with automatic
+texture coordinates.
+
+\snippet multi_texture_sprite.cpp choices_declaration
+
+This example will be used throughout the tutorial for basic demonstration.
+
+<strong>Previous:</strong> \ref sprite_introduction, <strong>Up:</strong> \ref sprite_main, <strong>Next:</strong> \ref sprite_object
+
+*/

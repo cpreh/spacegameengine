@@ -1,0 +1,45 @@
+/**
+\page sprite_introduction Introduction
+
+\section sprite_overview Overview
+
+In general, a sprite is a rectangle drawn on the screen. The simplest case to
+think of is an unrotated rectangle using some image. Sprites play a very
+important role in 2D games, but also in 3D games, where they can be used to
+create effects that might be too expensive to do in 3D (like rendering an
+explosion effect).
+
+\section sprite_design Design
+
+Sprites can come in various kinds, some of which can be combined, as shown in
+the following list:
+<ul>
+<li>Rectangular sprites</li>
+<li>Point sprites</li>
+<li>Rotated rectangular sprites</li>
+<li>Sprites having a color</li>
+<li>Sprites using a texture</li>
+</ul>
+
+It is important that the general use of a sprite, which is to manipulate and
+draw it, is not too closely tied to the kind of sprite we are dealing with.
+Therefore, sge has a class called \link sge::sprite::config::choices \endlink
+which declares what properties a sprite has.
+This class has to be given to all other sprite classes and will determine how
+the sprite can be manipulated and how it will be rendered.
+
+The class that is used to manipulate sprites is called \link
+sge::sprite::object \endlink, which can be initialized using \link
+sge::sprite::parameters \endlink.
+
+Rendering takes place in two steps:
+<ul>
+<li>Filling a sprite buffer</li>
+<li>Drawing the buffer</li>
+</ul>
+This ensures that manipulating sprites, putting them in buffers, and drawing
+them are three distinct steps, so that you can maximize the performance.
+
+<strong>Up:</strong> \ref sprite_main, <strong>Next:</strong> \ref sprite_config
+
+*/

@@ -1,0 +1,52 @@
+/**
+\page sprite_buffers Sprite Buffers
+
+A sprite buffer is a class that abstracts vertex and index buffers. Sprite
+processing functions allocate a slice for a given sprite count which will then
+be used to fill the sprite geometry in.
+
+The following list shows what a custom sprite buffers class has to provide:
+<dl>
+
+<dt>A function to allocate slices from</dt>
+
+<dd>The signature must be <code>sge::sprite::buffers::slice<choices> &
+allocate(sge::sprite::count)</code>. This function allocates a new slice of the
+buffer which is immutable and will only be destroyed when the buffer is
+destroyed. The slice can, however, be reused. </dd>
+
+<dt>A typedef <code>choices</code></dt>
+
+<dt>A typedef <code>slice_type</code></dt>
+
+<dd>This typedef must be <code>sge::sprite::buffers::slice<choices></code></dt>
+
+<dt>A getter function returning \link sge::sprite::buffers::parameters
+\endlink</dt>
+
+<dd>The signature must be <code>sge::sprite::buffers::parameters const
+&parameters() const</code></dd>
+
+</dl>
+
+The most important design decision to note here is that a buffer slice is only
+owned by the buffer itself and there is no way to free it explicitly. If you
+want to allocate new slices and throw old ones away, you can either use a
+buffer that does just that or allocate a new buffer.
+
+In the following example, a sprite buffer is allocated, using the special class
+\link sge::sprite::buffers::with_declaration \endlink which wraps another
+buffer inside it and also creates and owns the vertex declaration.
+
+\snippet multi_texture_sprite.cpp buffers_declaration
+
+An \link sge::sprite::buffers::single \endlink only manages one slice at a
+time, invalidating the old one as soon as allocate is called again.  \link
+sge::sprite::buffers::option \endlink tells whether the resources should be
+static or dynamic.
+
+\snippet multi_texture_sprite.cpp buffers_object
+
+<strong>Previous:</strong> \ref sprite_object, <strong>Up:</strong> \ref sprite_main, <strong>Next:</strong> \ref sprite_rendering
+
+*/

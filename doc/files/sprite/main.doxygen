@@ -1,0 +1,18 @@
+/**
+\page sprite_main sprite
+
+\section abstract Abstract
+
+sge::sprite is a collection of classes and functions that implement an
+abstract, configurable sprite concept. Sprites can be configured through a set
+of template classes, put into renderer buffers, sorted and rendered.
+
+\section sprite_subsections Subsections
+
+<ul>
+<li>\subpage sprite_introduction</li>
+</ul>
+
+<hr>
+<strong>Up:</strong> \ref index
+*/

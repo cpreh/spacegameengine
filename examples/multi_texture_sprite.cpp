@@ -203,16 +203,20 @@ try
 	> sprite_object;
 //! [object_declaration]
 
+//! [buffers_declaration]
 	typedef sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
 	> sprite_buffers_type;
+//! [buffers_declaration]
 
+//! [buffers_object]
 	sprite_buffers_type sprite_buffers(
 		sys.renderer(),
 		sge::sprite::buffers::option::dynamic
 	);
+//! [buffers_object]
 
 //! [object_initialization]
 	sprite_object const sprite(

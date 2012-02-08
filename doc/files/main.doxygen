@@ -81,7 +81,7 @@ Support libraries:
 </tr>
 
 <tr>
-<td>sprite</td>
+<td>\ref sprite_main</td>
 <td>assembly of sprite types via templates, sprite management and rendering</td>
 </tr>
 
