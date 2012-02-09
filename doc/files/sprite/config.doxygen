@@ -72,7 +72,7 @@ The following example declares sprite choices, using int for the unit type,
 float for the float type, a normal size, and two textures with automatic
 texture coordinates.
 
-\snippet multi_texture_sprite.cpp choices_declaration
+\snippet tutorial/sprite_01.cpp choices_declaration
 
 This example will be used throughout the tutorial for basic demonstration.
 

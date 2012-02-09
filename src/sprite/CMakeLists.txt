@@ -1,7 +1,9 @@
 set(
 	SGE_SPRITE_FILES
 	include/sge/sprite/bounding_rect.hpp
+	include/sge/sprite/buffers/allocate.hpp
 	include/sge/sprite/buffers/buffers.hpp
+	include/sge/sprite/buffers/index_count.hpp
 	include/sge/sprite/buffers/object.hpp
 	include/sge/sprite/buffers/offset_object.hpp
 	include/sge/sprite/buffers/option.hpp
@@ -20,6 +22,7 @@ set(
 	include/sge/sprite/buffers/slice_decl.hpp
 	include/sge/sprite/buffers/slice_fwd.hpp
 	include/sge/sprite/buffers/slice_impl.hpp
+	include/sge/sprite/buffers/vertex_count.hpp
 	include/sge/sprite/buffers/with_declaration.hpp
 	include/sge/sprite/buffers/with_declaration_decl.hpp
 	include/sge/sprite/buffers/with_declaration_fwd.hpp
@@ -100,8 +103,6 @@ set(
 	include/sge/sprite/detail/buffers/allocate.hpp
 	include/sge/sprite/detail/buffers/allocate_indices.hpp
 	include/sge/sprite/detail/buffers/allocate_vertices.hpp
-	include/sge/sprite/detail/buffers/index_count.hpp
-	include/sge/sprite/detail/buffers/vertex_count.hpp
 	include/sge/sprite/detail/config/color_format.hpp
 	include/sge/sprite/detail/config/contains_if.hpp
 	include/sge/sprite/detail/config/find_if.hpp

@@ -25,14 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/sprite/count.hpp>
+#include <sge/sprite/buffers/allocate.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
+#include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
-#include <sge/sprite/detail/buffers/allocate.hpp>
-#include <sge/sprite/detail/buffers/vertex_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -90,13 +90,13 @@ sge::sprite::buffers::single<
 		||
 		vb->size()
 		<
-		sge::sprite::detail::buffers::vertex_count<
+		sge::sprite::buffers::vertex_count<
 			Choices
 		>(
 			_num_sprites
 		)
 	)
-		sge::sprite::detail::buffers::allocate<
+		sge::sprite::buffers::allocate<
 			Choices
 		>(
 			parameters_,

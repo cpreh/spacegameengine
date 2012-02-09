@@ -18,54 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_BUFFERS_ALLOCATE_INDICES_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_BUFFERS_ALLOCATE_INDICES_HPP_INCLUDED
+#ifndef SGE_SPRITE_BUFFERS_INDEX_COUNT_HPP_INCLUDED
+#define SGE_SPRITE_BUFFERS_INDEX_COUNT_HPP_INCLUDED
 
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/buffers/index_count.hpp>
-#include <sge/sprite/buffers/roles/index_buffer.hpp>
+#include <sge/sprite/detail/geometry/indices_per_sprite.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace detail
-{
 namespace buffers
 {
 
 template<
-	typename Choices,
-	typename BufferObject
+	typename Choices
 >
-void
-allocate_indices(
-	sge::renderer::device &_renderer,
-	sge::sprite::count const _num_sprites,
-	BufferObject &_buffers,
-	sge::renderer::resource_flags_field const &_resource_flags
+sge::renderer::index_count const
+index_count(
+	sge::sprite::count const _sprites
 )
 {
-	_buffers. template set<
-		sge::sprite::buffers::roles::index_buffer
-	>(
-		_renderer.create_index_buffer(
-			sge::renderer::index::dynamic::format::i16,
-			sge::sprite::buffers::index_count<
+	return
+		sge::renderer::index_count(
+			_sprites.get()
+			*
+			sge::sprite::detail::geometry::indices_per_sprite<
 				Choices
-			>(
-				_num_sprites
-			),
-			_resource_flags
-		)
-	);
+			>::value
+		);
 }
 
-}
 }
 }
 }

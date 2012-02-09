@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
-#include <sge/sprite/detail/buffers/vertex_count.hpp>
+#include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/detail/geometry/fill_color.hpp>
 #include <sge/sprite/detail/geometry/fill_point_size.hpp>
 #include <sge/sprite/detail/geometry/fill_position.hpp>
@@ -94,7 +94,7 @@ fill_vertices(
 		_slice.vertex_buffer(),
 		sge::renderer::lock_mode::writeonly,
 		_slice.first_vertex(),
-		sge::sprite::detail::buffers::vertex_count<
+		sge::sprite::buffers::vertex_count<
 			Choices
 		>(
 			_range.size()

@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
+#include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
-#include <sge/sprite/detail/buffers/vertex_count.hpp>
 #include <sge/sprite/detail/vf/part_index.hpp>
 
 
@@ -58,7 +58,7 @@ allocate_vertices(
 		_parameters.renderer().create_vertex_buffer(
 			_parameters.vertex_declaration(),
 			sge::sprite::detail::vf::part_index(),
-			sge::sprite::detail::buffers::vertex_count<
+			sge::sprite::buffers::vertex_count<
 				Choices
 			>(
 				_num_sprites

@@ -1,0 +1,16 @@
+/**
+\page sprite_processing Sprite Processing
+
+Generating a sprite's geometry, putting it in a buffer, and then rendering the
+buffer is collectively called sprite processing. Combining all these steps into
+a single one usually only makes sense for dynamic buffers and sprites that
+(potentially) update each frame anyway.
+
+There are several functions for processing sprites, the most basic being \link
+sge::sprite::process::one \endlink which processes exactly one sprite.
+
+\snippet tutorial/sprite_01.cpp process_one
+
+<strong>Previous:</strong> \ref sprite_buffers, <strong>Up:</strong> \ref sprite_main, <strong>Next:</strong> \ref sprite_geometry
+
+*/

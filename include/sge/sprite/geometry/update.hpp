@@ -33,6 +33,26 @@ namespace sprite
 namespace geometry
 {
 
+/**
+\brief Fill sprite geometry into a new buffer slice
+
+Fills sprite geometry from the sprites in \a _range into a new slice obtained
+from \a _buffers. \a _compare is used to determine which sprites can be
+rendered together.
+
+\tparam Range \ref sprite_range_concept
+\tparam Compare \ref sprite_compare_concept
+\tparam Buffers \ref sprite_buffers_concept
+
+\param _range The sprite range to use
+
+\param _compare The compare function to determine which sprites can be rendered
+together
+
+\param _buffers The buffers to obtain a new slice from
+
+\return A render range which describes how the sprites are rendered
+*/
 template<
 	typename Range,
 	typename Compare,

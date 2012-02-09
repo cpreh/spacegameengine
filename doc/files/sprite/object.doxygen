@@ -8,20 +8,20 @@ calling this function actually compiles depends on the sprite choices.
 Following our example of sprite choices declared in \ref sprite_config a sprite
 object type is declared as follows.
 
-\snippet multi_texture_sprite.cpp object_declaration
+\snippet tutorial/sprite_01.cpp object_declaration
 
 \link sge::sprite::parameters \endlink must be used to initialize a sprite.
 The interface is roughly the same, although the parameters class has some
 additional convenience functions like \link sge::sprite::parameters::center
 \endlink and \link sge::sprite::parameters::texture_size \endlink
 
-\snippet multi_texture_sprite.cpp parameters_declaration
+\snippet tutorial/sprite_01.cpp parameters_declaration
 
 Every attribute of a sprite that has not been initialized will be undefined and
 must be set later before the sprite is rendered.
 Here is an example how a sprite is initialzed:
 
-\snippet multi_texture_sprite.cpp object_initialization
+\snippet tutorial/sprite_01.cpp object_initialization
 
 <strong>Previous:</strong> \ref sprite_config, <strong>Up:</strong> \ref sprite_main, <strong>Next:</strong> \ref sprite_buffers
 

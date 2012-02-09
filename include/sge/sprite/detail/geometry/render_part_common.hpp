@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
+#include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
-#include <sge/sprite/detail/buffers/vertex_count.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
 
 
@@ -55,7 +55,7 @@ render_part_common(
 	_render_part. template set<
 		sge::sprite::detail::roles::vertex_count
 	>(
-		sge::sprite::detail::buffers::vertex_count<
+		sge::sprite::buffers::vertex_count<
 			Choices
 		>(
 			_count
@@ -68,7 +68,7 @@ render_part_common(
 		sge::renderer::first_vertex(
 			_slice.first_vertex().get()
 			+
-			sge::sprite::detail::buffers::vertex_count<
+			sge::sprite::buffers::vertex_count<
 				Choices
 			>(
 				_offset

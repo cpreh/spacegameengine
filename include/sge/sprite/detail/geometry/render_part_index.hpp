@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
+#include <sge/sprite/buffers/index_count.hpp>
 #include <sge/sprite/buffers/roles/first_index.hpp>
-#include <sge/sprite/detail/buffers/index_count.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
 #include <sge/sprite/detail/roles/primitive_count.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -76,7 +76,7 @@ render_part_index(
 		sge::renderer::first_index(
 			_slice.first_index().get()
 			+
-			sge::sprite::detail::buffers::index_count<
+			sge::sprite::buffers::index_count<
 				Choices
 			>(
 				_offset

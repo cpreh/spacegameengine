@@ -169,7 +169,6 @@ try
 		)
 	);
 
-//! [choices_declaration]
 	typedef sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -189,36 +188,26 @@ try
 			>
 		>
 	> sprite_choices;
-//! [choices_declaration]
 
-//! [parameters_declaration]
 	typedef sge::sprite::parameters<
 		sprite_choices
 	> sprite_parameters;
-//! [parameters_declaration]
 
-//! [object_declaration]
 	typedef sge::sprite::object<
 		sprite_choices
 	> sprite_object;
-//! [object_declaration]
 
-//! [buffers_declaration]
 	typedef sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
 	> sprite_buffers_type;
-//! [buffers_declaration]
 
-//! [buffers_object]
 	sprite_buffers_type sprite_buffers(
 		sys.renderer(),
 		sge::sprite::buffers::option::dynamic
 	);
-//! [buffers_object]
 
-//! [object_initialization]
 	sprite_object const sprite(
 		sprite_parameters()
 		.pos(
@@ -240,7 +229,6 @@ try
 		)
 		.texture_size()
 	);
-//! [object_initialization]
 
 	bool running = true;
 

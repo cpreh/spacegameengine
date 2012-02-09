@@ -18,42 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
+#ifndef SGE_SPRITE_BUFFERS_ALLOCATE_HPP_INCLUDED
+#define SGE_SPRITE_BUFFERS_ALLOCATE_HPP_INCLUDED
 
-#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/detail/geometry/vertices_per_sprite.hpp>
+#include <sge/sprite/buffers/parameters_fwd.hpp>
+#include <sge/sprite/detail/buffers/allocate.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace detail
-{
 namespace buffers
 {
 
 template<
-	typename Choices
+	typename Choices,
+	typename BuffersObject
 >
-sge::renderer::vertex_count const
-vertex_count(
-	sge::sprite::count const _sprites
+void
+allocate(
+	sge::sprite::buffers::parameters const &_parameters,
+	sge::sprite::count const _num_sprites,
+	BuffersObject &_buffers_object,
+	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
-	return
-		sge::renderer::vertex_count(
-			_sprites.get()
-			*
-			sge::sprite::detail::geometry::vertices_per_sprite<
-				Choices
-			>::value
-		);
+	sge::sprite::detail::buffers::allocate<
+		Choices
+	>(
+		_parameters,
+		_num_sprites,
+		_buffers_object,
+		_resource_flags
+	);
 }
 
-}
 }
 }
 }

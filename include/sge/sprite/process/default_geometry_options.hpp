@@ -60,7 +60,7 @@ struct default_geometry_options<
 :
 boost::mpl::integral_c<
 	sge::sprite::process::geometry_options::type,
-	sge::sprite::process::geometry_options::sort_and_fill
+	sge::sprite::process::geometry_options::sort_and_update
 >
 {
 };
@@ -82,7 +82,7 @@ struct default_geometry_options<
 :
 boost::mpl::integral_c<
 	sge::sprite::process::geometry_options::type,
-	sge::sprite::process::geometry_options::fill
+	sge::sprite::process::geometry_options::update
 >
 {
 };

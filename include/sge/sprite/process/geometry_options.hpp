@@ -28,12 +28,24 @@ namespace sprite
 namespace process
 {
 
+/**
+\brief The namespace for the geometry_options enum
+*/
 namespace geometry_options
 {
+/**
+\brief The enum type for geometry options
+*/
 enum type
 {
-	fill,
-	sort_and_fill
+	/**
+	\brief Use \link sge::sprite::geometry::update \endlink
+	*/
+	update,
+	/**
+	\brief Use \link sge::sprite::geometry::sort_and_update \endlink
+	*/
+	sort_and_update
 };
 }
 

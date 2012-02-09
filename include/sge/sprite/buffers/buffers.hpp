@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_BUFFERS_BUFFERS_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_BUFFERS_HPP_INCLUDED
 
+#include <sge/sprite/buffers/allocate.hpp>
+#include <sge/sprite/buffers/index_count.hpp>
 #include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/offset_object.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -34,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/slice_decl.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
+#include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_fwd.hpp>

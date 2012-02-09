@@ -50,7 +50,7 @@ one(
 {
 	sge::sprite::process::one_with_options<
 		sge::sprite::process::options<
-			sge::sprite::process::geometry_options::fill,
+			sge::sprite::process::geometry_options::update,
 			sge::sprite::render::default_options
 		>
 	>(

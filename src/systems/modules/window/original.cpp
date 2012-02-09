@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/src/systems/modules/window/original.hpp>
 #include <sge/src/systems/modules/renderer/optional_system_ref.hpp>
 #include <sge/src/systems/modules/renderer/system.hpp>
+#include <sge/src/systems/modules/window/original.hpp>
 #include <sge/window/create_from_awl.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/parameters_fwd.hpp>

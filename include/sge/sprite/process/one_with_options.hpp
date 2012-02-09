@@ -60,7 +60,7 @@ one_with_options(
 {
 	BOOST_STATIC_ASSERT(
 		Options::geometry_options
-		!= sge::sprite::process::geometry_options::sort_and_fill
+		!= sge::sprite::process::geometry_options::sort_and_update
 	);
 
 	sge::sprite::process::with_options<

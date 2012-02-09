@@ -38,15 +38,15 @@ In the following example, a sprite buffer is allocated, using the special class
 \link sge::sprite::buffers::with_declaration \endlink which wraps another
 buffer inside it and also creates and owns the vertex declaration.
 
-\snippet multi_texture_sprite.cpp buffers_declaration
+\snippet tutorial/sprite_01.cpp buffers_declaration
 
 An \link sge::sprite::buffers::single \endlink only manages one slice at a
 time, invalidating the old one as soon as allocate is called again.  \link
 sge::sprite::buffers::option \endlink tells whether the resources should be
 static or dynamic.
 
-\snippet multi_texture_sprite.cpp buffers_object
+\snippet tutorial/sprite_01.cpp buffers_object
 
-<strong>Previous:</strong> \ref sprite_object, <strong>Up:</strong> \ref sprite_main, <strong>Next:</strong> \ref sprite_rendering
+<strong>Previous:</strong> \ref sprite_object, <strong>Up:</strong> \ref sprite_main, <strong>Next:</strong> \ref sprite_processing
 
 */

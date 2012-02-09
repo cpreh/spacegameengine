@@ -50,7 +50,7 @@ template<
 typename boost::enable_if<
 	sge::sprite::detail::process::is_same_geometry_options<
 		Options,
-		sge::sprite::process::geometry_options::sort_and_fill
+		sge::sprite::process::geometry_options::sort_and_update
 	>,
 	sge::sprite::render::range<
 		Choices
@@ -80,7 +80,7 @@ template<
 typename boost::enable_if<
 	sge::sprite::detail::process::is_same_geometry_options<
 		Options,
-		sge::sprite::process::geometry_options::fill
+		sge::sprite::process::geometry_options::update
 	>,
 	sge::sprite::render::range<
 		Choices
