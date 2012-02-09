@@ -23,6 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/buffers/allocate.hpp>
 #include <sge/sprite/buffers/index_count.hpp>
+#include <sge/sprite/buffers/multi.hpp>
+#include <sge/sprite/buffers/multi_decl.hpp>
+#include <sge/sprite/buffers/multi_fwd.hpp>
+#include <sge/sprite/buffers/multi_impl.hpp>
 #include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/offset_object.hpp>
 #include <sge/sprite/buffers/option.hpp>

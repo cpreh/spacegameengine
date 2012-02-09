@@ -18,30 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_BUFFERS_SINGLE_IMPL_HPP_INCLUDED
-#define SGE_SPRITE_BUFFERS_SINGLE_IMPL_HPP_INCLUDED
+#ifndef SGE_SPRITE_BUFFERS_MULTI_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_BUFFERS_MULTI_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/allocate.hpp>
+#include <sge/sprite/buffers/multi_decl.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
-#include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
-#include <sge/sprite/buffers/vertex_count.hpp>
-#include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
 template<
 	typename Choices
 >
-sge::sprite::buffers::single<
+sge::sprite::buffers::multi<
 	Choices
->::single(
+>::multi(
 	sge::sprite::buffers::parameters const &_parameters,
 	sge::sprite::buffers::option::type const _buffers_option
 )
@@ -52,86 +50,68 @@ sge::sprite::buffers::single<
 	buffers_option_(
 		_buffers_option
 	),
-	buffers_object_(),
-	slice_()
+	buffer_objects_(),
+	slices_()
 {
 }
 
 template<
 	typename Choices
 >
-sge::sprite::buffers::single<
+sge::sprite::buffers::multi<
 	Choices
->::~single()
+>::~multi()
 {
 }
 
 template<
 	typename Choices
 >
-typename sge::sprite::buffers::single<
+typename sge::sprite::buffers::multi<
 	Choices
 >::slice_type &
-sge::sprite::buffers::single<
+sge::sprite::buffers::multi<
 	Choices
 >::allocate(
 	sge::sprite::count const _num_sprites
 )
 {
-	sge::renderer::vertex_buffer *const vb(
-		buffers_object_. template get<
-			sge::sprite::buffers::roles::vertex_buffer
-		>().get()
+	buffer_object new_object;
+
+	sge::sprite::buffers::allocate<
+		Choices
+	>(
+		parameters_,
+		_num_sprites,
+		new_object,
+		sge::sprite::buffers::option_to_resource_flags(
+			buffers_option_
+		)
 	);
 
-	if(
-		!vb
-		||
-		vb->size()
-		<
-		sge::sprite::buffers::vertex_count<
-			Choices
-		>(
-			_num_sprites
-		)
-	)
-		sge::sprite::buffers::allocate<
-			Choices
-		>(
-			parameters_,
-			_num_sprites,
-			buffers_object_,
-			sge::sprite::buffers::option_to_resource_flags(
-				buffers_option_
-			)
-		);
+	buffer_objects_.push_back(
+		new_object
+	);
 
-	if(
-		!slice_
-	)
-		slice_.take(
-			fcppt::make_unique_ptr<
-				slice_type
-			>(
-				buffers_object_,
-				typename slice_type::offset_object() // initialize offsets to zero
-			)
-		);
-	else
-		slice_->reset(
-			buffers_object_,
-			typename slice_type::offset_object()
-		);
+	fcppt::container::ptr::push_back_unique_ptr(
+		slices_,
+		fcppt::make_unique_ptr<
+			slice_type
+		>(
+			new_object,
+			typename slice_type::offset_object() // initialize offsets to zero
+		)
+	);
 
 	return
-		*slice_;
+		slices_.back();
 }
 
 template<
 	typename Choices
 >
 sge::sprite::buffers::parameters const &
-sge::sprite::buffers::single<
+sge::sprite::buffers::multi<
 	Choices
 >::parameters() const
 {
