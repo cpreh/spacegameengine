@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/intrusive/collection_fwd.hpp>
 #include <sge/sprite/intrusive/connection_fwd.hpp>
-#include <sge/sprite/intrusive/ordered_collection_fwd.hpp>
-#include <sge/sprite/intrusive/detail/order_map.hpp>
+#include <sge/sprite/intrusive/detail/ordered_map.hpp>
+#include <sge/sprite/intrusive/ordered/collection_fwd.hpp>
+#include <sge/sprite/intrusive/ordered/range_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -34,22 +35,24 @@ namespace sprite
 {
 namespace intrusive
 {
+namespace ordered
+{
 
 template<
 	typename Choices,
 	typename Order
 >
-class ordered_collection
+class collection
 {
 	FCPPT_NONCOPYABLE(
-		ordered_collection
+		collection
 	);
 public:
 	typedef Order order;
 
 	typedef sge::sprite::intrusive::collection<
 		Choices
-	> collection;
+	> collection_base;
 
 	typedef Choices choices;
 
@@ -57,11 +60,11 @@ public:
 		Choices
 	> connection_type;
 
-	ordered_collection();
+	collection();
 
-	~ordered_collection();
+	~collection();
 
-	collection &
+	collection_base &
 	get(
 		order const &
 	);
@@ -71,6 +74,24 @@ public:
 		order const &
 	);
 
+	typedef sge::sprite::intrusive::ordered::range<
+		Choices,
+		order,
+		false
+	> range_type;
+
+	typedef sge::sprite::intrusive::ordered::range<
+		Choices,
+		order,
+		true
+	> const_range_type;
+
+	range_type const
+	range();
+
+	const_range_type const
+	range() const;
+
 	template<
 		typename Function
 	>
@@ -79,14 +100,15 @@ public:
 		Function const &
 	);
 private:
-	typedef typename sge::sprite::intrusive::detail::order_map<
+	typedef typename sge::sprite::intrusive::detail::ordered_map<
 		order,
-		collection
+		Choices
 	>::type order_map;
 
 	order_map collections_;
 };
 
+}
 }
 }
 }

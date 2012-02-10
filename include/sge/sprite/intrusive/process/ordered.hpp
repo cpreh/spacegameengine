@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_PROCESS_ORDERED_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_PROCESS_ORDERED_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/ordered_collection_fwd.hpp>
+#include <sge/sprite/intrusive/ordered/collection_fwd.hpp>
 #include <sge/sprite/intrusive/process/ordered_with_options.hpp>
 #include <sge/sprite/process/default_geometry_options.hpp>
 #include <sge/sprite/process/options.hpp>
@@ -48,7 +48,7 @@ template<
 >
 void
 ordered(
-	sge::sprite::intrusive::ordered_collection<
+	sge::sprite::intrusive::ordered::collection<
 		Choices,
 		Order
 	> &_collection,

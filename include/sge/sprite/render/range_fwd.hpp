@@ -29,7 +29,7 @@ namespace render
 {
 
 template<
-	typename Buffers
+	typename Choices
 >
 class range;
 

@@ -4,6 +4,10 @@ set(
 	include/sge/sprite/buffers/allocate.hpp
 	include/sge/sprite/buffers/buffers.hpp
 	include/sge/sprite/buffers/index_count.hpp
+	include/sge/sprite/buffers/multi.hpp
+	include/sge/sprite/buffers/multi_decl.hpp
+	include/sge/sprite/buffers/multi_fwd.hpp
+	include/sge/sprite/buffers/multi_impl.hpp
 	include/sge/sprite/buffers/object.hpp
 	include/sge/sprite/buffers/offset_object.hpp
 	include/sge/sprite/buffers/option.hpp
@@ -244,14 +248,26 @@ set(
 	include/sge/sprite/intrusive/detail/connection_impl.hpp
 	include/sge/sprite/intrusive/detail/list.hpp
 	include/sge/sprite/intrusive/detail/object_base_hook.hpp
-	include/sge/sprite/intrusive/detail/order_map.hpp
+	include/sge/sprite/intrusive/detail/ordered_iterator_base.hpp
+	include/sge/sprite/intrusive/detail/ordered_iterator_empty.hpp
+	include/sge/sprite/intrusive/detail/ordered_map.hpp
+	include/sge/sprite/intrusive/detail/ordered_range_size.hpp
 	include/sge/sprite/intrusive/detail/render_one.hpp
 	include/sge/sprite/intrusive/intrusive.hpp
 	include/sge/sprite/intrusive/is_range.hpp
-	include/sge/sprite/intrusive/ordered_collection.hpp
-	include/sge/sprite/intrusive/ordered_collection_decl.hpp
-	include/sge/sprite/intrusive/ordered_collection_fwd.hpp
-	include/sge/sprite/intrusive/ordered_collection_impl.hpp
+	include/sge/sprite/intrusive/ordered/collection.hpp
+	include/sge/sprite/intrusive/ordered/collection_decl.hpp
+	include/sge/sprite/intrusive/ordered/collection_fwd.hpp
+	include/sge/sprite/intrusive/ordered/collection_impl.hpp
+	include/sge/sprite/intrusive/ordered/iterator.hpp
+	include/sge/sprite/intrusive/ordered/iterator_decl.hpp
+	include/sge/sprite/intrusive/ordered/iterator_fwd.hpp
+	include/sge/sprite/intrusive/ordered/iterator_impl.hpp
+	include/sge/sprite/intrusive/ordered/ordered.hpp
+	include/sge/sprite/intrusive/ordered/range.hpp
+	include/sge/sprite/intrusive/ordered/range_decl.hpp
+	include/sge/sprite/intrusive/ordered/range_fwd.hpp
+	include/sge/sprite/intrusive/ordered/range_impl.hpp
 	include/sge/sprite/intrusive/process/ordered.hpp
 	include/sge/sprite/intrusive/process/ordered_with_options.hpp
 	include/sge/sprite/intrusive/process/process.hpp

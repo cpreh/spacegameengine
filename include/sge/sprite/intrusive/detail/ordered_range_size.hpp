@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_IS_RANGE_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_IS_RANGE_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_DETAIL_ORDERED_RANGE_SIZE_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_DETAIL_ORDERED_RANGE_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/range_fwd.hpp>
-#include <sge/sprite/intrusive/ordered/range_fwd.hpp>
+#include <sge/sprite/count.hpp>
+#include <sge/sprite/intrusive/detail/ordered_map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
+#include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -34,48 +34,44 @@ namespace sprite
 {
 namespace intrusive
 {
-
-template<
-	typename T
->
-struct is_range
-:
-boost::mpl::false_
+namespace detail
 {
-};
 
 template<
-	typename Choices,
-	bool IsConst
->
-struct is_range<
-	sge::sprite::intrusive::range<
-		Choices,
-		IsConst
-	>
->
-:
-boost::mpl::true_
-{
-};
-
-template<
-	typename Choices,
 	typename Order,
-	bool IsConst
+	typename Choices
 >
-struct is_range<
-	sge::sprite::intrusive::ordered::range<
-		Choices,
+sge::sprite::count const
+ordered_range_size(
+	typename sge::sprite::intrusive::detail::ordered_map<
 		Order,
-		IsConst
-	>
->
-:
-boost::mpl::true_
+		Choices
+	>::type &_ordered_map
+)
 {
-};
+	sge::sprite::count ret(
+		0u
+	);
 
+	typedef typename sge::sprite::intrusive::detail::ordered_map<
+		Order,
+		Choices
+	>::type ordered_map;
+
+	for(
+		typename ordered_map::iterator it(
+			_ordered_map.begin()
+		);
+		it != _ordered_map.end();
+		++it
+	)
+		ret +=
+			it->second->range().size();
+
+	return ret;
+}
+
+}
 }
 }
 }

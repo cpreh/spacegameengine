@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_DETAIL_ORDER_MAP_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_DETAIL_ORDER_MAP_HPP_INCLUDED
-
-#include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_ITERATOR_FWD_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ORDERED_ITERATOR_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -31,21 +27,15 @@ namespace sprite
 {
 namespace intrusive
 {
-namespace detail
+namespace ordered
 {
-
 
 template<
+	typename Choices,
 	typename Order,
-	typename System
+	bool IsConst
 >
-struct order_map
-{
-	typedef boost::ptr_map<
-		Order,
-		System
-	> type;
-};
+class iterator;
 
 }
 }

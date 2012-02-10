@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/render/matrices.hpp>
 #include <sge/sprite/detail/render/scoped_states.hpp>
 #include <sge/sprite/detail/render/scoped_vertex_declaration.hpp>
-#include <sge/sprite/intrusive/ordered_collection_impl.hpp>
 #include <sge/sprite/intrusive/detail/render_one.hpp>
+#include <sge/sprite/intrusive/ordered/collection_impl.hpp>
 #include <sge/sprite/process/is_options.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
 #include <fcppt/cref.hpp>
@@ -62,7 +62,7 @@ typename boost::enable_if<
 	void
 >::type
 ordered_with_options(
-	sge::sprite::intrusive::ordered_collection<
+	sge::sprite::intrusive::ordered::collection<
 		Choices,
 		Order
 	> &_collection,
@@ -78,10 +78,10 @@ ordered_with_options(
 		== sge::sprite::render::vertex_options::nothing
 	);
 
-	typedef typename sge::sprite::intrusive::ordered_collection<
+	typedef typename sge::sprite::intrusive::ordered::collection<
 		Choices,
 		Order
-	>::collection collection;
+	>::collection_base collection;
 
 	typedef typename Options::render_options render_options;
 

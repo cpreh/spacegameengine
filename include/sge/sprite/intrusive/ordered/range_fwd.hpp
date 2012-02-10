@@ -18,22 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_INTRUSIVE_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_INTRUSIVE_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_FWD_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_FWD_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/collection.hpp>
-#include <sge/sprite/intrusive/collection_decl.hpp>
-#include <sge/sprite/intrusive/collection_fwd.hpp>
-#include <sge/sprite/intrusive/collection_impl.hpp>
-#include <sge/sprite/intrusive/connection.hpp>
-#include <sge/sprite/intrusive/connection_decl.hpp>
-#include <sge/sprite/intrusive/connection_fwd.hpp>
-#include <sge/sprite/intrusive/is_range.hpp>
-#include <sge/sprite/intrusive/range_decl.hpp>
-#include <sge/sprite/intrusive/range_fwd.hpp>
-#include <sge/sprite/intrusive/range_impl.hpp>
-#include <sge/sprite/intrusive/ordered/ordered.hpp>
-#include <sge/sprite/intrusive/process/process.hpp>
+namespace sge
+{
+namespace sprite
+{
+namespace intrusive
+{
+namespace ordered
+{
 
+template<
+	typename Choices,
+	typename Order,
+	bool IsConst
+>
+class range;
+
+}
+}
+}
+}
 
 #endif

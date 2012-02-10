@@ -18,13 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_IS_RANGE_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_IS_RANGE_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_DECL_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_DECL_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/range_fwd.hpp>
+#include <sge/sprite/count.hpp>
+#include <sge/sprite/intrusive/detail/ordered_map.hpp>
+#include <sge/sprite/intrusive/ordered/iterator_fwd.hpp>
 #include <sge/sprite/intrusive/ordered/range_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
+#include <boost/mpl/if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -34,48 +37,68 @@ namespace sprite
 {
 namespace intrusive
 {
-
-template<
-	typename T
->
-struct is_range
-:
-boost::mpl::false_
+namespace ordered
 {
-};
-
-template<
-	typename Choices,
-	bool IsConst
->
-struct is_range<
-	sge::sprite::intrusive::range<
-		Choices,
-		IsConst
-	>
->
-:
-boost::mpl::true_
-{
-};
 
 template<
 	typename Choices,
 	typename Order,
 	bool IsConst
 >
-struct is_range<
-	sge::sprite::intrusive::ordered::range<
+class range
+{
+	FCPPT_NONASSIGNABLE(
+		range
+	);
+
+	typedef typename sge::sprite::intrusive::detail::ordered_map<
+		Order,
+		Choices
+	>::type ordered_map;
+public:
+	typedef typename boost::mpl::if_c<
+		IsConst,
+		ordered_map const &,
+		ordered_map &
+	>::type ordered_map_reference;
+
+	typedef sge::sprite::intrusive::ordered::iterator<
 		Choices,
 		Order,
 		IsConst
+	> iterator;
+
+	explicit
+	range(
+		ordered_map_reference
+	);
+
+	iterator const
+	begin() const;
+
+	iterator const
+	end() const;
+
+	sge::sprite::count const
+	size() const;
+
+	bool
+	empty() const;
+
+	template<
+		typename Equal
 	>
->
-:
-boost::mpl::true_
-{
+	void
+	sort(
+		Equal const &
+	) const;
+private:
+	ordered_map_reference ordered_map_;
+
+	sge::sprite::count const size_;
 };
 
+}
 }
 }
 }

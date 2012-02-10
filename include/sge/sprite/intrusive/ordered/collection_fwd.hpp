@@ -27,13 +27,16 @@ namespace sprite
 {
 namespace intrusive
 {
+namespace ordered
+{
 
 template<
 	typename Choices,
 	typename Order
 >
-class ordered_collection;
+class collection;
 
+}
 }
 }
 }

@@ -22,17 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/collection_impl.hpp>
-#include <sge/sprite/intrusive/ordered_collection_decl.hpp>
+#include <sge/sprite/intrusive/ordered/collection_decl.hpp>
+#include <sge/sprite/intrusive/ordered/range_impl.hpp>
 
 
 template<
 	typename Choices,
 	typename Order
 >
-sge::sprite::intrusive::ordered_collection<
+sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
->::ordered_collection()
+>::collection()
 :
 	collections_()
 {
@@ -42,10 +43,10 @@ template<
 	typename Choices,
 	typename Order
 >
-sge::sprite::intrusive::ordered_collection<
+sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
->::~ordered_collection()
+>::~collection()
 {
 }
 
@@ -53,11 +54,11 @@ template<
 	typename Choices,
 	typename Order
 >
-typename sge::sprite::intrusive::ordered_collection<
+typename sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
->::collection &
-sge::sprite::intrusive::ordered_collection<
+>::collection_base &
+sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
 >::get(
@@ -74,11 +75,11 @@ template<
 	typename Choices,
 	typename Order
 >
-typename sge::sprite::intrusive::ordered_collection<
+typename sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
 >::connection_type &
-sge::sprite::intrusive::ordered_collection<
+sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
 >::connection(
@@ -90,6 +91,43 @@ sge::sprite::intrusive::ordered_collection<
 			_order
 		).connection();
 }
+template<
+	typename Choices,
+	typename Order
+>
+typename sge::sprite::intrusive::ordered::collection<
+	Choices,
+	Order
+>::range_type const
+sge::sprite::intrusive::ordered::collection<
+	Choices,
+	Order
+>::range()
+{
+	return
+		range_type(
+			collections_
+		);
+}
+
+template<
+	typename Choices,
+	typename Order
+>
+typename sge::sprite::intrusive::ordered::collection<
+	Choices,
+	Order
+>::const_range_type const
+sge::sprite::intrusive::ordered::collection<
+	Choices,
+	Order
+>::range() const
+{
+	return
+		const_range_type(
+			collections_
+		);
+}
 
 template<
 	typename Choices,
@@ -99,7 +137,7 @@ template<
 	typename Function
 >
 void
-sge::sprite::intrusive::ordered_collection<
+sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
 >::for_each(

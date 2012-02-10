@@ -53,8 +53,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_rotation.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <sge/sprite/intrusive/ordered_collection.hpp>
+#include <sge/sprite/intrusive/ordered/collection.hpp>
 #include <sge/sprite/intrusive/process/ordered.hpp>
+#include <sge/sprite/process/all.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
@@ -223,7 +224,7 @@ try
 
 	typedef unsigned order;
 
-	typedef sge::sprite::intrusive::ordered_collection<
+	typedef sge::sprite::intrusive::ordered::collection<
 		sprite_choices,
 		order
 	> ordered_collection_type;
@@ -330,11 +331,16 @@ try
 			sys.renderer()
 		);
 
-		sge::sprite::intrusive::process::ordered(
-			ordered_collection,
+		sge::sprite::process::all(
+			ordered_collection.range(),
 			sprite_buffers,
 			sge::sprite::compare::default_()
 		);
+		/*sge::sprite::intrusive::process::ordered(
+			ordered_collection,
+			sprite_buffers,
+			sge::sprite::compare::default_()
+		);*/
 	}
 }
 catch(
