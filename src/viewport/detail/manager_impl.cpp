@@ -80,6 +80,14 @@ sge::viewport::detail::manager_impl::manage_callback(
 }
 
 void
+sge::viewport::detail::manager_impl::resize_function(
+	sge::viewport::resize_function const &_resize_function
+)
+{
+	resize_function_ = _resize_function;
+}
+
+void
 sge::viewport::detail::manager_impl::on_resize(
 	awl::window::event::resize const &_resize
 )

@@ -60,6 +60,11 @@ public:
 	manage_callback(
 		viewport::manage_callback const &
 	);
+
+	void
+	resize_function(
+		sge::viewport::resize_function const &
+	);
 private:
 	void
 	on_resize(
@@ -68,7 +73,7 @@ private:
 
 	sge::renderer::target_base &target_;
 
-	viewport::resize_function const resize_function_;
+	viewport::resize_function resize_function_;
 
 	fcppt::signal::scoped_connection const resize_connection_;
 

@@ -60,12 +60,18 @@ public:
 	manage_callback(
 		viewport::manage_callback const &
 	);
+
+	SGE_VIEWPORT_SYMBOL
+	void
+	resize_function(
+		sge::viewport::resize_function const &
+	);
 private:
 	typedef fcppt::scoped_ptr<
 		sge::viewport::detail::manager_impl
 	> impl_ptr;
 
-	impl_ptr impl_;
+	impl_ptr const impl_;
 };
 
 }

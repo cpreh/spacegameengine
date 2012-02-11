@@ -68,3 +68,13 @@ sge::viewport::manager::manage_callback(
 			_callback
 		);
 }
+
+void
+sge::viewport::manager::resize_function(
+	sge::viewport::resize_function const &_resize_function
+)
+{
+	impl_->resize_function(
+		_resize_function
+	);
+}
