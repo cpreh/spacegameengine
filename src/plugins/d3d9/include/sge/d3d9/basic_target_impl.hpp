@@ -22,9 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_BASIC_TARGET_IMPL_HPP_INCLUDED
 
 #include <sge/d3d9/basic_target.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_scissor_rect.hpp>
 #include <sge/d3d9/devicefuncs/set_viewport.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <sge/renderer/scissor_area.hpp>
+#include <sge/renderer/viewport.hpp>
+
 
 template<
 	typename Base

@@ -18,30 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/set_flipped_area.hpp>
-#include <sge/opengl/set_scissor_area.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/scissor_area.hpp>
-#include <sge/renderer/screen_unit.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_RENDERER_PIXEL_RECT_FWD_HPP_INCLUDED
+#define SGE_RENDERER_PIXEL_RECT_FWD_HPP_INCLUDED
+
+#include <sge/renderer/pixel_unit.hpp>
+#include <fcppt/math/box/rect.hpp>
 
 
-void
-sge::opengl::set_scissor_area(
-	renderer::scissor_area const &_area,
-	renderer::screen_unit const _height
-)
+namespace sge
 {
-	opengl::set_flipped_area(
-		::glScissor,
-		_area.get(),
-		_height
-	);
+namespace renderer
+{
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glScissor failed"),
-		sge::renderer::exception
-	)
+/**
+ * \brief A typedef for a rect in pixel coordinates
+*/
+typedef fcppt::math::box::rect<
+	renderer::pixel_unit
+>::type pixel_rect;
+
 }
+}
+
+#endif

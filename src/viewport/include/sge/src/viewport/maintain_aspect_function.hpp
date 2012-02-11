@@ -18,30 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/set_flipped_area.hpp>
-#include <sge/opengl/set_scissor_area.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/scissor_area.hpp>
-#include <sge/renderer/screen_unit.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_SRC_VIEWPORT_MAINTAIN_ASPECT_FUNCTION_HPP_INCLUDED
+#define SGE_SRC_VIEWPORT_MAINTAIN_ASPECT_FUNCTION_HPP_INCLUDED
+
+#include <sge/renderer/viewport_fwd.hpp>
+#include <sge/viewport/fractional_aspect.hpp>
+#include <awl/window/event/resize_fwd.hpp>
 
 
-void
-sge::opengl::set_scissor_area(
-	renderer::scissor_area const &_area,
-	renderer::screen_unit const _height
-)
+namespace sge
 {
-	opengl::set_flipped_area(
-		::glScissor,
-		_area.get(),
-		_height
-	);
+namespace viewport
+{
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glScissor failed"),
-		sge::renderer::exception
-	)
+sge::renderer::viewport const
+maintain_aspect_function(
+	awl::window::event::resize const &,
+	sge::viewport::fractional_aspect
+);
+
 }
+}
+
+#endif

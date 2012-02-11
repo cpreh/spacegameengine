@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/box/basic_decl.hpp>
 
 
 namespace sge

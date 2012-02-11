@@ -4,6 +4,9 @@ set(
 	include/sge/viewport/detail/manager_impl_fwd.hpp
 	include/sge/viewport/dont_manage.hpp
 	include/sge/viewport/fill_on_resize.hpp
+	include/sge/viewport/fractional_aspect.hpp
+	include/sge/viewport/fractional_aspect_fwd.hpp
+	include/sge/viewport/maintain_aspect.hpp
 	include/sge/viewport/manage_callback.hpp
 	include/sge/viewport/manage_function.hpp
 	include/sge/viewport/manager.hpp
@@ -18,10 +21,14 @@ set(
 	src/viewport/dont_manage.cpp
 	src/viewport/fill_on_resize.cpp
 	src/viewport/fill_on_resize_function.cpp
+	src/viewport/fractional_aspect.cpp
 	src/viewport/include/sge/src/viewport/center.hpp
 	src/viewport/include/sge/src/viewport/center_on_resize_function.hpp
 	src/viewport/include/sge/src/viewport/detail/manager_impl.hpp
 	src/viewport/include/sge/src/viewport/fill_on_resize_function.hpp
+	src/viewport/include/sge/src/viewport/maintain_aspect_function.hpp
+	src/viewport/maintain_aspect.cpp
+	src/viewport/maintain_aspect_function.cpp
 	src/viewport/manager.cpp
 )
 

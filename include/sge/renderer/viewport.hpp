@@ -22,23 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VIEWPORT_HPP_INCLUDED
 
 #include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/viewport_fwd.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief A strong typedef to a pixel rect describing a viewport
-*/
-FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::pixel_rect,
-	viewport
-);
-
-}
-}
 
 #endif

@@ -18,30 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/set_flipped_area.hpp>
-#include <sge/opengl/set_scissor_area.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/scissor_area.hpp>
-#include <sge/renderer/screen_unit.hpp>
-#include <fcppt/text.hpp>
+#include <sge/viewport/fractional_aspect.hpp>
 
 
-void
-sge::opengl::set_scissor_area(
-	renderer::scissor_area const &_area,
-	renderer::screen_unit const _height
+sge::viewport::fractional_aspect::fractional_aspect(
+	value_type const _num,
+	value_type const _denom
 )
-{
-	opengl::set_flipped_area(
-		::glScissor,
-		_area.get(),
-		_height
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glScissor failed"),
-		sge::renderer::exception
+:
+	num_(
+		_num
+	),
+	denom_(
+		_denom
 	)
+{
+}
+
+sge::viewport::fractional_aspect::value_type
+sge::viewport::fractional_aspect::num() const
+{
+	return num_;
+}
+
+sge::viewport::fractional_aspect::value_type
+sge::viewport::fractional_aspect::denom() const
+{
+	return denom_;
 }

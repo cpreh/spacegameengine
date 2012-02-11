@@ -21,23 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_PIXEL_RECT_HPP_INCLUDED
 #define SGE_RENDERER_PIXEL_RECT_HPP_INCLUDED
 
-#include <sge/renderer/pixel_unit.hpp>
-#include <fcppt/math/box/rect.hpp>
+#include <sge/renderer/pixel_rect_fwd.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief A typedef for a rect in pixel coordinates
-*/
-typedef fcppt::math::box::rect<
-	renderer::pixel_unit
->::type pixel_rect;
-
-}
-}
 
 #endif

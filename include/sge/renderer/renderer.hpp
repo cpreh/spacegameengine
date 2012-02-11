@@ -103,6 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/pixel_rect_fwd.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/plugin.hpp>
 #include <sge/renderer/plugin_ptr.hpp>
@@ -117,6 +118,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scissor_area.hpp>
+#include <sge/renderer/scissor_area_fwd.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_scissor_area.hpp>
@@ -159,6 +161,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/viewport_fwd.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
