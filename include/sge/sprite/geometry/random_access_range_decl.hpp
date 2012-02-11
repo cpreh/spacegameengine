@@ -70,6 +70,14 @@ public:
 
 	bool
 	empty() const;
+
+	template<
+		typename Compare
+	>
+	void
+	sort(
+		Compare const &
+	) const;
 private:
 	iterator const
 		begin_,

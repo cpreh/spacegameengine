@@ -1,16 +1,124 @@
 /**
 \page sprite_processing Sprite Processing
 
+\section sprite_processing_overview Overview
+
 Generating a sprite's geometry, putting it in a buffer, and then rendering the
 buffer is collectively called sprite processing. Combining all these steps into
 a single one usually only makes sense for dynamic buffers and sprites that
 (potentially) update each frame anyway.
+
+\section sprite_processing_one Process one sprite
 
 There are several functions for processing sprites, the most basic being \link
 sge::sprite::process::one \endlink which processes exactly one sprite.
 
 \snippet tutorial/sprite_01.cpp process_one
 
-<strong>Previous:</strong> \ref sprite_buffers, <strong>Up:</strong> \ref sprite_main, <strong>Next:</strong> \ref sprite_geometry
+Internally, it obtains a buffer slice from the buffer, fills the geometry of
+the sprite in and renders it.
+
+\section sprite_ranges Ranges
+
+In general, more than one sprite will be processed at a time. To abstract how
+sprites are stored, the processing algorithms only need a sprite range.  This
+not only abstracts how to iterate over the sprites, but also how many there are
+and how to sort the range.
+
+\subsection sprite_range_concept Sprite Range Concept
+<table id="sprite_range_concept_table">
+<tr>
+<th>Syntax</th>
+<th>Semantics</th>
+</tr>
+<tr>
+<td>
+<code>typedef ... iterator;</code>
+</td>
+<td>
+A typedef to the range's iterator type
+</td>
+</tr>
+<tr>
+<td>
+<code>iterator begin() const;</code>
+</td>
+<td>
+Returns an iterator to the beginning
+</td>
+</tr>
+<tr>
+<td>
+<code>iterator end() const;</code>
+</td>
+<td>
+Returns an iterator to one past the end
+</td>
+</tr>
+<tr>
+<td>
+<code>sge::sprite::count const size() const;</code>
+</td>
+<td>
+Returns the size of the range. This should preferrably be done in constant
+time.
+</td>
+</tr>
+<tr>
+<td>
+<code>bool empty() const;</code>
+</td>
+<td>
+Returns whether the range is empty. If so, <code>size()</code> must also return
+0.
+</td>
+</tr>
+<tr>
+<td>
+<code>template<typename Compare> void sort(Compare const &compare) const</code>
+</td>
+<td>
+Sorts the range with the comparison functor <code>compare</code>, which should
+implement a \ref sprite_compare_concept. This element function is const because
+the range itself is not modified. The function can be omitted if the iterators
+point to constant data.
+</td>
+</tr>
+</table>
+
+\section sprite_processing_multi Process multiple sprites
+
+With a range concept, we can process multiple sprites instead of one sprite.
+First, we declare two sprites and put them into an array which can be easily
+iterated over.
+
+\snippet tutorial/sprite_03.cpp multi_objects
+
+To render the sprites, we have to create a random access range for sprite to use.
+Such a random access range fulfills the \ref sprite_range_concept.
+
+\snippet tutorial/sprite_03.cpp process_multi
+
+One very important addition here is the addition of a sprite comparison functor.
+
+\subsection sprite_compare_concept Sprite Compare Concept
+
+A sprite compare functor must have a signature of
+\code
+bool operator()(
+	sge::sprite::object<choices> const &left,
+	sge::sprite::object<choices> const &right
+) const;
+\endcode
+
+It compares left against right, forming a strict weak order relation. This
+relation is used to determine which sprites can be rendered together. It can
+also be used to sort sprite ranges so they can be rendered more efficiently.
+As an example, \link sge::sprite::compare::default_ \endlink compares the
+textures of the sprites, so that sprites that share the same textures will end
+up adjacent to each other.
+
+
+<strong>Previous:</strong> \ref sprite_buffers, <strong>Up:</strong> \ref sprite_main, <strong>Next:</strong> \ref sprite_processing_advanced
 
 */

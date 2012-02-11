@@ -164,7 +164,6 @@ set(
 	include/sge/sprite/detail/geometry/render_part_index.hpp
 	include/sge/sprite/detail/geometry/render_part_texture_level.hpp
 	include/sge/sprite/detail/geometry/render_part_textures.hpp
-	include/sge/sprite/detail/geometry/sort.hpp
 	include/sge/sprite/detail/geometry/vector_float.hpp
 	include/sge/sprite/detail/geometry/vertices_per_sprite.hpp
 	include/sge/sprite/detail/make_class.hpp

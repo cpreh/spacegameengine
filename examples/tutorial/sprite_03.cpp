@@ -20,6 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -31,13 +34,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single.hpp>
 #include <sge/sprite/buffers/with_declaration.hpp>
+#include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
@@ -46,12 +49,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <sge/sprite/process/one.hpp>
+#include <sge/sprite/geometry/make_random_access_range.hpp>
+#include <sge/sprite/process/all.hpp>
+#include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
+#include <sge/systems/input.hpp>
+#include <sge/systems/input_helper.hpp>
+#include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
@@ -62,7 +72,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/array.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstdlib>
@@ -70,7 +82,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
-
 
 int
 main()
@@ -87,7 +98,7 @@ try
 			sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
-						FCPPT_TEXT("sge tutorial01")
+						FCPPT_TEXT("sge tutorial03")
 					),
 					window_dim
 				)
@@ -120,9 +131,18 @@ try
 				)
 			)
 		)
+		(
+			sge::systems::input(
+				sge::systems::input_helper_field(
+					sge::systems::input_helper::keyboard_collector
+				)
+				|
+				sge::systems::input_helper::mouse_collector,
+				sge::systems::cursor_option_field()
+			)
+		)
 	);
 
-//! [choices_declaration]
 	typedef sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -142,65 +162,92 @@ try
 			>
 		>
 	> sprite_choices;
-//! [choices_declaration]
 
-//! [object_declaration]
 	typedef sge::sprite::object<
 		sprite_choices
 	> sprite_object;
-//! [object_declaration]
 
-//! [parameters_declaration]
 	typedef sge::sprite::parameters<
 		sprite_choices
 	> sprite_parameters;
-//! [parameters_declaration]
 
-//! [buffers_declaration]
 	typedef sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
 	> sprite_buffers_type;
-//! [buffers_declaration]
 
-//! [buffers_object]
 	sprite_buffers_type sprite_buffers(
 		sys.renderer(),
 		sge::sprite::buffers::option::dynamic
 	);
-//! [buffers_object]
 
-	sge::renderer::texture::planar_ptr const image_texture(
-		sge::renderer::texture::create_planar_from_path(
-			sge::config::media_path()
-			/ FCPPT_TEXT("images")
-			/ FCPPT_TEXT("tux.png"),
-			sys.renderer(),
-			sys.image_system(),
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags::none
-		)
-	);
-
-//! [object_initialization]
-	sprite_object const my_object(
-		sprite_parameters()
-		.pos(
-			sprite_object::vector::null()
-		)
-		.texture(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw
-			>(
-				image_texture
+	sge::texture::const_part_ptr const image_texture(
+		fcppt::make_shared_ptr<
+			sge::texture::part_raw
+		>(
+			sge::renderer::texture::create_planar_from_path(
+				sge::config::media_path()
+				/ FCPPT_TEXT("images")
+				/ FCPPT_TEXT("tux.png"),
+				sys.renderer(),
+				sys.image_system(),
+				sge::renderer::texture::mipmap::off(),
+				sge::renderer::resource_flags::none
 			)
 		)
-		.texture_size()
 	);
-//! [object_initialization]
 
-	for (;;)
+//! [multi_objects]
+	typedef fcppt::container::array<
+		sprite_object,
+		2u
+	> sprite_array_2;
+
+	sprite_array_2 sprites =
+	{{
+		sprite_object(
+			sprite_parameters()
+			.pos(
+				sprite_object::vector::null()
+			)
+			.texture(
+				image_texture
+			)
+			.texture_size()
+		),
+		sprite_object(
+			sprite_parameters()
+			.pos(
+				sprite_object::vector(
+					300,
+					300
+				)
+			)
+			.texture(
+				image_texture
+			)
+			.texture_size()
+		)
+	}};
+//! [multi_objects]
+
+	bool running = true;
+
+	fcppt::signal::scoped_connection const escape_connection(
+		sys.keyboard_collector().key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
+				sge::systems::running_to_false(
+					running
+				)
+			)
+		)
+	);
+
+	while(
+		running
+	)
 	{
 		sys.window_system().poll();
 
@@ -208,12 +255,15 @@ try
 			sys.renderer()
 		);
 
-//! [process_one]
-		sge::sprite::process::one(
-			my_object,
-			sprite_buffers
+//! [process_multi]
+		sge::sprite::process::all(
+			sge::sprite::geometry::make_random_access_range(
+				sprites
+			),
+			sprite_buffers,
+			sge::sprite::compare::default_()
 		);
-//! [process_one]
+//! [process_multi]
 	}
 }
 catch(

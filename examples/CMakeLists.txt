@@ -286,6 +286,12 @@ add_sge_example(
 )
 
 add_sge_example(
+	tutorial/sprite_03
+	"sgeconfig;sgeimage;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+)
+
+add_sge_example(
 	vertex
 	"sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"

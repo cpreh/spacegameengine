@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/geometry/random_access_range_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <algorithm>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -104,6 +105,26 @@ sge::sprite::geometry::random_access_range<
 {
 	return
 		begin_ == end_;
+}
+
+template<
+	typename Iterator
+>
+template<
+	typename Compare
+>
+void
+sge::sprite::geometry::random_access_range<
+	Iterator
+>::sort(
+	Compare const &_compare
+) const
+{
+	std::stable_sort(
+		this->begin(),
+		this->end(),
+		_compare
+	);
 }
 
 #endif

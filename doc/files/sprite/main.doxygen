@@ -11,6 +11,11 @@ of template classes, put into renderer buffers, sorted and rendered.
 
 <ul>
 <li>\subpage sprite_introduction</li>
+<li>\subpage sprite_config</li>
+<li>\subpage sprite_object</li>
+<li>\subpage sprite_buffers</li>
+<li>\subpage sprite_processing</li>
+<li>\subpage sprite_processing_advanced</li>
 </ul>
 
 <hr>

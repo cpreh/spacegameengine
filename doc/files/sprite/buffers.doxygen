@@ -5,34 +5,57 @@ A sprite buffer is a class that abstracts vertex and index buffers. Sprite
 processing functions allocate a slice for a given sprite count which will then
 be used to fill the sprite geometry in.
 
+\section sprite_buffers_concept Concept
+
 The following list shows what a custom sprite buffers class has to provide:
-<dl>
-
-<dt>A function to allocate slices from</dt>
-
-<dd>The signature must be <code>sge::sprite::buffers::slice<choices> &
-allocate(sge::sprite::count)</code>. This function allocates a new slice of the
-buffer which is immutable and will only be destroyed when the buffer is
-destroyed. The slice can, however, be reused. </dd>
-
-<dt>A typedef <code>choices</code></dt>
-
-<dt>A typedef <code>slice_type</code></dt>
-
-<dd>This typedef must be <code>sge::sprite::buffers::slice<choices></code></dt>
-
-<dt>A getter function returning \link sge::sprite::buffers::parameters
-\endlink</dt>
-
-<dd>The signature must be <code>sge::sprite::buffers::parameters const
-&parameters() const</code></dd>
-
-</dl>
+<table id="sprite_buffers_concept_table">
+<tr>
+<th>Syntax</th>
+<th>Semantics</th>
+</tr>
+<tr>
+<td>
+<code>sge::sprite::buffers::slice<choices> &
+allocate(sge::sprite::count count);</code>
+</td>
+<td>
+Allocates a slice for <code>count</code> sprites, returning a reference to the
+slice. This slice is owned by the buffer itself. Internally, the buffer can
+reuse the same slices.
+</td>
+</tr>
+<tr>
+<td>
+<code>typedef ... choices;</code>
+</td>
+<td>
+The sprite choices
+</td>
+</tr>
+<tr>
+<td>
+<code>typedef sge::sprite::buffers::slice<choices> slice_type</code>
+</td>
+<td>
+The slice type
+</td>
+</tr>
+<tr>
+<td>
+<code>sge::sprite::buffers::parameters const &parameters() const </code>
+</td>
+<td>
+A function returning \link sge::sprite::buffers::parameters \endlink
+</td>
+</tr>
+</table>
 
 The most important design decision to note here is that a buffer slice is only
 owned by the buffer itself and there is no way to free it explicitly. If you
 want to allocate new slices and throw old ones away, you can either use a
 buffer that does just that or allocate a new buffer.
+
+\section sprite_buffers_example Example
 
 In the following example, a sprite buffer is allocated, using the special class
 \link sge::sprite::buffers::with_declaration \endlink which wraps another
