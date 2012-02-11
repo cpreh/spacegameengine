@@ -29,8 +29,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/rational.hpp>
-#include <iostream>
 #include <fcppt/config/external_end.hpp>
+
+namespace
+{
+
+typedef boost::rational<
+	sge::viewport::fractional_aspect::value_type
+> rational;
+
+rational::int_type
+truncate_rational(
+	rational const &_rational
+)
+{
+	return
+		_rational.numerator()
+		/
+		_rational.denominator();
+}
+
+}
 
 
 sge::renderer::viewport const
@@ -39,10 +58,6 @@ sge::viewport::maintain_aspect_function(
 	sge::viewport::fractional_aspect const _aspect
 )
 {
-	typedef boost::rational<
-		sge::viewport::fractional_aspect::value_type
-	> rational;
-
 	rational const desired(
 		_aspect.num(),
 		_aspect.denom()
@@ -96,56 +111,28 @@ sge::viewport::maintain_aspect_function(
 			actual / desired
 	);
 
-	std::cout << "difference: " << difference << '\n';
-
-	sge::window::dim const foo(
-			horizontal
-			?
-				sge::window::dim(
-					(
-						rational(
-							width
-						)
-						* difference
-					).numerator(),
-					height
-				)
-			:
-				sge::window::dim(
-					width,
-					(
-						rational(
-							height
-						)
-						* difference
-					).numerator()
-				)
-	);
-
-	std::cout << foo << '\n';
-
 	return
 		sge::viewport::center(
 			horizontal
 			?
 				sge::window::dim(
-					(
+					truncate_rational(
 						rational(
 							width
 						)
 						* difference
-					).numerator(),
+					),
 					height
 				)
 			:
 				sge::window::dim(
 					width,
-					(
+					truncate_rational(
 						rational(
 							height
 						)
 						* difference
-					).numerator()
+					)
 				)
 			,
 			fcppt::math::dim::structure_cast<
