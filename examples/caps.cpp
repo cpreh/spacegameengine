@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
+#if 0
 	sge::plugin::manager manager(
 		sge::config::plugin_path()
 	);
@@ -108,6 +109,7 @@ try
 			*window
 		)->caps()
 		<< FCPPT_TEXT('\n');
+#endif
 }
 catch(
 	fcppt::exception const &_error

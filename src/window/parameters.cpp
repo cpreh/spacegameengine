@@ -27,10 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::window::parameters::parameters(
+	awl::system::object &_awl_system,
 	sge::window::title const &_title,
 	sge::window::dim const &_dim
 )
 :
+	awl_system_(_awl_system),
 	title_(_title),
 	dim_(_dim),
 	class_name_(
@@ -58,6 +60,12 @@ sge::window::parameters::size_hints(
 	size_hints_ = _size_hints;
 
 	return *this;
+}
+
+awl::system::object &
+sge::window::parameters::awl_system() const
+{
+	return awl_system_;
 }
 
 sge::window::title const &

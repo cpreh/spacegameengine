@@ -1,3 +1,5 @@
+#include <awl/system/object_fwd.hpp>
+#include <awl/main/function_context.hpp>
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -609,16 +611,16 @@ adapt_perspective(
 }
 
 int
-main(
-	int argc,
-	char *argv[])
+example_main(
+	awl::main::function_context const &_function_context,
+	awl::system::object &_awl_system)
 try
 {
-	if(argc > 3)
+	if(_function_context.argc() > 3)
 	{
 		std::cerr << "Error, you provided too many arguments, exiting...\n";
 		show_usage(
-			argv[0]);
+			_function_context.argv()[0]);
 		return EXIT_FAILURE;
 	}
 
@@ -630,12 +632,12 @@ try
 			static_cast<sge::renderer::scalar>(
 				1);
 
-	if(argc >= 2)
+	if(_function_context.argc() >= 2)
 	{
-		if(std::string(argv[1]) == "--help")
+		if(std::string(_function_context.argv()[1]) == "--help")
 		{
 			show_usage(
-				argv[0]);
+				_function_context.argv()[0]);
 			return EXIT_SUCCESS;
 		}
 
@@ -649,7 +651,7 @@ try
 					sge::renderer::scalar
 				>(
 					std::string(
-						argv[1])));
+						_function_context.argv()[1])));
 
 			if(
 				!opt_eye_distance
@@ -657,21 +659,21 @@ try
 			{
 				std::cerr << "The eye distance argument has to be floating point! Exiting...\n";
 				show_usage(
-					argv[0]);
+					_function_context.argv()[0]);
 				return EXIT_FAILURE;
 			}
 
 			eye_distance = *opt_eye_distance;
 		}
 
-		if(argc == 3)
+		if(_function_context.argc() == 3)
 		{
 			optional_scalar const opt_focal_length(
 				fcppt::extract_from_string<
 					sge::renderer::scalar
 				>(
 					std::string(
-						argv[2])));
+						_function_context.argv()[2])));
 
 			if(
 				!opt_focal_length
@@ -679,7 +681,7 @@ try
 			{
 				std::cerr << "The focal length argument has to be floating point! Exiting...\n";
 				show_usage(
-					argv[0]);
+					_function_context.argv()[0]);
 				return EXIT_FAILURE;
 			}
 
@@ -695,6 +697,7 @@ try
 		sge::systems::list()
 			(sge::systems::window(
 				sge::window::parameters(
+					_awl_system,
 					sge::window::title(
 						FCPPT_TEXT("sge test for anaglyph 3D")),
 					sge::window::dim(1024,768))))

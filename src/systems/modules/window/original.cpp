@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/original.hpp>
 #include <sge/window/create_from_awl.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <sge/window/parameters_fwd.hpp>
+#include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <awl/event/create_processor.hpp>
 #include <awl/event/processor.hpp>
@@ -44,16 +44,16 @@ sge::systems::modules::window::original::original(
 )
 :
 	awl_system_(
-		awl::system::create()
+		_parameters.awl_system()
 	),
 	awl_system_event_processor_(
 		awl::system::event::create_processor(
-			*awl_system_
+			awl_system_
 		)
 	),
 	awl_event_processor_(
 		awl::event::create_processor(
-			*awl_system_,
+			awl_system_,
 			awl::system::event::optional_processor_ref(
 				*awl_system_event_processor_
 			)
@@ -63,12 +63,12 @@ sge::systems::modules::window::original::original(
 		_renderer_system
 		?
 			_renderer_system->create_window(
-				*awl_system_,
+				awl_system_,
 				_parameters
 			)
 		:
 			sge::window::create_from_awl(
-				*awl_system_,
+				awl_system_,
 				_parameters
 			)
 	),
@@ -78,7 +78,7 @@ sge::systems::modules::window::original::original(
 		)
 	),
 	system_(
-		*awl_system_,
+		awl_system_,
 		*awl_system_event_processor_,
 		*awl_event_processor_
 	),
