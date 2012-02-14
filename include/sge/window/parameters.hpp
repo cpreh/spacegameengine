@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/size_hints.hpp>
 #include <sge/window/symbol.hpp>
 #include <sge/window/title.hpp>
-#include <awl/system/object_fwd.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -44,7 +44,7 @@ FCPPT_NONASSIGNABLE(
 public:
 	SGE_WINDOW_SYMBOL
 	parameters(
-		awl::system::object &,
+		awl::main::function_context const &,
 		sge::window::title const &,
 		sge::window::dim const &
 	);
@@ -62,8 +62,8 @@ public:
 	);
 
 	SGE_WINDOW_SYMBOL
-	awl::system::object &
-	awl_system() const;
+	awl::main::function_context const &
+	main_function_context() const;
 
 	SGE_WINDOW_SYMBOL
 	sge::window::title const &
@@ -81,7 +81,7 @@ public:
 	window::size_hints const &
 	size_hints() const;
 private:
-	awl::system::object &awl_system_;
+	awl::main::function_context const &main_function_context_;
 
 	sge::window::title title_;
 

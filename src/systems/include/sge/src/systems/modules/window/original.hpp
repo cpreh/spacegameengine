@@ -64,7 +64,7 @@ public:
 	sge::window::object &
 	window() const;
 private:
-	awl::system::object &awl_system_;
+	awl::system::object_scoped_ptr awl_system_;
 
 	awl::system::event::processor_scoped_ptr const awl_system_event_processor_;
 
