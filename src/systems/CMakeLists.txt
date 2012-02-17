@@ -98,6 +98,8 @@ set(
 	src/systems/include/sge/src/systems/modules/window/object_fwd.hpp
 	src/systems/include/sge/src/systems/modules/window/object_scoped_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/original.hpp
+	src/systems/include/sge/src/systems/modules/window/quit.hpp
+	src/systems/include/sge/src/systems/modules/window/quit_fwd.hpp
 	src/systems/include/sge/src/systems/modules/window/wrapped.hpp
 	src/systems/include/sge/src/systems/plugin_by_name.hpp
 	src/systems/include/sge/src/systems/plugin_cache.hpp
@@ -121,6 +123,7 @@ set(
 	src/systems/modules/window/make_base.cpp
 	src/systems/modules/window/object.cpp
 	src/systems/modules/window/original.cpp
+	src/systems/modules/window/quit.cpp
 	src/systems/modules/window/wrapped.cpp
 	src/systems/plugin_cache.cpp
 	src/systems/renderer.cpp

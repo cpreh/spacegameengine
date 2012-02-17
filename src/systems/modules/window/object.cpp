@@ -22,12 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/base.hpp>
 #include <sge/src/systems/modules/window/make_base.hpp>
 #include <sge/src/systems/modules/window/object.hpp>
+#include <sge/src/systems/modules/window/quit.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <awl/mainloop/dispatcher.hpp>
 #include <awl/mainloop/dispatcher_unique_ptr.hpp>
 #include <awl/mainloop/io_service.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
 
@@ -58,6 +62,24 @@ sge::systems::modules::window::object::object(
 	),
 	show_on_post_(
 		_parameters.show()
+	),
+	quit_(
+		_parameters.quit()
+		?
+			fcppt::make_unique_ptr<
+				sge::systems::modules::window::quit
+			>(
+				fcppt::ref(
+					base_->system()
+				),
+				fcppt::ref(
+					base_->window()
+				)
+			)
+		:
+			fcppt::unique_ptr<
+				sge::systems::modules::window::quit
+			>()
 	)
 {
 }

@@ -31,7 +31,12 @@ sge::systems::window::window(
 		_parameter
 	),
 	io_service_(),
-	show_(true)
+	show_(
+		true
+	),
+	quit_(
+		true
+	)
 {
 }
 
@@ -56,6 +61,14 @@ sge::systems::window::dont_show()
 	return *this;
 }
 
+sge::systems::window &
+sge::systems::window::dont_quit()
+{
+	quit_ = false;
+
+	return *this;
+}
+
 sge::systems::window::parameter_variant const &
 sge::systems::window::parameter() const
 {
@@ -72,4 +85,10 @@ bool
 sge::systems::window::show() const
 {
 	return show_;
+}
+
+bool
+sge::systems::window::quit() const
+{
+	return quit_;
 }

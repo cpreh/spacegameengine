@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <awl/event/processor.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <awl/system/event/processor_fwd.hpp>
+#include <awl/system/event/processor.hpp>
 #include <awl/window/instance_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -95,12 +95,29 @@ sge::window::system::create(
 bool
 sge::window::system::poll()
 {
+	awl_event_processor_.poll();
+
 	return
-		awl_event_processor_.poll();
+		this->running();
 }
 
-void
+bool
 sge::window::system::next()
 {
 	awl_event_processor_.next();
+
+	return
+		this->running();
+}
+
+bool
+sge::window::system::running() const
+{
+	return awl_system_event_processor_.running();
+}
+
+void
+sge::window::system::quit()
+{
+	awl_system_event_processor_.quit();
 }

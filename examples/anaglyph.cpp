@@ -1,5 +1,3 @@
-#include <awl/system/object_fwd.hpp>
-#include <awl/main/function_context.hpp>
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -101,6 +99,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/system/object_fwd.hpp>
+#include <awl/main/function_context.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string.hpp>
@@ -717,6 +717,7 @@ try
 				sge::systems::cursor_option_field(
 					sge::systems::cursor_option::exclusive))));
 
+#if 0
 	bool running =
 		true;
 
@@ -726,7 +727,7 @@ try
 				sge::input::keyboard::key_code::escape,
 				sge::systems::running_to_false(
 					running))));
-
+#endif
 	sge::camera::first_person::object camera(
 		sge::camera::first_person::parameters(
 			sge::camera::first_person::movement_speed(
@@ -813,10 +814,10 @@ try
 		sys.renderer(),
 		*vertex_declaration);
 
-	while(running)
+	while(
+		sys.window_system().poll()
+	)
 	{
-		sys.window_system().poll();
-
 		// If we have no viewport (yet), don't do anything (this is just a
 		// precaution, we _might_ divide by zero somewhere below, otherwise)
 		if(!sge::renderer::viewport_size(sys.renderer()).content())

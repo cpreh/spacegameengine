@@ -18,20 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_MODULES_WINDOW_OBJECT_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_MODULES_WINDOW_OBJECT_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_WINDOW_QUIT_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_WINDOW_QUIT_HPP_INCLUDED
 
-#include <sge/src/systems/modules/renderer/optional_system_ref.hpp>
-#include <sge/src/systems/modules/window/base_scoped_ptr.hpp>
-#include <sge/src/systems/modules/window/object_fwd.hpp>
 #include <sge/src/systems/modules/window/quit_fwd.hpp>
-#include <sge/systems/window_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/mainloop/dispatcher_fwd.hpp>
-#include <awl/mainloop/dispatcher_scoped_ptr.hpp>
+#include <awl/window/event/destroy_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 
 
 namespace sge
@@ -43,42 +38,27 @@ namespace modules
 namespace window
 {
 
-class object
+class quit
 {
 	FCPPT_NONCOPYABLE(
-		object
+		quit
 	);
 public:
-	object(
-		sge::systems::window const &,
-		sge::systems::modules::renderer::optional_system_ref const &
+	quit(
+		sge::window::system &,
+		sge::window::object &
 	);
 
-	~object();
-
-	sge::window::system &
-	system() const;
-
-	sge::window::object &
-	window() const;
-
-	awl::mainloop::dispatcher &
-	awl_dispatcher() const;
-
-	void
-	post_init();
+	~quit();
 private:
-	sge::systems::modules::window::base_scoped_ptr base_;
+	void
+	on_destroy(
+		awl::window::event::destroy const &
+	);
 
-	awl::mainloop::dispatcher_scoped_ptr const dispatcher_;
+	sge::window::system &system_;
 
-	bool const show_on_post_;
-
-	typedef fcppt::scoped_ptr<
-		sge::systems::modules::window::quit
-	> quit_scoped_ptr;
-
-	quit_scoped_ptr const quit_;
+	fcppt::signal::scoped_connection const destroy_connection_;
 };
 
 }

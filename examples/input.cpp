@@ -322,25 +322,21 @@ try
 		)
 	);
 
-	bool running(
-		true
-	);
-
 	fcppt::signal::scoped_connection const input_connection(
 		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running
+				sge::systems::quit(
+					sys.window_system()
 				)
 			)
 		)
 	);
 
 	while(
-		running
+		sys.window_system().next()
 	)
-		sys.window_system().next();
+		;
 }
 catch(
 	fcppt::exception const &_exception

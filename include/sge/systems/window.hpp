@@ -69,6 +69,10 @@ public:
 	dont_show();
 
 	SGE_SYSTEMS_SYMBOL
+	window &
+	dont_quit();
+
+	SGE_SYSTEMS_SYMBOL
 	parameter_variant const &
 	parameter() const;
 
@@ -79,12 +83,18 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	bool
 	show() const;
+
+	SGE_SYSTEMS_SYMBOL
+	bool
+	quit() const;
 private:
 	parameter_variant const parameter_;
 
 	awl::mainloop::optional_io_service_ref io_service_;
 
 	bool show_;
+
+	bool quit_;
 };
 
 }

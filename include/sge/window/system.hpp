@@ -77,8 +77,16 @@ public:
 	poll();
 
 	SGE_WINDOW_SYMBOL
-	void
+	bool
 	next();
+
+	SGE_WINDOW_SYMBOL
+	bool
+	running() const;
+
+	SGE_WINDOW_SYMBOL
+	void
+	quit();
 private:
 	awl::system::object &awl_system_;
 
