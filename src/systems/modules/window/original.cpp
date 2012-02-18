@@ -45,8 +45,7 @@ sge::systems::modules::window::original::original(
 )
 :
 	awl_system_(
-		awl::system::create(
-			_parameters.main_function_context())
+		awl::system::create()
 	),
 	awl_system_event_processor_(
 		awl::system::event::create_processor(

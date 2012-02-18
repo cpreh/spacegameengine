@@ -700,7 +700,6 @@ try
 		sge::systems::list()
 			(sge::systems::window(
 				sge::window::parameters(
-					_main_function_context,
 					sge::window::title(
 						FCPPT_TEXT("sge test for anaglyph 3D")),
 					sge::window::dim(1024,768))))
