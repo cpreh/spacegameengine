@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/example_main.hpp>
+#include <example_main.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/projection/object.hpp>
@@ -690,7 +690,7 @@ try
 		sge::log::global(),
 		fcppt::log::level::debug);
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 			(sge::systems::window(
 				sge::window::parameters(
@@ -706,7 +706,8 @@ try
 				sge::viewport::fill_on_resize()))
 			(sge::systems::input(
 				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
+					sge::systems::input_helper::keyboard_collector)
+					| sge::systems::input_helper::mouse_collector,
 				sge::systems::cursor_option_field(
 					sge::systems::cursor_option::exclusive))));
 

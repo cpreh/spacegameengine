@@ -143,30 +143,30 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
 )
 
-#add_sge_example(
-#	caps
-#	"sgeconfig;sgeplugin;sgerenderer;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
-#)
-#
-#add_sge_example(
-#	config_path
-#	"sgeconfig"
-#	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
-#)
-#
-#add_sge_example(
-#	console
-#	"sgeconfig;sgeconsole;sgefonttext;sgeimage;sgeinput;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
-#)
-#
-#add_sge_example(
-#	doppler
-#	"sgeaudio;sgeconfig;sgeinput;sgelog;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
-#)
-#
+add_sge_console_example(
+	caps
+	"sgeconfig;sgeplugin;sgerenderer;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+)
+
+add_sge_console_example(
+	config_path
+	"sgeconfig"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+)
+
+add_sge_example(
+	console
+	"sgeconfig;sgeconsole;sgefonttext;sgeimage;sgeinput;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+)
+
+add_sge_example(
+	doppler
+	"sgeaudio;sgeconfig;sgeinput;sgelog;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+)
+
 #add_sge_example(
 #	fullscreen
 #	"sgeimage;sgerenderer;sgesystems;sgeviewport;sgewindow"

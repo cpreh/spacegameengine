@@ -49,10 +49,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-int main()
+int
+main()
 try
 {
-#if 0
 	sge::plugin::manager manager(
 		sge::config::plugin_path()
 	);
@@ -109,7 +109,8 @@ try
 			*window
 		)->caps()
 		<< FCPPT_TEXT('\n');
-#endif
+
+	return EXIT_SUCCESS;
 }
 catch(
 	fcppt::exception const &_error
