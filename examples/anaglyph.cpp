@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/example_main.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/projection/object.hpp>
@@ -606,10 +607,6 @@ adapt_perspective(
 		camera.projection());
 }
 }
-
-int
-example_main(
-	awl::main::function_context const &);
 
 int
 example_main(

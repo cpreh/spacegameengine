@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/example_main.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/font/text/draw.hpp>
@@ -29,8 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/string.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -48,13 +47,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
@@ -75,14 +75,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 int
-main(
-	int argc,
-	char **argv
+example_main(
+	awl::main::function_context const &_main_function_context
 )
 try
 {
 	if(
-		argc > 2
+		_main_function_context.argc() > 2
 	)
 	{
 		fcppt::io::cerr()
@@ -168,25 +167,18 @@ try
 			)
 	);
 
-	bool running = true;
-
-	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running
-				)
-			)
+	fcppt::signal::scoped_connection const escape_connection(
+		sge::systems::quit_on_escape(
+			sys
 		)
 	);
 
 	sge::font::text::string const string(
-		argc == 2
+		_main_function_context.argc() == 2
 		?
 			sge::font::text::from_fcppt_string(
 				fcppt::from_std_string(
-					argv[1]
+					_main_function_context.argv()[1]
 				)
 			)
 		:
@@ -194,11 +186,9 @@ try
 	);
 
 	while(
-		running
+		sys.window_system().poll()
 	)
 	{
-		sys.window_system().poll();
-
 		sge::renderer::scoped_block const block_(
 			sys.renderer()
 		);
@@ -217,6 +207,9 @@ try
 			sge::font::text::flags::none
 		);
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_exception

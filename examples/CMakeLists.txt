@@ -105,6 +105,10 @@ function(
 	)
 endfunction()
 
+include_directories(
+	"include"
+)
+
 add_definitions(
 	${Awl_DEFINITIONS}
 )
@@ -121,24 +125,24 @@ add_sge_console_example(
 	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
 )
 
-#add_sge_example(
-#	asio_window
-#	"sgeinput;sgesystems;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
-#)
-#
-#add_sge_example(
-#	audio_minimal
-#	"sgeaudio;sgeconfig;sgeplugin"
-#	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
-#)
-#
-#add_sge_example(
-#	bitmapfont
-#	"sgeconfig;sgefontbitmap;sgefonttext;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
-#)
-#
+add_sge_example(
+	asio_window
+	"sgeinput;sgesystems;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+)
+
+add_sge_console_example(
+	audio_minimal
+	"sgeaudio;sgeconfig;sgeplugin"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+)
+
+add_sge_example(
+	bitmapfont
+	"sgeconfig;sgefontbitmap;sgefonttext;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+)
+
 #add_sge_example(
 #	caps
 #	"sgeconfig;sgeplugin;sgerenderer;sgewindow"

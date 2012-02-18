@@ -33,7 +33,7 @@ namespace systems
 SGE_SYSTEMS_SYMBOL
 fcppt::signal::auto_connection
 quit_on_escape(
-	sge::systems::instance &
+	sge::systems::instance const &
 );
 
 }

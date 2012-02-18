@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/example_main.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -31,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <awl/mainloop/dispatcher.hpp>
 #include <awl/mainloop/io_service.hpp>
 #include <awl/mainloop/io_service_scoped_ptr.hpp>
@@ -48,9 +50,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-int main()
+int
+example_main(
+	awl::main::function_context const &
+)
 try
 {
+	// FIXME!
+#if 0
 	awl::mainloop::io_service_scoped_ptr const io_service(
 		awl::mainloop::asio::create_io_service_base()
 	);
@@ -96,6 +103,11 @@ try
 	);
 
 	io_service->run();
+
+	return
+		sys.window_system().exit_code();
+#endif
+	return 0;
 }
 catch(
 	fcppt::exception const &_exception

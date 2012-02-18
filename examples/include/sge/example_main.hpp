@@ -18,29 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/systems/instance.hpp>
-#include <sge/systems/quit_on_escape.hpp>
-#include <sge/window/system.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#ifndef SGE_EXAMPLE_MAIN_HPP_INCLUDED
+#define SGE_EXAMPLE_MAIN_HPP_INCLUDED
 
+#include <awl/main/function_context_fwd.hpp>
 
-fcppt::signal::auto_connection
-sge::systems::quit_on_escape(
-	sge::systems::instance const &_instance
-)
-{
-	return
-		_instance.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				std::tr1::bind(
-					&sge::window::system::quit,
-					&_instance.window_system()
-				)
-			)
-		);
-}
+int
+example_main(
+	awl::main::function_context const &);
+
+#endif
