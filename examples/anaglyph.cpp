@@ -886,7 +886,8 @@ try
 			original_gizmo;
 	}
 
-	return EXIT_SUCCESS;
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_error

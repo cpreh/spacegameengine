@@ -87,6 +87,10 @@ public:
 	SGE_WINDOW_SYMBOL
 	void
 	quit();
+
+	SGE_WINDOW_SYMBOL
+	int
+	exit_code() const;
 private:
 	awl::system::object &awl_system_;
 

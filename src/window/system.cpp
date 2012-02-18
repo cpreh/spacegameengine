@@ -121,3 +121,10 @@ sge::window::system::quit()
 {
 	awl_system_event_processor_.quit();
 }
+
+int
+sge::window::system::exit_code() const
+{
+	return
+		awl_system_event_processor_.exit_code();
+}
