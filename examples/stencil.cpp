@@ -37,12 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	same effect as if the two sprites were rendered in reverse order.
 */
 
+#include <example_main.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -84,8 +82,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/viewport/center_on_resize.hpp>
@@ -93,6 +91,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -110,7 +109,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 int
-main()
+example_main(
+	awl::main::function_context const &
+)
 try
 {
 	// The desired window size.
@@ -310,27 +311,18 @@ try
 		)
 	);
 
-	bool running = true;
-
 	// Set running to false when escape is pressed.
 	fcppt::signal::scoped_connection const escape_connection(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running
-				)
-			)
+		sge::systems::quit_on_escape(
+			sys
 		)
 	);
 
 	while(
-		running
+		// Process window messages which will also process input.
+		sys.window_system().poll()
 	)
 	{
-		// Process window messages which will also process input.
-		sys.window_system().poll();
-
 		// Declare a render block.
 		// This will clear the buffers in the constructor and
 		// present the scene in the destructor.
@@ -385,6 +377,9 @@ try
 			);
 		}
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_error

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file_ptr.hpp>
@@ -122,7 +121,8 @@ wait_for_sound(
 }
 }
 
-int main(int, char *[])
+int
+main()
 try
 {
 	fcppt::log::activate_levels(

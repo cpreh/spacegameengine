@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <example_main.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/bgra8_format.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -54,13 +55,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
@@ -79,7 +80,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 int
-main()
+example_main(
+	awl::main::function_context const &
+)
 try
 {
 	sge::systems::instance const sys(
@@ -251,15 +254,12 @@ try
 	}
 //! [vertex_write_rest]
 
-	bool running = true;
-
 //! [running_block]
 	while(
-		running
+		sys.window_system().poll()
 	)
 	{
 //! [running_block]
-		sys.window_system().poll();
 
 		sys.renderer().state(
 			sge::renderer::state::list
@@ -295,6 +295,9 @@ try
 		);
 	}
 //! [scoped_block]
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_error

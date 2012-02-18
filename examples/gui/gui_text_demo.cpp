@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <example_main.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
@@ -31,9 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/collector.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/global_context.hpp>
 #include <sge/log/location.hpp>
@@ -60,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/running_to_false.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed.hpp>
@@ -71,6 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
@@ -97,9 +96,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-int main(
-	int,
-	char *[])
+int
+example_main(
+	awl::main::function_context const &)
 try
 {
 	fcppt::log::activate_levels(
@@ -140,17 +139,14 @@ try
 							FCPPT_TEXT("png"))))))
 		(sge::systems::input(
 			sge::systems::input_helper_field(
-				sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector | sge::systems::input_helper::cursor_demuxer,
+				sge::systems::input_helper::keyboard_collector)
+				| sge::systems::input_helper::mouse_collector
+				| sge::systems::input_helper::cursor_demuxer,
 			sge::systems::cursor_option_field())));
 
-	bool running = true;
-
-	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running))));
+	fcppt::signal::scoped_connection const escape_connection(
+		sge::systems::quit_on_escape(
+			sys));
 
 	sge::cegui::system gui_sys(
 		sge::cegui::load_context(
@@ -190,10 +186,9 @@ try
 		scoped_layout.window()
 	);
 
-	while (running)
+	while(
+		sys.window_system().poll())
 	{
-		sys.window_system().poll();
-
 		gui_sys.update(
 			sge::timer::elapsed<sge::cegui::duration>(
 				frame_timer));
@@ -211,6 +206,9 @@ try
 
 		gui_sys.render();
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_error

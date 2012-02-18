@@ -98,7 +98,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/function_context.hpp>
-#include <awl/system/object_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string.hpp>

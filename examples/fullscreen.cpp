@@ -18,13 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <example_main.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/vsync.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -36,9 +41,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/dont_manage.hpp>
+#include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -50,7 +58,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-int main()
+int
+example_main(
+	awl::main::function_context const &
+)
 try
 {
 	sge::window::dim const window_dim(
@@ -91,33 +102,51 @@ try
 		)
 	);
 
-	sge::timer::basic<sge::timer::clocks::standard> tm(
-		sge::timer::parameters<sge::timer::clocks::standard>(
+	sge::timer::basic<
+		sge::timer::clocks::standard
+	> timer(
+		sge::timer::parameters<
+			sge::timer::clocks::standard
+		>(
 			fcppt::chrono::seconds(
-				5)));
-
-	sge::renderer::device &rend(
-		sys.renderer()
-	);
-
-	rend.state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color
-				= sge::image::colors::yellow()
+				5
 			)
+		)
 	);
 
 	while(
-		!tm.expired())
+		sys.window_system().poll()
+	)
 	{
-		sys.window_system().poll();
+		if(
+			timer.expired()
+		)
+		{
+			sys.window_system().quit();
 
-		sge::renderer::scoped_block const block_(rend);
+			timer.active(
+				false
+			);
+		}
+
+		sys.renderer().state(
+			sge::renderer::state::list
+				(sge::renderer::state::bool_::clear_back_buffer = true)
+				(sge::renderer::state::color::back_buffer_clear_color
+					= sge::image::colors::yellow()
+				)
+		);
+
+		sge::renderer::scoped_block const block(
+			sys.renderer()
+		);
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
-	sge::exception const &_error
+	fcppt::exception const &_error
 )
 {
 	fcppt::io::cerr()

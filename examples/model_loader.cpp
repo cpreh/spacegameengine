@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <example_main.hpp>
 #include <sge/camera/duration.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/object.hpp>
@@ -137,8 +137,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
@@ -150,6 +150,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/homogenous_pair.hpp>
@@ -538,9 +539,8 @@ normals_to_line_drawer(
 }
 
 int
-main(
-	int argc,
-	char *argv[])
+example_main(
+	awl::main::function_context const &_main_function_context)
 try
 {
 	sge::parse::json::object const config(
@@ -561,8 +561,8 @@ try
 				FCPPT_TEXT("}")
 				FCPPT_TEXT("}")),
 			sge::parse::json::config::create_command_line_parameters(
-				argc,
-				argv)));
+				_main_function_context.argc(),
+				_main_function_context.argv())));
 
 	fcppt::filesystem::path const
 		model_file(
@@ -613,15 +613,9 @@ try
 				sge::systems::cursor_option_field(
 					sge::systems::cursor_option::exclusive))));
 
-	bool running =
-		true;
-
-	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running))));
+	fcppt::signal::scoped_connection const escape_connection(
+		sge::systems::quit_on_escape(
+			sys));
 
 	sge::camera::first_person::object camera(
 		sge::camera::first_person::parameters(
@@ -743,9 +737,9 @@ try
 			(sge::renderer::state::color::back_buffer_clear_color =
 					sge::image::colors::black()));
 
-	while(running)
+	while(
+		sys.window_system().poll())
 	{
-		sys.window_system().poll();
 
 		// If we have no viewport (yet), don't do anything (this is just a
 		// precaution, we _might_ divide by zero somewhere below, otherwise)
@@ -799,6 +793,9 @@ try
 
 		compiled.render();
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_error

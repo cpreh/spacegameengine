@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <example_main.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
@@ -57,12 +56,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/process/one.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -106,35 +107,6 @@ typedef sge::sprite::config::choices<
 typedef sge::sprite::object<
 	sprite_choices
 > sprite_object;
-
-class input_functor
-{
-	FCPPT_NONASSIGNABLE(
-		input_functor
-	);
-public:
-	explicit input_functor(
-		bool &_running
-	)
-	:
-		running_(_running)
-	{}
-
-	void
-	operator()(
-		sge::input::keyboard::key_event const &k
-	) const
-	{
-		if(
-			k.pressed()
-			&&
-			k.key_code() == sge::input::keyboard::key_code::escape
-		)
-			running_ = false;
-	}
-private:
-	bool &running_;
-};
 
 class sprite_functor
 {
@@ -185,7 +157,10 @@ private:
 };
 }
 
-int main()
+int
+example_main(
+	awl::main::function_context const &
+)
 try
 {
 	sge::window::dim const window_dim(
@@ -293,13 +268,9 @@ try
 		.texture_size()
 	);
 
-	bool running = true;
-
-	fcppt::signal::scoped_connection const conn(
-		sys.keyboard_collector().key_callback(
-			::input_functor(
-				running
-			)
+	fcppt::signal::scoped_connection const escape_connection(
+		sge::systems::quit_on_escape(
+			sys
 		)
 	);
 
@@ -311,22 +282,20 @@ try
 		)
 	);
 
-	sys.renderer().state(
-		sge::renderer::state::list
-		(
-			sge::renderer::state::bool_::clear_back_buffer = true
-		)
-		(
-			sge::renderer::state::color::back_buffer_clear_color
-				= sge::image::colors::black()
-		)
-	);
-
 	while(
-		running
+		sys.window_system().poll()
 	)
 	{
-		sys.window_system().poll();
+		sys.renderer().state(
+			sge::renderer::state::list
+			(
+				sge::renderer::state::bool_::clear_back_buffer = true
+			)
+			(
+				sge::renderer::state::color::back_buffer_clear_color
+					= sge::image::colors::black()
+			)
+		);
 
 		sge::renderer::scoped_block const block(
 			sys.renderer()
@@ -337,6 +306,9 @@ try
 			sprite_buffers
 		);
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_exception

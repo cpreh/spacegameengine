@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <example_main.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/init.hpp>
@@ -25,8 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
 #include <sge/log/global.hpp>
 #include <sge/media/all_extensions.hpp>
 #include <sge/renderer/device.hpp>
@@ -68,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/process/all.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/running_to_false.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/timer/basic.hpp>
@@ -80,6 +79,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context.hpp>
 #include <mizuiro/color/operators/scalar_multiply.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string_exn.hpp>
@@ -483,14 +483,19 @@ particles::vertex_declaration() const
 }
 }
 
-int main(
-	int argc,
-	char *argv[])
+int
+example_main(
+	awl::main::function_context const &_main_function_context)
 try
 {
-	if (argc != 2)
+	if(
+		_main_function_context.argc() != 2)
 	{
-		std::cerr << "Usage: " << argv[0] << " <particle-count>\n";
+		std::cerr
+			<< "Usage: "
+			<< _main_function_context.argv()[0]
+			<< " <particle-count>\n";
+
 		return EXIT_FAILURE;
 	}
 
@@ -524,7 +529,7 @@ try
 	particles particle_system(
 		fcppt::extract_from_string_exn<unsigned>(
 			std::string(
-				argv[1])),
+				_main_function_context.argv()[1])),
 		sys);
 
 	fcppt::io::cifstream fragment_stream(
@@ -592,21 +597,14 @@ try
 		*tex_var,
 		static_cast<int>(0));
 
-	bool running = true;
-
-	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running))));
+	fcppt::signal::scoped_connection const escape_connection(
+		sge::systems::quit_on_escape(
+			sys));
 
 	while(
-		running
+		sys.window_system().poll()
 	)
 	{
-		sys.window_system().poll();
-
 		sge::renderer::scoped_block const block(
 			sys.renderer()
 		);
@@ -614,6 +612,9 @@ try
 		particle_system.update();
 		particle_system.render();
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_error)

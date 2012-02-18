@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <example_main.hpp>
 #include <sge/camera/duration.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/object.hpp>
@@ -38,9 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/object.hpp>
 #include <sge/image3d/view/sub.hpp>
 #include <sge/image3d/view/to_const.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -97,8 +95,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
@@ -109,6 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -528,7 +527,9 @@ create_texture(
 }
 
 int
-main()
+example_main(
+	awl::main::function_context const &
+)
 try
 {
 	sge::systems::instance const sys(
@@ -605,18 +606,9 @@ try
 		*vertex_buffer
 	);
 
-	bool running(
-		true
-	);
-
 	fcppt::signal::scoped_connection const input_connection(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running
-				)
-			)
+		sge::systems::quit_on_escape(
+			sys
 		)
 	);
 
@@ -671,11 +663,9 @@ try
 	);
 
 	while(
-		running
+		sys.window_system().poll()
 	)
 	{
-		sys.window_system().poll();
-
 		camera.update(
 			sge::timer::elapsed_and_reset<
 				sge::camera::duration
@@ -771,6 +761,9 @@ try
 			sge::renderer::nonindexed_primitive_type::triangle
 		);
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_error

@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	- font::text::draw
  */
 
+#include <example_main.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/camera/spherical/movement_speed.hpp>
@@ -137,8 +138,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed.hpp>
@@ -152,6 +153,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -811,7 +813,11 @@ toggle_bumpmapping(
 }
 }
 
-int main()
+
+int
+example_main(
+	awl::main::function_context const &
+)
 try
 {
 	// Turn on debug logging, just in case. :)
@@ -855,7 +861,8 @@ try
 							FCPPT_TEXT("png"))))))
 			(sge::systems::input(
 				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
+					sge::systems::input_helper::keyboard_collector)
+					| sge::systems::input_helper::mouse_collector,
 				// This is important for any application that needs relative mouse movement:
 				// An exclusive cursor won't be shown, nor will it be able
 				// to click into other windows, so you don't lose the focus.
@@ -881,20 +888,10 @@ try
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags::none);
 
-	bool running =
-		true;
-
-	// When escape is pressed, the main loop should end, so we need to
-	// set running to false.
-	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector().key_callback(
-			// keyboard::action is just a wrapper for: Test if the key code
-			// is escape and then execute the action given.
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				// And running_to_false is just a wrapper for "running = false".
-				sge::systems::running_to_false(
-					running))));
+	// When escape is pressed, the main loop should end
+	fcppt::signal::scoped_connection const escape_connection(
+		sge::systems::quit_on_escape(
+			sys));
 
 	// The camera is a good debugging tool. It gives easy access to the
 	// mvp matrix every shader needs. You can move around with 'w', 'a',
@@ -1028,19 +1025,6 @@ try
 	fill_vb_with_cube(
 		*vb);
 
-	// Some render states
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::bool_::clear_depth_buffer = true)
-			(sge::renderer::state::bool_::enable_alpha_blending = false)
-			(sge::renderer::state::cull_mode::off)
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::draw_mode::fill)
-			(sge::renderer::state::float_::depth_buffer_clear_val = 1.f)
-			(sge::renderer::state::stencil_func::off)
-			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
-
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
 			sge::camera::duration(
@@ -1063,17 +1047,29 @@ try
 			static_cast<sge::font::size_type>(
 				30)));
 
-	while(running)
+	while(
+		sys.window_system().poll())
 	{
-		sys.window_system().poll();
-
 		camera.update(
 			sge::timer::elapsed<sge::camera::duration>(
 				camera_timer));
 
 		camera_timer.reset();
 
-		sge::renderer::scoped_block const block_(
+		// Some render states
+		sys.renderer().state(
+			sge::renderer::state::list
+				(sge::renderer::state::bool_::clear_back_buffer = true)
+				(sge::renderer::state::bool_::clear_depth_buffer = true)
+				(sge::renderer::state::bool_::enable_alpha_blending = false)
+				(sge::renderer::state::cull_mode::off)
+				(sge::renderer::state::depth_func::less)
+				(sge::renderer::state::draw_mode::fill)
+				(sge::renderer::state::float_::depth_buffer_clear_val = 1.f)
+				(sge::renderer::state::stencil_func::off)
+				(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
+
+		sge::renderer::scoped_block const block(
 			sys.renderer());
 
 		{
@@ -1136,6 +1132,9 @@ try
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none);
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_error

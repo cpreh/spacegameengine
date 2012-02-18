@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <example_main.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/media/extension.hpp>
@@ -58,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -73,7 +75,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 int
-main()
+example_main(
+	awl::main::function_context const &
+)
 try
 {
 	sge::window::dim const window_dim(
@@ -200,10 +204,10 @@ try
 	);
 //! [object_initialization]
 
-	for (;;)
+	while(
+		sys.window_system().poll()
+	)
 	{
-		sys.window_system().poll();
-
 		sge::renderer::scoped_block const block(
 			sys.renderer()
 		);
@@ -215,6 +219,9 @@ try
 		);
 //! [process_one]
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_exception

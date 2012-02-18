@@ -18,11 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <example_main.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -74,14 +72,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
@@ -100,7 +99,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 int
-main()
+example_main(
+	awl::main::function_context const &
+)
 try
 {
 	sge::systems::instance const sys(
@@ -336,25 +337,16 @@ try
 	);
 // ![load_texture]
 
-	bool running = true;
-
 	fcppt::signal::scoped_connection const scoped_esc_connection(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running
-				)
-			)
+		sge::systems::quit_on_escape(
+			sys
 		)
 	);
 
 	while(
-		running
+		sys.window_system().poll()
 	)
 	{
-		sys.window_system().poll();
-
 		sge::renderer::scoped_vertex_declaration_and_buffers const vb_context(
 			sys.renderer(),
 			*vertex_declaration,
@@ -397,6 +389,9 @@ try
 		);
 //! [render_block]
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_error

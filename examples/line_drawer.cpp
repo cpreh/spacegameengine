@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	- Usage of sge::input::cursor
  */
 
+#include <example_main.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/rect.hpp>
@@ -63,10 +64,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/keyboard/key_event.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/render_to_screen.hpp>
@@ -94,8 +91,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/timer/frames_counter.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
@@ -104,6 +101,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
@@ -267,10 +265,12 @@ private:
 }
 
 int
-main()
+example_main(
+	awl::main::function_context const &
+)
 try
 {
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::systems::window(
 				sge::window::parameters(
@@ -294,15 +294,9 @@ try
 				sge::systems::cursor_option_field::null()))
 		(sge::systems::font()));
 
-	bool running =
-		true;
-
-	fcppt::signal::scoped_connection const input_connection(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running))));
+	fcppt::signal::scoped_connection const escape_connection(
+		sge::systems::quit_on_escape(
+			sys));
 
 	sge::font::metrics_ptr const font_metrics(
 		sys.font_system().create_font(
@@ -332,9 +326,8 @@ try
 		sys.cursor_demuxer());
 
 	while(
-		running)
+		sys.window_system().poll())
 	{
-		sys.window_system().poll();
 
 		frames_counter.update();
 
@@ -377,8 +370,11 @@ try
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none);
 	}
+
+	return
+		sys.window_system().exit_code();
 }
- catch(
+catch(
 	fcppt::exception const &_error)
 {
 	fcppt::io::cerr()
@@ -387,7 +383,7 @@ try
 
 	return EXIT_FAILURE;
 }
- catch(
+catch(
 	std::exception const &_error)
 {
 	std::cerr

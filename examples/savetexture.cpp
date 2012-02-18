@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <example_main.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/save_from_view.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
 #include <sge/log/global.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
@@ -76,11 +75,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/running_to_false.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -217,14 +217,20 @@ create_quad(
 }
 }
 
-int main(
-	int argc,
-	char *argv[])
+int
+example_main(
+	awl::main::function_context const &_main_function_context)
 try
 {
-	if (argc != 2)
+	if(
+		_main_function_context.argc()
+		!= 2)
 	{
-		std::cerr << "usage: " << argv[0] << " <output-file>\n";
+		std::cerr
+			<< "usage: "
+			<< _main_function_context.argv()[0]
+			<< " <output-file>\n";
+
 		return EXIT_FAILURE;
 	}
 
@@ -308,13 +314,9 @@ try
 		)
 	);
 
-	bool running = true;
-
-	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(running))));
+	fcppt::signal::scoped_connection const escape_connection(
+		sge::systems::quit_on_escape(
+			sys));
 
 	sys.renderer().state(
 		sge::renderer::state::list
@@ -329,12 +331,12 @@ try
 		)
 	);
 
-	sge::renderer::vertex_buffer_ptr const quad_(
+	sge::renderer::vertex_buffer_ptr const quad(
 		screen_vf::create_quad(
 			*vertex_declaration,
 			sys.renderer()));
 
-	sge::shader::object shader_(
+	sge::shader::object shader(
 		sge::shader::object_parameters(
 			sys.renderer(),
 			*vertex_declaration,
@@ -361,38 +363,40 @@ try
 					/ FCPPT_TEXT("fragment.glsl")));
 
 	{
-		sge::renderer::scoped_target scoped_target(
+		sge::renderer::scoped_target const scoped_target(
 			sys.renderer(),
 			*temp_target);
 
-		sge::renderer::scoped_block scoped_block(
+		sge::renderer::scoped_block const scoped_block(
 			sys.renderer());
 
-		sge::shader::scoped scoped_shader(
-			shader_,
+		sge::shader::scoped const scoped_shader(
+			shader,
 			sge::shader::activation_method_field(
 				sge::shader::activation_method::textures) |
 				sge::shader::activation_method::vertex_declaration);
 
-		sge::renderer::scoped_vertex_buffer const scoped_vb_(
+		sge::renderer::scoped_vertex_buffer const scoped_vb(
 			sys.renderer(),
-			*quad_);
+			*quad);
 
 		sys.renderer().render_nonindexed(
 			sge::renderer::first_vertex(
 				0),
-			quad_->size(),
+			quad->size(),
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}
 
-	sge::renderer::texture::const_scoped_planar_lock slock(
+	sge::renderer::texture::const_scoped_planar_lock const slock(
 		*target_texture);
 
 	sge::image2d::save_from_view(
 		sys.image_system(),
 		slock.value(),
 		fcppt::from_std_string(
-			argv[1]));
+			_main_function_context.argv()[1]));
+
+	return 0;
 }
 catch(
 	fcppt::exception const &_error

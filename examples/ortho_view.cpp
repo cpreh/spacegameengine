@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <example_main.hpp>
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/system.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
 #include <sge/log/global.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
@@ -62,7 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/render/vertex_options.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/running_to_false.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/no_fragmented.hpp>
@@ -75,6 +74,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -94,7 +94,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-int main()
+int
+example_main(
+	awl::main::function_context const &
+)
 try
 {
 	fcppt::log::activate_levels(
@@ -238,15 +241,9 @@ try
 			sprite_object::dim(32,32))
 	);
 
-	bool running =
-		true;
-
-	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running))));
+	fcppt::signal::scoped_connection const escape_connection(
+		sge::systems::quit_on_escape(
+			sys));
 
 	sys.renderer().state(
 		sge::renderer::state::list
@@ -258,9 +255,9 @@ try
 			sge::camera::duration(
 				1.0f)));
 
-	while(running)
+	while(
+		sys.window_system().poll())
 	{
-		sys.window_system().poll();
 
 		camera.update(
 			sge::timer::elapsed<sge::camera::duration>(
@@ -309,6 +306,9 @@ try
 			sprite_buffers
 		);
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_error)

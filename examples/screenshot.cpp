@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <example_main.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -51,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/process/one.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/running_to_false.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/no_fragmented.hpp>
@@ -61,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -80,7 +83,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-int main()
+int
+example_main(
+	awl::main::function_context const &
+)
 try
 {
 	fcppt::io::cout()
@@ -219,28 +225,13 @@ try
 		.texture_size()
 	);
 
-	device.state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color
-				= sge::image::colors::green()
-			)
-	);
-
-	bool running = true;
-
-	fcppt::signal::scoped_connection const cb(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				sge::systems::running_to_false(
-					running
-				)
-			)
+	fcppt::signal::scoped_connection const escape_connection(
+		sge::systems::quit_on_escape(
+			sys
 		)
 	);
 
-	fcppt::signal::scoped_connection const cb2(
+	fcppt::signal::scoped_connection const screenshot_connection(
 		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f12,
@@ -261,12 +252,18 @@ try
 	);
 
 	while(
-		running
+		sys.window_system().poll()
 	)
 	{
-		sys.window_system().poll();
+		device.state(
+			sge::renderer::state::list
+				(sge::renderer::state::bool_::clear_back_buffer = true)
+				(sge::renderer::state::color::back_buffer_clear_color
+					= sge::image::colors::green()
+				)
+		);
 
-		sge::renderer::scoped_block const block_(
+		sge::renderer::scoped_block const block(
 			device
 		);
 
@@ -275,6 +272,9 @@ try
 			sprite_buffers
 		);
 	}
+
+	return
+		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_exception
