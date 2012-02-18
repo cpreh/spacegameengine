@@ -2,10 +2,11 @@ include(
 	AwlMainGenerator)
 
 function(
-	ADD_SGE_EXAMPLE
+	add_sge_example_base
 	EXAMPLE_NAME
 	SGE_LIBRARIES
 	ADDITIONAL_LIBRARIES
+	CONSOLE_EXAMPLE
 )
 	sge_check_optional_deps(
 		"${EXAMPLE_NAME}"
@@ -25,14 +26,30 @@ function(
 		sge${FULL_NAME}example
 	)
 
-	awl_utils_add_portable_executable(
-		${FULL_NAME}
-		"example_main"
-		${EXAMPLE_NAME}.cpp)
+	set(
+		SOURCE_FILE
+		"${EXAMPLE_NAME}.cpp"
+	)
 
-	TARGET_LINK_LIBRARIES(
-		${FULL_NAME}
-		${Awl_LIBRARIES})
+	if(
+		CONSOLE_EXAMPLE
+	)
+		add_executable(
+			"${FULL_NAME}"
+			${SOURCE_FILE}
+		)
+	else()
+		awl_utils_add_portable_executable(
+			${FULL_NAME}
+			"example_main"
+			${SOURCE_FILE}
+		)
+
+		target_link_libraries(
+			${FULL_NAME}
+			${Awl_LIBRARIES}
+		)
+	endif()
 
 	transform_sge_link_targets(
 		"${SGE_LIBRARIES}"
@@ -60,6 +77,34 @@ function(
 	)
 endfunction()
 
+function(
+	add_sge_example
+	EXAMPLE_NAME
+	SGE_LIBRARIES
+	ADDITIONAL_LIBRARIES
+)
+	add_sge_example_base(
+		"${EXAMPLE_NAME}"
+		"${SGE_LIBRARIES}"
+		"${ADDITIONAL_LIBRARIES}"
+		FALSE
+	)
+endfunction()
+
+function(
+	add_sge_console_example
+	EXAMPLE_NAME
+	SGE_LIBRARIES
+	ADDITIONAL_LIBRARIES
+)
+	add_sge_example_base(
+		"${EXAMPLE_NAME}"
+		"${SGE_LIBRARIES}"
+		"${ADDITIONAL_LIBRARIES}"
+		TRUE
+	)
+endfunction()
+
 add_definitions(
 	${Awl_DEFINITIONS}
 )
@@ -70,12 +115,12 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
 )
 
-#add_sge_example(
-#	app_path
-#	"sgeconfig"
-#	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
-#)
-#
+add_sge_console_example(
+	app_path
+	"sgeconfig"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+)
+
 #add_sge_example(
 #	asio_window
 #	"sgeinput;sgesystems;sgewindow"
