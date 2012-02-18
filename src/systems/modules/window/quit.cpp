@@ -24,9 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <awl/window/event/destroy_fwd.hpp>
 #include <awl/window/event/processor.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::systems::modules::window::quit::quit(
 	sge::window::system &_system,
 	sge::window::object &_window
@@ -46,6 +51,7 @@ sge::systems::modules::window::quit::quit(
 	)
 {
 }
+FCPPT_PP_POP_WARNING
 
 sge::systems::modules::window::quit::~quit()
 {
