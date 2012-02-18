@@ -18,19 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/running_to_false.hpp>
+#ifndef SGE_SYSTEMS_QUIT_ON_ESCAPE_HPP_INCLUDED
+#define SGE_SYSTEMS_QUIT_ON_ESCAPE_HPP_INCLUDED
+
+#include <sge/systems/instance_fwd.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
-sge::systems::running_to_false::running_to_false(
-	bool &_running
-)
-:
-	running_(_running)
+namespace sge
 {
+namespace systems
+{
+
+SGE_SYSTEMS_SYMBOL
+fcppt::signal::auto_connection
+quit_on_escape(
+	sge::systems::instance &
+);
+
+}
 }
 
-sge::systems::running_to_false::result_type
-sge::systems::running_to_false::operator()() const
-{
-	running_ = false;
-}
+#endif

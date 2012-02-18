@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
-#include <sge/window/parameters.hpp>
 #include <awl/event/create_processor.hpp>
 #include <awl/event/processor.hpp>
 #include <awl/system/create.hpp>

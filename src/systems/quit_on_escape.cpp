@@ -18,40 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_RUNNING_TO_FALSE_HPP_INCLUDED
-#define SGE_SYSTEMS_RUNNING_TO_FALSE_HPP_INCLUDED
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/quit_on_escape.hpp>
+#include <sge/window/system.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
 
-#include <sge/systems/symbol.hpp>
-#include <fcppt/nonassignable.hpp>
 
-
-namespace sge
+fcppt::signal::auto_connection
+sge::systems::quit_on_escape(
+	sge::systems::instance &_instance
+)
 {
-namespace systems
-{
-
-// just some hack because phoenix::ref(foo) = false is buggy
-class running_to_false
-{
-	FCPPT_NONASSIGNABLE(
-		running_to_false
-	);
-public:
-	SGE_SYSTEMS_SYMBOL
-	explicit running_to_false(
-		bool &
-	);
-
-	typedef void result_type;
-
-	SGE_SYSTEMS_SYMBOL
-	result_type
-	operator()() const;
-private:
-	bool &running_;
-};
-
+	return
+		_instance.keyboard_collector().key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
+				std::tr1::bind(
+					&sge::window::system::quit,
+					&_instance.window_system()
+				)
+			)
+		);
 }
-}
-
-#endif

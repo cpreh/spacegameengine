@@ -33,9 +33,9 @@ set(
 	include/sge/systems/list_fwd.hpp
 	include/sge/systems/optional_name.hpp
 	include/sge/systems/plugin_path.hpp
+	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp
 	include/sge/systems/renderer_fwd.hpp
-	include/sge/systems/running_to_false.hpp
 	include/sge/systems/symbol.hpp
 	include/sge/systems/systems.hpp
 	include/sge/systems/window.hpp
@@ -126,8 +126,8 @@ set(
 	src/systems/modules/window/quit.cpp
 	src/systems/modules/window/wrapped.cpp
 	src/systems/plugin_cache.cpp
+	src/systems/quit_on_escape.cpp
 	src/systems/renderer.cpp
-	src/systems/running_to_false.cpp
 	src/systems/window.cpp
 	src/systems/wrapped_window.cpp
 )

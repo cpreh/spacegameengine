@@ -53,9 +53,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/plugin_path.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_fwd.hpp>
-#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/symbol.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/window_fwd.hpp>
