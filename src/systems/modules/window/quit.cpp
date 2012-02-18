@@ -27,8 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 
 
-#include <iostream>
-
 sge::systems::modules::window::quit::quit(
 	sge::window::system &_system,
 	sge::window::object &_window
@@ -58,7 +56,5 @@ sge::systems::modules::window::quit::on_destroy(
 	awl::window::event::destroy const &
 )
 {
-	std::cout << "QUIT\n";
-
 	system_.quit();
 }

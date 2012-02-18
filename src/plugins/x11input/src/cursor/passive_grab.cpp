@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -82,8 +81,6 @@ sge::x11input::cursor::passive_grab::passive_grab(
 		throw sge::input::exception(
 			FCPPT_TEXT("XIGrabFocusIn() failed!")
 		);
-
-	std::cout << "foobar\n";
 }
 
 sge::x11input::cursor::passive_grab::~passive_grab()

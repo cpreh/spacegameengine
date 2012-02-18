@@ -77,6 +77,10 @@ sge::x11input::device::select_events(
 	bool const _add
 )
 {
+	if(
+		_window.destroyed()
+	)
+		return;
 	// Warning: The following code is crap so I commented it.
 	//
 	// XI2 stores event masks per device and for all devices separately.

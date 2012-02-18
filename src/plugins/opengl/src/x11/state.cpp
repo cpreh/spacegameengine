@@ -93,8 +93,11 @@ sge::opengl::x11::state::~state()
 void
 sge::opengl::x11::state::swap_buffers()
 {
-	::glXSwapBuffers(
-		display_.get(),
-		window_.get()
-	);
+	if(
+		!window_.destroyed()
+	)
+		::glXSwapBuffers(
+			display_.get(),
+			window_.get()
+		);
 }
