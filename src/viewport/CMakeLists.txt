@@ -42,7 +42,7 @@ add_definitions(
 
 add_sge_base_library(
 	viewport
-	"sgewindow"
+	"sgerenderer;sgewindow"
 	"${Awl_LIBRARIES}"
 	""
 	""
