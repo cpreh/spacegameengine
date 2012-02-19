@@ -97,6 +97,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
+#include <awl/main/exit_success.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
@@ -123,7 +126,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <cmath>
-#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -607,7 +609,7 @@ adapt_perspective(
 }
 }
 
-int
+awl::main::exit_code const
 example_main(
 	awl::main::function_context const &_main_function_context)
 try
@@ -617,7 +619,8 @@ try
 		std::cerr << "Error, you provided too many arguments, exiting...\n";
 		show_usage(
 			_main_function_context.argv()[0]);
-		return EXIT_FAILURE;
+
+		return awl::main::exit_failure();
 	}
 
 	sge::renderer::scalar
@@ -634,7 +637,7 @@ try
 		{
 			show_usage(
 				_main_function_context.argv()[0]);
-			return EXIT_SUCCESS;
+			return awl::main::exit_success();
 		}
 
 		typedef fcppt::optional<
@@ -656,7 +659,7 @@ try
 				std::cerr << "The eye distance argument has to be floating point! Exiting...\n";
 				show_usage(
 					_main_function_context.argv()[0]);
-				return EXIT_FAILURE;
+				return awl::main::exit_failure();
 			}
 
 			eye_distance = *opt_eye_distance;
@@ -678,7 +681,7 @@ try
 				std::cerr << "The focal length argument has to be floating point! Exiting...\n";
 				show_usage(
 					_main_function_context.argv()[0]);
-				return EXIT_FAILURE;
+				return awl::main::exit_failure();
 			}
 
 			focal_length = *opt_focal_length;
@@ -883,7 +886,7 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
@@ -893,5 +896,5 @@ catch(
 		<< _error.what()
 		<< '\n';
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }

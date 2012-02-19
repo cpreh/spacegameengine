@@ -21,11 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_WINDOW_QUIT_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_WINDOW_QUIT_HPP_INCLUDED
 
+#include <sge/src/systems/modules/window/optional_dispatcher_ref.hpp>
 #include <sge/src/systems/modules/window/quit_fwd.hpp>
+#include <awl/system/event/quit_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <awl/window/event/destroy_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
 
@@ -46,7 +49,8 @@ class quit
 public:
 	quit(
 		sge::window::system &,
-		sge::window::object &
+		sge::window::object &,
+		sge::systems::modules::window::optional_dispatcher_ref const &
 	);
 
 	~quit();
@@ -56,9 +60,18 @@ private:
 		awl::window::event::destroy const &
 	);
 
+	void
+	on_quit(
+		awl::system::event::quit const &
+	);
+
 	sge::window::system &system_;
 
-	fcppt::signal::scoped_connection const destroy_connection_;
+	sge::systems::modules::window::optional_dispatcher_ref const dispatcher_;
+
+	fcppt::signal::scoped_connection const
+		destroy_connection_,
+		stop_dispatcher_connection_;
 };
 
 }

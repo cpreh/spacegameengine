@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_ptr.hpp>
 #include <sge/window/system.hpp>
 #include <awl/event/processor.hpp>
+#include <awl/main/exit_code.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/system/event/processor.hpp>
 #include <awl/window/instance_fwd.hpp>
@@ -117,12 +118,16 @@ sge::window::system::running() const
 }
 
 void
-sge::window::system::quit()
+sge::window::system::quit(
+	awl::main::exit_code const _exit_code
+)
 {
-	awl_system_event_processor_.quit();
+	awl_system_event_processor_.quit(
+		_exit_code
+	);
 }
 
-int
+awl::main::exit_code const
 sge::window::system::exit_code() const
 {
 	return

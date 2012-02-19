@@ -19,45 +19,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <example_main.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
-#include <awl/mainloop/dispatcher.hpp>
 #include <awl/mainloop/io_service.hpp>
 #include <awl/mainloop/io_service_scoped_ptr.hpp>
 #include <awl/mainloop/asio/create_io_service_base.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
-int
+awl::main::exit_code const
 example_main(
 	awl::main::function_context const &
 )
 try
 {
-	// FIXME!
-#if 0
 	awl::mainloop::io_service_scoped_ptr const io_service(
 		awl::mainloop::asio::create_io_service_base()
 	);
@@ -90,15 +84,9 @@ try
 		)
 	);
 
-	fcppt::signal::scoped_connection const input_connection(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				std::tr1::bind(
-					&awl::mainloop::dispatcher::stop,
-					&sys.awl_dispatcher()
-				)
-			)
+	fcppt::signal::scoped_connection const escape_connection(
+		sge::systems::quit_on_escape(
+			sys
 		)
 	);
 
@@ -106,8 +94,6 @@ try
 
 	return
 		sys.window_system().exit_code();
-#endif
-	return 0;
 }
 catch(
 	fcppt::exception const &_exception
@@ -117,5 +103,5 @@ catch(
 		<< _exception.string()
 		<< '\n';
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }

@@ -18,33 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/systems/instance.hpp>
-#include <sge/systems/quit_on_escape.hpp>
-#include <sge/window/system.hpp>
-#include <awl/main/exit_code.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#ifndef SGE_SRC_SYSTEMS_MODULES_WINDOW_OPTIONAL_DISPATCHER_REF_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_WINDOW_OPTIONAL_DISPATCHER_REF_HPP_INCLUDED
+
+#include <awl/mainloop/dispatcher_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
-fcppt::signal::auto_connection
-sge::systems::quit_on_escape(
-	sge::systems::instance const &_instance
-)
+namespace sge
 {
-	return
-		_instance.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				std::tr1::bind(
-					&sge::window::system::quit,
-					&_instance.window_system(),
-					awl::main::exit_code(
-						0
-					)
-				)
-			)
-		);
+namespace systems
+{
+namespace modules
+{
+namespace window
+{
+
+typedef fcppt::optional<
+	awl::mainloop::dispatcher &
+> optional_dispatcher_ref;
+
 }
+}
+}
+}
+
+#endif

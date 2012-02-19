@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef EXAMPLE_MAIN_HPP_INCLUDED
 #define EXAMPLE_MAIN_HPP_INCLUDED
 
+#include <awl/main/exit_code.hpp>
 #include <awl/main/function_context_fwd.hpp>
 
-int
+awl::main::exit_code const
 example_main(
 	awl::main::function_context const &
 );
