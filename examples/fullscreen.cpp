@@ -45,6 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
+#include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
@@ -52,13 +55,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstdlib>
 #include <exception>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
-int
+awl::main::exit_code const
 example_main(
 	awl::main::function_context const &
 )
@@ -122,7 +124,9 @@ try
 			timer.expired()
 		)
 		{
-			sys.window_system().quit();
+			sys.window_system().quit(
+				awl::main::exit_success()
+			);
 
 			timer.active(
 				false
@@ -153,7 +157,7 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
@@ -163,5 +167,5 @@ catch(
 		<< _error.what()
 		<< FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }

@@ -150,6 +150,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
@@ -538,7 +540,7 @@ normals_to_line_drawer(
 }
 }
 
-int
+awl::main::exit_code const
 example_main(
 	awl::main::function_context const &_main_function_context)
 try
@@ -583,7 +585,7 @@ try
 		fcppt::io::cerr()
 			<< FCPPT_TEXT("Please specify a valid model file path with \"model-file=<path>\"\n");
 
-		return EXIT_FAILURE;
+		return awl::main::exit_failure();
 	}
 
 	fcppt::log::activate_levels(
@@ -805,7 +807,7 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
@@ -815,5 +817,5 @@ catch(
 		<< _error.what()
 		<< '\n';
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }

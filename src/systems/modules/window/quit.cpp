@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/quit.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
-#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_success.hpp>
 #include <awl/mainloop/dispatcher.hpp>
 #include <awl/system/event/processor.hpp>
 #include <awl/window/event/destroy_fwd.hpp>
@@ -84,9 +84,7 @@ sge::systems::modules::window::quit::on_destroy(
 )
 {
 	system_.quit(
-		awl::main::exit_code(
-			0
-		)
+		awl::main::exit_success()
 	);
 }
 

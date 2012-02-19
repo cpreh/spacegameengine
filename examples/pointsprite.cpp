@@ -79,6 +79,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <mizuiro/color/operators/scalar_multiply.hpp>
 #include <fcppt/exception.hpp>
@@ -104,7 +106,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <cmath>
-#include <cstdlib>
 #include <iostream>
 #include <ostream>
 #include <string>
@@ -483,7 +484,7 @@ particles::vertex_declaration() const
 }
 }
 
-int
+awl::main::exit_code const
 example_main(
 	awl::main::function_context const &_main_function_context)
 try
@@ -496,7 +497,7 @@ try
 			<< _main_function_context.argv()[0]
 			<< " <particle-count>\n";
 
-		return EXIT_FAILURE;
+		return awl::main::exit_failure();
 	}
 
 	fcppt::log::activate_levels(
@@ -623,5 +624,5 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }

@@ -101,6 +101,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -120,7 +122,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -264,7 +265,7 @@ private:
 };
 }
 
-int
+awl::main::exit_code const
 example_main(
 	awl::main::function_context const &
 )
@@ -381,7 +382,7 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error)
@@ -390,5 +391,5 @@ catch(
 		<< _error.what()
 		<< '\n';
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }

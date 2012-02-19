@@ -54,6 +54,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -67,14 +69,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
-int
+awl::main::exit_code const
 example_main(
 	awl::main::function_context const &_main_function_context
 )
@@ -88,7 +89,7 @@ try
 			<< FCPPT_TEXT("Pass exactly one argument to show a given text")
 			FCPPT_TEXT(" or pass nothing to see the default text.\n");
 
-		return EXIT_FAILURE;
+		return awl::main::exit_failure();
 	}
 
 	sge::window::dim const window_dim(
@@ -219,7 +220,7 @@ catch(
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }
 catch(
 	std::exception const &_exception
@@ -227,5 +228,5 @@ catch(
 {
 	std::cerr << _exception.what() << '\n';
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }

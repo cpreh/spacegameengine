@@ -69,6 +69,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -89,14 +91,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <elements/CEGUIEditbox.h>
 #include <elements/CEGUIFrameWindow.h>
 #include <CEGUIWindowManager.h>
-#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <set>
 #include <fcppt/config/external_end.hpp>
 
 
-int
+awl::main::exit_code const
 example_main(
 	awl::main::function_context const &)
 try
@@ -218,7 +219,7 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
@@ -228,5 +229,5 @@ catch(
 		<< _error.what()
 		<< '\n';
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }

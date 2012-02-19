@@ -80,6 +80,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/title.hpp>
+#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
+#include <awl/main/exit_success.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -94,7 +97,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -217,7 +219,7 @@ create_quad(
 }
 }
 
-int
+awl::main::exit_code const
 example_main(
 	awl::main::function_context const &_main_function_context)
 try
@@ -231,7 +233,7 @@ try
 			<< _main_function_context.argv()[0]
 			<< " <output-file>\n";
 
-		return EXIT_FAILURE;
+		return awl::main::exit_failure();
 	}
 
 	fcppt::log::activate_levels(
@@ -396,7 +398,7 @@ try
 		fcppt::from_std_string(
 			_main_function_context.argv()[1]));
 
-	return 0;
+	return awl::main::exit_success();
 }
 catch(
 	fcppt::exception const &_error
@@ -406,7 +408,7 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
@@ -416,5 +418,5 @@ catch(
 		<< _error.what()
 		<< '\n';
 
-	return EXIT_FAILURE;
+	return awl::main::exit_failure();
 }

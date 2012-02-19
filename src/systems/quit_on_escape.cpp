@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/window/system.hpp>
-#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_success.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 
@@ -41,9 +41,7 @@ sge::systems::quit_on_escape(
 				std::tr1::bind(
 					&sge::window::system::quit,
 					&_instance.window_system(),
-					awl::main::exit_code(
-						0
-					)
+					awl::main::exit_success()
 				)
 			)
 		);
