@@ -97,6 +97,7 @@ set(
 	src/systems/include/sge/src/systems/modules/window/object.hpp
 	src/systems/include/sge/src/systems/modules/window/object_fwd.hpp
 	src/systems/include/sge/src/systems/modules/window/object_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/window/optional_dispatcher_ref.hpp
 	src/systems/include/sge/src/systems/modules/window/original.hpp
 	src/systems/include/sge/src/systems/modules/window/quit.hpp
 	src/systems/include/sge/src/systems/modules/window/quit_fwd.hpp

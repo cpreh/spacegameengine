@@ -18,33 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CHECK_STATE_HPP_INCLUDED
-#define SGE_OPENGL_CHECK_STATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_CHECK_STATE_ALWAYS_HPP_INCLUDED
+#define SGE_OPENGL_CHECK_STATE_ALWAYS_HPP_INCLUDED
 
-#include <sge/error/check_state.hpp>
-#include <sge/opengl/check_state_always.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/error_string.hpp>
-
-
-#if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
-#define SGE_OPENGL_CHECK_STATE(\
-	message,\
-	exception\
-)\
-SGE_ERROR_CHECK_STATE(\
-	exception,\
-	message,\
-	GLenum,\
-	::glGetError(),\
-	GL_NO_ERROR,\
-	sge::opengl::error_string\
-)
-#else
-#define SGE_OPENGL_CHECK_STATE(\
-	message,\
-	exception\
-)
+#if !defined(NDEBUG)
+#define SGE_OPENGL_CHECK_STATE_ALWAYS
 #endif
 
 #endif

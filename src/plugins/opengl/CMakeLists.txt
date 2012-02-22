@@ -381,6 +381,7 @@ set(
 	src/plugins/opengl/src/buffer/software.cpp
 	src/plugins/opengl/src/buffer/vbo_context.cpp
 	src/plugins/opengl/src/buffer/wrapper.cpp
+	src/plugins/opengl/src/check_state_once.cpp
 	src/plugins/opengl/src/clear.cpp
 	src/plugins/opengl/src/context/base.cpp
 	src/plugins/opengl/src/context/container.cpp

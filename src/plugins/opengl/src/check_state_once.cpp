@@ -18,33 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CHECK_STATE_HPP_INCLUDED
-#define SGE_OPENGL_CHECK_STATE_HPP_INCLUDED
-
-#include <sge/error/check_state.hpp>
 #include <sge/opengl/check_state_always.hpp>
+#include <sge/opengl/check_state_once.hpp>
+#if !defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
+#include <sge/renderer/exception.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/error_string.hpp>
-
-
-#if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
-#define SGE_OPENGL_CHECK_STATE(\
-	message,\
-	exception\
-)\
-SGE_ERROR_CHECK_STATE(\
-	exception,\
-	message,\
-	GLenum,\
-	::glGetError(),\
-	GL_NO_ERROR,\
-	sge::opengl::error_string\
-)
-#else
-#define SGE_OPENGL_CHECK_STATE(\
-	message,\
-	exception\
-)
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #endif
 
+void
+sge::opengl::check_state_once()
+{
+#if !defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
+	GLenum ret(
+		GL_NO_ERROR
+	);
+
+	fcppt::string errors;
+
+	while(
+		(
+			ret = ::glGetError()
+		)
+		!= GL_NO_ERROR
+	)
+		errors +=
+			sge::opengl::error_string(
+				ret
+			)
+			+
+			FCPPT_TEXT(", ");
+
+	if(
+		ret != GL_NO_ERROR
+	)
+	{
+		// erase last ", "
+		errors.erase(
+			errors.end() - 2,
+			errors.end()
+		);
+
+		throw sge::renderer::exception(
+			FCPPT_TEXT("Cumulative GL errors: ")
+			+ errors
+		);
+	}
 #endif
+}

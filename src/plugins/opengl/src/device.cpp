@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/check_state_once.hpp>
 #include <sge/opengl/clear.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/create_caps.hpp>
@@ -155,6 +156,8 @@ sge::opengl::device::begin_rendering()
 void
 sge::opengl::device::end_rendering()
 {
+	opengl::check_state_once();
+
 	if(
 		!this->fbo_active()
 	)
