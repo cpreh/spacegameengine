@@ -35,10 +35,10 @@ sge::log::default_parameters(
 	return
 		fcppt::log::parameters::with_context(
 			sge::log::global_context(),
-			fcppt::io::clog(),
 			_location
 		)
 		.level_defaults(
+			fcppt::io::clog(),
 			fcppt::log::level::warning
 		)
 		.enabled(
