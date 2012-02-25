@@ -19,8 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glsl/arb/program_context.hpp>
+#include <fcppt/null_ptr.hpp>
 
 
 sge::opengl::glsl::arb::program_context::program_context()
@@ -58,10 +60,12 @@ sge::opengl::glsl::arb::program_context::program_context()
 	info_log_length_type_(
 		GL_OBJECT_INFO_LOG_LENGTH_ARB
 	)
-{}
+{
+}
 
 sge::opengl::glsl::arb::program_context::~program_context()
-{}
+{
+}
 
 sge::opengl::glsl::arb::program_context::gl_create_program
 sge::opengl::glsl::arb::program_context::create_program() const
@@ -120,7 +124,7 @@ sge::opengl::glsl::arb::program_context::bind_attrib_location() const
 sge::opengl::glsl::arb::program_context::gl_bind_frag_data_location
 sge::opengl::glsl::arb::program_context::bind_frag_data_location() const
 {
-	return 0; // not supported
+	return fcppt::null_ptr(); // not supported
 }
 
 GLenum

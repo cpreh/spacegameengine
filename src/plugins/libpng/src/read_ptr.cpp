@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/exception.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/read_ptr.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -52,8 +53,8 @@ sge::libpng::read_ptr::~read_ptr()
 {
 	png_destroy_read_struct(
 		&ptr_,
-		0,
-		0
+		fcppt::null_ptr(),
+		fcppt::null_ptr()
 	);
 }
 

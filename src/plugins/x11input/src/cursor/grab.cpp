@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
@@ -54,7 +55,7 @@ sge::x11input::cursor::grab::grab(
 	{
 		id_.get(),
 		0,
-		0
+		fcppt::null_ptr()
 	};
 
 	for(

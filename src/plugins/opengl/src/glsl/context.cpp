@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/glsl/context.hpp>
 #include <sge/opengl/glsl/program_base.hpp>
 #include <sge/renderer/glsl/const_optional_program.hpp>
 #include <sge/renderer/glsl/program.hpp>
+#include <fcppt/null_ptr.hpp>
 
 
 sge::opengl::glsl::context::context()
@@ -34,7 +36,9 @@ sge::opengl::glsl::context::context()
 	arb_shader_(
 		glew::is_supported("GL_ARB_vertex_shader GL_ARB_fragment_shader")
 	),
-	last_program_(0)
+	last_program_(
+		fcppt::null_ptr()
+	)
 {
 }
 
@@ -66,7 +70,7 @@ sge::opengl::glsl::context::use(
 	)
 		last_program_->unuse();
 
-	last_program_ = 0;
+	last_program_ = fcppt::null_ptr();
 
 	if(
 		!_prog

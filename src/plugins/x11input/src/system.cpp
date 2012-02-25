@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/info.hpp>
@@ -126,7 +127,8 @@ sge::x11input::system::create_processor(
 			::XSetLocaleModifiers(
 				"" // XMODIFIERS are appended automatically
 			)
-			== NULL
+			==
+			fcppt::null_ptr()
 		)
 			throw sge::input::exception(
 				FCPPT_TEXT("XSetLocaleModifiers() failed!")

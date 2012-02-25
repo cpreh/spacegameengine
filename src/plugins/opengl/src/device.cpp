@@ -74,6 +74,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -461,7 +462,7 @@ sge::opengl::device::target(
 				*_target
 			)
 		:
-			0
+			fcppt::null_ptr()
 		;
 
 	target_->unbind();
@@ -766,5 +767,6 @@ sge::opengl::device::fbo_active() const
 {
 	return
 		fbo_target_
-		!= 0;
+		!=
+		fcppt::null_ptr();
 }

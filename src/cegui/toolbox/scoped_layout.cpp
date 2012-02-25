@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUISystem.h>
@@ -40,7 +41,14 @@ sge::cegui::toolbox::scoped_layout::scoped_layout(
 			sge::cegui::to_cegui_string(
 				fcppt::filesystem::path_to_string(
 					_path),
-				_charconv_system)))
+				_charconv_system
+			),
+			"",
+			"",
+			fcppt::null_ptr(),
+			fcppt::null_ptr()
+		)
+	)
 {
 }
 

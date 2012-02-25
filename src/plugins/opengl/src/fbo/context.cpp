@@ -19,9 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
+#include <fcppt/null_ptr.hpp>
 
 
 sge::opengl::fbo::context::context()
@@ -41,7 +43,7 @@ sge::opengl::fbo::context::context()
 			?
 				glGenFramebuffersEXT
 			:
-				0
+				fcppt::null_ptr()
 	),
 	delete_framebuffers_(
 		has_native_
@@ -52,7 +54,7 @@ sge::opengl::fbo::context::context()
 			?
 				glDeleteFramebuffersEXT
 			:
-				0
+				fcppt::null_ptr()
 	),
 	bind_framebuffer_(
 		has_native_
@@ -63,7 +65,7 @@ sge::opengl::fbo::context::context()
 			?
 				glBindFramebufferEXT
 			:
-				0
+				fcppt::null_ptr()
 	),
 	framebuffer_texture_2d_(
 		has_native_
@@ -74,7 +76,7 @@ sge::opengl::fbo::context::context()
 			?
 				glFramebufferTexture2DEXT
 			:
-				0
+				fcppt::null_ptr()
 	),
 	check_framebuffer_status_(
 		has_native_
@@ -85,7 +87,7 @@ sge::opengl::fbo::context::context()
 			?
 				glCheckFramebufferStatusEXT
 			:
-				0
+				fcppt::null_ptr()
 	),
 	gen_renderbuffers_(
 		has_native_
@@ -96,7 +98,7 @@ sge::opengl::fbo::context::context()
 			?
 				glGenRenderbuffersEXT
 			:
-				0
+				fcppt::null_ptr()
 	),
 	delete_renderbuffers_(
 		has_native_
@@ -107,7 +109,7 @@ sge::opengl::fbo::context::context()
 			?
 				glDeleteRenderbuffersEXT
 			:
-				0
+				fcppt::null_ptr()
 	),
 	bind_renderbuffer_(
 		has_native_
@@ -118,7 +120,7 @@ sge::opengl::fbo::context::context()
 			?
 				glBindRenderbufferEXT
 			:
-				0
+				fcppt::null_ptr()
 	),
 	renderbuffer_storage_(
 		has_native_
@@ -129,7 +131,7 @@ sge::opengl::fbo::context::context()
 			?
 				glRenderbufferStorageEXT
 			:
-				0
+				fcppt::null_ptr()
 	),
 	framebuffer_renderbuffer_(
 		has_native_
@@ -140,7 +142,7 @@ sge::opengl::fbo::context::context()
 			?
 				glFramebufferRenderbufferEXT
 			:
-				0
+				fcppt::null_ptr()
 	),
 	framebuffer_target_(
 		static_cast<
@@ -228,7 +230,9 @@ sge::opengl::fbo::context::context()
 				0
 		)
 	),
-	last_buffer_(0)
+	last_buffer_(
+		0
+	)
 {
 }
 

@@ -107,7 +107,7 @@ sge::plugin::manager::size() const
 	return
 		it == categories_.end()
 		?
-			0
+			0u
 		:
 			it->second.size();
 }

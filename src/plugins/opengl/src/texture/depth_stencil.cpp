@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
@@ -86,7 +87,7 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 			0u
 		),
 		this->size(),
-		0
+		fcppt::null_ptr()
 	);
 }
 

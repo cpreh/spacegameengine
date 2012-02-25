@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/renderer/const_optional_vertex_declaration.hpp>
+#include <fcppt/null_ptr.hpp>
 
 void
 sge::opengl::set_vertex_declaration(
@@ -43,6 +44,6 @@ sge::opengl::set_vertex_declaration(
 				*_declaration
 			)
 		:
-			0
+			fcppt::null_ptr()
 	);
 }

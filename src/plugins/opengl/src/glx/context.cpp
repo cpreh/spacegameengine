@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/context.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -38,13 +39,13 @@ sge::opengl::glx::context::context(
 			>(
 				&_visual_info
 			),
-			NULL,
+			fcppt::null_ptr(),
 			True
 		)
 	)
 {
 	if(
-		context_ == 0
+		context_ == fcppt::null_ptr()
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("glXCreateContext() failed!")

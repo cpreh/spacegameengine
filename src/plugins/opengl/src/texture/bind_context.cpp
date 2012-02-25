@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/funcs/bind.hpp>
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/weak_ptr_impl.hpp>
 #include <fcppt/assert/error.hpp>
@@ -138,7 +139,7 @@ sge::opengl::texture::bind_context::unbind_for_rendering(
 
 	render_textures_[
 		_stage.get()
-	] = 0;
+	] = fcppt::null_ptr();
 
 	texture::funcs::bind(
 		*last_type,
@@ -197,7 +198,7 @@ sge::opengl::texture::bind_context::unbind_for_work(
 
 	temp_textures_[
 		_stage.get()
-	] = 0;
+	] = fcppt::null_ptr();
 
 	if(
 		prev_texture

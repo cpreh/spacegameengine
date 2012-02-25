@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
@@ -44,7 +45,7 @@ sge::opengl::texture::multi_context::multi_context()
 			?
 				glActiveTextureARB
 			:
-				0
+				fcppt::null_ptr()
 	),
 	client_active_texture_(
 		is_native_
@@ -55,7 +56,7 @@ sge::opengl::texture::multi_context::multi_context()
 			?
 				glClientActiveTextureARB
 			:
-				0
+				fcppt::null_ptr()
 	),
 	max_level_(
 		is_native_

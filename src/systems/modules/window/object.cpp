@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/mainloop/dispatcher_unique_ptr.hpp>
 #include <awl/mainloop/io_service.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>

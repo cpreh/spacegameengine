@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <dlfcn.h>
@@ -223,7 +224,8 @@ sge::plugin::library::object::load(
 
 	if(
 		::dlerror()
-		!= 0
+		!=
+		fcppt::null_ptr()
 	)
 		throw sge::plugin::library::exception(
 			fcppt::from_std_string(_fun)

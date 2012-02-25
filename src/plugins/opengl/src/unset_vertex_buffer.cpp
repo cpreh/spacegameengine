@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <fcppt/null_ptr.hpp>
 
 
 void
@@ -57,6 +58,6 @@ sge::opengl::unset_vertex_buffer(
 
 	context.vertex_buffer(
 		index,
-		0
+		fcppt::null_ptr()
 	);
 }

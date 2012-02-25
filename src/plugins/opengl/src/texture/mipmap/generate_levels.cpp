@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -97,7 +98,7 @@ sge::opengl::texture::mipmap::generate_levels(
 			_parameters.internal_format(),
 			stage,
 			size,
-			0
+			fcppt::null_ptr()
 		);
 }
 

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/instance.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -61,7 +62,7 @@ sge::x11input::cursor::passive_grab::passive_grab(
 	{
 		id_.get(),
 		0,
-		0
+		fcppt::null_ptr()
 	};
 
 	if(

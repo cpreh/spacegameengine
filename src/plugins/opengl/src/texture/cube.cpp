@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -56,7 +57,9 @@ sge::opengl::texture::cube::cube(
 	size_(
 		_param.size()
 	),
-	locked_texture_(0)
+	locked_texture_(
+		fcppt::null_ptr()
+	)
 {
 	texture::cube_context &context(
 		opengl::context::use<
@@ -161,7 +164,7 @@ sge::opengl::texture::cube::unlock() const
 
 	locked_texture_->unlock();
 
-	locked_texture_ = 0;
+	locked_texture_ = fcppt::null_ptr();
 }
 
 sge::opengl::texture::cube::size_type

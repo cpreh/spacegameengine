@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/toolbox/append_row.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <elements/CEGUIListboxTextItem.h>
@@ -36,12 +37,16 @@ sge::cegui::toolbox::append_row(
 	CEGUI::uint const index =
 		list.addRow(
 			new CEGUI::ListboxTextItem(
-				mapper[0]),
+				mapper[0],
+				0,
+				fcppt::null_ptr()),
 			0);
 	for(row::size_type i = 1; i < mapper.size(); ++i)
 		list.setItem(
 			new CEGUI::ListboxTextItem(
-				mapper[i]),
+				mapper[i],
+				0,
+				fcppt::null_ptr()),
 			static_cast<CEGUI::uint>(
 				i),
 			index);

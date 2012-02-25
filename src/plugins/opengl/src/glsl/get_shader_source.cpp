@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glsl/shaderfuncs/get_source.hpp>
 #include <sge/renderer/glsl/char.hpp>
 #include <sge/renderer/glsl/string.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -79,7 +80,7 @@ sge::opengl::glsl::get_shader_source(
 		>(
 			length
 		),
-		0, // length return
+		fcppt::null_ptr(), // length return
 		buffer.data()
 	);
 

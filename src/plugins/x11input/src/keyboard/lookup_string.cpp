@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/keyboard/lookup_string.hpp>
 #include <sge/x11input/keyboard/translate_event.hpp>
 #include <sge/x11input/keyboard/translate_key_code.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
@@ -88,7 +89,7 @@ sge::x11input::keyboard::lookup_string(
 		::do_lookup(
 			_input_context,
 			xev,
-			NULL,
+			fcppt::null_ptr(),
 			0,
 			key_sym,
 			status

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/unsupported_format.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/move.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/sn_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -84,7 +85,17 @@ sge::vorbis::file::file(
 	// This might fail with ENOTVORBIS, so we send an unsupported_format
 	// here (but technically, it could be a different error. FIXME: Do
 	// better error reporting here.
-	if(int error = ov_open_callbacks(this,&ogg_file_,0,static_cast<long>(0),callbacks))
+	if(
+		int error =
+			ov_open_callbacks(
+				this,
+				&ogg_file_,
+				fcppt::null_ptr(),
+				0l,
+				callbacks
+			)
+	)
+
 		throw audio::unsupported_format(
 			file_name_,
 			ogg_error(

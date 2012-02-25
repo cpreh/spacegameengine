@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/write.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/format.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -475,7 +476,7 @@ sge::opengl::texture::basic<Types>::basic(
 		this->internal_format(),
 		renderer::texture::stage(0u),
 		this->size(),
-		0
+		fcppt::null_ptr()
 	);
 
 	opengl::texture::mipmap::create<

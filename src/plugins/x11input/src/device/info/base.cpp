@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/info/base.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -45,7 +46,9 @@ sge::x11input::device::info::base::base(
 	)
 {
 	if(
-		devices_ == 0
+		devices_
+		==
+		fcppt::null_ptr()
 	)
 		throw sge::input::exception(
 			FCPPT_TEXT("XIQueryDevice failed!")

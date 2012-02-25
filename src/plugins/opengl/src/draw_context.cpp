@@ -19,8 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/draw_context.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
+#include <fcppt/null_ptr.hpp>
+
 
 sge::opengl::draw_context::draw_context()
 :
@@ -31,7 +34,8 @@ sge::opengl::draw_context::draw_context()
 	),
 	draw_range_elements_ext_supported_(
 		glDrawRangeElementsEXT
-		!= 0
+		!=
+		fcppt::null_ptr()
 	),
 	draw_range_elements_(
 		draw_range_elements_supported_
@@ -42,7 +46,7 @@ sge::opengl::draw_context::draw_context()
 			?
 				glDrawRangeElementsEXT
 			:
-				0
+				fcppt::null_ptr()
 	)
 {
 }

@@ -20,11 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/vertex_context.hpp>
 #include <sge/opengl/context/make_id.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/container/index_map_impl.hpp>
+
 
 sge::opengl::vertex_context::vertex_context()
 :
-	last_declaration_(0),
+	last_declaration_(
+		fcppt::null_ptr()
+	),
 	last_buffers_()
 {
 }

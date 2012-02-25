@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
@@ -97,7 +98,7 @@ sge::cegui::detail::geometry_buffer::geometry_buffer(
 	total_vertex_count_(
 		static_cast<CEGUI::uint>(0)),
 	active_texture_(
-		0),
+		fcppt::null_ptr()),
 	blend_mode_(
 		CEGUI::BM_NORMAL),
 	translation_(
@@ -374,7 +375,7 @@ void
 sge::cegui::detail::geometry_buffer::reset()
 {
 	batches_.clear();
-	active_texture_ = 0;
+	active_texture_ = fcppt::null_ptr();
 	total_vertex_count_ = 0;
 }
 
@@ -409,7 +410,7 @@ sge::cegui::detail::geometry_buffer::setRenderEffect(
 CEGUI::RenderEffect*
 sge::cegui::detail::geometry_buffer::getRenderEffect()
 {
-	return 0;
+	return fcppt::null_ptr();
 }
 
 void
