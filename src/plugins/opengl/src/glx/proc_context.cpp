@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glx/proc_context.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
@@ -28,10 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::glx::proc_context::proc_context()
 :
+	// FIXME: check if glXGetProcAddress is a pointer or not
 	get_proc_address_supported_(
 		::glXGetProcAddress
-		!=
-		fcppt::null_ptr()
 	)
 {
 }
