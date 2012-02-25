@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/free_type.hpp>
-#include <sge/texture/manager_fwd.hpp>
+#include <sge/texture/optional_manager_ref.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/symbol.hpp>
 #include <sge/texture/detail/optional_container_position.hpp>
@@ -51,55 +51,68 @@ protected:
 	fragmented();
 public:
 	SGE_TEXTURE_SYMBOL
-	virtual ~fragmented() = 0;
+	virtual
+	~fragmented() = 0;
 
-	virtual texture::part_ptr const
+	virtual
+	sge::texture::part_ptr const
 	consume_fragment(
 		renderer::dim2 const &
 	) = 0;
 
-	SGE_TEXTURE_SYMBOL void
+	SGE_TEXTURE_SYMBOL
+	void
 	return_fragment(
-		part const &
+		sge::texture::part const &
 	);
 
-	virtual renderer::texture::planar_ptr const
+	virtual
+	renderer::texture::planar_ptr const
 	texture() = 0;
 
-	virtual renderer::texture::const_planar_ptr const
+	virtual
+	renderer::texture::const_planar_ptr const
 	texture() const = 0;
 
-	virtual bool
+	virtual
+	bool
 	repeatable() const = 0;
 
-	virtual free_type
+	virtual
+	free_type
 	free_value() const = 0;
 
-	virtual bool
+	virtual
+	bool
 	empty() const = 0;
 
-	SGE_TEXTURE_SYMBOL bool
+	SGE_TEXTURE_SYMBOL
+	bool
 	full() const;
 
-	SGE_TEXTURE_SYMBOL void
+	SGE_TEXTURE_SYMBOL
+	void
 	manager(
-		texture::manager *
+		texture::optional_manager_ref const &
 	);
 
-	SGE_TEXTURE_SYMBOL texture::manager *
+	SGE_TEXTURE_SYMBOL
+	sge::texture::optional_manager_ref const
 	manager() const;
 
-	SGE_TEXTURE_SYMBOL void
-	virtual on_return_fragment(
-		part const &
+	virtual
+	void
+	on_return_fragment(
+		sge::texture::part const &
 	) = 0;
 
-	SGE_TEXTURE_SYMBOL void
+	SGE_TEXTURE_SYMBOL
+	void
 	container_position(
 		detail::container_position const &
 	);
 private:
-	texture::manager *manager_;
+	sge::texture::optional_manager_ref manager_;
 
 	detail::optional_container_position iterator_;
 };

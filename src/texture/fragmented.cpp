@@ -20,12 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/manager.hpp>
+#include <sge/texture/optional_manager_ref.hpp>
+#include <sge/texture/part_fwd.hpp>
+#include <sge/texture/detail/container_position.hpp>
 #include <fcppt/assert/error.hpp>
 
 
 sge::texture::fragmented::fragmented()
 :
-	manager_(0),
+	manager_(),
 	iterator_()
 {
 }
@@ -36,7 +39,7 @@ sge::texture::fragmented::~fragmented()
 
 void
 sge::texture::fragmented::return_fragment(
-	texture::part const &_part
+	sge::texture::part const &_part
 )
 {
 	this->on_return_fragment(
@@ -67,13 +70,13 @@ sge::texture::fragmented::full() const
 
 void
 sge::texture::fragmented::manager(
-	texture::manager *const _manager
+	sge::texture::optional_manager_ref const &_manager
 )
 {
 	manager_ = _manager;
 }
 
-sge::texture::manager *
+sge::texture::optional_manager_ref const
 sge::texture::fragmented::manager() const
 {
 	return manager_;
@@ -81,7 +84,7 @@ sge::texture::fragmented::manager() const
 
 void
 sge::texture::fragmented::container_position(
-	detail::container_position const &_iterator
+	sge::texture::detail::container_position const &_iterator
 )
 {
 	iterator_ = _iterator;

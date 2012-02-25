@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/image_too_big.hpp>
 #include <sge/texture/manager.hpp>
+#include <sge/texture/optional_manager_ref.hpp>
 #include <sge/texture/part.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
@@ -130,11 +131,17 @@ sge::texture::manager::add(
 			return current_part;
 		}
 
-	fragmented_unique_ptr ntex(
+	sge::texture::fragmented_unique_ptr ntex(
 		on_alloc_()
 	);
 
-	part_ptr const new_part(
+	ntex->manager(
+		sge::texture::optional_manager_ref(
+			*this
+		)
+	);
+
+	sge::texture::part_ptr const new_part(
 		init_texture(
 			*ntex,
 			_src
@@ -146,14 +153,14 @@ sge::texture::manager::add(
 	)
 		throw texture::image_too_big();
 
-	fragmented *const tmp(
-		ntex.get()
+	sge::texture::fragmented &tmp(
+		*ntex
 	);
 
 	if(
 		ntex->full()
 	)
-		tmp->container_position(
+		tmp.container_position(
 			fcppt::container::ptr::insert_unique_ptr(
 				full_textures_,
 				full_textures_.end(),
@@ -163,7 +170,7 @@ sge::texture::manager::add(
 			)
 		);
 	else
-		tmp->container_position(
+		tmp.container_position(
 			fcppt::container::ptr::insert_unique_ptr_multiset(
 				free_textures_,
 				move(
