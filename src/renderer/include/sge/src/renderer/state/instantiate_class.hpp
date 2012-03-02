@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_RENDERER_STATE_INSTANTIATE_CLASS_HPP_INCLUDED
 #define SGE_SRC_RENDERER_STATE_INSTANTIATE_CLASS_HPP_INCLUDED
 
-#include <sge/src/export_symbol.hpp>
+#include <sge/src/export_class_instantiation.hpp>
 
 
 #define SGE_RENDERER_STATE_INSTANTIATE_CLASS(\
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 class \
-SGE_EXPORT_SYMBOL \
+SGE_EXPORT_CLASS_INSTANTIATION \
 class_name<\
 	sge::renderer::state::type_name::base_type,\
 	sge::renderer::state::type_name::available_states::type\

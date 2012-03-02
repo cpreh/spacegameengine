@@ -47,6 +47,7 @@ set(
 	src/console/exception.cpp
 	src/console/function.cpp
 	src/console/gfx.cpp
+	src/console/include/sge/src/console/instantiate_muxing_streambuf.hpp
 	src/console/include/sge/src/console/muxing_streambuf_impl.hpp
 	src/console/include/sge/src/console/next_or_last.hpp
 	src/console/muxing_narrow_streambuf.cpp

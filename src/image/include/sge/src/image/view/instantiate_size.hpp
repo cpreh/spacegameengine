@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_SIZE_HPP_INCLUDED
 
 #include <sge/image/traits/dim.hpp>
-#include <sge/src/export_symbol.hpp>
+#include <sge/src/export_function_instantiation.hpp>
 #include <sge/src/image/view/instantiate_const_nonconst.hpp>
 #include <sge/src/image/view/size_impl.hpp>
 
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	view_type\
 )\
 template \
-SGE_EXPORT_SYMBOL \
+SGE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::traits::dim<\
 	tag\
 >::type const \

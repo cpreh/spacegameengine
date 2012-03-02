@@ -46,14 +46,17 @@ class trampoline
 public:
 	typedef States state_type;
 
-	typedef state::var<
+	typedef sge::renderer::state::var<
 		T,
 		state_type
 	> var_type;
 
-	explicit trampoline(
+	explicit
+	trampoline(
 		state_type
 	);
+
+	~trampoline();
 
 	SGE_RENDERER_SYMBOL
 	var_type const

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT_HPP_INCLUDED
 
-#include <sge/src/export_symbol.hpp>
+#include <sge/src/export_function_instantiation.hpp>
 #include <sge/src/image/view/const_object_impl.hpp>
 
 
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 class \
-SGE_EXPORT_SYMBOL \
+SGE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::view::const_object<\
 	wrapper,\
 	nonconstwrapper\

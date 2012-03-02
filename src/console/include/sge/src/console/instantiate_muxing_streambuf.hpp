@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CONSOLE_INSTANTIATE_MUXING_STREAMBUF_HPP_INCLUDED
 #define SGE_SRC_CONSOLE_INSTANTIATE_MUXING_STREAMBUF_HPP_INCLUDED
 
-#include <sge/src/export_symbol.hpp>
+#include <sge/src/export_class_instantiation.hpp>
 #include <sge/src/console/muxing_streambuf_impl.hpp>
 
 #define SGE_CONSOLE_INSTANTIATE_MUXING_STREAMBUF(\
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 class \
-SGE_EXPORT_SYMBOL \
+SGE_EXPORT_CLASS_INSTANTIATION \
 sge::console::muxing_streambuf<\
 	char_type\
 >

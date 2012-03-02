@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/dynamic/basic_view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
-#include <sge/src/export_symbol.hpp>
+#include <sge/src/export_class_instantiation.hpp>
 #include <sge/src/renderer/index/instantiate_all.hpp>
 #include <fcppt/assert/pre.hpp>
 
@@ -132,7 +132,7 @@ sge::renderer::index::view<Format>::end() const
 )\
 template \
 class \
-SGE_EXPORT_SYMBOL \
+SGE_EXPORT_CLASS_INSTANTIATION \
 sge::renderer::index::view<\
 	format \
 >;

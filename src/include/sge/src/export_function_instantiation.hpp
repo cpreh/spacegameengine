@@ -18,27 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_STATE_INSTANTIATE_EXTRACT_TRAMPOLINE_HPP_INCLUDED
-#define SGE_SRC_RENDERER_STATE_INSTANTIATE_EXTRACT_TRAMPOLINE_HPP_INCLUDED
+#ifndef SGE_SRC_EXPORT_FUNCTION_INSTANTIATION_HPP_INCLUDED
+#define SGE_SRC_EXPORT_FUNCTION_INSTANTIATION_HPP_INCLUDED
 
-#include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/state/trampoline_fwd.hpp>
-#include <sge/src/export_function_instantiation.hpp>
-#include <sge/src/renderer/state/extract_trampoline_impl.hpp>
-
-
-#define SGE_RENDERER_STATE_INSTANTIATE_EXTRACT_TRAMPOLINE(\
-	_state\
-)\
-template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
-sge::renderer::state::_state::base_type \
-sge::renderer::state::extract_trampoline(\
-	sge::renderer::state::list const &,\
-	sge::renderer::state::trampoline<\
-		_state::base_type,\
-		_state::available_states::type\
-	> const &\
-);
+#if defined(SGE_STATIC_LINK)
+#	define SGE_EXPORT_FUNCTION_INSTANTIATION
+#else
+#	include <fcppt/export_function_instantiation.hpp>
+#	define SGE_EXPORT_FUNCTION_INSTANTIATION FCPPT_EXPORT_FUNCTION_INSTANTIATION
+#endif
 
 #endif

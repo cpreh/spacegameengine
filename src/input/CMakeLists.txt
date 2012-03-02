@@ -241,6 +241,7 @@ set(
 	src/input/include/sge/src/input/event/instantiate_remove.hpp
 	src/input/include/sge/src/input/event/remove_impl.hpp
 	src/input/include/sge/src/input/info/container_impl.hpp
+	src/input/include/sge/src/input/info/instantiate_container.hpp
 	src/input/joypad/absolute_axis.cpp
 	src/input/joypad/absolute_axis_event.cpp
 	src/input/joypad/absolute_axis_info.cpp

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
-#include <sge/src/export_symbol.hpp>
+#include <sge/src/export_function_instantiation.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
@@ -146,7 +146,7 @@ sge::opencl::command_queue::enqueue_kernel(
 	arity\
 )\
 template \
-SGE_EXPORT_SYMBOL \
+SGE_EXPORT_FUNCTION_INSTANTIATION \
 void sge::opencl::command_queue::enqueue_kernel<\
 	arity\
 >( \
@@ -163,7 +163,7 @@ SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_ENQUEUE_KERNEL(3)
 	arity\
 )\
 template \
-SGE_EXPORT_SYMBOL \
+SGE_EXPORT_FUNCTION_INSTANTIATION \
 void sge::opencl::command_queue::enqueue_kernel<\
 	arity\
 >( \

@@ -34,7 +34,16 @@ sge::renderer::state::trampoline<T, States>::trampoline(
 )
 :
 	state_(_state)
-{}
+{
+}
+
+template<
+	typename T,
+	typename States
+>
+sge::renderer::state::trampoline<T, States>::~trampoline()
+{
+}
 
 template<
 	typename T,

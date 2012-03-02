@@ -40,6 +40,7 @@ class var
 {
 public:
 	typedef T value_type;
+
 	typedef States state_type;
 
 	SGE_RENDERER_SYMBOL
