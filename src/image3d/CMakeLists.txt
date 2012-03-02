@@ -93,12 +93,8 @@ set(
 	src/image3d/view/to_const.cpp
 )
 
-add_definitions(
-	"-D SGE_IMAGE_INSTANTIATE_EXPORTS"
-)
-
-include_directories(
-	${CMAKE_SOURCE_DIR}/src/image/include
+sge_implement_from_lib(
+	image
 )
 
 include_directories(

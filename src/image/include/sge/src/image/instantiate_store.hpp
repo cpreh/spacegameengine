@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_INSTANTIATE_STORE_HPP_INCLUDED
 #define SGE_SRC_IMAGE_INSTANTIATE_STORE_HPP_INCLUDED
 
-#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/export_class_instantiation.hpp>
 #include <sge/src/image/store_impl.hpp>
 
 
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 class \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_EXPORT_CLASS_INSTANTIATION \
 sge::image::store< \
 	image_format \
 > \

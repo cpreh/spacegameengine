@@ -43,13 +43,13 @@ template<
 >
 class object
 :
-	public plugin::base
+	public sge::plugin::base
 {
 	FCPPT_NONCOPYABLE(
 		object
 	);
 public:
-	typedef typename detail::traits<
+	typedef typename sge::plugin::detail::traits<
 		T
 	>::loader_fun loader_fun;
 
@@ -70,7 +70,7 @@ public:
 	get() const;
 private:
 	fcppt::scoped_ptr<
-		library::object
+		sge::plugin::library::object
 	> lib_;
 
 	loader_fun const loader_;

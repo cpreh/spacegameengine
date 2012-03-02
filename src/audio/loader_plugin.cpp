@@ -36,23 +36,6 @@ sge::plugin::detail::traits<sge::audio::loader>::plugin_type()
 	return capabilities::audio_loader;
 }
 
-#if 0
 SGE_PLUGIN_INSTANTIATE_TYPES(
 	sge::audio::loader
 )
-
-#endif
-
-template __attribute__ ((visibility("default"))) sge::plugin::iterator<sge::audio::loader> sge::plugin::manager::begin<sge::audio::loader>();
-
-template __attribute__ ((visibility("default"))) sge::plugin::iterator<sge::audio::loader> sge::plugin::manager::end<sge::audio::loader>();
-
-template __attribute__ ((visibility("default"))) sge::plugin::context<sge::audio::loader> sge::plugin::manager::plugin<sge::audio::loader>( sge::plugin::manager::size_type);
-
-template __attribute__ ((visibility("default"))) sge::plugin::manager::size_type sge::plugin::manager::size<sge::audio::loader>() const;
-
-template class __attribute__ ((visibility("default"))) sge::plugin::iterator<sge::audio::loader>;
-
-template class __attribute__ ((visibility("default"))) sge::plugin::object<sge::audio::loader>;
-
-template class __attribute__ ((visibility("default"))) sge::plugin::context<sge::audio::loader>;

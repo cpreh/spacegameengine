@@ -24,17 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/renderer/state/instantiate_with_trampoline.hpp>
 
 
-/*
 SGE_RENDERER_STATE_INSTANTIATE_WITH_TRAMPOLINE(color)
 SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(color, back_buffer_clear_color)
 SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(color, ambient_light_color)
 SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(color, fog_color)
-*/
-
-template class __attribute__ ((visibility("default"))) sge::renderer::state::var< sge::renderer::state::color::base_type, sge::renderer::state::color::available_states::type>;
-template class __attribute__ ((visibility("default"))) sge::renderer::state::trampoline< sge::renderer::state::color::base_type, sge::renderer::state::color::available_states::type>;
-template __attribute__ ((visibility("default"))) sge::renderer::state::color::base_type sge::renderer::state::extract_trampoline( sge::renderer::state::list const &, sge::renderer::state::trampoline< color::base_type, color::available_states::type > const &);
-
-sge::renderer::state::color::trampoline const sge::renderer::state::color::back_buffer_clear_color( sge::renderer::state::color::available_states::back_buffer_clear_color);
-sge::renderer::state::color::trampoline const sge::renderer::state::color::ambient_light_color( sge::renderer::state::color::available_states::ambient_light_color);
-sge::renderer::state::color::trampoline const sge::renderer::state::color::fog_color( sge::renderer::state::color::available_states::fog_color);
