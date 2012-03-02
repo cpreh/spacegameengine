@@ -51,7 +51,7 @@ template<
 	typename T,
 	typename States
 >
-T
+typename sge::renderer::state::var<T, States>::value_type
 sge::renderer::state::var<T, States>::value() const
 {
 	return val_;

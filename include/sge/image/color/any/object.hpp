@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_ANY_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_ANY_OBJECT_HPP_INCLUDED
 
+#include <sge/class_symbol.hpp>
 #include <sge/image/symbol.hpp>
 #include <sge/image/color/any/elements.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
@@ -36,7 +37,9 @@ namespace color
 namespace any
 {
 
-class object
+// TODO: Why do we have to add SGE_CLASS_SYMBOL here to
+// explicitly instantiate sge::renderer::state::var with it?
+class SGE_CLASS_SYMBOL object
 {
 public:
 	typedef fcppt::variant::object<
