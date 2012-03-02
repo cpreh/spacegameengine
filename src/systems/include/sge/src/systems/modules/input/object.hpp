@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_INPUT_OBJECT_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_INPUT_OBJECT_HPP_INCLUDED
 
-#include <sge/plugin/manager_fwd.hpp>
 #include <sge/input/plugin_ptr.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/processor_ptr.hpp>
@@ -33,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_scoped_ptr.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/device_scoped_ptr.hpp>
+#include <sge/plugin/manager_fwd.hpp>
 #include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier_fwd.hpp>
 #include <sge/src/systems/modules/input/object_fwd.hpp>
