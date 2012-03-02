@@ -18,44 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_LIST_HPP_INCLUDED
-#define SGE_SYSTEMS_LIST_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_INSTANTIATE_BASIC_LOADER_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_INSTANTIATE_BASIC_LOADER_HPP_INCLUDED
 
-#include <sge/systems/any.hpp>
-#include <sge/systems/any_map.hpp>
-#include <sge/systems/list_fwd.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/src/export_class_instantiation.hpp>
+#include <sge/src/systems/basic_loader_impl.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-
-class list
-{
-public:
-	SGE_SYSTEMS_SYMBOL
-	list();
-
-	SGE_SYSTEMS_SYMBOL
-	explicit list(
-		systems::any const &
-	);
-
-	SGE_SYSTEMS_SYMBOL
-	systems::list const
-	operator()(
-		systems::any const &
-	) const;
-
-	systems::any_map const &
-	get() const;
-private:
-	systems::any_map states_;
-};
-
-}
-}
+#define SGE_SYSTEMS_INSTANTIATE_BASIC_LOADER(\
+	caps_type\
+)\
+template \
+class \
+SGE_EXPORT_CLASS_INSTANTIATION \
+sge::systems::basic_loader<\
+	caps_type\
+>
 
 #endif

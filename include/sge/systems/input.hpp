@@ -46,11 +46,9 @@ public:
 		systems::cursor_option_field const &
 	);
 
-	SGE_SYSTEMS_SYMBOL
 	systems::input_helper_field const &
 	input_helpers() const;
 
-	SGE_SYSTEMS_SYMBOL
 	systems::cursor_option_field const &
 	cursor_options() const;
 private:

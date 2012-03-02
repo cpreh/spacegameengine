@@ -54,15 +54,12 @@ public:
 		fcppt::string const &
 	);
 
-	SGE_SYSTEMS_SYMBOL
 	sge::renderer::parameters const &
 	parameters() const;
 
-	SGE_SYSTEMS_SYMBOL
 	sge::viewport::resize_function const &
 	resize_function() const;
 
-	SGE_SYSTEMS_SYMBOL
 	sge::systems::optional_name const &
 	name() const;
 private:

@@ -50,11 +50,9 @@ public:
 		sge::media::optional_extension_set const &
 	);
 
-	SGE_SYSTEMS_SYMBOL
 	sge::media::optional_extension_set const &
 	extensions() const;
 
-	SGE_SYSTEMS_SYMBOL
 	capabilities_type const &
 	capabilities() const;
 private:

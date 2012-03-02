@@ -72,19 +72,15 @@ public:
 	window &
 	dont_quit();
 
-	SGE_SYSTEMS_SYMBOL
 	parameter_variant const &
 	parameter() const;
 
-	SGE_SYSTEMS_SYMBOL
 	awl::mainloop::optional_io_service_ref const
 	io_service() const;
 
-	SGE_SYSTEMS_SYMBOL
 	bool
 	show() const;
 
-	SGE_SYSTEMS_SYMBOL
 	bool
 	quit() const;
 private:

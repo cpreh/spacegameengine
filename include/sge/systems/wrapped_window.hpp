@@ -51,23 +51,18 @@ public:
 		awl::window::event::processor &
 	);
 
-	SGE_SYSTEMS_SYMBOL
 	awl::system::object &
 	awl_system() const;
 
-	SGE_SYSTEMS_SYMBOL
 	awl::system::event::processor &
 	awl_system_event_processor() const;
 
-	SGE_SYSTEMS_SYMBOL
 	awl::event::processor &
 	awl_event_processor() const;
 
-	SGE_SYSTEMS_SYMBOL
 	awl::window::instance &
 	awl_window() const;
 
-	SGE_SYSTEMS_SYMBOL
 	awl::window::event::processor &
 	awl_window_event_processor() const;
 private:

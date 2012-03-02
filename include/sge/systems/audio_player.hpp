@@ -45,7 +45,6 @@ public:
 		audio::player_capabilities_field const &
 	);
 
-	SGE_SYSTEMS_SYMBOL
 	audio::player_capabilities_field const &
 	capabilities() const;
 private:
