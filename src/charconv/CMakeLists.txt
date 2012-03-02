@@ -28,6 +28,10 @@ set(
 	src/charconv/converter.cpp
 	src/charconv/exception.cpp
 	src/charconv/plugin.cpp
+	src/charconv/plugin/context.cpp
+	src/charconv/plugin/iterator.cpp
+	src/charconv/plugin/manager.cpp
+	src/charconv/plugin/object.cpp
 	src/charconv/system.cpp
 	src/charconv/unsupported_conversion.cpp
 )

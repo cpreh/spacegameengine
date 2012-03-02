@@ -18,23 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/plugin.hpp>
-#include <sge/font/system_fwd.hpp>
-#include <sge/src/plugin/address_name.hpp>
+#ifndef SGE_SRC_PLUGIN_INSTANTIATE_CONTEXT_HPP_INCLUDED
+#define SGE_SRC_PLUGIN_INSTANTIATE_CONTEXT_HPP_INCLUDED
+
+#include <sge/src/export_class_instantiation.hpp>
+#include <sge/src/plugin/context_impl.hpp>
 
 
-sge::plugin::detail::address_name
-sge::plugin::detail::traits<
-	sge::font::system
->::plugin_loader_name()
-{
-	return SGE_PLUGIN_ADDRESS_NAME("create_font_system");
-}
+#define SGE_PLUGIN_INSTANTIATE_CONTEXT(\
+	plugin_type\
+)\
+template \
+class \
+SGE_EXPORT_CLASS_INSTANTIATION \
+sge::plugin::context<\
+	plugin_type\
+>
 
-sge::plugin::capabilities::type
-sge::plugin::detail::traits<
-	sge::font::system
->::plugin_type()
-{
-	return capabilities::font;
-}
+#endif

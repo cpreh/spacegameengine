@@ -18,22 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/player.hpp>
+#include <sge/audio/player_fwd.hpp>
 #include <sge/audio/player_plugin.hpp>
 #include <sge/src/plugin/address_name.hpp>
-#include <sge/src/plugin/instantiate_types.hpp>
 
 
 sge::plugin::detail::address_name
-sge::plugin::detail::traits<sge::audio::player>::plugin_loader_name()
+sge::plugin::detail::traits<
+	sge::audio::player
+>::plugin_loader_name()
 {
 	return SGE_PLUGIN_ADDRESS_NAME("create_audio_player");
 }
 
 sge::plugin::capabilities::type
-sge::plugin::detail::traits<sge::audio::player>::plugin_type()
+sge::plugin::detail::traits<
+	sge::audio::player
+>::plugin_type()
 {
 	return capabilities::audio_player;
 }
-
-SGE_PLUGIN_INSTANTIATE_TYPES(sge::audio::player)

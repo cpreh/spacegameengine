@@ -27,6 +27,10 @@ set(
 	src/font/exception.cpp
 	src/font/metrics.cpp
 	src/font/plugin.cpp
+	src/font/plugin/context.cpp
+	src/font/plugin/iterator.cpp
+	src/font/plugin/manager.cpp
+	src/font/plugin/object.cpp
 	src/font/system.cpp
 )
 

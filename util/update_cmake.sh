@@ -72,7 +72,8 @@ update_sublibrary config
 
 update_sublibrary console
 
-update_sublibrary font -n
+update_sublibrary font \
+	"src/font/plugin -n"
 
 update_sublibrary font/bitmap
 
@@ -128,6 +129,7 @@ update_cmake_file \
 	src/renderer/index \
 	src/renderer/light \
 	src/renderer/lock_flags \
+	src/renderer/plugin \
 	src/renderer/projection \
 	src/renderer/state \
 	src/renderer/texture \

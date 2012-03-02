@@ -65,10 +65,18 @@ set(
 	src/audio/listener.cpp
 	src/audio/loader.cpp
 	src/audio/loader_plugin.cpp
+	src/audio/loader_plugin/context.cpp
+	src/audio/loader_plugin/iterator.cpp
+	src/audio/loader_plugin/manager.cpp
+	src/audio/loader_plugin/object.cpp
 	src/audio/multi_loader.cpp
 	src/audio/multi_loader_parameters.cpp
 	src/audio/player.cpp
 	src/audio/player_plugin.cpp
+	src/audio/player_plugin/context.cpp
+	src/audio/player_plugin/iterator.cpp
+	src/audio/player_plugin/manager.cpp
+	src/audio/player_plugin/object.cpp
 	src/audio/sound/base.cpp
 	src/audio/sound/nonpositional_parameters.cpp
 	src/audio/sound/positional.cpp

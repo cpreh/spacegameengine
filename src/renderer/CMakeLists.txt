@@ -667,6 +667,10 @@ set(
 	src/renderer/onscreen_target.cpp
 	src/renderer/parameters.cpp
 	src/renderer/plugin.cpp
+	src/renderer/plugin/context.cpp
+	src/renderer/plugin/iterator.cpp
+	src/renderer/plugin/manager.cpp
+	src/renderer/plugin/object.cpp
 	src/renderer/projection/check_near.cpp
 	src/renderer/projection/check_near_far.cpp
 	src/renderer/projection/orthogonal.cpp

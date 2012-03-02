@@ -43,7 +43,10 @@ set(
 	src/plugin/exception.cpp
 	src/plugin/include/sge/src/plugin/address_name.hpp
 	src/plugin/include/sge/src/plugin/context_impl.hpp
-	src/plugin/include/sge/src/plugin/instantiate_types.hpp
+	src/plugin/include/sge/src/plugin/instantiate_context.hpp
+	src/plugin/include/sge/src/plugin/instantiate_iterator.hpp
+	src/plugin/include/sge/src/plugin/instantiate_manager.hpp
+	src/plugin/include/sge/src/plugin/instantiate_object.hpp
 	src/plugin/include/sge/src/plugin/iterator_impl.hpp
 	src/plugin/include/sge/src/plugin/library/error.hpp
 	src/plugin/include/sge/src/plugin/library/load_function.hpp

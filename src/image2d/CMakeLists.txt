@@ -89,6 +89,10 @@ set(
 	src/image2d/multi_system.cpp
 	src/image2d/multi_system_parameters.cpp
 	src/image2d/plugin.cpp
+	src/image2d/plugin/context.cpp
+	src/image2d/plugin/iterator.cpp
+	src/image2d/plugin/manager.cpp
+	src/image2d/plugin/object.cpp
 	src/image2d/r32f.cpp
 	src/image2d/rgb32.cpp
 	src/image2d/rgb8.cpp

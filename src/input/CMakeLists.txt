@@ -291,6 +291,10 @@ set(
 	src/input/mouse/manager.cpp
 	src/input/mouse/remove_event.cpp
 	src/input/plugin.cpp
+	src/input/plugin/context.cpp
+	src/input/plugin/iterator.cpp
+	src/input/plugin/manager.cpp
+	src/input/plugin/object.cpp
 	src/input/processor.cpp
 	src/input/system.cpp
 )
