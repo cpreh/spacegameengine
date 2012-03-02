@@ -18,13 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/any/object.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/src/renderer/state/define_trampoline_object.hpp>
-#include <sge/src/renderer/state/instantiate_with_trampoline.hpp>
 
 
-SGE_RENDERER_STATE_INSTANTIATE_WITH_TRAMPOLINE(color)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(color, back_buffer_clear_color)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(color, ambient_light_color)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(color, fog_color)
+#define SGE_RENDERER_STATE_DEFINE_COLOR_TRAMPOLINE_OBJECT(\
+	name\
+)\
+SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(\
+	color,\
+	name\
+)
+
+SGE_RENDERER_STATE_DEFINE_COLOR_TRAMPOLINE_OBJECT(
+	back_buffer_clear_color
+);
+
+SGE_RENDERER_STATE_DEFINE_COLOR_TRAMPOLINE_OBJECT(
+	ambient_light_color
+);
+
+SGE_RENDERER_STATE_DEFINE_COLOR_TRAMPOLINE_OBJECT(
+	fog_color
+);

@@ -619,6 +619,8 @@ set(
 	src/renderer/include/sge/src/renderer/state/instantiate_class.hpp
 	src/renderer/include/sge/src/renderer/state/instantiate_extract.hpp
 	src/renderer/include/sge/src/renderer/state/instantiate_extract_trampoline.hpp
+	src/renderer/include/sge/src/renderer/state/instantiate_trampoline.hpp
+	src/renderer/include/sge/src/renderer/state/instantiate_var.hpp
 	src/renderer/include/sge/src/renderer/state/instantiate_with_trampoline.hpp
 	src/renderer/include/sge/src/renderer/state/instantiate_without_trampoline.hpp
 	src/renderer/include/sge/src/renderer/state/make_enum_key.hpp
@@ -689,7 +691,11 @@ set(
 	src/renderer/state/any_sort_functor.cpp
 	src/renderer/state/apply.cpp
 	src/renderer/state/bool.cpp
+	src/renderer/state/bool/trampoline.cpp
+	src/renderer/state/bool/var.cpp
 	src/renderer/state/color.cpp
+	src/renderer/state/color/trampoline.cpp
+	src/renderer/state/color/var.cpp
 	src/renderer/state/combine.cpp
 	src/renderer/state/cull_mode.cpp
 	src/renderer/state/default.cpp
@@ -697,16 +703,24 @@ set(
 	src/renderer/state/dest_blend_func.cpp
 	src/renderer/state/draw_mode.cpp
 	src/renderer/state/float.cpp
+	src/renderer/state/float/trampoline.cpp
+	src/renderer/state/float/var.cpp
 	src/renderer/state/fog_mode.cpp
 	src/renderer/state/int.cpp
+	src/renderer/state/int/trampoline.cpp
+	src/renderer/state/int/var.cpp
 	src/renderer/state/list.cpp
 	src/renderer/state/make_key.cpp
 	src/renderer/state/scoped.cpp
 	src/renderer/state/source_blend_func.cpp
 	src/renderer/state/stencil_func.cpp
 	src/renderer/state/stencil_op.cpp
+	src/renderer/state/stencil_op/trampoline.cpp
+	src/renderer/state/stencil_op/var.cpp
 	src/renderer/state/to_clear_flags_field.cpp
 	src/renderer/state/uint.cpp
+	src/renderer/state/uint/trampoline.cpp
+	src/renderer/state/uint/var.cpp
 	src/renderer/system.cpp
 	src/renderer/target.cpp
 	src/renderer/target_base.cpp

@@ -34,6 +34,6 @@ SGE_EXPORT_CLASS_INSTANTIATION \
 class_name<\
 	sge::renderer::state::type_name::base_type,\
 	sge::renderer::state::type_name::available_states::type\
->;
+>
 
 #endif

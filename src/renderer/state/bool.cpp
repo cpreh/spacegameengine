@@ -20,19 +20,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/bool.hpp>
 #include <sge/src/renderer/state/define_trampoline_object.hpp>
-#include <sge/src/renderer/state/instantiate_with_trampoline.hpp>
 
 
-SGE_RENDERER_STATE_INSTANTIATE_WITH_TRAMPOLINE(bool_)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(bool_, clear_depth_buffer)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(bool_, clear_back_buffer)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(bool_, clear_stencil_buffer)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(bool_, enable_alpha_blending)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(bool_, enable_lighting)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(bool_, enable_point_sprites)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(bool_, enable_scissor_test)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(bool_, write_to_depth_buffer)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(bool_, write_alpha)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(bool_, write_blue)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(bool_, write_green)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(bool_, write_red)
+#define SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(\
+	name\
+)\
+SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(\
+	bool_,\
+	name\
+)
+
+SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(
+	clear_depth_buffer
+);
+
+SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(
+	clear_back_buffer
+);
+
+SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(
+	clear_stencil_buffer
+);
+
+SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(
+	enable_alpha_blending
+);
+
+SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(
+	enable_lighting
+);
+
+SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(
+	enable_point_sprites
+);
+
+SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(
+	enable_scissor_test
+);
+
+SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(
+	write_to_depth_buffer
+);
+
+SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(
+	write_alpha
+);
+
+SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(
+	write_blue
+);
+
+SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(
+	write_green
+);
+
+SGE_RENDERER_STATE_DEFINE_BOOL_TRAMPOLINE_OBJECT(
+	write_red
+);

@@ -39,6 +39,6 @@ sge::renderer::state::extract_trampoline(\
 		_state::base_type,\
 		_state::available_states::type\
 	> const &\
-);
+)
 
 #endif

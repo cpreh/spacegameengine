@@ -20,10 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/stencil_op.hpp>
 #include <sge/src/renderer/state/define_trampoline_object.hpp>
-#include <sge/src/renderer/state/instantiate_with_trampoline.hpp>
 
 
-SGE_RENDERER_STATE_INSTANTIATE_WITH_TRAMPOLINE(stencil_op)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(stencil_op, stencil_fail)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(stencil_op, depth_fail)
-SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(stencil_op, pass)
+#define SGE_RENDERER_STATE_DEFINE_STENCIL_OP_TRAMPOLINE_OBJECT(\
+	name\
+)\
+SGE_RENDERER_STATE_DEFINE_TRAMPOLINE_OBJECT(\
+	stencil_op,\
+	name\
+)
+
+SGE_RENDERER_STATE_DEFINE_STENCIL_OP_TRAMPOLINE_OBJECT(
+	stencil_fail
+);
+
+SGE_RENDERER_STATE_DEFINE_STENCIL_OP_TRAMPOLINE_OBJECT(
+	depth_fail
+);
+
+SGE_RENDERER_STATE_DEFINE_STENCIL_OP_TRAMPOLINE_OBJECT(
+	pass
+);

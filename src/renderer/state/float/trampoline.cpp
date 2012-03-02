@@ -18,24 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_STATE_INSTANTIATE_EXTRACT_HPP_INCLUDED
-#define SGE_SRC_RENDERER_STATE_INSTANTIATE_EXTRACT_HPP_INCLUDED
-
-#include <sge/renderer/state/list_fwd.hpp>
-#include <sge/src/export_function_instantiation.hpp>
-#include <sge/src/renderer/state/extract_impl.hpp>
+#include <sge/renderer/state/float/trampoline.hpp>
+#include <sge/src/renderer/state/instantiate_with_trampoline.hpp>
 
 
-#define SGE_RENDERER_STATE_INSTANTIATE_EXTRACT(\
-	_state\
-)\
-template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
-sge::renderer::state::_state::type \
-sge::renderer::state::extract<\
-	sge::renderer::state::_state::type\
->( \
-	sge::renderer::state::list const & \
-)
-
-#endif
+SGE_RENDERER_STATE_INSTANTIATE_WITH_TRAMPOLINE(
+	float_
+);

@@ -56,6 +56,7 @@ set(
 	src/systems/include/sge/src/systems/basic_loader_impl.hpp
 	src/systems/include/sge/src/systems/detail/instance_impl.hpp
 	src/systems/include/sge/src/systems/extract_plugin_path.hpp
+	src/systems/include/sge/src/systems/instantiate_basic_loader.hpp
 	src/systems/include/sge/src/systems/make_any_key.hpp
 	src/systems/include/sge/src/systems/modules/audio/find_player_plugin.hpp
 	src/systems/include/sge/src/systems/modules/audio/loader.hpp
