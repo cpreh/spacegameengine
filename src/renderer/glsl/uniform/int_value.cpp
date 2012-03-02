@@ -21,12 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/int_type.hpp>
 #include <sge/renderer/glsl/uniform/int_value.hpp>
 #include <sge/renderer/glsl/uniform/int_value_type.hpp>
-#include <sge/src/renderer/glsl/uniform/basic_value_impl.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/src/renderer/glsl/uniform/instantiate_basic_value.hpp>
 
 
-template FCPPT_EXPORT_SYMBOL class
-sge::renderer::glsl::uniform::basic_value<
+SGE_RENDERER_GLSL_UNIFORM_INSTANTIATE_BASIC_VALUE(
 	sge::renderer::glsl::uniform::int_type,
 	sge::renderer::glsl::uniform::int_value_type::type
->;
+);

@@ -63,7 +63,6 @@ set(
 	include/sge/projectile/shape/shared_base_ptr.hpp
 	include/sge/projectile/shape/triangle_mesh.hpp
 	include/sge/projectile/shape/triangle_sequence.hpp
-	include/sge/projectile/symbol.hpp
 	include/sge/projectile/time_increment.hpp
 	include/sge/projectile/triangle.hpp
 	include/sge/projectile/triangulation/default_tag.hpp

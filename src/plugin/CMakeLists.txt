@@ -11,7 +11,6 @@ set(
 	include/sge/plugin/context_base_fwd.hpp
 	include/sge/plugin/context_fwd.hpp
 	include/sge/plugin/detail/address_name.hpp
-	include/sge/plugin/detail/instantiate_symbol.hpp
 	include/sge/plugin/detail/iterator_base_type.hpp
 	include/sge/plugin/detail/traits.hpp
 	include/sge/plugin/exception.hpp
@@ -38,7 +37,6 @@ set(
 	include/sge/plugin/object_fwd.hpp
 	include/sge/plugin/object_shared_ptr.hpp
 	include/sge/plugin/plugin.hpp
-	include/sge/plugin/symbol.hpp
 	include/sge/plugin/version.hpp
 	src/plugin/base.cpp
 	src/plugin/context_base.cpp
@@ -68,6 +66,10 @@ set(
 
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+sge_generate_instantiate_symbol_header(
+	plugin
 )
 
 if(

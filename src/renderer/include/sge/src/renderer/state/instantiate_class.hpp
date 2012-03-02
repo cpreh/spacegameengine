@@ -21,14 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_RENDERER_STATE_INSTANTIATE_CLASS_HPP_INCLUDED
 #define SGE_SRC_RENDERER_STATE_INSTANTIATE_CLASS_HPP_INCLUDED
 
-#include <fcppt/export_symbol.hpp>
+#include <sge/src/export_symbol.hpp>
 
 
 #define SGE_RENDERER_STATE_INSTANTIATE_CLASS(\
 	class_name,\
 	type_name \
 )\
-template FCPPT_EXPORT_SYMBOL class \
+template \
+class \
+SGE_EXPORT_SYMBOL \
 class_name<\
 	sge::renderer::state::type_name::base_type,\
 	sge::renderer::state::type_name::available_states::type\

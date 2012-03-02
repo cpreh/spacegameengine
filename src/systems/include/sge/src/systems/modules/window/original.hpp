@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/window/system.hpp>
 #include <awl/event/processor_scoped_ptr.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
-#include <awl/window/event/processor_scoped_ptr.hpp>
 #include <awl/system/object_scoped_ptr.hpp>
 #include <awl/system/event/processor_scoped_ptr.hpp>
+#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/window/event/processor_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

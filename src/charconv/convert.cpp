@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/raw_pointer.hpp>
 #include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/system.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/src/export_symbol.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
@@ -182,7 +182,7 @@ sge::charconv::convert(
 	param\
 )\
 template \
-FCPPT_EXPORT_SYMBOL \
+SGE_EXPORT_SYMBOL \
 sge::charconv::string_type< \
 	BOOST_PP_SEQ_ELEM(0, param) \
 >::type \

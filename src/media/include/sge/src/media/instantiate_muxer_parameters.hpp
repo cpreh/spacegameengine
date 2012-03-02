@@ -21,16 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_INSTANTIATE_MUXER_PARAMETERS_HPP_INCLUDED
 #define SGE_SRC_MEDIA_INSTANTIATE_MUXER_PARAMETERS_HPP_INCLUDED
 
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/media/muxer_parameters_impl.hpp>
-#include <fcppt/export_symbol.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
 
 #define SGE_MEDIA_INSTANTIATE_MUXER_PARAMETERS(\
 	capabilities\
 )\
-template FCPPT_EXPORT_SYMBOL \
-class sge::media::muxer_parameters<\
+template \
+class \
+SGE_EXPORT_SYMBOL \
+sge::media::muxer_parameters<\
 	capabilities\
 >
 

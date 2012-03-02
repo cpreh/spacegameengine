@@ -18,17 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VIEWPORT_SYMBOL_HPP_INCLUDED
-#define SGE_VIEWPORT_SYMBOL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_GLSL_UNIFORM_INSTANTIATE_BASIC_VALUE_HPP_INCLUDED
+#define SGE_SRC_RENDERER_GLSL_UNIFORM_INSTANTIATE_BASIC_VALUE_HPP_INCLUDED
 
-#if defined(SGE_STATIC_LINK)
-#define SGE_VIEWPORT_SYMBOL
-#elif defined(sgeviewport_EXPORTS)
-#include <fcppt/export_symbol.hpp>
-#define SGE_VIEWPORT_SYMBOL FCPPT_EXPORT_SYMBOL
-#else
-#include <fcppt/import_symbol.hpp>
-#define SGE_VIEWPORT_SYMBOL FCPPT_IMPORT_SYMBOL
-#endif
+#include <sge/src/export_symbol.hpp>
+#include <sge/src/renderer/glsl/uniform/basic_value_impl.hpp>
+
+
+#define SGE_RENDERER_GLSL_UNIFORM_INSTANTIATE_BASIC_VALUE(\
+	value_type,\
+	types_enum\
+)\
+template \
+class \
+SGE_EXPORT_SYMBOL \
+sge::renderer::glsl::uniform::basic_value<\
+	value_type,\
+	types_enum\
+>
 
 #endif

@@ -18,17 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_TEXT_SYMBOL_HPP_INCLUDED
-#define SGE_FONT_TEXT_SYMBOL_HPP_INCLUDED
+#include <sge/renderer/index/dynamic/const_view.hpp>
+#include <sge/src/renderer/index/dynamic/instantiate_basic_view.hpp>
 
-#if defined(SGE_STATIC_LINK)
-#define SGE_FONT_TEXT_SYMBOL
-#elif defined(sgefonttext_EXPORTS)
-#include <fcppt/export_symbol.hpp>
-#define SGE_FONT_TEXT_SYMBOL FCPPT_EXPORT_SYMBOL
-#else
-#include <fcppt/import_symbol.hpp>
-#define SGE_FONT_TEXT_SYMBOL FCPPT_IMPORT_SYMBOL
-#endif
 
-#endif
+SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_BASIC_VIEW(
+	true
+);

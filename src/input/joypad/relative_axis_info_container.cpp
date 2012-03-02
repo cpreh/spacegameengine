@@ -21,12 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/relative_axis_id.hpp>
 #include <sge/input/joypad/relative_axis_info.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>
-#include <sge/src/input/info/container_impl.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/src/input/info/instantiate_container.hpp>
 
 
-template FCPPT_EXPORT_SYMBOL class
-sge::input::info::container<
+SGE_INPUT_INFO_INSTANTIATE_CONTAINER(
 	sge::input::joypad::relative_axis_id,
 	sge::input::joypad::relative_axis_info
->;
+);

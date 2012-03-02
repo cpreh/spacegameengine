@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_PRINT_HPP_INCLUDED
 
 #include <sge/image/traits/const_view.hpp>
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/image/algorithm/print_impl.hpp>
-#include <fcppt/export_symbol.hpp>
 #include <fcppt/io/ostream.hpp>
 
 
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	tag\
 )\
 template \
-FCPPT_EXPORT_SYMBOL \
+SGE_EXPORT_SYMBOL \
 void \
 sge::image::algorithm::print< \
 	tag \

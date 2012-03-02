@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/format.hpp>
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/image/view/format_impl.hpp>
 #include <sge/src/image/view/instantiate_const_nonconst.hpp>
-#include <fcppt/export_symbol.hpp>
 
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_FORMAT_BASE(\
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	view_type\
 )\
 template \
-FCPPT_EXPORT_SYMBOL \
+SGE_EXPORT_SYMBOL \
 sge::image::color::format::type \
 sge::image::view::format<\
 	tag\

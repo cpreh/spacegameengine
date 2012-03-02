@@ -65,7 +65,6 @@ public:
 	SGE_IMAGE_SYMBOL
 	variant const &
 	get() const;
-
 private:
 	variant variant_;
 };

@@ -32,6 +32,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/viewport/resize_function.hpp>
-#include <sge/viewport/symbol.hpp>
 
 #endif

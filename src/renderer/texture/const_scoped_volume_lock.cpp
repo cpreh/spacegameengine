@@ -22,13 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_box.hpp>
 #include <sge/renderer/texture/const_scoped_volume_lock.hpp>
 #include <sge/renderer/texture/volume.hpp>
-#include <sge/src/renderer/texture/const_basic_scoped_lock_impl.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/src/renderer/texture/instantiate_const_basic_scoped_lock.hpp>
 
 
-template FCPPT_EXPORT_SYMBOL class
-sge::renderer::texture::const_basic_scoped_lock<
+SGE_RENDERER_TEXTURE_INSTANTIATE_CONST_BASIC_SCOPED_LOCK(
 	sge::renderer::texture::volume,
 	sge::renderer::lock_box,
 	sge::image3d::view::const_object
->;
+);

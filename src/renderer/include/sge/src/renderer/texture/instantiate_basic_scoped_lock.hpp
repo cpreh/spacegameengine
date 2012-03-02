@@ -18,17 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_SYMBOL_HPP_INCLUDED
-#define SGE_CONSOLE_SYMBOL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_TEXTURE_INSTANTIATE_BASIC_SCOPED_LOCK_HPP_INCLUDED
+#define SGE_SRC_RENDERER_TEXTURE_INSTANTIATE_BASIC_SCOPED_LOCK_HPP_INCLUDED
 
-#if defined(SGE_STATIC_LINK)
-#define SGE_CONSOLE_SYMBOL
-#elif defined(sgeconsole_EXPORTS)
-#include <fcppt/export_symbol.hpp>
-#define SGE_CONSOLE_SYMBOL FCPPT_EXPORT_SYMBOL
-#else
-#include <fcppt/import_symbol.hpp>
-#define SGE_CONSOLE_SYMBOL FCPPT_IMPORT_SYMBOL
-#endif
+#include <sge/src/export_symbol.hpp>
+#include <sge/src/renderer/texture/basic_scoped_lock_impl.hpp>
+
+
+#define SGE_RENDERER_TEXTURE_INSTANTIATE_BASIC_SCOPED_LOCK(\
+	texture_type,\
+	lock_type,\
+	view_type\
+)\
+template \
+class \
+SGE_EXPORT_SYMBOL \
+sge::renderer::texture::basic_scoped_lock<\
+	texture_type,\
+	lock_type,\
+	view_type\
+>
 
 #endif

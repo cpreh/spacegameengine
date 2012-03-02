@@ -91,7 +91,6 @@ set(
 	include/sge/opencl/single_device_system/parameters.hpp
 	include/sge/opencl/single_device_system/parameters_fwd.hpp
 	include/sge/opencl/single_device_system/single_device_system.hpp
-	include/sge/opencl/symbol.hpp
 	include/sge/opencl/system.hpp
 	include/sge/opencl/system_fwd.hpp
 	include/sge/opencl/version.hpp

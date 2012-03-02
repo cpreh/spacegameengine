@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/load_context_fwd.hpp>
 #include <sge/cegui/logger.hpp>
 #include <sge/cegui/structure_cast.hpp>
-#include <sge/cegui/symbol.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/cegui/system.hpp>

@@ -22,15 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
 #include <sge/image/traits/box.hpp>
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/image/view/sub_out_of_range_impl.hpp>
-#include <fcppt/export_symbol.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_SUB_OUT_OF_RANGE(\
 	tag\
 )\
-template FCPPT_EXPORT_SYMBOL class \
+template \
+class \
+SGE_EXPORT_SYMBOL \
 sge::image::view::sub_out_of_range<\
 	sge::image::traits::box<\
 		tag\

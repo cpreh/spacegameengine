@@ -3,7 +3,6 @@ set(
 	include/sge/media/all_extensions.hpp
 	include/sge/media/const_raw_pointer.hpp
 	include/sge/media/const_raw_range.hpp
-	include/sge/media/detail/instantiate_symbol.hpp
 	include/sge/media/extension.hpp
 	include/sge/media/extension_set.hpp
 	include/sge/media/loaders_exhausted.hpp
@@ -17,7 +16,6 @@ set(
 	include/sge/media/optional_extension_set.hpp
 	include/sge/media/optional_extension_set_fwd.hpp
 	include/sge/media/path_to_extension.hpp
-	include/sge/media/symbol.hpp
 	src/media/all_extensions.cpp
 	src/media/include/sge/src/media/instantiate_muxer_parameters.hpp
 	src/media/include/sge/src/media/muxer_impl.hpp
@@ -28,6 +26,10 @@ set(
 
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+sge_generate_instantiate_symbol_header(
+	media
 )
 
 add_sge_base_library(

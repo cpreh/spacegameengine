@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/maximum_substeps.hpp>
 #include <sge/projectile/rect.hpp>
 #include <sge/projectile/scalar.hpp>
-#include <sge/projectile/symbol.hpp>
 #include <sge/projectile/time_increment.hpp>
 #include <sge/projectile/triangle.hpp>
 #include <sge/projectile/vector2.hpp>

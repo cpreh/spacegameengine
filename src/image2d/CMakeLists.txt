@@ -45,7 +45,6 @@ set(
 	include/sge/image2d/rgbx8.hpp
 	include/sge/image2d/rgbx8_format.hpp
 	include/sge/image2d/save_from_view.hpp
-	include/sge/image2d/symbol.hpp
 	include/sge/image2d/system.hpp
 	include/sge/image2d/system_fwd.hpp
 	include/sge/image2d/system_ptr.hpp
@@ -112,26 +111,20 @@ set(
 	src/image2d/view/to_const.cpp
 )
 
-add_definitions(
-	"-D SGE_IMAGE_INSTANTIATE_EXPORTS"
-	"-D SGE_MEDIA_INSTANTIATE_EXPORTS"
-	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
+sge_implement_from_lib(
+	plugin
 )
 
-include_directories(
-	${CMAKE_SOURCE_DIR}/src/plugin/include
+sge_implement_from_lib(
+	media
 )
 
-include_directories(
-	${CMAKE_SOURCE_DIR}/src/image/include
+sge_implement_from_lib(
+	image
 )
 
 include_directories(
 	${CMAKE_BINARY_DIR}/src/image/include
-)
-
-include_directories(
-	${CMAKE_SOURCE_DIR}/src/media/include
 )
 
 add_sge_base_library(

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <example_main.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
@@ -41,6 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <example_main.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 awl::main::exit_code const

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <example_main.hpp>
 #include <sge/camera/duration.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/object.hpp>
@@ -182,6 +181,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/map/map10.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstdlib>
+#include <example_main.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>

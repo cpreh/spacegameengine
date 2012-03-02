@@ -38,9 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/muxing.hpp>
 #include <sge/console/muxing_fcppt_streambuf.hpp>
 #include <sge/console/muxing_narrow_streambuf.hpp>
-#include <sge/console/muxing_streambuf_decl.hpp>
+#include <sge/console/muxing_streambuf.hpp>
 #include <sge/console/muxing_streambuf_fwd.hpp>
-#include <sge/console/muxing_streambuf_impl.hpp>
 #include <sge/console/muxing_wide_streambuf.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/object_fwd.hpp>
@@ -53,7 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/sprite_parameters.hpp>
 #include <sge/console/sprite_type_choices.hpp>
-#include <sge/console/symbol.hpp>
 #include <sge/console/callback/callback.hpp>
 
 

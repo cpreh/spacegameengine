@@ -18,17 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_BITMAP_SYMBOL_HPP_INCLUDED
-#define SGE_FONT_BITMAP_SYMBOL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_INDEX_DYNAMIC_INSTANTIATE_BASIC_VIEW_HPP_INCLUDED
+#define SGE_SRC_RENDERER_INDEX_DYNAMIC_INSTANTIATE_BASIC_VIEW_HPP_INCLUDED
 
-#if defined(SGE_STATIC_LINK)
-#define SGE_FONT_BITMAP_SYMBOL
-#elif defined(sgefontbitmap_EXPORTS)
-#include <fcppt/export_symbol.hpp>
-#define SGE_FONT_BITMAP_SYMBOL FCPPT_EXPORT_SYMBOL
-#else
-#include <fcppt/import_symbol.hpp>
-#define SGE_FONT_BITMAP_SYMBOL FCPPT_IMPORT_SYMBOL
-#endif
+#include <sge/src/export_symbol.hpp>
+#include <sge/src/renderer/index/dynamic/basic_view_impl.hpp>
+
+
+#define SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_BASIC_VIEW(\
+	name\
+)\
+template \
+class \
+SGE_EXPORT_SYMBOL \
+sge::renderer::index::dynamic::basic_view<\
+	name\
+>
 
 #endif

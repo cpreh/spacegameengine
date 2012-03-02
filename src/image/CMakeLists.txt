@@ -66,7 +66,6 @@ set(
 	include/sge/image/color/rgbx8_format.hpp
 	include/sge/image/colors.hpp
 	include/sge/image/const_raw_pointer.hpp
-	include/sge/image/detail/instantiate_symbol.hpp
 	include/sge/image/difference_type.hpp
 	include/sge/image/dim.hpp
 	include/sge/image/exception.hpp
@@ -88,7 +87,6 @@ set(
 	include/sge/image/size_type.hpp
 	include/sge/image/store.hpp
 	include/sge/image/store_fwd.hpp
-	include/sge/image/symbol.hpp
 	include/sge/image/traits/box.hpp
 	include/sge/image/traits/const_view.hpp
 	include/sge/image/traits/const_view_elements.hpp
@@ -282,6 +280,10 @@ include_directories(
 
 include_directories(
 	${CMAKE_CURRENT_BINARY_DIR}/include
+)
+
+sge_generate_instantiate_symbol_header(
+	image
 )
 
 add_sge_base_library(

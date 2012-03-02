@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <example_main.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
@@ -97,6 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <example_main.hpp>
 #include <ostream>
 #include <string>
 #include <fcppt/config/external_end.hpp>

@@ -1,4 +1,4 @@
-SET(
+set(
 	SGE_LINE_DRAWER_FILES
 	include/sge/line_drawer/color.hpp
 	include/sge/line_drawer/color_format.hpp
@@ -9,7 +9,6 @@ SET(
 	include/sge/line_drawer/object_fwd.hpp
 	include/sge/line_drawer/render_to_screen.hpp
 	include/sge/line_drawer/scoped_lock.hpp
-	include/sge/line_drawer/symbol.hpp
 	src/line_drawer/include/sge/src/line_drawer/vf/color.hpp
 	src/line_drawer/include/sge/src/line_drawer/vf/format.hpp
 	src/line_drawer/include/sge/src/line_drawer/vf/part.hpp
@@ -21,11 +20,11 @@ SET(
 	src/line_drawer/scoped_lock.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	line_drawer
 	"sgeimage;sgerenderer"
 	""

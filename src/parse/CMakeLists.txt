@@ -103,7 +103,6 @@ set(
 	include/sge/parse/json/string_to_value.hpp
 	include/sge/parse/json/value.hpp
 	include/sge/parse/parse.hpp
-	include/sge/parse/symbol.hpp
 	src/parse/exception.cpp
 	src/parse/include/sge/src/parse/output/to_file.hpp
 	src/parse/include/sge/src/parse/output/to_stream.hpp

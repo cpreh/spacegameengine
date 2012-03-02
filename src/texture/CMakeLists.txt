@@ -29,6 +29,8 @@ set(
 	include/sge/texture/manager_fwd.hpp
 	include/sge/texture/no_fragmented.hpp
 	include/sge/texture/on_alloc_function.hpp
+	include/sge/texture/optional_manager_ref.hpp
+	include/sge/texture/optional_manager_ref_fwd.hpp
 	include/sge/texture/part.hpp
 	include/sge/texture/part_fragmented.hpp
 	include/sge/texture/part_fwd.hpp
@@ -37,7 +39,6 @@ set(
 	include/sge/texture/pos_type.hpp
 	include/sge/texture/rect_fragmented.hpp
 	include/sge/texture/sub_data.hpp
-	include/sge/texture/symbol.hpp
 	include/sge/texture/texture.hpp
 	src/texture/add_image.cpp
 	src/texture/area_texc.cpp

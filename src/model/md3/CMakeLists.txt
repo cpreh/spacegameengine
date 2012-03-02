@@ -20,7 +20,6 @@ set(
 	include/sge/model/md3/position.hpp
 	include/sge/model/md3/scalar.hpp
 	include/sge/model/md3/string.hpp
-	include/sge/model/md3/symbol.hpp
 	include/sge/model/md3/texcoord.hpp
 	include/sge/model/md3/texcoord_sequence.hpp
 	include/sge/model/md3/u8.hpp
@@ -82,7 +81,7 @@ include_directories(
 )
 
 add_sge_base_library(
-	modelmd3
+	"model/md3"
 	"sgecore;sgelog"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""

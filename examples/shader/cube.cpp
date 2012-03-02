@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	- font::text::draw
  */
 
-#include <example_main.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/camera/spherical/movement_speed.hpp>
@@ -177,6 +176,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cmath>
+#include <example_main.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>

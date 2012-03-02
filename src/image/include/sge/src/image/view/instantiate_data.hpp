@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/view.hpp>
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/image/view/data_impl.hpp>
-#include <fcppt/export_symbol.hpp>
 
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_DATA_BASE(\
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	pointer\
 )\
 template \
-FCPPT_EXPORT_SYMBOL \
+SGE_EXPORT_SYMBOL \
 pointer \
 sge::image::view::data<\
 	tag\

@@ -45,7 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/rotation.hpp>
 #include <sge/sprite/rotation_center.hpp>
 #include <sge/sprite/set_matrices.hpp>
-#include <sge/sprite/symbol.hpp>
 #include <sge/sprite/texture.hpp>
 #include <sge/sprite/texture_coordinates.hpp>
 #include <sge/sprite/texture_level.hpp>

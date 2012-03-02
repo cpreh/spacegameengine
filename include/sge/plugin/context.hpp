@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_CONTEXT_HPP_INCLUDED
 #define SGE_PLUGIN_CONTEXT_HPP_INCLUDED
 
+#include <sge/class_symbol.hpp>
 #include <sge/plugin/context_base_fwd.hpp>
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/object_shared_ptr.hpp>
-#include <sge/plugin/detail/instantiate_symbol.hpp>
+#include <sge/plugin/detail/instantiate/symbol.hpp>
 
 
 namespace sge
@@ -39,8 +40,9 @@ class context
 {
 public:
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	explicit context(
-		plugin::context_base &
+	explicit
+	context(
+		sge::plugin::context_base &
 	);
 
 	typedef typename sge::plugin::object_shared_ptr<
@@ -52,7 +54,7 @@ public:
 	load();
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	plugin::context_base const &
+	sge::plugin::context_base const &
 	base() const;
 private:
 	context_base *base_;

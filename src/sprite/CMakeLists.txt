@@ -334,7 +334,6 @@ set(
 	include/sge/sprite/rotation_center.hpp
 	include/sge/sprite/set_matrices.hpp
 	include/sge/sprite/sprite.hpp
-	include/sge/sprite/symbol.hpp
 	include/sge/sprite/texture.hpp
 	include/sge/sprite/texture_coordinates.hpp
 	include/sge/sprite/texture_level.hpp

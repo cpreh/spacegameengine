@@ -18,7 +18,6 @@ set(
 	include/sge/font/pos.hpp
 	include/sge/font/rect.hpp
 	include/sge/font/size_type.hpp
-	include/sge/font/symbol.hpp
 	include/sge/font/system.hpp
 	include/sge/font/system_fwd.hpp
 	include/sge/font/system_ptr.hpp
@@ -31,12 +30,8 @@ set(
 	src/font/system.cpp
 )
 
-add_definitions(
-	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
-)
-
-include_directories(
-	${CMAKE_SOURCE_DIR}/src/plugin/include
+sge_implement_from_lib(
+	plugin
 )
 
 add_sge_base_library(

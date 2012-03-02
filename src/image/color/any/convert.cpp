@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgbx8_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/src/export_symbol.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -110,7 +110,8 @@ visitor<Dest>::operator()(
 #define SGE_INSTANTIATE_COLOR_CONVERT(\
 	format\
 )\
-template FCPPT_EXPORT_SYMBOL \
+template \
+SGE_EXPORT_SYMBOL \
 sge::image::color::object<\
 	sge::image::color::format\
 >::type const \

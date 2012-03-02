@@ -22,6 +22,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_BITMAP_BITMAP_HPP_INCLUDED
 
 #include <sge/font/bitmap/create.hpp>
-#include <sge/font/bitmap/symbol.hpp>
 
 #endif

@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/renderer/index/instantiate_all.hpp>
 #include <sge/src/renderer/index/dynamic/format_enum_static.hpp>
-#include <fcppt/export_symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -44,7 +44,7 @@ sge::renderer::index::dynamic::make_format()
 	cur_format\
 )\
 template \
-FCPPT_EXPORT_SYMBOL \
+SGE_EXPORT_SYMBOL \
 sge::renderer::index::dynamic::format::type \
 sge::renderer::index::dynamic::make_format<\
 	cur_format \

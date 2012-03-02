@@ -18,15 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL_HPP_INCLUDED
-#define SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_TEXTURE_INSTANTIATE_BASIC_PARAMETERS_HPP_INCLUDED
+#define SGE_SRC_RENDERER_TEXTURE_INSTANTIATE_BASIC_PARAMETERS_HPP_INCLUDED
 
-#if defined(SGE_MEDIA_INSTANTIATE_EXPORTS)
-#include <fcppt/export_symbol.hpp>
-#define SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL FCPPT_EXPORT_SYMBOL
-#else
-#include <fcppt/import_symbol.hpp>
-#define SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL FCPPT_IMPORT_SYMBOL
-#endif
+#include <sge/src/export_symbol.hpp>
+#include <sge/src/renderer/texture/basic_parameters_impl.hpp>
+
+
+#define SGE_RENDERER_TEXTURE_INSTANTIATE_BASIC_PARAMETERS(\
+	texture_size_type,\
+	format_type\
+)\
+template \
+class \
+SGE_EXPORT_SYMBOL \
+sge::renderer::texture::basic_parameters<\
+	texture_size_type,\
+	format_type\
+>
 
 #endif

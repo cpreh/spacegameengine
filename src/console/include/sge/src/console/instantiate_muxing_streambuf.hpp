@@ -18,17 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_SYMBOL_HPP_INCLUDED
-#define SGE_FONT_SYMBOL_HPP_INCLUDED
+#ifndef SGE_SRC_CONSOLE_INSTANTIATE_MUXING_STREAMBUF_HPP_INCLUDED
+#define SGE_SRC_CONSOLE_INSTANTIATE_MUXING_STREAMBUF_HPP_INCLUDED
 
-#if defined(SGE_STATIC_LINK)
-#define SGE_FONT_SYMBOL
-#elif defined(sgefont_EXPORTS)
-#include <fcppt/export_symbol.hpp>
-#define SGE_FONT_SYMBOL FCPPT_EXPORT_SYMBOL
-#else
-#include <fcppt/import_symbol.hpp>
-#define SGE_FONT_SYMBOL FCPPT_IMPORT_SYMBOL
-#endif
+#include <sge/src/export_symbol.hpp>
+#include <sge/src/console/muxing_streambuf_impl.hpp>
+
+#define SGE_CONSOLE_INSTANTIATE_MUXING_STREAMBUF(\
+	char_type\
+)\
+template \
+class \
+SGE_EXPORT_SYMBOL \
+sge::console::muxing_streambuf<\
+	char_type\
+>
 
 #endif

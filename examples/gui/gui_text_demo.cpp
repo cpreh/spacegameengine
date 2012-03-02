@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <example_main.hpp>
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/default_keyboard.hpp>
@@ -91,6 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <elements/CEGUIEditbox.h>
 #include <elements/CEGUIFrameWindow.h>
 #include <CEGUIWindowManager.h>
+#include <example_main.hpp>
 #include <exception>
 #include <iostream>
 #include <set>

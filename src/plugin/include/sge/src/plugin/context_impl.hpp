@@ -33,7 +33,7 @@ template<
 	typename T
 >
 sge::plugin::context<T>::context(
-	context_base &_base
+	sge::plugin::context_base &_base
 )
 :
 	base_(&_base)

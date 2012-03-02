@@ -36,7 +36,6 @@ set(
 	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp
 	include/sge/systems/renderer_fwd.hpp
-	include/sge/systems/symbol.hpp
 	include/sge/systems/systems.hpp
 	include/sge/systems/window.hpp
 	include/sge/systems/window_fwd.hpp

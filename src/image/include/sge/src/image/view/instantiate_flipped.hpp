@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_INSTANTIATE_FLIPPED_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_FLIPPED_HPP_INCLUDED
 
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/image/view/flipped_impl.hpp>
 #include <sge/src/image/view/instantiate_const_nonconst.hpp>
-#include <fcppt/export_symbol.hpp>
 
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_FLIPPED_BASE(\
 	tag,\
 	view_type\
 ) \
-template FCPPT_EXPORT_SYMBOL \
+template \
+SGE_EXPORT_SYMBOL \
 sge::image::traits::view_type<\
 	tag\
 >::type const \

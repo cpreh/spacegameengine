@@ -21,38 +21,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_PLUGIN_INSTANTIATE_TYPES_HPP_INCLUDED
 #define SGE_SRC_PLUGIN_INSTANTIATE_TYPES_HPP_INCLUDED
 
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/plugin/context_impl.hpp>
 #include <sge/src/plugin/iterator_impl.hpp>
 #include <sge/src/plugin/manager_impl.hpp>
 #include <sge/src/plugin/object_impl.hpp>
-#include <fcppt/export_symbol.hpp>
 
 
 #define SGE_PLUGIN_INSTANTIATE_TYPES(\
 	plugin_type\
 )\
-template FCPPT_EXPORT_SYMBOL \
+template SGE_EXPORT_SYMBOL \
 sge::plugin::iterator<plugin_type> \
 sge::plugin::manager::begin<plugin_type>();\
 \
-template FCPPT_EXPORT_SYMBOL \
+template SGE_EXPORT_SYMBOL \
 sge::plugin::iterator<plugin_type> \
 sge::plugin::manager::end<plugin_type>();\
 \
-template FCPPT_EXPORT_SYMBOL \
+template SGE_EXPORT_SYMBOL \
 sge::plugin::context<plugin_type> \
 sge::plugin::manager::plugin<plugin_type>(\
 	sge::plugin::manager::size_type\
 );\
 \
-template FCPPT_EXPORT_SYMBOL \
+template SGE_EXPORT_SYMBOL \
 sge::plugin::manager::size_type \
 sge::plugin::manager::size<plugin_type>() const;\
 \
-template FCPPT_EXPORT_SYMBOL class sge::plugin::iterator<plugin_type>;\
+template \
+class \
+SGE_EXPORT_SYMBOL \
+sge::plugin::iterator<plugin_type>;\
 \
-template FCPPT_EXPORT_SYMBOL class sge::plugin::object<plugin_type>;\
+template \
+class \
+SGE_EXPORT_SYMBOL \
+sge::plugin::object<plugin_type>;\
 \
-template FCPPT_EXPORT_SYMBOL class sge::plugin::context<plugin_type>;
+template \
+class \
+SGE_EXPORT_SYMBOL \
+sge::plugin::context<plugin_type>;
 
 #endif

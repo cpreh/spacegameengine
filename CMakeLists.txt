@@ -15,6 +15,14 @@ include(
 	FcpptCMakeUtils
 )
 
+include(
+	FcpptSymbol
+)
+
+include(
+	SGEFunctions
+)
+
 # Put libraries and exe files in the same directory
 # because Windows lacks 'rpath'
 if(
@@ -56,60 +64,6 @@ if(
 		TRUE
 	)
 endif()
-
-function(
-	sge_set_static_flags
-	TARGETNAME
-)
-	set_target_properties(
-		${TARGETNAME}
-		PROPERTIES
-		COMPILE_DEFINITIONS
-		"SGE_STATIC_LINK"
-	)
-endfunction()
-
-macro(
-	sge_link_target
-	LIBNAME
-)
-	if(
-		SGE_DEFAULT_LINK_STATIC
-	)
-		set(
-			${LIBNAME}_TARGET
-			${LIBNAME}_static
-		)
-	else()
-		set(
-			${LIBNAME}_TARGET
-			${LIBNAME}
-		)
-	endif()
-endmacro()
-
-macro(
-	transform_sge_link_targets
-	SGELIBS
-)
-	unset(
-		SGELIBS_TARGETS_RESULT
-	)
-
-	foreach(
-		CURLIB
-		${SGELIBS}
-	)
-		sge_link_target(
-			${CURLIB}
-		)
-
-		set(
-			SGELIBS_TARGETS_RESULT
-			"${SGELIBS_TARGETS_RESULT};${${CURLIB}_TARGET}"
-		)
-	endforeach()
-endmacro()
 
 include_directories(
 	${CMAKE_SOURCE_DIR}/include
@@ -193,6 +147,10 @@ set(
 set(
 	PLUGIN_INSTALL_DIR
 	"${INSTALL_PLUGIN_DIR_BASE}/${CMAKE_PROJECT_NAME}"
+)
+
+include_directories(
+	"${CMAKE_BINARY_DIR}/include"
 )
 
 add_subdirectory(

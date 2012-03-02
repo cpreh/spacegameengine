@@ -23,15 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image/traits/view.hpp>
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/image/algorithm/fill_impl.hpp>
-#include <fcppt/export_symbol.hpp>
 
 
 #define SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_FILL(\
 	tag\
 )\
 template \
-FCPPT_EXPORT_SYMBOL \
+SGE_EXPORT_SYMBOL \
 void \
 sge::image::algorithm::fill< \
 	tag \

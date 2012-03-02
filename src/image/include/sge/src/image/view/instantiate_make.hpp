@@ -26,15 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/dim.hpp>
 #include <sge/image/traits/optional_pitch.hpp>
 #include <sge/image/traits/view.hpp>
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/image/view/make_impl.hpp>
-#include <fcppt/export_symbol.hpp>
 
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_MAKE(\
 	tag\
 )\
 template \
-FCPPT_EXPORT_SYMBOL \
+SGE_EXPORT_SYMBOL \
 sge::image::traits::view<\
 	tag\
 >::type const \

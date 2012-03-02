@@ -21,15 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT_HPP_INCLUDED
 
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/image/view/const_object_impl.hpp>
-#include <fcppt/export_symbol.hpp>
 
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT(\
 	wrapper,\
 	nonconstwrapper\
 )\
-template FCPPT_EXPORT_SYMBOL class \
+template \
+class \
+SGE_EXPORT_SYMBOL \
 sge::image::view::const_object<\
 	wrapper,\
 	nonconstwrapper\

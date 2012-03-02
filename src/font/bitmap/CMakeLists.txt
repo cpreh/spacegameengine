@@ -2,7 +2,6 @@ set(
 	SGE_FONTBITMAP_FILES
 	include/sge/font/bitmap/bitmap.hpp
 	include/sge/font/bitmap/create.hpp
-	include/sge/font/bitmap/symbol.hpp
 	src/font/bitmap/char_metric.cpp
 	src/font/bitmap/create.cpp
 	src/font/bitmap/include/sge/src/font/bitmap/char_map.hpp
@@ -22,7 +21,7 @@ include_directories(
 )
 
 add_sge_base_library(
-	fontbitmap
+	"font/bitmap"
 	"sgecore;sgefont;sgeimage2d;sgelog;sgeparse"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""

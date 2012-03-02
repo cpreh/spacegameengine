@@ -339,7 +339,6 @@ set(
 	include/sge/renderer/state/var.hpp
 	include/sge/renderer/state/var_fwd.hpp
 	include/sge/renderer/surface_index.hpp
-	include/sge/renderer/symbol.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
 	include/sge/renderer/system_ptr.hpp
@@ -604,7 +603,9 @@ set(
 	src/renderer/include/sge/src/renderer/basic_scoped_buffer_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/const_basic_scoped_buffer_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/glsl/uniform/basic_value_impl.hpp
+	src/renderer/include/sge/src/renderer/index/dynamic/basic_view_impl.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/format_enum_static.hpp
+	src/renderer/include/sge/src/renderer/index/dynamic/instantiate_basic_view.hpp
 	src/renderer/include/sge/src/renderer/index/instantiate_all.hpp
 	src/renderer/include/sge/src/renderer/instantiate_float.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near.hpp
@@ -633,10 +634,11 @@ set(
 	src/renderer/include/sge/src/renderer/vf/dynamic/detail/lock_interval.hpp
 	src/renderer/include/sge/src/renderer/vf/dynamic/detail/locked_part_interval.hpp
 	src/renderer/index/any/make_view.cpp
-	src/renderer/index/dynamic/basic_view.cpp
+	src/renderer/index/dynamic/const_view.cpp
 	src/renderer/index/dynamic/format_stride.cpp
 	src/renderer/index/dynamic/make_const_view.cpp
 	src/renderer/index/dynamic/make_format.cpp
+	src/renderer/index/dynamic/view.cpp
 	src/renderer/index/view.cpp
 	src/renderer/index_buffer.cpp
 	src/renderer/indices_per_primitive.cpp
@@ -769,16 +771,12 @@ set(
 	src/renderer/viewport_size.cpp
 )
 
-add_definitions(
-	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
-)
-
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-include_directories(
-	${CMAKE_SOURCE_DIR}/src/plugin/include
+sge_implement_from_lib(
+	plugin
 )
 
 add_sge_base_library(

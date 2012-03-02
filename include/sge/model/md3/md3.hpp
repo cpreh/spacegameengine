@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/position.hpp>
 #include <sge/model/md3/scalar.hpp>
 #include <sge/model/md3/string.hpp>
-#include <sge/model/md3/symbol.hpp>
 #include <sge/model/md3/texcoord.hpp>
 #include <sge/model/md3/texcoord_sequence.hpp>
 #include <sge/model/md3/u8.hpp>

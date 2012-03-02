@@ -19,7 +19,6 @@ set(
 	include/sge/charconv/raw_value.hpp
 	include/sge/charconv/source_encoding.hpp
 	include/sge/charconv/string_type.hpp
-	include/sge/charconv/symbol.hpp
 	include/sge/charconv/system.hpp
 	include/sge/charconv/system_fwd.hpp
 	include/sge/charconv/system_ptr.hpp
@@ -33,13 +32,8 @@ set(
 	src/charconv/unsupported_conversion.cpp
 )
 
-add_definitions(
-	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
-)
-
-
-include_directories(
-	${CMAKE_SOURCE_DIR}/src/plugin/include
+sge_implement_from_lib(
+	plugin
 )
 
 add_sge_base_library(

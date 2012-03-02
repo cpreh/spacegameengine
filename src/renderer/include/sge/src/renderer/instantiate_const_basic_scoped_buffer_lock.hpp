@@ -18,17 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SHADER_SYMBOL_HPP_INCLUDED
-#define SGE_SHADER_SYMBOL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_INSTANTIATE_CONST_BASIC_SCOPED_BUFFER_LOCK_HPP_INCLUDED
+#define SGE_SRC_RENDERER_INSTANTIATE_CONST_BASIC_SCOPED_BUFFER_LOCK_HPP_INCLUDED
 
-#if defined(SGE_STATIC_LINK)
-#define SGE_SHADER_SYMBOL
-#elif defined(sgeshader_EXPORTS)
-#include <fcppt/export_symbol.hpp>
-#define SGE_SHADER_SYMBOL FCPPT_EXPORT_SYMBOL
-#else
-#include <fcppt/import_symbol.hpp>
-#define SGE_SHADER_SYMBOL FCPPT_IMPORT_SYMBOL
-#endif
+#include <sge/src/export_symbol.hpp>
+#include <sge/src/renderer/const_basic_scoped_buffer_lock_impl.hpp>
+
+#define SGE_RENDERER_INSTANTIATE_CONST_BASIC_SCOPED_BUFFER_LOCK(\
+	buffer_type,\
+	types_struct\
+)\
+template \
+class \
+SGE_EXPORT_SYMBOL \
+sge::renderer::const_basic_scoped_buffer_lock< \
+	buffer_type,\
+	types_struct\
+>
 
 #endif

@@ -220,7 +220,6 @@ set(
 	include/sge/input/processor.hpp
 	include/sge/input/processor_fwd.hpp
 	include/sge/input/processor_ptr.hpp
-	include/sge/input/symbol.hpp
 	include/sge/input/system.hpp
 	include/sge/input/system_fwd.hpp
 	include/sge/input/system_ptr.hpp
@@ -295,16 +294,12 @@ set(
 	src/input/system.cpp
 )
 
-add_definitions(
-	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
-)
-
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-include_directories(
-	${CMAKE_SOURCE_DIR}/src/plugin/include
+sge_implement_from_lib(
+	plugin
 )
 
 add_sge_base_library(

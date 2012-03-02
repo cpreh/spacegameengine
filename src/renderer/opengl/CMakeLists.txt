@@ -15,7 +15,6 @@ set(
 	include/sge/renderer/opengl/buffer/id.hpp
 	include/sge/renderer/opengl/glinclude.hpp
 	include/sge/renderer/opengl/opengl.hpp
-	include/sge/renderer/opengl/symbol.hpp
 	include/sge/renderer/opengl/texture/base.hpp
 	include/sge/renderer/opengl/texture/base_fwd.hpp
 	include/sge/renderer/opengl/texture/base_ptr.hpp
@@ -27,7 +26,7 @@ set(
 )
 
 add_sge_base_library(
-	rendereropengl
+	"renderer/opengl"
 	""
 	"${OPENGL_gl_LIBRARY}"
 	""

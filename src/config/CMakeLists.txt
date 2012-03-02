@@ -6,21 +6,21 @@ include_directories(
 	${CMAKE_BINARY_DIR}/include
 )
 
-SGE_CONFIG_ADD_CUSTOM_PATH(
+sge_config_add_custom_path(
 	sge
 	media
 	${SGE_MEDIA_BUILD_PATH}
 	${SGE_MEDIA_INSTALL_PATH}
 )
 
-SGE_CONFIG_ADD_CUSTOM_PATH(
+sge_config_add_custom_path(
 	sge
 	plugin
 	${SGE_PLUGIN_BUILD_PATH}
 	${SGE_PLUGIN_INSTALL_PATH}
 )
 
-SET(
+set(
 	SGE_CONFIG_FILES
 	include/sge/config/app_path.hpp
 	include/sge/config/cache_path.hpp
@@ -34,7 +34,6 @@ SET(
 	include/sge/config/no_such_env_var.hpp
 	include/sge/config/optional_string.hpp
 	include/sge/config/plugin_path.hpp
-	include/sge/config/symbol.hpp
 	src/config/app_path.cpp
 	src/config/cache_path.cpp
 	src/config/config_path.cpp
@@ -49,11 +48,11 @@ SET(
 	src/config/try_create_path.cpp
 )
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-ADD_SGE_BASE_LIBRARY(
+add_sge_base_library(
 	config
 	"sgecore"
 	"${Fcppt_filesystem_LIBRARIES}"

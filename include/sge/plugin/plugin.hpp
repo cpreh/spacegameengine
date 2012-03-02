@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/object_fwd.hpp>
 #include <sge/plugin/object_shared_ptr.hpp>
-#include <sge/plugin/symbol.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/library.hpp>
 

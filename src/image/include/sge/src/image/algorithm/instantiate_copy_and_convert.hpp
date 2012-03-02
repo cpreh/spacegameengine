@@ -24,15 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/view.hpp>
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/image/algorithm/copy_and_convert_impl.hpp>
-#include <fcppt/export_symbol.hpp>
 
 
 #define SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_COPY_AND_CONVERT(\
 	tag\
 )\
 template \
-FCPPT_EXPORT_SYMBOL \
+SGE_EXPORT_SYMBOL \
 void \
 sge::image::algorithm::copy_and_convert< \
 	tag \

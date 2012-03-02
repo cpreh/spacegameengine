@@ -18,6 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_SRC_RENDERER_INDEX_DYNAMIC_BASIC_VIEW_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_INDEX_DYNAMIC_BASIC_VIEW_IMPL_HPP_INCLUDED
+
+
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/index/dynamic/basic_view.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
@@ -65,13 +69,4 @@ sge::renderer::index::dynamic::basic_view<IsConst>::format() const
 	return format_;
 }
 
-#define SGE_RENDERER_INDEX_DYNAMIC_DEFINE_BASIC_VIEW(x)\
-template FCPPT_EXPORT_SYMBOL \
-class sge::renderer::index::dynamic::basic_view<\
-	x\
->;
-
-SGE_RENDERER_INDEX_DYNAMIC_DEFINE_BASIC_VIEW(true)
-SGE_RENDERER_INDEX_DYNAMIC_DEFINE_BASIC_VIEW(false)
-
-#undef SGE_RENDERER_INDEX_DYNAMIC_DEFINE_BASIC_VIEW
+#endif

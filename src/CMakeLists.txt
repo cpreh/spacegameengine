@@ -4,7 +4,6 @@ set(
 	include/sge/error/check_state.hpp
 	include/sge/error/error.hpp
 	include/sge/exception.hpp
-	include/sge/symbol.hpp
 	include/sge/timer/basic.hpp
 	include/sge/timer/basic_decl.hpp
 	include/sge/timer/basic_fwd.hpp
@@ -80,232 +79,6 @@ install(
 	${INSTALL_INCLUDE_DIR}
 )
 
-function(
-	check_library_deps
-	LIB_NAME
-	ADDITONAL_DEPS
-)
-	foreach(
-		DEPENDENCY
-		${ADDITONAL_DEPS}
-	)
-		string(
-			REPLACE
-			"sge"
-			""
-			SUFFIX
-			${DEPENDENCY}
-		)
-
-		string(
-			TOUPPER
-			${SUFFIX}
-			UPPER_SUFFIX
-		)
-
-		if(
-			NOT ${UPPER_SUFFIX} STREQUAL "CORE"
-			AND NOT ENABLE_${UPPER_SUFFIX}
-		)
-			message(
-				FATAL_ERROR
-				"For ${LIB_NAME} to work you need to -D ENABLE_${UPPER_SUFFIX}=ON!"
-			)
-		endif()
-	endforeach()
-endfunction()
-
-macro(
-	path_difference
-	OUTPUT
-	OUTER_PATH
-	INNER_PATH
-)
-	unset(
-		${OUTPUT}
-	)
-
-	if(
-		${${PATH_DIFFERENCE}}
-	)
-		unset(
-			${PATH_DIFFERENCE}
-		)
-	endif()
-
-	set(
-		TEMP_INNER_PATH
-		${INNER_PATH}
-	)
-
-	while(
-		NOT ${TEMP_INNER_PATH} STREQUAL ${OUTER_PATH}
-	)
-		get_filename_component(
-			PATH_COMPONENT
-			${TEMP_INNER_PATH}
-			NAME
-		)
-
-		set(
-			${OUTPUT}
-			"${PATH_COMPONENT}/${${OUTPUT}}"
-		)
-
-		get_filename_component(
-			TEMP_INNER_PATH
-			${TEMP_INNER_PATH}
-			PATH
-		)
-	endwhile()
-endmacro()
-
-function(
-	add_sge_base_library_variant
-	SGE_LIB_NAME
-	SGE_LIB_FILES
-	SGE_DEPS
-	ADDITIONAL_DEPS
-	TRANSITIVE_SGE_DEPS
-	TRANSITIVE_ADDITIONAL_DEPS
-	VARIANT
-)
-	if(
-		${VARIANT} STREQUAL "STATIC"
-	)
-		set(
-			SGE_LIB_NAME
-			"${SGE_LIB_NAME}_static"
-		)
-	endif()
-
-	add_library(
-		${SGE_LIB_NAME}
-		${VARIANT}
-		${SGE_LIB_FILES}
-	)
-
-	if(
-		${VARIANT} STREQUAL "STATIC"
-	)
-		sge_set_static_flags(
-			${SGE_LIB_NAME}
-		)
-	endif()
-
-	transform_sge_link_targets(
-		"${SGE_DEPS}"
-	)
-
-	target_link_libraries(
-		${SGE_LIB_NAME}
-		${ADDITIONAL_DEPS}
-		${SGELIBS_TARGETS_RESULT}
-	)
-
-	set_target_properties(
-		${SGE_LIB_NAME}
-		PROPERTIES
-		LINK_INTERFACE_LIBRARIES
-		""
-	)
-
-	target_link_libraries(
-		${SGE_LIB_NAME}
-		LINK_INTERFACE_LIBRARIES
-		${TRANSITIVE_SGE_DEPS}
-		${TRANSITIVE_ADDITIONAL_DEPS}
-	)
-
-	install(
-		TARGETS
-		${SGE_LIB_NAME}
-		DESTINATION
-		${INSTALL_LIBRARY_DIR}
-	)
-endfunction()
-
-function(
-	add_sge_base_library
-	LIB_NAME
-	SGE_DEPS
-	ADDITIONAL_DEPS
-	TRANSITIVE_SGE_DEPS
-	TRANSITIVE_ADDITIONAL_DEPS
-)
-	set(
-		SGE_LIB_NAME
-		sge${LIB_NAME}
-	)
-
-	string(
-		TOUPPER
-		${LIB_NAME}
-		UPPER_LIB_NAME
-	)
-
-	FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-		"${SGE_${UPPER_LIB_NAME}_FILES}"
-		SGE_${UPPER_LIB_NAME}_FILES_ABS
-	)
-
-	set(
-		SGE_LIB_FILES
-		${SGE_${UPPER_LIB_NAME}_FILES_ABS}
-	)
-
-	if(
-		ENABLE_SHARED
-	)
-		add_sge_base_library_variant(
-			${SGE_LIB_NAME}
-			"${SGE_LIB_FILES}"
-			"${SGE_DEPS}"
-			"${ADDITIONAL_DEPS}"
-			"${TRANSITIVE_SGE_DEPS}"
-			"${TRANSITIVE_ADDITIONAL_DEPS}"
-			SHARED
-		)
-	endif()
-
-	if(
-		ENABLE_STATIC
-	)
-		add_sge_base_library_variant(
-			${SGE_LIB_NAME}
-			"${SGE_LIB_FILES}"
-			"${SGE_DEPS}"
-			"${ADDITIONAL_DEPS}"
-			"${TRANSITIVE_SGE_DEPS}"
-			"${TRANSITIVE_ADDITIONAL_DEPS}"
-			STATIC
-		)
-	endif()
-
-	check_library_deps(
-		"${LIB_NAME}"
-		"${SGE_DEPS}"
-	)
-
-	check_library_deps(
-		"${LIB_NAME}"
-		"${TRANSITIVE_SGE_DEPS}"
-	)
-
-	path_difference(
-		LIB_INCLUDE_PATH
-		${CMAKE_SOURCE_DIR}/src
-		${CMAKE_CURRENT_SOURCE_DIR}
-	)
-
-	install(
-		DIRECTORY
-		${CMAKE_SOURCE_DIR}/include/sge/${LIB_INCLUDE_PATH}
-		DESTINATION
-		${INSTALL_INCLUDE_DIR}/sge/${LIB_INCLUDE_PATH}
-	)
-endfunction()
-
 # configure some resource paths
 set(
 	SGE_PLUGIN_BUILD_PATH
@@ -327,32 +100,23 @@ set(
 	"${MEDIA_INSTALL_DIR}"
 )
 
-function(
-	add_sge_core_lib
-	VARIANT
+include_directories(
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
-	set(
-		SGE_CORE_FILES
-		"${SGE_CORE_INCLUDE_FILES_ABS};${SGE_CORE_SRC_FILES_ABS}"
-	)
 
-	add_sge_base_library_variant(
-		sgecore
-		"${SGE_CORE_FILES}"
-		""
-		"${Fcppt_core_LIBRARIES}"
-		""
-		""
-		${VARIANT}
-	)
-endfunction()
+sge_generate_symbol_header(
+	"sgecore"
+	"SGE"
+	"sge"
+)
 
-FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+
+fcppt_utils_append_source_dir_and_make_groups(
 	"${SGE_CORE_INCLUDE_FILES}"
 	SGE_CORE_INCLUDE_FILES_ABS
 )
 
-FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+fcppt_utils_append_source_dir_and_make_groups(
 	"${SGE_CORE_SRC_FILES}"
 	SGE_CORE_SRC_FILES_ABS
 )

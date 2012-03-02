@@ -12,7 +12,6 @@ set(
 	include/sge/window/parameters_fwd.hpp
 	include/sge/window/size_hints.hpp
 	include/sge/window/size_hints_fwd.hpp
-	include/sge/window/symbol.hpp
 	include/sge/window/system.hpp
 	include/sge/window/system_fwd.hpp
 	include/sge/window/title.hpp

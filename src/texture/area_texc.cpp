@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/src/export_symbol.hpp>
 #include <sge/src/renderer/instantiate_float.hpp>
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/part.hpp>
-#include <fcppt/export_symbol.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -117,7 +117,7 @@ sge::texture::area_texc(
 	ftype\
 )\
 template \
-FCPPT_EXPORT_SYMBOL \
+SGE_EXPORT_SYMBOL \
 boost::enable_if< \
 	boost::is_floating_point< \
 		ftype \

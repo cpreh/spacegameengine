@@ -54,7 +54,6 @@ set(
 	include/sge/audio/sound/positional_ptr.hpp
 	include/sge/audio/sound/repeat.hpp
 	include/sge/audio/sound/sound.hpp
-	include/sge/audio/symbol.hpp
 	include/sge/audio/unsupported_format.hpp
 	include/sge/audio/vector.hpp
 	src/audio/bad_sound_alloc.cpp
@@ -77,17 +76,12 @@ set(
 	src/audio/unsupported_format.cpp
 )
 
-add_definitions(
-	"-D SGE_MEDIA_INSTANTIATE_EXPORTS"
-	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
+sge_implement_from_lib(
+	plugin
 )
 
-include_directories(
-	${CMAKE_SOURCE_DIR}/src/plugin/include
-)
-
-include_directories(
-	${CMAKE_SOURCE_DIR}/src/media/include
+sge_implement_from_lib(
+	media
 )
 
 add_sge_base_library(

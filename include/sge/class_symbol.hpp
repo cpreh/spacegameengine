@@ -21,8 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CLASS_SYMBOL_HPP_INCLUDED
 #define SGE_CLASS_SYMBOL_HPP_INCLUDED
 
-#include <fcppt/class_symbol.hpp>
-
-#define SGE_CLASS_SYMBOL FCPPT_CLASS_SYMBOL
+#if defined(SGE_STATIC_LINK)
+#	define SGE_CLASS_SYMBOL
+#else
+#	include <fcppt/class_symbol.hpp>
+#	define SGE_CLASS_SYMBOL FCPPT_CLASS_SYMBOL
+#endif
 
 #endif

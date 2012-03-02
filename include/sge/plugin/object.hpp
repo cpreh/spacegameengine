@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/base.hpp>
 #include <sge/plugin/object_fwd.hpp>
 #include <sge/plugin/object_shared_ptr.hpp>
-#include <sge/plugin/detail/instantiate_symbol.hpp>
 #include <sge/plugin/detail/traits.hpp>
+#include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
