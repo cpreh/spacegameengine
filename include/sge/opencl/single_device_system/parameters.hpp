@@ -56,7 +56,8 @@ public:
 
 	SGE_OPENCL_SYMBOL
 	parameters &
-	prefer_gpu();
+	prefer_gpu(
+		bool);
 
 	SGE_OPENCL_SYMBOL
 	opencl::optional_renderer const &

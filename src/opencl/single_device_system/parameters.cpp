@@ -59,10 +59,11 @@ sge::opencl::single_device_system::parameters::context_error_callback(
 }
 
 sge::opencl::single_device_system::parameters &
-sge::opencl::single_device_system::parameters::prefer_gpu()
+sge::opencl::single_device_system::parameters::prefer_gpu(
+	bool const _prefers_gpu)
 {
 	prefers_gpu_ =
-		true;
+		_prefers_gpu;
 	return *this;
 }
 

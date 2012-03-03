@@ -71,19 +71,23 @@ try
 			std::tr1::placeholders::_1,
 			fcppt::log::level::verbose));
 
-	if(argc != 2)
+	if(argc < 2)
 	{
 		fcppt::io::cerr()
 			<< FCPPT_TEXT("This program loads and builds a program. It outputs the syntax errors encountered.\n\n")
 			<< FCPPT_TEXT("Usage: ")
 			<< fcppt::from_std_string(argv[0])
-			<< FCPPT_TEXT(" <cl-file-name>\n");
+			<< FCPPT_TEXT(" <cl-file-name> <additional-parameters>\n");
 		return EXIT_FAILURE;
 	}
 
 	fcppt::filesystem::path const target_file_name(
 		fcppt::from_std_string(
 			argv[1]));
+
+	std::string additional_parameters;
+	for(int i = 2; i < argc; ++i)
+		additional_parameters += " "+std::string(argv[i]);
 
 	// Mind the extra parens
 	sge::opencl::single_device_system::object opencl_system(
@@ -99,19 +103,12 @@ try
 
 	try
 	{
+		fcppt::io::cout() << FCPPT_TEXT("Compiling ") << fcppt::filesystem::path_to_string(target_file_name) << FCPPT_TEXT("...") << std::endl;
 		main_program.build(
 			sge::opencl::program::build_parameters()
 				.options(
-					std::string("-Werror -I")+
-					fcppt::to_std_string(
-						fcppt::filesystem::path_to_string(
-							fcppt::filesystem::remove_filename(
-								target_file_name)))
-					// Depending on the implementation,
-					// this might throw an error. TODO:
-					// Find a way to abstract this away.
-					+" -cl-nv-verbose")
-				);
+					additional_parameters));
+		fcppt::io::cout() << FCPPT_TEXT("Done, 0 errors!\n");
 	}
 	catch(sge::opencl::program::build_error const &e)
 	{
