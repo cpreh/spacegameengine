@@ -293,12 +293,18 @@ function(
 		"${TRANSITIVE_SGE_DEPS}"
 	)
 
+	get_filename_component(
+		DEST_INCLUDE_PATH
+		${RELATIVE_PATH}
+		PATH
+	)
+
 	install(
 		DIRECTORY
 		${CMAKE_SOURCE_DIR}/include/sge/${RELATIVE_PATH}
 		${CMAKE_BINARY_DIR}/include/sge/${RELATIVE_PATH}
 		DESTINATION
-		${INSTALL_INCLUDE_DIR}/sge/${RELATIVE_PATH}
+		${INSTALL_INCLUDE_DIR}/sge/${DEST_INCLUDE_PATH}
 	)
 endfunction()
 

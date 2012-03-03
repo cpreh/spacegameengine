@@ -79,6 +79,13 @@ install(
 	${INSTALL_INCLUDE_DIR}
 )
 
+install(
+	FILES
+	${CMAKE_BINARY_DIR}/include/sge/symbol.hpp
+	DESTINATION
+	${INSTALL_INCLUDE_DIR}/sge
+)
+
 # configure some resource paths
 set(
 	SGE_PLUGIN_BUILD_PATH
