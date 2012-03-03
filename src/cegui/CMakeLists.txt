@@ -1,4 +1,5 @@
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	"${CEGUI_INCLUDE_DIRS}"
 )
 

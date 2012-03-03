@@ -69,6 +69,7 @@ include_directories(
 )
 
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${DINPUT_INCLUDE_DIR}
 )
 

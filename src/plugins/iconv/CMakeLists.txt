@@ -15,6 +15,7 @@ include_directories(
 )
 
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${ICONV_INCLUDE_DIRS}
 )
 

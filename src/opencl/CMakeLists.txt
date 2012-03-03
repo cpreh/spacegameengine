@@ -144,6 +144,7 @@ add_definitions(
 )
 
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${OPENCL_INCLUDE_DIRS}
 )
 
@@ -152,6 +153,7 @@ find_package(
 )
 
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${OPENGL_INCLUDE_DIR}
 )
 

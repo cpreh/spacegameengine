@@ -13,10 +13,12 @@ include_directories(
 )
 
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${VORBIS_INCLUDE_DIR}
 )
 
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${OGG_INCLUDE_DIR}
 )
 

@@ -74,6 +74,7 @@ find_package(
 )
 
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${Boost_INCLUDE_DIRS}
 )
 

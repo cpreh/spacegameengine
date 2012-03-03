@@ -3,6 +3,7 @@ remove_definitions(
 )
 
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${OPENGL_INCLUDE_DIR}
 )
 

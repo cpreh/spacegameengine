@@ -192,15 +192,17 @@ include_directories(
 )
 
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${X11_X11_INCLUDE_PATH}
 )
 
 include_directories(
-	${CMAKE_CURRENT_BINARY_DIR}/include
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
+	${X11_Xinput_INCLUDE_PATH}
 )
 
 include_directories(
-	${X11_Xinput_INCLUDE_PATH}
+	${CMAKE_CURRENT_BINARY_DIR}/include
 )
 
 add_definitions(

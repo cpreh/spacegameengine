@@ -437,6 +437,7 @@ include_directories(
 )
 
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${D3D9_INCLUDE_DIRS}
 )
 

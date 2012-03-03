@@ -802,6 +802,7 @@ if(
 	)
 
 	include_directories(
+		${FCPPT_UTILS_INCLUDE_SYSTEM}
 		${X11_X11_INCLUDE}
 	)
 
@@ -826,6 +827,7 @@ if(
 		)
 
 		include_directories(
+			${FCPPT_UTILS_INCLUDE_SYSTEM}
 			${X11_xf86vmode_INCLUDE_PATH}
 		)
 
@@ -861,6 +863,7 @@ if(
 		)
 
 		include_directories(
+			${FCPPT_UTILS_INCLUDE_SYSTEM}
 			${X11_Xrandr_INCLUDE_PATH}
 		)
 
@@ -906,10 +909,12 @@ include_directories(
 )
 
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${OPENGL_INCLUDE_DIR}
 )
 
 include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${GLEW_INCLUDE_DIRS}
 )
 
