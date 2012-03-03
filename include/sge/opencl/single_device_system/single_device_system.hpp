@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_SINGLE_DEVICE_SYSTEM_SINGLE_DEVICE_SYSTEM_HPP_INCLUDED
 
 #include <sge/opencl/single_device_system/object.hpp>
+#include <sge/opencl/single_device_system/object_fwd.hpp>
 #include <sge/opencl/single_device_system/parameters.hpp>
 #include <sge/opencl/single_device_system/parameters_fwd.hpp>
 
