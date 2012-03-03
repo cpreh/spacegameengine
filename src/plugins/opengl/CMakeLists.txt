@@ -922,6 +922,10 @@ add_definitions(
 )
 
 add_definitions(
+	"-D GLEW_NO_GLU"
+)
+
+add_definitions(
 	${Awl_DEFINITIONS}
 )
 
