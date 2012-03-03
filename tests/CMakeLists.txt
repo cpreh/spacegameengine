@@ -76,6 +76,12 @@ function(
 endfunction()
 
 add_sge_test(
+	alda/simple
+	""
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_test(
 	charconv/main
 	"sgecharconv;sgeconfig;sgeplugin"
 	""
