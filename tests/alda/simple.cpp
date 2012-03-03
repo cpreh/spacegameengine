@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/exception_impl.hpp>
 #include <alda/type_enum.hpp>
 #include <alda/bindings/fundamental.hpp>
+#include <alda/call/concrete_impl.hpp> // TODO: instantiate this
+#include <alda/call/object_impl.hpp>
 #include <alda/message/base_decl.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/message/instantiate.hpp>
@@ -36,8 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -64,7 +68,6 @@ typedef alda::type_enum<
 	message_type::type,
 	message_type::size
 > type_enum;
-
 
 typedef alda::message::base<
 	type_enum
@@ -157,6 +160,45 @@ ALDA_MESSAGE_INSTANTIATE(
 );
 */
 
+namespace
+{
+
+struct dispatcher_function
+{
+public:
+	typedef void result_type;
+
+	result_type
+	operator()(
+		message1 const &_msg
+	) const
+	{
+		fcppt::io::cout()
+			<< FCPPT_TEXT("Received message\n");
+
+		BOOST_CHECK(
+			_msg.get<
+				uint16_type
+			>()
+			==
+			static_cast<
+				boost::uint16_t
+			>(
+				1337
+			)
+		);
+	}
+
+	result_type
+	default_function(
+		message_base const &
+	)
+	{
+	}
+};
+
+}
+
 BOOST_AUTO_TEST_CASE(
 	alda_simple
 )
@@ -198,6 +240,30 @@ BOOST_AUTO_TEST_CASE(
 		BOOST_CHECK(
 			result->type()
 			== message_type::message1
+		);
+
+		typedef alda::call::object<
+			type_enum,
+			boost::mpl::vector1<
+				message1
+			>,
+			dispatcher_function
+		> dispatcher;
+
+		dispatcher const dispatcher_object;
+
+		dispatcher_function receiver;
+
+		dispatcher_object(
+			*result,
+			receiver,
+			dispatcher::default_function(
+				std::tr1::bind(
+					&dispatcher_function::default_function,
+					&receiver,
+					std::tr1::placeholders::_1
+				)
+			)
 		);
 	}
 	catch(

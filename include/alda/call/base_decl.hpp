@@ -48,12 +48,12 @@ public:
 
 	typedef alda::message::base<
 		TypeEnum
-	> message_base;
+	> message_type;
 
 	virtual typename Callee::result_type
 	call(
 		Callee &,
-		message_base const &
+		message_type const &
 	) const = 0;
 };
 

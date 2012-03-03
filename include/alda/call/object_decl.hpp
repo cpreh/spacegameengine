@@ -50,10 +50,12 @@ class object
 	typedef typename Callee::result_type result_type;
 
 	typedef alda::call::base<
+		TypeEnum,
 		Callee
 	> base;
 public:
 	typedef typename alda::call::default_function<
+		TypeEnum,
 		result_type
 	>::type default_function;
 

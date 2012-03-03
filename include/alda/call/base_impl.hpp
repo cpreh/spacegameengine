@@ -28,7 +28,7 @@ template<
 	typename TypeEnum,
 	typename Callee
 >
-alda::call::call::base<
+alda::call::base<
 	TypeEnum,
 	Callee
 >::base()
@@ -39,7 +39,7 @@ template<
 	typename TypeEnum,
 	typename Callee
 >
-alda::call::call::base<
+alda::call::base<
 	TypeEnum,
 	Callee
 >::~base()

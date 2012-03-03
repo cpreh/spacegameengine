@@ -53,7 +53,7 @@ class concrete
 		Callee
 	> base_type;
 public:
-	typedef typename base::message_type message_type;
+	typedef typename base_type::message_type message_type;
 
 	concrete();
 

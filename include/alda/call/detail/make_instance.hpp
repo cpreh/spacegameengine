@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_CALL_DETAIL_MAKE_INSTANCE_HPP_INCLUDED
 
 #include <alda/call/concrete_decl.hpp>
-#include <alda/message/extract_id.hpp>
+#include <alda/message/detail/extract_id.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/container/ptr/replace_unique_ptr.hpp>
@@ -65,14 +65,15 @@ public:
 	{
 		fcppt::container::ptr::replace_unique_ptr(
 			instances_,
-			alda::message::extract_id<
-				typename Msg::types
+			alda::message::detail::extract_id<
+				typename Message::types
 			>::type::value,
 			fcppt::make_unique_ptr<
-				awl::call::concrete<
-				EnumType,
-				Callee,
-				Message
+				alda::call::concrete<
+					TypeEnum,
+					Callee,
+					Message
+				>
 			>()
 		);
 	}

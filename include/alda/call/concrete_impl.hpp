@@ -75,6 +75,7 @@ alda::call::concrete<
 			// TODO: static_cast
 			dynamic_cast<
 				alda::message::concrete<
+					TypeEnum,
 					Message
 				> const &
 			>(
