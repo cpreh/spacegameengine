@@ -45,6 +45,10 @@ protected:
 public:
 	typedef typename TypeEnum::type type_enum;
 
+	typedef majutsu::const_raw_pointer const_raw_pointer;
+
+	typedef majutsu::size_type size_type;
+
 	virtual
 	~base() = 0;
 
@@ -53,11 +57,11 @@ public:
 	type() const = 0;
 
 	virtual
-	majutsu::const_raw_pointer
+	const_raw_pointer
 	data() const = 0;
 
 	virtual
-	majutsu::size_type
+	size_type
 	size() const = 0;
 };
 

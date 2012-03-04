@@ -62,13 +62,17 @@ public:
 	Type const &
 	value() const;
 private:
+	typedef typename base_type::const_raw_pointer const_raw_pointer;
+
+	typedef typename base_type::size_type size_type;
+
 	type_enum
 	type() const;
 
-	majutsu::const_raw_pointer
+	const_raw_pointer
 	data() const;
 
-	majutsu::size_type
+	size_type
 	size() const;
 
 	Type value_;

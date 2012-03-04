@@ -160,6 +160,9 @@ ALDA_SERIALIZATION_INSTANTIATE_MESSAGE(
 	message2
 );
 
+namespace
+{
+
 namespace register1
 {
 
@@ -181,9 +184,6 @@ ALDA_SERIALIZATION_REGISTER_MESSAGE(
 );
 
 }
-
-namespace
-{
 
 struct dispatcher_function
 {

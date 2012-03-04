@@ -94,7 +94,10 @@ template<
 	typename TypeEnum,
 	typename Type
 >
-majutsu::const_raw_pointer
+typename alda::message::concrete<
+	TypeEnum,
+	Type
+>::const_raw_pointer
 alda::message::concrete<
 	TypeEnum,
 	Type
@@ -108,7 +111,10 @@ template<
 	typename TypeEnum,
 	typename Type
 >
-majutsu::size_type
+typename alda::message::concrete<
+	TypeEnum,
+	Type
+>::size_type
 alda::message::concrete<
 	TypeEnum,
 	Type
