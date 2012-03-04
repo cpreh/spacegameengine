@@ -89,7 +89,7 @@ find_and_convert_member(
 			sge::parse::json::exception(
 				FCPPT_TEXT("Unable to parse member \"")+
 				it->first+
-				FCPPT_TEXT(" of object \"")+
+				FCPPT_TEXT("\" of object \"")+
 				json::path_to_string(
 					shortened_path)+
 				FCPPT_TEXT("\": ")+
