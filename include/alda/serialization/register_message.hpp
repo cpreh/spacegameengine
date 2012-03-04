@@ -18,19 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_SERIALIZATION_DETAIL_REGISTER_CLASS_HPP_INCLUDED
-#define ALDA_SERIALIZATION_DETAIL_REGISTER_CLASS_HPP_INCLUDED
+#ifndef ALDA_SERIALIZATION_REGISTER_MESSAGE_HPP_INCLUDED
+#define ALDA_SERIALIZATION_REGISTER_MESSAGE_HPP_INCLUDED
 
 #include <alda/serialization/detail/dispatch/register_impl.hpp>
 
 
-#define ALDA_SERIALIZATION_DETAIL_REGISTER_CLASS(\
+#define ALDA_SERIALIZATION_REGISTER_MESSAGE(\
 	context,\
 	type_enum,\
 	message_type\
 )\
-namespace \
-{ \
 \
 alda::serialization::detail::dispatch::register_<\
 	type_enum,\
@@ -38,8 +36,6 @@ alda::serialization::detail::dispatch::register_<\
 > const \
 register_class_tmp(\
 	context\
-);\
-\
-}
+)\
 
 #endif

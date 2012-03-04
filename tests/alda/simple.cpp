@@ -21,19 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/exception_impl.hpp>
 #include <alda/type_enum.hpp>
 #include <alda/bindings/fundamental.hpp>
-#include <alda/call/concrete_impl.hpp> // TODO: instantiate this
+#include <alda/call/concrete_impl.hpp>
 #include <alda/call/object_impl.hpp>
 #include <alda/message/base_decl.hpp>
 #include <alda/message/base_unique_ptr.hpp>
-#include <alda/message/instantiate.hpp>
 #include <alda/message/instantiate_base.hpp>
+#include <alda/message/instantiate_concrete.hpp>
 #include <alda/message/make_class.hpp>
 #include <alda/message/make_id.hpp>
 #include <alda/message/make_concrete_ptr.hpp>
 #include <alda/serialization/define_context_function.hpp>
 #include <alda/serialization/deserialize.hpp>
-#include <alda/serialization/instantiate_details.hpp>
 #include <alda/serialization/instantiate_context.hpp>
+#include <alda/serialization/instantiate_details.hpp>
+#include <alda/serialization/instantiate_message.hpp>
+#include <alda/serialization/register_message.hpp>
 #include <alda/serialization/serialize.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
@@ -45,7 +47,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/preprocessor/empty.hpp>
 #include <boost/test/unit_test.hpp>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
@@ -127,38 +128,59 @@ ALDA_SERIALIZATION_DEFINE_CONTEXT_FUNCTION(
 
 }
 
-#define VISIBILITY BOOST_PP_EMPTY
-
 ALDA_MESSAGE_INSTANTIATE_BASE(
-	VISIBILITY,
 	type_enum
 );
 
 ALDA_SERIALIZATION_INSTANTIATE_CONTEXT(
-	VISIBILITY,
 	type_enum
 );
 
 ALDA_SERIALIZATION_INSTANTIATE_DETAILS(
-	VISIBILITY,
 	type_enum
 );
 
-ALDA_MESSAGE_INSTANTIATE(
-	VISIBILITY,
+ALDA_MESSAGE_INSTANTIATE_CONCRETE(
+	type_enum,
+	message1
+);
+
+ALDA_SERIALIZATION_INSTANTIATE_MESSAGE(
+	type_enum,
+	message1
+);
+
+ALDA_MESSAGE_INSTANTIATE_CONCRETE(
+	type_enum,
+	message2
+);
+
+ALDA_SERIALIZATION_INSTANTIATE_MESSAGE(
+	type_enum,
+	message2
+);
+
+namespace register1
+{
+
+ALDA_SERIALIZATION_REGISTER_MESSAGE(
 	global_context(),
 	type_enum,
 	message1
 );
 
-/*
-ALDA_MESSAGE_INSTANTIATE(
-	VISIBILITY,
+}
+
+namespace register2
+{
+
+ALDA_SERIALIZATION_REGISTER_MESSAGE(
 	global_context(),
 	type_enum,
 	message2
 );
-*/
+
+}
 
 namespace
 {
@@ -174,7 +196,7 @@ public:
 	) const
 	{
 		fcppt::io::cout()
-			<< FCPPT_TEXT("Received message\n");
+			<< FCPPT_TEXT("message1 received\n");
 
 		BOOST_CHECK(
 			_msg.get<
@@ -185,6 +207,27 @@ public:
 				boost::uint16_t
 			>(
 				1337
+			)
+		);
+	}
+
+	result_type
+	operator()(
+		message2 const &_msg
+	) const
+	{
+		fcppt::io::cout()
+			<< FCPPT_TEXT("message2 received\n");
+
+		BOOST_CHECK(
+			_msg.get<
+				uint32_type
+			>()
+			==
+			static_cast<
+				boost::uint32_t
+			>(
+				42
 			)
 		);
 	}
@@ -220,12 +263,29 @@ BOOST_AUTO_TEST_CASE(
 		)
 	);
 
-	fcppt::io::cout()
-		<< ofs.str().size()
-		<< FCPPT_TEXT(" bytes written\n");
-
 	std::istringstream ifs(
 		ofs.str()
+	);
+
+	typedef alda::call::object<
+		type_enum,
+		boost::mpl::vector2<
+			message1,
+			message2
+		>,
+		dispatcher_function
+	> dispatcher;
+
+	dispatcher const dispatcher_object;
+
+	dispatcher_function receiver;
+
+	dispatcher::default_function const default_callback(
+		std::tr1::bind(
+			&dispatcher_function::default_function,
+			&receiver,
+			std::tr1::placeholders::_1
+		)
 	);
 
 	try
@@ -242,28 +302,60 @@ BOOST_AUTO_TEST_CASE(
 			== message_type::message1
 		);
 
-		typedef alda::call::object<
-			type_enum,
-			boost::mpl::vector1<
-				message1
-			>,
-			dispatcher_function
-		> dispatcher;
+		dispatcher_object(
+			*result,
+			receiver,
+			default_callback
+		);
+	}
+	catch(
+		alda::exception const &_exception
+	)
+	{
+		fcppt::io::cerr()
+			<< _exception.string()
+			<< FCPPT_TEXT('\n');
+	}
 
-		dispatcher const dispatcher_object;
+	ofs.str("");
 
-		dispatcher_function receiver;
+	alda::serialization::serialize(
+		ofs,
+		*alda::message::make_concrete_ptr<
+			type_enum
+		>(
+			message2(
+				static_cast<
+					boost::uint32_t
+				>(
+					42
+				)
+			)
+		)
+	);
+
+	ifs.str(
+		ofs.str()
+	);
+
+	try
+	{
+		message_base_unique_ptr result(
+			alda::serialization::deserialize(
+				global_context(),
+				ifs
+			)
+		);
+
+		BOOST_CHECK(
+			result->type()
+			== message_type::message2
+		);
 
 		dispatcher_object(
 			*result,
 			receiver,
-			dispatcher::default_function(
-				std::tr1::bind(
-					&dispatcher_function::default_function,
-					&receiver,
-					std::tr1::placeholders::_1
-				)
-			)
+			default_callback
 		);
 	}
 	catch(

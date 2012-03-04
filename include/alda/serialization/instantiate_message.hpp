@@ -27,13 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #define ALDA_SERIALIZATION_INSTANTIATE_MESSAGE(\
-	visibility_macro,\
 	type_enum,\
 	message_type\
 )\
 template \
 class \
-visibility_macro() \
 alda::serialization::detail::dispatch::concrete<\
 	type_enum,\
 	message_type\
@@ -41,14 +39,12 @@ alda::serialization::detail::dispatch::concrete<\
 \
 template \
 class \
-visibility_macro() \
 alda::serialization::detail::dispatch::register_<\
 	type_enum,\
 	message_type\
 >; \
 \
 template \
-visibility_macro() \
 alda::serialization::detail::read::object<\
 	type_enum\
 >::message_unique_ptr \

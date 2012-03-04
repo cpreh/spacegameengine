@@ -26,18 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #define ALDA_SERIALIZATION_INSTANTIATE_DETAILS(\
-	visibility_macro,\
 	type_enum\
 )\
 template \
 class \
-visibility_macro() \
 alda::serialization::detail::dispatch::base<\
 	type_enum\
 >;\
 template \
 class \
-visibility_macro() \
 alda::serialization::detail::read::object<\
 	type_enum\
 >

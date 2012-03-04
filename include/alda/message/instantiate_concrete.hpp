@@ -25,13 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #define ALDA_MESSAGE_INSTANTIATE_CONCRETE(\
-	visibility_macro,\
 	type_enum,\
 	message_type\
 )\
 template \
 class \
-visibility_macro() \
 alda::message::concrete<\
 	type_enum,\
 	message_type\
