@@ -35,7 +35,7 @@ namespace serialization
 template<
 	typename TypeEnum
 >
-struct context
+class context
 {
 	FCPPT_NONCOPYABLE(
 		context
