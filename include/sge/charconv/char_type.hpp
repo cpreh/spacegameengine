@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_STRING_TYPE_HPP_INCLUDED
-#define SGE_CHARCONV_STRING_TYPE_HPP_INCLUDED
+#ifndef SGE_CHARCONV_CHAR_TYPE_HPP_INCLUDED
+#define SGE_CHARCONV_CHAR_TYPE_HPP_INCLUDED
 
-#include <sge/charconv/char_type.hpp>
 #include <sge/charconv/encoding.hpp>
-#include <sge/charconv/traits_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <string>
+#include <boost/cstdint.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,29 +33,40 @@ namespace charconv
 {
 
 template<
-	sge::charconv::encoding::type Encoding
+	sge::charconv::encoding::type
 >
-struct string_type
+struct char_type;
+
+template<>
+struct char_type<
+	sge::charconv::encoding::utf8
+>
 {
-private:
-	typedef typename sge::charconv::char_type<
-		Encoding
-	>::type char_type;
-public:
-	typedef std::basic_string<
-		char_type,
-		sge::charconv::traits_type<
-			char_type
-		>
-	> type;
+	typedef boost::uint8_t type;
 };
 
 template<>
-struct string_type<
+struct char_type<
+	sge::charconv::encoding::utf16
+>
+{
+	typedef boost::uint16_t type;
+};
+
+template<>
+struct char_type<
+	sge::charconv::encoding::utf32
+>
+{
+	typedef boost::uint32_t type;
+};
+
+template<>
+struct char_type<
 	sge::charconv::encoding::wchar
 >
 {
-	typedef std::wstring type;
+	typedef wchar_t type;
 };
 
 }

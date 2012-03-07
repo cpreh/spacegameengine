@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_SERIALIZATION_DETAIL_READ_OBJECT_DECL_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DETAIL_READ_OBJECT_DECL_HPP_INCLUDED
 
-#include <fcppt/nonassignable.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/detail/read/object_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace alda

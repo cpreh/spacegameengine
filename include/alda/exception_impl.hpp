@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_EXCEPTION_IMPL_HPP_INCLUDED
 
 #include <alda/exception_decl.hpp>
-#include <fcppt/assert/make_message.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/assert/make_message.hpp>
 
 
 inline

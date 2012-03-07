@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_CALL_DEFAULT_FUNCTION_HPP_INCLUDED
 #define ALDA_CALL_DEFAULT_FUNCTION_HPP_INCLUDED
 
-#include <fcppt/function/object_fwd.hpp>
 #include <alda/message/base_fwd.hpp>
+#include <fcppt/function/object_fwd.hpp>
 
 
 namespace alda

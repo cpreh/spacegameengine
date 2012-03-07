@@ -45,6 +45,7 @@ set(
 	include/sge/opencl/memory_object/byte_offset.hpp
 	include/sge/opencl/memory_object/byte_size.hpp
 	include/sge/opencl/memory_object/create_image_format.hpp
+	include/sge/opencl/memory_object/dim1.hpp
 	include/sge/opencl/memory_object/dim2.hpp
 	include/sge/opencl/memory_object/dim3.hpp
 	include/sge/opencl/memory_object/flags.hpp
@@ -88,6 +89,7 @@ set(
 	include/sge/opencl/program/source_string.hpp
 	include/sge/opencl/program/source_string_sequence.hpp
 	include/sge/opencl/single_device_system/object.hpp
+	include/sge/opencl/single_device_system/object_fwd.hpp
 	include/sge/opencl/single_device_system/parameters.hpp
 	include/sge/opencl/single_device_system/parameters_fwd.hpp
 	include/sge/opencl/single_device_system/single_device_system.hpp

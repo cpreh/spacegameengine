@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_unsigned.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 

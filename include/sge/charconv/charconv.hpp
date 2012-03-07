@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_CHARCONV_HPP_INCLUDED
 #define SGE_CHARCONV_CHARCONV_HPP_INCLUDED
 
+#include <sge/charconv/char_type.hpp>
 #include <sge/charconv/const_raw_pointer.hpp>
 #include <sge/charconv/conversion_failed.hpp>
 #include <sge/charconv/conversion_status.hpp>
@@ -31,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/exception.hpp>
+#include <sge/charconv/fcppt_string_to_utf8.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
 #include <sge/charconv/plugin.hpp>
@@ -42,6 +44,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/system.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/system_ptr.hpp>
+#include <sge/charconv/traits_type.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
+#include <sge/charconv/utf8_string.hpp>
+#include <sge/charconv/utf8_string_to_fcppt.hpp>
 
 #endif

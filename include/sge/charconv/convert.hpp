@@ -32,16 +32,16 @@ namespace charconv
 {
 
 template<
-	encoding::type DestEncoding,
-	encoding::type SourceEncoding
+	sge::charconv::encoding::type DestEncoding,
+	sge::charconv::encoding::type SourceEncoding
 >
 SGE_CHARCONV_SYMBOL
-typename charconv::string_type<
+typename sge::charconv::string_type<
 	DestEncoding
 >::type
 convert(
-	charconv::system &,
-	typename charconv::string_type<
+	sge::charconv::system &,
+	typename sge::charconv::string_type<
 		SourceEncoding
 	>::type const &
 );

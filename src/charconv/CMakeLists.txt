@@ -1,5 +1,6 @@
 set(
 	SGE_CHARCONV_FILES
+	include/sge/charconv/char_type.hpp
 	include/sge/charconv/charconv.hpp
 	include/sge/charconv/const_raw_pointer.hpp
 	include/sge/charconv/conversion_failed.hpp
@@ -11,6 +12,7 @@ set(
 	include/sge/charconv/dest_encoding.hpp
 	include/sge/charconv/encoding.hpp
 	include/sge/charconv/exception.hpp
+	include/sge/charconv/fcppt_string_to_utf8.hpp
 	include/sge/charconv/input_range.hpp
 	include/sge/charconv/output_range.hpp
 	include/sge/charconv/plugin.hpp
@@ -22,11 +24,16 @@ set(
 	include/sge/charconv/system.hpp
 	include/sge/charconv/system_fwd.hpp
 	include/sge/charconv/system_ptr.hpp
+	include/sge/charconv/traits_type.hpp
 	include/sge/charconv/unsupported_conversion.hpp
+	include/sge/charconv/utf8_string.hpp
+	include/sge/charconv/utf8_string_to_fcppt.hpp
 	src/charconv/conversion_failed.cpp
 	src/charconv/convert.cpp
 	src/charconv/converter.cpp
 	src/charconv/exception.cpp
+	src/charconv/fcppt_string_to_utf8.cpp
+	src/charconv/include/sge/src/charconv/fcppt_is_utf8.hpp
 	src/charconv/plugin.cpp
 	src/charconv/plugin/context.cpp
 	src/charconv/plugin/iterator.cpp
@@ -34,6 +41,11 @@ set(
 	src/charconv/plugin/object.cpp
 	src/charconv/system.cpp
 	src/charconv/unsupported_conversion.cpp
+	src/charconv/utf8_string_to_fcppt.cpp
+)
+
+include_directories(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 sge_implement_from_lib(
