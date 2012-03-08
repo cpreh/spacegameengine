@@ -18,23 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ICONV_ENCODING_TO_STRING_HPP_INCLUDED
-#define SGE_ICONV_ENCODING_TO_STRING_HPP_INCLUDED
-
-#include <sge/iconv/encoding_string.hpp>
-#include <sge/charconv/encoding.hpp>
-
-namespace sge
-{
-namespace iconv
-{
-
-iconv::encoding_string const
-encoding_to_string(
-	charconv::encoding::type
-);
-
-}
-}
-
+#include <sge/charconv/backend.hpp>
+#include <sge/charconv/create_system.hpp>
+#include <sge/charconv/system_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#if defined(SGE_CHARCONV_ICONV_BACKEND)
+#include <sge/src/charconv/backends/iconv/system.hpp>
+#elif defined(SGE_CHARCONV_WINDOWS_BACKEND)
+#include <sge/src/charconv/backends/windows/system.hpp>
+#else
+#error "No backend for charconv selected!"
 #endif
+
+sge::charconv::system_unique_ptr
+sge::charconv::create_system()
+{
+	return
+		sge::charconv::system_unique_ptr(
+			fcppt::make_unique_ptr<
+#if defined(SGE_CHARCONV_ICONV_BACKEND)
+				sge::charconv::backends::iconv::system
+#elif defined(SGE_CHARCONV_WINDOWS_BACKEND)
+				sge::charconv::backends::windows::system
+#else
+#error "No backend for charconv selected!"
+#endif
+			>()
+		);
+}

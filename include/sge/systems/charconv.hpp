@@ -21,7 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_CHARCONV_HPP_INCLUDED
 #define SGE_SYSTEMS_CHARCONV_HPP_INCLUDED
 
+#include <sge/charconv/system_fwd.hpp>
 #include <sge/systems/charconv_fwd.hpp>
+#include <sge/systems/symbol.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -29,8 +33,29 @@ namespace sge
 namespace systems
 {
 
-struct charconv
+class charconv
 {
+	FCPPT_NONASSIGNABLE(
+		charconv
+	);
+public:
+	SGE_SYSTEMS_SYMBOL
+	charconv();
+
+	SGE_SYSTEMS_SYMBOL
+	explicit
+	charconv(
+		sge::charconv::system &
+	);
+
+	typedef fcppt::optional<
+		sge::charconv::system &
+	> optional_system_ref;
+
+	optional_system_ref const &
+	system() const;
+private:
+	optional_system_ref const system_;
 };
 
 }

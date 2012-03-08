@@ -18,11 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/plugin.hpp>
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/src/plugin/instantiate_context.hpp>
+#include <sge/systems/charconv.hpp>
 
 
-SGE_PLUGIN_INSTANTIATE_CONTEXT(
-	sge::charconv::system
-);
+sge::systems::charconv::charconv()
+:
+	system_()
+{
+}
+
+sge::systems::charconv::charconv(
+	sge::charconv::system &_system
+)
+:
+	system_(
+		_system
+	)
+{
+}
+
+sge::systems::charconv::optional_system_ref const &
+sge::systems::charconv::system() const
+{
+	return system_;
+}

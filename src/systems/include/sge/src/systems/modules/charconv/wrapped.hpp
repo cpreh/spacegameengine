@@ -18,11 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/plugin.hpp>
-#include <sge/charconv/system.hpp>
-#include <sge/src/plugin/instantiate_manager.hpp>
+#ifndef SGE_SRC_SYSTEMS_MODULES_CHARCONV_WRAPPED_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_CHARCONV_WRAPPED_HPP_INCLUDED
+
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/src/systems/modules/charconv/base.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
-SGE_PLUGIN_INSTANTIATE_MANAGER(
-	sge::charconv::system
-);
+namespace sge
+{
+namespace systems
+{
+namespace modules
+{
+namespace charconv
+{
+
+class wrapped
+:
+	public sge::systems::modules::charconv::base
+{
+	FCPPT_NONCOPYABLE(
+		wrapped
+	);
+public:
+	explicit
+	wrapped(
+		sge::charconv::system &
+	);
+
+	~wrapped();
+
+	sge::charconv::system &
+	system() const;
+private:
+	sge::charconv::system &system_;
+};
+
+}
+}
+}
+}
+
+#endif

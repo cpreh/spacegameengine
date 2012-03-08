@@ -21,11 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_CHARCONV_OBJECT_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_CHARCONV_OBJECT_HPP_INCLUDED
 
-#include <sge/charconv/plugin_ptr.hpp>
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/charconv/system_ptr.hpp>
-#include <sge/plugin/manager_fwd.hpp>
+#include <sge/src/systems/modules/charconv/base_scoped_ptr.hpp>
 #include <sge/src/systems/modules/charconv/object_fwd.hpp>
+#include <sge/systems/charconv_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -46,7 +45,7 @@ class object
 public:
 	explicit
 	object(
-		sge::plugin::manager &
+		sge::systems::charconv const &
 	);
 
 	~object();
@@ -54,9 +53,7 @@ public:
 	sge::charconv::system &
 	system() const;
 private:
-	sge::charconv::plugin_ptr const charconv_plugin_;
-
-	sge::charconv::system_ptr const charconv_system_;
+	sge::systems::modules::charconv::base_scoped_ptr const base_;
 };
 
 }

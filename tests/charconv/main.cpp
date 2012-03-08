@@ -19,15 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/charconv/convert.hpp>
+#include <sge/charconv/create_system.hpp>
 #include <sge/charconv/encoding.hpp>
-#include <sge/charconv/plugin.hpp>
 #include <sge/charconv/string_type.hpp>
 #include <sge/charconv/system.hpp>
-#include <sge/charconv/system_ptr.hpp>
-#include <sge/config/plugin_path.hpp>
-#include <sge/plugin/context.hpp>
-#include <sge/plugin/manager.hpp>
-#include <sge/plugin/object.hpp>
+#include <sge/charconv/system_scoped_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
 #include <string>
@@ -57,22 +53,8 @@ BOOST_AUTO_TEST_CASE(
 		sge::charconv::encoding::utf32
 	>::type utf32_string;
 
-	sge::plugin::manager plugin_manager_(
-		sge::config::plugin_path()
-	);
-
-	typedef sge::plugin::object<
-		sge::charconv::system
-	>::ptr_type plugin_ptr;
-
-	plugin_ptr const plugin_(
-		plugin_manager_.plugin<
-			sge::charconv::system
-		>().load()
-	);
-
-	sge::charconv::system_ptr const charconv_system(
-		plugin_->get()()
+	sge::charconv::system_scoped_ptr const charconv_system(
+		sge::charconv::create_system()
 	);
 
 	utf32_string const utf32_test(

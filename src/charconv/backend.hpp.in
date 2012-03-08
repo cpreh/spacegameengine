@@ -18,23 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_SYSTEM_PTR_HPP_INCLUDED
-#define SGE_CHARCONV_SYSTEM_PTR_HPP_INCLUDED
+#ifndef SGE_CHARCONV_BACKEND_HPP_INCLUDED
+#define SGE_CHARCONV_BACKEND_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
-
-
-namespace sge
-{
-namespace charconv
-{
-
-typedef fcppt::shared_ptr<
-	charconv::system
-> system_ptr;
-
-}
-}
+#cmakedefine SGE_CHARCONV_ICONV_BACKEND
+#cmakedefine SGE_CHARCONV_WINDOWS_BACKEND
 
 #endif

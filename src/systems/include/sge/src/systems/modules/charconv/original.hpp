@@ -18,39 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_PLUGIN_HPP_INCLUDED
-#define SGE_CHARCONV_PLUGIN_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_CHARCONV_ORIGINAL_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_CHARCONV_ORIGINAL_HPP_INCLUDED
 
-#include <sge/charconv/symbol.hpp>
-#include <sge/charconv/system_ptr.hpp>
-#include <sge/plugin/capabilities.hpp>
-#include <sge/plugin/detail/address_name.hpp>
-#include <sge/plugin/detail/traits.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/charconv/system_scoped_ptr.hpp>
+#include <sge/src/systems/modules/charconv/base.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
-namespace plugin
+namespace systems
 {
-namespace detail
+namespace modules
+{
+namespace charconv
 {
 
-template<>
-struct traits<
-	charconv::system
->
+class original
+:
+	public sge::systems::modules::charconv::base
 {
-	SGE_CHARCONV_SYMBOL
-	static address_name
-	plugin_loader_name();
+	FCPPT_NONCOPYABLE(
+		original
+	);
+public:
+	original();
 
-	SGE_CHARCONV_SYMBOL
-	static capabilities::type
-	plugin_type();
+	~original();
 
-	typedef charconv::system_ptr const (*loader_fun)();
+	sge::charconv::system &
+	system() const;
+private:
+	sge::charconv::system_scoped_ptr const system_;
 };
 
+}
 }
 }
 }

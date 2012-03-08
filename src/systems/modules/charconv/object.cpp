@@ -18,28 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/plugin.hpp>
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/charconv/system_ptr.hpp>
-#include <sge/plugin/context.hpp>
-#include <sge/plugin/manager.hpp>
-#include <sge/plugin/object.hpp>
+#include <sge/src/systems/modules/charconv/base_unique_ptr.hpp>
 #include <sge/src/systems/modules/charconv/object.hpp>
+#include <sge/src/systems/modules/charconv/original.hpp>
+#include <sge/src/systems/modules/charconv/wrapped.hpp>
+#include <sge/systems/charconv.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
 
 sge::systems::modules::charconv::object::object(
-	sge::plugin::manager &_manager
+	sge::systems::charconv const &_charconv
 )
 :
-	charconv_plugin_(
-		_manager.plugin<
-			sge::charconv::system
-		>().load()
-	),
-	charconv_system_(
-		charconv_plugin_->get()()
+	base_(
+		_charconv.system()
+		?
+			sge::systems::modules::charconv::base_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::systems::modules::charconv::wrapped
+				>(
+					fcppt::ref(
+						*_charconv.system()
+					)
+				)
+			)
+		:
+			sge::systems::modules::charconv::base_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::systems::modules::charconv::original
+				>()
+			)
 	)
 {
+
 }
 
 sge::systems::modules::charconv::object::~object()
@@ -49,5 +62,5 @@ sge::systems::modules::charconv::object::~object()
 sge::charconv::system &
 sge::systems::modules::charconv::object::system() const
 {
-	return *charconv_system_;
+	return base_->system();
 }

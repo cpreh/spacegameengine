@@ -18,48 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ICONV_CONVERTER_HPP_INCLUDED
-#define SGE_ICONV_CONVERTER_HPP_INCLUDED
+#ifndef SGE_CHARCONV_SYSTEM_SCOPED_PTR_HPP_INCLUDED
+#define SGE_CHARCONV_SYSTEM_SCOPED_PTR_HPP_INCLUDED
 
-#include <sge/iconv/encoding_string.hpp>
-#include <sge/charconv/conversion_status.hpp>
-#include <sge/charconv/converter.hpp>
-#include <sge/charconv/input_range.hpp>
-#include <sge/charconv/output_range.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iconv.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace iconv
+namespace charconv
 {
 
-class converter
-:
-	public sge::charconv::converter
-{
-	FCPPT_NONCOPYABLE(
-		converter
-	);
-public:
-	converter(
-		iconv::encoding_string const &source,
-		iconv::encoding_string const &dest
-	);
-
-	~converter();
-
-	charconv::conversion_status::type
-	convert(
-		charconv::input_range &,
-		charconv::output_range &
-	);
-private:
-	::iconv_t iconv_;
-};
+typedef fcppt::scoped_ptr<
+	sge::charconv::system
+> system_scoped_ptr;
 
 }
 }

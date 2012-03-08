@@ -18,34 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/iconv/system.hpp>
-#include <sge/iconv/converter.hpp>
-#include <sge/iconv/encoding_to_string.hpp>
+#include <sge/winconv/converter.hpp>
+#include <sge/winconv/system.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
-sge::iconv::system::system()
+
+sge::winconv::system::system()
 {
 }
 
-sge::iconv::system::~system()
+sge::winconv::system::~system()
 {
 }
 
 sge::charconv::converter_ptr const
-sge::iconv::system::create_converter(
+sge::winconv::system::create_converter(
 	charconv::source_encoding const _source,
 	charconv::dest_encoding const _dest
 )
 {
 	return
 		fcppt::make_shared_ptr<
-			iconv::converter
+			winconv::converter
 		>(
-			iconv::encoding_to_string(
-				_source.get()
-			),
-			iconv::encoding_to_string(
-				_dest.get()
-			)
+			_source,
+			_dest
 		);
 }

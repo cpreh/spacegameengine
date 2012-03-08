@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/iconv/converter.hpp>
 #include <sge/charconv/const_raw_pointer.hpp>
+#include <sge/charconv/conversion_status.hpp>
 #include <sge/charconv/exception.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
 #include <sge/charconv/raw_pointer.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
+#include <sge/src/charconv/backends/iconv/converter.hpp>
+#include <sge/src/charconv/backends/iconv/encoding_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,9 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::iconv::converter::converter(
-	sge::iconv::encoding_string const &_source,
-	sge::iconv::encoding_string const &_dest
+sge::charconv::backends::iconv::converter::converter(
+	sge::charconv::backends::iconv::encoding_string const &_source,
+	sge::charconv::backends::iconv::encoding_string const &_dest
 )
 :
 	iconv_(
@@ -64,7 +66,7 @@ sge::iconv::converter::converter(
 		);
 }
 
-sge::iconv::converter::~converter()
+sge::charconv::backends::iconv::converter::~converter()
 {
 	::iconv_close(
 		iconv_
@@ -72,9 +74,9 @@ sge::iconv::converter::~converter()
 }
 
 sge::charconv::conversion_status::type
-sge::iconv::converter::convert(
-	charconv::input_range &_input,
-	charconv::output_range &_output
+sge::charconv::backends::iconv::converter::convert(
+	sge::charconv::input_range &_input,
+	sge::charconv::output_range &_output
 )
 {
 	char *source(
@@ -124,15 +126,15 @@ sge::iconv::converter::convert(
 	);
 
 	_input =
-		charconv::input_range(
+		sge::charconv::input_range(
 			// TODO: a constructor with (ptr, size) would save some typing
 			reinterpret_cast<
-				charconv::const_raw_pointer
+				sge::charconv::const_raw_pointer
 			>(
 				source
 			),
 			reinterpret_cast<
-				charconv::const_raw_pointer
+				sge::charconv::const_raw_pointer
 			>(
 				source
 			)
@@ -140,14 +142,14 @@ sge::iconv::converter::convert(
 		);
 
 	_output =
-		charconv::output_range(
+		sge::charconv::output_range(
 			reinterpret_cast<
-				charconv::raw_pointer
+				sge::charconv::raw_pointer
 			>(
 				dest
 			),
 			reinterpret_cast<
-				charconv::raw_pointer
+				sge::charconv::raw_pointer
 			>(
 				dest
 			)
@@ -162,18 +164,18 @@ sge::iconv::converter::convert(
 			-1
 		)
 	)
-		return charconv::conversion_status::ok;
+		return sge::charconv::conversion_status::ok;
 
 	switch(
 		errno
 	)
 	{
 	case E2BIG:
-		return charconv::conversion_status::output_too_small;
+		return sge::charconv::conversion_status::output_too_small;
 	case EILSEQ:
-		return charconv::conversion_status::invalid_input;
+		return sge::charconv::conversion_status::invalid_input;
 	case EINVAL:
-		return charconv::conversion_status::incomplete_input;
+		return sge::charconv::conversion_status::incomplete_input;
 	default:
 		throw sge::charconv::exception(
 			FCPPT_TEXT(

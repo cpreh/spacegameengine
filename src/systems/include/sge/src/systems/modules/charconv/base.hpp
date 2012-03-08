@@ -18,43 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/iconv/system.hpp>
-#include <sge/charconv/system_ptr.hpp>
-#include <sge/plugin/capabilities.hpp>
-#include <sge/plugin/capabilities_field.hpp>
-#include <sge/plugin/info.hpp>
-#include <sge/plugin/min_core_version.hpp>
-#include <sge/plugin/version.hpp>
-#include <sge/plugin/library/make_interface.hpp>
-#include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_SRC_SYSTEMS_MODULES_CHARCONV_BASE_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_CHARCONV_BASE_HPP_INCLUDED
+
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/src/systems/modules/charconv/base_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
-namespace
+namespace sge
+{
+namespace systems
+{
+namespace modules
+{
+namespace charconv
 {
 
-sge::plugin::info const info(
-	FCPPT_TEXT("iconv"),
-	FCPPT_TEXT("Provides charset conversions via POSIX iconv."),
-	sge::plugin::version(0x1),
-	sge::plugin::min_core_version(0x1),
-	sge::plugin::capabilities_field(
-		sge::plugin::capabilities::char_conv
-	)
-);
-
-sge::charconv::system_ptr const
-create_charconv_system()
+class base
 {
-	return
-		fcppt::make_shared_ptr<
-			sge::iconv::system
-		>();
-}
+	FCPPT_NONCOPYABLE(
+		base
+	);
+protected:
+	base();
+public:
+	virtual
+	~base() = 0;
+
+	virtual
+	sge::charconv::system &
+	system() const = 0;
+};
 
 }
+}
+}
+}
 
-SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
-	info,
-	(create_charconv_system)
-)
+#endif

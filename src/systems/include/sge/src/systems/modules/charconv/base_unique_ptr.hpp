@@ -18,10 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/system_fwd.hpp>
-#include <sge/src/plugin/instantiate_iterator.hpp>
+#ifndef SGE_SRC_SYSTEMS_MODULES_CHARCONV_BASE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_CHARCONV_BASE_UNIQUE_PTR_HPP_INCLUDED
+
+#include <sge/src/systems/modules/charconv/base_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
-SGE_PLUGIN_INSTANTIATE_ITERATOR(
-	sge::charconv::system
-);
+namespace sge
+{
+namespace systems
+{
+namespace modules
+{
+namespace charconv
+{
+
+typedef fcppt::unique_ptr<
+	sge::systems::modules::charconv::base
+> base_unique_ptr;
+
+}
+}
+}
+}
+
+#endif

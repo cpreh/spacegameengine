@@ -18,29 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/winconv/system.hpp>
-#include <sge/winconv/converter.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#ifndef SGE_CHARCONV_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_CHARCONV_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
 
-sge::winconv::system::system()
+#include <sge/charconv/system_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+
+
+namespace sge
 {
+namespace charconv
+{
+
+typedef fcppt::unique_ptr<
+	sge::charconv::system
+> system_unique_ptr;
+
+}
 }
 
-sge::winconv::system::~system()
-{
-}
-
-sge::charconv::converter_ptr const
-sge::winconv::system::create_converter(
-	charconv::source_encoding const _source,
-	charconv::dest_encoding const _dest
-)
-{
-	return
-		fcppt::make_shared_ptr<
-			winconv::converter
-		>(
-			_source,
-			_dest
-		);
-}
+#endif

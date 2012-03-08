@@ -18,43 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/winconv/system.hpp>
-#include <sge/charconv/system_ptr.hpp>
-#include <sge/plugin/capabilities.hpp>
-#include <sge/plugin/capabilities_field.hpp>
-#include <sge/plugin/info.hpp>
-#include <sge/plugin/min_core_version.hpp>
-#include <sge/plugin/version.hpp>
-#include <sge/plugin/library/make_interface.hpp>
-#include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_CHARCONV_BACKENDS_ICONV_ENCODING_TO_STRING_HPP_INCLUDED
+#define SGE_CHARCONV_BACKENDS_ICONV_ENCODING_TO_STRING_HPP_INCLUDED
+
+#include <sge/charconv/encoding.hpp>
+#include <sge/src/charconv/backends/iconv/encoding_string.hpp>
 
 
-namespace
+namespace sge
+{
+namespace charconv
+{
+namespace backends
+{
+namespace iconv
 {
 
-sge::plugin::info const info(
-	FCPPT_TEXT("winconv"),
-	FCPPT_TEXT("Does wchar_t (UTF-16) to UTF-32 conversions on Windows."),
-	sge::plugin::version(0x1),
-	sge::plugin::min_core_version(0x1),
-	sge::plugin::capabilities_field(
-		sge::plugin::capabilities::char_conv
-	)
+sge::charconv::backends::iconv::encoding_string const
+encoding_to_string(
+	sge::charconv::encoding::type
 );
 
-sge::charconv::system_ptr const
-create_charconv_system()
-{
-	return
-		fcppt::make_shared_ptr<
-			sge::winconv::system
-		>();
+}
+}
+}
 }
 
-}
-
-SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
-	info,
-	(create_charconv_system)
-)
+#endif

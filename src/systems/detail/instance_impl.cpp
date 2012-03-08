@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/object.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
+#include <sge/systems/charconv.hpp>
 #include <sge/systems/image2d_fwd.hpp>
 #include <sge/systems/input_fwd.hpp>
 #include <sge/systems/plugin_path.hpp>
@@ -244,7 +245,12 @@ sge::systems::detail::instance_impl::init_audio_player(
 void
 sge::systems::detail::instance_impl::init_font()
 {
-	this->init_charconv();
+	if(
+		!charconv_
+	)
+		this->init_charconv(
+			sge::systems::charconv()
+		);
 
 	font_.take(
 		fcppt::make_unique_ptr<
@@ -261,19 +267,16 @@ sge::systems::detail::instance_impl::init_font()
 }
 
 void
-sge::systems::detail::instance_impl::init_charconv()
+sge::systems::detail::instance_impl::init_charconv(
+	sge::systems::charconv const &_charconv
+)
 {
-	if(
-		charconv_
-	)
-		return;
-
 	charconv_.take(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::charconv::object
 		>(
-			fcppt::ref(
-				plugin_manager_
+			fcppt::cref(
+				_charconv
 			)
 		)
 	);

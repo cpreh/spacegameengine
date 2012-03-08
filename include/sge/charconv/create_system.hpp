@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/plugin.hpp>
-#include <sge/charconv/system_fwd.hpp>
-#include <sge/src/plugin/address_name.hpp>
+#ifndef SGE_CHARCONV_CREATE_SYSTEM_HPP_INCLUDED
+#define SGE_CHARCONV_CREATE_SYSTEM_HPP_INCLUDED
+
+#include <sge/charconv/symbol.hpp>
+#include <sge/charconv/system_unique_ptr.hpp>
 
 
-sge::plugin::detail::address_name
-sge::plugin::detail::traits<
-	sge::charconv::system
->::plugin_loader_name()
+namespace sge
 {
-	return SGE_PLUGIN_ADDRESS_NAME("create_charconv_system");
+namespace charconv
+{
+
+SGE_CHARCONV_SYMBOL
+sge::charconv::system_unique_ptr
+create_system();
+
+}
 }
 
-sge::plugin::capabilities::type
-sge::plugin::detail::traits<
-	sge::charconv::system
->::plugin_type()
-{
-	return capabilities::char_conv;
-}
+#endif

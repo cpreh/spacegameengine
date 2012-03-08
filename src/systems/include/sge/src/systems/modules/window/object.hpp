@@ -68,7 +68,7 @@ public:
 	void
 	post_init();
 private:
-	sge::systems::modules::window::base_scoped_ptr base_;
+	sge::systems::modules::window::base_scoped_ptr const base_;
 
 	awl::mainloop::dispatcher_scoped_ptr const dispatcher_;
 

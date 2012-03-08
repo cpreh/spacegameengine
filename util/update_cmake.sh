@@ -66,7 +66,26 @@ update_sublibrary camera
 
 update_sublibrary cegui
 
-update_sublibrary charconv
+# charconv
+update_cmake_file \
+	src/charconv/CMakeLists.txt \
+	SGE_CHARCONV_BASE_FILES \
+	include/sge/charconv \
+	-n \
+	src/charconv \
+	src/charconv/include/sge/src/charconv
+
+update_cmake_file \
+	src/charconv/CMakeLists.txt \
+	SGE_CHARCONV_ICONV_FILES \
+	src/charconv/include/sge/src/charconv/backends/iconv \
+	src/charconv/backends/iconv
+
+update_cmake_file \
+	src/charconv/CMakeLists.txt \
+	SGE_CHARCONV_WINDOWS_FILES \
+	src/charconv/include/sge/src/charconv/backends/windows \
+	src/charconv/backends/windows
 
 update_sublibrary config
 
@@ -209,8 +228,6 @@ update_plugin dinput
 
 update_plugin freetype
 
-update_plugin iconv
-
 update_plugin libpng
 
 update_plugin openal
@@ -218,7 +235,5 @@ update_plugin openal
 update_plugin vorbis
 
 update_plugin wave
-
-update_plugin winconv
 
 update_plugin x11input

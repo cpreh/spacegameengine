@@ -83,7 +83,7 @@ add_sge_test(
 
 add_sge_test(
 	charconv/main
-	"sgecharconv;sgeconfig;sgeplugin"
+	"sgecharconv"
 	""
 )
 

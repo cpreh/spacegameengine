@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_PLUGIN_PTR_HPP_INCLUDED
-#define SGE_CHARCONV_PLUGIN_PTR_HPP_INCLUDED
+#ifndef SGE_CHARCONV_CONVERTER_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_CHARCONV_CONVERTER_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
-#include <sge/plugin/object_shared_ptr.hpp>
+#include <sge/charconv/converter_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -30,9 +30,9 @@ namespace sge
 namespace charconv
 {
 
-typedef sge::plugin::object_shared_ptr<
-	sge::charconv::system
->::type plugin_ptr;
+typedef fcppt::unique_ptr<
+	sge::charconv::converter
+> converter_unique_ptr;
 
 }
 }

@@ -110,10 +110,12 @@ sge::systems::any_visitor::operator()(
 
 sge::systems::any_visitor::result_type
 sge::systems::any_visitor::operator()(
-	sge::systems::charconv const &
+	sge::systems::charconv const &_param
 ) const
 {
-	impl_.init_charconv();
+	impl_.init_charconv(
+		_param
+	);
 }
 
 sge::systems::any_visitor::result_type

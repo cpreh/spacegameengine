@@ -23,9 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/conversion_status.hpp>
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/converter.hpp>
+#include <sge/charconv/converter_unique_ptr.hpp>
 #include <sge/charconv/dest_encoding.hpp>
+#include <sge/charconv/encoding.hpp>
 #include <sge/charconv/raw_pointer.hpp>
 #include <sge/charconv/source_encoding.hpp>
+#include <sge/charconv/string_type.hpp>
 #include <sge/charconv/system.hpp>
 #include <sge/src/export_function_instantiation.hpp>
 #include <fcppt/container/raw_vector.hpp>
@@ -45,16 +48,16 @@ typename sge::charconv::string_type<
 >::type
 sge::charconv::convert(
 	sge::charconv::system &_system,
-	typename charconv::string_type<
+	typename sge::charconv::string_type<
 		SourceEncoding
 	>::type const &_source
 )
 {
-	typedef typename charconv::string_type<
+	typedef typename sge::charconv::string_type<
 		SourceEncoding
 	>::type source_type;
 
-	typedef typename charconv::string_type<
+	typedef typename sge::charconv::string_type<
 		DestEncoding
 	>::type dest_type;
 
@@ -63,12 +66,12 @@ sge::charconv::convert(
 	)
 		return dest_type();
 
-	sge::charconv::converter_ptr const converter(
+	sge::charconv::converter_unique_ptr converter(
 		_system.create_converter(
-			charconv::source_encoding(
+			sge::charconv::source_encoding(
 				SourceEncoding
 			),
-			charconv::dest_encoding(
+			sge::charconv::dest_encoding(
 				DestEncoding
 			)
 		)
@@ -92,35 +95,37 @@ sge::charconv::convert(
 		_source.size()
 	);
 
-	charconv::input_range source_range(
+	sge::charconv::input_range source_range(
 		reinterpret_cast<
-			charconv::const_raw_pointer
+			sge::charconv::const_raw_pointer
 		>(
 			source_buffer.data()
 		),
 		reinterpret_cast<
-			charconv::const_raw_pointer
+			sge::charconv::const_raw_pointer
 		>(
 			source_buffer.data_end()
 		)
 	);
 
-	charconv::output_range dest_range(
+	sge::charconv::output_range dest_range(
 		reinterpret_cast<
-			charconv::raw_pointer
+			sge::charconv::raw_pointer
 		>(
 			dest_buffer.data()
 		),
 		reinterpret_cast<
-			charconv::raw_pointer
+			sge::charconv::raw_pointer
 		>(
 			dest_buffer.data_end()
 		)
 	);
 
-	for(;;)
+	for(
+		;;
+	)
 	{
-		charconv::conversion_status::type const status(
+		sge::charconv::conversion_status::type const status(
 			converter->convert(
 				source_range,
 				dest_range
@@ -144,31 +149,31 @@ sge::charconv::convert(
 			status
 		)
 		{
-		case charconv::conversion_status::invalid_input:
-		case charconv::conversion_status::incomplete_input:
+		case sge::charconv::conversion_status::invalid_input:
+		case sge::charconv::conversion_status::incomplete_input:
 			throw charconv::conversion_failed();
-		case charconv::conversion_status::ok:
+		case sge::charconv::conversion_status::ok:
 			return
 				dest_type(
 					dest_buffer.data(),
 					dest_buffer.data()
 					+ elements_converted
 				);
-		case charconv::conversion_status::output_too_small:
+		case sge::charconv::conversion_status::output_too_small:
 			dest_buffer.resize(
 				dest_buffer.size() * 2
 			);
 
 			dest_range =
-				charconv::output_range(
+				sge::charconv::output_range(
 					reinterpret_cast<
-						charconv::raw_pointer
+						sge::charconv::raw_pointer
 					>(
 						dest_buffer.data()
 						+ elements_converted
 					),
 					reinterpret_cast<
-						charconv::raw_pointer
+						sge::charconv::raw_pointer
 					>(
 						dest_buffer.data_end()
 					)

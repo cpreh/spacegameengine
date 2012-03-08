@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/winconv/converter.hpp>
 #include <sge/exception.hpp>
 #include <sge/charconv/const_raw_pointer.hpp>
 #include <sge/charconv/exception.hpp>
@@ -26,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/output_range.hpp>
 #include <sge/charconv/raw_pointer.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
+#include <sge/winconv/converter.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>

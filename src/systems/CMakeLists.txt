@@ -46,6 +46,7 @@ set(
 	src/systems/audio_loader.cpp
 	src/systems/audio_player.cpp
 	src/systems/audio_player_default.cpp
+	src/systems/charconv.cpp
 	src/systems/config.cpp
 	src/systems/detail/instance_impl.cpp
 	src/systems/exception.cpp
@@ -67,9 +68,15 @@ set(
 	src/systems/include/sge/src/systems/modules/audio/player_pair.hpp
 	src/systems/include/sge/src/systems/modules/audio/player_pair_fwd.hpp
 	src/systems/include/sge/src/systems/modules/audio/player_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/charconv/base.hpp
+	src/systems/include/sge/src/systems/modules/charconv/base_fwd.hpp
+	src/systems/include/sge/src/systems/modules/charconv/base_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/charconv/base_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/charconv/object.hpp
 	src/systems/include/sge/src/systems/modules/charconv/object_fwd.hpp
 	src/systems/include/sge/src/systems/modules/charconv/object_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/charconv/original.hpp
+	src/systems/include/sge/src/systems/modules/charconv/wrapped.hpp
 	src/systems/include/sge/src/systems/modules/font/object.hpp
 	src/systems/include/sge/src/systems/modules/font/object_fwd.hpp
 	src/systems/include/sge/src/systems/modules/font/object_scoped_ptr.hpp
@@ -113,7 +120,10 @@ set(
 	src/systems/modules/audio/loader.cpp
 	src/systems/modules/audio/player.cpp
 	src/systems/modules/audio/player_pair.cpp
+	src/systems/modules/charconv/base.cpp
 	src/systems/modules/charconv/object.cpp
+	src/systems/modules/charconv/original.cpp
+	src/systems/modules/charconv/wrapped.cpp
 	src/systems/modules/font/object.cpp
 	src/systems/modules/image2d/object.cpp
 	src/systems/modules/input/cursor_modifier.cpp

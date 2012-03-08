@@ -4,7 +4,6 @@ FIND_PACKAGE(DevIL)
 FIND_PACKAGE(D3D9)
 FIND_PACKAGE(DInput)
 FIND_PACKAGE(Freetype)
-FIND_PACKAGE(Iconv)
 FIND_PACKAGE(GLEW)
 FIND_PACKAGE(OpenGL)
 FIND_PACKAGE(OpenAL)
@@ -22,10 +21,6 @@ OPTION (ENABLE_D3D9 "Build the d3d9 render plugin" ${D3D9_FOUND})
 OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ${IL_FOUND})
 
 OPTION (ENABLE_DINPUT "Build the direct input 8 plugin" ${DINPUT_FOUND})
-
-OPTION (ENABLE_ICONV "Build the iconv conversion plugin" ${ICONV_FOUND})
-
-OPTION (ENABLE_WINCONV "Build the winconv conversion plugin" ${WIN32})
 
 OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ${FREETYPE_FOUND})
 
@@ -133,10 +128,6 @@ IF (ENABLE_FREETYPE)
 	ADD_SUBDIRECTORY (freetype)
 ENDIF ()
 
-IF (ENABLE_ICONV)
-	ADD_SUBDIRECTORY (iconv)
-ENDIF ()
-
 IF (ENABLE_OPENAL)
 	ADD_SUBDIRECTORY (openal)
 ENDIF ()
@@ -155,10 +146,6 @@ ENDIF ()
 
 IF (ENABLE_WAVE)
 	ADD_SUBDIRECTORY (wave)
-ENDIF ()
-
-IF (ENABLE_WINCONV)
-	ADD_SUBDIRECTORY (winconv)
 ENDIF ()
 
 IF (ENABLE_X11INPUT)

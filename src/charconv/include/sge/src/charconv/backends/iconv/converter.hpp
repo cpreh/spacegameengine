@@ -18,20 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ICONV_ENCODING_STRING_HPP_INCLUDED
-#define SGE_ICONV_ENCODING_STRING_HPP_INCLUDED
+#ifndef SGE_SRC_CHARCONV_BACKENDS_ICONV_CONVERTER_HPP_INCLUDED
+#define SGE_SRC_CHARCONV_BACKENDS_ICONV_CONVERTER_HPP_INCLUDED
 
+#include <sge/charconv/conversion_status.hpp>
+#include <sge/charconv/converter.hpp>
+#include <sge/charconv/input_range.hpp>
+#include <sge/charconv/output_range.hpp>
+#include <sge/src/charconv/backends/iconv/encoding_string.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <string>
+#include <iconv.h>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
+{
+namespace charconv
+{
+namespace backends
 {
 namespace iconv
 {
 
-typedef std::string encoding_string;
+class converter
+:
+	public sge::charconv::converter
+{
+	FCPPT_NONCOPYABLE(
+		converter
+	);
+public:
+	converter(
+		sge::charconv::backends::iconv::encoding_string const &source,
+		sge::charconv::backends::iconv::encoding_string const &dest
+	);
 
+	~converter();
+
+	sge::charconv::conversion_status::type
+	convert(
+		sge::charconv::input_range &,
+		sge::charconv::output_range &
+	);
+private:
+	::iconv_t iconv_;
+};
+
+}
+}
 }
 }
 
