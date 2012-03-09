@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/raw_pointer.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
 #include <sge/src/charconv/backends/windows/converter.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
@@ -42,9 +41,9 @@ sge::charconv::backends::windows::converter::converter(
 		(_source.get() != sge::charconv::encoding::wchar && _source.get() != sge::charconv::encoding::utf16)
 			|| _dest.get() != sge::charconv::encoding::utf32
 	)
-	// FIXME:
-		throw sge::charconv::exception(
-			FCPPT_TEXT("winconv can only convert between utf16 and utf32!")
+		throw sge::charconv::unsupported_conversion(
+			_source,
+			_dest
 		);
 }
 
