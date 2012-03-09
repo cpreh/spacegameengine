@@ -19,11 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/model/md3/load_flags.hpp>
-#include <sge/src/model/md3/endian.hpp>
-#include <sge/src/model/md3/s16.hpp>
+#include <sge/src/model/md3/read_s16.hpp>
 #include <sge/src/model/md3/vertex.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <iosfwd>
@@ -36,35 +34,23 @@ sge::model::md3::vertex::vertex(
 )
 :
 	x_(
-		fcppt::io::read<
-			md3::s16
-		>(
-			_stream,
-			md3::endian()
+		sge::model::md3::read_s16(
+			_stream
 		)
 	),
 	y_(
-		fcppt::io::read<
-			md3::s16
-		>(
-			_stream,
-			md3::endian()
+		sge::model::md3::read_s16(
+			_stream
 		)
 	),
 	z_(
-		fcppt::io::read<
-			md3::s16
-		>(
-			_stream,
-			md3::endian()
+		sge::model::md3::read_s16(
+			_stream
 		)
 	),
 	normal_(
-		fcppt::io::read<
-			md3::s16
-		>(
-			_stream,
-			md3::endian()
+		sge::model::md3::read_s16(
+			_stream
 		)
 	)
 {

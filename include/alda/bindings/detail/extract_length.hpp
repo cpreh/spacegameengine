@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/concepts/dynamic_memory/tag.hpp>
-#include <fcppt/endianness/copy_n_to_host.hpp>
+#include <fcppt/algorithm/copy_n.hpp>
+#include <fcppt/endianness/convert.hpp>
 
 
 namespace alda
@@ -49,19 +50,21 @@ extract_length(
 
 	length_type ret;
 
-	fcppt::endianness::copy_n_to_host(
+	fcppt::algorithm::copy_n(
 		_memory,
 		sizeof(length_type),
 		reinterpret_cast<
 			majutsu::raw_pointer
 		>(
 			&ret
-		),
-		sizeof(length_type),
-		alda::endianness()
+		)
 	);
 
-	return ret;
+	return
+		fcppt::endianness::convert(
+			ret,
+			alda::endianness()
+		);
 }
 
 }

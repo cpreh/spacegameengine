@@ -18,31 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/src/model/md3/endian.hpp>
-#include <sge/src/model/md3/max_qpath.hpp>
-#include <sge/src/model/md3/read_s32.hpp>
-#include <sge/src/model/md3/read_string.hpp>
-#include <sge/src/model/md3/shader.hpp>
+#ifndef SGE_SRC_MODEL_MD3_READ_S16_HPP_INCLUDED
+#define SGE_SRC_MODEL_MD3_READ_S16_HPP_INCLUDED
+
+#include <sge/src/model/md3/s16.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::model::md3::shader::shader(
-	std::istream &_stream
-)
-:
-	name_(
-		md3::read_string<
-			md3::max_qpath::value
-		>(
-			_stream
-		)
-	),
-	shader_index_(
-		sge::model::md3::read_s32(
-			_stream
-		)
-	)
+namespace sge
 {
+namespace model
+{
+namespace md3
+{
+
+md3::s16
+read_s16(
+	std::istream &
+);
+
 }
+}
+}
+
+#endif

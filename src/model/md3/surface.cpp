@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/exception.hpp>
 #include <sge/model/md3/load_flags.hpp>
 #include <sge/model/md3/string.hpp>
-#include <sge/src/model/md3/endian.hpp>
 #include <sge/src/model/md3/max_qpath.hpp>
 #include <sge/src/model/md3/read_and_check_id3p.hpp>
+#include <sge/src/model/md3/read_s32.hpp>
 #include <sge/src/model/md3/read_string.hpp>
 #include <sge/src/model/md3/s32.hpp>
 #include <sge/src/model/md3/shader.hpp>
@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/md3/triangle_vector.hpp>
 #include <sge/src/model/md3/vertex.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
@@ -70,19 +69,13 @@ sge::model::md3::surface::surface(
 		);
 
 	// flags
-	fcppt::io::read<
-		md3::s32
-	>(
-		_stream,
-		md3::endian()
+	sge::model::md3::read_s32(
+		_stream
 	);
 
 	md3::s32 const num_frames(
-		fcppt::io::read<
-			md3::s32
-		>(
-			_stream,
-			md3::endian()
+		sge::model::md3::read_s32(
+			_stream
 		)
 	);
 
@@ -95,67 +88,43 @@ sge::model::md3::surface::surface(
 
 	md3::s32 const
 		num_shaders(
-			fcppt::io::read<
-				md3::s32
-			>(
-				_stream,
-				md3::endian()
+			sge::model::md3::read_s32(
+				_stream
 			)
 		),
 		num_verts(
-			fcppt::io::read<
-				md3::s32
-			>(
-				_stream,
-				md3::endian()
+			sge::model::md3::read_s32(
+				_stream
 			)
 		),
 		num_triangles(
-			fcppt::io::read<
-				md3::s32
-			>(
-				_stream,
-				md3::endian()
+			sge::model::md3::read_s32(
+				_stream
 			)
 		),
 		ofs_triangles(
-			fcppt::io::read<
-				md3::s32
-			>(
-				_stream,
-				md3::endian()
+			sge::model::md3::read_s32(
+				_stream
 			)
 		),
 		ofs_shaders(
-			fcppt::io::read<
-				md3::s32
-			>(
-				_stream,
-				endian()
+			sge::model::md3::read_s32(
+				_stream
 			)
 		),
 		ofs_st(
-			fcppt::io::read<
-				md3::s32
-			>(
-				_stream,
-				md3::endian()
+			sge::model::md3::read_s32(
+				_stream
 			)
 		),
 		ofs_xyznormal(
-			fcppt::io::read<
-				md3::s32
-			>(
-				_stream,
-				md3::endian()
+			sge::model::md3::read_s32(
+				_stream
 			)
 		),
 		ofs_end(
-			fcppt::io::read<
-				md3::s32
-			>(
-				_stream,
-				md3::endian()
+			sge::model::md3::read_s32(
+				_stream
 			)
 		);
 

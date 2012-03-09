@@ -38,7 +38,9 @@ set(
 	src/model/md3/include/sge/src/model/md3/max_qpath.hpp
 	src/model/md3/include/sge/src/model/md3/object_impl.hpp
 	src/model/md3/include/sge/src/model/md3/read_and_check_id3p.hpp
+	src/model/md3/include/sge/src/model/md3/read_s16.hpp
 	src/model/md3/include/sge/src/model/md3/read_s32.hpp
+	src/model/md3/include/sge/src/model/md3/read_scalar.hpp
 	src/model/md3/include/sge/src/model/md3/read_string.hpp
 	src/model/md3/include/sge/src/model/md3/read_vec3.hpp
 	src/model/md3/include/sge/src/model/md3/s16.hpp
@@ -64,7 +66,9 @@ set(
 	src/model/md3/object.cpp
 	src/model/md3/object_impl.cpp
 	src/model/md3/read_and_check_id3p.cpp
+	src/model/md3/read_s16.cpp
 	src/model/md3/read_s32.cpp
+	src/model/md3/read_scalar.cpp
 	src/model/md3/read_string.cpp
 	src/model/md3/read_vec3.cpp
 	src/model/md3/shader.cpp

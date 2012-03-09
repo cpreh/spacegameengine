@@ -18,31 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/model/md3/scalar.hpp>
 #include <sge/src/model/md3/endian.hpp>
-#include <sge/src/model/md3/max_qpath.hpp>
-#include <sge/src/model/md3/read_s32.hpp>
-#include <sge/src/model/md3/read_string.hpp>
-#include <sge/src/model/md3/shader.hpp>
+#include <sge/src/model/md3/read_scalar.hpp>
+#include <fcppt/io/read_exn.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::model::md3::shader::shader(
+sge::model::md3::scalar
+sge::model::md3::read_scalar(
 	std::istream &_stream
 )
-:
-	name_(
-		md3::read_string<
-			md3::max_qpath::value
-		>(
-			_stream
-		)
-	),
-	shader_index_(
-		sge::model::md3::read_s32(
-			_stream
-		)
-	)
 {
+	return
+		fcppt::io::read_exn<
+			md3::scalar
+		>(
+			_stream,
+			md3::endian()
+		);
 }

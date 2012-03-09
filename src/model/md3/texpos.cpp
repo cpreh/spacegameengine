@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/model/md3/texcoord.hpp>
-#include <sge/src/model/md3/endian.hpp>
+#include <sge/src/model/md3/read_scalar.hpp>
 #include <sge/src/model/md3/texpos.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -33,17 +33,11 @@ sge::model::md3::texpos::texpos(
 )
 :
 	texcoord_(
-		fcppt::io::read<
-			md3::scalar
-		>(
-			_stream,
-			md3::endian()
+		sge::model::md3::read_scalar(
+			_stream
 		),
-		fcppt::io::read<
-			md3::scalar
-		>(
-			_stream,
-			md3::endian()
+		sge::model::md3::read_scalar(
+			_stream
 		)
 	)
 {

@@ -43,18 +43,23 @@ sge::model::md3::read_string(
 		Max
 	> tmp_name;
 
-	_stream.read(
-		reinterpret_cast<
-			char *
-		>(
-			tmp_name.data()
-		),
-		static_cast<
-			std::streamsize
-		>(
-			tmp_name.size()
+	if(
+		!_stream.read(
+			reinterpret_cast<
+				char *
+			>(
+				tmp_name.data()
+			),
+			static_cast<
+				std::streamsize
+			>(
+				tmp_name.size()
+			)
 		)
-	);
+	)
+		throw sge::model::md3::exception(
+			FCPPT_TEXT("Reading a string failed")
+		);
 
 	if(
 		!std::count(

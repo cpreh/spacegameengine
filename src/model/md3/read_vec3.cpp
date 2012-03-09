@@ -18,11 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/model/md3/scalar.hpp>
-#include <sge/src/model/md3/endian.hpp>
+#include <sge/src/model/md3/read_scalar.hpp>
 #include <sge/src/model/md3/read_vec3.hpp>
 #include <sge/src/model/md3/vec3.hpp>
-#include <fcppt/io/read.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
@@ -36,23 +34,14 @@ sge::model::md3::read_vec3(
 {
 	return
 		md3::vec3(
-			fcppt::io::read<
-				md3::scalar
-			>(
-				_stream,
-				md3::endian()
+			sge::model::md3::read_scalar(
+				_stream
 			),
-			fcppt::io::read<
-				md3::scalar
-			>(
-				_stream,
-				md3::endian()
+			sge::model::md3::read_scalar(
+				_stream
 			),
-			fcppt::io::read<
-				md3::scalar
-			>(
-				_stream,
-				md3::endian()
+			sge::model::md3::read_scalar(
+				_stream
 			)
 		);
 }

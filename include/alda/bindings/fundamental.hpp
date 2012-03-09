@@ -27,8 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/concepts/static_size.hpp>
 #include <majutsu/concepts/dynamic_memory/tag.hpp>
-#include <fcppt/endianness/from_host.hpp>
-#include <fcppt/endianness/to_host.hpp>
+#include <fcppt/endianness/convert.hpp>
 
 
 namespace alda
@@ -68,7 +67,7 @@ place(
 		>(
 			0
 		),
-		fcppt::endianness::from_host(
+		fcppt::endianness::convert(
 			_type,
 			alda::endianness()
 		),
@@ -89,7 +88,7 @@ make(
 )
 {
 	return
-		fcppt::endianness::to_host(
+		fcppt::endianness::convert(
 			make(
 				_tag,
 				static_cast<

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/md3/endian.hpp>
 #include <sge/src/model/md3/read_and_check_id3p.hpp>
 #include <fcppt/container/array.hpp>
-#include <fcppt/io/read.hpp>
+#include <fcppt/io/read_exn.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <istream>
@@ -51,7 +51,7 @@ sge::model::md3::read_and_check_id3p(
 		++it
 	)
 		*it =
-			fcppt::io::read<
+			fcppt::io::read_exn<
 				md3::u8
 			>(
 				_stream,

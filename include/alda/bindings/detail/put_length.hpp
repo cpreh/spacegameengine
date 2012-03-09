@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/raw_pointer.hpp>
 #include <majutsu/concepts/dynamic_memory/tag.hpp>
 #include <fcppt/truncation_check_cast.hpp>
-#include <fcppt/endianness/copy_n_from_host.hpp>
+#include <fcppt/algorithm/copy_n.hpp>
+#include <fcppt/endianness/convert.hpp>
 
 
 namespace alda
@@ -49,28 +50,29 @@ put_length(
 {
 	typedef typename Concept::length_type length_type;
 
-	length_type const sz(
-		fcppt::truncation_check_cast<
-			length_type
-		>(
-			needed_size(
-				_tag,
-				_concept,
-				_value
-			)
+	length_type const dest_sz(
+		fcppt::endianness::convert(
+			fcppt::truncation_check_cast<
+				length_type
+			>(
+				needed_size(
+					_tag,
+					_concept,
+					_value
+				)
+			),
+			alda::endianness()
 		)
 	);
 
-	fcppt::endianness::copy_n_from_host(
+	fcppt::algorithm::copy_n(
 		reinterpret_cast<
 			majutsu::const_raw_pointer
 		>(
-			&sz
+			&dest_sz
 		),
 		sizeof(length_type),
-		_memory,
-		sizeof(length_type),
-		alda::endianness()
+		_memory
 	);
 
 	_memory += sizeof(length_type);

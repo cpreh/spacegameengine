@@ -18,11 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/src/model/md3/endian.hpp>
 #include <sge/src/model/md3/index_array.hpp>
-#include <sge/src/model/md3/s32.hpp>
+#include <sge/src/model/md3/read_s32.hpp>
 #include <sge/src/model/md3/triangle.hpp>
-#include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -40,11 +38,8 @@ sge::model::md3::triangle::triangle(
 		++it
 	)
 		*it =
-			fcppt::io::read<
-				md3::s32
-			>(
-				_stream,
-				md3::endian()
+			sge::model::md3::read_s32(
+				_stream
 			);
 }
 

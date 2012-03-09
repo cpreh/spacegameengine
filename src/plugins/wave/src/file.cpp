@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/endianness/copy_swapped.hpp>
 #include <fcppt/endianness/is_little_endian.hpp>
+#include <fcppt/endianness/reverse_mem.hpp>
 #include <fcppt/endianness/swap.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/ostringstream.hpp>
@@ -137,13 +137,8 @@ sge::audio::sample_count sge::wave::file::read(
 
 	// TODO: replace this with copy_to_host
 	if (bytes_per_sample() > static_cast<audio::sample_count>(1) && swap_)
-		fcppt::endianness::copy_swapped(
-			old_pos,
-			_array.data_end(),
-			old_pos,
-			bytes_per_sample());
-		//for (audio::sample_container::pointer i = _array.data() + old_size; i != _array.data_end(); i += bytes_per_sample())
-		//	fcppt::endianness::swap(i,bytes_per_sample());
+		for (audio::sample_container::pointer i = _array.data() + old_size; i != _array.data_end(); i += bytes_per_sample())
+			fcppt::endianness::reverse_mem(i,bytes_per_sample());
 
 	samples_read_ +=
 		samples_to_read;
@@ -176,7 +171,7 @@ void sge::wave::file::read_riff()
 			filename_,
 			FCPPT_TEXT("file is not a riff file and thus not a wave file"));
 
-	swap_ = file_bigendian == fcppt::endianness::is_little_endian();
+	swap_ = file_bigendian != (fcppt::endianness::is_little_endian());
 
 	// throw away riff size
 	extract_primitive<boost::uint32_t>(
