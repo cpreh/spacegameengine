@@ -12,6 +12,7 @@ set(
 	include/sge/charconv/create_system.hpp
 	include/sge/charconv/dest_encoding.hpp
 	include/sge/charconv/encoding.hpp
+	include/sge/charconv/encoding_to_string.hpp
 	include/sge/charconv/exception.hpp
 	include/sge/charconv/fcppt_string_to_utf8.hpp
 	include/sge/charconv/input_range.hpp
@@ -32,6 +33,7 @@ set(
 	src/charconv/convert.cpp
 	src/charconv/converter.cpp
 	src/charconv/create_system.cpp
+	src/charconv/encoding_to_string.cpp
 	src/charconv/exception.cpp
 	src/charconv/fcppt_string_to_utf8.cpp
 	src/charconv/include/sge/src/charconv/fcppt_is_utf8.hpp

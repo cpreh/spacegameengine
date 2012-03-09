@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/conversion_status.hpp>
 #include <sge/charconv/converter.hpp>
+#include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
-#include <sge/src/charconv/backends/iconv/encoding_string.hpp>
+#include <sge/charconv/source_encoding.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iconv.h>
@@ -50,8 +51,8 @@ class converter
 	);
 public:
 	converter(
-		sge::charconv::backends::iconv::encoding_string const &source,
-		sge::charconv::backends::iconv::encoding_string const &dest
+		sge::charconv::source_encoding,
+		sge::charconv::dest_encoding
 	);
 
 	~converter();

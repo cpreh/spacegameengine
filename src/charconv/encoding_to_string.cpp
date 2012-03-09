@@ -18,35 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/converter_unique_ptr.hpp>
-#include <sge/charconv/dest_encoding.hpp>
-#include <sge/charconv/source_encoding.hpp>
-#include <sge/src/charconv/backends/iconv/converter.hpp>
-#include <sge/src/charconv/backends/iconv/system.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <sge/charconv/encoding.hpp>
+#include <sge/charconv/encoding_to_string.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 
-sge::charconv::backends::iconv::system::system()
-{
-}
-
-sge::charconv::backends::iconv::system::~system()
-{
-}
-
-sge::charconv::converter_unique_ptr
-sge::charconv::backends::iconv::system::create_converter(
-	sge::charconv::source_encoding const _source,
-	sge::charconv::dest_encoding const _dest
+fcppt::string const
+sge::charconv::encoding_to_string(
+	sge::charconv::encoding::type const _encoding
 )
 {
-	return
-		sge::charconv::converter_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::charconv::backends::iconv::converter
-			>(
-				_source,
-				_dest
-			)
+#define SGE_CHARCONV_ENCODING_CASE(\
+	name\
+)\
+case sge::charconv::encoding::name:\
+	return FCPPT_TEXT(#name)
+
+	switch(
+		_encoding
+	)
+	{
+		SGE_CHARCONV_ENCODING_CASE(
+			utf8
 		);
+		SGE_CHARCONV_ENCODING_CASE(
+			utf16
+		);
+		SGE_CHARCONV_ENCODING_CASE(
+			utf32
+		);
+		SGE_CHARCONV_ENCODING_CASE(
+			wchar
+		);
+	}
+
+	FCPPT_ASSERT_UNREACHABLE;
 }

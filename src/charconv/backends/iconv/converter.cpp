@@ -20,14 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/const_raw_pointer.hpp>
 #include <sge/charconv/conversion_status.hpp>
+#include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/exception.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
+#include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/raw_pointer.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
 #include <sge/src/charconv/backends/iconv/converter.hpp>
-#include <sge/src/charconv/backends/iconv/encoding_string.hpp>
-#include <fcppt/from_std_string.hpp>
+#include <sge/src/charconv/backends/iconv/encoding_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cerrno>
@@ -37,14 +38,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::charconv::backends::iconv::converter::converter(
-	sge::charconv::backends::iconv::encoding_string const &_source,
-	sge::charconv::backends::iconv::encoding_string const &_dest
+	sge::charconv::source_encoding const _source,
+	sge::charconv::dest_encoding const _dest
 )
 :
 	iconv_(
 		::iconv_open(
-			_dest.c_str(),
-			_source.c_str()
+			sge::charconv::backends::iconv::encoding_to_string(
+				_dest.get()
+			).c_str(),
+			sge::charconv::backends::iconv::encoding_to_string(
+				_source.get()
+			).c_str()
 		)
 	)
 {
@@ -57,12 +62,8 @@ sge::charconv::backends::iconv::converter::converter(
 		)
 	)
 		throw sge::charconv::unsupported_conversion(
-			fcppt::from_std_string(
-				_source
-			),
-			fcppt::from_std_string(
-				_dest
-			)
+			_source,
+			_dest
 		);
 }
 

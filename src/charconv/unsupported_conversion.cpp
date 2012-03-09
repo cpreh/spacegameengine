@@ -18,21 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/dest_encoding.hpp>
+#include <sge/charconv/encoding_to_string.hpp>
 #include <sge/charconv/exception.hpp>
+#include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::charconv::unsupported_conversion::unsupported_conversion(
-	fcppt::string const &_source,
-	fcppt::string const &_dest
+	sge::charconv::source_encoding const _source,
+	sge::charconv::dest_encoding const _dest
 )
 :
 	sge::charconv::exception(
 		FCPPT_TEXT("Invalid conversion from ")
-		+ _source
+		+
+		sge::charconv::encoding_to_string(
+			_source.get()
+		)
 		+ FCPPT_TEXT(" to ")
-		+ _dest
+		+
+		sge::charconv::encoding_to_string(
+			_dest.get()
+		)
+	),
+	source_(
+		_source
+	),
+	dest_(
+		_dest
 	)
 {
 }
@@ -41,13 +56,13 @@ sge::charconv::unsupported_conversion::~unsupported_conversion() throw()
 {
 }
 
-fcppt::string const &
+sge::charconv::source_encoding const
 sge::charconv::unsupported_conversion::source() const
 {
 	return source_;
 }
 
-fcppt::string const &
+sge::charconv::dest_encoding const
 sge::charconv::unsupported_conversion::dest() const
 {
 	return dest_;

@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/create_system.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/encoding.hpp>
+#include <sge/charconv/encoding_to_string.hpp>
 #include <sge/charconv/exception.hpp>
 #include <sge/charconv/fcppt_string_to_utf8.hpp>
 #include <sge/charconv/input_range.hpp>

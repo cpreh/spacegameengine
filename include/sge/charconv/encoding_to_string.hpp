@@ -18,35 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/converter_unique_ptr.hpp>
-#include <sge/charconv/dest_encoding.hpp>
-#include <sge/charconv/source_encoding.hpp>
-#include <sge/src/charconv/backends/iconv/converter.hpp>
-#include <sge/src/charconv/backends/iconv/system.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#ifndef SGE_CHARCONV_ENCODING_TO_STRING_HPP_INCLUDED
+#define SGE_CHARCONV_ENCODING_TO_STRING_HPP_INCLUDED
+
+#include <sge/charconv/encoding.hpp>
+#include <sge/charconv/symbol.hpp>
+#include <fcppt/string.hpp>
 
 
-sge::charconv::backends::iconv::system::system()
+namespace sge
 {
+namespace charconv
+{
+
+SGE_CHARCONV_SYMBOL
+fcppt::string const
+encoding_to_string(
+	sge::charconv::encoding::type
+);
+
+}
 }
 
-sge::charconv::backends::iconv::system::~system()
-{
-}
-
-sge::charconv::converter_unique_ptr
-sge::charconv::backends::iconv::system::create_converter(
-	sge::charconv::source_encoding const _source,
-	sge::charconv::dest_encoding const _dest
-)
-{
-	return
-		sge::charconv::converter_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::charconv::backends::iconv::converter
-			>(
-				_source,
-				_dest
-			)
-		);
-}
+#endif
