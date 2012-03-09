@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINCONV_SYSTEM_HPP_INCLUDED
-#define SGE_WINCONV_SYSTEM_HPP_INCLUDED
+#ifndef SGE_CHARCONV_BACKENDS_WINDOWS_SYSTEM_HPP_INCLUDED
+#define SGE_CHARCONV_BACKENDS_WINDOWS_SYSTEM_HPP_INCLUDED
 
-#include <sge/charconv/converter_ptr.hpp>
+#include <sge/charconv/converter_unique_ptr.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/system.hpp>
@@ -30,7 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace winconv
+namespace charconv
+{
+namespace backends
+{
+namespace windows
 {
 
 class system
@@ -45,13 +49,15 @@ public:
 
 	~system();
 private:
-	charconv::converter_ptr const
+	sge::charconv::converter_unique_ptr
 	create_converter(
-		charconv::source_encoding,
-		charconv::dest_encoding
+		sge::charconv::source_encoding,
+		sge::charconv::dest_encoding
 	);
 };
 
+}
+}
 }
 }
 

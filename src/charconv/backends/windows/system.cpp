@@ -18,30 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/winconv/converter.hpp>
-#include <sge/winconv/system.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <sge/charconv/converter_unique_ptr.hpp>
+#include <sge/charconv/dest_encoding.hpp>
+#include <sge/charconv/source_encoding.hpp>
+#include <sge/src/charconv/backends/windows/converter.hpp>
+#include <sge/src/charconv/backends/windows/system.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 
-sge::winconv::system::system()
+sge::charconv::backends::windows::system::system()
 {
 }
 
-sge::winconv::system::~system()
+sge::charconv::backends::windows::system::~system()
 {
 }
 
-sge::charconv::converter_ptr const
-sge::winconv::system::create_converter(
-	charconv::source_encoding const _source,
-	charconv::dest_encoding const _dest
+sge::charconv::converter_unique_ptr
+sge::charconv::backends::windows::system::create_converter(
+	sge::charconv::source_encoding const _source,
+	sge::charconv::dest_encoding const _dest
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			winconv::converter
-		>(
-			_source,
-			_dest
+		sge::charconv::converter_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::charconv::backends::windows::converter
+			>(
+				_source,
+				_dest
+			)
 		);
 }

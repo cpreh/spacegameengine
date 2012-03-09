@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
 #include <sge/charconv/const_raw_pointer.hpp>
-#include <sge/charconv/exception.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
 #include <sge/charconv/raw_pointer.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
-#include <sge/winconv/converter.hpp>
+#include <sge/src/charconv/backends/windows/converter.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -35,24 +33,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::winconv::converter::converter(
-	charconv::source_encoding const &_source,
-	charconv::dest_encoding const &_dest)
+sge::charconv::backends::windows::converter::converter(
+	sge::charconv::source_encoding const &_source,
+	sge::charconv::dest_encoding const &_dest
+)
 {
 	if(
 		(_source.get() != sge::charconv::encoding::wchar && _source.get() != sge::charconv::encoding::utf16)
-			|| _dest.get() != sge::charconv::encoding::utf32)
-		throw exception(FCPPT_TEXT("winconv can only convert between utf16 and utf32!"));
+			|| _dest.get() != sge::charconv::encoding::utf32
+	)
+	// FIXME:
+		throw sge::charconv::exception(
+			FCPPT_TEXT("winconv can only convert between utf16 and utf32!")
+		);
 }
 
-sge::winconv::converter::~converter()
+sge::charconv::backends::windows::converter::~converter()
 {
 }
 
 sge::charconv::conversion_status::type
-sge::winconv::converter::convert(
-	charconv::input_range &_input,
-	charconv::output_range &_output)
+sge::charconv::backends::windows::converter::convert(
+	sge::charconv::input_range &_input,
+	sge::charconv::output_range &_output
+)
 {
 	// Let the system resize the output until we've got double the input size
 	if(_output.size() < (static_cast<charconv::output_range::difference_type>(2)*_input.size()))
@@ -152,9 +156,9 @@ sge::winconv::converter::convert(
 			_output.begin());
 
 		_output.advance_begin(
-			static_cast<charconv::output_range::difference_type>(
+			static_cast<sge::charconv::output_range::difference_type>(
 				4));
 	}
 
-	return charconv::conversion_status::ok;
+	return sge::charconv::conversion_status::ok;
 }
