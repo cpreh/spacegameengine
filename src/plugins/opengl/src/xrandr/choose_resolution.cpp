@@ -28,24 +28,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <awl/backends/x11/window/instance.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 
-sge::opengl::xrandr::resolution_ptr const
+sge::opengl::xrandr::resolution_unique_ptr
 sge::opengl::xrandr::choose_resolution(
 	awl::backends::x11::window::instance &_window,
-	renderer::display_mode const &_mode
+	sge::renderer::display_mode const &_mode
 )
 {
-	xrandr::check_extension(
+	sge::opengl::xrandr::check_extension(
 		_window.display()
 	);
 
-	xrandr::configuration_ptr const config(
-		fcppt::make_shared_ptr<
-			xrandr::configuration
+	sge::opengl::xrandr::configuration_unique_ptr config(
+		fcppt::make_unique_ptr<
+			sge::opengl::xrandr::configuration
 		>(
 			fcppt::ref(
 				_window
@@ -63,44 +64,56 @@ sge::opengl::xrandr::choose_resolution(
 	);
 
 	for(
-		int i = 0;
-		i < nsizes;
-		++i
+		int index = 0;
+		index < nsizes;
+		++index
 	)
 		if(
 			static_cast<
-				renderer::screen_unit
+				sge::renderer::screen_unit
 			>(
-				sizes[i].width
+				sizes[
+					index
+				].width
 			)
 			== _mode.size().w()
 			&&
 			static_cast<
-				renderer::screen_unit
+				sge::renderer::screen_unit
 			>(
-				sizes[i].height
+				sizes[
+					index
+				].height
 			)
 			== _mode.size().h()
 		)
+		{
+			sge::opengl::xrandr::configuration &config_ref(
+				*config
+			);
+
 			return
-				xrandr::resolution_ptr(
-					fcppt::make_shared_ptr<
-						xrandr::resolution
+				sge::opengl::xrandr::resolution_unique_ptr(
+					fcppt::make_unique_ptr<
+						sge::opengl::xrandr::resolution
 					>(
 						fcppt::ref(
 							_window
 						),
-						config,
-						xrandr::mode(
-							i,
+						fcppt::move(
+							config
+						),
+						sge::opengl::xrandr::mode(
+							index,
 							RR_Rotate_0,
 							_mode.refresh_rate()
 						),
-						xrandr::current_resolution(
-							config
+						sge::opengl::xrandr::current_resolution(
+							config_ref
 						)
 					)
 				);
+		}
 
 	throw sge::renderer::exception(
 		FCPPT_TEXT("No matching resolution found!")

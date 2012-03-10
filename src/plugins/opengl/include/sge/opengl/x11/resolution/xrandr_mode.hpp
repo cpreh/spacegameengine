@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_X11_RESOLUTION_XRANDR_MODE_HPP_INCLUDED
 
 #include <sge/opengl/x11/resolution/instance.hpp>
-#include <sge/opengl/xrandr/resolution_ptr.hpp>
+#include <sge/opengl/xrandr/resolution_fwd.hpp>
 #include <sge/renderer/display_mode_fwd.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -52,7 +53,11 @@ public:
 
 	~xrandr_mode();
 private:
-	xrandr::resolution_ptr const resolution_;
+	typedef fcppt::scoped_ptr<
+		sge::opengl::xrandr::resolution
+	> resolution_scoped_ptr;
+
+	resolution_scoped_ptr const resolution_;
 };
 
 }

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/visual.hpp>
 #include <awl/backends/x11/window/instance.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -50,8 +50,8 @@ sge::opengl::x11::state::state(
 		window_.display()
 	),
 	context_(
-		fcppt::make_shared_ptr<
-			glx::context
+		fcppt::make_unique_ptr<
+			sge::opengl::glx::context
 		>(
 			fcppt::ref(
 				display_
@@ -62,7 +62,7 @@ sge::opengl::x11::state::state(
 	current_(
 		display_,
 		window_,
-		context_
+		*context_
 	),
 	resolution_(
 		x11::resolution::create(

@@ -43,7 +43,8 @@ class configuration
 		configuration
 	);
 public:
-	explicit configuration(
+	explicit
+	configuration(
 		awl::backends::x11::window::instance &
 	);
 

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/device_state.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/glx/context_ptr.hpp>
+#include <sge/opengl/glx/context_scoped_ptr.hpp>
 #include <sge/opengl/glx/current.hpp>
 #include <sge/opengl/x11/resolution/instance_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
@@ -68,7 +68,7 @@ private:
 
 	awl::backends::x11::display &display_;
 
-	glx::context_ptr const context_;
+	glx::context_scoped_ptr const context_;
 
 	glx::current const current_;
 

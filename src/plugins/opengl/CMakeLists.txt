@@ -712,7 +712,7 @@ set(
 	SGE_OPENGL_X11_FILES
 	src/plugins/opengl/include/sge/opengl/glx/context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glx/context_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/glx/context_scoped_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/glx/current.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_address.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_context.hpp
@@ -763,13 +763,13 @@ set(
 	src/plugins/opengl/include/sge/opengl/xrandr/choose_resolution.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/configuration.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/configuration_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/xrandr/configuration_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/configuration_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/current_resolution.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/mode_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/resolution.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/resolution_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/xrandr/resolution_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/resolution_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/set_resolution.hpp
 	src/plugins/opengl/src/xrandr/check_extension.cpp
 	src/plugins/opengl/src/xrandr/choose_resolution.cpp

@@ -18,22 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_CONFIGURATION_PTR_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_CONFIGURATION_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_CONTEXT_SCOPED_PTR_HPP_INCLUDED
+#define SGE_OPENGL_GLX_CONTEXT_SCOPED_PTR_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/configuration_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/opengl/glx/context_fwd.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-namespace xrandr
+namespace glx
 {
 
-typedef fcppt::shared_ptr<
-	configuration
-> configuration_ptr;
+typedef fcppt::scoped_ptr<
+	sge::opengl::glx::context
+> context_scoped_ptr;
 
 }
 }

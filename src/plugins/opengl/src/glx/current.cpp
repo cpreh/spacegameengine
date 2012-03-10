@@ -33,17 +33,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::glx::current::current(
 	awl::backends::x11::display &_display,
 	awl::backends::x11::window::instance &_window,
-	context_ptr const _context
+	sge::opengl::glx::context &_context
 )
 :
-	display_(_display),
-	context_(_context)
+	display_(
+		_display
+	)
 {
 	if(
 		::glXMakeCurrent(
 			_display.get(),
 			_window.get(),
-			_context->get()
+			_context.get()
 		)
 		== false
 	)

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
 #define SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
 
-#include <sge/opengl/glx/context_ptr.hpp>
+#include <sge/opengl/glx/context_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,14 +43,12 @@ public:
 	current(
 		awl::backends::x11::display &,
 		awl::backends::x11::window::instance &,
-		glx::context_ptr
+		sge::opengl::glx::context &
 	);
 
 	~current();
 private:
 	awl::backends::x11::display &display_;
-
-	glx::context_ptr const context_;
 };
 
 }

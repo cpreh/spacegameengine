@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XRANDR_CHOOSE_RESOLUTION_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_CHOOSE_RESOLUTION_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/resolution_ptr.hpp>
+#include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
 #include <sge/renderer/display_mode_fwd.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
 
@@ -32,10 +32,10 @@ namespace opengl
 namespace xrandr
 {
 
-xrandr::resolution_ptr const
+sge::opengl::xrandr::resolution_unique_ptr
 choose_resolution(
 	awl::backends::x11::window::instance &,
-	renderer::display_mode const &
+	sge::renderer::display_mode const &
 );
 
 }

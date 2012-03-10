@@ -169,7 +169,7 @@ add_sge_example(
 
 add_sge_example(
 	fullscreen
-	"sgeimage;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"sgeimage;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
 )
 

@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
 #include <awl/backends/x11/window/instance.hpp>
+#include <fcppt/log/info.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/variant/holds_type.hpp>
@@ -72,6 +73,13 @@ sge::opengl::x11::resolution::create(
 		>()
 	);
 #if defined(SGE_OPENGL_HAVE_XRANDR)
+
+	FCPPT_LOG_INFO(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("Using xrandr for resolution changes")
+	);
+
 	try
 	{
 		return
@@ -97,6 +105,12 @@ sge::opengl::x11::resolution::create(
 	}
 #endif
 #if defined(SGE_OPENGL_HAVE_XF86VMODE)
+	FCPPT_LOG_INFO(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("Using xf86vmode for resolution changes")
+	);
+
 	try
 	{
 		return

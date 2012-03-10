@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/colors.hpp>
+#include <sge/log/global.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
@@ -52,6 +53,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
@@ -66,6 +69,11 @@ example_main(
 )
 try
 {
+	fcppt::log::activate_levels(
+		sge::log::global(),
+		fcppt::log::level::debug
+	);
+
 	sge::window::dim const window_dim(
 		800,
 		600
