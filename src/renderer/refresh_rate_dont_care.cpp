@@ -18,7 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/refresh_rate.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 
+
 sge::renderer::refresh_rate const
-sge::renderer::refresh_rate_dont_care(0);
+sge::renderer::refresh_rate_dont_care(
+	0u
+);

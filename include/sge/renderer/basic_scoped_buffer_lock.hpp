@@ -98,7 +98,7 @@ public:
 		Buffer &buffer,
 		renderer::lock_mode::type method,
 		first_type first =
-			first_type(0),
+			first_type(0u),
 		count_type count =
 			count_type(
 				renderer::npos()

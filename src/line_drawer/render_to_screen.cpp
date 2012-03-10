@@ -53,10 +53,10 @@ sge::line_drawer::render_to_screen(
 				)
 			),
 			sge::renderer::projection::near(
-				0
+				0.f
 			),
 			sge::renderer::projection::far(
-				10
+				10.f
 			)
 		)
 	);

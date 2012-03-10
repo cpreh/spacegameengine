@@ -36,8 +36,8 @@ namespace
 sge::plugin::info const info(
 	FCPPT_TEXT("opengl"),
 	FCPPT_TEXT("Implements most of the functionality provided by opengl-2.1 and some by 3+."),
-	sge::plugin::version(0x1),
-	sge::plugin::min_core_version(0x1),
+	sge::plugin::version(0x1u),
+	sge::plugin::min_core_version(0x1u),
 	sge::plugin::capabilities_field(
 		sge::plugin::capabilities::renderer
 	)

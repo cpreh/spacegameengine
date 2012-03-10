@@ -38,8 +38,8 @@ namespace
 sge::plugin::info const info(
 	FCPPT_TEXT("freetype"),
 	FCPPT_TEXT("Provides loading of truetype fonts."),
-	sge::plugin::version(0x1),
-	sge::plugin::min_core_version(0x1),
+	sge::plugin::version(0x1u),
+	sge::plugin::min_core_version(0x1u),
 	sge::plugin::capabilities_field(
 		sge::plugin::capabilities::font
 	)

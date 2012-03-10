@@ -96,11 +96,11 @@ sge::line_drawer::object::render()
 	renderer_.texture(
 		sge::renderer::texture::const_optional_base(),
 		sge::renderer::texture::stage(
-			0));
+			0u));
 
 	renderer_.render_nonindexed(
 		sge::renderer::first_vertex(
-			0),
+			0u),
 		sge::renderer::vertex_count(
 			vb_->size()),
 		sge::renderer::nonindexed_primitive_type::line);

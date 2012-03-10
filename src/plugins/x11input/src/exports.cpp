@@ -36,8 +36,8 @@ namespace
 sge::plugin::info const info(
 	FCPPT_TEXT("x11input"),
 	FCPPT_TEXT("Uses XI2 to handle keyboards and mice."),
-	sge::plugin::version(0x1),
-	sge::plugin::min_core_version(0x1),
+	sge::plugin::version(0x1u),
+	sge::plugin::min_core_version(0x1u),
 	sge::plugin::capabilities_field(
 		sge::plugin::capabilities::input
 	)

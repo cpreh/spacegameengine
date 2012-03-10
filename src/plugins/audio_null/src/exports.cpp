@@ -36,8 +36,8 @@ namespace
 sge::plugin::info const info(
 	FCPPT_TEXT("audio_null"),
 	FCPPT_TEXT("An audio plugin that does not do anything."),
-	sge::plugin::version(0x1),
-	sge::plugin::min_core_version(0x1),
+	sge::plugin::version(0x1u),
+	sge::plugin::min_core_version(0x1u),
 	sge::plugin::capabilities_field(
 		sge::plugin::capabilities::audio_player
 	)

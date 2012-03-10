@@ -125,7 +125,7 @@ public:
 	lock(
 		lock_mode::type method,
 		first_type first =
-			first_type(0),
+			first_type(0u),
 		count_type count
 			= npos
 	) = 0;
@@ -153,7 +153,7 @@ public:
 	virtual const_view_type const
 	lock(
 		first_type first
-			= first_type(0),
+			= first_type(0u),
 		count_type count
 			= npos
 	) const = 0;

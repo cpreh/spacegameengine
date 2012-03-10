@@ -36,8 +36,8 @@ namespace
 sge::plugin::info const info(
 	FCPPT_TEXT("d3d9"),
 	FCPPT_TEXT("Implements a renderer using Direct3D9."),
-	sge::plugin::version(0x1),
-	sge::plugin::min_core_version(0x1),
+	sge::plugin::version(0x1u),
+	sge::plugin::min_core_version(0x1u),
 	sge::plugin::capabilities_field(
 		sge::plugin::capabilities::renderer
 	)

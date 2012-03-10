@@ -18,7 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/multi_sample_type.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 
+
 sge::renderer::multi_sample_type const
-sge::renderer::no_multi_sampling(0);
+sge::renderer::no_multi_sampling(
+	0u
+);

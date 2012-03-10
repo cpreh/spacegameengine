@@ -44,10 +44,10 @@ sge::sprite::projection_matrix(
 				)
 			),
 			sge::renderer::projection::near(
-				0
+				0.f
 			),
 			sge::renderer::projection::far(
-				10
+				10.f
 			)
 		);
 }

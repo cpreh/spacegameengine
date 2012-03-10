@@ -112,10 +112,10 @@ sge::vorbis::file::file(
 			FCPPT_TEXT("couldn't read file info from ogg vorbis file"));
 
 	channels_ =
-		fcppt::sn_cast<channel_type>(
+		static_cast<channel_type>(
 			info->channels);
 	sample_rate_ =
-		fcppt::sn_cast<sample_count>(
+		static_cast<sample_count>(
 			info->rate);
 }
 
@@ -225,7 +225,7 @@ sge::audio::sample_count
 sge::vorbis::file::read_all(
 	sample_container &data)
 {
-	while (read(fcppt::sn_cast<sample_count>(16*4096),data))
+	while (read(fcppt::sn_cast<sample_count>(16u*4096u),data))
 		;
 	return data.size()/bytes_per_sample();
 }
