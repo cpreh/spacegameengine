@@ -209,7 +209,7 @@ sge::cegui::detail::geometry_buffer::draw() const
 
 		renderer_.render_nonindexed(
 			sge::renderer::first_vertex(
-				0),
+				0u),
 			sge::renderer::vertex_count(
 				it->vertex_buffer().size()),
 			sge::renderer::nonindexed_primitive_type::triangle);

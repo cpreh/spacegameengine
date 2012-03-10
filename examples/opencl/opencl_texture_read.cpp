@@ -99,7 +99,7 @@ try
 			image_size,
 			image_size),
 		sge::opencl::memory_object::image::planar_pitch(
-			0));
+			0u));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, creating systems object\n");
@@ -135,7 +135,7 @@ try
 
 	main_kernel.argument(
 		sge::opencl::kernel::argument_index(
-			0),
+			0u),
 		image);
 
 	fcppt::io::cout()

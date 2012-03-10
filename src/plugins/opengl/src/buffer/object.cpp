@@ -323,7 +323,7 @@ sge::opengl::buffer::object::unbind()
 {
 	this->bind_id(
 		buffer::id(
-			0
+			0u
 		)
 	);
 }

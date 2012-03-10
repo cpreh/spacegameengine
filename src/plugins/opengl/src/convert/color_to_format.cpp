@@ -22,60 +22,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/color_to_format.hpp>
+#include <sge/opengl/convert/make_color_format.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 sge::opengl::color_format const
 sge::opengl::convert::color_to_format(
-	image::color::format::type const _fmt
+	image::color::format::type const _format
 )
 {
 	switch(
-		_fmt
+		_format
 	)
 	{
 	case image::color::format::a8:
 		return
-			opengl::color_format(
+			sge::opengl::convert::make_color_format(
 				GL_ALPHA
 			);
 	case image::color::format::l8:
 		return
-			opengl::color_format(
+			sge::opengl::convert::make_color_format(
 				GL_LUMINANCE
 			);
 	case image::color::format::r32f:
 		return
-			opengl::color_format(
+			sge::opengl::convert::make_color_format(
 				GL_RED
 			);
 	case image::color::format::la8:
 		return
-			opengl::color_format(
+			sge::opengl::convert::make_color_format(
 				GL_LUMINANCE_ALPHA
 			);
 	case image::color::format::rgb8:
 	case image::color::format::rgb32f:
 		return
-			opengl::color_format(
+			sge::opengl::convert::make_color_format(
 				GL_RGB
 			);
 	case image::color::format::bgr8:
 	case image::color::format::bgr32f:
 		return
-			opengl::color_format(
+			sge::opengl::convert::make_color_format(
 				GL_BGR
 			);
 	case image::color::format::rgba8:
 	case image::color::format::rgba32f:
 		return
-			opengl::color_format(
+			sge::opengl::convert::make_color_format(
 				GL_RGBA
 			);
 	case image::color::format::bgra8:
 	case image::color::format::bgra32f:
 		return
-			opengl::color_format(
+			sge::opengl::convert::make_color_format(
 				GL_BGRA
 			);
 	case image::color::format::rgbx8:

@@ -347,13 +347,13 @@ compiled_model::render() const
 	// performance).
 	renderer_.render_indexed(
 		*ib_,
-		sge::renderer::first_vertex(0),
+		sge::renderer::first_vertex(0u),
 		vb_->size(),
 		sge::renderer::indexed_primitive_type::triangle,
 		sge::renderer::primitive_count(
-			ib_->size().get()/3),
+			ib_->size().get()/3u),
 		sge::renderer::first_index(
-			0));
+			0u));
 }
 
 compiled_model::~compiled_model()
@@ -790,7 +790,7 @@ try
 
 	sys.renderer().enable_light(
 		sge::renderer::light::index(
-			0),
+			0u),
 		true);
 
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(

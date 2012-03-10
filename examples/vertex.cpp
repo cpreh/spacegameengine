@@ -307,8 +307,12 @@ try
 		);
 
 		sys.renderer().render_nonindexed(
-			sge::renderer::first_vertex(0),
-			sge::renderer::vertex_count(3),
+			sge::renderer::first_vertex(
+				0u
+			),
+			sge::renderer::vertex_count(
+				3u
+			),
 			sge::renderer::nonindexed_primitive_type::triangle
 		);
 	}

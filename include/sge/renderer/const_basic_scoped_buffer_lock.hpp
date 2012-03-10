@@ -93,7 +93,7 @@ public:
 	explicit const_basic_scoped_buffer_lock(
 		Buffer const &buffer,
 		first_type first =
-			first_type(0),
+			first_type(0u),
 		count_type count =
 			count_type(
 				renderer::npos()

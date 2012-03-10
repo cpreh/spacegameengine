@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/configuration.hpp>
 #include <sge/opengl/xrandr/current_resolution.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
@@ -35,23 +36,26 @@ sge::opengl::xrandr::current_resolution(
 	Rotation cur_rotation;
 
 	int const cur_size(
-		XRRConfigCurrentConfiguration(
+		::XRRConfigCurrentConfiguration(
 			config->get(),
 			&cur_rotation
 		)
 	);
 
 	short const rate(
-		XRRConfigCurrentRate(
+		::XRRConfigCurrentRate(
 			config->get()
 		)
 	);
 
-	return mode(
-		cur_size,
-		cur_rotation,
-		sge::renderer::refresh_rate(
-			rate
-		)
-	);
+	return
+		sge::opengl::xrandr::mode(
+			cur_size,
+			cur_rotation,
+			fcppt::strong_typedef_construct_cast<
+				sge::renderer::refresh_rate
+			>(
+				rate
+			)
+		);
 }

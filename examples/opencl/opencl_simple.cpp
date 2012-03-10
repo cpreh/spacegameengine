@@ -435,7 +435,7 @@ try
 				vf::part
 			>(),
 			sge::renderer::vertex_count(
-				6),
+				6u),
 			sge::renderer::resource_flags_field(
 				sge::renderer::resource_flags::readable)));
 

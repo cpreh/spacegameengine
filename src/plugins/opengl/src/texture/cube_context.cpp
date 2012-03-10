@@ -19,10 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
 #include <sge/opengl/texture/cube_side_array.hpp>
+#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/convert/make_type.hpp>
 #include <fcppt/assign/make_array.hpp>
 
 
@@ -37,17 +40,17 @@ sge::opengl::texture::cube_context::cube_context()
 	cube_texture_type_(
 		cube_texture_normal_
 		?
-			texture::type(
+			sge::opengl::texture::convert::make_type(
 				GL_TEXTURE_CUBE_MAP
 			)
 		:
 			cube_texture_arb_
 			?
-				texture::type(
+				sge::opengl::texture::convert::make_type(
 					GL_TEXTURE_CUBE_MAP_ARB
 				)
 			:
-				texture::type(
+				sge::opengl::texture::convert::make_type(
 					0
 				)
 	),
@@ -55,35 +58,35 @@ sge::opengl::texture::cube_context::cube_context()
 		cube_texture_normal_
 		?
 			fcppt::assign::make_array<
-				cube_side_array::value_type
+				sge::opengl::texture::cube_side_array::value_type
 			>
 			(
-				texture::type(
+				sge::opengl::texture::convert::make_type(
 					GL_TEXTURE_CUBE_MAP_POSITIVE_Z
 				)
 			)
 			(
-				texture::type(
+				sge::opengl::texture::convert::make_type(
 					GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
 				)
 			)
 			(
-				texture::type(
+				sge::opengl::texture::convert::make_type(
 					GL_TEXTURE_CUBE_MAP_NEGATIVE_X
 				)
 			)
 			(
-				texture::type(
+				sge::opengl::texture::convert::make_type(
 					GL_TEXTURE_CUBE_MAP_POSITIVE_X
 				)
 			)
 			(
-				texture::type(
+				sge::opengl::texture::convert::make_type(
 					GL_TEXTURE_CUBE_MAP_POSITIVE_Y
 				)
 			)
 			(
-				texture::type(
+				sge::opengl::texture::convert::make_type(
 					GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
 				)
 			)
@@ -91,40 +94,40 @@ sge::opengl::texture::cube_context::cube_context()
 			cube_texture_arb_
 			?
 				fcppt::assign::make_array<
-					cube_side_array::value_type
+					sge::opengl::texture::cube_side_array::value_type
 				>
 				(
-					texture::type(
+					sge::opengl::texture::convert::make_type(
 						GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB
 					)
 				)
 				(
-					texture::type(
+					sge::opengl::texture::convert::make_type(
 						GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB
 					)
 				)
 				(
-					texture::type(
+					sge::opengl::texture::convert::make_type(
 						GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB
 					)
 				)
 				(
-					texture::type(
+					sge::opengl::texture::convert::make_type(
 						GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB
 					)
 				)
 				(
-					texture::type(
+					sge::opengl::texture::convert::make_type(
 						GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB
 					)
 				)
 				(
-					texture::type(
+					sge::opengl::texture::convert::make_type(
 						GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB
 					)
 				)
 			:
-				cube_side_array()
+				sge::opengl::texture::cube_side_array()
 	)
 {
 }

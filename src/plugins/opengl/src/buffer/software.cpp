@@ -162,13 +162,17 @@ sge::opengl::buffer::software::buffer_data(
 
 	delete[] it->second;
 
+	std::size_t const alloc_size(
+		static_cast<
+			std::size_t
+		>(
+			_size
+		)
+	);
+
 	it->second =
 		new renderer::raw_value[
-			static_cast<
-				std::size_t
-			>(
-				_size
-			)
+			alloc_size
 		];
 
 	if(
@@ -249,7 +253,7 @@ sge::opengl::buffer::software::bound_buffer(
 		it == bound_buffers_.end()
 		?
 			buffer::id(
-				0
+				0u
 			)
 		:
 			it->second;
@@ -302,7 +306,7 @@ sge::opengl::buffer::software::check_bound(
 		)
 		==
 		buffer::id(
-			0
+			0u
 		)
 	)
 		throw sge::renderer::exception(

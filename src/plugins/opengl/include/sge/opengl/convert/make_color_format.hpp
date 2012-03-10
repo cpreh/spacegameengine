@@ -18,35 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/color_format_type.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/depth_stencil_to_format_type.hpp>
-#include <sge/opengl/convert/make_color_format_type.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_OPENGL_CONVERT_MAKE_COLOR_FORMAT_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_MAKE_COLOR_FORMAT_HPP_INCLUDED
+
+#include <sge/opengl/color_format.hpp>
 
 
-sge::opengl::color_format_type const
-sge::opengl::convert::depth_stencil_to_format_type(
-	renderer::depth_stencil_format::type const _type
-)
+namespace sge
 {
-	switch(
-		_type
-	)
-	{
-	case sge::renderer::depth_stencil_format::d16:
-		return
-			sge::opengl::convert::make_color_format_type(
-				GL_UNSIGNED_SHORT
-			);
-	case sge::renderer::depth_stencil_format::d32:
-	case sge::renderer::depth_stencil_format::d24s8:
-		return
-			sge::opengl::convert::make_color_format_type(
-				GL_FLOAT
-			);
-	}
+namespace opengl
+{
+namespace convert
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+sge::opengl::color_format const
+make_color_format(
+	int format
+);
+
 }
+}
+}
+
+#endif

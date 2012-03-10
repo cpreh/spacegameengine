@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
@@ -85,7 +86,7 @@ sge::opengl::create_caps(
 			renderer::caps::object
 		>(
 			sge::renderer::adapter(
-				0
+				0u
 			),
 			sge::renderer::caps::driver_name(
 				opengl::get_string(
@@ -121,7 +122,9 @@ sge::opengl::create_caps(
 				)
 			),
 			sge::renderer::caps::max_anisotropy(
-				sge::renderer::texture::filter::anisotropic::level(
+				fcppt::strong_typedef_construct_cast<
+					sge::renderer::texture::filter::anisotropic::level
+				>(
 					texture_context.anisotropic_filter_supported()
 					?
 						opengl::get_int(
@@ -148,17 +151,23 @@ sge::opengl::create_caps(
 			sge::renderer::caps::preferred_texture_format(
 				sge::image::color::format::bgra8
 			),
-			sge::renderer::caps::clip_plane_indices(
+			fcppt::strong_typedef_construct_cast<
+				sge::renderer::caps::clip_plane_indices
+			>(
 				opengl::get_int(
 					GL_MAX_CLIP_PLANES
 				)
 			),
-			sge::renderer::caps::light_indices(
+			fcppt::strong_typedef_construct_cast<
+				sge::renderer::caps::light_indices
+			>(
 				opengl::get_int(
 					GL_MAX_LIGHTS
 				)
 			),
-			sge::renderer::caps::texture_stages(
+			fcppt::strong_typedef_construct_cast<
+				sge::renderer::caps::texture_stages
+			>(
 				opengl::get_int(
 					GL_MAX_TEXTURE_UNITS
 				)

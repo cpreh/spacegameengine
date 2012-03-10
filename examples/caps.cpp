@@ -104,7 +104,7 @@ try
 		render_sys->create_renderer(
 			render_params,
 			sge::renderer::adapter(
-				0
+				0u
 			),
 			*window
 		)->caps()

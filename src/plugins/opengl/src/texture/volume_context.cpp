@@ -19,9 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
+#include <sge/opengl/texture/convert/make_type.hpp>
 
 
 sge::opengl::texture::volume_context::volume_context()
@@ -30,7 +33,7 @@ sge::opengl::texture::volume_context::volume_context()
 		sge::opengl::glew::is_supported("GL_VERSION_1_3")
 	),
 	volume_texture_type_(
-		opengl::texture::type(
+		sge::opengl::texture::convert::make_type(
 			GL_TEXTURE_3D
 		)
 	),

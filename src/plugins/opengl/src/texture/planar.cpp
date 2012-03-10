@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/planar_types.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/surface.hpp>
+#include <sge/opengl/texture/convert/make_type.hpp>
 #include <sge/opengl/texture/funcs/get_parameter_int.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -34,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 
 
 template class
@@ -53,7 +55,7 @@ sge::opengl::texture::planar::planar(
 		?
 			*_type
 		:
-			opengl::texture::type(
+			sge::opengl::texture::convert::make_type(
 				GL_TEXTURE_2D
 			)
 		,
@@ -112,8 +114,10 @@ sge::opengl::texture::planar::stages() const
 	);
 
 	return
-		renderer::texture::stage(
-			funcs::get_parameter_int(
+		fcppt::strong_typedef_construct_cast<
+			sge::renderer::texture::stage
+		>(
+			sge::opengl::texture::funcs::get_parameter_int(
 				binding,
 				this->type(),
 				GL_TEXTURE_BASE_LEVEL

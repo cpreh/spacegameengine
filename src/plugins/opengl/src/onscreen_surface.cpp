@@ -22,10 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/flipped.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
+#include <sge/opengl/color_format.hpp>
+#include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/onscreen_surface.hpp>
 #include <sge/opengl/read_pixels.hpp>
 #include <sge/opengl/convert/format_to_color.hpp>
+#include <sge/opengl/convert/make_color_format.hpp>
+#include <sge/opengl/convert/make_color_format_type.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <awl/window/instance.hpp>
@@ -130,7 +134,7 @@ sge::opengl::color_format const
 sge::opengl::onscreen_surface::format() const
 {
 	return
-		opengl::color_format(
+		sge::opengl::convert::make_color_format(
 			GL_RGBA
 		);
 }
@@ -139,7 +143,7 @@ sge::opengl::color_format_type const
 sge::opengl::onscreen_surface::format_type() const
 {
 	return
-		opengl::color_format_type(
+		sge::opengl::convert::make_color_format_type(
 			GL_UNSIGNED_BYTE
 		);
 }

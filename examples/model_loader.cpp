@@ -391,7 +391,7 @@ compiled_model::render()
 				fcppt::cref(
 					*texture_),
 				sge::renderer::texture::stage(
-					0)));
+					0u)));
 
 	sge::renderer::scoped_vertex_declaration scoped_vd(
 		renderer_,
@@ -403,7 +403,7 @@ compiled_model::render()
 
 	renderer_.render_nonindexed(
 		sge::renderer::first_vertex(
-			0),
+			0u),
 		sge::renderer::vertex_count(
 			vb_->size()),
 		sge::renderer::nonindexed_primitive_type::triangle);
@@ -690,7 +690,7 @@ try
 
 	sys.renderer().light(
 		sge::renderer::light::index(
-			0),
+			0u),
 		sge::renderer::light::object(
 			sge::renderer::diffuse_color(
 				sge::image::colors::white()),
@@ -719,7 +719,7 @@ try
 
 	sys.renderer().enable_light(
 		sge::renderer::light::index(
-			0),
+			0u),
 		true);
 
 	// We need this timer to update the camera

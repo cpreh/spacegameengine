@@ -144,10 +144,10 @@ sge::cegui::detail::default_target::projection() const
 				)
 			),
 			sge::renderer::projection::near(
-				0
+				0.f
 			),
 			sge::renderer::projection::far(
-				2
+				2.f
 			)
 		);
 }

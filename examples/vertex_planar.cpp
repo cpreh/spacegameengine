@@ -296,7 +296,7 @@ try
 
 		sys.renderer().render_nonindexed(
 			sge::renderer::first_vertex(
-				0
+				0u
 			),
 			num_vertices,
 			sge::renderer::nonindexed_primitive_type::triangle

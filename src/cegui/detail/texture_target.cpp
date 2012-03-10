@@ -157,10 +157,10 @@ sge::cegui::detail::texture_target::activate()
 				area_
 			),
 			sge::renderer::projection::near(
-				0
+				0.f
 			),
 			sge::renderer::projection::far(
-				2
+				2.f
 			)
 		)
 	);

@@ -44,6 +44,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/index_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/indexed_primitive.hpp
 	src/plugins/opengl/include/sge/opengl/convert/light_index.hpp
+	src/plugins/opengl/include/sge/opengl/convert/make_color_format.hpp
+	src/plugins/opengl/include/sge/opengl/convert/make_color_format_type.hpp
 	src/plugins/opengl/include/sge/opengl/convert/matrix_mode.hpp
 	src/plugins/opengl/include/sge/opengl/convert/nonindexed_primitive.hpp
 	src/plugins/opengl/include/sge/opengl/convert/projection.hpp
@@ -254,6 +256,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/convert/cube_side.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/level.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/mag_filter.hpp
+	src/plugins/opengl/include/sge/opengl/texture/convert/make_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/min_filter.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/stage_arg.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/stage_arg_value.hpp
@@ -404,6 +407,8 @@ set(
 	src/plugins/opengl/src/convert/indexed_format.cpp
 	src/plugins/opengl/src/convert/indexed_primitive.cpp
 	src/plugins/opengl/src/convert/light_index.cpp
+	src/plugins/opengl/src/convert/make_color_format.cpp
+	src/plugins/opengl/src/convert/make_color_format_type.cpp
 	src/plugins/opengl/src/convert/matrix_mode.cpp
 	src/plugins/opengl/src/convert/nonindexed_primitive.cpp
 	src/plugins/opengl/src/convert/projection.cpp
@@ -595,6 +600,7 @@ set(
 	src/plugins/opengl/src/texture/convert/cube_side.cpp
 	src/plugins/opengl/src/texture/convert/level.cpp
 	src/plugins/opengl/src/texture/convert/mag_filter.cpp
+	src/plugins/opengl/src/texture/convert/make_type.cpp
 	src/plugins/opengl/src/texture/convert/min_filter.cpp
 	src/plugins/opengl/src/texture/convert/stage_arg.cpp
 	src/plugins/opengl/src/texture/convert/stage_arg_value.cpp

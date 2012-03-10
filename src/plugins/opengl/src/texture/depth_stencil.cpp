@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/depth_stencil.hpp>
 #include <sge/opengl/texture/depth_stencil_surface.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
+#include <sge/opengl/texture/convert/make_type.hpp>
 #include <sge/opengl/texture/funcs/set_2d.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
@@ -41,13 +42,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 // FIXME: this should inherit from basic_texture as well!
 sge::opengl::texture::depth_stencil::depth_stencil(
-	opengl::context::object &_context,
-	renderer::texture::depth_stencil_parameters const &_params
+	sge::opengl::context::object &_context,
+	sge::renderer::texture::depth_stencil_parameters const &_params
 )
 :
-	renderer::texture::depth_stencil(),
-	opengl::texture::base(
-		opengl::texture::type(
+	sge::renderer::texture::depth_stencil(),
+	sge::opengl::texture::base(
+		sge::opengl::texture::convert::make_type(
 			GL_TEXTURE_2D
 		)
 	),
@@ -61,29 +62,29 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		_params.format()
 	)
 {
-	opengl::texture::scoped_work_binding const binding(
+	sge::opengl::texture::scoped_work_binding const binding(
 		_context,
 		this->type(),
 		this->id(),
-		renderer::texture::stage(
+		sge::renderer::texture::stage(
 			0u
 		)
 	);
 
-	texture::funcs::set_2d(
+	sge::opengl::texture::funcs::set_2d(
 		binding,
 		_context,
 		this->type(),
-		convert::depth_stencil_to_format(
+		sge::opengl::convert::depth_stencil_to_format(
 			format_
 		),
-		convert::depth_stencil_to_format_type(
+		sge::opengl::convert::depth_stencil_to_format_type(
 			format_
 		),
-		convert::depth_stencil_to_internal_format(
+		sge::opengl::convert::depth_stencil_to_internal_format(
 			format_
 		),
-		renderer::texture::stage(
+		sge::renderer::texture::stage(
 			0u
 		),
 		this->size(),

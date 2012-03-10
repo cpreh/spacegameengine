@@ -384,7 +384,7 @@ try
 
 		sys.renderer().render_nonindexed(
 			sge::renderer::first_vertex(
-				0),
+				0u),
 			quad->size(),
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}

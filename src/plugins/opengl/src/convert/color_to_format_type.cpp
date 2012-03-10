@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
+#include <sge/opengl/convert/make_color_format_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
@@ -42,7 +43,7 @@ sge::opengl::convert::color_to_format_type(
 	case image::color::format::rgba8:
 	case image::color::format::bgra8:
 		return
-			opengl::color_format_type(
+			sge::opengl::convert::make_color_format_type(
 				GL_UNSIGNED_BYTE
 			);
 	case image::color::format::r32f:
@@ -51,7 +52,7 @@ sge::opengl::convert::color_to_format_type(
 	case image::color::format::rgba32f:
 	case image::color::format::bgra32f:
 		return
-			opengl::color_format_type(
+			sge::opengl::convert::make_color_format_type(
 				GL_FLOAT
 			);
 	case image::color::format::size:
