@@ -368,7 +368,8 @@ sge::shader::object::activate(
 				sge::renderer::texture::const_optional_base(
 					*it->texture()),
 				sge::renderer::texture::stage(
-					it->texture_unit()));
+					static_cast<sge::renderer::texture::stage::value_type>(
+						it->texture_unit())));
 	}
 
 	if(t & shader::activation_method::vertex_declaration)
@@ -398,7 +399,8 @@ sge::shader::object::deactivate(
 			renderer_.texture(
 				sge::renderer::texture::const_optional_base(),
 				sge::renderer::texture::stage(
-					it->texture_unit()));
+					static_cast<sge::renderer::texture::stage::value_type>(
+						it->texture_unit())));
 	}
 
 	if(t & shader::activation_method::vertex_declaration)

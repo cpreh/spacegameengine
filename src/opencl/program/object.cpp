@@ -354,7 +354,7 @@ sge::opencl::program::object::build(
 
 		if(!build_log.empty())
 		{
-			FCPPT_LOG_WARNING(
+			FCPPT_LOG_VERBOSE(
 				local_log,
 				fcppt::log::_
 					<< FCPPT_TEXT("Program build failed with error code ")
