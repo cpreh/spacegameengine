@@ -749,7 +749,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/xf86vmode/modes_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/xf86vmode/resolution.hpp
 	src/plugins/opengl/include/sge/opengl/xf86vmode/resolution_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/xf86vmode/resolution_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/xf86vmode/resolution_unique_ptr.hpp
 	src/plugins/opengl/src/xf86vmode/calc_refresh_rate.cpp
 	src/plugins/opengl/src/xf86vmode/check_extension.cpp
 	src/plugins/opengl/src/xf86vmode/choose_mode.cpp

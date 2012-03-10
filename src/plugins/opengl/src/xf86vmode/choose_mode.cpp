@@ -22,17 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xf86vmode/choose_mode.hpp>
 #include <sge/opengl/xf86vmode/modes.hpp>
 #include <sge/opengl/xf86vmode/resolution.hpp>
+#include <sge/opengl/xf86vmode/resolution_unique_ptr.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 
-sge::opengl::xf86vmode::resolution_ptr const
+sge::opengl::xf86vmode::resolution_unique_ptr
 sge::opengl::xf86vmode::choose_mode(
-	renderer::display_mode const &_display_mode,
-	xf86vmode::modes const &_modes
+	sge::renderer::display_mode const &_display_mode,
+	sge::opengl::xf86vmode::modes const &_modes
 )
 {
 	int best = -1;
@@ -88,8 +89,8 @@ sge::opengl::xf86vmode::choose_mode(
 		);
 
 	return
-		resolution_ptr(
-			fcppt::make_shared_ptr<
+		sge::opengl::xf86vmode::resolution_unique_ptr(
+			fcppt::make_unique_ptr<
 				xf86vmode::resolution
 			>(
 				fcppt::ref(

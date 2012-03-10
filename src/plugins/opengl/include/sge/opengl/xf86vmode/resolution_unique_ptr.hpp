@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XF86VMODE_RESOLUTION_PTR_HPP_INCLUDED
-#define SGE_OPENGL_XF86VMODE_RESOLUTION_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_XF86VMODE_RESOLUTION_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_OPENGL_XF86VMODE_RESOLUTION_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/opengl/xf86vmode/resolution_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 namespace sge
 {
@@ -31,9 +31,9 @@ namespace opengl
 namespace xf86vmode
 {
 
-typedef fcppt::shared_ptr<
-	resolution
-> resolution_ptr;
+typedef fcppt::unique_ptr<
+	sge::opengl::xf86vmode::resolution
+> resolution_unique_ptr;
 
 }
 }

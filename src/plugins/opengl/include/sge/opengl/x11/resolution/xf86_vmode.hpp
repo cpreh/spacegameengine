@@ -23,11 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/x11/resolution/instance.hpp>
 #include <sge/opengl/xf86vmode/modes.hpp>
-#include <sge/opengl/xf86vmode/resolution_ptr.hpp>
+#include <sge/opengl/xf86vmode/resolution_fwd.hpp>
 #include <sge/renderer/display_mode_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/screen.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -41,23 +42,27 @@ namespace resolution
 
 class xf86_vmode
 :
-	public instance
+	public sge::opengl::x11::resolution::instance
 {
 	FCPPT_NONCOPYABLE(
 		xf86_vmode
 	);
 public:
 	xf86_vmode(
-		renderer::display_mode const &,
+		sge::renderer::display_mode const &,
 		awl::backends::x11::display &,
 		awl::backends::x11::screen
 	);
 
 	~xf86_vmode();
 private:
-	xf86vmode::modes const modes_;
+	sge::opengl::xf86vmode::modes const modes_;
 
-	xf86vmode::resolution_ptr const resolution_;
+	typedef fcppt::scoped_ptr<
+		sge::opengl::xf86vmode::resolution
+	> resolution_scoped_ptr;
+
+	resolution_scoped_ptr const resolution_;
 };
 
 }

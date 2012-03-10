@@ -22,10 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_OPENGL_HAVE_XF86VMODE
 #include <sge/opengl/x11/resolution/xf86_vmode.hpp>
 #include <sge/opengl/xf86vmode/choose_mode.hpp>
-#include <sge/renderer/display_mode.hpp>
+#include <sge/opengl/xf86vmode/resolution.hpp>
+#include <sge/renderer/display_mode_fwd.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/screen.hpp>
+
 
 sge::opengl::x11::resolution::xf86_vmode::xf86_vmode(
-	renderer::display_mode const &_mode,
+	sge::renderer::display_mode const &_mode,
 	awl::backends::x11::display &_display,
 	awl::backends::x11::screen const _screen
 )
@@ -35,12 +39,13 @@ sge::opengl::x11::resolution::xf86_vmode::xf86_vmode(
 		_screen
 	),
 	resolution_(
-		xf86vmode::choose_mode(
+		sge::opengl::xf86vmode::choose_mode(
 			_mode,
 			modes_
 		)
 	)
-{}
+{
+}
 
 sge::opengl::x11::resolution::xf86_vmode::~xf86_vmode()
 {
