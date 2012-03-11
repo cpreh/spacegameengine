@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/append.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -134,7 +135,9 @@ sge::dinput::processor::processor(
 		>(
 			fcppt::signal::shared_connection(
 				event_processor_.register_callback(
-					awl::backends::windows::event::type(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
 						WM_ACTIVATE
 					),
 					std::tr1::bind(
@@ -173,7 +176,7 @@ sge::dinput::processor::processor(
 		windows_window_.hwnd(),
 		init_message_.type(),
 		awl::backends::windows::event::wparam(
-			0
+			0u
 		),
 		awl::backends::windows::event::lparam(
 			0

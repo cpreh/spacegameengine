@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -39,7 +40,9 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connection_(
 		_processor.register_callback(
-			awl::backends::windows::event::type(
+			fcppt::strong_typedef_construct_cast<
+				awl::backends::windows::event::type
+			>(
 				WM_SETCURSOR
 			),
 			std::tr1::bind(

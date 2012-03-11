@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/texture/mipmap/auto_generate_usage.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
@@ -33,14 +34,16 @@ sge::d3d9::texture::mipmap::auto_generate_usage(
 		_value
 	)
 	{
-	case renderer::texture::mipmap::auto_generate::yes:
+	case sge::renderer::texture::mipmap::auto_generate::yes:
 		return
-			d3d9::usage(
+			fcppt::strong_typedef_construct_cast<
+				sge::d3d9::usage
+			>(
 				D3DUSAGE_AUTOGENMIPMAP
 			);
-	case renderer::texture::mipmap::auto_generate::no:
+	case sge::renderer::texture::mipmap::auto_generate::no:
 		return
-			d3d9::usage(
+			sge::d3d9::usage(
 				0u
 			);
 	}

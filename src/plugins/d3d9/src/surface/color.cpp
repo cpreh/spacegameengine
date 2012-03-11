@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
@@ -102,7 +103,9 @@ sge::d3d9::surface::color::lock(
 					_rect
 				)
 			,
-			d3d9::lock_flags(
+			fcppt::strong_typedef_construct_cast<
+				d3d9::lock_flags
+			>(
 				D3DLOCK_READONLY
 			)
 		)

@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -72,7 +73,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		>(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					awl::backends::windows::event::type(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
 						WM_MOUSEMOVE
 					),
 					std::tr1::bind(
@@ -86,7 +89,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					awl::backends::windows::event::type(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
 						WM_LBUTTONDOWN
 					),
 					std::tr1::bind(
@@ -102,7 +107,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					awl::backends::windows::event::type(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
 						WM_LBUTTONUP
 					),
 					std::tr1::bind(
@@ -118,7 +125,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					awl::backends::windows::event::type(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
 						WM_MBUTTONDOWN
 					),
 					std::tr1::bind(
@@ -134,7 +143,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					awl::backends::windows::event::type(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
 						WM_MBUTTONUP
 					),
 					std::tr1::bind(
@@ -150,7 +161,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					awl::backends::windows::event::type(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
 						WM_RBUTTONDOWN
 					),
 					std::tr1::bind(
@@ -166,7 +179,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		(
 			fcppt::signal::shared_connection(
 				_event_processor.register_callback(
-					awl::backends::windows::event::type(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
 						WM_RBUTTONUP
 					),
 					std::tr1::bind(
