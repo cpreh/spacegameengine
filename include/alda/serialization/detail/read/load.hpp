@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/io/read.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -121,8 +122,9 @@ struct load<
 
 		typedef typename type::length_type length_type;
 
+		// At this point, the stream must be able to read its length
 		length_type const sz(
-			fcppt::io::read<
+			*fcppt::io::read<
 				length_type
 			>(
 				_is,
