@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/base.hpp>
 #include <sge/camera/ortho_freelook/parameters_fwd.hpp>
+#include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/rect.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -64,12 +67,19 @@ public:
 		bool);
 
 	SGE_CAMERA_SYMBOL
+	void
+	projection_rect(
+		renderer::projection::rect const &);
+
+	SGE_CAMERA_SYMBOL
 	~object();
 private:
 	fcppt::signal::scoped_connection mouse_axis_connection_;
 	fcppt::signal::scoped_connection keyboard_key_connection_;
 	renderer::vector2 zoom_to_panning_speed_factor_;
 	renderer::vector2 zoom_to_zooming_speed_factor_;
+	renderer::projection::near const near_;
+	renderer::projection::far const far_;
 	bool zoom_in_;
 	bool zoom_out_;
 	bool pan_;

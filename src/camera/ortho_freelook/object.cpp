@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/variant/holds_type.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -69,6 +70,10 @@ sge::camera::ortho_freelook::object::object(
 		_params.zoom_to_panning_speed_factor()),
 	zoom_to_zooming_speed_factor_(
 		_params.zoom_to_zooming_speed_factor()),
+	near_(
+		_params.near()),
+	far_(
+		_params.far()),
 	zoom_in_(
 		false),
 	zoom_out_(
@@ -86,6 +91,9 @@ sge::camera::ortho_freelook::object::update(
 	camera::duration const &d)
 {
 	if(!active_)
+		return;
+
+	if(fcppt::variant::holds_type<sge::camera::projection::invalid>(this->projection_object()))
 		return;
 
 	camera::projection::orthogonal const current_projection_object(
@@ -154,6 +162,17 @@ sge::camera::ortho_freelook::object::active(
 		_active;
 }
 
+void
+sge::camera::ortho_freelook::object::projection_rect(
+	renderer::projection::rect const &_rect)
+{
+	this->projection_object(
+		sge::camera::projection::orthogonal(
+			_rect,
+			near_,
+			far_));
+}
+
 sge::camera::ortho_freelook::object::~object()
 {
 }
@@ -189,7 +208,7 @@ sge::camera::ortho_freelook::object::mouse_axis_callback(
 					e.axis().code() == input::mouse::axis_code::x
 					?
 						static_cast<renderer::scalar>(
-							e.value())
+							-e.value())
 					:
 						0.0f) *
 				current_panning.x(),
@@ -197,7 +216,7 @@ sge::camera::ortho_freelook::object::mouse_axis_callback(
 					e.axis().code() == input::mouse::axis_code::y
 					?
 						static_cast<renderer::scalar>(
-							e.value())
+							-e.value())
 					:
 						0.0f) *
 				current_panning.y());
