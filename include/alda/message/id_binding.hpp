@@ -18,53 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_CALL_CONCRETE_DECL_HPP_INCLUDED
-#define ALDA_CALL_CONCRETE_DECL_HPP_INCLUDED
+#ifndef ALDA_MESSAGE_ID_BINDING_HPP_INCLUDED
+#define ALDA_MESSAGE_ID_BINDING_HPP_INCLUDED
 
-#include <alda/call/base_decl.hpp>
-#include <alda/call/concrete_fwd.hpp>
-#include <alda/message/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <alda/bindings/fundamental.hpp>
+#include <alda/serialization/detail/message_int_type.hpp>
 
 
 namespace alda
 {
-namespace call
+namespace message
 {
 
-template<
-	typename TypeEnum,
-	typename Callee,
-	typename Message
->
-class concrete
-:
-	public alda::call::base<
-		TypeEnum,
-		Callee
-	>
-{
-	FCPPT_NONCOPYABLE(
-		concrete
-	);
-
-	typedef alda::call::base<
-		TypeEnum,
-		Callee
-	> base_type;
-public:
-	typedef typename base_type::message_type message_type;
-
-	concrete();
-
-	~concrete();
-
-	typename Callee::result_type
-	call(
-		Callee &,
-		message_type const &
-	) const;
-};
+typedef alda::bindings::fundamental<
+	alda::serialization::detail::message_int_type
+> id_binding;
 
 }
 }

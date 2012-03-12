@@ -18,70 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_CALL_CONCRETE_IMPL_HPP_INCLUDED
-#define ALDA_CALL_CONCRETE_IMPL_HPP_INCLUDED
+#ifndef ALDA_CALL_DETAIL_BASE_IMPL_HPP_INCLUDED
+#define ALDA_CALL_DETAIL_BASE_IMPL_HPP_INCLUDED
 
-#include <alda/call/base_impl.hpp>
-#include <alda/call/concrete_decl.hpp>
-#include <alda/message/base_fwd.hpp>
-#include <alda/message/concrete_decl.hpp>
+#include <alda/call/detail/base_decl.hpp>
 
 
 template<
 	typename TypeEnum,
-	typename Callee,
-	typename Message
+	typename Callee
 >
-alda::call::concrete<
+alda::call::detail::base<
 	TypeEnum,
-	Callee,
-	Message
->::concrete()
-:
-	base_type()
+	Callee
+>::base()
 {
 }
 
 template<
 	typename TypeEnum,
-	typename Callee,
-	typename Message
+	typename Callee
 >
-alda::call::concrete<
+alda::call::detail::base<
 	TypeEnum,
-	Callee,
-	Message
->::~concrete()
+	Callee
+>::~base()
 {
-}
-
-template<
-	typename TypeEnum,
-	typename Callee,
-	typename Message
->
-typename Callee::result_type
-alda::call::concrete<
-	TypeEnum,
-	Callee,
-	Message
->::call(
-	Callee &_callee,
-	message_type const &_message
-) const
-{
-	return
-		_callee(
-			// TODO: static_cast
-			dynamic_cast<
-				alda::message::concrete<
-					TypeEnum,
-					Message
-				> const &
-			>(
-				_message
-			).value()
-		);
 }
 
 #endif

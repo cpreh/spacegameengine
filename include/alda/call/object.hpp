@@ -18,32 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_CALL_BASE_IMPL_HPP_INCLUDED
-#define ALDA_CALL_BASE_IMPL_HPP_INCLUDED
+#ifndef ALDA_CALL_OBJECT_HPP_INCLUDED
+#define ALDA_CALL_OBJECT_HPP_INCLUDED
 
-#include <alda/call/base_decl.hpp>
-
-
-template<
-	typename TypeEnum,
-	typename Callee
->
-alda::call::base<
-	TypeEnum,
-	Callee
->::base()
-{
-}
-
-template<
-	typename TypeEnum,
-	typename Callee
->
-alda::call::base<
-	TypeEnum,
-	Callee
->::~base()
-{
-}
+#include <alda/call/object_impl.hpp>
+#include <alda/call/detail/base_impl.hpp>
+#include <alda/call/detail/concrete_impl.hpp>
 
 #endif

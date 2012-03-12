@@ -18,6 +18,7 @@ set(
 	include/sge/camera/identity_gizmo.hpp
 	include/sge/camera/ortho_freelook/object.hpp
 	include/sge/camera/ortho_freelook/object_fwd.hpp
+	include/sge/camera/ortho_freelook/optional_projection_rect.hpp
 	include/sge/camera/ortho_freelook/ortho_freelook.hpp
 	include/sge/camera/ortho_freelook/parameters.hpp
 	include/sge/camera/ortho_freelook/parameters_fwd.hpp

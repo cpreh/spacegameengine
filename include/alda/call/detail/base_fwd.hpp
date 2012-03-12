@@ -18,22 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_CALL_CONCRETE_FWD_HPP_INCLUDED
-#define ALDA_CALL_CONCRETE_FWD_HPP_INCLUDED
-
+#ifndef ALDA_CALL_DETAIL_BASE_FWD_HPP_INCLUDED
+#define ALDA_CALL_DETAIL_BASE_FWD_HPP_INCLUDED
 
 namespace alda
 {
 namespace call
 {
+namespace detail
+{
 
 template<
 	typename TypeEnum,
-	typename Callee,
-	typename Message
+	typename Callee
 >
-class concrete;
+class base;
 
+}
 }
 }
 

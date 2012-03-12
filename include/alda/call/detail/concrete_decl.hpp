@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_CALL_BASE_DECL_HPP_INCLUDED
-#define ALDA_CALL_BASE_DECL_HPP_INCLUDED
+#ifndef ALDA_CALL_DETAIL_CONCRETE_DECL_HPP_INCLUDED
+#define ALDA_CALL_DETAIL_CONCRETE_DECL_HPP_INCLUDED
 
-#include <alda/call/base_fwd.hpp>
+#include <alda/call/detail/base_decl.hpp>
+#include <alda/call/detail/concrete_fwd.hpp>
 #include <alda/message/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -30,33 +31,44 @@ namespace alda
 {
 namespace call
 {
+namespace detail
+{
 
 template<
 	typename TypeEnum,
-	typename Callee
+	typename Callee,
+	typename Message
 >
-class base
+class concrete
+:
+	public alda::call::detail::base<
+		TypeEnum,
+		Callee
+	>
 {
 	FCPPT_NONCOPYABLE(
-		base
+		concrete
 	);
-protected:
-	base();
+
+	typedef alda::call::detail::base<
+		TypeEnum,
+		Callee
+	> base_type;
 public:
-	virtual
-	~base() = 0;
+	typedef typename base_type::message_type message_type;
 
-	typedef alda::message::base<
-		TypeEnum
-	> message_type;
+	concrete();
 
-	virtual typename Callee::result_type
+	~concrete();
+
+	typename Callee::result_type
 	call(
 		Callee &,
 		message_type const &
-	) const = 0;
+	) const;
 };
 
+}
 }
 }
 

@@ -18,40 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_MESSAGE_MAKE_ID_HPP_INCLUDED
-#define ALDA_MESSAGE_MAKE_ID_HPP_INCLUDED
-
-#include <alda/message/id_binding.hpp>
-#include <alda/message/roles/type.hpp>
-#include <alda/serialization/detail/message_int_type.hpp>
-#include <majutsu/constant.hpp>
-#include <majutsu/role.hpp>
+#ifndef ALDA_CALL_DETAIL_CONCRETE_FWD_HPP_INCLUDED
+#define ALDA_CALL_DETAIL_CONCRETE_FWD_HPP_INCLUDED
 
 
 namespace alda
 {
-namespace message
+namespace call
+{
+namespace detail
 {
 
 template<
-	typename EnumType,
-	typename EnumType::type MessageType
+	typename TypeEnum,
+	typename Callee,
+	typename Message
 >
-struct make_id
-{
-	typedef majutsu::role<
-		majutsu::constant<
-			alda::message::id_binding,
-			static_cast<
-				alda::serialization::detail::message_int_type
-			>(
-				MessageType
-			)
-		>,
-		alda::message::roles::type
-	> type;
-};
+class concrete;
 
+}
 }
 }
 

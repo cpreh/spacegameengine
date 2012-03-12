@@ -18,71 +18,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_CALL_DETAIL_MAKE_INSTANCE_HPP_INCLUDED
-#define ALDA_CALL_DETAIL_MAKE_INSTANCE_HPP_INCLUDED
+#ifndef ALDA_CALL_DETAIL_CONCRETE_IMPL_HPP_INCLUDED
+#define ALDA_CALL_DETAIL_CONCRETE_IMPL_HPP_INCLUDED
 
+#include <alda/call/detail/base_decl.hpp>
 #include <alda/call/detail/concrete_decl.hpp>
-#include <alda/message/detail/extract_id.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/container/ptr/replace_unique_ptr.hpp>
+#include <alda/message/base_fwd.hpp>
+#include <alda/message/concrete_decl.hpp>
 
-
-namespace alda
-{
-namespace call
-{
-namespace detail
-{
 
 template<
 	typename TypeEnum,
 	typename Callee,
-	typename InstanceArray
+	typename Message
 >
-class make_instance
+alda::call::detail::concrete<
+	TypeEnum,
+	Callee,
+	Message
+>::concrete()
+:
+	base_type()
 {
-	FCPPT_NONASSIGNABLE(
-		make_instance
-	);
-public:
-	explicit
-	make_instance(
-		InstanceArray &_instances
-	)
-	:
-		instances_(
-			_instances
-		)
-	{
-	}
+}
 
-	template<
-		typename Message
-	>
-	void
-	operator()() const
-	{
-		fcppt::container::ptr::replace_unique_ptr(
-			instances_,
-			alda::message::detail::extract_id<
-				typename Message::types
-			>::type::value,
-			fcppt::make_unique_ptr<
-				alda::call::detail::concrete<
+template<
+	typename TypeEnum,
+	typename Callee,
+	typename Message
+>
+alda::call::detail::concrete<
+	TypeEnum,
+	Callee,
+	Message
+>::~concrete()
+{
+}
+
+template<
+	typename TypeEnum,
+	typename Callee,
+	typename Message
+>
+typename Callee::result_type
+alda::call::detail::concrete<
+	TypeEnum,
+	Callee,
+	Message
+>::call(
+	Callee &_callee,
+	message_type const &_message
+) const
+{
+	return
+		_callee(
+			// TODO: static_cast
+			dynamic_cast<
+				alda::message::concrete<
 					TypeEnum,
-					Callee,
 					Message
-				>
-			>()
+				> const &
+			>(
+				_message
+			).value()
 		);
-	}
-private:
-	InstanceArray &instances_;
-};
-
-}
-}
 }
 
 #endif

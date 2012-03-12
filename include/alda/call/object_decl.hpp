@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_CALL_OBJECT_DECL_HPP_INCLUDED
 #define ALDA_CALL_OBJECT_DECL_HPP_INCLUDED
 
-#include <alda/call/base_fwd.hpp>
 #include <alda/call/default_function.hpp>
 #include <alda/call/object_fwd.hpp>
+#include <alda/call/detail/base_fwd.hpp>
 #include <alda/message/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -49,7 +49,7 @@ class object
 
 	typedef typename Callee::result_type result_type;
 
-	typedef alda::call::base<
+	typedef alda::call::detail::base<
 		TypeEnum,
 		Callee
 	> base;

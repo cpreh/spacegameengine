@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/exception_impl.hpp>
 #include <alda/type_enum.hpp>
 #include <alda/bindings/fundamental.hpp>
-#include <alda/call/concrete_impl.hpp>
-#include <alda/call/object_impl.hpp>
+#include <alda/call/object.hpp>
 #include <alda/message/base_decl.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/message/instantiate_base.hpp>
