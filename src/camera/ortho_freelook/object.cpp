@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
 #include <sge/camera/projection/orthogonal.hpp>
+#include <sge/camera/projection/invalid.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/mouse/axis_event.hpp>
@@ -41,7 +42,16 @@ sge::camera::ortho_freelook::object::object(
 	ortho_freelook::parameters const &_params)
 :
 	camera::base(
-		_params.projection(),
+		_params.projection_rect()
+		?
+			sge::camera::projection::object(
+				sge::camera::projection::orthogonal(
+					*(_params.projection_rect()),
+					_params.near(),
+					_params.far()))
+		:
+			sge::camera::projection::object(
+				sge::camera::projection::invalid()),
 		camera::identity_gizmo()),
 	mouse_axis_connection_(
 		_params.mouse().axis_callback(
@@ -62,6 +72,8 @@ sge::camera::ortho_freelook::object::object(
 	zoom_in_(
 		false),
 	zoom_out_(
+		false),
+	pan_(
 		false),
 	active_(
 		_params.active())
@@ -153,6 +165,9 @@ sge::camera::ortho_freelook::object::mouse_axis_callback(
 	if(!active_)
 		return;
 
+	if(!pan_)
+		return;
+
 	camera::projection::orthogonal const current_projection_object(
 		camera::base::projection_object().get<camera::projection::orthogonal>());
 
@@ -214,6 +229,9 @@ sge::camera::ortho_freelook::object::keyboard_key_callback(
 			break;
 		case input::keyboard::key_code::s:
 			zoom_out_ = k.pressed();
+			break;
+		case input::keyboard::key_code::g:
+			pan_ = k.pressed();
 			break;
 		default: break;
 	}

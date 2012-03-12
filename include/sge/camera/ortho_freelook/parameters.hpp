@@ -22,15 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_ORTHO_FREELOOK_PARAMETERS_HPP_INCLUDED
 
 #include <sge/camera/symbol.hpp>
-#include <sge/camera/projection/object.hpp>
+#include <sge/camera/ortho_freelook/optional_projection_rect.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/renderer/projection/rect.hpp>
+#include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/projection/far.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -47,8 +49,7 @@ public:
 	SGE_CAMERA_SYMBOL explicit
 	parameters(
 		input::mouse::device &,
-		input::keyboard::device &,
-		renderer::projection::rect const &);
+		input::keyboard::device &);
 
 	SGE_CAMERA_SYMBOL input::mouse::device &
 	mouse() const;
@@ -56,8 +57,9 @@ public:
 	SGE_CAMERA_SYMBOL input::keyboard::device &
 	keyboard() const;
 
-	SGE_CAMERA_SYMBOL camera::projection::object const
-	projection() const;
+	SGE_CAMERA_SYMBOL parameters &
+	projection_rect(
+		sge::renderer::projection::rect const &);
 
 	SGE_CAMERA_SYMBOL parameters &
 	near(
@@ -79,10 +81,13 @@ public:
 	active(
 		bool);
 
-	SGE_CAMERA_SYMBOL renderer::scalar
+	SGE_CAMERA_SYMBOL ortho_freelook::optional_projection_rect const
+	projection_rect() const;
+
+	SGE_CAMERA_SYMBOL renderer::projection::near const
 	near() const;
 
-	SGE_CAMERA_SYMBOL renderer::scalar
+	SGE_CAMERA_SYMBOL renderer::projection::far const
 	far() const;
 
 	SGE_CAMERA_SYMBOL renderer::vector2 const &
@@ -96,9 +101,9 @@ public:
 private:
 	input::mouse::device &mouse_;
 	input::keyboard::device &keyboard_;
-	renderer::projection::rect const rect_;
-	renderer::scalar near_;
-	renderer::scalar far_;
+	ortho_freelook::optional_projection_rect rect_;
+	renderer::projection::near near_;
+	renderer::projection::far far_;
 	renderer::vector2 zoom_to_zooming_speed_factor_;
 	renderer::vector2 zoom_to_panning_speed_factor_;
 	bool active_;

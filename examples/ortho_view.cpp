@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/log/global.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -73,6 +74,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <sge/input/cursor/demuxer.hpp>
+#include <sge/input/keyboard/key_event.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
@@ -83,6 +86,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -94,6 +98,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
+namespace
+{
+void
+g_key_callback(
+	sge::input::keyboard::key_event const &e,
+	sge::input::cursor::object &c)
+{
+	if(e.key_code() == sge::input::keyboard::key_code::g)
+	{
+		c.mode(
+			e.pressed()
+			?
+				sge::input::cursor::mode::exclusive
+			:
+				sge::input::cursor::mode::normal);
+	}
+}
+}
 
 awl::main::exit_code const
 example_main(
@@ -126,9 +148,8 @@ try
 					window_dim)))
 		(sge::systems::input(
 				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
-				sge::systems::cursor_option_field(
-					sge::systems::cursor_option::exclusive)))
+					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector | sge::systems::input_helper::cursor_demuxer,
+				sge::systems::cursor_option_field()))
 		(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
@@ -145,14 +166,15 @@ try
 	sge::camera::ortho_freelook::object camera(
 		sge::camera::ortho_freelook::parameters(
 			sys.mouse_collector(),
-			sys.keyboard_collector(),
-			sge::renderer::projection::rect(
-				sge::renderer::projection::rect::vector::null(),
-				sge::renderer::projection::rect::dim(
-					static_cast<sge::renderer::scalar>(
-						window_dim.w()),
-					static_cast<sge::renderer::scalar>(
-						window_dim.h())))));
+			sys.keyboard_collector())
+			.projection_rect(
+				sge::renderer::projection::rect(
+					sge::renderer::projection::rect::vector::null(),
+					sge::renderer::projection::rect::dim(
+						static_cast<sge::renderer::scalar>(
+							window_dim.w()),
+						static_cast<sge::renderer::scalar>(
+							window_dim.h())))));
 
 	sge::texture::manager tex_man(
 		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
@@ -245,6 +267,14 @@ try
 	fcppt::signal::scoped_connection const escape_connection(
 		sge::systems::quit_on_escape(
 			sys));
+
+	fcppt::signal::scoped_connection const grab_connection(
+		sys.keyboard_collector().key_callback(
+			std::tr1::bind(
+				&g_key_callback,
+				std::tr1::placeholders::_1,
+				fcppt::ref(
+					sys.cursor_demuxer()))));
 
 	sys.renderer().state(
 		sge::renderer::state::list

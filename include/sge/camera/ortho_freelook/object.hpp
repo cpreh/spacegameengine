@@ -72,6 +72,7 @@ private:
 	renderer::vector2 zoom_to_zooming_speed_factor_;
 	bool zoom_in_;
 	bool zoom_out_;
+	bool pan_;
 	bool active_;
 
 	void

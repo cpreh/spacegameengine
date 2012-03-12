@@ -22,15 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::camera::ortho_freelook::parameters::parameters(
 	input::mouse::device &_mouse,
-	input::keyboard::device &_keyboard,
-	renderer::projection::rect const &_rect)
+	input::keyboard::device &_keyboard)
 :
 	mouse_(
 		_mouse),
 	keyboard_(
 		_keyboard),
-	rect_(
-		_rect),
+	rect_(),
 	near_(
 		0.0f),
 	far_(
@@ -60,16 +58,13 @@ sge::camera::ortho_freelook::parameters::keyboard() const
 	return keyboard_;
 }
 
-sge::camera::projection::object const
-sge::camera::ortho_freelook::parameters::projection() const
+sge::camera::ortho_freelook::parameters &
+sge::camera::ortho_freelook::parameters::projection_rect(
+	sge::renderer::projection::rect const &_rect)
 {
-	return
-		sge::camera::projection::orthogonal(
-			rect_,
-			renderer::projection::near(
-				near_),
-			renderer::projection::far(
-				far_));
+	rect_ =
+		_rect;
+	return *this;
 }
 
 sge::camera::ortho_freelook::parameters &
@@ -77,7 +72,8 @@ sge::camera::ortho_freelook::parameters::near(
 	renderer::scalar const _near)
 {
 	near_ =
-		_near;
+		renderer::projection::near(
+				_near);
 	return *this;
 }
 
@@ -86,7 +82,8 @@ sge::camera::ortho_freelook::parameters::far(
 	renderer::scalar const _far)
 {
 	far_ =
-		_far;
+		renderer::projection::far(
+			_far);
 	return *this;
 }
 
@@ -117,13 +114,20 @@ sge::camera::ortho_freelook::parameters::active(
 	return *this;
 }
 
-sge::renderer::scalar
+sge::camera::ortho_freelook::optional_projection_rect const
+sge::camera::ortho_freelook::parameters::projection_rect() const
+{
+	return
+		rect_;
+}
+
+sge::renderer::projection::near const
 sge::camera::ortho_freelook::parameters::near() const
 {
 	return near_;
 }
 
-sge::renderer::scalar
+sge::renderer::projection::far const
 sge::camera::ortho_freelook::parameters::far() const
 {
 	return far_;
