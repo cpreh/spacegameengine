@@ -46,11 +46,10 @@ typename boost::enable_if<
 	boost::is_unsigned<
 		LengthType
 	>,
-	void
->::type
-fcppt::optional<
-	LengthType
-> const
+	fcppt::optional<
+		LengthType
+	>
+::type const
 extract(
 	alda::serialization::istream &_stream
 )

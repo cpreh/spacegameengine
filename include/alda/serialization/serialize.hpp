@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/message/base_decl.hpp>
 #include <alda/serialization/ostream.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iosfwd>
+#include <ostream>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace alda
 {

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_QUIT_ON_ESCAPE_HPP_INCLUDED
 
 #include <sge/systems/instance_fwd.hpp>
+#include <sge/systems/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
