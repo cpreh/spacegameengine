@@ -203,17 +203,18 @@ mark_as_advanced(
 	SGE_INCLUDE_DIR
 )
 
+include(
+	FindPackageMessage
+)
+
 if(
 	SGE_FOUND
 )
-	if(
-		NOT SGE_FIND_QUIETLY
+	find_package_message(
+		SGE
+		"Found SGE: ${SGE_INCLUDE_DIR}"
+		"${SGE_LIBRARIES}"
 	)
-		message(
-			STATUS
-			"Found SGE: ${SGE_INCLUDE_DIR}"
-		)
-	endif()
 else()
 	set(
 		SGE_ERROR_MESSAGE
