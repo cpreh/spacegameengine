@@ -5,7 +5,6 @@ include_directories(
 
 set(
 	SGE_CEGUI_FILES
-	include/sge/cegui/cegui.hpp
 	include/sge/cegui/cursor_visibility.hpp
 	include/sge/cegui/default_cursor.hpp
 	include/sge/cegui/default_font.hpp
@@ -41,7 +40,6 @@ set(
 	include/sge/cegui/toolbox/row.hpp
 	include/sge/cegui/toolbox/scoped_gui_sheet.hpp
 	include/sge/cegui/toolbox/scoped_layout.hpp
-	include/sge/cegui/toolbox/toolbox.hpp
 	include/sge/cegui/unit.hpp
 	include/sge/cegui/vf/color.hpp
 	include/sge/cegui/vf/format.hpp
@@ -49,7 +47,6 @@ set(
 	include/sge/cegui/vf/position.hpp
 	include/sge/cegui/vf/texcoord.hpp
 	include/sge/cegui/vf/vertex_view.hpp
-	include/sge/cegui/vf/vf.hpp
 	src/cegui/cursor_button_translation.cpp
 	src/cegui/default_cursor.cpp
 	src/cegui/default_font.cpp

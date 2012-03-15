@@ -31,6 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/rotation_axis.hpp>
 #include <fcppt/math/matrix/vector.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/construct.hpp>
+#include <fcppt/math/vector/cross.hpp>
+#include <fcppt/math/vector/narrow_cast.hpp>
+#include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -162,18 +167,16 @@ sge::camera::first_person::object::mouse_axis_callback(
 			break;
 		case input::mouse::axis_code::x:
 		{
-		using fcppt::math::matrix::rotation_axis;
-		using fcppt::math::vector::narrow_cast;
-		using fcppt::math::vector::construct;
-		using fcppt::math::vector::normalize;
+		namespace matrix = fcppt::math::matrix;
+		namespace vector = fcppt::math::vector;
 
 		renderer::vector3
 			forward =
-				narrow_cast<renderer::vector3>(
-					rotation_axis(
+				vector::narrow_cast<renderer::vector3>(
+					matrix::rotation_axis(
 						angle,
 						renderer::vector3(0,1,0)) *
-					construct(
+					vector::construct(
 						base::gizmo().forward(),
 						// Cast neccesary here
 						static_cast<renderer::scalar>(0))),
@@ -188,16 +191,15 @@ sge::camera::first_person::object::mouse_axis_callback(
 
 		base::gizmo()
 			.position(base::gizmo().position())
-			.forward(normalize(forward))
-			.up(normalize(up))
-			.right(normalize(right));
+			.forward(vector::normalize(forward))
+			.up(vector::normalize(up))
+			.right(vector::normalize(right));
 		}
 		break;
 		case input::mouse::axis_code::y:
 		{
-			using fcppt::math::matrix::rotation_axis;
-			using fcppt::math::vector::narrow_cast;
-			using fcppt::math::vector::construct;
+			namespace matrix = fcppt::math::matrix;
+			namespace vector = fcppt::math::vector;
 
 			if(
 				(fcppt::math::vector::length(
@@ -218,23 +220,23 @@ sge::camera::first_person::object::mouse_axis_callback(
 
 			renderer::vector3
 				forward =
-					narrow_cast<renderer::vector3>(
-						rotation_axis(
+					vector::narrow_cast<renderer::vector3>(
+						matrix::rotation_axis(
 							angle,
 							base::gizmo().right()) *
-						construct(
+						vector::construct(
 							base::gizmo().forward(),
 							static_cast<renderer::scalar>(0))),
 				up =
-					cross(forward,base::gizmo().right()),
+					vector::cross(forward,base::gizmo().right()),
 				right =
-					cross(up,forward);
+					vector::cross(up,forward);
 
 			base::gizmo()
 				.position(base::gizmo().position())
-				.forward(normalize(forward))
-				.up(normalize(up))
-				.right(normalize(right));
+				.forward(vector::normalize(forward))
+				.up(vector::normalize(up))
+				.right(vector::normalize(right));
 		}
 		break;
 		case input::mouse::axis_code::wheel:

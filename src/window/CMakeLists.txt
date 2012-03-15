@@ -16,7 +16,6 @@ set(
 	include/sge/window/system_fwd.hpp
 	include/sge/window/title.hpp
 	include/sge/window/to_awl_parameters.hpp
-	include/sge/window/window.hpp
 	src/window/convert_size_hints.cpp
 	src/window/create_from_awl.cpp
 	src/window/default_class_name.cpp

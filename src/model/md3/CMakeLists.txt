@@ -8,7 +8,6 @@ set(
 	include/sge/model/md3/loader.hpp
 	include/sge/model/md3/loader_fwd.hpp
 	include/sge/model/md3/loader_ptr.hpp
-	include/sge/model/md3/md3.hpp
 	include/sge/model/md3/normal.hpp
 	include/sge/model/md3/normal_sequence.hpp
 	include/sge/model/md3/object.hpp

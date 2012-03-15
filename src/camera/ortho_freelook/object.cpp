@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
-#include <sge/camera/projection/orthogonal.hpp>
 #include <sge/camera/projection/invalid.hpp>
+#include <sge/camera/projection/orthogonal.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/mouse/axis_event.hpp>

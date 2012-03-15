@@ -1,12 +1,10 @@
 set(
 	SGE_AUDIO_FILES
-	include/sge/audio/audio.hpp
 	include/sge/audio/bad_sound_alloc.hpp
 	include/sge/audio/buffer.hpp
 	include/sge/audio/buffer_fwd.hpp
 	include/sge/audio/buffer_ptr.hpp
 	include/sge/audio/channel_type.hpp
-	include/sge/audio/direction/direction.hpp
 	include/sge/audio/direction/forward.hpp
 	include/sge/audio/direction/object.hpp
 	include/sge/audio/direction/object_fwd.hpp
@@ -53,7 +51,6 @@ set(
 	include/sge/audio/sound/positional_parameters_fwd.hpp
 	include/sge/audio/sound/positional_ptr.hpp
 	include/sge/audio/sound/repeat.hpp
-	include/sge/audio/sound/sound.hpp
 	include/sge/audio/unsupported_format.hpp
 	include/sge/audio/vector.hpp
 	src/audio/bad_sound_alloc.cpp

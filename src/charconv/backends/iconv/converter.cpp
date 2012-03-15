@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/exception.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
-#include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/raw_pointer.hpp>
+#include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
 #include <sge/src/charconv/backends/iconv/converter.hpp>
 #include <sge/src/charconv/backends/iconv/encoding_to_string.hpp>

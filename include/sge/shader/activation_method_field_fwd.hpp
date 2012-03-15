@@ -18,12 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_OUTPUT_OUTPUT_HPP_INCLUDED
-#define SGE_PARSE_INI_OUTPUT_OUTPUT_HPP_INCLUDED
+#ifndef SGE_SHADER_ACTIVATION_METHOD_FIELD_FWD_HPP_INCLUDED
+#define SGE_SHADER_ACTIVATION_METHOD_FIELD_FWD_HPP_INCLUDED
 
-#include <sge/parse/ini/output/grammar.hpp>
-#include <sge/parse/ini/output/to_file.hpp>
-#include <sge/parse/ini/output/to_range.hpp>
-#include <sge/parse/ini/output/to_stream.hpp>
+#include <sge/shader/activation_method.hpp>
+#include <fcppt/container/bitfield/basic_fwd.hpp>
+
+
+namespace sge
+{
+namespace shader
+{
+typedef
+fcppt::container::bitfield::basic<shader::activation_method::type,shader::activation_method::size>
+activation_method_field;
+}
+}
 
 #endif

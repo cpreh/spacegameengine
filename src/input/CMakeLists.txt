@@ -8,7 +8,6 @@ set(
 	include/sge/input/cursor/button_function.hpp
 	include/sge/input/cursor/button_signal.hpp
 	include/sge/input/cursor/choose_callback.hpp
-	include/sge/input/cursor/cursor.hpp
 	include/sge/input/cursor/default_choose.hpp
 	include/sge/input/cursor/demuxer.hpp
 	include/sge/input/cursor/demuxer_fwd.hpp
@@ -49,18 +48,15 @@ set(
 	include/sge/input/cursor/remove_signal.hpp
 	include/sge/input/event/discover.hpp
 	include/sge/input/event/discover_fwd.hpp
-	include/sge/input/event/event.hpp
 	include/sge/input/event/remove.hpp
 	include/sge/input/event/remove_fwd.hpp
 	include/sge/input/exception.hpp
 	include/sge/input/info/container.hpp
 	include/sge/input/info/container_fwd.hpp
 	include/sge/input/info/id.hpp
-	include/sge/input/info/info.hpp
 	include/sge/input/info/name.hpp
 	include/sge/input/info/optional_string.hpp
 	include/sge/input/info/optional_string_fwd.hpp
-	include/sge/input/input.hpp
 	include/sge/input/joypad/absolute_axis.hpp
 	include/sge/input/joypad/absolute_axis_callback.hpp
 	include/sge/input/joypad/absolute_axis_event.hpp
@@ -98,7 +94,6 @@ set(
 	include/sge/input/joypad/discover_signal.hpp
 	include/sge/input/joypad/info.hpp
 	include/sge/input/joypad/info_fwd.hpp
-	include/sge/input/joypad/joypad.hpp
 	include/sge/input/joypad/manager.hpp
 	include/sge/input/joypad/relative_axis.hpp
 	include/sge/input/joypad/relative_axis_callback.hpp
@@ -152,7 +147,6 @@ set(
 	include/sge/input/keyboard/key_repeat_function.hpp
 	include/sge/input/keyboard/key_repeat_signal.hpp
 	include/sge/input/keyboard/key_signal.hpp
-	include/sge/input/keyboard/keyboard.hpp
 	include/sge/input/keyboard/manager.hpp
 	include/sge/input/keyboard/mod_state.hpp
 	include/sge/input/keyboard/mod_state_fwd.hpp
@@ -208,7 +202,6 @@ set(
 	include/sge/input/mouse/info.hpp
 	include/sge/input/mouse/info_fwd.hpp
 	include/sge/input/mouse/manager.hpp
-	include/sge/input/mouse/mouse.hpp
 	include/sge/input/mouse/remove_callback.hpp
 	include/sge/input/mouse/remove_event.hpp
 	include/sge/input/mouse/remove_event_fwd.hpp

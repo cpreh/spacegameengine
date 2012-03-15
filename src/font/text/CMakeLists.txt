@@ -20,7 +20,6 @@ set(
 	include/sge/font/text/part_fwd.hpp
 	include/sge/font/text/size.hpp
 	include/sge/font/text/string.hpp
-	include/sge/font/text/text.hpp
 	include/sge/font/text/to_fcppt_string.hpp
 	src/font/text/char_space.cpp
 	src/font/text/char_to_fcppt_string.cpp

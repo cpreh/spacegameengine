@@ -1,7 +1,6 @@
 set(
 	SGE_CONSOLE_FILES
 	include/sge/console/arg_list.hpp
-	include/sge/console/callback/callback.hpp
 	include/sge/console/callback/detail/convenience_wrapper.hpp
 	include/sge/console/callback/detail/conversion_visitor.hpp
 	include/sge/console/callback/from_functor.hpp
@@ -11,7 +10,6 @@ set(
 	include/sge/console/callback/parameters.hpp
 	include/sge/console/callback/parameters_fwd.hpp
 	include/sge/console/callback/short_description.hpp
-	include/sge/console/console.hpp
 	include/sge/console/cursor.hpp
 	include/sge/console/error_callback.hpp
 	include/sge/console/error_callback_fn.hpp

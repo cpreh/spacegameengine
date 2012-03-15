@@ -22,7 +22,6 @@ set(
 	include/sge/model/obj/normal.hpp
 	include/sge/model/obj/normal_fwd.hpp
 	include/sge/model/obj/normal_sequence.hpp
-	include/sge/model/obj/obj.hpp
 	include/sge/model/obj/optional_index.hpp
 	include/sge/model/obj/optional_index_fwd.hpp
 	include/sge/model/obj/optional_scalar.hpp
@@ -42,9 +41,7 @@ set(
 	include/sge/model/obj/vb_converter/roles/detail/type.hpp
 	include/sge/model/obj/vb_converter/roles/normal.hpp
 	include/sge/model/obj/vb_converter/roles/position.hpp
-	include/sge/model/obj/vb_converter/roles/roles.hpp
 	include/sge/model/obj/vb_converter/roles/texcoord.hpp
-	include/sge/model/obj/vb_converter/vb_converter.hpp
 	include/sge/model/obj/vertex.hpp
 	include/sge/model/obj/vertex_fwd.hpp
 	include/sge/model/obj/vertex_sequence.hpp

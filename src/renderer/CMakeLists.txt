@@ -14,7 +14,6 @@ set(
 	include/sge/renderer/bit_depth_bytes.hpp
 	include/sge/renderer/buffer_has_depth.hpp
 	include/sge/renderer/buffer_has_stencil.hpp
-	include/sge/renderer/caps/caps.hpp
 	include/sge/renderer/caps/clip_plane_indices.hpp
 	include/sge/renderer/caps/description.hpp
 	include/sge/renderer/caps/driver_name.hpp
@@ -77,7 +76,6 @@ set(
 	include/sge/renderer/glsl/geometry_shader.hpp
 	include/sge/renderer/glsl/geometry_shader_fwd.hpp
 	include/sge/renderer/glsl/geometry_shader_ptr.hpp
-	include/sge/renderer/glsl/glsl.hpp
 	include/sge/renderer/glsl/pixel_shader.hpp
 	include/sge/renderer/glsl/pixel_shader_fwd.hpp
 	include/sge/renderer/glsl/pixel_shader_ptr.hpp
@@ -107,7 +105,6 @@ set(
 	include/sge/renderer/glsl/uniform/make_element_type.hpp
 	include/sge/renderer/glsl/uniform/make_enum_type.hpp
 	include/sge/renderer/glsl/uniform/single_value.hpp
-	include/sge/renderer/glsl/uniform/uniform.hpp
 	include/sge/renderer/glsl/uniform/value.hpp
 	include/sge/renderer/glsl/uniform/variable.hpp
 	include/sge/renderer/glsl/uniform/variable_fwd.hpp
@@ -115,7 +112,6 @@ set(
 	include/sge/renderer/glsl/vertex_shader.hpp
 	include/sge/renderer/glsl/vertex_shader_fwd.hpp
 	include/sge/renderer/glsl/vertex_shader_ptr.hpp
-	include/sge/renderer/index/any/any.hpp
 	include/sge/renderer/index/any/basic_view.hpp
 	include/sge/renderer/index/any/basic_view_fwd.hpp
 	include/sge/renderer/index/any/detail/generate_visitor.hpp
@@ -138,7 +134,6 @@ set(
 	include/sge/renderer/index/dynamic/basic_view_fwd.hpp
 	include/sge/renderer/index/dynamic/const_view.hpp
 	include/sge/renderer/index/dynamic/const_view_fwd.hpp
-	include/sge/renderer/index/dynamic/dynamic.hpp
 	include/sge/renderer/index/dynamic/format.hpp
 	include/sge/renderer/index/dynamic/format_stride.hpp
 	include/sge/renderer/index/dynamic/make_const_view.hpp
@@ -153,7 +148,6 @@ set(
 	include/sge/renderer/index/format_is_32.hpp
 	include/sge/renderer/index/i16.hpp
 	include/sge/renderer/index/i32.hpp
-	include/sge/renderer/index/index.hpp
 	include/sge/renderer/index/is_format.hpp
 	include/sge/renderer/index/iterator.hpp
 	include/sge/renderer/index/iterator_decl.hpp
@@ -186,7 +180,6 @@ set(
 	include/sge/renderer/light/directional_fwd.hpp
 	include/sge/renderer/light/index.hpp
 	include/sge/renderer/light/index_value.hpp
-	include/sge/renderer/light/light.hpp
 	include/sge/renderer/light/linear_attenuation.hpp
 	include/sge/renderer/light/object.hpp
 	include/sge/renderer/light/object_fwd.hpp
@@ -199,7 +192,6 @@ set(
 	include/sge/renderer/light/variant.hpp
 	include/sge/renderer/lock_box.hpp
 	include/sge/renderer/lock_flags/from_mode.hpp
-	include/sge/renderer/lock_flags/lock_flags.hpp
 	include/sge/renderer/lock_flags/method.hpp
 	include/sge/renderer/lock_flags/read.hpp
 	include/sge/renderer/lock_flags/write.hpp
@@ -238,13 +230,11 @@ set(
 	include/sge/renderer/projection/orthogonal_xy.hpp
 	include/sge/renderer/projection/perspective_af.hpp
 	include/sge/renderer/projection/perspective_wh.hpp
-	include/sge/renderer/projection/projection.hpp
 	include/sge/renderer/projection/rect.hpp
 	include/sge/renderer/raw_pointer.hpp
 	include/sge/renderer/raw_value.hpp
 	include/sge/renderer/refresh_rate.hpp
 	include/sge/renderer/refresh_rate_dont_care.hpp
-	include/sge/renderer/renderer.hpp
 	include/sge/renderer/resource_flags.hpp
 	include/sge/renderer/resource_flags_field.hpp
 	include/sge/renderer/resource_flags_field_fwd.hpp
@@ -280,13 +270,11 @@ set(
 	include/sge/renderer/state/bool.hpp
 	include/sge/renderer/state/bool/available_states.hpp
 	include/sge/renderer/state/bool/base_type.hpp
-	include/sge/renderer/state/bool/bool.hpp
 	include/sge/renderer/state/bool/trampoline.hpp
 	include/sge/renderer/state/bool/type.hpp
 	include/sge/renderer/state/color.hpp
 	include/sge/renderer/state/color/available_states.hpp
 	include/sge/renderer/state/color/base_type.hpp
-	include/sge/renderer/state/color/color.hpp
 	include/sge/renderer/state/color/trampoline.hpp
 	include/sge/renderer/state/color/type.hpp
 	include/sge/renderer/state/color_type.hpp
@@ -302,14 +290,12 @@ set(
 	include/sge/renderer/state/float.hpp
 	include/sge/renderer/state/float/available_states.hpp
 	include/sge/renderer/state/float/base_type.hpp
-	include/sge/renderer/state/float/float.hpp
 	include/sge/renderer/state/float/trampoline.hpp
 	include/sge/renderer/state/float/type.hpp
 	include/sge/renderer/state/fog_mode.hpp
 	include/sge/renderer/state/int.hpp
 	include/sge/renderer/state/int/available_states.hpp
 	include/sge/renderer/state/int/base_type.hpp
-	include/sge/renderer/state/int/int.hpp
 	include/sge/renderer/state/int/trampoline.hpp
 	include/sge/renderer/state/int/type.hpp
 	include/sge/renderer/state/list.hpp
@@ -318,12 +304,10 @@ set(
 	include/sge/renderer/state/scoped.hpp
 	include/sge/renderer/state/source_blend_func.hpp
 	include/sge/renderer/state/stack.hpp
-	include/sge/renderer/state/state.hpp
 	include/sge/renderer/state/stencil_func.hpp
 	include/sge/renderer/state/stencil_op.hpp
 	include/sge/renderer/state/stencil_op/available_states.hpp
 	include/sge/renderer/state/stencil_op/base_type.hpp
-	include/sge/renderer/state/stencil_op/stencil_op.hpp
 	include/sge/renderer/state/stencil_op/trampoline.hpp
 	include/sge/renderer/state/stencil_op/type.hpp
 	include/sge/renderer/state/stencil_op_value.hpp
@@ -335,7 +319,6 @@ set(
 	include/sge/renderer/state/uint/base_type.hpp
 	include/sge/renderer/state/uint/trampoline.hpp
 	include/sge/renderer/state/uint/type.hpp
-	include/sge/renderer/state/uint/uint.hpp
 	include/sge/renderer/state/var.hpp
 	include/sge/renderer/state/var_fwd.hpp
 	include/sge/renderer/surface_index.hpp
@@ -389,14 +372,12 @@ set(
 	include/sge/renderer/texture/depth_stencil_parameters.hpp
 	include/sge/renderer/texture/depth_stencil_parameters_fwd.hpp
 	include/sge/renderer/texture/depth_stencil_ptr.hpp
-	include/sge/renderer/texture/filter/anisotropic/anisotropic.hpp
 	include/sge/renderer/texture/filter/anisotropic/level.hpp
 	include/sge/renderer/texture/filter/anisotropic/make.hpp
 	include/sge/renderer/texture/filter/anisotropic/mip.hpp
 	include/sge/renderer/texture/filter/anisotropic/object.hpp
 	include/sge/renderer/texture/filter/anisotropic/object_fwd.hpp
 	include/sge/renderer/texture/filter/default.hpp
-	include/sge/renderer/texture/filter/filter.hpp
 	include/sge/renderer/texture/filter/linear.hpp
 	include/sge/renderer/texture/filter/mipmap.hpp
 	include/sge/renderer/texture/filter/need_mipmap.hpp
@@ -404,7 +385,6 @@ set(
 	include/sge/renderer/texture/filter/normal/make.hpp
 	include/sge/renderer/texture/filter/normal/min.hpp
 	include/sge/renderer/texture/filter/normal/mip.hpp
-	include/sge/renderer/texture/filter/normal/normal.hpp
 	include/sge/renderer/texture/filter/normal/object.hpp
 	include/sge/renderer/texture/filter/normal/object_fwd.hpp
 	include/sge/renderer/texture/filter/object.hpp
@@ -421,7 +401,6 @@ set(
 	include/sge/renderer/texture/mipmap/levels.hpp
 	include/sge/renderer/texture/mipmap/levels_rep.hpp
 	include/sge/renderer/texture/mipmap/levels_rep_fwd.hpp
-	include/sge/renderer/texture/mipmap/mipmap.hpp
 	include/sge/renderer/texture/mipmap/object.hpp
 	include/sge/renderer/texture/mipmap/object_fwd.hpp
 	include/sge/renderer/texture/mipmap/off.hpp
@@ -444,7 +423,6 @@ set(
 	include/sge/renderer/texture/stage_op.hpp
 	include/sge/renderer/texture/stage_op_value.hpp
 	include/sge/renderer/texture/stage_value.hpp
-	include/sge/renderer/texture/texture.hpp
 	include/sge/renderer/texture/volume.hpp
 	include/sge/renderer/texture/volume_fwd.hpp
 	include/sge/renderer/texture/volume_parameters.hpp
@@ -491,7 +469,6 @@ set(
 	include/sge/renderer/vf/dynamic/detail/make_part_list.hpp
 	include/sge/renderer/vf/dynamic/detail/make_unspecified_element.hpp
 	include/sge/renderer/vf/dynamic/detail/make_vector.hpp
-	include/sge/renderer/vf/dynamic/dynamic.hpp
 	include/sge/renderer/vf/dynamic/element.hpp
 	include/sge/renderer/vf/dynamic/element_fwd.hpp
 	include/sge/renderer/vf/dynamic/element_list.hpp
@@ -555,7 +532,6 @@ set(
 	include/sge/renderer/vf/vertex_fwd.hpp
 	include/sge/renderer/vf/vertex_impl.hpp
 	include/sge/renderer/vf/vertex_size.hpp
-	include/sge/renderer/vf/vf.hpp
 	include/sge/renderer/vf/view.hpp
 	include/sge/renderer/vf/view_decl.hpp
 	include/sge/renderer/vf/view_fwd.hpp

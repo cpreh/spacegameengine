@@ -1,7 +1,6 @@
 set(
 	SGE_PROJECTILE_FILES
 	include/sge/projectile/body/angular_velocity.hpp
-	include/sge/projectile/body/body.hpp
 	include/sge/projectile/body/collision.hpp
 	include/sge/projectile/body/collision_fn.hpp
 	include/sge/projectile/body/detail/motion_state_fwd.hpp
@@ -22,7 +21,6 @@ set(
 	include/sge/projectile/body/scoped_fwd.hpp
 	include/sge/projectile/body/solidity/nonsolid.hpp
 	include/sge/projectile/body/solidity/solid.hpp
-	include/sge/projectile/body/solidity/solidity.hpp
 	include/sge/projectile/body/solidity/static.hpp
 	include/sge/projectile/body/solidity/variant.hpp
 	include/sge/projectile/body/user_data.hpp
@@ -37,7 +35,6 @@ set(
 	include/sge/projectile/ghost/body_exit.hpp
 	include/sge/projectile/ghost/body_exit_fn.hpp
 	include/sge/projectile/ghost/detail/pair_callback_fwd.hpp
-	include/sge/projectile/ghost/ghost.hpp
 	include/sge/projectile/ghost/object.hpp
 	include/sge/projectile/ghost/object_fwd.hpp
 	include/sge/projectile/ghost/parameters.hpp
@@ -46,20 +43,17 @@ set(
 	include/sge/projectile/ghost/scoped.hpp
 	include/sge/projectile/ghost/scoped_fwd.hpp
 	include/sge/projectile/ghost/size.hpp
-	include/sge/projectile/group/group.hpp
 	include/sge/projectile/group/id.hpp
 	include/sge/projectile/group/object.hpp
 	include/sge/projectile/group/object_fwd.hpp
 	include/sge/projectile/group/sequence.hpp
 	include/sge/projectile/log_location.hpp
 	include/sge/projectile/maximum_substeps.hpp
-	include/sge/projectile/projectile.hpp
 	include/sge/projectile/rect.hpp
 	include/sge/projectile/scalar.hpp
 	include/sge/projectile/shape/base.hpp
 	include/sge/projectile/shape/base_fwd.hpp
 	include/sge/projectile/shape/circle.hpp
-	include/sge/projectile/shape/shape.hpp
 	include/sge/projectile/shape/shared_base_ptr.hpp
 	include/sge/projectile/shape/triangle_mesh.hpp
 	include/sge/projectile/shape/triangle_sequence.hpp
@@ -72,9 +66,7 @@ set(
 	include/sge/projectile/triangulation/traits/access_element.hpp
 	include/sge/projectile/triangulation/traits/construct_result.hpp
 	include/sge/projectile/triangulation/traits/scalar.hpp
-	include/sge/projectile/triangulation/traits/traits.hpp
 	include/sge/projectile/triangulation/triangulate.hpp
-	include/sge/projectile/triangulation/triangulation.hpp
 	include/sge/projectile/vector2.hpp
 	include/sge/projectile/vector3.hpp
 	include/sge/projectile/world.hpp

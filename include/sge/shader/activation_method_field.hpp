@@ -21,18 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_ACTIVATION_METHOD_FIELD_HPP_INCLUDED
 #define SGE_SHADER_ACTIVATION_METHOD_FIELD_HPP_INCLUDED
 
-#include <sge/shader/activation_method.hpp>
-#include <fcppt/container/bitfield/bitfield.hpp>
+#include <sge/shader/activation_method_field_fwd.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
-
-namespace sge
-{
-namespace shader
-{
-typedef
-fcppt::container::bitfield::basic<shader::activation_method::type,shader::activation_method::size>
-activation_method_field;
-}
-}
 
 #endif

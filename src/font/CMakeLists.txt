@@ -8,7 +8,6 @@ set(
 	include/sge/font/const_image_view.hpp
 	include/sge/font/dim.hpp
 	include/sge/font/exception.hpp
-	include/sge/font/font.hpp
 	include/sge/font/image_view.hpp
 	include/sge/font/metrics.hpp
 	include/sge/font/metrics_fwd.hpp

@@ -11,9 +11,7 @@ set(
 	include/sge/parse/ini/entry_vector.hpp
 	include/sge/parse/ini/grammar.hpp
 	include/sge/parse/ini/header_name_equal.hpp
-	include/sge/parse/ini/ini.hpp
 	include/sge/parse/ini/output/grammar.hpp
-	include/sge/parse/ini/output/output.hpp
 	include/sge/parse/ini/output/to_file.hpp
 	include/sge/parse/ini/output/to_range.hpp
 	include/sge/parse/ini/output/to_stream.hpp
@@ -27,7 +25,6 @@ set(
 	include/sge/parse/json/array.hpp
 	include/sge/parse/json/array_fwd.hpp
 	include/sge/parse/json/config/command_line_parameters.hpp
-	include/sge/parse/json/config/config.hpp
 	include/sge/parse/json/config/create_command_line_parameters.hpp
 	include/sge/parse/json/config/help_needed_exception.hpp
 	include/sge/parse/json/config/merge_command_line_parameters.hpp
@@ -40,7 +37,6 @@ set(
 	include/sge/parse/json/const_optional_object_ref.hpp
 	include/sge/parse/json/const_optional_object_ref_fwd.hpp
 	include/sge/parse/json/convert/choose_fundamental.hpp
-	include/sge/parse/json/convert/convert.hpp
 	include/sge/parse/json/convert/from_container.hpp
 	include/sge/parse/json/convert/from_enum.hpp
 	include/sge/parse/json/convert/to_enum.hpp
@@ -72,7 +68,6 @@ set(
 	include/sge/parse/json/int_type.hpp
 	include/sge/parse/json/invalid_get.hpp
 	include/sge/parse/json/is_null.hpp
-	include/sge/parse/json/json.hpp
 	include/sge/parse/json/make_recursive_objects.hpp
 	include/sge/parse/json/member.hpp
 	include/sge/parse/json/member_map.hpp
@@ -84,7 +79,6 @@ set(
 	include/sge/parse/json/optional_object_ref.hpp
 	include/sge/parse/json/optional_object_ref_fwd.hpp
 	include/sge/parse/json/output/grammar.hpp
-	include/sge/parse/json/output/output.hpp
 	include/sge/parse/json/output/tabbed_to_stream.hpp
 	include/sge/parse/json/output/tabbed_to_string.hpp
 	include/sge/parse/json/output/to_file.hpp
@@ -102,7 +96,6 @@ set(
 	include/sge/parse/json/string_to_path.hpp
 	include/sge/parse/json/string_to_value.hpp
 	include/sge/parse/json/value.hpp
-	include/sge/parse/parse.hpp
 	src/parse/exception.cpp
 	src/parse/include/sge/src/parse/output/to_file.hpp
 	src/parse/include/sge/src/parse/output/to_stream.hpp

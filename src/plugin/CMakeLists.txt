@@ -25,7 +25,6 @@ set(
 	include/sge/plugin/library/exception.hpp
 	include/sge/plugin/library/function_base.hpp
 	include/sge/plugin/library/function_map.hpp
-	include/sge/plugin/library/library.hpp
 	include/sge/plugin/library/make_interface.hpp
 	include/sge/plugin/library/object_fwd.hpp
 	include/sge/plugin/library/symbol_not_found.hpp
@@ -36,7 +35,6 @@ set(
 	include/sge/plugin/object.hpp
 	include/sge/plugin/object_fwd.hpp
 	include/sge/plugin/object_shared_ptr.hpp
-	include/sge/plugin/plugin.hpp
 	include/sge/plugin/version.hpp
 	src/plugin/base.cpp
 	src/plugin/context_base.cpp

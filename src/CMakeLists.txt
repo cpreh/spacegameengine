@@ -2,7 +2,6 @@ set(
 	SGE_CORE_INCLUDE_FILES
 	include/sge/class_symbol.hpp
 	include/sge/error/check_state.hpp
-	include/sge/error/error.hpp
 	include/sge/exception.hpp
 	include/sge/timer/basic.hpp
 	include/sge/timer/basic_decl.hpp
@@ -12,7 +11,6 @@ set(
 	include/sge/timer/clocks/adjustable_decl.hpp
 	include/sge/timer/clocks/adjustable_fwd.hpp
 	include/sge/timer/clocks/adjustable_impl.hpp
-	include/sge/timer/clocks/clocks.hpp
 	include/sge/timer/clocks/delta.hpp
 	include/sge/timer/clocks/delta_decl.hpp
 	include/sge/timer/clocks/delta_fwd.hpp
@@ -38,7 +36,6 @@ set(
 	include/sge/timer/remaining.hpp
 	include/sge/timer/remaining_fractional.hpp
 	include/sge/timer/reset_when_expired.hpp
-	include/sge/timer/timer.hpp
 )
 
 set(

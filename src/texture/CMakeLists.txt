@@ -2,7 +2,6 @@ set(
 	SGE_TEXTURE_FILES
 	include/sge/texture/add_image.hpp
 	include/sge/texture/area_texc.hpp
-	include/sge/texture/atlasing/atlasing.hpp
 	include/sge/texture/atlasing/border_h.hpp
 	include/sge/texture/atlasing/border_w.hpp
 	include/sge/texture/atlasing/bound.hpp
@@ -39,7 +38,6 @@ set(
 	include/sge/texture/pos_type.hpp
 	include/sge/texture/rect_fragmented.hpp
 	include/sge/texture/sub_data.hpp
-	include/sge/texture/texture.hpp
 	src/texture/add_image.cpp
 	src/texture/area_texc.cpp
 	src/texture/atlasing/border_h.cpp

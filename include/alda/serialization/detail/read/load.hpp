@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/serialization/istream.hpp>
 #include <alda/serialization/detail/raw_container.hpp>
 #include <majutsu/concepts/dynamic_memory/tag.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/io/read.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>

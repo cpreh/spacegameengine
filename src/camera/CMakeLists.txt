@@ -2,9 +2,7 @@ set(
 	SGE_CAMERA_FILES
 	include/sge/camera/base.hpp
 	include/sge/camera/base_fwd.hpp
-	include/sge/camera/camera.hpp
 	include/sge/camera/duration.hpp
-	include/sge/camera/first_person/first_person.hpp
 	include/sge/camera/first_person/movement_speed.hpp
 	include/sge/camera/first_person/object.hpp
 	include/sge/camera/first_person/object_fwd.hpp
@@ -12,14 +10,12 @@ set(
 	include/sge/camera/first_person/parameters_fwd.hpp
 	include/sge/camera/first_person/rotation_speed.hpp
 	include/sge/camera/gizmo/basic.hpp
-	include/sge/camera/gizmo/gizmo.hpp
 	include/sge/camera/gizmo/to_rotation_matrix.hpp
 	include/sge/camera/gizmo_type.hpp
 	include/sge/camera/identity_gizmo.hpp
 	include/sge/camera/ortho_freelook/object.hpp
 	include/sge/camera/ortho_freelook/object_fwd.hpp
 	include/sge/camera/ortho_freelook/optional_projection_rect.hpp
-	include/sge/camera/ortho_freelook/ortho_freelook.hpp
 	include/sge/camera/ortho_freelook/parameters.hpp
 	include/sge/camera/ortho_freelook/parameters_fwd.hpp
 	include/sge/camera/projection/invalid.hpp
@@ -28,7 +24,6 @@ set(
 	include/sge/camera/projection/orthogonal_fwd.hpp
 	include/sge/camera/projection/perspective.hpp
 	include/sge/camera/projection/perspective_fwd.hpp
-	include/sge/camera/projection/projection.hpp
 	include/sge/camera/projection/to_matrix.hpp
 	include/sge/camera/projection/update_perspective_from_viewport.hpp
 	include/sge/camera/spherical/movement_speed.hpp
@@ -36,7 +31,6 @@ set(
 	include/sge/camera/spherical/object_fwd.hpp
 	include/sge/camera/spherical/parameters.hpp
 	include/sge/camera/spherical/parameters_fwd.hpp
-	include/sge/camera/spherical/spherical.hpp
 	src/camera/base.cpp
 	src/camera/first_person/object.cpp
 	src/camera/first_person/parameters.cpp

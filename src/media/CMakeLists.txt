@@ -6,7 +6,6 @@ set(
 	include/sge/media/extension.hpp
 	include/sge/media/extension_set.hpp
 	include/sge/media/loaders_exhausted.hpp
-	include/sge/media/media.hpp
 	include/sge/media/muxer.hpp
 	include/sge/media/muxer_fwd.hpp
 	include/sge/media/muxer_parameters.hpp

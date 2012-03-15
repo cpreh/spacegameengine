@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/renderer/texture/const_optional_base.hpp>
+#include <sge/shader/activation_method_field.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/shader/object_parameters.hpp>
 #include <fcppt/cref.hpp>

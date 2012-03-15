@@ -2,7 +2,6 @@ set(
 	SGE_IMAGE3D_FILES
 	include/sge/image3d/a8.hpp
 	include/sge/image3d/a8_format.hpp
-	include/sge/image3d/algorithm/algorithm.hpp
 	include/sge/image3d/algorithm/copy_and_convert.hpp
 	include/sge/image3d/algorithm/fill.hpp
 	include/sge/image3d/algorithm/print.hpp
@@ -18,7 +17,6 @@ set(
 	include/sge/image3d/bgrx8_format.hpp
 	include/sge/image3d/box.hpp
 	include/sge/image3d/dim.hpp
-	include/sge/image3d/image3d.hpp
 	include/sge/image3d/l8.hpp
 	include/sge/image3d/l8_format.hpp
 	include/sge/image3d/la8.hpp
@@ -61,7 +59,6 @@ set(
 	include/sge/image3d/view/sub.hpp
 	include/sge/image3d/view/sub_out_of_range.hpp
 	include/sge/image3d/view/to_const.hpp
-	include/sge/image3d/view/view.hpp
 	src/image3d/a8.cpp
 	src/image3d/algorithm/copy_and_convert.cpp
 	src/image3d/algorithm/fill.cpp

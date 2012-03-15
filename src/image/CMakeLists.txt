@@ -1,7 +1,6 @@
 set(
 	SGE_IMAGE_FILES
 	include/sge/image/a8_format.hpp
-	include/sge/image/algorithm/algorithm.hpp
 	include/sge/image/algorithm/copy_and_convert.hpp
 	include/sge/image/algorithm/fill.hpp
 	include/sge/image/algorithm/may_overlap.hpp
@@ -16,7 +15,6 @@ set(
 	include/sge/image/capabilities_field.hpp
 	include/sge/image/color/a8.hpp
 	include/sge/image/color/a8_format.hpp
-	include/sge/image/color/any/any.hpp
 	include/sge/image/color/any/convert.hpp
 	include/sge/image/color/any/detail/make_object.hpp
 	include/sge/image/color/any/elements.hpp
@@ -35,7 +33,6 @@ set(
 	include/sge/image/color/bgrx8_format.hpp
 	include/sge/image/color/channel32f.hpp
 	include/sge/image/color/channel8.hpp
-	include/sge/image/color/color.hpp
 	include/sge/image/color/convert.hpp
 	include/sge/image/color/element_count.hpp
 	include/sge/image/color/elements.hpp
@@ -71,7 +68,6 @@ set(
 	include/sge/image/exception.hpp
 	include/sge/image/exception_fwd.hpp
 	include/sge/image/file_exception.hpp
-	include/sge/image/image.hpp
 	include/sge/image/l8_format.hpp
 	include/sge/image/la8_format.hpp
 	include/sge/image/optional_path.hpp
@@ -95,7 +91,6 @@ set(
 	include/sge/image/traits/pitch.hpp
 	include/sge/image/traits/sub_out_of_range.hpp
 	include/sge/image/traits/tag_from_view.hpp
-	include/sge/image/traits/traits.hpp
 	include/sge/image/traits/view.hpp
 	include/sge/image/traits/view_elements.hpp
 	include/sge/image/unsupported_format.hpp
@@ -117,7 +112,6 @@ set(
 	include/sge/image/view/sub.hpp
 	include/sge/image/view/sub_out_of_range.hpp
 	include/sge/image/view/to_const.hpp
-	include/sge/image/view/view.hpp
 	include/sge/image/view/wrap.hpp
 	include/sge/image/view/wrapped_type.hpp
 	src/image/color/any/convert.cpp

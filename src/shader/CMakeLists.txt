@@ -4,6 +4,7 @@ set(
 	include/sge/shader/activate_everything.hpp
 	include/sge/shader/activation_method.hpp
 	include/sge/shader/activation_method_field.hpp
+	include/sge/shader/activation_method_field_fwd.hpp
 	include/sge/shader/detail/all_parts.hpp
 	include/sge/shader/detail/copy_parts.hpp
 	include/sge/shader/format_printer.hpp
@@ -17,7 +18,6 @@ set(
 	include/sge/shader/sampler.hpp
 	include/sge/shader/sampler_sequence.hpp
 	include/sge/shader/scoped.hpp
-	include/sge/shader/shader.hpp
 	include/sge/shader/texture_variant.hpp
 	include/sge/shader/update_single_uniform.hpp
 	include/sge/shader/value_variant.hpp

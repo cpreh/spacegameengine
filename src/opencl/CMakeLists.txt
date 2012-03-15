@@ -2,7 +2,6 @@ set(
 	SGE_OPENCL_FILES
 	include/sge/opencl/binary_error_data.hpp
 	include/sge/opencl/clinclude.hpp
-	include/sge/opencl/command_queue/command_queue.hpp
 	include/sge/opencl/command_queue/dim1.hpp
 	include/sge/opencl/command_queue/dim2.hpp
 	include/sge/opencl/command_queue/dim3.hpp
@@ -14,7 +13,6 @@ set(
 	include/sge/opencl/command_queue/scoped.hpp
 	include/sge/opencl/command_queue/scoped_buffer_mapping.hpp
 	include/sge/opencl/command_queue/scoped_planar_mapping.hpp
-	include/sge/opencl/context/context.hpp
 	include/sge/opencl/context/error_callback.hpp
 	include/sge/opencl/context/error_callback_type.hpp
 	include/sge/opencl/context/object.hpp
@@ -22,7 +20,6 @@ set(
 	include/sge/opencl/context/optional_error_callback.hpp
 	include/sge/opencl/context/parameters.hpp
 	include/sge/opencl/context/parameters_fwd.hpp
-	include/sge/opencl/device/device.hpp
 	include/sge/opencl/device/object.hpp
 	include/sge/opencl/device/object_fwd.hpp
 	include/sge/opencl/device/object_ref_sequence.hpp
@@ -30,7 +27,6 @@ set(
 	include/sge/opencl/error_information_string.hpp
 	include/sge/opencl/extension_sequence.hpp
 	include/sge/opencl/kernel/argument_index.hpp
-	include/sge/opencl/kernel/kernel.hpp
 	include/sge/opencl/kernel/local_buffer.hpp
 	include/sge/opencl/kernel/local_buffer_fwd.hpp
 	include/sge/opencl/kernel/name.hpp
@@ -52,7 +48,6 @@ set(
 	include/sge/opencl/memory_object/flags_field.hpp
 	include/sge/opencl/memory_object/image/format_output.hpp
 	include/sge/opencl/memory_object/image/format_sequence.hpp
-	include/sge/opencl/memory_object/image/image.hpp
 	include/sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp
 	include/sge/opencl/memory_object/image/planar.hpp
 	include/sge/opencl/memory_object/image/planar_fwd.hpp
@@ -61,7 +56,6 @@ set(
 	include/sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp
 	include/sge/opencl/memory_object/image/volume.hpp
 	include/sge/opencl/memory_object/image/volume_fwd.hpp
-	include/sge/opencl/memory_object/memory_object.hpp
 	include/sge/opencl/memory_object/rect.hpp
 	include/sge/opencl/memory_object/renderer_buffer_lock_mode.hpp
 	include/sge/opencl/memory_object/scoped_objects.hpp
@@ -69,12 +63,10 @@ set(
 	include/sge/opencl/memory_object/vector1.hpp
 	include/sge/opencl/memory_object/vector2.hpp
 	include/sge/opencl/memory_object/vector3.hpp
-	include/sge/opencl/opencl.hpp
 	include/sge/opencl/optional_renderer.hpp
 	include/sge/opencl/platform/object.hpp
 	include/sge/opencl/platform/object_fwd.hpp
 	include/sge/opencl/platform/object_sequence.hpp
-	include/sge/opencl/platform/platform.hpp
 	include/sge/opencl/profile_type.hpp
 	include/sge/opencl/program/blob.hpp
 	include/sge/opencl/program/build_error.hpp
@@ -88,14 +80,12 @@ set(
 	include/sge/opencl/program/object.hpp
 	include/sge/opencl/program/object_fwd.hpp
 	include/sge/opencl/program/optional_build_parameters.hpp
-	include/sge/opencl/program/program.hpp
 	include/sge/opencl/program/source_string.hpp
 	include/sge/opencl/program/source_string_sequence.hpp
 	include/sge/opencl/single_device_system/object.hpp
 	include/sge/opencl/single_device_system/object_fwd.hpp
 	include/sge/opencl/single_device_system/parameters.hpp
 	include/sge/opencl/single_device_system/parameters_fwd.hpp
-	include/sge/opencl/single_device_system/single_device_system.hpp
 	include/sge/opencl/system.hpp
 	include/sge/opencl/system_fwd.hpp
 	include/sge/opencl/version.hpp

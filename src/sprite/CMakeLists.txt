@@ -2,7 +2,6 @@ set(
 	SGE_SPRITE_FILES
 	include/sge/sprite/bounding_rect.hpp
 	include/sge/sprite/buffers/allocate.hpp
-	include/sge/sprite/buffers/buffers.hpp
 	include/sge/sprite/buffers/index_count.hpp
 	include/sge/sprite/buffers/multi.hpp
 	include/sge/sprite/buffers/multi_decl.hpp
@@ -17,7 +16,6 @@ set(
 	include/sge/sprite/buffers/roles/first_index.hpp
 	include/sge/sprite/buffers/roles/first_vertex.hpp
 	include/sge/sprite/buffers/roles/index_buffer.hpp
-	include/sge/sprite/buffers/roles/roles.hpp
 	include/sge/sprite/buffers/roles/vertex_buffer.hpp
 	include/sge/sprite/buffers/single.hpp
 	include/sge/sprite/buffers/single_decl.hpp
@@ -33,7 +31,6 @@ set(
 	include/sge/sprite/buffers/with_declaration_impl.hpp
 	include/sge/sprite/center.hpp
 	include/sge/sprite/color.hpp
-	include/sge/sprite/compare/compare.hpp
 	include/sge/sprite/compare/default.hpp
 	include/sge/sprite/compare/detail/texture_level_functor.hpp
 	include/sge/sprite/compare/detail/textures.hpp
@@ -43,7 +40,6 @@ set(
 	include/sge/sprite/compare/textures.hpp
 	include/sge/sprite/config/choices.hpp
 	include/sge/sprite/config/choices_fwd.hpp
-	include/sge/sprite/config/config.hpp
 	include/sge/sprite/config/custom_center.hpp
 	include/sge/sprite/config/custom_center_fwd.hpp
 	include/sge/sprite/config/custom_texture_point_pos.hpp
@@ -225,7 +221,6 @@ set(
 	include/sge/sprite/detail/wrapped_connection.hpp
 	include/sge/sprite/dim.hpp
 	include/sge/sprite/geometry/fill.hpp
-	include/sge/sprite/geometry/geometry.hpp
 	include/sge/sprite/geometry/is_random_access_range.hpp
 	include/sge/sprite/geometry/make_random_access_range.hpp
 	include/sge/sprite/geometry/make_single_range.hpp
@@ -252,7 +247,6 @@ set(
 	include/sge/sprite/intrusive/detail/ordered_map.hpp
 	include/sge/sprite/intrusive/detail/ordered_range_size.hpp
 	include/sge/sprite/intrusive/detail/render_one.hpp
-	include/sge/sprite/intrusive/intrusive.hpp
 	include/sge/sprite/intrusive/is_range.hpp
 	include/sge/sprite/intrusive/ordered/collection.hpp
 	include/sge/sprite/intrusive/ordered/collection_decl.hpp
@@ -262,14 +256,12 @@ set(
 	include/sge/sprite/intrusive/ordered/iterator_decl.hpp
 	include/sge/sprite/intrusive/ordered/iterator_fwd.hpp
 	include/sge/sprite/intrusive/ordered/iterator_impl.hpp
-	include/sge/sprite/intrusive/ordered/ordered.hpp
 	include/sge/sprite/intrusive/ordered/range.hpp
 	include/sge/sprite/intrusive/ordered/range_decl.hpp
 	include/sge/sprite/intrusive/ordered/range_fwd.hpp
 	include/sge/sprite/intrusive/ordered/range_impl.hpp
 	include/sge/sprite/intrusive/process/ordered.hpp
 	include/sge/sprite/intrusive/process/ordered_with_options.hpp
-	include/sge/sprite/intrusive/process/process.hpp
 	include/sge/sprite/intrusive/range_decl.hpp
 	include/sge/sprite/intrusive/range_fwd.hpp
 	include/sge/sprite/intrusive/range_impl.hpp
@@ -293,7 +285,6 @@ set(
 	include/sge/sprite/process/one_with_options.hpp
 	include/sge/sprite/process/options.hpp
 	include/sge/sprite/process/options_fwd.hpp
-	include/sge/sprite/process/process.hpp
 	include/sge/sprite/process/with_options.hpp
 	include/sge/sprite/projection_matrix.hpp
 	include/sge/sprite/rect.hpp
@@ -310,7 +301,6 @@ set(
 	include/sge/sprite/render/range_part_impl.hpp
 	include/sge/sprite/render/range_part_vector.hpp
 	include/sge/sprite/render/range_with_options.hpp
-	include/sge/sprite/render/render.hpp
 	include/sge/sprite/render/state_options.hpp
 	include/sge/sprite/render/states.hpp
 	include/sge/sprite/render/vertex_options.hpp
@@ -321,7 +311,6 @@ set(
 	include/sge/sprite/roles/point_size.hpp
 	include/sge/sprite/roles/pos.hpp
 	include/sge/sprite/roles/repetition.hpp
-	include/sge/sprite/roles/roles.hpp
 	include/sge/sprite/roles/rotate_around.hpp
 	include/sge/sprite/roles/rotation.hpp
 	include/sge/sprite/roles/size.hpp
@@ -333,7 +322,6 @@ set(
 	include/sge/sprite/rotation.hpp
 	include/sge/sprite/rotation_center.hpp
 	include/sge/sprite/set_matrices.hpp
-	include/sge/sprite/sprite.hpp
 	include/sge/sprite/texture.hpp
 	include/sge/sprite/texture_coordinates.hpp
 	include/sge/sprite/texture_level.hpp
@@ -347,7 +335,6 @@ set(
 	include/sge/sprite/types/texture_coordinates.hpp
 	include/sge/sprite/types/texture_point_pos.hpp
 	include/sge/sprite/types/texture_point_size.hpp
-	include/sge/sprite/types/types.hpp
 	include/sge/sprite/types/vector.hpp
 	include/sge/sprite/vector.hpp
 	include/sge/sprite/vertex_format.hpp

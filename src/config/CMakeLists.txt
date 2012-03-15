@@ -24,7 +24,6 @@ set(
 	SGE_CONFIG_FILES
 	include/sge/config/app_path.hpp
 	include/sge/config/cache_path.hpp
-	include/sge/config/config.hpp
 	include/sge/config/config_path.hpp
 	include/sge/config/exception.hpp
 	include/sge/config/getenv.hpp

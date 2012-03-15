@@ -2,7 +2,6 @@ set(
 	SGE_IMAGE2D_FILES
 	include/sge/image2d/a8.hpp
 	include/sge/image2d/a8_format.hpp
-	include/sge/image2d/algorithm/algorithm.hpp
 	include/sge/image2d/algorithm/copy_and_convert.hpp
 	include/sge/image2d/algorithm/fill.hpp
 	include/sge/image2d/algorithm/print.hpp
@@ -20,7 +19,6 @@ set(
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_fwd.hpp
 	include/sge/image2d/file_ptr.hpp
-	include/sge/image2d/image2d.hpp
 	include/sge/image2d/l8.hpp
 	include/sge/image2d/l8_format.hpp
 	include/sge/image2d/la8.hpp
@@ -73,7 +71,6 @@ set(
 	include/sge/image2d/view/sub.hpp
 	include/sge/image2d/view/sub_out_of_range.hpp
 	include/sge/image2d/view/to_const.hpp
-	include/sge/image2d/view/view.hpp
 	src/image2d/a8.cpp
 	src/image2d/algorithm/copy_and_convert.cpp
 	src/image2d/algorithm/fill.cpp

@@ -1,7 +1,6 @@
 set(
 	SGE_CHARCONV_BASE_FILES
 	include/sge/charconv/char_type.hpp
-	include/sge/charconv/charconv.hpp
 	include/sge/charconv/const_raw_pointer.hpp
 	include/sge/charconv/conversion_failed.hpp
 	include/sge/charconv/conversion_status.hpp
