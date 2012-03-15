@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/null_ptr.hpp>
-#include <fcppt/sn_cast.hpp>
+#include <fcppt/safe_numeric_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
@@ -143,7 +143,7 @@ sge::vorbis::file::read(
 		bytes_per_sample();
 
 	sample_container newdata(
-		fcppt::sn_cast<sample_container::size_type>(
+		fcppt::safe_numeric_cast<sample_container::size_type>(
 			bytes_to_read));
 
 	sample_count bytes_read =
@@ -225,7 +225,7 @@ sge::audio::sample_count
 sge::vorbis::file::read_all(
 	sample_container &data)
 {
-	while (read(fcppt::sn_cast<sample_count>(16u*4096u),data))
+	while (read(fcppt::safe_numeric_cast<sample_count>(16u*4096u),data))
 		;
 	return data.size()/bytes_per_sample();
 }
@@ -348,7 +348,7 @@ sge::vorbis::file::ogg_seek(
 	{
 		case SEEK_SET:
 			stdstream_->seekg(
-				fcppt::sn_cast<std::streamoff>(
+				fcppt::safe_numeric_cast<std::streamoff>(
 					offset),
 				std::ios_base::beg);
 
@@ -359,7 +359,7 @@ sge::vorbis::file::ogg_seek(
 			break;
 		case SEEK_CUR:
 			stdstream_->seekg(
-				fcppt::sn_cast<std::streamoff>(
+				fcppt::safe_numeric_cast<std::streamoff>(
 					offset),
 				std::ios_base::cur);
 			if (stdstream_->bad())
@@ -369,7 +369,7 @@ sge::vorbis::file::ogg_seek(
 			break;
 		case SEEK_END:
 			stdstream_->seekg(
-				fcppt::sn_cast<std::streamoff>(
+				fcppt::safe_numeric_cast<std::streamoff>(
 					offset),
 				std::ios_base::end);
 			if (stdstream_->bad())
@@ -401,7 +401,7 @@ sge::vorbis::file::ogg_tell()
 {
 	return
 		// Doesn't work (investigate?)
-		//fcppt::sn_cast<long>(
+		//fcppt::safe_numeric_cast<long>(
 		static_cast<long>(
 			stdstream_->tellg());
 }
