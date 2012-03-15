@@ -99,7 +99,7 @@ sge::camera::ortho_freelook::object::update(
 	camera::projection::orthogonal const current_projection_object(
 		camera::base::projection_object().get<camera::projection::orthogonal>());
 
-	renderer::projection::rect projection_rect =
+	renderer::projection::rect _projection_rect =
 		current_projection_object.rect();
 
 	renderer::vector2 const
@@ -107,10 +107,10 @@ sge::camera::ortho_freelook::object::update(
 			renderer::vector2(
 				zoom_to_zooming_speed_factor_.x() *
 				static_cast<renderer::scalar>(
-					projection_rect.w()),
+					_projection_rect.w()),
 				zoom_to_zooming_speed_factor_.y() *
 				static_cast<renderer::scalar>(
-					projection_rect.h())),
+					_projection_rect.h())),
 		current_zoom_speed =
 			d.count() *
 			current_zoom;
@@ -126,13 +126,13 @@ sge::camera::ortho_freelook::object::update(
 			:
 				static_cast<renderer::scalar>(0.0f);
 
-	projection_rect.pos(
-		projection_rect.pos() +
+	_projection_rect.pos(
+		_projection_rect.pos() +
 		sign *
 		current_zoom_speed);
 
-	projection_rect.size(
-		projection_rect.size() +
+	_projection_rect.size(
+		_projection_rect.size() +
 		(static_cast<renderer::scalar>(-1.0f) * sign) *
 		static_cast<renderer::scalar>(2.0f) *
 		renderer::projection::rect::dim(
@@ -141,7 +141,7 @@ sge::camera::ortho_freelook::object::update(
 
 	camera::base::projection_object(
 		camera::projection::orthogonal(
-			projection_rect,
+			_projection_rect,
 			renderer::projection::near(
 				current_projection_object.near()),
 			renderer::projection::far(
