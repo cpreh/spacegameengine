@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/manager.hpp>
 #include <sge/texture/optional_manager_ref.hpp>
 #include <sge/texture/part.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr.hpp>
@@ -164,7 +165,7 @@ sge::texture::manager::add(
 			fcppt::container::ptr::insert_unique_ptr(
 				full_textures_,
 				full_textures_.end(),
-				move(
+				fcppt::move(
 					ntex
 				)
 			)
@@ -173,7 +174,7 @@ sge::texture::manager::add(
 		tmp.container_position(
 			fcppt::container::ptr::insert_unique_ptr_multiset(
 				free_textures_,
-				move(
+				fcppt::move(
 					ntex
 				)
 			)
