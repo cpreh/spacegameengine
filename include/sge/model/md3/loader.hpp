@@ -27,7 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/object_ptr.hpp>
 #include <sge/model/md3/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 namespace sge
@@ -47,7 +50,7 @@ protected:
 public:
 	virtual md3::object_ptr const
 	load(
-		fcppt::filesystem::path const &,
+		boost::filesystem::path const &,
 		md3::load_flags::type = md3::load_flags::none
 	) = 0;
 

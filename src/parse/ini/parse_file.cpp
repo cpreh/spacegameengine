@@ -22,11 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/parse_stream.hpp>
 #include <sge/parse/ini/section_vector.hpp>
 #include <sge/src/parse/parse_file.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 bool
 sge::parse::ini::parse_file(
-	fcppt::filesystem::path const &_path,
+	boost::filesystem::path const &_path,
 	ini::section_vector &_result
 )
 {

@@ -21,22 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/src/plugin/load_info.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::plugin::context_base::context_base(
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 :
 	ref_(),
-	path_(_path),
+	path_(
+		_path
+	),
 	info_(
-		plugin::load_info(
+		sge::plugin::load_info(
 			_path
 		)
 	)
 {
 }
 
-fcppt::filesystem::path const &
+boost::filesystem::path const &
 sge::plugin::context_base::path() const
 {
 	return path_;

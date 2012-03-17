@@ -23,26 +23,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/plugin/load_info.hpp>
 #include <sge/src/plugin/library/load_function.hpp>
 #include <sge/src/plugin/library/object.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::plugin::info const
 sge::plugin::load_info(
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 {
 	typedef sge::plugin::info const
 	(*version_function)();
 
-	library::object lib(
+	sge::plugin::library::object lib(
 		_path
 	);
 
 	return
-		library::load_function<
+		sge::plugin::library::load_function<
 			version_function
 		>(
 			lib,
-			plugin::library::detail::version_function_name
+			sge::plugin::library::detail::version_function_name
 		)();
 }

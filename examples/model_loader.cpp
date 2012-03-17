@@ -178,6 +178,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/mpl/pair.hpp>
 #include <boost/mpl/map/map10.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -567,7 +568,7 @@ try
 				_main_function_context.argc(),
 				_main_function_context.argv())));
 
-	fcppt::filesystem::path const
+	boost::filesystem::path const
 		model_file(
 			sge::parse::json::find_and_convert_member<fcppt::string>(
 				config,

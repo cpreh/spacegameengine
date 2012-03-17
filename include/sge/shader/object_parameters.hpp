@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/vertex_format_string.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <string>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -62,7 +62,7 @@ public:
 
 	SGE_SHADER_SYMBOL object_parameters &
 	vertex_shader(
-		fcppt::filesystem::path const &);
+		boost::filesystem::path const &);
 
 	SGE_SHADER_SYMBOL object_parameters &
 	fragment_shader(
@@ -70,7 +70,7 @@ public:
 
 	SGE_SHADER_SYMBOL object_parameters &
 	fragment_shader(
-		fcppt::filesystem::path const &);
+		boost::filesystem::path const &);
 
 	SGE_SHADER_SYMBOL object_parameters &
 	name(

@@ -37,10 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <CEGUIString.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -94,7 +94,7 @@ private:
 	friend class syringe;
 
 	sge::charconv::system &charconv_system_;
-	fcppt::filesystem::path prefix_;
+	boost::filesystem::path prefix_;
 	detail::cegui_logger cegui_logger_;
 	detail::renderer renderer_;
 	detail::image_codec image_codec_;
@@ -117,7 +117,7 @@ private:
 	sge::renderer::device &
 	renderer() const;
 
-	fcppt::filesystem::path const
+	boost::filesystem::path const
 	to_absolute_path(
 		CEGUI::String const &,
 		CEGUI::String const &);

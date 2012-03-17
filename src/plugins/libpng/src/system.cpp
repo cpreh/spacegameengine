@@ -36,8 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/iostreams/stream.hpp>
 #include <boost/iostreams/device/array.hpp>
 #include <ios>
@@ -72,10 +73,10 @@ sge::libpng::system::~system()
 
 sge::image2d::file_ptr const
 sge::libpng::system::load(
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 {
-	fcppt::io::cifstream file_stream(
+	boost::filesystem::ifstream file_stream(
 		_path,
 		std::ios_base::binary);
 
@@ -188,7 +189,7 @@ sge::libpng::system::create(
 void
 sge::libpng::system::save(
 	image2d::file const &_file,
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 {
 	dynamic_cast<

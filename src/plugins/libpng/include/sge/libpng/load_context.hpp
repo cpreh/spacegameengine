@@ -30,9 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/read_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>

@@ -74,6 +74,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
@@ -244,7 +245,7 @@ try
 					fcppt::ref(
 						sys.image_system()
 					),
-					fcppt::filesystem::path(
+					boost::filesystem::path(
 						FCPPT_TEXT("output.png")
 					)
 				)

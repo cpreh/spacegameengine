@@ -30,7 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 namespace sge
@@ -58,8 +61,9 @@ public:
 	>::type ptr_type;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	explicit object(
-		fcppt::filesystem::path const &
+	explicit
+	object(
+		boost::filesystem::path const &
 	);
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL

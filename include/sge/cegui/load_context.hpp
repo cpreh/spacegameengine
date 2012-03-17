@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/default_font.hpp>
 #include <sge/cegui/symbol.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -36,43 +38,43 @@ class load_context
 public:
 	SGE_CEGUI_SYMBOL explicit
 	load_context(
-		fcppt::filesystem::path const &scheme_file);
+		boost::filesystem::path const &scheme_file);
 
-	fcppt::filesystem::path const &
+	boost::filesystem::path const &
 	scheme_file() const;
 
 	SGE_CEGUI_SYMBOL load_context &
 	font_directory(
-		fcppt::filesystem::path const &);
+		boost::filesystem::path const &);
 
 	SGE_CEGUI_SYMBOL load_context &
 	looknfeel_directory(
-		fcppt::filesystem::path const &);
+		boost::filesystem::path const &);
 
 	SGE_CEGUI_SYMBOL load_context &
 	imageset_directory(
-		fcppt::filesystem::path const &);
+		boost::filesystem::path const &);
 
 	SGE_CEGUI_SYMBOL load_context &
 	default_font(
 		cegui::default_font const &);
 
-	fcppt::optional<fcppt::filesystem::path> const &
+	fcppt::optional<boost::filesystem::path> const &
 	font_directory() const;
 
-	fcppt::optional<fcppt::filesystem::path> const &
+	fcppt::optional<boost::filesystem::path> const &
 	looknfeel_directory() const;
 
-	fcppt::optional<fcppt::filesystem::path> const &
+	fcppt::optional<boost::filesystem::path> const &
 	imageset_directory() const;
 
 	fcppt::optional<cegui::default_font> const &
 	default_font() const;
 private:
-	fcppt::filesystem::path scheme_file_;
-	fcppt::optional<fcppt::filesystem::path> font_directory_;
-	fcppt::optional<fcppt::filesystem::path> looknfeel_directory_;
-	fcppt::optional<fcppt::filesystem::path> imageset_directory_;
+	boost::filesystem::path scheme_file_;
+	fcppt::optional<boost::filesystem::path> font_directory_;
+	fcppt::optional<boost::filesystem::path> looknfeel_directory_;
+	fcppt::optional<boost::filesystem::path> imageset_directory_;
 	fcppt::optional<cegui::default_font> default_font_;
 };
 }

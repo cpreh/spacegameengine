@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/md3/object_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
 #include <ios>
 #include <fcppt/config/external_end.hpp>
 
@@ -40,11 +40,11 @@ sge::model::md3::loader_impl::~loader_impl()
 
 sge::model::md3::object_ptr const
 sge::model::md3::loader_impl::load(
-	fcppt::filesystem::path const &_path,
+	boost::filesystem::path const &_path,
 	md3::load_flags::type const _flags
 )
 {
-	fcppt::io::cifstream file(
+	boost::filesystem::ifstream file(
 		_path,
 		std::ios_base::binary
 	);

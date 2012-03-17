@@ -20,8 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/build/media_path.hpp>
 #include <sge/config/media_path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
-fcppt::filesystem::path const
+
+boost::filesystem::path const
 sge::config::media_path()
 {
 	return

@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -50,7 +50,7 @@ class metrics
 	);
 public:
 	metrics(
-		fcppt::filesystem::path const &,
+		boost::filesystem::path const &,
 		sge::image2d::system &
 	);
 

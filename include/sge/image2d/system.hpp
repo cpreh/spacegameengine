@@ -32,7 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 namespace sge
@@ -51,7 +54,7 @@ protected:
 public:
 	virtual image2d::file_ptr const
 	load(
-		fcppt::filesystem::path const &
+		boost::filesystem::path const &
 	) = 0;
 
 	virtual image2d::file_ptr const
@@ -69,7 +72,7 @@ public:
 	virtual void
 	save(
 		image2d::file const &,
-		fcppt::filesystem::path const &
+		boost::filesystem::path const &
 	) = 0;
 
 	virtual image::capabilities_field const

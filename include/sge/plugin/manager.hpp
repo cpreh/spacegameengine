@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/symbol.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <cstddef>
 #include <map>
 #include <vector>
@@ -52,8 +52,9 @@ public:
 	typedef std::size_t size_type;
 
 	SGE_PLUGIN_SYMBOL
-	explicit manager(
-		fcppt::filesystem::path const &
+	explicit
+	manager(
+		boost::filesystem::path const &
 	);
 
 	SGE_PLUGIN_SYMBOL

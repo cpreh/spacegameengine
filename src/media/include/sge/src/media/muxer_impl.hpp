@@ -40,10 +40,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/set_union.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
 
@@ -154,7 +154,7 @@ sge::media::muxer<
 	System,
 	Capabilities
 >::mux_path(
-	fcppt::filesystem::path const &_file
+	boost::filesystem::path const &_file
 ) const
 {
 	try

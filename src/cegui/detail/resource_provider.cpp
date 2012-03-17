@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
 #include <cstddef>
 #include <fstream>
 #include <ios>
@@ -73,16 +74,16 @@ sge::cegui::detail::resource_provider::loadRawDataContainer(
 			<< converted_resource_group
 			<< FCPPT_TEXT(")"));
 
-	fcppt::filesystem::path const load_path =
+	boost::filesystem::path const load_path =
 		!converted_resource_group.empty()
 		?
-			fcppt::filesystem::path(
+			boost::filesystem::path(
 				converted_resource_group)/converted_filename
 		:
-			fcppt::filesystem::path(
+			boost::filesystem::path(
 				converted_filename);
 
-	fcppt::io::cifstream file_stream(
+	boost::filesystem::ifstream file_stream(
 		load_path);
 
 	if(!file_stream.is_open())

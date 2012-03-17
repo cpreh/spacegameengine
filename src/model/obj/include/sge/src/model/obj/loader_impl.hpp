@@ -25,7 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/loader.hpp>
 #include <sge/src/model/obj/tokens.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 namespace sge
@@ -49,7 +52,7 @@ public:
 private:
 	obj::instance_ptr const
 	load(
-		fcppt::filesystem::path const &
+		boost::filesystem::path const &
 	);
 
 	obj::tokens tokens_;

@@ -25,12 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 sge::renderer::texture::planar_ptr const
 sge::renderer::texture::create_planar_from_path(
-	fcppt::filesystem::path const &_file,
+	boost::filesystem::path const &_file,
 	renderer::device &_renderer,
 	image2d::system &_system,
 	renderer::texture::mipmap::object const &_mipmap,

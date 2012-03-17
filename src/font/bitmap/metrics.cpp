@@ -34,13 +34,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/load_one_file.hpp>
 #include <sge/src/font/bitmap/metrics.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/filesystem/remove_filename.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::font::bitmap::metrics::metrics(
-	fcppt::filesystem::path const &_path,
+	boost::filesystem::path const &_path,
 	sge::image2d::system &_image_system
 )
 :
@@ -76,7 +78,7 @@ sge::font::bitmap::metrics::metrics(
 			FCPPT_TEXT("line_height")
 		);
 
-	fcppt::filesystem::path const stem(
+	boost::filesystem::path const stem(
 		fcppt::filesystem::remove_filename(
 			_path
 		)

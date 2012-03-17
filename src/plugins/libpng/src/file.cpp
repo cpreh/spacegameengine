@@ -37,6 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::libpng::file::file(
@@ -134,7 +137,7 @@ sge::libpng::file::size() const
 
 void
 sge::libpng::file::save(
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 ) const
 {
 	libpng::write_context context(

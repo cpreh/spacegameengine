@@ -34,7 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/muxer.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 namespace sge
@@ -61,7 +64,7 @@ public:
 	SGE_IMAGE2D_SYMBOL
 	image2d::file_ptr const
 	load(
-		fcppt::filesystem::path const &
+		boost::filesystem::path const &
 	);
 
 	SGE_IMAGE2D_SYMBOL
@@ -82,7 +85,7 @@ public:
 	void
 	save(
 		image2d::file const &,
-		fcppt::filesystem::path const &
+		boost::filesystem::path const &
 	);
 
 	SGE_IMAGE2D_SYMBOL

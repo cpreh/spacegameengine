@@ -33,11 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/log/context.hpp>
@@ -48,6 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/xpressive/xpressive.hpp>
 #include <cstdlib>
 #include <exception>
@@ -81,7 +80,7 @@ try
 		return EXIT_FAILURE;
 	}
 
-	fcppt::filesystem::path const target_file_name(
+	boost::filesystem::path const target_file_name(
 		fcppt::from_std_string(
 			argv[1]));
 
@@ -97,7 +96,7 @@ try
 		opencl_system.context(),
 		fcppt::assign::make_container<sge::opencl::program::source_string_sequence>(
 			fcppt::io::stream_to_string(
-				*fcppt::make_unique_ptr<fcppt::io::cifstream>(
+				*fcppt::make_unique_ptr<boost::filesystem::ifstream>(
 					target_file_name))),
 		sge::opencl::program::optional_build_parameters());
 

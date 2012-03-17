@@ -26,8 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/symbol.hpp>
 #include <sge/src/plugin/library/loaded_symbol.hpp>
 #include <fcppt/config/platform.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -47,22 +50,23 @@ class object
 	);
 public:
 	SGE_PLUGIN_SYMBOL
-	explicit object(
-		fcppt::filesystem::path const &
+	explicit
+	object(
+		boost::filesystem::path const &
 	);
 
 	SGE_PLUGIN_SYMBOL
 	~object();
 
-	library::loaded_symbol
+	sge::plugin::library::loaded_symbol
 	load(
-		library::symbol_string const &
+		sge::plugin::library::symbol_string const &
 	);
 
-	fcppt::filesystem::path const &
+	boost::filesystem::path const &
 	name() const;
 private:
-	fcppt::filesystem::path const name_;
+	boost::filesystem::path const name_;
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	HMODULE const handle_;

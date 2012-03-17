@@ -24,9 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/ofstream.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -41,7 +43,7 @@ template<
 >
 bool
 to_file(
-	fcppt::filesystem::path const &path,
+	boost::filesystem::path const &path,
 	Data const &data
 )
 {
@@ -55,10 +57,12 @@ to_file(
 	)
 		throw parse::exception(
 			FCPPT_TEXT("Opening ")
-			+ fcppt::filesystem::path_to_string(
+			+
+			fcppt::filesystem::path_to_string(
 				path
 			)
-			+ FCPPT_TEXT(" failed!")
+			+
+			FCPPT_TEXT(" failed!")
 		);
 
 	return

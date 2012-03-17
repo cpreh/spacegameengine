@@ -23,14 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/screenshot.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 void
 sge::renderer::screenshot(
 	renderer::device const &_renderer,
 	image2d::system &_system,
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 {
 	renderer::const_scoped_color_surface_lock const lock(

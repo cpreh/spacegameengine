@@ -26,8 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/symbol.hpp>
-#include <fcppt/weak_ptr.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/weak_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -38,17 +40,18 @@ namespace plugin
 class context_base
 {
 public:
-	SGE_PLUGIN_SYMBOL explicit
+	SGE_PLUGIN_SYMBOL
+	explicit
 	context_base(
-		fcppt::filesystem::path const &
+		boost::filesystem::path const &
 	);
 
 	SGE_PLUGIN_SYMBOL
-	fcppt::filesystem::path const &
+	boost::filesystem::path const &
 	path() const;
 
 	SGE_PLUGIN_SYMBOL
-	plugin::info const &
+	sge::plugin::info const &
 	info() const;
 private:
 	template<
@@ -56,12 +59,12 @@ private:
 	> friend class context;
 
 	fcppt::weak_ptr<
-		plugin::base
+		sge::plugin::base
 	> ref_;
 
-	fcppt::filesystem::path path_;
+	boost::filesystem::path path_;
 
-	plugin::info info_;
+	sge::plugin::info info_;
 };
 
 }

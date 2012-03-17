@@ -22,19 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/config/try_create_path.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/create_directories_recursive_exn.hpp>
-#include <fcppt/filesystem/exists.hpp>
-#include <fcppt/filesystem/is_directory.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::filesystem::path const
+
+boost::filesystem::path const
 sge::config::try_create_path(
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 {
 	if(
-		!fcppt::filesystem::exists(
+		!boost::filesystem::exists(
 			_path
 		)
 	)
@@ -43,7 +45,7 @@ sge::config::try_create_path(
 		);
 
 	if(
-		!fcppt::filesystem::is_directory(
+		!boost::filesystem::is_directory(
 			_path
 		)
 	)

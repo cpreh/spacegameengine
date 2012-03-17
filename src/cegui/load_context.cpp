@@ -20,11 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/default_font.hpp>
 #include <sge/cegui/load_context.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::load_context::load_context(
-	fcppt::filesystem::path const &_scheme_file)
+	boost::filesystem::path const &_scheme_file)
 :
 	scheme_file_(
 		_scheme_file),
@@ -35,7 +37,7 @@ sge::cegui::load_context::load_context(
 {
 }
 
-fcppt::filesystem::path const &
+boost::filesystem::path const &
 sge::cegui::load_context::scheme_file() const
 {
 	return scheme_file_;
@@ -43,7 +45,7 @@ sge::cegui::load_context::scheme_file() const
 
 sge::cegui::load_context &
 sge::cegui::load_context::font_directory(
-	fcppt::filesystem::path const &_font_directory)
+	boost::filesystem::path const &_font_directory)
 {
 	font_directory_ = _font_directory;
 	return *this;
@@ -51,7 +53,7 @@ sge::cegui::load_context::font_directory(
 
 sge::cegui::load_context &
 sge::cegui::load_context::looknfeel_directory(
-	fcppt::filesystem::path const &_looknfeel_directory)
+	boost::filesystem::path const &_looknfeel_directory)
 {
 	looknfeel_directory_ = _looknfeel_directory;
 	return *this;
@@ -59,7 +61,7 @@ sge::cegui::load_context::looknfeel_directory(
 
 sge::cegui::load_context &
 sge::cegui::load_context::imageset_directory(
-	fcppt::filesystem::path const &_imageset_directory)
+	boost::filesystem::path const &_imageset_directory)
 {
 	imageset_directory_ = _imageset_directory;
 	return *this;
@@ -73,19 +75,19 @@ sge::cegui::load_context::default_font(
 	return *this;
 }
 
-fcppt::optional<fcppt::filesystem::path> const &
+fcppt::optional<boost::filesystem::path> const &
 sge::cegui::load_context::font_directory() const
 {
 	return font_directory_;
 }
 
-fcppt::optional<fcppt::filesystem::path> const &
+fcppt::optional<boost::filesystem::path> const &
 sge::cegui::load_context::looknfeel_directory() const
 {
 	return looknfeel_directory_;
 }
 
-fcppt::optional<fcppt::filesystem::path> const &
+fcppt::optional<boost::filesystem::path> const &
 sge::cegui::load_context::imageset_directory() const
 {
 	return imageset_directory_;

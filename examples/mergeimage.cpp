@@ -49,13 +49,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/filesystem/directory_iterator.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
 #include <algorithm>
 #include <cstdlib>
 #include <exception>
@@ -100,11 +100,11 @@ calc_size(
 
 sge::renderer::dim2 const
 first_dim(
-	fcppt::filesystem::path const &_path,
+	boost::filesystem::path const &_path,
 	sge::image2d::system &_system
 )
 {
-	fcppt::filesystem::directory_iterator const it(
+	boost::filesystem::directory_iterator const it(
 		_path
 	);
 
@@ -115,21 +115,21 @@ first_dim(
 }
 
 typedef std::vector<
-	fcppt::filesystem::path
+	boost::filesystem::path
 > path_vector;
 
 path_vector const
 sort_paths(
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 {
 	path_vector ret;
 
 	std::copy(
-		fcppt::filesystem::directory_iterator(
+		boost::filesystem::directory_iterator(
 			_path
 		),
-		fcppt::filesystem::directory_iterator(),
+		boost::filesystem::directory_iterator(),
 		std::back_inserter(
 			ret
 		)
@@ -186,7 +186,7 @@ try
 		sys.image_system()
 	);
 
-	fcppt::filesystem::path const path(
+	boost::filesystem::path const path(
 		fcppt::from_std_string(
 			argv[1]
 		)
@@ -197,10 +197,10 @@ try
 			sge::renderer::size_type
 		>(
 			std::distance(
-				fcppt::filesystem::directory_iterator(
+				boost::filesystem::directory_iterator(
 					path
 				),
-				fcppt::filesystem::directory_iterator()
+				boost::filesystem::directory_iterator()
 			)
 		)
 	);

@@ -23,7 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/obj/loader_impl.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 sge::model::obj::loader_impl::loader_impl()
@@ -38,7 +41,7 @@ sge::model::obj::loader_impl::~loader_impl()
 
 sge::model::obj::instance_ptr const
 sge::model::obj::loader_impl::load(
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 {
 	return

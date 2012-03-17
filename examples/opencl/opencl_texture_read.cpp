@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <cstddef>
 #include <iostream>
 #include <ostream>
@@ -71,7 +72,7 @@ try
 		return EXIT_FAILURE;
 	}
 
-	fcppt::filesystem::path const target_file_name(
+	boost::filesystem::path const target_file_name(
 		fcppt::from_std_string(
 			argv[1]));
 

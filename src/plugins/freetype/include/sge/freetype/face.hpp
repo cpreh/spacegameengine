@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/freetype/library_fwd.hpp>
 #include <sge/freetype/freetype.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -39,9 +41,9 @@ class face
 		face
 	);
 public:
-	explicit face(
-		library &,
-		fcppt::filesystem::path const &name
+	face(
+		freetype::library &,
+		boost::filesystem::path const &
 	);
 
 	~face();

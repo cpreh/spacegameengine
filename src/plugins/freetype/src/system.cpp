@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/freetype/metrics.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::freetype::system::system(
@@ -44,7 +46,7 @@ sge::freetype::system::~system()
 
 sge::font::metrics_ptr const
 sge::freetype::system::create_font(
-	fcppt::filesystem::path const &_font_name,
+	boost::filesystem::path const &_font_name,
 	font::size_type const _font_size
 )
 {

@@ -59,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/warning.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <IL/il.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -209,7 +210,7 @@ sge::devil::file::view() const
 
 void
 sge::devil::file::save(
-	fcppt::filesystem::path const &_file
+	boost::filesystem::path const &_file
 ) const
 {
 	this->bind();
@@ -265,7 +266,7 @@ sge::devil::file::bind() const
 
 sge::devil::optional_error const
 sge::devil::file::load(
-	fcppt::filesystem::path const &_file
+	boost::filesystem::path const &_file
 )
 {
 	return

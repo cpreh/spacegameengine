@@ -28,11 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/platform.hpp>
-#include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
-#include <fcppt/filesystem/is_directory.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/headers.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -53,7 +55,7 @@ fcppt::char_type const *const plugin_extension =
 }
 
 sge::plugin::manager::manager(
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 :
 	plugins_(),
@@ -68,10 +70,10 @@ sge::plugin::manager::manager(
 			)
 	);
 
-	fcppt::filesystem::directory_iterator const it_end;
+	boost::filesystem::directory_iterator const it_end;
 
 	for(
-		fcppt::filesystem::directory_iterator it(
+		boost::filesystem::directory_iterator it(
 			_path
 		);
 		it != it_end;
@@ -79,12 +81,18 @@ sge::plugin::manager::manager(
 	)
 	{
 		if(
-			fcppt::filesystem::is_directory(*it)
-			|| fcppt::filesystem::extension_without_dot(*it) != plugin_extension
+			boost::filesystem::is_directory(
+				*it
+			)
+			||
+			fcppt::filesystem::extension_without_dot(
+				*it
+			)
+			!= plugin_extension
 		)
 		{
 			FCPPT_LOG_WARNING(
-				log::global(),
+				sge::log::global(),
 				fcppt::log::_
 					<< fcppt::filesystem::path_to_string(
 						it->path()
@@ -99,17 +107,17 @@ sge::plugin::manager::manager(
 		try
 		{
 			plugins_.push_back(
-				plugin::context_base(
+				sge::plugin::context_base(
 					it->path()
 				)
 			);
 		}
 		catch(
-			library::symbol_not_found const &_exception
+			sge::plugin::library::symbol_not_found const &_exception
 		)
 		{
 			FCPPT_LOG_WARNING(
-				log::global(),
+				sge::log::global(),
 				fcppt::log::_
 					<< fcppt::filesystem::path_to_string(
 						it->path()
@@ -127,7 +135,7 @@ sge::plugin::manager::manager(
 		)
 		{
 			FCPPT_LOG_WARNING(
-				log::global(),
+				sge::log::global(),
 				fcppt::log::_
 					<< fcppt::filesystem::path_to_string(
 						it->path()
@@ -140,7 +148,7 @@ sge::plugin::manager::manager(
 	}
 
 	for(
-		plugin_array::iterator it(
+		sge::plugin::manager::plugin_array::iterator it(
 			plugins_.begin()
 		);
 		it != plugins_.end();
@@ -148,7 +156,7 @@ sge::plugin::manager::manager(
 	)
 		FCPPT_FOREACH_ENUMERATOR(
 			index,
-			plugin::capabilities
+			sge::plugin::capabilities
 		)
 			if(
 				it->info().capabilities() & index

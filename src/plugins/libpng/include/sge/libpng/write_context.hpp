@@ -29,8 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/write_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/io/cofstream.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -47,7 +49,7 @@ class write_context
 	);
 public:
 	write_context(
-		fcppt::filesystem::path const &,
+		boost::filesystem::path const &,
 		image2d::dim const &,
 		byte_vector const &,
 		image::color::format::type
@@ -55,7 +57,7 @@ public:
 
 	~write_context();
 private:
-	fcppt::io::cofstream file_;
+	boost::filesystem::ofstream file_;
 
 	byte_vector const &bytes_;
 

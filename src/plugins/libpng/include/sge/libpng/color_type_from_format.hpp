@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LIBPNG_COLOR_TYPE_FROM_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/format.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,7 +34,7 @@ namespace libpng
 
 int
 color_type_from_format(
-	fcppt::filesystem::path const &,
+	boost::filesystem::path const &,
 	sge::image::color::format::type
 );
 

@@ -96,7 +96,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -104,6 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/assign/list_of.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
@@ -450,14 +450,14 @@ try
 		.default_color()
 	);
 
-	fcppt::io::cifstream fragment_stream(
+	boost::filesystem::ifstream fragment_stream(
 		sge::config::media_path()
 		/ FCPPT_TEXT("shaders")
 		/ FCPPT_TEXT("raw")
 		/ FCPPT_TEXT("fragment.glsl")
 	);
 
-	fcppt::io::cifstream vertex_stream(
+	boost::filesystem::ifstream vertex_stream(
 		sge::config::media_path()
 		/ FCPPT_TEXT("shaders")
 		/ FCPPT_TEXT("raw")

@@ -48,13 +48,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/io/cin.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/math/pi.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <algorithm>
 #include <cmath>
@@ -72,10 +73,10 @@ namespace
 {
 sge::audio::file_ptr const
 load_raw(
-	fcppt::filesystem::path const &path,
+	boost::filesystem::path const &path,
 	sge::audio::loader &audio_loader)
 {
-	fcppt::io::cifstream raw_stream(
+	boost::filesystem::ifstream raw_stream(
 		path,
 		std::ios::binary);
 
@@ -130,7 +131,7 @@ try
 		fcppt::log::level::debug
 	);
 
-	fcppt::filesystem::path const
+	boost::filesystem::path const
 		file_name =
 			sge::config::media_path() /
 			FCPPT_TEXT("sounds") /

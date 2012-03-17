@@ -26,12 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/to_std_string.hpp>
 #endif
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <IL/il.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::devil::optional_error const
 sge::devil::load_image(
-	fcppt::filesystem::path const &_file
+	boost::filesystem::path const &_file
 )
 {
 	if(

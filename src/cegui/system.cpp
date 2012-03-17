@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <elements/CEGUIEditbox.h>
 #include <elements/CEGUIFrameWindow.h>
 #include <falagard/CEGUIFalWidgetLookManager.h>
@@ -227,7 +228,7 @@ sge::cegui::system::renderer() const
 	return renderer_.impl();
 }
 
-fcppt::filesystem::path const
+boost::filesystem::path const
 sge::cegui::system::to_absolute_path(
 	CEGUI::String const &filename,
 	CEGUI::String const &)

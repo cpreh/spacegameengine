@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DEVIL_LOAD_IMAGE_HPP_INCLUDED
 
 #include <sge/devil/optional_error.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -31,7 +34,7 @@ namespace devil
 
 devil::optional_error const
 load_image(
-	fcppt::filesystem::path const &
+	boost::filesystem::path const &
 );
 
 }

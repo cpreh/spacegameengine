@@ -28,9 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/libpng/byte_vector.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
@@ -67,7 +67,7 @@ public:
 
 	void
 	save(
-		fcppt::filesystem::path const &
+		boost::filesystem::path const &
 	) const;
 private:
 	image2d::dim dim_;

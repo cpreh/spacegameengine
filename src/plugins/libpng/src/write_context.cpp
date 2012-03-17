@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <climits>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -45,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::libpng::write_context::write_context(
-	fcppt::filesystem::path const &_path,
+	boost::filesystem::path const &_path,
 	image2d::dim const &_dim,
 	byte_vector const &_bytes,
 	image::color::format::type const _format

@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUIResourceProvider.h>
+#include <CEGUIString.h>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 

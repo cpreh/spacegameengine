@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_PLUGIN_LOAD_INFO_HPP_INCLUDED
 
 #include <sge/plugin/info_fwd.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,7 +34,7 @@ namespace plugin
 
 sge::plugin::info const
 load_info(
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &
 );
 
 }

@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CEGUI_DEFAULT_FONT_HPP_INCLUDED
 
 #include <sge/cegui/symbol.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 namespace sge
@@ -35,17 +38,17 @@ class default_font
 public:
 	SGE_CEGUI_SYMBOL
 	default_font(
-		fcppt::filesystem::path const &,
+		boost::filesystem::path const &,
 		float font_size
 	);
 
-	fcppt::filesystem::path const &
+	boost::filesystem::path const &
 	path() const;
 
 	float
 	font_size() const;
 private:
-	fcppt::filesystem::path path_;
+	boost::filesystem::path path_;
 
 	float font_size_;
 };

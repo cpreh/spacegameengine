@@ -22,8 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/io/stream_to_string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::shader::object_parameters::object_parameters(
@@ -61,11 +64,11 @@ sge::shader::object_parameters::vertex_shader(
 
 sge::shader::object_parameters &
 sge::shader::object_parameters::vertex_shader(
-	fcppt::filesystem::path const &f)
+	boost::filesystem::path const &f)
 {
 	vertex_shaders_.push_back(
 		fcppt::io::stream_to_string(
-			*fcppt::make_unique_ptr<fcppt::io::cifstream>(
+			*fcppt::make_unique_ptr<boost::filesystem::ifstream>(
 				f)));
 	return *this;
 }
@@ -81,11 +84,11 @@ sge::shader::object_parameters::fragment_shader(
 
 sge::shader::object_parameters &
 sge::shader::object_parameters::fragment_shader(
-	fcppt::filesystem::path const &f)
+	boost::filesystem::path const &f)
 {
 	fragment_shaders_.push_back(
 		fcppt::io::stream_to_string(
-			*fcppt::make_unique_ptr<fcppt::io::cifstream>(
+			*fcppt::make_unique_ptr<boost::filesystem::ifstream>(
 				f)));
 	return *this;
 }

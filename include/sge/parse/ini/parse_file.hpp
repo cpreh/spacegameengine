@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/symbol.hpp>
 #include <sge/parse/ini/section_vector.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -36,7 +38,7 @@ namespace ini
 SGE_PARSE_SYMBOL
 bool
 parse_file(
-	fcppt::filesystem::path const &,
+	boost::filesystem::path const &,
 	section_vector &ret
 );
 

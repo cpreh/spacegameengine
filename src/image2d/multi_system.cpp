@@ -31,7 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/src/media/muxer_impl.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 sge::image2d::multi_system::multi_system(
@@ -51,7 +54,7 @@ sge::image2d::multi_system::~multi_system()
 
 sge::image2d::file_ptr const
 sge::image2d::multi_system::load(
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 {
 	return
@@ -95,7 +98,7 @@ sge::image2d::multi_system::create(
 void
 sge::image2d::multi_system::save(
 	image2d::file const &_file,
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 {
 	return

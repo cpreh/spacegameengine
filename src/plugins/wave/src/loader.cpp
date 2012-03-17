@@ -34,10 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/io/raw_container_source.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/iostreams/stream.hpp>
 #include <fstream>
 #include <ios>
@@ -69,14 +69,14 @@ sge::wave::loader::~loader()
 
 sge::audio::file_ptr const
 sge::wave::loader::load(
-	fcppt::filesystem::path const &filename
+	boost::filesystem::path const &filename
 )
 {
 	stream_ptr file_stream(
-		fcppt::make_unique_ptr<fcppt::io::cifstream>(
+		fcppt::make_unique_ptr<boost::filesystem::ifstream>(
 			filename,
 			std::ios::binary));
-	if(!static_cast<fcppt::io::cifstream &>(*file_stream).is_open())
+	if(!static_cast<boost::filesystem::ifstream &>(*file_stream).is_open())
 		throw audio::file_exception(
 			sge::audio::optional_path(
 				filename),

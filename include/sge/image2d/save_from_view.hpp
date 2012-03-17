@@ -24,7 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/symbol.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 namespace sge
@@ -37,7 +40,7 @@ void
 save_from_view(
 	sge::image2d::system &,
 	sge::image2d::view::const_object const &,
-	fcppt::filesystem::path const &
+	boost::filesystem::path const &
 );
 
 }

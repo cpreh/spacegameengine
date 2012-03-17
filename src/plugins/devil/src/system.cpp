@@ -33,7 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::devil::system::system()
@@ -49,7 +51,7 @@ sge::devil::system::~system()
 
 sge::image2d::file_ptr const
 sge::devil::system::load(
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 {
 	sge::devil::file_ptr const ret(
@@ -124,7 +126,7 @@ sge::devil::system::create(
 void
 sge::devil::system::save(
 	image2d::file const &_file,
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 {
 	dynamic_cast<

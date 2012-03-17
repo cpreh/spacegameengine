@@ -19,12 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/plugin/library/exception.hpp>
+#include <sge/plugin/library/symbol_string.hpp>
 #include <sge/src/plugin/library/error.hpp>
 #include <sge/src/plugin/library/object.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -105,7 +110,7 @@ public:
 #endif
 
 sge::plugin::library::object::object(
-	fcppt::filesystem::path const &_name
+	boost::filesystem::path const &_name
 )
 :
 	name_(_name),
@@ -180,7 +185,7 @@ sge::plugin::library::object::~object()
 #endif
 }
 
-fcppt::filesystem::path const &
+boost::filesystem::path const &
 sge::plugin::library::object::name() const
 {
 	return name_;
@@ -188,7 +193,7 @@ sge::plugin::library::object::name() const
 
 sge::plugin::library::loaded_symbol
 sge::plugin::library::object::load(
-	library::symbol_string const &_fun
+	sge::plugin::library::symbol_string const &_fun
 )
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)

@@ -25,12 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/obj/instance_impl.hpp>
 #include <sge/src/model/obj/parse.hpp>
 #include <sge/src/model/obj/tokens_fwd.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 sge::model::obj::instance_impl::instance_impl(
 	obj::tokens const &_tokens,
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 :
 	state_()

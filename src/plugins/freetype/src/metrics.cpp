@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::freetype::metrics::metrics(
 	sge::freetype::library &_lib,
 	sge::charconv::system &_conv_system,
-	fcppt::filesystem::path const &_font_path,
+	boost::filesystem::path const &_font_path,
 	sge::font::size_type const _font_height
 )
 :

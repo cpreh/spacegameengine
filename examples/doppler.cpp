@@ -84,13 +84,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/assign/list_of.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
@@ -108,10 +109,10 @@ namespace
 {
 sge::audio::file_ptr const
 load_raw(
-	fcppt::filesystem::path const &path,
+	boost::filesystem::path const &path,
 	sge::audio::loader &audio_loader)
 {
-	fcppt::io::cifstream raw_stream(
+	boost::filesystem::ifstream raw_stream(
 		path,
 		std::ios::binary);
 

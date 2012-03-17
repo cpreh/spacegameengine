@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_OPTIONAL_PATH_HPP_INCLUDED
 
 #include <fcppt/optional_decl.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,7 +32,10 @@ namespace sge
 namespace image
 {
 typedef
-fcppt::optional<fcppt::filesystem::path>
+fcppt::optional
+<
+	boost::filesystem::path
+>
 optional_path;
 }
 }

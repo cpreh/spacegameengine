@@ -23,6 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/config/try_create_path.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <sge/config/homedir.hpp>
 #include <sge/config/getenv.hpp>
@@ -31,7 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/getenv_exn.hpp>
 #endif
 
-fcppt::filesystem::path const
+
+boost::filesystem::path const
 sge::config::cache_path(
 	fcppt::string const &_appname
 )
@@ -39,7 +44,7 @@ sge::config::cache_path(
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	return
 		config::try_create_path(
-			fcppt::filesystem::path(
+			boost::filesystem::path(
 				config::getenv_exn(
 					FCPPT_TEXT("APPDATA")
 				)
@@ -53,7 +58,7 @@ sge::config::cache_path(
 		)
 	);
 
-	fcppt::filesystem::path const path(
+	boost::filesystem::path const path(
 		xdg_cache_path
 		?
 			*xdg_cache_path

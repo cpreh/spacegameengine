@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/function/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <IL/il.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -65,12 +65,12 @@ public:
 
 	void
 	save(
-		fcppt::filesystem::path const &
+		boost::filesystem::path const &
 	) const;
 
 	devil::optional_error const
 	load(
-		fcppt::filesystem::path const &
+		boost::filesystem::path const &
 	);
 
 	devil::optional_error const

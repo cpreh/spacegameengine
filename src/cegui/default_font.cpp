@@ -19,11 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/default_font.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::default_font::default_font(
-	fcppt::filesystem::path const &_path,
+	boost::filesystem::path const &_path,
 	float const _font_size
 )
 :
@@ -32,7 +34,7 @@ sge::cegui::default_font::default_font(
 {
 }
 
-fcppt::filesystem::path const &
+boost::filesystem::path const &
 sge::cegui::default_font::path() const
 {
 	return path_;

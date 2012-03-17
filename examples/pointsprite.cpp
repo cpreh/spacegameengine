@@ -91,7 +91,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/duration.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
@@ -102,6 +101,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/uniform.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <cmath>
@@ -533,13 +533,13 @@ try
 				_main_function_context.argv()[1])),
 		sys);
 
-	fcppt::io::cifstream fragment_stream(
+	boost::filesystem::ifstream fragment_stream(
 		sge::config::media_path()
 		/ FCPPT_TEXT("shaders")
 		/ FCPPT_TEXT("pointsprite")
 		/ FCPPT_TEXT("fragment.glsl"));
 
-	fcppt::io::cifstream vertex_stream(
+	boost::filesystem::ifstream vertex_stream(
 		sge::config::media_path()
 		/ FCPPT_TEXT("shaders")
 		/ FCPPT_TEXT("pointsprite")

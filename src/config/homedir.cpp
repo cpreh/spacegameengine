@@ -22,9 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/homedir.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/platform.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::filesystem::path const
+boost::filesystem::path const
 sge::config::homedir()
 {
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)

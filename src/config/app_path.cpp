@@ -22,6 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/exception.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
@@ -29,13 +33,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/char_type.hpp>
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <fcppt/filesystem/remove_filename.hpp>
-#include <fcppt/filesystem/readlink.hpp>
-#include <fcppt/filesystem/exists.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <fcppt/config/external_end.hpp>
 #else
 #error "Implement me!"
 #endif
 
-fcppt::filesystem::path const
+boost::filesystem::path const
 sge::config::app_path()
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
@@ -63,12 +68,12 @@ sge::config::app_path()
 			)
 		);
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-	fcppt::filesystem::path const self(
+	boost::filesystem::path const self(
 		"/proc/self/exe"
 	);
 
 	if(
-		!fcppt::filesystem::exists(
+		!boost::filesystem::exists(
 			self
 		)
 	)
@@ -78,7 +83,7 @@ sge::config::app_path()
 
 	return
 		fcppt::filesystem::remove_filename(
-			fcppt::filesystem::readlink(
+			boost::filesystem::read_symlink(
 				self
 			)
 		);

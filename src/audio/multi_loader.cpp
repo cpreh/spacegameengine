@@ -28,7 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/src/media/muxer_impl.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 
 sge::audio::multi_loader::multi_loader(
@@ -44,7 +47,7 @@ sge::audio::multi_loader::multi_loader(
 
 sge::audio::file_ptr const
 sge::audio::multi_loader::load(
-	fcppt::filesystem::path const &_path
+	boost::filesystem::path const &_path
 )
 {
 	return
