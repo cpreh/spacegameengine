@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include <algorithm>
-#include <fstream>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -390,7 +390,7 @@ sge::vorbis::file::ogg_close()
 {
 	// Kind of a hack here, sorry.
 	if (file_name_)
-		static_cast<std::ifstream &>(
+		static_cast<boost::filesystem::ifstream &>(
 			*stdstream_).close();
 	// the return code is not checked, but zero indicates success in the orr library
 	return 0;
