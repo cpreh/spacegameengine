@@ -171,7 +171,7 @@ void sge::wave::file::read_riff()
 			filename_,
 			FCPPT_TEXT("file is not a riff file and thus not a wave file"));
 
-	swap_ = file_bigendian != (fcppt::endianness::is_little_endian());
+	swap_ = file_bigendian == (fcppt::endianness::is_little_endian());
 
 	// throw away riff size
 	extract_primitive<boost::uint32_t>(
@@ -271,7 +271,7 @@ T sge::wave::file::extract_primitive(
 	file_->read(
 		reinterpret_cast<char *>(&ret), sizeof(T));
 
-	if (file_->bad())
+	if (file_->fail())
 		throw audio::file_exception(
 			filename_,
 			FCPPT_TEXT("error while reading ")+ _desc);
