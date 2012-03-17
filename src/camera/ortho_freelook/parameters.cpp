@@ -35,12 +35,12 @@ sge::camera::ortho_freelook::parameters::parameters(
 		10.0f),
 	zoom_to_zooming_speed_factor_(
 		renderer::vector2(
-			0.01f,
-			0.01f)),
+			0.05f,
+			0.05f)),
 	zoom_to_panning_speed_factor_(
 		renderer::vector2(
-			0.01f,
-			0.01f)),
+			0.005f,
+			0.005f)),
 	active_(
 		true)
 {
