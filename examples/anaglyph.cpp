@@ -133,8 +133,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/random/make_inclusive_range.hpp>
-#include <fcppt/random/uniform.hpp>
+#include <fcppt/random/variate.hpp>
+#include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/random/generator/minstd_rand.hpp>
+#include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -471,16 +473,40 @@ random_model_collection::random_model_collection(
 
 	// See the fcppt documentation on how this really works. It's not
 	// that difficult, however.
-	fcppt::random::uniform<sge::renderer::scalar> position_rng(
-		fcppt::random::make_inclusive_range<sge::renderer::scalar>(
-			-position_range,
-			position_range));
+	typedef fcppt::random::generator::minstd_rand generator_type;
 
-	// Ditto
-	fcppt::random::uniform<sge::renderer::scalar> angle_rng(
-		fcppt::random::make_inclusive_range<sge::renderer::scalar>(
-			0,
-			fcppt::math::twopi<sge::renderer::scalar>()));
+	generator_type generator(
+		fcppt::random::generator::seed_from_chrono<
+			generator_type::seed
+		>());
+
+	typedef fcppt::random::distribution::uniform_real<
+		sge::renderer::scalar
+	> distribution;
+
+	typedef fcppt::random::variate<
+		generator_type,
+		distribution
+	> variate;
+
+	variate position_rng(
+		generator,
+		distribution(
+			distribution::min(
+				-position_range
+			),
+			distribution::sup(
+				position_range)));
+
+	variate angle_rng(
+		generator,
+		distribution(
+			distribution::min(
+				0.f),
+				distribution::sup(
+					fcppt::math::twopi<
+						sge::renderer::scalar
+					>())));
 
 	model_sequence::size_type const number_of_models =
 		100;

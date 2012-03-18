@@ -97,8 +97,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/random/make_inclusive_range.hpp>
-#include <fcppt/random/uniform.hpp>
+#include <fcppt/random/variate.hpp>
+#include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/random/generator/minstd_rand.hpp>
+#include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -290,13 +292,25 @@ private:
 	boost::ptr_list<particle>
 	particle_sequence;
 
-	typedef
-	fcppt::random::uniform<float_duration::rep>
-	time_rng;
+	typedef fcppt::random::generator::minstd_rand generator_type;
 
-	typedef
-	fcppt::random::uniform<sge::renderer::scalar>
-	scalar_rng;
+	typedef fcppt::random::distribution::uniform_real<
+		float_duration::rep
+	> duration_distribution;
+
+	typedef fcppt::random::distribution::uniform_real<
+		sge::renderer::scalar
+	> scalar_distribution;
+
+	typedef fcppt::random::variate<
+		generator_type,
+		duration_distribution
+	> time_rng;
+
+	typedef fcppt::random::variate<
+		generator_type,
+		scalar_distribution
+	> scalar_rng;
 
 	typedef
 	std::vector<sprite_object>
@@ -306,6 +320,7 @@ private:
 	sprite_buffers_type sprite_buffers_;
 	sprite_sequence sprites_;
 	particle_sequence particles_;
+	generator_type generator_;
 	time_rng explosion_rng_;
 	time_rng lifetime_rng_;
 	scalar_rng velocity_radius_rng_;
@@ -328,53 +343,68 @@ particles::particles(
 		sys.renderer(),
 		sge::sprite::buffers::option::dynamic),
 	particles_(),
+	generator_(
+		fcppt::random::generator::seed_from_chrono<
+			generator_type::seed
+		>()),
 	explosion_rng_(
-		fcppt::random::make_inclusive_range(
-			static_cast<float_duration::rep>(
-				0.5),
-			static_cast<float_duration::rep>(
-				2.0))),
+		generator_,
+		duration_distribution(
+			duration_distribution::min(
+				0.5f),
+			duration_distribution::sup(
+				2.0f))),
 	lifetime_rng_(
-		fcppt::random::make_inclusive_range(
-			static_cast<float_duration::rep>(
-				0.5),
-			static_cast<float_duration::rep>(
-				2.0))),
+		generator_,
+		duration_distribution(
+			duration_distribution::min(
+				0.5f),
+			duration_distribution::sup(
+				2.f))),
 	velocity_radius_rng_(
-		fcppt::random::make_inclusive_range(
-			static_cast<sge::renderer::scalar>(
-				0),
-			static_cast<sge::renderer::scalar>(
-				1000))),
+		generator_,
+		scalar_distribution(
+			scalar_distribution::min(
+				0.f),
+			scalar_distribution::sup(
+				1000.f))),
 	velocity_angle_rng_(
-		fcppt::random::make_inclusive_range(
-			static_cast<sge::renderer::scalar>(
-				0),
-			fcppt::math::twopi<sge::renderer::scalar>())),
+		generator_,
+		scalar_distribution(
+			scalar_distribution::min(
+				0.f),
+			scalar_distribution::sup(
+				fcppt::math::twopi<sge::renderer::scalar>()))),
 	position_x_rng_(
-		fcppt::random::make_inclusive_range(
-			static_cast<sge::renderer::scalar>(
-				0),
-			static_cast<sge::renderer::scalar>(
-				window_dim.w()))),
+		generator_,
+		scalar_distribution(
+			scalar_distribution::min(
+				0.f),
+			scalar_distribution::sup(
+				static_cast<sge::renderer::scalar>(
+					window_dim.w())))),
 	position_y_rng_(
-		fcppt::random::make_inclusive_range(
-			static_cast<sge::renderer::scalar>(
-				0),
-			static_cast<sge::renderer::scalar>(
-				window_dim.h()))),
+		generator_,
+		scalar_distribution(
+			scalar_distribution::min(
+				0.f),
+			scalar_distribution::sup(
+				static_cast<sge::renderer::scalar>(
+					window_dim.h())))),
 	size_rng_(
-		fcppt::random::make_inclusive_range(
-			static_cast<sge::renderer::scalar>(
-				10),
-			static_cast<sge::renderer::scalar>(
-				100))),
+		generator_,
+		scalar_distribution(
+			scalar_distribution::min(
+				10.f),
+			scalar_distribution::sup(
+				100.f))),
 	color_rng_(
-		fcppt::random::make_inclusive_range(
-			static_cast<sge::renderer::scalar>(
-				0),
-			static_cast<sge::renderer::scalar>(
-				1))),
+		generator_,
+		scalar_distribution(
+			scalar_distribution::min(
+				0.f),
+			scalar_distribution::sup(
+				1.f))),
 	explosion_timer_(
 		sge::timer::parameters<sge::timer::clocks::standard>(
 			float_duration(
