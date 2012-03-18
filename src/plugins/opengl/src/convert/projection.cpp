@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/projection.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/glsl/to_cvv.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
 
 
 sge::renderer::matrix4 const

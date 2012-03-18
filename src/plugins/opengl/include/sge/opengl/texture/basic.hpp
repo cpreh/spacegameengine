@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/container/bitfield/basic_decl.hpp>
-#include <fcppt/math/box/basic_decl.hpp>
+#include <fcppt/container/bitfield/object_decl.hpp>
+#include <fcppt/math/box/object_decl.hpp>
 
 
 namespace sge

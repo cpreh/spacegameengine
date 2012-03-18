@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/src/font/text/align_pos_h.hpp>
 #include <sge/src/font/text/align_pos_v.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 
 

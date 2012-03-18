@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/keyboard/device_fwd.hpp>
 #include <awl/backends/x11/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/bitfield/basic_decl.hpp>
+#include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>

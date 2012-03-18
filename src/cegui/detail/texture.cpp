@@ -44,8 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUIImageCodec.h>

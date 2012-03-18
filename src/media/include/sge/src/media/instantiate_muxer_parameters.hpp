@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/export_class_instantiation.hpp>
 #include <sge/src/media/muxer_parameters_impl.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 #define SGE_MEDIA_INSTANTIATE_MUXER_PARAMETERS(\

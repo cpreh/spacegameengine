@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_RANGE_CHECK_HPP_INCLUDED
 
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -45,19 +45,19 @@ typename boost::enable_if_c<
 	bool
 >::type
 range_check(
-	fcppt::math::dim::basic<
+	fcppt::math::dim::object<
 		T,
 		M,
 		S
 	> const &_dim,
-	fcppt::math::box::basic<
+	fcppt::math::box::object<
 		T,
 		N
 	> const &_box
 )
 {
 	for(
-		typename fcppt::math::box::basic<
+		typename fcppt::math::box::object<
 			T,
 			N
 		>::size_type index = 0;

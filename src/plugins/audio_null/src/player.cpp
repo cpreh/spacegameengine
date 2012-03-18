@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio_null/player.hpp>
 #include <sge/audio_null/positional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 sge::audio_null::player::player()

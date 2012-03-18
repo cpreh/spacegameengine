@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/dynamic/view/from_static_visitor.hpp>
 #include <mizuiro/const_tag.hpp>
 #include <mizuiro/nonconst_tag.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/math/dim/object_decl.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/input/cursor_modifier_fwd.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/bitfield/basic_decl.hpp>
+#include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
 

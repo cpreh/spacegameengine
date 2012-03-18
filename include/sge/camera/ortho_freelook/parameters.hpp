@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/near.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 

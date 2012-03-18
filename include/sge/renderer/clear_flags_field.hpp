@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CLEAR_FLAGS_FIELD_HPP_INCLUDED
 
 #include <sge/renderer/clear_flags.hpp>
-#include <fcppt/container/bitfield/basic_fwd.hpp>
+#include <fcppt/container/bitfield/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace renderer
 /**
  * \brief Container for clear flags
 */
-typedef fcppt::container::bitfield::basic<
+typedef fcppt::container::bitfield::object<
 	renderer::clear_flags::type,
 	renderer::clear_flags::size
 > clear_flags_field;

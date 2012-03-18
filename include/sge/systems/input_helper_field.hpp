@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_INPUT_HELPER_FIELD_HPP_INCLUDED
 
 #include <sge/systems/input_helper.hpp>
-#include <fcppt/container/bitfield/basic_fwd.hpp>
+#include <fcppt/container/bitfield/object_fwd.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace systems
 {
 
-typedef fcppt::container::bitfield::basic<
+typedef fcppt::container::bitfield::object<
 	input_helper::type,
 	input_helper::size
 > input_helper_field;

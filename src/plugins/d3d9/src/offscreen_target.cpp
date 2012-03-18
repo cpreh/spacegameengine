@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/container/index_map_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::d3d9::offscreen_target::offscreen_target(

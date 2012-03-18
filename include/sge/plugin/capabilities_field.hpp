@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_CAPABILITIES_FIELD_HPP_INCLUDED
 
 #include <sge/plugin/capabilities.hpp>
-#include <fcppt/container/bitfield/basic_fwd.hpp>
+#include <fcppt/container/bitfield/object_fwd.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace plugin
 {
 
-typedef fcppt::container::bitfield::basic<
+typedef fcppt::container::bitfield::object<
 	capabilities::type,
 	capabilities::size
 > capabilities_field;

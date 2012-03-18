@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/detail/float_arity.hpp>
 #include <sge/renderer/glsl/uniform/detail/int_arity.hpp>
 #include <sge/renderer/glsl/uniform/detail/matrix_arity.hpp>
-#include <fcppt/math/matrix/basic_fwd.hpp>
-#include <fcppt/math/vector/basic_fwd.hpp>
+#include <fcppt/math/matrix/object_fwd.hpp>
+#include <fcppt/math/vector/object_fwd.hpp>
 
 
 namespace sge
@@ -53,7 +53,7 @@ template<
 	typename S
 >
 struct make_element_type<
-	fcppt::math::vector::basic<
+	fcppt::math::vector::object<
 		sge::renderer::scalar,
 		N,
 		S
@@ -74,7 +74,7 @@ template<
 	typename S
 >
 struct make_element_type<
-	fcppt::math::vector::basic<
+	fcppt::math::vector::object<
 		sge::renderer::glsl::uniform::int_type,
 		N,
 		S
@@ -96,7 +96,7 @@ template<
 	typename S
 >
 struct make_element_type<
-	fcppt::math::matrix::basic<
+	fcppt::math::matrix::object<
 		float,
 		N,
 		M,

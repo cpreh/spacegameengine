@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_PROJECTION_RECT_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/math/box/basic_fwd.hpp>
+#include <fcppt/math/box/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace renderer
 namespace projection
 {
 
-typedef fcppt::math::box::basic<
+typedef fcppt::math::box::object<
 	renderer::scalar,
 	2
 > rect;

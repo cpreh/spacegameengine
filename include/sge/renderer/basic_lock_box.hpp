@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/box/basic_fwd.hpp>
+#include <fcppt/math/box/object_fwd.hpp>
 
 
 namespace sge
@@ -43,7 +43,7 @@ template<
 >
 struct basic_lock_box
 {
-	typedef fcppt::math::box::basic<
+	typedef fcppt::math::box::object<
 		renderer::size_type,
 		Size
 	> type;

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/dim/output.hpp>
 
@@ -45,7 +45,7 @@ template<
 >
 void
 warn_min(
-	fcppt::math::dim::basic<
+	fcppt::math::dim::object<
 		T,
 		N,
 		S
@@ -54,7 +54,7 @@ warn_min(
 	fcppt::string const &_what
 )
 {
-	typedef fcppt::math::dim::basic<T, N, S> dim_type;
+	typedef fcppt::math::dim::object<T, N, S> dim_type;
 
 	for(
 		typename dim_type::const_iterator it(

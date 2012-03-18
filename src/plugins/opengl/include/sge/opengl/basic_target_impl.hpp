@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/basic_target.hpp>
 #include <sge/opengl/set_scissor_area.hpp>
 #include <sge/opengl/viewport.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 
 template<
 	typename Base

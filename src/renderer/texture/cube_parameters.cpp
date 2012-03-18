@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/src/renderer/texture/instantiate_basic_parameters.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 
 
 SGE_RENDERER_TEXTURE_INSTANTIATE_BASIC_PARAMETERS(

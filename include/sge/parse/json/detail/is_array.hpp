@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/detail/static_storage.hpp>
 #include <fcppt/math/dim/static.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/array.hpp>
@@ -55,7 +55,7 @@ struct is_array< boost::array<T,N> > : boost::true_type {};
 template<typename T,fcppt::math::size_type N>
 struct is_array
 <
-	fcppt::math::vector::basic
+	fcppt::math::vector::object
 	<
 		T,
 		boost::mpl::integral_c
@@ -75,7 +75,7 @@ struct is_array
 template<typename T,fcppt::math::size_type N>
 struct is_array
 <
-	fcppt::math::dim::basic
+	fcppt::math::dim::object
 	<
 		T,
 		boost::mpl::integral_c

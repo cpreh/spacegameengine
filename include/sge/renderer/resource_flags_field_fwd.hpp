@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_RESOURCE_FLAGS_FIELD_FWD_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags.hpp>
-#include <fcppt/container/bitfield/basic_fwd.hpp>
+#include <fcppt/container/bitfield/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace renderer
 /**
  * \brief A bitfield that can hold flags from renderer::resource_flags
 */
-typedef fcppt::container::bitfield::basic<
+typedef fcppt::container::bitfield::object<
 	renderer::resource_flags::type,
 	renderer::resource_flags::size
 > resource_flags_field;

@@ -46,11 +46,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/assert/error_message.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUISystem.h>
 #include <algorithm>

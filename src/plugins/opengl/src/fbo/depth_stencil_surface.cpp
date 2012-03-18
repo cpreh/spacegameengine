@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/convert/depth_stencil_to_internal_format.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::opengl::fbo::depth_stencil_surface::depth_stencil_surface(

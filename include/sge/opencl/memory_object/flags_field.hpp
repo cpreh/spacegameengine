@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_MEMORY_OBJECT_FLAGS_FIELD_HPP_INCLUDED
 
 #include <sge/opencl/memory_object/flags.hpp>
-#include <fcppt/container/bitfield/basic_fwd.hpp>
+#include <fcppt/container/bitfield/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace opencl
 namespace memory_object
 {
 typedef
-fcppt::container::bitfield::basic
+fcppt::container::bitfield::object
 <
 	memory_object::flags::type,
 	memory_object::flags::size

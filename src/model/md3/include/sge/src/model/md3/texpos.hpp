@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_MODEL_MD3_TEXPOS_HPP_INCLUDED
 
 #include <sge/model/md3/texcoord.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
 #include <fcppt/config/external_end.hpp>

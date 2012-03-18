@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/libpng/byte_vector.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/math/dim/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <iosfwd>

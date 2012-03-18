@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/devicefuncs/create_depth_stencil_surface.hpp>
 #include <sge/d3d9/surface/depth_stencil_native.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::d3d9::surface::depth_stencil_native::depth_stencil_native(

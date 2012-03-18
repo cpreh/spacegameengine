@@ -43,8 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/console/next_or_last.hpp>
 #include <fcppt/chrono/time_point.hpp>
 #include <fcppt/container/map_impl.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

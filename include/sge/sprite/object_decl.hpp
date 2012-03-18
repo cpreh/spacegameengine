@@ -40,8 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/object_base.hpp>
 #include <sge/sprite/intrusive/connection_fwd.hpp>
 #include <majutsu/role_return_type.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
-#include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/math/dim/object_decl.hpp>
+#include <fcppt/math/vector/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>

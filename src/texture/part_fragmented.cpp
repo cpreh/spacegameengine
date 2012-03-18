@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing/border_h.hpp>
 #include <sge/texture/atlasing/border_w.hpp>
 #include <sge/texture/atlasing/inner_rect.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 
 
 sge::texture::part_fragmented::part_fragmented(
