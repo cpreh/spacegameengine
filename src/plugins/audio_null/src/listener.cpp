@@ -18,18 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/vector.hpp>
+#include <sge/audio/direction/object.hpp>
 #include <sge/audio_null/listener.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+
 
 sge::audio_null::listener::listener()
-:
-	position_(
-		audio::vector::null()
-	),
-	linear_velocity_(
-		audio::vector::null()
-	),
-	direction_()
 {
 }
 
@@ -39,25 +33,22 @@ sge::audio_null::listener::~listener()
 
 void
 sge::audio_null::listener::position(
-	audio::vector const &_position
+	audio::vector const &
 )
 {
-	position_ = _position;
 }
 
 void
 sge::audio_null::listener::linear_velocity(
-	audio::vector const &_linear_velocity
+	audio::vector const &
 )
 {
-	linear_velocity_ = _linear_velocity;
 }
 
 void
 sge::audio_null::listener::direction(
-	audio::direction::object const &_direction
+	audio::direction::object const &
 )
 {
-	direction_ = _direction;
 }
 

@@ -23,9 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/listener.hpp>
 #include <sge/audio/vector.hpp>
-#include <sge/audio/direction/object.hpp>
+#include <sge/audio/direction/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/vector/basic_decl.hpp>
 
 
 namespace sge
@@ -59,12 +58,6 @@ public:
 	direction(
 		audio::direction::object const &
 	);
-private:
-	audio::vector
-		position_,
-		linear_velocity_;
-
-	audio::direction::object direction_;
 };
 
 }
