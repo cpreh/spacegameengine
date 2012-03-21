@@ -18,16 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_SWAP_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_X11_SWAP_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_CURRENT_DRAWABLE_HPP_INCLUDED
+#define SGE_OPENGL_GLX_CURRENT_DRAWABLE_HPP_INCLUDED
 
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
-#include <sge/opengl/glx/proc_context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
-#include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,55 +30,11 @@ namespace sge
 {
 namespace opengl
 {
-namespace x11
+namespace glx
 {
 
-class swap_context
-:
-	public opengl::context::base
-{
-	FCPPT_NONCOPYABLE(
-		swap_context
-	);
-public:
-	explicit
-	swap_context(
-		opengl::glx::proc_context const &
-	);
-
-	~swap_context();
-
-	bool
-	swap_interval_supported() const;
-
-	typedef int(
-		*glx_swap_interval_sgi
-	)(
-		int
-	);
-
-	typedef void(
-		*glx_swap_interval_ext
-	)(
-		Display *,
-		GLXDrawable,
-		int
-	);
-
-	glx_swap_interval_sgi
-	swap_interval_sgi() const;
-
-	glx_swap_interval_ext
-	swap_interval_ext() const;
-
-	typedef opengl::glx::proc_context needs_before;
-
-	static opengl::context::id const static_id;
-private:
-	glx_swap_interval_sgi swap_interval_sgi_;
-
-	glx_swap_interval_ext swap_interval_ext_;
-};
+GLXDrawable
+current_drawable();
 
 }
 }

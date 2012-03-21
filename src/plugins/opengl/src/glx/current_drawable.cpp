@@ -18,28 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_VSYNC_HPP_INCLUDED
-#define SGE_OPENGL_X11_VSYNC_HPP_INCLUDED
+#include <sge/renderer/exception.hpp>
+#include <sge/opengl/glx/current_drawable.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <GL/glx.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/opengl/context/object_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
 
-
-namespace sge
+GLXDrawable
+sge::opengl::glx::current_drawable()
 {
-namespace opengl
-{
-namespace x11
-{
+	GLXDrawable const ret(
+		::glXGetCurrentDrawable()
+	);
 
-void
-vsync(
-	awl::backends::x11::display &,
-	opengl::context::object &
-);
+	if(
+		ret == None
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("glXGetCurrentDrawable(): No drawable set!")
+		);
 
+	return ret;
 }
-}
-}
-
-#endif

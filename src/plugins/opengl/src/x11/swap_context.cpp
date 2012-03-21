@@ -28,16 +28,27 @@ sge::opengl::x11::swap_context::swap_context(
 	opengl::glx::proc_context const &_context
 )
 :
-	swap_interval_(
+	swap_interval_sgi_(
 		reinterpret_cast<
-			glx_swap_interval
+			glx_swap_interval_sgi
 		>(
 			glx::proc_address(
 				_context,
 				"glXSwapIntervalSGI"
 			)
 		)
+	),
+	swap_interval_ext_(
+		reinterpret_cast<
+			glx_swap_interval_ext
+		>(
+			glx::proc_address(
+				_context,
+				"glXSwapIntervalEXT"
+			)
+		)
 	)
+
 {
 }
 
@@ -49,15 +60,26 @@ bool
 sge::opengl::x11::swap_context::swap_interval_supported() const
 {
 	return
-		swap_interval_
+		swap_interval_sgi_
 		!=
-		fcppt::null_ptr();
+		fcppt::null_ptr()
+		||
+		swap_interval_ext_
+		!=
+		fcppt::null_ptr()
+		;
 }
 
-sge::opengl::x11::swap_context::glx_swap_interval
-sge::opengl::x11::swap_context::swap_interval() const
+sge::opengl::x11::swap_context::glx_swap_interval_sgi
+sge::opengl::x11::swap_context::swap_interval_sgi() const
 {
-	return swap_interval_;
+	return swap_interval_sgi_;
+}
+
+sge::opengl::x11::swap_context::glx_swap_interval_ext
+sge::opengl::x11::swap_context::swap_interval_ext() const
+{
+	return swap_interval_ext_;
 }
 
 sge::opengl::context::id const

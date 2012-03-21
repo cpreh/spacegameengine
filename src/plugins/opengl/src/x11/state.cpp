@@ -77,6 +77,7 @@ sge::opengl::x11::state::state(
 		== sge::renderer::vsync::on
 	)
 		x11::vsync(
+			display_,
 			_context
 		);
 }

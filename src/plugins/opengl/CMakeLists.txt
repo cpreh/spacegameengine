@@ -714,6 +714,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/context_scoped_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/glx/current.hpp
+	src/plugins/opengl/include/sge/opengl/glx/current_drawable.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_address.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_context_fwd.hpp
@@ -729,6 +730,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/x11/vsync.hpp
 	src/plugins/opengl/src/glx/context.cpp
 	src/plugins/opengl/src/glx/current.cpp
+	src/plugins/opengl/src/glx/current_drawable.cpp
 	src/plugins/opengl/src/glx/proc_address.cpp
 	src/plugins/opengl/src/glx/proc_context.cpp
 	src/plugins/opengl/src/x11/resolution/create.cpp
