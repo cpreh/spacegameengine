@@ -190,7 +190,7 @@ sge::camera::ortho_freelook::object::mouse_axis_callback(
 	camera::projection::orthogonal const current_projection_object(
 		camera::base::projection_object().get<camera::projection::orthogonal>());
 
-	renderer::projection::rect projection_rect =
+	renderer::projection::rect _projection_rect =
 		current_projection_object.rect();
 
 	renderer::vector2 const
@@ -198,10 +198,10 @@ sge::camera::ortho_freelook::object::mouse_axis_callback(
 			renderer::vector2(
 				zoom_to_panning_speed_factor_.x() *
 				static_cast<renderer::scalar>(
-					projection_rect.w()),
+					_projection_rect.w()),
 				zoom_to_panning_speed_factor_.y() *
 				static_cast<renderer::scalar>(
-					projection_rect.h())),
+					_projection_rect.h())),
 		current_panning_speed =
 			renderer::vector2(
 				static_cast<renderer::scalar>(
@@ -221,13 +221,13 @@ sge::camera::ortho_freelook::object::mouse_axis_callback(
 						0.0f) *
 				current_panning.y());
 
-	projection_rect.pos(
-		projection_rect.pos() +
+	_projection_rect.pos(
+		_projection_rect.pos() +
 		current_panning_speed);
 
 	camera::base::projection_object(
 		camera::projection::orthogonal(
-			projection_rect,
+			_projection_rect,
 			renderer::projection::near(
 				current_projection_object.near()),
 			renderer::projection::far(
