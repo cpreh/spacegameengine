@@ -39,7 +39,7 @@ sge::log::default_parameters(
 		)
 		.level_defaults(
 			fcppt::io::clog(),
-			fcppt::log::level::warning
+			fcppt::log::level::info
 		)
 		.enabled(
 			true
