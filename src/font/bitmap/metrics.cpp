@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/metrics.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -78,10 +77,8 @@ sge::font::bitmap::metrics::metrics(
 			FCPPT_TEXT("line_height")
 		);
 
-	boost::filesystem::path const stem(
-		fcppt::filesystem::remove_filename(
-			_path
-		)
+	boost::filesystem::path const parent_path(
+		_path.parent_path()
 	);
 
 	sge::parse::json::array const &textures_array(
@@ -102,7 +99,7 @@ sge::font::bitmap::metrics::metrics(
 	)
 		images_.push_back(
 			font::bitmap::load_one_file(
-				stem,
+				parent_path,
 				parse::json::get<
 					parse::json::object
 				>(

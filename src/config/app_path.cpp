@@ -29,10 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/char_type.hpp>
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-#include <fcppt/filesystem/remove_filename.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -62,11 +60,11 @@ sge::config::app_path()
 		);
 
 	return
-		fcppt::filesystem::remove_filename(
+		boost::filesystem::path(
 			fcppt::string(
 				buf.data()
 			)
-		);
+		).parent_path();
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	boost::filesystem::path const self(
 		"/proc/self/exe"
@@ -82,11 +80,9 @@ sge::config::app_path()
 		);
 
 	return
-		fcppt::filesystem::remove_filename(
-			boost::filesystem::read_symlink(
-				self
-			)
-		);
+		boost::filesystem::read_symlink(
+			self
+		).parent_path();
 #else
 #error "Implement me!"
 #endif
