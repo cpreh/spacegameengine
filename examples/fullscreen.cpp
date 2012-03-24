@@ -51,12 +51,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <ostream>
@@ -118,7 +118,7 @@ try
 		sge::timer::parameters<
 			sge::timer::clocks::standard
 		>(
-			fcppt::chrono::seconds(
+			boost::chrono::seconds(
 				5
 			)
 		)

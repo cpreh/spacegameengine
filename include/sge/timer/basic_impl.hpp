@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/basic_decl.hpp>
 #include <sge/timer/parameters_impl.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/chrono/time_point_arithmetic.hpp>
-#include <fcppt/chrono/time_point_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -100,7 +100,7 @@ NewDuration const
 sge::timer::basic<Clock>::interval() const
 {
 	return
-		fcppt::chrono::duration_cast<NewDuration>(
+		boost::chrono::duration_cast<NewDuration>(
 			interval_);
 }
 
@@ -111,7 +111,7 @@ sge::timer::basic<Clock>::interval(
 	NewDuration const &_interval)
 {
 	interval_ =
-		fcppt::chrono::duration_cast<duration>(
+		boost::chrono::duration_cast<duration>(
 			_interval);
 	this->reset();
 }

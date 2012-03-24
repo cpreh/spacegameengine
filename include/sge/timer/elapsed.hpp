@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_ELAPSED_HPP_INCLUDED
 
 #include <sge/timer/basic.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/chrono/time_point_arithmetic.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -44,7 +45,7 @@ elapsed(
 			t.template interval<Duration>();
 
 	return
-		fcppt::chrono::duration_cast<Duration>(
+		boost::chrono::duration_cast<Duration>(
 			t.now() -
 			t.last_time());
 }

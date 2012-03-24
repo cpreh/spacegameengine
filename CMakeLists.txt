@@ -71,6 +71,9 @@ include_directories(
 
 find_package(
 	Boost 1.47.0 REQUIRED
+	chrono
+	filesystem
+	thread
 )
 
 include_directories(

@@ -21,10 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_CLOCKS_STANDARD_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_STANDARD_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/chrono/high_resolution_clock.hpp>
-#include <fcppt/chrono/steady_clock.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/system_clocks.hpp>
 #include <boost/mpl/if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -38,9 +36,9 @@ namespace clocks
 typedef
 boost::mpl::if_c
 <
-	fcppt::chrono::high_resolution_clock::is_steady,
-	fcppt::chrono::high_resolution_clock,
-	fcppt::chrono::steady_clock
+	boost::chrono::high_resolution_clock::is_steady,
+	boost::chrono::high_resolution_clock,
+	boost::chrono::steady_clock
 >::type
 standard;
 }

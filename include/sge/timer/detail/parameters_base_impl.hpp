@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_DETAIL_PARAMETERS_BASE_IMPL_HPP_INCLUDED
 
 #include <sge/timer/detail/parameters_base_decl.hpp>
-#include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 template<typename Clock>
@@ -31,7 +33,7 @@ sge::timer::detail::parameters_base<Clock>::parameters_base(
 	Duration const &_interval)
 :
 	interval_(
-		fcppt::chrono::duration_cast<duration>(
+		boost::chrono::duration_cast<duration>(
 			_interval)),
 	active_(
 		true),

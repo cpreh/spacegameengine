@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/chrono/seconds.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -52,7 +54,7 @@ public:
 	:
 		timer_(
 			timer::parameters<clock>(
-				fcppt::chrono::seconds(
+				boost::chrono::seconds(
 					1))),
 		current_frames_(
 			0),

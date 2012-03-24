@@ -29,14 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/time/sleep_any.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
 #include <X11/X.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -94,7 +93,7 @@ sge::x11input::cursor::grab::grab(
 			);
 
 			fcppt::time::sleep_any(
-				fcppt::chrono::milliseconds(
+				boost::chrono::milliseconds(
 					10
 				)
 			);

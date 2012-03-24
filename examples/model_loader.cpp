@@ -163,7 +163,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
@@ -178,6 +177,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/pair.hpp>
 #include <boost/mpl/map/map10.hpp>
@@ -728,7 +728,7 @@ try
 	sge::timer::basic<sge::timer::clocks::standard>
 		frame_timer(
 			sge::timer::parameters<sge::timer::clocks::standard>(
-				fcppt::chrono::seconds(
+				boost::chrono::seconds(
 					1)));
 
 	// Set clear status

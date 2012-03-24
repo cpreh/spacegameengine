@@ -23,9 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed.hpp>
-#include <fcppt/chrono/duration_arithmetic.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -45,7 +44,7 @@ boost::enable_if
 elapsed_fractional(
 	timer::basic<Clock> const &t)
 {
-	typedef fcppt::chrono::duration<
+	typedef boost::chrono::duration<
 		Float,
 		typename Clock::duration::period
 	> float_duration;

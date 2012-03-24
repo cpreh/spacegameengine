@@ -159,7 +159,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/chrono/seconds.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels.hpp>
@@ -174,6 +173,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cmath>
 #include <example_main.hpp>
@@ -1033,7 +1033,7 @@ try
 
 	sge::timer::basic<sge::timer::clocks::standard> revolve_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			fcppt::chrono::seconds(
+			boost::chrono::seconds(
 				10)));
 
 	sge::font::text::drawer_3d font_drawer(

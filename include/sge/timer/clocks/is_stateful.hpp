@@ -21,12 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_CLOCKS_IS_STATEFUL_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_IS_STATEFUL_HPP_INCLUDED
 
-#include <fcppt/chrono/high_resolution_clock_fwd.hpp>
-#include <fcppt/chrono/steady_clock_fwd.hpp>
-#include <fcppt/chrono/system_clock_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/system_clocks.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/type_traits/integral_constant.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -34,25 +36,42 @@ namespace timer
 {
 namespace clocks
 {
-template<typename Clock>
+template<
+	typename Clock,
+	typename Enable = void
+>
 struct is_stateful
-	: boost::true_type
-{};
+:
+boost::true_type
+{
+};
 
-template<>
-struct is_stateful<fcppt::chrono::high_resolution_clock>
-	: boost::false_type
-{};
-
-template<>
-struct is_stateful<fcppt::chrono::steady_clock>
-	: boost::false_type
-{};
-
-template<>
-struct is_stateful<fcppt::chrono::system_clock>
-	: boost::false_type
-{};
+template<
+	typename Clock
+>
+struct is_stateful<
+	Clock,
+	typename boost::enable_if<
+		boost::mpl::or_<
+			boost::is_same<
+				boost::chrono::high_resolution_clock,
+				Clock
+			>,
+			boost::is_same<
+				boost::chrono::steady_clock,
+				Clock
+			>,
+			boost::is_same<
+				boost::chrono::system_clock,
+				Clock
+			>
+		>
+	>::type
+>
+:
+boost::false_type
+{
+};
 
 }
 }
