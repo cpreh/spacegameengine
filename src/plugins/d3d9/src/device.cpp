@@ -73,13 +73,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/chrono/milliseconds.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/time/sleep_any.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::d3d9::device::device(
@@ -791,7 +792,7 @@ sge::d3d9::device::reset()
 		)
 	)
 		fcppt::time::sleep_any(
-			fcppt::chrono::milliseconds(
+			boost::chrono::milliseconds(
 				1
 			)
 		);

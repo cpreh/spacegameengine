@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_KEYBOARD_REPEAT_DURATION_HPP_INCLUDED
 #define SGE_DINPUT_KEYBOARD_REPEAT_DURATION_HPP_INCLUDED
 
-#include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
@@ -30,7 +32,7 @@ namespace dinput
 namespace keyboard
 {
 
-typedef fcppt::chrono::milliseconds repeat_duration;
+typedef boost::chrono::milliseconds repeat_duration;
 
 }
 }
