@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_CLOCKS_DELTA_IMPL_HPP_INCLUDED
 
 #include <sge/timer/clocks/delta_decl.hpp>
-#include <fcppt/chrono/time_point_arithmetic.hpp>
-#include <fcppt/chrono/time_point_impl.hpp>
 
 
 template<typename Impl>
