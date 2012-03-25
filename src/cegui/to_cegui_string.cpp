@@ -34,6 +34,14 @@ sge::cegui::to_cegui_string(
 	fcppt::string const &_string,
 	sge::charconv::system &_charconv)
 {
+	// This is here so that the CEGUI::String constructor with a zero
+	// length null terminated utf8 string doesn't get used, because it
+	// crashes under gcc-4.7
+	if(
+		_string.empty()
+	)
+		return CEGUI::String();
+
 	typedef
 	sge::charconv::string_type<sge::charconv::encoding::utf8>::type
 	utf8_string;

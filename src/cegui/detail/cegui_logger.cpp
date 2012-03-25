@@ -25,6 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/io/color/reset.hpp>
 #include <fcppt/io/color/set.hpp>
+#include <fcppt/log/error.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/verbose.hpp>
+#include <fcppt/log/warning.hpp>
 
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
@@ -49,9 +53,16 @@ sge::cegui::detail::cegui_logger::logEvent(
 	switch (level)
 	{
 		case CEGUI::Errors:
-			FCPPT_LOG_FATAL(
+			FCPPT_LOG_ERROR(
 				local_log,
-				fcppt::log::_ << fcppt::io::color::set(fcppt::io::color::foreground::red,fcppt::io::color::background::black,fcppt::io::color::attribute::bold) << converted << fcppt::io::color::reset());
+				fcppt::log::_
+					<< fcppt::io::color::set(
+						fcppt::io::color::foreground::red,
+						fcppt::io::color::background::black,
+						fcppt::io::color::attribute::bold
+					)
+					<< converted
+					<< fcppt::io::color::reset());
 			break;
 		case CEGUI::Warnings:
 			FCPPT_LOG_WARNING(
@@ -59,15 +70,7 @@ sge::cegui::detail::cegui_logger::logEvent(
 				fcppt::log::_ << converted);
 			break;
 		case CEGUI::Standard:
-			FCPPT_LOG_DEBUG(
-				local_log,
-				fcppt::log::_ << converted);
-			break;
 		case CEGUI::Informative:
-			FCPPT_LOG_INFO(
-				local_log,
-				fcppt::log::_ << converted);
-			break;
 		case CEGUI::Insane:
 			FCPPT_LOG_VERBOSE(
 				local_log,
