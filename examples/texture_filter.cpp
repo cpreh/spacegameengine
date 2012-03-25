@@ -32,6 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/lit.hpp>
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/string.hpp>
+#include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/camera/perspective_projection_from_viewport.hpp>
+#include <sge/camera/coordinate_system/identity.hpp>
+#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/first_person/parameters.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/store.hpp>
@@ -298,14 +303,15 @@ try
 
 	sge::camera::first_person::object camera(
 		sge::camera::first_person::parameters(
+			sys.keyboard_collector(),
+			sys.mouse_collector(),
+			sge::camera::first_person::is_active(
+				true
+			),
 			sge::camera::first_person::movement_speed(
 				4.0f
 			),
-			sge::camera::first_person::rotation_speed(
-				200.0f
-			),
-			sys.keyboard_collector(),
-			sys.mouse_collector()
+			sge::camera::coordinate_system::identity()
 		)
 	);
 
@@ -575,27 +581,19 @@ try
 		)
 	);
 
-	fcppt::signal::scoped_connection const viewport_connection(
-		sys.viewport_manager().manage_callback(
-			std::tr1::bind(
-				sge::camera::projection::update_perspective_from_viewport,
-				fcppt::ref(
-					sys.renderer()
-				),
-				fcppt::ref(
-					camera
-				),
-				sge::renderer::projection::fov(
-					fcppt::math::deg_to_rad(
-						90.f
-					)
-				),
-				sge::renderer::projection::near(
-					0.1f
-				),
-				sge::renderer::projection::far(
-					1000.f
-				)
+	sge::camera::perspective_projection_from_viewport camera_viewport_connection(
+		camera,
+		sys.renderer(),
+		sys.viewport_manager(),
+		sge::renderer::projection::near(
+			0.1f
+		),
+		sge::renderer::projection::far(
+			1000.f
+		),
+		sge::renderer::projection::fov(
+			fcppt::math::deg_to_rad(
+				90.f
 			)
 		)
 	);
@@ -624,7 +622,7 @@ try
 		sge::timer::parameters<
 			sge::timer::clocks::standard
 		>(
-			sge::camera::duration(
+			sge::camera::update_duration(
 				1.0f
 			)
 		)
@@ -658,7 +656,7 @@ try
 	{
 		camera.update(
 			sge::timer::elapsed_and_reset<
-				sge::camera::duration
+				sge::camera::update_duration
 			>(
 				frame_timer
 			)
@@ -672,12 +670,14 @@ try
 
 		sys.renderer().transform(
 			sge::renderer::matrix_mode::world,
-			camera.world()
+			sge::camera::matrix_conversion::world(
+				camera.coordinate_system()
+			)
 		);
 
 		sys.renderer().transform(
 			sge::renderer::matrix_mode::projection,
-			camera.projection()
+			camera.projection_matrix().get()
 		);
 
 		{

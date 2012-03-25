@@ -3,7 +3,7 @@
 
 #include <sge/class_symbol.hpp>
 #include <sge/camera/symbol.hpp>
-
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -11,6 +11,8 @@ namespace camera
 {
 class SGE_CLASS_SYMBOL has_activation
 {
+FCPPT_NONCOPYABLE(
+	has_activation);
 protected:
 	SGE_CAMERA_SYMBOL
 	explicit

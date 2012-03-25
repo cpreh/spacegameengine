@@ -27,12 +27,17 @@ set(
 	include/sge/camera/first_person/parameters.hpp
 	include/sge/camera/first_person/parameters_fwd.hpp
 	include/sge/camera/has_activation.hpp
+	include/sge/camera/has_activation_fwd.hpp
+	include/sge/camera/has_mutable_projection.hpp
+	include/sge/camera/has_mutable_projection_fwd.hpp
 	include/sge/camera/is_dynamic.hpp
+	include/sge/camera/is_dynamic_fwd.hpp
 	include/sge/camera/matrix_conversion/rotation.hpp
 	include/sge/camera/matrix_conversion/translation.hpp
 	include/sge/camera/matrix_conversion/world.hpp
 	include/sge/camera/matrix_conversion/world_projection.hpp
 	include/sge/camera/optional_projection_matrix.hpp
+	include/sge/camera/perspective_projection_from_viewport.hpp
 	include/sge/camera/projection_matrix.hpp
 	include/sge/camera/update_duration.hpp
 	src/camera/base.cpp
@@ -43,16 +48,18 @@ set(
 	src/camera/first_person/object.cpp
 	src/camera/first_person/parameters.cpp
 	src/camera/has_activation.cpp
+	src/camera/has_mutable_projection.cpp
 	src/camera/is_dynamic.cpp
 	src/camera/matrix_conversion/rotation.cpp
 	src/camera/matrix_conversion/translation.cpp
 	src/camera/matrix_conversion/world.cpp
 	src/camera/matrix_conversion/world_projection.cpp
+	src/camera/perspective_projection_from_viewport.cpp
 )
 
 add_sge_base_library(
 	camera
-	"sgeinput;sgerenderer"
+	"sgeinput;sgerenderer;sgeviewport"
 	"${Fcppt_core_LIBRARIES}"
 	""
 	""

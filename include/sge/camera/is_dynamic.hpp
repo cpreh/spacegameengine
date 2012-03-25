@@ -4,6 +4,7 @@
 #include <sge/class_symbol.hpp>
 #include <sge/camera/symbol.hpp>
 #include <sge/camera/update_duration.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -12,6 +13,8 @@ namespace camera
 {
 class SGE_CLASS_SYMBOL is_dynamic
 {
+FCPPT_NONCOPYABLE(
+	is_dynamic);
 protected:
 	SGE_CAMERA_SYMBOL
 	explicit

@@ -13,6 +13,7 @@
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/parameters_fwd.hpp>
 #include <sge/camera/first_person/action/mapping.hpp>
+#include <sge/camera/has_mutable_projection.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -31,7 +32,8 @@ class SGE_CLASS_SYMBOL object
 :
 	public sge::camera::base,
 	public sge::camera::has_activation,
-	public sge::camera::is_dynamic
+	public sge::camera::is_dynamic,
+	public sge::camera::has_mutable_projection
 {
 public:
 	SGE_CAMERA_SYMBOL
@@ -49,10 +51,11 @@ public:
 	camera::projection_matrix const
 	projection_matrix();
 
+	/* override */
 	SGE_CAMERA_SYMBOL
 	void
 	projection_matrix(
-		camera::projection_matrix const &);
+		sge::camera::projection_matrix const &);
 
 	/* override */
 	SGE_CAMERA_SYMBOL

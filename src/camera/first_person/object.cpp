@@ -187,14 +187,14 @@ sge::camera::first_person::object::key_callback(
 		backward_pressed_,
 		_key_event);
 
-	directions_ = 
+	directions_ =
 		sge::renderer::vector3(
 			direction_from_booleans(
-				left_pressed_,
-				right_pressed_),
+				right_pressed_,
+				left_pressed_),
 			direction_from_booleans(
-				down_pressed_,
-				up_pressed_),
+				up_pressed_,
+				down_pressed_),
 			direction_from_booleans(
 				forward_pressed_,
 				backward_pressed_));
