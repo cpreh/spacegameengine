@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/duration.hpp>
-#include <sge/camera/first_person/movement_speed.hpp>
+#include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/camera/perspective_projection_from_viewport.hpp>
+#include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
-#include <sge/camera/first_person/rotation_speed.hpp>
-#include <sge/camera/projection/object.hpp>
-#include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -623,28 +621,34 @@ try
 
 	sge::camera::first_person::object camera(
 		sge::camera::first_person::parameters(
-			sge::camera::first_person::movement_speed(
-				4.0f),
-			sge::camera::first_person::rotation_speed(
-				200.0f),
 			sys.keyboard_collector(),
-			sys.mouse_collector()));
+			sys.mouse_collector(),
+			sge::camera::first_person::is_active(
+				true
+			),
+			sge::camera::first_person::movement_speed(
+				4.0f
+			),
+			sge::camera::coordinate_system::identity()
+		)
+	);
 
-	fcppt::signal::scoped_connection const viewport_connection(
-		sys.viewport_manager().manage_callback(
-			std::tr1::bind(
-				sge::camera::projection::update_perspective_from_viewport,
-				fcppt::ref(
-					sys.renderer()),
-				fcppt::ref(
-					camera),
-				sge::renderer::projection::fov(
-					fcppt::math::deg_to_rad(
-						90.f)),
-				sge::renderer::projection::near(
-					0.1f),
-				sge::renderer::projection::far(
-					1000.f))));
+	sge::camera::perspective_projection_from_viewport camera_viewport_connection(
+		camera,
+		sys.renderer(),
+		sys.viewport_manager(),
+		sge::renderer::projection::near(
+			0.1f
+		),
+		sge::renderer::projection::far(
+			1000.f
+		),
+		sge::renderer::projection::fov(
+			fcppt::math::deg_to_rad(
+				90.f
+			)
+		)
+	);
 
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
@@ -752,7 +756,7 @@ try
 
 		// This moves the camera around
 		camera.update(
-			sge::timer::elapsed_and_reset<sge::camera::duration>(
+			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				frame_timer));
 
 		sge::renderer::scoped_block const block_(
@@ -761,12 +765,13 @@ try
 		sge::renderer::scoped_transform scoped_projection(
 			sys.renderer(),
 			sge::renderer::matrix_mode::projection,
-			camera.projection());
+			camera.projection_matrix().get());
 
 		sge::renderer::scoped_transform scoped_world(
 			sys.renderer(),
 			sge::renderer::matrix_mode::world,
-			camera.world());
+			sge::camera::matrix_conversion::world(
+				camera.coordinate_system()));
 
 		sge::renderer::texture::set_address_mode2(
 			sys.renderer(),

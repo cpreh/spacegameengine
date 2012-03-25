@@ -209,11 +209,11 @@ add_sge_console_example(
 	"${Fcppt_core_LIBRARIES};${Boost_FILEYSTEM_LIBRARIES}"
 )
 
-#add_sge_example(
-#	model_loader
-#	"sgecamera;sgeconfig;sgeimage;sgeinput;sgeline_drawer;sgelog;sgemedia;sgemodelobj;sgeparse;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-#)
+add_sge_example(
+	model_loader
+	"sgecamera;sgeconfig;sgeimage;sgeinput;sgeline_drawer;sgelog;sgemedia;sgemodelobj;sgeparse;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)
 
 add_sge_example(
 	multi_texture
