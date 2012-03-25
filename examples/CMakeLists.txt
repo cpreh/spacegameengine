@@ -113,11 +113,11 @@ add_definitions(
 	${Awl_DEFINITIONS}
 )
 
-#add_sge_example(
-#	anaglyph
-#	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemodelmd3;sgerenderer;sgeshader;sgesystems;sgetexture;sgeviewport;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-#)
+add_sge_example(
+	anaglyph
+	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemodelmd3;sgerenderer;sgeshader;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)
 
 add_sge_console_example(
 	app_path

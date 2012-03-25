@@ -68,7 +68,7 @@ sge::camera::first_person::object::coordinate_system() const
 }
 
 sge::camera::projection_matrix const
-sge::camera::first_person::object::projection_matrix()
+sge::camera::first_person::object::projection_matrix() const
 {
 	FCPPT_ASSERT_PRE(
 		projection_matrix_);

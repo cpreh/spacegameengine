@@ -24,7 +24,7 @@ public:
 	coordinate_system() const = 0;
 
 	virtual camera::projection_matrix const
-	projection_matrix() = 0;
+	projection_matrix() const = 0;
 
 	SGE_CAMERA_SYMBOL
 	virtual ~base() = 0;

@@ -17,11 +17,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
+#include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/camera/perspective_projection_from_viewport.hpp>
+#include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
-#include <sge/camera/projection/object.hpp>
-#include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/format.hpp>
@@ -94,7 +94,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/timer/basic.hpp>
-#include <sge/timer/elapsed.hpp>
+#include <sge/timer/elapsed_and_reset.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
@@ -606,14 +606,15 @@ show_usage(
 // Using simple trigonometry, we get "atan(f/(d/2))" for 'a'
 // The following function implements just this.
 
-void
+sge::camera::coordinate_system::object const
 move_eye_position(
-	sge::camera::first_person::object &camera,
+	sge::camera::coordinate_system::object result,
 	sge::renderer::scalar const eye_distance,
 	sge::renderer::scalar const focal_length)
 {
-	camera.gizmo().position(
-		camera.gizmo().position() + eye_distance * camera.gizmo().right());
+	result.position(
+		sge::camera::coordinate_system::position(
+			result.position().get() + eye_distance * result.right().get()));
 
 	sge::renderer::scalar const
 		angle =
@@ -622,20 +623,29 @@ move_eye_position(
 		sinx = std::sin(angle),
 		cosx = std::cos(angle),
 		cosxc = 1 - cosx,
-		x = camera.gizmo().up().x(),
-		y = camera.gizmo().up().y(),
-		z = camera.gizmo().up().z();
+		x = result.up().get().x(),
+		y = result.up().get().y(),
+		z = result.up().get().z();
 
-	fcppt::math::matrix::static_<sge::renderer::scalar,3,3>::type rotation_matrix(
+	typedef
+	fcppt::math::matrix::static_<sge::renderer::scalar,3,3>::type
+	matrix3;
+
+	matrix3 const rotation_matrix(
 		cosx + x*x*cosxc,   x*y*cosxc - z*sinx, x*z*cosxc + y*sinx,
 		x*y*cosxc + z*sinx, cosx + y*y*cosxc,   y*z*cosxc - x*sinx,
 		x*z*cosxc - y*sinx, y*z*cosxc + x*sinx, cosx + z*z*cosxc);
 
-	camera.gizmo().right(
-		rotation_matrix * camera.gizmo().right());
+	result.right(
+		sge::camera::coordinate_system::right(
+			rotation_matrix * result.right().get()));
 
-	camera.gizmo().forward(
-		rotation_matrix * camera.gizmo().forward());
+	result.forward(
+		sge::camera::coordinate_system::forward(
+			rotation_matrix * result.forward().get()));
+
+	return
+		result;
 
 }
 
@@ -643,11 +653,11 @@ move_eye_position(
 void
 adapt_perspective(
 	sge::renderer::device &renderer,
-	sge::camera::first_person::object const &camera)
+	sge::camera::base const &camera)
 {
 	renderer.transform(
 		sge::renderer::matrix_mode::projection,
-		camera.projection());
+		camera.projection_matrix().get());
 }
 }
 
@@ -761,30 +771,36 @@ try
 
 	sge::camera::first_person::object camera(
 		sge::camera::first_person::parameters(
-			sge::camera::first_person::movement_speed(
-				4.f),
-			sge::camera::first_person::rotation_speed(
-				200.f),
 			sys.keyboard_collector(),
-			sys.mouse_collector()));
+			sys.mouse_collector(),
+			sge::camera::first_person::is_active(
+				true
+			),
+			sge::camera::first_person::movement_speed(
+				4.0f
+			),
+			sge::camera::coordinate_system::identity()
+		)
+	);
 
+	sge::camera::perspective_projection_from_viewport camera_viewport_connection(
+		camera,
+		sys.renderer(),
+		sys.viewport_manager(),
+		sge::renderer::projection::near(
+			0.1f
+		),
+		sge::renderer::projection::far(
+			1000.f
+		),
+		sge::renderer::projection::fov(
+			fcppt::math::deg_to_rad(
+				90.f
+			)
+		)
+	);
 	// Adapt the camera to the viewport
 	fcppt::signal::scoped_connection const
-		viewport_connection(
-			sys.viewport_manager().manage_callback(
-				std::tr1::bind(
-					sge::camera::projection::update_perspective_from_viewport,
-					fcppt::ref(
-						sys.renderer()),
-					fcppt::ref(
-						camera),
-					sge::renderer::projection::fov(
-						fcppt::math::deg_to_rad(
-							90.f)),
-					sge::renderer::projection::near(
-						0.1f),
-					sge::renderer::projection::far(
-						1000.f)))),
 		adapt_perspective_connection(
 			sys.viewport_manager().manage_callback(
 				std::tr1::bind(
@@ -837,7 +853,7 @@ try
 
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			sge::camera::duration(
+			sge::camera::update_duration(
 				1.0f)));
 
 	// The vertex declaration can be set once in this case
@@ -856,10 +872,8 @@ try
 
 		// This moves the camera around
 		camera.update(
-			sge::timer::elapsed<sge::camera::duration>(
+			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				camera_timer));
-
-		camera_timer.reset();
 
 		// Since the "write_*" attributes also apply to the "clear
 		// backbuffer" stuff, we set everything to "true" here.
@@ -872,9 +886,6 @@ try
 		sge::renderer::scoped_block const block_(
 			sys.renderer());
 
-		sge::camera::gizmo_type const original_gizmo =
-			camera.gizmo();
-
 		// Set the color mask to "red"
 		sys.renderer().state(
 			sge::renderer::state::list
@@ -882,16 +893,12 @@ try
 				(sge::renderer::state::bool_::write_blue = false)
 				(sge::renderer::state::bool_::write_green = false));
 
-		move_eye_position(
-			camera,
-			eye_distance,
-			focal_length);
-
 		model_collection.render(
-			camera.world());
-
-		camera.gizmo() =
-			original_gizmo;
+			sge::camera::matrix_conversion::world(
+				move_eye_position(
+					camera.coordinate_system(),
+					eye_distance,
+					focal_length)));
 
 		// Clear depth buffer
 		sys.renderer().clear(
@@ -905,16 +912,12 @@ try
 				(sge::renderer::state::bool_::write_blue = true)
 				(sge::renderer::state::bool_::write_green = true));
 
-		move_eye_position(
-			camera,
-			-eye_distance,
-			focal_length);
-
 		model_collection.render(
-			camera.world());
-
-		camera.gizmo() =
-			original_gizmo;
+			sge::camera::matrix_conversion::world(
+				move_eye_position(
+					camera.coordinate_system(),
+					-eye_distance,
+					focal_length)));
 	}
 
 	return

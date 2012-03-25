@@ -49,7 +49,7 @@ public:
 	/* override */
 	SGE_CAMERA_SYMBOL
 	camera::projection_matrix const
-	projection_matrix();
+	projection_matrix() const;
 
 	/* override */
 	SGE_CAMERA_SYMBOL
