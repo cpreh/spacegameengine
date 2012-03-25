@@ -34,8 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/is_matrix.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/type_traits/is_iterable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>

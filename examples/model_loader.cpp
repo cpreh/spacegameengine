@@ -171,8 +171,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>

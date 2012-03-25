@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_COCOA_STATE_HPP_INCLUDED
 #define SGE_OPENGL_COCOA_STATE_HPP_INCLUDED
 
-#include <awl/backends/cocoa/window/instance_fwd.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/device_state.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
+#include <awl/backends/cocoa/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 @class SGECocoaOpenGLView;
 

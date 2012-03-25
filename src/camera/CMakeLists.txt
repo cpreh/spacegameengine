@@ -2,47 +2,52 @@ set(
 	SGE_CAMERA_FILES
 	include/sge/camera/base.hpp
 	include/sge/camera/base_fwd.hpp
-	include/sge/camera/duration.hpp
+	include/sge/camera/coordinate_system/forward.hpp
+	include/sge/camera/coordinate_system/identity.hpp
+	include/sge/camera/coordinate_system/object.hpp
+	include/sge/camera/coordinate_system/object_fwd.hpp
+	include/sge/camera/coordinate_system/position.hpp
+	include/sge/camera/coordinate_system/right.hpp
+	include/sge/camera/coordinate_system/up.hpp
+	include/sge/camera/first_person/action/backward.hpp
+	include/sge/camera/first_person/action/down.hpp
+	include/sge/camera/first_person/action/forward.hpp
+	include/sge/camera/first_person/action/left.hpp
+	include/sge/camera/first_person/action/mapping.hpp
+	include/sge/camera/first_person/action/mapping_fwd.hpp
+	include/sge/camera/first_person/action/optional_key_code.hpp
+	include/sge/camera/first_person/action/right.hpp
+	include/sge/camera/first_person/action/up.hpp
+	include/sge/camera/first_person/action/wasd_mapping.hpp
+	include/sge/camera/first_person/is_active.hpp
+	include/sge/camera/first_person/mouse_speed_multiplier.hpp
 	include/sge/camera/first_person/movement_speed.hpp
 	include/sge/camera/first_person/object.hpp
 	include/sge/camera/first_person/object_fwd.hpp
 	include/sge/camera/first_person/parameters.hpp
 	include/sge/camera/first_person/parameters_fwd.hpp
-	include/sge/camera/first_person/rotation_speed.hpp
-	include/sge/camera/gizmo/basic.hpp
-	include/sge/camera/gizmo/to_rotation_matrix.hpp
-	include/sge/camera/gizmo_type.hpp
-	include/sge/camera/identity_gizmo.hpp
-	include/sge/camera/ortho_freelook/object.hpp
-	include/sge/camera/ortho_freelook/object_fwd.hpp
-	include/sge/camera/ortho_freelook/optional_projection_rect.hpp
-	include/sge/camera/ortho_freelook/parameters.hpp
-	include/sge/camera/ortho_freelook/parameters_fwd.hpp
-	include/sge/camera/projection/invalid.hpp
-	include/sge/camera/projection/object.hpp
-	include/sge/camera/projection/orthogonal.hpp
-	include/sge/camera/projection/orthogonal_fwd.hpp
-	include/sge/camera/projection/perspective.hpp
-	include/sge/camera/projection/perspective_fwd.hpp
-	include/sge/camera/projection/to_matrix.hpp
-	include/sge/camera/projection/update_perspective_from_viewport.hpp
-	include/sge/camera/spherical/movement_speed.hpp
-	include/sge/camera/spherical/object.hpp
-	include/sge/camera/spherical/object_fwd.hpp
-	include/sge/camera/spherical/parameters.hpp
-	include/sge/camera/spherical/parameters_fwd.hpp
+	include/sge/camera/has_activation.hpp
+	include/sge/camera/is_dynamic.hpp
+	include/sge/camera/matrix_conversion/rotation.hpp
+	include/sge/camera/matrix_conversion/translation.hpp
+	include/sge/camera/matrix_conversion/world.hpp
+	include/sge/camera/matrix_conversion/world_projection.hpp
+	include/sge/camera/optional_projection_matrix.hpp
+	include/sge/camera/projection_matrix.hpp
+	include/sge/camera/update_duration.hpp
 	src/camera/base.cpp
+	src/camera/coordinate_system/identity.cpp
+	src/camera/coordinate_system/object.cpp
+	src/camera/first_person/action/mapping.cpp
+	src/camera/first_person/action/wasd_mapping.cpp
 	src/camera/first_person/object.cpp
 	src/camera/first_person/parameters.cpp
-	src/camera/identity_gizmo.cpp
-	src/camera/ortho_freelook/object.cpp
-	src/camera/ortho_freelook/parameters.cpp
-	src/camera/projection/orthogonal.cpp
-	src/camera/projection/perspective.cpp
-	src/camera/projection/to_matrix.cpp
-	src/camera/projection/update_perspective_from_viewport.cpp
-	src/camera/spherical/object.cpp
-	src/camera/spherical/parameters.cpp
+	src/camera/has_activation.cpp
+	src/camera/is_dynamic.cpp
+	src/camera/matrix_conversion/rotation.cpp
+	src/camera/matrix_conversion/translation.cpp
+	src/camera/matrix_conversion/world.cpp
+	src/camera/matrix_conversion/world_projection.cpp
 )
 
 add_sge_base_library(

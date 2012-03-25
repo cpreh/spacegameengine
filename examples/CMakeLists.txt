@@ -113,11 +113,11 @@ add_definitions(
 	${Awl_DEFINITIONS}
 )
 
-add_sge_example(
-	anaglyph
-	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemodelmd3;sgerenderer;sgeshader;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
+#add_sge_example(
+#	anaglyph
+#	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemodelmd3;sgerenderer;sgeshader;sgesystems;sgetexture;sgeviewport;sgewindow"
+#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#)
 
 add_sge_console_example(
 	app_path
@@ -209,11 +209,11 @@ add_sge_console_example(
 	"${Fcppt_core_LIBRARIES};${Boost_FILEYSTEM_LIBRARIES}"
 )
 
-add_sge_example(
-	model_loader
-	"sgecamera;sgeconfig;sgeimage;sgeinput;sgeline_drawer;sgelog;sgemedia;sgemodelobj;sgeparse;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
+#add_sge_example(
+#	model_loader
+#	"sgecamera;sgeconfig;sgeimage;sgeinput;sgeline_drawer;sgelog;sgemedia;sgemodelobj;sgeparse;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
+#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#)
 
 add_sge_example(
 	multi_texture
@@ -233,11 +233,11 @@ add_sge_console_example(
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-add_sge_example(
-	ortho_view
-	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
+#add_sge_example(
+#	ortho_view
+#	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#)
 
 add_sge_console_example(
 	plugin
@@ -269,11 +269,11 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-add_sge_example(
-	shader/cube
-	"sgecamera;sgeconfig;sgefonttext;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgeshader;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
+#add_sge_example(
+#	shader/cube
+#	"sgecamera;sgeconfig;sgefonttext;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgeshader;sgesystems;sgeviewport;sgewindow"
+#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#)
 
 add_sge_example(
 	shader/raw
@@ -371,11 +371,11 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-add_sge_example(
-	volume_texture
-	"sgecamera;sgeimage;sgeimage3d;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
+#add_sge_example(
+#	volume_texture
+#	"sgecamera;sgeimage;sgeimage3d;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
+#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#)
 
 add_sge_example(
 	window_without_input

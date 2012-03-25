@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_COCOA_CREATE_DEVICE_STATE_HPP_INCLUDED
 #define SGE_OPENGL_COCOA_CREATE_DEVICE_STATE_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/device_state_ptr.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
 #include <awl/window/instance_fwd.hpp>
+
 
 namespace sge
 {
