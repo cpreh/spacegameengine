@@ -6,6 +6,8 @@ INCLUDE_BINARY="check_includes"
 
 "${INCLUDE_BINARY}" src/include || exit
 
+"${INCLUDE_BINARY}" alda/include || exit
+
 check_src() {
 	"${INCLUDE_BINARY}" src/"$1"/include || exit
 }
