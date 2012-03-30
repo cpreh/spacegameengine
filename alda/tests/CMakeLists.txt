@@ -29,8 +29,13 @@ function(
 		)
 	endif()
 
+	alda_set_static_flags(
+		"${TESTNAME}"
+	)
+
 	target_link_libraries(
 		${TESTNAME}
+		${ALDA_DEFAULT_LINK_TARGET}
 		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
 		${ADDITIONAL_LIBRARIES}
 	)

@@ -18,34 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_EXCEPTION_DECL_HPP_INCLUDED
-#define ALDA_EXCEPTION_DECL_HPP_INCLUDED
-
-#include <alda/exception_fwd.hpp>
+#include <alda/exception.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/assert/information_fwd.hpp>
+#include <fcppt/assert/make_message.hpp>
 
 
-namespace alda
-{
-
-class exception
+alda::exception::exception(
+	fcppt::string const &_message
+)
 :
-	public fcppt::exception
+	fcppt::exception(
+		_message
+	)
 {
-public:
-	explicit
-	exception(
-		fcppt::string const &
-	);
-
-	explicit
-	exception(
-		fcppt::assert_::information const &
-	);
-};
-
 }
 
-#endif
+alda::exception::exception(
+	fcppt::assert_::information const &_info
+)
+:
+	fcppt::exception(
+		fcppt::assert_::make_message(
+			_info
+		)
+	)
+{
+}

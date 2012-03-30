@@ -34,6 +34,11 @@ update_cmake_file \
 	-n \
 	src
 
+update_cmake_file \
+	alda/CMakeLists.txt \
+	ALDA_FILES \
+	alda/src
+
 function update_sublibrary()
 {
 	local sublibrary="$1"

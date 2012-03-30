@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_SERIALIZATION_DESERIALIZE_HPP_INCLUDED
 #define ALDA_SERIALIZATION_DESERIALIZE_HPP_INCLUDED
 
-#include <alda/exception_impl.hpp>
+#include <alda/exception.hpp>
 #include <alda/message/base_unique_ptr.hpp>
 #include <alda/serialization/context_decl.hpp>
 #include <alda/serialization/istream.hpp>

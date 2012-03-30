@@ -18,37 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_EXCEPTION_IMPL_HPP_INCLUDED
-#define ALDA_EXCEPTION_IMPL_HPP_INCLUDED
+#ifndef ALDA_CLASS_SYMBOL_HPP_INCLUDED
+#define ALDA_CLASS_SYMBOL_HPP_INCLUDED
 
-#include <alda/exception_decl.hpp>
-#include <fcppt/exception.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/assert/make_message.hpp>
+#include <fcppt/class_symbol.hpp>
 
 
-inline
-alda::exception::exception(
-	fcppt::string const &_message
-)
-:
-	fcppt::exception(
-		_message
-	)
-{
-}
-
-inline
-alda::exception::exception(
-	fcppt::assert_::information const &_info
-)
-:
-	fcppt::exception(
-		fcppt::assert_::make_message(
-			_info
-		)
-	)
-{
-}
+#define ALDA_CLASS_SYMBOL FCPPT_CLASS_SYMBOL
 
 #endif
