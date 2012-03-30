@@ -71,7 +71,6 @@ endforeach()
 
 install(
 	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/alda
 	${CMAKE_SOURCE_DIR}/include/majutsu
 	DESTINATION
 	${INSTALL_INCLUDE_DIR}

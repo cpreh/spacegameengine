@@ -242,6 +242,21 @@ if(
 	)
 endif()
 
+option(
+	ENABLE_ALDA
+	"Build alda"
+	ON
+)
+
+# alda also uses tests, so this must come after ENABLE_TEST
+if(
+	ENABLE_ALDA
+)
+	add_subdirectory(
+		alda
+	)
+endif()
+
 install(
 	DIRECTORY
 	media/
