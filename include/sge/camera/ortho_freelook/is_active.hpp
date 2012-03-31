@@ -18,25 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_COORDINATE_SYSTEM_RIGHT_HPP_INCLUDED
-#define SGE_CAMERA_COORDINATE_SYSTEM_RIGHT_HPP_INCLUDED
+#ifndef SGE_CAMERA_ORTHO_FREELOOK_IS_ACTIVE_HPP_INCLUDED
+#define SGE_CAMERA_ORTHO_FREELOOK_IS_ACTIVE_HPP_INCLUDED
 
-#include <sge/renderer/vector3.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
 namespace camera
 {
-namespace coordinate_system
+namespace ortho_freelook
 {
-/**
-\brief The right axis of a coordinate system
-\ingroup sgecamera
-*/
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::vector3,
-	right);
+	bool,
+	is_active);
 }
 }
 }

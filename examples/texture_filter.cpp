@@ -18,6 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/camera/perspective_projection_from_viewport.hpp>
+#include <sge/camera/coordinate_system/identity.hpp>
+#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/first_person/parameters.hpp>
+#include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/rect.hpp>
@@ -32,11 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/lit.hpp>
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/string.hpp>
-#include <sge/camera/matrix_conversion/world.hpp>
-#include <sge/camera/perspective_projection_from_viewport.hpp>
-#include <sge/camera/coordinate_system/identity.hpp>
-#include <sge/camera/first_person/object.hpp>
-#include <sge/camera/first_person/parameters.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/store.hpp>

@@ -37,6 +37,16 @@ set(
 	include/sge/camera/matrix_conversion/world.hpp
 	include/sge/camera/matrix_conversion/world_projection.hpp
 	include/sge/camera/optional_projection_matrix.hpp
+	include/sge/camera/ortho_freelook/is_active.hpp
+	include/sge/camera/ortho_freelook/object.hpp
+	include/sge/camera/ortho_freelook/object_fwd.hpp
+	include/sge/camera/ortho_freelook/optional_projection_rectangle.hpp
+	include/sge/camera/ortho_freelook/pan_speed.hpp
+	include/sge/camera/ortho_freelook/parameters.hpp
+	include/sge/camera/ortho_freelook/parameters_fwd.hpp
+	include/sge/camera/ortho_freelook/projection_rectangle_from_viewport.hpp
+	include/sge/camera/ortho_freelook/projection_rectangle_from_viewport_fwd.hpp
+	include/sge/camera/ortho_freelook/zoom_speed.hpp
 	include/sge/camera/perspective_projection_from_viewport.hpp
 	include/sge/camera/projection_matrix.hpp
 	include/sge/camera/update_duration.hpp
@@ -54,6 +64,9 @@ set(
 	src/camera/matrix_conversion/translation.cpp
 	src/camera/matrix_conversion/world.cpp
 	src/camera/matrix_conversion/world_projection.cpp
+	src/camera/ortho_freelook/object.cpp
+	src/camera/ortho_freelook/parameters.cpp
+	src/camera/ortho_freelook/projection_rectangle_from_viewport.cpp
 	src/camera/perspective_projection_from_viewport.cpp
 )
 
