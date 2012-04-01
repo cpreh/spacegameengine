@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_POS_FWD_HPP_INCLUDED
 #define SGE_RENDERER_VF_POS_FWD_HPP_INCLUDED
 
+#include <sge/renderer/vf/vertex_size.hpp>
+
 
 namespace sge
 {
@@ -31,7 +33,7 @@ namespace vf
 
 template<
 	typename Format,
-	vertex_size NumSubElements
+	sge::renderer::vf::vertex_size NumSubElements
 >
 struct pos;
 

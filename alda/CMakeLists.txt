@@ -31,3 +31,10 @@ if(
 		tests
 	)
 endif()
+
+install(
+	FILES
+	${CMAKE_SOURCE_DIR}/CMakeModules/FindAlda.cmake
+	DESTINATION
+	${INSTALL_CMAKEMODULES_DIR}
+)
