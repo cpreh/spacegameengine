@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/iterator_fwd.hpp>
 #include <sge/renderer/vf/detail/iterator_base.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -33,6 +36,9 @@ namespace renderer
 {
 namespace vf
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Part,
@@ -45,6 +51,8 @@ class iterator
 		Constness
 	>::type
 {
+FCPPT_PP_POP_WARNING
+
 	typedef typename detail::iterator_base<
 		Part,
 		Constness

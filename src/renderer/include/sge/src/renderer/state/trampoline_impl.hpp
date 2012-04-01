@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 template<
@@ -54,11 +57,14 @@ sge::renderer::state::trampoline<T, States>::operator=(
 	T const &_value
 ) const
 {
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 	return
 		var_type(
 			state_,
 			_value
 		);
+FCPPT_PP_POP_WARNING
 }
 
 template<

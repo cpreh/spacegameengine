@@ -53,6 +53,8 @@ public:
 		GLuint
 	> index_state_set;
 
+	client_state();
+
 	void
 	enable(
 		GLenum

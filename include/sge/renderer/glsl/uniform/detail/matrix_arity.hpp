@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -58,6 +61,9 @@ boost::mpl::integral_c<\
 >\
 {};
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 SGE_RENDERER_GLSL_UNIFORM_DETAIL_MAKE_MATRIX_ARITY(2, 2)
 SGE_RENDERER_GLSL_UNIFORM_DETAIL_MAKE_MATRIX_ARITY(2, 3)
 SGE_RENDERER_GLSL_UNIFORM_DETAIL_MAKE_MATRIX_ARITY(3, 2)
@@ -67,6 +73,8 @@ SGE_RENDERER_GLSL_UNIFORM_DETAIL_MAKE_MATRIX_ARITY(2, 4)
 SGE_RENDERER_GLSL_UNIFORM_DETAIL_MAKE_MATRIX_ARITY(4, 3)
 SGE_RENDERER_GLSL_UNIFORM_DETAIL_MAKE_MATRIX_ARITY(3, 4)
 SGE_RENDERER_GLSL_UNIFORM_DETAIL_MAKE_MATRIX_ARITY(4, 4)
+
+FCPPT_PP_POP_WARNING
 
 #undef SGE_RENDERER_GLSL_UNIFORM_DETAIL_MAKE_MATRIX_ARITY
 

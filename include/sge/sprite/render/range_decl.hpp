@@ -63,6 +63,17 @@ public:
 		range_object const &
 	);
 
+	range(
+		range const &
+	);
+
+	range &
+	operator=(
+		range const &
+	);
+
+	~range();
+
 	void
 	add(
 		range_part_type const &

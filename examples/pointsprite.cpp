@@ -342,6 +342,7 @@ particles::particles(
 	sprite_buffers_(
 		sys.renderer(),
 		sge::sprite::buffers::option::dynamic),
+	sprites_(),
 	particles_(),
 	generator_(
 		fcppt::random::generator::seed_from_chrono<

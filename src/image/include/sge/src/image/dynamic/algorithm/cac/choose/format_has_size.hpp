@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_FORMAT_HAS_SIZE_HPP_INCLUDED
 
 #include <sge/image/size_type.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -37,6 +40,9 @@ namespace algorithm
 {
 namespace cac
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format,
@@ -54,6 +60,8 @@ boost::mpl::bool_<
 >
 {
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

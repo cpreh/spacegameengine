@@ -24,12 +24,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/static.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 /**
  * \brief Typedef helper for renderer::dim2 and renderer::dim3
@@ -50,6 +56,8 @@ fcppt::math::dim::static_
 >
 {
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

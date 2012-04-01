@@ -137,7 +137,6 @@ protected:
 private:
 	source_wrapper source_;
 	audio::sound::repeat::type repeat_;
-	mutable audio::sound::play_status::type status_;
 
 	void
 	init(

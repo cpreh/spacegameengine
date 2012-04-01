@@ -53,7 +53,11 @@ sge::model::md3::object_impl::object_impl(
 )
 :
 	vertices_(0),
-	indices_(0)
+	indices_(0),
+	name_(),
+	frames_(),
+	tags_(),
+	surfaces_()
 {
 	std::istream::off_type const start(
 		_stream.tellg()

@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_X11INPUT_DEVICE_EVENT_DEMUXER_IMPL_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_EVENT_DEMUXER_IMPL_HPP_INCLUDED
+
 #include <sge/x11input/device/event_data.hpp>
-#include <sge/x11input/device/event_demuxer.hpp>
-#include <sge/x11input/device/hierarchy_event.hpp>
+#include <sge/x11input/device/event_demuxer_decl.hpp>
+#include <sge/x11input/device/event_deviceid.hpp>
 #include <sge/x11input/device/id.hpp>
-#include <sge/x11input/device/raw_event.hpp>
 #include <sge/x11input/device/select_events.hpp>
-#include <sge/x11input/device/window_event.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -33,72 +34,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/unregister/base_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/type_traits/generate_has_member_function.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <boost/utility/enable_if.hpp>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-
-FCPPT_TYPE_TRAITS_GENERATE_HAS_MEMBER_FUNCTION(
-	deviceid
-);
-
-template<
-	typename T
->
-struct has_deviceid_wrapped
-:
-::has_deviceid<
-	T,
-	int T::*
->
-{
-};
-
-template<
-	typename T
->
-typename boost::disable_if<
-	::has_deviceid_wrapped<
-		T
-	>,
-	sge::x11input::device::id
->::type const
-device_id(
-	T const &
-)
-{
-	return
-		sge::x11input::device::id(
-			XIAllDevices
-		);
-}
-
-template<
-	typename T
->
-typename boost::enable_if<
-	::has_deviceid_wrapped<
-		T
-	>,
-	sge::x11input::device::id
->::type const
-device_id(
-	T const &_event
-)
-{
-	return
-		sge::x11input::device::id(
-			_event.deviceid
-		);
-}
-
-}
 
 template<
 	typename Event
@@ -119,6 +59,7 @@ sge::x11input::device::event_demuxer<Event>::event_demuxer(
 	window_(
 		_window
 	),
+	connections_(),
 	signals_(),
 	active_(
 		_enabled.get()
@@ -259,7 +200,7 @@ sge::x11input::device::event_demuxer<Event>::on_event(
 			awl::backends::x11::system::event::type(
 				device_event.evtype
 			),
-			::device_id(
+			sge::x11input::device::event_deviceid(
 				device_event
 			)
 		)
@@ -353,17 +294,4 @@ sge::x11input::device::event_demuxer<Event>::signal_remains(
 		);
 }
 
-template class
-sge::x11input::device::event_demuxer<
-	sge::x11input::device::window_event
->;
-
-template class
-sge::x11input::device::event_demuxer<
-	sge::x11input::device::raw_event
->;
-
-template class
-sge::x11input::device::event_demuxer<
-	sge::x11input::device::hierarchy_event
->;
+#endif

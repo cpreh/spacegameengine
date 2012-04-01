@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/model/obj/optional_scalar.hpp>
 #include <sge/model/obj/scalar.hpp>
+#include <sge/model/obj/symbol.hpp>
 #include <sge/model/obj/vertex_fwd.hpp>
 
 
@@ -35,6 +36,9 @@ namespace obj
 
 struct vertex
 {
+	SGE_MODEL_OBJ_SYMBOL
+	vertex();
+
 	obj::scalar v1_;
 
 	obj::scalar v2_;

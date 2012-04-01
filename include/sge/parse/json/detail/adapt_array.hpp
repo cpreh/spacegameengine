@@ -22,13 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_DETAIL_ADAPT_ARRAY_HPP_INCLUDED
 
 #include <sge/parse/json/array.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/adapted/struct/adapt_struct.hpp>
 #include <fcppt/config/external_end.hpp>
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 BOOST_FUSION_ADAPT_STRUCT(
 	sge::parse::json::array,
 	(sge::parse::json::element_vector, elements)
 )
+
+FCPPT_PP_POP_WARNING
 
 #endif

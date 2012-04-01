@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <alda/message/roles/type.hpp>
 #include <majutsu/extract_constant.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace alda
@@ -31,6 +34,9 @@ namespace message
 {
 namespace detail
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Message
@@ -43,6 +49,8 @@ majutsu::extract_constant<
 >
 {
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

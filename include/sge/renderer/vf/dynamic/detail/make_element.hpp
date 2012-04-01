@@ -21,14 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_ELEMENT_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_ELEMENT_HPP_INCLUDED
 
-#include <sge/renderer/vf/color.hpp>
+#include <sge/renderer/vf/color_fwd.hpp>
 #include <sge/renderer/vf/index.hpp>
-#include <sge/renderer/vf/normal.hpp>
-#include <sge/renderer/vf/pos.hpp>
-#include <sge/renderer/vf/texpos.hpp>
-#include <sge/renderer/vf/unspecified.hpp>
+#include <sge/renderer/vf/normal_fwd.hpp>
+#include <sge/renderer/vf/pos_fwd.hpp>
+#include <sge/renderer/vf/texpos_fwd.hpp>
+#include <sge/renderer/vf/unspecified_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/vf/dynamic/pos.hpp>
@@ -53,7 +52,7 @@ namespace detail
 
 template<
 	typename Format,
-	vertex_size NumSubElements
+	sge::renderer::vf::vertex_size NumSubElements
 >
 dynamic::element const
 make_element(

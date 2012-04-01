@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DETAIL_ELEMENT_STRIDE_HPP_INCLUDED
 
 #include <sge/renderer/vf/vertex_size.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -35,6 +38,9 @@ namespace vf
 namespace detail
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
 	typename T
 >
@@ -46,6 +52,8 @@ boost::mpl::integral_c<
 	* T::num_subelements
 >
 {};
+
+FCPPT_PP_POP_WARNING
 
 }
 }

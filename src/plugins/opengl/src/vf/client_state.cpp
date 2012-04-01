@@ -52,6 +52,14 @@ erase_checked(
 
 }
 
+sge::opengl::vf::client_state::client_state()
+:
+	normal_states_(),
+	texture_states_(),
+	attribute_states_()
+{
+}
+
 void
 sge::opengl::vf::client_state::enable(
 	GLenum const _value

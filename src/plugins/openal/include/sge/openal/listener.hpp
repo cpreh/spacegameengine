@@ -58,7 +58,6 @@ public:
 private:
 	audio::vector position_;
 	audio::vector linear_velocity_;
-	audio::direction::object angle_;
 };
 }
 }

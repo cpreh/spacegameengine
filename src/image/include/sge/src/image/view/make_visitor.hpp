@@ -54,9 +54,35 @@ public:
 		OptionalPitch const &_pitch
 	)
 	:
-		data_(_data),
-		dim_(_dim),
-		pitch_(_pitch)
+		data_(
+			_data
+		),
+		dim_(
+			_dim
+		),
+		pitch_(
+			_pitch
+		)
+	{
+	}
+
+	make_visitor(
+		make_visitor const &_other
+	)
+	:
+		data_(
+			_other.data
+		),
+		dim_(
+			_other.dim
+		),
+		pitch_(
+			_other.pitch
+		)
+	{
+	}
+
+	~make_visitor()
 	{
 	}
 

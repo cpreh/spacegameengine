@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
 #include <majutsu/memory/fusion.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/joint_view.hpp>
@@ -50,6 +53,10 @@ template<
 struct make_class
 {
 private:
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 	// TODO: why do we need this?
 	template<
 		typename F,
@@ -62,6 +69,9 @@ private:
 		T1
 	>
 	{};
+
+FCPPT_PP_POP_WARNING
+
 public:
 	typedef majutsu::class_<
 		typename boost::mpl::joint_view<

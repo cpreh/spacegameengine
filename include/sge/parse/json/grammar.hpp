@@ -40,6 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/spirit_traits/optional_basic.hpp>
 #include <fcppt/spirit_traits/variant_basic.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -72,6 +75,9 @@ namespace parse
 namespace json
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
 	typename In
 >
@@ -83,6 +89,8 @@ class grammar
 		encoding::space_type
 	>
 {
+FCPPT_PP_POP_WARNING
+
 	FCPPT_NONCOPYABLE(
 		grammar
 	);
@@ -93,7 +101,18 @@ public:
 	:
 		grammar::base_type(
 			object_
-		)
+		),
+		int_(),
+		strict_float_(),
+		null_(),
+		bool_(),
+		quoted_string_(),
+		element_vector_(),
+		array_(),
+		value_wrapper_(),
+		member_wrapper_(),
+		member_map_(),
+		object_()
 	{
 		namespace encoding = parse::encoding;
 
@@ -162,7 +181,7 @@ public:
 			| array_
 			| bool_
 			| quoted_string_
-			| strict_float
+			| strict_float_
 			| int_
 			| null_;
 
@@ -234,7 +253,7 @@ private:
 		boost::spirit::qi::strict_real_policies<
 			json::float_type
 		>
-	> strict_float;
+	> strict_float_;
 
 	boost::spirit::qi::rule<
 		In,

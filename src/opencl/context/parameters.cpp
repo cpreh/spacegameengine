@@ -18,7 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opencl/context/error_callback.hpp>
 #include <sge/opencl/context/parameters.hpp>
+#include <sge/opencl/device/object_ref_sequence.hpp>
+#include <sge/opencl/platform/object_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <fcppt/null_ptr.hpp>
 
 
 sge::opencl::context::parameters::parameters(
@@ -30,7 +35,26 @@ sge::opencl::context::parameters::parameters(
 	device_refs_(
 		_device_refs),
 	error_callback_(),
-	shared_renderer_(0)
+	shared_renderer_(
+		fcppt::null_ptr())
+{
+}
+
+sge::opencl::context::parameters::parameters(
+	parameters const &_other)
+:
+	platform_(
+		_other.platform_),
+	device_refs_(
+		_other.device_refs_),
+	error_callback_(
+		_other.error_callback_),
+	shared_renderer_(
+		_other.shared_renderer_)
+{
+}
+
+sge::opencl::context::parameters::~parameters()
 {
 }
 

@@ -21,13 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 sge::renderer::vf::dynamic::part::part(
 	element_list const &_elements,
 	offset_list const &_offsets
 )
+:
+	elements_()
+	// Don't initialize stride_
 {
+FCPPT_PP_POP_WARNING
+
 	if(
 		_elements.size() + 1u != _offsets.size()
 	)

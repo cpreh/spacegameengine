@@ -31,6 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/detail/adapt_section.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/karma_char.hpp>
 #include <boost/spirit/include/karma_directive.hpp>
@@ -51,6 +54,9 @@ namespace ini
 namespace output
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
 	typename Out
 >
@@ -61,6 +67,8 @@ class grammar
 		section_vector()
 	>
 {
+FCPPT_PP_POP_WARNING
+
 	FCPPT_NONCOPYABLE(
 		grammar
 	);
@@ -69,7 +77,11 @@ public:
 	:
 		grammar::base_type(
 			ini_
-		)
+		),
+		entry_(),
+		header_(),
+		section_(),
+		ini_()
 	{
 		using encoding::char_;
 		using boost::spirit::lit;

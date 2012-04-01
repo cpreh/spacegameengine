@@ -42,6 +42,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/role_return_type.hpp>
 #include <fcppt/math/dim/object_decl.hpp>
 #include <fcppt/math/vector/object_decl.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -51,6 +54,9 @@ namespace sge
 {
 namespace sprite
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Choices
@@ -62,6 +68,8 @@ class object
 			Choices
 		>::type
 {
+FCPPT_PP_POP_WARNING
+
 	typedef typename sge::sprite::detail::make_class<
 		Choices,
 		boost::mpl::vector0<>

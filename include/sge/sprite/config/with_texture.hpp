@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/texture_level_count_fwd.hpp>
 #include <sge/sprite/config/with_texture_fwd.hpp>
 #include <sge/sprite/detail/primitives/texture.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/static_assert.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -60,6 +63,9 @@ struct with_texture<
 	static sge::sprite::config::texture_coordinates::type const
 	coordinates = Coordinates;
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 	template<
 		typename Choices
 	>
@@ -72,6 +78,9 @@ struct with_texture<
 	>
 	{
 	};
+
+FCPPT_PP_POP_WARNING
+
 };
 
 }

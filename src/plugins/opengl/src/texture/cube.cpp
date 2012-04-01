@@ -59,7 +59,8 @@ sge::opengl::texture::cube::cube(
 	),
 	locked_texture_(
 		fcppt::null_ptr()
-	)
+	),
+	textures_()
 {
 	texture::cube_context &context(
 		opengl::context::use<

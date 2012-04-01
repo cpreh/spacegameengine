@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_RENDER_IS_SAME_MATRIX_OPTIONS_HPP_INCLUDED
 
 #include <sge/sprite/render/matrix_options.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -36,6 +39,9 @@ namespace detail
 namespace render
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
 	sge::sprite::render::matrix_options::type Options1,
 	sge::sprite::render::matrix_options::type Options2
@@ -49,6 +55,8 @@ boost::mpl::bool_<
 >
 {
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/concepts/static_size.hpp>
 #include <majutsu/concepts/static_memory/tag.hpp>
 #include <majutsu/detail/copy_n.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
@@ -52,6 +55,9 @@ struct fundamental
 namespace concepts
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
 	typename T
 >
@@ -65,6 +71,8 @@ integral_size<
 	sizeof(T)
 >
 {};
+
+FCPPT_PP_POP_WARNING
 
 }
 

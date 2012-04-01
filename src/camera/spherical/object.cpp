@@ -139,22 +139,31 @@ sge::camera::spherical::object::update(
 		return;
 
 	velocity_.azimuth(
-		damping_factor_.get().azimuth() *
+		spherical::coordinate_system::azimuth(
+			1.0f - (1.0f - damping_factor_.get().azimuth().get()) * _time_delta.count()) *
 		(velocity_.azimuth() +
 		acceleration_factor_.get().azimuth() *
-		acceleration_.azimuth()));
+		acceleration_.azimuth() *
+		spherical::coordinate_system::azimuth(
+			_time_delta.count())));
 
 	velocity_.inclination(
-		damping_factor_.get().inclination() *
+		spherical::coordinate_system::inclination(
+			1.0f - (1.0f - damping_factor_.get().inclination().get()) * _time_delta.count()) *
 		(velocity_.inclination() +
 		acceleration_factor_.get().inclination() *
-		acceleration_.inclination()));
+		acceleration_.inclination() *
+		spherical::coordinate_system::inclination(
+			_time_delta.count())));
 
 	velocity_.radius(
-		damping_factor_.get().radius() *
+		spherical::coordinate_system::radius(
+			1.0f - (1.0f - damping_factor_.get().radius().get()) * _time_delta.count()) *
 		(velocity_.radius() +
 		acceleration_factor_.get().radius() *
-		acceleration_.radius()));
+		acceleration_.radius() *
+		spherical::coordinate_system::radius(
+			_time_delta.count())));
 
 	coordinate_system_.radius(
 		spherical::coordinate_system::radius(

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/devil/check_error_exn.hpp>
+#include <sge/devil/gen_image.hpp>
 #include <sge/devil/image_holder.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
@@ -26,13 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::devil::image_holder::image_holder()
+:
+	id_(
+		sge::devil::gen_image()
+	)
 {
-	::ilGenImages(
-		1,
-		&id_
-	);
-
-	devil::check_error_exn();
 }
 
 sge::devil::image_holder::~image_holder()

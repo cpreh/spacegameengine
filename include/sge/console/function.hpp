@@ -39,7 +39,7 @@ class function
 	);
 public:
 	SGE_CONSOLE_SYMBOL
-	explicit function(
+	function(
 		font::text::string const &short_desc,
 		font::text::string const &long_desc
 	);
@@ -60,7 +60,10 @@ public:
 	long_description() const;
 private:
 	sge::console::signal signal_;
-	font::text::string short_description_,long_description_;
+
+	font::text::string
+		short_description_,
+		long_description_;
 };
 
 }

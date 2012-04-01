@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_CONFIG_CONTAINS_IF_HPP_INCLUDED
 
 #include <fcppt/mpl/contains_if.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -35,6 +38,9 @@ namespace detail
 {
 namespace config
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Elements,
@@ -52,6 +58,8 @@ fcppt::mpl::contains_if<
 >
 {
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

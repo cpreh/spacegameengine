@@ -83,7 +83,11 @@ sge::texture::manager::manager(
 	texture::on_alloc_function const &_on_alloc
 )
 :
-	on_alloc_(_on_alloc)
+	on_alloc_(
+		_on_alloc
+	),
+	free_textures_(),
+	full_textures_()
 {
 }
 

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/face_sequence.hpp>
 #include <sge/model/obj/mesh_fwd.hpp>
 #include <sge/model/obj/mesh_name.hpp>
+#include <sge/model/obj/symbol.hpp>
 
 
 namespace sge
@@ -35,6 +36,9 @@ namespace obj
 
 struct mesh
 {
+	SGE_MODEL_OBJ_SYMBOL
+	mesh();
+
 	obj::mesh_name name_;
 
 	obj::face_sequence faces_;

@@ -21,14 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef MAJUTSU_IS_CONSTANT_HPP_INCLUDED
 #define MAJUTSU_IS_CONSTANT_HPP_INCLUDED
 
-#include <majutsu/constant.hpp>
-#include <majutsu/role.hpp>
+#include <majutsu/constant_fwd.hpp>
+#include <majutsu/role_fwd.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/integral_constant.hpp>
 #include <fcppt/config/external_end.hpp>
 
 namespace majutsu
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename T
@@ -43,7 +49,7 @@ template<
 	typename T::type Value
 >
 struct is_constant<
-	constant<
+	majutsu::constant<
 		T,
 		Value
 	>
@@ -58,8 +64,8 @@ template<
 	typename A
 >
 struct is_constant<
-	role<
-		constant<
+	majutsu::role<
+		majutsu::constant<
 			T,
 			Value
 		>,
@@ -69,6 +75,8 @@ struct is_constant<
 :
 boost::true_type
 {};
+
+FCPPT_PP_POP_WARNING
 
 }
 

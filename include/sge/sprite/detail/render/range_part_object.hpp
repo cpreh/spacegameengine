@@ -41,6 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/simple.hpp>
 #include <majutsu/memory/fusion.hpp>
 #include <fcppt/mpl/append.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
@@ -128,6 +131,9 @@ private:
 		> type;
 	};
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 	template<
 		typename GeometryTypes
 	>
@@ -148,6 +154,9 @@ private:
 	>
 	{
 	};
+
+FCPPT_PP_POP_WARNING
+
 public:
 	typedef majutsu::class_<
 		majutsu::composite<

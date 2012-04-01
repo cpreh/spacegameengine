@@ -66,6 +66,18 @@ sge::model::obj::basic_grammar<
 	basic_grammar::base_type(
 		file_
 	),
+	vertex_(),
+	texcoord_(),
+	normal_(),
+	index_(),
+	face_point_(),
+	face_(),
+	mtllib_(),
+	usemtl_(),
+	smoothing_(),
+	mesh_(),
+	line_(),
+	file_(),
 	state_(
 		_state
 	)

@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/detail/ordered_iterator_empty.hpp>
 #include <sge/sprite/intrusive/detail/ordered_map.hpp>
 #include <sge/sprite/intrusive/ordered/iterator_fwd.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -41,6 +44,8 @@ namespace intrusive
 namespace ordered
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Choices,
@@ -55,6 +60,8 @@ class iterator
 		IsConst
 	>::type
 {
+FCPPT_PP_POP_WARNING
+
 	typedef sge::sprite::intrusive::detail::ordered_iterator_base<
 		Choices,
 		Order,

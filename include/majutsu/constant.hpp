@@ -21,10 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef MAJUTSU_CONSTANT_HPP_INCLUDED
 #define MAJUTSU_CONSTANT_HPP_INCLUDED
 
+#include <majutsu/constant_fwd.hpp>
 #include <majutsu/concepts/static_size.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 namespace majutsu
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename T,
@@ -37,6 +44,8 @@ T
 	static typename T::type const value = Value;
 };
 
+FCPPT_PP_POP_WARNING
+
 template<
 	typename T,
 	typename T::type Value
@@ -47,6 +56,9 @@ constant<T, Value>::value;
 
 namespace concepts
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename T,
@@ -63,6 +75,8 @@ static_size<
 	T
 >
 {};
+
+FCPPT_PP_POP_WARNING
 
 }
 }

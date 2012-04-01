@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_COMPARE_NOTHING_HPP_INCLUDED
 
 #include <sge/sprite/object_fwd.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -38,6 +41,9 @@ struct nothing
 {
 	typedef bool result_type;
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 	template<
 		typename Choices
 	>
@@ -46,6 +52,8 @@ struct nothing
 	boost::mpl::true_
 	{
 	};
+
+FCPPT_PP_POP_WARNING
 
 	template<
 		typename Choices

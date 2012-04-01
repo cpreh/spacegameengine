@@ -23,10 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/unspecified_base.hpp>
+#include <sge/renderer/vf/unspecified_fwd.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
 #include <sge/renderer/vf/vector_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <mizuiro/color/homogenous_static_fwd.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
@@ -40,11 +44,8 @@ namespace renderer
 namespace vf
 {
 
-template<
-	typename Format,
-	typename Tag
->
-struct unspecified;
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format,
@@ -102,6 +103,8 @@ unspecified_base<
 	Tag
 >
 {};
+
+FCPPT_PP_POP_WARNING
 
 }
 }

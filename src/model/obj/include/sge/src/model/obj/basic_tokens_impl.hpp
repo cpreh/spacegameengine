@@ -32,7 +32,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Lexer
 >
-sge::model::obj::basic_tokens<Lexer>::basic_tokens()
+sge::model::obj::basic_tokens<
+	Lexer
+>::basic_tokens()
+:
+	vt_(),
+	vn_(),
+	mtllib_(),
+	usemtl_(),
+	int_(),
+	float_(),
+	name_()
 {
 	this->self.add_pattern(
 		FCPPT_TEXT("INT"),
@@ -97,7 +107,9 @@ sge::model::obj::basic_tokens<Lexer>::basic_tokens()
 template<
 	typename Lexer
 >
-sge::model::obj::basic_tokens<Lexer>::~basic_tokens()
+sge::model::obj::basic_tokens<
+	Lexer
+>::~basic_tokens()
 {
 }
 

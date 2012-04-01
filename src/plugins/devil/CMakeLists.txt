@@ -11,6 +11,7 @@ set(
 	src/plugins/devil/include/sge/devil/file.hpp
 	src/plugins/devil/include/sge/devil/file_fwd.hpp
 	src/plugins/devil/include/sge/devil/file_ptr.hpp
+	src/plugins/devil/include/sge/devil/gen_image.hpp
 	src/plugins/devil/include/sge/devil/get_data.hpp
 	src/plugins/devil/include/sge/devil/get_integer.hpp
 	src/plugins/devil/include/sge/devil/image_holder.hpp
@@ -33,6 +34,7 @@ set(
 	src/plugins/devil/src/error_string.cpp
 	src/plugins/devil/src/exports.cpp
 	src/plugins/devil/src/file.cpp
+	src/plugins/devil/src/gen_image.cpp
 	src/plugins/devil/src/get_data.cpp
 	src/plugins/devil/src/get_integer.cpp
 	src/plugins/devil/src/image_holder.cpp

@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_DETAIL_COPY_PARTS_HPP_INCLUDED
 #define SGE_SHADER_DETAIL_COPY_PARTS_HPP_INCLUDED
 
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/back_inserter.hpp>
 #include <boost/mpl/copy.hpp>
@@ -32,6 +35,9 @@ namespace shader
 {
 namespace detail
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Result,
@@ -47,6 +53,8 @@ boost::mpl::copy<
 >
 {
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

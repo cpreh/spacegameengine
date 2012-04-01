@@ -52,19 +52,19 @@ sge::camera::spherical::parameters::parameters(
 	acceleration_factor_(
 		spherical::coordinate_system::object(
 			spherical::coordinate_system::azimuth(
-				0.5f),
+				3.0f),
 			spherical::coordinate_system::inclination(
-				0.5f),
+				3.0f),
 			spherical::coordinate_system::radius(
-				0.5f))),
+				3.0f))),
 	damping_factor_(
 		spherical::coordinate_system::object(
 			spherical::coordinate_system::azimuth(
-				0.90f),
+				0.0001f),
 			spherical::coordinate_system::inclination(
-				0.90f),
+				0.0001f),
 			spherical::coordinate_system::radius(
-				0.90f))),
+				0.0001f))),
 	projection_matrix_()
 {
 }

@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_TYPES_ROTATION_HPP_INCLUDED
 
 #include <sge/sprite/config/type_choices_fwd.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -35,6 +38,9 @@ template<
 	typename TypeChoices
 >
 struct rotation;
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename UnitType,
@@ -50,6 +56,8 @@ struct rotation<
 FloatType
 {
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }
