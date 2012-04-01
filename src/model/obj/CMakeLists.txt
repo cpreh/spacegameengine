@@ -47,6 +47,8 @@ set(
 	include/sge/model/obj/vertex_sequence.hpp
 	src/model/obj/create.cpp
 	src/model/obj/exception.cpp
+	src/model/obj/face.cpp
+	src/model/obj/face_point.cpp
 	src/model/obj/grammar.cpp
 	src/model/obj/include/sge/src/model/obj/adapt_face.hpp
 	src/model/obj/include/sge/src/model/obj/adapt_face_point.hpp
@@ -76,8 +78,13 @@ set(
 	src/model/obj/instance_impl.cpp
 	src/model/obj/loader.cpp
 	src/model/obj/loader_impl.cpp
+	src/model/obj/mesh.cpp
+	src/model/obj/normal.cpp
 	src/model/obj/parse.cpp
+	src/model/obj/parse_state.cpp
+	src/model/obj/texcoord.cpp
 	src/model/obj/tokens.cpp
+	src/model/obj/vertex.cpp
 )
 
 include_directories(

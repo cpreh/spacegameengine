@@ -42,7 +42,8 @@ sge::model::md3::tag::tag(
 		md3::read_vec3(
 			_stream
 		)
-	)
+	),
+	axis_()
 {
 	for(
 		md3::axis_array::iterator it(

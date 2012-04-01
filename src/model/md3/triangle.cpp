@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::model::md3::triangle::triangle(
 	std::istream &_stream
 )
+:
+	indices_()
 {
 	for(
 		index_array::iterator it(

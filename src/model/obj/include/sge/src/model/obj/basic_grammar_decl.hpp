@@ -32,6 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/obj/parse_state_fwd.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_grammar.hpp>
 #include <boost/spirit/include/qi_rule.hpp>
@@ -45,13 +48,16 @@ namespace model
 namespace obj
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
 	typename Iterator,
 	typename Lexer
 >
 class basic_grammar
 :
-	public
+public
 	boost::spirit::qi::grammar<
 		Iterator,
 		boost::spirit::qi::in_state_skipper<
@@ -60,6 +66,8 @@ class basic_grammar
 		>
 	>
 {
+FCPPT_PP_POP_WARNING
+
 	FCPPT_NONCOPYABLE(
 		basic_grammar
 	);

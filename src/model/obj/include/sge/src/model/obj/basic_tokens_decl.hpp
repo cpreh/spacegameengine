@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/lex_lexertl.hpp>
 #include <boost/spirit/home/support/unused.hpp>
@@ -40,6 +43,9 @@ namespace model
 namespace obj
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
 	typename Lexer
 >
@@ -49,6 +55,8 @@ struct basic_tokens
 		Lexer
 	>
 {
+FCPPT_PP_POP_WARNING
+
 	FCPPT_NONCOPYABLE(
 		basic_tokens
 	);

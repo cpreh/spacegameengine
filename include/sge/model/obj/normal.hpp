@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/model/obj/normal_fwd.hpp>
 #include <sge/model/obj/scalar.hpp>
+#include <sge/model/obj/symbol.hpp>
+
 
 namespace sge
 {
@@ -33,6 +35,9 @@ namespace obj
 
 struct normal
 {
+	SGE_MODEL_OBJ_SYMBOL
+	normal();
+
 	obj::scalar n1_;
 
 	obj::scalar n2_;

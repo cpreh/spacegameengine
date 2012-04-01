@@ -37,6 +37,8 @@ namespace obj
 
 struct parse_state
 {
+	parse_state();
+
 	obj::vertex_sequence vertices_;
 
 	obj::texcoord_sequence texcoords_;

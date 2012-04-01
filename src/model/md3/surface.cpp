@@ -47,6 +47,12 @@ sge::model::md3::surface::surface(
 	md3::load_flags::type const _flags,
 	md3::s32 const _num_frames_head
 )
+:
+	name_(),
+	shaders_(),
+	triangles_(),
+	texpos_(),
+	transformed_vertices_()
 {
 	std::istream::off_type const start(
 		_stream.tellg()
