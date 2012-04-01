@@ -20,9 +20,13 @@ set(
 	src/plugins/x11input/include/sge/x11input/device/demuxer_enabled.hpp
 	src/plugins/x11input/include/sge/x11input/device/event.hpp
 	src/plugins/x11input/include/sge/x11input/device/event_data.hpp
-	src/plugins/x11input/include/sge/x11input/device/event_demuxer.hpp
+	src/plugins/x11input/include/sge/x11input/device/event_demuxer_decl.hpp
 	src/plugins/x11input/include/sge/x11input/device/event_demuxer_fwd.hpp
+	src/plugins/x11input/include/sge/x11input/device/event_demuxer_impl.hpp
+	src/plugins/x11input/include/sge/x11input/device/event_deviceid.hpp
 	src/plugins/x11input/include/sge/x11input/device/event_fwd.hpp
+	src/plugins/x11input/include/sge/x11input/device/has_deviceid.hpp
+	src/plugins/x11input/include/sge/x11input/device/has_deviceid_function.hpp
 	src/plugins/x11input/include/sge/x11input/device/hierarchy_demuxer.hpp
 	src/plugins/x11input/include/sge/x11input/device/hierarchy_demuxer_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/hierarchy_event.hpp
@@ -127,7 +131,7 @@ set(
 	src/plugins/x11input/src/cursor/query_pointer.cpp
 	src/plugins/x11input/src/device/event.cpp
 	src/plugins/x11input/src/device/event_data.cpp
-	src/plugins/x11input/src/device/event_demuxer.cpp
+	src/plugins/x11input/src/device/hierarchy_demuxer.cpp
 	src/plugins/x11input/src/device/info/base.cpp
 	src/plugins/x11input/src/device/info/class_type.cpp
 	src/plugins/x11input/src/device/info/multi.cpp
@@ -138,7 +142,9 @@ set(
 	src/plugins/x11input/src/device/manager/object.cpp
 	src/plugins/x11input/src/device/object.cpp
 	src/plugins/x11input/src/device/parameters.cpp
+	src/plugins/x11input/src/device/raw_demuxer.cpp
 	src/plugins/x11input/src/device/select_events.cpp
+	src/plugins/x11input/src/device/window_demuxer.cpp
 	src/plugins/x11input/src/exports.cpp
 	src/plugins/x11input/src/input_context.cpp
 	src/plugins/x11input/src/input_method.cpp
