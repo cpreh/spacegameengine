@@ -35,7 +35,7 @@ update_cmake_file \
 	src
 
 update_cmake_file \
-	alda/CMakeLists.txt \
+	alda/src/CMakeLists.txt \
 	ALDA_FILES \
 	alda/src
 
