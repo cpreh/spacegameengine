@@ -296,7 +296,7 @@ sge::camera::first_person::object::rotate_on_y(
 	sge::renderer::scalar const scaled_axis_value)
 {
 	sge::renderer::scalar const epsilon =
-		0.0001f;
+		0.1f;
 
 	sge::renderer::vector3 const y_axis(
 		0.0f,

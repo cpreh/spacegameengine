@@ -190,13 +190,13 @@ sge::camera::ortho_freelook::object::mouse_axis_callback(
 		pan_axis(
 			_axis.code() == input::mouse::axis_code::x
 			?
-				static_cast<float>(
+				-static_cast<float>(
 					_axis.value())
 			:
 				0.0f,
 			_axis.code() == input::mouse::axis_code::y
 			?
-				static_cast<float>(
+				-static_cast<float>(
 					_axis.value())
 			:
 				0.0f),

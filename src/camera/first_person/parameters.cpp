@@ -41,7 +41,7 @@ sge::camera::first_person::parameters::parameters(
 	coordinate_system_(
 		_coordinate_system),
 	mouse_speed_multiplier_(
-		1.0f),
+		0.0025f),
 	projection_matrix_()
 {
 }
