@@ -38,7 +38,8 @@ sge::opengl::vf::part::part(
 	),
 	part_(
 		_part
-	)
+	),
+	actors_()
 {
 	renderer::vf::dynamic::ordered_element_list const &elems(
 		part_.elements()

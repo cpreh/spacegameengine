@@ -66,6 +66,57 @@ sge::sprite::render::range<
 template<
 	typename Choices
 >
+sge::sprite::render::range<
+	Choices
+>::range(
+	range const &_other
+)
+:
+	range_parts_(
+		_other.range_parts_
+	),
+	object_(
+		_other.object_
+	)
+{
+}
+
+template<
+	typename Choices
+>
+sge::sprite::render::range<
+	Choices
+> &
+sge::sprite::render::range<
+	Choices
+>::operator=(
+	range const &_other
+)
+{
+	if(
+		this == &_other
+	)
+		return *this;
+
+	range_parts_ = _other.range_parts_;
+
+	object_ = _other.object_;
+
+	return *this;
+}
+
+template<
+	typename Choices
+>
+sge::sprite::render::range<
+	Choices
+>::~range()
+{
+}
+
+template<
+	typename Choices
+>
 void
 sge::sprite::render::range<
 	Choices

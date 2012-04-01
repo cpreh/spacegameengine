@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/clocks/is_stateful.hpp>
 #include <sge/timer/clocks/detail/stateful_base.hpp>
 #include <sge/timer/clocks/detail/stateless_base.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -37,6 +40,10 @@ namespace clocks
 {
 namespace detail
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<typename Clock>
 struct wrapper
 :
@@ -49,6 +56,9 @@ struct wrapper
 {
 };
 }
+
+FCPPT_PP_POP_WARNING
+
 }
 }
 }

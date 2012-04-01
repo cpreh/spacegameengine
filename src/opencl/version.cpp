@@ -29,9 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
+// TODO: Initialize this directly
 sge::opencl::version::version(
 	std::string const &_version_string)
 {
+
+// TODO: Use tab indentation
   namespace qi = boost::spirit::qi;
 
   std::string::const_iterator

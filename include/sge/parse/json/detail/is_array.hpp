@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/static.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/array.hpp>
 #include <boost/mpl/bool.hpp>
@@ -43,6 +46,10 @@ namespace json
 {
 namespace detail
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<typename T>
 struct is_array : boost::false_type {};
 
@@ -101,6 +108,9 @@ struct is_array
 		T
 	>
 > : boost::true_type {};
+
+FCPPT_PP_POP_WARNING
+
 }
 }
 }

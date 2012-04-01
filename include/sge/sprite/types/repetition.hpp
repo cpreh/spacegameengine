@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/config/type_choices_fwd.hpp>
 #include <fcppt/math/vector/static.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -36,6 +39,9 @@ template<
 	typename TypeChoices
 >
 struct repetition;
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename UnitType,
@@ -54,6 +60,8 @@ fcppt::math::vector::static_<
 >
 {
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

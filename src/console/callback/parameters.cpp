@@ -18,7 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/console/callback/function.hpp>
+#include <sge/console/callback/name.hpp>
 #include <sge/console/callback/parameters.hpp>
+#include <sge/font/text/string.hpp>
+
 
 sge::console::callback::parameters::parameters(
 	callback::function const &_function,
@@ -27,7 +31,9 @@ sge::console::callback::parameters::parameters(
 	function_(
 		_function),
 	name_(
-		_name.get())
+		_name.get()),
+	short_description_(),
+	long_description_()
 {
 }
 

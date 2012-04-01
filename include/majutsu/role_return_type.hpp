@@ -22,12 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define MAJUTSU_ROLE_RETURN_TYPE_HPP_INCLUDED
 
 #include <majutsu/detail/find_role.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/deref.hpp>
 #include <fcppt/config/external_end.hpp>
 
 namespace majutsu
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Elements,
@@ -42,6 +48,8 @@ boost::mpl::deref<
 	>::type
 >::type
 {};
+
+FCPPT_PP_POP_WARNING
 
 }
 

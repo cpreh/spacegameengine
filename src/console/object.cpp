@@ -18,14 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/console/arg_list.hpp>
+#include <sge/console/error_callback.hpp>
 #include <sge/console/exception.hpp>
+#include <sge/console/fallback.hpp>
 #include <sge/console/function.hpp>
+#include <sge/console/function_map.hpp>
+#include <sge/console/message_callback.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/callback/parameters.hpp>
+#include <sge/font/text/char_type.hpp>
 #include <sge/font/text/lit.hpp>
+#include <sge/font/text/string.hpp>
+#include <sge/src/console/eval_grammar.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -34,10 +41,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/include/qi_parse.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -82,7 +89,7 @@ FCPPT_PP_POP_WARNING
 
 fcppt::signal::auto_connection
 sge::console::object::insert(
-	callback::parameters const &_params
+	sge::console::callback::parameters const &_params
 )
 {
 	function_map::iterator i = funcs_.find(_params.name());
@@ -122,7 +129,7 @@ sge::console::object::insert(
 
 fcppt::signal::auto_connection
 sge::console::object::register_fallback(
-	fallback const &c
+	sge::console::fallback const &c
 )
 {
 	return fallback_.connect(c);
@@ -130,7 +137,7 @@ sge::console::object::register_fallback(
 
 fcppt::signal::auto_connection
 sge::console::object::register_error_callback(
-	error_callback const &c
+	sge::console::error_callback const &c
 )
 {
 	return error_.connect(c);
@@ -138,55 +145,10 @@ sge::console::object::register_error_callback(
 
 fcppt::signal::auto_connection
 sge::console::object::register_message_callback(
-	message_callback const &c
+	sge::console::message_callback const &c
 )
 {
 	return message_.connect(c);
-}
-
-namespace
-{
-template <typename Iterator>
-class eval_grammar : public boost::spirit::qi::grammar<
-	Iterator,
-	sge::console::arg_list()>
-{
-	FCPPT_NONCOPYABLE(
-		eval_grammar
-	);
-public:
-	eval_grammar() : eval_grammar::base_type(start)
-	{
-		namespace encoding = boost::spirit::standard_wide;
-
-		using encoding::char_;
-		using encoding::space;
-
-		word %=
-			+~space;
-
-		quoted_string %=
-			SGE_FONT_TEXT_LIT('"')
-			>> +(~char_(SGE_FONT_TEXT_LIT('"')))
-			>> SGE_FONT_TEXT_LIT('"');
-
-		argument %=
-			quoted_string
-			| word;
-
-		start %=
-			argument % (+space);
-	}
-
-	~eval_grammar()
-	{
-	}
-
-	boost::spirit::qi::rule<Iterator, sge::font::text::string()> word;
-	boost::spirit::qi::rule<Iterator, sge::font::text::string()> quoted_string;
-	boost::spirit::qi::rule<Iterator, sge::font::text::string()> argument;
-	boost::spirit::qi::rule<Iterator, sge::console::arg_list()> start;
-};
 }
 
 void
@@ -205,9 +167,9 @@ sge::console::object::eval(
 
 	font::text::string const s = sp.substr(1);
 
-	arg_list args;
+	sge::console::arg_list args;
 
-	eval_grammar<
+	sge::console::eval_grammar<
 		font::text::string::const_iterator
 	> grammar;
 
@@ -227,7 +189,7 @@ sge::console::object::eval(
 
 void
 sge::console::object::eval(
-	console::arg_list const &args
+	sge::console::arg_list const &args
 )
 {
 	// just typing the prefix is not an error
@@ -288,7 +250,7 @@ sge::console::object::emit_message(
 
 void
 sge::console::object::help_callback(
-	arg_list const &)
+	sge::console::arg_list const &)
 {
 	emit_message(
 		fcppt::insert_to_string<font::text::string>(
@@ -313,7 +275,7 @@ sge::console::object::help_callback(
 
 void
 sge::console::object::man_callback(
-	arg_list const &v)
+	sge::console::arg_list const &v)
 {
 	if (v.size() < 2)
 	{

@@ -31,6 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/detail/adapt_section.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_action.hpp>
 #include <boost/spirit/include/qi_char.hpp>
@@ -49,6 +52,9 @@ namespace parse
 namespace ini
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
 	typename In
 >
@@ -60,6 +66,8 @@ class grammar
 		encoding::blank_type
 	>
 {
+FCPPT_PP_POP_WARNING
+
 	FCPPT_NONCOPYABLE(
 		grammar
 	);
@@ -68,14 +76,19 @@ public:
 	:
 		grammar::base_type(
 			ini_
-		)
+		),
+		char_seq_(),
+		entry_(),
+		header_(),
+		section_(),
+		ini_()
 	{
 		using encoding::char_;
 		using boost::spirit::lit;
 		using boost::spirit::lexeme;
 		using boost::spirit::eol;
 
-		char_seq %=
+		char_seq_ %=
 			+(
 				char_
 				- eol
@@ -85,7 +98,7 @@ public:
 			!char_(FCPPT_TEXT('['))
 			>> +~char_(FCPPT_TEXT('='))
 			>> lit(FCPPT_TEXT('='))
-			>> char_seq
+			>> char_seq_
 			>> eol;
 
 
@@ -113,7 +126,7 @@ private:
 		In,
 		string(),
 		encoding::blank_type
-	> char_seq;
+	> char_seq_;
 
 	boost::spirit::qi::rule<
 		In,

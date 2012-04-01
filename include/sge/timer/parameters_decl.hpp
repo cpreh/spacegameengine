@@ -27,12 +27,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/clocks/detail/wrapper.hpp>
 #include <sge/timer/detail/parameters_base_decl.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
 {
 namespace timer
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<typename Clock>
 class parameters
 :
@@ -43,6 +50,8 @@ class parameters
 		Clock
 	>
 {
+FCPPT_PP_POP_WARNING
+
 FCPPT_NONASSIGNABLE(
 	parameters);
 

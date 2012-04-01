@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/detail/matrix_arity.hpp>
 #include <fcppt/math/matrix/object_fwd.hpp>
 #include <fcppt/math/vector/object_fwd.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -43,6 +46,9 @@ template<
 	typename T
 >
 struct make_element_type;
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 /**
 \brief Metafunction that maps a static fcppt math vector to its corresponding
@@ -109,6 +115,8 @@ detail::matrix_arity<
 	M::value
 >
 {};
+
+FCPPT_PP_POP_WARNING
 
 }
 }

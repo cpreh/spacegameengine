@@ -442,6 +442,7 @@ set(
 	include/sge/renderer/vertex_declaration_ptr.hpp
 	include/sge/renderer/vf/color.hpp
 	include/sge/renderer/vf/color_base.hpp
+	include/sge/renderer/vf/color_fwd.hpp
 	include/sge/renderer/vf/const_tag.hpp
 	include/sge/renderer/vf/detail/calc_offset.hpp
 	include/sge/renderer/vf/detail/copy_n.hpp
@@ -512,15 +513,18 @@ set(
 	include/sge/renderer/vf/make_unspecified_tag.hpp
 	include/sge/renderer/vf/nonconst_tag.hpp
 	include/sge/renderer/vf/normal.hpp
+	include/sge/renderer/vf/normal_fwd.hpp
 	include/sge/renderer/vf/part.hpp
 	include/sge/renderer/vf/part_fwd.hpp
 	include/sge/renderer/vf/pointer.hpp
 	include/sge/renderer/vf/pos.hpp
+	include/sge/renderer/vf/pos_fwd.hpp
 	include/sge/renderer/vf/string.hpp
 	include/sge/renderer/vf/texpos.hpp
 	include/sge/renderer/vf/texpos_fwd.hpp
 	include/sge/renderer/vf/unspecified.hpp
 	include/sge/renderer/vf/unspecified_base.hpp
+	include/sge/renderer/vf/unspecified_fwd.hpp
 	include/sge/renderer/vf/unspecified_tag.hpp
 	include/sge/renderer/vf/vector.hpp
 	include/sge/renderer/vf/vector3_base.hpp

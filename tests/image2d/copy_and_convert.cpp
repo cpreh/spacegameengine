@@ -32,6 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/image/view.hpp>
 #include <mizuiro/color/operators/equal.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -156,10 +159,15 @@ test_conversion(
 
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 BOOST_AUTO_TEST_CASE(
 	rgba_to_bgra
 )
 {
+FCPPT_PP_POP_WARNING
+
 	test_conversion<
 		sge::image2d::rgba8_format,
 		sge::image2d::bgra8_format
@@ -171,10 +179,15 @@ BOOST_AUTO_TEST_CASE(
 	);
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 BOOST_AUTO_TEST_CASE(
 	rgb_to_rgba
 )
 {
+FCPPT_PP_POP_WARNING
+
 	test_conversion<
 		sge::image2d::rgb8_format,
 		sge::image2d::rgba8_format

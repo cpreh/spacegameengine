@@ -42,7 +42,8 @@ sge::opencl::program::object::object(
 	program::device_blob_map const &_blobs,
 	program::optional_build_parameters const &_params)
 :
-	program_(0)
+	program_(0),
+	notification_callback_()
 {
 	typedef
 	fcppt::container::raw_vector<unsigned char const *>
@@ -133,7 +134,8 @@ sge::opencl::program::object::object(
 	program::source_string_sequence const &_source_strings,
 	program::optional_build_parameters const &_params)
 :
-	program_(0)
+	program_(0),
+	notification_callback_()
 {
 	typedef
 	fcppt::container::raw_vector<char const *>

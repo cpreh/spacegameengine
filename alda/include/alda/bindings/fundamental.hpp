@@ -28,12 +28,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/concepts/static_size.hpp>
 #include <majutsu/concepts/dynamic_memory/tag.hpp>
 #include <fcppt/endianness/convert.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace alda
 {
 namespace bindings
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename T
@@ -44,6 +50,8 @@ majutsu::fundamental<
 	T
 >
 {};
+
+FCPPT_PP_POP_WARNING
 
 template<
 	typename Type
@@ -112,6 +120,9 @@ namespace majutsu
 namespace concepts
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
 	typename Type
 >
@@ -127,6 +138,8 @@ static_size<
 	>
 >
 {};
+
+FCPPT_PP_POP_WARNING
 
 }
 }

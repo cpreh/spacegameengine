@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/process/do_default_sort.hpp>
 #include <sge/sprite/process/geometry_options.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -42,6 +45,9 @@ template<
 	typename Enable = void
 >
 struct default_geometry_options;
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Choices,
@@ -86,6 +92,8 @@ boost::mpl::integral_c<
 >
 {
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

@@ -39,6 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::devil::system::system()
+:
+	lib_()
 {
 	devil::enable(
 		IL_FILE_OVERWRITE

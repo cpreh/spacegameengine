@@ -22,6 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define MAJUTSU_CONCEPTS_DYNAMIC_MEMORY_TAG_HPP_INCLUDED
 
 #include <majutsu/concepts/static_memory/tag.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+
 
 namespace majutsu
 {
@@ -30,10 +34,15 @@ namespace concepts
 namespace dynamic_memory
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 struct tag
 :
 static_memory::tag
 {};
+
+FCPPT_PP_POP_WARNING
 
 }
 }

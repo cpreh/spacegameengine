@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/context/error_callback.hpp>
+#include <sge/opencl/context/parameters_fwd.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -40,10 +41,17 @@ class parameters
 FCPPT_NONASSIGNABLE(
 	parameters);
 public:
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_SYMBOL
 	parameters(
 		platform::object &,
 		opencl::device::object_ref_sequence const &);
+
+	SGE_OPENCL_SYMBOL
+	parameters(
+		parameters const &);
+
+	SGE_OPENCL_SYMBOL
+	~parameters();
 
 	SGE_OPENCL_SYMBOL opencl::context::parameters &
 	error_callback(
@@ -68,6 +76,7 @@ private:
 	platform::object &platform_;
 	device::object_ref_sequence device_refs_;
 	context::error_callback error_callback_;
+	// TODO: this should be an optional reference
 	renderer::device *shared_renderer_;
 };
 }

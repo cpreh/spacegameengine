@@ -134,7 +134,10 @@ sge::shader::object::object(
 		renderer_.create_glsl_program()),
 	uniforms_(),
 	uniform_matrices_(),
-	samplers_()
+	samplers_(),
+	vertex_shaders_(),
+	pixel_shaders_(),
+	attachments_()
 {
 	program_->vertex_declaration(
 		vertex_declaration_);

@@ -30,6 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/unregister/base_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -43,6 +46,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+
+// TODO: move this!
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 FCPPT_TYPE_TRAITS_GENERATE_HAS_MEMBER_FUNCTION(
 	deviceid
@@ -59,6 +67,8 @@ struct has_deviceid_wrapped
 >
 {
 };
+
+FCPPT_PP_POP_WARNING
 
 template<
 	typename T
@@ -119,6 +129,7 @@ sge::x11input::device::event_demuxer<Event>::event_demuxer(
 	window_(
 		_window
 	),
+	connections_(),
 	signals_(),
 	active_(
 		_enabled.get()
@@ -353,6 +364,7 @@ sge::x11input::device::event_demuxer<Event>::signal_remains(
 		);
 }
 
+// TODO: move this into their own files!
 template class
 sge::x11input::device::event_demuxer<
 	sge::x11input::device::window_event

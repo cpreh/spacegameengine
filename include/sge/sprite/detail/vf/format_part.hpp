@@ -35,6 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/mpl/append.hpp>
 #include <fcppt/mpl/contains_if.hpp>
 #include <fcppt/mpl/inner.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/fold.hpp>
@@ -67,6 +70,9 @@ private:
 		>::type
 	> basic;
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 	template<
 		typename Container
 	>
@@ -82,6 +88,8 @@ private:
 	>
 	{
 	};
+
+FCPPT_PP_POP_WARNING
 
 	template<
 		typename Type
