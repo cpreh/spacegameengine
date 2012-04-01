@@ -56,6 +56,35 @@ set(
 	include/sge/camera/ortho_freelook/zoom_speed.hpp
 	include/sge/camera/perspective_projection_from_viewport.hpp
 	include/sge/camera/projection_matrix.hpp
+	include/sge/camera/spherical/acceleration_factor.hpp
+	include/sge/camera/spherical/action/decrease_azimuth.hpp
+	include/sge/camera/spherical/action/decrease_inclination.hpp
+	include/sge/camera/spherical/action/decrease_radius.hpp
+	include/sge/camera/spherical/action/increase_azimuth.hpp
+	include/sge/camera/spherical/action/increase_inclination.hpp
+	include/sge/camera/spherical/action/increase_radius.hpp
+	include/sge/camera/spherical/action/mapping.hpp
+	include/sge/camera/spherical/action/mapping_fwd.hpp
+	include/sge/camera/spherical/action/optional_key_code.hpp
+	include/sge/camera/spherical/action/wasd_mapping.hpp
+	include/sge/camera/spherical/coordinate_system/azimuth.hpp
+	include/sge/camera/spherical/coordinate_system/inclination.hpp
+	include/sge/camera/spherical/coordinate_system/look_down_positive_z.hpp
+	include/sge/camera/spherical/coordinate_system/null.hpp
+	include/sge/camera/spherical/coordinate_system/object.hpp
+	include/sge/camera/spherical/coordinate_system/object_fwd.hpp
+	include/sge/camera/spherical/coordinate_system/radius.hpp
+	include/sge/camera/spherical/coordinate_system/to_camera_coordinate_system.hpp
+	include/sge/camera/spherical/damping_factor.hpp
+	include/sge/camera/spherical/is_active.hpp
+	include/sge/camera/spherical/maximum_radius.hpp
+	include/sge/camera/spherical/minimum_radius.hpp
+	include/sge/camera/spherical/movement_speed.hpp
+	include/sge/camera/spherical/object.hpp
+	include/sge/camera/spherical/object_fwd.hpp
+	include/sge/camera/spherical/origin.hpp
+	include/sge/camera/spherical/parameters.hpp
+	include/sge/camera/spherical/parameters_fwd.hpp
 	include/sge/camera/update_duration.hpp
 	src/camera/base.cpp
 	src/camera/coordinate_system/identity.cpp
@@ -77,6 +106,14 @@ set(
 	src/camera/ortho_freelook/parameters.cpp
 	src/camera/ortho_freelook/projection_rectangle_from_viewport.cpp
 	src/camera/perspective_projection_from_viewport.cpp
+	src/camera/spherical/action/mapping.cpp
+	src/camera/spherical/action/wasd_mapping.cpp
+	src/camera/spherical/coordinate_system/look_down_positive_z.cpp
+	src/camera/spherical/coordinate_system/null.cpp
+	src/camera/spherical/coordinate_system/object.cpp
+	src/camera/spherical/coordinate_system/to_camera_coordinate_system.cpp
+	src/camera/spherical/object.cpp
+	src/camera/spherical/parameters.cpp
 )
 
 add_sge_base_library(

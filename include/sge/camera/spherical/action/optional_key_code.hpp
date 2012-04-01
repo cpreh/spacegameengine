@@ -18,27 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_ORTHO_FREELOOK_ACTION_ZOOM_IN_HPP_INCLUDED
-#define SGE_CAMERA_ORTHO_FREELOOK_ACTION_ZOOM_IN_HPP_INCLUDED
+#ifndef SGE_CAMERA_SPHERICAL_ACTION_OPTIONAL_KEY_CODE_HPP_INCLUDED
+#define SGE_CAMERA_SPHERICAL_ACTION_OPTIONAL_KEY_CODE_HPP_INCLUDED
 
-#include <sge/camera/ortho_freelook/action/optional_key_code.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 namespace sge
 {
 namespace camera
 {
-namespace ortho_freelook
+namespace spherical
 {
 namespace action
 {
-/**
-\brief The (optional) key code belonging to the action "zoom in"
-\ingroup sgecamera
-*/
-FCPPT_MAKE_STRONG_TYPEDEF(
-	action::optional_key_code,
-	zoom_in);
+typedef
+fcppt::optional<input::keyboard::key_code::type>
+optional_key_code;
 }
 }
 }

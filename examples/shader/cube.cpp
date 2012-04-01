@@ -40,11 +40,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	- font::text::draw
  */
 
-#include <sge/camera/projection/object.hpp>
-#include <sge/camera/projection/update_perspective_from_viewport.hpp>
-#include <sge/camera/spherical/movement_speed.hpp>
+#include <sge/camera/perspective_projection_from_viewport.hpp>
+#include <sge/camera/coordinate_system/identity.hpp>
+#include <sge/camera/matrix_conversion/world_projection.hpp>
 #include <sge/camera/spherical/object.hpp>
 #include <sge/camera/spherical/parameters.hpp>
+#include <sge/camera/spherical/action/wasd_mapping.hpp>
+#include <sge/camera/spherical/coordinate_system/look_down_positive_z.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/rect.hpp>
@@ -141,7 +143,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/timer/basic.hpp>
-#include <sge/timer/elapsed.hpp>
+#include <sge/timer/elapsed_and_reset.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
@@ -899,34 +901,30 @@ try
 	// 's' and 'd' and you can look around using the mouse.
 	sge::camera::spherical::object camera(
 		sge::camera::spherical::parameters(
-			// Movement speed.
-			sge::camera::spherical::movement_speed(
-				2.0f),
-			// min_radius
-			0.5f,
-			sys.keyboard_collector())
-			.radius(
-				3.f)
-			.damping(
-				0.97f));
+			sys.keyboard_collector(),
+			sge::camera::spherical::is_active(
+				true),
+			sge::camera::spherical::coordinate_system::look_down_positive_z(
+				sge::camera::spherical::coordinate_system::radius(
+					3.0f)),
+			sge::camera::spherical::action::wasd_mapping()));
 
-	// Adapt the camera to the viewport
-	fcppt::signal::scoped_connection const viewport_connection(
-		sys.viewport_manager().manage_callback(
-			std::tr1::bind(
-				sge::camera::projection::update_perspective_from_viewport,
-				fcppt::ref(
-					sys.renderer()),
-				fcppt::ref(
-					camera),
-				sge::renderer::projection::fov(
-					fcppt::math::deg_to_rad(
-						90.f)),
-				sge::renderer::projection::near(
-					0.1f),
-				// Far plane
-				sge::renderer::projection::far(
-					1000.f))));
+	sge::camera::perspective_projection_from_viewport camera_viewport_connection(
+		camera,
+		sys.renderer(),
+		sys.viewport_manager(),
+		sge::renderer::projection::near(
+			0.1f
+		),
+		sge::renderer::projection::far(
+			1000.f
+		),
+		sge::renderer::projection::fov(
+			fcppt::math::deg_to_rad(
+				90.f
+			)
+		)
+	);
 
 	// To use a vertex format, we have to create a _declaration_ and
 	// some _buffers_.
@@ -1028,7 +1026,7 @@ try
 
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			sge::camera::duration(
+			sge::camera::update_duration(
 				1.0f)));
 
 	sge::timer::basic<sge::timer::clocks::standard> revolve_timer(
@@ -1052,10 +1050,8 @@ try
 		sys.window_system().poll())
 	{
 		camera.update(
-			sge::timer::elapsed<sge::camera::duration>(
+			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				camera_timer));
-
-		camera_timer.reset();
 
 		// Some render states
 		sys.renderer().state(
@@ -1085,12 +1081,14 @@ try
 			shader.update_uniform(
 				"mvp",
 				sge::shader::matrix(
-					camera.mvp(),
+					sge::camera::matrix_conversion::world_projection(
+						camera.coordinate_system(),
+						camera.projection_matrix()),
 					sge::shader::matrix_flags::projection));
 
 			shader.update_uniform(
 				"camera",
-				camera.gizmo().position());
+				camera.coordinate_system().position().get());
 
 			sge::renderer::scalar const elapsed =
 				sge::timer::elapsed_fractional<sge::renderer::scalar>(

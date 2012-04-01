@@ -270,10 +270,6 @@ sge::camera::first_person::object::rotate_on_x(
 		rotation_matrix *
 		widened_forward;
 
-	// We only need to normalize the forward vector since
-	// the cross product keeps the normalized lengths: The
-	// y_axis vector is already normalized, the up vector
-	// results from two normalized vectors.
 	coordinate_system_.forward(
 		camera::coordinate_system::forward(
 			fcppt::math::vector::normalize(
@@ -282,10 +278,12 @@ sge::camera::first_person::object::rotate_on_x(
 
 	coordinate_system_.right(
 		camera::coordinate_system::right(
-			fcppt::math::vector::cross(
-				y_axis,
-				coordinate_system_.forward().get())));
+			fcppt::math::vector::normalize(
+				fcppt::math::vector::cross(
+					y_axis,
+					coordinate_system_.forward().get()))));
 
+	// No need to normalize here, forward and right have 90 degree angles.
 	coordinate_system_.up(
 		camera::coordinate_system::up(
 			fcppt::math::vector::cross(

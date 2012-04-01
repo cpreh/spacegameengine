@@ -18,31 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_ORTHO_FREELOOK_ACTION_ZOOM_IN_HPP_INCLUDED
-#define SGE_CAMERA_ORTHO_FREELOOK_ACTION_ZOOM_IN_HPP_INCLUDED
+#include <sge/camera/spherical/coordinate_system/look_down_positive_z.hpp>
+#include <sge/camera/spherical/coordinate_system/object.hpp>
+#include <fcppt/math/pi.hpp>
 
-#include <sge/camera/ortho_freelook/action/optional_key_code.hpp>
-#include <fcppt/strong_typedef.hpp>
-
-namespace sge
+sge::camera::spherical::coordinate_system::object const
+sge::camera::spherical::coordinate_system::look_down_positive_z(
+	spherical::coordinate_system::radius const &_radius)
 {
-namespace camera
-{
-namespace ortho_freelook
-{
-namespace action
-{
-/**
-\brief The (optional) key code belonging to the action "zoom in"
-\ingroup sgecamera
-*/
-FCPPT_MAKE_STRONG_TYPEDEF(
-	action::optional_key_code,
-	zoom_in);
+	return
+		spherical::coordinate_system::object(
+			spherical::coordinate_system::azimuth(
+				-fcppt::math::pi<sge::renderer::scalar>()/2.0f),
+			spherical::coordinate_system::inclination(
+				-fcppt::math::pi<sge::renderer::scalar>()/2.0f),
+			_radius);
 }
-}
-}
-}
-
-#endif
-
