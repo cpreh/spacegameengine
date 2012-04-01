@@ -1,3 +1,5 @@
+#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/matrix_conversion/world.hpp>
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -17,7 +19,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
+#include <sge/camera/ortho_freelook/projection_rectangle_from_viewport.hpp>
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
 #include <sge/config/media_path.hpp>
@@ -68,10 +70,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/manager.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/timer/basic.hpp>
-#include <sge/timer/elapsed.hpp>
+#include <sge/timer/elapsed_and_reset.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
-#include <sge/viewport/center_on_resize.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
@@ -144,8 +146,7 @@ try
 					sge::renderer::depth_stencil_buffer::off,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
-				sge::viewport::center_on_resize(
-					window_dim)))
+				sge::viewport::fill_on_resize()))
 		(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector | sge::systems::input_helper::cursor_demuxer,
@@ -166,15 +167,18 @@ try
 	sge::camera::ortho_freelook::object camera(
 		sge::camera::ortho_freelook::parameters(
 			sys.mouse_collector(),
-			sys.keyboard_collector())
-			.projection_rect(
-				sge::renderer::projection::rect(
-					sge::renderer::projection::rect::vector::null(),
-					sge::renderer::projection::rect::dim(
-						static_cast<sge::renderer::scalar>(
-							window_dim.w()),
-						static_cast<sge::renderer::scalar>(
-							window_dim.h())))));
+			sys.keyboard_collector(),
+			sge::renderer::projection::near(
+				0.0f),
+			sge::renderer::projection::far(
+				10.0f),
+			sge::camera::ortho_freelook::is_active(
+				true)));
+
+	sge::camera::ortho_freelook::projection_rectangle_from_viewport projection_rectangle_from_viewport(
+		camera,
+		sys.renderer(),
+		sys.viewport_manager());
 
 	sge::texture::manager tex_man(
 		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
@@ -283,7 +287,7 @@ try
 
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			sge::camera::duration(
+			sge::camera::update_duration(
 				1.0f)));
 
 	while(
@@ -291,7 +295,7 @@ try
 	{
 
 		camera.update(
-			sge::timer::elapsed<sge::camera::duration>(
+			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				camera_timer));
 
 		sge::renderer::scoped_block const block_(
@@ -300,12 +304,13 @@ try
 		sge::renderer::scoped_transform projection_transform(
 			sys.renderer(),
 			sge::renderer::matrix_mode::projection,
-			camera.projection());
+			camera.projection_matrix().get());
 
 		sge::renderer::scoped_transform world_transform(
 			sys.renderer(),
 			sge::renderer::matrix_mode::world,
-			camera.world());
+			sge::camera::matrix_conversion::world(
+				camera.coordinate_system()));
 
 		sge::renderer::state::scoped scoped_state(
 			sys.renderer(),

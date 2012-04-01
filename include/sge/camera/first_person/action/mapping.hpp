@@ -44,7 +44,7 @@ namespace action
 \brief A mapping from camera "actions" to key codes
 \ingroup sgecamera
 */
-class SGE_CLASS_SYMBOL mapping
+class mapping
 {
 public:
 	SGE_CAMERA_SYMBOL

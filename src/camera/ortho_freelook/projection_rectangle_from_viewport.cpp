@@ -29,24 +29,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::camera::ortho_freelook::projection_rectangle_from_viewport::projection_rectangle_from_viewport(
 	sge::camera::ortho_freelook::object &_camera,
 	sge::renderer::device &_renderer,
-	sge::viewport::manager &_viewport_manager,
-	sge::renderer::projection::near const &_near,
-	sge::renderer::projection::far const &_far)
+	sge::viewport::manager &_viewport_manager)
 :
 	camera_(
 		_camera),
 	renderer_(
 		_renderer),
-	near_(
-		_near),
-	far_(
-		_far),
 	viewport_callback_connection_(
 		_viewport_manager.manage_callback(
 			std::tr1::bind(
 				&projection_rectangle_from_viewport::viewport_callback,
-				this,
-				std::tr1::placeholders::_1)))
+				this)))
 {
 }
 

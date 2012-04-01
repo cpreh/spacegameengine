@@ -18,24 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_ORTHO_FREELOOK_PAN_SPEED_HPP_INCLUDED
-#define SGE_CAMERA_ORTHO_FREELOOK_PAN_SPEED_HPP_INCLUDED
+#include <sge/camera/ortho_freelook/action/wsg_mapping.hpp>
+#include <sge/camera/ortho_freelook/action/mapping.hpp>
 
-#include <sge/renderer/vector2.hpp>
-#include <fcppt/strong_typedef.hpp>
-
-namespace sge
+sge::camera::ortho_freelook::action::mapping const
+sge::camera::ortho_freelook::action::wsg_mapping()
 {
-namespace camera
-{
-namespace ortho_freelook
-{
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::vector2,
-	pan_speed);
+	return
+		sge::camera::ortho_freelook::action::mapping(
+			sge::camera::ortho_freelook::action::zoom_in(
+				sge::camera::ortho_freelook::action::optional_key_code(
+					sge::input::keyboard::key_code::w)),
+			sge::camera::ortho_freelook::action::zoom_out(
+				sge::camera::ortho_freelook::action::optional_key_code(
+					sge::input::keyboard::key_code::s)),
+			sge::camera::ortho_freelook::action::activate_pan(
+				sge::camera::ortho_freelook::action::optional_key_code(
+					sge::input::keyboard::key_code::g)));
 }
-}
-}
-
-#endif
-

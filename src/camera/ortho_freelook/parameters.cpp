@@ -19,27 +19,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/ortho_freelook/parameters.hpp>
+#include <sge/camera/ortho_freelook/action/wsg_mapping.hpp>
 
 sge::camera::ortho_freelook::parameters::parameters(
 	sge::input::mouse::device &_mouse,
+	sge::input::keyboard::device &_keyboard,
 	renderer::projection::near const &_near,
 	renderer::projection::far const &_far,
 	ortho_freelook::is_active const &_is_active)
 :
 	mouse_(
 		_mouse),
+	keyboard_(
+		_keyboard),
 	zoom_speed_(
-		1.0f),
+		renderer::vector2(
+			0.30f,
+			0.30f)),
 	pan_speed_(
-		1.0f),
+		renderer::vector2(
+			0.01f,
+			0.01f)),
 	projection_rectangle_(),
 	near_(
 		_near),
 	far_(
 		_far),
 	is_active_(
-		_is_active)
+		_is_active),
+	action_mapping_(
+		action::wsg_mapping())
 {
+}
+
+sge::input::mouse::device &
+sge::camera::ortho_freelook::parameters::mouse() const
+{
+	return mouse_;
+}
+
+sge::input::keyboard::device &
+sge::camera::ortho_freelook::parameters::keyboard() const
+{
+	return keyboard_;
 }
 
 sge::camera::ortho_freelook::parameters &
@@ -57,6 +79,23 @@ sge::camera::ortho_freelook::parameters::zoom_speed() const
 {
 	return
 		zoom_speed_;
+}
+
+sge::camera::ortho_freelook::parameters &
+sge::camera::ortho_freelook::parameters::action_mapping(
+	action::mapping const &_action_mapping)
+{
+	action_mapping_ =
+		_action_mapping;
+	return
+		*this;
+}
+
+sge::camera::ortho_freelook::action::mapping const &
+sge::camera::ortho_freelook::parameters::action_mapping() const
+{
+	return
+		action_mapping_;
 }
 
 sge::camera::ortho_freelook::parameters &

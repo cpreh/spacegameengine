@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/symbol.hpp>
 #include <sge/camera/ortho_freelook/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/near.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -47,17 +45,13 @@ public:
 	projection_rectangle_from_viewport(
 		sge::camera::ortho_freelook::object &,
 		sge::renderer::device &,
-		sge::viewport::manager &,
-		sge::renderer::projection::near const &,
-		sge::renderer::projection::far const &);
+		sge::viewport::manager &);
 
 	SGE_CAMERA_SYMBOL
 	~projection_rectangle_from_viewport();
 private:
 	sge::camera::ortho_freelook::object &camera_;
 	sge::renderer::device &renderer_;
-	sge::renderer::projection::near near_;
-	sge::renderer::projection::far far_;
 	fcppt::signal::scoped_connection viewport_callback_connection_;
 
 	void

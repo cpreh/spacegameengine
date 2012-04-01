@@ -233,11 +233,11 @@ add_sge_console_example(
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-#add_sge_example(
-#	ortho_view
-#	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-#)
+add_sge_example(
+	ortho_view
+	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)
 
 add_sge_console_example(
 	plugin

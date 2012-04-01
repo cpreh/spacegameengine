@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_ORTHO_FREELOOK_ZOOM_SPEED_HPP_INCLUDED
 #define SGE_CAMERA_ORTHO_FREELOOK_ZOOM_SPEED_HPP_INCLUDED
 
-#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace sge
@@ -31,7 +31,7 @@ namespace camera
 namespace ortho_freelook
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::scalar,
+	sge::renderer::vector2,
 	zoom_speed);
 }
 }
