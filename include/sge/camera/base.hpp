@@ -100,7 +100,6 @@ private:
 	renderer::matrix4 projection_matrix_;
 	// The camera's position and orientation
 	camera::gizmo_type gizmo_;
-	bool active_;
 };
 }
 }

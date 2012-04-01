@@ -35,10 +35,20 @@ namespace detail
 class batch
 {
 public:
-	explicit
 	batch(
 		sge::renderer::texture::planar &,
 		sge::renderer::vertex_buffer_ptr);
+
+	batch(
+		batch const &
+	);
+
+	batch &
+	operator=(
+		batch const &
+	);
+
+	~batch();
 
 	sge::renderer::texture::planar &
 	texture() const;

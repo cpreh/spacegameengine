@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -49,6 +52,9 @@ template<
 	typename Enable = void
 >
 struct format_enum_static;
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format
@@ -85,6 +91,8 @@ boost::mpl::integral_c<
 	format::i32
 >
 {};
+
+FCPPT_PP_POP_WARNING
 
 }
 }

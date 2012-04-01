@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <CEGUIBase.h>
@@ -152,7 +151,6 @@ private:
 	geometry_buffer_sequence geometry_buffers_;
 	texture_target_sequence texture_targets_;
 	texture_sequence textures_;
-	fcppt::signal::scoped_connection viewport_change_connection_;
 };
 }
 }

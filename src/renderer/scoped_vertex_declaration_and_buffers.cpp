@@ -37,7 +37,8 @@ sge::renderer::scoped_vertex_declaration_and_buffers::scoped_vertex_declaration_
 	scoped_declaration_(
 		_device,
 		_vertex_declaration
-	)
+	),
+	scoped_buffers_()
 {
 	for(
 		renderer::const_vertex_buffer_ref_container::const_iterator it(

@@ -19,14 +19,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/detail/batch.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
+
 
 sge::cegui::detail::batch::batch(
 	sge::renderer::texture::planar &_texture,
 	sge::renderer::vertex_buffer_ptr const _vertex_buffer
 )
 :
-	texture_(&_texture),
-	vertex_buffer_(_vertex_buffer)
+	texture_(
+		&_texture
+	),
+	vertex_buffer_(
+		_vertex_buffer
+	)
+{
+}
+
+sge::cegui::detail::batch::batch(
+	batch const &_other
+)
+:
+	texture_(
+		_other.texture_
+	),
+	vertex_buffer_(
+		_other.vertex_buffer_
+	)
+{
+}
+
+sge::cegui::detail::batch &
+sge::cegui::detail::batch::operator=(
+	batch const &_other
+)
+{
+	if(
+		this == &_other
+	)
+		return *this;
+
+	texture_ = _other.texture_;
+
+	vertex_buffer_ = _other.vertex_buffer_;
+
+	return *this;
+}
+
+sge::cegui::detail::batch::~batch()
 {
 }
 

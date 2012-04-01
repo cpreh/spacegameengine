@@ -106,7 +106,8 @@ sge::cegui::detail::geometry_buffer::geometry_buffer(
 	rotation_pivot_(
 		sge::renderer::vector3::null()),
 	rotation_axis_(
-		sge::renderer::vector3::null())
+		sge::renderer::vector3::null()),
+	scissor_area_()
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
