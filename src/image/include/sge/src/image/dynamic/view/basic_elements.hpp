@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/size_type.hpp>
 #include <sge/image/view/mizuiro_type.hpp>
 #include <sge/src/image/dynamic/color/formats.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -39,6 +42,9 @@ namespace dynamic
 {
 namespace view
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	sge::image::size_type Dim,
@@ -59,6 +65,8 @@ boost::mpl::transform<
 >
 {
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

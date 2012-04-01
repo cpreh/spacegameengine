@@ -25,12 +25,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator_fwd.hpp>
 #include <sge/plugin/detail/iterator_base_type.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
 {
 namespace plugin
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename T
@@ -42,6 +48,8 @@ public
 		T
 	>::type
 {
+FCPPT_PP_POP_WARNING
+
 public:
 	typedef typename detail::iterator_base_type<T>::type base_type;
 

@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_TRAITS_TYPE_HPP_INCLUDED
 #define SGE_CHARCONV_TRAITS_TYPE_HPP_INCLUDED
 
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -30,6 +33,9 @@ namespace sge
 {
 namespace charconv
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 // TODO: which of these do we have to define ourselves?
 template<
@@ -42,6 +48,8 @@ std::char_traits<
 >
 {
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }
