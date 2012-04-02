@@ -98,3 +98,10 @@ install(
 	DESTINATION
 	${INSTALL_INCLUDE_DIR}
 )
+
+install(
+	FILES
+	${CMAKE_BINARY_DIR}/include/alda/symbol.hpp
+	DESTINATION
+	${INSTALL_INCLUDE_DIR}/alda
+)
