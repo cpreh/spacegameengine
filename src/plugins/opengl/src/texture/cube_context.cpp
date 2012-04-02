@@ -26,8 +26,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/cube_side_array.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
-#include <fcppt/assign/make_array.hpp>
+#include <fcppt/optional_impl.hpp>
 
+namespace
+{
+
+sge::opengl::texture::cube_side_array const normal_sides =
+{{
+	sge::opengl::texture::convert::make_type(
+		GL_TEXTURE_CUBE_MAP_POSITIVE_Z
+	),
+	sge::opengl::texture::convert::make_type(
+		GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
+	),
+	sge::opengl::texture::convert::make_type(
+		GL_TEXTURE_CUBE_MAP_NEGATIVE_X
+	),
+	sge::opengl::texture::convert::make_type(
+		GL_TEXTURE_CUBE_MAP_POSITIVE_X
+	),
+	sge::opengl::texture::convert::make_type(
+		GL_TEXTURE_CUBE_MAP_POSITIVE_Y
+	),
+	sge::opengl::texture::convert::make_type(
+		GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
+	)
+}};
+
+sge::opengl::texture::cube_side_array const arb_sides =
+{{
+	sge::opengl::texture::convert::make_type(
+		GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB
+	),
+	sge::opengl::texture::convert::make_type(
+		GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB
+	),
+	sge::opengl::texture::convert::make_type(
+		GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB
+	),
+	sge::opengl::texture::convert::make_type(
+		GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB
+	),
+	sge::opengl::texture::convert::make_type(
+		GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB
+	),
+	sge::opengl::texture::convert::make_type(
+		GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB
+	)
+}};
+
+}
 
 sge::opengl::texture::cube_context::cube_context()
 :
@@ -57,77 +105,17 @@ sge::opengl::texture::cube_context::cube_context()
 	cube_sides_(
 		cube_texture_normal_
 		?
-			fcppt::assign::make_array<
-				sge::opengl::texture::cube_side_array::value_type
-			>
-			(
-				sge::opengl::texture::convert::make_type(
-					GL_TEXTURE_CUBE_MAP_POSITIVE_Z
-				)
-			)
-			(
-				sge::opengl::texture::convert::make_type(
-					GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
-				)
-			)
-			(
-				sge::opengl::texture::convert::make_type(
-					GL_TEXTURE_CUBE_MAP_NEGATIVE_X
-				)
-			)
-			(
-				sge::opengl::texture::convert::make_type(
-					GL_TEXTURE_CUBE_MAP_POSITIVE_X
-				)
-			)
-			(
-				sge::opengl::texture::convert::make_type(
-					GL_TEXTURE_CUBE_MAP_POSITIVE_Y
-				)
-			)
-			(
-				sge::opengl::texture::convert::make_type(
-					GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
-				)
+			optional_cube_side_array(
+				::normal_sides
 			)
 		:
 			cube_texture_arb_
 			?
-				fcppt::assign::make_array<
-					sge::opengl::texture::cube_side_array::value_type
-				>
-				(
-					sge::opengl::texture::convert::make_type(
-						GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB
-					)
-				)
-				(
-					sge::opengl::texture::convert::make_type(
-						GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB
-					)
-				)
-				(
-					sge::opengl::texture::convert::make_type(
-						GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB
-					)
-				)
-				(
-					sge::opengl::texture::convert::make_type(
-						GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB
-					)
-				)
-				(
-					sge::opengl::texture::convert::make_type(
-						GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB
-					)
-				)
-				(
-					sge::opengl::texture::convert::make_type(
-						GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB
-					)
+				optional_cube_side_array(
+					::arb_sides
 				)
 			:
-				sge::opengl::texture::cube_side_array()
+				optional_cube_side_array()
 	)
 {
 }
@@ -153,7 +141,7 @@ sge::opengl::texture::cube_context::cube_texture_type() const
 sge::opengl::texture::cube_side_array const &
 sge::opengl::texture::cube_context::cube_sides() const
 {
-	return cube_sides_;
+	return *cube_sides_;
 }
 
 sge::opengl::context::id const

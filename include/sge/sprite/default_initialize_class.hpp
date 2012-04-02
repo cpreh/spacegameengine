@@ -18,46 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef MAJUTSU_MEMORY_DETAIL_EXPAND_FUSION_INITLIST_HPP_INCLUDED
-#define MAJUTSU_MEMORY_DETAIL_EXPAND_FUSION_INITLIST_HPP_INCLUDED
+#ifndef SGE_SPRITE_DEFAULT_INITIALIZE_CLASS_HPP_INCLUDED
+#define SGE_SPRITE_DEFAULT_INITIALIZE_CLASS_HPP_INCLUDED
 
-#include <majutsu/memory/detail/init_fusion_element.hpp>
+#include <sge/sprite/detail/default_initialize_class_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/adapted/mpl.hpp>
-#include <boost/fusion/algorithm/transformation/transform.hpp>
+#include <boost/fusion/container/vector/convert.hpp>
+#include <boost/fusion/container/vector/vector10.hpp>
+#include <boost/mpl/begin.hpp>
+#include <boost/mpl/empty.hpp>
+#include <boost/mpl/end.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace majutsu
+namespace sge
 {
-namespace memory
-{
-namespace detail
+namespace sprite
 {
 
 template<
-	typename Types,
-	typename Tuple,
-	typename Arguments
+	typename Class
 >
-Tuple const
-expand_fusion_initlist(
-	Arguments const &_arguments
-)
+Class const
+default_initialize_class()
 {
+	typedef typename Class::memory_type::types types;
+
 	return
-		boost::fusion::transform(
-			Types(),
-			majutsu::memory::detail::init_fusion_element<
-				Types,
-				Arguments
-			>(
-				_arguments
+		Class(
+			boost::fusion::as_vector(
+				sge::sprite::detail::default_initialize_class_impl<
+					boost::mpl::empty<
+						types
+					>::value
+				>:: template execute<
+					typename boost::mpl::begin<
+						types
+					>::type,
+					typename boost::mpl::end<
+						types
+					>::type
+				>(
+					boost::fusion::vector0<>()
+				)
 			)
 		);
 }
 
-}
 }
 }
 

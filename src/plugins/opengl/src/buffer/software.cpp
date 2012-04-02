@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <utility>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
@@ -84,9 +85,12 @@ sge::opengl::buffer::software::bind_buffer(
 	buffer::id const _id
 )
 {
-	bound_buffers_[
-		_type
-	] = _id;
+	bound_buffers_.insert(
+		std::make_pair(
+			_type,
+			_id
+		)
+	).first->second = _id;
 }
 
 GLvoid *

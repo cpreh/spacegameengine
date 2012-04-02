@@ -83,6 +83,7 @@ set(
 	include/sge/sprite/config/with_texture_point_size.hpp
 	include/sge/sprite/config/with_texture_point_size_fwd.hpp
 	include/sge/sprite/count.hpp
+	include/sge/sprite/default_initialize_class.hpp
 	include/sge/sprite/default_parameters.hpp
 	include/sge/sprite/defaults/color.hpp
 	include/sge/sprite/defaults/connection.hpp
@@ -126,6 +127,8 @@ set(
 	include/sge/sprite/detail/config/needs_use_center.hpp
 	include/sge/sprite/detail/config/needs_use_texture_size.hpp
 	include/sge/sprite/detail/config/texture_levels.hpp
+	include/sge/sprite/detail/default_initialize_class_element.hpp
+	include/sge/sprite/detail/default_initialize_class_impl.hpp
 	include/sge/sprite/detail/destroy.hpp
 	include/sge/sprite/detail/geometry/convert_texture_rect.hpp
 	include/sge/sprite/detail/geometry/count.hpp

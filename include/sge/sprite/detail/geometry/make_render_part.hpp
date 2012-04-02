@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_GEOMETRY_MAKE_RENDER_PART_HPP_INCLUDED
 
 #include <sge/sprite/count.hpp>
+#include <sge/sprite/default_initialize_class.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>
 #include <sge/sprite/detail/geometry/render_part_common.hpp>
@@ -61,7 +62,11 @@ make_render_part(
 		Choices
 	>::type range_part_object;
 
-	range_part_object object;
+	range_part_object object(
+		sge::sprite::default_initialize_class<
+			range_part_object
+		>()
+	);
 
 	sge::sprite::detail::geometry::render_part_common(
 		object,

@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/memory/detail/expand_fusion_initlist.hpp>
 #include <majutsu/memory/detail/index_of.hpp>
 #include <majutsu/memory/detail/init_constants.hpp>
+#include <fcppt/mpl/inner.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/container/vector.hpp>
@@ -46,19 +47,12 @@ namespace memory
 {
 
 template<
-	typename T
->
-struct inner_type {
-	typedef typename T::type type;
-};
-
-template<
 	typename Type
 >
 class fusion
 {
 public:
-	typedef typename flatten<
+	typedef typename majutsu::flatten<
 		Type
 	>::type types; // TODO
 
@@ -68,7 +62,7 @@ public:
 		typename boost::mpl::transform<
 		//boost::mpl::transform_view<
 			types,
-			inner_type<
+			fcppt::mpl::inner<
 				boost::mpl::_1
 			>
 		>::type
@@ -100,7 +94,8 @@ public:
 		elements_(
 			_other.elements_
 		)
-	{}
+	{
+	}
 
 	template<
 		typename Arguments
@@ -110,14 +105,15 @@ public:
 	)
 	:
 		elements_(
-			detail::expand_fusion_initlist<
+			majutsu::memory::detail::expand_fusion_initlist<
 				types,
 				tuple
 			>(
 				_elements
 			)
 		)
-	{}
+	{
+	}
 
 	template<
 		typename Role
