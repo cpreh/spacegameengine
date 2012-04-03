@@ -27,11 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/size_type.hpp>
 #include <majutsu/concepts/static_size.hpp>
 #include <majutsu/concepts/dynamic_memory/tag.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sanguis
-{
-namespace messages
+namespace alda
 {
 namespace bindings
 {
@@ -52,7 +53,7 @@ template<
 void
 place(
 	majutsu::concepts::dynamic_memory::tag const *const _tag,
-	static_<
+	alda::bindings::static_<
 		Type,
 		Adapted
 	> const *,
@@ -92,7 +93,7 @@ template<
 Type
 make(
 	majutsu::concepts::dynamic_memory::tag const *const _tag,
-	static_<
+	alda::bindings::static_<
 		Type,
 		Adapted
 	> const *,
@@ -130,19 +131,21 @@ make(
 
 }
 }
-}
 
 namespace majutsu
 {
 namespace concepts
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
 	typename Type,
 	typename Adapted
 >
 struct static_size<
-	sanguis::messages::bindings::static_<
+	alda::bindings::static_<
 		Type,
 		Adapted
 	>
@@ -152,7 +155,10 @@ majutsu::integral_size<
 	Type::dim_wrapper::value
 	* sizeof(typename Type::value_type)
 >
-{};
+{
+};
+
+FCPPT_PP_POP_WARNING
 
 }
 }
