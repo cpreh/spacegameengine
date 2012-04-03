@@ -116,7 +116,7 @@ struct init_fusion_element
 
 		return
 			boost::fusion::at<
-				typename index_of<
+				typename majutsu::memory::detail::index_of<
 					roles,
 					typename boost::mpl::find<
 						roles,

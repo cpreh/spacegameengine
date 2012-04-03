@@ -18,44 +18,72 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef MAJUTSU_MEMORY_DETAIL_EXPAND_FUSION_INITLIST_HPP_INCLUDED
-#define MAJUTSU_MEMORY_DETAIL_EXPAND_FUSION_INITLIST_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_DEFAULT_INITIALIZE_CLASS_ELEMENT_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_DEFAULT_INITIALIZE_CLASS_ELEMENT_HPP_INCLUDED
 
-#include <majutsu/memory/detail/init_fusion_element.hpp>
+#include <fcppt/is_strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/adapted/mpl.hpp>
-#include <boost/fusion/algorithm/transformation/transform.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace majutsu
+namespace sge
 {
-namespace memory
+namespace sprite
 {
 namespace detail
 {
 
 template<
-	typename Types,
-	typename Tuple,
-	typename Arguments
+	typename Type,
+	typename Enable = void
 >
-Tuple const
-expand_fusion_initlist(
-	Arguments const &_arguments
-)
+struct default_initialize_class_element;
+
+
+template<
+	typename Type
+>
+struct default_initialize_class_element<
+	Type,
+	typename boost::enable_if<
+		fcppt::is_strong_typedef<
+			Type
+		>
+	>::type
+>
 {
-	return
-		boost::fusion::transform(
-			Types(),
-			majutsu::memory::detail::init_fusion_element<
-				Types,
-				Arguments
-			>(
-				_arguments
-			)
-		);
-}
+	static
+	Type
+	execute()
+	{
+		return
+			Type(
+				typename Type::value_type()
+			);
+	}
+};
+
+template<
+	typename Type
+>
+struct default_initialize_class_element<
+	Type,
+	typename boost::disable_if<
+		fcppt::is_strong_typedef<
+			Type
+		>
+	>::type
+>
+{
+	static
+	Type
+	execute()
+	{
+		return
+			Type();
+	}
+};
 
 }
 }

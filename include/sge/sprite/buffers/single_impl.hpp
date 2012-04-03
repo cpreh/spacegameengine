@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/sprite/count.hpp>
+#include <sge/sprite/default_initialize_class.hpp>
 #include <sge/sprite/buffers/allocate.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
@@ -52,7 +53,11 @@ sge::sprite::buffers::single<
 	buffers_option_(
 		_buffers_option
 	),
-	buffers_object_(),
+	buffers_object_(
+		sge::sprite::default_initialize_class<
+			buffers_object
+		>()
+	),
 	slice_()
 {
 }
@@ -114,13 +119,17 @@ sge::sprite::buffers::single<
 				slice_type
 			>(
 				buffers_object_,
-				typename slice_type::offset_object() // initialize offsets to zero
+				sge::sprite::default_initialize_class<
+					typename slice_type::offset_object
+				>()
 			)
 		);
 	else
 		slice_->reset(
 			buffers_object_,
-			typename slice_type::offset_object()
+			sge::sprite::default_initialize_class<
+				typename slice_type::offset_object
+			>()
 		);
 
 	return

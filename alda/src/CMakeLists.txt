@@ -94,7 +94,14 @@ endif()
 
 install(
 	DIRECTORY
-	${CMAKE_CURRENT_SOURCE_DIR}/include/alda
+	${CMAKE_SOURCE_DIR}/alda/include/alda
 	DESTINATION
 	${INSTALL_INCLUDE_DIR}
+)
+
+install(
+	FILES
+	${CMAKE_BINARY_DIR}/include/alda/symbol.hpp
+	DESTINATION
+	${INSTALL_INCLUDE_DIR}/alda
 )

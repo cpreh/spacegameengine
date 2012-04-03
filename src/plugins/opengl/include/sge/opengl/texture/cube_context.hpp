@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/cube_side_array.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -66,7 +67,11 @@ private:
 
 	texture::type const cube_texture_type_;
 
-	texture::cube_side_array const cube_sides_;
+	typedef fcppt::optional<
+		texture::cube_side_array
+	> optional_cube_side_array;
+
+	optional_cube_side_array const cube_sides_;
 };
 
 }
