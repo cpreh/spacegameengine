@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/capabilities_field.hpp>
-#include <sge/image2d/file_fwd.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/multi_system.hpp>
 #include <sge/image2d/multi_system_parameters_fwd.hpp>
 #include <sge/image2d/plugin.hpp>
@@ -52,7 +52,7 @@ sge::image2d::multi_system::~multi_system()
 {
 }
 
-sge::image2d::file_ptr const
+sge::image2d::file_unique_ptr
 sge::image2d::multi_system::load(
 	boost::filesystem::path const &_path
 )
@@ -65,7 +65,7 @@ sge::image2d::multi_system::load(
 		);
 }
 
-sge::image2d::file_ptr const
+sge::image2d::file_unique_ptr
 sge::image2d::multi_system::load_raw(
 	sge::media::const_raw_range const &_range,
 	sge::media::optional_extension const &_extension
@@ -80,7 +80,7 @@ sge::image2d::multi_system::load_raw(
 		);
 }
 
-sge::image2d::file_ptr const
+sge::image2d::file_unique_ptr
 sge::image2d::multi_system::create(
 	image2d::view::const_object const &_object,
 	sge::media::optional_extension const &_extension

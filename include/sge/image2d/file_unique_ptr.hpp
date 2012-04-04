@@ -18,34 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_FONT_BITMAP_LOAD_ONE_FILE_HPP_INCLUDED
-#define SGE_SRC_FONT_BITMAP_LOAD_ONE_FILE_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_FILE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_IMAGE2D_FILE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/image2d/file_unique_ptr.hpp>
-#include <sge/image2d/system_fwd.hpp>
-#include <sge/parse/json/object_fwd.hpp>
-#include <sge/src/font/bitmap/char_map.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/image2d/file_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace font
-{
-namespace bitmap
+namespace image2d
 {
 
-sge::image2d::file_unique_ptr
-load_one_file(
-	boost::filesystem::path const &stem,
-	sge::parse::json::object const &,
-	sge::image2d::system &,
-	bitmap::char_map &
-);
+typedef fcppt::unique_ptr<
+	sge::image2d::file
+> file_unique_ptr;
 
-}
 }
 }
 

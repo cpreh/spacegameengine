@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/object_impl.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/file_scoped_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/mouse/axis_event.hpp>
@@ -259,7 +260,7 @@ try
 		)
 	);
 
-	sge::image2d::file_ptr const
+	sge::image2d::file_scoped_ptr const
 		image_bg(
 			sys.image_system().load(
 				sge::config::media_path()

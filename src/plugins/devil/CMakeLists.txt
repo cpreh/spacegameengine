@@ -10,7 +10,7 @@ set(
 	src/plugins/devil/include/sge/devil/error_string.hpp
 	src/plugins/devil/include/sge/devil/file.hpp
 	src/plugins/devil/include/sge/devil/file_fwd.hpp
-	src/plugins/devil/include/sge/devil/file_ptr.hpp
+	src/plugins/devil/include/sge/devil/file_unique_ptr.hpp
 	src/plugins/devil/include/sge/devil/gen_image.hpp
 	src/plugins/devil/include/sge/devil/get_data.hpp
 	src/plugins/devil/include/sge/devil/get_integer.hpp

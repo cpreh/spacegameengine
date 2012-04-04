@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file_scoped_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/input/mouse/axis_code.hpp>
@@ -233,7 +233,7 @@ try
 		sge::sprite::buffers::option::dynamic
 	);
 
-	sge::image2d::file_ptr const image(
+	sge::image2d::file_scoped_ptr const image(
 		sys.image_system().load(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")

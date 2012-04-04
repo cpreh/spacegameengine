@@ -20,17 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/devil/enable.hpp>
 #include <sge/devil/file.hpp>
-#include <sge/devil/file_ptr.hpp>
+#include <sge/devil/file_unique_ptr.hpp>
 #include <sge/devil/supported_extensions.hpp>
 #include <sge/devil/system.hpp>
 #include <sge/image/capabilities_field.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -51,13 +52,13 @@ sge::devil::system::~system()
 {
 }
 
-sge::image2d::file_ptr const
+sge::image2d::file_unique_ptr
 sge::devil::system::load(
 	boost::filesystem::path const &_path
 )
 {
-	sge::devil::file_ptr const ret(
-		fcppt::make_shared_ptr<
+	sge::devil::file_unique_ptr ret(
+		fcppt::make_unique_ptr<
 			devil::file
 		>()
 	);
@@ -67,21 +68,23 @@ sge::devil::system::load(
 			_path
 		)
 		?
-			sge::image2d::file_ptr()
+			sge::image2d::file_unique_ptr()
 		:
-			sge::image2d::file_ptr(
-				ret
+			sge::image2d::file_unique_ptr(
+				fcppt::move(
+					ret
+				)
 			);
 }
 
-sge::image2d::file_ptr const
+sge::image2d::file_unique_ptr
 sge::devil::system::load_raw(
 	sge::media::const_raw_range const &_range,
 	sge::media::optional_extension const &_extension
 )
 {
-	sge::devil::file_ptr const ret(
-		fcppt::make_shared_ptr<
+	sge::devil::file_unique_ptr ret(
+		fcppt::make_unique_ptr<
 			devil::file
 		>()
 	);
@@ -92,14 +95,16 @@ sge::devil::system::load_raw(
 			_extension
 		)
 		?
-			sge::image2d::file_ptr()
+			sge::image2d::file_unique_ptr()
 		:
-			sge::image2d::file_ptr(
-				ret
+			sge::image2d::file_unique_ptr(
+				fcppt::move(
+					ret
+				)
 			);
 }
 
-sge::image2d::file_ptr const
+sge::image2d::file_unique_ptr
 sge::devil::system::create(
 	image2d::view::const_object const &_src,
 	sge::media::optional_extension const &_extension
@@ -113,13 +118,15 @@ sge::devil::system::create(
 		)
 		== 0u
 		?
-			sge::image2d::file_ptr()
+			sge::image2d::file_unique_ptr()
 		:
-			fcppt::make_shared_ptr<
-				devil::file
-			>(
-				fcppt::cref(
-					_src
+			sge::image2d::file_unique_ptr(
+				fcppt::make_unique_ptr<
+					devil::file
+				>(
+					fcppt::cref(
+						_src
+					)
 				)
 			)
 		;
