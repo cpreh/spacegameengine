@@ -3,7 +3,8 @@ set(
 	include/sge/audio/bad_sound_alloc.hpp
 	include/sge/audio/buffer.hpp
 	include/sge/audio/buffer_fwd.hpp
-	include/sge/audio/buffer_ptr.hpp
+	include/sge/audio/buffer_scoped_ptr.hpp
+	include/sge/audio/buffer_unique_ptr.hpp
 	include/sge/audio/channel_type.hpp
 	include/sge/audio/direction/forward.hpp
 	include/sge/audio/direction/object.hpp
@@ -36,13 +37,16 @@ set(
 	include/sge/audio/player_fwd.hpp
 	include/sge/audio/player_plugin.hpp
 	include/sge/audio/player_plugin_ptr.hpp
-	include/sge/audio/player_ptr.hpp
+	include/sge/audio/player_scoped_ptr.hpp
+	include/sge/audio/player_shared_ptr.hpp
+	include/sge/audio/player_unique_ptr.hpp
 	include/sge/audio/sample_container.hpp
 	include/sge/audio/sample_count.hpp
 	include/sge/audio/scalar.hpp
 	include/sge/audio/sound/base.hpp
 	include/sge/audio/sound/base_fwd.hpp
-	include/sge/audio/sound/base_ptr.hpp
+	include/sge/audio/sound/base_scoped_ptr.hpp
+	include/sge/audio/sound/base_unique_ptr.hpp
 	include/sge/audio/sound/nonpositional_parameters.hpp
 	include/sge/audio/sound/nonpositional_parameters_fwd.hpp
 	include/sge/audio/sound/optional_direction.hpp
@@ -51,7 +55,8 @@ set(
 	include/sge/audio/sound/positional_fwd.hpp
 	include/sge/audio/sound/positional_parameters.hpp
 	include/sge/audio/sound/positional_parameters_fwd.hpp
-	include/sge/audio/sound/positional_ptr.hpp
+	include/sge/audio/sound/positional_scoped_ptr.hpp
+	include/sge/audio/sound/positional_unique_ptr.hpp
 	include/sge/audio/sound/repeat.hpp
 	include/sge/audio/unsupported_format.hpp
 	include/sge/audio/vector.hpp

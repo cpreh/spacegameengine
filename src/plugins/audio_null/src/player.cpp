@@ -18,20 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/buffer_ptr.hpp>
+#include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/player_capabilities.hpp>
 #include <sge/audio/player_capabilities_field.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
-#include <sge/audio/sound/positional_ptr.hpp>
+#include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/audio_null/buffer.hpp>
 #include <sge/audio_null/player.hpp>
 #include <sge/audio_null/positional.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 
 
@@ -72,42 +72,42 @@ sge::audio_null::player::gain(
 {
 }
 
-sge::audio::buffer_ptr const
+sge::audio::buffer_unique_ptr
 sge::audio_null::player::create_buffer(
 	audio::file &
 )
 {
 	return
-		sge::audio::buffer_ptr(
-			fcppt::make_shared_ptr<
+		sge::audio::buffer_unique_ptr(
+			fcppt::make_unique_ptr<
 				audio_null::buffer
 			>()
 		);
 }
 
-sge::audio::sound::positional_ptr const
+sge::audio::sound::positional_unique_ptr
 sge::audio_null::player::create_positional_stream(
 	audio::file &,
 	audio::sound::positional_parameters const &
 )
 {
 	return
-		sge::audio::sound::positional_ptr(
-			fcppt::make_shared_ptr<
+		sge::audio::sound::positional_unique_ptr(
+			fcppt::make_unique_ptr<
 				audio_null::positional
 			>()
 		);
 }
 
-sge::audio::sound::base_ptr const
+sge::audio::sound::base_unique_ptr
 sge::audio_null::player::create_nonpositional_stream(
 	audio::file &,
 	audio::sound::nonpositional_parameters const &
 )
 {
 	return
-		sge::audio::sound::positional_ptr(
-			fcppt::make_shared_ptr<
+		sge::audio::sound::base_unique_ptr(
+			fcppt::make_unique_ptr<
 				audio_null::positional
 			>()
 		);

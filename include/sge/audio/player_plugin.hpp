@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_PLAYER_PLUGIN_HPP_INCLUDED
 #define SGE_AUDIO_PLAYER_PLUGIN_HPP_INCLUDED
 
-#include <sge/audio/player_ptr.hpp>
+#include <sge/audio/player_unique_ptr.hpp>
 #include <sge/audio/symbol.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/detail/address_name.hpp>
@@ -41,17 +41,21 @@ namespace detail
  */
 template<>
 struct traits<
-	audio::player
+	sge::audio::player
 >
 {
 public:
-	SGE_AUDIO_SYMBOL static address_name
+	SGE_AUDIO_SYMBOL static
+	sge::plugin::detail::address_name
 	plugin_loader_name();
 
-	SGE_AUDIO_SYMBOL static capabilities::type
+	SGE_AUDIO_SYMBOL static
+	sge::plugin::capabilities::type
 	plugin_type();
 
-	typedef audio::player_ptr const (*loader_fun)();
+	typedef sge::audio::player_unique_ptr (
+		*loader_fun
+	)();
 };
 
 }

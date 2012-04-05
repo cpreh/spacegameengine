@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/buffer_holder.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/file_fwd.hpp>
-#include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
-#include <sge/audio/sound/positional_ptr.hpp>
+#include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -48,12 +48,12 @@ public:
 		audio::file &
 	);
 
-	audio::sound::positional_ptr const
+	audio::sound::positional_unique_ptr
 	create_positional(
 		audio::sound::positional_parameters const &
 	);
 
-	audio::sound::base_ptr const
+	audio::sound::base_unique_ptr
 	create_nonpositional(
 		audio::sound::nonpositional_parameters const &);
 

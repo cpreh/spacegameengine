@@ -18,44 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_NULL_BUFFER_HPP_INCLUDED
-#define SGE_AUDIO_NULL_BUFFER_HPP_INCLUDED
+#ifndef SGE_AUDIO_SOUND_BASE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_AUDIO_SOUND_BASE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/audio/buffer.hpp>
-#include <sge/audio/sound/base_unique_ptr.hpp>
-#include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
-#include <sge/audio/sound/positional_parameters_fwd.hpp>
-#include <sge/audio/sound/positional_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/audio/sound/base_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace audio_null
+namespace audio
 {
-
-class buffer
-:
-	public sge::audio::buffer
+namespace sound
 {
-	FCPPT_NONCOPYABLE(
-		buffer
-	);
-public:
-	buffer();
-
-	~buffer();
-
-	audio::sound::positional_unique_ptr
-	create_positional(
-		audio::sound::positional_parameters const &
-	);
-
-	audio::sound::base_unique_ptr
-	create_nonpositional(
-		audio::sound::nonpositional_parameters const &);
-};
-
+typedef
+fcppt::unique_ptr<
+	sge::audio::sound::base
+>
+base_unique_ptr;
+}
 }
 }
 

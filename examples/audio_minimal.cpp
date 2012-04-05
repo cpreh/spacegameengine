@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/buffer.hpp>
+#include <sge/audio/buffer_scoped_ptr.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/file_scoped_ptr.hpp>
 #include <sge/audio/loader.hpp>
@@ -26,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/listener.hpp>
 #include <sge/audio/direction/object.hpp>
 #include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/base_scoped_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/media/extension.hpp>
@@ -41,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/audio/player_plugin.hpp>
-#include <sge/audio/player_ptr.hpp>
+#include <sge/audio/player_scoped_ptr.hpp>
 #include <sge/config/plugin_path.hpp>
 #endif // SGE_EXAMPLES_AUDIO_MINIMAL_USE_SYSTEMS_INIT
 #include <sge/audio/loader_capabilities_field.hpp>
@@ -122,7 +124,7 @@ try
 	player_plugin_ptr const player_plugin(
 		player_it->load());
 
-	sge::audio::player_ptr const _player(
+	sge::audio::player_scoped_ptr const _player(
 		player_plugin->get()());
 
 	sge::audio::player &player =
@@ -146,25 +148,25 @@ try
 				/ FCPPT_TEXT("sounds")
 				/ FCPPT_TEXT("ding.wav")));
 
-	sge::audio::buffer_ptr const buf =
+	sge::audio::buffer_scoped_ptr const buf(
 		player.create_buffer(
-			*soundfile);
+			*soundfile));
 
-	sge::audio::sound::base_ptr const s =
+	sge::audio::sound::base_scoped_ptr const sound(
 		buf->create_nonpositional(
 			sge::audio::sound::nonpositional_parameters()
 				.gain(
 					static_cast<sge::audio::scalar>(1.0f))
 				.pitch(
-					static_cast<sge::audio::scalar>(1.0f)));
+					static_cast<sge::audio::scalar>(1.0f))));
 //! [create_file_buffer_and_sound]
 
 //! [play]
-	s->play(
+	sound->play(
 		sge::audio::sound::repeat::once);
 
-	while (s->status() != sge::audio::sound::play_status::stopped)
-		s->update();
+	while (sound->status() != sge::audio::sound::play_status::stopped)
+		sound->update();
 //! [play]
 
 //! [listener_direction]
@@ -195,10 +197,10 @@ try
 //! [listener_direction]
 
 //! [create_and_play_streaming]
-	sge::audio::sound::base_ptr const streaming =
+	sge::audio::sound::base_scoped_ptr const streaming(
 		player.create_nonpositional_stream(
 			*soundfile,
-			sge::audio::sound::nonpositional_parameters());
+			sge::audio::sound::nonpositional_parameters()));
 
 	while (streaming->status() != sge::audio::sound::play_status::stopped)
 		streaming->update();

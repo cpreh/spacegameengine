@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin.hpp>
-#include <sge/audio/player_ptr.hpp>
+#include <sge/audio/player_shared_ptr.hpp>
+#include <sge/audio/player_unique_ptr.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
@@ -29,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 #include <sge/systems/audio_player.hpp>
 #include <sge/systems/exception.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -54,7 +56,7 @@ sge::systems::modules::audio::find_player_plugin(
 			it->load()
 		);
 
-		sge::audio::player_ptr const player(
+		sge::audio::player_unique_ptr player(
 			plugin->get()()
 		);
 
@@ -64,7 +66,11 @@ sge::systems::modules::audio::find_player_plugin(
 			return
 				sge::systems::modules::audio::player_pair(
 					plugin,
-					player
+					sge::audio::player_shared_ptr(
+						fcppt::move(
+							player
+						)
+					)
 				);
 	}
 

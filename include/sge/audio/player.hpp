@@ -22,17 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_PLAYER_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/audio/buffer_ptr.hpp>
+#include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/player_capabilities_field.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/symbol.hpp>
-#include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
-#include <sge/audio/sound/positional_ptr.hpp>
+#include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -96,20 +96,20 @@ public:
 	) = 0;
 
 	/// Create a buffer from a file
-	virtual audio::buffer_ptr const
+	virtual audio::buffer_unique_ptr
 	create_buffer(
 		audio::file &
 	) = 0;
 
 	/// Create a positional stream from a file
-	virtual sound::positional_ptr const
+	virtual sound::positional_unique_ptr
 	create_positional_stream(
 		audio::file &,
 		sound::positional_parameters const &
 	) = 0;
 
 	/// Create a nonpositional stream from a file
-	virtual sound::base_ptr const
+	virtual sound::base_unique_ptr
 	create_nonpositional_stream(
 		audio::file &,
 		sound::nonpositional_parameters const &

@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/positional_scoped_ptr.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/file.hpp>
@@ -171,7 +172,7 @@ class sprite_functor
 	);
 public:
 	explicit sprite_functor(
-		sge::audio::sound::positional_ptr const _sound
+		sge::audio::sound::positional &_sound
 	)
 	:
 		sound_(_sound)
@@ -187,7 +188,7 @@ public:
 		)
 			return;
 
-		sound_->position(
+		sound_.position(
 			sge::audio::vector(
 				static_cast<
 					sge::audio::scalar
@@ -209,7 +210,7 @@ public:
 		sge::input::cursor::relative_move_event const &_event
 	)
 	{
-		sound_->linear_velocity(
+		sound_.linear_velocity(
 			sge::audio::vector(
 				static_cast<
 					sge::audio::scalar
@@ -226,7 +227,7 @@ public:
 		);
 	}
 private:
-	sge::audio::sound::positional_ptr const sound_;
+	sge::audio::sound::positional &sound_;
 };
 }
 
@@ -427,7 +428,7 @@ try
 		)
 	);
 
-	sge::audio::sound::positional_ptr const sound_siren(
+	sge::audio::sound::positional_scoped_ptr const sound_siren(
 		sys.audio_player().create_positional_stream(
 			*af_siren,
 			sge::audio::sound::positional_parameters()
@@ -461,7 +462,7 @@ try
 	);
 
 	::sprite_functor functor(
-		sound_siren
+		*sound_siren
 	);
 
 	fcppt::signal::scoped_connection const normal_connection(

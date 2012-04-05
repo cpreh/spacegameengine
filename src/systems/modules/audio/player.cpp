@@ -47,5 +47,5 @@ sge::systems::modules::audio::player::~player()
 sge::audio::player &
 sge::systems::modules::audio::player::get() const
 {
-	return *player_pair_.player();
+	return player_pair_.player();
 }

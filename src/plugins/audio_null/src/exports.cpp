@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/player_ptr.hpp>
+#include <sge/audio/player_unique_ptr.hpp>
 #include <sge/audio_null/player.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -43,13 +43,15 @@ sge::plugin::info const info(
 	)
 );
 
-sge::audio::player_ptr const
+sge::audio::player_unique_ptr
 create_audio_player()
 {
 	return
-		fcppt::make_shared_ptr<
-			sge::audio_null::player
-		>();
+		sge::audio::player_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::audio_null::player
+			>()
+		);
 }
 
 }
