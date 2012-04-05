@@ -461,6 +461,7 @@ set(
 	include/sge/renderer/vertex_declaration.hpp
 	include/sge/renderer/vertex_declaration_fwd.hpp
 	include/sge/renderer/vertex_declaration_scoped_ptr.hpp
+	include/sge/renderer/vertex_declaration_shared_ptr.hpp
 	include/sge/renderer/vertex_declaration_unique_ptr.hpp
 	include/sge/renderer/vf/color.hpp
 	include/sge/renderer/vf/color_base.hpp
