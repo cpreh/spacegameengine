@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/freetype/face.hpp>
 #include <sge/freetype/freetype.hpp>
 #include <sge/charconv/system_fwd.hpp>
+#include <sge/font/char_metric_shared_ptr.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/size_type.hpp>
@@ -58,7 +59,7 @@ public:
 
 	~metrics();
 
-	font::char_metric_ptr const
+	font::char_metric_shared_ptr const
 	load_char(
 		font::char_type
 	);
@@ -74,7 +75,7 @@ private:
 
 	typedef std::map<
 		font::char_type,
-		font::char_metric_ptr
+		font::char_metric_shared_ptr
 	> buffer_type;
 
 	buffer_type buffer_;

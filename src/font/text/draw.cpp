@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/char_metric.hpp>
+#include <sge/font/char_metric_shared_ptr.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/text/char_space.hpp>
 #include <sge/font/text/draw.hpp>
@@ -128,7 +129,7 @@ sge::font::text::draw(
 			++sbeg
 		)
 		{
-			char_metric_ptr const cm(
+			sge::font::char_metric_shared_ptr const cm(
 				_metrics.load_char(
 					*sbeg
 				)

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/char_metric_ptr.hpp>
+#include <sge/font/char_metric_shared_ptr.hpp>
 #include <sge/font/char_not_available.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/exception.hpp>
@@ -118,7 +118,7 @@ sge::font::bitmap::metrics::~metrics()
 {
 }
 
-sge::font::char_metric_ptr const
+sge::font::char_metric_shared_ptr const
 sge::font::bitmap::metrics::load_char(
 	font::char_type const _ch
 )

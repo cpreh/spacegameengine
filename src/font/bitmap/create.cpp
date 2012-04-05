@@ -18,30 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/metrics_unique_ptr.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/src/font/bitmap/metrics.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::font::metrics_ptr const
+sge::font::metrics_unique_ptr
 sge::font::bitmap::create(
 	boost::filesystem::path const &_path,
 	sge::image2d::system &_system
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			font::bitmap::metrics
-		>(
-			_path,
-			fcppt::ref(
-				_system
+		sge::font::metrics_unique_ptr(
+			fcppt::make_unique_ptr<
+				font::bitmap::metrics
+			>(
+				_path,
+				fcppt::ref(
+					_system
+				)
 			)
 		);
 }

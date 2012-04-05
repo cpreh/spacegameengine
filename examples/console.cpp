@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/sprite_parameters.hpp>
 #include <sge/console/callback/from_functor.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/metrics.hpp>
+#include <sge/font/metrics_scoped_ptr.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/font/text/to_fcppt_string.hpp>
@@ -260,7 +261,7 @@ try
 			)
 		);
 
-	sge::font::metrics_ptr const font_metrics(
+	sge::font::metrics_scoped_ptr const font_metrics(
 		sys.font_system().create_font(
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")

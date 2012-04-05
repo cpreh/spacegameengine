@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_METRICS_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/font/char_metric_ptr.hpp>
+#include <sge/font/char_metric_shared_ptr.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/symbol.hpp>
 #include <sge/font/unit.hpp>
@@ -43,12 +43,14 @@ protected:
 	SGE_FONT_SYMBOL
 	metrics();
 public:
-	virtual char_metric_ptr const
+	virtual
+	sge::font::char_metric_shared_ptr const
 	load_char(
-		font::char_type
+		sge::font::char_type
 	) = 0;
 
-	virtual unit
+	virtual
+	sge::font::unit
 	line_height() const = 0;
 
 	SGE_FONT_SYMBOL

@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/metrics.hpp>
+#include <sge/font/metrics_scoped_ptr.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
@@ -606,7 +607,7 @@ try
 		)
 	);
 
-	sge::font::metrics_ptr const font_metrics(
+	sge::font::metrics_scoped_ptr const font_metrics(
 		sys.font_system().create_font(
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")

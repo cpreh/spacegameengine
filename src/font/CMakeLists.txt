@@ -2,7 +2,9 @@ set(
 	SGE_FONT_FILES
 	include/sge/font/char_metric.hpp
 	include/sge/font/char_metric_fwd.hpp
-	include/sge/font/char_metric_ptr.hpp
+	include/sge/font/char_metric_scoped_ptr.hpp
+	include/sge/font/char_metric_shared_ptr.hpp
+	include/sge/font/char_metric_unique_ptr.hpp
 	include/sge/font/char_not_available.hpp
 	include/sge/font/char_type.hpp
 	include/sge/font/const_image_view.hpp
@@ -11,7 +13,8 @@ set(
 	include/sge/font/image_view.hpp
 	include/sge/font/metrics.hpp
 	include/sge/font/metrics_fwd.hpp
-	include/sge/font/metrics_ptr.hpp
+	include/sge/font/metrics_scoped_ptr.hpp
+	include/sge/font/metrics_unique_ptr.hpp
 	include/sge/font/plugin.hpp
 	include/sge/font/plugin_ptr.hpp
 	include/sge/font/pos.hpp
@@ -19,7 +22,8 @@ set(
 	include/sge/font/size_type.hpp
 	include/sge/font/system.hpp
 	include/sge/font/system_fwd.hpp
-	include/sge/font/system_ptr.hpp
+	include/sge/font/system_scoped_ptr.hpp
+	include/sge/font/system_unique_ptr.hpp
 	include/sge/font/unit.hpp
 	src/font/char_metric.cpp
 	src/font/char_not_available.cpp
