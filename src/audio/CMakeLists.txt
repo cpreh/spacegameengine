@@ -36,7 +36,7 @@ set(
 	include/sge/audio/player_capabilities_field.hpp
 	include/sge/audio/player_fwd.hpp
 	include/sge/audio/player_plugin.hpp
-	include/sge/audio/player_plugin_ptr.hpp
+	include/sge/audio/player_plugin_shared_ptr.hpp
 	include/sge/audio/player_scoped_ptr.hpp
 	include/sge/audio/player_shared_ptr.hpp
 	include/sge/audio/player_unique_ptr.hpp

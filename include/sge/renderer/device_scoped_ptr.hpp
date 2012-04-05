@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_PLUGIN_PTR_HPP_INCLUDED
-#define SGE_RENDERER_PLUGIN_PTR_HPP_INCLUDED
+#ifndef SGE_RENDERER_DEVICE_SCOPED_PTR_HPP_INCLUDED
+#define SGE_RENDERER_DEVICE_SCOPED_PTR_HPP_INCLUDED
 
-#include <sge/plugin/object_shared_ptr.hpp>
-#include <sge/renderer/system_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -30,9 +30,12 @@ namespace sge
 namespace renderer
 {
 
-typedef sge::plugin::object_shared_ptr<
-	sge::renderer::system
->::type plugin_ptr;
+/**
+ * \brief A scoped pointer to a renderer::device
+*/
+typedef fcppt::scoped_ptr<
+	sge::renderer::device
+> device_scoped_ptr;
 
 }
 }

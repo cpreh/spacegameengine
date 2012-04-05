@@ -18,21 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_PLUGIN_PTR_HPP_INCLUDED
-#define SGE_FONT_PLUGIN_PTR_HPP_INCLUDED
+#ifndef SGE_RENDERER_SYSTEM_SCOPED_PTR_HPP_INCLUDED
+#define SGE_RENDERER_SYSTEM_SCOPED_PTR_HPP_INCLUDED
 
-#include <sge/font/system_fwd.hpp>
-#include <sge/plugin/object_shared_ptr.hpp>
+#include <sge/renderer/system_fwd.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace font
+namespace renderer
 {
 
-typedef sge::plugin::object_shared_ptr<
-	sge::font::system
->::type plugin_ptr;
+/**
+ * \brief A scoped pointer to a renderer::system
+*/
+typedef fcppt::scoped_ptr<
+	renderer::system
+> system_scoped_ptr;
 
 }
 }

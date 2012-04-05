@@ -18,24 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SYSTEM_PTR_HPP_INCLUDED
-#define SGE_RENDERER_SYSTEM_PTR_HPP_INCLUDED
+#ifndef SGE_INPUT_PLUGIN_SHARED_PTR_HPP_INCLUDED
+#define SGE_INPUT_PLUGIN_SHARED_PTR_HPP_INCLUDED
 
-#include <sge/renderer/system_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/input/system_fwd.hpp>
+#include <sge/plugin/object_shared_ptr.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace input
 {
 
-/**
- * \brief A shared pointer to a renderer::system
-*/
-typedef fcppt::shared_ptr<
-	renderer::system
-> system_ptr;
+typedef sge::plugin::object_shared_ptr<
+	sge::input::system
+>::type plugin_shared_ptr;
 
 }
 }

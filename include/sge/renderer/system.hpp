@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_unique_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/system_fwd.hpp>
@@ -67,7 +67,7 @@ public:
 	 * \throw sge::renderer::exception if anything goes wrong
 	 * \return An sge::renderer::device_ptr that may not be null
 	*/
-	virtual sge::renderer::device_ptr const
+	virtual sge::renderer::device_unique_ptr
 	create_renderer(
 		sge::renderer::parameters const &params,
 		sge::renderer::adapter adapter,

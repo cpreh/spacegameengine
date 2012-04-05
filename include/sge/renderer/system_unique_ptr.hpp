@@ -18,21 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_PLAYER_PLUGIN_PTR_HPP_INCLUDED
-#define SGE_AUDIO_PLAYER_PLUGIN_PTR_HPP_INCLUDED
+#ifndef SGE_RENDERER_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/audio/player_fwd.hpp>
-#include <sge/plugin/object_shared_ptr.hpp>
+#include <sge/renderer/system_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace audio
+namespace renderer
 {
 
-typedef sge::plugin::object_shared_ptr<
-	sge::audio::player
->::type player_plugin_ptr;
+/**
+ * \brief A unique pointer to a renderer::system
+*/
+typedef fcppt::unique_ptr<
+	renderer::system
+> system_unique_ptr;
 
 }
 }

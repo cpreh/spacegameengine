@@ -55,7 +55,8 @@ set(
 	include/sge/renderer/depth_stencil_surface_ptr.hpp
 	include/sge/renderer/device.hpp
 	include/sge/renderer/device_fwd.hpp
-	include/sge/renderer/device_ptr.hpp
+	include/sge/renderer/device_scoped_ptr.hpp
+	include/sge/renderer/device_unique_ptr.hpp
 	include/sge/renderer/diffuse_color.hpp
 	include/sge/renderer/dim2.hpp
 	include/sge/renderer/dim3.hpp
@@ -218,7 +219,7 @@ set(
 	include/sge/renderer/pixel_rect_fwd.hpp
 	include/sge/renderer/pixel_unit.hpp
 	include/sge/renderer/plugin.hpp
-	include/sge/renderer/plugin_ptr.hpp
+	include/sge/renderer/plugin_shared_ptr.hpp
 	include/sge/renderer/primitive_count.hpp
 	include/sge/renderer/projection/aspect.hpp
 	include/sge/renderer/projection/dim.hpp
@@ -324,7 +325,8 @@ set(
 	include/sge/renderer/surface_index.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
-	include/sge/renderer/system_ptr.hpp
+	include/sge/renderer/system_scoped_ptr.hpp
+	include/sge/renderer/system_unique_ptr.hpp
 	include/sge/renderer/target.hpp
 	include/sge/renderer/target_base.hpp
 	include/sge/renderer/target_base_fwd.hpp

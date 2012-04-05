@@ -18,24 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DEVICE_PTR_HPP_INCLUDED
-#define SGE_RENDERER_DEVICE_PTR_HPP_INCLUDED
+#ifndef SGE_FONT_PLUGIN_SHARED_PTR_HPP_INCLUDED
+#define SGE_FONT_PLUGIN_SHARED_PTR_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/font/system_fwd.hpp>
+#include <sge/plugin/object_shared_ptr.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace font
 {
 
-/**
- * \brief A shared pointer to a renderer::device
-*/
-typedef fcppt::shared_ptr<
-	renderer::device
-> device_ptr;
+typedef sge::plugin::object_shared_ptr<
+	sge::font::system
+>::type plugin_shared_ptr;
 
 }
 }

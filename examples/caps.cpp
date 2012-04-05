@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/plugin.hpp>
 #include <sge/renderer/system.hpp>
-#include <sge/renderer/system_ptr.hpp>
+#include <sge/renderer/system_scoped_ptr.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/caps/object_output.hpp>
@@ -69,7 +69,7 @@ try
 		>().load()
 	);
 
-	sge::renderer::system_ptr const render_sys(
+	sge::renderer::system_scoped_ptr const render_sys(
 		plugin->get()()
 	);
 

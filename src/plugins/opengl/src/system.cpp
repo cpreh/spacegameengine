@@ -23,13 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/system.hpp>
 #include <sge/opengl/convert/depth_buffer.hpp>
 #include <sge/opengl/convert/stencil_buffer.hpp>
+#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/device_unique_ptr.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/window/parameters_fwd.hpp>
 #include <sge/window/to_awl_parameters.hpp>
 #include <awl/system/object.hpp>
 #include <awl/window/instance.hpp>
 #include <awl/window/instance_unique_ptr.hpp>
 #include <awl/window/parameters.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 
 
@@ -41,7 +44,7 @@ sge::opengl::system::~system()
 {
 }
 
-sge::renderer::device_ptr const
+sge::renderer::device_unique_ptr
 sge::opengl::system::create_renderer(
 	renderer::parameters const &_param,
 	renderer::adapter const _adapter,
@@ -49,13 +52,15 @@ sge::opengl::system::create_renderer(
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			sge::opengl::device
-		>(
-			_param,
-			_adapter,
-			fcppt::ref(
-				_wnd
+		sge::renderer::device_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::opengl::device
+			>(
+				_param,
+				_adapter,
+				fcppt::ref(
+					_wnd
+				)
 			)
 		);
 }

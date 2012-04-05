@@ -59,6 +59,10 @@ sge::systems::modules::renderer::system::system(
 {
 }
 
+sge::systems::modules::renderer::system::~system()
+{
+}
+
 awl::window::instance_unique_ptr
 sge::systems::modules::renderer::system::create_window(
 	awl::system::object &_awl_system,

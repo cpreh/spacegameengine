@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_PLUGIN_CACHE_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_PLUGIN_CACHE_HPP_INCLUDED
 
-#include <sge/plugin/base_ptr.hpp>
+#include <sge/plugin/base_shared_ptr.hpp>
 #include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -46,11 +46,11 @@ public:
 
 	void
 	add(
-		sge::plugin::base_ptr
+		sge::plugin::base_shared_ptr
 	);
 private:
 	typedef std::vector<
-		sge::plugin::base_ptr
+		sge::plugin::base_shared_ptr
 	> plugin_container;
 
 	plugin_container plugins_;

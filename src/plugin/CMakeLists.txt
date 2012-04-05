@@ -2,7 +2,7 @@ set(
 	SGE_PLUGIN_FILES
 	include/sge/plugin/base.hpp
 	include/sge/plugin/base_fwd.hpp
-	include/sge/plugin/base_ptr.hpp
+	include/sge/plugin/base_shared_ptr.hpp
 	include/sge/plugin/capabilities.hpp
 	include/sge/plugin/capabilities_field.hpp
 	include/sge/plugin/category_array.hpp

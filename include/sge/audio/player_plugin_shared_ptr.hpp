@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_PLUGIN_PTR_HPP_INCLUDED
-#define SGE_INPUT_PLUGIN_PTR_HPP_INCLUDED
+#ifndef SGE_AUDIO_PLAYER_PLUGIN_SHARED_PTR_HPP_INCLUDED
+#define SGE_AUDIO_PLAYER_PLUGIN_SHARED_PTR_HPP_INCLUDED
 
-#include <sge/input/system_fwd.hpp>
+#include <sge/audio/player_fwd.hpp>
 #include <sge/plugin/object_shared_ptr.hpp>
 
 
 namespace sge
 {
-namespace input
+namespace audio
 {
 
 typedef sge::plugin::object_shared_ptr<
-	sge::input::system
->::type plugin_ptr;
+	sge::audio::player
+>::type player_plugin_shared_ptr;
 
 }
 }

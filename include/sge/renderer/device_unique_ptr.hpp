@@ -18,50 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_MODULES_FONT_OBJECT_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_MODULES_FONT_OBJECT_HPP_INCLUDED
+#ifndef SGE_RENDERER_DEVICE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_DEVICE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/font/plugin_shared_ptr.hpp>
-#include <sge/font/system_fwd.hpp>
-#include <sge/font/system_scoped_ptr.hpp>
-#include <sge/plugin/manager_fwd.hpp>
-#include <sge/src/systems/modules/charconv/object_fwd.hpp>
-#include <sge/src/systems/modules/font/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace systems
-{
-namespace modules
-{
-namespace font
+namespace renderer
 {
 
-class object
-{
-	FCPPT_NONCOPYABLE(
-		object
-	);
-public:
-	object(
-		sge::plugin::manager &,
-		sge::systems::modules::charconv::object const &
-	);
+/**
+ * \brief A unique pointer to a renderer::device
+*/
+typedef fcppt::unique_ptr<
+	sge::renderer::device
+> device_unique_ptr;
 
-	~object();
-
-	sge::font::system &
-	system() const;
-private:
-	sge::font::plugin_shared_ptr const font_plugin_;
-
-	sge::font::system_scoped_ptr const font_system_;
-};
-
-}
-}
 }
 }
 
