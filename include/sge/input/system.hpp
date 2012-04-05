@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_SYSTEM_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/input/processor_ptr.hpp>
+#include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/symbol.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
@@ -49,7 +49,7 @@ public:
 	~system() = 0;
 
 	virtual
-	sge::input::processor_ptr const
+	sge::input::processor_unique_ptr
 	create_processor(
 		sge::window::object const &,
 		sge::window::system const &

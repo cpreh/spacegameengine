@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/exception.hpp>
+#include <sge/input/processor_unique_ptr.hpp>
 #include <sge/log/global.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system_fwd.hpp>
@@ -33,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -53,7 +54,7 @@ sge::x11input::system::~system()
 {
 }
 
-sge::input::processor_ptr const
+sge::input::processor_unique_ptr
 sge::x11input::system::create_processor(
 	sge::window::object const &_window,
 	sge::window::system const &_window_system
@@ -159,16 +160,18 @@ sge::x11input::system::create_processor(
 	);
 
 	return
-		fcppt::make_shared_ptr<
-			x11input::processor
-		>(
-			fcppt::cref(
-				_window
-			),
-			fcppt::cref(
-				_window_system
-			),
-			*opcode,
-			supports_xi_2_1
+		sge::input::processor_unique_ptr(
+			fcppt::make_unique_ptr<
+				x11input::processor
+			>(
+				fcppt::cref(
+					_window
+				),
+				fcppt::cref(
+					_window_system
+				),
+				*opcode,
+				supports_xi_2_1
+			)
 		);
 }

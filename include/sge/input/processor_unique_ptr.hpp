@@ -18,45 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_PLUGIN_HPP_INCLUDED
-#define SGE_INPUT_PLUGIN_HPP_INCLUDED
+#ifndef SGE_INPUT_PROCESSOR_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_INPUT_PROCESSOR_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
-#include <sge/input/system_fwd.hpp>
-#include <sge/input/system_unique_ptr.hpp>
-#include <sge/plugin/capabilities.hpp>
-#include <sge/plugin/detail/address_name.hpp>
-#include <sge/plugin/detail/traits.hpp>
+#include <sge/input/processor_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace plugin
-{
-namespace detail
+namespace input
 {
 
-template<>
-struct traits<
-	sge::input::system
->
-{
-	SGE_INPUT_SYMBOL
-	static
-	sge::plugin::detail::address_name
-	plugin_loader_name();
+typedef fcppt::unique_ptr<
+	sge::input::processor
+> processor_unique_ptr;
 
-	SGE_INPUT_SYMBOL
-	static
-	sge::plugin::capabilities::type
-	plugin_type();
-
-	typedef sge::input::system_unique_ptr(
-		*loader_fun
-	)();
-};
-
-}
 }
 }
 

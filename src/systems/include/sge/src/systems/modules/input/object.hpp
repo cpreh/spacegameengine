@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/plugin_ptr.hpp>
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/processor_ptr.hpp>
+#include <sge/input/processor_scoped_ptr.hpp>
 #include <sge/input/system_fwd.hpp>
-#include <sge/input/system_ptr.hpp>
+#include <sge/input/system_scoped_ptr.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/object_scoped_ptr.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
@@ -83,9 +83,9 @@ public:
 private:
 	sge::input::plugin_ptr const input_plugin_;
 
-	sge::input::system_ptr const input_system_;
+	sge::input::system_scoped_ptr const input_system_;
 
-	sge::input::processor_ptr const input_processor_;
+	sge::input::processor_scoped_ptr const input_processor_;
 
 	sge::input::cursor::object_scoped_ptr const cursor_demuxer_;
 
