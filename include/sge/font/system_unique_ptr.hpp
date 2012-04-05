@@ -18,25 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_OBJECT_PTR_HPP_INCLUDED
-#define SGE_MODEL_MD3_OBJECT_PTR_HPP_INCLUDED
+#ifndef SGE_FONT_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_FONT_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/model/md3/object_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/font/system_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace model
-{
-namespace md3
+namespace font
 {
 
-typedef fcppt::shared_ptr<
-	object
-> object_ptr;
+typedef fcppt::unique_ptr<
+	sge::font::system
+> system_unique_ptr;
 
-}
 }
 }
 

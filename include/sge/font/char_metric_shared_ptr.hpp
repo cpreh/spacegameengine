@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_FILE_PTR_HPP_INCLUDED
-#define SGE_IMAGE2D_FILE_PTR_HPP_INCLUDED
+#ifndef SGE_FONT_CHAR_METRIC_SHARED_PTR_HPP_INCLUDED
+#define SGE_FONT_CHAR_METRIC_SHARED_PTR_HPP_INCLUDED
 
-#include <sge/image2d/file_fwd.hpp>
+#include <sge/font/char_metric_fwd.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace image2d
+namespace font
 {
 
 typedef fcppt::shared_ptr<
-	image2d::file
-> file_ptr;
+	sge::font::char_metric
+> char_metric_shared_ptr;
 
 }
 }

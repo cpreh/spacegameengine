@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file_scoped_ptr.hpp>
 #include <sge/image2d/rgba8.hpp>
 #include <sge/image2d/save_from_view.hpp>
 #include <sge/image2d/system.hpp>
@@ -265,7 +265,7 @@ try
 		++cur_path_it
 	)
 	{
-		sge::image2d::file_ptr const img(
+		sge::image2d::file_scoped_ptr const img(
 			il.load(
 				*cur_path_it
 			)

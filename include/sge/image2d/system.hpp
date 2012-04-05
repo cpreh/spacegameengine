@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image2d/file_fwd.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/symbol.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
@@ -52,18 +52,18 @@ protected:
 	SGE_IMAGE2D_SYMBOL
 	system();
 public:
-	virtual image2d::file_ptr const
+	virtual image2d::file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	) = 0;
 
-	virtual image2d::file_ptr const
+	virtual image2d::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &
 	) = 0;
 
-	virtual image2d::file_ptr const
+	virtual image2d::file_unique_ptr
 	create(
 		image2d::view::const_object const &,
 		sge::media::optional_extension const &

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/media_path.hpp>
 #include <sge/font/metrics.hpp>
+#include <sge/font/metrics_scoped_ptr.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text/draw.hpp>
@@ -114,7 +115,7 @@ try
 		)
 	);
 
-	sge::font::metrics_ptr const metrics(
+	sge::font::metrics_scoped_ptr const metrics(
 		sys.font_system().create_font(
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")

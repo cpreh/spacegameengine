@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/model/md3/load_flags.hpp>
 #include <sge/model/md3/loader.hpp>
-#include <sge/model/md3/object_ptr.hpp>
+#include <sge/model/md3/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -50,7 +50,7 @@ public:
 
 	~loader_impl();
 
-	md3::object_ptr const
+	md3::object_unique_ptr
 	load(
 		boost::filesystem::path const &,
 		md3::load_flags::type

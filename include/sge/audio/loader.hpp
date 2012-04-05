@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_LOADER_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/symbol.hpp>
@@ -59,7 +59,7 @@ protected:
 	loader();
 public:
 	/// Load a file
-	virtual audio::file_ptr const
+	virtual audio::file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	) = 0;
@@ -69,7 +69,7 @@ public:
 	 * \param range A range of bytes (can be discarded after this function completes)
 	 * \param extension An optional extension indicating what (sub) type of file is inside
 	 */
-	virtual audio::file_ptr const
+	virtual audio::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &range,
 		sge::media::optional_extension const &extension

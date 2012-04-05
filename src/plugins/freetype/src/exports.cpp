@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/freetype/system.hpp>
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/font/system_ptr.hpp>
+#include <sge/font/system_unique_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/info.hpp>
@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -45,17 +45,19 @@ sge::plugin::info const info(
 	)
 );
 
-sge::font::system_ptr const
+sge::font::system_unique_ptr
 create_font_system(
 	sge::charconv::system &_charconv_system
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			sge::freetype::system
-		>(
-			fcppt::ref(
-				_charconv_system
+		sge::font::system_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::freetype::system
+			>(
+				fcppt::ref(
+					_charconv_system
+				)
 			)
 		);
 }

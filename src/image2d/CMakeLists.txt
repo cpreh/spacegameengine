@@ -18,7 +18,8 @@ set(
 	include/sge/image2d/dim.hpp
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_fwd.hpp
-	include/sge/image2d/file_ptr.hpp
+	include/sge/image2d/file_scoped_ptr.hpp
+	include/sge/image2d/file_unique_ptr.hpp
 	include/sge/image2d/l8.hpp
 	include/sge/image2d/l8_format.hpp
 	include/sge/image2d/la8.hpp
@@ -45,7 +46,8 @@ set(
 	include/sge/image2d/save_from_view.hpp
 	include/sge/image2d/system.hpp
 	include/sge/image2d/system_fwd.hpp
-	include/sge/image2d/system_ptr.hpp
+	include/sge/image2d/system_scoped_ptr.hpp
+	include/sge/image2d/system_unique_ptr.hpp
 	include/sge/image2d/tag.hpp
 	include/sge/image2d/view/checked_sub.hpp
 	include/sge/image2d/view/const_element.hpp

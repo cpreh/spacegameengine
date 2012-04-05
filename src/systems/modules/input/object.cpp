@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/plugin.hpp>
-#include <sge/input/processor_fwd.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/object_fwd.hpp>

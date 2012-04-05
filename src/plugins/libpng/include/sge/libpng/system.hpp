@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image2d/file_fwd.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/const_raw_range.hpp>
@@ -52,18 +52,18 @@ public:
 
 	~system();
 
-	image2d::file_ptr const
+	image2d::file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	);
 
-	image2d::file_ptr const
+	image2d::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &
 	);
 
-	image2d::file_ptr const
+	image2d::file_unique_ptr
 	create(
 		image2d::view::const_object const &,
 		sge::media::optional_extension const &

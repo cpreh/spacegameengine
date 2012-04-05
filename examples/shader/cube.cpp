@@ -48,7 +48,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/spherical/action/wasd_mapping.hpp>
 #include <sge/camera/spherical/coordinate_system/look_down_positive_z.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/metrics.hpp>
+#include <sge/font/metrics_scoped_ptr.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
@@ -1038,7 +1039,7 @@ try
 		sys.renderer(),
 		sge::image::colors::red());
 
-	sge::font::metrics_ptr const font_metrics(
+	sge::font::metrics_scoped_ptr const font_metrics(
 		sys.font_system().create_font(
 			sge::config::media_path()
 				/ FCPPT_TEXT("fonts")

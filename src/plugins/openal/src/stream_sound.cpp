@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::openal::stream_sound::stream_sound(
 	audio::sound::nonpositional_parameters const &p,
-	audio::file_ptr const _audio_file)
+	audio::file &_audio_file)
 :
 	source(
 		p),
@@ -46,15 +46,15 @@ sge::openal::stream_sound::stream_sound(
 		_audio_file),
 	buffer_samples_(
 		static_cast<audio::sample_count>(
-			audio_file_->sample_rate())),
+			audio_file_.sample_rate())),
 	format_(
 		openal::file_format(
-			*audio_file_)),
+			audio_file_)),
 	al_buffers_(
-		audio_file_->expected_package_size()
+		audio_file_.expected_package_size()
 		?
 			static_cast<buffer_sequence::size_type>(
-				audio_file_->sample_rate()/audio_file_->expected_package_size())
+				audio_file_.sample_rate()/audio_file_.expected_package_size())
 		:
 			static_cast<buffer_sequence::size_type>(
 				2))
@@ -65,9 +65,9 @@ sge::openal::stream_sound::stream_sound(
 			<< FCPPT_TEXT("Creating ")
 			<< al_buffers_.size()
 			<< FCPPT_TEXT(" buffers for this audio file (expected package size ")
-			<< audio_file_->expected_package_size()
+			<< audio_file_.expected_package_size()
 			<< FCPPT_TEXT(", sample rate ")
-			<< audio_file_->sample_rate()
+			<< audio_file_.sample_rate()
 			<< FCPPT_TEXT(")"));
 
 	alGenBuffers(
@@ -83,7 +83,7 @@ sge::openal::stream_sound::stream_sound(
 
 sge::openal::stream_sound::stream_sound(
 	audio::sound::positional_parameters const &p,
-	audio::file_ptr const _audio_file)
+	audio::file &_audio_file)
 :
 	source(
 		p),
@@ -91,15 +91,15 @@ sge::openal::stream_sound::stream_sound(
 		_audio_file),
 	buffer_samples_(
 		static_cast<audio::sample_count>(
-			_audio_file->sample_rate())),
+			_audio_file.sample_rate())),
 	format_(
 		openal::file_format(
-			*_audio_file)),
+			_audio_file)),
 	al_buffers_(
-		_audio_file->expected_package_size()
+		_audio_file.expected_package_size()
 		?
 			static_cast<buffer_sequence::size_type>(
-				_audio_file->sample_rate()/_audio_file->expected_package_size())
+				_audio_file.sample_rate()/_audio_file.expected_package_size())
 		:
 			static_cast<buffer_sequence::size_type>(
 				2))
@@ -214,7 +214,7 @@ sge::openal::stream_sound::do_play()
 	if (status() == audio::sound::play_status::playing)
 		return;
 
-	audio_file_->reset();
+	audio_file_.reset();
 
 	std::for_each(
 		al_buffers_.begin(),
@@ -247,7 +247,7 @@ sge::openal::stream_sound::fill_buffer(
 {
 	audio::sample_container data;
 	audio::sample_count samples_read =
-		audio_file_->read(
+		audio_file_.read(
 			buffer_samples_,
 			data);
 
@@ -266,9 +266,9 @@ sge::openal::stream_sound::fill_buffer(
 		if (this->repeat() != audio::sound::repeat::loop)
 			return false;
 
-		audio_file_->reset();
+		audio_file_.reset();
 		samples_read =
-			audio_file_->read(
+			audio_file_.read(
 				buffer_samples_,
 				data);
 	}
@@ -283,7 +283,7 @@ sge::openal::stream_sound::fill_buffer(
 		static_cast<ALsizei>(
 			data.size()),
 		static_cast<ALsizei>(
-			audio_file_->sample_rate()));
+			audio_file_.sample_rate()));
 
 	SGE_OPENAL_CHECK_STATE(
 		FCPPT_TEXT("alBufferData failed"),

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -50,12 +50,12 @@ public:
 
 	~loader();
 
-	audio::file_ptr const
+	audio::file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	);
 
-	audio::file_ptr const
+	audio::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &

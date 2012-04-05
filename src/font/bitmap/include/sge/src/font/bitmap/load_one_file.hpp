@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_BITMAP_LOAD_ONE_FILE_HPP_INCLUDED
 #define SGE_SRC_FONT_BITMAP_LOAD_ONE_FILE_HPP_INCLUDED
 
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
@@ -37,7 +37,7 @@ namespace font
 namespace bitmap
 {
 
-sge::image2d::file_ptr const
+sge::image2d::file_unique_ptr
 load_one_file(
 	boost::filesystem::path const &stem,
 	sge::parse::json::object const &,

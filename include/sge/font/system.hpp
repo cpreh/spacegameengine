@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_SYSTEM_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/metrics_unique_ptr.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/symbol.hpp>
 #include <sge/font/system_fwd.hpp>
@@ -50,10 +50,10 @@ public:
 	SGE_FONT_SYMBOL
 	virtual ~system() = 0;
 
-	virtual font::metrics_ptr const
+	virtual sge::font::metrics_unique_ptr
 	create_font(
 		boost::filesystem::path const &,
-		font::size_type font_height
+		sge::font::size_type font_height
 	) = 0;
 };
 

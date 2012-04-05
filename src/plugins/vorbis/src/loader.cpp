@@ -61,7 +61,7 @@ sge::vorbis::loader::~loader()
 {
 }
 
-sge::audio::file_ptr const
+sge::audio::file_unique_ptr
 sge::vorbis::loader::load(
 	boost::filesystem::path const &filename
 )
@@ -78,9 +78,10 @@ sge::vorbis::loader::load(
 	try
 	{
 		return
-			// Can't use make_shared here because of the unique_ptr
-			sge::audio::file_ptr(
-				new vorbis::file(
+			sge::audio::file_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::vorbis::file
+				>(
 					fcppt::move(
 						file_stream),
 					sge::audio::optional_path(
@@ -88,18 +89,18 @@ sge::vorbis::loader::load(
 	}
 	catch (audio::unsupported_format const &)
 	{
-		return sge::audio::file_ptr();
+		return sge::audio::file_unique_ptr();
 	}
 }
 
-sge::audio::file_ptr const
+sge::audio::file_unique_ptr
 sge::vorbis::loader::load_raw(
 	sge::media::const_raw_range const &_range,
 	sge::media::optional_extension const &_extension
 )
 {
 	if(_extension && extensions_.find(*_extension) == extensions_.end())
-		return sge::audio::file_ptr();
+		return sge::audio::file_unique_ptr();
 
 	typedef
 	boost::iostreams::stream
@@ -121,16 +122,17 @@ sge::vorbis::loader::load_raw(
 	try
 	{
 		return
-			// Can't use make_shared here because of the unique_ptr
-			sge::audio::file_ptr(
-				new file(
+			sge::audio::file_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::vorbis::file
+				>(
 					fcppt::move(
 						raw_stream),
 					sge::audio::optional_path()));
 	}
 	catch (audio::unsupported_format const &)
 	{
-		return sge::audio::file_ptr();
+		return sge::audio::file_unique_ptr();
 	}
 }
 

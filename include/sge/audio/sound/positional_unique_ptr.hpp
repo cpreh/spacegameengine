@@ -18,21 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DEVIL_FILE_PTR_HPP_INCLUDED
-#define SGE_DEVIL_FILE_PTR_HPP_INCLUDED
+#ifndef SGE_AUDIO_SOUND_POSITIONAL_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_AUDIO_SOUND_POSITIONAL_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/devil/file_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/audio/sound/positional_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+
 
 namespace sge
 {
-namespace devil
+namespace audio
 {
-
-typedef fcppt::shared_ptr<
-	devil::file
-> file_ptr;
-
+namespace sound
+{
+typedef
+fcppt::unique_ptr<
+	sge::audio::sound::positional
+>
+positional_unique_ptr;
+}
 }
 }
 

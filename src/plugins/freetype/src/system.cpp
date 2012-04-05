@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/metrics_unique_ptr.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/freetype/system.hpp>
 #include <sge/freetype/metrics.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -44,23 +44,25 @@ sge::freetype::system::~system()
 {
 }
 
-sge::font::metrics_ptr const
+sge::font::metrics_unique_ptr
 sge::freetype::system::create_font(
 	boost::filesystem::path const &_font_name,
 	font::size_type const _font_size
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			freetype::metrics
-		>(
-			fcppt::ref(
-				library_
-			),
-			fcppt::ref(
-				conv_system_
-			),
-			_font_name,
-			_font_size
+		sge::font::metrics_unique_ptr(
+			fcppt::make_unique_ptr<
+				freetype::metrics
+			>(
+				fcppt::ref(
+					library_
+				),
+				fcppt::ref(
+					conv_system_
+				),
+				_font_name,
+				_font_size
+			)
 		);
 }

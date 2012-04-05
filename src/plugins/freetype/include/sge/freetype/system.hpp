@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/freetype/library.hpp>
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/metrics_unique_ptr.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/system.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -52,7 +52,7 @@ public:
 
 	~system();
 
-	font::metrics_ptr const
+	font::metrics_unique_ptr
 	create_font(
 		boost::filesystem::path const &,
 		font::size_type font_size

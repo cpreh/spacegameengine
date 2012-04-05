@@ -11,10 +11,12 @@ set(
 	include/sge/model/obj/index.hpp
 	include/sge/model/obj/instance.hpp
 	include/sge/model/obj/instance_fwd.hpp
-	include/sge/model/obj/instance_ptr.hpp
+	include/sge/model/obj/instance_scoped_ptr.hpp
+	include/sge/model/obj/instance_unique_ptr.hpp
 	include/sge/model/obj/loader.hpp
 	include/sge/model/obj/loader_fwd.hpp
-	include/sge/model/obj/loader_ptr.hpp
+	include/sge/model/obj/loader_scoped_ptr.hpp
+	include/sge/model/obj/loader_unique_ptr.hpp
 	include/sge/model/obj/mesh.hpp
 	include/sge/model/obj/mesh_fwd.hpp
 	include/sge/model/obj/mesh_name.hpp

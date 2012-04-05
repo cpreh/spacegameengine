@@ -18,20 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_BUFFER_PTR_HPP_INCLUDED
-#define SGE_AUDIO_BUFFER_PTR_HPP_INCLUDED
+#ifndef SGE_AUDIO_SOUND_POSITIONAL_SCOPED_PTR_HPP_INCLUDED
+#define SGE_AUDIO_SOUND_POSITIONAL_SCOPED_PTR_HPP_INCLUDED
 
-#include <sge/audio/buffer_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/audio/sound/positional_fwd.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
 {
 namespace audio
 {
+namespace sound
+{
 typedef
-fcppt::shared_ptr<buffer>
-buffer_ptr;
+fcppt::scoped_ptr<
+	sge::audio::sound::positional
+>
+positional_scoped_ptr;
+}
 }
 }
 

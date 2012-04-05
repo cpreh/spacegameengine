@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_PLUGIN_HPP_INCLUDED
 
 #include <sge/input/symbol.hpp>
-#include <sge/input/system_ptr.hpp>
+#include <sge/input/system_fwd.hpp>
+#include <sge/input/system_unique_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/detail/traits.hpp>
@@ -37,18 +38,22 @@ namespace detail
 
 template<>
 struct traits<
-	input::system
+	sge::input::system
 >
 {
 	SGE_INPUT_SYMBOL
-	static address_name
+	static
+	sge::plugin::detail::address_name
 	plugin_loader_name();
 
 	SGE_INPUT_SYMBOL
-	static capabilities::type
+	static
+	sge::plugin::capabilities::type
 	plugin_type();
 
-	typedef input::system_ptr const (*loader_fun)();
+	typedef sge::input::system_unique_ptr(
+		*loader_fun
+	)();
 };
 
 }

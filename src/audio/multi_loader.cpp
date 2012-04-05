@@ -18,7 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/loader_plugin.hpp>
@@ -45,7 +46,7 @@ sge::audio::multi_loader::multi_loader(
 {
 }
 
-sge::audio::file_ptr const
+sge::audio::file_unique_ptr
 sge::audio::multi_loader::load(
 	boost::filesystem::path const &_path
 )
@@ -58,7 +59,7 @@ sge::audio::multi_loader::load(
 		);
 }
 
-sge::audio::file_ptr const
+sge::audio::file_unique_ptr
 sge::audio::multi_loader::load_raw(
 	sge::media::const_raw_range const &_range,
 	sge::media::optional_extension const &_extension

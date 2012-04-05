@@ -212,10 +212,12 @@ set(
 	include/sge/input/plugin_ptr.hpp
 	include/sge/input/processor.hpp
 	include/sge/input/processor_fwd.hpp
-	include/sge/input/processor_ptr.hpp
+	include/sge/input/processor_scoped_ptr.hpp
+	include/sge/input/processor_unique_ptr.hpp
 	include/sge/input/system.hpp
 	include/sge/input/system_fwd.hpp
-	include/sge/input/system_ptr.hpp
+	include/sge/input/system_scoped_ptr.hpp
+	include/sge/input/system_unique_ptr.hpp
 	src/input/cursor/button_code_to_string.cpp
 	src/input/cursor/button_event.cpp
 	src/input/cursor/default_choose.cpp

@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_FILE_PTR_HPP_INCLUDED
-#define SGE_AUDIO_FILE_PTR_HPP_INCLUDED
+#ifndef SGE_FONT_CHAR_METRIC_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_FONT_CHAR_METRIC_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/audio/file_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/font/char_metric_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace audio
+namespace font
 {
 
-typedef
-fcppt::shared_ptr<file>
-file_ptr;
+typedef fcppt::unique_ptr<
+	sge::font::char_metric
+> char_metric_unique_ptr;
 
 }
 }

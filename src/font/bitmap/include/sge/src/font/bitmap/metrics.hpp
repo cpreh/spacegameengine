@@ -21,16 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_BITMAP_METRICS_HPP_INCLUDED
 #define SGE_SRC_FONT_BITMAP_METRICS_HPP_INCLUDED
 
-#include <sge/font/char_metric_ptr.hpp>
+#include <sge/font/char_metric_shared_ptr.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/metrics.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <vector>
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -56,7 +56,7 @@ public:
 
 	~metrics();
 
-	font::char_metric_ptr const
+	font::char_metric_shared_ptr const
 	load_char(
 		font::char_type
 	);
@@ -64,8 +64,8 @@ public:
 	font::unit
 	line_height() const;
 private:
-	typedef std::vector<
-		sge::image2d::file_ptr
+	typedef boost::ptr_vector<
+		sge::image2d::file
 	> image_vector;
 
 	image_vector images_;

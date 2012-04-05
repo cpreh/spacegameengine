@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_BITMAP_CHAR_MAP_HPP_INCLUDED
 #define SGE_SRC_FONT_BITMAP_CHAR_MAP_HPP_INCLUDED
 
-#include <sge/font/char_metric_ptr.hpp>
+#include <sge/font/char_metric_shared_ptr.hpp>
 #include <sge/font/char_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
@@ -37,7 +37,7 @@ namespace bitmap
 
 typedef std::map<
 	font::char_type,
-	font::char_metric_ptr
+	font::char_metric_shared_ptr
 > char_map;
 
 }

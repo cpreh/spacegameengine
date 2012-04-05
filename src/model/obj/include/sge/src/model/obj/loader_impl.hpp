@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MODEL_OBJ_LOADER_IMPL_HPP_INCLUDED
 #define SGE_SRC_MODEL_OBJ_LOADER_IMPL_HPP_INCLUDED
 
-#include <sge/model/obj/instance_ptr.hpp>
+#include <sge/model/obj/instance_unique_ptr.hpp>
 #include <sge/model/obj/loader.hpp>
 #include <sge/src/model/obj/tokens.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -50,7 +50,7 @@ public:
 
 	~loader_impl();
 private:
-	obj::instance_ptr const
+	obj::instance_unique_ptr
 	load(
 		boost::filesystem::path const &
 	);

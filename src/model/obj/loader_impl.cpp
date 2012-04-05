@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/model/obj/instance_ptr.hpp>
+#include <sge/model/obj/instance_unique_ptr.hpp>
 #include <sge/src/model/obj/instance_impl.hpp>
 #include <sge/src/model/obj/loader_impl.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -39,18 +39,20 @@ sge::model::obj::loader_impl::~loader_impl()
 {
 }
 
-sge::model::obj::instance_ptr const
+sge::model::obj::instance_unique_ptr
 sge::model::obj::loader_impl::load(
 	boost::filesystem::path const &_path
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			obj::instance_impl
-		>(
-			fcppt::cref(
-				tokens_
-			),
-			_path
+		sge::model::obj::instance_unique_ptr(
+			fcppt::make_unique_ptr<
+				obj::instance_impl
+			>(
+				fcppt::cref(
+					tokens_
+				),
+				_path
+			)
 		);
 }

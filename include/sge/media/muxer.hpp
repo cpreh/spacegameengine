@@ -27,11 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/plugin/context.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <vector>
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,10 +52,6 @@ public:
 	typedef System system;
 
 	typedef Capabilities capabilities_field;
-
-	typedef fcppt::shared_ptr<
-		System
-	> system_ptr;
 
 	typedef media::muxer_parameters<
 		capabilities_field
@@ -84,8 +79,8 @@ public:
 	sge::media::extension_set const
 	extensions() const;
 private:
-	typedef std::vector<
-		system_ptr
+	typedef boost::ptr_vector<
+		System
 	> system_container;
 
 	typedef typename plugin::context<
@@ -98,7 +93,7 @@ private:
 
 	plugin_container plugins_;
 
-	system_container systems_;
+	mutable system_container systems_;
 
 	capabilities_field capabilities_;
 

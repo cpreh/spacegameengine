@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_SYSTEM_PTR_HPP_INCLUDED
-#define SGE_IMAGE2D_SYSTEM_PTR_HPP_INCLUDED
+#ifndef SGE_INPUT_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_INPUT_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/image2d/system_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/input/system_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace image2d
+namespace input
 {
 
-typedef fcppt::shared_ptr<
-	image2d::system
-> system_ptr;
+typedef fcppt::unique_ptr<
+	sge::input::system
+> system_unique_ptr;
 
 }
 }

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/multi_loader_fwd.hpp>
@@ -59,13 +59,13 @@ public:
 	);
 
 	SGE_AUDIO_SYMBOL
-	audio::file_ptr const
+	audio::file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	);
 
 	SGE_AUDIO_SYMBOL
-	audio::file_ptr const
+	audio::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &

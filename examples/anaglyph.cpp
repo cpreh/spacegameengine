@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/create.hpp>
 #include <sge/model/md3/index_sequence.hpp>
 #include <sge/model/md3/loader.hpp>
-#include <sge/model/md3/loader_ptr.hpp>
+#include <sge/model/md3/loader_scoped_ptr.hpp>
 #include <sge/model/md3/normal_sequence.hpp>
 #include <sge/model/md3/object.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
@@ -816,7 +816,7 @@ try
 			sge::renderer::vf::dynamic::make_format<vf::format>()));
 
 	// Create an md3 loader using the "create" function.
-	sge::model::md3::loader_ptr md3_loader(
+	sge::model::md3::loader_scoped_ptr const md3_loader(
 		sge::model::md3::create());
 
 	// Create a model and a model collection

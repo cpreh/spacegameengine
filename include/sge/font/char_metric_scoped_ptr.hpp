@@ -18,23 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_SOUND_BASE_PTR_HPP_INCLUDED
-#define SGE_AUDIO_SOUND_BASE_PTR_HPP_INCLUDED
+#ifndef SGE_FONT_CHAR_METRIC_SCOPED_PTR_HPP_INCLUDED
+#define SGE_FONT_CHAR_METRIC_SCOPED_PTR_HPP_INCLUDED
 
-#include <sge/audio/sound/base_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/font/char_metric_fwd.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace audio
+namespace font
 {
-namespace sound
-{
-typedef
-fcppt::shared_ptr<base>
-base_ptr;
-}
+
+typedef fcppt::scoped_ptr<
+	sge::font::char_metric
+> char_metric_scoped_ptr;
+
 }
 }
 

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/loader_ptr.hpp>
+#include <sge/audio/loader_unique_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/info.hpp>
@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
 #include <sge/wave/loader.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -44,13 +44,15 @@ sge::plugin::info const info(
 );
 
 
-sge::audio::loader_ptr const
+sge::audio::loader_unique_ptr
 create_audio_loader()
 {
 	return
-		fcppt::make_shared_ptr<
-			sge::wave::loader
-		>();
+		sge::audio::loader_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::wave::loader
+			>()
+		);
 }
 
 }

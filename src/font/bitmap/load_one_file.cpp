@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/exception.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/checked_sub.hpp>
 #include <sge/log/global.hpp>
@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/load_one_file.hpp>
 #include <sge/src/font/bitmap/load_rect.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
@@ -48,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::image2d::file_ptr const
+sge::image2d::file_unique_ptr
 sge::font::bitmap::load_one_file(
 	boost::filesystem::path const &_stem,
 	sge::parse::json::object const &_object,
@@ -60,7 +61,7 @@ sge::font::bitmap::load_one_file(
 		_object.members
 	);
 
-	sge::image2d::file_ptr const return_file(
+	sge::image2d::file_unique_ptr return_file(
 		_image_system.load(
 			_stem
 			/
@@ -162,5 +163,8 @@ sge::font::bitmap::load_one_file(
 		);
 	}
 
-	return return_file;
+	return
+		fcppt::move(
+			return_file
+		);
 }

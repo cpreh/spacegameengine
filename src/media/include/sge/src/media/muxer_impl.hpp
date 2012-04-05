@@ -32,14 +32,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/set_intersection.hpp>
 #include <fcppt/algorithm/set_union.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -78,7 +81,11 @@ sge::media::muxer<
 			it->load()
 		);
 
-		system_ptr const system_instance(
+		typedef fcppt::unique_ptr<
+			System
+		> system_unique_ptr;
+
+		system_unique_ptr system_instance(
 			plugin->get()()
 		);
 
@@ -99,14 +106,6 @@ sge::media::muxer<
 			)
 		)
 		{
-			plugins_.push_back(
-				plugin
-			);
-
-			systems_.push_back(
-				system_instance
-			);
-
 			capabilities_ &=
 				system_instance->capabilities();
 
@@ -115,6 +114,17 @@ sge::media::muxer<
 					system_instance->extensions(),
 					extensions_
 				);
+
+			plugins_.push_back(
+				plugin
+			);
+
+			fcppt::container::ptr::push_back_unique_ptr(
+				systems_,
+				fcppt::move(
+					system_instance
+				)
+			);
 		}
 		else
 		{
@@ -196,7 +206,7 @@ sge::media::muxer<
 ) const
 {
 	for(
-		typename system_container::const_iterator it(
+		typename system_container::iterator it(
 			systems_.begin()
 		);
 		it != systems_.end();
@@ -207,11 +217,11 @@ sge::media::muxer<
 			!_extension
 			||
 			fcppt::algorithm::contains(
-				(*it)->extensions(),
+				it->extensions(),
 				*_extension
 			)
 		)
-			return *it->get();
+			return *it;
 	}
 
 	throw sge::media::loaders_exhausted(

@@ -67,7 +67,7 @@ sge::wave::loader::~loader()
 {
 }
 
-sge::audio::file_ptr const
+sge::audio::file_unique_ptr
 sge::wave::loader::load(
 	boost::filesystem::path const &filename
 )
@@ -84,9 +84,10 @@ sge::wave::loader::load(
 	try
 	{
 		return
-			// Can't use make_shared here because of unique_ptr
-			sge::audio::file_ptr(
-				new wave::file(
+			sge::audio::file_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::wave::file
+				>(
 					fcppt::move(
 						file_stream),
 					sge::audio::optional_path(
@@ -94,18 +95,18 @@ sge::wave::loader::load(
 	}
 	catch (audio::unsupported_format const &)
 	{
-		return sge::audio::file_ptr();
+		return sge::audio::file_unique_ptr();
 	}
 }
 
-sge::audio::file_ptr const
+sge::audio::file_unique_ptr
 sge::wave::loader::load_raw(
 	sge::media::const_raw_range const &_range,
 	sge::media::optional_extension const &_extension
 )
 {
 	if(_extension && extensions_.find(*_extension) == extensions_.end())
-		return sge::audio::file_ptr();
+		return sge::audio::file_unique_ptr();
 
 	typedef
 	boost::iostreams::stream
@@ -127,16 +128,17 @@ sge::wave::loader::load_raw(
 	try
 	{
 		return
-			// Can't use make_shared here because of the unique_ptr
-			sge::audio::file_ptr(
-				new file(
+			sge::audio::file_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::wave::file
+				>(
 					fcppt::move(
 						raw_stream),
 					sge::audio::optional_path()));
 	}
 	catch (audio::unsupported_format const &)
 	{
-		return sge::audio::file_ptr();
+		return sge::audio::file_unique_ptr();
 	}
 }
 

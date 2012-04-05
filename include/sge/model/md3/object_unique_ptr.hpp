@@ -18,22 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_SOUND_POSITIONAL_PTR_HPP_INCLUDED
-#define SGE_AUDIO_SOUND_POSITIONAL_PTR_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_MODEL_MD3_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/audio/sound/positional_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/model/md3/object_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace audio
+namespace model
 {
-namespace sound
+namespace md3
 {
-typedef
-fcppt::shared_ptr<positional>
-positional_ptr;
+
+typedef fcppt::unique_ptr<
+	sge::model::md3::object
+> object_unique_ptr;
+
 }
 }
 }

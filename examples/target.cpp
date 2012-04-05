@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file_scoped_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/media/extension.hpp>
@@ -147,7 +147,7 @@ try
 		)
 	);
 
-	sge::image2d::file_ptr const image(
+	sge::image2d::file_scoped_ptr const image(
 		sys.image_system().load(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")

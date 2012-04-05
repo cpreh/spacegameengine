@@ -18,27 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_LOADER_PTR_HPP_INCLUDED
-#define SGE_MODEL_OBJ_LOADER_PTR_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_FILE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_IMAGE2D_FILE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/model/obj/loader_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/image2d/file_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace model
-{
-namespace obj
+namespace image2d
 {
 
-typedef
-fcppt::shared_ptr<
-	obj::loader
->
-loader_ptr;
+typedef fcppt::unique_ptr<
+	sge::image2d::file
+> file_unique_ptr;
 
-}
 }
 }
 

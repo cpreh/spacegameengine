@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/model/md3/load_flags.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
-#include <sge/model/md3/object_ptr.hpp>
+#include <sge/model/md3/object_unique_ptr.hpp>
 #include <sge/model/md3/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -48,7 +48,7 @@ class SGE_CLASS_SYMBOL loader
 protected:
 	loader();
 public:
-	virtual md3::object_ptr const
+	virtual md3::object_unique_ptr
 	load(
 		boost::filesystem::path const &,
 		md3::load_flags::type = md3::load_flags::none

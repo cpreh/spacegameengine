@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/font/char_metric_ptr.hpp>
+#include <sge/font/char_metric_shared_ptr.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/exception.hpp>
 #include <sge/font/size_type.hpp>
@@ -87,7 +87,7 @@ sge::freetype::metrics::~metrics()
 {
 }
 
-sge::font::char_metric_ptr const
+sge::font::char_metric_shared_ptr const
 sge::freetype::metrics::load_char(
 	font::char_type const _ch
 )
@@ -105,7 +105,7 @@ sge::freetype::metrics::load_char(
 			return it->second;
 	}
 
-	font::char_metric_ptr const metric(
+	font::char_metric_shared_ptr const metric(
 		fcppt::make_shared_ptr<
 			freetype::char_metric
 		>(

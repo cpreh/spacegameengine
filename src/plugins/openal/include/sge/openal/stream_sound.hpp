@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_STREAM_SOUND_HPP_INCLUDED
 
 #include <sge/openal/source.hpp>
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file_fwd.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -42,15 +42,13 @@ class stream_sound
 		stream_sound
 	);
 public:
-	explicit
 	stream_sound(
 		audio::sound::nonpositional_parameters const &,
-		audio::file_ptr);
+		audio::file &);
 
-	explicit
 	stream_sound(
 		audio::sound::positional_parameters const &,
-		audio::file_ptr);
+		audio::file &);
 
 	~stream_sound();
 
@@ -64,7 +62,7 @@ private:
 	std::vector<ALuint>
 	buffer_sequence;
 
-	audio::file_ptr const audio_file_;
+	audio::file &audio_file_;
 	audio::sample_count const buffer_samples_;
 	ALenum const format_;
 	buffer_sequence al_buffers_;

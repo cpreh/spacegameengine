@@ -18,21 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_METRICS_PTR_HPP_INCLUDED
-#define SGE_FONT_METRICS_PTR_HPP_INCLUDED
+#ifndef SGE_DEVIL_FILE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_DEVIL_FILE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/font/metrics_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
-
+#include <sge/devil/file_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 namespace sge
 {
-namespace font
+namespace devil
 {
 
-typedef fcppt::shared_ptr<
-	metrics
-> metrics_ptr;
+typedef fcppt::unique_ptr<
+	sge::devil::file
+> file_unique_ptr;
 
 }
 }

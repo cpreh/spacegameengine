@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/font/symbol.hpp>
-#include <sge/font/system_ptr.hpp>
+#include <sge/font/system_fwd.hpp>
+#include <sge/font/system_unique_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/detail/traits.hpp>
@@ -38,18 +39,20 @@ namespace detail
 
 template<>
 struct traits<
-	font::system
+	sge::font::system
 >
 {
 	SGE_FONT_SYMBOL
-	static address_name
+	static
+	sge::plugin::detail::address_name
 	plugin_loader_name();
 
 	SGE_FONT_SYMBOL
-	static capabilities::type
+	static
+	sge::plugin::capabilities::type
 	plugin_type();
 
-	typedef font::system_ptr const
+	typedef sge::font::system_unique_ptr
 	(*loader_fun)(
 		sge::charconv::system &
 	);

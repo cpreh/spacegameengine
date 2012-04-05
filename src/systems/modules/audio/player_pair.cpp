@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/player_fwd.hpp>
 #include <sge/audio/player_plugin_ptr.hpp>
-#include <sge/audio/player_ptr.hpp>
+#include <sge/audio/player_shared_ptr.hpp>
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 
 
 sge::systems::modules::audio::player_pair::player_pair(
 	sge::audio::player_plugin_ptr const _plugin,
-	sge::audio::player_ptr const _player
+	sge::audio::player_shared_ptr const _player
 )
 :
 	plugin_(
@@ -37,14 +38,8 @@ sge::systems::modules::audio::player_pair::player_pair(
 {
 }
 
-sge::audio::player_plugin_ptr const
-sge::systems::modules::audio::player_pair::plugin() const
-{
-	return plugin_;
-}
-
-sge::audio::player_ptr const
+sge::audio::player &
 sge::systems::modules::audio::player_pair::player() const
 {
-	return player_;
+	return *player_;
 }

@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/weak_ptr_impl.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 

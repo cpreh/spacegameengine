@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WAVE_LOADER_HPP_INCLUDED
 #define SGE_WAVE_LOADER_HPP_INCLUDED
 
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/media/const_raw_range.hpp>
@@ -50,12 +50,12 @@ public:
 
 	~loader();
 
-	audio::file_ptr const
+	audio::file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	);
 
-	audio::file_ptr const
+	audio::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &

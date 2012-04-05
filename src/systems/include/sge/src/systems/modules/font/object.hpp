@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/plugin_ptr.hpp>
 #include <sge/font/system_fwd.hpp>
-#include <sge/font/system_ptr.hpp>
+#include <sge/font/system_scoped_ptr.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/src/systems/modules/charconv/object_fwd.hpp>
 #include <sge/src/systems/modules/font/object_fwd.hpp>
@@ -57,7 +57,7 @@ public:
 private:
 	sge::font::plugin_ptr const font_plugin_;
 
-	sge::font::system_ptr const font_system_;
+	sge::font::system_scoped_ptr const font_system_;
 };
 
 }

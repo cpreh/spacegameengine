@@ -19,14 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/buffer.hpp>
+#include <sge/audio/buffer_scoped_ptr.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file.hpp>
+#include <sge/audio/file_scoped_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/base_scoped_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/positional.hpp>
+#include <sge/audio/sound/positional_scoped_ptr.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/log/global.hpp>
@@ -71,7 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::audio::file_ptr const
+sge::audio::file_unique_ptr
 load_raw(
 	boost::filesystem::path const &path,
 	sge::audio::loader &audio_loader)
@@ -115,10 +120,10 @@ wait_for_input()
 
 void
 wait_for_sound(
-	sge::audio::sound::base_ptr const b)
+	sge::audio::sound::base &_sound)
 {
-	while (b->status() != sge::audio::sound::play_status::stopped)
-		b->update();
+	while (_sound.status() != sge::audio::sound::play_status::stopped)
+		_sound.update();
 }
 }
 
@@ -169,15 +174,10 @@ try
 
 	wait_for_input();
 
-	sge::audio::file_ptr const soundfile =
+	sge::audio::file_scoped_ptr const soundfile(
 		load_raw(
 			file_name,
-			sys.audio_loader());
-	/*
-	sge::audio::file_ptr const soundfile =
-		sys.audio_loader().load(
-			file_name);
-	*/
+			sys.audio_loader()));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Sound file loaded\n")
@@ -185,9 +185,9 @@ try
 
 	wait_for_input();
 
-	sge::audio::buffer_ptr const buf =
+	sge::audio::buffer_scoped_ptr const buf(
 		sys.audio_player().create_buffer(
-			*soundfile);
+			*soundfile));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Buffer created\n")
@@ -195,9 +195,9 @@ try
 
 	wait_for_input();
 
-	sge::audio::sound::base_ptr const s =
+	sge::audio::sound::base_scoped_ptr const sound(
 		buf->create_nonpositional(
-			sge::audio::sound::nonpositional_parameters());
+			sge::audio::sound::nonpositional_parameters()));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Nonpositional source loaded\n")
@@ -205,62 +205,62 @@ try
 
 	wait_for_input();
 
-	s->play(
+	sound->play(
 		sge::audio::sound::repeat::once);
 
 	wait_for_sound(
-		s);
+		*sound);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Now we use the same sound, but create a positional source from it.\n");
 
 	wait_for_input();
 
-	sge::audio::sound::positional_ptr const ps =
+	sge::audio::sound::positional_scoped_ptr const positional_sound(
 		buf->create_positional(
 			sge::audio::sound::positional_parameters()
 				.linear_velocity(
 					sge::audio::vector::null())
 				.position(
-					sge::audio::vector::null()));
+					sge::audio::vector::null())));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Sound created at the origin, now we play it\n");
 
 	wait_for_input();
 
-	s->play(
+	sound->play(
 		sge::audio::sound::repeat::once);
 
 	wait_for_sound(
-		s);
+		*sound);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Now we reposition and play again\nYou should hear the sound coming from the _left_ now.\n");
 
 	wait_for_input();
 
-	ps->position(
+	positional_sound->position(
 		sge::audio::vector(
 			-2,
 			0,
 			0));
 
-	ps->play(
+	positional_sound->play(
 		sge::audio::sound::repeat::once);
 
 	wait_for_sound(
-		s);
+		*positional_sound);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Back to the nonpositional sound. We now try to lower the volume globally. Playing at 100% volume...\n");
 
 	wait_for_input();
 
-	s->play(
+	sound->play(
 		sge::audio::sound::repeat::once);
 	wait_for_sound(
-		s);
+		*sound);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Now 50% volume...\n");
@@ -270,10 +270,10 @@ try
 	sys.audio_player().gain(
 		static_cast<sge::audio::scalar>(0.5));
 
-	s->play(
+	sound->play(
 		sge::audio::sound::repeat::once);
 	wait_for_sound(
-		s);
+		*sound);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Now 25% volume...\n");
@@ -283,10 +283,10 @@ try
 	sys.audio_player().gain(
 		static_cast<sge::audio::scalar>(0.25));
 
-	s->play(
+	sound->play(
 		sge::audio::sound::repeat::once);
 	wait_for_sound(
-		s);
+		*sound);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("And finally 0% volume...\n");
@@ -296,10 +296,10 @@ try
 	sys.audio_player().gain(
 		static_cast<sge::audio::scalar>(0.0));
 
-	s->play(
+	sound->play(
 		sge::audio::sound::repeat::once);
 	wait_for_sound(
-		s);
+		*sound);
 
 	sys.audio_player().gain(
 		static_cast<sge::audio::scalar>(1.0));
@@ -309,37 +309,37 @@ try
 
 	wait_for_input();
 
-	s->pitch(
+	sound->pitch(
 		static_cast<sge::audio::scalar>(
 			0.5));
 
-	s->play(
+	sound->play(
 		sge::audio::sound::repeat::once);
 	wait_for_sound(
-		s);
+		*sound);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Now with 150% pitch...\n");
 
 	wait_for_input();
 
-	s->pitch(
+	sound->pitch(
 		static_cast<sge::audio::scalar>(
 			1.5));
 
-	s->play(
+	sound->play(
 		sge::audio::sound::repeat::once);
 	wait_for_sound(
-		s);
+		*sound);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("On to streaming sounds, we'll now create a positional streaming sound...\n");
 
 	wait_for_input();
 
-	sge::audio::sound::positional_ptr const sps =
+	sge::audio::sound::positional_scoped_ptr const streaming_positional_sound(
 		sys.audio_player().create_positional_stream(
-			sys.audio_loader().load(
+			*sys.audio_loader().load(
 				streaming_file_name),
 			sge::audio::sound::positional_parameters()
 				.linear_velocity(
@@ -348,24 +348,21 @@ try
 					sge::audio::vector(
 						-2000,
 						0,
-						0)));
+						0))));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Streaming sound created.\nWe'll now play it for 10 seconds.\n");
 
 	wait_for_input();
 
-	sps->play(
+	streaming_positional_sound->play(
 		sge::audio::sound::repeat::once);
 
-	sps->position(
+	streaming_positional_sound->position(
 		sge::audio::vector(
 			-2000,
 			0,
 			0));
-
-	wait_for_sound(
-		s);
 
 	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
@@ -373,10 +370,10 @@ try
 				10)));
 
 	while(
-		sps->status() != sge::audio::sound::play_status::stopped
+		streaming_positional_sound->status() != sge::audio::sound::play_status::stopped
 		&& !frame_timer.expired())
-		sps->update();
-	sps->stop();
+		streaming_positional_sound->update();
+	streaming_positional_sound->stop();
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Finished\n");

@@ -20,16 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file_scoped_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/positional_scoped_ptr.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
@@ -107,7 +109,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::audio::file_ptr const
+sge::audio::file_unique_ptr
 load_raw(
 	boost::filesystem::path const &path,
 	sge::audio::loader &audio_loader)
@@ -170,7 +172,7 @@ class sprite_functor
 	);
 public:
 	explicit sprite_functor(
-		sge::audio::sound::positional_ptr const _sound
+		sge::audio::sound::positional &_sound
 	)
 	:
 		sound_(_sound)
@@ -186,7 +188,7 @@ public:
 		)
 			return;
 
-		sound_->position(
+		sound_.position(
 			sge::audio::vector(
 				static_cast<
 					sge::audio::scalar
@@ -208,7 +210,7 @@ public:
 		sge::input::cursor::relative_move_event const &_event
 	)
 	{
-		sound_->linear_velocity(
+		sound_.linear_velocity(
 			sge::audio::vector(
 				static_cast<
 					sge::audio::scalar
@@ -225,7 +227,7 @@ public:
 		);
 	}
 private:
-	sge::audio::sound::positional_ptr const sound_;
+	sge::audio::sound::positional &sound_;
 };
 }
 
@@ -417,7 +419,7 @@ try
 		)
 	);
 
-	sge::audio::file_ptr const af_siren(
+	sge::audio::file_scoped_ptr const af_siren(
 		load_raw(
 			sge::config::media_path()
 			/ FCPPT_TEXT("sounds")
@@ -426,9 +428,9 @@ try
 		)
 	);
 
-	sge::audio::sound::positional_ptr const sound_siren(
+	sge::audio::sound::positional_scoped_ptr const sound_siren(
 		sys.audio_player().create_positional_stream(
-			af_siren,
+			*af_siren,
 			sge::audio::sound::positional_parameters()
 			.rolloff_factor(
 				static_cast<sge::audio::scalar>(1)
@@ -460,7 +462,7 @@ try
 	);
 
 	::sprite_functor functor(
-		sound_siren
+		*sound_siren
 	);
 
 	fcppt::signal::scoped_connection const normal_connection(
