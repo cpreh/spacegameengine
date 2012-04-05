@@ -30,7 +30,7 @@ namespace sge
 namespace image2d
 {
 
-typedef fcppt::shared_ptr<
+typedef fcppt::scoped_ptr<
 	sge::image2d::system
 > system_scoped_ptr;
 
