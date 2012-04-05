@@ -42,9 +42,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/face_point_sequence.hpp>
 #include <sge/model/obj/face_sequence.hpp>
 #include <sge/model/obj/instance.hpp>
-#include <sge/model/obj/instance_ptr.hpp>
+#include <sge/model/obj/instance_scoped_ptr.hpp>
 #include <sge/model/obj/loader.hpp>
-#include <sge/model/obj/loader_ptr.hpp>
+#include <sge/model/obj/loader_scoped_ptr.hpp>
 #include <sge/model/obj/mesh.hpp>
 #include <sge/model/obj/mesh_sequence.hpp>
 #include <sge/model/obj/normal.hpp>
@@ -650,10 +650,10 @@ try
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>()));
 
-	sge::model::obj::loader_ptr const model_loader(
+	sge::model::obj::loader_scoped_ptr const model_loader(
 		sge::model::obj::create());
 
-	sge::model::obj::instance_ptr model(
+	sge::model::obj::instance_scoped_ptr const model(
 		model_loader->load(
 			model_file));
 

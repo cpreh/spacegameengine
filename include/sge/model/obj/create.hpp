@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_CREATE_HPP_INCLUDED
 #define SGE_MODEL_OBJ_CREATE_HPP_INCLUDED
 
-#include <sge/model/obj/loader_ptr.hpp>
+#include <sge/model/obj/loader_unique_ptr.hpp>
 #include <sge/model/obj/symbol.hpp>
 
 namespace sge
@@ -32,7 +32,7 @@ namespace obj
 {
 
 SGE_MODEL_OBJ_SYMBOL
-obj::loader_ptr const
+obj::loader_unique_ptr
 create();
 
 }

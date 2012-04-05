@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_OBJECT_PTR_HPP_INCLUDED
-#define SGE_MODEL_MD3_OBJECT_PTR_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJ_INSTANCE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_MODEL_OBJ_INSTANCE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/model/md3/object_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/model/obj/instance_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
 namespace model
 {
-namespace md3
+namespace obj
 {
 
-typedef fcppt::shared_ptr<
-	object
-> object_ptr;
+typedef fcppt::unique_ptr<
+	obj::instance
+> instance_unique_ptr;
 
 }
 }

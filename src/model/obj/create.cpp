@@ -19,16 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/model/obj/create.hpp>
-#include <sge/model/obj/loader_ptr.hpp>
+#include <sge/model/obj/loader_unique_ptr.hpp>
 #include <sge/src/model/obj/loader_impl.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 
-sge::model::obj::loader_ptr const
+sge::model::obj::loader_unique_ptr
 sge::model::obj::create()
 {
 	return
-		fcppt::make_shared_ptr<
-			obj::loader_impl
-		>();
+		sge::model::obj::loader_unique_ptr(
+			fcppt::make_unique_ptr<
+				obj::loader_impl
+			>()
+		);
 }

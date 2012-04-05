@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_LOADER_PTR_HPP_INCLUDED
-#define SGE_MODEL_MD3_LOADER_PTR_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_LOADER_SCOPED_PTR_HPP_INCLUDED
+#define SGE_MODEL_MD3_LOADER_SCOPED_PTR_HPP_INCLUDED
 
 #include <sge/model/md3/loader_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -33,8 +33,10 @@ namespace md3
 {
 
 typedef
-fcppt::shared_ptr<loader>
-loader_ptr;
+fcppt::scoped_ptr<
+	sge::model::md3::loader
+>
+loader_scoped_ptr;
 
 }
 }

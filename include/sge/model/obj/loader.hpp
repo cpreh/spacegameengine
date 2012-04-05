@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJ_LOADER_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/model/obj/instance_ptr.hpp>
+#include <sge/model/obj/instance_unique_ptr.hpp>
 #include <sge/model/obj/loader_fwd.hpp>
 #include <sge/model/obj/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -47,7 +47,7 @@ class SGE_CLASS_SYMBOL loader
 protected:
 	loader();
 public:
-	virtual obj::instance_ptr const
+	virtual obj::instance_unique_ptr
 	load(
 		boost::filesystem::path const &
 	) = 0;

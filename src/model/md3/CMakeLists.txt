@@ -7,12 +7,14 @@ set(
 	include/sge/model/md3/load_flags.hpp
 	include/sge/model/md3/loader.hpp
 	include/sge/model/md3/loader_fwd.hpp
-	include/sge/model/md3/loader_ptr.hpp
+	include/sge/model/md3/loader_scoped_ptr.hpp
+	include/sge/model/md3/loader_unique_ptr.hpp
 	include/sge/model/md3/normal.hpp
 	include/sge/model/md3/normal_sequence.hpp
 	include/sge/model/md3/object.hpp
 	include/sge/model/md3/object_fwd.hpp
-	include/sge/model/md3/object_ptr.hpp
+	include/sge/model/md3/object_scoped_ptr.hpp
+	include/sge/model/md3/object_unique_ptr.hpp
 	include/sge/model/md3/optional_normal_sequence.hpp
 	include/sge/model/md3/optional_texcoord_sequence.hpp
 	include/sge/model/md3/part_name_sequence.hpp
