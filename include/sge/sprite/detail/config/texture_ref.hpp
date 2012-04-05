@@ -28,9 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/none_t.hpp>
+#include <boost/mpl/deref.hpp>
 #include <boost/mpl/end.hpp>
 #include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/deref.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <fcppt/config/external_end.hpp>

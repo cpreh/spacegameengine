@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_AUDIO_PLAYER_PAIR_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_AUDIO_PLAYER_PAIR_HPP_INCLUDED
 
-#include <sge/audio/player_plugin_shared_ptr.hpp>
 #include <sge/audio/player_fwd.hpp>
+#include <sge/audio/player_plugin_shared_ptr.hpp>
 #include <sge/audio/player_shared_ptr.hpp>
 #include <sge/src/systems/modules/audio/player_pair_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
