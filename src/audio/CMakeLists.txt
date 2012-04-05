@@ -14,7 +14,8 @@ set(
 	include/sge/audio/file.hpp
 	include/sge/audio/file_exception.hpp
 	include/sge/audio/file_fwd.hpp
-	include/sge/audio/file_ptr.hpp
+	include/sge/audio/file_scoped_ptr.hpp
+	include/sge/audio/file_unique_ptr.hpp
 	include/sge/audio/listener.hpp
 	include/sge/audio/listener_fwd.hpp
 	include/sge/audio/loader.hpp
@@ -22,7 +23,8 @@ set(
 	include/sge/audio/loader_capabilities_field.hpp
 	include/sge/audio/loader_fwd.hpp
 	include/sge/audio/loader_plugin.hpp
-	include/sge/audio/loader_ptr.hpp
+	include/sge/audio/loader_scoped_ptr.hpp
+	include/sge/audio/loader_unique_ptr.hpp
 	include/sge/audio/multi_loader.hpp
 	include/sge/audio/multi_loader_fwd.hpp
 	include/sge/audio/multi_loader_parameters.hpp

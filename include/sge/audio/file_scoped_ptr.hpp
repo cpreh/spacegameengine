@@ -18,46 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/loader_unique_ptr.hpp>
-#include <sge/plugin/capabilities.hpp>
-#include <sge/plugin/capabilities_field.hpp>
-#include <sge/plugin/info.hpp>
-#include <sge/plugin/min_core_version.hpp>
-#include <sge/plugin/version.hpp>
-#include <sge/plugin/library/make_interface.hpp>
-#include <sge/wave/loader.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_AUDIO_FILE_SCOPED_PTR_HPP_INCLUDED
+#define SGE_AUDIO_FILE_SCOPED_PTR_HPP_INCLUDED
+
+#include <sge/audio/file_fwd.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
-namespace
+namespace sge
+{
+namespace audio
 {
 
-sge::plugin::info const info(
-	FCPPT_TEXT("wave"),
-	FCPPT_TEXT("Loads wave files."),
-	sge::plugin::version(0x1u),
-	sge::plugin::min_core_version(0x1u),
-	sge::plugin::capabilities_field(
-		sge::plugin::capabilities::audio_loader
-	)
-);
-
-
-sge::audio::loader_unique_ptr
-create_audio_loader()
-{
-	return
-		sge::audio::loader_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::wave::loader
-			>()
-		);
-}
+typedef
+fcppt::scoped_ptr<
+	sge::audio::file
+>
+file_scoped_ptr;
 
 }
+}
 
-SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
-	info,
-	(create_audio_loader)
-)
+#endif

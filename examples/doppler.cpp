@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file_scoped_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
@@ -107,7 +108,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::audio::file_ptr const
+sge::audio::file_unique_ptr
 load_raw(
 	boost::filesystem::path const &path,
 	sge::audio::loader &audio_loader)
@@ -417,7 +418,7 @@ try
 		)
 	);
 
-	sge::audio::file_ptr const af_siren(
+	sge::audio::file_scoped_ptr const af_siren(
 		load_raw(
 			sge::config::media_path()
 			/ FCPPT_TEXT("sounds")
@@ -428,7 +429,7 @@ try
 
 	sge::audio::sound::positional_ptr const sound_siren(
 		sys.audio_player().create_positional_stream(
-			af_siren,
+			*af_siren,
 			sge::audio::sound::positional_parameters()
 			.rolloff_factor(
 				static_cast<sge::audio::scalar>(1)

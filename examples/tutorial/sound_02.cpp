@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/file.hpp>
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file_scoped_ptr.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/player.hpp>
@@ -78,7 +78,7 @@ try
 		)
 	);
 
-	sge::audio::file_ptr const file(
+	sge::audio::file_scoped_ptr const file(
 		sys.audio_loader().load(
 			sge::config::media_path()
 			/	FCPPT_TEXT("sounds")
@@ -88,7 +88,7 @@ try
 
 	sge::audio::sound::positional_ptr const sound(
 		sys.audio_player().create_positional_stream(
-			file,
+			*file,
 			sge::audio::sound::positional_parameters()
 		)
 	);

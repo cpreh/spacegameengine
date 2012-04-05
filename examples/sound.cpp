@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/file.hpp>
+#include <sge/audio/file_scoped_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
@@ -71,7 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::audio::file_ptr const
+sge::audio::file_unique_ptr
 load_raw(
 	boost::filesystem::path const &path,
 	sge::audio::loader &audio_loader)
@@ -169,15 +171,10 @@ try
 
 	wait_for_input();
 
-	sge::audio::file_ptr const soundfile =
+	sge::audio::file_scoped_ptr const soundfile(
 		load_raw(
 			file_name,
-			sys.audio_loader());
-	/*
-	sge::audio::file_ptr const soundfile =
-		sys.audio_loader().load(
-			file_name);
-	*/
+			sys.audio_loader()));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Sound file loaded\n")
@@ -339,7 +336,7 @@ try
 
 	sge::audio::sound::positional_ptr const sps =
 		sys.audio_player().create_positional_stream(
-			sys.audio_loader().load(
+			*sys.audio_loader().load(
 				streaming_file_name),
 			sge::audio::sound::positional_parameters()
 				.linear_velocity(

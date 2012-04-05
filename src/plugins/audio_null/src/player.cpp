@@ -18,6 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/buffer_ptr.hpp>
+#include <sge/audio/file_fwd.hpp>
+#include <sge/audio/listener_fwd.hpp>
+#include <sge/audio/player_capabilities.hpp>
+#include <sge/audio/player_capabilities_field.hpp>
+#include <sge/audio/scalar.hpp>
+#include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
+#include <sge/audio/sound/positional_ptr.hpp>
 #include <sge/audio_null/buffer.hpp>
 #include <sge/audio_null/player.hpp>
 #include <sge/audio_null/positional.hpp>
@@ -77,7 +87,7 @@ sge::audio_null::player::create_buffer(
 
 sge::audio::sound::positional_ptr const
 sge::audio_null::player::create_positional_stream(
-	audio::file_ptr,
+	audio::file &,
 	audio::sound::positional_parameters const &
 )
 {
@@ -91,7 +101,7 @@ sge::audio_null::player::create_positional_stream(
 
 sge::audio::sound::base_ptr const
 sge::audio_null::player::create_nonpositional_stream(
-	audio::file_ptr,
+	audio::file &,
 	audio::sound::nonpositional_parameters const &
 )
 {

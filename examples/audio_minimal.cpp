@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/buffer.hpp>
+#include <sge/audio/file.hpp>
+#include <sge/audio/file_scoped_ptr.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/listener.hpp>
@@ -138,11 +140,11 @@ try
 #endif
 
 //! [create_file_buffer_and_sound]
-	sge::audio::file_ptr const soundfile =
+	sge::audio::file_scoped_ptr const soundfile(
 		loader.load(
 			sge::config::media_path()
 				/ FCPPT_TEXT("sounds")
-				/ FCPPT_TEXT("ding.wav"));
+				/ FCPPT_TEXT("ding.wav")));
 
 	sge::audio::buffer_ptr const buf =
 		player.create_buffer(
@@ -195,7 +197,7 @@ try
 //! [create_and_play_streaming]
 	sge::audio::sound::base_ptr const streaming =
 		player.create_nonpositional_stream(
-			soundfile,
+			*soundfile,
 			sge::audio::sound::nonpositional_parameters());
 
 	while (streaming->status() != sge::audio::sound::play_status::stopped)

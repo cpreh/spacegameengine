@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/openal.hpp>
 #include <sge/openal/listener.hpp>
 #include <sge/audio/file_fwd.hpp>
-#include <sge/audio/file_ptr.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
@@ -74,12 +73,12 @@ public:
 
 	audio::sound::positional_ptr const
 	create_positional_stream(
-		audio::file_ptr,
+		audio::file &,
 		audio::sound::positional_parameters const &);
 
 	audio::sound::base_ptr const
 	create_nonpositional_stream(
-		audio::file_ptr,
+		audio::file &,
 		audio::sound::nonpositional_parameters const &);
 
 	audio::player_capabilities_field const

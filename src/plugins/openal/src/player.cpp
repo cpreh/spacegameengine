@@ -125,7 +125,7 @@ sge::openal::player::create_buffer(
 
 sge::audio::sound::positional_ptr const
 sge::openal::player::create_positional_stream(
-	audio::file_ptr const _file,
+	audio::file &_file,
 	audio::sound::positional_parameters const &_parameters
 )
 {
@@ -137,14 +137,16 @@ sge::openal::player::create_positional_stream(
 				fcppt::cref(
 					_parameters
 				),
-				_file
+				fcppt::ref(
+					_file
+				)
 			)
 		);
 }
 
 sge::audio::sound::base_ptr const
 sge::openal::player::create_nonpositional_stream(
-	audio::file_ptr const _file,
+	audio::file &_file,
 	audio::sound::nonpositional_parameters const &_parameters
 )
 {
@@ -155,7 +157,9 @@ sge::openal::player::create_nonpositional_stream(
 			>(
 				fcppt::cref(
 					_parameters),
-				_file
+				fcppt::ref(
+					_file
+				)
 			)
 		);
 }
