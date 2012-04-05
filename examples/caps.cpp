@@ -38,7 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/object_scoped_ptr.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/window/instance.hpp>
+#include <awl/window/instance_scoped_ptr.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -83,7 +84,7 @@ try
 		sge::renderer::no_multi_sampling
 	);
 
-	awl::window::instance_shared_ptr const window(
+	awl::window::instance_scoped_ptr const window(
 		render_sys->create_window(
 			*window_sys,
 			sge::window::parameters(

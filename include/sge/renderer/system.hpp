@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/window/instance_fwd.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/window/instance_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -86,7 +86,7 @@ public:
 	 * \throw sge::renderer::exception if anything goes wrong
 	 * \return An awl::window::instance_shared_ptr that may not be null
 	*/
-	virtual awl::window::instance_shared_ptr const
+	virtual awl::window::instance_unique_ptr
 	create_window(
 		awl::system::object &awl_system,
 		sge::window::parameters const &window_params,

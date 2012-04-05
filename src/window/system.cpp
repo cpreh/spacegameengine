@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/window/object.hpp>
-#include <sge/window/object_ptr.hpp>
+#include <sge/window/object_unique_ptr.hpp>
 #include <sge/window/system.hpp>
 #include <awl/event/processor.hpp>
 #include <awl/main/exit_code.hpp>
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/event/processor.hpp>
 #include <awl/window/instance_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 
 
@@ -71,24 +71,26 @@ sge::window::system::awl_system_event_processor() const
 	return awl_system_event_processor_;
 }
 
-sge::window::object_ptr const
+sge::window::object_unique_ptr
 sge::window::system::create(
 	awl::window::instance &_awl_window,
 	awl::window::event::processor &_awl_window_event_processor
 ) const
 {
 	return
-		fcppt::make_shared_ptr<
-			sge::window::object
-		>(
-			fcppt::ref(
-				_awl_window
-			),
-			fcppt::ref(
-				_awl_window_event_processor
-			),
-			fcppt::ref(
-				awl_event_processor_
+		sge::window::object_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::window::object
+			>(
+				fcppt::ref(
+					_awl_window
+				),
+				fcppt::ref(
+					_awl_window_event_processor
+				),
+				fcppt::ref(
+					awl_event_processor_
+				)
 			)
 		);
 }

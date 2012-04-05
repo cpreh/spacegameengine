@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_SYSTEM_HPP_INCLUDED
 #define SGE_WINDOW_SYSTEM_HPP_INCLUDED
 
-#include <sge/window/object_ptr.hpp>
+#include <sge/window/object_unique_ptr.hpp>
 #include <sge/window/symbol.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <awl/event/processor_fwd.hpp>
@@ -67,7 +67,7 @@ public:
 	awl_system_event_processor() const;
 
 	SGE_WINDOW_SYMBOL
-	sge::window::object_ptr const
+	sge::window::object_unique_ptr
 	create(
 		awl::window::instance &,
 		awl::window::event::processor &

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_OBJECT_PTR_HPP_INCLUDED
-#define SGE_WINDOW_OBJECT_PTR_HPP_INCLUDED
+#ifndef SGE_WINDOW_OBJECT_SCOPED_PTR_HPP_INCLUDED
+#define SGE_WINDOW_OBJECT_SCOPED_PTR_HPP_INCLUDED
 
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -30,9 +30,9 @@ namespace sge
 namespace window
 {
 
-typedef fcppt::shared_ptr<
+typedef fcppt::scoped_ptr<
 	window::object
-> object_ptr;
+> object_scoped_ptr;
 
 }
 }

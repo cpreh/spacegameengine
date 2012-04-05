@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/systems/modules/renderer/optional_system_ref.hpp>
 #include <sge/src/systems/modules/window/base.hpp>
-#include <sge/window/object_ptr.hpp>
+#include <sge/window/object_scoped_ptr.hpp>
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/window/system.hpp>
 #include <awl/event/processor_scoped_ptr.hpp>
@@ -76,7 +76,7 @@ private:
 
 	sge::window::system system_;
 
-	sge::window::object_ptr const window_;
+	sge::window::object_scoped_ptr const window_;
 };
 
 }

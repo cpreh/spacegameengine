@@ -18,51 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SYSTEM_HPP_INCLUDED
-#define SGE_OPENGL_SYSTEM_HPP_INCLUDED
+#ifndef SGE_WINDOW_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_WINDOW_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/renderer/adapter.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/system.hpp>
-#include <sge/window/parameters_fwd.hpp>
-#include <awl/system/object_fwd.hpp>
-#include <awl/window/instance_fwd.hpp>
-#include <awl/window/instance_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace window
 {
 
-class system
-:
-	public renderer::system
-{
-	FCPPT_NONCOPYABLE(
-		system
-	);
-public:
-	system();
-
-	~system();
-
-	renderer::device_ptr const
-	create_renderer(
-		renderer::parameters const &,
-		renderer::adapter,
-		awl::window::instance &
-	);
-
-	awl::window::instance_unique_ptr
-	create_window(
-		awl::system::object &,
-		sge::window::parameters const &,
-		sge::renderer::parameters const &
-	);
-};
+typedef fcppt::unique_ptr<
+	window::object
+> object_unique_ptr;
 
 }
 }
