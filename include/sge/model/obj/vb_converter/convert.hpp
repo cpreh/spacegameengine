@@ -31,13 +31,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <fcppt/move.hpp>
 
 
 namespace sge
@@ -49,14 +50,14 @@ namespace obj
 namespace vb_converter
 {
 template<typename VertexFormatPart,typename PositionMap>
-renderer::vertex_buffer_ptr const
+renderer::vertex_buffer_unique_ptr
 convert(
 	renderer::device &_renderer,
 	renderer::vertex_declaration const &_vd,
 	renderer::resource_flags_field const &_flags,
 	obj::instance const &_model)
 {
-	renderer::vertex_buffer_ptr const result =
+	renderer::vertex_buffer_unique_ptr result(
 		_renderer.create_vertex_buffer(
 			_vd,
 			renderer::vf::dynamic::part_index(
@@ -66,7 +67,7 @@ convert(
 					sge::renderer::vertex_count::value_type
 				>(
 					_model)),
-			_flags);
+			_flags));
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		*result,
@@ -96,7 +97,9 @@ convert(
 			current_vertex,
 			*mesh_it);
 
-	return result;
+	return
+		fcppt::move(
+			result);
 }
 }
 }

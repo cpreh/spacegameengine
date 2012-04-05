@@ -30,7 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -143,7 +146,7 @@ try
 		>
 	> format;
 
-	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
 				format
@@ -155,7 +158,7 @@ try
 		3u
 	);
 
-	sge::renderer::vertex_buffer_ptr const vertex_buffer1(
+	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer1(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
 			sge::renderer::vf::dynamic::make_part_index<
@@ -167,7 +170,7 @@ try
 		)
 	);
 
-	sge::renderer::vertex_buffer_ptr const vertex_buffer2(
+	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer2(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
 			sge::renderer::vf::dynamic::make_part_index<

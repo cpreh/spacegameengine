@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_CREATE_GEOMETRY_SHADER_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/renderer/glsl/geometry_shader_ptr.hpp>
+#include <sge/renderer/glsl/geometry_shader_unique_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
 
 namespace sge
@@ -32,7 +32,7 @@ namespace opengl
 namespace glsl
 {
 
-sge::renderer::glsl::geometry_shader_ptr const
+sge::renderer::glsl::geometry_shader_unique_ptr
 create_geometry_shader(
 	opengl::context::object &,
 	sge::renderer::glsl::string const &source

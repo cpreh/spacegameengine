@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_BUFFERS_WITH_DECLARATION_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/make_vertex_format.hpp>
 #include <sge/sprite/buffers/option.hpp>

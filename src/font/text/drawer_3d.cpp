@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/process/all.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -132,12 +133,14 @@ sge::font::text::drawer_3d::draw_char(
 			.texture(
 				dim.content()
 				?
-					this->cached_texture(
-						_char,
-						_data
+					sprite_object::texture_type(
+						this->cached_texture(
+							_char,
+							_data
+						)
 					)
 				:
-					texture::const_part_ptr()
+					sprite_object::texture_type()
 			)
 			.size(
 				fcppt::math::dim::structure_cast<
@@ -179,7 +182,7 @@ sge::font::text::drawer_3d::color(
 		);
 }
 
-sge::texture::const_part_ptr const
+sge::texture::part const &
 sge::font::text::drawer_3d::cached_texture(
 	text::char_type const _ch,
 	const_image_view const &_data
@@ -194,14 +197,13 @@ sge::font::text::drawer_3d::cached_texture(
 	return
 		it != textures_.end()
 		?
-			it->second
+			*it->second
 		:
-			textures_.insert(
-				std::make_pair(
-					_ch,
-					texman_.add(
-						_data
-					)
+			*fcppt::container::ptr::insert_unique_ptr_map(
+				textures_,
+				_ch,
+				texman_.add(
+					_data
 				)
 			).first->second;
 }

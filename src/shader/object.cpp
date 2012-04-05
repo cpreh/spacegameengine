@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/exception.hpp>
 #include <sge/log/global.hpp>
-#include <sge/renderer/const_optional_vertex_declaration.hpp>
+#include <sge/renderer/const_optional_vertex_declaration_ref.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/glsl/const_optional_program.hpp>
+#include <sge/renderer/glsl/const_optional_program_ref.hpp>
 #include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/scoped_attachment.hpp>
@@ -32,15 +32,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/vertex_shader.hpp>
 #include <sge/renderer/glsl/uniform/int_type.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
-#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
-#include <sge/renderer/texture/const_optional_base.hpp>
+#include <sge/renderer/glsl/uniform/variable.hpp>
+#include <sge/renderer/glsl/uniform/variable_shared_ptr.hpp>
+#include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/shader/activation_method_field.hpp>
 #include <sge/shader/object.hpp>
 #include <sge/shader/object_parameters.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -62,15 +63,17 @@ namespace
 {
 struct uniform_setter
 {
+FCPPT_NONASSIGNABLE(
+	uniform_setter);
 public:
 	// apply_unary needs this
 	typedef void result_type;
 
-	sge::renderer::glsl::uniform::variable_ptr variable_;
+	sge::renderer::glsl::uniform::variable &variable_;
 
 	explicit
 	uniform_setter(
-		sge::renderer::glsl::uniform::variable_ptr const _variable)
+		sge::renderer::glsl::uniform::variable &_variable)
 	:
 		variable_(_variable)
 	{
@@ -82,7 +85,7 @@ public:
 		T const &_value) const
 	{
 		sge::renderer::glsl::uniform::single_value(
-			*variable_,
+			variable_,
 			_value);
 	}
 
@@ -91,7 +94,7 @@ public:
 		bool const _value) const
 	{
 		sge::renderer::glsl::uniform::single_value(
-			*variable_,
+			variable_,
 			static_cast<sge::renderer::glsl::uniform::int_type>(
 				_value));
 	}
@@ -117,7 +120,7 @@ public:
 		}
 
 		sge::renderer::glsl::uniform::single_value(
-			*variable_,
+			variable_,
 			value);
 	}
 };
@@ -171,7 +174,8 @@ sge::shader::object::object(
 			it != p.vertex_shaders().end();
 			++it)
 		{
-			vertex_shaders_.push_back(
+			fcppt::container::ptr::push_back_unique_ptr(
+				vertex_shaders_,
 				renderer_.create_glsl_vertex_shader(
 					boost::algorithm::replace_first_copy(
 						*it,
@@ -179,9 +183,9 @@ sge::shader::object::object(
 						header)));
 
 			current_shader =
-				vertex_shaders_.back().get();
+				&vertex_shaders_.back();
 
-			vertex_shaders_.back()->compile();
+			vertex_shaders_.back().compile();
 
 			fcppt::container::ptr::push_back_unique_ptr(
 				attachments_,
@@ -189,7 +193,7 @@ sge::shader::object::object(
 					fcppt::ref(
 						*program_),
 					fcppt::cref(
-						*vertex_shaders_.back())));
+						vertex_shaders_.back())));
 		}
 
 		for(
@@ -198,7 +202,8 @@ sge::shader::object::object(
 			it != p.fragment_shaders().end();
 			++it)
 		{
-			pixel_shaders_.push_back(
+			fcppt::container::ptr::push_back_unique_ptr(
+				pixel_shaders_,
 				renderer_.create_glsl_pixel_shader(
 					boost::algorithm::replace_first_copy(
 						*it,
@@ -206,9 +211,9 @@ sge::shader::object::object(
 						header)));
 
 			current_shader =
-				pixel_shaders_.back().get();
+				&pixel_shaders_.back();
 
-			vertex_shaders_.back()->compile();
+			vertex_shaders_.back().compile();
 
 			fcppt::container::ptr::push_back_unique_ptr(
 				attachments_,
@@ -216,7 +221,7 @@ sge::shader::object::object(
 					fcppt::ref(
 						*program_),
 					fcppt::cref(
-						*pixel_shaders_.back())));
+						pixel_shaders_.back())));
 		}
 
 		program_->link();
@@ -254,8 +259,9 @@ sge::shader::object::object(
 				uniforms_.insert(
 					uniform_map::value_type(
 						it->name(),
-						program_->uniform(
-							it->name())));
+						sge::renderer::glsl::uniform::variable_shared_ptr(
+							program_->uniform(
+								it->name()))));
 
 				update_uniform(
 					it->name(),
@@ -282,7 +288,11 @@ sge::shader::object::object(
 			*uniforms_.insert(
 				uniform_map::value_type(
 					it->name(),
-					program_->uniform(it->name()))).first->second,
+					sge::renderer::glsl::uniform::variable_shared_ptr(
+						program_->uniform(it->name())
+					)
+				)
+			).first->second,
 			current_tu);
 
 		samplers_.back().texture_unit(
@@ -319,7 +329,7 @@ sge::shader::object::update_uniform(
 
 	fcppt::variant::apply_unary(
 		uniform_setter(
-			i->second),
+			*i->second),
 		v);
 }
 
@@ -356,7 +366,7 @@ sge::shader::object::activate(
 	shader::activation_method_field const &t)
 {
 	renderer_.glsl_program(
-		sge::renderer::glsl::const_optional_program(
+		sge::renderer::glsl::const_optional_program_ref(
 			*program_));
 
 	if(t & shader::activation_method::textures)
@@ -369,7 +379,7 @@ sge::shader::object::activate(
 			++it
 		)
 			renderer_.texture(
-				sge::renderer::texture::const_optional_base(
+				sge::renderer::texture::const_optional_base_ref(
 					*it->texture()),
 				sge::renderer::texture::stage(
 					static_cast<sge::renderer::texture::stage::value_type>(
@@ -379,7 +389,7 @@ sge::shader::object::activate(
 	if(t & shader::activation_method::vertex_declaration)
 	{
 		renderer_.vertex_declaration(
-			sge::renderer::const_optional_vertex_declaration(
+			sge::renderer::const_optional_vertex_declaration_ref(
 				vertex_declaration_));
 	}
 }
@@ -389,7 +399,7 @@ sge::shader::object::deactivate(
 	shader::activation_method_field const &t)
 {
 	renderer_.glsl_program(
-		sge::renderer::glsl::const_optional_program());
+		sge::renderer::glsl::const_optional_program_ref());
 
 	if(t & shader::activation_method::textures)
 	{
@@ -401,7 +411,7 @@ sge::shader::object::deactivate(
 			++it
 		)
 			renderer_.texture(
-				sge::renderer::texture::const_optional_base(),
+				sge::renderer::texture::const_optional_base_ref(),
 				sge::renderer::texture::stage(
 					static_cast<sge::renderer::texture::stage::value_type>(
 						it->texture_unit())));
@@ -409,7 +419,7 @@ sge::shader::object::deactivate(
 
 	if(t & shader::activation_method::vertex_declaration)
 		renderer_.vertex_declaration(
-			renderer::const_optional_vertex_declaration());
+			renderer::const_optional_vertex_declaration_ref());
 }
 
 sge::shader::object::~object()

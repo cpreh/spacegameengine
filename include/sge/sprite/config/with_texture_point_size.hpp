@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/config/custom_texture_point_pos_fwd.hpp>
 #include <sge/sprite/config/texture_level_count_fwd.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/with_texture_point_size_fwd.hpp>
 #include <sge/sprite/detail/primitives/texture_point_pos.hpp>
 #include <sge/sprite/detail/primitives/texture_point_size.hpp>
@@ -45,7 +46,8 @@ namespace config
 template<
 	sge::sprite::texture_level TextureLevels,
 	bool CustomTexturePoint,
-	typename SizeOptions
+	typename SizeOptions,
+	sge::sprite::config::texture_ownership::type Ownership
 >
 struct with_texture_point_size<
 	sge::sprite::config::texture_level_count<
@@ -54,7 +56,8 @@ struct with_texture_point_size<
 	sge::sprite::config::custom_texture_point_pos<
 		CustomTexturePoint
 	>,
-	SizeOptions
+	SizeOptions,
+	Ownership
 >
 {
 	BOOST_STATIC_ASSERT(
@@ -75,6 +78,9 @@ struct with_texture_point_size<
 
 	typedef SizeOptions point_size;
 
+	static sge::sprite::config::texture_ownership::type const
+	ownership = Ownership;
+
 	template<
 		typename Choices
 	>
@@ -84,7 +90,8 @@ struct with_texture_point_size<
 			typename fcppt::mpl::append<
 				typename sge::sprite::detail::primitives::texture_ptr<
 					Choices,
-					texture_levels
+					texture_levels,
+					ownership
 				>::type,
 				typename fcppt::mpl::append<
 					typename sge::sprite::detail::primitives::texture_point_pos<

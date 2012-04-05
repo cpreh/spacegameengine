@@ -25,15 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
-#include <sge/renderer/const_optional_vertex_declaration_fwd.hpp>
+#include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/index_buffer_unique_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/material_fwd.hpp>
@@ -41,23 +41,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/onscreen_target_fwd.hpp>
-#include <sge/renderer/optional_target_fwd.hpp>
+#include <sge/renderer/optional_target_ref_fwd.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/target_unique_ptr.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/caps/object_fwd.hpp>
-#include <sge/renderer/glsl/const_optional_program_fwd.hpp>
-#include <sge/renderer/glsl/geometry_shader_ptr.hpp>
-#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
-#include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/const_optional_program_ref_fwd.hpp>
+#include <sge/renderer/glsl/geometry_shader_unique_ptr.hpp>
+#include <sge/renderer/glsl/pixel_shader_unique_ptr.hpp>
+#include <sge/renderer/glsl/program_unique_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <sge/renderer/glsl/vertex_shader_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/light/index.hpp>
 #include <sge/renderer/light/object_fwd.hpp>
@@ -65,20 +65,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode_s.hpp>
 #include <sge/renderer/texture/address_mode_t.hpp>
 #include <sge/renderer/texture/address_mode_u.hpp>
-#include <sge/renderer/texture/const_optional_base_fwd.hpp>
+#include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_ptr.hpp>
+#include <sge/renderer/texture/cube_unique_ptr.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
-#include <sge/renderer/texture/depth_stencil_ptr.hpp>
+#include <sge/renderer/texture/depth_stencil_unique_ptr.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/stage_arg.hpp>
 #include <sge/renderer/texture/stage_arg_value.hpp>
 #include <sge/renderer/texture/stage_op.hpp>
 #include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
-#include <sge/renderer/texture/volume_ptr.hpp>
+#include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
@@ -281,7 +281,7 @@ public:
 	 */
 	virtual void
 	vertex_declaration(
-		renderer::const_optional_vertex_declaration const &vertex_declaration
+		renderer::const_optional_vertex_declaration_ref const &vertex_declaration
 	) = 0;
 
 	/**
@@ -565,8 +565,8 @@ public:
 	 * Initially, the textures for every stage are none.
 	 *
 	 * \param texture The texture to set or
-	 * sge::renderer::texture::const_optional_base to disable texturing.
-	 * \param stage The stage to set the texture for
+	 * sge::renderer::texture::const_optional_base_ref() to disable
+	 * texturing. \param stage The stage to set the texture for
 	 *
 	 * \see sge::renderer::caps::object::texture_stages
 	 *
@@ -575,7 +575,7 @@ public:
 	 */
 	virtual void
 	texture(
-		renderer::texture::const_optional_base const &texture,
+		renderer::texture::const_optional_base_ref const &texture,
 		renderer::texture::stage stage
 	) = 0;
 
@@ -597,8 +597,9 @@ public:
 	 * Sets the new render target to \a target. Initially, the target is
 	 * the onscreen target.
 	 *
-	 * \param target The target to set or sge::renderer::optional_target()
-	 * to set the current target to the onscreen target.
+	 * \param target The target to set or
+	 * sge::renderer::optional_target_ref() to set the current target to
+	 * the onscreen target.
 	 *
 	 * \see sge::renderer::caps::object::render_target_supported
 	 *
@@ -607,7 +608,7 @@ public:
 	 */
 	virtual void
 	target(
-		renderer::optional_target const &target
+		renderer::optional_target_ref const &target
 	) = 0;
 
 	/**
@@ -615,14 +616,14 @@ public:
 	 *
 	 * Creates an empty glsl program.
 	 *
-	 * \return A shared pointer to the created glsl program
+	 * \return A unique pointer to the created glsl program
 	 *
 	 * \see sge::renderer::caps::object::glsl_supported
 	 *
 	 * \warning The behaviour is undefined if
 	 * sge::renderer::caps::object::glsl_supported is false
 	 */
-	virtual renderer::glsl::program_ptr const
+	virtual renderer::glsl::program_unique_ptr
 	create_glsl_program() = 0;
 
 	/**
@@ -632,14 +633,14 @@ public:
 	 *
 	 * \param source The source for the shader
 	 *
-	 * \return A shared pointer to the created vertex shader
+	 * \return A unique pointer to the created vertex shader
 	 *
 	 * \see sge::renderer::caps::object::glsl_supported
 	 *
 	 * \warning The behaviour is undefined if
 	 * sge::renderer::caps::object::glsl_supported is false
 	 */
-	virtual renderer::glsl::vertex_shader_ptr const
+	virtual renderer::glsl::vertex_shader_unique_ptr
 	create_glsl_vertex_shader(
 		renderer::glsl::string const &source
 	) = 0;
@@ -651,14 +652,14 @@ public:
 	 *
 	 * \param source The source for the shader
 	 *
-	 * \return A shared pointer to the created pixel shader
+	 * \return A unique pointer to the created pixel shader
 	 *
 	 * \see sge::renderer::caps::object::glsl_supported
 	 *
 	 * \warning The behaviour is undefined if
 	 * sge::renderer::caps::object::glsl_supported is false
 	 */
-	virtual renderer::glsl::pixel_shader_ptr const
+	virtual renderer::glsl::pixel_shader_unique_ptr
 	create_glsl_pixel_shader(
 		renderer::glsl::string const &source
 	) = 0;
@@ -670,14 +671,14 @@ public:
 	 *
 	 * \param source The source for the shader
 	 *
-	 * \return A shared pointer to the created geometry shader
+	 * \return A unique pointer to the created geometry shader
 	 *
 	 * \see sge::renderer::caps::object::glsl_supported
 	 *
 	 * \warning The behaviour is undefined if
 	 * sge::renderer::caps::object::glsl_supported is false
 	 */
-	virtual renderer::glsl::geometry_shader_ptr const
+	virtual renderer::glsl::geometry_shader_unique_ptr
 	create_glsl_geometry_shader(
 		renderer::glsl::string const &source
 	) = 0;
@@ -686,13 +687,13 @@ public:
 	 * \brief Sets the current glsl program
 	 *
 	 * Sets the current glsl program to \a program or deactivates glsl if
-	 * \a program is sge::renderer::glsl::const_optional_program().  If a
+	 * \a program is sge::renderer::glsl::const_optional_program_ref().  If a
 	 * glsl program is set, the fixed function pipeline is mostly disabled.
 	 * This includes lights, materials, texture stage states, fog states.
 	 * Initially, the glsl program is disabled.
 	 *
 	 * \param program The program to set or
-	 * sge::renderer::glsl::const_optional_program to disable glsl.
+	 * sge::renderer::glsl::const_optional_program_ref() to disable glsl.
 	 *
 	 * \see sge::renderer::caps::object::glsl_supported
 	 *
@@ -701,7 +702,7 @@ public:
 	 */
 	virtual void
 	glsl_program(
-		renderer::glsl::const_optional_program const &program
+		renderer::glsl::const_optional_program_ref const &program
 	) = 0;
 
 	/**
@@ -709,14 +710,14 @@ public:
 	 *
 	 * Creates an empty render target.
 	 *
-	 * \return A shared pointer to the created target
+	 * \return A unique pointer to the created target
 	 *
 	 * \see sge::renderer::caps::object::render_target_supported
 	 *
 	 * \warning The behaviour is undefined if
 	 * sge::renderer::caps::object::render_target_supported is false
 	 */
-	virtual renderer::target_ptr const
+	virtual renderer::target_unique_ptr
 	create_target() = 0;
 
 	/**
@@ -729,13 +730,13 @@ public:
 	 * sge::renderer::dim2 as its dimensions and
 	 * sge::image::color::format::type as its format
 	 *
-	 * \return A shared pointer to the created planar texture
+	 * \return A unique pointer to the created planar texture
 	 *
 	 * \see sge::renderer::caps::object::max_texture_size
 	 *
 	 * \throw sge::renderer::exception if anything goes wrong
 	*/
-	virtual renderer::texture::planar_ptr const
+	virtual renderer::texture::planar_unique_ptr
 	create_planar_texture(
 		renderer::texture::planar_parameters const &parameters
 	) = 0;
@@ -750,13 +751,13 @@ public:
 	 * texture, using sge::renderer::dim2 as its dimensions and
 	 * sge::renderer::depth_stencil_format::type as its format
 	 *
-	 * \return A shared pointer to the created depth stencil texture
+	 * \return A unique pointer to the created depth stencil texture
 	 *
 	 * \see sge::renderer::caps::object::max_texture_size
 	 *
 	 * \throw sge::renderer::exception if anything goes wrong
 	 */
-	virtual renderer::texture::depth_stencil_ptr const
+	virtual renderer::texture::depth_stencil_unique_ptr
 	create_depth_stencil_texture(
 		renderer::texture::depth_stencil_parameters const &parameters
 	) = 0;
@@ -770,11 +771,11 @@ public:
 	 * \param size The size of the surface
 	 * \param format The format of the surface
 	 *
-	 * \return A shared pointer to the created depth stencil surface
+	 * \return A unique pointer to the created depth stencil surface
 	 *
 	 * \throw sge::renderer::exception if anything goes wrong
 	 */
-	virtual renderer::depth_stencil_surface_ptr const
+	virtual renderer::depth_stencil_surface_unique_ptr
 	create_depth_stencil_surface(
 		renderer::dim2 const &size,
 		renderer::depth_stencil_format::type format
@@ -790,13 +791,13 @@ public:
 	 * texture, using sge::renderer::dim3 as its dimensions and
 	 * sge::image::color::format::type as its format
 	 *
-	 * \return A shared pointer to the created volume texture
+	 * \return A unique pointer to the created volume texture
 	 *
 	 * \see sge::renderer::caps::object::max_volume_texture_extent
 	 *
 	 * \throw sge::renderer::exception if anything goes wrong
 	 */
-	virtual renderer::texture::volume_ptr const
+	virtual renderer::texture::volume_unique_ptr
 	create_volume_texture(
 		renderer::texture::volume_parameters const &parameters
 	) = 0;
@@ -811,11 +812,11 @@ public:
 	 * texture, using sge::renderer::size_type as its dimensions and
 	 * sge::image::color::format::type as its format
 	 *
-	 * \return A shared pointer to the created cube texture
+	 * \return A unique pointer to the created cube texture
 	 *
 	 * \throw sge::renderer::exception if anything goes wrong
 	 */
-	virtual renderer::texture::cube_ptr const
+	virtual renderer::texture::cube_unique_ptr
 	create_cube_texture(
 		renderer::texture::cube_parameters const &parameters
 	) = 0;
@@ -827,11 +828,11 @@ public:
 	 *
 	 * \param format The dynamic vertex format to use
 	 *
-	 * \return A shared pointer to the created vertex declaration
+	 * \return A unique pointer to the created vertex declaration
 	 *
 	 * \throw sge::renderer::exception if anything goes wrong
 	 */
-	virtual renderer::vertex_declaration_ptr const
+	virtual renderer::vertex_declaration_unique_ptr
 	create_vertex_declaration(
 		renderer::vf::dynamic::format const &format
 	) = 0;
@@ -854,11 +855,11 @@ public:
 	 *
 	 * \param flags The capabilitiies of the buffer
 	 *
-	 * \return A shared pointer to the created vertex buffer
+	 * \return A unique pointer to the created vertex buffer
 	 *
 	 * \throw sge::renderer::exception if anything goes wrong
 	 */
-	virtual renderer::vertex_buffer_ptr const
+	virtual renderer::vertex_buffer_unique_ptr
 	create_vertex_buffer(
 		renderer::vertex_declaration const &vertex_declaration,
 		renderer::vf::dynamic::part_index part,
@@ -878,11 +879,11 @@ public:
 	 * \param index_count The number of indices the buffer will hold
 	 * \param flags The capabilitiies of the buffer
 	 *
-	 * \return A shared pointer to the created index buffer
+	 * \return A unique pointer to the created index buffer
 	 *
 	 * \throw sge::renderer::exception if anything goes wrong
 	 */
-	virtual renderer::index_buffer_ptr const
+	virtual renderer::index_buffer_unique_ptr
 	create_index_buffer(
 		renderer::index::dynamic::format::type format,
 		renderer::index_count index_count,
@@ -905,12 +906,12 @@ public:
 	 *
 	 * If a target has been set by device::target, then this will return
 	 * the previously set target, otherwise
-	 * sge::renderer::optional_target() is returned.
+	 * sge::renderer::optional_target_ref() is returned.
 	 *
 	 * \return The previously set target or
-	 * sge::renderer::optional_target()
+	 * sge::renderer::optional_target_ref()
 	*/
-	virtual renderer::optional_target const
+	virtual renderer::optional_target_ref const
 	target() const = 0;
 
 	/**

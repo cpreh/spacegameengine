@@ -113,7 +113,7 @@ sge::opengl::fbo::target::on_unbind()
 
 void
 sge::opengl::fbo::target::color_surface(
-	renderer::color_surface_ptr const _surface,
+	renderer::color_surface_shared_ptr const _surface,
 	renderer::surface_index const _index
 )
 {
@@ -166,7 +166,7 @@ sge::opengl::fbo::target::color_surface(
 
 void
 sge::opengl::fbo::target::depth_stencil_surface(
-	renderer::depth_stencil_surface_ptr const _surface
+	renderer::depth_stencil_surface_shared_ptr const _surface
 )
 {
 	GLenum const attachment(

@@ -83,10 +83,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/specular_color.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
@@ -113,7 +115,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/set_address_mode2.hpp>
 #include <sge/renderer/texture/stage.hpp>
@@ -230,12 +232,11 @@ class compiled_model
 FCPPT_NONCOPYABLE(
 	compiled_model);
 public:
-	explicit
 	compiled_model(
 		sge::model::obj::instance const &,
 		sge::renderer::device &,
 		sge::renderer::vertex_declaration const &,
-		sge::renderer::texture::planar_ptr);
+		sge::renderer::texture::planar *);
 
 	void
 	render();
@@ -246,8 +247,8 @@ public:
 	~compiled_model();
 private:
 	sge::renderer::vertex_declaration const &vd_;
-	sge::renderer::vertex_buffer_ptr vb_;
-	sge::renderer::texture::planar_ptr texture_;
+	sge::renderer::vertex_buffer_scoped_ptr const vb_;
+	sge::renderer::texture::planar *const texture_;
 	sge::renderer::device &renderer_;
 };
 
@@ -314,12 +315,12 @@ boost::mpl::insert
 >::type
 normal_format;
 
-sge::renderer::vertex_buffer_ptr const
+sge::renderer::vertex_buffer_unique_ptr
 choose_format_and_convert(
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration const &_vd,
 	sge::model::obj::instance const &_model,
-	sge::renderer::texture::planar_ptr const _texture)
+	sge::renderer::texture::planar *const _texture)
 {
 	if(_texture)
 	{
@@ -363,7 +364,7 @@ compiled_model::compiled_model(
 	sge::model::obj::instance const &_model,
 	sge::renderer::device &_renderer,
 	sge::renderer::vertex_declaration const &_vd,
-	sge::renderer::texture::planar_ptr const _texture)
+	sge::renderer::texture::planar *const _texture)
 :
 	vd_(
 		_vd),
@@ -646,7 +647,7 @@ try
 				sge::renderer::projection::far(
 					1000.f))));
 
-	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>()));
 
@@ -657,21 +658,22 @@ try
 		model_loader->load(
 			model_file));
 
-	sge::renderer::texture::planar_ptr texture;
+	sge::renderer::texture::planar_scoped_ptr texture;
+
 	if(!texture_file.empty())
-		texture =
+		texture.take(
 			sge::renderer::texture::create_planar_from_path(
 				texture_file,
 				sys.renderer(),
 				sys.image_system(),
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags::none);
+				sge::renderer::resource_flags::none));
 
 	compiled_model compiled(
 		*model,
 		sys.renderer(),
 		*vertex_declaration,
-		texture);
+		texture.get());
 
 	sge::line_drawer::object line_drawer(
 		sys.renderer());

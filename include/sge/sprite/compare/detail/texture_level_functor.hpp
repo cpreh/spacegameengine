@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_COMPARE_DETAIL_TEXTURE_LEVEL_FUNCTOR_HPP_INCLUDED
 #define SGE_SPRITE_COMPARE_DETAIL_TEXTURE_LEVEL_FUNCTOR_HPP_INCLUDED
 
-#include <sge/renderer/texture/const_planar_ptr.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part.hpp>
 
 
@@ -60,7 +59,11 @@ struct texture_level_functor
 		> const &_right
 	)
 	{
-		sge::texture::const_part_ptr const
+		typedef typename sge::sprite::object<
+			Choices
+		>::texture_type texture_type;
+
+		texture_type const
 			left_tex(
 				_left. template texture_level<
 					Level::value
@@ -78,17 +81,17 @@ struct texture_level_functor
 			right_tex
 			?
 				Function<
-					sge::renderer::texture::const_planar_ptr
+					sge::renderer::texture::planar const *
 				>()(
-					left_tex->texture(),
-					right_tex->texture()
+					&left_tex->texture(),
+					&right_tex->texture()
 				)
 			:
 				Function<
-					sge::texture::const_part_ptr
+					sge::texture::part const *
 				>()(
-					left_tex,
-					right_tex
+					&*left_tex,
+					&*right_tex
 				)
 			;
 	}

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_BUFFERS_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/index_buffer_ptr.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/index_buffer_shared_ptr.hpp>
+#include <sge/renderer/vertex_buffer_shared_ptr.hpp>
 #include <sge/sprite/buffers/roles/index_buffer.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
@@ -52,14 +52,14 @@ struct object
 private:
 	typedef majutsu::role<
 		majutsu::simple<
-			sge::renderer::vertex_buffer_ptr
+			sge::renderer::vertex_buffer_shared_ptr
 		>,
 		sge::sprite::buffers::roles::vertex_buffer
 	> vertex_buffer_role;
 
 	typedef majutsu::role<
 		majutsu::simple<
-			sge::renderer::index_buffer_ptr
+			sge::renderer::index_buffer_shared_ptr
 		>,
 		sge::sprite::buffers::roles::index_buffer
 	> index_buffer_role;

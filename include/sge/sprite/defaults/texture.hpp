@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DEFAULTS_TEXTURE_HPP_INCLUDED
 #define SGE_SPRITE_DEFAULTS_TEXTURE_HPP_INCLUDED
 
+#include <sge/sprite/texture.hpp>
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/roles/texture.hpp>
-#include <sge/texture/const_part_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -48,7 +48,9 @@ struct defaults<
 {
 	typedef boost::mpl::true_ use;
 
-	typedef sge::texture::const_part_ptr type;
+	typedef typename sge::sprite::texture<
+		Choices
+	>::type type;
 
 	static type
 	get()

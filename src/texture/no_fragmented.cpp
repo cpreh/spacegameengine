@@ -18,18 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/color/format.hpp>
 #include <sge/log/global.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/mipmap/object.hpp>
+#include <sge/texture/free_type.hpp>
 #include <sge/texture/guaranteed_free.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/part_fragmented.hpp>
+#include <sge/texture/part_fwd.hpp>
+#include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/atlasing/bounds.hpp>
 #include <sge/texture/atlasing/need.hpp>
 #include <sge/texture/atlasing/size.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/headers.hpp>
@@ -48,9 +55,15 @@ sge::texture::no_fragmented::no_fragmented(
 	renderer::texture::mipmap::object const &_mipmap
 )
 :
- 	rend_(_rend),
-	format_(_format),
- 	mipmap_(_mipmap),
+ 	rend_(
+		_rend
+	),
+	format_(
+		_format
+	),
+ 	mipmap_(
+		_mipmap
+	),
 	tex_()
 {
 }
@@ -59,7 +72,7 @@ sge::texture::no_fragmented::~no_fragmented()
 {
 }
 
-sge::texture::part_ptr const
+sge::texture::part_unique_ptr
 sge::texture::no_fragmented::consume_fragment(
 	renderer::dim2 const &_dim
 )
@@ -67,7 +80,7 @@ sge::texture::no_fragmented::consume_fragment(
 	if(
 		tex_
 	)
-		return texture::part_ptr();
+		return texture::part_unique_ptr();
 
 	renderer::dim2 const real_dim(
 		atlasing::bounds(
@@ -75,7 +88,7 @@ sge::texture::no_fragmented::consume_fragment(
 		)
 	);
 
-	tex_ =
+	tex_.take(
 		rend_.create_planar_texture(
 			renderer::texture::planar_parameters(
 				real_dim,
@@ -84,7 +97,8 @@ sge::texture::no_fragmented::consume_fragment(
 				renderer::resource_flags::none,
 				renderer::texture::capabilities_field::null()
 			)
-		);
+		)
+	);
 
 	if(
 		real_dim != _dim
@@ -100,8 +114,8 @@ sge::texture::no_fragmented::consume_fragment(
 		);
 
 	return
-		texture::part_ptr(
-			fcppt::make_shared_ptr<
+		sge::texture::part_unique_ptr(
+			fcppt::make_unique_ptr<
 				texture::part_fragmented
 			>(
 				renderer::lock_rect(
@@ -125,22 +139,22 @@ sge::texture::no_fragmented::consume_fragment(
 
 void
 sge::texture::no_fragmented::on_return_fragment(
-	part const &
+	sge::texture::part const &
 )
 {
 	tex_.reset();
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar &
 sge::texture::no_fragmented::texture()
 {
-	return tex_;
+	return *tex_;
 }
 
-sge::renderer::texture::const_planar_ptr const
+sge::renderer::texture::planar const &
 sge::texture::no_fragmented::texture() const
 {
-	return tex_;
+	return *tex_;
 }
 
 bool

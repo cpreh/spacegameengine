@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -102,7 +102,7 @@ sge::opengl::texture::depth_stencil::size() const
 	return size_;
 }
 
-sge::renderer::depth_stencil_surface_ptr const
+sge::renderer::depth_stencil_surface_unique_ptr
 sge::opengl::texture::depth_stencil::surface() const
 {
 	opengl::texture::scoped_work_binding const binding(
@@ -115,15 +115,17 @@ sge::opengl::texture::depth_stencil::surface() const
 	);
 
 	return
-		fcppt::make_shared_ptr<
-			opengl::texture::depth_stencil_surface
-		>(
-			fcppt::cref(
-				binding
-			),
-			this->type(),
-			this->id(),
-			format_
+		sge::renderer::depth_stencil_surface_unique_ptr(
+			fcppt::make_unique_ptr<
+				opengl::texture::depth_stencil_surface
+			>(
+				fcppt::cref(
+					binding
+				),
+				this->type(),
+				this->id(),
+				format_
+			)
 		);
 }
 

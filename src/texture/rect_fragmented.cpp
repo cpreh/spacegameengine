@@ -18,12 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/color/format.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <sge/texture/free_type.hpp>
 #include <sge/texture/part_fragmented.hpp>
+#include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/atlasing/create.hpp>
 #include <sge/texture/atlasing/size.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -57,7 +64,7 @@ sge::texture::rect_fragmented::~rect_fragmented()
 {
 }
 
-sge::texture::part_ptr const
+sge::texture::part_unique_ptr
 sge::texture::rect_fragmented::consume_fragment(
 	renderer::dim2 const &_size
 )
@@ -73,7 +80,7 @@ sge::texture::rect_fragmented::consume_fragment(
 	if(
 		cur_y_ + _size.h() >= tex_->size().h()
 	)
-		return texture::part_ptr();
+		return texture::part_unique_ptr();
 
 	// if the current line is full advance to the next
 	if(
@@ -88,10 +95,10 @@ sge::texture::rect_fragmented::consume_fragment(
 	if(
 		cur_y_ + _size.h() >= tex_->size().h()
 	)
-		return texture::part_ptr();
+		return texture::part_unique_ptr();
 
-	texture::part_ptr const ret(
-		fcppt::make_shared_ptr<
+	texture::part_unique_ptr ret(
+		fcppt::make_unique_ptr<
 			texture::part_fragmented
 		>(
 			renderer::lock_rect(
@@ -115,7 +122,10 @@ sge::texture::rect_fragmented::consume_fragment(
 
 	++texture_count_;
 
-	return ret;
+	return
+		fcppt::move(
+			ret
+		);
 }
 
 void
@@ -126,16 +136,16 @@ sge::texture::rect_fragmented::on_return_fragment(
 	--texture_count_;
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar &
 sge::texture::rect_fragmented::texture()
 {
-	return tex_;
+	return *tex_;
 }
 
-sge::renderer::texture::const_planar_ptr const
+sge::renderer::texture::planar const &
 sge::texture::rect_fragmented::texture() const
 {
-	return tex_;
+	return *tex_;
 }
 
 bool
@@ -151,8 +161,8 @@ sge::texture::rect_fragmented::free_value() const
 		static_cast<
 			free_type
 		>(
-			(this->texture()->size().h() - cur_height_)
-			* this->texture()->size().w()
+			(this->texture().size().h() - cur_height_)
+			* this->texture().size().w()
 		);
 }
 

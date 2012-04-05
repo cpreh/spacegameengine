@@ -59,6 +59,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/stencil_op.hpp>
 #include <sge/renderer/state/stencil_op_value.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -70,6 +72,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
@@ -95,6 +98,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
@@ -201,7 +205,8 @@ try
 				sge::sprite::config::texture_level_count<
 					1u
 				>,
-				sge::sprite::config::texture_coordinates::automatic
+				sge::sprite::config::texture_coordinates::automatic,
+				sge::sprite::config::texture_ownership::shared
 			>
 		>
 	> sprite_choices;
@@ -228,6 +233,34 @@ try
 		sge::sprite::buffers::option::dynamic
 	);
 
+	// Create the two textures we are going to use
+	sge::renderer::texture::planar_scoped_ptr const
+		// Create a texture from "grass.png",
+		// which uses no mipmapping
+		// and clamping at its corners.
+		texture_grass(
+			sge::renderer::texture::create_planar_from_path(
+				sge::config::media_path()
+				/ FCPPT_TEXT("images")
+				/ FCPPT_TEXT("grass.png"),
+				sys.renderer(),
+				sys.image_system(),
+				sge::renderer::texture::mipmap::off(),
+				sge::renderer::resource_flags::none
+			)
+		),
+		texture_cloudsquare(
+			sge::renderer::texture::create_planar_from_path(
+				sge::config::media_path()
+				/ FCPPT_TEXT("images")
+				/ FCPPT_TEXT("cloudsquare.png"),
+				sys.renderer(),
+				sys.image_system(),
+				sge::renderer::texture::mipmap::off(),
+				sge::renderer::resource_flags::none
+			)
+		);
+
 	// This is our smaller sprite.
 	// It will be placed at position (200, 200) and have the size
 	// of its texture "grass.png" which is (256, 256).
@@ -248,17 +281,8 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				// Create a texture from "grass.png",
-				// which uses no mipmapping
-				// and clamping at its corners.
-				sge::renderer::texture::create_planar_from_path(
-					sge::config::media_path()
-					/ FCPPT_TEXT("images")
-					/ FCPPT_TEXT("grass.png"),
-					sys.renderer(),
-					sys.image_system(),
-					sge::renderer::texture::mipmap::off(),
-					sge::renderer::resource_flags::none
+				fcppt::ref(
+					*texture_grass
 				)
 			)
 		)
@@ -279,14 +303,8 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				sge::renderer::texture::create_planar_from_path(
-					sge::config::media_path()
-					/ FCPPT_TEXT("images")
-					/ FCPPT_TEXT("cloudsquare.png"),
-					sys.renderer(),
-					sys.image_system(),
-					sge::renderer::texture::mipmap::off(),
-					sge::renderer::resource_flags::none
+				fcppt::ref(
+					*texture_cloudsquare
 				)
 			)
 		)

@@ -78,6 +78,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/filter/mipmap.hpp>
@@ -100,6 +102,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
@@ -120,7 +123,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
@@ -476,7 +478,8 @@ try
 				sge::sprite::config::texture_level_count<
 					1u
 				>,
-				sge::sprite::config::texture_coordinates::repetition
+				sge::sprite::config::texture_coordinates::repetition,
+				sge::sprite::config::texture_ownership::shared
 			>
 		>
 	> sprite_choices;
@@ -512,6 +515,21 @@ try
 		)
 	);
 
+	sge::renderer::texture::planar_scoped_ptr const sprite_texture(
+		sge::renderer::texture::create_planar_from_view(
+			sys.renderer(),
+			sge::image2d::view::to_const(
+				sge::image2d::view::object(
+					whole_store.wrapped_view()
+				)
+			),
+			sge::renderer::texture::mipmap::all_levels(
+				sge::renderer::texture::mipmap::auto_generate::yes
+			),
+			sge::renderer::resource_flags::none
+		)
+	);
+
 	sprite_object const sprite(
 		sprite_parameters()
 		.pos(
@@ -536,17 +554,8 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				sge::renderer::texture::create_planar_from_view(
-					sys.renderer(),
-					sge::image2d::view::to_const(
-						sge::image2d::view::object(
-							whole_store.wrapped_view()
-						)
-					),
-					sge::renderer::texture::mipmap::all_levels(
-						sge::renderer::texture::mipmap::auto_generate::yes
-					),
-					sge::renderer::resource_flags::none
+				fcppt::ref(
+					*sprite_texture
 				)
 			)
 		)

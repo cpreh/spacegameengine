@@ -11,12 +11,10 @@ set(
 	SGE_RENDEREROPENGL_FILES
 	include/sge/renderer/opengl/buffer/base.hpp
 	include/sge/renderer/opengl/buffer/base_fwd.hpp
-	include/sge/renderer/opengl/buffer/base_ptr.hpp
 	include/sge/renderer/opengl/buffer/id.hpp
 	include/sge/renderer/opengl/glinclude.hpp
 	include/sge/renderer/opengl/texture/base.hpp
 	include/sge/renderer/opengl/texture/base_fwd.hpp
-	include/sge/renderer/opengl/texture/base_ptr.hpp
 	include/sge/renderer/opengl/texture/id.hpp
 	include/sge/renderer/opengl/texture/type.hpp
 	src/renderer/opengl/buffer/base.cpp

@@ -98,7 +98,7 @@ sge::texture::area_texc(
 			T
 		>(
 			_part.area(),
-			_part.texture()->size()
+			_part.texture().size()
 		)
 	);
 

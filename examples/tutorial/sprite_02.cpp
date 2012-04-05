@@ -37,7 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -49,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
@@ -68,6 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
@@ -100,7 +103,8 @@ typedef sge::sprite::config::choices<
 			sge::sprite::config::texture_level_count<
 				1u
 			>,
-			sge::sprite::config::texture_coordinates::automatic
+			sge::sprite::config::texture_coordinates::automatic,
+			sge::sprite::config::texture_ownership::shared
 		>
 	>
 > sprite_choices;
@@ -241,7 +245,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_ptr const image_texture(
+	sge::renderer::texture::planar_scoped_ptr const image_texture(
 		sge::renderer::texture::create_planar_from_view(
 			sys.renderer(),
 			image->view(),
@@ -263,7 +267,9 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				image_texture
+				fcppt::ref(
+					*image_texture
+				)
 			)
 		)
 		.texture_size()

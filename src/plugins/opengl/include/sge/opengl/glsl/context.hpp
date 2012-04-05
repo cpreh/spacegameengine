@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/glsl/context_fwd.hpp>
 #include <sge/opengl/glsl/program_base_fwd.hpp>
-#include <sge/renderer/glsl/const_optional_program_fwd.hpp>
+#include <sge/renderer/glsl/const_optional_program_ref_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -56,7 +56,7 @@ public:
 
 	void
 	use(
-		sge::renderer::glsl::const_optional_program const &
+		sge::renderer::glsl::const_optional_program_ref const &
 	);
 
 	static opengl::context::id const static_id;

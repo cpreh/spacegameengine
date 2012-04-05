@@ -31,7 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/stage_arg.hpp>
 #include <sge/renderer/texture/stage_arg_value.hpp>
@@ -48,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
@@ -73,6 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -147,7 +150,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_ptr const texture1(
+	sge::renderer::texture::planar_scoped_ptr const texture1(
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
@@ -159,7 +162,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_ptr const texture2(
+	sge::renderer::texture::planar_scoped_ptr const texture2(
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
@@ -186,7 +189,8 @@ try
 				sge::sprite::config::texture_level_count<
 					2u
 				>,
-				sge::sprite::config::texture_coordinates::automatic
+				sge::sprite::config::texture_coordinates::automatic,
+				sge::sprite::config::texture_ownership::shared
 			>
 		>
 	> sprite_choices;
@@ -219,14 +223,18 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				texture1
+				fcppt::ref(
+					*texture1
+				)
 			)
 		)
 		.texture_level<1>(
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				texture2
+				fcppt::ref(
+					*texture2
+				)
 			)
 		)
 		.texture_size()

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 
@@ -44,13 +44,13 @@ namespace renderer
  * \param vertex_declaration The vertex declaration the buffer will be created for
  * \param view The view to copy into the vertex buffer
  * \param flags The resource flags for the vertex buffer
- * \return A shared ptr to the created vertex buffer
+ * \return A unique ptr to the created vertex buffer
  * \throw Anything that renderer::device::create_vertex_buffer throws
  * \warning The behaviour is undefined if \a view doesn't belong to \a
  * vertex_declaration
 */
 SGE_RENDERER_SYMBOL
-renderer::vertex_buffer_ptr const
+renderer::vertex_buffer_unique_ptr
 create_vertex_buffer_from_view(
 	renderer::device &device,
 	renderer::vertex_declaration &vertex_declaration,

@@ -18,15 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/texture/atlasing/create.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar_unique_ptr
 sge::texture::atlasing::create(
 	renderer::device &_rend,
 	image::color::format::type const _format,

@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_buffer_shared_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
@@ -55,15 +57,17 @@ allocate_vertices(
 	_buffers. template set<
 		sge::sprite::buffers::roles::vertex_buffer
 	>(
-		_parameters.renderer().create_vertex_buffer(
-			_parameters.vertex_declaration(),
-			sge::sprite::detail::vf::part_index(),
-			sge::sprite::buffers::vertex_count<
-				Choices
-			>(
-				_num_sprites
-			),
-			_resource_flags
+		sge::renderer::vertex_buffer_shared_ptr(
+			_parameters.renderer().create_vertex_buffer(
+				_parameters.vertex_declaration(),
+				sge::sprite::detail::vf::part_index(),
+				sge::sprite::buffers::vertex_count<
+					Choices
+				>(
+					_num_sprites
+				),
+				_resource_flags
+			)
 		)
 	);
 }

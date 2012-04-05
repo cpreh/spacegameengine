@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/glsl/context.hpp>
 #include <sge/opengl/glsl/program_base.hpp>
-#include <sge/renderer/glsl/const_optional_program.hpp>
+#include <sge/renderer/glsl/const_optional_program_ref.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <fcppt/null_ptr.hpp>
 
@@ -62,7 +62,7 @@ sge::opengl::glsl::context::is_native() const
 
 void
 sge::opengl::glsl::context::use(
-	sge::renderer::glsl::const_optional_program const &_prog
+	sge::renderer::glsl::const_optional_program_ref const &_prog
 )
 {
 	if(

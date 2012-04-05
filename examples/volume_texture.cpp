@@ -53,9 +53,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/projection/far.hpp>
@@ -74,7 +75,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/set_address_mode3.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/volume_ptr.hpp>
+#include <sge/renderer/texture/volume_scoped_ptr.hpp>
+#include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/index.hpp>
@@ -424,7 +426,7 @@ fill_geometry(
 	}
 }
 
-sge::renderer::texture::volume_ptr const
+sge::renderer::texture::volume_unique_ptr
 create_texture(
 	sge::renderer::device &_device
 )
@@ -575,13 +577,13 @@ try
 		)
 	);
 
-	sge::renderer::texture::volume_ptr const texture(
+	sge::renderer::texture::volume_scoped_ptr const texture(
 		::create_texture(
 			sys.renderer()
 		)
 	);
 
-	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
 				vf_format
@@ -589,7 +591,7 @@ try
 		)
 	);
 
-	sge::renderer::vertex_buffer_ptr const vertex_buffer(
+	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
 			sge::renderer::vf::dynamic::make_part_index<

@@ -18,12 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/glsl/create_shader.hpp>
 #include <sge/opengl/glsl/create_vertex_shader.hpp>
 #include <sge/opengl/glsl/vertex_shader.hpp>
+#include <sge/renderer/glsl/geometry_shader_unique_ptr.hpp>
+#include <sge/renderer/glsl/string.hpp>
 
 
-sge::renderer::glsl::vertex_shader_ptr const
+sge::renderer::glsl::vertex_shader_unique_ptr
 sge::opengl::glsl::create_vertex_shader(
 	opengl::context::object &_context,
 	sge::renderer::glsl::string const &_source

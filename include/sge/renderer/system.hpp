@@ -84,7 +84,7 @@ public:
 	 * \param window_params Basic window parameters like title, dim, size hints, etc.
 	 * \param params The renderer parameters to satisfy
 	 * \throw sge::renderer::exception if anything goes wrong
-	 * \return An awl::window::instance_shared_ptr that may not be null
+	 * \return An awl::window::instance_unique_ptr that may not be null
 	*/
 	virtual awl::window::instance_unique_ptr
 	create_window(

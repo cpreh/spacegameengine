@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_DEPTH_STENCIL_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/texture/base.hpp>
@@ -57,11 +57,11 @@ public:
 	size() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual renderer::depth_stencil_surface_ptr const
+	virtual renderer::depth_stencil_surface_unique_ptr
 	surface() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	size_type
+	sge::renderer::texture::base::size_type
 	content() const;
 };
 

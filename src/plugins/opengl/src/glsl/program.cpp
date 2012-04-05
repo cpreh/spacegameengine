@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/glsl/bind_attrib_locations.hpp>
 #include <sge/opengl/glsl/format_error.hpp>
@@ -38,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/exception.hpp>
 #include <sge/renderer/glsl/shader.hpp>
+#include <sge/renderer/glsl/uniform/variable.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -97,22 +99,24 @@ sge::opengl::glsl::program<Environment>::unuse() const
 template<
 	typename Environment
 >
-sge::renderer::glsl::uniform::variable_ptr const
+sge::renderer::glsl::uniform::variable_unique_ptr
 sge::opengl::glsl::program<Environment>::uniform(
 	renderer::glsl::string const &_name
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			uniform::variable<
-				Environment
-			>
-		>(
-			fcppt::cref(
-				uniform_context_
-			),
-			holder_.id(),
-			_name
+		sge::renderer::glsl::uniform::variable_unique_ptr(
+			fcppt::make_unique_ptr<
+				uniform::variable<
+					Environment
+				>
+			>(
+				fcppt::cref(
+					uniform_context_
+				),
+				holder_.id(),
+				_name
+			)
 		);
 }
 

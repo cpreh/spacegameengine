@@ -31,16 +31,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
-#include <sge/renderer/const_optional_vertex_declaration_fwd.hpp>
+#include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/index_buffer_unique_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/material_fwd.hpp>
@@ -48,23 +48,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/onscreen_target_fwd.hpp>
-#include <sge/renderer/optional_target_fwd.hpp>
+#include <sge/renderer/optional_target_ref_fwd.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/target_unique_ptr.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/caps/object_fwd.hpp>
-#include <sge/renderer/glsl/const_optional_program_fwd.hpp>
-#include <sge/renderer/glsl/geometry_shader_ptr.hpp>
-#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
-#include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/const_optional_program_ref_fwd.hpp>
+#include <sge/renderer/glsl/geometry_shader_unique_ptr.hpp>
+#include <sge/renderer/glsl/pixel_shader_unique_ptr.hpp>
+#include <sge/renderer/glsl/program_unique_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <sge/renderer/glsl/vertex_shader_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/light/index.hpp>
 #include <sge/renderer/light/object_fwd.hpp>
@@ -73,20 +73,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode_s.hpp>
 #include <sge/renderer/texture/address_mode_t.hpp>
 #include <sge/renderer/texture/address_mode_u.hpp>
-#include <sge/renderer/texture/const_optional_base_fwd.hpp>
+#include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_ptr.hpp>
+#include <sge/renderer/texture/cube_unique_ptr.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
-#include <sge/renderer/texture/depth_stencil_ptr.hpp>
+#include <sge/renderer/texture/depth_stencil_unique_ptr.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/stage_arg.hpp>
 #include <sge/renderer/texture/stage_arg_value.hpp>
 #include <sge/renderer/texture/stage_op.hpp>
 #include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
-#include <sge/renderer/texture/volume_ptr.hpp>
+#include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
@@ -156,7 +156,7 @@ public:
 
 	void
 	vertex_declaration(
-		renderer::const_optional_vertex_declaration const &
+		renderer::const_optional_vertex_declaration_ref const &
 	);
 
 	void
@@ -241,7 +241,7 @@ public:
 
 	void
 	texture(
-		renderer::texture::const_optional_base const &,
+		renderer::texture::const_optional_base_ref const &,
 		renderer::texture::stage
 	);
 
@@ -253,67 +253,67 @@ public:
 
 	void
 	target(
-		renderer::optional_target const &
+		renderer::optional_target_ref const &
 	);
 
-	renderer::glsl::program_ptr const
+	renderer::glsl::program_unique_ptr
 	create_glsl_program();
 
-	renderer::glsl::vertex_shader_ptr const
+	renderer::glsl::vertex_shader_unique_ptr
 	create_glsl_vertex_shader(
 		renderer::glsl::string const &
 	);
 
-	renderer::glsl::pixel_shader_ptr const
+	renderer::glsl::pixel_shader_unique_ptr
 	create_glsl_pixel_shader(
 		renderer::glsl::string const &
 	);
 
-	renderer::glsl::geometry_shader_ptr const
+	renderer::glsl::geometry_shader_unique_ptr
 	create_glsl_geometry_shader(
 		renderer::glsl::string const &
 	);
 
 	void
 	glsl_program(
-		renderer::glsl::const_optional_program const &
+		renderer::glsl::const_optional_program_ref const &
 	);
 
-	renderer::target_ptr const
+	renderer::target_unique_ptr
 	create_target();
 
-	renderer::texture::planar_ptr const
+	renderer::texture::planar_unique_ptr
 	create_planar_texture(
 		renderer::texture::planar_parameters const &
 	);
 
-	renderer::texture::depth_stencil_ptr const
+	renderer::texture::depth_stencil_unique_ptr
 	create_depth_stencil_texture(
 		renderer::texture::depth_stencil_parameters const &
 	);
 
-	renderer::depth_stencil_surface_ptr const
+	renderer::depth_stencil_surface_unique_ptr
 	create_depth_stencil_surface(
 		renderer::dim2 const &,
 		renderer::depth_stencil_format::type
 	);
 
-	renderer::texture::volume_ptr const
+	renderer::texture::volume_unique_ptr
 	create_volume_texture(
 		renderer::texture::volume_parameters const &
 	);
 
-	renderer::texture::cube_ptr const
+	renderer::texture::cube_unique_ptr
 	create_cube_texture(
 		renderer::texture::cube_parameters const &
 	);
 
-	renderer::vertex_declaration_ptr const
+	renderer::vertex_declaration_unique_ptr
 	create_vertex_declaration(
 		renderer::vf::dynamic::format const &
 	);
 
-	renderer::vertex_buffer_ptr const
+	renderer::vertex_buffer_unique_ptr
 	create_vertex_buffer(
 		renderer::vertex_declaration const &,
 		renderer::vf::dynamic::part_index,
@@ -321,7 +321,7 @@ public:
 		renderer::resource_flags_field const &
 	);
 
-	renderer::index_buffer_ptr const
+	renderer::index_buffer_unique_ptr
 	create_index_buffer(
 		renderer::index::dynamic::format::type,
 		renderer::index_count,
@@ -331,7 +331,7 @@ public:
 	renderer::onscreen_target &
 	onscreen_target() const;
 
-	renderer::optional_target const
+	renderer::optional_target_ref const
 	target() const;
 
 	renderer::caps::object const &

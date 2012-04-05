@@ -21,15 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/create_vertex_buffer_from_view.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
 
-sge::renderer::vertex_buffer_ptr const
+
+sge::renderer::vertex_buffer_unique_ptr
 sge::renderer::create_vertex_buffer_from_view(
 	renderer::device &_device,
 	renderer::vertex_declaration &_vertex_declaration,
@@ -37,7 +43,7 @@ sge::renderer::create_vertex_buffer_from_view(
 	renderer::resource_flags_field const &_resource_flags
 )
 {
-	renderer::vertex_buffer_ptr const buffer(
+	renderer::vertex_buffer_unique_ptr buffer(
 		_device.create_vertex_buffer(
 			_vertex_declaration,
 			_view.part_index(),
@@ -60,5 +66,8 @@ sge::renderer::create_vertex_buffer_from_view(
 		* _view.size().get()
 	);
 
-	return buffer;
+	return
+		fcppt::move(
+			buffer
+		);
 }

@@ -24,13 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
+#include <sge/renderer/glsl/pixel_shader_fwd.hpp>
 #include <sge/renderer/glsl/program_fwd.hpp>
-#include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/program_scoped_ptr.hpp>
 #include <sge/renderer/glsl/scoped_attachment_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
-#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
+#include <sge/renderer/glsl/vertex_shader_fwd.hpp>
+#include <sge/renderer/glsl/uniform/variable_shared_ptr.hpp>
 #include <sge/shader/activation_method_field_fwd.hpp>
 #include <sge/shader/matrix_flags.hpp>
 #include <sge/shader/object_parameters_fwd.hpp>
@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/unordered_map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -85,20 +84,27 @@ public:
 	SGE_SHADER_SYMBOL ~object();
 private:
 	// This is unordered because std::maps perform badly with strings
+	// TODO: Change this to a ptr_unordered_map?
 	typedef
 	std::tr1::unordered_map
 	<
 		renderer::glsl::string,
-		renderer::glsl::uniform::variable_ptr
+		renderer::glsl::uniform::variable_shared_ptr
 	>
 	uniform_map;
 
 	typedef
-	std::vector<renderer::glsl::pixel_shader_ptr>
+	boost::ptr_vector
+	<
+		renderer::glsl::pixel_shader
+	>
 	pixel_shader_sequence;
 
 	typedef
-	std::vector<renderer::glsl::vertex_shader_ptr>
+	boost::ptr_vector
+	<
+		renderer::glsl::vertex_shader
+	>
 	vertex_shader_sequence;
 
 	typedef
@@ -107,7 +113,7 @@ private:
 
 	renderer::device &renderer_;
 	renderer::vertex_declaration const &vertex_declaration_;
-	renderer::glsl::program_ptr program_;
+	renderer::glsl::program_scoped_ptr const program_;
 	uniform_map uniforms_,uniform_matrices_;
 	shader::sampler_sequence samplers_;
 	vertex_shader_sequence vertex_shaders_;

@@ -143,7 +143,7 @@ sge::cegui::detail::texture::resize(
 			static_cast<unit>(1)/size_.d_width,
 			static_cast<unit>(1)/size_.d_height);
 
-	texture_ =
+	texture_.take(
 		system_.renderer().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				structure_cast<sge::renderer::dim2>(
@@ -151,7 +151,7 @@ sge::cegui::detail::texture::resize(
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags::none,
-				caps_));
+				caps_)));
 }
 
 void
@@ -224,12 +224,12 @@ sge::cegui::detail::texture::create_from_view(
 		CEGUI::Vector2(
 			static_cast<unit>(1)/size_.d_width,
 			static_cast<unit>(1)/size_.d_height);
-	texture_ =
+	texture_.take(
 		sge::renderer::texture::create_planar_from_view(
 			system_.renderer(),
 			v,
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags::none);
+			sge::renderer::resource_flags::none));
 }
 
 void

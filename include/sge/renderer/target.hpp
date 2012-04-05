@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TARGET_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/color_surface_shared_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface_shared_ptr.hpp>
 #include <sge/renderer/optional_dim2.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/symbol.hpp>
@@ -94,7 +94,7 @@ public:
 	*/
 	virtual void
 	color_surface(
-		renderer::color_surface_ptr surface,
+		renderer::color_surface_shared_ptr surface,
 		renderer::surface_index level
 	) = 0;
 
@@ -118,7 +118,7 @@ public:
 	*/
 	virtual void
 	depth_stencil_surface(
-		renderer::depth_stencil_surface_ptr surface
+		renderer::depth_stencil_surface_shared_ptr surface
 	) = 0;
 
 	/**

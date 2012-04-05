@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
-#include <sge/renderer/color_surface_ptr.hpp>
+#include <sge/renderer/color_surface_unique_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_rect.hpp>
@@ -95,7 +95,7 @@ public:
 	virtual void
 	unlock() const = 0;
 
-	virtual renderer::color_surface_ptr const
+	virtual renderer::color_surface_unique_ptr
 	surface(
 		renderer::texture::stage
 	) = 0;

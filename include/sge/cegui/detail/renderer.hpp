@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/texture.hpp>
 #include <sge/cegui/detail/texture_target.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -52,7 +52,6 @@ class renderer
 FCPPT_NONCOPYABLE(
 	renderer);
 public:
-	explicit
 	renderer(
 		system &,
 		sge::renderer::device &);
@@ -142,7 +141,7 @@ private:
 
 	system &system_;
 	sge::renderer::device &renderer_;
-	sge::renderer::vertex_declaration_ptr vertex_declaration_;
+	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration_;
 	CEGUI::Size display_size_;
 	CEGUI::Vector2 display_dpi_;
 	CEGUI::String const identifier_;

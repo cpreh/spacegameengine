@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/glsl/const_optional_program_ref_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/glsl/context.hpp>
 #include <sge/opengl/glsl/program.hpp>
@@ -27,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::glsl::set_program(
 	opengl::context::object &_context,
-	renderer::glsl::const_optional_program const &_prog
+	renderer::glsl::const_optional_program_ref const &_prog
 )
 {
 	opengl::context::use<

@@ -26,12 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/texture/const_planar_ptr.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <sge/texture/free_type.hpp>
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/part_fwd.hpp>
-#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -59,7 +59,7 @@ public:
 	SGE_TEXTURE_SYMBOL
 	~rect_fragmented();
 private:
-	texture::part_ptr const
+	texture::part_unique_ptr
 	consume_fragment(
 		renderer::dim2 const &
 	);
@@ -69,10 +69,10 @@ private:
 		texture::part const &
 	);
 
-	renderer::texture::planar_ptr const
+	renderer::texture::planar &
 	texture();
 
-	renderer::texture::const_planar_ptr const
+	renderer::texture::planar const &
 	texture() const;
 
 	bool
@@ -89,7 +89,7 @@ private:
 		cur_y_,
 		cur_height_;
 
-	renderer::texture::planar_ptr const tex_;
+	renderer::texture::planar_scoped_ptr const tex_;
 
 	renderer::size_type texture_count_;
 };

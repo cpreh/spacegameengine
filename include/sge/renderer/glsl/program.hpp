@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/shader_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
+#include <sge/renderer/glsl/uniform/variable_unique_ptr.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
@@ -76,7 +76,7 @@ public:
 	 *
 	 * \throw sge::renderer::glsl::exception if anything goes wrong
 	*/
-	virtual glsl::uniform::variable_ptr const
+	virtual glsl::uniform::variable_unique_ptr
 	uniform(
 		glsl::string const &name
 	) = 0;

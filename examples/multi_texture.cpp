@@ -28,7 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/index_buffer_scoped_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -42,9 +43,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/index/format_16.hpp>
@@ -57,7 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/stage_arg.hpp>
@@ -170,7 +172,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_ptr const texture1(
+	sge::renderer::texture::planar_scoped_ptr const texture1(
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
@@ -182,7 +184,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_ptr const texture2(
+	sge::renderer::texture::planar_scoped_ptr const texture2(
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
@@ -229,7 +231,7 @@ try
 		>
 	> vf_format;
 
-	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
 				vf_format
@@ -237,7 +239,7 @@ try
 		)
 	);
 
-	sge::renderer::vertex_buffer_ptr const vertex_buffer(
+	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
 			sge::renderer::vf::dynamic::make_part_index<
@@ -354,7 +356,7 @@ try
 
 	typedef sge::renderer::index::format_16 index_format;
 
-	sge::renderer::index_buffer_ptr const index_buffer(
+	sge::renderer::index_buffer_scoped_ptr const index_buffer(
 		sys.renderer().create_index_buffer(
 			sge::renderer::index::dynamic::make_format<
 				index_format

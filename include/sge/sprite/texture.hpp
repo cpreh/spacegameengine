@@ -21,7 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_TEXTURE_HPP_INCLUDED
 #define SGE_SPRITE_TEXTURE_HPP_INCLUDED
 
-#include <sge/texture/const_part_ptr.hpp>
+#include <sge/sprite/detail/config/texture_ref.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -29,13 +32,21 @@ namespace sge
 namespace sprite
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
 	typename Choices
 >
 struct texture
+:
+sge::sprite::detail::config::texture_ref<
+	Choices
+>
 {
-	typedef sge::texture::const_part_ptr type;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count_fwd.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/with_texture_fwd.hpp>
 #include <sge/sprite/detail/primitives/texture.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -43,13 +44,15 @@ namespace config
 
 template<
 	sge::sprite::texture_level TextureLevels,
-	sge::sprite::config::texture_coordinates::type Coordinates
+	sge::sprite::config::texture_coordinates::type Coordinates,
+	sge::sprite::config::texture_ownership::type Ownership
 >
 struct with_texture<
 	sge::sprite::config::texture_level_count<
 		TextureLevels
 	>,
-	Coordinates
+	Coordinates,
+	Ownership
 >
 {
 	BOOST_STATIC_ASSERT(
@@ -63,6 +66,9 @@ struct with_texture<
 	static sge::sprite::config::texture_coordinates::type const
 	coordinates = Coordinates;
 
+	static sge::sprite::config::texture_ownership::type const
+	ownership = Ownership;
+
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
@@ -74,7 +80,8 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 	sge::sprite::detail::primitives::texture<
 		Choices,
 		texture_levels,
-		Coordinates
+		Coordinates,
+		Ownership
 	>
 	{
 	};

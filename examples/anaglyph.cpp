@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/index_buffer_scoped_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -55,10 +55,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
@@ -238,8 +238,8 @@ public:
 	~compiled_model();
 private:
 	sge::renderer::device &renderer_;
-	sge::renderer::vertex_buffer_ptr const vb_;
-	sge::renderer::index_buffer_ptr const ib_;
+	sge::renderer::vertex_buffer_scoped_ptr const vb_;
+	sge::renderer::index_buffer_scoped_ptr const ib_;
 };
 
 compiled_model::compiled_model(
@@ -794,7 +794,7 @@ try
 					fcppt::cref(
 						camera))));
 
-	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>()));
 

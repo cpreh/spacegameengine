@@ -23,8 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/image_too_big.hpp>
 #include <sge/texture/manager.hpp>
+#include <sge/texture/on_alloc_function.hpp>
 #include <sge/texture/optional_manager_ref.hpp>
 #include <sge/texture/part.hpp>
+#include <sge/texture/part_unique_ptr.hpp>
+#include <sge/texture/detail/container_position.hpp>
+#include <sge/texture/detail/fragmented_list.hpp>
+#include <sge/texture/detail/fragmented_queue.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
@@ -40,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::texture::part_ptr const
+sge::texture::part_unique_ptr
 init_texture(
 	sge::texture::fragmented &,
 	sge::image2d::view::const_object const &
@@ -80,7 +85,7 @@ private:
 }
 
 sge::texture::manager::manager(
-	texture::on_alloc_function const &_on_alloc
+	sge::texture::on_alloc_function const &_on_alloc
 )
 :
 	on_alloc_(
@@ -95,7 +100,7 @@ sge::texture::manager::~manager()
 {
 }
 
-sge::texture::part_ptr const
+sge::texture::part_unique_ptr
 sge::texture::manager::add(
 	image2d::view::const_object const &_src
 )
@@ -106,8 +111,8 @@ sge::texture::manager::add(
 		++it
 	)
 		if(
-			part_ptr const current_part =
-				init_texture(
+			sge::texture::part_unique_ptr current_part =
+				::init_texture(
 					*it,
 					_src
 				)
@@ -133,7 +138,11 @@ sge::texture::manager::add(
 					)
 				);
 			}
-			return current_part;
+
+			return
+				fcppt::move(
+					current_part
+				);
 		}
 
 	sge::texture::fragmented_unique_ptr ntex(
@@ -146,8 +155,8 @@ sge::texture::manager::add(
 		)
 	);
 
-	sge::texture::part_ptr const new_part(
-		init_texture(
+	sge::texture::part_unique_ptr new_part(
+		::init_texture(
 			*ntex,
 			_src
 		)
@@ -184,12 +193,15 @@ sge::texture::manager::add(
 			)
 		);
 
-	return new_part;
+	return
+		fcppt::move(
+			new_part
+		);
 }
 
 void
 sge::texture::manager::on_alloc(
-	on_alloc_function const &_on_alloc
+	sge::texture::on_alloc_function const &_on_alloc
 )
 {
 	on_alloc_ = _on_alloc;
@@ -223,8 +235,8 @@ sge::texture::manager::free_empty_textures()
 
 void
 sge::texture::manager::part_freed(
-	detail::container_position const &_pos,
-	fragmented const &_frag
+	sge::texture::detail::container_position const &_pos,
+	sge::texture::fragmented const &_frag
 )
 {
 	fcppt::variant::apply_unary(
@@ -240,13 +252,13 @@ sge::texture::manager::part_freed(
 namespace
 {
 
-sge::texture::part_ptr const
+sge::texture::part_unique_ptr
 init_texture(
 	sge::texture::fragmented &_tex,
 	sge::image2d::view::const_object const &_src
 )
 {
-	sge::texture::part_ptr const part(
+	sge::texture::part_unique_ptr part(
 		_tex.consume_fragment(
 			sge::image2d::view::size(
 				_src
@@ -261,7 +273,10 @@ init_texture(
 			_src
 		);
 
-	return part;
+	return
+		fcppt::move(
+			part
+		);
 }
 
 

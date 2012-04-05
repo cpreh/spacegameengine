@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/texture.hpp>
 #include <sge/cegui/detail/texture_target.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/renderer/color_surface_ptr.hpp>
+#include <sge/renderer/color_surface.hpp>
+#include <sge/renderer/color_surface_shared_ptr.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/optional_target.hpp>
+#include <sge/renderer/optional_target_ref.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
@@ -145,7 +146,7 @@ sge::cegui::detail::texture_target::activate()
 				area_)));
 
 	system_.renderer().target(
-		sge::renderer::optional_target(
+		sge::renderer::optional_target_ref(
 			*target_));
 
 	system_.renderer().transform(
@@ -188,7 +189,7 @@ sge::cegui::detail::texture_target::deactivate()
 		sge::renderer::matrix_mode::projection,
 		default_projection_);
 	system_.renderer().target(
-		sge::renderer::optional_target());
+		sge::renderer::optional_target_ref());
 }
 
 void
@@ -269,10 +270,11 @@ sge::cegui::detail::texture_target::declareRenderSize(
 	// been initialized yet. If that's the case, we shouldn't switch
 		texture_->empty()
 		?
-			sge::renderer::color_surface_ptr()
+			sge::renderer::color_surface_shared_ptr()
 		:
-			texture_->impl().surface(
-				sge::renderer::texture::stage(0u)),
+			sge::renderer::color_surface_shared_ptr(
+				texture_->impl().surface(
+					sge::renderer::texture::stage(0u))),
 		sge::renderer::surface_index(0u));
 
 	clear();

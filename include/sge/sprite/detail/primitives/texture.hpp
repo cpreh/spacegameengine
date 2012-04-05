@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_HPP_INCLUDED
 
 #include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/detail/primitives/texture_coordinates.hpp>
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
 #include <sge/sprite/detail/primitives/texture_repetition.hpp>
@@ -41,25 +42,29 @@ namespace primitives
 template<
 	typename Choices,
 	typename TextureLevels,
-	sge::sprite::config::texture_coordinates::type
+	sge::sprite::config::texture_coordinates::type,
+	sge::sprite::config::texture_ownership::type
 >
 struct texture;
 
 template<
 	typename Choices,
-	typename TextureLevels
+	typename TextureLevels,
+	sge::sprite::config::texture_ownership::type Ownership
 >
 struct texture<
 	Choices,
 	TextureLevels,
-	sge::sprite::config::texture_coordinates::custom
+	sge::sprite::config::texture_coordinates::custom,
+	Ownership
 >
 {
 	typedef majutsu::composite<
 		typename fcppt::mpl::append<
 			typename sge::sprite::detail::primitives::texture_ptr<
 				Choices,
-				TextureLevels
+				TextureLevels,
+				Ownership
 			>::type,
 			typename sge::sprite::detail::primitives::texture_coordinates<
 				Choices,
@@ -71,19 +76,22 @@ struct texture<
 
 template<
 	typename Choices,
-	typename TextureLevels
+	typename TextureLevels,
+	sge::sprite::config::texture_ownership::type Ownership
 >
 struct texture<
 	Choices,
 	TextureLevels,
-	sge::sprite::config::texture_coordinates::repetition
+	sge::sprite::config::texture_coordinates::repetition,
+	Ownership
 >
 {
 	typedef majutsu::composite<
 		typename fcppt::mpl::append<
 			typename sge::sprite::detail::primitives::texture_ptr<
 				Choices,
-				TextureLevels
+				TextureLevels,
+				Ownership
 			>::type,
 			typename sge::sprite::detail::primitives::texture_repetition<
 				Choices
@@ -94,18 +102,21 @@ struct texture<
 
 template<
 	typename Choices,
-	typename TextureLevels
+	typename TextureLevels,
+	sge::sprite::config::texture_ownership::type Ownership
 >
 struct texture<
 	Choices,
 	TextureLevels,
-	sge::sprite::config::texture_coordinates::automatic
+	sge::sprite::config::texture_coordinates::automatic,
+	Ownership
 >
 {
 	typedef majutsu::composite<
 		typename sge::sprite::detail::primitives::texture_ptr<
 			Choices,
-			TextureLevels
+			TextureLevels,
+			Ownership
 		>::type
 	> type;
 };

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/manager_fwd.hpp>
 #include <sge/texture/on_alloc_function.hpp>
-#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/symbol.hpp>
 #include <sge/texture/detail/container_position.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -51,7 +51,7 @@ public:
 	~manager();
 
 	SGE_TEXTURE_SYMBOL
-	texture::part_ptr const
+	texture::part_unique_ptr
 	add(
 		image2d::view::const_object const &
 	);

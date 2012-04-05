@@ -23,8 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/texture/const_planar_ptr.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/symbol.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -45,12 +44,12 @@ class part_raw
 public:
 	SGE_TEXTURE_SYMBOL
 	explicit part_raw(
-		renderer::texture::planar_ptr
+		renderer::texture::planar &
 	);
 
 	SGE_TEXTURE_SYMBOL
 	part_raw(
-		renderer::texture::planar_ptr,
+		renderer::texture::planar &,
 		renderer::lock_rect const &
 	);
 
@@ -68,11 +67,11 @@ public:
 	area() const;
 
 	SGE_TEXTURE_SYMBOL
-	renderer::texture::planar_ptr const
+	renderer::texture::planar &
 	texture();
 
 	SGE_TEXTURE_SYMBOL
-	renderer::texture::const_planar_ptr const
+	renderer::texture::planar const &
 	texture() const;
 
 	SGE_TEXTURE_SYMBOL
@@ -81,7 +80,7 @@ public:
 private:
 	renderer::lock_rect const area_;
 
-	renderer::texture::planar_ptr const tex_;
+	renderer::texture::planar &tex_;
 };
 
 }
