@@ -4,6 +4,7 @@ set(
 	include/sge/audio/buffer.hpp
 	include/sge/audio/buffer_fwd.hpp
 	include/sge/audio/buffer_scoped_ptr.hpp
+	include/sge/audio/buffer_shared_ptr.hpp
 	include/sge/audio/buffer_unique_ptr.hpp
 	include/sge/audio/channel_type.hpp
 	include/sge/audio/direction/forward.hpp
