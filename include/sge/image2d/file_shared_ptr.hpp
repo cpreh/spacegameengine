@@ -18,39 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_ENABLE_CTOR_STATEFUL_HPP_INCLUDED
-#define SGE_TIMER_ENABLE_CTOR_STATEFUL_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_FILE_SHARED_PTR_HPP_INCLUDED
+#define SGE_IMAGE2D_FILE_SHARED_PTR_HPP_INCLUDED
 
-#include <sge/timer/clocks/is_stateful.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/image2d/file_fwd.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
+
 
 namespace sge
 {
-namespace timer
+namespace image2d
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename Clock,
-	typename Duration>
-struct enable_ctor_stateful
-:
-boost::enable_if<
-	clocks::is_stateful<
-		Clock
-	>
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+typedef fcppt::shared_ptr<
+	sge::image2d::file
+> file_shared_ptr;
 
 }
 }

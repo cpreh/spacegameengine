@@ -17,6 +17,7 @@ set(
 	include/sge/audio/file_exception.hpp
 	include/sge/audio/file_fwd.hpp
 	include/sge/audio/file_scoped_ptr.hpp
+	include/sge/audio/file_shared_ptr.hpp
 	include/sge/audio/file_unique_ptr.hpp
 	include/sge/audio/listener.hpp
 	include/sge/audio/listener_fwd.hpp
@@ -57,6 +58,7 @@ set(
 	include/sge/audio/sound/positional_parameters.hpp
 	include/sge/audio/sound/positional_parameters_fwd.hpp
 	include/sge/audio/sound/positional_scoped_ptr.hpp
+	include/sge/audio/sound/positional_shared_ptr.hpp
 	include/sge/audio/sound/positional_unique_ptr.hpp
 	include/sge/audio/sound/repeat.hpp
 	include/sge/audio/unsupported_format.hpp
