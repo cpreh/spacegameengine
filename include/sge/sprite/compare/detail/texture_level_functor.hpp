@@ -88,10 +88,10 @@ struct texture_level_functor
 				)
 			:
 				Function<
-					sge::texture::part const *
+					bool
 				>()(
-					&*left_tex,
-					&*right_tex
+					left_tex,
+					right_tex
 				)
 			;
 	}
