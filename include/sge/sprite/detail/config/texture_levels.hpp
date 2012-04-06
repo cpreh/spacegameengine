@@ -21,14 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_CONFIG_TEXTURE_LEVELS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_CONFIG_TEXTURE_LEVELS_HPP_INCLUDED
 
-#include <sge/sprite/config/is_with_texture.hpp>
-#include <sge/sprite/config/is_with_texture_point_size.hpp>
-#include <sge/sprite/detail/config/find_if.hpp>
+#include <sge/sprite/detail/config/find_texture_config.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/deref.hpp>
-#include <boost/mpl/end.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -46,28 +41,9 @@ template<
 >
 struct texture_levels
 {
-	typedef typename
-	sge::sprite::detail::config::find_if<
-		typename Choices::optional_elements,
-		sge::sprite::config::is_with_texture
-	>::type with_texture_iterator;
-
-	typedef typename
-	sge::sprite::detail::config::find_if<
-		typename Choices::optional_elements,
-		sge::sprite::config::is_with_texture_point_size
-	>::type with_texture_point_size_iterator;
-
 	typedef typename boost::mpl::deref<
-		typename boost::mpl::if_<
-			boost::is_same<
-				with_texture_iterator,
-				typename boost::mpl::end<
-					typename Choices::optional_elements
-				>::type
-			>,
-			with_texture_point_size_iterator,
-			with_texture_iterator
+		typename sge::sprite::detail::config::find_texture_config<
+			Choices
 		>::type
 	>::type::texture_levels type;
 };

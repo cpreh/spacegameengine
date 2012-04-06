@@ -62,17 +62,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/opengl/texture/address_mode/update.hpp>
 #include <sge/opengl/texture/filter/update.hpp>
-#include <sge/renderer/optional_target.hpp>
+#include <sge/renderer/depth_stencil_surface.hpp>
+#include <sge/renderer/optional_target_ref.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
+#include <sge/renderer/glsl/geometry_shader.hpp>
+#include <sge/renderer/glsl/pixel_shader.hpp>
+#include <sge/renderer/glsl/program.hpp>
+#include <sge/renderer/glsl/vertex_shader.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/to_clear_flags_field.hpp>
 #include <awl/window/instance_fwd.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -234,7 +238,7 @@ sge::opengl::device::deactivate_vertex_buffer(
 
 void
 sge::opengl::device::vertex_declaration(
-	renderer::const_optional_vertex_declaration const &_vertex_declaration
+	renderer::const_optional_vertex_declaration_ref const &_vertex_declaration
 )
 {
 	opengl::set_vertex_declaration(
@@ -424,7 +428,7 @@ sge::opengl::device::texture_address_mode_u(
 
 void
 sge::opengl::device::texture(
-	renderer::texture::const_optional_base const &_texture,
+	renderer::texture::const_optional_base_ref const &_texture,
 	renderer::texture::stage const _stage
 )
 {
@@ -450,7 +454,7 @@ sge::opengl::device::transform(
 
 void
 sge::opengl::device::target(
-	renderer::optional_target const &_target
+	renderer::optional_target_ref const &_target
 )
 {
 	fbo_target_ =
@@ -485,7 +489,7 @@ sge::opengl::device::target(
 	target_->bind();
 }
 
-sge::renderer::glsl::program_ptr const
+sge::renderer::glsl::program_unique_ptr
 sge::opengl::device::create_glsl_program()
 {
 	return
@@ -494,7 +498,7 @@ sge::opengl::device::create_glsl_program()
 		);
 }
 
-sge::renderer::glsl::vertex_shader_ptr const
+sge::renderer::glsl::vertex_shader_unique_ptr
 sge::opengl::device::create_glsl_vertex_shader(
 	renderer::glsl::string const &_source
 )
@@ -506,7 +510,7 @@ sge::opengl::device::create_glsl_vertex_shader(
 		);
 }
 
-sge::renderer::glsl::pixel_shader_ptr const
+sge::renderer::glsl::pixel_shader_unique_ptr
 sge::opengl::device::create_glsl_pixel_shader(
 	renderer::glsl::string const &_source
 )
@@ -518,7 +522,7 @@ sge::opengl::device::create_glsl_pixel_shader(
 		);
 }
 
-sge::renderer::glsl::geometry_shader_ptr const
+sge::renderer::glsl::geometry_shader_unique_ptr
 sge::opengl::device::create_glsl_geometry_shader(
 	renderer::glsl::string const &_source
 )
@@ -532,7 +536,7 @@ sge::opengl::device::create_glsl_geometry_shader(
 
 void
 sge::opengl::device::glsl_program(
-	renderer::glsl::const_optional_program const &_program
+	renderer::glsl::const_optional_program_ref const &_program
 )
 {
 	glsl::set_program(
@@ -541,41 +545,43 @@ sge::opengl::device::glsl_program(
 	);
 }
 
-sge::renderer::optional_target const
+sge::renderer::optional_target_ref const
 sge::opengl::device::target() const
 {
 	return
 		this->fbo_active()
 		?
-			renderer::optional_target(
+			renderer::optional_target_ref(
 				*fbo_target_
 			)
 		:
-			renderer::optional_target()
+			renderer::optional_target_ref()
 		;
 }
 
-sge::renderer::target_ptr const
+sge::renderer::target_unique_ptr
 sge::opengl::device::create_target()
 {
 	return
-		fcppt::make_shared_ptr<
-			fbo::target
-		>(
-			fcppt::ref(
-				context_
+		sge::renderer::target_unique_ptr(
+			fcppt::make_unique_ptr<
+				fbo::target
+			>(
+				fcppt::ref(
+					context_
+				)
 			)
 		);
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar_unique_ptr
 sge::opengl::device::create_planar_texture(
 	renderer::texture::planar_parameters const &_params
 )
 {
 	return
-		renderer::texture::planar_ptr(
-			fcppt::make_shared_ptr<
+		renderer::texture::planar_unique_ptr(
+			fcppt::make_unique_ptr<
 				opengl::texture::planar
 			>(
 				fcppt::ref(
@@ -589,14 +595,14 @@ sge::opengl::device::create_planar_texture(
 		);
 }
 
-sge::renderer::texture::depth_stencil_ptr const
+sge::renderer::texture::depth_stencil_unique_ptr
 sge::opengl::device::create_depth_stencil_texture(
 	renderer::texture::depth_stencil_parameters const &_params
 )
 {
 	return
-		renderer::texture::depth_stencil_ptr(
-			fcppt::make_shared_ptr<
+		renderer::texture::depth_stencil_unique_ptr(
+			fcppt::make_unique_ptr<
 				opengl::texture::depth_stencil
 			>(
 				fcppt::ref(
@@ -609,14 +615,14 @@ sge::opengl::device::create_depth_stencil_texture(
 		);
 }
 
-sge::renderer::depth_stencil_surface_ptr const
+sge::renderer::depth_stencil_surface_unique_ptr
 sge::opengl::device::create_depth_stencil_surface(
 	renderer::dim2 const &_dim,
 	renderer::depth_stencil_format::type const _type
 )
 {
 	return
-		renderer::depth_stencil_surface_ptr(
+		renderer::depth_stencil_surface_unique_ptr(
 			opengl::fbo::create_depth_stencil_surface(
 				context_,
 				_dim,
@@ -625,7 +631,7 @@ sge::opengl::device::create_depth_stencil_surface(
 		);
 }
 
-sge::renderer::texture::volume_ptr const
+sge::renderer::texture::volume_unique_ptr
 sge::opengl::device::create_volume_texture(
 	renderer::texture::volume_parameters const &_param
 )
@@ -644,8 +650,8 @@ sge::opengl::device::create_volume_texture(
 		);
 
 	return
-		renderer::texture::volume_ptr(
-			fcppt::make_shared_ptr<
+		renderer::texture::volume_unique_ptr(
+			fcppt::make_unique_ptr<
 				opengl::texture::volume
 			>(
 				fcppt::ref(
@@ -658,14 +664,14 @@ sge::opengl::device::create_volume_texture(
 		);
 }
 
-sge::renderer::texture::cube_ptr const
+sge::renderer::texture::cube_unique_ptr
 sge::opengl::device::create_cube_texture(
 	renderer::texture::cube_parameters const &_param
 )
 {
 	return
-		renderer::texture::cube_ptr(
-			fcppt::make_shared_ptr<
+		renderer::texture::cube_unique_ptr(
+			fcppt::make_unique_ptr<
 				opengl::texture::cube
 			>(
 				fcppt::ref(
@@ -678,14 +684,14 @@ sge::opengl::device::create_cube_texture(
 		);
 }
 
-sge::renderer::vertex_declaration_ptr const
+sge::renderer::vertex_declaration_unique_ptr
 sge::opengl::device::create_vertex_declaration(
 	renderer::vf::dynamic::format const &_format
 )
 {
 	return
-		renderer::vertex_declaration_ptr(
-			fcppt::make_shared_ptr<
+		renderer::vertex_declaration_unique_ptr(
+			fcppt::make_unique_ptr<
 				opengl::vertex_declaration
 			>(
 				fcppt::ref(
@@ -698,7 +704,7 @@ sge::opengl::device::create_vertex_declaration(
 		);
 }
 
-sge::renderer::vertex_buffer_ptr const
+sge::renderer::vertex_buffer_unique_ptr
 sge::opengl::device::create_vertex_buffer(
 	renderer::vertex_declaration const &_declaration,
 	renderer::vf::dynamic::part_index const _part,
@@ -707,8 +713,8 @@ sge::opengl::device::create_vertex_buffer(
 )
 {
 	return
-		renderer::vertex_buffer_ptr(
-			fcppt::make_shared_ptr<
+		renderer::vertex_buffer_unique_ptr(
+			fcppt::make_unique_ptr<
 				opengl::vertex_buffer
 			>(
 				fcppt::ref(
@@ -728,7 +734,7 @@ sge::opengl::device::create_vertex_buffer(
 		);
 }
 
-sge::renderer::index_buffer_ptr const
+sge::renderer::index_buffer_unique_ptr
 sge::opengl::device::create_index_buffer(
 	renderer::index::dynamic::format::type const _format,
 	renderer::index_count const _size,
@@ -736,8 +742,8 @@ sge::opengl::device::create_index_buffer(
 )
 {
 	return
-		renderer::index_buffer_ptr(
-			fcppt::make_shared_ptr<
+		renderer::index_buffer_unique_ptr(
+			fcppt::make_unique_ptr<
 				opengl::index_buffer
 			>(
 				fcppt::ref(

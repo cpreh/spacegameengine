@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/geometry/convert_texture_rect.hpp>
 #include <sge/sprite/detail/geometry/fill_texture_coordinates_rect.hpp>
 #include <sge/texture/area_texc.hpp>
-#include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
@@ -156,7 +155,11 @@ fill_texture_coordinates(
 	> const &_sprite
 )
 {
-	sge::texture::const_part_ptr const texture(
+	typedef typename sge::sprite::object<
+		Choices
+	>::texture_type texture_type;
+
+	texture_type texture(
 		_sprite. template texture_level<
 			Level::value
 		>()
@@ -174,7 +177,7 @@ fill_texture_coordinates(
 				typename Choices::type_choices::float_type
 			>(
 				texture->area(),
-				texture->texture()->size()
+				texture->texture().size()
 			)
 		)
 	);

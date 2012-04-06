@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/texture/base.hpp>
-#include <sge/renderer/texture/base_ptr.hpp>
+#include <sge/renderer/texture/base_shared_ptr.hpp>
 #include <sge/renderer/texture/cube.hpp>
-#include <sge/renderer/texture/cube_ptr.hpp>
+#include <sge/renderer/texture/cube_shared_ptr.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/volume_ptr.hpp>
+#include <sge/renderer/texture/volume_shared_ptr.hpp>
 #include <sge/shader/sampler.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
@@ -46,7 +46,7 @@ namespace
 struct to_base_ptr
 {
 	typedef
-	sge::renderer::texture::base_ptr
+	sge::renderer::texture::base_shared_ptr
 	result_type;
 
 	template<typename T>
@@ -107,21 +107,21 @@ public:
 
 	result_type const
 	operator()(
-		sge::renderer::texture::planar_ptr const &) const
+		sge::renderer::texture::planar_shared_ptr const &) const
 	{
 		return "sampler2D";
 	}
 
 	result_type const
 	operator()(
-		sge::renderer::texture::volume_ptr const &) const
+		sge::renderer::texture::volume_shared_ptr const &) const
 	{
 		return "sampler3D";
 	}
 
 	result_type const
 	operator()(
-		sge::renderer::texture::cube_ptr const &) const
+		sge::renderer::texture::cube_shared_ptr const &) const
 	{
 		return "samplerCube";
 	}
@@ -176,7 +176,7 @@ sge::shader::sampler::texture_unit() const
 }
 
 // This is needed on shader activation
-sge::renderer::texture::base_ptr const
+sge::renderer::texture::base_shared_ptr const
 sge::shader::sampler::texture() const
 {
 	return

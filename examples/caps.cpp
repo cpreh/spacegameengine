@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/plugin.hpp>
 #include <sge/renderer/system.hpp>
-#include <sge/renderer/system_ptr.hpp>
+#include <sge/renderer/system_scoped_ptr.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/caps/object_output.hpp>
@@ -38,7 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/object_scoped_ptr.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/window/instance.hpp>
+#include <awl/window/instance_scoped_ptr.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -68,7 +69,7 @@ try
 		>().load()
 	);
 
-	sge::renderer::system_ptr const render_sys(
+	sge::renderer::system_scoped_ptr const render_sys(
 		plugin->get()()
 	);
 
@@ -83,7 +84,7 @@ try
 		sge::renderer::no_multi_sampling
 	);
 
-	awl::window::instance_shared_ptr const window(
+	awl::window::instance_scoped_ptr const window(
 		render_sys->create_window(
 			*window_sys,
 			sge::window::parameters(

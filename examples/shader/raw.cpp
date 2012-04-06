@@ -39,17 +39,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
+#include <sge/renderer/target.hpp>
 #include <sge/renderer/target_from_texture.hpp>
-#include <sge/renderer/glsl/const_optional_program.hpp>
+#include <sge/renderer/target_scoped_ptr.hpp>
+#include <sge/renderer/glsl/const_optional_program_ref.hpp>
 #include <sge/renderer/glsl/pixel_shader.hpp>
-#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
+#include <sge/renderer/glsl/pixel_shader_scoped_ptr.hpp>
 #include <sge/renderer/glsl/program.hpp>
-#include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/program_scoped_ptr.hpp>
 #include <sge/renderer/glsl/scoped_attachment.hpp>
 #include <sge/renderer/glsl/vertex_shader.hpp>
-#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <sge/renderer/glsl/vertex_shader_scoped_ptr.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
+#include <sge/renderer/glsl/uniform/variable_scoped_ptr.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/depth_func.hpp>
@@ -57,7 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -69,6 +72,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
@@ -78,6 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/texture/add_image.hpp>
+#include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -90,7 +95,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -139,7 +143,8 @@ typedef sge::sprite::config::choices<
 			sge::sprite::config::texture_level_count<
 				1u
 			>,
-			sge::sprite::config::texture_coordinates::automatic
+			sge::sprite::config::texture_coordinates::automatic,
+			sge::sprite::config::texture_ownership::reference
 		>
 	>
 > sprite_choices;
@@ -299,7 +304,7 @@ try
 		)
 	);
 
-	sge::texture::const_part_ptr const
+	sge::texture::const_part_scoped_ptr const
 		tex_bg(
 			sge::texture::add_image(
 				tex_man,
@@ -340,7 +345,9 @@ try
 				sprite_object::vector::null()
 			)
 			.texture(
-				tex_bg
+				sprite_object::texture_type(
+					*tex_bg
+				)
 			)
 			.size(
 				fcppt::math::dim::structure_cast<
@@ -358,7 +365,9 @@ try
 			sprite_object::vector::null()
 		)
 		.texture(
-			tex_pointer
+			sprite_object::texture_type(
+				*tex_pointer
+			)
 		)
 		.texture_size()
 		.default_color()
@@ -375,7 +384,9 @@ try
 			)
 		)
 		.texture(
-			tex_tux
+			sprite_object::texture_type(
+				*tex_tux
+			)
 		)
 		.size(
 			sprite_object::dim(32,32)
@@ -410,7 +421,7 @@ try
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
-	sge::renderer::texture::planar_ptr const target_texture(
+	sge::renderer::texture::planar_scoped_ptr const target_texture(
 		sys.renderer().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<
@@ -428,10 +439,20 @@ try
 		)
 	);
 
-	sge::renderer::target_ptr const target(
+	sge::renderer::target_scoped_ptr const target(
 		sge::renderer::target_from_texture(
 			sys.renderer(),
 			*target_texture
+		)
+	);
+
+	sge::texture::const_part_scoped_ptr const target_texture_part(
+		fcppt::make_unique_ptr<
+			sge::texture::part_raw
+		>(
+			fcppt::ref(
+				*target_texture
+			)
 		)
 	);
 
@@ -441,10 +462,8 @@ try
 			sprite_object::vector::null()
 		)
 		.texture(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw
-			>(
-				target_texture
+			sprite_object::texture_type(
+				*target_texture_part
 			)
 		)
 		.texture_size()
@@ -465,11 +484,11 @@ try
 		/ FCPPT_TEXT("vertex.glsl")
 	);
 
-	sge::renderer::glsl::program_ptr const program(
+	sge::renderer::glsl::program_scoped_ptr const program(
 		sys.renderer().create_glsl_program()
 	);
 
-	sge::renderer::glsl::vertex_shader_ptr const vertex_shader(
+	sge::renderer::glsl::vertex_shader_scoped_ptr const vertex_shader(
 		sys.renderer().create_glsl_vertex_shader(
 			fcppt::io::stream_to_string(
 				vertex_stream
@@ -479,7 +498,7 @@ try
 
 	vertex_shader->compile();
 
-	sge::renderer::glsl::pixel_shader_ptr const pixel_shader(
+	sge::renderer::glsl::pixel_shader_scoped_ptr const pixel_shader(
 		sys.renderer().create_glsl_pixel_shader(
 			fcppt::io::stream_to_string(
 				fragment_stream
@@ -506,12 +525,12 @@ try
 	program->link();
 
 	sys.renderer().glsl_program(
-		sge::renderer::glsl::const_optional_program(
+		sge::renderer::glsl::const_optional_program_ref(
 			*program
 		)
 	);
 
-	sge::renderer::glsl::uniform::variable_ptr const tex_var(
+	sge::renderer::glsl::uniform::variable_scoped_ptr const tex_var(
 		program->uniform("tex")
 	);
 
@@ -526,7 +545,7 @@ try
 	{
 		{
 			sys.renderer().glsl_program(
-				sge::renderer::glsl::const_optional_program()
+				sge::renderer::glsl::const_optional_program_ref()
 			);
 
 			sge::renderer::scoped_target const scoped_target(
@@ -555,7 +574,7 @@ try
 		}
 
 		sys.renderer().glsl_program(
-			sge::renderer::glsl::const_optional_program(
+			sge::renderer::glsl::const_optional_program_ref(
 				*program
 			)
 		);

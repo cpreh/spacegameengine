@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CONFIG_WITH_TEXTURE_POINT_SIZE_FWD_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_WITH_TEXTURE_POINT_SIZE_FWD_HPP_INCLUDED
 
+#include <sge/sprite/config/texture_ownership.hpp>
+
+
 namespace sge
 {
 namespace sprite
@@ -31,7 +34,8 @@ namespace config
 template<
 	typename TextureLevels,
 	typename PosOptions,
-	typename SizeOptions
+	typename SizeOptions,
+	sge::sprite::config::texture_ownership::type
 >
 struct with_texture_point_size;
 

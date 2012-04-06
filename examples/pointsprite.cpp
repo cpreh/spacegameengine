@@ -33,17 +33,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/renderer/glsl/const_optional_program.hpp>
+#include <sge/renderer/glsl/const_optional_program_ref.hpp>
 #include <sge/renderer/glsl/pixel_shader.hpp>
-#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
+#include <sge/renderer/glsl/pixel_shader_scoped_ptr.hpp>
 #include <sge/renderer/glsl/program.hpp>
-#include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/program_scoped_ptr.hpp>
 #include <sge/renderer/glsl/scoped_attachment.hpp>
 #include <sge/renderer/glsl/vertex_shader.hpp>
-#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <sge/renderer/glsl/vertex_shader_scoped_ptr.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
+#include <sge/renderer/glsl/uniform/variable_scoped_ptr.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/make_unspecified_tag.hpp>
 #include <sge/sprite/object.hpp>
@@ -58,6 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/no_texture_point_size.hpp>
 #include <sge/sprite/config/point_size.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
@@ -67,7 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
-#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/parameters.hpp>
@@ -84,9 +88,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/operators/scalar_multiply.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string_exn.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -166,7 +170,8 @@ sge::sprite::config::choices
 			<
 				false
 			>,
-			sge::sprite::config::no_texture_point_size
+			sge::sprite::config::no_texture_point_size,
+			sge::sprite::config::texture_ownership::reference
 		>
 	>
 >
@@ -330,7 +335,8 @@ private:
 	scalar_rng size_rng_;
 	scalar_rng color_rng_;
 	sge::timer::basic<sge::timer::clocks::standard> explosion_timer_;
-	sge::texture::part_ptr texture_;
+	sge::renderer::texture::planar_scoped_ptr const texture_;
+	sge::texture::const_part_scoped_ptr const texture_part_;
 };
 
 particles::particles(
@@ -413,15 +419,18 @@ particles::particles(
 				.active(
 					false)),
 	texture_(
-		fcppt::make_shared_ptr<sge::texture::part_raw>(
-			sge::renderer::texture::create_planar_from_path(
-				sge::config::media_path()
-					/ FCPPT_TEXT("images")
-					/ FCPPT_TEXT("smooth_particle.png"),
-				sys.renderer(),
-				sys.image_system(),
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags::none)))
+		sge::renderer::texture::create_planar_from_path(
+			sge::config::media_path()
+				/ FCPPT_TEXT("images")
+				/ FCPPT_TEXT("smooth_particle.png"),
+			sys.renderer(),
+			sys.image_system(),
+			sge::renderer::texture::mipmap::off(),
+			sge::renderer::resource_flags::none)),
+	texture_part_(
+		fcppt::make_unique_ptr<sge::texture::part_raw>(
+			fcppt::ref(
+				*texture_)))
 {
 }
 
@@ -468,7 +477,8 @@ particles::update()
 							static_cast<sprite_object::vector::value_type>(
 								size_rng_()))
 						.texture(
-							texture_)
+							sprite_object::texture_type(
+								*texture_part_))
 						.color(
 							sge::image::color::rgba8
 							(
@@ -576,11 +586,11 @@ try
 		/ FCPPT_TEXT("pointsprite")
 		/ FCPPT_TEXT("vertex.glsl"));
 
-	sge::renderer::glsl::program_ptr const program(
+	sge::renderer::glsl::program_scoped_ptr const program(
 		sys.renderer().create_glsl_program()
 	);
 
-	sge::renderer::glsl::vertex_shader_ptr const vertex_shader(
+	sge::renderer::glsl::vertex_shader_scoped_ptr const vertex_shader(
 		sys.renderer().create_glsl_vertex_shader(
 			fcppt::io::stream_to_string(
 				vertex_stream
@@ -590,7 +600,7 @@ try
 
 	vertex_shader->compile();
 
-	sge::renderer::glsl::pixel_shader_ptr const pixel_shader(
+	sge::renderer::glsl::pixel_shader_scoped_ptr const pixel_shader(
 		sys.renderer().create_glsl_pixel_shader(
 			fcppt::io::stream_to_string(
 				fragment_stream
@@ -617,12 +627,12 @@ try
 	program->link();
 
 	sys.renderer().glsl_program(
-		sge::renderer::glsl::const_optional_program(
+		sge::renderer::glsl::const_optional_program_ref(
 			*program
 		)
 	);
 
-	sge::renderer::glsl::uniform::variable_ptr const tex_var(
+	sge::renderer::glsl::uniform::variable_scoped_ptr const tex_var(
 		program->uniform("tex"));
 
 	sge::renderer::glsl::uniform::single_value(

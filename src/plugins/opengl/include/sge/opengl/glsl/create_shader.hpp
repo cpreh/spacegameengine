@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <fcppt/shared_ptr_fwd.hpp>
+#include <fcppt/unique_ptr_fwd.hpp>
 
 
 namespace sge
@@ -36,9 +36,9 @@ namespace glsl
 template<
 	typename Shader
 >
-fcppt::shared_ptr<
+fcppt::unique_ptr<
 	typename Shader::base_type
-> const
+>
 create_shader(
 	opengl::context::object &,
 	sge::renderer::glsl::string const &source

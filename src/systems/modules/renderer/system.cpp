@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/window/parameters_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/window/instance.hpp>
+#include <awl/window/instance_unique_ptr.hpp>
 
 
 sge::systems::modules::renderer::system::system(
@@ -58,7 +59,11 @@ sge::systems::modules::renderer::system::system(
 {
 }
 
-awl::window::instance_shared_ptr const
+sge::systems::modules::renderer::system::~system()
+{
+}
+
+awl::window::instance_unique_ptr
 sge::systems::modules::renderer::system::create_window(
 	awl::system::object &_awl_system,
 	sge::window::parameters const &_parameters

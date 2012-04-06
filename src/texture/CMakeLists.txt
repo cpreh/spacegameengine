@@ -11,7 +11,10 @@ set(
 	include/sge/texture/atlasing/inner_rect.hpp
 	include/sge/texture/atlasing/need.hpp
 	include/sge/texture/atlasing/size.hpp
-	include/sge/texture/const_part_ptr.hpp
+	include/sge/texture/const_optional_part_ref.hpp
+	include/sge/texture/const_optional_part_ref_fwd.hpp
+	include/sge/texture/const_part_scoped_ptr.hpp
+	include/sge/texture/const_part_shared_ptr.hpp
 	include/sge/texture/consume_and_set_fragment.hpp
 	include/sge/texture/detail/container_position.hpp
 	include/sge/texture/detail/fragmented_list.hpp
@@ -33,8 +36,10 @@ set(
 	include/sge/texture/part.hpp
 	include/sge/texture/part_fragmented.hpp
 	include/sge/texture/part_fwd.hpp
-	include/sge/texture/part_ptr.hpp
 	include/sge/texture/part_raw.hpp
+	include/sge/texture/part_scoped_ptr.hpp
+	include/sge/texture/part_shared_ptr.hpp
+	include/sge/texture/part_unique_ptr.hpp
 	include/sge/texture/pos_type.hpp
 	include/sge/texture/rect_fragmented.hpp
 	include/sge/texture/sub_data.hpp

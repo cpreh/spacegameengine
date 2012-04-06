@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/texture/add_image.hpp>
+#include <sge/texture/const_part_shared_ptr.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/viewport/center_on_resize.hpp>
@@ -249,7 +250,7 @@ try
 		)
 	);
 
-	sge::texture::const_part_ptr const
+	sge::texture::const_part_shared_ptr const
 		tex_bg(
 			sge::texture::add_image(
 				tex_man,

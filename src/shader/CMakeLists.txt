@@ -14,7 +14,6 @@ set(
 	include/sge/shader/object_fwd.hpp
 	include/sge/shader/object_parameters.hpp
 	include/sge/shader/object_parameters_fwd.hpp
-	include/sge/shader/object_ptr.hpp
 	include/sge/shader/sampler.hpp
 	include/sge/shader/sampler_sequence.hpp
 	include/sge/shader/scoped.hpp

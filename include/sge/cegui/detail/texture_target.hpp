@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/system_fwd.hpp>
 #include <sge/cegui/detail/texture_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/target_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -110,7 +110,7 @@ private:
 	texture_scoped_ptr;
 
 	system &system_;
-	sge::renderer::target_ptr target_;
+	sge::renderer::target_scoped_ptr target_;
 	texture_scoped_ptr texture_;
 	CEGUI::Rect area_;
 	sge::renderer::matrix4 const default_projection_;

@@ -69,6 +69,7 @@ set(
 	include/sge/sprite/config/texture_coordinates.hpp
 	include/sge/sprite/config/texture_level_count.hpp
 	include/sge/sprite/config/texture_level_count_fwd.hpp
+	include/sge/sprite/config/texture_ownership.hpp
 	include/sge/sprite/config/type_choices.hpp
 	include/sge/sprite/config/type_choices_fwd.hpp
 	include/sge/sprite/config/unit_type.hpp
@@ -107,6 +108,7 @@ set(
 	include/sge/sprite/detail/config/color_format.hpp
 	include/sge/sprite/detail/config/contains_if.hpp
 	include/sge/sprite/detail/config/find_if.hpp
+	include/sge/sprite/detail/config/find_texture_config.hpp
 	include/sge/sprite/detail/config/find_with_texture.hpp
 	include/sge/sprite/detail/config/find_with_texture_point_size.hpp
 	include/sge/sprite/detail/config/has_color.hpp
@@ -127,6 +129,7 @@ set(
 	include/sge/sprite/detail/config/needs_use_center.hpp
 	include/sge/sprite/detail/config/needs_use_texture_size.hpp
 	include/sge/sprite/detail/config/texture_levels.hpp
+	include/sge/sprite/detail/config/texture_ref.hpp
 	include/sge/sprite/detail/default_initialize_class_element.hpp
 	include/sge/sprite/detail/default_initialize_class_impl.hpp
 	include/sge/sprite/detail/destroy.hpp
@@ -183,6 +186,7 @@ set(
 	include/sge/sprite/detail/primitives/texture_point_pos.hpp
 	include/sge/sprite/detail/primitives/texture_point_size.hpp
 	include/sge/sprite/detail/primitives/texture_ptr.hpp
+	include/sge/sprite/detail/primitives/texture_ref_type.hpp
 	include/sge/sprite/detail/primitives/texture_repetition.hpp
 	include/sge/sprite/detail/process/do_default_sort.hpp
 	include/sge/sprite/detail/process/geometry.hpp

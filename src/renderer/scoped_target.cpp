@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/optional_target.hpp>
+#include <sge/renderer/optional_target_ref.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/target_fwd.hpp>
 
@@ -34,7 +34,7 @@ sge::renderer::scoped_target::scoped_target(
 	)
 {
 	rend_.target(
-		renderer::optional_target(
+		renderer::optional_target_ref(
 			_target
 		)
 	);
@@ -43,6 +43,6 @@ sge::renderer::scoped_target::scoped_target(
 sge::renderer::scoped_target::~scoped_target()
 {
 	rend_.target(
-		renderer::optional_target()
+		renderer::optional_target_ref()
 	);
 }

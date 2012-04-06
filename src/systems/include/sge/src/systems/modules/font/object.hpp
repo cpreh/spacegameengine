@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_FONT_OBJECT_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_FONT_OBJECT_HPP_INCLUDED
 
-#include <sge/font/plugin_ptr.hpp>
+#include <sge/font/plugin_shared_ptr.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <sge/font/system_scoped_ptr.hpp>
 #include <sge/plugin/manager_fwd.hpp>
@@ -55,7 +55,7 @@ public:
 	sge::font::system &
 	system() const;
 private:
-	sge::font::plugin_ptr const font_plugin_;
+	sge::font::plugin_shared_ptr const font_plugin_;
 
 	sge::font::system_scoped_ptr const font_system_;
 };

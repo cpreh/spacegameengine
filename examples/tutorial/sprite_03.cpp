@@ -31,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -43,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
@@ -58,7 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/texture/const_part_ptr.hpp>
+#include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
@@ -69,7 +72,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/array.hpp>
@@ -161,7 +165,8 @@ try
 				sge::sprite::config::texture_level_count<
 					1u
 				>,
-				sge::sprite::config::texture_coordinates::automatic
+				sge::sprite::config::texture_coordinates::automatic,
+				sge::sprite::config::texture_ownership::reference
 			>
 		>
 	> sprite_choices;
@@ -185,18 +190,24 @@ try
 		sge::sprite::buffers::option::dynamic
 	);
 
-	sge::texture::const_part_ptr const image_texture(
-		fcppt::make_shared_ptr<
+	sge::renderer::texture::planar_scoped_ptr const image_texture(
+		sge::renderer::texture::create_planar_from_path(
+			sge::config::media_path()
+			/ FCPPT_TEXT("images")
+			/ FCPPT_TEXT("tux.png"),
+			sys.renderer(),
+			sys.image_system(),
+			sge::renderer::texture::mipmap::off(),
+			sge::renderer::resource_flags::none
+		)
+	);
+
+	sge::texture::const_part_scoped_ptr const image_texture_part(
+		fcppt::make_unique_ptr<
 			sge::texture::part_raw
 		>(
-			sge::renderer::texture::create_planar_from_path(
-				sge::config::media_path()
-				/ FCPPT_TEXT("images")
-				/ FCPPT_TEXT("tux.png"),
-				sys.renderer(),
-				sys.image_system(),
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags::none
+			fcppt::ref(
+				*image_texture
 			)
 		)
 	);
@@ -215,7 +226,9 @@ try
 				sprite_object::vector::null()
 			)
 			.texture(
-				image_texture
+				sprite_object::texture_type(
+					*image_texture_part
+				)
 			)
 			.texture_size()
 		),
@@ -228,7 +241,9 @@ try
 				)
 			)
 			.texture(
-				image_texture
+				sprite_object::texture_type(
+					*image_texture_part
+				)
 			)
 			.texture_size()
 		)

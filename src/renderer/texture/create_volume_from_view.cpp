@@ -28,13 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
 #include <sge/renderer/texture/scoped_volume_lock.hpp>
+#include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters.hpp>
-#include <sge/renderer/texture/volume_ptr.hpp>
+#include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
 
-sge::renderer::texture::volume_ptr const
+sge::renderer::texture::volume_unique_ptr
 sge::renderer::texture::create_volume_from_view(
 	renderer::device &_renderer,
 	sge::image3d::view::const_object const &_view,
@@ -42,7 +44,7 @@ sge::renderer::texture::create_volume_from_view(
 	renderer::resource_flags_field const &_resource_flags
 )
 {
-	texture::volume_ptr const tex(
+	texture::volume_unique_ptr tex(
 		_renderer.create_volume_texture(
 			sge::renderer::texture::volume_parameters(
 				sge::image3d::view::size(
@@ -69,5 +71,8 @@ sge::renderer::texture::create_volume_from_view(
 		sge::image::algorithm::may_overlap::no
 	);
 
-	return tex;
+	return
+		fcppt::move(
+			tex
+		);
 }

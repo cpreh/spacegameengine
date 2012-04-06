@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/depth_stencil_fwd.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
@@ -58,7 +58,7 @@ public:
 	dim const
 	size() const;
 
-	renderer::depth_stencil_surface_ptr const
+	renderer::depth_stencil_surface_unique_ptr
 	surface() const;
 
 	renderer::resource_flags_field const

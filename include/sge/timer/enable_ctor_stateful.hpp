@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_ENABLE_CTOR_STATEFUL_HPP_INCLUDED
 
 #include <sge/timer/clocks/is_stateful.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -30,6 +33,10 @@ namespace sge
 {
 namespace timer
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
 	typename Clock,
 	typename Duration>
@@ -42,6 +49,9 @@ boost::enable_if<
 >
 {
 };
+
+FCPPT_PP_POP_WARNING
+
 }
 }
 

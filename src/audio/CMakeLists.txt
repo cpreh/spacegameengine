@@ -4,6 +4,7 @@ set(
 	include/sge/audio/buffer.hpp
 	include/sge/audio/buffer_fwd.hpp
 	include/sge/audio/buffer_scoped_ptr.hpp
+	include/sge/audio/buffer_shared_ptr.hpp
 	include/sge/audio/buffer_unique_ptr.hpp
 	include/sge/audio/channel_type.hpp
 	include/sge/audio/direction/forward.hpp
@@ -16,6 +17,7 @@ set(
 	include/sge/audio/file_exception.hpp
 	include/sge/audio/file_fwd.hpp
 	include/sge/audio/file_scoped_ptr.hpp
+	include/sge/audio/file_shared_ptr.hpp
 	include/sge/audio/file_unique_ptr.hpp
 	include/sge/audio/listener.hpp
 	include/sge/audio/listener_fwd.hpp
@@ -36,7 +38,7 @@ set(
 	include/sge/audio/player_capabilities_field.hpp
 	include/sge/audio/player_fwd.hpp
 	include/sge/audio/player_plugin.hpp
-	include/sge/audio/player_plugin_ptr.hpp
+	include/sge/audio/player_plugin_shared_ptr.hpp
 	include/sge/audio/player_scoped_ptr.hpp
 	include/sge/audio/player_shared_ptr.hpp
 	include/sge/audio/player_unique_ptr.hpp
@@ -56,6 +58,7 @@ set(
 	include/sge/audio/sound/positional_parameters.hpp
 	include/sge/audio/sound/positional_parameters_fwd.hpp
 	include/sge/audio/sound/positional_scoped_ptr.hpp
+	include/sge/audio/sound/positional_shared_ptr.hpp
 	include/sge/audio/sound/positional_unique_ptr.hpp
 	include/sge/audio/sound/repeat.hpp
 	include/sge/audio/unsupported_format.hpp

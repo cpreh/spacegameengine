@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_PTR_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_PTR_HPP_INCLUDED
 
-#include <sge/sprite/texture.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
+#include <sge/sprite/detail/primitives/texture_ref_type.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
@@ -42,7 +43,8 @@ namespace primitives
 
 template<
 	typename Choices,
-	typename Levels
+	typename Levels,
+	sge::sprite::config::texture_ownership::type Ownership
 >
 struct texture_ptr
 {
@@ -54,8 +56,8 @@ private:
 	{
 		typedef majutsu::role<
 			majutsu::simple<
-				typename sge::sprite::texture<
-					Choices
+				typename sge::sprite::detail::primitives::texture_ref_type<
+					Ownership
 				>::type
 			>,
 			sge::sprite::roles::texture<

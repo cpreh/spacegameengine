@@ -26,19 +26,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/opengl/buffer/base.hpp>
-#include <sge/renderer/opengl/buffer/base_ptr.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
-#include <sge/renderer/opengl/texture/base_ptr.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/part.hpp>
@@ -54,7 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/title.hpp>
-#include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -103,7 +101,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_ptr const texture(
+	sge::renderer::texture::planar_scoped_ptr const texture(
 		sys.renderer().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				sge::renderer::dim2(
@@ -118,11 +116,11 @@ try
 		)
 	);
 
-	sge::renderer::opengl::texture::base_ptr const opengl_texture(
-		fcppt::dynamic_pointer_cast<
-			sge::renderer::opengl::texture::base
+	sge::renderer::opengl::texture::base const *const opengl_texture(
+		dynamic_cast<
+			sge::renderer::opengl::texture::base const *
 		>(
-			texture
+			texture.get()
 		)
 	);
 
@@ -152,7 +150,7 @@ try
 		>
 	> vf_format;
 
-	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
 				vf_format
@@ -160,7 +158,7 @@ try
 		)
 	);
 
-	sge::renderer::vertex_buffer_ptr const vertex_buffer(
+	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
 			sge::renderer::vf::dynamic::make_part_index<
@@ -174,11 +172,11 @@ try
 		)
 	);
 
-	sge::renderer::opengl::buffer::base_ptr const opengl_buffer(
-		fcppt::dynamic_pointer_cast<
-			sge::renderer::opengl::buffer::base
+	sge::renderer::opengl::buffer::base const *const opengl_buffer(
+		dynamic_cast<
+			sge::renderer::opengl::buffer::base const *
 		>(
-			vertex_buffer
+			vertex_buffer.get()
 		)
 	);
 

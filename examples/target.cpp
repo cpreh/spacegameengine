@@ -34,16 +34,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
+#include <sge/renderer/target.hpp>
 #include <sge/renderer/target_from_texture.hpp>
+#include <sge/renderer/target_scoped_ptr.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
-#include <sge/renderer/texture/const_optional_base.hpp>
+#include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -55,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
@@ -73,6 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
@@ -155,7 +160,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_ptr const image_texture(
+	sge::renderer::texture::planar_scoped_ptr const image_texture(
 		sge::renderer::texture::create_planar_from_view(
 			sys.renderer(),
 			image->view(),
@@ -181,7 +186,8 @@ try
 				sge::sprite::config::texture_level_count<
 					1u
 				>,
-				sge::sprite::config::texture_coordinates::automatic
+				sge::sprite::config::texture_coordinates::automatic,
+				sge::sprite::config::texture_ownership::shared
 			>
 		>
 	> sprite_choices;
@@ -205,7 +211,7 @@ try
 		sge::sprite::buffers::option::dynamic
 	);
 
-	sge::renderer::texture::planar_ptr const target_texture(
+	sge::renderer::texture::planar_scoped_ptr const target_texture(
 		sys.renderer().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				sge::renderer::dim2(
@@ -222,7 +228,7 @@ try
 		)
 	);
 
-	sge::renderer::target_ptr const target(
+	sge::renderer::target_scoped_ptr const target(
 		sge::renderer::target_from_texture(
 			sys.renderer(),
 			*target_texture
@@ -238,7 +244,9 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				target_texture
+				fcppt::ref(
+					*target_texture
+				)
 			)
 		)
 		.texture_size()
@@ -257,7 +265,9 @@ try
 				fcppt::make_shared_ptr<
 					sge::texture::part_raw
 				>(
-					image_texture
+					fcppt::ref(
+						*image_texture
+					)
 				)
 			)
 			.texture_size()
@@ -275,7 +285,9 @@ try
 				fcppt::make_shared_ptr<
 					sge::texture::part_raw
 				>(
-					image_texture
+					fcppt::ref(
+						*image_texture
+					)
 				)
 			)
 			.texture_size()
@@ -293,7 +305,7 @@ try
 		);
 
 		sys.renderer().texture(
-			sge::renderer::texture::const_optional_base(),
+			sge::renderer::texture::const_optional_base_ref(),
 			sge::renderer::texture::stage(
 				0u
 			)

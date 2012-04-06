@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/render_buffer_fwd.hpp>
 #include <sge/opengl/fbo/target_fwd.hpp>
 #include <sge/opengl/texture/surface_base_ptr.hpp>
-#include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/color_surface_shared_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface_shared_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/surface_index.hpp>
@@ -81,13 +81,13 @@ private:
 
 	void
 	color_surface(
-		renderer::color_surface_ptr,
+		renderer::color_surface_shared_ptr,
 		renderer::surface_index
 	);
 
 	void
 	depth_stencil_surface(
-		renderer::depth_stencil_surface_ptr
+		renderer::depth_stencil_surface_shared_ptr
 	);
 
 	renderer::optional_dim2 const

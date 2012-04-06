@@ -23,12 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/texture/const_planar_ptr.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/free_type.hpp>
 #include <sge/texture/optional_manager_ref.hpp>
-#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/symbol.hpp>
 #include <sge/texture/detail/optional_container_position.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -55,7 +54,7 @@ public:
 	~fragmented() = 0;
 
 	virtual
-	sge::texture::part_ptr const
+	sge::texture::part_unique_ptr
 	consume_fragment(
 		renderer::dim2 const &
 	) = 0;
@@ -67,11 +66,11 @@ public:
 	);
 
 	virtual
-	renderer::texture::planar_ptr const
+	renderer::texture::planar &
 	texture() = 0;
 
 	virtual
-	renderer::texture::const_planar_ptr const
+	renderer::texture::planar const &
 	texture() const = 0;
 
 	virtual

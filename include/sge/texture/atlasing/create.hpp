@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 
 
@@ -35,7 +35,7 @@ namespace texture
 namespace atlasing
 {
 
-renderer::texture::planar_ptr const
+renderer::texture::planar_unique_ptr
 create(
 	renderer::device &,
 	image::color::format::type,

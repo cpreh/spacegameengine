@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -38,7 +39,8 @@ typedef boost::mpl::vector1<
 		sge::sprite::config::texture_level_count<
 			1u
 		>,
-		sge::sprite::config::texture_coordinates::automatic
+		sge::sprite::config::texture_coordinates::automatic,
+		sge::sprite::config::texture_ownership::shared
 	>
 > sprite_elements;
 

@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/texture/sub_data.hpp>
@@ -26,24 +28,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::texture::part_raw::part_raw(
-	renderer::texture::planar_ptr const _tex,
-	renderer::lock_rect const &_area
-)
-:
-	area_(_area),
-	tex_(_tex)
-{
-}
-
-sge::texture::part_raw::part_raw(
-	renderer::texture::planar_ptr const _tex
+	renderer::texture::planar &_tex
 )
 :
 	area_(
 		renderer::lock_rect::vector::null(),
-		_tex->size()
+		_tex.size()
 	),
-	tex_(_tex)
+	tex_(
+		_tex
+	)
+{
+}
+
+sge::texture::part_raw::part_raw(
+	renderer::texture::planar &_tex,
+	renderer::lock_rect const &_area
+)
+:
+	area_(
+		_area
+	),
+	tex_(
+		_tex
+	)
 {
 }
 
@@ -57,7 +65,7 @@ sge::texture::part_raw::data(
 )
 {
 	texture::sub_data(
-		*tex_,
+		tex_,
 		_src,
 		this->area().pos()
 	);
@@ -69,13 +77,13 @@ sge::texture::part_raw::area() const
 	return area_;
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar &
 sge::texture::part_raw::texture()
 {
 	return tex_;
 }
 
-sge::renderer::texture::const_planar_ptr const
+sge::renderer::texture::planar const &
 sge::texture::part_raw::texture() const
 {
 	return tex_;
@@ -86,5 +94,5 @@ sge::texture::part_raw::repeatable() const
 {
 	return
 		this->size()
-		== tex_->size();
+		== tex_.size();
 }

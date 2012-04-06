@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CONFIG_IS_WITH_TEXTURE_HPP_INCLUDED
 
 #include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/with_texture_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -52,12 +53,14 @@ boost::mpl::false_
 
 template<
 	typename TextureLevels,
-	sge::sprite::config::texture_coordinates::type Coordinates
+	sge::sprite::config::texture_coordinates::type Coordinates,
+	sge::sprite::config::texture_ownership::type Ownership
 >
 struct is_with_texture<
 	sge::sprite::config::with_texture<
 		TextureLevels,
-		Coordinates
+		Coordinates,
+		Ownership
 	>
 >
 :

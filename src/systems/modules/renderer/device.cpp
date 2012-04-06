@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/src/systems/modules/renderer/device.hpp>
 #include <sge/src/systems/modules/renderer/system.hpp>

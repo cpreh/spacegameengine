@@ -40,17 +40,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/manager.hpp>
+#include <sge/texture/part_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <map>
+#include <boost/ptr_container/ptr_map.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -105,7 +106,7 @@ public:
 		image::color::any::object const &
 	);
 private:
-	texture::const_part_ptr const
+	texture::part const &
 	cached_texture(
 		font::text::char_type,
 		font::const_image_view const &
@@ -121,9 +122,9 @@ private:
 
 	texture::manager texman_;
 
-	typedef std::map<
+	typedef boost::ptr_map<
 		font::text::char_type,
-		texture::const_part_ptr
+		texture::part
 	> texture_map;
 
 	texture_map textures_;
@@ -146,7 +147,8 @@ private:
 				sge::sprite::config::texture_level_count<
 					1u
 				>,
-				sge::sprite::config::texture_coordinates::automatic
+				sge::sprite::config::texture_coordinates::automatic,
+				sge::sprite::config::texture_ownership::reference
 			>
 		>
 	> sprite_choices;

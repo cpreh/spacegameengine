@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DETAIL_BATCH_HPP_INCLUDED
 #define SGE_CEGUI_DETAIL_BATCH_HPP_INCLUDED
 
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_shared_ptr.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 
 
@@ -37,7 +37,7 @@ class batch
 public:
 	batch(
 		sge::renderer::texture::planar &,
-		sge::renderer::vertex_buffer_ptr);
+		sge::renderer::vertex_buffer_shared_ptr);
 
 	batch(
 		batch const &
@@ -58,7 +58,7 @@ public:
 private:
 	sge::renderer::texture::planar *texture_;
 
-	sge::renderer::vertex_buffer_ptr vertex_buffer_;
+	sge::renderer::vertex_buffer_shared_ptr vertex_buffer_;
 };
 
 }

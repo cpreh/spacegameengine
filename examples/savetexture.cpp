@@ -36,19 +36,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/target.hpp>
 #include <sge/renderer/target_from_texture.hpp>
+#include <sge/renderer/target_scoped_ptr.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_ptr.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/const_scoped_planar_lock.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_shared_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -153,12 +159,12 @@ sge::renderer::vf::view
 >
 vertex_view;
 
-sge::renderer::vertex_buffer_ptr const
+sge::renderer::vertex_buffer_unique_ptr
 create_quad(
 	sge::renderer::vertex_declaration &_declaration,
 	sge::renderer::device &renderer)
 {
-	sge::renderer::vertex_buffer_ptr const vb(
+	sge::renderer::vertex_buffer_unique_ptr vb(
 		renderer.create_vertex_buffer(
 			_declaration,
 			sge::renderer::vf::dynamic::make_part_index<
@@ -214,7 +220,9 @@ create_quad(
 		position::packed_type(
 			1,-1));
 
-	return vb;
+	return
+		fcppt::move(
+			vb);
 }
 }
 }
@@ -291,7 +299,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_ptr target_texture(
+	sge::renderer::texture::planar_shared_ptr const target_texture(
 		sys.renderer().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
@@ -309,7 +317,7 @@ try
 		)
 	);
 
-	sge::renderer::target_ptr const temp_target(
+	sge::renderer::target_scoped_ptr const temp_target(
 		sge::renderer::target_from_texture(
 			sys.renderer(),
 			*target_texture
@@ -325,7 +333,7 @@ try
 			(sge::renderer::state::bool_::clear_back_buffer = true)
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 
-	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
 				screen_vf::format
@@ -333,7 +341,7 @@ try
 		)
 	);
 
-	sge::renderer::vertex_buffer_ptr const quad(
+	sge::renderer::vertex_buffer_scoped_ptr const quad(
 		screen_vf::create_quad(
 			*vertex_declaration,
 			sys.renderer()));
@@ -352,7 +360,7 @@ try
 			fcppt::assign::make_container<sge::shader::sampler_sequence>(
 				sge::shader::sampler(
 					"tex",
-					sge::renderer::texture::planar_ptr())))
+					sge::renderer::texture::planar_shared_ptr())))
 			.vertex_shader(
 				sge::config::media_path()
 					/ FCPPT_TEXT("shaders")

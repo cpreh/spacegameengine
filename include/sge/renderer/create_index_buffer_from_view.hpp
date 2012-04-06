@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CREATE_INDEX_BUFFER_FROM_VIEW_HPP_INCLUDED
 
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/index_buffer_unique_ptr.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/index/dynamic/const_view_fwd.hpp>
@@ -41,11 +41,11 @@ namespace renderer
  * \param device The device to create the index buffer from
  * \param view The view to copy into the index buffer
  * \param flags The resource flags for the index buffer
- * \return A shared ptr to the created index buffer
+ * \return A unique ptr to the created index buffer
  * \throw Anything that renderer::device::create_index_buffer throws
 */
 SGE_RENDERER_SYMBOL
-renderer::index_buffer_ptr const
+renderer::index_buffer_unique_ptr
 create_index_buffer_from_view(
 	renderer::device &device,
 	index::dynamic::const_view const &view,

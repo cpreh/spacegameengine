@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
@@ -68,7 +68,7 @@ sge::opengl::texture::planar::~planar()
 {
 }
 
-sge::renderer::color_surface_ptr const
+sge::renderer::color_surface_unique_ptr
 sge::opengl::texture::planar::surface(
 	renderer::texture::stage const _stage
 )
@@ -81,23 +81,25 @@ sge::opengl::texture::planar::surface(
 	);
 
 	return
-		fcppt::make_shared_ptr<
-			opengl::texture::surface
-		>(
-			fcppt::cref(
-				binding
-			),
-			fcppt::ref(
-				this->context()
-			),
-			this->type(),
-			this->id(),
-			_stage,
-			this->resource_flags(),
-			this->format(),
-			this->format_type(),
-			this->capabilities()
-			& sge::renderer::texture::capabilities::render_target
+		sge::renderer::color_surface_unique_ptr(
+			fcppt::make_unique_ptr<
+				opengl::texture::surface
+			>(
+				fcppt::cref(
+					binding
+				),
+				fcppt::ref(
+					this->context()
+				),
+				this->type(),
+				this->id(),
+				_stage,
+				this->resource_flags(),
+				this->format(),
+				this->format_type(),
+				this->capabilities()
+				& sge::renderer::texture::capabilities::render_target
+			)
 		);
 }
 

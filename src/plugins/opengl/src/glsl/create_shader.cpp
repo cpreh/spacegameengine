@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/glsl/context.hpp>
 #include <sge/opengl/glsl/create_shader.hpp>
@@ -27,23 +28,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glsl/vertex_shader.hpp>
 #include <sge/opengl/glsl/arb/environment.hpp>
 #include <sge/opengl/glsl/native/environment.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <sge/renderer/glsl/string.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 template<
 	typename Shader
 >
-fcppt::shared_ptr<
+fcppt::unique_ptr<
 	typename Shader::base_type
-> const
+>
 sge::opengl::glsl::create_shader(
 	opengl::context::object &_context,
 	sge::renderer::glsl::string const &_source
 )
 {
-	typedef fcppt::shared_ptr<
+	typedef fcppt::unique_ptr<
 		typename Shader::base_type
 	> ret_type;
 
@@ -55,7 +57,7 @@ sge::opengl::glsl::create_shader(
 		).is_native()
 		?
 			ret_type(
-				fcppt::make_shared_ptr<
+				fcppt::make_unique_ptr<
 					glsl::shader<
 						Shader,
 						native::environment
@@ -69,7 +71,7 @@ sge::opengl::glsl::create_shader(
 			)
 		:
 			ret_type(
-				fcppt::make_shared_ptr<
+				fcppt::make_unique_ptr<
 					glsl::shader<
 						Shader,
 						arb::environment
@@ -86,9 +88,9 @@ sge::opengl::glsl::create_shader(
 
 #define SGE_OPENGL_GLSL_CREATE_SHADER(type) \
 template \
-fcppt::shared_ptr<\
+fcppt::unique_ptr<\
 	type::base_type\
-> const \
+> \
 sge::opengl::glsl::create_shader<\
 	type\
 >(\

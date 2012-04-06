@@ -18,21 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/color_surface.hpp>
+#include <sge/renderer/color_surface_shared_ptr.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/target.hpp>
+#include <sge/renderer/target_unique_ptr.hpp>
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
-sge::renderer::target_ptr const
+sge::renderer::target_unique_ptr
 sge::renderer::target_from_texture(
 	renderer::device &_device,
 	renderer::texture::planar &_texture
@@ -50,14 +54,16 @@ sge::renderer::target_from_texture(
 			FCPPT_TEXT("that is not a render target!")
 		);
 
-	sge::renderer::target_ptr const target(
+	sge::renderer::target_unique_ptr target(
 		_device.create_target()
 	);
 
 	target->color_surface(
-		_texture.surface(
-			renderer::texture::stage(
-				0u
+		sge::renderer::color_surface_shared_ptr(
+			_texture.surface(
+				renderer::texture::stage(
+					0u
+				)
 			)
 		),
 		renderer::surface_index(
@@ -78,5 +84,8 @@ sge::renderer::target_from_texture(
 		)
 	);
 
-	return target;
+	return
+		fcppt::move(
+			target
+		);
 }

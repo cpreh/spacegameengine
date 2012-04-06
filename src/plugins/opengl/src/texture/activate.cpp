@@ -27,14 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/address_mode/set.hpp>
 #include <sge/opengl/texture/filter/set.hpp>
 #include <sge/renderer/texture/base.hpp>
-#include <sge/renderer/texture/const_optional_base.hpp>
+#include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
 
 void
 sge::opengl::texture::activate(
 	opengl::context::object &_context,
-	sge::renderer::texture::const_optional_base const &_texture,
+	sge::renderer::texture::const_optional_base_ref const &_texture,
 	sge::renderer::texture::stage const _stage
 )
 {

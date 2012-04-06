@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_rotation.hpp>
@@ -59,9 +60,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/texture/add_image.hpp>
+#include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/no_fragmented.hpp>
-#include <sge/texture/part_fwd.hpp>
+#include <sge/texture/part.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
@@ -164,7 +166,7 @@ try
 		)
 	);
 
-	sge::texture::const_part_ptr const
+	sge::texture::const_part_scoped_ptr const
 		tex1(
 			sge::texture::add_image(
 				tex_man,
@@ -202,7 +204,8 @@ try
 				sge::sprite::config::texture_level_count<
 					1u
 				>,
-				sge::sprite::config::texture_coordinates::repetition
+				sge::sprite::config::texture_coordinates::repetition,
+				sge::sprite::config::texture_ownership::reference
 			>,
 			sge::sprite::config::with_rotation<
 				sge::sprite::config::custom_center<
@@ -247,7 +250,9 @@ try
 			sprite_object::vector::null()
 		)
 		.texture(
-			tex1
+			sprite_object::texture_type(
+				*tex1
+			)
 		)
 		.texture_size()
 		.rotation(
@@ -299,7 +304,9 @@ try
 	);
 
 	test2.texture(
-		tex2
+		sprite_object::texture_type(
+			*tex2
+		)
 	);
 
 	fcppt::signal::scoped_connection const escape_connection(

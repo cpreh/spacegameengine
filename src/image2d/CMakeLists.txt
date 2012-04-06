@@ -19,6 +19,7 @@ set(
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_fwd.hpp
 	include/sge/image2d/file_scoped_ptr.hpp
+	include/sge/image2d/file_shared_ptr.hpp
 	include/sge/image2d/file_unique_ptr.hpp
 	include/sge/image2d/l8.hpp
 	include/sge/image2d/l8_format.hpp

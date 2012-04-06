@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -49,7 +49,6 @@ class texture
 FCPPT_NONCOPYABLE(
 	texture);
 public:
-	explicit
 	texture(
 		system &,
 		sge::renderer::texture::capabilities_field const &);
@@ -102,7 +101,7 @@ public:
 private:
 	system &system_;
 	sge::renderer::texture::capabilities_field caps_;
-	sge::renderer::texture::planar_ptr texture_;
+	sge::renderer::texture::planar_scoped_ptr texture_;
 	// We _have_ to cache this because getSize returns a reference
 	CEGUI::Size size_;
 	CEGUI::Vector2 texel_scaling_;

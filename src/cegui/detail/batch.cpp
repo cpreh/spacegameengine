@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/detail/batch.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_shared_ptr.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 
 
 sge::cegui::detail::batch::batch(
 	sge::renderer::texture::planar &_texture,
-	sge::renderer::vertex_buffer_ptr const _vertex_buffer
+	sge::renderer::vertex_buffer_shared_ptr const _vertex_buffer
 )
 :
 	texture_(

@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_unique_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/window/parameters_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/window/instance_fwd.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/window/instance_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -67,7 +67,7 @@ public:
 	 * \throw sge::renderer::exception if anything goes wrong
 	 * \return An sge::renderer::device_ptr that may not be null
 	*/
-	virtual sge::renderer::device_ptr const
+	virtual sge::renderer::device_unique_ptr
 	create_renderer(
 		sge::renderer::parameters const &params,
 		sge::renderer::adapter adapter,
@@ -84,9 +84,9 @@ public:
 	 * \param window_params Basic window parameters like title, dim, size hints, etc.
 	 * \param params The renderer parameters to satisfy
 	 * \throw sge::renderer::exception if anything goes wrong
-	 * \return An awl::window::instance_shared_ptr that may not be null
+	 * \return An awl::window::instance_unique_ptr that may not be null
 	*/
-	virtual awl::window::instance_shared_ptr const
+	virtual awl::window::instance_unique_ptr
 	create_window(
 		awl::system::object &awl_system,
 		sge::window::parameters const &window_params,

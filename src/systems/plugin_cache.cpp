@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/plugin/base_ptr.hpp>
+#include <sge/plugin/base_shared_ptr.hpp>
 #include <sge/src/systems/plugin_cache.hpp>
 
 
@@ -34,7 +34,7 @@ sge::systems::plugin_cache::~plugin_cache()
 
 void
 sge::systems::plugin_cache::add(
-	sge::plugin::base_ptr const _ptr
+	sge::plugin::base_shared_ptr const _ptr
 )
 {
 	plugins_.push_back(

@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/glsl/context.hpp>
 #include <sge/opengl/glsl/create_program.hpp>
@@ -26,12 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glsl/arb/environment.hpp>
 #include <sge/opengl/glsl/native/environment.hpp>
 #include <sge/renderer/unsupported.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <sge/renderer/glsl/program_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 
-sge::renderer::glsl::program_ptr const
+sge::renderer::glsl::program_unique_ptr
 sge::opengl::glsl::create_program(
 	opengl::context::object &_context
 )
@@ -56,8 +58,8 @@ sge::opengl::glsl::create_program(
 	return
 		glsl_context.is_native()
 		?
-			renderer::glsl::program_ptr(
-				fcppt::make_shared_ptr<
+			renderer::glsl::program_unique_ptr(
+				fcppt::make_unique_ptr<
 					glsl::program<
 						native::environment
 					>
@@ -68,8 +70,8 @@ sge::opengl::glsl::create_program(
 				)
 			)
 		:
-			renderer::glsl::program_ptr(
-				fcppt::make_shared_ptr<
+			renderer::glsl::program_unique_ptr(
+				fcppt::make_unique_ptr<
 					glsl::program<
 						arb::environment
 					>

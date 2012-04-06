@@ -18,6 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/part_fragmented.hpp>
 #include <sge/texture/sub_data.hpp>
@@ -34,10 +37,18 @@ sge::texture::part_fragmented::part_fragmented(
 	bool const _need_atlasing_h
 )
 :
-	outer_area_(_outer_area),
-	fragment_(_fragment),
-	need_atlasing_w_(_need_atlasing_w),
-	need_atlasing_h_(_need_atlasing_h),
+	outer_area_(
+		_outer_area
+	),
+	fragment_(
+		_fragment
+	),
+	need_atlasing_w_(
+		_need_atlasing_w
+	),
+	need_atlasing_h_(
+		_need_atlasing_h
+	),
 	inner_area_(
 		atlasing::inner_rect(
 			outer_area_,
@@ -60,7 +71,7 @@ sge::texture::part_fragmented::data(
 )
 {
 	texture::sub_data(
-		*this->texture(),
+		this->texture(),
 		_src,
 		inner_area_.pos()
 	);
@@ -69,7 +80,7 @@ sge::texture::part_fragmented::data(
 		need_atlasing_h_
 	)
 		atlasing::border_h(
-			*this->texture(),
+			this->texture(),
 			_src,
 			outer_area_,
 			inner_area_
@@ -79,7 +90,7 @@ sge::texture::part_fragmented::data(
 		need_atlasing_w_
 	)
 		atlasing::border_w(
-			*this->texture(),
+			this->texture(),
 			_src,
 			outer_area_,
 			inner_area_
@@ -92,13 +103,13 @@ sge::texture::part_fragmented::area() const
 	return inner_area_;
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar &
 sge::texture::part_fragmented::texture()
 {
 	return fragment_.texture();
 }
 
-sge::renderer::texture::const_planar_ptr const
+sge::renderer::texture::planar const &
 sge::texture::part_fragmented::texture() const
 {
 	return fragment_.texture();

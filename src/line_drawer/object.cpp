@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
@@ -41,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/texture/const_optional_base.hpp>
+#include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -94,7 +95,7 @@ sge::line_drawer::object::render()
 		*vb_);
 
 	renderer_.texture(
-		sge::renderer::texture::const_optional_base(),
+		sge::renderer::texture::const_optional_base_ref(),
 		sge::renderer::texture::stage(
 			0u));
 
@@ -122,14 +123,14 @@ sge::line_drawer::object::unlock()
 		return;
 
 	if (!vb_ || vb_->size().get() < static_cast<sge::renderer::size_type>(lines_.size()*2))
-		vb_ =
+		vb_.take(
 			renderer_.create_vertex_buffer(
 				*vertex_declaration_,
 				sge::renderer::vf::dynamic::part_index(
 					0u),
 				sge::renderer::vertex_count(
 					lines_.size()*2),
-				sge::renderer::resource_flags::none);
+				sge::renderer::resource_flags::none));
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		*vb_,

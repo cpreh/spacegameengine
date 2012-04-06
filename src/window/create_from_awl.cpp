@@ -23,21 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/to_awl_parameters.hpp>
 #include <awl/system/object.hpp>
 #include <awl/window/instance.hpp>
+#include <awl/window/instance_unique_ptr.hpp>
 #include <awl/window/parameters.hpp>
 
 
-awl::window::instance_shared_ptr const
+awl::window::instance_unique_ptr
 sge::window::create_from_awl(
 	awl::system::object &_system,
 	sge::window::parameters const &_param
 )
 {
 	return
-		awl::window::instance_shared_ptr(
-			_system.create(
-				sge::window::to_awl_parameters(
-					_param
-				)
+		_system.create(
+			sge::window::to_awl_parameters(
+				_param
 			)
 		);
 }

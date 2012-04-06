@@ -73,6 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
@@ -88,6 +89,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/texture/add_image.hpp>
+#include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/timer/basic.hpp>
@@ -209,7 +211,7 @@ try
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::mipmap::off())));
 
-	sge::texture::const_part_ptr const
+	sge::texture::const_part_scoped_ptr const
 		tex_bg(
 			sge::texture::add_image(
 				tex_man,
@@ -240,7 +242,8 @@ try
 				sge::sprite::config::texture_level_count<
 					1u
 				>,
-				sge::sprite::config::texture_coordinates::automatic
+				sge::sprite::config::texture_coordinates::automatic,
+				sge::sprite::config::texture_ownership::reference
 			>
 		>
 	> sprite_choices;
@@ -267,7 +270,8 @@ try
 	sprite_object const background(
 		sprite_parameters()
 		.texture(
-			tex_bg)
+			sprite_object::texture_type(
+				*tex_bg))
 		.pos(
 			sprite_object::vector::null())
 		.size(
@@ -284,7 +288,8 @@ try
 				static_cast<sprite_object::unit>(
 					window_dim.h() / 2 -16u)))
 		.texture(
-			tex_tux)
+			sprite_object::texture_type(
+				*tex_tux))
 		.size(
 			sprite_object::dim(32,32))
 	);

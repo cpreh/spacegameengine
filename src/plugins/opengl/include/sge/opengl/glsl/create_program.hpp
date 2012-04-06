@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_CREATE_PROGRAM_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/program_unique_ptr.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace opengl
 namespace glsl
 {
 
-sge::renderer::glsl::program_ptr const
+sge::renderer::glsl::program_unique_ptr
 create_program(
 	opengl::context::object &
 );

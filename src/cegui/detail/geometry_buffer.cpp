@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target_base.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_buffer_shared_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
@@ -299,14 +300,15 @@ sge::cegui::detail::geometry_buffer::appendGeometry(
 	batches_.push_back(
 		batch(
 			active_texture_->impl(),
-			renderer_.create_vertex_buffer(
-				vertex_declaration_,
-				sge::renderer::vf::dynamic::part_index(
-					0u),
-				sge::renderer::vertex_count(
-					static_cast<sge::renderer::vertex_count::value_type>(
-						vertex_count)),
-				sge::renderer::resource_flags::none)));
+			sge::renderer::vertex_buffer_shared_ptr(
+				renderer_.create_vertex_buffer(
+					vertex_declaration_,
+					sge::renderer::vf::dynamic::part_index(
+						0u),
+					sge::renderer::vertex_count(
+						static_cast<sge::renderer::vertex_count::value_type>(
+							vertex_count)),
+					sge::renderer::resource_flags::none))));
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		batches_.back().vertex_buffer(),

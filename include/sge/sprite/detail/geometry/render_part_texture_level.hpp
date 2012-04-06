@@ -21,12 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_GEOMETRY_RENDER_PART_TEXTURE_LEVEL_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_GEOMETRY_RENDER_PART_TEXTURE_LEVEL_HPP_INCLUDED
 
-#include <sge/renderer/texture/const_planar_ptr.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/roles/texture.hpp>
-#include <sge/texture/const_part_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/null_ptr.hpp>
 
 
 namespace sge
@@ -76,7 +75,9 @@ public:
 		Level const &
 	) const
 	{
-		sge::texture::const_part_ptr const part(
+		typedef typename object::texture_type texture_type;
+
+		texture_type const part(
 			object_. template get<
 				sge::sprite::roles::texture<
 					Level::value
@@ -91,9 +92,9 @@ public:
 		>(
 			part
 			?
-				part->texture()
+				&part->texture()
 			:
-				sge::renderer::texture::const_planar_ptr()
+				fcppt::null_ptr()
 		);
 	}
 private:

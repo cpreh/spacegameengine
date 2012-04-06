@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/target_unique_ptr.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 
 namespace sge
@@ -32,7 +32,7 @@ namespace renderer
 {
 
 SGE_RENDERER_SYMBOL
-renderer::target_ptr const
+renderer::target_unique_ptr
 target_from_texture(
 	renderer::device &,
 	renderer::texture::planar &

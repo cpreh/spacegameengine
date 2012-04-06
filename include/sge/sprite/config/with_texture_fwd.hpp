@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CONFIG_WITH_TEXTURE_FWD_HPP_INCLUDED
 
 #include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_ownership.hpp>
 
 
 namespace sge
@@ -33,7 +34,8 @@ namespace config
 
 template<
 	typename TextureLevels,
-	sge::sprite::config::texture_coordinates::type
+	sge::sprite::config::texture_coordinates::type,
+	sge::sprite::config::texture_ownership::type
 >
 struct with_texture;
 

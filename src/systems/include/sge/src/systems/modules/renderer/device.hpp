@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_MODULES_RENDERER_DEVICE_HPP_INCLUDED
 
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_scoped_ptr.hpp>
 #include <sge/src/systems/modules/renderer/device_fwd.hpp>
 #include <sge/src/systems/modules/renderer/system_fwd.hpp>
 #include <sge/src/systems/modules/window/object_fwd.hpp>
@@ -60,7 +60,7 @@ public:
 	sge::viewport::manager &
 	viewport_manager();
 private:
-	sge::renderer::device_ptr const renderer_device_;
+	sge::renderer::device_scoped_ptr const renderer_device_;
 
 	sge::viewport::manager viewport_manager_;
 };
