@@ -33,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 
@@ -48,6 +51,9 @@ set_pressed_if_appropriate(
 		b = _key_event.pressed();
 }
 }
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::camera::ortho_freelook::object::object(
 	ortho_freelook::parameters const &_params)
@@ -85,6 +91,8 @@ sge::camera::ortho_freelook::object::object(
 		false)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 void
 sge::camera::ortho_freelook::object::zoom_speed(

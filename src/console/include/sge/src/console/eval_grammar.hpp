@@ -53,8 +53,6 @@ public
 		sge::console::arg_list()
 	>
 {
-FCPPT_PP_POP_WARNING
-
 	FCPPT_NONCOPYABLE(
 		eval_grammar
 	);
@@ -114,6 +112,8 @@ public:
 		sge::console::arg_list()
 	> start_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

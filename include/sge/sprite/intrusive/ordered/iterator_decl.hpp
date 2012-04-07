@@ -60,8 +60,6 @@ class iterator
 		IsConst
 	>::type
 {
-FCPPT_PP_POP_WARNING
-
 	typedef sge::sprite::intrusive::detail::ordered_iterator_base<
 		Choices,
 		Order,
@@ -123,6 +121,8 @@ private:
 
 	range_iterator inner_iterator_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }
