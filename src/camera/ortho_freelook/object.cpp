@@ -18,24 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/assert/pre.hpp>
-#include <sge/input/mouse/axis_event.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
 #include <sge/camera/coordinate_system/identity.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <sge/camera/ortho_freelook/object.hpp>
-#include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
-#include <fcppt/math/box/stretch_relative.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
-#include <sge/input/keyboard/key_event.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <sge/renderer/vector2.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
-#include <sge/input/mouse/device.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/mouse/device.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/projection/orthogonal.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/math/box/stretch_relative.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/tr1/functional.hpp>
+
 
 namespace
 {

@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/target.hpp>
-#include <sge/renderer/target_unique_ptr.hpp>
 #include <sge/renderer/target_from_texture.hpp>
+#include <sge/renderer/target_unique_ptr.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/stage.hpp>

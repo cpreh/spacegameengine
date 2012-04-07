@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/target_base.hpp>
-#include <sge/renderer/active_target.hpp>
-#include <fcppt/math/box/structure_cast.hpp>
-#include <sge/camera/ortho_freelook/projection_rectangle_from_viewport.hpp>
 #include <sge/camera/ortho_freelook/object.hpp>
+#include <sge/camera/ortho_freelook/projection_rectangle_from_viewport.hpp>
+#include <sge/renderer/active_target.hpp>
+#include <sge/renderer/target_base.hpp>
 #include <sge/viewport/manager.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
+
 
 sge::camera::ortho_freelook::projection_rectangle_from_viewport::projection_rectangle_from_viewport(
 	sge::camera::ortho_freelook::object &_camera,

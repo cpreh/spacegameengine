@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/spherical/coordinate_system/to_camera_coordinate_system.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/spherical/coordinate_system/object.hpp>
-#include <sge/renderer/vector3.hpp>
+#include <sge/camera/spherical/coordinate_system/to_camera_coordinate_system.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/hypersphere_to_cartesian.hpp>
 #include <fcppt/math/vector/normalize.hpp>
+
 
 namespace
 {

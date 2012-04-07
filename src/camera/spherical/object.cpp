@@ -18,27 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/math/pi.hpp>
-#include <fcppt/math/clamp.hpp>
 #include <sge/camera/spherical/object.hpp>
+#include <sge/camera/spherical/parameters.hpp>
 #include <sge/camera/spherical/coordinate_system/null.hpp>
 #include <sge/camera/spherical/coordinate_system/to_camera_coordinate_system.hpp>
-#include <fcppt/math/vector/normalize.hpp>
-#include <fcppt/math/vector/length.hpp>
-#include <fcppt/math/vector/cross.hpp>
-#include <fcppt/math/matrix/vector.hpp>
-#include <sge/renderer/vector4.hpp>
-#include <fcppt/math/matrix/rotation_axis.hpp>
-#include <sge/input/keyboard/key_event.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
-#include <sge/camera/spherical/parameters.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/mouse/device.hpp>
+#include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/mouse/axis_event.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <sge/input/mouse/device.hpp>
+#include <sge/renderer/vector4.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/math/clamp.hpp>
+#include <fcppt/math/pi.hpp>
+#include <fcppt/math/matrix/rotation_axis.hpp>
+#include <fcppt/math/matrix/vector.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/construct.hpp>
+#include <fcppt/math/vector/cross.hpp>
+#include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
+#include <fcppt/math/vector/normalize.hpp>
+#include <fcppt/tr1/functional.hpp>
+
 
 sge::camera::spherical::object::object(
 	spherical::parameters const &_params)

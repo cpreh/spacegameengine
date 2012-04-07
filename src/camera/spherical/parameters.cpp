@@ -19,7 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/spherical/parameters.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <limits>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::camera::spherical::parameters::parameters(
 	input::keyboard::device &_keyboard,

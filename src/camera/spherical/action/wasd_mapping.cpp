@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/spherical/action/wasd_mapping.hpp>
 #include <sge/camera/spherical/action/mapping.hpp>
+#include <sge/camera/spherical/action/wasd_mapping.hpp>
+
 
 sge::camera::spherical::action::mapping const
 sge::camera::spherical::action::wasd_mapping()

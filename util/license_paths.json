@@ -1,5 +1,5 @@
 {
-  "standard_match" : "./(examples|include|src|tests)/.*\.?pp",
-  "main_license" : "util/license_template.hpp",
-  "nolicense" : []
+	"standard_match" : "./(alda|examples|include|src|tests)/.*\.?pp",
+	"main_license" : "util/license_template.hpp",
+	"nolicense" : []
 }

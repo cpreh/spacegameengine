@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/ortho_freelook/action/wsg_mapping.hpp>
 #include <sge/camera/ortho_freelook/action/mapping.hpp>
+#include <sge/camera/ortho_freelook/action/wsg_mapping.hpp>
+
 
 sge::camera::ortho_freelook::action::mapping const
 sge::camera::ortho_freelook::action::wsg_mapping()
