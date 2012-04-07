@@ -18,12 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_GRAMMAR_HPP_INCLUDED
-#define SGE_PARSE_JSON_GRAMMAR_HPP_INCLUDED
+#ifndef SGE_SRC_CONSOLE_EVAL_GRAMMAR_FWD_HPP_INCLUDED
+#define SGE_SRC_CONSOLE_EVAL_GRAMMAR_FWD_HPP_INCLUDED
 
-#include <sge/parse/json/grammar_decl.hpp>
-#include <sge/parse/json/grammar_fwd.hpp>
-#include <sge/parse/json/grammar_impl.hpp>
 
+namespace sge
+{
+namespace console
+{
+
+template<
+	typename Iterator
+>
+class eval_grammar;
+
+}
+}
 
 #endif

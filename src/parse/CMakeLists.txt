@@ -10,8 +10,14 @@ set(
 	include/sge/parse/ini/entry_name_equal.hpp
 	include/sge/parse/ini/entry_vector.hpp
 	include/sge/parse/ini/grammar.hpp
+	include/sge/parse/ini/grammar_decl.hpp
+	include/sge/parse/ini/grammar_fwd.hpp
+	include/sge/parse/ini/grammar_impl.hpp
 	include/sge/parse/ini/header_name_equal.hpp
 	include/sge/parse/ini/output/grammar.hpp
+	include/sge/parse/ini/output/grammar_decl.hpp
+	include/sge/parse/ini/output/grammar_fwd.hpp
+	include/sge/parse/ini/output/grammar_impl.hpp
 	include/sge/parse/ini/output/to_file.hpp
 	include/sge/parse/ini/output/to_range.hpp
 	include/sge/parse/ini/output/to_stream.hpp
@@ -65,6 +71,9 @@ set(
 	include/sge/parse/json/get.hpp
 	include/sge/parse/json/get_unsigned.hpp
 	include/sge/parse/json/grammar.hpp
+	include/sge/parse/json/grammar_decl.hpp
+	include/sge/parse/json/grammar_fwd.hpp
+	include/sge/parse/json/grammar_impl.hpp
 	include/sge/parse/json/int_type.hpp
 	include/sge/parse/json/invalid_get.hpp
 	include/sge/parse/json/is_null.hpp
