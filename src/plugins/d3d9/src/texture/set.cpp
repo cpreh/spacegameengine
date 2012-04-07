@@ -20,14 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/devicefuncs/set_texture.hpp>
 #include <sge/d3d9/texture/set.hpp>
-#include <sge/renderer/texture/const_optional_base_fwd.hpp>
+#include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 
 
 void
 sge::d3d9::texture::set(
 	IDirect3DDevice9 *const _device,
 	renderer::texture::stage const _stage,
-	renderer::texture::const_optional_base const &_base
+	renderer::texture::const_optional_base_ref const &_base
 )
 {
 	devicefuncs::set_texture(

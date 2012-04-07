@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/basic_target.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/offscreen_target_fwd.hpp>
-#include <sge/d3d9/surface/color_ptr.hpp>
-#include <sge/d3d9/surface/depth_stencil_ptr.hpp>
-#include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/d3d9/surface/color_shared_ptr.hpp>
+#include <sge/d3d9/surface/depth_stencil_shared_ptr.hpp>
+#include <sge/renderer/color_surface_shared_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface_shared_ptr.hpp>
 #include <sge/renderer/optional_dim2.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/target.hpp>
@@ -62,13 +62,13 @@ public:
 private:
 	void
 	color_surface(
-		renderer::color_surface_ptr,
+		renderer::color_surface_shared_ptr,
 		renderer::surface_index
 	);
 
 	void
 	depth_stencil_surface(
-		renderer::depth_stencil_surface_ptr
+		renderer::depth_stencil_surface_shared_ptr
 	);
 
 	renderer::optional_dim2 const
@@ -86,12 +86,12 @@ private:
 	);
 
 	typedef fcppt::container::index_map<
-		d3d9::surface::color_ptr
+		d3d9::surface::color_shared_ptr
 	> color_surface_map;
 
 	color_surface_map color_surfaces_;
 
-	d3d9::surface::depth_stencil_ptr depth_stencil_surface_;
+	d3d9::surface::depth_stencil_shared_ptr depth_stencil_surface_;
 };
 
 }

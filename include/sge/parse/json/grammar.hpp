@@ -89,8 +89,6 @@ class grammar
 		encoding::space_type
 	>
 {
-FCPPT_PP_POP_WARNING
-
 	FCPPT_NONCOPYABLE(
 		grammar
 	);
@@ -309,6 +307,8 @@ private:
 		space_type
 	> object_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/base.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/base.hpp>
-#include <sge/renderer/texture/const_optional_base.hpp>
+#include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -31,7 +31,7 @@ void
 sge::d3d9::devicefuncs::set_texture(
 	IDirect3DDevice9 *const _device,
 	renderer::texture::stage const _stage,
-	sge::renderer::texture::const_optional_base const &_texture
+	sge::renderer::texture::const_optional_base_ref const &_texture
 )
 {
 	if(

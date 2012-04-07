@@ -56,8 +56,6 @@ vector_base<
 	NumSubElements
 >
 {
-FCPPT_PP_POP_WARNING
-
 	BOOST_STATIC_ASSERT(
 		fcppt::type_traits::is_float_or_double<
 			Format
@@ -77,6 +75,8 @@ FCPPT_PP_POP_WARNING
 
 	typedef Index index;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

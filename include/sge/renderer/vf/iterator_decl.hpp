@@ -51,8 +51,6 @@ class iterator
 		Constness
 	>::type
 {
-FCPPT_PP_POP_WARNING
-
 	typedef typename detail::iterator_base<
 		Part,
 		Constness
@@ -112,6 +110,8 @@ private:
 		typename
 	> friend class view;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

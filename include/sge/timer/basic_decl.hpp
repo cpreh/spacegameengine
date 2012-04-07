@@ -45,8 +45,6 @@ class basic
 		Clock
 	>::type
 {
-FCPPT_PP_POP_WARNING
-
 FCPPT_NONCOPYABLE(
 	basic);
 
@@ -111,6 +109,9 @@ private:
 	bool expired_;
 	time_point last_time_;
 };
+
+FCPPT_PP_POP_WARNING
+
 }
 }
 

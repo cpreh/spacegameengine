@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/clear.hpp>
 #include <sge/d3d9/state/clip_plane.hpp>
 #include <sge/d3d9/state/device_fwd.hpp>
-#include <sge/renderer/optional_target_fwd.hpp>
+#include <sge/renderer/optional_target_ref_fwd.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/stack.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -54,10 +54,10 @@ public:
 
 	void
 	target(
-		renderer::optional_target const &
+		renderer::optional_target_ref const &
 	);
 
-	renderer::optional_target const
+	renderer::optional_target_ref const
 	target();
 
 	d3d9::state::clear &

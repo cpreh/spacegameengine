@@ -48,8 +48,6 @@ public
 		T
 	>::type
 {
-FCPPT_PP_POP_WARNING
-
 public:
 	typedef typename detail::iterator_base_type<T>::type base_type;
 
@@ -102,6 +100,8 @@ private:
 
 	friend class boost::iterator_core_access;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

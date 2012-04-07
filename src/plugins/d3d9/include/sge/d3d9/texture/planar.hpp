@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/texture/basic.hpp>
 #include <sge/d3d9/texture/planar_basic.hpp>
-#include <sge/renderer/color_surface_ptr.hpp>
+#include <sge/renderer/color_surface_unique_ptr.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -71,7 +71,7 @@ public:
 	void
 	unlock() const;
 
-	renderer::color_surface_ptr const
+	renderer::color_surface_unique_ptr
 	surface(
 		renderer::texture::stage
 	);

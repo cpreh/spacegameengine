@@ -67,8 +67,6 @@ class grammar
 		section_vector()
 	>
 {
-FCPPT_PP_POP_WARNING
-
 	FCPPT_NONCOPYABLE(
 		grammar
 	);
@@ -133,6 +131,8 @@ private:
 		section_vector()
 	> ini_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

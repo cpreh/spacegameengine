@@ -68,8 +68,6 @@ class object
 			Choices
 		>::type
 {
-FCPPT_PP_POP_WARNING
-
 	typedef typename sge::sprite::detail::make_class<
 		Choices,
 		boost::mpl::vector0<>
@@ -384,6 +382,8 @@ public:
 private:
 	element_type elements_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

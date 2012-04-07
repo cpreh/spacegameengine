@@ -54,8 +54,6 @@ vector_base<
 	NumSubElements
 >
 {
-FCPPT_PP_POP_WARNING
-
 	BOOST_STATIC_ASSERT(
 		fcppt::type_traits::is_float_or_double<
 			Format
@@ -66,6 +64,8 @@ FCPPT_PP_POP_WARNING
 		NumSubElements >= 2 && NumSubElements <= 4
 	);
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

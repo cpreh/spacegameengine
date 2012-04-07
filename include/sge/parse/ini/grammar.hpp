@@ -66,8 +66,6 @@ class grammar
 		encoding::blank_type
 	>
 {
-FCPPT_PP_POP_WARNING
-
 	FCPPT_NONCOPYABLE(
 		grammar
 	);
@@ -152,6 +150,8 @@ private:
 		encoding::blank_type
 	> ini_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

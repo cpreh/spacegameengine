@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/onscreen_target.hpp>
 #include <sge/d3d9/target_base.hpp>
 #include <sge/d3d9/state/device.hpp>
-#include <sge/renderer/optional_target.hpp>
+#include <sge/renderer/optional_target_ref.hpp>
+#include <fcppt/null_ptr.hpp>
 
 
 sge::d3d9::state::device::device(
@@ -33,7 +34,7 @@ sge::d3d9::state::device::device(
 		_onscreen_target
 	),
 	offscreen_target_(
-		0
+		fcppt::null_ptr()
 	),
 	target_(
 		&_onscreen_target
@@ -51,7 +52,7 @@ sge::d3d9::state::device::~device()
 
 void
 sge::d3d9::state::device::target(
-	renderer::optional_target const &_target
+	renderer::optional_target_ref const &_target
 )
 {
 	if(
@@ -70,7 +71,7 @@ sge::d3d9::state::device::target(
 				*_target
 			)
 		:
-			0
+			fcppt::null_ptr()
 		;
 
 	target_ =
@@ -93,17 +94,17 @@ sge::d3d9::state::device::target(
 	);
 }
 
-sge::renderer::optional_target const
+sge::renderer::optional_target_ref const
 sge::d3d9::state::device::target()
 {
 	return
-		offscreen_target_ != 0
+		offscreen_target_ != fcppt::null_ptr()
 		?
-			renderer::optional_target(
+			renderer::optional_target_ref(
 				*offscreen_target_
 			)
 		:
-			renderer::optional_target();
+			renderer::optional_target_ref();
 }
 
 sge::d3d9::state::clear &

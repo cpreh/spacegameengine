@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/system.hpp>
 #include <sge/dinput/processor.hpp>
-#include <sge/input/processor_ptr.hpp>
+#include <sge/input/processor_unique_ptr.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 
 sge::dinput::system::system()
@@ -35,21 +35,23 @@ sge::dinput::system::~system()
 {
 }
 
-sge::input::processor_ptr const
+sge::input::processor_unique_ptr
 sge::dinput::system::create_processor(
 	sge::window::object const &_window,
 	sge::window::system const &_window_system
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			sge::dinput::processor
-		>(
-			fcppt::cref(
-				_window
-			),
-			fcppt::cref(
-				_window_system
+		sge::input::processor_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::dinput::processor
+			>(
+				fcppt::cref(
+					_window
+				),
+				fcppt::cref(
+					_window_system
+				)
 			)
 		);
 }

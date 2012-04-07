@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_unique_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/window/parameters_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/window/instance_fwd.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/window/instance_unique_ptr.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -52,14 +52,14 @@ public:
 
 	~system();
 
-	renderer::device_ptr const
+	renderer::device_unique_ptr
 	create_renderer(
 		renderer::parameters const &,
 		renderer::adapter,
 		awl::window::instance &
 	);
 
-	awl::window::instance_shared_ptr const
+	awl::window::instance_unique_ptr
 	create_window(
 		awl::system::object &,
 		sge::window::parameters const &,

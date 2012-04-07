@@ -66,8 +66,6 @@ public
 		>
 	>
 {
-FCPPT_PP_POP_WARNING
-
 	FCPPT_NONCOPYABLE(
 		basic_grammar
 	);
@@ -156,6 +154,8 @@ private:
 
 	obj::parse_state &state_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

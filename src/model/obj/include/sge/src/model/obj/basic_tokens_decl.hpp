@@ -55,8 +55,6 @@ struct basic_tokens
 		Lexer
 	>
 {
-FCPPT_PP_POP_WARNING
-
 	FCPPT_NONCOPYABLE(
 		basic_tokens
 	);
@@ -100,6 +98,8 @@ public:
 		fcppt::char_type
 	> name_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

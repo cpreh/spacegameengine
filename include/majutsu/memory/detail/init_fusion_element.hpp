@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/is_constant.hpp>
 #include <majutsu/is_role.hpp>
 #include <majutsu/memory/detail/index_of.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/mpl/filter_view.hpp>
@@ -47,8 +48,12 @@ template<
 	typename Elements,
 	typename Arguments
 >
-struct init_fusion_element
+class init_fusion_element
 {
+	FCPPT_NONASSIGNABLE(
+		init_fusion_element
+	);
+public:
 	template<
 		typename
 	>

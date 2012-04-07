@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/action/mapping.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -55,6 +56,8 @@ class SGE_CLASS_SYMBOL object
 	public sge::camera::is_dynamic,
 	public sge::camera::has_mutable_projection
 {
+FCPPT_NONCOPYABLE(
+	object);
 public:
 	SGE_CAMERA_SYMBOL
 	explicit

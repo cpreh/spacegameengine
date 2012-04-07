@@ -50,8 +50,6 @@ class iterator
 		Format
 	>::type
 {
-FCPPT_PP_POP_WARNING
-
 public:
 	typedef typename detail::iterator_base<
 		Format
@@ -112,6 +110,8 @@ private:
 
 	pointer data_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

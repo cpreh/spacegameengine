@@ -62,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/volume.hpp>
 #include <sge/d3d9/texture/filter/set.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/optional_target.hpp>
+#include <sge/renderer/optional_target_ref.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/caps/object.hpp>
@@ -70,8 +70,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/to_clear_flags_field.hpp>
 #include <awl/window/instance.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -241,7 +241,7 @@ sge::d3d9::device::deactivate_vertex_buffer(
 
 void
 sge::d3d9::device::vertex_declaration(
-	renderer::const_optional_vertex_declaration const &_declaration
+	renderer::const_optional_vertex_declaration_ref const &_declaration
 )
 {
 	if(
@@ -387,7 +387,7 @@ sge::d3d9::device::texture_stage_arg(
 
 void
 sge::d3d9::device::texture(
-	renderer::texture::const_optional_base const &_texture,
+	renderer::texture::const_optional_base_ref const &_texture,
 	renderer::texture::stage const _stage
 )
 {
@@ -465,7 +465,7 @@ sge::d3d9::device::transform(
 
 void
 sge::d3d9::device::target(
-	renderer::optional_target const &_target
+	renderer::optional_target_ref const &_target
 )
 {
 	device_state_->target(
@@ -473,7 +473,7 @@ sge::d3d9::device::target(
 	);
 }
 
-sge::renderer::glsl::program_ptr const
+sge::renderer::glsl::program_unique_ptr
 sge::d3d9::device::create_glsl_program()
 {
 	throw sge::renderer::exception(
@@ -481,7 +481,7 @@ sge::d3d9::device::create_glsl_program()
 	);
 }
 
-sge::renderer::glsl::vertex_shader_ptr const
+sge::renderer::glsl::vertex_shader_unique_ptr
 sge::d3d9::device::create_glsl_vertex_shader(
 	renderer::glsl::string const &
 )
@@ -491,7 +491,7 @@ sge::d3d9::device::create_glsl_vertex_shader(
 	);
 }
 
-sge::renderer::glsl::pixel_shader_ptr const
+sge::renderer::glsl::pixel_shader_unique_ptr
 sge::d3d9::device::create_glsl_pixel_shader(
 	renderer::glsl::string const &
 )
@@ -501,7 +501,7 @@ sge::d3d9::device::create_glsl_pixel_shader(
 	);
 }
 
-sge::renderer::glsl::geometry_shader_ptr const
+sge::renderer::glsl::geometry_shader_unique_ptr
 sge::d3d9::device::create_glsl_geometry_shader(
 	renderer::glsl::string const &
 )
@@ -513,7 +513,7 @@ sge::d3d9::device::create_glsl_geometry_shader(
 
 void
 sge::d3d9::device::glsl_program(
-	renderer::glsl::const_optional_program const &
+	renderer::glsl::const_optional_program_ref const &
 )
 {
 	throw sge::renderer::exception(
@@ -521,42 +521,46 @@ sge::d3d9::device::glsl_program(
 	);
 }
 
-sge::renderer::target_ptr const
+sge::renderer::target_unique_ptr
 sge::d3d9::device::create_target()
 {
 	return
-		fcppt::make_shared_ptr<
-			d3d9::offscreen_target
-		>(
-			device_.get()
+		sge::renderer::target_unique_ptr(
+			fcppt::make_unique_ptr<
+				d3d9::offscreen_target
+			>(
+				device_.get()
+			)
 		);
 }
 
-sge::renderer::texture::planar_ptr const
+sge::renderer::texture::planar_unique_ptr
 sge::d3d9::device::create_planar_texture(
 	renderer::texture::planar_parameters const &_param
 )
 {
 	return
-		this->add_resource<
-			d3d9::texture::planar
-		>(
-			fcppt::make_shared_ptr<
+		sge::renderer::texture::planar_unique_ptr(
+			this->add_resource<
 				d3d9::texture::planar
 			>(
-				device_.get(),
-				_param
+				fcppt::make_unique_ptr<
+					d3d9::texture::planar
+				>(
+					device_.get(),
+					_param
+				)
 			)
 		);
 }
 
-sge::renderer::texture::depth_stencil_ptr const
+sge::renderer::texture::depth_stencil_unique_ptr
 sge::d3d9::device::create_depth_stencil_texture(
 	renderer::texture::depth_stencil_parameters const &_params
 )
 {
 	return
-		sge::renderer::texture::depth_stencil_ptr();
+		sge::renderer::texture::depth_stencil_unique_ptr();
 #if 0
 	return
 		this->add_resource<
@@ -572,86 +576,94 @@ sge::d3d9::device::create_depth_stencil_texture(
 #endif
 }
 
-sge::renderer::depth_stencil_surface_ptr const
+sge::renderer::depth_stencil_surface_unique_ptr
 sge::d3d9::device::create_depth_stencil_surface(
 	renderer::dim2 const &_dim,
 	renderer::depth_stencil_format::type const _format
 )
 {
 	return
-		this->add_resource<
-			d3d9::surface::depth_stencil
-		>(
-			fcppt::make_shared_ptr<
+		sge::renderer::depth_stencil_surface_unique_ptr(
+			this->add_resource<
 				d3d9::surface::depth_stencil
 			>(
 				fcppt::make_unique_ptr<
-					d3d9::surface::depth_stencil_native
+					d3d9::surface::depth_stencil
 				>(
-					device_.get(),
-					_dim,
-					_format,
-					present_parameters_.MultiSampleType,
-					d3d9::multi_sample_quality(
-						present_parameters_.MultiSampleQuality
-					)
-				),
-				d3d9::needs_reset::yes
+					fcppt::make_unique_ptr<
+						d3d9::surface::depth_stencil_native
+					>(
+						device_.get(),
+						_dim,
+						_format,
+						present_parameters_.MultiSampleType,
+						d3d9::multi_sample_quality(
+							present_parameters_.MultiSampleQuality
+						)
+					),
+					d3d9::needs_reset::yes
+				)
 			)
 		);
 }
 
-sge::renderer::texture::volume_ptr const
+sge::renderer::texture::volume_unique_ptr
 sge::d3d9::device::create_volume_texture(
 	renderer::texture::volume_parameters const &_param
 )
 {
 	return
-		this->add_resource<
-			d3d9::texture::volume
-		>(
-			fcppt::make_shared_ptr<
+		sge::renderer::texture::volume_unique_ptr(
+			this->add_resource<
 				d3d9::texture::volume
 			>(
-				device_.get(),
-				_param
+				fcppt::make_unique_ptr<
+					d3d9::texture::volume
+				>(
+					device_.get(),
+					_param
+				)
 			)
 		);
 }
 
-sge::renderer::texture::cube_ptr const
+sge::renderer::texture::cube_unique_ptr
 sge::d3d9::device::create_cube_texture(
 	renderer::texture::cube_parameters const &_param
 )
 {
 	return
-		this->add_resource<
-			d3d9::texture::cube
-		>(
-			fcppt::make_shared_ptr<
+		sge::renderer::texture::cube_unique_ptr(
+			this->add_resource<
 				d3d9::texture::cube
 			>(
-				device_.get(),
-				_param
+				fcppt::make_unique_ptr<
+					d3d9::texture::cube
+				>(
+					device_.get(),
+					_param
+				)
 			)
 		);
 }
 
-sge::renderer::vertex_declaration_ptr const
+sge::renderer::vertex_declaration_unique_ptr
 sge::d3d9::device::create_vertex_declaration(
 	renderer::vf::dynamic::format const &_format
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			d3d9::vertex_declaration
-		>(
-			device_.get(),
-			_format
+		sge::renderer::vertex_declaration_unique_ptr(
+			fcppt::make_unique_ptr<
+				d3d9::vertex_declaration
+			>(
+				device_.get(),
+				_format
+			)
 		);
 }
 
-sge::renderer::vertex_buffer_ptr const
+sge::renderer::vertex_buffer_unique_ptr
 sge::d3d9::device::create_vertex_buffer(
 	renderer::vertex_declaration const &_declaration,
 	renderer::vf::dynamic::part_index const _part,
@@ -660,28 +672,30 @@ sge::d3d9::device::create_vertex_buffer(
 )
 {
 	return
-		this->add_resource<
-			d3d9::vertex_buffer
-		>(
-			fcppt::make_shared_ptr<
+		sge::renderer::vertex_buffer_unique_ptr(
+			this->add_resource<
 				d3d9::vertex_buffer
 			>(
-				device_.get(),
-				dynamic_cast<
-					d3d9::vertex_declaration const &
+				fcppt::make_unique_ptr<
+					d3d9::vertex_buffer
 				>(
-					_declaration
-				).format().parts().at(
-					_part.get()
-				),
-				_part,
-				_size,
-				_resource_flags
+					device_.get(),
+					dynamic_cast<
+						d3d9::vertex_declaration const &
+					>(
+						_declaration
+					).format().parts().at(
+						_part.get()
+					),
+					_part,
+					_size,
+					_resource_flags
+				)
 			)
 		);
 }
 
-sge::renderer::index_buffer_ptr const
+sge::renderer::index_buffer_unique_ptr
 sge::d3d9::device::create_index_buffer(
 	renderer::index::dynamic::format::type const _format,
 	renderer::index_count const _size,
@@ -689,16 +703,18 @@ sge::d3d9::device::create_index_buffer(
 )
 {
 	return
-		this->add_resource<
-			d3d9::index_buffer
-		>(
-			fcppt::make_shared_ptr<
+		sge::renderer::index_buffer_unique_ptr(
+			this->add_resource<
 				d3d9::index_buffer
 			>(
-				device_.get(),
-				_format,
-				_size,
-				_resource_flags
+				fcppt::make_unique_ptr<
+					d3d9::index_buffer
+				>(
+					device_.get(),
+					_format,
+					_size,
+					_resource_flags
+				)
 			)
 		);
 }
@@ -709,7 +725,7 @@ sge::d3d9::device::onscreen_target() const
 	return *onscreen_target_;
 }
 
-sge::renderer::optional_target const
+sge::renderer::optional_target_ref const
 sge::d3d9::device::target() const
 {
 	return device_state_->target();
@@ -724,20 +740,23 @@ sge::d3d9::device::caps() const
 template<
 	typename Ptr
 >
-fcppt::shared_ptr<
+fcppt::unique_ptr<
 	Ptr
-> const
+>
 sge::d3d9::device::add_resource(
-	fcppt::shared_ptr<
+	fcppt::unique_ptr<
 		Ptr
-	> const _ptr
+	> _ptr
 )
 {
 	resources_.add(
 		*_ptr
 	);
 
-	return _ptr;
+	return
+		fcppt::move(
+			_ptr
+		);
 }
 
 void

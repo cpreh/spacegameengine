@@ -50,8 +50,6 @@ class parameters
 		Clock
 	>
 {
-FCPPT_PP_POP_WARNING
-
 FCPPT_NONASSIGNABLE(
 	parameters);
 
@@ -112,6 +110,9 @@ public:
 	bool
 	expired() const;
 };
+
+FCPPT_PP_POP_WARNING
+
 }
 }
 

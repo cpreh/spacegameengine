@@ -22,17 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/device.hpp>
 #include <sge/d3d9/system.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/window/to_awl_parameters.hpp>
 #include <awl/system/object.hpp>
 #include <awl/window/instance.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/window/instance_unique_ptr.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
@@ -57,7 +57,7 @@ sge::d3d9::system::~system()
 {
 }
 
-sge::renderer::device_ptr const
+sge::renderer::device_unique_ptr
 sge::d3d9::system::create_renderer(
 	renderer::parameters const &_param,
 	renderer::adapter const _adapter,
@@ -65,21 +65,23 @@ sge::d3d9::system::create_renderer(
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			d3d9::device
-		>(
-			system_.get(),
-			_adapter,
-			fcppt::cref(
-				_param
-			),
-			fcppt::ref(
-				_window
+		sge::renderer::device_unique_ptr(
+			fcppt::make_unique_ptr<
+				d3d9::device
+			>(
+				system_.get(),
+				_adapter,
+				fcppt::cref(
+					_param
+				),
+				fcppt::ref(
+					_window
+				)
 			)
 		);
 }
 
-awl::window::instance_shared_ptr const
+awl::window::instance_unique_ptr
 sge::d3d9::system::create_window(
 	awl::system::object &_awl_system,
 	sge::window::parameters const &_window_params,
@@ -87,11 +89,9 @@ sge::d3d9::system::create_window(
 )
 {
 	return
-		awl::window::instance_shared_ptr(
-			_awl_system.create(
-				sge::window::to_awl_parameters(
-					_window_params
-				)
+		_awl_system.create(
+			sge::window::to_awl_parameters(
+				_window_params
 			)
 		);
 }

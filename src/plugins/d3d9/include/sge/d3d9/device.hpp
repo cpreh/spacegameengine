@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/instance_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -97,7 +97,7 @@ public:
 
 	void
 	vertex_declaration(
-		renderer::const_optional_vertex_declaration const &
+		renderer::const_optional_vertex_declaration_ref const &
 	);
 
 	void
@@ -158,7 +158,7 @@ public:
 
 	void
 	texture(
-		renderer::texture::const_optional_base const &,
+		renderer::texture::const_optional_base_ref const &,
 		renderer::texture::stage
 	);
 
@@ -194,67 +194,67 @@ public:
 
 	void
 	target(
-		renderer::optional_target const &
+		renderer::optional_target_ref const &
 	);
 
-	renderer::glsl::program_ptr const
+	renderer::glsl::program_unique_ptr
 	create_glsl_program();
 
-	renderer::glsl::vertex_shader_ptr const
+	renderer::glsl::vertex_shader_unique_ptr
 	create_glsl_vertex_shader(
 		renderer::glsl::string const &
 	);
 
-	renderer::glsl::pixel_shader_ptr const
+	renderer::glsl::pixel_shader_unique_ptr
 	create_glsl_pixel_shader(
 		renderer::glsl::string const &
 	);
 
-	renderer::glsl::geometry_shader_ptr const
+	renderer::glsl::geometry_shader_unique_ptr
 	create_glsl_geometry_shader(
 		renderer::glsl::string const &
 	);
 
 	void
 	glsl_program(
-		renderer::glsl::const_optional_program const &
+		renderer::glsl::const_optional_program_ref const &
 	);
 
-	renderer::target_ptr const
+	renderer::target_unique_ptr
 	create_target();
 
-	renderer::texture::planar_ptr const
+	renderer::texture::planar_unique_ptr
 	create_planar_texture(
 		renderer::texture::planar_parameters const &
 	);
 
-	renderer::texture::depth_stencil_ptr const
+	renderer::texture::depth_stencil_unique_ptr
 	create_depth_stencil_texture(
 		renderer::texture::depth_stencil_parameters const &
 	);
 
-	renderer::depth_stencil_surface_ptr const
+	renderer::depth_stencil_surface_unique_ptr
 	create_depth_stencil_surface(
 		renderer::dim2 const &,
 		renderer::depth_stencil_format::type
 	);
 
-	renderer::texture::volume_ptr const
+	renderer::texture::volume_unique_ptr
 	create_volume_texture(
 		renderer::texture::volume_parameters const &
 	);
 
-	renderer::texture::cube_ptr const
+	renderer::texture::cube_unique_ptr
 	create_cube_texture(
 		renderer::texture::cube_parameters const &
 	);
 
-	renderer::vertex_declaration_ptr const
+	renderer::vertex_declaration_unique_ptr
 	create_vertex_declaration(
 		renderer::vf::dynamic::format const &
 	);
 
-	renderer::vertex_buffer_ptr const
+	renderer::vertex_buffer_unique_ptr
 	create_vertex_buffer(
 		renderer::vertex_declaration const &,
 		renderer::vf::dynamic::part_index,
@@ -262,7 +262,7 @@ public:
 		renderer::resource_flags_field const &
 	);
 
-	renderer::index_buffer_ptr const
+	renderer::index_buffer_unique_ptr
 	create_index_buffer(
 		renderer::index::dynamic::format::type,
 		renderer::index_count,
@@ -272,7 +272,7 @@ public:
 	renderer::onscreen_target &
 	onscreen_target() const;
 
-	renderer::optional_target const
+	renderer::optional_target_ref const
 	target() const;
 
 	renderer::caps::object const &
@@ -281,11 +281,11 @@ private:
 	template<
 		typename Ptr
 	>
-	fcppt::shared_ptr<
+	fcppt::unique_ptr<
 		Ptr
-	> const
+	>
 	add_resource(
-		fcppt::shared_ptr<
+		fcppt::unique_ptr<
 			Ptr
 		>
 	);
