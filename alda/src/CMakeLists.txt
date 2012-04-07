@@ -1,6 +1,32 @@
+find_package(
+	FcpptThreads
+	REQUIRED
+)
+
+add_definitions(
+	"${FcpptThreads_DEFINITIONS}"
+)
+
 set(
 	ALDA_FILES
 	alda/src/exception.cpp
+	alda/src/include/alda/src/log_parameters.hpp
+	alda/src/include/alda/src/net/server/detail/connection.hpp
+	alda/src/include/alda/src/net/server/detail/object_impl.hpp
+	alda/src/log.cpp
+	alda/src/log_context.cpp
+	alda/src/log_location.cpp
+	alda/src/log_parameters.cpp
+	alda/src/net/buffer/circular_receive/for_asio.cpp
+	alda/src/net/buffer/circular_receive/object.cpp
+	alda/src/net/buffer/circular_receive/part.cpp
+	alda/src/net/buffer/circular_send/object.cpp
+	alda/src/net/exception.cpp
+	alda/src/net/io_service_wrapper.cpp
+	alda/src/net/log_location.cpp
+	alda/src/net/server/detail/connection.cpp
+	alda/src/net/server/detail/object_impl.cpp
+	alda/src/net/server/object.cpp
 )
 
 fcppt_generate_symbol_header(
@@ -41,6 +67,13 @@ function(
 		${ALDA_LIB_NAME}
 		${VARIANT}
 		${ALDA_FILES_ABS}
+	)
+
+	target_link_libraries(
+		${ALDA_LIB_NAME}
+		${Fcppt_core_LIBRARIES}
+		${FcpptThreads_LIBRARIES}
+		${Boost_SYSTEM_LIBRARY}
 	)
 
 	set_target_properties(

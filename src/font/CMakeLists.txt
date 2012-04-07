@@ -14,6 +14,7 @@ set(
 	include/sge/font/metrics.hpp
 	include/sge/font/metrics_fwd.hpp
 	include/sge/font/metrics_scoped_ptr.hpp
+	include/sge/font/metrics_shared_ptr.hpp
 	include/sge/font/metrics_unique_ptr.hpp
 	include/sge/font/plugin.hpp
 	include/sge/font/plugin_shared_ptr.hpp
