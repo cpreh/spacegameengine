@@ -18,45 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/system_unique_ptr.hpp>
-#include <sge/plugin/capabilities.hpp>
-#include <sge/plugin/capabilities_field.hpp>
-#include <sge/plugin/info.hpp>
-#include <sge/plugin/min_core_version.hpp>
-#include <sge/plugin/version.hpp>
-#include <sge/plugin/library/make_interface.hpp>
+#include <sge/evdev/processor.hpp>
 #include <sge/evdev/system.hpp>
+#include <sge/input/processor_unique_ptr.hpp>
+#include <sge/input/system.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/text.hpp>
 
 
-namespace
+sge::evdev::system::system()
+:
+	sge::input::system()
 {
+}
 
-sge::plugin::info const info(
-	FCPPT_TEXT("evdev"),
-	FCPPT_TEXT("Uses /dev/input/event* to handle joysticks and gamepads."),
-	sge::plugin::version(0x1u),
-	sge::plugin::min_core_version(0x1u),
-	sge::plugin::capabilities_field(
-		sge::plugin::capabilities::input
-	)
-);
+sge::evdev::system::~system()
+{
+}
 
-sge::input::system_unique_ptr
-create_input_system()
+sge::input::processor_unique_ptr
+sge::evdev::system::create_processor(
+	sge::window::object const &_window,
+	sge::window::system const &_window_system
+)
 {
 	return
-		sge::input::system_unique_ptr(
+		sge::input::processor_unique_ptr(
 			fcppt::make_unique_ptr<
-				sge::evdev::system
-			>()
+				sge::evdev::processor
+			>(
+				fcppt::cref(
+					_window
+				),
+				fcppt::cref(
+					_window_system
+				)
+			)
 		);
 }
-
-}
-
-SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
-	info,
-	(create_input_system)
-)

@@ -23,8 +23,7 @@ OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ${IL_FOUND})
 
 OPTION (ENABLE_DINPUT "Build the direct input 8 plugin" ${DINPUT_FOUND})
 
-#OPTION (ENABLE_EVDEV "Build the evdev input plugin" ${EVDEV_FOUND})
-OPTION (ENABLE_EVDEV "Build the evdev input plugin" OFF)
+OPTION (ENABLE_EVDEV "Build the evdev input plugin" ${EVDEV_FOUND})
 
 OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ${FREETYPE_FOUND})
 

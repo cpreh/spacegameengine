@@ -18,92 +18,108 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_PROCESSOR_HPP_INCLUDED
-#define SGE_INPUT_PROCESSOR_HPP_INCLUDED
+#ifndef SGE_EVDEV_PROCESSOR_HPP_INCLUDED
+#define SGE_EVDEV_PROCESSOR_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/input/processor_fwd.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
+#include <sge/input/cursor/discover_signal.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/cursor/remove_signal.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
+#include <sge/input/joypad/discover_signal.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
+#include <sge/input/joypad/remove_signal.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
+#include <sge/input/keyboard/discover_signal.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
+#include <sge/input/keyboard/remove_signal.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
+#include <sge/input/mouse/discover_signal.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
+#include <sge/input/mouse/remove_signal.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
+#include <fcppt/signal/object_decl.hpp>
 
 
 namespace sge
 {
-namespace input
+namespace evdev
 {
 
 class SGE_CLASS_SYMBOL processor
+:
+	public sge::input::processor
 {
 	FCPPT_NONCOPYABLE(
 		processor
 	);
-protected:
-	SGE_INPUT_SYMBOL
-	processor();
 public:
-	//
-	// keyboards
-	//
-	virtual fcppt::signal::auto_connection
+	processor(
+		sge::window::object const &,
+		sge::window::system const &
+	);
+
+	~processor();
+private:
+	fcppt::signal::auto_connection
 	keyboard_discover_callback(
 		sge::input::keyboard::discover_callback const &
-	) = 0;
+	);
 
-	virtual fcppt::signal::auto_connection
+	fcppt::signal::auto_connection
 	keyboard_remove_callback(
 		sge::input::keyboard::remove_callback const &
-	) = 0;
+	);
 
-	//
-	// mice
-	//
-	virtual fcppt::signal::auto_connection
+	fcppt::signal::auto_connection
 	mouse_discover_callback(
 		sge::input::mouse::discover_callback const &
-	) = 0;
+	);
 
-	virtual fcppt::signal::auto_connection
+	fcppt::signal::auto_connection
 	mouse_remove_callback(
 		sge::input::mouse::remove_callback const &
-	) = 0;
+	);
 
-	//
-	// cursors
-	//
-	virtual fcppt::signal::auto_connection
+	fcppt::signal::auto_connection
 	cursor_discover_callback(
 		sge::input::cursor::discover_callback const &
-	) = 0;
+	);
 
-	virtual fcppt::signal::auto_connection
+	fcppt::signal::auto_connection
 	cursor_remove_callback(
 		sge::input::cursor::remove_callback const &
-	) = 0;
+	);
 
-	//
-	// joypads
-	//
-	virtual fcppt::signal::auto_connection
+	fcppt::signal::auto_connection
 	joypad_discover_callback(
 		sge::input::joypad::discover_callback const &
-	) = 0;
+	);
 
-	virtual fcppt::signal::auto_connection
+	fcppt::signal::auto_connection
 	joypad_remove_callback(
 		sge::input::joypad::remove_callback const &
-	) = 0;
+	);
 
-	SGE_INPUT_SYMBOL
-	virtual ~processor() = 0;
+	sge::input::keyboard::discover_signal keyboard_discover_;
+
+	sge::input::keyboard::remove_signal keyboard_remove_;
+
+	sge::input::mouse::discover_signal mouse_discover_;
+
+	sge::input::mouse::remove_signal mouse_remove_;
+
+	sge::input::cursor::discover_signal cursor_discover_;
+
+	sge::input::cursor::remove_signal cursor_remove_;
+
+	sge::input::joypad::discover_signal joypad_discover_;
+
+	sge::input::joypad::remove_signal joypad_remove_;
 };
 
 }
