@@ -1,5 +1,6 @@
 set(
 	SGE_INPUT_FILES
+	include/sge/input/create_multi_system.hpp
 	include/sge/input/cursor/button_callback.hpp
 	include/sge/input/cursor/button_code.hpp
 	include/sge/input/cursor/button_code_to_string.hpp
@@ -218,6 +219,7 @@ set(
 	include/sge/input/system_fwd.hpp
 	include/sge/input/system_scoped_ptr.hpp
 	include/sge/input/system_unique_ptr.hpp
+	src/input/create_multi_system.cpp
 	src/input/cursor/button_code_to_string.cpp
 	src/input/cursor/button_event.cpp
 	src/input/cursor/default_choose.cpp
@@ -237,6 +239,9 @@ set(
 	src/input/include/sge/src/input/event/remove_impl.hpp
 	src/input/include/sge/src/input/info/container_impl.hpp
 	src/input/include/sge/src/input/info/instantiate_container.hpp
+	src/input/include/sge/src/input/multi_processor.hpp
+	src/input/include/sge/src/input/multi_system.hpp
+	src/input/include/sge/src/input/system_ptr_vector.hpp
 	src/input/joypad/absolute_axis.cpp
 	src/input/joypad/absolute_axis_event.cpp
 	src/input/joypad/absolute_axis_info.cpp
@@ -285,6 +290,8 @@ set(
 	src/input/mouse/info.cpp
 	src/input/mouse/manager.cpp
 	src/input/mouse/remove_event.cpp
+	src/input/multi_processor.cpp
+	src/input/multi_system.cpp
 	src/input/plugin.cpp
 	src/input/plugin/context.cpp
 	src/input/plugin/iterator.cpp
