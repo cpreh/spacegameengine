@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_INPUT_OBJECT_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_INPUT_OBJECT_HPP_INCLUDED
 
-#include <sge/input/plugin_shared_ptr.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/processor_scoped_ptr.hpp>
 #include <sge/input/system_fwd.hpp>
@@ -34,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/device_scoped_ptr.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/src/systems/plugin_cache_fwd.hpp>
+#include <sge/src/systems/modules/input/cached_plugins.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier_fwd.hpp>
 #include <sge/src/systems/modules/input/object_fwd.hpp>
 #include <sge/src/systems/modules/window/object_fwd.hpp>
@@ -81,7 +81,7 @@ public:
 	sge::input::mouse::device &
 	mouse_collector() const;
 private:
-	sge::input::plugin_shared_ptr const input_plugin_;
+	sge::systems::modules::input::cached_plugins const cached_plugins_;
 
 	sge::input::system_scoped_ptr const input_system_;
 

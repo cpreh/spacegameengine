@@ -82,6 +82,7 @@ set(
 	src/systems/include/sge/src/systems/modules/image2d/object.hpp
 	src/systems/include/sge/src/systems/modules/image2d/object_fwd.hpp
 	src/systems/include/sge/src/systems/modules/image2d/object_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/input/cached_plugins.hpp
 	src/systems/include/sge/src/systems/modules/input/cursor_modifier.hpp
 	src/systems/include/sge/src/systems/modules/input/cursor_modifier_fwd.hpp
 	src/systems/include/sge/src/systems/modules/input/cursor_modifier_unique_ptr.hpp
@@ -125,6 +126,7 @@ set(
 	src/systems/modules/charconv/wrapped.cpp
 	src/systems/modules/font/object.cpp
 	src/systems/modules/image2d/object.cpp
+	src/systems/modules/input/cached_plugins.cpp
 	src/systems/modules/input/cursor_modifier.cpp
 	src/systems/modules/input/object.cpp
 	src/systems/modules/renderer/device.cpp

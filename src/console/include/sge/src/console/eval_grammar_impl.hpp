@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CONSOLE_EVAL_GRAMMAR_IMPL_HPP_INCLUDED
 #define SGE_SRC_CONSOLE_EVAL_GRAMMAR_IMPL_HPP_INCLUDED
 
-#include <sge/src/console/eval_grammar_decl.hpp>
 #include <sge/font/text/lit.hpp>
+#include <sge/src/console/eval_grammar_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_char.hpp>
 #include <boost/spirit/include/qi_operator.hpp>

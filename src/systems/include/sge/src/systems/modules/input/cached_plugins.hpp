@@ -18,57 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_INPUT_MULTI_SYSTEM_HPP_INCLUDED
-#define SGE_SRC_INPUT_MULTI_SYSTEM_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_INPUT_CACHED_PLUGINS_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_INPUT_CACHED_PLUGINS_HPP_INCLUDED
 
-#include <sge/input/plugin_shared_ptr.hpp>
-#include <sge/input/processor_unique_ptr.hpp>
-#include <sge/input/system.hpp>
 #include <sge/plugin/manager_fwd.hpp>
-#include <sge/src/input/system_ptr_vector.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <sge/window/system_fwd.hpp>
+#include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
+namespace systems
+{
+namespace modules
+{
 namespace input
 {
 
-class multi_system
-:
-	public sge::input::system
+class cached_plugins
 {
 	FCPPT_NONCOPYABLE(
-		multi_system
+		cached_plugins
 	);
 public:
-	explicit
-	multi_system(
+	cached_plugins(
+		sge::systems::plugin_cache &,
 		sge::plugin::manager &
 	);
 
-	~multi_system();
-private:
-	sge::input::processor_unique_ptr
-	create_processor(
-		sge::window::object const &,
-		sge::window::system const &
-	);
-
-	typedef std::vector<
-		sge::input::plugin_shared_ptr
-	> plugin_vector;
-
-	plugin_vector plugins_;
-
-	sge::input::system_ptr_vector systems_;
+	~cached_plugins();
 };
 
+}
+}
 }
 }
 

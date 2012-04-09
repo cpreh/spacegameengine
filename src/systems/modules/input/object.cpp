@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/plugin.hpp>
+#include <sge/input/create_multi_system.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/cursor/demuxer.hpp>
@@ -30,10 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/collector.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/device_unique_ptr.hpp>
-#include <sge/plugin/context.hpp>
-#include <sge/plugin/manager.hpp>
-#include <sge/plugin/object.hpp>
-#include <sge/src/systems/add_plugin.hpp>
 #include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier_unique_ptr.hpp>
@@ -53,16 +49,14 @@ sge::systems::modules::input::object::object(
 	sge::systems::modules::window::object const &_window
 )
 :
-	input_plugin_(
-		sge::systems::add_plugin(
-			_plugin_cache,
-			_manager.plugin<
-				sge::input::system
-			>().load()
-		)
+	cached_plugins_(
+		_plugin_cache,
+		_manager
 	),
 	input_system_(
-		input_plugin_->get()()
+		sge::input::create_multi_system(
+			_manager
+		)
 	),
 	input_processor_(
 		input_system_->create_processor(
