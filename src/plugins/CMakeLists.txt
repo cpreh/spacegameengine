@@ -3,6 +3,7 @@ SET (LIBRARY_OUTPUT_PATH ${SGE_PLUGIN_BUILD_PATH})
 FIND_PACKAGE(DevIL)
 FIND_PACKAGE(D3D9)
 FIND_PACKAGE(DInput)
+FIND_PACKAGE(EVDEV)
 FIND_PACKAGE(Freetype)
 FIND_PACKAGE(GLEW)
 FIND_PACKAGE(OpenGL)
@@ -21,6 +22,9 @@ OPTION (ENABLE_D3D9 "Build the d3d9 render plugin" ${D3D9_FOUND})
 OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ${IL_FOUND})
 
 OPTION (ENABLE_DINPUT "Build the direct input 8 plugin" ${DINPUT_FOUND})
+
+#OPTION (ENABLE_EVDEV "Build the evdev input plugin" ${EVDEV_FOUND})
+OPTION (ENABLE_EVDEV "Build the evdev input plugin" OFF)
 
 OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ${FREETYPE_FOUND})
 
@@ -122,6 +126,10 @@ ENDIF ()
 
 IF (ENABLE_DINPUT)
 	ADD_SUBDIRECTORY (dinput)
+ENDIF ()
+
+IF (ENABLE_EVDEV)
+	ADD_SUBDIRECTORY (evdev)
 ENDIF ()
 
 IF (ENABLE_FREETYPE)

@@ -231,6 +231,8 @@ update_plugin d3d9
 
 update_plugin dinput
 
+update_plugin evdev
+
 update_plugin freetype
 
 update_plugin libpng
