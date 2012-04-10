@@ -82,7 +82,7 @@ template<
 	typename DiscoverEvent,
 	typename RemoveEvent
 >
-void
+bool
 sge::x11input::device::manager::config<
 	X11Object,
 	DiscoverEvent,
@@ -95,6 +95,8 @@ sge::x11input::device::manager::config<
 		initial_objects_,
 		_param
 	);
+
+	return true;
 }
 
 template<
@@ -102,7 +104,7 @@ template<
 	typename DiscoverEvent,
 	typename RemoveEvent
 >
-void
+bool
 sge::x11input::device::manager::config<
 	X11Object,
 	DiscoverEvent,
@@ -119,13 +121,17 @@ sge::x11input::device::manager::config<
 	);
 
 	if(
-		result
+		!result
 	)
-		discover_(
-			DiscoverEvent(
-				*result
-			)
-		);
+		return false;
+
+	discover_(
+		DiscoverEvent(
+			*result
+		)
+	);
+
+	return true;
 }
 
 template<
@@ -133,7 +139,7 @@ template<
 	typename DiscoverEvent,
 	typename RemoveEvent
 >
-void
+bool
 sge::x11input::device::manager::config<
 	X11Object,
 	DiscoverEvent,
@@ -148,11 +154,9 @@ sge::x11input::device::manager::config<
 		)
 	);
 
-	// It is possible that we had no use for this device
-	if(
-		it == objects_.end()
-	)
-		return;
+	FCPPT_ASSERT_ERROR(
+		it != objects_.end()
+	);
 
 	remove_(
 		RemoveEvent(
@@ -163,6 +167,8 @@ sge::x11input::device::manager::config<
 	objects_.erase(
 		it
 	);
+
+	return true;
 }
 
 template<

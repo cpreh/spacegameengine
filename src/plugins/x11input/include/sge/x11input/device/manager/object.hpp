@@ -21,12 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_MANAGER_OBJECT_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_MANAGER_OBJECT_HPP_INCLUDED
 
+#include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/use.hpp>
 #include <sge/x11input/device/manager/config_map.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
+#include <map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -68,7 +70,7 @@ private:
 	template<
 		typename Function
 	>
-	void
+	bool
 	update(
 		x11input::device::use,
 		Function const &
@@ -77,6 +79,13 @@ private:
 	awl::backends::x11::display &display_;
 
 	x11input::device::manager::config_map const config_;
+
+	typedef std::map<
+		sge::x11input::device::id,
+		sge::x11input::device::use
+	> use_map;
+
+	use_map uses_;
 };
 
 }

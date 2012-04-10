@@ -47,19 +47,19 @@ protected:
 	virtual ~config_base() = 0;
 public:
 	virtual
-	void
+	bool
 	initial(
 		x11input::create_parameters const &
 	) = 0;
 
 	virtual
-	void
+	bool
 	add(
 		x11input::create_parameters const &
 	) = 0;
 
 	virtual
-	void
+	bool
 	remove(
 		x11input::device::id
 	) = 0;

@@ -82,17 +82,17 @@ public:
 
 	~config();
 
-	void
+	bool
 	initial(
 		x11input::create_parameters const &
 	);
 
-	void
+	bool
 	add(
 		x11input::create_parameters const &
 	);
 
-	void
+	bool
 	remove(
 		x11input::device::id
 	);

@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/manager/object.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -47,7 +48,8 @@ sge::x11input::device::manager::object::object(
 	),
 	config_(
 		_config
-	)
+	),
+	uses_()
 {
 }
 
@@ -86,15 +88,15 @@ sge::x11input::device::manager::object::change(
 		_info.deviceid
 	);
 
-	x11input::device::use const device_use(
-		_info.use
-	);
-
 	if(
 		(_info.flags & XIMasterAdded)
 		|| (_info.flags & XISlaveAdded)
 	)
 	{
+		x11input::device::use const device_use(
+			_info.use
+		);
+
 		FCPPT_LOG_DEBUG(
 			sge::log::global(),
 			fcppt::log::_
@@ -109,17 +111,29 @@ sge::x11input::device::manager::object::change(
 			device_id
 		);
 
-		this->update(
-			device_use,
-			std::tr1::bind(
-				&x11input::device::manager::config_base::add,
-				std::tr1::placeholders::_1,
-				x11input::create_parameters(
-					device_id,
-					device_info.get()
+		if(
+			this->update(
+				device_use,
+				std::tr1::bind(
+					&x11input::device::manager::config_base::add,
+					std::tr1::placeholders::_1,
+					x11input::create_parameters(
+						device_id,
+						device_info.get()
+					)
 				)
 			)
-		);
+		)
+		{
+			FCPPT_ASSERT_ERROR(
+				uses_.insert(
+					std::make_pair(
+						device_id,
+						device_use
+					)
+				).second
+			);
+		}
 	}
 
 	if(
@@ -132,17 +146,31 @@ sge::x11input::device::manager::object::change(
 			fcppt::log::_
 				<< FCPPT_TEXT("x11input: Removed device with id: ")
 				<< device_id
-				<< FCPPT_TEXT(" and use: ")
-				<< device_use
 		);
 
+		use_map::iterator const it(
+			uses_.find(
+				device_id
+			)
+		);
+
+		// It is possible we had no use for this device
+		if(
+			it == uses_.end()
+		)
+			return;
+
 		this->update(
-			device_use,
+			it->second,
 			std::tr1::bind(
 				&x11input::device::manager::config_base::remove,
 				std::tr1::placeholders::_1,
 				device_id
 			)
+		);
+
+		uses_.erase(
+			it
 		);
 	}
 }
@@ -163,7 +191,7 @@ sge::x11input::device::manager::object::dispatch_initial()
 template<
 	typename Function
 >
-void
+bool
 sge::x11input::device::manager::object::update(
 	x11input::device::use const _use,
 	Function const &_function
@@ -180,6 +208,10 @@ sge::x11input::device::manager::object::update(
 		)
 	);
 
+	bool changed(
+		false
+	);
+
 	for(
 		device::manager::config_map::const_iterator it(
 			range.first
@@ -187,7 +219,11 @@ sge::x11input::device::manager::object::update(
 		it != range.second;
 		++it
 	)
-		_function(
-			*it->second
-		);
+		changed =
+			_function(
+				*it->second
+			)
+			|| changed;
+
+	return changed;
 }
