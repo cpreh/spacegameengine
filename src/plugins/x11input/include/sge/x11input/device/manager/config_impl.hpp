@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/manager/config.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
@@ -110,14 +111,21 @@ sge::x11input::device::manager::config<
 	x11input::create_parameters const &_param
 )
 {
-	discover_(
-		DiscoverEvent(
-			this->insert_into_map(
-				objects_,
-				_param
-			)
+	X11Object *const result(
+		this->insert_into_map(
+			objects_,
+			_param
 		)
 	);
+
+	if(
+		result
+	)
+		discover_(
+			DiscoverEvent(
+				*result
+			)
+		);
 }
 
 template<
@@ -140,9 +148,11 @@ sge::x11input::device::manager::config<
 		)
 	);
 
-	FCPPT_ASSERT_ERROR(
-		it != objects_.end()
-	);
+	// It is possible that we had no use for this device
+	if(
+		it == objects_.end()
+	)
+		return;
 
 	remove_(
 		RemoveEvent(
@@ -190,7 +200,7 @@ template<
 	typename DiscoverEvent,
 	typename RemoveEvent
 >
-X11Object &
+X11Object *
 sge::x11input::device::manager::config<
 	X11Object,
 	DiscoverEvent,
@@ -205,6 +215,11 @@ sge::x11input::device::manager::config<
 			_param
 		)
 	);
+
+	if(
+		!object
+	)
+		return fcppt::null_ptr();
 
 	x11input::device::id const id(
 		object->id()
@@ -230,7 +245,7 @@ sge::x11input::device::manager::config<
 	);
 
 	return
-		*it.first->second;
+		it.first->second;
 }
 
 #endif

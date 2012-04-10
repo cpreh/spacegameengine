@@ -105,7 +105,7 @@ private:
 		X11Object
 	> object_map;
 
-	X11Object &
+	X11Object *
 	insert_into_map(
 		object_map &,
 		x11input::create_parameters const &

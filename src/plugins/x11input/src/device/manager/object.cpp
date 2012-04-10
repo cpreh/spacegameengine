@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/log/global.hpp>
 #include <sge/x11input/create_parameters.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/use.hpp>
@@ -26,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/manager/config_map.hpp>
 #include <sge/x11input/device/manager/object.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -38,8 +42,12 @@ sge::x11input::device::manager::object::object(
 	device::manager::config_map const &_config
 )
 :
-	display_(_display),
-	config_(_config)
+	display_(
+		_display
+	),
+	config_(
+		_config
+	)
 {
 }
 
@@ -82,15 +90,25 @@ sge::x11input::device::manager::object::change(
 		_info.use
 	);
 
-	x11input::device::info::single const device_info(
-		display_,
-		device_id
-	);
-
 	if(
 		(_info.flags & XIMasterAdded)
 		|| (_info.flags & XISlaveAdded)
 	)
+	{
+		FCPPT_LOG_DEBUG(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("x11input: Discovered device with id: ")
+				<< device_id
+				<< FCPPT_TEXT(" and use: ")
+				<< device_use
+		);
+
+		x11input::device::info::single const device_info(
+			display_,
+			device_id
+		);
+
 		this->update(
 			device_use,
 			std::tr1::bind(
@@ -102,11 +120,22 @@ sge::x11input::device::manager::object::change(
 				)
 			)
 		);
+	}
 
 	if(
 		(_info.flags & XIMasterRemoved)
 		|| (_info.flags & XISlaveRemoved)
 	)
+	{
+		FCPPT_LOG_DEBUG(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("x11input: Removed device with id: ")
+				<< device_id
+				<< FCPPT_TEXT(" and use: ")
+				<< device_use
+		);
+
 		this->update(
 			device_use,
 			std::tr1::bind(
@@ -115,6 +144,7 @@ sge::x11input::device::manager::object::change(
 				device_id
 			)
 		);
+	}
 }
 
 void
