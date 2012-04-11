@@ -63,7 +63,7 @@ sge::camera::perspective_projection_from_viewport::~perspective_projection_from_
 void
 sge::camera::perspective_projection_from_viewport::viewport_callback()
 {
-	camera_.projection_matrix(
+	camera_.update_projection_matrix(
 		sge::camera::projection_matrix(
 			sge::renderer::projection::perspective_af(
 				sge::renderer::projection::aspect(

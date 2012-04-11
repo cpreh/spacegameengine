@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/camera/symbol.hpp>
 #include <sge/camera/update_duration.hpp>
+#include <sge/camera/base.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -32,6 +33,8 @@ namespace sge
 namespace camera
 {
 class SGE_CLASS_SYMBOL is_dynamic
+:
+	public virtual camera::base
 {
 FCPPT_NONCOPYABLE(
 	is_dynamic);

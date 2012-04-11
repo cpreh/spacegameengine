@@ -57,7 +57,7 @@ rectangle) that is done when the mouse moves by "one".
 */
 class SGE_CLASS_SYMBOL object
 :
-	public camera::base,
+	public virtual camera::base,
 	public camera::is_dynamic,
 	public camera::has_activation
 {

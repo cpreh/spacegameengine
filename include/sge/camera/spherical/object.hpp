@@ -56,7 +56,7 @@ namespace spherical
 {
 class SGE_CLASS_SYMBOL object
 :
-	public sge::camera::base,
+	public virtual sge::camera::base,
 	public sge::camera::has_activation,
 	public sge::camera::is_dynamic,
 	public sge::camera::has_mutable_projection
@@ -82,7 +82,7 @@ public:
 	/* override */
 	SGE_CAMERA_SYMBOL
 	void
-	projection_matrix(
+	update_projection_matrix(
 		sge::camera::projection_matrix const &);
 
 	/* override */
