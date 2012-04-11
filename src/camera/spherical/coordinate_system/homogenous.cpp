@@ -18,46 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_HAS_ACTIVATION_HPP_INCLUDED
-#define SGE_CAMERA_HAS_ACTIVATION_HPP_INCLUDED
+#include <sge/camera/spherical/coordinate_system/homogenous.hpp>
+#include <sge/camera/spherical/coordinate_system/object.hpp>
 
-#include <sge/class_symbol.hpp>
-#include <sge/camera/base.hpp>
-#include <sge/camera/has_activation.hpp>
-#include <sge/camera/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-
-
-namespace sge
+sge::camera::spherical::coordinate_system::object const
+sge::camera::spherical::coordinate_system::homogenous(
+	sge::renderer::scalar const v)
 {
-namespace camera
-{
-class SGE_CLASS_SYMBOL has_activation
-:
-	public virtual camera::base
-{
-FCPPT_NONCOPYABLE(
-	has_activation);
-protected:
-	SGE_CAMERA_SYMBOL
-	explicit
-	has_activation();
-public:
-	virtual bool
-	is_active() const = 0;
-
-	virtual void
-	is_active(
-		bool) = 0;
-
-	void
-	toggle_is_active();
-
-	SGE_CAMERA_SYMBOL
-	virtual ~has_activation() = 0;
-};
+	return
+		sge::camera::spherical::coordinate_system::object(
+			spherical::coordinate_system::azimuth(
+				v),
+			spherical::coordinate_system::inclination(
+				v),
+			spherical::coordinate_system::radius(
+				v));
 }
-}
-
-#endif
-

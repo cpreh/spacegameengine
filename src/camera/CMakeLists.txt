@@ -68,6 +68,7 @@ set(
 	include/sge/camera/spherical/action/optional_key_code.hpp
 	include/sge/camera/spherical/action/wasd_mapping.hpp
 	include/sge/camera/spherical/coordinate_system/azimuth.hpp
+	include/sge/camera/spherical/coordinate_system/homogenous.hpp
 	include/sge/camera/spherical/coordinate_system/inclination.hpp
 	include/sge/camera/spherical/coordinate_system/look_down_positive_z.hpp
 	include/sge/camera/spherical/coordinate_system/null.hpp
@@ -108,6 +109,7 @@ set(
 	src/camera/perspective_projection_from_viewport.cpp
 	src/camera/spherical/action/mapping.cpp
 	src/camera/spherical/action/wasd_mapping.cpp
+	src/camera/spherical/coordinate_system/homogenous.cpp
 	src/camera/spherical/coordinate_system/look_down_positive_z.cpp
 	src/camera/spherical/coordinate_system/null.cpp
 	src/camera/spherical/coordinate_system/object.cpp

@@ -67,12 +67,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/caps/object.hpp>
-#include <sge/renderer/index/i16.hpp>
-#include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/glsl/geometry_shader.hpp>
 #include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/vertex_shader.hpp>
+#include <sge/renderer/index/i16.hpp>
+#include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/to_clear_flags_field.hpp>
 #include <awl/window/instance_fwd.hpp>
