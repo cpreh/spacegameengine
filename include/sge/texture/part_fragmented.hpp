@@ -77,15 +77,15 @@ public:
 	SGE_TEXTURE_SYMBOL
 	~part_fragmented();
 private:
-	renderer::lock_rect outer_area_;
+	renderer::lock_rect const outer_area_;
 
 	texture::fragmented &fragment_;
 
-	bool
+	bool const
 		need_atlasing_w_,
 		need_atlasing_h_;
 
-	renderer::lock_rect inner_area_;
+	renderer::lock_rect const inner_area_;
 };
 
 }

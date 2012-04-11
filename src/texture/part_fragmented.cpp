@@ -56,7 +56,8 @@ sge::texture::part_fragmented::part_fragmented(
 			need_atlasing_h_
 		)
 	)
-{}
+{
+}
 
 sge::texture::part_fragmented::~part_fragmented()
 {
