@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/member_map.hpp>
+#include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/src/font/bitmap/load_rect.hpp>
 #include <fcppt/text.hpp>
@@ -80,27 +81,35 @@ sge::font::bitmap::load_rect(
 
 	return image2d::rect(
 		image2d::rect::vector(
-			parse::json::get<
-				int
-			>(
-				first_elements[0]
+			static_cast<image2d::rect::value_type>(
+				parse::json::get<
+					parse::json::int_type
+				>(
+					first_elements[0]
+				)
 			),
-			parse::json::get<
-				int
-			>(
-				first_elements[1]
+			static_cast<image2d::rect::value_type>(
+				parse::json::get<
+					parse::json::int_type
+				>(
+					first_elements[1]
+				)
 			)
 		),
 		image2d::rect::dim(
-			parse::json::get<
-				int
-			>(
-				second_elements[0]
+			static_cast<image2d::rect::value_type>(
+				parse::json::get<
+					parse::json::int_type
+				>(
+					second_elements[0]
+				)
 			),
-			parse::json::get<
-				int
-			>(
-				second_elements[1]
+			static_cast<image2d::rect::value_type>(
+				parse::json::get<
+					parse::json::int_type
+				>(
+					second_elements[1]
+				)
 			)
 		)
 	);
