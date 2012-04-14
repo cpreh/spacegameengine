@@ -35,6 +35,7 @@ set(
 	include/sge/console/output_line_sequence.hpp
 	include/sge/console/pointed_history.hpp
 	include/sge/console/signal.hpp
+	include/sge/console/signal_fwd.hpp
 	include/sge/console/sprite_choices.hpp
 	include/sge/console/sprite_elements.hpp
 	include/sge/console/sprite_object.hpp

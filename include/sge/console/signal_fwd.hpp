@@ -18,24 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_QUIT_ON_ESCAPE_HPP_INCLUDED
-#define SGE_SYSTEMS_QUIT_ON_ESCAPE_HPP_INCLUDED
+#ifndef SGE_CONSOLE_SIGNAL_FWD_HPP_INCLUDED
+#define SGE_CONSOLE_SIGNAL_FWD_HPP_INCLUDED
 
-#include <sge/systems/instance_fwd.hpp>
-#include <sge/systems/symbol.hpp>
-#include <fcppt/signal/auto_connection_fwd.hpp>
+#include <sge/console/callback/function_type.hpp>
+#include <fcppt/signal/object_fwd.hpp>
+#include <fcppt/signal/unregister/base_fwd.hpp>
 
 
 namespace sge
 {
-namespace systems
+namespace console
 {
 
-SGE_SYSTEMS_SYMBOL
-fcppt::signal::auto_connection
-quit_on_escape(
-	sge::systems::instance const &
-);
+typedef
+fcppt::signal::object
+<
+	callback::function_type,
+	fcppt::signal::unregister::base
+>
+signal;
 
 }
 }

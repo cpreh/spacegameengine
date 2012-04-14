@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/function_map.hpp>
 #include <sge/console/message_callback.hpp>
 #include <sge/console/object.hpp>
+#include <sge/console/signal.hpp>
 #include <sge/console/callback/parameters.hpp>
 #include <sge/font/text/char_type.hpp>
 #include <sge/font/text/lit.hpp>
@@ -42,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_parse.hpp>
@@ -86,6 +88,10 @@ sge::console::object::object(
 {
 }
 FCPPT_PP_POP_WARNING
+
+sge::console::object::~object()
+{
+}
 
 fcppt::signal::auto_connection
 sge::console::object::insert(

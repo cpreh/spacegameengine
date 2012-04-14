@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/string.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
+#include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
 
@@ -52,6 +53,9 @@ public:
 	object(
 		font::text::char_type prefix
 	);
+
+	SGE_CONSOLE_SYMBOL
+	~object();
 
 	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
 	insert(

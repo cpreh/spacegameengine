@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/signal.hpp>
 #include <sge/font/text/string.hpp>
 
+
 sge::console::function::function(
 	font::text::string const &_short_description,
 	font::text::string const &_long_description

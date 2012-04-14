@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/mod_state_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/auto_connection_fwd.hpp>
 
 
 namespace sge
