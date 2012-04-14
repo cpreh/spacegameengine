@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/mainloop/dispatcher_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -127,10 +126,6 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	sge::viewport::manager &
 	viewport_manager() const;
-
-	SGE_SYSTEMS_SYMBOL
-	awl::mainloop::dispatcher &
-	awl_dispatcher() const;
 private:
 	typedef
 	fcppt::scoped_ptr<

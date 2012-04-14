@@ -28,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/mainloop/dispatcher_fwd.hpp>
-#include <awl/mainloop/dispatcher_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -62,15 +60,10 @@ public:
 	sge::window::object &
 	window() const;
 
-	awl::mainloop::dispatcher &
-	awl_dispatcher() const;
-
 	void
 	post_init();
 private:
 	sge::systems::modules::window::base_scoped_ptr const base_;
-
-	awl::mainloop::dispatcher_scoped_ptr const dispatcher_;
 
 	bool const show_on_post_;
 

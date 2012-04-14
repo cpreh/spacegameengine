@@ -25,8 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/wrapped_window.hpp>
 #include <sge/window/parameters.hpp>
-#include <awl/mainloop/io_service_fwd.hpp>
-#include <awl/mainloop/optional_io_service_ref.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -60,12 +58,6 @@ public:
 
 	SGE_SYSTEMS_SYMBOL
 	window &
-	io_service(
-		awl::mainloop::io_service &
-	);
-
-	SGE_SYSTEMS_SYMBOL
-	window &
 	dont_show();
 
 	SGE_SYSTEMS_SYMBOL
@@ -75,9 +67,6 @@ public:
 	parameter_variant const &
 	parameter() const;
 
-	awl::mainloop::optional_io_service_ref const
-	io_service() const;
-
 	bool
 	show() const;
 
@@ -85,8 +74,6 @@ public:
 	quit() const;
 private:
 	parameter_variant const parameter_;
-
-	awl::mainloop::optional_io_service_ref io_service_;
 
 	bool show_;
 

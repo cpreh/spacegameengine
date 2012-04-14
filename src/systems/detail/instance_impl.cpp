@@ -53,7 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/mainloop/dispatcher_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -385,10 +384,4 @@ sge::viewport::manager &
 sge::systems::detail::instance_impl::viewport_manager() const
 {
 	return renderer_device_->viewport_manager();
-}
-
-awl::mainloop::dispatcher &
-sge::systems::detail::instance_impl::awl_dispatcher() const
-{
-	return window_->awl_dispatcher();
 }

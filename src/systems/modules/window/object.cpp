@@ -22,14 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/base.hpp>
 #include <sge/src/systems/modules/window/make_base.hpp>
 #include <sge/src/systems/modules/window/object.hpp>
-#include <sge/src/systems/modules/window/optional_dispatcher_ref.hpp>
 #include <sge/src/systems/modules/window/quit.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
-#include <awl/mainloop/dispatcher.hpp>
-#include <awl/mainloop/dispatcher_unique_ptr.hpp>
-#include <awl/mainloop/io_service.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
@@ -49,19 +45,6 @@ sge::systems::modules::window::object::object(
 			_renderer_system
 		)
 	),
-	dispatcher_(
-		_parameters.io_service()
-		?
-			_parameters.io_service()->create_dispatcher(
-				base_->system().awl_system(),
-				std::tr1::bind(
-					&sge::window::system::poll,
-					&base_->system()
-				)
-			)
-		:
-			awl::mainloop::dispatcher_unique_ptr()
-	),
 	show_on_post_(
 		_parameters.show()
 	),
@@ -76,14 +59,7 @@ sge::systems::modules::window::object::object(
 				),
 				fcppt::ref(
 					base_->window()
-				),
-				dispatcher_
-				?
-					sge::systems::modules::window::optional_dispatcher_ref(
-						*dispatcher_
-					)
-				:
-					sge::systems::modules::window::optional_dispatcher_ref()
+				)
 			)
 		:
 			fcppt::unique_ptr<
@@ -107,12 +83,6 @@ sge::window::object &
 sge::systems::modules::window::object::window() const
 {
 	return base_->window();
-}
-
-awl::mainloop::dispatcher &
-sge::systems::modules::window::object::awl_dispatcher() const
-{
-	return *dispatcher_;
 }
 
 void

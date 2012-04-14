@@ -56,7 +56,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/mainloop/dispatcher_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -173,9 +172,6 @@ public:
 
 	sge::viewport::manager &
 	viewport_manager() const;
-
-	awl::mainloop::dispatcher &
-	awl_dispatcher() const;
 private:
 	sge::plugin::manager plugin_manager_;
 

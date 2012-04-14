@@ -125,12 +125,6 @@ add_sge_console_example(
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-add_sge_example(
-	asio_window
-	"sgeinput;sgesystems;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
-
 add_sge_console_example(
 	audio_minimal
 	"sgeaudio;sgeconfig;sgeplugin"

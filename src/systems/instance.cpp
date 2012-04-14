@@ -201,9 +201,3 @@ sge::systems::instance::viewport_manager() const
 {
 	return impl_->viewport_manager();
 }
-
-awl::mainloop::dispatcher &
-sge::systems::instance::awl_dispatcher() const
-{
-	return impl_->awl_dispatcher();
-}
