@@ -30,14 +30,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/cursor/remove_signal.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
+#include <sge/input/joypad/discover_signal.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
+#include <sge/input/joypad/remove_signal.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/discover_signal.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
+#include <sge/input/keyboard/remove_signal.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/discover_signal.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
+#include <sge/input/mouse/remove_signal.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <awl/backends/windows/system/event/handle_fwd.hpp>
@@ -196,9 +201,19 @@ private:
 
 	sge::input::cursor::discover_signal cursor_discover_;
 
+	sge::input::cursor::remove_signal cursor_remove_;
+
 	sge::input::keyboard::discover_signal keyboard_discover_;
 
+	sge::input::keyboard::remove_signal keyboard_remove_;
+
 	sge::input::mouse::discover_signal mouse_discover_;
+
+	sge::input::mouse::remove_signal mouse_remove_;
+
+	sge::input::joypad::discover_signal joypad_discover_;
+
+	sge::input::joypad::remove_signal joypad_remove_;
 
 	awl::backends::windows::window::event::scoped_user_message const init_message_;
 

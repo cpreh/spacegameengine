@@ -124,8 +124,13 @@ sge::dinput::processor::processor(
 		false
 	),
 	cursor_discover_(),
+	cursor_remove_(),
 	keyboard_discover_(),
+	keyboard_remove_(),
 	mouse_discover_(),
+	mouse_remove_(),
+	joypad_discover_(),
+	joypad_remove_(),
 	init_message_(
 		event_processor_
 	),
@@ -205,7 +210,10 @@ sge::dinput::processor::keyboard_remove_callback(
 	input::keyboard::remove_callback const &_callback
 )
 {
-	return fcppt::signal::auto_connection();
+	return
+		keyboard_remove_.connect(
+			_callback
+		);
 }
 
 fcppt::signal::auto_connection
@@ -224,7 +232,10 @@ sge::dinput::processor::mouse_remove_callback(
 	input::mouse::remove_callback const &_callback
 )
 {
-	return fcppt::signal::auto_connection();
+	return
+		mouse_remove_.connect(
+			_callback
+		);
 }
 
 fcppt::signal::auto_connection
@@ -240,10 +251,13 @@ sge::dinput::processor::cursor_discover_callback(
 
 fcppt::signal::auto_connection
 sge::dinput::processor::cursor_remove_callback(
-	input::cursor::remove_callback const &
+	input::cursor::remove_callback const &_callback
 )
 {
-	return fcppt::signal::auto_connection();
+	return
+		cursor_remove_.connect(
+			_callback
+		);
 }
 
 fcppt::signal::auto_connection
@@ -251,7 +265,10 @@ sge::dinput::processor::joypad_discover_callback(
 	input::joypad::discover_callback const &_callback
 )
 {
-	return fcppt::signal::auto_connection();
+	return
+		joypad_discover_.connect(
+			_callback
+		);
 }
 
 fcppt::signal::auto_connection
@@ -259,7 +276,10 @@ sge::dinput::processor::joypad_remove_callback(
 	input::joypad::remove_callback const &_callback
 )
 {
-	return fcppt::signal::auto_connection();
+	return
+		joypad_remove_.connect(
+			_callback
+		);
 }
 
 awl::backends::windows::window::event::return_type
