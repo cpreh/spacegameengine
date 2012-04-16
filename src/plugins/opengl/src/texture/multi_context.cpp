@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/get_int.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
@@ -61,16 +62,24 @@ sge::opengl::texture::multi_context::multi_context()
 	max_level_(
 		is_native_
 		?
-			std::max(
-				GL_MAX_TEXTURE_COORDS,
-				GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
+			std::min(
+				opengl::get_int(
+					GL_MAX_TEXTURE_COORDS
+				),
+				opengl::get_int(
+					GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
+				)
 			)
 		:
 			is_arb_
 			?
-				std::max(
-					GL_MAX_TEXTURE_COORDS_ARB,
-					GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS_ARB
+				std::min(
+					opengl::get_int(
+						GL_MAX_TEXTURE_COORDS_ARB
+					),
+					opengl::get_int(
+						GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS_ARB
+					)
 				)
 			:
 				0
