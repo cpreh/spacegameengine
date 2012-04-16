@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/glsl/context.hpp>
 #include <sge/opengl/texture/context.hpp>
+#include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -67,7 +68,15 @@ sge::opengl::create_caps(
 
 	opengl::texture::context const &texture_context(
 		context::use<
-			texture::context
+			opengl::texture::context
+		>(
+			_context
+		)
+	);
+
+	opengl::texture::multi_context const &texture_multi_context(
+		context::use<
+			opengl::texture::multi_context
 		>(
 			_context
 		)
@@ -75,7 +84,7 @@ sge::opengl::create_caps(
 
 	opengl::texture::volume_context const &volume_texture_context(
 		context::use<
-			texture::volume_context
+			opengl::texture::volume_context
 		>(
 			_context
 		)
@@ -168,9 +177,7 @@ sge::opengl::create_caps(
 			fcppt::strong_typedef_construct_cast<
 				sge::renderer::caps::texture_stages
 			>(
-				opengl::get_int(
-					GL_MAX_TEXTURE_UNITS
-				)
+				texture_multi_context.max_level()
 			)
 		);
 }

@@ -61,7 +61,7 @@ public:
 
 	typedef void needs_before;
 
-	static context::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	bool const
 		is_native_,
