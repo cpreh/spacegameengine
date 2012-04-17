@@ -70,12 +70,9 @@ sge::opengl::texture::funcs::set_active_level(
 	}
 
 	if(
-		_stage.get() >=
-		static_cast<
-			sge::renderer::texture::stage::value_type
-		>(
-			context.max_level()
-		)
+		_stage.get()
+		>=
+		context.max_level().get()
 	)
 	{
 		FCPPT_LOG_WARNING(

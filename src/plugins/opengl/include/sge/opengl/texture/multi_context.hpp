@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/texture/multi_context_fwd.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -56,7 +57,7 @@ public:
 	PFNGLCLIENTACTIVETEXTUREPROC
 	client_active_texture() const;
 
-	GLint
+	sge::renderer::caps::texture_stages const
 	max_level() const;
 
 	typedef void needs_before;
@@ -71,7 +72,7 @@ private:
 
 	PFNGLCLIENTACTIVETEXTUREPROC const client_active_texture_;
 
-	GLint const max_level_;
+	sge::renderer::caps::texture_stages const max_level_;
 };
 
 }

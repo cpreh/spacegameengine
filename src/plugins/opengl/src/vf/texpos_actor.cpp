@@ -28,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/convert_element_type.hpp>
 #include <sge/opengl/vf/texpos_actor.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
-
 
 sge::opengl::vf::texpos_actor::texpos_actor(
 	vf::actor_parameters const &_param,
@@ -84,15 +84,9 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 			FCPPT_TEXT("multiple texture coordinates are not supported!")
 		);
 	else if(
-		index_
+		index_.get()
 		>=
-		renderer::texture::stage(
-			static_cast<
-				renderer::texture::stage::value_type
-			>(
-				texture_context.max_level()
-			)
-		)
+		texture_context.max_level().get()
 	)
 		throw renderer::exception(
 			(

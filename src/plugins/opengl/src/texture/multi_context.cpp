@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
 #include <fcppt/null_ptr.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
@@ -60,29 +62,33 @@ sge::opengl::texture::multi_context::multi_context()
 				fcppt::null_ptr()
 	),
 	max_level_(
-		is_native_
-		?
-			std::min(
-				opengl::get_int(
-					GL_MAX_TEXTURE_COORDS
-				),
-				opengl::get_int(
-					GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
-				)
-			)
-		:
-			is_arb_
+		fcppt::strong_typedef_construct_cast<
+			sge::renderer::caps::texture_stages
+		>(
+			is_native_
 			?
 				std::min(
 					opengl::get_int(
-						GL_MAX_TEXTURE_COORDS_ARB
+						GL_MAX_TEXTURE_COORDS
 					),
 					opengl::get_int(
-						GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS_ARB
+						GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
 					)
 				)
 			:
-				0
+				is_arb_
+				?
+					std::min(
+						opengl::get_int(
+							GL_MAX_TEXTURE_COORDS_ARB
+						),
+						opengl::get_int(
+							GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS_ARB
+						)
+					)
+				:
+					1
+		)
 	)
 {
 }
@@ -111,7 +117,7 @@ sge::opengl::texture::multi_context::client_active_texture() const
 	return client_active_texture_;
 }
 
-GLint
+sge::renderer::caps::texture_stages const
 sge::opengl::texture::multi_context::max_level() const
 {
 	return max_level_;

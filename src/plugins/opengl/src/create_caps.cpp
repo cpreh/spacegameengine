@@ -43,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/object_unique_ptr.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
-#include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
@@ -174,10 +173,6 @@ sge::opengl::create_caps(
 					GL_MAX_LIGHTS
 				)
 			),
-			fcppt::strong_typedef_construct_cast<
-				sge::renderer::caps::texture_stages
-			>(
-				texture_multi_context.max_level()
-			)
+			texture_multi_context.max_level()
 		);
 }
