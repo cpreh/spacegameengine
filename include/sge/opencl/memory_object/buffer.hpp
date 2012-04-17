@@ -60,13 +60,13 @@ public:
 	SGE_OPENCL_SYMBOL cl_mem
 	impl();
 
-	SGE_OPENCL_SYMBOL memory_object::byte_size::value_type
+	SGE_OPENCL_SYMBOL memory_object::byte_size const
 	byte_size() const;
 
 	SGE_OPENCL_SYMBOL ~buffer();
 private:
 	cl_mem impl_;
-	memory_object::byte_size::value_type const byte_size_;
+	memory_object::byte_size const byte_size_;
 };
 }
 }

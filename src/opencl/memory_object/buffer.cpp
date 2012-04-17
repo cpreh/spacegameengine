@@ -36,7 +36,7 @@ sge::opencl::memory_object::buffer::buffer(
 :
 	impl_(0),
 	byte_size_(
-		_byte_size.get())
+		_byte_size)
 {
 	cl_int error_code;
 	impl_ =
@@ -85,7 +85,7 @@ sge::opencl::memory_object::buffer::impl()
 	return impl_;
 }
 
-sge::opencl::memory_object::byte_size::value_type
+sge::opencl::memory_object::byte_size const
 sge::opencl::memory_object::buffer::byte_size() const
 {
 	return byte_size_;

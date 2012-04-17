@@ -179,7 +179,7 @@ boost::enable_if
 			boost::is_same<T,sge::parse::json::value>
 		>
 	>,
-	T const
+	T const &
 >::type
 convert_from(
 	sge::parse::json::value const &);
@@ -456,7 +456,7 @@ boost::enable_if
 			boost::is_same<T,sge::parse::json::value>
 		>
 	>,
-	T const
+	T const &
 >::type
 sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
