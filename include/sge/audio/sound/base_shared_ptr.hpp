@@ -18,16 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_FIRST_PERSON_OBJECT_FWD_HPP_INCLUDED
-#define SGE_CAMERA_FIRST_PERSON_OBJECT_FWD_HPP_INCLUDED
+#ifndef SGE_AUDIO_SOUND_BASE_SHARED_PTR_HPP_INCLUDED
+#define SGE_AUDIO_SOUND_BASE_SHARED_PTR_HPP_INCLUDED
+
+#include <sge/audio/sound/base_fwd.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
 
 namespace sge
 {
-namespace camera
+namespace audio
 {
-namespace first_person
+namespace sound
 {
-class object;
+typedef
+fcppt::shared_ptr<
+	sge::audio::sound::base
+>
+base_shared_ptr;
 }
 }
 }
