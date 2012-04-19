@@ -234,6 +234,9 @@ void
 sge::camera::first_person::object::mouse_axis_callback(
 	sge::input::mouse::axis_event const &_mouse_axis_event)
 {
+	if(!this->is_active())
+		return;
+
 	sge::renderer::scalar const scaled_axis_value =
 		mouse_speed_multiplier_.get() *
 		static_cast<sge::renderer::scalar>(
