@@ -18,26 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_STENCIL_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_STENCIL_BUFFER_HPP_INCLUDED
+#include <sge/opengl/glx/visual/rgb_triple.hpp>
 
-#include <sge/renderer/depth_stencil_buffer.hpp>
-#include <awl/window/stencil_buffer.hpp>
 
-namespace sge
+sge::opengl::glx::visual::rgb_triple::rgb_triple(
+	sge::opengl::glx::visual::rgb_triple::red_bits const _red,
+	sge::opengl::glx::visual::rgb_triple::green_bits const _green,
+	sge::opengl::glx::visual::rgb_triple::blue_bits const _blue
+)
+:
+	red_(
+		_red
+	),
+	green_(
+		_green
+	),
+	blue_(
+		_blue
+	)
 {
-namespace opengl
+}
+
+sge::opengl::glx::visual::rgb_triple::red_bits const
+sge::opengl::glx::visual::rgb_triple::red() const
 {
-namespace convert
+	return
+		red_;
+}
+
+sge::opengl::glx::visual::rgb_triple::green_bits const
+sge::opengl::glx::visual::rgb_triple::green() const
 {
-
-awl::window::stencil_buffer::type
-stencil_buffer(
-	sge::renderer::depth_stencil_buffer::type
-);
-
-}
-}
+	return
+		green_;
 }
 
-#endif
+sge::opengl::glx::visual::rgb_triple::blue_bits const
+sge::opengl::glx::visual::rgb_triple::blue() const
+{
+	return
+		blue_;
+}

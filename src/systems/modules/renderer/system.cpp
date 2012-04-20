@@ -27,10 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/renderer/system.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/window/parameters_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <awl/window/instance.hpp>
-#include <awl/window/instance_unique_ptr.hpp>
+#include <awl/visual/object.hpp>
+#include <awl/visual/object_unique_ptr.hpp>
 
 
 sge::systems::modules::renderer::system::system(
@@ -63,16 +62,14 @@ sge::systems::modules::renderer::system::~system()
 {
 }
 
-awl::window::instance_unique_ptr
-sge::systems::modules::renderer::system::create_window(
-	awl::system::object &_awl_system,
-	sge::window::parameters const &_parameters
+awl::visual::object_unique_ptr
+sge::systems::modules::renderer::system::create_visual(
+	awl::system::object &_awl_system
 )
 {
 	return
-		renderer_system_->create_window(
+		renderer_system_->create_visual(
 			_awl_system,
-			_parameters,
 			renderer_parameters_
 		);
 }

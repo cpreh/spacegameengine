@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/resolution.hpp>
 #include <sge/opengl/xrandr/set_resolution.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/move.hpp>
 
 
 sge::opengl::xrandr::resolution::resolution(
-	awl::backends::x11::window::instance &_window,
+	awl::backends::x11::window::object &_window,
 	sge::opengl::xrandr::configuration_unique_ptr _config,
 	sge::opengl::xrandr::mode const &_new_mode,
 	sge::opengl::xrandr::mode const &_old_mode

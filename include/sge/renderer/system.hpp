@@ -27,10 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/system_fwd.hpp>
-#include <sge/window/parameters_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <awl/window/instance_fwd.hpp>
-#include <awl/window/instance_unique_ptr.hpp>
+#include <awl/visual/object_unique_ptr.hpp>
+#include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -40,11 +39,13 @@ namespace renderer
 {
 
 /**
- * \brief Creates sge::renderer::device objects and renderable windows
- *
- * The core class returned by a renderer plugin. In order to render anything,
- * you have to create an sge::renderer::device through this class. If you don't
- * have a renderable window to pass, you can also create one.
+
+\brief Creates sge::renderer::device objects and renderable visuals
+
+The core class returned by a renderer plugin. In order to render anything, you
+have to create an sge::renderer::device through this class. If you don't have a
+renderable window to pass, you can create a renderable visual that can be used
+to create one.
 */
 class SGE_CLASS_SYMBOL system
 {
@@ -67,29 +68,29 @@ public:
 	 * \throw sge::renderer::exception if anything goes wrong
 	 * \return An sge::renderer::device_ptr that may not be null
 	*/
-	virtual sge::renderer::device_unique_ptr
+	virtual
+	sge::renderer::device_unique_ptr
 	create_renderer(
 		sge::renderer::parameters const &params,
 		sge::renderer::adapter adapter,
-		awl::window::instance &window
+		awl::window::object &window
 	) = 0;
 
 	/**
-	 * \brief Creates a renderable window that satisfies the requirements of \a params
+	 * \brief Creates a renderable visual that satisfies the requirements of \a params
 	 *
-	 * Creates a renderable window that satisfies the requirements of \a
+	 * Creates a renderable visual that satisfies the requirements of \a
 	 * params and can be used with sge::renderer::system::create_renderer.
 	 *
 	 * \param awl_system The awl system that is used to create windows
-	 * \param window_params Basic window parameters like title, dim, size hints, etc.
 	 * \param params The renderer parameters to satisfy
 	 * \throw sge::renderer::exception if anything goes wrong
-	 * \return An awl::window::instance_unique_ptr that may not be null
+	 * \return An awl::visual::object_unique_ptr that may not be null
 	*/
-	virtual awl::window::instance_unique_ptr
-	create_window(
+	virtual
+	awl::visual::object_unique_ptr
+	create_visual(
 		awl::system::object &awl_system,
-		sge::window::parameters const &window_params,
 		sge::renderer::parameters const &params
 	) = 0;
 

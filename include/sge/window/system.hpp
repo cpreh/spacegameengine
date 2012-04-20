@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/system/event/processor_fwd.hpp>
-#include <awl/window/instance_fwd.hpp>
+#include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -69,7 +69,7 @@ public:
 	SGE_WINDOW_SYMBOL
 	sge::window::object_unique_ptr
 	create(
-		awl::window::instance &,
+		awl::window::object &,
 		awl::window::event::processor &
 	) const;
 

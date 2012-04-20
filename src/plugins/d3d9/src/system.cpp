@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/window/to_awl_parameters.hpp>
 #include <awl/system/object.hpp>
-#include <awl/window/instance.hpp>
-#include <awl/window/instance_unique_ptr.hpp>
+#include <awl/window/object.hpp>
+#include <awl/window/object_unique_ptr.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -61,7 +61,7 @@ sge::renderer::device_unique_ptr
 sge::d3d9::system::create_renderer(
 	renderer::parameters const &_param,
 	renderer::adapter const _adapter,
-	awl::window::instance &_window
+	awl::window::object &_window
 )
 {
 	return
@@ -81,7 +81,7 @@ sge::d3d9::system::create_renderer(
 		);
 }
 
-awl::window::instance_unique_ptr
+awl::window::object_unique_ptr
 sge::d3d9::system::create_window(
 	awl::system::object &_awl_system,
 	sge::window::parameters const &_window_params,

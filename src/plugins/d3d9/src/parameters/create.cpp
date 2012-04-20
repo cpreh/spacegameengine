@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <awl/backends/windows/window/instance.hpp>
-#include <awl/window/instance.hpp>
+#include <awl/window/object.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 D3DPRESENT_PARAMETERS const
 sge::d3d9::parameters::create(
 	renderer::parameters const &_param,
-	awl::window::instance  &_window
+	awl::window::object  &_window
 )
 {
 	sge::renderer::screen_size const back_buffer_size(

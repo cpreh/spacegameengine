@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/x11/resolution/instance.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/visual.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/visual/object.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -39,7 +39,7 @@ sge::opengl::x11::state::state(
 	opengl::context::object &_context,
 	renderer::parameters const &_param,
 	renderer::adapter const _adapter,
-	awl::backends::x11::window::instance &_window
+	awl::backends::x11::window::object &_window
 )
 :
 	device_state(),

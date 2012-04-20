@@ -18,26 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_VISUAL_DEPTH_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_VISUAL_DEPTH_HPP_INCLUDED
-
-#include <sge/renderer/visual_depth.hpp>
-#include <awl/window/bit_depth.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-namespace convert
-{
-
-awl::window::bit_depth::type
-visual_depth(
-	sge::renderer::visual_depth::type
-);
-
-}
-}
-}
-
+#include <sge/opengl/config.hpp>
+#include <sge/opengl/create_visual.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
+#include <awl/system/object_fwd.hpp>
+#include <awl/visual/object.hpp>
+#include <awl/visual/object_unique_ptr.hpp>
+#include <fcppt/config/platform.hpp>
+#if defined(SGE_OPENGL_HAVE_X11)
+#include <sge/opengl/glx/visual/create.hpp>
+#include <awl/backends/x11/system/object.hpp>
+#else
+#error "Implement me!"
 #endif
+
+
+awl::visual::object_unique_ptr
+sge::opengl::create_visual(
+	awl::system::object &_awl_system,
+	sge::renderer::parameters const &_parameters
+)
+{
+#if defined(SGE_OPENGL_HAVE_X11)
+	return
+		sge::opengl::glx::visual::create(
+			dynamic_cast<
+				awl::backends::x11::system::object &
+			>(
+				_awl_system
+			),
+			_parameters
+		);
+#else
+#error "Implement me!"
+#endif
+}

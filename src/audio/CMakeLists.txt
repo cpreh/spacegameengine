@@ -48,6 +48,7 @@ set(
 	include/sge/audio/sound/base.hpp
 	include/sge/audio/sound/base_fwd.hpp
 	include/sge/audio/sound/base_scoped_ptr.hpp
+	include/sge/audio/sound/base_shared_ptr.hpp
 	include/sge/audio/sound/base_unique_ptr.hpp
 	include/sge/audio/sound/nonpositional_parameters.hpp
 	include/sge/audio/sound/nonpositional_parameters_fwd.hpp

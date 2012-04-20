@@ -18,31 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/convert/depth_buffer.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
-#include <awl/window/depth_buffer.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/fullscreen.hpp>
 
 
-awl::window::depth_buffer::type
-sge::opengl::convert::depth_buffer(
-	sge::renderer::depth_stencil_buffer::type const _mode
+sge::renderer::fullscreen::fullscreen(
+	sge::renderer::display_mode const &_display_mode
 )
-{
-	switch(
-		_mode
+:
+	display_mode_(
+		_display_mode
 	)
-	{
-	case sge::renderer::depth_stencil_buffer::off:
-		return awl::window::depth_buffer::off;
-	case sge::renderer::depth_stencil_buffer::d16:
-		return awl::window::depth_buffer::depth16;
-	case sge::renderer::depth_stencil_buffer::d24s8:
-	case sge::renderer::depth_stencil_buffer::d24:
-		return awl::window::depth_buffer::depth24;
-	case sge::renderer::depth_stencil_buffer::d32:
-		return awl::window::depth_buffer::depth32;
-	}
+{
+}
 
-	FCPPT_ASSERT_UNREACHABLE;
+sge::renderer::display_mode const &
+sge::renderer::fullscreen::display_mode() const
+{
+	return display_mode_;
 }

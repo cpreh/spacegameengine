@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
-#include <awl/window/instance_fwd.hpp>
+#include <awl/window/object_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -52,7 +52,7 @@ public:
 		IDirect3D9 *,
 		renderer::adapter,
 		renderer::parameters const &,
-		awl::window::instance &
+		awl::window::object &
 	);
 
 	~device();

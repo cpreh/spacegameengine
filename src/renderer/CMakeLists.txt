@@ -8,6 +8,7 @@ set(
 	include/sge/renderer/basic_dim.hpp
 	include/sge/renderer/basic_lock_box.hpp
 	include/sge/renderer/basic_scoped_buffer_lock.hpp
+	include/sge/renderer/bit_count.hpp
 	include/sge/renderer/bit_depth.hpp
 	include/sge/renderer/bit_depth_bits.hpp
 	include/sge/renderer/bit_depth_bytes.hpp
@@ -49,6 +50,7 @@ set(
 	include/sge/renderer/const_vertex_buffer_ref_container.hpp
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
+	include/sge/renderer/depth_buffer_bits.hpp
 	include/sge/renderer/depth_stencil_buffer.hpp
 	include/sge/renderer/depth_stencil_format.hpp
 	include/sge/renderer/depth_stencil_surface.hpp
@@ -72,6 +74,8 @@ set(
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/first_index.hpp
 	include/sge/renderer/first_vertex.hpp
+	include/sge/renderer/fullscreen.hpp
+	include/sge/renderer/fullscreen_fwd.hpp
 	include/sge/renderer/glsl/char.hpp
 	include/sge/renderer/glsl/const_optional_program_ref.hpp
 	include/sge/renderer/glsl/const_optional_program_ref_fwd.hpp
@@ -220,6 +224,8 @@ set(
 	include/sge/renderer/npos.hpp
 	include/sge/renderer/onscreen_target.hpp
 	include/sge/renderer/onscreen_target_fwd.hpp
+	include/sge/renderer/optional_bit_count.hpp
+	include/sge/renderer/optional_bit_count_fwd.hpp
 	include/sge/renderer/optional_dim2.hpp
 	include/sge/renderer/optional_target_ref.hpp
 	include/sge/renderer/optional_target_ref_fwd.hpp
@@ -264,6 +270,8 @@ set(
 	include/sge/renderer/scoped_vertex_declaration_and_buffers.hpp
 	include/sge/renderer/scoped_vertex_lock.hpp
 	include/sge/renderer/screen_mode.hpp
+	include/sge/renderer/screen_mode_bit_depth.hpp
+	include/sge/renderer/screen_mode_fwd.hpp
 	include/sge/renderer/screen_size.hpp
 	include/sge/renderer/screen_unit.hpp
 	include/sge/renderer/screenshot.hpp
@@ -332,6 +340,7 @@ set(
 	include/sge/renderer/state/uint/type.hpp
 	include/sge/renderer/state/var.hpp
 	include/sge/renderer/state/var_fwd.hpp
+	include/sge/renderer/stencil_buffer_bits.hpp
 	include/sge/renderer/surface_index.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
@@ -566,8 +575,9 @@ set(
 	include/sge/renderer/viewport.hpp
 	include/sge/renderer/viewport_fwd.hpp
 	include/sge/renderer/viewport_size.hpp
-	include/sge/renderer/visual_depth.hpp
 	include/sge/renderer/vsync.hpp
+	include/sge/renderer/windowed.hpp
+	include/sge/renderer/windowed_fwd.hpp
 	src/renderer/active_target.cpp
 	src/renderer/aspect.cpp
 	src/renderer/aspect_from_viewport.cpp
@@ -583,12 +593,14 @@ set(
 	src/renderer/const_scoped_vertex_lock.cpp
 	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp
+	src/renderer/depth_buffer_bits.cpp
 	src/renderer/depth_stencil_surface.cpp
 	src/renderer/device.cpp
 	src/renderer/display_mode.cpp
 	src/renderer/display_mode_comparison.cpp
 	src/renderer/display_mode_output.cpp
 	src/renderer/exception.cpp
+	src/renderer/fullscreen.cpp
 	src/renderer/glsl/exception.cpp
 	src/renderer/glsl/from_fcppt_string.cpp
 	src/renderer/glsl/geometry_shader.cpp
@@ -691,6 +703,7 @@ set(
 	src/renderer/scoped_vertex_declaration.cpp
 	src/renderer/scoped_vertex_declaration_and_buffers.cpp
 	src/renderer/scoped_vertex_lock.cpp
+	src/renderer/screen_mode_bit_depth.cpp
 	src/renderer/screenshot.cpp
 	src/renderer/state/alpha_func.cpp
 	src/renderer/state/any_sort.cpp
@@ -727,6 +740,7 @@ set(
 	src/renderer/state/uint.cpp
 	src/renderer/state/uint/trampoline.cpp
 	src/renderer/state/uint/var.cpp
+	src/renderer/stencil_buffer_bits.cpp
 	src/renderer/system.cpp
 	src/renderer/target.cpp
 	src/renderer/target_base.cpp
@@ -796,6 +810,7 @@ set(
 	src/renderer/vf/dynamic/vector.cpp
 	src/renderer/vf/dynamic/view.cpp
 	src/renderer/viewport_size.cpp
+	src/renderer/windowed.cpp
 )
 
 include_directories(

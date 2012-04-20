@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/configuration.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #include <fcppt/assert/post.hpp>
 
 
 sge::opengl::xrandr::configuration::configuration(
-	awl::backends::x11::window::instance &_window
+	awl::backends::x11::window::object &_window
 )
 :
 	config_(

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/image.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::x11input::cursor::grab::grab(
-	awl::backends::x11::window::instance const &_window,
+	awl::backends::x11::window::object const &_window,
 	device::id const _id,
 	cursor::image const _image
 )

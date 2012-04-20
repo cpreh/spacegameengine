@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/event/processor_scoped_ptr.hpp>
 #include <awl/system/object_scoped_ptr.hpp>
 #include <awl/system/event/processor_scoped_ptr.hpp>
-#include <awl/window/instance_shared_ptr.hpp>
+#include <awl/visual/object_scoped_ptr.hpp>
+#include <awl/window/object_scoped_ptr.hpp>
 #include <awl/window/event/processor_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -70,7 +71,9 @@ private:
 
 	awl::event::processor_scoped_ptr const awl_event_processor_;
 
-	awl::window::instance_shared_ptr const awl_window_;
+	awl::visual::object_scoped_ptr const awl_visual_;
+
+	awl::window::object_scoped_ptr const awl_window_;
 
 	awl::window::event::processor_scoped_ptr const awl_window_event_processor_;
 

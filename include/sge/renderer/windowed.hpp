@@ -18,21 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EXTRACT_BIT_DEPTH_HPP_INCLUDED
-#define SGE_OPENGL_EXTRACT_BIT_DEPTH_HPP_INCLUDED
+#ifndef SGE_RENDERER_WINDOWED_HPP_INCLUDED
+#define SGE_RENDERER_WINDOWED_HPP_INCLUDED
 
-#include <sge/renderer/screen_mode.hpp>
-#include <awl/window/bit_depth.hpp>
+#include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/windowed_fwd.hpp>
+
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 
-awl::window::bit_depth::type
-extract_bit_depth(
-	renderer::screen_mode const &
-);
+class windowed
+{
+public:
+	SGE_RENDERER_SYMBOL
+	explicit
+	windowed(
+		sge::renderer::bit_depth::type
+	);
+
+	SGE_RENDERER_SYMBOL
+	sge::renderer::bit_depth::type
+	bit_depth() const;
+private:
+	sge::renderer::bit_depth::type bit_depth_;
+};
 
 }
 }

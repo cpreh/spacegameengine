@@ -20,28 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
-/*
-spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-#include <sge/camera/ortho_freelook/projection_rectangle_from_viewport.hpp>
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
+#include <sge/camera/ortho_freelook/projection_rectangle_from_viewport.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/file.hpp>
@@ -53,11 +34,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_transform.hpp>
+#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -165,7 +148,8 @@ try
 					window_dim)))
 		(sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::visual_depth::depth32,
+					sge::renderer::windowed(
+						sge::renderer::bit_depth::depth32),
 					sge::renderer::depth_stencil_buffer::off,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),

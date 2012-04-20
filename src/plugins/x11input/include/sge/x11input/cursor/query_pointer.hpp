@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/optional_position_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 
 
 namespace sge
@@ -35,7 +35,7 @@ namespace cursor
 
 sge::input::cursor::optional_position const
 query_pointer(
-	awl::backends::x11::window::instance const &,
+	awl::backends::x11::window::object const &,
 	device::id const &
 );
 

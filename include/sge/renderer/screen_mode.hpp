@@ -21,34 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCREEN_MODE_HPP_INCLUDED
 #define SGE_RENDERER_SCREEN_MODE_HPP_INCLUDED
 
-#include <sge/renderer/display_mode_fwd.hpp>
-#include <sge/renderer/visual_depth.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/fullscreen.hpp>
+#include <sge/renderer/screen_mode_fwd.hpp>
+#include <sge/renderer/windowed.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief A variant over two possible screen modes
- *
- * A screen mode is either windowed, which is represented by a
- * renderer::visual_depth parameter, or it is fullscreen, which is represented
- * by a renderer::display_mode.
-*/
-typedef fcppt::variant::object<
-	boost::mpl::vector2<
-		renderer::display_mode,
-		renderer::visual_depth::type
-	>
-> screen_mode;
-
-}
-}
 
 #endif

@@ -27,12 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system.hpp>
 #include <sge/log/global.hpp>
 #include <sge/media/all_extensions.hpp>
+#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/glsl/const_optional_program_ref.hpp>
 #include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/pixel_shader_scoped_ptr.hpp>
@@ -555,7 +557,8 @@ try
 					window_dim)))
 		(sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::visual_depth::depth32,
+					sge::renderer::windowed(
+						sge::renderer::bit_depth::depth32),
 					sge::renderer::depth_stencil_buffer::off,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),

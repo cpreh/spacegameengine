@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/window/symbol.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <awl/window/instance_unique_ptr.hpp>
+#include <awl/visual/object_fwd.hpp>
+#include <awl/window/object_unique_ptr.hpp>
 
 
 namespace sge
@@ -33,9 +34,10 @@ namespace window
 {
 
 SGE_WINDOW_SYMBOL
-awl::window::instance_unique_ptr
+awl::window::object_unique_ptr
 create_from_awl(
 	awl::system::object &,
+	awl::visual::object const &,
 	sge::window::parameters const &
 );
 

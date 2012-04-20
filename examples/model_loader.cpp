@@ -60,6 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/config/create_command_line_parameters.hpp>
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
 #include <sge/renderer/ambient_color.hpp>
+#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/const_scoped_vertex_lock.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
@@ -88,8 +89,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/viewport_size.hpp>
-#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/light/attenuation.hpp>
 #include <sge/renderer/light/constant_attenuation.hpp>
 #include <sge/renderer/light/index.hpp>
@@ -603,7 +604,8 @@ try
 					sge::window::dim(1024,768))))
 			(sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::visual_depth::depth32,
+					sge::renderer::windowed(
+						sge::renderer::bit_depth::depth32),
 					sge::renderer::depth_stencil_buffer::d24,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),

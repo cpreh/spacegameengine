@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -53,7 +53,7 @@ public:
 		opengl::context::object &,
 		renderer::parameters const &,
 		renderer::adapter,
-		awl::backends::x11::window::instance &
+		awl::backends::x11::window::object &
 	);
 
 	~state();
@@ -64,7 +64,7 @@ public:
 	void
 	swap_buffers();
 private:
-	awl::backends::x11::window::instance &window_;
+	awl::backends::x11::window::object &window_;
 
 	awl::backends::x11::display &display_;
 

@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/intern_atom.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #include <awl/backends/x11/window/root.hpp>
 #include <awl/backends/x11/window/event/object.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
@@ -77,9 +77,9 @@ sge::x11input::processor::processor(
 	),
 	x11_window_(
 		dynamic_cast<
-			awl::backends::x11::window::instance const &
+			awl::backends::x11::window::object const &
 		>(
-			_window.awl_instance()
+			_window.awl_object()
 		)
 	),
 	window_event_processor_(

@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/normal_sequence.hpp>
 #include <sge/model/md3/object.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
+#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/clear_flags.hpp>
 #include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
@@ -61,8 +62,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/viewport_size.hpp>
-#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
@@ -755,7 +756,8 @@ try
 					sge::window::dim(1024,768))))
 			(sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::visual_depth::depth32,
+					sge::renderer::windowed(
+						sge::renderer::bit_depth::depth32),
 					sge::renderer::depth_stencil_buffer::d24,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),

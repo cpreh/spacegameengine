@@ -18,20 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/create_visual.hpp>
 #include <sge/opengl/device.hpp>
-#include <sge/opengl/extract_bit_depth.hpp>
 #include <sge/opengl/system.hpp>
-#include <sge/opengl/convert/depth_buffer.hpp>
-#include <sge/opengl/convert/stencil_buffer.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device_unique_ptr.hpp>
-#include <sge/renderer/parameters.hpp>
-#include <sge/window/parameters_fwd.hpp>
-#include <sge/window/to_awl_parameters.hpp>
-#include <awl/system/object.hpp>
-#include <awl/window/instance.hpp>
-#include <awl/window/instance_unique_ptr.hpp>
-#include <awl/window/parameters.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
+#include <awl/system/object_fwd.hpp>
+#include <awl/visual/object.hpp>
+#include <awl/visual/object_unique_ptr.hpp>
+#include <awl/window/object_fwd.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 
@@ -46,9 +43,9 @@ sge::opengl::system::~system()
 
 sge::renderer::device_unique_ptr
 sge::opengl::system::create_renderer(
-	renderer::parameters const &_param,
-	renderer::adapter const _adapter,
-	awl::window::instance &_wnd
+	sge::renderer::parameters const &_parameters,
+	sge::renderer::adapter const _adapter,
+	awl::window::object &_window
 )
 {
 	return
@@ -56,44 +53,26 @@ sge::opengl::system::create_renderer(
 			fcppt::make_unique_ptr<
 				sge::opengl::device
 			>(
-				_param,
+				fcppt::cref(
+					_parameters
+				),
 				_adapter,
 				fcppt::ref(
-					_wnd
+					_window
 				)
 			)
 		);
 }
 
-awl::window::instance_unique_ptr
-sge::opengl::system::create_window(
-	awl::system::object &_system,
-	sge::window::parameters const &_wparam,
-	sge::renderer::parameters const &_rparam
+awl::visual::object_unique_ptr
+sge::opengl::system::create_visual(
+	awl::system::object &_awl_system,
+	sge::renderer::parameters const &_parameters
 )
 {
 	return
-		_system.create(
-			sge::window::to_awl_parameters(
-				_wparam
-			)
-			.has_opengl(
-				true
-			)
-			.bit_depth(
-				opengl::extract_bit_depth(
-					_rparam.screen_mode()
-				)
-			)
-			.stencil_buffer(
-				opengl::convert::stencil_buffer(
-					_rparam.depth_stencil_buffer()
-				)
-			)
-			.depth_buffer(
-				opengl::convert::depth_buffer(
-					_rparam.depth_stencil_buffer()
-				)
-			)
+		sge::opengl::create_visual(
+			_awl_system,
+			_parameters
 		);
 }

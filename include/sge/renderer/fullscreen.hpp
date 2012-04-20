@@ -18,25 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_DEPTH_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_DEPTH_BUFFER_HPP_INCLUDED
+#ifndef SGE_RENDERER_FULLSCREEN_HPP_INCLUDED
+#define SGE_RENDERER_FULLSCREEN_HPP_INCLUDED
 
-#include <sge/renderer/depth_stencil_buffer.hpp>
-#include <awl/window/depth_buffer.hpp>
+#include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/fullscreen_fwd.hpp>
+#include <sge/renderer/symbol.hpp>
+
 
 namespace sge
 {
-namespace opengl
-{
-namespace convert
+namespace renderer
 {
 
-awl::window::depth_buffer::type
-depth_buffer(
-	sge::renderer::depth_stencil_buffer::type
-);
+class fullscreen
+{
+public:
+	SGE_RENDERER_SYMBOL
+	explicit
+	fullscreen(
+		sge::renderer::display_mode const &
+	);
 
-}
+	SGE_RENDERER_SYMBOL
+	sge::renderer::display_mode const &
+	display_mode() const;
+private:
+	sge::renderer::display_mode display_mode_;
+};
+
 }
 }
 

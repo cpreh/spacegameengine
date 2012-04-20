@@ -58,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/optional_digit.hpp>
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/aspect.hpp>
+#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix_mode.hpp>
@@ -67,8 +68,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/target_base.hpp>
-#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
@@ -281,7 +282,9 @@ try
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::visual_depth::depth32,
+					sge::renderer::windowed(
+						sge::renderer::bit_depth::depth32
+					),
 					sge::renderer::depth_stencil_buffer::off,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling

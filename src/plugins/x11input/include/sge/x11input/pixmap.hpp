@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/pixmap_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/X.h>
@@ -42,7 +42,7 @@ class pixmap
 	);
 public:
 	explicit pixmap(
-		awl::backends::x11::window::instance const &
+		awl::backends::x11::window::object const &
 	);
 
 	~pixmap();

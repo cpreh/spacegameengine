@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <sge/x11input/pixmap.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
@@ -36,7 +36,7 @@ char const bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
 }
 
 sge::x11input::pixmap::pixmap(
-	awl::backends::x11::window::instance const &_window
+	awl::backends::x11::window::object const &_window
 )
 :
  	display_(

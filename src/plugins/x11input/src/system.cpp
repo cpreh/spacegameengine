@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/xi_2_1.hpp>
 #include <sge/x11input/xi_opcode.hpp>
 #include <sge/x11input/xi_version.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -60,11 +60,11 @@ sge::x11input::system::create_processor(
 	sge::window::system const &_window_system
 )
 {
-	awl::backends::x11::window::instance const &x11_window(
+	awl::backends::x11::window::object const &x11_window(
 		dynamic_cast<
-			awl::backends::x11::window::instance const &
+			awl::backends::x11::window::object const &
 		>(
-			_window.awl_instance()
+			_window.awl_object()
 		)
 	);
 

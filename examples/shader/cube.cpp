@@ -71,6 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/active_target.hpp>
+#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -92,8 +93,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
@@ -848,7 +849,8 @@ try
 			(sge::systems::renderer(
 				sge::renderer::parameters(
 					// We want 32 bit depth (for no apparent reason, reall)
-					sge::renderer::visual_depth::depth32,
+					sge::renderer::windowed(
+						sge::renderer::bit_depth::depth32),
 					// and we want to do depth buffering
 					sge::renderer::depth_stencil_buffer::d24,
 					sge::renderer::vsync::on,

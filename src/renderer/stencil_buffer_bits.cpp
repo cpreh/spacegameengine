@@ -18,37 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VISUAL_DEPTH_HPP_INCLUDED
-#define SGE_RENDERER_VISUAL_DEPTH_HPP_INCLUDED
+#include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/optional_bit_count.hpp>
+#include <sge/renderer/stencil_buffer_bits.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-namespace sge
-{
-namespace renderer
-{
 
-/**
-\brief The namespace for the \link sge::renderer::visual_depth::type visual_depth \endlink enum
-*/
-namespace visual_depth
+sge::renderer::optional_bit_count const
+sge::renderer::stencil_buffer_bits(
+	sge::renderer::depth_stencil_buffer::type const _type
+)
 {
-/**
-\brief The enum type for visual depths
-*/
-enum type
-{
-	/**
-	\brief A visual depth of 16 bits
-	*/
-	depth16 = 16,
-	/**
-	\brief A visual depth of 32 bits
-	*/
-	depth32 = 32
-};
+	switch(
+		_type
+	)
+	{
+	case sge::renderer::depth_stencil_buffer::off:
+	case sge::renderer::depth_stencil_buffer::d16:
+	case sge::renderer::depth_stencil_buffer::d24:
+	case sge::renderer::depth_stencil_buffer::d32:
+		return
+			sge::renderer::optional_bit_count();
+	case sge::renderer::depth_stencil_buffer::d24s8:
+		return
+			sge::renderer::optional_bit_count(
+				sge::renderer::bit_count(
+					8u
+				)
+			);
+	}
 
+	FCPPT_ASSERT_UNREACHABLE;
 }
-
-}
-}
-
-#endif

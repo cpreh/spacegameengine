@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <sge/x11input/input_context.hpp>
 #include <awl/backends/x11/window/class_hint.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::x11input::input_context::input_context(
 	XIM const _xim,
 	awl::backends::x11::window::class_hint const *const _class_hint,
-	awl::backends::x11::window::instance const &_window
+	awl::backends::x11::window::object const &_window
 )
 :
 	xic_(

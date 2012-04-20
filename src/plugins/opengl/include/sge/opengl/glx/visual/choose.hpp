@@ -18,26 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/convert/visual_depth.hpp>
-#include <sge/renderer/visual_depth.hpp>
-#include <awl/window/bit_depth.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_OPENGL_GLX_VISUAL_CHOOSE_HPP_INCLUDED
+#define SGE_OPENGL_GLX_VISUAL_CHOOSE_HPP_INCLUDED
+
+#include <sge/opengl/glx/visual/attribute_container.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/screen.hpp>
+#include <awl/backends/x11/visual/info_unique_ptr.hpp>
 
 
-awl::window::bit_depth::type
-sge::opengl::convert::visual_depth(
-	sge::renderer::visual_depth::type const _mode
-)
+namespace sge
 {
-	switch(
-		_mode
-	)
-	{
-	case sge::renderer::visual_depth::depth16:
-		return awl::window::bit_depth::depth16;
-	case sge::renderer::visual_depth::depth32:
-		return awl::window::bit_depth::depth32;
-	}
+namespace opengl
+{
+namespace glx
+{
+namespace visual
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+awl::backends::x11::visual::info_unique_ptr
+choose(
+	awl::backends::x11::display const &,
+	awl::backends::x11::screen,
+	sge::opengl::glx::visual::attribute_container const &
+);
+
 }
+}
+}
+}
+
+#endif

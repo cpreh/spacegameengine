@@ -28,10 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/x11/resolution/xf86_vmode.hpp>
 #endif
 #include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/fullscreen.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
@@ -43,19 +44,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::x11::resolution::unique_ptr
 sge::opengl::x11::resolution::create(
-	awl::backends::x11::window::instance &_window,
-	renderer::parameters const &_param,
-	renderer::adapter const _adapter
+	awl::backends::x11::window::object &_window,
+	sge::renderer::parameters const &_param,
+	sge::renderer::adapter const _adapter
 )
 {
 	if(
 		!fcppt::variant::holds_type<
-			sge::renderer::display_mode
+			sge::renderer::fullscreen
 		>(
 			_param.screen_mode()
 		)
 	)
-		return resolution::unique_ptr();
+		return sge::opengl::x11::resolution::unique_ptr();
 
 #if !defined(SGE_OPENGL_HAVE_XRANDR) && !defined(SGE_OPENGL_HAVE_XF86VMODE)
 	FCPPT_LOG_WARNING(
@@ -65,12 +66,12 @@ sge::opengl::x11::resolution::create(
 			<< FCPPT_TEXT(" Try -D ENABLE_XRANDR=ON or -D ENABLE_XF86VMODE=ON.")
 	);
 
-	return resolution::unique_ptr();
+	return sge::opengl::x11::resolution::unique_ptr();
 #else
 	sge::renderer::display_mode const display_mode(
 		_param.screen_mode().get<
-			sge::renderer::display_mode
-		>()
+			sge::renderer::fullscreen
+		>().display_mode()
 	);
 #if defined(SGE_OPENGL_HAVE_XRANDR)
 
@@ -104,6 +105,7 @@ sge::opengl::x11::resolution::create(
 		);
 	}
 #endif
+
 #if defined(SGE_OPENGL_HAVE_XF86VMODE)
 	FCPPT_LOG_INFO(
 		sge::log::global(),

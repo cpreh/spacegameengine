@@ -18,29 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/convert/stencil_buffer.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
-#include <awl/window/stencil_buffer.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_OPENGL_GLX_VISUAL_ATTRIBUTE_CONTAINER_HPP_INCLUDED
+#define SGE_OPENGL_GLX_VISUAL_ATTRIBUTE_CONTAINER_HPP_INCLUDED
+
+#include <fcppt/container/raw_vector_fwd.hpp>
 
 
-awl::window::stencil_buffer::type
-sge::opengl::convert::stencil_buffer(
-	sge::renderer::depth_stencil_buffer::type const _mode
-)
+namespace sge
 {
-	switch(
-		_mode
-	)
-	{
-	case sge::renderer::depth_stencil_buffer::off:
-	case sge::renderer::depth_stencil_buffer::d16:
-	case sge::renderer::depth_stencil_buffer::d24:
-	case sge::renderer::depth_stencil_buffer::d32:
-		return awl::window::stencil_buffer::off;
-	case sge::renderer::depth_stencil_buffer::d24s8:
-		return awl::window::stencil_buffer::depth8;
-	}
+namespace opengl
+{
+namespace glx
+{
+namespace visual
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+typedef fcppt::container::raw_vector<
+	int
+> attribute_container;
+
 }
+}
+}
+}
+
+#endif

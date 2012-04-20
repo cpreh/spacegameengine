@@ -25,10 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_unique_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/system.hpp>
-#include <sge/window/parameters_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <awl/window/instance_fwd.hpp>
-#include <awl/window/instance_unique_ptr.hpp>
+#include <awl/visual/object_unique_ptr.hpp>
+#include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -39,7 +38,7 @@ namespace opengl
 
 class system
 :
-	public renderer::system
+	public sge::renderer::system
 {
 	FCPPT_NONCOPYABLE(
 		system
@@ -48,18 +47,17 @@ public:
 	system();
 
 	~system();
-
-	renderer::device_unique_ptr
+private:
+	sge::renderer::device_unique_ptr
 	create_renderer(
-		renderer::parameters const &,
-		renderer::adapter,
-		awl::window::instance &
+		sge::renderer::parameters const &,
+		sge::renderer::adapter,
+		awl::window::object &
 	);
 
-	awl::window::instance_unique_ptr
-	create_window(
+	awl::visual::object_unique_ptr
+	create_visual(
 		awl::system::object &,
-		sge::window::parameters const &,
 		sge::renderer::parameters const &
 	);
 };

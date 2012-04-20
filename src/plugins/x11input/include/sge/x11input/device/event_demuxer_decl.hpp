@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
 #include <awl/backends/x11/system/event/type.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -64,7 +64,7 @@ public:
 	event_demuxer(
 		awl::backends::x11::system::event::processor &,
 		awl::backends::x11::system::event::opcode const &,
-		awl::backends::x11::window::instance const &,
+		awl::backends::x11::window::object const &,
 		device::demuxer_enabled
 	);
 
@@ -126,7 +126,7 @@ private:
 
 	awl::backends::x11::system::event::opcode const opcode_;
 
-	awl::backends::x11::window::instance const &window_;
+	awl::backends::x11::window::object const &window_;
 
 	connection_map connections_;
 

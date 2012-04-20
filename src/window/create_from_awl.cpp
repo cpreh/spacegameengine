@@ -22,20 +22,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/window/to_awl_parameters.hpp>
 #include <awl/system/object.hpp>
-#include <awl/window/instance.hpp>
-#include <awl/window/instance_unique_ptr.hpp>
+#include <awl/visual/object_fwd.hpp>
+#include <awl/window/object.hpp>
+#include <awl/window/object_unique_ptr.hpp>
 #include <awl/window/parameters.hpp>
 
 
-awl::window::instance_unique_ptr
+awl::window::object_unique_ptr
 sge::window::create_from_awl(
 	awl::system::object &_system,
+	awl::visual::object const &_visual,
 	sge::window::parameters const &_param
 )
 {
 	return
-		_system.create(
+		_system.create_window(
 			sge::window::to_awl_parameters(
+				_visual,
 				_param
 			)
 		);

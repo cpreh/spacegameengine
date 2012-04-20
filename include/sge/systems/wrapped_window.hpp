@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/event/processor_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/system/event/processor_fwd.hpp>
-#include <awl/window/instance_fwd.hpp>
+#include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
@@ -47,7 +47,7 @@ public:
 		awl::system::object &,
 		awl::system::event::processor &,
 		awl::event::processor &,
-		awl::window::instance &,
+		awl::window::object &,
 		awl::window::event::processor &
 	);
 
@@ -60,7 +60,7 @@ public:
 	awl::event::processor &
 	awl_event_processor() const;
 
-	awl::window::instance &
+	awl::window::object &
 	awl_window() const;
 
 	awl::window::event::processor &
@@ -72,7 +72,7 @@ private:
 
 	awl::event::processor &awl_event_processor_;
 
-	awl::window::instance &awl_window_;
+	awl::window::object &awl_window_;
 
 	awl::window::event::processor &awl_window_event_processor_;
 };

@@ -29,9 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/renderer/system_fwd.hpp>
 #include <sge/systems/renderer_fwd.hpp>
-#include <sge/window/parameters_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <awl/window/instance_unique_ptr.hpp>
+#include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -58,10 +57,9 @@ public:
 
 	~system();
 
-	awl::window::instance_unique_ptr
-	create_window(
-		awl::system::object &,
-		sge::window::parameters const &
+	awl::visual::object_unique_ptr
+	create_visual(
+		awl::system::object &
 	);
 
 	sge::renderer::system &

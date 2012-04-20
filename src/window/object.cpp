@@ -21,27 +21,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim.hpp>
 #include <sge/window/object.hpp>
 #include <awl/event/processor_fwd.hpp>
-#include <awl/window/instance.hpp>
+#include <awl/window/object.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
 sge::window::object::object(
-	awl::window::instance &_instance,
-	awl::window::event::processor &_window_processor,
-	awl::event::processor &_processor
+	awl::window::object &_awl_object,
+	awl::window::event::processor &_awl_window_processor,
+	awl::event::processor &_awl_processor
 )
 :
-	instance_(
-		_instance
+	awl_object_(
+		_awl_object
 	),
-	window_processor_(
-		_window_processor
+	awl_window_processor_(
+		_awl_window_processor
 	),
 	attachment_(
-		_processor,
-		window_processor_
+		_awl_processor,
+		awl_window_processor_
 	)
 {
 }
@@ -57,24 +57,24 @@ sge::window::object::size() const
 		fcppt::math::dim::structure_cast<
 			sge::window::dim
 		>(
-			instance_.size()
+			awl_object_.size()
 		);
 }
 
 void
 sge::window::object::show()
 {
-	instance_.show();
+	awl_object_.show();
 }
 
-awl::window::instance &
-sge::window::object::awl_instance() const
+awl::window::object &
+sge::window::object::awl_object() const
 {
-	return instance_;
+	return awl_object_;
 }
 
 awl::window::event::processor &
 sge::window::object::awl_window_event_processor() const
 {
-	return window_processor_;
+	return awl_window_processor_;
 }

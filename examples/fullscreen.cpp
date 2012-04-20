@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/fullscreen.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
@@ -94,14 +95,16 @@ try
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::display_mode(
-						fcppt::math::dim::structure_cast<
-							sge::renderer::screen_size
-						>(
-							window_dim
-						),
-						sge::renderer::bit_depth::depth32,
-						sge::renderer::refresh_rate_dont_care
+					sge::renderer::fullscreen(
+						sge::renderer::display_mode(
+							fcppt::math::dim::structure_cast<
+								sge::renderer::screen_size
+							>(
+								window_dim
+							),
+							sge::renderer::bit_depth::depth32,
+							sge::renderer::refresh_rate_dont_care
+						)
 					),
 					sge::renderer::depth_stencil_buffer::off,
 					sge::renderer::vsync::on,

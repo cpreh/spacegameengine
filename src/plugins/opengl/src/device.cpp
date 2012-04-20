@@ -75,7 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/to_clear_flags_field.hpp>
-#include <awl/window/instance_fwd.hpp>
+#include <awl/window/object_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/null_ptr.hpp>
@@ -91,7 +91,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::device::device(
 	renderer::parameters const &_parameters,
 	renderer::adapter const _adapter,
-	awl::window::instance &_window
+	awl::window::object &_window
 )
 :
 	depth_stencil_buffer_(

@@ -18,25 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_BIT_DEPTH_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_BIT_DEPTH_HPP_INCLUDED
+#ifndef SGE_RENDERER_OPTIONAL_BIT_COUNT_FWD_HPP_INCLUDED
+#define SGE_RENDERER_OPTIONAL_BIT_COUNT_FWD_HPP_INCLUDED
 
-#include <sge/renderer/bit_depth.hpp>
-#include <awl/window/bit_depth.hpp>
+#include <sge/renderer/bit_count.hpp>
+#include <fcppt/optional_fwd.hpp>
+
 
 namespace sge
 {
-namespace opengl
-{
-namespace convert
+namespace renderer
 {
 
-awl::window::bit_depth::type
-bit_depth(
-	sge::renderer::bit_depth::type
-);
+typedef fcppt::optional<
+	sge::renderer::bit_count
+> optional_bit_count;
 
-}
 }
 }
 

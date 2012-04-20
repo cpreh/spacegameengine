@@ -18,25 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/bit_count.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/bit_depth_bits.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
-sge::renderer::size_type
+sge::renderer::bit_count const
 sge::renderer::bit_depth_bits(
-	renderer::bit_depth::type const _bit_depth
+	sge::renderer::bit_depth::type const _bit_depth
 )
 {
 	switch(
 		_bit_depth
 	)
 	{
-	case renderer::bit_depth::depth16:
-		return 16;
-	case renderer::bit_depth::depth32:
-		return 32;
+	case sge::renderer::bit_depth::depth16:
+		return
+			sge::renderer::bit_count(
+				16u
+			);
+	case sge::renderer::bit_depth::depth32:
+		return
+			sge::renderer::bit_count(
+				32u
+			);
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

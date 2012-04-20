@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/extract_bit_depth.hpp>
-#include <sge/opengl/convert/bit_depth.hpp>
-#include <sge/opengl/convert/visual_depth.hpp>
-#include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/fullscreen.hpp>
 #include <sge/renderer/screen_mode.hpp>
-#include <sge/renderer/visual_depth.hpp>
-#include <awl/window/bit_depth.hpp>
+#include <sge/renderer/screen_mode_bit_depth.hpp>
+#include <sge/renderer/windowed.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -34,24 +32,24 @@ namespace
 
 struct visitor
 {
-	typedef awl::window::bit_depth::type result_type;
+	typedef sge::renderer::bit_depth::type result_type;
 
 	result_type
 	operator()(
-		sge::renderer::display_mode const &
+		sge::renderer::fullscreen const &
 	) const;
 
 	result_type
 	operator()(
-		sge::renderer::visual_depth::type
+		sge::renderer::windowed const &
 	) const;
 };
 
 }
 
-awl::window::bit_depth::type
-sge::opengl::extract_bit_depth(
-	renderer::screen_mode const &_screen_mode
+sge::renderer::bit_depth::type
+sge::renderer::screen_mode_bit_depth(
+	sge::renderer::screen_mode const &_screen_mode
 )
 {
 	return
@@ -66,24 +64,20 @@ namespace
 
 visitor::result_type
 visitor::operator()(
-	sge::renderer::display_mode const &_display_mode
+	sge::renderer::fullscreen const &_fullscreen
 ) const
 {
 	return
-		sge::opengl::convert::bit_depth(
-			_display_mode.bit_depth()
-		);
+		_fullscreen.display_mode().bit_depth();
 }
 
 visitor::result_type
 visitor::operator()(
-	sge::renderer::visual_depth::type const _visual_depth
+	sge::renderer::windowed const &_windowed
 ) const
 {
 	return
-		sge::opengl::convert::visual_depth(
-			_visual_depth
-		);
+		_windowed.bit_depth();
 }
 
 }

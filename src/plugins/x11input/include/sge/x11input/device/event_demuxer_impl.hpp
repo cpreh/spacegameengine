@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/select_events.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
@@ -46,7 +46,7 @@ template<
 sge::x11input::device::event_demuxer<Event>::event_demuxer(
 	awl::backends::x11::system::event::processor &_system_processor,
 	awl::backends::x11::system::event::opcode const &_opcode,
-	awl::backends::x11::window::instance const &_window,
+	awl::backends::x11::window::object const &_window,
 	x11input::device::demuxer_enabled const _enabled
 )
 :

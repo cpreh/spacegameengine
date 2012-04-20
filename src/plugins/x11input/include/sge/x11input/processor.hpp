@@ -61,8 +61,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
-#include <awl/backends/x11/window/instance_scoped_ptr.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/object_scoped_ptr.hpp>
 #include <awl/backends/x11/window/event/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -194,7 +194,7 @@ private:
 
 	awl::backends::x11::system::event::opcode const opcode_;
 
-	awl::backends::x11::window::instance const &x11_window_;
+	awl::backends::x11::window::object const &x11_window_;
 
 	awl::backends::x11::window::event::processor &window_event_processor_;
 
@@ -202,7 +202,7 @@ private:
 
 	sge::x11input::device::window_demuxer window_demuxer_;
 
-	awl::backends::x11::window::instance_scoped_ptr const root_window_;
+	awl::backends::x11::window::object_scoped_ptr const root_window_;
 
 	sge::x11input::device::raw_demuxer raw_demuxer_;
 

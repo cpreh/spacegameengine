@@ -41,7 +41,7 @@ sge::systems::modules::renderer::device::device(
 			sge::renderer::adapter(
 				0u
 			),
-			_window.window().awl_instance()
+			_window.window().awl_object()
 		)
 	),
 	viewport_manager_(

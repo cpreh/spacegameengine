@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_KEYBOARD_FAKE_CORE_EVENT_HPP_INCLUDED
 
 #include <sge/x11input/device/window_event_fwd.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace keyboard
 
 void
 fake_core_event(
-	awl::backends::x11::window::instance const &,
+	awl::backends::x11::window::object const &,
 	x11input::device::window_event const &
 );
 

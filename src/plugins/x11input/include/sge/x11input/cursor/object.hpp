@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/window_event_fwd.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/math/vector/object_decl.hpp>
@@ -121,7 +121,7 @@ private:
 	void
 	check_grab();
 
-	awl::backends::x11::window::instance const &window_;
+	awl::backends::x11::window::object const &window_;
 
 	cursor::image const invisible_image_;
 

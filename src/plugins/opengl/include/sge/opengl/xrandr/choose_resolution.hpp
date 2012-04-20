@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
 #include <sge/renderer/display_mode_fwd.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
+
 
 namespace sge
 {
@@ -34,7 +35,7 @@ namespace xrandr
 
 sge::opengl::xrandr::resolution_unique_ptr
 choose_resolution(
-	awl::backends::x11::window::instance &,
+	awl::backends::x11::window::object &,
 	sge::renderer::display_mode const &
 );
 

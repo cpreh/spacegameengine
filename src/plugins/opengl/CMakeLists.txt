@@ -28,13 +28,11 @@ set(
 	src/plugins/opengl/include/sge/opengl/context/use.hpp
 	src/plugins/opengl/include/sge/opengl/context/use_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/convert/best_color_format.hpp
-	src/plugins/opengl/include/sge/opengl/convert/bit_depth.hpp
 	src/plugins/opengl/include/sge/opengl/convert/clear_flags.hpp
 	src/plugins/opengl/include/sge/opengl/convert/clip_plane_index.hpp
 	src/plugins/opengl/include/sge/opengl/convert/color_to_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/color_to_format_type.hpp
 	src/plugins/opengl/include/sge/opengl/convert/color_to_internal_format.hpp
-	src/plugins/opengl/include/sge/opengl/convert/depth_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/convert/depth_stencil_to_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/depth_stencil_to_format_type.hpp
 	src/plugins/opengl/include/sge/opengl/convert/depth_stencil_to_internal_format.hpp
@@ -50,9 +48,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/nonindexed_primitive.hpp
 	src/plugins/opengl/include/sge/opengl/convert/projection.hpp
 	src/plugins/opengl/include/sge/opengl/convert/resource_flags.hpp
-	src/plugins/opengl/include/sge/opengl/convert/stencil_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/convert/to_gl_bool.hpp
-	src/plugins/opengl/include/sge/opengl/convert/visual_depth.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attach_render_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attach_texture_2d.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attachment.hpp
@@ -391,13 +387,11 @@ set(
 	src/plugins/opengl/src/context/make_id.cpp
 	src/plugins/opengl/src/context/object.cpp
 	src/plugins/opengl/src/convert/best_color_format.cpp
-	src/plugins/opengl/src/convert/bit_depth.cpp
 	src/plugins/opengl/src/convert/clear_flags.cpp
 	src/plugins/opengl/src/convert/clip_plane_index.cpp
 	src/plugins/opengl/src/convert/color_to_format.cpp
 	src/plugins/opengl/src/convert/color_to_format_type.cpp
 	src/plugins/opengl/src/convert/color_to_internal_format.cpp
-	src/plugins/opengl/src/convert/depth_buffer.cpp
 	src/plugins/opengl/src/convert/depth_stencil_to_format.cpp
 	src/plugins/opengl/src/convert/depth_stencil_to_format_type.cpp
 	src/plugins/opengl/src/convert/depth_stencil_to_internal_format.cpp
@@ -413,11 +407,10 @@ set(
 	src/plugins/opengl/src/convert/nonindexed_primitive.cpp
 	src/plugins/opengl/src/convert/projection.cpp
 	src/plugins/opengl/src/convert/resource_flags.cpp
-	src/plugins/opengl/src/convert/stencil_buffer.cpp
 	src/plugins/opengl/src/convert/to_gl_bool.cpp
-	src/plugins/opengl/src/convert/visual_depth.cpp
 	src/plugins/opengl/src/create_caps.cpp
 	src/plugins/opengl/src/create_device_state.cpp
+	src/plugins/opengl/src/create_visual.cpp
 	src/plugins/opengl/src/device.cpp
 	src/plugins/opengl/src/device_state.cpp
 	src/plugins/opengl/src/disable.cpp
@@ -430,7 +423,6 @@ set(
 	src/plugins/opengl/src/enable_client_state.cpp
 	src/plugins/opengl/src/error_string.cpp
 	src/plugins/opengl/src/exports.cpp
-	src/plugins/opengl/src/extract_bit_depth.cpp
 	src/plugins/opengl/src/fbo/attach_render_buffer.cpp
 	src/plugins/opengl/src/fbo/attach_texture_2d.cpp
 	src/plugins/opengl/src/fbo/attachment.cpp
@@ -719,6 +711,13 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/proc_context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/raw_function.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/attribute_container.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/choose.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/convert_bit_depth.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/create.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/make_attributes.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/x11/resolution/create.hpp
 	src/plugins/opengl/include/sge/opengl/x11/resolution/instance.hpp
 	src/plugins/opengl/include/sge/opengl/x11/resolution/instance_fwd.hpp
@@ -733,6 +732,11 @@ set(
 	src/plugins/opengl/src/glx/current_drawable.cpp
 	src/plugins/opengl/src/glx/proc_address.cpp
 	src/plugins/opengl/src/glx/proc_context.cpp
+	src/plugins/opengl/src/glx/visual/choose.cpp
+	src/plugins/opengl/src/glx/visual/convert_bit_depth.cpp
+	src/plugins/opengl/src/glx/visual/create.cpp
+	src/plugins/opengl/src/glx/visual/make_attributes.cpp
+	src/plugins/opengl/src/glx/visual/rgb_triple.cpp
 	src/plugins/opengl/src/x11/resolution/create.cpp
 	src/plugins/opengl/src/x11/resolution/instance.cpp
 	src/plugins/opengl/src/x11/resolution/xf86_vmode.cpp

@@ -32,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/event/create_processor.hpp>
 #include <awl/system/event/optional_processor_ref.hpp>
 #include <awl/system/event/processor.hpp>
-#include <awl/window/instance.hpp>
+#include <awl/visual/object.hpp>
+#include <awl/window/object.hpp>
 #include <awl/window/event/create_processor.hpp>
 #include <awl/window/event/processor.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -59,18 +60,21 @@ sge::systems::modules::window::original::original(
 			)
 		)
 	),
-	awl_window_(
+	awl_visual_(
 		_renderer_system
 		?
-			_renderer_system->create_window(
-				*awl_system_,
-				_parameters
+			_renderer_system->create_visual(
+				*awl_system_
 			)
 		:
-			sge::window::create_from_awl(
-				*awl_system_,
-				_parameters
-			)
+			awl_system_->default_visual()
+	),
+	awl_window_(
+		sge::window::create_from_awl(
+			*awl_system_,
+			*awl_visual_,
+			_parameters
+		)
 	),
 	awl_window_event_processor_(
 		awl::window::event::create_processor(

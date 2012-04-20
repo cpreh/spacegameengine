@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/convert_size_hints.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/to_awl_parameters.hpp>
+#include <awl/visual/object_fwd.hpp>
 #include <awl/window/dim.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -29,12 +30,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 awl::window::parameters
 sge::window::to_awl_parameters(
+	awl::visual::object const &_visual,
 	sge::window::parameters const &_param
 )
 {
 	return
 		sge::window::convert_size_hints(
-			awl::window::parameters(),
+			awl::window::parameters(
+				_visual
+			),
 			_param.size_hints()
 		)
 		.title(

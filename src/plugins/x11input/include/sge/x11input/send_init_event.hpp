@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_SEND_INIT_EVENT_HPP_INCLUDED
 
 #include <awl/backends/x11/atom.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace x11input
 
 void
 send_init_event(
-	awl::backends::x11::window::instance const &,
+	awl::backends::x11::window::object const &,
 	awl::backends::x11::atom
 );
 

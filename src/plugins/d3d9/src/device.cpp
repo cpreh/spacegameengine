@@ -69,7 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/to_clear_flags_field.hpp>
-#include <awl/window/instance.hpp>
+#include <awl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
@@ -87,7 +87,7 @@ sge::d3d9::device::device(
 	IDirect3D9 *const _system,
 	renderer::adapter const _adapter,
 	renderer::parameters const &_parameters,
-	awl::window::instance &_window
+	awl::window::object &_window
 )
 :
 	present_parameters_(

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/glx/context_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -42,7 +42,7 @@ class current
 public:
 	current(
 		awl::backends::x11::display &,
-		awl::backends::x11::window::instance &,
+		awl::backends::x11::window::object &,
 		sge::opengl::glx::context &
 	);
 

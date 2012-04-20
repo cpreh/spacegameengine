@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/configuration_fwd.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
@@ -45,7 +45,7 @@ class configuration
 public:
 	explicit
 	configuration(
-		awl::backends::x11::window::instance &
+		awl::backends::x11::window::object &
 	);
 
 	~configuration();

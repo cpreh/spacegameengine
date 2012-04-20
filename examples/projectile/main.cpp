@@ -56,14 +56,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/shape/triangle_sequence.hpp>
 #include <sge/projectile/triangulation/default_tag.hpp>
 #include <sge/projectile/triangulation/triangulate.hpp>
+#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -432,7 +433,8 @@ try
 					sge::window::dim(1024,768))))
 		(sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::visual_depth::depth32,
+					sge::renderer::windowed(
+						sge::renderer::bit_depth::depth32),
 					sge::renderer::depth_stencil_buffer::off,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),

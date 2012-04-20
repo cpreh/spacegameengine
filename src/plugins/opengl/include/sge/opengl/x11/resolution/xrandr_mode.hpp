@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/x11/resolution/instance.hpp>
 #include <sge/opengl/xrandr/resolution_fwd.hpp>
 #include <sge/renderer/display_mode_fwd.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -40,7 +40,7 @@ namespace resolution
 
 class xrandr_mode
 :
-	public instance
+	public sge::opengl::x11::resolution::instance
 {
 	FCPPT_NONCOPYABLE(
 		xrandr_mode
@@ -48,7 +48,7 @@ class xrandr_mode
 public:
 	xrandr_mode(
 		renderer::display_mode const &,
-		awl::backends::x11::window::instance &
+		awl::backends::x11::window::object &
 	);
 
 	~xrandr_mode();

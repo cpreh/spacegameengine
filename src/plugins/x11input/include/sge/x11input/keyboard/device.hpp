@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/x11input/keyboard/device_fwd.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -99,7 +99,7 @@ private:
 		bool pressed
 	);
 
-	awl::backends::x11::window::instance const &window_;
+	awl::backends::x11::window::object const &window_;
 
 	x11input::input_context const &input_context_;
 

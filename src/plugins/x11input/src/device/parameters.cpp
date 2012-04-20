@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/raw_demuxer_fwd.hpp>
 #include <sge/x11input/device/window_demuxer_fwd.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
-#include <awl/backends/x11/window/instance_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::x11input::device::parameters::parameters(
 	x11input::create_parameters const &_param,
 	awl::backends::x11::system::event::opcode const _opcode,
-	awl::backends::x11::window::instance const &_window,
+	awl::backends::x11::window::object const &_window,
 	x11input::device::window_demuxer &_window_demuxer,
 	x11input::device::raw_demuxer &_raw_demuxer
 )
@@ -77,7 +77,7 @@ sge::x11input::device::parameters::opcode() const
 	return opcode_;
 }
 
-awl::backends::x11::window::instance const &
+awl::backends::x11::window::object const &
 sge::x11input::device::parameters::window() const
 {
 	return window_;

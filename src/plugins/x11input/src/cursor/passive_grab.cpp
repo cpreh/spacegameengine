@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/passive_grab.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -44,7 +44,7 @@ initial_modifiers =
 }
 
 sge::x11input::cursor::passive_grab::passive_grab(
-	awl::backends::x11::window::instance &_window,
+	awl::backends::x11::window::object &_window,
 	device::id const _id,
 	cursor::image const _image
 )

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/symbol.hpp>
 #include <awl/event/processor_fwd.hpp>
 #include <awl/event/scoped_window_processor.hpp>
-#include <awl/window/instance_fwd.hpp>
+#include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -44,7 +44,7 @@ class object
 public:
 	SGE_WINDOW_SYMBOL
 	object(
-		awl::window::instance &,
+		awl::window::object &,
 		awl::window::event::processor &,
 		awl::event::processor &
 	);
@@ -61,16 +61,16 @@ public:
 	show();
 
 	SGE_WINDOW_SYMBOL
-	awl::window::instance &
-	awl_instance() const;
+	awl::window::object &
+	awl_object() const;
 
 	SGE_WINDOW_SYMBOL
 	awl::window::event::processor &
 	awl_window_event_processor() const;
 private:
-	awl::window::instance &instance_;
+	awl::window::object &awl_object_;
 
-	awl::window::event::processor &window_processor_;
+	awl::window::event::processor &awl_window_processor_;
 
 	awl::event::scoped_window_processor const attachment_;
 };

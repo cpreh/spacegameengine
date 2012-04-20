@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/select_events.hpp>
 #include <awl/backends/x11/deleter.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/data.hpp>
@@ -71,7 +71,7 @@ make_mask(
 
 void
 sge::x11input::device::select_events(
-	awl::backends::x11::window::instance const &_window,
+	awl::backends::x11::window::object const &_window,
 	x11input::device::id const _device,
 	awl::backends::x11::system::event::type const _type,
 	bool const _add

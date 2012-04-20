@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
-#include <awl/window/instance_fwd.hpp>
+#include <awl/window/object_fwd.hpp>
 
 
 namespace sge
@@ -39,7 +39,7 @@ create_device_state(
 	opengl::context::object &,
 	renderer::parameters const &,
 	renderer::adapter,
-	awl::window::instance &);
+	awl::window::object &);
 }
 }
 }

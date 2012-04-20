@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
+#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -29,17 +30,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/plugin.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/system_scoped_ptr.hpp>
-#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
+#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/caps/object_output.hpp>
+#include <sge/window/create_from_awl.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/title.hpp>
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/object_scoped_ptr.hpp>
-#include <awl/window/instance.hpp>
-#include <awl/window/instance_scoped_ptr.hpp>
+#include <awl/visual/object.hpp>
+#include <awl/visual/object_scoped_ptr.hpp>
+#include <awl/window/object.hpp>
+#include <awl/window/object_scoped_ptr.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -78,15 +82,25 @@ try
 	);
 
 	sge::renderer::parameters const render_params(
-		sge::renderer::visual_depth::depth32,
+		sge::renderer::windowed(
+			sge::renderer::bit_depth::depth32
+		),
 		sge::renderer::depth_stencil_buffer::off,
 		sge::renderer::vsync::on,
 		sge::renderer::no_multi_sampling
 	);
 
-	awl::window::instance_scoped_ptr const window(
-		render_sys->create_window(
+	awl::visual::object_scoped_ptr const visual(
+		render_sys->create_visual(
 			*window_sys,
+			render_params
+		)
+	);
+
+	awl::window::object_scoped_ptr const window(
+		sge::window::create_from_awl(
+			*window_sys,
+			*visual,
 			sge::window::parameters(
 				sge::window::title(
 					FCPPT_TEXT("sge caps")
@@ -95,8 +109,7 @@ try
 					1024,
 					768
 				)
-			),
-			render_params
+			)
 		)
 	);
 

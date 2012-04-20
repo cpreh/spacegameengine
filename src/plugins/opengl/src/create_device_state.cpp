@@ -23,17 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/platform.hpp>
 #if defined(SGE_OPENGL_HAVE_X11)
 #include <sge/opengl/x11/state.hpp>
-#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/opengl/windows/state.hpp>
-#include <awl/backends/windows/window/instance.hpp>
+#include <awl/backends/windows/window/object.hpp>
 #elif defined(FCPPT_CONFIG_DARWIN_PLATFORM)
 #include <sge/opengl/cocoa/create_device_state.hpp>
 #include <sge/opengl/device_state.hpp>
 #else
 #error "Implement me!"
 #endif
-#include <awl/window/instance.hpp>
+#include <awl/window/object.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -43,7 +43,7 @@ sge::opengl::create_device_state(
 	opengl::context::object &_context,
 	renderer::parameters const &_parameters,
 	renderer::adapter const _adapter,
-	awl::window::instance &_window
+	awl::window::object &_window
 )
 {
 #if defined(SGE_OPENGL_HAVE_X11)
@@ -61,7 +61,7 @@ sge::opengl::create_device_state(
 				_adapter,
 				fcppt::ref(
 					dynamic_cast<
-						awl::backends::x11::window::instance &
+						awl::backends::x11::window::object &
 					>(
 						_window
 					)
@@ -83,7 +83,7 @@ sge::opengl::create_device_state(
 				_adapter,
 				fcppt::ref(
 					dynamic_cast<
-						awl::backends::windows::window::instance &
+						awl::backends::windows::window::object &
 					>(
 						_window
 					)
@@ -96,7 +96,8 @@ sge::opengl::create_device_state(
 			_context,
 			_parameters,
 			_adapter,
-			_window);
+			_window
+		);
 #else
 #error "Implement me!"
 #endif
