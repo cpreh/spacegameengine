@@ -36,10 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <falagard/CEGUIFalWidgetLookManager.h>
+#include <boost/filesystem/path.hpp>
 #include <elements/CEGUIEditbox.h>
 #include <elements/CEGUIFrameWindow.h>
-#include <boost/filesystem/path.hpp>
+#include <falagard/CEGUIFalWidgetLookManager.h>
 #include <CEGUIAnimationManager.h>
 #include <CEGUIDefaultResourceProvider.h>
 #include <CEGUIFont.h>
