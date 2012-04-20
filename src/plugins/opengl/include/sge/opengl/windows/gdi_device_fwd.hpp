@@ -18,40 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/context.hpp>
-#include <sge/opengl/windows/gdi_device.hpp>
-#include <sge/renderer/exception.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <fcppt/text.hpp>
+
+#ifndef SGE_OPENGL_WINDOWS_GDI_DEVICE_FWD_HPP_INCLUDED
+#define SGE_OPENGL_WINDOWS_GDI_DEVICE_FWD_HPP_INCLUDED
 
 
-sge::opengl::wgl::context::context(
-	sge::opengl::windows::gdi_device const &_device
-)
-:
-	glrc_(
-		::wglCreateContext(
-			_device.hdc()
-		)
-	)
+namespace sge
 {
-	if(
-		!glrc_
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("wglCreateContext() failed!")
-		);
+namespace opengl
+{
+namespace windows
+{
+
+class gdi_device;
+
+}
+}
 }
 
-sge::opengl::wgl::context::~context()
-{
-	::wglDeleteContext(
-		glrc_
-	);
-}
-
-HGLRC
-sge::opengl::wgl::context::hglrc() const
-{
-	return glrc_;
-}
+#endif

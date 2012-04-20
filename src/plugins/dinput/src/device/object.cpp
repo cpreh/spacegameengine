@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
-#include <awl/backends/windows/window/instance.hpp>
+#include <awl/backends/windows/window/object.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
@@ -75,7 +75,9 @@ sge::dinput::device::object::object(
 	dinput::device::parameters const &_param
 )
 :
-	name_(_param.name()),
+	name_(
+		_param.name()
+	),
 	device_(
 		dinput::create_device(
 			_param.instance(),

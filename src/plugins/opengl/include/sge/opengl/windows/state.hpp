@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/device_state.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/windows/gdi_device.hpp>
 #include <sge/opengl/wgl/context.hpp>
 #include <sge/opengl/wgl/current.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
-#include <awl/backends/windows/gdi_device.hpp>
-#include <awl/backends/windows/window/instance_fwd.hpp>
+#include <awl/backends/windows/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -51,7 +51,7 @@ public:
 		opengl::context::object &,
 		renderer::parameters const &,
 		renderer::adapter,
-		awl::backends::windows::window::instance &
+		awl::backends::windows::window::object &
 	);
 
 	~state();
@@ -62,9 +62,9 @@ public:
 	void
 	swap_buffers();
 private:
-	awl::backends::windows::window::instance &window_;
+	awl::backends::windows::window::object &window_;
 
-	awl::backends::windows::gdi_device const hdc_;
+	sge::opengl::windows::gdi_device const hdc_;
 
 	wgl::context const context_;
 

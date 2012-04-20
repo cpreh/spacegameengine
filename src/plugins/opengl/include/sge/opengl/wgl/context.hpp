@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/wgl/context_fwd.hpp>
-#include <awl/backends/windows/gdi_device_fwd.hpp>
+#include <sge/opengl/windows/gdi_device_fwd.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -40,8 +40,9 @@ class context
 		context
 	);
 public:
-	explicit context(
-		awl::backends::windows::gdi_device const &
+	explicit
+	context(
+		sge::opengl::windows::gdi_device const &
 	);
 
 	~context();

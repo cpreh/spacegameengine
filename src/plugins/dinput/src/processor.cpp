@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/event/wparam.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
 #include <awl/backends/windows/system/event/processor.hpp>
-#include <awl/backends/windows/window/instance.hpp>
+#include <awl/backends/windows/window/object.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <fcppt/cref.hpp>
@@ -73,13 +73,13 @@ sge::dinput::processor::processor(
 )
 :
 	dinput_(
-		dinput::create_dinput()
+		sge::dinput::create_dinput()
 	),
 	windows_window_(
 		dynamic_cast<
-			awl::backends::windows::window::instance &
+			awl::backends::windows::window::object &
 		>(
-			_window.awl_instance()
+			_window.awl_object()
 		)
 	),
 	event_processor_(
@@ -97,7 +97,7 @@ sge::dinput::processor::processor(
 		)
 	),
 	system_mouse_(
-		dinput::create_device(
+		sge::dinput::create_device(
 			dinput_.get(),
 			GUID_SysMouse
 		)

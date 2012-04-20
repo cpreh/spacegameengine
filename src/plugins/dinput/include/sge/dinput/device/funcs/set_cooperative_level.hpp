@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_DEVICE_FUNCS_SET_COOPERATIVE_LEVEL_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <awl/backends/windows/window/instance_fwd.hpp>
+#include <awl/backends/windows/window/object_fwd.hpp>
 
 namespace sge
 {
@@ -36,7 +36,7 @@ namespace funcs
 void
 set_cooperative_level(
 	IDirectInputDevice8 *,
-	awl::backends::windows::window::instance &,
+	awl::backends::windows::window::object &,
 	DWORD flags
 );
 

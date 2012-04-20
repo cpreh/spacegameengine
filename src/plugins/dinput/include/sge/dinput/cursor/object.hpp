@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <awl/backends/windows/window/instance_fwd.hpp>
+#include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
@@ -59,7 +59,7 @@ class object
 public:
 	object(
 		awl::backends::windows::window::event::processor &,
-		awl::backends::windows::window::instance &,
+		awl::backends::windows::window::object &,
 		IDirectInputDevice8 *system_mouse
 	);
 
@@ -106,7 +106,7 @@ private:
 
 	awl::backends::windows::window::event::processor &event_processor_;
 
-	awl::backends::windows::window::instance &window_;
+	awl::backends::windows::window::object &window_;
 
 	IDirectInputDevice8 *const system_mouse_;
 

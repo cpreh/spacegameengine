@@ -18,40 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/context.hpp>
-#include <sge/opengl/windows/gdi_device.hpp>
-#include <sge/renderer/exception.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/windows/visual/create.hpp>
+#include <sge/opengl/windows/visual/object.hpp>
+#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/screen_mode_bit_depth.hpp>
+#include <awl/visual/object_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 
-sge::opengl::wgl::context::context(
-	sge::opengl::windows::gdi_device const &_device
+awl::visual::object_unique_ptr
+sge::opengl::windows::visual::create(
+	sge::renderer::parameters const &_parameters
 )
-:
-	glrc_(
-		::wglCreateContext(
-			_device.hdc()
-		)
-	)
 {
-	if(
-		!glrc_
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("wglCreateContext() failed!")
+	return
+		awl::visual::object_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::opengl::windows::visual::object
+			>(
+				sge::renderer::screen_mode_bit_depth(
+					_parameters.screen_mode()
+				),
+				_parameters.depth_stencil_buffer()
+			)
 		);
-}
-
-sge::opengl::wgl::context::~context()
-{
-	::wglDeleteContext(
-		glrc_
-	);
-}
-
-HGLRC
-sge::opengl::wgl::context::hglrc() const
-{
-	return glrc_;
 }

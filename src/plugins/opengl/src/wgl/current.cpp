@@ -20,14 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/wgl/context.hpp>
 #include <sge/opengl/wgl/current.hpp>
+#include <sge/opengl/windows/gdi_device.hpp>
 #include <sge/renderer/exception.hpp>
-#include <awl/backends/windows/gdi_device.hpp>
+#include <awl/backends/windows/windows.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::opengl::wgl::current::current(
-	awl::backends::windows::gdi_device const &_device,
-	wgl::context const &_context
+	sge::opengl::windows::gdi_device const &_device,
+	sge::opengl::wgl::context const &_context
 )
 {
 	if(
@@ -45,7 +47,7 @@ sge::opengl::wgl::current::current(
 sge::opengl::wgl::current::~current()
 {
 	::wglMakeCurrent(
-		0,
-		0
+		fcppt::null_ptr(),
+		fcppt::null_ptr()
 	);
 }

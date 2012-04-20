@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_OPENGL_HAVE_X11)
 #include <sge/opengl/glx/visual/create.hpp>
 #include <awl/backends/x11/system/object.hpp>
+#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#include <sge/opengl/windows/visual/create.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -35,7 +37,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 awl::visual::object_unique_ptr
 sge::opengl::create_visual(
+#if defined(SGE_OPENGL_HAVE_X11)
 	awl::system::object &_awl_system,
+#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+	awl::system::object &,
+#endif
 	sge::renderer::parameters const &_parameters
 )
 {
@@ -47,6 +53,11 @@ sge::opengl::create_visual(
 			>(
 				_awl_system
 			),
+			_parameters
+		);
+#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+	return
+		sge::opengl::windows::visual::create(
 			_parameters
 		);
 #else

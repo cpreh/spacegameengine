@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_PARAMETERS_EXTRACT_SIZE_HPP_INCLUDED
 #define SGE_D3D9_PARAMETERS_EXTRACT_SIZE_HPP_INCLUDED
 
-#include <sge/renderer/screen_mode.hpp>
+#include <sge/renderer/screen_mode_fwd.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <awl/window/object_fwd.hpp>
 

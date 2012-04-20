@@ -18,40 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/context.hpp>
-#include <sge/opengl/windows/gdi_device.hpp>
-#include <sge/renderer/exception.hpp>
+#ifndef SGE_OPENGL_WINDOWS_VISUAL_CHOOSE_AND_SET_FORMAT_HPP_INCLUDED
+#define SGE_OPENGL_WINDOWS_VISUAL_CHOOSE_AND_SET_FORMAT_HPP_INCLUDED
+
+#include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/text.hpp>
 
 
-sge::opengl::wgl::context::context(
-	sge::opengl::windows::gdi_device const &_device
-)
-:
-	glrc_(
-		::wglCreateContext(
-			_device.hdc()
-		)
-	)
+namespace sge
 {
-	if(
-		!glrc_
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("wglCreateContext() failed!")
-		);
+namespace opengl
+{
+namespace windows
+{
+namespace visual
+{
+
+void
+choose_and_set_format(
+	HWND,
+	sge::renderer::bit_depth::type,
+	sge::renderer::depth_stencil_buffer::type
+);
+
+}
+}
+}
 }
 
-sge::opengl::wgl::context::~context()
-{
-	::wglDeleteContext(
-		glrc_
-	);
-}
-
-HGLRC
-sge::opengl::wgl::context::hglrc() const
-{
-	return glrc_;
-}
+#endif

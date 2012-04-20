@@ -18,40 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/context.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/windows/windows.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
-sge::opengl::wgl::context::context(
-	sge::opengl::windows::gdi_device const &_device
+sge::opengl::windows::gdi_device::gdi_device(
+	HWND const _hwnd,
+	sge::opengl::windows::gdi_device::get_tag
 )
 :
-	glrc_(
-		::wglCreateContext(
-			_device.hdc()
+	hwnd_(
+		_hwnd
+	),
+	dc_(
+		::GetDC(
+			_hwnd
 		)
 	)
 {
 	if(
-		!glrc_
+		dc_
+		==
+		fcppt::null_ptr()
 	)
 		throw sge::renderer::exception(
-			FCPPT_TEXT("wglCreateContext() failed!")
+			FCPPT_TEXT("GetDC() failed!")
 		);
 }
 
-sge::opengl::wgl::context::~context()
+sge::opengl::windows::gdi_device::~gdi_device()
 {
-	::wglDeleteContext(
-		glrc_
+	::ReleaseDC(
+		hwnd_,
+		dc_
 	);
 }
 
-HGLRC
-sge::opengl::wgl::context::hglrc() const
+HDC
+sge::opengl::windows::gdi_device::hdc() const
 {
-	return glrc_;
+	return dc_;
 }

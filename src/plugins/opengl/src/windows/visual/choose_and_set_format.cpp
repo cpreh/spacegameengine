@@ -18,40 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/context.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
-#include <sge/renderer/exception.hpp>
+#include <sge/opengl/windows/visual/choose_and_set_format.hpp>
+#include <sge/opengl/windows/visual/choose_format.hpp>
+#include <sge/opengl/windows/visual/make_format.hpp>
+#include <sge/opengl/windows/visual/set_format.hpp>
+#include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/text.hpp>
 
 
-sge::opengl::wgl::context::context(
-	sge::opengl::windows::gdi_device const &_device
+void
+sge::opengl::windows::visual::choose_and_set_format(
+	HWND const _hwnd,
+	sge::renderer::bit_depth::type const _bit_depth,
+	sge::renderer::depth_stencil_buffer::type const _depth_stencil
+
 )
-:
-	glrc_(
-		::wglCreateContext(
-			_device.hdc()
-		)
-	)
 {
-	if(
-		!glrc_
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("wglCreateContext() failed!")
-		);
-}
-
-sge::opengl::wgl::context::~context()
-{
-	::wglDeleteContext(
-		glrc_
+	sge::opengl::windows::gdi_device const device(
+		_hwnd,
+		sge::opengl::windows::gdi_device::get_tag()
 	);
-}
 
-HGLRC
-sge::opengl::wgl::context::hglrc() const
-{
-	return glrc_;
+	PIXELFORMATDESCRIPTOR const format_desc(
+		sge::opengl::windows::visual::make_format(
+			_bit_depth,
+			_depth_stencil
+		)
+	);
+
+	sge::opengl::windows::visual::set_format(
+		device,
+		sge::opengl::windows::visual::choose_format(
+			device,
+			format_desc
+		),
+		format_desc
+	);
 }

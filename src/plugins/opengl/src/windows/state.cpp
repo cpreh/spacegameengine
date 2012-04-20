@@ -19,12 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/windows/change_display_settings.hpp>
+#include <sge/opengl/windows/gdi_device.hpp>
 #include <sge/opengl/windows/state.hpp>
-#include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/fullscreen.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/window/instance.hpp>
+#include <awl/backends/windows/window/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -34,7 +35,7 @@ sge::opengl::windows::state::state(
 	opengl::context::object &,
 	renderer::parameters const &_param,
 	renderer::adapter const _adapter,
-	awl::backends::windows::window::instance &_window
+	awl::backends::windows::window::object &_window
 )
 :
 	window_(
@@ -42,7 +43,7 @@ sge::opengl::windows::state::state(
 	),
 	hdc_(
 		window_.hwnd(),
-		awl::backends::windows::gdi_device::get_tag()
+		sge::opengl::windows::gdi_device::get_tag()
 	),
 	context_(
 		hdc_
@@ -54,15 +55,15 @@ sge::opengl::windows::state::state(
 {
 	if(
 		fcppt::variant::holds_type<
-			sge::renderer::display_mode
+			sge::renderer::fullscreen
 		>(
 			_param.screen_mode()
 		)
 	)
-		windows::change_display_settings(
+		sge::opengl::windows::change_display_settings(
 			_param.screen_mode().get<
-				sge::renderer::display_mode
-			>()
+				sge::renderer::fullscreen
+			>().display_mode()
 		);
 }
 

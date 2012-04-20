@@ -18,27 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_PARAMETERS_CONVERT_VISUAL_DEPTH_HPP_INCLUDED
-#define SGE_D3D9_PARAMETERS_CONVERT_VISUAL_DEPTH_HPP_INCLUDED
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/visual_depth.hpp>
+#ifndef SGE_OPENGL_WINDOWS_GDI_DEVICE_HPP_INCLUDED
+#define SGE_OPENGL_WINDOWS_GDI_DEVICE_HPP_INCLUDED
+
+#include <sge/opengl/windows/gdi_device_fwd.hpp>
+#include <awl/backends/windows/windows.hpp>
+#include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {
-namespace d3d9
+namespace opengl
 {
-namespace parameters
-{
-namespace convert
+namespace windows
 {
 
-D3DFORMAT
-visual_depth(
-	sge::renderer::visual_depth::type
-);
+class gdi_device
+{
+	FCPPT_NONCOPYABLE(
+		gdi_device
+	);
+public:
+	struct get_tag
+	{
+	};
 
-}
+	gdi_device(
+		HWND,
+		get_tag
+	);
+
+	~gdi_device();
+
+	HDC
+	hdc() const;
+private:
+	HWND hwnd_;
+
+	HDC dc_;
+};
+
 }
 }
 }

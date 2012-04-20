@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/parameters/extract_size.hpp>
-#include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/fullscreen.hpp>
 #include <sge/renderer/screen_mode.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <awl/window/object.hpp>
@@ -37,14 +37,14 @@ sge::d3d9::parameters::extract_size(
 {
 	return
 		fcppt::variant::holds_type<
-			sge::renderer::display_mode
+			sge::renderer::fullscreen
 		>(
 			_screen_mode
 		)
 		?
 			_screen_mode.get<
-				sge::renderer::display_mode
-			>().size()
+				sge::renderer::fullscreen
+			>().display_mode().size()
 		:
 			fcppt::math::dim::structure_cast<
 				sge::renderer::screen_size

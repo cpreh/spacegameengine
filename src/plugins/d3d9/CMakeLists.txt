@@ -98,7 +98,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/depth_stencil_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/multi_sample.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/multi_sample_quality.hpp
-	src/plugins/d3d9/include/sge/d3d9/parameters/convert/visual_depth.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/extract_back_buffer_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/extract_size.hpp
@@ -320,11 +319,10 @@ SET(
 	src/plugins/d3d9/src/make_pitch_3d.cpp
 	src/plugins/d3d9/src/offscreen_target.cpp
 	src/plugins/d3d9/src/onscreen_target.cpp
-	src/plugins/d3d9/src/parameters/convert/src/bit_depth.cpp
-	src/plugins/d3d9/src/parameters/convert/src/depth_stencil_buffer.cpp
-	src/plugins/d3d9/src/parameters/convert/src/multi_sample.cpp
-	src/plugins/d3d9/src/parameters/convert/src/multi_sample_quality.cpp
-	src/plugins/d3d9/src/parameters/convert/src/visual_depth.cpp
+	src/plugins/d3d9/src/parameters/convert/bit_depth.cpp
+	src/plugins/d3d9/src/parameters/convert/depth_stencil_buffer.cpp
+	src/plugins/d3d9/src/parameters/convert/multi_sample.cpp
+	src/plugins/d3d9/src/parameters/convert/multi_sample_quality.cpp
 	src/plugins/d3d9/src/parameters/create.cpp
 	src/plugins/d3d9/src/parameters/extract_back_buffer_format.cpp
 	src/plugins/d3d9/src/parameters/extract_size.cpp

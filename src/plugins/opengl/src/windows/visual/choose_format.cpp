@@ -18,40 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/context.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
+#include <sge/opengl/windows/visual/choose_format.hpp>
+#include <sge/opengl/windows/visual/format.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/text.hpp>
 
 
-sge::opengl::wgl::context::context(
-	sge::opengl::windows::gdi_device const &_device
+sge::opengl::windows::visual::format const
+sge::opengl::windows::visual::choose_format(
+	sge::opengl::windows::gdi_device const &_device,
+	PIXELFORMATDESCRIPTOR const &_format_desc
 )
-:
-	glrc_(
-		::wglCreateContext(
-			_device.hdc()
-		)
-	)
 {
+	int const ret(
+		::ChoosePixelFormat(
+			_device.hdc(),
+			&_format_desc
+		)
+	);
+
 	if(
-		!glrc_
+		ret == 0
 	)
 		throw sge::renderer::exception(
-			FCPPT_TEXT("wglCreateContext() failed!")
+			FCPPT_TEXT("ChoosePixelFormat() failed")
 		);
-}
 
-sge::opengl::wgl::context::~context()
-{
-	::wglDeleteContext(
-		glrc_
-	);
-}
-
-HGLRC
-sge::opengl::wgl::context::hglrc() const
-{
-	return glrc_;
+	return
+		sge::opengl::windows::visual::format(
+			ret
+		);
 }

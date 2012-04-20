@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/position_unit.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/event/type.hpp>
+#include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/screen_to_client.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
@@ -50,23 +51,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 sge::dinput::cursor::object::object(
 	awl::backends::windows::window::event::processor &_event_processor,
-	awl::backends::windows::window::instance &_window,
+	awl::backends::windows::window::object &_window,
 	IDirectInputDevice8 *const _system_mouse
 )
 :
-	event_processor_(_event_processor),
-	window_(_window),
-	system_mouse_(_system_mouse),
+	event_processor_(
+		_event_processor
+	),
+	window_(
+		_window
+	),
+	system_mouse_(
+		_system_mouse
+	),
 	button_signal_(),
 	move_signal_(),
-	acquired_(false),
+	acquired_(
+		false
+	),
 	mode_(
 		sge::input::cursor::mode::normal
 	),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -195,7 +205,6 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		)
 	)
-FCPPT_PP_POP_WARNING
 {
 	// TODO: this should not be here
 	device::funcs::set_data_format(
@@ -203,6 +212,8 @@ FCPPT_PP_POP_WARNING
 		&c_dfDIMouse
 	);
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::dinput::cursor::object::~object()
 {

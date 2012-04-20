@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/dinput/di.hpp>
 #include <sge/dinput/device/funcs/set_cooperative_level.hpp>
 #include <sge/input/exception.hpp>
-#include <awl/backends/windows/window/instance.hpp>
+#include <awl/backends/windows/window/object.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::dinput::device::funcs::set_cooperative_level(
 	IDirectInputDevice8 *const _device,
-	awl::backends::windows::window::instance &_window,
+	awl::backends::windows::window::object &_window,
 	DWORD const _flags
 )
 {

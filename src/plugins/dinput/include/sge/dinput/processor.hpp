@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system_fwd.hpp>
 #include <awl/backends/windows/system/event/handle_fwd.hpp>
 #include <awl/backends/windows/system/event/processor_fwd.hpp>
-#include <awl/backends/windows/window/instance_fwd.hpp>
+#include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
@@ -173,7 +173,7 @@ private:
 
 	dinput_scoped_ptr const dinput_;
 
-	awl::backends::windows::window::instance &windows_window_;
+	awl::backends::windows::window::object &windows_window_;
 
 	awl::backends::windows::window::event::processor &event_processor_;
 

@@ -18,25 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/parameters/convert/visual_depth.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_OPENGL_WINDOWS_VISUAL_CHOOSE_FORMAT_HPP_INCLUDED
+#define SGE_OPENGL_WINDOWS_VISUAL_CHOOSE_FORMAT_HPP_INCLUDED
+
+#include <sge/opengl/windows/gdi_device_fwd.hpp>
+#include <sge/opengl/windows/visual/format.hpp>
+#include <awl/backends/windows/windows.hpp>
 
 
-D3DFORMAT
-sge::d3d9::parameters::convert::visual_depth(
-	sge::renderer::visual_depth::type const _type
-)
+namespace sge
 {
-	switch(
-		_type
-	)
-	{
-	case sge::renderer::visual_depth::depth16:
-		return D3DFMT_R5G6B5;
-	case sge::renderer::visual_depth::depth32:
-		return D3DFMT_X8R8G8B8;
-	}
+namespace opengl
+{
+namespace windows
+{
+namespace visual
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+sge::opengl::windows::visual::format const
+choose_format(
+	sge::opengl::windows::gdi_device const &,
+	PIXELFORMATDESCRIPTOR const &
+);
+
 }
+}
+}
+}
+
+#endif

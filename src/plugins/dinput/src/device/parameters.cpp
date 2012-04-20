@@ -18,21 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/dinput/di.hpp>
 #include <sge/dinput/device/parameters.hpp>
+#include <awl/backends/windows/system/event/handle_fwd.hpp>
+#include <awl/backends/windows/window/object_fwd.hpp>
+#include <fcppt/string.hpp>
+
 
 sge::dinput::device::parameters::parameters(
 	IDirectInput8 *const _instance,
 	fcppt::string const &_name,
 	GUID const _guid,
-	awl::backends::windows::window::instance &_window,
+	awl::backends::windows::window::object &_window,
 	awl::backends::windows::system::event::handle &_event_handle
 )
 :
-	instance_(_instance),
-	name_(_name),
-	guid_(_guid),
-	window_(_window),
-	event_handle_(_event_handle)
+	instance_(
+		_instance
+	),
+	name_(
+		_name
+	),
+	guid_(
+		_guid
+	),
+	window_(
+		_window
+	),
+	event_handle_(
+		_event_handle
+	)
 {
 }
 
@@ -54,7 +69,7 @@ sge::dinput::device::parameters::guid() const
 	return guid_;
 }
 
-awl::backends::windows::window::instance &
+awl::backends::windows::window::object &
 sge::dinput::device::parameters::window() const
 {
 	return window_;
