@@ -174,7 +174,7 @@ BOOST_PP_REPEAT_FROM_TO(
 		T const &_value
 	)
 	{
-		memory_.set<
+		memory_. template set<
 			Role
 		>(
 			_value
@@ -191,7 +191,7 @@ BOOST_PP_REPEAT_FROM_TO(
 	get() const
 	{
 		return
-			memory_.get<
+			memory_. template get<
 				Role
 			>();
 	}

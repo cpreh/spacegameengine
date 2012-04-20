@@ -48,12 +48,16 @@ class generate_visitor
 public:
 	typedef void result_type;
 
-	explicit generate_visitor(
+	explicit
+	generate_visitor(
 		Gen const &_gen
 	)
 	:
-		gen_(_gen)
-	{}
+		gen_(
+			_gen
+		)
+	{
+	}
 
 	template<
 		typename View
@@ -75,7 +79,9 @@ public:
 			++it
 		)
 			(*it).set(
-				gen_.operator()<typename View::value_type>()
+				gen_. template operator()<
+					typename View::value_type
+				>()
 			);
 	}
 private:

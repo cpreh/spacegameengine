@@ -101,7 +101,7 @@ sge::sprite::parameters<Choices>::center(
 		>(
 			_pos
 		)
-		.set<
+		. template set<
 			detail::roles::use_center
 		>(
 			true

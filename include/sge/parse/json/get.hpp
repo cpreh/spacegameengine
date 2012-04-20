@@ -76,7 +76,7 @@ get(
 		);
 
 	return
-		_val.get<
+		_val. template get<
 			real_type
 		>();
 }
