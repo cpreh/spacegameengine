@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/proxy.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/workarounds.hpp>
 
 
 namespace sge
@@ -79,7 +80,11 @@ public:
 			++it
 		)
 			(*it).set(
-				gen_. template operator()<
+				gen_.
+#if !defined(FCPPT_MSVC_DEPENDANT_TEMPLATE_BUG)
+				template
+#endif
+				operator()<
 					typename View::value_type
 				>()
 			);
