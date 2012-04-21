@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/visual/make_attributes.hpp>
 #include <sge/opengl/glx/visual/rgb_triple.hpp>
 #include <sge/renderer/depth_buffer_bits.hpp>
+#include <sge/renderer/multi_sample_type.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/optional_bit_count.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/screen_mode_bit_depth.hpp>
@@ -127,6 +129,39 @@ sge::opengl::glx::visual::make_attributes(
 					int
 				>(
 					stencil_bits->get()
+				)
+			);
+		}
+	}
+
+	{
+		sge::renderer::multi_sample_type const samples(
+			_parameters.samples()
+		);
+
+		if(
+			samples
+			!=
+			sge::renderer::no_multi_sampling
+		)
+		{
+			ret.push_back(
+				GLX_SAMPLE_BUFFERS
+			);
+
+			ret.push_back(
+				1
+			);
+
+			ret.push_back(
+				GLX_SAMPLES
+			);
+
+			ret.push_back(
+				static_cast<
+					int
+				>(
+					samples.get()
 				)
 			);
 		}
