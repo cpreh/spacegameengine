@@ -21,7 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/converter_unique_ptr.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/source_encoding.hpp>
-#include <sge/src/charconv/backends/windows/converter.hpp>
+#include <sge/charconv/unsupported_conversion.hpp>
+#include <sge/src/charconv/backends/windows/is_utf16.hpp>
+#include <sge/src/charconv/backends/windows/utf8_to_wchar.hpp>
+#include <sge/src/charconv/backends/windows/utf16_to_utf32.hpp>
 #include <sge/src/charconv/backends/windows/system.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
@@ -40,13 +43,41 @@ sge::charconv::backends::windows::system::create_converter(
 	sge::charconv::dest_encoding const _dest
 )
 {
-	return
-		sge::charconv::converter_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::charconv::backends::windows::converter
-			>(
-				_source,
-				_dest
-			)
+	if(
+		sge::charconv::backends::windows::is_utf16(
+			_source.get()
+		)
+		&&
+		_dest.get()
+		==
+		sge::charconv::encoding::utf32
+	)
+		return
+			sge::charconv::converter_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::charconv::backends::windows::utf16_to_utf32
+				>()
+			);
+
+	if(
+		_source.get()
+		==
+		sge::charconv::encoding::utf8
+		&&
+		sge::charconv::backends::windows::is_utf16(
+			_dest.get()
+		)
+	)
+		return
+			sge::charconv::converter_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::charconv::backends::windows::utf8_to_wchar
+				>()
+			);
+
+	throw
+		sge::charconv::unsupported_conversion(
+			_source,
+			_dest
 		);
 }

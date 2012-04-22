@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_BACKENDS_WINDOWS_CONVERTER_HPP_INCLUDED
-#define SGE_CHARCONV_BACKENDS_WINDOWS_CONVERTER_HPP_INCLUDED
+#ifndef SGE_CHARCONV_BACKENDS_WINDOWS_UTF16_TO_UTF32_HPP_INCLUDED
+#define SGE_CHARCONV_BACKENDS_WINDOWS_UTF16_TO_UTF32_HPP_INCLUDED
 
 #include <sge/charconv/conversion_status.hpp>
 #include <sge/charconv/converter.hpp>
@@ -39,21 +39,18 @@ namespace backends
 namespace windows
 {
 
-class converter
+class utf16_to_utf32
 :
 	public sge::charconv::converter
 {
 	FCPPT_NONCOPYABLE(
-		converter
+		utf16_to_utf32
 	);
 public:
-	converter(
-		sge::charconv::source_encoding const &,
-		sge::charconv::dest_encoding const &
-	);
+	utf16_to_utf32();
 
-	~converter();
-
+	~utf16_to_utf32();
+private:
 	sge::charconv::conversion_status::type
 	convert(
 		sge::charconv::input_range &,

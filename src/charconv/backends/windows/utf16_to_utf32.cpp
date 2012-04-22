@@ -18,41 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/const_raw_pointer.hpp>
+#include <sge/charconv/conversion_status.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
-#include <sge/charconv/raw_pointer.hpp>
-#include <sge/charconv/unsupported_conversion.hpp>
-#include <sge/src/charconv/backends/windows/converter.hpp>
+#include <sge/charconv/raw_value.hpp>
+#include <sge/src/charconv/backends/windows/utf16_to_utf32.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/next_prior.hpp>
 #include <algorithm>
+#include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::charconv::backends::windows::converter::converter(
-	sge::charconv::source_encoding const &_source,
-	sge::charconv::dest_encoding const &_dest
-)
+sge::charconv::backends::windows::utf16_to_utf32::utf16_to_utf32()
 {
-	if(
-		(_source.get() != sge::charconv::encoding::wchar && _source.get() != sge::charconv::encoding::utf16)
-			|| _dest.get() != sge::charconv::encoding::utf32
-	)
-		throw sge::charconv::unsupported_conversion(
-			_source,
-			_dest
-		);
 }
 
-sge::charconv::backends::windows::converter::~converter()
+sge::charconv::backends::windows::utf16_to_utf32::~utf16_to_utf32()
 {
 }
 
 sge::charconv::conversion_status::type
-sge::charconv::backends::windows::converter::convert(
+sge::charconv::backends::windows::utf16_to_utf32::convert(
 	sge::charconv::input_range &_input,
 	sge::charconv::output_range &_output
 )
