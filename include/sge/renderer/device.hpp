@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
@@ -112,10 +111,8 @@ public:
 	 * \brief Begins the rendering operation
 	 *
 	 * To be able to call device::render_indexed or
-	 * device::render_nonindexed, this function must be called first. It
-	 * will also call clear() which will clear various buffers depending on
-	 * the sge::renderer::state::bool_ flags set.  To end the rendering
-	 * process and present it, use device::end_rendering.
+	 * device::render_nonindexed, this function must be called first. To
+	 * end the rendering process and present it, use device::end_rendering.
 	 *
 	 * \see sge::renderer::scoped_block
 	 *
@@ -135,19 +132,6 @@ public:
 	*/
 	virtual void
 	end_rendering() = 0;
-
-	/**
-	 * \brief Clears various buffers
-	 *
-	 * Clears the back buffer, depth buffer or stencil buffer depending on
-	 * \a flags
-	 *
-	 * \param flags The buffers to clear
-	*/
-	virtual void
-	clear(
-		renderer::clear_flags_field const &flags
-	) = 0;
 
 	/**
 	 * \brief Renders indexed geometry

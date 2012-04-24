@@ -25,11 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::fbo::temporary_bind::temporary_bind(
-	fbo::context &_context,
-	fbo::object const &_object
+	sge::opengl::fbo::context &_context,
+	sge::opengl::fbo::object const &_object
 )
 :
-	context_(_context),
+	context_(
+		_context
+	),
 	last_buffer_(
 		_context.last_buffer()
 	)
@@ -39,7 +41,7 @@ sge::opengl::fbo::temporary_bind::temporary_bind(
 
 sge::opengl::fbo::temporary_bind::~temporary_bind()
 {
-	opengl::fbo::bind(
+	sge::opengl::fbo::bind(
 		context_,
 		last_buffer_
 	);

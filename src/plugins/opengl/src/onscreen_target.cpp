@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/basic_target_impl.hpp>
 #include <sge/opengl/onscreen_surface.hpp>
 #include <sge/opengl/onscreen_target.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -33,10 +34,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::onscreen_target::onscreen_target(
+	sge::opengl::context::object &_context,
 	awl::window::object &_window
 )
 :
 	base(
+		_context,
 		renderer::viewport(
 			renderer::pixel_rect::null()
 		)

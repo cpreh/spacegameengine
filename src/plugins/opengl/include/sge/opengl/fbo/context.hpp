@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/id.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -118,12 +119,12 @@ public:
 	GLenum
 	depth_stencil_attachment() const;
 
-	GLuint
+	sge::opengl::fbo::id const
 	last_buffer() const;
 
 	void
 	last_buffer(
-		GLuint
+		sge::opengl::fbo::id
 	);
 
 	typedef void needs_before;
@@ -162,7 +163,7 @@ private:
 		depth_attachment_,
 		depth_stencil_attachment_;
 
-	GLuint last_buffer_;
+	sge::opengl::fbo::id last_buffer_;
 };
 
 }

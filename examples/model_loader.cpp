@@ -69,6 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -91,6 +92,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/light/attenuation.hpp>
 #include <sge/renderer/light/constant_attenuation.hpp>
 #include <sge/renderer/light/index.hpp>
@@ -103,11 +105,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/draw_mode.hpp>
-#include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
@@ -740,16 +740,6 @@ try
 				boost::chrono::seconds(
 					1)));
 
-	// Set clear status
-	sge::renderer::state::scoped scoped_clear_state(
-		sys.renderer(),
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_depth_buffer = true)
-			(sge::renderer::state::float_::depth_buffer_clear_val = 1.f)
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color =
-					sge::image::colors::black()));
-
 	while(
 		sys.window_system().poll())
 	{
@@ -764,7 +754,14 @@ try
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				frame_timer));
 
-		sge::renderer::scoped_block const block_(
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black())
+			.depth_buffer(
+				1.f));
+
+		sge::renderer::scoped_block const block(
 			sys.renderer());
 
 		sge::renderer::scoped_transform scoped_projection(
@@ -786,7 +783,7 @@ try
 
 		line_drawer.render();
 
-		sge::renderer::state::scoped scoped_state(
+		sge::renderer::state::scoped const scoped_state(
 			sys.renderer(),
 			sge::renderer::state::list
 				(sge::renderer::state::bool_::enable_lighting =

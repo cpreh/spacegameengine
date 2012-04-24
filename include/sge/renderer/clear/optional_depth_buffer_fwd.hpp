@@ -18,30 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/clear_flags.hpp>
-#include <sge/renderer/clear_flags.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_RENDERER_CLEAR_OPTIONAL_DEPTH_BUFFER_FWD_HPP_INCLUDED
+#define SGE_RENDERER_CLEAR_OPTIONAL_DEPTH_BUFFER_FWD_HPP_INCLUDED
+
+#include <sge/renderer/clear/depth_buffer_value.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
-GLenum
-sge::opengl::convert::clear_flags(
-	sge::renderer::clear_flags::type const _flag
-)
+namespace sge
 {
-	switch(
-		_flag
-	)
-	{
-	case sge::renderer::clear_flags::back_buffer:
-		return GL_COLOR_BUFFER_BIT;
-	case sge::renderer::clear_flags::depth_buffer:
-		return GL_DEPTH_BUFFER_BIT;
-	case sge::renderer::clear_flags::stencil_buffer:
-		return GL_STENCIL_BUFFER_BIT;
-	case sge::renderer::clear_flags::size:
-		break;
-	}
+namespace renderer
+{
+namespace clear
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+typedef fcppt::optional<
+	sge::renderer::clear::depth_buffer_value
+> optional_depth_buffer;
+
 }
+}
+}
+
+#endif

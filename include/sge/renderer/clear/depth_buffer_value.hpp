@@ -18,29 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_INT_HPP_INCLUDED
-#define SGE_RENDERER_STATE_INT_HPP_INCLUDED
+#ifndef SGE_RENDERER_CLEAR_DEPTH_BUFFER_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_CLEAR_DEPTH_BUFFER_VALUE_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/int/trampoline.hpp>
+#include <sge/renderer/scalar.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
-namespace state
-{
-namespace int_
+namespace clear
 {
 
-SGE_RENDERER_SYMBOL extern
-int_::trampoline const
-	stencil_ref;
+typedef sge::renderer::scalar depth_buffer_value;
 
-}
 }
 }
 }

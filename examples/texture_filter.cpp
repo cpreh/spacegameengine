@@ -63,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -74,9 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
@@ -642,15 +641,6 @@ try
 		)
 	);
 
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(
-				sge::renderer::state::color::back_buffer_clear_color
-					= sge::image::colors::lightblue()
-			)
-	);
-
 	sge::timer::frames_counter frames_counter;
 
 	sge::font::text::string const text_appendix(
@@ -677,6 +667,13 @@ try
 		);
 
 		frames_counter.update();
+
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::lightblue()
+			)
+		);
 
 		sge::renderer::scoped_block const block(
 			sys.renderer()

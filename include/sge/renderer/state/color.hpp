@@ -38,7 +38,6 @@ namespace color
 
 SGE_RENDERER_SYMBOL
 extern color::trampoline const
-	back_buffer_clear_color,
 	ambient_light_color,
 	fog_color;
 

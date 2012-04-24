@@ -38,7 +38,6 @@ namespace float_
 
 SGE_RENDERER_SYMBOL
 extern float_::trampoline const
-	depth_buffer_clear_val,
 	alpha_test_ref,
 	fog_start,
 	fog_end,

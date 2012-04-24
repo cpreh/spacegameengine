@@ -23,24 +23,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/basic_target.hpp>
 #include <sge/opengl/set_scissor_area.hpp>
+#include <sge/opengl/temporary_target.hpp>
 #include <sge/opengl/viewport.hpp>
+#include <sge/opengl/clear/set.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/renderer/scissor_area.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/clear/parameters_fwd.hpp>
 #include <fcppt/math/box/object_impl.hpp>
+
 
 template<
 	typename Base
 >
-sge::opengl::basic_target<Base>::basic_target(
-	renderer::viewport const &_viewport
+sge::opengl::basic_target<
+	Base
+>::basic_target(
+	sge::opengl::context::object &_context,
+	sge::renderer::viewport const &_viewport
 )
 :
 	Base(),
-	opengl::target_base(),
-	active_(false),
+	sge::opengl::target_base(),
+	context_(
+		_context
+	),
+	active_(
+		false
+	),
 	viewport_(
 		_viewport
 	),
 	scissor_area_(
-		renderer::scissor_area(
+		sge::renderer::scissor_area(
 			_viewport.get()
 		)
 	)
@@ -50,7 +65,9 @@ sge::opengl::basic_target<Base>::basic_target(
 template<
 	typename Base
 >
-sge::opengl::basic_target<Base>::~basic_target()
+sge::opengl::basic_target<
+	Base
+>::~basic_target()
 {
 }
 
@@ -58,7 +75,9 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<Base>::bind()
+sge::opengl::basic_target<
+	Base
+>::bind()
 {
 	active_ = true;
 
@@ -73,7 +92,9 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<Base>::unbind()
+sge::opengl::basic_target<
+	Base
+>::unbind()
 {
 	active_ = false;
 
@@ -83,9 +104,43 @@ sge::opengl::basic_target<Base>::unbind()
 template<
 	typename Base
 >
+bool
+sge::opengl::basic_target<
+	Base
+>::active() const
+{
+	return
+		active_;
+}
+
+template<
+	typename Base
+>
 void
-sge::opengl::basic_target<Base>::viewport(
-	renderer::viewport const &_viewport
+sge::opengl::basic_target<
+	Base
+>::clear(
+	sge::renderer::clear::parameters const &_parameters
+)
+{
+	sge::opengl::temporary_target const temp_target(
+		context_,
+		*this
+	);
+
+	sge::opengl::clear::set(
+		_parameters
+	);
+}
+
+template<
+	typename Base
+>
+void
+sge::opengl::basic_target<
+	Base
+>::viewport(
+	sge::renderer::viewport const &_viewport
 )
 {
 	viewport_ = _viewport;
@@ -100,7 +155,9 @@ template<
 	typename Base
 >
 sge::renderer::viewport const
-sge::opengl::basic_target<Base>::viewport() const
+sge::opengl::basic_target<
+	Base
+>::viewport() const
 {
 	return viewport_;
 }
@@ -109,8 +166,10 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<Base>::scissor_area(
-	renderer::scissor_area const &_scissor_area
+sge::opengl::basic_target<
+	Base
+>::scissor_area(
+	sge::renderer::scissor_area const &_scissor_area
 )
 {
 	scissor_area_ = _scissor_area;
@@ -125,7 +184,9 @@ template<
 	typename Base
 >
 sge::renderer::scissor_area const
-sge::opengl::basic_target<Base>::scissor_area() const
+sge::opengl::basic_target<
+	Base
+>::scissor_area() const
 {
 	return scissor_area_;
 }
@@ -134,9 +195,11 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<Base>::set_viewport()
+sge::opengl::basic_target<
+	Base
+>::set_viewport()
 {
-	opengl::viewport(
+	sge::opengl::viewport(
 		viewport_,
 		this->height()
 	);
@@ -146,9 +209,11 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<Base>::set_scissor_area()
+sge::opengl::basic_target<
+	Base
+>::set_scissor_area()
 {
-	opengl::set_scissor_area(
+	sge::opengl::set_scissor_area(
 		scissor_area_,
 		this->height()
 	);

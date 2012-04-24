@@ -18,29 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_INT_HPP_INCLUDED
-#define SGE_RENDERER_STATE_INT_HPP_INCLUDED
+#ifndef SGE_RENDERER_CLEAR_OPTIONAL_BACK_BUFFER_FWD_HPP_INCLUDED
+#define SGE_RENDERER_CLEAR_OPTIONAL_BACK_BUFFER_FWD_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/int/trampoline.hpp>
+#include <sge/renderer/clear/back_buffer_value_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
-namespace state
-{
-namespace int_
+namespace clear
 {
 
-SGE_RENDERER_SYMBOL extern
-int_::trampoline const
-	stencil_ref;
+typedef fcppt::optional<
+	sge::renderer::clear::back_buffer_value
+> optional_back_buffer;
 
-}
 }
 }
 }

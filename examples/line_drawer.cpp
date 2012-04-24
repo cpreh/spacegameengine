@@ -74,15 +74,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/font.hpp>
@@ -314,12 +313,6 @@ try
 		sys.renderer(),
 		sge::image::colors::red());
 
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color
-					= sge::image::colors::black()));
-
 	sge::timer::frames_counter frames_counter;
 
 	sge::line_drawer::object line_drawer(
@@ -334,6 +327,11 @@ try
 	{
 
 		frames_counter.update();
+
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black()));
 
 		sge::renderer::scoped_block const block(
 			sys.renderer());

@@ -18,27 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CLEAR_FLAGS_FIELD_HPP_INCLUDED
-#define SGE_RENDERER_CLEAR_FLAGS_FIELD_HPP_INCLUDED
+#ifndef SGE_RENDERER_CLEAR_OPTIONAL_BACK_BUFFER_HPP_INCLUDED
+#define SGE_RENDERER_CLEAR_OPTIONAL_BACK_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/clear_flags.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
+#include <sge/renderer/clear/back_buffer_value.hpp>
+#include <sge/renderer/clear/optional_back_buffer_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief Container for clear flags
-*/
-typedef fcppt::container::bitfield::object<
-	renderer::clear_flags::type,
-	renderer::clear_flags::size
-> clear_flags_field;
-
-}
-}
 
 #endif

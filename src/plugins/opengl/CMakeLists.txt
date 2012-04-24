@@ -16,6 +16,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/buffer/software.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/vbo_context.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/wrapper.hpp
+	src/plugins/opengl/include/sge/opengl/clear/back_buffer.hpp
+	src/plugins/opengl/include/sge/opengl/clear/depth_buffer.hpp
+	src/plugins/opengl/include/sge/opengl/clear/set.hpp
+	src/plugins/opengl/include/sge/opengl/clear/stencil_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/context/base.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_unique_ptr.hpp
@@ -28,7 +32,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/context/use.hpp
 	src/plugins/opengl/include/sge/opengl/context/use_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/convert/best_color_format.hpp
-	src/plugins/opengl/include/sge/opengl/convert/clear_flags.hpp
 	src/plugins/opengl/include/sge/opengl/convert/clip_plane_index.hpp
 	src/plugins/opengl/include/sge/opengl/convert/color_to_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/color_to_format_type.hpp
@@ -58,10 +61,14 @@ set(
 	src/plugins/opengl/include/sge/opengl/fbo/context.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/create_depth_stencil_surface.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/create_id.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/delete_id.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/depth_stencil_format_to_attachment.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/depth_stencil_surface.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/depth_stencil_surface_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/depth_stencil_surface_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/id.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/no_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/object.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/render_buffer.hpp
@@ -75,6 +82,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/fbo/temporary_bind.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/texture_binding.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/texture_binding_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/unbind.hpp
 	src/plugins/opengl/include/sge/opengl/glew/initialize.hpp
 	src/plugins/opengl/include/sge/opengl/glew/is_supported.hpp
 	src/plugins/opengl/include/sge/opengl/glew/scoped_init.hpp
@@ -381,13 +389,15 @@ set(
 	src/plugins/opengl/src/buffer/vbo_context.cpp
 	src/plugins/opengl/src/buffer/wrapper.cpp
 	src/plugins/opengl/src/check_state_once.cpp
-	src/plugins/opengl/src/clear.cpp
+	src/plugins/opengl/src/clear/back_buffer.cpp
+	src/plugins/opengl/src/clear/depth_buffer.cpp
+	src/plugins/opengl/src/clear/set.cpp
+	src/plugins/opengl/src/clear/stencil_buffer.cpp
 	src/plugins/opengl/src/context/base.cpp
 	src/plugins/opengl/src/context/container.cpp
 	src/plugins/opengl/src/context/make_id.cpp
 	src/plugins/opengl/src/context/object.cpp
 	src/plugins/opengl/src/convert/best_color_format.cpp
-	src/plugins/opengl/src/convert/clear_flags.cpp
 	src/plugins/opengl/src/convert/clip_plane_index.cpp
 	src/plugins/opengl/src/convert/color_to_format.cpp
 	src/plugins/opengl/src/convert/color_to_format_type.cpp
@@ -429,8 +439,11 @@ set(
 	src/plugins/opengl/src/fbo/bind.cpp
 	src/plugins/opengl/src/fbo/context.cpp
 	src/plugins/opengl/src/fbo/create_depth_stencil_surface.cpp
+	src/plugins/opengl/src/fbo/create_id.cpp
+	src/plugins/opengl/src/fbo/delete_id.cpp
 	src/plugins/opengl/src/fbo/depth_stencil_format_to_attachment.cpp
 	src/plugins/opengl/src/fbo/depth_stencil_surface.cpp
+	src/plugins/opengl/src/fbo/no_buffer.cpp
 	src/plugins/opengl/src/fbo/object.cpp
 	src/plugins/opengl/src/fbo/render_buffer.cpp
 	src/plugins/opengl/src/fbo/render_buffer_binding.cpp
@@ -438,6 +451,7 @@ set(
 	src/plugins/opengl/src/fbo/target.cpp
 	src/plugins/opengl/src/fbo/temporary_bind.cpp
 	src/plugins/opengl/src/fbo/texture_binding.cpp
+	src/plugins/opengl/src/fbo/unbind.cpp
 	src/plugins/opengl/src/get_int.cpp
 	src/plugins/opengl/src/get_ints.cpp
 	src/plugins/opengl/src/get_string.cpp
@@ -576,6 +590,7 @@ set(
 	src/plugins/opengl/src/state/visitor.cpp
 	src/plugins/opengl/src/system.cpp
 	src/plugins/opengl/src/target_base.cpp
+	src/plugins/opengl/src/temporary_target.cpp
 	src/plugins/opengl/src/texture/activate.cpp
 	src/plugins/opengl/src/texture/address_mode/context.cpp
 	src/plugins/opengl/src/texture/address_mode/default.cpp

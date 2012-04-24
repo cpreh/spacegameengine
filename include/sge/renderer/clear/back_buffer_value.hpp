@@ -18,29 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_TO_CLEAR_FLAGS_FIELD_HPP_INCLUDED
-#define SGE_RENDERER_STATE_TO_CLEAR_FLAGS_FIELD_HPP_INCLUDED
+#ifndef SGE_RENDERER_CLEAR_BACK_BUFFER_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_CLEAR_BACK_BUFFER_VALUE_HPP_INCLUDED
 
-#include <sge/renderer/clear_flags_field.hpp>
-#include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/list_fwd.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <sge/renderer/clear/back_buffer_value_fwd.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-
-SGE_RENDERER_SYMBOL
-renderer::clear_flags_field const
-to_clear_flags_field(
-	state::list const &
-);
-
-}
-}
-}
 
 #endif

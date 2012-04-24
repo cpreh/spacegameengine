@@ -19,59 +19,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/clear.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/clear_flags.hpp>
-#include <sge/renderer/clear_flags.hpp>
+#include <sge/opengl/clear/back_buffer.hpp>
+#include <sge/opengl/clear/depth_buffer.hpp>
+#include <sge/opengl/clear/set.hpp>
+#include <sge/opengl/clear/stencil_buffer.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
-
-namespace
-{
-
-GLenum
-clear_bit(
-	sge::renderer::clear_flags_field const &_field,
-	sge::renderer::clear_flags::type const _value
-)
-{
-	return
-		_field[
-			_value
-		]
-		?
-			sge::opengl::convert::clear_flags(
-				_value
-			)
-		:
-			0;
-}
-
-
-}
 
 void
-sge::opengl::clear(
-	sge::renderer::clear_flags_field const &_flags
+sge::opengl::clear::set(
+	sge::renderer::clear::parameters const &_parameters
 )
 {
+	GLenum flags(
+		0
+	);
+
+	if(
+		_parameters.back_buffer()
+	)
+	{
+		flags |= GL_COLOR_BUFFER_BIT;
+
+		sge::opengl::clear::back_buffer(
+			*_parameters.back_buffer()
+		);
+	}
+
+	if(
+		_parameters.depth_buffer()
+	)
+	{
+		flags |= GL_DEPTH_BUFFER_BIT;
+
+		sge::opengl::clear::depth_buffer(
+			*_parameters.depth_buffer()
+		);
+	}
+
+	if(
+		_parameters.stencil_buffer()
+	)
+	{
+		flags |= GL_STENCIL_BUFFER_BIT;
+
+		sge::opengl::clear::stencil_buffer(
+			*_parameters.stencil_buffer()
+		);
+	}
+
 	::glClear(
-		::clear_bit(
-			_flags,
-			renderer::clear_flags::back_buffer
-		)
-		|
-		::clear_bit(
-			_flags,
-			renderer::clear_flags::depth_buffer
-		)
-		|
-		::clear_bit(
-			_flags,
-			renderer::clear_flags::stencil_buffer
-		)
+		flags
 	);
 
 	SGE_OPENGL_CHECK_STATE(

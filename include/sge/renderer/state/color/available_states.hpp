@@ -33,7 +33,6 @@ namespace available_states
 {
 enum type
 {
-	back_buffer_clear_color,
 	ambient_light_color,
 	fog_color
 };

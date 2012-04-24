@@ -46,11 +46,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/windowed.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -502,16 +501,17 @@ try
 	);
 
 
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black())
-	);
-
 	while(
 		sys.window_system().poll()
 	)
 	{
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black()
+			)
+		);
+
 		sge::renderer::scoped_block const block(
 			sys.renderer()
 		);

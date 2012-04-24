@@ -52,10 +52,6 @@ sge::opengl::state::bool_(
 		_state.state()
 	)
 	{
-	case rs::clear_back_buffer:
-	case rs::clear_depth_buffer:
-	case rs::clear_stencil_buffer:
-		return;
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
 	case rs::enable_scissor_test:

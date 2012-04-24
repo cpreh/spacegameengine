@@ -18,22 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_CLEAR_FLAGS_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_CLEAR_FLAGS_HPP_INCLUDED
+#ifndef SGE_OPENGL_CLEAR_SET_HPP_INCLUDED
+#define SGE_OPENGL_CLEAR_SET_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/clear_flags.hpp>
+#include <sge/renderer/clear/parameters_fwd.hpp>
+
 
 namespace sge
 {
 namespace opengl
 {
-namespace convert
+namespace clear
 {
 
-GLenum
-clear_flags(
-	sge::renderer::clear_flags::type
+void
+set(
+	sge::renderer::clear::parameters const &
 );
 
 }
