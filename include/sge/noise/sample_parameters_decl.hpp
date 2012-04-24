@@ -1,5 +1,5 @@
-#ifndef SGE_NOISE_SAMPLE_PARAMETERS_HPP_INCLUDED
-#define SGE_NOISE_SAMPLE_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_NOISE_SAMPLE_PARAMETERS_DECL_HPP_INCLUDED
+#define SGE_NOISE_SAMPLE_PARAMETERS_DECL_HPP_INCLUDED
 
 #include <fcppt/strong_typedef.hpp>
 
@@ -34,12 +34,12 @@ public:
 
 	explicit
 	sample_parameters(
-		position_type &_position,
-		amplitude_type &_amplitude,
-		frequency_type &_frequency,
-		octaves_type &_octaves);
+		position_type const &,
+		amplitude_type const &,
+		frequency_type const &,
+		octaves_type const &);
 
-	position_type const;
+	position_type const
 	position() const;
 
 	frequency_type const

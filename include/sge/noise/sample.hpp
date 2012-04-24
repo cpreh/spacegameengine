@@ -17,7 +17,7 @@ sample(
 	Noise &_noise,
 	sample_parameters<
 		Noise
-	> &_parameters)
+	> const &_parameters)
 {
 	typedef
 	typename Noise::value_type
@@ -30,13 +30,13 @@ sample(
 			static_cast<
 				double
 			>(
-				_parameters.amplitude()
+				_parameters.amplitude().get()
 			),
 		freq =
 			static_cast<
 				double
 			>(
-				_parameters.frequency()
+				_parameters.frequency().get()
 			);
 
 	for (
@@ -64,7 +64,7 @@ sample(
 					)
 				)
 				* freq
-				* _parameters.position()
+				* _parameters.position().get()
 			);
 
 	return
