@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_NOISE_SIMPLEX_NOISE_DECL_HPP_INCLUDED
-#define SGE_NOISE_SIMPLEX_NOISE_DECL_HPP_INCLUDED
+#ifndef SGE_NOISE_SIMPLEX_OBJECT_DECL_HPP_INCLUDED
+#define SGE_NOISE_SIMPLEX_OBJECT_DECL_HPP_INCLUDED
 
 
-#include <sge/noise/simplex_noise_fwd.hpp>
+#include <sge/noise/simplex/object_fwd.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/static.hpp>
@@ -39,12 +39,14 @@ namespace sge
 {
 namespace noise
 {
+namespace simplex
+{
 
 template<
 	typename Float,
 	std::size_t N
 >
-class simplex_noise
+class object
 {
 BOOST_STATIC_ASSERT((
 	boost::is_floating_point<Float>::value
@@ -56,14 +58,17 @@ public:
 		Float,
 		N
 	>::type
-	vector;
+	vector_type;
+
+	typedef
+	Float
+	value_type;
 
 	Float
 	sample(
-		vector const &);
+		vector_type const &);
 
-	simplex_noise(
-		std::size_t const _dim,
+	object(
 		std::size_t const _width);
 
 private:
@@ -85,9 +90,10 @@ private:
 	>::type
 	matrix;
 
-	std::size_t dim_;
 	index_container perm_;
-	std::vector<vector> gradients_;
+	std::vector<
+		vector_type
+	> gradients_;
 
 	std::size_t
 	mod(
@@ -96,16 +102,16 @@ private:
 
 	std::size_t
 	index(
-		vector const &vec);
+		vector_type const &vec);
 
 	typedef fcppt::container::array<
-		vector,
+		vector_type,
 		N + 1
 	> corner_array;
 
 	corner_array
 	corners(
-		vector point);
+		vector_type point);
 
 	Float
 	stretch_factor();
@@ -121,10 +127,11 @@ private:
 
 	Float
 	contrib(
-		vector const &v,
-		vector const &intv);
+		vector_type const &v,
+		vector_type const &intv);
 };
 
+}
 }
 }
 

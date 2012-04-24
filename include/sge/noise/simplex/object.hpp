@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_NOISE_SIMPLEX_NOISE_HPP_INCLUDED
-#define SGE_NOISE_SIMPLEX_NOISE_HPP_INCLUDED
+#ifndef SGE_NOISE_SIMPLEX_OBJECT_HPP_INCLUDED
+#define SGE_NOISE_SIMPLEX_OBJECT_HPP_INCLUDED
 
-#include <sge/noise/simplex_noise_decl.hpp>
-#include <sge/noise/simplex_noise_fwd.hpp>
-#include <sge/noise/simplex_noise_impl.hpp>
-
+#include <sge/noise/simplex/object_decl.hpp>
+#include <sge/noise/simplex/object_fwd.hpp>
+#include <sge/noise/simplex/object_impl.hpp>
 
 #endif

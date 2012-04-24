@@ -18,7 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/noise/simplex_noise.hpp>
+#include <sge/noise/simplex/object.hpp>
+#include <sge/noise/sample.hpp>
+#include <sge/noise/sample_parameters.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/exit_success.hpp>
@@ -31,24 +33,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
-
 awl::main::exit_code const
 example_main(
 	awl::main::function_context const &_main_function_context)
 try
 {
 	typedef
-	sge::noise::simplex_noise<double,2>
+	sge::noise::simplex::object<double,2>
 	noise_type;
 
-	noise_type noise_generator(128, 256);
+	noise_type noise_generator(128);
+
+	fcppt::io::cout()
+		<< FCPPT_TEXT("raw noise generator spit out: ")
+		<< noise_generator.sample(
+				noise_type::vector_type(
+					23.0,
+					42.0))
+		<< FCPPT_TEXT('\n');
+
+	typedef
+	sge::noise::sample_parameters<noise_type>
+	param_type;
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("noise generator spit out: ")
-		<< noise_generator.sample(
-				noise_type::vector(
-					1.3,
-					3.7))
+		<<
+			sge::noise::sample(
+				noise_generator,
+				param_type(
+					param_type::position_type(
+						noise_type::vector_type(
+							23.0,
+							42.0)),
+					param_type::amplitude_type(
+						1.0),
+					param_type::frequency_type(
+						10.0),
+					param_type::octaves_type(
+						5u)))
 		<< FCPPT_TEXT('\n');
 
 	return awl::main::exit_success();

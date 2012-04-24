@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_NOISE_SIMPLEX_NOISE_IMPL_HPP_INCLUDED
-#define SGE_NOISE_SIMPLEX_NOISE_IMPL_HPP_INCLUDED
+#ifndef SGE_NOISE_SIMPLEX_OBJECT_IMPL_HPP_INCLUDED
+#define SGE_NOISE_SIMPLEX_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/noise/simplex_noise_decl.hpp>
+#include <sge/noise/simplex/object_decl.hpp>
+#include <sge/noise/simplex/detail/mod.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/static.hpp>
@@ -38,34 +39,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-namespace
-{
-	std::size_t
-	mod(
-		long const &a,
-		std::size_t const &b)
-	{
-		if (a >= 0)
-			return static_cast<std::size_t>(a) %
-				static_cast<std::size_t>(b);
-		else
-			return static_cast<std::size_t>(-a) %
-				static_cast<std::size_t>(b);
-	}
-}
-
 template<
 	typename Float,
 	std::size_t N
 >
-sge::noise::simplex_noise<
+sge::noise::simplex::object<
 	Float,
-	N>::simplex_noise(
-		std::size_t const _dim,
+	N
+>::object(
 		std::size_t const _width)
 :
-	dim_(
-		_dim),
 	perm_(
 		_width)
 {
@@ -82,9 +65,9 @@ sge::noise::simplex_noise<
 		perm_
 	);
 
-	for (typename vector::size_type i = 0; i < N; ++i)
+	for (typename vector_type::size_type i = 0; i < N; ++i)
 	{
-		vector tmp = vector::null();
+		vector_type tmp = vector_type::null();
 		tmp[i] = static_cast<Float>(1);
 		gradients_.push_back(tmp);
 		tmp[i] = static_cast<Float>(-1);
@@ -94,25 +77,25 @@ sge::noise::simplex_noise<
 
 template<typename Float, std::size_t N>
 Float
-sge::noise::simplex_noise<Float,N>::sample(
-	vector const &in)
+sge::noise::simplex::object<Float,N>::sample(
+	vector_type const &in)
 {
 	Float res = static_cast<Float>(0);
-	vector tmp = stretch_m() * in;
-	for(typename vector::iterator it = tmp.begin(); it != tmp.end(); ++it)
+	vector_type tmp = stretch_m() * in;
+	for(typename vector_type::iterator it = tmp.begin(); it != tmp.end(); ++it)
 	{
 		*it = std::floor(*it);
 	}
-	vector floored(tmp);
+	vector_type floored(tmp);
 	tmp = inv_m() * tmp;
 	tmp = in - tmp;
-	vector offset(tmp);
+	vector_type offset(tmp);
 	tmp = stretch_m() * tmp;
 
 	corner_array c = corners(tmp);
 	for (typename corner_array::const_iterator v = c.begin(); v != c.end(); ++v)
 	{
-		vector t(in - inv_m() * (floored + *v));
+		vector_type t(in - inv_m() * (floored + *v));
 		res +=
 			contrib(t, floored + *v);
 	}
@@ -123,14 +106,14 @@ sge::noise::simplex_noise<Float,N>::sample(
 
 template<typename Float, std::size_t N>
 std::size_t
-sge::noise::simplex_noise<Float,N>::index(
-	vector const &vec)
+sge::noise::simplex::object<Float,N>::index(
+	vector_type const &vec)
 {
 	std::size_t res = static_cast<std::size_t>(0);
-	for (typename vector::const_iterator it = vec.begin(); it != vec.end(); ++it)
+	for (typename vector_type::const_iterator it = vec.begin(); it != vec.end(); ++it)
 	{
 		long t = static_cast<long>(*it);
-		res = perm_[::mod(
+		res = perm_[sge::noise::simplex::detail::mod(
 			static_cast<long>(res) +
 				static_cast<long>(t),
 			perm_.size())];
@@ -139,20 +122,20 @@ sge::noise::simplex_noise<Float,N>::index(
 }
 
 template<typename Float, std::size_t N>
-typename sge::noise::simplex_noise<Float,N>::corner_array
-sge::noise::simplex_noise<Float,N>::corners(
-	vector point)
+typename sge::noise::simplex::object<Float,N>::corner_array
+sge::noise::simplex::object<Float,N>::corners(
+	vector_type point)
 {
 	corner_array res;
-	vector cur = vector::null();
+	vector_type cur = vector_type::null();
 	Float max = static_cast<Float>(-1);
-	typename vector::size_type max_i = 0;
+	typename vector_type::size_type max_i = 0;
 
-	res[0] = vector(cur);
+	res[0] = vector_type(cur);
 
-	for (typename vector::size_type j = 0; j < N; ++j)
+	for (typename vector_type::size_type j = 0; j < N; ++j)
 	{
-		for (typename vector::size_type i = 0; i < N; ++i)
+		for (typename vector_type::size_type i = 0; i < N; ++i)
 			if (point[i] > max)
 			{
 				max = point[i];
@@ -160,8 +143,8 @@ sge::noise::simplex_noise<Float,N>::corners(
 			}
 		max = static_cast<Float>(-1);
 		point[max_i] = static_cast<Float>(-2);
-		cur += fcppt::math::vector::unit<vector>(max_i);
-		res[j+1] = vector(cur);
+		cur += fcppt::math::vector::unit<vector_type>(max_i);
+		res[j+1] = vector_type(cur);
 	}
 
 	return res;
@@ -169,7 +152,7 @@ sge::noise::simplex_noise<Float,N>::corners(
 
 template<typename Float, std::size_t N>
 Float
-sge::noise::simplex_noise<Float,N>::stretch_factor()
+sge::noise::simplex::object<Float,N>::stretch_factor()
 {
 	return static_cast<Float>(
 		1.0/(1.0 + std::sqrt(1.0 + N))
@@ -178,7 +161,7 @@ sge::noise::simplex_noise<Float,N>::stretch_factor()
 
 template<typename Float, std::size_t N>
 Float
-sge::noise::simplex_noise<Float,N>::inv_factor()
+sge::noise::simplex::object<Float,N>::inv_factor()
 {
 	return static_cast<Float>(
 		-1.0/(1.0 + N + std::sqrt(1.0 + N))
@@ -186,8 +169,8 @@ sge::noise::simplex_noise<Float,N>::inv_factor()
 }
 
 template<typename Float, std::size_t N>
-typename sge::noise::simplex_noise<Float,N>::matrix
-sge::noise::simplex_noise<Float,N>::stretch_m()
+typename sge::noise::simplex::object<Float,N>::matrix
+sge::noise::simplex::object<Float,N>::stretch_m()
 {
 	matrix tmp;
 	for (typename matrix::size_type i = 0; i < N; ++i)
@@ -199,8 +182,8 @@ sge::noise::simplex_noise<Float,N>::stretch_m()
 }
 
 template<typename Float, std::size_t N>
-typename sge::noise::simplex_noise<Float,N>::matrix
-sge::noise::simplex_noise<Float,N>::inv_m()
+typename sge::noise::simplex::object<Float,N>::matrix
+sge::noise::simplex::object<Float,N>::inv_m()
 {
 	matrix tmp;
 	for (typename matrix::size_type i = 0; i < N; ++i)
@@ -213,9 +196,9 @@ sge::noise::simplex_noise<Float,N>::inv_m()
 
 template<typename Float, std::size_t N>
 Float
-sge::noise::simplex_noise<Float,N>::contrib(
-	vector const &v,
-	vector const &intv)
+sge::noise::simplex::object<Float,N>::contrib(
+	vector_type const &v,
+	vector_type const &intv)
 {
 	Float t = static_cast<Float>(0.6);
 	t -= fcppt::math::vector::dot(v,v);
