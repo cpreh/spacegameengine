@@ -21,19 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/fbo/bind.hpp>
 #include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/id.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::opengl::fbo::bind(
-	opengl::fbo::context const &_context,
-	GLuint const _id
+	sge::opengl::fbo::context const &_context,
+	sge::opengl::fbo::id const _id
 )
 {
 	_context.bind_framebuffer()(
 		_context.framebuffer_target(),
-		_id
+		_id.get()
 	);
 
 	SGE_OPENGL_CHECK_STATE(

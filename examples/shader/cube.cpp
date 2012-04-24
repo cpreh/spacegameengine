@@ -95,6 +95,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
@@ -1058,18 +1059,22 @@ try
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				camera_timer));
 
-		// Some render states
 		sys.renderer().state(
 			sge::renderer::state::list
-				(sge::renderer::state::bool_::clear_back_buffer = true)
-				(sge::renderer::state::bool_::clear_depth_buffer = true)
 				(sge::renderer::state::bool_::enable_alpha_blending = false)
 				(sge::renderer::state::cull_mode::off)
 				(sge::renderer::state::depth_func::less)
 				(sge::renderer::state::draw_mode::fill)
-				(sge::renderer::state::float_::depth_buffer_clear_val = 1.f)
-				(sge::renderer::state::stencil_func::off)
-				(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
+				(sge::renderer::state::stencil_func::off));
+
+		sge::renderer::active_target(
+			sys.renderer()
+		).clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black())
+			.depth_buffer(
+				1.f));
 
 		sge::renderer::scoped_block const block(
 			sys.renderer());

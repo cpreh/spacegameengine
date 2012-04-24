@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/check_state_once.hpp>
-#include <sge/opengl/clear.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/create_caps.hpp>
 #include <sge/opengl/create_device_state.hpp>
@@ -74,7 +73,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/state/default.hpp>
-#include <sge/renderer/state/to_clear_flags_field.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -114,6 +112,9 @@ sge::opengl::device::device(
 			opengl::onscreen_target
 		>(
 			fcppt::ref(
+				context_
+			),
+			fcppt::ref(
 				_window
 			)
 		)
@@ -150,12 +151,6 @@ void
 sge::opengl::device::begin_rendering()
 {
 	state_->begin_rendering();
-
-	this->clear(
-		renderer::state::to_clear_flags_field(
-			current_states_
-		)
-	);
 }
 
 void
@@ -167,16 +162,6 @@ sge::opengl::device::end_rendering()
 		!this->fbo_active()
 	)
 		state_->swap_buffers();
-}
-
-void
-sge::opengl::device::clear(
-	renderer::clear_flags_field const &_flags
-)
-{
-	opengl::clear(
-		_flags
-	);
 }
 
 void

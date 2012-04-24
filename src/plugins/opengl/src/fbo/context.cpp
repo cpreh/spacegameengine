@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/id.hpp>
+#include <sge/opengl/fbo/no_buffer.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <fcppt/null_ptr.hpp>
 
@@ -231,7 +233,7 @@ sge::opengl::fbo::context::context()
 		)
 	),
 	last_buffer_(
-		0
+		sge::opengl::fbo::no_buffer()
 	)
 {
 }
@@ -344,7 +346,7 @@ sge::opengl::fbo::context::depth_stencil_attachment() const
 	return depth_stencil_attachment_;
 }
 
-GLuint
+sge::opengl::fbo::id const
 sge::opengl::fbo::context::last_buffer() const
 {
 	return last_buffer_;
@@ -352,7 +354,7 @@ sge::opengl::fbo::context::last_buffer() const
 
 void
 sge::opengl::fbo::context::last_buffer(
-	GLuint const _last_buffer
+	sge::opengl::fbo::id const _last_buffer
 )
 {
 	last_buffer_ = _last_buffer;

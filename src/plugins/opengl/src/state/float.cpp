@@ -45,21 +45,6 @@ sge::opengl::state::float_(
 		_state.state()
 	)
 	{
-	case rs::depth_buffer_clear_val:
-		::glClearDepth(
-			static_cast<
-				GLdouble
-			>(
-				_state.value()
-			)
-		);
-
-		SGE_OPENGL_CHECK_STATE(
-			FCPPT_TEXT("glClearDepth failed"),
-			sge::renderer::exception
-		)
-
-		return;
 	case rs::alpha_test_ref:
 		_parameters.deferred().add(
 			deferred::bundle::alpha_test

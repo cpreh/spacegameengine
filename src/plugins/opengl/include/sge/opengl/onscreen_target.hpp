@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/basic_target.hpp>
 #include <sge/opengl/onscreen_target_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -45,11 +47,12 @@ class onscreen_target
 		onscreen_target
 	);
 public:
-	typedef opengl::basic_target<
+	typedef sge::opengl::basic_target<
 		sge::renderer::onscreen_target
 	> base;
 
-	explicit onscreen_target(
+	onscreen_target(
+		sge::opengl::context::object &,
 		awl::window::object &
 	);
 
@@ -61,10 +64,10 @@ private:
 	void
 	on_unbind();
 
-	renderer::color_surface const &
+	sge::renderer::color_surface const &
 	surface() const;
 
-	renderer::screen_unit
+	sge::renderer::screen_unit
 	height() const;
 
 	typedef fcppt::scoped_ptr<

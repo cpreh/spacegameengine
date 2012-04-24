@@ -18,30 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/clear_flags.hpp>
-#include <sge/renderer/clear_flags.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/opengl/fbo/id.hpp>
+#include <sge/opengl/fbo/no_buffer.hpp>
 
 
-GLenum
-sge::opengl::convert::clear_flags(
-	sge::renderer::clear_flags::type const _flag
-)
+sge::opengl::fbo::id const
+sge::opengl::fbo::no_buffer()
 {
-	switch(
-		_flag
-	)
-	{
-	case sge::renderer::clear_flags::back_buffer:
-		return GL_COLOR_BUFFER_BIT;
-	case sge::renderer::clear_flags::depth_buffer:
-		return GL_DEPTH_BUFFER_BIT;
-	case sge::renderer::clear_flags::stencil_buffer:
-		return GL_STENCIL_BUFFER_BIT;
-	case sge::renderer::clear_flags::size:
-		break;
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
+	return
+		sge::opengl::fbo::id(
+			0u
+		);
 }

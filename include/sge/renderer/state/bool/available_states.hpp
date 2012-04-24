@@ -33,9 +33,6 @@ namespace available_states
 {
 enum type
 {
-	clear_depth_buffer,
-	clear_back_buffer,
-	clear_stencil_buffer,
 	enable_alpha_blending,
 	enable_lighting,
 	enable_point_sprites,

@@ -35,8 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/object.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
 #include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/clear_flags.hpp>
-#include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -47,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -64,12 +63,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
+#include <sge/renderer/clear/depth_buffer_value.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/draw_mode.hpp>
@@ -838,17 +838,12 @@ try
 	// Set the important render states
 	sys.renderer().state(
 		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::bool_::clear_depth_buffer = true)
-			(sge::renderer::state::float_::depth_buffer_clear_val = 1.f)
 			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::bool_::enable_alpha_blending = false)
 			(sge::renderer::state::cull_mode::counter_clockwise)
 			(sge::renderer::state::draw_mode::fill)
 			(sge::renderer::state::bool_::enable_lighting = true)
-			(sge::renderer::state::stencil_func::off)
-			(sge::renderer::state::color::back_buffer_clear_color =
-				sge::image::colors::black()));
+			(sge::renderer::state::stencil_func::off));
 
 	sys.renderer().enable_light(
 		sge::renderer::light::index(
@@ -887,6 +882,20 @@ try
 				(sge::renderer::state::bool_::write_blue = true)
 				(sge::renderer::state::bool_::write_green = true));
 
+		sge::renderer::clear::depth_buffer_value const depth_clear_value(
+			1.f
+		);
+
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black()
+			)
+			.depth_buffer(
+				depth_clear_value
+			)
+		);
+
 		sge::renderer::scoped_block const block_(
 			sys.renderer());
 
@@ -905,9 +914,12 @@ try
 					focal_length)));
 
 		// Clear depth buffer
-		sys.renderer().clear(
-			sge::renderer::clear_flags_field(
-				sge::renderer::clear_flags::depth_buffer));
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+			.depth_buffer(
+				depth_clear_value
+			)
+		);
 
 		// Set the color mask to cyan
 		sys.renderer().state(

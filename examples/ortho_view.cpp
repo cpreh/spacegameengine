@@ -37,12 +37,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/windowed.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
@@ -290,11 +290,6 @@ try
 				fcppt::ref(
 					sys.cursor_demuxer()))));
 
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
-
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
 			sge::camera::update_duration(
@@ -308,7 +303,12 @@ try
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				camera_timer));
 
-		sge::renderer::scoped_block const block_(
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black()));
+
+		sge::renderer::scoped_block const block(
 			sys.renderer());
 
 		sge::renderer::scoped_transform projection_transform(

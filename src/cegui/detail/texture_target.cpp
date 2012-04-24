@@ -30,15 +30,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/optional_target_ref.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/target.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
 #include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/trampoline.hpp>
@@ -166,12 +165,6 @@ sge::cegui::detail::texture_target::activate()
 		)
 	);
 
-	// This is critical: We do NOT want to clear the texture
-	// here. Clearing is explicitly done in the clear() function.
-	system_.renderer().push_state(
-		sge::renderer::state::list(
-			sge::renderer::state::bool_::clear_back_buffer = false));
-
 	system_.renderer().begin_rendering();
 }
 
@@ -184,7 +177,6 @@ sge::cegui::detail::texture_target::deactivate()
 	if(texture_->empty())
 		return;
 	system_.renderer().end_rendering();
-	system_.renderer().pop_state();
 	system_.renderer().transform(
 		sge::renderer::matrix_mode::projection,
 		default_projection_);
@@ -214,8 +206,6 @@ sge::cegui::detail::texture_target::clear()
 	sge::renderer::state::scoped scoped_state(
 		system_.renderer(),
 		sge::renderer::state::list
-			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::transparent())
-			(sge::renderer::state::bool_::clear_back_buffer = true)
 			(sge::renderer::state::bool_::enable_scissor_test = false));
 
 	// Make sure we clear everything
@@ -226,12 +216,12 @@ sge::cegui::detail::texture_target::clear()
 				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
 					texture_->impl().size()))));
 
-	sge::renderer::scoped_target scoped_target(
-		system_.renderer(),
-		*target_);
-
-	sge::renderer::scoped_block scoped_block(
-		system_.renderer());
+	target_->clear(
+		sge::renderer::clear::parameters()
+		.back_buffer(
+			sge::image::colors::transparent()
+		)
+	);
 }
 
 CEGUI::Texture &

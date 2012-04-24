@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/target_fwd.hpp>
 #include <sge/opengl/glew/scoped_init.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/clear_flags_field.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
@@ -121,11 +120,6 @@ public:
 
 	void
 	end_rendering();
-
-	void
-	clear(
-		renderer::clear_flags_field const &
-	);
 
 	void
 	render_indexed(

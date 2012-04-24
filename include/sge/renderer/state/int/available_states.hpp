@@ -33,7 +33,6 @@ namespace available_states
 {
 enum type
 {
-	stencil_buffer_clear_val,
 	stencil_ref
 };
 }

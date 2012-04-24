@@ -46,13 +46,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/state/int.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
@@ -315,26 +315,6 @@ try
 		.texture_size()
 	);
 
-	// Declare which states should be always active.
-	// Here, we clear the back buffer with the clear color black() on each frame.
-	// We also clear the stencil buffer with value 0.
-	sys.renderer().state(
-		sge::renderer::state::list
-		(
-			sge::renderer::state::bool_::clear_back_buffer = true
-		)
-		(
-			sge::renderer::state::bool_::clear_stencil_buffer = true
-		)
-		(
-			sge::renderer::state::color::back_buffer_clear_color
-				= sge::image::colors::black()
-		)
-		(
-			sge::renderer::state::int_::stencil_buffer_clear_val = 0
-		)
-	);
-
 	// Set running to false when escape is pressed.
 	fcppt::signal::scoped_connection const escape_connection(
 		sge::systems::quit_on_escape(
@@ -347,6 +327,18 @@ try
 		sys.window_system().poll()
 	)
 	{
+		// Here, we clear the back buffer with the clear color black() on each frame.
+		// We also clear the stencil buffer with value 0.
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black()
+			)
+			.stencil_buffer(
+				0
+			)
+		);
+
 		// Declare a render block.
 		// This will clear the buffers in the constructor and
 		// present the scene in the destructor.

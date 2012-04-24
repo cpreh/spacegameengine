@@ -38,7 +38,6 @@ namespace int_
 
 SGE_RENDERER_SYMBOL extern
 int_::trampoline const
-	stencil_buffer_clear_val,
 	stencil_ref;
 
 }

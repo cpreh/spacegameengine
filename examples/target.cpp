@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -39,9 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/target_scoped_ptr.hpp>
 #include <sge/renderer/windowed.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
@@ -298,14 +297,10 @@ try
 			.texture_size()
 		);
 
-		sys.renderer().state(
-			sge::renderer::state::list
-			(
-				sge::renderer::state::bool_::clear_back_buffer = true
-			)
-			(
-				sge::renderer::state::color::back_buffer_clear_color
-					= sge::image::colors::red()
+		target->clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::red()
 			)
 		);
 
@@ -346,14 +341,10 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sys.renderer().state(
-			sge::renderer::state::list
-			(
-				sge::renderer::state::bool_::clear_back_buffer = true
-			)
-			(
-				sge::renderer::state::color::back_buffer_clear_color
-					= sge::image::colors::blue()
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::blue()
 			)
 		);
 

@@ -18,26 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_CLEAR_FLAGS_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_CLEAR_FLAGS_HPP_INCLUDED
-
+#include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/clear_flags.hpp>
+#include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/delete_id.hpp>
+#include <sge/opengl/fbo/id.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
+
+void
+sge::opengl::fbo::delete_id(
+	sge::opengl::fbo::context const &_context,
+	sge::opengl::fbo::id const _id
+)
 {
-namespace opengl
-{
-namespace convert
-{
+	GLuint const id(
+		_id.get()
+	);
 
-GLenum
-clear_flags(
-	sge::renderer::clear_flags::type
-);
+	_context.delete_framebuffers()(
+		1,
+		&id
+	);
 
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glDeleteFramebuffers failed"),
+		sge::renderer::exception
+	)
 }
-}
-}
-
-#endif

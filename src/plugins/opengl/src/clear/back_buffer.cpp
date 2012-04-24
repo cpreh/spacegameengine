@@ -18,64 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/color/rgba32f.hpp>
+#include <sge/image/color/rgba32f_format.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/clear.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/clear_flags.hpp>
-#include <sge/renderer/clear_flags.hpp>
+#include <sge/opengl/clear/back_buffer.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/clear/back_buffer_value.hpp>
+#include <mizuiro/color/channel/alpha.hpp>
+#include <mizuiro/color/channel/blue.hpp>
+#include <mizuiro/color/channel/green.hpp>
+#include <mizuiro/color/channel/red.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
-
-namespace
-{
-
-GLenum
-clear_bit(
-	sge::renderer::clear_flags_field const &_field,
-	sge::renderer::clear_flags::type const _value
-)
-{
-	return
-		_field[
-			_value
-		]
-		?
-			sge::opengl::convert::clear_flags(
-				_value
-			)
-		:
-			0;
-}
-
-
-}
 
 void
-sge::opengl::clear(
-	sge::renderer::clear_flags_field const &_flags
+sge::opengl::clear::back_buffer(
+	sge::renderer::clear::back_buffer_value const &_value
 )
 {
-	::glClear(
-		::clear_bit(
-			_flags,
-			renderer::clear_flags::back_buffer
+	sge::image::color::rgba32f const fcolor(
+		image::color::any::convert<
+			sge::image::color::rgba32f_format
+		>(
+			_value
 		)
-		|
-		::clear_bit(
-			_flags,
-			renderer::clear_flags::depth_buffer
-		)
-		|
-		::clear_bit(
-			_flags,
-			renderer::clear_flags::stencil_buffer
+	);
+
+	::glClearColor(
+		fcolor.get(
+			mizuiro::color::channel::red()
+		),
+		fcolor.get(
+			mizuiro::color::channel::green()
+		),
+		fcolor.get(
+			mizuiro::color::channel::blue()
+		),
+		fcolor.get(
+			mizuiro::color::channel::alpha()
 		)
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glClear failed"),
+		FCPPT_TEXT("glClearColor failed"),
 		sge::renderer::exception
 	)
 }

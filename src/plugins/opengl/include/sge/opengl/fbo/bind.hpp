@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/id.hpp>
 
 
 namespace sge
@@ -34,8 +35,8 @@ namespace fbo
 
 void
 bind(
-	fbo::context const &,
-	GLuint
+	sge::opengl::fbo::context const &,
+	sge::opengl::fbo::id
 );
 
 }

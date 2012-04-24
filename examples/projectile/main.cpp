@@ -65,9 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/sprite/projection_matrix.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
@@ -524,11 +522,6 @@ try
 		sge::systems::quit_on_escape(
 			sys));
 
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
-
 	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
 			sge::projectile::duration(
@@ -547,7 +540,12 @@ try
 
 		debug_drawer.update();
 
-		sge::renderer::scoped_block const block_(
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black()));
+
+		sge::renderer::scoped_block const block(
 			sys.renderer());
 
 		debug_drawer.render(

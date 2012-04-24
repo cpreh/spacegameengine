@@ -41,7 +41,6 @@ sge::opengl::state::convert::fog_float(
 		return GL_FOG_END;
 	case rs::fog_density:
 		return GL_FOG_DENSITY;
-	case rs::depth_buffer_clear_val:
 	case rs::alpha_test_ref:
 		break;
 	}

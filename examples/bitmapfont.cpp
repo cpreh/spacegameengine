@@ -41,9 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/windowed.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input_helper.hpp>
@@ -167,14 +165,6 @@ try
 		sys.renderer(),
 		sge::image::colors::white());
 
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::color::back_buffer_clear_color
-				= sge::image::colors::black()
-			)
-	);
-
 	fcppt::signal::scoped_connection const escape_connection(
 		sge::systems::quit_on_escape(
 			sys
@@ -197,7 +187,14 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::scoped_block const block_(
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black()
+			)
+		);
+
+		sge::renderer::scoped_block const block(
 			sys.renderer()
 		);
 

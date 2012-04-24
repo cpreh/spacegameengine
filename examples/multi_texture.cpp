@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
@@ -50,14 +51,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/index/format_16.hpp>
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
@@ -433,16 +431,6 @@ try
 			sge::renderer::texture::stage(1u)
 		);
 
-		sge::renderer::state::scoped const scoped_state(
-			sys.renderer(),
-			sge::renderer::state::list(
-				sge::renderer::state::bool_::clear_back_buffer = true
-			)(
-				sge::renderer::state::color::back_buffer_clear_color =
-					sge::image::colors::black()
-			)
-		);
-
 		sys.renderer().texture_stage_arg(
 			sge::renderer::texture::stage(0u),
 			sge::renderer::texture::stage_arg::color0,
@@ -471,6 +459,13 @@ try
 			sge::renderer::texture::stage(1u),
 			sge::renderer::texture::stage_op::color,
 			sge::renderer::texture::stage_op_value::modulate
+		);
+
+		sys.renderer().onscreen_target().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black()
+			)
 		);
 
 		sge::renderer::scoped_block const block(

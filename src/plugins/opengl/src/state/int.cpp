@@ -18,17 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/int.hpp>
 #include <sge/opengl/state/parameters.hpp>
 #include <sge/opengl/state/deferred/bundle.hpp>
 #include <sge/opengl/state/deferred/object.hpp>
-#include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/int/available_states.hpp>
 #include <sge/renderer/state/int/type.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
@@ -44,16 +40,6 @@ sge::opengl::state::int_(
 		_state.state()
 	)
 	{
-	case rs::stencil_buffer_clear_val:
-		::glClearStencil(
-			_state.value()
-		);
-
-		SGE_OPENGL_CHECK_STATE(
-			FCPPT_TEXT("glClearStencil failed"),
-			sge::renderer::exception
-		)
-		return;
 	case rs::stencil_ref:
 		_parameters.deferred().add(
 			deferred::bundle::stencil_func

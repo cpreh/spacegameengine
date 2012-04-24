@@ -29,8 +29,18 @@ set(
 	include/sge/renderer/caps/preferred_texture_format.hpp
 	include/sge/renderer/caps/render_target_supported.hpp
 	include/sge/renderer/caps/texture_stages.hpp
-	include/sge/renderer/clear_flags.hpp
-	include/sge/renderer/clear_flags_field.hpp
+	include/sge/renderer/clear/back_buffer_value.hpp
+	include/sge/renderer/clear/back_buffer_value_fwd.hpp
+	include/sge/renderer/clear/depth_buffer_value.hpp
+	include/sge/renderer/clear/optional_back_buffer.hpp
+	include/sge/renderer/clear/optional_back_buffer_fwd.hpp
+	include/sge/renderer/clear/optional_depth_buffer.hpp
+	include/sge/renderer/clear/optional_depth_buffer_fwd.hpp
+	include/sge/renderer/clear/optional_stencil_buffer.hpp
+	include/sge/renderer/clear/optional_stencil_buffer_fwd.hpp
+	include/sge/renderer/clear/parameters.hpp
+	include/sge/renderer/clear/parameters_fwd.hpp
+	include/sge/renderer/clear/stencil_buffer_value.hpp
 	include/sge/renderer/clip_plane.hpp
 	include/sge/renderer/clip_plane_index.hpp
 	include/sge/renderer/clip_plane_index_value.hpp
@@ -330,7 +340,6 @@ set(
 	include/sge/renderer/state/stencil_op/trampoline.hpp
 	include/sge/renderer/state/stencil_op/type.hpp
 	include/sge/renderer/state/stencil_op_value.hpp
-	include/sge/renderer/state/to_clear_flags_field.hpp
 	include/sge/renderer/state/trampoline.hpp
 	include/sge/renderer/state/trampoline_fwd.hpp
 	include/sge/renderer/state/uint.hpp
@@ -587,6 +596,7 @@ set(
 	src/renderer/buffer_has_stencil.cpp
 	src/renderer/caps/object.cpp
 	src/renderer/caps/object_output.cpp
+	src/renderer/clear/parameters.cpp
 	src/renderer/color_surface.cpp
 	src/renderer/const_scoped_color_surface_lock.cpp
 	src/renderer/const_scoped_index_lock.cpp
@@ -736,7 +746,6 @@ set(
 	src/renderer/state/stencil_op.cpp
 	src/renderer/state/stencil_op/trampoline.cpp
 	src/renderer/state/stencil_op/var.cpp
-	src/renderer/state/to_clear_flags_field.cpp
 	src/renderer/state/uint.cpp
 	src/renderer/state/uint/trampoline.cpp
 	src/renderer/state/uint/var.cpp

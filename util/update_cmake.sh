@@ -136,6 +136,7 @@ update_cmake_file \
 	include/sge/renderer \
 	-r \
 	include/sge/renderer/caps \
+	include/sge/renderer/clear \
 	include/sge/renderer/glsl \
 	include/sge/renderer/index \
 	include/sge/renderer/light \
@@ -148,6 +149,7 @@ update_cmake_file \
 	src/renderer \
 	-r \
 	src/renderer/caps \
+	src/renderer/clear \
 	src/renderer/glsl \
 	src/renderer/include \
 	src/renderer/index \
@@ -184,6 +186,7 @@ update_cmake_file \
 	-n src/plugins/opengl/src \
 	-r \
 	$(opengl_inc_src buffer) \
+	$(opengl_inc_src clear) \
 	$(opengl_inc_src context) \
 	$(opengl_inc_src convert) \
 	$(opengl_inc_src fbo) \

@@ -18,22 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CLEAR_HPP_INCLUDED
-#define SGE_OPENGL_CLEAR_HPP_INCLUDED
+#ifndef SGE_RENDERER_CLEAR_OPTIONAL_BACK_BUFFER_HPP_INCLUDED
+#define SGE_RENDERER_CLEAR_OPTIONAL_BACK_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/clear_flags_field.hpp>
+#include <sge/renderer/clear/back_buffer_value.hpp>
+#include <sge/renderer/clear/optional_back_buffer_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-namespace sge
-{
-namespace opengl
-{
-
-void
-clear(
-	sge::renderer::clear_flags_field const &
-);
-
-}
-}
 
 #endif

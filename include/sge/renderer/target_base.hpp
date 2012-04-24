@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/target_base_fwd.hpp>
 #include <sge/renderer/viewport_fwd.hpp>
+#include <sge/renderer/clear/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -58,6 +59,12 @@ protected:
 	SGE_RENDERER_SYMBOL
 	target_base();
 public:
+	virtual
+	void
+	clear(
+		sge::renderer::clear::parameters const &
+	) = 0;
+
 	/**
 	 * \brief Sets the viewport
 	 *

@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
@@ -44,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/target_scoped_ptr.hpp>
 #include <sge/renderer/windowed.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/glsl/const_optional_program_ref.hpp>
 #include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/pixel_shader_scoped_ptr.hpp>
@@ -55,10 +57,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/variable_scoped_ptr.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -420,12 +418,6 @@ try
 		)
 	);
 
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_back_buffer = true)
-			(sge::renderer::state::depth_func::off)
-			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
-
 	sge::renderer::texture::planar_scoped_ptr const target_texture(
 		sys.renderer().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
@@ -548,6 +540,11 @@ try
 		sys.window_system().poll()
 	)
 	{
+		sge::renderer::clear::parameters const clear_parameters(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black()));
+
 		{
 			sys.renderer().glsl_program(
 				sge::renderer::glsl::const_optional_program_ref()
@@ -560,6 +557,10 @@ try
 
 			sge::renderer::scoped_block const block(
 				sys.renderer()
+			);
+
+			target->clear(
+				clear_parameters
 			);
 
 			sge::sprite::process::one(
@@ -582,6 +583,10 @@ try
 			sge::renderer::glsl::const_optional_program_ref(
 				*program
 			)
+		);
+
+		sys.renderer().onscreen_target().clear(
+			clear_parameters
 		);
 
 		sge::renderer::scoped_block const block(

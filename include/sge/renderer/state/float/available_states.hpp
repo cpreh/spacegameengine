@@ -33,7 +33,6 @@ namespace available_states
 {
 enum type
 {
-	depth_buffer_clear_val,
 	alpha_test_ref,
 	fog_start,
 	fog_end,

@@ -41,9 +41,6 @@ sge::opengl::state::convert::bool_(
 		return GL_LIGHTING;
 	case rs::enable_scissor_test:
 		return GL_SCISSOR_TEST;
-	case rs::clear_back_buffer:
-	case rs::clear_depth_buffer:
-	case rs::clear_stencil_buffer:
 	case rs::enable_point_sprites:
 	case rs::write_to_depth_buffer:
 	case rs::write_alpha:

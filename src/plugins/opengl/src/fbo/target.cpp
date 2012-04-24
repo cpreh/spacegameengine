@@ -22,15 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/fbo/attachment.hpp>
-#include <sge/opengl/fbo/bind.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface_ptr.hpp>
+#include <sge/opengl/fbo/no_buffer.hpp>
 #include <sge/opengl/fbo/render_buffer_binding.hpp>
 #include <sge/opengl/fbo/target.hpp>
 #include <sge/opengl/fbo/temporary_bind.hpp>
 #include <sge/opengl/fbo/texture_binding.hpp>
+#include <sge/opengl/fbo/unbind.hpp>
 #include <sge/opengl/texture/surface.hpp>
 #include <sge/opengl/texture/surface_ptr.hpp>
 #include <sge/renderer/exception.hpp>
@@ -41,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -56,6 +58,7 @@ sge::opengl::fbo::target::target(
 )
 :
 	base(
+		_context,
 		sge::renderer::viewport(
 			sge::renderer::pixel_rect::null()
 		)
@@ -101,13 +104,12 @@ sge::opengl::fbo::target::on_bind()
 void
 sge::opengl::fbo::target::on_unbind()
 {
-	opengl::fbo::bind(
-		context_,
-		0
+	sge::opengl::fbo::unbind(
+		context_
 	);
 
 	context_.last_buffer(
-		0
+		sge::opengl::fbo::no_buffer()
 	);
 }
 
@@ -289,7 +291,7 @@ sge::opengl::fbo::target::create_texture_binding(
 	this->check();
 
 	return
-		move(
+		fcppt::move(
 			ret
 		);
 }
@@ -317,7 +319,7 @@ sge::opengl::fbo::target::create_buffer_binding(
 	this->check();
 
 	return
-		move(
+		fcppt::move(
 			ret
 		);
 }
