@@ -177,7 +177,6 @@ sge::cegui::detail::texture_target::deactivate()
 	if(texture_->empty())
 		return;
 	system_.renderer().end_rendering();
-	system_.renderer().pop_state();
 	system_.renderer().transform(
 		sge::renderer::matrix_mode::projection,
 		default_projection_);

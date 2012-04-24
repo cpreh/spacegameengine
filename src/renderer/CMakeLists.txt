@@ -596,7 +596,7 @@ set(
 	src/renderer/buffer_has_stencil.cpp
 	src/renderer/caps/object.cpp
 	src/renderer/caps/object_output.cpp
-	src/renderer/clear/paramters.cpp
+	src/renderer/clear/parameters.cpp
 	src/renderer/color_surface.cpp
 	src/renderer/const_scoped_color_surface_lock.cpp
 	src/renderer/const_scoped_index_lock.cpp
