@@ -590,7 +590,6 @@ set(
 	src/plugins/opengl/src/state/visitor.cpp
 	src/plugins/opengl/src/system.cpp
 	src/plugins/opengl/src/target_base.cpp
-	src/plugins/opengl/src/temporary_target.cpp
 	src/plugins/opengl/src/texture/activate.cpp
 	src/plugins/opengl/src/texture/address_mode/context.cpp
 	src/plugins/opengl/src/texture/address_mode/default.cpp

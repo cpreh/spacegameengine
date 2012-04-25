@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/clear/parameters_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/format.hpp>
@@ -58,7 +59,6 @@ sge::opengl::fbo::target::target(
 )
 :
 	base(
-		_context,
 		sge::renderer::viewport(
 			sge::renderer::pixel_rect::null()
 		)
@@ -89,6 +89,21 @@ sge::opengl::fbo::target::~target()
 	depth_stencil_attachment_.reset();
 
 	color_attachments_.clear();
+}
+
+void
+sge::opengl::fbo::target::clear(
+	sge::renderer::clear::parameters const &_parameters
+)
+{
+	sge::opengl::fbo::temporary_bind const scoped_exit(
+		context_,
+		fbo_
+	);
+
+	base::clear(
+		_parameters
+	);
 }
 
 void

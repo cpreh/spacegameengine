@@ -48,10 +48,6 @@ public:
 	virtual
 	void
 	unbind() = 0;
-
-	virtual
-	bool
-	active() const = 0;
 };
 
 }
