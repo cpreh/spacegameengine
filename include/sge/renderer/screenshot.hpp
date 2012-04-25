@@ -52,8 +52,8 @@ namespace renderer
 SGE_RENDERER_SYMBOL
 void
 screenshot(
-	renderer::device const &device,
-	image2d::system &system,
+	sge::renderer::device const &device,
+	sge::image2d::system &system,
 	boost::filesystem::path const &path
 );
 

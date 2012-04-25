@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/save_from_view.hpp>
 #include <sge/renderer/const_scoped_color_surface_lock.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/screenshot.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -31,12 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::renderer::screenshot(
-	renderer::device const &_renderer,
-	image2d::system &_system,
+	sge::renderer::device const &_renderer,
+	sge::image2d::system &_system,
 	boost::filesystem::path const &_path
 )
 {
-	renderer::const_scoped_color_surface_lock const lock(
+	sge::renderer::const_scoped_color_surface_lock const lock(
 		_renderer.onscreen_target().surface()
 	);
 

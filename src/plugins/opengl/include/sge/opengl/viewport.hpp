@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VIEWPORT_HPP_INCLUDED
 
 #include <sge/renderer/screen_unit.hpp>
-#include <sge/renderer/viewport_fwd.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
 
 
 namespace sge
@@ -32,8 +32,8 @@ namespace opengl
 
 void
 viewport(
-	renderer::viewport const &,
-	renderer::screen_unit
+	sge::renderer::target::viewport const &,
+	sge::renderer::screen_unit height
 );
 
 }

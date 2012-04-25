@@ -18,21 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/default.hpp>
+#include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <sge/renderer/texture/filter/scoped.hpp>
 
 
 sge::renderer::texture::filter::scoped::scoped(
-	renderer::device &_device,
-	renderer::texture::stage const _stage,
-	filter::object const &_filter
+	sge::renderer::context::object &_context,
+	sge::renderer::texture::stage const _stage,
+	sge::renderer::texture::filter::object const &_filter
 )
 :
-	device_(_device),
-	stage_(_stage)
+	context_(
+		_context
+	),
+	stage_(
+		_stage
+	)
 {
-	device_.texture_filter(
+	context_.texture_filter(
 		_filter,
 		stage_
 	);
@@ -40,8 +46,8 @@ sge::renderer::texture::filter::scoped::scoped(
 
 sge::renderer::texture::filter::scoped::~scoped()
 {
-	device_.texture_filter(
-		filter::default_(),
+	context_.texture_filter(
+		sge::renderer::texture::filter::default_(),
 		stage_
 	);
 }

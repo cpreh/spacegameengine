@@ -18,22 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <sge/renderer/glsl/const_optional_program_ref.hpp>
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/scoped_program.hpp>
 
 
 sge::renderer::glsl::scoped_program::scoped_program(
-	renderer::device &_rend,
-	glsl::program const &_program
+	sge::renderer::context::object &_context,
+	sge::renderer::glsl::program const &_program
 )
 :
-	rend_(
-		_rend
+	context_(
+		_context
 	)
 {
-	rend_.glsl_program(
+	context_.glsl_program(
 		sge::renderer::glsl::const_optional_program_ref(
 			_program
 		)
@@ -42,7 +42,7 @@ sge::renderer::glsl::scoped_program::scoped_program(
 
 sge::renderer::glsl::scoped_program::~scoped_program()
 {
-	rend_.glsl_program(
-		renderer::glsl::const_optional_program_ref()
+	context_.glsl_program(
+		sge::renderer::glsl::const_optional_program_ref()
 	);
 }

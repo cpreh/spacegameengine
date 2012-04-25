@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_TRANSFORM_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_TRANSFORM_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -50,7 +50,7 @@ public:
 	 *
 	 * Sets \a matrix for \a mode and \a device.
 	 *
-	 * \param device The device to set the matrix for
+	 * \param context The context to set the matrix for
 	 *
 	 * \param mode The matrix mode to set the matrix for
 	 *
@@ -58,9 +58,9 @@ public:
 	*/
 	SGE_RENDERER_SYMBOL
 	scoped_transform(
-		renderer::device &device,
-		renderer::matrix_mode::type mode,
-		renderer::matrix4 const &matrix
+		sge::renderer::context::object &context,
+		sge::renderer::matrix_mode::type mode,
+		sge::renderer::matrix4 const &matrix
 	);
 
 	/**
@@ -69,9 +69,9 @@ public:
 	SGE_RENDERER_SYMBOL
 	~scoped_transform();
 private:
-	renderer::device &device_;
+	sge::renderer::context::object &context_;
 
-	renderer::matrix_mode::type const mode_;
+	sge::renderer::matrix_mode::type const mode_;
 };
 
 }

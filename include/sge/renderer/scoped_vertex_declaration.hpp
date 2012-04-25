@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -49,14 +49,14 @@ public:
 	 *
 	 * Sets \a vertex_declaration for \a device
 	 *
-	 * \param device The device to set the vertex declaration for
+	 * \param context The context to set the vertex declaration for
 	 *
 	 * \param vertex_declaration The vertex declaration to set
 	*/
 	SGE_RENDERER_SYMBOL
 	scoped_vertex_declaration(
-		renderer::device &device,
-		renderer::vertex_declaration const &vertex_declaration
+		sge::renderer::context::object &context,
+		sge::renderer::vertex_declaration const &vertex_declaration
 	);
 
 	/**
@@ -65,7 +65,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	~scoped_vertex_declaration();
 private:
-	renderer::device &device_;
+	sge::renderer::context::object &context_;
 };
 
 }

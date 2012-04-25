@@ -18,21 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix_mode.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 
 
 sge::renderer::scoped_transform::scoped_transform(
-	renderer::device &_device,
-	renderer::matrix_mode::type const _mode,
-	renderer::matrix4 const &_new_matrix
+	sge::renderer::context::object &_context,
+	sge::renderer::matrix_mode::type const _mode,
+	sge::renderer::matrix4 const &_new_matrix
 )
 :
-	device_(_device),
-	mode_(_mode)
+	context_(
+		_context
+	),
+	mode_(
+		_mode
+	)
 {
-	device_.transform(
+	context_.transform(
 		_mode,
 		_new_matrix
 	);
@@ -40,8 +46,8 @@ sge::renderer::scoped_transform::scoped_transform(
 
 sge::renderer::scoped_transform::~scoped_transform()
 {
-	device_.transform(
+	context_.transform(
 		mode_,
-		renderer::matrix4::identity()
+		sge::renderer::matrix4::identity()
 	);
 }

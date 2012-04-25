@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/src/viewport/center.hpp>
 #include <sge/src/viewport/center_on_resize_function.hpp>
 #include <sge/window/dim.hpp>
@@ -26,14 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
-sge::renderer::viewport const
+sge::renderer::target::viewport const
 sge::viewport::center_on_resize_function(
 	sge::window::dim const &_ref_dim,
 	awl::window::event::resize const &_resize
 )
 {
 	return
-		viewport::center(
+		sge::viewport::center(
 			_ref_dim,
 			fcppt::math::dim::structure_cast<
 				sge::window::dim

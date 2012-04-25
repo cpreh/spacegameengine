@@ -23,70 +23,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/device_state_fwd.hpp>
 #include <sge/opengl/onscreen_target_fwd.hpp>
-#include <sge/opengl/target_base_fwd.hpp>
 #include <sge/opengl/context/object.hpp>
-#include <sge/opengl/fbo/target_fwd.hpp>
 #include <sge/opengl/glew/scoped_init.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/clip_plane.hpp>
-#include <sge/renderer/clip_plane_index.hpp>
-#include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/first_index.hpp>
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/index_buffer_unique_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
-#include <sge/renderer/indexed_primitive_type.hpp>
-#include <sge/renderer/material_fwd.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/onscreen_target_fwd.hpp>
-#include <sge/renderer/optional_target_ref_fwd.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/target_unique_ptr.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/caps/object_fwd.hpp>
-#include <sge/renderer/glsl/const_optional_program_ref_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/object_unique_ptr.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/glsl/geometry_shader_unique_ptr.hpp>
 #include <sge/renderer/glsl/pixel_shader_unique_ptr.hpp>
 #include <sge/renderer/glsl/program_unique_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/vertex_shader_unique_ptr.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/light/index.hpp>
-#include <sge/renderer/light/object_fwd.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/stack.hpp>
-#include <sge/renderer/texture/address_mode_s.hpp>
-#include <sge/renderer/texture/address_mode_t.hpp>
-#include <sge/renderer/texture/address_mode_u.hpp>
-#include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/target/offscreen_unique_ptr.hpp>
+#include <sge/renderer/target/onscreen_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_unique_ptr.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_unique_ptr.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
-#include <sge/renderer/texture/stage.hpp>
-#include <sge/renderer/texture/stage_arg.hpp>
-#include <sge/renderer/texture/stage_arg_value.hpp>
-#include <sge/renderer/texture/stage_op.hpp>
-#include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
-#include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -101,268 +73,126 @@ namespace opengl
 
 class device
 :
-	public renderer::device
+	public sge::renderer::device
 {
 	FCPPT_NONCOPYABLE(
 		device
 	);
 public:
 	device(
-		renderer::parameters const &,
-		renderer::adapter,
+		sge::renderer::parameters const &,
+		sge::renderer::adapter,
 		awl::window::object &
 	);
 
 	~device();
 
-	void
-	begin_rendering();
-
-	void
-	end_rendering();
-
-	void
-	render_indexed(
-		renderer::index_buffer const &,
-		renderer::first_vertex,
-		renderer::vertex_count,
-		renderer::indexed_primitive_type::type,
-		renderer::primitive_count,
-		renderer::first_index
+	sge::renderer::context::object_unique_ptr
+	begin_rendering(
+		sge::renderer::target::base &
 	);
 
 	void
-	render_nonindexed(
-		renderer::first_vertex,
-		renderer::vertex_count,
-		renderer::nonindexed_primitive_type::type
+	end_rendering(
+		sge::renderer::context::object &
 	);
 
-	void
-	activate_vertex_buffer(
-		renderer::vertex_buffer const &
-	);
-
-	void
-	deactivate_vertex_buffer(
-		renderer::vertex_buffer const &
-	);
-
-	void
-	vertex_declaration(
-		renderer::const_optional_vertex_declaration_ref const &
-	);
-
-	void
-	state(
-		renderer::state::list const &
-	);
-
-	void
-	push_state(
-		renderer::state::list const &
-	);
-
-	void
-	pop_state();
-
-	void
-	material(
-		renderer::material const &
-	);
-
-	void
-	enable_light(
-		renderer::light::index,
-		bool enable
-	);
-
-	void
-	light(
-		renderer::light::index,
-		renderer::light::object const &
-	);
-
-	void
-	enable_clip_plane(
-		renderer::clip_plane_index,
-		bool enable
-	);
-
-	void
-	clip_plane(
-		renderer::clip_plane_index,
-		renderer::clip_plane const &
-	);
-
-	void
-	texture_stage_op(
-		renderer::texture::stage,
-		renderer::texture::stage_op::type,
-		renderer::texture::stage_op_value::type
-	);
-
-	void
-	texture_stage_arg(
-		renderer::texture::stage,
-		renderer::texture::stage_arg::type,
-		renderer::texture::stage_arg_value::type
-	);
-
-	void
-	texture_filter(
-		renderer::texture::filter::object const &,
-		renderer::texture::stage
-	);
-
-	void
-	texture_address_mode_s(
-		renderer::texture::address_mode_s mode,
-		renderer::texture::stage stage
-	);
-
-	void
-	texture_address_mode_t(
-		renderer::texture::address_mode_t mode,
-		renderer::texture::stage stage
-	);
-
-	void
-	texture_address_mode_u(
-		renderer::texture::address_mode_u mode,
-		renderer::texture::stage stage
-	);
-
-	void
-	texture(
-		renderer::texture::const_optional_base_ref const &,
-		renderer::texture::stage
-	);
-
-	void
-	transform(
-		renderer::matrix_mode::type,
-		renderer::matrix4 const &
-	);
-
-	void
-	target(
-		renderer::optional_target_ref const &
-	);
-
-	renderer::glsl::program_unique_ptr
+	sge::renderer::glsl::program_unique_ptr
 	create_glsl_program();
 
-	renderer::glsl::vertex_shader_unique_ptr
+	sge::renderer::glsl::vertex_shader_unique_ptr
 	create_glsl_vertex_shader(
-		renderer::glsl::string const &
+		sge::renderer::glsl::string const &
 	);
 
-	renderer::glsl::pixel_shader_unique_ptr
+	sge::renderer::glsl::pixel_shader_unique_ptr
 	create_glsl_pixel_shader(
-		renderer::glsl::string const &
+		sge::renderer::glsl::string const &
 	);
 
-	renderer::glsl::geometry_shader_unique_ptr
+	sge::renderer::glsl::geometry_shader_unique_ptr
 	create_glsl_geometry_shader(
-		renderer::glsl::string const &
+		sge::renderer::glsl::string const &
 	);
 
-	void
-	glsl_program(
-		renderer::glsl::const_optional_program_ref const &
-	);
-
-	renderer::target_unique_ptr
+	sge::renderer::target::offscreen_unique_ptr
 	create_target();
 
-	renderer::texture::planar_unique_ptr
+	sge::renderer::texture::planar_unique_ptr
 	create_planar_texture(
 		renderer::texture::planar_parameters const &
 	);
 
-	renderer::texture::depth_stencil_unique_ptr
+	sge::renderer::texture::depth_stencil_unique_ptr
 	create_depth_stencil_texture(
-		renderer::texture::depth_stencil_parameters const &
+		sge::renderer::texture::depth_stencil_parameters const &
 	);
 
-	renderer::depth_stencil_surface_unique_ptr
+	sge::renderer::depth_stencil_surface_unique_ptr
 	create_depth_stencil_surface(
-		renderer::dim2 const &,
-		renderer::depth_stencil_format::type
+		sge::renderer::dim2 const &,
+		sge::renderer::depth_stencil_format::type
 	);
 
-	renderer::texture::volume_unique_ptr
+	sge::renderer::texture::volume_unique_ptr
 	create_volume_texture(
-		renderer::texture::volume_parameters const &
+		sge::renderer::texture::volume_parameters const &
 	);
 
-	renderer::texture::cube_unique_ptr
+	sge::renderer::texture::cube_unique_ptr
 	create_cube_texture(
-		renderer::texture::cube_parameters const &
+		sge::renderer::texture::cube_parameters const &
 	);
 
-	renderer::vertex_declaration_unique_ptr
+	sge::renderer::vertex_declaration_unique_ptr
 	create_vertex_declaration(
-		renderer::vf::dynamic::format const &
+		sge::renderer::vf::dynamic::format const &
 	);
 
-	renderer::vertex_buffer_unique_ptr
+	sge::renderer::vertex_buffer_unique_ptr
 	create_vertex_buffer(
-		renderer::vertex_declaration const &,
-		renderer::vf::dynamic::part_index,
-		renderer::vertex_count,
-		renderer::resource_flags_field const &
+		sge::renderer::vertex_declaration const &,
+		sge::renderer::vf::dynamic::part_index,
+		sge::renderer::vertex_count,
+		sge::renderer::resource_flags_field const &
 	);
 
-	renderer::index_buffer_unique_ptr
+	sge::renderer::index_buffer_unique_ptr
 	create_index_buffer(
-		renderer::index::dynamic::format::type,
-		renderer::index_count,
-		renderer::resource_flags_field const &
+		sge::renderer::index::dynamic::format::type,
+		sge::renderer::index_count,
+		sge::renderer::resource_flags_field const &
 	);
 
-	renderer::onscreen_target &
+	sge::renderer::target::onscreen &
 	onscreen_target() const;
 
-	renderer::optional_target_ref const
-	target() const;
-
-	renderer::caps::object const &
+	sge::renderer::caps::object const &
 	caps() const;
 private:
-	bool
-	fbo_active() const;
+	sge::renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
 
-	renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
-
-	renderer::state::list current_states_;
-
-	mutable opengl::context::object context_;
+	mutable sge::opengl::context::object context_;
 
 	typedef fcppt::scoped_ptr<
-		opengl::device_state
+		sge::opengl::device_state
 	> device_state_scoped_ptr;
 
 	device_state_scoped_ptr state_;
 
 	typedef fcppt::scoped_ptr<
-		opengl::onscreen_target
+		sge::opengl::onscreen_target
 	> onscreen_target_scoped_ptr;
 
 	onscreen_target_scoped_ptr const onscreen_target_;
 
-	opengl::fbo::target *fbo_target_;
+	sge::opengl::glew::scoped_init const glew_init_;
 
-	opengl::target_base *target_;
+	typedef fcppt::scoped_ptr<
+		sge::renderer::caps::object
+	> caps_scoped_ptr;
 
-	glew::scoped_init const glew_init_;
-
-	mutable fcppt::scoped_ptr<
-		renderer::caps::object
-	> caps_;
-
-	sge::renderer::state::stack state_levels_;
+	caps_scoped_ptr const caps_;
 };
 
 }

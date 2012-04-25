@@ -23,17 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/set_flipped_area.hpp>
 #include <sge/opengl/viewport.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
 
 void
 sge::opengl::viewport(
-	renderer::viewport const &_viewport,
-	renderer::screen_unit const _height
+	sge::renderer::target::viewport const &_viewport,
+	sge::renderer::screen_unit const _height
 )
 {
-	opengl::set_flipped_area(
+	sge::opengl::set_flipped_area(
 		::glViewport,
 		_viewport.get(),
 		_height

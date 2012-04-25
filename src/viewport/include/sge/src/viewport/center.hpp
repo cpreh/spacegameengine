@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_VIEWPORT_CENTER_HPP_INCLUDED
 #define SGE_SRC_VIEWPORT_CENTER_HPP_INCLUDED
 
-#include <sge/renderer/viewport_fwd.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/window/dim.hpp>
 
 
@@ -30,7 +30,7 @@ namespace sge
 namespace viewport
 {
 
-sge::renderer::viewport const
+sge::renderer::target::viewport const
 center(
 	sge::window::dim const &ref_dim,
 	sge::window::dim const &window_dim

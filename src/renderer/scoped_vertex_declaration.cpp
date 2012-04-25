@@ -19,22 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/const_optional_vertex_declaration_ref.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/context/object.hpp>
 
 
 sge::renderer::scoped_vertex_declaration::scoped_vertex_declaration(
-	renderer::device &_device,
-	renderer::vertex_declaration const &_declaration
+	sge::renderer::context::object &_context,
+	sge::renderer::vertex_declaration const &_declaration
 )
 :
-	device_(
-		_device
+	context_(
+		_context
 	)
 {
-	device_.vertex_declaration(
-		renderer::const_optional_vertex_declaration_ref(
+	context_.vertex_declaration(
+		sge::renderer::const_optional_vertex_declaration_ref(
 			_declaration
 		)
 	);
@@ -42,7 +42,7 @@ sge::renderer::scoped_vertex_declaration::scoped_vertex_declaration(
 
 sge::renderer::scoped_vertex_declaration::~scoped_vertex_declaration()
 {
-	device_.vertex_declaration(
+	context_.vertex_declaration(
 		renderer::const_optional_vertex_declaration_ref()
 	);
 }

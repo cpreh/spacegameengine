@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_VIEWPORT_CENTER_ON_RESIZE_FUNCTION_HPP_INCLUDED
 #define SGE_SRC_VIEWPORT_CENTER_ON_RESIZE_FUNCTION_HPP_INCLUDED
 
-#include <sge/renderer/viewport_fwd.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/window/dim.hpp>
 #include <awl/window/event/resize_fwd.hpp>
 
@@ -31,7 +31,7 @@ namespace sge
 namespace viewport
 {
 
-sge::renderer::viewport const
+sge::renderer::target::viewport const
 center_on_resize_function(
 	sge::window::dim const &,
 	awl::window::event::resize const &

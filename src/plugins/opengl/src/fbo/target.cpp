@@ -20,8 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/basic_target_impl.hpp>
 #include <sge/opengl/check_state.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/fbo/attachment.hpp>
+#include <sge/opengl/fbo/attachment_unique_ptr.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface.hpp>
@@ -34,11 +36,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/unbind.hpp>
 #include <sge/opengl/texture/surface.hpp>
 #include <sge/opengl/texture/surface_ptr.hpp>
+#include <sge/renderer/color_surface_shared_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface_shared_ptr.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/target.hpp>
+#include <sge/renderer/optional_dim2.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/unsupported.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/renderer/clear/parameters_fwd.hpp>
+#include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/target/surface_index.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/format.hpp>
@@ -49,8 +56,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 
 
@@ -59,7 +64,7 @@ sge::opengl::fbo::target::target(
 )
 :
 	base(
-		sge::renderer::viewport(
+		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect::null()
 		)
 	),
@@ -92,21 +97,6 @@ sge::opengl::fbo::target::~target()
 }
 
 void
-sge::opengl::fbo::target::clear(
-	sge::renderer::clear::parameters const &_parameters
-)
-{
-	sge::opengl::fbo::temporary_bind const scoped_exit(
-		context_,
-		fbo_
-	);
-
-	base::clear(
-		_parameters
-	);
-}
-
-void
 sge::opengl::fbo::target::on_bind()
 {
 	fbo_.bind();
@@ -129,9 +119,14 @@ sge::opengl::fbo::target::on_unbind()
 }
 
 void
+sge::opengl::fbo::target::end_rendering()
+{
+}
+
+void
 sge::opengl::fbo::target::color_surface(
-	renderer::color_surface_shared_ptr const _surface,
-	renderer::surface_index const _index
+	sge::renderer::color_surface_shared_ptr const _surface,
+	sge::renderer::target::surface_index const _index
 )
 {
 	opengl::fbo::temporary_bind const scoped_exit(
@@ -400,5 +395,5 @@ sge::opengl::fbo::target::check()
 
 template class
 sge::opengl::basic_target<
-	sge::renderer::target
+	sge::renderer::target::offscreen
 >;

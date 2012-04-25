@@ -19,8 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/target_base.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/src/viewport/detail/manager_impl.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/resize_function.hpp>
@@ -41,7 +40,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::viewport::detail::manager_impl::manager_impl(
 	sge::renderer::device &_device,
 	sge::window::object &_window,
-	viewport::resize_function const &_resize_function
+	sge::viewport::resize_function const &_resize_function
 )
 :
 	target_(

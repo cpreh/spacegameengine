@@ -23,18 +23,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/set_flipped_area.hpp>
 #include <sge/opengl/set_scissor_area.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/target/scissor_area.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::opengl::set_scissor_area(
-	renderer::scissor_area const &_area,
-	renderer::screen_unit const _height
+	sge::renderer::target::scissor_area const &_area,
+	sge::renderer::screen_unit const _height
 )
 {
-	opengl::set_flipped_area(
+	sge::opengl::set_flipped_area(
 		::glScissor,
 		_area.get(),
 		_height

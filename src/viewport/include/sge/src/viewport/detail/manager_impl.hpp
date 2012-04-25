@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_VIEWPORT_DETAIL_MANAGER_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/target_base_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/resize_function.hpp>
 #include <sge/viewport/detail/manager_impl_fwd.hpp>
@@ -71,7 +71,7 @@ private:
 		awl::window::event::resize const &
 	);
 
-	sge::renderer::target_base &target_;
+	sge::renderer::target::base &target_;
 
 	viewport::resize_function resize_function_;
 

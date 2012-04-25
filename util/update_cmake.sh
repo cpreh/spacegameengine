@@ -137,12 +137,14 @@ update_cmake_file \
 	-r \
 	include/sge/renderer/caps \
 	include/sge/renderer/clear \
+	include/sge/renderer/context \
 	include/sge/renderer/glsl \
 	include/sge/renderer/index \
 	include/sge/renderer/light \
 	include/sge/renderer/lock_flags \
 	include/sge/renderer/projection \
 	include/sge/renderer/state \
+	include/sge/renderer/target \
 	include/sge/renderer/texture \
 	include/sge/renderer/vf \
 	-n \
@@ -150,6 +152,7 @@ update_cmake_file \
 	-r \
 	src/renderer/caps \
 	src/renderer/clear \
+	src/renderer/context \
 	src/renderer/glsl \
 	src/renderer/include \
 	src/renderer/index \
@@ -158,6 +161,7 @@ update_cmake_file \
 	src/renderer/plugin \
 	src/renderer/projection \
 	src/renderer/state \
+	src/renderer/target \
 	src/renderer/texture \
 	src/renderer/vf \
 
@@ -193,6 +197,7 @@ update_cmake_file \
 	$(opengl_inc_src glew) \
 	$(opengl_inc_src glsl) \
 	$(opengl_inc_src light) \
+	$(opengl_inc_src render_context) \
 	$(opengl_inc_src state) \
 	$(opengl_inc_src texture) \
 	$(opengl_inc_src vf)

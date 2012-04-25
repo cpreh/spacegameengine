@@ -19,29 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration_and_buffers.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
 sge::renderer::scoped_vertex_declaration_and_buffers::scoped_vertex_declaration_and_buffers(
-	renderer::device &_device,
-	renderer::vertex_declaration const &_vertex_declaration,
-	renderer::const_vertex_buffer_ref_container const &_vertex_buffers
+	sge::renderer::context::object &_context,
+	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::renderer::const_vertex_buffer_ref_container const &_vertex_buffers
 )
 :
 	scoped_declaration_(
-		_device,
+		_context,
 		_vertex_declaration
 	),
 	scoped_buffers_()
 {
 	for(
-		renderer::const_vertex_buffer_ref_container::const_iterator it(
+		sge::renderer::const_vertex_buffer_ref_container::const_iterator it(
 			_vertex_buffers.begin()
 		);
 		it != _vertex_buffers.end();
@@ -53,7 +53,7 @@ sge::renderer::scoped_vertex_declaration_and_buffers::scoped_vertex_declaration_
 				sge::renderer::scoped_vertex_buffer
 			>(
 				fcppt::ref(
-					_device
+					_context
 				),
 				*it
 			)

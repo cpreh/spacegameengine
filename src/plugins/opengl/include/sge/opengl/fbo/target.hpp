@@ -35,9 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_surface_shared_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/screen_unit.hpp>
-#include <sge/renderer/surface_index.hpp>
-#include <sge/renderer/target.hpp>
-#include <sge/renderer/clear/parameters_fwd.hpp>
+#include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -56,29 +55,25 @@ namespace fbo
 
 class target
 :
-	public opengl::basic_target<
-		sge::renderer::target
+	public sge::opengl::basic_target<
+		sge::renderer::target::offscreen
 	>
 {
 	FCPPT_NONCOPYABLE(
 		target
 	);
 public:
-	typedef opengl::basic_target<
-		sge::renderer::target
+	typedef sge::opengl::basic_target<
+		sge::renderer::target::offscreen
 	> base;
 
-	explicit target(
-		opengl::context::object &
+	explicit
+	target(
+		sge::opengl::context::object &
 	);
 
 	~target();
 private:
-	void
-	clear(
-		sge::renderer::clear::parameters const &
-	);
-
 	void
 	on_bind();
 
@@ -86,31 +81,34 @@ private:
 	on_unbind();
 
 	void
+	end_rendering();
+
+	void
 	color_surface(
-		renderer::color_surface_shared_ptr,
-		renderer::surface_index
+		sge::renderer::color_surface_shared_ptr,
+		sge::renderer::target::surface_index
 	);
 
 	void
 	depth_stencil_surface(
-		renderer::depth_stencil_surface_shared_ptr
+		sge::renderer::depth_stencil_surface_shared_ptr
 	);
 
-	renderer::optional_dim2 const
+	sge::renderer::optional_dim2 const
 	size() const;
 
-	renderer::screen_unit
+	sge::renderer::screen_unit
 	height() const;
 
-	fbo::attachment_unique_ptr
+	sge::opengl::fbo::attachment_unique_ptr
 	create_texture_binding(
-		opengl::texture::surface_base_ptr,
+		sge::opengl::texture::surface_base_ptr,
 		GLenum attachment
 	);
 
-	fbo::attachment_unique_ptr
+	sge::opengl::fbo::attachment_unique_ptr
 	create_buffer_binding(
-		fbo::render_buffer const &,
+		sge::opengl::fbo::render_buffer const &,
 		GLenum attachment
 	);
 
@@ -125,19 +123,19 @@ private:
 	void
 	check();
 
-	fbo::context &context_;
+	sge::opengl::fbo::context &context_;
 
-	opengl::fbo::object fbo_;
+	sge::opengl::fbo::object fbo_;
 
 	typedef boost::ptr_map<
-		renderer::surface_index,
-		fbo::attachment
+		sge::renderer::target::surface_index,
+		sge::opengl::fbo::attachment
 	> attachment_map;
 
 	attachment_map color_attachments_;
 
 	typedef fcppt::scoped_ptr<
-		fbo::attachment
+		sge::opengl::fbo::attachment
 	> scoped_attachment;
 
 	scoped_attachment depth_stencil_attachment_;

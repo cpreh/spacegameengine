@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_FILTER_SCOPED_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_FILTER_SCOPED_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -45,17 +45,17 @@ class scoped
 public:
 	SGE_RENDERER_SYMBOL
 	scoped(
-		renderer::device &,
-		renderer::texture::stage,
-		filter::object const &
+		sge::renderer::context::object &,
+		sge::renderer::texture::stage,
+		sge::renderer::texture::filter::object const &
 	);
 
 	SGE_RENDERER_SYMBOL
 	~scoped();
 private:
-	renderer::device &device_;
+	sge::renderer::context::object &context_;
 
-	renderer::texture::stage const stage_;
+	sge::renderer::texture::stage const stage_;
 };
 
 }

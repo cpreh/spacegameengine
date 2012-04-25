@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scoped_vertex_buffer_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -61,8 +61,8 @@ public:
 	*/
 	SGE_RENDERER_SYMBOL
 	scoped_vertex_buffer(
-		renderer::device &device,
-		renderer::vertex_buffer const &vertex_buffer
+		sge::renderer::context::object &object,
+		sge::renderer::vertex_buffer const &vertex_buffer
 	);
 
 	/**
@@ -74,9 +74,9 @@ public:
 	SGE_RENDERER_SYMBOL
 	~scoped_vertex_buffer();
 private:
-	renderer::device &device_;
+	sge::renderer::context::object &context_;
 
-	renderer::vertex_buffer const &vertex_buffer_;
+	sge::renderer::vertex_buffer const &vertex_buffer_;
 };
 
 }

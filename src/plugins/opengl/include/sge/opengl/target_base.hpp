@@ -48,6 +48,10 @@ public:
 	virtual
 	void
 	unbind() = 0;
+
+	virtual
+	void
+	end_rendering() = 0;
 };
 
 }

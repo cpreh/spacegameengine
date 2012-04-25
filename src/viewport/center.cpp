@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/pixel_unit.hpp>
-#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/src/viewport/center.hpp>
 #include <sge/window/dim.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -41,7 +41,7 @@ center_position(
 
 }
 
-sge::renderer::viewport const
+sge::renderer::target::viewport const
 sge::viewport::center(
 	sge::window::dim const &_ref_dim,
 	sge::window::dim const &_window_dim
@@ -54,7 +54,7 @@ sge::viewport::center(
 		_ref_dim.h()
 		> _window_dim.h()
 		?
-			sge::renderer::viewport(
+			sge::renderer::target::viewport(
 				sge::renderer::pixel_rect(
 					sge::renderer::pixel_rect::vector::null(),
 					fcppt::math::dim::structure_cast<
@@ -65,7 +65,7 @@ sge::viewport::center(
 				)
 			)
 		:
-			sge::renderer::viewport(
+			sge::renderer::target::viewport(
 				sge::renderer::pixel_rect(
 					sge::renderer::pixel_rect::vector(
 						::center_position(

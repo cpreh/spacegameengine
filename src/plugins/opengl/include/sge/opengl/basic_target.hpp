@@ -22,11 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BASIC_TARGET_HPP_INCLUDED
 
 #include <sge/opengl/target_base.hpp>
-#include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/screen_unit.hpp>
-#include <sge/renderer/target_base.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/renderer/clear/parameters_fwd.hpp>
+#include <sge/renderer/target/scissor_area.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/box/object_decl.hpp>
 
@@ -50,38 +48,32 @@ class basic_target
 protected:
 	explicit
 	basic_target(
-		renderer::viewport const &
+		sge::renderer::target::viewport const &
 	);
 public:
 	virtual
-	~basic_target();
+	~basic_target() = 0;
 private:
 	void
 	bind();
 
 	void
 	unbind();
-protected:
-	virtual
-	void
-	clear(
-		sge::renderer::clear::parameters const &
-	);
-private:
+
 	void
 	viewport(
-		sge::renderer::viewport const &
+		sge::renderer::target::viewport const &
 	);
 
-	sge::renderer::viewport const
+	sge::renderer::target::viewport const
 	viewport() const;
 
 	void
 	scissor_area(
-		sge::renderer::scissor_area const &
+		sge::renderer::target::scissor_area const &
 	);
 
-	sge::renderer::scissor_area const
+	sge::renderer::target::scissor_area const
 	scissor_area() const;
 
 	void
@@ -102,9 +94,9 @@ private:
 
 	bool active_;
 
-	sge::renderer::viewport viewport_;
+	sge::renderer::target::viewport viewport_;
 
-	sge::renderer::scissor_area scissor_area_;
+	sge::renderer::target::scissor_area scissor_area_;
 };
 
 }

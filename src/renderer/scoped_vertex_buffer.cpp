@@ -18,26 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/vertex_buffer_fwd.hpp>
+#include <sge/renderer/context/object.hpp>
 
 
 sge::renderer::scoped_vertex_buffer::scoped_vertex_buffer(
-	renderer::device &_device,
-	renderer::vertex_buffer const &_vertex_buffer
+	sge::renderer::context::object &_context,
+	sge::renderer::vertex_buffer const &_vertex_buffer
 )
 :
-	device_(_device),
-	vertex_buffer_(_vertex_buffer)
+	context_(
+		_context
+	),
+	vertex_buffer_(
+		_vertex_buffer
+	)
 {
-	device_.activate_vertex_buffer(
+	context_.activate_vertex_buffer(
 		_vertex_buffer
 	);
 }
 
 sge::renderer::scoped_vertex_buffer::~scoped_vertex_buffer()
 {
-	device_.deactivate_vertex_buffer(
+	context_.deactivate_vertex_buffer(
 		vertex_buffer_
 	);
 }

@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SCOPED_VERTEX_DECLARATION_AND_BUFFERS_HPP_INCLUDED
 
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scoped_vertex_buffer_fwd.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -56,7 +56,7 @@ public:
 	 * Sets \a vertex_declaration following by all vertex buffers in \a
 	 * vertex_buffers for \a device.
 	 *
-	 * \param device The device to set the vertex declaration and buffers
+	 * \param context The context to set the vertex declaration and buffers
 	 * for
 	 *
 	 * \param vertex_declaration The vertex declaration to set
@@ -65,9 +65,9 @@ public:
 	*/
 	SGE_RENDERER_SYMBOL
 	scoped_vertex_declaration_and_buffers(
-		renderer::device &device,
-		renderer::vertex_declaration const &vertex_declaration,
-		renderer::const_vertex_buffer_ref_container const &vertex_buffers
+		sge::renderer::context::object &object,
+		sge::renderer::vertex_declaration const &vertex_declaration,
+		sge::renderer::const_vertex_buffer_ref_container const &vertex_buffers
 	);
 
 	/**
@@ -76,10 +76,10 @@ public:
 	SGE_RENDERER_SYMBOL
 	~scoped_vertex_declaration_and_buffers();
 private:
-	renderer::scoped_vertex_declaration const scoped_declaration_;
+	sge::renderer::scoped_vertex_declaration const scoped_declaration_;
 
 	typedef boost::ptr_vector<
-		renderer::scoped_vertex_buffer
+		sge::renderer::scoped_vertex_buffer
 	> scoped_vertex_buffer_vector;
 
 	scoped_vertex_buffer_vector scoped_buffers_;

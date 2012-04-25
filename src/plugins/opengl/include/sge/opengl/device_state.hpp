@@ -37,13 +37,16 @@ class device_state
 protected:
 	device_state();
 public:
-	virtual void
+	virtual
+	void
 	begin_rendering() = 0;
 
-	virtual void
+	virtual
+	void
 	swap_buffers() = 0;
 
-	virtual ~device_state();
+	virtual
+	~device_state();
 };
 
 }

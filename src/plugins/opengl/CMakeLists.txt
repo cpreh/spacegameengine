@@ -192,6 +192,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/light/set.hpp
 	src/plugins/opengl/include/sge/opengl/light/spot.hpp
 	src/plugins/opengl/include/sge/opengl/light/visitor.hpp
+	src/plugins/opengl/include/sge/opengl/render_context/create.hpp
+	src/plugins/opengl/include/sge/opengl/render_context/end.hpp
+	src/plugins/opengl/include/sge/opengl/render_context/object.hpp
+	src/plugins/opengl/include/sge/opengl/render_context/scoped_target.hpp
 	src/plugins/opengl/include/sge/opengl/state/alpha_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/apply.hpp
 	src/plugins/opengl/include/sge/opengl/state/bool.hpp
@@ -543,6 +547,10 @@ set(
 	src/plugins/opengl/src/onscreen_target.cpp
 	src/plugins/opengl/src/point_sprite_context.cpp
 	src/plugins/opengl/src/read_pixels.cpp
+	src/plugins/opengl/src/render_context/create.cpp
+	src/plugins/opengl/src/render_context/end.cpp
+	src/plugins/opengl/src/render_context/object.cpp
+	src/plugins/opengl/src/render_context/scoped_target.cpp
 	src/plugins/opengl/src/set_clip_plane.cpp
 	src/plugins/opengl/src/set_flipped_area.cpp
 	src/plugins/opengl/src/set_material.cpp

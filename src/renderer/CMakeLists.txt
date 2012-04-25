@@ -1,10 +1,8 @@
 set(
 	SGE_RENDERER_FILES
-	include/sge/renderer/active_target.hpp
 	include/sge/renderer/adapter.hpp
 	include/sge/renderer/ambient_color.hpp
 	include/sge/renderer/aspect.hpp
-	include/sge/renderer/aspect_from_viewport.hpp
 	include/sge/renderer/basic_dim.hpp
 	include/sge/renderer/basic_lock_box.hpp
 	include/sge/renderer/basic_scoped_buffer_lock.hpp
@@ -58,6 +56,12 @@ set(
 	include/sge/renderer/const_scoped_vertex_lock.hpp
 	include/sge/renderer/const_vertex_buffer_ref.hpp
 	include/sge/renderer/const_vertex_buffer_ref_container.hpp
+	include/sge/renderer/context/object.hpp
+	include/sge/renderer/context/object_fwd.hpp
+	include/sge/renderer/context/object_scoped_ptr.hpp
+	include/sge/renderer/context/object_unique_ptr.hpp
+	include/sge/renderer/context/scoped.hpp
+	include/sge/renderer/context/scoped_fwd.hpp
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
 	include/sge/renderer/depth_buffer_bits.hpp
@@ -232,13 +236,9 @@ set(
 	include/sge/renderer/nonindexed_primitive_count.hpp
 	include/sge/renderer/nonindexed_primitive_type.hpp
 	include/sge/renderer/npos.hpp
-	include/sge/renderer/onscreen_target.hpp
-	include/sge/renderer/onscreen_target_fwd.hpp
 	include/sge/renderer/optional_bit_count.hpp
 	include/sge/renderer/optional_bit_count_fwd.hpp
 	include/sge/renderer/optional_dim2.hpp
-	include/sge/renderer/optional_target_ref.hpp
-	include/sge/renderer/optional_target_ref_fwd.hpp
 	include/sge/renderer/parameters.hpp
 	include/sge/renderer/parameters_fwd.hpp
 	include/sge/renderer/pixel_rect.hpp
@@ -267,12 +267,7 @@ set(
 	include/sge/renderer/resource_flags_field_fwd.hpp
 	include/sge/renderer/resource_flags_none.hpp
 	include/sge/renderer/scalar.hpp
-	include/sge/renderer/scissor_area.hpp
-	include/sge/renderer/scissor_area_fwd.hpp
-	include/sge/renderer/scoped_block.hpp
 	include/sge/renderer/scoped_index_lock.hpp
-	include/sge/renderer/scoped_scissor_area.hpp
-	include/sge/renderer/scoped_target.hpp
 	include/sge/renderer/scoped_transform.hpp
 	include/sge/renderer/scoped_vertex_buffer.hpp
 	include/sge/renderer/scoped_vertex_buffer_fwd.hpp
@@ -350,18 +345,28 @@ set(
 	include/sge/renderer/state/var.hpp
 	include/sge/renderer/state/var_fwd.hpp
 	include/sge/renderer/stencil_buffer_bits.hpp
-	include/sge/renderer/surface_index.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
 	include/sge/renderer/system_scoped_ptr.hpp
 	include/sge/renderer/system_unique_ptr.hpp
-	include/sge/renderer/target.hpp
-	include/sge/renderer/target_base.hpp
-	include/sge/renderer/target_base_fwd.hpp
-	include/sge/renderer/target_from_texture.hpp
-	include/sge/renderer/target_fwd.hpp
-	include/sge/renderer/target_scoped_ptr.hpp
-	include/sge/renderer/target_unique_ptr.hpp
+	include/sge/renderer/target/aspect_from_viewport.hpp
+	include/sge/renderer/target/base.hpp
+	include/sge/renderer/target/base_fwd.hpp
+	include/sge/renderer/target/from_texture.hpp
+	include/sge/renderer/target/offscreen.hpp
+	include/sge/renderer/target/offscreen_fwd.hpp
+	include/sge/renderer/target/offscreen_scoped_ptr.hpp
+	include/sge/renderer/target/offscreen_unique_ptr.hpp
+	include/sge/renderer/target/onscreen.hpp
+	include/sge/renderer/target/onscreen_fwd.hpp
+	include/sge/renderer/target/onscreen_viewport_size.hpp
+	include/sge/renderer/target/scissor_area.hpp
+	include/sge/renderer/target/scissor_area_fwd.hpp
+	include/sge/renderer/target/scoped_fwd.hpp
+	include/sge/renderer/target/scoped_scissor_area.hpp
+	include/sge/renderer/target/surface_index.hpp
+	include/sge/renderer/target/viewport.hpp
+	include/sge/renderer/target/viewport_fwd.hpp
 	include/sge/renderer/texture/address_mode.hpp
 	include/sge/renderer/texture/address_mode2.hpp
 	include/sge/renderer/texture/address_mode2_fwd.hpp
@@ -581,15 +586,10 @@ set(
 	include/sge/renderer/vf/view_decl.hpp
 	include/sge/renderer/vf/view_fwd.hpp
 	include/sge/renderer/vf/view_impl.hpp
-	include/sge/renderer/viewport.hpp
-	include/sge/renderer/viewport_fwd.hpp
-	include/sge/renderer/viewport_size.hpp
 	include/sge/renderer/vsync.hpp
 	include/sge/renderer/windowed.hpp
 	include/sge/renderer/windowed_fwd.hpp
-	src/renderer/active_target.cpp
 	src/renderer/aspect.cpp
-	src/renderer/aspect_from_viewport.cpp
 	src/renderer/bit_depth_bits.cpp
 	src/renderer/bit_depth_bytes.cpp
 	src/renderer/buffer_has_depth.cpp
@@ -601,6 +601,7 @@ set(
 	src/renderer/const_scoped_color_surface_lock.cpp
 	src/renderer/const_scoped_index_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
+	src/renderer/context/object.cpp
 	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp
 	src/renderer/depth_buffer_bits.cpp
@@ -688,7 +689,6 @@ set(
 	src/renderer/no_multi_sampling.cpp
 	src/renderer/nonindexed_primitive_count.cpp
 	src/renderer/npos.cpp
-	src/renderer/onscreen_target.cpp
 	src/renderer/parameters.cpp
 	src/renderer/plugin.cpp
 	src/renderer/plugin/context.cpp
@@ -704,10 +704,7 @@ set(
 	src/renderer/projection/perspective_wh.cpp
 	src/renderer/refresh_rate_dont_care.cpp
 	src/renderer/resource_flags_none.cpp
-	src/renderer/scoped_block.cpp
 	src/renderer/scoped_index_lock.cpp
-	src/renderer/scoped_scissor_area.cpp
-	src/renderer/scoped_target.cpp
 	src/renderer/scoped_transform.cpp
 	src/renderer/scoped_vertex_buffer.cpp
 	src/renderer/scoped_vertex_declaration.cpp
@@ -751,9 +748,13 @@ set(
 	src/renderer/state/uint/var.cpp
 	src/renderer/stencil_buffer_bits.cpp
 	src/renderer/system.cpp
-	src/renderer/target.cpp
-	src/renderer/target_base.cpp
-	src/renderer/target_from_texture.cpp
+	src/renderer/target/aspect_from_viewport.cpp
+	src/renderer/target/base.cpp
+	src/renderer/target/from_texture.cpp
+	src/renderer/target/offscreen.cpp
+	src/renderer/target/onscreen.cpp
+	src/renderer/target/onscreen_viewport_size.cpp
+	src/renderer/target/scoped_scissor_area.cpp
 	src/renderer/texture/address_mode2.cpp
 	src/renderer/texture/address_mode3.cpp
 	src/renderer/texture/address_mode_default.cpp
@@ -818,7 +819,6 @@ set(
 	src/renderer/vf/dynamic/unspecified.cpp
 	src/renderer/vf/dynamic/vector.cpp
 	src/renderer/vf/dynamic/view.cpp
-	src/renderer/viewport_size.cpp
 	src/renderer/windowed.cpp
 )
 

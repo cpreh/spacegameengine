@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/src/viewport/center.hpp>
 #include <sge/src/viewport/maintain_aspect_function.hpp>
 #include <sge/viewport/fractional_aspect.hpp>
@@ -52,7 +52,7 @@ truncate_rational(
 }
 
 
-sge::renderer::viewport const
+sge::renderer::target::viewport const
 sge::viewport::maintain_aspect_function(
 	awl::window::event::resize const &_event,
 	sge::viewport::fractional_aspect const _aspect
@@ -88,7 +88,7 @@ sge::viewport::maintain_aspect_function(
 		actual == desired
 	)
 		return
-			sge::renderer::viewport(
+			sge::renderer::target::viewport(
 				sge::renderer::pixel_rect(
 					sge::renderer::pixel_rect::vector::null(),
 					fcppt::math::dim::structure_cast<

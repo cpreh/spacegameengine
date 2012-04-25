@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VIEWPORT_RESIZE_FUNCTION_HPP_INCLUDED
 #define SGE_VIEWPORT_RESIZE_FUNCTION_HPP_INCLUDED
 
-#include <sge/renderer/viewport_fwd.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
 #include <awl/window/event/resize_fwd.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/math/box/object_decl.hpp>
@@ -33,7 +33,7 @@ namespace viewport
 {
 
 typedef fcppt::function::object<
-	sge::renderer::viewport(
+	sge::renderer::target::viewport(
 		awl::window::event::resize const &
 	)
 > resize_function;

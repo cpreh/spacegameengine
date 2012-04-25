@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_SET_SCISSOR_AREA_HPP_INCLUDED
 #define SGE_OPENGL_SET_SCISSOR_AREA_HPP_INCLUDED
 
-#include <sge/renderer/scissor_area_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/target/scissor_area_fwd.hpp>
+
 
 namespace sge
 {
@@ -31,8 +32,8 @@ namespace opengl
 
 void
 set_scissor_area(
-	renderer::scissor_area const &,
-	renderer::screen_unit
+	sge::renderer::target::scissor_area const &,
+	sge::renderer::screen_unit
 );
 
 }

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_VIEWPORT_FILL_ON_RESIZE_FUNCTION_HPP_INCLUDED
 #define SGE_SRC_VIEWPORT_FILL_ON_RESIZE_FUNCTION_HPP_INCLUDED
 
-#include <sge/renderer/viewport_fwd.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
 #include <awl/window/event/resize_fwd.hpp>
 
 
@@ -30,7 +30,7 @@ namespace sge
 namespace viewport
 {
 
-sge::renderer::viewport const
+sge::renderer::target::viewport const
 fill_on_resize_function(
 	awl::window::event::resize const &
 );

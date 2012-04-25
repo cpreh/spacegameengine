@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/scoped.hpp>
@@ -26,20 +26,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::texture::scoped::scoped(
-	renderer::device &_device,
-	renderer::texture::base const &_texture,
-	renderer::texture::stage const _stage
+	sge::renderer::context::object &_context,
+	sge::renderer::texture::base const &_texture,
+	sge::renderer::texture::stage const _stage
 )
 :
-	device_(
-		_device
+	context_(
+		_context
 	),
 	stage_(
 		_stage
 	)
 {
-	device_.texture(
-		renderer::texture::const_optional_base_ref(
+	context_.texture(
+		sge::renderer::texture::const_optional_base_ref(
 			_texture
 		),
 		stage_
@@ -48,8 +48,8 @@ sge::renderer::texture::scoped::scoped(
 
 sge::renderer::texture::scoped::~scoped()
 {
-	device_.texture(
-		renderer::texture::const_optional_base_ref(),
+	context_.texture(
+		sge::renderer::texture::const_optional_base_ref(),
 		stage_
 	);
 }

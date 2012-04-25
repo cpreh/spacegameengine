@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_SCOPED_PROGRAM_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_SCOPED_PROGRAM_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -50,14 +50,12 @@ public:
 	 *
 	 * Sets \a program for \a device
 	 *
-	 * \param device The device to set the program for
-	 *
 	 * \param program The program to set
 	*/
 	SGE_RENDERER_SYMBOL
 	scoped_program(
-		renderer::device &device,
-		glsl::program const &program
+		sge::renderer::context::object &context,
+		sge::renderer::glsl::program const &program
 	);
 
 	/**
@@ -66,7 +64,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	~scoped_program();
 private:
-	renderer::device &rend_;
+	sge::renderer::context::object &context_;
 };
 
 }

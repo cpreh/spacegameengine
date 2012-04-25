@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode3.hpp>
 #include <sge/renderer/texture/set_address_mode2.hpp>
@@ -28,13 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::renderer::texture::set_address_mode3(
-	sge::renderer::device &_device,
+	sge::renderer::context::object &_context,
 	sge::renderer::texture::stage const _stage,
 	sge::renderer::texture::address_mode3 const &_mode
 )
 {
 	sge::renderer::texture::set_address_mode2(
-		_device,
+		_context,
 		_stage,
 		sge::renderer::texture::address_mode2(
 			_mode.address_mode_s(),
@@ -42,7 +42,7 @@ sge::renderer::texture::set_address_mode3(
 		)
 	);
 
-	_device.texture_address_mode_u(
+	_context.texture_address_mode_u(
 		_mode.address_mode_u(),
 		_stage
 	);
