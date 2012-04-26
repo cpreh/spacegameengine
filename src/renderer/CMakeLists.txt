@@ -230,6 +230,7 @@ set(
 	include/sge/renderer/material.hpp
 	include/sge/renderer/material_fwd.hpp
 	include/sge/renderer/matrix4.hpp
+	include/sge/renderer/matrix4_fwd.hpp
 	include/sge/renderer/matrix_mode.hpp
 	include/sge/renderer/multi_sample_type.hpp
 	include/sge/renderer/no_multi_sampling.hpp
@@ -360,7 +361,6 @@ set(
 	include/sge/renderer/target/offscreen_unique_ptr.hpp
 	include/sge/renderer/target/onscreen.hpp
 	include/sge/renderer/target/onscreen_fwd.hpp
-	include/sge/renderer/target/onscreen_viewport_size.hpp
 	include/sge/renderer/target/scissor_area.hpp
 	include/sge/renderer/target/scissor_area_fwd.hpp
 	include/sge/renderer/target/scoped_fwd.hpp
@@ -756,7 +756,6 @@ set(
 	src/renderer/target/from_texture.cpp
 	src/renderer/target/offscreen.cpp
 	src/renderer/target/onscreen.cpp
-	src/renderer/target/onscreen_viewport_size.cpp
 	src/renderer/target/scoped_scissor_area.cpp
 	src/renderer/target/viewport_size.cpp
 	src/renderer/texture/address_mode2.cpp

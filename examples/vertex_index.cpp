@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_declaration_and_buffers.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -48,10 +47,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/index/format_16.hpp>
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -334,8 +336,13 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::scoped_vertex_declaration_and_buffers const vb_context(
+		sge::renderer::context::scoped const scoped_block(
 			sys.renderer(),
+			sys.renderer().onscreen_target()
+		);
+
+		sge::renderer::scoped_vertex_declaration_and_buffers const vb_context(
+			scoped_block.get(),
 			*vertex_declaration,
 			fcppt::assign::make_container<
 				sge::renderer::const_vertex_buffer_ref_container
@@ -346,12 +353,8 @@ try
 			)
 		);
 
-		sge::renderer::scoped_block const block(
-			sys.renderer()
-		);
-
 //! [render_indexed]
-		sys.renderer().render_indexed(
+		scoped_block.get().render_indexed(
 			*index_buffer,
 			sge::renderer::first_vertex(
 				0u

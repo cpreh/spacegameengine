@@ -68,20 +68,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
-#include <sge/renderer/active_target.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/target_base.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport_size.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/font.hpp>
@@ -328,46 +328,45 @@ try
 
 		frames_counter.update();
 
-		sys.renderer().onscreen_target().clear(
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target());
+
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black()));
 
-		sge::renderer::scoped_block const block(
-			sys.renderer());
-
 		// This function sets up an orthographic projection and calls
 		// render. It's just a wrapper.
 		sge::line_drawer::render_to_screen(
-			sys.renderer(),
+			scoped_block.get(),
 			line_drawer);
 
+		sge::font::rect const rect(
+			sge::font::rect::vector::null(),
+			fcppt::math::dim::structure_cast<sge::font::rect::dim>(
+				sge::renderer::target::viewport_size(
+					scoped_block.get().target())));
+
 		sge::font::text::draw(
+			scoped_block.get(),
 			*font_metrics,
 			font_drawer,
 			SGE_FONT_TEXT_LIT("Press the left mouse button to set a point"),
-			sge::font::rect(
-				sge::font::rect::vector::null(),
-				fcppt::math::dim::structure_cast<sge::font::rect::dim>(
-					sge::renderer::active_target(
-						sys.renderer()
-					).viewport().get().size())),
+			rect,
 			sge::font::text::align_h::left,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none);
 
 		sge::font::text::draw(
+			scoped_block.get(),
 			*font_metrics,
 			font_drawer,
 			sge::font::text::from_fcppt_string(
 				frames_counter.frames_str())
 			+ SGE_FONT_TEXT_LIT(" fps"),
-			sge::font::rect(
-				sge::font::rect::vector::null(),
-				fcppt::math::dim::structure_cast<sge::font::rect::dim>(
-					sge::renderer::active_target(
-						sys.renderer()
-					).viewport().get().size())),
+			rect,
 			sge::font::text::align_h::right,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none);

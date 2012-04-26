@@ -46,19 +46,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/state/int.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/stencil_op.hpp>
 #include <sge/renderer/state/stencil_op_value.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
@@ -327,9 +328,15 @@ try
 		sys.window_system().poll()
 	)
 	{
+		// Declare a render block, using the renderer's onscreen target.
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target()
+		);
+
 		// Here, we clear the back buffer with the clear color black() on each frame.
 		// We also clear the stencil buffer with value 0.
-		sys.renderer().onscreen_target().clear(
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black()
@@ -339,13 +346,6 @@ try
 			)
 		);
 
-		// Declare a render block.
-		// This will clear the buffers in the constructor and
-		// present the scene in the destructor.
-		sge::renderer::scoped_block const block(
-			sys.renderer()
-		);
-
 		{
 			// Set the stencil buffer to always pass and increment
 			// the value stored in the stencil buffer for every pixel rendered.
@@ -353,7 +353,7 @@ try
 			// every entry in the stencill buffer will be 1 where
 			// small_sprite is rendered.
 			sge::renderer::state::scoped const scoped_state(
-				sys.renderer(),
+				scoped_block.get(),
 				sge::renderer::state::list
 				(
 					sge::renderer::state::stencil_func::always
@@ -366,6 +366,7 @@ try
 
 			// Render small sprite.
 			sge::sprite::process::one(
+				scoped_block.get(),
 				small_sprite,
 				sprite_buffers
 			);
@@ -376,7 +377,7 @@ try
 			// which means it passes everywhere where small_sprite
 			// has _not_ been rendered.
 			sge::renderer::state::scoped const scoped_state(
-				sys.renderer(),
+				scoped_block.get(),
 				sge::renderer::state::list
 				(
 					sge::renderer::state::int_::stencil_ref = 0
@@ -388,6 +389,7 @@ try
 
 			// Render big sprite.
 			sge::sprite::process::one(
+				scoped_block.get(),
 				big_sprite,
 				sprite_buffers
 			);

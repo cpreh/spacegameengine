@@ -18,20 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/target/onscreen_viewport_size.hpp>
-#include <sge/renderer/target/viewport_size.hpp>
+#ifndef SGE_RENDERER_MATRIX4_FWD_HPP_INCLUDED
+#define SGE_RENDERER_MATRIX4_FWD_HPP_INCLUDED
+
+#include <sge/renderer/scalar.hpp>
+#include <fcppt/math/matrix/static.hpp>
 
 
-sge::renderer::screen_size const
-sge::renderer::target::onscreen_viewport_size(
-	sge::renderer::device const &_device
-)
+namespace sge
 {
-	return
-		sge::renderer::target::viewport_size(
-			_device.onscreen_target()
-		);
+namespace renderer
+{
+
+/**
+ * \brief A 4x4 matrix using renderer::scalar
+*/
+typedef
+fcppt::math::matrix::static_<
+	sge::renderer::scalar,
+	4,
+	4
+>::type
+matrix4;
+
 }
+}
+
+#endif

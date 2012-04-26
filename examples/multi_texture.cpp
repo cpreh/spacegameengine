@@ -35,11 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
@@ -52,10 +50,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/index/format_16.hpp>
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
@@ -408,71 +409,71 @@ try
 		sys.window_system().poll()
 	)
 	{
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target()
+		);
 
 		sge::renderer::scoped_vertex_declaration const vb_declaration_context(
-			sys.renderer(),
+			scoped_block.get(),
 			*vertex_declaration
 		);
 
 		sge::renderer::scoped_vertex_buffer const vb_context(
-			sys.renderer(),
+			scoped_block.get(),
 			*vertex_buffer
 		);
 
 		sge::renderer::texture::scoped const tex0_context(
-			sys.renderer(),
+			scoped_block.get(),
 			*texture1,
 			sge::renderer::texture::stage(0u)
 		);
 
 		sge::renderer::texture::scoped const tex1_context(
-			sys.renderer(),
+			scoped_block.get(),
 			*texture2,
 			sge::renderer::texture::stage(1u)
 		);
 
-		sys.renderer().texture_stage_arg(
+		scoped_block.get().texture_stage_arg(
 			sge::renderer::texture::stage(0u),
 			sge::renderer::texture::stage_arg::color0,
 			sge::renderer::texture::stage_arg_value::texture
 		);
 
-		sys.renderer().texture_stage_op(
+		scoped_block.get().texture_stage_op(
 			sge::renderer::texture::stage(0u),
 			sge::renderer::texture::stage_op::color,
 			sge::renderer::texture::stage_op_value::arg0
 		);
 
-		sys.renderer().texture_stage_arg(
+		scoped_block.get().texture_stage_arg(
 			sge::renderer::texture::stage(1u),
 			sge::renderer::texture::stage_arg::color0,
 			sge::renderer::texture::stage_arg_value::previous
 		);
 
-		sys.renderer().texture_stage_arg(
+		scoped_block.get().texture_stage_arg(
 			sge::renderer::texture::stage(1u),
 			sge::renderer::texture::stage_arg::color1,
 			sge::renderer::texture::stage_arg_value::texture
 		);
 
-		sys.renderer().texture_stage_op(
+		scoped_block.get().texture_stage_op(
 			sge::renderer::texture::stage(1u),
 			sge::renderer::texture::stage_op::color,
 			sge::renderer::texture::stage_op_value::modulate
 		);
 
-		sys.renderer().onscreen_target().clear(
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black()
 			)
 		);
 
-		sge::renderer::scoped_block const block(
-			sys.renderer()
-		);
-
-		sys.renderer().render_indexed(
+		scoped_block.get().render_indexed(
 			*index_buffer,
 			sge::renderer::first_vertex(
 				0u

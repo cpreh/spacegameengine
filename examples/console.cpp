@@ -42,10 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
@@ -323,18 +324,21 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sys.renderer().onscreen_target().clear(
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target()
+		);
+
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black()
 			)
 		);
 
-		sge::renderer::scoped_block const block(
-			sys.renderer()
+		gfx_.render(
+			scoped_block.get()
 		);
-
-		gfx_.render();
 	}
 
 	return

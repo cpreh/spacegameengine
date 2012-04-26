@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/material_fwd.hpp>
-#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix4_fwd.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/primitive_count.hpp>

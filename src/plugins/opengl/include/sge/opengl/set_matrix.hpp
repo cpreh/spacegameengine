@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_SET_MATRIX_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix4_fwd.hpp>
 
 namespace sge
 {

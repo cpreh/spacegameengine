@@ -29,10 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_declaration_and_buffers.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
@@ -43,6 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -265,8 +266,12 @@ try
 	)
 	{
 //! [running_block]
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target()
+		);
 
-		sys.renderer().onscreen_target().clear(
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black()
@@ -275,7 +280,7 @@ try
 
 //! [scoped_declaration]
 		sge::renderer::scoped_vertex_declaration_and_buffers const vb_context(
-			sys.renderer(),
+			scoped_block.get(),
 			*vertex_declaration,
 			fcppt::assign::make_container<
 				sge::renderer::const_vertex_buffer_ref_container
@@ -288,11 +293,7 @@ try
 //! [scoped_declaration]
 
 //! [scoped_block]
-		sge::renderer::scoped_block const block(
-			sys.renderer()
-		);
-
-		sys.renderer().render_nonindexed(
+		scoped_block.get().render_nonindexed(
 			sge::renderer::first_vertex(
 				0u
 			),

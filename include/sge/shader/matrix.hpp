@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix4.hpp>
 #include <sge/shader/matrix_flags.hpp>
 #include <sge/shader/symbol.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 
 
 namespace sge

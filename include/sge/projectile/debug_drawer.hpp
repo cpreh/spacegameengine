@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/detail/debug_drawer_impl_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix4_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>

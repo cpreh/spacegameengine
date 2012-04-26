@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_TRANSFORM_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_TRANSFORM_HPP_INCLUDED
 
-#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix4_fwd.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/context/object_fwd.hpp>

@@ -59,13 +59,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/sprite/projection_matrix.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
@@ -540,17 +542,20 @@ try
 
 		debug_drawer.update();
 
-		sys.renderer().onscreen_target().clear(
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target()
+		);
+
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black()));
 
-		sge::renderer::scoped_block const block(
-			sys.renderer());
-
 		debug_drawer.render(
+			scoped_block.get(),
 			sge::sprite::projection_matrix(
-				sys.renderer().onscreen_target().viewport()));
+				scoped_block.get().target().viewport()));
 	}
 
 	return

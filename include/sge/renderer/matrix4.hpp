@@ -21,27 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_MATRIX4_HPP_INCLUDED
 #define SGE_RENDERER_MATRIX4_HPP_INCLUDED
 
-#include <sge/renderer/scalar.hpp>
-#include <fcppt/math/matrix/static.hpp>
+#include <sge/renderer/matrix4_fwd.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief A 4x4 matrix using renderer::scalar
-*/
-typedef
-fcppt::math::matrix::static_<
-	renderer::scalar,
-	4,
-	4
->::type
-matrix4;
-
-}
-}
 
 #endif

@@ -28,11 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/renderer.hpp>
@@ -143,15 +144,16 @@ try
 			);
 		}
 
-		sys.renderer().onscreen_target().clear(
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target()
+		);
+
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::yellow()
 			)
-		);
-
-		sge::renderer::scoped_block const block(
-			sys.renderer()
 		);
 	}
 

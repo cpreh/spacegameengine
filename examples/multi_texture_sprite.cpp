@@ -28,9 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
@@ -254,41 +256,43 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::scoped_block const block(
-			sys.renderer()
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target()
 		);
 
-		sys.renderer().texture_stage_arg(
+		scoped_block.get().texture_stage_arg(
 			sge::renderer::texture::stage(0u),
 			sge::renderer::texture::stage_arg::color0,
 			sge::renderer::texture::stage_arg_value::texture
 		);
 
-		sys.renderer().texture_stage_op(
+		scoped_block.get().texture_stage_op(
 			sge::renderer::texture::stage(0u),
 			sge::renderer::texture::stage_op::color,
 			sge::renderer::texture::stage_op_value::arg0
 		);
 
-		sys.renderer().texture_stage_arg(
+		scoped_block.get().texture_stage_arg(
 			sge::renderer::texture::stage(1u),
 			sge::renderer::texture::stage_arg::color0,
 			sge::renderer::texture::stage_arg_value::previous
 		);
 
-		sys.renderer().texture_stage_arg(
+		scoped_block.get().texture_stage_arg(
 			sge::renderer::texture::stage(1u),
 			sge::renderer::texture::stage_arg::color1,
 			sge::renderer::texture::stage_arg_value::texture
 		);
 
-		sys.renderer().texture_stage_op(
+		scoped_block.get().texture_stage_op(
 			sge::renderer::texture::stage(1u),
 			sge::renderer::texture::stage_op::color,
 			sge::renderer::texture::stage_op_value::modulate
 		);
 
 		sge::sprite::process::one(
+			scoped_block.get(),
 			sprite,
 			sprite_buffers
 		);

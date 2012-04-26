@@ -32,9 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/windowed.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/glsl/const_optional_program_ref.hpp>
 #include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/pixel_shader_scoped_ptr.hpp>
@@ -46,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/variable_scoped_ptr.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
@@ -282,7 +284,6 @@ class particles
 FCPPT_NONCOPYABLE(
 	particles);
 public:
-	explicit
 	particles(
 		unsigned particle_count,
 		sge::systems::instance const &);
@@ -291,7 +292,8 @@ public:
 	update();
 
 	void
-	render();
+	render(
+		sge::renderer::context::object &);
 
 	sge::renderer::vertex_declaration const &
 	vertex_declaration() const;
@@ -510,9 +512,11 @@ particles::update()
 }
 
 void
-particles::render()
+particles::render(
+	sge::renderer::context::object &_render_context)
 {
 	sge::sprite::process::all(
+		_render_context,
 		sge::sprite::geometry::make_random_access_range(
 			sprites_
 		),
@@ -630,19 +634,6 @@ try
 
 	program->link();
 
-	sys.renderer().glsl_program(
-		sge::renderer::glsl::const_optional_program_ref(
-			*program
-		)
-	);
-
-	sge::renderer::glsl::uniform::variable_scoped_ptr const tex_var(
-		program->uniform("tex"));
-
-	sge::renderer::glsl::uniform::single_value(
-		*tex_var,
-		static_cast<int>(0));
-
 	fcppt::signal::scoped_connection const escape_connection(
 		sge::systems::quit_on_escape(
 			sys));
@@ -651,12 +642,28 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::scoped_block const block(
-			sys.renderer()
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target()
 		);
 
+		scoped_block.get().glsl_program(
+			sge::renderer::glsl::const_optional_program_ref(
+				*program
+			)
+		);
+
+		sge::renderer::glsl::uniform::variable_scoped_ptr const tex_var(
+			program->uniform("tex"));
+
+		sge::renderer::glsl::uniform::single_value(
+			*tex_var,
+			static_cast<int>(0));
+
 		particle_system.update();
-		particle_system.render();
+
+		particle_system.render(
+			scoped_block.get());
 	}
 
 	return

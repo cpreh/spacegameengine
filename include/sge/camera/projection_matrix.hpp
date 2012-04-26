@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_PROJECTION_MATRIX_HPP_INCLUDED
 #define SGE_CAMERA_PROJECTION_MATRIX_HPP_INCLUDED
 
-#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix4_fwd.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace sge

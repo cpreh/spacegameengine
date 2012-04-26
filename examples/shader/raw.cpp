@@ -37,15 +37,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/target.hpp>
-#include <sge/renderer/target_from_texture.hpp>
-#include <sge/renderer/target_scoped_ptr.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/glsl/const_optional_program_ref.hpp>
 #include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/pixel_shader_scoped_ptr.hpp>
@@ -57,6 +53,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/variable_scoped_ptr.hpp>
+#include <sge/renderer/target/from_texture.hpp>
+#include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/target/offscreen_scoped_ptr.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -436,8 +436,8 @@ try
 		)
 	);
 
-	sge::renderer::target_scoped_ptr const target(
-		sge::renderer::target_from_texture(
+	sge::renderer::target::offscreen_scoped_ptr const target(
+		sge::renderer::target::from_texture(
 			sys.renderer(),
 			*target_texture
 		)
@@ -521,21 +521,6 @@ try
 
 	program->link();
 
-	sys.renderer().glsl_program(
-		sge::renderer::glsl::const_optional_program_ref(
-			*program
-		)
-	);
-
-	sge::renderer::glsl::uniform::variable_scoped_ptr const tex_var(
-		program->uniform("tex")
-	);
-
-	sge::renderer::glsl::uniform::single_value(
-		*tex_var,
-		static_cast<int>(0)
-	);
-
 	while(
 		sys.window_system().poll()
 	)
@@ -546,54 +531,69 @@ try
 				sge::image::colors::black()));
 
 		{
-			sys.renderer().glsl_program(
+			sge::renderer::context::scoped const scoped_block(
+				sys.renderer(),
+				*target);
+
+			// TODO: is this really necessary
+			scoped_block.get().glsl_program(
+				sge::renderer::glsl::const_optional_program_ref(
+					*program
+				)
+			);
+
+			sge::renderer::glsl::uniform::variable_scoped_ptr const tex_var(
+				program->uniform("tex")
+			);
+
+			sge::renderer::glsl::uniform::single_value(
+				*tex_var,
+				static_cast<int>(0)
+			);
+
+			scoped_block.get().glsl_program(
 				sge::renderer::glsl::const_optional_program_ref()
 			);
 
-			sge::renderer::scoped_target const scoped_target(
-				sys.renderer(),
-				*target
-			);
-
-			sge::renderer::scoped_block const block(
-				sys.renderer()
-			);
-
-			target->clear(
+			scoped_block.get().clear(
 				clear_parameters
 			);
 
 			sge::sprite::process::one(
+				scoped_block.get(),
 				background,
 				sprite_buffers
 			);
 
 			sge::sprite::process::one(
+				scoped_block.get(),
 				tux,
 				sprite_buffers
 			);
 
 			sge::sprite::process::one(
+				scoped_block.get(),
 				pointer,
 				sprite_buffers
 			);
 		}
 
-		sys.renderer().glsl_program(
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target());
+
+		scoped_block.get().glsl_program(
 			sge::renderer::glsl::const_optional_program_ref(
 				*program
 			)
 		);
 
-		sys.renderer().onscreen_target().clear(
+		scoped_block.get().clear(
 			clear_parameters
 		);
 
-		sge::renderer::scoped_block const block(
-			sys.renderer()
-		);
-
 		sge::sprite::process::one(
+			scoped_block.get(),
 			target_spr,
 			sprite_buffers
 		);
