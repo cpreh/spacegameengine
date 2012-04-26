@@ -32,7 +32,6 @@ public:
 		unsigned,
 		octaves_type);
 
-	explicit
 	sample_parameters(
 		position_type const &,
 		amplitude_type const &,

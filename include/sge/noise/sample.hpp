@@ -23,7 +23,7 @@ sample(
 	typename Noise::value_type
 	result_type;
 
-	double result = 0.0;
+	double sum = 0.0;
 
 	double const
 		amp =
@@ -37,24 +37,33 @@ sample(
 				double
 			>(
 				_parameters.frequency().get()
-			);
+			),
+		octaves =
+			static_cast<
+				double
+			>(
+				_parameters.octaves().get()
+			),
+		scaling =
+			std::pow(2.0, octaves) /
+			(std::pow(2.0, octaves) - 1.0);
 
 	for (
-		typename sge::noise::sample_parameters<Noise>::octaves_type i(0u);
-		i < _parameters.octaves();
+		typename sge::noise::sample_parameters<Noise>::octaves_type i(1u);
+		i <= _parameters.octaves();
 		++i
 	)
-		result +=
-			std::pow(
-				0.5,
-				static_cast<
-					double
-				>(
-					i.get()
-				)
-			)
-			* amp
-			* _noise.sample(
+	{
+			sum +=
+				std::pow(
+					0.5,
+					static_cast<
+						double
+					>(
+						i.get()
+					)
+				) *
+			  _noise.sample(
 				std::pow(
 					2.0,
 					static_cast<
@@ -66,12 +75,15 @@ sample(
 				* freq
 				* _parameters.position().get()
 			);
+	}
 
 	return
 		static_cast<
 			result_type
 		>(
-			result
+			sum *
+			amp *
+			scaling
 		);
 }
 

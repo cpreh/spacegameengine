@@ -12,6 +12,7 @@ namespace simplex
 namespace detail
 {
 
+inline
 std::size_t
 mod(
 	long const &a,
