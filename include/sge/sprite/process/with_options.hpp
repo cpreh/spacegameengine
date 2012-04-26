@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PROCESS_WITH_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_WITH_OPTIONS_HPP_INCLUDED
 
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/detail/process/geometry.hpp>
 #include <sge/sprite/process/is_options.hpp>
+#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -49,6 +51,7 @@ typename boost::enable_if<
 	void
 >::type
 with_options(
+	sge::renderer::context::object &_render_context,
 	Range const &_range,
 	Buffers &_buffers,
 	Compare const &_compare
@@ -57,7 +60,10 @@ with_options(
 	sge::sprite::render::range_with_options<
 		typename Options::render_options
 	>(
-		_buffers.parameters(),
+		sge::sprite::render::parameters(
+			_render_context,
+			_buffers.parameters().vertex_declaration()
+		),
 		sge::sprite::detail::process::geometry<
 			Options::geometry_options,
 			typename Buffers::choices

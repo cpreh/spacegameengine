@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::unset_vertex_buffer(
-	opengl::context::object &_context,
-	renderer::vertex_buffer const &_buffer
+	sge::opengl::context::object &_context,
+	sge::renderer::vertex_buffer const &_buffer
 )
 {
 	opengl::vertex_context &context(

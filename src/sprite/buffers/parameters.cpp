@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::sprite::buffers::parameters::parameters(
-	sge::renderer::device &_renderer,
+	sge::renderer::device &_device,
 	sge::renderer::vertex_declaration const &_vertex_declaration
 )
 :
-	renderer_(
-		_renderer
+	device_(
+		_device
 	),
 	vertex_declaration_(
 		_vertex_declaration
@@ -38,9 +38,9 @@ sge::sprite::buffers::parameters::parameters(
 }
 
 sge::renderer::device &
-sge::sprite::buffers::parameters::renderer() const
+sge::sprite::buffers::parameters::device() const
 {
-	return renderer_;
+	return device_;
 }
 
 sge::renderer::vertex_declaration const &

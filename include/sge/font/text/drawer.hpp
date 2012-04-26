@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/char_type.hpp>
 #include <sge/font/text/drawer_fwd.hpp>
 #include <sge/font/text/symbol.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -51,6 +52,7 @@ public:
 
 	virtual void
 	begin_rendering(
+		sge::renderer::context::object &,
 		size_type buffer_chars,
 		pos const &start,
 		dim const &size
@@ -58,13 +60,16 @@ public:
 
 	virtual void
 	draw_char(
+		sge::renderer::context::object &,
 		font::text::char_type,
 		pos const &,
 		const_image_view const &data
 	) = 0;
 
 	virtual void
-	end_rendering() = 0;
+	end_rendering(
+		sge::renderer::context::object &
+	) = 0;
 
 	SGE_FONT_TEXT_SYMBOL
 	virtual ~drawer() = 0;

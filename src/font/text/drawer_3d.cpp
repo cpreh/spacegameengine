@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
@@ -95,6 +96,7 @@ sge::font::text::drawer_3d::~drawer_3d()
 
 void
 sge::font::text::drawer_3d::begin_rendering(
+	sge::renderer::context::object &,
 	size_type const buffer_chars,
 	pos const &,
 	dim const &
@@ -109,6 +111,7 @@ sge::font::text::drawer_3d::begin_rendering(
 
 void
 sge::font::text::drawer_3d::draw_char(
+	sge::renderer::context::object &,
 	text::char_type const _char,
 	pos const &_pos,
 	const_image_view const &_data
@@ -157,9 +160,12 @@ sge::font::text::drawer_3d::draw_char(
 }
 
 void
-sge::font::text::drawer_3d::end_rendering()
+sge::font::text::drawer_3d::end_rendering(
+	sge::renderer::context::object &_render_context
+)
 {
 	sge::sprite::process::all(
+		_render_context,
 		sge::sprite::geometry::make_random_access_range(
 			sprites_.begin(),
 			sprites_.end()

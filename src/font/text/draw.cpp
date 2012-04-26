@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/size.hpp>
 #include <sge/image2d/view/const_object.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/src/font/text/align_pos_h.hpp>
 #include <sge/src/font/text/align_pos_v.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
@@ -38,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::text::part const
 sge::font::text::draw(
+	sge::renderer::context::object &_render_context,
 	font::metrics &_metrics,
 	text::drawer &_drawer,
 	text::string const &_text,
@@ -91,6 +93,7 @@ sge::font::text::draw(
 	);
 
 	_drawer.begin_rendering(
+		_render_context,
 		_text.size(),
 		pos,
 		total_size.size()
@@ -136,6 +139,7 @@ sge::font::text::draw(
 			);
 
 			_drawer.draw_char(
+				_render_context,
 				*sbeg,
 				pos + cm->offset(),
 				cm->pixmap()
@@ -153,7 +157,9 @@ sge::font::text::draw(
 		pos.y() += height;
 	}
 
-	_drawer.end_rendering();
+	_drawer.end_rendering(
+		_render_context
+	);
 
 	return total_size;
 }

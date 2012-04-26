@@ -45,9 +45,11 @@ sge::projectile::debug_drawer::update()
 
 void
 sge::projectile::debug_drawer::render(
+	sge::renderer::context::object &_render_context,
 	sge::renderer::matrix4 const &mvp)
 {
 	impl_->render(
+		_render_context,
 		mvp);
 }
 

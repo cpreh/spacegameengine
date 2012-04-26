@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/object_impl.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
@@ -83,6 +84,7 @@ public:
 	SGE_FONT_TEXT_SYMBOL
 	void
 	begin_rendering(
+		sge::renderer::context::object &,
 		drawer::size_type buffer_chars,
 		font::pos const &start,
 		font::dim const &size
@@ -91,6 +93,7 @@ public:
 	SGE_FONT_TEXT_SYMBOL
 	void
 	draw_char(
+		sge::renderer::context::object &,
 		font::text::char_type,
 		font::pos const &,
 		font::const_image_view const &
@@ -98,7 +101,9 @@ public:
 
 	SGE_FONT_TEXT_SYMBOL
 	void
-	end_rendering();
+	end_rendering(
+		sge::renderer::context::object &
+	);
 
 	SGE_FONT_TEXT_SYMBOL
 	void

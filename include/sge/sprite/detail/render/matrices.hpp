@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_MATRICES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_MATRICES_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/set_matrices.hpp>
 #include <sge/sprite/detail/render/is_same_matrix_options.hpp>
 #include <sge/sprite/render/matrix_options.hpp>
@@ -50,11 +50,11 @@ typename boost::enable_if<
 	void
 >::type
 matrices(
-	sge::renderer::device &_device
+	sge::renderer::context::object &_render_context
 )
 {
 	sge::sprite::set_matrices(
-		_device
+		_render_context
 	);
 }
 
@@ -69,7 +69,7 @@ typename boost::enable_if<
 	void
 >::type
 matrices(
-	sge::renderer::device &
+	sge::renderer::context::object &
 )
 {
 }

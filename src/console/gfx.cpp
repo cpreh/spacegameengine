@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
@@ -185,9 +186,12 @@ sge::console::gfx::~gfx()
 }
 
 void
-sge::console::gfx::render()
+sge::console::gfx::render(
+	sge::renderer::context::object &_render_context
+)
 {
 	sge::sprite::process::one(
+		_render_context,
 		background_,
 		sprite_buffers_
 	);
@@ -220,6 +224,7 @@ sge::console::gfx::render()
 	{
 		// draw history lines
 		font::text::draw(
+			_render_context,
 			font_metrics_,
 			font_drawer_,
 			*i,
@@ -246,6 +251,7 @@ sge::console::gfx::render()
 			true);
 
 	font::text::draw(
+		_render_context,
 		font_metrics_,
 		font_drawer_,
 		il,

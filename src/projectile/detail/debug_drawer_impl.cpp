@@ -48,12 +48,10 @@ sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
 :
 	world_(
 		*_world.world_),
-	renderer_(
-		_renderer),
 	debug_mode_(
 		btIDebugDraw::DBG_NoDebug), // should be zero
 	line_drawer_(
-		renderer_),
+		_renderer),
 	scoped_lock_()
 {
 	FCPPT_ASSERT_PRE(
@@ -92,22 +90,24 @@ sge::projectile::detail::debug_drawer_impl::update()
 
 void
 sge::projectile::detail::debug_drawer_impl::render(
+	sge::renderer::context::object &_render_context,
 	sge::renderer::matrix4 const &mvp)
 {
 	if (debug_mode_ == btIDebugDraw::DBG_NoDebug)
 		return;
 
-	sge::renderer::scoped_transform projection_scope(
-		renderer_,
+	sge::renderer::scoped_transform const projection_scope(
+		_render_context,
 		sge::renderer::matrix_mode::projection,
 		mvp);
 
-	sge::renderer::scoped_transform world_scope(
-		renderer_,
+	sge::renderer::scoped_transform const world_scope(
+		_render_context,
 		sge::renderer::matrix_mode::world,
 		sge::renderer::matrix4::identity());
 
-	line_drawer_.render();
+	line_drawer_.render(
+		_render_context);
 }
 
 void

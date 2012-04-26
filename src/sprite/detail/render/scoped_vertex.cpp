@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/sprite/buffers/parameters.hpp>
+#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/detail/render/scoped_vertex.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
 #include <fcppt/cref.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::sprite::detail::render::scoped_vertex<
 	sge::sprite::render::vertex_options::nothing
 >::scoped_vertex(
-	sge::sprite::buffers::parameters const &,
+	sge::sprite::render::parameters const &,
 	sge::renderer::vertex_buffer const &
 )
 {
@@ -45,12 +45,12 @@ sge::sprite::detail::render::scoped_vertex<
 sge::sprite::detail::render::scoped_vertex<
 	sge::sprite::render::vertex_options::declaration
 >::scoped_vertex(
-	sge::sprite::buffers::parameters const &_parameters,
+	sge::sprite::render::parameters const &_parameters,
 	sge::renderer::vertex_buffer const &
 )
 :
 	vertex_declaration_(
-		_parameters.renderer(),
+		_parameters.render_context(),
 		_parameters.vertex_declaration()
 	)
 {
@@ -65,12 +65,12 @@ sge::sprite::detail::render::scoped_vertex<
 sge::sprite::detail::render::scoped_vertex<
 	sge::sprite::render::vertex_options::buffer
 >::scoped_vertex(
-	sge::sprite::buffers::parameters const &_parameters,
+	sge::sprite::render::parameters const &_parameters,
 	sge::renderer::vertex_buffer const &_vertex_buffer
 )
 :
 	vertex_buffer_(
-		_parameters.renderer(),
+		_parameters.render_context(),
 		_vertex_buffer
 	)
 {
@@ -85,12 +85,12 @@ sge::sprite::detail::render::scoped_vertex<
 sge::sprite::detail::render::scoped_vertex<
 	sge::sprite::render::vertex_options::declaration_and_buffer
 >::scoped_vertex(
-	sge::sprite::buffers::parameters const &_parameters,
+	sge::sprite::render::parameters const &_parameters,
 	sge::renderer::vertex_buffer const &_vertex_buffer
 )
 :
 	vertex_declaration_and_buffers_(
-		_parameters.renderer(),
+		_parameters.render_context(),
 		_parameters.vertex_declaration(),
 		fcppt::assign::make_container<
 			sge::renderer::const_vertex_buffer_ref_container

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/part_fwd.hpp>
 #include <sge/font/text/string.hpp>
 #include <sge/font/text/symbol.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 
 
 namespace sge
@@ -42,6 +43,7 @@ namespace text
 SGE_FONT_TEXT_SYMBOL
 text::part const
 draw(
+	sge::renderer::context::object &,
 	font::metrics &,
 	text::drawer &,
 	font::text::string const &,

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_INNER_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_INNER_HPP_INCLUDED
 
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
@@ -51,7 +51,7 @@ typename boost::enable_if<
 	void
 >::type
 inner(
-	sge::renderer::device &_renderer,
+	sge::renderer::context::object &_render_context,
 	sge::sprite::render::range<
 		Choices
 	> const &_range,
@@ -60,7 +60,7 @@ inner(
 	> const &_range_part
 )
 {
-	_renderer.render_indexed(
+	_render_context.render_indexed(
 		_range.index_buffer(),
 		_range_part.first_vertex(),
 		_range_part.vertex_count(),
@@ -80,7 +80,7 @@ typename boost::disable_if<
 	void
 >::type
 inner(
-	sge::renderer::device &_renderer,
+	sge::renderer::context::object &_render_context,
 	sge::sprite::render::range<
 		Choices
 	> const &,
@@ -89,7 +89,7 @@ inner(
 	> const &_range_part
 )
 {
-	_renderer.render_nonindexed(
+	_render_context.render_nonindexed(
 		_range_part.first_vertex(),
 		_range_part.vertex_count(),
 		sge::renderer::nonindexed_primitive_type::point

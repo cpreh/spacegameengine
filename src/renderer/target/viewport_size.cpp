@@ -18,43 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TARGET_BASE_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_BASE_HPP_INCLUDED
+#include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/target/base.hpp>
+#include <sge/renderer/target/viewport.hpp>
+#include <sge/renderer/target/viewport_size.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 
-#include <sge/opengl/target_base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 
-
-namespace sge
+sge::renderer::screen_size const
+sge::renderer::target::viewport_size(
+	sge::renderer::target::base const &_target
+)
 {
-namespace opengl
-{
-
-class target_base
-{
-	FCPPT_NONCOPYABLE(
-		target_base
-	);
-protected:
-	target_base();
-public:
-	virtual
-	~target_base() = 0;
-
-	virtual
-	void
-	bind() = 0;
-
-	virtual
-	void
-	unbind() = 0;
-
-	virtual
-	void
-	end_rendering() = 0;
-};
-
+	return
+		fcppt::math::dim::structure_cast<
+			sge::renderer::screen_size
+		>(
+			_target.viewport().get().size()
+		);
 }
-}
-
-#endif

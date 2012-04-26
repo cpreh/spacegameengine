@@ -70,7 +70,7 @@ allocate(
 	sge::sprite::detail::buffers::allocate_indices<
 		Choices
 	>(
-		_parameters.renderer(),
+		_parameters.device(),
 		_num_sprites,
 		_buffers,
 		_resource_flags

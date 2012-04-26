@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/buffers/parameters.hpp>
+#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/detail/render/scoped_vertex_declaration.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
 
@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::sprite::detail::render::scoped_vertex_declaration<
 	sge::sprite::render::vertex_options::nothing
 >::scoped_vertex_declaration(
-	sge::sprite::buffers::parameters const &
+	sge::sprite::render::parameters const &
 )
 {
 }
@@ -40,11 +40,11 @@ sge::sprite::detail::render::scoped_vertex_declaration<
 sge::sprite::detail::render::scoped_vertex_declaration<
 	sge::sprite::render::vertex_options::declaration
 >::scoped_vertex_declaration(
-	sge::sprite::buffers::parameters const &_parameters
+	sge::sprite::render::parameters const &_parameters
 )
 :
 	vertex_declaration_(
-		_parameters.renderer(),
+		_parameters.render_context(),
 		_parameters.vertex_declaration()
 	)
 {

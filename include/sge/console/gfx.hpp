@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
@@ -69,7 +70,9 @@ public:
 	SGE_CONSOLE_SYMBOL ~gfx();
 
 	SGE_CONSOLE_SYMBOL void
-	render();
+	render(
+		sge::renderer::context::object &
+	);
 
 	SGE_CONSOLE_SYMBOL bool
 	active() const;

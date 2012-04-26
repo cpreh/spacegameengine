@@ -49,13 +49,13 @@ public:
 
 	SGE_SPRITE_SYMBOL
 	sge::renderer::device &
-	renderer() const;
+	device() const;
 
 	SGE_SPRITE_SYMBOL
 	sge::renderer::vertex_declaration const &
 	vertex_declaration() const;
 private:
-	sge::renderer::device &renderer_;
+	sge::renderer::device &device_;
 
 	sge::renderer::vertex_declaration const &vertex_declaration_;
 };

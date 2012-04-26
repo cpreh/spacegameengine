@@ -18,41 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TARGET_BASE_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_SCREEN_SIZE_FWD_HPP_INCLUDED
+#define SGE_RENDERER_SCREEN_SIZE_FWD_HPP_INCLUDED
 
-#include <sge/opengl/target_base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/screen_unit.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 
-class target_base
-{
-	FCPPT_NONCOPYABLE(
-		target_base
-	);
-protected:
-	target_base();
-public:
-	virtual
-	~target_base() = 0;
-
-	virtual
-	void
-	bind() = 0;
-
-	virtual
-	void
-	unbind() = 0;
-
-	virtual
-	void
-	end_rendering() = 0;
-};
+/**
+ * \brief A typedef for a two dimensional renderer::screen_unit
+*/
+typedef fcppt::math::dim::static_<
+	sge::renderer::screen_unit,
+	2
+>::type screen_size;
 
 }
 }

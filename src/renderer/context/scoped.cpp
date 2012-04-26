@@ -18,43 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TARGET_BASE_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_BASE_HPP_INCLUDED
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 
-#include <sge/opengl/target_base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 
-
-namespace sge
+sge::renderer::context::scoped::scoped(
+	sge::renderer::device &_device,
+	sge::renderer::target::base &_target
+)
+:
+	device_(
+		_device
+	),
+	context_(
+		device_.begin_rendering(
+			_target
+		)
+	)
 {
-namespace opengl
-{
+}
 
-class target_base
+sge::renderer::context::scoped::~scoped()
 {
-	FCPPT_NONCOPYABLE(
-		target_base
+	device_.end_rendering(
+		*context_
 	);
-protected:
-	target_base();
-public:
-	virtual
-	~target_base() = 0;
-
-	virtual
-	void
-	bind() = 0;
-
-	virtual
-	void
-	unbind() = 0;
-
-	virtual
-	void
-	end_rendering() = 0;
-};
-
-}
 }
 
-#endif
+sge::renderer::context::object &
+sge::renderer::context::scoped::get() const
+{
+	return
+		*context_;
+}

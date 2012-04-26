@@ -19,14 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/aspect.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::renderer::scalar
 sge::renderer::aspect(
-	screen_size const &_size
+	sge::renderer::screen_size const &_size
 )
 {
 	FCPPT_ASSERT_PRE(
@@ -36,14 +37,14 @@ sge::renderer::aspect(
 	sge::renderer::scalar const
 		width(
 			static_cast<
-				renderer::scalar
+				sge::renderer::scalar
 			>(
 				_size.w()
 			)
 		),
 		height(
 			static_cast<
-				renderer::scalar
+				sge::renderer::scalar
 			>(
 				_size.h()
 			)

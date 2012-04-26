@@ -172,13 +172,13 @@ public:
 private:
 	sge::renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
 
-	mutable sge::opengl::context::object context_;
+	sge::opengl::context::object context_;
 
 	typedef fcppt::scoped_ptr<
 		sge::opengl::device_state
 	> device_state_scoped_ptr;
 
-	device_state_scoped_ptr state_;
+	device_state_scoped_ptr const device_state_;
 
 	typedef fcppt::scoped_ptr<
 		sge::opengl::onscreen_target

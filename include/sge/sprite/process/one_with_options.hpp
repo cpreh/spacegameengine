@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PROCESS_ONE_WITH_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_ONE_WITH_OPTIONS_HPP_INCLUDED
 
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/compare/nothing.hpp>
 #include <sge/sprite/geometry/make_single_range.hpp>
@@ -52,6 +53,7 @@ typename boost::enable_if<
 	void
 >::type
 one_with_options(
+	sge::renderer::context::object &_render_context,
 	sge::sprite::object<
 		Choices
 	> const &_sprite,
@@ -66,6 +68,7 @@ one_with_options(
 	sge::sprite::process::with_options<
 		Options
 	>(
+		_render_context,
 		sge::sprite::geometry::make_single_range(
 			_sprite
 		),

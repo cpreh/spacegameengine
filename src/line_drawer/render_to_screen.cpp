@@ -23,11 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/scoped_transform.hpp>
-#include <sge/renderer/viewport_size.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
+#include <sge/renderer/target/viewport_size.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -35,11 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::line_drawer::render_to_screen(
-	sge::renderer::device &_renderer,
-	object &_drawer)
+	sge::renderer::context::object &_render_context,
+	sge::line_drawer::object &_drawer)
 {
-	sge::renderer::scoped_transform projection_scope(
-		_renderer,
+	sge::renderer::scoped_transform const projection_scope(
+		_render_context,
 		sge::renderer::matrix_mode::projection,
 		sge::renderer::projection::orthogonal(
 			sge::renderer::projection::rect(
@@ -47,8 +48,8 @@ sge::line_drawer::render_to_screen(
 				fcppt::math::dim::structure_cast<
 					sge::renderer::projection::rect::dim
 				>(
-					renderer::viewport_size(
-						_renderer
+					sge::renderer::target::viewport_size(
+						_render_context.target()
 					)
 				)
 			),
@@ -61,10 +62,11 @@ sge::line_drawer::render_to_screen(
 		)
 	);
 
-	sge::renderer::scoped_transform world_scope(
-		_renderer,
+	sge::renderer::scoped_transform const world_scope(
+		_render_context,
 		sge::renderer::matrix_mode::world,
 		sge::renderer::matrix4::identity());
 
-	_drawer.render();
+	_drawer.render(
+		_render_context);
 }

@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_ASPECT_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/screen_size_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
+
 
 namespace sge
 {
@@ -43,9 +44,9 @@ namespace renderer
  * \warning The behaviour is undefined if either width or height is zero.
  */
 SGE_RENDERER_SYMBOL
-renderer::scalar
+sge::renderer::scalar
 aspect(
-	renderer::screen_size const &size
+	sge::renderer::screen_size const &size
 );
 
 }

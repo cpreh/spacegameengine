@@ -18,42 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TARGET_BASE_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_BASE_HPP_INCLUDED
+#ifndef SGE_SPRITE_RENDER_PARAMETERS_HPP_INCLUDED
+#define SGE_SPRITE_RENDER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opengl/target_base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/sprite/symbol.hpp>
+#include <sge/sprite/render/parameters_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace sprite
+{
+namespace render
 {
 
-class target_base
+class parameters
 {
-	FCPPT_NONCOPYABLE(
-		target_base
+	FCPPT_NONASSIGNABLE(
+		parameters
 	);
-protected:
-	target_base();
 public:
-	virtual
-	~target_base() = 0;
+	SGE_SPRITE_SYMBOL
+	parameters(
+		sge::renderer::context::object &,
+		sge::renderer::vertex_declaration const &
+	);
 
-	virtual
-	void
-	bind() = 0;
+	SGE_SPRITE_SYMBOL
+	sge::renderer::context::object &
+	render_context() const;
 
-	virtual
-	void
-	unbind() = 0;
+	SGE_SPRITE_SYMBOL
+	sge::renderer::vertex_declaration const &
+	vertex_declaration() const;
+private:
+	sge::renderer::context::object &render_context_;
 
-	virtual
-	void
-	end_rendering() = 0;
+	sge::renderer::vertex_declaration const &vertex_declaration_;
 };
 
+}
 }
 }
 

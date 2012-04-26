@@ -300,6 +300,8 @@ set(
 	include/sge/sprite/render/matrix_options.hpp
 	include/sge/sprite/render/options.hpp
 	include/sge/sprite/render/options_fwd.hpp
+	include/sge/sprite/render/parameters.hpp
+	include/sge/sprite/render/parameters_fwd.hpp
 	include/sge/sprite/render/range_decl.hpp
 	include/sge/sprite/render/range_fwd.hpp
 	include/sge/sprite/render/range_impl.hpp
@@ -351,6 +353,7 @@ set(
 	src/sprite/detail/render/scoped_vertex.cpp
 	src/sprite/detail/render/scoped_vertex_declaration.cpp
 	src/sprite/projection_matrix.cpp
+	src/sprite/render/parameters.cpp
 	src/sprite/set_matrices.cpp
 )
 

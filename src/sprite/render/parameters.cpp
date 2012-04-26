@@ -18,43 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TARGET_BASE_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_BASE_HPP_INCLUDED
-
-#include <sge/opengl/target_base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/sprite/render/parameters.hpp>
 
 
-namespace sge
+sge::sprite::render::parameters::parameters(
+	sge::renderer::context::object &_render_context,
+	sge::renderer::vertex_declaration const &_vertex_declaration
+)
+:
+	render_context_(
+		_render_context
+	),
+	vertex_declaration_(
+		_vertex_declaration
+	)
 {
-namespace opengl
-{
-
-class target_base
-{
-	FCPPT_NONCOPYABLE(
-		target_base
-	);
-protected:
-	target_base();
-public:
-	virtual
-	~target_base() = 0;
-
-	virtual
-	void
-	bind() = 0;
-
-	virtual
-	void
-	unbind() = 0;
-
-	virtual
-	void
-	end_rendering() = 0;
-};
-
-}
 }
 
-#endif
+sge::renderer::context::object &
+sge::sprite::render::parameters::render_context() const
+{
+	return
+		render_context_;
+}
+
+sge::renderer::vertex_declaration const &
+sge::sprite::render::parameters::vertex_declaration() const
+{
+	return
+		vertex_declaration_;
+}

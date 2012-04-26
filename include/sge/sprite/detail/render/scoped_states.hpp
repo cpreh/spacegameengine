@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_SCOPED_STATES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SCOPED_STATES_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/sprite/detail/render/states.hpp>
@@ -58,11 +58,11 @@ class scoped_states<
 public:
 	explicit
 	scoped_states(
-		sge::renderer::device &_device
+		sge::renderer::context::object &_render_context
 	)
 	:
 		states_(
-			_device,
+			_render_context,
 			sge::sprite::detail::render::states<
 				Choices
 			>::value
@@ -90,8 +90,9 @@ class scoped_states<
 		scoped_states
 	);
 public:
+	explicit
 	scoped_states(
-		sge::renderer::device &
+		sge::renderer::context::object &
 	)
 	{
 	}

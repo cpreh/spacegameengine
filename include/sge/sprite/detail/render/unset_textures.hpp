@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_UNSET_TEXTURES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_UNSET_TEXTURES_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/detail/config/has_texture_levels.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <sge/sprite/detail/render/unset_texture_stages.hpp>
@@ -49,7 +49,7 @@ typename boost::enable_if<
 	void
 >::type
 unset_textures(
-	sge::renderer::device &_rend
+	sge::renderer::context::object &_render_context
 )
 {
 	sge::sprite::detail::render::unset_texture_stages<
@@ -57,7 +57,7 @@ unset_textures(
 			Choices
 		>::type
 	>(
-		_rend
+		_render_context
 	);
 }
 
@@ -71,7 +71,7 @@ typename boost::disable_if<
 	void
 >::type
 unset_textures(
-	sge::renderer::device &
+	sge::renderer::context::object &
 )
 {
 }

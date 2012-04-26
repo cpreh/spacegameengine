@@ -43,6 +43,6 @@ sge::renderer::scoped_vertex_declaration::scoped_vertex_declaration(
 sge::renderer::scoped_vertex_declaration::~scoped_vertex_declaration()
 {
 	context_.vertex_declaration(
-		renderer::const_optional_vertex_declaration_ref()
+		sge::renderer::const_optional_vertex_declaration_ref()
 	);
 }

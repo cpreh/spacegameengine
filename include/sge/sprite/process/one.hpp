@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PROCESS_ONE_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_ONE_HPP_INCLUDED
 
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/process/geometry_options.hpp>
 #include <sge/sprite/process/one_with_options.hpp>
@@ -42,6 +43,7 @@ template<
 >
 void
 one(
+	sge::renderer::context::object &_render_context,
 	sge::sprite::object<
 		Choices
 	> const &_sprite,
@@ -54,6 +56,7 @@ one(
 			sge::sprite::render::default_options
 		>
 	>(
+		_render_context,
 		_sprite,
 		_buffers
 	);

@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/detail/debug_drawer_impl_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 
 
 namespace sge
@@ -46,7 +46,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_PROJECTILE_SYMBOL explicit
 	debug_drawer(
-		world &,
+		sge::projectile::world &,
 		sge::renderer::device &);
 
 	// Updates the line cache
@@ -56,6 +56,7 @@ public:
 	// Renders the lines
 	SGE_PROJECTILE_SYMBOL void
 	render(
+		sge::renderer::context::object &,
 		sge::renderer::matrix4 const &);
 
 	SGE_PROJECTILE_SYMBOL void

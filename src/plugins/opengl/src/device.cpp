@@ -100,7 +100,7 @@ sge::opengl::device::device(
 		_parameters.depth_stencil_buffer()
 	),
 	context_(),
-	state_(
+	device_state_(
 		sge::opengl::create_device_state(
 			context_,
 			_parameters,
@@ -113,10 +113,7 @@ sge::opengl::device::device(
 			sge::opengl::onscreen_target
 		>(
 			fcppt::ref(
-				context_
-			),
-			fcppt::ref(
-				*state_
+				*device_state_
 			),
 			fcppt::ref(
 				_window
@@ -145,7 +142,7 @@ sge::opengl::device::begin_rendering(
 	sge::renderer::target::base &_target
 )
 {
-	state_->begin_rendering();
+	device_state_->begin_rendering();
 
 	return
 		sge::opengl::render_context::create(

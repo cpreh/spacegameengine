@@ -18,33 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/active_target.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/target_base.hpp>
+#include <sge/renderer/target/base.hpp>
+#include <sge/renderer/target/viewport.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <sge/sprite/projection_matrix.hpp>
 #include <sge/sprite/set_matrices.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 
 
 void
 sge::sprite::set_matrices(
-	renderer::device &_device
+	sge::renderer::context::object &_context
 )
 {
-	_device.transform(
+	_context.transform(
 		sge::renderer::matrix_mode::world,
 		sge::renderer::matrix4::identity()
 	);
 
-	_device.transform(
+	_context.transform(
 		sge::renderer::matrix_mode::projection,
 		sprite::projection_matrix(
-			sge::renderer::active_target(
-				_device
-			).viewport()
+			_context.target().viewport()
 		)
 	);
 }

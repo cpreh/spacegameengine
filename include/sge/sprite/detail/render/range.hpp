@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_RANGE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_RANGE_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/detail/render/inner.hpp>
 #include <sge/sprite/detail/render/set_textures.hpp>
 #include <sge/sprite/detail/render/unset_textures.hpp>
@@ -42,7 +42,7 @@ template<
 >
 void
 range(
-	sge::renderer::device &_renderer,
+	sge::renderer::context::object &_render_context,
 	sge::sprite::render::range<
 		Choices
 	> const &_range
@@ -61,12 +61,12 @@ range(
 	)
 	{
 		sge::sprite::detail::render::set_textures(
-			_renderer,
+			_render_context,
 			*it
 		);
 
 		sge::sprite::detail::render::inner(
-			_renderer,
+			_render_context,
 			_range,
 			*it
 		);
@@ -75,7 +75,7 @@ range(
 	sge::sprite::detail::render::unset_textures<
 		Choices
 	>(
-		_renderer
+		_render_context
 	);
 }
 

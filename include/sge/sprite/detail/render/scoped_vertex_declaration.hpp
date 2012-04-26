@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/sprite/symbol.hpp>
-#include <sge/sprite/buffers/parameters_fwd.hpp>
+#include <sge/sprite/render/parameters_fwd.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -54,7 +54,7 @@ public:
 	SGE_SPRITE_SYMBOL
 	explicit
 	scoped_vertex_declaration(
-		sge::sprite::buffers::parameters const &
+		sge::sprite::render::parameters const &
 	);
 
 	SGE_SPRITE_SYMBOL
@@ -73,7 +73,7 @@ public:
 	SGE_SPRITE_SYMBOL
 	explicit
 	scoped_vertex_declaration(
-		sge::sprite::buffers::parameters const &
+		sge::sprite::render::parameters const &
 	);
 
 	SGE_SPRITE_SYMBOL

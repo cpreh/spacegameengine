@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
@@ -70,13 +71,15 @@ sge::line_drawer::object::object(
 }
 
 void
-sge::line_drawer::object::render()
+sge::line_drawer::object::render(
+	sge::renderer::context::object &_render_context
+)
 {
 	if (!vb_ || lines_.empty())
 		return;
 
 	sge::renderer::state::scoped scoped_state(
-		renderer_,
+		_render_context,
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::enable_alpha_blending = true)
 			(sge::renderer::state::source_blend_func::src_alpha)
@@ -86,20 +89,20 @@ sge::line_drawer::object::render()
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::draw_mode::fill));
 
-	sge::renderer::scoped_vertex_declaration scoped_decl(
-		renderer_,
+	sge::renderer::scoped_vertex_declaration const scoped_decl(
+		_render_context,
 		*vertex_declaration_);
 
-	sge::renderer::scoped_vertex_buffer scoped_vb(
-		renderer_,
+	sge::renderer::scoped_vertex_buffer const scoped_vb(
+		_render_context,
 		*vb_);
 
-	renderer_.texture(
+	_render_context.texture(
 		sge::renderer::texture::const_optional_base_ref(),
 		sge::renderer::texture::stage(
 			0u));
 
-	renderer_.render_nonindexed(
+	_render_context.render_nonindexed(
 		sge::renderer::first_vertex(
 			0u),
 		sge::renderer::vertex_count(

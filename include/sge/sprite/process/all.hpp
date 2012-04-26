@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PROCESS_ALL_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_ALL_HPP_INCLUDED
 
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/process/default_options.hpp>
 #include <sge/sprite/process/with_options.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -42,6 +43,7 @@ template<
 >
 void
 all(
+	sge::renderer::context::object &_render_context,
 	Range const &_range,
 	Buffers &_buffers,
 	Compare const &_compare
@@ -55,6 +57,7 @@ all(
 			Compare
 		>::type
 	>(
+		_render_context,
 		_range,
 		_buffers,
 		_compare

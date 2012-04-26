@@ -278,6 +278,7 @@ set(
 	include/sge/renderer/screen_mode_bit_depth.hpp
 	include/sge/renderer/screen_mode_fwd.hpp
 	include/sge/renderer/screen_size.hpp
+	include/sge/renderer/screen_size_fwd.hpp
 	include/sge/renderer/screen_unit.hpp
 	include/sge/renderer/screenshot.hpp
 	include/sge/renderer/shininess.hpp
@@ -367,6 +368,7 @@ set(
 	include/sge/renderer/target/surface_index.hpp
 	include/sge/renderer/target/viewport.hpp
 	include/sge/renderer/target/viewport_fwd.hpp
+	include/sge/renderer/target/viewport_size.hpp
 	include/sge/renderer/texture/address_mode.hpp
 	include/sge/renderer/texture/address_mode2.hpp
 	include/sge/renderer/texture/address_mode2_fwd.hpp
@@ -602,6 +604,7 @@ set(
 	src/renderer/const_scoped_index_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
 	src/renderer/context/object.cpp
+	src/renderer/context/scoped.cpp
 	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp
 	src/renderer/depth_buffer_bits.cpp
@@ -755,6 +758,7 @@ set(
 	src/renderer/target/onscreen.cpp
 	src/renderer/target/onscreen_viewport_size.cpp
 	src/renderer/target/scoped_scissor_area.cpp
+	src/renderer/target/viewport_size.cpp
 	src/renderer/texture/address_mode2.cpp
 	src/renderer/texture/address_mode3.cpp
 	src/renderer/texture/address_mode_default.cpp

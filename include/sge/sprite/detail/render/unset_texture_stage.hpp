@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_UNSET_TEXTURE_STAGE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_UNSET_TEXTURE_STAGE_HPP_INCLUDED
 
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -44,11 +44,11 @@ class unset_texture_stage
 public:
 	explicit
 	unset_texture_stage(
-		sge::renderer::device &_device
+		sge::renderer::context::object &_render_context
 	)
 	:
-		device_(
-			_device
+		render_context_(
+			_render_context
 		)
 	{
 	}
@@ -61,7 +61,7 @@ public:
 		Level const &
 	) const
 	{
-		device_.texture(
+		render_context_.texture(
 			renderer::texture::const_optional_base_ref(),
 			sge::renderer::texture::stage(
 				Level::value
@@ -69,7 +69,7 @@ public:
 		);
 	}
 private:
-	renderer::device &device_;
+	sge::renderer::context::object &render_context_;
 };
 
 }

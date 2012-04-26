@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/draw_arrays.hpp>
 #include <sge/opengl/convert/nonindexed_primitive.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
@@ -31,9 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::draw_arrays(
-	renderer::first_vertex const _first_vertex,
-	renderer::vertex_count const _num_vertices,
-	renderer::nonindexed_primitive_type::type const _ptype
+	sge::renderer::first_vertex const _first_vertex,
+	sge::renderer::vertex_count const _num_vertices,
+	sge::renderer::nonindexed_primitive_type::type const _primitive_type
 )
 {
 	if(
@@ -51,8 +54,8 @@ sge::opengl::draw_arrays(
 	}
 
 	::glDrawArrays(
-		convert::nonindexed_primitive(
-			_ptype
+		sge::opengl::convert::nonindexed_primitive(
+			_primitive_type
 		),
 		static_cast<
 			GLsizei

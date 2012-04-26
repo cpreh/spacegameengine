@@ -22,15 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
+#include <sge/renderer/target/viewport.hpp>
+#include <sge/sprite/matrix.hpp>
 #include <sge/sprite/projection_matrix.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 
 
 sge::sprite::matrix const
 sge::sprite::projection_matrix(
-	sge::renderer::viewport const &_viewport
+	sge::renderer::target::viewport const &_viewport
 )
 {
 	return

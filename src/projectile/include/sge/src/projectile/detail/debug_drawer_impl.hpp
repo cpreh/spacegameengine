@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -49,9 +50,8 @@ class debug_drawer_impl
 FCPPT_NONCOPYABLE(
 	debug_drawer_impl);
 public:
-	explicit
 	debug_drawer_impl(
-		world &,
+		sge::projectile::world &,
 		sge::renderer::device &);
 
 	void
@@ -59,6 +59,7 @@ public:
 
 	void
 	render(
+		sge::renderer::context::object &,
 		sge::renderer::matrix4 const &);
 
 	void
@@ -71,7 +72,6 @@ public:
 	~debug_drawer_impl();
 private:
 	btCollisionWorld &world_;
-	sge::renderer::device &renderer_;
 	int debug_mode_;
 	sge::line_drawer::object line_drawer_;
 	fcppt::scoped_ptr<sge::line_drawer::scoped_lock> scoped_lock_;

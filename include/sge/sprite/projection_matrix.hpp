@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
 #define SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
 
-#include <sge/renderer/viewport_fwd.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/sprite/matrix.hpp>
 #include <sge/sprite/symbol.hpp>
 
@@ -34,7 +34,7 @@ namespace sprite
 SGE_SPRITE_SYMBOL
 sge::sprite::matrix const
 projection_matrix(
-	sge::renderer::viewport const &
+	sge::renderer::target::viewport const &
 );
 
 }

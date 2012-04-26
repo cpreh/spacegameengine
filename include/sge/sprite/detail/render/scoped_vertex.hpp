@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_declaration_and_buffers.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/sprite/symbol.hpp>
-#include <sge/sprite/buffers/parameters_fwd.hpp>
+#include <sge/sprite/render/parameters_fwd.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -56,7 +56,7 @@ class scoped_vertex<
 public:
 	SGE_SPRITE_SYMBOL
 	scoped_vertex(
-		sge::sprite::buffers::parameters const &,
+		sge::sprite::render::parameters const &,
 		sge::renderer::vertex_buffer const &
 	);
 
@@ -75,7 +75,7 @@ class scoped_vertex<
 public:
 	SGE_SPRITE_SYMBOL
 	scoped_vertex(
-		sge::sprite::buffers::parameters const &,
+		sge::sprite::render::parameters const &,
 		sge::renderer::vertex_buffer const &
 	);
 
@@ -96,7 +96,7 @@ class scoped_vertex<
 public:
 	SGE_SPRITE_SYMBOL
 	scoped_vertex(
-		sge::sprite::buffers::parameters const &,
+		sge::sprite::render::parameters const &,
 		sge::renderer::vertex_buffer const &
 	);
 
@@ -117,7 +117,7 @@ class scoped_vertex<
 public:
 	SGE_SPRITE_SYMBOL
 	scoped_vertex(
-		sge::sprite::buffers::parameters const &,
+		sge::sprite::render::parameters const &,
 		sge::renderer::vertex_buffer const &
 	);
 

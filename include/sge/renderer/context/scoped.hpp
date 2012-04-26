@@ -56,6 +56,8 @@ public:
 	sge::renderer::context::object &
 	get() const;
 private:
+	sge::renderer::device &device_;
+
 	sge::renderer::context::object_scoped_ptr const context_;
 };
 

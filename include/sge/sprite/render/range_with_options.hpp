@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_RANGE_WITH_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_RANGE_WITH_OPTIONS_HPP_INCLUDED
 
-#include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/detail/render/matrices.hpp>
 #include <sge/sprite/detail/render/range.hpp>
 #include <sge/sprite/detail/render/scoped_states.hpp>
 #include <sge/sprite/detail/render/scoped_vertex.hpp>
 #include <sge/sprite/render/is_options.hpp>
+#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -51,7 +51,7 @@ typename boost::enable_if<
 	void
 >::type
 range_with_options(
-	sge::sprite::buffers::parameters const &_parameters,
+	sge::sprite::render::parameters const &_parameters,
 	sge::sprite::render::range<
 		Choices
 	> const &_range
@@ -65,14 +65,14 @@ range_with_options(
 	sge::sprite::detail::render::matrices<
 		Options::matrix_options
 	>(
-		_parameters.renderer()
+		_parameters.render_context()
 	);
 
 	sge::sprite::detail::render::scoped_states<
 		Choices,
 		Options::state_options
 	> const states(
-		_parameters.renderer()
+		_parameters.render_context()
 	);
 
 	sge::sprite::detail::render::scoped_vertex<
@@ -83,7 +83,7 @@ range_with_options(
 	);
 
 	sge::sprite::detail::render::range(
-		_parameters.renderer(),
+		_parameters.render_context(),
 		_range
 	);
 }

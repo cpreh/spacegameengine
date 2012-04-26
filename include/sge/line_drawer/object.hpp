@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -43,7 +44,8 @@ public:
 		sge::renderer::device &);
 
 	SGE_LINE_DRAWER_SYMBOL void
-	render();
+	render(
+		sge::renderer::context::object &);
 
 	SGE_LINE_DRAWER_SYMBOL ~object();
 private:

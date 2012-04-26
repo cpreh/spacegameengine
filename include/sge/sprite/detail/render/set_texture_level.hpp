@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_SET_TEXTURE_LEVEL_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SET_TEXTURE_LEVEL_HPP_INCLUDED
 
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/stage.hpp>
@@ -54,12 +54,12 @@ public:
 	> range_part;
 
 	set_texture_level(
-		sge::renderer::device &_renderer,
+		sge::renderer::context::object &_render_context,
 		range_part const &_range_part
 	)
 	:
-		renderer_(
-			_renderer
+		render_context_(
+			_render_context
 		),
 		range_part_(
 			_range_part
@@ -81,7 +81,7 @@ public:
 			>()
 		);
 
-		renderer_.texture(
+		render_context_.texture(
 			texture
 			?
 				sge::renderer::texture::const_optional_base_ref(
@@ -96,7 +96,7 @@ public:
 		);
 	}
 private:
-	sge::renderer::device &renderer_;
+	sge::renderer::context::object &render_context_;
 
 	range_part const &range_part_;
 };

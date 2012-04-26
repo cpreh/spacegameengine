@@ -58,7 +58,7 @@ allocate_vertices(
 		sge::sprite::buffers::roles::vertex_buffer
 	>(
 		sge::renderer::vertex_buffer_shared_ptr(
-			_parameters.renderer().create_vertex_buffer(
+			_parameters.device().create_vertex_buffer(
 				_parameters.vertex_declaration(),
 				sge::sprite::detail::vf::part_index(),
 				sge::sprite::buffers::vertex_count<
