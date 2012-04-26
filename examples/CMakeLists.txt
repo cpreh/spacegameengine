@@ -223,7 +223,7 @@ add_sge_example(
 
 add_sge_example(
 	noise
-	""
+	"sgeimage;sgeimage2d;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
