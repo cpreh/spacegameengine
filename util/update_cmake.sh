@@ -92,6 +92,8 @@ update_cmake_file \
 	src/charconv/include/sge/src/charconv/backends/windows \
 	src/charconv/backends/windows
 
+update_sublibrary cg
+
 update_sublibrary config
 
 update_sublibrary console

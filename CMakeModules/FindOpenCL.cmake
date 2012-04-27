@@ -6,7 +6,9 @@ else()
 	set(OPENCL_64BIT FALSE)
 endif()
 
-if(WIN32)
+if(
+	WIN32
+)
 	if(
 		$ENV{ATISTREAMSDKROOT}
 	)

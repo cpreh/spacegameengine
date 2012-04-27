@@ -227,8 +227,13 @@ find_package(
 	OpenCL
 )
 
+find_package(
+	Cg
+)
+
 OPTION (ENABLE_CAMERA "Build the camera" ON)
 OPTION (ENABLE_CEGUI "Build the cegui subsystem" ${CEGUI_FOUND})
+OPTION (ENABLE_CG "Build the Cg library" ${CG_FOUND})
 OPTION (ENABLE_CONFIG "Build the config library" ON)
 OPTION (ENABLE_CONSOLE "Build the console" ON)
 OPTION (ENABLE_FONTBITMAP "Build the bitmap font" ON)
@@ -249,6 +254,10 @@ ENDIF ()
 
 IF (ENABLE_CAMERA)
 	ADD_SUBDIRECTORY(camera)
+ENDIF ()
+
+IF (ENABLE_CG)
+	ADD_SUBDIRECTORY(cg)
 ENDIF ()
 
 IF (ENABLE_CONFIG)
