@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
+#include <sge/renderer/config.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -56,6 +57,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/noncopyable.hpp>
+
+#if defined(SGE_RENDERER_HAVE_CG)
+#include <sge/cg/vertex_profile_unique_ptr.hpp>
+#endif
 
 
 namespace sge
@@ -382,6 +387,12 @@ public:
 		sge::renderer::index_count index_count,
 		sge::renderer::resource_flags_field const &flags
 	) = 0;
+
+#if defined(SGE_RENDERER_HAVE_CG)
+	virtual
+	sge::cg::vertex_profile_unique_ptr
+	create_cg_vertex_profile() = 0;
+#endif
 
 	/**
 	 * \brief Returns the onscreen target

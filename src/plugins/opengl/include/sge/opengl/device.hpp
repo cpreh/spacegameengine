@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object.hpp>
 #include <sge/opengl/glew/scoped_init.hpp>
 #include <sge/renderer/adapter.hpp>
+#include <sge/renderer/config.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
@@ -64,6 +65,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
+
+#if defined(SGE_RENDERER_HAVE_CG)
+#include <sge/cg/vertex_profile_unique_ptr.hpp>
+#endif
 
 
 namespace sge
@@ -163,6 +168,11 @@ public:
 		sge::renderer::index_count,
 		sge::renderer::resource_flags_field const &
 	);
+
+#if defined(SGE_RENDERER_HAVE_CG)
+	sge::cg::vertex_profile_unique_ptr
+	create_cg_vertex_profile();
+#endif
 
 	sge::renderer::target::onscreen &
 	onscreen_target() const;

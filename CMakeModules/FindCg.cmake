@@ -42,6 +42,13 @@ find_library(
 	PATHS ${Cg_ROOT}/lib
 )
 
+find_library(
+	Cg_GL_LIBRARY
+	NAMES CgGL
+	HINTS ${CG_LIBRARYDIR}
+	PATHS ${Cg_ROOT}/lib
+)
+
 set(
 	Cg_INCLUDE_DIRS
 	${Cg_INLUDE_DIR}
@@ -50,6 +57,11 @@ set(
 set(
 	Cg_LIBRARIES
 	${Cg_LIBRARY}
+)
+
+set(
+	Cg_GL_LIBRARIES
+	"${Cg_GL_LIBRARY}"
 )
 
 include(

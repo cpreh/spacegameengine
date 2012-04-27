@@ -157,6 +157,41 @@ OPTION (ENABLE_PLUGIN "Build the plugin library" ON)
 OPTION (ENABLE_RENDERER "Build the renderer library" ON)
 OPTION (ENABLE_WINDOW "Build the window library" ON)
 
+# more advanced libraries
+find_package(
+	Bullet
+)
+
+find_package(
+	CEGUI
+)
+
+find_package(
+	OpenCL
+)
+
+find_package(
+	Cg
+)
+
+OPTION (ENABLE_CAMERA "Build the camera" ON)
+OPTION (ENABLE_CEGUI "Build the cegui subsystem" ${CEGUI_FOUND})
+OPTION (ENABLE_CG "Build the Cg library" ${CG_FOUND})
+OPTION (ENABLE_CONFIG "Build the config library" ON)
+OPTION (ENABLE_CONSOLE "Build the console" ON)
+OPTION (ENABLE_FONTBITMAP "Build the bitmap font" ON)
+OPTION (ENABLE_FONTTEXT "Build the font text library" ON)
+OPTION (ENABLE_LINE_DRAWER "Build the line drawing library" ON)
+OPTION (ENABLE_OPENCL "Build the opencl subsystem" ${OPENCL_FOUND})
+OPTION (ENABLE_PARSE "Build the parse library" ON)
+OPTION (ENABLE_PROJECTILE "Build the projectile subsystem" ${BULLET_FOUND})
+OPTION (ENABLE_SHADER "Build the shader" ON)
+OPTION (ENABLE_SPRITE "Build the sprite library" ON)
+OPTION (ENABLE_SYSTEMS "Build the systems library" ON)
+OPTION (ENABLE_TEXTURE "Build the texture helpers" ON)
+OPTION (ENABLE_VIEWPORT "Build the viewport library" ON)
+
+
 IF (ENABLE_AUDIO)
 	ADD_SUBDIRECTORY(audio)
 ENDIF ()
@@ -213,40 +248,7 @@ IF (ENABLE_WINDOW)
 	ADD_SUBDIRECTORY(window)
 ENDIF ()
 
-# more advanced libraries
-
-find_package(
-	Bullet
-)
-
-find_package(
-	CEGUI
-)
-
-find_package(
-	OpenCL
-)
-
-find_package(
-	Cg
-)
-
-OPTION (ENABLE_CAMERA "Build the camera" ON)
-OPTION (ENABLE_CEGUI "Build the cegui subsystem" ${CEGUI_FOUND})
-OPTION (ENABLE_CG "Build the Cg library" ${CG_FOUND})
-OPTION (ENABLE_CONFIG "Build the config library" ON)
-OPTION (ENABLE_CONSOLE "Build the console" ON)
-OPTION (ENABLE_FONTBITMAP "Build the bitmap font" ON)
-OPTION (ENABLE_FONTTEXT "Build the font text library" ON)
-OPTION (ENABLE_LINE_DRAWER "Build the line drawing library" ON)
-OPTION (ENABLE_OPENCL "Build the opencl subsystem" ${OPENCL_FOUND})
-OPTION (ENABLE_PARSE "Build the parse library" ON)
-OPTION (ENABLE_PROJECTILE "Build the projectile subsystem" ${BULLET_FOUND})
-OPTION (ENABLE_SHADER "Build the shader" ON)
-OPTION (ENABLE_SPRITE "Build the sprite library" ON)
-OPTION (ENABLE_SYSTEMS "Build the systems library" ON)
-OPTION (ENABLE_TEXTURE "Build the texture helpers" ON)
-OPTION (ENABLE_VIEWPORT "Build the viewport library" ON)
+#enable advanced libraries
 
 IF (ENABLE_CEGUI)
 	ADD_SUBDIRECTORY(cegui)

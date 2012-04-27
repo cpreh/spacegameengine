@@ -825,12 +825,25 @@ set(
 )
 
 set(
+	SGE_OPENGL_CG_FILES
+	src/plugins/opengl/include/sge/opengl/cg/create_vertex_profile.hpp
+	src/plugins/opengl/include/sge/opengl/cg/get_latest_profile.hpp
+	src/plugins/opengl/src/cg/create_vertex_profile.cpp
+	src/plugins/opengl/src/cg/get_latest_profile.cpp
+)
+
+set(
 	SGE_OPENGL_FILES
 	"${SGE_OPENGL_BASE_FILES}"
 )
 
 include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
+)
+
+set(
+	SGE_OPENGL_SGE_DEPS
+	"sgeimage;sgeimage2d;sgeimage3d;sgelog;sgeplugin;sgerenderer;sgerendereropengl;sgewindow"
 )
 
 set(
@@ -935,7 +948,8 @@ elseif(
 		"${SGE_OPENGL_FILES};${SGE_OPENGL_WIN32_FILES}"
 	)
 elseif(
-		APPLE)
+	APPLE
+)
 	set(
 		SGE_OPENGL_FILES
 		"${SGE_OPENGL_FILES};${SGE_OPENGL_COCOA_FILES}"
@@ -946,6 +960,29 @@ elseif(
 	set(
 		SGE_OPENGL_ADDITIONAL_DEPS
 		"${SGE_OPENGL_ADDITIONAL_DEPS};-framework Cocoa"
+	)
+endif()
+
+if(
+	ENABLE_CG
+)
+	include_directories(
+		${Cg_INCLUDE_DIRS}
+	)
+
+	set(
+		SGE_OPENGL_FILES
+		"${SGE_OPENGL_FILES};${SGE_OPENGL_CG_FILES}"
+	)
+
+	set(
+		SGE_OPENGL_ADDITIONAL_DEPS
+		"${SGE_OPENGL_ADDITIONAL_DEPS};${Cg_GL_LIBRARIES}"
+	)
+
+	set(
+		SGE_OPENGL_SGE_DEPS
+		"${SGE_OPENGL_SGE_DEPS};sgecg"
 	)
 endif()
 
@@ -986,6 +1023,6 @@ add_definitions(
 
 add_sge_plugin(
 	opengl
-	"sgeimage;sgeimage2d;sgeimage3d;sgelog;sgeplugin;sgerenderer;sgerendereropengl;sgewindow"
+	"${SGE_OPENGL_SGE_DEPS}"
 	"${SGE_OPENGL_ADDITIONAL_DEPS}"
 )

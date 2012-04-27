@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/volume.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/renderer/adapter.hpp>
+#include <sge/renderer/config.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
@@ -89,6 +90,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
+
+#if defined(SGE_RENDERER_HAVE_CG)
+#include <sge/cg/vertex_profile.hpp>
+#include <sge/cg/vertex_profile_unique_ptr.hpp>
+#include <sge/opengl/cg/create_vertex_profile.hpp>
+#endif
 
 sge::opengl::device::device(
 	sge::renderer::parameters const &_parameters,
@@ -403,6 +410,15 @@ sge::opengl::device::create_index_buffer(
 			)
 		);
 }
+
+#if defined(SGE_RENDERER_HAVE_CG)
+sge::cg::vertex_profile_unique_ptr
+sge::opengl::device::create_cg_vertex_profile()
+{
+	return
+		sge::opengl::cg::create_vertex_profile();
+}
+#endif
 
 sge::renderer::target::onscreen &
 sge::opengl::device::onscreen_target() const

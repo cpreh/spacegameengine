@@ -233,6 +233,11 @@ update_cmake_file \
 	SGE_OPENGL_XRANDR_FILES \
 	$(opengl_inc_src xrandr)
 
+update_cmake_file \
+	src/plugins/opengl/CMakeLists.txt \
+	SGE_OPENGL_CG_FILES \
+	$(opengl_inc_src cg)
+
 update_plugin audio_null
 
 update_plugin devil

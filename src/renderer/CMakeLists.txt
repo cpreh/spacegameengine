@@ -841,6 +841,16 @@ add_sge_base_library(
 	""
 )
 
+set(
+	SGE_RENDERER_HAVE_CG
+	${ENABLE_CG}
+)
+
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
+	${CMAKE_BINARY_DIR}/include/sge/renderer/config.hpp
+)
+
 find_package(
 	OpenGL
 )
