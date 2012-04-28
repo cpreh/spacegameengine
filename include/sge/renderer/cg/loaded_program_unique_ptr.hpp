@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/vertex_profile.hpp>
-#include <sge/cg/vertex_profile_unique_ptr.hpp>
-#include <sge/opengl/cg/create_vertex_profile.hpp>
-#include <sge/opengl/cg/get_latest_profile.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <Cg/cgGL.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_RENDERER_CG_LOADED_PROGRAM_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_CG_LOADED_PROGRAM_UNIQUE_PTR_HPP_INCLUDED
+
+#include <sge/renderer/cg/loaded_program_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
-sge::cg::vertex_profile_unique_ptr
-sge::opengl::cg::create_vertex_profile()
+namespace sge
 {
-	return
-		sge::cg::vertex_profile_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::cg::vertex_profile
-			>(
-				sge::opengl::cg::get_latest_profile(
-					CG_GL_VERTEX
-				)
-			)
-		);
+namespace renderer
+{
+namespace cg
+{
+
+typedef fcppt::unique_ptr<
+	sge::renderer::cg::loaded_program
+> loaded_program_unique_ptr;
+
 }
+}
+}
+
+#endif

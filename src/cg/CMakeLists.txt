@@ -1,24 +1,51 @@
 set(
 	SGE_CG_FILES
-	include/sge/cg/context.hpp
-	include/sge/cg/context_fwd.hpp
+	include/sge/cg/char.hpp
+	include/sge/cg/check_state.hpp
+	include/sge/cg/context/object.hpp
+	include/sge/cg/context/object_fwd.hpp
+	include/sge/cg/error_string.hpp
 	include/sge/cg/exception.hpp
-	include/sge/cg/vertex_profile.hpp
-	include/sge/cg/vertex_profile_fwd.hpp
-	include/sge/cg/vertex_profile_unique_ptr.hpp
-	src/cg/context.cpp
+	include/sge/cg/profile/object.hpp
+	include/sge/cg/profile/object_fwd.hpp
+	include/sge/cg/profile/object_scoped_ptr.hpp
+	include/sge/cg/profile/object_unique_ptr.hpp
+	include/sge/cg/profile/shader_type.hpp
+	include/sge/cg/program/compile_options.hpp
+	include/sge/cg/program/from_file_parameters.hpp
+	include/sge/cg/program/from_file_parameters_fwd.hpp
+	include/sge/cg/program/from_string_parameters.hpp
+	include/sge/cg/program/from_string_parameters_fwd.hpp
+	include/sge/cg/program/main_function.hpp
+	include/sge/cg/program/object.hpp
+	include/sge/cg/program/object_fwd.hpp
+	include/sge/cg/program/source.hpp
+	include/sge/cg/program/source_type.hpp
+	include/sge/cg/string.hpp
+	src/cg/context/object.cpp
+	src/cg/error_string.cpp
 	src/cg/exception.cpp
-	src/cg/vertex_profile.cpp
+	src/cg/include/sge/src/cg/program/convert_source_type.hpp
+	src/cg/profile/object.cpp
+	src/cg/program/convert_source_type.cpp
+	src/cg/program/from_file_parameters.cpp
+	src/cg/program/from_string_parameters.cpp
+	src/cg/program/object.cpp
 )
 
 include_directories(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
 	${Cg_INCLUDE_DIRS}
 )
 
 add_sge_base_library(
 	cg
 	"sgecore"
-	"${Cg_LIBRARIES}"
-	""
+	"${Fcppt_core_LIBRARIES};${Cg_LIBRARIES}"
 	"sgecore"
+	""
 )

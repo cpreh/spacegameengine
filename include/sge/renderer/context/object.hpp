@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
+#include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -55,6 +56,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
+#if defined(SGE_RENDERER_HAVE_CG)
+#include <sge/renderer/cg/loaded_program_fwd.hpp>
+#endif
 
 
 namespace sge
@@ -572,6 +577,20 @@ public:
 	glsl_program(
 		sge::renderer::glsl::const_optional_program_ref const &program
 	) = 0;
+
+#if defined(SGE_RENDERER_HAVE_CG)
+	virtual
+	void
+	set_cg_program(
+		sge::renderer::cg::loaded_program const &
+	) = 0;
+
+	virtual
+	void
+	unset_cg_program(
+		sge::renderer::cg::loaded_program const &
+	) = 0;
+#endif
 };
 
 }

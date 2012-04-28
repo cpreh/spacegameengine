@@ -167,6 +167,8 @@ update_cmake_file \
 	src/renderer/texture \
 	src/renderer/vf \
 
+update_sublibrary renderer/cg
+
 update_sublibrary renderer/opengl
 
 update_sublibrary shader

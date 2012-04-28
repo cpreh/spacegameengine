@@ -18,40 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/context.hpp>
-#include <sge/cg/exception.hpp>
-#include <fcppt/null_ptr.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <Cg/cg.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_OPENGL_CG_PROGRAM_DEACTIVATE_HPP_INCLUDED
+#define SGE_OPENGL_CG_PROGRAM_DEACTIVATE_HPP_INCLUDED
+
+#include <sge/renderer/cg/loaded_program_fwd.hpp>
 
 
-sge::cg::context::context()
-:
-	context_(
-		::cgCreateContext()
-	)
+namespace sge
 {
-	if(
-		context_
-		==
-		fcppt::null_ptr()
-	)
-		throw sge::cg::exception(
-			FCPPT_TEXT("cgCreateContext failed")
-		);
+namespace opengl
+{
+namespace cg
+{
+namespace program
+{
+
+void
+deactivate(
+	sge::renderer::cg::loaded_program const &
+);
+
+}
+}
+}
 }
 
-sge::cg::context::~context()
-{
-	::cgDestroyContext(
-		context_
-	);
-}
-
-CGcontext
-sge::cg::context::get() const
-{
-	return context_;
-}
+#endif

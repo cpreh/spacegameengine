@@ -18,22 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_VERTEX_PROFILE_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_CG_VERTEX_PROFILE_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_CG_PROFILE_CREATE_HPP_INCLUDED
+#define SGE_OPENGL_CG_PROFILE_CREATE_HPP_INCLUDED
 
-#include <sge/cg/vertex_profile_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <sge/cg/profile/object_unique_ptr.hpp>
+#include <sge/cg/profile/shader_type.hpp>
 
 
 namespace sge
 {
+namespace opengl
+{
 namespace cg
 {
+namespace profile
+{
 
-typedef fcppt::unique_ptr<
-	sge::cg::vertex_profile
-> vertex_profile_unique_ptr;
+sge::cg::profile::object_unique_ptr
+create(
+	sge::cg::profile::shader_type::type
+);
 
+}
+}
 }
 }
 

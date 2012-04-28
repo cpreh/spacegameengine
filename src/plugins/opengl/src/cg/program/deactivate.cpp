@@ -18,41 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_CONTEXT_HPP_INCLUDED
-#define SGE_CG_CONTEXT_HPP_INCLUDED
+#include <sge/opengl/cg/program/deactivate.hpp>
+#include <sge/opengl/cg/program/loaded_object.hpp>
+#include <sge/renderer/cg/loaded_program_fwd.hpp>
 
-#include <sge/cg/context_fwd.hpp>
-#include <sge/cg/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <Cg/cg.h>
-#include <fcppt/config/external_end.hpp>
-
-
-namespace sge
+void
+sge::opengl::cg::program::deactivate(
+	sge::renderer::cg::loaded_program const &_program
+)
 {
-namespace cg
-{
-
-class context
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	SGE_CG_SYMBOL
-	context();
-
-	SGE_CG_SYMBOL
-	~context();
-
-	CGcontext
-	get() const;
-private:
-	CGcontext const context_;
-};
-
+	dynamic_cast<
+		sge::opengl::cg::program::loaded_object const &
+	>(
+		_program
+	).deactivate();
 }
-}
-
-#endif

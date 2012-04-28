@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_VERTEX_PROFILE_HPP_INCLUDED
-#define SGE_CG_VERTEX_PROFILE_HPP_INCLUDED
+#ifndef SGE_CG_CONTEXT_OBJECT_HPP_INCLUDED
+#define SGE_CG_CONTEXT_OBJECT_HPP_INCLUDED
 
 #include <sge/cg/symbol.hpp>
-#include <sge/cg/vertex_profile_fwd.hpp>
+#include <sge/cg/context/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
@@ -33,29 +33,29 @@ namespace sge
 {
 namespace cg
 {
+namespace context
+{
 
-class vertex_profile
+class object
 {
 	FCPPT_NONCOPYABLE(
-		vertex_profile
+		object
 	);
 public:
 	SGE_CG_SYMBOL
-	explicit
-	vertex_profile(
-		CGprofile
-	);
+	object();
 
 	SGE_CG_SYMBOL
-	~vertex_profile();
+	~object();
 
 	SGE_CG_SYMBOL
-	CGprofile
+	CGcontext
 	get() const;
 private:
-	CGprofile const profile_;
+	CGcontext const context_;
 };
 
+}
 }
 }
 

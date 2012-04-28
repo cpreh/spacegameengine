@@ -59,7 +59,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
-#include <sge/cg/vertex_profile_unique_ptr.hpp>
+#include <sge/cg/context/object_fwd.hpp>
+#include <sge/cg/program/compile_options.hpp>
+#include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/profile/object_unique_ptr.hpp>
+#include <sge/cg/profile/shader_type.hpp>
+#include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #endif
 
 
@@ -390,8 +395,23 @@ public:
 
 #if defined(SGE_RENDERER_HAVE_CG)
 	virtual
-	sge::cg::vertex_profile_unique_ptr
-	create_cg_vertex_profile() = 0;
+	sge::cg::profile::object_unique_ptr
+	create_cg_profile(
+		sge::cg::profile::shader_type::type
+	) = 0;
+
+	virtual
+	sge::cg::program::compile_options const
+	cg_compile_options(
+		sge::cg::context::object const &,
+		sge::cg::profile::object const &
+	) = 0;
+
+	virtual
+	sge::renderer::cg::loaded_program_unique_ptr
+	load_cg_program(
+		sge::cg::program::object &
+	) = 0;
 #endif
 
 	/**

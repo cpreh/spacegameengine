@@ -18,17 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_CONTEXT_FWD_HPP_INCLUDED
-#define SGE_CG_CONTEXT_FWD_HPP_INCLUDED
+#ifndef SGE_CG_PROGRAM_FROM_FILE_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_CG_PROGRAM_FROM_FILE_PARAMETERS_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace cg
 {
+namespace program
+{
 
-class context;
+class from_file_parameters;
 
+}
 }
 }
 

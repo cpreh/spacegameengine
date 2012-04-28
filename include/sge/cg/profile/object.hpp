@@ -18,26 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CG_GET_LATEST_PROFILE_HPP_INCLUDED
-#define SGE_OPENGL_CG_GET_LATEST_PROFILE_HPP_INCLUDED
+#ifndef SGE_CG_PROFILE_OBJECT_HPP_INCLUDED
+#define SGE_CG_PROFILE_OBJECT_HPP_INCLUDED
 
+#include <sge/cg/symbol.hpp>
+#include <sge/cg/profile/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
-#include <Cg/cgGL.h>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace opengl
-{
 namespace cg
 {
+namespace profile
+{
 
-CGprofile
-get_latest_profile(
-	CGGLenum
-);
+class object
+{
+	FCPPT_NONCOPYABLE(
+		object
+	);
+public:
+	SGE_CG_SYMBOL
+	explicit
+	object(
+		CGprofile
+	);
+
+	SGE_CG_SYMBOL
+	~object();
+
+	SGE_CG_SYMBOL
+	CGprofile
+	get() const;
+private:
+	CGprofile const profile_;
+};
 
 }
 }

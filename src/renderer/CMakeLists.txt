@@ -879,10 +879,24 @@ option(
 	${OPENGL_AVAILABLE}
 )
 
+option(
+	ENABLE_RENDERERCG
+	"Build the renderer cg frontend"
+	${ENABLE_CG}
+)
+
 if(
 	ENABLE_RENDEREROPENGL
 )
 	add_subdirectory(
 		opengl
+	)
+endif()
+
+if(
+	ENABLE_CG
+)
+	add_subdirectory(
+		cg
 	)
 endif()

@@ -18,34 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/cg/get_latest_profile.hpp>
+#include <sge/cg/check_state.hpp>
+#include <sge/cg/context/object.hpp>
+#include <sge/cg/profile/object.hpp>
+#include <sge/cg/program/compile_options.hpp>
+#include <sge/opengl/cg/program/optimal_options.hpp>
 #include <sge/renderer/exception.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <Cg/cg.h>
 #include <Cg/cgGL.h>
 #include <fcppt/config/external_end.hpp>
 
 
-CGprofile
-sge::opengl::cg::get_latest_profile(
-	CGGLenum const _type
+sge::cg::program::compile_options const
+sge::opengl::cg::program::optimal_options(
+	sge::cg::context::object const &_context,
+	sge::cg::profile::object const &_profile
 )
 {
-	CGprofile const ret(
-		::cgGLGetLatestProfile(
-			_type
+	char const **ret(
+		::cgGLGetContextOptimalOptions(
+			_context.get(),
+			_profile.get()
 		)
 	);
 
-	if(
-		ret
-		==
-		CG_PROFILE_UNKNOWN
+	SGE_CG_CHECK_STATE(
+		FCPPT_TEXT("cgGLGetContextOptimalOptions failed"),
+		sge::renderer::exception
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("cgGLGetLatestProfile failed!")
-		);
 
-	return ret;
+	FCPPT_ASSERT_ERROR(
+		ret
+		!=
+		fcppt::null_ptr()
+	);
+
+	return
+		sge::cg::program::compile_options(
+			ret
+		);
 }

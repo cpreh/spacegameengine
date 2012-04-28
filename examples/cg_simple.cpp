@@ -18,9 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/cg/string.hpp>
+#include <sge/cg/context/object.hpp>
+#include <sge/cg/profile/object.hpp>
+#include <sge/cg/profile/object_scoped_ptr.hpp>
+#include <sge/cg/profile/shader_type.hpp>
+#include <sge/cg/program/from_string_parameters.hpp>
+#include <sge/cg/program/main_function.hpp>
+#include <sge/cg/program/object.hpp>
+#include <sge/cg/program/source.hpp>
+#include <sge/cg/program/source_type.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image/color/bgra8_format.hpp>
-#include <sge/image/color/any/convert.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
@@ -40,11 +48,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
+#include <sge/renderer/cg/loaded_program.hpp>
+#include <sge/renderer/cg/loaded_program_scoped_ptr.hpp>
+#include <sge/renderer/cg/scoped_program.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
@@ -67,18 +77,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
-#include <awl/main/exit_code.hpp>
-#include <awl/main/exit_failure.hpp>
-#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
+#include <awl/main/function_context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
@@ -100,7 +109,7 @@ try
 			sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
-						FCPPT_TEXT("sge vertex example")
+						FCPPT_TEXT("sge fullscreen test")
 					),
 					sge::window::dim(
 						1024,
@@ -132,37 +141,75 @@ try
 		)
 	);
 
-//! [position_declaration]
+	sge::cg::context::object const cg_context;
+
+	sge::cg::profile::object_scoped_ptr const vertex_profile(
+		sys.renderer().create_cg_profile(
+			sge::cg::profile::shader_type::vertex
+		)
+	);
+
+	sge::cg::string const vertex_shader_source(
+		"// This is C2E1v_green from \"The Cg Tutorial\" (Addison-Wesley, ISBN\n"
+		"// 0321194969) by Randima Fernando and Mark J. Kilgard.  See page 38.\n"
+		"\n"
+		"struct C2E1v_Output {\n"
+		"	float4 position : POSITION;\n"
+		"	float3 color    : COLOR;\n"
+		"};\n"
+		"\n"
+		"C2E1v_Output C2E1v_green(float2 position : POSITION)\n"
+		"{\n"
+		"	C2E1v_Output OUT;\n"
+		"\n"
+		"	OUT.position = float4(position,0,1);\n"
+		"	OUT.color = float3(0,1,0);\n"
+		"\n"
+		"	return OUT;\n"
+		"}\n"
+	);
+
+	sge::cg::program::object vertex_program(
+		sge::cg::program::from_string_parameters(
+			cg_context,
+			sge::cg::program::source_type::text,
+			*vertex_profile,
+			sge::cg::program::source(
+				vertex_shader_source
+			),
+			sge::cg::program::main_function(
+				"C2E1v_green"
+			),
+			sys.renderer().cg_compile_options(
+				cg_context,
+				*vertex_profile
+			)
+		)
+	);
+
+	sge::renderer::cg::loaded_program_scoped_ptr const loaded_program(
+		sys.renderer().load_cg_program(
+			vertex_program
+		)
+	);
+
 	typedef sge::renderer::vf::pos<
 		float,
 		3
 	> pos3_type;
-//! [position_declaration]
 
-//! [color_declaration]
-	typedef sge::renderer::vf::color<
-		sge::image::color::bgra8_format
-	> color_type;
-//! [color_declaration]
-
-//! [format_part_declaration]
 	typedef sge::renderer::vf::part<
-		boost::mpl::vector2<
-			pos3_type,
-			color_type
+		boost::mpl::vector1<
+			pos3_type
 		>
 	> format_part;
-//! [format_part_declaration]
 
-//! [format_declaration]
 	typedef sge::renderer::vf::format<
 		boost::mpl::vector1<
 			format_part
 		>
 	> format;
-//! [format_declaration]
 
-//! [vertex_declaration]
 	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
@@ -170,9 +217,7 @@ try
 			>()
 		)
 	);
-//! [vertex_declaration]
 
-//! [vertex_buffer]
 	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
@@ -186,17 +231,13 @@ try
 			sge::renderer::resource_flags::none
 		)
 	);
-//! [vertex_buffer]
 
-//! [vblock_declaration]
 	{
 		sge::renderer::scoped_vertex_lock const vblock(
 			*vertex_buffer,
 			sge::renderer::lock_mode::writeonly
 		);
-//! [vblock_declaration]
 
-//! [vertex_view_declaration]
 		typedef sge::renderer::vf::view<
 			format_part
 		> vertex_view;
@@ -204,52 +245,20 @@ try
 		vertex_view const vertices(
 			vblock.value()
 		);
-//! [vertex_view_declaration]
 
-//! [vertex_iterator_declaration]
 		vertex_view::iterator vb_it(
 			vertices.begin()
 		);
-//! [vertex_iterator_declaration]
 
-//! [vertex_write_pos_1]
 		typedef pos3_type::packed_type vec3;
 
 		(*vb_it).set<
 			pos3_type
 		>(
-			vec3(-1.f, 1.f, 0.f)
-		);
-//! [vertex_write_pos_1]
-
-//! [vertex_write_color_1]
-		(*vb_it).set<
-			color_type
-		>(
-			sge::image::color::any::convert<
-				sge::image::color::bgra8_format
-			>(
-				sge::image::colors::cyan()
-			)
-		);
-//! [vertex_write_color_1]
-
-//! [vertex_write_rest]
-		++vb_it;
-
-		(*vb_it).set<
-			pos3_type
-		>(
-			vec3(-1.f, -1.f, 0.f)
-		);
-
-		(*vb_it).set<
-			color_type
-		>(
-			sge::image::color::any::convert<
-				sge::image::color::bgra8_format
-			>(
-				sge::image::colors::yellow()
+			vec3(
+				-1.f,
+				1.f,
+				0.f
 			)
 		);
 
@@ -258,52 +267,50 @@ try
 		(*vb_it).set<
 			pos3_type
 		>(
-			vec3(1.f, 1.f, 0.f)
+			vec3(
+				-1.f,
+				-1.f,
+				0.f
+			)
 		);
 
+		++vb_it;
+
 		(*vb_it).set<
-			color_type
+			pos3_type
 		>(
-			sge::image::color::any::convert<
-				sge::image::color::bgra8_format
-			>(
-				sge::image::colors::magenta()
+			vec3(
+				1.f,
+				1.f,
+				0.f
 			)
 		);
 	}
-//! [vertex_write_rest]
 
-	fcppt::signal::scoped_connection const scoped_esc_connection(
+	fcppt::signal::scoped_connection const input_connection(
 		sge::systems::quit_on_escape(
 			sys
 		)
 	);
 
-//! [running_block]
 	while(
 		sys.window_system().poll()
 	)
 	{
-//! [running_block]
 		sge::renderer::context::scoped const scoped_block(
 			sys.renderer(),
 			sys.renderer().onscreen_target()
 		);
 
-		sge::renderer::context::object &context(
-			scoped_block.get()
-		);
-
-		context.clear(
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black()
 			)
 		);
 
-//! [scoped_declaration]
 		sge::renderer::scoped_vertex_declaration_and_buffers const vb_context(
-			context,
+			scoped_block.get(),
 			*vertex_declaration,
 			fcppt::assign::make_container<
 				sge::renderer::const_vertex_buffer_ref_container
@@ -313,10 +320,13 @@ try
 				)
 			)
 		);
-//! [scoped_declaration]
 
-//! [scoped_block]
-		context.render_nonindexed(
+		sge::renderer::cg::scoped_program const scoped_program(
+			scoped_block.get(),
+			*loaded_program
+		);
+
+		scoped_block.get().render_nonindexed(
 			sge::renderer::first_vertex(
 				0u
 			),
@@ -326,7 +336,6 @@ try
 			sge::renderer::nonindexed_primitive_type::triangle
 		);
 	}
-//! [scoped_block]
 
 	return
 		sys.window_system().exit_code();
@@ -345,9 +354,9 @@ catch(
 	std::exception const &_error
 )
 {
-	std::cerr
+	fcppt::io::cerr()
 		<< _error.what()
-		<< '\n';
+		<< FCPPT_TEXT('\n');
 
 	return awl::main::exit_failure();
 }

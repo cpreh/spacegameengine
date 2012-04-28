@@ -18,28 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/vertex_profile.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <Cg/cg.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_CG_PROGRAM_OBJECT_FWD_HPP_INCLUDED
+#define SGE_CG_PROGRAM_OBJECT_FWD_HPP_INCLUDED
 
 
-sge::cg::vertex_profile::vertex_profile(
-	CGprofile const _profile
-)
-:
-	profile_(
-		_profile
-	)
+namespace sge
 {
+namespace cg
+{
+namespace program
+{
+
+class object;
+
+}
+}
 }
 
-sge::cg::vertex_profile::~vertex_profile()
-{
-}
-
-CGprofile
-sge::cg::vertex_profile::get() const
-{
-	return profile_;
-}
+#endif

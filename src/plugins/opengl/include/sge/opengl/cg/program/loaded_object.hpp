@@ -18,17 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_VERTEX_PROFILE_FWD_HPP_INCLUDED
-#define SGE_CG_VERTEX_PROFILE_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_CG_PROGRAM_LOADED_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_CG_PROGRAM_LOADED_OBJECT_HPP_INCLUDED
+
+#include <sge/cg/program/object_fwd.hpp>
+#include <sge/renderer/cg/loaded_program.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
+namespace opengl
+{
 namespace cg
 {
+namespace program
+{
 
-class vertex_profile;
+class loaded_object
+:
+	public sge::renderer::cg::loaded_program
+{
+	FCPPT_NONCOPYABLE(
+		loaded_object
+	);
+public:
+	explicit
+	loaded_object(
+		sge::cg::program::object &
+	);
 
+	~loaded_object();
+
+	void
+	activate() const;
+
+	void
+	deactivate() const;
+private:
+	sge::cg::program::object &program_;
+};
+
+}
+}
 }
 }
 

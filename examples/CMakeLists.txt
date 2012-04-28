@@ -143,6 +143,12 @@ add_sge_console_example(
 	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
+add_sge_example(
+	cg_simple
+	"sgecg;sgeimage;sgeinput;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)
+
 add_sge_console_example(
 	config_path
 	"sgeconfig"

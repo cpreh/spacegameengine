@@ -826,10 +826,22 @@ set(
 
 set(
 	SGE_OPENGL_CG_FILES
-	src/plugins/opengl/include/sge/opengl/cg/create_vertex_profile.hpp
-	src/plugins/opengl/include/sge/opengl/cg/get_latest_profile.hpp
-	src/plugins/opengl/src/cg/create_vertex_profile.cpp
-	src/plugins/opengl/src/cg/get_latest_profile.cpp
+	src/plugins/opengl/include/sge/opengl/cg/profile/convert_shader_type.hpp
+	src/plugins/opengl/include/sge/opengl/cg/profile/create.hpp
+	src/plugins/opengl/include/sge/opengl/cg/profile/get_latest.hpp
+	src/plugins/opengl/include/sge/opengl/cg/program/activate.hpp
+	src/plugins/opengl/include/sge/opengl/cg/program/deactivate.hpp
+	src/plugins/opengl/include/sge/opengl/cg/program/load.hpp
+	src/plugins/opengl/include/sge/opengl/cg/program/loaded_object.hpp
+	src/plugins/opengl/include/sge/opengl/cg/program/optimal_options.hpp
+	src/plugins/opengl/src/cg/profile/convert_shader_type.cpp
+	src/plugins/opengl/src/cg/profile/create.cpp
+	src/plugins/opengl/src/cg/profile/get_latest.cpp
+	src/plugins/opengl/src/cg/program/activate.cpp
+	src/plugins/opengl/src/cg/program/deactivate.cpp
+	src/plugins/opengl/src/cg/program/load.cpp
+	src/plugins/opengl/src/cg/program/loaded_object.cpp
+	src/plugins/opengl/src/cg/program/optimal_options.cpp
 )
 
 set(
@@ -967,6 +979,7 @@ if(
 	ENABLE_CG
 )
 	include_directories(
+		${FCPPT_UTILS_INCLUDE_SYSTEM}
 		${Cg_INCLUDE_DIRS}
 	)
 
@@ -977,12 +990,12 @@ if(
 
 	set(
 		SGE_OPENGL_ADDITIONAL_DEPS
-		"${SGE_OPENGL_ADDITIONAL_DEPS};${Cg_GL_LIBRARIES}"
+		"${SGE_OPENGL_ADDITIONAL_DEPS};${Cg_LIBRARIES};${Cg_GL_LIBRARIES}"
 	)
 
 	set(
 		SGE_OPENGL_SGE_DEPS
-		"${SGE_OPENGL_SGE_DEPS};sgecg"
+		"${SGE_OPENGL_SGE_DEPS};sgecg;sgerenderercg"
 	)
 endif()
 

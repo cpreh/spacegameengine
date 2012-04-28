@@ -92,9 +92,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #if defined(SGE_RENDERER_HAVE_CG)
-#include <sge/cg/vertex_profile.hpp>
-#include <sge/cg/vertex_profile_unique_ptr.hpp>
-#include <sge/opengl/cg/create_vertex_profile.hpp>
+#include <sge/cg/context/object_fwd.hpp>
+#include <sge/cg/program/compile_options.hpp>
+#include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/profile/object.hpp>
+#include <sge/cg/profile/object_unique_ptr.hpp>
+#include <sge/cg/profile/shader_type.hpp>
+#include <sge/opengl/cg/profile/create.hpp>
+#include <sge/opengl/cg/program/load.hpp>
+#include <sge/opengl/cg/program/optimal_options.hpp>
+#include <sge/renderer/cg/loaded_program.hpp>
+#include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #endif
 
 sge::opengl::device::device(
@@ -412,11 +420,39 @@ sge::opengl::device::create_index_buffer(
 }
 
 #if defined(SGE_RENDERER_HAVE_CG)
-sge::cg::vertex_profile_unique_ptr
-sge::opengl::device::create_cg_vertex_profile()
+sge::cg::profile::object_unique_ptr
+sge::opengl::device::create_cg_profile(
+	sge::cg::profile::shader_type::type const _shader_type
+)
 {
 	return
-		sge::opengl::cg::create_vertex_profile();
+		sge::opengl::cg::profile::create(
+			_shader_type
+		);
+}
+
+sge::cg::program::compile_options const
+sge::opengl::device::cg_compile_options(
+	sge::cg::context::object const &_context,
+	sge::cg::profile::object const &_profile
+)
+{
+	return
+		sge::opengl::cg::program::optimal_options(
+			_context,
+			_profile
+		);
+}
+
+sge::renderer::cg::loaded_program_unique_ptr
+sge::opengl::device::load_cg_program(
+	sge::cg::program::object &_program
+)
+{
+	return
+		sge::opengl::cg::program::load(
+			_program
+		);
 }
 #endif
 
