@@ -18,30 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
-#include <sge/input/exception.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/information_fwd.hpp>
+#ifndef SGE_EVDEV_INOTIFY_EVENT_HPP_INCLUDED
+#define SGE_EVDEV_INOTIFY_EVENT_HPP_INCLUDED
+
+#include <sge/evdev/inotify/event_fwd.hpp>
+#include <sge/evdev/inotify/event_type.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::input::exception::exception(
-	fcppt::string const &_what
-)
-:
-	sge::exception(
-		FCPPT_TEXT("input: ")
-		+ _what
-	)
+namespace sge
 {
+namespace evdev
+{
+namespace inotify
+{
+
+class event
+{
+	FCPPT_NONASSIGNABLE(
+		event
+	);
+public:
+	event(
+		boost::filesystem::path const &,
+		sge::evdev::inotify::event_type::type
+	);
+
+	boost::filesystem::path const &
+	path() const;
+
+	sge::evdev::inotify::event_type::type
+	event_type() const;
+private:
+	boost::filesystem::path const path_;
+
+	sge::evdev::inotify::event_type::type const event_type_;
+};
+
+}
+}
 }
 
-sge::input::exception::exception(
-	fcppt::assert_::information const &_info
-)
-:
-	sge::exception(
-		_info
-	)
-{
-}
+#endif

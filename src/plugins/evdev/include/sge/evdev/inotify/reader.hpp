@@ -18,39 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_EXCEPTION_HPP_INCLUDED
-#define SGE_INPUT_EXCEPTION_HPP_INCLUDED
+#ifndef SGE_EVDEV_INOTIFY_READER_HPP_INCLUDED
+#define SGE_EVDEV_INOTIFY_READER_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/exception.hpp>
-#include <sge/input/symbol.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/assert/information_fwd.hpp>
+#include <sge/evdev/inotify/callback.hpp>
+#include <sge/evdev/inotify/object.hpp>
+#include <sge/evdev/inotify/watch.hpp>
+#include <awl/backends/x11/event/fd/event_fwd.hpp>
+#include <awl/backends/x11/system/event/processor_fwd.hpp>
+#include <fcppt/function/object.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 
 
 namespace sge
 {
-namespace input
+namespace evdev
+{
+namespace inotify
 {
 
-class SGE_CLASS_SYMBOL exception
-:
-	public sge::exception
+class reader
 {
+	FCPPT_NONCOPYABLE(
+		reader
+	);
 public:
-	SGE_INPUT_SYMBOL
-	explicit
-	exception(
-		fcppt::string const &
+	reader(
+		awl::backends::x11::system::event::processor &,
+		sge::evdev::inotify::callback const &
 	);
 
-	SGE_INPUT_SYMBOL
-	explicit
-	exception(
-		fcppt::assert_::information const &info
+	~reader();
+private:
+	void
+	on_read(
+		awl::backends::x11::event::fd::event const &
 	);
+
+	sge::evdev::inotify::object const object_;
+
+	sge::evdev::inotify::watch const watch_;
+
+	fcppt::signal::scoped_connection const fd_connection_;
+
+	sge::evdev::inotify::callback const callback_;
 };
 
+}
 }
 }
 

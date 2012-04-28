@@ -18,30 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
-#include <sge/input/exception.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/information_fwd.hpp>
+#ifndef SGE_EVDEV_INOTIFY_OBJECT_HPP_INCLUDED
+#define SGE_EVDEV_INOTIFY_OBJECT_HPP_INCLUDED
+
+#include <sge/evdev/inotify/object_fwd.hpp>
+#include <awl/backends/x11/event/fd/object.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
-sge::input::exception::exception(
-	fcppt::string const &_what
-)
-:
-	sge::exception(
-		FCPPT_TEXT("input: ")
-		+ _what
-	)
+namespace sge
 {
+namespace evdev
+{
+namespace inotify
+{
+
+class object
+{
+	FCPPT_NONCOPYABLE(
+		object
+	);
+public:
+	object();
+
+	~object();
+
+	awl::backends::x11::event::fd::object const
+	fd() const;
+private:
+	awl::backends::x11::event::fd::object const fd_;
+};
+
+}
+}
 }
 
-sge::input::exception::exception(
-	fcppt::assert_::information const &_info
-)
-:
-	sge::exception(
-		_info
-	)
-{
-}
+#endif

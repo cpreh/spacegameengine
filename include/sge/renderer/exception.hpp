@@ -47,7 +47,8 @@ public:
 	 * Constructs the exception from \a what
 	*/
 	SGE_RENDERER_SYMBOL
-	explicit exception(
+	explicit
+	exception(
 		fcppt::string const &what
 	);
 
@@ -57,7 +58,8 @@ public:
 	 * Constructs the exception from \a info
 	*/
 	SGE_RENDERER_SYMBOL
-	explicit exception(
+	explicit
+	exception(
 		fcppt::assert_::information const &info
 	);
 };

@@ -18,30 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <sge/evdev/inotify/object.hpp>
 #include <sge/input/exception.hpp>
-#include <fcppt/string.hpp>
+#include <awl/backends/x11/event/fd/object.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/information_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <sys/inotify.h>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::input::exception::exception(
-	fcppt::string const &_what
-)
+sge::evdev::inotify::object::object()
 :
-	sge::exception(
-		FCPPT_TEXT("input: ")
-		+ _what
+	fd_(
+		::inotify_init()
 	)
 {
+	if(
+		fd_.get()
+		==
+		-1
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("inotify_init failed")
+		);
 }
 
-sge::input::exception::exception(
-	fcppt::assert_::information const &_info
-)
-:
-	sge::exception(
-		_info
-	)
+sge::evdev::inotify::object::~object()
 {
+	::close(
+		fd_.get()
+	);
+}
+
+awl::backends::x11::event::fd::object const
+sge::evdev::inotify::object::fd() const
+{
+	return
+		fd_;
 }

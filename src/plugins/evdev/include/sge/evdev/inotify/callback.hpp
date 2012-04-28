@@ -18,30 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
-#include <sge/input/exception.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/information_fwd.hpp>
+#ifndef SGE_EVDEV_INOTIFY_CALLBACK_HPP_INCLUDED
+#define SGE_EVDEV_INOTIFY_CALLBACK_HPP_INCLUDED
+
+#include <sge/evdev/inotify/event_fwd.hpp>
+#include <fcppt/function/object_fwd.hpp>
 
 
-sge::input::exception::exception(
-	fcppt::string const &_what
-)
-:
-	sge::exception(
-		FCPPT_TEXT("input: ")
-		+ _what
-	)
+namespace sge
 {
+namespace evdev
+{
+namespace inotify
+{
+
+typedef fcppt::function::object<
+	void(
+		sge::evdev::inotify::event const &
+	)
+> callback;
+
+}
+}
 }
 
-sge::input::exception::exception(
-	fcppt::assert_::information const &_info
-)
-:
-	sge::exception(
-		_info
-	)
-{
-}
+#endif
