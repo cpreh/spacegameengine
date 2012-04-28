@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/detail/render/scoped_vertex.hpp>
+#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/assign/make_container.hpp>

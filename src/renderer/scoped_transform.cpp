@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/context/object.hpp>
 #include <sge/renderer/scoped_transform.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 
 

@@ -37,10 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/target/from_texture.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/offscreen_scoped_ptr.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/target/from_texture.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>

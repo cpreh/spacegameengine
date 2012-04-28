@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/structure_cast.hpp>
 #include <sge/cegui/detail/default_target.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/target/viewport.hpp>
-#include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/target/onscreen_viewport_size.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen_viewport_size.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>

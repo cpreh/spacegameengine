@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/size.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/caps/object.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object_impl.hpp>
@@ -34,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>

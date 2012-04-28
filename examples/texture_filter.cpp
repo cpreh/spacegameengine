@@ -72,10 +72,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/caps/object.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>

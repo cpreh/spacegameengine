@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/context/object_scoped_ptr.hpp>
 #include <sge/renderer/context/scoped_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

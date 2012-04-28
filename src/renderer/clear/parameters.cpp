@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/clear/back_buffer_value.hpp>
 #include <sge/renderer/clear/depth_buffer_value.hpp>
-#include <sge/renderer/clear/stencil_buffer_value.hpp>
 #include <sge/renderer/clear/optional_back_buffer.hpp>
 #include <sge/renderer/clear/optional_depth_buffer.hpp>
 #include <sge/renderer/clear/optional_stencil_buffer.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/clear/stencil_buffer_value.hpp>
 
 
 sge::renderer::clear::parameters::parameters()

@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
 #include <sge/src/charconv/backends/windows/is_utf16.hpp>
-#include <sge/src/charconv/backends/windows/utf8_to_wchar.hpp>
-#include <sge/src/charconv/backends/windows/utf16_to_utf32.hpp>
 #include <sge/src/charconv/backends/windows/system.hpp>
+#include <sge/src/charconv/backends/windows/utf16_to_utf32.hpp>
+#include <sge/src/charconv/backends/windows/utf8_to_wchar.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
