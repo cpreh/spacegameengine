@@ -10,6 +10,8 @@ set(
 	src/plugins/evdev/include/sge/evdev/inotify/reader.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/watch.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/watch_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/object.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/object_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/processor.hpp
 	src/plugins/evdev/include/sge/evdev/system.hpp
 	src/plugins/evdev/src/exports.cpp
@@ -28,6 +30,6 @@ include_directories(
 
 add_sge_plugin(
 	evdev
-	"sgeinput;sgelog;sgeplugin"
-	"${Boost_FILESYSTEM_LIBRARIES}"
+	"sgeinput;sgelog;sgeplugin;sgewindow"
+	"${Awl_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )

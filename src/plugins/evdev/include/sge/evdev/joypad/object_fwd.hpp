@@ -18,51 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/inotify/object.hpp>
-#include <sge/evdev/inotify/watch.hpp>
-#include <sge/input/exception.hpp>
-#include <awl/backends/x11/event/fd/object.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <sys/inotify.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_EVDEV_JOYPAD_OBJECT_FWD_HPP_INCLUDED
+#define SGE_EVDEV_JOYPAD_OBJECT_FWD_HPP_INCLUDED
 
 
-sge::evdev::inotify::watch::watch(
-	boost::filesystem::path const &_watch_path,
-	sge::evdev::inotify::object const &_object
-)
-:
-	object_(
-		_object
-	),
-	fd_(
-		::inotify_add_watch(
-			object_.fd().get(),
-			_watch_path.string().c_str(),
-			IN_CREATE
-			|
-			IN_DELETE
-			|
-			IN_DELETE_SELF
-		)
-	)
+namespace sge
 {
-	if(
-		fd_.get()
-		==
-		-1
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("inotify_add_watch failed")
-		);
+namespace evdev
+{
+namespace joypad
+{
+
+class object;
+
+}
+}
 }
 
-sge::evdev::inotify::watch::~watch()
-{
-	::inotify_rm_watch(
-		object_.fd().get(),
-		fd_.get()
-	);
-}
+#endif

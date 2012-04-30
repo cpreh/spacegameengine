@@ -31,6 +31,9 @@ sge::evdev::inotify::object::object()
 :
 	fd_(
 		::inotify_init()
+		/*::inotify_init1(
+			IN_NONBLOCK
+		)*/
 	)
 {
 	if(

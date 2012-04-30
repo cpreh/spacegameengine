@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/inotify/watch_fwd.hpp>
 #include <awl/backends/x11/event/fd/object.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -39,8 +42,8 @@ class watch
 		watch
 	);
 public:
-	explicit
 	watch(
+		boost::filesystem::path const &,
 		sge::evdev::inotify::object const &
 	);
 

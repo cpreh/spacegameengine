@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/event/fd/callback.hpp>
 #include <awl/backends/x11/event/fd/event_fwd.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/throw.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -39,12 +40,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::evdev::inotify::reader::reader(
+	boost::filesystem::path const &_path,
 	awl::backends::x11::system::event::processor &_processor,
 	sge::evdev::inotify::callback const &_callback
 )
 :
 	object_(),
 	watch_(
+		_path,
 		object_
 	),
 	fd_connection_(
@@ -91,7 +94,11 @@ sge::evdev::inotify::reader::on_read(
 			(
 				ret == -1
 				&&
-				errno == EINVAL
+				(
+					errno == EINVAL
+					||
+					errno == EAGAIN
+				)
 			)
 			||
 			ret == 0
@@ -99,7 +106,15 @@ sge::evdev::inotify::reader::on_read(
 			return;
 
 		FCPPT_ASSERT_THROW(
-			ret > 0,
+			ret
+			==
+			static_cast<
+				ssize_t
+			>(
+				sizeof(
+					inotify_event
+				)
+			),
 			sge::input::exception
 		);
 	}
@@ -112,6 +127,10 @@ sge::evdev::inotify::reader::on_read(
 		event.len
 	);
 
+	FCPPT_ASSERT_ERROR(
+		event.len > 0
+	);
+
 	{
 		ssize_t ret(
 			::read(
@@ -122,7 +141,13 @@ sge::evdev::inotify::reader::on_read(
 		);
 
 		FCPPT_ASSERT_THROW(
-			ret > 0,
+			ret
+			==
+			static_cast<
+				ssize_t
+			>(
+				event.len
+			),
 			sge::input::exception
 		);
 	}

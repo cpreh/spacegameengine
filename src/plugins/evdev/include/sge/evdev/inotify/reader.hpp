@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -44,6 +47,7 @@ class reader
 	);
 public:
 	reader(
+		boost::filesystem::path const &,
 		awl::backends::x11::system::event::processor &,
 		sge::evdev::inotify::callback const &
 	);
