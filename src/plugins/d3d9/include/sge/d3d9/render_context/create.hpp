@@ -18,21 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_ONSCREEN_TARGET_PTR_HPP_INCLUDED
-#define SGE_D3D9_ONSCREEN_TARGET_PTR_HPP_INCLUDED
+#ifndef SGE_D3D9_RENDER_CONTEXT_CREATE_HPP_INCLUDED
+#define SGE_D3D9_RENDER_CONTEXT_CREATE_HPP_INCLUDED
 
-#include <sge/d3d9/onscreen_target_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
+#include <sge/renderer/context/object_unique_ptr.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
+
 
 namespace sge
 {
 namespace d3d9
 {
+namespace render_context
+{
 
-typedef fcppt::shared_ptr<
-	d3d9::onscreen_target
-> onscreen_target_ptr;
+sge::renderer::context::object_unique_ptr
+create(
+	IDirect3DDevice9 *,
+	sge::renderer::target::base &,
+	sge::renderer::caps::texture_stages
+);
 
+}
 }
 }
 

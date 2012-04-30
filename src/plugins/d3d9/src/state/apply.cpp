@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/deferred/object.hpp>
 #include <sge/renderer/state/any.hpp>
 #include <sge/renderer/state/apply.hpp>
+#include <sge/renderer/state/list_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -34,20 +35,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::d3d9::state::apply(
 	IDirect3DDevice9 *const _device,
-	state::clear &_clear_state,
 	sge::renderer::state::list &_current_states,
 	sge::renderer::state::list const &_new_states
 )
 {
-	d3d9::state::deferred::object deferred_states(
+	sge::d3d9::state::deferred::object deferred_states(
 		_device
 	);
 
-	d3d9::state::visitor const visitor(
-		state::parameters(
+	sge::d3d9::state::visitor const visitor(
+		sge::d3d9::state::parameters(
 			_device,
-			deferred_states,
-			_clear_state
+			deferred_states
 		)
 	);
 

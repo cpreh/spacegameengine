@@ -22,9 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
 
+
 sge::d3d9::state::clip_plane::clip_plane()
 :
-	dword_(0u)
+	dword_(
+		0u
+	)
 {
 }
 
@@ -34,7 +37,7 @@ sge::d3d9::state::clip_plane::~clip_plane()
 
 void
 sge::d3d9::state::clip_plane::set(
-	renderer::clip_plane_index const _index,
+	sge::renderer::clip_plane_index const _index,
 	bool const _value
 )
 {

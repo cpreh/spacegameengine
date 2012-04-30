@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_render_target.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::d3d9::devicefuncs::set_render_target(
 	IDirect3DDevice9 *const _device,
-	sge::renderer::surface_index const _index,
+	sge::renderer::target::surface_index const _index,
 	IDirect3DSurface9 *const _surface
 )
 {

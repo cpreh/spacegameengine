@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_STATE_VISITOR_HPP_INCLUDED
 #define SGE_D3D9_STATE_VISITOR_HPP_INCLUDED
 
-#include <sge/d3d9/state/clear_fwd.hpp>
 #include <sge/d3d9/state/parameters.hpp>
 #include <sge/renderer/state/alpha_func.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
@@ -54,7 +53,7 @@ class visitor
 	);
 public:
 	explicit visitor(
-		state::parameters const &
+		sge::d3d9::state::parameters const &
 	);
 
 	typedef void result_type;
@@ -129,7 +128,7 @@ public:
 		sge::renderer::state::stencil_op::type const &
 	) const;
 private:
-	state::parameters const parameters_;
+	sge::d3d9::state::parameters const parameters_;
 };
 
 }

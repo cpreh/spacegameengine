@@ -33,8 +33,6 @@ sge::d3d9::state::convert::int_(
 		_type
 	)
 	{
-	case sge::renderer::state::int_::available_states::stencil_buffer_clear_val:
-		break;
 	case sge::renderer::state::int_::available_states::stencil_ref:
 		return D3DRS_STENCILREF;
 	}

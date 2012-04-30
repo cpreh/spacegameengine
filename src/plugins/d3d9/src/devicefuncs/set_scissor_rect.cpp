@@ -22,18 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/pixel_rect.hpp>
 #include <sge/d3d9/devicefuncs/set_scissor_rect.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/scissor_area.hpp>
+#include <sge/renderer/target/scissor_area.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::d3d9::devicefuncs::set_scissor_rect(
 	IDirect3DDevice9 *const _device,
-	sge::renderer::scissor_area const &_scissor_area
+	sge::renderer::target::scissor_area const &_scissor_area
 )
 {
 	RECT const d3d_rect(
-		d3d9::convert::pixel_rect(
+		sge::d3d9::convert::pixel_rect(
 			_scissor_area.get()
 		)
 	);

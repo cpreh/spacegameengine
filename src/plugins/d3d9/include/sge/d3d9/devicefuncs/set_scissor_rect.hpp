@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_SET_SCISSOR_RECT_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/scissor_area_fwd.hpp>
+#include <sge/renderer/target/scissor_area_fwd.hpp>
+
 
 namespace sge
 {
@@ -34,7 +35,7 @@ namespace devicefuncs
 void
 set_scissor_rect(
 	IDirect3DDevice9 *,
-	sge::renderer::scissor_area const &
+	sge::renderer::target::scissor_area const &
 );
 
 }

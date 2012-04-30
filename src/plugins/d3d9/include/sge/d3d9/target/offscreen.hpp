@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_OFFSCREEN_TARGET_HPP_INCLUDED
-#define SGE_D3D9_OFFSCREEN_TARGET_HPP_INCLUDED
+#ifndef SGE_D3D9_TARGET_OFFSCREEN_HPP_INCLUDED
+#define SGE_D3D9_TARGET_OFFSCREEN_HPP_INCLUDED
 
-#include <sge/d3d9/basic_target.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/offscreen_target_fwd.hpp>
+#include <sge/d3d9/target/basic.hpp>
+#include <sge/d3d9/target/offscreen_fwd.hpp>
 #include <sge/d3d9/surface/color_shared_ptr.hpp>
 #include <sge/d3d9/surface/depth_stencil_shared_ptr.hpp>
 #include <sge/renderer/color_surface_shared_ptr.hpp>
 #include <sge/renderer/depth_stencil_surface_shared_ptr.hpp>
 #include <sge/renderer/optional_dim2.hpp>
-#include <sge/renderer/surface_index.hpp>
-#include <sge/renderer/target.hpp>
+#include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/index_map_decl.hpp>
 
@@ -39,39 +39,42 @@ namespace sge
 {
 namespace d3d9
 {
+namespace target
+{
 
-class offscreen_target
+class offscreen
 :
-	public d3d9::basic_target<
-		sge::renderer::target
+	public sge::d3d9::target::basic<
+		sge::renderer::target::offscreen
 	>
 {
 	FCPPT_NONCOPYABLE(
-		offscreen_target
+		offscreen
 	);
 
-	typedef d3d9::basic_target<
-		sge::renderer::target
+	typedef sge::d3d9::target::basic<
+		sge::renderer::target::offscreen
 	> base;
 public:
-	explicit offscreen_target(
+	explicit
+	offscreen(
 		IDirect3DDevice9 *
 	);
 
-	~offscreen_target();
+	~offscreen();
 private:
 	void
 	color_surface(
-		renderer::color_surface_shared_ptr,
-		renderer::surface_index
+		sge::renderer::color_surface_shared_ptr,
+		sge::renderer::target::surface_index
 	);
 
 	void
 	depth_stencil_surface(
-		renderer::depth_stencil_surface_shared_ptr
+		sge::renderer::depth_stencil_surface_shared_ptr
 	);
 
-	renderer::optional_dim2 const
+	sge::renderer::optional_dim2 const
 	size() const;
 
 	void
@@ -86,14 +89,15 @@ private:
 	);
 
 	typedef fcppt::container::index_map<
-		d3d9::surface::color_shared_ptr
+		sge::d3d9::surface::color_shared_ptr
 	> color_surface_map;
 
 	color_surface_map color_surfaces_;
 
-	d3d9::surface::depth_stencil_shared_ptr depth_stencil_surface_;
+	sge::d3d9::surface::depth_stencil_shared_ptr depth_stencil_surface_;
 };
 
+}
 }
 }
 

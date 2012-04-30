@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_CLEAR_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/clear_fwd.hpp>
-#include <sge/renderer/clear_flags_field.hpp>
+#include <sge/renderer/clear/parameters_fwd.hpp>
+
 
 namespace sge
 {
@@ -35,8 +35,7 @@ namespace devicefuncs
 void
 clear(
 	IDirect3DDevice9 *,
-	renderer::clear_flags_field const &,
-	state::clear const &
+	sge::renderer::clear::parameters const &
 );
 
 }

@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/target_base.hpp>
+#include <sge/d3d9/target/base.hpp>
 
-sge::d3d9::target_base::target_base()
+
+sge::d3d9::target::base::base()
 {
 }
 
-sge::d3d9::target_base::~target_base()
+sge::d3d9::target::base::~base()
 {
 }

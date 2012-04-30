@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/state/clear.hpp>
 #include <sge/d3d9/state/float.hpp>
 #include <sge/d3d9/state/parameters.hpp>
 #include <sge/d3d9/state/set_render_state_float.hpp>
@@ -30,25 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::state::float_(
-	state::parameters const &_parameters,
+	sge::d3d9::state::parameters const &_parameters,
 	sge::renderer::state::float_::type const &_state
 )
 {
-	if(
-		_state.state()
-		== sge::renderer::state::float_::available_states::depth_buffer_clear_val
-	)
-	{
-		_parameters.clear().depth(
-			_state.value()
-		);
-
-		return;
-	}
-
-	d3d9::state::set_render_state_float(
+	sge::d3d9::state::set_render_state_float(
 		_parameters.device(),
-		state::convert::float_(
+		sge::d3d9::state::convert::float_(
 			_state.state()
 		),
 		_state.value()

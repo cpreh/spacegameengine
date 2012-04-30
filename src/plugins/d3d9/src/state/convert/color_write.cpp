@@ -41,9 +41,6 @@ sge::d3d9::state::convert::color_write(
 		return D3DCOLORWRITEENABLE_GREEN;
 	case sge::renderer::state::bool_::available_states::write_red:
 		return D3DCOLORWRITEENABLE_RED;
-	case sge::renderer::state::bool_::available_states::clear_back_buffer:
-	case sge::renderer::state::bool_::available_states::clear_depth_buffer:
-	case sge::renderer::state::bool_::available_states::clear_stencil_buffer:
 	case sge::renderer::state::bool_::available_states::enable_alpha_blending:
 	case sge::renderer::state::bool_::available_states::enable_lighting:
 	case sge::renderer::state::bool_::available_states::enable_point_sprites:

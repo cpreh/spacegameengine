@@ -18,17 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_OFFSCREEN_TARGET_FWD_HPP_INCLUDED
-#define SGE_D3D9_OFFSCREEN_TARGET_FWD_HPP_INCLUDED
+#include <sge/d3d9/render_context/scoped_target.hpp>
+#include <sge/d3d9/target/base.hpp>
 
-namespace sge
+
+sge::d3d9::render_context::scoped_target::scoped_target(
+	sge::d3d9::target::base &_target
+)
+:
+	target_(
+		_target
+	)
 {
-namespace d3d9
+	target_.active(
+		true
+	);
+}
+
+sge::d3d9::render_context::scoped_target::~scoped_target()
 {
-
-class offscreen_target;
-
+	target_.active(
+		false
+	);
 }
-}
-
-#endif

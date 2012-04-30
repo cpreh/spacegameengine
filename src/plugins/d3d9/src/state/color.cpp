@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/to_color.hpp>
 #include <sge/d3d9/devicefuncs/set_render_state.hpp>
-#include <sge/d3d9/state/clear.hpp>
 #include <sge/d3d9/state/color.hpp>
 #include <sge/d3d9/state/parameters.hpp>
 #include <sge/d3d9/state/convert/color.hpp>
@@ -33,33 +32,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::state::color(
-	state::parameters const &_parameters,
+	sge::d3d9::state::parameters const &_parameters,
 	sge::renderer::state::color::type const &_state
 )
 {
-	if(
-		_state.state()
-		== sge::renderer::state::color::available_states::back_buffer_clear_color
-	)
-	{
-		_parameters.clear().color(
-			d3d9::convert::to_color(
-				_state.value()
-			)
-		);
-
-		return;
-	}
-
 	d3d9::devicefuncs::set_render_state(
 		_parameters.device(),
-		state::convert::color(
+		sge::d3d9::state::convert::color(
 			_state.state()
 		),
 		static_cast<
 			DWORD
 		>(
-			d3d9::convert::to_color(
+			sge::d3d9::convert::to_color(
 				_state.value()
 			)
 		)

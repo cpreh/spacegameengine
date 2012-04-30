@@ -20,12 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/viewport.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/target/viewport.hpp>
 
 
 D3DVIEWPORT9 const
 sge::d3d9::convert::viewport(
-	sge::renderer::viewport const &_viewport
+	sge::renderer::target::viewport const &_viewport
 )
 {
 	sge::renderer::pixel_rect const rect(

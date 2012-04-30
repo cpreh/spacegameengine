@@ -18,17 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CLEAR_FWD_HPP_INCLUDED
-#define SGE_D3D9_STATE_CLEAR_FWD_HPP_INCLUDED
+#ifndef SGE_D3D9_TARGET_BASE_FWD_HPP_INCLUDED
+#define SGE_D3D9_TARGET_BASE_FWD_HPP_INCLUDED
+
 
 namespace sge
 {
 namespace d3d9
 {
-namespace state
+namespace target
 {
 
-class clear;
+class base;
 
 }
 }

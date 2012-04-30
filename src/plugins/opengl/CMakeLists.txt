@@ -1,5 +1,9 @@
 set(
 	SGE_OPENGL_BASE_FILES
+	src/plugins/opengl/include/sge/opengl/apientry.hpp
+	src/plugins/opengl/include/sge/opengl/area_function.hpp
+	src/plugins/opengl/include/sge/opengl/basic_target.hpp
+	src/plugins/opengl/include/sge/opengl/basic_target_impl.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/base.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/base_unique_ptr.hpp
@@ -16,10 +20,16 @@ set(
 	src/plugins/opengl/include/sge/opengl/buffer/software.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/vbo_context.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/wrapper.hpp
+	src/plugins/opengl/include/sge/opengl/check_state.hpp
+	src/plugins/opengl/include/sge/opengl/check_state_always.hpp
+	src/plugins/opengl/include/sge/opengl/check_state_once.hpp
 	src/plugins/opengl/include/sge/opengl/clear/back_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/clear/depth_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/clear/set.hpp
 	src/plugins/opengl/include/sge/opengl/clear/stencil_buffer.hpp
+	src/plugins/opengl/include/sge/opengl/color_format.hpp
+	src/plugins/opengl/include/sge/opengl/color_format_type.hpp
+	src/plugins/opengl/include/sge/opengl/common.hpp
 	src/plugins/opengl/include/sge/opengl/context/base.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_unique_ptr.hpp
@@ -52,6 +62,22 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/projection.hpp
 	src/plugins/opengl/include/sge/opengl/convert/resource_flags.hpp
 	src/plugins/opengl/include/sge/opengl/convert/to_gl_bool.hpp
+	src/plugins/opengl/include/sge/opengl/create_caps.hpp
+	src/plugins/opengl/include/sge/opengl/create_device_state.hpp
+	src/plugins/opengl/include/sge/opengl/create_visual.hpp
+	src/plugins/opengl/include/sge/opengl/device.hpp
+	src/plugins/opengl/include/sge/opengl/device_state.hpp
+	src/plugins/opengl/include/sge/opengl/device_state_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/device_state_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/disable.hpp
+	src/plugins/opengl/include/sge/opengl/disable_client_state.hpp
+	src/plugins/opengl/include/sge/opengl/draw_arrays.hpp
+	src/plugins/opengl/include/sge/opengl/draw_context.hpp
+	src/plugins/opengl/include/sge/opengl/draw_elements.hpp
+	src/plugins/opengl/include/sge/opengl/enable.hpp
+	src/plugins/opengl/include/sge/opengl/enable_bool.hpp
+	src/plugins/opengl/include/sge/opengl/enable_client_state.hpp
+	src/plugins/opengl/include/sge/opengl/error_string.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attach_render_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attach_texture_2d.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attachment.hpp
@@ -83,6 +109,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/fbo/texture_binding.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/texture_binding_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/unbind.hpp
+	src/plugins/opengl/include/sge/opengl/get_int.hpp
+	src/plugins/opengl/include/sge/opengl/get_ints.hpp
+	src/plugins/opengl/include/sge/opengl/get_string.hpp
 	src/plugins/opengl/include/sge/opengl/glew/initialize.hpp
 	src/plugins/opengl/include/sge/opengl/glew/is_supported.hpp
 	src/plugins/opengl/include/sge/opengl/glew/scoped_init.hpp
@@ -177,6 +206,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/glsl/uniform/variable_arb.hpp
 	src/plugins/opengl/include/sge/opengl/glsl/uniform/variable_native.hpp
 	src/plugins/opengl/include/sge/opengl/glsl/vertex_shader.hpp
+	src/plugins/opengl/include/sge/opengl/index_buffer.hpp
+	src/plugins/opengl/include/sge/opengl/init_multi_sampling.hpp
+	src/plugins/opengl/include/sge/opengl/internal_color_format.hpp
 	src/plugins/opengl/include/sge/opengl/light/attenuation.hpp
 	src/plugins/opengl/include/sge/opengl/light/color.hpp
 	src/plugins/opengl/include/sge/opengl/light/cutoff_angle.hpp
@@ -192,10 +224,30 @@ set(
 	src/plugins/opengl/include/sge/opengl/light/set.hpp
 	src/plugins/opengl/include/sge/opengl/light/spot.hpp
 	src/plugins/opengl/include/sge/opengl/light/visitor.hpp
+	src/plugins/opengl/include/sge/opengl/matrix_context.hpp
+	src/plugins/opengl/include/sge/opengl/matrix_mode.hpp
+	src/plugins/opengl/include/sge/opengl/multi_sample_context.hpp
+	src/plugins/opengl/include/sge/opengl/multi_sample_context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/onscreen_surface.hpp
+	src/plugins/opengl/include/sge/opengl/onscreen_target.hpp
+	src/plugins/opengl/include/sge/opengl/onscreen_target_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/onscreen_target_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/point_sprite_context.hpp
+	src/plugins/opengl/include/sge/opengl/point_sprite_context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/range_check.hpp
+	src/plugins/opengl/include/sge/opengl/read_pixels.hpp
 	src/plugins/opengl/include/sge/opengl/render_context/create.hpp
 	src/plugins/opengl/include/sge/opengl/render_context/end.hpp
 	src/plugins/opengl/include/sge/opengl/render_context/object.hpp
 	src/plugins/opengl/include/sge/opengl/render_context/scoped_target.hpp
+	src/plugins/opengl/include/sge/opengl/set_clip_plane.hpp
+	src/plugins/opengl/include/sge/opengl/set_flipped_area.hpp
+	src/plugins/opengl/include/sge/opengl/set_material.hpp
+	src/plugins/opengl/include/sge/opengl/set_matrix.hpp
+	src/plugins/opengl/include/sge/opengl/set_matrix_and_mode.hpp
+	src/plugins/opengl/include/sge/opengl/set_scissor_area.hpp
+	src/plugins/opengl/include/sge/opengl/set_vertex_buffer.hpp
+	src/plugins/opengl/include/sge/opengl/set_vertex_declaration.hpp
 	src/plugins/opengl/include/sge/opengl/state/alpha_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/apply.hpp
 	src/plugins/opengl/include/sge/opengl/state/bool.hpp
@@ -237,6 +289,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/stencil_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/uint.hpp
 	src/plugins/opengl/include/sge/opengl/state/visitor.hpp
+	src/plugins/opengl/include/sge/opengl/system.hpp
+	src/plugins/opengl/include/sge/opengl/target_base.hpp
+	src/plugins/opengl/include/sge/opengl/target_base_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/target_base_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/texture/activate.hpp
 	src/plugins/opengl/include/sge/opengl/texture/address_mode/context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/address_mode/context_fwd.hpp
@@ -344,6 +400,14 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/warn_min.hpp
 	src/plugins/opengl/include/sge/opengl/texture/warn_pow2.hpp
 	src/plugins/opengl/include/sge/opengl/texture/writeonly_lock.hpp
+	src/plugins/opengl/include/sge/opengl/unset_vertex_buffer.hpp
+	src/plugins/opengl/include/sge/opengl/vector3f.hpp
+	src/plugins/opengl/include/sge/opengl/vector4f.hpp
+	src/plugins/opengl/include/sge/opengl/vertex_buffer.hpp
+	src/plugins/opengl/include/sge/opengl/vertex_buffer_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/vertex_context.hpp
+	src/plugins/opengl/include/sge/opengl/vertex_declaration.hpp
+	src/plugins/opengl/include/sge/opengl/vertex_declaration_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/vf/actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/vf/actor_parameters.hpp
@@ -380,6 +444,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/vf/unspecified_format.hpp
 	src/plugins/opengl/include/sge/opengl/vf/unspecified_format_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/vertex_attrib_pointer.hpp
+	src/plugins/opengl/include/sge/opengl/viewport.hpp
 	src/plugins/opengl/src/buffer/base.cpp
 	src/plugins/opengl/src/buffer/create.cpp
 	src/plugins/opengl/src/buffer/hardware.cpp

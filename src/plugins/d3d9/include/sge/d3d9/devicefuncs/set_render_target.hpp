@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_SET_RENDER_TARGET_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/surface_index.hpp>
+#include <sge/renderer/target/surface_index.hpp>
+
 
 namespace sge
 {
@@ -34,7 +35,7 @@ namespace devicefuncs
 void
 set_render_target(
 	IDirect3DDevice9 *,
-	sge::renderer::surface_index,
+	sge::renderer::target::surface_index,
 	IDirect3DSurface9 *
 );
 

@@ -119,7 +119,7 @@ sge::charconv::backends::windows::utf8_to_wchar::convert(
 
 		_output.advance_begin(
 			static_cast<
-				sge::charconv::output_range::size_type
+				sge::charconv::output_range::difference_type
 			>(
 				converted_bytes
 			)

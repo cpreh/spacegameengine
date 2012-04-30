@@ -18,21 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TARGET_BASE_PTR_HPP_INCLUDED
-#define SGE_D3D9_TARGET_BASE_PTR_HPP_INCLUDED
+#ifndef SGE_D3D9_RENDER_CONTEXT_SCOPED_TARGET_HPP_INCLUDED
+#define SGE_D3D9_RENDER_CONTEXT_SCOPED_TARGET_HPP_INCLUDED
 
-#include <sge/d3d9/target_base_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/d3d9/target/base_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {
 namespace d3d9
 {
+namespace render_context
+{
 
-typedef fcppt::shared_ptr<
-	d3d9::target_base
-> target_base_ptr;
+class scoped_target
+{
+	FCPPT_NONCOPYABLE(
+		scoped_target
+	);
+public:
+	explicit
+	scoped_target(
+		sge::d3d9::target::base &
+	);
 
+	~scoped_target();
+private:
+	sge::d3d9::target::base &target_;
+};
+
+}
 }
 }
 

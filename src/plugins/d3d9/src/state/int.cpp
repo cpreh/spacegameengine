@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_render_state.hpp>
-#include <sge/d3d9/state/clear.hpp>
 #include <sge/d3d9/state/int.hpp>
 #include <sge/d3d9/state/parameters.hpp>
 #include <sge/d3d9/state/convert/int.hpp>
@@ -31,29 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::state::int_(
-	state::parameters const &_parameters,
+	sge::d3d9::state::parameters const &_parameters,
 	sge::renderer::state::int_::type const &_state
 )
 {
-	if(
-		_state.state()
-		== sge::renderer::state::int_::available_states::stencil_buffer_clear_val
-	)
-	{
-		_parameters.clear().stencil(
-			static_cast<
-				DWORD
-			>(
-				_state.value()
-			)
-		);
-
-		return;
-	}
-
-	d3d9::devicefuncs::set_render_state(
+	sge::d3d9::devicefuncs::set_render_state(
 		_parameters.device(),
-		state::convert::int_(
+		sge::d3d9::state::convert::int_(
 			_state.state()
 		),
 		static_cast<

@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_BASIC_TARGET_HPP_INCLUDED
-#define SGE_D3D9_BASIC_TARGET_HPP_INCLUDED
+#ifndef SGE_D3D9_TARGET_BASIC_HPP_INCLUDED
+#define SGE_D3D9_TARGET_BASIC_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/target_base.hpp>
-#include <sge/renderer/scissor_area.hpp>
-#include <sge/renderer/viewport.hpp>
+#include <sge/d3d9/target/base.hpp>
+#include <sge/renderer/target/scissor_area.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -32,40 +32,43 @@ namespace sge
 {
 namespace d3d9
 {
+namespace target
+{
 
 template<
 	typename Base
 >
-class basic_target
+class basic
 :
 	public Base,
-	public d3d9::target_base
+	public sge::d3d9::target::base
 {
 	FCPPT_NONCOPYABLE(
-		basic_target
+		basic
+	);
+protected:
+	basic(
+		IDirect3DDevice9 *,
+		sge::renderer::target::viewport const &
 	);
 public:
-	basic_target(
-		IDirect3DDevice9 *,
-		sge::renderer::viewport const &
-	);
-
-	~basic_target();
-
+	virtual
+	~basic();
+private:
 	void
 	viewport(
-		renderer::viewport const &
+		sge::renderer::target::viewport const &
 	);
 
-	renderer::viewport const
+	sge::renderer::target::viewport const
 	viewport() const;
 
 	void
 	scissor_area(
-		renderer::scissor_area const &
+		sge::renderer::target::scissor_area const &
 	);
 
-	renderer::scissor_area const
+	sge::renderer::target::scissor_area const
 	scissor_area() const;
 
 	void
@@ -82,21 +85,24 @@ private:
 	void
 	check_scissor_area();
 
-	virtual void
+	virtual
+	void
 	on_activate() = 0;
 
-	virtual void
+	virtual
+	void
 	on_deactivate() = 0;
 
 	IDirect3DDevice9 *const device_;
 
 	bool active_;
 
-	renderer::viewport viewport_;
+	sge::renderer::target::viewport viewport_;
 
-	renderer::scissor_area scissor_area_;
+	sge::renderer::target::scissor_area scissor_area_;
 };
 
+}
 }
 }
 

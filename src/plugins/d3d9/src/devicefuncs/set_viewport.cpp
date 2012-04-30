@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/viewport.hpp>
 #include <sge/d3d9/devicefuncs/set_viewport.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::d3d9::devicefuncs::set_viewport(
 	IDirect3DDevice9 *const _device,
-	sge::renderer::viewport const &_viewport
+	sge::renderer::target::viewport const &_viewport
 )
 {
 	D3DVIEWPORT9 const d3d_viewport(
-		d3d9::convert::viewport(
+		sge::d3d9::convert::viewport(
 			_viewport
 		)
 	);

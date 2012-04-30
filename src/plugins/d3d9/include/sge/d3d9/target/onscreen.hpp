@@ -18,18 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_ONSCREEN_TARGET_HPP_INCLUDED
-#define SGE_D3D9_ONSCREEN_TARGET_HPP_INCLUDED
+#ifndef SGE_D3D9_TARGET_ONSCREEN_HPP_INCLUDED
+#define SGE_D3D9_TARGET_ONSCREEN_HPP_INCLUDED
 
-#include <sge/d3d9/basic_target.hpp>
+
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/onscreen_target_fwd.hpp>
 #include <sge/d3d9/resource_manager_fwd.hpp>
 #include <sge/d3d9/surface/color_fwd.hpp>
 #include <sge/d3d9/surface/depth_stencil_fwd.hpp>
+#include <sge/d3d9/target/basic.hpp>
+#include <sge/d3d9/target/onscreen_fwd.hpp>
 #include <sge/renderer/color_surface_fwd.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/viewport_fwd.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -38,30 +39,32 @@ namespace sge
 {
 namespace d3d9
 {
+namespace target
+{
 
-class onscreen_target
+class onscreen
 :
-	public d3d9::basic_target<
-		sge::renderer::onscreen_target
+	public sge::d3d9::target::basic<
+		sge::renderer::target::onscreen
 	>
 {
 	FCPPT_NONCOPYABLE(
-		onscreen_target
+		onscreen
 	);
 
-	typedef d3d9::basic_target<
-		sge::renderer::onscreen_target
+	typedef sge::d3d9::target::basic<
+		sge::renderer::target::onscreen
 	> base;
 public:
-	onscreen_target(
+	onscreen(
 		IDirect3DDevice9 *,
-		sge::renderer::viewport const &,
-		d3d9::resource_manager &
+		sge::renderer::target::viewport const &,
+		sge::d3d9::resource_manager &
 	);
 
-	~onscreen_target();
+	~onscreen();
 
-	renderer::color_surface const &
+	sge::renderer::color_surface const &
 	surface() const;
 private:
 	void
@@ -71,18 +74,19 @@ private:
 	on_deactivate();
 
 	typedef fcppt::scoped_ptr<
-		d3d9::surface::color
+		sge::d3d9::surface::color
 	> color_surface_scoped_ptr;
 
 	color_surface_scoped_ptr const color_surface_;
 
 	typedef fcppt::scoped_ptr<
-		d3d9::surface::depth_stencil
+		sge::d3d9::surface::depth_stencil
 	> depth_stencil_surface_scoped_ptr;
 
 	depth_stencil_surface_scoped_ptr const depth_stencil_surface_;
 };
 
+}
 }
 }
 

@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/convert/clear_flag.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/to_color.hpp>
 #include <sge/d3d9/devicefuncs/clear.hpp>
-#include <sge/d3d9/state/clear.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/clear/parameters.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 
@@ -31,8 +33,8 @@ namespace
 
 DWORD
 make_flag(
-	sge::renderer::clear_flags_field const &,
-	sge::renderer::clear_flags::type
+	bool,
+	DWORD
 );
 
 }
@@ -40,33 +42,51 @@ make_flag(
 void
 sge::d3d9::devicefuncs::clear(
 	IDirect3DDevice9 *const _device,
-	renderer::clear_flags_field const &_flags,
-	state::clear const &_state
+	sge::renderer::clear::parameters const &_parameters
 )
 {
 	if(
-		_flags
-		&&
 		_device->Clear(
-			0,
-			0,
+			0u,
+			fcppt::null_ptr(),
 			::make_flag(
-				_flags,
-				sge::renderer::clear_flags::back_buffer
+				_parameters.back_buffer(),
+				D3DCLEAR_TARGET
 			)
 			|
 			::make_flag(
-				_flags,
-				sge::renderer::clear_flags::depth_buffer
+				_parameters.depth_buffer(),
+				D3DCLEAR_ZBUFFER
 			)
 			|
 			::make_flag(
-				_flags,
-				sge::renderer::clear_flags::stencil_buffer
+				_parameters.stencil_buffer(),
+				D3DCLEAR_STENCIL
 			),
-			_state.color(),
-			_state.depth(),
-			_state.stencil()
+			_parameters.back_buffer()
+			?
+				sge::d3d9::convert::to_color(
+					*_parameters.back_buffer()
+				)
+			:
+				static_cast<
+					D3DCOLOR
+				>(
+					0u
+				)
+			,
+			_parameters.depth_buffer()
+			?
+				*_parameters.depth_buffer()
+			:
+				0.f
+			,
+			// TODO: why is the stencil clear value a DWORD?
+			_parameters.stencil_buffer()
+			?
+				*_parameters.stencil_buffer()
+			:
+				0u
 		)
 		!= D3D_OK
 	)
@@ -80,20 +100,17 @@ namespace
 
 DWORD
 make_flag(
-	sge::renderer::clear_flags_field const &_field,
-	sge::renderer::clear_flags::type const _flag
+	bool const _enabled,
+	DWORD const _flag
 )
 {
 	return
-		_field[
-				_flag
-		]
+		_enabled
 		?
-			sge::d3d9::convert::clear_flag(
-				_flag
-			)
+			_flag
 		:
-			0;
+			0u
+		;
 }
 
 }

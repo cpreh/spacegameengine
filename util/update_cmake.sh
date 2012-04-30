@@ -183,15 +183,21 @@ update_sublibrary viewport
 
 update_sublibrary window
 
+function plugin_inc_src() {
+	echo "src/plugins/$1/include/sge/$1/$2" "src/plugins/$1/src/$2"
+}
+
 function opengl_inc_src() {
-	echo "src/plugins/opengl/include/sge/opengl/$1" "src/plugins/opengl/src/$1"
+	plugin_inc_src opengl "$1"
 }
 
 # plugins
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_BASE_FILES \
-	-n src/plugins/opengl/src \
+	-n \
+	src/plugins/opengl/src \
+	src/plugins/opengl/include/sge/opengl \
 	-r \
 	$(opengl_inc_src buffer) \
 	$(opengl_inc_src clear) \
@@ -206,7 +212,6 @@ update_cmake_file \
 	$(opengl_inc_src texture) \
 	$(opengl_inc_src vf)
 
-# opengl
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_WIN32_FILES \
@@ -244,7 +249,32 @@ update_plugin audio_null
 
 update_plugin devil
 
-update_plugin d3d9
+function d3d9_inc_src() {
+	plugin_inc_src d3d9 "$1"
+}
+
+update_cmake_file \
+	src/plugins/d3d9/CMakeLists.txt \
+	SGE_D3D9_BASE_FILES \
+	-n \
+	src/plugins/d3d9/src \
+	src/plugins/d3d9/include/sge/d3d9 \
+	-r \
+	$(d3d9_inc_src convert) \
+	$(d3d9_inc_src devicefuncs) \
+	$(d3d9_inc_src parameters) \
+	$(d3d9_inc_src render_context) \
+	$(d3d9_inc_src state) \
+	$(d3d9_inc_src surface) \
+	$(d3d9_inc_src surfacefuncs) \
+	$(d3d9_inc_src systemfuncs) \
+	$(d3d9_inc_src target) \
+	$(d3d9_inc_src texture)
+
+update_cmake_file \
+	src/plugins/d3d9/CMakeLists.txt \
+	SGE_D3D9_CG_FILES \
+	$(d3d9_inc_src cg)
 
 update_plugin dinput
 

@@ -19,54 +19,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/clear.hpp>
+#include <sge/d3d9/render_context/create.hpp>
+#include <sge/d3d9/render_context/object.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/object_unique_ptr.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
-sge::d3d9::state::clear::clear()
-:
-	color_(0),
-	depth_(0.f),
-	stencil_(0)
-{
-}
 
-void
-sge::d3d9::state::clear::color(
-	D3DCOLOR const _color
+sge::renderer::context::object_unique_ptr
+sge::d3d9::render_context::create(
+	IDirect3DDevice9 *const _device,
+	sge::renderer::target::base &_target,
+	sge::renderer::caps::texture_stages const _texture_stages
 )
 {
-	color_ = _color;
-}
-
-void
-sge::d3d9::state::clear::depth(
-	float const _depth
-)
-{
-	depth_ = _depth;
-}
-
-void
-sge::d3d9::state::clear::stencil(
-	DWORD const _stencil
-)
-{
-	stencil_ = _stencil;
-}
-
-D3DCOLOR
-sge::d3d9::state::clear::color() const
-{
-	return color_;
-}
-
-float
-sge::d3d9::state::clear::depth() const
-{
-	return depth_;
-}
-
-DWORD
-sge::d3d9::state::clear::stencil() const
-{
-	return stencil_;
+	return
+		sge::renderer::context::object_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::d3d9::render_context::object
+			>(
+				_device,
+				fcppt::ref(
+					_target
+				),
+				_texture_stages
+			)
+		);
 }

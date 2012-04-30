@@ -18,17 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/parameters.hpp>
+#include <sge/d3d9/state/deferred/object_fwd.hpp>
+
 
 sge::d3d9::state::parameters::parameters(
 	IDirect3DDevice9 *const _device,
-	state::deferred::object &_deferred,
-	state::clear &_clear
+	sge::d3d9::state::deferred::object &_deferred
 )
 :
-	device_(_device),
-	deferred_(_deferred),
-	clear_(_clear)
+	device_(
+		_device
+	),
+	deferred_(
+		_deferred
+	)
 {
 }
 
@@ -42,10 +47,4 @@ sge::d3d9::state::deferred::object &
 sge::d3d9::state::parameters::deferred() const
 {
 	return deferred_;
-}
-
-sge::d3d9::state::clear &
-sge::d3d9::state::parameters::clear() const
-{
-	return clear_;
 }

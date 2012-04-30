@@ -33,10 +33,6 @@ sge::d3d9::state::convert::bool_(
 		_type
 	)
 	{
-	case sge::renderer::state::bool_::available_states::clear_depth_buffer:
-	case sge::renderer::state::bool_::available_states::clear_back_buffer:
-	case sge::renderer::state::bool_::available_states::clear_stencil_buffer:
-		break;
 	case sge::renderer::state::bool_::available_states::enable_alpha_blending:
 		return D3DRS_ALPHABLENDENABLE;
 	case sge::renderer::state::bool_::available_states::enable_lighting:

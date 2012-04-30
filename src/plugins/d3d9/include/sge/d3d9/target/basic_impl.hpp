@@ -18,30 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_BASIC_TARGET_IMPL_HPP_INCLUDED
-#define SGE_D3D9_BASIC_TARGET_IMPL_HPP_INCLUDED
+#ifndef SGE_D3D9_TARGET_BASIC_IMPL_HPP_INCLUDED
+#define SGE_D3D9_TARGET_BASIC_IMPL_HPP_INCLUDED
 
-#include <sge/d3d9/basic_target.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_scissor_rect.hpp>
 #include <sge/d3d9/devicefuncs/set_viewport.hpp>
-#include <sge/renderer/scissor_area.hpp>
-#include <sge/renderer/viewport.hpp>
+#include <sge/d3d9/target/base.hpp>
+#include <sge/d3d9/target/basic.hpp>
+#include <sge/renderer/target/scissor_area.hpp>
+#include <sge/renderer/target/viewport.hpp>
 
 
 template<
 	typename Base
 >
-sge::d3d9::basic_target<Base>::basic_target(
+sge::d3d9::target::basic<
+	Base
+>::basic(
 	IDirect3DDevice9 *const _device,
-	sge::renderer::viewport const &_viewport
+	sge::renderer::target::viewport const &_viewport
 )
 :
-	device_(_device),
-	active_(false),
-	viewport_(_viewport),
+	Base(),
+	sge::d3d9::target::base(),
+	device_(
+		_device
+	),
+	active_(
+		false
+	),
+	viewport_(
+		_viewport
+	),
 	scissor_area_(
-		renderer::scissor_area(
+		sge::renderer::target::scissor_area(
 			_viewport.get()
 		)
 	)
@@ -51,7 +62,9 @@ sge::d3d9::basic_target<Base>::basic_target(
 template<
 	typename Base
 >
-sge::d3d9::basic_target<Base>::~basic_target()
+sge::d3d9::target::basic<
+	Base
+>::~basic()
 {
 }
 
@@ -59,8 +72,10 @@ template<
 	typename Base
 >
 void
-sge::d3d9::basic_target<Base>::viewport(
-	renderer::viewport const &_viewport
+sge::d3d9::target::basic<
+	Base
+>::viewport(
+	sge::renderer::target::viewport const &_viewport
 )
 {
 	viewport_ = _viewport;
@@ -71,8 +86,10 @@ sge::d3d9::basic_target<Base>::viewport(
 template<
 	typename Base
 >
-sge::renderer::viewport const
-sge::d3d9::basic_target<Base>::viewport() const
+sge::renderer::target::viewport const
+sge::d3d9::target::basic<
+	Base
+>::viewport() const
 {
 	return viewport_;
 }
@@ -81,8 +98,10 @@ template<
 	typename Base
 >
 void
-sge::d3d9::basic_target<Base>::scissor_area(
-	renderer::scissor_area const &_scissor_area
+sge::d3d9::target::basic<
+	Base
+>::scissor_area(
+	sge::renderer::target::scissor_area const &_scissor_area
 )
 {
 	scissor_area_ = _scissor_area;
@@ -93,8 +112,10 @@ sge::d3d9::basic_target<Base>::scissor_area(
 template<
 	typename Base
 >
-sge::renderer::scissor_area const
-sge::d3d9::basic_target<Base>::scissor_area() const
+sge::renderer::target::scissor_area const
+sge::d3d9::target::basic<
+	Base
+>::scissor_area() const
 {
 	return scissor_area_;
 }
@@ -103,7 +124,9 @@ template<
 	typename Base
 >
 void
-sge::d3d9::basic_target<Base>::active(
+sge::d3d9::target::basic<
+	Base
+>::active(
 	bool const _active
 )
 {
@@ -125,7 +148,9 @@ template<
 	typename Base
 >
 IDirect3DDevice9 *
-sge::d3d9::basic_target<Base>::device() const
+sge::d3d9::target::basic<
+	Base
+>::device() const
 {
 	return device_;
 }
@@ -134,12 +159,14 @@ template<
 	typename Base
 >
 void
-sge::d3d9::basic_target<Base>::check_viewport()
+sge::d3d9::target::basic<
+	Base
+>::check_viewport()
 {
 	if(
 		active_
 	)
-		devicefuncs::set_viewport(
+		sge::d3d9::devicefuncs::set_viewport(
 			device_,
 			viewport_
 		);
@@ -149,12 +176,14 @@ template<
 	typename Base
 >
 void
-sge::d3d9::basic_target<Base>::check_scissor_area()
+sge::d3d9::target::basic<
+	Base
+>::check_scissor_area()
 {
 	if(
 		active_
 	)
-		devicefuncs::set_scissor_rect(
+		sge::d3d9::devicefuncs::set_scissor_rect(
 			device_,
 			scissor_area_
 		);

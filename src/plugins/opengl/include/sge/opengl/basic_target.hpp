@@ -52,7 +52,7 @@ protected:
 	);
 public:
 	virtual
-	~basic_target() = 0;
+	~basic_target();
 private:
 	void
 	bind();

@@ -18,9 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/basic_target_impl.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/needs_reset.hpp>
-#include <sge/d3d9/onscreen_target.hpp>
 #include <sge/d3d9/resource_manager.hpp>
 #include <sge/d3d9/devicefuncs/set_depth_stencil_surface.hpp>
 #include <sge/d3d9/devicefuncs/set_render_target.hpp>
@@ -28,7 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/color_onscreen_target.hpp>
 #include <sge/d3d9/surface/depth_stencil.hpp>
 #include <sge/d3d9/surface/depth_stencil_onscreen_target.hpp>
+#include <sge/d3d9/target/basic_impl.hpp>
+#include <sge/d3d9/target/onscreen.hpp>
+#include <sge/renderer/color_surface_fwd.hpp>
+#include <sge/renderer/target/surface_index.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/null_ptr.hpp>
 
 
 namespace
@@ -43,10 +48,10 @@ set_surfaces(
 
 }
 
-sge::d3d9::onscreen_target::onscreen_target(
+sge::d3d9::target::onscreen::onscreen(
 	IDirect3DDevice9 *const _device,
-	sge::renderer::viewport const &_viewport,
-	d3d9::resource_manager &_resources
+	sge::renderer::target::viewport const &_viewport,
+	sge::d3d9::resource_manager &_resources
 )
 :
 	base(
@@ -55,11 +60,11 @@ sge::d3d9::onscreen_target::onscreen_target(
 	),
 	color_surface_(
 		fcppt::make_unique_ptr<
-			d3d9::surface::color
+			sge::d3d9::surface::color
 		>(
 			_device,
 			fcppt::make_unique_ptr<
-				d3d9::surface::color_onscreen_target
+				sge::d3d9::surface::color_onscreen_target
 			>(
 				_device
 			)
@@ -67,10 +72,10 @@ sge::d3d9::onscreen_target::onscreen_target(
 	),
 	depth_stencil_surface_(
 		fcppt::make_unique_ptr<
-			d3d9::surface::depth_stencil
+			sge::d3d9::surface::depth_stencil
 		>(
 			fcppt::make_unique_ptr<
-				d3d9::surface::depth_stencil_onscreen_target
+				sge::d3d9::surface::depth_stencil_onscreen_target
 			>(
 				_device
 			),
@@ -87,18 +92,18 @@ sge::d3d9::onscreen_target::onscreen_target(
 	);
 }
 
-sge::d3d9::onscreen_target::~onscreen_target()
+sge::d3d9::target::onscreen::~onscreen()
 {
 }
 
 sge::renderer::color_surface const &
-sge::d3d9::onscreen_target::surface() const
+sge::d3d9::target::onscreen::surface() const
 {
 	return *color_surface_;
 }
 
 void
-sge::d3d9::onscreen_target::on_activate()
+sge::d3d9::target::onscreen::on_activate()
 {
 	::set_surfaces(
 		this->device(),
@@ -108,18 +113,19 @@ sge::d3d9::onscreen_target::on_activate()
 }
 
 void
-sge::d3d9::onscreen_target::on_deactivate()
+sge::d3d9::target::onscreen::on_deactivate()
 {
 	::set_surfaces(
 		this->device(),
-		0,
-		0
+		fcppt::null_ptr(),
+		fcppt::null_ptr()
 	);
 }
 
-template class
-sge::d3d9::basic_target<
-	sge::renderer::onscreen_target
+template
+class
+sge::d3d9::target::basic<
+	sge::renderer::target::onscreen
 >;
 
 namespace
@@ -134,7 +140,7 @@ set_surfaces(
 {
 	sge::d3d9::devicefuncs::set_render_target(
 		_device,
-		sge::renderer::surface_index(
+		sge::renderer::target::surface_index(
 			0u
 		),
 		_color

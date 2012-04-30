@@ -18,74 +18,78 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/basic_target_impl.hpp>
-#include <sge/d3d9/offscreen_target.hpp>
 #include <sge/d3d9/devicefuncs/set_depth_stencil_surface.hpp>
 #include <sge/d3d9/devicefuncs/set_render_target.hpp>
 #include <sge/d3d9/surface/color.hpp>
 #include <sge/d3d9/surface/color_shared_ptr.hpp>
 #include <sge/d3d9/surface/depth_stencil.hpp>
-#include <sge/renderer/surface_index.hpp>
+#include <sge/d3d9/target/basic_impl.hpp>
+#include <sge/d3d9/target/offscreen.hpp>
+#include <sge/renderer/target/surface_index.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
 
-sge::d3d9::offscreen_target::offscreen_target(
+sge::d3d9::target::offscreen::offscreen(
 	IDirect3DDevice9 *const _device
 )
 :
 	base(
 		_device,
-		sge::renderer::viewport(
+		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect::null()
 		)
 	)
 {
 }
 
-sge::d3d9::offscreen_target::~offscreen_target()
+sge::d3d9::target::offscreen::~offscreen()
 {
 }
 
 void
-sge::d3d9::offscreen_target::color_surface(
-	renderer::color_surface_shared_ptr const _surface,
-	renderer::surface_index const _index
+sge::d3d9::target::offscreen::color_surface(
+	sge::renderer::color_surface_shared_ptr const _surface,
+	sge::renderer::target::surface_index const _index
 )
 {
 	color_surfaces_[
 		_index.get()
 	] =
 		fcppt::dynamic_pointer_cast<
-			d3d9::surface::color
+			sge::d3d9::surface::color
 		>(
 			_surface
 		);
 }
 
 void
-sge::d3d9::offscreen_target::depth_stencil_surface(
-	renderer::depth_stencil_surface_shared_ptr const _surface
+sge::d3d9::target::offscreen::depth_stencil_surface(
+	sge::renderer::depth_stencil_surface_shared_ptr const _surface
 )
 {
 	depth_stencil_surface_ =
 		fcppt::dynamic_pointer_cast<
-			d3d9::surface::depth_stencil
+			sge::d3d9::surface::depth_stencil
 		>(
 			_surface
 		);
 }
 
 sge::renderer::optional_dim2 const
-sge::d3d9::offscreen_target::size() const
+sge::d3d9::target::offscreen::size() const
 {
-	return renderer::optional_dim2();
+	// FIXME:
+	return sge::renderer::optional_dim2();
 }
 
 void
-sge::d3d9::offscreen_target::on_activate()
+sge::d3d9::target::offscreen::on_activate()
 {
 	this->change_surfaces(
 		true
@@ -93,7 +97,7 @@ sge::d3d9::offscreen_target::on_activate()
 }
 
 void
-sge::d3d9::offscreen_target::on_deactivate()
+sge::d3d9::target::offscreen::on_deactivate()
 {
 	this->change_surfaces(
 		false
@@ -101,19 +105,19 @@ sge::d3d9::offscreen_target::on_deactivate()
 }
 
 void
-sge::d3d9::offscreen_target::change_surfaces(
+sge::d3d9::target::offscreen::change_surfaces(
 	bool const _activate
 )
 {
 	for(
-		color_surface_map::size_type index(
+		sge::d3d9::target::offscreen::color_surface_map::size_type index(
 			0u
 		);
 		index != color_surfaces_.size();
 		++index
 	)
 	{
-		d3d9::surface::color_shared_ptr const surface(
+		sge::d3d9::surface::color_shared_ptr const surface(
 			color_surfaces_[
 				index
 			]
@@ -122,37 +126,36 @@ sge::d3d9::offscreen_target::change_surfaces(
 		if(
 			surface
 		)
-			devicefuncs::set_render_target(
+			sge::d3d9::devicefuncs::set_render_target(
 				this->device(),
-				renderer::surface_index(
-					static_cast<
-						renderer::surface_index::value_type
-					>(
-						index
-					)
+				fcppt::strong_typedef_construct_cast<
+					sge::renderer::target::surface_index
+				>(
+					index
 				),
 				_activate
 				?
 					surface->surface()
 				:
-					0
+					fcppt::null_ptr()
 			);
 	}
 
 	if(
 		depth_stencil_surface_
 	)
-		devicefuncs::set_depth_stencil_surface(
+		sge::d3d9::devicefuncs::set_depth_stencil_surface(
 			this->device(),
 			_activate
 			?
 				depth_stencil_surface_->surface()
 			:
-				0
+				fcppt::null_ptr()
 		);
 }
 
-template class
-sge::d3d9::basic_target<
-	sge::renderer::target
+template
+class
+sge::d3d9::target::basic<
+	sge::renderer::target::offscreen
 >;

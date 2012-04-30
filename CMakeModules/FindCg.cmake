@@ -16,37 +16,85 @@ if(
 	)
 endif()
 
-# Setup default paths
 if(
 	WIN32
 )
-	# TODO:
+	if(
+		CMAKE_SIZEOF_VOID_P EQUAL 8
+	)
+		set(
+			CG_LIB_ENV
+			"CG_LIB64_PATH"
+		)
+	elseif(
+		CMAKE_SIZEOF_VOID_P EQUAL 4
+	)
+		set(
+			CG_LIB_ENV
+			"CG_LIB_PATH"
+		)
+	endif()
+
+	set(
+		CG_HINTED_LIBRARY_DIR
+		"$ENV{${CG_LIB_ENV}}"
+	)
+
+	set(
+		CG_HINTED_INCLUDE_DIR
+		"$ENV{CG_INC_PATH}"
+	)
 else()
 	set(
 		Cg_ROOT
 		"/opt/nvidia-cg-toolkit"
+	)
+
+	set(
+		CG_HINTED_LIBRARY_DIR
+		${Cg_ROOT}/lib
+	)
+
+	set(
+		CG_HINTED_INCLUDE_DIR
+		${Cg_ROOT}/include
 	)
 endif()
 
 find_path(
 	Cg_INCLUDE_DIR
 	NAMES Cg/cg.h
-	HINTS ${CG_INCLUDEDIR}
-	PATHS ${Cg_ROOT}/include
+	HINTS
+	"${CG_HINTED_INCLUDE_DIR}"
+	PATHS
+	"${CG_INCLUDEDIR}"
 )
 
 find_library(
 	Cg_LIBRARY
 	NAMES Cg
-	HINTS ${CG_LIBRARYDIR}
-	PATHS ${Cg_ROOT}/lib
+	HINTS
+	"${CG_HINTED_LIBRARY_DIR}"
+	PATHS
+	"${CG_LIBRARYDIR}"
 )
 
 find_library(
 	Cg_GL_LIBRARY
 	NAMES CgGL
-	HINTS ${CG_LIBRARYDIR}
-	PATHS ${Cg_ROOT}/lib
+	HINTS
+	"${CG_HINTED_LIBRARY_DIR}"
+	PATHS
+	"${CG_LIBRARYDIR}"
+)
+
+find_library(
+	Cg_D3D9_LIBRARY
+	NAMES CgD3D9
+	HINTS
+	"${CG_HINTED_LIBRARY_DIR}"
+	PATHS
+	"${CG_LIBRARYDIR}"
 )
 
 set(
@@ -78,4 +126,6 @@ find_package_handle_standard_args(
 mark_as_advanced(
 	Cg_INCLUDE_DIR
 	Cg_LIBRARY
+	CG_HINTED_LIBRARY_DIR
+	CG_HINTED_INCLUDE_DIR
 )

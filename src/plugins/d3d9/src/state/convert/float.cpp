@@ -33,8 +33,6 @@ sge::d3d9::state::convert::float_(
 		_type
 	)
 	{
-	case sge::renderer::state::float_::available_states::depth_buffer_clear_val:
-		break;
 	case sge::renderer::state::float_::available_states::alpha_test_ref:
 		return D3DRS_ALPHAREF;
 	case sge::renderer::state::float_::available_states::fog_start:

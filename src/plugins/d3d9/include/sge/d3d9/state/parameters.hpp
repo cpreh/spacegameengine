@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_STATE_PARAMETERS_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/clear_fwd.hpp>
 #include <sge/d3d9/state/parameters_fwd.hpp>
 #include <sge/d3d9/state/deferred/object_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -43,24 +42,18 @@ class parameters
 public:
 	parameters(
 		IDirect3DDevice9 *,
-		state::deferred::object &,
-		state::clear &
+		sge::d3d9::state::deferred::object &
 	);
 
 	IDirect3DDevice9 *
 	device() const;
 
-	state::deferred::object &
+	sge::d3d9::state::deferred::object &
 	deferred() const;
-
-	state::clear &
-	clear() const;
 private:
 	IDirect3DDevice9 *const device_;
 
-	state::deferred::object &deferred_;
-
-	state::clear &clear_;
+	sge::d3d9::state::deferred::object &deferred_;
 };
 
 }

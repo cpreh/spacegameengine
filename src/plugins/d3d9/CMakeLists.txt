@@ -1,11 +1,8 @@
 SET(
-	SGE_D3D9_FILES
-	src/plugins/d3d9/include/sge/d3d9/basic_target.hpp
-	src/plugins/d3d9/include/sge/d3d9/basic_target_impl.hpp
+	SGE_D3D9_BASE_FILES
 	src/plugins/d3d9/include/sge/d3d9/convert/address_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/address_mode_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/bool.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/clear_flag.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/color_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/cube_side.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/depth_stencil_format.hpp
@@ -87,12 +84,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/make_pitch_3d.hpp
 	src/plugins/d3d9/include/sge/d3d9/multi_sample_quality.hpp
 	src/plugins/d3d9/include/sge/d3d9/needs_reset.hpp
-	src/plugins/d3d9/include/sge/d3d9/offscreen_target.hpp
-	src/plugins/d3d9/include/sge/d3d9/offscreen_target_fwd.hpp
-	src/plugins/d3d9/include/sge/d3d9/offscreen_target_ptr.hpp
-	src/plugins/d3d9/include/sge/d3d9/onscreen_target.hpp
-	src/plugins/d3d9/include/sge/d3d9/onscreen_target_fwd.hpp
-	src/plugins/d3d9/include/sge/d3d9/onscreen_target_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/optional_lock_rect.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/bit_depth.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/depth_stencil_buffer.hpp
@@ -102,6 +93,9 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/parameters/extract_back_buffer_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/extract_size.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/tnl_caps.hpp
+	src/plugins/d3d9/include/sge/d3d9/render_context/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/render_context/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/render_context/scoped_target.hpp
 	src/plugins/d3d9/include/sge/d3d9/resource.hpp
 	src/plugins/d3d9/include/sge/d3d9/resource_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/resource_list.hpp
@@ -110,8 +104,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/state/alpha_func.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/apply.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/bool.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/clear.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/clear_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/clip_plane.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/color.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/alpha_func.hpp
@@ -138,8 +130,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/state/deferred/object_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/depth_func.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/dest_blend_func.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/device.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/device_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/draw_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/float.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/fog_mode.hpp
@@ -181,9 +171,14 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/surfacefuncs/unlock_rect.hpp
 	src/plugins/d3d9/include/sge/d3d9/system.hpp
 	src/plugins/d3d9/include/sge/d3d9/systemfuncs/get_caps.hpp
-	src/plugins/d3d9/include/sge/d3d9/target_base.hpp
-	src/plugins/d3d9/include/sge/d3d9/target_base_fwd.hpp
-	src/plugins/d3d9/include/sge/d3d9/target_base_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/target/base.hpp
+	src/plugins/d3d9/include/sge/d3d9/target/base_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/target/basic.hpp
+	src/plugins/d3d9/include/sge/d3d9/target/basic_impl.hpp
+	src/plugins/d3d9/include/sge/d3d9/target/offscreen.hpp
+	src/plugins/d3d9/include/sge/d3d9/target/offscreen_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/target/onscreen.hpp
+	src/plugins/d3d9/include/sge/d3d9/target/onscreen_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/address_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/base.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/basic.hpp
@@ -241,7 +236,6 @@ SET(
 	src/plugins/d3d9/src/convert/address_mode.cpp
 	src/plugins/d3d9/src/convert/address_mode_type.cpp
 	src/plugins/d3d9/src/convert/bool.cpp
-	src/plugins/d3d9/src/convert/clear_flag.cpp
 	src/plugins/d3d9/src/convert/color_format.cpp
 	src/plugins/d3d9/src/convert/cube_side.cpp
 	src/plugins/d3d9/src/convert/depth_stencil_format.cpp
@@ -317,8 +311,6 @@ SET(
 	src/plugins/d3d9/src/make_pitch.cpp
 	src/plugins/d3d9/src/make_pitch_2d.cpp
 	src/plugins/d3d9/src/make_pitch_3d.cpp
-	src/plugins/d3d9/src/offscreen_target.cpp
-	src/plugins/d3d9/src/onscreen_target.cpp
 	src/plugins/d3d9/src/parameters/convert/bit_depth.cpp
 	src/plugins/d3d9/src/parameters/convert/depth_stencil_buffer.cpp
 	src/plugins/d3d9/src/parameters/convert/multi_sample.cpp
@@ -327,12 +319,14 @@ SET(
 	src/plugins/d3d9/src/parameters/extract_back_buffer_format.cpp
 	src/plugins/d3d9/src/parameters/extract_size.cpp
 	src/plugins/d3d9/src/parameters/tnl_caps.cpp
+	src/plugins/d3d9/src/render_context/create.cpp
+	src/plugins/d3d9/src/render_context/object.cpp
+	src/plugins/d3d9/src/render_context/scoped_target.cpp
 	src/plugins/d3d9/src/resource.cpp
 	src/plugins/d3d9/src/resource_manager.cpp
 	src/plugins/d3d9/src/state/alpha_func.cpp
 	src/plugins/d3d9/src/state/apply.cpp
 	src/plugins/d3d9/src/state/bool.cpp
-	src/plugins/d3d9/src/state/clear.cpp
 	src/plugins/d3d9/src/state/clip_plane.cpp
 	src/plugins/d3d9/src/state/color.cpp
 	src/plugins/d3d9/src/state/convert/alpha_func.cpp
@@ -357,7 +351,6 @@ SET(
 	src/plugins/d3d9/src/state/deferred/object.cpp
 	src/plugins/d3d9/src/state/depth_func.cpp
 	src/plugins/d3d9/src/state/dest_blend_func.cpp
-	src/plugins/d3d9/src/state/device.cpp
 	src/plugins/d3d9/src/state/draw_mode.cpp
 	src/plugins/d3d9/src/state/float.cpp
 	src/plugins/d3d9/src/state/fog_mode.cpp
@@ -387,7 +380,9 @@ SET(
 	src/plugins/d3d9/src/surfacefuncs/unlock_rect.cpp
 	src/plugins/d3d9/src/system.cpp
 	src/plugins/d3d9/src/systemfuncs/get_caps.cpp
-	src/plugins/d3d9/src/target_base.cpp
+	src/plugins/d3d9/src/target/base.cpp
+	src/plugins/d3d9/src/target/offscreen.cpp
+	src/plugins/d3d9/src/target/onscreen.cpp
 	src/plugins/d3d9/src/texture/address_mode.cpp
 	src/plugins/d3d9/src/texture/base.cpp
 	src/plugins/d3d9/src/texture/create_cube.cpp
@@ -430,6 +425,26 @@ SET(
 	src/plugins/d3d9/src/vertex_declaration.cpp
 )
 
+set(
+	SGE_D3D9_CG_FILES
+	src/plugins/d3d9/src/cg/program/loaded_object.cpp
+)
+
+set(
+	SGE_D3D9_FILES
+	"${SGE_D3D9_BASE_FILES}"
+)
+
+set(
+	SGE_D3D9_SGE_DEPS
+	"sgeimage;sgeimage2d;sgeimage3d;sgeplugin;sgerenderer;sgewindow"
+)
+
+set(
+	SGE_D3D9_ADDITIONAL_DEPS
+	"${Awl_LIBRARIES};${D3D9_LIBRARIES}"
+)
+
 include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
@@ -443,8 +458,32 @@ add_definitions(
 	${Awl_DEFINITIONS}
 )
 
+if(
+	ENABLE_CG
+)
+	include_directories(
+		${FCPPT_UTILS_INCLUDE_SYSTEM}
+		${Cg_INCLUDE_DIRS}
+	)
+
+	set(
+		SGE_D3D9_FILES
+		"${SGE_D3D9_FILES};${SGE_D3D9_CG_FILES}"
+	)
+
+	set(
+		SGE_D3D9_ADDITIONAL_DEPS
+		"${SGE_D3D9_ADDITIONAL_DEPS};${Cg_LIBRARIES};${Cg_D3D9_LIBRARIES}"
+	)
+
+	set(
+		SGE_D3D9_SGE_DEPS
+		"${SGE_D3D9_SGE_DEPS};sgecg;sgerenderercg"
+	)
+endif()
+
 add_sge_plugin(
 	"d3d9"
-	"sgeimage;sgeimage2d;sgeimage3d;sgeplugin;sgerenderer;sgewindow"
-	"${Awl_LIBRARIES};${D3D9_LIBRARIES}"
+	"${SGE_D3D9_SGE_DEPS}"
+	"${SGE_D3D9_ADDITIONAL_DEPS}"
 )
