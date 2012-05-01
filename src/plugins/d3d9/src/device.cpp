@@ -164,6 +164,10 @@ sge::d3d9::device::begin_rendering(
 	sge::renderer::target::base &_target
 )
 {
+	sge::d3d9::devicefuncs::begin_scene(
+		device_.get()
+	);
+
 	return
 		sge::d3d9::render_context::create(
 			device_.get(),

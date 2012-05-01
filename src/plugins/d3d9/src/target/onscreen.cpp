@@ -36,18 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/null_ptr.hpp>
 
 
-namespace
-{
-
-void
-set_surfaces(
-	IDirect3DDevice9 *,
-	IDirect3DSurface9 *color,
-	IDirect3DSurface9 *depth_stencil
-);
-
-}
-
 sge::d3d9::target::onscreen::onscreen(
 	IDirect3DDevice9 *const _device,
 	sge::renderer::target::viewport const &_viewport,
@@ -105,9 +93,16 @@ sge::d3d9::target::onscreen::surface() const
 void
 sge::d3d9::target::onscreen::on_activate()
 {
-	::set_surfaces(
+	sge::d3d9::devicefuncs::set_render_target(
 		this->device(),
-		color_surface_->surface(),
+		sge::renderer::target::surface_index(
+			0u
+		),
+		color_surface_->surface()
+	);
+	
+	sge::d3d9::devicefuncs::set_depth_stencil_surface(
+		this->device(),
 		depth_stencil_surface_->surface()
 	);
 }
@@ -115,9 +110,10 @@ sge::d3d9::target::onscreen::on_activate()
 void
 sge::d3d9::target::onscreen::on_deactivate()
 {
-	::set_surfaces(
+	// Don't deactivate the 0th color surface because D3D9 doesn't allow it
+
+	sge::d3d9::devicefuncs::set_depth_stencil_surface(
 		this->device(),
-		fcppt::null_ptr(),
 		fcppt::null_ptr()
 	);
 }
@@ -127,29 +123,3 @@ class
 sge::d3d9::target::basic<
 	sge::renderer::target::onscreen
 >;
-
-namespace
-{
-
-void
-set_surfaces(
-	IDirect3DDevice9 *const _device,
-	IDirect3DSurface9 *const _color,
-	IDirect3DSurface9 *const _depth_stencil
-)
-{
-	sge::d3d9::devicefuncs::set_render_target(
-		_device,
-		sge::renderer::target::surface_index(
-			0u
-		),
-		_color
-	);
-
-	sge::d3d9::devicefuncs::set_depth_stencil_surface(
-		_device,
-		_depth_stencil
-	);
-}
-
-}

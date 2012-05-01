@@ -110,8 +110,13 @@ sge::d3d9::target::offscreen::change_surfaces(
 )
 {
 	for(
+		// Don't deactivate the 0th color surface because D3D9 doesn't allow it
 		sge::d3d9::target::offscreen::color_surface_map::size_type index(
-			0u
+			_activate
+			?
+				1u
+			:
+				0u
 		);
 		index != color_surfaces_.size();
 		++index
