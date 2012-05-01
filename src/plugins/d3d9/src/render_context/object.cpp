@@ -77,6 +77,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
+#include <sge/d3d9/cg/program/activate.hpp>
+#include <sge/d3d9/cg/program/deactivate.hpp>
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
 #endif
 
@@ -103,6 +105,12 @@ sge::d3d9::render_context::object::object(
 			target_
 		)
 	)
+#if defined(SGE_RENDERER_HAVE_CG)
+	,
+	scoped_cg_device_(
+		device_
+	)
+#endif
 {
 	this->state(
 		sge::renderer::state::default_()
@@ -429,3 +437,25 @@ sge::d3d9::render_context::object::glsl_program(
 )
 {
 }
+
+#if defined(SGE_RENDERER_HAVE_CG)
+void
+sge::d3d9::render_context::object::set_cg_program(
+	sge::renderer::cg::loaded_program const &_program
+)
+{
+	sge::d3d9::cg::program::activate(
+		_program
+	);
+}
+
+void
+sge::d3d9::render_context::object::unset_cg_program(
+	sge::renderer::cg::loaded_program const &_program
+)
+{
+	sge::d3d9::cg::program::deactivate(
+		_program
+	);
+}
+#endif

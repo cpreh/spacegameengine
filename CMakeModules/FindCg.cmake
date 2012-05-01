@@ -99,7 +99,7 @@ find_library(
 
 set(
 	Cg_INCLUDE_DIRS
-	${Cg_INLUDE_DIR}
+	${Cg_INCLUDE_DIR}
 )
 
 set(
@@ -110,6 +110,11 @@ set(
 set(
 	Cg_GL_LIBRARIES
 	"${Cg_GL_LIBRARY}"
+)
+
+set(
+	Cg_D3D9_LIBRARIES
+	"${Cg_D3D9_LIBRARY}"
 )
 
 include(

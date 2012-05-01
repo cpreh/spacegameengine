@@ -98,16 +98,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/profile/object.hpp>
 #include <sge/cg/profile/object_unique_ptr.hpp>
 #include <sge/cg/profile/shader_type.hpp>
+#include <sge/d3d9/cg/profile/create.hpp>
+#include <sge/d3d9/cg/program/create_loaded.hpp>
+#include <sge/d3d9/cg/program/optimal_options.hpp>
+#include <sge/renderer/cg/loaded_program.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #endif
 
 
 sge::d3d9::device::device(
 	IDirect3D9 *const _system,
-	renderer::adapter const _adapter,
-	renderer::parameters const &_parameters,
+	sge::renderer::adapter const _adapter,
+	sge::renderer::parameters const &_parameters,
 	awl::window::object &_window
 )
 :
@@ -428,6 +433,45 @@ sge::d3d9::device::create_index_buffer(
 			)
 		);
 }
+
+#if defined(SGE_RENDERER_HAVE_CG)
+sge::cg::profile::object_unique_ptr
+sge::d3d9::device::create_cg_profile(
+	sge::cg::profile::shader_type::type const _shader_type
+)
+{
+	return
+		sge::d3d9::cg::profile::create(
+			device_.get(),
+			_shader_type
+		);
+}
+
+sge::cg::program::compile_options const
+sge::d3d9::device::cg_compile_options(
+	sge::cg::context::object const &,
+	sge::cg::profile::object const &_profile
+)
+{
+	return
+		sge::d3d9::cg::program::optimal_options(
+			device_.get(),
+			_profile
+		);
+}
+
+sge::renderer::cg::loaded_program_unique_ptr
+sge::d3d9::device::load_cg_program(
+	sge::cg::program::object &_program
+)
+{
+	return
+		sge::d3d9::cg::program::create_loaded(
+			device_.get(),
+			_program
+		);
+}
+#endif
 
 sge::renderer::target::onscreen &
 sge::d3d9::device::onscreen_target() const

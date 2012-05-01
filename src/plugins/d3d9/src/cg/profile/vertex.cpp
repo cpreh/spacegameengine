@@ -19,45 +19,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cg/check_state.hpp>
-#include <sge/cg/context/object.hpp>
 #include <sge/cg/profile/object.hpp>
-#include <sge/cg/program/compile_options.hpp>
-#include <sge/opengl/cg/program/optimal_options.hpp>
+#include <sge/cg/profile/object_unique_ptr.hpp>
+#include <sge/d3d9/cg/scoped_device_fwd.hpp>
+#include <sge/d3d9/cg/profile/vertex.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/null_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <Cg/cgGL.h>
+#include <Cg/cg.h>
+#include <Cg/cgD3D9.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::cg::program::compile_options const
-sge::opengl::cg::program::optimal_options(
-	sge::cg::context::object const &_context,
-	sge::cg::profile::object const &_profile
+sge::cg::profile::object_unique_ptr
+sge::d3d9::cg::profile::vertex(
+	sge::d3d9::cg::scoped_device const &
 )
 {
-	sge::cg::program::compile_options::value_type const ret(
-		::cgGLGetContextOptimalOptions(
-			_context.get(),
-			_profile.get()
-		)
+	CGprofile const ret(
+		::cgD3D9GetLatestVertexProfile()
 	);
 
 	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgGLGetContextOptimalOptions failed"),
+		FCPPT_TEXT("cgD3D9GetLatestVertexProfile failed"),
 		sge::renderer::exception
 	)
 
 	FCPPT_ASSERT_ERROR(
 		ret
 		!=
-		fcppt::null_ptr()
+		CG_PROFILE_UNKNOWN
 	);
 
 	return
-		sge::cg::program::compile_options(
+		fcppt::make_unique_ptr<
+			sge::cg::profile::object
+		>(
 			ret
 		);
 }

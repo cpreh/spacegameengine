@@ -61,6 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
+#include <sge/d3d9/cg/scoped_device.hpp>
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
 #endif
 
@@ -248,6 +249,10 @@ private:
 	sge::d3d9::state::clip_plane clip_planes_;
 
 	sge::d3d9::render_context::scoped_target const scoped_target_;
+
+#if defined(SGE_RENDERER_HAVE_CG)
+	sge::d3d9::cg::scoped_device const scoped_cg_device_;
+#endif
 };
 
 }

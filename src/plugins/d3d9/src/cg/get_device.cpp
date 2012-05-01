@@ -19,45 +19,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cg/check_state.hpp>
-#include <sge/cg/context/object.hpp>
-#include <sge/cg/profile/object.hpp>
-#include <sge/cg/program/compile_options.hpp>
-#include <sge/opengl/cg/program/optimal_options.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/cg/get_device.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <Cg/cgGL.h>
+#include <Cg/cgD3D9.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::cg::program::compile_options const
-sge::opengl::cg::program::optimal_options(
-	sge::cg::context::object const &_context,
-	sge::cg::profile::object const &_profile
-)
+IDirect3DDevice9 *
+sge::d3d9::cg::get_device()
 {
-	sge::cg::program::compile_options::value_type const ret(
-		::cgGLGetContextOptimalOptions(
-			_context.get(),
-			_profile.get()
-		)
+	IDirect3DDevice9 *const ret(
+		::cgD3D9GetDevice()
 	);
 
 	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgGLGetContextOptimalOptions failed"),
+		FCPPT_TEXT("cgD3D9GetDevice failed"),
 		sge::renderer::exception
 	)
 
-	FCPPT_ASSERT_ERROR(
-		ret
-		!=
-		fcppt::null_ptr()
-	);
-
-	return
-		sge::cg::program::compile_options(
-			ret
-		);
+	return ret;
 }

@@ -427,7 +427,29 @@ SET(
 
 set(
 	SGE_D3D9_CG_FILES
+	src/plugins/d3d9/include/sge/d3d9/cg/get_device.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/profile/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/profile/pixel.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/profile/vertex.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/program/activate.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/program/create_loaded.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/program/deactivate.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/program/loaded_object.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/program/optimal_options.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/scoped_device.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/scoped_device_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/set_device.hpp
+	src/plugins/d3d9/src/cg/get_device.cpp
+	src/plugins/d3d9/src/cg/profile/create.cpp
+	src/plugins/d3d9/src/cg/profile/pixel.cpp
+	src/plugins/d3d9/src/cg/profile/vertex.cpp
+	src/plugins/d3d9/src/cg/program/activate.cpp
+	src/plugins/d3d9/src/cg/program/create_loaded.cpp
+	src/plugins/d3d9/src/cg/program/deactivate.cpp
 	src/plugins/d3d9/src/cg/program/loaded_object.cpp
+	src/plugins/d3d9/src/cg/program/optimal_options.cpp
+	src/plugins/d3d9/src/cg/scoped_device.cpp
+	src/plugins/d3d9/src/cg/set_device.cpp
 )
 
 set(
