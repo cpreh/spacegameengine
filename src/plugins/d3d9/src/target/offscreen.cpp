@@ -114,9 +114,9 @@ sge::d3d9::target::offscreen::change_surfaces(
 		sge::d3d9::target::offscreen::color_surface_map::size_type index(
 			_activate
 			?
-				1u
-			:
 				0u
+			:
+				1u
 		);
 		index != color_surfaces_.size();
 		++index
