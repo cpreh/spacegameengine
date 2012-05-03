@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/noise/simplex/object_fwd.hpp>
+#include <sge/noise/simplex/width.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/static.hpp>
@@ -64,13 +65,13 @@ public:
 	Float
 	value_type;
 
+	explicit
+	object(
+		sge::noise::simplex::width const &);
+
 	Float
 	sample(
 		vector_type const &);
-
-	object(
-		std::size_t const _width);
-
 private:
 	typedef
 	fcppt::math::size_type

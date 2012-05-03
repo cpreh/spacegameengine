@@ -47,10 +47,10 @@ sge::noise::simplex::object<
 	Float,
 	N
 >::object(
-		std::size_t const _width)
+		sge::noise::simplex::width const &_width)
 :
 	perm_(
-		_width)
+		_width.get())
 {
 	boost::iota(
 		perm_,

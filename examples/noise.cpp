@@ -105,7 +105,9 @@ fill_texture(
 	sge::noise::sample_parameters<noise_type>
 	param_type;
 
-	noise_type noise_generator(128);
+	noise_type noise_generator(
+		sge::noise::simplex::width(
+			128u));
 
 	dim_type const dim = _view.size();
 
@@ -144,14 +146,16 @@ fill_texture(
 
 awl::main::exit_code const
 example_main(
-	awl::main::function_context const &_main_function_context)
+	awl::main::function_context const &)
 try
 {
 	typedef
 	sge::noise::simplex::object<double,2>
 	noise_type;
 
-	noise_type noise_generator(128);
+	noise_type noise_generator(
+		sge::noise::simplex::width(
+			128u));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("raw noise generator spit out: ")
