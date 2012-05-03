@@ -35,9 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
@@ -278,13 +280,16 @@ try
 		sys.window_system().poll()
 	)
 	{
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target()
+		);
+
 		sge::sprite::process::one(
+			scoped_block.get(),
 			spr,
 			sprite_buffers
 		);
-
-		sge::renderer::scoped_block const block_(
-			sys.renderer());
 	}
 
 	return sys.window_system().exit_code();
