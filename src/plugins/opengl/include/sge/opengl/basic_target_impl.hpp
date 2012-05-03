@@ -23,10 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/basic_target.hpp>
 #include <sge/opengl/set_scissor_area.hpp>
-#include <sge/opengl/temporary_target.hpp>
 #include <sge/opengl/viewport.hpp>
 #include <sge/opengl/clear/set.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
@@ -39,15 +37,11 @@ template<
 sge::opengl::basic_target<
 	Base
 >::basic_target(
-	sge::opengl::context::object &_context,
 	sge::renderer::viewport const &_viewport
 )
 :
 	Base(),
 	sge::opengl::target_base(),
-	context_(
-		_context
-	),
 	active_(
 		false
 	),
@@ -104,18 +98,6 @@ sge::opengl::basic_target<
 template<
 	typename Base
 >
-bool
-sge::opengl::basic_target<
-	Base
->::active() const
-{
-	return
-		active_;
-}
-
-template<
-	typename Base
->
 void
 sge::opengl::basic_target<
 	Base
@@ -123,11 +105,6 @@ sge::opengl::basic_target<
 	sge::renderer::clear::parameters const &_parameters
 )
 {
-	sge::opengl::temporary_target const temp_target(
-		context_,
-		*this
-	);
-
 	sge::opengl::clear::set(
 		_parameters
 	);

@@ -18,30 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
-#include <sge/input/exception.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/information_fwd.hpp>
+#include <sge/evdev/inotify/convert_event_type.hpp>
+#include <sge/evdev/inotify/event_type.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/cstdint.hpp>
+#include <sys/inotify.h>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::input::exception::exception(
-	fcppt::string const &_what
+sge::evdev::inotify::event_type::type
+sge::evdev::inotify::convert_event_type(
+	boost::uint32_t const _mask
 )
-:
-	sge::exception(
-		FCPPT_TEXT("input: ")
-		+ _what
-	)
 {
-}
+	FCPPT_ASSERT_ERROR(
+		(
+			_mask & IN_CREATE
+		)
+		!=
+		(
+			_mask & IN_DELETE
+		)
+	);
 
-sge::input::exception::exception(
-	fcppt::assert_::information const &_info
-)
-:
-	sge::exception(
-		_info
+	if(
+		_mask & IN_CREATE
 	)
-{
+		return sge::evdev::inotify::event_type::add;
+
+	if(
+		_mask & IN_DELETE
+	)
+		return sge::evdev::inotify::event_type::remove;
+
+	FCPPT_ASSERT_UNREACHABLE;
 }

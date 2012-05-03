@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/clear/parameters_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -59,6 +60,11 @@ public:
 	~onscreen_target();
 private:
 	void
+	clear(
+		sge::renderer::clear::parameters const &
+	);
+
+	void
 	on_bind();
 
 	void
@@ -73,6 +79,8 @@ private:
 	typedef fcppt::scoped_ptr<
 		sge::renderer::color_surface
 	> color_surface_scoped_ptr;
+
+	sge::opengl::context::object &context_;
 
 	color_surface_scoped_ptr const main_surface_;
 };

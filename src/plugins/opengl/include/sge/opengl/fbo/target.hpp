@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/target.hpp>
+#include <sge/renderer/clear/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -73,6 +74,11 @@ public:
 
 	~target();
 private:
+	void
+	clear(
+		sge::renderer::clear::parameters const &
+	);
+
 	void
 	on_bind();
 

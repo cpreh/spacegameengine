@@ -22,6 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/onscreen_surface.hpp>
 #include <sge/opengl/onscreen_target.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/fbo/bind.hpp>
+#include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/id.hpp>
+#include <sge/opengl/fbo/no_buffer.hpp>
+#include <sge/opengl/fbo/unbind.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -39,10 +45,12 @@ sge::opengl::onscreen_target::onscreen_target(
 )
 :
 	base(
-		_context,
 		renderer::viewport(
 			renderer::pixel_rect::null()
 		)
+	),
+	context_(
+		_context
 	),
 	main_surface_(
 		fcppt::make_unique_ptr<
@@ -58,6 +66,47 @@ sge::opengl::onscreen_target::onscreen_target(
 
 sge::opengl::onscreen_target::~onscreen_target()
 {
+}
+
+void
+sge::opengl::onscreen_target::clear(
+	sge::renderer::clear::parameters const &_parameters
+)
+{
+	sge::opengl::fbo::context &fbo_context(
+		sge::opengl::context::use<
+			sge::opengl::fbo::context
+		>(
+			context_
+		)
+	);
+
+	sge::opengl::fbo::id const last_id(
+		fbo_context.last_buffer()
+	);
+
+	if(
+		last_id
+		!=
+		sge::opengl::fbo::no_buffer()
+	)
+		sge::opengl::fbo::unbind(
+			fbo_context
+		);
+
+	base::clear(
+		_parameters
+	);
+
+	if(
+		last_id
+		!=
+		sge::opengl::fbo::no_buffer()
+	)
+		sge::opengl::fbo::bind(
+			fbo_context,
+			last_id
+		);
 }
 
 void

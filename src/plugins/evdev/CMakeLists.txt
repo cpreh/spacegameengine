@@ -1,8 +1,25 @@
 set(
 	SGE_EVDEV_FILES
+	src/plugins/evdev/include/sge/evdev/inotify/callback.hpp
+	src/plugins/evdev/include/sge/evdev/inotify/convert_event_type.hpp
+	src/plugins/evdev/include/sge/evdev/inotify/event.hpp
+	src/plugins/evdev/include/sge/evdev/inotify/event_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/inotify/event_type.hpp
+	src/plugins/evdev/include/sge/evdev/inotify/object.hpp
+	src/plugins/evdev/include/sge/evdev/inotify/object_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/inotify/reader.hpp
+	src/plugins/evdev/include/sge/evdev/inotify/watch.hpp
+	src/plugins/evdev/include/sge/evdev/inotify/watch_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/object.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/object_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/processor.hpp
 	src/plugins/evdev/include/sge/evdev/system.hpp
 	src/plugins/evdev/src/exports.cpp
+	src/plugins/evdev/src/inotify/convert_event_type.cpp
+	src/plugins/evdev/src/inotify/event.cpp
+	src/plugins/evdev/src/inotify/object.cpp
+	src/plugins/evdev/src/inotify/reader.cpp
+	src/plugins/evdev/src/inotify/watch.cpp
 	src/plugins/evdev/src/processor.cpp
 	src/plugins/evdev/src/system.cpp
 )
@@ -13,6 +30,6 @@ include_directories(
 
 add_sge_plugin(
 	evdev
-	"sgeinput;sgelog;sgeplugin"
-	""
+	"sgeinput;sgelog;sgeplugin;sgewindow"
+	"${Awl_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )

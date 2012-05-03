@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BASIC_TARGET_HPP_INCLUDED
 
 #include <sge/opengl/target_base.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/target_base.hpp>
@@ -49,8 +48,8 @@ class basic_target
 		basic_target
 	);
 protected:
+	explicit
 	basic_target(
-		sge::opengl::context::object &,
 		renderer::viewport const &
 	);
 public:
@@ -62,15 +61,13 @@ private:
 
 	void
 	unbind();
-
-	bool
-	active() const;
-
+protected:
+	virtual
 	void
 	clear(
 		sge::renderer::clear::parameters const &
 	);
-
+private:
 	void
 	viewport(
 		sge::renderer::viewport const &
@@ -102,8 +99,6 @@ private:
 
 	virtual void
 	on_unbind() = 0;
-
-	sge::opengl::context::object &context_;
 
 	bool active_;
 

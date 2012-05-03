@@ -18,41 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEMPORARY_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_TEMPORARY_TARGET_HPP_INCLUDED
-
-#include <fcppt/noncopyable.hpp>
-#include <sge/opengl/target_base_fwd.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/fbo/context_fwd.hpp>
-#include <sge/opengl/fbo/id.hpp>
+#ifndef SGE_EVDEV_JOYPAD_OBJECT_FWD_HPP_INCLUDED
+#define SGE_EVDEV_JOYPAD_OBJECT_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace opengl
+namespace evdev
+{
+namespace joypad
 {
 
-class temporary_target
-{
-	FCPPT_NONCOPYABLE(
-		temporary_target
-	);
-public:
-	temporary_target(
-		sge::opengl::context::object &,
-		sge::opengl::target_base &
-	);
+class object;
 
-	~temporary_target();
-private:
-	sge::opengl::fbo::context &fbo_context_;
-
-	sge::opengl::target_base &target_;
-
-	sge::opengl::fbo::id const previous_fbo_;
-};
-
+}
 }
 }
 

@@ -49,24 +49,29 @@ protected:
 	device();
 public:
 	SGE_INPUT_SYMBOL
-	virtual ~device() = 0;
+	virtual
+	~device() = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	absolute_axis_callback(
-		joypad::absolute_axis_callback const &
+		sge::input::joypad::absolute_axis_callback const &
 	) = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	button_callback(
-		joypad::button_callback const &
+		sge::input::joypad::button_callback const &
 	) = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	relative_axis_callback(
-		joypad::relative_axis_callback const &
+		sge::input::joypad::relative_axis_callback const &
 	) = 0;
 
-	virtual input::joypad::info const &
+	virtual
+	sge::input::joypad::info const &
 	info() const = 0;
 };
 
