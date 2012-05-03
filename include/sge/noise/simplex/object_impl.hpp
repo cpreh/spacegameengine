@@ -66,13 +66,13 @@ sge::noise::simplex::object<
 		perm_
 	);
 
-	for (typename vector_type::size_type i = 0; i < N; i += 2)
+	for (typename vector_type::size_type i = 0u; i < N; i++)
 	{
 		vector_type tmp = vector_type::null();
 		tmp[i] = static_cast<Float>(1);
-		gradients_[i] = tmp;
+		gradients_[2u*i] = tmp;
 		tmp[i] = static_cast<Float>(-1);
-		gradients_[i+1] = tmp;
+		gradients_[2u*i+1u] = tmp;
 	}
 }
 
