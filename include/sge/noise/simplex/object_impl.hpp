@@ -50,7 +50,8 @@ sge::noise::simplex::object<
 		sge::noise::simplex::width const &_width)
 :
 	perm_(
-		_width.get())
+		_width.get()),
+	gradients_()
 {
 	boost::iota(
 		perm_,
@@ -69,9 +70,9 @@ sge::noise::simplex::object<
 	{
 		vector_type tmp = vector_type::null();
 		tmp[i] = static_cast<Float>(1);
-		gradients_.push_back(tmp);
+		gradients_[i] = tmp;
 		tmp[i] = static_cast<Float>(-1);
-		gradients_.push_back(tmp);
+		gradients_[i] = tmp;
 	}
 }
 

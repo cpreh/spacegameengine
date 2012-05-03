@@ -442,7 +442,7 @@ create_noise_texture(
 	view_type;
 
 	typedef
-	sge::noise::simplex::object<double,3>
+	sge::noise::simplex::object<float,3>
 	noise_type;
 
 	typedef
@@ -491,13 +491,16 @@ create_noise_texture(
 							param_type(
 								param_type::position_type(
 									noise_type::vector_type(
-										x,
-										y,
-										z)),
+										static_cast<noise_type::value_type>(
+											x),
+										static_cast<noise_type::value_type>(
+											y),
+										static_cast<noise_type::value_type>(
+											z))),
 								param_type::amplitude_type(
-									0.8),
+									0.8f),
 								param_type::frequency_type(
-									.005),
+									.005f),
 								param_type::octaves_type(
 									6u))))));
 			}

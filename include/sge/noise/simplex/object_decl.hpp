@@ -91,10 +91,12 @@ private:
 	>::type
 	matrix;
 
+	typedef
+	fcppt::container::array<vector_type,2u*N>
+	gradient_array;
+
 	index_container perm_;
-	std::vector<
-		vector_type
-	> gradients_;
+	gradient_array gradients_;
 
 	std::size_t
 	mod(

@@ -64,15 +64,16 @@ sample(
 					)
 				) *
 			  _noise.sample(
-				std::pow(
-					2.0,
-					static_cast<
-						double
-					>(
-						i.get()
+				static_cast<result_type>(
+					std::pow(
+						2.0,
+						static_cast<
+							double
+						>(
+							i.get()
+						)
 					)
-				)
-				* freq
+					* freq)
 				* _parameters.position().get()
 			);
 	}
