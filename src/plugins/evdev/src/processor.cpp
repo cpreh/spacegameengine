@@ -19,6 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/evdev/processor.hpp>
+#include <sge/evdev/inotify/callback.hpp>
+#include <sge/evdev/inotify/event.hpp>
+#include <sge/evdev/joypad/object.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
@@ -29,13 +32,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <sge/window/system_fwd.hpp>
+#include <sge/window/system.hpp>
+#include <awl/backends/x11/system/event/processor.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 
 sge::evdev::processor::processor(
-	sge::window::object const &_window,
+	sge::window::object const &,
 	sge::window::system const &_window_system
 )
 :
@@ -47,7 +52,26 @@ sge::evdev::processor::processor(
 	cursor_discover_(),
 	cursor_remove_(),
 	joypad_discover_(),
-	joypad_remove_()
+	joypad_remove_(),
+	joypads_(),
+	path_(
+		"/dev/input/"
+	)/*,
+	dev_reader_(
+		path_,
+		dynamic_cast<
+			awl::backends::x11::system::event::processor &
+		>(
+			_window_system.awl_system_event_processor()
+		),
+		sge::evdev::inotify::callback(
+			std::tr1::bind(
+				&sge::evdev::processor::dev_event,
+				this,
+				std::tr1::placeholders::_1
+			)
+		)
+	)*/
 {
 }
 
@@ -141,5 +165,11 @@ sge::evdev::processor::joypad_remove_callback(
 		joypad_remove_.connect(
 			_callback
 		);
+}
 
+void
+sge::evdev::processor::dev_event(
+	sge::evdev::inotify::event const &_event
+)
+{
 }

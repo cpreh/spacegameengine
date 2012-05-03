@@ -227,6 +227,12 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
+add_sge_example(
+	noise
+	"sgeimage;sgeimage2d;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)
+
 add_sge_console_example(
 	opengl
 	"sgerenderer;sgerendereropengl;sgesystems;sgeviewport;sgewindow"

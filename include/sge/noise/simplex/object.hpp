@@ -18,30 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
-#include <sge/input/exception.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/information_fwd.hpp>
+#ifndef SGE_NOISE_SIMPLEX_OBJECT_HPP_INCLUDED
+#define SGE_NOISE_SIMPLEX_OBJECT_HPP_INCLUDED
 
+#include <sge/noise/simplex/object_decl.hpp>
+#include <sge/noise/simplex/object_fwd.hpp>
+#include <sge/noise/simplex/object_impl.hpp>
 
-sge::input::exception::exception(
-	fcppt::string const &_what
-)
-:
-	sge::exception(
-		FCPPT_TEXT("input: ")
-		+ _what
-	)
-{
-}
-
-sge::input::exception::exception(
-	fcppt::assert_::information const &_info
-)
-:
-	sge::exception(
-		_info
-	)
-{
-}
+#endif

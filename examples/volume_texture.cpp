@@ -1,3 +1,6 @@
+#include <sge/noise/sample.hpp>
+#include <sge/noise/sample_parameters.hpp>
+#include <sge/noise/simplex/object.hpp>
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -427,7 +430,95 @@ fill_geometry(
 }
 
 sge::renderer::texture::volume_unique_ptr
-create_texture(
+create_noise_texture(
+	sge::renderer::device &_device)
+{
+	typedef
+	sge::image3d::l8
+	store_type;
+
+	typedef
+	store_type::view_type
+	view_type;
+
+	typedef
+	sge::noise::simplex::object<float,3>
+	noise_type;
+
+	typedef
+	sge::noise::sample_parameters<noise_type>
+	param_type;
+
+	noise_type noise_generator(
+		sge::noise::simplex::width(
+			128u));
+
+	typedef
+	view_type::dim
+	dim_type;
+
+	typedef
+	dim_type::value_type
+	dim_value_type;
+
+	store_type s(
+		store_type::dim(
+			128,
+			128,
+			128));
+
+	view_type view(
+		s.view());
+
+	for(dim_value_type z = 0; z < view.size()[2]; ++z)
+	{
+		for(dim_value_type y = 0; y < view.size()[1]; ++y)
+		{
+			for(dim_value_type x = 0; x < view.size()[0]; ++x)
+			{
+				dim_type const current_position(
+					x,
+					y,
+					z);
+
+				view[current_position].set(
+					mizuiro::color::channel::luminance(),
+					static_cast<sge::image::color::channel8>(
+						256.0 *
+						(0.5 + 0.5 *
+						sge::noise::sample(
+							noise_generator,
+							param_type(
+								param_type::position_type(
+									noise_type::vector_type(
+										static_cast<noise_type::value_type>(
+											x),
+										static_cast<noise_type::value_type>(
+											y),
+										static_cast<noise_type::value_type>(
+											z))),
+								param_type::amplitude_type(
+									0.8f),
+								param_type::frequency_type(
+									.005f),
+								param_type::octaves_type(
+									6u))))));
+			}
+		}
+	}
+
+	return
+		sge::renderer::texture::create_volume_from_view(
+			_device,
+			sge::image3d::view::to_const(
+				sge::image3d::view::object(
+					s.wrapped_view())),
+			sge::renderer::texture::mipmap::off(),
+			sge::renderer::resource_flags::none);
+}
+
+sge::renderer::texture::volume_unique_ptr
+create_checkers_texture(
 	sge::renderer::device &_device
 )
 {
@@ -580,7 +671,7 @@ try
 	);
 
 	sge::renderer::texture::volume_scoped_ptr const texture(
-		::create_texture(
+		create_noise_texture(
 			sys.renderer()
 		)
 	);

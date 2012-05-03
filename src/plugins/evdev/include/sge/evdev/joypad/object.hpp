@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_DEVICE_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_DEVICE_HPP_INCLUDED
+#ifndef SGE_EVDEV_JOYPAD_OBJECT_HPP_INCLUDED
+#define SGE_EVDEV_JOYPAD_OBJECT_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/evdev/joypad/object_fwd.hpp>
 #include <sge/input/joypad/absolute_axis_callback.hpp>
 #include <sge/input/joypad/button_callback.hpp>
-#include <sge/input/joypad/device_fwd.hpp>
+#include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/info_fwd.hpp>
 #include <sge/input/joypad/relative_axis_callback.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -34,45 +33,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace input
+namespace evdev
 {
 namespace joypad
 {
 
-class SGE_CLASS_SYMBOL device
+class object
+:
+	public sge::input::joypad::device
 {
 	FCPPT_NONCOPYABLE(
-		device
+		object
 	);
-protected:
-	SGE_INPUT_SYMBOL
-	device();
 public:
-	SGE_INPUT_SYMBOL
-	virtual
-	~device() = 0;
+	object();
 
-	virtual
+	~object();
+private:
 	fcppt::signal::auto_connection
 	absolute_axis_callback(
 		sge::input::joypad::absolute_axis_callback const &
-	) = 0;
+	);
 
-	virtual
 	fcppt::signal::auto_connection
 	button_callback(
 		sge::input::joypad::button_callback const &
-	) = 0;
+	);
 
-	virtual
 	fcppt::signal::auto_connection
 	relative_axis_callback(
 		sge::input::joypad::relative_axis_callback const &
-	) = 0;
+	);
 
-	virtual
 	sge::input::joypad::info const &
-	info() const = 0;
+	info() const;
 };
 
 }
