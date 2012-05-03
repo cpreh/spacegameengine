@@ -484,8 +484,8 @@ create_noise_texture(
 				view[current_position].set(
 					mizuiro::color::channel::luminance(),
 					static_cast<sge::image::color::channel8>(
-						256.0 *
-						(0.5 + 0.5 *
+						256.0f *
+						(0.5f + 0.5f *
 						sge::noise::sample(
 							noise_generator,
 							param_type(

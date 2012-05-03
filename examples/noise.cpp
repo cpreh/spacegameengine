@@ -85,6 +85,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <example_main.hpp>
 #include <exception>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
@@ -111,8 +112,6 @@ fill_texture(
 		sge::noise::simplex::width(
 			128u));
 
-	dim_type const dim = _view.size();
-
 	for (dim_value_type y = 0; y < _view.size()[1]; ++y)
 		for (dim_value_type x = 0; x < _view.size()[0]; ++x)
 		{
@@ -131,8 +130,10 @@ fill_texture(
 						param_type(
 							param_type::position_type(
 								noise_type::vector_type(
-									x,
-									y)),
+									static_cast<noise_type::value_type>(
+										x),
+									static_cast<noise_type::value_type>(
+										y))),
 							param_type::amplitude_type(
 								0.8),
 							param_type::frequency_type(
