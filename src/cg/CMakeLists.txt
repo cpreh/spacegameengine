@@ -6,6 +6,10 @@ set(
 	include/sge/cg/context/object_fwd.hpp
 	include/sge/cg/error_string.hpp
 	include/sge/cg/exception.hpp
+	include/sge/cg/parameter/object.hpp
+	include/sge/cg/parameter/object_fwd.hpp
+	include/sge/cg/parameter/optional_object.hpp
+	include/sge/cg/parameter/optional_object_fwd.hpp
 	include/sge/cg/profile/object.hpp
 	include/sge/cg/profile/object_fwd.hpp
 	include/sge/cg/profile/object_scoped_ptr.hpp
@@ -22,15 +26,18 @@ set(
 	include/sge/cg/program/source.hpp
 	include/sge/cg/program/source_type.hpp
 	include/sge/cg/string.hpp
+	include/sge/cg/to_fcppt_string.hpp
 	src/cg/context/object.cpp
 	src/cg/error_string.cpp
 	src/cg/exception.cpp
 	src/cg/include/sge/src/cg/program/convert_source_type.hpp
+	src/cg/parameter/object.cpp
 	src/cg/profile/object.cpp
 	src/cg/program/convert_source_type.cpp
 	src/cg/program/from_file_parameters.cpp
 	src/cg/program/from_string_parameters.cpp
 	src/cg/program/object.cpp
+	src/cg/to_fcppt_string.cpp
 )
 
 include_directories(

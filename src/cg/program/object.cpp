@@ -20,7 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/exception.hpp>
+#include <sge/cg/string.hpp>
+#include <sge/cg/to_fcppt_string.hpp>
 #include <sge/cg/context/object.hpp>
+#include <sge/cg/parameter/object.hpp>
+#include <sge/cg/parameter/optional_object.hpp>
 #include <sge/cg/profile/object.hpp>
 #include <sge/cg/program/from_file_parameters.hpp>
 #include <sge/cg/program/from_string_parameters.hpp>
@@ -110,6 +114,66 @@ sge::cg::program::object::profile() const
 {
 	return
 		profile_;
+}
+
+sge::cg::parameter::object const
+sge::cg::program::object::parameter(
+	sge::cg::string const &_name
+) const
+{
+	sge::cg::parameter::optional_object const ret(
+		this->parameter_opt(
+			_name
+		)
+	);
+
+	if(
+		!ret
+	)
+		throw sge::cg::exception(
+			FCPPT_TEXT("Parameter with name '")
+			+
+			sge::cg::to_fcppt_string(
+				_name
+			)
+			+
+			FCPPT_TEXT("' not found")
+		);
+
+	return
+		*ret;
+}
+
+sge::cg::parameter::optional_object const
+sge::cg::program::object::parameter_opt(
+	sge::cg::string const &_name
+) const
+{
+	CGparameter const ret(
+		::cgGetNamedParameter(
+			this->get(),
+			_name.c_str()
+		)
+	);
+
+	SGE_CG_CHECK_STATE(
+		FCPPT_TEXT("cgGetNamedParameter failed"),
+		sge::cg::exception
+	)
+
+	return
+		ret
+		==
+		fcppt::null_ptr()
+		?
+			sge::cg::parameter::optional_object()
+		:
+			sge::cg::parameter::optional_object(
+				sge::cg::parameter::object(
+					ret
+				)
+			)
+		;
 }
 
 CGprogram

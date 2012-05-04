@@ -18,18 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PROGRAM_OBJECT_HPP_INCLUDED
-#define SGE_CG_PROGRAM_OBJECT_HPP_INCLUDED
+#ifndef SGE_CG_PARAMETER_OBJECT_HPP_INCLUDED
+#define SGE_CG_PARAMETER_OBJECT_HPP_INCLUDED
 
-#include <sge/cg/string.hpp>
 #include <sge/cg/symbol.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <sge/cg/parameter/optional_object_fwd.hpp>
-#include <sge/cg/profile/object_fwd.hpp>
-#include <sge/cg/program/from_file_parameters_fwd.hpp>
-#include <sge/cg/program/from_string_parameters_fwd.hpp>
-#include <sge/cg/program/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
@@ -39,53 +33,33 @@ namespace sge
 {
 namespace cg
 {
-namespace program
+namespace parameter
 {
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONASSIGNABLE(
 		object
 	);
 public:
-	SGE_CG_SYMBOL
 	explicit
 	object(
-		sge::cg::program::from_string_parameters const &
+		CGparameter
 	);
 
 	SGE_CG_SYMBOL
-	explicit
 	object(
-		sge::cg::program::from_file_parameters const &
+		object const &
 	);
 
 	SGE_CG_SYMBOL
 	~object();
 
 	SGE_CG_SYMBOL
-	sge::cg::profile::object const &
-	profile() const;
-
-	SGE_CG_SYMBOL
-	sge::cg::parameter::object const
-	parameter(
-		sge::cg::string const &
-	) const;
-
-	SGE_CG_SYMBOL
-	sge::cg::parameter::optional_object const
-	parameter_opt(
-		sge::cg::string const &
-	) const;
-
-	SGE_CG_SYMBOL
-	CGprogram
+	CGparameter
 	get() const;
 private:
-	sge::cg::profile::object const &profile_;
-
-	CGprogram const program_;
+	CGparameter const parameter_;
 };
 
 }
