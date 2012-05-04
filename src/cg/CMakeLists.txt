@@ -6,6 +6,14 @@ set(
 	include/sge/cg/context/object_fwd.hpp
 	include/sge/cg/error_string.hpp
 	include/sge/cg/exception.hpp
+	include/sge/cg/parameter/detail/generate_types.hpp
+	include/sge/cg/parameter/is_int_float_double.hpp
+	include/sge/cg/parameter/matrix/check_size.hpp
+	include/sge/cg/parameter/matrix/detail/set.hpp
+	include/sge/cg/parameter/matrix/detail/set_double.hpp
+	include/sge/cg/parameter/matrix/detail/set_float.hpp
+	include/sge/cg/parameter/matrix/detail/set_int.hpp
+	include/sge/cg/parameter/matrix/set.hpp
 	include/sge/cg/parameter/object.hpp
 	include/sge/cg/parameter/object_fwd.hpp
 	include/sge/cg/parameter/optional_object.hpp
@@ -30,7 +38,14 @@ set(
 	src/cg/context/object.cpp
 	src/cg/error_string.cpp
 	src/cg/exception.cpp
+	src/cg/include/sge/src/cg/parameter/get_type.hpp
+	src/cg/include/sge/src/cg/parameter/matrix/set_impl.hpp
 	src/cg/include/sge/src/cg/program/convert_source_type.hpp
+	src/cg/parameter/get_type.cpp
+	src/cg/parameter/matrix/check_size.cpp
+	src/cg/parameter/matrix/detail/set_double.cpp
+	src/cg/parameter/matrix/detail/set_float.cpp
+	src/cg/parameter/matrix/detail/set_int.cpp
 	src/cg/parameter/object.cpp
 	src/cg/profile/object.cpp
 	src/cg/program/convert_source_type.cpp
