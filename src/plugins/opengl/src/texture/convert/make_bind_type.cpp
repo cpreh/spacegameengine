@@ -18,26 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_OPTIONAL_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_OPTIONAL_TYPE_HPP_INCLUDED
-
-#include <sge/opengl/texture/type.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/opengl/texture/bind_type.hpp>
+#include <sge/opengl/texture/convert/make_bind_type.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 
 
-namespace sge
+sge::opengl::texture::bind_type const
+sge::opengl::texture::convert::make_bind_type(
+	int const _type
+)
 {
-namespace opengl
-{
-namespace texture
-{
-
-typedef fcppt::optional<
-	sge::opengl::texture::type
-> optional_type;
-
+	return
+		fcppt::strong_typedef_construct_cast<
+			sge::opengl::texture::bind_type
+		>(
+			_type
+		);
 }
-}
-}
-
-#endif

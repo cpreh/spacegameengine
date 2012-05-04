@@ -26,9 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/base_fwd.hpp>
 #include <sge/opengl/texture/bind_context_fwd.hpp>
-#include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
@@ -47,7 +45,7 @@ namespace texture
 
 class bind_context
 :
-	public context::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		bind_context
@@ -59,51 +57,35 @@ public:
 
 	void
 	bind_for_rendering(
-		opengl::context::object &,
-		opengl::texture::base const &,
-		renderer::texture::stage
+		sge::opengl::context::object &,
+		sge::opengl::texture::base const &,
+		sge::renderer::texture::stage
 	);
 
 	void
 	unbind_for_rendering(
-		opengl::context::object &,
-		renderer::texture::stage
+		sge::opengl::context::object &,
+		sge::renderer::texture::stage
 	);
 
-	void
-	bind_for_work(
-		opengl::context::object &,
-		texture::type,
-		texture::id,
-		renderer::texture::stage
-	);
-
-	void
-	unbind_for_work(
-		opengl::context::object &,
-		renderer::texture::stage
-	);
-
-	opengl::texture::base const *
+	sge::opengl::texture::base const *
 	render_texture(
-		renderer::texture::stage
+		sge::renderer::texture::stage
 	);
 
 	typedef void needs_before;
 
-	static context::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	typedef fcppt::container::index_map<
-		opengl::texture::base const *
+		sge::opengl::texture::base const *
 	> texture_vector;
 
 	typedef fcppt::container::index_map<
-		texture::optional_type
+		sge::opengl::texture::optional_type
 	> texture_type_vector;
 
-	texture_vector
-		render_textures_,
-		temp_textures_;
+	texture_vector render_textures_;
 
 	texture_type_vector last_types_;
 };

@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/lock_flags/write.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -151,8 +151,7 @@ sge::opengl::texture::basic<Types>::unlock() const
 		opengl::texture::scoped_work_binding const binding(
 			context_,
 			this->type(),
-			this->id(),
-			renderer::texture::stage(0u)
+			this->id()
 		);
 
 		Types::sub_function()(
@@ -161,7 +160,9 @@ sge::opengl::texture::basic<Types>::unlock() const
 			this->type(),
 			format_,
 			format_type_,
-			renderer::texture::stage(0u),
+			sge::renderer::texture::mipmap::level(
+				0u
+			),
 			this->size(),
 			lock_area_
 			?
@@ -224,8 +225,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 		opengl::texture::scoped_work_binding const binding(
 			context_,
 			this->type(),
-			this->id(),
-			renderer::texture::stage(0u)
+			this->id()
 		);
 
 		opengl::texture::funcs::get_image(
@@ -234,7 +234,9 @@ sge::opengl::texture::basic<Types>::lock_me(
 			this->format(),
 			this->format_type(),
 			lock_->read_pointer(),
-			renderer::texture::stage(0u)
+			sge::renderer::texture::mipmap::level(
+				0u
+			)
 		);
 	}
 
@@ -463,8 +465,7 @@ sge::opengl::texture::basic<Types>::basic(
 	opengl::texture::scoped_work_binding const binding(
 		context_,
 		this->type(),
-		this->id(),
-		renderer::texture::stage(0u)
+		this->id()
 	);
 
 	Types::init_function()(
@@ -474,7 +475,9 @@ sge::opengl::texture::basic<Types>::basic(
 		this->format(),
 		this->format_type(),
 		this->internal_format(),
-		renderer::texture::stage(0u),
+		sge::renderer::texture::mipmap::level(
+			0u
+		),
 		this->size(),
 		fcppt::null_ptr()
 	);

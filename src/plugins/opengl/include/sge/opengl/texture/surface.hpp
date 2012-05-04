@@ -32,10 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/color_surface.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 namespace sge
@@ -64,7 +63,7 @@ public:
 		opengl::context::object &,
 		texture::type,
 		texture::id,
-		renderer::texture::stage,
+		renderer::texture::mipmap::level,
 		renderer::resource_flags_field const &,
 		opengl::color_format,
 		opengl::color_format_type,
@@ -85,8 +84,6 @@ private:
 	unlock() const;
 
 	opengl::context::object &context_;
-
-	sge::renderer::texture::stage const stage_;
 
 	renderer::resource_flags_field const resource_flags_;
 

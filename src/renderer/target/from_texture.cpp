@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
@@ -61,7 +61,7 @@ sge::renderer::target::from_texture(
 	target->color_surface(
 		sge::renderer::color_surface_shared_ptr(
 			_texture.surface(
-				renderer::texture::stage(
+				sge::renderer::texture::mipmap::level(
 					0u
 				)
 			)

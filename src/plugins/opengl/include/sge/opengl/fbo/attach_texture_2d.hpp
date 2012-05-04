@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 
 
 namespace sge
@@ -37,11 +37,11 @@ namespace fbo
 
 void
 attach_texture_2d(
-	fbo::context const &,
+	sge::opengl::fbo::context const &,
 	GLenum attachment,
-	opengl::texture::type,
-	opengl::texture::id,
-	renderer::texture::stage
+	sge::opengl::texture::type,
+	sge::opengl::texture::id,
+	sge::renderer::texture::mipmap::level
 );
 
 }

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/level_parameter.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
 
@@ -40,14 +40,14 @@ sge::opengl::texture::basic_surface<Base>::basic_surface(
 	texture::binding const &_binding,
 	texture::type const _type,
 	texture::id const _id,
-	renderer::texture::stage const _stage
+	sge::renderer::texture::mipmap::level const _level
 )
 :
 	Base(),
 	sge::opengl::texture::surface_base(
 		_type,
 		_id,
-		_stage
+		_level
 	),
 	dim_(
 		static_cast<
@@ -56,7 +56,7 @@ sge::opengl::texture::basic_surface<Base>::basic_surface(
 			opengl::texture::funcs::level_parameter(
 				_binding,
 				_type,
-				_stage,
+				_level,
 				GL_TEXTURE_WIDTH
 			)
 		),
@@ -66,7 +66,7 @@ sge::opengl::texture::basic_surface<Base>::basic_surface(
 			opengl::texture::funcs::level_parameter(
 				_binding,
 				_type,
-				_stage,
+				_level,
 				GL_TEXTURE_HEIGHT
 			)
 		)

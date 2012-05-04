@@ -18,20 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/fbo/attach_texture_2d.hpp>
 #include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/texture/id.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::opengl::fbo::attach_texture_2d(
-	fbo::context const &_context,
+	sge::opengl::fbo::context const &_context,
 	GLenum const _attachment,
-	opengl::texture::type const _texture_type,
-	opengl::texture::id const _texture_id,
-	renderer::texture::stage const _stage
+	sge::opengl::texture::type const _texture_type,
+	sge::opengl::texture::id const _texture_id,
+	sge::renderer::texture::mipmap::level const _level
 )
 {
 	_context.framebuffer_texture_2d()(
@@ -42,7 +46,7 @@ sge::opengl::fbo::attach_texture_2d(
 		static_cast<
 			GLint
 		>(
-			_stage.get()
+			_level.get()
 		)
 	);
 

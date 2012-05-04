@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/surface_base_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -44,7 +44,7 @@ protected:
 	surface_base(
 		texture::type,
 		texture::id,
-		sge::renderer::texture::stage
+		sge::renderer::texture::mipmap::level
 	);
 public:
 	virtual ~surface_base();
@@ -55,14 +55,14 @@ public:
 	texture::id const
 	id() const;
 
-	sge::renderer::texture::stage const
-	stage() const;
+	sge::renderer::texture::mipmap::level const
+	level() const;
 private:
 	texture::type const type_;
 
 	texture::id const id_;
 
-	sge::renderer::texture::stage const stage_;
+	sge::renderer::texture::mipmap::level const level_;
 };
 
 }

@@ -24,8 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
+#include <sge/opengl/texture/bind_type.hpp>
+#include <sge/opengl/texture/optional_bind_type.hpp>
+#include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -37,7 +41,7 @@ namespace texture
 
 class volume_context
 :
-	public context::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		volume_context
@@ -54,8 +58,11 @@ public:
 
 	typedef PFNGLTEXSUBIMAGE3DPROC gl_tex_sub_image_3d;
 
-	texture::type const
+	sge::opengl::texture::type const
 	volume_texture_type() const;
+
+	sge::opengl::texture::bind_type const
+	volume_texture_bind_type() const;
 
 	gl_tex_image_3d
 	tex_image_3d() const;
@@ -72,7 +79,9 @@ public:
 private:
 	bool const volume_texture_normal_;
 
-	texture::type const volume_texture_type_;
+	sge::opengl::texture::optional_type const volume_texture_type_;
+
+	sge::opengl::texture::optional_bind_type const volume_texture_bind_type_;
 
 	gl_tex_image_3d const tex_image_3d_;
 

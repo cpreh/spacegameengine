@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/mipmap/generate_levels.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <sge/renderer/basic_dim.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/math/size_type.hpp>
@@ -64,7 +64,7 @@ sge::opengl::texture::mipmap::generate_levels(
 		Size
 	>::dim dim;
 
-	renderer::texture::stage stage(
+	renderer::texture::mipmap::level level(
 		1u
 	);
 
@@ -78,7 +78,7 @@ sge::opengl::texture::mipmap::generate_levels(
 		)
 		;
 		size.content() != 1
-		&& stage.get() <= _levels.get()
+		&& level.get() <= _levels.get()
 		;
 		size =
 			::reduce_dim<
@@ -87,7 +87,7 @@ sge::opengl::texture::mipmap::generate_levels(
 				size
 			)
 		,
-		++stage
+		++level
 	)
 		_parameters.init_function()(
 			_parameters.binding(),
@@ -96,7 +96,7 @@ sge::opengl::texture::mipmap::generate_levels(
 			_parameters.format(),
 			_parameters.format_type(),
 			_parameters.internal_format(),
-			stage,
+			level,
 			size,
 			fcppt::null_ptr()
 		);

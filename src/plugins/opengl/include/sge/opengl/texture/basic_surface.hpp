@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/surface_base.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
@@ -43,7 +43,7 @@ template<
 class basic_surface
 :
 	public Base,
-	public opengl::texture::surface_base
+	public sge::opengl::texture::surface_base
 {
 	FCPPT_NONCOPYABLE(
 		basic_surface
@@ -52,10 +52,10 @@ public:
 	typedef typename Base::dim dim;
 
 	basic_surface(
-		texture::binding const &,
-		texture::type,
-		texture::id,
-		renderer::texture::stage
+		sge::opengl::texture::binding const &,
+		sge::opengl::texture::type,
+		sge::opengl::texture::id,
+		sge::renderer::texture::mipmap::level
 	);
 
 	~basic_surface();

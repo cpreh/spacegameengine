@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_surface_unique_ptr.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -42,27 +43,27 @@ namespace texture
 
 class planar
 :
-	public texture::planar_basic
+	public sge::opengl::texture::planar_basic
 {
 	FCPPT_NONCOPYABLE(
 		planar
 	);
 public:
 	planar(
-		context::object &,
-		renderer::texture::planar_parameters const &,
-		opengl::texture::optional_type const &
+		sge::opengl::context::object &,
+		sge::renderer::texture::planar_parameters const &,
+		sge::opengl::texture::optional_type const &
 	);
 
 	~planar();
 private:
-	renderer::color_surface_unique_ptr
+	sge::renderer::color_surface_unique_ptr
 	surface(
-		renderer::texture::stage
+		sge::renderer::texture::mipmap::level
 	);
 
-	sge::renderer::texture::stage const
-	stages() const;
+	sge::renderer::texture::mipmap::level_count const
+	levels() const;
 };
 
 }

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/creation_failed.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -44,7 +44,7 @@ sge::opengl::texture::funcs::set_2d(
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
 	opengl::internal_color_format const _internal_format,
-	renderer::texture::stage const _stage,
+	renderer::texture::mipmap::level const _level,
 	renderer::dim2 const &_dim,
 	renderer::const_raw_pointer const _src
 )
@@ -54,7 +54,7 @@ sge::opengl::texture::funcs::set_2d(
 		static_cast<
 			GLint
 		>(
-			_stage.get()
+			_level.get()
 		),
 		_internal_format.get(),
 		static_cast<

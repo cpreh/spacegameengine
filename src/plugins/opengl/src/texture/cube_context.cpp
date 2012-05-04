@@ -22,11 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
+#include <sge/opengl/texture/bind_type.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
 #include <sge/opengl/texture/cube_side_array.hpp>
+#include <sge/opengl/texture/optional_bind_type.hpp>
+#include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/convert/make_bind_type.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
 #include <fcppt/optional_impl.hpp>
+
 
 namespace
 {
@@ -88,19 +93,40 @@ sge::opengl::texture::cube_context::cube_context()
 	cube_texture_type_(
 		cube_texture_normal_
 		?
-			sge::opengl::texture::convert::make_type(
-				GL_TEXTURE_CUBE_MAP
+			sge::opengl::texture::optional_type(
+				sge::opengl::texture::convert::make_type(
+					GL_TEXTURE_CUBE_MAP
+				)
 			)
 		:
 			cube_texture_arb_
 			?
-				sge::opengl::texture::convert::make_type(
-					GL_TEXTURE_CUBE_MAP_ARB
+				sge::opengl::texture::optional_type(
+					sge::opengl::texture::convert::make_type(
+						GL_TEXTURE_CUBE_MAP_ARB
+					)
 				)
 			:
-				sge::opengl::texture::convert::make_type(
-					0
+				sge::opengl::texture::optional_type()
+	),
+	cube_texture_bind_type_(
+		cube_texture_normal_
+		?
+			sge::opengl::texture::optional_bind_type(
+				sge::opengl::texture::convert::make_bind_type(
+					GL_TEXTURE_BINDING_CUBE_MAP
 				)
+			)
+		:
+			cube_texture_arb_
+			?
+				sge::opengl::texture::optional_bind_type(
+					sge::opengl::texture::convert::make_bind_type(
+						GL_TEXTURE_BINDING_CUBE_MAP_ARB
+					)
+				)
+			:
+				sge::opengl::texture::optional_bind_type()
 	),
 	cube_sides_(
 		cube_texture_normal_
@@ -135,7 +161,13 @@ sge::opengl::texture::cube_context::have_cube_texture() const
 sge::opengl::texture::type const
 sge::opengl::texture::cube_context::cube_texture_type() const
 {
-	return cube_texture_type_;
+	return *cube_texture_type_;
+}
+
+sge::opengl::texture::bind_type const
+sge::opengl::texture::cube_context::cube_texture_bind_type() const
+{
+	return *cube_texture_bind_type_;
 }
 
 sge::opengl::texture::cube_side_array const &

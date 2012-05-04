@@ -31,7 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -44,7 +45,7 @@ namespace texture
 
 class SGE_CLASS_SYMBOL planar
 :
-	public renderer::texture::base
+	public sge::renderer::texture::base
 {
 	FCPPT_NONCOPYABLE(
 		planar
@@ -54,54 +55,61 @@ protected:
 	planar();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual ~planar() = 0;
+	virtual
+	~planar() = 0;
 
-	typedef renderer::dim2 dim;
+	typedef sge::renderer::dim2 dim;
 
-	typedef renderer::lock_rect rect;
+	typedef sge::renderer::lock_rect rect;
 
 	typedef rect lock_area;
 
 	typedef sge::image2d::tag image_tag;
 
-	typedef image2d::view::object view;
+	typedef sge::image2d::view::object view;
 
-	typedef image2d::view::const_object const_view;
+	typedef sge::image2d::view::const_object const_view;
 
-	virtual dim const
+	virtual
+	dim const
 	size() const = 0;
 
 	SGE_RENDERER_SYMBOL
 	view const
 	lock(
-		lock_mode::type
+		sge::renderer::lock_mode::type
 	);
 
 	SGE_RENDERER_SYMBOL
 	const_view const
 	lock() const;
 
-	virtual view const
+	virtual
+	view const
 	lock(
 		lock_area const &,
-		lock_mode::type
+		sge::renderer::lock_mode::type
 	) = 0;
 
-	virtual const_view const
+	virtual
+	const_view const
 	lock(
 		lock_area const &
 	) const = 0;
 
-	virtual void
+	virtual
+	void
 	unlock() const = 0;
 
-	virtual renderer::color_surface_unique_ptr
+	virtual
+	sge::renderer::color_surface_unique_ptr
 	surface(
-		renderer::texture::stage
+		sge::renderer::texture::mipmap::level
 	) = 0;
 
-	virtual sge::renderer::texture::stage const
-	stages() const = 0;
+	virtual
+	sge::renderer::texture::mipmap::level_count const
+	levels() const = 0;
 
 	SGE_RENDERER_SYMBOL
 	rect const

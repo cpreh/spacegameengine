@@ -18,39 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/fbo/attach_texture_2d.hpp>
+#include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/fbo/texture_binding.hpp>
 #include <sge/opengl/texture/surface_base.hpp>
+#include <sge/opengl/texture/surface_base_ptr.hpp>
 
 
 sge::opengl::fbo::texture_binding::texture_binding(
-	fbo::context const &_context,
-	opengl::texture::surface_base_ptr const _surface,
+	sge::opengl::fbo::context const &_context,
+	sge::opengl::texture::surface_base_ptr const _surface,
 	GLenum const _attachment
 )
 :
-	context_(_context),
-	surface_(_surface),
-	attachment_(_attachment)
+	context_(
+		_context
+	),
+	surface_(
+		_surface
+	),
+	attachment_(
+		_attachment
+	)
 {
-	fbo::attach_texture_2d(
+	sge::opengl::fbo::attach_texture_2d(
 		_context,
 		_attachment,
 		_surface->type(),
 		_surface->id(),
-		_surface->stage()
+		_surface->level()
 	);
 }
 
 sge::opengl::fbo::texture_binding::~texture_binding()
 {
-	fbo::attach_texture_2d(
+	sge::opengl::fbo::attach_texture_2d(
 		context_,
 		attachment_,
 		surface_->type(),
-		opengl::texture::id(
+		sge::opengl::texture::id(
 			0u
 		),
-		surface_->stage()
+		surface_->level()
 	);
 }

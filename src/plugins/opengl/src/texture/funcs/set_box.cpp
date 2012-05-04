@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_box.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -49,7 +50,7 @@ sge::opengl::texture::funcs::set_box(
 	texture::type const _type,
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
-	renderer::texture::stage const _stage,
+	renderer::texture::mipmap::level const _level,
 	renderer::dim3 const &_dim,
 	renderer::lock_box const &_lock_box,
 	renderer::const_raw_pointer const _src
@@ -95,7 +96,7 @@ sge::opengl::texture::funcs::set_box(
 		static_cast<
 			GLint
 		>(
-			_stage.get()
+			_level.get()
 		),
 		static_cast<
 			GLint

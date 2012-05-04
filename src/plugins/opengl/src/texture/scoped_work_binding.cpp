@@ -19,49 +19,65 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/context/use.hpp>
-#include <sge/opengl/texture/bind_context.hpp>
 #include <sge/opengl/texture/binding.hpp>
+#include <sge/opengl/texture/get_type_binding.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/funcs/bind.hpp>
+#include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
 
 sge::opengl::texture::scoped_work_binding::scoped_work_binding(
-	opengl::context::object &_context,
-	opengl::texture::type const _type,
-	opengl::texture::id const _id,
-	renderer::texture::stage const _stage
+	sge::opengl::context::object &_context,
+	sge::opengl::texture::type const _type,
+	sge::opengl::texture::id const _id
 )
 :
 	sge::opengl::texture::binding(),
 	context_(
 		_context
 	),
-	bind_context_(
-		opengl::context::use<
-			texture::bind_context
-		>(
-			_context
+	previous_id_(
+		sge::opengl::texture::get_type_binding(
+			context_,
+			_type,
+			sge::renderer::texture::stage(
+				0u
+			)
 		)
 	),
-	stage_(
-		_stage
+	type_(
+		_type
 	)
 {
-	bind_context_.bind_for_work(
-		_context,
-		_type,
-		_id,
-		_stage
+	this->bind_id(
+		_id
 	);
 }
 
 sge::opengl::texture::scoped_work_binding::~scoped_work_binding()
 {
-	bind_context_.unbind_for_work(
+	this->bind_id(
+		previous_id_
+	);
+}
+
+void
+sge::opengl::texture::scoped_work_binding::bind_id(
+	sge::opengl::texture::id const _id
+)
+{
+	sge::opengl::texture::funcs::set_active_level(
 		context_,
-		stage_
+		sge::renderer::texture::stage(
+			0u
+		)
+	);
+
+	sge::opengl::texture::funcs::bind(
+		type_,
+		_id
 	);
 }

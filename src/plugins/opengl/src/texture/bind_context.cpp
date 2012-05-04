@@ -23,19 +23,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/bind_context.hpp>
+#include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/funcs/bind.hpp>
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 
 
 sge::opengl::texture::bind_context::bind_context()
 :
 	render_textures_(),
-	temp_textures_(),
 	last_types_()
 {
 }
@@ -54,14 +53,6 @@ sge::opengl::texture::bind_context::bind_for_rendering(
 	render_textures_[
 		_stage.get()
 	] = &_texture;
-
-	// Check that there is no temp binding active
-	// because we would override it otherwise!
-	FCPPT_ASSERT_ERROR(
-		!temp_textures_[
-			_stage.get()
-		]
-	);
 
 	texture::funcs::set_active_level(
 		_context,
@@ -110,12 +101,6 @@ sge::opengl::texture::bind_context::unbind_for_rendering(
 	renderer::texture::stage const _stage
 )
 {
-	FCPPT_ASSERT_ERROR(
-		!temp_textures_[
-			_stage.get()
-		]
-	);
-
 	texture::optional_type const last_type(
 		last_types_[
 			_stage.get()
@@ -150,63 +135,6 @@ sge::opengl::texture::bind_context::unbind_for_rendering(
 	opengl::disable(
 		last_type->get()
 	);
-}
-
-void
-sge::opengl::texture::bind_context::bind_for_work(
-	opengl::context::object &_context,
-	texture::type const _type,
-	texture::id const _id,
-	renderer::texture::stage const _stage
-)
-{
-	temp_textures_[
-		_stage.get()
-	] =
-		render_textures_[
-			_stage.get()
-		];
-
-	texture::funcs::set_active_level(
-		_context,
-		_stage
-	);
-
-	texture::funcs::bind(
-		_type,
-		_id
-	);
-}
-
-void
-sge::opengl::texture::bind_context::unbind_for_work(
-	opengl::context::object &_context,
-	renderer::texture::stage const _stage
-)
-{
-	texture::base const *const prev_texture(
-		temp_textures_[
-			_stage.get()
-		]
-	);
-
-	render_textures_[
-		_stage.get()
-	] =
-		prev_texture;
-
-	temp_textures_[
-		_stage.get()
-	] = fcppt::null_ptr();
-
-	if(
-		prev_texture
-	)
-		this->bind_for_rendering(
-			_context,
-			*prev_texture,
-			_stage
-		);
 }
 
 sge::opengl::texture::base const *

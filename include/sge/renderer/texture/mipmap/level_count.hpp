@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_MIPMAP_LEVEL_COUNT_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_MIPMAP_LEVEL_COUNT_HPP_INCLUDED
 
+#include <sge/renderer/texture/mipmap/level_type.hpp>
 #include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
@@ -33,7 +35,7 @@ namespace mipmap
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	unsigned,
+	sge::renderer::texture::mipmap::level_type,
 	level_count
 );
 

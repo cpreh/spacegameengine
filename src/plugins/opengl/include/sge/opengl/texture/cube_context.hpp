@@ -23,7 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
+#include <sge/opengl/texture/bind_type.hpp>
 #include <sge/opengl/texture/cube_side_array.hpp>
+#include <sge/opengl/texture/optional_bind_type.hpp>
+#include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
@@ -38,7 +41,7 @@ namespace texture
 
 class cube_context
 :
-	public context::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		cube_context
@@ -51,24 +54,29 @@ public:
 	bool
 	have_cube_texture() const;
 
-	texture::type const
+	sge::opengl::texture::type const
 	cube_texture_type() const;
 
-	texture::cube_side_array const &
+	sge::opengl::texture::bind_type const
+	cube_texture_bind_type() const;
+
+	sge::opengl::texture::cube_side_array const &
 	cube_sides() const;
 
 	typedef void needs_before;
 
-	static context::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	bool const
 		cube_texture_normal_,
 		cube_texture_arb_;
 
-	texture::type const cube_texture_type_;
+	sge::opengl::texture::optional_type const cube_texture_type_;
+
+	sge::opengl::texture::optional_bind_type const cube_texture_bind_type_;
 
 	typedef fcppt::optional<
-		texture::cube_side_array
+		sge::opengl::texture::cube_side_array
 	> optional_cube_side_array;
 
 	optional_cube_side_array const cube_sides_;

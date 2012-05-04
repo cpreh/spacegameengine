@@ -18,45 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_SET_RECT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_SET_RECT_HPP_INCLUDED
-
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/get_int.hpp>
+#include <sge/opengl/texture/get_type_binding.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/opengl/texture/type_to_binding.hpp>
+#include <sge/opengl/texture/funcs/set_active_level.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
-namespace sge
+sge::opengl::texture::id const
+sge::opengl::texture::get_type_binding(
+	sge::opengl::context::object &_context,
+	sge::opengl::texture::type const _type,
+	sge::renderer::texture::stage const _stage
+)
 {
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
-{
+	sge::opengl::texture::funcs::set_active_level(
+		_context,
+		_stage
+	);
 
-void
-set_rect(
-	texture::binding const &,
-	opengl::context::object &,
-	texture::type,
-	opengl::color_format,
-	opengl::color_format_type,
-	renderer::texture::mipmap::level,
-	renderer::dim2 const &,
-	renderer::lock_rect const &,
-	renderer::const_raw_pointer src
-);
-
+	return
+		sge::opengl::texture::id(
+			static_cast<
+				sge::opengl::texture::id::value_type
+			>(
+				sge::opengl::get_int(
+					sge::opengl::texture::type_to_binding(
+						_context,
+						_type
+					).get()
+				)
+			)
+		);
 }
-}
-}
-}
-
-#endif

@@ -30,7 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/get_parameter_int.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -70,14 +71,13 @@ sge::opengl::texture::planar::~planar()
 
 sge::renderer::color_surface_unique_ptr
 sge::opengl::texture::planar::surface(
-	renderer::texture::stage const _stage
+	sge::renderer::texture::mipmap::level const _level
 )
 {
 	opengl::texture::scoped_work_binding const binding(
 		this->context(),
 		this->type(),
-		this->id(),
-		renderer::texture::stage(0u)
+		this->id()
 	);
 
 	return
@@ -93,7 +93,7 @@ sge::opengl::texture::planar::surface(
 				),
 				this->type(),
 				this->id(),
-				_stage,
+				_level,
 				this->resource_flags(),
 				this->format(),
 				this->format_type(),
@@ -103,21 +103,18 @@ sge::opengl::texture::planar::surface(
 		);
 }
 
-sge::renderer::texture::stage const
-sge::opengl::texture::planar::stages() const
+sge::renderer::texture::mipmap::level_count const
+sge::opengl::texture::planar::levels() const
 {
-	opengl::texture::scoped_work_binding const binding(
+	sge::opengl::texture::scoped_work_binding const binding(
 		this->context(),
 		this->type(),
-		this->id(),
-		renderer::texture::stage(
-			0u
-		)
+		this->id()
 	);
 
 	return
 		fcppt::strong_typedef_construct_cast<
-			sge::renderer::texture::stage
+			sge::renderer::texture::mipmap::level_count
 		>(
 			sge::opengl::texture::funcs::get_parameter_int(
 				binding,

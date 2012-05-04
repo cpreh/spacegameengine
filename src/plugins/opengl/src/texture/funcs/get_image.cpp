@@ -27,18 +27,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/get_image.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::opengl::texture::funcs::get_image(
-	texture::binding const &,
-	texture::type const _type,
-	opengl::color_format const _format,
-	opengl::color_format_type const _format_type,
-	renderer::raw_pointer const _dest,
-	renderer::texture::stage const _stage
+	sge::opengl::texture::binding const &,
+	sge::opengl::texture::type const _type,
+	sge::opengl::color_format const _format,
+	sge::opengl::color_format_type const _format_type,
+	sge::renderer::raw_pointer const _dest,
+	sge::renderer::texture::mipmap::level const _level
 )
 {
 	::glGetTexImage(
@@ -46,7 +46,7 @@ sge::opengl::texture::funcs::get_image(
 		static_cast<
 			GLint
 		>(
-			_stage.get()
+			_level.get()
 		),
 		_format.get(),
 		_format_type.get(),

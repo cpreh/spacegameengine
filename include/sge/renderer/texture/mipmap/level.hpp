@@ -18,40 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_SET_RECT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_SET_RECT_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_MIPMAP_LEVEL_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_MIPMAP_LEVEL_HPP_INCLUDED
 
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/texture/mipmap/level_type.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace texture
 {
-namespace funcs
+namespace mipmap
 {
 
-void
-set_rect(
-	texture::binding const &,
-	opengl::context::object &,
-	texture::type,
-	opengl::color_format,
-	opengl::color_format_type,
-	renderer::texture::mipmap::level,
-	renderer::dim2 const &,
-	renderer::lock_rect const &,
-	renderer::const_raw_pointer src
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::renderer::texture::mipmap::level_type,
+	level
 );
 
 }

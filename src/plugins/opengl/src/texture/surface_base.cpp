@@ -18,17 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/surface_base.hpp>
+#include <sge/opengl/texture/type.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+
 
 sge::opengl::texture::surface_base::surface_base(
-	texture::type const _type,
-	texture::id const _id,
-	sge::renderer::texture::stage const _stage
+	sge::opengl::texture::type const _type,
+	sge::opengl::texture::id const _id,
+	sge::renderer::texture::mipmap::level const _level
 )
 :
-	type_(_type),
-	id_(_id),
-	stage_(_stage)
+	type_(
+		_type
+	),
+	id_(
+		_id
+	),
+	level_(
+		_level
+	)
 {
 }
 
@@ -48,8 +58,8 @@ sge::opengl::texture::surface_base::id() const
 	return id_;
 }
 
-sge::renderer::texture::stage const
-sge::opengl::texture::surface_base::stage() const
+sge::renderer::texture::mipmap::level const
+sge::opengl::texture::surface_base::level() const
 {
-	return stage_;
+	return level_;
 }

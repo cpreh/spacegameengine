@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/get_image.hpp>
 #include <sge/renderer/color_surface.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
@@ -48,7 +48,7 @@ sge::opengl::texture::surface::surface(
 	opengl::context::object &_context,
 	texture::type const _type,
 	texture::id const _id,
-	renderer::texture::stage const _stage,
+	renderer::texture::mipmap::level const _level,
 	renderer::resource_flags_field const &_resource_flags,
 	opengl::color_format const _color_format,
 	opengl::color_format_type const _color_format_type,
@@ -59,13 +59,10 @@ sge::opengl::texture::surface::surface(
 		_binding,
 		_type,
 		_id,
-		_stage
+		_level
 	),
 	context_(
 		_context
-	),
-	stage_(
-		_stage
 	),
 	resource_flags_(
 		_resource_flags
@@ -124,8 +121,7 @@ sge::opengl::texture::surface::lock(
 		opengl::texture::scoped_work_binding const binding(
 			context_,
 			this->type(),
-			this->id(),
-			stage_
+			this->id()
 		);
 
 		texture::funcs::get_image(
@@ -134,7 +130,7 @@ sge::opengl::texture::surface::lock(
 			color_format_,
 			color_format_type_,
 			lock_->read_pointer(),
-			stage_
+			this->level()
 		);
 	}
 

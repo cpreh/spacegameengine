@@ -22,12 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_SCOPED_WORK_BINDING_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/bind_context_fwd.hpp>
 #include <sge/opengl/texture/binding.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/scoped_work_binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -47,19 +45,23 @@ class scoped_work_binding
 	);
 public:
 	scoped_work_binding(
-		opengl::context::object &,
-		opengl::texture::type,
-		opengl::texture::id,
-		renderer::texture::stage
+		sge::opengl::context::object &,
+		sge::opengl::texture::type,
+		sge::opengl::texture::id
 	);
 
 	~scoped_work_binding();
 private:
-	opengl::context::object &context_;
+	void
+	bind_id(
+		sge::opengl::texture::id
+	);
 
-	texture::bind_context &bind_context_;
+	sge::opengl::context::object &context_;
 
-	renderer::texture::stage const stage_;
+	sge::opengl::texture::id const previous_id_;
+
+	sge::opengl::texture::type const type_;
 };
 
 }

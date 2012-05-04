@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 
 
 namespace sge
@@ -40,12 +40,12 @@ namespace funcs
 
 void
 get_image(
-	texture::binding const &,
-	texture::type,
-	opengl::color_format,
-	opengl::color_format_type,
-	renderer::raw_pointer dest,
-	renderer::texture::stage
+	sge::opengl::texture::binding const &,
+	sge::opengl::texture::type,
+	sge::opengl::color_format,
+	sge::opengl::color_format_type,
+	sge::renderer::raw_pointer dest,
+	sge::renderer::texture::mipmap::level
 );
 
 }

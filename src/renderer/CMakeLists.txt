@@ -437,7 +437,9 @@ set(
 	include/sge/renderer/texture/mipmap/all_levels_rep.hpp
 	include/sge/renderer/texture/mipmap/all_levels_rep_fwd.hpp
 	include/sge/renderer/texture/mipmap/auto_generate.hpp
+	include/sge/renderer/texture/mipmap/level.hpp
 	include/sge/renderer/texture/mipmap/level_count.hpp
+	include/sge/renderer/texture/mipmap/level_type.hpp
 	include/sge/renderer/texture/mipmap/levels.hpp
 	include/sge/renderer/texture/mipmap/levels_rep.hpp
 	include/sge/renderer/texture/mipmap/levels_rep_fwd.hpp

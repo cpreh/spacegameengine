@@ -18,18 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_SET_RECT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_SET_RECT_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_BIND_LEVEL_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_BIND_LEVEL_HPP_INCLUDED
 
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 namespace sge
@@ -38,23 +33,15 @@ namespace opengl
 {
 namespace texture
 {
-namespace funcs
-{
 
 void
-set_rect(
-	texture::binding const &,
-	opengl::context::object &,
-	texture::type,
-	opengl::color_format,
-	opengl::color_format_type,
-	renderer::texture::mipmap::level,
-	renderer::dim2 const &,
-	renderer::lock_rect const &,
-	renderer::const_raw_pointer src
+bind_level(
+	sge::opengl::context::object &,
+	sge::renderer::texture::stage,
+	sge::opengl::texture::type,
+	sge::opengl::texture::id
 );
 
-}
 }
 }
 }

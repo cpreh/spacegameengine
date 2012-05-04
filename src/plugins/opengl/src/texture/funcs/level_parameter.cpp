@@ -24,15 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/level_parameter.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/text.hpp>
 
 
 GLint
 sge::opengl::texture::funcs::level_parameter(
-	texture::binding const &,
-	texture::type const _type,
-	renderer::texture::stage const _stage,
+	sge::opengl::texture::binding const &,
+	sge::opengl::texture::type const _type,
+	sge::renderer::texture::mipmap::level const _level,
 	GLenum const _what
 )
 {
@@ -43,7 +43,7 @@ sge::opengl::texture::funcs::level_parameter(
 		static_cast<
 			GLint
 		>(
-			_stage.get()
+			_level.get()
 		),
 		_what,
 		&ret
