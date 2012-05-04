@@ -13,8 +13,10 @@ set(
 	include/sge/cegui/detail/cegui_logger.hpp
 	include/sge/cegui/detail/default_target.hpp
 	include/sge/cegui/detail/geometry_buffer.hpp
+	include/sge/cegui/detail/geometry_buffer_fwd.hpp
 	include/sge/cegui/detail/image_codec.hpp
 	include/sge/cegui/detail/image_codec_fwd.hpp
+	include/sge/cegui/detail/render_target/base_fwd.hpp
 	include/sge/cegui/detail/renderer.hpp
 	include/sge/cegui/detail/renderer_fwd.hpp
 	include/sge/cegui/detail/resource_provider.hpp
@@ -56,6 +58,8 @@ set(
 	src/cegui/detail/default_target.cpp
 	src/cegui/detail/geometry_buffer.cpp
 	src/cegui/detail/image_codec.cpp
+	src/cegui/detail/render_target/base.cpp
+	src/cegui/detail/render_target/texture.cpp
 	src/cegui/detail/renderer.cpp
 	src/cegui/detail/resource_provider.cpp
 	src/cegui/detail/scoped_system.cpp
@@ -66,6 +70,30 @@ set(
 	src/cegui/include/sge/src/cegui/cursor_button_map.hpp
 	src/cegui/include/sge/src/cegui/cursor_button_translation.hpp
 	src/cegui/include/sge/src/cegui/declare_local_logger.hpp
+	src/cegui/include/sge/src/cegui/detail/batch.hpp
+	src/cegui/include/sge/src/cegui/detail/batch_fwd.hpp
+	src/cegui/include/sge/src/cegui/detail/geometry_buffer.hpp
+	src/cegui/include/sge/src/cegui/detail/rect_value_type.hpp
+	src/cegui/include/sge/src/cegui/detail/render_target/base.hpp
+	src/cegui/include/sge/src/cegui/detail/render_target/base_fwd.hpp
+	src/cegui/include/sge/src/cegui/detail/render_target/texture.hpp
+	src/cegui/include/sge/src/cegui/detail/renderer.hpp
+	src/cegui/include/sge/src/cegui/detail/size_value_type.hpp
+	src/cegui/include/sge/src/cegui/detail/texture.hpp
+	src/cegui/include/sge/src/cegui/detail/texture_fwd.hpp
+	src/cegui/include/sge/src/cegui/detail/to_cegui_rect.hpp
+	src/cegui/include/sge/src/cegui/detail/to_cegui_size.hpp
+	src/cegui/include/sge/src/cegui/detail/to_cegui_vector2.hpp
+	src/cegui/include/sge/src/cegui/detail/to_cegui_vector3.hpp
+	src/cegui/include/sge/src/cegui/detail/to_fcppt_dim.hpp
+	src/cegui/include/sge/src/cegui/detail/to_fcppt_rect.hpp
+	src/cegui/include/sge/src/cegui/detail/to_fcppt_vector.hpp
+	src/cegui/include/sge/src/cegui/detail/vector_value_type.hpp
+	src/cegui/include/sge/src/cegui/detail/vf/color.hpp
+	src/cegui/include/sge/src/cegui/detail/vf/format.hpp
+	src/cegui/include/sge/src/cegui/detail/vf/part.hpp
+	src/cegui/include/sge/src/cegui/detail/vf/position.hpp
+	src/cegui/include/sge/src/cegui/detail/vf/texcoord.hpp
 	src/cegui/include/sge/src/cegui/keyboard_code_map.hpp
 	src/cegui/include/sge/src/cegui/keyboard_code_translation.hpp
 	src/cegui/include/sge/src/cegui/log_location.hpp

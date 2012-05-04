@@ -17,6 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include <sge/image/colors.hpp>
 #include <sge/image/store.hpp>
 #include <sge/image/color/channel8.hpp>
@@ -26,7 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/log/global.hpp>
 #include <sge/noise/sample.hpp>
+#include <sge/noise/perlin/object.hpp>
 #include <sge/noise/sample_parameters.hpp>
+#include <fcppt/random/generator/minstd_rand.hpp>
+#include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <sge/noise/simplex/object.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
@@ -90,6 +94,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
+#include <fcppt/math/interpolation/trigonometric_functor.hpp>
+#include <fcppt/math/interpolation/perlin_fifth_degree_functor.hpp>
+
 namespace
 {
 
@@ -100,17 +107,33 @@ fill_texture(
 	typedef sge::image2d::l8::view_type::dim dim_type;
 	typedef dim_type::value_type dim_value_type;
 
+	/*
 	typedef
 	sge::noise::simplex::object<double,2>
+	noise_type;
+	*/
+	typedef
+	//sge::noise::perlin::object<double,2,fcppt::math::interpolation::trigonometric_functor>
+	sge::noise::perlin::object<double,2,fcppt::math::interpolation::perlin_fifth_degree_functor>
 	noise_type;
 
 	typedef
 	sge::noise::sample_parameters<noise_type>
 	param_type;
 
+	fcppt::random::generator::minstd_rand rng(
+		fcppt::random::generator::seed_from_chrono<fcppt::random::generator::minstd_rand::seed>());
+
+	/*
 	noise_type noise_generator(
 		sge::noise::simplex::width(
 			128u));
+			*/
+	noise_type noise_generator(
+		noise_type::dim(
+			_view.size()[0]/100,
+			_view.size()[1]/100),
+		rng);
 
 	for (dim_value_type y = 0; y < _view.size()[1]; ++y)
 		for (dim_value_type x = 0; x < _view.size()[0]; ++x)

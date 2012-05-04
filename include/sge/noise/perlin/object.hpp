@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_NOISE_SAMPLE_PARAMETERS_HPP_INCLUDED
-#define SGE_NOISE_SAMPLE_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_NOISE_PERLIN_OBJECT_HPP_INCLUDED
+#define SGE_NOISE_PERLIN_OBJECT_HPP_INCLUDED
 
-#include <sge/noise/sample_parameters_fwd.hpp>
-#include <sge/noise/sample_parameters_decl.hpp>
-#include <sge/noise/sample_parameters_impl.hpp>
+#include <sge/noise/perlin/object_fwd.hpp>
+#include <sge/noise/perlin/object_decl.hpp>
+#include <sge/noise/perlin/object_impl.hpp>
 
 #endif
 
