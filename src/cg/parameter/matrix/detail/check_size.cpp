@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/exception.hpp>
-#include <sge/cg/parameter/matrix/check_size.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
+#include <sge/cg/parameter/matrix/detail/check_size.hpp>
 #include <sge/src/cg/parameter/get_type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 void
-sge::cg::parameter::matrix::check_size(
+sge::cg::parameter::matrix::detail::check_size(
 	sge::cg::parameter::object const &_parameter,
 	fcppt::math::matrix::dim_type const &_dim
 )

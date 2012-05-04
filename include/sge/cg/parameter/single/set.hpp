@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_MATRIX_SET_HPP_INCLUDED
-#define SGE_CG_PARAMETER_MATRIX_SET_HPP_INCLUDED
+#ifndef SGE_CG_PARAMETER_SINGLE_SET_HPP_INCLUDED
+#define SGE_CG_PARAMETER_SINGLE_SET_HPP_INCLUDED
 
 #include <sge/cg/parameter/is_int_float_double.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <sge/cg/parameter/matrix/detail/check_size.hpp>
-#include <sge/cg/parameter/matrix/detail/check_type.hpp>
-#include <sge/cg/parameter/matrix/detail/set.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
+#include <sge/cg/parameter/single/check_size.hpp>
+#include <sge/cg/parameter/single/detail/set.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -38,13 +38,12 @@ namespace cg
 {
 namespace parameter
 {
-namespace matrix
+namespace single
 {
 
 template<
 	typename T,
 	typename N,
-	typename M,
 	typename S
 >
 typename boost::enable_if<
@@ -55,28 +54,48 @@ typename boost::enable_if<
 >::type
 set(
 	sge::cg::parameter::object const &_parameter,
-	fcppt::math::matrix::object<
+	fcppt::math::vector::object<
 		T,
 		N,
-		M,
 		S
-	> const &_matrix
+	> const &_vector
 )
 {
-	sge::cg::parameter::matrix::detail::check_size(
+	sge::cg::parameter::single::check_size(
 		_parameter,
-		_matrix.dimension()
+		_vector.size()
 	);
 
-	sge::cg::parameter::matrix::detail::check_type<
+	sge::cg::parameter::single::detail::set(
+		_parameter,
+		_vector
+	);
+}
+
+template<
+	typename T
+>
+typename boost::enable_if<
+	sge::cg::parameter::is_int_float_double<
 		T
-	>(
-		_parameter
-	);
+	>,
+	void
+>::type
+set(
+	sge::cg::parameter::object const &_parameter,
+	T const _scalar
+)
+{
+	typedef typename fcppt::math::vector::static_<
+		T,
+		1
+	>::type vector;
 
-	sge::cg::parameter::matrix::detail::set(
+	sge::cg::parameter::single::set(
 		_parameter,
-		_matrix
+		vector(
+			_scalar
+		)
 	);
 }
 

@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_MATRIX_DETAIL_SET_HPP_INCLUDED
-#define SGE_CG_PARAMETER_MATRIX_DETAIL_SET_HPP_INCLUDED
+#ifndef SGE_CG_PARAMETER_SINGLE_DETAIL_SET_HPP_INCLUDED
+#define SGE_CG_PARAMETER_SINGLE_DETAIL_SET_HPP_INCLUDED
 
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/parameter/detail/generate_types.hpp>
-#include <sge/cg/parameter/matrix/detail/set_double.hpp>
-#include <sge/cg/parameter/matrix/detail/set_float.hpp>
-#include <sge/cg/parameter/matrix/detail/set_int.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
+#include <sge/cg/parameter/single/detail/set_double.hpp>
+#include <sge/cg/parameter/single/detail/set_float.hpp>
+#include <sge/cg/parameter/single/detail/set_int.hpp>
+#include <fcppt/math/single/object_impl.hpp>
 
 
 namespace sge
@@ -35,41 +35,40 @@ namespace cg
 {
 namespace parameter
 {
-namespace matrix
+namespace single
 {
 namespace detail
 {
 
-#define SGE_CG_PARAMETER_MATRIX_DETAIL_SET(\
+#define SGE_CG_PARAMETER_SINGLE_DETAIL_SET(\
 	type\
 )\
 template<\
 	typename N,\
-	typename M,\
 	typename S\
 >\
 void \
 set(\
 	sge::cg::parameter::object const &_parameter,\
-	fcppt::math::matrix::object<\
+	fcppt::math::vector::object<\
 		type,\
 		N,\
-		M,\
 		S\
-	> const &_matrix\
+	> const &_vector\
 )\
 {\
-	sge::cg::parameter::matrix::detail::set_ ## type(\
+	sge::cg::parameter::single::detail::set_ ## type(\
 		_parameter,\
-		_matrix.data()\
+		_vector.data(),\
+		_vector.size()\
 	);\
 }
 
 SGE_CG_PARAMETER_DETAIL_GENERATE_TYPES(
-	SGE_CG_PARAMETER_MATRIX_DETAIL_SET
+	SGE_CG_PARAMETER_SINGLE_DETAIL_SET
 )
 
-#undef SGE_CG_PARAMETER_MATRIX_DETAIL_SET
+#undef SGE_CG_PARAMETER_SINGLE_DETAIL_SET
 
 }
 }

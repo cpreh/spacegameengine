@@ -18,17 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_MATRIX_SET_HPP_INCLUDED
-#define SGE_CG_PARAMETER_MATRIX_SET_HPP_INCLUDED
+#ifndef SGE_SRC_CG_PARAMETER_TYPE_BASE_ENUM_HPP_INCLUDED
+#define SGE_SRC_CG_PARAMETER_TYPE_BASE_ENUM_HPP_INCLUDED
 
-#include <sge/cg/parameter/is_int_float_double.hpp>
-#include <sge/cg/parameter/object_fwd.hpp>
-#include <sge/cg/parameter/matrix/detail/check_size.hpp>
-#include <sge/cg/parameter/matrix/detail/check_type.hpp>
-#include <sge/cg/parameter/matrix/detail/set.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
+#include <sge/src/cg/type_integral_c.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,49 +36,50 @@ namespace cg
 {
 namespace parameter
 {
-namespace matrix
-{
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
+	typename Type
 >
-typename boost::enable_if<
-	sge::cg::parameter::is_int_float_double<
-		T
-	>,
-	void
->::type
-set(
-	sge::cg::parameter::object const &_parameter,
-	fcppt::math::matrix::object<
-		T,
-		N,
-		M,
-		S
-	> const &_matrix
-)
+struct type_base_enum;
+
+template<>
+struct type_base_enum<
+	double
+>
+:
+sge::cg::type_integral_c<
+	CG_DOUBLE
+>
 {
-	sge::cg::parameter::matrix::detail::check_size(
-		_parameter,
-		_matrix.dimension()
-	);
+};
 
-	sge::cg::parameter::matrix::detail::check_type<
-		T
-	>(
-		_parameter
-	);
+template<>
+struct type_base_enum<
+	float
+>
+:
+sge::cg::type_integral_c<
+	CG_FLOAT
+>
+{
+};
 
-	sge::cg::parameter::matrix::detail::set(
-		_parameter,
-		_matrix
-	);
-}
+template<>
+struct type_base_enum<
+	int
+>
+:
+sge::cg::type_integral_c<
+	CG_INT
+>
+{
+};
 
-}
+FCPPT_PP_POP_WARNING
+
 }
 }
 }

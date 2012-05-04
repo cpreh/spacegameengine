@@ -18,63 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_MATRIX_DETAIL_SET_HPP_INCLUDED
-#define SGE_CG_PARAMETER_MATRIX_DETAIL_SET_HPP_INCLUDED
-
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/parameter/detail/generate_types.hpp>
-#include <sge/cg/parameter/matrix/detail/set_double.hpp>
-#include <sge/cg/parameter/matrix/detail/set_float.hpp>
-#include <sge/cg/parameter/matrix/detail/set_int.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
+#include <sge/cg/parameter/matrix/detail/check_type.hpp>
+#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/cg/parameter/get_type.hpp>
+#include <sge/src/cg/parameter/get_type_base.hpp>
+#include <sge/src/cg/parameter/type_base_enum.hpp>
+#include <fcppt/assert/error.hpp>
 
 
-namespace sge
+template<
+	typename Type
+>
+void
+sge::cg::parameter::matrix::detail::check_type(
+	sge::cg::parameter::object const &_parameter
+)
 {
-namespace cg
-{
-namespace parameter
-{
-namespace matrix
-{
-namespace detail
-{
+	FCPPT_ASSERT_ERROR(
+		sge::cg::parameter::get_type_base(
+			sge::cg::parameter::get_type(
+				_parameter
+			)
+		)
+		==
+		sge::cg::parameter::type_base_enum<
+			Type
+		>::value
+	);
+}
 
-#define SGE_CG_PARAMETER_MATRIX_DETAIL_SET(\
+#define SGE_CG_INSTANTIATE_PARAMETER_MATRIX_DETAIL_CHECK_TYPE(\
 	type\
 )\
-template<\
-	typename N,\
-	typename M,\
-	typename S\
->\
+template \
+SGE_EXPORT_FUNCTION_INSTANTIATION \
 void \
-set(\
-	sge::cg::parameter::object const &_parameter,\
-	fcppt::math::matrix::object<\
-		type,\
-		N,\
-		M,\
-		S\
-	> const &_matrix\
-)\
-{\
-	sge::cg::parameter::matrix::detail::set_ ## type(\
-		_parameter,\
-		_matrix.data()\
-	);\
-}
+sge::cg::parameter::matrix::detail::check_type<\
+	type\
+>(\
+	sge::cg::parameter::object const &\
+);\
 
 SGE_CG_PARAMETER_DETAIL_GENERATE_TYPES(
-	SGE_CG_PARAMETER_MATRIX_DETAIL_SET
+	SGE_CG_INSTANTIATE_PARAMETER_MATRIX_DETAIL_CHECK_TYPE
 )
-
-#undef SGE_CG_PARAMETER_MATRIX_DETAIL_SET
-
-}
-}
-}
-}
-}
-
-#endif

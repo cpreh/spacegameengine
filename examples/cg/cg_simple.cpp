@@ -109,7 +109,7 @@ try
 			sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
-						FCPPT_TEXT("sge fullscreen test")
+						FCPPT_TEXT("sge cg simple test")
 					),
 					sge::window::dim(
 						1024,

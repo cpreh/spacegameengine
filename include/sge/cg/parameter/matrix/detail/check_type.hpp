@@ -18,15 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_MATRIX_DETAIL_SET_HPP_INCLUDED
-#define SGE_CG_PARAMETER_MATRIX_DETAIL_SET_HPP_INCLUDED
+#ifndef SGE_CG_PARAMETER_MATRIX_DETAIL_CHECK_TYPE_HPP_INCLUDED
+#define SGE_CG_PARAMETER_MATRIX_DETAIL_CHECK_TYPE_HPP_INCLUDED
 
+#include <sge/cg/symbol.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <sge/cg/parameter/detail/generate_types.hpp>
-#include <sge/cg/parameter/matrix/detail/set_double.hpp>
-#include <sge/cg/parameter/matrix/detail/set_float.hpp>
-#include <sge/cg/parameter/matrix/detail/set_int.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 
 
 namespace sge
@@ -40,36 +36,14 @@ namespace matrix
 namespace detail
 {
 
-#define SGE_CG_PARAMETER_MATRIX_DETAIL_SET(\
-	type\
-)\
-template<\
-	typename N,\
-	typename M,\
-	typename S\
->\
-void \
-set(\
-	sge::cg::parameter::object const &_parameter,\
-	fcppt::math::matrix::object<\
-		type,\
-		N,\
-		M,\
-		S\
-	> const &_matrix\
-)\
-{\
-	sge::cg::parameter::matrix::detail::set_ ## type(\
-		_parameter,\
-		_matrix.data()\
-	);\
-}
-
-SGE_CG_PARAMETER_DETAIL_GENERATE_TYPES(
-	SGE_CG_PARAMETER_MATRIX_DETAIL_SET
-)
-
-#undef SGE_CG_PARAMETER_MATRIX_DETAIL_SET
+template<
+	typename Type
+>
+SGE_CG_SYMBOL
+void
+check_type(
+	sge::cg::parameter::object const &
+);
 
 }
 }
