@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
-#include <sge/renderer/active_target.hpp>
-#include <sge/renderer/aspect_from_viewport.hpp>
-#include <sge/renderer/target_base.hpp>
+#include <sge/renderer/target/aspect_from_viewport.hpp>
 #include <sge/renderer/projection/aspect.hpp>
 #include <sge/renderer/projection/perspective_af.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -75,9 +75,8 @@ sge::camera::perspective_projection_from_viewport::viewport_callback()
 		sge::camera::projection_matrix(
 			sge::renderer::projection::perspective_af(
 				sge::renderer::projection::aspect(
-					sge::renderer::aspect_from_viewport(
-						sge::renderer::active_target(
-							renderer_).viewport())),
+					sge::renderer::target::aspect_from_viewport(
+						renderer_.onscreen_target().viewport())),
 				fov_,
 				near_,
 				far_)));

@@ -42,7 +42,6 @@ FCPPT_NONCOPYABLE(
 	perspective_projection_from_viewport);
 public:
 	SGE_CAMERA_SYMBOL
-	explicit
 	perspective_projection_from_viewport(
 		sge::camera::has_mutable_projection &,
 		sge::renderer::device &,
