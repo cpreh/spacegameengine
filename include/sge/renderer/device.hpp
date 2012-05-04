@@ -61,11 +61,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
+#include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/object_fwd.hpp>
 #include <sge/cg/profile/object_unique_ptr.hpp>
 #include <sge/cg/profile/shader_type.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
+#include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
+#include <sge/renderer/texture/base_fwd.hpp>
 #endif
 
 
@@ -412,6 +415,13 @@ public:
 	sge::renderer::cg::loaded_program_unique_ptr
 	load_cg_program(
 		sge::cg::program::object &
+	) = 0;
+
+	virtual
+	sge::renderer::cg::loaded_texture_unique_ptr
+	load_cg_texture(
+		sge::cg::parameter::object const &,
+		sge::renderer::texture::base const &
 	) = 0;
 #endif
 

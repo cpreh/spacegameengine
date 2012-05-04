@@ -93,6 +93,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
+#include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/object_fwd.hpp>
 #include <sge/cg/profile/object.hpp>
@@ -103,6 +104,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/cg/program/optimal_options.hpp>
 #include <sge/renderer/cg/loaded_program.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
+#include <sge/renderer/cg/loaded_texture.hpp>
+#include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
+#include <sge/renderer/texture/base_fwd.hpp>
 #endif
 
 sge::opengl::device::device(
@@ -453,6 +457,16 @@ sge::opengl::device::load_cg_program(
 		sge::opengl::cg::program::load(
 			_program
 		);
+}
+
+sge::renderer::cg::loaded_texture_unique_ptr
+sge::opengl::device::load_cg_texture(
+	sge::cg::parameter::object const &_parameter,
+	sge::renderer::texture::base const &_texture
+)
+{
+	return
+		sge::renderer::cg::loaded_texture_unique_ptr();
 }
 #endif
 
