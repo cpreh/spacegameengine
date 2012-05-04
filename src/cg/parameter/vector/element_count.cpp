@@ -19,48 +19,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <sge/cg/parameter/detail/generate_types.hpp>
-#include <sge/cg/parameter/matrix/detail/check_type.hpp>
-#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/cg/true.hpp>
 #include <sge/src/cg/parameter/get_type.hpp>
-#include <sge/src/cg/parameter/get_type_base.hpp>
-#include <sge/src/cg/parameter/type_base_enum.hpp>
+#include <sge/src/cg/parameter/vector/element_count.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/math/size_type.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <Cg/cg.h>
+#include <fcppt/config/external_end.hpp>
 
 
-template<
-	typename Type
->
-void
-sge::cg::parameter::matrix::detail::check_type(
+fcppt::math::size_type
+sge::cg::parameter::vector::element_count(
 	sge::cg::parameter::object const &_parameter
 )
 {
-	FCPPT_ASSERT_ERROR(
-		sge::cg::parameter::get_type_base(
+	int
+		rows,
+		columns;
+
+	if(
+		::cgGetTypeSizes(
 			sge::cg::parameter::get_type(
 				_parameter
-			)
+			),
+			&rows,
+			&columns
 		)
 		==
-		sge::cg::parameter::type_base_enum<
-			Type
-		>::value
+		sge::cg::true_
+	)
+		return 0;
+
+	FCPPT_ASSERT_ERROR(
+		rows
+		==
+		1
 	);
+
+	return
+		static_cast<
+			fcppt::math::size_type
+		>(
+			columns
+		);
 }
-
-#define SGE_CG_INSTANTIATE_PARAMETER_MATRIX_DETAIL_CHECK_TYPE(\
-	type\
-)\
-template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
-void \
-sge::cg::parameter::matrix::detail::check_type<\
-	type\
->(\
-	sge::cg::parameter::object const &\
-);\
-
-SGE_CG_PARAMETER_DETAIL_GENERATE_TYPES(
-	SGE_CG_INSTANTIATE_PARAMETER_MATRIX_DETAIL_CHECK_TYPE
-)

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CG_PARAMETER_SINGLE_SET_IMPL_HPP_INCLUDED
-#define SGE_SRC_CG_PARAMETER_SINGLE_SET_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_CG_PARAMETER_VECTOR_SET_IMPL_HPP_INCLUDED
+#define SGE_SRC_CG_PARAMETER_VECTOR_SET_IMPL_HPP_INCLUDED
 
 
 #include <sge/cg/check_state.hpp>
@@ -32,12 +32,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-#define SGE_SRC_CG_PARAMETER_SINGLE_SET_IMPL(\
+#define SGE_SRC_CG_PARAMETER_VECTOR_SET_IMPL_CASE(\
+	cg_name,\
+	count\
+)\
+case count:\
+	::cgSetParameter ## count ## cg_name ## v(\
+		_parameter.get(),\
+		_data\
+	);\
+	break\
+
+#define SGE_SRC_CG_PARAMETER_VECTOR_SET_IMPL(\
 	type,\
 	cg_name\
 )\
 void \
-sge::cg::parameter::single::detail::set_ ## type(\
+sge::cg::parameter::vector::detail::set_ ## type(\
 	sge::cg::parameter::object const &_parameter,\
 	type const *const _data,\
 	fcppt::math::size_type const _size\
@@ -47,36 +58,22 @@ sge::cg::parameter::single::detail::set_ ## type(\
 		_size\
 	)\
 	{\
-	case 1:\
-		::cgSetParameter1 ## cg_name(\
-			_parameter.get(),\
-			_data[0]\
-		);\
-		break;\
-	case 2:\
-		::cgSetParameter2 ## cg_name(\
-			_parameter.get(),\
-			_data[0],\
-			_data[1]\
-		);\
-		break;\
-	case 3:\
-		::cgSetParameter3 ## cg_name(\
-			_parameter.get(),\
-			_data[0],\
-			_data[1],\
-			_data[2]\
-		);\
-		break;\
-	case 4:\
-		::cgSetParameter4 ## cg_name(\
-			_parameter.get(),\
-			_data[0],\
-			_data[1],\
-			_data[2],\
-			_data[3]\
-		);\
-		break;\
+	SGE_SRC_CG_PARAMETER_VECTOR_SET_IMPL_CASE(\
+		cg_name,\
+		1\
+	);\
+	SGE_SRC_CG_PARAMETER_VECTOR_SET_IMPL_CASE(\
+		cg_name,\
+		2\
+	);\
+	SGE_SRC_CG_PARAMETER_VECTOR_SET_IMPL_CASE(\
+		cg_name,\
+		3\
+	);\
+	SGE_SRC_CG_PARAMETER_VECTOR_SET_IMPL_CASE(\
+		cg_name,\
+		4\
+	);\
 	default:\
 		FCPPT_ASSERT_UNREACHABLE;\
 	}\

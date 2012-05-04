@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/parameter/is_int_float_double.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
+#include <sge/cg/parameter/detail/check_base_type.hpp>
 #include <sge/cg/parameter/matrix/detail/check_size.hpp>
-#include <sge/cg/parameter/matrix/detail/check_type.hpp>
 #include <sge/cg/parameter/matrix/detail/set.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -68,7 +68,7 @@ set(
 		_matrix.dimension()
 	);
 
-	sge::cg::parameter::matrix::detail::check_type<
+	sge::cg::parameter::detail::check_base_type<
 		T
 	>(
 		_parameter

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/context/object.hpp>
 #include <sge/cg/parameter/object.hpp>
 #include <sge/cg/parameter/matrix/set.hpp>
+#include <sge/cg/parameter/vector/set.hpp>
 #include <sge/cg/profile/object.hpp>
 #include <sge/cg/profile/object_scoped_ptr.hpp>
 #include <sge/cg/profile/shader_type.hpp>
@@ -87,9 +88,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -113,7 +115,7 @@ try
 			sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
-						FCPPT_TEXT("sge cg matrix test")
+						FCPPT_TEXT("sge cg parameters test")
 					),
 					sge::window::dim(
 						1024,
@@ -154,19 +156,16 @@ try
 	);
 
 	sge::cg::string const vertex_shader_source(
-		"// This is C2E1v_green from \"The Cg Tutorial\" (Addison-Wesley, ISBN\n"
-		"// 0321194969) by Randima Fernando and Mark J. Kilgard.  See page 38.\n"
-		"\n"
 		"struct C2E1v_Output {\n"
 		"	float4 position : POSITION;\n"
 		"	float3 color    : COLOR;\n"
 		"};\n"
 		"\n"
-		"C2E1v_Output C2E1v_green(float2 position : POSITION, uniform float4x4 transformation)\n"
+		"C2E1v_Output C2E1v_green(float2 position : POSITION, uniform float4x4 transformation, uniform float4 translation)\n"
 		"{\n"
 		"	C2E1v_Output OUT;\n"
 		"\n"
-		"	OUT.position = mul(transformation,float4(position,0,1));\n"
+		"	OUT.position = translation + mul(transformation, float4(position, 0, 1));\n"
 		"	OUT.color = float3(0,1,0);\n"
 		"\n"
 		"	return OUT;\n"
@@ -195,12 +194,28 @@ try
 		vertex_program.parameter(
 			"transformation"
 		),
-		fcppt::math::matrix::translation(
+		fcppt::math::matrix::scaling(
 			0.5f,
+			1.f,
+			1.f
+		)
+	);
+
+	sge::cg::parameter::vector::set(
+		vertex_program.parameter(
+			"translation"
+		),
+		fcppt::math::vector::static_<
+			float,
+			4
+		>::type(
+			0.5f,
+			0.f,
 			0.f,
 			0.f
 		)
 	);
+
 
 	sge::renderer::cg::loaded_program_scoped_ptr const loaded_program(
 		sys.renderer().load_cg_program(

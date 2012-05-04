@@ -6,10 +6,10 @@ set(
 	include/sge/cg/context/object_fwd.hpp
 	include/sge/cg/error_string.hpp
 	include/sge/cg/exception.hpp
+	include/sge/cg/parameter/detail/check_base_type.hpp
 	include/sge/cg/parameter/detail/generate_types.hpp
 	include/sge/cg/parameter/is_int_float_double.hpp
 	include/sge/cg/parameter/matrix/detail/check_size.hpp
-	include/sge/cg/parameter/matrix/detail/check_type.hpp
 	include/sge/cg/parameter/matrix/detail/set.hpp
 	include/sge/cg/parameter/matrix/detail/set_double.hpp
 	include/sge/cg/parameter/matrix/detail/set_float.hpp
@@ -19,12 +19,12 @@ set(
 	include/sge/cg/parameter/object_fwd.hpp
 	include/sge/cg/parameter/optional_object.hpp
 	include/sge/cg/parameter/optional_object_fwd.hpp
-	include/sge/cg/parameter/single/detail/check_size.hpp
-	include/sge/cg/parameter/single/detail/set.hpp
-	include/sge/cg/parameter/single/detail/set_double.hpp
-	include/sge/cg/parameter/single/detail/set_float.hpp
-	include/sge/cg/parameter/single/detail/set_int.hpp
-	include/sge/cg/parameter/single/set.hpp
+	include/sge/cg/parameter/vector/detail/check_size.hpp
+	include/sge/cg/parameter/vector/detail/set.hpp
+	include/sge/cg/parameter/vector/detail/set_double.hpp
+	include/sge/cg/parameter/vector/detail/set_float.hpp
+	include/sge/cg/parameter/vector/detail/set_int.hpp
+	include/sge/cg/parameter/vector/set.hpp
 	include/sge/cg/profile/object.hpp
 	include/sge/cg/profile/object_fwd.hpp
 	include/sge/cg/profile/object_scoped_ptr.hpp
@@ -45,30 +45,37 @@ set(
 	src/cg/context/object.cpp
 	src/cg/error_string.cpp
 	src/cg/exception.cpp
+	src/cg/false.cpp
+	src/cg/include/sge/src/cg/false.hpp
 	src/cg/include/sge/src/cg/parameter/get_type.hpp
 	src/cg/include/sge/src/cg/parameter/get_type_base.hpp
 	src/cg/include/sge/src/cg/parameter/matrix/set_impl.hpp
-	src/cg/include/sge/src/cg/parameter/single/set_impl.hpp
 	src/cg/include/sge/src/cg/parameter/type_base_enum.hpp
+	src/cg/include/sge/src/cg/parameter/vector/element_count.hpp
+	src/cg/include/sge/src/cg/parameter/vector/set_impl.hpp
 	src/cg/include/sge/src/cg/program/convert_source_type.hpp
+	src/cg/include/sge/src/cg/true.hpp
 	src/cg/include/sge/src/cg/type_integral_c.hpp
+	src/cg/parameter/detail/check_base_type.cpp
 	src/cg/parameter/get_type.cpp
 	src/cg/parameter/get_type_base.cpp
 	src/cg/parameter/matrix/detail/check_size.cpp
-	src/cg/parameter/matrix/detail/check_type.cpp
 	src/cg/parameter/matrix/detail/set_double.cpp
 	src/cg/parameter/matrix/detail/set_float.cpp
 	src/cg/parameter/matrix/detail/set_int.cpp
 	src/cg/parameter/object.cpp
-	src/cg/parameter/single/detail/set_double.cpp
-	src/cg/parameter/single/detail/set_float.cpp
-	src/cg/parameter/single/detail/set_int.cpp
+	src/cg/parameter/vector/detail/check_size.cpp
+	src/cg/parameter/vector/detail/set_double.cpp
+	src/cg/parameter/vector/detail/set_float.cpp
+	src/cg/parameter/vector/detail/set_int.cpp
+	src/cg/parameter/vector/element_count.cpp
 	src/cg/profile/object.cpp
 	src/cg/program/convert_source_type.cpp
 	src/cg/program/from_file_parameters.cpp
 	src/cg/program/from_string_parameters.cpp
 	src/cg/program/object.cpp
 	src/cg/to_fcppt_string.cpp
+	src/cg/true.cpp
 )
 
 include_directories(

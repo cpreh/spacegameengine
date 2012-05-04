@@ -18,37 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_SINGLE_DETAIL_SET_FLOAT_HPP_INCLUDED
-#define SGE_CG_PARAMETER_SINGLE_DETAIL_SET_FLOAT_HPP_INCLUDED
-
-#include <sge/cg/symbol.hpp>
-#include <sge/cg/parameter/object_fwd.hpp>
-#include <fcppt/math/size_type.hpp>
+#include <sge/cg/parameter/vector/detail/set_float.hpp>
+#include <sge/src/cg/parameter/vector/set_impl.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace single
-{
-namespace detail
-{
-
-SGE_CG_SYMBOL
-void
-set_float(
-	sge::cg::parameter::object const &,
-	float const *,
-	fcppt::math::size_type
-);
-
-}
-}
-}
-}
-}
-
-#endif
+SGE_SRC_CG_PARAMETER_VECTOR_SET_IMPL(
+	float,
+	f
+)

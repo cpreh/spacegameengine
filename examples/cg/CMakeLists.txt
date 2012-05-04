@@ -8,7 +8,7 @@ include_directories(
 )
 
 add_sge_example(
-	cg_matrix
+	cg_parameters
 	"sgecg;sgeimage;sgeinput;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )

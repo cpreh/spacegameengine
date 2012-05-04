@@ -18,37 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_SINGLE_DETAIL_SET_DOUBLE_HPP_INCLUDED
-#define SGE_CG_PARAMETER_SINGLE_DETAIL_SET_DOUBLE_HPP_INCLUDED
+#include <sge/src/cg/true.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <Cg/cg.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/cg/symbol.hpp>
-#include <sge/cg/parameter/object_fwd.hpp>
-#include <fcppt/math/size_type.hpp>
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace single
-{
-namespace detail
-{
+CGbool
+const
+sge::cg::true_
+= CG_TRUE;
 
-SGE_CG_SYMBOL
-void
-set_double(
-	sge::cg::parameter::object const &,
-	double const *,
-	fcppt::math::size_type
-);
-
-}
-}
-}
-}
-}
-
-#endif
+FCPPT_PP_POP_WARNING

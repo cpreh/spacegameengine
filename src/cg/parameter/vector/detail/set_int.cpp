@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/parameter/single/detail/set_double.hpp>
-#include <sge/src/cg/parameter/single/set_impl.hpp>
+#include <sge/cg/parameter/vector/detail/set_int.hpp>
+#include <sge/src/cg/parameter/vector/set_impl.hpp>
 
 
-SGE_SRC_CG_PARAMETER_SINGLE_SET_IMPL(
-	double,
-	d
+SGE_SRC_CG_PARAMETER_VECTOR_SET_IMPL(
+	int,
+	i
 )

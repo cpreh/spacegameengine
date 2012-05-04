@@ -18,36 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_SINGLE_DETAIL_SET_INT_HPP_INCLUDED
-#define SGE_CG_PARAMETER_SINGLE_DETAIL_SET_INT_HPP_INCLUDED
+#ifndef SGE_SRC_CG_FALSE_HPP_INCLUDED
+#define SGE_SRC_CG_FALSE_HPP_INCLUDED
 
-#include <sge/cg/symbol.hpp>
-#include <sge/cg/parameter/object_fwd.hpp>
-#include <fcppt/math/size_type.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <Cg/cg.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace cg
 {
-namespace parameter
-{
-namespace single
-{
-namespace detail
-{
 
-SGE_CG_SYMBOL
-void
-set_int(
-	sge::cg::parameter::object const &,
-	int const *,
-	fcppt::math::size_type
-);
+extern
+CGbool
+const
+false_;
 
-}
-}
-}
 }
 }
 

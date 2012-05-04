@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_MATRIX_DETAIL_CHECK_TYPE_HPP_INCLUDED
-#define SGE_CG_PARAMETER_MATRIX_DETAIL_CHECK_TYPE_HPP_INCLUDED
+#ifndef SGE_SRC_CG_PARAMETER_VECTOR_ELEMENT_COUNT_HPP_INCLUDED
+#define SGE_SRC_CG_PARAMETER_VECTOR_ELEMENT_COUNT_HPP_INCLUDED
 
-#include <sge/cg/symbol.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
+#include <fcppt/math/size_type.hpp>
 
 
 namespace sge
@@ -31,21 +31,14 @@ namespace cg
 {
 namespace parameter
 {
-namespace matrix
-{
-namespace detail
+namespace vector
 {
 
-template<
-	typename Type
->
-SGE_CG_SYMBOL
-void
-check_type(
+fcppt::math::size_type
+element_count(
 	sge::cg::parameter::object const &
 );
 
-}
 }
 }
 }
