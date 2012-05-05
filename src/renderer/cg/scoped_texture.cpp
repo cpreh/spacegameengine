@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
 #include <sge/renderer/context/object.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 sge::renderer::cg::scoped_texture::scoped_texture(
@@ -33,11 +34,13 @@ sge::renderer::cg::scoped_texture::scoped_texture(
 	),
 	texture_(
 		_texture
+	),
+	stage_(
+		context_.set_cg_texture(
+			texture_
+		)
 	)
 {
-	context_.set_cg_texture(
-		texture_
-	);
 }
 
 sge::renderer::cg::scoped_texture::~scoped_texture()
@@ -45,4 +48,11 @@ sge::renderer::cg::scoped_texture::~scoped_texture()
 	context_.unset_cg_texture(
 		texture_
 	);
+}
+
+sge::renderer::texture::stage const
+sge::renderer::cg::scoped_texture::stage() const
+{
+	return
+		stage_;
 }
