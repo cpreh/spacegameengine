@@ -68,7 +68,7 @@ private:
 
 	sge::opengl::texture::base const &texture_;
 
-	sge::renderer::caps::texture_stages const stages_;
+	sge::renderer::texture::stage const stage_;
 };
 
 }

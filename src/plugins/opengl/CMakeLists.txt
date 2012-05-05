@@ -745,7 +745,6 @@ set(
 	src/plugins/opengl/src/texture/readwrite_lock.cpp
 	src/plugins/opengl/src/texture/render_binding.cpp
 	src/plugins/opengl/src/texture/scoped_work_binding.cpp
-	src/plugins/opengl/src/texture/set_parameter.cpp
 	src/plugins/opengl/src/texture/set_samplers.cpp
 	src/plugins/opengl/src/texture/set_stage_funcs.cpp
 	src/plugins/opengl/src/texture/surface.cpp
@@ -922,12 +921,12 @@ set(
 	src/plugins/opengl/include/sge/opengl/cg/program/load.hpp
 	src/plugins/opengl/include/sge/opengl/cg/program/loaded_object.hpp
 	src/plugins/opengl/include/sge/opengl/cg/program/optimal_options.hpp
+	src/plugins/opengl/include/sge/opengl/cg/texture/assigned_stage.hpp
 	src/plugins/opengl/include/sge/opengl/cg/texture/disable.hpp
 	src/plugins/opengl/include/sge/opengl/cg/texture/enable.hpp
 	src/plugins/opengl/include/sge/opengl/cg/texture/load.hpp
 	src/plugins/opengl/include/sge/opengl/cg/texture/loaded_object.hpp
 	src/plugins/opengl/include/sge/opengl/cg/texture/set_parameter.hpp
-	src/plugins/opengl/include/sge/opengl/cg/texture/set_samplers.hpp
 	src/plugins/opengl/src/cg/profile/convert_shader_type.cpp
 	src/plugins/opengl/src/cg/profile/create.cpp
 	src/plugins/opengl/src/cg/profile/get_latest.cpp
@@ -936,11 +935,12 @@ set(
 	src/plugins/opengl/src/cg/program/load.cpp
 	src/plugins/opengl/src/cg/program/loaded_object.cpp
 	src/plugins/opengl/src/cg/program/optimal_options.cpp
+	src/plugins/opengl/src/cg/texture/assigned_stage.cpp
 	src/plugins/opengl/src/cg/texture/disable.cpp
 	src/plugins/opengl/src/cg/texture/enable.cpp
 	src/plugins/opengl/src/cg/texture/load.cpp
 	src/plugins/opengl/src/cg/texture/loaded_object.cpp
-	src/plugins/opengl/src/cg/texture/set_samplers.cpp
+	src/plugins/opengl/src/cg/texture/set_parameter.cpp
 )
 
 set(

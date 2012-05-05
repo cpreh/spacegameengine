@@ -20,15 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/parameter/object.hpp>
+#include <sge/opengl/cg/texture/assigned_stage.hpp>
 #include <sge/opengl/cg/texture/loaded_object.hpp>
 #include <sge/opengl/cg/texture/set_parameter.hpp>
-#include <sge/opengl/cg/texture/set_samplers.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/base.hpp>
-#include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
+#include <sge/opengl/texture/set_samplers.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/stage.hpp>
@@ -58,12 +57,10 @@ sge::opengl::cg::texture::loaded_object::loaded_object(
 			_texture
 		)
 	),
-	stages_(
-		sge::opengl::context::use<
-			sge::opengl::texture::multi_context
-		>(
-			_context
-		).max_level()
+	stage_(
+		sge::opengl::cg::texture::assigned_stage(
+			_parameter
+		)
 	)
 {
 	sge::opengl::cg::texture::set_parameter(
@@ -96,13 +93,15 @@ sge::opengl::cg::texture::loaded_object::enable() const
 
 	sge::opengl::texture::render_binding const binding;
 
+	sge::opengl::texture::set_samplers(
+		binding,
+		context_,
+		texture_.type(),
+		stage_
+	);
+
 	return
-		sge::opengl::cg::texture::set_samplers(
-			binding,
-			context_,
-			texture_,
-			stages_
-		);
+		stage_;
 }
 
 void
