@@ -56,26 +56,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_code_to_digit.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/optional_digit.hpp>
-#include <sge/renderer/active_target.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/target_base.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/caps/object.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
@@ -108,6 +108,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/geometry/update_one.hpp>
 #include <sge/sprite/render/matrix_options.hpp>
 #include <sge/sprite/render/options.hpp>
+#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
 #include <sge/sprite/render/state_options.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
@@ -668,32 +669,33 @@ try
 
 		frames_counter.update();
 
-		sys.renderer().onscreen_target().clear(
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target()
+		);
+
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::lightblue()
 			)
 		);
 
-		sge::renderer::scoped_block const block(
-			sys.renderer()
-		);
-
-		sys.renderer().transform(
+		scoped_block.get().transform(
 			sge::renderer::matrix_mode::world,
 			sge::camera::matrix_conversion::world(
 				camera.coordinate_system()
 			)
 		);
 
-		sys.renderer().transform(
+		scoped_block.get().transform(
 			sge::renderer::matrix_mode::projection,
 			camera.projection_matrix().get()
 		);
 
 		{
 			sge::renderer::texture::filter::scoped const scoped_filter(
-				sys.renderer(),
+				scoped_block.get(),
 				sge::renderer::texture::stage(
 					0u
 				),
@@ -707,49 +709,47 @@ try
 					sge::sprite::render::vertex_options::declaration_and_buffer
 				>
 			>(
-				sprite_buffers.parameters(),
+				sge::sprite::render::parameters(
+					scoped_block.get(),
+					sprite_buffers.parameters().vertex_declaration()
+				),
 				sprite_range
 			);
 		}
 
+		sge::font::rect const font_rect(
+			sge::font::rect::vector::null(),
+			fcppt::math::dim::structure_cast<
+				sge::font::rect::dim
+			>(
+				sge::renderer::target::viewport_size(
+					scoped_block.get().target()
+				)
+			)
+		);
+
 		sge::font::text::draw(
+			scoped_block.get(),
 			*font_metrics,
 			font_drawer,
 			current_filter->first
 			+
 			text_appendix,
-			sge::font::rect(
-				sge::font::rect::vector::null(),
-				fcppt::math::dim::structure_cast<
-					sge::font::rect::dim
-				>(
-					sge::renderer::active_target(
-						sys.renderer()
-					).viewport().get().size()
-				)
-			),
+			font_rect,
 			sge::font::text::align_h::left,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none
 		);
 
 		sge::font::text::draw(
+			scoped_block.get(),
 			*font_metrics,
 			font_drawer,
 			sge::font::text::from_fcppt_string(
 				frames_counter.frames_str()
 			)
 			+ SGE_FONT_TEXT_LIT(" fps"),
-			sge::font::rect(
-				sge::font::rect::vector::null(),
-				fcppt::math::dim::structure_cast<
-					sge::font::rect::dim
-				>(
-					sge::renderer::active_target(
-						sys.renderer()
-					).viewport().get().size()
-				)
-			),
+			font_rect,
 			sge::font::text::align_h::right,
 			sge::font::text::align_v::top,
 			sge::font::text::flags::none

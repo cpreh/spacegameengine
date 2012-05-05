@@ -18,29 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/noise/sample.hpp>
-#include <sge/noise/sample_parameters.hpp>
-#include <sge/noise/simplex/object.hpp>
-/*
-spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/first_person/object.hpp>
@@ -60,6 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/object.hpp>
 #include <sge/image3d/view/sub.hpp>
 #include <sge/image3d/view/to_const.hpp>
+#include <sge/noise/sample.hpp>
+#include <sge/noise/sample_parameters.hpp>
+#include <sge/noise/simplex/object.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
@@ -68,11 +48,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -84,12 +62,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode3.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
@@ -783,18 +764,23 @@ try
 			)
 		);
 
-		sge::renderer::scoped_vertex_declaration const scoped_vd(
+		sge::renderer::context::scoped const scoped_block(
 			sys.renderer(),
+			sys.renderer().onscreen_target()
+		);
+
+		sge::renderer::scoped_vertex_declaration const scoped_vd(
+			scoped_block.get(),
 			*vertex_declaration
 		);
 
 		sge::renderer::scoped_vertex_buffer const scoped_vb(
-			sys.renderer(),
+			scoped_block.get(),
 			*vertex_buffer
 		);
 
 		sge::renderer::texture::scoped const scoped_texture1(
-			sys.renderer(),
+			scoped_block.get(),
 			*texture,
 			sge::renderer::texture::stage(
 				0u
@@ -802,7 +788,7 @@ try
 		);
 
 		sge::renderer::texture::scoped const scoped_texture2(
-			sys.renderer(),
+			scoped_block.get(),
 			*texture,
 			sge::renderer::texture::stage(
 				1u
@@ -810,7 +796,7 @@ try
 		);
 
 		sge::renderer::state::scoped const scoped_state(
-			sys.renderer(),
+			scoped_block.get(),
 			sge::renderer::state::list
 			(
 				sge::renderer::state::depth_func::less
@@ -818,7 +804,7 @@ try
 		);
 
 		sge::renderer::texture::set_address_mode3(
-			sys.renderer(),
+			scoped_block.get(),
 			sge::renderer::texture::stage(
 				0u
 			),
@@ -828,7 +814,7 @@ try
 		);
 
 		sge::renderer::texture::set_address_mode3(
-			sys.renderer(),
+			scoped_block.get(),
 			sge::renderer::texture::stage(
 				1u
 			),
@@ -837,7 +823,7 @@ try
 			)
 		);
 
-		sys.renderer().onscreen_target().clear(
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black()
@@ -847,22 +833,18 @@ try
 			)
 		);
 
-		sge::renderer::scoped_block const block(
-			sys.renderer()
-		);
-
-		sys.renderer().transform(
+		scoped_block.get().transform(
 			sge::renderer::matrix_mode::world,
 			sge::camera::matrix_conversion::world(
 				camera.coordinate_system())
 		);
 
-		sys.renderer().transform(
+		scoped_block.get().transform(
 			sge::renderer::matrix_mode::projection,
 			camera.projection_matrix().get()
 		);
 
-		sys.renderer().render_nonindexed(
+		scoped_block.get().render_nonindexed(
 			sge::renderer::first_vertex(
 				0u
 			),

@@ -82,6 +82,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/fbo/attach_texture_2d.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attachment.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attachment_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/attachment_type.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attachment_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/bind.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/context.hpp
@@ -97,6 +98,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/fbo/no_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/object.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/optional_attachment_type.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/render_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/render_buffer_binding.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/render_buffer_binding_fwd.hpp
@@ -358,6 +360,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/funcs/set_box.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/set_client_level.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/set_rect.hpp
+	src/plugins/opengl/include/sge/opengl/texture/get_binding.hpp
+	src/plugins/opengl/include/sge/opengl/texture/get_stage_binding.hpp
 	src/plugins/opengl/include/sge/opengl/texture/get_type_binding.hpp
 	src/plugins/opengl/include/sge/opengl/texture/holder.hpp
 	src/plugins/opengl/include/sge/opengl/texture/id.hpp
@@ -376,7 +380,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/texture/multi_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/multi_context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/no_id.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_bind_type.hpp
+	src/plugins/opengl/include/sge/opengl/texture/optional_id.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/planar.hpp
 	src/plugins/opengl/include/sge/opengl/texture/planar_basic.hpp
@@ -717,6 +723,8 @@ set(
 	src/plugins/opengl/src/texture/funcs/set_box.cpp
 	src/plugins/opengl/src/texture/funcs/set_client_level.cpp
 	src/plugins/opengl/src/texture/funcs/set_rect.cpp
+	src/plugins/opengl/src/texture/get_binding.cpp
+	src/plugins/opengl/src/texture/get_stage_binding.cpp
 	src/plugins/opengl/src/texture/get_type_binding.cpp
 	src/plugins/opengl/src/texture/holder.cpp
 	src/plugins/opengl/src/texture/lock_base.cpp
@@ -728,6 +736,7 @@ set(
 	src/plugins/opengl/src/texture/mipmap/parameters.cpp
 	src/plugins/opengl/src/texture/mipmap/visitor.cpp
 	src/plugins/opengl/src/texture/multi_context.cpp
+	src/plugins/opengl/src/texture/no_id.cpp
 	src/plugins/opengl/src/texture/planar.cpp
 	src/plugins/opengl/src/texture/planar_types.cpp
 	src/plugins/opengl/src/texture/readonly_lock.cpp

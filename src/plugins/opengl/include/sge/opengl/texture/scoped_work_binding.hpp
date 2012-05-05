@@ -24,9 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding.hpp>
 #include <sge/opengl/texture/id.hpp>
+#include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/scoped_work_binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -54,12 +56,12 @@ public:
 private:
 	void
 	bind_id(
-		sge::opengl::texture::id
+		sge::opengl::texture::optional_id
 	);
 
 	sge::opengl::context::object &context_;
 
-	sge::opengl::texture::id const previous_id_;
+	sge::opengl::texture::optional_id const previous_id_;
 
 	sge::opengl::texture::type const type_;
 };

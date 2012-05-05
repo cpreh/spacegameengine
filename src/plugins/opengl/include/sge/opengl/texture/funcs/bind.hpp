@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_FUNCS_BIND_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_FUNCS_BIND_HPP_INCLUDED
 
-#include <sge/opengl/texture/id.hpp>
+#include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/type.hpp>
+
 
 namespace sge
 {
@@ -35,8 +36,8 @@ namespace funcs
 
 void
 bind(
-	texture::type,
-	texture::id
+	sge::opengl::texture::type,
+	sge::opengl::texture::optional_id
 );
 
 }

@@ -18,30 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/fbo/attach_render_buffer.hpp>
-#include <sge/opengl/fbo/attachment_type.hpp>
-#include <sge/opengl/fbo/context.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_TEXTURE_GET_STAGE_BINDING_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_GET_STAGE_BINDING_HPP_INCLUDED
+
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/texture/optional_id.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
-void
-sge::opengl::fbo::attach_render_buffer(
-	sge::opengl::fbo::context const &_context,
-	sge::opengl::fbo::attachment_type const _what,
-	GLuint const _buffer
-)
+namespace sge
 {
-	_context.framebuffer_renderbuffer()(
-		_context.framebuffer_target(),
-		_what.get(),
-		_context.renderbuffer_target(),
-		_buffer
-	);
+namespace opengl
+{
+namespace texture
+{
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Attaching a render buffer to a frame buffer failed!"),
-		sge::renderer::exception
-	)
+sge::opengl::texture::optional_id const
+get_stage_binding(
+	sge::opengl::context::object &,
+	sge::renderer::texture::stage
+);
+
 }
+}
+}
+
+#endif

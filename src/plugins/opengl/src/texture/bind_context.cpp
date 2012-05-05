@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/bind_context.hpp>
 #include <sge/opengl/texture/id.hpp>
+#include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/funcs/bind.hpp>
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
@@ -61,7 +62,9 @@ sge::opengl::texture::bind_context::bind_for_rendering(
 
 	texture::funcs::bind(
 		_texture.type(),
-		_texture.id()
+		sge::opengl::texture::optional_id(
+			_texture.id()
+		)
 	);
 
 	texture::optional_type const last_type(
@@ -127,9 +130,7 @@ sge::opengl::texture::bind_context::unbind_for_rendering(
 
 	texture::funcs::bind(
 		*last_type,
-		texture::id(
-			0u
-		)
+		sge::opengl::texture::optional_id()
 	);
 
 	opengl::disable(

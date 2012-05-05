@@ -69,13 +69,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
@@ -89,10 +87,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
-#include <sge/renderer/viewport_size.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/light/attenuation.hpp>
 #include <sge/renderer/light/constant_attenuation.hpp>
 #include <sge/renderer/light/index.hpp>
@@ -110,6 +109,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/draw_mode.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
@@ -239,7 +240,8 @@ public:
 		sge::renderer::texture::planar *);
 
 	void
-	render();
+	render(
+		sge::renderer::context::object &);
 
 	sge::renderer::vertex_buffer const &
 	vb() const;
@@ -249,7 +251,6 @@ private:
 	sge::renderer::vertex_declaration const &vd_;
 	sge::renderer::vertex_buffer_scoped_ptr const vb_;
 	sge::renderer::texture::planar *const texture_;
-	sge::renderer::device &renderer_;
 };
 
 typedef
@@ -375,14 +376,13 @@ compiled_model::compiled_model(
 			_model,
 			_texture)),
 	texture_(
-		_texture),
-	renderer_(
-		_renderer)
+		_texture)
 {
 }
 
 void
-compiled_model::render()
+compiled_model::render(
+	sge::renderer::context::object &_render_context)
 {
 	fcppt::scoped_ptr<sge::renderer::texture::scoped> scoped_texture;
 
@@ -390,21 +390,21 @@ compiled_model::render()
 		scoped_texture.take(
 			fcppt::make_unique_ptr<sge::renderer::texture::scoped>(
 				fcppt::ref(
-					renderer_),
+					_render_context),
 				fcppt::cref(
 					*texture_),
 				sge::renderer::texture::stage(
 					0u)));
 
-	sge::renderer::scoped_vertex_declaration scoped_vd(
-		renderer_,
+	sge::renderer::scoped_vertex_declaration const scoped_vd(
+		_render_context,
 		vd_);
 
-	sge::renderer::scoped_vertex_buffer scoped_vb(
-		renderer_,
+	sge::renderer::scoped_vertex_buffer const scoped_vb(
+		_render_context,
 		*vb_);
 
-	renderer_.render_nonindexed(
+	_render_context.render_nonindexed(
 		sge::renderer::first_vertex(
 			0u),
 		sge::renderer::vertex_count(
@@ -699,40 +699,6 @@ try
 				sge::parse::json::path(
 					FCPPT_TEXT("normal-scaling"))));
 
-	sys.renderer().light(
-		sge::renderer::light::index(
-			0u),
-		sge::renderer::light::object(
-			sge::renderer::diffuse_color(
-				sge::image::colors::white()),
-			sge::renderer::specular_color(
-				sge::image::colors::white()),
-			sge::renderer::ambient_color(
-				sge::image::colors::white()),
-			sge::renderer::light::point(
-				sge::renderer::light::position(
-					sge::parse::json::find_and_convert_member<sge::renderer::light::position::value_type>(
-						config,
-						sge::parse::json::path(FCPPT_TEXT("light")) / FCPPT_TEXT("position"))),
-				sge::renderer::light::attenuation(
-					sge::renderer::light::constant_attenuation(
-						sge::parse::json::find_and_convert_member<sge::renderer::light::constant_attenuation::value_type>(
-							config,
-							sge::parse::json::path(FCPPT_TEXT("light")) / FCPPT_TEXT("constant-attenuation"))),
-					sge::renderer::light::linear_attenuation(
-						sge::parse::json::find_and_convert_member<sge::renderer::light::linear_attenuation::value_type>(
-							config,
-							sge::parse::json::path(FCPPT_TEXT("light")) / FCPPT_TEXT("linear-attenuation"))),
-					sge::renderer::light::quadratic_attenuation(
-						sge::parse::json::find_and_convert_member<sge::renderer::light::quadratic_attenuation::value_type>(
-							config,
-							sge::parse::json::path(FCPPT_TEXT("light")) / FCPPT_TEXT("quadratic-attenuation")))))));
-
-	sys.renderer().enable_light(
-		sge::renderer::light::index(
-			0u),
-		true);
-
 	// We need this timer to update the camera
 	sge::timer::basic<sge::timer::clocks::standard>
 		frame_timer(
@@ -746,7 +712,11 @@ try
 
 		// If we have no viewport (yet), don't do anything (this is just a
 		// precaution, we _might_ divide by zero somewhere below, otherwise)
-		if(!sge::renderer::viewport_size(sys.renderer()).content())
+		if(
+			!sge::renderer::target::viewport_size(
+				sys.renderer().onscreen_target()
+			).content()
+		)
 			continue;
 
 		// This moves the camera around
@@ -754,37 +724,73 @@ try
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				frame_timer));
 
-		sys.renderer().onscreen_target().clear(
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target());
+
+		scoped_block.get().light(
+			sge::renderer::light::index(
+				0u),
+			sge::renderer::light::object(
+				sge::renderer::diffuse_color(
+					sge::image::colors::white()),
+				sge::renderer::specular_color(
+					sge::image::colors::white()),
+				sge::renderer::ambient_color(
+					sge::image::colors::white()),
+				sge::renderer::light::point(
+					sge::renderer::light::position(
+						sge::parse::json::find_and_convert_member<sge::renderer::light::position::value_type>(
+							config,
+							sge::parse::json::path(FCPPT_TEXT("light")) / FCPPT_TEXT("position"))),
+					sge::renderer::light::attenuation(
+						sge::renderer::light::constant_attenuation(
+							sge::parse::json::find_and_convert_member<sge::renderer::light::constant_attenuation::value_type>(
+								config,
+								sge::parse::json::path(FCPPT_TEXT("light")) / FCPPT_TEXT("constant-attenuation"))),
+						sge::renderer::light::linear_attenuation(
+							sge::parse::json::find_and_convert_member<sge::renderer::light::linear_attenuation::value_type>(
+								config,
+								sge::parse::json::path(FCPPT_TEXT("light")) / FCPPT_TEXT("linear-attenuation"))),
+						sge::renderer::light::quadratic_attenuation(
+							sge::parse::json::find_and_convert_member<sge::renderer::light::quadratic_attenuation::value_type>(
+								config,
+								sge::parse::json::path(FCPPT_TEXT("light")) / FCPPT_TEXT("quadratic-attenuation")))))));
+
+		scoped_block.get().enable_light(
+			sge::renderer::light::index(
+				0u),
+			true);
+
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black())
 			.depth_buffer(
 				1.f));
 
-		sge::renderer::scoped_block const block(
-			sys.renderer());
-
-		sge::renderer::scoped_transform scoped_projection(
-			sys.renderer(),
+		sge::renderer::scoped_transform const scoped_projection(
+			scoped_block.get(),
 			sge::renderer::matrix_mode::projection,
 			camera.projection_matrix().get());
 
-		sge::renderer::scoped_transform scoped_world(
-			sys.renderer(),
+		sge::renderer::scoped_transform const scoped_world(
+			scoped_block.get(),
 			sge::renderer::matrix_mode::world,
 			sge::camera::matrix_conversion::world(
 				camera.coordinate_system()));
 
 		sge::renderer::texture::set_address_mode2(
-			sys.renderer(),
+			scoped_block.get(),
 			sge::renderer::texture::stage(0u),
 			sge::renderer::texture::address_mode2(
 				sge::renderer::texture::address_mode::clamp));
 
-		line_drawer.render();
+		line_drawer.render(
+			scoped_block.get());
 
 		sge::renderer::state::scoped const scoped_state(
-			sys.renderer(),
+			scoped_block.get(),
 			sge::renderer::state::list
 				(sge::renderer::state::bool_::enable_lighting =
 					sge::parse::json::find_and_convert_member<bool>(
@@ -802,7 +808,8 @@ try
 				(sge::renderer::state::bool_::enable_alpha_blending = false)
 				(sge::renderer::state::cull_mode::counter_clockwise));
 
-		compiled.render();
+		compiled.render(
+			scoped_block.get());
 	}
 
 	return

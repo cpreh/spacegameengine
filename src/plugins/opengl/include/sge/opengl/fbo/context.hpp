@@ -24,9 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
+#include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/fbo/id.hpp>
+#include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -38,7 +41,7 @@ namespace fbo
 
 class context
 :
-	public opengl::context::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		context
@@ -104,7 +107,7 @@ public:
 	GLenum
 	framebuffer_target() const;
 
-	GLenum
+	sge::opengl::fbo::attachment_type const
 	color_attachment() const;
 
 	GLenum
@@ -113,10 +116,10 @@ public:
 	GLenum
 	renderbuffer_target() const;
 
-	GLenum
+	sge::opengl::fbo::attachment_type const
 	depth_attachment() const;
 
-	GLenum
+	sge::opengl::fbo::optional_attachment_type const
 	depth_stencil_attachment() const;
 
 	sge::opengl::fbo::id const
@@ -155,11 +158,15 @@ private:
 
 	gl_framebuffer_renderbuffer const framebuffer_renderbuffer_;
 
+	GLenum const framebuffer_target_;
+
+	sge::opengl::fbo::optional_attachment_type const color_attachment_;
+
 	GLenum const
-		framebuffer_target_,
-		color_attachment_,
 		framebuffer_complete_,
-		renderbuffer_target_,
+		renderbuffer_target_;
+
+	sge::opengl::fbo::optional_attachment_type const
 		depth_attachment_,
 		depth_stencil_attachment_;
 

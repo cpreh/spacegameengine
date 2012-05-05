@@ -18,30 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/fbo/attach_render_buffer.hpp>
-#include <sge/opengl/fbo/attachment_type.hpp>
-#include <sge/opengl/fbo/context.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/texture/no_id.hpp>
 
 
-void
-sge::opengl::fbo::attach_render_buffer(
-	sge::opengl::fbo::context const &_context,
-	sge::opengl::fbo::attachment_type const _what,
-	GLuint const _buffer
-)
-{
-	_context.framebuffer_renderbuffer()(
-		_context.framebuffer_target(),
-		_what.get(),
-		_context.renderbuffer_target(),
-		_buffer
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Attaching a render buffer to a frame buffer failed!"),
-		sge::renderer::exception
-	)
-}
+GLuint
+const
+sge::opengl::texture::no_id
+	= 0u;

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_RENDER_BUFFER_BINDING_HPP_INCLUDED
 #define SGE_OPENGL_FBO_RENDER_BUFFER_BINDING_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/fbo/attachment.hpp>
+#include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/fbo/render_buffer_binding_fwd.hpp>
 #include <sge/opengl/fbo/render_buffer_fwd.hpp>
@@ -38,23 +38,23 @@ namespace fbo
 
 class render_buffer_binding
 :
-	public fbo::attachment
+	public sge::opengl::fbo::attachment
 {
 	FCPPT_NONCOPYABLE(
 		render_buffer_binding
 	);
 public:
-	explicit render_buffer_binding(
-		fbo::context const &,
-		fbo::render_buffer const &,
-		GLenum
+	render_buffer_binding(
+		sge::opengl::fbo::context const &,
+		sge::opengl::fbo::render_buffer const &,
+		sge::opengl::fbo::attachment_type
 	);
 
 	~render_buffer_binding();
 private:
-	fbo::context const &context_;
+	sge::opengl::fbo::context const &context_;
 
-	GLenum const what_;
+	sge::opengl::fbo::attachment_type const what_;
 };
 
 }

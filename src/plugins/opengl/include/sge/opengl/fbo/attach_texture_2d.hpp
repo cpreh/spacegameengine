@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_ATTACH_TEXTURE_2D_HPP_INCLUDED
 #define SGE_OPENGL_FBO_ATTACH_TEXTURE_2D_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/type.hpp>
@@ -38,7 +38,7 @@ namespace fbo
 void
 attach_texture_2d(
 	sge::opengl::fbo::context const &,
-	GLenum attachment,
+	sge::opengl::fbo::attachment_type,
 	sge::opengl::texture::type,
 	sge::opengl::texture::id,
 	sge::renderer::texture::mipmap::level

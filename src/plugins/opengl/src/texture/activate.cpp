@@ -46,21 +46,6 @@ sge::opengl::texture::activate(
 		)
 	);
 
-	// TODO: Should we activate this code?
-#if 0
-	if(
-		dynamic_cast<
-			opengl::texture::base const *
-		>(
-			_texture
-		)
-		==
-		context.render_texture(
-			_stage
-		)
-	)
-		return;
-#endif
 	if(
 		!_texture
 	)

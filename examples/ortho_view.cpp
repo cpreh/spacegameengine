@@ -37,14 +37,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -303,27 +304,28 @@ try
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				camera_timer));
 
-		sys.renderer().onscreen_target().clear(
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target());
+
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black()));
 
-		sge::renderer::scoped_block const block(
-			sys.renderer());
-
-		sge::renderer::scoped_transform projection_transform(
-			sys.renderer(),
+		sge::renderer::scoped_transform const projection_transform(
+			scoped_block.get(),
 			sge::renderer::matrix_mode::projection,
 			camera.projection_matrix().get());
 
-		sge::renderer::scoped_transform world_transform(
-			sys.renderer(),
+		sge::renderer::scoped_transform const world_transform(
+			scoped_block.get(),
 			sge::renderer::matrix_mode::world,
 			sge::camera::matrix_conversion::world(
 				camera.coordinate_system()));
 
-		sge::renderer::state::scoped scoped_state(
-			sys.renderer(),
+		sge::renderer::state::scoped const scoped_state(
+			scoped_block.get(),
 			sge::sprite::render::states<
 				sprite_choices
 			>()
@@ -341,6 +343,7 @@ try
 		sge::sprite::process::one_with_options<
 			sprite_options
 		>(
+			scoped_block.get(),
 			background,
 			sprite_buffers
 		);
@@ -348,6 +351,7 @@ try
 		sge::sprite::process::one_with_options<
 			sprite_options
 		>(
+			scoped_block.get(),
 			tux,
 			sprite_buffers
 		);

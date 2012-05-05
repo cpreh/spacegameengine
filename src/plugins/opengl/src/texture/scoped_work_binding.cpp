@@ -22,12 +22,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/binding.hpp>
 #include <sge/opengl/texture/get_type_binding.hpp>
 #include <sge/opengl/texture/id.hpp>
+#include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/bind.hpp>
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/optional_impl.hpp>
 
+
+namespace
+{
+
+sge::renderer::texture::stage const temp_stage(
+	0u
+);
+
+}
 
 sge::opengl::texture::scoped_work_binding::scoped_work_binding(
 	sge::opengl::context::object &_context,
@@ -43,9 +54,7 @@ sge::opengl::texture::scoped_work_binding::scoped_work_binding(
 		sge::opengl::texture::get_type_binding(
 			context_,
 			_type,
-			sge::renderer::texture::stage(
-				0u
-			)
+			temp_stage
 		)
 	),
 	type_(
@@ -53,7 +62,9 @@ sge::opengl::texture::scoped_work_binding::scoped_work_binding(
 	)
 {
 	this->bind_id(
-		_id
+		sge::opengl::texture::optional_id(
+			_id
+		)
 	);
 }
 
@@ -66,14 +77,12 @@ sge::opengl::texture::scoped_work_binding::~scoped_work_binding()
 
 void
 sge::opengl::texture::scoped_work_binding::bind_id(
-	sge::opengl::texture::id const _id
+	sge::opengl::texture::optional_id const _id
 )
 {
 	sge::opengl::texture::funcs::set_active_level(
 		context_,
-		sge::renderer::texture::stage(
-			0u
-		)
+		temp_stage
 	);
 
 	sge::opengl::texture::funcs::bind(

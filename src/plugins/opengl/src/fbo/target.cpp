@@ -20,15 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/basic_target_impl.hpp>
 #include <sge/opengl/check_state.hpp>
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/fbo/attachment.hpp>
+#include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/attachment_unique_ptr.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface_ptr.hpp>
 #include <sge/opengl/fbo/no_buffer.hpp>
+#include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <sge/opengl/fbo/render_buffer_binding.hpp>
 #include <sge/opengl/fbo/target.hpp>
 #include <sge/opengl/fbo/temporary_bind.hpp>
@@ -169,8 +172,10 @@ sge::opengl::fbo::target::color_surface(
 			_index,
 			this->create_texture_binding(
 				texture_surface,
-				context_.color_attachment()
-				+ _index.get()
+				sge::opengl::fbo::attachment_type(
+					context_.color_attachment().get()
+					+ _index.get()
+				)
 			)
 		);
 	}
@@ -178,19 +183,18 @@ sge::opengl::fbo::target::color_surface(
 
 void
 sge::opengl::fbo::target::depth_stencil_surface(
-	renderer::depth_stencil_surface_shared_ptr const _surface
+	sge::renderer::depth_stencil_surface_shared_ptr const _surface
 )
 {
-	GLenum const attachment(
-		fbo::depth_stencil_format_to_attachment(
+	sge::opengl::fbo::optional_attachment_type const attachment(
+		sge::opengl::fbo::depth_stencil_format_to_attachment(
 			context_,
 			_surface->format()
 		)
 	);
 
 	if(
-		attachment
-		== 0
+		!attachment
 	)
 		throw sge::renderer::unsupported(
 			FCPPT_TEXT("depth_stencil_surface target attachment!"),
@@ -228,7 +232,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 		depth_stencil_attachment_.take(
 			this->create_buffer_binding(
 				ptr->render_buffer(),
-				attachment
+				*attachment
 			)
 		);
 
@@ -247,7 +251,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 		depth_stencil_attachment_.take(
 			this->create_texture_binding(
 				ptr,
-				attachment
+				*attachment
 			)
 		);
 
@@ -282,13 +286,13 @@ sge::opengl::fbo::target::height() const
 
 sge::opengl::fbo::attachment_unique_ptr
 sge::opengl::fbo::target::create_texture_binding(
-	opengl::texture::surface_base_ptr const _surface,
-	GLenum const _attachment
+	sge::opengl::texture::surface_base_ptr const _surface,
+	sge::opengl::fbo::attachment_type const _attachment
 )
 {
 	attachment_unique_ptr ret(
 		fcppt::make_unique_ptr<
-			opengl::fbo::texture_binding
+			sge::opengl::fbo::texture_binding
 		>(
 			fcppt::ref(
 				context_
@@ -308,8 +312,8 @@ sge::opengl::fbo::target::create_texture_binding(
 
 sge::opengl::fbo::attachment_unique_ptr
 sge::opengl::fbo::target::create_buffer_binding(
-	fbo::render_buffer const &_buffer,
-	GLenum const _attachment
+	sge::opengl::fbo::render_buffer const &_buffer,
+	sge::opengl::fbo::attachment_type const _attachment
 )
 {
 	attachment_unique_ptr ret(

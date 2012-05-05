@@ -19,20 +19,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/fbo/attach_render_buffer.hpp>
+#include <sge/opengl/fbo/attachment_type.hpp>
+#include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>
 #include <sge/opengl/fbo/render_buffer_binding.hpp>
 
 
 sge::opengl::fbo::render_buffer_binding::render_buffer_binding(
-	fbo::context const &_context,
-	fbo::render_buffer const &_render_buffer,
-	GLenum const _what
+	sge::opengl::fbo::context const &_context,
+	sge::opengl::fbo::render_buffer const &_render_buffer,
+	sge::opengl::fbo::attachment_type const _what
 )
 :
-	context_(_context),
-	what_(_what)
+	context_(
+		_context
+	),
+	what_(
+		_what
+	)
 {
-	opengl::fbo::attach_render_buffer(
+	sge::opengl::fbo::attach_render_buffer(
 		_context,
 		_what,
 		_render_buffer.id()
@@ -41,7 +47,7 @@ sge::opengl::fbo::render_buffer_binding::render_buffer_binding(
 
 sge::opengl::fbo::render_buffer_binding::~render_buffer_binding()
 {
-	opengl::fbo::attach_render_buffer(
+	sge::opengl::fbo::attach_render_buffer(
 		context_,
 		what_,
 		0

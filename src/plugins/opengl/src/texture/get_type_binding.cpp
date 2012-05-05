@@ -18,17 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/get_int.hpp>
-#include <sge/opengl/texture/get_type_binding.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/id.hpp>
+#include <sge/opengl/texture/get_binding.hpp>
+#include <sge/opengl/texture/get_type_binding.hpp>
+#include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/type_to_binding.hpp>
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
-sge::opengl::texture::id const
+sge::opengl::texture::optional_id const
 sge::opengl::texture::get_type_binding(
 	sge::opengl::context::object &_context,
 	sge::opengl::texture::type const _type,
@@ -41,16 +42,10 @@ sge::opengl::texture::get_type_binding(
 	);
 
 	return
-		sge::opengl::texture::id(
-			static_cast<
-				sge::opengl::texture::id::value_type
-			>(
-				sge::opengl::get_int(
-					sge::opengl::texture::type_to_binding(
-						_context,
-						_type
-					).get()
-				)
+		sge::opengl::texture::get_binding(
+			sge::opengl::texture::type_to_binding(
+				_context,
+				_type
 			)
 		);
 }

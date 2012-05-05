@@ -21,20 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/id.hpp>
 #include <sge/opengl/fbo/no_buffer.hpp>
+#include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <fcppt/null_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 
 
 sge::opengl::fbo::context::context()
 :
 	has_native_(
-		glew::is_supported("GL_VERSION_3_0")
+		sge::opengl::glew::is_supported(
+			"GL_VERSION_3_0"
+		)
 	),
 	has_ext_(
-		glew::is_supported("GL_EXT_framebuffer_object")
+		sge::opengl::glew::is_supported(
+			"GL_EXT_framebuffer_object"
+		)
 	),
 	gen_framebuffers_(
 		has_native_
@@ -162,19 +170,27 @@ sge::opengl::fbo::context::context()
 		)
 	),
 	color_attachment_(
-		static_cast<
-			GLenum
-		>(
-			has_native_
+		has_native_
+		?
+			sge::opengl::fbo::optional_attachment_type(
+				fcppt::strong_typedef_construct_cast<
+					sge::opengl::fbo::attachment_type
+				>(
+					GL_COLOR_ATTACHMENT0
+				)
+			)
+		:
+			has_ext_
 			?
-				GL_COLOR_ATTACHMENT0
+				sge::opengl::fbo::optional_attachment_type(
+					fcppt::strong_typedef_construct_cast<
+						sge::opengl::fbo::attachment_type
+					>(
+						GL_COLOR_ATTACHMENT0_EXT
+					)
+				)
 			:
-				has_ext_
-				?
-					GL_COLOR_ATTACHMENT0_EXT
-				:
-					0
-		)
+				sge::opengl::fbo::optional_attachment_type()
 	),
 	framebuffer_complete_(
 		static_cast<
@@ -207,30 +223,40 @@ sge::opengl::fbo::context::context()
 		)
 	),
 	depth_attachment_(
-		static_cast<
-			GLenum
-		>(
-			has_native_
+		has_native_
+		?
+			sge::opengl::fbo::optional_attachment_type(
+				fcppt::strong_typedef_construct_cast<
+					sge::opengl::fbo::attachment_type
+				>(
+					GL_DEPTH_ATTACHMENT
+				)
+			)
+		:
+			has_ext_
 			?
-				GL_DEPTH_ATTACHMENT
+				sge::opengl::fbo::optional_attachment_type(
+					fcppt::strong_typedef_construct_cast<
+						sge::opengl::fbo::attachment_type
+					>(
+						GL_DEPTH_ATTACHMENT_EXT
+					)
+				)
 			:
-				has_ext_
-				?
-					GL_DEPTH_ATTACHMENT_EXT
-				:
-					0
-		)
+				sge::opengl::fbo::optional_attachment_type()
 	),
 	depth_stencil_attachment_(
-		static_cast<
-			GLenum
-		>(
-			has_native_
-			?
-				GL_DEPTH_STENCIL_ATTACHMENT
-			:
-				0
-		)
+		has_native_
+		?
+			sge::opengl::fbo::optional_attachment_type(
+				fcppt::strong_typedef_construct_cast<
+					sge::opengl::fbo::attachment_type
+				>(
+					GL_DEPTH_STENCIL_ATTACHMENT
+				)
+			)
+		:
+			sge::opengl::fbo::optional_attachment_type()
 	),
 	last_buffer_(
 		sge::opengl::fbo::no_buffer()
@@ -316,10 +342,10 @@ sge::opengl::fbo::context::framebuffer_target() const
 	return framebuffer_target_;
 }
 
-GLenum
+sge::opengl::fbo::attachment_type const
 sge::opengl::fbo::context::color_attachment() const
 {
-	return color_attachment_;
+	return *color_attachment_;
 }
 
 GLenum
@@ -334,13 +360,13 @@ sge::opengl::fbo::context::renderbuffer_target() const
 	return renderbuffer_target_;
 }
 
-GLenum
+sge::opengl::fbo::attachment_type const
 sge::opengl::fbo::context::depth_attachment() const
 {
-	return depth_attachment_;
+	return *depth_attachment_;
 }
 
-GLenum
+sge::opengl::fbo::optional_attachment_type const
 sge::opengl::fbo::context::depth_stencil_attachment() const
 {
 	return depth_stencil_attachment_;

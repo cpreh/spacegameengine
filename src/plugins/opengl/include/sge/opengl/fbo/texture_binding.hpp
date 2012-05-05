@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_TEXTURE_BINDING_HPP_INCLUDED
 #define SGE_OPENGL_FBO_TEXTURE_BINDING_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/fbo/attachment.hpp>
+#include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/fbo/texture_binding_fwd.hpp>
 #include <sge/opengl/texture/surface_base_ptr.hpp>
@@ -44,19 +44,19 @@ class texture_binding
 		texture_binding
 	);
 public:
-	explicit texture_binding(
-		fbo::context const &,
-		opengl::texture::surface_base_ptr,
-		GLenum attachment
+	texture_binding(
+		sge::opengl::fbo::context const &,
+		sge::opengl::texture::surface_base_ptr,
+		sge::opengl::fbo::attachment_type
 	);
 
 	~texture_binding();
 private:
-	fbo::context const &context_;
+	sge::opengl::fbo::context const &context_;
 
-	opengl::texture::surface_base_ptr const surface_;
+	sge::opengl::texture::surface_base_ptr const surface_;
 
-	GLenum const attachment_;
+	sge::opengl::fbo::attachment_type const attachment_;
 };
 
 }

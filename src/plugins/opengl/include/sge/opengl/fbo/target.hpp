@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 
 #include <sge/opengl/basic_target.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/fbo/attachment_fwd.hpp>
 #include <sge/opengl/fbo/attachment_unique_ptr.hpp>
+#include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/fbo/object.hpp>
 #include <sge/opengl/fbo/render_buffer_fwd.hpp>
@@ -103,13 +103,13 @@ private:
 	sge::opengl::fbo::attachment_unique_ptr
 	create_texture_binding(
 		sge::opengl::texture::surface_base_ptr,
-		GLenum attachment
+		sge::opengl::fbo::attachment_type
 	);
 
 	sge::opengl::fbo::attachment_unique_ptr
 	create_buffer_binding(
 		sge::opengl::fbo::render_buffer const &,
-		GLenum attachment
+		sge::opengl::fbo::attachment_type
 	);
 
 	void
