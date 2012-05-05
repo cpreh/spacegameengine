@@ -197,7 +197,7 @@ public:
 	sge::renderer::cg::loaded_texture_unique_ptr
 	load_cg_texture(
 		sge::cg::parameter::object const &,
-		sge::renderer::texture::base const &
+		sge::renderer::texture::base &
 	);
 #endif
 

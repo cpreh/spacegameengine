@@ -59,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
+#include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #endif
 
 
@@ -589,6 +590,18 @@ public:
 	void
 	unset_cg_program(
 		sge::renderer::cg::loaded_program const &
+	) = 0;
+
+	virtual
+	void
+	set_cg_texture(
+		sge::renderer::cg::loaded_texture const &
+	) = 0;
+
+	virtual
+	void
+	unset_cg_texture(
+		sge::renderer::cg::loaded_texture const &
 	) = 0;
 #endif
 };

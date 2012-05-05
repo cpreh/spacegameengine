@@ -78,7 +78,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/opengl/cg/program/activate.hpp>
 #include <sge/opengl/cg/program/deactivate.hpp>
+#include <sge/opengl/cg/texture/enable.hpp>
+#include <sge/opengl/cg/texture/disable.hpp>
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
+#include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #endif
 
 
@@ -443,6 +446,26 @@ sge::opengl::render_context::object::unset_cg_program(
 {
 	sge::opengl::cg::program::deactivate(
 		_program
+	);
+}
+
+void
+sge::opengl::render_context::object::set_cg_texture(
+	sge::renderer::cg::loaded_texture const &_texture
+)
+{
+	sge::opengl::cg::texture::enable(
+		_texture
+	);
+}
+
+void
+sge::opengl::render_context::object::unset_cg_texture(
+	sge::renderer::cg::loaded_texture const &_texture
+)
+{
+	sge::opengl::cg::texture::disable(
+		_texture
 	);
 }
 #endif

@@ -102,6 +102,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/cg/profile/create.hpp>
 #include <sge/opengl/cg/program/load.hpp>
 #include <sge/opengl/cg/program/optimal_options.hpp>
+#include <sge/opengl/cg/texture/load.hpp>
 #include <sge/renderer/cg/loaded_program.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
@@ -462,11 +463,14 @@ sge::opengl::device::load_cg_program(
 sge::renderer::cg::loaded_texture_unique_ptr
 sge::opengl::device::load_cg_texture(
 	sge::cg::parameter::object const &_parameter,
-	sge::renderer::texture::base const &_texture
+	sge::renderer::texture::base &_texture
 )
 {
 	return
-		sge::renderer::cg::loaded_texture_unique_ptr();
+		sge::opengl::cg::texture::load(
+			_parameter,
+			_texture
+		);
 }
 #endif
 
