@@ -33,42 +33,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::filter::normal(
-	opengl::context::object &_context,
-	texture::binding const &_binding,
-	texture::type const _type,
-	renderer::texture::filter::normal::object const &_filter
+	sge::opengl::context::object &_context,
+	sge::opengl::texture::binding const &_binding,
+	sge::opengl::texture::type const _type,
+	sge::renderer::texture::filter::normal::object const &_filter
 )
 {
-	funcs::parameter_int(
+	sge::opengl::texture::funcs::parameter_int(
 		_binding,
 		_type,
 		GL_TEXTURE_MAG_FILTER,
 		static_cast<
 			GLint
 		>(
-			texture::convert::mag_filter(
+			sge::opengl::texture::convert::mag_filter(
 				_filter.mag()
 			)
 		)
 	);
 
-	funcs::parameter_int(
+	sge::opengl::texture::funcs::parameter_int(
 		_binding,
 		_type,
 		GL_TEXTURE_MIN_FILTER,
 		static_cast<
 			GLint
 		>(
-			texture::convert::min_filter(
+			sge::opengl::texture::convert::min_filter(
 				_filter.min(),
 				_filter.mip()
 			)
 		)
 	);
 
-	texture::context const &texture_context(
-		opengl::context::use<
-			texture::context
+	sge::opengl::texture::context const &texture_context(
+		sge::opengl::context::use<
+			sge::opengl::texture::context
 		>(
 			_context
 		)
@@ -77,7 +77,7 @@ sge::opengl::texture::filter::normal(
 	if(
 		texture_context.anisotropic_filter_supported()
 	)
-		funcs::parameter_int(
+		sge::opengl::texture::funcs::parameter_int(
 			_binding,
 			_type,
 			texture_context.anisotropy_flag(),

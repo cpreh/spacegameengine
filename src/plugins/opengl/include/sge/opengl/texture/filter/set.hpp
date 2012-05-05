@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_FILTER_SET_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/base_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
 
@@ -38,10 +38,10 @@ namespace filter
 
 void
 set(
-	opengl::context::object &,
-	opengl::texture::binding const &,
-	opengl::texture::base const &,
-	renderer::texture::stage
+	sge::opengl::context::object &,
+	sge::opengl::texture::binding const &,
+	sge::opengl::texture::type,
+	sge::renderer::texture::stage
 );
 
 }

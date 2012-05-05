@@ -35,7 +35,7 @@ namespace convert
 
 GLenum
 address_mode(
-	renderer::texture::address_mode::type
+	sge::renderer::texture::address_mode::type
 );
 
 }

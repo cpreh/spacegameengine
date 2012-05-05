@@ -18,21 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_BIND_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_BIND_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_TYPE_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_TYPE_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/base_fwd.hpp>
-#include <sge/opengl/texture/bind_context_fwd.hpp>
-#include <sge/opengl/texture/optional_type.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/opengl/texture/cube_context_fwd.hpp>
+#include <sge/opengl/texture/volume_context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
-#include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <boost/bimap.hpp>
+#include <boost/fusion/container/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -43,51 +39,37 @@ namespace opengl
 namespace texture
 {
 
-class bind_context
+class type_context
 :
 	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
-		bind_context
+		type_context
 	);
 public:
-	bind_context();
+	typedef boost::fusion::vector2<
+		sge::opengl::texture::cube_context const *,
+		sge::opengl::texture::volume_context const *
+	> needs_before;
 
-	~bind_context();
-
-	void
-	bind_for_rendering(
-		sge::opengl::context::object &,
-		sge::opengl::texture::base const &,
-		sge::renderer::texture::stage
+	explicit
+	type_context(
+		sge::opengl::texture::type_context::needs_before const &
 	);
 
-	void
-	unbind_for_rendering(
-		sge::opengl::context::object &,
-		sge::renderer::texture::stage
-	);
+	~type_context();
 
-	sge::opengl::texture::base const *
-	render_texture(
-		sge::renderer::texture::stage
-	);
+	typedef boost::bimap<
+		sge::opengl::texture::type,
+		sge::opengl::texture::bind_type
+	> type_map;
 
-	typedef void needs_before;
+	type_map const &
+	types() const;
 
 	static sge::opengl::context::id const static_id;
 private:
-	typedef fcppt::container::index_map<
-		sge::opengl::texture::base const *
-	> texture_vector;
-
-	typedef fcppt::container::index_map<
-		sge::opengl::texture::optional_type
-	> texture_type_vector;
-
-	texture_vector render_textures_;
-
-	texture_type_vector last_types_;
+	type_map const types_;
 };
 
 }

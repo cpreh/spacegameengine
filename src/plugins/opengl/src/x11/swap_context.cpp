@@ -18,22 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glx/proc_address.hpp>
 #include <sge/opengl/x11/swap_context.hpp>
 #include <fcppt/null_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/fusion/include/at_c.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::x11::swap_context::swap_context(
-	opengl::glx::proc_context const &_context
+	sge::opengl::x11::swap_context::needs_before const &_parameters
 )
 :
 	swap_interval_sgi_(
 		reinterpret_cast<
 			glx_swap_interval_sgi
 		>(
-			glx::proc_address(
-				_context,
+			sge::opengl::glx::proc_address(
+				*boost::fusion::at_c<
+					0
+				>(
+					_parameters
+				),
 				"glXSwapIntervalSGI"
 			)
 		)
@@ -42,8 +50,12 @@ sge::opengl::x11::swap_context::swap_context(
 		reinterpret_cast<
 			glx_swap_interval_ext
 		>(
-			glx::proc_address(
-				_context,
+			sge::opengl::glx::proc_address(
+				*boost::fusion::at_c<
+					0
+				>(
+					_parameters
+				),
 				"glXSwapIntervalEXT"
 			)
 		)

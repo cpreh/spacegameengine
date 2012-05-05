@@ -18,76 +18,101 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/disable.hpp>
+#include <sge/opengl/enable.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/activate.hpp>
 #include <sge/opengl/texture/base.hpp>
-#include <sge/opengl/texture/bind_context.hpp>
+#include <sge/opengl/texture/bind_level.hpp>
+#include <sge/opengl/texture/get_stage_type.hpp>
+#include <sge/opengl/texture/optional_id.hpp>
+#include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
 #include <sge/opengl/texture/address_mode/set.hpp>
 #include <sge/opengl/texture/filter/set.hpp>
+#include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 void
 sge::opengl::texture::activate(
-	opengl::context::object &_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::texture::const_optional_base_ref const &_texture,
 	sge::renderer::texture::stage const _stage
 )
 {
-	opengl::texture::bind_context &context(
-		context::use<
-			opengl::texture::bind_context
-		>(
-			_context
-		)
+	sge::opengl::texture::funcs::set_active_level(
+		_context,
+		_stage
 	);
 
 	if(
 		!_texture
 	)
 	{
-		context.unbind_for_rendering(
-			_context,
-			_stage
+		sge::opengl::texture::optional_type const old_type(
+			sge::opengl::texture::get_stage_type(
+				_context,
+				_stage
+			)
 		);
 
+		if(
+			old_type
+		)
+		{
+			sge::opengl::disable(
+				old_type->get()
+			);
+
+			sge::opengl::texture::bind_level(
+				_context,
+				_stage,
+				*old_type,
+				sge::opengl::texture::optional_id()
+			);
+
+		}
 		return;
 	}
 
-	opengl::texture::base const &texture_base(
+	sge::opengl::texture::base const &base(
 		dynamic_cast<
-			opengl::texture::base const &
+			sge::opengl::texture::base const &
 		>(
 			*_texture
 		)
 	);
 
-	context.bind_for_rendering(
-		_context,
-		texture_base,
-		_stage
+	sge::opengl::enable(
+		base.type().get()
 	);
 
-	opengl::texture::render_binding const binding(
+	sge::opengl::texture::bind_level(
 		_context,
-		_stage
+		_stage,
+		base.type(),
+		sge::opengl::texture::optional_id(
+			base.id()
+		)
 	);
+
+	sge::opengl::texture::render_binding const binding;
 
 	sge::opengl::texture::filter::set(
 		_context,
 		binding,
-		texture_base,
+		base.type(),
 		_stage
 	);
 
 	sge::opengl::texture::address_mode::set(
 		_context,
 		binding,
-		texture_base,
+		base.type(),
 		_stage
 	);
 }

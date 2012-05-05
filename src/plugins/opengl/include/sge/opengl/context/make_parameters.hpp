@@ -18,34 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/no_id.hpp>
-#include <sge/opengl/texture/optional_id.hpp>
-#include <sge/opengl/texture/type.hpp>
-#include <sge/opengl/texture/funcs/bind.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_CONTEXT_MAKE_PARAMETERS_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_MAKE_PARAMETERS_HPP_INCLUDED
+
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
-void
-sge::opengl::texture::funcs::bind(
-	sge::opengl::texture::type const _type,
-	sge::opengl::texture::optional_id const &_value
-)
+namespace sge
 {
-	::glBindTexture(
-		_type.get(),
-		_value
-		?
-			_value->get()
-		:
-			sge::opengl::texture::no_id
-	);
+namespace opengl
+{
+namespace context
+{
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glBindTexture failed"),
-		sge::renderer::exception
+class make_parameters
+{
+	FCPPT_NONASSIGNABLE(
+		make_parameters
+	);
+public:
+	explicit
+	make_parameters(
+		sge::opengl::context::object &_context
 	)
+	:
+		context_(
+			_context
+		)
+	{
+	}
+
+	template<
+		typename Type
+	>
+	void
+	operator()(
+		Type const *&_value
+	) const
+	{
+		_value
+		=
+			&sge::opengl::context::use<
+				Type
+			>(
+				context_
+			);
+
+	}
+private:
+	sge::opengl::context::object &context_;
+};
+
 }
+}
+}
+
+#endif

@@ -37,8 +37,8 @@ namespace funcs
 
 void
 parameter_int(
-	texture::binding const &,
-	texture::type,
+	sge::opengl::texture::binding const &,
+	sge::opengl::texture::type,
 	GLenum name,
 	GLint value
 );

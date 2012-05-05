@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_BIND_LEVEL_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/id.hpp>
+#include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
@@ -39,7 +39,7 @@ bind_level(
 	sge::opengl::context::object &,
 	sge::renderer::texture::stage,
 	sge::opengl::texture::type,
-	sge::opengl::texture::id
+	sge::opengl::texture::optional_id const &
 );
 
 }

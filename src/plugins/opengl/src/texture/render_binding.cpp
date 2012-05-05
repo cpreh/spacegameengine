@@ -18,31 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/context/use.hpp>
-#include <sge/opengl/texture/bind_context.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
-#include <sge/renderer/texture/stage.hpp>
-#include <fcppt/null_ptr.hpp>
-#include <fcppt/assert/pre.hpp>
 
 
-sge::opengl::texture::render_binding::render_binding(
-	sge::opengl::context::object &_context,
-	sge::renderer::texture::stage const &_stage
-)
+sge::opengl::texture::render_binding::render_binding()
 {
-	FCPPT_ASSERT_PRE(
-		sge::opengl::context::use<
-			sge::opengl::texture::bind_context
-		>(
-			_context
-		).render_texture(
-			_stage
-		)
-		!=
-		fcppt::null_ptr()
-	);
 }
 
 sge::opengl::texture::render_binding::~render_binding()

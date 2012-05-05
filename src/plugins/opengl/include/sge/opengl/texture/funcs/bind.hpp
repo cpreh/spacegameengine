@@ -37,7 +37,7 @@ namespace funcs
 void
 bind(
 	sge::opengl::texture::type,
-	sge::opengl::texture::optional_id
+	sge::opengl::texture::optional_id const &
 );
 
 }

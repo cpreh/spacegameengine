@@ -18,34 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/no_id.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/texture/bind_level.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/bind.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/texture/funcs/set_active_level.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 void
-sge::opengl::texture::funcs::bind(
+sge::opengl::texture::bind_level(
+	sge::opengl::context::object &_context,
+	sge::renderer::texture::stage const _stage,
 	sge::opengl::texture::type const _type,
-	sge::opengl::texture::optional_id const &_value
+	sge::opengl::texture::optional_id const &_id
 )
 {
-	::glBindTexture(
-		_type.get(),
-		_value
-		?
-			_value->get()
-		:
-			sge::opengl::texture::no_id
+	sge::opengl::texture::funcs::set_active_level(
+		_context,
+		_stage
 	);
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glBindTexture failed"),
-		sge::renderer::exception
-	)
+	sge::opengl::texture::funcs::bind(
+		_type,
+		_id
+	);
 }

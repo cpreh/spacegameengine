@@ -47,21 +47,26 @@ protected:
 	SGE_RENDERER_SYMBOL
 	base();
 public:
-	typedef renderer::size_type size_type;
+	typedef sge::renderer::size_type size_type;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~base() = 0;
+	virtual
+	~base() = 0;
 
-	virtual size_type
+	virtual
+	size_type
 	content() const = 0;
 
-	virtual renderer::resource_flags_field const
+	virtual
+	sge::renderer::resource_flags_field const
 	resource_flags() const = 0;
 
-	virtual renderer::texture::capabilities_field const
+	virtual
+	sge::renderer::texture::capabilities_field const
 	capabilities() const = 0;
 
-	virtual renderer::texture::mipmap::object const
+	virtual
+	sge::renderer::texture::mipmap::object const
 	mipmap() const = 0;
 };
 

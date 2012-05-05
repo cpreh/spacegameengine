@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONTEXT_MAKE_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/context/base_unique_ptr.hpp>
+#include <sge/opengl/context/make_parameters.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/context/use_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/fusion/include/for_each.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -47,10 +47,10 @@ typename boost::enable_if<
 		typename Type::needs_before,
 		void
 	>,
-	base_unique_ptr
+	sge::opengl::context::base_unique_ptr
 >::type
 make_object(
-	object &
+	sge::opengl::context::object &
 )
 {
 	return
@@ -69,24 +69,29 @@ typename boost::disable_if<
 		typename Type::needs_before,
 		void
 	>,
-	base_unique_ptr
+	sge::opengl::context::base_unique_ptr
 >::type
 make_object(
-	object &_object
+	sge::opengl::context::object &_object
 )
 {
+	typedef typename Type::needs_before param_type;
+
+	param_type params;
+
+	boost::fusion::for_each(
+		params,
+		sge::opengl::context::make_parameters(
+			_object
+		)
+	);
+
 	return
 		base_unique_ptr(
 			fcppt::make_unique_ptr<
 				Type
 			>(
-				fcppt::ref(
-					context::use<
-						typename Type::needs_before
-					>(
-						_object
-					)
-				)
+				params
 			)
 		);
 }

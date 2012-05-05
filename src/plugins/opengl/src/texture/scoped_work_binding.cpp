@@ -19,14 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/texture/bind_level.hpp>
 #include <sge/opengl/texture/binding.hpp>
 #include <sge/opengl/texture/get_type_binding.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/opengl/texture/funcs/bind.hpp>
-#include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/optional_impl.hpp>
 
@@ -80,12 +79,9 @@ sge::opengl::texture::scoped_work_binding::bind_id(
 	sge::opengl::texture::optional_id const _id
 )
 {
-	sge::opengl::texture::funcs::set_active_level(
+	sge::opengl::texture::bind_level(
 		context_,
-		temp_stage
-	);
-
-	sge::opengl::texture::funcs::bind(
+		temp_stage,
 		type_,
 		_id
 	);

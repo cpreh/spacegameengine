@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_GET_STAGE_BINDING_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_GET_STAGE_BINDING_HPP_INCLUDED
-
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/optional_id.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#ifndef SGE_OPENGL_TEXTURE_VOLUME_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_VOLUME_CONTEXT_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -33,11 +29,7 @@ namespace opengl
 namespace texture
 {
 
-sge::opengl::texture::optional_id const
-get_stage_binding(
-	sge::opengl::context::object &,
-	sge::renderer::texture::stage
-);
+class volume_context;
 
 }
 }

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/address_mode/context.hpp>
@@ -29,10 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/convert/address_mode.hpp>
 #include <sge/opengl/texture/convert/address_mode_type.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/address_mode_s.hpp>
 #include <sge/renderer/texture/address_mode_t.hpp>
 #include <sge/renderer/texture/address_mode_u.hpp>
-#include <sge/renderer/texture/stage.hpp>
 
 
 namespace
@@ -40,27 +39,15 @@ namespace
 
 template<
 	typename Mode,
-	typename ContextFun,
-	typename TexFun
+	typename ContextFun
 >
 void
 update_one(
 	sge::opengl::texture::address_mode::context &,
 	sge::opengl::texture::binding const &,
-	sge::opengl::texture::base const &,
-	sge::renderer::texture::stage,
-	ContextFun const &,
-	TexFun const &
-);
-
-template<
-	typename Mode
->
-void
-set_impl(
-	sge::opengl::texture::binding const &,
 	sge::opengl::texture::type,
-	Mode const &
+	sge::renderer::texture::stage,
+	ContextFun const &
 );
 
 }
@@ -69,7 +56,7 @@ void
 sge::opengl::texture::address_mode::set(
 	sge::opengl::context::object &_context,
 	sge::opengl::texture::binding const &_binding,
-	sge::opengl::texture::base const &_texture_base,
+	sge::opengl::texture::type const _type,
 	sge::renderer::texture::stage const _stage
 )
 {
@@ -86,10 +73,9 @@ sge::opengl::texture::address_mode::set(
 	>(
 		context,
 		_binding,
-		_texture_base,
+		_type,
 		_stage,
-		&sge::opengl::texture::address_mode::context::get_s,
-		&sge::opengl::texture::base::update_address_mode_s
+		&sge::opengl::texture::address_mode::context::get_s
 	);
 
 	update_one<
@@ -97,10 +83,9 @@ sge::opengl::texture::address_mode::set(
 	>(
 		context,
 		_binding,
-		_texture_base,
+		_type,
 		_stage,
-		&sge::opengl::texture::address_mode::context::get_t,
-		&sge::opengl::texture::base::update_address_mode_t
+		&sge::opengl::texture::address_mode::context::get_t
 	);
 
 	update_one<
@@ -108,10 +93,9 @@ sge::opengl::texture::address_mode::set(
 	>(
 		context,
 		_binding,
-		_texture_base,
+		_type,
 		_stage,
-		&sge::opengl::texture::address_mode::context::get_u,
-		&sge::opengl::texture::base::update_address_mode_u
+		&sge::opengl::texture::address_mode::context::get_u
 	);
 }
 
@@ -120,49 +104,15 @@ namespace
 
 template<
 	typename Mode,
-	typename ContextFun,
-	typename TexFun
+	typename ContextFun
 >
 void
 update_one(
 	sge::opengl::texture::address_mode::context &_context,
 	sge::opengl::texture::binding const &_binding,
-	sge::opengl::texture::base const &_texture_base,
-	sge::renderer::texture::stage const _stage,
-	ContextFun const &_context_fun,
-	TexFun const &_tex_fun
-)
-{
-	Mode const new_value(
-		(
-			_context.*_context_fun
-		)(
-			_stage
-		)
-	);
-
-	if(
-		(
-			_texture_base.*_tex_fun
-		)(
-			new_value
-		)
-	)
-		set_impl(
-			_binding,
-			_texture_base.type(),
-			new_value
-		);
-}
-
-template<
-	typename Mode
->
-void
-set_impl(
-	sge::opengl::texture::binding const &_binding,
 	sge::opengl::texture::type const _type,
-	Mode const &_mode
+	sge::renderer::texture::stage const _stage,
+	ContextFun const &_context_fun
 )
 {
 	sge::opengl::texture::funcs::parameter_int(
@@ -175,7 +125,11 @@ set_impl(
 			GLint
 		>(
 			sge::opengl::texture::convert::address_mode(
-				_mode.get()
+				(
+					_context.*_context_fun
+				)(
+					_stage
+				).get()
 			)
 		)
 	);

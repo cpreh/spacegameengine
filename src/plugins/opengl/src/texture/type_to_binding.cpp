@@ -18,15 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/bind_type.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
 #include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/type_context.hpp>
 #include <sge/opengl/texture/type_to_binding.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
-#include <sge/opengl/texture/convert/make_bind_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
@@ -36,61 +35,24 @@ sge::opengl::texture::type_to_binding(
 	sge::opengl::texture::type const _type
 )
 {
-	if(
-		_type.get() == GL_TEXTURE_1D
-	)
-		return
-			sge::opengl::texture::convert::make_bind_type(
-				GL_TEXTURE_BINDING_1D
-			);
+	sge::opengl::texture::type_context::type_map const &map(
+		sge::opengl::context::use<
+			sge::opengl::texture::type_context
+		>(
+			_context
+		).types()
+	);
 
-	if(
-		_type.get() == GL_TEXTURE_2D
-	)
-		return
-			sge::opengl::texture::convert::make_bind_type(
-				GL_TEXTURE_BINDING_2D
-			);
-
-	{
-		sge::opengl::texture::cube_context const &cube_ctx(
-			sge::opengl::context::use<
-				sge::opengl::texture::cube_context
-			>(
-				_context
-			)
-		);
-
-		if(
-			cube_ctx.have_cube_texture()
-			&&
+	sge::opengl::texture::type_context::type_map::left_const_iterator const it(
+		map.left.find(
 			_type
-			==
-			cube_ctx.cube_texture_type()
 		)
-			return
-				cube_ctx.cube_texture_bind_type();
-	}
+	);
 
-	{
-		sge::opengl::texture::volume_context const &volume_ctx(
-			sge::opengl::context::use<
-				sge::opengl::texture::volume_context
-			>(
-				_context
-			)
-		);
-
-		if(
-			volume_ctx.have_volume_texture()
-			&&
-			_type
-			==
-			volume_ctx.volume_texture_type()
-		)
-			return
-				volume_ctx.volume_texture_bind_type();
-	}
+	if(
+		it != map.left.end()
+	)
+		return it->second;
 
 	FCPPT_ASSERT_UNREACHABLE;
 }

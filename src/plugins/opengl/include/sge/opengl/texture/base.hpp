@@ -21,17 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASE_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/base_fwd.hpp>
 #include <sge/opengl/texture/holder.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
-#include <sge/renderer/texture/address_mode_s.hpp>
-#include <sge/renderer/texture/address_mode_t.hpp>
-#include <sge/renderer/texture/address_mode_u.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -56,51 +50,17 @@ public:
 	sge::opengl::texture::id const
 	id() const;
 
-	bool
-	update_filter(
-		sge::renderer::texture::filter::object const &
-	) const;
-
-	bool
-	has_mipmap() const;
-
-	bool
-	update_address_mode_s(
-		sge::renderer::texture::address_mode_s
-	) const;
-
-	bool
-	update_address_mode_t(
-		sge::renderer::texture::address_mode_t
-	) const;
-
 	virtual
-	bool
-	update_address_mode_u(
-		sge::renderer::texture::address_mode_u
-	) const;
-
-	virtual ~base();
+	~base() = 0;
 protected:
 	explicit
 	base(
 		sge::opengl::texture::type
 	);
 private:
-	virtual
-	sge::renderer::texture::mipmap::object const
-	mipmap() const = 0;
-
 	sge::opengl::texture::type const type_;
 
 	sge::opengl::texture::holder const holder_;
-
-	// These are mutable because renderer::device::texture passes in a const texture
-	mutable sge::renderer::texture::filter::object filter_;
-
-	mutable sge::renderer::texture::address_mode_s address_mode_s_;
-
-	mutable sge::renderer::texture::address_mode_t address_mode_t_;
 };
 
 }

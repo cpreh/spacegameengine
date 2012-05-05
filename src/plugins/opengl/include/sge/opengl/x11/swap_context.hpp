@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/proc_context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/fusion/container/vector/vector10.hpp>
 #include <X11/Xlib.h>
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
@@ -40,15 +41,19 @@ namespace x11
 
 class swap_context
 :
-	public opengl::context::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		swap_context
 	);
 public:
+	typedef boost::fusion::vector1<
+		sge::opengl::glx::proc_context const *
+	> needs_before;
+
 	explicit
 	swap_context(
-		opengl::glx::proc_context const &
+		sge::opengl::x11::swap_context::needs_before const &
 	);
 
 	~swap_context();
@@ -76,9 +81,7 @@ public:
 	glx_swap_interval_ext
 	swap_interval_ext() const;
 
-	typedef opengl::glx::proc_context needs_before;
-
-	static opengl::context::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	glx_swap_interval_sgi swap_interval_sgi_;
 

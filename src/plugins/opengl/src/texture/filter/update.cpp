@@ -20,13 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/texture/bind_context.hpp>
+#include <sge/opengl/texture/get_stage_type.hpp>
+#include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
 #include <sge/opengl/texture/filter/context.hpp>
 #include <sge/opengl/texture/filter/set.hpp>
 #include <sge/opengl/texture/filter/update.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 void
@@ -37,7 +39,7 @@ sge::opengl::texture::filter::update(
 )
 {
 	if(
-		!opengl::context::use<
+		!sge::opengl::context::use<
 			opengl::texture::filter::context
 		>(
 			_context
@@ -48,30 +50,24 @@ sge::opengl::texture::filter::update(
 	)
 		return;
 
-	opengl::texture::base const *const bound_texture(
-		opengl::context::use<
-			opengl::texture::bind_context
-		>(
-			_context
-		).render_texture(
+	sge::opengl::texture::optional_type const bound_type(
+		sge::opengl::texture::get_stage_type(
+			_context,
 			_stage
 		)
 	);
 
 	if(
-		!bound_texture
+		!bound_type
 	)
 		return;
 
-	opengl::texture::render_binding const already_bound(
-		_context,
-		_stage
-	);
+	sge::opengl::texture::render_binding const already_bound;
 
-	opengl::texture::filter::set(
+	sge::opengl::texture::filter::set(
 		_context,
 		already_bound,
-		*bound_texture,
+		*bound_type,
 		_stage
 	);
 }

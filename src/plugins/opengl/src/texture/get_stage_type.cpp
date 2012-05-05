@@ -18,40 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/object.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/texture/basic_impl.hpp>
-#include <sge/opengl/texture/volume.hpp>
+#include <sge/opengl/texture/cube_context.hpp>
+#include <sge/opengl/texture/get_binding.hpp>
+#include <sge/opengl/texture/get_stage_type.hpp>
+#include <sge/opengl/texture/optional_type.hpp>
+#include <sge/opengl/texture/type_context.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
-#include <sge/opengl/texture/volume_types.hpp>
-#include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/volume_parameters.hpp>
+#include <sge/opengl/texture/funcs/set_active_level.hpp>
+#include <sge/renderer/texture/stage.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
-template class
-sge::opengl::texture::basic<
-	sge::opengl::texture::volume_types
->;
-
-sge::opengl::texture::volume::volume(
+sge::opengl::texture::optional_type const
+sge::opengl::texture::get_stage_type(
 	sge::opengl::context::object &_context,
-	sge::renderer::texture::volume_parameters const &_param
+	sge::renderer::texture::stage const _stage
 )
-:
-	sge::opengl::texture::volume_basic(
+{
+	sge::opengl::texture::funcs::set_active_level(
 		_context,
+		_stage
+	);
+
+	sge::opengl::texture::type_context::type_map const &map(
 		sge::opengl::context::use<
-			opengl::texture::volume_context
+			sge::opengl::texture::type_context
 		>(
 			_context
-		).volume_texture_type(),
-		_param
-	)
-{
-}
+		).types()
+	);
 
-sge::opengl::texture::volume::~volume()
-{
+	for(
+		sge::opengl::texture::type_context::type_map::left_const_iterator it(
+			map.left.begin()
+		);
+		it != map.left.end();
+		++it
+	)
+	{
+		if(
+			sge::opengl::texture::get_binding(
+				it->second
+			)
+		)
+			return
+				sge::opengl::texture::optional_type(
+					it->first
+				);
+	}
+
+	return
+		sge::opengl::texture::optional_type();
 }

@@ -51,7 +51,7 @@ sge::opengl::texture::filter::visitor::operator()(
 	sge::renderer::texture::filter::anisotropic::object const &_filter
 ) const
 {
-	filter::anisotropic(
+	sge::opengl::texture::filter::anisotropic(
 		context_,
 		binding_,
 		type_,
@@ -64,7 +64,7 @@ sge::opengl::texture::filter::visitor::operator()(
 	sge::renderer::texture::filter::normal::object const &_filter
 ) const
 {
-	filter::normal(
+	sge::opengl::texture::filter::normal(
 		context_,
 		binding_,
 		type_,
