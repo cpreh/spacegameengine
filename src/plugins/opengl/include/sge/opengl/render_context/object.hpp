@@ -239,7 +239,7 @@ private:
 		sge::renderer::cg::loaded_program const &
 	);
 
-	void
+	sge::renderer::texture::stage const
 	set_cg_texture(
 		sge::renderer::cg::loaded_texture const &
 	);

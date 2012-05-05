@@ -18,32 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CG_TEXTURE_LOAD_HPP_INCLUDED
-#define SGE_OPENGL_CG_TEXTURE_LOAD_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_SET_SAMPLERS_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_SET_SAMPLERS_HPP_INCLUDED
 
-#include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
-#include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/type.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace cg
-{
 namespace texture
 {
 
-sge::renderer::cg::loaded_texture_unique_ptr
-load(
+void
+set_samplers(
+	sge::opengl::texture::binding const &,
 	sge::opengl::context::object &,
-	sge::cg::parameter::object const &,
-	sge::renderer::texture::base &
+	sge::opengl::texture::type,
+	sge::renderer::texture::stage
 );
 
-}
 }
 }
 }

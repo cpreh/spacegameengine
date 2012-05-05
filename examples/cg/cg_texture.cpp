@@ -376,8 +376,8 @@ try
 			texpos2_type
 		>(
 			texpos2(
-				1.f,
-				0.f
+				0.f,
+				1.f
 			)
 		);
 
@@ -397,8 +397,8 @@ try
 			texpos2_type
 		>(
 			texpos2(
-				0.f,
-				1.f
+				1.f,
+				0.f
 			)
 		);
 	}

@@ -21,16 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/cg/texture/enable.hpp>
 #include <sge/opengl/cg/texture/loaded_object.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
-void
+sge::renderer::texture::stage const
 sge::opengl::cg::texture::enable(
 	sge::renderer::cg::loaded_texture const &_texture
 )
 {
-	dynamic_cast<
-		sge::opengl::cg::texture::loaded_object const &
-	>(
-		_texture
-	).enable();
+	return
+		dynamic_cast<
+			sge::opengl::cg::texture::loaded_object const &
+		>(
+			_texture
+		).enable();
 }

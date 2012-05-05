@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CG_TEXTURE_ENABLE_HPP_INCLUDED
 
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 namespace sge
@@ -33,7 +34,7 @@ namespace cg
 namespace texture
 {
 
-void
+sge::renderer::texture::stage const
 enable(
 	sge::renderer::cg::loaded_texture const &
 );

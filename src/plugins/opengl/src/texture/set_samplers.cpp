@@ -18,34 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CG_TEXTURE_LOAD_HPP_INCLUDED
-#define SGE_OPENGL_CG_TEXTURE_LOAD_HPP_INCLUDED
 
-#include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
-#include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/set_samplers.hpp>
+#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/address_mode/set.hpp>
+#include <sge/opengl/texture/filter/set.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
-namespace sge
+void
+sge::opengl::texture::set_samplers(
+	sge::opengl::texture::binding const &_binding,
+	sge::opengl::context::object &_context,
+	sge::opengl::texture::type const _type,
+	sge::renderer::texture::stage const _stage
+)
 {
-namespace opengl
-{
-namespace cg
-{
-namespace texture
-{
+	sge::opengl::texture::filter::set(
+		_context,
+		_binding,
+		_type,
+		_stage
+	);
 
-sge::renderer::cg::loaded_texture_unique_ptr
-load(
-	sge::opengl::context::object &,
-	sge::cg::parameter::object const &,
-	sge::renderer::texture::base &
-);
-
+	sge::opengl::texture::address_mode::set(
+		_context,
+		_binding,
+		_type,
+		_stage
+	);
 }
-}
-}
-}
-
-#endif

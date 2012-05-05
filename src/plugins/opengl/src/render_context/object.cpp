@@ -449,14 +449,15 @@ sge::opengl::render_context::object::unset_cg_program(
 	);
 }
 
-void
+sge::renderer::texture::stage const
 sge::opengl::render_context::object::set_cg_texture(
 	sge::renderer::cg::loaded_texture const &_texture
 )
 {
-	sge::opengl::cg::texture::enable(
-		_texture
-	);
+	return
+		sge::opengl::cg::texture::enable(
+			_texture
+		);
 }
 
 void

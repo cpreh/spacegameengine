@@ -28,8 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
-#include <sge/opengl/texture/address_mode/set.hpp>
-#include <sge/opengl/texture/filter/set.hpp>
+#include <sge/opengl/texture/set_samplers.hpp>
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
@@ -102,16 +101,9 @@ sge::opengl::texture::activate(
 
 	sge::opengl::texture::render_binding const binding;
 
-	sge::opengl::texture::filter::set(
-		_context,
+	sge::opengl::texture::set_samplers(
 		binding,
-		base.type(),
-		_stage
-	);
-
-	sge::opengl::texture::address_mode::set(
 		_context,
-		binding,
 		base.type(),
 		_stage
 	);

@@ -468,6 +468,7 @@ sge::opengl::device::load_cg_texture(
 {
 	return
 		sge::opengl::cg::texture::load(
+			context_,
 			_parameter,
 			_texture
 		);

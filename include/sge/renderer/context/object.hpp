@@ -593,7 +593,7 @@ public:
 	) = 0;
 
 	virtual
-	void
+	sge::renderer::texture::stage const
 	set_cg_texture(
 		sge::renderer::cg::loaded_texture const &
 	) = 0;

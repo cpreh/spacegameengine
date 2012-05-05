@@ -22,10 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/object.hpp>
 #include <sge/opengl/cg/texture/loaded_object.hpp>
 #include <sge/opengl/cg/texture/set_parameter.hpp>
+#include <sge/opengl/cg/texture/set_samplers.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/base.hpp>
+#include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
+#include <sge/opengl/texture/render_binding.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/base.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,22 +40,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::cg::texture::loaded_object::loaded_object(
+	sge::opengl::context::object &_context,
 	sge::cg::parameter::object const &_parameter,
 	sge::renderer::texture::base &_texture
 )
 :
+	context_(
+		_context
+	),
 	parameter_(
 		_parameter
+	),
+	texture_(
+		dynamic_cast<
+			sge::opengl::texture::base const &
+		>(
+			_texture
+		)
+	),
+	stages_(
+		sge::opengl::context::use<
+			sge::opengl::texture::multi_context
+		>(
+			_context
+		).max_level()
 	)
 {
 	sge::opengl::cg::texture::set_parameter(
 		parameter_,
 		sge::opengl::texture::optional_id(
-			dynamic_cast<
-				sge::opengl::texture::base const &
-			>(
-				_texture
-			).id()
+			texture_.id()
 		)
 	);
 }
@@ -62,7 +82,7 @@ sge::opengl::cg::texture::loaded_object::~loaded_object()
 	);
 }
 
-void
+sge::renderer::texture::stage const
 sge::opengl::cg::texture::loaded_object::enable() const
 {
 	::cgGLEnableTextureParameter(
@@ -73,6 +93,16 @@ sge::opengl::cg::texture::loaded_object::enable() const
 		FCPPT_TEXT("cgEnableTextureParameter failed"),
 		sge::renderer::exception
 	)
+
+	sge::opengl::texture::render_binding const binding;
+
+	return
+		sge::opengl::cg::texture::set_samplers(
+			binding,
+			context_,
+			texture_,
+			stages_
+		);
 }
 
 void

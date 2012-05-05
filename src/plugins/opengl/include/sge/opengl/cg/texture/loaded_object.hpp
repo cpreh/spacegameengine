@@ -22,8 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CG_TEXTURE_LOADED_OBJECT_HPP_INCLUDED
 
 #include <sge/cg/parameter/object.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/texture/base_fwd.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -45,19 +49,26 @@ class loaded_object
 	);
 public:
 	loaded_object(
+		sge::opengl::context::object &,
 		sge::cg::parameter::object const &,
 		sge::renderer::texture::base &
 	);
 
 	~loaded_object();
 
-	void
+	sge::renderer::texture::stage const
 	enable() const;
 
 	void
 	disable() const;
 private:
+	sge::opengl::context::object &context_;
+
 	sge::cg::parameter::object const parameter_;
+
+	sge::opengl::texture::base const &texture_;
+
+	sge::renderer::caps::texture_stages const stages_;
 };
 
 }
