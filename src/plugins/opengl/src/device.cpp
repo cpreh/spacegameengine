@@ -27,21 +27,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/onscreen_target.hpp>
 #include <sge/opengl/vertex_buffer.hpp>
 #include <sge/opengl/vertex_declaration.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/target.hpp>
-#include <sge/opengl/glew/scoped_init.hpp>
 #include <sge/opengl/glsl/create_geometry_shader.hpp>
 #include <sge/opengl/glsl/create_pixel_shader.hpp>
 #include <sge/opengl/glsl/create_program.hpp>
 #include <sge/opengl/glsl/create_vertex_shader.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/end.hpp>
-#include <sge/opengl/texture/cube.hpp>
+#include <sge/opengl/texture/create_cube.hpp>
+#include <sge/opengl/texture/create_volume.hpp>
 #include <sge/opengl/texture/depth_stencil.hpp>
 #include <sge/opengl/texture/planar.hpp>
-#include <sge/opengl/texture/volume.hpp>
-#include <sge/opengl/texture/volume_context.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
@@ -52,7 +49,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_count.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
@@ -73,12 +69,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
+#include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_unique_ptr.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_unique_ptr.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
+#include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
@@ -88,7 +86,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
 
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -301,54 +298,25 @@ sge::opengl::device::create_depth_stencil_surface(
 
 sge::renderer::texture::volume_unique_ptr
 sge::opengl::device::create_volume_texture(
-	sge::renderer::texture::volume_parameters const &_param
+	sge::renderer::texture::volume_parameters const &_parameters
 )
 {
-	if(
-		!sge::opengl::context::use<
-			sge::opengl::texture::volume_context
-		>(
-			context_
-		).have_volume_texture()
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("volume texture"),
-			FCPPT_TEXT("1.2"),
-			FCPPT_TEXT("")
-		);
-
 	return
-		sge::renderer::texture::volume_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::texture::volume
-			>(
-				fcppt::ref(
-					context_
-				),
-				fcppt::cref(
-					_param
-				)
-			)
+		sge::opengl::texture::create_volume(
+			context_,
+			_parameters
 		);
 }
 
 sge::renderer::texture::cube_unique_ptr
 sge::opengl::device::create_cube_texture(
-	sge::renderer::texture::cube_parameters const &_param
+	sge::renderer::texture::cube_parameters const &_parameters
 )
 {
 	return
-		sge::renderer::texture::cube_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::texture::cube
-			>(
-				fcppt::ref(
-					context_
-				),
-				fcppt::cref(
-					_param
-				)
-			)
+		sge::opengl::texture::create_cube(
+			context_,
+			_parameters
 		);
 }
 

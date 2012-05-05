@@ -329,7 +329,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/convert/stage_arg_value.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/stage_op.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/stage_op_value.hpp
+	src/plugins/opengl/include/sge/opengl/texture/create_cube.hpp
 	src/plugins/opengl/include/sge/opengl/texture/create_lock.hpp
+	src/plugins/opengl/include/sge/opengl/texture/create_volume.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_context_fwd.hpp
@@ -700,7 +702,9 @@ set(
 	src/plugins/opengl/src/texture/convert/stage_arg_value.cpp
 	src/plugins/opengl/src/texture/convert/stage_op.cpp
 	src/plugins/opengl/src/texture/convert/stage_op_value.cpp
+	src/plugins/opengl/src/texture/create_cube.cpp
 	src/plugins/opengl/src/texture/create_lock.cpp
+	src/plugins/opengl/src/texture/create_volume.cpp
 	src/plugins/opengl/src/texture/cube.cpp
 	src/plugins/opengl/src/texture/cube_context.cpp
 	src/plugins/opengl/src/texture/depth_stencil.cpp

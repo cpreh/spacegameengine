@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/planar.hpp>
 #include <sge/opengl/texture/convert/cube_side.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <fcppt/foreach_enumerator.hpp>
@@ -69,15 +68,6 @@ sge::opengl::texture::cube::cube(
 			_context
 		)
 	);
-
-	if(
-		!context.have_cube_texture()
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("cube texture"),
-			FCPPT_TEXT("1.3"),
-	       		FCPPT_TEXT("gl_arb_texture::cube")
-		);
 
 	sge::renderer::texture::planar_parameters const planar_param(
 		texture::planar::dim(
