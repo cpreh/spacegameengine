@@ -96,6 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
+#include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/object_fwd.hpp>
 #include <sge/cg/profile/object.hpp>
@@ -104,8 +105,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/cg/profile/create.hpp>
 #include <sge/d3d9/cg/program/create_loaded.hpp>
 #include <sge/d3d9/cg/program/optimal_options.hpp>
+#include <sge/d3d9/cg/texture/create_loaded.hpp>
 #include <sge/renderer/cg/loaded_program.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
+#include <sge/renderer/cg/loaded_texture.hpp>
+#include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #endif
 
 
@@ -469,6 +473,21 @@ sge::d3d9::device::load_cg_program(
 		sge::d3d9::cg::program::create_loaded(
 			device_.get(),
 			_program
+		);
+}
+
+sge::renderer::cg::loaded_texture_unique_ptr
+sge::d3d9::device::load_cg_texture(
+	sge::cg::parameter::object const &_parameter,
+	sge::renderer::texture::base &_texture
+)
+{
+	return
+		sge::d3d9::cg::texture::create_loaded(
+			device_.get(),
+			_parameter,
+			_texture,
+			caps_->texture_stages()
 		);
 }
 #endif

@@ -79,7 +79,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/d3d9/cg/program/activate.hpp>
 #include <sge/d3d9/cg/program/deactivate.hpp>
+#include <sge/d3d9/cg/texture/activate.hpp>
+#include <sge/d3d9/cg/texture/deactivate.hpp>
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
+#include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #endif
 
 
@@ -456,6 +459,27 @@ sge::d3d9::render_context::object::unset_cg_program(
 {
 	sge::d3d9::cg::program::deactivate(
 		_program
+	);
+}
+
+sge::renderer::texture::stage const
+sge::d3d9::render_context::object::set_cg_texture(
+	sge::renderer::cg::loaded_texture const &_texture
+)
+{
+	return
+		sge::d3d9::cg::texture::activate(
+			_texture
+		);
+}
+
+void
+sge::d3d9::render_context::object::unset_cg_texture(
+	sge::renderer::cg::loaded_texture const &_texture
+)
+{
+	sge::d3d9::cg::texture::deactivate(
+		_texture
 	);
 }
 #endif

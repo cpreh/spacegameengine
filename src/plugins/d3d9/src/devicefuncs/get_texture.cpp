@@ -18,39 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/texture/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/d3d9/devicefuncs/get_texture.hpp>
+#include <sge/d3d9/texture/d3d_base_texture_unique_ptr.hpp>
+#include <sge/renderer/exception.hpp>
+#include <sge/renderer/texture/stage.hpp>
+#include <fcppt/text.hpp>
 
 
-namespace sge
+sge::d3d9::texture::d3d_base_texture_unique_ptr
+sge::d3d9::devicefuncs::get_texture(
+	IDirect3DDevice9 *const _device,
+	sge::renderer::texture::stage const _stage
+)
 {
-namespace d3d9
-{
-namespace texture
-{
+	IDirect3DBaseTexture9 *result;
 
-class base
-{
-	FCPPT_NONCOPYABLE(
-		base
-	);
-protected:
-	base();
+	if(
+		_device->GetTexture(
+			_stage.get(),
+			&result
+		)
+		!=
+		D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("GetTexture failed!")
+		);
 
-	virtual
-	~base();
-public:
-	virtual
-	IDirect3DBaseTexture9 *
-	get() const = 0;
-};
-
+	return
+		sge::d3d9::texture::d3d_base_texture_unique_ptr(
+			result
+		);
 }
-}
-}
-
-#endif

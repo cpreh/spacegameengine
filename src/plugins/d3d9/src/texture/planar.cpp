@@ -26,6 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/renderer/color_surface.hpp>
+#include <sge/renderer/color_surface_unique_ptr.hpp>
+#include <sge/renderer/texture/planar_parameters_fwd.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 
@@ -92,16 +96,16 @@ sge::d3d9::texture::planar::unlock() const
 
 sge::renderer::color_surface_unique_ptr
 sge::d3d9::texture::planar::surface(
-	renderer::texture::stage const _stage
+	sge::renderer::texture::mipmap::level const _level
 )
 {
 	return renderer::color_surface_unique_ptr();
 }
 
-sge::renderer::texture::stage const
-sge::d3d9::texture::planar::stages() const
+sge::renderer::texture::mipmap::level_count const
+sge::d3d9::texture::planar::levels() const
 {
-	return renderer::texture::stage(0u);
+	return sge::renderer::texture::mipmap::level_count(0u);
 }
 
 sge::d3d9::texture::planar_basic::lock_function const

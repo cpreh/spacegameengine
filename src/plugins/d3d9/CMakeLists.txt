@@ -56,6 +56,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_depth_stencil_surface.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_render_target.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_render_target_data.hpp
+	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_texture.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/light_enable.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/present.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/reset.hpp
@@ -181,6 +182,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/target/onscreen_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/address_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/base.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/base_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/basic.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/basic_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/basic_impl.hpp
@@ -190,6 +192,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/texture/cube.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/cube_basic.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/cube_types.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/d3d_base_texture_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/d3d_cube_texture_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/d3d_texture_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/d3d_volume_texture_unique_ptr.hpp
@@ -286,6 +289,7 @@ SET(
 	src/plugins/d3d9/src/devicefuncs/get_depth_stencil_surface.cpp
 	src/plugins/d3d9/src/devicefuncs/get_render_target.cpp
 	src/plugins/d3d9/src/devicefuncs/get_render_target_data.cpp
+	src/plugins/d3d9/src/devicefuncs/get_texture.cpp
 	src/plugins/d3d9/src/devicefuncs/light_enable.cpp
 	src/plugins/d3d9/src/devicefuncs/present.cpp
 	src/plugins/d3d9/src/devicefuncs/reset.cpp
@@ -439,6 +443,12 @@ set(
 	src/plugins/d3d9/include/sge/d3d9/cg/scoped_device.hpp
 	src/plugins/d3d9/include/sge/d3d9/cg/scoped_device_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/cg/set_device.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/texture/activate.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/texture/assigned_stage.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/texture/create_loaded.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/texture/deactivate.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/texture/loaded_object.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/texture/set.hpp
 	src/plugins/d3d9/src/cg/get_device.cpp
 	src/plugins/d3d9/src/cg/profile/create.cpp
 	src/plugins/d3d9/src/cg/profile/pixel.cpp
@@ -450,6 +460,12 @@ set(
 	src/plugins/d3d9/src/cg/program/optimal_options.cpp
 	src/plugins/d3d9/src/cg/scoped_device.cpp
 	src/plugins/d3d9/src/cg/set_device.cpp
+	src/plugins/d3d9/src/cg/texture/activate.cpp
+	src/plugins/d3d9/src/cg/texture/assigned_stage.cpp
+	src/plugins/d3d9/src/cg/texture/create_loaded.cpp
+	src/plugins/d3d9/src/cg/texture/deactivate.cpp
+	src/plugins/d3d9/src/cg/texture/loaded_object.cpp
+	src/plugins/d3d9/src/cg/texture/set.cpp
 )
 
 set(

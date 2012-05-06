@@ -28,7 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -41,7 +42,7 @@ namespace texture
 
 class planar
 :
-	public texture::planar_basic
+	public sge::d3d9::texture::planar_basic
 {
 	FCPPT_NONCOPYABLE(
 		planar
@@ -49,7 +50,7 @@ class planar
 public:
 	planar(
 		IDirect3DDevice9 *,
-		renderer::texture::planar_parameters const &
+		sge::renderer::texture::planar_parameters const &
 	);
 
 	~planar();
@@ -59,27 +60,27 @@ public:
 
 	view const
 	lock(
-		renderer::lock_rect const &,
-		renderer::lock_mode::type
+		sge::renderer::lock_rect const &,
+		sge::renderer::lock_mode::type
 	);
 
 	const_view const
 	lock(
-		renderer::lock_rect const &
+		sge::renderer::lock_rect const &
 	) const;
 
 	void
 	unlock() const;
 
-	renderer::color_surface_unique_ptr
+	sge::renderer::color_surface_unique_ptr
 	surface(
-		renderer::texture::stage
+		sge::renderer::texture::mipmap::level
 	);
 
-	sge::renderer::texture::stage const
-	stages() const;
+	sge::renderer::texture::mipmap::level_count const
+	levels() const;
 private:
-	planar_basic::lock_function const
+	sge::d3d9::texture::planar_basic::lock_function const
 	lock_function() const;
 };
 

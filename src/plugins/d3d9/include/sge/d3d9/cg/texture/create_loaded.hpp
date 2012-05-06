@@ -18,37 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
+#ifndef SGE_D3D9_CG_TEXTURE_CREATE_LOADED_HPP_INCLUDED
+#define SGE_D3D9_CG_TEXTURE_CREATE_LOADED_HPP_INCLUDED
 
+#include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/texture/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
+#include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
+#include <sge/renderer/texture/base_fwd.hpp>
 
 
 namespace sge
 {
 namespace d3d9
 {
+namespace cg
+{
 namespace texture
 {
 
-class base
-{
-	FCPPT_NONCOPYABLE(
-		base
-	);
-protected:
-	base();
+sge::renderer::cg::loaded_texture_unique_ptr
+create_loaded(
+	IDirect3DDevice9 *,
+	sge::cg::parameter::object const &,
+	sge::renderer::texture::base &,
+	sge::renderer::caps::texture_stages
+);
 
-	virtual
-	~base();
-public:
-	virtual
-	IDirect3DBaseTexture9 *
-	get() const = 0;
-};
-
+}
 }
 }
 }

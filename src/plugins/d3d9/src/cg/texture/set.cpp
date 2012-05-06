@@ -18,39 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-
+#include <sge/cg/check_state.hpp>
+#include <sge/cg/parameter/object.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/texture/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/d3d9/cg/scoped_device.hpp>
+#include <sge/d3d9/cg/texture/set.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <Cg/cgD3D9.h>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+void
+sge::d3d9::cg::texture::set(
+	IDirect3DDevice9 *const _device,
+	sge::cg::parameter::object const &_parameter,
+	IDirect3DBaseTexture9 *const _texture
+)
 {
-namespace d3d9
-{
-namespace texture
-{
-
-class base
-{
-	FCPPT_NONCOPYABLE(
-		base
+	sge::d3d9::cg::scoped_device const context(
+		_device
 	);
-protected:
-	base();
 
-	virtual
-	~base();
-public:
-	virtual
-	IDirect3DBaseTexture9 *
-	get() const = 0;
-};
+	if(
+		::cgD3D9SetTexture(
+			_parameter.get(),
+			_texture
+		)
+		!=
+		D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("cgD3D9SetTexture failed")
+		);
 
+	SGE_CG_CHECK_STATE(
+		FCPPT_TEXT("cgD3D9SetTexture failed"),
+		sge::renderer::exception
+	)
 }
-}
-}
-
-#endif

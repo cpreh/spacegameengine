@@ -47,7 +47,7 @@ sge::cg::parameter::matrix::detail::set_ ## type(\
 	);\
 \
 	SGE_CG_CHECK_STATE(\
-		FCPPT_TEXT("cgSetMatrixParameter" #cg_name "r failed"),\
+		FCPPT_TEXT("cgSetMatrixParameter failed"),\
 		sge::cg::exception\
 	)\
 }

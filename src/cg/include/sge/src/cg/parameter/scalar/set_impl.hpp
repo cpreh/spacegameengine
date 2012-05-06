@@ -47,7 +47,7 @@ sge::cg::parameter::scalar::detail::set_ ## type(\
 	);\
 \
 	SGE_CG_CHECK_STATE(\
-		FCPPT_TEXT("cgSetParameter1" #cg_name "failed"),\
+		FCPPT_TEXT("cgSetParameter1 failed"),\
 		sge::cg::exception\
 	)\
 }

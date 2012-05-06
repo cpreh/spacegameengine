@@ -80,7 +80,7 @@ sge::cg::parameter::vector::detail::set_ ## type(\
 	}\
 \
 	SGE_CG_CHECK_STATE(\
-		FCPPT_TEXT("cgSetParameter" #cg_name "failed"),\
+		FCPPT_TEXT("cgSetParameter failed"),\
 		sge::cg::exception\
 	)\
 }
