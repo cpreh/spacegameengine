@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -42,7 +43,7 @@ template<
 >
 struct vector3_base
 :
-vector_base<
+sge::renderer::vf::vector_base<
 	Format,
 	3
 >

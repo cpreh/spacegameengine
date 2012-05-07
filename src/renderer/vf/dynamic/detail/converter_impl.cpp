@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
+#include <sge/renderer/vf/dynamic/extra.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/detail/lock_interval_set.hpp>
@@ -136,8 +137,8 @@ convert_if_color(
 }
 
 sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
-	dynamic::part const &_part,
-	dynamic::color_format_vector const &_accepted_formats
+	sge::renderer::vf::dynamic::part const &_part,
+	sge::renderer::vf::dynamic::color_format_vector const &_accepted_formats
 )
 :
 	element_converters_()
@@ -169,7 +170,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
 
 		if(
 			fcppt::variant::holds_type<
-				sge::renderer::vf::dynamic::unspecified
+				sge::renderer::vf::dynamic::extra
 			>(
 				element.info()
 			)
@@ -177,7 +178,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
 			::convert_if_color(
 				element_converters_,
 				element.info().get<
-					renderer::vf::dynamic::unspecified
+					sge::renderer::vf::dynamic::extra
 				>().type(),
 				_accepted_formats,
 				_part.stride(),
@@ -192,18 +193,18 @@ sge::renderer::vf::dynamic::detail::converter_impl::~converter_impl()
 
 void
 sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
-	renderer::raw_pointer const _data,
-	renderer::first_vertex const _pos,
-	detail::lock_interval_set const &_intervals,
-	detail::lock_interval const &_current_lock
+	sge::renderer::raw_pointer const _data,
+	sge::renderer::first_vertex const _pos,
+	sge::renderer::vf::dynamic::detail::lock_interval_set const &_intervals,
+	sge::renderer::vf::dynamic::detail::lock_interval const &_current_lock
 )
 {
-	detail::lock_interval_set const new_lock(
+	sge::renderer::vf::dynamic::detail::lock_interval_set const new_lock(
 		_intervals & _current_lock
 	);
 
 	for(
-		detail::lock_interval_set::const_iterator interval_it(
+		sge::renderer::vf::dynamic::detail::lock_interval_set::const_iterator interval_it(
 			new_lock.begin()
 		);
 		interval_it != new_lock.end();
@@ -219,9 +220,9 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 
 void
 sge::renderer::vf::dynamic::detail::converter_impl::convert_unlock(
-	renderer::raw_pointer const _data,
-	renderer::first_vertex const _pos,
-	detail::lock_interval const &_current_lock
+	sge::renderer::raw_pointer const _data,
+	sge::renderer::first_vertex const _pos,
+	sge::renderer::vf::dynamic::detail::lock_interval const &_current_lock
 )
 {
 	this->do_convert(
@@ -234,14 +235,14 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_unlock(
 
 void
 sge::renderer::vf::dynamic::detail::converter_impl::do_convert(
-	renderer::raw_pointer const _data,
-	renderer::first_vertex const _pos,
-	detail::lock_interval const &_interval,
+	sge::renderer::raw_pointer const _data,
+	sge::renderer::first_vertex const _pos,
+	sge::renderer::vf::dynamic::detail::lock_interval const &_interval,
 	bool const _unlock
 )
 {
 	for(
-		element_converter_vector::iterator it(
+		sge::renderer::vf::dynamic::detail::converter_impl::element_converter_vector::iterator it(
 			element_converters_.begin()
 		);
 		it != element_converters_.end();

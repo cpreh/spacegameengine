@@ -46,30 +46,32 @@ class view
 		view
 	);
 public:
-	typedef vf::iterator<
+	typedef sge::renderer::vf::iterator<
 		Part,
 		Constness
 	> iterator;
 
-	typedef typename vf::pointer<
+	typedef typename sge::renderer::vf::pointer<
 		Constness
 	>::type pointer;
 
-	typedef dynamic::basic_view<
+	typedef sge::renderer::vf::dynamic::basic_view<
 		pointer
 	> dynamic_view_type;
 
-	typedef renderer::vertex_count size_type;
+	typedef sge::renderer::vertex_count size_type;
 
-	explicit view(
+	explicit
+	view(
 		dynamic_view_type const &
 	);
 
 	template<
 		typename OtherView
 	>
-	explicit view(
-		dynamic::basic_view<
+	explicit
+	view(
+		sge::renderer::vf::dynamic::basic_view<
 			OtherView
 		> const &
 	);

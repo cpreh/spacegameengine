@@ -39,15 +39,16 @@ class pos
 {
 public:
 	SGE_RENDERER_SYMBOL
-	explicit pos(
-		vector const &
+	explicit
+	pos(
+		sge::renderer::vf::dynamic::vector const &
 	);
 
 	SGE_RENDERER_SYMBOL
-	vector const &
+	sge::renderer::vf::dynamic::vector const &
 	type() const;
 private:
-	vector type_;
+	sge::renderer::vf::dynamic::vector type_;
 };
 
 }

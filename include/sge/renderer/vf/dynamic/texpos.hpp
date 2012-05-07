@@ -41,21 +41,21 @@ class texpos
 public:
 	SGE_RENDERER_SYMBOL
 	texpos(
-		vector const &,
-		vf::vertex_size index
+		sge::renderer::vf::dynamic::vector const &,
+		sge::renderer::vf::vertex_size index
 	);
 
 	SGE_RENDERER_SYMBOL
-	vector const &
+	sge::renderer::vf::dynamic::vector const &
 	type() const;
 
 	SGE_RENDERER_SYMBOL
-	vf::vertex_size
+	sge::renderer::vf::vertex_size
 	index() const;
 private:
-	vector type_;
+	sge::renderer::vf::dynamic::vector type_;
 
-	vf::vertex_size index_;
+	sge::renderer::vf::vertex_size index_;
 };
 
 }

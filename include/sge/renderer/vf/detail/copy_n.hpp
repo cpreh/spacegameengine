@@ -41,9 +41,9 @@ namespace detail
 inline
 void
 copy_n(
-	const_raw_pointer const _src,
-	vertex_size const _sz,
-	raw_pointer const _dest
+	sge::renderer::const_raw_pointer const _src,
+	sge::renderer::vf::vertex_size const _sz,
+	sge::renderer::raw_pointer const _dest
 )
 {
 	std::memcpy(

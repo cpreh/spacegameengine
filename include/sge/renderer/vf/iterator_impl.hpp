@@ -26,12 +26,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/back.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 template<
 	typename Part,
 	typename Constness
 >
-typename sge::renderer::vf::iterator<Part, Constness>::difference_type
-sge::renderer::vf::iterator<Part, Constness>::stride()
+typename sge::renderer::vf::iterator<
+	Part,
+	Constness
+>::difference_type
+sge::renderer::vf::iterator<
+	Part,
+	Constness
+>::stride()
 {
 	return
 		static_cast<
@@ -47,11 +54,16 @@ template<
 	typename Part,
 	typename Constness
 >
-sge::renderer::vf::iterator<Part, Constness>::iterator(
+sge::renderer::vf::iterator<
+	Part,
+	Constness
+>::iterator(
 	internal_pointer const _data
 )
 :
-	data_(_data)
+	data_(
+		_data
+	)
 {
 }
 
@@ -60,7 +72,10 @@ template<
 	typename Constness
 >
 void
-sge::renderer::vf::iterator<Part, Constness>::advance(
+sge::renderer::vf::iterator<
+	Part,
+	Constness
+>::advance(
 	difference_type const _diff
 )
 {
@@ -72,7 +87,10 @@ template<
 	typename Constness
 >
 void
-sge::renderer::vf::iterator<Part, Constness>::increment()
+sge::renderer::vf::iterator<
+	Part,
+	Constness
+>::increment()
 {
 	data_ += stride();
 }
@@ -82,7 +100,10 @@ template<
 	typename Constness
 >
 void
-sge::renderer::vf::iterator<Part, Constness>::decrement()
+sge::renderer::vf::iterator<
+	Part,
+	Constness
+>::decrement()
 {
 	data_ -= stride();
 }
@@ -92,7 +113,10 @@ template<
 	typename Constness
 >
 bool
-sge::renderer::vf::iterator<Part, Constness>::equal(
+sge::renderer::vf::iterator<
+	Part,
+	Constness
+>::equal(
 	iterator const &_other
 ) const
 {
@@ -103,8 +127,14 @@ template<
 	typename Part,
 	typename Constness
 >
-typename sge::renderer::vf::iterator<Part, Constness>::difference_type
-sge::renderer::vf::iterator<Part, Constness>::distance_to(
+typename sge::renderer::vf::iterator<
+	Part,
+	Constness
+>::difference_type
+sge::renderer::vf::iterator<
+	Part,
+	Constness
+>::distance_to(
 	iterator const &_other
 ) const
 {
@@ -118,8 +148,14 @@ template<
 	typename Part,
 	typename Constness
 >
-typename sge::renderer::vf::iterator<Part, Constness>::vertex_type
-sge::renderer::vf::iterator<Part, Constness>::dereference() const
+typename sge::renderer::vf::iterator<
+	Part,
+	Constness
+>::vertex_type
+sge::renderer::vf::iterator<
+	Part,
+	Constness
+>::dereference() const
 {
 	return
 		vertex_type(

@@ -45,19 +45,21 @@ template<
 struct is_index
 :
 boost::false_type
-{};
+{
+};
 
 template<
-	vertex_size Index
+	sge::renderer::vf::vertex_size Index
 >
 struct is_index<
-	vf::index<
+	sge::renderer::vf::index<
 		Index
 	>
 >
 :
 boost::true_type
-{};
+{
+};
 
 FCPPT_PP_POP_WARNING
 

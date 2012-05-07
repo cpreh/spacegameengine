@@ -34,7 +34,7 @@ namespace vf
 
 template<
 	typename Format,
-	vertex_size NumSubElements
+	sge::renderer::vf::vertex_size NumSubElements
 >
 struct vector_base
 {
@@ -45,7 +45,9 @@ struct vector_base
 		NumSubElements
 	>::type packed_type;
 
-	static vertex_size const num_subelements = NumSubElements;
+	static
+	sge::renderer::vf::vertex_size const num_subelements
+		= NumSubElements;
 };
 
 }

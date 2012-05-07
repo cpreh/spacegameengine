@@ -19,24 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/vf/actor.hpp>
+#include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/attribute_actor.hpp>
 #include <sge/opengl/vf/color_actor.hpp>
 #include <sge/opengl/vf/normal_actor.hpp>
 #include <sge/opengl/vf/pos_actor.hpp>
 #include <sge/opengl/vf/texpos_actor.hpp>
 #include <sge/opengl/vf/to_actor_visitor.hpp>
+#include <sge/renderer/vf/dynamic/color_fwd.hpp>
+#include <sge/renderer/vf/dynamic/extra_fwd.hpp>
+#include <sge/renderer/vf/dynamic/normal_fwd.hpp>
+#include <sge/renderer/vf/dynamic/pos_fwd.hpp>
+#include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::opengl::vf::to_actor_visitor::to_actor_visitor(
-	actor_parameters const &_parameters,
-	opengl::vf::attribute_location_container &_attribute_locations
+	sge::opengl::vf::actor_parameters const &_parameters
 )
 :
-	parameters_(_parameters),
-	attribute_locations_(_attribute_locations)
+	parameters_(
+		_parameters
+	)
 {
 }
 
@@ -46,9 +51,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		vf::actor_ptr(
+		sge::opengl::vf::actor_ptr(
 			fcppt::make_unique_ptr<
-				vf::pos_actor
+				sge::opengl::vf::pos_actor
 			>(
 				parameters_,
 				fcppt::cref(
@@ -64,9 +69,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		vf::actor_ptr(
+		sge::opengl::vf::actor_ptr(
 			fcppt::make_unique_ptr<
-				vf::normal_actor
+				sge::opengl::vf::normal_actor
 			>(
 				parameters_,
 				fcppt::cref(
@@ -82,9 +87,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		vf::actor_ptr(
+		sge::opengl::vf::actor_ptr(
 			fcppt::make_unique_ptr<
-				vf::color_actor
+				sge::opengl::vf::color_actor
 			>(
 				parameters_,
 				fcppt::cref(
@@ -100,9 +105,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		vf::actor_ptr(
+		sge::opengl::vf::actor_ptr(
 			fcppt::make_unique_ptr<
-				vf::texpos_actor
+				sge::opengl::vf::texpos_actor
 			>(
 				parameters_,
 				fcppt::cref(
@@ -114,20 +119,17 @@ sge::opengl::vf::to_actor_visitor::operator()(
 
 sge::opengl::vf::to_actor_visitor::result_type
 sge::opengl::vf::to_actor_visitor::operator()(
-	sge::renderer::vf::dynamic::unspecified const &_unspecified
+	sge::renderer::vf::dynamic::extra const &_extra
 ) const
 {
 	return
-		vf::actor_ptr(
+		sge::opengl::vf::actor_ptr(
 			fcppt::make_unique_ptr<
-				vf::attribute_actor
+				sge::opengl::vf::attribute_actor
 			>(
 				parameters_,
 				fcppt::cref(
-					_unspecified
-				),
-				fcppt::ref(
-					attribute_locations_
+					_extra
 				)
 			)
 		);

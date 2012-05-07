@@ -18,14 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/vf/element_type.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>
 
+
 sge::renderer::vf::dynamic::normal::normal(
-	vf::element_type::type const _element_type
+	sge::renderer::vf::element_type::type const _element_type
 )
 :
-	element_type_(_element_type)
-{}
+	element_type_(
+		_element_type
+	)
+{
+}
 
 sge::renderer::vf::element_type::type
 sge::renderer::vf::dynamic::normal::element_type() const

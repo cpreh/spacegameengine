@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/driver_name.hpp>
-#include <sge/renderer/caps/glsl_supported.hpp>
 #include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
@@ -33,18 +32,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::caps::object::object(
-	renderer::adapter const _adapter,
-	caps::driver_name const &_driver_name,
-	caps::description const &_description,
-	caps::max_texture_size const &_max_texture_size,
-	caps::max_volume_texture_extent const _max_volume_texture_extent,
-	caps::max_anisotropy const _max_anisotropy,
-	caps::render_target_supported const _render_target_supported,
-	caps::glsl_supported const _glsl_supported,
-	caps::preferred_texture_format const _preferred_texture_format,
-	caps::clip_plane_indices const _clip_plane_indices,
-	caps::light_indices const _light_indices,
-	caps::texture_stages const _texture_stages
+	sge::renderer::adapter const _adapter,
+	sge::renderer::caps::driver_name const &_driver_name,
+	sge::renderer::caps::description const &_description,
+	sge::renderer::caps::max_texture_size const &_max_texture_size,
+	sge::renderer::caps::max_volume_texture_extent const _max_volume_texture_extent,
+	sge::renderer::caps::max_anisotropy const _max_anisotropy,
+	sge::renderer::caps::render_target_supported const _render_target_supported,
+	sge::renderer::caps::preferred_texture_format const _preferred_texture_format,
+	sge::renderer::caps::clip_plane_indices const _clip_plane_indices,
+	sge::renderer::caps::light_indices const _light_indices,
+	sge::renderer::caps::texture_stages const _texture_stages
 )
 :
 	adapter_(
@@ -67,9 +65,6 @@ sge::renderer::caps::object::object(
 	),
 	render_target_supported_(
 		_render_target_supported
-	),
-	glsl_supported_(
-		_glsl_supported
 	),
 	preferred_texture_format_(
 		_preferred_texture_format
@@ -130,12 +125,6 @@ sge::renderer::caps::render_target_supported const
 sge::renderer::caps::object::render_target_supported() const
 {
 	return render_target_supported_;
-}
-
-sge::renderer::caps::glsl_supported const
-sge::renderer::caps::object::glsl_supported() const
-{
-	return glsl_supported_;
 }
 
 sge::renderer::caps::preferred_texture_format const

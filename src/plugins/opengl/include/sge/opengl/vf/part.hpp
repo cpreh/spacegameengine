@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor_fwd.hpp>
-#include <sge/opengl/vf/attribute_location_container.hpp>
 #include <sge/opengl/vf/part_fwd.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
@@ -48,29 +47,28 @@ class part
 public:
 	part(
 		sge::opengl::context::object &,
-		renderer::vf::dynamic::part const &,
-		opengl::vf::attribute_location_container &
+		sge::renderer::vf::dynamic::part const &
 	);
 
 	~part();
 
-	renderer::vf::dynamic::part const &
+	sge::renderer::vf::dynamic::part const &
 	get() const;
 
 	void
 	use_me(
-		vf::pointer
+		sge::opengl::vf::pointer
 	) const;
 
 	void
 	unuse_me() const;
 private:
-	opengl::context::object &context_;
+	sge::opengl::context::object &context_;
 
-	renderer::vf::dynamic::part const part_;
+	sge::renderer::vf::dynamic::part const part_;
 
 	typedef boost::ptr_vector<
-		vf::actor
+		sge::opengl::vf::actor
 	> actor_array;
 
 	mutable actor_array actors_;

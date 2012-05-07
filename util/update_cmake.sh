@@ -140,7 +140,6 @@ update_cmake_file \
 	include/sge/renderer/caps \
 	include/sge/renderer/clear \
 	include/sge/renderer/context \
-	include/sge/renderer/glsl \
 	include/sge/renderer/index \
 	include/sge/renderer/light \
 	include/sge/renderer/lock_flags \
@@ -155,7 +154,6 @@ update_cmake_file \
 	src/renderer/caps \
 	src/renderer/clear \
 	src/renderer/context \
-	src/renderer/glsl \
 	src/renderer/include \
 	src/renderer/index \
 	src/renderer/light \
@@ -205,7 +203,6 @@ update_cmake_file \
 	$(opengl_inc_src convert) \
 	$(opengl_inc_src fbo) \
 	$(opengl_inc_src glew) \
-	$(opengl_inc_src glsl) \
 	$(opengl_inc_src light) \
 	$(opengl_inc_src render_context) \
 	$(opengl_inc_src state) \

@@ -32,10 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 fcppt::io::ostream &
 sge::renderer::caps::operator<<(
 	fcppt::io::ostream &_stream,
-	caps::object const &_caps
+	sge::renderer::caps::object const &_caps
 )
 {
-	return _stream
+	return
+		_stream
 		<< FCPPT_TEXT("caps: adapter = ")
 		<< _caps.adapter()
 		<< FCPPT_TEXT(", driver_name = \"")
@@ -48,9 +49,6 @@ sge::renderer::caps::operator<<(
 		<< _caps.max_volume_texture_extent()
 		<< FCPPT_TEXT(", max_anisotropy = ")
 		<< _caps.max_anisotropy()
-		<< FCPPT_TEXT(", glsl_supported = ")
-		<< std::boolalpha
-		<< _caps.glsl_supported()
 		<< FCPPT_TEXT(", preferred_texture_format = ")
 		<< sge::image::color::format_to_string(
 			_caps.preferred_texture_format().get()

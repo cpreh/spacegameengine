@@ -47,7 +47,7 @@ class vertex
 		vertex
 	);
 public:
-	typedef typename vf::pointer<
+	typedef typename sge::renderer::vf::pointer<
 		Constness
 	>::type pointer;
 
@@ -55,7 +55,8 @@ public:
 
 	typedef typename Part::offsets offsets;
 
-	explicit vertex(
+	explicit
+	vertex(
 		pointer
 	);
 

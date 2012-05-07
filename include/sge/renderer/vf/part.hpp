@@ -46,7 +46,7 @@ struct part
 
 	typedef typename boost::mpl::transform<
 		elements,
-		detail::element_stride<
+		sge::renderer::vf::detail::element_stride<
 			boost::mpl::_1
 		>
 	>::type strides;

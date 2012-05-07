@@ -18,51 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/glsl/context.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/attribute_actor.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
-#include <sge/opengl/vf/attribute_location.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
-#include <sge/opengl/vf/unspecified_elements.hpp>
-#include <sge/opengl/vf/unspecified_format.hpp>
+#include <sge/opengl/vf/extra_elements.hpp>
+#include <sge/opengl/vf/extra_format.hpp>
+#include <sge/opengl/vf/pointer_actor.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/vf/dynamic/extra.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
-#include <fcppt/to_std_string.hpp>
 
 
 sge::opengl::vf::attribute_actor::attribute_actor(
-	opengl::vf::actor_parameters const &_param,
-	renderer::vf::dynamic::unspecified const &_unspec,
-	opengl::vf::attribute_location_container &_attribute_locations
+	sge::opengl::vf::actor_parameters const &_param,
+	sge::renderer::vf::dynamic::extra const &_extra
 )
 :
-	pointer_actor(
+	sge::opengl::vf::pointer_actor(
 		_param
 	),
 	attribute_context_(
-		opengl::context::use<
-			attribute_context
-		>(
-			_param.context()
-		)
-	),
-	glsl_context_(
-		opengl::context::use<
-			opengl::glsl::context
+		sge::opengl::context::use<
+			sge::opengl::vf::attribute_context
 		>(
 			_param.context()
 		)
 	),
 	elements_(
-		vf::unspecified_elements(
-			_unspec.type()
+		sge::opengl::vf::extra_elements(
+			_extra.type()
 		)
 	),
 	format_(
-		vf::unspecified_format(
-			_unspec.type()
+		sge::opengl::vf::extra_format(
+			_extra.type()
 		)
 	),
 	location_(
@@ -70,7 +62,7 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 			GLuint
 		>(
 			// don't use 0 as a location
-			_attribute_locations.size() + 1u
+			_extra.index() + 1u
 		)
 	)
 {
@@ -82,15 +74,6 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 			FCPPT_TEXT("GL_VERSION_2_0"),
 			FCPPT_TEXT("GL_ARB_vertex_shader")
 		);
-
-	_attribute_locations.push_back(
-		vf::attribute_location(
-			location_,
-			fcppt::to_std_string(
-				_unspec.tag()
-			)
-		)
-	);
 }
 
 sge::opengl::vf::attribute_actor::~attribute_actor()
@@ -99,8 +82,8 @@ sge::opengl::vf::attribute_actor::~attribute_actor()
 
 void
 sge::opengl::vf::attribute_actor::operator()(
-	client_state_combiner &_combiner,
-	vf::pointer const _src
+	sge::opengl::vf::client_state_combiner &_combiner,
+	sge::opengl::vf::pointer const _src
 ) const
 {
 	_combiner.enable_attribute(
@@ -115,7 +98,7 @@ sge::opengl::vf::attribute_actor::operator()(
 		static_cast<
 			GLsizei
 		>(
-			stride()
+			this->stride()
 		),
 		_src
 	);
@@ -123,7 +106,7 @@ sge::opengl::vf::attribute_actor::operator()(
 
 void
 sge::opengl::vf::attribute_actor::unuse(
-	client_state_combiner &_combiner
+	sge::opengl::vf::client_state_combiner &_combiner
 ) const
 {
 	_combiner.disable_attribute(

@@ -37,13 +37,13 @@ template<
 	typename Format,
 	typename Part
 >
-dynamic::part_index const
+sge::renderer::vf::dynamic::part_index const
 make_part_index()
 {
 	return
-		dynamic::part_index(
+		sge::renderer::vf::dynamic::part_index(
 			static_cast<
-				dynamic::part_index::value_type
+				sge::renderer::vf::dynamic::part_index::value_type
 			>(
 				fcppt::mpl::index_of<
 					typename Format::parts,

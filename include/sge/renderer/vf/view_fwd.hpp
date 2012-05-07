@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/nonconst_tag.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -32,7 +33,7 @@ namespace vf
 
 template<
 	typename VertexFormat,
-	typename Constness = vf::nonconst_tag
+	typename Constness = sge::renderer::vf::nonconst_tag
 >
 class view;
 

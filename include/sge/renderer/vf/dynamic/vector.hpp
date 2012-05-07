@@ -41,21 +41,21 @@ class vector
 public:
 	SGE_RENDERER_SYMBOL
 	vector(
-		vf::element_type::type,
-		vertex_size num_elements
+		sge::renderer::vf::element_type::type,
+		sge::renderer::vf::vertex_size num_elements
 	);
 
 	SGE_RENDERER_SYMBOL
-	vf::element_type::type
+	sge::renderer::vf::element_type::type
 	element_type() const;
 
 	SGE_RENDERER_SYMBOL
-	vertex_size
+	sge::renderer::vf::vertex_size
 	elements() const;
 private:
-	vf::element_type::type element_type_;
+	sge::renderer::vf::element_type::type element_type_;
 
-	vertex_size elements_;
+	sge::renderer::vf::vertex_size elements_;
 };
 
 }

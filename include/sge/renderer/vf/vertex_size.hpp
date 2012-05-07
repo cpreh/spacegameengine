@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/size_type.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -30,7 +31,7 @@ namespace renderer
 namespace vf
 {
 
-typedef renderer::size_type vertex_size;
+typedef sge::renderer::size_type vertex_size;
 
 }
 }

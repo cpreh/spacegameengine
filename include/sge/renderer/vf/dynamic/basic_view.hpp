@@ -49,14 +49,14 @@ class basic_view
 public:
 	typedef Pointer pointer;
 
-	typedef renderer::vertex_count size_type;
+	typedef sge::renderer::vertex_count size_type;
 
 	SGE_RENDERER_SYMBOL
 	basic_view(
 		pointer data,
 		size_type elements,
-		dynamic::part const &,
-		dynamic::part_index
+		sge::renderer::vf::dynamic::part const &,
+		sge::renderer::vf::dynamic::part_index
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -68,20 +68,20 @@ public:
 	size() const;
 
 	SGE_RENDERER_SYMBOL
-	dynamic::part const &
+	sge::renderer::vf::dynamic::part const &
 	part() const;
 
 	SGE_RENDERER_SYMBOL
-	dynamic::part_index const
+	sge::renderer::vf::dynamic::part_index const
 	part_index() const;
 private:
 	pointer const data_;
 
 	size_type const size_;
 
-	dynamic::part const &part_;
+	sge::renderer::vf::dynamic::part const &part_;
 
-	dynamic::part_index const part_index_;
+	sge::renderer::vf::dynamic::part_index const part_index_;
 };
 
 }

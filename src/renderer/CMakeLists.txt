@@ -15,7 +15,6 @@ set(
 	include/sge/renderer/caps/clip_plane_indices.hpp
 	include/sge/renderer/caps/description.hpp
 	include/sge/renderer/caps/driver_name.hpp
-	include/sge/renderer/caps/glsl_supported.hpp
 	include/sge/renderer/caps/light_indices.hpp
 	include/sge/renderer/caps/max_anisotropy.hpp
 	include/sge/renderer/caps/max_texture_size.hpp
@@ -90,55 +89,6 @@ set(
 	include/sge/renderer/first_vertex.hpp
 	include/sge/renderer/fullscreen.hpp
 	include/sge/renderer/fullscreen_fwd.hpp
-	include/sge/renderer/glsl/char.hpp
-	include/sge/renderer/glsl/const_optional_program_ref.hpp
-	include/sge/renderer/glsl/const_optional_program_ref_fwd.hpp
-	include/sge/renderer/glsl/exception.hpp
-	include/sge/renderer/glsl/from_fcppt_string.hpp
-	include/sge/renderer/glsl/geometry_shader.hpp
-	include/sge/renderer/glsl/geometry_shader_fwd.hpp
-	include/sge/renderer/glsl/geometry_shader_scoped_ptr.hpp
-	include/sge/renderer/glsl/geometry_shader_unique_ptr.hpp
-	include/sge/renderer/glsl/pixel_shader.hpp
-	include/sge/renderer/glsl/pixel_shader_fwd.hpp
-	include/sge/renderer/glsl/pixel_shader_scoped_ptr.hpp
-	include/sge/renderer/glsl/pixel_shader_unique_ptr.hpp
-	include/sge/renderer/glsl/program.hpp
-	include/sge/renderer/glsl/program_fwd.hpp
-	include/sge/renderer/glsl/program_scoped_ptr.hpp
-	include/sge/renderer/glsl/program_unique_ptr.hpp
-	include/sge/renderer/glsl/scoped_attachment.hpp
-	include/sge/renderer/glsl/scoped_attachment_fwd.hpp
-	include/sge/renderer/glsl/scoped_program.hpp
-	include/sge/renderer/glsl/shader.hpp
-	include/sge/renderer/glsl/shader_fwd.hpp
-	include/sge/renderer/glsl/string.hpp
-	include/sge/renderer/glsl/to_cvv.hpp
-	include/sge/renderer/glsl/uniform/array_value.hpp
-	include/sge/renderer/glsl/uniform/basic_value.hpp
-	include/sge/renderer/glsl/uniform/basic_value_fwd.hpp
-	include/sge/renderer/glsl/uniform/detail/float_arity.hpp
-	include/sge/renderer/glsl/uniform/detail/int_arity.hpp
-	include/sge/renderer/glsl/uniform/detail/matrix_arity.hpp
-	include/sge/renderer/glsl/uniform/float_value.hpp
-	include/sge/renderer/glsl/uniform/float_value_type.hpp
-	include/sge/renderer/glsl/uniform/int_type.hpp
-	include/sge/renderer/glsl/uniform/int_value.hpp
-	include/sge/renderer/glsl/uniform/int_value_type.hpp
-	include/sge/renderer/glsl/uniform/make_basic_value.hpp
-	include/sge/renderer/glsl/uniform/make_element_type.hpp
-	include/sge/renderer/glsl/uniform/make_enum_type.hpp
-	include/sge/renderer/glsl/uniform/single_value.hpp
-	include/sge/renderer/glsl/uniform/value.hpp
-	include/sge/renderer/glsl/uniform/variable.hpp
-	include/sge/renderer/glsl/uniform/variable_fwd.hpp
-	include/sge/renderer/glsl/uniform/variable_scoped_ptr.hpp
-	include/sge/renderer/glsl/uniform/variable_shared_ptr.hpp
-	include/sge/renderer/glsl/uniform/variable_unique_ptr.hpp
-	include/sge/renderer/glsl/vertex_shader.hpp
-	include/sge/renderer/glsl/vertex_shader_fwd.hpp
-	include/sge/renderer/glsl/vertex_shader_scoped_ptr.hpp
-	include/sge/renderer/glsl/vertex_shader_unique_ptr.hpp
 	include/sge/renderer/index/any/basic_view.hpp
 	include/sge/renderer/index/any/basic_view_fwd.hpp
 	include/sge/renderer/index/any/detail/generate_visitor.hpp
@@ -515,14 +465,17 @@ set(
 	include/sge/renderer/vf/dynamic/detail/make_color.hpp
 	include/sge/renderer/vf/dynamic/detail/make_element.hpp
 	include/sge/renderer/vf/dynamic/detail/make_element_list.hpp
+	include/sge/renderer/vf/dynamic/detail/make_extra_element.hpp
 	include/sge/renderer/vf/dynamic/detail/make_offsets.hpp
 	include/sge/renderer/vf/dynamic/detail/make_part.hpp
 	include/sge/renderer/vf/dynamic/detail/make_part_list.hpp
-	include/sge/renderer/vf/dynamic/detail/make_unspecified_element.hpp
 	include/sge/renderer/vf/dynamic/detail/make_vector.hpp
 	include/sge/renderer/vf/dynamic/element.hpp
 	include/sge/renderer/vf/dynamic/element_fwd.hpp
 	include/sge/renderer/vf/dynamic/element_list.hpp
+	include/sge/renderer/vf/dynamic/extra.hpp
+	include/sge/renderer/vf/dynamic/extra_any.hpp
+	include/sge/renderer/vf/dynamic/extra_fwd.hpp
 	include/sge/renderer/vf/dynamic/format.hpp
 	include/sge/renderer/vf/dynamic/format_fwd.hpp
 	include/sge/renderer/vf/dynamic/locked_part.hpp
@@ -543,14 +496,14 @@ set(
 	include/sge/renderer/vf/dynamic/pos_fwd.hpp
 	include/sge/renderer/vf/dynamic/texpos.hpp
 	include/sge/renderer/vf/dynamic/texpos_fwd.hpp
-	include/sge/renderer/vf/dynamic/unspecified.hpp
-	include/sge/renderer/vf/dynamic/unspecified_any.hpp
-	include/sge/renderer/vf/dynamic/unspecified_fwd.hpp
 	include/sge/renderer/vf/dynamic/vector.hpp
 	include/sge/renderer/vf/dynamic/vector_fwd.hpp
 	include/sge/renderer/vf/dynamic/view.hpp
 	include/sge/renderer/vf/dynamic/view_fwd.hpp
 	include/sge/renderer/vf/element_type.hpp
+	include/sge/renderer/vf/extra.hpp
+	include/sge/renderer/vf/extra_base.hpp
+	include/sge/renderer/vf/extra_fwd.hpp
 	include/sge/renderer/vf/format.hpp
 	include/sge/renderer/vf/format_fwd.hpp
 	include/sge/renderer/vf/index.hpp
@@ -560,7 +513,6 @@ set(
 	include/sge/renderer/vf/iterator_decl.hpp
 	include/sge/renderer/vf/iterator_fwd.hpp
 	include/sge/renderer/vf/iterator_impl.hpp
-	include/sge/renderer/vf/make_unspecified_tag.hpp
 	include/sge/renderer/vf/nonconst_tag.hpp
 	include/sge/renderer/vf/normal.hpp
 	include/sge/renderer/vf/normal_fwd.hpp
@@ -569,13 +521,8 @@ set(
 	include/sge/renderer/vf/pointer.hpp
 	include/sge/renderer/vf/pos.hpp
 	include/sge/renderer/vf/pos_fwd.hpp
-	include/sge/renderer/vf/string.hpp
 	include/sge/renderer/vf/texpos.hpp
 	include/sge/renderer/vf/texpos_fwd.hpp
-	include/sge/renderer/vf/unspecified.hpp
-	include/sge/renderer/vf/unspecified_base.hpp
-	include/sge/renderer/vf/unspecified_fwd.hpp
-	include/sge/renderer/vf/unspecified_tag.hpp
 	include/sge/renderer/vf/vector.hpp
 	include/sge/renderer/vf/vector3_base.hpp
 	include/sge/renderer/vf/vector_base.hpp
@@ -617,23 +564,8 @@ set(
 	src/renderer/display_mode_output.cpp
 	src/renderer/exception.cpp
 	src/renderer/fullscreen.cpp
-	src/renderer/glsl/exception.cpp
-	src/renderer/glsl/from_fcppt_string.cpp
-	src/renderer/glsl/geometry_shader.cpp
-	src/renderer/glsl/pixel_shader.cpp
-	src/renderer/glsl/program.cpp
-	src/renderer/glsl/scoped_attachment.cpp
-	src/renderer/glsl/scoped_program.cpp
-	src/renderer/glsl/shader.cpp
-	src/renderer/glsl/to_cvv.cpp
-	src/renderer/glsl/uniform/float_value.cpp
-	src/renderer/glsl/uniform/int_value.cpp
-	src/renderer/glsl/uniform/variable.cpp
-	src/renderer/glsl/vertex_shader.cpp
 	src/renderer/include/sge/src/renderer/basic_scoped_buffer_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/const_basic_scoped_buffer_lock_impl.hpp
-	src/renderer/include/sge/src/renderer/glsl/uniform/basic_value_impl.hpp
-	src/renderer/include/sge/src/renderer/glsl/uniform/instantiate_basic_value.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/basic_view_impl.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/format_enum_static.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/instantiate_basic_view.hpp
@@ -814,6 +746,7 @@ set(
 	src/renderer/vf/dynamic/detail/element_converter.cpp
 	src/renderer/vf/dynamic/detail/locked_part_interval.cpp
 	src/renderer/vf/dynamic/element.cpp
+	src/renderer/vf/dynamic/extra.cpp
 	src/renderer/vf/dynamic/format.cpp
 	src/renderer/vf/dynamic/locked_part.cpp
 	src/renderer/vf/dynamic/normal.cpp
@@ -821,7 +754,6 @@ set(
 	src/renderer/vf/dynamic/part.cpp
 	src/renderer/vf/dynamic/pos.cpp
 	src/renderer/vf/dynamic/texpos.cpp
-	src/renderer/vf/dynamic/unspecified.cpp
 	src/renderer/vf/dynamic/vector.cpp
 	src/renderer/vf/dynamic/view.cpp
 	src/renderer/windowed.cpp

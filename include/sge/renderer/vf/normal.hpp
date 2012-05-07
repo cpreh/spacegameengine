@@ -47,7 +47,7 @@ template<
 >
 struct normal
 :
-vector3_base<
+sge::renderer::vf::vector3_base<
 	Format
 >
 {

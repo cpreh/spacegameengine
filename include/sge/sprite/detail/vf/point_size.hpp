@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_VF_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VF_UNSPECIFIED_DIM_HPP_INCLUDED
 
-#include <sge/renderer/vf/unspecified.hpp>
+#include <sge/renderer/vf/extra.hpp>
 #include <sge/renderer/vf/vector.hpp>
 
 
@@ -40,12 +40,12 @@ template<
 >
 struct point_size
 {
-	typedef sge::renderer::vf::unspecified<
+	typedef sge::renderer::vf::extra<
 		sge::renderer::vf::vector<
 			typename Choices::type_choices::float_type,
 			1
 		>,
-		typename Choices::size_choice::attribute_name
+		typename Choices::size_choice::attribute_index
 	> type;
 };
 

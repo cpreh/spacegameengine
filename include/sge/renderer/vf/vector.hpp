@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vector_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -33,10 +34,11 @@ namespace vf
 
 template<
 	typename Format,
-	vertex_size NumSubElements
+	sge::renderer::vf::vertex_size NumSubElements
 >
 struct vector
-{};
+{
+};
 
 }
 }

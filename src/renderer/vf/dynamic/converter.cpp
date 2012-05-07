@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/converter_impl.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/locked_part_interval.hpp>
@@ -34,12 +35,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::vf::dynamic::converter::converter(
-	dynamic::part const &_part,
-	dynamic::color_format_vector const &_accepted_formats
+	sge::renderer::vf::dynamic::part const &_part,
+	sge::renderer::vf::dynamic::color_format_vector const &_accepted_formats
 )
 :
-	part_(_part),
-	accepted_formats_(_accepted_formats),
+	part_(
+		_part
+	),
+	accepted_formats_(
+		_accepted_formats
+	),
 	written_intervals_(),
 	locked_part_(),
 	converter_()
@@ -52,7 +57,7 @@ sge::renderer::vf::dynamic::converter::~converter()
 
 void
 sge::renderer::vf::dynamic::converter::lock(
-	dynamic::locked_part const &_locked_part
+	sge::renderer::vf::dynamic::locked_part const &_locked_part
 )
 {
 	FCPPT_ASSERT_PRE(
@@ -60,7 +65,7 @@ sge::renderer::vf::dynamic::converter::lock(
 	);
 
 	if(
-		renderer::lock_flags::read(
+		sge::renderer::lock_flags::read(
 			_locked_part.lock_flags()
 		)
 		&& converter_
@@ -69,7 +74,7 @@ sge::renderer::vf::dynamic::converter::lock(
 			_locked_part.data(),
 			_locked_part.pos(),
 			written_intervals_,
-			detail::locked_part_interval(
+			sge::renderer::vf::dynamic::detail::locked_part_interval(
 				_locked_part
 			)
 		);
@@ -89,7 +94,7 @@ sge::renderer::vf::dynamic::converter::unlock()
 	)
 		converter_.take(
 			fcppt::make_unique_ptr<
-				detail::converter_impl
+				sge::renderer::vf::dynamic::detail::converter_impl
 			>(
 				fcppt::cref(
 					part_
@@ -99,13 +104,13 @@ sge::renderer::vf::dynamic::converter::unlock()
 		);
 
 	if(
-		renderer::lock_flags::write(
+		sge::renderer::lock_flags::write(
 			locked_part_->lock_flags()
 		)
 	)
 	{
-		dynamic::detail::lock_interval const current_unlock(
-			detail::locked_part_interval(
+		sge::renderer::vf::dynamic::detail::lock_interval const current_unlock(
+			sge::renderer::vf::dynamic::detail::locked_part_interval(
 				*locked_part_
 			)
 		);

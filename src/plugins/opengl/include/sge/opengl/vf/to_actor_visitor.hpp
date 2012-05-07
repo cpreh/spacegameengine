@@ -23,12 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/actor_ptr.hpp>
-#include <sge/opengl/vf/attribute_location_container.hpp>
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
+#include <sge/renderer/vf/dynamic/extra_fwd.hpp>
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
 #include <sge/renderer/vf/dynamic/pos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
-#include <sge/renderer/vf/dynamic/unspecified_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -45,9 +44,9 @@ class to_actor_visitor
 		to_actor_visitor
 	);
 public:
+	explicit
 	to_actor_visitor(
-		vf::actor_parameters const &,
-		opengl::vf::attribute_location_container &
+		sge::opengl::vf::actor_parameters const &
 	);
 
 	typedef sge::opengl::vf::actor_ptr result_type;
@@ -74,12 +73,10 @@ public:
 
 	result_type
 	operator()(
-		sge::renderer::vf::dynamic::unspecified const &
+		sge::renderer::vf::dynamic::extra const &
 	) const;
 private:
-	vf::actor_parameters const parameters_;
-
-	vf::attribute_location_container &attribute_locations_;
+	sge::opengl::vf::actor_parameters const parameters_;
 };
 
 }

@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CONFIG_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_POINT_SIZE_HPP_INCLUDED
 
+#include <sge/renderer/vf/index_fwd.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/sprite/point_size.hpp>
 #include <sge/sprite/config/point_size_fwd.hpp>
 #include <sge/sprite/config/size_choice.hpp>
@@ -47,13 +49,19 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename AttributeName
+	sge::renderer::vf::vertex_size Index
 >
-struct point_size
+struct point_size<
+	sge::renderer::vf::index<
+		Index
+	>
+>
 :
 	sge::sprite::config::size_choice
 {
-	typedef AttributeName attribute_name;
+	typedef sge::renderer::vf::index<
+		Index
+	> attribute_index;
 
 	template<
 		typename Choices

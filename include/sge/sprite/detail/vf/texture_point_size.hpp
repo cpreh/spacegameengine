@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_VF_TEXTURE_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VF_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
-#include <sge/renderer/vf/unspecified.hpp>
+#include <sge/renderer/vf/extra.hpp>
 #include <sge/renderer/vf/vector.hpp>
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/detail/config/find_with_texture_point_size.hpp>
@@ -62,13 +62,13 @@ private:
 	>
 	struct make_size
 	{
-		typedef sge::renderer::vf::unspecified<
+		typedef sge::renderer::vf::extra<
 			sge::renderer::vf::vector<
 				typename Choices::type_choices::float_type,
 				1
 			>,
 			typename boost::mpl::at<
-				typename point_size::attribute_names,
+				typename point_size::attribute_indices,
 				Level
 			>::type
 		> type;

@@ -41,21 +41,21 @@ class ordered_element
 public:
 	SGE_RENDERER_SYMBOL
 	ordered_element(
-		dynamic::element const &,
-		vf::vertex_size offset
+		sge::renderer::vf::dynamic::element const &,
+		sge::renderer::vf::vertex_size offset
 	);
 
 	SGE_RENDERER_SYMBOL
-	dynamic::element const &
+	sge::renderer::vf::dynamic::element const &
 	element() const;
 
 	SGE_RENDERER_SYMBOL
-	vf::vertex_size
+	sge::renderer::vf::vertex_size
 	offset() const;
 private:
-	dynamic::element element_;
+	sge::renderer::vf::dynamic::element element_;
 
-	vf::vertex_size offset_;
+	sge::renderer::vf::vertex_size offset_;
 };
 
 }

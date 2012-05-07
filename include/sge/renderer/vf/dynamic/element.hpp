@@ -40,15 +40,16 @@ class element
 {
 public:
 	SGE_RENDERER_SYMBOL
-	explicit element(
-		dynamic::any const &
+	explicit
+	element(
+		sge::renderer::vf::dynamic::any const &
 	);
 
 	SGE_RENDERER_SYMBOL
-	dynamic::any const &
+	sge::renderer::vf::dynamic::any const &
 	info() const;
 private:
-	dynamic::any info_;
+	sge::renderer::vf::dynamic::any info_;
 };
 
 }

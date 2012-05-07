@@ -46,12 +46,12 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format,
-	vertex_size NumSubElements,
+	sge::renderer::vf::vertex_size NumSubElements,
 	typename Index
 >
 struct texpos
 :
-vector_base<
+sge::renderer::vf::vector_base<
 	Format,
 	NumSubElements
 >
@@ -68,7 +68,7 @@ vector_base<
 	);
 
 	BOOST_STATIC_ASSERT(
-		vf::is_index<
+		sge::renderer::vf::is_index<
 			Index
 		>::value
 	);

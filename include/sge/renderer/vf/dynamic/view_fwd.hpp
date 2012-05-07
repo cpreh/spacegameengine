@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -33,8 +34,8 @@ namespace vf
 namespace dynamic
 {
 
-typedef basic_view<
-	raw_pointer
+typedef sge::renderer::vf::dynamic::basic_view<
+	sge::renderer::raw_pointer
 > view;
 
 }

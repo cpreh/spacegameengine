@@ -29,10 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/target.hpp>
-#include <sge/opengl/glsl/create_geometry_shader.hpp>
-#include <sge/opengl/glsl/create_pixel_shader.hpp>
-#include <sge/opengl/glsl/create_program.hpp>
-#include <sge/opengl/glsl/create_vertex_shader.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/end.hpp>
 #include <sge/opengl/texture/create_cube.hpp>
@@ -57,15 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/glsl/geometry_shader.hpp>
-#include <sge/renderer/glsl/geometry_shader_unique_ptr.hpp>
-#include <sge/renderer/glsl/pixel_shader.hpp>
-#include <sge/renderer/glsl/pixel_shader_unique_ptr.hpp>
-#include <sge/renderer/glsl/program.hpp>
-#include <sge/renderer/glsl/program_unique_ptr.hpp>
-#include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/glsl/vertex_shader.hpp>
-#include <sge/renderer/glsl/vertex_shader_unique_ptr.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -177,51 +164,6 @@ sge::opengl::device::end_rendering(
 	sge::opengl::render_context::end(
 		_context
 	);
-}
-
-sge::renderer::glsl::program_unique_ptr
-sge::opengl::device::create_glsl_program()
-{
-	return
-		sge::opengl::glsl::create_program(
-			context_
-		);
-}
-
-sge::renderer::glsl::vertex_shader_unique_ptr
-sge::opengl::device::create_glsl_vertex_shader(
-	sge::renderer::glsl::string const &_source
-)
-{
-	return
-		sge::opengl::glsl::create_vertex_shader(
-			context_,
-			_source
-		);
-}
-
-sge::renderer::glsl::pixel_shader_unique_ptr
-sge::opengl::device::create_glsl_pixel_shader(
-	sge::renderer::glsl::string const &_source
-)
-{
-	return
-		sge::opengl::glsl::create_pixel_shader(
-			context_,
-			_source
-		);
-}
-
-sge::renderer::glsl::geometry_shader_unique_ptr
-sge::opengl::device::create_glsl_geometry_shader(
-	sge::renderer::glsl::string const &_source
-)
-{
-	return
-		sge::opengl::glsl::create_geometry_shader(
-			context_,
-			_source
-		);
 }
 
 sge::renderer::target::offscreen_unique_ptr

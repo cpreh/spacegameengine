@@ -19,13 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/vf/dynamic/pos.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
+
 
 sge::renderer::vf::dynamic::pos::pos(
-	vector const &_type
+	sge::renderer::vf::dynamic::vector const &_type
 )
 :
-	type_(_type)
-{}
+	type_(
+		_type
+	)
+{
+}
 
 sge::renderer::vf::dynamic::vector const &
 sge::renderer::vf::dynamic::pos::type() const

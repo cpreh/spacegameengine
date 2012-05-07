@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/icl/interval_set.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -38,7 +39,7 @@ namespace detail
 {
 
 typedef boost::icl::interval_set<
-	renderer::size_type
+	sge::renderer::size_type
 > lock_interval_set;
 
 }

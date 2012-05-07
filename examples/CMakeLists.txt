@@ -245,11 +245,13 @@ add_sge_console_example(
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-add_sge_example(
-	pointsprite
-	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgemedia;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
+message("Fix the point sprite example!")
+
+#add_sge_example(
+#	pointsprite
+#	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgemedia;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#)
 
 add_sge_example(
 	projectile/main
@@ -275,11 +277,13 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-add_sge_example(
-	shader/raw
-	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
+message("Fix the shader raw example!")
+
+#add_sge_example(
+#	shader/raw
+#	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+#	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#)
 
 add_sge_console_example(
 	sound

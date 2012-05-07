@@ -39,11 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/glsl/geometry_shader_unique_ptr.hpp>
-#include <sge/renderer/glsl/pixel_shader_unique_ptr.hpp>
-#include <sge/renderer/glsl/program_unique_ptr.hpp>
-#include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/glsl/vertex_shader_unique_ptr.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -125,82 +120,6 @@ public:
 	void
 	end_rendering(
 		sge::renderer::context::object &
-	) = 0;
-
-	/**
-	 * \brief Creates a glsl program
-	 *
-	 * Creates an empty glsl program.
-	 *
-	 * \return A unique pointer to the created glsl program
-	 *
-	 * \see sge::renderer::caps::object::glsl_supported
-	 *
-	 * \warning The behaviour is undefined if
-	 * sge::renderer::caps::object::glsl_supported is false
-	 */
-	virtual
-	sge::renderer::glsl::program_unique_ptr
-	create_glsl_program() = 0;
-
-	/**
-	 * \brief Creates a glsl vertex shader
-	 *
-	 * Creates a glsl vertex shader from \a source
-	 *
-	 * \param source The source for the shader
-	 *
-	 * \return A unique pointer to the created vertex shader
-	 *
-	 * \see sge::renderer::caps::object::glsl_supported
-	 *
-	 * \warning The behaviour is undefined if
-	 * sge::renderer::caps::object::glsl_supported is false
-	 */
-	virtual
-	sge::renderer::glsl::vertex_shader_unique_ptr
-	create_glsl_vertex_shader(
-		sge::renderer::glsl::string const &source
-	) = 0;
-
-	/**
-	 * \brief Creates a glsl pixel shader
-	 *
-	 * Creates a glsl pixel shader from \a source
-	 *
-	 * \param source The source for the shader
-	 *
-	 * \return A unique pointer to the created pixel shader
-	 *
-	 * \see sge::renderer::caps::object::glsl_supported
-	 *
-	 * \warning The behaviour is undefined if
-	 * sge::renderer::caps::object::glsl_supported is false
-	 */
-	virtual
-	sge::renderer::glsl::pixel_shader_unique_ptr
-	create_glsl_pixel_shader(
-		sge::renderer::glsl::string const &source
-	) = 0;
-
-	/**
-	 * \brief Creates a glsl geometry shader
-	 *
-	 * Creates a glsl geometry shader from \a source
-	 *
-	 * \param source The source for the shader
-	 *
-	 * \return A unique pointer to the created geometry shader
-	 *
-	 * \see sge::renderer::caps::object::glsl_supported
-	 *
-	 * \warning The behaviour is undefined if
-	 * sge::renderer::caps::object::glsl_supported is false
-	 */
-	virtual
-	sge::renderer::glsl::geometry_shader_unique_ptr
-	create_glsl_geometry_shader(
-		sge::renderer::glsl::string const &source
 	) = 0;
 
 	/**

@@ -51,7 +51,7 @@ class iterator
 		Constness
 	>::type
 {
-	typedef typename detail::iterator_base<
+	typedef typename sge::renderer::vf::detail::iterator_base<
 		Part,
 		Constness
 	>::type base;
@@ -70,10 +70,12 @@ private:
 
 	typedef typename vertex_type::pointer internal_pointer;
 
-	static difference_type
+	static
+	difference_type
 	stride();
 
-	explicit iterator(
+	explicit
+	iterator(
 		internal_pointer
 	);
 

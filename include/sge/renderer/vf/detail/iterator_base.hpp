@@ -46,20 +46,20 @@ template<
 struct iterator_base
 {
 	typedef boost::iterator_facade<
-		vf::iterator<
+		sge::renderer::vf::iterator<
 			Part,
 			Constness
 		>,
-		vf::vertex<
+		sge::renderer::vf::vertex<
 			Part,
 			Constness
 		>,
 		std::random_access_iterator_tag,
-		vf::vertex<
+		sge::renderer::vf::vertex<
 			Part,
 			Constness
 		>,
-		vf::vertex_difference
+		sge::renderer::vf::vertex_difference
 	> type;
 };
 

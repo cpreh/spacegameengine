@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/actor_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
+
 namespace sge
 {
 namespace opengl
@@ -32,7 +33,7 @@ namespace vf
 {
 
 typedef fcppt::unique_ptr<
-	actor
+	sge::opengl::vf::actor
 > actor_ptr;
 
 }

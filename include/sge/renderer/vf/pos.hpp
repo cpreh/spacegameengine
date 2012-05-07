@@ -45,11 +45,11 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format,
-	vertex_size NumSubElements
+	sge::renderer::vf::vertex_size NumSubElements
 >
 struct pos
 :
-vector_base<
+sge::renderer::vf::vector_base<
 	Format,
 	NumSubElements
 >

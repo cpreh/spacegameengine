@@ -39,15 +39,16 @@ class normal
 {
 public:
 	SGE_RENDERER_SYMBOL
-	explicit normal(
-		vf::element_type::type
+	explicit
+	normal(
+		sge::renderer::vf::element_type::type
 	);
 
 	SGE_RENDERER_SYMBOL
-	vf::element_type::type
+	sge::renderer::vf::element_type::type
 	element_type() const;
 private:
-	vf::element_type::type element_type_;
+	sge::renderer::vf::element_type::type element_type_;
 };
 
 }

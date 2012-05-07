@@ -29,8 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::vf::part::part(
 	sge::opengl::context::object &_context,
-	renderer::vf::dynamic::part const &_part,
-	opengl::vf::attribute_location_container &_attribute_locations
+	sge::renderer::vf::dynamic::part const &_part
 )
 :
 	context_(
@@ -41,12 +40,12 @@ sge::opengl::vf::part::part(
 	),
 	actors_()
 {
-	renderer::vf::dynamic::ordered_element_list const &elems(
+	sge::renderer::vf::dynamic::ordered_element_list const &elems(
 		part_.elements()
 	);
 
 	for(
-		renderer::vf::dynamic::ordered_element_list::const_iterator elem_it(
+		sge::renderer::vf::dynamic::ordered_element_list::const_iterator elem_it(
 			elems.begin()
 		);
 		elem_it != elems.end();
@@ -54,11 +53,10 @@ sge::opengl::vf::part::part(
 	)
 		fcppt::container::ptr::push_back_unique_ptr(
 			actors_,
-			vf::to_actor(
+			sge::opengl::vf::to_actor(
 				*elem_it,
 				part_.stride(),
-				_context,
-				_attribute_locations
+				_context
 			)
 		);
 }
@@ -75,10 +73,10 @@ sge::opengl::vf::part::get() const
 
 void
 sge::opengl::vf::part::use_me(
-	vf::pointer const _src
+	sge::opengl::vf::pointer const _src
 ) const
 {
-	opengl::vf::client_state_combiner states(
+	sge::opengl::vf::client_state_combiner states(
 		context_
 	);
 
@@ -103,7 +101,7 @@ sge::opengl::vf::part::use_me(
 void
 sge::opengl::vf::part::unuse_me() const
 {
-	opengl::vf::client_state_combiner states(
+	sge::opengl::vf::client_state_combiner states(
 		context_
 	);
 

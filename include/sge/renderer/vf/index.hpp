@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/integral_c.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -41,12 +42,12 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	vertex_size Index
+	sge::renderer::vf::vertex_size Index
 >
 struct index
 :
 boost::mpl::integral_c<
-	vertex_size,
+	sge::renderer::vf::vertex_size,
 	Index
 >
 {

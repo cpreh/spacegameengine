@@ -49,7 +49,7 @@ struct custom_texture_point_size
 		>::value
 	);
 
-	typedef AttributeNames attribute_names;
+	typedef AttributeNames attribute_indices;
 };
 
 }

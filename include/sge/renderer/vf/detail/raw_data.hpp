@@ -44,17 +44,18 @@ typename boost::disable_if<
 	boost::is_fundamental<
 		T
 	>,
-	const_raw_pointer
+	sge::renderer::const_raw_pointer
 >::type
 raw_data(
-	T const &t
+	T const &_value
 )
 {
-	return reinterpret_cast<
-		const_raw_pointer
-	>(
-		t.data()
-	);
+	return
+		reinterpret_cast<
+			sge::renderer::const_raw_pointer
+		>(
+			_value.data()
+		);
 }
 
 template<
@@ -64,17 +65,18 @@ typename boost::enable_if<
 	boost::is_fundamental<
 		T
 	>,
-	const_raw_pointer
+	sge::renderer::const_raw_pointer
 >::type
 raw_data(
-	T const &t
+	T const &_value
 )
 {
-	return reinterpret_cast<
-		const_raw_pointer
-	>(
-		&t
-	);
+	return
+		reinterpret_cast<
+			sge::renderer::const_raw_pointer
+		>(
+			&_value
+		);
 }
 
 }

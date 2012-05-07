@@ -39,15 +39,16 @@ class color
 {
 public:
 	SGE_RENDERER_SYMBOL
-	explicit color(
-		image::color::format::type
+	explicit
+	color(
+		sge::image::color::format::type
 	);
 
 	SGE_RENDERER_SYMBOL
-	image::color::format::type
+	sge::image::color::format::type
 	color_format() const;
 private:
-	image::color::format::type color_format_;
+	sge::image::color::format::type color_format_;
 };
 
 }

@@ -44,11 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/glsl/geometry_shader_unique_ptr.hpp>
-#include <sge/renderer/glsl/pixel_shader_unique_ptr.hpp>
-#include <sge/renderer/glsl/program_unique_ptr.hpp>
-#include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/glsl/vertex_shader_unique_ptr.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -108,24 +103,6 @@ public:
 	void
 	end_rendering(
 		sge::renderer::context::object &
-	);
-
-	sge::renderer::glsl::program_unique_ptr
-	create_glsl_program();
-
-	sge::renderer::glsl::vertex_shader_unique_ptr
-	create_glsl_vertex_shader(
-		sge::renderer::glsl::string const &
-	);
-
-	sge::renderer::glsl::pixel_shader_unique_ptr
-	create_glsl_pixel_shader(
-		sge::renderer::glsl::string const &
-	);
-
-	sge::renderer::glsl::geometry_shader_unique_ptr
-	create_glsl_geometry_shader(
-		sge::renderer::glsl::string const &
 	);
 
 	sge::renderer::target::offscreen_unique_ptr

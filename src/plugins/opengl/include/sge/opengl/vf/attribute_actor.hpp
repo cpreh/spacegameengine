@@ -21,15 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/glsl/context_fwd.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/attribute_context_fwd.hpp>
-#include <sge/opengl/vf/attribute_location_container.hpp>
 #include <sge/opengl/vf/client_state_combiner_fwd.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
-#include <sge/renderer/vf/dynamic/unspecified_fwd.hpp>
+#include <sge/renderer/vf/dynamic/extra_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -42,34 +41,31 @@ namespace vf
 
 class attribute_actor
 :
-	public vf::pointer_actor
+	public sge::opengl::vf::pointer_actor
 {
 	FCPPT_NONCOPYABLE(
 		attribute_actor
 	);
 public:
 	attribute_actor(
-		actor_parameters const &,
-		renderer::vf::dynamic::unspecified const &,
-		opengl::vf::attribute_location_container &
+		sge::opengl::vf::actor_parameters const &,
+		sge::renderer::vf::dynamic::extra const &
 	);
 
 	~attribute_actor();
 private:
 	void
 	operator()(
-		client_state_combiner &,
-		vf::pointer
+		sge::opengl::vf::client_state_combiner &,
+		sge::opengl::vf::pointer
 	) const;
 
 	void
 	unuse(
-		client_state_combiner &
+		sge::opengl::vf::client_state_combiner &
 	) const;
 
-	vf::attribute_context &attribute_context_;
-
-	opengl::glsl::context &glsl_context_;
+	sge::opengl::vf::attribute_context &attribute_context_;
 
 	GLint const elements_;
 

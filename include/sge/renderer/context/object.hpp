@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
-#include <sge/renderer/glsl/const_optional_program_ref_fwd.hpp>
 #include <sge/renderer/light/index.hpp>
 #include <sge/renderer/light/object_fwd.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
@@ -554,29 +553,6 @@ public:
 	transform(
 		sge::renderer::matrix_mode::type mode,
 		sge::renderer::matrix4 const &matrix
-	) = 0;
-
-	/**
-	 * \brief Sets the current glsl program
-	 *
-	 * Sets the current glsl program to \a program or deactivates glsl if
-	 * \a program is sge::renderer::glsl::const_optional_program_ref().  If a
-	 * glsl program is set, the fixed function pipeline is mostly disabled.
-	 * This includes lights, materials, texture stage states, fog states.
-	 * Initially, the glsl program is disabled.
-	 *
-	 * \param program The program to set or
-	 * sge::renderer::glsl::const_optional_program_ref() to disable glsl.
-	 *
-	 * \see sge::renderer::caps::object::glsl_supported
-	 *
-	 * \warning The behaviour is undefined if
-	 * sge::renderer::caps::object::glsl_supported is false
-	 */
-	virtual
-	void
-	glsl_program(
-		sge::renderer::glsl::const_optional_program_ref const &program
 	) = 0;
 
 #if defined(SGE_RENDERER_HAVE_CG)

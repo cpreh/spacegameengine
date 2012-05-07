@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/clear/set.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/convert/clip_plane_index.hpp>
-#include <sge/opengl/glsl/set_program.hpp>
 #include <sge/opengl/light/enable.hpp>
 #include <sge/opengl/light/set.hpp>
 #include <sge/opengl/render_context/object.hpp>
@@ -58,7 +57,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/object.hpp>
-#include <sge/renderer/glsl/const_optional_program_ref_fwd.hpp>
 #include <sge/renderer/light/index.hpp>
 #include <sge/renderer/light/object_fwd.hpp>
 #include <sge/renderer/state/default.hpp>
@@ -414,17 +412,6 @@ sge::opengl::render_context::object::transform(
 		context_,
 		_mode,
 		_matrix
-	);
-}
-
-void
-sge::opengl::render_context::object::glsl_program(
-	sge::renderer::glsl::const_optional_program_ref const &_program
-)
-{
-	sge::opengl::glsl::set_program(
-		context_,
-		_program
 	);
 }
 

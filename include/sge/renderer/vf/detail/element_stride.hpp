@@ -47,11 +47,12 @@ template<
 struct element_stride
 :
 boost::mpl::integral_c<
-	vertex_size,
+	sge::renderer::vf::vertex_size,
 	sizeof(typename T::subelement_type)
 	* T::num_subelements
 >
-{};
+{
+};
 
 FCPPT_PP_POP_WARNING
 

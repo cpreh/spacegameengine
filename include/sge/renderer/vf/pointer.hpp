@@ -51,10 +51,10 @@ struct pointer
 boost::mpl::if_<
 	boost::is_same<
 		Constness,
-		vf::const_tag
+		sge::renderer::vf::const_tag
 	>,
-	renderer::const_raw_pointer,
-	renderer::raw_pointer
+	sge::renderer::const_raw_pointer,
+	sge::renderer::raw_pointer
 >
 {
 };

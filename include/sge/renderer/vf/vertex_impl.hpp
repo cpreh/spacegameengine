@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_VERTEX_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_VF_VERTEX_IMPL_HPP_INCLUDED
 
+#include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/vf/vertex_decl.hpp>
 #include <sge/renderer/vf/detail/calc_offset.hpp>
 #include <sge/renderer/vf/detail/copy_n.hpp>
@@ -38,11 +39,16 @@ template<
 	typename Part,
 	typename Constness
 >
-sge::renderer::vf::vertex<Part, Constness>::vertex(
+sge::renderer::vf::vertex<
+	Part,
+	Constness
+>::vertex(
 	pointer const _data
 )
 :
-	data_(_data)
+	data_(
+		_data
+	)
 {
 }
 
@@ -55,12 +61,18 @@ template<
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		typename sge::renderer::vf::vertex<Part, Constness>::elements,
+		typename sge::renderer::vf::vertex<
+			Part,
+			Constness
+		>::elements,
 		Field
 	>,
 	void
 >::type
-sge::renderer::vf::vertex<Part, Constness>::set(
+sge::renderer::vf::vertex<
+	Part,
+	Constness
+>::set(
 	typename Field::packed_type const &_value
 )
 {
@@ -69,7 +81,7 @@ sge::renderer::vf::vertex<Part, Constness>::set(
 		Field
 	>::type element_iterator;
 
-	typedef typename detail::calc_offset<
+	typedef typename sge::renderer::vf::detail::calc_offset<
 		elements,
 		offsets,
 		element_iterator
@@ -79,14 +91,18 @@ sge::renderer::vf::vertex<Part, Constness>::set(
 		element_iterator
 	>::type element;
 
-	detail::copy_n(
-		detail::raw_data(
+	sge::renderer::vf::detail::copy_n(
+		sge::renderer::vf::detail::raw_data(
 			_value
 		),
-		detail::element_stride<
+		sge::renderer::vf::detail::element_stride<
 			element
 		>::type::value,
-		data_ + boost::mpl::deref<offset>::type::value
+		data_
+		+
+		boost::mpl::deref<
+			offset
+		>::type::value
 	);
 }
 
@@ -99,39 +115,52 @@ template<
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		typename sge::renderer::vf::vertex<Part, Constness>::elements,
+		typename sge::renderer::vf::vertex<
+			Part,
+			Constness
+		>::elements,
 		Field
 	>,
 	typename Field::packed_type
 >::type
-sge::renderer::vf::vertex<Part, Constness>::get() const
+sge::renderer::vf::vertex<
+	Part,
+	Constness
+>::get() const
 {
 	typedef typename boost::mpl::find<
 		elements,
 		Field
 	>::type element_iterator;
 
-	typedef typename detail::calc_offset<
+	typedef typename sge::renderer::vf::detail::calc_offset<
 		elements,
 		offsets,
 		element_iterator
 	>::type offset;
 
-	typedef typename boost::mpl::deref<element_iterator>::type element;
+	typedef typename boost::mpl::deref<
+		element_iterator
+	>::type element;
 
 	typedef typename element::packed_type packed_type;
 
 	packed_type ret;
 
-	detail::copy_n(
-		data_ + boost::mpl::deref<offset>::type::value,
-		detail::element_stride<
+	sge::renderer::vf::detail::copy_n(
+		data_
+		+
+		boost::mpl::deref<
+			offset
+		>::type::value,
+		sge::renderer::vf::detail::element_stride<
 			element
 		>::type::value,
+		// TODO: get rid of this const_cast!
 		const_cast<
-			raw_pointer
+			sge::renderer::raw_pointer
 		>(
-			detail::raw_data(
+			sge::renderer::vf::detail::raw_data(
 				ret
 			)
 		)

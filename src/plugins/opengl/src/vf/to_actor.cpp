@@ -18,31 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor.hpp>
+#include <sge/opengl/vf/actor_ptr.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/to_actor.hpp>
 #include <sge/opengl/vf/to_actor_visitor.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 
 sge::opengl::vf::actor_ptr
 sge::opengl::vf::to_actor(
-	renderer::vf::dynamic::ordered_element const &_element,
-	renderer::vf::vertex_size const _stride,
-	opengl::context::object &_context,
-	opengl::vf::attribute_location_container &_attribute_locations
+	sge::renderer::vf::dynamic::ordered_element const &_element,
+	sge::renderer::vf::vertex_size const _stride,
+	sge::opengl::context::object &_context
 )
 {
 	return
 		fcppt::variant::apply_unary(
-			vf::to_actor_visitor(
-				vf::actor_parameters(
+			sge::opengl::vf::to_actor_visitor(
+				sge::opengl::vf::actor_parameters(
 					_stride,
 					_element.offset(),
 					_context
-				),
-				_attribute_locations
+				)
 			),
 			_element.element().info()
 		);

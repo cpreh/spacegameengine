@@ -46,35 +46,35 @@ namespace detail
 template<
 	typename Part
 >
-dynamic::part const
+sge::renderer::vf::dynamic::part const
 make_part()
 {
 	typedef typename Part::elements elements;
 
 	typedef typename Part::offsets offsets;
 
-	element_list elems;
+	sge::renderer::vf::dynamic::element_list elems;
 
 	boost::mpl::for_each<
 		elements
 	>(
-		detail::make_element_list(
+		sge::renderer::vf::dynamic::detail::make_element_list(
 			elems
 		)
 	);
 
-	offset_list offs;
+	sge::renderer::vf::dynamic::offset_list offs;
 
 	boost::mpl::for_each<
 		offsets
 	>(
-		detail::make_offsets(
+		sge::renderer::vf::dynamic::detail::make_offsets(
 			offs
 		)
 	);
 
 	return
-		dynamic::part(
+		sge::renderer::vf::dynamic::part(
 			elems,
 			offs
 		);

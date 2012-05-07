@@ -24,12 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::vf::dynamic::ordered_element::ordered_element(
-	dynamic::element const &_element,
-	vf::vertex_size const _offset
+	sge::renderer::vf::dynamic::element const &_element,
+	sge::renderer::vf::vertex_size const _offset
 )
 :
-	element_(_element),
-	offset_(_offset)
+	element_(
+		_element
+	),
+	offset_(
+		_offset
+	)
 {
 }
 

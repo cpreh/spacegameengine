@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format_static.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -38,12 +39,12 @@ namespace detail
 template<
 	typename Format
 >
-dynamic::color const
+sge::renderer::vf::dynamic::color const
 make_color()
 {
 	return
-		dynamic::color(
-			image::color::format_static<
+		sge::renderer::vf::dynamic::color(
+			sge::image::color::format_static<
 				Format
 			>::value
 		);

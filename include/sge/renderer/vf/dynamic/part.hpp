@@ -42,21 +42,21 @@ class part
 public:
 	SGE_RENDERER_SYMBOL
 	part(
-		element_list const &,
-		offset_list const &
+		sge::renderer::vf::dynamic::element_list const &,
+		sge::renderer::vf::dynamic::offset_list const &
 	);
 
 	SGE_RENDERER_SYMBOL
-	ordered_element_list const &
+	sge::renderer::vf::dynamic::ordered_element_list const &
 	elements() const;
 
 	SGE_RENDERER_SYMBOL
-	vertex_size
+	sge::renderer::vf::vertex_size
 	stride() const;
 private:
-	ordered_element_list elements_;
+	sge::renderer::vf::dynamic::ordered_element_list elements_;
 
-	vertex_size stride_;
+	sge::renderer::vf::vertex_size stride_;
 };
 
 }

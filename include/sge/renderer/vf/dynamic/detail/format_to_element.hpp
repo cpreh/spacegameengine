@@ -52,8 +52,8 @@ struct format_to_element<
 	float
 >
 :
-element_c<
-	element_type::float_
+sge::renderer::vf::dynamic::detail::element_c<
+	sge::renderer::vf::element_type::float_
 >
 {};
 
@@ -62,8 +62,8 @@ struct format_to_element<
 	double
 >
 :
-element_c<
-	element_type::double_
+sge::renderer::vf::dynamic::detail::element_c<
+	sge::renderer::vf::element_type::double_
 >
 {};
 
@@ -72,8 +72,8 @@ struct format_to_element<
 	char
 >
 :
-element_c<
-	element_type::byte
+sge::renderer::vf::dynamic::detail::element_c<
+	sge::renderer::vf::element_type::byte
 >
 {};
 
@@ -82,8 +82,8 @@ struct format_to_element<
 	unsigned char
 >
 :
-element_c<
-	element_type::ubyte
+sge::renderer::vf::dynamic::detail::element_c<
+	sge::renderer::vf::element_type::ubyte
 >
 {};
 
@@ -92,8 +92,8 @@ struct format_to_element<
 	short
 >
 :
-element_c<
-	element_type::short_
+sge::renderer::vf::dynamic::detail::element_c<
+	sge::renderer::vf::element_type::short_
 >
 {};
 
@@ -102,8 +102,8 @@ struct format_to_element<
 	unsigned short
 >
 :
-element_c<
-	element_type::ushort
+sge::renderer::vf::dynamic::detail::element_c<
+	sge::renderer::vf::element_type::ushort
 >
 {};
 
@@ -112,8 +112,8 @@ struct format_to_element<
 	int
 >
 :
-element_c<
-	element_type::int_
+sge::renderer::vf::dynamic::detail::element_c<
+	sge::renderer::vf::element_type::int_
 >
 {};
 
@@ -122,8 +122,8 @@ struct format_to_element<
 	unsigned
 >
 :
-element_c<
-	element_type::uint
+sge::renderer::vf::dynamic::detail::element_c<
+	sge::renderer::vf::element_type::uint
 >
 {};
 

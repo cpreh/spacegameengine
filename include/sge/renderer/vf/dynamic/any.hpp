@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/vf/dynamic/pos.hpp>
 #include <sge/renderer/vf/dynamic/texpos.hpp>
-#include <sge/renderer/vf/dynamic/unspecified.hpp>
+#include <sge/renderer/vf/dynamic/extra.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -43,11 +43,11 @@ namespace dynamic
 
 typedef fcppt::variant::object<
 	boost::mpl::vector5<
-		dynamic::pos,
-		dynamic::normal,
-		dynamic::color,
-		dynamic::texpos,
-		dynamic::unspecified
+		sge::renderer::vf::dynamic::pos,
+		sge::renderer::vf::dynamic::normal,
+		sge::renderer::vf::dynamic::color,
+		sge::renderer::vf::dynamic::texpos,
+		sge::renderer::vf::dynamic::extra
 	>
 > any;
 

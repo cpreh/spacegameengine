@@ -43,7 +43,7 @@ template<
 >
 struct color
 :
-color_base<
+sge::renderer::vf::color_base<
 	Format
 >
 {};

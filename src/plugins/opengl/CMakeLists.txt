@@ -119,96 +119,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/glew/is_supported.hpp
 	src/plugins/opengl/include/sge/opengl/glew/scoped_init.hpp
 	src/plugins/opengl/include/sge/opengl/glew/string.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/arb/char.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/arb/environment.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/arb/handle.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/arb/program_context.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/arb/program_context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/arb/shader_context.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/arb/shader_context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/arb/uniform_context.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/arb/uniform_context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/bind_attrib_locations.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/context.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/create_geometry_shader.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/create_pixel_shader.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/create_program.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/create_shader.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/create_vertex_shader.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/format_error.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/geometry_shader.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/get_shader_source.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/handle.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/instantiate.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/make_shader_type.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/native/char.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/native/environment.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/native/handle.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/native/program_context.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/native/program_context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/native/shader_context.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/native/shader_context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/native/uniform_context.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/native/uniform_context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/pixel_shader.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/program.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/program_base.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/program_base_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/program_contexts.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/program_holder.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/programfuncs/attach_shader.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/programfuncs/bind_attrib_location.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/programfuncs/bind_frag_data_location.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/programfuncs/create.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/programfuncs/delete.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/programfuncs/detach_shader.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/programfuncs/get_integer.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/programfuncs/info_log.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/programfuncs/info_log_length.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/programfuncs/link.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/programfuncs/link_status.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/programfuncs/use.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/set_program.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/set_shader_source.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shader.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shader_base.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shader_base_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shader_contexts.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shader_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shader_type.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shaderfuncs/compile.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shaderfuncs/compile_status.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shaderfuncs/create.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shaderfuncs/delete.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shaderfuncs/get_integer.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shaderfuncs/get_source.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shaderfuncs/info_log.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shaderfuncs/info_log_length.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/shaderfuncs/source.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/contexts.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/convert_type.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/element_columns.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/element_count.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/element_rows.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/element_size_float.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/element_size_int.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/element_type.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/get.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/is_matrix.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/location.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/set.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/set_float.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/set_int.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/set_matrix.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/set_visitor.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/size_type.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/type.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/type_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/variable.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/variable_arb.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/uniform/variable_native.hpp
-	src/plugins/opengl/include/sge/opengl/glsl/vertex_shader.hpp
 	src/plugins/opengl/include/sge/opengl/index_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/init_multi_sampling.hpp
 	src/plugins/opengl/include/sge/opengl/internal_color_format.hpp
@@ -432,8 +342,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/vf/attribute_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/attribute_context.hpp
 	src/plugins/opengl/include/sge/opengl/vf/attribute_context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/vf/attribute_location.hpp
-	src/plugins/opengl/include/sge/opengl/vf/attribute_location_container.hpp
 	src/plugins/opengl/include/sge/opengl/vf/client_state.hpp
 	src/plugins/opengl/include/sge/opengl/vf/client_state_combiner.hpp
 	src/plugins/opengl/include/sge/opengl/vf/client_state_combiner_fwd.hpp
@@ -445,6 +353,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/vf/disable_vertex_attrib_array.hpp
 	src/plugins/opengl/include/sge/opengl/vf/enable_texcoords.hpp
 	src/plugins/opengl/include/sge/opengl/vf/enable_vertex_attrib_array.hpp
+	src/plugins/opengl/include/sge/opengl/vf/extra_elements.hpp
+	src/plugins/opengl/include/sge/opengl/vf/extra_elements_visitor.hpp
+	src/plugins/opengl/include/sge/opengl/vf/extra_format.hpp
+	src/plugins/opengl/include/sge/opengl/vf/extra_format_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/fp_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/normal_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/part.hpp
@@ -455,10 +367,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/vf/texpos_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/to_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/to_actor_visitor.hpp
-	src/plugins/opengl/include/sge/opengl/vf/unspecified_elements.hpp
-	src/plugins/opengl/include/sge/opengl/vf/unspecified_elements_visitor.hpp
-	src/plugins/opengl/include/sge/opengl/vf/unspecified_format.hpp
-	src/plugins/opengl/include/sge/opengl/vf/unspecified_format_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/vertex_attrib_pointer.hpp
 	src/plugins/opengl/include/sge/opengl/viewport.hpp
 	src/plugins/opengl/src/buffer/base.cpp
@@ -543,68 +451,6 @@ set(
 	src/plugins/opengl/src/glew/initialize.cpp
 	src/plugins/opengl/src/glew/is_supported.cpp
 	src/plugins/opengl/src/glew/scoped_init.cpp
-	src/plugins/opengl/src/glsl/arb/program_context.cpp
-	src/plugins/opengl/src/glsl/arb/shader_context.cpp
-	src/plugins/opengl/src/glsl/arb/uniform_context.cpp
-	src/plugins/opengl/src/glsl/bind_attrib_locations.cpp
-	src/plugins/opengl/src/glsl/context.cpp
-	src/plugins/opengl/src/glsl/create_geometry_shader.cpp
-	src/plugins/opengl/src/glsl/create_pixel_shader.cpp
-	src/plugins/opengl/src/glsl/create_program.cpp
-	src/plugins/opengl/src/glsl/create_shader.cpp
-	src/plugins/opengl/src/glsl/create_vertex_shader.cpp
-	src/plugins/opengl/src/glsl/geometry_shader.cpp
-	src/plugins/opengl/src/glsl/get_shader_source.cpp
-	src/plugins/opengl/src/glsl/make_shader_type.cpp
-	src/plugins/opengl/src/glsl/native/program_context.cpp
-	src/plugins/opengl/src/glsl/native/shader_context.cpp
-	src/plugins/opengl/src/glsl/native/uniform_context.cpp
-	src/plugins/opengl/src/glsl/pixel_shader.cpp
-	src/plugins/opengl/src/glsl/program.cpp
-	src/plugins/opengl/src/glsl/program_base.cpp
-	src/plugins/opengl/src/glsl/program_holder.cpp
-	src/plugins/opengl/src/glsl/programfuncs/attach_shader.cpp
-	src/plugins/opengl/src/glsl/programfuncs/bind_attrib_location.cpp
-	src/plugins/opengl/src/glsl/programfuncs/bind_frag_data_location.cpp
-	src/plugins/opengl/src/glsl/programfuncs/create.cpp
-	src/plugins/opengl/src/glsl/programfuncs/delete.cpp
-	src/plugins/opengl/src/glsl/programfuncs/detach_shader.cpp
-	src/plugins/opengl/src/glsl/programfuncs/get_integer.cpp
-	src/plugins/opengl/src/glsl/programfuncs/info_log.cpp
-	src/plugins/opengl/src/glsl/programfuncs/info_log_length.cpp
-	src/plugins/opengl/src/glsl/programfuncs/link.cpp
-	src/plugins/opengl/src/glsl/programfuncs/link_status.cpp
-	src/plugins/opengl/src/glsl/programfuncs/use.cpp
-	src/plugins/opengl/src/glsl/set_program.cpp
-	src/plugins/opengl/src/glsl/set_shader_source.cpp
-	src/plugins/opengl/src/glsl/shader.cpp
-	src/plugins/opengl/src/glsl/shader_base.cpp
-	src/plugins/opengl/src/glsl/shaderfuncs/compile.cpp
-	src/plugins/opengl/src/glsl/shaderfuncs/compile_status.cpp
-	src/plugins/opengl/src/glsl/shaderfuncs/create.cpp
-	src/plugins/opengl/src/glsl/shaderfuncs/delete.cpp
-	src/plugins/opengl/src/glsl/shaderfuncs/get_integer.cpp
-	src/plugins/opengl/src/glsl/shaderfuncs/get_source.cpp
-	src/plugins/opengl/src/glsl/shaderfuncs/info_log.cpp
-	src/plugins/opengl/src/glsl/shaderfuncs/info_log_length.cpp
-	src/plugins/opengl/src/glsl/shaderfuncs/source.cpp
-	src/plugins/opengl/src/glsl/uniform/convert_type.cpp
-	src/plugins/opengl/src/glsl/uniform/element_columns.cpp
-	src/plugins/opengl/src/glsl/uniform/element_count.cpp
-	src/plugins/opengl/src/glsl/uniform/element_rows.cpp
-	src/plugins/opengl/src/glsl/uniform/element_size_float.cpp
-	src/plugins/opengl/src/glsl/uniform/element_size_int.cpp
-	src/plugins/opengl/src/glsl/uniform/get.cpp
-	src/plugins/opengl/src/glsl/uniform/is_matrix.cpp
-	src/plugins/opengl/src/glsl/uniform/location.cpp
-	src/plugins/opengl/src/glsl/uniform/set.cpp
-	src/plugins/opengl/src/glsl/uniform/set_float.cpp
-	src/plugins/opengl/src/glsl/uniform/set_int.cpp
-	src/plugins/opengl/src/glsl/uniform/set_matrix.cpp
-	src/plugins/opengl/src/glsl/uniform/set_visitor.cpp
-	src/plugins/opengl/src/glsl/uniform/type.cpp
-	src/plugins/opengl/src/glsl/uniform/variable.cpp
-	src/plugins/opengl/src/glsl/vertex_shader.cpp
 	src/plugins/opengl/src/index_buffer.cpp
 	src/plugins/opengl/src/init_multi_sampling.cpp
 	src/plugins/opengl/src/light/attenuation.cpp
@@ -762,12 +608,11 @@ set(
 	src/plugins/opengl/src/unset_vertex_buffer.cpp
 	src/plugins/opengl/src/vertex_buffer.cpp
 	src/plugins/opengl/src/vertex_context.cpp
-	src/plugins/opengl/src/vertex_delcaration.cpp
+	src/plugins/opengl/src/vertex_declaration.cpp
 	src/plugins/opengl/src/vf/actor.cpp
 	src/plugins/opengl/src/vf/actor_parameters.cpp
 	src/plugins/opengl/src/vf/attribute_actor.cpp
 	src/plugins/opengl/src/vf/attribute_context.cpp
-	src/plugins/opengl/src/vf/attribute_location.cpp
 	src/plugins/opengl/src/vf/client_state.cpp
 	src/plugins/opengl/src/vf/client_state_combiner.cpp
 	src/plugins/opengl/src/vf/color_actor.cpp
@@ -777,6 +622,10 @@ set(
 	src/plugins/opengl/src/vf/disable_vertex_attrib_array.cpp
 	src/plugins/opengl/src/vf/enable_texcoords.cpp
 	src/plugins/opengl/src/vf/enable_vertex_attrib_array.cpp
+	src/plugins/opengl/src/vf/extra_elements.cpp
+	src/plugins/opengl/src/vf/extra_elements_visitor.cpp
+	src/plugins/opengl/src/vf/extra_format.cpp
+	src/plugins/opengl/src/vf/extra_format_visitor.cpp
 	src/plugins/opengl/src/vf/fp_actor.cpp
 	src/plugins/opengl/src/vf/normal_actor.cpp
 	src/plugins/opengl/src/vf/part.cpp
@@ -785,10 +634,6 @@ set(
 	src/plugins/opengl/src/vf/texpos_actor.cpp
 	src/plugins/opengl/src/vf/to_actor.cpp
 	src/plugins/opengl/src/vf/to_actor_visitor.cpp
-	src/plugins/opengl/src/vf/unspecified_elements.cpp
-	src/plugins/opengl/src/vf/unspecified_elements_visitor.cpp
-	src/plugins/opengl/src/vf/unspecified_format.cpp
-	src/plugins/opengl/src/vf/unspecified_format_visitor.cpp
 	src/plugins/opengl/src/vf/vertex_attrib_pointer.cpp
 	src/plugins/opengl/src/viewport.cpp
 )

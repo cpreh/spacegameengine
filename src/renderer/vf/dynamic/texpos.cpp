@@ -18,16 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/texpos.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
+
 
 sge::renderer::vf::dynamic::texpos::texpos(
-	vector const &_type,
-	vf::vertex_size const _index
+	sge::renderer::vf::dynamic::vector const &_type,
+	sge::renderer::vf::vertex_size const _index
 )
 :
-	type_(_type),
-	index_(_index)
-{}
+	type_(
+		_type
+	),
+	index_(
+		_index
+	)
+{
+}
 
 sge::renderer::vf::dynamic::vector const &
 sge::renderer::vf::dynamic::texpos::type() const

@@ -30,7 +30,10 @@ template<
 	typename Part,
 	typename Constness
 >
-sge::renderer::vf::view<Part, Constness>::view(
+sge::renderer::vf::view<
+	Part,
+	Constness
+>::view(
 	dynamic_view_type const &_view
 )
 :
@@ -50,8 +53,11 @@ template<
 template<
 	typename OtherView
 >
-sge::renderer::vf::view<Part, Constness>::view(
-	dynamic::basic_view<
+sge::renderer::vf::view<
+	Part,
+	Constness
+>::view(
+	sge::renderer::vf::dynamic::basic_view<
 		OtherView
 	> const &_view
 )
@@ -69,8 +75,14 @@ template<
 	typename Part,
 	typename Constness
 >
-typename sge::renderer::vf::view<Part, Constness>::iterator
-sge::renderer::vf::view<Part, Constness>::begin() const
+typename sge::renderer::vf::view<
+	Part,
+	Constness
+>::iterator
+sge::renderer::vf::view<
+	Part,
+	Constness
+>::begin() const
 {
 	return
 		iterator(
@@ -82,8 +94,14 @@ template<
 	typename Part,
 	typename Constness
 >
-typename sge::renderer::vf::view<Part, Constness>::iterator
-sge::renderer::vf::view<Part, Constness>::end() const
+typename sge::renderer::vf::view<
+	Part,
+	Constness
+>::iterator
+sge::renderer::vf::view<
+	Part,
+	Constness
+>::end() const
 {
 	return
 		iterator(

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/fbo/context.hpp>
-#include <sge/opengl/glsl/context.hpp>
 #include <sge/opengl/texture/context.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
@@ -34,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/driver_name.hpp>
-#include <sge/renderer/caps/glsl_supported.hpp>
 #include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
@@ -145,13 +143,6 @@ sge::opengl::create_caps(
 			sge::renderer::caps::render_target_supported(
 				context::use<
 					fbo::context
-				>(
-					_context
-				).is_supported()
-			),
-			sge::renderer::caps::glsl_supported(
-				context::use<
-					glsl::context
 				>(
 					_context
 				).is_supported()

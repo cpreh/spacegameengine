@@ -30,7 +30,7 @@ namespace config
 {
 
 template<
-	typename AttributeName
+	typename Index
 >
 struct point_size;
 

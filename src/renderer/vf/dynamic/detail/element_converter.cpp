@@ -46,10 +46,18 @@ sge::renderer::vf::dynamic::detail::element_converter::element_converter(
 	sge::renderer::vf::vertex_size const _offset
 )
 :
-	original_color_(_original_color),
-	backend_color_(_backend_color),
-	stride_(_stride),
-	offset_(_offset)
+	original_color_(
+		_original_color
+	),
+	backend_color_(
+		_backend_color
+	),
+	stride_(
+		_stride
+	),
+	offset_(
+		_offset
+	)
 {
 	FCPPT_ASSERT_PRE(
 		sge::image::color::format_stride(
@@ -68,9 +76,9 @@ sge::renderer::vf::dynamic::detail::element_converter::~element_converter()
 
 void
 sge::renderer::vf::dynamic::detail::element_converter::convert(
-	detail::lock_interval const &_interval,
+	sge::renderer::vf::dynamic::detail::lock_interval const &_interval,
 	sge::renderer::raw_pointer const _data,
-	renderer::first_vertex const _pos,
+	sge::renderer::first_vertex const _pos,
 	bool const _unlock
 )
 {

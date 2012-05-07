@@ -43,12 +43,16 @@ class make_element_list
 		make_element_list
 	);
 public:
-	explicit make_element_list(
-		element_list &_elems
+	explicit
+	make_element_list(
+		sge::renderer::vf::dynamic::element_list &_elems
 	)
 	:
-		elems_(_elems)
-	{}
+		elems_(
+			_elems
+		)
+	{
+	}
 
 	typedef void result_type;
 
@@ -61,13 +65,13 @@ public:
 	) const
 	{
 		elems_.push_back(
-			detail::make_element(
+			sge::renderer::vf::dynamic::detail::make_element(
 				Type()
 			)
 		);
 	}
 private:
-	element_list &elems_;
+	sge::renderer::vf::dynamic::element_list &elems_;
 };
 
 }

@@ -41,7 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/object.hpp>
-#include <sge/renderer/glsl/const_optional_program_ref_fwd.hpp>
 #include <sge/renderer/light/index.hpp>
 #include <sge/renderer/light/object_fwd.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -221,11 +220,6 @@ private:
 	transform(
 		sge::renderer::matrix_mode::type,
 		sge::renderer::matrix4 const &
-	);
-
-	void
-	glsl_program(
-		sge::renderer::glsl::const_optional_program_ref const &
 	);
 
 #if defined(SGE_RENDERER_HAVE_CG)

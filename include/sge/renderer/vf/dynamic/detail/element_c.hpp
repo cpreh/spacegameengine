@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/integral_c.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -44,15 +45,16 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	element_type::type Elem
+	sge::renderer::vf::element_type::type Elem
 >
 struct element_c
 :
 boost::mpl::integral_c<
-	element_type::type,
+	sge::renderer::vf::element_type::type,
 	Elem
 >
-{};
+{
+};
 
 FCPPT_PP_POP_WARNING
 

@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/driver_name.hpp>
-#include <sge/renderer/caps/glsl_supported.hpp>
 #include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
@@ -66,18 +65,17 @@ public:
 	*/
 	SGE_RENDERER_SYMBOL
 	object(
-		renderer::adapter,
-		caps::driver_name const &,
-		caps::description const &,
-		caps::max_texture_size const &,
-		caps::max_volume_texture_extent,
-		caps::max_anisotropy,
-		caps::render_target_supported,
-		caps::glsl_supported,
-		caps::preferred_texture_format,
-		caps::clip_plane_indices,
-		caps::light_indices,
-		caps::texture_stages
+		sge::renderer::adapter,
+		sge::renderer::caps::driver_name const &,
+		sge::renderer::caps::description const &,
+		sge::renderer::caps::max_texture_size const &,
+		sge::renderer::caps::max_volume_texture_extent,
+		sge::renderer::caps::max_anisotropy,
+		sge::renderer::caps::render_target_supported,
+		sge::renderer::caps::preferred_texture_format,
+		sge::renderer::caps::clip_plane_indices,
+		sge::renderer::caps::light_indices,
+		sge::renderer::caps::texture_stages
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -90,7 +88,7 @@ public:
 	 * when creating the device.
 	*/
 	SGE_RENDERER_SYMBOL
-	renderer::adapter const
+	sge::renderer::adapter const
 	adapter() const;
 
 	/**
@@ -99,7 +97,7 @@ public:
 	 * A string representation of the driver name.
 	*/
 	SGE_RENDERER_SYMBOL
-	caps::driver_name const &
+	sge::renderer::caps::driver_name const &
 	driver_name() const;
 
 	/**
@@ -109,7 +107,7 @@ public:
 	 * card.
 	*/
 	SGE_RENDERER_SYMBOL
-	caps::description const &
+	sge::renderer::caps::description const &
 	description() const;
 
 	/**
@@ -122,7 +120,7 @@ public:
 	 * or (8192,8192).
 	*/
 	SGE_RENDERER_SYMBOL
-	caps::max_texture_size const &
+	sge::renderer::caps::max_texture_size const &
 	max_texture_size() const;
 
 	/**
@@ -132,7 +130,7 @@ public:
 	 * Creating anything bigger than that is not supported.
 	*/
 	SGE_RENDERER_SYMBOL
-	caps::max_volume_texture_extent const
+	sge::renderer::caps::max_volume_texture_extent const
 	max_volume_texture_extent() const;
 
 	/**
@@ -142,7 +140,7 @@ public:
 	 * filters. If this is 0, no anisotropic filtering is supported.
 	*/
 	SGE_RENDERER_SYMBOL
-	caps::max_anisotropy const
+	sge::renderer::caps::max_anisotropy const
 	max_anisotropy() const;
 
 	/**
@@ -152,18 +150,8 @@ public:
 	 * renderer::device::create_target.
 	*/
 	SGE_RENDERER_SYMBOL
-	caps::render_target_supported const
+	sge::renderer::caps::render_target_supported const
 	render_target_supported() const;
-
-	/**
-	 * \brief Returns if GLSL is supported
-	 *
-	 * If GLSL is not supported, you cannot create glsl shaders or
-	 * programs.
-	*/
-	SGE_RENDERER_SYMBOL
-	caps::glsl_supported const
-	glsl_supported() const;
 
 	/**
 	 * \brief Returns the preferred texture format
@@ -176,7 +164,7 @@ public:
 	 * preferred formats are used.
 	*/
 	SGE_RENDERER_SYMBOL
-	caps::preferred_texture_format const
+	sge::renderer::caps::preferred_texture_format const
 	preferred_texture_format() const;
 
 	/**
@@ -186,7 +174,7 @@ public:
 	 * this value is 0, no clip planes are supported.
 	*/
 	SGE_RENDERER_SYMBOL
-	caps::clip_plane_indices const
+	sge::renderer::caps::clip_plane_indices const
 	clip_plane_indices() const;
 
 	/**
@@ -196,7 +184,7 @@ public:
 	 * value is 0, no lights are supported.
 	*/
 	SGE_RENDERER_SYMBOL
-	caps::light_indices const
+	sge::renderer::caps::light_indices const
 	light_indices() const;
 
 	/**
@@ -206,32 +194,30 @@ public:
 	 * 0th texture stage is always supported.
 	*/
 	SGE_RENDERER_SYMBOL
-	caps::texture_stages const
+	sge::renderer::caps::texture_stages const
 	texture_stages() const;
 private:
-	renderer::adapter const adapter_;
+	sge::renderer::adapter const adapter_;
 
-	caps::driver_name const driver_name_;
+	sge::renderer::caps::driver_name const driver_name_;
 
-	caps::description const description_;
+	sge::renderer::caps::description const description_;
 
-	caps::max_texture_size const max_texture_size_;
+	sge::renderer::caps::max_texture_size const max_texture_size_;
 
-	caps::max_volume_texture_extent const max_volume_texture_extent_;
+	sge::renderer::caps::max_volume_texture_extent const max_volume_texture_extent_;
 
-	caps::max_anisotropy const max_anisotropy_;
+	sge::renderer::caps::max_anisotropy const max_anisotropy_;
 
-	caps::render_target_supported const render_target_supported_;
+	sge::renderer::caps::render_target_supported const render_target_supported_;
 
-	caps::glsl_supported const glsl_supported_;
+	sge::renderer::caps::preferred_texture_format const preferred_texture_format_;
 
-	caps::preferred_texture_format const preferred_texture_format_;
+	sge::renderer::caps::clip_plane_indices const clip_plane_indices_;
 
-	caps::clip_plane_indices const clip_plane_indices_;
+	sge::renderer::caps::light_indices const light_indices_;
 
-	caps::light_indices const light_indices_;
-
-	caps::texture_stages const texture_stages_;
+	sge::renderer::caps::texture_stages const texture_stages_;
 };
 
 }

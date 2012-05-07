@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/type_traits/make_signed.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -34,7 +35,7 @@ namespace vf
 {
 
 typedef boost::make_signed<
-	vf::vertex_size
+	sge::renderer::vf::vertex_size
 >::type vertex_difference;
 
 }

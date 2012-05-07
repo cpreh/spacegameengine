@@ -39,14 +39,14 @@ namespace detail
 
 template<
 	typename Format,
-	vf::vertex_size NumSubElements
+	sge::renderer::vf::vertex_size NumSubElements
 >
-dynamic::vector const
+sge::renderer::vf::dynamic::vector const
 make_vector()
 {
 	return
-		dynamic::vector(
-			detail::format_to_element<
+		sge::renderer::vf::dynamic::vector(
+			sge::renderer::vf::dynamic::detail::format_to_element<
 				Format
 			>::value,
 			NumSubElements

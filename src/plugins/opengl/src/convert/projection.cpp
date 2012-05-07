@@ -20,17 +20,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/convert/projection.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/glsl/to_cvv.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/matrix/scaling.hpp>
+#include <fcppt/math/matrix/translation.hpp>
 
 
 sge::renderer::matrix4 const
 sge::opengl::convert::projection(
-	renderer::matrix4 const &_matrix
+	sge::renderer::matrix4 const &_matrix
 )
 {
-	return
-		sge::renderer::glsl::to_cvv(
-			_matrix
-		);
+        sge::renderer::scalar const
+                one(
+                        1.f
+                ),
+                two(
+                        0.5f
+                ),
+                zero(
+                        0.0f
+                );
+
+        return
+                fcppt::math::matrix::translation(
+                        zero,
+                        zero,
+                        -one
+                )
+                *
+                fcppt::math::matrix::scaling(
+                        one,
+                        one,
+                        two
+                )
+                *
+                _matrix;
 }

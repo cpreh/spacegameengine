@@ -22,20 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_ELEMENT_HPP_INCLUDED
 
 #include <sge/renderer/vf/color_fwd.hpp>
+#include <sge/renderer/vf/extra_fwd.hpp>
 #include <sge/renderer/vf/index.hpp>
 #include <sge/renderer/vf/normal_fwd.hpp>
 #include <sge/renderer/vf/pos_fwd.hpp>
 #include <sge/renderer/vf/texpos_fwd.hpp>
-#include <sge/renderer/vf/unspecified_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
+#include <sge/renderer/vf/dynamic/extra.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/vf/dynamic/pos.hpp>
 #include <sge/renderer/vf/dynamic/texpos.hpp>
-#include <sge/renderer/vf/dynamic/unspecified.hpp>
 #include <sge/renderer/vf/dynamic/detail/format_to_element.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_color.hpp>
-#include <sge/renderer/vf/dynamic/detail/make_unspecified_element.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_extra_element.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_vector.hpp>
 
 
@@ -54,18 +54,18 @@ template<
 	typename Format,
 	sge::renderer::vf::vertex_size NumSubElements
 >
-dynamic::element const
+sge::renderer::vf::dynamic::element const
 make_element(
-	vf::pos<
+	sge::renderer::vf::pos<
 		Format,
 		NumSubElements
 	> const &
 )
 {
 	return
-		dynamic::element(
-			dynamic::pos(
-				detail::make_vector<
+		sge::renderer::vf::dynamic::element(
+			sge::renderer::vf::dynamic::pos(
+				sge::renderer::vf::dynamic::detail::make_vector<
 					Format,
 					NumSubElements
 				>()
@@ -76,17 +76,17 @@ make_element(
 template<
 	typename Format
 >
-dynamic::element const
+sge::renderer::vf::dynamic::element const
 make_element(
-	vf::normal<
+	sge::renderer::vf::normal<
 		Format
 	> const &
 )
 {
 	return
-		dynamic::element(
-			dynamic::normal(
-				detail::format_to_element<
+		sge::renderer::vf::dynamic::element(
+			sge::renderer::vf::dynamic::normal(
+				sge::renderer::vf::dynamic::detail::format_to_element<
 					Format
 				>::value
 			)
@@ -96,16 +96,16 @@ make_element(
 template<
 	typename Format
 >
-dynamic::element const
+sge::renderer::vf::dynamic::element const
 make_element(
-	vf::color<
+	sge::renderer::vf::color<
 		Format
 	> const &
 )
 {
 	return
-		dynamic::element(
-			detail::make_color<
+		sge::renderer::vf::dynamic::element(
+			sge::renderer::vf::dynamic::detail::make_color<
 				Format
 			>()
 		);
@@ -113,12 +113,12 @@ make_element(
 
 template<
 	typename Format,
-	vertex_size NumSubElements,
+	sge::renderer::vf::vertex_size NumSubElements,
 	typename Index
 >
-dynamic::element const
+sge::renderer::vf::dynamic::element const
 make_element(
-	vf::texpos<
+	sge::renderer::vf::texpos<
 		Format,
 		NumSubElements,
 		Index
@@ -126,9 +126,9 @@ make_element(
 )
 {
 	return
-		dynamic::element(
-			dynamic::texpos(
-				detail::make_vector<
+		sge::renderer::vf::dynamic::element(
+			sge::renderer::vf::dynamic::texpos(
+				sge::renderer::vf::dynamic::detail::make_vector<
 					Format,
 					NumSubElements
 				>(),
@@ -139,23 +139,23 @@ make_element(
 
 template<
 	typename Format,
-	typename Tag
+	typename Index
 >
-dynamic::element const
+sge::renderer::vf::dynamic::element const
 make_element(
-	vf::unspecified<
+	sge::renderer::vf::extra<
 		Format,
-		Tag
+		Index
 	> const &
 )
 {
 	return
-		dynamic::element(
-			dynamic::unspecified(
-				detail::make_unspecified_element(
+		sge::renderer::vf::dynamic::element(
+			sge::renderer::vf::dynamic::extra(
+				sge::renderer::vf::dynamic::detail::make_extra_element(
 					Format()
 				),
-				Tag::name()
+				Index::value
 			)
 		);
 }

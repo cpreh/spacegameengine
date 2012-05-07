@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/vf/dynamic/locked_part_fwd.hpp>
 
 
 namespace sge
@@ -42,35 +43,35 @@ class locked_part
 public:
 	SGE_RENDERER_SYMBOL
 	locked_part(
-		renderer::raw_pointer,
-		renderer::first_vertex,
-		renderer::vertex_count,
-		renderer::lock_flags::method::type
+		sge::renderer::raw_pointer,
+		sge::renderer::first_vertex,
+		sge::renderer::vertex_count,
+		sge::renderer::lock_flags::method::type
 	);
 
 	SGE_RENDERER_SYMBOL
-	renderer::raw_pointer
+	sge::renderer::raw_pointer
 	data() const;
 
 	SGE_RENDERER_SYMBOL
-	renderer::first_vertex const
+	sge::renderer::first_vertex const
 	pos() const;
 
 	SGE_RENDERER_SYMBOL
-	renderer::vertex_count const
+	sge::renderer::vertex_count const
 	count() const;
 
 	SGE_RENDERER_SYMBOL
-	renderer::lock_flags::method::type
+	sge::renderer::lock_flags::method::type
 	lock_flags() const;
 private:
-	renderer::raw_pointer data_;
+	sge::renderer::raw_pointer data_;
 
-	renderer::first_vertex pos_;
+	sge::renderer::first_vertex pos_;
 
-	renderer::vertex_count count_;
+	sge::renderer::vertex_count count_;
 
-	renderer::lock_flags::method::type lock_flags_;
+	sge::renderer::lock_flags::method::type lock_flags_;
 };
 
 }

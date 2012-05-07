@@ -43,11 +43,14 @@ class make_part_list
 		make_part_list
 	);
 public:
-	explicit make_part_list(
-		part_list &_parts
+	explicit
+	make_part_list(
+		sge::renderer::vf::dynamic::part_list &_parts
 	)
 	:
-		parts_(_parts)
+		parts_(
+			_parts
+		)
 	{
 	}
 
@@ -62,13 +65,13 @@ public:
 	) const
 	{
 		parts_.push_back(
-			detail::make_part<
+			sge::renderer::vf::dynamic::detail::make_part<
 				Type
 			>()
 		);
 	}
 private:
-	part_list &parts_;
+	sge::renderer::vf::dynamic::part_list &parts_;
 };
 
 }

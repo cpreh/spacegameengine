@@ -18,19 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 
+
 sge::renderer::vf::dynamic::locked_part::locked_part(
-	renderer::raw_pointer const _data,
-	renderer::first_vertex const _pos,
-	renderer::vertex_count const _count,
-	renderer::lock_flags::method::type const _lock_flags
+	sge::renderer::raw_pointer const _data,
+	sge::renderer::first_vertex const _pos,
+	sge::renderer::vertex_count const _count,
+	sge::renderer::lock_flags::method::type const _lock_flags
 )
 :
-	data_(_data),
-	pos_(_pos),
-	count_(_count),
-	lock_flags_(_lock_flags)
+	data_(
+		_data
+	),
+	pos_(
+		_pos
+	),
+	count_(
+		_count
+	),
+	lock_flags_(
+		_lock_flags
+	)
 {
 }
 

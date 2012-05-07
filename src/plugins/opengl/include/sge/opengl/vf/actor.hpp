@@ -43,21 +43,25 @@ class actor
 protected:
 	actor();
 public:
-	virtual void
+	virtual
+	void
 	operator()(
-		client_state_combiner &,
-		vf::pointer
+		sge::opengl::vf::client_state_combiner &,
+		sge::opengl::vf::pointer
 	) const = 0;
 
-	virtual sge::renderer::size_type
+	virtual
+	sge::renderer::size_type
 	offset() const = 0;
 
-	virtual void
+	virtual
+	void
 	unuse(
-		client_state_combiner &
+		sge::opengl::vf::client_state_combiner &
 	) const = 0;
 
-	virtual ~actor();
+	virtual
+	~actor() = 0;
 };
 
 }

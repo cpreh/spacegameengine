@@ -39,15 +39,16 @@ class format
 {
 public:
 	SGE_RENDERER_SYMBOL
-	explicit format(
-		part_list const &
+	explicit
+	format(
+		sge::renderer::vf::dynamic::part_list const &
 	);
 
 	SGE_RENDERER_SYMBOL
-	part_list const &
+	sge::renderer::vf::dynamic::part_list const &
 	parts() const;
 private:
-	part_list parts_;
+	sge::renderer::vf::dynamic::part_list parts_;
 };
 
 }
