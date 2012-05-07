@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/driver_name.hpp>
-#include <sge/renderer/caps/glsl_supported.hpp>
 #include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
@@ -144,9 +143,6 @@ sge::d3d9::create_caps(
 			),
 			sge::renderer::caps::render_target_supported(
 				true
-			),
-			sge::renderer::caps::glsl_supported(
-				false
 			),
 			sge::renderer::caps::preferred_texture_format(
 				sge::image::color::format::bgra8

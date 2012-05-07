@@ -266,7 +266,8 @@ update_cmake_file \
 	$(d3d9_inc_src surfacefuncs) \
 	$(d3d9_inc_src systemfuncs) \
 	$(d3d9_inc_src target) \
-	$(d3d9_inc_src texture)
+	$(d3d9_inc_src texture) \
+	$(d3d9_inc_src vf)
 
 update_cmake_file \
 	src/plugins/d3d9/CMakeLists.txt \

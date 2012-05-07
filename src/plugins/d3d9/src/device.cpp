@@ -60,11 +60,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/glsl/geometry_shader_unique_ptr.hpp>
-#include <sge/renderer/glsl/pixel_shader_unique_ptr.hpp>
-#include <sge/renderer/glsl/program_unique_ptr.hpp>
-#include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/glsl/vertex_shader_unique_ptr.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -84,9 +79,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/time/sleep_any.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -200,44 +193,6 @@ sge::d3d9::device::end_rendering(
 		)
 	)
 		this->reset();
-}
-
-sge::renderer::glsl::program_unique_ptr
-sge::d3d9::device::create_glsl_program()
-{
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("No GLSL support")
-	);
-}
-
-sge::renderer::glsl::vertex_shader_unique_ptr
-sge::d3d9::device::create_glsl_vertex_shader(
-	renderer::glsl::string const &
-)
-{
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("No GLSL support")
-	);
-}
-
-sge::renderer::glsl::pixel_shader_unique_ptr
-sge::d3d9::device::create_glsl_pixel_shader(
-	renderer::glsl::string const &
-)
-{
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("No GLSL support")
-	);
-}
-
-sge::renderer::glsl::geometry_shader_unique_ptr
-sge::d3d9::device::create_glsl_geometry_shader(
-	renderer::glsl::string const &
-)
-{
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("No GLSL support")
-	);
 }
 
 sge::renderer::target::offscreen_unique_ptr

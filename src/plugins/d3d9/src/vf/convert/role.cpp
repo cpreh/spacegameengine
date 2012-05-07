@@ -18,26 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_VERTEX_ROLE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_VERTEX_ROLE_HPP_INCLUDED
-
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/vf/dynamic/element_fwd.hpp>
+#include <sge/d3d9/vf/convert/role.hpp>
+#include <sge/d3d9/vf/convert/role_visitor.hpp>
+#include <sge/renderer/vf/dynamic/element.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-namespace sge
-{
-namespace d3d9
-{
-namespace convert
-{
 
 D3DDECLUSAGE
-vertex_role(
-	renderer::vf::dynamic::element const &
-);
-
+sge::d3d9::vf::convert::role(
+	sge::renderer::vf::dynamic::element const &_element
+)
+{
+	return
+		fcppt::variant::apply_unary(
+			sge::d3d9::vf::convert::role_visitor(),
+			_element.info()
+		);
 }
-}
-}
-
-#endif

@@ -58,7 +58,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/object.hpp>
-#include <sge/renderer/glsl/const_optional_program_ref_fwd.hpp>
 #include <sge/renderer/light/index.hpp>
 #include <sge/renderer/light/object_fwd.hpp>
 #include <sge/renderer/state/default.hpp>
@@ -432,13 +431,6 @@ sge::d3d9::render_context::object::transform(
 		_mode,
 		_matrix
 	);
-}
-
-void
-sge::d3d9::render_context::object::glsl_program(
-	sge::renderer::glsl::const_optional_program_ref const &_program
-)
-{
 }
 
 #if defined(SGE_RENDERER_HAVE_CG)

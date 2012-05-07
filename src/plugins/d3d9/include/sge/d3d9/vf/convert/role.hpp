@@ -18,24 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_VERTEX_TYPE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_VERTEX_TYPE_HPP_INCLUDED
+#ifndef SGE_D3D9_VF_CONVERT_ROLE_HPP_INCLUDED
+#define SGE_D3D9_VF_CONVERT_ROLE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/vf/dynamic/element_fwd.hpp>
+
 
 namespace sge
 {
 namespace d3d9
 {
+namespace vf
+{
 namespace convert
 {
 
-D3DDECLTYPE
-vertex_type(
-	renderer::vf::dynamic::element const &
+D3DDECLUSAGE
+role(
+	sge::renderer::vf::dynamic::element const &
 );
 
+}
 }
 }
 }

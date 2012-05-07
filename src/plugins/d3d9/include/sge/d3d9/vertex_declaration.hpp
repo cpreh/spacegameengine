@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/com_deleter.hpp>
@@ -63,6 +64,8 @@ public:
 	) const;
 private:
 	sge::renderer::vf::dynamic::format const format_;
+
+	sge::renderer::vf::vertex_size const texture_coordinates_;
 
 	typedef fcppt::scoped_ptr<
 		IDirect3DVertexDeclaration9,

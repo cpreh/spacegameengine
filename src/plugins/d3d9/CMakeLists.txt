@@ -38,8 +38,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/convert/to_color_value.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/to_depth_stencil_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/vector3.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/vertex_role.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/vertex_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/viewport.hpp
 	src/plugins/d3d9/include/sge/d3d9/create_caps.hpp
 	src/plugins/d3d9/include/sge/d3d9/create_device.hpp
@@ -236,6 +234,17 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/usage.hpp
 	src/plugins/d3d9/include/sge/d3d9/vertex_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/vertex_declaration.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/convert/color_type.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/convert/extra_type.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/convert/extra_type_visitor.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/convert/role.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/convert/role_visitor.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/convert/type.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/convert/type_visitor.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/convert/vector_type.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/element_vector.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/texture_coordinates.hpp
 	src/plugins/d3d9/src/convert/address_mode.cpp
 	src/plugins/d3d9/src/convert/address_mode_type.cpp
 	src/plugins/d3d9/src/convert/bool.cpp
@@ -273,8 +282,6 @@ SET(
 	src/plugins/d3d9/src/convert/to_color_value.cpp
 	src/plugins/d3d9/src/convert/to_depth_stencil_format.cpp
 	src/plugins/d3d9/src/convert/vector3.cpp
-	src/plugins/d3d9/src/convert/vertex_role.cpp
-	src/plugins/d3d9/src/convert/vertex_type.cpp
 	src/plugins/d3d9/src/convert/viewport.cpp
 	src/plugins/d3d9/src/create_caps.cpp
 	src/plugins/d3d9/src/create_device.cpp
@@ -427,6 +434,16 @@ SET(
 	src/plugins/d3d9/src/texture/volume_types.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
+	src/plugins/d3d9/src/vf/convert/color_type.cpp
+	src/plugins/d3d9/src/vf/convert/extra_type.cpp
+	src/plugins/d3d9/src/vf/convert/extra_type_visitor.cpp
+	src/plugins/d3d9/src/vf/convert/role.cpp
+	src/plugins/d3d9/src/vf/convert/role_visitor.cpp
+	src/plugins/d3d9/src/vf/convert/type.cpp
+	src/plugins/d3d9/src/vf/convert/type_visitor.cpp
+	src/plugins/d3d9/src/vf/convert/vector_type.cpp
+	src/plugins/d3d9/src/vf/create.cpp
+	src/plugins/d3d9/src/vf/texture_coordinates.cpp
 )
 
 set(

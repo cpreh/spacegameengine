@@ -20,18 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/vertex_declaration.hpp>
-#include <sge/d3d9/convert/vertex_role.hpp>
-#include <sge/d3d9/convert/vertex_type.hpp>
+#include <sge/d3d9/vf/create.hpp>
+#include <sge/d3d9/vf/element_vector.hpp>
+#include <sge/d3d9/vf/texture_coordinates.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/vf/dynamic/element.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
-#include <sge/renderer/vf/dynamic/part_list.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <map>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::d3d9::vertex_declaration::vertex_declaration(
@@ -39,103 +36,22 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 	sge::renderer::vf::dynamic::format const &_format
 )
 :
-	format_(_format),
+	format_(
+		_format
+	),
+	texture_coordinates_(
+		sge::d3d9::vf::texture_coordinates(
+			_format
+		)
+	),
 	declaration_()
 {
-	typedef fcppt::container::raw_vector<
-		D3DVERTEXELEMENT9
-	> element_vector;
 
-	element_vector vertex_elements;
-
-	WORD stream(
-		0
-	);
-
-	typedef std::map<
-		D3DDECLUSAGE,
-		unsigned
-	> usage_count_map;
-
-	sge::renderer::vf::dynamic::part_list const &parts(
-		_format.parts()
-	);
-
-	for(
-		renderer::vf::dynamic::part_list::const_iterator part_it(
-			parts.begin()
-		);
-		part_it != parts.end();
-		++part_it
-	)
-	{
-		usage_count_map usage_counts;
-
-
-		sge::renderer::vf::dynamic::ordered_element_list const &elements(
-			part_it->elements()
-		);
-
-		for(
-			sge::renderer::vf::dynamic::ordered_element_list::const_iterator element_it(
-				elements.begin()
-			);
-			element_it != elements.end();
-			++element_it
+	sge::d3d9::vf::element_vector const vertex_elements(
+		sge::d3d9::vf::create(
+			_format,
+			texture_coordinates_
 		)
-		{
-			sge::renderer::vf::dynamic::ordered_element const &ordered_element(
-				*element_it
-			);
-
-			D3DDECLUSAGE const usage(
-				convert::vertex_role(
-					ordered_element.element()
-				)
-			);
-
-			D3DVERTEXELEMENT9 const new_elem =
-			{
-				stream, // Stream
-				static_cast<
-					WORD
-				>(
-					ordered_element.offset()
-				), // Offset
-				static_cast<
-					BYTE
-				>(
-					convert::vertex_type(
-						ordered_element.element()
-					)
-				), // Type
-				D3DDECLMETHOD_DEFAULT,
-				static_cast<
-					BYTE
-				>(
-					usage
-				),
-				static_cast<
-					BYTE
-				>(
-					usage_counts[
-						usage
-					]++
-				)
-			};
-
-			vertex_elements.push_back(
-				new_elem
-			);
-		}
-
-		++stream;
-	}
-
-	D3DVERTEXELEMENT9 const end_token = D3DDECL_END();
-
-	vertex_elements.push_back(
-		end_token
 	);
 
 	IDirect3DVertexDeclaration9 *decl;
@@ -163,18 +79,20 @@ sge::d3d9::vertex_declaration::~vertex_declaration()
 IDirect3DVertexDeclaration9 *
 sge::d3d9::vertex_declaration::get() const
 {
-	return declaration_.get();
+	return
+		declaration_.get();
 }
 
 sge::renderer::vf::dynamic::format const &
 sge::d3d9::vertex_declaration::format() const
 {
-	return format_;
+	return
+		format_;
 }
 
 sge::renderer::size_type
 sge::d3d9::vertex_declaration::stride(
-	renderer::vf::dynamic::part_index const _part
+	sge::renderer::vf::dynamic::part_index const _part
 ) const
 {
 	return
