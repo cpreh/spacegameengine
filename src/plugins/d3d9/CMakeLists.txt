@@ -237,6 +237,8 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/color_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/extra_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/extra_type_visitor.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/convert/index.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/convert/index_visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/role.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/role_visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/type.hpp
@@ -437,6 +439,8 @@ SET(
 	src/plugins/d3d9/src/vf/convert/color_type.cpp
 	src/plugins/d3d9/src/vf/convert/extra_type.cpp
 	src/plugins/d3d9/src/vf/convert/extra_type_visitor.cpp
+	src/plugins/d3d9/src/vf/convert/index.cpp
+	src/plugins/d3d9/src/vf/convert/index_visitor.cpp
 	src/plugins/d3d9/src/vf/convert/role.cpp
 	src/plugins/d3d9/src/vf/convert/role_visitor.cpp
 	src/plugins/d3d9/src/vf/convert/type.cpp
