@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/vf/create.hpp>
 #include <sge/d3d9/vf/element_vector.hpp>
+#include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/d3d9/vf/convert/index.hpp>
 #include <sge/d3d9/vf/convert/role.hpp>
 #include <sge/d3d9/vf/convert/type.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::d3d9::vf::element_vector const
 sge::d3d9::vf::create(
 	sge::renderer::vf::dynamic::format const &_format,
-	sge::renderer::vf::vertex_size const _texture_coordinates
+	sge::d3d9::vf::texture_coordinate_count const _texture_coordinates
 )
 {
 	sge::d3d9::vf::element_vector vertex_elements;
@@ -84,7 +84,7 @@ sge::d3d9::vf::create(
 				static_cast<
 					WORD
 				>(
-					ordered_element.offset()
+					ordered_element.offset().get()
 				), // Offset
 				static_cast<
 					BYTE

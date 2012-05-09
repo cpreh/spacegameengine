@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/d3d9/vf/convert/index_visitor.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::vf::convert::index_visitor::index_visitor(
-	sge::renderer::vf::vertex_size const _texture_coordinates
+	sge::d3d9::vf::texture_coordinate_count const _texture_coordinates
 )
 :
 	texture_coordinates_(
@@ -86,7 +86,7 @@ sge::d3d9::vf::convert::index_visitor::operator()(
 		static_cast<
 			BYTE
 		>(
-			_texpos.index()
+			_texpos.index().get()
 		);
 }
 
@@ -99,8 +99,8 @@ sge::d3d9::vf::convert::index_visitor::operator()(
 		static_cast<
 			BYTE
 		>(
-			_extra.index()
+			_extra.index().get()
 			+
-			texture_coordinates_
+			texture_coordinates_.get()
 		);
 }

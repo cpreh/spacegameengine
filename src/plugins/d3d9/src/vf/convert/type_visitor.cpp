@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vf/convert/type_visitor.hpp>
 #include <sge/d3d9/vf/convert/vector_type.hpp>
 #include <sge/renderer/unsupported.hpp>
-#include <sge/renderer/vf/element_type.hpp>
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
+#include <sge/renderer/vf/dynamic/element_type.hpp>
 #include <sge/renderer/vf/dynamic/extra_fwd.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/vf/dynamic/pos.hpp>
@@ -52,7 +52,7 @@ sge::d3d9::vf::convert::type_visitor::operator()(
 	if(
 		_normal.element_type()
 		!=
-		sge::renderer::vf::element_type::float_
+		sge::renderer::vf::dynamic::element_type::float_
 	)
 		throw sge::renderer::unsupported(
 			FCPPT_TEXT("D3D9 only supports normals with a float element type!"),

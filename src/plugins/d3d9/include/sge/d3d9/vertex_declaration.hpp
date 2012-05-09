@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_VERTEX_DECLARATION_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -58,14 +58,14 @@ public:
 	sge::renderer::vf::dynamic::format const &
 	format() const;
 
-	renderer::size_type
+	sge::renderer::vf::dynamic::stride const
 	stride(
 		renderer::vf::dynamic::part_index
 	) const;
 private:
 	sge::renderer::vf::dynamic::format const format_;
 
-	sge::renderer::vf::vertex_size const texture_coordinates_;
+	sge::d3d9::vf::texture_coordinate_count const texture_coordinates_;
 
 	typedef fcppt::scoped_ptr<
 		IDirect3DVertexDeclaration9,

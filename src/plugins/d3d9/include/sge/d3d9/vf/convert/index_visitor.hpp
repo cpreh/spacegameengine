@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_VF_CONVERT_INDEX_VISITOR_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
 #include <sge/renderer/vf/dynamic/extra_fwd.hpp>
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
@@ -48,7 +48,7 @@ class index_visitor
 public:
 	explicit
 	index_visitor(
-		sge::renderer::vf::vertex_size texture_coordinates
+		sge::d3d9::vf::texture_coordinate_count
 	);
 
 	typedef BYTE result_type;
@@ -78,7 +78,7 @@ public:
 		sge::renderer::vf::dynamic::extra const &
 	) const;
 private:
-	sge::renderer::vf::vertex_size const texture_coordinates_;
+	sge::d3d9::vf::texture_coordinate_count const texture_coordinates_;
 };
 
 }

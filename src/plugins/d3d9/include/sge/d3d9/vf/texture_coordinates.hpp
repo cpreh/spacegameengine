@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_VF_TEXTURE_COORDINATES_HPP_INCLUDED
 #define SGE_D3D9_VF_TEXTURE_COORDINATES_HPP_INCLUDED
 
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 
 
@@ -32,7 +32,7 @@ namespace d3d9
 namespace vf
 {
 
-sge::renderer::vf::vertex_size
+sge::d3d9::vf::texture_coordinate_count const
 texture_coordinates(
 	sge::renderer::vf::dynamic::format const &
 );

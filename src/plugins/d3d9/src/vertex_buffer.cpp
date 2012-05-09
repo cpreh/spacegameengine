@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -154,6 +155,12 @@ sge::d3d9::vertex_buffer::format_part_index() const
 	return format_part_index_;
 }
 
+sge::renderer::vf::dynamic::stride const
+sge::d3d9::vertex_buffer::stride() const
+{
+	return format_part_.stride();
+}
+
 IDirect3DVertexBuffer9 *
 sge::d3d9::vertex_buffer::get() const
 {
@@ -170,7 +177,7 @@ sge::d3d9::vertex_buffer::init()
 			static_cast<
 				UINT
 			>(
-				this->stride()
+				this->stride().get()
 				* this->size().get()
 			),
 			convert::resource_flags(
@@ -239,13 +246,13 @@ sge::d3d9::vertex_buffer::do_lock(
 				UINT
 			>(
 				_first.get()
-				* this->stride()
+				* this->stride().get()
 			),
 			static_cast<
 				UINT
 			>(
 				lock_count.get()
-				* this->stride()
+				* this->stride().get()
 			),
 			&data,
 			d3d9::convert::lock_flags(
@@ -282,10 +289,4 @@ sge::d3d9::vertex_buffer::do_lock(
 			this->format_part(),
 			this->format_part_index()
 		);
-}
-
-sge::d3d9::vertex_buffer::size_type
-sge::d3d9::vertex_buffer::stride() const
-{
-	return format_part_.stride();
 }

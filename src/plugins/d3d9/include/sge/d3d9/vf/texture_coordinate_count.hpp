@@ -18,42 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/vertex_buffer.hpp>
-#include <sge/d3d9/devicefuncs/set_stream_source.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_VF_TEXTURE_COORDINATE_COUNT_HPP_INCLUDED
+#define SGE_D3D9_VF_TEXTURE_COORDINATE_COUNT_HPP_INCLUDED
+
+#include <sge/renderer/vf/index_type.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
-void
-sge::d3d9::devicefuncs::set_stream_source(
-	IDirect3DDevice9 *const _device,
-	sge::renderer::vertex_buffer const &_vertex_buffer
-)
+namespace sge
 {
-	sge::d3d9::vertex_buffer const &d3d_buffer(
-		dynamic_cast<
-			sge::d3d9::vertex_buffer const &
-		>(
-			_vertex_buffer
-		)
-	);
+namespace d3d9
+{
+namespace vf
+{
 
-	if(
-		_device->SetStreamSource(
-			_vertex_buffer.format_part_index().get(),
-			d3d_buffer.get(),
-			0u, // offset
-			static_cast<
-				UINT
-			>(
-				d3d_buffer.stride().get()
-			)
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("SetStreamSource() failed!")
-		);
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::renderer::vf::index_type,
+	texture_coordinate_count
+);
+
 }
+}
+}
+
+#endif

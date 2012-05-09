@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/d3d9/vf/convert/index.hpp>
 #include <sge/d3d9/vf/convert/index_visitor.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 BYTE
 sge::d3d9::vf::convert::index(
 	sge::renderer::vf::dynamic::element const &_element,
-	sge::renderer::vf::vertex_size const _texture_coordinates
+	sge::d3d9::vf::texture_coordinate_count const _texture_coordinates
 )
 {
 	return

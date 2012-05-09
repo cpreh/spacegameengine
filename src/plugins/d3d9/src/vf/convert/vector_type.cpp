@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vf/convert/vector_type.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
-#include <sge/renderer/vf/element_type.hpp>
+#include <sge/renderer/vf/dynamic/element_type.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <fcppt/text.hpp>
 
@@ -35,7 +35,7 @@ sge::d3d9::vf::convert::vector_type(
 	if(
 		_vector.element_type()
 		!=
-		sge::renderer::vf::element_type::float_
+		sge::renderer::vf::dynamic::element_type::float_
 	)
 		throw sge::renderer::unsupported(
 			FCPPT_TEXT("D3D9 only supports float vectors for pos or texpos!"),
@@ -44,16 +44,16 @@ sge::d3d9::vf::convert::vector_type(
 		);
 
 	switch(
-		_vector.elements()
+		_vector.element_count().get()
 	)
 	{
-	case 1:
+	case 1u:
 		return D3DDECLTYPE_FLOAT1;
-	case 2:
+	case 2u:
 		return D3DDECLTYPE_FLOAT2;
-	case 3:
+	case 3u:
 		return D3DDECLTYPE_FLOAT3;
-	case 4:
+	case 4u:
 		return D3DDECLTYPE_FLOAT4;
 	}
 

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/d3d9/vf/texture_coordinates.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <sge/renderer/vf/dynamic/part_list.hpp>
@@ -27,12 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/holds_type.hpp>
 
 
-sge::renderer::vf::vertex_size
+sge::d3d9::vf::texture_coordinate_count const
 sge::d3d9::vf::texture_coordinates(
 	sge::renderer::vf::dynamic::format const &_format
 )
 {
-	sge::renderer::vf::vertex_size result(
+	sge::d3d9::vf::texture_coordinate_count result(
 		0u
 	);
 

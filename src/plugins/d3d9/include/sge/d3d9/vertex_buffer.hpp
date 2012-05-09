@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -88,6 +89,9 @@ public:
 	renderer::vf::dynamic::part_index const
 	format_part_index() const;
 
+	sge::renderer::vf::dynamic::stride const
+	stride() const;
+
 	IDirect3DVertexBuffer9 *
 	get() const;
 private:
@@ -109,9 +113,6 @@ private:
 		count_type,
 		renderer::lock_flags::method::type
 	) const;
-
-	size_type
-	stride() const;
 
 	IDirect3DDevice9 *const device_;
 

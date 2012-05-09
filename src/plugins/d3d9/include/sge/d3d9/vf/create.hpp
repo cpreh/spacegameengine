@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_VF_CREATE_HPP_INCLUDED
 
 #include <sge/d3d9/vf/element_vector.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 
 
@@ -36,7 +36,7 @@ namespace vf
 sge::d3d9::vf::element_vector const
 create(
 	sge::renderer::vf::dynamic::format const &,
-	sge::renderer::vf::vertex_size texture_coordinates
+	sge::d3d9::vf::texture_coordinate_count
 );
 
 }

@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vf/element_vector.hpp>
 #include <sge/d3d9/vf/texture_coordinates.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 
@@ -90,7 +90,7 @@ sge::d3d9::vertex_declaration::format() const
 		format_;
 }
 
-sge::renderer::size_type
+sge::renderer::vf::dynamic::stride const
 sge::d3d9::vertex_declaration::stride(
 	sge::renderer::vf::dynamic::part_index const _part
 ) const

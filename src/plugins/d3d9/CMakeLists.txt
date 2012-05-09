@@ -246,6 +246,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/vector_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/element_vector.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/texture_coordinate_count.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/texture_coordinates.hpp
 	src/plugins/d3d9/src/convert/address_mode.cpp
 	src/plugins/d3d9/src/convert/address_mode_type.cpp
