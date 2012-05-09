@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_MAKE_PART_INDEX_HPP_INCLUDED
 
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/mpl/index_of.hpp>
+
 
 namespace sge
 {
@@ -41,15 +43,13 @@ sge::renderer::vf::dynamic::part_index const
 make_part_index()
 {
 	return
-		sge::renderer::vf::dynamic::part_index(
-			static_cast<
-				sge::renderer::vf::dynamic::part_index::value_type
-			>(
-				fcppt::mpl::index_of<
-					typename Format::parts,
-					Part
-				>::value
-			)
+		fcppt::strong_typedef_construct_cast<
+			sge::renderer::vf::dynamic::part_index
+		>(
+			fcppt::mpl::index_of<
+				typename Format::parts,
+				Part
+			>::value
 		);
 }
 

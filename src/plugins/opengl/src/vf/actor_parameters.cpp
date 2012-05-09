@@ -18,26 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
+#include <sge/renderer/vf/dynamic/offset.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
+
 
 sge::opengl::vf::actor_parameters::actor_parameters(
-	sge::renderer::size_type const _stride,
-	sge::renderer::size_type const _offset,
-	opengl::context::object &_context
+	sge::renderer::vf::dynamic::stride const _stride,
+	sge::renderer::vf::dynamic::offset const _offset,
+	sge::opengl::context::object &_context
 )
 :
-	stride_(_stride),
-	offset_(_offset),
-	context_(_context)
-{}
+	stride_(
+		_stride
+	),
+	offset_(
+		_offset
+	),
+	context_(
+		_context
+	)
+{
+}
 
-sge::renderer::size_type
+sge::renderer::vf::dynamic::stride const
 sge::opengl::vf::actor_parameters::stride() const
 {
 	return stride_;
 }
 
-sge::renderer::size_type
+sge::renderer::vf::dynamic::offset const
 sge::opengl::vf::actor_parameters::offset() const
 {
 	return offset_;

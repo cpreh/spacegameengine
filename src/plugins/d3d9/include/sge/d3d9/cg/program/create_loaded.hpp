@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_CG_PROGRAM_CREATE_LOADED_HPP_INCLUDED
 
 #include <sge/cg/program/object_fwd.hpp>
-#include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 
 
 namespace sge

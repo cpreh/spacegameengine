@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
+#include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 
 
@@ -42,7 +42,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	ordered_element(
 		sge::renderer::vf::dynamic::element const &,
-		sge::renderer::vf::vertex_size offset
+		sge::renderer::vf::dynamic::offset
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -50,12 +50,12 @@ public:
 	element() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::vf::vertex_size
+	sge::renderer::vf::dynamic::offset const
 	offset() const;
 private:
 	sge::renderer::vf::dynamic::element element_;
 
-	sge::renderer::vf::vertex_size offset_;
+	sge::renderer::vf::dynamic::offset offset_;
 };
 
 }

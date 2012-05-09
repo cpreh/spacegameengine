@@ -19,7 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/check_state.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/convert_element_type.hpp>
+#include <sge/opengl/vf/fp_actor.hpp>
+#include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pos_actor.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vf/dynamic/pos.hpp>
@@ -28,16 +32,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::vf::pos_actor::pos_actor(
-	actor_parameters const &_param,
-	renderer::vf::dynamic::pos const &_pos
+	sge::opengl::vf::actor_parameters const &_param,
+	sge::renderer::vf::dynamic::pos const &_pos
 )
 :
-	fp_actor(
+	sge::opengl::vf::fp_actor(
 		_param,
 		GL_VERTEX_ARRAY
 	),
 	format_(
-		vf::convert_element_type(
+		sge::opengl::vf::convert_element_type(
 			_pos.type().element_type()
 		)
 	),
@@ -45,7 +49,7 @@ sge::opengl::vf::pos_actor::pos_actor(
 		static_cast<
 			GLint
 		>(
-			_pos.type().elements()
+			_pos.type().element_count().get()
 		)
 	)
 {
@@ -57,7 +61,7 @@ sge::opengl::vf::pos_actor::~pos_actor()
 
 void
 sge::opengl::vf::pos_actor::on_use(
-	vf::pointer const _src
+	sge::opengl::vf::pointer const _src
 ) const
 {
 	::glVertexPointer(
@@ -66,7 +70,7 @@ sge::opengl::vf::pos_actor::on_use(
 		static_cast<
 			GLsizei
 		>(
-			stride()
+			this->stride().get()
 		),
 		_src
 	);

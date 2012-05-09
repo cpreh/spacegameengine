@@ -21,39 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_ANY_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_ANY_HPP_INCLUDED
 
+#include <sge/renderer/vf/dynamic/any_fwd.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
+#include <sge/renderer/vf/dynamic/extra.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/vf/dynamic/pos.hpp>
 #include <sge/renderer/vf/dynamic/texpos.hpp>
-#include <sge/renderer/vf/dynamic/extra.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
-{
-
-typedef fcppt::variant::object<
-	boost::mpl::vector5<
-		sge::renderer::vf::dynamic::pos,
-		sge::renderer::vf::dynamic::normal,
-		sge::renderer::vf::dynamic::color,
-		sge::renderer::vf::dynamic::texpos,
-		sge::renderer::vf::dynamic::extra
-	>
-> any;
-
-}
-}
-}
-}
 
 #endif

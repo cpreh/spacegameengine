@@ -450,6 +450,7 @@ set(
 	include/sge/renderer/vf/detail/iterator_base.hpp
 	include/sge/renderer/vf/detail/raw_data.hpp
 	include/sge/renderer/vf/dynamic/any.hpp
+	include/sge/renderer/vf/dynamic/any_fwd.hpp
 	include/sge/renderer/vf/dynamic/basic_view.hpp
 	include/sge/renderer/vf/dynamic/basic_view_fwd.hpp
 	include/sge/renderer/vf/dynamic/color.hpp
@@ -471,19 +472,24 @@ set(
 	include/sge/renderer/vf/dynamic/detail/make_part_list.hpp
 	include/sge/renderer/vf/dynamic/detail/make_vector.hpp
 	include/sge/renderer/vf/dynamic/element.hpp
+	include/sge/renderer/vf/dynamic/element_count.hpp
 	include/sge/renderer/vf/dynamic/element_fwd.hpp
 	include/sge/renderer/vf/dynamic/element_list.hpp
+	include/sge/renderer/vf/dynamic/element_type.hpp
 	include/sge/renderer/vf/dynamic/extra.hpp
 	include/sge/renderer/vf/dynamic/extra_any.hpp
+	include/sge/renderer/vf/dynamic/extra_any_fwd.hpp
 	include/sge/renderer/vf/dynamic/extra_fwd.hpp
 	include/sge/renderer/vf/dynamic/format.hpp
 	include/sge/renderer/vf/dynamic/format_fwd.hpp
+	include/sge/renderer/vf/dynamic/index.hpp
 	include/sge/renderer/vf/dynamic/locked_part.hpp
 	include/sge/renderer/vf/dynamic/locked_part_fwd.hpp
 	include/sge/renderer/vf/dynamic/make_format.hpp
 	include/sge/renderer/vf/dynamic/make_part_index.hpp
 	include/sge/renderer/vf/dynamic/normal.hpp
 	include/sge/renderer/vf/dynamic/normal_fwd.hpp
+	include/sge/renderer/vf/dynamic/offset.hpp
 	include/sge/renderer/vf/dynamic/offset_list.hpp
 	include/sge/renderer/vf/dynamic/ordered_element.hpp
 	include/sge/renderer/vf/dynamic/ordered_element_fwd.hpp
@@ -494,13 +500,14 @@ set(
 	include/sge/renderer/vf/dynamic/part_list.hpp
 	include/sge/renderer/vf/dynamic/pos.hpp
 	include/sge/renderer/vf/dynamic/pos_fwd.hpp
+	include/sge/renderer/vf/dynamic/stride.hpp
 	include/sge/renderer/vf/dynamic/texpos.hpp
 	include/sge/renderer/vf/dynamic/texpos_fwd.hpp
 	include/sge/renderer/vf/dynamic/vector.hpp
 	include/sge/renderer/vf/dynamic/vector_fwd.hpp
 	include/sge/renderer/vf/dynamic/view.hpp
 	include/sge/renderer/vf/dynamic/view_fwd.hpp
-	include/sge/renderer/vf/element_type.hpp
+	include/sge/renderer/vf/element_count_type.hpp
 	include/sge/renderer/vf/extra.hpp
 	include/sge/renderer/vf/extra_base.hpp
 	include/sge/renderer/vf/extra_fwd.hpp
@@ -508,6 +515,7 @@ set(
 	include/sge/renderer/vf/format_fwd.hpp
 	include/sge/renderer/vf/index.hpp
 	include/sge/renderer/vf/index_fwd.hpp
+	include/sge/renderer/vf/index_type.hpp
 	include/sge/renderer/vf/is_index.hpp
 	include/sge/renderer/vf/iterator.hpp
 	include/sge/renderer/vf/iterator_decl.hpp
@@ -598,11 +606,14 @@ set(
 	src/renderer/include/sge/src/renderer/texture/instantiate_basic_scoped_lock.hpp
 	src/renderer/include/sge/src/renderer/texture/instantiate_const_basic_scoped_lock.hpp
 	src/renderer/include/sge/src/renderer/vf/dynamic/basic_view_impl.hpp
+	src/renderer/include/sge/src/renderer/vf/dynamic/detail/convert_if_color.hpp
 	src/renderer/include/sge/src/renderer/vf/dynamic/detail/converter_impl.hpp
 	src/renderer/include/sge/src/renderer/vf/dynamic/detail/element_converter.hpp
 	src/renderer/include/sge/src/renderer/vf/dynamic/detail/element_converter_fwd.hpp
+	src/renderer/include/sge/src/renderer/vf/dynamic/detail/element_converter_vector.hpp
 	src/renderer/include/sge/src/renderer/vf/dynamic/detail/lock_interval.hpp
 	src/renderer/include/sge/src/renderer/vf/dynamic/detail/locked_part_interval.hpp
+	src/renderer/include/sge/src/renderer/vf/dynamic/detail/matching_color_format.hpp
 	src/renderer/include/sge/src/renderer/vf/dynamic/instantiate_basic_view.hpp
 	src/renderer/index/any/make_view.cpp
 	src/renderer/index/dynamic/const_view.cpp
@@ -745,6 +756,7 @@ set(
 	src/renderer/vf/dynamic/detail/converter_impl.cpp
 	src/renderer/vf/dynamic/detail/element_converter.cpp
 	src/renderer/vf/dynamic/detail/locked_part_interval.cpp
+	src/renderer/vf/dynamic/detail/matching_color_format.cpp
 	src/renderer/vf/dynamic/element.cpp
 	src/renderer/vf/dynamic/extra.cpp
 	src/renderer/vf/dynamic/format.cpp

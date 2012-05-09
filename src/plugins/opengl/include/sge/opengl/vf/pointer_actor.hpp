@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/vf/actor.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/dynamic/offset.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -36,27 +37,29 @@ namespace vf
 
 class pointer_actor
 :
-	public vf::actor
+	public sge::opengl::vf::actor
 {
 	FCPPT_NONCOPYABLE(
 		pointer_actor
 	);
 public:
-	virtual ~pointer_actor();
+	virtual
+	~pointer_actor() = 0;
 protected:
-	explicit pointer_actor(
-		actor_parameters const &
+	explicit
+	pointer_actor(
+		sge::opengl::vf::actor_parameters const &
 	);
 
-	renderer::vf::vertex_size
+	sge::renderer::vf::dynamic::offset const
 	offset() const;
 
-	renderer::vf::vertex_size
+	sge::renderer::vf::dynamic::stride const
 	stride() const;
 private:
-	sge::renderer::vf::vertex_size const
-		offset_,
-		stride_;
+	sge::renderer::vf::dynamic::offset const offset_;
+
+	sge::renderer::vf::dynamic::stride const stride_;
 };
 
 }

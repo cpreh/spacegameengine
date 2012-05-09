@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor_ptr.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 
 
 namespace sge
@@ -37,7 +37,7 @@ namespace vf
 sge::opengl::vf::actor_ptr
 to_actor(
 	sge::renderer::vf::dynamic::ordered_element const &,
-	sge::renderer::vf::vertex_size stride,
+	sge::renderer::vf::dynamic::stride,
 	sge::opengl::context::object &
 );
 

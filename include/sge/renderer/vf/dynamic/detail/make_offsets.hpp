@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_OFFSETS_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_OFFSETS_HPP_INCLUDED
 
+#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/offset_list.hpp>
 #include <fcppt/nonassignable.hpp>
 
@@ -57,11 +59,13 @@ public:
 
 	result_type
 	operator()(
-		sge::renderer::vf::dynamic::offset_list::value_type const &_value
+		sge::renderer::vf::vertex_size const &_value
 	) const
 	{
 		offsets_.push_back(
-			_value
+			sge::renderer::vf::dynamic::offset(
+				_value
+			)
 		);
 	}
 private:

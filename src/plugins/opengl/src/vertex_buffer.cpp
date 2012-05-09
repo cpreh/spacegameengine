@@ -69,7 +69,7 @@ sge::opengl::vertex_buffer::vertex_buffer(
 			_context
 		).vertex_buffer_type(),
 		_size.get(),
-		_format_part.stride(),
+		_format_part.stride().get(),
 		_flags,
 		fcppt::null_ptr()
 	)

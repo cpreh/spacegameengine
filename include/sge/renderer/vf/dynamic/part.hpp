@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/offset_list.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 
 
 namespace sge
@@ -51,12 +52,12 @@ public:
 	elements() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::vf::vertex_size
+	sge::renderer::vf::dynamic::stride const
 	stride() const;
 private:
 	sge::renderer::vf::dynamic::ordered_element_list elements_;
 
-	sge::renderer::vf::vertex_size stride_;
+	sge::renderer::vf::dynamic::stride stride_;
 };
 
 }

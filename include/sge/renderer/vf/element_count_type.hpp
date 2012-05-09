@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_VECTOR_FWD_HPP_INCLUDED
-#define SGE_RENDERER_VF_VECTOR_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_ELEMENT_COUNT_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_VF_ELEMENT_COUNT_TYPE_HPP_INCLUDED
 
-#include <sge/renderer/vf/element_count_type.hpp>
+#include <fcppt/math/size_type.hpp>
 
 
 namespace sge
@@ -31,15 +31,10 @@ namespace renderer
 namespace vf
 {
 
-template<
-	typename Format,
-	sge::renderer::vf::element_count_type NumSubElements
->
-struct vector;
+typedef fcppt::math::size_type element_count_type;
 
 }
 }
 }
 
 #endif
-

@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_VECTOR_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_VECTOR_HPP_INCLUDED
 
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/element_count_type.hpp>
+#include <sge/renderer/vf/dynamic/element_count.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/vf/dynamic/detail/format_to_element.hpp>
 
@@ -39,7 +40,7 @@ namespace detail
 
 template<
 	typename Format,
-	sge::renderer::vf::vertex_size NumSubElements
+	sge::renderer::vf::element_count_type NumSubElements
 >
 sge::renderer::vf::dynamic::vector const
 make_vector()
@@ -49,7 +50,9 @@ make_vector()
 			sge::renderer::vf::dynamic::detail::format_to_element<
 				Format
 			>::value,
-			NumSubElements
+			sge::renderer::vf::dynamic::element_count(
+				NumSubElements
+			)
 		);
 }
 

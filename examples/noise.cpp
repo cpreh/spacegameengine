@@ -27,10 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/log/global.hpp>
 #include <sge/noise/sample.hpp>
-#include <sge/noise/perlin/object.hpp>
 #include <sge/noise/sample_parameters.hpp>
-#include <fcppt/random/generator/minstd_rand.hpp>
-#include <fcppt/random/generator/seed_from_chrono.hpp>
+#include <sge/noise/perlin/object.hpp>
 #include <sge/noise/simplex/object.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
@@ -88,14 +86,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/interpolation/perlin_fifth_degree_functor.hpp>
+#include <fcppt/math/interpolation/trigonometric_functor.hpp>
+#include <fcppt/random/generator/minstd_rand.hpp>
+#include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
-#include <fcppt/math/interpolation/trigonometric_functor.hpp>
-#include <fcppt/math/interpolation/perlin_fifth_degree_functor.hpp>
 
 namespace
 {

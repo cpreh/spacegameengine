@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/vf/element_type.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/dynamic/element_count.hpp>
+#include <sge/renderer/vf/dynamic/element_type.hpp>
 #include <sge/renderer/vf/dynamic/vector_fwd.hpp>
 
 
@@ -41,21 +41,21 @@ class vector
 public:
 	SGE_RENDERER_SYMBOL
 	vector(
-		sge::renderer::vf::element_type::type,
-		sge::renderer::vf::vertex_size num_elements
+		sge::renderer::vf::dynamic::element_type::type,
+		sge::renderer::vf::dynamic::element_count
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::vf::element_type::type
+	sge::renderer::vf::dynamic::element_type::type
 	element_type() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::vf::vertex_size
-	elements() const;
+	sge::renderer::vf::dynamic::element_count const
+	element_count() const;
 private:
-	sge::renderer::vf::element_type::type element_type_;
+	sge::renderer::vf::dynamic::element_type::type element_type_;
 
-	sge::renderer::vf::vertex_size elements_;
+	sge::renderer::vf::dynamic::element_count element_count_;
 };
 
 }

@@ -18,33 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/element_type.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/dynamic/element_count.hpp>
+#include <sge/renderer/vf/dynamic/element_type.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 
 
 sge::renderer::vf::dynamic::vector::vector(
-	sge::renderer::vf::element_type::type const _element_type,
-	sge::renderer::vf::vertex_size const _elements
+	sge::renderer::vf::dynamic::element_type::type const _element_type,
+	sge::renderer::vf::dynamic::element_count const _element_count
 )
 :
 	element_type_(
 		_element_type
 	),
-	elements_(
-		_elements
+	element_count_(
+		_element_count
 	)
 {
 }
 
-sge::renderer::vf::element_type::type
+sge::renderer::vf::dynamic::element_type::type
 sge::renderer::vf::dynamic::vector::element_type() const
 {
 	return element_type_;
 }
 
-sge::renderer::vf::vertex_size
-sge::renderer::vf::dynamic::vector::elements() const
+sge::renderer::vf::dynamic::element_count const
+sge::renderer::vf::dynamic::vector::element_count() const
 {
-	return elements_;
+	return element_count_;
 }

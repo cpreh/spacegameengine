@@ -23,10 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/noise/perlin/object_fwd.hpp>
 #include <fcppt/container/grid/object.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/static_assert.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/preprocessor/pure.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

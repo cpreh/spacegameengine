@@ -33,7 +33,7 @@ sge::opengl::vf::extra_elements_visitor::operator()(
 		static_cast<
 			GLint
 		>(
-			_vector.elements()
+			_vector.element_count().get()
 		);
 }
 

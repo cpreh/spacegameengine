@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_TEXPOS_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/dynamic/index.hpp>
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 
@@ -42,7 +42,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	texpos(
 		sge::renderer::vf::dynamic::vector const &,
-		sge::renderer::vf::vertex_size index
+		sge::renderer::vf::dynamic::index
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -50,12 +50,12 @@ public:
 	type() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::vf::vertex_size
+	sge::renderer::vf::dynamic::index const
 	index() const;
 private:
 	sge::renderer::vf::dynamic::vector type_;
 
-	sge::renderer::vf::vertex_size index_;
+	sge::renderer::vf::dynamic::index index_;
 };
 
 }

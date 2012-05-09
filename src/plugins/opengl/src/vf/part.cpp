@@ -81,7 +81,7 @@ sge::opengl::vf::part::use_me(
 	);
 
 	for(
-		actor_array::iterator actor_it(
+		sge::opengl::vf::part::actor_array::iterator actor_it(
 			actors_.begin()
 		);
 		actor_it != actors_.end();
@@ -94,7 +94,8 @@ sge::opengl::vf::part::use_me(
 			>(
 				_src
 			)
-			+ actor_it->offset()
+			+
+			actor_it->offset().get()
 		);
 }
 
@@ -106,7 +107,7 @@ sge::opengl::vf::part::unuse_me() const
 	);
 
 	for(
-		actor_array::iterator actor_it(
+		sge::opengl::vf::part::actor_array::iterator actor_it(
 			actors_.begin()
 		);
 		actor_it != actors_.end();

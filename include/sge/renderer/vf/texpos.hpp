@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
 #define SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
 
+#include <sge/renderer/vf/element_count_type.hpp>
 #include <sge/renderer/vf/is_index.hpp>
 #include <sge/renderer/vf/texpos_fwd.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -46,7 +46,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format,
-	sge::renderer::vf::vertex_size NumSubElements,
+	sge::renderer::vf::element_count_type NumSubElements,
 	typename Index
 >
 struct texpos

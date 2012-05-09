@@ -18,8 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
 #include <sge/opengl/vf/fp_actor.hpp>
+#include <sge/opengl/vf/pointer.hpp>
+#include <sge/opengl/vf/pointer_actor.hpp>
 
 
 sge::opengl::vf::fp_actor::~fp_actor()
@@ -27,11 +31,11 @@ sge::opengl::vf::fp_actor::~fp_actor()
 }
 
 sge::opengl::vf::fp_actor::fp_actor(
-	vf::actor_parameters const &_param,
+	sge::opengl::vf::actor_parameters const &_param,
 	GLenum const _client_state
 )
 :
-	pointer_actor(
+	sge::opengl::vf::pointer_actor(
 		_param
 	),
 	client_state_(
@@ -42,8 +46,8 @@ sge::opengl::vf::fp_actor::fp_actor(
 
 void
 sge::opengl::vf::fp_actor::operator()(
-	vf::client_state_combiner &_combiner,
-	vf::pointer const _src
+	sge::opengl::vf::client_state_combiner &_combiner,
+	sge::opengl::vf::pointer const _src
 ) const
 {
 	this->on_use(

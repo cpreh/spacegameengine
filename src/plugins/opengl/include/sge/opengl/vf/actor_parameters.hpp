@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vf/dynamic/offset.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -40,24 +41,24 @@ class actor_parameters
 		actor_parameters
 	);
 public:
-	explicit actor_parameters(
-		sge::renderer::size_type stride,
-		sge::renderer::size_type offset,
-		opengl::context::object &
+	actor_parameters(
+		sge::renderer::vf::dynamic::stride,
+		sge::renderer::vf::dynamic::offset,
+		sge::opengl::context::object &
 	);
 
-	sge::renderer::size_type
+	sge::renderer::vf::dynamic::stride const
 	stride() const;
 
-	sge::renderer::size_type
+	sge::renderer::vf::dynamic::offset const
 	offset() const;
 
-	opengl::context::object &
+	sge::opengl::context::object &
 	context() const;
 private:
-	sge::renderer::size_type const
-		stride_,
-		offset_;
+	sge::renderer::vf::dynamic::stride const stride_;
+
+	sge::renderer::vf::dynamic::offset const offset_;
 
 	opengl::context::object &context_;
 };

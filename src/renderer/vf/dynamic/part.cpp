@@ -19,28 +19,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/element_list.hpp>
 #include <sge/renderer/vf/dynamic/offset_list.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 sge::renderer::vf::dynamic::part::part(
 	sge::renderer::vf::dynamic::element_list const &_elements,
 	sge::renderer::vf::dynamic::offset_list const &_offsets
 )
 :
-	elements_()
-	// Don't initialize stride_
+	elements_(),
+	// TODO: initialize this directly somehow
+	stride_(
+		0u
+	)
 {
 	if(
 		_elements.size() + 1u != _offsets.size()
@@ -74,10 +71,11 @@ sge::renderer::vf::dynamic::part::part(
 			)
 		);
 
-	stride_ = _offsets.back();
+	stride_ =
+		sge::renderer::vf::dynamic::stride(
+			_offsets.back().get()
+		);
 }
-
-FCPPT_PP_POP_WARNING
 
 sge::renderer::vf::dynamic::ordered_element_list const &
 sge::renderer::vf::dynamic::part::elements() const
@@ -85,7 +83,7 @@ sge::renderer::vf::dynamic::part::elements() const
 	return elements_;
 }
 
-sge::renderer::vf::vertex_size
+sge::renderer::vf::dynamic::stride const
 sge::renderer::vf::dynamic::part::stride() const
 {
 	return stride_;

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_VECTOR_BASE_HPP_INCLUDED
 #define SGE_RENDERER_VF_VECTOR_BASE_HPP_INCLUDED
 
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/element_count_type.hpp>
 #include <fcppt/math/vector/static.hpp>
 
 
@@ -34,7 +34,7 @@ namespace vf
 
 template<
 	typename Format,
-	sge::renderer::vf::vertex_size NumSubElements
+	sge::renderer::vf::element_count_type NumSubElements
 >
 struct vector_base
 {
@@ -46,7 +46,7 @@ struct vector_base
 	>::type packed_type;
 
 	static
-	sge::renderer::vf::vertex_size const num_subelements
+	sge::renderer::vf::element_count_type const num_subelements
 		= NumSubElements;
 };
 

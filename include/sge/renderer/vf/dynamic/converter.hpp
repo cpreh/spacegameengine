@@ -49,8 +49,8 @@ class converter
 public:
 	SGE_RENDERER_SYMBOL
 	converter(
-		dynamic::part const &,
-		dynamic::color_format_vector const &
+		sge::renderer::vf::dynamic::part const &,
+		sge::renderer::vf::dynamic::color_format_vector const &
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -59,7 +59,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	void
 	lock(
-		dynamic::locked_part const &
+		sge::renderer::vf::dynamic::locked_part const &
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -70,20 +70,20 @@ public:
 	void
 	reset();
 private:
-	dynamic::part const &part_;
+	sge::renderer::vf::dynamic::part const &part_;
 
-	dynamic::color_format_vector const accepted_formats_;
+	sge::renderer::vf::dynamic::color_format_vector const accepted_formats_;
 
-	dynamic::detail::lock_interval_set written_intervals_;
+	sge::renderer::vf::dynamic::detail::lock_interval_set written_intervals_;
 
 	typedef fcppt::optional<
-		dynamic::locked_part
+		sge::renderer::vf::dynamic::locked_part
 	> optional_locked_part;
 
 	optional_locked_part locked_part_;
 
 	typedef fcppt::scoped_ptr<
-		dynamic::detail::converter_impl
+		sge::renderer::vf::dynamic::detail::converter_impl
 	> converter_ptr;
 
 	converter_ptr converter_;

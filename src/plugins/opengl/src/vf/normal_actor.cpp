@@ -19,24 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/check_state.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/convert_element_type.hpp>
+#include <sge/opengl/vf/fp_actor.hpp>
 #include <sge/opengl/vf/normal_actor.hpp>
+#include <sge/opengl/vf/pointer.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::opengl::vf::normal_actor::normal_actor(
-	actor_parameters const &_param,
+	sge::opengl::vf::actor_parameters const &_param,
 	renderer::vf::dynamic::normal const &_normal
 )
 :
-	fp_actor(
+	sge::opengl::vf::fp_actor(
 		_param,
 		GL_NORMAL_ARRAY
 	),
 	format_(
-		vf::convert_element_type(
+		sge::opengl::vf::convert_element_type(
 			_normal.element_type()
 		)
 	)
@@ -49,15 +53,15 @@ sge::opengl::vf::normal_actor::~normal_actor()
 
 void
 sge::opengl::vf::normal_actor::on_use(
-	vf::pointer const _src
+	sge::opengl::vf::pointer const _src
 ) const
 {
-	glNormalPointer(
+	::glNormalPointer(
 		format_,
 		static_cast<
 			GLsizei
 		>(
-			stride()
+			this->stride().get()
 		),
 		_src
 	);

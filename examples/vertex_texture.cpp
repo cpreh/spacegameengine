@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/index.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
@@ -173,7 +174,10 @@ try
 
 	typedef sge::renderer::vf::texpos<
 		float,
-		2
+		2,
+		sge::renderer::vf::index<
+			0u
+		>
 	> texpos2_type;
 
 	typedef sge::renderer::vf::part<

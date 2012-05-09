@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
+#include <sge/renderer/vf/dynamic/offset.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 
 
 sge::opengl::vf::pointer_actor::~pointer_actor()
@@ -27,7 +29,7 @@ sge::opengl::vf::pointer_actor::~pointer_actor()
 }
 
 sge::opengl::vf::pointer_actor::pointer_actor(
-	actor_parameters const &_param
+	sge::opengl::vf::actor_parameters const &_param
 )
 :
 	offset_(
@@ -36,15 +38,16 @@ sge::opengl::vf::pointer_actor::pointer_actor(
 	stride_(
 		_param.stride()
 	)
-{}
+{
+}
 
-sge::renderer::vf::vertex_size
+sge::renderer::vf::dynamic::offset const
 sge::opengl::vf::pointer_actor::offset() const
 {
 	return offset_;
 }
 
-sge::renderer::vf::vertex_size
+sge::renderer::vf::dynamic::stride const
 sge::opengl::vf::pointer_actor::stride() const
 {
 	return stride_;

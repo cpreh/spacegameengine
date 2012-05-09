@@ -22,14 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_ELEMENT_HPP_INCLUDED
 
 #include <sge/renderer/vf/color_fwd.hpp>
+#include <sge/renderer/vf/element_count_type.hpp>
 #include <sge/renderer/vf/extra_fwd.hpp>
 #include <sge/renderer/vf/index.hpp>
 #include <sge/renderer/vf/normal_fwd.hpp>
 #include <sge/renderer/vf/pos_fwd.hpp>
 #include <sge/renderer/vf/texpos_fwd.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
+#include <sge/renderer/vf/dynamic/index.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/vf/dynamic/pos.hpp>
 #include <sge/renderer/vf/dynamic/texpos.hpp>
@@ -52,7 +53,7 @@ namespace detail
 
 template<
 	typename Format,
-	sge::renderer::vf::vertex_size NumSubElements
+	sge::renderer::vf::element_count_type NumSubElements
 >
 sge::renderer::vf::dynamic::element const
 make_element(
@@ -113,7 +114,7 @@ make_element(
 
 template<
 	typename Format,
-	sge::renderer::vf::vertex_size NumSubElements,
+	sge::renderer::vf::element_count_type NumSubElements,
 	typename Index
 >
 sge::renderer::vf::dynamic::element const
@@ -132,7 +133,9 @@ make_element(
 					Format,
 					NumSubElements
 				>(),
-				Index::value
+				sge::renderer::vf::dynamic::index(
+					Index::value
+				)
 			)
 		);
 }
@@ -155,7 +158,9 @@ make_element(
 				sge::renderer::vf::dynamic::detail::make_extra_element(
 					Format()
 				),
-				Index::value
+				sge::renderer::vf::dynamic::index(
+					Index::value
+				)
 			)
 		);
 }

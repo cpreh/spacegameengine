@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_EXTRA_HPP_INCLUDED
 
 #include <sge/renderer/vf/color_base.hpp>
+#include <sge/renderer/vf/element_count_type.hpp>
 #include <sge/renderer/vf/extra_base.hpp>
 #include <sge/renderer/vf/extra_fwd.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
 #include <sge/renderer/vf/vector_fwd.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <mizuiro/color/homogenous_static_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -46,7 +46,7 @@ namespace vf
 
 template<
 	typename Format,
-	sge::renderer::vf::vertex_size NumSubElements,
+	sge::renderer::vf::element_count_type NumSubElements,
 	typename Index
 >
 struct extra<

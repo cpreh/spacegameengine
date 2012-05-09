@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_FORMAT_TO_ELEMENT_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_FORMAT_TO_ELEMENT_HPP_INCLUDED
 
-#include <sge/renderer/vf/element_type.hpp>
+#include <sge/renderer/vf/dynamic/element_type.hpp>
 #include <sge/renderer/vf/dynamic/detail/element_c.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -39,95 +39,72 @@ namespace dynamic
 namespace detail
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
-	typename T
+	typename Type
 >
 struct format_to_element;
 
-template<>
-struct format_to_element<
-	float
->
-:
-sge::renderer::vf::dynamic::detail::element_c<
-	sge::renderer::vf::element_type::float_
->
-{};
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT(\
+	type_arg,\
+	value_arg\
+)\
+template<>\
+struct format_to_element<\
+	type_arg\
+>\
+:\
+sge::renderer::vf::dynamic::detail::element_c<\
+	sge::renderer::vf::dynamic::element_type::value_arg\
+>\
+{\
+}
 
-template<>
-struct format_to_element<
-	double
->
-:
-sge::renderer::vf::dynamic::detail::element_c<
-	sge::renderer::vf::element_type::double_
->
-{};
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<>
-struct format_to_element<
-	char
->
-:
-sge::renderer::vf::dynamic::detail::element_c<
-	sge::renderer::vf::element_type::byte
->
-{};
+SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT(
+	float,
+	float_
+);
 
-template<>
-struct format_to_element<
-	unsigned char
->
-:
-sge::renderer::vf::dynamic::detail::element_c<
-	sge::renderer::vf::element_type::ubyte
->
-{};
+SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT(
+	double,
+	double_
+);
 
-template<>
-struct format_to_element<
-	short
->
-:
-sge::renderer::vf::dynamic::detail::element_c<
-	sge::renderer::vf::element_type::short_
->
-{};
+SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT(
+	char,
+	byte
+);
 
-template<>
-struct format_to_element<
-	unsigned short
->
-:
-sge::renderer::vf::dynamic::detail::element_c<
-	sge::renderer::vf::element_type::ushort
->
-{};
+SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT(
+	unsigned char,
+	ubyte
+);
 
-template<>
-struct format_to_element<
-	int
->
-:
-sge::renderer::vf::dynamic::detail::element_c<
-	sge::renderer::vf::element_type::int_
->
-{};
+SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT(
+	short,
+	short_
+);
 
-template<>
-struct format_to_element<
-	unsigned
->
-:
-sge::renderer::vf::dynamic::detail::element_c<
-	sge::renderer::vf::element_type::uint
->
-{};
+SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT(
+	unsigned short,
+	ushort
+);
+
+SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT(
+	int,
+	int_
+);
+
+SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT(
+	unsigned,
+	uint
+);
 
 FCPPT_PP_POP_WARNING
+
+#undef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT
 
 }
 }

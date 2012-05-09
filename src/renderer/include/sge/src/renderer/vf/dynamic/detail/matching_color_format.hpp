@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_VECTOR_FWD_HPP_INCLUDED
-#define SGE_RENDERER_VF_VECTOR_FWD_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_MATCHING_COLOR_FORMAT_HPP_INCLUDED
+#define SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_MATCHING_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/vf/element_count_type.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 
 
 namespace sge
@@ -30,16 +31,21 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
+namespace detail
+{
 
-template<
-	typename Format,
-	sge::renderer::vf::element_count_type NumSubElements
->
-struct vector;
+sge::image::color::format::type
+matching_color_format(
+	sge::image::color::format::type,
+	sge::renderer::vf::dynamic::color_format_vector const &
+);
 
+}
+}
 }
 }
 }
 
 #endif
-

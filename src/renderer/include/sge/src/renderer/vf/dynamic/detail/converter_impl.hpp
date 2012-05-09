@@ -27,12 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/detail/converter_impl_fwd.hpp>
 #include <sge/renderer/vf/dynamic/detail/lock_interval_set.hpp>
-#include <sge/src/renderer/vf/dynamic/detail/element_converter_fwd.hpp>
+#include <sge/src/renderer/vf/dynamic/detail/element_converter_vector.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -53,40 +50,36 @@ class converter_impl
 	);
 public:
 	converter_impl(
-		dynamic::part const &,
-		dynamic::color_format_vector const &
+		sge::renderer::vf::dynamic::part const &,
+		sge::renderer::vf::dynamic::color_format_vector const &
 	);
 
 	~converter_impl();
 
 	void
 	convert_lock(
-		renderer::raw_pointer data,
-		renderer::first_vertex,
-		detail::lock_interval_set const &,
-		detail::lock_interval const &
+		sge::renderer::raw_pointer data,
+		sge::renderer::first_vertex,
+		sge::renderer::vf::dynamic::detail::lock_interval_set const &,
+		sge::renderer::vf::dynamic::detail::lock_interval const &
 	);
 
 	void
 	convert_unlock(
-		renderer::raw_pointer data,
-		renderer::first_vertex,
-		detail::lock_interval const &
+		sge::renderer::raw_pointer data,
+		sge::renderer::first_vertex,
+		sge::renderer::vf::dynamic::detail::lock_interval const &
 	);
 private:
 	void
 	do_convert(
-		renderer::raw_pointer data,
-		renderer::first_vertex,
-		detail::lock_interval const &,
+		sge::renderer::raw_pointer data,
+		sge::renderer::first_vertex,
+		sge::renderer::vf::dynamic::detail::lock_interval const &,
 		bool unlock
 	);
 
-	typedef boost::ptr_vector<
-		detail::element_converter
-	> element_converter_vector;
-
-	element_converter_vector element_converters_;
+	sge::renderer::vf::dynamic::detail::element_converter_vector element_converters_;
 };
 
 }

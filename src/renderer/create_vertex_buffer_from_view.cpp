@@ -37,13 +37,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::vertex_buffer_unique_ptr
 sge::renderer::create_vertex_buffer_from_view(
-	renderer::device &_device,
-	renderer::vertex_declaration &_vertex_declaration,
-	renderer::vf::dynamic::const_view const &_view,
-	renderer::resource_flags_field const &_resource_flags
+	sge::renderer::device &_device,
+	sge::renderer::vertex_declaration &_vertex_declaration,
+	sge::renderer::vf::dynamic::const_view const &_view,
+	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
-	renderer::vertex_buffer_unique_ptr buffer(
+	sge::renderer::vertex_buffer_unique_ptr buffer(
 		_device.create_vertex_buffer(
 			_vertex_declaration,
 			_view.part_index(),
@@ -62,7 +62,7 @@ sge::renderer::create_vertex_buffer_from_view(
 	std::memcpy(
 		lock.value().data(),
 		_view.data(),
-		_view.part().stride()
+		_view.part().stride().get()
 		* _view.size().get()
 	);
 

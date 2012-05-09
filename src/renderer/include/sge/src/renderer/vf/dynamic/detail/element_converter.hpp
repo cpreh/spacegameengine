@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/dynamic/offset.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/element_converter_fwd.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -50,8 +51,8 @@ public:
 	element_converter(
 		sge::image::color::format::type original_color,
 		sge::image::color::format::type backend_color,
-		sge::renderer::vf::vertex_size stride,
-		sge::renderer::vf::vertex_size offset
+		sge::renderer::vf::dynamic::stride,
+		sge::renderer::vf::dynamic::offset
 	);
 
 	~element_converter();
@@ -68,9 +69,9 @@ private:
 		original_color_,
 		backend_color_;
 
-	sge::renderer::vf::vertex_size const stride_;
+	sge::renderer::vf::dynamic::stride const stride_;
 
-	sge::renderer::vf::vertex_size const offset_;
+	sge::renderer::vf::dynamic::offset const offset_;
 };
 
 }

@@ -31,7 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/dynamic/offset.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/element_converter.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -42,8 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::vf::dynamic::detail::element_converter::element_converter(
 	sge::image::color::format::type const _original_color,
 	sge::image::color::format::type const _backend_color,
-	sge::renderer::vf::vertex_size const _stride,
-	sge::renderer::vf::vertex_size const _offset
+	sge::renderer::vf::dynamic::stride const _stride,
+	sge::renderer::vf::dynamic::offset const _offset
 )
 :
 	original_color_(
@@ -95,20 +96,27 @@ sge::renderer::vf::dynamic::detail::element_converter::convert(
 
 	sge::renderer::raw_pointer const begin(
 		_data
-		+ (_interval.lower() - _pos.get()) * stride_
-		+ offset_
+		+
+		(
+			_interval.lower()
+			- _pos.get()
+		)
+		* stride_.get()
+		+ offset_.get()
 	);
 
 	sge::image2d::dim const dim(
 		1,
-		_interval.upper() - _interval.lower()
+		_interval.upper()
+		-
+		_interval.lower()
 	);
 
 	sge::image2d::pitch const pitch(
 		static_cast<
 			sge::image2d::pitch::value_type
 		>(
-			stride_
+			stride_.get()
 			-
 			sge::image::color::format_stride(
 				original_color_

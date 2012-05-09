@@ -123,6 +123,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/const_tag.hpp>
 #include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/index.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/normal.hpp>
 #include <sge/renderer/vf/part.hpp>
@@ -201,11 +202,20 @@ namespace vf
 {
 // As you can see, we're using OpenGL-2 and below
 typedef
-sge::renderer::vf::pos<sge::renderer::scalar,3>
+sge::renderer::vf::pos<
+	sge::renderer::scalar,
+	3
+>
 position;
 
 typedef
-sge::renderer::vf::texpos<sge::renderer::scalar, 2>
+sge::renderer::vf::texpos<
+	sge::renderer::scalar,
+	2,
+	sge::renderer::vf::index<
+		0u
+	>
+>
 texcoord;
 
 // As you can see, we're using OpenGL-2 and below

@@ -24,15 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/to_actor.hpp>
 #include <sge/opengl/vf/to_actor_visitor.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
+#include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 
 sge::opengl::vf::actor_ptr
 sge::opengl::vf::to_actor(
 	sge::renderer::vf::dynamic::ordered_element const &_element,
-	sge::renderer::vf::vertex_size const _stride,
+	sge::renderer::vf::dynamic::stride const _stride,
 	sge::opengl::context::object &_context
 )
 {

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_INDEX_FWD_HPP_INCLUDED
 
 #include <sge/renderer/vf/index_fwd.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/index_type.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace vf
 {
 
 template<
-	sge::renderer::vf::vertex_size Index
+	sge::renderer::vf::index_type Index
 >
 struct index;
 

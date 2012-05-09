@@ -18,10 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_VECTOR_FWD_HPP_INCLUDED
-#define SGE_RENDERER_VF_VECTOR_FWD_HPP_INCLUDED
-
-#include <sge/renderer/vf/element_count_type.hpp>
+#ifndef SGE_RENDERER_VF_DYNAMIC_ELEMENT_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_ELEMENT_TYPE_HPP_INCLUDED
 
 
 namespace sge
@@ -30,16 +28,27 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-template<
-	typename Format,
-	sge::renderer::vf::element_count_type NumSubElements
->
-struct vector;
+namespace element_type
+{
+enum type
+{
+	float_,
+	double_,
+	byte,
+	ubyte,
+	short_,
+	ushort,
+	int_,
+	uint
+};
+}
 
+}
 }
 }
 }
 
 #endif
-

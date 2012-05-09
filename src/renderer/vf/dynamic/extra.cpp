@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
 #include <sge/renderer/vf/dynamic/extra_any.hpp>
+#include <sge/renderer/vf/dynamic/index.hpp>
 
 
 sge::renderer::vf::dynamic::extra::extra(
 	sge::renderer::vf::dynamic::extra_any const &_type,
-	sge::renderer::vf::vertex_size const _index
+	sge::renderer::vf::dynamic::index const _index
 )
 :
 	type_(
@@ -43,7 +43,7 @@ sge::renderer::vf::dynamic::extra::type() const
 	return type_;
 }
 
-sge::renderer::vf::vertex_size
+sge::renderer::vf::dynamic::index const
 sge::renderer::vf::dynamic::extra::index() const
 {
 	return index_;

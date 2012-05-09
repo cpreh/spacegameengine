@@ -62,7 +62,7 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 			GLuint
 		>(
 			// don't use 0 as a location
-			_extra.index() + 1u
+			_extra.index().get() + 1u
 		)
 	)
 {
@@ -98,7 +98,7 @@ sge::opengl::vf::attribute_actor::operator()(
 		static_cast<
 			GLsizei
 		>(
-			this->stride()
+			this->stride().get()
 		),
 		_src
 	);

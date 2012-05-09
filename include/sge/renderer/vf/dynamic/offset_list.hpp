@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_OFFSET_LIST_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_OFFSET_LIST_HPP_INCLUDED
 
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/dynamic/offset.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -37,7 +37,7 @@ namespace dynamic
 {
 
 typedef std::vector<
-	sge::renderer::vf::vertex_size
+	sge::renderer::vf::dynamic::offset
 > offset_list;
 
 }

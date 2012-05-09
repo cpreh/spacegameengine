@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/object.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/texture/base_fwd.hpp>
-#include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
+#include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>

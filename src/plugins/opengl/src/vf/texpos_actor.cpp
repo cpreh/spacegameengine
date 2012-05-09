@@ -26,21 +26,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
 #include <sge/opengl/vf/convert_element_type.hpp>
+#include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/texpos_actor.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::opengl::vf::texpos_actor::texpos_actor(
-	vf::actor_parameters const &_param,
-	renderer::vf::dynamic::texpos const &_element
+	sge::opengl::vf::actor_parameters const &_param,
+	sge::renderer::vf::dynamic::texpos const &_element
 )
 :
-	vf::pointer_actor(
+	sge::opengl::vf::pointer_actor(
 		_param
 	),
 	context_(
@@ -50,7 +51,7 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		static_cast<
 			GLint
 		>(
-			_element.type().elements()
+			_element.type().element_count().get()
 		)
 	),
 	format_(
@@ -59,18 +60,12 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		)
 	),
 	index_(
-		renderer::texture::stage(
-			static_cast<
-				renderer::texture::stage::value_type
-			>(
-				_element.index()
-			)
-		)
+		_element.index().get()
 	)
 {
-	texture::multi_context &texture_context(
-		opengl::context::use<
-			texture::multi_context
+	sge::opengl::texture::multi_context &texture_context(
+		sge::opengl::context::use<
+			sge::opengl::texture::multi_context
 		>(
 			context_
 		)
@@ -80,7 +75,7 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		!texture_context.is_supported()
 		&& index_.get() != 0
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("multiple texture coordinates are not supported!")
 		);
 	else if(
@@ -88,7 +83,7 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		>=
 		texture_context.max_level().get()
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			(
 				fcppt::format(
 					FCPPT_TEXT("opengl texture coordinates exceeded: Allowed are %1%.")
@@ -104,19 +99,17 @@ sge::opengl::vf::texpos_actor::~texpos_actor()
 
 void
 sge::opengl::vf::texpos_actor::operator()(
-	vf::client_state_combiner &_combiner,
-	vf::pointer const _src
+	sge::opengl::vf::client_state_combiner &_combiner,
+	sge::opengl::vf::pointer const _src
 ) const
 {
 	_combiner.enable_texture(
 		index_
 	);
 
-	opengl::texture::funcs::set_client_level(
+	sge::opengl::texture::funcs::set_client_level(
 		context_,
-		sge::renderer::texture::stage(
-			index_
-		)
+		index_
 	);
 
 	::glTexCoordPointer(
@@ -125,7 +118,7 @@ sge::opengl::vf::texpos_actor::operator()(
 		static_cast<
 			GLsizei
 		>(
-			this->stride()
+			this->stride().get()
 		),
 		_src
 	);
@@ -138,7 +131,7 @@ sge::opengl::vf::texpos_actor::operator()(
 
 void
 sge::opengl::vf::texpos_actor::unuse(
-	vf::client_state_combiner &_combiner
+	sge::opengl::vf::client_state_combiner &_combiner
 ) const
 {
 	_combiner.disable_texture(

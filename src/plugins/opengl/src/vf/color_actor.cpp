@@ -20,19 +20,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/element_count.hpp>
 #include <sge/opengl/check_state.hpp>
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
+#include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/color_actor.hpp>
+#include <sge/opengl/vf/fp_actor.hpp>
+#include <sge/opengl/vf/pointer.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::opengl::vf::color_actor::color_actor(
-	actor_parameters const &_param,
+	sge::opengl::vf::actor_parameters const &_param,
 	sge::renderer::vf::dynamic::color const & _color
 )
 :
-	fp_actor(
+	sge::opengl::vf::fp_actor(
 		_param,
 		GL_COLOR_ARRAY
 	),
@@ -46,7 +50,7 @@ sge::opengl::vf::color_actor::color_actor(
 		)
 	),
 	format_(
-		opengl::convert::color_to_format_type(
+		sge::opengl::convert::color_to_format_type(
 			_color.color_format()
 		)
 	)
@@ -59,7 +63,7 @@ sge::opengl::vf::color_actor::~color_actor()
 
 void
 sge::opengl::vf::color_actor::on_use(
-	vf::pointer const _src
+	sge::opengl::vf::pointer const _src
 ) const
 {
 	::glColorPointer(
@@ -68,7 +72,7 @@ sge::opengl::vf::color_actor::on_use(
 		static_cast<
 			GLsizei
 		>(
-			stride()
+			this->stride().get()
 		),
 		_src
 	);

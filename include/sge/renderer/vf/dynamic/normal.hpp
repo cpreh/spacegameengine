@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_NORMAL_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/vf/element_type.hpp>
+#include <sge/renderer/vf/dynamic/element_type.hpp>
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
 
 
@@ -41,14 +41,14 @@ public:
 	SGE_RENDERER_SYMBOL
 	explicit
 	normal(
-		sge::renderer::vf::element_type::type
+		sge::renderer::vf::dynamic::element_type::type
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::vf::element_type::type
+	sge::renderer::vf::dynamic::element_type::type
 	element_type() const;
 private:
-	sge::renderer::vf::element_type::type element_type_;
+	sge::renderer::vf::dynamic::element_type::type element_type_;
 };
 
 }

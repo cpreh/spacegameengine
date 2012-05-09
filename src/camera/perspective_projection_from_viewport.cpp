@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
-#include <sge/renderer/target/aspect_from_viewport.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/projection/aspect.hpp>
 #include <sge/renderer/projection/perspective_af.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/target/aspect_from_viewport.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)

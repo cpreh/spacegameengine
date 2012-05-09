@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_CONVERT_ELEMENT_TYPE_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/vf/element_type.hpp>
+#include <sge/renderer/vf/dynamic/element_type.hpp>
+
 
 namespace sge
 {
@@ -33,7 +34,7 @@ namespace vf
 
 GLenum
 convert_element_type(
-	sge::renderer::vf::element_type::type
+	sge::renderer::vf::dynamic::element_type::type
 );
 
 }

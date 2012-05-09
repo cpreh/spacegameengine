@@ -18,10 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_VECTOR_FWD_HPP_INCLUDED
-#define SGE_RENDERER_VF_VECTOR_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_ANY_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_ANY_FWD_HPP_INCLUDED
 
-#include <sge/renderer/vf/element_count_type.hpp>
+#include <sge/renderer/vf/dynamic/color_fwd.hpp>
+#include <sge/renderer/vf/dynamic/extra_fwd.hpp>
+#include <sge/renderer/vf/dynamic/normal_fwd.hpp>
+#include <sge/renderer/vf/dynamic/pos_fwd.hpp>
+#include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,16 +38,22 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-template<
-	typename Format,
-	sge::renderer::vf::element_count_type NumSubElements
->
-struct vector;
+typedef fcppt::variant::object<
+	boost::mpl::vector5<
+		sge::renderer::vf::dynamic::pos,
+		sge::renderer::vf::dynamic::normal,
+		sge::renderer::vf::dynamic::color,
+		sge::renderer::vf::dynamic::texpos,
+		sge::renderer::vf::dynamic::extra
+	>
+> any;
 
+}
 }
 }
 }
 
 #endif
-

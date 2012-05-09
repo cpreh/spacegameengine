@@ -22,11 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_NOISE_PERLIN_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/noise/perlin/object_decl.hpp>
-#include <fcppt/random/distribution/uniform_real.hpp>
-#include <fcppt/random/variate.hpp>
 #include <fcppt/container/grid/interpolate.hpp>
 #include <fcppt/math/mod.hpp>
+#include <fcppt/random/variate.hpp>
+#include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <fcppt/config/external_end.hpp>
+
 
 template
 <

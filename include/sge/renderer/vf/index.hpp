@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_INDEX_HPP_INCLUDED
 
 #include <sge/renderer/vf/index_fwd.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/index_type.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -42,12 +42,12 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	sge::renderer::vf::vertex_size Index
+	sge::renderer::vf::index_type Index
 >
 struct index
 :
 boost::mpl::integral_c<
-	sge::renderer::vf::vertex_size,
+	sge::renderer::vf::index_type,
 	Index
 >
 {

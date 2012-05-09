@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/actor_fwd.hpp>
 #include <sge/opengl/vf/client_state_combiner_fwd.hpp>
 #include <sge/opengl/vf/pointer.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vf/dynamic/offset.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -51,7 +51,7 @@ public:
 	) const = 0;
 
 	virtual
-	sge::renderer::size_type
+	sge::renderer::vf::dynamic::offset const
 	offset() const = 0;
 
 	virtual

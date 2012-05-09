@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TARGET_OFFSCREEN_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/target/basic.hpp>
-#include <sge/d3d9/target/offscreen_fwd.hpp>
 #include <sge/d3d9/surface/color_shared_ptr.hpp>
 #include <sge/d3d9/surface/depth_stencil_shared_ptr.hpp>
+#include <sge/d3d9/target/basic.hpp>
+#include <sge/d3d9/target/offscreen_fwd.hpp>
 #include <sge/renderer/color_surface_shared_ptr.hpp>
 #include <sge/renderer/depth_stencil_surface_shared_ptr.hpp>
 #include <sge/renderer/optional_dim2.hpp>
