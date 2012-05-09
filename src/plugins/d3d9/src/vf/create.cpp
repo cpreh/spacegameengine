@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/vf/create.hpp>
 #include <sge/d3d9/vf/element_vector.hpp>
+#include <sge/d3d9/vf/convert/index.hpp>
 #include <sge/d3d9/vf/convert/role.hpp>
 #include <sge/d3d9/vf/convert/type.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
@@ -29,9 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <sge/renderer/vf/dynamic/part_list.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <map>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::d3d9::vf::element_vector const
@@ -46,11 +44,6 @@ sge::d3d9::vf::create(
 		0
 	);
 
-	typedef std::map<
-		D3DDECLUSAGE,
-		unsigned
-	> usage_count_map;
-
 	sge::renderer::vf::dynamic::part_list const &parts(
 		_format.parts()
 	);
@@ -63,8 +56,6 @@ sge::d3d9::vf::create(
 		++part_it
 	)
 	{
-		usage_count_map usage_counts;
-
 		sge::renderer::vf::dynamic::ordered_element_list const &elements(
 			part_it->elements()
 		);
@@ -108,12 +99,9 @@ sge::d3d9::vf::create(
 				>(
 					usage
 				),
-				static_cast<
-					BYTE
-				>(
-					usage_counts[
-						usage
-					]++
+				sge::d3d9::vf::convert::index(
+					ordered_element.element(),
+					_texture_coordinates
 				)
 			};
 
