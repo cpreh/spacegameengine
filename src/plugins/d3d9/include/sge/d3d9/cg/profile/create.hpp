@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_CG_PROFILE_CREATE_HPP_INCLUDED
 #define SGE_D3D9_CG_PROFILE_CREATE_HPP_INCLUDED
 
-#include <sge/cg/profile/object_unique_ptr.hpp>
+#include <sge/cg/profile/object_fwd.hpp>
 #include <sge/cg/profile/shader_type.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 
@@ -35,7 +35,7 @@ namespace cg
 namespace profile
 {
 
-sge::cg::profile::object_unique_ptr
+sge::cg::profile::object const
 create(
 	IDirect3DDevice9 *,
 	sge::cg::profile::shader_type::type

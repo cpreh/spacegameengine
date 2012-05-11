@@ -235,6 +235,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/vertex_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/vertex_declaration.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/color_type.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/convert/extra_index.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/extra_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/extra_type_visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/index.hpp
@@ -438,6 +439,7 @@ SET(
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
 	src/plugins/d3d9/src/vf/convert/color_type.cpp
+	src/plugins/d3d9/src/vf/convert/extra_index.cpp
 	src/plugins/d3d9/src/vf/convert/extra_type.cpp
 	src/plugins/d3d9/src/vf/convert/extra_type_visitor.cpp
 	src/plugins/d3d9/src/vf/convert/index.cpp
@@ -462,6 +464,8 @@ set(
 	src/plugins/d3d9/include/sge/d3d9/cg/program/deactivate.hpp
 	src/plugins/d3d9/include/sge/d3d9/cg/program/loaded_object.hpp
 	src/plugins/d3d9/include/sge/d3d9/cg/program/optimal_options.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/program/replace_index.hpp
+	src/plugins/d3d9/include/sge/d3d9/cg/program/transform_vertex.hpp
 	src/plugins/d3d9/include/sge/d3d9/cg/scoped_device.hpp
 	src/plugins/d3d9/include/sge/d3d9/cg/scoped_device_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/cg/set_device.hpp
@@ -480,6 +484,8 @@ set(
 	src/plugins/d3d9/src/cg/program/deactivate.cpp
 	src/plugins/d3d9/src/cg/program/loaded_object.cpp
 	src/plugins/d3d9/src/cg/program/optimal_options.cpp
+	src/plugins/d3d9/src/cg/program/replace_index.cpp
+	src/plugins/d3d9/src/cg/program/transform_vertex.cpp
 	src/plugins/d3d9/src/cg/scoped_device.cpp
 	src/plugins/d3d9/src/cg/set_device.cpp
 	src/plugins/d3d9/src/cg/texture/activate.cpp

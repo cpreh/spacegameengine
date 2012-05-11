@@ -18,41 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/check_state.hpp>
-#include <sge/cg/profile/object.hpp>
-#include <sge/d3d9/cg/scoped_device_fwd.hpp>
-#include <sge/d3d9/cg/profile/pixel.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <Cg/cg.h>
-#include <Cg/cgD3D9.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_D3D9_CG_PROGRAM_TRANSFORM_VERTEX_HPP_INCLUDED
+#define SGE_D3D9_CG_PROGRAM_TRANSFORM_VERTEX_HPP_INCLUDED
+
+#include <sge/cg/program/source.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 
 
-sge::cg::profile::object const
-sge::d3d9::cg::profile::pixel(
-	sge::d3d9::cg::scoped_device const &
-)
+namespace sge
 {
-	CGprofile const ret(
-		::cgD3D9GetLatestPixelProfile()
-	);
+namespace d3d9
+{
+namespace cg
+{
+namespace program
+{
 
-	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgD3D9GetLatestPixelProfile failed"),
-		sge::renderer::exception
-	)
+sge::cg::program::source const
+transform_vertex(
+	sge::renderer::vertex_declaration const &,
+	sge::cg::program::source const &
+);
 
-	FCPPT_ASSERT_ERROR(
-		ret
-		!=
-		CG_PROFILE_UNKNOWN
-	);
-
-	return
-		sge::cg::profile::object(
-			ret
-		);
 }
+}
+}
+}
+
+#endif

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/vf/texture_coordinate_count.hpp>
+#include <sge/d3d9/vf/convert/extra_index.hpp>
 #include <sge/d3d9/vf/convert/index_visitor.hpp>
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
@@ -99,8 +100,9 @@ sge::d3d9::vf::convert::index_visitor::operator()(
 		static_cast<
 			BYTE
 		>(
-			_extra.index().get()
-			+
-			texture_coordinates_.get()
+			sge::d3d9::vf::convert::extra_index(
+				texture_coordinates_,
+				_extra.index()
+			)
 		);
 }

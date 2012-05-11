@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cg/profile/object.hpp>
-#include <sge/cg/profile/object_unique_ptr.hpp>
 #include <sge/cg/profile/shader_type.hpp>
 #include <sge/d3d9/cg/scoped_device.hpp>
 #include <sge/d3d9/cg/profile/create.hpp>
@@ -30,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 
 
-sge::cg::profile::object_unique_ptr
+sge::cg::profile::object const
 sge::d3d9::cg::profile::create(
 	IDirect3DDevice9 *const _device,
 	sge::cg::profile::shader_type::type const _type

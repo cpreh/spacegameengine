@@ -92,12 +92,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/program/source.hpp>
 #include <sge/cg/profile/object.hpp>
-#include <sge/cg/profile/object_unique_ptr.hpp>
 #include <sge/cg/profile/shader_type.hpp>
 #include <sge/d3d9/cg/profile/create.hpp>
 #include <sge/d3d9/cg/program/create_loaded.hpp>
 #include <sge/d3d9/cg/program/optimal_options.hpp>
+#include <sge/d3d9/cg/program/transform_vertex.hpp>
 #include <sge/d3d9/cg/texture/create_loaded.hpp>
 #include <sge/renderer/cg/loaded_program.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
@@ -394,7 +395,7 @@ sge::d3d9::device::create_index_buffer(
 }
 
 #if defined(SGE_RENDERER_HAVE_CG)
-sge::cg::profile::object_unique_ptr
+sge::cg::profile::object const
 sge::d3d9::device::create_cg_profile(
 	sge::cg::profile::shader_type::type const _shader_type
 )
@@ -443,6 +444,19 @@ sge::d3d9::device::load_cg_texture(
 			_parameter,
 			_texture,
 			caps_->texture_stages()
+		);
+}
+
+sge::cg::program::source const
+sge::d3d9::device::transform_cg_vertex_program(
+	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::cg::program::source const &_source
+)
+{
+	return
+		sge::d3d9::cg::program::transform_vertex(
+			_vertex_declaration,
+			_source
 		);
 }
 #endif

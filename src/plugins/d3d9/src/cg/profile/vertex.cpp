@@ -20,11 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/profile/object.hpp>
-#include <sge/cg/profile/object_unique_ptr.hpp>
 #include <sge/d3d9/cg/scoped_device_fwd.hpp>
 #include <sge/d3d9/cg/profile/vertex.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -33,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::cg::profile::object_unique_ptr
+sge::cg::profile::object const
 sge::d3d9::cg::profile::vertex(
 	sge::d3d9::cg::scoped_device const &
 )
@@ -54,9 +52,7 @@ sge::d3d9::cg::profile::vertex(
 	);
 
 	return
-		fcppt::make_unique_ptr<
-			sge::cg::profile::object
-		>(
+		sge::cg::profile::object(
 			ret
 		);
 }

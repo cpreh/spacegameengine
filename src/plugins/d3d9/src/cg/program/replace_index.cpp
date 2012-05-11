@@ -18,41 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/check_state.hpp>
-#include <sge/cg/profile/object.hpp>
-#include <sge/d3d9/cg/scoped_device_fwd.hpp>
-#include <sge/d3d9/cg/profile/pixel.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <Cg/cg.h>
-#include <Cg/cgD3D9.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/cg/string.hpp>
+#include <sge/cg/program/extra_index.hpp>
+#include <sge/d3d9/cg/program/replace_index.hpp>
+#include <sge/d3d9/vf/texture_coordinate_count.hpp>
+#include <sge/d3d9/vf/convert/extra_index.hpp>
+#include <sge/renderer/vf/dynamic/index.hpp>
+#include <fcppt/insert_to_string.hpp>
 
 
-sge::cg::profile::object const
-sge::d3d9::cg::profile::pixel(
-	sge::d3d9::cg::scoped_device const &
+sge::cg::string const
+sge::d3d9::cg::program::replace_index(
+	sge::d3d9::vf::texture_coordinate_count const _texture_coordinates,
+	sge::cg::program::extra_index const _index
 )
 {
-	CGprofile const ret(
-		::cgD3D9GetLatestPixelProfile()
-	);
-
-	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgD3D9GetLatestPixelProfile failed"),
-		sge::renderer::exception
-	)
-
-	FCPPT_ASSERT_ERROR(
-		ret
-		!=
-		CG_PROFILE_UNKNOWN
-	);
-
 	return
-		sge::cg::profile::object(
-			ret
+		"TEXCOORD"
+		+
+		fcppt::insert_to_string<
+			sge::cg::string
+		>(
+			sge::d3d9::vf::convert::extra_index(
+				_texture_coordinates,
+				sge::renderer::vf::dynamic::index(
+					_index.get()
+				)
+			)
 		);
 }

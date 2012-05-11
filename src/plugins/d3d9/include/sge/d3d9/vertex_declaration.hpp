@@ -62,6 +62,9 @@ public:
 	stride(
 		renderer::vf::dynamic::part_index
 	) const;
+
+	sge::d3d9::vf::texture_coordinate_count const
+	texture_coordinates() const;
 private:
 	sge::renderer::vf::dynamic::format const format_;
 

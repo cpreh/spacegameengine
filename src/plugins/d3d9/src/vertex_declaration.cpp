@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vertex_declaration.hpp>
 #include <sge/d3d9/vf/create.hpp>
 #include <sge/d3d9/vf/element_vector.hpp>
+#include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/d3d9/vf/texture_coordinates.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
@@ -99,4 +100,11 @@ sge::d3d9::vertex_declaration::stride(
 		this->format().parts().at(
 			_part.get()
 		).stride();
+}
+
+sge::d3d9::vf::texture_coordinate_count const
+sge::d3d9::vertex_declaration::texture_coordinates() const
+{
+	return
+		texture_coordinates_;
 }
