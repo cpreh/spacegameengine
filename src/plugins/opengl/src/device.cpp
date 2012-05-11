@@ -76,11 +76,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #if defined(SGE_RENDERER_HAVE_CG)
-#include <sge/cg/string.hpp>
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/program/source.hpp>
 #include <sge/cg/profile/object.hpp>
 #include <sge/cg/profile/shader_type.hpp>
 #include <sge/opengl/cg/profile/create.hpp>
@@ -385,10 +385,10 @@ sge::opengl::device::load_cg_texture(
 		);
 }
 
-sge::cg::string const
+sge::cg::program::source const
 sge::opengl::device::transform_cg_vertex_program(
 	sge::renderer::vertex_declaration const &_vertex_declaration,
-	sge::cg::string const &_source
+	sge::cg::program::source const &_source
 )
 {
 	return

@@ -357,6 +357,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/vf/extra_elements_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/extra_format.hpp
 	src/plugins/opengl/include/sge/opengl/vf/extra_format_visitor.hpp
+	src/plugins/opengl/include/sge/opengl/vf/extra_index.hpp
 	src/plugins/opengl/include/sge/opengl/vf/fp_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/normal_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/part.hpp
@@ -626,6 +627,7 @@ set(
 	src/plugins/opengl/src/vf/extra_elements_visitor.cpp
 	src/plugins/opengl/src/vf/extra_format.cpp
 	src/plugins/opengl/src/vf/extra_format_visitor.cpp
+	src/plugins/opengl/src/vf/extra_index.cpp
 	src/plugins/opengl/src/vf/fp_actor.cpp
 	src/plugins/opengl/src/vf/normal_actor.cpp
 	src/plugins/opengl/src/vf/part.cpp
@@ -770,6 +772,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/cg/program/load.hpp
 	src/plugins/opengl/include/sge/opengl/cg/program/loaded_object.hpp
 	src/plugins/opengl/include/sge/opengl/cg/program/optimal_options.hpp
+	src/plugins/opengl/include/sge/opengl/cg/program/replace_index.hpp
 	src/plugins/opengl/include/sge/opengl/cg/program/transform_vertex.hpp
 	src/plugins/opengl/include/sge/opengl/cg/texture/assigned_stage.hpp
 	src/plugins/opengl/include/sge/opengl/cg/texture/disable.hpp
@@ -785,6 +788,7 @@ set(
 	src/plugins/opengl/src/cg/program/load.cpp
 	src/plugins/opengl/src/cg/program/loaded_object.cpp
 	src/plugins/opengl/src/cg/program/optimal_options.cpp
+	src/plugins/opengl/src/cg/program/replace_index.cpp
 	src/plugins/opengl/src/cg/program/transform_vertex.cpp
 	src/plugins/opengl/src/cg/texture/assigned_stage.cpp
 	src/plugins/opengl/src/cg/texture/disable.cpp

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CG_PROGRAM_TRANSFORM_VERTEX_HPP_INCLUDED
-#define SGE_OPENGL_CG_PROGRAM_TRANSFORM_VERTEX_HPP_INCLUDED
+#ifndef SGE_OPENGL_CG_PROGRAM_REPLACE_INDEX_HPP_INCLUDED
+#define SGE_OPENGL_CG_PROGRAM_REPLACE_INDEX_HPP_INCLUDED
 
-#include <sge/cg/program/source.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/cg/string.hpp>
+#include <sge/cg/program/extra_index.hpp>
 
 
 namespace sge
@@ -34,10 +34,9 @@ namespace cg
 namespace program
 {
 
-sge::cg::program::source const
-transform_vertex(
-	sge::renderer::vertex_declaration const &,
-	sge::cg::program::source const &
+sge::cg::string const
+replace_index(
+	sge::cg::program::extra_index
 );
 
 }

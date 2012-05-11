@@ -18,18 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/string.hpp>
+#include <sge/cg/program/source.hpp>
+#include <sge/cg/program/replace_extra.hpp>
+#include <sge/cg/program/replace_extra_callback.hpp>
+#include <sge/opengl/cg/program/replace_index.hpp>
 #include <sge/opengl/cg/program/transform_vertex.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 
 
-sge::cg::string const
+sge::cg::program::source const
 sge::opengl::cg::program::transform_vertex(
-	sge::renderer::vertex_declaration const &_vertex_declaration,
-	sge::cg::string const &_source
+	sge::renderer::vertex_declaration const &,
+	sge::cg::program::source const &_source
 )
 {
-	// TODO!
 	return
-		_source;
+		sge::cg::program::replace_extra(
+			_source,
+			sge::cg::program::replace_extra_callback(
+				sge::opengl::cg::program::replace_index
+			)
+		);
 }

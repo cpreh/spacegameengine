@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/client_state_combiner.hpp>
 #include <sge/opengl/vf/extra_elements.hpp>
 #include <sge/opengl/vf/extra_format.hpp>
+#include <sge/opengl/vf/extra_index.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
@@ -61,8 +62,9 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 		static_cast<
 			GLuint
 		>(
-			// don't use 0 as a location
-			_extra.index().get() + 1u
+			sge::opengl::vf::extra_index(
+				_extra.index()
+			)
 		)
 	)
 {

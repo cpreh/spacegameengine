@@ -18,31 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CG_PROGRAM_TRANSFORM_VERTEX_HPP_INCLUDED
-#define SGE_OPENGL_CG_PROGRAM_TRANSFORM_VERTEX_HPP_INCLUDED
-
-#include <sge/cg/program/source.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/opengl/vf/extra_index.hpp>
+#include <sge/renderer/vf/dynamic/index.hpp>
 
 
-namespace sge
+unsigned
+sge::opengl::vf::extra_index(
+	sge::renderer::vf::dynamic::index const _index
+)
 {
-namespace opengl
-{
-namespace cg
-{
-namespace program
-{
-
-sge::cg::program::source const
-transform_vertex(
-	sge::renderer::vertex_declaration const &,
-	sge::cg::program::source const &
-);
-
+	return
+		// ATTR0 is special
+		_index.get()
+		+
+		1u;
 }
-}
-}
-}
-
-#endif

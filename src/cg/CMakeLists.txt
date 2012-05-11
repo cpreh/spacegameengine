@@ -40,6 +40,7 @@ set(
 	include/sge/cg/profile/object_fwd.hpp
 	include/sge/cg/profile/shader_type.hpp
 	include/sge/cg/program/compile_options.hpp
+	include/sge/cg/program/extra_index.hpp
 	include/sge/cg/program/from_file_parameters.hpp
 	include/sge/cg/program/from_file_parameters_fwd.hpp
 	include/sge/cg/program/from_string_parameters.hpp
@@ -47,6 +48,9 @@ set(
 	include/sge/cg/program/main_function.hpp
 	include/sge/cg/program/object.hpp
 	include/sge/cg/program/object_fwd.hpp
+	include/sge/cg/program/replace_extra.hpp
+	include/sge/cg/program/replace_extra_callback.hpp
+	include/sge/cg/program/replace_extra_callback_fwd.hpp
 	include/sge/cg/program/source.hpp
 	include/sge/cg/program/source_type.hpp
 	include/sge/cg/string.hpp
@@ -92,6 +96,7 @@ set(
 	src/cg/program/from_file_parameters.cpp
 	src/cg/program/from_string_parameters.cpp
 	src/cg/program/object.cpp
+	src/cg/program/replace_extra.cpp
 	src/cg/to_fcppt_string.cpp
 	src/cg/true.cpp
 )

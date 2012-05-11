@@ -18,29 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CG_PROGRAM_TRANSFORM_VERTEX_HPP_INCLUDED
-#define SGE_OPENGL_CG_PROGRAM_TRANSFORM_VERTEX_HPP_INCLUDED
+#ifndef SGE_CG_PROGRAM_REPLACE_EXTRA_CALLBACK_FWD_HPP_INCLUDED
+#define SGE_CG_PROGRAM_REPLACE_EXTRA_CALLBACK_FWD_HPP_INCLUDED
 
-#include <sge/cg/program/source.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/cg/string.hpp>
+#include <sge/cg/program/extra_index.hpp>
+#include <fcppt/function/object_fwd.hpp>
 
 
 namespace sge
-{
-namespace opengl
 {
 namespace cg
 {
 namespace program
 {
 
-sge::cg::program::source const
-transform_vertex(
-	sge::renderer::vertex_declaration const &,
-	sge::cg::program::source const &
-);
+typedef fcppt::function::object<
+	sge::cg::string const (
+		sge::cg::program::extra_index
+	)
+> replace_extra_callback;
 
-}
 }
 }
 }
