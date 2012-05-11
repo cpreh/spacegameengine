@@ -184,14 +184,15 @@ try
 	typedef sge::renderer::vf::texpos<
 		float,
 		2,
-		sge::renderer::vf::index<0u>
+		sge::renderer::vf::index<
+			0u
+		>
 	> texpos_type;
 
 	typedef sge::renderer::vf::extra<
 		sge::renderer::vf::vector<
 			float,
-			static_cast<sge::renderer::vf::vertex_size>(
-				1u)
+			1u
 		>,
 		sge::renderer::vf::index<
 			0u
