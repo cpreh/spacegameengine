@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/string.hpp>
 #include <sge/cg/context/object.hpp>
+#include <sge/cg/parameter/named.hpp>
 #include <sge/cg/parameter/object.hpp>
 #include <sge/cg/profile/object.hpp>
-#include <sge/cg/profile/object_scoped_ptr.hpp>
 #include <sge/cg/profile/shader_type.hpp>
 #include <sge/cg/program/from_string_parameters.hpp>
 #include <sge/cg/program/main_function.hpp>
@@ -174,7 +174,7 @@ try
 
 	sge::cg::context::object const cg_context;
 
-	sge::cg::profile::object_scoped_ptr const vertex_profile(
+	sge::cg::profile::object const vertex_profile(
 		sys.renderer().create_cg_profile(
 			sge::cg::profile::shader_type::vertex
 		)
@@ -205,7 +205,7 @@ try
 		sge::cg::program::from_string_parameters(
 			cg_context,
 			sge::cg::program::source_type::text,
-			*vertex_profile,
+			vertex_profile,
 			sge::cg::program::source(
 				vertex_shader_source
 			),
@@ -214,7 +214,7 @@ try
 			),
 			sys.renderer().cg_compile_options(
 				cg_context,
-				*vertex_profile
+				vertex_profile
 			)
 		)
 	);
@@ -225,7 +225,7 @@ try
 		)
 	);
 
-	sge::cg::profile::object_scoped_ptr const pixel_profile(
+	sge::cg::profile::object const pixel_profile(
 		sys.renderer().create_cg_profile(
 			sge::cg::profile::shader_type::pixel
 		)
@@ -255,7 +255,7 @@ try
 		sge::cg::program::from_string_parameters(
 			cg_context,
 			sge::cg::program::source_type::text,
-			*pixel_profile,
+			pixel_profile,
 			sge::cg::program::source(
 				pixel_shader_source
 			),
@@ -264,7 +264,7 @@ try
 			),
 			sys.renderer().cg_compile_options(
 				cg_context,
-				*pixel_profile
+				pixel_profile
 			)
 		)
 	);
@@ -423,7 +423,7 @@ try
 		sys.renderer().load_cg_texture(
 			pixel_program.parameter(
 				"decal"
-			),
+			).object(),
 			*texture
 		)
 	);

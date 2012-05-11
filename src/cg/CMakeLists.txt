@@ -6,9 +6,12 @@ set(
 	include/sge/cg/context/object_fwd.hpp
 	include/sge/cg/error_string.hpp
 	include/sge/cg/exception.hpp
+	include/sge/cg/parameter/created.hpp
+	include/sge/cg/parameter/created_fwd.hpp
 	include/sge/cg/parameter/detail/check_base_type.hpp
 	include/sge/cg/parameter/detail/check_type.hpp
 	include/sge/cg/parameter/detail/generate_types.hpp
+	include/sge/cg/parameter/element_type.hpp
 	include/sge/cg/parameter/is_int_float_double.hpp
 	include/sge/cg/parameter/matrix/detail/check_size.hpp
 	include/sge/cg/parameter/matrix/detail/set.hpp
@@ -16,10 +19,12 @@ set(
 	include/sge/cg/parameter/matrix/detail/set_float.hpp
 	include/sge/cg/parameter/matrix/detail/set_int.hpp
 	include/sge/cg/parameter/matrix/set.hpp
+	include/sge/cg/parameter/named.hpp
+	include/sge/cg/parameter/named_fwd.hpp
 	include/sge/cg/parameter/object.hpp
 	include/sge/cg/parameter/object_fwd.hpp
-	include/sge/cg/parameter/optional_object.hpp
-	include/sge/cg/parameter/optional_object_fwd.hpp
+	include/sge/cg/parameter/optional_named.hpp
+	include/sge/cg/parameter/optional_named_fwd.hpp
 	include/sge/cg/parameter/scalar/detail/set.hpp
 	include/sge/cg/parameter/scalar/detail/set_double.hpp
 	include/sge/cg/parameter/scalar/detail/set_float.hpp
@@ -33,8 +38,6 @@ set(
 	include/sge/cg/parameter/vector/set.hpp
 	include/sge/cg/profile/object.hpp
 	include/sge/cg/profile/object_fwd.hpp
-	include/sge/cg/profile/object_scoped_ptr.hpp
-	include/sge/cg/profile/object_unique_ptr.hpp
 	include/sge/cg/profile/shader_type.hpp
 	include/sge/cg/program/compile_options.hpp
 	include/sge/cg/program/from_file_parameters.hpp
@@ -53,6 +56,7 @@ set(
 	src/cg/exception.cpp
 	src/cg/false.cpp
 	src/cg/include/sge/src/cg/false.hpp
+	src/cg/include/sge/src/cg/parameter/convert_element_type.hpp
 	src/cg/include/sge/src/cg/parameter/get_type.hpp
 	src/cg/include/sge/src/cg/parameter/get_type_base.hpp
 	src/cg/include/sge/src/cg/parameter/matrix/set_impl.hpp
@@ -63,6 +67,8 @@ set(
 	src/cg/include/sge/src/cg/program/convert_source_type.hpp
 	src/cg/include/sge/src/cg/true.hpp
 	src/cg/include/sge/src/cg/type_integral_c.hpp
+	src/cg/parameter/convert_element_type.cpp
+	src/cg/parameter/created.cpp
 	src/cg/parameter/detail/check_base_type.cpp
 	src/cg/parameter/detail/check_type.cpp
 	src/cg/parameter/get_type.cpp
@@ -71,6 +77,7 @@ set(
 	src/cg/parameter/matrix/detail/set_double.cpp
 	src/cg/parameter/matrix/detail/set_float.cpp
 	src/cg/parameter/matrix/detail/set_int.cpp
+	src/cg/parameter/named.cpp
 	src/cg/parameter/object.cpp
 	src/cg/parameter/scalar/detail/set_double.cpp
 	src/cg/parameter/scalar/detail/set_float.cpp

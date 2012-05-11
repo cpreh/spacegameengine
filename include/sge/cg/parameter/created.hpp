@@ -18,11 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_OPTIONAL_OBJECT_FWD_HPP_INCLUDED
-#define SGE_CG_PARAMETER_OPTIONAL_OBJECT_FWD_HPP_INCLUDED
+#ifndef SGE_CG_PARAMETER_CREATED_HPP_INCLUDED
+#define SGE_CG_PARAMETER_CREATED_HPP_INCLUDED
 
+#include <sge/cg/symbol.hpp>
+#include <sge/cg/context/object_fwd.hpp>
+#include <sge/cg/parameter/created_fwd.hpp>
+#include <sge/cg/parameter/element_type.hpp>
+#include <sge/cg/parameter/named_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <Cg/cg.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,9 +40,39 @@ namespace cg
 namespace parameter
 {
 
-typedef fcppt::optional<
-	sge::cg::parameter::object
-> optional_object;
+class created
+{
+	FCPPT_NONCOPYABLE(
+		created
+	);
+public:
+	SGE_CG_SYMBOL
+	created(
+		sge::cg::context::object const &,
+		sge::cg::parameter::element_type::type
+	);
+
+	SGE_CG_SYMBOL
+	~created();
+
+	SGE_CG_SYMBOL
+	sge::cg::parameter::object const
+	object() const;
+
+	SGE_CG_SYMBOL
+	void
+	connect(
+		sge::cg::parameter::named const &
+	);
+
+	SGE_CG_SYMBOL
+	void
+	disconnect(
+		sge::cg::parameter::named const &
+	);
+private:
+	CGparameter const parameter_;
+};
 
 }
 }

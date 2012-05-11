@@ -18,24 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/profile/object.hpp>
-#include <sge/cg/profile/shader_type.hpp>
-#include <sge/opengl/cg/profile/convert_shader_type.hpp>
-#include <sge/opengl/cg/profile/create.hpp>
-#include <sge/opengl/cg/profile/get_latest.hpp>
+#ifndef SGE_CG_PARAMETER_NAMED_HPP_INCLUDED
+#define SGE_CG_PARAMETER_NAMED_HPP_INCLUDED
+
+#include <sge/cg/symbol.hpp>
+#include <sge/cg/parameter/named_fwd.hpp>
+#include <sge/cg/parameter/object.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
-sge::cg::profile::object const
-sge::opengl::cg::profile::create(
-	sge::cg::profile::shader_type::type const _shader_type
-)
+namespace sge
 {
-	return
-		sge::cg::profile::object(
-			sge::opengl::cg::profile::get_latest(
-				sge::opengl::cg::profile::convert_shader_type(
-					_shader_type
-				)
-			)
-		);
+namespace cg
+{
+namespace parameter
+{
+
+class named
+{
+	FCPPT_NONASSIGNABLE(
+		named
+	);
+public:
+	explicit
+	named(
+		sge::cg::parameter::object const &
+	);
+
+	SGE_CG_SYMBOL
+	named(
+		named const &
+	);
+
+	SGE_CG_SYMBOL
+	~named();
+
+	SGE_CG_SYMBOL
+	sge::cg::parameter::object const &
+	object() const;
+private:
+	sge::cg::parameter::object const impl_;
+};
+
 }
+}
+}
+
+#endif

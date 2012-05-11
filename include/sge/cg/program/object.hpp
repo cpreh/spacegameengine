@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/string.hpp>
 #include <sge/cg/symbol.hpp>
-#include <sge/cg/parameter/object_fwd.hpp>
-#include <sge/cg/parameter/optional_object_fwd.hpp>
+#include <sge/cg/parameter/named_fwd.hpp>
+#include <sge/cg/parameter/optional_named_fwd.hpp>
 #include <sge/cg/profile/object_fwd.hpp>
 #include <sge/cg/program/from_file_parameters_fwd.hpp>
 #include <sge/cg/program/from_string_parameters_fwd.hpp>
@@ -68,13 +68,13 @@ public:
 	profile() const;
 
 	SGE_CG_SYMBOL
-	sge::cg::parameter::object const
+	sge::cg::parameter::named const
 	parameter(
 		sge::cg::string const &
 	) const;
 
 	SGE_CG_SYMBOL
-	sge::cg::parameter::optional_object const
+	sge::cg::parameter::optional_named const
 	parameter_opt(
 		sge::cg::string const &
 	) const;

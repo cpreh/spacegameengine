@@ -18,24 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/profile/object.hpp>
-#include <sge/cg/profile/shader_type.hpp>
-#include <sge/opengl/cg/profile/convert_shader_type.hpp>
-#include <sge/opengl/cg/profile/create.hpp>
-#include <sge/opengl/cg/profile/get_latest.hpp>
+#ifndef SGE_OPENGL_CG_PROGRAM_TRANSFORM_VERTEX_HPP_INCLUDED
+#define SGE_OPENGL_CG_PROGRAM_TRANSFORM_VERTEX_HPP_INCLUDED
+
+#include <sge/cg/string.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 
 
-sge::cg::profile::object const
-sge::opengl::cg::profile::create(
-	sge::cg::profile::shader_type::type const _shader_type
-)
+namespace sge
 {
-	return
-		sge::cg::profile::object(
-			sge::opengl::cg::profile::get_latest(
-				sge::opengl::cg::profile::convert_shader_type(
-					_shader_type
-				)
-			)
-		);
+namespace opengl
+{
+namespace cg
+{
+namespace program
+{
+
+sge::cg::string const
+transform_vertex(
+	sge::renderer::vertex_declaration const &,
+	sge::cg::string const &
+);
+
 }
+}
+}
+}
+
+#endif

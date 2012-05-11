@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/string.hpp>
 #include <sge/cg/to_fcppt_string.hpp>
 #include <sge/cg/context/object.hpp>
+#include <sge/cg/parameter/named.hpp>
 #include <sge/cg/parameter/object.hpp>
-#include <sge/cg/parameter/optional_object.hpp>
+#include <sge/cg/parameter/optional_named.hpp>
 #include <sge/cg/profile/object.hpp>
 #include <sge/cg/program/from_file_parameters.hpp>
 #include <sge/cg/program/from_string_parameters.hpp>
@@ -116,12 +117,12 @@ sge::cg::program::object::profile() const
 		profile_;
 }
 
-sge::cg::parameter::object const
+sge::cg::parameter::named const
 sge::cg::program::object::parameter(
 	sge::cg::string const &_name
 ) const
 {
-	sge::cg::parameter::optional_object const ret(
+	sge::cg::parameter::optional_named const ret(
 		this->parameter_opt(
 			_name
 		)
@@ -144,7 +145,7 @@ sge::cg::program::object::parameter(
 		*ret;
 }
 
-sge::cg::parameter::optional_object const
+sge::cg::parameter::optional_named const
 sge::cg::program::object::parameter_opt(
 	sge::cg::string const &_name
 ) const
@@ -166,11 +167,13 @@ sge::cg::program::object::parameter_opt(
 		==
 		fcppt::null_ptr()
 		?
-			sge::cg::parameter::optional_object()
+			sge::cg::parameter::optional_named()
 		:
-			sge::cg::parameter::optional_object(
-				sge::cg::parameter::object(
-					ret
+			sge::cg::parameter::optional_named(
+				sge::cg::parameter::named(
+					sge::cg::parameter::object(
+						ret
+					)
 				)
 			)
 		;

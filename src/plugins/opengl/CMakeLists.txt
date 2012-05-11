@@ -770,6 +770,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/cg/program/load.hpp
 	src/plugins/opengl/include/sge/opengl/cg/program/loaded_object.hpp
 	src/plugins/opengl/include/sge/opengl/cg/program/optimal_options.hpp
+	src/plugins/opengl/include/sge/opengl/cg/program/transform_vertex.hpp
 	src/plugins/opengl/include/sge/opengl/cg/texture/assigned_stage.hpp
 	src/plugins/opengl/include/sge/opengl/cg/texture/disable.hpp
 	src/plugins/opengl/include/sge/opengl/cg/texture/enable.hpp
@@ -784,6 +785,7 @@ set(
 	src/plugins/opengl/src/cg/program/load.cpp
 	src/plugins/opengl/src/cg/program/loaded_object.cpp
 	src/plugins/opengl/src/cg/program/optimal_options.cpp
+	src/plugins/opengl/src/cg/program/transform_vertex.cpp
 	src/plugins/opengl/src/cg/texture/assigned_stage.cpp
 	src/plugins/opengl/src/cg/texture/disable.cpp
 	src/plugins/opengl/src/cg/texture/enable.cpp

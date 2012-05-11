@@ -18,24 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/profile/object.hpp>
-#include <sge/cg/profile/shader_type.hpp>
-#include <sge/opengl/cg/profile/convert_shader_type.hpp>
-#include <sge/opengl/cg/profile/create.hpp>
-#include <sge/opengl/cg/profile/get_latest.hpp>
+#include <sge/cg/parameter/named.hpp>
+#include <sge/cg/parameter/object.hpp>
 
 
-sge::cg::profile::object const
-sge::opengl::cg::profile::create(
-	sge::cg::profile::shader_type::type const _shader_type
+sge::cg::parameter::named::named(
+	sge::cg::parameter::object const &_impl
 )
+:
+	impl_(
+		_impl
+	)
+{
+}
+
+sge::cg::parameter::named::named(
+	named const &_other
+)
+:
+	impl_(
+		_other.impl_
+	)
+{
+}
+
+sge::cg::parameter::named::~named()
+{
+}
+
+sge::cg::parameter::object const &
+sge::cg::parameter::named::object() const
 {
 	return
-		sge::cg::profile::object(
-			sge::opengl::cg::profile::get_latest(
-				sge::opengl::cg::profile::convert_shader_type(
-					_shader_type
-				)
-			)
-		);
+		impl_;
 }

@@ -18,24 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/profile/object.hpp>
-#include <sge/cg/profile/shader_type.hpp>
-#include <sge/opengl/cg/profile/convert_shader_type.hpp>
-#include <sge/opengl/cg/profile/create.hpp>
-#include <sge/opengl/cg/profile/get_latest.hpp>
+#ifndef SGE_CG_PARAMETER_NAMED_FWD_HPP_INCLUDED
+#define SGE_CG_PARAMETER_NAMED_FWD_HPP_INCLUDED
 
 
-sge::cg::profile::object const
-sge::opengl::cg::profile::create(
-	sge::cg::profile::shader_type::type const _shader_type
-)
+namespace sge
 {
-	return
-		sge::cg::profile::object(
-			sge::opengl::cg::profile::get_latest(
-				sge::opengl::cg::profile::convert_shader_type(
-					_shader_type
-				)
-			)
-		);
+namespace cg
+{
+namespace parameter
+{
+
+class named;
+
 }
+}
+}
+
+#endif

@@ -18,11 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_OPTIONAL_OBJECT_HPP_INCLUDED
-#define SGE_CG_PARAMETER_OPTIONAL_OBJECT_HPP_INCLUDED
+#ifndef SGE_CG_PARAMETER_CREATED_FWD_HPP_INCLUDED
+#define SGE_CG_PARAMETER_CREATED_FWD_HPP_INCLUDED
 
-#include <sge/cg/parameter/optional_object_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
 
+namespace sge
+{
+namespace cg
+{
+namespace parameter
+{
+
+class created;
+
+}
+}
+}
 
 #endif

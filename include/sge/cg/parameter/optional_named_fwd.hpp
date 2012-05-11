@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PROFILE_OBJECT_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_CG_PROFILE_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_CG_PARAMETER_OPTIONAL_NAMED_FWD_HPP_INCLUDED
+#define SGE_CG_PARAMETER_OPTIONAL_NAMED_FWD_HPP_INCLUDED
 
-#include <sge/cg/profile/object_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <sge/cg/parameter/named_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
 {
 namespace cg
 {
-namespace profile
+namespace parameter
 {
 
-typedef fcppt::unique_ptr<
-	sge::cg::profile::object
-> object_unique_ptr;
+typedef fcppt::optional<
+	sge::cg::parameter::named
+> optional_named;
 
 }
 }

@@ -76,16 +76,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #if defined(SGE_RENDERER_HAVE_CG)
+#include <sge/cg/string.hpp>
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/object_fwd.hpp>
 #include <sge/cg/profile/object.hpp>
-#include <sge/cg/profile/object_unique_ptr.hpp>
 #include <sge/cg/profile/shader_type.hpp>
 #include <sge/opengl/cg/profile/create.hpp>
 #include <sge/opengl/cg/program/load.hpp>
 #include <sge/opengl/cg/program/optimal_options.hpp>
+#include <sge/opengl/cg/program/transform_vertex.hpp>
 #include <sge/opengl/cg/texture/load.hpp>
 #include <sge/renderer/cg/loaded_program.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
@@ -335,7 +336,7 @@ sge::opengl::device::create_index_buffer(
 }
 
 #if defined(SGE_RENDERER_HAVE_CG)
-sge::cg::profile::object_unique_ptr
+sge::cg::profile::object const
 sge::opengl::device::create_cg_profile(
 	sge::cg::profile::shader_type::type const _shader_type
 )
@@ -381,6 +382,19 @@ sge::opengl::device::load_cg_texture(
 			context_,
 			_parameter,
 			_texture
+		);
+}
+
+sge::cg::string const
+sge::opengl::device::transform_cg_vertex_program(
+	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::cg::string const &_source
+)
+{
+	return
+		sge::opengl::cg::program::transform_vertex(
+			_vertex_declaration,
+			_source
 		);
 }
 #endif

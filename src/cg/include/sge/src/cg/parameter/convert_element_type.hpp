@@ -18,23 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PROFILE_OBJECT_SCOPED_PTR_HPP_INCLUDED
-#define SGE_CG_PROFILE_OBJECT_SCOPED_PTR_HPP_INCLUDED
+#ifndef SGE_SRC_CG_PARAMETER_CONVERT_ELEMENT_TYPE_HPP_INCLUDED
+#define SGE_SRC_CG_PARAMETER_CONVERT_ELEMENT_TYPE_HPP_INCLUDED
 
-#include <sge/cg/profile/object_fwd.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <sge/cg/parameter/element_type.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <Cg/cg.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace cg
 {
-namespace profile
+namespace parameter
 {
 
-typedef fcppt::scoped_ptr<
-	sge::cg::profile::object
-> object_scoped_ptr;
+CGtype
+convert_element_type(
+	sge::cg::parameter::element_type::type
+);
 
 }
 }

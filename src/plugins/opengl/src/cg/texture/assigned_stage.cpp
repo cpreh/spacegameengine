@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/assert/throw.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cgGL.h>
 #include <fcppt/config/external_end.hpp>
@@ -43,12 +42,14 @@ sge::opengl::cg::texture::assigned_stage(
 		)
 	);
 
-	FCPPT_ASSERT_THROW(
+	if(
 		ret
-		!=
-		GL_INVALID_OPERATION,
-		sge::renderer::exception
-	);
+		==
+		GL_INVALID_OPERATION
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("cgGLGetTextureEnum failed")
+		);
 
 	SGE_CG_CHECK_STATE(
 		FCPPT_TEXT("cgGLGetTextureEnum failed"),
