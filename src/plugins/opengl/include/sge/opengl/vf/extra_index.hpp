@@ -31,7 +31,7 @@ namespace opengl
 namespace vf
 {
 
-unsigned
+sge::renderer::vf::dynamic::index::value_type
 extra_index(
 	sge::renderer::vf::dynamic::index
 );

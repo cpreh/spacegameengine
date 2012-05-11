@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/index.hpp>
 
 
-unsigned
+sge::renderer::vf::dynamic::index::value_type
 sge::opengl::vf::extra_index(
 	sge::renderer::vf::dynamic::index const _index
 )
