@@ -18,47 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ERROR_CHECK_STATE_HPP_INCLUDED
-#define SGE_ERROR_CHECK_STATE_HPP_INCLUDED
+#ifndef SGE_CG_CHECK_STATE_LISTING_HPP_INCLUDED
+#define SGE_CG_CHECK_STATE_LISTING_HPP_INCLUDED
 
-#include <fcppt/format.hpp>
-#include <fcppt/string.hpp>
+#include <sge/cg/check_state.hpp>
+#include <sge/cg/error_listing.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/preprocessor/file.hpp>
-#include <fcppt/preprocessor/stringize.hpp>
 
 
-#define SGE_ERROR_CHECK_STATE(\
-	exception,\
+#define SGE_CG_CHECK_STATE_LISTING(\
+	context,\
 	message,\
-	error_type,\
-	function,\
-	success_code, \
-	error_code_function \
-) \
-{ \
-	error_type const sge_return_value_(\
-		function \
-	); \
-	\
-	if(\
-		sge_return_value_\
-		!=\
-		success_code\
-	)\
-		throw exception(\
-			(\
-				fcppt::format(\
-					FCPPT_TEXT("Function failed in %1%:%2% (errorcode: %3%): %4%")\
-				) \
-				% FCPPT_PP_FILE \
-				% FCPPT_PP_STRINGIZE(__LINE__) \
-				% error_code_function(\
-					sge_return_value_\
-				) \
-				% (message) \
-			).str() \
-		);\
-} \
+	exception\
+)\
+SGE_CG_CHECK_STATE(\
+	message\
+	+\
+	FCPPT_TEXT(":\n")\
+	+\
+	sge::cg::error_listing(\
+		context\
+	),\
+	exception\
+)
 
 #endif

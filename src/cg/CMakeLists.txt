@@ -2,8 +2,10 @@ set(
 	SGE_CG_FILES
 	include/sge/cg/char.hpp
 	include/sge/cg/check_state.hpp
+	include/sge/cg/check_state_listing.hpp
 	include/sge/cg/context/object.hpp
 	include/sge/cg/context/object_fwd.hpp
+	include/sge/cg/error_listing.hpp
 	include/sge/cg/error_string.hpp
 	include/sge/cg/exception.hpp
 	include/sge/cg/parameter/created.hpp
@@ -56,6 +58,7 @@ set(
 	include/sge/cg/string.hpp
 	include/sge/cg/to_fcppt_string.hpp
 	src/cg/context/object.cpp
+	src/cg/error_listing.cpp
 	src/cg/error_string.cpp
 	src/cg/exception.cpp
 	src/cg/false.cpp

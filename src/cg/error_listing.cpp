@@ -18,47 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ERROR_CHECK_STATE_HPP_INCLUDED
-#define SGE_ERROR_CHECK_STATE_HPP_INCLUDED
-
-#include <fcppt/format.hpp>
-#include <fcppt/string.hpp>
+#include <sge/cg/check_state.hpp>
+#include <sge/cg/error_listing.hpp>
+#include <sge/cg/exception.hpp>
+#include <sge/cg/context/object.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/preprocessor/file.hpp>
-#include <fcppt/preprocessor/stringize.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <Cg/cg.h>
+#include <fcppt/config/external_end.hpp>
 
 
-#define SGE_ERROR_CHECK_STATE(\
-	exception,\
-	message,\
-	error_type,\
-	function,\
-	success_code, \
-	error_code_function \
-) \
-{ \
-	error_type const sge_return_value_(\
-		function \
-	); \
-	\
-	if(\
-		sge_return_value_\
-		!=\
-		success_code\
-	)\
-		throw exception(\
-			(\
-				fcppt::format(\
-					FCPPT_TEXT("Function failed in %1%:%2% (errorcode: %3%): %4%")\
-				) \
-				% FCPPT_PP_FILE \
-				% FCPPT_PP_STRINGIZE(__LINE__) \
-				% error_code_function(\
-					sge_return_value_\
-				) \
-				% (message) \
-			).str() \
-		);\
-} \
+fcppt::string const
+sge::cg::error_listing(
+	sge::cg::context::object const &_context
+)
+{
+	char const *const ret(
+		::cgGetLastListing(
+			_context.get()
+		)
+	);
 
-#endif
+	SGE_CG_CHECK_STATE(
+		FCPPT_TEXT("cgGetLastListing failed"),
+		sge::cg::exception
+	);
+
+	return
+		ret
+		==
+		fcppt::null_ptr()
+		?
+			fcppt::string()
+		:
+			fcppt::from_std_string(
+				ret
+			)
+		;
+}

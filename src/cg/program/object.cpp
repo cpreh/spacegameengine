@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cg/check_state.hpp>
+#include <sge/cg/check_state_listing.hpp>
 #include <sge/cg/exception.hpp>
 #include <sge/cg/string.hpp>
 #include <sge/cg/to_fcppt_string.hpp>
@@ -45,6 +46,7 @@ namespace
 
 void
 assert_program(
+	sge::cg::context::object const &,
 	CGprogram,
 	fcppt::string
 );
@@ -72,6 +74,7 @@ sge::cg::program::object::object(
 	)
 {
 	::assert_program(
+		_parameters.context(),
 		program_,
 		FCPPT_TEXT("cgCreateProgram")
 	);
@@ -98,6 +101,7 @@ sge::cg::program::object::object(
 	)
 {
 	::assert_program(
+		_parameters.context(),
 		program_,
 		FCPPT_TEXT("cgCreateProgramFromFile")
 	);
@@ -191,11 +195,13 @@ namespace
 
 void
 assert_program(
+	sge::cg::context::object const &_context,
 	CGprogram const _program,
 	fcppt::string const _what
 )
 {
-	SGE_CG_CHECK_STATE(
+	SGE_CG_CHECK_STATE_LISTING(
+		_context,
 		_what,
 		sge::cg::exception
 	)
