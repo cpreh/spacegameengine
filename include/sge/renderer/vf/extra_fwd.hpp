@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_EXTRA_FWD_HPP_INCLUDED
 #define SGE_RENDERER_VF_EXTRA_FWD_HPP_INCLUDED
 
+#include <sge/renderer/vf/element_count_type.hpp>
 
 namespace sge
 {

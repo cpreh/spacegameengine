@@ -77,6 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/texpos.hpp>
+#include <sge/renderer/vf/extra.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
@@ -175,6 +176,50 @@ try
 		)
 	);
 
+	typedef sge::renderer::vf::pos<
+		float,
+		3
+	> pos3_type;
+
+	typedef sge::renderer::vf::texpos<
+		float,
+		2,
+		sge::renderer::vf::index<0u>
+	> texpos_type;
+
+	typedef sge::renderer::vf::extra<
+		sge::renderer::vf::vector<
+			float,
+			static_cast<sge::renderer::vf::vertex_size>(
+				1u)
+		>,
+		sge::renderer::vf::index<
+			0u
+		>
+	> point_size_type;
+
+	typedef sge::renderer::vf::part<
+		boost::mpl::vector3<
+			pos3_type,
+			texpos_type,
+			point_size_type
+		>
+	> format_part;
+
+	typedef sge::renderer::vf::format<
+		boost::mpl::vector1<
+			format_part
+		>
+	> format;
+
+	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
+		sys.renderer().create_vertex_declaration(
+			sge::renderer::vf::dynamic::make_format<
+				format
+			>()
+		)
+	);
+
 	sge::cg::context::object const cg_context;
 
 	sge::cg::profile::object const vertex_profile(
@@ -188,12 +233,13 @@ try
 		"vertex_outputs\n"
 		"vertex_main(\n"
 			"float2 position : POSITION,\n"
-			"float2 texpos : TEXCOORD0\n"
+			"float2 texpos : TEXCOORD0,\n"
+			"float point_size : $0$\n"
 		")\n"
 		"{\n"
 		"	vertex_outputs outs;\n"
 		"	outs.position = float4(position,0.0,1.0);\n"
-		"	outs.point_size = 100.0;\n"
+		"	outs.point_size = point_size;\n"
 		"	outs.external_texpos = texpos;\n"
 		"	return outs;\n"
 		"}\n"
@@ -204,8 +250,11 @@ try
 			cg_context,
 			sge::cg::program::source_type::text,
 			vertex_profile,
-			sge::cg::program::source(
-				vertex_shader_source
+			sys.renderer().transform_cg_vertex_program(
+				*vertex_declaration,
+				sge::cg::program::source(
+					vertex_shader_source
+				)
 			),
 			sge::cg::program::main_function(
 				"vertex_main"
@@ -265,38 +314,6 @@ try
 		)
 	);
 
-	typedef sge::renderer::vf::pos<
-		float,
-		3
-	> pos3_type;
-
-	typedef sge::renderer::vf::texpos<
-		float,
-		2,
-		sge::renderer::vf::index<0u>
-	> texpos_type;
-
-	typedef sge::renderer::vf::part<
-		boost::mpl::vector2<
-			pos3_type,
-			texpos_type
-		>
-	> format_part;
-
-	typedef sge::renderer::vf::format<
-		boost::mpl::vector1<
-			format_part
-		>
-	> format;
-
-	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
-		sys.renderer().create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<
-				format
-			>()
-		)
-	);
-
 	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
 		sys.renderer().create_vertex_buffer(
 			*vertex_declaration,
@@ -331,6 +348,7 @@ try
 
 		typedef pos3_type::packed_type pos3;
 		typedef texpos_type::packed_type texpos;
+		typedef point_size_type::packed_type point_size;
 
 
 		(*vb_it).set<
@@ -349,6 +367,14 @@ try
 			texpos(
 				0.0f,
 				0.0f
+			)
+		);
+
+		(*vb_it).set<
+			point_size_type
+		>(
+			point_size(
+				200.0f
 			)
 		);
 	}
