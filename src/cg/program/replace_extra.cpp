@@ -18,11 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/symbol.hpp>
+#include <sge/cg/string.hpp>
+#include <sge/cg/program/extra_index.hpp>
 #include <sge/cg/program/replace_extra.hpp>
 #include <sge/cg/program/replace_extra_callback.hpp>
 #include <sge/cg/program/source.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/xpressive/basic_regex.hpp>
+#include <boost/xpressive/regex_actions.hpp>
+#include <boost/xpressive/regex_algorithms.hpp>
+#include <boost/xpressive/regex_primitives.hpp>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace
+{
+
+class replace_functor
+{
+	FCPPT_NONASSIGNABLE(
+		replace_functor
+	);
+public:
+	explicit
+	replace_functor(
+		sge::cg::program::replace_extra_callback const &
+	);
+
+	typedef sge::cg::string result_type;
+
+	result_type
+	operator()(
+		sge::cg::program::extra_index::value_type
+	) const;
+private:
+	sge::cg::program::replace_extra_callback const callback_;
+};
+
+}
 
 sge::cg::program::source const
 sge::cg::program::replace_extra(
@@ -30,6 +63,62 @@ sge::cg::program::replace_extra(
 	sge::cg::program::replace_extra_callback const &_callback
 )
 {
-	// TODO:
-	return _source;
+	boost::xpressive::sregex const regex(
+		boost::xpressive::as_xpr('$')
+		>>
+		(
+			boost::xpressive::s1
+			=
+			+boost::xpressive::_d
+		)
+		>>
+		boost::xpressive::as_xpr('$')
+	);
+
+	return
+		sge::cg::program::source(
+			boost::xpressive::regex_replace(
+				_source.get(),
+				regex,
+				boost::xpressive::val(
+					replace_functor(
+						_callback
+					)
+				)(
+					boost::xpressive::as<
+						sge::cg::program::extra_index::value_type
+					>(
+						boost::xpressive::s1
+					)
+				)
+			)
+		);
+}
+
+namespace
+{
+
+replace_functor::replace_functor(
+	sge::cg::program::replace_extra_callback const &_callback
+)
+:
+	callback_(
+		_callback
+	)
+{
+}
+
+replace_functor::result_type
+replace_functor::operator()(
+	sge::cg::program::extra_index::value_type const _value
+) const
+{
+	return
+		callback_(
+			sge::cg::program::extra_index(
+				_value
+			)
+		);
+}
+
 }
