@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_EXTRA_ELEMENT_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_EXTRA_ELEMENT_HPP_INCLUDED
 
+#include <sge/renderer/vf/element_count_type.hpp>
 #include <sge/renderer/vf/vector.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_color.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_vector.hpp>
 #include <mizuiro/color/homogenous_static_fwd.hpp>
@@ -41,7 +41,7 @@ namespace detail
 
 template<
 	typename Format,
-	sge::renderer::vf::vertex_size NumSubElements
+	sge::renderer::vf::element_count_type NumSubElements
 >
 sge::renderer::vf::dynamic::vector const
 make_extra_element(

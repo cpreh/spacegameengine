@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_VECTOR3_BASE_HPP_INCLUDED
 
 #include <sge/renderer/vf/vector_base.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -45,9 +44,10 @@ struct vector3_base
 :
 sge::renderer::vf::vector_base<
 	Format,
-	3
+	3u
 >
-{};
+{
+};
 
 FCPPT_PP_POP_WARNING
 
