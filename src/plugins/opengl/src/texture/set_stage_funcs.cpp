@@ -24,13 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/convert/stage_arg_value.hpp>
 #include <sge/opengl/texture/convert/stage_op.hpp>
 #include <sge/opengl/texture/convert/stage_op_value.hpp>
-#include <sge/opengl/texture/funcs/env.hpp>
+#include <sge/opengl/texture/funcs/env_arg.hpp>
+#include <sge/opengl/texture/funcs/env_int.hpp>
+#include <sge/opengl/texture/funcs/env_int_value.hpp>
+#include <sge/opengl/texture/funcs/env_target.hpp>
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/stage_arg.hpp>
 #include <sge/renderer/texture/stage_arg_value.hpp>
 #include <sge/renderer/texture/stage_op.hpp>
 #include <sge/renderer/texture/stage_op_value.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 
 
 template<
@@ -39,28 +43,54 @@ template<
 >
 void
 sge::opengl::texture::set_stage_funcs(
-	context::object &_context,
-	renderer::texture::stage const _stage,
+	sge::opengl::context::object &_context,
+	sge::renderer::texture::stage const _stage,
 	Arg const _arg,
 	Value const _value
 )
 {
-	opengl::texture::funcs::set_active_level(
+	sge::opengl::texture::funcs::set_active_level(
 		_context,
 		_stage
 	);
 
-	opengl::texture::funcs::env(
-		GL_TEXTURE_ENV_MODE,
-		GL_COMBINE
+	sge::opengl::texture::funcs::env_int(
+		fcppt::strong_typedef_construct_cast<
+			sge::opengl::texture::funcs::env_target
+		>(
+			GL_TEXTURE_ENV
+		),
+		fcppt::strong_typedef_construct_cast<
+			sge::opengl::texture::funcs::env_arg
+		>(
+			GL_TEXTURE_ENV_MODE
+		),
+		fcppt::strong_typedef_construct_cast<
+			sge::opengl::texture::funcs::env_int_value
+		>(
+			GL_COMBINE
+		)
 	);
 
-	opengl::texture::funcs::env(
-		texture::convert::stage_arg_op(
-			_arg
+	sge::opengl::texture::funcs::env_int(
+		fcppt::strong_typedef_construct_cast<
+			sge::opengl::texture::funcs::env_target
+		>(
+			GL_TEXTURE_ENV
 		),
-		texture::convert::stage_arg_op_value(
-			_value
+		fcppt::strong_typedef_construct_cast<
+			sge::opengl::texture::funcs::env_arg
+		>(
+			sge::opengl::texture::convert::stage_arg_op(
+				_arg
+			)
+		),
+		fcppt::strong_typedef_construct_cast<
+			sge::opengl::texture::funcs::env_int_value
+		>(
+			sge::opengl::texture::convert::stage_arg_op_value(
+				_value
+			)
 		)
 	);
 }

@@ -21,15 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
-#include <sge/opengl/point_sprite_context.hpp>
 #include <sge/opengl/convert/to_gl_bool.hpp>
 #include <sge/opengl/state/bool.hpp>
 #include <sge/opengl/state/parameters.hpp>
+#include <sge/opengl/state/point_sprite.hpp>
 #include <sge/opengl/state/convert/bool.hpp>
 #include <sge/opengl/state/deferred/bundle.hpp>
 #include <sge/opengl/state/deferred/object.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/bool/available_states.hpp>
 #include <sge/renderer/state/bool/type.hpp>
@@ -63,32 +62,10 @@ sge::opengl::state::bool_(
 		);
 		return;
 	case rs::enable_point_sprites:
-		if(
-			!_parameters.point_sprite_context().is_supported()
-		)
-		{
-			if(
-				!_state.value()
-			)
-				return;
-
-			throw sge::renderer::unsupported(
-				FCPPT_TEXT("GL_POINT_SPRITE"),
-				FCPPT_TEXT("opengl-2.0"),
-				FCPPT_TEXT("ARB_point_sprite")
-			);
-		}
-
-		opengl::enable_bool(
-			_parameters.point_sprite_context().point_sprite_flag(),
+		sge::opengl::state::point_sprite(
+			_parameters.context(),
 			_state.value()
 		);
-
-		opengl::enable_bool(
-			_parameters.point_sprite_context().vertex_shader_size_flag(),
-			_state.value()
-		);
-
 		return;
 	case rs::write_to_depth_buffer:
 		::glDepthMask(

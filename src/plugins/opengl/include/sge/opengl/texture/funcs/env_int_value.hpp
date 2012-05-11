@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_ENV_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_ENV_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_FUNCS_ENV_INT_VALUE_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FUNCS_ENV_INT_VALUE_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
+#include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
@@ -32,10 +34,9 @@ namespace texture
 namespace funcs
 {
 
-void
-env(
-	GLenum arg,
-	GLenum value
+FCPPT_MAKE_STRONG_TYPEDEF(
+	GLint,
+	env_int_value
 );
 
 }

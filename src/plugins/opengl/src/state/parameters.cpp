@@ -18,26 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/point_sprite_context.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/parameters.hpp>
 #include <sge/opengl/state/deferred/object_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 
 
 sge::opengl::state::parameters::parameters(
-	opengl::context::object &_context,
-	state::deferred::object &_deferred,
-	renderer::depth_stencil_buffer::type const _depth_stencil_buffer
+	sge::opengl::context::object &_context,
+	sge::opengl::state::deferred::object &_deferred,
+	sge::renderer::depth_stencil_buffer::type const _depth_stencil_buffer
 )
 :
-	point_sprite_context_(
-		context::use<
-			opengl::point_sprite_context
-		>(
-			_context
-		)
+	context_(
+		_context
 	),
 	deferred_(
 		_deferred
@@ -48,10 +42,10 @@ sge::opengl::state::parameters::parameters(
 {
 }
 
-sge::opengl::point_sprite_context &
-sge::opengl::state::parameters::point_sprite_context() const
+sge::opengl::context::object &
+sge::opengl::state::parameters::context() const
 {
-	return point_sprite_context_;
+	return context_;
 }
 
 sge::opengl::state::deferred::object &

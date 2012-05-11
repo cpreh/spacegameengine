@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENGL_STATE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opengl/point_sprite_context_fwd.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/parameters_fwd.hpp>
 #include <sge/opengl/state/deferred/object_fwd.hpp>
@@ -43,25 +42,25 @@ class parameters
 	);
 public:
 	parameters(
-		opengl::context::object &,
-		state::deferred::object &,
-		renderer::depth_stencil_buffer::type
+		sge::opengl::context::object &,
+		sge::opengl::state::deferred::object &,
+		sge::renderer::depth_stencil_buffer::type
 	);
 
-	opengl::point_sprite_context &
-	point_sprite_context() const;
+	sge::opengl::context::object &
+	context() const;
 
-	state::deferred::object &
+	sge::opengl::state::deferred::object &
 	deferred() const;
 
-	renderer::depth_stencil_buffer::type
+	sge::renderer::depth_stencil_buffer::type
 	depth_stencil_buffer() const;
 private:
-	opengl::point_sprite_context &point_sprite_context_;
+	sge::opengl::context::object &context_;
 
-	state::deferred::object &deferred_;
+	sge::opengl::state::deferred::object &deferred_;
 
-	renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
+	sge::renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
 };
 
 }

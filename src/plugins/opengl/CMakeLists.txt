@@ -197,6 +197,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/int.hpp
 	src/plugins/opengl/include/sge/opengl/state/parameters.hpp
 	src/plugins/opengl/include/sge/opengl/state/parameters_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/point_sprite.hpp
 	src/plugins/opengl/include/sge/opengl/state/source_blend_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/stencil_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/stencil_op.hpp
@@ -259,7 +260,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/filter/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/bind.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/delete.hpp
-	src/plugins/opengl/include/sge/opengl/texture/funcs/env.hpp
+	src/plugins/opengl/include/sge/opengl/texture/funcs/env_arg.hpp
+	src/plugins/opengl/include/sge/opengl/texture/funcs/env_int.hpp
+	src/plugins/opengl/include/sge/opengl/texture/funcs/env_int_value.hpp
+	src/plugins/opengl/include/sge/opengl/texture/funcs/env_target.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/gen.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/get_image.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/get_parameter_int.hpp
@@ -519,6 +523,7 @@ set(
 	src/plugins/opengl/src/state/initial.cpp
 	src/plugins/opengl/src/state/int.cpp
 	src/plugins/opengl/src/state/parameters.cpp
+	src/plugins/opengl/src/state/point_sprite.cpp
 	src/plugins/opengl/src/state/source_blend_func.cpp
 	src/plugins/opengl/src/state/stencil_func.cpp
 	src/plugins/opengl/src/state/stencil_op.cpp
@@ -564,7 +569,7 @@ set(
 	src/plugins/opengl/src/texture/filter/visitor.cpp
 	src/plugins/opengl/src/texture/funcs/bind.cpp
 	src/plugins/opengl/src/texture/funcs/delete.cpp
-	src/plugins/opengl/src/texture/funcs/env.cpp
+	src/plugins/opengl/src/texture/funcs/env_int.cpp
 	src/plugins/opengl/src/texture/funcs/gen.cpp
 	src/plugins/opengl/src/texture/funcs/get_image.cpp
 	src/plugins/opengl/src/texture/funcs/get_parameter_int.cpp

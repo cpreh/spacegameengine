@@ -136,11 +136,6 @@ sge::opengl::device::device(
 		context_,
 		_parameters.samples()
 	);
-
-	glTexEnvi(
-		GL_POINT_SPRITE,
-		GL_COORD_REPLACE,
-		GL_TRUE);
 }
 
 sge::opengl::device::~device()

@@ -35,7 +35,7 @@ namespace convert
 
 GLenum
 stage_arg_op(
-	renderer::texture::stage_op::type
+	sge::renderer::texture::stage_op::type
 );
 
 }

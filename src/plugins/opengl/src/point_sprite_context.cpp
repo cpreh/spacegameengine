@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/point_sprite_context.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 
@@ -27,10 +28,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::point_sprite_context::point_sprite_context()
 :
 	is_native_(
-		glew::is_supported("GL_VERSION_2_0")
+		sge::opengl::glew::is_supported(
+			"GL_VERSION_2_0"
+		)
 	),
 	is_arb_(
-		glew::is_supported("GL_ARB_point_sprite")
+		sge::opengl::glew::is_supported(
+			"GL_ARB_point_sprite"
+		)
 	),
 	point_sprite_flag_(
 		static_cast<
@@ -61,6 +66,21 @@ sge::opengl::point_sprite_context::point_sprite_context()
 				:
 					0
 		)
+	),
+	coord_replace_flag_(
+		static_cast<
+			GLenum
+		>(
+			is_native_
+			?
+				GL_COORD_REPLACE
+			:
+				is_arb_
+				?
+					GL_COORD_REPLACE_ARB
+				:
+					0
+		)
 	)
 {
 }
@@ -87,6 +107,12 @@ GLenum
 sge::opengl::point_sprite_context::vertex_shader_size_flag() const
 {
 	return vertex_shader_size_flag_;
+}
+
+GLenum
+sge::opengl::point_sprite_context::coord_replace_flag() const
+{
+	return coord_replace_flag_;
 }
 
 sge::opengl::context::id const

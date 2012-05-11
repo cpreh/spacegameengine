@@ -54,6 +54,9 @@ public:
 	GLenum
 	vertex_shader_size_flag() const;
 
+	GLenum
+	coord_replace_flag() const;
+
 	typedef void needs_before;
 
 	static context::id const static_id;
@@ -64,7 +67,8 @@ private:
 
 	GLenum const
 		point_sprite_flag_,
-		vertex_shader_size_flag_;
+		vertex_shader_size_flag_,
+		coord_replace_flag_;
 };
 
 }

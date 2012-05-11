@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/renderer/texture/stage_arg.hpp>
 
+
 namespace sge
 {
 namespace opengl

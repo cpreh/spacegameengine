@@ -47,6 +47,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/variable_scoped_ptr.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -650,6 +653,13 @@ try
 		scoped_block.get().glsl_program(
 			sge::renderer::glsl::const_optional_program_ref(
 				*program
+			)
+		);
+
+		sge::renderer::state::scoped const scoped_state(
+			scoped_block.get(),
+			sge::renderer::state::list(
+				sge::renderer::state::bool_::enable_point_sprite = true
 			)
 		);
 
