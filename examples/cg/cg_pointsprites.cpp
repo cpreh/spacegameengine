@@ -458,9 +458,7 @@ try
 			sge::renderer::first_vertex(
 				0u
 			),
-			sge::renderer::vertex_count(
-				3u
-			),
+			vertex_buffer->size(),
 			sge::renderer::nonindexed_primitive_type::point
 		);
 	}
