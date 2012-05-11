@@ -24,3 +24,9 @@ add_sge_example(
 	"sgecg;sgeconfig;sgeimage;sgeinput;sgemedia;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
+
+add_sge_example(
+	cg_pointsprites
+	"sgecg;sgeconfig;sgeimage;sgeinput;sgemedia;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)

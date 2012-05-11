@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/string.hpp>
 #include <sge/cg/context/object.hpp>
-#include <sge/cg/parameter/named.hpp>
 #include <sge/cg/parameter/object.hpp>
 #include <sge/cg/profile/object.hpp>
 #include <sge/cg/profile/shader_type.hpp>
@@ -35,6 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/cg/parameter/named.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/list.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
@@ -125,7 +128,7 @@ try
 			sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
-						FCPPT_TEXT("sge cg simple test")
+						FCPPT_TEXT("sge cg point sprites test")
 					),
 					sge::window::dim(
 						1024,
@@ -181,23 +184,18 @@ try
 	);
 
 	sge::cg::string const vertex_shader_source(
-		"struct C2E1v_Output {\n"
-		"	float4 position : POSITION;\n"
-  		"	float2 texCoord : TEXCOORD0;\n"
-		"};\n"
-		"\n"
-		"C2E1v_Output\n"
-		"C2E1v_tex(\n"
+		"struct vertex_outputs { float2 position : POSITION; float point_size : PSIZE; float2 external_texpos : TEXCOORD1; };\n"
+		"vertex_outputs\n"
+		"vertex_main(\n"
 			"float2 position : POSITION,\n"
-			"float2 texCoord : TEXCOORD0\n"
+			"float2 texpos : TEXCOORD0\n"
 		")\n"
 		"{\n"
-		"	C2E1v_Output OUT;\n"
-		"\n"
-		"	OUT.position = float4(position,0,1);\n"
-		"	OUT.texCoord = texCoord;\n"
-		"\n"
-		"	return OUT;\n"
+		"	vertex_outputs outs;\n"
+		"	outs.position = float4(position,0.0,1.0);\n"
+		"	outs.point_size = 100.0;\n"
+		"	outs.external_texpos = texpos;\n"
+		"	return outs;\n"
 		"}\n"
 	);
 
@@ -210,7 +208,7 @@ try
 				vertex_shader_source
 			),
 			sge::cg::program::main_function(
-				"C2E1v_tex"
+				"vertex_main"
 			),
 			sys.renderer().cg_compile_options(
 				cg_context,
@@ -232,22 +230,14 @@ try
 	);
 
 	sge::cg::string const pixel_shader_source(
-		"// This is C3E3f_texture from \"The Cg Tutorial\" (Addison-Wesley, ISBN\n"
-		"// 0321194969) by Randima Fernando and Mark J. Kilgard.  See page 67.\n"
-		"\n"
-		"struct C3E3f_Output {\n"
-		"	float4 color : COLOR;\n"
-		"};\n"
-		"\n"
-		"C3E3f_Output\n"
-		"C3E3f_texture(\n"
-		"	float2 texCoord : TEXCOORD0,\n"
+		"float4\n"
+		"pixel_main(\n"
+		"	in float2 texCoord : TEXCOORD0,\n"
+		"	in float2 external_texpos : TEXCOORD1,\n"
 		"	uniform sampler2D decal : TEX0\n"
-		")\n"
+		") : COLOR\n"
 		"{\n"
-		"	C3E3f_Output OUT;\n"
-		"	OUT.color = tex2D(decal,texCoord);\n"
-		"	return OUT;\n"
+		"	return tex2D(decal,0.5 + texCoord.xy / 2.0);\n"
 		"}\n"
 	);
 
@@ -260,7 +250,7 @@ try
 				pixel_shader_source
 			),
 			sge::cg::program::main_function(
-				"C3E3f_texture"
+				"pixel_main"
 			),
 			sys.renderer().cg_compile_options(
 				cg_context,
@@ -283,15 +273,13 @@ try
 	typedef sge::renderer::vf::texpos<
 		float,
 		2,
-		sge::renderer::vf::index<
-			0u
-		>
-	> texpos2_type;
+		sge::renderer::vf::index<0u>
+	> texpos_type;
 
 	typedef sge::renderer::vf::part<
 		boost::mpl::vector2<
 			pos3_type,
-			texpos2_type
+			texpos_type
 		>
 	> format_part;
 
@@ -317,7 +305,7 @@ try
 				format_part
 			>(),
 			sge::renderer::vertex_count(
-				3u
+				1u
 			),
 			sge::renderer::resource_flags::none
 		)
@@ -342,67 +330,25 @@ try
 		);
 
 		typedef pos3_type::packed_type pos3;
+		typedef texpos_type::packed_type texpos;
 
-		typedef texpos2_type::packed_type texpos2;
 
 		(*vb_it).set<
 			pos3_type
 		>(
 			pos3(
-				-1.f,
-				1.f,
-				0.f
-			)
-		);
-
-		(*vb_it).set<
-			texpos2_type
-		>(
-			texpos2(
+				0.f,
 				0.f,
 				0.f
 			)
 		);
 
-		++vb_it;
-
 		(*vb_it).set<
-			pos3_type
+			texpos_type
 		>(
-			pos3(
-				-1.f,
-				-1.f,
-				0.f
-			)
-		);
-
-		(*vb_it).set<
-			texpos2_type
-		>(
-			texpos2(
-				0.f,
-				1.f
-			)
-		);
-
-		++vb_it;
-
-		(*vb_it).set<
-			pos3_type
-		>(
-			pos3(
-				1.f,
-				1.f,
-				0.f
-			)
-		);
-
-		(*vb_it).set<
-			texpos2_type
-		>(
-			texpos2(
-				1.f,
-				0.f
+			texpos(
+				0.0f,
+				0.0f
 			)
 		);
 	}
@@ -477,6 +423,10 @@ try
 			*loaded_texture
 		);
 
+		scoped_block.get().state(
+			sge::renderer::state::list
+				(sge::renderer::state::bool_::enable_point_sprites = true));
+
 		scoped_block.get().render_nonindexed(
 			sge::renderer::first_vertex(
 				0u
@@ -484,7 +434,7 @@ try
 			sge::renderer::vertex_count(
 				3u
 			),
-			sge::renderer::nonindexed_primitive_type::triangle
+			sge::renderer::nonindexed_primitive_type::point
 		);
 	}
 
