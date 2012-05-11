@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_PROCESS_ORDERED_WITH_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_PROCESS_ORDERED_WITH_OPTIONS_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/detail/render/matrices.hpp>
 #include <sge/sprite/detail/render/scoped_states.hpp>
@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/detail/render_one.hpp>
 #include <sge/sprite/intrusive/ordered/collection_impl.hpp>
 #include <sge/sprite/process/is_options.hpp>
+#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/ref.hpp>
@@ -62,6 +63,7 @@ typename boost::enable_if<
 	void
 >::type
 ordered_with_options(
+	sge::renderer::context::object &_render_context,
 	sge::sprite::intrusive::ordered::collection<
 		Choices,
 		Order
@@ -85,27 +87,27 @@ ordered_with_options(
 
 	typedef typename Options::render_options render_options;
 
-	sge::renderer::device &renderer(
-		_buffers.parameters().renderer()
-	);
-
 	sge::sprite::detail::render::matrices<
 		render_options::matrix_options
 	>(
-		renderer
+		_render_context
 	);
+
 
 	sge::sprite::detail::render::scoped_states<
 		Choices,
 		render_options::state_options
 	> const states(
-		renderer
+		_render_context
 	);
 
 	sge::sprite::detail::render::scoped_vertex_declaration<
 		render_options::vertex_options
 	> const vertex(
-		_buffers.parameters()
+		sge::sprite::render::parameters(
+			_render_context,
+			_buffers.parameters().vertex_declaration()
+		)
 	);
 
 	_collection.for_each(
@@ -116,6 +118,9 @@ ordered_with_options(
 				Compare,
 				typename collection::range_type
 			>,
+			fcppt::ref(
+				_render_context
+			),
 			fcppt::ref(
 				_buffers
 			),
