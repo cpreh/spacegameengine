@@ -34,6 +34,16 @@ sge::cg::profile::object::object(
 {
 }
 
+sge::cg::profile::object::object(
+	sge::cg::profile::object const &_other
+)
+:
+	profile_(
+		_other.profile_
+	)
+{
+}
+
 sge::cg::profile::object::~object()
 {
 }

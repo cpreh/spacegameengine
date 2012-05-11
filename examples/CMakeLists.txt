@@ -259,11 +259,11 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-add_sge_example(
-	savetexture
-	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgemedia;sgerenderer;sgeshader;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
+#add_sge_example(
+#	savetexture
+#	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgemedia;sgerenderer;sgeshader;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+#	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#)
 
 add_sge_example(
 	screenshot
@@ -271,11 +271,11 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-add_sge_example(
-	shader/cube
-	"sgecamera;sgeconfig;sgefonttext;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgeshader;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
+#add_sge_example(
+#	shader/cube
+#	"sgecamera;sgeconfig;sgefonttext;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgeshader;sgesystems;sgeviewport;sgewindow"
+#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#)
 
 message("Fix the shader raw example!")
 

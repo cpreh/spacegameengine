@@ -185,7 +185,6 @@ OPTION (ENABLE_LINE_DRAWER "Build the line drawing library" ON)
 OPTION (ENABLE_OPENCL "Build the opencl subsystem" ${OPENCL_FOUND})
 OPTION (ENABLE_PARSE "Build the parse library" ON)
 OPTION (ENABLE_PROJECTILE "Build the projectile subsystem" ${BULLET_FOUND})
-OPTION (ENABLE_SHADER "Build the shader" ON)
 OPTION (ENABLE_SPRITE "Build the sprite library" ON)
 OPTION (ENABLE_SYSTEMS "Build the systems library" ON)
 OPTION (ENABLE_TEXTURE "Build the texture helpers" ON)
@@ -292,10 +291,6 @@ ENDIF ()
 
 IF (ENABLE_PROJECTILE)
 	ADD_SUBDIRECTORY (projectile)
-ENDIF ()
-
-IF (ENABLE_SHADER)
-	ADD_SUBDIRECTORY(shader)
 ENDIF ()
 
 IF (ENABLE_SPRITE)

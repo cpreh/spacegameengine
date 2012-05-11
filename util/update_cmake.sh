@@ -169,8 +169,6 @@ update_sublibrary renderer/cg
 
 update_sublibrary renderer/opengl
 
-update_sublibrary shader
-
 update_sublibrary sprite
 
 update_sublibrary systems
