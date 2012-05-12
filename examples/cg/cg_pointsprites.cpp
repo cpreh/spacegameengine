@@ -230,12 +230,17 @@ try
 	);
 
 	sge::cg::string const vertex_shader_source(
-		"struct vertex_outputs { float2 position : POSITION; float point_size : PSIZE; float2 external_texpos : TEXCOORD1; };\n"
+		"struct vertex_outputs\n"
+		"{\n"
+		"	float2 position : POSITION;\n"
+		"	float point_size : PSIZE;\n"
+		"	float2 external_texpos : COLOR0;\n"
+		"};\n"
 		"vertex_outputs\n"
 		"vertex_main(\n"
-			"float2 position : POSITION,\n"
-			"float2 texpos : TEXCOORD0,\n"
-			"float point_size : $0$\n"
+		"	float2 position : POSITION,\n"
+		"	float2 texpos : TEXCOORD0,\n"
+		"	float point_size : $0$\n"
 		")\n"
 		"{\n"
 		"	vertex_outputs outs;\n"
@@ -243,6 +248,18 @@ try
 		"	outs.point_size = point_size;\n"
 		"	outs.external_texpos = texpos;\n"
 		"	return outs;\n"
+		"}\n"
+	);
+
+	sge::cg::string const pixel_shader_source(
+		"float4\n"
+		"pixel_main(\n"
+		"	float2 external_texpos : COLOR0,\n"
+		"	float2 texCoord : TEXCOORD0,\n"
+		"	uniform sampler2D decal : TEX0\n"
+		") : COLOR\n"
+		"{\n"
+		"	return tex2D(decal,external_texpos.xy + texCoord.xy / 2.0);\n"
 		"}\n"
 	);
 
@@ -277,18 +294,6 @@ try
 		sys.renderer().create_cg_profile(
 			sge::cg::profile::shader_type::pixel
 		)
-	);
-
-	sge::cg::string const pixel_shader_source(
-		"float4\n"
-		"pixel_main(\n"
-		"	in float2 texCoord : TEXCOORD0,\n"
-		"	in float2 external_texpos : TEXCOORD1,\n"
-		"	uniform sampler2D decal : TEX0\n"
-		") : COLOR\n"
-		"{\n"
-		"	return tex2D(decal,0.5 + texCoord.xy / 2.0);\n"
-		"}\n"
 	);
 
 	sge::cg::program::object pixel_program(
@@ -366,8 +371,8 @@ try
 			texpos_type
 		>(
 			texpos(
-				0.0f,
-				0.0f
+				0.5f,
+				0.5f
 			)
 		);
 
