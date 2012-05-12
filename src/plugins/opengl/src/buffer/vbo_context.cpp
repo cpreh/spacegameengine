@@ -23,12 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/create.hpp>
 #include <sge/opengl/buffer/make_type.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 
 
 sge::opengl::buffer::vbo_context::vbo_context()
 :
+	sge::opengl::context::system::base(),
 	impl_(
 		opengl::buffer::create(
 			glew::is_supported("GL_VERSION_1_5")
@@ -78,7 +81,7 @@ sge::opengl::buffer::vbo_context::vertex_buffer_type() const
 	return vertex_buffer_type_;
 }
 
-sge::opengl::context::id const
+sge::opengl::context::system::id const
 sge::opengl::buffer::vbo_context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::system::make_id()
 );

@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/cg/texture/assigned_stage.hpp>
 #include <sge/opengl/cg/texture/loaded_object.hpp>
 #include <sge/opengl/cg/texture/set_parameter.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
@@ -39,13 +40,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::cg::texture::loaded_object::loaded_object(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context,
 	sge::cg::parameter::object const &_parameter,
 	sge::renderer::texture::base &_texture
 )
 :
-	context_(
-		_context
+	system_context_(
+		_system_context
+	),
+	device_context_(
+		_device_context
 	),
 	parameter_(
 		_parameter
@@ -95,7 +100,8 @@ sge::opengl::cg::texture::loaded_object::enable() const
 
 	sge::opengl::texture::set_samplers(
 		binding,
-		context_,
+		system_context_,
+		device_context_,
 		texture_.type(),
 		stage_
 	);

@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/context.hpp>
 #include <sge/opengl/texture/type.hpp>
@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::filter::normal(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	sge::opengl::texture::binding const &_binding,
 	sge::opengl::texture::type const _type,
 	sge::renderer::texture::filter::normal::object const &_filter
@@ -70,7 +70,7 @@ sge::opengl::texture::filter::normal(
 		sge::opengl::context::use<
 			sge::opengl::texture::context
 		>(
-			_context
+			_system_context
 		)
 	);
 

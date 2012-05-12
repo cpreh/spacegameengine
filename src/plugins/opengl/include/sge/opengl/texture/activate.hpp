@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_ACTIVATE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_ACTIVATE_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
@@ -35,7 +36,8 @@ namespace texture
 
 void
 activate(
-	opengl::context::object &,
+	sge::opengl::context::system::object &,
+	sge::opengl::context::device::object &,
 	sge::renderer::texture::const_optional_base_ref const &,
 	sge::renderer::texture::stage
 );

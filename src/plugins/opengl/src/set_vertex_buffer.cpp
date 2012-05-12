@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_context.hpp>
 #include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
@@ -31,13 +32,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::set_vertex_buffer(
-	opengl::context::object &_context,
-	renderer::vertex_buffer const &_buffer
+	sge::opengl::context::device::object &_context,
+	sge::renderer::vertex_buffer const &_buffer
 )
 {
-	opengl::vertex_context &context(
-		opengl::context::use<
-			opengl::vertex_context
+	sge::opengl::vertex_context &context(
+		sge::opengl::context::use<
+			sge::opengl::vertex_context
 		>(
 			_context
 		)
@@ -48,7 +49,7 @@ sge::opengl::set_vertex_buffer(
 	);
 
 	{
-		opengl::vertex_buffer const *const old_buffer(
+		sge::opengl::vertex_buffer const *const old_buffer(
 			context.vertex_buffer(
 				index
 			)
@@ -57,15 +58,15 @@ sge::opengl::set_vertex_buffer(
 		if(
 			old_buffer
 		)
-			opengl::unset_vertex_buffer(
+			sge::opengl::unset_vertex_buffer(
 				_context,
 				*old_buffer
 			);
 	}
 
-	opengl::vertex_buffer const &gl_buffer(
+	sge::opengl::vertex_buffer const &gl_buffer(
 		dynamic_cast<
-			opengl::vertex_buffer const &
+			sge::opengl::vertex_buffer const &
 		>(
 			_buffer
 		)

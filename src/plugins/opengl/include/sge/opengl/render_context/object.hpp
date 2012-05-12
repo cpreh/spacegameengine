@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/render_context/scoped_target.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
@@ -80,7 +81,8 @@ class object
 	);
 public:
 	object(
-		sge::opengl::context::object &,
+		sge::opengl::context::system::object &,
+		sge::opengl::context::device::object &,
 		sge::renderer::target::base &,
 		sge::renderer::depth_stencil_buffer::type
 	);
@@ -244,7 +246,9 @@ private:
 	);
 #endif
 
-	sge::opengl::context::object &context_;
+	sge::opengl::context::system::object &system_context_;
+
+	sge::opengl::context::device::object &device_context_;
 
 	sge::renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
 

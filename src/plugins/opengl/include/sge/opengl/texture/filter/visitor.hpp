@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_FILTER_VISITOR_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_FILTER_VISITOR_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/filter/anisotropic/object_fwd.hpp>
@@ -45,9 +45,9 @@ class visitor
 	);
 public:
 	visitor(
-		opengl::context::object &,
-		texture::binding const &,
-		texture::type
+		sge::opengl::context::system::object &,
+		sge::opengl::texture::binding const &,
+		sge::opengl::texture::type
 	);
 
 	typedef void result_type;
@@ -62,11 +62,11 @@ public:
 		sge::renderer::texture::filter::normal::object const &
 	) const;
 private:
-	opengl::context::object &context_;
+	sge::opengl::context::system::object &system_context_;
 
-	texture::binding const &binding_;
+	sge::opengl::texture::binding const &binding_;
 
-	texture::type const type_;
+	sge::opengl::texture::type const type_;
 };
 
 }

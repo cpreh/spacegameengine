@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONTEXT_MAKE_ID_HPP_INCLUDED
 #define SGE_OPENGL_CONTEXT_MAKE_ID_HPP_INCLUDED
 
-#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/id_decl.hpp>
+
 
 namespace sge
 {
@@ -30,8 +31,29 @@ namespace opengl
 namespace context
 {
 
-id
-make_id();
+template<
+	typename Domain
+>
+sge::opengl::context::id<
+	Domain
+> const
+make_id()
+{
+	typedef
+	sge::opengl::context::id<
+		Domain
+	>
+	id_type;
+
+	typedef typename id_type::type counter_type;
+
+	static counter_type counter(0u);
+
+	return
+		id_type(
+			++counter
+		);
+}
 
 }
 }

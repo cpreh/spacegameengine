@@ -30,7 +30,9 @@ sge::opengl::glx::context::context(
 	XVisualInfo const &_visual_info
 )
 :
-	display_(_display),
+	display_(
+		_display
+	),
 	context_(
 		::glXCreateContext(
 			_display.get(),

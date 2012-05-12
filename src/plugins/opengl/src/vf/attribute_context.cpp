@@ -18,7 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
 #include <fcppt/null_ptr.hpp>
@@ -26,11 +29,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::vf::attribute_context::attribute_context()
 :
+	sge::opengl::context::system::base(),
 	is_native_(
-		sge::opengl::glew::is_supported("GL_VERSION_2_0")
+		sge::opengl::glew::is_supported(
+			"GL_VERSION_2_0"
+		)
 	),
 	is_arb_(
-		sge::opengl::glew::is_supported("GL_ARB_vertex_shader")
+		sge::opengl::glew::is_supported(
+			"GL_ARB_vertex_shader"
+		)
 	),
 	vertex_attrib_pointer_(
 		is_native_
@@ -98,7 +106,7 @@ sge::opengl::vf::attribute_context::disable_vertex_attrib_array() const
 	return disable_vertex_attrib_array_;
 }
 
-sge::opengl::context::id const
+sge::opengl::context::system::id const
 sge::opengl::vf::attribute_context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::system::make_id()
 );

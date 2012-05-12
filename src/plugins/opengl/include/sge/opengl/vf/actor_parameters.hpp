@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_ACTOR_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENGL_VF_ACTOR_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
@@ -44,7 +44,7 @@ public:
 	actor_parameters(
 		sge::renderer::vf::dynamic::stride,
 		sge::renderer::vf::dynamic::offset,
-		sge::opengl::context::object &
+		sge::opengl::context::system::object &
 	);
 
 	sge::renderer::vf::dynamic::stride const
@@ -53,14 +53,14 @@ public:
 	sge::renderer::vf::dynamic::offset const
 	offset() const;
 
-	sge::opengl::context::object &
-	context() const;
+	sge::opengl::context::system::object &
+	system_context() const;
 private:
 	sge::renderer::vf::dynamic::stride const stride_;
 
 	sge::renderer::vf::dynamic::offset const offset_;
 
-	opengl::context::object &context_;
+	opengl::context::system::object &system_context_;
 };
 
 }

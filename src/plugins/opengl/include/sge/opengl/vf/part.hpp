@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_PART_HPP_INCLUDED
 #define SGE_OPENGL_VF_PART_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/actor_fwd.hpp>
 #include <sge/opengl/vf/part_fwd.hpp>
 #include <sge/opengl/vf/pointer.hpp>
@@ -46,7 +47,8 @@ class part
 	);
 public:
 	part(
-		sge::opengl::context::object &,
+		sge::opengl::context::system::object &,
+		sge::opengl::context::device::object &,
 		sge::renderer::vf::dynamic::part const &
 	);
 
@@ -63,7 +65,9 @@ public:
 	void
 	unuse_me() const;
 private:
-	sge::opengl::context::object &context_;
+	sge::opengl::context::system::object &system_context_;
+
+	sge::opengl::context::device::object &device_context_;
 
 	sge::renderer::vf::dynamic::part const part_;
 

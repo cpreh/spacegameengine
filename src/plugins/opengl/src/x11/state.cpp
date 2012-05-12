@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/glx/context.hpp>
 #include <sge/opengl/x11/state.hpp>
 #include <sge/opengl/x11/vsync.hpp>
@@ -36,49 +37,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::x11::state::state(
-	opengl::context::object &_context,
-	renderer::parameters const &_param,
-	renderer::adapter const _adapter,
+	sge::opengl::context::system::object &_system_context,
+	sge::renderer::parameters const &_param,
 	awl::backends::x11::window::object &_window
 )
 :
-	device_state(),
+	sge::opengl::device_state::object(),
 	window_(
 		_window
 	),
-	display_(
-		window_.display()
-	),
 	context_(
-		fcppt::make_unique_ptr<
-			sge::opengl::glx::context
-		>(
-			fcppt::ref(
-				display_
-			),
-			window_.visual().info()
-		)
+		_window
 	),
-	current_(
-		display_,
-		window_,
-		*context_
+	scoped_current_(
+		context_
 	),
 	resolution_(
-		x11::resolution::create(
+		sge::opengl::x11::resolution::create(
 			window_,
-			_param,
-			_adapter
+			_param
 		)
 	)
 {
 	if(
 		_param.vsync()
-		== sge::renderer::vsync::on
+		==
+		sge::renderer::vsync::on
 	)
-		x11::vsync(
-			display_,
-			_context
+		sge::opengl::x11::vsync(
+			window_.display(),
+			_system_context
 		);
 }
 
@@ -98,7 +86,7 @@ sge::opengl::x11::state::swap_buffers()
 		!window_.destroyed()
 	)
 		::glXSwapBuffers(
-			display_.get(),
+			window_.display().get(),
 			window_.get()
 		);
 }

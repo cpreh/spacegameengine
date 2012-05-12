@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/bind_type.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
 #include <sge/opengl/texture/type.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::bind_type const
 sge::opengl::texture::type_to_binding(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	sge::opengl::texture::type const _type
 )
 {
@@ -39,7 +39,7 @@ sge::opengl::texture::type_to_binding(
 		sge::opengl::context::use<
 			sge::opengl::texture::type_context
 		>(
-			_context
+			_system_context
 		).types()
 	);
 

@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/id.hpp>
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/bind_type.hpp>
 #include <sge/opengl/texture/optional_bind_type.hpp>
@@ -34,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::volume_context::volume_context()
 :
+	sge::opengl::context::system::base(),
 	volume_texture_normal_(
 		sge::opengl::glew::is_supported(
 			"GL_VERSION_1_3"
@@ -113,7 +115,7 @@ sge::opengl::texture::volume_context::max_extent_flag() const
 	return max_extent_flag_;
 }
 
-sge::opengl::context::id const
+sge::opengl::context::system::id const
 sge::opengl::texture::volume_context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::system::make_id()
 );

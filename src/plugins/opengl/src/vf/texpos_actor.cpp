@@ -44,8 +44,8 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 	sge::opengl::vf::pointer_actor(
 		_param
 	),
-	context_(
-		_param.context()
+	system_context_(
+		_param.system_context()
 	),
 	elements_(
 		static_cast<
@@ -67,7 +67,7 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
-			context_
+			system_context_
 		)
 	);
 
@@ -108,7 +108,7 @@ sge::opengl::vf::texpos_actor::operator()(
 	);
 
 	sge::opengl::texture::funcs::set_client_level(
-		context_,
+		system_context_,
 		index_
 	);
 

@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/vertex_buffer_fwd.hpp>
 #include <sge/opengl/vertex_declaration_fwd.hpp>
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/device/base.hpp>
+#include <sge/opengl/context/device/id.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/index_map_decl.hpp>
@@ -37,7 +37,7 @@ namespace opengl
 
 class vertex_context
 :
-	public opengl::context::base
+	public sge::opengl::context::device::base
 {
 	FCPPT_NONCOPYABLE(
 		vertex_context
@@ -47,34 +47,34 @@ public:
 
 	~vertex_context();
 
-	opengl::vertex_buffer const *
+	sge::opengl::vertex_buffer const *
 	vertex_buffer(
-		renderer::vf::dynamic::part_index
+		sge::renderer::vf::dynamic::part_index
 	) const;
 
 	void
 	vertex_buffer(
-		renderer::vf::dynamic::part_index,
-		opengl::vertex_buffer const *
+		sge::renderer::vf::dynamic::part_index,
+		sge::opengl::vertex_buffer const *
 	);
 
 	void
 	vertex_declaration(
-		opengl::vertex_declaration const *
+		sge::opengl::vertex_declaration const *
 	);
 
-	opengl::vertex_declaration const *
+	sge::opengl::vertex_declaration const *
 	vertex_declaration() const;
 
 	typedef void needs_before;
 
-	static opengl::context::id const static_id;
+	static sge::opengl::context::device::id const static_id;
 private:
 	typedef fcppt::container::index_map<
-		opengl::vertex_buffer const *
+		sge::opengl::vertex_buffer const *
 	> vertex_buffer_map;
 
-	opengl::vertex_declaration const *last_declaration_;
+	sge::opengl::vertex_declaration const *last_declaration_;
 
 	mutable vertex_buffer_map last_buffers_;
 };

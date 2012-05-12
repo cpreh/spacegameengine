@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_ADDRESS_MODE_SET_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_ADDRESS_MODE_SET_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
@@ -38,7 +38,7 @@ namespace address_mode
 
 void
 set(
-	sge::opengl::context::object &,
+	sge::opengl::context::device::object &,
 	sge::opengl::texture::binding const &,
 	sge::opengl::texture::type,
 	sge::renderer::texture::stage

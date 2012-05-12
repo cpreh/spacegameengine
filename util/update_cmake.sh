@@ -199,6 +199,7 @@ update_cmake_file \
 	$(opengl_inc_src clear) \
 	$(opengl_inc_src context) \
 	$(opengl_inc_src convert) \
+	$(opengl_inc_src device_state) \
 	$(opengl_inc_src fbo) \
 	$(opengl_inc_src glew) \
 	$(opengl_inc_src light) \

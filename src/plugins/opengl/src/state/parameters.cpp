@@ -18,20 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/parameters.hpp>
 #include <sge/opengl/state/deferred/object_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 
 
 sge::opengl::state::parameters::parameters(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	sge::opengl::state::deferred::object &_deferred,
 	sge::renderer::depth_stencil_buffer::type const _depth_stencil_buffer
 )
 :
-	context_(
-		_context
+	system_context_(
+		_system_context
 	),
 	deferred_(
 		_deferred
@@ -42,10 +42,10 @@ sge::opengl::state::parameters::parameters(
 {
 }
 
-sge::opengl::context::object &
-sge::opengl::state::parameters::context() const
+sge::opengl::context::system::object &
+sge::opengl::state::parameters::system_context() const
 {
-	return context_;
+	return system_context_;
 }
 
 sge::opengl::state::deferred::object &

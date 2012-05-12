@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_POINT_SPRITE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_POINT_SPRITE_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace state
 
 void
 point_sprite(
-	sge::opengl::context::object &,
+	sge::opengl::context::system::object &,
 	bool enable
 );
 

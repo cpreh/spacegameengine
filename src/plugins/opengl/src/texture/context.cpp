@@ -18,14 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/context.hpp>
 
 
 sge::opengl::texture::context::context()
 :
-	opengl::context::base(),
+	sge::opengl::context::system::base(),
 	anisotropic_filter_supported_(
 		sge::opengl::glew::is_supported(
 			"GL_EXT_texture_filter_anisotropic"
@@ -89,7 +92,7 @@ sge::opengl::texture::context::max_anisotropy_flag() const
 	return max_anisotropy_flag_;
 }
 
-sge::opengl::context::id const
+sge::opengl::context::system::id const
 sge::opengl::texture::context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::system::make_id()
 );

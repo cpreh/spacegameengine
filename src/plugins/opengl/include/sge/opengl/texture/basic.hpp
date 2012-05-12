@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/basic_fwd.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
@@ -134,14 +134,14 @@ protected:
 	opengl::internal_color_format const
 	internal_format() const;
 
-	opengl::context::object &
-	context() const;
+	sge::opengl::context::system::object &
+	system_context() const;
 
 	typedef typename Types::parameters parameters_type;
 
 	basic(
-		opengl::context::object &,
-		opengl::texture::type,
+		sge::opengl::context::system::object &,
+		sge::opengl::texture::type,
 		parameters_type const &
 	);
 public:
@@ -156,7 +156,7 @@ private:
 	void
 	check_not_locked() const;
 
-	opengl::context::object &context_;
+	sge::opengl::context::system::object &system_context_;
 
 	renderer::texture::mipmap::object const mipmap_;
 

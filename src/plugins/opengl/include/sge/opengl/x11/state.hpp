@@ -21,14 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_X11_STATE_HPP_INCLUDED
 #define SGE_OPENGL_X11_STATE_HPP_INCLUDED
 
-#include <sge/opengl/device_state.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/glx/context_scoped_ptr.hpp>
-#include <sge/opengl/glx/current.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/device_state/object.hpp>
+#include <sge/opengl/device_state/scoped_current.hpp>
+#include <sge/opengl/x11/context.hpp>
 #include <sge/opengl/x11/resolution/instance_fwd.hpp>
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -43,16 +41,15 @@ namespace x11
 
 class state
 :
-	public opengl::device_state
+	public sge::opengl::device_state::object
 {
 	FCPPT_NONCOPYABLE(
 		state
 	);
 public:
 	state(
-		opengl::context::object &,
-		renderer::parameters const &,
-		renderer::adapter,
+		sge::opengl::context::system::object &,
+		sge::renderer::parameters const &,
 		awl::backends::x11::window::object &
 	);
 
@@ -66,15 +63,15 @@ public:
 private:
 	awl::backends::x11::window::object &window_;
 
-	awl::backends::x11::display &display_;
+	sge::opengl::x11::context context_;
 
-	glx::context_scoped_ptr const context_;
+	sge::opengl::device_state::scoped_current const scoped_current_;
 
-	glx::current const current_;
+	typedef fcppt::scoped_ptr<
+		sge::opengl::x11::resolution::instance
+	> resolution_scoped_ptr;
 
-	fcppt::scoped_ptr<
-		resolution::instance
-	> resolution_;
+	resolution_scoped_ptr const resolution_;
 };
 
 }

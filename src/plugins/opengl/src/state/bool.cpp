@@ -38,14 +38,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::bool_(
-	state::parameters const &_parameters,
-	renderer::state::bool_::type const &_state
+	sge::opengl::state::parameters const &_parameters,
+	sge::renderer::state::bool_::type const &_state
 )
 {
 	// don't complain about unsupported but disabled states in case we don't support them
 	// because the default renderer settings will at least try to disable them
 
-	namespace rs = renderer::state::bool_::available_states;
+	namespace rs = sge::renderer::state::bool_::available_states;
 
 	switch(
 		_state.state()
@@ -54,8 +54,8 @@ sge::opengl::state::bool_(
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
 	case rs::enable_scissor_test:
-		opengl::enable_bool(
-			state::convert::bool_(
+		sge::opengl::enable_bool(
+			sge::opengl::state::convert::bool_(
 				_state.state()
 			),
 			_state.value()
@@ -63,13 +63,13 @@ sge::opengl::state::bool_(
 		return;
 	case rs::enable_point_sprites:
 		sge::opengl::state::point_sprite(
-			_parameters.context(),
+			_parameters.system_context(),
 			_state.value()
 		);
 		return;
 	case rs::write_to_depth_buffer:
 		::glDepthMask(
-			opengl::convert::to_gl_bool(
+			sge::opengl::convert::to_gl_bool(
 				_state.value()
 			)
 		);
@@ -83,7 +83,7 @@ sge::opengl::state::bool_(
 	case rs::write_green:
 	case rs::write_red:
 		_parameters.deferred().add(
-			deferred::bundle::color_write
+			sge::opengl::state::deferred::bundle::color_write
 		);
 		return;
 	}

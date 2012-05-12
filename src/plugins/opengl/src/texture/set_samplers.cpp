@@ -18,7 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/set_samplers.hpp>
 #include <sge/opengl/texture/type.hpp>
@@ -30,20 +31,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::set_samplers(
 	sge::opengl::texture::binding const &_binding,
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context,
 	sge::opengl::texture::type const _type,
 	sge::renderer::texture::stage const _stage
 )
 {
 	sge::opengl::texture::filter::set(
-		_context,
+		_system_context,
+		_device_context,
 		_binding,
 		_type,
 		_stage
 	);
 
 	sge::opengl::texture::address_mode::set(
-		_context,
+		_device_context,
 		_binding,
 		_type,
 		_stage

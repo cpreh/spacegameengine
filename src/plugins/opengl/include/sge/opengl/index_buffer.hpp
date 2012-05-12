@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
@@ -40,16 +40,16 @@ namespace opengl
 class index_buffer
 :
 	public sge::renderer::index_buffer,
-	public opengl::buffer::wrapper
+	public sge::opengl::buffer::wrapper
 {
 	FCPPT_NONCOPYABLE(
 		index_buffer
 	);
 public:
 	index_buffer(
-		context::object &,
-		renderer::index::dynamic::format::type,
-		count_type,
+		sge::opengl::context::system::object &,
+		sge::renderer::index::dynamic::format::type,
+		sge::renderer::index_buffer::count_type,
 		renderer::resource_flags_field const &
 	);
 
@@ -66,17 +66,17 @@ public:
 	void
 	bind() const;
 private:
-	view_type const
+	sge::renderer::index_buffer::view_type const
 	lock(
-		renderer::lock_mode::type,
-		first_type,
-		count_type
+		sge::renderer::lock_mode::type,
+		sge::renderer::index_buffer::first_type,
+		sge::renderer::index_buffer::count_type
 	);
 
-	const_view_type const
+	sge::renderer::index_buffer::const_view_type const
 	lock(
-		first_type,
-		count_type
+		sge::renderer::index_buffer::first_type,
+		sge::renderer::index_buffer::count_type
 	) const;
 
 	template<
@@ -84,31 +84,31 @@ private:
 	>
 	View const
 	do_lock(
-		renderer::lock_flags::method::type,
-		first_type,
-		count_type
+		sge::renderer::lock_flags::method::type,
+		sge::renderer::index_buffer::first_type,
+		sge::renderer::index_buffer::count_type
 	) const;
 
 	void
 	unlock() const;
 
-	count_type const
+	sge::renderer::index_buffer::count_type const
 	size() const;
 
-	renderer::resource_flags_field const
+	sge::renderer::resource_flags_field const
 	resource_flags() const;
 
-	renderer::index::dynamic::format::type
+	sge::renderer::index::dynamic::format::type
 	format() const;
 
-	opengl::buffer::object const &
+	sge::opengl::buffer::object const &
 	buffer() const;
 
-	renderer::index::dynamic::format::type const format_;
+	sge::renderer::index::dynamic::format::type const format_;
 
 	GLenum const gl_format_;
 
-	mutable opengl::buffer::object buffer_;
+	mutable sge::opengl::buffer::object buffer_;
 };
 
 }

@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/filter/context.hpp>
 #include <sge/opengl/texture/filter/set.hpp>
@@ -31,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::filter::set(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context,
 	sge::opengl::texture::binding const &_binding,
 	sge::opengl::texture::type const _type,
 	sge::renderer::texture::stage const _stage
@@ -41,7 +43,7 @@ sge::opengl::texture::filter::set(
 		sge::opengl::context::use<
 			sge::opengl::texture::filter::context
 		>(
-			_context
+			_device_context
 		).get(
 			_stage
 		)
@@ -49,7 +51,7 @@ sge::opengl::texture::filter::set(
 
 	fcppt::variant::apply_unary(
 		sge::opengl::texture::filter::visitor(
-			_context,
+			_system_context,
 			_binding,
 			_type
 		),

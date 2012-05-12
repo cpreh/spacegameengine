@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/disable_client_state.hpp>
 #include <sge/opengl/enable_client_state.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
 #include <sge/opengl/vf/context.hpp>
@@ -56,24 +58,25 @@ apply_difference(
 }
 
 sge::opengl::vf::client_state_combiner::client_state_combiner(
-	opengl::context::object &_context
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context
 )
 :
-	context_(
-		_context
+	system_context_(
+		_system_context
 	),
 	vf_context_(
 		opengl::context::use<
 			vf::context
 		>(
-			_context
+			_device_context
 		)
 	),
 	attribute_context_(
 		opengl::context::use<
 			vf::attribute_context
 		>(
-			_context
+			_system_context
 		)
 	),
 	old_states_(
@@ -162,7 +165,7 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 			vf::enable_texcoords,
 			//fcppt::ref(
 			boost::ref(
-				context_
+				system_context_
 			),
 			//std::tr1::placeholders::_1
 			_1
@@ -172,7 +175,7 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 			vf::disable_texcoords,
 			//fcppt::ref(
 			boost::ref(
-				context_
+				system_context_
 			),
 			//std::tr1::placeholders::_1
 			_1

@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/target_base.hpp>
 #include <sge/opengl/unset_vertex_buffer.hpp>
 #include <sge/opengl/clear/set.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/clip_plane_index.hpp>
 #include <sge/opengl/light/enable.hpp>
 #include <sge/opengl/light/set.hpp>
@@ -84,13 +85,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::render_context::object::object(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context,
 	sge::renderer::target::base &_target,
 	sge::renderer::depth_stencil_buffer::type const _depth_stencil_buffer
 )
 :
-	context_(
-		_context
+	system_context_(
+		_system_context
+	),
+	device_context_(
+		_device_context
 	),
 	depth_stencil_buffer_(
 		_depth_stencil_buffer
@@ -153,7 +158,7 @@ sge::opengl::render_context::object::render_indexed(
 )
 {
 	sge::opengl::draw_elements(
-		context_,
+		system_context_,
 		_ib,
 		_first_vertex,
 		_num_vertices,
@@ -183,7 +188,7 @@ sge::opengl::render_context::object::activate_vertex_buffer(
 )
 {
 	sge::opengl::set_vertex_buffer(
-		context_,
+		device_context_,
 		_vertex_buffer
 	);
 }
@@ -194,7 +199,7 @@ sge::opengl::render_context::object::deactivate_vertex_buffer(
 )
 {
 	sge::opengl::unset_vertex_buffer(
-		context_,
+		device_context_,
 		_vertex_buffer
 	);
 }
@@ -205,7 +210,7 @@ sge::opengl::render_context::object::vertex_declaration(
 )
 {
 	sge::opengl::set_vertex_declaration(
-		context_,
+		device_context_,
 		_vertex_declaration
 	);
 }
@@ -216,7 +221,7 @@ sge::opengl::render_context::object::state(
 )
 {
 	sge::opengl::state::apply(
-		context_,
+		system_context_,
 		current_states_,
 		_states,
 		depth_stencil_buffer_
@@ -315,7 +320,7 @@ sge::opengl::render_context::object::texture_stage_op(
 )
 {
 	sge::opengl::texture::set_stage_funcs(
-		context_,
+		system_context_,
 		_stage,
 		_op,
 		_value
@@ -330,7 +335,7 @@ sge::opengl::render_context::object::texture_stage_arg(
 )
 {
 	sge::opengl::texture::set_stage_funcs(
-		context_,
+		system_context_,
 		_stage,
 		_arg,
 		_value
@@ -344,7 +349,8 @@ sge::opengl::render_context::object::texture_filter(
 )
 {
 	sge::opengl::texture::filter::update(
-		context_,
+		system_context_,
+		device_context_,
 		_stage,
 		_filter
 	);
@@ -357,7 +363,8 @@ sge::opengl::render_context::object::texture_address_mode_s(
 )
 {
 	sge::opengl::texture::address_mode::update(
-		context_,
+		system_context_,
+		device_context_,
 		_mode,
 		_stage
 	);
@@ -370,7 +377,8 @@ sge::opengl::render_context::object::texture_address_mode_t(
 )
 {
 	sge::opengl::texture::address_mode::update(
-		context_,
+		system_context_,
+		device_context_,
 		_mode,
 		_stage
 	);
@@ -383,7 +391,8 @@ sge::opengl::render_context::object::texture_address_mode_u(
 )
 {
 	sge::opengl::texture::address_mode::update(
-		context_,
+		system_context_,
+		device_context_,
 		_mode,
 		_stage
 	);
@@ -396,7 +405,8 @@ sge::opengl::render_context::object::texture(
 )
 {
 	sge::opengl::texture::activate(
-		context_,
+		system_context_,
+		device_context_,
 		_texture,
 		_stage
 	);
@@ -409,7 +419,7 @@ sge::opengl::render_context::object::transform(
 )
 {
 	sge::opengl::set_matrix_and_mode(
-		context_,
+		system_context_,
 		_mode,
 		_matrix
 	);

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/instantiate_dim.hpp>
 #include <sge/opengl/texture/type.hpp>
@@ -36,7 +36,7 @@ sge::opengl::texture::mipmap::parameters<
 	Dim
 >::parameters(
 	texture::binding const &_binding,
-	opengl::context::object &_context,
+	opengl::context::system::object &_system_context,
 	texture::type const _type,
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
@@ -48,8 +48,8 @@ sge::opengl::texture::mipmap::parameters<
 	binding_(
 		_binding
 	),
-	context_(
-		_context
+	system_context_(
+		_system_context
 	),
 	type_(
 		_type
@@ -86,12 +86,12 @@ sge::opengl::texture::mipmap::parameters<
 template<
 	fcppt::math::size_type Dim
 >
-sge::opengl::context::object &
+sge::opengl::context::system::object &
 sge::opengl::texture::mipmap::parameters<
 	Dim
->::context() const
+>::system_context() const
 {
-	return context_;
+	return system_context_;
 }
 
 template<

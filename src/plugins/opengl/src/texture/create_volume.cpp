@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/unsupported.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/create_volume.hpp>
 #include <sge/opengl/texture/volume.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::texture::volume_unique_ptr
 sge::opengl::texture::create_volume(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	sge::renderer::texture::volume_parameters const &_parameters
 )
 {
@@ -43,7 +43,7 @@ sge::opengl::texture::create_volume(
 		!sge::opengl::context::use<
 			sge::opengl::texture::volume_context
 		>(
-			_context
+			_system_context
 		).have_volume_texture()
 	)
 		throw sge::renderer::unsupported(
@@ -58,7 +58,7 @@ sge::opengl::texture::create_volume(
 				sge::opengl::texture::volume
 			>(
 				fcppt::ref(
-					_context
+					_system_context
 				),
 				fcppt::cref(
 					_parameters

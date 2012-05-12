@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/buffer/pbo_context.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/writeonly_lock.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/null_ptr.hpp>
@@ -28,22 +28,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::texture::writeonly_lock::writeonly_lock(
-	context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	size_type const _lock_size,
 	size_type const _stride,
 	renderer::resource_flags_field const &_flags
 )
 :
 	buffer_(
-		context::use<
+		sge::opengl::context::use<
 			opengl::buffer::pbo_context
 		>(
-			_context
+			_system_context
 		).impl(),
-		context::use<
+		sge::opengl::context::use<
 			opengl::buffer::pbo_context
 		>(
-			_context
+			_system_context
 		).pixel_unpack_buffer_type(),
 		_lock_size,
 		_stride,

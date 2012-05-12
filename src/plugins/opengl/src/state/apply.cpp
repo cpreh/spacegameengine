@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/apply.hpp>
 #include <sge/opengl/state/parameters.hpp>
 #include <sge/opengl/state/visitor.hpp>
 #include <sge/opengl/state/deferred/object.hpp>
 #include <sge/opengl/state/deferred/parameters.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/state/apply.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <fcppt/cref.hpp>
@@ -34,21 +36,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::apply(
-	opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	sge::renderer::state::list &_current_states,
 	sge::renderer::state::list const &_new_states,
-	renderer::depth_stencil_buffer::type const _depth_stencil_buffer
+	sge::renderer::depth_stencil_buffer::type const _depth_stencil_buffer
 )
 {
-	opengl::state::deferred::object deferred_states((
-		deferred::parameters(
+	sge::opengl::state::deferred::object deferred_states((
+		sge::opengl::state::deferred::parameters(
 			_depth_stencil_buffer
 		)
 	));
 
-	opengl::state::visitor const visitor(
-		state::parameters(
-			_context,
+	sge::opengl::state::visitor const visitor(
+		sge::opengl::state::parameters(
+			_system_context,
 			deferred_states,
 			_depth_stencil_buffer
 		)
@@ -59,7 +61,7 @@ sge::opengl::state::apply(
 		_new_states,
 		std::tr1::bind(
 			&fcppt::variant::apply_unary<
-				opengl::state::visitor,
+				sge::opengl::state::visitor,
 				sge::renderer::state::any
 			>,
 			fcppt::cref(

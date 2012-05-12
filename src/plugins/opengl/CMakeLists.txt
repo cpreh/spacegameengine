@@ -30,16 +30,36 @@ set(
 	src/plugins/opengl/include/sge/opengl/color_format.hpp
 	src/plugins/opengl/include/sge/opengl/color_format_type.hpp
 	src/plugins/opengl/include/sge/opengl/common.hpp
-	src/plugins/opengl/include/sge/opengl/context/base.hpp
+	src/plugins/opengl/include/sge/opengl/context/base_decl.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/context/base_impl.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_unique_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/context/container.hpp
-	src/plugins/opengl/include/sge/opengl/context/id.hpp
+	src/plugins/opengl/include/sge/opengl/context/container_decl.hpp
+	src/plugins/opengl/include/sge/opengl/context/container_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/context/container_impl.hpp
+	src/plugins/opengl/include/sge/opengl/context/device/base.hpp
+	src/plugins/opengl/include/sge/opengl/context/device/domain_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/context/device/id.hpp
+	src/plugins/opengl/include/sge/opengl/context/device/id_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/context/device/make_id.hpp
+	src/plugins/opengl/include/sge/opengl/context/device/object.hpp
+	src/plugins/opengl/include/sge/opengl/context/device/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/context/id_decl.hpp
+	src/plugins/opengl/include/sge/opengl/context/id_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/context/id_impl.hpp
 	src/plugins/opengl/include/sge/opengl/context/make_id.hpp
 	src/plugins/opengl/include/sge/opengl/context/make_object.hpp
 	src/plugins/opengl/include/sge/opengl/context/make_parameters.hpp
-	src/plugins/opengl/include/sge/opengl/context/object.hpp
+	src/plugins/opengl/include/sge/opengl/context/object_decl.hpp
 	src/plugins/opengl/include/sge/opengl/context/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/context/object_impl.hpp
+	src/plugins/opengl/include/sge/opengl/context/system/base.hpp
+	src/plugins/opengl/include/sge/opengl/context/system/domain_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/context/system/id.hpp
+	src/plugins/opengl/include/sge/opengl/context/system/id_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/context/system/make_id.hpp
+	src/plugins/opengl/include/sge/opengl/context/system/object.hpp
+	src/plugins/opengl/include/sge/opengl/context/system/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/use.hpp
 	src/plugins/opengl/include/sge/opengl/context/use_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/convert/best_color_format.hpp
@@ -63,13 +83,20 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/projection.hpp
 	src/plugins/opengl/include/sge/opengl/convert/resource_flags.hpp
 	src/plugins/opengl/include/sge/opengl/convert/to_gl_bool.hpp
-	src/plugins/opengl/include/sge/opengl/create_caps.hpp
-	src/plugins/opengl/include/sge/opengl/create_device_state.hpp
+	src/plugins/opengl/include/sge/opengl/create_device_caps.hpp
 	src/plugins/opengl/include/sge/opengl/create_visual.hpp
 	src/plugins/opengl/include/sge/opengl/device.hpp
-	src/plugins/opengl/include/sge/opengl/device_state.hpp
-	src/plugins/opengl/include/sge/opengl/device_state_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/device_state_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/context.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/context_scoped_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/context_unique_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/create.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/create_context.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/dummy.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/object.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/object_unique_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/scoped_current.hpp
 	src/plugins/opengl/include/sge/opengl/disable.hpp
 	src/plugins/opengl/include/sge/opengl/disable_client_state.hpp
 	src/plugins/opengl/include/sge/opengl/draw_arrays.hpp
@@ -96,6 +123,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/fbo/depth_stencil_surface_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/depth_stencil_surface_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/id.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/last_context.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/last_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/no_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/object.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/object_fwd.hpp
@@ -117,7 +146,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/get_string.hpp
 	src/plugins/opengl/include/sge/opengl/glew/initialize.hpp
 	src/plugins/opengl/include/sge/opengl/glew/is_supported.hpp
-	src/plugins/opengl/include/sge/opengl/glew/scoped_init.hpp
 	src/plugins/opengl/include/sge/opengl/glew/string.hpp
 	src/plugins/opengl/include/sge/opengl/index_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/init_multi_sampling.hpp
@@ -241,7 +269,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/convert/stage_op.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/stage_op_value.hpp
 	src/plugins/opengl/include/sge/opengl/texture/create_cube.hpp
+	src/plugins/opengl/include/sge/opengl/texture/create_depth_stencil.hpp
 	src/plugins/opengl/include/sge/opengl/texture/create_lock.hpp
+	src/plugins/opengl/include/sge/opengl/texture/create_planar.hpp
 	src/plugins/opengl/include/sge/opengl/texture/create_volume.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_context.hpp
@@ -391,10 +421,16 @@ set(
 	src/plugins/opengl/src/clear/depth_buffer.cpp
 	src/plugins/opengl/src/clear/set.cpp
 	src/plugins/opengl/src/clear/stencil_buffer.cpp
-	src/plugins/opengl/src/context/base.cpp
-	src/plugins/opengl/src/context/container.cpp
-	src/plugins/opengl/src/context/make_id.cpp
-	src/plugins/opengl/src/context/object.cpp
+	src/plugins/opengl/src/context/device/base.cpp
+	src/plugins/opengl/src/context/device/container.cpp
+	src/plugins/opengl/src/context/device/id.cpp
+	src/plugins/opengl/src/context/device/make_id.cpp
+	src/plugins/opengl/src/context/device/object.cpp
+	src/plugins/opengl/src/context/system/base.cpp
+	src/plugins/opengl/src/context/system/container.cpp
+	src/plugins/opengl/src/context/system/id.cpp
+	src/plugins/opengl/src/context/system/make_id.cpp
+	src/plugins/opengl/src/context/system/object.cpp
 	src/plugins/opengl/src/convert/best_color_format.cpp
 	src/plugins/opengl/src/convert/clip_plane_index.cpp
 	src/plugins/opengl/src/convert/color_to_format.cpp
@@ -416,11 +452,15 @@ set(
 	src/plugins/opengl/src/convert/projection.cpp
 	src/plugins/opengl/src/convert/resource_flags.cpp
 	src/plugins/opengl/src/convert/to_gl_bool.cpp
-	src/plugins/opengl/src/create_caps.cpp
-	src/plugins/opengl/src/create_device_state.cpp
+	src/plugins/opengl/src/create_device_caps.cpp
 	src/plugins/opengl/src/create_visual.cpp
 	src/plugins/opengl/src/device.cpp
-	src/plugins/opengl/src/device_state.cpp
+	src/plugins/opengl/src/device_state/context.cpp
+	src/plugins/opengl/src/device_state/create.cpp
+	src/plugins/opengl/src/device_state/create_context.cpp
+	src/plugins/opengl/src/device_state/dummy.cpp
+	src/plugins/opengl/src/device_state/object.cpp
+	src/plugins/opengl/src/device_state/scoped_current.cpp
 	src/plugins/opengl/src/disable.cpp
 	src/plugins/opengl/src/disable_client_state.cpp
 	src/plugins/opengl/src/draw_arrays.cpp
@@ -441,6 +481,7 @@ set(
 	src/plugins/opengl/src/fbo/delete_id.cpp
 	src/plugins/opengl/src/fbo/depth_stencil_format_to_attachment.cpp
 	src/plugins/opengl/src/fbo/depth_stencil_surface.cpp
+	src/plugins/opengl/src/fbo/last_context.cpp
 	src/plugins/opengl/src/fbo/no_buffer.cpp
 	src/plugins/opengl/src/fbo/object.cpp
 	src/plugins/opengl/src/fbo/render_buffer.cpp
@@ -455,7 +496,6 @@ set(
 	src/plugins/opengl/src/get_string.cpp
 	src/plugins/opengl/src/glew/initialize.cpp
 	src/plugins/opengl/src/glew/is_supported.cpp
-	src/plugins/opengl/src/glew/scoped_init.cpp
 	src/plugins/opengl/src/index_buffer.cpp
 	src/plugins/opengl/src/init_multi_sampling.cpp
 	src/plugins/opengl/src/light/attenuation.cpp
@@ -555,7 +595,9 @@ set(
 	src/plugins/opengl/src/texture/convert/stage_op.cpp
 	src/plugins/opengl/src/texture/convert/stage_op_value.cpp
 	src/plugins/opengl/src/texture/create_cube.cpp
+	src/plugins/opengl/src/texture/create_depth_stencil.cpp
 	src/plugins/opengl/src/texture/create_lock.cpp
+	src/plugins/opengl/src/texture/create_planar.cpp
 	src/plugins/opengl/src/texture/create_volume.cpp
 	src/plugins/opengl/src/texture/cube.cpp
 	src/plugins/opengl/src/texture/cube_context.cpp
@@ -686,8 +728,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/context_scoped_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/glx/current.hpp
 	src/plugins/opengl/include/sge/opengl/glx/current_drawable.hpp
+	src/plugins/opengl/include/sge/opengl/glx/make_current.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_address.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_context_fwd.hpp
@@ -699,6 +741,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/visual/make_attributes.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/x11/context.hpp
 	src/plugins/opengl/include/sge/opengl/x11/resolution/create.hpp
 	src/plugins/opengl/include/sge/opengl/x11/resolution/instance.hpp
 	src/plugins/opengl/include/sge/opengl/x11/resolution/instance_fwd.hpp
@@ -709,8 +752,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/x11/swap_context.hpp
 	src/plugins/opengl/include/sge/opengl/x11/vsync.hpp
 	src/plugins/opengl/src/glx/context.cpp
-	src/plugins/opengl/src/glx/current.cpp
 	src/plugins/opengl/src/glx/current_drawable.cpp
+	src/plugins/opengl/src/glx/make_current.cpp
 	src/plugins/opengl/src/glx/proc_address.cpp
 	src/plugins/opengl/src/glx/proc_context.cpp
 	src/plugins/opengl/src/glx/visual/choose.cpp
@@ -718,6 +761,7 @@ set(
 	src/plugins/opengl/src/glx/visual/create.cpp
 	src/plugins/opengl/src/glx/visual/make_attributes.cpp
 	src/plugins/opengl/src/glx/visual/rgb_triple.cpp
+	src/plugins/opengl/src/x11/context.cpp
 	src/plugins/opengl/src/x11/resolution/create.cpp
 	src/plugins/opengl/src/x11/resolution/instance.cpp
 	src/plugins/opengl/src/x11/resolution/xf86_vmode.cpp

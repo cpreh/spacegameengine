@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/set_stage_funcs.hpp>
 #include <sge/opengl/texture/convert/stage_arg.hpp>
 #include <sge/opengl/texture/convert/stage_arg_value.hpp>
@@ -43,14 +43,14 @@ template<
 >
 void
 sge::opengl::texture::set_stage_funcs(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	sge::renderer::texture::stage const _stage,
 	Arg const _arg,
 	Value const _value
 )
 {
 	sge::opengl::texture::funcs::set_active_level(
-		_context,
+		_system_context,
 		_stage
 	);
 
@@ -102,7 +102,7 @@ sge::opengl::texture::set_stage_funcs(
 template \
 void \
 sge::opengl::texture::set_stage_funcs(\
-	sge::opengl::context::object &,\
+	sge::opengl::context::system::object &,\
 	sge::renderer::texture::stage,\
 	arg,\
 	value\

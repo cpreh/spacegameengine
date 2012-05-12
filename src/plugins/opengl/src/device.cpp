@@ -18,24 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/create_caps.hpp>
-#include <sge/opengl/create_device_state.hpp>
 #include <sge/opengl/device.hpp>
-#include <sge/opengl/device_state.hpp>
 #include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/onscreen_target.hpp>
 #include <sge/opengl/vertex_buffer.hpp>
 #include <sge/opengl/vertex_declaration.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/device_state/create.hpp>
+#include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/target.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/end.hpp>
 #include <sge/opengl/texture/create_cube.hpp>
+#include <sge/opengl/texture/create_depth_stencil.hpp>
+#include <sge/opengl/texture/create_planar.hpp>
 #include <sge/opengl/texture/create_volume.hpp>
-#include <sge/opengl/texture/depth_stencil.hpp>
-#include <sge/opengl/texture/planar.hpp>
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface.hpp>
@@ -49,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_unique_ptr.hpp>
-#include <sge/renderer/caps/object.hpp>
+#include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
@@ -59,8 +58,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_unique_ptr.hpp>
+#include <sge/renderer/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_unique_ptr.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/volume.hpp>
@@ -71,7 +72,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 
 
@@ -97,19 +97,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::device::device(
 	sge::renderer::parameters const &_parameters,
-	sge::renderer::adapter const _adapter,
-	awl::window::object &_window
+	awl::window::object &_window,
+	sge::opengl::context::system::object &_system_context,
+	sge::renderer::caps::device const &_caps
 )
 :
+	system_context_(
+		_system_context
+	),
+	device_context_(),
 	depth_stencil_buffer_(
 		_parameters.depth_stencil_buffer()
 	),
-	context_(),
+	caps_(
+		_caps
+	),
 	device_state_(
-		sge::opengl::create_device_state(
-			context_,
+		sge::opengl::device_state::create(
+			system_context_,
 			_parameters,
-			_adapter,
 			_window
 		)
 	),
@@ -124,16 +130,10 @@ sge::opengl::device::device(
 				_window
 			)
 		)
-	),
-	glew_init_(),
-	caps_(
-		sge::opengl::create_caps(
-			context_
-		)
 	)
 {
 	sge::opengl::init_multi_sampling(
-		context_,
+		system_context_,
 		_parameters.samples()
 	);
 }
@@ -151,7 +151,8 @@ sge::opengl::device::begin_rendering(
 
 	return
 		sge::opengl::render_context::create(
-			context_,
+			system_context_,
+			device_context_,
 			_target,
 			depth_stencil_buffer_
 		);
@@ -176,7 +177,10 @@ sge::opengl::device::create_target()
 				sge::opengl::fbo::target
 			>(
 				fcppt::ref(
-					context_
+					system_context_
+				),
+				fcppt::ref(
+					device_context_
 				)
 			)
 		);
@@ -184,42 +188,25 @@ sge::opengl::device::create_target()
 
 sge::renderer::texture::planar_unique_ptr
 sge::opengl::device::create_planar_texture(
-	sge::renderer::texture::planar_parameters const &_params
+	sge::renderer::texture::planar_parameters const &_parameters
 )
 {
 	return
-		sge::renderer::texture::planar_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::texture::planar
-			>(
-				fcppt::ref(
-					context_
-				),
-				fcppt::cref(
-					_params
-				),
-				sge::opengl::texture::optional_type()
-			)
+		sge::opengl::texture::create_planar(
+			system_context_,
+			_parameters
 		);
 }
 
 sge::renderer::texture::depth_stencil_unique_ptr
 sge::opengl::device::create_depth_stencil_texture(
-	sge::renderer::texture::depth_stencil_parameters const &_params
+	sge::renderer::texture::depth_stencil_parameters const &_parameters
 )
 {
 	return
-		sge::renderer::texture::depth_stencil_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::texture::depth_stencil
-			>(
-				fcppt::ref(
-					context_
-				),
-				fcppt::cref(
-					_params
-				)
-			)
+		sge::opengl::texture::create_depth_stencil(
+			system_context_,
+			_parameters
 		);
 }
 
@@ -232,7 +219,7 @@ sge::opengl::device::create_depth_stencil_surface(
 	return
 		sge::renderer::depth_stencil_surface_unique_ptr(
 			sge::opengl::fbo::create_depth_stencil_surface(
-				context_,
+				system_context_,
 				_dim,
 				_type
 			)
@@ -246,7 +233,7 @@ sge::opengl::device::create_volume_texture(
 {
 	return
 		sge::opengl::texture::create_volume(
-			context_,
+			system_context_,
 			_parameters
 		);
 }
@@ -258,7 +245,7 @@ sge::opengl::device::create_cube_texture(
 {
 	return
 		sge::opengl::texture::create_cube(
-			context_,
+			system_context_,
 			_parameters
 		);
 }
@@ -274,7 +261,10 @@ sge::opengl::device::create_vertex_declaration(
 				sge::opengl::vertex_declaration
 			>(
 				fcppt::ref(
-					context_
+					system_context_
+				),
+				fcppt::ref(
+					device_context_
 				),
 				fcppt::cref(
 					_format
@@ -297,7 +287,7 @@ sge::opengl::device::create_vertex_buffer(
 				sge::opengl::vertex_buffer
 			>(
 				fcppt::ref(
-					context_
+					system_context_
 				),
 				_part,
 				dynamic_cast<
@@ -326,7 +316,7 @@ sge::opengl::device::create_index_buffer(
 				sge::opengl::index_buffer
 			>(
 				fcppt::ref(
-					context_
+					system_context_
 				),
 				_format,
 				_size,
@@ -379,7 +369,8 @@ sge::opengl::device::load_cg_texture(
 {
 	return
 		sge::opengl::cg::texture::load(
-			context_,
+			system_context_,
+			device_context_,
 			_parameter,
 			_texture
 		);
@@ -405,8 +396,8 @@ sge::opengl::device::onscreen_target() const
 	return *onscreen_target_;
 }
 
-sge::renderer::caps::object const &
+sge::renderer::caps::device const &
 sge::opengl::device::caps() const
 {
-	return *caps_;
+	return caps_;
 }

@@ -23,20 +23,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/create.hpp>
 #include <sge/opengl/buffer/make_type.hpp>
 #include <sge/opengl/buffer/pbo_context.hpp>
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 
 
 sge::opengl::buffer::pbo_context::pbo_context()
 :
+	sge::opengl::context::system::base(),
 	impl_(
-		opengl::buffer::create(
+		sge::opengl::buffer::create(
 			glew::is_supported("GL_VERSION_2_1")
 			|| glew::is_supported("GL_ARB_pixel_buffer_object")
 		)
 	),
 	pixel_pack_buffer_type_(
-		opengl::buffer::make_type(
+		sge::opengl::buffer::make_type(
 			impl_->hardware_supported(),
 			"GL_VERSION_2_1",
 			GL_PIXEL_PACK_BUFFER,
@@ -45,7 +48,7 @@ sge::opengl::buffer::pbo_context::pbo_context()
 		)
 	),
 	pixel_unpack_buffer_type_(
-		opengl::buffer::make_type(
+		sge::opengl::buffer::make_type(
 			impl_->hardware_supported(),
 			"GL_VERSION_2_1",
 			GL_PIXEL_UNPACK_BUFFER,
@@ -78,7 +81,7 @@ sge::opengl::buffer::pbo_context::pixel_unpack_buffer_type() const
 	return pixel_unpack_buffer_type_;
 }
 
-sge::opengl::context::id const
+sge::opengl::context::system::id const
 sge::opengl::buffer::pbo_context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::system::make_id()
 );

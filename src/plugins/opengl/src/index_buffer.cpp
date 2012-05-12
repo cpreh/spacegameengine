@@ -22,8 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/index_format.hpp>
+#include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
@@ -32,33 +35,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::index_buffer::index_buffer(
-	context::object &_context,
-	renderer::index::dynamic::format::type const _format,
-	count_type const _size,
-	renderer::resource_flags_field const &_flags
+	sge::opengl::context::system::object &_system_context,
+	sge::renderer::index::dynamic::format::type const _format,
+	sge::renderer::index_buffer::count_type const _size,
+	sge::renderer::resource_flags_field const &_flags
 )
 :
 	sge::renderer::index_buffer(),
-	opengl::buffer::wrapper(),
-	format_(_format),
+	sge::opengl::buffer::wrapper(),
+	format_(
+		_format
+	),
 	gl_format_(
-		opengl::convert::index_format(
+		sge::opengl::convert::index_format(
 			_format
 		)
 	),
 	buffer_(
-		context::use<
-			opengl::buffer::vbo_context
+		sge::opengl::context::use<
+			sge::opengl::buffer::vbo_context
 		>(
-			_context
+			_system_context
 		).impl(),
-		context::use<
-			opengl::buffer::vbo_context
+		sge::opengl::context::use<
+			sge::opengl::buffer::vbo_context
 		>(
-			_context
+			_system_context
 		).index_buffer_type(),
 		_size.get(),
-		renderer::index::dynamic::format_stride(
+		sge::renderer::index::dynamic::format_stride(
 			_format
 		),
 		_flags,

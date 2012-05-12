@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_TEXPOS_ACTOR_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
@@ -46,8 +46,8 @@ class texpos_actor
 		texpos_actor
 	);
 public:
-	explicit texpos_actor(
-		vf::actor_parameters const &,
+	texpos_actor(
+		sge::opengl::vf::actor_parameters const &,
 		sge::renderer::vf::dynamic::texpos const &
 	);
 
@@ -64,7 +64,7 @@ private:
 		vf::client_state_combiner &
 	) const;
 
-	opengl::context::object &context_;
+	sge::opengl::context::system::object &system_context_;
 
 	GLint const elements_;
 

@@ -20,13 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/point_sprite_context.hpp>
-#include <sge/opengl/context/id.hpp>
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 
 
 sge::opengl::point_sprite_context::point_sprite_context()
 :
+	sge::opengl::context::system::base(),
 	is_native_(
 		sge::opengl::glew::is_supported(
 			"GL_VERSION_2_0"
@@ -115,7 +117,7 @@ sge::opengl::point_sprite_context::coord_replace_flag() const
 	return coord_replace_flag_;
 }
 
-sge::opengl::context::id const
+sge::opengl::context::system::id const
 sge::opengl::point_sprite_context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::system::make_id()
 );

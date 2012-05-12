@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONTEXT_USE_HPP_INCLUDED
 #define SGE_OPENGL_CONTEXT_USE_HPP_INCLUDED
 
+#include <sge/opengl/context/base_fwd.hpp>
 #include <sge/opengl/context/make_object.hpp>
-#include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/object_decl.hpp>
 #include <sge/opengl/context/use_fwd.hpp>
 
 
@@ -34,14 +35,21 @@ namespace context
 {
 
 template<
-	typename Type
+	typename Type,
+	typename Domain
 >
 Type &
 use(
-	object &_object
+	sge::opengl::context::object<
+		Domain
+	> &_object
 )
 {
-	base *ptr(
+	typedef sge::opengl::context::base<
+		Domain
+	> base_type;
+
+	base_type *ptr(
 		_object.get(
 			Type::static_id
 		)
@@ -63,7 +71,7 @@ use(
 		>(
 			_object.insert(
 				Type::static_id,
-				context::make_object<
+				sge::opengl::context::make_object<
 					Type
 				>(
 					_object

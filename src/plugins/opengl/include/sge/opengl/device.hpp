@@ -21,11 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_DEVICE_HPP_INCLUDED
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
-#include <sge/opengl/device_state_fwd.hpp>
 #include <sge/opengl/onscreen_target_fwd.hpp>
-#include <sge/opengl/context/object.hpp>
-#include <sge/opengl/glew/scoped_init.hpp>
-#include <sge/renderer/adapter.hpp>
+#include <sge/opengl/device_state/object_fwd.hpp>
+#include <sge/opengl/context/device/object.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
@@ -40,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_unique_ptr.hpp>
-#include <sge/renderer/caps/object_fwd.hpp>
+#include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
@@ -90,8 +89,9 @@ class device
 public:
 	device(
 		sge::renderer::parameters const &,
-		sge::renderer::adapter,
-		awl::window::object &
+		awl::window::object &,
+		sge::opengl::context::system::object &,
+		sge::renderer::caps::device const &
 	);
 
 	~device();
@@ -188,15 +188,19 @@ public:
 	sge::renderer::target::onscreen &
 	onscreen_target() const;
 
-	sge::renderer::caps::object const &
+	sge::renderer::caps::device const &
 	caps() const;
 private:
+	sge::opengl::context::system::object &system_context_;
+
+	sge::opengl::context::device::object device_context_;
+
 	sge::renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
 
-	sge::opengl::context::object context_;
+	sge::renderer::caps::device const &caps_;
 
 	typedef fcppt::scoped_ptr<
-		sge::opengl::device_state
+		sge::opengl::device_state::object
 	> device_state_scoped_ptr;
 
 	device_state_scoped_ptr const device_state_;
@@ -206,14 +210,6 @@ private:
 	> onscreen_target_scoped_ptr;
 
 	onscreen_target_scoped_ptr const onscreen_target_;
-
-	sge::opengl::glew::scoped_init const glew_init_;
-
-	typedef fcppt::scoped_ptr<
-		sge::renderer::caps::object
-	> caps_scoped_ptr;
-
-	caps_scoped_ptr const caps_;
 };
 
 }

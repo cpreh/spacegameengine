@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/activate.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/bind_level.hpp>
@@ -38,13 +39,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::activate(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context,
 	sge::renderer::texture::const_optional_base_ref const &_texture,
 	sge::renderer::texture::stage const _stage
 )
 {
 	sge::opengl::texture::funcs::set_active_level(
-		_context,
+		_system_context,
 		_stage
 	);
 
@@ -54,7 +56,7 @@ sge::opengl::texture::activate(
 	{
 		sge::opengl::texture::optional_type const old_type(
 			sge::opengl::texture::get_stage_type(
-				_context,
+				_system_context,
 				_stage
 			)
 		);
@@ -68,13 +70,14 @@ sge::opengl::texture::activate(
 			);
 
 			sge::opengl::texture::bind_level(
-				_context,
+				_system_context,
 				_stage,
 				*old_type,
 				sge::opengl::texture::optional_id()
 			);
 
 		}
+
 		return;
 	}
 
@@ -91,7 +94,7 @@ sge::opengl::texture::activate(
 	);
 
 	sge::opengl::texture::bind_level(
-		_context,
+		_system_context,
 		_stage,
 		base.type(),
 		sge::opengl::texture::optional_id(
@@ -103,7 +106,8 @@ sge::opengl::texture::activate(
 
 	sge::opengl::texture::set_samplers(
 		binding,
-		_context,
+		_system_context,
+		_device_context,
 		base.type(),
 		_stage
 	);

@@ -21,29 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/matrix_mode.hpp>
 #include <sge/opengl/set_matrix.hpp>
 #include <sge/opengl/set_matrix_and_mode.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/matrix_mode.hpp>
 #include <sge/opengl/convert/projection.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix_mode.hpp>
 
 
 void
 sge::opengl::set_matrix_and_mode(
-	context::object &_context,
-	renderer::matrix_mode::type const _mode,
-	renderer::matrix4 const &_matrix
+	sge::opengl::context::system::object &_context,
+	sge::renderer::matrix_mode::type const _mode,
+	sge::renderer::matrix4 const &_matrix
 )
 {
-	opengl::matrix_mode(
-		convert::matrix_mode(
+	sge::opengl::matrix_mode(
+		sge::opengl::convert::matrix_mode(
 			_mode
 		)
 	);
 
-	opengl::set_matrix(
+	sge::opengl::set_matrix(
 		_context,
 		_mode == renderer::matrix_mode::projection
 		?
-			convert::projection(
+			sge::opengl::convert::projection(
 				_matrix
 			)
 		:

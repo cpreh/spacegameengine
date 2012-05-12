@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/caps/object_fwd.hpp>
+#include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
@@ -370,7 +370,7 @@ public:
 	 * \return The capabilities
 	*/
 	virtual
-	sge::renderer::caps::object const &
+	sge::renderer::caps::device const &
 	caps() const = 0;
 
 	SGE_RENDERER_SYMBOL

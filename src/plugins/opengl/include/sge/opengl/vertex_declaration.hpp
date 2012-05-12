@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VERTEX_DECLARATION_HPP_INCLUDED
 
 #include <sge/opengl/vertex_declaration_fwd.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/part_fwd.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
@@ -48,8 +49,9 @@ class vertex_declaration
 	);
 public:
 	vertex_declaration(
-		opengl::context::object &,
-		renderer::vf::dynamic::format const &
+		sge::opengl::context::system::object &,
+		sge::opengl::context::device::object &,
+		sge::renderer::vf::dynamic::format const &
 	);
 
 	~vertex_declaration();
@@ -59,7 +61,7 @@ public:
 		sge::renderer::vf::dynamic::part_index
 	) const;
 
-	opengl::vf::part const &
+	sge::opengl::vf::part const &
 	gl_format_part(
 		sge::renderer::vf::dynamic::part_index
 	) const;
@@ -67,7 +69,7 @@ private:
 	sge::renderer::vf::dynamic::format const format_;
 
 	typedef boost::ptr_vector<
-		opengl::vf::part
+		sge::opengl::vf::part
 	> part_vector;
 
 	part_vector parts_;

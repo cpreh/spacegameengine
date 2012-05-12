@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_SET_MATRIX_AND_MODE_HPP_INCLUDED
 #define SGE_OPENGL_SET_MATRIX_AND_MODE_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/matrix4_fwd.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 
@@ -33,9 +33,9 @@ namespace opengl
 
 void
 set_matrix_and_mode(
-	context::object &,
-	renderer::matrix_mode::type,
-	renderer::matrix4 const &
+	sge::opengl::context::system::object &,
+	sge::renderer::matrix_mode::type,
+	sge::renderer::matrix4 const &
 );
 
 }

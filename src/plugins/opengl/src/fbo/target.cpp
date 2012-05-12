@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/basic_target_impl.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/fbo/attachment.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
@@ -30,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface_ptr.hpp>
+#include <sge/opengl/fbo/last_context.hpp>
 #include <sge/opengl/fbo/no_buffer.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <sge/opengl/fbo/render_buffer_binding.hpp>
@@ -63,7 +65,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::fbo::target::target(
-	sge::opengl::context::object &_context
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context
 )
 :
 	base(
@@ -73,9 +76,16 @@ sge::opengl::fbo::target::target(
 	),
 	context_(
 		opengl::context::use<
-			fbo::context
+			sge::opengl::fbo::context
 		>(
-			_context
+			_system_context
+		)
+	),
+	last_context_(
+		sge::opengl::context::use<
+			sge::opengl::fbo::last_context
+		>(
+			_device_context
 		)
 	),
 	fbo_(
@@ -91,6 +101,7 @@ sge::opengl::fbo::target::~target()
 {
 	opengl::fbo::temporary_bind const scoped_exit(
 		context_,
+		last_context_,
 		fbo_
 	);
 
@@ -104,7 +115,7 @@ sge::opengl::fbo::target::on_bind()
 {
 	fbo_.bind();
 
-	context_.last_buffer(
+	last_context_.last_buffer(
 		fbo_.id()
 	);
 }
@@ -116,7 +127,7 @@ sge::opengl::fbo::target::on_unbind()
 		context_
 	);
 
-	context_.last_buffer(
+	last_context_.last_buffer(
 		sge::opengl::fbo::no_buffer()
 	);
 }
@@ -132,8 +143,9 @@ sge::opengl::fbo::target::color_surface(
 	sge::renderer::target::surface_index const _index
 )
 {
-	opengl::fbo::temporary_bind const scoped_exit(
+	sge::opengl::fbo::temporary_bind const scoped_exit(
 		context_,
+		last_context_,
 		fbo_
 	);
 
@@ -147,7 +159,7 @@ sge::opengl::fbo::target::color_surface(
 		_surface
 	)
 	{
-		opengl::texture::surface_ptr const texture_surface(
+		sge::opengl::texture::surface_ptr const texture_surface(
 			fcppt::dynamic_pointer_cast<
 				opengl::texture::surface
 			>(
@@ -204,6 +216,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 
 	opengl::fbo::temporary_bind const scoped_exit(
 		context_,
+		last_context_,
 		fbo_
 	);
 

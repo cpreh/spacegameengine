@@ -34,7 +34,7 @@ namespace renderer
  * \brief A unique pointer to a renderer::system
 */
 typedef fcppt::unique_ptr<
-	renderer::system
+	sge::renderer::system
 > system_unique_ptr;
 
 }

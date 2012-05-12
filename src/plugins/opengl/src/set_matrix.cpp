@@ -23,17 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/matrix_context.hpp>
 #include <sge/opengl/set_matrix.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
-#include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 
 
 void
 sge::opengl::set_matrix(
-	context::object &_context,
-	renderer::matrix4 const &_matrix
+	sge::opengl::context::system::object &_context,
+	sge::renderer::matrix4 const &_matrix
 )
 {
 	if(

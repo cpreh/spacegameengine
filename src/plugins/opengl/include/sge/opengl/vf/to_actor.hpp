@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_TO_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_VF_TO_ACTOR_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/actor_ptr.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
@@ -38,7 +38,7 @@ sge::opengl::vf::actor_ptr
 to_actor(
 	sge::renderer::vf::dynamic::ordered_element const &,
 	sge::renderer::vf::dynamic::stride,
-	sge::opengl::context::object &
+	sge::opengl::context::system::object &
 );
 
 }

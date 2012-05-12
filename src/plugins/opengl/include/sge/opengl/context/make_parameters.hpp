@@ -33,6 +33,9 @@ namespace opengl
 namespace context
 {
 
+template<
+	typename Domain
+>
 class make_parameters
 {
 	FCPPT_NONASSIGNABLE(
@@ -41,7 +44,9 @@ class make_parameters
 public:
 	explicit
 	make_parameters(
-		sge::opengl::context::object &_context
+		sge::opengl::context::object<
+			Domain
+		> &_context
 	)
 	:
 		context_(
@@ -68,7 +73,9 @@ public:
 
 	}
 private:
-	sge::opengl::context::object &context_;
+	sge::opengl::context::object<
+		Domain
+	> &context_;
 };
 
 }

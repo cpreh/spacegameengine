@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/system_fwd.hpp>
+#include <sge/renderer/caps/device_count.hpp>
+#include <sge/renderer/caps/device_fwd.hpp>
+#include <sge/renderer/caps/system_field_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -57,16 +60,23 @@ protected:
 	system();
 public:
 	/**
-	 * \brief Creates renderer::device objects
-	 *
-	 * This function is the starting point if you want to do anything with
-	 * a renderer plugin.
-	 *
-	 * \param params The renderer configuration like resolution and buffers
-	 * \param adapter A number that tells which interface to load, you should currently pass 0
-	 * \param window The window used for rendering to. This window must satisfy the requirements imposed by \a params
-	 * \throw sge::renderer::exception if anything goes wrong
-	 * \return An sge::renderer::device_ptr that may not be null
+	 \brief Creates renderer::device objects
+
+	 This function is the starting point if you want to do anything with a
+	 renderer plugin.
+
+	 \param params The renderer configuration like resolution and buffers
+
+	 \param adapter A number that tells which device to load. This must be
+	 between 0 and the device count minus 1. Every system must have at
+	 least one device.
+
+	 \param window The window used for rendering to. This window must
+	 satisfy the requirements imposed by \a params
+
+	 \throw sge::renderer::exception if anything goes wrong
+
+	 \return An sge::renderer::device_ptr that may not be null
 	*/
 	virtual
 	sge::renderer::device_unique_ptr
@@ -77,15 +87,18 @@ public:
 	) = 0;
 
 	/**
-	 * \brief Creates a renderable visual that satisfies the requirements of \a params
-	 *
-	 * Creates a renderable visual that satisfies the requirements of \a
-	 * params and can be used with sge::renderer::system::create_renderer.
-	 *
-	 * \param awl_system The awl system that is used to create windows
-	 * \param params The renderer parameters to satisfy
-	 * \throw sge::renderer::exception if anything goes wrong
-	 * \return An awl::visual::object_unique_ptr that may not be null
+	 \brief Creates a renderable visual that satisfies the requirements of \a params
+
+	 Creates a renderable visual that satisfies the requirements of \a
+	 params and can be used with sge::renderer::system::create_renderer.
+
+	 \param awl_system The awl system that is used to create windows
+
+	 \param params The renderer parameters to satisfy
+
+	 \throw sge::renderer::exception if anything goes wrong
+
+	 \return An awl::visual::object_unique_ptr that may not be null
 	*/
 	virtual
 	awl::visual::object_unique_ptr
@@ -94,8 +107,39 @@ public:
 		sge::renderer::parameters const &params
 	) = 0;
 
+	/**
+	\brief Returns the system's capabilities
+	*/
+	virtual
+	sge::renderer::caps::system_field const
+	caps() const = 0;
+
+	/**
+	\brief Returns the number of devices
+	*/
+	virtual
+	sge::renderer::caps::device_count const
+	device_count() const = 0;
+
+	/**
+	\brief Queries the capabilities of a device
+
+	Returns the capabilities of the device identified by \a adapter.
+
+	\param adapter The device to query the capabilities for
+
+	\warning The behavior is undefined if adapter is equal to or greater
+	than the device count.
+	*/
+	virtual
+	sge::renderer::caps::device const &
+	device_caps(
+		sge::renderer::adapter adapter
+	) const = 0;
+
 	SGE_RENDERER_SYMBOL
-	virtual ~system() = 0;
+	virtual
+	~system() = 0;
 };
 
 }

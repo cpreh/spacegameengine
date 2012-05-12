@@ -18,7 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/object.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
@@ -31,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::context::object_unique_ptr
 sge::opengl::render_context::create(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context,
 	sge::renderer::target::base &_target,
 	sge::renderer::depth_stencil_buffer::type const _depth_stencil_buffer
 )
@@ -42,7 +44,10 @@ sge::opengl::render_context::create(
 				sge::opengl::render_context::object
 			>(
 				fcppt::ref(
-					_context
+					_system_context
+				),
+				fcppt::ref(
+					_device_context
 				),
 				fcppt::ref(
 					_target

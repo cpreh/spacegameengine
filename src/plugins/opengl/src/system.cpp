@@ -18,12 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/create_device_caps.hpp>
 #include <sge/opengl/create_visual.hpp>
 #include <sge/opengl/device.hpp>
 #include <sge/opengl/system.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device_unique_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/caps/device.hpp>
+#include <sge/renderer/caps/device_count.hpp>
+#include <sge/renderer/caps/system.hpp>
+#include <sge/renderer/caps/system_field.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -31,9 +36,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/assert/pre.hpp>
 
 
 sge::opengl::system::system()
+:
+	system_context_(),
+	caps_(
+		sge::opengl::create_device_caps(
+			system_context_
+		)
+	)
 {
 }
 
@@ -48,6 +61,12 @@ sge::opengl::system::create_renderer(
 	awl::window::object &_window
 )
 {
+	FCPPT_ASSERT_PRE(
+		_adapter.get()
+		<
+		this->device_count().get()
+	);
+
 	return
 		sge::renderer::device_unique_ptr(
 			fcppt::make_unique_ptr<
@@ -56,9 +75,14 @@ sge::opengl::system::create_renderer(
 				fcppt::cref(
 					_parameters
 				),
-				_adapter,
 				fcppt::ref(
 					_window
+				),
+				fcppt::ref(
+					system_context_
+				),
+				fcppt::cref(
+					*caps_
 				)
 			)
 		);
@@ -75,4 +99,37 @@ sge::opengl::system::create_visual(
 			_awl_system,
 			_parameters
 		);
+}
+
+sge::renderer::caps::system_field const
+sge::opengl::system::caps() const
+{
+	return
+		sge::renderer::caps::system_field(
+			sge::renderer::caps::system::opengl
+		);
+}
+
+sge::renderer::caps::device_count const
+sge::opengl::system::device_count() const
+{
+	return
+		sge::renderer::caps::device_count(
+			1u
+		);
+}
+
+sge::renderer::caps::device const &
+sge::opengl::system::device_caps(
+	sge::renderer::adapter const _adapter
+) const
+{
+	FCPPT_ASSERT_PRE(
+		_adapter.get()
+		<
+		this->device_count().get()
+	);
+
+	return
+		*caps_;
 }

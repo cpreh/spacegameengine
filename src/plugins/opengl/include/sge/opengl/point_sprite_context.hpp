@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/point_sprite_context_fwd.hpp>
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -35,7 +35,7 @@ namespace opengl
 
 class point_sprite_context
 :
-	public opengl::context::base
+	public sge::opengl::context::system::base
 {
 	FCPPT_NONCOPYABLE(
 		point_sprite_context
@@ -59,7 +59,7 @@ public:
 
 	typedef void needs_before;
 
-	static context::id const static_id;
+	static sge::opengl::context::system::id const static_id;
 private:
 	bool const
 		is_native_,

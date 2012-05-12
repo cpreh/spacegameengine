@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/get_stage_type.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
@@ -38,7 +39,8 @@ template<
 >
 void
 sge::opengl::texture::address_mode::update(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context,
 	Mode const _mode,
 	sge::renderer::texture::stage const _stage
 )
@@ -47,7 +49,7 @@ sge::opengl::texture::address_mode::update(
 		!sge::opengl::context::use<
 			sge::opengl::texture::address_mode::context
 		>(
-			_context
+			_device_context
 		).set(
 			_stage,
 			_mode
@@ -57,7 +59,7 @@ sge::opengl::texture::address_mode::update(
 
 	sge::opengl::texture::optional_type const bound_type(
 		sge::opengl::texture::get_stage_type(
-			_context,
+			_system_context,
 			_stage
 		)
 	);
@@ -70,7 +72,7 @@ sge::opengl::texture::address_mode::update(
 	sge::opengl::texture::render_binding const already_bound;
 
 	sge::opengl::texture::address_mode::set(
-		_context,
+		_device_context,
 		already_bound,
 		*bound_type,
 		_stage
@@ -85,7 +87,8 @@ void \
 sge::opengl::texture::address_mode::update<\
 	mode_type \
 >( \
-	sge::opengl::context::object &, \
+	sge::opengl::context::system::object &, \
+	sge::opengl::context::device::object &, \
 	mode_type, \
 	sge::renderer::texture::stage \
 )

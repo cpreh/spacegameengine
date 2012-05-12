@@ -28,6 +28,9 @@ namespace opengl
 namespace context
 {
 
+template<
+	typename Domain
+>
 class object;
 
 }

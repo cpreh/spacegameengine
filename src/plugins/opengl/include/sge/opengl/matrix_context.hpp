@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_MATRIX_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_MATRIX_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {
@@ -32,7 +33,7 @@ namespace opengl
 
 class matrix_context
 :
-	public context::base
+	public sge::opengl::context::system::base
 {
 	FCPPT_NONCOPYABLE(
 		matrix_context
@@ -47,7 +48,7 @@ public:
 
 	typedef void needs_before;
 
-	static context::id const static_id;
+	static sge::opengl::context::system::id const static_id;
 private:
 	bool const have_transpose_;
 };

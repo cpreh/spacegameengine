@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/log/global.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/context.hpp>
 #include <sge/opengl/texture/type.hpp>
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::filter::anisotropic(
-	opengl::context::object &_context,
+	opengl::context::system::object &_system_context,
 	texture::binding const &_binding,
 	texture::type const _type,
 	renderer::texture::filter::anisotropic::object const &_filter
@@ -67,7 +67,7 @@ sge::opengl::texture::filter::anisotropic(
 		opengl::context::use<
 			texture::context
 		>(
-			_context
+			_system_context
 		)
 	);
 

@@ -45,8 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::x11::resolution::unique_ptr
 sge::opengl::x11::resolution::create(
 	awl::backends::x11::window::object &_window,
-	sge::renderer::parameters const &_param,
-	sge::renderer::adapter const _adapter
+	sge::renderer::parameters const &_param
 )
 {
 	if(

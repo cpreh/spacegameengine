@@ -22,11 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 
 #include <sge/opengl/basic_target.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/fbo/attachment_fwd.hpp>
 #include <sge/opengl/fbo/attachment_unique_ptr.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/last_context_fwd.hpp>
 #include <sge/opengl/fbo/object.hpp>
 #include <sge/opengl/fbo/render_buffer_fwd.hpp>
 #include <sge/opengl/fbo/target_fwd.hpp>
@@ -67,9 +69,9 @@ public:
 		sge::renderer::target::offscreen
 	> base;
 
-	explicit
 	target(
-		sge::opengl::context::object &
+		sge::opengl::context::system::object &,
+		sge::opengl::context::device::object &
 	);
 
 	~target();
@@ -124,6 +126,8 @@ private:
 	check();
 
 	sge::opengl::fbo::context &context_;
+
+	sge::opengl::fbo::last_context &last_context_;
 
 	sge::opengl::fbo::object fbo_;
 

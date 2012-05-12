@@ -1,6 +1,7 @@
 set(
 	SGE_RENDERER_FILES
 	include/sge/renderer/adapter.hpp
+	include/sge/renderer/adapter_type.hpp
 	include/sge/renderer/ambient_color.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/basic_dim.hpp
@@ -14,17 +15,21 @@ set(
 	include/sge/renderer/buffer_has_stencil.hpp
 	include/sge/renderer/caps/clip_plane_indices.hpp
 	include/sge/renderer/caps/description.hpp
+	include/sge/renderer/caps/device.hpp
+	include/sge/renderer/caps/device_count.hpp
+	include/sge/renderer/caps/device_fwd.hpp
+	include/sge/renderer/caps/device_output.hpp
+	include/sge/renderer/caps/device_unique_ptr.hpp
 	include/sge/renderer/caps/driver_name.hpp
 	include/sge/renderer/caps/light_indices.hpp
 	include/sge/renderer/caps/max_anisotropy.hpp
 	include/sge/renderer/caps/max_texture_size.hpp
 	include/sge/renderer/caps/max_volume_texture_extent.hpp
-	include/sge/renderer/caps/object.hpp
-	include/sge/renderer/caps/object_fwd.hpp
-	include/sge/renderer/caps/object_output.hpp
-	include/sge/renderer/caps/object_unique_ptr.hpp
 	include/sge/renderer/caps/preferred_texture_format.hpp
 	include/sge/renderer/caps/render_target_supported.hpp
+	include/sge/renderer/caps/system.hpp
+	include/sge/renderer/caps/system_field.hpp
+	include/sge/renderer/caps/system_field_fwd.hpp
 	include/sge/renderer/caps/texture_stages.hpp
 	include/sge/renderer/clear/back_buffer_value.hpp
 	include/sge/renderer/clear/back_buffer_value_fwd.hpp
@@ -553,8 +558,8 @@ set(
 	src/renderer/bit_depth_bytes.cpp
 	src/renderer/buffer_has_depth.cpp
 	src/renderer/buffer_has_stencil.cpp
-	src/renderer/caps/object.cpp
-	src/renderer/caps/object_output.cpp
+	src/renderer/caps/device.cpp
+	src/renderer/caps/device_output.cpp
 	src/renderer/clear/parameters.cpp
 	src/renderer/color_surface.cpp
 	src/renderer/const_scoped_color_surface_lock.cpp

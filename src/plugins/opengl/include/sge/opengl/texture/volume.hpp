@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_VOLUME_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_VOLUME_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/volume_basic.hpp>
 #include <sge/renderer/texture/volume.hpp>
@@ -45,7 +45,7 @@ class volume
 	);
 public:
 	volume(
-		sge::opengl::context::object &,
+		sge::opengl::context::system::object &,
 		sge::renderer::texture::volume_parameters const &
 	);
 

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_WRITEONLY_LOCK_HPP_INCLUDED
 
 #include <sge/opengl/buffer/object.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
@@ -45,7 +45,7 @@ class writeonly_lock
 	);
 public:
 	writeonly_lock(
-		opengl::context::object &,
+		sge::opengl::context::system::object &,
 		size_type lock_size,
 		size_type stride,
 		renderer::resource_flags_field const &

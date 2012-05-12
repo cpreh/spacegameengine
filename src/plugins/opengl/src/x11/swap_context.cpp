@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/id.hpp>
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glx/proc_address.hpp>
 #include <sge/opengl/x11/swap_context.hpp>
 #include <fcppt/null_ptr.hpp>
@@ -32,6 +33,7 @@ sge::opengl::x11::swap_context::swap_context(
 	sge::opengl::x11::swap_context::needs_before const &_parameters
 )
 :
+	sge::opengl::context::system::base(),
 	swap_interval_sgi_(
 		reinterpret_cast<
 			glx_swap_interval_sgi
@@ -94,7 +96,7 @@ sge::opengl::x11::swap_context::swap_interval_ext() const
 	return swap_interval_ext_;
 }
 
-sge::opengl::context::id const
+sge::opengl::context::system::id const
 sge::opengl::x11::swap_context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::system::make_id()
 );

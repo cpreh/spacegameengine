@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_FILTER_NORMAL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_FILTER_NORMAL_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/filter/normal/object_fwd.hpp>
@@ -38,10 +38,10 @@ namespace filter
 
 void
 normal(
-	opengl::context::object &,
-	texture::binding const &,
-	texture::type,
-	renderer::texture::filter::normal::object const &
+	sge::opengl::context::system::object &,
+	sge::opengl::texture::binding const &,
+	sge::opengl::texture::type,
+	sge::renderer::texture::filter::normal::object const &
 );
 
 }

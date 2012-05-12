@@ -22,11 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
-#include <sge/opengl/fbo/id.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
@@ -41,7 +40,7 @@ namespace fbo
 
 class context
 :
-	public sge::opengl::context::base
+	public sge::opengl::context::system::base
 {
 	FCPPT_NONCOPYABLE(
 		context
@@ -122,19 +121,11 @@ public:
 	sge::opengl::fbo::optional_attachment_type const
 	depth_stencil_attachment() const;
 
-	sge::opengl::fbo::id const
-	last_buffer() const;
-
-	void
-	last_buffer(
-		sge::opengl::fbo::id
-	);
-
 	typedef void needs_before;
 
-	static opengl::context::id const static_id;
+	static sge::opengl::context::system::id const static_id;
 private:
-	bool
+	bool const
 		has_native_,
 		has_ext_;
 
@@ -169,8 +160,6 @@ private:
 	sge::opengl::fbo::optional_attachment_type const
 		depth_attachment_,
 		depth_stencil_attachment_;
-
-	sge::opengl::fbo::id last_buffer_;
 };
 
 }

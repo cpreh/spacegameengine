@@ -45,7 +45,7 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 		sge::opengl::context::use<
 			sge::opengl::vf::attribute_context
 		>(
-			_param.context()
+			_param.system_context()
 		)
 	),
 	elements_(

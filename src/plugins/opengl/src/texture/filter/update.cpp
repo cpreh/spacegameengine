@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/get_stage_type.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
@@ -33,7 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::filter::update(
-	opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context,
 	sge::renderer::texture::stage const _stage,
 	sge::renderer::texture::filter::object const &_filter
 )
@@ -42,7 +44,7 @@ sge::opengl::texture::filter::update(
 		!sge::opengl::context::use<
 			opengl::texture::filter::context
 		>(
-			_context
+			_device_context
 		).set(
 			_stage,
 			_filter
@@ -52,7 +54,7 @@ sge::opengl::texture::filter::update(
 
 	sge::opengl::texture::optional_type const bound_type(
 		sge::opengl::texture::get_stage_type(
-			_context,
+			_system_context,
 			_stage
 		)
 	);
@@ -65,7 +67,8 @@ sge::opengl::texture::filter::update(
 	sge::opengl::texture::render_binding const already_bound;
 
 	sge::opengl::texture::filter::set(
-		_context,
+		_system_context,
+		_device_context,
 		already_bound,
 		*bound_type,
 		_stage

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/filter/anisotropic.hpp>
@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::texture::filter::visitor::visitor(
-	opengl::context::object &_context,
-	texture::binding const &_binding,
-	texture::type const _type
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::texture::binding const &_binding,
+	sge::opengl::texture::type const _type
 )
 :
-	context_(
-		_context
+	system_context_(
+		_system_context
 	),
 	binding_(
 		_binding
@@ -52,7 +52,7 @@ sge::opengl::texture::filter::visitor::operator()(
 ) const
 {
 	sge::opengl::texture::filter::anisotropic(
-		context_,
+		system_context_,
 		binding_,
 		type_,
 		_filter
@@ -65,7 +65,7 @@ sge::opengl::texture::filter::visitor::operator()(
 ) const
 {
 	sge::opengl::texture::filter::normal(
-		context_,
+		system_context_,
 		binding_,
 		type_,
 		_filter

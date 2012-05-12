@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/object_fwd.hpp>
 
+
 namespace sge
 {
 namespace opengl
@@ -31,11 +32,14 @@ namespace context
 {
 
 template<
-	typename Type
+	typename Type,
+	typename Domain
 >
 Type &
 use(
-	object &
+	sge::opengl::context::object<
+		Domain
+	> &
 );
 
 }

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/bind_level.hpp>
 #include <sge/opengl/texture/binding.hpp>
 #include <sge/opengl/texture/get_type_binding.hpp>
@@ -40,18 +40,18 @@ sge::renderer::texture::stage const temp_stage(
 }
 
 sge::opengl::texture::scoped_work_binding::scoped_work_binding(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	sge::opengl::texture::type const _type,
 	sge::opengl::texture::id const _id
 )
 :
 	sge::opengl::texture::binding(),
-	context_(
-		_context
+	system_context_(
+		_system_context
 	),
 	previous_id_(
 		sge::opengl::texture::get_type_binding(
-			context_,
+			system_context_,
 			_type,
 			temp_stage
 		)
@@ -80,7 +80,7 @@ sge::opengl::texture::scoped_work_binding::bind_id(
 )
 {
 	sge::opengl::texture::bind_level(
-		context_,
+		system_context_,
 		temp_stage,
 		type_,
 		_id

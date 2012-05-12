@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/opengl/cg/texture/load.hpp>
 #include <sge/opengl/cg/texture/loaded_object.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
@@ -32,7 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::cg::loaded_texture_unique_ptr
 sge::opengl::cg::texture::load(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context,
 	sge::cg::parameter::object const &_parameter,
 	sge::renderer::texture::base &_texture
 )
@@ -43,7 +45,10 @@ sge::opengl::cg::texture::load(
 				sge::opengl::cg::texture::loaded_object
 			>(
 				fcppt::ref(
-					_context
+					_system_context
+				),
+				fcppt::ref(
+					_device_context
 				),
 				fcppt::cref(
 					_parameter

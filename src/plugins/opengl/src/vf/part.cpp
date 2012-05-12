@@ -19,21 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/actor.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
 #include <sge/opengl/vf/part.hpp>
+#include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/to_actor.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
 sge::opengl::vf::part::part(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context,
 	sge::renderer::vf::dynamic::part const &_part
 )
 :
-	context_(
-		_context
+	system_context_(
+		_system_context
+	),
+	device_context_(
+		_device_context
 	),
 	part_(
 		_part
@@ -56,7 +64,7 @@ sge::opengl::vf::part::part(
 			sge::opengl::vf::to_actor(
 				*elem_it,
 				part_.stride(),
-				_context
+				_system_context
 			)
 		);
 }
@@ -77,7 +85,8 @@ sge::opengl::vf::part::use_me(
 ) const
 {
 	sge::opengl::vf::client_state_combiner states(
-		context_
+		system_context_,
+		device_context_
 	);
 
 	for(
@@ -103,7 +112,8 @@ void
 sge::opengl::vf::part::unuse_me() const
 {
 	sge::opengl::vf::client_state_combiner states(
-		context_
+		system_context_,
+		device_context_
 	);
 
 	for(

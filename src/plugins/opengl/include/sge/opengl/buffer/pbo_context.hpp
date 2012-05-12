@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base_fwd.hpp>
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -38,7 +38,7 @@ namespace buffer
 
 class pbo_context
 :
-	public context::base
+	public sge::opengl::context::system::base
 {
 	FCPPT_NONCOPYABLE(
 		pbo_context
@@ -48,7 +48,7 @@ public:
 
 	~pbo_context();
 
-	buffer::base &
+	sge::opengl::buffer::base &
 	impl();
 
 	GLenum
@@ -59,11 +59,11 @@ public:
 
 	typedef void needs_before;
 
-	static context::id const static_id;
+	static sge::opengl::context::system::id const static_id;
 private:
 	fcppt::scoped_ptr<
-		buffer::base
-	> impl_;
+		sge::opengl::buffer::base
+	> const impl_;
 
 	GLenum const
 		pixel_pack_buffer_type_,

@@ -20,20 +20,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/fbo/bind.hpp>
 #include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/last_context.hpp>
 #include <sge/opengl/fbo/object.hpp>
 #include <sge/opengl/fbo/temporary_bind.hpp>
 
 
 sge::opengl::fbo::temporary_bind::temporary_bind(
 	sge::opengl::fbo::context &_context,
+	sge::opengl::fbo::last_context &_last_context,
 	sge::opengl::fbo::object const &_object
 )
 :
 	context_(
 		_context
 	),
+	last_context_(
+		_last_context
+	),
 	last_buffer_(
-		_context.last_buffer()
+		last_context_.last_buffer()
 	)
 {
 	_object.bind();
@@ -46,7 +51,7 @@ sge::opengl::fbo::temporary_bind::~temporary_bind()
 		last_buffer_
 	);
 
-	context_.last_buffer(
+	last_context_.last_buffer(
 		last_buffer_
 	);
 }

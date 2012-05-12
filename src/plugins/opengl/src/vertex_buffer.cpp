@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_buffer.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/part.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
@@ -35,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::vertex_buffer::vertex_buffer(
-	context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	renderer::vf::dynamic::part_index const _part_index,
 	renderer::vf::dynamic::part const &_format_part,
 	count_type const _size,
@@ -44,8 +45,12 @@ sge::opengl::vertex_buffer::vertex_buffer(
 :
 	sge::renderer::vertex_buffer(),
 	opengl::buffer::wrapper(),
-	part_index_(_part_index),
-	format_part_(_format_part),
+	part_index_(
+		_part_index
+	),
+	format_part_(
+		_format_part
+	),
 	converter_(
 		format_part_,
 		fcppt::assign::make_container<
@@ -61,12 +66,12 @@ sge::opengl::vertex_buffer::vertex_buffer(
 		context::use<
 			opengl::buffer::vbo_context
 		>(
-			_context
+			_system_context
 		).impl(),
 		context::use<
 			opengl::buffer::vbo_context
 		>(
-			_context
+			_system_context
 		).vertex_buffer_type(),
 		_size.get(),
 		_format_part.stride().get(),

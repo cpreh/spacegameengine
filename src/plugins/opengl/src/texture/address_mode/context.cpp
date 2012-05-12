@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/device/base.hpp>
+#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/device/make_id.hpp>
 #include <sge/opengl/texture/address_mode/context.hpp>
 #include <sge/renderer/texture/address_mode_default.hpp>
 #include <sge/renderer/texture/address_mode_s.hpp>
@@ -60,7 +60,7 @@ get_mutable_impl(
 
 sge::opengl::texture::address_mode::context::context()
 :
-	opengl::context::base(),
+	sge::opengl::context::device::base(),
 	mode_s_(),
 	mode_t_(),
 	mode_u_()
@@ -149,9 +149,9 @@ sge::opengl::texture::address_mode::context::set(
 		);
 }
 
-sge::opengl::context::id const
+sge::opengl::context::device::id const
 sge::opengl::texture::address_mode::context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::device::make_id()
 );
 
 namespace

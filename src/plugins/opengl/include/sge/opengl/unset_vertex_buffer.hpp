@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_UNSET_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_UNSET_VERTEX_BUFFER_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
+
 
 namespace sge
 {
@@ -31,8 +32,8 @@ namespace opengl
 
 void
 unset_vertex_buffer(
-	opengl::context::object &,
-	renderer::vertex_buffer const &
+	sge::opengl::context::device::object &,
+	sge::renderer::vertex_buffer const &
 );
 
 }

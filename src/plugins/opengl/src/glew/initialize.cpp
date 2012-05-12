@@ -28,7 +28,7 @@ void
 sge::opengl::glew::initialize()
 {
 	if(
-		glewInit() != GLEW_OK
+		::glewInit() != GLEW_OK
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("glewInit() failed!")

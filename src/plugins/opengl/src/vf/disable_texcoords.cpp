@@ -20,22 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/disable_client_state.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/funcs/set_client_level.hpp>
 #include <sge/opengl/vf/disable_texcoords.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 void
 sge::opengl::vf::disable_texcoords(
-	opengl::context::object &_context,
-	renderer::texture::stage const _index
+	sge::opengl::context::system::object &_system_context,
+	sge::renderer::texture::stage const _index
 )
 {
-	opengl::texture::funcs::set_client_level(
-		_context,
+	sge::opengl::texture::funcs::set_client_level(
+		_system_context,
 		_index
 	);
 
-	opengl::disable_client_state(
+	sge::opengl::disable_client_state(
 		GL_TEXTURE_COORD_ARRAY
 	);
 }

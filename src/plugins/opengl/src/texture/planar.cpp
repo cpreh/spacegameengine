@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic_impl.hpp>
 #include <sge/opengl/texture/planar.hpp>
 #include <sge/opengl/texture/planar_types.hpp>
@@ -45,13 +46,13 @@ sge::opengl::texture::basic<
 >;
 
 sge::opengl::texture::planar::planar(
-	context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	renderer::texture::planar_parameters const &_param,
 	optional_type const &_type
 )
 :
 	texture::planar_basic(
-		_context,
+		_system_context,
 		_type
 		?
 			*_type
@@ -75,7 +76,7 @@ sge::opengl::texture::planar::surface(
 )
 {
 	opengl::texture::scoped_work_binding const binding(
-		this->context(),
+		this->system_context(),
 		this->type(),
 		this->id()
 	);
@@ -89,7 +90,7 @@ sge::opengl::texture::planar::surface(
 					binding
 				),
 				fcppt::ref(
-					this->context()
+					this->system_context()
 				),
 				this->type(),
 				this->id(),
@@ -107,7 +108,7 @@ sge::renderer::texture::mipmap::level_count const
 sge::opengl::texture::planar::levels() const
 {
 	sge::opengl::texture::scoped_work_binding const binding(
-		this->context(),
+		this->system_context(),
 		this->type(),
 		this->id()
 	);

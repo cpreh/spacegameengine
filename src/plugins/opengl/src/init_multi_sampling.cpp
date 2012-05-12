@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/multi_sample_context.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/multi_sample_type.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/unsupported.hpp>
@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::init_multi_sampling(
-	opengl::context::object &_context,
-	renderer::multi_sample_type const _samples
+	sge::opengl::context::system::object &_system_context,
+	sge::renderer::multi_sample_type const _samples
 )
 {
 	if(
@@ -46,7 +46,7 @@ sge::opengl::init_multi_sampling(
 		sge::opengl::context::use<
 			sge::opengl::multi_sample_context
 		>(
-			_context
+			_system_context
 		)
 	);
 
@@ -59,7 +59,7 @@ sge::opengl::init_multi_sampling(
 			FCPPT_TEXT("GL_ARB_multisample")
 		);
 
-	opengl::enable(
+	sge::opengl::enable(
 		multi_sample_context.flag()
 	);
 }

@@ -18,14 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/device/base.hpp>
+#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/device/make_id.hpp>
+#include <sge/opengl/vf/client_state.hpp>
 #include <sge/opengl/vf/context.hpp>
 
 
 sge::opengl::vf::context::context()
 :
+	sge::opengl::context::device::base(),
 	state_()
-{}
+{
+}
 
 sge::opengl::vf::context::~context()
 {
@@ -45,7 +50,7 @@ sge::opengl::vf::context::state(
 	state_ = _state;
 }
 
-sge::opengl::context::id const
+sge::opengl::context::device::id const
 sge::opengl::vf::context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::device::make_id()
 );

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_context.hpp>
 #include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/null_ptr.hpp>
@@ -30,11 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::unset_vertex_buffer(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::device::object &_context,
 	sge::renderer::vertex_buffer const &_buffer
 )
 {
-	opengl::vertex_context &context(
+	sge::opengl::vertex_context &context(
 		opengl::context::use<
 			opengl::vertex_context
 		>(
@@ -47,7 +48,7 @@ sge::opengl::unset_vertex_buffer(
 	);
 
 	dynamic_cast<
-		opengl::vertex_buffer const &
+		sge::opengl::vertex_buffer const &
 	>(
 		_buffer
 	).unuse(

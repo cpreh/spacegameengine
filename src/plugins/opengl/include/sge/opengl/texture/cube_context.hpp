@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_CUBE_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CUBE_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/texture/bind_type.hpp>
 #include <sge/opengl/texture/cube_context_fwd.hpp>
 #include <sge/opengl/texture/cube_side_array.hpp>
@@ -42,7 +42,7 @@ namespace texture
 
 class cube_context
 :
-	public sge::opengl::context::base
+	public sge::opengl::context::system::base
 {
 	FCPPT_NONCOPYABLE(
 		cube_context
@@ -66,7 +66,7 @@ public:
 
 	typedef void needs_before;
 
-	static sge::opengl::context::id const static_id;
+	static sge::opengl::context::system::id const static_id;
 private:
 	bool const
 		cube_texture_normal_,

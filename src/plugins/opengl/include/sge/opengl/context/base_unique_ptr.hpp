@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/base_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
+
 namespace sge
 {
 namespace opengl
@@ -31,9 +32,17 @@ namespace opengl
 namespace context
 {
 
-typedef fcppt::unique_ptr<
-	base
-> base_unique_ptr;
+template<
+	typename Domain
+>
+struct base_unique_ptr
+{
+	typedef fcppt::unique_ptr<
+		sge::opengl::context::base<
+			Domain
+		>
+	> type;
+};
 
 }
 }

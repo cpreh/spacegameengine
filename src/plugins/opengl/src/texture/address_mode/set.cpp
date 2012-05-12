@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/address_mode/context.hpp>
@@ -54,7 +54,7 @@ update_one(
 
 void
 sge::opengl::texture::address_mode::set(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::device::object &_device_context,
 	sge::opengl::texture::binding const &_binding,
 	sge::opengl::texture::type const _type,
 	sge::renderer::texture::stage const _stage
@@ -64,7 +64,7 @@ sge::opengl::texture::address_mode::set(
 		sge::opengl::context::use<
 			sge::opengl::texture::address_mode::context
 		>(
-			_context
+			_device_context
 		)
 	);
 

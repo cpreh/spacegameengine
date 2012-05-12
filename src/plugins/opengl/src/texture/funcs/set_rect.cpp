@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/range_check.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/pbo_context.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/set_rect.hpp>
@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::funcs::set_rect(
 	texture::binding const &,
-	context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	texture::type const _type,
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
@@ -57,10 +57,10 @@ sge::opengl::texture::funcs::set_rect(
 {
 	if(!
 		_src &&
-		!context::use<
-			buffer::pbo_context
+		!sge::opengl::context::use<
+			sge::opengl::buffer::pbo_context
 		>(
-			_context
+			_system_context
 		)
 		.impl()
 		.hardware_supported()

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
 #include <sge/opengl/point_sprite_context.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/to_gl_bool.hpp>
 #include <sge/opengl/state/point_sprite.hpp>
 //#include <sge/opengl/texture/multi_context.hpp>
@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::point_sprite(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	bool const _enable
 )
 {
@@ -47,7 +47,7 @@ sge::opengl::state::point_sprite(
 		sge::opengl::context::use<
 			sge::opengl::point_sprite_context
 		>(
-			_context
+			_system_context
 		)
 	);
 
@@ -82,7 +82,7 @@ sge::opengl::state::point_sprite(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
-			_context
+			_system_context
 		)
 	);
 
@@ -100,7 +100,7 @@ sge::opengl::state::point_sprite(
 		);
 
 		sge::opengl::texture::funcs::set_active_level(
-			_context,
+			_system_context,
 			stage
 		);
 

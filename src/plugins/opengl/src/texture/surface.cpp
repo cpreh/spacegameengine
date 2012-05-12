@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/sub.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/format_to_color.hpp>
 #include <sge/opengl/texture/basic_surface_impl.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
@@ -44,14 +44,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::texture::surface::surface(
-	texture::binding const &_binding,
-	opengl::context::object &_context,
-	texture::type const _type,
-	texture::id const _id,
-	renderer::texture::mipmap::level const _level,
-	renderer::resource_flags_field const &_resource_flags,
-	opengl::color_format const _color_format,
-	opengl::color_format_type const _color_format_type,
+	sge::opengl::texture::binding const &_binding,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::texture::type const _type,
+	sge::opengl::texture::id const _id,
+	sge::renderer::texture::mipmap::level const _level,
+	sge::renderer::resource_flags_field const &_resource_flags,
+	sge::opengl::color_format const _color_format,
+	sge::opengl::color_format_type const _color_format_type,
 	bool const _is_render_target
 )
 :
@@ -61,8 +61,8 @@ sge::opengl::texture::surface::surface(
 		_id,
 		_level
 	),
-	context_(
-		_context
+	system_context_(
+		_system_context
 	),
 	resource_flags_(
 		_resource_flags
@@ -107,7 +107,7 @@ sge::opengl::texture::surface::lock(
 			opengl::texture::readonly_lock
 		>(
 			fcppt::ref(
-				context_
+				system_context_
 			),
 			this->size().content(),
 			image::color::format_stride(
@@ -119,7 +119,7 @@ sge::opengl::texture::surface::lock(
 
 	{
 		opengl::texture::scoped_work_binding const binding(
-			context_,
+			system_context_,
 			this->type(),
 			this->id()
 		);

@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/device/base.hpp>
+#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/device/make_id.hpp>
 #include <sge/opengl/texture/filter/context.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/default.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::filter::context::context()
 :
-	opengl::context::base(),
+	sge::opengl::context::device::base(),
 	filters_()
 {
 }
@@ -87,7 +87,7 @@ sge::opengl::texture::filter::context::get_mutable(
 		);
 }
 
-sge::opengl::context::id const
+sge::opengl::context::device::id const
 sge::opengl::texture::filter::context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::device::make_id()
 );

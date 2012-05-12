@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/id.hpp>
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/bind_type.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
@@ -84,6 +85,7 @@ sge::opengl::texture::cube_side_array const arb_sides =
 
 sge::opengl::texture::cube_context::cube_context()
 :
+	sge::opengl::context::system::base(),
 	cube_texture_normal_(
 		sge::opengl::glew::is_supported("GL_VERSION_1_3")
 	),
@@ -176,7 +178,7 @@ sge::opengl::texture::cube_context::cube_sides() const
 	return *cube_sides_;
 }
 
-sge::opengl::context::id const
+sge::opengl::context::system::id const
 sge::opengl::texture::cube_context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::system::make_id()
 );

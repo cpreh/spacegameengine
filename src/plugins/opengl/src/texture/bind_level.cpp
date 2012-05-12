@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/bind_level.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/type.hpp>
@@ -29,14 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::bind_level(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	sge::renderer::texture::stage const _stage,
 	sge::opengl::texture::type const _type,
 	sge::opengl::texture::optional_id const &_id
 )
 {
 	sge::opengl::texture::funcs::set_active_level(
-		_context,
+		_system_context,
 		_stage
 	);
 

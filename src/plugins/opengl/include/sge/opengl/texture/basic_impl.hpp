@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/color_to_format.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
 #include <sge/opengl/convert/color_to_internal_format.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/check_dim.hpp>
 #include <sge/opengl/texture/create_lock.hpp>
@@ -149,14 +150,14 @@ sge::opengl::texture::basic<Types>::unlock() const
 		lock_->unlock();
 
 		opengl::texture::scoped_work_binding const binding(
-			context_,
+			this->system_context(),
 			this->type(),
 			this->id()
 		);
 
 		Types::sub_function()(
 			binding,
-			context_,
+			this->system_context(),
 			this->type(),
 			format_,
 			format_type_,
@@ -207,7 +208,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 
 	lock_.take(
 		opengl::texture::create_lock(
-			context_,
+			this->system_context(),
 			_method,
 			this->size().content(),
 			_lock_area.content(),
@@ -223,7 +224,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 	)
 	{
 		opengl::texture::scoped_work_binding const binding(
-			context_,
+			this->system_context(),
 			this->type(),
 			this->id()
 		);
@@ -393,17 +394,17 @@ sge::opengl::texture::basic<Types>::internal_format() const
 template<
 	typename Types
 >
-sge::opengl::context::object &
-sge::opengl::texture::basic<Types>::context() const
+sge::opengl::context::system::object &
+sge::opengl::texture::basic<Types>::system_context() const
 {
-	return context_;
+	return system_context_;
 }
 
 template<
 	typename Types
 >
 sge::opengl::texture::basic<Types>::basic(
-	opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	opengl::texture::type const _type,
 	parameters_type const &_parameters
 )
@@ -411,8 +412,8 @@ sge::opengl::texture::basic<Types>::basic(
 	opengl::texture::base(
 		_type
 	),
-	context_(
-		_context
+	system_context_(
+		_system_context
 	),
 	mipmap_(
 		_parameters.mipmap()
@@ -463,14 +464,14 @@ sge::opengl::texture::basic<Types>::basic(
 	);
 
 	opengl::texture::scoped_work_binding const binding(
-		context_,
+		this->system_context(),
 		this->type(),
 		this->id()
 	);
 
 	Types::init_function()(
 		binding,
-		_context,
+		this->system_context(),
 		this->type(),
 		this->format(),
 		this->format_type(),
@@ -489,7 +490,7 @@ sge::opengl::texture::basic<Types>::basic(
 			dim::dim_wrapper::value
 		>(
 			binding,
-			context_,
+			this->system_context(),
 			this->type(),
 			this->format(),
 			this->format_type(),

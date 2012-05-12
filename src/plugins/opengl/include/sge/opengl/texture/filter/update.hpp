@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_FILTER_UPDATE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_FILTER_UPDATE_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 
@@ -37,7 +38,8 @@ namespace filter
 
 void
 update(
-	opengl::context::object &,
+	sge::opengl::context::system::object &,
+	sge::opengl::context::device::object &,
 	sge::renderer::texture::stage,
 	sge::renderer::texture::filter::object const &
 );

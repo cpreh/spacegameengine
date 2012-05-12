@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic_impl.hpp>
 #include <sge/opengl/texture/volume.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
@@ -36,16 +36,16 @@ sge::opengl::texture::basic<
 >;
 
 sge::opengl::texture::volume::volume(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::system::object &_system_context,
 	sge::renderer::texture::volume_parameters const &_param
 )
 :
 	sge::opengl::texture::volume_basic(
-		_context,
+		_system_context,
 		sge::opengl::context::use<
-			opengl::texture::volume_context
+			sge::opengl::texture::volume_context
 		>(
-			_context
+			_system_context
 		).volume_texture_type(),
 		_param
 	)

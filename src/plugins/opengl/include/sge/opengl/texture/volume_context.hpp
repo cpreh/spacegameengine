@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_VOLUME_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/texture/bind_type.hpp>
 #include <sge/opengl/texture/optional_bind_type.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
@@ -42,7 +42,7 @@ namespace texture
 
 class volume_context
 :
-	public sge::opengl::context::base
+	public sge::opengl::context::system::base
 {
 	FCPPT_NONCOPYABLE(
 		volume_context
@@ -76,7 +76,7 @@ public:
 
 	typedef void needs_before;
 
-	static opengl::context::id const static_id;
+	static sge::opengl::context::system::id const static_id;
 private:
 	bool const volume_texture_normal_;
 

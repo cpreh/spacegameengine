@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_SCOPED_WORK_BINDING_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_SCOPED_WORK_BINDING_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
@@ -47,7 +47,7 @@ class scoped_work_binding
 	);
 public:
 	scoped_work_binding(
-		sge::opengl::context::object &,
+		sge::opengl::context::system::object &,
 		sge::opengl::texture::type,
 		sge::opengl::texture::id
 	);
@@ -59,7 +59,7 @@ private:
 		sge::opengl::texture::optional_id
 	);
 
-	sge::opengl::context::object &context_;
+	sge::opengl::context::system::object &system_context_;
 
 	sge::opengl::texture::optional_id const previous_id_;
 

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -36,7 +36,7 @@ namespace texture
 
 class context
 :
-	public opengl::context::base
+	public sge::opengl::context::system::base
 {
 	FCPPT_NONCOPYABLE(
 		context
@@ -60,7 +60,7 @@ public:
 
 	typedef void needs_before;
 
-	static opengl::context::id const static_id;
+	static sge::opengl::context::system::id const static_id;
 private:
 	bool const
 		anisotropic_filter_supported_,

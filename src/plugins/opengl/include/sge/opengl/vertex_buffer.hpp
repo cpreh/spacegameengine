@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_declaration_fwd.hpp>
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/part_fwd.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
@@ -44,15 +44,15 @@ namespace opengl
 
 class vertex_buffer
 :
-	public renderer::vertex_buffer,
-	public opengl::buffer::wrapper
+	public sge::renderer::vertex_buffer,
+	public sge::opengl::buffer::wrapper
 {
 	FCPPT_NONCOPYABLE(
 		vertex_buffer
 	);
 public:
 	vertex_buffer(
-		context::object &,
+		sge::opengl::context::system::object &,
 		renderer::vf::dynamic::part_index,
 		renderer::vf::dynamic::part const &,
 		count_type,

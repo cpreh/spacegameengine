@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_X11_SWAP_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_X11_SWAP_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/glx/proc_context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,7 +41,7 @@ namespace x11
 
 class swap_context
 :
-	public sge::opengl::context::base
+	public sge::opengl::context::system::base
 {
 	FCPPT_NONCOPYABLE(
 		swap_context
@@ -81,7 +81,7 @@ public:
 	glx_swap_interval_ext
 	swap_interval_ext() const;
 
-	static sge::opengl::context::id const static_id;
+	static sge::opengl::context::system::id const static_id;
 private:
 	glx_swap_interval_sgi swap_interval_sgi_;
 

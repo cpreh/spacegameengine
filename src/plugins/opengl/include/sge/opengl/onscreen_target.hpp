@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_ONSCREEN_TARGET_HPP_INCLUDED
 
 #include <sge/opengl/basic_target.hpp>
-#include <sge/opengl/device_state_fwd.hpp>
 #include <sge/opengl/onscreen_target_fwd.hpp>
+#include <sge/opengl/device_state/object_fwd.hpp>
 #include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -52,7 +52,7 @@ public:
 	> base;
 
 	onscreen_target(
-		sge::opengl::device_state &,
+		sge::opengl::device_state::object &,
 		awl::window::object &
 	);
 
@@ -77,7 +77,7 @@ private:
 		sge::renderer::color_surface
 	> color_surface_scoped_ptr;
 
-	sge::opengl::device_state &device_state_;
+	sge::opengl::device_state::object &device_state_;
 
 	color_surface_scoped_ptr const main_surface_;
 };

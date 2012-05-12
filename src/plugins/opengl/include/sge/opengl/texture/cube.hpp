@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
@@ -54,8 +54,8 @@ class cube
 	);
 public:
 	cube(
-		opengl::context::object &,
-		renderer::texture::cube_parameters const &
+		sge::opengl::context::system::object &,
+		sge::renderer::texture::cube_parameters const &
 	);
 
 	~cube();

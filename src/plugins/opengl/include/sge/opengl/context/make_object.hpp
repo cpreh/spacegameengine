@@ -40,21 +40,28 @@ namespace context
 {
 
 template<
-	typename Type
+	typename Type,
+	typename Domain
 >
 typename boost::enable_if<
 	boost::is_same<
 		typename Type::needs_before,
 		void
 	>,
-	sge::opengl::context::base_unique_ptr
+	typename sge::opengl::context::base_unique_ptr<
+		Domain
+	>::type
 >::type
 make_object(
-	sge::opengl::context::object &
+	sge::opengl::context::object<
+		Domain
+	> &
 )
 {
 	return
-		base_unique_ptr(
+		typename sge::opengl::context::base_unique_ptr<
+			Domain
+		>::type(
 			fcppt::make_unique_ptr<
 				Type
 			>()
@@ -62,17 +69,22 @@ make_object(
 }
 
 template<
-	typename Type
+	typename Type,
+	typename Domain
 >
 typename boost::disable_if<
 	boost::is_same<
 		typename Type::needs_before,
 		void
 	>,
-	sge::opengl::context::base_unique_ptr
+	typename sge::opengl::context::base_unique_ptr<
+		Domain
+	>::type
 >::type
 make_object(
-	sge::opengl::context::object &_object
+	sge::opengl::context::object<
+		Domain
+	> &_object
 )
 {
 	typedef typename Type::needs_before param_type;
@@ -81,13 +93,17 @@ make_object(
 
 	boost::fusion::for_each(
 		params,
-		sge::opengl::context::make_parameters(
+		sge::opengl::context::make_parameters<
+			Domain
+		>(
 			_object
 		)
 	);
 
 	return
-		base_unique_ptr(
+		typename sge::opengl::context::base_unique_ptr<
+			Domain
+		>::type(
 			fcppt::make_unique_ptr<
 				Type
 			>(

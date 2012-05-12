@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_CLIENT_STATE_COMBINER_HPP_INCLUDED
 #define SGE_OPENGL_VF_CLIENT_STATE_COMBINER_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/attribute_context_fwd.hpp>
 #include <sge/opengl/vf/client_state.hpp>
 #include <sge/opengl/vf/client_state_combiner_fwd.hpp>
@@ -43,8 +44,9 @@ class client_state_combiner
 		client_state_combiner
 	);
 public:
-	explicit client_state_combiner(
-		opengl::context::object &
+	client_state_combiner(
+		opengl::context::system::object &,
+		opengl::context::device::object &
 	);
 
 	void
@@ -79,7 +81,7 @@ public:
 
 	~client_state_combiner();
 private:
-	opengl::context::object &context_;
+	opengl::context::system::object &system_context_;
 
 	vf::context &vf_context_;
 

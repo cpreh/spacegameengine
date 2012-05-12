@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/buffer/pbo_context.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/readonly_lock.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/null_ptr.hpp>
@@ -28,22 +28,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::texture::readonly_lock::readonly_lock(
-	opengl::context::object &_context,
+	opengl::context::system::object &_system_context,
 	size_type const _whole_size,
 	size_type const _stride,
 	renderer::resource_flags_field const &_flags
 )
 :
 	buffer_(
-		context::use<
-			buffer::pbo_context
+		sge::opengl::context::use<
+			sge::opengl::buffer::pbo_context
 		>(
-			_context
+			_system_context
 		).impl(),
 		context::use<
 			buffer::pbo_context
 		>(
-			_context
+			_system_context
 		).pixel_pack_buffer_type(),
 		_whole_size,
 		_stride,

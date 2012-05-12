@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/basic_lock_box.hpp>
@@ -49,7 +49,7 @@ struct sub_function
 	(*type)
 	(
 		texture::binding const &,
-		opengl::context::object &,
+		opengl::context::system::object &,
 		texture::type,
 		opengl::color_format,
 		opengl::color_format_type,

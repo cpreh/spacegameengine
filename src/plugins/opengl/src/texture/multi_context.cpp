@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/get_int.hpp>
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
@@ -33,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::multi_context::multi_context()
 :
+	sge::opengl::context::system::base(),
 	is_native_(
 		glew::is_supported("GL_VERSION_1_3")
 	),
@@ -123,7 +126,7 @@ sge::opengl::texture::multi_context::max_level() const
 	return max_level_;
 }
 
-sge::opengl::context::id const
+sge::opengl::context::system::id const
 sge::opengl::texture::multi_context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::system::make_id()
 );

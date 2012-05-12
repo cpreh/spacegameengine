@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/global.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/glx/current_drawable.hpp>
 #include <sge/opengl/glx/proc_context.hpp>
 #include <sge/opengl/x11/swap_context.hpp>
@@ -36,14 +36,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::x11::vsync(
 	awl::backends::x11::display &_display,
-	opengl::context::object &_context
+	sge::opengl::context::system::object &_system_context
 )
 {
 	x11::swap_context &context(
 		opengl::context::use<
 			x11::swap_context
 		>(
-			_context
+			_system_context
 		)
 	);
 

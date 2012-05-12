@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic_surface.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/id.hpp>
@@ -46,7 +46,7 @@ namespace texture
 
 class surface
 :
-	public opengl::texture::basic_surface<
+	public sge::opengl::texture::basic_surface<
 		sge::renderer::color_surface
 	>
 {
@@ -59,14 +59,14 @@ public:
 	> base;
 
 	surface(
-		texture::binding const &,
-		opengl::context::object &,
-		texture::type,
-		texture::id,
-		renderer::texture::mipmap::level,
-		renderer::resource_flags_field const &,
-		opengl::color_format,
-		opengl::color_format_type,
+		sge::opengl::texture::binding const &,
+		sge::opengl::context::system::object &,
+		sge::opengl::texture::type,
+		sge::opengl::texture::id,
+		sge::renderer::texture::mipmap::level,
+		sge::renderer::resource_flags_field const &,
+		sge::opengl::color_format,
+		sge::opengl::color_format_type,
 		bool is_render_target
 	);
 
@@ -83,18 +83,18 @@ private:
 	void
 	unlock() const;
 
-	opengl::context::object &context_;
+	sge::opengl::context::system::object &system_context_;
 
-	renderer::resource_flags_field const resource_flags_;
+	sge::renderer::resource_flags_field const resource_flags_;
 
-	opengl::color_format const color_format_;
+	sge::opengl::color_format const color_format_;
 
-	opengl::color_format_type const color_format_type_;
+	sge::opengl::color_format_type const color_format_type_;
 
 	bool const is_render_target_;
 
 	typedef fcppt::scoped_ptr<
-		texture::lock_base
+		sge::opengl::texture::lock_base
 	> lock_scoped_ptr;
 
 	mutable lock_scoped_ptr lock_;

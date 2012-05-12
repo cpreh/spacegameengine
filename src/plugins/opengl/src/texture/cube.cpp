@@ -42,15 +42,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::texture::cube::cube(
-	opengl::context::object &_context,
-	renderer::texture::cube_parameters const &_param
+	sge::opengl::context::system::object &_system_context,
+	sge::renderer::texture::cube_parameters const &_param
 )
 :
 	opengl::texture::base(
 		opengl::context::use<
 			texture::cube_context
 		>(
-			_context
+			_system_context
 		).cube_texture_type()
 	),
 	size_(
@@ -65,7 +65,7 @@ sge::opengl::texture::cube::cube(
 		opengl::context::use<
 			texture::cube_context
 		>(
-			_context
+			_system_context
 		)
 	);
 
@@ -88,10 +88,10 @@ sge::opengl::texture::cube::cube(
 		fcppt::container::ptr::push_back_unique_ptr(
 			textures_,
 			fcppt::make_unique_ptr<
-				texture::planar
+				sge::opengl::texture::planar
 			>(
 				fcppt::ref(
-					_context
+					_system_context
 				),
 				planar_param,
 				opengl::texture::optional_type(

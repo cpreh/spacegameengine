@@ -25,9 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/draw_elements.hpp>
 #include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/indexed_primitive.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/first_index.hpp>
+#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
+#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
@@ -35,13 +42,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::draw_elements(
-	opengl::context::object &_context,
-	renderer::index_buffer const &_ib,
-	renderer::first_vertex const _first_vertex,
-	renderer::vertex_count const _num_vertices,
-	renderer::indexed_primitive_type::type const _ptype,
-	renderer::primitive_count const _pcount,
-	renderer::first_index const _first_index
+	sge::opengl::context::system::object &_context,
+	sge::renderer::index_buffer const &_ib,
+	sge::renderer::first_vertex const _first_vertex,
+	sge::renderer::vertex_count const _num_vertices,
+	sge::renderer::indexed_primitive_type::type const _ptype,
+	sge::renderer::primitive_count const _pcount,
+	sge::renderer::first_index const _first_index
 )
 {
 	if(
@@ -58,17 +65,17 @@ sge::opengl::draw_elements(
 		return;
 	}
 
-	opengl::draw_context const &context(
-		opengl::context::use<
-			opengl::draw_context
+	sge::opengl::draw_context const &context(
+		sge::opengl::context::use<
+			sge::opengl::draw_context
 		>(
 			_context
 		)
 	);
 
-	opengl::index_buffer const & gl_ib(
+	sge::opengl::index_buffer const & gl_ib(
 		dynamic_cast<
-			opengl::index_buffer const &
+			sge::opengl::index_buffer const &
 		>(
 			_ib
 		)
@@ -77,7 +84,7 @@ sge::opengl::draw_elements(
 	gl_ib.bind();
 
 	GLenum const primitive_type(
-		convert::indexed_primitive(
+		sge::opengl::convert::indexed_primitive(
 			_ptype
 		)
 	);
@@ -86,7 +93,7 @@ sge::opengl::draw_elements(
 		static_cast<
 			GLsizei
 		>(
-			renderer::indices_per_primitive(
+			sge::renderer::indices_per_primitive(
 				_ptype
 			)
 			* _pcount.get()

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_ATTRIBUTE_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/vf/attribute_context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -37,7 +37,7 @@ namespace vf
 
 class attribute_context
 :
-	public opengl::context::base
+	public sge::opengl::context::system::base
 {
 	FCPPT_NONCOPYABLE(
 		attribute_context
@@ -61,7 +61,7 @@ public:
 
 	typedef void needs_before;
 
-	static opengl::context::id const static_id;
+	static sge::opengl::context::system::id const static_id;
 private:
 	bool const
 		is_native_,

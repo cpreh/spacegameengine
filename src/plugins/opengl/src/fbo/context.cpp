@@ -19,12 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/id.hpp>
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context.hpp>
-#include <sge/opengl/fbo/id.hpp>
-#include <sge/opengl/fbo/no_buffer.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
 #include <fcppt/null_ptr.hpp>
@@ -34,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::fbo::context::context()
 :
+	sge::opengl::context::system::base(),
 	has_native_(
 		sge::opengl::glew::is_supported(
 			"GL_VERSION_3_0"
@@ -257,9 +257,6 @@ sge::opengl::fbo::context::context()
 			)
 		:
 			sge::opengl::fbo::optional_attachment_type()
-	),
-	last_buffer_(
-		sge::opengl::fbo::no_buffer()
 	)
 {
 }
@@ -372,21 +369,7 @@ sge::opengl::fbo::context::depth_stencil_attachment() const
 	return depth_stencil_attachment_;
 }
 
-sge::opengl::fbo::id const
-sge::opengl::fbo::context::last_buffer() const
-{
-	return last_buffer_;
-}
-
-void
-sge::opengl::fbo::context::last_buffer(
-	sge::opengl::fbo::id const _last_buffer
-)
-{
-	last_buffer_ = _last_buffer;
-}
-
-sge::opengl::context::id const
+sge::opengl::context::system::id const
 sge::opengl::fbo::context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::system::make_id()
 );

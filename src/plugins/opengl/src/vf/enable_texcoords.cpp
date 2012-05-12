@@ -20,22 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_client_state.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/funcs/set_client_level.hpp>
 #include <sge/opengl/vf/enable_texcoords.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 void
 sge::opengl::vf::enable_texcoords(
-	opengl::context::object &_object,
-	renderer::texture::stage const _index
+	sge::opengl::context::system::object &_system_context,
+	sge::renderer::texture::stage const _index
 )
 {
 	opengl::texture::funcs::set_client_level(
-		_object,
+		_system_context,
 		_index
 	);
 
-	opengl::enable_client_state(
+	sge::opengl::enable_client_state(
 		GL_TEXTURE_COORD_ARRAY
 	);
 }

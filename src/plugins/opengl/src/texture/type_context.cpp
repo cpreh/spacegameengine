@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
 #include <sge/opengl/texture/type_context.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
@@ -46,7 +46,7 @@ sge::opengl::texture::type_context::type_context(
 	sge::opengl::texture::type_context::needs_before const &_parameters
 )
 :
-	sge::opengl::context::base(),
+	sge::opengl::context::system::base(),
 	types_(
 		::create_types(
 			_parameters
@@ -66,9 +66,9 @@ sge::opengl::texture::type_context::types() const
 		types_;
 }
 
-sge::opengl::context::id const
+sge::opengl::context::system::id const
 sge::opengl::texture::type_context::static_id(
-	sge::opengl::context::make_id()
+	sge::opengl::context::system::make_id()
 );
 
 namespace
