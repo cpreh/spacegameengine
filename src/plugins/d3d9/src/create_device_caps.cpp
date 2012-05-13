@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
-#include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -139,9 +138,7 @@ sge::d3d9::create_device_caps(
 				caps.MaxVolumeExtent
 			),
 			sge::renderer::caps::max_anisotropy(
-				sge::renderer::texture::filter::anisotropic::level(
-					caps.MaxAnisotropy
-				)
+				caps.MaxAnisotropy
 			),
 			sge::renderer::caps::render_target_supported(
 				true

@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_PARAMETERS_CONVERT_MULTI_SAMPLE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/multi_sample_type.hpp>
+#include <sge/renderer/multi_samples.hpp>
+
 
 namespace sge
 {
@@ -35,7 +36,7 @@ namespace convert
 
 D3DMULTISAMPLE_TYPE
 multi_sample(
-	renderer::multi_sample_type
+	sge::renderer::multi_samples
 );
 
 }
