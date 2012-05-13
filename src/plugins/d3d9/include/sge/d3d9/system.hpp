@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_unique_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/system.hpp>
+#include <sge/renderer/caps/device_count.hpp>
+#include <sge/renderer/caps/device_fwd.hpp>
+#include <sge/renderer/caps/system_field_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -41,7 +44,7 @@ namespace d3d9
 
 class system
 :
-	public renderer::system
+	public sge::renderer::system
 {
 	FCPPT_NONCOPYABLE(
 		system
@@ -50,11 +53,11 @@ public:
 	system();
 
 	~system();
-
-	renderer::device_unique_ptr
+private:
+	sge::renderer::device_unique_ptr
 	create_renderer(
-		renderer::parameters const &,
-		renderer::adapter,
+		sge::renderer::parameters const &,
+		sge::renderer::adapter,
 		awl::window::object &
 	);
 
@@ -63,7 +66,18 @@ public:
 		awl::system::object &,
 		sge::renderer::parameters const &
 	);
-private:
+
+	sge::renderer::caps::system_field const
+	caps() const;
+
+	sge::renderer::caps::device_count const
+	device_count() const;
+
+	sge::renderer::caps::device const &
+	device_caps(
+		sge::renderer::adapter
+	) const;
+
 	typedef fcppt::scoped_ptr<
 		IDirect3D9,
 		fcppt::com_deleter

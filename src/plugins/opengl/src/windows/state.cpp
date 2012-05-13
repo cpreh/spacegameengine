@@ -18,38 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/windows/change_display_settings.hpp>
-#include <sge/opengl/windows/gdi_device.hpp>
 #include <sge/opengl/windows/state.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/fullscreen.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/window/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 
 sge::opengl::windows::state::state(
-	opengl::context::object &,
-	renderer::parameters const &_param,
-	renderer::adapter const _adapter,
+	sge::opengl::context::system::object &,
+	sge::renderer::parameters const &_param,
 	awl::backends::windows::window::object &_window
 )
 :
-	window_(
+	context_(
 		_window
 	),
-	hdc_(
-		window_.hwnd(),
-		sge::opengl::windows::gdi_device::get_tag()
-	),
-	context_(
-		hdc_
-	),
-	current_(
-		hdc_,
+	scoped_current_(
 		context_
 	)
 {
@@ -81,7 +71,7 @@ sge::opengl::windows::state::swap_buffers()
 {
 	if(
 		::wglSwapLayerBuffers(
-			hdc_.hdc(),
+			context_.dc().hdc(),
 			WGL_SWAP_MAIN_PLANE
 		)
 		== FALSE

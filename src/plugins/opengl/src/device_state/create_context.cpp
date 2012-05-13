@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_OPENGL_HAVE_X11)
 #include <sge/opengl/x11/context.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#include <sge/opengl/windows/context.hpp>
+#include <awl/backends/windows/window/object.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -47,6 +50,21 @@ sge::opengl::device_state::create_context(
 				fcppt::ref(
 					dynamic_cast<
 						awl::backends::x11::window::object &
+					>(
+						_window
+					)
+				)
+			)
+		);
+#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+	return
+		sge::opengl::device_state::context_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::opengl::windows::context
+			>(
+				fcppt::ref(
+					dynamic_cast<
+						awl::backends::windows::window::object &
 					>(
 						_window
 					)

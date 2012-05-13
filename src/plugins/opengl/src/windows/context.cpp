@@ -18,37 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WGL_CURRENT_HPP_INCLUDED
-#define SGE_OPENGL_WGL_CURRENT_HPP_INCLUDED
+#include <sge/opengl/device_state/context.hpp>
+#include <sge/opengl/wgl/make_current.hpp>
+#include <sge/opengl/windows/context.hpp>
+#include <sge/opengl/windows/gdi_device.hpp>
+#include <awl/backends/windows/window/object.hpp>
+#include <fcppt/null_ptr.hpp>
 
-#include <sge/opengl/wgl/context_fwd.hpp>
-#include <sge/opengl/windows/gdi_device_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 
+sge::opengl::windows::context::context(
+	awl::backends::windows::window::object &_window
+)
+:
+	hdc_(
+		_window.hwnd(),
+		sge::opengl::windows::gdi_device::get_tag()
+	),
+	wgl_context_(
+		hdc_
+	)
+{
+}
 
-namespace sge
+sge::opengl::windows::context::~context()
 {
-namespace opengl
-{
-namespace wgl
-{
+}
 
-class current
+void
+sge::opengl::windows::context::activate()
 {
-	FCPPT_NONCOPYABLE(
-		current
+	sge::opengl::wgl::make_current(
+		hdc_.hdc(),
+		wgl_context_.hglrc()
 	);
-public:
-	current(
-		sge::opengl::windows::gdi_device const &,
-		sge::opengl::wgl::context const &
+}
+
+void
+sge::opengl::windows::context::deactivate()
+{
+	sge::opengl::wgl::make_current(
+		fcppt::null_ptr(),
+		fcppt::null_ptr()
 	);
-
-	~current();
-};
-
-}
-}
 }
 
-#endif
+sge::opengl::windows::gdi_device const &
+sge::opengl::windows::context::dc() const
+{
+	return
+		hdc_;
+}

@@ -18,36 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/context.hpp>
-#include <sge/opengl/wgl/current.hpp>
+#ifndef SGE_OPENGL_WINDOWS_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_WINDOWS_CONTEXT_HPP_INCLUDED
+
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/device_state/context.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
-#include <sge/renderer/exception.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <fcppt/null_ptr.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/wgl/context.hpp>
+#include <awl/backends/windows/window/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
-sge::opengl::wgl::current::current(
-	sge::opengl::windows::gdi_device const &_device,
-	sge::opengl::wgl::context const &_context
-)
+namespace sge
 {
-	if(
-		::wglMakeCurrent(
-			_device.hdc(),
-			_context.hglrc()
-		)
-		== FALSE
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("wglMakeCurrent() failed!")
-		);
-}
-
-sge::opengl::wgl::current::~current()
+namespace opengl
 {
-	::wglMakeCurrent(
-		fcppt::null_ptr(),
-		fcppt::null_ptr()
+namespace windows
+{
+
+class context
+:
+	public sge::opengl::device_state::context
+{
+	FCPPT_NONCOPYABLE(
+		context
 	);
+public:	
+	explicit
+	context(
+		awl::backends::windows::window::object &
+	);
+
+	~context();
+
+	void
+	activate();
+
+	void
+	deactivate();
+
+	sge::opengl::windows::gdi_device const &
+	dc() const;
+private:
+	sge::opengl::windows::gdi_device const hdc_;
+
+	sge::opengl::wgl::context const wgl_context_;
+};
+
 }
+}
+}
+
+#endif

@@ -691,8 +691,9 @@ set(
 	SGE_OPENGL_WIN32_FILES
 	src/plugins/opengl/include/sge/opengl/wgl/context.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/wgl/current.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/make_current.hpp
 	src/plugins/opengl/include/sge/opengl/windows/change_display_settings.hpp
+	src/plugins/opengl/include/sge/opengl/windows/context.hpp
 	src/plugins/opengl/include/sge/opengl/windows/gdi_device.hpp
 	src/plugins/opengl/include/sge/opengl/windows/gdi_device_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/windows/state.hpp
@@ -704,8 +705,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/windows/visual/object.hpp
 	src/plugins/opengl/include/sge/opengl/windows/visual/set_format.hpp
 	src/plugins/opengl/src/wgl/context.cpp
-	src/plugins/opengl/src/wgl/current.cpp
+	src/plugins/opengl/src/wgl/make_current.cpp
 	src/plugins/opengl/src/windows/change_display_settings.cpp
+	src/plugins/opengl/src/windows/context.cpp
 	src/plugins/opengl/src/windows/gdi_device.cpp
 	src/plugins/opengl/src/windows/state.cpp
 	src/plugins/opengl/src/windows/visual/choose_and_set_format.cpp

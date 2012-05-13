@@ -18,51 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
-#define SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_WGL_MAKE_CURRENT_HPP_INCLUDED
+#define SGE_OPENGL_WGL_MAKE_CURRENT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/device_state/scoped_current.hpp>
-#include <sge/opengl/device_state/object.hpp>
-#include <sge/opengl/windows/context.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
-#include <awl/backends/windows/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/windows/windows.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace windows
+namespace wgl
 {
 
-class state
-:
-	public sge::opengl::device_state::object
-{
-	FCPPT_NONCOPYABLE(
-		state
-	);
-public:
-	state(
-		sge::opengl::context::system::object &,
-		sge::renderer::parameters const &,
-		awl::backends::windows::window::object &
-	);
-
-	~state();
-
-	void
-	begin_rendering();
-
-	void
-	swap_buffers();
-private:
-	sge::opengl::windows::context context_;
-
-	sge::opengl::device_state::scoped_current const scoped_current_;
-};
+void
+make_current(
+	HDC,
+	HGLRC
+);
 
 }
 }
