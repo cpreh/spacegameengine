@@ -22,21 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_LOCK_BOX_HPP_INCLUDED
 
 #include <sge/renderer/basic_lock_box.hpp>
+#include <sge/renderer/lock_box_fwd.hpp>
 
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief A typedef for a three dimensional box used for locking volume
- * textures
-*/
-typedef renderer::basic_lock_box<
-	3
->::type lock_box;
-
-}
-}
 
 #endif

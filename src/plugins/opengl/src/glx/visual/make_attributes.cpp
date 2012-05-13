@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/visual/make_attributes.hpp>
 #include <sge/opengl/glx/visual/rgb_triple.hpp>
 #include <sge/renderer/depth_buffer_bits.hpp>
-#include <sge/renderer/multi_sample_type.hpp>
+#include <sge/renderer/multi_samples.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/optional_bit_count.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -135,7 +135,7 @@ sge::opengl::glx::visual::make_attributes(
 	}
 
 	{
-		sge::renderer::multi_sample_type const samples(
+		sge::renderer::multi_samples const samples(
 			_parameters.samples()
 		);
 

@@ -22,22 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_OPTIONAL_DIM2_HPP_INCLUDED
 
 #include <sge/renderer/dim2.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/renderer/optional_dim2.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief An optional renderer::dim2
-*/
-typedef fcppt::optional<
-	renderer::dim2
-> optional_dim2;
-
-}
-}
 
 #endif

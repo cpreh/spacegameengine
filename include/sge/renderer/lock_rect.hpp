@@ -22,20 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_LOCK_RECT_HPP_INCLUDED
 
 #include <sge/renderer/basic_lock_box.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
 
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief A typedef for a rect used for locking textures
-*/
-typedef renderer::basic_lock_box<
-	2
->::type lock_rect;
-
-}
-}
 
 #endif

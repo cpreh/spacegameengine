@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/depth_stencil_buffer.hpp>
-#include <sge/renderer/multi_sample_type.hpp>
+#include <sge/renderer/multi_samples.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/screen_mode.hpp>
 #include <sge/renderer/vsync.hpp>
@@ -29,7 +29,7 @@ sge::renderer::parameters::parameters(
 	sge::renderer::screen_mode const &_screen_mode,
 	sge::renderer::depth_stencil_buffer::type const _depth_stencil_buffer,
 	sge::renderer::vsync::type const _vsync,
-	sge::renderer::multi_sample_type const _samples
+	sge::renderer::multi_samples const _samples
 )
 :
 	screen_mode_(
@@ -65,7 +65,7 @@ sge::renderer::parameters::vsync() const
 	return vsync_;
 }
 
-sge::renderer::multi_sample_type const
+sge::renderer::multi_samples const
 sge::renderer::parameters::samples() const
 {
 	return samples_;

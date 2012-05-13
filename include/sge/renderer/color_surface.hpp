@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/color_surface_fwd.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/dim2_fwd.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -61,21 +61,21 @@ public:
 	 *
 	 * Specifies a size in pixels
 	*/
-	typedef renderer::size_type size_type;
+	typedef sge::renderer::size_type size_type;
 
 	/**
 	 * \brief The dimension type
 	 *
 	 * Specifies a two dimensional size in pixels
 	*/
-	typedef renderer::dim2 dim;
+	typedef sge::renderer::dim2 dim;
 
 	/**
 	 * \brief The rect type
 	 *
 	 * Specifies a rectangle in pixels
 	*/
-	typedef renderer::lock_rect rect;
+	typedef sge::renderer::lock_rect rect;
 
 	/**
 	 * \brief The view type

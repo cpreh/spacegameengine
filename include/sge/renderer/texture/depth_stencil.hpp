@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
-#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/dim2_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/depth_stencil_fwd.hpp>
@@ -51,13 +51,15 @@ public:
 	SGE_RENDERER_SYMBOL
 	virtual ~depth_stencil() = 0;
 
-	typedef renderer::dim2 dim;
+	typedef sge::renderer::dim2 dim;
 
-	virtual dim const
+	virtual
+	dim const
 	size() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual renderer::depth_stencil_surface_unique_ptr
+	virtual
+	sge::renderer::depth_stencil_surface_unique_ptr
 	surface() const = 0;
 
 	SGE_RENDERER_SYMBOL

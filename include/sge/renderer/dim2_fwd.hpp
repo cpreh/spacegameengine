@@ -18,11 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/multi_samples.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
+#ifndef SGE_RENDERER_DIM2_FWD_HPP_INCLUDED
+#define SGE_RENDERER_DIM2_FWD_HPP_INCLUDED
+
+#include <sge/renderer/basic_dim_fwd.hpp>
 
 
-sge::renderer::multi_samples const
-sge::renderer::no_multi_sampling(
-	0u
-);
+namespace sge
+{
+namespace renderer
+{
+
+/**
+ * \brief A typedef for a two dimensional renderer::size_type
+*/
+typedef
+sge::renderer::basic_dim
+<
+	2
+>::type
+dim2;
+
+}
+}
+
+#endif

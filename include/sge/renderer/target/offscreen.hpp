@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/color_surface_shared_ptr.hpp>
 #include <sge/renderer/depth_stencil_surface_shared_ptr.hpp>
-#include <sge/renderer/optional_dim2.hpp>
+#include <sge/renderer/optional_dim2_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/offscreen_fwd.hpp>

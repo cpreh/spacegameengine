@@ -21,35 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_BASIC_LOCK_BOX_HPP_INCLUDED
 #define SGE_RENDERER_BASIC_LOCK_BOX_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/math/size_type.hpp>
-#include <fcppt/math/box/object_fwd.hpp>
+#include <sge/renderer/basic_lock_box_fwd.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief Typedef helper for renderer::lock_rect and renderer::lock_box
- *
- * Creates a box with value type renderer::size_type.
- *
- * \tparam Size The dimension to use
-*/
-template<
-	fcppt::math::size_type Size
->
-struct basic_lock_box
-{
-	typedef fcppt::math::box::object<
-		renderer::size_type,
-		Size
-	> type;
-};
-
-}
-}
 
 #endif

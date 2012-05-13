@@ -18,11 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/multi_samples.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
+#ifndef SGE_RENDERER_LOCK_BOX_FWD_HPP_INCLUDED
+#define SGE_RENDERER_LOCK_BOX_FWD_HPP_INCLUDED
+
+#include <sge/renderer/basic_lock_box_fwd.hpp>
 
 
-sge::renderer::multi_samples const
-sge::renderer::no_multi_sampling(
-	0u
-);
+namespace sge
+{
+namespace renderer
+{
+
+/**
+ * \brief A typedef for a three dimensional box used for locking volume
+ * textures
+*/
+typedef sge::renderer::basic_lock_box<
+	3
+>::type lock_box;
+
+}
+}
+
+#endif

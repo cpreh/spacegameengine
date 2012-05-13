@@ -34,8 +34,8 @@ namespace texture
 {
 
 typedef texture::basic_parameters<
-	renderer::dim2,
-	renderer::depth_stencil_format::type
+	sge::renderer::dim2,
+	sge::renderer::depth_stencil_format::type
 > depth_stencil_parameters;
 
 }

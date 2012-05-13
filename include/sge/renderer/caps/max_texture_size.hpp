@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/dim2.hpp>
 #include <fcppt/strong_typedef.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 namespace sge
@@ -37,7 +36,7 @@ namespace caps
  * \brief A strong typedef for the maximum 2D texture size
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::dim2,
+	sge::renderer::dim2,
 	max_texture_size
 );
 

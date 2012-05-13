@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
 #define SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
 
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/dim2_fwd.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -65,8 +65,8 @@ typename boost::enable_if<
 	>::type
 >::type const
 lock_rect_to_coords(
-	renderer::lock_rect const &area,
-	renderer::dim2 const &size
+	sge::renderer::lock_rect const &area,
+	sge::renderer::dim2 const &size
 );
 
 }

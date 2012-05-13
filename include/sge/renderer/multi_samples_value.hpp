@@ -18,11 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/multi_samples.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
+#ifndef SGE_RENDERER_MULTI_SAMPLES_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_MULTI_SAMPLES_VALUE_HPP_INCLUDED
 
 
-sge::renderer::multi_samples const
-sge::renderer::no_multi_sampling(
-	0u
-);
+namespace sge
+{
+namespace renderer
+{
+
+typedef unsigned multi_samples_value;
+
+}
+}
+
+#endif

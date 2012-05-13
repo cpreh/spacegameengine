@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CAPS_MAX_ANISOTROPY_HPP_INCLUDED
 #define SGE_RENDERER_CAPS_MAX_ANISOTROPY_HPP_INCLUDED
 
-#include <sge/renderer/texture/filter/anisotropic/level.hpp>
+#include <sge/renderer/texture/filter/anisotropic/level_value.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -36,7 +36,7 @@ namespace caps
  * \brief A strong typedef for the maximum anisotropy level
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
-	texture::filter::anisotropic::level,
+	sge::renderer::texture::filter::anisotropic::level_value,
 	max_anisotropy
 );
 

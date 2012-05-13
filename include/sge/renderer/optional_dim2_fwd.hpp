@@ -18,11 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/multi_samples.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
+#ifndef SGE_RENDERER_OPTIONAL_DIM2_FWD_HPP_INCLUDED
+#define SGE_RENDERER_OPTIONAL_DIM2_FWD_HPP_INCLUDED
+
+#include <sge/renderer/dim2_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
-sge::renderer::multi_samples const
-sge::renderer::no_multi_sampling(
-	0u
-);
+namespace sge
+{
+namespace renderer
+{
+
+/**
+ * \brief An optional renderer::dim2
+*/
+typedef fcppt::optional<
+	sge::renderer::dim2
+> optional_dim2;
+
+}
+}
+
+#endif

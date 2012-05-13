@@ -18,11 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/multi_samples.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
+#ifndef SGE_RENDERER_BASIC_LOCK_BOX_FWD_HPP_INCLUDED
+#define SGE_RENDERER_BASIC_LOCK_BOX_FWD_HPP_INCLUDED
+
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/math/size_type.hpp>
+#include <fcppt/math/box/object_fwd.hpp>
 
 
-sge::renderer::multi_samples const
-sge::renderer::no_multi_sampling(
-	0u
-);
+namespace sge
+{
+namespace renderer
+{
+
+/**
+ * \brief Typedef helper for renderer::lock_rect and renderer::lock_box
+ *
+ * Creates a box with value type renderer::size_type.
+ *
+ * \tparam Size The dimension to use
+*/
+template<
+	fcppt::math::size_type Size
+>
+struct basic_lock_box
+{
+	typedef fcppt::math::box::object<
+		sge::renderer::size_type,
+		Size
+	> type;
+};
+
+}
+}
+
+#endif

@@ -5,7 +5,9 @@ set(
 	include/sge/renderer/ambient_color.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/basic_dim.hpp
+	include/sge/renderer/basic_dim_fwd.hpp
 	include/sge/renderer/basic_lock_box.hpp
+	include/sge/renderer/basic_lock_box_fwd.hpp
 	include/sge/renderer/basic_scoped_buffer_lock.hpp
 	include/sge/renderer/bit_count.hpp
 	include/sge/renderer/bit_depth.hpp
@@ -82,7 +84,9 @@ set(
 	include/sge/renderer/device_unique_ptr.hpp
 	include/sge/renderer/diffuse_color.hpp
 	include/sge/renderer/dim2.hpp
+	include/sge/renderer/dim2_fwd.hpp
 	include/sge/renderer/dim3.hpp
+	include/sge/renderer/dim3_fwd.hpp
 	include/sge/renderer/display_mode.hpp
 	include/sge/renderer/display_mode_comparison.hpp
 	include/sge/renderer/display_mode_fwd.hpp
@@ -175,19 +179,22 @@ set(
 	include/sge/renderer/light/spot_fwd.hpp
 	include/sge/renderer/light/variant.hpp
 	include/sge/renderer/lock_box.hpp
+	include/sge/renderer/lock_box_fwd.hpp
 	include/sge/renderer/lock_flags/from_mode.hpp
 	include/sge/renderer/lock_flags/method.hpp
 	include/sge/renderer/lock_flags/read.hpp
 	include/sge/renderer/lock_flags/write.hpp
 	include/sge/renderer/lock_mode.hpp
 	include/sge/renderer/lock_rect.hpp
+	include/sge/renderer/lock_rect_fwd.hpp
 	include/sge/renderer/lock_rect_to_coords.hpp
 	include/sge/renderer/material.hpp
 	include/sge/renderer/material_fwd.hpp
 	include/sge/renderer/matrix4.hpp
 	include/sge/renderer/matrix4_fwd.hpp
 	include/sge/renderer/matrix_mode.hpp
-	include/sge/renderer/multi_sample_type.hpp
+	include/sge/renderer/multi_samples.hpp
+	include/sge/renderer/multi_samples_value.hpp
 	include/sge/renderer/no_multi_sampling.hpp
 	include/sge/renderer/nonindexed_primitive_count.hpp
 	include/sge/renderer/nonindexed_primitive_type.hpp
@@ -195,6 +202,7 @@ set(
 	include/sge/renderer/optional_bit_count.hpp
 	include/sge/renderer/optional_bit_count_fwd.hpp
 	include/sge/renderer/optional_dim2.hpp
+	include/sge/renderer/optional_dim2_fwd.hpp
 	include/sge/renderer/parameters.hpp
 	include/sge/renderer/parameters_fwd.hpp
 	include/sge/renderer/pixel_rect.hpp
@@ -368,6 +376,7 @@ set(
 	include/sge/renderer/texture/depth_stencil_scoped_ptr.hpp
 	include/sge/renderer/texture/depth_stencil_unique_ptr.hpp
 	include/sge/renderer/texture/filter/anisotropic/level.hpp
+	include/sge/renderer/texture/filter/anisotropic/level_value.hpp
 	include/sge/renderer/texture/filter/anisotropic/make.hpp
 	include/sge/renderer/texture/filter/anisotropic/mip.hpp
 	include/sge/renderer/texture/filter/anisotropic/object.hpp

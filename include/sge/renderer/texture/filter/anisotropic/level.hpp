@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_FILTER_ANISOTROPIC_LEVEL_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_FILTER_ANISOTROPIC_LEVEL_HPP_INCLUDED
 
+#include <sge/renderer/texture/filter/anisotropic/level_value.hpp>
 #include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
@@ -35,7 +37,7 @@ namespace anisotropic
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	unsigned,
+	sge::renderer::texture::filter::anisotropic::level_value,
 	level
 );
 

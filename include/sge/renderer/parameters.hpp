@@ -23,12 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/display_mode.hpp>
-#include <sge/renderer/multi_sample_type.hpp>
+#include <sge/renderer/multi_samples.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/screen_mode.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/vsync.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -64,47 +63,47 @@ public:
 	*/
 	SGE_RENDERER_SYMBOL
 	parameters(
-		renderer::screen_mode const &screen_mode,
-		renderer::depth_stencil_buffer::type depth_stencil,
-		renderer::vsync::type vsync,
-		renderer::multi_sample_type multi_samples
+		sge::renderer::screen_mode const &screen_mode,
+		sge::renderer::depth_stencil_buffer::type depth_stencil,
+		sge::renderer::vsync::type vsync,
+		sge::renderer::multi_samples multi_samples
 	);
 
 	/**
 	 * \brief Returns the screen mode
 	*/
 	SGE_RENDERER_SYMBOL
-	renderer::screen_mode const &
+	sge::renderer::screen_mode const &
 	screen_mode() const;
 
 	/**
 	 * \brief Returns the depth stencil buffer settings
 	*/
 	SGE_RENDERER_SYMBOL
-	renderer::depth_stencil_buffer::type
+	sge::renderer::depth_stencil_buffer::type
 	depth_stencil_buffer() const;
 
 	/**
 	 * \brief Returns whether vsync should be used
 	*/
 	SGE_RENDERER_SYMBOL
-	renderer::vsync::type
+	sge::renderer::vsync::type
 	vsync() const;
 
 	/**
 	 * \brief Returns the number of multi samples
 	*/
 	SGE_RENDERER_SYMBOL
-	renderer::multi_sample_type const
+	sge::renderer::multi_samples const
 	samples() const;
 private:
-	renderer::screen_mode screen_mode_;
+	sge::renderer::screen_mode screen_mode_;
 
-	renderer::depth_stencil_buffer::type depth_stencil_buffer_;
+	sge::renderer::depth_stencil_buffer::type depth_stencil_buffer_;
 
-	renderer::vsync::type vsync_;
+	sge::renderer::vsync::type vsync_;
 
-	renderer::multi_sample_type samples_;
+	sge::renderer::multi_samples samples_;
 };
 
 }

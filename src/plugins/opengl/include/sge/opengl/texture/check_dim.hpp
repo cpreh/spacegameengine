@@ -38,7 +38,7 @@ template<
 >
 void
 check_dim(
-	typename renderer::basic_dim<
+	typename sge::renderer::basic_dim<
 		Size
 	>::type const &,
 	renderer::size_type min_value,

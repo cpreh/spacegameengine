@@ -18,11 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/multi_samples.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
+#ifndef SGE_RENDERER_TEXTURE_FILTER_ANISOTROPIC_LEVEL_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_FILTER_ANISOTROPIC_LEVEL_VALUE_HPP_INCLUDED
 
 
-sge::renderer::multi_samples const
-sge::renderer::no_multi_sampling(
-	0u
-);
+namespace sge
+{
+namespace renderer
+{
+namespace texture
+{
+namespace filter
+{
+namespace anisotropic
+{
+
+typedef unsigned level_value;
+
+}
+}
+}
+}
+}
+
+#endif

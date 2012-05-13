@@ -22,23 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DIM2_HPP_INCLUDED
 
 #include <sge/renderer/basic_dim.hpp>
+#include <sge/renderer/dim2_fwd.hpp>
 
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief A typedef for a two dimensional renderer::size_type
-*/
-typedef
-renderer::basic_dim
-<
-	2
->::type
-dim2;
-
-}
-}
 
 #endif

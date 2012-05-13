@@ -42,11 +42,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/device_unique_ptr.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
-#include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::renderer::caps::device_unique_ptr
@@ -130,18 +128,16 @@ sge::opengl::create_device_caps(
 						0
 				)
 			),
-			sge::renderer::caps::max_anisotropy(
-				fcppt::strong_typedef_construct_cast<
-					sge::renderer::texture::filter::anisotropic::level
-				>(
-					texture_context.anisotropic_filter_supported()
-					?
-						sge::opengl::get_int(
-							texture_context.max_anisotropy_flag()
-						)
-					:
-						0
-				)
+			fcppt::strong_typedef_construct_cast<
+				sge::renderer::caps::max_anisotropy
+			>(
+				texture_context.anisotropic_filter_supported()
+				?
+					sge::opengl::get_int(
+						texture_context.max_anisotropy_flag()
+					)
+				:
+					0
 			),
 			sge::renderer::caps::render_target_supported(
 				sge::opengl::context::use<

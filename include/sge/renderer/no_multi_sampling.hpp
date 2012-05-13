@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_NO_MULTI_SAMPLING_HPP_INCLUDED
 #define SGE_RENDERER_NO_MULTI_SAMPLING_HPP_INCLUDED
 
-#include <sge/renderer/multi_sample_type.hpp>
+#include <sge/renderer/multi_samples.hpp>
 #include <sge/renderer/symbol.hpp>
+
 
 namespace sge
 {
@@ -33,7 +34,8 @@ namespace renderer
  * \brief A constant for disabling multi sampling
 */
 SGE_RENDERER_SYMBOL
-extern multi_sample_type const no_multi_sampling;
+extern
+sge::renderer::multi_samples const no_multi_sampling;
 
 }
 }
