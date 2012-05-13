@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/create_caps.hpp>
 #include <sge/d3d9/create_device.hpp>
 #include <sge/d3d9/device.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
@@ -56,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_unique_ptr.hpp>
-#include <sge/renderer/caps/object.hpp>
+#include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
@@ -111,7 +110,8 @@ sge::d3d9::device::device(
 	IDirect3D9 *const _system,
 	sge::renderer::adapter const _adapter,
 	sge::renderer::parameters const &_parameters,
-	awl::window::object &_window
+	awl::window::object &_window,
+	sge::renderer::caps::device const &_caps
 )
 :
 	sge::renderer::device(),
@@ -129,10 +129,7 @@ sge::d3d9::device::device(
 		)
 	),
 	caps_(
-		sge::d3d9::create_caps(
-			_system,
-			_adapter
-		)
+		_caps
 	),
 	resources_(),
 	onscreen_target_(
@@ -175,7 +172,7 @@ sge::d3d9::device::begin_rendering(
 		sge::d3d9::render_context::create(
 			device_.get(),
 			_target,
-			caps_->texture_stages()
+			caps_.texture_stages()
 		);
 }
 
@@ -443,7 +440,7 @@ sge::d3d9::device::load_cg_texture(
 			device_.get(),
 			_parameter,
 			_texture,
-			caps_->texture_stages()
+			caps_.texture_stages()
 		);
 }
 
@@ -467,10 +464,10 @@ sge::d3d9::device::onscreen_target() const
 	return *onscreen_target_;
 }
 
-sge::renderer::caps::object const &
+sge::renderer::caps::device const &
 sge::d3d9::device::caps() const
 {
-	return *caps_;
+	return caps_;
 }
 
 template<

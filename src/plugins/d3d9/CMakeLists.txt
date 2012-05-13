@@ -39,8 +39,8 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/convert/to_depth_stencil_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/vector3.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/viewport.hpp
-	src/plugins/d3d9/include/sge/d3d9/create_caps.hpp
 	src/plugins/d3d9/include/sge/d3d9/create_device.hpp
+	src/plugins/d3d9/include/sge/d3d9/create_device_caps.hpp
 	src/plugins/d3d9/include/sge/d3d9/d3d_device_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/d3dinclude.hpp
 	src/plugins/d3d9/include/sge/d3d9/device.hpp
@@ -287,8 +287,8 @@ SET(
 	src/plugins/d3d9/src/convert/to_depth_stencil_format.cpp
 	src/plugins/d3d9/src/convert/vector3.cpp
 	src/plugins/d3d9/src/convert/viewport.cpp
-	src/plugins/d3d9/src/create_caps.cpp
 	src/plugins/d3d9/src/create_device.cpp
+	src/plugins/d3d9/src/create_device_caps.cpp
 	src/plugins/d3d9/src/device.cpp
 	src/plugins/d3d9/src/devicefuncs/begin_rendering.cpp
 	src/plugins/d3d9/src/devicefuncs/clear.cpp

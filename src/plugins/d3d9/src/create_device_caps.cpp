@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/create_caps.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/create_device_caps.hpp>
 #include <sge/d3d9/systemfuncs/get_caps.hpp>
+#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
@@ -28,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
-#include <sge/renderer/caps/object.hpp>
-#include <sge/renderer/caps/object_unique_ptr.hpp>
+#include <sge/renderer/caps/device.hpp>
+#include <sge/renderer/caps/device_unique_ptr.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
@@ -78,14 +80,14 @@ add_display_modes(
 */
 }
 
-sge::renderer::caps::object_unique_ptr
-sge::d3d9::create_caps(
+sge::renderer::caps::device_unique_ptr
+sge::d3d9::create_device_caps(
 	IDirect3D9 *const _system,
-	renderer::adapter const _adapter
+	sge::renderer::adapter const _adapter
 )
 {
 	D3DCAPS9 const caps(
-		d3d9::systemfuncs::get_caps(
+		sge::d3d9::systemfuncs::get_caps(
 			_system,
 			_adapter
 		)
@@ -114,7 +116,7 @@ sge::d3d9::create_caps(
 
 	return
 		fcppt::make_unique_ptr<
-			renderer::caps::object
+			sge::renderer::caps::device
 		>(
 			_adapter,
 			sge::renderer::caps::driver_name(

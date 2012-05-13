@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_unique_ptr.hpp>
-#include <sge/renderer/caps/object_fwd.hpp>
+#include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
@@ -92,7 +92,8 @@ public:
 		IDirect3D9 *,
 		sge::renderer::adapter,
 		sge::renderer::parameters const &,
-		awl::window::object &
+		awl::window::object &,
+		sge::renderer::caps::device const &
 	);
 
 	~device();
@@ -189,7 +190,7 @@ public:
 	sge::renderer::target::onscreen &
 	onscreen_target() const;
 
-	sge::renderer::caps::object const &
+	sge::renderer::caps::device const &
 	caps() const;
 private:
 	template<
@@ -222,11 +223,7 @@ private:
 
 	d3d_device_scoped_ptr const device_;
 
-	typedef fcppt::scoped_ptr<
-		sge::renderer::caps::object
-	> caps_scoped_ptr;
-
-	caps_scoped_ptr const caps_;
+	sge::renderer::caps::device const &caps_;
 
 	sge::d3d9::resource_manager resources_;
 

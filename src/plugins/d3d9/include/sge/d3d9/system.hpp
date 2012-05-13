@@ -35,6 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -84,6 +87,12 @@ private:
 	> d3d_scoped_ptr;
 
 	d3d_scoped_ptr const system_;
+
+	typedef boost::ptr_vector<
+		sge::renderer::caps::device
+	> caps_vector;
+
+	caps_vector caps_;
 };
 
 }
