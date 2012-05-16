@@ -232,14 +232,18 @@ sge::evdev::processor::dev_event(
 		sge::evdev::joypad::add(
 			joypads_,
 			joypad_discover_,
-			_event.path()
+			path_
+			/
+			_event.filename()
 		);
 		return;
 	case sge::evdev::inotify::event_type::remove:
 		sge::evdev::joypad::remove(
 			joypads_,
 			joypad_remove_,
-			_event.path()
+			path_
+			/
+			_event.filename()
 		);
 		return;
 	}

@@ -26,12 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::evdev::inotify::event::event(
-	boost::filesystem::path const &_path,
+	boost::filesystem::path const &_filename,
 	sge::evdev::inotify::event_type::type const _event_type
 )
 :
-	path_(
-		_path
+	filename_(
+		_filename
 	),
 	event_type_(
 		_event_type
@@ -40,10 +40,10 @@ sge::evdev::inotify::event::event(
 }
 
 boost::filesystem::path const &
-sge::evdev::inotify::event::path() const
+sge::evdev::inotify::event::filename() const
 {
 	return
-		path_;
+		filename_;
 }
 
 sge::evdev::inotify::event_type::type

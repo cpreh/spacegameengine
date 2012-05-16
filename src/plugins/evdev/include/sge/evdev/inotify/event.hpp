@@ -48,12 +48,12 @@ public:
 	);
 
 	boost::filesystem::path const &
-	path() const;
+	filename() const;
 
 	sge::evdev::inotify::event_type::type
 	event_type() const;
 private:
-	boost::filesystem::path const path_;
+	boost::filesystem::path const filename_;
 
 	sge::evdev::inotify::event_type::type const event_type_;
 };
