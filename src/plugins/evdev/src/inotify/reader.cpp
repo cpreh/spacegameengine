@@ -22,20 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/inotify/convert_event_type.hpp>
 #include <sge/evdev/inotify/event.hpp>
 #include <sge/evdev/inotify/reader.hpp>
-#include <sge/input/exception.hpp>
 #include <awl/backends/x11/event/fd/callback.hpp>
 #include <awl/backends/x11/event/fd/event_fwd.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/assert/throw.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/container/array_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <linux/limits.h>
 #include <sys/inotify.h>
 #include <unistd.h>
-#include <cerrno>
+#include <cstddef>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -77,89 +77,101 @@ sge::evdev::inotify::reader::on_read(
 	awl::backends::x11::event::fd::event const &
 )
 {
-	inotify_event event;
-
-	{
-		ssize_t ret(
-			::read(
-				object_.fd().get(),
-				&event,
-				sizeof(
-					inotify_event
-				)
-			)
-		);
-
-		if(
-			(
-				ret == -1
-				&&
-				(
-					errno == EINVAL
-					||
-					errno == EAGAIN
-				)
-			)
-			||
-			ret == 0
+	// The manpage says that this is enough to read at least one inotify event
+	typedef fcppt::container::array<
+		char,
+		sizeof(
+			inotify_event
 		)
-			return;
+		+
+		NAME_MAX
+		+
+		1u
+	> buffer_array;
 
-		FCPPT_ASSERT_THROW(
-			ret
-			==
-			static_cast<
-				ssize_t
-			>(
-				sizeof(
-					inotify_event
-				)
-			),
-			sge::input::exception
-		);
-	}
+	buffer_array buffer;
 
-	typedef fcppt::container::raw_vector<
-		char
-	> char_vector;
-
-	char_vector name(
-		event.len
+	ssize_t ret(
+		::read(
+			object_.fd().get(),
+			buffer.data(),
+			buffer.size()
+		)
 	);
 
 	FCPPT_ASSERT_ERROR(
-		event.len > 0
+		ret != -1
 	);
 
+	std::size_t const bytes(
+		static_cast<
+			std::size_t
+		>(
+			ret
+		)
+	);
+
+	std::size_t index(
+		0u
+	);
+
+	while(
+		index
+		<
+		bytes
+	)
 	{
-		ssize_t ret(
-			::read(
-				object_.fd().get(),
-				name.data(),
-				name.size()
+		FCPPT_ASSERT_ERROR(
+			bytes
+			-
+			index
+			>=
+			sizeof(
+				inotify_event
 			)
 		);
 
-		FCPPT_ASSERT_THROW(
-			ret
-			==
-			static_cast<
-				ssize_t
-			>(
-				event.len
-			),
-			sge::input::exception
+		inotify_event event;
+
+		std::memcpy(
+			&event,
+			buffer.data() + index,
+			sizeof(
+				inotify_event
+			)
 		);
+
+		FCPPT_ASSERT_ERROR(
+			event.len != 0u
+		);
+
+		index +=
+			sizeof(
+				inotify_event
+			);
+
+		std::string const path_name(
+			buffer.data() + index
+		);
+
+		callback_(
+			sge::evdev::inotify::event(
+				boost::filesystem::path(
+					path_name
+				),
+				sge::evdev::inotify::convert_event_type(
+					event.mask
+				)
+			)
+		);
+
+		index +=
+			event.len;
 	}
 
-	callback_(
-		sge::evdev::inotify::event(
-			boost::filesystem::path(
-				name.data()
-			),
-			sge::evdev::inotify::convert_event_type(
-				event.mask
-			)
-		)
+	FCPPT_ASSERT_ERROR(
+		index
+		==
+		bytes
 	);
 }

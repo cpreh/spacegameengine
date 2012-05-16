@@ -44,8 +44,6 @@ sge::evdev::inotify::watch::watch(
 			IN_CREATE
 			|
 			IN_DELETE
-			|
-			IN_DELETE_SELF
 		)
 	)
 {

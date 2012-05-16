@@ -55,8 +55,8 @@ sge::evdev::processor::processor(
 	joypad_remove_(),
 	joypads_(),
 	path_(
-		"/dev/input/"
-	)/*,
+		"/dev/input"
+	),
 	dev_reader_(
 		path_,
 		dynamic_cast<
@@ -71,7 +71,7 @@ sge::evdev::processor::processor(
 				std::tr1::placeholders::_1
 			)
 		)
-	)*/
+	)
 {
 }
 

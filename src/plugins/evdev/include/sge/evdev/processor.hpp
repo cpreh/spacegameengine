@@ -142,7 +142,7 @@ private:
 
 	boost::filesystem::path const path_;
 
-	//sge::evdev::inotify::reader dev_reader_;
+	sge::evdev::inotify::reader dev_reader_;
 };
 
 }
