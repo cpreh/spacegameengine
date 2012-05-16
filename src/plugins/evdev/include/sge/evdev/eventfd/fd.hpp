@@ -18,62 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-#define SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
+#ifndef SGE_EVDEV_EVENTFD_FD_HPP_INCLUDED
+#define SGE_EVDEV_EVENTFD_FD_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
-#include <sge/input/info/container_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
+#include <awl/backends/x11/event/fd/object.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
-namespace input
+namespace evdev
 {
-namespace info
+namespace eventfd
 {
 
-template<
-	typename Id,
-	typename Obj
->
-class container
+class fd
 {
-public:
-	typedef Id id;
-
-	typedef Obj object;
-
-	typedef std::vector<
-		Obj
-	> vector;
-
-	SGE_INPUT_SYMBOL
-	explicit container(
-		vector const &
+	FCPPT_NONCOPYABLE(
+		fd
 	);
+public:
+	fd();
 
-	SGE_INPUT_SYMBOL
-	Obj const &
-	operator[](
-		Id const &
-	) const;
+	~fd();
 
-	SGE_INPUT_SYMBOL
-	Id const
-	size() const;
-
-	SGE_INPUT_SYMBOL
-	bool
-	empty() const;
-
-	SGE_INPUT_SYMBOL
-	vector const &
+	awl::backends::x11::event::fd::object const
 	get() const;
 private:
-	vector vector_;
+	awl::backends::x11::event::fd::object const fd_;
 };
 
 }

@@ -18,66 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-#define SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-
-#include <sge/input/symbol.hpp>
-#include <sge/input/info/container_fwd.hpp>
+#include <sge/evdev/joypad/add.hpp>
+#include <sge/evdev/joypad/init.hpp>
+#include <sge/evdev/joypad/map.hpp>
+#include <sge/input/joypad/discover_signal.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+void
+sge::evdev::joypad::init(
+	sge::evdev::joypad::map &_map,
+	sge::input::joypad::discover_signal &_signal,
+	boost::filesystem::path const &_path
+)
 {
-namespace input
-{
-namespace info
-{
+	for(
+		boost::filesystem::directory_iterator it(
+			_path
+		);
+		it != boost::filesystem::directory_iterator();
+		++it
+	)
+	{
+		boost::filesystem::path const &cur(
+			it->path()
+		);
 
-template<
-	typename Id,
-	typename Obj
->
-class container
-{
-public:
-	typedef Id id;
+		if(
+			boost::filesystem::is_directory(
+				cur
+			)
+		)
+			continue;
 
-	typedef Obj object;
+		if(
+			!boost::algorithm::starts_with(
+				cur.string(),
+				"event"
+			)
+		)
+			continue;
 
-	typedef std::vector<
-		Obj
-	> vector;
-
-	SGE_INPUT_SYMBOL
-	explicit container(
-		vector const &
-	);
-
-	SGE_INPUT_SYMBOL
-	Obj const &
-	operator[](
-		Id const &
-	) const;
-
-	SGE_INPUT_SYMBOL
-	Id const
-	size() const;
-
-	SGE_INPUT_SYMBOL
-	bool
-	empty() const;
-
-	SGE_INPUT_SYMBOL
-	vector const &
-	get() const;
-private:
-	vector vector_;
-};
-
+		sge::evdev::joypad::add(
+			_map,
+			_signal,
+			cur
+		);
+	}
 }
-}
-}
-
-#endif

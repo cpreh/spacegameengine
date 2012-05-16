@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_PROCESSOR_HPP_INCLUDED
 #define SGE_EVDEV_PROCESSOR_HPP_INCLUDED
 
+#include <sge/evdev/eventfd/object_fwd.hpp>
 #include <sge/evdev/inotify/event_fwd.hpp>
-#include <sge/evdev/inotify/reader.hpp>
-#include <sge/evdev/joypad/object_fwd.hpp>
+#include <sge/evdev/inotify/reader_fwd.hpp>
+#include <sge/evdev/joypad/map.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
@@ -43,12 +44,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_signal.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
+#include <awl/backends/x11/system/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -113,6 +115,9 @@ private:
 	);
 
 	void
+	dev_init();
+
+	void
 	dev_event(
 		sge::evdev::inotify::event const &
 	);
@@ -133,16 +138,23 @@ private:
 
 	sge::input::joypad::remove_signal joypad_remove_;
 
-	typedef boost::ptr_map<
-		boost::filesystem::path,
-		sge::evdev::joypad::object
-	> joypad_map;
-
-	joypad_map joypads_;
+	sge::evdev::joypad::map joypads_;
 
 	boost::filesystem::path const path_;
 
-	sge::evdev::inotify::reader dev_reader_;
+	awl::backends::x11::system::event::processor &system_processor_;
+
+	typedef fcppt::scoped_ptr<
+		sge::evdev::eventfd::object
+	> eventfd_scoped_ptr;
+
+	eventfd_scoped_ptr eventfd_;
+
+	typedef fcppt::scoped_ptr<
+		sge::evdev::inotify::reader
+	> inotify_reader_scoped_ptr;
+
+	inotify_reader_scoped_ptr dev_reader_;
 };
 
 }

@@ -18,63 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-#define SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-
-#include <sge/input/symbol.hpp>
-#include <sge/input/info/container_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_EVDEV_EVENTFD_OBJECT_FWD_HPP_INCLUDED
+#define SGE_EVDEV_EVENTFD_OBJECT_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace input
+namespace evdev
 {
-namespace info
+namespace eventfd
 {
 
-template<
-	typename Id,
-	typename Obj
->
-class container
-{
-public:
-	typedef Id id;
-
-	typedef Obj object;
-
-	typedef std::vector<
-		Obj
-	> vector;
-
-	SGE_INPUT_SYMBOL
-	explicit container(
-		vector const &
-	);
-
-	SGE_INPUT_SYMBOL
-	Obj const &
-	operator[](
-		Id const &
-	) const;
-
-	SGE_INPUT_SYMBOL
-	Id const
-	size() const;
-
-	SGE_INPUT_SYMBOL
-	bool
-	empty() const;
-
-	SGE_INPUT_SYMBOL
-	vector const &
-	get() const;
-private:
-	vector vector_;
-};
+class object;
 
 }
 }

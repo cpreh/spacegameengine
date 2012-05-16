@@ -21,14 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_JOYPAD_OBJECT_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_OBJECT_HPP_INCLUDED
 
+#include <sge/evdev/joypad/fd_fwd.hpp>
+#include <sge/evdev/joypad/fd_unique_ptr.hpp>
 #include <sge/evdev/joypad/object_fwd.hpp>
 #include <sge/input/joypad/absolute_axis_callback.hpp>
+#include <sge/input/joypad/absolute_axis_signal.hpp>
 #include <sge/input/joypad/button_callback.hpp>
+#include <sge/input/joypad/button_signal.hpp>
 #include <sge/input/joypad/device.hpp>
-#include <sge/input/joypad/info_fwd.hpp>
+#include <sge/input/joypad/info.hpp>
 #include <sge/input/joypad/relative_axis_callback.hpp>
+#include <sge/input/joypad/relative_axis_signal.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
+#include <fcppt/signal/object_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -46,7 +56,10 @@ class object
 		object
 	);
 public:
-	object();
+	object(
+		sge::evdev::joypad::fd_unique_ptr,
+		sge::input::joypad::info const &
+	);
 
 	~object();
 private:
@@ -67,6 +80,20 @@ private:
 
 	sge::input::joypad::info const &
 	info() const;
+
+	typedef fcppt::scoped_ptr<
+		sge::evdev::joypad::fd
+	> fd_scoped_ptr;
+
+	fd_scoped_ptr const fd_;
+
+	sge::input::joypad::info const info_;
+
+	sge::input::joypad::absolute_axis_signal absolute_axis_;
+
+	sge::input::joypad::button_signal button_;
+
+	sge::input::joypad::relative_axis_signal relative_axis_;
 };
 
 }

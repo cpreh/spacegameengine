@@ -18,66 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-#define SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-
-#include <sge/input/symbol.hpp>
-#include <sge/input/info/container_fwd.hpp>
+#include <sge/evdev/joypad/create_fd.hpp>
+#include <sge/evdev/joypad/fd.hpp>
+#include <sge/evdev/joypad/fd_unique_ptr.hpp>
+#include <sge/input/exception.hpp>
+#include <sge/log/global.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/error.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::evdev::joypad::fd_unique_ptr
+sge::evdev::joypad::create_fd(
+	boost::filesystem::path const &_path
+)
+try
 {
-namespace input
+	return
+		fcppt::make_unique_ptr<
+			sge::evdev::joypad::fd
+		>(
+			_path
+		);
+}
+catch(
+	sge::input::exception const &_error
+)
 {
-namespace info
-{
-
-template<
-	typename Id,
-	typename Obj
->
-class container
-{
-public:
-	typedef Id id;
-
-	typedef Obj object;
-
-	typedef std::vector<
-		Obj
-	> vector;
-
-	SGE_INPUT_SYMBOL
-	explicit container(
-		vector const &
+	FCPPT_LOG_ERROR(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("Failed to add evdev device: ")
+			<< _error.string()
 	);
 
-	SGE_INPUT_SYMBOL
-	Obj const &
-	operator[](
-		Id const &
-	) const;
-
-	SGE_INPUT_SYMBOL
-	Id const
-	size() const;
-
-	SGE_INPUT_SYMBOL
-	bool
-	empty() const;
-
-	SGE_INPUT_SYMBOL
-	vector const &
-	get() const;
-private:
-	vector vector_;
-};
-
+	return
+		sge::evdev::joypad::fd_unique_ptr();
 }
-}
-}
-
-#endif

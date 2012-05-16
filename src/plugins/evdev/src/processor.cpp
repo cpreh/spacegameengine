@@ -19,9 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/evdev/processor.hpp>
+#include <sge/evdev/eventfd/callback.hpp>
+#include <sge/evdev/eventfd/object.hpp>
 #include <sge/evdev/inotify/callback.hpp>
 #include <sge/evdev/inotify/event.hpp>
+#include <sge/evdev/inotify/event_type.hpp>
+#include <sge/evdev/inotify/reader.hpp>
+#include <sge/evdev/joypad/add.hpp>
+#include <sge/evdev/joypad/init.hpp>
 #include <sge/evdev/joypad/object.hpp>
+#include <sge/evdev/joypad/remove.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
@@ -34,6 +41,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -57,22 +68,31 @@ sge::evdev::processor::processor(
 	path_(
 		"/dev/input"
 	),
-	dev_reader_(
-		path_,
+	system_processor_(
 		dynamic_cast<
 			awl::backends::x11::system::event::processor &
 		>(
 			_window_system.awl_system_event_processor()
-		),
-		sge::evdev::inotify::callback(
-			std::tr1::bind(
-				&sge::evdev::processor::dev_event,
-				this,
-				std::tr1::placeholders::_1
+		)
+	),
+	eventfd_(
+		fcppt::make_unique_ptr<
+			sge::evdev::eventfd::object
+		>(
+			fcppt::ref(
+				system_processor_
+			),
+			sge::evdev::eventfd::callback(
+				std::tr1::bind(
+					&sge::evdev::processor::dev_init,
+					this
+				)
 			)
 		)
-	)
+	),
+	dev_reader_()
 {
+	//eventfd_->write();
 }
 
 sge::evdev::processor::~processor()
@@ -168,8 +188,59 @@ sge::evdev::processor::joypad_remove_callback(
 }
 
 void
+sge::evdev::processor::dev_init()
+{
+	dev_reader_.take(
+		fcppt::make_unique_ptr<
+			sge::evdev::inotify::reader
+		>(
+			fcppt::cref(
+				path_
+			),
+			fcppt::ref(
+				system_processor_
+			),
+			sge::evdev::inotify::callback(
+				std::tr1::bind(
+					&sge::evdev::processor::dev_event,
+					this,
+					std::tr1::placeholders::_1
+				)
+			)
+		)
+	);
+
+	sge::evdev::joypad::init(
+		joypads_,
+		joypad_discover_,
+		path_
+	);
+}
+
+void
 sge::evdev::processor::dev_event(
 	sge::evdev::inotify::event const &_event
 )
 {
+	switch(
+		_event.event_type()
+	)
+	{
+	case sge::evdev::inotify::event_type::add:
+		sge::evdev::joypad::add(
+			joypads_,
+			joypad_discover_,
+			_event.path()
+		);
+		return;
+	case sge::evdev::inotify::event_type::remove:
+		sge::evdev::joypad::remove(
+			joypads_,
+			joypad_remove_,
+			_event.path()
+		);
+		return;
+	}
+
+	FCPPT_ASSERT_UNREACHABLE;
 }

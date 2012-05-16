@@ -18,66 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-#define SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-
-#include <sge/input/symbol.hpp>
-#include <sge/input/info/container_fwd.hpp>
+#include <sge/evdev/eventfd/callback.hpp>
+#include <sge/evdev/eventfd/object.hpp>
+#include <awl/backends/x11/system/event/processor.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/function/object.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <boost/cstdint.hpp>
+#include <unistd.h>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::evdev::eventfd::object::object(
+	awl::backends::x11::system::event::processor &_processor,
+	sge::evdev::eventfd::callback const &_callback
+)
+:
+	fd_(),
+	fd_connection_(
+		_processor.register_fd_callback(
+			fd_.get(),
+			std::tr1::bind(
+				_callback
+			)
+		)
+	)
 {
-namespace input
+}
+
+
+sge::evdev::eventfd::object::~object()
 {
-namespace info
+}
+
+void
+sge::evdev::eventfd::object::write()
 {
+	typedef boost::uint64_t value_type;
 
-template<
-	typename Id,
-	typename Obj
->
-class container
-{
-public:
-	typedef Id id;
-
-	typedef Obj object;
-
-	typedef std::vector<
-		Obj
-	> vector;
-
-	SGE_INPUT_SYMBOL
-	explicit container(
-		vector const &
+	value_type const value(
+		1u
 	);
 
-	SGE_INPUT_SYMBOL
-	Obj const &
-	operator[](
-		Id const &
-	) const;
-
-	SGE_INPUT_SYMBOL
-	Id const
-	size() const;
-
-	SGE_INPUT_SYMBOL
-	bool
-	empty() const;
-
-	SGE_INPUT_SYMBOL
-	vector const &
-	get() const;
-private:
-	vector vector_;
-};
-
+	FCPPT_ASSERT_ERROR(
+		::write(
+			fd_.get().get(),
+			&value,
+			sizeof(
+				value_type
+			)
+		)
+		==
+		sizeof(
+			value_type
+		)
+	);
 }
-}
-}
-
-#endif

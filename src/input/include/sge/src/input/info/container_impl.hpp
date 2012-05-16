@@ -82,6 +82,22 @@ template<
 	typename Id,
 	typename Obj
 >
+bool
+sge::input::info::container<
+	Id,
+	Obj
+>::empty() const
+{
+	return
+		vector_.size()
+		==
+		0u;
+}
+
+template<
+	typename Id,
+	typename Obj
+>
 typename sge::input::info::container<
 	Id,
 	Obj

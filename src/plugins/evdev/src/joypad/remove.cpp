@@ -18,66 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-#define SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-
-#include <sge/input/symbol.hpp>
-#include <sge/input/info/container_fwd.hpp>
+#include <sge/evdev/joypad/map.hpp>
+#include <sge/evdev/joypad/object.hpp>
+#include <sge/evdev/joypad/remove.hpp>
+#include <sge/input/joypad/remove_event.hpp>
+#include <sge/input/joypad/remove_signal.hpp>
+#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+void
+sge::evdev::joypad::remove(
+	sge::evdev::joypad::map &_map,
+	sge::input::joypad::remove_signal &_signal,
+	boost::filesystem::path const &_path
+)
 {
-namespace input
-{
-namespace info
-{
-
-template<
-	typename Id,
-	typename Obj
->
-class container
-{
-public:
-	typedef Id id;
-
-	typedef Obj object;
-
-	typedef std::vector<
-		Obj
-	> vector;
-
-	SGE_INPUT_SYMBOL
-	explicit container(
-		vector const &
+	sge::evdev::joypad::map::iterator const it(
+		_map.find(
+			_path
+		)
 	);
 
-	SGE_INPUT_SYMBOL
-	Obj const &
-	operator[](
-		Id const &
-	) const;
+	if(
+		it == _map.end()
+	)
+		return;
 
-	SGE_INPUT_SYMBOL
-	Id const
-	size() const;
+	_signal(
+		sge::input::joypad::remove_event(
+			*it->second
+		)
+	);
 
-	SGE_INPUT_SYMBOL
-	bool
-	empty() const;
-
-	SGE_INPUT_SYMBOL
-	vector const &
-	get() const;
-private:
-	vector vector_;
-};
-
+	_map.erase(
+		it
+	);
 }
-}
-}
-
-#endif

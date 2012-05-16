@@ -18,66 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-#define SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
-
-#include <sge/input/symbol.hpp>
-#include <sge/input/info/container_fwd.hpp>
+#include <sge/evdev/eventfd/fd.hpp>
+#include <sge/input/exception.hpp>
+#include <awl/backends/x11/event/fd/object.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <sys/eventfd.h>
+#include <unistd.h>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::evdev::eventfd::fd::fd()
+:
+	fd_(
+		::eventfd(
+			0u,
+			0
+		)
+	)
 {
-namespace input
+	if(
+		fd_.get() == -1
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("eventfd failed")
+		);
+}
+
+
+sge::evdev::eventfd::fd::~fd()
 {
-namespace info
-{
-
-template<
-	typename Id,
-	typename Obj
->
-class container
-{
-public:
-	typedef Id id;
-
-	typedef Obj object;
-
-	typedef std::vector<
-		Obj
-	> vector;
-
-	SGE_INPUT_SYMBOL
-	explicit container(
-		vector const &
+	::close(
+		fd_.get()
 	);
-
-	SGE_INPUT_SYMBOL
-	Obj const &
-	operator[](
-		Id const &
-	) const;
-
-	SGE_INPUT_SYMBOL
-	Id const
-	size() const;
-
-	SGE_INPUT_SYMBOL
-	bool
-	empty() const;
-
-	SGE_INPUT_SYMBOL
-	vector const &
-	get() const;
-private:
-	vector vector_;
-};
-
-}
-}
 }
 
-#endif
+awl::backends::x11::event::fd::object const
+sge::evdev::eventfd::fd::get() const
+{
+	return
+		fd_;
+}

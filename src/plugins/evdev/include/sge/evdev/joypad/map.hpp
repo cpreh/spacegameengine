@@ -18,19 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_INOTIFY_READER_HPP_INCLUDED
-#define SGE_EVDEV_INOTIFY_READER_HPP_INCLUDED
+#ifndef SGE_EVDEV_JOYPAD_MAP_HPP_INCLUDED
+#define SGE_EVDEV_JOYPAD_MAP_HPP_INCLUDED
 
-#include <sge/evdev/inotify/callback.hpp>
-#include <sge/evdev/inotify/object.hpp>
-#include <sge/evdev/inotify/reader_fwd.hpp>
-#include <sge/evdev/inotify/watch.hpp>
-#include <awl/backends/x11/event/fd/event_fwd.hpp>
-#include <awl/backends/x11/system/event/processor_fwd.hpp>
-#include <fcppt/function/object.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <sge/evdev/joypad/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,36 +32,13 @@ namespace sge
 {
 namespace evdev
 {
-namespace inotify
+namespace joypad
 {
 
-class reader
-{
-	FCPPT_NONCOPYABLE(
-		reader
-	);
-public:
-	reader(
-		boost::filesystem::path const &,
-		awl::backends::x11::system::event::processor &,
-		sge::evdev::inotify::callback const &
-	);
-
-	~reader();
-private:
-	void
-	on_read(
-		awl::backends::x11::event::fd::event const &
-	);
-
-	sge::evdev::inotify::object const object_;
-
-	sge::evdev::inotify::watch const watch_;
-
-	fcppt::signal::scoped_connection const fd_connection_;
-
-	sge::evdev::inotify::callback const callback_;
-};
+typedef boost::ptr_map<
+	boost::filesystem::path,
+	sge::evdev::joypad::object
+> map;
 
 }
 }
