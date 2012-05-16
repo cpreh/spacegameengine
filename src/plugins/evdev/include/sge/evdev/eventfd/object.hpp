@@ -51,6 +51,9 @@ public:
 
 	void
 	write();
+
+	void
+	read();
 private:
 	sge::evdev::eventfd::fd const fd_;
 

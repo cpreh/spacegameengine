@@ -49,13 +49,13 @@ sge::evdev::joypad::fd::fd(
 		fd_.get() == -1
 	)
 		throw sge::input::exception(
-			FCPPT_TEXT("Opening ")
+			FCPPT_TEXT("Opening \"")
 			+
 			fcppt::filesystem::path_to_string(
 				_path
 			)
 			+
-			FCPPT_TEXT("failed: ")
+			FCPPT_TEXT("\" failed: ")
 			+
 			fcppt::error::strerrno()
 		);

@@ -57,7 +57,7 @@ sge::evdev::joypad::init(
 
 		if(
 			!boost::algorithm::starts_with(
-				cur.string(),
+				cur.filename().string(),
 				"event"
 			)
 		)

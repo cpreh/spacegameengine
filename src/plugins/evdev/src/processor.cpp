@@ -92,7 +92,7 @@ sge::evdev::processor::processor(
 	),
 	dev_reader_()
 {
-	//eventfd_->write();
+	eventfd_->write();
 }
 
 sge::evdev::processor::~processor()
@@ -190,6 +190,8 @@ sge::evdev::processor::joypad_remove_callback(
 void
 sge::evdev::processor::dev_init()
 {
+	eventfd_->read();
+
 	dev_reader_.take(
 		fcppt::make_unique_ptr<
 			sge::evdev::inotify::reader

@@ -30,6 +30,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <unistd.h>
 #include <fcppt/config/external_end.hpp>
 
+namespace
+{
+
+typedef boost::uint64_t value_type;
+
+value_type const value(
+	1u
+);
+
+}
 
 sge::evdev::eventfd::object::object(
 	awl::backends::x11::system::event::processor &_processor,
@@ -56,12 +66,6 @@ sge::evdev::eventfd::object::~object()
 void
 sge::evdev::eventfd::object::write()
 {
-	typedef boost::uint64_t value_type;
-
-	value_type const value(
-		1u
-	);
-
 	FCPPT_ASSERT_ERROR(
 		::write(
 			fd_.get().get(),
@@ -71,8 +75,42 @@ sge::evdev::eventfd::object::write()
 			)
 		)
 		==
-		sizeof(
-			value_type
+		static_cast<
+			ssize_t
+		>(
+			sizeof(
+				value_type
+			)
 		)
+	);
+}
+
+void
+sge::evdev::eventfd::object::read()
+{
+	value_type ret;
+
+	FCPPT_ASSERT_ERROR(
+		::read(
+			fd_.get().get(),
+			&ret,
+			sizeof(
+				value_type
+			)
+		)
+		==
+		static_cast<
+			ssize_t
+		>(
+			sizeof(
+				value_type
+			)
+		)
+	);
+
+	FCPPT_ASSERT_ERROR(
+		ret
+		==
+		value
 	);
 }
