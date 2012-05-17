@@ -27,13 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::x11input::device::info::multi::multi(
-	awl::backends::x11::display &_display,
-	x11input::device::id const _id
+	awl::backends::x11::display &_display
 )
 :
 	info_base_(
 		_display,
-		_id
+		sge::x11input::device::id(
+			XIAllDevices
+		)
 	)
 {
 }

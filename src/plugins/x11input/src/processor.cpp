@@ -341,10 +341,7 @@ sge::x11input::processor::processor(
 	)
 {
 	x11input::device::info::multi const current_devices(
-		x11_window_.display(),
-		x11input::device::id(
-			XIAllDevices
-		)
+		x11_window_.display()
 	);
 
 	for(

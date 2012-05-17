@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/manager/config_base.hpp>
 #include <sge/x11input/device/manager/config_map.hpp>
 #include <sge/x11input/device/manager/object.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/discard.hpp>
+#include <awl/backends/x11/display.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/log/debug.hpp>
@@ -89,8 +91,11 @@ sge::x11input::device::manager::object::change(
 	);
 
 	if(
-		(_info.flags & XIMasterAdded)
-		|| (_info.flags & XISlaveAdded)
+		(
+			(_info.flags & XIMasterAdded)
+			||
+			(_info.flags & XISlaveAdded)
+		)
 	)
 	{
 		x11input::device::use const device_use(
@@ -112,6 +117,23 @@ sge::x11input::device::manager::object::change(
 		);
 
 		if(
+			device_info.get()
+			==
+			fcppt::null_ptr()
+		)
+		{
+			FCPPT_LOG_DEBUG(
+				sge::log::global(),
+				fcppt::log::_
+					<< FCPPT_TEXT("x11input: Device with id: ")
+					<< device_id
+					<< FCPPT_TEXT(" seems to have already disappeared.")
+			);
+
+			return;
+		}
+
+		if(
 			this->update(
 				device_use,
 				std::tr1::bind(
@@ -119,7 +141,7 @@ sge::x11input::device::manager::object::change(
 					std::tr1::placeholders::_1,
 					x11input::create_parameters(
 						device_id,
-						device_info.get()
+						*device_info.get()
 					)
 				)
 			)
@@ -173,6 +195,12 @@ sge::x11input::device::manager::object::change(
 			it
 		);
 	}
+
+	display_.sync(
+		awl::backends::x11::discard(
+			false
+		)
+	);
 }
 
 void
