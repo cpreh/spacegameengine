@@ -54,7 +54,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/raw_demuxer.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/manager/object.hpp>
-#include <sge/x11input/joypad/device_unique_ptr.hpp>
 #include <sge/x11input/keyboard/device_unique_ptr.hpp>
 #include <sge/x11input/mouse/device_unique_ptr.hpp>
 #include <awl/backends/x11/atom.hpp>
@@ -151,11 +150,6 @@ private:
 
 	sge::x11input::cursor::object_unique_ptr
 	create_cursor(
-		x11input::create_parameters const &
-	);
-
-	sge::x11input::joypad::device_unique_ptr
-	create_joypad(
 		x11input::create_parameters const &
 	);
 

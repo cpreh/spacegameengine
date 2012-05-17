@@ -18,6 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/processor.hpp>
+#include <sge/input/cursor/discover_callback.hpp>
+#include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/joypad/discover_callback.hpp>
+#include <sge/input/joypad/remove_callback.hpp>
+#include <sge/input/keyboard/discover_callback.hpp>
+#include <sge/input/keyboard/remove_callback.hpp>
+#include <sge/input/mouse/discover_callback.hpp>
+#include <sge/input/mouse/remove_callback.hpp>
 #include <sge/log/global.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
@@ -36,12 +45,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/info/multi.hpp>
 #include <sge/x11input/device/manager/config_map.hpp>
 #include <sge/x11input/device/manager/make_config.hpp>
-#include <sge/x11input/joypad/device.hpp>
-#include <sge/x11input/joypad/is_usable.hpp>
 #include <sge/x11input/keyboard/device.hpp>
 #include <sge/x11input/mouse/device.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/intern_atom.hpp>
+#include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/backends/x11/window/root.hpp>
@@ -218,24 +226,6 @@ sge::x11input::processor::processor(
 					mouse_remove_,
 					std::tr1::bind(
 						&x11input::processor::create_mouse,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-		(
-			std::make_pair(
-				x11input::device::use(
-					XIFloatingSlave
-				),
-				device::manager::make_config<
-					sge::x11input::joypad::device
-				>(
-					joypad_discover_,
-					joypad_remove_,
-					std::tr1::bind(
-						&x11input::processor::create_joypad,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -529,28 +519,6 @@ sge::x11input::processor::create_cursor(
 			invisible_cursor_.get(),
 			cursor_manager_.entered()
 		);
-}
-
-sge::x11input::joypad::device_unique_ptr
-sge::x11input::processor::create_joypad(
-	x11input::create_parameters const &_param
-)
-{
-	return
-		joypad::is_usable(
-			_param.info()
-		)
-		?
-			fcppt::make_unique_ptr<
-				x11input::joypad::device
-			>(
-				this->device_parameters(
-					_param
-				)
-			)
-		:
-			x11input::joypad::device_unique_ptr()
-		;
 }
 
 void
