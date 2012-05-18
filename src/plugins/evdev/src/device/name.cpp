@@ -18,42 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_JOYPAD_INFO_HPP_INCLUDED
-#define SGE_EVDEV_JOYPAD_INFO_HPP_INCLUDED
+#include <sge/input/exception.hpp>
+#include <sge/input/info/name.hpp>
+#include <sge/evdev/device/fd.hpp>
+#include <sge/evdev/device/name.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/container/array_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <linux/input.h>
+#include <sys/ioctl.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/evdev/joypad/event_map.hpp>
-#include <sge/evdev/joypad/info_fwd.hpp>
-#include <sge/input/joypad/info.hpp>
 
-
-namespace sge
+sge::input::info::name const
+sge::evdev::device::name(
+	sge::evdev::device::fd const &_fd
+)
 {
-namespace evdev
-{
-namespace joypad
-{
+	typedef fcppt::container::array<
+		char,
+		1024
+	> buffer_type;
 
-class info
-{
-public:
-	info(
-		sge::input::joypad::info const &,
-		sge::evdev::joypad::event_map const &
-	);
+	buffer_type buffer;
 
-	sge::input::joypad::info const &
-	input_info() const;
+	if(
+		::ioctl(
+			_fd.get().get(),
+			EVIOCGNAME(
+				buffer.size() - 1
+			)
+			,
+			buffer.data()
+		)
+		==
+		-1
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("ioctl EVIOCGNAME failed")
+		);
 
-	sge::evdev::joypad::event_map const &
-	event_map() const;
-private:
-	sge::input::joypad::info input_info_;
-
-	sge::evdev::joypad::event_map event_map_;
-};
-
+	return
+		sge::input::info::name(
+			fcppt::from_std_string(
+				buffer.data()
+			)
+		);
 }
-}
-}
-
-#endif

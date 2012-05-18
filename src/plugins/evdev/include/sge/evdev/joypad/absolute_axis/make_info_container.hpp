@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_JOYPAD_FD_FWD_HPP_INCLUDED
-#define SGE_EVDEV_JOYPAD_FD_FWD_HPP_INCLUDED
+#ifndef SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_MAKE_INFO_CONTAINER_HPP_INCLUDED
+#define SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_MAKE_INFO_CONTAINER_HPP_INCLUDED
+
+#include <sge/evdev/device/fd_fwd.hpp>
+#include <sge/evdev/joypad/absolute_axis/info_container_fwd.hpp>
 
 
 namespace sge
@@ -28,9 +31,15 @@ namespace evdev
 {
 namespace joypad
 {
+namespace absolute_axis
+{
 
-class fd;
+sge::evdev::joypad::absolute_axis::info_container const
+make_info_container(
+	sge::evdev::device::fd const &
+);
 
+}
 }
 }
 }

@@ -1,5 +1,19 @@
 set(
 	SGE_EVDEV_FILES
+	src/plugins/evdev/include/sge/evdev/device/basic_info_decl.hpp
+	src/plugins/evdev/include/sge/evdev/device/basic_info_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/device/basic_info_impl.hpp
+	src/plugins/evdev/include/sge/evdev/device/create_fd.hpp
+	src/plugins/evdev/include/sge/evdev/device/event_map.hpp
+	src/plugins/evdev/include/sge/evdev/device/event_type.hpp
+	src/plugins/evdev/include/sge/evdev/device/event_type_value.hpp
+	src/plugins/evdev/include/sge/evdev/device/fd.hpp
+	src/plugins/evdev/include/sge/evdev/device/fd_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/device/fd_unique_ptr.hpp
+	src/plugins/evdev/include/sge/evdev/device/make_info_container.hpp
+	src/plugins/evdev/include/sge/evdev/device/name.hpp
+	src/plugins/evdev/include/sge/evdev/device/read_bits.hpp
+	src/plugins/evdev/include/sge/evdev/device/read_bits_result.hpp
 	src/plugins/evdev/include/sge/evdev/eventfd/callback.hpp
 	src/plugins/evdev/include/sge/evdev/eventfd/fd.hpp
 	src/plugins/evdev/include/sge/evdev/eventfd/object.hpp
@@ -15,19 +29,28 @@ set(
 	src/plugins/evdev/include/sge/evdev/inotify/reader_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/watch.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/watch_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/info_container.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/info_container_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_code.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_info.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_info_container.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/add.hpp
-	src/plugins/evdev/include/sge/evdev/joypad/create_fd.hpp
-	src/plugins/evdev/include/sge/evdev/joypad/fd.hpp
-	src/plugins/evdev/include/sge/evdev/joypad/fd_fwd.hpp
-	src/plugins/evdev/include/sge/evdev/joypad/fd_unique_ptr.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/button/info_container.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/event_map.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/info.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/info_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/init.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/make_info.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/map.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/object.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/object_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/relative_axis/info_container.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/remove.hpp
 	src/plugins/evdev/include/sge/evdev/processor.hpp
 	src/plugins/evdev/include/sge/evdev/system.hpp
+	src/plugins/evdev/src/device/create_fd.cpp
+	src/plugins/evdev/src/device/fd.cpp
+	src/plugins/evdev/src/device/name.cpp
 	src/plugins/evdev/src/eventfd/fd.cpp
 	src/plugins/evdev/src/eventfd/object.cpp
 	src/plugins/evdev/src/exports.cpp
@@ -36,11 +59,14 @@ set(
 	src/plugins/evdev/src/inotify/object.cpp
 	src/plugins/evdev/src/inotify/reader.cpp
 	src/plugins/evdev/src/inotify/watch.cpp
+	src/plugins/evdev/src/joypad/absolute_axis/info_container.cpp
+	src/plugins/evdev/src/joypad/absolute_axis/make_code.cpp
+	src/plugins/evdev/src/joypad/absolute_axis/make_info.cpp
+	src/plugins/evdev/src/joypad/absolute_axis/make_info_container.cpp
 	src/plugins/evdev/src/joypad/add.cpp
-	src/plugins/evdev/src/joypad/create_fd.cpp
-	src/plugins/evdev/src/joypad/fd.cpp
 	src/plugins/evdev/src/joypad/info.cpp
 	src/plugins/evdev/src/joypad/init.cpp
+	src/plugins/evdev/src/joypad/make_info.cpp
 	src/plugins/evdev/src/joypad/object.cpp
 	src/plugins/evdev/src/joypad/remove.cpp
 	src/plugins/evdev/src/processor.cpp

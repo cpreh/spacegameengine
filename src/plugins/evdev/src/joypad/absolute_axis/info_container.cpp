@@ -18,26 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_JOYPAD_FD_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_EVDEV_JOYPAD_FD_UNIQUE_PTR_HPP_INCLUDED
-
-#include <sge/evdev/joypad/fd_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <sge/evdev/device/basic_info_impl.hpp>
+#include <sge/input/joypad/absolute_axis_id.hpp>
+#include <sge/input/joypad/absolute_axis_info.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-
-typedef fcppt::unique_ptr<
-	sge::evdev::joypad::fd
-> fd_unique_ptr;
-
-}
-}
-}
-
-#endif
+template
+class
+sge::evdev::device::basic_info<
+	sge::input::joypad::absolute_axis_id,
+	sge::input::joypad::absolute_axis_info
+>;

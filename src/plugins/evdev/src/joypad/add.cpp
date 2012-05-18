@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/evdev/device/create_fd.hpp>
+#include <sge/evdev/device/fd.hpp>
+#include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/joypad/add.hpp>
-#include <sge/evdev/joypad/create_fd.hpp>
-#include <sge/evdev/joypad/fd.hpp>
-#include <sge/evdev/joypad/fd_unique_ptr.hpp>
 #include <sge/evdev/joypad/info.hpp>
+#include <sge/evdev/joypad/make_info.hpp>
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/input/joypad/discover_event.hpp>
@@ -45,29 +46,27 @@ sge::evdev::joypad::add(
 	boost::filesystem::path const &_path
 )
 {
-	sge::evdev::joypad::fd_unique_ptr fd(
-		sge::evdev::joypad::create_fd(
+	sge::evdev::device::fd_unique_ptr fd(
+		sge::evdev::device::create_fd(
 			_path
 		)
 	);
 
+	return;
+/*
 	if(
 		!fd
 	)
 		return;
 
-	sge::input::joypad::info const info(
-		sge::evdev::joypad::info(
+	sge::evdev::joypad::info const info_value(
+		sge::evdev::joypad::make_info(
 			*fd
 		)
 	);
 
 	if(
-		info.absolute_axis().empty()
-		&&
-		info.buttons().empty()
-		&&
-		info.relative_axis().empty()
+		info_value.info_container().buttons().empty()
 	)
 		return;
 
@@ -87,7 +86,7 @@ sge::evdev::joypad::add(
 					fd
 				),
 				fcppt::cref(
-					info
+					info_value
 				)
 			)
 		)
@@ -102,5 +101,5 @@ sge::evdev::joypad::add(
 			*ret.first->second
 		)
 	);
-
+*/
 }

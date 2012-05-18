@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/joypad/fd.hpp>
+#include <sge/evdev/device/fd.hpp>
 #include <sge/input/exception.hpp>
 #include <awl/backends/x11/event/fd/object.hpp>
 #include <fcppt/text.hpp>
@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::evdev::joypad::fd::fd(
+sge::evdev::device::fd::fd(
 	boost::filesystem::path const &_path
 )
 :
@@ -61,7 +61,7 @@ sge::evdev::joypad::fd::fd(
 		);
 }
 
-sge::evdev::joypad::fd::~fd()
+sge::evdev::device::fd::~fd()
 {
 	::close(
 		fd_.get()
@@ -69,7 +69,7 @@ sge::evdev::joypad::fd::~fd()
 }
 
 awl::backends::x11::event::fd::object const
-sge::evdev::joypad::fd::get() const
+sge::evdev::device::fd::get() const
 {
 	return
 		fd_;

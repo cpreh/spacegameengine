@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_JOYPAD_CREATE_FD_HPP_INCLUDED
-#define SGE_EVDEV_JOYPAD_CREATE_FD_HPP_INCLUDED
+#ifndef SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_INFO_CONTAINER_FWD_HPP_INCLUDED
+#define SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_INFO_CONTAINER_FWD_HPP_INCLUDED
 
-#include <sge/evdev/joypad/fd_unique_ptr.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/evdev/device/basic_info_fwd.hpp>
+#include <sge/input/joypad/absolute_axis_id.hpp>
+#include <sge/input/joypad/absolute_axis_info_fwd.hpp>
 
 
 namespace sge
@@ -33,12 +32,15 @@ namespace evdev
 {
 namespace joypad
 {
+namespace absolute_axis
+{
 
-sge::evdev::joypad::fd_unique_ptr
-create_fd(
-	boost::filesystem::path const &
-);
+typedef sge::evdev::device::basic_info<
+	sge::input::joypad::absolute_axis_id,
+	sge::input::joypad::absolute_axis_info
+> info_container;
 
+}
 }
 }
 }

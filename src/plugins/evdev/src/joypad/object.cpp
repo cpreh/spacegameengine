@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/joypad/fd_unique_ptr.hpp>
-#include <sge/evdev/joypad/fd.hpp>
+#include <sge/evdev/device/fd_unique_ptr.hpp>
+#include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/input/joypad/absolute_axis_callback.hpp>
 #include <sge/input/joypad/button_callback.hpp>
@@ -37,8 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::evdev::joypad::object::object(
-	sge::evdev::joypad::fd_unique_ptr _fd,
-	sge::input::joypad::info const &_info
+	sge::evdev::device::fd_unique_ptr _fd,
+	sge::evdev::joypad::info const &_info
 )
 :
 	sge::input::joypad::device(),
@@ -97,5 +97,5 @@ sge::input::joypad::info const &
 sge::evdev::joypad::object::info() const
 {
 	return
-		info_;
+		info_.input_info();
 }

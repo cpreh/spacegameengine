@@ -18,14 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_JOYPAD_FD_HPP_INCLUDED
-#define SGE_EVDEV_JOYPAD_FD_HPP_INCLUDED
+#ifndef SGE_EVDEV_DEVICE_READ_BITS_HPP_INCLUDED
+#define SGE_EVDEV_DEVICE_READ_BITS_HPP_INCLUDED
 
-#include <sge/evdev/joypad/fd_fwd.hpp>
-#include <awl/backends/x11/event/fd/object.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/evdev/device/event_type_value.hpp>
+#include <sge/evdev/device/fd.hpp>
+#include <sge/evdev/device/read_bits_result.hpp>
+#include <sge/input/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <linux/input.h>
+#include <sys/ioctl.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,27 +37,45 @@ namespace sge
 {
 namespace evdev
 {
-namespace joypad
+namespace device
 {
 
-class fd
+template<
+	sge::evdev::device::event_type_value Count
+>
+typename sge::evdev::device::read_bits_result<
+	Count
+>::type const
+read_bits(
+	sge::evdev::device::fd const &_fd,
+	unsigned const _type
+)
 {
-	FCPPT_NONCOPYABLE(
-		fd
-	);
-public:
-	explicit
-	fd(
-		boost::filesystem::path const &
-	);
+	typedef typename sge::evdev::device::read_bits_result<
+		Count
+	>::type result_type;
 
-	~fd();
+	result_type result;
 
-	awl::backends::x11::event::fd::object const
-	get() const;
-private:
-	awl::backends::x11::event::fd::object const fd_;
-};
+	if(
+		::ioctl(
+			_fd.get().get(),
+			EVIOCGBIT(
+				_type,
+				result.size()
+			),
+			result.data()
+		)
+		==
+		-1
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("ioctl reading device capabilities failed!")
+		);
+
+	return
+		result;
+}
 
 }
 }

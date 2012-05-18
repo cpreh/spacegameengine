@@ -18,35 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/joypad/fd_fwd.hpp>
+#include <sge/evdev/joypad/event_map.hpp>
 #include <sge/evdev/joypad/info.hpp>
-#include <sge/input/info/name.hpp>
-#include <sge/input/joypad/absolute_axis_info_container.hpp>
-#include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/info.hpp>
-#include <sge/input/joypad/relative_axis_info_container.hpp>
-
-#include <fcppt/text.hpp>
 
 
-sge::input::joypad::info const
-sge::evdev::joypad::info(
-	sge::evdev::joypad::fd const &_fd
+sge::evdev::joypad::info::info(
+	sge::input::joypad::info const &_input_info,
+	sge::evdev::joypad::event_map const &_event_map
 )
+:
+	input_info_(
+		_input_info
+	),
+	event_map_(
+		_event_map
+	)
+{
+}
+
+sge::input::joypad::info const &
+sge::evdev::joypad::info::input_info() const
 {
 	return
-		sge::input::joypad::info(
-			sge::input::joypad::absolute_axis_info_container(
-				sge::input::joypad::absolute_axis_info_container::vector()
-			),
-			sge::input::joypad::button_info_container(
-				sge::input::joypad::button_info_container::vector()
-			),
-			sge::input::joypad::relative_axis_info_container(
-				sge::input::joypad::relative_axis_info_container::vector()
-			),
-			sge::input::info::name(
-				FCPPT_TEXT("TEST")
-			)
-		);
+		input_info_;
+}
+
+sge::evdev::joypad::event_map const &
+sge::evdev::joypad::info::event_map() const
+{
+	return
+		event_map_;
 }
