@@ -44,7 +44,7 @@ set(
 	src/plugins/evdev/include/sge/evdev/joypad/map.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/object.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/object_fwd.hpp
-	src/plugins/evdev/include/sge/evdev/joypad/relative_axis/info_container.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/relative_axis/make_info_container.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/remove.hpp
 	src/plugins/evdev/include/sge/evdev/processor.hpp
 	src/plugins/evdev/include/sge/evdev/system.hpp
