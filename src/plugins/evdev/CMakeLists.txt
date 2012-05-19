@@ -48,6 +48,7 @@ set(
 	src/plugins/evdev/include/sge/evdev/joypad/info.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/info_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/init.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/is_joypad.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/make_info.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/map.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/object.hpp
@@ -87,6 +88,7 @@ set(
 	src/plugins/evdev/src/joypad/event_map.cpp
 	src/plugins/evdev/src/joypad/info.cpp
 	src/plugins/evdev/src/joypad/init.cpp
+	src/plugins/evdev/src/joypad/is_joypad.cpp
 	src/plugins/evdev/src/joypad/make_info.cpp
 	src/plugins/evdev/src/joypad/object.cpp
 	src/plugins/evdev/src/joypad/relative_axis/info_container.cpp

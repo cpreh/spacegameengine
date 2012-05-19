@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/joypad/add.hpp>
 #include <sge/evdev/joypad/info.hpp>
+#include <sge/evdev/joypad/is_joypad.hpp>
 #include <sge/evdev/joypad/make_info.hpp>
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/evdev/joypad/object.hpp>
@@ -67,7 +68,9 @@ sge::evdev::joypad::add(
 	);
 
 	if(
-		info_value.input_info().buttons().empty()
+		!sge::evdev::joypad::is_joypad(
+			info_value
+		)
 	)
 		return;
 
