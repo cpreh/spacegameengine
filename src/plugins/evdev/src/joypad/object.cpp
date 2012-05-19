@@ -18,20 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/evdev/device/conditional_event.hpp>
 #include <sge/evdev/device/event.hpp>
 #include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/joypad/event_map.hpp>
 #include <sge/evdev/joypad/object.hpp>
-#include <sge/input/joypad/absolute_axis.hpp>
+#include <sge/evdev/joypad/absolute_axis/make_event.hpp>
+#include <sge/evdev/joypad/button/make_event.hpp>
+#include <sge/evdev/joypad/relative_axis/make_event.hpp>
 #include <sge/input/joypad/absolute_axis_callback.hpp>
 #include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/button_callback.hpp>
 #include <sge/input/joypad/button_event.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/info.hpp>
-#include <sge/input/joypad/relative_axis.hpp>
 #include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/relative_axis_event.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
@@ -119,124 +121,34 @@ sge::evdev::joypad::object::process_event(
 	)
 	{
 	case EV_ABS:
-		this->absolute_axis_event(
-			_event
+		sge::evdev::device::conditional_event(
+			_event,
+			absolute_axis_,
+			info_.event_map().absolute_axis(),
+			info_.input_info().absolute_axis(),
+			&sge::evdev::joypad::absolute_axis::make_event
 		);
 
 		break;
 	case EV_KEY:
-		this->button_event(
-			_event
+		sge::evdev::device::conditional_event(
+			_event,
+			button_,
+			info_.event_map().buttons(),
+			info_.input_info().buttons(),
+			&sge::evdev::joypad::button::make_event
 		);
 
 		break;
 	case EV_REL:
-		this->relative_axis_event(
-			_event
+		sge::evdev::device::conditional_event(
+			_event,
+			relative_axis_,
+			info_.event_map().relative_axis(),
+			info_.input_info().relative_axis(),
+			&sge::evdev::joypad::relative_axis::make_event
 		);
 
 		break;
 	}
-}
-
-void
-sge::evdev::joypad::object::absolute_axis_event(
-	sge::evdev::device::event const &_event
-)
-{
-	sge::evdev::joypad::event_map::absolute_axis_map const &map(
-		info_.event_map().absolute_axis()
-	);
-
-	sge::evdev::joypad::event_map::absolute_axis_map::const_iterator const it(
-		map.find(
-			sge::evdev::device::event_type(
-				_event.get().code
-			)
-		)
-	);
-
-	if(
-		it == map.end()
-	)
-		return;
-
-	absolute_axis_(
-		sge::input::joypad::absolute_axis_event(
-			sge::input::joypad::absolute_axis(
-				info_.input_info().absolute_axis()[
-					it->second
-				].code(),
-				it->second
-			),
-			_event.get().value
-		)
-	);
-}
-
-void
-sge::evdev::joypad::object::button_event(
-	sge::evdev::device::event const &_event
-)
-{
-	sge::evdev::joypad::event_map::button_map const &map(
-		info_.event_map().buttons()
-	);
-
-	sge::evdev::joypad::event_map::button_map::const_iterator const it(
-		map.find(
-			sge::evdev::device::event_type(
-				_event.get().code
-			)
-		)
-	);
-
-	if(
-		it == map.end()
-	)
-		return;
-
-	button_(
-		sge::input::joypad::button_event(
-			it->second,
-			_event.get().value != 0u
-		)
-	);
-
-}
-
-void
-sge::evdev::joypad::object::relative_axis_event(
-	sge::evdev::device::event const &_event
-)
-{
-	sge::evdev::joypad::event_map::relative_axis_map const &map(
-		info_.event_map().relative_axis()
-	);
-
-	sge::evdev::joypad::event_map::relative_axis_map::const_iterator const it(
-		map.find(
-			sge::evdev::device::event_type(
-				_event.get().code
-			)
-		)
-	);
-
-	if(
-		it == map.end()
-	)
-		return;
-
-	relative_axis_(
-		sge::input::joypad::relative_axis_event(
-			sge::input::joypad::relative_axis(
-				info_.input_info().relative_axis()[
-					it->second
-				].code(),
-				it->second
-			),
-			_event.get().value
-		)
-	);
-
 }

@@ -87,21 +87,6 @@ private:
 		sge::evdev::device::event const &
 	);
 
-	void
-	absolute_axis_event(
-		sge::evdev::device::event const &
-	);
-
-	void
-	button_event(
-		sge::evdev::device::event const &
-	);
-
-	void
-	relative_axis_event(
-		sge::evdev::device::event const &
-	);
-
 	sge::evdev::joypad::info const info_;
 
 	sge::input::joypad::absolute_axis_signal absolute_axis_;
