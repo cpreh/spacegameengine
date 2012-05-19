@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/make_info.hpp>
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/evdev/joypad/object.hpp>
+#include <sge/evdev/joypad/optional_info.hpp>
 #include <sge/input/joypad/discover_event.hpp>
 #include <sge/input/joypad/discover_signal.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
@@ -61,10 +62,19 @@ sge::evdev::joypad::add(
 	)
 		return;
 
-	sge::evdev::joypad::info const info_value(
+	sge::evdev::joypad::optional_info const opt_info(
 		sge::evdev::joypad::make_info(
 			*fd
 		)
+	);
+
+	if(
+		!opt_info
+	)
+		return;
+
+	sge::evdev::joypad::info const info_value(
+		*opt_info
 	);
 
 	if(

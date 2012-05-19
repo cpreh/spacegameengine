@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_JOYPAD_MAKE_INFO_HPP_INCLUDED
-#define SGE_EVDEV_JOYPAD_MAKE_INFO_HPP_INCLUDED
+#ifndef SGE_EVDEV_JOYPAD_OPTIONAL_INFO_FWD_HPP_INCLUDED
+#define SGE_EVDEV_JOYPAD_OPTIONAL_INFO_FWD_HPP_INCLUDED
 
-#include <sge/evdev/device/fd_fwd.hpp>
-#include <sge/evdev/joypad/optional_info_fwd.hpp>
+#include <sge/evdev/joypad/info_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
@@ -32,10 +32,9 @@ namespace evdev
 namespace joypad
 {
 
-sge::evdev::joypad::optional_info const
-make_info(
-	sge::evdev::device::fd const &
-);
+typedef fcppt::optional<
+	sge::evdev::joypad::info
+> optional_info;
 
 }
 }
