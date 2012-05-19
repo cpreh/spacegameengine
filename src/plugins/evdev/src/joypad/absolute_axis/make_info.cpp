@@ -47,7 +47,11 @@ sge::evdev::joypad::absolute_axis::make_info(
 		::ioctl(
 			_fd.get().get(),
 			EVIOCGABS(
-				_event.get()
+				static_cast<
+					unsigned
+				>(
+					_event.get()
+				)
 			),
 			&ret
 		)
