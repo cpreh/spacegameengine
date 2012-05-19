@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_DEVICE_EVENT_TYPE_VALUE_HPP_INCLUDED
 #define SGE_EVDEV_DEVICE_EVENT_TYPE_VALUE_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <boost/cstdint.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -29,7 +33,7 @@ namespace evdev
 namespace device
 {
 
-typedef int event_type_value;
+typedef boost::uint16_t event_type_value;
 
 }
 }

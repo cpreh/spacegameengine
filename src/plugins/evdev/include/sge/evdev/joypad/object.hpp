@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_JOYPAD_OBJECT_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_OBJECT_HPP_INCLUDED
 
-#include <sge/evdev/device/fd_fwd.hpp>
+#include <sge/evdev/device/event_fwd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
+#include <sge/evdev/device/object.hpp>
 #include <sge/evdev/joypad/info.hpp>
 #include <sge/evdev/joypad/object_fwd.hpp>
 #include <sge/input/joypad/absolute_axis_callback.hpp>
@@ -33,13 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/info_fwd.hpp>
 #include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/relative_axis_signal.hpp>
+#include <awl/backends/x11/system/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -51,13 +49,15 @@ namespace joypad
 
 class object
 :
-	public sge::input::joypad::device
+	public sge::input::joypad::device,
+	public sge::evdev::device::object
 {
 	FCPPT_NONCOPYABLE(
 		object
 	);
 public:
 	object(
+		awl::backends::x11::system::event::processor &,
 		sge::evdev::device::fd_unique_ptr,
 		sge::evdev::joypad::info const &
 	);
@@ -82,11 +82,25 @@ private:
 	sge::input::joypad::info const &
 	info() const;
 
-	typedef fcppt::scoped_ptr<
-		sge::evdev::device::fd
-	> fd_scoped_ptr;
+	void
+	process_event(
+		sge::evdev::device::event const &
+	);
 
-	fd_scoped_ptr const fd_;
+	void
+	absolute_axis_event(
+		sge::evdev::device::event const &
+	);
+
+	void
+	button_event(
+		sge::evdev::device::event const &
+	);
+
+	void
+	relative_axis_event(
+		sge::evdev::device::event const &
+	);
 
 	sge::evdev::joypad::info const info_;
 

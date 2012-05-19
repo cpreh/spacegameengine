@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/init.hpp>
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/input/joypad/discover_signal.hpp>
+#include <awl/backends/x11/system/event/processor_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -31,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::evdev::joypad::init(
+	awl::backends::x11::system::event::processor &_system_processor,
 	sge::evdev::joypad::map &_map,
 	sge::input::joypad::discover_signal &_signal,
 	boost::filesystem::path const &_path
@@ -64,6 +66,7 @@ sge::evdev::joypad::init(
 			continue;
 
 		sge::evdev::joypad::add(
+			_system_processor,
 			_map,
 			_signal,
 			cur

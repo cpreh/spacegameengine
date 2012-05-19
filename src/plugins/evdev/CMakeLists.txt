@@ -4,6 +4,8 @@ set(
 	src/plugins/evdev/include/sge/evdev/device/basic_info_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/device/basic_info_impl.hpp
 	src/plugins/evdev/include/sge/evdev/device/create_fd.hpp
+	src/plugins/evdev/include/sge/evdev/device/event.hpp
+	src/plugins/evdev/include/sge/evdev/device/event_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/device/event_map.hpp
 	src/plugins/evdev/include/sge/evdev/device/event_type.hpp
 	src/plugins/evdev/include/sge/evdev/device/event_type_value.hpp
@@ -12,6 +14,7 @@ set(
 	src/plugins/evdev/include/sge/evdev/device/fd_unique_ptr.hpp
 	src/plugins/evdev/include/sge/evdev/device/make_info_container.hpp
 	src/plugins/evdev/include/sge/evdev/device/name.hpp
+	src/plugins/evdev/include/sge/evdev/device/object.hpp
 	src/plugins/evdev/include/sge/evdev/device/read_bits.hpp
 	src/plugins/evdev/include/sge/evdev/device/read_bits_result.hpp
 	src/plugins/evdev/include/sge/evdev/eventfd/callback.hpp
@@ -59,8 +62,10 @@ set(
 	src/plugins/evdev/include/sge/evdev/processor.hpp
 	src/plugins/evdev/include/sge/evdev/system.hpp
 	src/plugins/evdev/src/device/create_fd.cpp
+	src/plugins/evdev/src/device/event.cpp
 	src/plugins/evdev/src/device/fd.cpp
 	src/plugins/evdev/src/device/name.cpp
+	src/plugins/evdev/src/device/object.cpp
 	src/plugins/evdev/src/eventfd/fd.cpp
 	src/plugins/evdev/src/eventfd/object.cpp
 	src/plugins/evdev/src/exports.cpp

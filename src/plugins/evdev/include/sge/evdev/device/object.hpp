@@ -18,31 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_JOYPAD_ADD_HPP_INCLUDED
-#define SGE_EVDEV_JOYPAD_ADD_HPP_INCLUDED
+#ifndef SGE_EVDEV_DEVICE_OBJECT_HPP_INCLUDED
+#define SGE_EVDEV_DEVICE_OBJECT_HPP_INCLUDED
 
-#include <sge/evdev/joypad/map.hpp>
-#include <sge/input/joypad/discover_signal.hpp>
+#include <sge/evdev/device/event_fwd.hpp>
+#include <sge/evdev/device/fd_fwd.hpp>
+#include <awl/backends/x11/event/fd/event_fwd.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 
 
 namespace sge
 {
 namespace evdev
 {
-namespace joypad
+namespace device
 {
 
-void
-add(
-	awl::backends::x11::system::event::processor &,
-	sge::evdev::joypad::map &,
-	sge::input::joypad::discover_signal &,
-	boost::filesystem::path const &
-);
+class object
+{
+	FCPPT_NONCOPYABLE(
+		object
+	);
+public:
+	object(
+		awl::backends::x11::system::event::processor &,
+		sge::evdev::device::fd_unique_ptr
+	);
+
+	virtual
+	~object() = 0;
+
+	void
+	on_event(
+		awl::backends::x11::event::fd::event const &
+	);
+private:
+	virtual
+	void
+	process_event(
+		sge::evdev::device::event const &
+	) = 0;
+
+	typedef fcppt::scoped_ptr<
+		sge::evdev::device::fd
+	> fd_scoped_ptr;
+
+	fd_scoped_ptr const fd_;
+
+	fcppt::signal::scoped_connection const scoped_connection_;
+};
 
 }
 }

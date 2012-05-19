@@ -213,6 +213,7 @@ sge::evdev::processor::dev_init()
 	);
 
 	sge::evdev::joypad::init(
+		system_processor_,
 		joypads_,
 		joypad_discover_,
 		path_
@@ -230,6 +231,7 @@ sge::evdev::processor::dev_event(
 	{
 	case sge::evdev::inotify::event_type::add:
 		sge::evdev::joypad::add(
+			system_processor_,
 			joypads_,
 			joypad_discover_,
 			path_

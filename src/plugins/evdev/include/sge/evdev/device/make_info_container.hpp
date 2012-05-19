@@ -77,7 +77,11 @@ make_info_container(
 
 	for(
 		sge::evdev::device::event_type index(
-			0
+			fcppt::strong_typedef_construct_cast<
+				sge::evdev::device::event_type
+			>(
+				0u
+			)
 		);
 		index.get() < bit_container::static_size::value;
 		++index

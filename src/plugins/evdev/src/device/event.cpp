@@ -18,34 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_JOYPAD_ADD_HPP_INCLUDED
-#define SGE_EVDEV_JOYPAD_ADD_HPP_INCLUDED
-
-#include <sge/evdev/joypad/map.hpp>
-#include <sge/input/joypad/discover_signal.hpp>
-#include <awl/backends/x11/system/event/processor_fwd.hpp>
+#include <sge/evdev/device/event.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <linux/input.h>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::evdev::device::event::event(
+	input_event const &_event
+)
+:
+	event_(
+		_event
+	)
 {
-namespace evdev
-{
-namespace joypad
-{
-
-void
-add(
-	awl::backends::x11::system::event::processor &,
-	sge::evdev::joypad::map &,
-	sge::input::joypad::discover_signal &,
-	boost::filesystem::path const &
-);
-
-}
-}
 }
 
-#endif
+input_event const &
+sge::evdev::device::event::get() const
+{
+	return
+		event_;
+}

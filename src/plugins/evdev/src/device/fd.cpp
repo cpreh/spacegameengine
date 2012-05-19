@@ -40,8 +40,7 @@ sge::evdev::device::fd::fd(
 	fd_(
 		::open(
 			_path.string().c_str(),
-			0,
-			O_RDONLY
+			O_RDONLY | O_NONBLOCK
 		)
 	)
 {
