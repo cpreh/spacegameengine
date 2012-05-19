@@ -3,6 +3,7 @@ set(
 	src/plugins/evdev/include/sge/evdev/device/basic_info_decl.hpp
 	src/plugins/evdev/include/sge/evdev/device/basic_info_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/device/basic_info_impl.hpp
+	src/plugins/evdev/include/sge/evdev/device/code_to_string_case.hpp
 	src/plugins/evdev/include/sge/evdev/device/create_fd.hpp
 	src/plugins/evdev/include/sge/evdev/device/event.hpp
 	src/plugins/evdev/include/sge/evdev/device/event_fwd.hpp

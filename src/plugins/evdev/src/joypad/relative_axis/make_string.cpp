@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/evdev/device/code_to_string_case.hpp>
 #include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/joypad/relative_axis/make_string.hpp>
 #include <sge/input/info/optional_string.hpp>
@@ -32,49 +33,38 @@ sge::evdev::joypad::relative_axis::make_string(
 	sge::evdev::device::event_type const _event
 )
 {
-#define SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_CASE(\
-	value\
-)\
-case value:\
-	return \
-		sge::input::info::optional_string(\
-			FCPPT_PP_STRINGIZE(\
-				value\
-			)\
-		)
-
 	switch(
 		_event.get()
 	)
 	{
-		SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_CASE(
+		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(
 			REL_X
 		);
-		SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_CASE(
+		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(
 			REL_Y
 		);
-		SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_CASE(
+		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(
 			REL_Z
 		);
-		SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_CASE(
+		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(
 			REL_RX
 		);
-		SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_CASE(
+		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(
 			REL_RY
 		);
-		SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_CASE(
+		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(
 			REL_RZ
 		);
-		SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_CASE(
+		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(
 			REL_HWHEEL
 		);
-		SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_CASE(
+		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(
 			REL_DIAL
 		);
-		SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_CASE(
+		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(
 			REL_WHEEL
 		);
-		SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_CASE(
+		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(
 			REL_MISC
 		);
 	}
