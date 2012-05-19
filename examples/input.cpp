@@ -85,7 +85,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
-#include <awl/main/function_context_fwd.hpp>
+#include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/string.hpp>
@@ -94,6 +94,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
@@ -210,18 +211,84 @@ mouse_button(
 	sge::input::mouse::button_event const &
 );
 
+bool
+extract_silent_parameter(
+	awl::main::function_context const &
+);
+
+std::string const silent_parameter(
+	"-silent"
+);
+
+struct dummy_event_handler
+{
+	typedef void result_type;
+
+	template<
+		typename Device,
+		typename Event
+	>
+	result_type
+	operator()(
+		Device &,
+		Event const &
+	) const;
+};
+
+template<
+	typename Functor,
+	typename Function
+>
+Functor const
+wrap_silent(
+	Function const &,
+	bool silent
+);
+
 }
 
 awl::main::exit_code const
 example_main(
-	awl::main::function_context const &
+	awl::main::function_context const &_context
 )
 try
 {
-	fcppt::log::activate_levels(
-		sge::log::global(),
-		fcppt::log::level::debug
+	if(
+		_context.argc() > 2
+		||
+		(
+			_context.argc() == 2
+			&&
+			_context.argv()[1]
+			!=
+			silent_parameter
+		)
+	)
+	{
+		fcppt::io::cerr()
+			<< FCPPT_TEXT("You can pass no arguments or -silent to suppress input.\n");
+
+		return
+			awl::main::exit_failure();
+	}
+
+	bool const silent(
+		extract_silent_parameter(
+			_context
+		)
 	);
+
+	if(
+		silent
+	)
+		sge::log::global().enable(
+			false
+		);
+	else
+		fcppt::log::activate_levels(
+			sge::log::global(),
+			fcppt::log::level::debug
+		);
 
 	sge::systems::instance const sys(
 		sge::systems::list()
@@ -261,11 +328,17 @@ try
 		sge::input::cursor::remove_callback(
 			::cursor_remove
 		),
-		sge::input::cursor::manager::button_callback(
-			::cursor_button
+		wrap_silent<
+			sge::input::cursor::manager::button_callback
+		>(
+			::cursor_button,
+			silent
 		),
-		sge::input::cursor::manager::move_callback(
-			::cursor_move
+		wrap_silent<
+			sge::input::cursor::manager::move_callback
+		>(
+			::cursor_move,
+			silent
 		)
 	);
 
@@ -277,14 +350,23 @@ try
 		sge::input::joypad::remove_callback(
 			::joypad_remove
 		),
-		sge::input::joypad::manager::absolute_axis_callback(
-			::joypad_absolute_axis
+		wrap_silent<
+			sge::input::joypad::manager::absolute_axis_callback
+		>(
+			::joypad_absolute_axis,
+			silent
 		),
-		sge::input::joypad::manager::button_callback(
-			::joypad_button
+		wrap_silent<
+			sge::input::joypad::manager::button_callback
+		>(
+			::joypad_button,
+			silent
 		),
-		sge::input::joypad::manager::relative_axis_callback(
-			::joypad_relative_axis
+		wrap_silent<
+			sge::input::joypad::manager::relative_axis_callback
+		>(
+			::joypad_relative_axis,
+			silent
 		)
 	);
 
@@ -296,14 +378,23 @@ try
 		sge::input::keyboard::remove_callback(
 			::keyboard_remove
 		),
-		sge::input::keyboard::manager::char_callback(
-			::keyboard_char
+		wrap_silent<
+			sge::input::keyboard::manager::char_callback
+		>(
+			::keyboard_char,
+			silent
 		),
-		sge::input::keyboard::manager::key_callback(
-			::keyboard_key
+		wrap_silent<
+			sge::input::keyboard::manager::key_callback
+		>(
+			::keyboard_key,
+			silent
 		),
-		sge::input::keyboard::manager::key_repeat_callback(
-			::keyboard_key_repeat
+		wrap_silent<
+			sge::input::keyboard::manager::key_repeat_callback
+		>(
+			::keyboard_key_repeat,
+			silent
 		)
 	);
 
@@ -315,11 +406,17 @@ try
 		sge::input::mouse::remove_callback(
 			::mouse_remove
 		),
-		sge::input::mouse::manager::axis_callback(
-			::mouse_axis
+		wrap_silent<
+			sge::input::mouse::manager::axis_callback
+		>(
+			::mouse_axis,
+			silent
 		),
-		sge::input::mouse::manager::button_callback(
-			::mouse_button
+		wrap_silent<
+			sge::input::mouse::manager::button_callback
+		>(
+			::mouse_button,
+			silent
 		)
 	);
 
@@ -824,6 +921,55 @@ mouse_button(
 		<< FCPPT_TEXT("\n\tpressed: ")
 		<< _event.pressed()
 		<< FCPPT_TEXT('\n');
+}
+
+bool
+extract_silent_parameter(
+	awl::main::function_context const &_context
+)
+{
+	return
+		_context.argc() == 2
+		&&
+		_context.argv()[1]
+		==
+		silent_parameter
+		;
+}
+
+template<
+	typename Device,
+	typename Event
+>
+typename dummy_event_handler::result_type
+dummy_event_handler::operator()(
+	Device &,
+	Event const &
+) const
+{
+}
+
+template<
+	typename Functor,
+	typename Function
+>
+Functor const
+wrap_silent(
+	Function const &_function,
+	bool const _silent
+)
+{
+	return
+		_silent
+		?
+			Functor(
+				dummy_event_handler()
+			)
+		:
+			Functor(
+				_function
+			)
+		;
 }
 
 }
