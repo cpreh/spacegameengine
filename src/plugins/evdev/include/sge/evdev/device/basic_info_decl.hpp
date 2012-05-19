@@ -57,7 +57,7 @@ public:
 	);
 
 	info_container const &
-	infos();
+	infos() const;
 
 	event_map_type const &
 	event_map() const;

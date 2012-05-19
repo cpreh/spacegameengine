@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_INFO_CONTAINER_HPP_INCLUDED
 
 #include <sge/evdev/device/fd_fwd.hpp>
-#include <sge/input/joypad/relative_axis_info_container_fwd.hpp>
+#include <sge/evdev/joypad/relative_axis/info_container_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace joypad
 namespace relative_axis
 {
 
-sge::input::joypad::relative_axis_info_container const
+sge::evdev::joypad::relative_axis::info_container const
 make_info_container(
 	sge::evdev::device::fd const &
 );

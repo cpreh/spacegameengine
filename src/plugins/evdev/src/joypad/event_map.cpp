@@ -18,67 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_DEVICE_BASIC_INFO_IMPL_HPP_INCLUDED
-#define SGE_EVDEV_DEVICE_BASIC_INFO_IMPL_HPP_INCLUDED
-
-#include <sge/evdev/device/basic_info_decl.hpp>
+#include <sge/evdev/joypad/event_map.hpp>
 
 
-template<
-	typename Id,
-	typename Info
->
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::basic_info(
-	info_container const &_infos,
-	event_map_type const &_event_map
+sge::evdev::joypad::event_map::event_map(
+	sge::evdev::joypad::event_map::absolute_axis_map const &_absolute_axis,
+	sge::evdev::joypad::event_map::button_map const &_buttons,
+	sge::evdev::joypad::event_map::relative_axis_map const &_relative_axis
 )
 :
-	infos_(
-		_infos
+	absolute_axis_(
+		_absolute_axis
 	),
-	event_map_(
-		_event_map
+	buttons_(
+		_buttons
+	),
+	relative_axis_(
+		_relative_axis
 	)
 {
 }
 
-template<
-	typename Id,
-	typename Info
->
-typename
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::info_container const &
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::infos() const
+sge::evdev::joypad::event_map::absolute_axis_map const &
+sge::evdev::joypad::event_map::absolute_axis() const
 {
 	return
-		infos_;
+		absolute_axis_;
 }
 
-template<
-	typename Id,
-	typename Info
->
-typename
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::event_map_type const &
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::event_map() const
+sge::evdev::joypad::event_map::button_map const &
+sge::evdev::joypad::event_map::buttons() const
 {
 	return
-		event_map_;
+		buttons_;
 }
 
-#endif
+sge::evdev::joypad::event_map::relative_axis_map const &
+sge::evdev::joypad::event_map::relative_axis() const
+{
+	return
+		relative_axis_;
+}

@@ -52,8 +52,6 @@ sge::evdev::joypad::add(
 		)
 	);
 
-	return;
-/*
 	if(
 		!fd
 	)
@@ -66,7 +64,7 @@ sge::evdev::joypad::add(
 	);
 
 	if(
-		info_value.info_container().buttons().empty()
+		info_value.input_info().buttons().empty()
 	)
 		return;
 
@@ -101,5 +99,4 @@ sge::evdev::joypad::add(
 			*ret.first->second
 		)
 	);
-*/
 }

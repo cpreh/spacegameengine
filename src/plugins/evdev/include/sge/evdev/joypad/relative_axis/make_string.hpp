@@ -18,67 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_DEVICE_BASIC_INFO_IMPL_HPP_INCLUDED
-#define SGE_EVDEV_DEVICE_BASIC_INFO_IMPL_HPP_INCLUDED
+#ifndef SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_HPP_INCLUDED
+#define SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_STRING_HPP_INCLUDED
 
-#include <sge/evdev/device/basic_info_decl.hpp>
+#include <sge/evdev/device/event_type.hpp>
+#include <sge/input/info/optional_string_fwd.hpp>
 
 
-template<
-	typename Id,
-	typename Info
->
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::basic_info(
-	info_container const &_infos,
-	event_map_type const &_event_map
-)
-:
-	infos_(
-		_infos
-	),
-	event_map_(
-		_event_map
-	)
+namespace sge
 {
+namespace evdev
+{
+namespace joypad
+{
+namespace relative_axis
+{
+
+sge::input::info::optional_string const
+make_string(
+	sge::evdev::device::event_type
+);
+
 }
-
-template<
-	typename Id,
-	typename Info
->
-typename
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::info_container const &
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::infos() const
-{
-	return
-		infos_;
 }
-
-template<
-	typename Id,
-	typename Info
->
-typename
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::event_map_type const &
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::event_map() const
-{
-	return
-		event_map_;
+}
 }
 
 #endif

@@ -66,21 +66,19 @@ sge::evdev::joypad::absolute_axis::make_code(
 	case ABS_VOLUME:
 	case ABS_MISC:
 	// TODO: discard multi touch stuff?
-#if 0
 	case ABS_MT_SLOT:
 	case ABS_MT_TOUCH_MAJOR:
-	case ABS_MT_TOUCH_MINOR	0x31	/* Minor axis (omit if circular) */
-	case ABS_MT_WIDTH_MAJOR	0x32	/* Major axis of approaching ellipse */
-	case ABS_MT_WIDTH_MINOR	0x33	/* Minor axis (omit if circular) */
-	case ABS_MT_ORIENTATION	0x34	/* Ellipse orientation */
-	case ABS_MT_POSITION_X	0x35	/* Center X ellipse position */
-	case ABS_MT_POSITION_Y	0x36	/* Center Y ellipse position */
-	case ABS_MT_TOOL_TYPE	0x37	/* Type of touching device */
-	case ABS_MT_BLOB_ID		0x38	/* Group a set of packets as a blob */
-	case ABS_MT_TRACKING_ID	0x39	/* Unique ID of initiated contact */
-	case ABS_MT_PRESSURE		0x3a	/* Pressure on contact area */
-	case ABS_MT_DISTANCE		0x3b	/* Contact hover distance */
-#endif
+	case ABS_MT_TOUCH_MINOR:
+	case ABS_MT_WIDTH_MAJOR:
+	case ABS_MT_WIDTH_MINOR:
+	case ABS_MT_ORIENTATION:
+	case ABS_MT_POSITION_X:
+	case ABS_MT_POSITION_Y:
+	case ABS_MT_TOOL_TYPE:
+	case ABS_MT_BLOB_ID:
+	case ABS_MT_TRACKING_ID:
+	case ABS_MT_PRESSURE:
+	case ABS_MT_DISTANCE:
 	default:
 		return sge::input::joypad::axis_code::unknown;
 	}

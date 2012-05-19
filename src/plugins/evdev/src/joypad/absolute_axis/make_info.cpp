@@ -21,14 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
-#include <sge/input/joypad/axis_code.hpp>
-#include <sge/input/joypad/axis_code_to_string.hpp>
 #include <sge/input/joypad/axis_max.hpp>
 #include <sge/input/joypad/axis_min.hpp>
 #include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/joypad/absolute_axis/make_code.hpp>
 #include <sge/evdev/joypad/absolute_axis/make_info.hpp>
+#include <sge/evdev/joypad/absolute_axis/make_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
@@ -59,16 +58,14 @@ sge::evdev::joypad::absolute_axis::make_info(
 			FCPPT_TEXT("ioctl for abs info failed!")
 		);
 
-	sge::input::joypad::axis_code::type const code(
-		sge::evdev::joypad::absolute_axis::make_code(
-			_event
-		)
-	);
-
 	return
 		sge::input::joypad::absolute_axis_info(
-			code,
-			sge::input::info::optional_string(),
+			sge::evdev::joypad::absolute_axis::make_code(
+				_event
+			),
+			sge::evdev::joypad::absolute_axis::make_string(
+				_event
+			),
 			sge::input::joypad::axis_min(
 				ret.minimum
 			),

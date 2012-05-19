@@ -34,8 +34,13 @@ set(
 	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_code.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_info.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_info_container.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_string.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/add.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/button/info_container.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/button/info_container_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/button/make_info.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/button/make_info_container.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/button/make_string.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/event_map.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/info.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/info_fwd.hpp
@@ -44,7 +49,12 @@ set(
 	src/plugins/evdev/include/sge/evdev/joypad/map.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/object.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/object_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/relative_axis/info_container.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/relative_axis/info_container_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/relative_axis/make_code.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/relative_axis/make_info.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/relative_axis/make_info_container.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/relative_axis/make_string.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/remove.hpp
 	src/plugins/evdev/include/sge/evdev/processor.hpp
 	src/plugins/evdev/include/sge/evdev/system.hpp
@@ -63,11 +73,22 @@ set(
 	src/plugins/evdev/src/joypad/absolute_axis/make_code.cpp
 	src/plugins/evdev/src/joypad/absolute_axis/make_info.cpp
 	src/plugins/evdev/src/joypad/absolute_axis/make_info_container.cpp
+	src/plugins/evdev/src/joypad/absolute_axis/make_string.cpp
 	src/plugins/evdev/src/joypad/add.cpp
+	src/plugins/evdev/src/joypad/button/info_container.cpp
+	src/plugins/evdev/src/joypad/button/make_info.cpp
+	src/plugins/evdev/src/joypad/button/make_info_container.cpp
+	src/plugins/evdev/src/joypad/button/make_string.cpp
+	src/plugins/evdev/src/joypad/event_map.cpp
 	src/plugins/evdev/src/joypad/info.cpp
 	src/plugins/evdev/src/joypad/init.cpp
 	src/plugins/evdev/src/joypad/make_info.cpp
 	src/plugins/evdev/src/joypad/object.cpp
+	src/plugins/evdev/src/joypad/relative_axis/info_container.cpp
+	src/plugins/evdev/src/joypad/relative_axis/make_code.cpp
+	src/plugins/evdev/src/joypad/relative_axis/make_info.cpp
+	src/plugins/evdev/src/joypad/relative_axis/make_info_container.cpp
+	src/plugins/evdev/src/joypad/relative_axis/make_string.cpp
 	src/plugins/evdev/src/joypad/remove.cpp
 	src/plugins/evdev/src/processor.cpp
 	src/plugins/evdev/src/system.cpp

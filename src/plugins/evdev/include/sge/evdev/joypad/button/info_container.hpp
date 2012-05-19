@@ -21,27 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_JOYPAD_BUTTON_INFO_CONTAINER_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_BUTTON_INFO_CONTAINER_HPP_INCLUDED
 
-#include <sge/evdev/device/fd_fwd.hpp>
-#include <sge/input/joypad/button_info_container_fwd.hpp>
+#include <sge/evdev/device/basic_info_decl.hpp>
+#include <sge/evdev/joypad/button/info_container_fwd.hpp>
+#include <sge/input/joypad/button_info.hpp>
 
-
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace button
-{
-
-sge::input::joypad::button_info_container const
-info_container(
-	sge::evdev::device::fd const &
-);
-
-}
-}
-}
-}
 
 #endif

@@ -21,41 +21,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/fd_fwd.hpp>
 #include <sge/evdev/device/make_info_container.hpp>
 #include <sge/evdev/device/read_bits.hpp>
-#include <sge/evdev/joypad/absolute_axis/info_container.hpp>
-#include <sge/evdev/joypad/absolute_axis/make_info.hpp>
-#include <sge/evdev/joypad/absolute_axis/make_info_container.hpp>
-#include <sge/input/joypad/absolute_axis_id.hpp>
-#include <sge/input/joypad/absolute_axis_info.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <sge/evdev/joypad/relative_axis/info_container.hpp>
+#include <sge/evdev/joypad/relative_axis/make_info.hpp>
+#include <sge/evdev/joypad/relative_axis/make_info_container.hpp>
+#include <sge/input/joypad/relative_axis_id.hpp>
+#include <sge/input/joypad/relative_axis_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::evdev::joypad::absolute_axis::info_container const
-sge::evdev::joypad::absolute_axis::make_info_container(
+sge::evdev::joypad::relative_axis::info_container const
+sge::evdev::joypad::relative_axis::make_info_container(
 	sge::evdev::device::fd const &_fd
 )
 {
 	return
 		sge::evdev::device::make_info_container<
-			sge::input::joypad::absolute_axis_id,
-			sge::input::joypad::absolute_axis_info,
-			ABS_CNT
+			sge::input::joypad::relative_axis_id,
+			sge::input::joypad::relative_axis_info,
+			REL_CNT
 		>(
 			sge::evdev::device::read_bits<
-				ABS_CNT
+				REL_CNT
 			>(
 				_fd,
-				EV_ABS
+				EV_REL
 			),
-			std::tr1::bind(
-				&sge::evdev::joypad::absolute_axis::make_info,
-				fcppt::cref(
-					_fd
-				),
-				std::tr1::placeholders::_1
-			)
+			&sge::evdev::joypad::relative_axis::make_info
 		);
 }

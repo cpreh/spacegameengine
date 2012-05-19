@@ -18,67 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_DEVICE_BASIC_INFO_IMPL_HPP_INCLUDED
-#define SGE_EVDEV_DEVICE_BASIC_INFO_IMPL_HPP_INCLUDED
+#include <sge/evdev/device/event_type.hpp>
+#include <sge/evdev/joypad/relative_axis/make_code.hpp>
+#include <sge/input/joypad/axis_code.hpp>
+#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <linux/input.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/evdev/device/basic_info_decl.hpp>
 
-
-template<
-	typename Id,
-	typename Info
->
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::basic_info(
-	info_container const &_infos,
-	event_map_type const &_event_map
+sge::input::joypad::axis_code::type
+sge::evdev::joypad::relative_axis::make_code(
+	sge::evdev::device::event_type const _event
 )
-:
-	infos_(
-		_infos
-	),
-	event_map_(
-		_event_map
+{
+	switch(
+		_event.get()
 	)
-{
-}
+	{
+	case REL_X:
+		return sge::input::joypad::axis_code::x;
+	case REL_Y:
+		return sge::input::joypad::axis_code::y;
+	case REL_Z:
+		return sge::input::joypad::axis_code::z;
+	case REL_RX:
+	case REL_RY:
+	case REL_RZ:
+	case REL_HWHEEL:
+	case REL_DIAL:
+	case REL_WHEEL:
+	case REL_MISC:
+	default:
+		return sge::input::joypad::axis_code::unknown;
+	}
 
-template<
-	typename Id,
-	typename Info
->
-typename
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::info_container const &
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::infos() const
-{
-	return
-		infos_;
+	FCPPT_ASSERT_UNREACHABLE;
 }
-
-template<
-	typename Id,
-	typename Info
->
-typename
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::event_map_type const &
-sge::evdev::device::basic_info<
-	Id,
-	Info
->::event_map() const
-{
-	return
-		event_map_;
-}
-
-#endif
