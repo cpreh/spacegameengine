@@ -34,7 +34,8 @@ namespace event_type
 enum type
 {
 	add,
-	remove
+	remove,
+	attrib
 };
 }
 

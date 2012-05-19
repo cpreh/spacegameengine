@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/inotify/event_type.hpp>
 #include <sge/evdev/inotify/reader.hpp>
 #include <sge/evdev/joypad/add.hpp>
+#include <sge/evdev/joypad/attrib.hpp>
 #include <sge/evdev/joypad/init.hpp>
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/evdev/joypad/remove.hpp>
@@ -225,6 +226,12 @@ sge::evdev::processor::dev_event(
 	sge::evdev::inotify::event const &_event
 )
 {
+	boost::filesystem::path const file_path(
+		path_
+		/
+		_event.filename()
+	);
+
 	switch(
 		_event.event_type()
 	)
@@ -234,18 +241,22 @@ sge::evdev::processor::dev_event(
 			system_processor_,
 			joypads_,
 			joypad_discover_,
-			path_
-			/
-			_event.filename()
+			file_path
 		);
 		return;
 	case sge::evdev::inotify::event_type::remove:
 		sge::evdev::joypad::remove(
 			joypads_,
 			joypad_remove_,
-			path_
-			/
-			_event.filename()
+			file_path
+		);
+		return;
+	case sge::evdev::inotify::event_type::attrib:
+		sge::evdev::joypad::attrib(
+			system_processor_,
+			joypads_,
+			joypad_discover_,
+			file_path
 		);
 		return;
 	}

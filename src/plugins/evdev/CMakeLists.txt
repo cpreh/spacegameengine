@@ -40,6 +40,7 @@ set(
 	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_info_container.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_string.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/add.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/attrib.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/button/info_container.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/button/info_container_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/button/make_info.hpp
@@ -82,6 +83,7 @@ set(
 	src/plugins/evdev/src/joypad/absolute_axis/make_info_container.cpp
 	src/plugins/evdev/src/joypad/absolute_axis/make_string.cpp
 	src/plugins/evdev/src/joypad/add.cpp
+	src/plugins/evdev/src/joypad/attrib.cpp
 	src/plugins/evdev/src/joypad/button/info_container.cpp
 	src/plugins/evdev/src/joypad/button/make_info.cpp
 	src/plugins/evdev/src/joypad/button/make_info_container.cpp

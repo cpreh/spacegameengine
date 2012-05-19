@@ -18,51 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/inotify/object.hpp>
-#include <sge/evdev/inotify/watch.hpp>
-#include <sge/input/exception.hpp>
-#include <awl/backends/x11/event/fd/object.hpp>
-#include <fcppt/text.hpp>
+#include <sge/evdev/joypad/add.hpp>
+#include <sge/evdev/joypad/attrib.hpp>
+#include <sge/evdev/joypad/map.hpp>
+#include <sge/input/joypad/discover_signal.hpp>
+#include <awl/backends/x11/system/event/processor_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <sys/inotify.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::evdev::inotify::watch::watch(
-	boost::filesystem::path const &_watch_path,
-	sge::evdev::inotify::object const &_object
+void
+sge::evdev::joypad::attrib(
+	awl::backends::x11::system::event::processor &_system_processor,
+	sge::evdev::joypad::map &_map,
+	sge::input::joypad::discover_signal &_discover,
+	boost::filesystem::path const &_path
 )
-:
-	object_(
-		_object
-	),
-	fd_(
-		::inotify_add_watch(
-			object_.fd().get(),
-			_watch_path.string().c_str(),
-			IN_CREATE
-			|
-			IN_DELETE
-			|
-			IN_ATTRIB
-		)
-	)
 {
 	if(
-		fd_.get()
-		==
-		-1
+		_map.find(
+			_path
+		)
+		!=
+		_map.end()
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("inotify_add_watch failed")
-		);
-}
+		return;
 
-sge::evdev::inotify::watch::~watch()
-{
-	::inotify_rm_watch(
-		object_.fd().get(),
-		fd_.get()
+	sge::evdev::joypad::add(
+		_system_processor,
+		_map,
+		_discover,
+		_path
 	);
 }
