@@ -1,6 +1,6 @@
 set(
 	SGE_CG_FILES
-	include/sge/cg/char.hpp
+	include/sge/cg/char_type.hpp
 	include/sge/cg/check_state.hpp
 	include/sge/cg/check_state_listing.hpp
 	include/sge/cg/context/object.hpp

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_CHAR_HPP_INCLUDED
-#define SGE_CG_CHAR_HPP_INCLUDED
+#ifndef SGE_CG_CHAR_TYPE_HPP_INCLUDED
+#define SGE_CG_CHAR_TYPE_HPP_INCLUDED
 
 
 namespace sge
@@ -27,7 +27,7 @@ namespace sge
 namespace cg
 {
 
-typedef char char_;
+typedef char char_type;
 
 }
 }

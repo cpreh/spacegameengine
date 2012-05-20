@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CG_STRING_HPP_INCLUDED
 #define SGE_CG_STRING_HPP_INCLUDED
 
-#include <sge/cg/char.hpp>
+#include <sge/cg/char_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -33,7 +33,7 @@ namespace cg
 {
 
 typedef std::basic_string<
-	sge::cg::char_
+	sge::cg::char_type
 > string;
 
 }

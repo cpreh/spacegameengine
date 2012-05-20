@@ -200,7 +200,7 @@ add_sge_example(
 add_sge_console_example(
 	mergeimage
 	"sgecore;sgeimage;sgeimage2d;sgesystems"
-	"${Fcppt_core_LIBRARIES};${Boost_FILEYSTEM_LIBRARIES}"
+	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
 add_sge_example(

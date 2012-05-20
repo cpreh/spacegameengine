@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CG_PROGRAM_COMPILE_OPTIONS_HPP_INCLUDED
 #define SGE_CG_PROGRAM_COMPILE_OPTIONS_HPP_INCLUDED
 
-#include <sge/cg/char.hpp>
+#include <sge/cg/char_type.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -33,7 +33,7 @@ namespace program
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::cg::char_ const **,
+	sge::cg::char_type const **,
 	compile_options
 );
 
