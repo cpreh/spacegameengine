@@ -62,7 +62,11 @@ read_bits(
 			_fd.get().get(),
 			EVIOCGBIT(
 				_type,
-				result.size()
+				static_cast<
+					unsigned
+				>(
+					result.size()
+				)
 			),
 			result.data()
 		)
