@@ -282,16 +282,20 @@ FCPPT_PP_POP_WARNING
 
 	ifs.str("");
 
-	BOOST_CHECK((
-		alda::serialization::length::deserialize<
-			length_type
-		>(
-			global_context(),
-			ifs
-		)
-		==
-		message_base_unique_ptr()
-	));
+	{
+		message_base_unique_ptr ptr(
+			alda::serialization::length::deserialize<
+				length_type
+			>(
+				global_context(),
+				ifs
+			)
+		);
+
+		BOOST_CHECK(
+			!ptr
+		);
+	}
 
 	BOOST_CHECK(
 		ifs.good()
@@ -320,16 +324,20 @@ FCPPT_PP_POP_WARNING
 		ofs.str()
 	);
 
-	BOOST_CHECK((
-		alda::serialization::length::deserialize<
-			length_type
-		>(
-			global_context(),
-			ifs
-		)
-		==
-		message_base_unique_ptr()
-	));
+	{
+		message_base_unique_ptr ptr(
+			alda::serialization::length::deserialize<
+				length_type
+			>(
+				global_context(),
+				ifs
+			)
+		);
+
+		BOOST_CHECK(
+			!ptr
+		);
+	}
 
 	BOOST_CHECK(
 		ifs.good()
