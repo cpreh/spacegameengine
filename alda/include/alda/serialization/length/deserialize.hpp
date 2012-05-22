@@ -18,19 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_SERIALIZATION_LENGTH_PUT_HPP_INCLUDED
-#define ALDA_SERIALIZATION_LENGTH_PUT_HPP_INCLUDED
+#ifndef ALDA_SERIALIZATION_LENGTH_DESERIALIZE_HPP_INCLUDED
+#define ALDA_SERIALIZATION_LENGTH_DESERIALIZE_HPP_INCLUDED
 
-#include <alda/endianness.hpp>
-#include <alda/message/base_decl.hpp>
-#include <alda/serialization/ostream.hpp>
-#include <fcppt/io/write.hpp>
+#include <alda/message/base_unique_ptr.hpp>
+#include <alda/serialization/context_fwd.hpp>
+#include <alda/serialization/deserialize.hpp>
+#include <alda/serialization/istream.hpp>
+#include <alda/serialization/length/extract.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_unsigned.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <exception>
-#include <limits>
+#include <ostream>
+#include <iosfwd>
+#include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,53 +51,67 @@ typename boost::enable_if<
 	boost::is_unsigned<
 		LengthType
 	>,
-	void
->::type
-put(
-	alda::serialization::ostream &_stream,
-	alda::message::base<
+	typename alda::message::base_unique_ptr<
 		TypeEnum
-	> const &_message
+	>::type
+>::type
+deserialize(
+	alda::serialization::context<
+		TypeEnum
+	> const &_context,
+	alda::serialization::istream &_stream
 )
 {
-	typedef alda::message::base<
-		TypeEnum
-	> message_base;
+	typedef fcppt::optional<
+		LengthType
+	> length_result;
 
-	typedef typename message_base::size_type message_size_type;
-
-	BOOST_STATIC_ASSERT(
-		sizeof(
-			message_size_type
-		)
-		>=
-		sizeof(
+	length_result const length(
+		alda::serialization::length::extract<
 			LengthType
+		>(
+			_stream
 		)
 	);
+
+	typedef typename alda::message::base_unique_ptr<
+		TypeEnum
+	>::type result_type;
 
 	if(
-		static_cast<
-			message_size_type
-		>(
-			std::numeric_limits<
-				LengthType
-			>::max()
-		)
-		<=
-		_message.size()
+		!length
 	)
-		std::terminate();
+		return
+			result_type();
 
-	fcppt::io::write(
-		_stream,
+	if(
+		// in_avail can return -1
+		_stream.rdbuf()->in_avail()
+		<
 		static_cast<
-			LengthType
+			std::streamsize
 		>(
-			_message.size()
-		),
-		alda::endianness()
-	);
+			*length
+		)
+	)
+	{
+		// TODO: should be putback the length instead?
+		for(
+			std::size_t i = 0;
+			i < sizeof(LengthType);
+			++i
+		)
+			_stream.unget();
+
+		return
+			result_type();
+	}
+
+	return
+		alda::serialization::deserialize(
+			_context,
+			_stream
+		);
 }
 
 }

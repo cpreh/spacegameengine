@@ -49,7 +49,7 @@ typename boost::enable_if<
 	fcppt::optional<
 		LengthType
 	>
-::type const
+>::type const
 extract(
 	alda::serialization::istream &_stream
 )
@@ -59,7 +59,7 @@ extract(
 	> return_type;
 
 	// in_avail can return showmanyc(), which can return -1
-	if(
+	return
 		_stream.rdbuf()->in_avail()
 		<
 		static_cast<
@@ -69,32 +69,15 @@ extract(
 				LengthType
 			)
 		)
-	)
-		return
-			return_type();
-
-	LengthType const length(
-		fcppt::io::read(
-			_stream,
-			alda::endianness()
-		)
-	);
-
-	return
-		_stream.rdbuf()->in_avail()
-		<
-		static_cast<
-			std::streamsize
-		>(
-			length
-		)
 		?
 			return_type()
 		:
-			return_type(
-				length
-			)
-		;
+			fcppt::io::read<
+				LengthType
+			>(
+				_stream,
+				alda::endianness()
+			);
 }
 
 }

@@ -18,19 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_SERIALIZATION_LENGTH_PUT_HPP_INCLUDED
-#define ALDA_SERIALIZATION_LENGTH_PUT_HPP_INCLUDED
+#ifndef ALDA_SERIALIZATION_LENGTH_SERIALIZE_HPP_INCLUDED
+#define ALDA_SERIALIZATION_LENGTH_SERIALIZE_HPP_INCLUDED
 
-#include <alda/endianness.hpp>
-#include <alda/message/base_decl.hpp>
+#include <alda/message/base_fwd.hpp>
 #include <alda/serialization/ostream.hpp>
-#include <fcppt/io/write.hpp>
+#include <alda/serialization/serialize.hpp>
+#include <alda/serialization/length/put.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_unsigned.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <exception>
-#include <limits>
+#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,50 +49,23 @@ typename boost::enable_if<
 	>,
 	void
 >::type
-put(
+serialize(
 	alda::serialization::ostream &_stream,
 	alda::message::base<
 		TypeEnum
 	> const &_message
 )
 {
-	typedef alda::message::base<
-		TypeEnum
-	> message_base;
-
-	typedef typename message_base::size_type message_size_type;
-
-	BOOST_STATIC_ASSERT(
-		sizeof(
-			message_size_type
-		)
-		>=
-		sizeof(
-			LengthType
-		)
+	alda::serialization::length::put<
+		LengthType
+	>(
+		_stream,
+		_message
 	);
 
-	if(
-		static_cast<
-			message_size_type
-		>(
-			std::numeric_limits<
-				LengthType
-			>::max()
-		)
-		<=
-		_message.size()
-	)
-		std::terminate();
-
-	fcppt::io::write(
+	alda::serialization::serialize(
 		_stream,
-		static_cast<
-			LengthType
-		>(
-			_message.size()
-		),
-		alda::endianness()
+		_message
 	);
 }
 
