@@ -54,6 +54,11 @@ add_alda_test(
 )
 
 add_alda_test(
+	signed
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_alda_test(
 	simple
 	"${Fcppt_core_LIBRARIES}"
 )

@@ -18,19 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_BINDINGS_FUNDAMENTAL_HPP_INCLUDED
-#define ALDA_BINDINGS_FUNDAMENTAL_HPP_INCLUDED
+#ifndef ALDA_BINDINGS_UNSIGNED_HPP_INCLUDED
+#define ALDA_BINDINGS_UNSIGNED_HPP_INCLUDED
 
-#include <alda/bindings/signed.hpp>
-#include <alda/bindings/unsigned.hpp>
+#include <alda/endianness.hpp>
+#include <majutsu/const_raw_pointer.hpp>
 #include <majutsu/fundamental.hpp>
+#include <majutsu/raw_pointer.hpp>
 #include <majutsu/concepts/static_size.hpp>
+#include <majutsu/concepts/dynamic_memory/tag.hpp>
+#include <fcppt/null_ptr.hpp>
+#include <fcppt/endianness/convert.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_signed.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_unsigned.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,23 +49,79 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 template<
 	typename Type
 >
-struct fundamental
+struct unsigned_
 :
-boost::mpl::if_<
-	boost::is_signed<
-		Type
-	>,
-	alda::bindings::signed_<
-		Type
-	>,
-	alda::bindings::unsigned_<
-		Type
-	>
->::type
+majutsu::fundamental<
+	Type
+>
 {
+	BOOST_STATIC_ASSERT(
+		boost::is_unsigned<
+			Type
+		>::value
+	);
 };
 
 FCPPT_PP_POP_WARNING
+
+template<
+	typename Type
+>
+void
+place(
+	majutsu::concepts::dynamic_memory::tag const *const _tag,
+	alda::bindings::unsigned_<
+		Type
+	> const *,
+	Type const &_type,
+	majutsu::raw_pointer const _mem
+)
+{
+	place(
+		_tag,
+		static_cast<
+			majutsu::fundamental<
+				Type
+			> const *
+		>(
+			fcppt::null_ptr()
+		),
+		fcppt::endianness::convert(
+			_type,
+			alda::endianness()
+		),
+		_mem
+	);
+}
+
+template<
+	typename Type
+>
+Type
+make(
+	majutsu::concepts::dynamic_memory::tag const *const _tag,
+	alda::bindings::unsigned_<
+		Type
+	> const *,
+	majutsu::const_raw_pointer const _beg
+)
+{
+	return
+		fcppt::endianness::convert(
+			make(
+				_tag,
+				static_cast<
+					majutsu::fundamental<
+						Type
+					> const *
+				>(
+					fcppt::null_ptr()
+				),
+				_beg
+			),
+			alda::endianness()
+		);
+}
 
 }
 }
@@ -78,7 +138,7 @@ template<
 	typename Type
 >
 struct static_size<
-	alda::bindings::fundamental<
+	alda::bindings::unsigned_<
 		Type
 	>
 >
@@ -88,7 +148,8 @@ majutsu::concepts::static_size<
 		Type
 	>
 >
-{};
+{
+};
 
 FCPPT_PP_POP_WARNING
 
