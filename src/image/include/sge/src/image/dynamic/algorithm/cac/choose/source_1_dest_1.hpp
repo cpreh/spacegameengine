@@ -121,6 +121,7 @@ choose(
 		case dynamic::color::available_channels::size:
 			break;
 		}
+		break;
 	// r32f to a8 ot r32f to l8
 	case dynamic::color::available_channels::red:
 		switch(
@@ -153,6 +154,7 @@ choose(
 		case dynamic::color::available_channels::size:
 			break;
 		}
+		break;
 	case dynamic::color::available_channels::green:
 	case dynamic::color::available_channels::blue:
 	case dynamic::color::available_channels::undefined:
