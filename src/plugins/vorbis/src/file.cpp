@@ -185,6 +185,7 @@ sge::vorbis::file::read(
 								(FCPPT_TEXT(" in file ")+(fcppt::filesystem::path_to_string(*file_name_)))
 							:
 								fcppt::string()));
+				break;
 			case OV_EBADLINK:
 				throw audio::file_exception(
 					file_name_,
@@ -333,7 +334,10 @@ sge::vorbis::file::ogg_read(
 			file_name_,
 			FCPPT_TEXT("vorbis: stream error"));
 	return
-		static_cast<std::size_t>(stdstream_->gcount()/size);
+		static_cast<std::size_t>(
+			static_cast<std::size_t>(
+				stdstream_->gcount())/
+			size);
 }
 
 int
