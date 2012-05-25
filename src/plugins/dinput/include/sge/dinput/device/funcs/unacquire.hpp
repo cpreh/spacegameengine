@@ -18,29 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/di.hpp>
-#include <sge/dinput/device/funcs/acquire.hpp>
-#include <sge/input/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_DINPUT_DEVICE_FUNCS_UNACQUIRE_HPP_INCLUDED
+#define SGE_DINPUT_DEVICE_FUNCS_UNACQUIRE_HPP_INCLUDED
 
+#include <sge/dinput/di.hpp>
+
+
+namespace sge
+{
+namespace dinput
+{
+namespace device
+{
+namespace funcs
+{
 
 bool
-sge::dinput::device::funcs::acquire(
-	IDirectInputDevice8 *const _device
-)
-{
-	switch(
-		_device->Acquire()
-	)
-	{
-	case S_FALSE:
-	case DI_OK:
-		return true;
-	case DIERR_OTHERAPPHASPRIO:
-		return false;
-	default:
-		throw sge::input::exception(
-			FCPPT_TEXT("Acquire() failed!")
-		);
-	}
+unacquire(
+	IDirectInputDevice8 *
+);
+
 }
+}
+}
+}
+
+#endif

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/device/funcs/acquire.hpp>
 #include <sge/dinput/device/funcs/set_cooperative_level.hpp>
 #include <sge/dinput/device/funcs/set_data_format.hpp>
+#include <sge/dinput/device/funcs/unacquire.hpp>
 #include <sge/dinput/create_device.hpp>
 #include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
@@ -59,7 +60,7 @@ bool
 sge::dinput::device::object::acquire()
 {
 	return
-		device::funcs::acquire(
+		sge::dinput::device::funcs::acquire(
 			device_.get()
 		);
 }
@@ -67,8 +68,9 @@ sge::dinput::device::object::acquire()
 void
 sge::dinput::device::object::unacquire()
 {
-	// this method can at most have no effect
-	device_->Unacquire();
+	sge::dinput::device::funcs::unacquire(
+		device_.get()
+	);
 }
 
 sge::dinput::device::object::object(
@@ -79,7 +81,7 @@ sge::dinput::device::object::object(
 		_param.name()
 	),
 	device_(
-		dinput::create_device(
+		sge::dinput::create_device(
 			_param.instance(),
 			_param.guid()
 		)

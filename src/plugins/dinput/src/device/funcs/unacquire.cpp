@@ -19,28 +19,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/device/funcs/acquire.hpp>
-#include <sge/input/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/dinput/device/funcs/unacquire.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 
 bool
-sge::dinput::device::funcs::acquire(
+sge::dinput::device::funcs::unacquire(
 	IDirectInputDevice8 *const _device
 )
 {
 	switch(
-		_device->Acquire()
+		_device->Unacquire()
 	)
 	{
-	case S_FALSE:
 	case DI_OK:
 		return true;
-	case DIERR_OTHERAPPHASPRIO:
+	case DI_NOEFFECT:
 		return false;
-	default:
-		throw sge::input::exception(
-			FCPPT_TEXT("Acquire() failed!")
-		);
 	}
+
+	FCPPT_ASSERT_UNREACHABLE;
 }

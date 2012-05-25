@@ -3,6 +3,7 @@ SET(
 	src/plugins/dinput/include/sge/dinput/cast_key.hpp
 	src/plugins/dinput/include/sge/dinput/create_device.hpp
 	src/plugins/dinput/include/sge/dinput/create_dinput.hpp
+	src/plugins/dinput/include/sge/dinput/cursor/cooperative_level.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/define.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/define_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/object.hpp
@@ -11,6 +12,7 @@ SET(
 	src/plugins/dinput/include/sge/dinput/device/funcs/acquire.hpp
 	src/plugins/dinput/include/sge/dinput/device/funcs/set_cooperative_level.hpp
 	src/plugins/dinput/include/sge/dinput/device/funcs/set_data_format.hpp
+	src/plugins/dinput/include/sge/dinput/device/funcs/unacquire.hpp
 	src/plugins/dinput/include/sge/dinput/device/object.hpp
 	src/plugins/dinput/include/sge/dinput/device/object_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/device/parameters.hpp
@@ -41,12 +43,14 @@ SET(
 	src/plugins/dinput/src/cast_key.cpp
 	src/plugins/dinput/src/create_device.cpp
 	src/plugins/dinput/src/create_dinput.cpp
+	src/plugins/dinput/src/cursor/cooperative_level.cpp
 	src/plugins/dinput/src/cursor/define.cpp
 	src/plugins/dinput/src/cursor/object.cpp
 	src/plugins/dinput/src/cursor/pixmap.cpp
 	src/plugins/dinput/src/device/funcs/acquire.cpp
 	src/plugins/dinput/src/device/funcs/set_cooperative_level.cpp
 	src/plugins/dinput/src/device/funcs/set_data_format.cpp
+	src/plugins/dinput/src/device/funcs/unacquire.cpp
 	src/plugins/dinput/src/device/object.cpp
 	src/plugins/dinput/src/device/parameters.cpp
 	src/plugins/dinput/src/exports.cpp

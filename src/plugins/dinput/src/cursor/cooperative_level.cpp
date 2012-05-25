@@ -19,28 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/device/funcs/acquire.hpp>
-#include <sge/input/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/dinput/cursor/cooperative_level.hpp>
+#include <sge/input/cursor/mode.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 
-bool
-sge::dinput::device::funcs::acquire(
-	IDirectInputDevice8 *const _device
+DWORD
+sge::dinput::cursor::cooperative_level(
+	sge::input::cursor::mode::type const _mode
 )
 {
 	switch(
-		_device->Acquire()
+		_mode
 	)
 	{
-	case S_FALSE:
-	case DI_OK:
-		return true;
-	case DIERR_OTHERAPPHASPRIO:
-		return false;
-	default:
-		throw sge::input::exception(
-			FCPPT_TEXT("Acquire() failed!")
-		);
+	case sge::input::cursor::mode::exclusive:
+		return
+			DISCL_FOREGROUND | DISCL_EXCLUSIVE;
+	case sge::input::cursor::mode::normal:
+		return
+			DISCL_FOREGROUND | DISCL_NONEXCLUSIVE;
+	case sge::input::cursor::mode::size:
+		break;
 	}
+
+	FCPPT_ASSERT_UNREACHABLE;
 }

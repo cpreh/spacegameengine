@@ -18,29 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_DINPUT_CURSOR_COOPERATIVE_LEVEL_HPP_INCLUDED
+#define SGE_DINPUT_CURSOR_COOPERATIVE_LEVEL_HPP_INCLUDED
+
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/device/funcs/acquire.hpp>
-#include <sge/input/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/input/cursor/mode.hpp>
 
 
-bool
-sge::dinput::device::funcs::acquire(
-	IDirectInputDevice8 *const _device
-)
+namespace sge
 {
-	switch(
-		_device->Acquire()
-	)
-	{
-	case S_FALSE:
-	case DI_OK:
-		return true;
-	case DIERR_OTHERAPPHASPRIO:
-		return false;
-	default:
-		throw sge::input::exception(
-			FCPPT_TEXT("Acquire() failed!")
-		);
-	}
+namespace dinput
+{
+namespace cursor
+{
+
+DWORD
+cooperative_level(
+	sge::input::cursor::mode::type
+);
+
 }
+}
+}
+
+#endif

@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/dinput/cursor/cooperative_level.hpp>
 #include <sge/dinput/cursor/object.hpp>
 #include <sge/dinput/device/funcs/acquire.hpp>
 #include <sge/dinput/device/funcs/set_cooperative_level.hpp>
 #include <sge/dinput/device/funcs/set_data_format.hpp>
+#include <sge/dinput/device/funcs/unacquire.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/mode.hpp>
@@ -48,7 +50,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/time/sleep_any.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -71,12 +77,6 @@ sge::dinput::cursor::object::object(
 	),
 	button_signal_(),
 	move_signal_(),
-	acquired_(
-		false
-	),
-	mode_(
-		sge::input::cursor::mode::normal
-	),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -207,9 +207,13 @@ sge::dinput::cursor::object::object(
 	)
 {
 	// TODO: this should not be here
-	device::funcs::set_data_format(
+	sge::dinput::device::funcs::set_data_format(
 		system_mouse_,
 		&c_dfDIMouse
+	);
+
+	this->mode(
+		sge::input::cursor::mode::normal
 	);
 }
 
@@ -281,28 +285,49 @@ sge::dinput::cursor::object::position() const
 
 void
 sge::dinput::cursor::object::mode(
-	input::cursor::mode::type const _mode
+	sge::input::cursor::mode::type const _mode
 )
 {
-	mode_ = _mode;
+	bool const was_acquired(
+		this->unacquire()
+	);
 
-	this->update_grab();
+	sge::dinput::device::funcs::set_cooperative_level(
+		system_mouse_,
+		window_,
+		sge::dinput::cursor::cooperative_level(
+			_mode
+		)
+	);
+
+	if(
+		was_acquired
+	)
+		this->acquire();
 }
 
 void
 sge::dinput::cursor::object::acquire()
 {
-	acquired_ = true;
-
-	this->update_grab();
+	while(
+		!sge::dinput::device::funcs::acquire(
+			system_mouse_
+		)
+	)
+		fcppt::time::sleep_any(
+			boost::chrono::milliseconds(
+				1
+			)
+		);
 }
 
-void
+bool
 sge::dinput::cursor::object::unacquire()
 {
-	acquired_ = false;
-
-	this->update_grab();
+	return
+		sge::dinput::device::funcs::unacquire(
+			system_mouse_
+		);
 }
 
 awl::backends::windows::window::event::return_type
@@ -343,30 +368,4 @@ sge::dinput::cursor::object::on_button(
 	);
 
 	return awl::backends::windows::window::event::return_type();
-}
-
-void
-sge::dinput::cursor::object::update_grab()
-{
-	system_mouse_->Unacquire();
-
-	if(
-		mode_ == sge::input::cursor::mode::exclusive
-		&& acquired_
-	)
-		dinput::device::funcs::set_cooperative_level(
-			system_mouse_,
-			window_,
-			DISCL_FOREGROUND | DISCL_EXCLUSIVE
-		);
-	else
-		dinput::device::funcs::set_cooperative_level(
-			system_mouse_,
-			window_,
-			DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
-		);
-
-	device::funcs::acquire(
-		system_mouse_
-	);
 }

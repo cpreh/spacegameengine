@@ -67,26 +67,26 @@ public:
 
 	fcppt::signal::auto_connection
 	button_callback(
-		input::cursor::button_callback const &
+		sge::input::cursor::button_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	move_callback(
-		input::cursor::move_callback const &
+		sge::input::cursor::move_callback const &
 	);
 
-	input::cursor::optional_position const
+	sge::input::cursor::optional_position const
 	position() const;
 
 	void
 	mode(
-		input::cursor::mode::type
+		sge::input::cursor::mode::type
 	);
 
 	void
 	acquire();
 
-	void
+	bool
 	unacquire();
 private:
 	awl::backends::windows::window::event::return_type
@@ -109,10 +109,6 @@ private:
 	awl::backends::windows::window::object &window_;
 
 	IDirectInputDevice8 *const system_mouse_;
-
-	bool acquired_;
-
-	sge::input::cursor::mode::type mode_;
 
 	sge::input::cursor::button_signal button_signal_;
 
