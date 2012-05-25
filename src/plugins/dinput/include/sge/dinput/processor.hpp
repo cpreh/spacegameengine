@@ -52,6 +52,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <awl/backends/windows/window/event/scoped_user_message.hpp>
+#include <awl/window/event/focus_in_fwd.hpp>
+#include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
@@ -121,9 +123,14 @@ public:
 		input::joypad::remove_callback const &
 	);
 private:
-	awl::backends::windows::window::event::return_type
-	on_activate(
-		awl::backends::windows::window::event::object const &
+	void
+	on_focus_in(
+		awl::window::event::focus_in const &
+	);
+
+	void
+	on_focus_out(
+		awl::window::event::focus_out const &
 	);
 
 	void

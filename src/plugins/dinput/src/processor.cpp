@@ -41,6 +41,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
+#include <awl/window/has_focus.hpp>
+#include <awl/window/event/focus_in_fwd.hpp>
+#include <awl/window/event/focus_in_callback.hpp>
+#include <awl/window/event/focus_out_fwd.hpp>
+#include <awl/window/event/focus_out_callback.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -105,7 +110,7 @@ sge::dinput::processor::processor(
 	devices_(),
 	cursor_(
 		fcppt::make_unique_ptr<
-			dinput::cursor::object
+			sge::dinput::cursor::object
 		>(
 			fcppt::ref(
 				event_processor_
@@ -121,7 +126,10 @@ sge::dinput::processor::processor(
 	),
 	key_conv_(),
 	acquired_(
-		false
+		awl::window::has_focus(
+			_window_system.awl_system(),
+			_window.awl_object()
+		)
 	),
 	cursor_discover_(),
 	cursor_remove_(),
@@ -139,16 +147,26 @@ sge::dinput::processor::processor(
 			fcppt::signal::connection_manager::container
 		>(
 			fcppt::signal::shared_connection(
-				event_processor_.register_callback(
-					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
-					>(
-						WM_ACTIVATE
-					),
-					std::tr1::bind(
-						&dinput::processor::on_activate,
-						this,
-						std::tr1::placeholders::_1
+				event_processor_.focus_in_callback(
+					awl::window::event::focus_in_callback(
+						std::tr1::bind(
+							&dinput::processor::on_focus_in,
+							this,
+							std::tr1::placeholders::_1
+						)
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				event_processor_.focus_out_callback(
+					awl::window::event::focus_out_callback(
+						std::tr1::bind(
+							&dinput::processor::on_focus_out,
+							this,
+							std::tr1::placeholders::_1
+						)
 					)
 				)
 			)
@@ -196,7 +214,7 @@ sge::dinput::processor::~processor()
 
 fcppt::signal::auto_connection
 sge::dinput::processor::keyboard_discover_callback(
-	input::keyboard::discover_callback const &_callback
+	sge::input::keyboard::discover_callback const &_callback
 )
 {
 	return
@@ -207,7 +225,7 @@ sge::dinput::processor::keyboard_discover_callback(
 
 fcppt::signal::auto_connection
 sge::dinput::processor::keyboard_remove_callback(
-	input::keyboard::remove_callback const &_callback
+	sge::input::keyboard::remove_callback const &_callback
 )
 {
 	return
@@ -218,7 +236,7 @@ sge::dinput::processor::keyboard_remove_callback(
 
 fcppt::signal::auto_connection
 sge::dinput::processor::mouse_discover_callback(
-	input::mouse::discover_callback const &_callback
+	sge::input::mouse::discover_callback const &_callback
 )
 {
 	return
@@ -229,7 +247,7 @@ sge::dinput::processor::mouse_discover_callback(
 
 fcppt::signal::auto_connection
 sge::dinput::processor::mouse_remove_callback(
-	input::mouse::remove_callback const &_callback
+	sge::input::mouse::remove_callback const &_callback
 )
 {
 	return
@@ -240,7 +258,7 @@ sge::dinput::processor::mouse_remove_callback(
 
 fcppt::signal::auto_connection
 sge::dinput::processor::cursor_discover_callback(
-	input::cursor::discover_callback const &_callback
+	sge::input::cursor::discover_callback const &_callback
 )
 {
 	return
@@ -251,7 +269,7 @@ sge::dinput::processor::cursor_discover_callback(
 
 fcppt::signal::auto_connection
 sge::dinput::processor::cursor_remove_callback(
-	input::cursor::remove_callback const &_callback
+	sge::input::cursor::remove_callback const &_callback
 )
 {
 	return
@@ -262,7 +280,7 @@ sge::dinput::processor::cursor_remove_callback(
 
 fcppt::signal::auto_connection
 sge::dinput::processor::joypad_discover_callback(
-	input::joypad::discover_callback const &_callback
+	sge::input::joypad::discover_callback const &_callback
 )
 {
 	return
@@ -273,7 +291,7 @@ sge::dinput::processor::joypad_discover_callback(
 
 fcppt::signal::auto_connection
 sge::dinput::processor::joypad_remove_callback(
-	input::joypad::remove_callback const &_callback
+	sge::input::joypad::remove_callback const &_callback
 )
 {
 	return
@@ -282,40 +300,44 @@ sge::dinput::processor::joypad_remove_callback(
 		);
 }
 
-awl::backends::windows::window::event::return_type
-sge::dinput::processor::on_activate(
-	awl::backends::windows::window::event::object const &_event
+void
+sge::dinput::processor::on_focus_in(
+	awl::window::event::focus_in const &
 )
 {
-	acquired_ = (_event.wparam().get() != 0);
-
 	FCPPT_LOG_DEBUG(
 		sge::log::global(),
 		fcppt::log::_
-			<< FCPPT_TEXT("DirectInput: Acquire: ")
-			<< acquired_
+			<< FCPPT_TEXT("DirectInput: focus in")
+	);
+	
+	acquired_ = true;
+
+	this->for_each_device(
+		&sge::dinput::device::object::acquire
 	);
 
-	if(
-		acquired_
-	)
-	{
-		this->for_each_device(
-			&dinput::device::object::acquire
-		);
+	cursor_->acquire();
+}
 
-		cursor_->acquire();
-	}
-	else
-	{
-		this->for_each_device(
-			&dinput::device::object::unacquire
-		);
+void
+sge::dinput::processor::on_focus_out(
+	awl::window::event::focus_out const &
+)
+{
+	FCPPT_LOG_DEBUG(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("DirectInput: focus out")
+	);
 
-		cursor_->unacquire();
-	}
+	acquired_ = false;
 
-	return awl::backends::windows::window::event::return_type();
+	this->for_each_device(
+		&sge::dinput::device::object::unacquire
+	);
+
+	cursor_->unacquire();
 }
 
 void
@@ -343,6 +365,11 @@ sge::dinput::processor::on_init(
 	);
 
 	if(
+		acquired_
+	)
+		cursor_->acquire();
+
+	if(
 		dinput_->EnumDevices(
 			DI8DEVCLASS_ALL,
 			enum_devices_callback,
@@ -354,7 +381,6 @@ sge::dinput::processor::on_init(
 		throw sge::input::exception(
 			FCPPT_TEXT("DirectInput Enumeration failed!")
 		);
-
 	
 	return
 		awl::backends::windows::window::event::return_type(
@@ -419,7 +445,7 @@ sge::dinput::processor::enum_devices_callback(
 	LPVOID _state
 )
 {
-	dinput::processor &instance(
+	sge::dinput::processor &instance(
 		*static_cast<
 			dinput::processor *
 		>(
@@ -436,7 +462,7 @@ sge::dinput::processor::enum_devices_callback(
 		_ddi->tszProductName
 	);
 
-	dinput::device::parameters const parameters(
+	sge::dinput::device::parameters const parameters(
 		instance.dinput_.get(),
 		product_name,
 		_ddi->guidInstance,
@@ -452,7 +478,7 @@ sge::dinput::processor::enum_devices_callback(
 		instance.add_device(
 			instance.keyboard_discover_,
 			fcppt::make_unique_ptr<
-				dinput::keyboard::device
+				sge::dinput::keyboard::device
 			>(
 				parameters,
 				fcppt::cref(
@@ -465,7 +491,7 @@ sge::dinput::processor::enum_devices_callback(
 		instance.add_device(
 			instance.mouse_discover_,
 			fcppt::make_unique_ptr<
-				dinput::mouse::device
+				sge::dinput::mouse::device
 			>(
 				parameters
 			)
