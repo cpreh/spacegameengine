@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/optional_info.hpp>
 #include <sge/input/joypad/discover_event.hpp>
 #include <sge/input/joypad/discover_signal.hpp>
-#include <awl/backends/x11/system/event/processor_fwd.hpp>
+#include <awl/backends/linux/fd/processor_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::evdev::joypad::add(
-	awl::backends::x11::system::event::processor &_system_processor,
+	awl::backends::linux::fd::processor &_processor,
 	sge::evdev::joypad::map &_map,
 	sge::input::joypad::discover_signal &_signal,
 	boost::filesystem::path const &_path
@@ -97,7 +97,7 @@ sge::evdev::joypad::add(
 				sge::evdev::joypad::object
 			>(
 				fcppt::ref(
-					_system_processor
+					_processor
 				),
 				fcppt::move(
 					fd

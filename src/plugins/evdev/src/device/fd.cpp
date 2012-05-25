@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/device/fd.hpp>
 #include <sge/input/exception.hpp>
-#include <awl/backends/x11/event/fd/object.hpp>
+#include <awl/backends/linux/fd/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/error/strerrno.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -67,7 +67,7 @@ sge::evdev::device::fd::~fd()
 	);
 }
 
-awl::backends::x11::event::fd::object const
+awl::backends::linux::fd::object const
 sge::evdev::device::fd::get() const
 {
 	return

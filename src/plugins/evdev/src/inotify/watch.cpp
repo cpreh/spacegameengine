@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/inotify/object.hpp>
 #include <sge/evdev/inotify/watch.hpp>
 #include <sge/input/exception.hpp>
-#include <awl/backends/x11/event/fd/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>

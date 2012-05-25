@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_INOTIFY_WATCH_HPP_INCLUDED
 
 #include <sge/evdev/inotify/watch_fwd.hpp>
-#include <awl/backends/x11/event/fd/object.hpp>
+#include <awl/backends/linux/fd/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -51,7 +51,7 @@ public:
 private:
 	sge::evdev::inotify::object const &object_;
 
-	awl::backends::x11::event::fd::object const fd_;
+	awl::backends::linux::fd::object const fd_;
 };
 
 }

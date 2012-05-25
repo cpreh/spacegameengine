@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/device/object.hpp>
 #include <sge/input/exception.hpp>
-#include <awl/backends/x11/event/fd/callback.hpp>
-#include <awl/backends/x11/event/fd/event_fwd.hpp>
-#include <awl/backends/x11/system/event/processor.hpp>
+#include <awl/backends/linux/fd/callback.hpp>
+#include <awl/backends/linux/fd/event_fwd.hpp>
+#include <awl/backends/linux/fd/processor.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::evdev::device::object::object(
-	awl::backends::x11::system::event::processor &_system_processor,
+	awl::backends::linux::fd::processor &_processor,
 	sge::evdev::device::fd_unique_ptr _fd
 )
 :
@@ -48,9 +48,9 @@ sge::evdev::device::object::object(
 		)
 	),
 	scoped_connection_(
-		_system_processor.register_fd_callback(
+		_processor.register_fd_callback(
 			fd_->get(),
-			awl::backends::x11::event::fd::callback(
+			awl::backends::linux::fd::callback(
 				std::tr1::bind(
 					&sge::evdev::device::object::on_event,
 					this,
@@ -68,7 +68,7 @@ sge::evdev::device::object::~object()
 
 void
 sge::evdev::device::object::on_event(
-	awl::backends::x11::event::fd::event const &
+	awl::backends::linux::fd::event const &
 )
 {
 	ssize_t result = -1;

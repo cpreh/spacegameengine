@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_signal.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/backends/x11/system/event/processor_fwd.hpp>
+#include <awl/backends/linux/fd/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
@@ -142,7 +142,7 @@ private:
 
 	boost::filesystem::path const path_;
 
-	awl::backends::x11::system::event::processor &system_processor_;
+	awl::backends::linux::fd::processor &processor_;
 
 	typedef fcppt::scoped_ptr<
 		sge::evdev::eventfd::object

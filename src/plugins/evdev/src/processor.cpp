@@ -41,7 +41,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system.hpp>
-#include <awl/backends/x11/system/event/processor.hpp>
+#include <awl/backends/linux/fd/processor.hpp>
+#include <awl/system/event/processor.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -69,9 +70,9 @@ sge::evdev::processor::processor(
 	path_(
 		"/dev/input"
 	),
-	system_processor_(
+	processor_(
 		dynamic_cast<
-			awl::backends::x11::system::event::processor &
+			awl::backends::linux::fd::processor &
 		>(
 			_window_system.awl_system_event_processor()
 		)
@@ -81,7 +82,7 @@ sge::evdev::processor::processor(
 			sge::evdev::eventfd::object
 		>(
 			fcppt::ref(
-				system_processor_
+				processor_
 			),
 			sge::evdev::eventfd::callback(
 				std::tr1::bind(
@@ -201,7 +202,7 @@ sge::evdev::processor::dev_init()
 				path_
 			),
 			fcppt::ref(
-				system_processor_
+				processor_
 			),
 			sge::evdev::inotify::callback(
 				std::tr1::bind(
@@ -214,7 +215,7 @@ sge::evdev::processor::dev_init()
 	);
 
 	sge::evdev::joypad::init(
-		system_processor_,
+		processor_,
 		joypads_,
 		joypad_discover_,
 		path_
@@ -238,7 +239,7 @@ sge::evdev::processor::dev_event(
 	{
 	case sge::evdev::inotify::event_type::add:
 		sge::evdev::joypad::add(
-			system_processor_,
+			processor_,
 			joypads_,
 			joypad_discover_,
 			file_path
@@ -253,7 +254,7 @@ sge::evdev::processor::dev_event(
 		return;
 	case sge::evdev::inotify::event_type::attrib:
 		sge::evdev::joypad::attrib(
-			system_processor_,
+			processor_,
 			joypads_,
 			joypad_discover_,
 			file_path

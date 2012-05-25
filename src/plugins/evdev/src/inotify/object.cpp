@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/inotify/object.hpp>
 #include <sge/input/exception.hpp>
-#include <awl/backends/x11/event/fd/object.hpp>
+#include <awl/backends/linux/fd/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <sys/inotify.h>
@@ -50,7 +50,7 @@ sge::evdev::inotify::object::~object()
 	);
 }
 
-awl::backends::x11::event::fd::object const
+awl::backends::linux::fd::object const
 sge::evdev::inotify::object::fd() const
 {
 	return

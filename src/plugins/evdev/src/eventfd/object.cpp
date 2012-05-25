@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/eventfd/callback.hpp>
 #include <sge/evdev/eventfd/object.hpp>
-#include <awl/backends/x11/system/event/processor.hpp>
+#include <awl/backends/linux/fd/processor.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -42,7 +42,7 @@ value_type const value(
 }
 
 sge::evdev::eventfd::object::object(
-	awl::backends::x11::system::event::processor &_processor,
+	awl::backends::linux::fd::processor &_processor,
 	sge::evdev::eventfd::callback const &_callback
 )
 :

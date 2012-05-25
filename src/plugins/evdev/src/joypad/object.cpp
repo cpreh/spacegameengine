@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/info.hpp>
 #include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/relative_axis_event.hpp>
-#include <awl/backends/x11/system/event/processor_fwd.hpp>
+#include <awl/backends/linux/fd/processor_fwd.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
@@ -46,14 +46,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::evdev::joypad::object::object(
-	awl::backends::x11::system::event::processor &_system_processor,
+	awl::backends::linux::fd::processor &_processor,
 	sge::evdev::device::fd_unique_ptr _fd,
 	sge::evdev::joypad::info const &_info
 )
 :
 	sge::input::joypad::device(),
 	sge::evdev::device::object(
-		_system_processor,
+		_processor,
 		fcppt::move(
 			_fd
 		)

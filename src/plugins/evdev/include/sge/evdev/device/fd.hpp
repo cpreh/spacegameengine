@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_DEVICE_FD_HPP_INCLUDED
 
 #include <sge/evdev/device/fd_fwd.hpp>
-#include <awl/backends/x11/event/fd/object.hpp>
+#include <awl/backends/linux/fd/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -49,10 +49,10 @@ public:
 
 	~fd();
 
-	awl::backends::x11::event::fd::object const
+	awl::backends::linux::fd::object const
 	get() const;
 private:
-	awl::backends::x11::event::fd::object const fd_;
+	awl::backends::linux::fd::object const fd_;
 };
 
 }

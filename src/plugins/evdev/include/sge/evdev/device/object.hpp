@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/device/event_fwd.hpp>
 #include <sge/evdev/device/fd_fwd.hpp>
-#include <awl/backends/x11/event/fd/event_fwd.hpp>
-#include <awl/backends/x11/system/event/processor_fwd.hpp>
+#include <awl/backends/linux/fd/event_fwd.hpp>
+#include <awl/backends/linux/fd/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -44,7 +44,7 @@ class object
 	);
 public:
 	object(
-		awl::backends::x11::system::event::processor &,
+		awl::backends::linux::fd::processor &,
 		sge::evdev::device::fd_unique_ptr
 	);
 
@@ -53,7 +53,7 @@ public:
 
 	void
 	on_event(
-		awl::backends::x11::event::fd::event const &
+		awl::backends::linux::fd::event const &
 	);
 private:
 	virtual

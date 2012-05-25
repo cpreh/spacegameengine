@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/eventfd/fd.hpp>
 #include <sge/input/exception.hpp>
-#include <awl/backends/x11/event/fd/object.hpp>
+#include <awl/backends/linux/fd/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <sys/eventfd.h>
@@ -53,7 +53,7 @@ sge::evdev::eventfd::fd::~fd()
 	);
 }
 
-awl::backends::x11::event::fd::object const
+awl::backends::linux::fd::object const
 sge::evdev::eventfd::fd::get() const
 {
 	return
