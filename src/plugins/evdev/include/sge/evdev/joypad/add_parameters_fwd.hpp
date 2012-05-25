@@ -18,31 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/joypad/add.hpp>
-#include <sge/evdev/joypad/add_parameters.hpp>
-#include <sge/evdev/joypad/attrib.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_EVDEV_JOYPAD_ADD_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_EVDEV_JOYPAD_ADD_PARAMETERS_FWD_HPP_INCLUDED
 
 
-void
-sge::evdev::joypad::attrib(
-	sge::evdev::joypad::add_parameters const &_parameters,
-	boost::filesystem::path const &_path
-)
+namespace sge
 {
-	if(
-		_parameters.map().find(
-			_path
-		)
-		!=
-		_parameters.map().end()
-	)
-		return;
+namespace evdev
+{
+namespace joypad
+{
 
-	sge::evdev::joypad::add(
-		_parameters,
-		_path
-	);
+class add_parameters;
+
 }
+}
+}
+
+#endif

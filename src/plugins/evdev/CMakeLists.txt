@@ -23,6 +23,8 @@ set(
 	src/plugins/evdev/include/sge/evdev/eventfd/fd.hpp
 	src/plugins/evdev/include/sge/evdev/eventfd/object.hpp
 	src/plugins/evdev/include/sge/evdev/eventfd/object_fwd.hpp
+	src/plugins/evdev/include/sge/evdev/focus_manager.hpp
+	src/plugins/evdev/include/sge/evdev/focus_manager_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/callback.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/convert_event_type.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/event.hpp
@@ -42,6 +44,8 @@ set(
 	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_info_container.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_string.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/add.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/add_parameters.hpp
+	src/plugins/evdev/include/sge/evdev/joypad/add_parameters_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/attrib.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/button/info_container.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/button/info_container_fwd.hpp
@@ -78,6 +82,7 @@ set(
 	src/plugins/evdev/src/eventfd/fd.cpp
 	src/plugins/evdev/src/eventfd/object.cpp
 	src/plugins/evdev/src/exports.cpp
+	src/plugins/evdev/src/focus_manager.cpp
 	src/plugins/evdev/src/inotify/convert_event_type.cpp
 	src/plugins/evdev/src/inotify/event.cpp
 	src/plugins/evdev/src/inotify/object.cpp
@@ -90,6 +95,7 @@ set(
 	src/plugins/evdev/src/joypad/absolute_axis/make_info_container.cpp
 	src/plugins/evdev/src/joypad/absolute_axis/make_string.cpp
 	src/plugins/evdev/src/joypad/add.cpp
+	src/plugins/evdev/src/joypad/add_parameters.cpp
 	src/plugins/evdev/src/joypad/attrib.cpp
 	src/plugins/evdev/src/joypad/button/info_container.cpp
 	src/plugins/evdev/src/joypad/button/make_event.cpp

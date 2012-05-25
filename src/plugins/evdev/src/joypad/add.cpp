@@ -22,15 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/joypad/add.hpp>
+#include <sge/evdev/joypad/add_parameters.hpp>
 #include <sge/evdev/joypad/info.hpp>
 #include <sge/evdev/joypad/is_joypad.hpp>
 #include <sge/evdev/joypad/make_info.hpp>
-#include <sge/evdev/joypad/map.hpp>
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/evdev/joypad/optional_info.hpp>
 #include <sge/input/joypad/discover_event.hpp>
-#include <sge/input/joypad/discover_signal.hpp>
-#include <awl/backends/linux/fd/processor_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -45,9 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::evdev::joypad::add(
-	awl::backends::linux::fd::processor &_processor,
-	sge::evdev::joypad::map &_map,
-	sge::input::joypad::discover_signal &_signal,
+	sge::evdev::joypad::add_parameters const &_parameters,
 	boost::filesystem::path const &_path
 )
 {
@@ -91,13 +87,16 @@ sge::evdev::joypad::add(
 
 	insert_return const ret(
 		fcppt::container::ptr::insert_unique_ptr_map(
-			_map,
+			_parameters.map(),
 			_path,
 			fcppt::make_unique_ptr<
 				sge::evdev::joypad::object
 			>(
+				fcppt::cref(
+					_parameters.focus_manager()
+				),
 				fcppt::ref(
-					_processor
+					_parameters.processor()
 				),
 				fcppt::move(
 					fd
@@ -113,7 +112,7 @@ sge::evdev::joypad::add(
 		ret.second
 	);
 
-	_signal(
+	_parameters.discover_signal()(
 		sge::input::joypad::discover_event(
 			*ret.first->second
 		)

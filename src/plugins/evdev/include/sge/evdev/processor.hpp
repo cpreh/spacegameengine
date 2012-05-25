@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_PROCESSOR_HPP_INCLUDED
 #define SGE_EVDEV_PROCESSOR_HPP_INCLUDED
 
+#include <sge/evdev/focus_manager.hpp>
 #include <sge/evdev/eventfd/object_fwd.hpp>
 #include <sge/evdev/inotify/event_fwd.hpp>
 #include <sge/evdev/inotify/reader_fwd.hpp>
@@ -59,7 +60,7 @@ namespace sge
 namespace evdev
 {
 
-class SGE_CLASS_SYMBOL processor
+class processor
 :
 	public sge::input::processor
 {
@@ -139,6 +140,8 @@ private:
 	sge::input::joypad::remove_signal joypad_remove_;
 
 	sge::evdev::joypad::map joypads_;
+
+	sge::evdev::focus_manager const focus_manager_;
 
 	boost::filesystem::path const path_;
 

@@ -18,16 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_DEVICE_OBJECT_HPP_INCLUDED
-#define SGE_EVDEV_DEVICE_OBJECT_HPP_INCLUDED
+#ifndef SGE_EVDEV_FOCUS_MANAGER_HPP_INCLUDED
+#define SGE_EVDEV_FOCUS_MANAGER_HPP_INCLUDED
 
 #include <sge/evdev/focus_manager_fwd.hpp>
-#include <sge/evdev/device/event_fwd.hpp>
-#include <sge/evdev/device/fd_fwd.hpp>
-#include <awl/backends/linux/fd/event_fwd.hpp>
-#include <awl/backends/linux/fd/processor_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/system/object_fwd.hpp>
+#include <awl/window/event/focus_in_fwd.hpp>
+#include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
 
@@ -35,47 +34,40 @@ namespace sge
 {
 namespace evdev
 {
-namespace device
-{
 
-class object
+class focus_manager
 {
 	FCPPT_NONCOPYABLE(
-		object
+		focus_manager
 	);
 public:
-	object(
-		sge::evdev::focus_manager const &,
-		awl::backends::linux::fd::processor &,
-		sge::evdev::device::fd_unique_ptr
+	focus_manager(
+		awl::system::object &,
+		sge::window::object const &
 	);
 
-	virtual
-	~object() = 0;
+	~focus_manager();
 
-	void
-	on_event(
-		awl::backends::linux::fd::event const &
-	);
+	bool
+	focus() const;
 private:
-	virtual
 	void
-	process_event(
-		sge::evdev::device::event const &
-	) = 0;
+	on_focus_in(
+		awl::window::event::focus_in const &
+	);
 
-	sge::evdev::focus_manager const &focus_manager_;
+	void
+	on_focus_out(
+		awl::window::event::focus_out const &
+	);
 
-	typedef fcppt::scoped_ptr<
-		sge::evdev::device::fd
-	> fd_scoped_ptr;
+	bool focus_;
 
-	fd_scoped_ptr const fd_;
-
-	fcppt::signal::scoped_connection const scoped_connection_;
+	fcppt::signal::scoped_connection const
+		focus_in_connection_,
+		focus_out_connection_;
 };
 
-}
 }
 }
 
