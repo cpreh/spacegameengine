@@ -209,7 +209,7 @@ sge::dinput::cursor::object::object(
 	// TODO: this should not be here
 	sge::dinput::device::funcs::set_data_format(
 		system_mouse_,
-		&c_dfDIMouse
+		&c_dfDIMouse2
 	);
 
 	this->mode(

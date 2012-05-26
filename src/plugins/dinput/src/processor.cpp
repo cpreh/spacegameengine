@@ -358,12 +358,6 @@ sge::dinput::processor::on_init(
 	awl::backends::windows::window::event::object const &
 )
 {
-	cursor_discover_(
-		sge::input::cursor::discover_event(
-			*cursor_
-		)
-	);
-
 	if(
 		acquired_
 	)
@@ -382,6 +376,12 @@ sge::dinput::processor::on_init(
 			FCPPT_TEXT("DirectInput Enumeration failed!")
 		);
 	
+	cursor_discover_(
+		sge::input::cursor::discover_event(
+			*cursor_
+		)
+	);
+
 	return
 		awl::backends::windows::window::event::return_type(
 			0u
