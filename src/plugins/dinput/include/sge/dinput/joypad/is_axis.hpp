@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_MOUSE_IS_AXIS_HPP_INCLUDED
-#define SGE_DINPUT_MOUSE_IS_AXIS_HPP_INCLUDED
+#ifndef SGE_DINPUT_JOYPAD_IS_AXIS_HPP_INCLUDED
+#define SGE_DINPUT_JOYPAD_IS_AXIS_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
 
@@ -28,7 +28,7 @@ namespace sge
 {
 namespace dinput
 {
-namespace mouse
+namespace joypad
 {
 
 bool

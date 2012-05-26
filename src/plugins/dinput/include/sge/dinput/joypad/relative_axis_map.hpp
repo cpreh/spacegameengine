@@ -18,23 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_MOUSE_IS_AXIS_HPP_INCLUDED
-#define SGE_DINPUT_MOUSE_IS_AXIS_HPP_INCLUDED
+#ifndef SGE_DINPUT_JOYPAD_RELATIVE_AXIS_MAP_HPP_INCLUDED
+#define SGE_DINPUT_JOYPAD_RELATIVE_AXIS_MAP_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
+#include <sge/input/joypad/relative_axis_id.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <map>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace dinput
 {
-namespace mouse
+namespace joypad
 {
 
-bool
-is_axis(
-	GUID
-);
+typedef std::map<
+	DWORD,
+	sge::input::joypad::relative_axis_id
+> relative_axis_map;
 
 }
 }

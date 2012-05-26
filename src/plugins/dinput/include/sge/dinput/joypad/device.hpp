@@ -18,19 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_MOUSE_DEVICE_HPP_INCLUDED
-#define SGE_DINPUT_MOUSE_DEVICE_HPP_INCLUDED
+#ifndef SGE_DINPUT_JOYPAD_DEVICE_HPP_INCLUDED
+#define SGE_DINPUT_JOYPAD_DEVICE_HPP_INCLUDED
 
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters_fwd.hpp>
-#include <sge/dinput/mouse/device_fwd.hpp>
-#include <sge/dinput/mouse/info.hpp>
-#include <sge/input/mouse/axis_callback.hpp>
-#include <sge/input/mouse/axis_signal.hpp>
-#include <sge/input/mouse/button_callback.hpp>
-#include <sge/input/mouse/button_signal.hpp>
-#include <sge/input/mouse/device.hpp>
-#include <sge/input/mouse/info_fwd.hpp>
+#include <sge/dinput/joypad/device_fwd.hpp>
+#include <sge/dinput/joypad/info.hpp>
+#include <sge/input/joypad/absolute_axis_callback.hpp>
+#include <sge/input/joypad/absolute_axis_signal.hpp>
+#include <sge/input/joypad/button_callback.hpp>
+#include <sge/input/joypad/button_signal.hpp>
+#include <sge/input/joypad/device.hpp>
+#include <sge/input/joypad/info_fwd.hpp>
+#include <sge/input/joypad/relative_axis_callback.hpp>
+#include <sge/input/joypad/relative_axis_signal.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -43,12 +45,12 @@ namespace sge
 {
 namespace dinput
 {
-namespace mouse
+namespace joypad
 {
 
 class device
 :
-	public sge::input::mouse::device,
+	public sge::input::joypad::device,
 	public sge::dinput::device::object
 {
 	FCPPT_NONCOPYABLE(
@@ -63,16 +65,21 @@ public:
 	~device();
 private:
 	fcppt::signal::auto_connection
-	axis_callback(
-		sge::input::mouse::axis_callback const &
+	absolute_axis_callback(
+		sge::input::joypad::absolute_axis_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	button_callback(
-		sge::input::mouse::button_callback const &
+		sge::input::joypad::button_callback const &
+	);
+	
+	fcppt::signal::auto_connection
+	relative_axis_callback(
+		sge::input::joypad::relative_axis_callback const &
 	);
 
-	sge::input::mouse::info const &
+	sge::input::joypad::info const &
 	info() const;
 
 	void
@@ -80,11 +87,13 @@ private:
 		DIDEVICEOBJECTDATA const &
 	);
 
-	sge::dinput::mouse::info const info_;
+	sge::dinput::joypad::info const info_;
 
-	sge::input::mouse::axis_signal axis_signal_;
+	sge::input::joypad::absolute_axis_signal absolute_axis_signal_;
 
-	sge::input::mouse::button_signal button_signal_;
+	sge::input::joypad::button_signal button_signal_;
+
+	sge::input::joypad::relative_axis_signal relatiev_axis_signal_;
 };
 
 }

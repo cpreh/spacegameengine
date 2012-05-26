@@ -19,26 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/device/add_element.hpp>
 #include <sge/dinput/device/enumerator.hpp>
-#include <sge/dinput/mouse/axis_code.hpp>
 #include <sge/dinput/mouse/axis_map.hpp>
-#include <sge/dinput/mouse/button_code.hpp>
 #include <sge/dinput/mouse/button_map.hpp>
 #include <sge/dinput/mouse/enumerator.hpp>
 #include <sge/dinput/mouse/is_axis.hpp>
-#include <sge/input/info/optional_string.hpp>
-#include <sge/input/mouse/axis.hpp>
-#include <sge/input/mouse/axis_id.hpp>
+#include <sge/dinput/mouse/make_axis_info.hpp>
+#include <sge/dinput/mouse/make_button_info.hpp>
 #include <sge/input/mouse/axis_info.hpp>
 #include <sge/input/mouse/axis_info_container.hpp>
-#include <sge/input/mouse/button_id.hpp>
 #include <sge/input/mouse/button_info.hpp>
 #include <sge/input/mouse/button_info_container.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::dinput::mouse::enumerator::enumerator()
@@ -92,57 +84,19 @@ sge::dinput::mouse::enumerator::dispatch(
 			_data.guidType
 		)
 	)
-	{
-		FCPPT_ASSERT_ERROR(
-			axis_map_.insert(
-				std::make_pair(
-					_data.dwOfs,
-					fcppt::strong_typedef_construct_cast<
-						sge::input::mouse::axis_id
-					>(
-						axis_.size()
-					)
-				)
-			).second
+		sge::dinput::device::add_element(
+			_data,
+			axis_map_,
+			axis_,
+			&sge::dinput::mouse::make_axis_info
 		);
-
-		axis_.push_back(
-			sge::input::mouse::axis_info(
-				sge::dinput::mouse::axis_code(
-					_data.dwOfs
-				),
-				sge::input::info::optional_string(
-					_data.tszName
-				)
-			)
-		);
-	}
 	else if(
 		_data.guidType == GUID_Button
 	)
-	{
-		FCPPT_ASSERT_ERROR(
-			button_map_.insert(
-				std::make_pair(
-					_data.dwOfs,
-					fcppt::strong_typedef_construct_cast<
-						sge::input::mouse::button_id
-					>(
-						buttons_.size()
-					)
-				)
-			).second
+		sge::dinput::device::add_element(
+			_data,
+			button_map_,
+			buttons_,
+			&sge::dinput::mouse::make_button_info
 		);
-
-		buttons_.push_back(
-			sge::input::mouse::button_info(
-				sge::dinput::mouse::button_code(
-					_data.dwOfs
-				),
-				sge::input::info::optional_string(
-					_data.tszName
-				)
-			)
-		);
-	}
 }

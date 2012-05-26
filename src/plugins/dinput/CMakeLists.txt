@@ -9,6 +9,7 @@ SET(
 	src/plugins/dinput/include/sge/dinput/cursor/object.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/object_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/pixmap.hpp
+	src/plugins/dinput/include/sge/dinput/device/add_element.hpp
 	src/plugins/dinput/include/sge/dinput/device/enumerate_objects.hpp
 	src/plugins/dinput/include/sge/dinput/device/enumerator.hpp
 	src/plugins/dinput/include/sge/dinput/device/enumerator_fwd.hpp
@@ -24,6 +25,17 @@ SET(
 	src/plugins/dinput/include/sge/dinput/dinput_device_scoped_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/dinput_device_unique_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/dinput_unique_ptr.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/absolute_axis_map.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/axis_code.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/button_map.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/device.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/device_fwd.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/enumerator.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/info.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/info_fwd.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/is_axis.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/make_info.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/relative_axis_map.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/char_vector.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/device.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/device_fwd.hpp
@@ -50,6 +62,8 @@ SET(
 	src/plugins/dinput/include/sge/dinput/mouse/info.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/info_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/is_axis.hpp
+	src/plugins/dinput/include/sge/dinput/mouse/make_axis_info.hpp
+	src/plugins/dinput/include/sge/dinput/mouse/make_button_info.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/make_info.hpp
 	src/plugins/dinput/include/sge/dinput/processor.hpp
 	src/plugins/dinput/include/sge/dinput/state_array.hpp
@@ -70,6 +84,12 @@ SET(
 	src/plugins/dinput/src/device/object.cpp
 	src/plugins/dinput/src/device/parameters.cpp
 	src/plugins/dinput/src/exports.cpp
+	src/plugins/dinput/src/joypad/axis_code.cpp
+	src/plugins/dinput/src/joypad/device.cpp
+	src/plugins/dinput/src/joypad/enumerator.cpp
+	src/plugins/dinput/src/joypad/info.cpp
+	src/plugins/dinput/src/joypad/is_axis.cpp
+	src/plugins/dinput/src/joypad/make_info.cpp
 	src/plugins/dinput/src/keyboard/device.cpp
 	src/plugins/dinput/src/keyboard/enumerator.cpp
 	src/plugins/dinput/src/keyboard/info.cpp
@@ -85,6 +105,8 @@ SET(
 	src/plugins/dinput/src/mouse/enumerator.cpp
 	src/plugins/dinput/src/mouse/info.cpp
 	src/plugins/dinput/src/mouse/is_axis.cpp
+	src/plugins/dinput/src/mouse/make_axis_info.cpp
+	src/plugins/dinput/src/mouse/make_button_info.cpp
 	src/plugins/dinput/src/mouse/make_info.cpp
 	src/plugins/dinput/src/processor.cpp
 	src/plugins/dinput/src/system.cpp

@@ -18,26 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_MOUSE_IS_AXIS_HPP_INCLUDED
-#define SGE_DINPUT_MOUSE_IS_AXIS_HPP_INCLUDED
-
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/mouse/button_code.hpp>
+#include <sge/dinput/mouse/make_button_info.hpp>
+#include <sge/input/info/optional_string.hpp>
+#include <sge/input/mouse/button_info.hpp>
 
 
-namespace sge
+sge::input::mouse::button_info const
+sge::dinput::mouse::make_button_info(
+	DIDEVICEOBJECTINSTANCE const &_data
+)
 {
-namespace dinput
-{
-namespace mouse
-{
-
-bool
-is_axis(
-	GUID
-);
-
+	return
+			sge::input::mouse::button_info(
+				sge::dinput::mouse::button_code(
+					_data.dwOfs
+				),
+				sge::input::info::optional_string(
+					_data.tszName
+				)
+			);
 }
-}
-}
-
-#endif
