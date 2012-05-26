@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_PROJECTILE_STRUCTURE_CAST_HPP_INCLUDED
 #define SGE_SRC_PROJECTILE_STRUCTURE_CAST_HPP_INCLUDED
 
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/has_dim.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/matrix/has_dim.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/has_dim.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btMatrix3x3.h>
 #include <LinearMath/btScalar.h>

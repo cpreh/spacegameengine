@@ -73,7 +73,7 @@ private:
 	button_callback(
 		sge::input::joypad::button_callback const &
 	);
-	
+
 	fcppt::signal::auto_connection
 	relative_axis_callback(
 		sge::input::joypad::relative_axis_callback const &

@@ -68,7 +68,7 @@ sge::dinput::device::object::dispatch()
 		DIDEVICEOBJECTDATA,
 		buffer_size
 	> input_buffer;
-	
+
 	input_buffer buffer;
 
 	DWORD elements(

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/message/make_class.hpp>
 #include <alda/message/make_id.hpp>
 #include <alda/message/make_concrete_ptr.hpp>
+#include <alda/serialization/context_fwd.hpp>
 #include <alda/serialization/define_context_function.hpp>
 #include <alda/serialization/deserialize.hpp>
 #include <alda/serialization/instantiate_context.hpp>

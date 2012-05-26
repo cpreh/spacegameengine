@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/mouse/axis_map.hpp>
 #include <sge/dinput/mouse/button_map.hpp>
 #include <sge/dinput/mouse/info.hpp>
-#include <sge/input/mouse/info.hpp>	
+#include <sge/input/mouse/info.hpp>
 
 
 sge::dinput::mouse::info::info(

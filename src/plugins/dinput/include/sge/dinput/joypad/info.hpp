@@ -53,7 +53,7 @@ public:
 
 	sge::dinput::joypad::button_map const &
 	button_map() const;
-	
+
 	sge::dinput::joypad::relative_axis_map const &
 	relative_axis_map() const;
 private:

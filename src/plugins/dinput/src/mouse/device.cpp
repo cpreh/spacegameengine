@@ -113,7 +113,7 @@ sge::dinput::mouse::device::on_dispatch(
 				_data.dwOfs
 			)
 		);
-		
+
 		if(
 			it != info_.axis_map().end()
 		)

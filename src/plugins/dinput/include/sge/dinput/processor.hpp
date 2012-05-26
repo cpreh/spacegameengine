@@ -193,7 +193,7 @@ private:
 	typedef fcppt::scoped_ptr<
 		dinput::cursor::object
 	> cursor_scoped_ptr;
-	
+
 	cursor_scoped_ptr const cursor_;
 
 	dinput::keyboard::key_converter key_conv_;

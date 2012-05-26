@@ -310,7 +310,7 @@ sge::dinput::processor::on_focus_in(
 		fcppt::log::_
 			<< FCPPT_TEXT("DirectInput: focus in")
 	);
-	
+
 	acquired_ = true;
 
 	this->for_each_device(
@@ -347,7 +347,7 @@ sge::dinput::processor::on_handle_ready()
 		!acquired_
 	)
 		return;
-	
+
 	this->for_each_device(
 		&dinput::device::object::dispatch
 	);
@@ -375,7 +375,7 @@ sge::dinput::processor::on_init(
 		throw sge::input::exception(
 			FCPPT_TEXT("DirectInput Enumeration failed!")
 		);
-	
+
 	cursor_discover_(
 		sge::input::cursor::discover_event(
 			*cursor_

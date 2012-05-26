@@ -100,7 +100,7 @@ sge::d3d9::target::onscreen::on_activate()
 		),
 		color_surface_->surface()
 	);
-	
+
 	sge::d3d9::devicefuncs::set_depth_stencil_surface(
 		this->device(),
 		depth_stencil_surface_->surface()

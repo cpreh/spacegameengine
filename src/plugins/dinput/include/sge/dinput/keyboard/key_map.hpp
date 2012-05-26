@@ -34,7 +34,7 @@ namespace dinput
 {
 namespace keyboard
 {
-	
+
 typedef std::map<
 	DWORD,
 	sge::input::keyboard::key_code::type

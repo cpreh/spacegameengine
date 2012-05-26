@@ -43,7 +43,7 @@ class context
 	FCPPT_NONCOPYABLE(
 		context
 	);
-public:	
+public:
 	explicit
 	context(
 		awl::backends::windows::window::object &

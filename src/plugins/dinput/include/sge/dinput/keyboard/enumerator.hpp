@@ -57,7 +57,7 @@ private:
 	dispatch(
 		DIDEVICEOBJECTINSTANCE const &
 	);
-	
+
 	sge::dinput::keyboard::key_converter const &key_converter_;
 
 	sge::dinput::keyboard::key_map key_map_;
