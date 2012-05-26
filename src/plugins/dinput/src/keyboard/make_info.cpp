@@ -18,29 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/mouse/axis_code.hpp>
-#include <sge/input/mouse/axis_code.hpp>
+#include <sge/dinput/device/enumerate_objects.hpp>
+#include <sge/dinput/keyboard/enumerator.hpp>
+#include <sge/dinput/keyboard/info.hpp>
+#include <sge/dinput/keyboard/key_converter_fwd.hpp>
+#include <sge/dinput/keyboard/make_info.hpp>
 
 
-sge::input::mouse::axis_code::type
-sge::dinput::mouse::axis_code(
-	DWORD const _code
+sge::dinput::keyboard::info const
+sge::dinput::keyboard::make_info(
+	IDirectInputDevice8 &_device,
+	sge::dinput::keyboard::key_converter const &_key_converter
 )
 {
-	if(
-		_code == dinput::cast_key(DIMOFS_X)
-	)
-		return sge::input::mouse::axis_code::x;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
-	)
-		return sge::input::mouse::axis_code::y;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
-	)
-		return sge::input::mouse::axis_code::wheel;
+	sge::dinput::keyboard::enumerator object(
+		_key_converter
+	);
 
-	return sge::input::mouse::axis_code::unknown;
+	sge::dinput::device::enumerate_objects(
+		_device,
+		object,
+		DIDFT_ALL
+	);
+
+	return
+		sge::dinput::keyboard::info(
+			object.key_map()
+		);
 }

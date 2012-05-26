@@ -189,7 +189,7 @@ sge::dinput::keyboard::key_converter::create_key_code(
 
 DWORD
 sge::dinput::keyboard::key_converter::create_dik(
-	input::keyboard::key_code::type const _key
+	sge::input::keyboard::key_code::type const _key
 ) const
 {
 	reverse_map::const_iterator const it(

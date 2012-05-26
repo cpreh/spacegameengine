@@ -22,19 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_MOUSE_DEVICE_HPP_INCLUDED
 
 #include <sge/dinput/mouse/device_fwd.hpp>
+#include <sge/dinput/mouse/info.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters_fwd.hpp>
-#include <sge/dinput/di.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
-#include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/mouse/axis_signal.hpp>
 #include <sge/input/mouse/button_callback.hpp>
-#include <sge/input/mouse/button_code.hpp>
 #include <sge/input/mouse/button_signal.hpp>
 #include <sge/input/mouse/device.hpp>
-#include <sge/input/mouse/info.hpp>
+#include <sge/input/mouse/info_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
@@ -51,59 +49,42 @@ namespace mouse
 class device
 :
 	public sge::input::mouse::device,
-	public dinput::device::object
+	public sge::dinput::device::object
 {
 	FCPPT_NONCOPYABLE(
 		device
 	);
 public:
-	explicit device(
-		dinput::device::parameters const &
+	explicit
+	device(
+		sge::dinput::device::parameters const &
 	);
 
 	~device();
-
+private:
 	fcppt::signal::auto_connection
 	axis_callback(
-		input::mouse::axis_callback const &
+		sge::input::mouse::axis_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	button_callback(
-		input::mouse::button_callback const &
+		sge::input::mouse::button_callback const &
 	);
 
 	sge::input::mouse::info const &
 	info() const;
 
 	void
-	dispatch();
-private:
-	static BOOL CALLBACK
-	enum_mouse_keys(
-		LPCDIDEVICEOBJECTINSTANCE,
-		LPVOID
+	on_dispatch(
+		DIDEVICEOBJECTDATA const &
 	);
 
-	sge::input::mouse::info info_;
+	sge::dinput::mouse::info const info_;
 
 	sge::input::mouse::axis_signal axis_signal_;
 
 	sge::input::mouse::button_signal button_signal_;
-
-	typedef std::map<
-		DWORD,
-		input::mouse::axis_code::type
-	> axis_map;
-
-	typedef std::map<
-		DWORD,
-		input::mouse::button_code::type
-	> button_map;
-
-	axis_map axis_;
-
-	button_map buttons_;
 };
 
 }

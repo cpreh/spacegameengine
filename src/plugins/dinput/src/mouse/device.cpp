@@ -18,59 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/mouse/device.hpp>
-#include <sge/dinput/mouse/is_axis.hpp>
-#include <sge/dinput/mouse/axis_code.hpp>
-#include <sge/dinput/mouse/button_code.hpp>
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/device/object.hpp>
+#include <sge/dinput/device/parameters.hpp>
+#include <sge/dinput/mouse/axis_map.hpp>
+#include <sge/dinput/mouse/button_map.hpp>
+#include <sge/dinput/mouse/device.hpp>
+#include <sge/dinput/mouse/make_info.hpp>
 #include <sge/input/info/name.hpp>
 #include <sge/input/mouse/axis.hpp>
+#include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_event.hpp>
-#include <sge/input/mouse/axis_info_container.hpp>
+#include <sge/input/mouse/axis_value.hpp>
 #include <sge/input/mouse/button.hpp>
+#include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_event.hpp>
-#include <sge/input/mouse/button_id.hpp>
-#include <sge/input/mouse/button_info_container.hpp>
-#include <sge/input/mouse/info.hpp>
-#include <fcppt/text.hpp>
+#include <sge/input/mouse/device.hpp>
+#include <sge/input/mouse/info_fwd.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 sge::dinput::mouse::device::device(
-	dinput::device::parameters const &_param
+	sge::dinput::device::parameters const &_parameters
 )
 :
 	sge::input::mouse::device(),
-	dinput::device::object(
-		_param
+	sge::dinput::device::object(
+		_parameters
 	),
-	// FIXME
 	info_(
-		sge::input::mouse::info(
-			sge::input::mouse::axis_info_container(
-				sge::input::mouse::axis_info_container::vector()
-			),
-			sge::input::mouse::button_info_container(
-				sge::input::mouse::button_info_container::vector()
-			),
-			sge::input::info::name(
-				FCPPT_TEXT("mouse")
-			)
+		sge::dinput::mouse::make_info(
+			this->get(),
+			_parameters.name()
 		)
 	),
 	axis_signal_(),
-	button_signal_(),
-	axis_(),
-	buttons_()
+	button_signal_()
 {
 	this->set_data_format(
 		&c_dfDIMouse2
 	);
-
-	this->enum_objects(
-		enum_mouse_keys
-	);
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::dinput::mouse::device::~device()
 {
@@ -78,7 +75,7 @@ sge::dinput::mouse::device::~device()
 
 fcppt::signal::auto_connection
 sge::dinput::mouse::device::axis_callback(
-	input::mouse::axis_callback const &_callback
+	sge::input::mouse::axis_callback const &_callback
 )
 {
 	return
@@ -89,7 +86,7 @@ sge::dinput::mouse::device::axis_callback(
 
 fcppt::signal::auto_connection
 sge::dinput::mouse::device::button_callback(
-	input::mouse::button_callback const &_callback
+	sge::input::mouse::button_callback const &_callback
 )
 {
 	return
@@ -101,133 +98,74 @@ sge::dinput::mouse::device::button_callback(
 sge::input::mouse::info const &
 sge::dinput::mouse::device::info() const
 {
-	return info_;
+	return
+		info_.input_info();
 }
 
 void
-sge::dinput::mouse::device::dispatch()
+sge::dinput::mouse::device::on_dispatch(
+	DIDEVICEOBJECTDATA const &_data
+)
 {
-	input_buffer data;
-
-	DWORD elements;
-
-	if(
-		!this->get_input(
-			data,
-			elements
-		)
-	)
-		return;
-
-	for(
-		DWORD index = 0;
-		index < elements;
-		++index
-	)
 	{
-		DWORD const
-			offset(
-				data[
-					index
-				].dwOfs
-			),
-			data_word(
-				data[
-					index
-				].dwData
-			);
-
-		if(
-			dinput::mouse::is_axis(
-				offset
+		sge::dinput::mouse::axis_map::const_iterator const it(
+			info_.axis_map().find(
+				_data.dwOfs
 			)
+		);
+		
+		if(
+			it != info_.axis_map().end()
 		)
+		{
 			axis_signal_(
-				input::mouse::axis_event(
-					input::mouse::axis(
-						axis_[
-							offset
-						],
-						input::mouse::axis_id(
-							static_cast<
-								sge::input::mouse::axis_id::value_type
-							>(
-								offset
-							)
-						)
+				sge::input::mouse::axis_event(
+					sge::input::mouse::axis(
+						info_.input_info().axis()[
+							it->second
+						].code(),
+						it->second
 					),
 					static_cast<
 						sge::input::mouse::axis_value
 					>(
-						data_word
+						_data.dwData
 					)
 				)
 			);
-		else
+
+			return;
+		}
+	}
+
+	{
+		sge::dinput::mouse::button_map::const_iterator const it(
+			info_.button_map().find(
+				_data.dwOfs
+			)
+		);
+
+		if(
+			it != info_.button_map().end()
+		)
+		{
 			button_signal_(
-				input::mouse::button_event(
-					input::mouse::button(
-						buttons_[
-							offset
-						],
-						sge::input::mouse::button_id(
-							static_cast<
-								sge::input::mouse::button_id::value_type
-							>(
-								offset
-							)
-						)
+				sge::input::mouse::button_event(
+					sge::input::mouse::button(
+						info_.input_info().buttons()[
+							it->second
+						].code(),
+						it->second
 					),
 					(
-						data_word
+						_data.dwData
 						& 0x80
 					)
 					!= 0
 				)
 			);
+
+			return;
+		}
 	}
-}
-
-BOOL
-sge::dinput::mouse::device::enum_mouse_keys(
-	LPCDIDEVICEOBJECTINSTANCE _ddoi,
-	LPVOID _state
-)
-{
-	dinput::mouse::device &instance(
-		dynamic_cast<
-			dinput::mouse::device &
-		>(
-			*static_cast<
-				dinput::device::object *
-			>(
-				_state
-			)
-		)
-	);
-
-	DWORD const offset(
-		_ddoi->dwOfs
-	);
-
-	if(
-		dinput::mouse::is_axis(
-			offset
-		)
-	)
-		instance.axis_[
-			offset
-		] =
-			dinput::mouse::axis_code(
-				offset
-			);
-	else
-		instance.buttons_[
-			offset
-		] =
-			dinput::mouse::button_code(
-				offset
-			);
-
-	return DIENUM_CONTINUE;
 }

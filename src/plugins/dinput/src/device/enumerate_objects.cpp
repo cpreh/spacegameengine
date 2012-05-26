@@ -18,29 +18,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/mouse/axis_code.hpp>
-#include <sge/input/mouse/axis_code.hpp>
+#include <sge/dinput/device/enumerator.hpp>
+#include <sge/dinput/device/enumerate_objects.hpp>
+#include <sge/input/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/function/object.hpp>
 
 
-sge::input::mouse::axis_code::type
-sge::dinput::mouse::axis_code(
-	DWORD const _code
+namespace
+{
+
+BOOL
+CALLBACK
+dispatcher(
+	LPCDIDEVICEOBJECTINSTANCE,
+	LPVOID
+);
+
+}
+
+void
+sge::dinput::device::enumerate_objects(
+	IDirectInputDevice8 &_device,
+	sge::dinput::device::enumerator &_enumerator,
+	DWORD const _flags
 )
 {
 	if(
-		_code == dinput::cast_key(DIMOFS_X)
+		_device.EnumObjects(
+			&dispatcher,
+			static_cast<
+				void *
+			>(
+				&_enumerator
+			),
+			_flags
+		)
+		!= DI_OK
 	)
-		return sge::input::mouse::axis_code::x;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
-	)
-		return sge::input::mouse::axis_code::y;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
-	)
-		return sge::input::mouse::axis_code::wheel;
+		throw sge::input::exception(
+			FCPPT_TEXT("enumerating objects failed!")
+		);
+}
 
-	return sge::input::mouse::axis_code::unknown;
+namespace
+{
+
+BOOL
+CALLBACK
+dispatcher(
+	LPCDIDEVICEOBJECTINSTANCE const _object,
+	LPVOID const _ptr
+)
+{
+	static_cast<
+		sge::dinput::device::enumerator *
+	>(
+		_ptr
+	)->dispatch(
+		*_object
+	);
+
+	return DIENUM_CONTINUE;
+}
+
 }

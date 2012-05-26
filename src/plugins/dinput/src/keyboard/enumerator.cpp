@@ -18,29 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/mouse/axis_code.hpp>
-#include <sge/input/mouse/axis_code.hpp>
+#include <sge/dinput/device/enumerator.hpp>
+#include <sge/dinput/keyboard/enumerator.hpp>
+#include <sge/dinput/keyboard/key_converter.hpp>
+#include <sge/dinput/keyboard/key_map.hpp>
 
 
-sge::input::mouse::axis_code::type
-sge::dinput::mouse::axis_code(
-	DWORD const _code
+sge::dinput::keyboard::enumerator::enumerator(
+	sge::dinput::keyboard::key_converter const &_key_converter
+)
+:
+	key_converter_(
+		_key_converter
+	),
+	key_map_()
+{
+}
+
+sge::dinput::keyboard::enumerator::~enumerator()
+{
+}
+
+sge::dinput::keyboard::key_map const &
+sge::dinput::keyboard::enumerator::key_map() const
+{
+	return
+		key_map_;
+}
+
+void
+sge::dinput::keyboard::enumerator::dispatch(
+	DIDEVICEOBJECTINSTANCE const &_data
 )
 {
 	if(
-		_code == dinput::cast_key(DIMOFS_X)
+		_data.guidType != GUID_Key
 	)
-		return sge::input::mouse::axis_code::x;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
-	)
-		return sge::input::mouse::axis_code::y;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
-	)
-		return sge::input::mouse::axis_code::wheel;
+		return;
 
-	return sge::input::mouse::axis_code::unknown;
+	key_map_[
+		_data.dwOfs
+	] =
+		key_converter_.create_key_code(
+			_data.dwOfs
+		);
 }

@@ -18,29 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
+#ifndef SGE_DINPUT_DEVICE_ENUMERATOR_HPP_INCLUDED
+#define SGE_DINPUT_DEVICE_ENUMERATOR_HPP_INCLUDED
+
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/mouse/axis_code.hpp>
-#include <sge/input/mouse/axis_code.hpp>
+#include <sge/dinput/device/enumerator_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
-sge::input::mouse::axis_code::type
-sge::dinput::mouse::axis_code(
-	DWORD const _code
-)
+namespace sge
 {
-	if(
-		_code == dinput::cast_key(DIMOFS_X)
-	)
-		return sge::input::mouse::axis_code::x;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
-	)
-		return sge::input::mouse::axis_code::y;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
-	)
-		return sge::input::mouse::axis_code::wheel;
+namespace dinput
+{
+namespace device
+{
 
-	return sge::input::mouse::axis_code::unknown;
+class enumerator
+{
+	FCPPT_NONCOPYABLE(
+		enumerator
+	);
+protected:
+	enumerator();
+public:
+	virtual
+	~enumerator() = 0;
+
+	virtual
+	void
+	dispatch(
+		DIDEVICEOBJECTINSTANCE const &
+	) = 0;
+};
+
 }
+}
+}
+
+#endif

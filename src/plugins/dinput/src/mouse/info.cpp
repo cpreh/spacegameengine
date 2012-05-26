@@ -18,29 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
-#include <sge/dinput/di.hpp>
-#include <sge/dinput/mouse/axis_code.hpp>
-#include <sge/input/mouse/axis_code.hpp>
+#include <sge/dinput/mouse/axis_map.hpp>
+#include <sge/dinput/mouse/button_map.hpp>
+#include <sge/dinput/mouse/info.hpp>
+#include <sge/input/mouse/info.hpp>	
 
 
-sge::input::mouse::axis_code::type
-sge::dinput::mouse::axis_code(
-	DWORD const _code
+sge::dinput::mouse::info::info(
+	sge::input::mouse::info const &_input_info,
+	sge::dinput::mouse::axis_map const &_axis_map,
+	sge::dinput::mouse::button_map const &_button_map
 )
+:
+	input_info_(
+		_input_info
+	),
+	axis_map_(
+		_axis_map
+	),
+	button_map_(
+		_button_map
+	)
 {
-	if(
-		_code == dinput::cast_key(DIMOFS_X)
-	)
-		return sge::input::mouse::axis_code::x;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
-	)
-		return sge::input::mouse::axis_code::y;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
-	)
-		return sge::input::mouse::axis_code::wheel;
+}
 
-	return sge::input::mouse::axis_code::unknown;
+sge::input::mouse::info const &
+sge::dinput::mouse::info::input_info() const
+{
+	return
+		input_info_;
+}
+
+sge::dinput::mouse::axis_map const &
+sge::dinput::mouse::info::axis_map() const
+{
+	return
+		axis_map_;
+}
+
+sge::dinput::mouse::button_map const &
+sge::dinput::mouse::info::button_map() const
+{
+	return
+		button_map_;
 }

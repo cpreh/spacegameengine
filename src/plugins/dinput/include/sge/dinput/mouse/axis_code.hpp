@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <sge/input/mouse/axis_code.hpp>
 
+
 namespace sge
 {
 namespace dinput

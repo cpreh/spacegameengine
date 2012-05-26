@@ -18,29 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
+#ifndef SGE_DINPUT_KEYBOARD_KEY_MAP_HPP_INCLUDED
+#define SGE_DINPUT_KEYBOARD_KEY_MAP_HPP_INCLUDED
+
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/mouse/axis_code.hpp>
-#include <sge/input/mouse/axis_code.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <map>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::input::mouse::axis_code::type
-sge::dinput::mouse::axis_code(
-	DWORD const _code
-)
+namespace sge
 {
-	if(
-		_code == dinput::cast_key(DIMOFS_X)
-	)
-		return sge::input::mouse::axis_code::x;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
-	)
-		return sge::input::mouse::axis_code::y;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
-	)
-		return sge::input::mouse::axis_code::wheel;
+namespace dinput
+{
+namespace keyboard
+{
+	
+typedef std::map<
+	DWORD,
+	sge::input::keyboard::key_code::type
+> key_map;
 
-	return sge::input::mouse::axis_code::unknown;
 }
+}
+}
+
+#endif

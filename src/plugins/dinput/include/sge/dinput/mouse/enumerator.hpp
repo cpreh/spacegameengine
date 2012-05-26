@@ -18,76 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_DEVICE_OBJECT_HPP_INCLUDED
-#define SGE_DINPUT_DEVICE_OBJECT_HPP_INCLUDED
+#ifndef SGE_DINPUT_MOUSE_ENUMERATOR_HPP_INCLUDED
+#define SGE_DINPUT_MOUSE_ENUMERATOR_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/dinput_device_scoped_ptr.hpp>
-#include <sge/dinput/device/object_fwd.hpp>
-#include <sge/dinput/device/parameters_fwd.hpp>
+#include <sge/dinput/device/enumerator.hpp>
+#include <sge/dinput/mouse/axis_map.hpp>
+#include <sge/dinput/mouse/button_map.hpp>
+#include <sge/input/mouse/axis_info_container.hpp>
+#include <sge/input/mouse/button_info_container.hpp>
 #include <fcppt/noncopyable.hpp>
-
 
 
 namespace sge
 {
 namespace dinput
 {
-namespace device
+namespace mouse
 {
 
-class object
+class enumerator
+:
+	public sge::dinput::device::enumerator
 {
 	FCPPT_NONCOPYABLE(
-		object
+		enumerator
 	);
 public:
-	void
-	dispatch();
+	enumerator();
 
-	virtual
-	~object() = 0;
+	~enumerator();
 
-	bool
-	acquire();
+	sge::input::mouse::axis_info_container::vector const &
+	axis() const;
 
-	void
-	unacquire();
-protected:
-	explicit
-	object(
-		sge::dinput::device::parameters const &
-	);
+	sge::input::mouse::button_info_container::vector const &
+	buttons() const;
 
-	void
-	poll();
+	sge::dinput::mouse::axis_map const &
+	axis_map() const;
 
-	void
-	set_data_format(
-		LPCDIDATAFORMAT
-	);
-
-	void
-	set_property(
-		REFGUID,
-		LPCDIPROPHEADER
-	);
-
-	void
-	set_event_handle(
-		HANDLE
-	);
-
-	IDirectInputDevice8 &
-	get();
+	sge::dinput::mouse::button_map const &
+	button_map() const;
 private:
-	virtual
 	void
-	on_dispatch(
-		DIDEVICEOBJECTDATA const &
-	) = 0;
+	dispatch(
+		DIDEVICEOBJECTINSTANCE const &
+	);
 
-	sge::dinput::dinput_device_scoped_ptr const device_;
+	sge::input::mouse::axis_info_container::vector axis_;
+
+	sge::input::mouse::button_info_container::vector buttons_;
+
+	sge::dinput::mouse::axis_map axis_map_;
+
+	sge::dinput::mouse::button_map button_map_;
 };
 
 }

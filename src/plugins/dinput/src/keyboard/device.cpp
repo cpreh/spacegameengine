@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/keyboard/device.hpp>
 #include <sge/dinput/keyboard/key_converter.hpp>
 #include <sge/dinput/keyboard/key_is_down.hpp>
+#include <sge/dinput/keyboard/key_map.hpp>
 #include <sge/dinput/keyboard/keycode_to_chars.hpp>
+#include <sge/dinput/keyboard/make_info.hpp>
 #include <sge/dinput/keyboard/map_virtual_key.hpp>
 #include <sge/dinput/keyboard/repeat.hpp>
 #include <sge/input/exception.hpp>
@@ -38,22 +40,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 sge::dinput::keyboard::device::device(
 	dinput::device::parameters const &_parameters,
-	dinput::keyboard::key_converter const &_conv
+	dinput::keyboard::key_converter const &_converter
 )
 :
 	sge::input::keyboard::device(),
 	dinput::device::object(
 		_parameters
 	),
-	conv_(_conv),
+	converter_(
+		_converter
+	),
 	kblayout_(
 		::GetKeyboardLayout(
 			0
@@ -64,11 +74,16 @@ sge::dinput::keyboard::device::device(
 	char_signal_(),
 	repeat_time_(
 		repeat_timer::parameters(
-			dinput::keyboard::repeat()
+			sge::dinput::keyboard::repeat()
 		)
 	),
 	old_key_code_(),
-	keys_(),
+	info_(
+		sge::dinput::keyboard::make_info(
+			this->get(),
+			converter_
+		)
+	),
 	states_()
 {
 	std::fill(
@@ -80,11 +95,9 @@ sge::dinput::keyboard::device::device(
 	this->set_data_format(
 		&c_dfDIKeyboard
 	);
-
-	this->enum_objects(
-		enum_keyboard_keys
-	);
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::dinput::keyboard::device::~device()
 {
@@ -131,7 +144,7 @@ sge::dinput::keyboard::device::mod_state() const
 	);
 
 	if(
-		dinput::keyboard::key_is_down(
+		sge::dinput::keyboard::key_is_down(
 			states_[
 				VK_CONTROL
 			]
@@ -140,7 +153,7 @@ sge::dinput::keyboard::device::mod_state() const
 		ret |= sge::input::keyboard::modifier::ctrl;
 
 	if(
-		dinput::keyboard::key_is_down(
+		sge::dinput::keyboard::key_is_down(
 			states_[
 				VK_MENU
 			]
@@ -149,7 +162,7 @@ sge::dinput::keyboard::device::mod_state() const
 		ret |= sge::input::keyboard::modifier::alt;
 
 	if(
-		dinput::keyboard::key_is_down(
+		sge::dinput::keyboard::key_is_down(
 			states_[
 				VK_SHIFT
 			]
@@ -161,126 +174,120 @@ sge::dinput::keyboard::device::mod_state() const
 }
 
 void
-sge::dinput::keyboard::device::dispatch()
+sge::dinput::keyboard::device::on_dispatch(
+	DIDEVICEOBJECTDATA const &_data
+)
 {
-	input_buffer data;
+	DWORD const offset(
+		_data.dwOfs
+	);
 
-	DWORD elements;
+	bool const key_value(
+		sge::dinput::keyboard::key_is_down(
+			static_cast<
+				BYTE
+			>(
+				_data.dwData
+			)
+		)
+	);
+
+	sge::dinput::keyboard::key_map::const_iterator const it(
+		info_.key_map().find(
+			offset
+		)
+	);
+
+	sge::input::keyboard::key_code::type const key_code(
+		it
+		==
+		info_.key_map().end()
+		?
+			sge::input::keyboard::key_code::unknown
+		:
+			it->second
+	);
+
+	key_signal_(
+		sge::input::keyboard::key_event(
+			key_code,
+			key_value
+		)
+	);
+
+	sge::dinput::keyboard::optional_uint const virtual_code(
+		sge::dinput::keyboard::map_virtual_key(
+			offset,
+			kblayout_
+		)
+	);
 
 	if(
-		!this->get_input(
-			data,
-			elements
-		)
+		virtual_code
+		&&
+		*virtual_code
+		<
+		states_.size()
 	)
-		return;
+		states_[
+			*virtual_code
+		] =
+			static_cast<
+				BYTE
+			>(
+				key_value
+				?
+					0x80
+				:
+					0
+			);
 
-	for(
-		unsigned index = 0;
-		index < elements;
-		++index
+	if(
+		key_value
+		&&
+		virtual_code
 	)
 	{
-		DWORD const offset(
-			data[index].dwOfs
-		);
-
-		bool const key_value(
-			dinput::keyboard::key_is_down(
-				static_cast<
-					BYTE
-				>(
-					data[
-						index
-					].dwData
-				)
-			)
-		);
-
-		input::keyboard::key_code::type const key_code(
-			keys_[
-				offset
-			]
-		);
-
-		key_signal_(
-			input::keyboard::key_event(
-				key_code,
-				key_value
-			)
-		);
-
-
-		dinput::keyboard::optional_uint const virtual_code(
-			dinput::keyboard::map_virtual_key(
+		sge::dinput::keyboard::char_vector const &chars(
+			sge::dinput::keyboard::keycode_to_chars(
+				*virtual_code,
 				offset,
+				states_,
 				kblayout_
 			)
 		);
 
-		if(
-			virtual_code
-			&& *virtual_code < states_.size()
+		for(
+			sge::dinput::keyboard::char_vector::const_iterator it(
+				chars.begin()
+			);
+			it != chars.end();
+			++it
 		)
-			states_[
-				*virtual_code
-			] =
-				static_cast<
-					BYTE
-				>(
-					key_value
-					?
-						0x80
-					:
-						0
-				);
-
-		if(
-			key_value
-			&& virtual_code
-		)
-		{
-			sge::dinput::keyboard::char_vector const &chars(
-				dinput::keyboard::keycode_to_chars(
-					*virtual_code,
-					offset,
-					states_,
-					kblayout_
+			char_signal_(
+				sge::input::keyboard::char_event(
+					*it,
+					false
 				)
 			);
+	}
 
-			for(
-				sge::dinput::keyboard::char_vector::const_iterator it(
-					chars.begin()
-				);
-				it != chars.end();
-				++it
-			)
-				char_signal_(
-					sge::input::keyboard::char_event(
-						*it,
-						false
-					)
-				);
-		}
+	if(
+		!key_value
+	)
+	{
+		old_key_code_.reset();
 
-		if(
-			!key_value
-		)
-		{
-			old_key_code_.reset();
+		repeat_time_.reset();
+	}
+	else if(
+		!old_key_code_
+		|| *old_key_code_ != key_code
+	)
+	{
+		repeat_time_.reset();
 
-			repeat_time_.reset();
-		}
-		else if(
-			!old_key_code_
-			|| *old_key_code_ != key_code
-		)
-		{
-			repeat_time_.reset();
-
-			old_key_code_ = key_code;
-		}
+		old_key_code_ = key_code;
 	}
 
 	if(
@@ -295,32 +302,4 @@ sge::dinput::keyboard::device::dispatch()
 				*old_key_code_
 			)
 		);
-}
-
-BOOL
-sge::dinput::keyboard::device::enum_keyboard_keys(
-	LPCDIDEVICEOBJECTINSTANCE _ddoi,
-	LPVOID _state
-)
-{
-	dinput::keyboard::device &instance(
-		dynamic_cast<
-			dinput::keyboard::device &
-		>(
-			*static_cast<
-				dinput::device::object *
-			>(
-				_state
-			)
-		)
-	);
-
-	instance.keys_[
-		_ddoi->dwOfs
-	] =
-		instance.conv_.create_key_code(
-			_ddoi->dwOfs
-		);
-
-	return DIENUM_CONTINUE;
 }

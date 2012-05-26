@@ -18,29 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
+#ifndef SGE_DINPUT_KEYBOARD_ENUMERATOR_HPP_INCLUDED
+#define SGE_DINPUT_KEYBOARD_ENUMERATOR_HPP_INCLUDED
+
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/mouse/axis_code.hpp>
-#include <sge/input/mouse/axis_code.hpp>
+#include <sge/dinput/device/enumerator.hpp>
+#include <sge/dinput/keyboard/key_converter_fwd.hpp>
+#include <sge/dinput/keyboard/key_map.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
-sge::input::mouse::axis_code::type
-sge::dinput::mouse::axis_code(
-	DWORD const _code
-)
+namespace sge
 {
-	if(
-		_code == dinput::cast_key(DIMOFS_X)
-	)
-		return sge::input::mouse::axis_code::x;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
-	)
-		return sge::input::mouse::axis_code::y;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
-	)
-		return sge::input::mouse::axis_code::wheel;
+namespace dinput
+{
+namespace keyboard
+{
 
-	return sge::input::mouse::axis_code::unknown;
+class enumerator
+:
+	public sge::dinput::device::enumerator
+{
+	FCPPT_NONCOPYABLE(
+		enumerator
+	);
+public:
+	explicit
+	enumerator(
+		sge::dinput::keyboard::key_converter const &
+	);
+
+	~enumerator();
+
+	sge::dinput::keyboard::key_map const &
+	key_map() const;
+private:
+	void
+	dispatch(
+		DIDEVICEOBJECTINSTANCE const &
+	);
+	
+	sge::dinput::keyboard::key_converter const &key_converter_;
+
+	sge::dinput::keyboard::key_map key_map_;
+};
+
 }
+}
+}
+
+#endif

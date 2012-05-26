@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/mouse/is_axis.hpp>
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/mouse/is_axis.hpp>
+
 
 bool
 sge::dinput::mouse::is_axis(
-	DWORD const _code
+	GUID const _guid
 )
 {
 	return
-		_code == dinput::cast_key(DIMOFS_X)
-		|| _code == dinput::cast_key(DIMOFS_Y)
-	    || _code == dinput::cast_key(DIMOFS_Z);
+		_guid == GUID_XAxis
+		|| _guid == GUID_YAxis
+	    || _guid == GUID_ZAxis;
 }

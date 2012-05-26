@@ -18,19 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/dinput/create_device.hpp>
+#include <sge/dinput/di.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters.hpp>
 #include <sge/dinput/device/funcs/acquire.hpp>
 #include <sge/dinput/device/funcs/set_cooperative_level.hpp>
 #include <sge/dinput/device/funcs/set_data_format.hpp>
 #include <sge/dinput/device/funcs/unacquire.hpp>
-#include <sge/dinput/create_device.hpp>
-#include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
 #include <awl/backends/windows/window/object.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/array_impl.hpp>
 
 
 namespace
@@ -40,6 +41,10 @@ DWORD const coop_level(
 	DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
 );
 
+DWORD const buffer_size(
+	1024
+);
+
 DIPROPDWORD const buffer_settings = {
 	{
 		sizeof(DIPROPDWORD),
@@ -47,13 +52,89 @@ DIPROPDWORD const buffer_settings = {
 		0,
 		DIPH_DEVICE,
 	},
-	sge::dinput::device::object::buffer_size
+	buffer_size
 };
 
 }
 
 sge::dinput::device::object::~object()
 {
+}
+
+void
+sge::dinput::device::object::dispatch()
+{
+	typedef fcppt::container::array<
+		DIDEVICEOBJECTDATA,
+		buffer_size
+	> input_buffer;
+	
+	input_buffer buffer;
+
+	DWORD elements(
+		buffer_size
+	);
+
+	for(
+		;;
+	)
+	{
+		HRESULT const result(
+			device_->GetDeviceData(
+				sizeof(
+					DIDEVICEOBJECTDATA
+				),
+				buffer.data(),
+				&elements,
+				0u
+			)
+		);
+
+		if(
+			result == DI_OK
+			||
+			result == DI_BUFFEROVERFLOW
+		)
+		{
+			for(
+				DWORD index(
+					0u
+				);
+				index < elements;
+				++index
+			)
+				this->on_dispatch(
+					buffer[
+						index
+					]
+				);
+		}
+
+		switch(
+			result
+		)
+		{
+		case DI_OK:
+			return;
+		case DI_BUFFEROVERFLOW:
+			break;
+		case DIERR_INPUTLOST:
+			if(
+				!this->acquire()
+			)
+				return;
+
+			break;
+		case DIERR_NOTACQUIRED:
+			this->acquire();
+
+			return;
+		default:
+			throw sge::input::exception(
+				FCPPT_TEXT("GetDeviceData() failed!")
+			);
+		}
+	}
 }
 
 bool
@@ -77,9 +158,6 @@ sge::dinput::device::object::object(
 	dinput::device::parameters const &_param
 )
 :
-	name_(
-		_param.name()
-	),
 	device_(
 		sge::dinput::create_device(
 			_param.instance(),
@@ -87,7 +165,7 @@ sge::dinput::device::object::object(
 		)
 	)
 {
-	dinput::device::funcs::set_cooperative_level(
+	sge::dinput::device::funcs::set_cooperative_level(
 		device_.get(),
 		_param.window(),
 		coop_level
@@ -108,7 +186,7 @@ sge::dinput::device::object::set_data_format(
 	LPCDIDATAFORMAT const _format
 )
 {
-	device::funcs::set_data_format(
+	sge::dinput::device::funcs::set_data_format(
 		device_.get(),
 		_format
 	);
@@ -165,77 +243,9 @@ sge::dinput::device::object::poll()
 		);
 }
 
-bool
-sge::dinput::device::object::get_input(
-	input_buffer &_data,
-	DWORD &_elements
-)
+IDirectInputDevice8 &
+sge::dinput::device::object::get()
 {
-	_elements = static_cast<DWORD>(_data.size());
-
-	HRESULT const result(
-		device_->GetDeviceData(
-			sizeof(DIDEVICEOBJECTDATA),
-			_data.data(),
-			&_elements,
-			0
-		)
-	);
-
-	switch(
-		result
-	)
-	{
-	case DI_OK:
-	case DI_BUFFEROVERFLOW:
-		return true;
-	case DIERR_INPUTLOST:
-		if(
-			!this->acquire()
-		)
-			return false;
-
-		return
-			this->get_input(
-				_data,
-				_elements
-			);
-	case DIERR_NOTACQUIRED:
-		this->acquire();
-
-		return false;
-	default:
-		throw sge::input::exception(
-			FCPPT_TEXT("GetDeviceData() failed!")
-		);
-	}
+	return
+		*device_;
 }
-
-void
-sge::dinput::device::object::enum_objects(
-	LPDIENUMDEVICEOBJECTSCALLBACK const _fun
-)
-{
-	if(
-		device_->EnumObjects(
-			_fun,
-			this,
-			DIDFT_ALL
-		)
-		!= DI_OK
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("enumerating objects failed!")
-		);
-}
-
-fcppt::string const &
-sge::dinput::device::object::name() const
-{
-	return name_;
-}
-
-
-#ifndef _MSC_VER
-std::size_t const sge::dinput::device::object::buffer_size;
-#endif

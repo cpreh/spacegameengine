@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/mouse/button_code.hpp>
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/cast_key.hpp>
+#include <sge/dinput/mouse/button_code.hpp>
+
 
 sge::input::mouse::button_code::type
 sge::dinput::mouse::button_code(
