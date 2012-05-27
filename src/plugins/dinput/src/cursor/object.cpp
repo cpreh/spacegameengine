@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/cursor/cooperative_level.hpp>
+#include <sge/dinput/cursor/get_pos.hpp>
 #include <sge/dinput/cursor/object.hpp>
 #include <sge/dinput/cursor/temp_acquire.hpp>
 #include <sge/dinput/device/funcs/acquire.hpp>
@@ -32,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
+#include <awl/backends/windows/optional_point.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
@@ -47,7 +49,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/preprocessor/todo.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
@@ -334,39 +335,42 @@ sge::dinput::cursor::object::move_callback(
 sge::input::cursor::optional_position const
 sge::dinput::cursor::object::position() const
 {
-	FCPPT_PP_TODO("When should this return an empty optional?")
-
-	POINT ret;
+	awl::backends::windows::optional_point const cursor_pos(
+		sge::dinput::cursor::get_pos()
+	);
 
 	if(
-		::GetCursorPos(
-			&ret
-		)
-		== 0
+		!cursor_pos
 	)
 		return sge::input::cursor::optional_position();
 
-	ret =
+	awl::backends::windows::optional_point const transformed_pos(
 		awl::backends::windows::window::screen_to_client(
 			window_,
-			ret
-		);
+			*cursor_pos
+		)
+	);
 
 	return
-		sge::input::cursor::optional_position(
-			sge::input::cursor::position(
-				static_cast<
-					sge::input::cursor::position_unit
-				>(
-					ret.x
-				),
-				static_cast<
-					sge::input::cursor::position_unit
-				>(
-					ret.y
+		transformed_pos
+		?
+			sge::input::cursor::optional_position(
+				sge::input::cursor::position(
+					static_cast<
+						sge::input::cursor::position_unit
+					>(
+						transformed_pos->x
+					),
+					static_cast<
+						sge::input::cursor::position_unit
+					>(
+						transformed_pos->y
+					)
 				)
 			)
-		);
+		:
+			sge::input::cursor::optional_position()
+		;
 }
 
 void
