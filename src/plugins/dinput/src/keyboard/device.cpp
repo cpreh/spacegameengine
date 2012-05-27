@@ -59,7 +59,8 @@ sge::dinput::keyboard::device::device(
 :
 	sge::input::keyboard::device(),
 	dinput::device::object(
-		_parameters
+		_parameters,
+		c_dfDIKeyboard
 	),
 	converter_(
 		_converter
@@ -90,10 +91,6 @@ sge::dinput::keyboard::device::device(
 		states_.begin(),
 		states_.end(),
 		0
-	);
-
-	this->set_data_format(
-		&c_dfDIKeyboard
 	);
 }
 

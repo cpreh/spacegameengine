@@ -54,14 +54,17 @@ public:
 	void
 	unacquire();
 protected:
-	explicit
 	object(
-		sge::dinput::device::parameters const &
+		sge::dinput::device::parameters const &,
+		DIDATAFORMAT const &
 	);
-
+	
+	IDirectInputDevice8 &
+	get();
+private:
 	void
 	set_data_format(
-		LPCDIDATAFORMAT
+		DIDATAFORMAT const &
 	);
 
 	void
@@ -75,9 +78,6 @@ protected:
 		HANDLE
 	);
 
-	IDirectInputDevice8 &
-	get();
-private:
 	virtual
 	void
 	on_dispatch(

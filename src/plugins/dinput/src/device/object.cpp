@@ -155,7 +155,8 @@ sge::dinput::device::object::unacquire()
 }
 
 sge::dinput::device::object::object(
-	dinput::device::parameters const &_param
+	sge::dinput::device::parameters const &_param,
+	DIDATAFORMAT const &_format
 )
 :
 	device_(
@@ -179,16 +180,27 @@ sge::dinput::device::object::object(
 	this->set_event_handle(
 		_param.event_handle().get()
 	);
+
+	this->set_data_format(
+		_format
+	);
+}
+	
+IDirectInputDevice8 &
+sge::dinput::device::object::get()
+{
+	return
+		*device_;
 }
 
 void
 sge::dinput::device::object::set_data_format(
-	LPCDIDATAFORMAT const _format
+	DIDATAFORMAT const &_format
 )
 {
 	sge::dinput::device::funcs::set_data_format(
 		device_.get(),
-		_format
+		&_format
 	);
 }
 
@@ -229,11 +241,4 @@ sge::dinput::device::object::set_event_handle(
 			FCPPT_TEXT("SetEventNotification() failed!")
 		);
 	}
-}
-
-IDirectInputDevice8 &
-sge::dinput::device::object::get()
-{
-	return
-		*device_;
 }

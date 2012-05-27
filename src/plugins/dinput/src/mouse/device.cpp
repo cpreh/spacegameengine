@@ -52,7 +52,8 @@ sge::dinput::mouse::device::device(
 :
 	sge::input::mouse::device(),
 	sge::dinput::device::object(
-		_parameters
+		_parameters,
+		c_dfDIMouse2
 	),
 	info_(
 		sge::dinput::mouse::make_info(
@@ -63,9 +64,6 @@ sge::dinput::mouse::device::device(
 	axis_signal_(),
 	button_signal_()
 {
-	this->set_data_format(
-		&c_dfDIMouse2
-	);
 }
 
 FCPPT_PP_POP_WARNING

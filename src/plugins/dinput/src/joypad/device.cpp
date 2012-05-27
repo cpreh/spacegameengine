@@ -55,7 +55,8 @@ sge::dinput::joypad::device::device(
 :
 	sge::input::joypad::device(),
 	sge::dinput::device::object(
-		_parameters
+		_parameters,
+		c_dfDIJoystick2
 	),
 	info_(
 		sge::dinput::joypad::make_info(
@@ -67,9 +68,6 @@ sge::dinput::joypad::device::device(
 	button_signal_(),
 	relative_axis_signal_()
 {
-	this->set_data_format(
-		&c_dfDIJoystick2
-	);
 }
 
 FCPPT_PP_POP_WARNING
