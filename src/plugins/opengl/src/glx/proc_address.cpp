@@ -29,14 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::glx::raw_function
 sge::opengl::glx::proc_address(
-	opengl::glx::proc_context const &_context,
+	sge::opengl::glx::proc_context const &_context,
 	std::string const &_name
 )
 {
 	return
 		_context.get_proc_address_supported()
 		?
-			::glXGetProcAddress(
+			_context.get_proc_address()(
 				reinterpret_cast<
 					unsigned char const *
 				>(

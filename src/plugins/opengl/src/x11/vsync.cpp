@@ -39,9 +39,9 @@ sge::opengl::x11::vsync(
 	sge::opengl::context::system::object &_system_context
 )
 {
-	x11::swap_context &context(
-		opengl::context::use<
-			x11::swap_context
+	sge::opengl::x11::swap_context &context(
+		sge::opengl::context::use<
+			sge::opengl::x11::swap_context
 		>(
 			_system_context
 		)
