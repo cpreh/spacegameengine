@@ -35,6 +35,7 @@ set(
 	include/sge/input/cursor/optional_position.hpp
 	include/sge/input/cursor/optional_position_fwd.hpp
 	include/sge/input/cursor/position.hpp
+	include/sge/input/cursor/position_fwd.hpp
 	include/sge/input/cursor/position_unit.hpp
 	include/sge/input/cursor/relative_move_callback.hpp
 	include/sge/input/cursor/relative_move_event.hpp

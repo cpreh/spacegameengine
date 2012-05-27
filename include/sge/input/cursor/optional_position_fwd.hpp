@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_OPTIONAL_POSITION_FWD_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_OPTIONAL_POSITION_FWD_HPP_INCLUDED
 
-
-#include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/position_fwd.hpp>
 #include <fcppt/optional_fwd.hpp>
+
 
 namespace sge
 {

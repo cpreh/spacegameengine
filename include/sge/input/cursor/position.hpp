@@ -21,24 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_POSITION_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_POSITION_HPP_INCLUDED
 
-#include <sge/input/cursor/position_unit.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/input/cursor/position_fwd.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
-
-namespace sge
-{
-namespace input
-{
-namespace cursor
-{
-
-typedef fcppt::math::vector::static_<
-	cursor::position_unit,
-	2
->::type position;
-
-}
-}
-}
 
 #endif

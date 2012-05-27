@@ -18,18 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/relative_move_event.hpp>
 
+
 sge::input::cursor::relative_move_event::relative_move_event(
-	cursor::position const &_position
+	sge::input::cursor::position const &_position
 )
 :
-	position_(_position)
+	position_(
+		_position
+	)
 {
 }
 
 sge::input::cursor::position const &
 sge::input::cursor::relative_move_event::position() const
 {
-	return position_;
+	return
+		position_;
 }

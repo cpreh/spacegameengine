@@ -18,12 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_CURSOR_OPTIONAL_POSITION_HPP_INCLUDED
-#define SGE_INPUT_CURSOR_OPTIONAL_POSITION_HPP_INCLUDED
+#ifndef SGE_INPUT_CURSOR_POSITION_FWD_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_POSITION_FWD_HPP_INCLUDED
 
-#include <sge/input/cursor/optional_position_fwd.hpp>
-#include <sge/input/cursor/position.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/input/cursor/position_unit.hpp>
+#include <fcppt/math/vector/static.hpp>
 
+
+namespace sge
+{
+namespace input
+{
+namespace cursor
+{
+
+typedef fcppt::math::vector::static_<
+	sge::input::cursor::position_unit,
+	2
+>::type position;
+
+}
+}
+}
 
 #endif

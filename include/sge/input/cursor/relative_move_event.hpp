@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/symbol.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/relative_move_event_fwd.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 namespace sge
@@ -38,15 +37,16 @@ class relative_move_event
 {
 public:
 	SGE_INPUT_SYMBOL
-	explicit relative_move_event(
-		cursor::position const &
+	explicit
+	relative_move_event(
+		sge::input::cursor::position const &
 	);
 
 	SGE_INPUT_SYMBOL
-	cursor::position const &
+	sge::input::cursor::position const &
 	position() const;
 private:
-	cursor::position position_;
+	sge::input::cursor::position position_;
 };
 
 }

@@ -49,24 +49,29 @@ protected:
 	object();
 public:
 	SGE_INPUT_SYMBOL
-	virtual ~object() = 0;
+	virtual
+	~object() = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	button_callback(
-		cursor::button_callback const &
+		sge::input::cursor::button_callback const &
 	) = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	move_callback(
-		cursor::move_callback const &
+		sge::input::cursor::move_callback const &
 	) = 0;
 
-	virtual cursor::optional_position const
+	virtual
+	sge::input::cursor::optional_position const
 	position() const = 0;
 
-	virtual void
+	virtual
+	void
 	mode(
-		cursor::mode::type
+		sge::input::cursor::mode::type
 	) = 0;
 };
 
