@@ -6,6 +6,8 @@ SET(
 	src/plugins/dinput/include/sge/dinput/cursor/cooperative_level.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/define.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/define_fwd.hpp
+	src/plugins/dinput/include/sge/dinput/cursor/exclusive_mode.hpp
+	src/plugins/dinput/include/sge/dinput/cursor/exclusive_mode_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/get_pos.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/object.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/object_fwd.hpp
@@ -85,6 +87,7 @@ SET(
 	src/plugins/dinput/src/create_dinput.cpp
 	src/plugins/dinput/src/cursor/cooperative_level.cpp
 	src/plugins/dinput/src/cursor/define.cpp
+	src/plugins/dinput/src/cursor/exclusive_mode.cpp
 	src/plugins/dinput/src/cursor/get_pos.cpp
 	src/plugins/dinput/src/cursor/object.cpp
 	src/plugins/dinput/src/cursor/pixmap.cpp

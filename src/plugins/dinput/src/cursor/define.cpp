@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/cursor/define.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/event/type.hpp>
+#include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
+#include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -30,14 +32,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 sge::dinput::cursor::define::define(
 	awl::backends::windows::window::event::processor &_processor
 )
 :
 	previous_cursor_(),
 	pixmap_(),
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 	connection_(
 		_processor.register_callback(
 			fcppt::strong_typedef_construct_cast<
@@ -52,9 +56,10 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		)
 	)
-FCPPT_PP_POP_WARNING
 {
 }
+
+	FCPPT_PP_POP_WARNING
 
 sge::dinput::cursor::define::~define()
 {

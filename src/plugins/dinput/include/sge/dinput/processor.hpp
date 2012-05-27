@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
-#include <awl/backends/windows/window/event/return_type.hpp>
+#include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <awl/backends/windows/window/event/scoped_user_message.hpp>
 #include <awl/window/event/focus_in_fwd.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>

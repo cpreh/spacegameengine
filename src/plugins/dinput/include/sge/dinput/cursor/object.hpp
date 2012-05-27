@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_CURSOR_OBJECT_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/cursor/exclusive_mode_fwd.hpp>
 #include <sge/dinput/cursor/object_fwd.hpp>
-#include <sge/dinput/cursor/temp_acquire_fwd.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_signal.hpp>
@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
-#include <awl/backends/windows/window/event/return_type.hpp>
+#include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -103,20 +103,16 @@ private:
 		bool down
 	);
 
-	awl::backends::windows::window::event::return_type
-	on_temp_unacquire(
-		awl::backends::windows::event::type,
-		awl::backends::windows::window::event::object const &
-	);
-
-	awl::backends::windows::window::event::return_type
-	on_temp_acquire(
-		awl::backends::windows::event::type,
-		awl::backends::windows::window::event::object const &
-	);
+	fcppt::signal::connection_manager::container const
+	make_connections();
 
 	void
-	update_grab();
+	make_button_connections(
+		fcppt::signal::connection_manager::container &,
+		awl::backends::windows::event::type::value_type up_event,
+		awl::backends::windows::event::type::value_type down_event,
+		sge::input::cursor::button_code::type
+	);
 
 	awl::backends::windows::window::event::processor &event_processor_;
 
@@ -129,10 +125,10 @@ private:
 	sge::input::cursor::move_signal move_signal_;
 
 	typedef fcppt::scoped_ptr<
-		sge::dinput::cursor::temp_acquire
-	> temp_acquire_scoped_ptr;
+		sge::dinput::cursor::exclusive_mode
+	> exclusive_mode_scoped_ptr;
 
-	temp_acquire_scoped_ptr temp_acquire_;
+	exclusive_mode_scoped_ptr exclusive_mode_;
 
 	fcppt::signal::connection_manager const connections_;
 };

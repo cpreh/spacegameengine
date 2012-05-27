@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/cursor/cooperative_level.hpp>
+#include <sge/dinput/cursor/exclusive_mode.hpp>
 #include <sge/dinput/cursor/get_pos.hpp>
 #include <sge/dinput/cursor/object.hpp>
-#include <sge/dinput/cursor/temp_acquire.hpp>
 #include <sge/dinput/device/funcs/acquire.hpp>
 #include <sge/dinput/device/funcs/set_cooperative_level.hpp>
 #include <sge/dinput/device/funcs/set_data_format.hpp>
@@ -40,12 +40,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/screen_to_client.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
+#include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -79,218 +77,9 @@ sge::dinput::cursor::object::object(
 	),
 	button_signal_(),
 	move_signal_(),
-	temp_acquire_(),
+	exclusive_mode_(),
 	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container
-		>(
-			fcppt::signal::shared_connection(
-				_event_processor.register_callback(
-					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
-					>(
-						WM_MOUSEMOVE
-					),
-					std::tr1::bind(
-						&dinput::cursor::object::on_move,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				_event_processor.register_callback(
-					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
-					>(
-						WM_LBUTTONDOWN
-					),
-					std::tr1::bind(
-						&dinput::cursor::object::on_button,
-						this,
-						std::tr1::placeholders::_1,
-						sge::input::cursor::button_code::left,
-						true
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				_event_processor.register_callback(
-					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
-					>(
-						WM_LBUTTONUP
-					),
-					std::tr1::bind(
-						&dinput::cursor::object::on_button,
-						this,
-						std::tr1::placeholders::_1,
-						sge::input::cursor::button_code::left,
-						false
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				_event_processor.register_callback(
-					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
-					>(
-						WM_MBUTTONDOWN
-					),
-					std::tr1::bind(
-						&dinput::cursor::object::on_button,
-						this,
-						std::tr1::placeholders::_1,
-						sge::input::cursor::button_code::middle,
-						true
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				_event_processor.register_callback(
-					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
-					>(
-						WM_MBUTTONUP
-					),
-					std::tr1::bind(
-						&dinput::cursor::object::on_button,
-						this,
-						std::tr1::placeholders::_1,
-						sge::input::cursor::button_code::middle,
-						false
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				_event_processor.register_callback(
-					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
-					>(
-						WM_RBUTTONDOWN
-					),
-					std::tr1::bind(
-						&dinput::cursor::object::on_button,
-						this,
-						std::tr1::placeholders::_1,
-						sge::input::cursor::button_code::right,
-						true
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				_event_processor.register_callback(
-					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
-					>(
-						WM_RBUTTONUP
-					),
-					std::tr1::bind(
-						&dinput::cursor::object::on_button,
-						this,
-						std::tr1::placeholders::_1,
-						sge::input::cursor::button_code::right,
-						false
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				_event_processor.register_callback(
-					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
-					>(
-						WM_ENTERSIZEMOVE
-					),
-					std::tr1::bind(
-						&sge::dinput::cursor::object::on_temp_unacquire,
-						this,
-						fcppt::strong_typedef_construct_cast<
-							awl::backends::windows::event::type
-						>(
-							WM_EXITSIZEMOVE
-						),
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				_event_processor.register_callback(
-					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
-					>(
-						WM_ENTERMENULOOP
-					),
-					std::tr1::bind(
-						&sge::dinput::cursor::object::on_temp_unacquire,
-						this,
-						fcppt::strong_typedef_construct_cast<
-							awl::backends::windows::event::type
-						>(
-							WM_EXITMENULOOP
-						),
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				_event_processor.register_callback(
-					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
-					>(
-						WM_EXITSIZEMOVE
-					),
-					std::tr1::bind(
-						&sge::dinput::cursor::object::on_temp_acquire,
-						this,
-						fcppt::strong_typedef_construct_cast<
-							awl::backends::windows::event::type
-						>(
-							WM_EXITSIZEMOVE
-						),
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				_event_processor.register_callback(
-					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
-					>(
-						WM_EXITMENULOOP
-					),
-					std::tr1::bind(
-						&sge::dinput::cursor::object::on_temp_acquire,
-						this,
-						fcppt::strong_typedef_construct_cast<
-							awl::backends::windows::event::type
-						>(
-							WM_EXITMENULOOP
-						),
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
+		this->make_connections()
 	)
 {
 	// TODO: this should not be here
@@ -378,6 +167,11 @@ sge::dinput::cursor::object::mode(
 	sge::input::cursor::mode::type const _mode
 )
 {
+	if(
+		_mode != sge::input::cursor::mode::exclusive
+	)
+		exclusive_mode_.reset();
+
 	bool const was_acquired(
 		this->unacquire()
 	);
@@ -394,6 +188,28 @@ sge::dinput::cursor::object::mode(
 		was_acquired
 	)
 		this->acquire();
+
+	if(
+		_mode == sge::input::cursor::mode::exclusive
+		&& !exclusive_mode_
+	)
+		exclusive_mode_.take(
+			fcppt::make_unique_ptr<
+				sge::dinput::cursor::exclusive_mode
+			>(
+				fcppt::ref(
+					event_processor_
+				),
+				std::tr1::bind(
+					&sge::dinput::cursor::object::acquire,
+					this
+				),
+				std::tr1::bind(
+					&sge::dinput::cursor::object::unacquire,
+					this
+				)
+			)
+		);
 }
 
 void
@@ -460,38 +276,95 @@ sge::dinput::cursor::object::on_button(
 	return awl::backends::windows::window::event::return_type();
 }
 
-awl::backends::windows::window::event::return_type
-sge::dinput::cursor::object::on_temp_unacquire(
-	awl::backends::windows::event::type const _event_type,
-	awl::backends::windows::window::event::object const &
-)
+fcppt::signal::connection_manager::container const
+sge::dinput::cursor::object::make_connections()
 {
-	temp_acquire_.take(
-		fcppt::make_unique_ptr<
-			sge::dinput::cursor::temp_acquire
-		>(
-			this->unacquire(),
-			_event_type
+	fcppt::signal::connection_manager::container ret;
+
+	ret.push_back(
+		fcppt::signal::shared_connection(
+			event_processor_.register_callback(
+				fcppt::strong_typedef_construct_cast<
+					awl::backends::windows::event::type
+				>(
+					WM_MOUSEMOVE
+				),
+				std::tr1::bind(
+					&sge::dinput::cursor::object::on_move,
+					this,
+					std::tr1::placeholders::_1
+				)
+			)
 		)
 	);
 
-	return awl::backends::windows::window::event::return_type();
+	this->make_button_connections(
+		ret,
+		WM_LBUTTONDOWN,
+		WM_LBUTTONUP,
+		sge::input::cursor::button_code::left
+	);
+
+	this->make_button_connections(
+		ret,
+		WM_MBUTTONDOWN,
+		WM_MBUTTONUP,
+		sge::input::cursor::button_code::middle
+	);
+
+	this->make_button_connections(
+		ret,
+		WM_RBUTTONDOWN,
+		WM_RBUTTONUP,
+		sge::input::cursor::button_code::right
+	);
+
+	return ret;
 }
 
-awl::backends::windows::window::event::return_type
-sge::dinput::cursor::object::on_temp_acquire(
-	awl::backends::windows::event::type const _event_type,
-	awl::backends::windows::window::event::object const &
+void
+sge::dinput::cursor::object::make_button_connections(
+	fcppt::signal::connection_manager::container &_container,
+	awl::backends::windows::event::type::value_type const _down_event,
+	awl::backends::windows::event::type::value_type const _up_event,
+	sge::input::cursor::button_code::type const _code
 )
 {
-	if(
-		temp_acquire_
-		&&
-		temp_acquire_->needs_acquire(
-			_event_type
+	_container.push_back(
+		fcppt::signal::shared_connection(
+			event_processor_.register_callback(
+				fcppt::strong_typedef_construct_cast<
+					awl::backends::windows::event::type
+				>(
+					_down_event
+				),
+				std::tr1::bind(
+					&dinput::cursor::object::on_button,
+					this,
+					std::tr1::placeholders::_1,
+					_code,
+					true
+				)
+			)
 		)
-	)
-		this->acquire();
-
-	return awl::backends::windows::window::event::return_type();
+	);
+	
+	_container.push_back(
+		fcppt::signal::shared_connection(
+			event_processor_.register_callback(
+				fcppt::strong_typedef_construct_cast<
+					awl::backends::windows::event::type
+				>(
+					_up_event
+				),
+				std::tr1::bind(
+					&dinput::cursor::object::on_button,
+					this,
+					std::tr1::placeholders::_1,
+					_code,
+					false
+				)
+			)
+		)
+	);
 }
