@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/is_down.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters.hpp>
 #include <sge/dinput/mouse/axis_map.hpp>
@@ -157,11 +158,9 @@ sge::dinput::mouse::device::on_dispatch(
 						].code(),
 						it->second
 					),
-					(
+					sge::dinput::is_down(
 						_data.dwData
-						& 0x80
 					)
-					!= 0
 				)
 			);
 

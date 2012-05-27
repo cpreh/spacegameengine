@@ -18,29 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
+#ifndef SGE_DINPUT_JOYPAD_MAKE_BUTTON_INFO_HPP_INCLUDED
+#define SGE_DINPUT_JOYPAD_MAKE_BUTTON_INFO_HPP_INCLUDED
+
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/joypad/axis_code.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#include <sge/input/joypad/button_info_fwd.hpp>
 
 
-sge::input::joypad::axis_code::type
-sge::dinput::joypad::axis_code(
-	DWORD const _code
-)
+namespace sge
 {
-	if(
-		_code == dinput::cast_key(DIMOFS_X)
-	)
-		return sge::input::joypad::axis_code::x;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
-	)
-		return sge::input::joypad::axis_code::y;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
-	)
-		return sge::input::joypad::axis_code::z;
+namespace dinput
+{
+namespace joypad
+{
 
-	return sge::input::joypad::axis_code::unknown;
+sge::input::joypad::button_info const
+make_button_info(
+	DIDEVICEOBJECTINSTANCE const &
+);
+
 }
+}
+}
+
+#endif

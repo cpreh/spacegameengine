@@ -93,7 +93,7 @@ private:
 
 	sge::input::joypad::button_signal button_signal_;
 
-	sge::input::joypad::relative_axis_signal relatiev_axis_signal_;
+	sge::input::joypad::relative_axis_signal relative_axis_signal_;
 };
 
 }

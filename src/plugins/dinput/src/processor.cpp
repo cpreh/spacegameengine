@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/cursor/object.hpp>
 #include <sge/dinput/device/parameters.hpp>
 #include <sge/dinput/device/object.hpp>
+#include <sge/dinput/joypad/device.hpp>
 #include <sge/dinput/keyboard/device.hpp>
 #include <sge/dinput/mouse/device.hpp>
 #include <sge/dinput/create_device.hpp>
@@ -492,6 +493,16 @@ sge::dinput::processor::enum_devices_callback(
 			instance.mouse_discover_,
 			fcppt::make_unique_ptr<
 				sge::dinput::mouse::device
+			>(
+				parameters
+			)
+		);
+		break;
+	case DI8DEVTYPE_JOYSTICK:
+		instance.add_device(
+			instance.joypad_discover_,
+			fcppt::make_unique_ptr<
+				sge::dinput::joypad::device
 			>(
 				parameters
 			)

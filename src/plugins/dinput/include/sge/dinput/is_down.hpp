@@ -18,24 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_KEYBOARD_KEY_IS_DOWN_HPP_INCLUDED
-#define SGE_DINPUT_KEYBOARD_KEY_IS_DOWN_HPP_INCLUDED
+#ifndef SGE_DINPUT_IS_DOWN_HPP_INCLUDED
+#define SGE_DINPUT_IS_DOWN_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
+
 
 namespace sge
 {
 namespace dinput
 {
-namespace keyboard
-{
 
 bool
-key_is_down(
-	BYTE
+is_down(
+	DWORD
 );
 
-}
 }
 }
 

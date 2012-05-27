@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/device/element_name.hpp>
 #include <sge/dinput/mouse/button_code.hpp>
 #include <sge/dinput/mouse/make_button_info.hpp>
 #include <sge/input/info/optional_string.hpp>
@@ -35,8 +36,8 @@ sge::dinput::mouse::make_button_info(
 				sge::dinput::mouse::button_code(
 					_data.dwOfs
 				),
-				sge::input::info::optional_string(
-					_data.tszName
+				sge::dinput::device::element_name(
+					_data
 				)
 			);
 }

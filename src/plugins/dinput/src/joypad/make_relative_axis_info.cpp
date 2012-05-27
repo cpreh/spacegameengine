@@ -18,29 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/device/element_name.hpp>
 #include <sge/dinput/joypad/axis_code.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#include <sge/dinput/joypad/make_relative_axis_info.hpp>
+#include <sge/input/info/optional_string.hpp>
+#include <sge/input/joypad/relative_axis_info.hpp>
 
 
-sge::input::joypad::axis_code::type
-sge::dinput::joypad::axis_code(
-	DWORD const _code
+sge::input::joypad::relative_axis_info const
+sge::dinput::joypad::make_relative_axis_info(
+	DIDEVICEOBJECTINSTANCE const &_data
 )
 {
-	if(
-		_code == dinput::cast_key(DIMOFS_X)
-	)
-		return sge::input::joypad::axis_code::x;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
-	)
-		return sge::input::joypad::axis_code::y;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
-	)
-		return sge::input::joypad::axis_code::z;
-
-	return sge::input::joypad::axis_code::unknown;
+	return
+			sge::input::joypad::relative_axis_info(
+				sge::dinput::joypad::axis_code(
+					_data.dwOfs
+				),
+				sge::dinput::device::element_name(
+					_data
+				)
+			);
 }

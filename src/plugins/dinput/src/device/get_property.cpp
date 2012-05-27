@@ -18,29 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/joypad/axis_code.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#include <sge/dinput/device/get_property.hpp>
+#include <sge/input/exception.hpp>
+#include <fcppt/text.hpp>
 
 
-sge::input::joypad::axis_code::type
-sge::dinput::joypad::axis_code(
-	DWORD const _code
+void
+sge::dinput::device::get_property(
+	IDirectInputDevice8 &_device,
+	DIDEVICEOBJECTINSTANCE const &_data,
+	REFGUID _guid,
+	DIPROPHEADER &_result
 )
 {
-	if(
-		_code == dinput::cast_key(DIMOFS_X)
-	)
-		return sge::input::joypad::axis_code::x;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
-	)
-		return sge::input::joypad::axis_code::y;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
-	)
-		return sge::input::joypad::axis_code::z;
+	_result.dwHeaderSize = sizeof(DIPROPHEADER);
+	
+	_result.dwHow = DIPH_BYOFFSET;
 
-	return sge::input::joypad::axis_code::unknown;
+	_result.dwObj = _data.dwOfs;
+
+	switch(
+		_device.GetProperty(
+			_guid,
+			&_result
+		)
+	)
+	{
+	case DI_OK:
+	case S_FALSE:
+		break;
+	default:
+		throw sge::input::exception(
+			FCPPT_TEXT("GetProperty failed!")
+		);
+	}
 }

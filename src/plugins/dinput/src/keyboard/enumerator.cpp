@@ -29,6 +29,7 @@ sge::dinput::keyboard::enumerator::enumerator(
 	sge::dinput::keyboard::key_converter const &_key_converter
 )
 :
+	sge::dinput::device::enumerator(),
 	key_converter_(
 		_key_converter
 	),

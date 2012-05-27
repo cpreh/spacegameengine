@@ -63,4 +63,3 @@ sge::dinput::mouse::make_info(
 			object.button_map()
 		);
 }
-

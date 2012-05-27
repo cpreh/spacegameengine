@@ -36,7 +36,7 @@ namespace sge
 {
 namespace dinput
 {
-namespace mouse
+namespace joypad
 {
 
 class enumerator
@@ -47,7 +47,10 @@ class enumerator
 		enumerator
 	);
 public:
-	enumerator();
+	explicit
+	enumerator(
+		IDirectInputDevice8 &
+	);
 
 	~enumerator();
 
@@ -65,11 +68,16 @@ public:
 
 	sge::dinput::joypad::button_map const &
 	button_map() const;
+
+	sge::dinput::joypad::relative_axis_map const &
+	relative_axis_map() const;
 private:
 	void
 	dispatch(
 		DIDEVICEOBJECTINSTANCE const &
 	);
+
+	IDirectInputDevice8 &device_;
 
 	sge::input::joypad::absolute_axis_info_container::vector absolute_axis_;
 

@@ -10,6 +10,7 @@ SET(
 	src/plugins/dinput/include/sge/dinput/cursor/object_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/pixmap.hpp
 	src/plugins/dinput/include/sge/dinput/device/add_element.hpp
+	src/plugins/dinput/include/sge/dinput/device/element_name.hpp
 	src/plugins/dinput/include/sge/dinput/device/enumerate_objects.hpp
 	src/plugins/dinput/include/sge/dinput/device/enumerator.hpp
 	src/plugins/dinput/include/sge/dinput/device/enumerator_fwd.hpp
@@ -17,14 +18,20 @@ SET(
 	src/plugins/dinput/include/sge/dinput/device/funcs/set_cooperative_level.hpp
 	src/plugins/dinput/include/sge/dinput/device/funcs/set_data_format.hpp
 	src/plugins/dinput/include/sge/dinput/device/funcs/unacquire.hpp
+	src/plugins/dinput/include/sge/dinput/device/get_property.hpp
+	src/plugins/dinput/include/sge/dinput/device/get_property_dword.hpp
+	src/plugins/dinput/include/sge/dinput/device/get_property_range.hpp
 	src/plugins/dinput/include/sge/dinput/device/object.hpp
 	src/plugins/dinput/include/sge/dinput/device/object_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/device/parameters.hpp
 	src/plugins/dinput/include/sge/dinput/device/parameters_fwd.hpp
+	src/plugins/dinput/include/sge/dinput/device/range.hpp
+	src/plugins/dinput/include/sge/dinput/device/range_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/di.hpp
 	src/plugins/dinput/include/sge/dinput/dinput_device_scoped_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/dinput_device_unique_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/dinput_unique_ptr.hpp
+	src/plugins/dinput/include/sge/dinput/is_down.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/absolute_axis_map.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/axis_code.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/button_map.hpp
@@ -34,7 +41,10 @@ SET(
 	src/plugins/dinput/include/sge/dinput/joypad/info.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/info_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/is_axis.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/make_absolute_axis_info.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/make_button_info.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/make_info.hpp
+	src/plugins/dinput/include/sge/dinput/joypad/make_relative_axis_info.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/relative_axis_map.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/char_vector.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/device.hpp
@@ -44,7 +54,6 @@ SET(
 	src/plugins/dinput/include/sge/dinput/keyboard/info_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/key_converter.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/key_converter_fwd.hpp
-	src/plugins/dinput/include/sge/dinput/keyboard/key_is_down.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/key_map.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/keycode_to_chars.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/make_info.hpp
@@ -75,26 +84,34 @@ SET(
 	src/plugins/dinput/src/cursor/define.cpp
 	src/plugins/dinput/src/cursor/object.cpp
 	src/plugins/dinput/src/cursor/pixmap.cpp
+	src/plugins/dinput/src/device/element_name.cpp
 	src/plugins/dinput/src/device/enumerate_objects.cpp
 	src/plugins/dinput/src/device/enumerator.cpp
 	src/plugins/dinput/src/device/funcs/acquire.cpp
 	src/plugins/dinput/src/device/funcs/set_cooperative_level.cpp
 	src/plugins/dinput/src/device/funcs/set_data_format.cpp
 	src/plugins/dinput/src/device/funcs/unacquire.cpp
+	src/plugins/dinput/src/device/get_property.cpp
+	src/plugins/dinput/src/device/get_property_dword.cpp
+	src/plugins/dinput/src/device/get_property_range.cpp
 	src/plugins/dinput/src/device/object.cpp
 	src/plugins/dinput/src/device/parameters.cpp
+	src/plugins/dinput/src/device/range.cpp
 	src/plugins/dinput/src/exports.cpp
+	src/plugins/dinput/src/is_down.cpp
 	src/plugins/dinput/src/joypad/axis_code.cpp
 	src/plugins/dinput/src/joypad/device.cpp
 	src/plugins/dinput/src/joypad/enumerator.cpp
 	src/plugins/dinput/src/joypad/info.cpp
 	src/plugins/dinput/src/joypad/is_axis.cpp
+	src/plugins/dinput/src/joypad/make_absolute_axis_info.cpp
+	src/plugins/dinput/src/joypad/make_button_info.cpp
 	src/plugins/dinput/src/joypad/make_info.cpp
+	src/plugins/dinput/src/joypad/make_relative_axis_info.cpp
 	src/plugins/dinput/src/keyboard/device.cpp
 	src/plugins/dinput/src/keyboard/enumerator.cpp
 	src/plugins/dinput/src/keyboard/info.cpp
 	src/plugins/dinput/src/keyboard/key_converter.cpp
-	src/plugins/dinput/src/keyboard/key_is_down.cpp
 	src/plugins/dinput/src/keyboard/keycode_to_chars.cpp
 	src/plugins/dinput/src/keyboard/make_info.cpp
 	src/plugins/dinput/src/keyboard/map_virtual_key.cpp

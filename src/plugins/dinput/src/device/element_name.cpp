@@ -18,29 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/joypad/axis_code.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#include <sge/dinput/device/element_name.hpp>
+#include <sge/input/info/optional_string.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstddef>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::input::joypad::axis_code::type
-sge::dinput::joypad::axis_code(
-	DWORD const _code
+sge::input::info::optional_string const
+sge::dinput::device::element_name(
+	DIDEVICEOBJECTINSTANCE const &_data
 )
 {
-	if(
-		_code == dinput::cast_key(DIMOFS_X)
-	)
-		return sge::input::joypad::axis_code::x;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
-	)
-		return sge::input::joypad::axis_code::y;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
-	)
-		return sge::input::joypad::axis_code::z;
-
-	return sge::input::joypad::axis_code::unknown;
+	return
+		_data.dwSize
+		<=
+		offsetof(
+			DIDEVICEOBJECTINSTANCE,
+			tszName
+		)
+		?
+			sge::input::info::optional_string()
+		:
+			sge::input::info::optional_string(
+				fcppt::string(
+					_data.tszName
+				)
+			);
 }

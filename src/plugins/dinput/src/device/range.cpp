@@ -18,29 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/joypad/axis_code.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#include <sge/dinput/device/range.hpp>
 
 
-sge::input::joypad::axis_code::type
-sge::dinput::joypad::axis_code(
-	DWORD const _code
+sge::dinput::device::range::range(
+	LONG const _min,
+	LONG const _max
 )
+:
+	min_(
+		_min
+	),
+	max_(
+		_max
+	)
 {
-	if(
-		_code == dinput::cast_key(DIMOFS_X)
-	)
-		return sge::input::joypad::axis_code::x;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
-	)
-		return sge::input::joypad::axis_code::y;
-	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
-	)
-		return sge::input::joypad::axis_code::z;
+}
 
-	return sge::input::joypad::axis_code::unknown;
+LONG
+sge::dinput::device::range::min() const
+{
+	return
+		min_;
+}
+
+LONG
+sge::dinput::device::range::max() const
+{
+	return
+		max_;
 }

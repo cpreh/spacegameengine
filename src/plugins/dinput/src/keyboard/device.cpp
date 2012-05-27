@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/dinput/is_down.hpp>
 #include <sge/dinput/keyboard/device.hpp>
 #include <sge/dinput/keyboard/key_converter.hpp>
-#include <sge/dinput/keyboard/key_is_down.hpp>
 #include <sge/dinput/keyboard/key_map.hpp>
 #include <sge/dinput/keyboard/keycode_to_chars.hpp>
 #include <sge/dinput/keyboard/make_info.hpp>
@@ -144,7 +144,7 @@ sge::dinput::keyboard::device::mod_state() const
 	);
 
 	if(
-		sge::dinput::keyboard::key_is_down(
+		sge::dinput::is_down(
 			states_[
 				VK_CONTROL
 			]
@@ -153,7 +153,7 @@ sge::dinput::keyboard::device::mod_state() const
 		ret |= sge::input::keyboard::modifier::ctrl;
 
 	if(
-		sge::dinput::keyboard::key_is_down(
+		sge::dinput::is_down(
 			states_[
 				VK_MENU
 			]
@@ -162,7 +162,7 @@ sge::dinput::keyboard::device::mod_state() const
 		ret |= sge::input::keyboard::modifier::alt;
 
 	if(
-		sge::dinput::keyboard::key_is_down(
+		sge::dinput::is_down(
 			states_[
 				VK_SHIFT
 			]
@@ -183,12 +183,8 @@ sge::dinput::keyboard::device::on_dispatch(
 	);
 
 	bool const key_value(
-		sge::dinput::keyboard::key_is_down(
-			static_cast<
-				BYTE
-			>(
-				_data.dwData
-			)
+		sge::dinput::is_down(
+			_data.dwData
 		)
 	);
 
@@ -235,11 +231,7 @@ sge::dinput::keyboard::device::on_dispatch(
 			static_cast<
 				BYTE
 			>(
-				key_value
-				?
-					0x80
-				:
-					0
+				_data.dwOfs
 			);
 
 	if(

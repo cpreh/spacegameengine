@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::dinput::mouse::enumerator::enumerator()
 :
+	sge::dinput::device::enumerator(),
 	axis_(),
 	buttons_(),
 	axis_map_(),

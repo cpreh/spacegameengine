@@ -18,16 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_DINPUT_DEVICE_GET_PROPERTY_DWORD_HPP_INCLUDED
+#define SGE_DINPUT_DEVICE_GET_PROPERTY_DWORD_HPP_INCLUDED
+
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/keyboard/key_is_down.hpp>
 
 
-bool
-sge::dinput::keyboard::key_is_down(
-	BYTE const _key
-)
+namespace sge
 {
-	return
-		(_key & 0x80)
-		!= 0;
+namespace dinput
+{
+namespace device
+{
+
+DWORD
+get_property_dword(
+	IDirectInputDevice8 &,
+	DIDEVICEOBJECTINSTANCE const &,
+	REFGUID
+);
+
 }
+}
+}
+
+#endif
