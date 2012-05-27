@@ -18,11 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_CALL_DEFAULT_FUNCTION_HPP_INCLUDED
-#define ALDA_CALL_DEFAULT_FUNCTION_HPP_INCLUDED
+#ifndef ALDA_CALL_DEFAULT_FUNCTION_FWD_HPP_INCLUDED
+#define ALDA_CALL_DEFAULT_FUNCTION_FWD_HPP_INCLUDED
 
-#include <alda/call/default_function_fwd.hpp>
-#include <fcppt/function/object.hpp>
+#include <alda/message/base_fwd.hpp>
+#include <fcppt/function/object_fwd.hpp>
 
+
+namespace alda
+{
+namespace call
+{
+
+template<
+	typename TypeEnum,
+	typename Result
+>
+struct default_function
+{
+	typedef fcppt::function::object<
+		Result (
+			alda::message::base<
+				TypeEnum
+			> const &
+		)
+	> type;
+};
+
+}
+}
 
 #endif

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_CALL_OBJECT_IMPL_HPP_INCLUDED
 #define ALDA_CALL_OBJECT_IMPL_HPP_INCLUDED
 
+#include <alda/call/default_function.hpp>
 #include <alda/call/object_decl.hpp>
 #include <alda/call/detail/concrete_decl.hpp>
 #include <alda/call/detail/make_instance.hpp>
