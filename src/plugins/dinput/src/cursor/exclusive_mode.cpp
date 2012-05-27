@@ -81,7 +81,10 @@ sge::dinput::cursor::exclusive_mode::on_temp_unacquire(
 		)
 	);
 
-	return awl::backends::windows::window::event::return_type();
+	return
+		awl::backends::windows::window::event::return_type(
+			0
+		);
 }
 
 awl::backends::windows::window::event::return_type
@@ -99,7 +102,10 @@ sge::dinput::cursor::exclusive_mode::on_temp_acquire(
 	)
 		acquire_();
 
-	return awl::backends::windows::window::event::return_type();
+	return
+		awl::backends::windows::window::event::return_type(
+			0
+		);
 }
 
 fcppt::signal::connection_manager::container const
@@ -165,7 +171,7 @@ sge::dinput::cursor::exclusive_mode::make_connection_pair(
 			_event_processor.register_callback(
 				exit_event,
 				std::tr1::bind(
-					&sge::dinput::cursor::exclusive_mode::on_temp_unacquire,
+					&sge::dinput::cursor::exclusive_mode::on_temp_acquire,
 					this,
 					exit_event,
 					std::tr1::placeholders::_1
