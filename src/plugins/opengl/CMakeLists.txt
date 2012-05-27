@@ -745,10 +745,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/x11/context.hpp
 	src/plugins/opengl/include/sge/opengl/x11/resolution/create.hpp
-	src/plugins/opengl/include/sge/opengl/x11/resolution/instance.hpp
-	src/plugins/opengl/include/sge/opengl/x11/resolution/instance_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/x11/resolution/unique_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/x11/resolution/xf86_vmode.hpp
+	src/plugins/opengl/include/sge/opengl/x11/resolution/object.hpp
+	src/plugins/opengl/include/sge/opengl/x11/resolution/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/x11/resolution/object_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/x11/resolution/xrandr_mode.hpp
 	src/plugins/opengl/include/sge/opengl/x11/state.hpp
 	src/plugins/opengl/include/sge/opengl/x11/swap_context.hpp
@@ -765,29 +764,11 @@ set(
 	src/plugins/opengl/src/glx/visual/rgb_triple.cpp
 	src/plugins/opengl/src/x11/context.cpp
 	src/plugins/opengl/src/x11/resolution/create.cpp
-	src/plugins/opengl/src/x11/resolution/instance.cpp
-	src/plugins/opengl/src/x11/resolution/xf86_vmode.cpp
+	src/plugins/opengl/src/x11/resolution/object.cpp
 	src/plugins/opengl/src/x11/resolution/xrandr_mode.cpp
 	src/plugins/opengl/src/x11/state.cpp
 	src/plugins/opengl/src/x11/swap_context.cpp
 	src/plugins/opengl/src/x11/vsync.cpp
-)
-
-set(
-	SGE_OPENGL_XF86VMODE_FILES
-	src/plugins/opengl/include/sge/opengl/xf86vmode/calc_refresh_rate.hpp
-	src/plugins/opengl/include/sge/opengl/xf86vmode/check_extension.hpp
-	src/plugins/opengl/include/sge/opengl/xf86vmode/choose_mode.hpp
-	src/plugins/opengl/include/sge/opengl/xf86vmode/modes.hpp
-	src/plugins/opengl/include/sge/opengl/xf86vmode/modes_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/xf86vmode/resolution.hpp
-	src/plugins/opengl/include/sge/opengl/xf86vmode/resolution_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/xf86vmode/resolution_unique_ptr.hpp
-	src/plugins/opengl/src/xf86vmode/calc_refresh_rate.cpp
-	src/plugins/opengl/src/xf86vmode/check_extension.cpp
-	src/plugins/opengl/src/xf86vmode/choose_mode.cpp
-	src/plugins/opengl/src/xf86vmode/modes.cpp
-	src/plugins/opengl/src/xf86vmode/resolution.cpp
 )
 
 set(
@@ -890,43 +871,6 @@ if(
 		SGE_OPENGL_FILES
 		"${SGE_OPENGL_FILES};${SGE_OPENGL_X11_FILES}"
 	)
-
-	option(
-		ENABLE_XF86VMODE
-		"Enables screen mode switching via xf86vmode"
-		${X11_xf86vmode_FOUND}
-	)
-
-
-	if(
-		ENABLE_XF86VMODE
-	)
-		set(
-			SGE_OPENGL_HAVE_XF86VMODE
-			TRUE
-		)
-
-		include_directories(
-			${FCPPT_UTILS_INCLUDE_SYSTEM}
-			${X11_xf86vmode_INCLUDE_PATH}
-		)
-
-		set(
-			SGE_OPENGL_FILES
-			"${SGE_OPENGL_FILES};${SGE_OPENGL_XF86VMODE_FILES}"
-		)
-
-		# somehow this is not handled by FindX11
-		find_library(
-			X11_xf86vmode_LIB
-			NAMES Xxf86vm
-		)
-
-		set(
-			SGE_OPENGL_ADDITIONAL_DEPS
-			"${SGE_OPENGL_ADDITIONAL_DEPS};${X11_xf86vmode_LIB}"
-		)
-	endif()
 
 	option(
 		ENABLE_XRANDR

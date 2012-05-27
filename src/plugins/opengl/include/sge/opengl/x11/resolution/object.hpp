@@ -18,47 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XF86VMODE_RESOLUTION_HPP_INCLUDED
-#define SGE_OPENGL_XF86VMODE_RESOLUTION_HPP_INCLUDED
+#ifndef SGE_OPENGL_X11_RESOLUTION_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_X11_RESOLUTION_OBJECT_HPP_INCLUDED
 
-#include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/screen.hpp>
+#include <sge/opengl/x11/resolution/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/Xlib.h>
-#include <X11/extensions/xf86vmode.h>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace xf86vmode
+namespace x11
+{
+namespace resolution
 {
 
-class resolution
+class object
 {
 	FCPPT_NONCOPYABLE(
-		resolution
+		object
 	);
+protected:
+	object();
 public:
-	resolution(
-		awl::backends::x11::display &,
-		awl::backends::x11::screen,
-		XF86VidModeModeInfo const &new_mode,
-		XF86VidModeModeInfo const &old_mode
-	);
-
-	~resolution();
-private:
-	awl::backends::x11::display &display_;
-
-	awl::backends::x11::screen const screen_;
-
-	XF86VidModeModeInfo const old_mode_;
+	virtual
+	~object() = 0;
 };
 
+}
 }
 }
 }

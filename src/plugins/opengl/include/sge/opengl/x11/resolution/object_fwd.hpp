@@ -18,10 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/x11/resolution/instance.hpp>
+#ifndef SGE_OPENGL_X11_RESOLUTION_OBJECT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_X11_RESOLUTION_OBJECT_FWD_HPP_INCLUDED
 
-sge::opengl::x11::resolution::instance::instance()
-{}
 
-sge::opengl::x11::resolution::instance::~instance()
-{}
+namespace sge
+{
+namespace opengl
+{
+namespace x11
+{
+namespace resolution
+{
+
+class object;
+
+}
+}
+}
+}
+
+#endif

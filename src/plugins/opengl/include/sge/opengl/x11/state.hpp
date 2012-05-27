@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/device_state/scoped_current.hpp>
 #include <sge/opengl/x11/context.hpp>
-#include <sge/opengl/x11/resolution/instance_fwd.hpp>
+#include <sge/opengl/x11/resolution/object_fwd.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -68,7 +68,7 @@ private:
 	sge::opengl::device_state::scoped_current const scoped_current_;
 
 	typedef fcppt::scoped_ptr<
-		sge::opengl::x11::resolution::instance
+		sge::opengl::x11::resolution::object
 	> resolution_scoped_ptr;
 
 	resolution_scoped_ptr const resolution_;

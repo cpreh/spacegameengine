@@ -228,11 +228,6 @@ update_cmake_file \
 
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \
-	SGE_OPENGL_XF86VMODE_FILES \
-	$(opengl_inc_src xf86vmode)
-
-update_cmake_file \
-	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_XRANDR_FILES \
 	$(opengl_inc_src xrandr)
 

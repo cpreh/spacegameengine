@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_X11_RESOLUTION_XRANDR_MODE_HPP_INCLUDED
 #define SGE_OPENGL_X11_RESOLUTION_XRANDR_MODE_HPP_INCLUDED
 
-#include <sge/opengl/x11/resolution/instance.hpp>
+#include <sge/opengl/x11/resolution/object.hpp>
 #include <sge/opengl/xrandr/resolution_fwd.hpp>
 #include <sge/renderer/display_mode_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
@@ -40,14 +40,14 @@ namespace resolution
 
 class xrandr_mode
 :
-	public sge::opengl::x11::resolution::instance
+	public sge::opengl::x11::resolution::object
 {
 	FCPPT_NONCOPYABLE(
 		xrandr_mode
 	);
 public:
 	xrandr_mode(
-		renderer::display_mode const &,
+		sge::renderer::display_mode const &,
 		awl::backends::x11::window::object &
 	);
 

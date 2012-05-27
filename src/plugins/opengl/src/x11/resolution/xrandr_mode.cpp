@@ -20,18 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/config.hpp>
 #if defined(SGE_OPENGL_HAVE_XRANDR)
-#include <sge/renderer/display_mode_fwd.hpp>
+#include <sge/opengl/x11/resolution/object.hpp>
 #include <sge/opengl/x11/resolution/xrandr_mode.hpp>
 #include <sge/opengl/xrandr/choose_resolution.hpp>
 #include <sge/opengl/xrandr/resolution.hpp>
+#include <sge/renderer/display_mode_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 
 
 sge::opengl::x11::resolution::xrandr_mode::xrandr_mode(
-	renderer::display_mode const &_mode,
+	sge::renderer::display_mode const &_mode,
 	awl::backends::x11::window::object &_window
 )
 :
+	sge::opengl::x11::resolution::object(),
 	resolution_(
 		sge::opengl::xrandr::choose_resolution(
 			_window,

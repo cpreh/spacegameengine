@@ -20,12 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/config.hpp>
 #include <sge/opengl/x11/resolution/create.hpp>
-#include <sge/opengl/x11/resolution/instance.hpp>
+#include <sge/opengl/x11/resolution/object.hpp>
+#include <sge/opengl/x11/resolution/object_unique_ptr.hpp>
 #if defined(SGE_OPENGL_HAVE_XRANDR)
 #include <sge/opengl/x11/resolution/xrandr_mode.hpp>
-#endif
-#if defined(SGE_OPENGL_HAVE_XF86VMODE)
-#include <sge/opengl/x11/resolution/xf86_vmode.hpp>
 #endif
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/fullscreen.hpp>
@@ -33,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/log/info.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/variant/holds_type.hpp>
@@ -42,7 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::x11::resolution::unique_ptr
+
+sge::opengl::x11::resolution::object_unique_ptr
 sge::opengl::x11::resolution::create(
 	awl::backends::x11::window::object &_window,
 	sge::renderer::parameters const &_param
@@ -55,17 +53,18 @@ sge::opengl::x11::resolution::create(
 			_param.screen_mode()
 		)
 	)
-		return sge::opengl::x11::resolution::unique_ptr();
+		return sge::opengl::x11::resolution::object_unique_ptr();
 
 #if !defined(SGE_OPENGL_HAVE_XRANDR) && !defined(SGE_OPENGL_HAVE_XF86VMODE)
 	FCPPT_LOG_WARNING(
-		log::global(),
+		sge::log::global(),
 		fcppt::log::_
 			<< FCPPT_TEXT("sge has not been compiled with fullscreen support.")
 			<< FCPPT_TEXT(" Try -D ENABLE_XRANDR=ON or -D ENABLE_XF86VMODE=ON.")
 	);
 
-	return sge::opengl::x11::resolution::unique_ptr();
+	return
+		sge::opengl::x11::resolution::object_unique_ptr();
 #else
 	sge::renderer::display_mode const display_mode(
 		_param.screen_mode().get<
@@ -73,19 +72,12 @@ sge::opengl::x11::resolution::create(
 		>().display_mode()
 	);
 #if defined(SGE_OPENGL_HAVE_XRANDR)
-
-	FCPPT_LOG_INFO(
-		sge::log::global(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Using xrandr for resolution changes")
-	);
-
 	try
 	{
 		return
-			resolution::unique_ptr(
+			sge::opengl::x11::resolution::object_unique_ptr(
 				fcppt::make_unique_ptr<
-					resolution::xrandr_mode
+					sge::opengl::x11::resolution::xrandr_mode
 				>(
 					display_mode,
 					fcppt::ref(
@@ -104,46 +96,14 @@ sge::opengl::x11::resolution::create(
 		);
 	}
 #endif
-
-#if defined(SGE_OPENGL_HAVE_XF86VMODE)
-	FCPPT_LOG_INFO(
-		sge::log::global(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Using xf86vmode for resolution changes")
-	);
-
-	try
-	{
-		return
-			resolution::unique_ptr(
-				fcppt::make_unique_ptr<
-					resolution::xf86_vmode
-				>(
-					display_mode,
-					fcppt::ref(
-						_window.display()
-					),
-					_window.screen()
-				)
-			);
-	}
-	catch(
-		sge::exception const &_exception
-	)
-	{
-		FCPPT_LOG_WARNING(
-			log::global(),
-			fcppt::log::_ << _exception.string()
-		);
-	}
-#endif
 	FCPPT_LOG_WARNING(
-		log::global(),
+		sge::log::global(),
 		fcppt::log::_
 			<< FCPPT_TEXT("sge cannot switch resolutions because ")
 			<< FCPPT_TEXT("no known method worked!")
 	);
 
-	return resolution::unique_ptr();
+	return
+		sge::opengl::x11::resolution::object_unique_ptr();
 #endif
 }

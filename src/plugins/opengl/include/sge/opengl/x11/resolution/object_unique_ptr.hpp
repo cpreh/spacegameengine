@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_RESOLUTION_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_OPENGL_X11_RESOLUTION_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_X11_RESOLUTION_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_OPENGL_X11_RESOLUTION_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/opengl/x11/resolution/instance_fwd.hpp>
+#include <sge/opengl/x11/resolution/object_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+
 
 namespace sge
 {
@@ -34,8 +35,8 @@ namespace resolution
 {
 
 typedef fcppt::unique_ptr<
-	instance
-> unique_ptr;
+	sge::opengl::x11::resolution::object
+> object_unique_ptr;
 
 }
 }
