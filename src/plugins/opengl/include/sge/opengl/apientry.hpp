@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // this is what GLEW does but sadly it hides it in the header file and later #undefs it
 #  if defined(__MINGW32__) || defined(__CYGWIN__)
 #    define SGE_OPENGL_APIENTRY __stdcall
-#  elif (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED) || defined(__BORLANDC__)
+#  elif (defined(_MSC_VER) && (_MSC_VER >= 800)) || defined(_STDCALL_SUPPORTED) || defined(__BORLANDC__)
 #    define SGE_OPENGL_APIENTRY __stdcall
 #  else
 #    define SGE_OPENGL_APIENTRY
