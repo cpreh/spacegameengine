@@ -145,7 +145,7 @@ place(
 		_tag,
 		static_cast<
 			alda::bindings::unsigned_<
-				Type
+				unsigned_type
 			> const *
 		>(
 			fcppt::null_ptr()
@@ -177,7 +177,7 @@ make(
 			_tag,
 			static_cast<
 				alda::bindings::unsigned_<
-					Type
+					unsigned_type
 				> const *
 			>(
 				fcppt::null_ptr()

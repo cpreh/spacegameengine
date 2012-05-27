@@ -192,7 +192,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 BOOST_AUTO_TEST_CASE(
-	alda_with_length
+	alda_length_stream
 )
 {
 FCPPT_PP_POP_WARNING
