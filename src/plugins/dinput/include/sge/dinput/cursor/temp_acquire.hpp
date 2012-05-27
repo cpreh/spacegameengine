@@ -18,73 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_DEVICE_OBJECT_HPP_INCLUDED
-#define SGE_DINPUT_DEVICE_OBJECT_HPP_INCLUDED
+#ifndef SGE_DINPUT_CURSOR_TEMP_ACQUIRE_HPP_INCLUDED
+#define SGE_DINPUT_CURSOR_TEMP_ACQUIRE_HPP_INCLUDED
 
-#include <sge/dinput/di.hpp>
-#include <sge/dinput/dinput_device_scoped_ptr.hpp>
-#include <sge/dinput/device/object_fwd.hpp>
-#include <sge/dinput/device/parameters_fwd.hpp>
+#include <awl/backends/windows/event/type.hpp>
+#include <sge/dinput/cursor/temp_acquire_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-
 
 
 namespace sge
 {
 namespace dinput
 {
-namespace device
+namespace cursor
 {
 
-class object
+class temp_acquire
 {
 	FCPPT_NONCOPYABLE(
-		object
+		temp_acquire
 	);
 public:
-	void
-	dispatch();
+	temp_acquire(
+		bool was_acquired,
+		awl::backends::windows::event::type
+	);
 
-	virtual
-	~object() = 0;
+	~temp_acquire();
 
 	bool
-	acquire();
-
-	void
-	unacquire();
-protected:
-	explicit
-	object(
-		sge::dinput::device::parameters const &
-	);
-
-	void
-	set_data_format(
-		LPCDIDATAFORMAT
-	);
-
-	void
-	set_property(
-		REFGUID,
-		LPCDIPROPHEADER
-	);
-
-	void
-	set_event_handle(
-		HANDLE
-	);
-
-	IDirectInputDevice8 &
-	get();
+	needs_acquire(
+		awl::backends::windows::event::type
+	) const;
 private:
-	virtual
-	void
-	on_dispatch(
-		DIDEVICEOBJECTDATA const &
-	) = 0;
+	bool const was_acquired_;
 
-	sge::dinput::dinput_device_scoped_ptr const device_;
+	awl::backends::windows::event::type const event_type_;
 };
 
 }

@@ -18,74 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_DEVICE_OBJECT_HPP_INCLUDED
-#define SGE_DINPUT_DEVICE_OBJECT_HPP_INCLUDED
-
-#include <sge/dinput/di.hpp>
-#include <sge/dinput/dinput_device_scoped_ptr.hpp>
-#include <sge/dinput/device/object_fwd.hpp>
-#include <sge/dinput/device/parameters_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-
+#ifndef SGE_DINPUT_CURSOR_TEMP_ACQUIRE_FWD_HPP_INCLUDED
+#define SGE_DINPUT_CURSOR_TEMP_ACQUIRE_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace dinput
 {
-namespace device
+namespace cursor
 {
 
-class object
-{
-	FCPPT_NONCOPYABLE(
-		object
-	);
-public:
-	void
-	dispatch();
-
-	virtual
-	~object() = 0;
-
-	bool
-	acquire();
-
-	void
-	unacquire();
-protected:
-	explicit
-	object(
-		sge::dinput::device::parameters const &
-	);
-
-	void
-	set_data_format(
-		LPCDIDATAFORMAT
-	);
-
-	void
-	set_property(
-		REFGUID,
-		LPCDIPROPHEADER
-	);
-
-	void
-	set_event_handle(
-		HANDLE
-	);
-
-	IDirectInputDevice8 &
-	get();
-private:
-	virtual
-	void
-	on_dispatch(
-		DIDEVICEOBJECTDATA const &
-	) = 0;
-
-	sge::dinput::dinput_device_scoped_ptr const device_;
-};
+class temp_acquire;
 
 }
 }

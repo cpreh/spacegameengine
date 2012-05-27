@@ -9,6 +9,8 @@ SET(
 	src/plugins/dinput/include/sge/dinput/cursor/object.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/object_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/pixmap.hpp
+	src/plugins/dinput/include/sge/dinput/cursor/temp_acquire.hpp
+	src/plugins/dinput/include/sge/dinput/cursor/temp_acquire_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/device/add_element.hpp
 	src/plugins/dinput/include/sge/dinput/device/element_name.hpp
 	src/plugins/dinput/include/sge/dinput/device/enumerate_objects.hpp
@@ -84,6 +86,7 @@ SET(
 	src/plugins/dinput/src/cursor/define.cpp
 	src/plugins/dinput/src/cursor/object.cpp
 	src/plugins/dinput/src/cursor/pixmap.cpp
+	src/plugins/dinput/src/cursor/temp_acquire.cpp
 	src/plugins/dinput/src/device/element_name.cpp
 	src/plugins/dinput/src/device/enumerate_objects.cpp
 	src/plugins/dinput/src/device/enumerator.cpp

@@ -231,18 +231,6 @@ sge::dinput::device::object::set_event_handle(
 	}
 }
 
-void
-sge::dinput::device::object::poll()
-{
-	if(
-		device_->Poll()
-		!= DI_OK
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("Poll() failed!")
-		);
-}
-
 IDirectInputDevice8 &
 sge::dinput::device::object::get()
 {

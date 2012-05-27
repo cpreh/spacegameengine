@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/cursor/cooperative_level.hpp>
 #include <sge/dinput/cursor/object.hpp>
+#include <sge/dinput/cursor/temp_acquire.hpp>
 #include <sge/dinput/device/funcs/acquire.hpp>
 #include <sge/dinput/device/funcs/set_cooperative_level.hpp>
 #include <sge/dinput/device/funcs/set_data_format.hpp>
@@ -77,6 +78,7 @@ sge::dinput::cursor::object::object(
 	),
 	button_signal_(),
 	move_signal_(),
+	temp_acquire_(),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -200,6 +202,90 @@ sge::dinput::cursor::object::object(
 						std::tr1::placeholders::_1,
 						sge::input::cursor::button_code::right,
 						false
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_event_processor.register_callback(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
+						WM_ENTERSIZEMOVE
+					),
+					std::tr1::bind(
+						&sge::dinput::cursor::object::on_temp_unacquire,
+						this,
+						fcppt::strong_typedef_construct_cast<
+							awl::backends::windows::event::type
+						>(
+							WM_EXITSIZEMOVE
+						),
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_event_processor.register_callback(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
+						WM_ENTERMENULOOP
+					),
+					std::tr1::bind(
+						&sge::dinput::cursor::object::on_temp_unacquire,
+						this,
+						fcppt::strong_typedef_construct_cast<
+							awl::backends::windows::event::type
+						>(
+							WM_EXITMENULOOP
+						),
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_event_processor.register_callback(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
+						WM_EXITSIZEMOVE
+					),
+					std::tr1::bind(
+						&sge::dinput::cursor::object::on_temp_acquire,
+						this,
+						fcppt::strong_typedef_construct_cast<
+							awl::backends::windows::event::type
+						>(
+							WM_EXITSIZEMOVE
+						),
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_event_processor.register_callback(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
+						WM_EXITMENULOOP
+					),
+					std::tr1::bind(
+						&sge::dinput::cursor::object::on_temp_acquire,
+						this,
+						fcppt::strong_typedef_construct_cast<
+							awl::backends::windows::event::type
+						>(
+							WM_EXITMENULOOP
+						),
+						std::tr1::placeholders::_1
 					)
 				)
 			)
@@ -366,6 +452,42 @@ sge::dinput::cursor::object::on_button(
 			_down
 		)
 	);
+
+	return awl::backends::windows::window::event::return_type();
+}
+
+awl::backends::windows::window::event::return_type
+sge::dinput::cursor::object::on_temp_unacquire(
+	awl::backends::windows::event::type const _event_type,
+	awl::backends::windows::window::event::object const &
+)
+{
+	temp_acquire_.take(
+		fcppt::make_unique_ptr<
+			sge::dinput::cursor::temp_acquire
+		>(
+			this->unacquire(),
+			_event_type
+		)
+	);
+
+	return awl::backends::windows::window::event::return_type();
+}
+
+awl::backends::windows::window::event::return_type
+sge::dinput::cursor::object::on_temp_acquire(
+	awl::backends::windows::event::type const _event_type,
+	awl::backends::windows::window::event::object const &
+)
+{
+	if(
+		temp_acquire_
+		&&
+		temp_acquire_->needs_acquire(
+			_event_type
+		)
+	)
+		this->acquire();
 
 	return awl::backends::windows::window::event::return_type();
 }

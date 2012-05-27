@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_CURSOR_OBJECT_HPP_INCLUDED
 #define SGE_DINPUT_CURSOR_OBJECT_HPP_INCLUDED
 
-#include <sge/dinput/cursor/object_fwd.hpp>
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/cursor/object_fwd.hpp>
+#include <sge/dinput/cursor/temp_acquire_fwd.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_signal.hpp>
@@ -31,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
@@ -101,6 +103,18 @@ private:
 		bool down
 	);
 
+	awl::backends::windows::window::event::return_type
+	on_temp_unacquire(
+		awl::backends::windows::event::type,
+		awl::backends::windows::window::event::object const &
+	);
+
+	awl::backends::windows::window::event::return_type
+	on_temp_acquire(
+		awl::backends::windows::event::type,
+		awl::backends::windows::window::event::object const &
+	);
+
 	void
 	update_grab();
 
@@ -113,6 +127,12 @@ private:
 	sge::input::cursor::button_signal button_signal_;
 
 	sge::input::cursor::move_signal move_signal_;
+
+	typedef fcppt::scoped_ptr<
+		sge::dinput::cursor::temp_acquire
+	> temp_acquire_scoped_ptr;
+
+	temp_acquire_scoped_ptr temp_acquire_;
 
 	fcppt::signal::connection_manager const connections_;
 };
