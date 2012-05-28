@@ -21,8 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system_unique_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
+#include <sge/plugin/description.hpp>
+#include <sge/plugin/flags.hpp>
+#include <sge/plugin/flags_field.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/name.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
 #include <sge/x11input/system.hpp>
@@ -34,12 +38,19 @@ namespace
 {
 
 sge::plugin::info const info(
-	FCPPT_TEXT("x11input"),
-	FCPPT_TEXT("Uses XI2 to handle keyboards and mice."),
+	sge::plugin::name(
+		FCPPT_TEXT("x11input")
+	),
+	sge::plugin::description(
+		FCPPT_TEXT("Uses XI2 to handle keyboards and mice.")
+	),
 	sge::plugin::version(0x1u),
 	sge::plugin::min_core_version(0x1u),
 	sge::plugin::capabilities_field(
 		sge::plugin::capabilities::input
+	),
+	sge::plugin::flags_field(
+		sge::plugin::flags::delayed_unload
 	)
 );
 

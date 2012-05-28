@@ -41,10 +41,10 @@ namespace systems
 {
 
 template<
-	typename T
+	typename Type
 >
 typename sge::plugin::object_shared_ptr<
-	T
+	Type
 >::type const
 plugin_by_name(
 	sge::plugin::manager &_manager,
@@ -56,14 +56,14 @@ plugin_by_name(
 	)
 		return
 			_manager.plugin<
-				T
+				Type
 			>().load();
 
 	for(
-		plugin::iterator<T> it(
-			_manager.begin<T>()
+		sge::plugin::iterator<Type> it(
+			_manager.begin<Type>()
 		);
-		it != _manager.end<T>();
+		it != _manager.end<Type>();
 		++it
 	)
 		if(
@@ -76,11 +76,11 @@ plugin_by_name(
 		FCPPT_TEXT("Plugin of type \"")
 		+ fcppt::type_name(
 			typeid(
-				T
+				Type
 			)
 		)
 		+ FCPPT_TEXT("\" with name \"")
-		+ *_name
+		+ _name->get()
 		+ FCPPT_TEXT("\" not found!")
 	);
 }

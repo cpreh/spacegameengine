@@ -22,8 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/system.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
+#include <sge/plugin/description.hpp>
+#include <sge/plugin/flags_field.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/name.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -34,13 +37,18 @@ namespace
 {
 
 sge::plugin::info const info(
-	FCPPT_TEXT("libpng"),
-	FCPPT_TEXT("Provides loading and saving of png files."),
+	sge::plugin::name(
+		FCPPT_TEXT("libpng")
+	),
+	sge::plugin::description(
+		FCPPT_TEXT("Provides loading and saving of png files.")
+	),
 	sge::plugin::version(0x1u),
 	sge::plugin::min_core_version(0x1u),
 	sge::plugin::capabilities_field(
 		sge::plugin::capabilities::image2d_system
-	)
+	),
+	sge::plugin::flags_field::null()
 );
 
 sge::image2d::system_unique_ptr

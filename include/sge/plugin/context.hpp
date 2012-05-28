@@ -34,7 +34,7 @@ namespace plugin
 {
 
 template<
-	typename T
+	typename Type
 >
 class context
 {
@@ -46,7 +46,7 @@ public:
 	);
 
 	typedef typename sge::plugin::object_shared_ptr<
-		T
+		Type
 	>::type ptr_type;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL

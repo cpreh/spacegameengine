@@ -23,8 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system_unique_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
+#include <sge/plugin/description.hpp>
+#include <sge/plugin/flags_field.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/name.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
 #include <fcppt/ref.hpp>
@@ -36,13 +39,18 @@ namespace
 {
 
 sge::plugin::info const info(
-	FCPPT_TEXT("freetype"),
-	FCPPT_TEXT("Provides loading of truetype fonts."),
+	sge::plugin::name(
+		FCPPT_TEXT("freetype")
+	),
+	sge::plugin::description(
+		FCPPT_TEXT("Provides loading of truetype fonts.")
+	),
 	sge::plugin::version(0x1u),
 	sge::plugin::min_core_version(0x1u),
 	sge::plugin::capabilities_field(
 		sge::plugin::capabilities::font
-	)
+	),
+	sge::plugin::flags_field::null()
 );
 
 sge::font::system_unique_ptr

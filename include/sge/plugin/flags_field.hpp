@@ -18,41 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CG_TYPE_INTEGRAL_C_HPP_INCLUDED
-#define SGE_SRC_CG_TYPE_INTEGRAL_C_HPP_INCLUDED
+#ifndef SGE_PLUGIN_FLAGS_FIELD_HPP_INCLUDED
+#define SGE_PLUGIN_FLAGS_FIELD_HPP_INCLUDED
 
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <Cg/cg.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/plugin/flags_field_fwd.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 
-
-namespace sge
-{
-namespace cg
-{
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	CGtype Type
->
-struct type_integral_c
-:
-boost::mpl::integral_c<
-	CGtype,
-	Type
->
-{
-};
-
-FCPPT_PP_POP_WARNING
-
-}
-}
 
 #endif

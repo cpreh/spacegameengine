@@ -5,15 +5,20 @@ set(
 	include/sge/plugin/base_shared_ptr.hpp
 	include/sge/plugin/capabilities.hpp
 	include/sge/plugin/capabilities_field.hpp
+	include/sge/plugin/capabilities_field_fwd.hpp
 	include/sge/plugin/category_array.hpp
 	include/sge/plugin/context.hpp
 	include/sge/plugin/context_base.hpp
 	include/sge/plugin/context_base_fwd.hpp
 	include/sge/plugin/context_fwd.hpp
+	include/sge/plugin/description.hpp
 	include/sge/plugin/detail/address_name.hpp
 	include/sge/plugin/detail/iterator_base_type.hpp
 	include/sge/plugin/detail/traits.hpp
 	include/sge/plugin/exception.hpp
+	include/sge/plugin/flags.hpp
+	include/sge/plugin/flags_field.hpp
+	include/sge/plugin/flags_field_fwd.hpp
 	include/sge/plugin/info.hpp
 	include/sge/plugin/info_fwd.hpp
 	include/sge/plugin/iterator.hpp
@@ -32,6 +37,7 @@ set(
 	include/sge/plugin/manager.hpp
 	include/sge/plugin/manager_fwd.hpp
 	include/sge/plugin/min_core_version.hpp
+	include/sge/plugin/name.hpp
 	include/sge/plugin/object.hpp
 	include/sge/plugin/object_fwd.hpp
 	include/sge/plugin/object_shared_ptr.hpp

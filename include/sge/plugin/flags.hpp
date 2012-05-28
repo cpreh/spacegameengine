@@ -18,39 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CG_TYPE_INTEGRAL_C_HPP_INCLUDED
-#define SGE_SRC_CG_TYPE_INTEGRAL_C_HPP_INCLUDED
-
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <Cg/cg.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_PLUGIN_FLAGS_HPP_INCLUDED
+#define SGE_PLUGIN_FLAGS_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace cg
+namespace plugin
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	CGtype Type
->
-struct type_integral_c
-:
-boost::mpl::integral_c<
-	CGtype,
-	Type
->
+namespace flags
 {
+enum type
+{
+	/**
+	\brief This plugin must be unloaded after everything else has been
+	cleaned up
+
+	As an example, x11input uses libXi which hooks into the X11 display but
+	has no cleanup function. If x11input gets unloaded before the display,
+	then closing the display will crash.
+	*/
+	delayed_unload,
+	size
 };
-
-FCPPT_PP_POP_WARNING
+}
 
 }
 }

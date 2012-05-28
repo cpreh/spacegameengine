@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/format.hpp>
+#include <sge/plugin/name.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
@@ -99,7 +100,9 @@ try
 				sge::viewport::dont_manage()
 			)
 			.name(
-				FCPPT_TEXT("opengl")
+				sge::plugin::name(
+					FCPPT_TEXT("opengl")
+				)
 			)
 		)
 	);

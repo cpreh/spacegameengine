@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_INFO_HPP_INCLUDED
 
 #include <sge/plugin/capabilities_field.hpp>
+#include <sge/plugin/description.hpp>
+#include <sge/plugin/flags_field.hpp>
 #include <sge/plugin/info_fwd.hpp>
 #include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/name.hpp>
 #include <sge/plugin/symbol.hpp>
 #include <sge/plugin/version.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 namespace sge
@@ -40,42 +41,49 @@ class info
 public:
 	SGE_PLUGIN_SYMBOL
 	info(
-		fcppt::string const &name,
-		fcppt::string const &description,
-		plugin::version,
-		plugin::min_core_version,
-		plugin::capabilities_field const &
+		sge::plugin::name const &,
+		sge::plugin::description const &,
+		sge::plugin::version,
+		sge::plugin::min_core_version,
+		sge::plugin::capabilities_field const &,
+		sge::plugin::flags_field const &
 	);
 
 	SGE_PLUGIN_SYMBOL
-	fcppt::string const &
+	sge::plugin::name const &
 	name() const;
 
 	SGE_PLUGIN_SYMBOL
-	fcppt::string const &
+	sge::plugin::description const &
 	description() const;
 
 	SGE_PLUGIN_SYMBOL
-	plugin::version const
+	sge::plugin::version const
 	version() const;
 
 	SGE_PLUGIN_SYMBOL
-	plugin::min_core_version const
+	sge::plugin::min_core_version const
 	min_core_version() const;
 
 	SGE_PLUGIN_SYMBOL
-	plugin::capabilities_field const &
+	sge::plugin::capabilities_field const &
 	capabilities() const;
+
+	SGE_PLUGIN_SYMBOL
+	sge::plugin::flags_field const &
+	flags() const;
 private:
-	fcppt::string name_;
+	sge::plugin::name name_;
 
-	fcppt::string description_;
+	sge::plugin::description description_;
 
-	plugin::version version_;
+	sge::plugin::version version_;
 
-	plugin::min_core_version min_core_version_;
+	sge::plugin::min_core_version min_core_version_;
 
-	plugin::capabilities_field capabilities_;
+	sge::plugin::capabilities_field capabilities_;
+
+	sge::plugin::flags_field flags_;
 };
 
 }

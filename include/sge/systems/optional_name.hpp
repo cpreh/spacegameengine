@@ -21,19 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_OPTIONAL_NAME_HPP_INCLUDED
 #define SGE_SYSTEMS_OPTIONAL_NAME_HPP_INCLUDED
 
-#include <fcppt/optional_fwd.hpp>
-#include <fcppt/string.hpp>
+#include <sge/systems/optional_name_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-namespace sge
-{
-namespace systems
-{
-
-typedef fcppt::optional<
-	fcppt::string
-> optional_name;
-
-}
-}
 
 #endif

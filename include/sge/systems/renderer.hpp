@@ -21,14 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_RENDERER_HPP_INCLUDED
 #define SGE_SYSTEMS_RENDERER_HPP_INCLUDED
 
+#include <sge/plugin/name.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/renderer_fwd.hpp>
 #include <sge/systems/symbol.hpp>
 #include <sge/viewport/resize_function.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/string.hpp>
 
 
 namespace sge
@@ -51,7 +50,7 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	renderer &
 	name(
-		fcppt::string const &
+		sge::plugin::name const &
 	);
 
 	sge::renderer::parameters const &

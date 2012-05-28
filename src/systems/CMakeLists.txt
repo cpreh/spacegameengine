@@ -32,6 +32,7 @@ set(
 	include/sge/systems/list.hpp
 	include/sge/systems/list_fwd.hpp
 	include/sge/systems/optional_name.hpp
+	include/sge/systems/optional_name_fwd.hpp
 	include/sge/systems/plugin_path.hpp
 	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp

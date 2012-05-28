@@ -61,42 +61,48 @@ public:
 	~manager();
 
 	template<
-		typename T
+		typename Type
 	>
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	iterator<T>
+	sge::plugin::iterator<
+		Type
+	>
 	begin();
 
 	template<
-		typename T
+		typename Type
 	>
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	iterator<T>
+	sge::plugin::iterator<
+		Type
+	>
 	end();
 
 	template<
-		typename T
+		typename Type
 	>
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	context<T>
+	sge::plugin::context<
+		Type
+	>
 	plugin(
-		size_type index = 0
+		sge::plugin::manager::size_type index = 0
 	);
 
 	template<
-		typename T
+		typename Type
 	>
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	size_type
+	sge::plugin::manager::size_type
 	size() const;
 private:
 	typedef std::vector<
-		plugin::context_base
+		sge::plugin::context_base
 	> plugin_array;
 
 	typedef std::map<
-		capabilities::type,
-		plugin::category_array
+		sge::plugin::capabilities::type,
+		sge::plugin::category_array
 	> plugin_map;
 
 	plugin_array plugins_;

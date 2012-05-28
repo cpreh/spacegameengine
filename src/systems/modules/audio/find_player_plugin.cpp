@@ -41,7 +41,7 @@ sge::systems::modules::audio::find_player_plugin(
 )
 {
 	for(
-		plugin::iterator<sge::audio::player> it(
+		sge::plugin::iterator<sge::audio::player> it(
 			_manager.begin<sge::audio::player>()
 		);
 		it != _manager.end<sge::audio::player>();
