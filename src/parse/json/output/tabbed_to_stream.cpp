@@ -278,16 +278,6 @@ private:
 				FCPPT_TEXT('\t')
 			);
 	}
-
-	fcppt::string
-	make_even_more_tabs() const
-	{
-		return
-			fcppt::string(
-				tabs_ + 2u,
-				FCPPT_TEXT('\t')
-			);
-	}
 };
 
 }
