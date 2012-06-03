@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/plugin.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/src/systems/add_plugin.hpp>
-#include <sge/src/systems/plugin_by_name.hpp>
 #include <sge/src/systems/plugin_cache_fwd.hpp>
+#include <sge/src/systems/modules/renderer/find_plugin.hpp>
 #include <sge/src/systems/modules/renderer/system.hpp>
 #include <sge/systems/renderer.hpp>
 #include <awl/system/object_fwd.hpp>
@@ -41,11 +41,9 @@ sge::systems::modules::renderer::system::system(
 	plugin_(
 		sge::systems::add_plugin(
 			_plugin_cache,
-			sge::systems::plugin_by_name<
-				sge::renderer::system
-			>(
+			sge::systems::modules::renderer::find_plugin(
 				_plugin_manager,
-				_parameters.name()
+				_parameters.caps()
 			)
 		)
 	),

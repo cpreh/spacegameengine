@@ -18,11 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_OPTIONAL_NAME_HPP_INCLUDED
-#define SGE_SYSTEMS_OPTIONAL_NAME_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_RENDERER_FIND_PLUGIN_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_RENDERER_FIND_PLUGIN_HPP_INCLUDED
 
-#include <sge/systems/optional_name_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/plugin/manager_fwd.hpp>
+#include <sge/renderer/plugin_shared_ptr.hpp>
+#include <sge/renderer/caps/system_field_fwd.hpp>
 
+
+namespace sge
+{
+namespace systems
+{
+namespace modules
+{
+namespace renderer
+{
+
+sge::renderer::plugin_shared_ptr const
+find_plugin(
+	sge::plugin::manager &,
+	sge::renderer::caps::system_field const &
+);
+
+}
+}
+}
+}
 
 #endif

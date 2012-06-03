@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/name.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/systems/optional_name.hpp>
+#include <sge/renderer/caps/system_field.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/viewport/resize_function.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -37,16 +37,18 @@ sge::systems::renderer::renderer(
 	resize_function_(
 		_resize_function
 	),
-	name_()
+	caps_(
+		sge::renderer::caps::system_field::null()
+	)
 {
 }
 
 sge::systems::renderer &
-sge::systems::renderer::name(
-	sge::plugin::name const &_name
+sge::systems::renderer::caps(
+	sge::renderer::caps::system_field const &_caps
 )
 {
-	name_ = _name;
+	caps_ = _caps;
 
 	return *this;
 }
@@ -63,8 +65,8 @@ sge::systems::renderer::resize_function() const
 	return resize_function_;
 }
 
-sge::systems::optional_name const &
-sge::systems::renderer::name() const
+sge::renderer::caps::system_field const &
+sge::systems::renderer::caps() const
 {
-	return name_;
+	return caps_;
 }

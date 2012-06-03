@@ -18,74 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_PLUGIN_BY_NAME_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_PLUGIN_BY_NAME_HPP_INCLUDED
-
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
-#include <sge/plugin/object_shared_ptr.hpp>
+#include <sge/plugin/object.hpp>
+#include <sge/renderer/plugin.hpp>
+#include <sge/renderer/plugin_shared_ptr.hpp>
+#include <sge/renderer/system.hpp>
+#include <sge/renderer/caps/system_field.hpp>
 #include <sge/systems/exception.hpp>
-#include <sge/systems/optional_name.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/src/systems/modules/renderer/find_plugin.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/type_name.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <typeinfo>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/container/bitfield/is_subset_eq.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-
-template<
-	typename Type
->
-typename sge::plugin::object_shared_ptr<
-	Type
->::type const
-plugin_by_name(
+sge::renderer::plugin_shared_ptr const
+sge::systems::modules::renderer::find_plugin(
 	sge::plugin::manager &_manager,
-	sge::systems::optional_name const &_name
+	sge::renderer::caps::system_field const &_caps
 )
 {
-	if(
-		!_name
-	)
-		return
-			_manager.plugin<
-				Type
-			>().load();
+	typedef sge::plugin::iterator<
+		sge::renderer::system
+	> iterator;
 
 	for(
-		sge::plugin::iterator<Type> it(
-			_manager.begin<Type>()
+		iterator it(
+			_manager.begin<
+				sge::renderer::system
+			>()
 		);
-		it != _manager.end<Type>();
+		it
+		!=
+		_manager.end<
+			sge::renderer::system
+		>();
 		++it
 	)
-		if(
-			it->base().info().name()
-			== *_name
-		)
-			return it->load();
+	{
+		sge::renderer::plugin_shared_ptr const plugin(
+			it->load()
+		);
 
-	throw sge::systems::exception(
-		FCPPT_TEXT("Plugin of type \"")
-		+ fcppt::type_name(
-			typeid(
-				Type
+		if(
+			fcppt::container::bitfield::is_subset_eq(
+				_caps,
+				plugin->get()()->caps()
 			)
 		)
-		+ FCPPT_TEXT("\" with name \"")
-		+ _name->get()
-		+ FCPPT_TEXT("\" not found!")
+			return
+				plugin;
+	}
+
+	throw sge::systems::exception(
+		FCPPT_TEXT("Renderer plugin with requested caps not found!")
 	);
 }
-
-}
-}
-
-#endif

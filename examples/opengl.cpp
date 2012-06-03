@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/format.hpp>
-#include <sge/plugin/name.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
@@ -34,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
+#include <sge/renderer/caps/system.hpp>
+#include <sge/renderer/caps/system_field.hpp>
 #include <sge/renderer/opengl/buffer/base.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
@@ -99,9 +100,9 @@ try
 				),
 				sge::viewport::dont_manage()
 			)
-			.name(
-				sge::plugin::name(
-					FCPPT_TEXT("opengl")
+			.caps(
+				sge::renderer::caps::system_field(
+					sge::renderer::caps::system::opengl
 				)
 			)
 		)

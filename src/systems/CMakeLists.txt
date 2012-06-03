@@ -31,7 +31,6 @@ set(
 	include/sge/systems/instance_fwd.hpp
 	include/sge/systems/list.hpp
 	include/sge/systems/list_fwd.hpp
-	include/sge/systems/optional_name.hpp
 	include/sge/systems/optional_name_fwd.hpp
 	include/sge/systems/plugin_path.hpp
 	include/sge/systems/quit_on_escape.hpp
@@ -93,6 +92,7 @@ set(
 	src/systems/include/sge/src/systems/modules/renderer/device.hpp
 	src/systems/include/sge/src/systems/modules/renderer/device_fwd.hpp
 	src/systems/include/sge/src/systems/modules/renderer/device_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/renderer/find_plugin.hpp
 	src/systems/include/sge/src/systems/modules/renderer/optional_system_ref.hpp
 	src/systems/include/sge/src/systems/modules/renderer/system.hpp
 	src/systems/include/sge/src/systems/modules/renderer/system_fwd.hpp
@@ -109,7 +109,6 @@ set(
 	src/systems/include/sge/src/systems/modules/window/quit.hpp
 	src/systems/include/sge/src/systems/modules/window/quit_fwd.hpp
 	src/systems/include/sge/src/systems/modules/window/wrapped.hpp
-	src/systems/include/sge/src/systems/plugin_by_name.hpp
 	src/systems/include/sge/src/systems/plugin_cache.hpp
 	src/systems/include/sge/src/systems/plugin_cache_fwd.hpp
 	src/systems/input.cpp
@@ -130,6 +129,7 @@ set(
 	src/systems/modules/input/cursor_modifier.cpp
 	src/systems/modules/input/object.cpp
 	src/systems/modules/renderer/device.cpp
+	src/systems/modules/renderer/find_plugin.cpp
 	src/systems/modules/renderer/system.cpp
 	src/systems/modules/window/base.cpp
 	src/systems/modules/window/make_base.cpp
