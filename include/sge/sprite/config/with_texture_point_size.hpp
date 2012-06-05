@@ -30,10 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/primitives/texture_point_size.hpp>
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
 #include <majutsu/composite.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/mpl/append.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -60,11 +58,11 @@ struct with_texture_point_size<
 	Ownership
 >
 {
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_STATEMENT(
 		TextureLevels >= 1u
 	);
 
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_STATEMENT(
 		SizeOptions::is_texture_point_size::value
 	);
 

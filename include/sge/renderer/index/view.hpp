@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/view_fwd.hpp>
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -49,8 +49,8 @@ template<
 class view
 {
 public:
-	BOOST_STATIC_ASSERT(
-		index::is_format<
+	FCPPT_STATIC_ASSERT_STATEMENT(
+		sge::renderer::index::is_format<
 			Format
 		>::value
 	);
@@ -81,7 +81,7 @@ public:
 	> dynamic_view_type;
 
 	SGE_RENDERER_SYMBOL
-	explicit view(
+	view(
 		pointer,
 		size_type
 	);

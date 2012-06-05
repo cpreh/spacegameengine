@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <majutsu/role_return_type.hpp>
 #include <majutsu/memory/init_count.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/fusion/container/generation/make_vector.hpp>
 #include <boost/fusion/support/is_sequence.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -88,8 +88,8 @@ struct class_
 			)
 		)
 	{
-		BOOST_STATIC_ASSERT(
-			memory::init_count<
+		FCPPT_STATIC_ASSERT_EXPRESSION(
+			majutsu::memory::init_count<
 				memory_type
 			>::value
 			== 1u
@@ -122,7 +122,7 @@ explicit class_(\
 		)\
 	)\
 {\
-	BOOST_STATIC_ASSERT(\
+	FCPPT_STATIC_ASSERT_EXPRESSION(\
 		memory::init_count<\
 			memory_type\
 		>::value == n\
@@ -155,8 +155,8 @@ BOOST_PP_REPEAT_FROM_TO(
 			_initializers
 		)
 	{
-		BOOST_STATIC_ASSERT(
-			memory::init_count<
+		FCPPT_STATIC_ASSERT_EXPRESSION(
+			majutsu::memory::init_count<
 				memory_type
 			>::value
 			== boost::mpl::size<

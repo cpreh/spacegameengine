@@ -43,9 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
 #include <majutsu/role_return_type.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/static_assert_expression.hpp>
 
 
 template<
@@ -89,7 +87,7 @@ sge::sprite::parameters<Choices>::center(
 	>::type const &_pos
 )
 {
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_EXPRESSION(
 		sge::sprite::detail::config::has_normal_size<
 			Choices
 		>::value

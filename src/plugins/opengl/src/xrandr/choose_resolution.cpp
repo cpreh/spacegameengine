@@ -68,22 +68,25 @@ sge::opengl::xrandr::choose_resolution(
 		index < nsizes;
 		++index
 	)
+	{
+		::XRRScreenSize const &current(
+			sizes[
+				index
+			]
+		);
+
 		if(
 			static_cast<
 				sge::renderer::screen_unit
 			>(
-				sizes[
-					index
-				].width
+				current.width
 			)
 			== _mode.size().w()
 			&&
 			static_cast<
 				sge::renderer::screen_unit
 			>(
-				sizes[
-					index
-				].height
+				current.height
 			)
 			== _mode.size().h()
 		)
@@ -114,6 +117,7 @@ sge::opengl::xrandr::choose_resolution(
 					)
 				);
 		}
+	}
 
 	throw sge::renderer::exception(
 		FCPPT_TEXT("No matching resolution found!")

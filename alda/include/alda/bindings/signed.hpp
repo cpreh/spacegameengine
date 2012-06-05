@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/concepts/static_size.hpp>
 #include <majutsu/concepts/dynamic_memory/tag.hpp>
 #include <fcppt/null_ptr.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -36,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <exception>
 #include <limits>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 #include <boost/type_traits/is_signed.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -59,7 +59,7 @@ majutsu::fundamental<
 	Type
 >
 {
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_STATEMENT(
 		boost::is_signed<
 			Type
 		>::value

@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/endianness.hpp>
 #include <alda/message/base_decl.hpp>
 #include <alda/serialization/ostream.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/io/write.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_unsigned.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <exception>
@@ -64,7 +64,7 @@ put(
 
 	typedef typename message_base::size_type message_size_type;
 
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_EXPRESSION(
 		sizeof(
 			message_size_type
 		)

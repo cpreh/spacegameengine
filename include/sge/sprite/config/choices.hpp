@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/choices_fwd.hpp>
 #include <sge/sprite/config/is_size_choice.hpp>
 #include <sge/sprite/config/is_type_choices.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/mpl/is_sequence.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -50,19 +50,19 @@ struct choices
 
 	typedef OptionalElements optional_elements;
 
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_STATEMENT(
 		sge::sprite::config::is_type_choices<
 			TypeChoices
 		>::value
 	);
 
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_STATEMENT(
 		sge::sprite::config::is_size_choice<
 			SizeChoice
 		>::value
 	);
 
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_STATEMENT(
 		boost::mpl::is_sequence<
 			OptionalElements
 		>::value

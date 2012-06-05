@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/const_tag.hpp>
 #include <sge/renderer/index/format.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -47,7 +47,7 @@ class const_proxy
 		const_proxy
 	);
 public:
-	BOOST_STATIC_ASSERT((
+	FCPPT_STATIC_ASSERT_STATEMENT((
 		boost::is_same<
 			typename Format::constness,
 			index::const_tag

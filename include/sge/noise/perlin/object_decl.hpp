@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_NOISE_PERLIN_OBJECT_DECL_HPP_INCLUDED
 
 #include <sge/noise/perlin/object_fwd.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/preprocessor/pure.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -45,8 +45,11 @@ template
 >
 class object
 {
-BOOST_STATIC_ASSERT((
-	boost::is_floating_point<Float>::value));
+	FCPPT_STATIC_ASSERT_STATEMENT(
+		boost::is_floating_point<
+			Float
+		>::value
+	);
 public:
 	typedef
 	Float

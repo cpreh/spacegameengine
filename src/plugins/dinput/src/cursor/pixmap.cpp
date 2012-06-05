@@ -23,11 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/module_handle.hpp>
 #include <awl/backends/windows/system_metrics.hpp>
 #include <awl/backends/windows/windows.hpp>
+#include <fcppt/null_ptr.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/ceil_div.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_unsigned.hpp>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
@@ -35,7 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::dinput::cursor::pixmap::pixmap()
 :
-	cursor_(NULL)
+	cursor_(
+		fcppt::null_ptr()
+	)
 {
 	int const
 		cursor_width(
@@ -53,7 +56,7 @@ sge::dinput::cursor::pixmap::pixmap()
 		BYTE
 	> byte_vector;
 
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_EXPRESSION(
 		boost::is_unsigned<
 			BYTE
 		>::value

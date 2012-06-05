@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/render/vertex_options.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -72,7 +72,7 @@ ordered_with_options(
 	Compare const &_compare
 )
 {
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_EXPRESSION(
 		Options::render_options::vertex_options
 		== sge::sprite::render::vertex_options::declaration
 		||

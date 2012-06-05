@@ -23,13 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/normal_fwd.hpp>
 #include <sge/renderer/vf/vector3_base.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -51,7 +49,7 @@ sge::renderer::vf::vector3_base<
 	Format
 >
 {
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_STATEMENT(
 		fcppt::type_traits::is_float_or_double<
 			Format
 		>::value

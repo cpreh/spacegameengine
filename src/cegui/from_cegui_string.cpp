@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
 #include <fcppt/from_std_wstring.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <CEGUIBase.h>
 #include <fcppt/config/external_end.hpp>
@@ -39,7 +39,7 @@ sge::cegui::from_cegui_string(
 	sge::charconv::string_type<sge::charconv::encoding::utf32>::type
 	source_string;
 
-	BOOST_STATIC_ASSERT((
+	FCPPT_STATIC_ASSERT_EXPRESSION((
 		boost::is_same
 		<
 			source_string::value_type,

@@ -25,13 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/is_index.hpp>
 #include <sge/renderer/vf/texpos_fwd.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -56,18 +54,18 @@ sge::renderer::vf::vector_base<
 	NumSubElements
 >
 {
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_STATEMENT(
 		fcppt::type_traits::is_float_or_double<
 			Format
 		>::value
 	);
 
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_STATEMENT(
 		NumSubElements >= 2
 		&& NumSubElements <= 3
 	);
 
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_STATEMENT(
 		sge::renderer::vf::is_index<
 			Index
 		>::value

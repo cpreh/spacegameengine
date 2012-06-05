@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/process/geometry_options.hpp>
 #include <sge/sprite/process/is_options.hpp>
 #include <sge/sprite/process/with_options.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -60,7 +60,7 @@ one_with_options(
 	Buffers &_buffers
 )
 {
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_EXPRESSION(
 		Options::geometry_options
 		!= sge::sprite::process::geometry_options::sort_and_update
 	);

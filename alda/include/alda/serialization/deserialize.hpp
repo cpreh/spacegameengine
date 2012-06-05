@@ -29,10 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/serialization/detail/dispatch/base_decl.hpp>
 #include <alda/serialization/detail/dispatch/map.hpp>
 #include <alda/serialization/detail/read/object_decl.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/throw.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <cstddef>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
@@ -59,7 +59,7 @@ deserialize(
 	typedef typename TypeEnum::type message_type;
 
 	// TODO: we can't specify the endianness of the message type at the moment
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_EXPRESSION(
 		sizeof(
 			alda::serialization::detail::message_int_type
 		)

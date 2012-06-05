@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture_point_size.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/size.hpp>
@@ -97,7 +97,7 @@ private:
 		> type;
 	};
 
-	BOOST_STATIC_ASSERT((
+	FCPPT_STATIC_ASSERT_STATEMENT((
 		boost::mpl::equal_to<
 			typename boost::mpl::size<
 				AttributeNames

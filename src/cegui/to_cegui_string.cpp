@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/to_std_wstring.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -46,7 +46,7 @@ sge::cegui::to_cegui_string(
 	sge::charconv::string_type<sge::charconv::encoding::utf8>::type
 	utf8_string;
 
-	BOOST_STATIC_ASSERT((
+	FCPPT_STATIC_ASSERT_EXPRESSION((
 		boost::is_same
 		<
 			utf8_string::value_type,

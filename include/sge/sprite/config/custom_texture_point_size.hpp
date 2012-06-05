@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
 #include <sge/sprite/config/custom_texture_point_size_fwd.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/is_sequence.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -43,7 +43,7 @@ struct custom_texture_point_size
 {
 	typedef boost::mpl::true_ is_texture_point_size;
 
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_STATEMENT(
 		boost::mpl::is_sequence<
 			AttributeNames
 		>::value

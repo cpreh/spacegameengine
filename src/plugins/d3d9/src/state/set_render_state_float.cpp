@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_render_state.hpp>
 #include <sge/d3d9/state/set_render_state_float.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
 
@@ -33,7 +34,7 @@ sge::d3d9::state::set_render_state_float(
 	float const _value
 )
 {
-	BOOST_STATIC_ASSERT(
+	FCPPT_STATIC_ASSERT_EXPRESSION(
 		sizeof(float)
 		== sizeof(DWORD)
 	);

@@ -26,13 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/ghost/detail/pair_callback.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <LinearMath/btScalar.h>
 #include <LinearMath/btVector3.h>
@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("world"))
 
-BOOST_STATIC_ASSERT((
+FCPPT_STATIC_ASSERT_STATEMENT((
 	boost::is_same<btScalar,float>::value));
 
 namespace

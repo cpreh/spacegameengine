@@ -250,10 +250,6 @@ try
 		sprite_choices
 	> sprite_object;
 
-	typedef sge::sprite::parameters<
-		sprite_choices
-	> sprite_parameters;
-
 	sprite_buffers_type sprite_buffers(
 		sys.renderer(),
 		sge::sprite::buffers::option::dynamic);
