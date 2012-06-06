@@ -56,6 +56,7 @@ set(
 	src/systems/include/sge/src/systems/basic_loader_impl.hpp
 	src/systems/include/sge/src/systems/detail/instance_impl.hpp
 	src/systems/include/sge/src/systems/extract_plugin_path.hpp
+	src/systems/include/sge/src/systems/find_plugin.hpp
 	src/systems/include/sge/src/systems/instantiate_basic_loader.hpp
 	src/systems/include/sge/src/systems/make_any_key.hpp
 	src/systems/include/sge/src/systems/modules/audio/find_player_plugin.hpp
@@ -96,6 +97,8 @@ set(
 	src/systems/include/sge/src/systems/modules/renderer/optional_system_ref.hpp
 	src/systems/include/sge/src/systems/modules/renderer/system.hpp
 	src/systems/include/sge/src/systems/modules/renderer/system_fwd.hpp
+	src/systems/include/sge/src/systems/modules/renderer/system_pair.hpp
+	src/systems/include/sge/src/systems/modules/renderer/system_pair_fwd.hpp
 	src/systems/include/sge/src/systems/modules/renderer/system_scoped_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/base.hpp
 	src/systems/include/sge/src/systems/modules/window/base_fwd.hpp
@@ -111,6 +114,9 @@ set(
 	src/systems/include/sge/src/systems/modules/window/wrapped.hpp
 	src/systems/include/sge/src/systems/plugin_cache.hpp
 	src/systems/include/sge/src/systems/plugin_cache_fwd.hpp
+	src/systems/include/sge/src/systems/plugin_pair_decl.hpp
+	src/systems/include/sge/src/systems/plugin_pair_fwd.hpp
+	src/systems/include/sge/src/systems/plugin_pair_impl.hpp
 	src/systems/input.cpp
 	src/systems/instance.cpp
 	src/systems/list.cpp
@@ -131,6 +137,7 @@ set(
 	src/systems/modules/renderer/device.cpp
 	src/systems/modules/renderer/find_plugin.cpp
 	src/systems/modules/renderer/system.cpp
+	src/systems/modules/renderer/system_pair.cpp
 	src/systems/modules/window/base.cpp
 	src/systems/modules/window/make_base.cpp
 	src/systems/modules/window/object.cpp

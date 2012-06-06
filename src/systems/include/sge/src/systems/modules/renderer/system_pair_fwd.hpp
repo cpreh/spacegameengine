@@ -18,16 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_MODULES_AUDIO_PLAYER_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_MODULES_AUDIO_PLAYER_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_RENDERER_SYSTEM_PAIR_FWD_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_RENDERER_SYSTEM_PAIR_FWD_HPP_INCLUDED
 
-#include <sge/audio/player_fwd.hpp>
-#include <sge/plugin/manager_fwd.hpp>
-#include <sge/src/systems/plugin_cache_fwd.hpp>
-#include <sge/src/systems/modules/audio/player_fwd.hpp>
-#include <sge/src/systems/modules/audio/player_pair.hpp>
-#include <sge/systems/audio_player_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/system_fwd.hpp>
+#include <sge/src/systems/plugin_pair_fwd.hpp>
 
 
 namespace sge
@@ -36,28 +31,12 @@ namespace systems
 {
 namespace modules
 {
-namespace audio
+namespace renderer
 {
 
-class player
-{
-	FCPPT_NONCOPYABLE(
-		player
-	);
-public:
-	player(
-		sge::systems::plugin_cache &,
-		sge::plugin::manager &,
-		sge::systems::audio_player const &
-	);
-
-	~player();
-
-	sge::audio::player &
-	get() const;
-private:
-	sge::systems::modules::audio::player_pair const player_pair_;
-};
+typedef sge::systems::plugin_pair<
+	sge::renderer::system
+> system_pair;
 
 }
 }

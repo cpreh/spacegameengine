@@ -18,49 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_MODULES_AUDIO_PLAYER_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_MODULES_AUDIO_PLAYER_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_PLUGIN_PAIR_DECL_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_PLUGIN_PAIR_DECL_HPP_INCLUDED
 
-#include <sge/audio/player_fwd.hpp>
-#include <sge/plugin/manager_fwd.hpp>
-#include <sge/src/systems/plugin_cache_fwd.hpp>
-#include <sge/src/systems/modules/audio/player_fwd.hpp>
-#include <sge/src/systems/modules/audio/player_pair.hpp>
-#include <sge/systems/audio_player_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/plugin/object_shared_ptr.hpp>
+#include <sge/src/systems/plugin_pair_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
 
 
 namespace sge
 {
 namespace systems
 {
-namespace modules
-{
-namespace audio
-{
 
-class player
+template<
+	typename System
+>
+class plugin_pair
 {
-	FCPPT_NONCOPYABLE(
-		player
+	FCPPT_NONASSIGNABLE(
+		plugin_pair
 	);
 public:
-	player(
-		sge::systems::plugin_cache &,
-		sge::plugin::manager &,
-		sge::systems::audio_player const &
+	typedef typename sge::plugin::object_shared_ptr<
+		System
+	>::type plugin_shared_ptr;
+
+	typedef fcppt::shared_ptr<
+		System
+	> system_shared_ptr;
+
+	plugin_pair(
+		plugin_shared_ptr,
+		system_shared_ptr
 	);
 
-	~player();
-
-	sge::audio::player &
-	get() const;
+	System &
+	system() const;
 private:
-	sge::systems::modules::audio::player_pair const player_pair_;
+	plugin_shared_ptr const plugin_;
+
+	system_shared_ptr const system_;
 };
 
-}
-}
 }
 }
 

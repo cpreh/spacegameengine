@@ -20,18 +20,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/player_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
+#include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/audio/find_player_plugin.hpp>
 #include <sge/src/systems/modules/audio/player.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 
 
 sge::systems::modules::audio::player::player(
+	sge::systems::plugin_cache &_plugin_cache,
 	sge::plugin::manager &_manager,
 	sge::systems::audio_player const &_parameters
 )
 :
 	player_pair_(
 		sge::systems::modules::audio::find_player_plugin(
+			_plugin_cache,
 			_manager,
 			_parameters
 		)
@@ -47,5 +50,6 @@ sge::systems::modules::audio::player::~player()
 sge::audio::player &
 sge::systems::modules::audio::player::get() const
 {
-	return player_pair_.player();
+	return
+		player_pair_.system();
 }

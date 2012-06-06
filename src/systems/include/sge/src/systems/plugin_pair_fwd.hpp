@@ -18,49 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_MODULES_AUDIO_PLAYER_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_MODULES_AUDIO_PLAYER_HPP_INCLUDED
-
-#include <sge/audio/player_fwd.hpp>
-#include <sge/plugin/manager_fwd.hpp>
-#include <sge/src/systems/plugin_cache_fwd.hpp>
-#include <sge/src/systems/modules/audio/player_fwd.hpp>
-#include <sge/src/systems/modules/audio/player_pair.hpp>
-#include <sge/systems/audio_player_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_SRC_SYSTEMS_PLUGIN_PAIR_FWD_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_PLUGIN_PAIR_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace systems
 {
-namespace modules
-{
-namespace audio
-{
 
-class player
-{
-	FCPPT_NONCOPYABLE(
-		player
-	);
-public:
-	player(
-		sge::systems::plugin_cache &,
-		sge::plugin::manager &,
-		sge::systems::audio_player const &
-	);
+template<
+	typename System
+>
+class plugin_pair;
 
-	~player();
-
-	sge::audio::player &
-	get() const;
-private:
-	sge::systems::modules::audio::player_pair const player_pair_;
-};
-
-}
-}
 }
 }
 

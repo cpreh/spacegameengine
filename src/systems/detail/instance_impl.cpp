@@ -232,6 +232,9 @@ sge::systems::detail::instance_impl::init_audio_player(
 			sge::systems::modules::audio::player
 		>(
 			fcppt::ref(
+				plugin_cache_
+			),
+			fcppt::ref(
 				plugin_manager_
 			),
 			fcppt::cref(

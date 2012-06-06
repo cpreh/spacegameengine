@@ -18,59 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/plugin/context.hpp>
-#include <sge/plugin/iterator.hpp>
-#include <sge/plugin/manager.hpp>
-#include <sge/plugin/object.hpp>
+#include <sge/plugin/manager_fwd.hpp>
 #include <sge/renderer/plugin.hpp>
-#include <sge/renderer/plugin_shared_ptr.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
-#include <sge/systems/exception.hpp>
+#include <sge/src/systems/find_plugin.hpp>
+#include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/renderer/find_plugin.hpp>
-#include <fcppt/text.hpp>
+#include <sge/src/systems/modules/renderer/system_pair.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/spirit/home/phoenix/bind/bind_function.hpp>
+#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::renderer::plugin_shared_ptr const
+
+sge::systems::modules::renderer::system_pair const
 sge::systems::modules::renderer::find_plugin(
+	sge::systems::plugin_cache &_plugin_cache,
 	sge::plugin::manager &_manager,
 	sge::renderer::caps::system_field const &_caps
 )
 {
-	typedef sge::plugin::iterator<
-		sge::renderer::system
-	> iterator;
-
-	for(
-		iterator it(
-			_manager.begin<
-				sge::renderer::system
-			>()
-		);
-		it
-		!=
-		_manager.end<
+	return
+		sge::systems::find_plugin<
 			sge::renderer::system
-		>();
-		++it
-	)
-	{
-		sge::renderer::plugin_shared_ptr const plugin(
-			it->load()
-		);
-
-		if(
-			fcppt::container::bitfield::is_subset_eq(
+		>(
+			_plugin_cache,
+			_manager,
+			boost::phoenix::bind(
+				&fcppt::container::bitfield::is_subset_eq<
+					sge::renderer::caps::system_field::enum_type,
+					sge::renderer::caps::system_field::static_size::value,
+					sge::renderer::caps::system_field::internal_type
+				>,
 				_caps,
-				plugin->get()()->caps()
+				boost::phoenix::bind(
+					&sge::renderer::system::caps,
+					boost::phoenix::arg_names::arg1
+				)
 			)
-		)
-			return
-				plugin;
-	}
-
-	throw sge::systems::exception(
-		FCPPT_TEXT("Renderer plugin with requested caps not found!")
-	);
+		);
 }

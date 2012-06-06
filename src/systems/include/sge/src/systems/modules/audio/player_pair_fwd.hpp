@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_AUDIO_PLAYER_PAIR_FWD_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_AUDIO_PLAYER_PAIR_FWD_HPP_INCLUDED
 
+#include <sge/audio/player_fwd.hpp>
+#include <sge/src/systems/plugin_pair_fwd.hpp>
+
+
 namespace sge
 {
 namespace systems
@@ -30,7 +34,9 @@ namespace modules
 namespace audio
 {
 
-class player_pair;
+typedef sge::systems::plugin_pair<
+	sge::audio::player
+> player_pair;
 
 }
 }

@@ -20,61 +20,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin.hpp>
-#include <sge/audio/player_shared_ptr.hpp>
-#include <sge/audio/player_unique_ptr.hpp>
-#include <sge/plugin/context.hpp>
-#include <sge/plugin/iterator.hpp>
-#include <sge/plugin/manager.hpp>
-#include <sge/plugin/object.hpp>
+#include <sge/plugin/manager_fwd.hpp>
+#include <sge/src/systems/find_plugin.hpp>
+#include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/audio/find_player_plugin.hpp>
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 #include <sge/systems/audio_player.hpp>
-#include <sge/systems/exception.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/operator/comparison.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::systems::modules::audio::player_pair const
 sge::systems::modules::audio::find_player_plugin(
+	sge::systems::plugin_cache &_plugin_cache,
 	sge::plugin::manager &_manager,
 	sge::systems::audio_player const &_parameters
 )
 {
-	for(
-		sge::plugin::iterator<sge::audio::player> it(
-			_manager.begin<sge::audio::player>()
-		);
-		it != _manager.end<sge::audio::player>();
-		++it
-	)
-	{
-		typedef sge::plugin::context<
+	return
+		sge::systems::find_plugin<
 			sge::audio::player
-		>::ptr_type plugin_ptr;
-
-		plugin_ptr const plugin(
-			it->load()
+		>(
+			_plugin_cache,
+			_manager,
+			boost::phoenix::bind(
+				&sge::audio::player::capabilities,
+				boost::phoenix::arg_names::arg1
+			)
+			==
+			_parameters.capabilities()
 		);
-
-		sge::audio::player_unique_ptr player(
-			plugin->get()()
-		);
-
-		if(
-			player->capabilities() == _parameters.capabilities()
-		)
-			return
-				sge::systems::modules::audio::player_pair(
-					plugin,
-					sge::audio::player_shared_ptr(
-						fcppt::move(
-							player
-						)
-					)
-				);
-	}
-
-	throw sge::systems::exception(
-		FCPPT_TEXT("No audio player satisfied the audio player capabilities.")
-	);
 }

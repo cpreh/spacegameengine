@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_MODULES_AUDIO_FIND_PLAYER_PLUGIN_HPP_INCLUDED
 
 #include <sge/plugin/manager_fwd.hpp>
+#include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/audio/player_pair_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 
@@ -37,6 +38,7 @@ namespace audio
 
 sge::systems::modules::audio::player_pair const
 find_player_plugin(
+	sge::systems::plugin_cache &,
 	sge::plugin::manager &,
 	sge::systems::audio_player const &
 );

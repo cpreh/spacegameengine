@@ -20,9 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/renderer/plugin.hpp>
 #include <sge/renderer/system.hpp>
-#include <sge/src/systems/add_plugin.hpp>
 #include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/renderer/find_plugin.hpp>
 #include <sge/src/systems/modules/renderer/system.hpp>
@@ -38,20 +36,15 @@ sge::systems::modules::renderer::system::system(
 	sge::systems::renderer const &_parameters
 )
 :
-	plugin_(
-		sge::systems::add_plugin(
-			_plugin_cache,
-			sge::systems::modules::renderer::find_plugin(
-				_plugin_manager,
-				_parameters.caps()
-			)
-		)
-	),
 	renderer_parameters_(
 		_parameters.parameters()
 	),
-	renderer_system_(
-		plugin_->get()()
+	system_pair_(
+		sge::systems::modules::renderer::find_plugin(
+			_plugin_cache,
+			_plugin_manager,
+			_parameters.caps()
+		)
 	)
 {
 }
@@ -66,7 +59,7 @@ sge::systems::modules::renderer::system::create_visual(
 )
 {
 	return
-		renderer_system_->create_visual(
+		this->get().create_visual(
 			_awl_system,
 			renderer_parameters_
 		);
@@ -75,5 +68,6 @@ sge::systems::modules::renderer::system::create_visual(
 sge::renderer::system &
 sge::systems::modules::renderer::system::get() const
 {
-	return *renderer_system_;
+	return
+		system_pair_.system();
 }

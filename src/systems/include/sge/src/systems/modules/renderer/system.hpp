@@ -23,11 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/plugin_shared_ptr.hpp>
 #include <sge/renderer/system_fwd.hpp>
-#include <sge/renderer/system_scoped_ptr.hpp>
 #include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/renderer/system_fwd.hpp>
+#include <sge/src/systems/modules/renderer/system_pair.hpp>
 #include <sge/systems/renderer_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -65,11 +64,9 @@ public:
 	sge::renderer::system &
 	get() const;
 private:
-	sge::renderer::plugin_shared_ptr const plugin_;
-
 	sge::renderer::parameters const renderer_parameters_;
 
-	sge::renderer::system_scoped_ptr const renderer_system_;
+	sge::systems::modules::renderer::system_pair const system_pair_;
 };
 
 }
