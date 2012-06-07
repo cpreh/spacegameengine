@@ -34,13 +34,16 @@ set(
 	include/sge/timer/remaining.hpp
 	include/sge/timer/remaining_fractional.hpp
 	include/sge/timer/reset_when_expired.hpp
+	include/sge/timer/scoped_frame_limiter.hpp
+	include/sge/timer/scoped_frame_limiter_fwd.hpp
 	src/timer/frames_counter.cpp
+	src/timer/scoped_frame_limiter.cpp
 )
 
 add_sge_base_library(
 	timer
 	""
-	"${Boost_CHRONO_LIBRARIES}"
+	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
 	""
 	""
 )
