@@ -25,8 +25,7 @@ update_cmake_file \
 	-n \
 	include/sge \
 	-r \
-	include/sge/error \
-	include/sge/timer
+	include/sge/error
 
 update_cmake_file \
 	src/CMakeLists.txt \
@@ -174,6 +173,8 @@ update_sublibrary sprite
 update_sublibrary systems
 
 update_sublibrary texture
+
+update_sublibrary timer
 
 update_sublibrary viewport
 

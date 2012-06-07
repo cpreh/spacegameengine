@@ -18,15 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_FRAMES_COUNTER_HPP_INCLUDED
-#define SGE_TIMER_FRAMES_COUNTER_HPP_INCLUDED
-
-#include <sge/timer/basic_decl.hpp>
-#include <sge/timer/frames_counter_fwd.hpp>
-#include <sge/timer/symbol.hpp>
-#include <sge/timer/clocks/standard.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
+#ifndef SGE_TIMER_FRAMES_COUNTER_FWD_HPP_INCLUDED
+#define SGE_TIMER_FRAMES_COUNTER_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -34,46 +27,7 @@ namespace sge
 namespace timer
 {
 
-class frames_counter
-{
-	FCPPT_NONCOPYABLE(
-		frames_counter
-	);
-public:
-	typedef
-	sge::timer::clocks::standard
-	clock;
-
-	typedef
-	unsigned long
-	counter;
-
-	SGE_TIMER_SYMBOL
-	frames_counter();
-
-	SGE_TIMER_SYMBOL
-	void
-	update();
-
-	SGE_TIMER_SYMBOL
-	counter
-	frames() const;
-
-	SGE_TIMER_SYMBOL
-	fcppt::string const
-	frames_str() const;
-
-	SGE_TIMER_SYMBOL
-	~frames_counter();
-private:
-	sge::timer::basic<
-		clock
-	> timer_;
-
-	counter current_frames_;
-
-	counter display_frames_;
-};
+class frames_counter;
 
 }
 }

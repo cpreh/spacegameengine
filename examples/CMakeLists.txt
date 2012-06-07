@@ -193,7 +193,7 @@ add_sge_console_example(
 
 add_sge_example(
 	line_drawer
-	"sgeconfig;sgefonttext;sgeimage;sgeinput;sgeline_drawer;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"sgeconfig;sgefonttext;sgeimage;sgeinput;sgeline_drawer;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
@@ -311,7 +311,7 @@ add_sge_example(
 
 add_sge_example(
 	texture_filter
-	"sgecamera;sgeconfig;sgefonttext;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"sgecamera;sgeconfig;sgefonttext;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgetimer;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 

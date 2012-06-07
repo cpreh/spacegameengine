@@ -1,0 +1,46 @@
+set(
+	SGE_TIMER_FILES
+	include/sge/timer/basic.hpp
+	include/sge/timer/basic_decl.hpp
+	include/sge/timer/basic_fwd.hpp
+	include/sge/timer/basic_impl.hpp
+	include/sge/timer/clocks/adjustable.hpp
+	include/sge/timer/clocks/adjustable_decl.hpp
+	include/sge/timer/clocks/adjustable_fwd.hpp
+	include/sge/timer/clocks/adjustable_impl.hpp
+	include/sge/timer/clocks/delta.hpp
+	include/sge/timer/clocks/delta_decl.hpp
+	include/sge/timer/clocks/delta_fwd.hpp
+	include/sge/timer/clocks/delta_impl.hpp
+	include/sge/timer/clocks/detail/stateful_base.hpp
+	include/sge/timer/clocks/detail/stateless_base.hpp
+	include/sge/timer/clocks/detail/wrapper.hpp
+	include/sge/timer/clocks/is_stateful.hpp
+	include/sge/timer/clocks/standard.hpp
+	include/sge/timer/detail/parameters_base_decl.hpp
+	include/sge/timer/detail/parameters_base_impl.hpp
+	include/sge/timer/elapsed.hpp
+	include/sge/timer/elapsed_and_reset.hpp
+	include/sge/timer/elapsed_fractional.hpp
+	include/sge/timer/elapsed_fractional_and_reset.hpp
+	include/sge/timer/enable_ctor_stateful.hpp
+	include/sge/timer/enable_ctor_stateless.hpp
+	include/sge/timer/frames_counter.hpp
+	include/sge/timer/frames_counter_fwd.hpp
+	include/sge/timer/parameters.hpp
+	include/sge/timer/parameters_decl.hpp
+	include/sge/timer/parameters_fwd.hpp
+	include/sge/timer/parameters_impl.hpp
+	include/sge/timer/remaining.hpp
+	include/sge/timer/remaining_fractional.hpp
+	include/sge/timer/reset_when_expired.hpp
+	src/timer/frames_counter.cpp
+)
+
+add_sge_base_library(
+	timer
+	""
+	"${Boost_CHRONO_LIBRARIES}"
+	""
+	""
+)
