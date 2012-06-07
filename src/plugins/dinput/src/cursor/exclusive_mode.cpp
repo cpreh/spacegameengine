@@ -65,7 +65,7 @@ FCPPT_PP_POP_WARNING
 sge::dinput::cursor::exclusive_mode::~exclusive_mode()
 {
 }
-	
+
 awl::backends::windows::window::event::return_type
 sge::dinput::cursor::exclusive_mode::on_temp_unacquire(
 	awl::backends::windows::event::type const _event_type,

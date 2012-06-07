@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/joypad/info.hpp>
 #include <sge/dinput/joypad/relative_axis_map.hpp>
 #include <sge/input/joypad/info.hpp>
-	
+
 
 sge::dinput::joypad::info::info(
 	sge::input::joypad::info const &_input_info,
@@ -67,7 +67,7 @@ sge::dinput::joypad::info::button_map() const
 	return
 		button_map_;
 }
-	
+
 sge::dinput::joypad::relative_axis_map const &
 sge::dinput::joypad::info::relative_axis_map() const
 {

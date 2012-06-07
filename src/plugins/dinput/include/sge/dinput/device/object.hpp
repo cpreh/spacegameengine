@@ -58,7 +58,7 @@ protected:
 		sge::dinput::device::parameters const &,
 		DIDATAFORMAT const &
 	);
-	
+
 	IDirectInputDevice8 &
 	get();
 private:

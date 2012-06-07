@@ -348,7 +348,7 @@ sge::dinput::cursor::object::make_button_connections(
 			)
 		)
 	);
-	
+
 	_container.push_back(
 		fcppt::signal::shared_connection(
 			event_processor_.register_callback(

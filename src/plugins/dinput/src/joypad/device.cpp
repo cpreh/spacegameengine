@@ -127,7 +127,7 @@ sge::dinput::joypad::device::on_dispatch(
 				_data.dwOfs
 			)
 		);
-		
+
 		if(
 			it != info_.absolute_axis_map().end()
 		)
@@ -182,7 +182,7 @@ sge::dinput::joypad::device::on_dispatch(
 				_data.dwOfs
 			)
 		);
-		
+
 		if(
 			it != info_.relative_axis_map().end()
 		)

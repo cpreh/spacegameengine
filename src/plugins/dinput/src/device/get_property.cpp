@@ -33,7 +33,7 @@ sge::dinput::device::get_property(
 )
 {
 	_result.dwHeaderSize = sizeof(DIPROPHEADER);
-	
+
 	_result.dwHow = DIPH_BYOFFSET;
 
 	_result.dwObj = _data.dwOfs;

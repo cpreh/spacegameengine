@@ -185,7 +185,7 @@ sge::dinput::device::object::object(
 		_format
 	);
 }
-	
+
 IDirectInputDevice8 &
 sge::dinput::device::object::get()
 {
