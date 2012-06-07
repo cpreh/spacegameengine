@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/keyboard/key_code_to_key_sym.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/Xlib.h>
+#include <X11/X.h>
+#include <X11/XKBlib.h>
 #include <fcppt/config/external_end.hpp>
+
 
 KeySym
 sge::x11input::keyboard::key_code_to_key_sym(
@@ -30,14 +32,25 @@ sge::x11input::keyboard::key_code_to_key_sym(
 	int const _key_code
 )
 {
+	// The XI2 event passes the key code as an int, but XKB requires a
+	// KeyCode (which is unsigned char) or an unsigned int.
 	return
-		::XKeycodeToKeysym(
+		::XkbKeycodeToKeysym(
 			_display.get(),
+#if NeedWidePrototypes
 			static_cast<
 				unsigned
 			>(
 				_key_code
 			),
+#else
+			static_cast<
+				KeyCode
+			>(
+				_key_code
+			),
+#endif
+			0,
 			0
 		);
 }
