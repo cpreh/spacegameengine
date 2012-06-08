@@ -21,33 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_MUXER_IMPL_HPP_INCLUDED
 #define SGE_SRC_MEDIA_MUXER_IMPL_HPP_INCLUDED
 
-#include <sge/log/global.hpp>
 #include <sge/media/extension_set.hpp>
-#include <sge/media/loaders_exhausted.hpp>
 #include <sge/media/muxer.hpp>
-#include <sge/media/muxer_parameters.hpp>
 #include <sge/media/optional_extension.hpp>
-#include <sge/media/path_to_extension.hpp>
-#include <sge/plugin/collection.hpp>
-#include <sge/plugin/context.hpp>
-#include <sge/plugin/iterator.hpp>
-#include <sge/plugin/object.hpp>
-#include <sge/plugin/object_unique_ptr.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/type_name.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/algorithm/contains.hpp>
-#include <fcppt/algorithm/set_intersection.hpp>
-#include <fcppt/algorithm/set_union.hpp>
-#include <fcppt/container/bitfield/is_subset_eq.hpp>
+#include <sge/src/media/detail/muxer_impl.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/headers.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <typeinfo>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -62,103 +44,16 @@ sge::media::muxer<
 	parameters const &_parameters
 )
 :
-	plugins_(),
-	systems_(),
-	capabilities_(
-		_parameters.capabilities()
-	),
-	extensions_()
-{
-	sge::plugin::collection<
-		system
-	> const &collection(
-		_parameters.collection()
-	);
-
-	for(
-		sge::plugin::iterator<
-			system
-		> it(
-			collection.begin()
-		);
-		it != collection.end();
-		++it
-	)
-	{
-		typedef typename sge::plugin::object_unique_ptr<
-			System
-		>::type plugin_unique_ptr;
-
-		plugin_unique_ptr plugin(
-			it->load()
-		);
-
-		typedef fcppt::unique_ptr<
-			System
-		> system_unique_ptr;
-
-		system_unique_ptr system_instance(
-			plugin->get()()
-		);
-
-		// check if this plugin might be useful
-		if(
-			fcppt::container::bitfield::is_subset_eq(
-				_parameters.capabilities(),
-				system_instance->capabilities()
-			)
-			&&
-			(
-				!_parameters.extensions().has_value()
-				||
-				!fcppt::algorithm::set_intersection(
-					*_parameters.extensions(),
-					system_instance->extensions()
-				).empty()
+	impl_(
+		fcppt::make_unique_ptr<
+			muxer_impl
+		>(
+			fcppt::cref(
+				_parameters
 			)
 		)
-		{
-			capabilities_ &=
-				system_instance->capabilities();
-
-			extensions_ =
-				fcppt::algorithm::set_union(
-					system_instance->extensions(),
-					extensions_
-				);
-
-			fcppt::container::ptr::push_back_unique_ptr(
-				plugins_,
-				fcppt::move(
-					plugin
-				)
-			);
-
-			fcppt::container::ptr::push_back_unique_ptr(
-				systems_,
-				fcppt::move(
-					system_instance
-				)
-			);
-		}
-		else
-		{
-			FCPPT_LOG_DEBUG(
-				log::global(),
-				fcppt::log::_
-					<< FCPPT_TEXT("system ")
-					<<
-					fcppt::type_name(
-						typeid(
-							system
-						)
-					)
-					<< FCPPT_TEXT(" didn't find plugin \"")
-					<< it->path()
-					<< FCPPT_TEXT("\" to be useful.")
-			)
-		}
-	}
+	)
+{
 }
 
 template<
@@ -187,27 +82,10 @@ sge::media::muxer<
 	boost::filesystem::path const &_file
 ) const
 {
-	try
-	{
-		return
-			this->mux_extension(
-				sge::media::path_to_extension(
-					_file
-				)
-			);
-	}
-	catch(
-		sge::media::loaders_exhausted const &
-	)
-	{
-		throw sge::media::loaders_exhausted(
-			FCPPT_TEXT("Tried all loaders for ")
-			+ fcppt::filesystem::path_to_string(
-				_file
-			)
-			+ FCPPT_TEXT(" but none matched!")
+	return
+		impl_->mux_path(
+			_file
 		);
-	}
 }
 
 template<
@@ -225,38 +103,10 @@ sge::media::muxer<
 	sge::media::optional_extension const &_extension
 ) const
 {
-	for(
-		typename system_container::iterator it(
-			systems_.begin()
-		);
-		it != systems_.end();
-		++it
-	)
-	{
-		if(
-			!_extension
-			||
-			fcppt::algorithm::contains(
-				it->extensions(),
-				*_extension
-			)
-		)
-			return *it;
-	}
-
-	throw sge::media::loaders_exhausted(
-		FCPPT_TEXT("Tried all loaders for ")
-		+
-		(
+	return
+		impl_->mux_extension(
 			_extension
-			?
-				_extension->get()
-			:
-				FCPPT_TEXT("any extension")
-		)
-		+
-		FCPPT_TEXT(" but none matched!")
-	);
+		);
 }
 
 template<
@@ -273,7 +123,7 @@ sge::media::muxer<
 >::capabilities() const
 {
 	return
-		capabilities_;
+		impl_->capabilities();
 }
 
 template<
@@ -287,7 +137,7 @@ sge::media::muxer<
 >::extensions() const
 {
 	return
-		extensions_;
+		impl_->extensions();
 }
 
 #endif

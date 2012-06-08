@@ -18,24 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MEDIA_MUXER_HPP_INCLUDED
-#define SGE_MEDIA_MUXER_HPP_INCLUDED
+#ifndef SGE_SRC_MEDIA_DETAIL_MUXER_HPP_INCLUDED
+#define SGE_SRC_MEDIA_DETAIL_MUXER_HPP_INCLUDED
 
 #include <sge/media/extension_set.hpp>
-#include <sge/media/muxer_fwd.hpp>
 #include <sge/media/muxer_parameters_fwd.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/detail/muxer_fwd.hpp>
+#include <sge/plugin/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace media
+{
+namespace detail
 {
 
 template<
@@ -52,7 +54,7 @@ public:
 
 	typedef Capabilities capabilities_field;
 
-	typedef sge::media::muxer_parameters<
+	typedef media::muxer_parameters<
 		system,
 		capabilities_field
 	> parameters;
@@ -80,18 +82,28 @@ public:
 	sge::media::extension_set const
 	extensions() const;
 private:
-	typedef sge::media::detail::muxer<
-		System,
-		Capabilities
-	> muxer_impl;
+	typedef sge::plugin::object<
+		system
+	> plugin_type;
 
-	typedef fcppt::scoped_ptr<
-		muxer_impl
-	> muxer_impl_scoped_ptr;
+	typedef boost::ptr_vector<
+		plugin_type
+	> plugin_container;
 
-	muxer_impl_scoped_ptr const impl_;
+	typedef boost::ptr_vector<
+		system
+	> system_container;
+
+	plugin_container plugins_;
+
+	mutable system_container systems_;
+
+	capabilities_field capabilities_;
+
+	sge::media::extension_set extensions_;
 };
 
+}
 }
 }
 
