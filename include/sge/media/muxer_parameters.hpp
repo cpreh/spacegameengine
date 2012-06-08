@@ -24,9 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/muxer_parameters_fwd.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/media/detail/instantiate/symbol.hpp>
-#include <sge/plugin/manager_fwd.hpp>
+#include <sge/plugin/collection.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 namespace sge
@@ -35,6 +34,7 @@ namespace media
 {
 
 template<
+	typename System,
 	typename Capabilities
 >
 class muxer_parameters
@@ -45,16 +45,20 @@ class muxer_parameters
 public:
 	typedef Capabilities capabilities_type;
 
+	typedef sge::plugin::collection<
+		System
+	> collection_type;
+
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	muxer_parameters(
-		plugin::manager &,
+		collection_type const &,
 		sge::media::optional_extension_set const &,
 		capabilities_type const &
 	);
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	plugin::manager &
-	manager() const;
+	collection_type const &
+	collection() const;
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	media::optional_extension_set const &
@@ -64,7 +68,7 @@ public:
 	capabilities_type const &
 	capabilities() const;
 private:
-	plugin::manager &manager_;
+	collection_type const collection_;
 
 	sge::media::optional_extension_set const extensions_;
 

@@ -19,14 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/plugin_path.hpp>
+#include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
+#include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/plugin.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/system_scoped_ptr.hpp>
 #include <sge/renderer/caps/device_output.hpp>
+#include <sge/renderer/plugin/object_scoped_ptr.hpp>
+#include <sge/renderer/plugin/traits.hpp>
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/object_scoped_ptr.hpp>
@@ -44,18 +47,16 @@ main()
 try
 {
 	sge::plugin::manager manager(
-		sge::config::plugin_path()
+		sge::config::plugin_path(),
+		sge::plugin::optional_cache_ref()
 	);
 
-	typedef
-	sge::plugin::object<
-		sge::renderer::system
-	>::ptr_type plugin_ptr;
-
-	plugin_ptr const plugin(
-		manager.plugin<
+	sge::renderer::plugin::object_scoped_ptr const plugin(
+		manager.collection<
 			sge::renderer::system
-		>().load()
+		>().get(
+			0u
+		).load()
 	);
 
 	sge::renderer::system_scoped_ptr const render_sys(

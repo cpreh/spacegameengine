@@ -1,14 +1,14 @@
 set(
 	SGE_PLUGIN_FILES
-	include/sge/plugin/base.hpp
-	include/sge/plugin/base_fwd.hpp
-	include/sge/plugin/base_shared_ptr.hpp
+	include/sge/plugin/cache.hpp
+	include/sge/plugin/cache_fwd.hpp
 	include/sge/plugin/capabilities.hpp
 	include/sge/plugin/capabilities_field.hpp
 	include/sge/plugin/capabilities_field_fwd.hpp
 	include/sge/plugin/category_array.hpp
+	include/sge/plugin/collection.hpp
+	include/sge/plugin/collection_fwd.hpp
 	include/sge/plugin/context.hpp
-	include/sge/plugin/context_base.hpp
 	include/sge/plugin/context_base_fwd.hpp
 	include/sge/plugin/context_fwd.hpp
 	include/sge/plugin/description.hpp
@@ -16,6 +16,7 @@ set(
 	include/sge/plugin/detail/iterator_base_type.hpp
 	include/sge/plugin/detail/traits.hpp
 	include/sge/plugin/exception.hpp
+	include/sge/plugin/file_extension.hpp
 	include/sge/plugin/flags.hpp
 	include/sge/plugin/flags_field.hpp
 	include/sge/plugin/flags_field_fwd.hpp
@@ -32,6 +33,7 @@ set(
 	include/sge/plugin/library/function_map.hpp
 	include/sge/plugin/library/make_interface.hpp
 	include/sge/plugin/library/object_fwd.hpp
+	include/sge/plugin/library/object_shared_ptr.hpp
 	include/sge/plugin/library/symbol_not_found.hpp
 	include/sge/plugin/library/symbol_string.hpp
 	include/sge/plugin/manager.hpp
@@ -40,13 +42,21 @@ set(
 	include/sge/plugin/name.hpp
 	include/sge/plugin/object.hpp
 	include/sge/plugin/object_fwd.hpp
+	include/sge/plugin/object_scoped_ptr.hpp
 	include/sge/plugin/object_shared_ptr.hpp
+	include/sge/plugin/object_unique_ptr.hpp
+	include/sge/plugin/optional_cache_ref.hpp
+	include/sge/plugin/optional_cache_ref_fwd.hpp
 	include/sge/plugin/version.hpp
-	src/plugin/base.cpp
+	src/plugin/cache.cpp
 	src/plugin/context_base.cpp
 	src/plugin/exception.cpp
+	src/plugin/file_extension.cpp
 	src/plugin/include/sge/src/plugin/address_name.hpp
+	src/plugin/include/sge/src/plugin/collection_impl.hpp
+	src/plugin/include/sge/src/plugin/context_base.hpp
 	src/plugin/include/sge/src/plugin/context_impl.hpp
+	src/plugin/include/sge/src/plugin/instantiate_collection.hpp
 	src/plugin/include/sge/src/plugin/instantiate_context.hpp
 	src/plugin/include/sge/src/plugin/instantiate_iterator.hpp
 	src/plugin/include/sge/src/plugin/instantiate_manager.hpp

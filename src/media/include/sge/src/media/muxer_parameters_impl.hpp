@@ -23,22 +23,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/media/muxer_parameters.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <sge/plugin/manager_fwd.hpp>
 
 
 template<
+	typename System,
 	typename Capabilities
 >
 sge::media::muxer_parameters<
+	System,
 	Capabilities
 >::muxer_parameters(
-	plugin::manager &_manager,
+	collection_type const &_collection,
 	sge::media::optional_extension_set const &_extensions,
 	capabilities_type const &_capabilities
 )
 :
-	manager_(
-		_manager
+	collection_(
+		_collection
 	),
 	extensions_(
 		_extensions
@@ -50,38 +51,51 @@ sge::media::muxer_parameters<
 }
 
 template<
+	typename System,
 	typename Capabilities
 >
-sge::plugin::manager &
-sge::media::muxer_parameters<
+typename sge::media::muxer_parameters<
+	System,
 	Capabilities
->::manager() const
+>::collection_type const &
+sge::media::muxer_parameters<
+	System,
+	Capabilities
+>::collection() const
 {
-	return manager_;
+	return
+		collection_;
 }
 
 template<
+	typename System,
 	typename Capabilities
 >
 sge::media::optional_extension_set const &
 sge::media::muxer_parameters<
+	System,
 	Capabilities
 >::extensions() const
 {
-	return extensions_;
+	return
+		extensions_;
 }
 
 template<
+	typename System,
 	typename Capabilities
 >
 typename sge::media::muxer_parameters<
+	System,
 	Capabilities
 >::capabilities_type const &
 sge::media::muxer_parameters<
+	System,
 	Capabilities
 >::capabilities() const
 {
-	return capabilities_;
+	return
+		capabilities_;
 }
 
 #endif

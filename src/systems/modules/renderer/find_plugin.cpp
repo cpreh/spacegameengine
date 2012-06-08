@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/plugin/manager_fwd.hpp>
-#include <sge/renderer/plugin.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
+#include <sge/renderer/plugin/collection_fwd.hpp>
+#include <sge/renderer/plugin/traits.hpp>
 #include <sge/src/systems/find_plugin.hpp>
-#include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/renderer/find_plugin.hpp>
 #include <sge/src/systems/modules/renderer/system_pair.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
@@ -37,8 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::modules::renderer::system_pair const
 sge::systems::modules::renderer::find_plugin(
-	sge::systems::plugin_cache &_plugin_cache,
-	sge::plugin::manager &_manager,
+	sge::renderer::plugin::collection const &_collection,
 	sge::renderer::caps::system_field const &_caps
 )
 {
@@ -46,8 +44,7 @@ sge::systems::modules::renderer::find_plugin(
 		sge::systems::find_plugin<
 			sge::renderer::system
 		>(
-			_plugin_cache,
-			_manager,
+			_collection,
 			boost::phoenix::bind(
 				&fcppt::container::bitfield::is_subset_eq<
 					sge::renderer::caps::system_field::enum_type,

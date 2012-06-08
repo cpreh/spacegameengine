@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/multi_system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/plugin/manager_fwd.hpp>
+#include <sge/image2d/plugin/collection_fwd.hpp>
 #include <sge/src/systems/modules/image2d/object_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -46,7 +46,7 @@ class object
 	);
 public:
 	object(
-		sge::plugin::manager &,
+		sge::image2d::plugin::collection const &,
 		sge::systems::image2d const &
 	);
 

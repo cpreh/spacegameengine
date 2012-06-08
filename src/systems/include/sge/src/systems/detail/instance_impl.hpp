@@ -31,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
+#include <sge/plugin/cache.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
-#include <sge/src/systems/plugin_cache.hpp>
 #include <sge/src/systems/modules/audio/loader_scoped_ptr.hpp>
 #include <sge/src/systems/modules/audio/player_scoped_ptr.hpp>
 #include <sge/src/systems/modules/charconv/object_scoped_ptr.hpp>
@@ -173,12 +173,12 @@ public:
 	sge::viewport::manager &
 	viewport_manager() const;
 private:
-	sge::plugin::manager plugin_manager_;
+	// Almost all plugins need to be unloaded last. If, for example,
+	// libGL.so is unloaded before the X window will be destroyed, then the
+	// unloading will crash.
+	sge::plugin::cache plugin_cache_;
 
-	// Almost all plugins need to be unloaded last.
-	// If, for example, libGL.so is unloaded before the X window
-	// will be destroyed, then the unloading will crash.
-	sge::systems::plugin_cache plugin_cache_;
+	sge::plugin::manager plugin_manager_;
 
 	sge::systems::modules::window::object_scoped_ptr window_;
 

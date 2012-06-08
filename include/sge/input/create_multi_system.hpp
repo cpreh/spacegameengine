@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/symbol.hpp>
 #include <sge/input/system_unique_ptr.hpp>
-#include <sge/plugin/manager_fwd.hpp>
+#include <sge/input/plugin/collection_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace input
 SGE_INPUT_SYMBOL
 sge::input::system_unique_ptr
 create_multi_system(
-	sge::plugin::manager &
+	sge::input::plugin::collection const &
 );
 
 }

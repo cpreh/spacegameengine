@@ -83,8 +83,8 @@ public:
 	~multi_loader();
 private:
 	typedef sge::media::muxer<
-		audio::loader,
-		audio::loader_capabilities_field
+		sge::audio::loader,
+		sge::audio::loader_capabilities_field
 	> muxer;
 
 	muxer muxer_;

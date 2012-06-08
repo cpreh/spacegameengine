@@ -28,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/muxer_parameters.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/path_to_extension.hpp>
-#include <sge/plugin/context_base.hpp>
+#include <sge/plugin/collection.hpp>
+#include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
-#include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
+#include <sge/plugin/object_unique_ptr.hpp>
 #include <fcppt/move.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -69,15 +69,27 @@ sge::media::muxer<
 	),
 	extensions_()
 {
+	sge::plugin::collection<
+		system
+	> const &collection(
+		_parameters.collection()
+	);
+
 	for(
-		plugin::iterator<system> it(
-			_parameters.manager(). template begin<system>()
+		sge::plugin::iterator<
+			system
+		> it(
+			collection.begin()
 		);
-		it != _parameters.manager().template end<system>();
+		it != collection.end();
 		++it
 	)
 	{
-		plugin_ptr const plugin(
+		typedef typename sge::plugin::object_unique_ptr<
+			System
+		>::type plugin_unique_ptr;
+
+		plugin_unique_ptr plugin(
 			it->load()
 		);
 
@@ -115,8 +127,11 @@ sge::media::muxer<
 					extensions_
 				);
 
-			plugins_.push_back(
-				plugin
+			fcppt::container::ptr::push_back_unique_ptr(
+				plugins_,
+				fcppt::move(
+					plugin
+				)
 			);
 
 			fcppt::container::ptr::push_back_unique_ptr(
@@ -132,9 +147,14 @@ sge::media::muxer<
 				log::global(),
 				fcppt::log::_
 					<< FCPPT_TEXT("system ")
-					<< fcppt::type_name(typeid(system))
+					<<
+					fcppt::type_name(
+						typeid(
+							system
+						)
+					)
 					<< FCPPT_TEXT(" didn't find plugin \"")
-					<< it->base().path()
+					<< it->path()
 					<< FCPPT_TEXT("\" to be useful.")
 			)
 		}
@@ -252,7 +272,8 @@ sge::media::muxer<
 	Capabilities
 >::capabilities() const
 {
-	return capabilities_;
+	return
+		capabilities_;
 }
 
 template<
@@ -265,7 +286,8 @@ sge::media::muxer<
 	Capabilities
 >::extensions() const
 {
-	return extensions_;
+	return
+		extensions_;
 }
 
 #endif

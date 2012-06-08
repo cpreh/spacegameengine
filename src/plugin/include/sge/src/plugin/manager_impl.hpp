@@ -21,95 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_PLUGIN_MANAGER_IMPL_HPP_INCLUDED
 #define SGE_SRC_PLUGIN_MANAGER_IMPL_HPP_INCLUDED
 
-#include <sge/plugin/context.hpp>
-#include <sge/plugin/exception.hpp>
-#include <sge/plugin/iterator.hpp>
+#include <sge/plugin/collection.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/detail/traits.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/type_name.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <typeinfo>
-#include <fcppt/config/external_end.hpp>
 
 
 template<
-	typename T
+	typename Type
 >
-sge::plugin::iterator<T>
-sge::plugin::manager::begin()
+sge::plugin::collection<
+	Type
+> const
+sge::plugin::manager::collection()
 {
 	return
-		iterator<T>(
+		sge::plugin::collection<
+			Type
+		>(
 			categories_[
-				detail::traits<T>::plugin_type()
-			].begin()
+				sge::plugin::detail::traits<
+					Type
+				>::plugin_type()
+			]
 		);
-}
-
-template<
-	typename T
->
-sge::plugin::iterator<T>
-sge::plugin::manager::end()
-{
-	return
-		iterator<T>(
-			categories_[
-				detail::traits<T>::plugin_type()
-			].end()
-		);
-}
-
-template<
-	typename T
->
-sge::plugin::context<T>
-sge::plugin::manager::plugin(
-	size_type const _index
-)
-{
-	if(
-		_index >= size<T>()
-	)
-		throw sge::plugin::exception(
-			FCPPT_TEXT("plugin(): No plugins found of type: \"")
-			+ fcppt::type_name(typeid(T))
-			+ FCPPT_TEXT("\"!")
-		);
-
-	return
-		*(
-			begin<T>()
-			+
-			static_cast<
-				typename plugin::iterator<
-					T
-				>::difference_type
-			>(
-				_index
-			)
-		);
-}
-
-template<
-	typename T
->
-sge::plugin::manager::size_type
-sge::plugin::manager::size() const
-{
-	plugin_map::const_iterator const it(
-		categories_.find(
-			detail::traits<T>::plugin_type()
-		)
-	);
-
-	return
-		it == categories_.end()
-		?
-			0u
-		:
-			it->second.size();
 }
 
 #endif

@@ -25,10 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/src/plugin/library/load_function.hpp>
 #include <sge/src/plugin/library/object.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 
@@ -38,15 +34,11 @@ template<
 sge::plugin::object<
 	Type
 >::object(
-	boost::filesystem::path const &_path
+	library_shared_ptr const &_lib
 )
 :
 	lib_(
-		fcppt::make_unique_ptr<
-			sge::plugin::library::object
-		>(
-			_path
-		)
+		_lib
 	),
 	loader_(
 		sge::plugin::library::load_function<

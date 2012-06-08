@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/plugin.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
+#include <sge/input/plugin/traits.hpp>
+#include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
-#include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/src/input/multi_processor.hpp>
 #include <sge/src/input/multi_system.hpp>
@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::input::multi_system::multi_system(
-	sge::plugin::manager &_plugin_manager
+	sge::input::plugin::collection const &_collection
 )
 :
 	sge::input::system(),
@@ -47,25 +47,22 @@ sge::input::multi_system::multi_system(
 
 	for(
 		plugin_iterator it(
-			_plugin_manager.begin<
-				sge::input::system
-			>()
+			_collection.begin()
 		);
 		it
 		!=
-		_plugin_manager.end<
-			sge::input::system
-		>();
+		_collection.end();
 		++it
 	)
 	{
-		plugins_.push_back(
+		fcppt::container::ptr::push_back_unique_ptr(
+			plugins_,
 			it->load()
 		);
 
 		fcppt::container::ptr::push_back_unique_ptr(
 			systems_,
-			plugins_.back()->get()()
+			plugins_.back().get()()
 		);
 	}
 }

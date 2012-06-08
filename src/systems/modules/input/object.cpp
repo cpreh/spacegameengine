@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/collector.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/device_unique_ptr.hpp>
-#include <sge/src/systems/plugin_cache_fwd.hpp>
+#include <sge/input/plugin/collection_fwd.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier_unique_ptr.hpp>
 #include <sge/src/systems/modules/input/object.hpp>
@@ -39,23 +39,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/unique_ptr.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 sge::systems::modules::input::object::object(
-	sge::systems::plugin_cache &_plugin_cache,
-	sge::plugin::manager &_manager,
+	sge::input::plugin::collection const &_collection,
 	sge::systems::input const &_parameters,
 	sge::systems::modules::window::object const &_window
 )
 :
-	cached_plugins_(
-		_plugin_cache,
-		_manager
-	),
 	input_system_(
 		sge::input::create_multi_system(
-			_manager
+			_collection
 		)
 	),
 	input_processor_(

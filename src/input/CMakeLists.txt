@@ -210,8 +210,9 @@ set(
 	include/sge/input/mouse/remove_function.hpp
 	include/sge/input/mouse/remove_signal.hpp
 	include/sge/input/nullary_function.hpp
-	include/sge/input/plugin.hpp
-	include/sge/input/plugin_shared_ptr.hpp
+	include/sge/input/plugin/collection_fwd.hpp
+	include/sge/input/plugin/object_fwd.hpp
+	include/sge/input/plugin/traits.hpp
 	include/sge/input/processor.hpp
 	include/sge/input/processor_fwd.hpp
 	include/sge/input/processor_scoped_ptr.hpp
@@ -293,11 +294,12 @@ set(
 	src/input/mouse/remove_event.cpp
 	src/input/multi_processor.cpp
 	src/input/multi_system.cpp
-	src/input/plugin.cpp
+	src/input/plugin/collection.cpp
 	src/input/plugin/context.cpp
 	src/input/plugin/iterator.cpp
 	src/input/plugin/manager.cpp
 	src/input/plugin/object.cpp
+	src/input/plugin/traits.cpp
 	src/input/processor.cpp
 	src/input/system.cpp
 )

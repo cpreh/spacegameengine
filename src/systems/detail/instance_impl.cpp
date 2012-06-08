@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
+#include <sge/plugin/collection.hpp>
 #include <sge/plugin/manager.hpp>
+#include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
@@ -64,10 +66,13 @@ sge::systems::detail::instance_impl::instance_impl(
 	sge::systems::plugin_path const &_plugin_path
 )
 :
-	plugin_manager_(
-		_plugin_path.get()
-	),
 	plugin_cache_(),
+	plugin_manager_(
+		_plugin_path.get(),
+		sge::plugin::optional_cache_ref(
+			plugin_cache_
+		)
+	),
 	window_(),
 	renderer_system_(),
 	renderer_device_(),
@@ -93,11 +98,10 @@ sge::systems::detail::instance_impl::init_renderer_system(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::renderer::system
 		>(
-			fcppt::ref(
-				plugin_cache_
-			),
-			fcppt::ref(
-				plugin_manager_
+			fcppt::cref(
+				plugin_manager_.collection<
+					sge::renderer::system
+				>()
 			),
 			fcppt::cref(
 				_param
@@ -157,7 +161,7 @@ sge::systems::detail::instance_impl::init_window(
 
 void
 sge::systems::detail::instance_impl::init_input(
-	systems::input const &_parameters
+	sge::systems::input const &_parameters
 )
 {
 	FCPPT_ASSERT_PRE(
@@ -168,11 +172,10 @@ sge::systems::detail::instance_impl::init_input(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::input::object
 		>(
-			fcppt::ref(
-				plugin_cache_
-			),
-			fcppt::ref(
-				plugin_manager_
+			fcppt::cref(
+				plugin_manager_.collection<
+					sge::input::system
+				>()
 			),
 			fcppt::cref(
 				_parameters
@@ -193,8 +196,10 @@ sge::systems::detail::instance_impl::init_image2d(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::image2d::object
 		>(
-			fcppt::ref(
-				plugin_manager_
+			fcppt::cref(
+				plugin_manager_.collection<
+					sge::image2d::system
+				>()
 			),
 			fcppt::cref(
 				_parameters
@@ -212,8 +217,10 @@ sge::systems::detail::instance_impl::init_audio_loader(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::audio::loader
 		>(
-			fcppt::ref(
-				plugin_manager_
+			fcppt::cref(
+				plugin_manager_.collection<
+					sge::audio::loader
+				>()
 			),
 			fcppt::cref(
 				_parameters
@@ -231,11 +238,10 @@ sge::systems::detail::instance_impl::init_audio_player(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::audio::player
 		>(
-			fcppt::ref(
-				plugin_cache_
-			),
-			fcppt::ref(
-				plugin_manager_
+			fcppt::cref(
+				plugin_manager_.collection<
+					sge::audio::player
+				>()
 			),
 			fcppt::cref(
 				_parameters
@@ -258,8 +264,10 @@ sge::systems::detail::instance_impl::init_font()
 		fcppt::make_unique_ptr<
 			sge::systems::modules::font::object
 		>(
-			fcppt::ref(
-				plugin_manager_
+			fcppt::cref(
+				plugin_manager_.collection<
+					sge::font::system
+				>()
 			),
 			fcppt::cref(
 				*charconv_

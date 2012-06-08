@@ -21,15 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_COLLECTION_HPP_INCLUDED
 #define SGE_PLUGIN_COLLECTION_HPP_INCLUDED
 
+#include <sge/plugin/category_array.hpp>
 #include <sge/plugin/collection_fwd.hpp>
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/iterator_fwd.hpp>
-#include <sge/plugin/detail/collection_base_fwd.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstddef>
-#include <fcppt/config/external_end.hpp>
-
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -41,50 +38,54 @@ template<
 	typename Type
 >
 class collection
-:
-	public sge::plugin::detail::collection_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONASSIGNABLE(
 		collection
 	);
-
-	typedef typename sge::plugin::category_array<
-		Type
-	>::type plugin_array;
 public:
-	typedef std::size_t size_type;
+	typedef sge::plugin::category_array::size_type size_type;
 
-	typedef typename plugin_array::iterator iterator;
+	typedef sge::plugin::iterator<
+		Type
+	> iterator;
 
 	typedef sge::plugin::context<
 		Type
 	> context;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	collection();
+	explicit
+	collection(
+		sge::plugin::category_array &
+	);
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	collection(
+		collection const &
+	);
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	~collection();
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	iterator const
-	begin();
+	begin() const;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	iterator const
-	end();
+	end() const;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	context const &
+	context const
 	get(
 		size_type index
-	);
+	) const;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	size_type
 	size() const;
 private:
-	plugin_array plugins_;
+	sge::plugin::category_array &plugins_;
 };
 
 }

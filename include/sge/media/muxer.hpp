@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/muxer_fwd.hpp>
 #include <sge/media/muxer_parameters_fwd.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
-#include <sge/plugin/context.hpp>
+#include <sge/plugin/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -54,10 +54,12 @@ public:
 	typedef Capabilities capabilities_field;
 
 	typedef media::muxer_parameters<
+		system,
 		capabilities_field
 	> parameters;
 
-	explicit muxer(
+	explicit
+	muxer(
 		parameters const &
 	);
 
@@ -79,17 +81,17 @@ public:
 	sge::media::extension_set const
 	extensions() const;
 private:
-	typedef boost::ptr_vector<
-		System
-	> system_container;
-
-	typedef typename plugin::context<
+	typedef sge::plugin::object<
 		system
-	>::ptr_type plugin_ptr;
+	> plugin_type;
 
-	typedef std::vector<
-		plugin_ptr
+	typedef boost::ptr_vector<
+		plugin_type
 	> plugin_container;
+
+	typedef boost::ptr_vector<
+		system
+	> system_container;
 
 	plugin_container plugins_;
 

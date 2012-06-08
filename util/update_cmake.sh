@@ -142,6 +142,7 @@ update_cmake_file \
 	include/sge/renderer/index \
 	include/sge/renderer/light \
 	include/sge/renderer/lock_flags \
+	include/sge/renderer/plugin \
 	include/sge/renderer/projection \
 	include/sge/renderer/state \
 	include/sge/renderer/target \

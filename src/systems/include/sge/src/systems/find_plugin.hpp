@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_FIND_PLUGIN_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_FIND_PLUGIN_HPP_INCLUDED
 
+#include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/flags.hpp>
 #include <sge/plugin/iterator.hpp>
-#include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/object_shared_ptr.hpp>
-#include <sge/src/systems/plugin_cache.hpp>
 #include <sge/src/systems/plugin_pair_decl.hpp>
 #include <sge/systems/exception.hpp>
 #include <fcppt/move.hpp>
@@ -53,8 +52,9 @@ sge::systems::plugin_pair<
 	System
 > const
 find_plugin(
-	sge::systems::plugin_cache &_plugin_cache,
-	sge::plugin::manager &_manager,
+	sge::plugin::collection<
+		System
+	> const &_collection,
 	TestFunction const &_test_function
 )
 {
@@ -68,15 +68,9 @@ find_plugin(
 
 	for(
 		iterator it(
-			_manager.begin<
-				System
-			>()
+			_collection.begin()
 		);
-		it
-		!=
-		_manager.end<
-			System
-		>();
+		it != _collection.end();
 		++it
 	)
 	{
@@ -87,15 +81,6 @@ find_plugin(
 		plugin_shared_ptr const plugin(
 			it->load()
 		);
-
-		if(
-			it->base().info().flags()
-			&
-			sge::plugin::flags::delayed_unload
-		)
-			_plugin_cache.add(
-				plugin
-			);
 
 		typedef fcppt::unique_ptr<
 			System

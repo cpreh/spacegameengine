@@ -31,13 +31,13 @@ namespace plugin
 {
 
 template<
-	typename T
+	typename Type
 >
 struct object_shared_ptr
 {
 	typedef fcppt::shared_ptr<
 		sge::plugin::object<
-			T
+			Type
 		>
 	> type;
 };

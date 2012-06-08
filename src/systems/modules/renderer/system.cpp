@@ -18,10 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/plugin/manager_fwd.hpp>
-#include <sge/plugin/object.hpp>
 #include <sge/renderer/system.hpp>
-#include <sge/src/systems/plugin_cache_fwd.hpp>
+#include <sge/renderer/plugin/collection_fwd.hpp>
 #include <sge/src/systems/modules/renderer/find_plugin.hpp>
 #include <sge/src/systems/modules/renderer/system.hpp>
 #include <sge/systems/renderer.hpp>
@@ -31,8 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::systems::modules::renderer::system::system(
-	sge::systems::plugin_cache &_plugin_cache,
-	sge::plugin::manager &_plugin_manager,
+	sge::renderer::plugin::collection const &_collection,
 	sge::systems::renderer const &_parameters
 )
 :
@@ -41,8 +38,7 @@ sge::systems::modules::renderer::system::system(
 	),
 	system_pair_(
 		sge::systems::modules::renderer::find_plugin(
-			_plugin_cache,
-			_plugin_manager,
+			_collection,
 			_parameters.caps()
 		)
 	)

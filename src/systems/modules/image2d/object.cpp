@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/multi_system.hpp>
 #include <sge/image2d/multi_system_parameters.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/plugin/manager_fwd.hpp>
+#include <sge/image2d/plugin/collection_fwd.hpp>
 #include <sge/src/systems/modules/image2d/object.hpp>
 #include <sge/systems/image2d.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::systems::modules::image2d::object::object(
-	sge::plugin::manager &_manager,
+	sge::image2d::plugin::collection const &_collection,
 	sge::systems::image2d const &_parameters
 )
 :
@@ -38,8 +38,8 @@ sge::systems::modules::image2d::object::object(
 			sge::image2d::multi_system
 		>(
 			sge::image2d::multi_system_parameters(
-				fcppt::ref(
-					_manager
+				fcppt::cref(
+					_collection
 				),
 				_parameters.extensions(),
 				_parameters.capabilities()

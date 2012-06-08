@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/scoped_ptr_impl.hpp>
 #endif
 
+
 namespace sge
 {
 namespace plugin

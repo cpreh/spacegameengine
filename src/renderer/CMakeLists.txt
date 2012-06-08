@@ -208,8 +208,9 @@ set(
 	include/sge/renderer/pixel_rect.hpp
 	include/sge/renderer/pixel_rect_fwd.hpp
 	include/sge/renderer/pixel_unit.hpp
-	include/sge/renderer/plugin.hpp
-	include/sge/renderer/plugin_shared_ptr.hpp
+	include/sge/renderer/plugin/collection_fwd.hpp
+	include/sge/renderer/plugin/object_scoped_ptr.hpp
+	include/sge/renderer/plugin/traits.hpp
 	include/sge/renderer/primitive_count.hpp
 	include/sge/renderer/projection/aspect.hpp
 	include/sge/renderer/projection/dim.hpp
@@ -652,11 +653,12 @@ set(
 	src/renderer/nonindexed_primitive_count.cpp
 	src/renderer/npos.cpp
 	src/renderer/parameters.cpp
-	src/renderer/plugin.cpp
+	src/renderer/plugin/collection.cpp
 	src/renderer/plugin/context.cpp
 	src/renderer/plugin/iterator.cpp
 	src/renderer/plugin/manager.cpp
 	src/renderer/plugin/object.cpp
+	src/renderer/plugin/traits.cpp
 	src/renderer/projection/check_near.cpp
 	src/renderer/projection/check_near_far.cpp
 	src/renderer/projection/orthogonal.cpp

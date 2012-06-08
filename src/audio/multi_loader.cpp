@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
-#include <sge/audio/loader_plugin.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/multi_loader_parameters_fwd.hpp>
+#include <sge/audio/loader_plugin/traits.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>

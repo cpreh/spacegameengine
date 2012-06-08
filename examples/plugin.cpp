@@ -25,11 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system.hpp>
 #include <sge/input/system.hpp>
 #include <sge/log/global.hpp>
+#include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
-#include <sge/plugin/context_base.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
+#include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/renderer/system.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
@@ -59,22 +60,24 @@ class print_plugins
 public:
 	typedef void result_type;
 
-	explicit print_plugins(
+	explicit
+	print_plugins(
 		sge::plugin::manager &
 	);
 
 	template<
-		typename T
+		typename Type
 	>
 	result_type
 	operator()() const;
 private:
-	sge::plugin::manager &man_;
+	sge::plugin::manager &manager_;
 };
 
 }
 
-int main()
+int
+main()
 try
 {
 	fcppt::log::activate_levels(
@@ -82,8 +85,9 @@ try
 		fcppt::log::level::debug
 	);
 
-	sge::plugin::manager man(
-		sge::config::plugin_path()
+	sge::plugin::manager manager(
+		sge::config::plugin_path(),
+		sge::plugin::optional_cache_ref()
 	);
 
 	typedef boost::mpl::vector6<
@@ -99,7 +103,7 @@ try
 		plugins
 	>(
 		print_plugins(
-			man
+			manager
 		)
 	);
 }
@@ -128,41 +132,60 @@ namespace
 {
 
 print_plugins::print_plugins(
-	sge::plugin::manager &_man
+	sge::plugin::manager &_manager
 )
 :
-	man_(_man)
-{}
+	manager_(
+		_manager
+	)
+{
+}
 
 template<
-	typename T
+	typename Type
 >
 void
 print_plugins::operator()() const
 {
 	fcppt::io::cout()
 		<< fcppt::type_name(
-			typeid(T)
+			typeid(
+				Type
+			)
 		)
 		<< FCPPT_TEXT('\n');
 
+	typedef sge::plugin::collection<
+		Type
+	> collection_type;
+
+	collection_type const collection(
+		manager_.collection<
+			Type
+		>()
+	);
+
+	typedef sge::plugin::iterator<
+		Type
+	> iterator_type;
+
 	for(
-		sge::plugin::iterator<T> it(
-			man_.begin<T>()
+		iterator_type it(
+			collection.begin()
 		);
-		it != man_.end<T>();
+		it != collection.end();
 		++it
 	)
 	{
-		sge::plugin::context_base const &base(
-			it->base()
+		sge::plugin::info const &info(
+			it->info()
 		);
 
 		fcppt::io::cout()
 			<< FCPPT_TEXT("\tname: \"")
-			<< base.info().name()
+			<< info.name()
 			<< FCPPT_TEXT("\", description: \"")
-			<< base.info().description()
+			<< info.description()
 			<< FCPPT_TEXT("\"\n");
 	}
 }

@@ -22,16 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_OBJECT_HPP_INCLUDED
 
 #include <sge/symbol.hpp>
-#include <sge/plugin/base.hpp>
 #include <sge/plugin/object_fwd.hpp>
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
 
 
 
@@ -44,8 +40,6 @@ template<
 	typename Type
 >
 class object
-:
-	public sge::plugin::base
 {
 	FCPPT_NONCOPYABLE(
 		object
@@ -55,10 +49,14 @@ public:
 		Type
 	>::loader_fun loader_fun;
 
+	typedef fcppt::shared_ptr<
+		sge::plugin::library::object
+	> library_shared_ptr;
+
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit
 	object(
-		boost::filesystem::path const &
+		library_shared_ptr const &
 	);
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
@@ -68,11 +66,7 @@ public:
 	loader_fun
 	get() const;
 private:
-	typedef fcppt::scoped_ptr<
-		sge::plugin::library::object
-	> library_scoped_ptr;
-
-	library_scoped_ptr const lib_;
+	library_shared_ptr const lib_;
 
 	loader_fun const loader_;
 };

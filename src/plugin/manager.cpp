@@ -20,14 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/exception.hpp>
 #include <sge/log/global.hpp>
-#include <sge/plugin/context_base.hpp>
+#include <sge/plugin/file_extension.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/manager.hpp>
+#include <sge/plugin/optional_cache_ref_fwd.hpp>
 #include <sge/plugin/library/symbol_not_found.hpp>
+#include <sge/src/plugin/context_base.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/platform.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/headers.hpp>
@@ -37,32 +41,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-namespace
-{
-
-fcppt::char_type const *const plugin_extension =
-#if defined(FCPPT_CONFIG_DARWIN_PLATFORM)
-	FCPPT_TEXT("dylib")
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-	FCPPT_TEXT("so")
-#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	FCPPT_TEXT("dll")
-#else
-#error "Don't know which plugin extension to use!"
-#endif
-	;
-
-}
-
 sge::plugin::manager::manager(
-	boost::filesystem::path const &_path
+	boost::filesystem::path const &_path,
+	sge::plugin::optional_cache_ref const &_cache
 )
 :
 	plugins_(),
 	categories_()
 {
 	FCPPT_LOG_DEBUG(
-		log::global(),
+		sge::log::global(),
 		fcppt::log::_
 			<< FCPPT_TEXT("Scanning for plugins in ")
 			<< fcppt::filesystem::path_to_string(
@@ -88,7 +76,8 @@ sge::plugin::manager::manager(
 			fcppt::filesystem::extension_without_dot(
 				*it
 			)
-			!= plugin_extension
+			!=
+			sge::plugin::file_extension()
 		)
 		{
 			FCPPT_LOG_WARNING(
@@ -98,16 +87,23 @@ sge::plugin::manager::manager(
 						it->path()
 					)
 					<< FCPPT_TEXT(" does not have the extension ")
-					<< plugin_extension
+					<< sge::plugin::file_extension()
 					<< FCPPT_TEXT(" and thus is ignored!")
 			);
+
 			continue;
 		}
 
 		try
 		{
-			plugins_.push_back(
-				sge::plugin::context_base(
+			fcppt::container::ptr::push_back_unique_ptr(
+				plugins_,
+				fcppt::make_unique_ptr<
+					sge::plugin::context_base
+				>(
+					fcppt::cref(
+						_cache
+					),
 					it->path()
 				)
 			);
@@ -148,7 +144,7 @@ sge::plugin::manager::manager(
 	}
 
 	for(
-		sge::plugin::manager::plugin_array::iterator it(
+		sge::plugin::manager::context_base_vector::iterator it(
 			plugins_.begin()
 		);
 		it != plugins_.end();
@@ -166,7 +162,6 @@ sge::plugin::manager::manager(
 				].push_back(
 					&*it
 				);
-
 }
 
 sge::plugin::manager::~manager()

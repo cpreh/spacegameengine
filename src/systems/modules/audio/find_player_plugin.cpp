@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/player.hpp>
-#include <sge/audio/player_plugin.hpp>
+#include <sge/audio/player_plugin/collection_fwd.hpp>
+#include <sge/audio/player_plugin/traits.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/src/systems/find_plugin.hpp>
-#include <sge/src/systems/plugin_cache_fwd.hpp>
 #include <sge/src/systems/modules/audio/find_player_plugin.hpp>
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 #include <sge/systems/audio_player.hpp>
@@ -35,8 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::modules::audio::player_pair const
 sge::systems::modules::audio::find_player_plugin(
-	sge::systems::plugin_cache &_plugin_cache,
-	sge::plugin::manager &_manager,
+	sge::audio::player_plugin::collection const &_collection,
 	sge::systems::audio_player const &_parameters
 )
 {
@@ -44,8 +43,7 @@ sge::systems::modules::audio::find_player_plugin(
 		sge::systems::find_plugin<
 			sge::audio::player
 		>(
-			_plugin_cache,
-			_manager,
+			_collection,
 			boost::phoenix::bind(
 				&sge::audio::player::capabilities,
 				boost::phoenix::arg_names::arg1

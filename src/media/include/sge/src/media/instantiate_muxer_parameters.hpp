@@ -27,12 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #define SGE_MEDIA_INSTANTIATE_MUXER_PARAMETERS(\
+	system,\
 	capabilities\
 )\
 template \
 class \
 SGE_EXPORT_CLASS_INSTANTIATION \
 sge::media::muxer_parameters<\
+	system,\
 	capabilities\
 >
 

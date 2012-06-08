@@ -30,7 +30,8 @@ set(
 	include/sge/image2d/multi_system_parameters.hpp
 	include/sge/image2d/multi_system_parameters_fwd.hpp
 	include/sge/image2d/pitch.hpp
-	include/sge/image2d/plugin.hpp
+	include/sge/image2d/plugin/collection_fwd.hpp
+	include/sge/image2d/plugin/traits.hpp
 	include/sge/image2d/r32f.hpp
 	include/sge/image2d/r32f_format.hpp
 	include/sge/image2d/rect.hpp
@@ -88,11 +89,12 @@ set(
 	src/image2d/la8.cpp
 	src/image2d/multi_system.cpp
 	src/image2d/multi_system_parameters.cpp
-	src/image2d/plugin.cpp
+	src/image2d/plugin/collection.cpp
 	src/image2d/plugin/context.cpp
 	src/image2d/plugin/iterator.cpp
 	src/image2d/plugin/manager.cpp
 	src/image2d/plugin/object.cpp
+	src/image2d/plugin/traits.cpp
 	src/image2d/r32f.cpp
 	src/image2d/rgb32.cpp
 	src/image2d/rgb8.cpp

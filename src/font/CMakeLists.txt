@@ -16,8 +16,6 @@ set(
 	include/sge/font/metrics_scoped_ptr.hpp
 	include/sge/font/metrics_shared_ptr.hpp
 	include/sge/font/metrics_unique_ptr.hpp
-	include/sge/font/plugin.hpp
-	include/sge/font/plugin_shared_ptr.hpp
 	include/sge/font/pos.hpp
 	include/sge/font/rect.hpp
 	include/sge/font/size_type.hpp
@@ -30,11 +28,12 @@ set(
 	src/font/char_not_available.cpp
 	src/font/exception.cpp
 	src/font/metrics.cpp
-	src/font/plugin.cpp
+	src/font/plugin/collection.cpp
 	src/font/plugin/context.cpp
 	src/font/plugin/iterator.cpp
 	src/font/plugin/manager.cpp
 	src/font/plugin/object.cpp
+	src/font/plugin/traits.cpp
 	src/font/system.cpp
 )
 

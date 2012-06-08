@@ -51,7 +51,6 @@ set(
 	src/systems/exception.cpp
 	src/systems/extract_plugin_path.cpp
 	src/systems/image2d.cpp
-	src/systems/include/sge/src/systems/add_plugin.hpp
 	src/systems/include/sge/src/systems/any_visitor.hpp
 	src/systems/include/sge/src/systems/basic_loader_impl.hpp
 	src/systems/include/sge/src/systems/detail/instance_impl.hpp
@@ -83,7 +82,6 @@ set(
 	src/systems/include/sge/src/systems/modules/image2d/object.hpp
 	src/systems/include/sge/src/systems/modules/image2d/object_fwd.hpp
 	src/systems/include/sge/src/systems/modules/image2d/object_scoped_ptr.hpp
-	src/systems/include/sge/src/systems/modules/input/cached_plugins.hpp
 	src/systems/include/sge/src/systems/modules/input/cursor_modifier.hpp
 	src/systems/include/sge/src/systems/modules/input/cursor_modifier_fwd.hpp
 	src/systems/include/sge/src/systems/modules/input/cursor_modifier_unique_ptr.hpp
@@ -112,8 +110,6 @@ set(
 	src/systems/include/sge/src/systems/modules/window/quit.hpp
 	src/systems/include/sge/src/systems/modules/window/quit_fwd.hpp
 	src/systems/include/sge/src/systems/modules/window/wrapped.hpp
-	src/systems/include/sge/src/systems/plugin_cache.hpp
-	src/systems/include/sge/src/systems/plugin_cache_fwd.hpp
 	src/systems/include/sge/src/systems/plugin_pair_decl.hpp
 	src/systems/include/sge/src/systems/plugin_pair_fwd.hpp
 	src/systems/include/sge/src/systems/plugin_pair_impl.hpp
@@ -131,7 +127,6 @@ set(
 	src/systems/modules/charconv/wrapped.cpp
 	src/systems/modules/font/object.cpp
 	src/systems/modules/image2d/object.cpp
-	src/systems/modules/input/cached_plugins.cpp
 	src/systems/modules/input/cursor_modifier.cpp
 	src/systems/modules/input/object.cpp
 	src/systems/modules/renderer/device.cpp
@@ -144,7 +139,6 @@ set(
 	src/systems/modules/window/original.cpp
 	src/systems/modules/window/quit.cpp
 	src/systems/modules/window/wrapped.cpp
-	src/systems/plugin_cache.cpp
 	src/systems/quit_on_escape.cpp
 	src/systems/renderer.cpp
 	src/systems/window.cpp

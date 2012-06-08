@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_PLUGIN_CONTEXT_IMPL_HPP_INCLUDED
 
 #include <sge/plugin/context.hpp>
-#include <sge/plugin/info.hpp>
+#include <sge/plugin/info_fwd.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/src/plugin/load_info.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <sge/src/plugin/context_base.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -37,18 +37,36 @@ template<
 sge::plugin::context<
 	Type
 >::context(
-	boost::filesystem::path const &_path
+	sge::plugin::context_base &_context_base
 )
 :
-	ref_(),
-	path_(
-		_path
-	),
-	info_(
-		sge::plugin::load_info(
-			_path
-		)
+	context_base_(
+		_context_base
 	)
+{
+}
+
+template<
+	typename Type
+>
+sge::plugin::context<
+	Type
+>::context(
+	context const &_other
+)
+:
+	context_base_(
+		_other.context_base_
+	)
+{
+}
+
+template<
+	typename Type
+>
+sge::plugin::context<
+	Type
+>::~context()
 {
 }
 
@@ -57,35 +75,19 @@ template<
 >
 typename sge::plugin::context<
 	Type
->::object_shared_ptr
+>::object_unique_ptr
 sge::plugin::context<
 	Type
->::load()
+>::load() const
 {
-	object_shared_ptr const ptr(
-		ref_.lock()
-	);
-
-	if(
-		ptr
-	)
-		return
-			ptr;
-
-	ptr_type const new_ptr(
-		fcppt::make_shared_ptr<
+	return
+		fcppt::make_unique_ptr<
 			sge::plugin::object<
 				Type
 			>
 		>(
-			this->path()
-		)
-	);
-
-	ref_ = new_ptr;
-
-	return
-		new_ptr;
+			context_base_.load()
+		);
 }
 
 template<
@@ -97,7 +99,7 @@ sge::plugin::context<
 >::path() const
 {
 	return
-		path_;
+		context_base_.path();
 }
 
 template<
@@ -109,7 +111,7 @@ sge::plugin::context<
 >::info() const
 {
 	return
-		info_;
+		context_base_.info();
 }
 
 #endif

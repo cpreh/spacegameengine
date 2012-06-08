@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_MULTI_SYSTEM_PARAMETERS_FWD_HPP_INCLUDED
 
 #include <sge/image/capabilities_field.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/media/muxer_parameters_fwd.hpp>
 
 
@@ -31,6 +32,7 @@ namespace image2d
 {
 
 typedef sge::media::muxer_parameters<
+	sge::image2d::system,
 	sge::image::capabilities_field
 > multi_system_parameters;
 

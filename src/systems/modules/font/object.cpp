@@ -18,24 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/plugin.hpp>
 #include <sge/font/system.hpp>
+#include <sge/font/plugin/collection_fwd.hpp>
+#include <sge/font/plugin/traits.hpp>
+#include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
-#include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/src/systems/modules/charconv/object.hpp>
 #include <sge/src/systems/modules/font/object.hpp>
 
 
 sge::systems::modules::font::object::object(
-	sge::plugin::manager &_manager,
+	sge::font::plugin::collection const &_collection,
 	sge::systems::modules::charconv::object const &_charconv
 )
 :
 	font_plugin_(
-		_manager.plugin<
-			sge::font::system
-		>().load()
+		_collection.get(
+			0u
+		).load()
 	),
 	font_system_(
 		font_plugin_->get()(

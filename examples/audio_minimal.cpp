@@ -38,12 +38,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #else
+#include <sge/plugin/collection.hpp>
+#include <sge/plugin/context.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/plugin/context.hpp>
-#include <sge/audio/player_plugin.hpp>
+#include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/audio/player_scoped_ptr.hpp>
+#include <sge/audio/loader_plugin/traits.hpp>
+#include <sge/audio/player_plugin/collection_fwd.hpp>
+#include <sge/audio/player_plugin/object_scoped_ptr.hpp>
+#include <sge/audio/player_plugin/traits.hpp>
 #include <sge/config/plugin_path.hpp>
 #endif // SGE_EXAMPLES_AUDIO_MINIMAL_USE_SYSTEMS_INIT
 #include <sge/audio/loader_capabilities_field.hpp>
@@ -110,19 +115,16 @@ try
 
 //! [manual_initialization_pm]
 	sge::plugin::manager plugin_manager(
-		sge::config::plugin_path());
+		sge::config::plugin_path(),
+		sge::plugin::optional_cache_ref());
 //! [manual_initialization_pm]
 //
 //! [manual_initialization_player]
-	sge::plugin::iterator<sge::audio::player> player_it =
-		plugin_manager.begin<sge::audio::player>();
+	sge::audio::player_plugin::collection const audio_players(
+		plugin_manager.collection<sge::audio::player>());
 
-	typedef
-	sge::plugin::context<sge::audio::player>::ptr_type
-	player_plugin_ptr;
-
-	player_plugin_ptr const player_plugin(
-		player_it->load());
+	sge::audio::player_plugin::object_scoped_ptr const player_plugin(
+		audio_players.get(0u).load());
 
 	sge::audio::player_scoped_ptr const _player(
 		player_plugin->get()());
@@ -134,7 +136,9 @@ try
 //! [manual_initialization_loader]
 	sge::audio::multi_loader loader(
 		sge::audio::multi_loader_parameters(
-			plugin_manager,
+			plugin_manager.collection<
+				sge::audio::loader
+			>(),
 			sge::media::optional_extension_set(
 				extensions),
 			sge::audio::loader_capabilities_field::null()));

@@ -28,6 +28,7 @@ namespace media
 {
 
 template<
+	typename System,
 	typename Capabilities
 >
 class muxer_parameters;

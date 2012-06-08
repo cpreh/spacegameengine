@@ -25,7 +25,8 @@ set(
 	include/sge/audio/loader_capabilities.hpp
 	include/sge/audio/loader_capabilities_field.hpp
 	include/sge/audio/loader_fwd.hpp
-	include/sge/audio/loader_plugin.hpp
+	include/sge/audio/loader_plugin/collection_fwd.hpp
+	include/sge/audio/loader_plugin/traits.hpp
 	include/sge/audio/loader_scoped_ptr.hpp
 	include/sge/audio/loader_unique_ptr.hpp
 	include/sge/audio/multi_loader.hpp
@@ -37,8 +38,9 @@ set(
 	include/sge/audio/player_capabilities.hpp
 	include/sge/audio/player_capabilities_field.hpp
 	include/sge/audio/player_fwd.hpp
-	include/sge/audio/player_plugin.hpp
-	include/sge/audio/player_plugin_shared_ptr.hpp
+	include/sge/audio/player_plugin/collection_fwd.hpp
+	include/sge/audio/player_plugin/object_scoped_ptr.hpp
+	include/sge/audio/player_plugin/traits.hpp
 	include/sge/audio/player_scoped_ptr.hpp
 	include/sge/audio/player_shared_ptr.hpp
 	include/sge/audio/player_unique_ptr.hpp
@@ -72,19 +74,21 @@ set(
 	src/audio/file_exception.cpp
 	src/audio/listener.cpp
 	src/audio/loader.cpp
-	src/audio/loader_plugin.cpp
+	src/audio/loader_plugin/collection.cpp
 	src/audio/loader_plugin/context.cpp
 	src/audio/loader_plugin/iterator.cpp
 	src/audio/loader_plugin/manager.cpp
 	src/audio/loader_plugin/object.cpp
+	src/audio/loader_plugin/traits.cpp
 	src/audio/multi_loader.cpp
 	src/audio/multi_loader_parameters.cpp
 	src/audio/player.cpp
-	src/audio/player_plugin.cpp
+	src/audio/player_plugin/collection.cpp
 	src/audio/player_plugin/context.cpp
 	src/audio/player_plugin/iterator.cpp
 	src/audio/player_plugin/manager.cpp
 	src/audio/player_plugin/object.cpp
+	src/audio/player_plugin/traits.cpp
 	src/audio/sound/base.cpp
 	src/audio/sound/nonpositional_parameters.cpp
 	src/audio/sound/positional.cpp
