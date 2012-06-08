@@ -33,44 +33,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 template<
-	typename T
+	typename Type
 >
-sge::plugin::object<T>::object(
+sge::plugin::object<
+	Type
+>::object(
 	boost::filesystem::path const &_path
 )
 :
 	lib_(
 		fcppt::make_unique_ptr<
-			library::object
+			sge::plugin::library::object
 		>(
 			_path
 		)
 	),
 	loader_(
-		library::load_function<
+		sge::plugin::library::load_function<
 			loader_fun
 		>(
 			*lib_,
-			detail::traits<T>::plugin_loader_name()
+			sge::plugin::detail::traits<
+				Type
+			>::plugin_loader_name()
 		)
 	)
 {
 }
 
 template<
-	typename T
+	typename Type
 >
-sge::plugin::object<T>::~object()
+sge::plugin::object<
+	Type
+>::~object()
 {
 }
 
 template<
-	typename T
+	typename Type
 >
-typename sge::plugin::object<T>::loader_fun
-sge::plugin::object<T>::get() const
+typename sge::plugin::object<
+	Type
+>::loader_fun
+sge::plugin::object<
+	Type
+>::get() const
 {
-	return loader_;
+	return
+		loader_;
 }
 
 #endif

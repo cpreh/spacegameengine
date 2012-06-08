@@ -21,19 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_CATEGORY_ARRAY_HPP_INCLUDED
 #define SGE_PLUGIN_CATEGORY_ARRAY_HPP_INCLUDED
 
-#include <sge/plugin/context_base_fwd.hpp>
+#include <sge/plugin/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace plugin
 {
 
-typedef std::vector<
-	plugin::context_base *
-> category_array;
+template<
+	typename Type
+>
+struct category_array
+{
+	typedef boost::ptr_vector<
+		sge::plugin::context<
+			Type
+		>
+	> type;
+};
 
 }
 }

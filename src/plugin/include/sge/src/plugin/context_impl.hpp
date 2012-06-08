@@ -22,70 +22,94 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_PLUGIN_CONTEXT_IMPL_HPP_INCLUDED
 
 #include <sge/plugin/context.hpp>
-#include <sge/plugin/context_base.hpp>
+#include <sge/plugin/info.hpp>
 #include <sge/plugin/object.hpp>
+#include <sge/src/plugin/load_info.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
-#include <fcppt/static_pointer_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
-	typename T
+	typename Type
 >
-sge::plugin::context<T>::context(
-	sge::plugin::context_base &_base
+sge::plugin::context<
+	Type
+>::context(
+	boost::filesystem::path const &_path
 )
 :
-	base_(&_base)
+	ref_(),
+	path_(
+		_path
+	),
+	info_(
+		sge::plugin::load_info(
+			_path
+		)
+	)
 {
 }
 
 template<
-	typename T
+	typename Type
 >
-typename sge::plugin::context<T>::ptr_type
-sge::plugin::context<T>::load()
+typename sge::plugin::context<
+	Type
+>::object_shared_ptr
+sge::plugin::context<
+	Type
+>::load()
 {
-	typedef fcppt::shared_ptr<
-		plugin::base
-	> base_ptr;
-
-	base_ptr const ptr(
-		base_->ref_.lock()
+	object_shared_ptr const ptr(
+		ref_.lock()
 	);
 
 	if(
 		ptr
 	)
 		return
-			fcppt::static_pointer_cast<
-				plugin::object<T>
-			>(
-				ptr
-			);
+			ptr;
 
 	ptr_type const new_ptr(
 		fcppt::make_shared_ptr<
-			plugin::object<
-				T
+			sge::plugin::object<
+				Type
 			>
 		>(
-			base_->path()
+			this->path()
 		)
 	);
 
-	base_->ref_ = new_ptr;
+	ref_ = new_ptr;
 
-	return new_ptr;
+	return
+		new_ptr;
 }
 
 template<
-	typename T
+	typename Type
 >
-sge::plugin::context_base const &
-sge::plugin::context<T>::base() const
+boost::filesystem::path const &
+sge::plugin::context<
+	Type
+>::path() const
 {
-	return *base_;
+	return
+		path_;
+}
+
+template<
+	typename Type
+>
+sge::plugin::info const &
+sge::plugin::context<
+	Type
+>::info() const
+{
+	return
+		info_;
 }
 
 #endif

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/symbol.hpp>
 #include <sge/plugin/base.hpp>
 #include <sge/plugin/object_fwd.hpp>
-#include <sge/plugin/object_shared_ptr.hpp>
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
@@ -42,7 +41,7 @@ namespace plugin
 {
 
 template<
-	typename T
+	typename Type
 >
 class object
 :
@@ -53,12 +52,8 @@ class object
 	);
 public:
 	typedef typename sge::plugin::detail::traits<
-		T
+		Type
 	>::loader_fun loader_fun;
-
-	typedef typename sge::plugin::object_shared_ptr<
-		T
-	>::type ptr_type;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit
@@ -73,9 +68,11 @@ public:
 	loader_fun
 	get() const;
 private:
-	fcppt::scoped_ptr<
+	typedef fcppt::scoped_ptr<
 		sge::plugin::library::object
-	> lib_;
+	> library_scoped_ptr;
+
+	library_scoped_ptr const lib_;
 
 	loader_fun const loader_;
 };

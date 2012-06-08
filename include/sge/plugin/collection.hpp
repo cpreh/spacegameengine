@@ -18,37 +18,75 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_DETAIL_ITERATOR_BASE_TYPE_HPP_INCLUDED
-#define SGE_PLUGIN_DETAIL_ITERATOR_BASE_TYPE_HPP_INCLUDED
+#ifndef SGE_PLUGIN_COLLECTION_HPP_INCLUDED
+#define SGE_PLUGIN_COLLECTION_HPP_INCLUDED
 
+#include <sge/plugin/collection_fwd.hpp>
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/iterator_fwd.hpp>
+#include <sge/plugin/detail/collection_base_fwd.hpp>
+#include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/iterator/iterator_facade.hpp>
-#include <iterator>
+#include <cstddef>
 #include <fcppt/config/external_end.hpp>
+
+
 
 namespace sge
 {
 namespace plugin
 {
-namespace detail
-{
 
 template<
-	typename T
+	typename Type
 >
-struct iterator_base_type
+class collection
+:
+	public sge::plugin::detail::collection_base
 {
-	typedef boost::iterator_facade<
- 		iterator<T>,
-		context<T>,
-		std::random_access_iterator_tag,
-		context<T>
-	> type;
+	FCPPT_NONCOPYABLE(
+		collection
+	);
+
+	typedef typename sge::plugin::category_array<
+		Type
+	>::type plugin_array;
+public:
+	typedef std::size_t size_type;
+
+	typedef typename plugin_array::iterator iterator;
+
+	typedef sge::plugin::context<
+		Type
+	> context;
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	collection();
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	~collection();
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	iterator const
+	begin();
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	iterator const
+	end();
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	context const &
+	get(
+		size_type index
+	);
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	size_type
+	size() const;
+private:
+	plugin_array plugins_;
 };
 
-}
 }
 }
 

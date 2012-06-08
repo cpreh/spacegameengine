@@ -24,8 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/plugin/context_base_fwd.hpp>
 #include <sge/plugin/context_fwd.hpp>
+#include <sge/plugin/info.hpp>
+#include <sge/plugin/object_fwd.hpp>
 #include <sge/plugin/object_shared_ptr.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
+#include <fcppt/weak_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -33,31 +39,58 @@ namespace sge
 namespace plugin
 {
 
+/**
+\brief Provides information about a plugin and loads it
+*/
 template<
 	typename Type
 >
 class context
 {
+	FCPPT_NONCOPYABLE(
+		context
+	);
 public:
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit
 	context(
-		sge::plugin::context_base &
+		boost::filesystem::path const &
 	);
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	virtual
+	~context();
 
 	typedef typename sge::plugin::object_shared_ptr<
 		Type
-	>::type ptr_type;
+	>::type object_shared_ptr;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	ptr_type
+	virtual
+	object_shared_ptr
 	load();
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	sge::plugin::context_base const &
-	base() const;
+	boost::filesystem::path const &
+	path() const;
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	sge::plugin::info const &
+	info() const;
 private:
-	context_base *base_;
+	typedef sge::plugin::object<
+		Type
+	> plugin_type;
+
+	typedef fcppt::weak_ptr<
+		plugin_type
+	> object_weak_ptr;
+
+	object_weak_ptr ref_;
+
+	boost::filesystem::path const path_;
+
+	sge::plugin::info const info_;
 };
 
 }

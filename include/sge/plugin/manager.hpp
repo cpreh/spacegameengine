@@ -22,19 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_MANAGER_HPP_INCLUDED
 
 #include <sge/plugin/capabilities.hpp>
-#include <sge/plugin/category_array.hpp>
-#include <sge/plugin/context_base.hpp>
-#include <sge/plugin/context_fwd.hpp>
-#include <sge/plugin/iterator_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/symbol.hpp>
+#include <sge/plugin/detail/collection_base_fwd.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <cstddef>
-#include <map>
-#include <vector>
+#include <boost/ptr_container/ptr_map.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,8 +44,6 @@ class manager
 		manager
 	);
 public:
-	typedef std::size_t size_type;
-
 	SGE_PLUGIN_SYMBOL
 	explicit
 	manager(
@@ -64,48 +57,15 @@ public:
 		typename Type
 	>
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	sge::plugin::iterator<
+	sge::plugin::collection<
 		Type
-	>
-	begin();
-
-	template<
-		typename Type
-	>
-	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	sge::plugin::iterator<
-		Type
-	>
-	end();
-
-	template<
-		typename Type
-	>
-	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	sge::plugin::context<
-		Type
-	>
-	plugin(
-		sge::plugin::manager::size_type index = 0
-	);
-
-	template<
-		typename Type
-	>
-	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	sge::plugin::manager::size_type
-	size() const;
+	> const &
+	collection() const;
 private:
-	typedef std::vector<
-		sge::plugin::context_base
-	> plugin_array;
-
-	typedef std::map<
+	typedef boost::ptr_map<
 		sge::plugin::capabilities::type,
-		sge::plugin::category_array
+		sge::plugin::detail::collection_base
 	> plugin_map;
-
-	plugin_array plugins_;
 
 	plugin_map categories_;
 };
