@@ -21,8 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/system.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
+#include <sge/plugin/description.hpp>
+#include <sge/plugin/flags.hpp>
+#include <sge/plugin/flags_field.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/name.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
 #include <sge/renderer/system_unique_ptr.hpp>
@@ -34,13 +38,18 @@ namespace
 {
 
 sge::plugin::info const info(
-	FCPPT_TEXT("d3d9"),
-	FCPPT_TEXT("Implements a renderer using Direct3D9."),
+	sge::plugin::name(
+		FCPPT_TEXT("d3d9")
+	),
+	sge::plugin::description(
+		FCPPT_TEXT("Implements a renderer using Direct3D9.")
+	),
 	sge::plugin::version(0x1u),
 	sge::plugin::min_core_version(0x1u),
 	sge::plugin::capabilities_field(
 		sge::plugin::capabilities::renderer
-	)
+	),
+	sge::plugin::flags_field::null()
 );
 
 sge::renderer::system_unique_ptr
