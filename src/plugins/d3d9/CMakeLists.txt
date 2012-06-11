@@ -7,7 +7,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/convert/cube_side.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/depth_stencil_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/index_format.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/indexed_primitive.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/light/attenuation.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/light/cutoff_angle.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/light/direction.hpp
@@ -24,8 +23,8 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/convert/material.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/matrix.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/matrix_mode.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/nonindexed_primitive.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/pixel_rect.hpp
+	src/plugins/d3d9/include/sge/d3d9/convert/primitive_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/rect_base.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/resource_flags.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/resource_flags_to_pool.hpp
@@ -256,7 +255,6 @@ SET(
 	src/plugins/d3d9/src/convert/cube_side.cpp
 	src/plugins/d3d9/src/convert/depth_stencil_format.cpp
 	src/plugins/d3d9/src/convert/index_format.cpp
-	src/plugins/d3d9/src/convert/indexed_primitive.cpp
 	src/plugins/d3d9/src/convert/light/attenuation.cpp
 	src/plugins/d3d9/src/convert/light/cutoff_angle.cpp
 	src/plugins/d3d9/src/convert/light/direction.cpp
@@ -273,8 +271,8 @@ SET(
 	src/plugins/d3d9/src/convert/material.cpp
 	src/plugins/d3d9/src/convert/matrix.cpp
 	src/plugins/d3d9/src/convert/matrix_mode.cpp
-	src/plugins/d3d9/src/convert/nonindexed_primitive.cpp
 	src/plugins/d3d9/src/convert/pixel_rect.cpp
+	src/plugins/d3d9/src/convert/primitive_type.cpp
 	src/plugins/d3d9/src/convert/resource_flags.cpp
 	src/plugins/d3d9/src/convert/resource_flags_to_pool.cpp
 	src/plugins/d3d9/src/convert/texture_stage_arg.cpp

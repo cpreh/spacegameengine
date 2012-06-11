@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/indexed_primitive_type.hpp>
-#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/index_count.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_count.hpp>
+
 
 namespace sge
 {
@@ -38,11 +39,11 @@ namespace devicefuncs
 void
 draw_indexed_primitive(
 	IDirect3DDevice9 *,
-	renderer::first_vertex,
-	renderer::vertex_count,
-	renderer::indexed_primitive_type::type,
-	renderer::primitive_count,
-	renderer::first_index
+	sge::renderer::first_vertex,
+	sge::renderer::vertex_count,
+	sge::renderer::primitive_type::type,
+	sge::renderer::first_index,
+	sge::renderer::index_count
 );
 
 }

@@ -47,12 +47,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/matrix4_fwd.hpp>
 #include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
@@ -151,9 +151,9 @@ sge::d3d9::render_context::object::render_indexed(
 	sge::renderer::index_buffer const &_index_buffer,
 	sge::renderer::first_vertex const _first_vertex,
 	sge::renderer::vertex_count const _num_vertices,
-	sge::renderer::indexed_primitive_type::type const _primitive_type,
-	sge::renderer::primitive_count const _primitive_count,
-	sge::renderer::first_index const _first_index
+	sge::renderer::primitive_type::type const _primitive_type,
+	sge::renderer::first_index const _first_index,
+	sge::renderer::index_count const _num_indices
 )
 {
 	sge::d3d9::devicefuncs::set_index_buffer(
@@ -166,8 +166,8 @@ sge::d3d9::render_context::object::render_indexed(
 		_first_vertex,
 		_num_vertices,
 		_primitive_type,
-		_primitive_count,
-		_first_index
+		_first_index,
+		_num_indices
 	);
 
 }
@@ -176,7 +176,7 @@ void
 sge::d3d9::render_context::object::render_nonindexed(
 	sge::renderer::first_vertex const _first_vertex,
 	sge::renderer::vertex_count const _num_vertices,
-	sge::renderer::nonindexed_primitive_type::type const _primitive_type
+	sge::renderer::primitive_type::type const _primitive_type
 )
 {
 	sge::d3d9::devicefuncs::draw_primitive(

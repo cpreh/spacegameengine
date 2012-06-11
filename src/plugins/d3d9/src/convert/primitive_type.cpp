@@ -19,23 +19,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/indexed_primitive.hpp>
+#include <sge/d3d9/convert/primitive_type.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 D3DPRIMITIVETYPE
-sge::d3d9::convert::indexed_primitive(
-	renderer::indexed_primitive_type::type const _type
+sge::d3d9::convert::primitive_type(
+	sge::renderer::primitive_type::type const _primitive_type
 )
 {
 	switch(
-		_type
+		_primitive_type
 	)
 	{
-	case renderer::indexed_primitive_type::line:
+	case sge::renderer::primitive_type::point_list:
+		return D3DPT_POINTLIST;
+	case sge::renderer::primitive_type::line_list:
 		return D3DPT_LINELIST;
-	case renderer::indexed_primitive_type::triangle:
+	case sge::renderer::primitive_type::triangle_list:
 		return D3DPT_TRIANGLELIST;
+	case sge::renderer::primitive_type::line_strip:
+		return D3DPT_LINESTRIP;
+	case sge::renderer::primitive_type::triangle_strip:
+		return D3DPT_TRIANGLESTRIP;
+	case sge::renderer::primitive_type::triangle_fan:
+		return D3DPT_TRIANGLEFAN;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

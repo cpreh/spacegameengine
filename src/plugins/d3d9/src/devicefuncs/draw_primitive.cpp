@@ -19,24 +19,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/nonindexed_primitive.hpp>
+#include <sge/d3d9/convert/primitive_type.hpp>
 #include <sge/d3d9/devicefuncs/draw_primitive.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/nonindexed_primitive_count.hpp>
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/primitive_type.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_to_primitive_count.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::d3d9::devicefuncs::draw_primitive(
 	IDirect3DDevice9 *const _device,
-	renderer::first_vertex const _first_vertex,
-	renderer::vertex_count const _num_vertices,
-	renderer::nonindexed_primitive_type::type const _primitive_type
+	sge::renderer::first_vertex const _first_vertex,
+	sge::renderer::vertex_count const _num_vertices,
+	sge::renderer::primitive_type::type const _primitive_type
 )
 {
 	if(
 		_device->DrawPrimitive(
-			convert::nonindexed_primitive(
+			sge::d3d9::convert::primitive_type(
 				_primitive_type
 			),
 			static_cast<
@@ -47,10 +50,10 @@ sge::d3d9::devicefuncs::draw_primitive(
 			static_cast<
 				UINT
 			>(
-				sge::renderer::nonindexed_primitive_count(
+				sge::renderer::vertex_to_primitive_count(
 					_num_vertices,
 					_primitive_type
-				)
+				).get()
 			)
 		)
 		!= D3D_OK
