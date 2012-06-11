@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/sprite/buffers/roles/first_index.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/config/has_texture_levels.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
-#include <sge/sprite/detail/roles/primitive_count.hpp>
+#include <sge/sprite/detail/roles/index_count.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
 #include <majutsu/class.hpp>
@@ -90,10 +90,10 @@ private:
 
 	typedef majutsu::role<
 		majutsu::simple<
-			sge::renderer::primitive_count
+			sge::renderer::index_count
 		>,
-		sge::sprite::detail::roles::primitive_count
-	> primitive_count_role;
+		sge::sprite::detail::roles::index_count
+	> index_count_role;
 
 	typedef boost::mpl::vector2<
 		first_vertex_role,
@@ -104,7 +104,7 @@ private:
 		base_types,
 		boost::mpl::vector2<
 			first_index_role,
-			primitive_count_role
+			index_count_role
 		>
 	>::type indexed_types;
 

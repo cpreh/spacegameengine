@@ -47,8 +47,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
@@ -851,7 +851,7 @@ try
 			sge::renderer::vertex_count(
 				vertex_buffer->size()
 			),
-			sge::renderer::nonindexed_primitive_type::triangle
+			sge::renderer::primitive_type::triangle_list
 		);
 	}
 

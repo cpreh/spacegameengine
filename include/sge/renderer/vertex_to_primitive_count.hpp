@@ -18,22 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDICES_PER_PRIMITIVE_HPP_INCLUDED
-#define SGE_RENDERER_INDICES_PER_PRIMITIVE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VERTEX_TO_PRIMITIVE_COUNT_HPP_INCLUDED
+#define SGE_RENDERER_VERTEX_TO_PRIMITIVE_COUNT_HPP_INCLUDED
 
-#include <sge/renderer/indexed_primitive_type.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/vertex_count.hpp>
+
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_RENDERER_SYMBOL
-size_type
-indices_per_primitive(
-	indexed_primitive_type::type
+/**
+\brief Calculates how many primitives are described by a number of vertices
+
+The number of vertices given by \a vertices (which could also be indirectly
+given by a number of indices) combined with a certain primitive_type given by
+\a type describe a certain number of primitives. For example, using the
+sge::renderer::primitive_type::triangle_list
+
+\param vertices The number of vertices (or a number of indices used to count
+vertices)
+
+\param type The primitive type
+*/
+sge::renderer::primitive_count const
+vertex_to_primitive_count(
+	sge::renderer::vertex_count vertices,
+	sge::renderer::primitive_type::type type
 );
 
 }

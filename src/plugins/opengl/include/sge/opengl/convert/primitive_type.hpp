@@ -18,26 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/indexed_primitive.hpp>
-#include <sge/renderer/indexed_primitive_type.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_OPENGL_CONVERT_PRIMITIVE_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_PRIMITIVE_TYPE_HPP_INCLUDED
 
+#include <sge/opengl/common.hpp>
+#include <sge/renderer/primitive_type.hpp>
+
+
+namespace sge
+{
+namespace opengl
+{
+namespace convert
+{
 
 GLenum
-sge::opengl::convert::indexed_primitive(
-	renderer::indexed_primitive_type::type const _type
-)
-{
-	switch(
-		_type
-	)
-	{
-	case renderer::indexed_primitive_type::line:
-		return GL_LINES;
-	case renderer::indexed_primitive_type::triangle:
-		return GL_TRIANGLES;
-	}
+primitive_type(
+	sge::renderer::primitive_type::type
+);
 
-	FCPPT_ASSERT_UNREACHABLE;
 }
+}
+}
+
+#endif

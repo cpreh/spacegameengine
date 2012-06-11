@@ -156,8 +156,6 @@ set(
 	include/sge/renderer/index_buffer_types.hpp
 	include/sge/renderer/index_buffer_unique_ptr.hpp
 	include/sge/renderer/index_count.hpp
-	include/sge/renderer/indexed_primitive_type.hpp
-	include/sge/renderer/indices_per_primitive.hpp
 	include/sge/renderer/is_epsilon_equal.hpp
 	include/sge/renderer/light/attenuation.hpp
 	include/sge/renderer/light/attenuation_fwd.hpp
@@ -196,8 +194,6 @@ set(
 	include/sge/renderer/multi_samples.hpp
 	include/sge/renderer/multi_samples_value.hpp
 	include/sge/renderer/no_multi_sampling.hpp
-	include/sge/renderer/nonindexed_primitive_count.hpp
-	include/sge/renderer/nonindexed_primitive_type.hpp
 	include/sge/renderer/npos.hpp
 	include/sge/renderer/optional_bit_count.hpp
 	include/sge/renderer/optional_bit_count_fwd.hpp
@@ -212,6 +208,7 @@ set(
 	include/sge/renderer/plugin/object_scoped_ptr.hpp
 	include/sge/renderer/plugin/traits.hpp
 	include/sge/renderer/primitive_count.hpp
+	include/sge/renderer/primitive_type.hpp
 	include/sge/renderer/projection/aspect.hpp
 	include/sge/renderer/projection/dim.hpp
 	include/sge/renderer/projection/far.hpp
@@ -455,6 +452,7 @@ set(
 	include/sge/renderer/vertex_declaration_scoped_ptr.hpp
 	include/sge/renderer/vertex_declaration_shared_ptr.hpp
 	include/sge/renderer/vertex_declaration_unique_ptr.hpp
+	include/sge/renderer/vertex_to_primitive_count.hpp
 	include/sge/renderer/vf/color.hpp
 	include/sge/renderer/vf/color_base.hpp
 	include/sge/renderer/vf/color_fwd.hpp
@@ -638,7 +636,6 @@ set(
 	src/renderer/index/dynamic/view.cpp
 	src/renderer/index/view.cpp
 	src/renderer/index_buffer.cpp
-	src/renderer/indices_per_primitive.cpp
 	src/renderer/light/attenuation.cpp
 	src/renderer/light/directional.cpp
 	src/renderer/light/object.cpp
@@ -650,7 +647,6 @@ set(
 	src/renderer/lock_rect_to_coords.cpp
 	src/renderer/material.cpp
 	src/renderer/no_multi_sampling.cpp
-	src/renderer/nonindexed_primitive_count.cpp
 	src/renderer/npos.cpp
 	src/renderer/parameters.cpp
 	src/renderer/plugin/collection.cpp
@@ -766,6 +762,7 @@ set(
 	src/renderer/unsupported.cpp
 	src/renderer/vertex_buffer.cpp
 	src/renderer/vertex_declaration.cpp
+	src/renderer/vertex_to_primitive_count.cpp
 	src/renderer/vf/dynamic/color.cpp
 	src/renderer/vf/dynamic/const_view.cpp
 	src/renderer/vf/dynamic/converter.cpp

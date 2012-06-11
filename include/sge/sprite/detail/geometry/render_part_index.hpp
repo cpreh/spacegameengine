@@ -22,13 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_GEOMETRY_RENDER_PART_INDEX_HPP_INCLUDED
 
 #include <sge/renderer/first_index.hpp>
-#include <sge/renderer/primitive_count.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/index_count.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
 #include <sge/sprite/buffers/roles/first_index.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
-#include <sge/sprite/detail/roles/primitive_count.hpp>
+#include <sge/sprite/detail/roles/index_count.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -63,10 +62,12 @@ render_part_index(
 )
 {
 	_render_part. template set<
-		sge::sprite::detail::roles::primitive_count
+		sge::sprite::detail::roles::index_count
 	>(
-		sge::renderer::primitive_count(
-			2u * _count.get()
+		sge::sprite::buffers::index_count<
+			Choices
+		>(
+			_count
 		)
 	);
 

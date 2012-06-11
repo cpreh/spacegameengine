@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
@@ -107,7 +107,7 @@ sge::line_drawer::object::render(
 			0u),
 		sge::renderer::vertex_count(
 			vb_->size()),
-		sge::renderer::nonindexed_primitive_type::line);
+		sge::renderer::primitive_type::line_list);
 }
 
 sge::line_drawer::object::~object()

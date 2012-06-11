@@ -24,8 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_vertex_declaration_and_buffers.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -308,7 +310,7 @@ try
 				0u
 			),
 			num_vertices,
-			sge::renderer::nonindexed_primitive_type::triangle
+			sge::renderer::primitive_type::triangle_list
 		);
 	}
 

@@ -29,12 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/matrix4_fwd.hpp>
 #include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/symbol.hpp>
@@ -93,82 +92,90 @@ public:
 	) = 0;
 
 	/**
-	 * \brief Renders indexed geometry
-	 *
-	 * Renders indexed geometry using \a index_buffer and the currently set
-	 * vertex buffers. \a primitive_count primitives are rendered. The
-	 * indices necessary for this are extracted from \a index_buffer from
-	 * position \a first_index to \a first_index +
-	 * renderer::indices_per_primitive(primitive_type) * primitive_count.
-	 * The possible values for the indices range from \a first_vertex to \a
-	 * first_vertex + \a vertex_count - 1. \a first_vertex and \a
-	 * vertex_count should be considered as a possibility for optimization,
-	 * in case only a portion of the vertex buffers is referenced by the
-	 * call. The most conservative use is to pass 0 and
-	 * vertex_buffer::size.
-	 *
-	 * \param index_buffer The index buffer to use
-	 * \param first_vertex The minimum value for all used indices
-	 * \param vertex_count The maximum value for all used indices
-	 * \param primitive_type The type of primitive to render
-	 * \param primitive_count The number of primitives to render
-	 * \param first_index The offset into the index buffer
-	 *
-	 * \see sge::renderer::device::activate_vertex_buffer
-	 * \see sge::renderer::device::vertex_declaration
-	 *
-	 * \warning The behaviour is undefined if there is not exactly one
-	 * activated vertex buffer per sge::renderer::vf::part.
-	 * \warning The behaviour is undefined if extracted indices are out of
-	 * bounds.
-	 * \warning The behaviour is undefined if vertices are referenced that
-	 * one of the vertex buffer doesn't have.
-	 * \warning The behaviour is undefined if vertices are referenced that
-	 * are outside of the constraints from \a first_vertex and \a
-	 * vertex_count.
-	 */
+	\brief Renders indexed geometry
+
+	Renders indexed geometry using \a index_buffer and the currently set
+	vertex buffers.
+	<code>sge::renderer::element_to_primitive_count(index_count)</code>
+	primitives are rendered. The indices necessary for this are extracted
+	from \a index_buffer from position \a first_index to \a first_index +
+	\a index_count. The possible values for the indices range from \a
+	first_vertex to \a first_vertex + \a vertex_count - 1. \a first_vertex
+	and \a vertex_count should be considered as a possibility for
+	optimization, in case only a portion of the vertex buffers is
+	referenced by the call. The most conservative use is to pass 0 and
+	vertex_buffer::size.
+
+	\param index_buffer The index buffer to use
+
+	\param first_vertex The minimum value for all used indices
+
+	\param vertex_count The maximum value for all used indices
+
+	\param primitive_type The type of primitive to render
+
+	\param first_index The offset into the index buffer
+
+	\param index_count The number of indices to use
+
+	\see sge::renderer::device::activate_vertex_buffer
+
+	\see sge::renderer::device::vertex_declaration
+
+	\warning The behaviour is undefined if there is not exactly one
+	activated vertex buffer per sge::renderer::vf::part.
+
+	\warning The behaviour is undefined if extracted indices are out of
+	bounds.
+
+	\warning The behaviour is undefined if vertices are referenced that
+	one of the vertex buffer doesn't have.
+
+	\warning The behaviour is undefined if vertices are referenced that
+	are outside of the constraints from \a first_vertex and \a
+	vertex_count.
+	*/
 	virtual
 	void
 	render_indexed(
 		sge::renderer::index_buffer const &index_buffer,
 		sge::renderer::first_vertex first_vertex,
 		sge::renderer::vertex_count vertex_count,
-		sge::renderer::indexed_primitive_type::type primitive_type,
-		sge::renderer::primitive_count primitive_count,
-		sge::renderer::first_index first_index
+		sge::renderer::primitive_type::type primitive_type,
+		sge::renderer::first_index first_index,
+		sge::renderer::index_count index_count
 	) = 0;
 
 	/**
-	 * \brief Renders non indexed geometry
-	 *
-	 * Renders non indexed geometry using the currently set vertex buffers.
-	 * It uses renderer::nonindexed_primitive_count(\a vertex_count, \a
-	 * primitive_type) vertices starting at \a first_vertex. For lines or
-	 * a line strip, \a vertex_count must be at least 2, for triangles, a
-	 * triangle strip or a triangle, \a vertex_count must be at least 3.
-	 * For lines, vertex_count must be a multiple of 2, for triangles,
-	 * vertex_count must be a multiple of 3.
-	 *
-	 * \param first_vertex The offset into the vertex buffer
-	 * \param vertex_count The number of vertices to use
-	 * \param primitive_type The type of primitive to render
-	 *
-	 * \see sge::renderer::device::activate_vertex_buffer
-	 * \see sge::renderer::device::vertex_declaration
-	 *
-	 * \warning The behaviour is undefined if there is not exactly one
-	 * activated vertex buffer per sge::renderer::vf::part.
-	 * \warning The behaviour is undefined if one of the constraints for \a
-	 * vertex_count is unmet.
-	 * \warning The behaviour is undefined if vertices are referenced that
-	 * one of the vertex buffer doesn't have.
+	\brief Renders non indexed geometry
+
+	Renders non indexed geometry using the currently set vertex buffers.
+	<code>sge::renderer::element_to_primitive_count(vertex_count)</code>
+	primitives are rendered. The vertices necessary for this are extracted
+	from position \a first_vertex to \a vertex_index + \a vertex_count.
+
+	\param first_vertex The offset into the vertex buffer
+	\param vertex_count The number of vertices to use
+	\param primitive_type The type of primitive to render
+
+	\see sge::renderer::device::activate_vertex_buffer
+	\see sge::renderer::device::vertex_declaration
+
+	\warning The behaviour is undefined if there is not exactly one
+	activated vertex buffer per sge::renderer::vf::part.
+
+	\warning The behaviour is undefined if one of the constraints for \a
+	vertex_count is unmet.
+
+	\warning The behaviour is undefined if vertices are referenced that
+	 one of the vertex buffer doesn't have.
 	*/
 	virtual
 	void
 	render_nonindexed(
 		sge::renderer::first_vertex first_vertex,
 		sge::renderer::vertex_count vertex_count,
-		sge::renderer::nonindexed_primitive_type::type primitive_type
+		sge::renderer::primitive_type::type primitive_type
 	) = 0;
 
 	/**

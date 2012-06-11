@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_NONINDEXED_PRIMITIVE_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_NONINDEXED_PRIMITIVE_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_PRIMITIVE_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_PRIMITIVE_TYPE_HPP_INCLUDED
+
 
 namespace sge
 {
@@ -27,14 +28,12 @@ namespace renderer
 {
 
 /**
-\brief The namespace for the non indexed primitive type enum
-
-TODO: Add a nice image here.
+ * \brief The namespace for the primitive type enum
 */
-namespace nonindexed_primitive_type
+namespace primitive_type
 {
 /**
-\brief The enum type for non indexed primitive types
+ * The enum type for indexed primitive types
 */
 enum type
 {
@@ -43,13 +42,13 @@ enum type
 
 	Each vertex describes one point.
 	*/
-	point,
+	point_list,
 	/**
 	\brief Vertices describe lines
 
-	Every two adjacent vertices form one line.
+	Every two adjacent vertices describe one line.
 	*/
-	line,
+	line_list,
 	/**
 	\brief Vertices describe a line strip
 
@@ -58,11 +57,11 @@ enum type
 	*/
 	line_strip,
 	/**
-	\brief Vertices describe triangles
+	\brief Indices describe triangles
 
-	Every three adjacent vertices form one triangle.
+	Every three adjacent vertices describe one triangle.
 	*/
-	triangle,
+	triangle_list,
 	/**
 	\brief Vertices describe a triangle strip
 
@@ -79,6 +78,7 @@ enum type
 	triangle.
 	*/
 	triangle_fan
+
 };
 }
 

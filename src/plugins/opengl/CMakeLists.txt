@@ -74,12 +74,11 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/format_to_string.hpp
 	src/plugins/opengl/include/sge/opengl/convert/format_type_to_string.hpp
 	src/plugins/opengl/include/sge/opengl/convert/index_format.hpp
-	src/plugins/opengl/include/sge/opengl/convert/indexed_primitive.hpp
 	src/plugins/opengl/include/sge/opengl/convert/light_index.hpp
 	src/plugins/opengl/include/sge/opengl/convert/make_color_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/make_color_format_type.hpp
 	src/plugins/opengl/include/sge/opengl/convert/matrix_mode.hpp
-	src/plugins/opengl/include/sge/opengl/convert/nonindexed_primitive.hpp
+	src/plugins/opengl/include/sge/opengl/convert/primitive_type.hpp
 	src/plugins/opengl/include/sge/opengl/convert/projection.hpp
 	src/plugins/opengl/include/sge/opengl/convert/resource_flags.hpp
 	src/plugins/opengl/include/sge/opengl/convert/to_gl_bool.hpp
@@ -443,12 +442,11 @@ set(
 	src/plugins/opengl/src/convert/format_to_string.cpp
 	src/plugins/opengl/src/convert/format_type_to_string.cpp
 	src/plugins/opengl/src/convert/indexed_format.cpp
-	src/plugins/opengl/src/convert/indexed_primitive.cpp
 	src/plugins/opengl/src/convert/light_index.cpp
 	src/plugins/opengl/src/convert/make_color_format.cpp
 	src/plugins/opengl/src/convert/make_color_format_type.cpp
 	src/plugins/opengl/src/convert/matrix_mode.cpp
-	src/plugins/opengl/src/convert/nonindexed_primitive.cpp
+	src/plugins/opengl/src/convert/primitive_type.cpp
 	src/plugins/opengl/src/convert/projection.cpp
 	src/plugins/opengl/src/convert/resource_flags.cpp
 	src/plugins/opengl/src/convert/to_gl_bool.cpp

@@ -32,12 +32,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/matrix4_fwd.hpp>
 #include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
@@ -105,16 +105,16 @@ private:
 		sge::renderer::index_buffer const &,
 		sge::renderer::first_vertex,
 		sge::renderer::vertex_count,
-		sge::renderer::indexed_primitive_type::type,
-		sge::renderer::primitive_count,
-		sge::renderer::first_index
+		sge::renderer::primitive_type::type,
+		sge::renderer::first_index,
+		sge::renderer::index_count
 	);
 
 	void
 	render_nonindexed(
 		sge::renderer::first_vertex,
 		sge::renderer::vertex_count,
-		sge::renderer::nonindexed_primitive_type::type
+		sge::renderer::primitive_type::type
 	);
 
 	void

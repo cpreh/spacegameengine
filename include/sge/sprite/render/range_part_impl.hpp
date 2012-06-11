@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/buffers/roles/first_index.hpp>
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
-#include <sge/sprite/detail/roles/primitive_count.hpp>
+#include <sge/sprite/detail/roles/index_count.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
 #include <sge/sprite/render/range_part_decl.hpp>
@@ -95,14 +95,14 @@ sge::sprite::render::range_part<
 template<
 	typename Choices
 >
-sge::renderer::primitive_count const
+sge::renderer::index_count const
 sge::sprite::render::range_part<
 	Choices
->::primitive_count() const
+>::index_count() const
 {
 	return
 		object_. template get<
-			sge::sprite::detail::roles::primitive_count
+			sge::sprite::detail::roles::index_count
 		>();
 }
 

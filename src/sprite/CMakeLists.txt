@@ -207,7 +207,7 @@ set(
 	include/sge/sprite/detail/render/unset_texture_stage.hpp
 	include/sge/sprite/detail/render/unset_texture_stages.hpp
 	include/sge/sprite/detail/render/unset_textures.hpp
-	include/sge/sprite/detail/roles/primitive_count.hpp
+	include/sge/sprite/detail/roles/index_count.hpp
 	include/sge/sprite/detail/roles/texture.hpp
 	include/sge/sprite/detail/roles/use_center.hpp
 	include/sge/sprite/detail/roles/use_texture_size.hpp

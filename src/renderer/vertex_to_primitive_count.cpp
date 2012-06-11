@@ -19,64 +19,79 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/nonindexed_primitive_count.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_to_primitive_count.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
-sge::renderer::size_type
-sge::renderer::nonindexed_primitive_count(
-	renderer::vertex_count const _vertex_count,
-	renderer::nonindexed_primitive_type::type const _primitive_type
+sge::renderer::primitive_count const
+sge::renderer::vertex_to_primitive_count(
+	sge::renderer::vertex_count const _vertex_count,
+	sge::renderer::primitive_type::type const _primitive_type
 )
 {
 	switch(
 		_primitive_type
 	)
 	{
-	case nonindexed_primitive_type::point:
-		return _vertex_count.get();
-	case nonindexed_primitive_type::line:
+	case sge::renderer::primitive_type::point_list:
+		return
+			sge::renderer::primitive_count(
+				_vertex_count.get()
+			);
+	case sge::renderer::primitive_type::line_list:
 		if(
-			_vertex_count.get() % 2
+			_vertex_count.get() % 2u
 		)
 			throw sge::renderer::exception(
 				FCPPT_TEXT("nonindexed_primitive_count(): line needs a multiple of two vertices!")
 			);
 
-		return _vertex_count.get() / 2;
+		return
+			sge::renderer::primitive_count(
+				_vertex_count.get() / 2u
+			);
 
-	case nonindexed_primitive_type::line_strip:
+	case sge::renderer::primitive_type::line_strip:
 		if(
-			_vertex_count.get() <= 1
+			_vertex_count.get() <= 1u
 		)
 			throw sge::renderer::exception(
 				FCPPT_TEXT("nonindexed_primitive_count(): line_strip needs at least two vertices!")
 			);
 
-		return _vertex_count.get() - 1;
-	case nonindexed_primitive_type::triangle_strip:
-	case nonindexed_primitive_type::triangle_fan:
+		return
+			sge::renderer::primitive_count(
+				_vertex_count.get() - 1u
+			);
+	case sge::renderer::primitive_type::triangle_strip:
+	case sge::renderer::primitive_type::triangle_fan:
 		if(
-			_vertex_count.get() <= 2
+			_vertex_count.get() <= 2u
 		)
 			throw sge::renderer::exception(
 				FCPPT_TEXT("nonindexed_primitive_count(): triangle_fan and triangle_strip need at least three vertices!")
 			);
 
-		return _vertex_count.get() - 2;
-	case nonindexed_primitive_type::triangle:
+		return
+			sge::renderer::primitive_count(
+				_vertex_count.get() - 2u
+			);
+	case sge::renderer::primitive_type::triangle_list:
 		if(
-			_vertex_count.get() % 3
+			_vertex_count.get() % 3u
 		)
 			throw sge::renderer::exception(
 				FCPPT_TEXT("nonindexed_primitive_count(): triangle needs a multiple of three vertices!")
 			);
 
-		return _vertex_count.get() / 3;
+		return
+			sge::renderer::primitive_count(
+				_vertex_count.get() / 3u
+			);
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

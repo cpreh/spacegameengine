@@ -26,14 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/convert/indexed_primitive.hpp>
+#include <sge/opengl/convert/primitive_type.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
@@ -43,14 +43,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::draw_elements(
 	sge::opengl::context::system::object &_context,
-	sge::renderer::index_buffer const &_ib,
+	sge::renderer::index_buffer const &_index_buffer,
 	sge::renderer::first_vertex const _first_vertex,
 	sge::renderer::vertex_count const _num_vertices,
-	sge::renderer::indexed_primitive_type::type const _ptype,
-	sge::renderer::primitive_count const _pcount,
-	sge::renderer::first_index const _first_index
+	sge::renderer::primitive_type::type const _primitive_type,
+	sge::renderer::first_index const _first_index,
+	sge::renderer::index_count const _num_indices
 )
 {
+	if(
+		_primitive_type
+		==
+		sge::renderer::primitive_type::point_list
+	)
+	{
+		FCPPT_LOG_WARNING(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Rendering point lists with index buffers is not portable!")
+		);
+	}
+
 	if(
 		_num_vertices.get() == 0u
 	)
@@ -73,39 +86,36 @@ sge::opengl::draw_elements(
 		)
 	);
 
-	sge::opengl::index_buffer const & gl_ib(
+	sge::opengl::index_buffer const &gl_index_buffer(
 		dynamic_cast<
 			sge::opengl::index_buffer const &
 		>(
-			_ib
+			_index_buffer
 		)
 	);
 
-	gl_ib.bind();
+	gl_index_buffer.bind();
 
 	GLenum const primitive_type(
-		sge::opengl::convert::indexed_primitive(
-			_ptype
+		sge::opengl::convert::primitive_type(
+			_primitive_type
 		)
 	);
 
-	GLsizei const primitive_count(
+	GLsizei const element_count(
 		static_cast<
 			GLsizei
 		>(
-			sge::renderer::indices_per_primitive(
-				_ptype
-			)
-			* _pcount.get()
+			_num_indices.get()
 		)
 	);
 
 	GLenum const format(
-		gl_ib.gl_format()
+		gl_index_buffer.gl_format()
 	);
 
 	GLvoid *const offset(
-		gl_ib.buffer_offset(
+		gl_index_buffer.buffer_offset(
 			_first_index
 		)
 	);
@@ -129,7 +139,7 @@ sge::opengl::draw_elements(
 				_num_vertices.get()
 				- 1u
 			),
-			primitive_count,
+			element_count,
 			format,
 			offset
 		);
@@ -144,7 +154,7 @@ sge::opengl::draw_elements(
 
 	::glDrawElements(
 		primitive_type,
-		primitive_count,
+		element_count,
 		format,
 		offset
 	);

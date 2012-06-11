@@ -32,11 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/index_buffer_scoped_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
-#include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
@@ -481,12 +480,12 @@ try
 			sge::renderer::vertex_count(
 				vertex_buffer->size()
 			),
-			sge::renderer::indexed_primitive_type::triangle,
-			sge::renderer::primitive_count(
-				2u
-			),
+			sge::renderer::primitive_type::triangle_list,
 			sge::renderer::first_index(
 				0u
+			),
+			sge::renderer::index_count(
+				index_buffer->size()
 			)
 		);
 	}

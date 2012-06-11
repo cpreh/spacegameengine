@@ -18,39 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEXED_PRIMITIVE_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_INDEXED_PRIMITIVE_TYPE_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_ROLES_INDEX_COUNT_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_ROLES_INDEX_COUNT_HPP_INCLUDED
 
 namespace sge
 {
-namespace renderer
+namespace sprite
+{
+namespace detail
+{
+namespace roles
 {
 
-/**
- * \brief The namespace for the indexed primitive type enum
-*/
-namespace indexed_primitive_type
+struct index_count
 {
-/**
- * The enum type for indexed primitive types
-*/
-enum type
-{
-	/**
-	 * \brief Indices describe lines
-	 *
-	 * Every two adjacent indices will be used to describe one line.
-	*/
-	line,
-	/**
-	 * \brief Indices describe triangles
-	 *
-	 * Every three adjacent indices will be used to describe one triangle.
-	*/
-	triangle
 };
-}
 
+}
+}
 }
 }
 
