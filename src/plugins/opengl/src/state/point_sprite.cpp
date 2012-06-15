@@ -56,7 +56,7 @@ sge::opengl::state::point_sprite(
 	)
 	{
 		if(
-			_enable
+			!_enable
 		)
 			return;
 
