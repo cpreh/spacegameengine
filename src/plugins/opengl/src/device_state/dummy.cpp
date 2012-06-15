@@ -18,10 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/create_visual.hpp>
 #include <sge/opengl/device_state/context.hpp>
 #include <sge/opengl/device_state/create_context.hpp>
 #include <sge/opengl/device_state/dummy.hpp>
 #include <sge/opengl/glew/initialize.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/windowed.hpp>
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/visual/object.hpp>
@@ -37,7 +41,20 @@ sge::opengl::device_state::dummy::dummy()
 		awl::system::create()
 	),
 	awl_visual_(
-		awl_system_->default_visual()
+		// TODO: This is a hack for Windows, but is it wise? What if this visual isn't supported?
+		sge::opengl::create_visual(
+			*awl_system_,
+			sge::renderer::parameters(
+				sge::renderer::screen_mode(
+					sge::renderer::windowed(
+						sge::renderer::bit_depth::depth32
+					)
+				),
+				sge::renderer::depth_stencil_buffer::off,
+				sge::renderer::vsync::off,
+				sge::renderer::no_multi_sampling
+			)
+		)
 	),
 	awl_window_(
 		awl_system_->create_window(

@@ -68,9 +68,7 @@ sge::charconv::backends::windows::utf8_to_wchar::convert(
 	int const ret(
 		::MultiByteToWideChar(
 			CP_UTF8,
-			MB_ERR_INVALID_CHARS
-			|
-			MB_PRECOMPOSED,
+			MB_ERR_INVALID_CHARS,
 			reinterpret_cast<
 				LPCSTR
 			>(
