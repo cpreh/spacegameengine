@@ -3,17 +3,20 @@ SET(
 	src/plugins/dinput/include/sge/dinput/cast_key.hpp
 	src/plugins/dinput/include/sge/dinput/create_device.hpp
 	src/plugins/dinput/include/sge/dinput/create_dinput.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/cooperative_level.hpp
+	src/plugins/dinput/include/sge/dinput/cursor/clip.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/define.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/define_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/exclusive_mode.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/exclusive_mode_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/get_pos.hpp
+	src/plugins/dinput/include/sge/dinput/cursor/grab.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/object.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/object_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/cursor/pixmap.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/temp_acquire.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/temp_acquire_fwd.hpp
+	src/plugins/dinput/include/sge/dinput/cursor/release_capture.hpp
+	src/plugins/dinput/include/sge/dinput/cursor/set_capture.hpp
+	src/plugins/dinput/include/sge/dinput/cursor/show.hpp
+	src/plugins/dinput/include/sge/dinput/cursor/ungrab.hpp
 	src/plugins/dinput/include/sge/dinput/device/add_element.hpp
 	src/plugins/dinput/include/sge/dinput/device/element_name.hpp
 	src/plugins/dinput/include/sge/dinput/device/enumerate_objects.hpp
@@ -85,13 +88,17 @@ SET(
 	src/plugins/dinput/src/cast_key.cpp
 	src/plugins/dinput/src/create_device.cpp
 	src/plugins/dinput/src/create_dinput.cpp
-	src/plugins/dinput/src/cursor/cooperative_level.cpp
+	src/plugins/dinput/src/cursor/clip.cpp
 	src/plugins/dinput/src/cursor/define.cpp
 	src/plugins/dinput/src/cursor/exclusive_mode.cpp
 	src/plugins/dinput/src/cursor/get_pos.cpp
+	src/plugins/dinput/src/cursor/grab.cpp
 	src/plugins/dinput/src/cursor/object.cpp
 	src/plugins/dinput/src/cursor/pixmap.cpp
-	src/plugins/dinput/src/cursor/temp_acquire.cpp
+	src/plugins/dinput/src/cursor/release_capture.cpp
+	src/plugins/dinput/src/cursor/set_capture.cpp
+	src/plugins/dinput/src/cursor/show.cpp
+	src/plugins/dinput/src/cursor/ungrab.cpp
 	src/plugins/dinput/src/device/element_name.cpp
 	src/plugins/dinput/src/device/enumerate_objects.cpp
 	src/plugins/dinput/src/device/enumerator.cpp

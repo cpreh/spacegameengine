@@ -18,46 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_CURSOR_TEMP_ACQUIRE_HPP_INCLUDED
-#define SGE_DINPUT_CURSOR_TEMP_ACQUIRE_HPP_INCLUDED
+#include <sge/dinput/cursor/clip.hpp>
+#include <sge/dinput/cursor/release_capture.hpp>
+#include <sge/dinput/cursor/show.hpp>
+#include <sge/dinput/cursor/ungrab.hpp>
+#include <awl/backends/windows/optional_rect.hpp>
 
-#include <awl/backends/windows/event/type.hpp>
-#include <sge/dinput/cursor/temp_acquire_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 
+void
+sge::dinput::cursor::ungrab()
+{
+	sge::dinput::cursor::release_capture();
 
-namespace sge
-{
-namespace dinput
-{
-namespace cursor
-{
-
-class temp_acquire
-{
-	FCPPT_NONCOPYABLE(
-		temp_acquire
-	);
-public:
-	temp_acquire(
-		bool was_acquired,
-		awl::backends::windows::event::type
+	sge::dinput::cursor::clip(
+		awl::backends::windows::optional_rect()
 	);
 
-	~temp_acquire();
-
-	bool
-	needs_acquire(
-		awl::backends::windows::event::type
-	) const;
-private:
-	bool const was_acquired_;
-
-	awl::backends::windows::event::type const event_type_;
-};
-
+	sge::dinput::cursor::show(
+		true
+	);
 }
-}
-}
-
-#endif

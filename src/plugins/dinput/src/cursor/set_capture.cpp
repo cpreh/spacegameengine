@@ -18,30 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/di.hpp>
-#include <sge/dinput/cursor/cooperative_level.hpp>
-#include <sge/input/cursor/mode.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/dinput/cursor/set_capture.hpp>
+#include <awl/backends/windows/windows.hpp>
+#include <awl/backends/windows/window/object.hpp>
 
 
-DWORD
-sge::dinput::cursor::cooperative_level(
-	sge::input::cursor::mode::type const _mode
+void
+sge::dinput::cursor::set_capture(
+	awl::backends::windows::window::object &_window
 )
 {
-	switch(
-		_mode
-	)
-	{
-	case sge::input::cursor::mode::exclusive:
-		return
-			DISCL_FOREGROUND | DISCL_EXCLUSIVE;
-	case sge::input::cursor::mode::normal:
-		return
-			DISCL_FOREGROUND | DISCL_NONEXCLUSIVE;
-	case sge::input::cursor::mode::size:
-		break;
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
+	::SetCapture(
+		_window.hwnd()
+	);
 }

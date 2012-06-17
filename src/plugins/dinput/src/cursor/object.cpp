@@ -18,14 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cursor/cooperative_level.hpp>
 #include <sge/dinput/cursor/exclusive_mode.hpp>
 #include <sge/dinput/cursor/get_pos.hpp>
 #include <sge/dinput/cursor/object.hpp>
-#include <sge/dinput/device/funcs/acquire.hpp>
-#include <sge/dinput/device/funcs/set_cooperative_level.hpp>
-#include <sge/dinput/device/funcs/set_data_format.hpp>
-#include <sge/dinput/device/funcs/unacquire.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/mode.hpp>
@@ -50,11 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/time/sleep_any.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -62,8 +53,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::dinput::cursor::object::object(
 	awl::backends::windows::window::event::processor &_event_processor,
-	awl::backends::windows::window::object &_window,
-	IDirectInputDevice8 *const _system_mouse
+	awl::backends::windows::window::object &_window
 )
 :
 	event_processor_(
@@ -72,25 +62,19 @@ sge::dinput::cursor::object::object(
 	window_(
 		_window
 	),
-	system_mouse_(
-		_system_mouse
-	),
 	button_signal_(),
 	move_signal_(),
 	exclusive_mode_(),
+	mode_(
+		sge::input::cursor::mode::normal
+	),
+	has_focus_(
+		false
+	),
 	connections_(
 		this->make_connections()
 	)
 {
-	// TODO: this should not be here
-	sge::dinput::device::funcs::set_data_format(
-		system_mouse_,
-		&c_dfDIMouse2
-	);
-
-	this->mode(
-		sge::input::cursor::mode::normal
-	);
 }
 
 FCPPT_PP_POP_WARNING
@@ -167,73 +151,57 @@ sge::dinput::cursor::object::mode(
 	sge::input::cursor::mode::type const _mode
 )
 {
+	mode_ = _mode;
+
 	if(
-		_mode != sge::input::cursor::mode::exclusive
+		mode_ == sge::input::cursor::mode::normal
 	)
 		exclusive_mode_.reset();
-
-	bool const was_acquired(
-		this->unacquire()
-	);
-
-	sge::dinput::device::funcs::set_cooperative_level(
-		system_mouse_,
-		window_,
-		sge::dinput::cursor::cooperative_level(
-			_mode
-		)
-	);
-
-	if(
-		was_acquired
+	else if(
+		has_focus_
 	)
-		this->acquire();
-
-	if(
-		_mode == sge::input::cursor::mode::exclusive
-		&& !exclusive_mode_
-	)
-		exclusive_mode_.take(
-			fcppt::make_unique_ptr<
-				sge::dinput::cursor::exclusive_mode
-			>(
-				fcppt::ref(
-					event_processor_
-				),
-				std::tr1::bind(
-					&sge::dinput::cursor::object::acquire,
-					this
-				),
-				std::tr1::bind(
-					&sge::dinput::cursor::object::unacquire,
-					this
-				)
-			)
-		);
+		this->make_grab();
 }
 
 void
 sge::dinput::cursor::object::acquire()
 {
-	while(
-		!sge::dinput::device::funcs::acquire(
-			system_mouse_
-		)
+	has_focus_ = true;
+
+	if(
+		mode_ == sge::input::cursor::mode::exclusive
 	)
-		fcppt::time::sleep_any(
-			boost::chrono::milliseconds(
-				1
-			)
-		);
+		this->make_grab();
 }
 
-bool
+void
 sge::dinput::cursor::object::unacquire()
 {
-	return
-		sge::dinput::device::funcs::unacquire(
-			system_mouse_
-		);
+	has_focus_ = false;
+
+	exclusive_mode_.reset();
+}
+
+void
+sge::dinput::cursor::object::make_grab()
+{
+	if(
+		exclusive_mode_
+	)
+		return;
+	
+	exclusive_mode_.take(
+		fcppt::make_unique_ptr<
+			sge::dinput::cursor::exclusive_mode
+		>(
+			fcppt::ref(
+				event_processor_
+			),
+			fcppt::ref(
+				window_
+			)
+		)
+	);
 }
 
 awl::backends::windows::window::event::return_type

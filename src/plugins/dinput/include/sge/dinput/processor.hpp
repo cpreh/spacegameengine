@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_PROCESSOR_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/dinput_device_scoped_ptr.hpp>
 #include <sge/dinput/cursor/object_fwd.hpp>
 #include <sge/dinput/device/object_fwd.hpp>
 #include <sge/dinput/keyboard/key_converter.hpp>
@@ -186,8 +185,6 @@ private:
 
 	awl::backends::windows::system::event::processor &system_processor_;
 
-	dinput::dinput_device_scoped_ptr const system_mouse_;
-
 	device_vector devices_;
 
 	typedef fcppt::scoped_ptr<
@@ -196,7 +193,7 @@ private:
 
 	cursor_scoped_ptr const cursor_;
 
-	dinput::keyboard::key_converter key_conv_;
+	sge::dinput::keyboard::key_converter key_conv_;
 
 	typedef fcppt::scoped_ptr<
 		awl::backends::windows::system::event::handle

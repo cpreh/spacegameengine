@@ -22,14 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_CURSOR_EXCLUSIVE_MODE_HPP_INCLUDED
 
 #include <sge/dinput/cursor/exclusive_mode_fwd.hpp>
-#include <sge/dinput/cursor/temp_acquire_fwd.hpp>
 #include <awl/backends/windows/event/type.hpp>
+#include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 
 
@@ -46,18 +45,9 @@ class exclusive_mode
 		exclusive_mode
 	);
 public:
-	typedef fcppt::function::object<
-		void ()
-	> acquire_callback;
-
-	typedef fcppt::function::object<
-		bool ()
-	> unacquire_callback;
-
 	exclusive_mode(
 		awl::backends::windows::window::event::processor &,
-		acquire_callback const &,
-		unacquire_callback const &
+		awl::backends::windows::window::object &
 	);
 
 	~exclusive_mode();
@@ -87,15 +77,13 @@ private:
 		awl::backends::windows::event::type::value_type exit_event
 	);
 
-	acquire_callback const acquire_;
+	typedef fcppt::optional<
+		awl::backends::windows::event::type
+	> optional_event_type;
 
-	unacquire_callback const unacquire_;
+	optional_event_type grab_event_;
 
-	typedef fcppt::scoped_ptr<
-		sge::dinput::cursor::temp_acquire
-	> temp_acquire_scoped_ptr;
-
-	temp_acquire_scoped_ptr temp_acquire_;
+	awl::backends::windows::window::object &window_;
 
 	fcppt::signal::connection_manager const connections_;
 };

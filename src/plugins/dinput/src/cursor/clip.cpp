@@ -18,21 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_CURSOR_TEMP_ACQUIRE_FWD_HPP_INCLUDED
-#define SGE_DINPUT_CURSOR_TEMP_ACQUIRE_FWD_HPP_INCLUDED
+#include <sge/dinput/cursor/clip.hpp>
+#include <awl/backends/windows/optional_rect.hpp>
+#include <awl/backends/windows/windows.hpp>
+#include <fcppt/null_ptr.hpp>
 
 
-namespace sge
+bool
+sge::dinput::cursor::clip(
+	awl::backends::windows::optional_rect const &_area
+)
 {
-namespace dinput
-{
-namespace cursor
-{
-
-class temp_acquire;
-
+	return
+		::ClipCursor(
+			_area
+			?
+				&*_area
+			:
+				fcppt::null_ptr()
+		)
+		!= 0
+		;
 }
-}
-}
-
-#endif

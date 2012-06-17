@@ -18,35 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <awl/backends/windows/event/type.hpp>
-#include <sge/dinput/cursor/temp_acquire.hpp>
+#ifndef SGE_DINPUT_CURSOR_UNGRAB_HPP_INCLUDED
+#define SGE_DINPUT_CURSOR_UNGRAB_HPP_INCLUDED
 
 
-sge::dinput::cursor::temp_acquire::temp_acquire(
-	bool const _was_acquired,
-	awl::backends::windows::event::type const _event_type
-)
-:
-	was_acquired_(
-		_was_acquired
-	),
-	event_type_(
-		_event_type
-	)
+namespace sge
 {
+namespace dinput
+{
+namespace cursor
+{
+
+void
+ungrab();
+
+}
+}
 }
 
-sge::dinput::cursor::temp_acquire::~temp_acquire()
-{
-}
-
-bool
-sge::dinput::cursor::temp_acquire::needs_acquire(
-	awl::backends::windows::event::type const _event_type
-) const
-{
-	return
-		was_acquired_
-		&&
-		event_type_ == _event_type;
-}
+#endif

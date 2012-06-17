@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/joypad/device.hpp>
 #include <sge/dinput/keyboard/device.hpp>
 #include <sge/dinput/mouse/device.hpp>
-#include <sge/dinput/create_device.hpp>
 #include <sge/dinput/create_dinput.hpp>
 #include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
@@ -102,12 +101,6 @@ sge::dinput::processor::processor(
 			_window_system.awl_system_event_processor()
 		)
 	),
-	system_mouse_(
-		sge::dinput::create_device(
-			dinput_.get(),
-			GUID_SysMouse
-		)
-	),
 	devices_(),
 	cursor_(
 		fcppt::make_unique_ptr<
@@ -118,8 +111,7 @@ sge::dinput::processor::processor(
 			),
 			fcppt::ref(
 				windows_window_
-			),
-			system_mouse_.get()
+			)
 		)
 	),
 	event_handle_(

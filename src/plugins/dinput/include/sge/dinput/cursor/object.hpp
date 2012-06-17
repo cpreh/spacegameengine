@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_CURSOR_OBJECT_HPP_INCLUDED
 #define SGE_DINPUT_CURSOR_OBJECT_HPP_INCLUDED
 
-#include <sge/dinput/di.hpp>
 #include <sge/dinput/cursor/exclusive_mode_fwd.hpp>
 #include <sge/dinput/cursor/object_fwd.hpp>
 #include <sge/input/cursor/button_callback.hpp>
@@ -61,8 +60,7 @@ class object
 public:
 	object(
 		awl::backends::windows::window::event::processor &,
-		awl::backends::windows::window::object &,
-		IDirectInputDevice8 *system_mouse
+		awl::backends::windows::window::object &
 	);
 
 	~object();
@@ -88,9 +86,12 @@ public:
 	void
 	acquire();
 
-	bool
+	void
 	unacquire();
 private:
+	void
+	make_grab();
+
 	awl::backends::windows::window::event::return_type
 	on_move(
 		awl::backends::windows::window::event::object const &
@@ -118,8 +119,6 @@ private:
 
 	awl::backends::windows::window::object &window_;
 
-	IDirectInputDevice8 *const system_mouse_;
-
 	sge::input::cursor::button_signal button_signal_;
 
 	sge::input::cursor::move_signal move_signal_;
@@ -127,6 +126,10 @@ private:
 	typedef fcppt::scoped_ptr<
 		sge::dinput::cursor::exclusive_mode
 	> exclusive_mode_scoped_ptr;
+
+	sge::input::cursor::mode::type mode_;
+
+	bool has_focus_;
 
 	exclusive_mode_scoped_ptr exclusive_mode_;
 

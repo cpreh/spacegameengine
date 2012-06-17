@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/cursor/exclusive_mode.hpp>
-#include <sge/dinput/cursor/temp_acquire.hpp>
+#include <sge/dinput/cursor/grab.hpp>
+#include <sge/dinput/cursor/ungrab.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/event/type.hpp>
+#include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -33,7 +34,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/time/sleep_any.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/chrono/duration.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -41,29 +46,36 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::dinput::cursor::exclusive_mode::exclusive_mode(
 	awl::backends::windows::window::event::processor &_event_processor,
-	acquire_callback const &_acquire,
-	unacquire_callback const &_unacquire
+	awl::backends::windows::window::object &_window
 )
 :
-	acquire_(
-		_acquire
+	grab_event_(),
+	window_(
+		_window
 	),
-	unacquire_(
-		_unacquire
-	),
-	temp_acquire_(),
 	connections_(
 		this->make_connections(
 			_event_processor
 		)
 	)
 {
+	while(
+		!sge::dinput::cursor::grab(
+			window_
+		)
+	)
+		fcppt::time::sleep_any(
+			boost::chrono::milliseconds(
+				1
+			)
+		);
 }
 
 FCPPT_PP_POP_WARNING
 
 sge::dinput::cursor::exclusive_mode::~exclusive_mode()
 {
+	sge::dinput::cursor::ungrab();
 }
 
 awl::backends::windows::window::event::return_type
@@ -72,14 +84,10 @@ sge::dinput::cursor::exclusive_mode::on_temp_unacquire(
 	awl::backends::windows::window::event::object const &
 )
 {
-	temp_acquire_.take(
-		fcppt::make_unique_ptr<
-			sge::dinput::cursor::temp_acquire
-		>(
-			unacquire_(),
-			_event_type
-		)
-	);
+	grab_event_ =
+		_event_type;
+
+	sge::dinput::cursor::ungrab();
 
 	return
 		awl::backends::windows::window::event::return_type(
@@ -94,13 +102,17 @@ sge::dinput::cursor::exclusive_mode::on_temp_acquire(
 )
 {
 	if(
-		temp_acquire_
+		grab_event_
 		&&
-		temp_acquire_->needs_acquire(
-			_event_type
-		)
+		*grab_event_
+		==
+		_event_type
 	)
-		acquire_();
+		sge::dinput::cursor::grab(
+			window_
+		);
+
+	grab_event_.reset();
 
 	return
 		awl::backends::windows::window::event::return_type(
