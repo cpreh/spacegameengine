@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/cg/profile/get_latest.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/assert/throw.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <Cg/cgGL.h>
@@ -45,10 +45,11 @@ sge::opengl::cg::profile::get_latest(
 		sge::renderer::exception
 	)
 
-	FCPPT_ASSERT_ERROR(
+	FCPPT_ASSERT_THROW(
 		ret
 		!=
-		CG_PROFILE_UNKNOWN
+		CG_PROFILE_UNKNOWN,
+		sge::renderer::exception
 	);
 
 	return ret;
