@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_RENDER_CONTEXT_CREATE_HPP_INCLUDED
 #define SGE_OPENGL_RENDER_CONTEXT_CREATE_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/target/base_fwd.hpp>

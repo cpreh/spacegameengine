@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cg/program/object_fwd.hpp>
-#include <sge/renderer/cg/loaded_program.hpp>
-#include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/cg/program/create_loaded.hpp>
 #include <sge/d3d9/cg/program/loaded_object.hpp>
+#include <sge/renderer/cg/loaded_program.hpp>
+#include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 

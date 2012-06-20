@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vf/convert/index.hpp>
 #include <sge/d3d9/vf/convert/role.hpp>
 #include <sge/d3d9/vf/convert/type.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <sge/renderer/vf/dynamic/part_list.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 
 
 sge::d3d9::vf::element_vector const

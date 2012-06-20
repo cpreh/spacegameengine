@@ -261,6 +261,9 @@ sge::opencl::program::object::build(
 			FCPPT_TEXT("clGetProgramInfo(CL_PROGRAM_DEVICES)"));
 	}
 
+	notification_callback_ =
+		params.notification_callback();
+
 	cl_int const error_code3 =
 		clBuildProgram(
 			program_,
@@ -282,9 +285,6 @@ sge::opencl::program::object::build(
 				this
 			:
 				0);
-
-	notification_callback_ =
-		params.notification_callback();
 
 	// One of the rare cases where we explicitly handle the error
 //	if(error_code3 == CL_SUCCESS)

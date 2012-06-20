@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/fbo/bind.hpp>
-#include <sge/opengl/fbo/create_id.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/create_id.hpp>
 #include <sge/opengl/fbo/delete_id.hpp>
 #include <sge/opengl/fbo/id.hpp>
 #include <sge/opengl/fbo/object.hpp>

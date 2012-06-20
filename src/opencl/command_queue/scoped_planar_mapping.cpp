@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/pitch.hpp>
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
+#include <sge/opencl/command_queue/map_flags_to_native.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/src/opencl/handle_error.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/optional.hpp>
-#include <sge/opencl/command_queue/map_flags_to_native.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 

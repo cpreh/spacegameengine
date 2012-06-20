@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
 #define SGE_RENDERER_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
 
-#include <sge/renderer/system_fwd.hpp>
 #include <sge/plugin/collection_fwd.hpp>
+#include <sge/renderer/system_fwd.hpp>
 
 
 namespace sge

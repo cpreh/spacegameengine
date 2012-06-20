@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/dim2.hpp>
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/memory_object/base.hpp>
-#include <sge/opencl/dim2.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/opencl/memory_object/image/planar_pitch.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>

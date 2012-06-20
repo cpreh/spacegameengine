@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opencl/command_queue/map_flags_to_native.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/scoped_buffer_mapping.hpp>
-#include <sge/opencl/command_queue/map_flags_to_native.hpp>
 #include <sge/opencl/memory_object/buffer.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 
 
 sge::opencl::command_queue::scoped_buffer_mapping::scoped_buffer_mapping(

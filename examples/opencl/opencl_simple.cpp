@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global_context.hpp>
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/system.hpp>
-#include <sge/opencl/command_queue/dim1.hpp>
+#include <sge/opencl/dim1.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/scoped.hpp>
@@ -57,9 +57,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/make_unspecified_tag.hpp>
 #include <sge/renderer/vf/part.hpp>
-#include <sge/renderer/vf/unspecified.hpp>
+#include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/vector.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
@@ -86,6 +85,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
@@ -93,6 +93,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/spirit/home/phoenix/core.hpp>
+#include <boost/spirit/home/phoenix/operator.hpp>
+#include <boost/spirit/home/phoenix/statement.hpp>
+#include <boost/spirit/home/phoenix/statement/sequence.hpp>
 #include <cstddef>
 #include <cstdlib>
 #include <cstring>
@@ -127,16 +131,11 @@ query_value_from_user(
 
 namespace vf
 {
-namespace tags
-{
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(scalar_quantity);
-}
-
 typedef
-sge::renderer::vf::unspecified
+sge::renderer::vf::pos
 <
-	sge::renderer::vf::vector<sge::renderer::scalar,2>,
-	tags::scalar_quantity
+	sge::renderer::scalar,
+	2u
 >
 scalar_quantity;
 
@@ -161,6 +160,14 @@ opencl_error_callback(
 	sge::opencl::binary_error_data const &)
 {
 	std::cerr << "Got an OpenCL error: " << errinfo << "\n";
+}
+
+void
+program_build_finished(
+	volatile bool &finished)
+{
+	std::cerr << "Program build finished\n";
+	finished = true;
 }
 }
 
@@ -219,7 +226,7 @@ try
 			<< FCPPT_TEXT("\n")
 			<< FCPPT_TEXT("Profile type: ")
 			<<
-				(current_platform->profile() == sge::opencl::profile_type::full
+				(current_platform->profile() == sge::opencl::platform::profile_type::full
 				?
 					fcppt::string(FCPPT_TEXT("full"))
 				:
@@ -410,8 +417,20 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Program created, building the program...\n");
 
+	volatile bool build_finished =
+		false;
+
 	main_program.build(
-		sge::opencl::program::build_parameters());
+		sge::opencl::program::build_parameters()
+			.notification_callback(
+				std::tr1::bind(
+					&program_build_finished,
+					fcppt::ref(
+						build_finished))));
+
+	std::cout << "Waiting for build completion\n";
+	while(!build_finished)
+		std::cout << "Build not finished yet\n";
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Program built, now creating a kernel...\n");
@@ -465,35 +484,28 @@ try
 	sge::opencl::command_queue::object main_queue(
 		*device_refs[0],
 		main_context,
-		sge::opencl::command_queue::execution_mode::in_order,
+		sge::opencl::command_queue::execution_mode::out_of_order,
 		sge::opencl::command_queue::profiling_mode::disabled);
-
-	sge::opencl::memory_object::base_ref_sequence mem_objects;
-	mem_objects.push_back(
-		&cl_vb);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, now enqueueing kernel and running it\n");
 
 	{
-		sge::opencl::command_queue::scoped scoped_queue(
-			main_queue);
-
 		sge::opencl::memory_object::scoped_objects scoped_vb(
 			main_queue,
-			mem_objects);
-
-		sge::opencl::command_queue::dim1 global_dim;
-		global_dim[0] = vb->size().get() * 2;
-
-		sge::opencl::command_queue::dim1 local_dim;
-		local_dim[0] = 2;
+			fcppt::assign::make_container<sge::opencl::memory_object::base_ref_sequence>
+				(&cl_vb));
 
 		sge::opencl::command_queue::enqueue_kernel(
 			main_queue,
 			main_kernel,
-			global_dim,
-			local_dim);
+			sge::opencl::command_queue::global_dim1(
+				sge::opencl::dim1(
+					vb->size().get() * 2u)),
+			sge::opencl::command_queue::local_dim1(
+				sge::opencl::dim1(
+					2u)),
+			sge::opencl::command_queue::event_sequence());
 	}
 
 	fcppt::io::cout()

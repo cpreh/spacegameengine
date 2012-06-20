@@ -25,14 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/export_function_instantiation.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/container/array.hpp>
-#include <fcppt/io/ostringstream.hpp>
-#include <fcppt/assert/pre.hpp>
-#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/optional.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/container/array.hpp>
+#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/io/ostringstream.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace

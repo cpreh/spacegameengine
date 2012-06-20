@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_VOLUME_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/dim3.hpp>
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/memory_object/base.hpp>
-#include <sge/opencl/dim3.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/renderer/texture/volume_fwd.hpp>
 #include <fcppt/math/dim/object_impl.hpp>

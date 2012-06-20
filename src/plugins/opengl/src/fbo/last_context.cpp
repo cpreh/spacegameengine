@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/base.hpp>
 #include <sge/opengl/context/device/id.hpp>
 #include <sge/opengl/context/device/make_id.hpp>
-#include <sge/opengl/fbo/no_buffer.hpp>
 #include <sge/opengl/fbo/id.hpp>
 #include <sge/opengl/fbo/last_context.hpp>
+#include <sge/opengl/fbo/no_buffer.hpp>
 
 
 sge::opengl::fbo::last_context::last_context()

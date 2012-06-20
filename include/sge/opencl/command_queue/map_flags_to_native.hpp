@@ -1,8 +1,9 @@
 #ifndef SGE_OPENCL_COMMAND_QUEUE_MAP_FLAGS_TO_NATIVE_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_MAP_FLAGS_TO_NATIVE_HPP_INCLUDED
 
-#include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/command_queue/map_flags.hpp>
+
 
 namespace sge
 {

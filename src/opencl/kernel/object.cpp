@@ -40,7 +40,9 @@ sge::opencl::kernel::object::object(
 	// TODO: change this to directly construct the elements via free functions
 	name_(
 		_name.get()),
-	kernel_(0)
+	kernel_(
+		0),
+	argument_count_()
 {
 	cl_int error_code;
 

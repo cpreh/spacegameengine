@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/actor.hpp>
-#include <sge/opengl/vf/actor_ptr.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
+#include <sge/opengl/vf/actor_ptr.hpp>
 #include <sge/opengl/vf/to_actor.hpp>
 #include <sge/opengl/vf/to_actor_visitor.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>

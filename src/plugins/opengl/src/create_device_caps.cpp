@@ -33,13 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
+#include <sge/renderer/caps/device.hpp>
+#include <sge/renderer/caps/device_unique_ptr.hpp>
 #include <sge/renderer/caps/driver_name.hpp>
 #include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
-#include <sge/renderer/caps/device.hpp>
-#include <sge/renderer/caps/device_unique_ptr.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <fcppt/make_unique_ptr.hpp>

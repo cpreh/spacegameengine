@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/glx/visual/create.hpp>
 #include <sge/opengl/glx/visual/choose.hpp>
+#include <sge/opengl/glx/visual/create.hpp>
 #include <sge/opengl/glx/visual/make_attributes.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <awl/backends/x11/system/object.hpp>

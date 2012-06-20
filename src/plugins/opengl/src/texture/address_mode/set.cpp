@@ -28,10 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/convert/address_mode.hpp>
 #include <sge/opengl/texture/convert/address_mode_type.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
-#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/address_mode_s.hpp>
 #include <sge/renderer/texture/address_mode_t.hpp>
 #include <sge/renderer/texture/address_mode_u.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 namespace

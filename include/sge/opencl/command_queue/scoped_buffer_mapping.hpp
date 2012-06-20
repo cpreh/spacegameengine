@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/symbol.hpp>
+#include <sge/opencl/command_queue/event_sequence.hpp>
+#include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/opencl/memory_object/buffer_fwd.hpp>
 #include <sge/opencl/memory_object/byte_offset.hpp>
 #include <sge/opencl/memory_object/byte_size.hpp>
-#include <sge/opencl/command_queue/event_sequence.hpp>
-#include <sge/opencl/command_queue/map_flags.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

@@ -2,9 +2,6 @@ set(
 	SGE_OPENCL_FILES
 	include/sge/opencl/binary_error_data.hpp
 	include/sge/opencl/clinclude.hpp
-	include/sge/opencl/command_queue/dim1.hpp
-	include/sge/opencl/command_queue/dim2.hpp
-	include/sge/opencl/command_queue/dim3.hpp
 	include/sge/opencl/command_queue/enqueue_kernel.hpp
 	include/sge/opencl/command_queue/event_sequence.hpp
 	include/sge/opencl/command_queue/execution_mode.hpp
@@ -33,8 +30,10 @@ set(
 	include/sge/opencl/device/object_fwd.hpp
 	include/sge/opencl/device/object_ref_sequence.hpp
 	include/sge/opencl/device/object_sequence.hpp
+	include/sge/opencl/dim1.hpp
+	include/sge/opencl/dim2.hpp
+	include/sge/opencl/dim3.hpp
 	include/sge/opencl/error_information_string.hpp
-	include/sge/opencl/extension_sequence.hpp
 	include/sge/opencl/kernel/argument_index.hpp
 	include/sge/opencl/kernel/local_buffer.hpp
 	include/sge/opencl/kernel/local_buffer_fwd.hpp
@@ -50,9 +49,6 @@ set(
 	include/sge/opencl/memory_object/byte_offset.hpp
 	include/sge/opencl/memory_object/byte_size.hpp
 	include/sge/opencl/memory_object/create_image_format.hpp
-	include/sge/opencl/memory_object/dim1.hpp
-	include/sge/opencl/memory_object/dim2.hpp
-	include/sge/opencl/memory_object/dim3.hpp
 	include/sge/opencl/memory_object/flags.hpp
 	include/sge/opencl/memory_object/flags_field.hpp
 	include/sge/opencl/memory_object/image/format_output.hpp
@@ -68,15 +64,15 @@ set(
 	include/sge/opencl/memory_object/rect.hpp
 	include/sge/opencl/memory_object/renderer_buffer_lock_mode.hpp
 	include/sge/opencl/memory_object/scoped_objects.hpp
-	include/sge/opencl/memory_object/size_type.hpp
 	include/sge/opencl/memory_object/vector1.hpp
 	include/sge/opencl/memory_object/vector2.hpp
 	include/sge/opencl/memory_object/vector3.hpp
-	include/sge/opencl/optional_renderer.hpp
+	include/sge/opencl/platform/extension_sequence.hpp
 	include/sge/opencl/platform/object.hpp
 	include/sge/opencl/platform/object_fwd.hpp
 	include/sge/opencl/platform/object_sequence.hpp
-	include/sge/opencl/profile_type.hpp
+	include/sge/opencl/platform/profile_type.hpp
+	include/sge/opencl/platform/version.hpp
 	include/sge/opencl/program/blob.hpp
 	include/sge/opencl/program/build_error.hpp
 	include/sge/opencl/program/build_options.hpp
@@ -88,16 +84,18 @@ set(
 	include/sge/opencl/program/notification_callback_type.hpp
 	include/sge/opencl/program/object.hpp
 	include/sge/opencl/program/object_fwd.hpp
+	include/sge/opencl/program/optional_build_callback.hpp
 	include/sge/opencl/program/optional_build_parameters.hpp
 	include/sge/opencl/program/source_string.hpp
 	include/sge/opencl/program/source_string_sequence.hpp
 	include/sge/opencl/single_device_system/object.hpp
 	include/sge/opencl/single_device_system/object_fwd.hpp
+	include/sge/opencl/single_device_system/optional_renderer.hpp
 	include/sge/opencl/single_device_system/parameters.hpp
 	include/sge/opencl/single_device_system/parameters_fwd.hpp
+	include/sge/opencl/size_type.hpp
 	include/sge/opencl/system.hpp
 	include/sge/opencl/system_fwd.hpp
-	include/sge/opencl/version.hpp
 	src/opencl/command_queue/enqueue_kernel.cpp
 	src/opencl/command_queue/map_flags_to_native.cpp
 	src/opencl/command_queue/object.cpp
@@ -130,6 +128,7 @@ set(
 	src/opencl/memory_object/scoped_objects.cpp
 	src/opencl/memory_object/to_opencl_mem_flags.cpp
 	src/opencl/platform/object.cpp
+	src/opencl/platform/version.cpp
 	src/opencl/program/build_error.cpp
 	src/opencl/program/build_parameters.cpp
 	src/opencl/program/file_to_source_string_sequence.cpp
@@ -137,7 +136,6 @@ set(
 	src/opencl/single_device_system/object.cpp
 	src/opencl/single_device_system/parameters.cpp
 	src/opencl/system.cpp
-	src/opencl/version.cpp
 )
 
 include_directories(

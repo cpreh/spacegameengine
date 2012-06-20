@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/visual/object.hpp>
-#include <awl/window/object.hpp>
 #include <awl/window/dim.hpp>
+#include <awl/window/object.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/text.hpp>
 

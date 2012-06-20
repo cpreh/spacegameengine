@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/to_gl_bool.hpp>
 #include <sge/opengl/state/point_sprite.hpp>
-//#include <sge/opengl/texture/multi_context.hpp>
+#include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/funcs/env_arg.hpp>
 #include <sge/opengl/texture/funcs/env_int.hpp>
 #include <sge/opengl/texture/funcs/env_int_value.hpp>

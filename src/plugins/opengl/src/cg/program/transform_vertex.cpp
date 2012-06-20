@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/program/source.hpp>
 #include <sge/cg/program/replace_extra.hpp>
 #include <sge/cg/program/replace_extra_callback.hpp>
+#include <sge/cg/program/source.hpp>
 #include <sge/opengl/cg/program/replace_index.hpp>
 #include <sge/opengl/cg/program/transform_vertex.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>

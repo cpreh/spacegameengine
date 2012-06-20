@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/unsupported.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/create_volume.hpp>
 #include <sge/opengl/texture/volume.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
+#include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>

@@ -29,11 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/to_const.hpp>
 #include <sge/opengl/range_check.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/best_color_format.hpp>
 #include <sge/opengl/convert/color_to_format.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
 #include <sge/opengl/convert/color_to_internal_format.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/check_dim.hpp>
 #include <sge/opengl/texture/create_lock.hpp>

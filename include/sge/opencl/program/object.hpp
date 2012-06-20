@@ -45,34 +45,34 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_SYMBOL
 	object(
-		context::object &,
-		program::device_blob_map const &,
-		program::optional_build_parameters const &);
+		sge::opencl::context::object &,
+		sge::opencl::program::device_blob_map const &,
+		sge::opencl::program::optional_build_parameters const &);
 
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_SYMBOL
 	object(
-		context::object &,
-		program::source_string_sequence const &,
-		program::optional_build_parameters const &);
+		sge::opencl::context::object &,
+		sge::opencl::program::source_string_sequence const &,
+		sge::opencl::program::optional_build_parameters const &);
 
 	SGE_OPENCL_SYMBOL cl_program
 	impl() const;
 
 	SGE_OPENCL_SYMBOL void
 	build(
-		program::build_parameters const &);
+		sge::opencl::program::build_parameters const &);
 
-	SGE_OPENCL_SYMBOL program::device_blob_map const
+	SGE_OPENCL_SYMBOL sge::opencl::program::device_blob_map const
 	binaries() const;
 
 	SGE_OPENCL_SYMBOL ~object();
 private:
-	friend class kernel::object;
+	friend class sge::opencl::kernel::object;
 
 	cl_program program_;
-	program::notification_callback notification_callback_;
+	sge::opencl::program::notification_callback notification_callback_;
 
 	static void
 	notification_callback(

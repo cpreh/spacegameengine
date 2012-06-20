@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_SCOPED_FRAME_LIMITER_HPP_INCLUDED
 #define SGE_TIMER_SCOPED_FRAME_LIMITER_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
 #include <sge/timer/scoped_frame_limiter_fwd.hpp>
 #include <sge/timer/symbol.hpp>
 #include <sge/timer/clocks/standard.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
