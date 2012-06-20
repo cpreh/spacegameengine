@@ -18,22 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_EXTENSION_SEQUENCE_HPP_INCLUDED
-#define SGE_OPENCL_EXTENSION_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_OPENCL_DIM2_HPP_INCLUDED
+#define SGE_OPENCL_DIM2_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <string>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
-
+#include <sge/opencl/size_type.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 namespace sge
 {
 namespace opencl
 {
 typedef
-std::vector<std::string>
-extension_sequence;
+fcppt::math::dim::static_<sge::opencl::size_type,2>::type
+dim2;
 }
 }
 

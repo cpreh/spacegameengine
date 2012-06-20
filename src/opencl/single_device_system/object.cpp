@@ -55,7 +55,7 @@ construct_context_parameters(
 	sge::opencl::platform::object &_platform,
 	sge::opencl::device::object &_device,
 	sge::opencl::context::error_callback const &_error_callback,
-	sge::opencl::optional_renderer const &_renderer)
+	sge::opencl::single_device_system::optional_renderer const &_renderer)
 {
 	sge::opencl::context::parameters result(
 		_platform,

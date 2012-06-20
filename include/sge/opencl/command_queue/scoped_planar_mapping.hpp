@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/opencl/memory_object/rect.hpp>
+#include <sge/opencl/command_queue/event_sequence.hpp>
+#include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/memory_object/image/planar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -50,8 +52,9 @@ public:
 	scoped_planar_mapping(
 		command_queue::object &,
 		opencl::memory_object::image::planar &,
-		cl_map_flags,
-		opencl::memory_object::rect const &);
+		sge::opencl::command_queue::map_flags::type,
+		opencl::memory_object::rect const &,
+		sge::opencl::command_queue::event_sequence const &);
 
 	SGE_OPENCL_SYMBOL void*
 	ptr() const;

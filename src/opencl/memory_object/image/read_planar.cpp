@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/opencl/memory_object/image/read_planar.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -38,17 +39,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opencl::memory_object::image::read_planar(
-	opencl::command_queue::object &_queue,
-	opencl::memory_object::image::planar const &_image,
+	sge::opencl::command_queue::object &_queue,
+	sge::opencl::memory_object::image::planar const &_image,
 	sge::image2d::view::object const &_view,
-	opencl::memory_object::rect const &_rect)
+	sge::opencl::memory_object::rect const &_rect)
 {
-	command_queue::scoped_planar_mapping scoped_map(
+	sge::opencl::command_queue::scoped_planar_mapping scoped_map(
 		_queue,
 		const_cast<opencl::memory_object::image::planar &>(
 			_image),
-		CL_MAP_READ,
-		_rect);
+		sge::opencl::command_queue::map_flags::read,
+		_rect,
+		sge::opencl::command_queue::event_sequence());
 
 	sge::image2d::algorithm::copy_and_convert(
 		sge::image2d::view::make_const(

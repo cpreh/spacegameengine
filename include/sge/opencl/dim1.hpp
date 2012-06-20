@@ -18,21 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_PROFILE_TYPE_HPP_INCLUDED
-#define SGE_OPENCL_PROFILE_TYPE_HPP_INCLUDED
+#ifndef SGE_OPENCL_DIM1_HPP_INCLUDED
+#define SGE_OPENCL_DIM1_HPP_INCLUDED
+
+#include <sge/opencl/size_type.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 namespace sge
 {
 namespace opencl
 {
-namespace profile_type
-{
-enum type
-{
-	full,
-	embedded
-};
-}
+typedef
+fcppt::math::dim::static_<sge::opencl::size_type,1>::type
+dim1;
 }
 }
 

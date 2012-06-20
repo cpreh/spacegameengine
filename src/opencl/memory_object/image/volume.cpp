@@ -39,7 +39,7 @@ sge::opencl::memory_object::image::volume::volume(
 	impl_(),
 	image_format_(),
 	size_(
-		fcppt::math::dim::structure_cast<memory_object::dim3>(
+		fcppt::math::dim::structure_cast<sge::opencl::dim3>(
 			_renderer_texture.area().size()))
 {
 	cl_int error_code;
@@ -86,7 +86,7 @@ sge::opencl::memory_object::image::volume::image_format() const
 	return image_format_;
 }
 
-sge::opencl::memory_object::dim3 const &
+sge::opencl::dim3 const &
 sge::opencl::memory_object::image::volume::size() const
 {
 	return size_;

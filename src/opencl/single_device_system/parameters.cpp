@@ -25,7 +25,9 @@ sge::opencl::single_device_system::parameters::parameters()
 	renderer_(),
 	error_callback_(),
 	profiling_(
-		command_queue::profiling_mode::disabled),
+		sge::opencl::command_queue::profiling_mode::disabled),
+	execution_mode_(
+		sge::opencl::command_queue::execution_mode::in_order),
 	prefers_gpu_(
 		false)
 {
@@ -36,7 +38,7 @@ sge::opencl::single_device_system::parameters::renderer(
 	sge::renderer::device &_renderer)
 {
 	renderer_ =
-		opencl::optional_renderer(
+		sge::opencl::single_device_system::optional_renderer(
 			_renderer);
 	return *this;
 }
@@ -67,7 +69,16 @@ sge::opencl::single_device_system::parameters::prefer_gpu(
 	return *this;
 }
 
-sge::opencl::optional_renderer const &
+sge::opencl::single_device_system::parameters &
+sge::opencl::single_device_system::parameters::execution_mode(
+	sge::opencl::command_queue::execution_mode::type const _execution_mode)
+{
+	execution_mode_ =
+		_execution_mode;
+	return *this;
+}
+
+sge::opencl::single_device_system::optional_renderer const &
 sge::opencl::single_device_system::parameters::renderer() const
 {
 	return
@@ -84,6 +95,12 @@ sge::opencl::command_queue::profiling_mode::type
 sge::opencl::single_device_system::parameters::profiling() const
 {
 	return profiling_;
+}
+
+sge::opencl::command_queue::execution_mode::type
+sge::opencl::single_device_system::parameters::execution_mode() const
+{
+	return execution_mode_;
 }
 
 bool

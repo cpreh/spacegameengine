@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/buffer_fwd.hpp>
 #include <sge/opencl/memory_object/byte_offset.hpp>
 #include <sge/opencl/memory_object/byte_size.hpp>
+#include <sge/opencl/command_queue/event_sequence.hpp>
+#include <sge/opencl/command_queue/map_flags.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -41,20 +43,21 @@ class scoped_buffer_mapping
 FCPPT_NONCOPYABLE(
 	scoped_buffer_mapping);
 public:
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_SYMBOL
 	scoped_buffer_mapping(
-		command_queue::object &,
-		opencl::memory_object::buffer &,
-		cl_map_flags,
-		memory_object::byte_offset const &,
-		memory_object::byte_size const &);
+		sge::opencl::command_queue::object &,
+		sge::opencl::memory_object::buffer &,
+		sge::opencl::command_queue::map_flags::type,
+		sge::opencl::memory_object::byte_offset const &,
+		sge::opencl::memory_object::byte_size const &,
+		sge::opencl::command_queue::event_sequence const &);
 
 	SGE_OPENCL_SYMBOL void*
 	ptr() const;
 
 	SGE_OPENCL_SYMBOL ~scoped_buffer_mapping();
 private:
-	command_queue::object &queue_;
+	sge::opencl::command_queue::object &queue_;
 	cl_mem buffer_;
 	void *ptr_;
 };

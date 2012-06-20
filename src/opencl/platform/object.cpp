@@ -99,7 +99,7 @@ sge::opencl::platform::object::devices() const
 	return devices_;
 }
 
-sge::opencl::profile_type::type
+sge::opencl::platform::profile_type::type
 sge::opencl::platform::object::profile() const
 {
 	return
@@ -107,16 +107,16 @@ sge::opencl::platform::object::profile() const
 			platform_id_,
 			CL_PLATFORM_PROFILE) == "FULL_PROFILE"
 		?
-			opencl::profile_type::full
+			sge::opencl::platform::profile_type::full
 		:
-			opencl::profile_type::embedded;
+			sge::opencl::platform::profile_type::embedded;
 }
 
-sge::opencl::version const
+sge::opencl::platform::version const
 sge::opencl::platform::object::version() const
 {
 	return
-		opencl::version(
+		sge::opencl::platform::version(
 			platform_info_string(
 				platform_id_,
 				CL_PLATFORM_VERSION));
@@ -131,10 +131,10 @@ sge::opencl::platform::object::name() const
 			CL_PLATFORM_NAME);
 }
 
-sge::opencl::extension_sequence const
+sge::opencl::platform::extension_sequence const
 sge::opencl::platform::object::extensions() const
 {
-	sge::opencl::extension_sequence result;
+	sge::opencl::platform::extension_sequence result;
 	boost::algorithm::split(
 		result,
 		platform_info_string(

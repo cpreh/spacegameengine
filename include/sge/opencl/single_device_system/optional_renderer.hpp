@@ -18,22 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_MEMORY_OBJECT_SIZE_TYPE_HPP_INCLUDED
-#define SGE_OPENCL_MEMORY_OBJECT_SIZE_TYPE_HPP_INCLUDED
+#ifndef SGE_OPENCL_SINGLE_DEVICE_SYSTEM_OPTIONAL_RENDERER_HPP_INCLUDED
+#define SGE_OPENCL_SINGLE_DEVICE_SYSTEM_OPTIONAL_RENDERER_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <cstddef>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <fcppt/optional.hpp>
+
 
 namespace sge
 {
 namespace opencl
 {
-namespace memory_object
+namespace single_device_system
 {
 typedef
-std::size_t
-size_type;
+fcppt::optional<sge::renderer::device &>
+optional_renderer;
 }
 }
 }

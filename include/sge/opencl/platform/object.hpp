@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_PLATFORM_OBJECT_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/extension_sequence.hpp>
-#include <sge/opencl/profile_type.hpp>
+#include <sge/opencl/platform/extension_sequence.hpp>
+#include <sge/opencl/platform/profile_type.hpp>
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/system_fwd.hpp>
-#include <sge/opencl/version.hpp>
+#include <sge/opencl/platform/version.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/context/parameters_fwd.hpp>
 #include <sge/opencl/device/object.hpp>
@@ -55,10 +55,10 @@ public:
 	SGE_OPENCL_SYMBOL opencl::device::object_sequence const &
 	devices() const;
 
-	SGE_OPENCL_SYMBOL opencl::profile_type::type
+	SGE_OPENCL_SYMBOL sge::opencl::platform::profile_type::type
 	profile() const;
 
-	SGE_OPENCL_SYMBOL opencl::version const
+	SGE_OPENCL_SYMBOL sge::opencl::platform::version const
 	version() const;
 
 	SGE_OPENCL_SYMBOL std::string const
@@ -67,7 +67,7 @@ public:
 	SGE_OPENCL_SYMBOL std::string const
 	vendor() const;
 
-	SGE_OPENCL_SYMBOL opencl::extension_sequence const
+	SGE_OPENCL_SYMBOL sge::opencl::platform::extension_sequence const
 	extensions() const;
 
 	SGE_OPENCL_SYMBOL bool

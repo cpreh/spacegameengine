@@ -18,23 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_COMMAND_QUEUE_DIM2_HPP_INCLUDED
-#define SGE_OPENCL_COMMAND_QUEUE_DIM2_HPP_INCLUDED
+#ifndef SGE_OPENCL_PLATFORM_VERSION_HPP_INCLUDED
+#define SGE_OPENCL_PLATFORM_VERSION_HPP_INCLUDED
 
-#include <fcppt/container/array_fwd.hpp>
+#include <sge/opencl/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstddef>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
 namespace opencl
 {
-namespace command_queue
+namespace platform
 {
-typedef
-fcppt::container::array<std::size_t,2>
-dim2;
+class version
+{
+public:
+	typedef
+	unsigned
+	unit;
+
+	SGE_OPENCL_SYMBOL explicit
+	version(
+		std::string const &);
+
+	SGE_OPENCL_SYMBOL unit
+	major_part() const;
+
+	SGE_OPENCL_SYMBOL unit
+	minor_part() const;
+
+	SGE_OPENCL_SYMBOL std::string const &
+	platform_specific() const;
+private:
+	unit major_;
+	unit minor_;
+	std::string platform_specific_;
+};
 }
 }
 }

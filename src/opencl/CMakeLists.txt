@@ -6,7 +6,16 @@ set(
 	include/sge/opencl/command_queue/dim2.hpp
 	include/sge/opencl/command_queue/dim3.hpp
 	include/sge/opencl/command_queue/enqueue_kernel.hpp
+	include/sge/opencl/command_queue/event_sequence.hpp
 	include/sge/opencl/command_queue/execution_mode.hpp
+	include/sge/opencl/command_queue/global_dim1.hpp
+	include/sge/opencl/command_queue/global_dim2.hpp
+	include/sge/opencl/command_queue/global_dim3.hpp
+	include/sge/opencl/command_queue/local_dim1.hpp
+	include/sge/opencl/command_queue/local_dim2.hpp
+	include/sge/opencl/command_queue/local_dim3.hpp
+	include/sge/opencl/command_queue/map_flags.hpp
+	include/sge/opencl/command_queue/map_flags_to_native.hpp
 	include/sge/opencl/command_queue/object.hpp
 	include/sge/opencl/command_queue/object_fwd.hpp
 	include/sge/opencl/command_queue/profiling_mode.hpp
@@ -90,6 +99,7 @@ set(
 	include/sge/opencl/system_fwd.hpp
 	include/sge/opencl/version.hpp
 	src/opencl/command_queue/enqueue_kernel.cpp
+	src/opencl/command_queue/map_flags_to_native.cpp
 	src/opencl/command_queue/object.cpp
 	src/opencl/command_queue/scoped.cpp
 	src/opencl/command_queue/scoped_buffer_mapping.cpp

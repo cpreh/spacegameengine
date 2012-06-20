@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/memory_object/base.hpp>
-#include <sge/opencl/memory_object/dim2.hpp>
+#include <sge/opencl/dim2.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/opencl/memory_object/image/planar_pitch.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
@@ -49,19 +49,19 @@ class SGE_CLASS_SYMBOL planar
 FCPPT_NONCOPYABLE(
 	planar);
 public:
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_SYMBOL
 	planar(
-		context::object &,
-		memory_object::flags_field const &,
+		sge::opencl::context::object &,
+		sge::opencl::memory_object::flags_field const &,
 		cl_image_format const &,
-		memory_object::dim2 const &size,
-		image::planar_pitch const &);
+		sge::opencl::dim2 const &size,
+		sge::opencl::memory_object::image::planar_pitch const &);
 
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_SYMBOL
 	planar(
-		context::object &,
-		memory_object::flags_field const &,
-		renderer::texture::planar &);
+		sge::opencl::context::object &,
+		sge::opencl::memory_object::flags_field const &,
+		sge::renderer::texture::planar &);
 
 	SGE_OPENCL_SYMBOL cl_mem
 	impl();
@@ -69,14 +69,14 @@ public:
 	SGE_OPENCL_SYMBOL cl_image_format const &
 	image_format() const;
 
-	SGE_OPENCL_SYMBOL memory_object::dim2 const &
+	SGE_OPENCL_SYMBOL sge::opencl::dim2 const &
 	size() const;
 
 	SGE_OPENCL_SYMBOL ~planar();
 private:
 	cl_mem impl_;
 	cl_image_format image_format_;
-	memory_object::dim2 size_;
+	sge::opencl::dim2 size_;
 };
 }
 }

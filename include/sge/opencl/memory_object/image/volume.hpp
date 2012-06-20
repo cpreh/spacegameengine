@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/memory_object/base.hpp>
-#include <sge/opencl/memory_object/dim3.hpp>
+#include <sge/opencl/dim3.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/renderer/texture/volume_fwd.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -58,14 +58,14 @@ public:
 	SGE_OPENCL_SYMBOL cl_image_format const &
 	image_format() const;
 
-	SGE_OPENCL_SYMBOL memory_object::dim3 const &
+	SGE_OPENCL_SYMBOL sge::opencl::dim3 const &
 	size() const;
 
 	SGE_OPENCL_SYMBOL ~volume();
 private:
 	cl_mem impl_;
 	cl_image_format image_format_;
-	memory_object::dim3 size_;
+	sge::opencl::dim3 size_;
 };
 }
 }

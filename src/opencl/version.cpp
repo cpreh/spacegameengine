@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opencl/version.hpp>
+#include <sge/opencl/platform/version.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 // FIXME: I couldn't quite figure out which headers are needed here
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 // TODO: Initialize this directly
-sge::opencl::version::version(
+sge::opencl::platform::version::version(
 	std::string const &_version_string)
 {
 
@@ -82,20 +82,20 @@ sge::opencl::version::version(
 		begin == end && res);
 }
 
-sge::opencl::version::unit
-sge::opencl::version::major_part() const
+sge::opencl::platform::version::unit
+sge::opencl::platform::version::major_part() const
 {
 	return major_;
 }
 
-sge::opencl::version::unit
-sge::opencl::version::minor_part() const
+sge::opencl::platform::version::unit
+sge::opencl::platform::version::minor_part() const
 {
 	return minor_;
 }
 
 std::string const &
-sge::opencl::version::platform_specific() const
+sge::opencl::platform::version::platform_specific() const
 {
 	return platform_specific_;
 }

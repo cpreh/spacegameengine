@@ -35,7 +35,7 @@ sge::opencl::memory_object::image::planar::planar(
 	context::object &_context,
 	memory_object::flags_field const &_mem_flags,
 	cl_image_format const &_image_format,
-	memory_object::dim2 const &_size,
+	sge::opencl::dim2 const &_size,
 	image::planar_pitch const &_pitch)
 :
 	impl_(),
@@ -131,7 +131,7 @@ sge::opencl::memory_object::image::planar::planar(
 	impl_(),
 	image_format_(),
 	size_(
-		fcppt::math::dim::structure_cast<memory_object::dim2>(
+		fcppt::math::dim::structure_cast<sge::opencl::dim2>(
 			_renderer_texture.area().size()))
 {
 	cl_int error_code;
@@ -177,7 +177,7 @@ sge::opencl::memory_object::image::planar::image_format() const
 	return image_format_;
 }
 
-sge::opencl::memory_object::dim2 const &
+sge::opencl::dim2 const &
 sge::opencl::memory_object::image::planar::size() const
 {
 	return size_;

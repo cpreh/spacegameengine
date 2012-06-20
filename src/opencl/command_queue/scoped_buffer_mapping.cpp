@@ -20,17 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/scoped_buffer_mapping.hpp>
+#include <sge/opencl/command_queue/map_flags_to_native.hpp>
 #include <sge/opencl/memory_object/buffer.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::opencl::command_queue::scoped_buffer_mapping::scoped_buffer_mapping(
-	command_queue::object &_queue,
-	opencl::memory_object::buffer &_buffer,
-	cl_map_flags const _flags,
-	memory_object::byte_offset const &_offset,
-	memory_object::byte_size const &_size)
+	sge::opencl::command_queue::object &_queue,
+	sge::opencl::memory_object::buffer &_buffer,
+	sge::opencl::command_queue::map_flags::type const _flags,
+	sge::opencl::memory_object::byte_offset const &_offset,
+	sge::opencl::memory_object::byte_size const &_size,
+	sge::opencl::command_queue::event_sequence const &_events)
 :
 	queue_(
 		_queue),
@@ -47,14 +50,18 @@ sge::opencl::command_queue::scoped_buffer_mapping::scoped_buffer_mapping(
 			buffer_,
 			// Blocking: yes
 			CL_TRUE,
-			_flags,
+			sge::opencl::command_queue::map_flags_to_native(
+				_flags),
 			_offset.get(),
 			_size.get(),
-			// event
-			0,
-			// event
-			0,
-			// event
+			static_cast<cl_uint>(
+				_events.size()),
+			_events.empty()
+			?
+				0
+			:
+				_events.data(),
+			// result event
 			0,
 			&error_code);
 

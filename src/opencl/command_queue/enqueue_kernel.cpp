@@ -28,14 +28,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/io/ostringstream.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/optional.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
+#include <algorithm>
 
 
 namespace
 {
-template<std::size_t N>
-fcppt::string
+typedef
+fcppt::container::raw_vector<std::size_t>
+size_vector;
+
+typedef
+fcppt::optional<size_vector>
+optional_size_vector;
+
+fcppt::string const
 output_dimension(
-	fcppt::container::array<std::size_t,N> const &a)
+	size_vector const &a)
 {
 	fcppt::io::ostringstream ss;
 
@@ -51,33 +63,49 @@ output_dimension(
 
 	return ss.str();
 }
-}
 
-template<std::size_t N>
-void
-sge::opencl::command_queue::enqueue_kernel(
-	command_queue::object &_queue,
-	kernel::object &_kernel,
-	fcppt::container::array<std::size_t,N> const &global_dim,
-	fcppt::container::array<std::size_t,N> const &work_dim)
+cl_event
+enqueue_kernel_internal(
+	sge::opencl::command_queue::object &_queue,
+	sge::opencl::kernel::object &_kernel,
+	size_vector const &global_dim,
+	optional_size_vector const &work_dim,
+	sge::opencl::command_queue::event_sequence const &_events)
 {
-	for(std::size_t i = 0; i < N; ++i)
-		if(global_dim[i] == 0 || work_dim[i] == 0)
+	FCPPT_ASSERT_PRE(
+		!work_dim || global_dim.size() == work_dim->size());
+
+	for(std::size_t i = 0; i < global_dim.size(); ++i)
+		if(global_dim[i] == 0 || (work_dim && (*work_dim)[i] == 0))
 			throw sge::exception(
 				FCPPT_TEXT("Neither global nor work dimensions can be zero in any component"));
 
+	cl_event const * const event_ptr =
+		_events.empty()
+		?
+			0
+		:
+			_events.data();
+
+	cl_event result;
+
 	cl_int const error_code =
 		clEnqueueNDRangeKernel(
 			_queue.impl(),
 			_kernel.impl(),
 			static_cast<cl_uint>(
-				N),
+				global_dim.size()),
 			0, // global work offset (not implemented in 1.1)
 			global_dim.data(),
-			work_dim.data(),
-			0,
-			0,
-			0);
+			work_dim
+			?
+				work_dim->data()
+			:
+				0,
+			static_cast<cl_uint>(
+				_events.size()),
+			event_ptr,
+			&result);
 
 	if(error_code == CL_INVALID_WORK_GROUP_SIZE)
 	{
@@ -89,88 +117,176 @@ sge::opencl::command_queue::enqueue_kernel(
 				FCPPT_TEXT("\": workgroup size invalid. The global dimension is ")+
 				output_dimension(
 					global_dim)+
-				FCPPT_TEXT(", the workgroup dimension is ")+
-				output_dimension(
-					work_dim));
+				(work_dim
+				?
+					FCPPT_TEXT(", the workgroup dimension is ")+
+					output_dimension(
+						*work_dim)
+				:
+					fcppt::string()));
 	}
 
-	opencl::handle_error(
+	sge::opencl::handle_error(
 		error_code,
 		FCPPT_TEXT("clEnqueueNDRangeKernel(work)"));
+
+	return
+		result;
 }
 
-template<std::size_t N>
-void
-sge::opencl::command_queue::enqueue_kernel(
-	command_queue::object &_queue,
-	kernel::object &_kernel,
-	fcppt::container::array<std::size_t,N> const &global_dim)
+template<typename GlobalDim,typename LocalDim>
+cl_event
+enqueue_kernel_templatized(
+	sge::opencl::command_queue::object &_command_queue,
+	sge::opencl::kernel::object &_kernel,
+	GlobalDim const &_global_dim,
+	LocalDim const &_local_dim,
+	sge::opencl::command_queue::event_sequence const &_events)
 {
-	for(std::size_t i = 0; i < N; ++i)
-		if(global_dim[i] == 0)
-			throw sge::exception(
-				FCPPT_TEXT("Global work dimensions cannot be zero in any component"));
+	size_vector global_dim(
+		_global_dim.get().size());
 
-	cl_int const error_code =
-		clEnqueueNDRangeKernel(
-			_queue.impl(),
-			_kernel.impl(),
-			static_cast<cl_uint>(
-				N),
-			0, // global work offset (not implemented in 1.1)
-			global_dim.data(),
-			0, // local dim
-			0,
-			0,
-			0);
+	std::copy(
+		_global_dim.get().begin(),
+		_global_dim.get().end(),
+		global_dim.begin());
 
-	if(error_code == CL_INVALID_WORK_GROUP_SIZE)
-	{
-		throw
-			sge::exception(
-				FCPPT_TEXT("Error enqueuing kernel \"")+
-				fcppt::from_std_string(
-					_kernel.name())+
-				FCPPT_TEXT("\": workgroup size invalid. The global dimension is ")+
-				output_dimension(
-					global_dim)+
-				FCPPT_TEXT(", the workgroup dimension is not specified"));
-	}
+	size_vector local_dim(
+		_local_dim.get().size());
 
-	opencl::handle_error(
-		error_code,
-		FCPPT_TEXT("clEnqueueNDRangeKernel"));
+	std::copy(
+		_local_dim.get().begin(),
+		_local_dim.get().end(),
+		local_dim.begin());
+
+	return
+		enqueue_kernel_internal(
+			_command_queue,
+			_kernel,
+			global_dim,
+			optional_size_vector(
+				local_dim),
+			_events);
 }
 
-#define SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_ENQUEUE_KERNEL(\
-	arity\
-)\
-template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
-void sge::opencl::command_queue::enqueue_kernel<\
-	arity\
->( \
-	command_queue::object &_queue, \
-	kernel::object &, \
-	fcppt::container::array<std::size_t,arity> const &, \
-	fcppt::container::array<std::size_t,arity> const &);
+template<typename GlobalDim>
+cl_event
+enqueue_kernel_templatized(
+	sge::opencl::command_queue::object &_command_queue,
+	sge::opencl::kernel::object &_kernel,
+	GlobalDim const &_global_dim,
+	sge::opencl::command_queue::event_sequence const &_events)
+{
+	size_vector global_dim(
+		_global_dim.get().size());
 
-SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_ENQUEUE_KERNEL(1)
-SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_ENQUEUE_KERNEL(2)
-SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_ENQUEUE_KERNEL(3)
+	std::copy(
+		_global_dim.get().begin(),
+		_global_dim.get().end(),
+		global_dim.begin());
 
-#define SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_OTHER_ENQUEUE_KERNEL(\
-	arity\
-)\
-template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
-void sge::opencl::command_queue::enqueue_kernel<\
-	arity\
->( \
-	command_queue::object &_queue, \
-	kernel::object &, \
-	fcppt::container::array<std::size_t,arity> const &);
+	return
+		enqueue_kernel_internal(
+			_command_queue,
+			_kernel,
+			global_dim,
+			optional_size_vector(),
+			_events);
+}
+}
 
-SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_OTHER_ENQUEUE_KERNEL(1)
-SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_OTHER_ENQUEUE_KERNEL(2)
-SGE_OPENCL_COMMAND_QUEUE_INSTANTIATE_OTHER_ENQUEUE_KERNEL(3)
+cl_event
+sge::opencl::command_queue::enqueue_kernel(
+	sge::opencl::command_queue::object &_command_queue,
+	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::global_dim1 const &_global_dim,
+	sge::opencl::command_queue::local_dim1 const &_local_dim,
+	sge::opencl::command_queue::event_sequence const &_events)
+{
+	return
+		enqueue_kernel_templatized(
+			_command_queue,
+			_kernel,
+			_global_dim,
+			_local_dim,
+			_events);
+}
+
+cl_event
+sge::opencl::command_queue::enqueue_kernel(
+	sge::opencl::command_queue::object &_command_queue,
+	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::global_dim2 const &_global_dim,
+	sge::opencl::command_queue::local_dim2 const &_local_dim,
+	sge::opencl::command_queue::event_sequence const &_events)
+{
+	return
+		enqueue_kernel_templatized(
+			_command_queue,
+			_kernel,
+			_global_dim,
+			_local_dim,
+			_events);
+}
+
+cl_event
+sge::opencl::command_queue::enqueue_kernel(
+	sge::opencl::command_queue::object &_command_queue,
+	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::global_dim3 const &_global_dim,
+	sge::opencl::command_queue::local_dim3 const &_local_dim,
+	sge::opencl::command_queue::event_sequence const &_events)
+{
+	return
+		enqueue_kernel_templatized(
+			_command_queue,
+			_kernel,
+			_global_dim,
+			_local_dim,
+			_events);
+}
+
+cl_event
+sge::opencl::command_queue::enqueue_kernel(
+	sge::opencl::command_queue::object &_command_queue,
+	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::global_dim1 const &_global_dim,
+	sge::opencl::command_queue::event_sequence const &_events)
+{
+	return
+		enqueue_kernel_templatized(
+			_command_queue,
+			_kernel,
+			_global_dim,
+			_events);
+}
+
+cl_event
+sge::opencl::command_queue::enqueue_kernel(
+	sge::opencl::command_queue::object &_command_queue,
+	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::global_dim2 const &_global_dim,
+	sge::opencl::command_queue::event_sequence const &_events)
+{
+	return
+		enqueue_kernel_templatized(
+			_command_queue,
+			_kernel,
+			_global_dim,
+			_events);
+}
+
+cl_event
+sge::opencl::command_queue::enqueue_kernel(
+	sge::opencl::command_queue::object &_command_queue,
+	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::global_dim3 const &_global_dim,
+	sge::opencl::command_queue::event_sequence const &_events)
+{
+	return
+		enqueue_kernel_templatized(
+			_command_queue,
+			_kernel,
+			_global_dim,
+			_events);
+}

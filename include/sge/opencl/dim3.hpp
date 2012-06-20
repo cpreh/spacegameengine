@@ -18,20 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_OPTIONAL_RENDERER_HPP_INCLUDED
-#define SGE_OPENCL_OPTIONAL_RENDERER_HPP_INCLUDED
+#ifndef SGE_OPENCL_DIM3_HPP_INCLUDED
+#define SGE_OPENCL_DIM3_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
-#include <fcppt/optional.hpp>
-
+#include <sge/opencl/size_type.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 namespace sge
 {
 namespace opencl
 {
 typedef
-fcppt::optional<sge::renderer::device &>
-optional_renderer;
+fcppt::math::dim::static_<sge::opencl::size_type,3>::type
+dim3;
 }
 }
 

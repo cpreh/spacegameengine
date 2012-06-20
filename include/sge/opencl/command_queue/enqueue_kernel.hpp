@@ -23,11 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/symbol.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
+#include <sge/opencl/command_queue/global_dim1.hpp>
+#include <sge/opencl/command_queue/global_dim2.hpp>
+#include <sge/opencl/command_queue/global_dim3.hpp>
+#include <sge/opencl/command_queue/event_sequence.hpp>
+#include <sge/opencl/command_queue/local_dim1.hpp>
+#include <sge/opencl/command_queue/local_dim2.hpp>
+#include <sge/opencl/command_queue/local_dim3.hpp>
 #include <sge/opencl/kernel/object_fwd.hpp>
-#include <fcppt/container/array_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstddef>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -36,20 +39,56 @@ namespace opencl
 {
 namespace command_queue
 {
-template<std::size_t N>
-SGE_OPENCL_SYMBOL void
+SGE_OPENCL_SYMBOL
+cl_event
 enqueue_kernel(
-	opencl::command_queue::object &,
-	opencl::kernel::object &,
-	fcppt::container::array<std::size_t,N> const &global_dim,
-	fcppt::container::array<std::size_t,N> const &work_dim);
+	sge::opencl::command_queue::object &,
+	sge::opencl::kernel::object &,
+	sge::opencl::command_queue::global_dim1 const &,
+	sge::opencl::command_queue::local_dim1 const &,
+	sge::opencl::command_queue::event_sequence const &);
 
-template<std::size_t N>
-SGE_OPENCL_SYMBOL void
+SGE_OPENCL_SYMBOL
+cl_event
 enqueue_kernel(
-	opencl::command_queue::object &,
-	opencl::kernel::object &,
-	fcppt::container::array<std::size_t,N> const &global_dim);
+	sge::opencl::command_queue::object &,
+	sge::opencl::kernel::object &,
+	sge::opencl::command_queue::global_dim2 const &,
+	sge::opencl::command_queue::local_dim2 const &,
+	sge::opencl::command_queue::event_sequence const &);
+
+SGE_OPENCL_SYMBOL
+cl_event
+enqueue_kernel(
+	sge::opencl::command_queue::object &,
+	sge::opencl::kernel::object &,
+	sge::opencl::command_queue::global_dim3 const &,
+	sge::opencl::command_queue::local_dim3 const &,
+	sge::opencl::command_queue::event_sequence const &);
+
+SGE_OPENCL_SYMBOL
+cl_event
+enqueue_kernel(
+	sge::opencl::command_queue::object &,
+	sge::opencl::kernel::object &,
+	sge::opencl::command_queue::global_dim1 const &,
+	sge::opencl::command_queue::event_sequence const &);
+
+SGE_OPENCL_SYMBOL
+cl_event
+enqueue_kernel(
+	sge::opencl::command_queue::object &,
+	sge::opencl::kernel::object &,
+	sge::opencl::command_queue::global_dim2 const &,
+	sge::opencl::command_queue::event_sequence const &);
+
+SGE_OPENCL_SYMBOL
+cl_event
+enqueue_kernel(
+	sge::opencl::command_queue::object &,
+	sge::opencl::kernel::object &,
+	sge::opencl::command_queue::global_dim3 const &,
+	sge::opencl::command_queue::event_sequence const &);
 }
 }
 }
