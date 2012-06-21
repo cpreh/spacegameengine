@@ -130,9 +130,9 @@ find_package(
 	Bullet
 )
 
-find_package(
-	CEGUI
-)
+#find_package(
+#	CEGUI
+#)
 
 find_package(
 	OpenCL
@@ -143,7 +143,7 @@ find_package(
 )
 
 OPTION (ENABLE_CAMERA "Build the camera" ON)
-OPTION (ENABLE_CEGUI "Build the cegui subsystem" ${CEGUI_FOUND})
+#OPTION (ENABLE_CEGUI "Build the cegui subsystem" ${CEGUI_FOUND})
 OPTION (ENABLE_CG "Build the Cg library" ${CG_FOUND})
 OPTION (ENABLE_CONFIG "Build the config library" ON)
 OPTION (ENABLE_CONSOLE "Build the console" ON)
@@ -221,9 +221,9 @@ ENDIF ()
 
 #enable advanced libraries
 
-IF (ENABLE_CEGUI)
-	ADD_SUBDIRECTORY(cegui)
-ENDIF ()
+#IF (ENABLE_CEGUI)
+#	ADD_SUBDIRECTORY(cegui)
+#ENDIF ()
 
 IF (ENABLE_CAMERA)
 	ADD_SUBDIRECTORY(camera)
