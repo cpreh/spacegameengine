@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -147,15 +148,16 @@ try
 	sge::opencl::command_queue::scoped scoped_queue(
 		opencl_system.command_queue());
 
-	sge::opencl::command_queue::event_sequence events;
+	sge::opencl::event::sequence events;
 
-	events.push_back(
+	fcppt::container::ptr::push_back_unique_ptr(
+		events,
 		sge::opencl::command_queue::enqueue_kernel(
 			opencl_system.command_queue(),
 			main_kernel,
 			sge::opencl::command_queue::global_dim2(
 				image_size),
-			sge::opencl::command_queue::event_sequence()));
+			sge::opencl::event::sequence()));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, now creating an image file from the image in memory...\n");

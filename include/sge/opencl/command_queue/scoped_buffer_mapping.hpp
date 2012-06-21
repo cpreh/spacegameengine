@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/symbol.hpp>
-#include <sge/opencl/command_queue/event_sequence.hpp>
 #include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
+#include <sge/opencl/event/sequence.hpp>
 #include <sge/opencl/memory_object/buffer_fwd.hpp>
 #include <sge/opencl/memory_object/byte_offset.hpp>
 #include <sge/opencl/memory_object/byte_size.hpp>
@@ -50,7 +50,7 @@ public:
 		sge::opencl::command_queue::map_flags::type,
 		sge::opencl::memory_object::byte_offset const &,
 		sge::opencl::memory_object::byte_size const &,
-		sge::opencl::command_queue::event_sequence const &);
+		sge::opencl::event::sequence const &);
 
 	SGE_OPENCL_SYMBOL void*
 	ptr() const;

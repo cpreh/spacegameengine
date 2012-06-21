@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/scoped_buffer_mapping.hpp>
 #include <sge/opencl/memory_object/buffer.hpp>
 #include <sge/src/opencl/handle_error.hpp>
+#include <sge/src/opencl/event/flatten_sequence.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 
@@ -33,7 +34,7 @@ sge::opencl::command_queue::scoped_buffer_mapping::scoped_buffer_mapping(
 	sge::opencl::command_queue::map_flags::type const _flags,
 	sge::opencl::memory_object::byte_offset const &_offset,
 	sge::opencl::memory_object::byte_size const &_size,
-	sge::opencl::command_queue::event_sequence const &_events)
+	sge::opencl::event::sequence const &_events)
 :
 	queue_(
 		_queue),
@@ -60,7 +61,8 @@ sge::opencl::command_queue::scoped_buffer_mapping::scoped_buffer_mapping(
 			?
 				0
 			:
-				_events.data(),
+				sge::opencl::event::flatten_sequence(
+					_events).data(),
 			// result event
 			0,
 			&error_code);

@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
-#include <sge/src/export_function_instantiation.hpp>
 #include <sge/src/opencl/handle_error.hpp>
+#include <sge/src/opencl/event/flatten_sequence.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -66,13 +68,13 @@ output_dimension(
 	return ss.str();
 }
 
-cl_event
+sge::opencl::event::object_unique_ptr
 enqueue_kernel_internal(
 	sge::opencl::command_queue::object &_queue,
 	sge::opencl::kernel::object &_kernel,
 	size_vector const &global_dim,
 	optional_size_vector const &work_dim,
-	sge::opencl::command_queue::event_sequence const &_events)
+	sge::opencl::event::sequence const &_events)
 {
 	FCPPT_ASSERT_PRE(
 		!work_dim || global_dim.size() == work_dim->size());
@@ -82,14 +84,8 @@ enqueue_kernel_internal(
 			throw sge::exception(
 				FCPPT_TEXT("Neither global nor work dimensions can be zero in any component"));
 
-	cl_event const * const event_ptr =
-		_events.empty()
-		?
-			0
-		:
-			_events.data();
-
-	cl_event result;
+	sge::opencl::event::object_unique_ptr result(
+		fcppt::make_unique_ptr<sge::opencl::event::object>());
 
 	cl_int const error_code =
 		clEnqueueNDRangeKernel(
@@ -106,8 +102,13 @@ enqueue_kernel_internal(
 				0,
 			static_cast<cl_uint>(
 				_events.size()),
-			event_ptr,
-			&result);
+			_events.empty()
+			?
+				0
+			:
+				sge::opencl::event::flatten_sequence(
+					_events).data(),
+			&(result->handle()));
 
 	if(error_code == CL_INVALID_WORK_GROUP_SIZE)
 	{
@@ -133,17 +134,18 @@ enqueue_kernel_internal(
 		FCPPT_TEXT("clEnqueueNDRangeKernel(work)"));
 
 	return
-		result;
+		fcppt::move(
+			result);
 }
 
 template<typename GlobalDim,typename LocalDim>
-cl_event
+sge::opencl::event::object_unique_ptr
 enqueue_kernel_templatized(
 	sge::opencl::command_queue::object &_command_queue,
 	sge::opencl::kernel::object &_kernel,
 	GlobalDim const &_global_dim,
 	LocalDim const &_local_dim,
-	sge::opencl::command_queue::event_sequence const &_events)
+	sge::opencl::event::sequence const &_events)
 {
 	size_vector global_dim(
 		_global_dim.get().size());
@@ -172,12 +174,12 @@ enqueue_kernel_templatized(
 }
 
 template<typename GlobalDim>
-cl_event
+sge::opencl::event::object_unique_ptr
 enqueue_kernel_templatized(
 	sge::opencl::command_queue::object &_command_queue,
 	sge::opencl::kernel::object &_kernel,
 	GlobalDim const &_global_dim,
-	sge::opencl::command_queue::event_sequence const &_events)
+	sge::opencl::event::sequence const &_events)
 {
 	size_vector global_dim(
 		_global_dim.get().size());
@@ -197,13 +199,13 @@ enqueue_kernel_templatized(
 }
 }
 
-cl_event
+sge::opencl::event::object_unique_ptr
 sge::opencl::command_queue::enqueue_kernel(
 	sge::opencl::command_queue::object &_command_queue,
 	sge::opencl::kernel::object &_kernel,
 	sge::opencl::command_queue::global_dim1 const &_global_dim,
 	sge::opencl::command_queue::local_dim1 const &_local_dim,
-	sge::opencl::command_queue::event_sequence const &_events)
+	sge::opencl::event::sequence const &_events)
 {
 	return
 		enqueue_kernel_templatized(
@@ -214,13 +216,13 @@ sge::opencl::command_queue::enqueue_kernel(
 			_events);
 }
 
-cl_event
+sge::opencl::event::object_unique_ptr
 sge::opencl::command_queue::enqueue_kernel(
 	sge::opencl::command_queue::object &_command_queue,
 	sge::opencl::kernel::object &_kernel,
 	sge::opencl::command_queue::global_dim2 const &_global_dim,
 	sge::opencl::command_queue::local_dim2 const &_local_dim,
-	sge::opencl::command_queue::event_sequence const &_events)
+	sge::opencl::event::sequence const &_events)
 {
 	return
 		enqueue_kernel_templatized(
@@ -231,13 +233,13 @@ sge::opencl::command_queue::enqueue_kernel(
 			_events);
 }
 
-cl_event
+sge::opencl::event::object_unique_ptr
 sge::opencl::command_queue::enqueue_kernel(
 	sge::opencl::command_queue::object &_command_queue,
 	sge::opencl::kernel::object &_kernel,
 	sge::opencl::command_queue::global_dim3 const &_global_dim,
 	sge::opencl::command_queue::local_dim3 const &_local_dim,
-	sge::opencl::command_queue::event_sequence const &_events)
+	sge::opencl::event::sequence const &_events)
 {
 	return
 		enqueue_kernel_templatized(
@@ -248,12 +250,12 @@ sge::opencl::command_queue::enqueue_kernel(
 			_events);
 }
 
-cl_event
+sge::opencl::event::object_unique_ptr
 sge::opencl::command_queue::enqueue_kernel(
 	sge::opencl::command_queue::object &_command_queue,
 	sge::opencl::kernel::object &_kernel,
 	sge::opencl::command_queue::global_dim1 const &_global_dim,
-	sge::opencl::command_queue::event_sequence const &_events)
+	sge::opencl::event::sequence const &_events)
 {
 	return
 		enqueue_kernel_templatized(
@@ -263,12 +265,12 @@ sge::opencl::command_queue::enqueue_kernel(
 			_events);
 }
 
-cl_event
+sge::opencl::event::object_unique_ptr
 sge::opencl::command_queue::enqueue_kernel(
 	sge::opencl::command_queue::object &_command_queue,
 	sge::opencl::kernel::object &_kernel,
 	sge::opencl::command_queue::global_dim2 const &_global_dim,
-	sge::opencl::command_queue::event_sequence const &_events)
+	sge::opencl::event::sequence const &_events)
 {
 	return
 		enqueue_kernel_templatized(
@@ -278,12 +280,12 @@ sge::opencl::command_queue::enqueue_kernel(
 			_events);
 }
 
-cl_event
+sge::opencl::event::object_unique_ptr
 sge::opencl::command_queue::enqueue_kernel(
 	sge::opencl::command_queue::object &_command_queue,
 	sge::opencl::kernel::object &_kernel,
 	sge::opencl::command_queue::global_dim3 const &_global_dim,
-	sge::opencl::command_queue::event_sequence const &_events)
+	sge::opencl::event::sequence const &_events)
 {
 	return
 		enqueue_kernel_templatized(

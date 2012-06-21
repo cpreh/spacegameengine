@@ -81,7 +81,7 @@ error_code_to_string(
 		case CL_INVALID_BUFFER_SIZE: return FCPPT_TEXT("CL_INVALID_BUFFER_SIZE: Invalid buffer size");
 		case CL_INVALID_MIP_LEVEL: return FCPPT_TEXT("CL_INVALID_MIP_LEVEL: Invalid mip-map level");
 #ifdef CL_PLATFORM_NOT_FOUND_KHR
-		case CL_PLATFORM_NOT_FOUND_KHR: return FCPPT_TEXT("CL_PLATFORM_NOT_FOUND_KHR");
+		case CL_PLATFORM_NOT_FOUND_KHR: return FCPPT_TEXT("CL_PLATFORM_NOT_FOUND_KHR: There is an OpenCL driver installed, but it returned no available OpenCL platforms. On NVidia (and Linux), this could mean that you have a different NVidia driver version than the kernel module that's currently loaded.");
 #endif
 #ifdef CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR
 		case CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR: return FCPPT_TEXT("CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR: You probably forgot to acquire a shared OpenGL buffer.");

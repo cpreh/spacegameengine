@@ -3,7 +3,6 @@ set(
 	include/sge/opencl/binary_error_data.hpp
 	include/sge/opencl/clinclude.hpp
 	include/sge/opencl/command_queue/enqueue_kernel.hpp
-	include/sge/opencl/command_queue/event_sequence.hpp
 	include/sge/opencl/command_queue/execution_mode.hpp
 	include/sge/opencl/command_queue/global_dim1.hpp
 	include/sge/opencl/command_queue/global_dim2.hpp
@@ -34,6 +33,10 @@ set(
 	include/sge/opencl/dim2.hpp
 	include/sge/opencl/dim3.hpp
 	include/sge/opencl/error_information_string.hpp
+	include/sge/opencl/event/object.hpp
+	include/sge/opencl/event/object_fwd.hpp
+	include/sge/opencl/event/object_unique_ptr.hpp
+	include/sge/opencl/event/sequence.hpp
 	include/sge/opencl/kernel/argument_index.hpp
 	include/sge/opencl/kernel/local_buffer.hpp
 	include/sge/opencl/kernel/local_buffer_fwd.hpp
@@ -104,8 +107,11 @@ set(
 	src/opencl/context/object.cpp
 	src/opencl/context/parameters.cpp
 	src/opencl/device/object.cpp
+	src/opencl/event/flatten_sequence.cpp
+	src/opencl/event/object.cpp
 	src/opencl/handle_error.cpp
 	src/opencl/include/sge/src/opencl/declare_local_logger.hpp
+	src/opencl/include/sge/src/opencl/event/flatten_sequence.hpp
 	src/opencl/include/sge/src/opencl/handle_error.hpp
 	src/opencl/include/sge/src/opencl/log_location.hpp
 	src/opencl/include/sge/src/opencl/logger.hpp

@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/symbol.hpp>
-#include <sge/opencl/command_queue/event_sequence.hpp>
 #include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
+#include <sge/opencl/event/sequence.hpp>
 #include <sge/opencl/memory_object/rect.hpp>
 #include <sge/opencl/memory_object/image/planar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -50,11 +50,11 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_OPENCL_SYMBOL explicit
 	scoped_planar_mapping(
-		command_queue::object &,
-		opencl::memory_object::image::planar &,
+		sge::opencl::command_queue::object &,
+		sge::opencl::memory_object::image::planar &,
 		sge::opencl::command_queue::map_flags::type,
-		opencl::memory_object::rect const &,
-		sge::opencl::command_queue::event_sequence const &);
+		sge::opencl::memory_object::rect const &,
+		sge::opencl::event::sequence const &);
 
 	SGE_OPENCL_SYMBOL void*
 	ptr() const;

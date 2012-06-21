@@ -505,7 +505,7 @@ try
 			sge::opencl::command_queue::local_dim1(
 				sge::opencl::dim1(
 					2u)),
-			sge::opencl::command_queue::event_sequence());
+			sge::opencl::event::sequence());
 	}
 
 	fcppt::io::cout()

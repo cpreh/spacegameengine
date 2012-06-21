@@ -50,7 +50,7 @@ sge::opencl::memory_object::image::read_planar(
 			_image),
 		sge::opencl::command_queue::map_flags::read,
 		_rect,
-		sge::opencl::command_queue::event_sequence());
+		sge::opencl::event::sequence());
 
 	sge::image2d::algorithm::copy_and_convert(
 		sge::image2d::view::make_const(

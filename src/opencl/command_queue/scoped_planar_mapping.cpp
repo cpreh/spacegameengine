@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/src/opencl/handle_error.hpp>
+#include <sge/src/opencl/event/flatten_sequence.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -40,7 +41,7 @@ sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
 	sge::opencl::memory_object::image::planar &_image,
 	sge::opencl::command_queue::map_flags::type const _flags,
 	sge::opencl::memory_object::rect const &_rect,
-	sge::opencl::command_queue::event_sequence const &_events)
+	sge::opencl::event::sequence const &_events)
 :
 	queue_(
 		_queue),
@@ -80,7 +81,8 @@ sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
 			?
 				0
 			:
-				_events.data(),
+				sge::opencl::event::flatten_sequence(
+					_events).data(),
 			// event
 			0,
 			&error_code);
